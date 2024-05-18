@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
@@ -40,19 +40,19 @@ APPX_COMPRESSION_OPTION_NORMAL: win32more.Windows.Win32.Storage.Packaging.Appx.A
 APPX_COMPRESSION_OPTION_MAXIMUM: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION = 2
 APPX_COMPRESSION_OPTION_FAST: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION = 3
 APPX_COMPRESSION_OPTION_SUPERFAST: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION = 4
-class APPX_ENCRYPTED_EXEMPTIONS(EasyCastStructure):
+class APPX_ENCRYPTED_EXEMPTIONS(Structure):
     count: UInt32
     plainTextFiles: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
 APPX_ENCRYPTED_PACKAGE_OPTIONS = Int32
 APPX_ENCRYPTED_PACKAGE_OPTION_NONE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_OPTIONS = 0
 APPX_ENCRYPTED_PACKAGE_OPTION_DIFFUSION: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_OPTIONS = 1
 APPX_ENCRYPTED_PACKAGE_OPTION_PAGE_HASHING: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_OPTIONS = 2
-class APPX_ENCRYPTED_PACKAGE_SETTINGS(EasyCastStructure):
+class APPX_ENCRYPTED_PACKAGE_SETTINGS(Structure):
     keyLength: UInt32
     encryptionAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
     useDiffusion: win32more.Windows.Win32.Foundation.BOOL
     blockMapHashAlgorithm: win32more.Windows.Win32.System.Com.IUri
-class APPX_ENCRYPTED_PACKAGE_SETTINGS2(EasyCastStructure):
+class APPX_ENCRYPTED_PACKAGE_SETTINGS2(Structure):
     keyLength: UInt32
     encryptionAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
     blockMapHashAlgorithm: win32more.Windows.Win32.System.Com.IUri
@@ -63,7 +63,7 @@ APPX_FOOTPRINT_FILE_TYPE_BLOCKMAP: win32more.Windows.Win32.Storage.Packaging.App
 APPX_FOOTPRINT_FILE_TYPE_SIGNATURE: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_FOOTPRINT_FILE_TYPE = 2
 APPX_FOOTPRINT_FILE_TYPE_CODEINTEGRITY: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_FOOTPRINT_FILE_TYPE = 3
 APPX_FOOTPRINT_FILE_TYPE_CONTENTGROUPMAP: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_FOOTPRINT_FILE_TYPE = 4
-class APPX_KEY_INFO(EasyCastStructure):
+class APPX_KEY_INFO(Structure):
     keyLength: UInt32
     keyIdLength: UInt32
     key: POINTER(Byte)
@@ -88,10 +88,10 @@ APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_SKIP_VALIDATION: win32more.Wi
 APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_LOCALIZED: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS = 2
 APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION = Int32
 APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION_APPEND_DELTA: win32more.Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION = 0
-class APPX_PACKAGE_SETTINGS(EasyCastStructure):
+class APPX_PACKAGE_SETTINGS(Structure):
     forceZip32: win32more.Windows.Win32.Foundation.BOOL
     hashMethod: win32more.Windows.Win32.System.Com.IUri
-class APPX_PACKAGE_WRITER_PAYLOAD_STREAM(EasyCastStructure):
+class APPX_PACKAGE_WRITER_PAYLOAD_STREAM(Structure):
     inputStream: win32more.Windows.Win32.System.Com.IStream
     fileName: win32more.Windows.Win32.Foundation.PWSTR
     contentType: win32more.Windows.Win32.Foundation.PWSTR
@@ -1044,7 +1044,7 @@ class IAppxSourceContentGroupMapReader(ComPtr):
     def GetAutomaticGroups(self, automaticGroupsEnumerator: POINTER(win32more.Windows.Win32.Storage.Packaging.Appx.IAppxContentGroupsEnumerator)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 PACKAGEDEPENDENCY_CONTEXT = IntPtr
 if ARCH in 'X64,ARM64':
-    class PACKAGE_ID(EasyCastStructure):
+    class PACKAGE_ID(Structure):
         reserved: UInt32
         processorArchitecture: UInt32
         version: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION
@@ -1054,7 +1054,7 @@ if ARCH in 'X64,ARM64':
         publisherId: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 4
 elif ARCH in 'X86':
-    class PACKAGE_ID(EasyCastStructure):
+    class PACKAGE_ID(Structure):
         reserved: UInt32
         processorArchitecture: UInt32
         version: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION
@@ -1063,7 +1063,7 @@ elif ARCH in 'X86':
         resourceId: win32more.Windows.Win32.Foundation.PWSTR
         publisherId: win32more.Windows.Win32.Foundation.PWSTR
 if ARCH in 'X64,ARM64':
-    class PACKAGE_INFO(EasyCastStructure):
+    class PACKAGE_INFO(Structure):
         reserved: UInt32
         flags: UInt32
         path: win32more.Windows.Win32.Foundation.PWSTR
@@ -1072,20 +1072,20 @@ if ARCH in 'X64,ARM64':
         packageId: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_ID
         _pack_ = 4
 elif ARCH in 'X86':
-    class PACKAGE_INFO(EasyCastStructure):
+    class PACKAGE_INFO(Structure):
         reserved: UInt32
         flags: UInt32
         path: win32more.Windows.Win32.Foundation.PWSTR
         packageFullName: win32more.Windows.Win32.Foundation.PWSTR
         packageFamilyName: win32more.Windows.Win32.Foundation.PWSTR
         packageId: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_ID
-class PACKAGE_VERSION(EasyCastStructure):
+class PACKAGE_VERSION(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version: UInt64
         Anonymous: _Anonymous_e__Struct
         _pack_ = 4
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Revision: UInt16
             Build: UInt16
             Minor: UInt16
@@ -1120,7 +1120,7 @@ PackagePathType_Effective: win32more.Windows.Win32.Storage.Packaging.Appx.Packag
 PackagePathType_MachineExternal: win32more.Windows.Win32.Storage.Packaging.Appx.PackagePathType = 3
 PackagePathType_UserExternal: win32more.Windows.Win32.Storage.Packaging.Appx.PackagePathType = 4
 PackagePathType_EffectiveExternal: win32more.Windows.Win32.Storage.Packaging.Appx.PackagePathType = 5
-class _PACKAGE_INFO_REFERENCE(EasyCastStructure):
+class _PACKAGE_INFO_REFERENCE(Structure):
     reserved: VoidPtr
 
 

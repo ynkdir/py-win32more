@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.ConfigurationSnapin
 import win32more.Windows.Win32.System.Com
@@ -68,23 +68,23 @@ def PFSCE_SET_INFO(sceHandle: VoidPtr, sceType: win32more.Windows.Win32.Security
 def PF_ConfigAnalyzeService(pSceCbInfo: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO)) -> UInt32: ...
 @winfunctype_pointer
 def PF_UpdateService(pSceCbInfo: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO), ServiceInfo: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CONFIGURATION_INFO)) -> UInt32: ...
-class SCESVC_ANALYSIS_INFO(EasyCastStructure):
+class SCESVC_ANALYSIS_INFO(Structure):
     Count: UInt32
     Lines: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_ANALYSIS_LINE)
-class SCESVC_ANALYSIS_LINE(EasyCastStructure):
+class SCESVC_ANALYSIS_LINE(Structure):
     Key: POINTER(SByte)
     Value: POINTER(Byte)
     ValueLen: UInt32
-class SCESVC_CALLBACK_INFO(EasyCastStructure):
+class SCESVC_CALLBACK_INFO(Structure):
     sceHandle: VoidPtr
     pfQueryInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.PFSCE_QUERY_INFO
     pfSetInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.PFSCE_SET_INFO
     pfFreeInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.PFSCE_FREE_INFO
     pfLogInfo: win32more.Windows.Win32.Security.ConfigurationSnapin.PFSCE_LOG_INFO
-class SCESVC_CONFIGURATION_INFO(EasyCastStructure):
+class SCESVC_CONFIGURATION_INFO(Structure):
     Count: UInt32
     Lines: POINTER(win32more.Windows.Win32.Security.ConfigurationSnapin.SCESVC_CONFIGURATION_LINE)
-class SCESVC_CONFIGURATION_LINE(EasyCastStructure):
+class SCESVC_CONFIGURATION_LINE(Structure):
     Key: POINTER(SByte)
     Value: POINTER(SByte)
     ValueLen: UInt32

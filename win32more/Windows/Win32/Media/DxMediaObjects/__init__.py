@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.DxMediaObjects
 import win32more.Windows.Win32.System.Com
@@ -43,7 +43,7 @@ def MoDeleteMediaType(pmt: POINTER(win32more.Windows.Win32.Media.DxMediaObjects.
 def MoDuplicateMediaType(ppmtDest: POINTER(POINTER(win32more.Windows.Win32.Media.DxMediaObjects.DMO_MEDIA_TYPE)), pmtSrc: POINTER(win32more.Windows.Win32.Media.DxMediaObjects.DMO_MEDIA_TYPE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DMO_ENUM_FLAGS = Int32
 DMO_ENUMF_INCLUDE_KEYED: win32more.Windows.Win32.Media.DxMediaObjects.DMO_ENUM_FLAGS = 1
-class DMO_MEDIA_TYPE(EasyCastStructure):
+class DMO_MEDIA_TYPE(Structure):
     majortype: Guid
     subtype: Guid
     bFixedSizeSamples: win32more.Windows.Win32.Foundation.BOOL
@@ -53,12 +53,12 @@ class DMO_MEDIA_TYPE(EasyCastStructure):
     pUnk: win32more.Windows.Win32.System.Com.IUnknown
     cbFormat: UInt32
     pbFormat: POINTER(Byte)
-class DMO_OUTPUT_DATA_BUFFER(EasyCastStructure):
+class DMO_OUTPUT_DATA_BUFFER(Structure):
     pBuffer: win32more.Windows.Win32.Media.DxMediaObjects.IMediaBuffer
     dwStatus: UInt32
     rtTimestamp: Int64
     rtTimelength: Int64
-class DMO_PARTIAL_MEDIATYPE(EasyCastStructure):
+class DMO_PARTIAL_MEDIATYPE(Structure):
     type: Guid
     subtype: Guid
 DMO_REGISTER_FLAGS = Int32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.NetworkListManager
 import win32more.Windows.Win32.System.Com
@@ -196,7 +196,7 @@ NLM_CONNECTIVITY_IPV4_INTERNET: win32more.Windows.Win32.Networking.NetworkListMa
 NLM_CONNECTIVITY_IPV6_SUBNET: win32more.Windows.Win32.Networking.NetworkListManager.NLM_CONNECTIVITY = 256
 NLM_CONNECTIVITY_IPV6_LOCALNETWORK: win32more.Windows.Win32.Networking.NetworkListManager.NLM_CONNECTIVITY = 512
 NLM_CONNECTIVITY_IPV6_INTERNET: win32more.Windows.Win32.Networking.NetworkListManager.NLM_CONNECTIVITY = 1024
-class NLM_DATAPLAN_STATUS(EasyCastStructure):
+class NLM_DATAPLAN_STATUS(Structure):
     InterfaceGuid: Guid
     UsageData: win32more.Windows.Win32.Networking.NetworkListManager.NLM_USAGE_DATA
     DataLimitInMegabytes: UInt32
@@ -235,14 +235,14 @@ NLM_NETWORK_PROPERTY_CHANGE_DESCRIPTION: win32more.Windows.Win32.Networking.Netw
 NLM_NETWORK_PROPERTY_CHANGE_NAME: win32more.Windows.Win32.Networking.NetworkListManager.NLM_NETWORK_PROPERTY_CHANGE = 4
 NLM_NETWORK_PROPERTY_CHANGE_ICON: win32more.Windows.Win32.Networking.NetworkListManager.NLM_NETWORK_PROPERTY_CHANGE = 8
 NLM_NETWORK_PROPERTY_CHANGE_CATEGORY_VALUE: win32more.Windows.Win32.Networking.NetworkListManager.NLM_NETWORK_PROPERTY_CHANGE = 16
-class NLM_SIMULATED_PROFILE_INFO(EasyCastStructure):
+class NLM_SIMULATED_PROFILE_INFO(Structure):
     ProfileName: Char * 256
     cost: win32more.Windows.Win32.Networking.NetworkListManager.NLM_CONNECTION_COST
     UsageInMegabytes: UInt32
     DataLimitInMegabytes: UInt32
-class NLM_SOCKADDR(EasyCastStructure):
+class NLM_SOCKADDR(Structure):
     data: Byte * 128
-class NLM_USAGE_DATA(EasyCastStructure):
+class NLM_USAGE_DATA(Structure):
     UsageInMegabytes: UInt32
     LastSyncTime: win32more.Windows.Win32.Foundation.FILETIME
 NetworkListManager = Guid('{dcb00c01-570f-4a9b-8d69-199fdba5723b}')

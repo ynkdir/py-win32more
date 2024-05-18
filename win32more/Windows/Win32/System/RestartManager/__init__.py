@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.RestartManager
 CCH_RM_SESSION_KEY: UInt32 = 32
@@ -51,12 +51,12 @@ RM_FILTER_ACTION = Int32
 RmInvalidFilterAction: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION = 0
 RmNoRestart: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION = 1
 RmNoShutdown: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION = 2
-class RM_FILTER_INFO(EasyCastStructure):
+class RM_FILTER_INFO(Structure):
     FilterAction: win32more.Windows.Win32.System.RestartManager.RM_FILTER_ACTION
     FilterTrigger: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER
     cbNextOffset: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         strFilename: win32more.Windows.Win32.Foundation.PWSTR
         Process: win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS
         strServiceShortName: win32more.Windows.Win32.Foundation.PWSTR
@@ -65,7 +65,7 @@ RmFilterTriggerInvalid: win32more.Windows.Win32.System.RestartManager.RM_FILTER_
 RmFilterTriggerFile: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 1
 RmFilterTriggerProcess: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 2
 RmFilterTriggerService: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER = 3
-class RM_PROCESS_INFO(EasyCastStructure):
+class RM_PROCESS_INFO(Structure):
     Process: win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS
     strAppName: Char * 256
     strServiceShortName: Char * 64
@@ -83,7 +83,7 @@ RmRebootReasonDetectedSelf: win32more.Windows.Win32.System.RestartManager.RM_REB
 RM_SHUTDOWN_TYPE = Int32
 RmForceShutdown: win32more.Windows.Win32.System.RestartManager.RM_SHUTDOWN_TYPE = 1
 RmShutdownOnlyRegistered: win32more.Windows.Win32.System.RestartManager.RM_SHUTDOWN_TYPE = 16
-class RM_UNIQUE_PROCESS(EasyCastStructure):
+class RM_UNIQUE_PROCESS(Structure):
     dwProcessId: UInt32
     ProcessStartTime: win32more.Windows.Win32.Foundation.FILETIME
 @winfunctype_pointer

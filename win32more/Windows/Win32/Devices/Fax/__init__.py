@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Fax
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -452,7 +452,7 @@ faetOUT_QUEUE: win32more.Windows.Win32.Devices.Fax.FAX_ACCOUNT_EVENTS_TYPE_ENUM 
 faetIN_ARCHIVE: win32more.Windows.Win32.Devices.Fax.FAX_ACCOUNT_EVENTS_TYPE_ENUM = 4
 faetOUT_ARCHIVE: win32more.Windows.Win32.Devices.Fax.FAX_ACCOUNT_EVENTS_TYPE_ENUM = 8
 faetFXSSVC_ENDED: win32more.Windows.Win32.Devices.Fax.FAX_ACCOUNT_EVENTS_TYPE_ENUM = 16
-class FAX_CONFIGURATIONA(EasyCastStructure):
+class FAX_CONFIGURATIONA(Structure):
     SizeOfStruct: UInt32
     Retries: UInt32
     RetryDelay: UInt32
@@ -466,7 +466,7 @@ class FAX_CONFIGURATIONA(EasyCastStructure):
     ArchiveOutgoingFaxes: win32more.Windows.Win32.Foundation.BOOL
     ArchiveDirectory: win32more.Windows.Win32.Foundation.PSTR
     Reserved: win32more.Windows.Win32.Foundation.PSTR
-class FAX_CONFIGURATIONW(EasyCastStructure):
+class FAX_CONFIGURATIONW(Structure):
     SizeOfStruct: UInt32
     Retries: UInt32
     RetryDelay: UInt32
@@ -481,16 +481,16 @@ class FAX_CONFIGURATIONW(EasyCastStructure):
     ArchiveDirectory: win32more.Windows.Win32.Foundation.PWSTR
     Reserved: win32more.Windows.Win32.Foundation.PWSTR
 FAX_CONFIGURATION = UnicodeAlias('FAX_CONFIGURATIONW')
-class FAX_CONTEXT_INFOA(EasyCastStructure):
+class FAX_CONTEXT_INFOA(Structure):
     SizeOfStruct: UInt32
     hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
     ServerName: win32more.Windows.Win32.Foundation.CHAR * 16
-class FAX_CONTEXT_INFOW(EasyCastStructure):
+class FAX_CONTEXT_INFOW(Structure):
     SizeOfStruct: UInt32
     hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
     ServerName: Char * 16
 FAX_CONTEXT_INFO = UnicodeAlias('FAX_CONTEXT_INFOW')
-class FAX_COVERPAGE_INFOA(EasyCastStructure):
+class FAX_COVERPAGE_INFOA(Structure):
     SizeOfStruct: UInt32
     CoverPageName: win32more.Windows.Win32.Foundation.PSTR
     UseServerCoverPage: win32more.Windows.Win32.Foundation.BOOL
@@ -520,7 +520,7 @@ class FAX_COVERPAGE_INFOA(EasyCastStructure):
     Subject: win32more.Windows.Win32.Foundation.PSTR
     TimeSent: win32more.Windows.Win32.Foundation.SYSTEMTIME
     PageCount: UInt32
-class FAX_COVERPAGE_INFOW(EasyCastStructure):
+class FAX_COVERPAGE_INFOW(Structure):
     SizeOfStruct: UInt32
     CoverPageName: win32more.Windows.Win32.Foundation.PWSTR
     UseServerCoverPage: win32more.Windows.Win32.Foundation.BOOL
@@ -559,7 +559,7 @@ FAX_DEVICE_RECEIVE_MODE_ENUM = Int32
 fdrmNO_ANSWER: win32more.Windows.Win32.Devices.Fax.FAX_DEVICE_RECEIVE_MODE_ENUM = 0
 fdrmAUTO_ANSWER: win32more.Windows.Win32.Devices.Fax.FAX_DEVICE_RECEIVE_MODE_ENUM = 1
 fdrmMANUAL_ANSWER: win32more.Windows.Win32.Devices.Fax.FAX_DEVICE_RECEIVE_MODE_ENUM = 2
-class FAX_DEVICE_STATUSA(EasyCastStructure):
+class FAX_DEVICE_STATUSA(Structure):
     SizeOfStruct: UInt32
     CallerId: win32more.Windows.Win32.Foundation.PSTR
     Csid: win32more.Windows.Win32.Foundation.PSTR
@@ -580,7 +580,7 @@ class FAX_DEVICE_STATUSA(EasyCastStructure):
     TotalPages: UInt32
     Tsid: win32more.Windows.Win32.Foundation.PSTR
     UserName: win32more.Windows.Win32.Foundation.PSTR
-class FAX_DEVICE_STATUSW(EasyCastStructure):
+class FAX_DEVICE_STATUSW(Structure):
     SizeOfStruct: UInt32
     CallerId: win32more.Windows.Win32.Foundation.PWSTR
     Csid: win32more.Windows.Win32.Foundation.PWSTR
@@ -602,7 +602,7 @@ class FAX_DEVICE_STATUSW(EasyCastStructure):
     Tsid: win32more.Windows.Win32.Foundation.PWSTR
     UserName: win32more.Windows.Win32.Foundation.PWSTR
 FAX_DEVICE_STATUS = UnicodeAlias('FAX_DEVICE_STATUSW')
-class FAX_DEV_STATUS(EasyCastStructure):
+class FAX_DEV_STATUS(Structure):
     SizeOfStruct: UInt32
     StatusId: UInt32
     StringId: UInt32
@@ -641,20 +641,20 @@ FAXLOG_LEVEL_MAX: win32more.Windows.Win32.Devices.Fax.FAX_ENUM_LOG_LEVELS = 3
 FAX_ENUM_PORT_OPEN_TYPE = Int32
 PORT_OPEN_QUERY: win32more.Windows.Win32.Devices.Fax.FAX_ENUM_PORT_OPEN_TYPE = 1
 PORT_OPEN_MODIFY: win32more.Windows.Win32.Devices.Fax.FAX_ENUM_PORT_OPEN_TYPE = 2
-class FAX_EVENTA(EasyCastStructure):
+class FAX_EVENTA(Structure):
     SizeOfStruct: UInt32
     TimeStamp: win32more.Windows.Win32.Foundation.FILETIME
     DeviceId: UInt32
     EventId: UInt32
     JobId: UInt32
-class FAX_EVENTW(EasyCastStructure):
+class FAX_EVENTW(Structure):
     SizeOfStruct: UInt32
     TimeStamp: win32more.Windows.Win32.Foundation.FILETIME
     DeviceId: UInt32
     EventId: UInt32
     JobId: UInt32
 FAX_EVENT = UnicodeAlias('FAX_EVENTW')
-class FAX_GLOBAL_ROUTING_INFOA(EasyCastStructure):
+class FAX_GLOBAL_ROUTING_INFOA(Structure):
     SizeOfStruct: UInt32
     Priority: UInt32
     Guid: win32more.Windows.Win32.Foundation.PSTR
@@ -662,7 +662,7 @@ class FAX_GLOBAL_ROUTING_INFOA(EasyCastStructure):
     FunctionName: win32more.Windows.Win32.Foundation.PSTR
     ExtensionImageName: win32more.Windows.Win32.Foundation.PSTR
     ExtensionFriendlyName: win32more.Windows.Win32.Foundation.PSTR
-class FAX_GLOBAL_ROUTING_INFOW(EasyCastStructure):
+class FAX_GLOBAL_ROUTING_INFOW(Structure):
     SizeOfStruct: UInt32
     Priority: UInt32
     Guid: win32more.Windows.Win32.Foundation.PWSTR
@@ -676,7 +676,7 @@ fgsALL_DEV_VALID: win32more.Windows.Win32.Devices.Fax.FAX_GROUP_STATUS_ENUM = 0
 fgsEMPTY: win32more.Windows.Win32.Devices.Fax.FAX_GROUP_STATUS_ENUM = 1
 fgsALL_DEV_NOT_VALID: win32more.Windows.Win32.Devices.Fax.FAX_GROUP_STATUS_ENUM = 2
 fgsSOME_DEV_NOT_VALID: win32more.Windows.Win32.Devices.Fax.FAX_GROUP_STATUS_ENUM = 3
-class FAX_JOB_ENTRYA(EasyCastStructure):
+class FAX_JOB_ENTRYA(Structure):
     SizeOfStruct: UInt32
     JobId: UInt32
     UserName: win32more.Windows.Win32.Foundation.PSTR
@@ -697,7 +697,7 @@ class FAX_JOB_ENTRYA(EasyCastStructure):
     DeliveryReportType: UInt32
     DeliveryReportAddress: win32more.Windows.Win32.Foundation.PSTR
     DocumentName: win32more.Windows.Win32.Foundation.PSTR
-class FAX_JOB_ENTRYW(EasyCastStructure):
+class FAX_JOB_ENTRYW(Structure):
     SizeOfStruct: UInt32
     JobId: UInt32
     UserName: win32more.Windows.Win32.Foundation.PWSTR
@@ -749,7 +749,7 @@ fjoRESTART: win32more.Windows.Win32.Devices.Fax.FAX_JOB_OPERATIONS_ENUM = 8
 fjoDELETE: win32more.Windows.Win32.Devices.Fax.FAX_JOB_OPERATIONS_ENUM = 16
 fjoRECIPIENT_INFO: win32more.Windows.Win32.Devices.Fax.FAX_JOB_OPERATIONS_ENUM = 32
 fjoSENDER_INFO: win32more.Windows.Win32.Devices.Fax.FAX_JOB_OPERATIONS_ENUM = 64
-class FAX_JOB_PARAMA(EasyCastStructure):
+class FAX_JOB_PARAMA(Structure):
     SizeOfStruct: UInt32
     RecipientNumber: win32more.Windows.Win32.Foundation.PSTR
     RecipientName: win32more.Windows.Win32.Foundation.PSTR
@@ -765,7 +765,7 @@ class FAX_JOB_PARAMA(EasyCastStructure):
     DocumentName: win32more.Windows.Win32.Foundation.PSTR
     CallHandle: UInt32
     Reserved: UIntPtr * 3
-class FAX_JOB_PARAMW(EasyCastStructure):
+class FAX_JOB_PARAMW(Structure):
     SizeOfStruct: UInt32
     RecipientNumber: win32more.Windows.Win32.Foundation.PWSTR
     RecipientName: win32more.Windows.Win32.Foundation.PWSTR
@@ -798,11 +798,11 @@ FAX_JOB_TYPE_ENUM = Int32
 fjtSEND: win32more.Windows.Win32.Devices.Fax.FAX_JOB_TYPE_ENUM = 0
 fjtRECEIVE: win32more.Windows.Win32.Devices.Fax.FAX_JOB_TYPE_ENUM = 1
 fjtROUTING: win32more.Windows.Win32.Devices.Fax.FAX_JOB_TYPE_ENUM = 2
-class FAX_LOG_CATEGORYA(EasyCastStructure):
+class FAX_LOG_CATEGORYA(Structure):
     Name: win32more.Windows.Win32.Foundation.PSTR
     Category: UInt32
     Level: UInt32
-class FAX_LOG_CATEGORYW(EasyCastStructure):
+class FAX_LOG_CATEGORYW(Structure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     Category: UInt32
     Level: UInt32
@@ -812,7 +812,7 @@ fllNONE: win32more.Windows.Win32.Devices.Fax.FAX_LOG_LEVEL_ENUM = 0
 fllMIN: win32more.Windows.Win32.Devices.Fax.FAX_LOG_LEVEL_ENUM = 1
 fllMED: win32more.Windows.Win32.Devices.Fax.FAX_LOG_LEVEL_ENUM = 2
 fllMAX: win32more.Windows.Win32.Devices.Fax.FAX_LOG_LEVEL_ENUM = 3
-class FAX_PORT_INFOA(EasyCastStructure):
+class FAX_PORT_INFOA(Structure):
     SizeOfStruct: UInt32
     DeviceId: UInt32
     State: UInt32
@@ -822,7 +822,7 @@ class FAX_PORT_INFOA(EasyCastStructure):
     DeviceName: win32more.Windows.Win32.Foundation.PSTR
     Tsid: win32more.Windows.Win32.Foundation.PSTR
     Csid: win32more.Windows.Win32.Foundation.PSTR
-class FAX_PORT_INFOW(EasyCastStructure):
+class FAX_PORT_INFOW(Structure):
     SizeOfStruct: UInt32
     DeviceId: UInt32
     State: UInt32
@@ -833,7 +833,7 @@ class FAX_PORT_INFOW(EasyCastStructure):
     Tsid: win32more.Windows.Win32.Foundation.PWSTR
     Csid: win32more.Windows.Win32.Foundation.PWSTR
 FAX_PORT_INFO = UnicodeAlias('FAX_PORT_INFOW')
-class FAX_PRINT_INFOA(EasyCastStructure):
+class FAX_PRINT_INFOA(Structure):
     SizeOfStruct: UInt32
     DocName: win32more.Windows.Win32.Foundation.PSTR
     RecipientName: win32more.Windows.Win32.Foundation.PSTR
@@ -845,7 +845,7 @@ class FAX_PRINT_INFOA(EasyCastStructure):
     Reserved: win32more.Windows.Win32.Foundation.PSTR
     DrEmailAddress: win32more.Windows.Win32.Foundation.PSTR
     OutputFileName: win32more.Windows.Win32.Foundation.PSTR
-class FAX_PRINT_INFOW(EasyCastStructure):
+class FAX_PRINT_INFOW(Structure):
     SizeOfStruct: UInt32
     DocName: win32more.Windows.Win32.Foundation.PWSTR
     RecipientName: win32more.Windows.Win32.Foundation.PWSTR
@@ -874,13 +874,13 @@ FAX_RECEIPT_TYPE_ENUM = Int32
 frtNONE: win32more.Windows.Win32.Devices.Fax.FAX_RECEIPT_TYPE_ENUM = 0
 frtMAIL: win32more.Windows.Win32.Devices.Fax.FAX_RECEIPT_TYPE_ENUM = 1
 frtMSGBOX: win32more.Windows.Win32.Devices.Fax.FAX_RECEIPT_TYPE_ENUM = 4
-class FAX_RECEIVE(EasyCastStructure):
+class FAX_RECEIVE(Structure):
     SizeOfStruct: UInt32
     FileName: win32more.Windows.Win32.Foundation.PWSTR
     ReceiverName: win32more.Windows.Win32.Foundation.PWSTR
     ReceiverNumber: win32more.Windows.Win32.Foundation.PWSTR
     Reserved: UInt32 * 4
-class FAX_ROUTE(EasyCastStructure):
+class FAX_ROUTE(Structure):
     SizeOfStruct: UInt32
     JobId: UInt32
     ElapsedTime: UInt64
@@ -896,14 +896,14 @@ class FAX_ROUTE(EasyCastStructure):
     DeviceId: UInt32
     RoutingInfoData: POINTER(Byte)
     RoutingInfoDataSize: UInt32
-class FAX_ROUTE_CALLBACKROUTINES(EasyCastStructure):
+class FAX_ROUTE_CALLBACKROUTINES(Structure):
     SizeOfStruct: UInt32
     FaxRouteAddFile: win32more.Windows.Win32.Devices.Fax.PFAXROUTEADDFILE
     FaxRouteDeleteFile: win32more.Windows.Win32.Devices.Fax.PFAXROUTEDELETEFILE
     FaxRouteGetFile: win32more.Windows.Win32.Devices.Fax.PFAXROUTEGETFILE
     FaxRouteEnumFiles: win32more.Windows.Win32.Devices.Fax.PFAXROUTEENUMFILES
     FaxRouteModifyRoutingData: win32more.Windows.Win32.Devices.Fax.PFAXROUTEMODIFYROUTINGDATA
-class FAX_ROUTING_METHODA(EasyCastStructure):
+class FAX_ROUTING_METHODA(Structure):
     SizeOfStruct: UInt32
     DeviceId: UInt32
     Enabled: win32more.Windows.Win32.Foundation.BOOL
@@ -913,7 +913,7 @@ class FAX_ROUTING_METHODA(EasyCastStructure):
     FunctionName: win32more.Windows.Win32.Foundation.PSTR
     ExtensionImageName: win32more.Windows.Win32.Foundation.PSTR
     ExtensionFriendlyName: win32more.Windows.Win32.Foundation.PSTR
-class FAX_ROUTING_METHODW(EasyCastStructure):
+class FAX_ROUTING_METHODW(Structure):
     SizeOfStruct: UInt32
     DeviceId: UInt32
     Enabled: win32more.Windows.Win32.Foundation.BOOL
@@ -936,7 +936,7 @@ FAX_SCHEDULE_TYPE_ENUM = Int32
 fstNOW: win32more.Windows.Win32.Devices.Fax.FAX_SCHEDULE_TYPE_ENUM = 0
 fstSPECIFIC_TIME: win32more.Windows.Win32.Devices.Fax.FAX_SCHEDULE_TYPE_ENUM = 1
 fstDISCOUNT_PERIOD: win32more.Windows.Win32.Devices.Fax.FAX_SCHEDULE_TYPE_ENUM = 2
-class FAX_SEND(EasyCastStructure):
+class FAX_SEND(Structure):
     SizeOfStruct: UInt32
     FileName: win32more.Windows.Win32.Foundation.PWSTR
     CallerName: win32more.Windows.Win32.Foundation.PWSTR
@@ -967,7 +967,7 @@ FAX_SMTP_AUTHENTICATION_TYPE_ENUM = Int32
 fsatANONYMOUS: win32more.Windows.Win32.Devices.Fax.FAX_SMTP_AUTHENTICATION_TYPE_ENUM = 0
 fsatBASIC: win32more.Windows.Win32.Devices.Fax.FAX_SMTP_AUTHENTICATION_TYPE_ENUM = 1
 fsatNTLM: win32more.Windows.Win32.Devices.Fax.FAX_SMTP_AUTHENTICATION_TYPE_ENUM = 2
-class FAX_TIME(EasyCastStructure):
+class FAX_TIME(Structure):
     Hour: UInt16
     Minute: UInt16
 FaxAccount = Guid('{a7e0647f-4524-4464-a56d-b9fe666f715e}')
@@ -2724,18 +2724,18 @@ def PFAX_ROUTING_INSTALLATION_CALLBACKW(FaxHandle: win32more.Windows.Win32.Found
 def PFAX_SEND_CALLBACK(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, CallHandle: UInt32, Reserved1: UInt32, Reserved2: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAX_SERVICE_CALLBACK(FaxHandle: win32more.Windows.Win32.Foundation.HANDLE, DeviceId: UInt32, Param1: UIntPtr, Param2: UIntPtr, Param3: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class STINOTIFY(EasyCastStructure):
+class STINOTIFY(Structure):
     dwSize: UInt32
     guidNotificationCode: Guid
     abNotificationData: Byte * 64
-class STISUBSCRIBE(EasyCastStructure):
+class STISUBSCRIBE(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwFilter: UInt32
     hWndNotify: win32more.Windows.Win32.Foundation.HWND
     hEvent: win32more.Windows.Win32.Foundation.HANDLE
     uiNotificationMessage: UInt32
-class STI_DEVICE_INFORMATIONW(EasyCastStructure):
+class STI_DEVICE_INFORMATIONW(Structure):
     dwSize: UInt32
     DeviceType: UInt32
     szDeviceInternalName: Char * 128
@@ -2751,25 +2751,25 @@ StiDeviceTypeDefault: win32more.Windows.Win32.Devices.Fax.STI_DEVICE_MJ_TYPE = 0
 StiDeviceTypeScanner: win32more.Windows.Win32.Devices.Fax.STI_DEVICE_MJ_TYPE = 1
 StiDeviceTypeDigitalCamera: win32more.Windows.Win32.Devices.Fax.STI_DEVICE_MJ_TYPE = 2
 StiDeviceTypeStreamingVideo: win32more.Windows.Win32.Devices.Fax.STI_DEVICE_MJ_TYPE = 3
-class STI_DEVICE_STATUS(EasyCastStructure):
+class STI_DEVICE_STATUS(Structure):
     dwSize: UInt32
     StatusMask: UInt32
     dwOnlineState: UInt32
     dwHardwareStatusCode: UInt32
     dwEventHandlingState: UInt32
     dwPollingInterval: UInt32
-class STI_DEV_CAPS(EasyCastStructure):
+class STI_DEV_CAPS(Structure):
     dwGeneric: UInt32
-class STI_DIAG(EasyCastStructure):
+class STI_DIAG(Structure):
     dwSize: UInt32
     dwBasicDiagCode: UInt32
     dwVendorDiagCode: UInt32
     dwStatusMask: UInt32
     sErrorInfo: win32more.Windows.Win32.Devices.Fax._ERROR_INFOW
-class STI_USD_CAPS(EasyCastStructure):
+class STI_USD_CAPS(Structure):
     dwVersion: UInt32
     dwGenericCaps: UInt32
-class STI_WIA_DEVICE_INFORMATIONW(EasyCastStructure):
+class STI_WIA_DEVICE_INFORMATIONW(Structure):
     dwSize: UInt32
     DeviceType: UInt32
     szDeviceInternalName: Char * 128
@@ -2784,7 +2784,7 @@ class STI_WIA_DEVICE_INFORMATIONW(EasyCastStructure):
     pszServer: win32more.Windows.Win32.Foundation.PWSTR
 SendToMode = Int32
 SEND_TO_FAX_RECIPIENT_ATTACHMENT: win32more.Windows.Win32.Devices.Fax.SendToMode = 0
-class _ERROR_INFOW(EasyCastStructure):
+class _ERROR_INFOW(Structure):
     dwSize: UInt32
     dwGenericError: UInt32
     dwVendorError: UInt32

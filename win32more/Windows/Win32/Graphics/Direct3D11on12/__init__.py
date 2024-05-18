@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D11
@@ -8,7 +8,7 @@ import win32more.Windows.Win32.Graphics.Direct3D12
 import win32more.Windows.Win32.System.Com
 @winfunctype('d3d11.dll')
 def D3D11On12CreateDevice(pDevice: win32more.Windows.Win32.System.Com.IUnknown, Flags: UInt32, pFeatureLevels: POINTER(win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL), FeatureLevels: UInt32, ppCommandQueues: POINTER(win32more.Windows.Win32.System.Com.IUnknown), NumQueues: UInt32, NodeMask: UInt32, ppDevice: POINTER(win32more.Windows.Win32.Graphics.Direct3D11.ID3D11Device), ppImmediateContext: POINTER(win32more.Windows.Win32.Graphics.Direct3D11.ID3D11DeviceContext), pChosenFeatureLevel: POINTER(win32more.Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class D3D11_RESOURCE_FLAGS(EasyCastStructure):
+class D3D11_RESOURCE_FLAGS(Structure):
     BindFlags: UInt32
     MiscFlags: UInt32
     CPUAccessFlags: UInt32

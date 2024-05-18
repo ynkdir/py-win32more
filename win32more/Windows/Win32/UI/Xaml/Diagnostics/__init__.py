@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Dxgi.Common
 import win32more.Windows.Win32.System.Com
@@ -26,17 +26,17 @@ ParentTemplateTrigger: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSour
 Animation: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 12
 Coercion: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 13
 BaseValueSourceVisualState: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource = 14
-class BitmapDescription(EasyCastStructure):
+class BitmapDescription(Structure):
     Width: UInt32
     Height: UInt32
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     AlphaMode: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_ALPHA_MODE
-class CollectionElementValue(EasyCastStructure):
+class CollectionElementValue(Structure):
     Index: UInt32
     ValueType: win32more.Windows.Win32.Foundation.BSTR
     Value: win32more.Windows.Win32.Foundation.BSTR
     MetadataBits: Int64
-class EnumType(EasyCastStructure):
+class EnumType(Structure):
     Name: win32more.Windows.Win32.Foundation.BSTR
     ValueInts: POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY)
     ValueStrings: POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY)
@@ -138,17 +138,17 @@ class MetadataBit(Int32):  # enum
     IsValueBindingExpression = 16
     IsValueNull = 32
     IsValueHandleAndEvaluatedValue = 64
-class ParentChildRelation(EasyCastStructure):
+class ParentChildRelation(Structure):
     Parent: UInt64
     Child: UInt64
     ChildIndex: UInt32
-class PropertyChainSource(EasyCastStructure):
+class PropertyChainSource(Structure):
     Handle: UInt64
     TargetType: win32more.Windows.Win32.Foundation.BSTR
     Name: win32more.Windows.Win32.Foundation.BSTR
     Source: win32more.Windows.Win32.UI.Xaml.Diagnostics.BaseValueSource
     SrcInfo: win32more.Windows.Win32.UI.Xaml.Diagnostics.SourceInfo
-class PropertyChainValue(EasyCastStructure):
+class PropertyChainValue(Structure):
     Index: UInt32
     Type: win32more.Windows.Win32.Foundation.BSTR
     DeclaringType: win32more.Windows.Win32.Foundation.BSTR
@@ -165,13 +165,13 @@ RenderTargetAndChildren: win32more.Windows.Win32.UI.Xaml.Diagnostics.RenderTarge
 ResourceType = Int32
 ResourceTypeStatic: win32more.Windows.Win32.UI.Xaml.Diagnostics.ResourceType = 0
 ResourceTypeTheme: win32more.Windows.Win32.UI.Xaml.Diagnostics.ResourceType = 1
-class SourceInfo(EasyCastStructure):
+class SourceInfo(Structure):
     FileName: win32more.Windows.Win32.Foundation.BSTR
     LineNumber: UInt32
     ColumnNumber: UInt32
     CharPosition: UInt32
     Hash: win32more.Windows.Win32.Foundation.BSTR
-class VisualElement(EasyCastStructure):
+class VisualElement(Structure):
     Handle: UInt64
     SrcInfo: win32more.Windows.Win32.UI.Xaml.Diagnostics.SourceInfo
     Type: win32more.Windows.Win32.Foundation.BSTR

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.XAudio2
@@ -240,16 +240,16 @@ def CreateAudioReverb(ppApo: POINTER(win32more.Windows.Win32.System.Com.IUnknown
 def CreateHrtfApo(init: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfApoInit), xApo: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.IXAPO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 AudioReverb = Guid('{c2633b16-471b-4498-b8c5-4f0959e2ec09}')
 AudioVolumeMeter = Guid('{4fc3b166-972a-40cf-bc37-7db03db2fba3}')
-class FXECHO_INITDATA(EasyCastStructure):
+class FXECHO_INITDATA(Structure):
     MaxDelay: Single
     _pack_ = 1
-class FXECHO_PARAMETERS(EasyCastStructure):
+class FXECHO_PARAMETERS(Structure):
     WetDryMix: Single
     Feedback: Single
     Delay: Single
     _pack_ = 1
 FXEQ = Guid('{f5e01117-d6c4-485a-a3f5-695196f3dbfa}')
-class FXEQ_PARAMETERS(EasyCastStructure):
+class FXEQ_PARAMETERS(Structure):
     FrequencyCenter0: Single
     Gain0: Single
     Bandwidth0: Single
@@ -264,26 +264,26 @@ class FXEQ_PARAMETERS(EasyCastStructure):
     Bandwidth3: Single
     _pack_ = 1
 FXEcho = Guid('{5039d740-f736-449a-84d3-a56202557b87}')
-class FXMASTERINGLIMITER_PARAMETERS(EasyCastStructure):
+class FXMASTERINGLIMITER_PARAMETERS(Structure):
     Release: UInt32
     Loudness: UInt32
     _pack_ = 1
 FXMasteringLimiter = Guid('{c4137916-2be1-46fd-8599-441536f49856}')
-class FXREVERB_PARAMETERS(EasyCastStructure):
+class FXREVERB_PARAMETERS(Structure):
     Diffusion: Single
     RoomSize: Single
     _pack_ = 1
 FXReverb = Guid('{7d9aca56-cb68-4807-b632-b137352e8596}')
-class HrtfApoInit(EasyCastStructure):
+class HrtfApoInit(Structure):
     distanceDecay: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecay)
     directivity: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivity)
-class HrtfDirectivity(EasyCastStructure):
+class HrtfDirectivity(Structure):
     type: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType
     scaling: Single
-class HrtfDirectivityCardioid(EasyCastStructure):
+class HrtfDirectivityCardioid(Structure):
     directivity: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivity
     order: Single
-class HrtfDirectivityCone(EasyCastStructure):
+class HrtfDirectivityCone(Structure):
     directivity: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivity
     innerAngle: Single
     outerAngle: Single
@@ -291,7 +291,7 @@ HrtfDirectivityType = Int32
 OmniDirectional: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType = 0
 Cardioid: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType = 1
 Cone: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDirectivityType = 2
-class HrtfDistanceDecay(EasyCastStructure):
+class HrtfDistanceDecay(Structure):
     type: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfDistanceDecayType
     maxGain: Single
     minGain: Single
@@ -305,9 +305,9 @@ Small: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 0
 Medium: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 1
 Large: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 2
 Outdoors: win32more.Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment = 3
-class HrtfOrientation(EasyCastStructure):
+class HrtfOrientation(Structure):
     element: Single * 9
-class HrtfPosition(EasyCastStructure):
+class HrtfPosition(Structure):
     x: Single
     y: Single
     z: Single
@@ -477,16 +477,16 @@ class IXAudio2VoiceCallback(ComPtr):
 XAPO_BUFFER_FLAGS = Int32
 XAPO_BUFFER_SILENT: win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_BUFFER_FLAGS = 0
 XAPO_BUFFER_VALID: win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_BUFFER_FLAGS = 1
-class XAPO_LOCKFORPROCESS_PARAMETERS(EasyCastStructure):
+class XAPO_LOCKFORPROCESS_PARAMETERS(Structure):
     pFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     MaxFrameCount: UInt32
     _pack_ = 1
-class XAPO_PROCESS_BUFFER_PARAMETERS(EasyCastStructure):
+class XAPO_PROCESS_BUFFER_PARAMETERS(Structure):
     pBuffer: VoidPtr
     BufferFlags: win32more.Windows.Win32.Media.Audio.XAudio2.XAPO_BUFFER_FLAGS
     ValidFrameCount: UInt32
     _pack_ = 1
-class XAPO_REGISTRATION_PROPERTIES(EasyCastStructure):
+class XAPO_REGISTRATION_PROPERTIES(Structure):
     clsid: Guid
     FriendlyName: Char * 256
     CopyrightInfo: Char * 256
@@ -498,7 +498,7 @@ class XAPO_REGISTRATION_PROPERTIES(EasyCastStructure):
     MinOutputBufferCount: UInt32
     MaxOutputBufferCount: UInt32
     _pack_ = 1
-class XAUDIO2FX_REVERB_I3DL2_PARAMETERS(EasyCastStructure):
+class XAUDIO2FX_REVERB_I3DL2_PARAMETERS(Structure):
     WetDryMix: Single
     Room: Int32
     RoomHF: Int32
@@ -513,7 +513,7 @@ class XAUDIO2FX_REVERB_I3DL2_PARAMETERS(EasyCastStructure):
     Density: Single
     HFReference: Single
     _pack_ = 1
-class XAUDIO2FX_REVERB_PARAMETERS(EasyCastStructure):
+class XAUDIO2FX_REVERB_PARAMETERS(Structure):
     WetDryMix: Single
     ReflectionsDelay: UInt32
     ReverbDelay: Byte
@@ -539,12 +539,12 @@ class XAUDIO2FX_REVERB_PARAMETERS(EasyCastStructure):
     RoomSize: Single
     DisableLateField: win32more.Windows.Win32.Foundation.BOOL
     _pack_ = 1
-class XAUDIO2FX_VOLUMEMETER_LEVELS(EasyCastStructure):
+class XAUDIO2FX_VOLUMEMETER_LEVELS(Structure):
     pPeakLevels: POINTER(Single)
     pRMSLevels: POINTER(Single)
     ChannelCount: UInt32
     _pack_ = 1
-class XAUDIO2_BUFFER(EasyCastStructure):
+class XAUDIO2_BUFFER(Structure):
     Flags: UInt32
     AudioBytes: UInt32
     pAudioData: POINTER(Byte)
@@ -555,11 +555,11 @@ class XAUDIO2_BUFFER(EasyCastStructure):
     LoopCount: UInt32
     pContext: VoidPtr
     _pack_ = 1
-class XAUDIO2_BUFFER_WMA(EasyCastStructure):
+class XAUDIO2_BUFFER_WMA(Structure):
     pDecodedPacketCumulativeBytes: POINTER(UInt32)
     PacketCount: UInt32
     _pack_ = 1
-class XAUDIO2_DEBUG_CONFIGURATION(EasyCastStructure):
+class XAUDIO2_DEBUG_CONFIGURATION(Structure):
     TraceMask: UInt32
     BreakMask: UInt32
     LogThreadID: win32more.Windows.Win32.Foundation.BOOL
@@ -567,16 +567,16 @@ class XAUDIO2_DEBUG_CONFIGURATION(EasyCastStructure):
     LogFunctionName: win32more.Windows.Win32.Foundation.BOOL
     LogTiming: win32more.Windows.Win32.Foundation.BOOL
     _pack_ = 1
-class XAUDIO2_EFFECT_CHAIN(EasyCastStructure):
+class XAUDIO2_EFFECT_CHAIN(Structure):
     EffectCount: UInt32
     pEffectDescriptors: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_EFFECT_DESCRIPTOR)
     _pack_ = 1
-class XAUDIO2_EFFECT_DESCRIPTOR(EasyCastStructure):
+class XAUDIO2_EFFECT_DESCRIPTOR(Structure):
     pEffect: win32more.Windows.Win32.System.Com.IUnknown
     InitialState: win32more.Windows.Win32.Foundation.BOOL
     OutputChannels: UInt32
     _pack_ = 1
-class XAUDIO2_FILTER_PARAMETERS(EasyCastStructure):
+class XAUDIO2_FILTER_PARAMETERS(Structure):
     Type: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE
     Frequency: Single
     OneOverQ: Single
@@ -588,7 +588,7 @@ HighPassFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE 
 NotchFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 3
 LowPassOnePoleFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 4
 HighPassOnePoleFilter: win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_FILTER_TYPE = 5
-class XAUDIO2_PERFORMANCE_DATA(EasyCastStructure):
+class XAUDIO2_PERFORMANCE_DATA(Structure):
     AudioCyclesSinceLastQuery: UInt64
     TotalCyclesSinceLastQuery: UInt64
     MinimumCyclesPerQuantum: UInt32
@@ -604,21 +604,21 @@ class XAUDIO2_PERFORMANCE_DATA(EasyCastStructure):
     ActiveXmaSourceVoices: UInt32
     ActiveXmaStreams: UInt32
     _pack_ = 1
-class XAUDIO2_SEND_DESCRIPTOR(EasyCastStructure):
+class XAUDIO2_SEND_DESCRIPTOR(Structure):
     Flags: UInt32
     pOutputVoice: win32more.Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice
     _pack_ = 1
-class XAUDIO2_VOICE_DETAILS(EasyCastStructure):
+class XAUDIO2_VOICE_DETAILS(Structure):
     CreationFlags: UInt32
     ActiveFlags: UInt32
     InputChannels: UInt32
     InputSampleRate: UInt32
     _pack_ = 1
-class XAUDIO2_VOICE_SENDS(EasyCastStructure):
+class XAUDIO2_VOICE_SENDS(Structure):
     SendCount: UInt32
     pSends: POINTER(win32more.Windows.Win32.Media.Audio.XAudio2.XAUDIO2_SEND_DESCRIPTOR)
     _pack_ = 1
-class XAUDIO2_VOICE_STATE(EasyCastStructure):
+class XAUDIO2_VOICE_STATE(Structure):
     pCurrentBufferContext: VoidPtr
     BuffersQueued: UInt32
     SamplesPlayed: UInt64

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -244,7 +244,7 @@ def GetAtomNameA(nAtom: UInt16, lpBuffer: win32more.Windows.Win32.Foundation.PST
 @winfunctype('KERNEL32.dll')
 def GetAtomNameW(nAtom: UInt16, lpBuffer: win32more.Windows.Win32.Foundation.PWSTR, nSize: Int32) -> UInt32: ...
 GetAtomName = UnicodeAlias('GetAtomNameW')
-class CONVCONTEXT(EasyCastStructure):
+class CONVCONTEXT(Structure):
     cb: UInt32
     wFlags: UInt32
     wCountryID: UInt32
@@ -252,7 +252,7 @@ class CONVCONTEXT(EasyCastStructure):
     dwLangID: UInt32
     dwSecurity: UInt32
     qos: win32more.Windows.Win32.Security.SECURITY_QUALITY_OF_SERVICE
-class CONVINFO(EasyCastStructure):
+class CONVINFO(Structure):
     cb: UInt32
     hUser: UIntPtr
     hConvPartner: win32more.Windows.Win32.System.DataExchange.HCONV
@@ -297,32 +297,32 @@ ST_INLIST: win32more.Windows.Win32.System.DataExchange.CONVINFO_STATUS = 64
 ST_ISLOCAL: win32more.Windows.Win32.System.DataExchange.CONVINFO_STATUS = 4
 ST_ISSELF: win32more.Windows.Win32.System.DataExchange.CONVINFO_STATUS = 256
 ST_TERMINATED: win32more.Windows.Win32.System.DataExchange.CONVINFO_STATUS = 32
-class COPYDATASTRUCT(EasyCastStructure):
+class COPYDATASTRUCT(Structure):
     dwData: UIntPtr
     cbData: UInt32
     lpData: VoidPtr
-class DDEACK(EasyCastStructure):
+class DDEACK(Structure):
     _bitfield: UInt16
-class DDEADVISE(EasyCastStructure):
+class DDEADVISE(Structure):
     _bitfield: UInt16
     cfFormat: Int16
-class DDEDATA(EasyCastStructure):
+class DDEDATA(Structure):
     _bitfield: UInt16
     cfFormat: Int16
     Value: Byte * 1
-class DDELN(EasyCastStructure):
+class DDELN(Structure):
     _bitfield: UInt16
     cfFormat: Int16
-class DDEML_MSG_HOOK_DATA(EasyCastStructure):
+class DDEML_MSG_HOOK_DATA(Structure):
     uiLo: UIntPtr
     uiHi: UIntPtr
     cbData: UInt32
     Data: UInt32 * 8
-class DDEPOKE(EasyCastStructure):
+class DDEPOKE(Structure):
     _bitfield: UInt16
     cfFormat: Int16
     Value: Byte * 1
-class DDEUP(EasyCastStructure):
+class DDEUP(Structure):
     _bitfield: UInt16
     cfFormat: Int16
     rgb: Byte * 1
@@ -380,15 +380,15 @@ HCONV = IntPtr
 HCONVLIST = IntPtr
 HDDEDATA = IntPtr
 HSZ = IntPtr
-class HSZPAIR(EasyCastStructure):
+class HSZPAIR(Structure):
     hszSvc: win32more.Windows.Win32.System.DataExchange.HSZ
     hszTopic: win32more.Windows.Win32.System.DataExchange.HSZ
-class METAFILEPICT(EasyCastStructure):
+class METAFILEPICT(Structure):
     mm: Int32
     xExt: Int32
     yExt: Int32
     hMF: win32more.Windows.Win32.Graphics.Gdi.HMETAFILE
-class MONCBSTRUCT(EasyCastStructure):
+class MONCBSTRUCT(Structure):
     cb: UInt32
     dwTime: UInt32
     hTask: win32more.Windows.Win32.Foundation.HANDLE
@@ -404,7 +404,7 @@ class MONCBSTRUCT(EasyCastStructure):
     cc: win32more.Windows.Win32.System.DataExchange.CONVCONTEXT
     cbData: UInt32
     Data: UInt32 * 8
-class MONCONVSTRUCT(EasyCastStructure):
+class MONCONVSTRUCT(Structure):
     cb: UInt32
     fConnect: win32more.Windows.Win32.Foundation.BOOL
     dwTime: UInt32
@@ -413,19 +413,19 @@ class MONCONVSTRUCT(EasyCastStructure):
     hszTopic: win32more.Windows.Win32.System.DataExchange.HSZ
     hConvClient: win32more.Windows.Win32.System.DataExchange.HCONV
     hConvServer: win32more.Windows.Win32.System.DataExchange.HCONV
-class MONERRSTRUCT(EasyCastStructure):
+class MONERRSTRUCT(Structure):
     cb: UInt32
     wLastError: UInt32
     dwTime: UInt32
     hTask: win32more.Windows.Win32.Foundation.HANDLE
-class MONHSZSTRUCTA(EasyCastStructure):
+class MONHSZSTRUCTA(Structure):
     cb: UInt32
     fsAction: win32more.Windows.Win32.Foundation.BOOL
     dwTime: UInt32
     hsz: win32more.Windows.Win32.System.DataExchange.HSZ
     hTask: win32more.Windows.Win32.Foundation.HANDLE
     str: win32more.Windows.Win32.Foundation.CHAR * 1
-class MONHSZSTRUCTW(EasyCastStructure):
+class MONHSZSTRUCTW(Structure):
     cb: UInt32
     fsAction: win32more.Windows.Win32.Foundation.BOOL
     dwTime: UInt32
@@ -433,7 +433,7 @@ class MONHSZSTRUCTW(EasyCastStructure):
     hTask: win32more.Windows.Win32.Foundation.HANDLE
     str: Char * 1
 MONHSZSTRUCT = UnicodeAlias('MONHSZSTRUCTW')
-class MONLINKSTRUCT(EasyCastStructure):
+class MONLINKSTRUCT(Structure):
     cb: UInt32
     dwTime: UInt32
     hTask: win32more.Windows.Win32.Foundation.HANDLE
@@ -446,7 +446,7 @@ class MONLINKSTRUCT(EasyCastStructure):
     fServer: win32more.Windows.Win32.Foundation.BOOL
     hConvServer: win32more.Windows.Win32.System.DataExchange.HCONV
     hConvClient: win32more.Windows.Win32.System.DataExchange.HCONV
-class MONMSGSTRUCT(EasyCastStructure):
+class MONMSGSTRUCT(Structure):
     cb: UInt32
     hwndTo: win32more.Windows.Win32.Foundation.HWND
     dwTime: UInt32

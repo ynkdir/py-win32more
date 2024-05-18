@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Environment
 ENCLAVE_RUNTIME_POLICY_ALLOW_FULL_DEBUG: UInt32 = 1
@@ -102,7 +102,7 @@ def EnclaveSealData(DataToEncrypt: VoidPtr, DataToEncryptSize: UInt32, IdentityP
 def EnclaveUnsealData(ProtectedBlob: VoidPtr, ProtectedBlobSize: UInt32, DecryptedData: VoidPtr, BufferSize: UInt32, DecryptedDataSize: POINTER(UInt32), SealingIdentity: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_IDENTITY), UnsealingFlags: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('vertdll.dll')
 def EnclaveGetEnclaveInformation(InformationSize: UInt32, EnclaveInformation: POINTER(win32more.Windows.Win32.System.Environment.ENCLAVE_INFORMATION)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class ENCLAVE_IDENTITY(EasyCastStructure):
+class ENCLAVE_IDENTITY(Structure):
     OwnerId: Byte * 32
     UniqueId: Byte * 32
     AuthorId: Byte * 32
@@ -115,7 +115,7 @@ class ENCLAVE_IDENTITY(EasyCastStructure):
     SigningLevel: UInt32
     EnclaveType: UInt32
     _pack_ = 1
-class ENCLAVE_INFORMATION(EasyCastStructure):
+class ENCLAVE_INFORMATION(Structure):
     EnclaveType: UInt32
     Reserved: UInt32
     BaseAddress: VoidPtr
@@ -128,7 +128,7 @@ ENCLAVE_IDENTITY_POLICY_SEAL_SAME_PRIMARY_CODE: win32more.Windows.Win32.System.E
 ENCLAVE_IDENTITY_POLICY_SEAL_SAME_IMAGE: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY = 3
 ENCLAVE_IDENTITY_POLICY_SEAL_SAME_FAMILY: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY = 4
 ENCLAVE_IDENTITY_POLICY_SEAL_SAME_AUTHOR: win32more.Windows.Win32.System.Environment.ENCLAVE_SEALING_IDENTITY_POLICY = 5
-class ENCLAVE_VBS_BASIC_KEY_REQUEST(EasyCastStructure):
+class ENCLAVE_VBS_BASIC_KEY_REQUEST(Structure):
     RequestSize: UInt32
     Flags: UInt32
     EnclaveSVN: UInt32
@@ -176,7 +176,7 @@ elif ARCH in 'X86':
     def VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD(ThreadDescriptor: POINTER(win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32)) -> Int32: ...
 @winfunctype_pointer
 def VBS_BASIC_ENCLAVE_BASIC_CALL_VERIFY_REPORT(Report: VoidPtr, ReportSize: UInt32) -> Int32: ...
-class VBS_BASIC_ENCLAVE_EXCEPTION_AMD64(EasyCastStructure):
+class VBS_BASIC_ENCLAVE_EXCEPTION_AMD64(Structure):
     ExceptionCode: UInt32
     NumberParameters: UInt32
     ExceptionInformation: UIntPtr * 3
@@ -185,7 +185,7 @@ class VBS_BASIC_ENCLAVE_EXCEPTION_AMD64(EasyCastStructure):
     ExceptionRIP: UIntPtr
     ExceptionRFLAGS: UIntPtr
     ExceptionRSP: UIntPtr
-class VBS_BASIC_ENCLAVE_SYSCALL_PAGE(EasyCastStructure):
+class VBS_BASIC_ENCLAVE_SYSCALL_PAGE(Structure):
     ReturnFromEnclave: win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_ENCLAVE
     ReturnFromException: win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION
     TerminateThread: win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD
@@ -199,27 +199,27 @@ class VBS_BASIC_ENCLAVE_SYSCALL_PAGE(EasyCastStructure):
     GenerateReport: win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_REPORT
     VerifyReport: win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_BASIC_CALL_VERIFY_REPORT
     GenerateRandomData: win32more.Windows.Win32.System.Environment.VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_RANDOM_DATA
-class VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32(EasyCastStructure):
+class VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR32(Structure):
     ThreadContext: UInt32 * 4
     EntryPoint: UInt32
     StackPointer: UInt32
     ExceptionEntryPoint: UInt32
     ExceptionStack: UInt32
     ExceptionActive: UInt32
-class VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64(EasyCastStructure):
+class VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64(Structure):
     ThreadContext: UInt64 * 4
     EntryPoint: UInt64
     StackPointer: UInt64
     ExceptionEntryPoint: UInt64
     ExceptionStack: UInt64
     ExceptionActive: UInt32
-class VBS_ENCLAVE_REPORT(EasyCastStructure):
+class VBS_ENCLAVE_REPORT(Structure):
     ReportSize: UInt32
     ReportVersion: UInt32
     EnclaveData: Byte * 64
     EnclaveIdentity: win32more.Windows.Win32.System.Environment.ENCLAVE_IDENTITY
     _pack_ = 1
-class VBS_ENCLAVE_REPORT_MODULE(EasyCastStructure):
+class VBS_ENCLAVE_REPORT_MODULE(Structure):
     Header: win32more.Windows.Win32.System.Environment.VBS_ENCLAVE_REPORT_VARDATA_HEADER
     UniqueId: Byte * 32
     AuthorId: Byte * 32
@@ -228,7 +228,7 @@ class VBS_ENCLAVE_REPORT_MODULE(EasyCastStructure):
     Svn: UInt32
     ModuleName: Char * 1
     _pack_ = 1
-class VBS_ENCLAVE_REPORT_PKG_HEADER(EasyCastStructure):
+class VBS_ENCLAVE_REPORT_PKG_HEADER(Structure):
     PackageSize: UInt32
     Version: UInt32
     SignatureScheme: UInt32
@@ -236,7 +236,7 @@ class VBS_ENCLAVE_REPORT_PKG_HEADER(EasyCastStructure):
     SignatureSize: UInt32
     Reserved: UInt32
     _pack_ = 1
-class VBS_ENCLAVE_REPORT_VARDATA_HEADER(EasyCastStructure):
+class VBS_ENCLAVE_REPORT_VARDATA_HEADER(Structure):
     DataType: UInt32
     Size: UInt32
     _pack_ = 1

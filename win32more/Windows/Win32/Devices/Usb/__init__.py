@@ -1,9 +1,9 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Usb
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
-class ALTERNATE_INTERFACE(EasyCastStructure):
+class ALTERNATE_INTERFACE(Structure):
     InterfaceNumber: UInt16
     AlternateInterfaceNumber: UInt16
 DEVICE_SPEED: UInt32 = 1
@@ -612,25 +612,25 @@ def WinUsb_StartTrackingForTimeSync(InterfaceHandle: win32more.Windows.Win32.Dev
 def WinUsb_GetCurrentFrameNumberAndQpc(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, FrameQpcInfo: POINTER(win32more.Windows.Win32.Devices.Usb.USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
 def WinUsb_StopTrackingForTimeSync(InterfaceHandle: win32more.Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, StopTrackingInfo: POINTER(win32more.Windows.Win32.Devices.Usb.USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class BM_REQUEST_TYPE(EasyCastUnion):
+class BM_REQUEST_TYPE(Union):
     s: _BM
     B: Byte
-    class _BM(EasyCastStructure):
+    class _BM(Structure):
         _bitfield: Byte
-class CHANNEL_INFO(EasyCastStructure):
+class CHANNEL_INFO(Structure):
     EventChannelSize: UInt32
     uReadDataAlignment: UInt32
     uWriteDataAlignment: UInt32
-class DEVICE_DESCRIPTOR(EasyCastStructure):
+class DEVICE_DESCRIPTOR(Structure):
     usVendorId: UInt16
     usProductId: UInt16
     usBcdDevice: UInt16
     usLanguageId: UInt16
-class DRV_VERSION(EasyCastStructure):
+class DRV_VERSION(Structure):
     major: UInt32
     minor: UInt32
     internal: UInt32
-class HCD_ISO_STAT_COUNTERS(EasyCastStructure):
+class HCD_ISO_STAT_COUNTERS(Structure):
     LateUrbs: UInt16
     DoubleBufferedPackets: UInt16
     TransfersCF_5ms: UInt16
@@ -652,7 +652,7 @@ class HCD_ISO_STAT_COUNTERS(EasyCastStructure):
     HWIsoMissedCount: UInt16
     Reserved7: UInt32 * 8
     _pack_ = 1
-class HCD_STAT_COUNTERS(EasyCastStructure):
+class HCD_STAT_COUNTERS(Structure):
     BytesTransferred: UInt32
     IsoMissedCount: UInt16
     DataOverrunErrorCount: UInt16
@@ -665,14 +665,14 @@ class HCD_STAT_COUNTERS(EasyCastStructure):
     StallPidCount: UInt16
     PortDisableCount: UInt16
     _pack_ = 1
-class HCD_STAT_INFORMATION_1(EasyCastStructure):
+class HCD_STAT_INFORMATION_1(Structure):
     Reserved1: UInt32
     Reserved2: UInt32
     ResetCounters: UInt32
     TimeRead: Int64
     Counters: win32more.Windows.Win32.Devices.Usb.HCD_STAT_COUNTERS
     _pack_ = 1
-class HCD_STAT_INFORMATION_2(EasyCastStructure):
+class HCD_STAT_INFORMATION_2(Structure):
     Reserved1: UInt32
     Reserved2: UInt32
     ResetCounters: UInt32
@@ -681,7 +681,7 @@ class HCD_STAT_INFORMATION_2(EasyCastStructure):
     Counters: win32more.Windows.Win32.Devices.Usb.HCD_STAT_COUNTERS
     IsoCounters: win32more.Windows.Win32.Devices.Usb.HCD_ISO_STAT_COUNTERS
     _pack_ = 1
-class HUB_DEVICE_CONFIG_INFO(EasyCastStructure):
+class HUB_DEVICE_CONFIG_INFO(Structure):
     Version: UInt32
     Length: UInt32
     HubFlags: win32more.Windows.Win32.Devices.Usb.USB_HUB_CAP_FLAGS
@@ -691,12 +691,12 @@ class HUB_DEVICE_CONFIG_INFO(EasyCastStructure):
     Reserved: UInt32 * 19
     UxdSettings: win32more.Windows.Win32.Devices.Usb.USB_HUB_DEVICE_UXD_SETTINGS
     _pack_ = 1
-class IO_BLOCK(EasyCastStructure):
+class IO_BLOCK(Structure):
     uOffset: UInt32
     uLength: UInt32
     pbyData: POINTER(Byte)
     uIndex: UInt32
-class IO_BLOCK_EX(EasyCastStructure):
+class IO_BLOCK_EX(Structure):
     uOffset: UInt32
     uLength: UInt32
     pbyData: POINTER(Byte)
@@ -704,16 +704,16 @@ class IO_BLOCK_EX(EasyCastStructure):
     bRequest: Byte
     bmRequestType: Byte
     fTransferDirectionIn: Byte
-class OS_STRING(EasyCastStructure):
+class OS_STRING(Structure):
     bLength: Byte
     bDescriptorType: Byte
     MicrosoftString: Char * 7
     bVendorCode: Byte
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         bPad: Byte
         bFlags: Byte
-class PACKET_PARAMETERS(EasyCastStructure):
+class PACKET_PARAMETERS(Structure):
     DeviceAddress: Byte
     EndpointAddress: Byte
     MaximumPacketSize: UInt16
@@ -737,22 +737,22 @@ USBSCAN_PIPE_CONTROL: win32more.Windows.Win32.Devices.Usb.RAW_PIPE_TYPE = 0
 USBSCAN_PIPE_ISOCHRONOUS: win32more.Windows.Win32.Devices.Usb.RAW_PIPE_TYPE = 1
 USBSCAN_PIPE_BULK: win32more.Windows.Win32.Devices.Usb.RAW_PIPE_TYPE = 2
 USBSCAN_PIPE_INTERRUPT: win32more.Windows.Win32.Devices.Usb.RAW_PIPE_TYPE = 3
-class RAW_RESET_PORT_PARAMETERS(EasyCastStructure):
+class RAW_RESET_PORT_PARAMETERS(Structure):
     PortNumber: UInt16
     PortStatus: UInt16
     _pack_ = 1
-class RAW_ROOTPORT_FEATURE(EasyCastStructure):
+class RAW_ROOTPORT_FEATURE(Structure):
     PortNumber: UInt16
     PortFeature: UInt16
     PortStatus: UInt16
     _pack_ = 1
-class RAW_ROOTPORT_PARAMETERS(EasyCastStructure):
+class RAW_ROOTPORT_PARAMETERS(Structure):
     PortNumber: UInt16
     PortStatus: UInt16
     _pack_ = 1
-class URB(EasyCastStructure):
+class URB(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         UrbHeader: win32more.Windows.Win32.Devices.Usb._URB_HEADER
         UrbSelectInterface: win32more.Windows.Win32.Devices.Usb._URB_SELECT_INTERFACE
         UrbSelectConfiguration: win32more.Windows.Win32.Devices.Usb._URB_SELECT_CONFIGURATION
@@ -774,11 +774,11 @@ class URB(EasyCastStructure):
         UrbOSFeatureDescriptorRequest: win32more.Windows.Win32.Devices.Usb._URB_OS_FEATURE_DESCRIPTOR_REQUEST
         UrbOpenStaticStreams: win32more.Windows.Win32.Devices.Usb._URB_OPEN_STATIC_STREAMS
         UrbGetIsochPipeTransferPathDelays: win32more.Windows.Win32.Devices.Usb._URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS
-class USBD_DEVICE_INFORMATION(EasyCastStructure):
+class USBD_DEVICE_INFORMATION(Structure):
     OffsetNext: UInt32
     UsbdDeviceHandle: VoidPtr
     DeviceDescriptor: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_DESCRIPTOR
-class USBD_ENDPOINT_OFFLOAD_INFORMATION(EasyCastStructure):
+class USBD_ENDPOINT_OFFLOAD_INFORMATION(Structure):
     Size: UInt32
     EndpointAddress: UInt16
     ResourceId: UInt32
@@ -799,7 +799,7 @@ USBD_ENDPOINT_OFFLOAD_MODE = Int32
 UsbdEndpointOffloadModeNotSupported: win32more.Windows.Win32.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE = 0
 UsbdEndpointOffloadSoftwareAssisted: win32more.Windows.Win32.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE = 1
 UsbdEndpointOffloadHardwareAssisted: win32more.Windows.Win32.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE = 2
-class USBD_INTERFACE_INFORMATION(EasyCastStructure):
+class USBD_INTERFACE_INFORMATION(Structure):
     Length: UInt16
     InterfaceNumber: Byte
     AlternateSetting: Byte
@@ -810,11 +810,11 @@ class USBD_INTERFACE_INFORMATION(EasyCastStructure):
     InterfaceHandle: VoidPtr
     NumberOfPipes: UInt32
     Pipes: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_INFORMATION * 1
-class USBD_ISO_PACKET_DESCRIPTOR(EasyCastStructure):
+class USBD_ISO_PACKET_DESCRIPTOR(Structure):
     Offset: UInt32
     Length: UInt32
     Status: Int32
-class USBD_PIPE_INFORMATION(EasyCastStructure):
+class USBD_PIPE_INFORMATION(Structure):
     MaximumPacketSize: UInt16
     EndpointAddress: Byte
     Interval: Byte
@@ -827,15 +827,15 @@ UsbdPipeTypeControl: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE = 0
 UsbdPipeTypeIsochronous: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE = 1
 UsbdPipeTypeBulk: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE = 2
 UsbdPipeTypeInterrupt: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE = 3
-class USBD_STREAM_INFORMATION(EasyCastStructure):
+class USBD_STREAM_INFORMATION(Structure):
     PipeHandle: VoidPtr
     StreamID: UInt32
     MaximumTransferSize: UInt32
     PipeFlags: UInt32
-class USBD_VERSION_INFORMATION(EasyCastStructure):
+class USBD_VERSION_INFORMATION(Structure):
     USBDI_Version: UInt32
     Supported_USB_Version: UInt32
-class USBFN_BUS_CONFIGURATION_INFO(EasyCastStructure):
+class USBFN_BUS_CONFIGURATION_INFO(Structure):
     ConfigurationName: Char * 40
     IsCurrent: win32more.Windows.Win32.Foundation.BOOLEAN
     IsActive: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -845,25 +845,25 @@ UsbfnBusSpeedFull: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED = 1
 UsbfnBusSpeedHigh: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED = 2
 UsbfnBusSpeedSuper: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED = 3
 UsbfnBusSpeedMaximum: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED = 4
-class USBFN_CLASS_INFORMATION_PACKET(EasyCastStructure):
+class USBFN_CLASS_INFORMATION_PACKET(Structure):
     FullSpeedClassInterface: win32more.Windows.Win32.Devices.Usb.USBFN_CLASS_INTERFACE
     HighSpeedClassInterface: win32more.Windows.Win32.Devices.Usb.USBFN_CLASS_INTERFACE
     InterfaceName: Char * 40
     InterfaceGuid: Char * 39
     HasInterfaceGuid: win32more.Windows.Win32.Foundation.BOOLEAN
     SuperSpeedClassInterface: win32more.Windows.Win32.Devices.Usb.USBFN_CLASS_INTERFACE
-class USBFN_CLASS_INFORMATION_PACKET_EX(EasyCastStructure):
+class USBFN_CLASS_INFORMATION_PACKET_EX(Structure):
     FullSpeedClassInterfaceEx: win32more.Windows.Win32.Devices.Usb.USBFN_CLASS_INTERFACE_EX
     HighSpeedClassInterfaceEx: win32more.Windows.Win32.Devices.Usb.USBFN_CLASS_INTERFACE_EX
     SuperSpeedClassInterfaceEx: win32more.Windows.Win32.Devices.Usb.USBFN_CLASS_INTERFACE_EX
     InterfaceName: Char * 40
     InterfaceGuid: Char * 39
     HasInterfaceGuid: win32more.Windows.Win32.Foundation.BOOLEAN
-class USBFN_CLASS_INTERFACE(EasyCastStructure):
+class USBFN_CLASS_INTERFACE(Structure):
     InterfaceNumber: Byte
     PipeCount: Byte
     PipeArr: win32more.Windows.Win32.Devices.Usb.USBFN_PIPE_INFORMATION * 16
-class USBFN_CLASS_INTERFACE_EX(EasyCastStructure):
+class USBFN_CLASS_INTERFACE_EX(Structure):
     BaseInterfaceNumber: Byte
     InterfaceCount: Byte
     PipeCount: Byte
@@ -898,21 +898,21 @@ UsbfnEventPortType: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 9
 UsbfnEventBusTearDown: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 10
 UsbfnEventSetInterface: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 11
 UsbfnEventMaximum: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT = 12
-class USBFN_INTERFACE_INFO(EasyCastStructure):
+class USBFN_INTERFACE_INFO(Structure):
     InterfaceNumber: Byte
     Speed: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED
     Size: UInt16
     InterfaceDescriptorSet: Byte * 1
-class USBFN_NOTIFICATION(EasyCastStructure):
+class USBFN_NOTIFICATION(Structure):
     Event: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         BusSpeed: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED
         SetupPacket: win32more.Windows.Win32.Devices.Usb.USB_DEFAULT_PIPE_SETUP_PACKET
         ConfigurationValue: UInt16
         PortType: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE
         AlternateInterface: win32more.Windows.Win32.Devices.Usb.ALTERNATE_INTERFACE
-class USBFN_PIPE_INFORMATION(EasyCastStructure):
+class USBFN_PIPE_INFORMATION(Structure):
     EpDesc: win32more.Windows.Win32.Devices.Usb.USB_ENDPOINT_DESCRIPTOR
     PipeId: UInt32
 USBFN_PORT_TYPE = Int32
@@ -923,110 +923,110 @@ UsbfnDedicatedChargingPort: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE 
 UsbfnInvalidDedicatedChargingPort: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 4
 UsbfnProprietaryDedicatedChargingPort: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 5
 UsbfnPortTypeMaximum: win32more.Windows.Win32.Devices.Usb.USBFN_PORT_TYPE = 6
-class USBFN_USB_STRING(EasyCastStructure):
+class USBFN_USB_STRING(Structure):
     StringIndex: Byte
     UsbString: Char * 255
-class USBSCAN_GET_DESCRIPTOR(EasyCastStructure):
+class USBSCAN_GET_DESCRIPTOR(Structure):
     DescriptorType: Byte
     Index: Byte
     LanguageId: UInt16
-class USBSCAN_PIPE_CONFIGURATION(EasyCastStructure):
+class USBSCAN_PIPE_CONFIGURATION(Structure):
     NumberOfPipes: UInt32
     PipeInfo: win32more.Windows.Win32.Devices.Usb.USBSCAN_PIPE_INFORMATION * 8
-class USBSCAN_PIPE_INFORMATION(EasyCastStructure):
+class USBSCAN_PIPE_INFORMATION(Structure):
     MaximumPacketSize: UInt16
     EndpointAddress: Byte
     Interval: Byte
     PipeType: win32more.Windows.Win32.Devices.Usb.RAW_PIPE_TYPE
-class USBSCAN_TIMEOUT(EasyCastStructure):
+class USBSCAN_TIMEOUT(Structure):
     TimeoutRead: UInt32
     TimeoutWrite: UInt32
     TimeoutEvent: UInt32
-class USBUSER_BANDWIDTH_INFO_REQUEST(EasyCastStructure):
+class USBUSER_BANDWIDTH_INFO_REQUEST(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     BandwidthInformation: win32more.Windows.Win32.Devices.Usb.USB_BANDWIDTH_INFO
     _pack_ = 1
-class USBUSER_BUS_STATISTICS_0_REQUEST(EasyCastStructure):
+class USBUSER_BUS_STATISTICS_0_REQUEST(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     BusStatistics0: win32more.Windows.Win32.Devices.Usb.USB_BUS_STATISTICS_0
     _pack_ = 1
-class USBUSER_CLOSE_RAW_DEVICE(EasyCastStructure):
+class USBUSER_CLOSE_RAW_DEVICE(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Parameters: win32more.Windows.Win32.Devices.Usb.USB_CLOSE_RAW_DEVICE_PARAMETERS
     _pack_ = 1
-class USBUSER_CONTROLLER_INFO_0(EasyCastStructure):
+class USBUSER_CONTROLLER_INFO_0(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Info0: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_INFO_0
     _pack_ = 1
-class USBUSER_CONTROLLER_UNICODE_NAME(EasyCastStructure):
+class USBUSER_CONTROLLER_UNICODE_NAME(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     UnicodeName: win32more.Windows.Win32.Devices.Usb.USB_UNICODE_NAME
     _pack_ = 1
-class USBUSER_GET_DRIVER_VERSION(EasyCastStructure):
+class USBUSER_GET_DRIVER_VERSION(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Parameters: win32more.Windows.Win32.Devices.Usb.USB_DRIVER_VERSION_PARAMETERS
     _pack_ = 1
-class USBUSER_GET_USB2HW_VERSION(EasyCastStructure):
+class USBUSER_GET_USB2HW_VERSION(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Parameters: win32more.Windows.Win32.Devices.Usb.USB_USB2HW_VERSION_PARAMETERS
     _pack_ = 1
-class USBUSER_OPEN_RAW_DEVICE(EasyCastStructure):
+class USBUSER_OPEN_RAW_DEVICE(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Parameters: win32more.Windows.Win32.Devices.Usb.USB_OPEN_RAW_DEVICE_PARAMETERS
     _pack_ = 1
-class USBUSER_PASS_THRU_REQUEST(EasyCastStructure):
+class USBUSER_PASS_THRU_REQUEST(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     PassThru: win32more.Windows.Win32.Devices.Usb.USB_PASS_THRU_PARAMETERS
     _pack_ = 1
-class USBUSER_POWER_INFO_REQUEST(EasyCastStructure):
+class USBUSER_POWER_INFO_REQUEST(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     PowerInformation: win32more.Windows.Win32.Devices.Usb.USB_POWER_INFO
     _pack_ = 1
-class USBUSER_RAW_RESET_ROOT_PORT(EasyCastStructure):
+class USBUSER_RAW_RESET_ROOT_PORT(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Parameters: win32more.Windows.Win32.Devices.Usb.RAW_RESET_PORT_PARAMETERS
     _pack_ = 1
-class USBUSER_REFRESH_HCT_REG(EasyCastStructure):
+class USBUSER_REFRESH_HCT_REG(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Flags: UInt32
     _pack_ = 1
-class USBUSER_REQUEST_HEADER(EasyCastStructure):
+class USBUSER_REQUEST_HEADER(Structure):
     UsbUserRequest: UInt32
     UsbUserStatusCode: win32more.Windows.Win32.Devices.Usb.USB_USER_ERROR_CODE
     RequestBufferLength: UInt32
     ActualBufferLength: UInt32
     _pack_ = 1
-class USBUSER_ROOTPORT_FEATURE_REQUEST(EasyCastStructure):
+class USBUSER_ROOTPORT_FEATURE_REQUEST(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Parameters: win32more.Windows.Win32.Devices.Usb.RAW_ROOTPORT_FEATURE
     _pack_ = 1
-class USBUSER_ROOTPORT_PARAMETERS(EasyCastStructure):
+class USBUSER_ROOTPORT_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Parameters: win32more.Windows.Win32.Devices.Usb.RAW_ROOTPORT_PARAMETERS
     _pack_ = 1
-class USBUSER_SEND_ONE_PACKET(EasyCastStructure):
+class USBUSER_SEND_ONE_PACKET(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     PacketParameters: win32more.Windows.Win32.Devices.Usb.PACKET_PARAMETERS
     _pack_ = 1
-class USBUSER_SEND_RAW_COMMAND(EasyCastStructure):
+class USBUSER_SEND_RAW_COMMAND(Structure):
     Header: win32more.Windows.Win32.Devices.Usb.USBUSER_REQUEST_HEADER
     Parameters: win32more.Windows.Win32.Devices.Usb.USB_SEND_RAW_COMMAND_PARAMETERS
     _pack_ = 1
-class USB_20_PORT_CHANGE(EasyCastUnion):
+class USB_20_PORT_CHANGE(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class USB_20_PORT_STATUS(EasyCastUnion):
+class USB_20_PORT_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class USB_30_HUB_DESCRIPTOR(EasyCastStructure):
+class USB_30_HUB_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bNumberOfPorts: Byte
@@ -1037,26 +1037,26 @@ class USB_30_HUB_DESCRIPTOR(EasyCastStructure):
     wHubDelay: UInt16
     DeviceRemovable: UInt16
     _pack_ = 1
-class USB_30_PORT_CHANGE(EasyCastUnion):
+class USB_30_PORT_CHANGE(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class USB_30_PORT_STATUS(EasyCastUnion):
+class USB_30_PORT_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class USB_ACQUIRE_INFO(EasyCastStructure):
+class USB_ACQUIRE_INFO(Structure):
     NotificationType: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE
     TotalSize: UInt32
     Buffer: Char * 1
     _pack_ = 1
-class USB_BANDWIDTH_INFO(EasyCastStructure):
+class USB_BANDWIDTH_INFO(Structure):
     DeviceCount: UInt32
     TotalBusBandwidth: UInt32
     Total32secBandwidth: UInt32
@@ -1069,19 +1069,19 @@ class USB_BANDWIDTH_INFO(EasyCastStructure):
     AllocedInterrupt_16ms: UInt32
     AllocedInterrupt_32ms: UInt32
     _pack_ = 1
-class USB_BOS_DESCRIPTOR(EasyCastStructure):
+class USB_BOS_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     wTotalLength: UInt16
     bNumDeviceCaps: Byte
     _pack_ = 1
-class USB_BUS_NOTIFICATION(EasyCastStructure):
+class USB_BUS_NOTIFICATION(Structure):
     NotificationType: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE
     TotalBandwidth: UInt32
     ConsumedBandwidth: UInt32
     ControllerNameLength: UInt32
     _pack_ = 1
-class USB_BUS_STATISTICS_0(EasyCastStructure):
+class USB_BUS_STATISTICS_0(Structure):
     DeviceCount: UInt32
     CurrentSystemTime: Int64
     CurrentUsbFrame: UInt32
@@ -1100,24 +1100,24 @@ class USB_BUS_STATISTICS_0(EasyCastStructure):
     NameIndex: Byte
     _pack_ = 1
 USB_CHANGE_REGISTRATION_HANDLE = IntPtr
-class USB_CLOSE_RAW_DEVICE_PARAMETERS(EasyCastStructure):
+class USB_CLOSE_RAW_DEVICE_PARAMETERS(Structure):
     xxx: UInt32
     _pack_ = 1
-class USB_COMMON_DESCRIPTOR(EasyCastStructure):
+class USB_COMMON_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
-class USB_COMPOSITE_DEVICE_INFO(EasyCastStructure):
+class USB_COMPOSITE_DEVICE_INFO(Structure):
     DeviceDescriptor: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_DESCRIPTOR
     CurrentConfigDescriptor: win32more.Windows.Win32.Devices.Usb.USB_CONFIGURATION_DESCRIPTOR
     CurrentConfigurationValue: Byte
     NumberOfFunctions: Byte
     FunctionInfo: win32more.Windows.Win32.Devices.Usb.USB_COMPOSITE_FUNCTION_INFO * 1
-class USB_COMPOSITE_FUNCTION_INFO(EasyCastStructure):
+class USB_COMPOSITE_FUNCTION_INFO(Structure):
     FunctionNumber: Byte
     BaseInterfaceNumber: Byte
     NumberOfInterfaces: Byte
     FunctionIsIdle: win32more.Windows.Win32.Foundation.BOOLEAN
-class USB_CONFIGURATION_DESCRIPTOR(EasyCastStructure):
+class USB_CONFIGURATION_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     wTotalLength: UInt16
@@ -1127,7 +1127,7 @@ class USB_CONFIGURATION_DESCRIPTOR(EasyCastStructure):
     bmAttributes: Byte
     MaxPower: Byte
     _pack_ = 1
-class USB_CONFIGURATION_POWER_DESCRIPTOR(EasyCastStructure):
+class USB_CONFIGURATION_POWER_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     SelfPowerConsumedD0: Byte * 3
@@ -1142,7 +1142,7 @@ class USB_CONFIGURATION_POWER_DESCRIPTOR(EasyCastStructure):
     TransitionTimeFromD2: UInt16
     TransitionTimeFromD3: UInt16
     _pack_ = 1
-class USB_CONNECTION_NOTIFICATION(EasyCastStructure):
+class USB_CONNECTION_NOTIFICATION(Structure):
     NotificationType: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE
     ConnectionNumber: UInt32
     RequestedBandwidth: UInt32
@@ -1162,7 +1162,7 @@ DeviceHubNestedTooDeeply: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STA
 DeviceInLegacyHub: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 8
 DeviceEnumerating: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 9
 DeviceReset: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS = 10
-class USB_CONTROLLER_DEVICE_INFO(EasyCastStructure):
+class USB_CONTROLLER_DEVICE_INFO(Structure):
     PciVendorId: UInt32
     PciDeviceId: UInt32
     PciRevision: UInt32
@@ -1197,7 +1197,7 @@ EHCI_Lucent: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 3000
 EHCI_NVIDIA_Tegra2: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 4000
 EHCI_NVIDIA_Tegra3: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 4001
 EHCI_Intel_Medfield: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR = 5001
-class USB_CONTROLLER_INFO_0(EasyCastStructure):
+class USB_CONTROLLER_INFO_0(Structure):
     PciVendorId: UInt32
     PciDeviceId: UInt32
     PciRevision: UInt32
@@ -1205,44 +1205,44 @@ class USB_CONTROLLER_INFO_0(EasyCastStructure):
     ControllerFlavor: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_FLAVOR
     HcFeatureFlags: UInt32
     _pack_ = 1
-class USB_CYCLE_PORT_PARAMS(EasyCastStructure):
+class USB_CYCLE_PORT_PARAMS(Structure):
     ConnectionIndex: UInt32
     StatusReturned: UInt32
     _pack_ = 1
-class USB_DEFAULT_PIPE_SETUP_PACKET(EasyCastStructure):
+class USB_DEFAULT_PIPE_SETUP_PACKET(Structure):
     bmRequestType: win32more.Windows.Win32.Devices.Usb.BM_REQUEST_TYPE
     bRequest: Byte
     wValue: _wValue
     wIndex: _wIndex
     wLength: UInt16
     _pack_ = 1
-    class _wValue(EasyCastUnion):
+    class _wValue(Union):
         Anonymous: _Anonymous_e__Struct
         W: UInt16
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             LowByte: Byte
             HiByte: Byte
-    class _wIndex(EasyCastUnion):
+    class _wIndex(Union):
         Anonymous: _Anonymous_e__Struct
         W: UInt16
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             LowByte: Byte
             HiByte: Byte
-class USB_DESCRIPTOR_REQUEST(EasyCastStructure):
+class USB_DESCRIPTOR_REQUEST(Structure):
     ConnectionIndex: UInt32
     SetupPacket: _SetupPacket_e__Struct
     Data: Byte * 1
     _pack_ = 1
-    class _SetupPacket_e__Struct(EasyCastStructure):
+    class _SetupPacket_e__Struct(Structure):
         bmRequest: Byte
         bRequest: Byte
         wValue: UInt16
         wIndex: UInt16
         wLength: UInt16
         _pack_ = 1
-class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
@@ -1254,42 +1254,42 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR(EasyCastStructure):
     bReserved: UInt32
     AlternateMode: _Anonymous_e__Struct * 1
     _pack_ = 1
-    class _VconnPower_e__Union(EasyCastUnion):
+    class _VconnPower_e__Union(Union):
         AsUshort: UInt16
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         wSVID: UInt16
         bAlternateMode: Byte
         iAlternateModeSetting: Byte
         _pack_ = 1
-class USB_DEVICE_CAPABILITY_CONTAINER_ID_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_CONTAINER_ID_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
     bReserved: Byte
     ContainerID: Byte * 16
-class USB_DEVICE_CAPABILITY_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
-class USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
     bcdDescriptorVersion: Byte
     bmAttributes: _bmAttributes_e__Union
-    class _bmAttributes_e__Union(EasyCastUnion):
+    class _bmAttributes_e__Union(Union):
         AsUlong: UInt32
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
             _pack_ = 1
-class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
@@ -1302,14 +1302,14 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR(EasyCastStructure):
     dwMaxPeakPower: UInt32
     dwMaxPeakPowerTime: UInt32
     _pack_ = 1
-    class _bmCapabilities_e__Union(EasyCastUnion):
+    class _bmCapabilities_e__Union(Union):
         AsUshort: UInt16
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
-class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
@@ -1317,7 +1317,7 @@ class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR(EasyCastStructure):
     PlatformCapabilityUuid: Guid
     CapabililityData: Byte * 1
     _pack_ = 1
-class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
@@ -1329,21 +1329,21 @@ class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR(EasyCastStructure):
     bcdPDVersion: UInt16
     bcdUSBTypeCVersion: UInt16
     _pack_ = 1
-    class _bmAttributes_e__Union(EasyCastUnion):
+    class _bmAttributes_e__Union(Union):
         AsUlong: UInt32
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
             _pack_ = 1
-class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(EasyCastUnion):
+class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         _pack_ = 1
-class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
@@ -1353,21 +1353,21 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR(EasyCastStructure):
     wReserved: UInt16
     bmSublinkSpeedAttr: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED * 1
     _pack_ = 1
-    class _bmAttributes_e__Union(EasyCastUnion):
+    class _bmAttributes_e__Union(Union):
         AsUlong: UInt32
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
             _pack_ = 1
-    class _wFunctionalitySupport_e__Union(EasyCastUnion):
+    class _wFunctionalitySupport_e__Union(Union):
         AsUshort: UInt16
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
-class USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
@@ -1377,26 +1377,26 @@ class USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR(EasyCastStructure):
     bU1DevExitLat: Byte
     wU2DevExitLat: UInt16
     _pack_ = 1
-class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bDevCapabilityType: Byte
     bmAttributes: _bmAttributes_e__Union
-    class _bmAttributes_e__Union(EasyCastUnion):
+    class _bmAttributes_e__Union(Union):
         AsUlong: UInt32
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
             _pack_ = 1
-class USB_DEVICE_CHARACTERISTICS(EasyCastStructure):
+class USB_DEVICE_CHARACTERISTICS(Structure):
     Version: UInt32
     Reserved: UInt32 * 2
     UsbDeviceCharacteristicsFlags: UInt32
     MaximumSendPathDelayInMilliSeconds: UInt32
     MaximumCompletionPathDelayInMilliSeconds: UInt32
     _pack_ = 1
-class USB_DEVICE_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bcdUSB: UInt16
@@ -1412,7 +1412,7 @@ class USB_DEVICE_DESCRIPTOR(EasyCastStructure):
     iSerialNumber: Byte
     bNumConfigurations: Byte
     _pack_ = 1
-class USB_DEVICE_INFO(EasyCastStructure):
+class USB_DEVICE_INFO(Structure):
     DeviceState: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_STATE
     PortNumber: UInt16
     DeviceDescriptor: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_DESCRIPTOR
@@ -1428,7 +1428,7 @@ class USB_DEVICE_INFO(EasyCastStructure):
     NumberOfOpenPipes: UInt32
     PipeList: win32more.Windows.Win32.Devices.Usb.USB_PIPE_INFO * 1
     _pack_ = 1
-class USB_DEVICE_NODE_INFO(EasyCastStructure):
+class USB_DEVICE_NODE_INFO(Structure):
     Sig: UInt32
     LengthInBytes: UInt32
     DeviceDescription: Char * 40
@@ -1436,13 +1436,13 @@ class USB_DEVICE_NODE_INFO(EasyCastStructure):
     BusAddress: win32more.Windows.Win32.Devices.Usb.USB_TOPOLOGY_ADDRESS
     Anonymous: _Anonymous_e__Union
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         UsbDeviceInfo: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_INFO
         HubDeviceInfo: win32more.Windows.Win32.Devices.Usb.USB_HUB_DEVICE_INFO
         CompositeDeviceInfo: win32more.Windows.Win32.Devices.Usb.USB_COMPOSITE_DEVICE_INFO
         ControllerDeviceInfo: win32more.Windows.Win32.Devices.Usb.USB_CONTROLLER_DEVICE_INFO
         DeviceInformation: Byte * 4
-class USB_DEVICE_PERFORMANCE_INFO(EasyCastStructure):
+class USB_DEVICE_PERFORMANCE_INFO(Structure):
     BulkBytes: UInt32
     ControlDataBytes: UInt32
     IsoBytes: UInt32
@@ -1467,7 +1467,7 @@ class USB_DEVICE_PERFORMANCE_INFO(EasyCastStructure):
     HcPeriodicIdleState: UInt32
     HcPeriodicCacheFlushCount: UInt32
     _pack_ = 1
-class USB_DEVICE_QUALIFIER_DESCRIPTOR(EasyCastStructure):
+class USB_DEVICE_QUALIFIER_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bcdUSB: UInt16
@@ -1483,20 +1483,20 @@ UsbLowSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 0
 UsbFullSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 1
 UsbHighSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 2
 UsbSuperSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 3
-class USB_DEVICE_STATE(EasyCastStructure):
+class USB_DEVICE_STATE(Structure):
     _bitfield: UInt32
     _pack_ = 1
-class USB_DEVICE_STATUS(EasyCastUnion):
+class USB_DEVICE_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
 USB_DEVICE_TYPE = Int32
 Usb11Device: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_TYPE = 0
 Usb20Device: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_TYPE = 1
-class USB_DRIVER_VERSION_PARAMETERS(EasyCastStructure):
+class USB_DRIVER_VERSION_PARAMETERS(Structure):
     DriverTrackingCode: UInt32
     USBDI_Version: UInt32
     USBUSER_Version: UInt32
@@ -1504,7 +1504,7 @@ class USB_DRIVER_VERSION_PARAMETERS(EasyCastStructure):
     CheckedMiniportDriver: win32more.Windows.Win32.Foundation.BOOLEAN
     USB_Version: UInt16
     _pack_ = 1
-class USB_ENDPOINT_DESCRIPTOR(EasyCastStructure):
+class USB_ENDPOINT_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bEndpointAddress: Byte
@@ -1512,14 +1512,14 @@ class USB_ENDPOINT_DESCRIPTOR(EasyCastStructure):
     wMaxPacketSize: UInt16
     bInterval: Byte
     _pack_ = 1
-class USB_ENDPOINT_STATUS(EasyCastUnion):
+class USB_ENDPOINT_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION(EasyCastStructure):
+class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION(Structure):
     TimeTrackingHandle: win32more.Windows.Win32.Foundation.HANDLE
     InputFrameNumber: UInt32
     InputMicroFrameNumber: UInt32
@@ -1532,46 +1532,46 @@ class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION(EasyCastStructure):
     CurrentHardwareMicroFrameNumber: UInt32
     CurrentUSBFrameNumber: UInt32
     _pack_ = 1
-class USB_FUNCTION_SUSPEND_OPTIONS(EasyCastUnion):
+class USB_FUNCTION_SUSPEND_OPTIONS(Union):
     AsUchar: Byte
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: Byte
-class USB_HCD_DRIVERKEY_NAME(EasyCastStructure):
+class USB_HCD_DRIVERKEY_NAME(Structure):
     ActualLength: UInt32
     DriverKeyName: Char * 1
     _pack_ = 1
-class USB_HIGH_SPEED_MAXPACKET(EasyCastUnion):
+class USB_HIGH_SPEED_MAXPACKET(Union):
     us: UInt16
     _pack_ = 1
-    class _MP(EasyCastStructure):
+    class _MP(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class USB_HUB_30_PORT_REMOTE_WAKE_MASK(EasyCastUnion):
+class USB_HUB_30_PORT_REMOTE_WAKE_MASK(Union):
     AsUchar8: Byte
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: Byte
-class USB_HUB_CAPABILITIES(EasyCastStructure):
+class USB_HUB_CAPABILITIES(Structure):
     _bitfield: UInt32
     _pack_ = 1
-class USB_HUB_CAPABILITIES_EX(EasyCastStructure):
+class USB_HUB_CAPABILITIES_EX(Structure):
     CapabilityFlags: win32more.Windows.Win32.Devices.Usb.USB_HUB_CAP_FLAGS
-class USB_HUB_CAP_FLAGS(EasyCastUnion):
+class USB_HUB_CAP_FLAGS(Union):
     ul: UInt32
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         _pack_ = 1
-class USB_HUB_CHANGE(EasyCastUnion):
+class USB_HUB_CHANGE(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class USB_HUB_DESCRIPTOR(EasyCastStructure):
+class USB_HUB_DESCRIPTOR(Structure):
     bDescriptorLength: Byte
     bDescriptorType: Byte
     bNumberOfPorts: Byte
@@ -1580,7 +1580,7 @@ class USB_HUB_DESCRIPTOR(EasyCastStructure):
     bHubControlCurrent: Byte
     bRemoveAndPowerMask: Byte * 64
     _pack_ = 1
-class USB_HUB_DEVICE_INFO(EasyCastStructure):
+class USB_HUB_DEVICE_INFO(Structure):
     HubDescriptor: win32more.Windows.Win32.Devices.Usb.USB_HUB_DESCRIPTOR
     HubNumber: UInt32
     DeviceAddress: UInt16
@@ -1590,7 +1590,7 @@ class USB_HUB_DEVICE_INFO(EasyCastStructure):
     NumberOfHubPorts: UInt32
     PortInfo: win32more.Windows.Win32.Devices.Usb.USB_HUB_PORT_INFORMATION * 1
     _pack_ = 1
-class USB_HUB_DEVICE_UXD_SETTINGS(EasyCastStructure):
+class USB_HUB_DEVICE_UXD_SETTINGS(Structure):
     Version: UInt32
     PnpGuid: Guid
     OwnerGuid: Guid
@@ -1599,43 +1599,43 @@ class USB_HUB_DEVICE_UXD_SETTINGS(EasyCastStructure):
     DeleteOnDisconnect: UInt32
     Reserved: UInt32 * 5
     _pack_ = 1
-class USB_HUB_INFORMATION(EasyCastStructure):
+class USB_HUB_INFORMATION(Structure):
     HubDescriptor: win32more.Windows.Win32.Devices.Usb.USB_HUB_DESCRIPTOR
     HubIsBusPowered: win32more.Windows.Win32.Foundation.BOOLEAN
-class USB_HUB_INFORMATION_EX(EasyCastStructure):
+class USB_HUB_INFORMATION_EX(Structure):
     HubType: win32more.Windows.Win32.Devices.Usb.USB_HUB_TYPE
     HighestPortNumber: UInt16
     u: _u_e__Union
     _pack_ = 1
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         UsbHubDescriptor: win32more.Windows.Win32.Devices.Usb.USB_HUB_DESCRIPTOR
         Usb30HubDescriptor: win32more.Windows.Win32.Devices.Usb.USB_30_HUB_DESCRIPTOR
-class USB_HUB_NAME(EasyCastStructure):
+class USB_HUB_NAME(Structure):
     ActualLength: UInt32
     HubName: Char * 1
     _pack_ = 1
 USB_HUB_NODE = Int32
 UsbHub: win32more.Windows.Win32.Devices.Usb.USB_HUB_NODE = 0
 UsbMIParent: win32more.Windows.Win32.Devices.Usb.USB_HUB_NODE = 1
-class USB_HUB_PORT_INFORMATION(EasyCastStructure):
+class USB_HUB_PORT_INFORMATION(Structure):
     DeviceState: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_STATE
     PortNumber: UInt16
     DeviceAddress: UInt16
     ConnectionIndex: UInt32
     ConnectionStatus: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS
     _pack_ = 1
-class USB_HUB_STATUS(EasyCastUnion):
+class USB_HUB_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class USB_HUB_STATUS_AND_CHANGE(EasyCastUnion):
+class USB_HUB_STATUS_AND_CHANGE(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         HubStatus: win32more.Windows.Win32.Devices.Usb.USB_HUB_STATUS
         HubChange: win32more.Windows.Win32.Devices.Usb.USB_HUB_CHANGE
 USB_HUB_TYPE = Int32
@@ -1644,16 +1644,16 @@ Usb20Hub: win32more.Windows.Win32.Devices.Usb.USB_HUB_TYPE = 2
 Usb30Hub: win32more.Windows.Win32.Devices.Usb.USB_HUB_TYPE = 3
 @winfunctype_pointer
 def USB_IDLE_CALLBACK(Context: VoidPtr) -> Void: ...
-class USB_IDLE_CALLBACK_INFO(EasyCastStructure):
+class USB_IDLE_CALLBACK_INFO(Structure):
     IdleCallback: win32more.Windows.Win32.Devices.Usb.USB_IDLE_CALLBACK
     IdleContext: VoidPtr
-class USB_ID_STRING(EasyCastStructure):
+class USB_ID_STRING(Structure):
     LanguageId: UInt16
     Pad: UInt16
     LengthInBytes: UInt32
     Buffer: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
-class USB_INTERFACE_ASSOCIATION_DESCRIPTOR(EasyCastStructure):
+class USB_INTERFACE_ASSOCIATION_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bFirstInterface: Byte
@@ -1662,7 +1662,7 @@ class USB_INTERFACE_ASSOCIATION_DESCRIPTOR(EasyCastStructure):
     bFunctionSubClass: Byte
     bFunctionProtocol: Byte
     iFunction: Byte
-class USB_INTERFACE_DESCRIPTOR(EasyCastStructure):
+class USB_INTERFACE_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bInterfaceNumber: Byte
@@ -1672,7 +1672,7 @@ class USB_INTERFACE_DESCRIPTOR(EasyCastStructure):
     bInterfaceSubClass: Byte
     bInterfaceProtocol: Byte
     iInterface: Byte
-class USB_INTERFACE_POWER_DESCRIPTOR(EasyCastStructure):
+class USB_INTERFACE_POWER_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bmCapabilitiesFlags: Byte
@@ -1686,27 +1686,27 @@ class USB_INTERFACE_POWER_DESCRIPTOR(EasyCastStructure):
     TransitionTimeFromD2: UInt16
     TransitionTimeFromD3: UInt16
     _pack_ = 1
-class USB_INTERFACE_STATUS(EasyCastUnion):
+class USB_INTERFACE_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class USB_MI_PARENT_INFORMATION(EasyCastStructure):
+class USB_MI_PARENT_INFORMATION(Structure):
     NumberOfInterfaces: UInt32
     _pack_ = 1
-class USB_NODE_CONNECTION_ATTRIBUTES(EasyCastStructure):
+class USB_NODE_CONNECTION_ATTRIBUTES(Structure):
     ConnectionIndex: UInt32
     ConnectionStatus: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS
     PortAttributes: UInt32
     _pack_ = 1
-class USB_NODE_CONNECTION_DRIVERKEY_NAME(EasyCastStructure):
+class USB_NODE_CONNECTION_DRIVERKEY_NAME(Structure):
     ConnectionIndex: UInt32
     ActualLength: UInt32
     DriverKeyName: Char * 1
     _pack_ = 1
-class USB_NODE_CONNECTION_INFORMATION(EasyCastStructure):
+class USB_NODE_CONNECTION_INFORMATION(Structure):
     ConnectionIndex: UInt32
     DeviceDescriptor: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_DESCRIPTOR
     CurrentConfigurationValue: Byte
@@ -1717,7 +1717,7 @@ class USB_NODE_CONNECTION_INFORMATION(EasyCastStructure):
     ConnectionStatus: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS
     PipeList: win32more.Windows.Win32.Devices.Usb.USB_PIPE_INFO * 1
     _pack_ = 1
-class USB_NODE_CONNECTION_INFORMATION_EX(EasyCastStructure):
+class USB_NODE_CONNECTION_INFORMATION_EX(Structure):
     ConnectionIndex: UInt32
     DeviceDescriptor: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_DESCRIPTOR
     CurrentConfigurationValue: Byte
@@ -1728,32 +1728,32 @@ class USB_NODE_CONNECTION_INFORMATION_EX(EasyCastStructure):
     ConnectionStatus: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS
     PipeList: win32more.Windows.Win32.Devices.Usb.USB_PIPE_INFO * 1
     _pack_ = 1
-class USB_NODE_CONNECTION_INFORMATION_EX_V2(EasyCastStructure):
+class USB_NODE_CONNECTION_INFORMATION_EX_V2(Structure):
     ConnectionIndex: UInt32
     Length: UInt32
     SupportedUsbProtocols: win32more.Windows.Win32.Devices.Usb.USB_PROTOCOLS
     Flags: win32more.Windows.Win32.Devices.Usb.USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS
     _pack_ = 1
-class USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS(EasyCastUnion):
+class USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS(Union):
     ul: UInt32
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         _pack_ = 1
-class USB_NODE_CONNECTION_NAME(EasyCastStructure):
+class USB_NODE_CONNECTION_NAME(Structure):
     ConnectionIndex: UInt32
     ActualLength: UInt32
     NodeName: Char * 1
     _pack_ = 1
-class USB_NODE_INFORMATION(EasyCastStructure):
+class USB_NODE_INFORMATION(Structure):
     NodeType: win32more.Windows.Win32.Devices.Usb.USB_HUB_NODE
     u: _u_e__Union
     _pack_ = 1
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         HubInformation: win32more.Windows.Win32.Devices.Usb.USB_HUB_INFORMATION
         MiParentInformation: win32more.Windows.Win32.Devices.Usb.USB_MI_PARENT_INFORMATION
-class USB_NOTIFICATION(EasyCastStructure):
+class USB_NOTIFICATION(Structure):
     NotificationType: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE
     _pack_ = 1
 USB_NOTIFICATION_TYPE = Int32
@@ -1769,25 +1769,25 @@ HubOvercurrent: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 8
 HubPowerChange: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 9
 HubNestedTooDeeply: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 10
 ModernDeviceInLegacyHub: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE = 11
-class USB_OPEN_RAW_DEVICE_PARAMETERS(EasyCastStructure):
+class USB_OPEN_RAW_DEVICE_PARAMETERS(Structure):
     PortStatus: UInt16
     MaxPacketEp0: UInt16
     _pack_ = 1
-class USB_PASS_THRU_PARAMETERS(EasyCastStructure):
+class USB_PASS_THRU_PARAMETERS(Structure):
     FunctionGUID: Guid
     ParameterLength: UInt32
     Parameters: Byte * 4
     _pack_ = 1
-class USB_PIPE_INFO(EasyCastStructure):
+class USB_PIPE_INFO(Structure):
     EndpointDescriptor: win32more.Windows.Win32.Devices.Usb.USB_ENDPOINT_DESCRIPTOR
     ScheduleOffset: UInt32
     _pack_ = 1
-class USB_PORT_CHANGE(EasyCastUnion):
+class USB_PORT_CHANGE(Union):
     AsUshort16: UInt16
     Usb20PortChange: win32more.Windows.Win32.Devices.Usb.USB_20_PORT_CHANGE
     Usb30PortChange: win32more.Windows.Win32.Devices.Usb.USB_30_PORT_CHANGE
     _pack_ = 1
-class USB_PORT_CONNECTOR_PROPERTIES(EasyCastStructure):
+class USB_PORT_CONNECTOR_PROPERTIES(Structure):
     ConnectionIndex: UInt32
     ActualLength: UInt32
     UsbPortProperties: win32more.Windows.Win32.Devices.Usb.USB_PORT_PROPERTIES
@@ -1795,40 +1795,40 @@ class USB_PORT_CONNECTOR_PROPERTIES(EasyCastStructure):
     CompanionPortNumber: UInt16
     CompanionHubSymbolicLinkName: Char * 1
     _pack_ = 1
-class USB_PORT_EXT_STATUS(EasyCastUnion):
+class USB_PORT_EXT_STATUS(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         _pack_ = 1
-class USB_PORT_EXT_STATUS_AND_CHANGE(EasyCastUnion):
+class USB_PORT_EXT_STATUS_AND_CHANGE(Union):
     AsUlong64: UInt64
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         PortStatusChange: win32more.Windows.Win32.Devices.Usb.USB_PORT_STATUS_AND_CHANGE
         PortExtStatus: win32more.Windows.Win32.Devices.Usb.USB_PORT_EXT_STATUS
-class USB_PORT_PROPERTIES(EasyCastUnion):
+class USB_PORT_PROPERTIES(Union):
     ul: UInt32
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         _pack_ = 1
-class USB_PORT_STATUS(EasyCastUnion):
+class USB_PORT_STATUS(Union):
     AsUshort16: UInt16
     Usb20PortStatus: win32more.Windows.Win32.Devices.Usb.USB_20_PORT_STATUS
     Usb30PortStatus: win32more.Windows.Win32.Devices.Usb.USB_30_PORT_STATUS
     _pack_ = 1
-class USB_PORT_STATUS_AND_CHANGE(EasyCastUnion):
+class USB_PORT_STATUS_AND_CHANGE(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         PortStatus: win32more.Windows.Win32.Devices.Usb.USB_PORT_STATUS
         PortChange: win32more.Windows.Win32.Devices.Usb.USB_PORT_CHANGE
-class USB_POWER_INFO(EasyCastStructure):
+class USB_POWER_INFO(Structure):
     SystemState: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE
     HcDevicePowerState: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE
     HcDeviceWake: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE
@@ -1840,18 +1840,18 @@ class USB_POWER_INFO(EasyCastStructure):
     CanWakeup: win32more.Windows.Win32.Foundation.BOOLEAN
     IsPowered: win32more.Windows.Win32.Foundation.BOOLEAN
     _pack_ = 1
-class USB_PROTOCOLS(EasyCastUnion):
+class USB_PROTOCOLS(Union):
     ul: UInt32
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         _pack_ = 1
-class USB_ROOT_HUB_NAME(EasyCastStructure):
+class USB_ROOT_HUB_NAME(Structure):
     ActualLength: UInt32
     RootHubName: Char * 1
     _pack_ = 1
-class USB_SEND_RAW_COMMAND_PARAMETERS(EasyCastStructure):
+class USB_SEND_RAW_COMMAND_PARAMETERS(Structure):
     Usb_bmRequest: Byte
     Usb_bRequest: Byte
     Usb_wVlaue: UInt16
@@ -1864,40 +1864,40 @@ class USB_SEND_RAW_COMMAND_PARAMETERS(EasyCastStructure):
     UsbdStatusCode: Int32
     Data: Byte * 4
     _pack_ = 1
-class USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION(EasyCastStructure):
+class USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION(Structure):
     TimeTrackingHandle: win32more.Windows.Win32.Foundation.HANDLE
     IsStartupDelayTolerable: win32more.Windows.Win32.Foundation.BOOLEAN
     _pack_ = 1
-class USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION(EasyCastStructure):
+class USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION(Structure):
     TimeTrackingHandle: win32more.Windows.Win32.Foundation.HANDLE
     _pack_ = 1
-class USB_STRING_DESCRIPTOR(EasyCastStructure):
+class USB_STRING_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bString: Char * 1
     _pack_ = 1
-class USB_SUPERSPEEDPLUS_ISOCH_ENDPOINT_COMPANION_DESCRIPTOR(EasyCastStructure):
+class USB_SUPERSPEEDPLUS_ISOCH_ENDPOINT_COMPANION_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     wReserved: UInt16
     dwBytesPerInterval: UInt32
     _pack_ = 1
-class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR(EasyCastStructure):
+class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
     bMaxBurst: Byte
     bmAttributes: _bmAttributes_e__Union
     wBytesPerInterval: UInt16
     _pack_ = 1
-    class _bmAttributes_e__Union(EasyCastUnion):
+    class _bmAttributes_e__Union(Union):
         AsUchar: Byte
         Bulk: _Bulk_e__Struct
         Isochronous: _Isochronous_e__Struct
-        class _Bulk_e__Struct(EasyCastStructure):
+        class _Bulk_e__Struct(Structure):
             _bitfield: Byte
-        class _Isochronous_e__Struct(EasyCastStructure):
+        class _Isochronous_e__Struct(Structure):
             _bitfield: Byte
-class USB_TOPOLOGY_ADDRESS(EasyCastStructure):
+class USB_TOPOLOGY_ADDRESS(Structure):
     PciBusNumber: UInt32
     PciDeviceNumber: UInt32
     PciFunctionNumber: UInt32
@@ -1905,29 +1905,29 @@ class USB_TOPOLOGY_ADDRESS(EasyCastStructure):
     RootHubPortNumber: UInt16
     HubPortNumber: UInt16 * 5
     Reserved2: UInt16
-class USB_TRANSPORT_CHARACTERISTICS(EasyCastStructure):
+class USB_TRANSPORT_CHARACTERISTICS(Structure):
     Version: UInt32
     TransportCharacteristicsFlags: UInt32
     CurrentRoundtripLatencyInMilliSeconds: UInt64
     MaxPotentialBandwidth: UInt64
     _pack_ = 1
-class USB_TRANSPORT_CHARACTERISTICS_CHANGE_NOTIFICATION(EasyCastStructure):
+class USB_TRANSPORT_CHARACTERISTICS_CHANGE_NOTIFICATION(Structure):
     Handle: win32more.Windows.Win32.Devices.Usb.USB_CHANGE_REGISTRATION_HANDLE
     UsbTransportCharacteristics: win32more.Windows.Win32.Devices.Usb.USB_TRANSPORT_CHARACTERISTICS
     _pack_ = 1
-class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION(EasyCastStructure):
+class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION(Structure):
     ChangeNotificationInputFlags: UInt32
     Handle: win32more.Windows.Win32.Devices.Usb.USB_CHANGE_REGISTRATION_HANDLE
     UsbTransportCharacteristics: win32more.Windows.Win32.Devices.Usb.USB_TRANSPORT_CHARACTERISTICS
     _pack_ = 1
-class USB_TRANSPORT_CHARACTERISTICS_CHANGE_UNREGISTRATION(EasyCastStructure):
+class USB_TRANSPORT_CHARACTERISTICS_CHANGE_UNREGISTRATION(Structure):
     Handle: win32more.Windows.Win32.Devices.Usb.USB_CHANGE_REGISTRATION_HANDLE
     _pack_ = 1
-class USB_UNICODE_NAME(EasyCastStructure):
+class USB_UNICODE_NAME(Structure):
     Length: UInt32
     String: Char * 1
     _pack_ = 1
-class USB_USB2HW_VERSION_PARAMETERS(EasyCastStructure):
+class USB_USB2HW_VERSION_PARAMETERS(Structure):
     Usb2HwRevision: Byte
     _pack_ = 1
 USB_USER_ERROR_CODE = Int32
@@ -1962,12 +1962,12 @@ WdmUsbPowerDeviceD1: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 20
 WdmUsbPowerDeviceD2: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 203
 WdmUsbPowerDeviceD3: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 204
 WINUSB_INTERFACE_HANDLE = IntPtr
-class WINUSB_PIPE_INFORMATION(EasyCastStructure):
+class WINUSB_PIPE_INFORMATION(Structure):
     PipeType: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE
     PipeId: Byte
     MaximumPacketSize: UInt16
     Interval: Byte
-class WINUSB_PIPE_INFORMATION_EX(EasyCastStructure):
+class WINUSB_PIPE_INFORMATION_EX(Structure):
     PipeType: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE
     PipeId: Byte
     MaximumPacketSize: UInt16
@@ -1986,14 +1986,14 @@ RESET_PIPE_ON_RESUME: win32more.Windows.Win32.Devices.Usb.WINUSB_PIPE_POLICY = 9
 WINUSB_POWER_POLICY = UInt32
 AUTO_SUSPEND: win32more.Windows.Win32.Devices.Usb.WINUSB_POWER_POLICY = 129
 SUSPEND_DELAY: win32more.Windows.Win32.Devices.Usb.WINUSB_POWER_POLICY = 131
-class WINUSB_SETUP_PACKET(EasyCastStructure):
+class WINUSB_SETUP_PACKET(Structure):
     RequestType: Byte
     Request: Byte
     Value: UInt16
     Index: UInt16
     Length: UInt16
     _pack_ = 1
-class _URB_BULK_OR_INTERRUPT_TRANSFER(EasyCastStructure):
+class _URB_BULK_OR_INTERRUPT_TRANSFER(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     PipeHandle: VoidPtr
     TransferFlags: UInt32
@@ -2002,7 +2002,7 @@ class _URB_BULK_OR_INTERRUPT_TRANSFER(EasyCastStructure):
     TransferBufferMDL: VoidPtr
     UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
-class _URB_CONTROL_DESCRIPTOR_REQUEST(EasyCastStructure):
+class _URB_CONTROL_DESCRIPTOR_REQUEST(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     Reserved: VoidPtr
     Reserved0: UInt32
@@ -2016,7 +2016,7 @@ class _URB_CONTROL_DESCRIPTOR_REQUEST(EasyCastStructure):
     DescriptorType: Byte
     LanguageId: UInt16
     Reserved2: UInt16
-class _URB_CONTROL_FEATURE_REQUEST(EasyCastStructure):
+class _URB_CONTROL_FEATURE_REQUEST(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     Reserved: VoidPtr
     Reserved2: UInt32
@@ -2029,7 +2029,7 @@ class _URB_CONTROL_FEATURE_REQUEST(EasyCastStructure):
     FeatureSelector: UInt16
     Index: UInt16
     Reserved1: UInt16
-class _URB_CONTROL_GET_CONFIGURATION_REQUEST(EasyCastStructure):
+class _URB_CONTROL_GET_CONFIGURATION_REQUEST(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     Reserved: VoidPtr
     Reserved0: UInt32
@@ -2039,7 +2039,7 @@ class _URB_CONTROL_GET_CONFIGURATION_REQUEST(EasyCastStructure):
     UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     Reserved1: Byte * 8
-class _URB_CONTROL_GET_INTERFACE_REQUEST(EasyCastStructure):
+class _URB_CONTROL_GET_INTERFACE_REQUEST(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     Reserved: VoidPtr
     Reserved0: UInt32
@@ -2051,7 +2051,7 @@ class _URB_CONTROL_GET_INTERFACE_REQUEST(EasyCastStructure):
     Reserved1: Byte * 4
     Interface: UInt16
     Reserved2: UInt16
-class _URB_CONTROL_GET_STATUS_REQUEST(EasyCastStructure):
+class _URB_CONTROL_GET_STATUS_REQUEST(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     Reserved: VoidPtr
     Reserved0: UInt32
@@ -2063,7 +2063,7 @@ class _URB_CONTROL_GET_STATUS_REQUEST(EasyCastStructure):
     Reserved1: Byte * 4
     Index: UInt16
     Reserved2: UInt16
-class _URB_CONTROL_TRANSFER(EasyCastStructure):
+class _URB_CONTROL_TRANSFER(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     PipeHandle: VoidPtr
     TransferFlags: UInt32
@@ -2073,7 +2073,7 @@ class _URB_CONTROL_TRANSFER(EasyCastStructure):
     UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     SetupPacket: Byte * 8
-class _URB_CONTROL_TRANSFER_EX(EasyCastStructure):
+class _URB_CONTROL_TRANSFER_EX(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     PipeHandle: VoidPtr
     TransferFlags: UInt32
@@ -2083,7 +2083,7 @@ class _URB_CONTROL_TRANSFER_EX(EasyCastStructure):
     Timeout: UInt32
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
     SetupPacket: Byte * 8
-class _URB_CONTROL_VENDOR_OR_CLASS_REQUEST(EasyCastStructure):
+class _URB_CONTROL_VENDOR_OR_CLASS_REQUEST(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     Reserved: VoidPtr
     TransferFlags: UInt32
@@ -2097,29 +2097,29 @@ class _URB_CONTROL_VENDOR_OR_CLASS_REQUEST(EasyCastStructure):
     Value: UInt16
     Index: UInt16
     Reserved1: UInt16
-class _URB_FRAME_LENGTH_CONTROL(EasyCastStructure):
+class _URB_FRAME_LENGTH_CONTROL(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
-class _URB_GET_CURRENT_FRAME_NUMBER(EasyCastStructure):
+class _URB_GET_CURRENT_FRAME_NUMBER(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     FrameNumber: UInt32
-class _URB_GET_FRAME_LENGTH(EasyCastStructure):
+class _URB_GET_FRAME_LENGTH(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     FrameLength: UInt32
     FrameNumber: UInt32
-class _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS(EasyCastStructure):
+class _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     PipeHandle: VoidPtr
     MaximumSendPathDelayInMilliSeconds: UInt32
     MaximumCompletionPathDelayInMilliSeconds: UInt32
-class _URB_HCD_AREA(EasyCastStructure):
+class _URB_HCD_AREA(Structure):
     Reserved8: VoidPtr * 8
-class _URB_HEADER(EasyCastStructure):
+class _URB_HEADER(Structure):
     Length: UInt16
     Function: UInt16
     Status: Int32
     UsbdDeviceHandle: VoidPtr
     UsbdFlags: UInt32
-class _URB_ISOCH_TRANSFER(EasyCastStructure):
+class _URB_ISOCH_TRANSFER(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     PipeHandle: VoidPtr
     TransferFlags: UInt32
@@ -2132,14 +2132,14 @@ class _URB_ISOCH_TRANSFER(EasyCastStructure):
     NumberOfPackets: UInt32
     ErrorCount: UInt32
     IsoPacket: win32more.Windows.Win32.Devices.Usb.USBD_ISO_PACKET_DESCRIPTOR * 1
-class _URB_OPEN_STATIC_STREAMS(EasyCastStructure):
+class _URB_OPEN_STATIC_STREAMS(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     PipeHandle: VoidPtr
     NumberOfStreams: UInt32
     StreamInfoVersion: UInt16
     StreamInfoSize: UInt16
     Streams: POINTER(win32more.Windows.Win32.Devices.Usb.USBD_STREAM_INFORMATION)
-class _URB_OS_FEATURE_DESCRIPTOR_REQUEST(EasyCastStructure):
+class _URB_OS_FEATURE_DESCRIPTOR_REQUEST(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     Reserved: VoidPtr
     Reserved0: UInt32
@@ -2154,20 +2154,20 @@ class _URB_OS_FEATURE_DESCRIPTOR_REQUEST(EasyCastStructure):
     MS_PageIndex: Byte
     MS_FeatureDescriptorIndex: UInt16
     Reserved3: UInt16
-class _URB_PIPE_REQUEST(EasyCastStructure):
+class _URB_PIPE_REQUEST(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     PipeHandle: VoidPtr
     Reserved: UInt32
-class _URB_SELECT_CONFIGURATION(EasyCastStructure):
+class _URB_SELECT_CONFIGURATION(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     ConfigurationDescriptor: POINTER(win32more.Windows.Win32.Devices.Usb.USB_CONFIGURATION_DESCRIPTOR)
     ConfigurationHandle: VoidPtr
     Interface: win32more.Windows.Win32.Devices.Usb.USBD_INTERFACE_INFORMATION
-class _URB_SELECT_INTERFACE(EasyCastStructure):
+class _URB_SELECT_INTERFACE(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     ConfigurationHandle: VoidPtr
     Interface: win32more.Windows.Win32.Devices.Usb.USBD_INTERFACE_INFORMATION
-class _URB_SET_FRAME_LENGTH(EasyCastStructure):
+class _URB_SET_FRAME_LENGTH(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     FrameLengthDelta: Int32
 

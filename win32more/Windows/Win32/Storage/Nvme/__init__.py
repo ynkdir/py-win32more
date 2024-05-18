@@ -1,14 +1,14 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Nvme
-class ACTIVE_LATENCY_CONFIGURATION(EasyCastStructure):
+class ACTIVE_LATENCY_CONFIGURATION(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
 NVME_IDENTIFY_CNS_DESCRIPTOR_NAMESPACE_SIZE: UInt32 = 4096
@@ -55,18 +55,18 @@ NVME_STREAMS_ID_MIN: UInt32 = 1
 NVME_STREAMS_ID_MAX: UInt32 = 65535
 NVME_STREAMS_GET_STATUS_MAX_IDS: UInt32 = 65535
 NVME_NAMESPACE_ALL: UInt32 = 4294967295
-class BUCKET_COUNTER(EasyCastStructure):
+class BUCKET_COUNTER(Structure):
     Reserved: UInt32
     Trim: UInt32
     Write: UInt32
     Read: UInt32
     _pack_ = 1
-class DEBUG_BIT_FIELD(EasyCastStructure):
+class DEBUG_BIT_FIELD(Structure):
     _bitfield: UInt16
     _pack_ = 1
-class DSSD_POWER_STATE_DESCRIPTOR(EasyCastStructure):
+class DSSD_POWER_STATE_DESCRIPTOR(Structure):
     _bitfield: Byte
-class FIRMWARE_ACTIVATION_HISTORY_ENTRY(EasyCastStructure):
+class FIRMWARE_ACTIVATION_HISTORY_ENTRY(Structure):
     VersionNumber: Byte
     Length: Byte
     Reserved0: UInt16
@@ -81,14 +81,14 @@ class FIRMWARE_ACTIVATION_HISTORY_ENTRY(EasyCastStructure):
     Result: UInt16
     Reserved2: Byte * 14
     _pack_ = 1
-class LATENCY_MONITOR_FEATURE_STATUS(EasyCastStructure):
+class LATENCY_MONITOR_FEATURE_STATUS(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-class LATENCY_STAMP(EasyCastStructure):
+class LATENCY_STAMP(Structure):
     Trim3: UInt64
     Write3: UInt64
     Read3: UInt64
@@ -102,10 +102,10 @@ class LATENCY_STAMP(EasyCastStructure):
     Write0: UInt64
     Read0: UInt64
     _pack_ = 1
-class LATENCY_STAMP_UNITS(EasyCastStructure):
+class LATENCY_STAMP_UNITS(Structure):
     _bitfield: UInt16
     _pack_ = 1
-class MEASURED_LATENCY(EasyCastStructure):
+class MEASURED_LATENCY(Structure):
     Trim3: UInt16
     Write3: UInt16
     Read3: UInt16
@@ -134,7 +134,7 @@ NVME_ACCESS_LATENCY_NONE: win32more.Windows.Win32.Storage.Nvme.NVME_ACCESS_LATEN
 NVME_ACCESS_LATENCY_IDLE: win32more.Windows.Win32.Storage.Nvme.NVME_ACCESS_LATENCIES = 1
 NVME_ACCESS_LATENCY_NORMAL: win32more.Windows.Win32.Storage.Nvme.NVME_ACCESS_LATENCIES = 2
 NVME_ACCESS_LATENCY_LOW: win32more.Windows.Win32.Storage.Nvme.NVME_ACCESS_LATENCIES = 3
-class NVME_ACTIVE_NAMESPACE_ID_LIST(EasyCastStructure):
+class NVME_ACTIVE_NAMESPACE_ID_LIST(Structure):
     NSID: UInt32 * 1024
 NVME_ADMIN_COMMANDS = Int32
 NVME_ADMIN_COMMAND_DELETE_IO_SQ: win32more.Windows.Win32.Storage.Nvme.NVME_ADMIN_COMMANDS = 0
@@ -164,20 +164,20 @@ NVME_ADMIN_COMMAND_SECURITY_SEND: win32more.Windows.Win32.Storage.Nvme.NVME_ADMI
 NVME_ADMIN_COMMAND_SECURITY_RECEIVE: win32more.Windows.Win32.Storage.Nvme.NVME_ADMIN_COMMANDS = 130
 NVME_ADMIN_COMMAND_SANITIZE: win32more.Windows.Win32.Storage.Nvme.NVME_ADMIN_COMMANDS = 132
 NVME_ADMIN_COMMAND_GET_LBA_STATUS: win32more.Windows.Win32.Storage.Nvme.NVME_ADMIN_COMMANDS = 134
-class NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS(EasyCastUnion):
+class NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlonglong: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class NVME_ADMIN_QUEUE_ATTRIBUTES(EasyCastUnion):
+class NVME_ADMIN_QUEUE_ATTRIBUTES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS(EasyCastUnion):
+class NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlonglong: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
 NVME_AMS_OPTION = Int32
 NVME_AMS_ROUND_ROBIN: win32more.Windows.Win32.Storage.Nvme.NVME_AMS_OPTION = 0
@@ -215,148 +215,148 @@ NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC: win32more.Windows.Win32.Storage.Nvme.NVME
 NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_CODES = Int32
 NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_RESERVED: win32more.Windows.Win32.Storage.Nvme.NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_CODES = 0
 NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_DEVICE_PANIC: win32more.Windows.Win32.Storage.Nvme.NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_CODES = 1
-class NVME_AUTO_POWER_STATE_TRANSITION_ENTRY(EasyCastStructure):
+class NVME_AUTO_POWER_STATE_TRANSITION_ENTRY(Structure):
     _bitfield: UInt32
     Reserved1: UInt32
 NVME_CC_SHN_SHUTDOWN_NOTIFICATIONS = Int32
 NVME_CC_SHN_NO_NOTIFICATION: win32more.Windows.Win32.Storage.Nvme.NVME_CC_SHN_SHUTDOWN_NOTIFICATIONS = 0
 NVME_CC_SHN_NORMAL_SHUTDOWN: win32more.Windows.Win32.Storage.Nvme.NVME_CC_SHN_SHUTDOWN_NOTIFICATIONS = 1
 NVME_CC_SHN_ABRUPT_SHUTDOWN: win32more.Windows.Win32.Storage.Nvme.NVME_CC_SHN_SHUTDOWN_NOTIFICATIONS = 2
-class NVME_CDW0_FEATURE_ENABLE_IEEE1667_SILO(EasyCastUnion):
+class NVME_CDW0_FEATURE_ENABLE_IEEE1667_SILO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW0_FEATURE_ERROR_INJECTION(EasyCastUnion):
+class NVME_CDW0_FEATURE_ERROR_INJECTION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW0_FEATURE_READONLY_WRITETHROUGH_MODE(EasyCastUnion):
+class NVME_CDW0_FEATURE_READONLY_WRITETHROUGH_MODE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW0_RESERVATION_PERSISTENCE(EasyCastStructure):
+class NVME_CDW0_RESERVATION_PERSISTENCE(Structure):
     _bitfield: UInt32
-class NVME_CDW10_ABORT(EasyCastUnion):
+class NVME_CDW10_ABORT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_CREATE_IO_QUEUE(EasyCastUnion):
+class NVME_CDW10_CREATE_IO_QUEUE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_DATASET_MANAGEMENT(EasyCastUnion):
+class NVME_CDW10_DATASET_MANAGEMENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_DIRECTIVE_RECEIVE(EasyCastStructure):
+class NVME_CDW10_DIRECTIVE_RECEIVE(Structure):
     NUMD: UInt32
-class NVME_CDW10_DIRECTIVE_SEND(EasyCastStructure):
+class NVME_CDW10_DIRECTIVE_SEND(Structure):
     NUMD: UInt32
-class NVME_CDW10_FIRMWARE_ACTIVATE(EasyCastUnion):
+class NVME_CDW10_FIRMWARE_ACTIVATE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_FIRMWARE_DOWNLOAD(EasyCastStructure):
+class NVME_CDW10_FIRMWARE_DOWNLOAD(Structure):
     NUMD: UInt32
-class NVME_CDW10_FORMAT_NVM(EasyCastUnion):
+class NVME_CDW10_FORMAT_NVM(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_GET_FEATURES(EasyCastUnion):
+class NVME_CDW10_GET_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_GET_LOG_PAGE(EasyCastUnion):
+class NVME_CDW10_GET_LOG_PAGE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_GET_LOG_PAGE_V13(EasyCastUnion):
+class NVME_CDW10_GET_LOG_PAGE_V13(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_IDENTIFY(EasyCastUnion):
+class NVME_CDW10_IDENTIFY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_RESERVATION_ACQUIRE(EasyCastUnion):
+class NVME_CDW10_RESERVATION_ACQUIRE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_RESERVATION_REGISTER(EasyCastUnion):
+class NVME_CDW10_RESERVATION_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_RESERVATION_RELEASE(EasyCastUnion):
+class NVME_CDW10_RESERVATION_RELEASE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_RESERVATION_REPORT(EasyCastUnion):
+class NVME_CDW10_RESERVATION_REPORT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         NUMD: UInt32
-class NVME_CDW10_SANITIZE(EasyCastUnion):
+class NVME_CDW10_SANITIZE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_SECURITY_SEND_RECEIVE(EasyCastUnion):
+class NVME_CDW10_SECURITY_SEND_RECEIVE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_SET_FEATURES(EasyCastUnion):
+class NVME_CDW10_SET_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW10_ZONE_APPEND(EasyCastStructure):
+class NVME_CDW10_ZONE_APPEND(Structure):
     SLBA: UInt64
-class NVME_CDW10_ZONE_MANAGEMENT_RECEIVE(EasyCastStructure):
+class NVME_CDW10_ZONE_MANAGEMENT_RECEIVE(Structure):
     SLBA: UInt64
-class NVME_CDW10_ZONE_MANAGEMENT_SEND(EasyCastStructure):
+class NVME_CDW10_ZONE_MANAGEMENT_SEND(Structure):
     SLBA: UInt64
-class NVME_CDW11_CREATE_IO_CQ(EasyCastUnion):
+class NVME_CDW11_CREATE_IO_CQ(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_CREATE_IO_SQ(EasyCastUnion):
+class NVME_CDW11_CREATE_IO_SQ(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_DATASET_MANAGEMENT(EasyCastUnion):
+class NVME_CDW11_DATASET_MANAGEMENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_DIRECTIVE_RECEIVE(EasyCastUnion):
+class NVME_CDW11_DIRECTIVE_RECEIVE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_DIRECTIVE_SEND(EasyCastUnion):
+class NVME_CDW11_DIRECTIVE_SEND(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURES(EasyCastUnion):
+class NVME_CDW11_FEATURES(Union):
     NumberOfQueues: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FEATURE_NUMBER_OF_QUEUES
     InterruptCoalescing: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FEATURE_INTERRUPT_COALESCING
     InterruptVectorConfig: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FEATURE_INTERRUPT_VECTOR_CONFIG
@@ -379,251 +379,251 @@ class NVME_CDW11_FEATURES(EasyCastUnion):
     GetHostMetadata: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FEATURE_GET_HOST_METADATA
     SetHostMetadata: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FEATURE_SET_HOST_METADATA
     AsUlong: UInt32
-class NVME_CDW11_FEATURE_ARBITRATION(EasyCastUnion):
+class NVME_CDW11_FEATURE_ARBITRATION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_ASYNC_EVENT_CONFIG(EasyCastUnion):
+class NVME_CDW11_FEATURE_ASYNC_EVENT_CONFIG(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_AUTO_POWER_STATE_TRANSITION(EasyCastUnion):
+class NVME_CDW11_FEATURE_AUTO_POWER_STATE_TRANSITION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_CLEAR_FW_UPDATE_HISTORY(EasyCastUnion):
+class NVME_CDW11_FEATURE_CLEAR_FW_UPDATE_HISTORY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_CLEAR_PCIE_CORRECTABLE_ERROR_COUNTERS(EasyCastUnion):
+class NVME_CDW11_FEATURE_CLEAR_PCIE_CORRECTABLE_ERROR_COUNTERS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_ENABLE_IEEE1667_SILO(EasyCastUnion):
+class NVME_CDW11_FEATURE_ENABLE_IEEE1667_SILO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_ERROR_RECOVERY(EasyCastUnion):
+class NVME_CDW11_FEATURE_ERROR_RECOVERY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_GET_HOST_METADATA(EasyCastUnion):
+class NVME_CDW11_FEATURE_GET_HOST_METADATA(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_HOST_IDENTIFIER(EasyCastStructure):
+class NVME_CDW11_FEATURE_HOST_IDENTIFIER(Structure):
     _bitfield: UInt32
-class NVME_CDW11_FEATURE_HOST_MEMORY_BUFFER(EasyCastUnion):
+class NVME_CDW11_FEATURE_HOST_MEMORY_BUFFER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_INTERRUPT_COALESCING(EasyCastUnion):
+class NVME_CDW11_FEATURE_INTERRUPT_COALESCING(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_INTERRUPT_VECTOR_CONFIG(EasyCastUnion):
+class NVME_CDW11_FEATURE_INTERRUPT_VECTOR_CONFIG(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_IO_COMMAND_SET_PROFILE(EasyCastUnion):
+class NVME_CDW11_FEATURE_IO_COMMAND_SET_PROFILE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_LBA_RANGE_TYPE(EasyCastUnion):
+class NVME_CDW11_FEATURE_LBA_RANGE_TYPE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE(EasyCastUnion):
+class NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_NUMBER_OF_QUEUES(EasyCastUnion):
+class NVME_CDW11_FEATURE_NUMBER_OF_QUEUES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_POWER_MANAGEMENT(EasyCastUnion):
+class NVME_CDW11_FEATURE_POWER_MANAGEMENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_READONLY_WRITETHROUGH_MODE(EasyCastUnion):
+class NVME_CDW11_FEATURE_READONLY_WRITETHROUGH_MODE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK(EasyCastStructure):
+class NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK(Structure):
     _bitfield: UInt32
-class NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE(EasyCastStructure):
+class NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE(Structure):
     _bitfield: UInt32
-class NVME_CDW11_FEATURE_SET_HOST_METADATA(EasyCastUnion):
+class NVME_CDW11_FEATURE_SET_HOST_METADATA(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_SUPPORTED_CAPABILITY(EasyCastUnion):
+class NVME_CDW11_FEATURE_SUPPORTED_CAPABILITY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD(EasyCastUnion):
+class NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_VOLATILE_WRITE_CACHE(EasyCastUnion):
+class NVME_CDW11_FEATURE_VOLATILE_WRITE_CACHE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FEATURE_WRITE_ATOMICITY_NORMAL(EasyCastUnion):
+class NVME_CDW11_FEATURE_WRITE_ATOMICITY_NORMAL(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_FIRMWARE_DOWNLOAD(EasyCastStructure):
+class NVME_CDW11_FIRMWARE_DOWNLOAD(Structure):
     OFST: UInt32
-class NVME_CDW11_GET_LOG_PAGE(EasyCastUnion):
+class NVME_CDW11_GET_LOG_PAGE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_IDENTIFY(EasyCastUnion):
+class NVME_CDW11_IDENTIFY(Union):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Struct
     AsUlong: UInt32
-    class _Anonymous1_e__Struct(EasyCastStructure):
+    class _Anonymous1_e__Struct(Structure):
         NVMSETID: UInt16
         Reserved: UInt16
-    class _Anonymous2_e__Struct(EasyCastStructure):
+    class _Anonymous2_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_RESERVATION_REPORT(EasyCastUnion):
+class NVME_CDW11_RESERVATION_REPORT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW11_SANITIZE(EasyCastUnion):
+class NVME_CDW11_SANITIZE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         OVRPAT: UInt32
-class NVME_CDW11_SECURITY_RECEIVE(EasyCastStructure):
+class NVME_CDW11_SECURITY_RECEIVE(Structure):
     AL: UInt32
-class NVME_CDW11_SECURITY_SEND(EasyCastStructure):
+class NVME_CDW11_SECURITY_SEND(Structure):
     TL: UInt32
-class NVME_CDW12_DIRECTIVE_RECEIVE(EasyCastUnion):
+class NVME_CDW12_DIRECTIVE_RECEIVE(Union):
     AllocateResources: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES
     AsUlong: UInt32
-class NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES(EasyCastUnion):
+class NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW12_DIRECTIVE_SEND(EasyCastUnion):
+class NVME_CDW12_DIRECTIVE_SEND(Union):
     EnableDirective: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE
     AsUlong: UInt32
-class NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE(EasyCastUnion):
+class NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW12_FEATURES(EasyCastUnion):
+class NVME_CDW12_FEATURES(Union):
     HostMemoryBuffer: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_FEATURE_HOST_MEMORY_BUFFER
     AsUlong: UInt32
-class NVME_CDW12_FEATURE_HOST_MEMORY_BUFFER(EasyCastUnion):
+class NVME_CDW12_FEATURE_HOST_MEMORY_BUFFER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         HSIZE: UInt32
-class NVME_CDW12_GET_LOG_PAGE(EasyCastStructure):
+class NVME_CDW12_GET_LOG_PAGE(Structure):
     LPOL: UInt32
-class NVME_CDW12_READ_WRITE(EasyCastUnion):
+class NVME_CDW12_READ_WRITE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW12_ZONE_APPEND(EasyCastUnion):
+class NVME_CDW12_ZONE_APPEND(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW13_FEATURES(EasyCastUnion):
+class NVME_CDW13_FEATURES(Union):
     HostMemoryBuffer: win32more.Windows.Win32.Storage.Nvme.NVME_CDW13_FEATURE_HOST_MEMORY_BUFFER
     AsUlong: UInt32
-class NVME_CDW13_FEATURE_HOST_MEMORY_BUFFER(EasyCastUnion):
+class NVME_CDW13_FEATURE_HOST_MEMORY_BUFFER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW13_GET_LOG_PAGE(EasyCastStructure):
+class NVME_CDW13_GET_LOG_PAGE(Structure):
     LPOU: UInt32
-class NVME_CDW13_READ_WRITE(EasyCastUnion):
+class NVME_CDW13_READ_WRITE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         DSM: _DSM_e__Struct
         Reserved: Byte
         DSPEC: UInt16
-        class _DSM_e__Struct(EasyCastStructure):
+        class _DSM_e__Struct(Structure):
             _bitfield: Byte
-class NVME_CDW13_ZONE_MANAGEMENT_RECEIVE(EasyCastUnion):
+class NVME_CDW13_ZONE_MANAGEMENT_RECEIVE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW13_ZONE_MANAGEMENT_SEND(EasyCastUnion):
+class NVME_CDW13_ZONE_MANAGEMENT_SEND(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW14_FEATURES(EasyCastUnion):
+class NVME_CDW14_FEATURES(Union):
     HostMemoryBuffer: win32more.Windows.Win32.Storage.Nvme.NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER
     AsUlong: UInt32
-class NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER(EasyCastUnion):
+class NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         HMDLUA: UInt32
-class NVME_CDW14_GET_LOG_PAGE(EasyCastUnion):
+class NVME_CDW14_GET_LOG_PAGE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW15_FEATURES(EasyCastUnion):
+class NVME_CDW15_FEATURES(Union):
     HostMemoryBuffer: win32more.Windows.Win32.Storage.Nvme.NVME_CDW15_FEATURE_HOST_MEMORY_BUFFER
     AsUlong: UInt32
-class NVME_CDW15_FEATURE_HOST_MEMORY_BUFFER(EasyCastUnion):
+class NVME_CDW15_FEATURE_HOST_MEMORY_BUFFER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         HMDLEC: UInt32
-class NVME_CDW15_READ_WRITE(EasyCastUnion):
+class NVME_CDW15_READ_WRITE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CDW15_ZONE_APPEND(EasyCastUnion):
+class NVME_CDW15_ZONE_APPEND(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CHANGED_NAMESPACE_LIST_LOG(EasyCastStructure):
+class NVME_CHANGED_NAMESPACE_LIST_LOG(Structure):
     NSID: UInt32 * 1024
-class NVME_CHANGED_ZONE_LIST_LOG(EasyCastStructure):
+class NVME_CHANGED_ZONE_LIST_LOG(Structure):
     ZoneIdentifiersCount: UInt16
     Reserved: Byte * 6
     ZoneIdentifier: UInt64 * 511
@@ -635,7 +635,7 @@ NVME_CMBSZ_SIZE_UNITS_16MB: win32more.Windows.Win32.Storage.Nvme.NVME_CMBSZ_SIZE
 NVME_CMBSZ_SIZE_UNITS_256MB: win32more.Windows.Win32.Storage.Nvme.NVME_CMBSZ_SIZE_UNITS = 4
 NVME_CMBSZ_SIZE_UNITS_4GB: win32more.Windows.Win32.Storage.Nvme.NVME_CMBSZ_SIZE_UNITS = 5
 NVME_CMBSZ_SIZE_UNITS_64GB: win32more.Windows.Win32.Storage.Nvme.NVME_CMBSZ_SIZE_UNITS = 6
-class NVME_COMMAND(EasyCastStructure):
+class NVME_COMMAND(Structure):
     CDW0: win32more.Windows.Win32.Storage.Nvme.NVME_COMMAND_DWORD0
     NSID: UInt32
     Reserved0: UInt32 * 2
@@ -643,7 +643,7 @@ class NVME_COMMAND(EasyCastStructure):
     PRP1: UInt64
     PRP2: UInt64
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         GENERAL: _GENERAL_e__Struct
         IDENTIFY: _IDENTIFY_e__Struct
         ABORT: _ABORT_e__Struct
@@ -669,192 +669,192 @@ class NVME_COMMAND(EasyCastStructure):
         ZONEMANAGEMENTSEND: _ZONEMANAGEMENTSEND_e__Struct
         ZONEMANAGEMENTRECEIVE: _ZONEMANAGEMENTRECEIVE_e__Struct
         ZONEAPPEND: _ZONEAPPEND_e__Struct
-        class _GENERAL_e__Struct(EasyCastStructure):
+        class _GENERAL_e__Struct(Structure):
             CDW10: UInt32
             CDW11: UInt32
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _IDENTIFY_e__Struct(EasyCastStructure):
+        class _IDENTIFY_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_IDENTIFY
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_IDENTIFY
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _ABORT_e__Struct(EasyCastStructure):
+        class _ABORT_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_ABORT
             CDW11: UInt32
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _GETFEATURES_e__Struct(EasyCastStructure):
+        class _GETFEATURES_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_GET_FEATURES
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FEATURES
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _SETFEATURES_e__Struct(EasyCastStructure):
+        class _SETFEATURES_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_SET_FEATURES
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FEATURES
             CDW12: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_FEATURES
             CDW13: win32more.Windows.Win32.Storage.Nvme.NVME_CDW13_FEATURES
             CDW14: win32more.Windows.Win32.Storage.Nvme.NVME_CDW14_FEATURES
             CDW15: win32more.Windows.Win32.Storage.Nvme.NVME_CDW15_FEATURES
-        class _GETLOGPAGE_e__Struct(EasyCastStructure):
+        class _GETLOGPAGE_e__Struct(Structure):
             Anonymous: _Anonymous_e__Union
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_GET_LOG_PAGE
             CDW12: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_GET_LOG_PAGE
             CDW13: win32more.Windows.Win32.Storage.Nvme.NVME_CDW13_GET_LOG_PAGE
             CDW14: win32more.Windows.Win32.Storage.Nvme.NVME_CDW14_GET_LOG_PAGE
             CDW15: UInt32
-            class _Anonymous_e__Union(EasyCastUnion):
+            class _Anonymous_e__Union(Union):
                 CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_GET_LOG_PAGE
                 CDW10_V13: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_GET_LOG_PAGE_V13
-        class _CREATEIOCQ_e__Struct(EasyCastStructure):
+        class _CREATEIOCQ_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_CREATE_IO_QUEUE
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_CREATE_IO_CQ
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _CREATEIOSQ_e__Struct(EasyCastStructure):
+        class _CREATEIOSQ_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_CREATE_IO_QUEUE
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_CREATE_IO_SQ
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _DATASETMANAGEMENT_e__Struct(EasyCastStructure):
+        class _DATASETMANAGEMENT_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_DATASET_MANAGEMENT
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_DATASET_MANAGEMENT
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _SECURITYSEND_e__Struct(EasyCastStructure):
+        class _SECURITYSEND_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_SECURITY_SEND_RECEIVE
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_SECURITY_SEND
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _SECURITYRECEIVE_e__Struct(EasyCastStructure):
+        class _SECURITYRECEIVE_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_SECURITY_SEND_RECEIVE
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_SECURITY_RECEIVE
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _FIRMWAREDOWNLOAD_e__Struct(EasyCastStructure):
+        class _FIRMWAREDOWNLOAD_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_FIRMWARE_DOWNLOAD
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FIRMWARE_DOWNLOAD
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _FIRMWAREACTIVATE_e__Struct(EasyCastStructure):
+        class _FIRMWAREACTIVATE_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_FIRMWARE_ACTIVATE
             CDW11: UInt32
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _FORMATNVM_e__Struct(EasyCastStructure):
+        class _FORMATNVM_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_FORMAT_NVM
             CDW11: UInt32
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _DIRECTIVERECEIVE_e__Struct(EasyCastStructure):
+        class _DIRECTIVERECEIVE_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_DIRECTIVE_RECEIVE
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_DIRECTIVE_RECEIVE
             CDW12: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_DIRECTIVE_RECEIVE
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _DIRECTIVESEND_e__Struct(EasyCastStructure):
+        class _DIRECTIVESEND_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_DIRECTIVE_SEND
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_DIRECTIVE_SEND
             CDW12: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_DIRECTIVE_SEND
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _SANITIZE_e__Struct(EasyCastStructure):
+        class _SANITIZE_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_SANITIZE
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_SANITIZE
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _READWRITE_e__Struct(EasyCastStructure):
+        class _READWRITE_e__Struct(Structure):
             LBALOW: UInt32
             LBAHIGH: UInt32
             CDW12: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_READ_WRITE
             CDW13: win32more.Windows.Win32.Storage.Nvme.NVME_CDW13_READ_WRITE
             CDW14: UInt32
             CDW15: win32more.Windows.Win32.Storage.Nvme.NVME_CDW15_READ_WRITE
-        class _RESERVATIONACQUIRE_e__Struct(EasyCastStructure):
+        class _RESERVATIONACQUIRE_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_RESERVATION_ACQUIRE
             CDW11: UInt32
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _RESERVATIONREGISTER_e__Struct(EasyCastStructure):
+        class _RESERVATIONREGISTER_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_RESERVATION_REGISTER
             CDW11: UInt32
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _RESERVATIONRELEASE_e__Struct(EasyCastStructure):
+        class _RESERVATIONRELEASE_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_RESERVATION_RELEASE
             CDW11: UInt32
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _RESERVATIONREPORT_e__Struct(EasyCastStructure):
+        class _RESERVATIONREPORT_e__Struct(Structure):
             CDW10: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_RESERVATION_REPORT
             CDW11: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_RESERVATION_REPORT
             CDW12: UInt32
             CDW13: UInt32
             CDW14: UInt32
             CDW15: UInt32
-        class _ZONEMANAGEMENTSEND_e__Struct(EasyCastStructure):
+        class _ZONEMANAGEMENTSEND_e__Struct(Structure):
             CDW1011: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_ZONE_MANAGEMENT_SEND
             CDW12: UInt32
             CDW13: win32more.Windows.Win32.Storage.Nvme.NVME_CDW13_ZONE_MANAGEMENT_SEND
             CDW14: UInt32
             CDW15: UInt32
-        class _ZONEMANAGEMENTRECEIVE_e__Struct(EasyCastStructure):
+        class _ZONEMANAGEMENTRECEIVE_e__Struct(Structure):
             CDW1011: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_ZONE_MANAGEMENT_RECEIVE
             DWORDCOUNT: UInt32
             CDW13: win32more.Windows.Win32.Storage.Nvme.NVME_CDW13_ZONE_MANAGEMENT_RECEIVE
             CDW14: UInt32
             CDW15: UInt32
-        class _ZONEAPPEND_e__Struct(EasyCastStructure):
+        class _ZONEAPPEND_e__Struct(Structure):
             CDW1011: win32more.Windows.Win32.Storage.Nvme.NVME_CDW10_ZONE_APPEND
             CDW12: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_ZONE_APPEND
             CDW13: UInt32
             ILBRT: UInt32
             CDW15: win32more.Windows.Win32.Storage.Nvme.NVME_CDW15_ZONE_APPEND
-class NVME_COMMAND_DWORD0(EasyCastUnion):
+class NVME_COMMAND_DWORD0(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_COMMAND_EFFECTS_DATA(EasyCastUnion):
+class NVME_COMMAND_EFFECTS_DATA(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_COMMAND_EFFECTS_LOG(EasyCastStructure):
+class NVME_COMMAND_EFFECTS_LOG(Structure):
     ACS: win32more.Windows.Win32.Storage.Nvme.NVME_COMMAND_EFFECTS_DATA * 256
     IOCS: win32more.Windows.Win32.Storage.Nvme.NVME_COMMAND_EFFECTS_DATA * 256
     Reserved: Byte * 2048
@@ -866,67 +866,67 @@ NVME_COMMAND_SET_IDENTIFIERS = Int32
 NVME_COMMAND_SET_NVM: win32more.Windows.Win32.Storage.Nvme.NVME_COMMAND_SET_IDENTIFIERS = 0
 NVME_COMMAND_SET_KEY_VALUE: win32more.Windows.Win32.Storage.Nvme.NVME_COMMAND_SET_IDENTIFIERS = 1
 NVME_COMMAND_SET_ZONED_NAMESPACE: win32more.Windows.Win32.Storage.Nvme.NVME_COMMAND_SET_IDENTIFIERS = 2
-class NVME_COMMAND_STATUS(EasyCastUnion):
+class NVME_COMMAND_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUshort: UInt16
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
-class NVME_COMPLETION_DW0_ASYNC_EVENT_REQUEST(EasyCastStructure):
+class NVME_COMPLETION_DW0_ASYNC_EVENT_REQUEST(Structure):
     _bitfield: UInt32
-class NVME_COMPLETION_DW0_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES(EasyCastStructure):
+class NVME_COMPLETION_DW0_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES(Structure):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_COMPLETION_ENTRY(EasyCastStructure):
+class NVME_COMPLETION_ENTRY(Structure):
     DW0: UInt32
     DW1: UInt32
     DW2: _DW2_e__Union
     DW3: _DW3_e__Union
-    class _DW2_e__Union(EasyCastUnion):
+    class _DW2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUlong: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             SQHD: UInt16
             SQID: UInt16
-    class _DW3_e__Union(EasyCastUnion):
+    class _DW3_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUlong: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             CID: UInt16
             Status: win32more.Windows.Win32.Storage.Nvme.NVME_COMMAND_STATUS
-class NVME_COMPLETION_QUEUE_HEAD_DOORBELL(EasyCastUnion):
+class NVME_COMPLETION_QUEUE_HEAD_DOORBELL(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CONTEXT_ATTRIBUTES(EasyCastUnion):
+class NVME_CONTEXT_ATTRIBUTES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CONTROLLER_CAPABILITIES(EasyCastUnion):
+class NVME_CONTROLLER_CAPABILITIES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlonglong: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class NVME_CONTROLLER_CONFIGURATION(EasyCastUnion):
+class NVME_CONTROLLER_CONFIGURATION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CONTROLLER_LIST(EasyCastStructure):
+class NVME_CONTROLLER_LIST(Structure):
     NumberOfIdentifiers: UInt16
     ControllerID: UInt16 * 2047
-class NVME_CONTROLLER_MEMORY_BUFFER_LOCATION(EasyCastUnion):
+class NVME_CONTROLLER_MEMORY_BUFFER_LOCATION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_CONTROLLER_MEMORY_BUFFER_SIZE(EasyCastUnion):
+class NVME_CONTROLLER_MEMORY_BUFFER_SIZE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
 NVME_CONTROLLER_METADATA_ELEMENT_TYPES = Int32
 NVME_CONTROLLER_METADATA_OPERATING_SYSTEM_CONTROLLER_NAME: win32more.Windows.Win32.Storage.Nvme.NVME_CONTROLLER_METADATA_ELEMENT_TYPES = 1
@@ -945,7 +945,7 @@ NVME_CONTROLLER_METADATA_OPERATING_SYSTEM_DRIVER_FILENAME: win32more.Windows.Win
 NVME_CONTROLLER_METADATA_DISPLAY_DRIVER_NAME: win32more.Windows.Win32.Storage.Nvme.NVME_CONTROLLER_METADATA_ELEMENT_TYPES = 14
 NVME_CONTROLLER_METADATA_DISPLAY_DRIVER_VERSION: win32more.Windows.Win32.Storage.Nvme.NVME_CONTROLLER_METADATA_ELEMENT_TYPES = 15
 NVME_CONTROLLER_METADATA_HOST_DETERMINED_FAILURE_RECORD: win32more.Windows.Win32.Storage.Nvme.NVME_CONTROLLER_METADATA_ELEMENT_TYPES = 16
-class NVME_CONTROLLER_REGISTERS(EasyCastStructure):
+class NVME_CONTROLLER_REGISTERS(Structure):
     CAP: win32more.Windows.Win32.Storage.Nvme.NVME_CONTROLLER_CAPABILITIES
     VS: win32more.Windows.Win32.Storage.Nvme.NVME_VERSION
     INTMS: UInt32
@@ -962,10 +962,10 @@ class NVME_CONTROLLER_REGISTERS(EasyCastStructure):
     Reserved2: UInt32 * 944
     Reserved3: UInt32 * 64
     Doorbells: UInt32 * 1
-class NVME_CONTROLLER_STATUS(EasyCastUnion):
+class NVME_CONTROLLER_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
 NVME_CSS_COMMAND_SETS = Int32
 NVME_CSS_NVM_COMMAND_SET: win32more.Windows.Win32.Storage.Nvme.NVME_CSS_COMMAND_SETS = 0
@@ -975,16 +975,16 @@ NVME_CSTS_SHST_SHUTDOWN_STATUS = Int32
 NVME_CSTS_SHST_NO_SHUTDOWN: win32more.Windows.Win32.Storage.Nvme.NVME_CSTS_SHST_SHUTDOWN_STATUS = 0
 NVME_CSTS_SHST_SHUTDOWN_IN_PROCESS: win32more.Windows.Win32.Storage.Nvme.NVME_CSTS_SHST_SHUTDOWN_STATUS = 1
 NVME_CSTS_SHST_SHUTDOWN_COMPLETED: win32more.Windows.Win32.Storage.Nvme.NVME_CSTS_SHST_SHUTDOWN_STATUS = 2
-class NVME_DEVICE_SELF_TEST_LOG(EasyCastStructure):
+class NVME_DEVICE_SELF_TEST_LOG(Structure):
     CurrentOperation: _CurrentOperation_e__Struct
     CurrentCompletion: _CurrentCompletion_e__Struct
     Reserved: Byte * 2
     ResultData: win32more.Windows.Win32.Storage.Nvme.NVME_DEVICE_SELF_TEST_RESULT_DATA * 20
-    class _CurrentOperation_e__Struct(EasyCastStructure):
+    class _CurrentOperation_e__Struct(Structure):
         _bitfield: Byte
-    class _CurrentCompletion_e__Struct(EasyCastStructure):
+    class _CurrentCompletion_e__Struct(Structure):
         _bitfield: Byte
-class NVME_DEVICE_SELF_TEST_RESULT_DATA(EasyCastStructure):
+class NVME_DEVICE_SELF_TEST_RESULT_DATA(Structure):
     Status: _Status_e__Struct
     SegmentNumber: Byte
     ValidDiagnostics: _ValidDiagnostics_e__Struct
@@ -996,16 +996,16 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA(EasyCastStructure):
     StatusCode: Byte
     VendorSpecific: UInt16
     _pack_ = 1
-    class _Status_e__Struct(EasyCastStructure):
+    class _Status_e__Struct(Structure):
         _bitfield: Byte
-    class _ValidDiagnostics_e__Struct(EasyCastStructure):
+    class _ValidDiagnostics_e__Struct(Structure):
         _bitfield: Byte
-    class _StatusCodeType_e__Struct(EasyCastStructure):
+    class _StatusCodeType_e__Struct(Structure):
         _bitfield: Byte
-class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS(EasyCastStructure):
+class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS(Structure):
     DirectivesSupported: win32more.Windows.Win32.Storage.Nvme.NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR
     DirectivesEnabled: win32more.Windows.Win32.Storage.Nvme.NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR
-class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR(EasyCastStructure):
+class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR(Structure):
     _bitfield: Byte
     Reserved1: Byte * 31
 NVME_DIRECTIVE_RECEIVE_IDENTIFY_OPERATIONS = Int32
@@ -1019,10 +1019,10 @@ NVME_DIRECTIVE_SEND_IDENTIFY_OPERATION_ENABLE_DIRECTIVE: win32more.Windows.Win32
 NVME_DIRECTIVE_SEND_STREAMS_OPERATIONS = Int32
 NVME_DIRECTIVE_SEND_STREAMS_OPERATION_RELEASE_IDENTIFIER: win32more.Windows.Win32.Storage.Nvme.NVME_DIRECTIVE_SEND_STREAMS_OPERATIONS = 1
 NVME_DIRECTIVE_SEND_STREAMS_OPERATION_RELEASE_RESOURCES: win32more.Windows.Win32.Storage.Nvme.NVME_DIRECTIVE_SEND_STREAMS_OPERATIONS = 2
-class NVME_DIRECTIVE_STREAMS_GET_STATUS_DATA(EasyCastStructure):
+class NVME_DIRECTIVE_STREAMS_GET_STATUS_DATA(Structure):
     OpenStreamCount: UInt16
     StreamIdentifiers: UInt16 * 65535
-class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS(EasyCastStructure):
+class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS(Structure):
     MSL: UInt16
     NSSA: UInt16
     NSSO: UInt16
@@ -1035,7 +1035,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS(EasyCastStructure):
 NVME_DIRECTIVE_TYPES = Int32
 NVME_DIRECTIVE_TYPE_IDENTIFY: win32more.Windows.Win32.Storage.Nvme.NVME_DIRECTIVE_TYPES = 0
 NVME_DIRECTIVE_TYPE_STREAMS: win32more.Windows.Win32.Storage.Nvme.NVME_DIRECTIVE_TYPES = 1
-class NVME_ENDURANCE_GROUP_LOG(EasyCastStructure):
+class NVME_ENDURANCE_GROUP_LOG(Structure):
     Reserved0: UInt32
     AvailableSpareThreshold: Byte
     PercentageUsed: Byte
@@ -1046,7 +1046,7 @@ class NVME_ENDURANCE_GROUP_LOG(EasyCastStructure):
     MediaUnitsWritten: Byte * 16
     Reserved2: Byte * 416
     _pack_ = 1
-class NVME_ERROR_INFO_LOG(EasyCastStructure):
+class NVME_ERROR_INFO_LOG(Structure):
     ErrorCount: UInt64
     SQID: UInt16
     CMDID: UInt16
@@ -1058,17 +1058,17 @@ class NVME_ERROR_INFO_LOG(EasyCastStructure):
     Reserved0: Byte * 3
     CommandSpecificInfo: UInt64
     Reserved1: Byte * 24
-    class _ParameterErrorLocation_e__Struct(EasyCastStructure):
+    class _ParameterErrorLocation_e__Struct(Structure):
         _bitfield: UInt16
-class NVME_ERROR_INJECTION_ENTRY(EasyCastStructure):
+class NVME_ERROR_INJECTION_ENTRY(Structure):
     Flags: _Flags_e__Union
     Reserved1: Byte
     ErrorInjectionType: UInt16
     ErrorInjectionTypeSpecific: Byte * 28
-    class _Flags_e__Union(EasyCastUnion):
+    class _Flags_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
 NVME_ERROR_INJECTION_TYPES = Int32
 NVME_ERROR_INJECTION_TYPE_RESERVED0: win32more.Windows.Win32.Storage.Nvme.NVME_ERROR_INJECTION_TYPES = 0
@@ -1083,7 +1083,7 @@ NVME_ERROR_INJECTION_TYPE_DEVICE_PANIC_SRAM_CORRUPTION: win32more.Windows.Win32.
 NVME_ERROR_INJECTION_TYPE_DEVICE_PANIC_HW_MALFUNCTION: win32more.Windows.Win32.Storage.Nvme.NVME_ERROR_INJECTION_TYPES = 9
 NVME_ERROR_INJECTION_TYPE_RESERVED1: win32more.Windows.Win32.Storage.Nvme.NVME_ERROR_INJECTION_TYPES = 10
 NVME_ERROR_INJECTION_TYPE_MAX: win32more.Windows.Win32.Storage.Nvme.NVME_ERROR_INJECTION_TYPES = 65535
-class NVME_EXTENDED_REPORT_ZONE_INFO(EasyCastStructure):
+class NVME_EXTENDED_REPORT_ZONE_INFO(Structure):
     ZoneCount: UInt64
     Reserved: UInt64 * 7
     Desc: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_EXTENDED_REPORT_ZONE_DESC * 1
@@ -1127,9 +1127,9 @@ NVME_FEATURE_READONLY_WRITETHROUGH_MODE: win32more.Windows.Win32.Storage.Nvme.NV
 NVME_FEATURE_CLEAR_PCIE_CORRECTABLE_ERROR_COUNTERS: win32more.Windows.Win32.Storage.Nvme.NVME_FEATURES = 195
 NVME_FEATURE_ENABLE_IEEE1667_SILO: win32more.Windows.Win32.Storage.Nvme.NVME_FEATURES = 196
 NVME_FEATURE_PLP_HEALTH_MONITOR: win32more.Windows.Win32.Storage.Nvme.NVME_FEATURES = 197
-class NVME_FEATURE_HOST_IDENTIFIER_DATA(EasyCastStructure):
+class NVME_FEATURE_HOST_IDENTIFIER_DATA(Structure):
     HOSTID: Byte * 16
-class NVME_FEATURE_HOST_METADATA_DATA(EasyCastStructure):
+class NVME_FEATURE_HOST_METADATA_DATA(Structure):
     NumberOfMetadataElementDescriptors: Byte
     Reserved0: Byte
     MetadataElementDescriptors: Byte * 4094
@@ -1143,18 +1143,18 @@ NVME_FIRMWARE_ACTIVATE_ACTION_DOWNLOAD_TO_SLOT: win32more.Windows.Win32.Storage.
 NVME_FIRMWARE_ACTIVATE_ACTION_DOWNLOAD_TO_SLOT_AND_ACTIVATE: win32more.Windows.Win32.Storage.Nvme.NVME_FIRMWARE_ACTIVATE_ACTIONS = 1
 NVME_FIRMWARE_ACTIVATE_ACTION_ACTIVATE: win32more.Windows.Win32.Storage.Nvme.NVME_FIRMWARE_ACTIVATE_ACTIONS = 2
 NVME_FIRMWARE_ACTIVATE_ACTION_DOWNLOAD_TO_SLOT_AND_ACTIVATE_IMMEDIATE: win32more.Windows.Win32.Storage.Nvme.NVME_FIRMWARE_ACTIVATE_ACTIONS = 3
-class NVME_FIRMWARE_SLOT_INFO_LOG(EasyCastStructure):
+class NVME_FIRMWARE_SLOT_INFO_LOG(Structure):
     AFI: _AFI_e__Struct
     Reserved0: Byte * 7
     FRS: UInt64 * 7
     Reserved1: Byte * 448
-    class _AFI_e__Struct(EasyCastStructure):
+    class _AFI_e__Struct(Structure):
         _bitfield: Byte
 NVME_FUSED_OPERATION_CODES = Int32
 NVME_FUSED_OPERATION_NORMAL: win32more.Windows.Win32.Storage.Nvme.NVME_FUSED_OPERATION_CODES = 0
 NVME_FUSED_OPERATION_FIRST_CMD: win32more.Windows.Win32.Storage.Nvme.NVME_FUSED_OPERATION_CODES = 1
 NVME_FUSED_OPERATION_SECOND_CMD: win32more.Windows.Win32.Storage.Nvme.NVME_FUSED_OPERATION_CODES = 2
-class NVME_HEALTH_INFO_LOG(EasyCastStructure):
+class NVME_HEALTH_INFO_LOG(Structure):
     CriticalWarning: _CriticalWarning_e__Union
     Temperature: Byte * 2
     AvailableSpare: Byte
@@ -1182,12 +1182,12 @@ class NVME_HEALTH_INFO_LOG(EasyCastStructure):
     TemperatureSensor7: UInt16
     TemperatureSensor8: UInt16
     Reserved1: Byte * 296
-    class _CriticalWarning_e__Union(EasyCastUnion):
+    class _CriticalWarning_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-class NVME_HOST_MEMORY_BUFFER_DESCRIPTOR_ENTRY(EasyCastStructure):
+class NVME_HOST_MEMORY_BUFFER_DESCRIPTOR_ENTRY(Structure):
     BADD: UInt64
     BSIZE: UInt32
     Reserved: UInt32
@@ -1195,7 +1195,7 @@ NVME_HOST_METADATA_ELEMENT_ACTIONS = Int32
 NVME_HOST_METADATA_ADD_REPLACE_ENTRY: win32more.Windows.Win32.Storage.Nvme.NVME_HOST_METADATA_ELEMENT_ACTIONS = 0
 NVME_HOST_METADATA_DELETE_ENTRY_MULTIPLE: win32more.Windows.Win32.Storage.Nvme.NVME_HOST_METADATA_ELEMENT_ACTIONS = 1
 NVME_HOST_METADATA_ADD_ENTRY_MULTIPLE: win32more.Windows.Win32.Storage.Nvme.NVME_HOST_METADATA_ELEMENT_ACTIONS = 2
-class NVME_HOST_METADATA_ELEMENT_DESCRIPTOR(EasyCastStructure):
+class NVME_HOST_METADATA_ELEMENT_DESCRIPTOR(Structure):
     _bitfield: UInt32
     EVAL: Byte * 1
 NVME_IDENTIFIER_TYPE = Int32
@@ -1230,7 +1230,7 @@ NVME_IDENTIFY_CNS_ENDURANCE_GROUP_LIST: win32more.Windows.Win32.Storage.Nvme.NVM
 NVME_IDENTIFY_CNS_ALLOCATED_NAMSPACE_LIST_IO_COMMAND_SET: win32more.Windows.Win32.Storage.Nvme.NVME_IDENTIFY_CNS_CODES = 26
 NVME_IDENTIFY_CNS_ALLOCATED_NAMESPACE_IO_COMMAND_SET: win32more.Windows.Win32.Storage.Nvme.NVME_IDENTIFY_CNS_CODES = 27
 NVME_IDENTIFY_CNS_IO_COMMAND_SET: win32more.Windows.Win32.Storage.Nvme.NVME_IDENTIFY_CNS_CODES = 28
-class NVME_IDENTIFY_CONTROLLER_DATA(EasyCastStructure):
+class NVME_IDENTIFY_CONTROLLER_DATA(Structure):
     VID: UInt16
     SSVID: UInt16
     SN: Byte * 20
@@ -1312,53 +1312,53 @@ class NVME_IDENTIFY_CONTROLLER_DATA(EasyCastStructure):
     Reserved8: Byte * 256
     PDS: win32more.Windows.Win32.Storage.Nvme.NVME_POWER_STATE_DESC * 32
     VS: Byte * 1024
-    class _CMIC_e__Struct(EasyCastStructure):
+    class _CMIC_e__Struct(Structure):
         _bitfield: Byte
-    class _OAES_e__Struct(EasyCastStructure):
+    class _OAES_e__Struct(Structure):
         _bitfield: UInt32
-    class _CTRATT_e__Struct(EasyCastStructure):
+    class _CTRATT_e__Struct(Structure):
         _bitfield: UInt32
-    class _RRLS_e__Struct(EasyCastStructure):
+    class _RRLS_e__Struct(Structure):
         _bitfield: UInt16
-    class _OACS_e__Struct(EasyCastStructure):
+    class _OACS_e__Struct(Structure):
         _bitfield: UInt16
-    class _FRMW_e__Struct(EasyCastStructure):
+    class _FRMW_e__Struct(Structure):
         _bitfield: Byte
-    class _LPA_e__Struct(EasyCastStructure):
+    class _LPA_e__Struct(Structure):
         _bitfield: Byte
-    class _AVSCC_e__Struct(EasyCastStructure):
+    class _AVSCC_e__Struct(Structure):
         _bitfield: Byte
-    class _APSTA_e__Struct(EasyCastStructure):
+    class _APSTA_e__Struct(Structure):
         _bitfield: Byte
-    class _RPMBS_e__Struct(EasyCastStructure):
+    class _RPMBS_e__Struct(Structure):
         _bitfield: UInt32
-    class _HCTMA_e__Struct(EasyCastStructure):
+    class _HCTMA_e__Struct(Structure):
         _bitfield: UInt16
-    class _SANICAP_e__Struct(EasyCastStructure):
+    class _SANICAP_e__Struct(Structure):
         _bitfield: UInt32
-    class _ANACAP_e__Struct(EasyCastStructure):
+    class _ANACAP_e__Struct(Structure):
         _bitfield: Byte
-    class _SQES_e__Struct(EasyCastStructure):
+    class _SQES_e__Struct(Structure):
         _bitfield: Byte
-    class _CQES_e__Struct(EasyCastStructure):
+    class _CQES_e__Struct(Structure):
         _bitfield: Byte
-    class _ONCS_e__Struct(EasyCastStructure):
+    class _ONCS_e__Struct(Structure):
         _bitfield: UInt16
-    class _FUSES_e__Struct(EasyCastStructure):
+    class _FUSES_e__Struct(Structure):
         _bitfield: UInt16
-    class _FNA_e__Struct(EasyCastStructure):
+    class _FNA_e__Struct(Structure):
         _bitfield: Byte
-    class _VWC_e__Struct(EasyCastStructure):
+    class _VWC_e__Struct(Structure):
         _bitfield: Byte
-    class _NVSCC_e__Struct(EasyCastStructure):
+    class _NVSCC_e__Struct(Structure):
         _bitfield: Byte
-    class _NWPC_e__Struct(EasyCastStructure):
+    class _NWPC_e__Struct(Structure):
         _bitfield: Byte
-    class _SGLS_e__Struct(EasyCastStructure):
+    class _SGLS_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_IDENTIFY_IO_COMMAND_SET(EasyCastStructure):
+class NVME_IDENTIFY_IO_COMMAND_SET(Structure):
     IOCommandSetVector: UInt64 * 512
-class NVME_IDENTIFY_NAMESPACE_DATA(EasyCastStructure):
+class NVME_IDENTIFY_NAMESPACE_DATA(Structure):
     NSZE: UInt64
     NCAP: UInt64
     NUSE: UInt64
@@ -1399,30 +1399,30 @@ class NVME_IDENTIFY_NAMESPACE_DATA(EasyCastStructure):
     LBAF: win32more.Windows.Win32.Storage.Nvme.NVME_LBA_FORMAT * 16
     Reserved4: Byte * 192
     VS: Byte * 3712
-    class _NSFEAT_e__Struct(EasyCastStructure):
+    class _NSFEAT_e__Struct(Structure):
         _bitfield: Byte
-    class _FLBAS_e__Struct(EasyCastStructure):
+    class _FLBAS_e__Struct(Structure):
         _bitfield: Byte
-    class _MC_e__Struct(EasyCastStructure):
+    class _MC_e__Struct(Structure):
         _bitfield: Byte
-    class _DPC_e__Struct(EasyCastStructure):
+    class _DPC_e__Struct(Structure):
         _bitfield: Byte
-    class _DPS_e__Struct(EasyCastStructure):
+    class _DPS_e__Struct(Structure):
         _bitfield: Byte
-    class _NMIC_e__Struct(EasyCastStructure):
+    class _NMIC_e__Struct(Structure):
         _bitfield: Byte
-    class _FPI_e__Struct(EasyCastStructure):
+    class _FPI_e__Struct(Structure):
         _bitfield: Byte
-    class _DLFEAT_e__Struct(EasyCastStructure):
+    class _DLFEAT_e__Struct(Structure):
         _bitfield: Byte
-    class _NSATTR_e__Struct(EasyCastStructure):
+    class _NSATTR_e__Struct(Structure):
         _bitfield: Byte
-class NVME_IDENTIFY_NAMESPACE_DESCRIPTOR(EasyCastStructure):
+class NVME_IDENTIFY_NAMESPACE_DESCRIPTOR(Structure):
     NIDT: Byte
     NIDL: Byte
     Reserved: Byte * 2
     NID: Byte * 1
-class NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET(EasyCastStructure):
+class NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET(Structure):
     VSL: Byte
     WZSL: Byte
     WUSL: Byte
@@ -1430,7 +1430,7 @@ class NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET(EasyCastStructure):
     DMRSL: UInt32
     DMSL: UInt64
     Reserved: Byte * 4080
-class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET(EasyCastStructure):
+class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET(Structure):
     ZOC: _ZOC_e__Struct
     OZCS: _OZCS_e__Struct
     MAR: UInt32
@@ -1441,25 +1441,25 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET(EasyCastStructure):
     LBAEF: win32more.Windows.Win32.Storage.Nvme.NVME_LBA_ZONE_FORMAT * 16
     Reserved1: Byte * 768
     VS: Byte * 256
-    class _ZOC_e__Struct(EasyCastStructure):
+    class _ZOC_e__Struct(Structure):
         _bitfield: UInt16
-    class _OZCS_e__Struct(EasyCastStructure):
+    class _OZCS_e__Struct(Structure):
         _bitfield: UInt16
-class NVME_IDENTIFY_ZNS_SPECIFIC_CONTROLLER_IO_COMMAND_SET(EasyCastStructure):
+class NVME_IDENTIFY_ZNS_SPECIFIC_CONTROLLER_IO_COMMAND_SET(Structure):
     ZASL: Byte
     Reserved: Byte * 4095
-class NVME_LBA_FORMAT(EasyCastUnion):
+class NVME_LBA_FORMAT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         MS: UInt16
         LBADS: Byte
         _bitfield: Byte
-class NVME_LBA_RANGE(EasyCastStructure):
+class NVME_LBA_RANGE(Structure):
     Attributes: win32more.Windows.Win32.Storage.Nvme.NVME_CONTEXT_ATTRIBUTES
     LogicalBlockCount: UInt32
     StartingLBA: UInt64
-class NVME_LBA_RANGET_TYPE_ENTRY(EasyCastStructure):
+class NVME_LBA_RANGET_TYPE_ENTRY(Structure):
     Type: Byte
     Attributes: _Attributes_e__Struct
     Reserved0: Byte * 14
@@ -1467,7 +1467,7 @@ class NVME_LBA_RANGET_TYPE_ENTRY(EasyCastStructure):
     NLB: UInt64
     GUID: Byte * 16
     Reserved1: Byte * 16
-    class _Attributes_e__Struct(EasyCastStructure):
+    class _Attributes_e__Struct(Structure):
         _bitfield: Byte
 NVME_LBA_RANGE_TYPES = Int32
 NVME_LBA_RANGE_TYPE_RESERVED: win32more.Windows.Win32.Storage.Nvme.NVME_LBA_RANGE_TYPES = 0
@@ -1475,7 +1475,7 @@ NVME_LBA_RANGE_TYPE_FILESYSTEM: win32more.Windows.Win32.Storage.Nvme.NVME_LBA_RA
 NVME_LBA_RANGE_TYPE_RAID: win32more.Windows.Win32.Storage.Nvme.NVME_LBA_RANGE_TYPES = 2
 NVME_LBA_RANGE_TYPE_CACHE: win32more.Windows.Win32.Storage.Nvme.NVME_LBA_RANGE_TYPES = 3
 NVME_LBA_RANGE_TYPE_PAGE_SWAP_FILE: win32more.Windows.Win32.Storage.Nvme.NVME_LBA_RANGE_TYPES = 4
-class NVME_LBA_ZONE_FORMAT(EasyCastStructure):
+class NVME_LBA_ZONE_FORMAT(Structure):
     ZoneSize: UInt64
     ZDES: Byte
     Reserved: Byte * 7
@@ -1529,9 +1529,9 @@ NVME_NVM_QUEUE_PRIORITY_URGENT: win32more.Windows.Win32.Storage.Nvme.NVME_NVM_QU
 NVME_NVM_QUEUE_PRIORITY_HIGH: win32more.Windows.Win32.Storage.Nvme.NVME_NVM_QUEUE_PRIORITIES = 1
 NVME_NVM_QUEUE_PRIORITY_MEDIUM: win32more.Windows.Win32.Storage.Nvme.NVME_NVM_QUEUE_PRIORITIES = 2
 NVME_NVM_QUEUE_PRIORITY_LOW: win32more.Windows.Win32.Storage.Nvme.NVME_NVM_QUEUE_PRIORITIES = 3
-class NVME_NVM_SUBSYSTEM_RESET(EasyCastStructure):
+class NVME_NVM_SUBSYSTEM_RESET(Structure):
     NSSRC: UInt32
-class NVME_OCP_DEVICE_CAPABILITIES_LOG(EasyCastStructure):
+class NVME_OCP_DEVICE_CAPABILITIES_LOG(Structure):
     PciePorts: UInt16
     OobMgmtSupport: _OobMgmtSupport_e__Union
     WriteZeroesCommand: _WriteZeroesCommand_e__Union
@@ -1546,49 +1546,49 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG(EasyCastStructure):
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-    class _OobMgmtSupport_e__Union(EasyCastUnion):
+    class _OobMgmtSupport_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
-    class _WriteZeroesCommand_e__Union(EasyCastUnion):
+    class _WriteZeroesCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
-    class _SanitizeCommand_e__Union(EasyCastUnion):
+    class _SanitizeCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
-    class _DatasetMgmtCommand_e__Union(EasyCastUnion):
+    class _DatasetMgmtCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
-    class _WriteUncorrectableCommand_e__Union(EasyCastUnion):
+    class _WriteUncorrectableCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
-    class _FusedCommand_e__Union(EasyCastUnion):
+    class _FusedCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
-class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2(EasyCastStructure):
+class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2(Structure):
     PanicResetWaitTime: UInt16
     PanicResetAction: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RESET_ACTION
     DeviceRecoveryAction1: Byte
@@ -1605,7 +1605,7 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2(EasyCastStructure):
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG(EasyCastStructure):
+class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG(Structure):
     LID: Byte
     Reserved0: Byte * 3
     ValidNumberOfEntries: UInt32
@@ -1614,7 +1614,7 @@ class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG(EasyCastStructure):
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG(EasyCastStructure):
+class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG(Structure):
     FeatureStatus: win32more.Windows.Win32.Storage.Nvme.LATENCY_MONITOR_FEATURE_STATUS
     Reserved0: Byte
     ActiveBucketTimer: UInt16
@@ -1652,12 +1652,12 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG(EasyCastStructure):
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-    class _DebugLogStampUnits_e__Union(EasyCastUnion):
+    class _DebugLogStampUnits_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3(EasyCastStructure):
+class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3(Structure):
     MediaUnitsWritten: Byte * 16
     MediaUnitsRead: Byte * 16
     BadUserNANDBlockCount: _BadUserNANDBlockCount_e__Struct
@@ -1690,24 +1690,24 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3(EasyCastStructure):
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-    class _BadUserNANDBlockCount_e__Struct(EasyCastStructure):
+    class _BadUserNANDBlockCount_e__Struct(Structure):
         RawCount: Byte * 6
         Normalized: Byte * 2
-    class _BadSystemNANDBlockCount_e__Struct(EasyCastStructure):
+    class _BadSystemNANDBlockCount_e__Struct(Structure):
         RawCount: Byte * 6
         Normalized: Byte * 2
-    class _EndToEndCorrectionCounts_e__Struct(EasyCastStructure):
+    class _EndToEndCorrectionCounts_e__Struct(Structure):
         DetectedCounts: UInt32
         CorrectedCounts: UInt32
         _pack_ = 1
-    class _UserDataEraseCounts_e__Struct(EasyCastStructure):
+    class _UserDataEraseCounts_e__Struct(Structure):
         MaximumCount: UInt32
         MinimumCount: UInt32
         _pack_ = 1
-    class _ThermalThrottling_e__Struct(EasyCastStructure):
+    class _ThermalThrottling_e__Struct(Structure):
         EventCount: Byte
         Status: Byte
-class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG(EasyCastStructure):
+class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG(Structure):
     State: _State_e__Union
     Reserved0: Byte * 3
     LSPActivationCount: Byte
@@ -1730,12 +1730,12 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG(EasyCastStructure):
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-    class _State_e__Union(EasyCastUnion):
+    class _State_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-class NVME_OCP_DEVICE_TCG_HISTORY_LOG(EasyCastStructure):
+class NVME_OCP_DEVICE_TCG_HISTORY_LOG(Structure):
     LID: Byte
     Reserved0: Byte * 3
     HistoryEntryCount: UInt32
@@ -1744,7 +1744,7 @@ class NVME_OCP_DEVICE_TCG_HISTORY_LOG(EasyCastStructure):
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-class NVME_OCP_DEVICE_UNSUPPORTED_REQUIREMENTS_LOG(EasyCastStructure):
+class NVME_OCP_DEVICE_UNSUPPORTED_REQUIREMENTS_LOG(Structure):
     UnsupportedCount: UInt16
     Reserved0: Byte * 14
     UnsupportedReqList: win32more.Windows.Win32.Storage.Nvme.UNSUPPORTED_REQUIREMENT * 253
@@ -1752,7 +1752,7 @@ class NVME_OCP_DEVICE_UNSUPPORTED_REQUIREMENTS_LOG(EasyCastStructure):
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER(EasyCastStructure):
+class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER(Structure):
     EventType: Byte
     EventTypeRevision: Byte
     EventHeaderLength: Byte
@@ -1785,7 +1785,7 @@ NVME_PERSISTENT_EVENT_TYPE_TCG_DEFINED: win32more.Windows.Win32.Storage.Nvme.NVM
 NVME_PERSISTENT_EVENT_TYPE_RESERVED2_BEGIN: win32more.Windows.Win32.Storage.Nvme.NVME_PERSISTENT_EVENT_LOG_EVENT_TYPES = 224
 NVME_PERSISTENT_EVENT_TYPE_RESERVED2_END: win32more.Windows.Win32.Storage.Nvme.NVME_PERSISTENT_EVENT_LOG_EVENT_TYPES = 255
 NVME_PERSISTENT_EVENT_TYPE_MAX: win32more.Windows.Win32.Storage.Nvme.NVME_PERSISTENT_EVENT_LOG_EVENT_TYPES = 255
-class NVME_PERSISTENT_EVENT_LOG_HEADER(EasyCastStructure):
+class NVME_PERSISTENT_EVENT_LOG_HEADER(Structure):
     LogIdentifier: Byte
     Reserved0: Byte * 3
     TotalNumberOfEvents: UInt32
@@ -1804,7 +1804,7 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER(EasyCastStructure):
     Reserved: Byte * 108
     SupportedEventsBitmap: Byte * 32
     _pack_ = 1
-class NVME_POWER_STATE_DESC(EasyCastStructure):
+class NVME_POWER_STATE_DESC(Structure):
     MP: UInt16
     Reserved0: Byte
     _bitfield1: Byte
@@ -1825,29 +1825,29 @@ NVME_PROTECTION_INFORMATION_NOT_ENABLED: win32more.Windows.Win32.Storage.Nvme.NV
 NVME_PROTECTION_INFORMATION_TYPE1: win32more.Windows.Win32.Storage.Nvme.NVME_PROTECTION_INFORMATION_TYPES = 1
 NVME_PROTECTION_INFORMATION_TYPE2: win32more.Windows.Win32.Storage.Nvme.NVME_PROTECTION_INFORMATION_TYPES = 2
 NVME_PROTECTION_INFORMATION_TYPE3: win32more.Windows.Win32.Storage.Nvme.NVME_PROTECTION_INFORMATION_TYPES = 3
-class NVME_PRP_ENTRY(EasyCastUnion):
+class NVME_PRP_ENTRY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlonglong: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class NVME_REGISTERED_CONTROLLER_DATA(EasyCastStructure):
+class NVME_REGISTERED_CONTROLLER_DATA(Structure):
     CNTLID: UInt16
     RCSTS: _RCSTS_e__Struct
     Reserved: Byte * 5
     HOSTID: Byte * 8
     RKEY: UInt64
-    class _RCSTS_e__Struct(EasyCastStructure):
+    class _RCSTS_e__Struct(Structure):
         _bitfield: Byte
-class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA(EasyCastStructure):
+class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA(Structure):
     CNTLID: UInt16
     RCSTS: _RCSTS_e__Struct
     Reserved: Byte * 5
     RKEY: UInt64
     HOSTID: Byte * 16
     Reserved1: Byte * 32
-    class _RCSTS_e__Struct(EasyCastStructure):
+    class _RCSTS_e__Struct(Structure):
         _bitfield: Byte
-class NVME_REPORT_ZONE_INFO(EasyCastStructure):
+class NVME_REPORT_ZONE_INFO(Structure):
     ZoneCount: UInt64
     Reserved: UInt64 * 7
     ZoneDescriptor: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_DESCRIPTOR * 1
@@ -1855,10 +1855,10 @@ NVME_RESERVATION_ACQUIRE_ACTIONS = Int32
 NVME_RESERVATION_ACQUIRE_ACTION_ACQUIRE: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_ACQUIRE_ACTIONS = 0
 NVME_RESERVATION_ACQUIRE_ACTION_PREEMPT: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_ACQUIRE_ACTIONS = 1
 NVME_RESERVATION_ACQUIRE_ACTION_PREEMPT_AND_ABORT: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_ACQUIRE_ACTIONS = 2
-class NVME_RESERVATION_ACQUIRE_DATA_STRUCTURE(EasyCastStructure):
+class NVME_RESERVATION_ACQUIRE_DATA_STRUCTURE(Structure):
     CRKEY: UInt64
     PRKEY: UInt64
-class NVME_RESERVATION_NOTIFICATION_LOG(EasyCastStructure):
+class NVME_RESERVATION_NOTIFICATION_LOG(Structure):
     LogPageCount: UInt64
     LogPageType: Byte
     AvailableLogPageCount: Byte
@@ -1874,7 +1874,7 @@ NVME_RESERVATION_REGISTER_ACTIONS = Int32
 NVME_RESERVATION_REGISTER_ACTION_REGISTER: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_REGISTER_ACTIONS = 0
 NVME_RESERVATION_REGISTER_ACTION_UNREGISTER: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_REGISTER_ACTIONS = 1
 NVME_RESERVATION_REGISTER_ACTION_REPLACE: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_REGISTER_ACTIONS = 2
-class NVME_RESERVATION_REGISTER_DATA_STRUCTURE(EasyCastStructure):
+class NVME_RESERVATION_REGISTER_DATA_STRUCTURE(Structure):
     CRKEY: UInt64
     NRKEY: UInt64
 NVME_RESERVATION_REGISTER_PTPL_STATE_CHANGES = Int32
@@ -1885,16 +1885,16 @@ NVME_RESERVATION_REGISTER_PTPL_STATE_SET_TO_1: win32more.Windows.Win32.Storage.N
 NVME_RESERVATION_RELEASE_ACTIONS = Int32
 NVME_RESERVATION_RELEASE_ACTION_RELEASE: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_RELEASE_ACTIONS = 0
 NVME_RESERVATION_RELEASE_ACTION_CLEAR: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_RELEASE_ACTIONS = 1
-class NVME_RESERVATION_RELEASE_DATA_STRUCTURE(EasyCastStructure):
+class NVME_RESERVATION_RELEASE_DATA_STRUCTURE(Structure):
     CRKEY: UInt64
-class NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE(EasyCastStructure):
+class NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE(Structure):
     Header: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_REPORT_STATUS_HEADER
     RegisteredControllersData: win32more.Windows.Win32.Storage.Nvme.NVME_REGISTERED_CONTROLLER_DATA * 1
-class NVME_RESERVATION_REPORT_STATUS_EXTENDED_DATA_STRUCTURE(EasyCastStructure):
+class NVME_RESERVATION_REPORT_STATUS_EXTENDED_DATA_STRUCTURE(Structure):
     Header: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_REPORT_STATUS_HEADER
     Reserved1: Byte * 40
     RegisteredControllersExtendedData: win32more.Windows.Win32.Storage.Nvme.NVME_REGISTERED_CONTROLLER_EXTENDED_DATA * 1
-class NVME_RESERVATION_REPORT_STATUS_HEADER(EasyCastStructure):
+class NVME_RESERVATION_REPORT_STATUS_HEADER(Structure):
     GEN: UInt32
     RTYPE: Byte
     REGCTL: UInt16
@@ -1922,9 +1922,9 @@ NVME_SANITIZE_OPERATION_SUCCEEDED: win32more.Windows.Win32.Storage.Nvme.NVME_SAN
 NVME_SANITIZE_OPERATION_IN_PROGRESS: win32more.Windows.Win32.Storage.Nvme.NVME_SANITIZE_OPERATION_STATUS = 2
 NVME_SANITIZE_OPERATION_FAILED: win32more.Windows.Win32.Storage.Nvme.NVME_SANITIZE_OPERATION_STATUS = 3
 NVME_SANITIZE_OPERATION_SUCCEEDED_WITH_FORCED_DEALLOCATION: win32more.Windows.Win32.Storage.Nvme.NVME_SANITIZE_OPERATION_STATUS = 4
-class NVME_SANITIZE_STATUS(EasyCastStructure):
+class NVME_SANITIZE_STATUS(Structure):
     _bitfield: UInt16
-class NVME_SANITIZE_STATUS_LOG(EasyCastStructure):
+class NVME_SANITIZE_STATUS_LOG(Structure):
     SPROG: UInt16
     SSTAT: win32more.Windows.Win32.Storage.Nvme.NVME_SANITIZE_STATUS
     SCDW10: UInt32
@@ -1935,7 +1935,7 @@ class NVME_SANITIZE_STATUS_LOG(EasyCastStructure):
     EstimatedTimeForBlockEraseWithNoDeallocateMediaModification: UInt32
     EstimatedTimeForCryptoEraseWithNoDeallocateMediaModification: UInt32
     Reserved: Byte * 480
-class NVME_SCSI_NAME_STRING(EasyCastStructure):
+class NVME_SCSI_NAME_STRING(Structure):
     PCIVendorID: win32more.Windows.Win32.Foundation.CHAR * 4
     ModelNumber: win32more.Windows.Win32.Foundation.CHAR * 40
     NamespaceID: win32more.Windows.Win32.Foundation.CHAR * 4
@@ -1944,7 +1944,7 @@ NVME_SECURE_ERASE_SETTINGS = Int32
 NVME_SECURE_ERASE_NONE: win32more.Windows.Win32.Storage.Nvme.NVME_SECURE_ERASE_SETTINGS = 0
 NVME_SECURE_ERASE_USER_DATA: win32more.Windows.Win32.Storage.Nvme.NVME_SECURE_ERASE_SETTINGS = 1
 NVME_SECURE_ERASE_CRYPTOGRAPHIC: win32more.Windows.Win32.Storage.Nvme.NVME_SECURE_ERASE_SETTINGS = 2
-class NVME_SET_ATTRIBUTES_ENTRY(EasyCastStructure):
+class NVME_SET_ATTRIBUTES_ENTRY(Structure):
     Identifier: UInt16
     ENDGID: UInt16
     Reserved1: UInt32
@@ -2061,12 +2061,12 @@ NVME_STATUS_TYPE_GENERIC_COMMAND: win32more.Windows.Win32.Storage.Nvme.NVME_STAT
 NVME_STATUS_TYPE_COMMAND_SPECIFIC: win32more.Windows.Win32.Storage.Nvme.NVME_STATUS_TYPES = 1
 NVME_STATUS_TYPE_MEDIA_ERROR: win32more.Windows.Win32.Storage.Nvme.NVME_STATUS_TYPES = 2
 NVME_STATUS_TYPE_VENDOR_SPECIFIC: win32more.Windows.Win32.Storage.Nvme.NVME_STATUS_TYPES = 7
-class NVME_SUBMISSION_QUEUE_TAIL_DOORBELL(EasyCastUnion):
+class NVME_SUBMISSION_QUEUE_TAIL_DOORBELL(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG(EasyCastStructure):
+class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG(Structure):
     LogIdentifier: Byte
     Reserved0: Byte * 4
     OrganizationID: Byte * 3
@@ -2079,7 +2079,7 @@ class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG(EasyCastStructure):
     ControllerInitiatedDataAvailable: Byte
     ControllerInitiatedDataGenerationNumber: Byte
     ReasonIdentifier: Byte * 128
-class NVME_TELEMETRY_HOST_INITIATED_LOG(EasyCastStructure):
+class NVME_TELEMETRY_HOST_INITIATED_LOG(Structure):
     LogIdentifier: Byte
     Reserved0: Byte * 4
     OrganizationID: Byte * 3
@@ -2105,19 +2105,19 @@ NVME_LOG_PAGE_OCP_DEVICE_CAPABILITIES: win32more.Windows.Win32.Storage.Nvme.NVME
 NVME_LOG_PAGE_OCP_UNSUPPORTED_REQUIREMENTS: win32more.Windows.Win32.Storage.Nvme.NVME_VENDOR_LOG_PAGES = 197
 NVME_LOG_PAGE_OCP_TCG_CONFIGURATION: win32more.Windows.Win32.Storage.Nvme.NVME_VENDOR_LOG_PAGES = 200
 NVME_LOG_PAGE_OCP_TCG_HISTORY: win32more.Windows.Win32.Storage.Nvme.NVME_VENDOR_LOG_PAGES = 201
-class NVME_VERSION(EasyCastUnion):
+class NVME_VERSION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class NVME_WCS_DEVICE_CAPABILITIES(EasyCastStructure):
+class NVME_WCS_DEVICE_CAPABILITIES(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsULONG: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG(EasyCastStructure):
+class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG(Structure):
     PanicResetWaitTime: UInt16
     PanicResetAction: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RESET_ACTION
     DriveRecoveryAction: Byte
@@ -2147,19 +2147,19 @@ NVMeDeviceRecoveryPERST: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RE
 NVMeDeviceRecoveryPowerCycle: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 4
 NVMeDeviceRecoveryPcieHotReset: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 5
 NVMeDeviceRecovery2Max: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RECOVERY_ACTION2 = 15
-class NVME_WCS_DEVICE_RESET_ACTION(EasyCastStructure):
+class NVME_WCS_DEVICE_RESET_ACTION(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUCHAR: Byte
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG(EasyCastStructure):
+class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG(Structure):
     VersionSpecificData: Byte * 494
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2(EasyCastStructure):
+class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2(Structure):
     MediaUnitsWritten: Byte * 16
     MediaUnitsRead: Byte * 16
     BadUserNANDBlockCount: _BadUserNANDBlockCount_e__Struct
@@ -2189,24 +2189,24 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2(EasyCastStructure):
     LogPageVersionNumber: UInt16
     LogPageGUID: Guid
     _pack_ = 1
-    class _BadUserNANDBlockCount_e__Struct(EasyCastStructure):
+    class _BadUserNANDBlockCount_e__Struct(Structure):
         RawCount: Byte * 6
         Normalized: Byte * 2
-    class _BadSystemNANDBlockCount_e__Struct(EasyCastStructure):
+    class _BadSystemNANDBlockCount_e__Struct(Structure):
         RawCount: Byte * 6
         Normalized: Byte * 2
-    class _EndToEndCorrectionCounts_e__Struct(EasyCastStructure):
+    class _EndToEndCorrectionCounts_e__Struct(Structure):
         DetectedCounts: UInt32
         CorrectedCounts: UInt32
         _pack_ = 1
-    class _UserDataEraseCounts_e__Struct(EasyCastStructure):
+    class _UserDataEraseCounts_e__Struct(Structure):
         MaximumCount: UInt32
         MinimumCount: UInt32
         _pack_ = 1
-    class _ThermalThrottling_e__Struct(EasyCastStructure):
+    class _ThermalThrottling_e__Struct(Structure):
         EventCount: Byte
         Status: Byte
-class NVME_ZONE_DESCRIPTOR(EasyCastStructure):
+class NVME_ZONE_DESCRIPTOR(Structure):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Struct
     ZA: _ZA_e__Struct
@@ -2215,15 +2215,15 @@ class NVME_ZONE_DESCRIPTOR(EasyCastStructure):
     ZSLBA: UInt64
     WritePointer: UInt64
     Reserved4: Byte * 32
-    class _Anonymous1_e__Struct(EasyCastStructure):
+    class _Anonymous1_e__Struct(Structure):
         _bitfield: Byte
-    class _Anonymous2_e__Struct(EasyCastStructure):
+    class _Anonymous2_e__Struct(Structure):
         _bitfield: Byte
-    class _ZA_e__Struct(EasyCastStructure):
+    class _ZA_e__Struct(Structure):
         _bitfield: Byte
-class NVME_ZONE_DESCRIPTOR_EXTENSION(EasyCastStructure):
+class NVME_ZONE_DESCRIPTOR_EXTENSION(Structure):
     ZoneDescriptorExtensionInfo: Byte * 64
-class NVME_ZONE_EXTENDED_REPORT_ZONE_DESC(EasyCastStructure):
+class NVME_ZONE_EXTENDED_REPORT_ZONE_DESC(Structure):
     ZoneDescriptor: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_DESCRIPTOR
     ZoneDescriptorExtension: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_DESCRIPTOR_EXTENSION * 1
 NVME_ZONE_RECEIVE_ACTION = Int32
@@ -2245,27 +2245,27 @@ NVME_ZONE_SEND_OPEN: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_SEND_ACTION 
 NVME_ZONE_SEND_RESET: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_SEND_ACTION = 4
 NVME_ZONE_SEND_OFFLINE: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_SEND_ACTION = 5
 NVME_ZONE_SEND_SET_ZONE_DESCRIPTOR: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_SEND_ACTION = 16
-class NVM_RESERVATION_CAPABILITIES(EasyCastUnion):
+class NVM_RESERVATION_CAPABILITIES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUchar: Byte
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: Byte
-class NVM_SET_LIST(EasyCastStructure):
+class NVM_SET_LIST(Structure):
     IdentifierCount: Byte
     Reserved: Byte * 127
     Entry: win32more.Windows.Win32.Storage.Nvme.NVME_SET_ATTRIBUTES_ENTRY * 1
-class TCG_ACTIVATE_METHOD_SPECIFIC(EasyCastStructure):
+class TCG_ACTIVATE_METHOD_SPECIFIC(Structure):
     RangeStartLengthPolicy: Byte
-class TCG_ASSIGN_METHOD_SPECIFIC(EasyCastStructure):
+class TCG_ASSIGN_METHOD_SPECIFIC(Structure):
     NamespaceId: UInt32
     _pack_ = 1
-class TCG_AUTH_METHOD_SPECIFIC(EasyCastStructure):
+class TCG_AUTH_METHOD_SPECIFIC(Structure):
     AuthorityId: UInt64
     TriesCount: Byte
     _pack_ = 1
-class TCG_BLOCKSID_METHOD_SPECIFIC(EasyCastStructure):
+class TCG_BLOCKSID_METHOD_SPECIFIC(Structure):
     ClearEvents: Byte
-class TCG_HISTORY_ENTRY(EasyCastStructure):
+class TCG_HISTORY_ENTRY(Structure):
     VersionNumber: Byte
     EntryLength: Byte
     PowerCycleCount: UInt16
@@ -2279,9 +2279,9 @@ class TCG_HISTORY_ENTRY(EasyCastStructure):
     ProcessTime: UInt16
     CommandSpecific: Byte * 10
     _pack_ = 1
-class TCG_REACTIVATE_METHOD_SPECIFIC(EasyCastStructure):
+class TCG_REACTIVATE_METHOD_SPECIFIC(Structure):
     RangeStartLengthPolicy: Byte
-class UNSUPPORTED_REQUIREMENT(EasyCastStructure):
+class UNSUPPORTED_REQUIREMENT(Structure):
     ReqId: Byte * 16
 ZONE_STATE = Int32
 NVME_STATE_ZSE: win32more.Windows.Win32.Storage.Nvme.ZONE_STATE = 1

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
@@ -586,7 +586,7 @@ PET_DISCRETEVALUE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPENUMTYP
 PET_RANGEDVALUE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPENUMTYPE = 1
 PET_DEFAULTVALUE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPENUMTYPE = 2
 PET_ENDRANGE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPENUMTYPE = 3
-class PROPERTYKEY(EasyCastStructure):
+class PROPERTYKEY(Structure):
     fmtid: Guid
     pid: UInt32
 PROPERTYUI_FLAGS = Int32
@@ -602,7 +602,7 @@ PUIFFDF_FRIENDLYDATE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTY
 PROPERTYUI_NAME_FLAGS = Int32
 PUIFNF_DEFAULT: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYUI_NAME_FLAGS = 0
 PUIFNF_MNEMONIC: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYUI_NAME_FLAGS = 1
-class PROPPRG(EasyCastStructure):
+class PROPPRG(Structure):
     flPrg: UInt16
     flPrgInit: UInt16
     achTitle: win32more.Windows.Win32.Foundation.CHAR * 30

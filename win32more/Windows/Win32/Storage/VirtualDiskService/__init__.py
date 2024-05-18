@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Vhd
 import win32more.Windows.Win32.Storage.VirtualDiskService
@@ -465,36 +465,36 @@ VDS_E_DELETE_WITH_BOOTBACKING: win32more.Windows.Win32.Foundation.HRESULT = -214
 VDS_E_FORMAT_WITH_BOOTBACKING: win32more.Windows.Win32.Foundation.HRESULT = -2147210744
 VDS_E_CLEAN_WITH_BOOTBACKING: win32more.Windows.Win32.Foundation.HRESULT = -2147210743
 VDS_E_SHRINK_EXTEND_UNALIGNED: win32more.Windows.Win32.Foundation.HRESULT = -2147210496
-class CHANGE_ATTRIBUTES_PARAMETERS(EasyCastStructure):
+class CHANGE_ATTRIBUTES_PARAMETERS(Structure):
     style: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         MbrPartInfo: _MbrPartInfo_e__Struct
         GptPartInfo: _GptPartInfo_e__Struct
-        class _MbrPartInfo_e__Struct(EasyCastStructure):
+        class _MbrPartInfo_e__Struct(Structure):
             bootIndicator: win32more.Windows.Win32.Foundation.BOOLEAN
-        class _GptPartInfo_e__Struct(EasyCastStructure):
+        class _GptPartInfo_e__Struct(Structure):
             attributes: UInt64
-class CHANGE_PARTITION_TYPE_PARAMETERS(EasyCastStructure):
+class CHANGE_PARTITION_TYPE_PARAMETERS(Structure):
     style: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         MbrPartInfo: _MbrPartInfo_e__Struct
         GptPartInfo: _GptPartInfo_e__Struct
-        class _MbrPartInfo_e__Struct(EasyCastStructure):
+        class _MbrPartInfo_e__Struct(Structure):
             partitionType: Byte
-        class _GptPartInfo_e__Struct(EasyCastStructure):
+        class _GptPartInfo_e__Struct(Structure):
             partitionType: Guid
-class CREATE_PARTITION_PARAMETERS(EasyCastStructure):
+class CREATE_PARTITION_PARAMETERS(Structure):
     style: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         MbrPartInfo: _MbrPartInfo_e__Struct
         GptPartInfo: _GptPartInfo_e__Struct
-        class _MbrPartInfo_e__Struct(EasyCastStructure):
+        class _MbrPartInfo_e__Struct(Structure):
             partitionType: Byte
             bootIndicator: win32more.Windows.Win32.Foundation.BOOLEAN
-        class _GptPartInfo_e__Struct(EasyCastStructure):
+        class _GptPartInfo_e__Struct(Structure):
             partitionType: Guid
             partitionId: Guid
             attributes: UInt64
@@ -1273,7 +1273,7 @@ class IVdsVolumeShrink(ComPtr):
     def QueryMaxReclaimableBytes(self, pullMaxNumberOfReclaimableBytes: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Shrink(self, ullDesiredNumberOfReclaimableBytes: UInt64, ullMinNumberOfReclaimableBytes: UInt64, ppAsync: POINTER(win32more.Windows.Win32.Storage.VirtualDiskService.IVdsAsync)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class VDS_ADVANCEDDISK_PROP(EasyCastStructure):
+class VDS_ADVANCEDDISK_PROP(Structure):
     pwszId: win32more.Windows.Win32.Foundation.PWSTR
     pwszPathname: win32more.Windows.Win32.Foundation.PWSTR
     pwszLocation: win32more.Windows.Win32.Foundation.PWSTR
@@ -1297,13 +1297,13 @@ class VDS_ADVANCEDDISK_PROP(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     ulFlags: UInt32
     dwDeviceType: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwSignature: UInt32
         DiskGuid: Guid
-class VDS_ASYNC_OUTPUT(EasyCastStructure):
+class VDS_ASYNC_OUTPUT(Structure):
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         cp: _cp
         cv: _cv
         bvp: _bvp
@@ -1312,22 +1312,22 @@ class VDS_ASYNC_OUTPUT(EasyCastStructure):
         ct: _ct
         cpg: _cpg
         cvd: _cvd
-        class _cp(EasyCastStructure):
+        class _cp(Structure):
             ullOffset: UInt64
             volumeId: Guid
-        class _cv(EasyCastStructure):
+        class _cv(Structure):
             pVolumeUnk: win32more.Windows.Win32.System.Com.IUnknown
-        class _bvp(EasyCastStructure):
+        class _bvp(Structure):
             pVolumeUnk: win32more.Windows.Win32.System.Com.IUnknown
-        class _sv(EasyCastStructure):
+        class _sv(Structure):
             ullReclaimedBytes: UInt64
-        class _cl(EasyCastStructure):
+        class _cl(Structure):
             pLunUnk: win32more.Windows.Win32.System.Com.IUnknown
-        class _ct(EasyCastStructure):
+        class _ct(Structure):
             pTargetUnk: win32more.Windows.Win32.System.Com.IUnknown
-        class _cpg(EasyCastStructure):
+        class _cpg(Structure):
             pPortalGroupUnk: win32more.Windows.Win32.System.Com.IUnknown
-        class _cvd(EasyCastStructure):
+        class _cvd(Structure):
             pVDiskUnk: win32more.Windows.Win32.System.Com.IUnknown
 VDS_ASYNC_OUTPUT_TYPE = Int32
 VDS_ASYNCOUT_UNKNOWN: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_TYPE = 0
@@ -1362,10 +1362,10 @@ VDS_ASYNCOUT_ATTACH_VDISK: win32more.Windows.Win32.Storage.VirtualDiskService.VD
 VDS_ASYNCOUT_COMPACT_VDISK: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_TYPE = 202
 VDS_ASYNCOUT_MERGE_VDISK: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_TYPE = 203
 VDS_ASYNCOUT_EXPAND_VDISK: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_TYPE = 204
-class VDS_CONTROLLER_NOTIFICATION(EasyCastStructure):
+class VDS_CONTROLLER_NOTIFICATION(Structure):
     ulEvent: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_CONTROLLER
     controllerId: Guid
-class VDS_CONTROLLER_PROP(EasyCastStructure):
+class VDS_CONTROLLER_PROP(Structure):
     id: Guid
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     pwszIdentification: win32more.Windows.Win32.Foundation.PWSTR
@@ -1379,14 +1379,14 @@ VDS_CS_NOT_READY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_CONTROL
 VDS_CS_OFFLINE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_CONTROLLER_STATUS = 4
 VDS_CS_FAILED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_CONTROLLER_STATUS = 5
 VDS_CS_REMOVED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_CONTROLLER_STATUS = 8
-class VDS_CREATE_VDISK_PARAMETERS(EasyCastStructure):
+class VDS_CREATE_VDISK_PARAMETERS(Structure):
     UniqueId: Guid
     MaximumSize: UInt64
     BlockSizeInBytes: UInt32
     SectorSizeInBytes: UInt32
     pParentPath: win32more.Windows.Win32.Foundation.PWSTR
     pSourcePath: win32more.Windows.Win32.Foundation.PWSTR
-class VDS_DISK_EXTENT(EasyCastStructure):
+class VDS_DISK_EXTENT(Structure):
     diskId: Guid
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_EXTENT_TYPE
     ullOffset: UInt64
@@ -1422,11 +1422,11 @@ VDS_DF_DYNAMIC: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_FLAG
 VDS_DF_BOOT_FROM_DISK: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_FLAG = 16384
 VDS_DF_CURRENT_READ_ONLY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_FLAG = 32768
 VDS_DF_REFS_NOT_SUPPORTED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_FLAG = 65536
-class VDS_DISK_FREE_EXTENT(EasyCastStructure):
+class VDS_DISK_FREE_EXTENT(Structure):
     diskId: Guid
     ullOffset: UInt64
     ullSize: UInt64
-class VDS_DISK_NOTIFICATION(EasyCastStructure):
+class VDS_DISK_NOTIFICATION(Structure):
     ulEvent: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_DISK
     diskId: Guid
 VDS_DISK_OFFLINE_REASON = Int32
@@ -1439,7 +1439,7 @@ VDSDiskOfflineReasonResourceExhaustion: win32more.Windows.Win32.Storage.VirtualD
 VDSDiskOfflineReasonWriteFailure: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 6
 VDSDiskOfflineReasonDIScan: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 7
 VDSDiskOfflineReasonLostDataPersistence: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON = 8
-class VDS_DISK_PROP(EasyCastStructure):
+class VDS_DISK_PROP(Structure):
     id: Guid
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STATUS
     ReserveMode: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_RESERVE_MODE
@@ -1459,10 +1459,10 @@ class VDS_DISK_PROP(EasyCastStructure):
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     pwszAdaptorName: win32more.Windows.Win32.Foundation.PWSTR
     pwszDevicePath: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwSignature: UInt32
         DiskGuid: Guid
-class VDS_DISK_PROP2(EasyCastStructure):
+class VDS_DISK_PROP2(Structure):
     id: Guid
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STATUS
     OfflineReason: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON
@@ -1484,7 +1484,7 @@ class VDS_DISK_PROP2(EasyCastStructure):
     pwszAdaptorName: win32more.Windows.Win32.Foundation.PWSTR
     pwszDevicePath: win32more.Windows.Win32.Foundation.PWSTR
     pwszLocationPath: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwSignature: UInt32
         DiskGuid: Guid
 VDS_DISK_STATUS = Int32
@@ -1495,7 +1495,7 @@ VDS_DS_NO_MEDIA: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STA
 VDS_DS_FAILED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STATUS = 5
 VDS_DS_MISSING: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STATUS = 6
 VDS_DS_OFFLINE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STATUS = 4
-class VDS_DRIVE_EXTENT(EasyCastStructure):
+class VDS_DRIVE_EXTENT(Structure):
     id: Guid
     LunId: Guid
     ullSize: UInt64
@@ -1508,19 +1508,19 @@ VDS_DRF_HOTSPARE_IN_USE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_
 VDS_DRF_HOTSPARE_STANDBY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DRIVE_FLAG = 16
 VDS_DRIVE_LETTER_FLAG = Int32
 VDS_DLF_NON_PERSISTENT: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DRIVE_LETTER_FLAG = 1
-class VDS_DRIVE_LETTER_NOTIFICATION(EasyCastStructure):
+class VDS_DRIVE_LETTER_NOTIFICATION(Structure):
     ulEvent: UInt32
     wcLetter: Char
     volumeId: Guid
-class VDS_DRIVE_LETTER_PROP(EasyCastStructure):
+class VDS_DRIVE_LETTER_PROP(Structure):
     wcLetter: Char
     volumeId: Guid
     ulFlags: UInt32
     bUsed: win32more.Windows.Win32.Foundation.BOOL
-class VDS_DRIVE_NOTIFICATION(EasyCastStructure):
+class VDS_DRIVE_NOTIFICATION(Structure):
     ulEvent: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_DRIVE
     driveId: Guid
-class VDS_DRIVE_PROP(EasyCastStructure):
+class VDS_DRIVE_PROP(Structure):
     id: Guid
     ullSize: UInt64
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1530,7 +1530,7 @@ class VDS_DRIVE_PROP(EasyCastStructure):
     health: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH
     sInternalBusNumber: Int16
     sSlotNumber: Int16
-class VDS_DRIVE_PROP2(EasyCastStructure):
+class VDS_DRIVE_PROP2(Structure):
     id: Guid
     ullSize: UInt64
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1572,17 +1572,17 @@ VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG = Int32
 VDS_FSS_DEFAULT: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG = 1
 VDS_FSS_PREVIOUS_REVISION: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG = 2
 VDS_FSS_RECOMMENDED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG = 4
-class VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP(EasyCastStructure):
+class VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP(Structure):
     ulFlags: UInt32
     usRevision: UInt16
     ulDefaultUnitAllocationSize: UInt32
     rgulAllowedUnitAllocationSizes: UInt32 * 32
     wszName: Char * 32
-class VDS_FILE_SYSTEM_NOTIFICATION(EasyCastStructure):
+class VDS_FILE_SYSTEM_NOTIFICATION(Structure):
     ulEvent: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_FILE_SYSTEM
     volumeId: Guid
     dwPercentCompleted: UInt32
-class VDS_FILE_SYSTEM_PROP(EasyCastStructure):
+class VDS_FILE_SYSTEM_PROP(Structure):
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE
     volumeId: Guid
     ulFlags: UInt32
@@ -1603,7 +1603,7 @@ VDS_FST_UDF: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_
 VDS_FST_EXFAT: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE = 7
 VDS_FST_CSVFS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE = 8
 VDS_FST_REFS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE = 9
-class VDS_FILE_SYSTEM_TYPE_PROP(EasyCastStructure):
+class VDS_FILE_SYSTEM_TYPE_PROP(Structure):
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE
     wszName: Char * 8
     ulFlags: UInt32
@@ -1616,7 +1616,7 @@ VDS_FSOF_FORCE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FORMAT_OP
 VDS_FSOF_QUICK: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FORMAT_OPTION_FLAGS = 2
 VDS_FSOF_COMPRESSION: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FORMAT_OPTION_FLAGS = 4
 VDS_FSOF_DUPLICATE_METADATA: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FORMAT_OPTION_FLAGS = 8
-class VDS_HBAPORT_PROP(EasyCastStructure):
+class VDS_HBAPORT_PROP(Structure):
     id: Guid
     wwnNode: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_WWN
     wwnPort: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_WWN
@@ -1665,7 +1665,7 @@ VDS_H_FAILED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH = 8
 VDS_H_REPLACED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH = 9
 VDS_H_PENDING_FAILURE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH = 10
 VDS_H_DEGRADED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH = 11
-class VDS_HINTS(EasyCastStructure):
+class VDS_HINTS(Structure):
     ullHintMask: UInt64
     ullExpectedMaximumSize: UInt64
     ulOptimalReadSize: UInt32
@@ -1684,7 +1684,7 @@ class VDS_HINTS(EasyCastStructure):
     bHardwareChecksumEnabled: win32more.Windows.Win32.Foundation.BOOL
     bIsYankable: win32more.Windows.Win32.Foundation.BOOL
     sRebuildPriority: Int16
-class VDS_HINTS2(EasyCastStructure):
+class VDS_HINTS2(Structure):
     ullHintMask: UInt64
     ullExpectedMaximumSize: UInt64
     ulOptimalReadSize: UInt32
@@ -1723,12 +1723,12 @@ VDS_HWT_FIBRE_CHANNEL: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HW
 VDS_HWT_ISCSI: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE = 3
 VDS_HWT_SAS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE = 4
 VDS_HWT_HYBRID: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE = 5
-class VDS_INPUT_DISK(EasyCastStructure):
+class VDS_INPUT_DISK(Structure):
     diskId: Guid
     ullSize: UInt64
     plexId: Guid
     memberIdx: UInt32
-class VDS_INTERCONNECT(EasyCastStructure):
+class VDS_INTERCONNECT(Structure):
     m_addressType: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_INTERCONNECT_ADDRESS_TYPE
     m_cbPort: UInt32
     m_pbPort: POINTER(Byte)
@@ -1746,7 +1746,7 @@ VDS_ITF_PCI_RAID: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_INTERCO
 VDS_ITF_FIBRE_CHANNEL: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_INTERCONNECT_FLAG = 2
 VDS_ITF_ISCSI: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_INTERCONNECT_FLAG = 4
 VDS_ITF_SAS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_INTERCONNECT_FLAG = 8
-class VDS_IPADDRESS(EasyCastStructure):
+class VDS_IPADDRESS(Structure):
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_IPADDRESS_TYPE
     ipv4Address: UInt32
     ipv6Address: Byte * 16
@@ -1763,10 +1763,10 @@ VDS_ISCSI_AUTH_TYPE = Int32
 VDS_IAT_NONE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_AUTH_TYPE = 0
 VDS_IAT_CHAP: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_AUTH_TYPE = 1
 VDS_IAT_MUTUAL_CHAP: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_AUTH_TYPE = 2
-class VDS_ISCSI_INITIATOR_ADAPTER_PROP(EasyCastStructure):
+class VDS_ISCSI_INITIATOR_ADAPTER_PROP(Structure):
     id: Guid
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
-class VDS_ISCSI_INITIATOR_PORTAL_PROP(EasyCastStructure):
+class VDS_ISCSI_INITIATOR_PORTAL_PROP(Structure):
     id: Guid
     address: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_IPADDRESS
     ulPortIndex: UInt32
@@ -1778,7 +1778,7 @@ VDS_IIF_AGGRESSIVE_MODE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_
 VDS_IIF_PFS_ENABLE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_FLAG = 16
 VDS_IIF_TRANSPORT_MODE_PREFERRED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_FLAG = 32
 VDS_IIF_TUNNEL_MODE_PREFERRED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_FLAG = 64
-class VDS_ISCSI_IPSEC_KEY(EasyCastStructure):
+class VDS_ISCSI_IPSEC_KEY(Structure):
     pKey: POINTER(Byte)
     ulKeySize: UInt32
 VDS_ISCSI_LOGIN_FLAG = Int32
@@ -1788,10 +1788,10 @@ VDS_ISCSI_LOGIN_TYPE = Int32
 VDS_ILT_MANUAL: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_LOGIN_TYPE = 0
 VDS_ILT_PERSISTENT: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_LOGIN_TYPE = 1
 VDS_ILT_BOOT: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_LOGIN_TYPE = 2
-class VDS_ISCSI_PORTALGROUP_PROP(EasyCastStructure):
+class VDS_ISCSI_PORTALGROUP_PROP(Structure):
     id: Guid
     tag: UInt16
-class VDS_ISCSI_PORTAL_PROP(EasyCastStructure):
+class VDS_ISCSI_PORTAL_PROP(Structure):
     id: Guid
     address: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_IPADDRESS
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_STATUS
@@ -1801,10 +1801,10 @@ VDS_IPS_ONLINE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_POR
 VDS_IPS_NOT_READY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_STATUS = 2
 VDS_IPS_OFFLINE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_STATUS = 4
 VDS_IPS_FAILED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_STATUS = 5
-class VDS_ISCSI_SHARED_SECRET(EasyCastStructure):
+class VDS_ISCSI_SHARED_SECRET(Structure):
     pSharedSecret: POINTER(Byte)
     ulSharedSecretSize: UInt32
-class VDS_ISCSI_TARGET_PROP(EasyCastStructure):
+class VDS_ISCSI_TARGET_PROP(Structure):
     id: Guid
     pwszIscsiName: win32more.Windows.Win32.Foundation.PWSTR
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1828,7 +1828,7 @@ VDS_LF_WRITE_CACHE_ENABLED: win32more.Windows.Win32.Storage.VirtualDiskService.V
 VDS_LF_MEDIA_SCAN_ENABLED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_FLAG = 64
 VDS_LF_CONSISTENCY_CHECK_ENABLED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_FLAG = 128
 VDS_LF_SNAPSHOT: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_FLAG = 256
-class VDS_LUN_INFORMATION(EasyCastStructure):
+class VDS_LUN_INFORMATION(Structure):
     m_version: UInt32
     m_DeviceType: Byte
     m_DeviceTypeModifier: Byte
@@ -1842,12 +1842,12 @@ class VDS_LUN_INFORMATION(EasyCastStructure):
     m_deviceIdDescriptor: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_DEVICE_ID_DESCRIPTOR
     m_cInterconnects: UInt32
     m_rgInterconnects: POINTER(win32more.Windows.Win32.Storage.VirtualDiskService.VDS_INTERCONNECT)
-class VDS_LUN_NOTIFICATION(EasyCastStructure):
+class VDS_LUN_NOTIFICATION(Structure):
     ulEvent: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_LUN
     LunId: Guid
 VDS_LUN_PLEX_FLAG = Int32
 VDS_LPF_LBN_REMAP_ENABLED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_PLEX_FLAG = 1
-class VDS_LUN_PLEX_PROP(EasyCastStructure):
+class VDS_LUN_PLEX_PROP(Structure):
     id: Guid
     ullSize: UInt64
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_PLEX_TYPE
@@ -1882,7 +1882,7 @@ VDS_LPT_RAID30: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_PLEX_
 VDS_LPT_RAID50: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_PLEX_TYPE = 26
 VDS_LPT_RAID53: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_PLEX_TYPE = 28
 VDS_LPT_RAID60: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_LUN_PLEX_TYPE = 29
-class VDS_LUN_PROP(EasyCastStructure):
+class VDS_LUN_PROP(Structure):
     id: Guid
     ullSize: UInt64
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1938,7 +1938,7 @@ BeepAlarm: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OP
 SpinDown: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 3
 SpinUp: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 4
 Ping: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION = 5
-class VDS_MOUNT_POINT_NOTIFICATION(EasyCastStructure):
+class VDS_MOUNT_POINT_NOTIFICATION(Structure):
     ulEvent: UInt32
     volumeId: Guid
 VDS_NF_CONTROLLER = UInt32
@@ -1971,10 +1971,10 @@ VDS_NF_PORT_ARRIVE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_PO
 VDS_NF_PORT_DEPART: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_PORT = 122
 VDS_NF_PORT_MODIFY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_PORT = 352
 VDS_NF_PORT_REMOVED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_PORT = 353
-class VDS_NOTIFICATION(EasyCastStructure):
+class VDS_NOTIFICATION(Structure):
     objectType: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NOTIFICATION_TARGET_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Pack: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PACK_NOTIFICATION
         Disk: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_NOTIFICATION
         Volume: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_NOTIFICATION
@@ -2039,10 +2039,10 @@ VDS_PKF_NOQUORUM: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PACK_FL
 VDS_PKF_POLICY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PACK_FLAG = 4
 VDS_PKF_CORRUPTED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PACK_FLAG = 8
 VDS_PKF_ONLINE_ERROR: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PACK_FLAG = 16
-class VDS_PACK_NOTIFICATION(EasyCastStructure):
+class VDS_PACK_NOTIFICATION(Structure):
     ulEvent: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_PACK
     packId: Guid
-class VDS_PACK_PROP(EasyCastStructure):
+class VDS_PACK_PROP(Structure):
     id: Guid
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PACK_STATUS
@@ -2053,64 +2053,64 @@ VDS_PS_ONLINE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PACK_STATU
 VDS_PS_OFFLINE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PACK_STATUS = 4
 VDS_PARTITION_FLAG = Int32
 VDS_PTF_SYSTEM: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_FLAG = 1
-class VDS_PARTITION_INFORMATION_EX(EasyCastStructure):
+class VDS_PARTITION_INFORMATION_EX(Structure):
     dwPartitionStyle: win32more.Windows.Win32.Storage.VirtualDiskService.__VDS_PARTITION_STYLE
     ullStartingOffset: UInt64
     ullPartitionLength: UInt64
     dwPartitionNumber: UInt32
     bRewritePartition: win32more.Windows.Win32.Foundation.BOOLEAN
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_MBR
         Gpt: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_GPT
-class VDS_PARTITION_INFO_GPT(EasyCastStructure):
+class VDS_PARTITION_INFO_GPT(Structure):
     partitionType: Guid
     partitionId: Guid
     attributes: UInt64
     name: Char * 36
-class VDS_PARTITION_INFO_MBR(EasyCastStructure):
+class VDS_PARTITION_INFO_MBR(Structure):
     partitionType: Byte
     bootIndicator: win32more.Windows.Win32.Foundation.BOOLEAN
     recognizedPartition: win32more.Windows.Win32.Foundation.BOOLEAN
     hiddenSectors: UInt32
-class VDS_PARTITION_NOTIFICATION(EasyCastStructure):
+class VDS_PARTITION_NOTIFICATION(Structure):
     ulEvent: UInt32
     diskId: Guid
     ullOffset: UInt64
-class VDS_PARTITION_PROP(EasyCastStructure):
+class VDS_PARTITION_PROP(Structure):
     PartitionStyle: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
     ulFlags: UInt32
     ulPartitionNumber: UInt32
     ullOffset: UInt64
     ullSize: UInt64
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_MBR
         Gpt: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_GPT
 VDS_PARTITION_STYLE = Int32
 VDS_PST_UNKNOWN: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE = 0
 VDS_PST_MBR: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE = 1
 VDS_PST_GPT: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE = 2
-class VDS_PATH_ID(EasyCastStructure):
+class VDS_PATH_ID(Structure):
     ullSourceId: UInt64
     ullPathId: UInt64
-class VDS_PATH_INFO(EasyCastStructure):
+class VDS_PATH_INFO(Structure):
     pathId: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PATH_ID
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PATH_STATUS
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         controllerPortId: Guid
         targetPortalId: Guid
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hbaPortId: Guid
         initiatorAdapterId: Guid
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         pHbaPortProp: POINTER(win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HBAPORT_PROP)
         pInitiatorPortalIpAddr: POINTER(win32more.Windows.Win32.Storage.VirtualDiskService.VDS_IPADDRESS)
-class VDS_PATH_POLICY(EasyCastStructure):
+class VDS_PATH_POLICY(Structure):
     pathId: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PATH_ID
     bPrimaryPath: win32more.Windows.Win32.Foundation.BOOL
     ulWeight: UInt32
@@ -2119,7 +2119,7 @@ VDS_MPS_UNKNOWN: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PATH_STA
 VDS_MPS_ONLINE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PATH_STATUS = 1
 VDS_MPS_FAILED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PATH_STATUS = 5
 VDS_MPS_STANDBY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PATH_STATUS = 7
-class VDS_POOL_ATTRIBUTES(EasyCastStructure):
+class VDS_POOL_ATTRIBUTES(Structure):
     ullAttributeMask: UInt64
     raidType: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_RAID_TYPE
     busType: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE
@@ -2158,19 +2158,19 @@ class VDS_POOL_ATTRIBUTES(EasyCastStructure):
     ulReserved2: UInt32
     ullReserved1: UInt64
     ullReserved2: UInt64
-class VDS_POOL_CUSTOM_ATTRIBUTES(EasyCastStructure):
+class VDS_POOL_CUSTOM_ATTRIBUTES(Structure):
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pwszValue: win32more.Windows.Win32.Foundation.PWSTR
-class VDS_PORTAL_GROUP_NOTIFICATION(EasyCastStructure):
+class VDS_PORTAL_GROUP_NOTIFICATION(Structure):
     ulEvent: UInt32
     portalGroupId: Guid
-class VDS_PORTAL_NOTIFICATION(EasyCastStructure):
+class VDS_PORTAL_NOTIFICATION(Structure):
     ulEvent: UInt32
     portalId: Guid
-class VDS_PORT_NOTIFICATION(EasyCastStructure):
+class VDS_PORT_NOTIFICATION(Structure):
     ulEvent: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_PORT
     portId: Guid
-class VDS_PORT_PROP(EasyCastStructure):
+class VDS_PORT_PROP(Structure):
     id: Guid
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     pwszIdentification: win32more.Windows.Win32.Foundation.PWSTR
@@ -2201,7 +2201,7 @@ VDS_LBF_DYN_LEAST_QUEUE_DEPTH: win32more.Windows.Win32.Storage.VirtualDiskServic
 VDS_LBF_WEIGHTED_PATHS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PROVIDER_LBSUPPORT_FLAG = 16
 VDS_LBF_LEAST_BLOCKS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PROVIDER_LBSUPPORT_FLAG = 32
 VDS_LBF_VENDOR_SPECIFIC: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PROVIDER_LBSUPPORT_FLAG = 64
-class VDS_PROVIDER_PROP(EasyCastStructure):
+class VDS_PROVIDER_PROP(Structure):
     id: Guid
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     guidVersionId: Guid
@@ -2244,7 +2244,7 @@ VDS_RECOVER_ACTION = Int32
 VDS_RA_UNKNOWN: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_RECOVER_ACTION = 0
 VDS_RA_REFRESH: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_RECOVER_ACTION = 1
 VDS_RA_RESTART: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_RECOVER_ACTION = 2
-class VDS_REPARSE_POINT_PROP(EasyCastStructure):
+class VDS_REPARSE_POINT_PROP(Structure):
     SourceVolumeId: Guid
     pwszPath: win32more.Windows.Win32.Foundation.PWSTR
 VDS_SAN_POLICY = Int32
@@ -2266,10 +2266,10 @@ VDS_SVF_EFI: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SERVICE_FLAG
 VDS_SVF_SUPPORT_MIRROR: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SERVICE_FLAG = 256
 VDS_SVF_SUPPORT_RAID5: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SERVICE_FLAG = 512
 VDS_SVF_SUPPORT_REFS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SERVICE_FLAG = 1024
-class VDS_SERVICE_NOTIFICATION(EasyCastStructure):
+class VDS_SERVICE_NOTIFICATION(Structure):
     ulEvent: UInt32
     action: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_RECOVER_ACTION
-class VDS_SERVICE_PROP(EasyCastStructure):
+class VDS_SERVICE_PROP(Structure):
     pwszVersion: win32more.Windows.Win32.Foundation.PWSTR
     ulFlags: UInt32
 VDS_STORAGE_BUS_TYPE = Int32
@@ -2295,11 +2295,11 @@ VDSBusTypeNVMe: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_B
 VDSBusTypeScm: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 18
 VDSBusTypeUfs: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 19
 VDSBusTypeMaxReserved: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE = 127
-class VDS_STORAGE_DEVICE_ID_DESCRIPTOR(EasyCastStructure):
+class VDS_STORAGE_DEVICE_ID_DESCRIPTOR(Structure):
     m_version: UInt32
     m_cIdentifiers: UInt32
     m_rgIdentifiers: POINTER(win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER)
-class VDS_STORAGE_IDENTIFIER(EasyCastStructure):
+class VDS_STORAGE_IDENTIFIER(Structure):
     m_CodeSet: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_CODE_SET
     m_Type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE
     m_cbIdentifier: UInt32
@@ -2319,11 +2319,11 @@ VDSStorageIdTypeTargetPortGroup: win32more.Windows.Win32.Storage.VirtualDiskServ
 VDSStorageIdTypeLogicalUnitGroup: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 6
 VDSStorageIdTypeMD5LogicalUnitIdentifier: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 7
 VDSStorageIdTypeScsiNameString: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_IDENTIFIER_TYPE = 8
-class VDS_STORAGE_POOL_DRIVE_EXTENT(EasyCastStructure):
+class VDS_STORAGE_POOL_DRIVE_EXTENT(Structure):
     id: Guid
     ullSize: UInt64
     bUsed: win32more.Windows.Win32.Foundation.BOOL
-class VDS_STORAGE_POOL_PROP(EasyCastStructure):
+class VDS_STORAGE_POOL_PROP(Structure):
     id: Guid
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_POOL_STATUS
     health: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH
@@ -2367,10 +2367,10 @@ VDS_SF_READ_CACHING_CAPABLE: win32more.Windows.Win32.Storage.VirtualDiskService.
 VDS_SF_WRITE_CACHING_CAPABLE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SUB_SYSTEM_FLAG = 4194304
 VDS_SF_MEDIA_SCAN_CAPABLE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SUB_SYSTEM_FLAG = 8388608
 VDS_SF_CONSISTENCY_CHECK_CAPABLE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SUB_SYSTEM_FLAG = 16777216
-class VDS_SUB_SYSTEM_NOTIFICATION(EasyCastStructure):
+class VDS_SUB_SYSTEM_NOTIFICATION(Structure):
     ulEvent: UInt32
     subSystemId: Guid
-class VDS_SUB_SYSTEM_PROP(EasyCastStructure):
+class VDS_SUB_SYSTEM_PROP(Structure):
     id: Guid
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     pwszIdentification: win32more.Windows.Win32.Foundation.PWSTR
@@ -2382,7 +2382,7 @@ class VDS_SUB_SYSTEM_PROP(EasyCastStructure):
     sMaxNumberOfSlotsEachBus: Int16
     sMaxNumberOfControllers: Int16
     sRebuildPriority: Int16
-class VDS_SUB_SYSTEM_PROP2(EasyCastStructure):
+class VDS_SUB_SYSTEM_PROP2(Structure):
     id: Guid
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     pwszIdentification: win32more.Windows.Win32.Foundation.PWSTR
@@ -2420,7 +2420,7 @@ VDS_SF_SUPPORTS_RAID51_LUNS: win32more.Windows.Win32.Storage.VirtualDiskService.
 VDS_SF_SUPPORTS_RAID53_LUNS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 8192
 VDS_SF_SUPPORTS_RAID60_LUNS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 16384
 VDS_SF_SUPPORTS_RAID61_LUNS: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG = 32768
-class VDS_TARGET_NOTIFICATION(EasyCastStructure):
+class VDS_TARGET_NOTIFICATION(Structure):
     ulEvent: UInt32
     targetId: Guid
 VDS_TRANSITION_STATE = Int32
@@ -2430,7 +2430,7 @@ VDS_TS_EXTENDING: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_TRANSIT
 VDS_TS_SHRINKING: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_TRANSITION_STATE = 3
 VDS_TS_RECONFIGING: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_TRANSITION_STATE = 4
 VDS_TS_RESTRIPING: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_TRANSITION_STATE = 5
-class VDS_VDISK_PROPERTIES(EasyCastStructure):
+class VDS_VDISK_PROPERTIES(Structure):
     Id: Guid
     State: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VDISK_STATE
     VirtualDeviceType: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE
@@ -2487,12 +2487,12 @@ VDS_VF_DIRTY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_FLAG
 VDS_VF_REFS_NOT_SUPPORTED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_FLAG = 8388608
 VDS_VF_BACKS_BOOT_VOLUME: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_FLAG = 16777216
 VDS_VF_BACKED_BY_WIM_IMAGE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_FLAG = 33554432
-class VDS_VOLUME_NOTIFICATION(EasyCastStructure):
+class VDS_VOLUME_NOTIFICATION(Structure):
     ulEvent: UInt32
     volumeId: Guid
     plexId: Guid
     ulPercentCompleted: UInt32
-class VDS_VOLUME_PLEX_PROP(EasyCastStructure):
+class VDS_VOLUME_PLEX_PROP(Structure):
     id: Guid
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PLEX_TYPE
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PLEX_STATUS
@@ -2512,7 +2512,7 @@ VDS_VPT_SIMPLE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PL
 VDS_VPT_SPAN: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PLEX_TYPE = 11
 VDS_VPT_STRIPE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PLEX_TYPE = 12
 VDS_VPT_PARITY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PLEX_TYPE = 14
-class VDS_VOLUME_PROP(EasyCastStructure):
+class VDS_VOLUME_PROP(Structure):
     id: Guid
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_STATUS
@@ -2522,7 +2522,7 @@ class VDS_VOLUME_PROP(EasyCastStructure):
     ulFlags: UInt32
     RecommendedFileSystemType: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
-class VDS_VOLUME_PROP2(EasyCastStructure):
+class VDS_VOLUME_PROP2(Structure):
     id: Guid
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE
     status: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_STATUS
@@ -2547,7 +2547,7 @@ VDS_VT_SPAN: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE 
 VDS_VT_STRIPE: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE = 12
 VDS_VT_MIRROR: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE = 13
 VDS_VT_PARITY: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE = 14
-class VDS_WWN(EasyCastStructure):
+class VDS_WWN(Structure):
     rguchWwn: Byte * 8
 __VDS_PARTITION_STYLE = Int32
 VDS_PARTITION_STYLE_MBR: win32more.Windows.Win32.Storage.VirtualDiskService.__VDS_PARTITION_STYLE = 0

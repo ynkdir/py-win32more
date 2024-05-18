@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.Activation
@@ -1356,7 +1356,7 @@ class PackageId(ComPtr):
     PublisherId = property(get_PublisherId, None)
     ResourceId = property(get_ResourceId, None)
     Version = property(get_Version, None)
-class PackageInstallProgress(EasyCastStructure):
+class PackageInstallProgress(Structure):
     PercentComplete: UInt32
 class PackageInstallingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1512,7 +1512,7 @@ class PackageUpdatingEventArgs(ComPtr):
     Progress = property(get_Progress, None)
     SourcePackage = property(get_SourcePackage, None)
     TargetPackage = property(get_TargetPackage, None)
-class PackageVersion(EasyCastStructure):
+class PackageVersion(Structure):
     Major: UInt16
     Minor: UInt16
     Build: UInt16

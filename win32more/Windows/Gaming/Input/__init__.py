@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Haptics
 import win32more.Windows.Devices.Power
@@ -69,7 +69,7 @@ class ArcadeStickButtons(UInt32):  # enum
     Action6 = 512
     Special1 = 1024
     Special2 = 2048
-class ArcadeStickReading(EasyCastStructure):
+class ArcadeStickReading(Structure):
     Timestamp: UInt64
     Buttons: win32more.Windows.Gaming.Input.ArcadeStickButtons
 class _FlightStick_Meta_(ComPtr.__class__):
@@ -125,7 +125,7 @@ class FlightStickButtons(UInt32):  # enum
     None_ = 0
     FirePrimary = 1
     FireSecondary = 2
-class FlightStickReading(EasyCastStructure):
+class FlightStickReading(Structure):
     Timestamp: UInt64
     Buttons: win32more.Windows.Gaming.Input.FlightStickButtons
     HatSwitch: win32more.Windows.Gaming.Input.GameControllerSwitchPosition
@@ -288,7 +288,7 @@ class GamepadButtons(UInt32):  # enum
     Paddle2 = 32768
     Paddle3 = 65536
     Paddle4 = 131072
-class GamepadReading(EasyCastStructure):
+class GamepadReading(Structure):
     Timestamp: UInt64
     Buttons: win32more.Windows.Gaming.Input.GamepadButtons
     LeftTrigger: Double
@@ -297,7 +297,7 @@ class GamepadReading(EasyCastStructure):
     LeftThumbstickY: Double
     RightThumbstickX: Double
     RightThumbstickY: Double
-class GamepadVibration(EasyCastStructure):
+class GamepadVibration(Structure):
     LeftMotor: Double
     RightMotor: Double
     LeftTrigger: Double
@@ -689,7 +689,7 @@ class RacingWheelButtons(UInt32):  # enum
     Button14 = 524288
     Button15 = 1048576
     Button16 = 2097152
-class RacingWheelReading(EasyCastStructure):
+class RacingWheelReading(Structure):
     Timestamp: UInt64
     Buttons: win32more.Windows.Gaming.Input.RacingWheelButtons
     PatternShifterGear: Int32
@@ -831,7 +831,7 @@ class UINavigationController(ComPtr, metaclass=_UINavigationController_Meta_):
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
     _UINavigationController_Meta_.UINavigationControllers = property(get_UINavigationControllers.__wrapped__, None)
-class UINavigationReading(EasyCastStructure):
+class UINavigationReading(Structure):
     Timestamp: UInt64
     RequiredButtons: win32more.Windows.Gaming.Input.RequiredUINavigationButtons
     OptionalButtons: win32more.Windows.Gaming.Input.OptionalUINavigationButtons

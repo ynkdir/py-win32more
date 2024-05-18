@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.Kernel
@@ -101,7 +101,7 @@ VDMADDR_PM16: UInt32 = 4
 VDMADDR_PM32: UInt32 = 16
 @winfunctype_pointer
 def DEBUGEVENTPROC(param0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT), param1: VoidPtr) -> UInt32: ...
-class GLOBALENTRY(EasyCastStructure):
+class GLOBALENTRY(Structure):
     dwSize: UInt32
     dwAddress: UInt32
     dwBlockSize: UInt32
@@ -116,12 +116,12 @@ class GLOBALENTRY(EasyCastStructure):
     dwNext: UInt32
     dwNextAlt: UInt32
     _pack_ = 4
-class IMAGE_NOTE(EasyCastStructure):
+class IMAGE_NOTE(Structure):
     Module: win32more.Windows.Win32.Foundation.CHAR * 10
     FileName: win32more.Windows.Win32.Foundation.CHAR * 256
     hModule: UInt16
     hTask: UInt16
-class MODULEENTRY(EasyCastStructure):
+class MODULEENTRY(Structure):
     dwSize: UInt32
     szModule: win32more.Windows.Win32.Foundation.CHAR * 10
     hModule: win32more.Windows.Win32.Foundation.HANDLE
@@ -131,7 +131,7 @@ class MODULEENTRY(EasyCastStructure):
     _pack_ = 4
 @winfunctype_pointer
 def PROCESSENUMPROC(dwProcessId: UInt32, dwAttributes: UInt32, lpUserDefined: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class SEGMENT_NOTE(EasyCastStructure):
+class SEGMENT_NOTE(Structure):
     Selector1: UInt16
     Selector2: UInt16
     Segment: UInt16
@@ -143,14 +143,14 @@ class SEGMENT_NOTE(EasyCastStructure):
 def TASKENUMPROC(dwThreadId: UInt32, hMod16: UInt16, hTask16: UInt16, lpUserDefined: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def TASKENUMPROCEX(dwThreadId: UInt32, hMod16: UInt16, hTask16: UInt16, pszModName: POINTER(SByte), pszFileName: POINTER(SByte), lpUserDefined: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class TEMP_BP_NOTE(EasyCastStructure):
+class TEMP_BP_NOTE(Structure):
     Seg: UInt16
     Offset: UInt32
     bPM: win32more.Windows.Win32.Foundation.BOOL
 @winfunctype_pointer
 def VDMBREAKTHREADPROC(param0: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X64,ARM64':
-    class VDMCONTEXT(EasyCastStructure):
+    class VDMCONTEXT(Structure):
         ContextFlags: UInt32
         Dr0: UInt32
         Dr1: UInt32
@@ -176,7 +176,7 @@ if ARCH in 'X64,ARM64':
         Esp: UInt32
         SegSs: UInt32
         ExtendedRegisters: Byte * 512
-class VDMCONTEXT_WITHOUT_XSAVE(EasyCastStructure):
+class VDMCONTEXT_WITHOUT_XSAVE(Structure):
     ContextFlags: UInt32
     Dr0: UInt32
     Dr1: UInt32
@@ -244,19 +244,19 @@ def VDMISMODULELOADEDPROC(param0: win32more.Windows.Win32.Foundation.PSTR) -> wi
 @winfunctype_pointer
 def VDMKILLWOWPROC() -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X64,ARM64':
-    class VDMLDT_ENTRY(EasyCastStructure):
+    class VDMLDT_ENTRY(Structure):
         LimitLow: UInt16
         BaseLow: UInt16
         HighWord: _HighWord_e__Union
-        class _HighWord_e__Union(EasyCastUnion):
+        class _HighWord_e__Union(Union):
             Bytes: _Bytes_e__Struct
             Bits: _Bits_e__Struct
-            class _Bytes_e__Struct(EasyCastStructure):
+            class _Bytes_e__Struct(Structure):
                 BaseMid: Byte
                 Flags1: Byte
                 Flags2: Byte
                 BaseHi: Byte
-            class _Bits_e__Struct(EasyCastStructure):
+            class _Bits_e__Struct(Structure):
                 _bitfield: UInt32
 @winfunctype_pointer
 def VDMMODULEFIRSTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.MODULEENTRY), param3: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param4: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
@@ -276,7 +276,7 @@ def VDMSETDBGFLAGSPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1
 def VDMSTARTTASKINWOWPROC(param0: UInt32, param1: win32more.Windows.Win32.Foundation.PSTR, param2: UInt16) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def VDMTERMINATETASKINWOWPROC(param0: UInt32, param1: UInt16) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class VDM_SEGINFO(EasyCastStructure):
+class VDM_SEGINFO(Structure):
     Selector: UInt16
     SegNumber: UInt16
     Length: UInt32

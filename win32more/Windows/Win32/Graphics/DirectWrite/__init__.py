@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Globalization
 import win32more.Windows.Win32.Graphics.Direct2D.Common
@@ -30,7 +30,7 @@ DWRITE_BASELINE_IDEOGRAPHIC_BOTTOM: win32more.Windows.Win32.Graphics.DirectWrite
 DWRITE_BASELINE_IDEOGRAPHIC_TOP: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BASELINE = 6
 DWRITE_BASELINE_MINIMUM: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BASELINE = 7
 DWRITE_BASELINE_MAXIMUM: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BASELINE = 8
-class DWRITE_BITMAP_DATA_BGRA32(EasyCastStructure):
+class DWRITE_BITMAP_DATA_BGRA32(Structure):
     width: UInt32
     height: UInt32
     pixels: POINTER(UInt32)
@@ -39,11 +39,11 @@ DWRITE_BREAK_CONDITION_NEUTRAL: win32more.Windows.Win32.Graphics.DirectWrite.DWR
 DWRITE_BREAK_CONDITION_CAN_BREAK: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION = 1
 DWRITE_BREAK_CONDITION_MAY_NOT_BREAK: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION = 2
 DWRITE_BREAK_CONDITION_MUST_BREAK: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION = 3
-class DWRITE_CARET_METRICS(EasyCastStructure):
+class DWRITE_CARET_METRICS(Structure):
     slopeRise: Int16
     slopeRun: Int16
     offset: Int16
-class DWRITE_CLUSTER_METRICS(EasyCastStructure):
+class DWRITE_CLUSTER_METRICS(Structure):
     width: Single
     length: UInt16
     _bitfield: UInt16
@@ -76,19 +76,19 @@ DWRITE_COLOR_COMPOSITE_HSL_HUE: win32more.Windows.Win32.Graphics.DirectWrite.DWR
 DWRITE_COLOR_COMPOSITE_HSL_SATURATION: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 25
 DWRITE_COLOR_COMPOSITE_HSL_COLOR: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 26
 DWRITE_COLOR_COMPOSITE_HSL_LUMINOSITY: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 27
-class DWRITE_COLOR_F(EasyCastStructure):
+class DWRITE_COLOR_F(Structure):
     r: Single
     g: Single
     b: Single
     a: Single
-class DWRITE_COLOR_GLYPH_RUN(EasyCastStructure):
+class DWRITE_COLOR_GLYPH_RUN(Structure):
     glyphRun: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN
     glyphRunDescription: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN_DESCRIPTION)
     baselineOriginX: Single
     baselineOriginY: Single
     runColor: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_F
     paletteIndex: UInt16
-class DWRITE_COLOR_GLYPH_RUN1(EasyCastStructure):
+class DWRITE_COLOR_GLYPH_RUN1(Structure):
     Base: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_GLYPH_RUN
     glyphImageFormat: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS
     measuringMode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE
@@ -99,7 +99,7 @@ DWRITE_CONTAINER_TYPE_WOFF2: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE
 DWRITE_FACTORY_TYPE = Int32
 DWRITE_FACTORY_TYPE_SHARED: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FACTORY_TYPE = 0
 DWRITE_FACTORY_TYPE_ISOLATED: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FACTORY_TYPE = 1
-class DWRITE_FILE_FRAGMENT(EasyCastStructure):
+class DWRITE_FILE_FRAGMENT(Structure):
     fileOffset: UInt64
     fragmentSize: UInt64
 DWRITE_FLOW_DIRECTION = Int32
@@ -111,7 +111,7 @@ DWRITE_FONT_AXIS_ATTRIBUTES = Int32
 DWRITE_FONT_AXIS_ATTRIBUTES_NONE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_ATTRIBUTES = 0
 DWRITE_FONT_AXIS_ATTRIBUTES_VARIABLE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_ATTRIBUTES = 1
 DWRITE_FONT_AXIS_ATTRIBUTES_HIDDEN: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_ATTRIBUTES = 2
-class DWRITE_FONT_AXIS_RANGE(EasyCastStructure):
+class DWRITE_FONT_AXIS_RANGE(Structure):
     axisTag: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_TAG
     minValue: Single
     maxValue: Single
@@ -121,7 +121,7 @@ DWRITE_FONT_AXIS_TAG_WIDTH: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_
 DWRITE_FONT_AXIS_TAG_SLANT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_TAG = 1953393779
 DWRITE_FONT_AXIS_TAG_OPTICAL_SIZE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_TAG = 2054385775
 DWRITE_FONT_AXIS_TAG_ITALIC: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_TAG = 1818326121
-class DWRITE_FONT_AXIS_VALUE(EasyCastStructure):
+class DWRITE_FONT_AXIS_VALUE(Structure):
     axisTag: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_TAG
     value: Single
 DWRITE_FONT_FACE_TYPE = Int32
@@ -137,7 +137,7 @@ DWRITE_FONT_FACE_TYPE_TRUETYPE_COLLECTION: win32more.Windows.Win32.Graphics.Dire
 DWRITE_FONT_FAMILY_MODEL = Int32
 DWRITE_FONT_FAMILY_MODEL_TYPOGRAPHIC: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL = 0
 DWRITE_FONT_FAMILY_MODEL_WEIGHT_STRETCH_STYLE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL = 1
-class DWRITE_FONT_FEATURE(EasyCastStructure):
+class DWRITE_FONT_FEATURE(Structure):
     nameTag: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FEATURE_TAG
     parameter: UInt32
 DWRITE_FONT_FEATURE_TAG = UInt32
@@ -236,7 +236,7 @@ DWRITE_FONT_LINE_GAP_USAGE = Int32
 DWRITE_FONT_LINE_GAP_USAGE_DEFAULT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_LINE_GAP_USAGE = 0
 DWRITE_FONT_LINE_GAP_USAGE_DISABLED: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_LINE_GAP_USAGE = 1
 DWRITE_FONT_LINE_GAP_USAGE_ENABLED: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_LINE_GAP_USAGE = 2
-class DWRITE_FONT_METRICS(EasyCastStructure):
+class DWRITE_FONT_METRICS(Structure):
     designUnitsPerEm: UInt16
     ascent: UInt16
     descent: UInt16
@@ -247,7 +247,7 @@ class DWRITE_FONT_METRICS(EasyCastStructure):
     underlineThickness: UInt16
     strikethroughPosition: Int16
     strikethroughThickness: UInt16
-class DWRITE_FONT_METRICS1(EasyCastStructure):
+class DWRITE_FONT_METRICS1(Structure):
     Base: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_METRICS
     glyphBoxLeft: Int16
     glyphBoxTop: Int16
@@ -262,7 +262,7 @@ class DWRITE_FONT_METRICS1(EasyCastStructure):
     superscriptSizeX: Int16
     superscriptSizeY: Int16
     hasTypographicMetrics: win32more.Windows.Win32.Foundation.BOOL
-class DWRITE_FONT_PROPERTY(EasyCastStructure):
+class DWRITE_FONT_PROPERTY(Structure):
     propertyId: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_PROPERTY_ID
     propertyValue: win32more.Windows.Win32.Foundation.PWSTR
     localeName: win32more.Windows.Win32.Foundation.PWSTR
@@ -330,7 +330,7 @@ DWRITE_FONT_WEIGHT_BLACK: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FO
 DWRITE_FONT_WEIGHT_HEAVY: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT = 900
 DWRITE_FONT_WEIGHT_EXTRA_BLACK: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT = 950
 DWRITE_FONT_WEIGHT_ULTRA_BLACK: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT = 950
-class DWRITE_GLYPH_IMAGE_DATA(EasyCastStructure):
+class DWRITE_GLYPH_IMAGE_DATA(Structure):
     imageData: VoidPtr
     imageDataSize: UInt32
     uniqueDataId: UInt32
@@ -351,7 +351,7 @@ DWRITE_GLYPH_IMAGE_FORMATS_JPEG: win32more.Windows.Win32.Graphics.DirectWrite.DW
 DWRITE_GLYPH_IMAGE_FORMATS_TIFF: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS = 64
 DWRITE_GLYPH_IMAGE_FORMATS_PREMULTIPLIED_B8G8R8A8: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS = 128
 DWRITE_GLYPH_IMAGE_FORMATS_COLR_PAINT_TREE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS = 256
-class DWRITE_GLYPH_METRICS(EasyCastStructure):
+class DWRITE_GLYPH_METRICS(Structure):
     leftSideBearing: Int32
     advanceWidth: UInt32
     rightSideBearing: Int32
@@ -359,7 +359,7 @@ class DWRITE_GLYPH_METRICS(EasyCastStructure):
     advanceHeight: UInt32
     bottomSideBearing: Int32
     verticalOriginY: Int32
-class DWRITE_GLYPH_OFFSET(EasyCastStructure):
+class DWRITE_GLYPH_OFFSET(Structure):
     advanceOffset: Single
     ascenderOffset: Single
 DWRITE_GLYPH_ORIENTATION_ANGLE = Int32
@@ -367,7 +367,7 @@ DWRITE_GLYPH_ORIENTATION_ANGLE_0_DEGREES: win32more.Windows.Win32.Graphics.Direc
 DWRITE_GLYPH_ORIENTATION_ANGLE_90_DEGREES: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE = 1
 DWRITE_GLYPH_ORIENTATION_ANGLE_180_DEGREES: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE = 2
 DWRITE_GLYPH_ORIENTATION_ANGLE_270_DEGREES: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE = 3
-class DWRITE_GLYPH_RUN(EasyCastStructure):
+class DWRITE_GLYPH_RUN(Structure):
     fontFace: win32more.Windows.Win32.Graphics.DirectWrite.IDWriteFontFace
     fontEmSize: Single
     glyphCount: UInt32
@@ -376,7 +376,7 @@ class DWRITE_GLYPH_RUN(EasyCastStructure):
     glyphOffsets: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET)
     isSideways: win32more.Windows.Win32.Foundation.BOOL
     bidiLevel: UInt32
-class DWRITE_GLYPH_RUN_DESCRIPTION(EasyCastStructure):
+class DWRITE_GLYPH_RUN_DESCRIPTION(Structure):
     localeName: win32more.Windows.Win32.Foundation.PWSTR
     string: win32more.Windows.Win32.Foundation.PWSTR
     stringLength: UInt32
@@ -386,7 +386,7 @@ DWRITE_GRID_FIT_MODE = Int32
 DWRITE_GRID_FIT_MODE_DEFAULT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE = 0
 DWRITE_GRID_FIT_MODE_DISABLED: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE = 1
 DWRITE_GRID_FIT_MODE_ENABLED: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE = 2
-class DWRITE_HIT_TEST_METRICS(EasyCastStructure):
+class DWRITE_HIT_TEST_METRICS(Structure):
     textPosition: UInt32
     length: UInt32
     left: Single
@@ -422,30 +422,30 @@ DWRITE_INFORMATIONAL_STRING_SUPPORTED_SCRIPT_LANGUAGE_TAG: win32more.Windows.Win
 DWRITE_INFORMATIONAL_STRING_PREFERRED_FAMILY_NAMES: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_INFORMATIONAL_STRING_ID = 13
 DWRITE_INFORMATIONAL_STRING_PREFERRED_SUBFAMILY_NAMES: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_INFORMATIONAL_STRING_ID = 14
 DWRITE_INFORMATIONAL_STRING_WWS_FAMILY_NAME: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_INFORMATIONAL_STRING_ID = 19
-class DWRITE_INLINE_OBJECT_METRICS(EasyCastStructure):
+class DWRITE_INLINE_OBJECT_METRICS(Structure):
     width: Single
     height: Single
     baseline: Single
     supportsSideways: win32more.Windows.Win32.Foundation.BOOL
-class DWRITE_JUSTIFICATION_OPPORTUNITY(EasyCastStructure):
+class DWRITE_JUSTIFICATION_OPPORTUNITY(Structure):
     expansionMinimum: Single
     expansionMaximum: Single
     compressionMaximum: Single
     _bitfield: UInt32
-class DWRITE_LINE_BREAKPOINT(EasyCastStructure):
+class DWRITE_LINE_BREAKPOINT(Structure):
     _bitfield: Byte
-class DWRITE_LINE_METRICS(EasyCastStructure):
+class DWRITE_LINE_METRICS(Structure):
     length: UInt32
     trailingWhitespaceLength: UInt32
     newlineLength: UInt32
     height: Single
     baseline: Single
     isTrimmed: win32more.Windows.Win32.Foundation.BOOL
-class DWRITE_LINE_METRICS1(EasyCastStructure):
+class DWRITE_LINE_METRICS1(Structure):
     Base: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_METRICS
     leadingBefore: Single
     leadingAfter: Single
-class DWRITE_LINE_SPACING(EasyCastStructure):
+class DWRITE_LINE_SPACING(Structure):
     method: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_SPACING_METHOD
     height: Single
     baseline: Single
@@ -459,7 +459,7 @@ DWRITE_LOCALITY = Int32
 DWRITE_LOCALITY_REMOTE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_LOCALITY = 0
 DWRITE_LOCALITY_PARTIAL: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_LOCALITY = 1
 DWRITE_LOCALITY_LOCAL: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_LOCALITY = 2
-class DWRITE_MATRIX(EasyCastStructure):
+class DWRITE_MATRIX(Structure):
     m11: Single
     m12: Single
     m21: Single
@@ -482,7 +482,7 @@ DWRITE_OPTICAL_ALIGNMENT_NO_SIDE_BEARINGS: win32more.Windows.Win32.Graphics.Dire
 DWRITE_OUTLINE_THRESHOLD = Int32
 DWRITE_OUTLINE_THRESHOLD_ANTIALIASED: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_OUTLINE_THRESHOLD = 0
 DWRITE_OUTLINE_THRESHOLD_ALIASED: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_OUTLINE_THRESHOLD = 1
-class DWRITE_OVERHANG_METRICS(EasyCastStructure):
+class DWRITE_OVERHANG_METRICS(Structure):
     left: Single
     top: Single
     right: Single
@@ -491,15 +491,15 @@ DWRITE_PAINT_ATTRIBUTES = Int32
 DWRITE_PAINT_ATTRIBUTES_NONE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ATTRIBUTES = 0
 DWRITE_PAINT_ATTRIBUTES_USES_PALETTE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ATTRIBUTES = 1
 DWRITE_PAINT_ATTRIBUTES_USES_TEXT_COLOR: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ATTRIBUTES = 2
-class DWRITE_PAINT_COLOR(EasyCastStructure):
+class DWRITE_PAINT_COLOR(Structure):
     value: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_F
     paletteEntryIndex: UInt16
     alphaMultiplier: Single
     colorAttributes: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_ATTRIBUTES
-class DWRITE_PAINT_ELEMENT(EasyCastStructure):
+class DWRITE_PAINT_ELEMENT(Structure):
     paintType: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE
     paint: PAINT_UNION
-    class PAINT_UNION(EasyCastUnion):
+    class PAINT_UNION(Union):
         layers: PAINT_LAYERS
         solidGlyph: PAINT_SOLID_GLYPH
         solid: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_COLOR
@@ -510,12 +510,12 @@ class DWRITE_PAINT_ELEMENT(EasyCastStructure):
         colorGlyph: PAINT_COLOR_GLYPH
         transform: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX
         composite: PAINT_COMPOSITE
-        class PAINT_LAYERS(EasyCastStructure):
+        class PAINT_LAYERS(Structure):
             childCount: UInt32
-        class PAINT_SOLID_GLYPH(EasyCastStructure):
+        class PAINT_SOLID_GLYPH(Structure):
             glyphIndex: UInt32
             color: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_COLOR
-        class PAINT_LINEAR_GRADIENT(EasyCastStructure):
+        class PAINT_LINEAR_GRADIENT(Structure):
             extendMode: UInt32
             gradientStopCount: UInt32
             x0: Single
@@ -524,7 +524,7 @@ class DWRITE_PAINT_ELEMENT(EasyCastStructure):
             y1: Single
             x2: Single
             y2: Single
-        class PAINT_RADIAL_GRADIENT(EasyCastStructure):
+        class PAINT_RADIAL_GRADIENT(Structure):
             extendMode: UInt32
             gradientStopCount: UInt32
             x0: Single
@@ -533,19 +533,19 @@ class DWRITE_PAINT_ELEMENT(EasyCastStructure):
             x1: Single
             y1: Single
             radius1: Single
-        class PAINT_SWEEP_GRADIENT(EasyCastStructure):
+        class PAINT_SWEEP_GRADIENT(Structure):
             extendMode: UInt32
             gradientStopCount: UInt32
             centerX: Single
             centerY: Single
             startAngle: Single
             endAngle: Single
-        class PAINT_GLYPH(EasyCastStructure):
+        class PAINT_GLYPH(Structure):
             glyphIndex: UInt32
-        class PAINT_COLOR_GLYPH(EasyCastStructure):
+        class PAINT_COLOR_GLYPH(Structure):
             glyphIndex: UInt32
             clipBox: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F
-        class PAINT_COMPOSITE(EasyCastStructure):
+        class PAINT_COMPOSITE(Structure):
             mode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE
 DWRITE_PAINT_FEATURE_LEVEL = Int32
 DWRITE_PAINT_FEATURE_LEVEL_NONE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_FEATURE_LEVEL = 0
@@ -563,14 +563,14 @@ DWRITE_PAINT_TYPE_GLYPH: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAI
 DWRITE_PAINT_TYPE_COLOR_GLYPH: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 8
 DWRITE_PAINT_TYPE_TRANSFORM: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 9
 DWRITE_PAINT_TYPE_COMPOSITE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_PAINT_TYPE = 10
-class DWRITE_PANOSE(EasyCastUnion):
+class DWRITE_PANOSE(Union):
     values: Byte * 10
     familyKind: Byte
     text: _text_e__Struct
     script: _script_e__Struct
     decorative: _decorative_e__Struct
     symbol: _symbol_e__Struct
-    class _text_e__Struct(EasyCastStructure):
+    class _text_e__Struct(Structure):
         familyKind: Byte
         serifStyle: Byte
         weight: Byte
@@ -581,7 +581,7 @@ class DWRITE_PANOSE(EasyCastUnion):
         letterform: Byte
         midline: Byte
         xHeight: Byte
-    class _script_e__Struct(EasyCastStructure):
+    class _script_e__Struct(Structure):
         familyKind: Byte
         toolKind: Byte
         weight: Byte
@@ -592,7 +592,7 @@ class DWRITE_PANOSE(EasyCastUnion):
         scriptForm: Byte
         finials: Byte
         xAscent: Byte
-    class _decorative_e__Struct(EasyCastStructure):
+    class _decorative_e__Struct(Structure):
         familyKind: Byte
         decorativeClass: Byte
         weight: Byte
@@ -603,7 +603,7 @@ class DWRITE_PANOSE(EasyCastUnion):
         lining: Byte
         decorativeTopology: Byte
         characterRange: Byte
-    class _symbol_e__Struct(EasyCastStructure):
+    class _symbol_e__Struct(Structure):
         familyKind: Byte
         symbolKind: Byte
         weight: Byte
@@ -958,10 +958,10 @@ DWRITE_RENDERING_MODE1_NATURAL: win32more.Windows.Win32.Graphics.DirectWrite.DWR
 DWRITE_RENDERING_MODE1_NATURAL_SYMMETRIC: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE1 = 5
 DWRITE_RENDERING_MODE1_OUTLINE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE1 = 6
 DWRITE_RENDERING_MODE1_NATURAL_SYMMETRIC_DOWNSAMPLED: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE1 = 7
-class DWRITE_SCRIPT_ANALYSIS(EasyCastStructure):
+class DWRITE_SCRIPT_ANALYSIS(Structure):
     script: UInt16
     shapes: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_SHAPES
-class DWRITE_SCRIPT_PROPERTIES(EasyCastStructure):
+class DWRITE_SCRIPT_PROPERTIES(Structure):
     isoScriptCode: UInt32
     isoScriptNumber: UInt32
     clusterLookahead: UInt32
@@ -970,11 +970,11 @@ class DWRITE_SCRIPT_PROPERTIES(EasyCastStructure):
 DWRITE_SCRIPT_SHAPES = Int32
 DWRITE_SCRIPT_SHAPES_DEFAULT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_SHAPES = 0
 DWRITE_SCRIPT_SHAPES_NO_VISUAL: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_SHAPES = 1
-class DWRITE_SHAPING_GLYPH_PROPERTIES(EasyCastStructure):
+class DWRITE_SHAPING_GLYPH_PROPERTIES(Structure):
     _bitfield: UInt16
-class DWRITE_SHAPING_TEXT_PROPERTIES(EasyCastStructure):
+class DWRITE_SHAPING_TEXT_PROPERTIES(Structure):
     _bitfield: UInt16
-class DWRITE_STRIKETHROUGH(EasyCastStructure):
+class DWRITE_STRIKETHROUGH(Structure):
     width: Single
     thickness: Single
     offset: Single
@@ -993,7 +993,7 @@ DWRITE_TEXT_ALIGNMENT_JUSTIFIED: win32more.Windows.Win32.Graphics.DirectWrite.DW
 DWRITE_TEXT_ANTIALIAS_MODE = Int32
 DWRITE_TEXT_ANTIALIAS_MODE_CLEARTYPE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE = 0
 DWRITE_TEXT_ANTIALIAS_MODE_GRAYSCALE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE = 1
-class DWRITE_TEXT_METRICS(EasyCastStructure):
+class DWRITE_TEXT_METRICS(Structure):
     left: Single
     top: Single
     width: Single
@@ -1003,13 +1003,13 @@ class DWRITE_TEXT_METRICS(EasyCastStructure):
     layoutHeight: Single
     maxBidiReorderingDepth: UInt32
     lineCount: UInt32
-class DWRITE_TEXT_METRICS1(EasyCastStructure):
+class DWRITE_TEXT_METRICS1(Structure):
     Base: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_METRICS
     heightIncludingTrailingWhitespace: Single
-class DWRITE_TEXT_RANGE(EasyCastStructure):
+class DWRITE_TEXT_RANGE(Structure):
     startPosition: UInt32
     length: UInt32
-class DWRITE_TRIMMING(EasyCastStructure):
+class DWRITE_TRIMMING(Structure):
     granularity: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_TRIMMING_GRANULARITY
     delimiter: UInt32
     delimiterCount: UInt32
@@ -1017,10 +1017,10 @@ DWRITE_TRIMMING_GRANULARITY = Int32
 DWRITE_TRIMMING_GRANULARITY_NONE: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_TRIMMING_GRANULARITY = 0
 DWRITE_TRIMMING_GRANULARITY_CHARACTER: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_TRIMMING_GRANULARITY = 1
 DWRITE_TRIMMING_GRANULARITY_WORD: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_TRIMMING_GRANULARITY = 2
-class DWRITE_TYPOGRAPHIC_FEATURES(EasyCastStructure):
+class DWRITE_TYPOGRAPHIC_FEATURES(Structure):
     features: POINTER(win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FEATURE)
     featureCount: UInt32
-class DWRITE_UNDERLINE(EasyCastStructure):
+class DWRITE_UNDERLINE(Structure):
     width: Single
     thickness: Single
     offset: Single
@@ -1029,7 +1029,7 @@ class DWRITE_UNDERLINE(EasyCastStructure):
     flowDirection: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_FLOW_DIRECTION
     localeName: win32more.Windows.Win32.Foundation.PWSTR
     measuringMode: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE
-class DWRITE_UNICODE_RANGE(EasyCastStructure):
+class DWRITE_UNICODE_RANGE(Structure):
     first: UInt32
     last: UInt32
 DWRITE_VERTICAL_GLYPH_ORIENTATION = Int32

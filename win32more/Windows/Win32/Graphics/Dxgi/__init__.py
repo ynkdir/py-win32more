@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Dxgi
 import win32more.Windows.Win32.Graphics.Dxgi.Common
@@ -59,7 +59,7 @@ def DXGIGetDebugInterface1(Flags: UInt32, riid: POINTER(Guid), pDebug: POINTER(V
 def DXGIDeclareAdapterRemovalSupport() -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dxgi.dll')
 def DXGIDisableVBlankVirtualization() -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class DXGI_ADAPTER_DESC(EasyCastStructure):
+class DXGI_ADAPTER_DESC(Structure):
     Description: Char * 128
     VendorId: UInt32
     DeviceId: UInt32
@@ -69,7 +69,7 @@ class DXGI_ADAPTER_DESC(EasyCastStructure):
     DedicatedSystemMemory: UIntPtr
     SharedSystemMemory: UIntPtr
     AdapterLuid: win32more.Windows.Win32.Foundation.LUID
-class DXGI_ADAPTER_DESC1(EasyCastStructure):
+class DXGI_ADAPTER_DESC1(Structure):
     Description: Char * 128
     VendorId: UInt32
     DeviceId: UInt32
@@ -80,7 +80,7 @@ class DXGI_ADAPTER_DESC1(EasyCastStructure):
     SharedSystemMemory: UIntPtr
     AdapterLuid: win32more.Windows.Win32.Foundation.LUID
     Flags: UInt32
-class DXGI_ADAPTER_DESC2(EasyCastStructure):
+class DXGI_ADAPTER_DESC2(Structure):
     Description: Char * 128
     VendorId: UInt32
     DeviceId: UInt32
@@ -93,7 +93,7 @@ class DXGI_ADAPTER_DESC2(EasyCastStructure):
     Flags: UInt32
     GraphicsPreemptionGranularity: win32more.Windows.Win32.Graphics.Dxgi.DXGI_GRAPHICS_PREEMPTION_GRANULARITY
     ComputePreemptionGranularity: win32more.Windows.Win32.Graphics.Dxgi.DXGI_COMPUTE_PREEMPTION_GRANULARITY
-class DXGI_ADAPTER_DESC3(EasyCastStructure):
+class DXGI_ADAPTER_DESC3(Structure):
     Description: Char * 128
     VendorId: UInt32
     DeviceId: UInt32
@@ -131,9 +131,9 @@ DXGI_DEBUG_RLO_SUMMARY: win32more.Windows.Win32.Graphics.Dxgi.DXGI_DEBUG_RLO_FLA
 DXGI_DEBUG_RLO_DETAIL: win32more.Windows.Win32.Graphics.Dxgi.DXGI_DEBUG_RLO_FLAGS = 2
 DXGI_DEBUG_RLO_IGNORE_INTERNAL: win32more.Windows.Win32.Graphics.Dxgi.DXGI_DEBUG_RLO_FLAGS = 4
 DXGI_DEBUG_RLO_ALL: win32more.Windows.Win32.Graphics.Dxgi.DXGI_DEBUG_RLO_FLAGS = 7
-class DXGI_DECODE_SWAP_CHAIN_DESC(EasyCastStructure):
+class DXGI_DECODE_SWAP_CHAIN_DESC(Structure):
     Flags: UInt32
-class DXGI_DISPLAY_COLOR_SPACE(EasyCastStructure):
+class DXGI_DISPLAY_COLOR_SPACE(Structure):
     PrimaryCoordinates: Single * 16
     WhitePoints: Single * 32
 DXGI_ENUM_MODES = UInt32
@@ -148,13 +148,13 @@ DXGI_FRAME_PRESENTATION_MODE_COMPOSED: win32more.Windows.Win32.Graphics.Dxgi.DXG
 DXGI_FRAME_PRESENTATION_MODE_OVERLAY: win32more.Windows.Win32.Graphics.Dxgi.DXGI_FRAME_PRESENTATION_MODE = 1
 DXGI_FRAME_PRESENTATION_MODE_NONE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_FRAME_PRESENTATION_MODE = 2
 DXGI_FRAME_PRESENTATION_MODE_COMPOSITION_FAILURE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_FRAME_PRESENTATION_MODE = 3
-class DXGI_FRAME_STATISTICS(EasyCastStructure):
+class DXGI_FRAME_STATISTICS(Structure):
     PresentCount: UInt32
     PresentRefreshCount: UInt32
     SyncRefreshCount: UInt32
     SyncQPCTime: Int64
     SyncGPUTime: Int64
-class DXGI_FRAME_STATISTICS_MEDIA(EasyCastStructure):
+class DXGI_FRAME_STATISTICS_MEDIA(Structure):
     PresentCount: UInt32
     PresentRefreshCount: UInt32
     SyncRefreshCount: UInt32
@@ -176,7 +176,7 @@ DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS = Int32
 DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_FULLSCREEN: win32more.Windows.Win32.Graphics.Dxgi.DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS = 1
 DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_WINDOWED: win32more.Windows.Win32.Graphics.Dxgi.DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS = 2
 DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAG_CURSOR_STRETCHED: win32more.Windows.Win32.Graphics.Dxgi.DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS = 4
-class DXGI_HDR_METADATA_HDR10(EasyCastStructure):
+class DXGI_HDR_METADATA_HDR10(Structure):
     RedPrimary: UInt16 * 2
     GreenPrimary: UInt16 * 2
     BluePrimary: UInt16 * 2
@@ -185,23 +185,23 @@ class DXGI_HDR_METADATA_HDR10(EasyCastStructure):
     MinMasteringLuminance: UInt32
     MaxContentLightLevel: UInt16
     MaxFrameAverageLightLevel: UInt16
-class DXGI_HDR_METADATA_HDR10PLUS(EasyCastStructure):
+class DXGI_HDR_METADATA_HDR10PLUS(Structure):
     Data: Byte * 72
 DXGI_HDR_METADATA_TYPE = Int32
 DXGI_HDR_METADATA_TYPE_NONE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE = 0
 DXGI_HDR_METADATA_TYPE_HDR10: win32more.Windows.Win32.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE = 1
 DXGI_HDR_METADATA_TYPE_HDR10PLUS: win32more.Windows.Win32.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE = 2
-class DXGI_INFO_QUEUE_FILTER(EasyCastStructure):
+class DXGI_INFO_QUEUE_FILTER(Structure):
     AllowList: win32more.Windows.Win32.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_DESC
     DenyList: win32more.Windows.Win32.Graphics.Dxgi.DXGI_INFO_QUEUE_FILTER_DESC
-class DXGI_INFO_QUEUE_FILTER_DESC(EasyCastStructure):
+class DXGI_INFO_QUEUE_FILTER_DESC(Structure):
     NumCategories: UInt32
     pCategoryList: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY)
     NumSeverities: UInt32
     pSeverityList: POINTER(win32more.Windows.Win32.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY)
     NumIDs: UInt32
     pIDList: POINTER(Int32)
-class DXGI_INFO_QUEUE_MESSAGE(EasyCastStructure):
+class DXGI_INFO_QUEUE_MESSAGE(Structure):
     Producer: Guid
     Category: win32more.Windows.Win32.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_CATEGORY
     Severity: win32more.Windows.Win32.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY
@@ -226,14 +226,14 @@ DXGI_INFO_QUEUE_MESSAGE_SEVERITY_ERROR: win32more.Windows.Win32.Graphics.Dxgi.DX
 DXGI_INFO_QUEUE_MESSAGE_SEVERITY_WARNING: win32more.Windows.Win32.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY = 2
 DXGI_INFO_QUEUE_MESSAGE_SEVERITY_INFO: win32more.Windows.Win32.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY = 3
 DXGI_INFO_QUEUE_MESSAGE_SEVERITY_MESSAGE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_INFO_QUEUE_MESSAGE_SEVERITY = 4
-class DXGI_MAPPED_RECT(EasyCastStructure):
+class DXGI_MAPPED_RECT(Structure):
     Pitch: Int32
     pBits: POINTER(Byte)
 DXGI_MAP_FLAGS = UInt32
 DXGI_MAP_READ: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MAP_FLAGS = 1
 DXGI_MAP_WRITE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MAP_FLAGS = 2
 DXGI_MAP_DISCARD: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MAP_FLAGS = 4
-class DXGI_MATRIX_3X2_F(EasyCastStructure):
+class DXGI_MATRIX_3X2_F(Structure):
     _11: Single
     _12: Single
     _21: Single
@@ -243,7 +243,7 @@ class DXGI_MATRIX_3X2_F(EasyCastStructure):
 DXGI_MEMORY_SEGMENT_GROUP = Int32
 DXGI_MEMORY_SEGMENT_GROUP_LOCAL: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MEMORY_SEGMENT_GROUP = 0
 DXGI_MEMORY_SEGMENT_GROUP_NON_LOCAL: win32more.Windows.Win32.Graphics.Dxgi.DXGI_MEMORY_SEGMENT_GROUP = 1
-class DXGI_MODE_DESC1(EasyCastStructure):
+class DXGI_MODE_DESC1(Structure):
     Width: UInt32
     Height: UInt32
     RefreshRate: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL
@@ -598,13 +598,13 @@ DXGI_OFFER_RESOURCE_PRIORITY = Int32
 DXGI_OFFER_RESOURCE_PRIORITY_LOW: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY = 1
 DXGI_OFFER_RESOURCE_PRIORITY_NORMAL: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY = 2
 DXGI_OFFER_RESOURCE_PRIORITY_HIGH: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY = 3
-class DXGI_OUTDUPL_DESC(EasyCastStructure):
+class DXGI_OUTDUPL_DESC(Structure):
     ModeDesc: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_DESC
     Rotation: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_ROTATION
     DesktopImageInSystemMemory: win32more.Windows.Win32.Foundation.BOOL
 DXGI_OUTDUPL_FLAG = Int32
 DXGI_OUTDUPL_COMPOSITED_UI_CAPTURE_ONLY: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OUTDUPL_FLAG = 1
-class DXGI_OUTDUPL_FRAME_INFO(EasyCastStructure):
+class DXGI_OUTDUPL_FRAME_INFO(Structure):
     LastPresentTime: Int64
     LastMouseUpdateTime: Int64
     AccumulatedFrames: UInt32
@@ -613,13 +613,13 @@ class DXGI_OUTDUPL_FRAME_INFO(EasyCastStructure):
     PointerPosition: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_POSITION
     TotalMetadataBufferSize: UInt32
     PointerShapeBufferSize: UInt32
-class DXGI_OUTDUPL_MOVE_RECT(EasyCastStructure):
+class DXGI_OUTDUPL_MOVE_RECT(Structure):
     SourcePoint: win32more.Windows.Win32.Foundation.POINT
     DestinationRect: win32more.Windows.Win32.Foundation.RECT
-class DXGI_OUTDUPL_POINTER_POSITION(EasyCastStructure):
+class DXGI_OUTDUPL_POINTER_POSITION(Structure):
     Position: win32more.Windows.Win32.Foundation.POINT
     Visible: win32more.Windows.Win32.Foundation.BOOL
-class DXGI_OUTDUPL_POINTER_SHAPE_INFO(EasyCastStructure):
+class DXGI_OUTDUPL_POINTER_SHAPE_INFO(Structure):
     Type: UInt32
     Width: UInt32
     Height: UInt32
@@ -629,13 +629,13 @@ DXGI_OUTDUPL_POINTER_SHAPE_TYPE = Int32
 DXGI_OUTDUPL_POINTER_SHAPE_TYPE_MONOCHROME: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_SHAPE_TYPE = 1
 DXGI_OUTDUPL_POINTER_SHAPE_TYPE_COLOR: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_SHAPE_TYPE = 2
 DXGI_OUTDUPL_POINTER_SHAPE_TYPE_MASKED_COLOR: win32more.Windows.Win32.Graphics.Dxgi.DXGI_OUTDUPL_POINTER_SHAPE_TYPE = 4
-class DXGI_OUTPUT_DESC(EasyCastStructure):
+class DXGI_OUTPUT_DESC(Structure):
     DeviceName: Char * 32
     DesktopCoordinates: win32more.Windows.Win32.Foundation.RECT
     AttachedToDesktop: win32more.Windows.Win32.Foundation.BOOL
     Rotation: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_ROTATION
     Monitor: win32more.Windows.Win32.Graphics.Gdi.HMONITOR
-class DXGI_OUTPUT_DESC1(EasyCastStructure):
+class DXGI_OUTPUT_DESC1(Structure):
     DeviceName: Char * 32
     DesktopCoordinates: win32more.Windows.Win32.Foundation.RECT
     AttachedToDesktop: win32more.Windows.Win32.Foundation.BOOL
@@ -665,12 +665,12 @@ DXGI_PRESENT_STEREO_TEMPORARY_MONO: win32more.Windows.Win32.Graphics.Dxgi.DXGI_P
 DXGI_PRESENT_RESTRICT_TO_OUTPUT: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 64
 DXGI_PRESENT_USE_DURATION: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 256
 DXGI_PRESENT_ALLOW_TEARING: win32more.Windows.Win32.Graphics.Dxgi.DXGI_PRESENT = 512
-class DXGI_PRESENT_PARAMETERS(EasyCastStructure):
+class DXGI_PRESENT_PARAMETERS(Structure):
     DirtyRectsCount: UInt32
     pDirtyRects: POINTER(win32more.Windows.Win32.Foundation.RECT)
     pScrollRect: POINTER(win32more.Windows.Win32.Foundation.RECT)
     pScrollOffset: POINTER(win32more.Windows.Win32.Foundation.POINT)
-class DXGI_QUERY_VIDEO_MEMORY_INFO(EasyCastStructure):
+class DXGI_QUERY_VIDEO_MEMORY_INFO(Structure):
     Budget: UInt64
     CurrentUsage: UInt64
     AvailableForReservation: UInt64
@@ -689,7 +689,7 @@ DXGI_RESOURCE_PRIORITY_LOW: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_
 DXGI_RESOURCE_PRIORITY_NORMAL: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY = 2013265920
 DXGI_RESOURCE_PRIORITY_HIGH: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY = 2684354560
 DXGI_RESOURCE_PRIORITY_MAXIMUM: win32more.Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY = 3355443200
-class DXGI_RGBA(EasyCastStructure):
+class DXGI_RGBA(Structure):
     r: Single
     g: Single
     b: Single
@@ -698,12 +698,12 @@ DXGI_SCALING = Int32
 DXGI_SCALING_STRETCH: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SCALING = 0
 DXGI_SCALING_NONE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SCALING = 1
 DXGI_SCALING_ASPECT_RATIO_STRETCH: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SCALING = 2
-class DXGI_SHARED_RESOURCE(EasyCastStructure):
+class DXGI_SHARED_RESOURCE(Structure):
     Handle: win32more.Windows.Win32.Foundation.HANDLE
 DXGI_SHARED_RESOURCE_RW = UInt32
 DXGI_SHARED_RESOURCE_READ: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SHARED_RESOURCE_RW = 2147483648
 DXGI_SHARED_RESOURCE_WRITE: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SHARED_RESOURCE_RW = 1
-class DXGI_SURFACE_DESC(EasyCastStructure):
+class DXGI_SURFACE_DESC(Structure):
     Width: UInt32
     Height: UInt32
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
@@ -711,7 +711,7 @@ class DXGI_SURFACE_DESC(EasyCastStructure):
 DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG = Int32
 DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_PRESENT: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG = 1
 DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_OVERLAY_PRESENT: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG = 2
-class DXGI_SWAP_CHAIN_DESC(EasyCastStructure):
+class DXGI_SWAP_CHAIN_DESC(Structure):
     BufferDesc: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_DESC
     SampleDesc: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_SAMPLE_DESC
     BufferUsage: win32more.Windows.Win32.Graphics.Dxgi.DXGI_USAGE
@@ -720,7 +720,7 @@ class DXGI_SWAP_CHAIN_DESC(EasyCastStructure):
     Windowed: win32more.Windows.Win32.Foundation.BOOL
     SwapEffect: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SWAP_EFFECT
     Flags: UInt32
-class DXGI_SWAP_CHAIN_DESC1(EasyCastStructure):
+class DXGI_SWAP_CHAIN_DESC1(Structure):
     Width: UInt32
     Height: UInt32
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
@@ -746,7 +746,7 @@ DXGI_SWAP_CHAIN_FLAG_YUV_VIDEO: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SWAP_
 DXGI_SWAP_CHAIN_FLAG_HW_PROTECTED: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SWAP_CHAIN_FLAG = 1024
 DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SWAP_CHAIN_FLAG = 2048
 DXGI_SWAP_CHAIN_FLAG_RESTRICTED_TO_ALL_HOLOGRAPHIC_DISPLAYS: win32more.Windows.Win32.Graphics.Dxgi.DXGI_SWAP_CHAIN_FLAG = 4096
-class DXGI_SWAP_CHAIN_FULLSCREEN_DESC(EasyCastStructure):
+class DXGI_SWAP_CHAIN_FULLSCREEN_DESC(Structure):
     RefreshRate: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL
     ScanlineOrdering: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER
     Scaling: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_SCALING

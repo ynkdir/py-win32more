@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Dwm
 import win32more.Windows.Win32.Graphics.Gdi
@@ -125,13 +125,13 @@ DWMWA_TEXT_COLOR: win32more.Windows.Win32.Graphics.Dwm.DWMWINDOWATTRIBUTE = 36
 DWMWA_VISIBLE_FRAME_BORDER_THICKNESS: win32more.Windows.Win32.Graphics.Dwm.DWMWINDOWATTRIBUTE = 37
 DWMWA_SYSTEMBACKDROP_TYPE: win32more.Windows.Win32.Graphics.Dwm.DWMWINDOWATTRIBUTE = 38
 DWMWA_LAST: win32more.Windows.Win32.Graphics.Dwm.DWMWINDOWATTRIBUTE = 39
-class DWM_BLURBEHIND(EasyCastStructure):
+class DWM_BLURBEHIND(Structure):
     dwFlags: UInt32
     fEnable: win32more.Windows.Win32.Foundation.BOOL
     hRgnBlur: win32more.Windows.Win32.Graphics.Gdi.HRGN
     fTransitionOnMaximized: win32more.Windows.Win32.Foundation.BOOL
     _pack_ = 1
-class DWM_PRESENT_PARAMETERS(EasyCastStructure):
+class DWM_PRESENT_PARAMETERS(Structure):
     cbSize: UInt32
     fQueue: win32more.Windows.Win32.Foundation.BOOL
     cRefreshStart: UInt64
@@ -171,7 +171,7 @@ DWMTWR_TABBING_ENABLED: win32more.Windows.Win32.Graphics.Dwm.DWM_TAB_WINDOW_REQU
 DWMTWR_USER_POLICY: win32more.Windows.Win32.Graphics.Dwm.DWM_TAB_WINDOW_REQUIREMENTS = 128
 DWMTWR_GROUP_POLICY: win32more.Windows.Win32.Graphics.Dwm.DWM_TAB_WINDOW_REQUIREMENTS = 256
 DWMTWR_APP_COMPAT: win32more.Windows.Win32.Graphics.Dwm.DWM_TAB_WINDOW_REQUIREMENTS = 512
-class DWM_THUMBNAIL_PROPERTIES(EasyCastStructure):
+class DWM_THUMBNAIL_PROPERTIES(Structure):
     dwFlags: UInt32
     rcDestination: win32more.Windows.Win32.Foundation.RECT
     rcSource: win32more.Windows.Win32.Foundation.RECT
@@ -179,7 +179,7 @@ class DWM_THUMBNAIL_PROPERTIES(EasyCastStructure):
     fVisible: win32more.Windows.Win32.Foundation.BOOL
     fSourceClientAreaOnly: win32more.Windows.Win32.Foundation.BOOL
     _pack_ = 1
-class DWM_TIMING_INFO(EasyCastStructure):
+class DWM_TIMING_INFO(Structure):
     cbSize: UInt32
     rateRefresh: win32more.Windows.Win32.Graphics.Dwm.UNSIGNED_RATIO
     qpcRefreshPeriod: UInt64
@@ -238,7 +238,7 @@ GT_TOUCH_RIGHTTAP: win32more.Windows.Win32.Graphics.Dwm.GESTURE_TYPE = 7
 GT_TOUCH_PRESSANDHOLD: win32more.Windows.Win32.Graphics.Dwm.GESTURE_TYPE = 8
 GT_TOUCH_PRESSANDHOLDABORT: win32more.Windows.Win32.Graphics.Dwm.GESTURE_TYPE = 9
 GT_TOUCH_PRESSANDTAP: win32more.Windows.Win32.Graphics.Dwm.GESTURE_TYPE = 10
-class MilMatrix3x2D(EasyCastStructure):
+class MilMatrix3x2D(Structure):
     S_11: Double
     S_12: Double
     S_21: Double
@@ -246,7 +246,7 @@ class MilMatrix3x2D(EasyCastStructure):
     DX: Double
     DY: Double
     _pack_ = 1
-class UNSIGNED_RATIO(EasyCastStructure):
+class UNSIGNED_RATIO(Structure):
     uiNumerator: UInt32
     uiDenominator: UInt32
     _pack_ = 1

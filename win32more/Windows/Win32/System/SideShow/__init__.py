@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.System.SideShow
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-class APPLICATION_EVENT_DATA(EasyCastStructure):
+class APPLICATION_EVENT_DATA(Structure):
     cbApplicationEventData: UInt32
     ApplicationId: Guid
     EndpointId: Guid
@@ -40,17 +40,17 @@ SIDESHOW_EVENTID_APPLICATION_ENTER: UInt32 = 4294901760
 SIDESHOW_EVENTID_APPLICATION_EXIT: UInt32 = 4294901761
 CONTENT_ID_HOME: UInt32 = 1
 VERSION_1_WINDOWS_7: UInt32 = 0
-class CONTENT_MISSING_EVENT_DATA(EasyCastStructure):
+class CONTENT_MISSING_EVENT_DATA(Structure):
     cbContentMissingEventData: UInt32
     ApplicationId: Guid
     EndpointId: Guid
     ContentId: UInt32
     _pack_ = 1
-class DEVICE_USER_CHANGE_EVENT_DATA(EasyCastStructure):
+class DEVICE_USER_CHANGE_EVENT_DATA(Structure):
     cbDeviceUserChangeEventData: UInt32
     wszUser: Char
     _pack_ = 1
-class EVENT_DATA_HEADER(EasyCastStructure):
+class EVENT_DATA_HEADER(Structure):
     cbEventDataHeader: UInt32
     guidEventType: Guid
     dwVersion: UInt32
@@ -171,7 +171,7 @@ class ISideShowSession(ComPtr):
     def RegisterContent(self, in_applicationId: POINTER(Guid), in_endpointId: POINTER(Guid), out_ppIContent: POINTER(win32more.Windows.Win32.System.SideShow.ISideShowContentManager)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RegisterNotifications(self, in_applicationId: POINTER(Guid), out_ppINotification: POINTER(win32more.Windows.Win32.System.SideShow.ISideShowNotificationManager)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class NEW_EVENT_DATA_AVAILABLE(EasyCastStructure):
+class NEW_EVENT_DATA_AVAILABLE(Structure):
     cbNewEventDataAvailable: UInt32
     dwVersion: UInt32
     _pack_ = 1
@@ -188,25 +188,25 @@ SCF_BUTTON_FASTFORWARD: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS =
 SCF_BUTTON_REWIND: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 10
 SCF_BUTTON_STOP: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 11
 SCF_BUTTON_BACK: win32more.Windows.Win32.System.SideShow.SCF_BUTTON_IDS = 65280
-class SCF_CONTEXTMENU_EVENT(EasyCastStructure):
+class SCF_CONTEXTMENU_EVENT(Structure):
     PreviousPage: UInt32
     TargetPage: UInt32
     PreviousItemId: UInt32
     MenuPage: UInt32
     MenuItemId: UInt32
-class SCF_EVENT_HEADER(EasyCastStructure):
+class SCF_EVENT_HEADER(Structure):
     PreviousPage: UInt32
     TargetPage: UInt32
 SCF_EVENT_IDS = Int32
 SCF_EVENT_NAVIGATION: win32more.Windows.Win32.System.SideShow.SCF_EVENT_IDS = 1
 SCF_EVENT_MENUACTION: win32more.Windows.Win32.System.SideShow.SCF_EVENT_IDS = 2
 SCF_EVENT_CONTEXTMENU: win32more.Windows.Win32.System.SideShow.SCF_EVENT_IDS = 3
-class SCF_MENUACTION_EVENT(EasyCastStructure):
+class SCF_MENUACTION_EVENT(Structure):
     PreviousPage: UInt32
     TargetPage: UInt32
     Button: UInt32
     ItemId: UInt32
-class SCF_NAVIGATION_EVENT(EasyCastStructure):
+class SCF_NAVIGATION_EVENT(Structure):
     PreviousPage: UInt32
     TargetPage: UInt32
     Button: UInt32

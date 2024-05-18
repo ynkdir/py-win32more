@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -42,7 +42,7 @@ ALERT_SYSTEM_WARNING: win32more.Windows.Win32.System.SystemServices.ALERT_SYSTEM
 ALERT_SYSTEM_ERROR: win32more.Windows.Win32.System.SystemServices.ALERT_SYSTEM_SEV = 3
 ALERT_SYSTEM_QUERY: win32more.Windows.Win32.System.SystemServices.ALERT_SYSTEM_SEV = 4
 ALERT_SYSTEM_CRITICAL: win32more.Windows.Win32.System.SystemServices.ALERT_SYSTEM_SEV = 5
-class ANON_OBJECT_HEADER(EasyCastStructure):
+class ANON_OBJECT_HEADER(Structure):
     Sig1: UInt16
     Sig2: UInt16
     Version: UInt16
@@ -50,7 +50,7 @@ class ANON_OBJECT_HEADER(EasyCastStructure):
     TimeDateStamp: UInt32
     ClassID: Guid
     SizeOfData: UInt32
-class ANON_OBJECT_HEADER_BIGOBJ(EasyCastStructure):
+class ANON_OBJECT_HEADER_BIGOBJ(Structure):
     Sig1: UInt16
     Sig2: UInt16
     Version: UInt16
@@ -64,7 +64,7 @@ class ANON_OBJECT_HEADER_BIGOBJ(EasyCastStructure):
     NumberOfSections: UInt32
     PointerToSymbolTable: UInt32
     NumberOfSymbols: UInt32
-class ANON_OBJECT_HEADER_V2(EasyCastStructure):
+class ANON_OBJECT_HEADER_V2(Structure):
     Sig1: UInt16
     Sig2: UInt16
     Version: UInt16
@@ -130,7 +130,7 @@ APPCOMMAND_MEDIA_CHANNEL_UP: win32more.Windows.Win32.System.SystemServices.APPCO
 APPCOMMAND_MEDIA_CHANNEL_DOWN: win32more.Windows.Win32.System.SystemServices.APPCOMMAND_ID = 52
 APPCOMMAND_DELETE: win32more.Windows.Win32.System.SystemServices.APPCOMMAND_ID = 53
 APPCOMMAND_DWM_FLIP3D: win32more.Windows.Win32.System.SystemServices.APPCOMMAND_ID = 54
-class APPLICATIONLAUNCH_SETTING_VALUE(EasyCastStructure):
+class APPLICATIONLAUNCH_SETTING_VALUE(Structure):
     ActivationTime: Int64
     Flags: UInt32
     ButtonInstanceID: UInt32
@@ -2392,19 +2392,19 @@ CFU_UNDERLINEDOUBLE: win32more.Windows.Win32.System.SystemServices.CFE_UNDERLINE
 CFU_UNDERLINEWORD: win32more.Windows.Win32.System.SystemServices.CFE_UNDERLINE = 2
 CFU_UNDERLINE: win32more.Windows.Win32.System.SystemServices.CFE_UNDERLINE = 1
 CFU_UNDERLINENONE: win32more.Windows.Win32.System.SystemServices.CFE_UNDERLINE = 0
-class COMPONENT_FILTER(EasyCastStructure):
+class COMPONENT_FILTER(Structure):
     ComponentFlags: UInt32
-class DISPATCHER_CONTEXT_NONVOLREG_ARM64(EasyCastUnion):
+class DISPATCHER_CONTEXT_NONVOLREG_ARM64(Union):
     Buffer: Byte * 152
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         GpNvRegs: UInt64 * 11
         FpNvRegs: Double * 8
-class ENLISTMENT_BASIC_INFORMATION(EasyCastStructure):
+class ENLISTMENT_BASIC_INFORMATION(Structure):
     EnlistmentId: Guid
     TransactionId: Guid
     ResourceManagerId: Guid
-class ENLISTMENT_CRM_INFORMATION(EasyCastStructure):
+class ENLISTMENT_CRM_INFORMATION(Structure):
     CrmTransactionManagerId: Guid
     CrmResourceManagerId: Guid
     CrmEnlistmentId: Guid
@@ -2412,7 +2412,7 @@ ENLISTMENT_INFORMATION_CLASS = Int32
 EnlistmentBasicInformation: win32more.Windows.Win32.System.SystemServices.ENLISTMENT_INFORMATION_CLASS = 0
 EnlistmentRecoveryInformation: win32more.Windows.Win32.System.SystemServices.ENLISTMENT_INFORMATION_CLASS = 1
 EnlistmentCrmInformation: win32more.Windows.Win32.System.SystemServices.ENLISTMENT_INFORMATION_CLASS = 2
-class FILE_NOTIFY_FULL_INFORMATION(EasyCastStructure):
+class FILE_NOTIFY_FULL_INFORMATION(Structure):
     NextEntryOffset: UInt32
     Action: UInt32
     CreationTime: Int64
@@ -2429,13 +2429,13 @@ class FILE_NOTIFY_FULL_INFORMATION(EasyCastStructure):
     FileNameFlags: Byte
     Reserved: Byte
     FileName: Char * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ReparsePointTag: UInt32
         EaSize: UInt32
-class GDI_NONREMOTE(EasyCastStructure):
+class GDI_NONREMOTE(Structure):
     fContext: Int32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         hInproc: Int32
         hRemote: POINTER(win32more.Windows.Win32.System.Com.DWORD_BLOB)
 GESTURECONFIG_FLAGS = UInt32
@@ -2450,10 +2450,10 @@ GC_ROTATE: win32more.Windows.Win32.System.SystemServices.GESTURECONFIG_FLAGS = 1
 GC_TWOFINGERTAP: win32more.Windows.Win32.System.SystemServices.GESTURECONFIG_FLAGS = 1
 GC_PRESSANDTAP: win32more.Windows.Win32.System.SystemServices.GESTURECONFIG_FLAGS = 1
 GC_ROLLOVER: win32more.Windows.Win32.System.SystemServices.GESTURECONFIG_FLAGS = 1
-class HEAP_OPTIMIZE_RESOURCES_INFORMATION(EasyCastStructure):
+class HEAP_OPTIMIZE_RESOURCES_INFORMATION(Structure):
     Version: UInt32
     Flags: UInt32
-class HIBERFILE_BUCKET(EasyCastStructure):
+class HIBERFILE_BUCKET(Structure):
     MaxPhysicalMemory: UInt64
     PhysicalMemoryPercent: UInt32 * 3
 HIBERFILE_BUCKET_SIZE = Int32
@@ -2473,26 +2473,26 @@ IGP_SENTENCE: win32more.Windows.Win32.System.SystemServices.IGP_ID = 12
 IGP_UI: win32more.Windows.Win32.System.SystemServices.IGP_ID = 16
 IGP_SETCOMPSTR: win32more.Windows.Win32.System.SystemServices.IGP_ID = 20
 IGP_SELECT: win32more.Windows.Win32.System.SystemServices.IGP_ID = 24
-class IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY(EasyCastStructure):
+class IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt64
     EndAddress: UInt64
     ExceptionHandler: UInt64
     HandlerData: UInt64
     PrologEndAddress: UInt64
     _pack_ = 4
-class IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY(EasyCastStructure):
+class IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     EndAddress: UInt32
     ExceptionHandler: UInt32
     HandlerData: UInt32
     PrologEndAddress: UInt32
-class IMAGE_ARCHITECTURE_ENTRY(EasyCastStructure):
+class IMAGE_ARCHITECTURE_ENTRY(Structure):
     FixupInstRVA: UInt32
     NewInst: UInt32
-class IMAGE_ARCHITECTURE_HEADER(EasyCastStructure):
+class IMAGE_ARCHITECTURE_HEADER(Structure):
     _bitfield: UInt32
     FirstEntryRVA: UInt32
-class IMAGE_ARCHIVE_MEMBER_HEADER(EasyCastStructure):
+class IMAGE_ARCHIVE_MEMBER_HEADER(Structure):
     Name: Byte * 16
     Date: Byte * 12
     UserID: Byte * 6
@@ -2500,50 +2500,50 @@ class IMAGE_ARCHIVE_MEMBER_HEADER(EasyCastStructure):
     Mode: Byte * 8
     Size: Byte * 10
     EndHeader: Byte * 2
-class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA(EasyCastUnion):
+class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA(Union):
     HeaderData: UInt32
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class IMAGE_ARM_RUNTIME_FUNCTION_ENTRY(EasyCastStructure):
+class IMAGE_ARM_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         UnwindData: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class IMAGE_AUX_SYMBOL(EasyCastUnion):
+class IMAGE_AUX_SYMBOL(Union):
     Sym: _Sym_e__Struct
     File: _File_e__Struct
     Section: _Section_e__Struct
     TokenDef: win32more.Windows.Win32.System.SystemServices.IMAGE_AUX_SYMBOL_TOKEN_DEF
     CRC: _CRC_e__Struct
-    class _Sym_e__Struct(EasyCastStructure):
+    class _Sym_e__Struct(Structure):
         TagIndex: UInt32
         Misc: _Misc_e__Union
         FcnAry: _FcnAry_e__Union
         TvIndex: UInt16
         _pack_ = 2
-        class _Misc_e__Union(EasyCastUnion):
+        class _Misc_e__Union(Union):
             LnSz: _LnSz_e__Struct
             TotalSize: UInt32
             _pack_ = 2
-            class _LnSz_e__Struct(EasyCastStructure):
+            class _LnSz_e__Struct(Structure):
                 Linenumber: UInt16
                 Size: UInt16
-        class _FcnAry_e__Union(EasyCastUnion):
+        class _FcnAry_e__Union(Union):
             Function: _Function_e__Struct
             Array: _Array_e__Struct
-            class _Function_e__Struct(EasyCastStructure):
+            class _Function_e__Struct(Structure):
                 PointerToLinenumber: UInt32
                 PointerToNextFunction: UInt32
                 _pack_ = 2
-            class _Array_e__Struct(EasyCastStructure):
+            class _Array_e__Struct(Structure):
                 Dimension: UInt16 * 4
-    class _File_e__Struct(EasyCastStructure):
+    class _File_e__Struct(Structure):
         Name: Byte * 18
-    class _Section_e__Struct(EasyCastStructure):
+    class _Section_e__Struct(Structure):
         Length: UInt32
         NumberOfRelocations: UInt16
         NumberOfLinenumbers: UInt16
@@ -2553,24 +2553,24 @@ class IMAGE_AUX_SYMBOL(EasyCastUnion):
         bReserved: Byte
         HighNumber: Int16
         _pack_ = 2
-    class _CRC_e__Struct(EasyCastStructure):
+    class _CRC_e__Struct(Structure):
         crc: UInt32
         rgbReserved: Byte * 14
         _pack_ = 2
-class IMAGE_AUX_SYMBOL_EX(EasyCastUnion):
+class IMAGE_AUX_SYMBOL_EX(Union):
     Sym: _Sym_e__Struct
     File: _File_e__Struct
     Section: _Section_e__Struct
     Anonymous: _Anonymous_e__Struct
     CRC: _CRC_e__Struct
-    class _Sym_e__Struct(EasyCastStructure):
+    class _Sym_e__Struct(Structure):
         WeakDefaultSymIndex: UInt32
         WeakSearchType: UInt32
         rgbReserved: Byte * 12
         _pack_ = 2
-    class _File_e__Struct(EasyCastStructure):
+    class _File_e__Struct(Structure):
         Name: Byte * 20
-    class _Section_e__Struct(EasyCastStructure):
+    class _Section_e__Struct(Structure):
         Length: UInt32
         NumberOfRelocations: UInt16
         NumberOfLinenumbers: UInt16
@@ -2581,14 +2581,14 @@ class IMAGE_AUX_SYMBOL_EX(EasyCastUnion):
         HighNumber: Int16
         rgbReserved: Byte * 2
         _pack_ = 2
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         TokenDef: win32more.Windows.Win32.System.SystemServices.IMAGE_AUX_SYMBOL_TOKEN_DEF
         rgbReserved: Byte * 2
-    class _CRC_e__Struct(EasyCastStructure):
+    class _CRC_e__Struct(Structure):
         crc: UInt32
         rgbReserved: Byte * 16
         _pack_ = 2
-class IMAGE_AUX_SYMBOL_TOKEN_DEF(EasyCastStructure):
+class IMAGE_AUX_SYMBOL_TOKEN_DEF(Structure):
     bAuxType: Byte
     bReserved: Byte
     SymbolTableIndex: UInt32
@@ -2596,36 +2596,36 @@ class IMAGE_AUX_SYMBOL_TOKEN_DEF(EasyCastStructure):
     _pack_ = 2
 IMAGE_AUX_SYMBOL_TYPE = Int32
 IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF: win32more.Windows.Win32.System.SystemServices.IMAGE_AUX_SYMBOL_TYPE = 1
-class IMAGE_BASE_RELOCATION(EasyCastStructure):
+class IMAGE_BASE_RELOCATION(Structure):
     VirtualAddress: UInt32
     SizeOfBlock: UInt32
-class IMAGE_BDD_DYNAMIC_RELOCATION(EasyCastStructure):
+class IMAGE_BDD_DYNAMIC_RELOCATION(Structure):
     Left: UInt16
     Right: UInt16
     Value: UInt32
     _pack_ = 1
-class IMAGE_BDD_INFO(EasyCastStructure):
+class IMAGE_BDD_INFO(Structure):
     Version: UInt32
     BDDSize: UInt32
     _pack_ = 1
-class IMAGE_BOUND_FORWARDER_REF(EasyCastStructure):
+class IMAGE_BOUND_FORWARDER_REF(Structure):
     TimeDateStamp: UInt32
     OffsetModuleName: UInt16
     Reserved: UInt16
-class IMAGE_BOUND_IMPORT_DESCRIPTOR(EasyCastStructure):
+class IMAGE_BOUND_IMPORT_DESCRIPTOR(Structure):
     TimeDateStamp: UInt32
     OffsetModuleName: UInt16
     NumberOfModuleForwarderRefs: UInt16
-class IMAGE_CE_RUNTIME_FUNCTION_ENTRY(EasyCastStructure):
+class IMAGE_CE_RUNTIME_FUNCTION_ENTRY(Structure):
     FuncStart: UInt32
     _bitfield: UInt32
-class IMAGE_DEBUG_MISC(EasyCastStructure):
+class IMAGE_DEBUG_MISC(Structure):
     DataType: UInt32
     Length: UInt32
     Unicode: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte * 3
     Data: Byte * 1
-class IMAGE_DOS_HEADER(EasyCastStructure):
+class IMAGE_DOS_HEADER(Structure):
     e_magic: UInt16
     e_cblp: UInt16
     e_cp: UInt16
@@ -2646,38 +2646,38 @@ class IMAGE_DOS_HEADER(EasyCastStructure):
     e_res2: UInt16 * 10
     e_lfanew: Int32
     _pack_ = 2
-class IMAGE_DYNAMIC_RELOCATION32(EasyCastStructure):
+class IMAGE_DYNAMIC_RELOCATION32(Structure):
     Symbol: UInt32
     BaseRelocSize: UInt32
     _pack_ = 1
-class IMAGE_DYNAMIC_RELOCATION32_V2(EasyCastStructure):
+class IMAGE_DYNAMIC_RELOCATION32_V2(Structure):
     HeaderSize: UInt32
     FixupInfoSize: UInt32
     Symbol: UInt32
     SymbolGroup: UInt32
     Flags: UInt32
     _pack_ = 1
-class IMAGE_DYNAMIC_RELOCATION64(EasyCastStructure):
+class IMAGE_DYNAMIC_RELOCATION64(Structure):
     Symbol: UInt64
     BaseRelocSize: UInt32
     _pack_ = 1
-class IMAGE_DYNAMIC_RELOCATION64_V2(EasyCastStructure):
+class IMAGE_DYNAMIC_RELOCATION64_V2(Structure):
     HeaderSize: UInt32
     FixupInfoSize: UInt32
     Symbol: UInt64
     SymbolGroup: UInt32
     Flags: UInt32
     _pack_ = 1
-class IMAGE_DYNAMIC_RELOCATION_TABLE(EasyCastStructure):
+class IMAGE_DYNAMIC_RELOCATION_TABLE(Structure):
     Version: UInt32
     Size: UInt32
-class IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER(EasyCastStructure):
+class IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER(Structure):
     EpilogueCount: UInt32
     EpilogueByteCount: Byte
     BranchDescriptorElementSize: Byte
     BranchDescriptorCount: UInt16
     _pack_ = 1
-class IMAGE_EXPORT_DIRECTORY(EasyCastStructure):
+class IMAGE_EXPORT_DIRECTORY(Structure):
     Characteristics: UInt32
     TimeDateStamp: UInt32
     MajorVersion: UInt16
@@ -2689,16 +2689,16 @@ class IMAGE_EXPORT_DIRECTORY(EasyCastStructure):
     AddressOfFunctions: UInt32
     AddressOfNames: UInt32
     AddressOfNameOrdinals: UInt32
-class IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION(EasyCastStructure):
+class IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION(Structure):
     OriginalRva: UInt32
     BDDOffset: UInt32
     RvaSize: UInt32
     BaseRelocSize: UInt32
     _pack_ = 1
-class IMAGE_FUNCTION_OVERRIDE_HEADER(EasyCastStructure):
+class IMAGE_FUNCTION_OVERRIDE_HEADER(Structure):
     FuncOverrideSize: UInt32
     _pack_ = 1
-class IMAGE_HOT_PATCH_BASE(EasyCastStructure):
+class IMAGE_HOT_PATCH_BASE(Structure):
     SequenceNumber: UInt32
     Flags: UInt32
     OriginalTimeDateStamp: UInt32
@@ -2707,10 +2707,10 @@ class IMAGE_HOT_PATCH_BASE(EasyCastStructure):
     CodeIntegritySize: UInt32
     PatchTable: UInt32
     BufferOffset: UInt32
-class IMAGE_HOT_PATCH_HASHES(EasyCastStructure):
+class IMAGE_HOT_PATCH_HASHES(Structure):
     SHA256: Byte * 32
     SHA1: Byte * 20
-class IMAGE_HOT_PATCH_INFO(EasyCastStructure):
+class IMAGE_HOT_PATCH_INFO(Structure):
     Version: UInt32
     Size: UInt32
     SequenceNumber: UInt32
@@ -2718,32 +2718,32 @@ class IMAGE_HOT_PATCH_INFO(EasyCastStructure):
     BaseImageCount: UInt32
     BufferOffset: UInt32
     ExtraPatchSize: UInt32
-class IMAGE_IMPORT_BY_NAME(EasyCastStructure):
+class IMAGE_IMPORT_BY_NAME(Structure):
     Hint: UInt16
     Name: win32more.Windows.Win32.Foundation.CHAR * 1
-class IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION(EasyCastStructure):
+class IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION(Structure):
     _bitfield: UInt32
     _pack_ = 1
-class IMAGE_IMPORT_DESCRIPTOR(EasyCastStructure):
+class IMAGE_IMPORT_DESCRIPTOR(Structure):
     Anonymous: _Anonymous_e__Union
     TimeDateStamp: UInt32
     ForwarderChain: UInt32
     Name: UInt32
     FirstThunk: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Characteristics: UInt32
         OriginalFirstThunk: UInt32
-class IMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION(EasyCastStructure):
+class IMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION(Structure):
     _bitfield: UInt16
     _pack_ = 1
-class IMAGE_LINENUMBER(EasyCastStructure):
+class IMAGE_LINENUMBER(Structure):
     Type: _Type_e__Union
     Linenumber: UInt16
-    class _Type_e__Union(EasyCastUnion):
+    class _Type_e__Union(Union):
         SymbolTableIndex: UInt32
         VirtualAddress: UInt32
         _pack_ = 2
-class IMAGE_OS2_HEADER(EasyCastStructure):
+class IMAGE_OS2_HEADER(Structure):
     ne_magic: UInt16
     ne_ver: win32more.Windows.Win32.Foundation.CHAR
     ne_rev: win32more.Windows.Win32.Foundation.CHAR
@@ -2775,11 +2775,11 @@ class IMAGE_OS2_HEADER(EasyCastStructure):
     ne_swaparea: UInt16
     ne_expver: UInt16
     _pack_ = 2
-class IMAGE_POLICY_ENTRY(EasyCastStructure):
+class IMAGE_POLICY_ENTRY(Structure):
     Type: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE
     PolicyId: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         None_: VoidPtr
         BoolValue: win32more.Windows.Win32.Foundation.BOOLEAN
         Int8Value: SByte
@@ -2821,55 +2821,55 @@ ImagePolicyIdDeviceId: win32more.Windows.Win32.System.SystemServices.IMAGE_POLIC
 ImagePolicyIdCapability: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 10
 ImagePolicyIdScenarioId: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 11
 ImagePolicyIdMaximum: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ID = 12
-class IMAGE_POLICY_METADATA(EasyCastStructure):
+class IMAGE_POLICY_METADATA(Structure):
     Version: Byte
     Reserved0: Byte * 7
     ApplicationId: UInt64
     Policies: win32more.Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY * 1
-class IMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER(EasyCastStructure):
+class IMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER(Structure):
     PrologueByteCount: Byte
-class IMAGE_RELOCATION(EasyCastStructure):
+class IMAGE_RELOCATION(Structure):
     Anonymous: _Anonymous_e__Union
     SymbolTableIndex: UInt32
     Type: UInt16
     _pack_ = 2
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         VirtualAddress: UInt32
         RelocCount: UInt32
         _pack_ = 2
-class IMAGE_RESOURCE_DATA_ENTRY(EasyCastStructure):
+class IMAGE_RESOURCE_DATA_ENTRY(Structure):
     OffsetToData: UInt32
     Size: UInt32
     CodePage: UInt32
     Reserved: UInt32
-class IMAGE_RESOURCE_DIRECTORY(EasyCastStructure):
+class IMAGE_RESOURCE_DIRECTORY(Structure):
     Characteristics: UInt32
     TimeDateStamp: UInt32
     MajorVersion: UInt16
     MinorVersion: UInt16
     NumberOfNamedEntries: UInt16
     NumberOfIdEntries: UInt16
-class IMAGE_RESOURCE_DIRECTORY_ENTRY(EasyCastStructure):
+class IMAGE_RESOURCE_DIRECTORY_ENTRY(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Name: UInt32
         Id: UInt16
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         OffsetToData: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class IMAGE_RESOURCE_DIRECTORY_STRING(EasyCastStructure):
+class IMAGE_RESOURCE_DIRECTORY_STRING(Structure):
     Length: UInt16
     NameString: win32more.Windows.Win32.Foundation.CHAR * 1
-class IMAGE_RESOURCE_DIR_STRING_U(EasyCastStructure):
+class IMAGE_RESOURCE_DIR_STRING_U(Structure):
     Length: UInt16
     NameString: Char * 1
-class IMAGE_SEPARATE_DEBUG_HEADER(EasyCastStructure):
+class IMAGE_SEPARATE_DEBUG_HEADER(Structure):
     Signature: UInt16
     Flags: UInt16
     Machine: UInt16
@@ -2883,10 +2883,10 @@ class IMAGE_SEPARATE_DEBUG_HEADER(EasyCastStructure):
     DebugDirectorySize: UInt32
     SectionAlignment: UInt32
     Reserved: UInt32 * 2
-class IMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION(EasyCastStructure):
+class IMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION(Structure):
     _bitfield: UInt16
     _pack_ = 1
-class IMAGE_SYMBOL(EasyCastStructure):
+class IMAGE_SYMBOL(Structure):
     N: _N_e__Union
     Value: UInt32
     SectionNumber: Int16
@@ -2894,16 +2894,16 @@ class IMAGE_SYMBOL(EasyCastStructure):
     StorageClass: Byte
     NumberOfAuxSymbols: Byte
     _pack_ = 2
-    class _N_e__Union(EasyCastUnion):
+    class _N_e__Union(Union):
         ShortName: Byte * 8
         Name: _Name_e__Struct
         LongName: UInt32 * 2
         _pack_ = 2
-        class _Name_e__Struct(EasyCastStructure):
+        class _Name_e__Struct(Structure):
             Short: UInt32
             Long: UInt32
             _pack_ = 2
-class IMAGE_SYMBOL_EX(EasyCastStructure):
+class IMAGE_SYMBOL_EX(Structure):
     N: _N_e__Union
     Value: UInt32
     SectionNumber: Int32
@@ -2911,28 +2911,28 @@ class IMAGE_SYMBOL_EX(EasyCastStructure):
     StorageClass: Byte
     NumberOfAuxSymbols: Byte
     _pack_ = 2
-    class _N_e__Union(EasyCastUnion):
+    class _N_e__Union(Union):
         ShortName: Byte * 8
         Name: _Name_e__Struct
         LongName: UInt32 * 2
         _pack_ = 2
-        class _Name_e__Struct(EasyCastStructure):
+        class _Name_e__Struct(Structure):
             Short: UInt32
             Long: UInt32
             _pack_ = 2
-class IMAGE_TLS_DIRECTORY32(EasyCastStructure):
+class IMAGE_TLS_DIRECTORY32(Structure):
     StartAddressOfRawData: UInt32
     EndAddressOfRawData: UInt32
     AddressOfIndex: UInt32
     AddressOfCallBacks: UInt32
     SizeOfZeroFill: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Characteristics: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class IMAGE_TLS_DIRECTORY64(EasyCastStructure):
+class IMAGE_TLS_DIRECTORY64(Structure):
     StartAddressOfRawData: UInt64
     EndAddressOfRawData: UInt64
     AddressOfIndex: UInt64
@@ -2940,12 +2940,12 @@ class IMAGE_TLS_DIRECTORY64(EasyCastStructure):
     SizeOfZeroFill: UInt32
     Anonymous: _Anonymous_e__Union
     _pack_ = 4
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Characteristics: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class IMAGE_VXD_HEADER(EasyCastStructure):
+class IMAGE_VXD_HEADER(Structure):
     e32_magic: UInt16
     e32_border: Byte
     e32_worder: Byte
@@ -2998,7 +2998,7 @@ class IMAGE_VXD_HEADER(EasyCastStructure):
     e32_devid: UInt16
     e32_ddkver: UInt16
     _pack_ = 2
-class IMPORT_OBJECT_HEADER(EasyCastStructure):
+class IMPORT_OBJECT_HEADER(Structure):
     Sig1: UInt16
     Sig2: UInt16
     Version: UInt16
@@ -3007,7 +3007,7 @@ class IMPORT_OBJECT_HEADER(EasyCastStructure):
     SizeOfData: UInt32
     Anonymous: _Anonymous_e__Union
     _bitfield: UInt16
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Ordinal: UInt16
         Hint: UInt16
 IMPORT_OBJECT_NAME_TYPE = Int32
@@ -3020,18 +3020,18 @@ IMPORT_OBJECT_TYPE = Int32
 IMPORT_OBJECT_CODE: win32more.Windows.Win32.System.SystemServices.IMPORT_OBJECT_TYPE = 0
 IMPORT_OBJECT_DATA: win32more.Windows.Win32.System.SystemServices.IMPORT_OBJECT_TYPE = 1
 IMPORT_OBJECT_CONST: win32more.Windows.Win32.System.SystemServices.IMPORT_OBJECT_TYPE = 2
-class KERNEL_CET_CONTEXT(EasyCastStructure):
+class KERNEL_CET_CONTEXT(Structure):
     Ssp: UInt64
     Rip: UInt64
     SegCs: UInt16
     Anonymous: _Anonymous_e__Union
     Fill: UInt16 * 2
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         AllFlags: UInt16
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
-class KTMOBJECT_CURSOR(EasyCastStructure):
+class KTMOBJECT_CURSOR(Structure):
     LastQuery: Guid
     ObjectIdCount: UInt32
     ObjectIds: Guid * 1
@@ -3041,7 +3041,7 @@ KTMOBJECT_TRANSACTION_MANAGER: win32more.Windows.Win32.System.SystemServices.KTM
 KTMOBJECT_RESOURCE_MANAGER: win32more.Windows.Win32.System.SystemServices.KTMOBJECT_TYPE = 2
 KTMOBJECT_ENLISTMENT: win32more.Windows.Win32.System.SystemServices.KTMOBJECT_TYPE = 3
 KTMOBJECT_INVALID: win32more.Windows.Win32.System.SystemServices.KTMOBJECT_TYPE = 4
-class MAXVERSIONTESTED_INFO(EasyCastStructure):
+class MAXVERSIONTESTED_INFO(Structure):
     MaxVersionTested: UInt64
 MODIFIERKEYS_FLAGS = UInt32
 MK_LBUTTON: win32more.Windows.Win32.System.SystemServices.MODIFIERKEYS_FLAGS = 1
@@ -3055,10 +3055,10 @@ MONITOR_DISPLAY_STATE = Int32
 PowerMonitorOff: win32more.Windows.Win32.System.SystemServices.MONITOR_DISPLAY_STATE = 0
 PowerMonitorOn: win32more.Windows.Win32.System.SystemServices.MONITOR_DISPLAY_STATE = 1
 PowerMonitorDim: win32more.Windows.Win32.System.SystemServices.MONITOR_DISPLAY_STATE = 2
-class NETWORK_APP_INSTANCE_EA(EasyCastStructure):
+class NETWORK_APP_INSTANCE_EA(Structure):
     AppInstanceID: Guid
     CsvFlags: UInt32
-class NON_PAGED_DEBUG_INFO(EasyCastStructure):
+class NON_PAGED_DEBUG_INFO(Structure):
     Signature: UInt16
     Flags: UInt16
     Size: UInt32
@@ -3069,9 +3069,9 @@ class NON_PAGED_DEBUG_INFO(EasyCastStructure):
     SizeOfImage: UInt32
     ImageBase: UInt64
     _pack_ = 4
-class NOTIFY_USER_POWER_SETTING(EasyCastStructure):
+class NOTIFY_USER_POWER_SETTING(Structure):
     Guid: Guid
-class NT_TIB32(EasyCastStructure):
+class NT_TIB32(Structure):
     ExceptionList: UInt32
     StackBase: UInt32
     StackLimit: UInt32
@@ -3079,10 +3079,10 @@ class NT_TIB32(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     ArbitraryUserPointer: UInt32
     Self: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         FiberData: UInt32
         Version: UInt32
-class NT_TIB64(EasyCastStructure):
+class NT_TIB64(Structure):
     ExceptionList: UInt64
     StackBase: UInt64
     StackLimit: UInt64
@@ -3090,10 +3090,10 @@ class NT_TIB64(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     ArbitraryUserPointer: UInt64
     Self: UInt64
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         FiberData: UInt64
         Version: UInt32
-class PACKEDEVENTINFO(EasyCastStructure):
+class PACKEDEVENTINFO(Structure):
     ulSize: UInt32
     ulNumEventsForLogFile: UInt32
     ulOffsets: UInt32 * 1
@@ -3108,22 +3108,22 @@ if ARCH in 'ARM64':
 elif ARCH in 'X64':
     @winfunctype_pointer
     def POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK(Process: win32more.Windows.Win32.Foundation.HANDLE, TableAddress: VoidPtr, Entries: POINTER(UInt32), Functions: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY))) -> UInt32: ...
-class PROCESSOR_IDLESTATE_INFO(EasyCastStructure):
+class PROCESSOR_IDLESTATE_INFO(Structure):
     TimeCheck: UInt32
     DemotePercent: Byte
     PromotePercent: Byte
     Spare: Byte * 2
-class PROCESSOR_IDLESTATE_POLICY(EasyCastStructure):
+class PROCESSOR_IDLESTATE_POLICY(Structure):
     Revision: UInt16
     Flags: _Flags_e__Union
     PolicyCount: UInt32
     Policy: win32more.Windows.Win32.System.SystemServices.PROCESSOR_IDLESTATE_INFO * 3
-    class _Flags_e__Union(EasyCastUnion):
+    class _Flags_e__Union(Union):
         AsWORD: UInt16
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
-class PROCESSOR_PERFSTATE_POLICY(EasyCastStructure):
+class PROCESSOR_PERFSTATE_POLICY(Structure):
     Revision: UInt32
     MaxThrottle: Byte
     MinThrottle: Byte
@@ -3134,147 +3134,147 @@ class PROCESSOR_PERFSTATE_POLICY(EasyCastStructure):
     DecreaseTime: UInt32
     IncreasePercent: UInt32
     DecreasePercent: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Spare: Byte
         Flags: _Flags_e__Union
-        class _Flags_e__Union(EasyCastUnion):
+        class _Flags_e__Union(Union):
             AsBYTE: Byte
             Anonymous: _Anonymous_e__Struct
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 _bitfield: Byte
-class PROCESS_MITIGATION_ACTIVATION_CONTEXT_TRUST_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_ACTIVATION_CONTEXT_TRUST_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_ASLR_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_ASLR_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_CHILD_PROCESS_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_CHILD_PROCESS_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_DEP_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_DEP_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     Permanent: win32more.Windows.Win32.Foundation.BOOLEAN
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_DYNAMIC_CODE_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_DYNAMIC_CODE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_FONT_DISABLE_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_FONT_DISABLE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_IMAGE_LOAD_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_IMAGE_LOAD_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_SEHOP_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_SEHOP_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_USER_POINTER_AUTH_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_USER_POINTER_AUTH_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY(EasyCastStructure):
+class PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
 if ARCH in 'ARM64':
     @winfunctype_pointer
@@ -3284,7 +3284,7 @@ elif ARCH in 'X64':
     def PTERMINATION_HANDLER(_abnormal_termination: win32more.Windows.Win32.Foundation.BOOLEAN, EstablisherFrame: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def PUMS_SCHEDULER_ENTRY_POINT(Reason: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON, ActivationPayload: UIntPtr, SchedulerParam: VoidPtr) -> Void: ...
-class QUOTA_LIMITS_EX(EasyCastStructure):
+class QUOTA_LIMITS_EX(Structure):
     PagedPoolLimit: UIntPtr
     NonPagedPoolLimit: UIntPtr
     MinimumWorkingSetSize: UIntPtr
@@ -3297,19 +3297,19 @@ class QUOTA_LIMITS_EX(EasyCastStructure):
     Reserved4: UIntPtr
     Flags: UInt32
     CpuRateLimit: win32more.Windows.Win32.System.SystemServices.RATE_QUOTA_LIMIT
-class RATE_QUOTA_LIMIT(EasyCastUnion):
+class RATE_QUOTA_LIMIT(Union):
     RateData: UInt32
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class REARRANGE_FILE_DATA(EasyCastStructure):
+class REARRANGE_FILE_DATA(Structure):
     SourceStartingOffset: UInt64
     TargetOffset: UInt64
     SourceFileHandle: win32more.Windows.Win32.Foundation.HANDLE
     Length: UInt32
     Flags: UInt32
 if ARCH in 'X64,ARM64':
-    class REARRANGE_FILE_DATA32(EasyCastStructure):
+    class REARRANGE_FILE_DATA32(Structure):
         SourceStartingOffset: UInt64
         TargetOffset: UInt64
         SourceFileHandle: UInt32
@@ -3321,16 +3321,16 @@ RECO_DROP: win32more.Windows.Win32.System.SystemServices.RECO_FLAGS = 1
 RECO_COPY: win32more.Windows.Win32.System.SystemServices.RECO_FLAGS = 2
 RECO_CUT: win32more.Windows.Win32.System.SystemServices.RECO_FLAGS = 3
 RECO_DRAG: win32more.Windows.Win32.System.SystemServices.RECO_FLAGS = 4
-class REDBOOK_DIGITAL_AUDIO_EXTRACTION_INFO(EasyCastStructure):
+class REDBOOK_DIGITAL_AUDIO_EXTRACTION_INFO(Structure):
     Version: UInt32
     Accurate: UInt32
     Supported: UInt32
     AccurateMask0: UInt32
-class RESOURCEMANAGER_BASIC_INFORMATION(EasyCastStructure):
+class RESOURCEMANAGER_BASIC_INFORMATION(Structure):
     ResourceManagerId: Guid
     DescriptionLength: UInt32
     Description: Char * 1
-class RESOURCEMANAGER_COMPLETION_INFORMATION(EasyCastStructure):
+class RESOURCEMANAGER_COMPLETION_INFORMATION(Structure):
     IoCompletionPortHandle: win32more.Windows.Win32.Foundation.HANDLE
     CompletionKey: UIntPtr
 RESOURCEMANAGER_INFORMATION_CLASS = Int32
@@ -3340,32 +3340,32 @@ RTL_UMS_SCHEDULER_REASON = Int32
 UmsSchedulerStartup: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 0
 UmsSchedulerThreadBlocked: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 1
 UmsSchedulerThreadYield: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 2
-class RemHBITMAP(EasyCastStructure):
+class RemHBITMAP(Structure):
     cbData: UInt32
     data: Byte * 1
-class RemHBRUSH(EasyCastStructure):
+class RemHBRUSH(Structure):
     cbData: UInt32
     data: Byte * 1
-class RemHENHMETAFILE(EasyCastStructure):
+class RemHENHMETAFILE(Structure):
     cbData: UInt32
     data: Byte * 1
-class RemHGLOBAL(EasyCastStructure):
+class RemHGLOBAL(Structure):
     fNullHGlobal: Int32
     cbData: UInt32
     data: Byte * 1
-class RemHMETAFILEPICT(EasyCastStructure):
+class RemHMETAFILEPICT(Structure):
     mm: Int32
     xExt: Int32
     yExt: Int32
     cbData: UInt32
     data: Byte * 1
-class RemHPALETTE(EasyCastStructure):
+class RemHPALETTE(Structure):
     cbData: UInt32
     data: Byte * 1
-class RemotableHandle(EasyCastStructure):
+class RemotableHandle(Structure):
     fContext: Int32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         hInproc: Int32
         hRemote: Int32
 ReplacesCorHdrNumericDefines = Int32
@@ -3394,38 +3394,38 @@ COR_VTABLE_CALL_MOST_DERIVED: win32more.Windows.Win32.System.SystemServices.Repl
 IMAGE_COR_EATJ_THUNK_SIZE: win32more.Windows.Win32.System.SystemServices.ReplacesCorHdrNumericDefines = 32
 MAX_CLASS_NAME: win32more.Windows.Win32.System.SystemServices.ReplacesCorHdrNumericDefines = 1024
 MAX_PACKAGE_NAME: win32more.Windows.Win32.System.SystemServices.ReplacesCorHdrNumericDefines = 1024
-class SCOPE_TABLE_AMD64(EasyCastStructure):
+class SCOPE_TABLE_AMD64(Structure):
     Count: UInt32
     ScopeRecord: _Anonymous_e__Struct * 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         BeginAddress: UInt32
         EndAddress: UInt32
         HandlerAddress: UInt32
         JumpTarget: UInt32
-class SCOPE_TABLE_ARM(EasyCastStructure):
+class SCOPE_TABLE_ARM(Structure):
     Count: UInt32
     ScopeRecord: _Anonymous_e__Struct * 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         BeginAddress: UInt32
         EndAddress: UInt32
         HandlerAddress: UInt32
         JumpTarget: UInt32
-class SCOPE_TABLE_ARM64(EasyCastStructure):
+class SCOPE_TABLE_ARM64(Structure):
     Count: UInt32
     ScopeRecord: _Anonymous_e__Struct * 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         BeginAddress: UInt32
         EndAddress: UInt32
         HandlerAddress: UInt32
         JumpTarget: UInt32
-class SCRUB_DATA_INPUT(EasyCastStructure):
+class SCRUB_DATA_INPUT(Structure):
     Size: UInt32
     Flags: UInt32
     MaximumIos: UInt32
     ObjectId: UInt32 * 4
     Reserved: UInt32 * 41
     ResumeContext: Byte * 1040
-class SCRUB_DATA_OUTPUT(EasyCastStructure):
+class SCRUB_DATA_OUTPUT(Structure):
     Size: UInt32
     Flags: UInt32
     Status: UInt32
@@ -3450,19 +3450,19 @@ class SCRUB_DATA_OUTPUT(EasyCastStructure):
     DataBytesSkippedDueToNoScrubNonIntegrityStreamFlag: UInt64
     DataBytesScrubbed: UInt64
     ResumeContext: Byte * 1040
-class SCRUB_PARITY_EXTENT(EasyCastStructure):
+class SCRUB_PARITY_EXTENT(Structure):
     Offset: Int64
     Length: UInt64
-class SCRUB_PARITY_EXTENT_DATA(EasyCastStructure):
+class SCRUB_PARITY_EXTENT_DATA(Structure):
     Size: UInt16
     Flags: UInt16
     NumberOfParityExtents: UInt16
     MaximumNumberOfParityExtents: UInt16
     ParityExtents: win32more.Windows.Win32.System.SystemServices.SCRUB_PARITY_EXTENT * 1
-class SECURITY_OBJECT_AI_PARAMS(EasyCastStructure):
+class SECURITY_OBJECT_AI_PARAMS(Structure):
     Size: UInt32
     ConstraintMask: UInt32
-class SERVERSILO_BASIC_INFORMATION(EasyCastStructure):
+class SERVERSILO_BASIC_INFORMATION(Structure):
     ServiceSessionId: UInt32
     State: win32more.Windows.Win32.System.SystemServices.SERVERSILO_STATE
     ExitStatus: UInt32
@@ -3502,13 +3502,13 @@ SeImageSignatureCatalogNotCached: win32more.Windows.Win32.System.SystemServices.
 SeImageSignatureCatalogHint: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 5
 SeImageSignaturePackageCatalog: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 6
 SeImageSignaturePplMitigated: win32more.Windows.Win32.System.SystemServices.SE_IMAGE_SIGNATURE_TYPE = 7
-class SE_TOKEN_USER(EasyCastStructure):
+class SE_TOKEN_USER(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         TokenUser: win32more.Windows.Win32.Security.TOKEN_USER
         User: win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Sid: win32more.Windows.Win32.Security.SID
         Buffer: Byte * 68
 SFGAO_FLAGS = UInt32
@@ -3548,14 +3548,14 @@ SFGAO_STREAM: win32more.Windows.Win32.System.SystemServices.SFGAO_FLAGS = 419430
 SFGAO_STORAGEANCESTOR: win32more.Windows.Win32.System.SystemServices.SFGAO_FLAGS = 8388608
 SFGAO_STORAGECAPMASK: win32more.Windows.Win32.System.SystemServices.SFGAO_FLAGS = 1891958792
 SFGAO_PKEYSFGAOMASK: win32more.Windows.Win32.System.SystemServices.SFGAO_FLAGS = 2164539392
-class SHARED_VIRTUAL_DISK_SUPPORT(EasyCastStructure):
+class SHARED_VIRTUAL_DISK_SUPPORT(Structure):
     SharedVirtualDiskSupport: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType
     HandleState: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskHandleState
-class SHUFFLE_FILE_DATA(EasyCastStructure):
+class SHUFFLE_FILE_DATA(Structure):
     StartingOffset: Int64
     Length: Int64
     Flags: UInt32
-class SILOOBJECT_BASIC_INFORMATION(EasyCastStructure):
+class SILOOBJECT_BASIC_INFORMATION(Structure):
     SiloId: UInt32
     SiloParentId: UInt32
     NumberOfProcesses: UInt32
@@ -3594,7 +3594,7 @@ SS_ENDELLIPSIS: win32more.Windows.Win32.System.SystemServices.STATIC_STYLES = 16
 SS_PATHELLIPSIS: win32more.Windows.Win32.System.SystemServices.STATIC_STYLES = 32768
 SS_WORDELLIPSIS: win32more.Windows.Win32.System.SystemServices.STATIC_STYLES = 49152
 SS_ELLIPSISMASK: win32more.Windows.Win32.System.SystemServices.STATIC_STYLES = 49152
-class SUPPORTED_OS_INFO(EasyCastStructure):
+class SUPPORTED_OS_INFO(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
 SharedVirtualDiskHandleState = Int32
@@ -3606,7 +3606,7 @@ SharedVirtualDisksUnsupported: win32more.Windows.Win32.System.SystemServices.Sha
 SharedVirtualDisksSupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 1
 SharedVirtualDiskSnapshotsSupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 3
 SharedVirtualDiskCDPSnapshotsSupported: win32more.Windows.Win32.System.SystemServices.SharedVirtualDiskSupportType = 7
-class TAPE_CREATE_PARTITION(EasyCastStructure):
+class TAPE_CREATE_PARTITION(Structure):
     Method: UInt32
     Count: UInt32
     Size: UInt32
@@ -3625,7 +3625,7 @@ TapeDriveTimetoClean: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_P
 TapeDriveCleanDriveNow: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 11
 TapeDriveMediaLifeExpired: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 12
 TapeDriveSnappedTape: win32more.Windows.Win32.System.SystemServices.TAPE_DRIVE_PROBLEM_TYPE = 13
-class TAPE_GET_DRIVE_PARAMETERS(EasyCastStructure):
+class TAPE_GET_DRIVE_PARAMETERS(Structure):
     ECC: win32more.Windows.Win32.Foundation.BOOLEAN
     Compression: win32more.Windows.Win32.Foundation.BOOLEAN
     DataPadding: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -3667,30 +3667,30 @@ TAPE_DRIVE_WRITE_LONG_FMKS: win32more.Windows.Win32.System.SystemServices.TAPE_G
 TAPE_DRIVE_WRITE_MARK_IMMED: win32more.Windows.Win32.System.SystemServices.TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH = 2415919104
 TAPE_DRIVE_WRITE_SETMARKS: win32more.Windows.Win32.System.SystemServices.TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH = 2164260864
 TAPE_DRIVE_WRITE_SHORT_FMKS: win32more.Windows.Win32.System.SystemServices.TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH = 2214592512
-class TAPE_GET_MEDIA_PARAMETERS(EasyCastStructure):
+class TAPE_GET_MEDIA_PARAMETERS(Structure):
     Capacity: Int64
     Remaining: Int64
     BlockSize: UInt32
     PartitionCount: UInt32
     WriteProtected: win32more.Windows.Win32.Foundation.BOOLEAN
-class TAPE_SET_DRIVE_PARAMETERS(EasyCastStructure):
+class TAPE_SET_DRIVE_PARAMETERS(Structure):
     ECC: win32more.Windows.Win32.Foundation.BOOLEAN
     Compression: win32more.Windows.Win32.Foundation.BOOLEAN
     DataPadding: win32more.Windows.Win32.Foundation.BOOLEAN
     ReportSetmarks: win32more.Windows.Win32.Foundation.BOOLEAN
     EOTWarningZoneSize: UInt32
-class TAPE_SET_MEDIA_PARAMETERS(EasyCastStructure):
+class TAPE_SET_MEDIA_PARAMETERS(Structure):
     BlockSize: UInt32
-class TAPE_WMI_OPERATIONS(EasyCastStructure):
+class TAPE_WMI_OPERATIONS(Structure):
     Method: UInt32
     DataBufferSize: UInt32
     DataBuffer: VoidPtr
-class TOKEN_BNO_ISOLATION_INFORMATION(EasyCastStructure):
+class TOKEN_BNO_ISOLATION_INFORMATION(Structure):
     IsolationPrefix: win32more.Windows.Win32.Foundation.PWSTR
     IsolationEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
-class TOKEN_SID_INFORMATION(EasyCastStructure):
+class TOKEN_SID_INFORMATION(Structure):
     Sid: win32more.Windows.Win32.Security.PSID
-class TRANSACTIONMANAGER_BASIC_INFORMATION(EasyCastStructure):
+class TRANSACTIONMANAGER_BASIC_INFORMATION(Structure):
     TmIdentity: Guid
     VirtualClock: Int64
 TRANSACTIONMANAGER_INFORMATION_CLASS = Int32
@@ -3700,25 +3700,25 @@ TransactionManagerLogPathInformation: win32more.Windows.Win32.System.SystemServi
 TransactionManagerRecoveryInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 4
 TransactionManagerOnlineProbeInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 3
 TransactionManagerOldestTransactionInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 5
-class TRANSACTIONMANAGER_LOGPATH_INFORMATION(EasyCastStructure):
+class TRANSACTIONMANAGER_LOGPATH_INFORMATION(Structure):
     LogPathLength: UInt32
     LogPath: Char * 1
-class TRANSACTIONMANAGER_LOG_INFORMATION(EasyCastStructure):
+class TRANSACTIONMANAGER_LOG_INFORMATION(Structure):
     LogIdentity: Guid
-class TRANSACTIONMANAGER_OLDEST_INFORMATION(EasyCastStructure):
+class TRANSACTIONMANAGER_OLDEST_INFORMATION(Structure):
     OldestTransactionGuid: Guid
-class TRANSACTIONMANAGER_RECOVERY_INFORMATION(EasyCastStructure):
+class TRANSACTIONMANAGER_RECOVERY_INFORMATION(Structure):
     LastRecoveredLsn: UInt64
-class TRANSACTION_BASIC_INFORMATION(EasyCastStructure):
+class TRANSACTION_BASIC_INFORMATION(Structure):
     TransactionId: Guid
     State: UInt32
     Outcome: UInt32
-class TRANSACTION_BIND_INFORMATION(EasyCastStructure):
+class TRANSACTION_BIND_INFORMATION(Structure):
     TmHandle: win32more.Windows.Win32.Foundation.HANDLE
-class TRANSACTION_ENLISTMENTS_INFORMATION(EasyCastStructure):
+class TRANSACTION_ENLISTMENTS_INFORMATION(Structure):
     NumberOfEnlistments: UInt32
     EnlistmentPair: win32more.Windows.Win32.System.SystemServices.TRANSACTION_ENLISTMENT_PAIR * 1
-class TRANSACTION_ENLISTMENT_PAIR(EasyCastStructure):
+class TRANSACTION_ENLISTMENT_PAIR(Structure):
     EnlistmentId: Guid
     ResourceManagerId: Guid
 TRANSACTION_INFORMATION_CLASS = Int32
@@ -3728,12 +3728,12 @@ TransactionEnlistmentInformation: win32more.Windows.Win32.System.SystemServices.
 TransactionSuperiorEnlistmentInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 3
 TransactionBindInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 4
 TransactionDTCPrivateInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_INFORMATION_CLASS = 5
-class TRANSACTION_LIST_ENTRY(EasyCastStructure):
+class TRANSACTION_LIST_ENTRY(Structure):
     UOW: Guid
-class TRANSACTION_LIST_INFORMATION(EasyCastStructure):
+class TRANSACTION_LIST_INFORMATION(Structure):
     NumberOfTransactions: UInt32
     TransactionInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_LIST_ENTRY * 1
-class TRANSACTION_PROPERTIES_INFORMATION(EasyCastStructure):
+class TRANSACTION_PROPERTIES_INFORMATION(Structure):
     IsolationLevel: UInt32
     IsolationFlags: UInt32
     Timeout: Int64
@@ -3744,23 +3744,23 @@ TRANSACTION_STATE = Int32
 TransactionStateNormal: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 1
 TransactionStateIndoubt: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 2
 TransactionStateCommittedNotify: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 3
-class TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION(EasyCastStructure):
+class TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION(Structure):
     SuperiorEnlistmentPair: win32more.Windows.Win32.System.SystemServices.TRANSACTION_ENLISTMENT_PAIR
-class UMS_CREATE_THREAD_ATTRIBUTES(EasyCastStructure):
+class UMS_CREATE_THREAD_ATTRIBUTES(Structure):
     UmsVersion: UInt32
     UmsContext: VoidPtr
     UmsCompletionList: VoidPtr
 WORD_WHEEL_OPEN_FLAGS = UInt32
 ITWW_OPEN_CONNECT: win32more.Windows.Win32.System.SystemServices.WORD_WHEEL_OPEN_FLAGS = 0
-class XSAVE_CET_U_FORMAT(EasyCastStructure):
+class XSAVE_CET_U_FORMAT(Structure):
     Ia32CetUMsr: UInt64
     Ia32Pl3SspMsr: UInt64
-class remoteMETAFILEPICT(EasyCastStructure):
+class remoteMETAFILEPICT(Structure):
     mm: Int32
     xExt: Int32
     yExt: Int32
     hMF: POINTER(win32more.Windows.Win32.System.SystemServices.userHMETAFILE)
-class userBITMAP(EasyCastStructure):
+class userBITMAP(Structure):
     bmType: Int32
     bmWidth: Int32
     bmHeight: Int32
@@ -3769,51 +3769,51 @@ class userBITMAP(EasyCastStructure):
     bmBitsPixel: UInt16
     cbSize: UInt32
     pBuffer: Byte * 1
-class userCLIPFORMAT(EasyCastStructure):
+class userCLIPFORMAT(Structure):
     fContext: Int32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         dwValue: UInt32
         pwszName: win32more.Windows.Win32.Foundation.PWSTR
-class userHBITMAP(EasyCastStructure):
+class userHBITMAP(Structure):
     fContext: Int32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         hInproc: Int32
         hRemote: POINTER(win32more.Windows.Win32.System.SystemServices.userBITMAP)
         hInproc64: Int64
-class userHENHMETAFILE(EasyCastStructure):
+class userHENHMETAFILE(Structure):
     fContext: Int32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         hInproc: Int32
         hRemote: POINTER(win32more.Windows.Win32.System.Com.BYTE_BLOB)
         hInproc64: Int64
-class userHGLOBAL(EasyCastStructure):
+class userHGLOBAL(Structure):
     fContext: Int32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         hInproc: Int32
         hRemote: POINTER(win32more.Windows.Win32.System.Com.FLAGGED_BYTE_BLOB)
         hInproc64: Int64
-class userHMETAFILE(EasyCastStructure):
+class userHMETAFILE(Structure):
     fContext: Int32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         hInproc: Int32
         hRemote: POINTER(win32more.Windows.Win32.System.Com.BYTE_BLOB)
         hInproc64: Int64
-class userHMETAFILEPICT(EasyCastStructure):
+class userHMETAFILEPICT(Structure):
     fContext: Int32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         hInproc: Int32
         hRemote: POINTER(win32more.Windows.Win32.System.SystemServices.remoteMETAFILEPICT)
         hInproc64: Int64
-class userHPALETTE(EasyCastStructure):
+class userHPALETTE(Structure):
     fContext: Int32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         hInproc: Int32
         hRemote: POINTER(win32more.Windows.Win32.Graphics.Gdi.LOGPALETTE)
         hInproc64: Int64

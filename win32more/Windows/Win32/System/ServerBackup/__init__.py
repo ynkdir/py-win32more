@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.ServerBackup
@@ -29,13 +29,13 @@ class IWsbApplicationRestoreSupport(ComPtr):
     def OrderComponents(self, cComponents: UInt32, rgComponentName: POINTER(win32more.Windows.Win32.Foundation.PWSTR), rgComponentLogicalPaths: POINTER(win32more.Windows.Win32.Foundation.PWSTR), prgComponentName: POINTER(POINTER(win32more.Windows.Win32.Foundation.PWSTR)), prgComponentLogicalPath: POINTER(POINTER(win32more.Windows.Win32.Foundation.PWSTR))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def IsRollForwardSupported(self, pbRollForwardSupported: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WSB_OB_REGISTRATION_INFO(EasyCastStructure):
+class WSB_OB_REGISTRATION_INFO(Structure):
     m_wszResourceDLL: win32more.Windows.Win32.Foundation.PWSTR
     m_guidSnapinId: Guid
     m_dwProviderName: UInt32
     m_dwProviderIcon: UInt32
     m_bSupportsRemoting: win32more.Windows.Win32.Foundation.BOOLEAN
-class WSB_OB_STATUS_ENTRY(EasyCastStructure):
+class WSB_OB_STATUS_ENTRY(Structure):
     m_dwIcon: UInt32
     m_dwStatusEntryName: UInt32
     m_dwStatusEntryValue: UInt32
@@ -49,10 +49,10 @@ WSB_OB_ET_DATETIME: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_EN
 WSB_OB_ET_TIME: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 4
 WSB_OB_ET_SIZE: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 5
 WSB_OB_ET_MAX: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE = 6
-class WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR(EasyCastStructure):
+class WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR(Structure):
     m_wszObStatusEntryPairValue: win32more.Windows.Win32.Foundation.PWSTR
     m_ObStatusEntryPairType: win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY_PAIR_TYPE
-class WSB_OB_STATUS_INFO(EasyCastStructure):
+class WSB_OB_STATUS_INFO(Structure):
     m_guidSnapinId: Guid
     m_cStatusEntry: UInt32
     m_rgStatusEntry: POINTER(win32more.Windows.Win32.System.ServerBackup.WSB_OB_STATUS_ENTRY)

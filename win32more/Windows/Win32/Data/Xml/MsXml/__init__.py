@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -2100,7 +2100,7 @@ XHR_AUTH = Int32
 XHR_AUTH_ALL: win32more.Windows.Win32.Data.Xml.MsXml.XHR_AUTH = 0
 XHR_AUTH_NONE: win32more.Windows.Win32.Data.Xml.MsXml.XHR_AUTH = 1
 XHR_AUTH_PROXY: win32more.Windows.Win32.Data.Xml.MsXml.XHR_AUTH = 2
-class XHR_CERT(EasyCastStructure):
+class XHR_CERT(Structure):
     cbCert: UInt32
     pbCert: POINTER(Byte)
 XHR_CERT_ERROR_FLAG = UInt32
@@ -2115,7 +2115,7 @@ XHR_CERT_IGNORE_UNKNOWN_CA: win32more.Windows.Win32.Data.Xml.MsXml.XHR_CERT_IGNO
 XHR_CERT_IGNORE_CERT_CN_INVALID: win32more.Windows.Win32.Data.Xml.MsXml.XHR_CERT_IGNORE_FLAG = 4096
 XHR_CERT_IGNORE_CERT_DATE_INVALID: win32more.Windows.Win32.Data.Xml.MsXml.XHR_CERT_IGNORE_FLAG = 8192
 XHR_CERT_IGNORE_ALL_SERVER_ERRORS: win32more.Windows.Win32.Data.Xml.MsXml.XHR_CERT_IGNORE_FLAG = 12672
-class XHR_COOKIE(EasyCastStructure):
+class XHR_COOKIE(Structure):
     pwszUrl: win32more.Windows.Win32.Foundation.PWSTR
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pwszValue: win32more.Windows.Win32.Foundation.PWSTR
@@ -2175,7 +2175,7 @@ XMLELEMTYPE_OTHER: win32more.Windows.Win32.Data.Xml.MsXml.XMLELEM_TYPE = 6
 XMLHTTP60 = Guid('{88d96a0a-f192-11d4-a65f-0040963251e5}')
 XMLHTTPRequest = Guid('{ed8c108e-4349-11d2-91a4-00c04f7969e8}')
 XMLSchemaCache60 = Guid('{88d96a07-f192-11d4-a65f-0040963251e5}')
-class XML_ERROR(EasyCastStructure):
+class XML_ERROR(Structure):
     _nLine: UInt32
     _pchBuf: win32more.Windows.Win32.Foundation.BSTR
     _cchBuf: UInt32
@@ -2185,7 +2185,7 @@ class XML_ERROR(EasyCastStructure):
     _reserved1: UInt32
     _reserved2: UInt32
 XSLTemplate60 = Guid('{88d96a08-f192-11d4-a65f-0040963251e5}')
-class __msxml6_ReferenceRemainingTypes__(EasyCastStructure):
+class __msxml6_ReferenceRemainingTypes__(Structure):
     __tagDomNodeType__: win32more.Windows.Win32.Data.Xml.MsXml.DOMNodeType
     __domNodeType__: win32more.Windows.Win32.Data.Xml.MsXml.DOMNodeType
     __serverXmlHttpOptionEnum__: win32more.Windows.Win32.Data.Xml.MsXml.SERVERXMLHTTP_OPTION

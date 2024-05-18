@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Communication
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -166,7 +166,7 @@ CE_FRAME: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS =
 CE_OVERRUN: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 2
 CE_RXOVER: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 1
 CE_RXPARITY: win32more.Windows.Win32.Devices.Communication.CLEAR_COMM_ERROR_FLAGS = 4
-class COMMCONFIG(EasyCastStructure):
+class COMMCONFIG(Structure):
     dwSize: UInt32
     wVersion: UInt16
     wReserved: UInt16
@@ -175,7 +175,7 @@ class COMMCONFIG(EasyCastStructure):
     dwProviderOffset: UInt32
     dwProviderSize: UInt32
     wcProviderData: Char * 1
-class COMMPROP(EasyCastStructure):
+class COMMPROP(Structure):
     wPacketLength: UInt16
     wPacketVersion: UInt16
     dwServiceMask: UInt32
@@ -203,7 +203,7 @@ PARITY_ODD: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY =
 PARITY_EVEN: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 1024
 PARITY_MARK: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 2048
 PARITY_SPACE: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 4096
-class COMMTIMEOUTS(EasyCastStructure):
+class COMMTIMEOUTS(Structure):
     ReadIntervalTimeout: UInt32
     ReadTotalTimeoutMultiplier: UInt32
     ReadTotalTimeoutConstant: UInt32
@@ -223,11 +223,11 @@ EV_RX80FULL: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 102
 EV_RXCHAR: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 1
 EV_RXFLAG: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 2
 EV_TXEMPTY: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 4
-class COMSTAT(EasyCastStructure):
+class COMSTAT(Structure):
     _bitfield: UInt32
     cbInQue: UInt32
     cbOutQue: UInt32
-class DCB(EasyCastStructure):
+class DCB(Structure):
     DCBlength: UInt32
     BaudRate: UInt32
     _bitfield: UInt32
@@ -262,7 +262,7 @@ SETDTR: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 5
 SETRTS: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 3
 SETXOFF: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 1
 SETXON: win32more.Windows.Win32.Devices.Communication.ESCAPE_COMM_FUNCTION = 2
-class MODEMDEVCAPS(EasyCastStructure):
+class MODEMDEVCAPS(Structure):
     dwActualSize: UInt32
     dwRequiredSize: UInt32
     dwDevSpecificOffset: UInt32
@@ -296,7 +296,7 @@ MODEMDEVCAPS_SPEAKER_VOLUME = UInt32
 MDMVOLFLAG_HIGH: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_VOLUME = 4
 MDMVOLFLAG_LOW: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_VOLUME = 1
 MDMVOLFLAG_MEDIUM: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_SPEAKER_VOLUME = 2
-class MODEMSETTINGS(EasyCastStructure):
+class MODEMSETTINGS(Structure):
     dwActualSize: UInt32
     dwRequiredSize: UInt32
     dwDevSpecificOffset: UInt32

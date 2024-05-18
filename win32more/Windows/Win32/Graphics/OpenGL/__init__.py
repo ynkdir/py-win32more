@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Graphics.OpenGL
@@ -1532,7 +1532,7 @@ def gluBeginPolygon(tess: POINTER(win32more.Windows.Win32.Graphics.OpenGL.GLUtes
 def gluNextContour(tess: POINTER(win32more.Windows.Win32.Graphics.OpenGL.GLUtesselator), type: UInt32) -> Void: ...
 @winfunctype('GLU32.dll')
 def gluEndPolygon(tess: POINTER(win32more.Windows.Win32.Graphics.OpenGL.GLUtesselator)) -> Void: ...
-class EMRPIXELFORMAT(EasyCastStructure):
+class EMRPIXELFORMAT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     pfd: win32more.Windows.Win32.Graphics.OpenGL.PIXELFORMATDESCRIPTOR
 GLUnurbs = IntPtr
@@ -1566,14 +1566,14 @@ def GLUtessVertexDataProc(param0: VoidPtr, param1: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def GLUtessVertexProc(param0: VoidPtr) -> Void: ...
 GLUtesselator = IntPtr
-class GLYPHMETRICSFLOAT(EasyCastStructure):
+class GLYPHMETRICSFLOAT(Structure):
     gmfBlackBoxX: Single
     gmfBlackBoxY: Single
     gmfptGlyphOrigin: win32more.Windows.Win32.Graphics.OpenGL.POINTFLOAT
     gmfCellIncX: Single
     gmfCellIncY: Single
 HGLRC = IntPtr
-class LAYERPLANEDESCRIPTOR(EasyCastStructure):
+class LAYERPLANEDESCRIPTOR(Structure):
     nSize: UInt16
     nVersion: UInt16
     dwFlags: UInt32
@@ -1659,7 +1659,7 @@ def PFNGLNORMALPOINTEREXTPROC(type: UInt32, stride: Int32, count: Int32, pointer
 def PFNGLTEXCOORDPOINTEREXTPROC(size: Int32, type: UInt32, stride: Int32, count: Int32, pointer: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def PFNGLVERTEXPOINTEREXTPROC(size: Int32, type: UInt32, stride: Int32, count: Int32, pointer: VoidPtr) -> Void: ...
-class PIXELFORMATDESCRIPTOR(EasyCastStructure):
+class PIXELFORMATDESCRIPTOR(Structure):
     nSize: UInt16
     nVersion: UInt16
     dwFlags: win32more.Windows.Win32.Graphics.OpenGL.PFD_FLAGS
@@ -1686,7 +1686,7 @@ class PIXELFORMATDESCRIPTOR(EasyCastStructure):
     dwLayerMask: UInt32
     dwVisibleMask: UInt32
     dwDamageMask: UInt32
-class POINTFLOAT(EasyCastStructure):
+class POINTFLOAT(Structure):
     x: Single
     y: Single
 

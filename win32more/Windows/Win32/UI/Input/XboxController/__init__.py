@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.UI.Input.XboxController
 XINPUT_DLL_A: String = 'xinput1_4.dll'
@@ -35,10 +35,10 @@ BATTERY_TYPE_WIRED: win32more.Windows.Win32.UI.Input.XboxController.BATTERY_TYPE
 BATTERY_TYPE_ALKALINE: win32more.Windows.Win32.UI.Input.XboxController.BATTERY_TYPE = 2
 BATTERY_TYPE_NIMH: win32more.Windows.Win32.UI.Input.XboxController.BATTERY_TYPE = 3
 BATTERY_TYPE_UNKNOWN: win32more.Windows.Win32.UI.Input.XboxController.BATTERY_TYPE = 255
-class XINPUT_BATTERY_INFORMATION(EasyCastStructure):
+class XINPUT_BATTERY_INFORMATION(Structure):
     BatteryType: win32more.Windows.Win32.UI.Input.XboxController.BATTERY_TYPE
     BatteryLevel: win32more.Windows.Win32.UI.Input.XboxController.BATTERY_LEVEL
-class XINPUT_CAPABILITIES(EasyCastStructure):
+class XINPUT_CAPABILITIES(Structure):
     Type: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_DEVTYPE
     SubType: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_DEVSUBTYPE
     Flags: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_CAPABILITIES_FLAGS
@@ -67,7 +67,7 @@ XINPUT_DEVTYPE_GAMEPAD: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_D
 XINPUT_FLAG = UInt32
 XINPUT_FLAG_ALL: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_FLAG = 0
 XINPUT_FLAG_GAMEPAD: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_FLAG = 1
-class XINPUT_GAMEPAD(EasyCastStructure):
+class XINPUT_GAMEPAD(Structure):
     wButtons: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_GAMEPAD_BUTTON_FLAGS
     bLeftTrigger: Byte
     bRightTrigger: Byte
@@ -93,7 +93,7 @@ XINPUT_GAMEPAD_Y: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_GAMEPAD
 XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_GAMEPAD_BUTTON_FLAGS = 7849
 XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_GAMEPAD_BUTTON_FLAGS = 8689
 XINPUT_GAMEPAD_TRIGGER_THRESHOLD: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_GAMEPAD_BUTTON_FLAGS = 30
-class XINPUT_KEYSTROKE(EasyCastStructure):
+class XINPUT_KEYSTROKE(Structure):
     VirtualKey: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_VIRTUAL_KEY
     Unicode: Char
     Flags: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_KEYSTROKE_FLAGS
@@ -103,10 +103,10 @@ XINPUT_KEYSTROKE_FLAGS = UInt16
 XINPUT_KEYSTROKE_KEYDOWN: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_KEYSTROKE_FLAGS = 1
 XINPUT_KEYSTROKE_KEYUP: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_KEYSTROKE_FLAGS = 2
 XINPUT_KEYSTROKE_REPEAT: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_KEYSTROKE_FLAGS = 4
-class XINPUT_STATE(EasyCastStructure):
+class XINPUT_STATE(Structure):
     dwPacketNumber: UInt32
     Gamepad: win32more.Windows.Win32.UI.Input.XboxController.XINPUT_GAMEPAD
-class XINPUT_VIBRATION(EasyCastStructure):
+class XINPUT_VIBRATION(Structure):
     wLeftMotorSpeed: UInt16
     wRightMotorSpeed: UInt16
 XINPUT_VIRTUAL_KEY = UInt16

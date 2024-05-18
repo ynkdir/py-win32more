@@ -1,23 +1,23 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
 import win32more.Windows.Win32.NetworkManagement.QoS
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.IO
-class ADDRESS_LIST_DESCRIPTOR(EasyCastStructure):
+class ADDRESS_LIST_DESCRIPTOR(Structure):
     MediaType: UInt32
     AddressList: win32more.Windows.Win32.NetworkManagement.Ndis.NETWORK_ADDRESS_LIST
-class ADSPEC(EasyCastStructure):
+class ADSPEC(Structure):
     adspec_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     adspec_body: win32more.Windows.Win32.NetworkManagement.QoS.IS_ADSPEC_BODY
-class AD_GENERAL_PARAMS(EasyCastStructure):
+class AD_GENERAL_PARAMS(Structure):
     IntServAwareHopCount: UInt32
     PathBandwidthEstimate: UInt32
     MinimumLatency: UInt32
     PathMTU: UInt32
     Flags: UInt32
-class AD_GUARANTEED(EasyCastStructure):
+class AD_GUARANTEED(Structure):
     CTotal: UInt32
     DTotal: UInt32
     CSum: UInt32
@@ -620,19 +620,19 @@ def TcEnumerateFlows(IfcHandle: win32more.Windows.Win32.Foundation.HANDLE, pEnum
 def CBADMITRESULT(LpmHandle: win32more.Windows.Win32.NetworkManagement.QoS.LPM_HANDLE, RequestHandle: win32more.Windows.Win32.NetworkManagement.QoS.RHANDLE, ulPcmActionFlags: UInt32, LpmError: Int32, PolicyDecisionsCount: Int32, pPolicyDecisions: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.POLICY_DECISION)) -> POINTER(UInt32): ...
 @winfunctype_pointer
 def CBGETRSVPOBJECTS(LpmHandle: win32more.Windows.Win32.NetworkManagement.QoS.LPM_HANDLE, RequestHandle: win32more.Windows.Win32.NetworkManagement.QoS.RHANDLE, LpmError: Int32, RsvpObjectsCount: Int32, ppRsvpObjects: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr))) -> POINTER(UInt32): ...
-class CONTROL_SERVICE(EasyCastStructure):
+class CONTROL_SERVICE(Structure):
     Length: UInt32
     Service: UInt32
     Overrides: win32more.Windows.Win32.NetworkManagement.QoS.AD_GENERAL_PARAMS
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Guaranteed: win32more.Windows.Win32.NetworkManagement.QoS.AD_GUARANTEED
         ParamBuffer: win32more.Windows.Win32.NetworkManagement.QoS.PARAM_BUFFER * 1
-class CtrlLoadFlowspec(EasyCastStructure):
+class CtrlLoadFlowspec(Structure):
     CL_spec_serv_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServServiceHdr
     CL_spec_parm_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     CL_spec_parms: win32more.Windows.Win32.NetworkManagement.QoS.GenTspecParms
-class ENUMERATION_BUFFER(EasyCastStructure):
+class ENUMERATION_BUFFER(Structure):
     Length: UInt32
     OwnerProcessId: UInt32
     FlowNameLength: UInt16
@@ -640,33 +640,33 @@ class ENUMERATION_BUFFER(EasyCastStructure):
     pFlow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FLOW)
     NumberOfFilters: UInt32
     GenericFilter: win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FILTER * 1
-class ERROR_SPEC(EasyCastStructure):
+class ERROR_SPEC(Structure):
     errs_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     errs_u: _errs_u_e__Union
-    class _errs_u_e__Union(EasyCastUnion):
+    class _errs_u_e__Union(Union):
         errs_ipv4: win32more.Windows.Win32.NetworkManagement.QoS.Error_Spec_IPv4
-class Error_Spec_IPv4(EasyCastStructure):
+class Error_Spec_IPv4(Structure):
     errs_errnode: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     errs_flags: Byte
     errs_code: Byte
     errs_value: UInt16
-class FILTER_SPEC(EasyCastStructure):
+class FILTER_SPEC(Structure):
     filt_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     filt_u: _filt_u_e__Union
-    class _filt_u_e__Union(EasyCastUnion):
+    class _filt_u_e__Union(Union):
         filt_ipv4: win32more.Windows.Win32.NetworkManagement.QoS.Filter_Spec_IPv4
         filt_ipv4gpi: win32more.Windows.Win32.NetworkManagement.QoS.Filter_Spec_IPv4GPI
-class FLOWDESCRIPTOR(EasyCastStructure):
+class FLOWDESCRIPTOR(Structure):
     FlowSpec: win32more.Windows.Win32.Networking.WinSock.FLOWSPEC
     NumFilters: UInt32
     FilterList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC)
-class FLOW_DESC(EasyCastStructure):
+class FLOW_DESC(Structure):
     u1: _u1_e__Union
     u2: _u2_e__Union
-    class _u1_e__Union(EasyCastUnion):
+    class _u1_e__Union(Union):
         stspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.SENDER_TSPEC)
         isflow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.IS_FLOWSPEC)
-    class _u2_e__Union(EasyCastUnion):
+    class _u2_e__Union(Union):
         stemp: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FILTER_SPEC)
         fspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FILTER_SPEC)
 FilterType = Int32
@@ -676,14 +676,14 @@ FILTERSPECV6_FLOW: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 3
 FILTERSPECV4_GPI: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 4
 FILTERSPECV6_GPI: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 5
 FILTERSPEC_END: win32more.Windows.Win32.NetworkManagement.QoS.FilterType = 6
-class Filter_Spec_IPv4(EasyCastStructure):
+class Filter_Spec_IPv4(Structure):
     filt_ipaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     filt_unused: UInt16
     filt_port: UInt16
-class Filter_Spec_IPv4GPI(EasyCastStructure):
+class Filter_Spec_IPv4GPI(Structure):
     filt_ipaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     filt_gpi: UInt32
-class Gads_parms_t(EasyCastStructure):
+class Gads_parms_t(Structure):
     Gads_serv_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServServiceHdr
     Gads_Ctot_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     Gads_Ctot: UInt32
@@ -693,7 +693,7 @@ class Gads_parms_t(EasyCastStructure):
     Gads_Csum: UInt32
     Gads_Dsum_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     Gads_Dsum: UInt32
-class GenAdspecParams(EasyCastStructure):
+class GenAdspecParams(Structure):
     gen_parm_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServServiceHdr
     gen_parm_hopcnt_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     gen_parm_hopcnt: UInt32
@@ -703,56 +703,56 @@ class GenAdspecParams(EasyCastStructure):
     gen_parm_min_latency: UInt32
     gen_parm_compmtu_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     gen_parm_composed_MTU: UInt32
-class GenTspec(EasyCastStructure):
+class GenTspec(Structure):
     gen_Tspec_serv_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServServiceHdr
     gen_Tspec_parm_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     gen_Tspec_parms: win32more.Windows.Win32.NetworkManagement.QoS.GenTspecParms
-class GenTspecParms(EasyCastStructure):
+class GenTspecParms(Structure):
     TB_Tspec_r: Single
     TB_Tspec_b: Single
     TB_Tspec_p: Single
     TB_Tspec_m: UInt32
     TB_Tspec_M: UInt32
-class GuarFlowSpec(EasyCastStructure):
+class GuarFlowSpec(Structure):
     Guar_serv_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServServiceHdr
     Guar_Tspec_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     Guar_Tspec_parms: win32more.Windows.Win32.NetworkManagement.QoS.GenTspecParms
     Guar_Rspec_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     Guar_Rspec: win32more.Windows.Win32.NetworkManagement.QoS.GuarRspec
-class GuarRspec(EasyCastStructure):
+class GuarRspec(Structure):
     Guar_R: Single
     Guar_S: UInt32
-class HSP_UPGRADE_IMAGEDATA(EasyCastStructure):
+class HSP_UPGRADE_IMAGEDATA(Structure):
     hashAlgID: UInt16
     digestSize: UInt16
     digest: Byte * 64
     fileName: Char * 64
     _pack_ = 1
-class IDPE_ATTR(EasyCastStructure):
+class IDPE_ATTR(Structure):
     PeAttribLength: UInt16
     PeAttribType: Byte
     PeAttribSubType: Byte
     PeAttribValue: Byte * 4
-class ID_ERROR_OBJECT(EasyCastStructure):
+class ID_ERROR_OBJECT(Structure):
     usIdErrLength: UInt16
     ucAType: Byte
     ucSubType: Byte
     usReserved: UInt16
     usIdErrorValue: UInt16
     ucIdErrData: Byte * 4
-class IN_ADDR_IPV4(EasyCastUnion):
+class IN_ADDR_IPV4(Union):
     Addr: UInt32
     AddrBytes: Byte * 4
-class IN_ADDR_IPV6(EasyCastStructure):
+class IN_ADDR_IPV6(Structure):
     Addr: Byte * 16
-class IPX_PATTERN(EasyCastStructure):
+class IPX_PATTERN(Structure):
     Src: _Src_e__Struct
     Dest: _Src_e__Struct
-    class _Src_e__Struct(EasyCastStructure):
+    class _Src_e__Struct(Structure):
         NetworkAddress: UInt32
         NodeAddress: Byte * 6
         Socket: UInt16
-class IP_PATTERN(EasyCastStructure):
+class IP_PATTERN(Structure):
     Reserved1: UInt32
     Reserved2: UInt32
     SrcAddr: UInt32
@@ -760,55 +760,55 @@ class IP_PATTERN(EasyCastStructure):
     S_un: _S_un_e__Union
     ProtocolId: Byte
     Reserved3: Byte * 3
-    class _S_un_e__Union(EasyCastUnion):
+    class _S_un_e__Union(Union):
         S_un_ports: _S_un_ports_e__Struct
         S_un_icmp: _S_un_icmp_e__Struct
         S_Spi: UInt32
-        class _S_un_ports_e__Struct(EasyCastStructure):
+        class _S_un_ports_e__Struct(Structure):
             s_srcport: UInt16
             s_dstport: UInt16
-        class _S_un_icmp_e__Struct(EasyCastStructure):
+        class _S_un_icmp_e__Struct(Structure):
             s_type: Byte
             s_code: Byte
             filler: UInt16
-class IS_ADSPEC_BODY(EasyCastStructure):
+class IS_ADSPEC_BODY(Structure):
     adspec_mh: win32more.Windows.Win32.NetworkManagement.QoS.IntServMainHdr
     adspec_genparms: win32more.Windows.Win32.NetworkManagement.QoS.GenAdspecParams
-class IS_FLOWSPEC(EasyCastStructure):
+class IS_FLOWSPEC(Structure):
     flow_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     flow_body: win32more.Windows.Win32.NetworkManagement.QoS.IntServFlowSpec
-class IntServFlowSpec(EasyCastStructure):
+class IntServFlowSpec(Structure):
     spec_mh: win32more.Windows.Win32.NetworkManagement.QoS.IntServMainHdr
     spec_u: _spec_u_e__Union
-    class _spec_u_e__Union(EasyCastUnion):
+    class _spec_u_e__Union(Union):
         CL_spec: win32more.Windows.Win32.NetworkManagement.QoS.CtrlLoadFlowspec
         G_spec: win32more.Windows.Win32.NetworkManagement.QoS.GuarFlowSpec
         Q_spec: win32more.Windows.Win32.NetworkManagement.QoS.QualAppFlowSpec
-class IntServMainHdr(EasyCastStructure):
+class IntServMainHdr(Structure):
     ismh_version: Byte
     ismh_unused: Byte
     ismh_len32b: UInt16
-class IntServParmHdr(EasyCastStructure):
+class IntServParmHdr(Structure):
     isph_parm_num: Byte
     isph_flags: Byte
     isph_len32b: UInt16
-class IntServServiceHdr(EasyCastStructure):
+class IntServServiceHdr(Structure):
     issh_service: Byte
     issh_flags: Byte
     issh_len32b: UInt16
-class IntServTspecBody(EasyCastStructure):
+class IntServTspecBody(Structure):
     st_mh: win32more.Windows.Win32.NetworkManagement.QoS.IntServMainHdr
     tspec_u: _tspec_u_e__Union
-    class _tspec_u_e__Union(EasyCastUnion):
+    class _tspec_u_e__Union(Union):
         gen_stspec: win32more.Windows.Win32.NetworkManagement.QoS.GenTspec
         qual_stspec: win32more.Windows.Win32.NetworkManagement.QoS.QualTspec
-class LPMIPTABLE(EasyCastStructure):
+class LPMIPTABLE(Structure):
     ulIfIndex: UInt32
     MediaType: UInt32
     IfIpAddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     IfNetMask: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
 LPM_HANDLE = IntPtr
-class LPM_INIT_INFO(EasyCastStructure):
+class LPM_INIT_INFO(Structure):
     PcmVersionNumber: UInt32
     ResultTimeLimit: UInt32
     ConfiguredLpmCount: Int32
@@ -818,42 +818,42 @@ class LPM_INIT_INFO(EasyCastStructure):
     GetRsvpObjectsCallback: win32more.Windows.Win32.NetworkManagement.QoS.CBGETRSVPOBJECTS
 @winfunctype_pointer
 def PALLOCMEM(Size: UInt32) -> VoidPtr: ...
-class PARAM_BUFFER(EasyCastStructure):
+class PARAM_BUFFER(Structure):
     ParameterId: UInt32
     Length: UInt32
     Buffer: Byte * 1
 @winfunctype_pointer
 def PFREEMEM(pv: VoidPtr) -> Void: ...
-class POLICY_DATA(EasyCastStructure):
+class POLICY_DATA(Structure):
     PolicyObjHdr: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     usPeOffset: UInt16
     usReserved: UInt16
-class POLICY_DECISION(EasyCastStructure):
+class POLICY_DECISION(Structure):
     lpvResult: UInt32
     wPolicyErrCode: UInt16
     wPolicyErrValue: UInt16
-class POLICY_ELEMENT(EasyCastStructure):
+class POLICY_ELEMENT(Structure):
     usPeLength: UInt16
     usPeType: UInt16
     ucPeData: Byte * 4
-class QOS_DESTADDR(EasyCastStructure):
+class QOS_DESTADDR(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     SocketAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
     SocketAddressLength: UInt32
-class QOS_DIFFSERV(EasyCastStructure):
+class QOS_DIFFSERV(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     DSFieldCount: UInt32
     DiffservRule: Byte * 1
-class QOS_DIFFSERV_RULE(EasyCastStructure):
+class QOS_DIFFSERV_RULE(Structure):
     InboundDSField: Byte
     ConformingOutboundDSField: Byte
     NonConformingOutboundDSField: Byte
     ConformingUserPriority: Byte
     NonConformingUserPriority: Byte
-class QOS_DS_CLASS(EasyCastStructure):
+class QOS_DS_CLASS(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     DSField: UInt32
-class QOS_FLOWRATE_OUTGOING(EasyCastStructure):
+class QOS_FLOWRATE_OUTGOING(Structure):
     Bandwidth: UInt64
     ShapingBehavior: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SHAPING
     Reason: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON
@@ -863,24 +863,24 @@ QOSFlowRateContentChange: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOW
 QOSFlowRateCongestion: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON = 2
 QOSFlowRateHigherContentEncoding: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON = 3
 QOSFlowRateUserCaused: win32more.Windows.Win32.NetworkManagement.QoS.QOS_FLOWRATE_REASON = 4
-class QOS_FLOW_FUNDAMENTALS(EasyCastStructure):
+class QOS_FLOW_FUNDAMENTALS(Structure):
     BottleneckBandwidthSet: win32more.Windows.Win32.Foundation.BOOL
     BottleneckBandwidth: UInt64
     AvailableBandwidthSet: win32more.Windows.Win32.Foundation.BOOL
     AvailableBandwidth: UInt64
     RTTSet: win32more.Windows.Win32.Foundation.BOOL
     RTT: UInt32
-class QOS_FRIENDLY_NAME(EasyCastStructure):
+class QOS_FRIENDLY_NAME(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     FriendlyName: Char * 256
 QOS_NOTIFY_FLOW = Int32
 QOSNotifyCongested: win32more.Windows.Win32.NetworkManagement.QoS.QOS_NOTIFY_FLOW = 0
 QOSNotifyUncongested: win32more.Windows.Win32.NetworkManagement.QoS.QOS_NOTIFY_FLOW = 1
 QOSNotifyAvailable: win32more.Windows.Win32.NetworkManagement.QoS.QOS_NOTIFY_FLOW = 2
-class QOS_OBJECT_HDR(EasyCastStructure):
+class QOS_OBJECT_HDR(Structure):
     ObjectType: UInt32
     ObjectLength: UInt32
-class QOS_PACKET_PRIORITY(EasyCastStructure):
+class QOS_PACKET_PRIORITY(Structure):
     ConformantDSCPValue: UInt32
     NonConformantDSCPValue: UInt32
     ConformantL2Value: UInt32
@@ -889,7 +889,7 @@ QOS_QUERY_FLOW = Int32
 QOSQueryFlowFundamentals: win32more.Windows.Win32.NetworkManagement.QoS.QOS_QUERY_FLOW = 0
 QOSQueryPacketPriority: win32more.Windows.Win32.NetworkManagement.QoS.QOS_QUERY_FLOW = 1
 QOSQueryOutgoingRate: win32more.Windows.Win32.NetworkManagement.QoS.QOS_QUERY_FLOW = 2
-class QOS_SD_MODE(EasyCastStructure):
+class QOS_SD_MODE(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     ShapeDiscardMode: UInt32
 QOS_SET_FLOW = Int32
@@ -900,12 +900,12 @@ QOS_SHAPING = Int32
 QOSShapeOnly: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SHAPING = 0
 QOSShapeAndMark: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SHAPING = 1
 QOSUseNonConformantMarkings: win32more.Windows.Win32.NetworkManagement.QoS.QOS_SHAPING = 2
-class QOS_SHAPING_RATE(EasyCastStructure):
+class QOS_SHAPING_RATE(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     ShapingRate: UInt32
-class QOS_TCP_TRAFFIC(EasyCastStructure):
+class QOS_TCP_TRAFFIC(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
-class QOS_TRAFFIC_CLASS(EasyCastStructure):
+class QOS_TRAFFIC_CLASS(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     TrafficClass: UInt32
 QOS_TRAFFIC_TYPE = Int32
@@ -915,61 +915,61 @@ QOSTrafficTypeExcellentEffort: win32more.Windows.Win32.NetworkManagement.QoS.QOS
 QOSTrafficTypeAudioVideo: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE = 3
 QOSTrafficTypeVoice: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE = 4
 QOSTrafficTypeControl: win32more.Windows.Win32.NetworkManagement.QoS.QOS_TRAFFIC_TYPE = 5
-class QOS_VERSION(EasyCastStructure):
+class QOS_VERSION(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
-class QualAppFlowSpec(EasyCastStructure):
+class QualAppFlowSpec(Structure):
     Q_spec_serv_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServServiceHdr
     Q_spec_parm_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     Q_spec_parms: win32more.Windows.Win32.NetworkManagement.QoS.QualTspecParms
-class QualTspec(EasyCastStructure):
+class QualTspec(Structure):
     qual_Tspec_serv_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServServiceHdr
     qual_Tspec_parm_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
     qual_Tspec_parms: win32more.Windows.Win32.NetworkManagement.QoS.QualTspecParms
-class QualTspecParms(EasyCastStructure):
+class QualTspecParms(Structure):
     TB_Tspec_M: UInt32
-class RESV_STYLE(EasyCastStructure):
+class RESV_STYLE(Structure):
     style_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     style_word: UInt32
 RHANDLE = IntPtr
-class RSVP_ADSPEC(EasyCastStructure):
+class RSVP_ADSPEC(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     GeneralParams: win32more.Windows.Win32.NetworkManagement.QoS.AD_GENERAL_PARAMS
     NumberOfServices: UInt32
     Services: win32more.Windows.Win32.NetworkManagement.QoS.CONTROL_SERVICE * 1
-class RSVP_FILTERSPEC(EasyCastStructure):
+class RSVP_FILTERSPEC(Structure):
     Type: win32more.Windows.Win32.NetworkManagement.QoS.FilterType
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         FilterSpecV4: win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC_V4
         FilterSpecV6: win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC_V6
         FilterSpecV6Flow: win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC_V6_FLOW
         FilterSpecV4Gpi: win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC_V4_GPI
         FilterSpecV6Gpi: win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC_V6_GPI
-class RSVP_FILTERSPEC_V4(EasyCastStructure):
+class RSVP_FILTERSPEC_V4(Structure):
     Address: win32more.Windows.Win32.NetworkManagement.QoS.IN_ADDR_IPV4
     Unused: UInt16
     Port: UInt16
-class RSVP_FILTERSPEC_V4_GPI(EasyCastStructure):
+class RSVP_FILTERSPEC_V4_GPI(Structure):
     Address: win32more.Windows.Win32.NetworkManagement.QoS.IN_ADDR_IPV4
     GeneralPortId: UInt32
-class RSVP_FILTERSPEC_V6(EasyCastStructure):
+class RSVP_FILTERSPEC_V6(Structure):
     Address: win32more.Windows.Win32.NetworkManagement.QoS.IN_ADDR_IPV6
     UnUsed: UInt16
     Port: UInt16
-class RSVP_FILTERSPEC_V6_FLOW(EasyCastStructure):
+class RSVP_FILTERSPEC_V6_FLOW(Structure):
     Address: win32more.Windows.Win32.NetworkManagement.QoS.IN_ADDR_IPV6
     UnUsed: Byte
     FlowLabel: Byte * 3
-class RSVP_FILTERSPEC_V6_GPI(EasyCastStructure):
+class RSVP_FILTERSPEC_V6_GPI(Structure):
     Address: win32more.Windows.Win32.NetworkManagement.QoS.IN_ADDR_IPV6
     GeneralPortId: UInt32
-class RSVP_HOP(EasyCastStructure):
+class RSVP_HOP(Structure):
     hop_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     hop_u: _hop_u_e__Union
-    class _hop_u_e__Union(EasyCastUnion):
+    class _hop_u_e__Union(Union):
         hop_ipv4: win32more.Windows.Win32.NetworkManagement.QoS.Rsvp_Hop_IPv4
-class RSVP_MSG_OBJS(EasyCastStructure):
+class RSVP_MSG_OBJS(Structure):
     RsvpMsgType: Int32
     pRsvpSession: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_SESSION)
     pRsvpFromHop: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_HOP)
@@ -982,58 +982,58 @@ class RSVP_MSG_OBJS(EasyCastStructure):
     ppPdObjects: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.QoS.POLICY_DATA))
     pErrorSpec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.ERROR_SPEC)
     pAdspec: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.ADSPEC)
-class RSVP_POLICY(EasyCastStructure):
+class RSVP_POLICY(Structure):
     Len: UInt16
     Type: UInt16
     Info: Byte * 4
-class RSVP_POLICY_INFO(EasyCastStructure):
+class RSVP_POLICY_INFO(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     NumPolicyElement: UInt32
     PolicyElement: win32more.Windows.Win32.NetworkManagement.QoS.RSVP_POLICY * 1
-class RSVP_RESERVE_INFO(EasyCastStructure):
+class RSVP_RESERVE_INFO(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     Style: UInt32
     ConfirmRequest: UInt32
     PolicyElementList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.RSVP_POLICY_INFO)
     NumFlowDesc: UInt32
     FlowDescList: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.FLOWDESCRIPTOR)
-class RSVP_SCOPE(EasyCastStructure):
+class RSVP_SCOPE(Structure):
     scopl_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     scope_u: _scope_u_e__Union
-    class _scope_u_e__Union(EasyCastUnion):
+    class _scope_u_e__Union(Union):
         scopl_ipv4: win32more.Windows.Win32.NetworkManagement.QoS.Scope_list_ipv4
-class RSVP_SESSION(EasyCastStructure):
+class RSVP_SESSION(Structure):
     sess_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     sess_u: _sess_u_e__Union
-    class _sess_u_e__Union(EasyCastUnion):
+    class _sess_u_e__Union(Union):
         sess_ipv4: win32more.Windows.Win32.NetworkManagement.QoS.Session_IPv4
-class RSVP_STATUS_INFO(EasyCastStructure):
+class RSVP_STATUS_INFO(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     StatusCode: UInt32
     ExtendedStatus1: UInt32
     ExtendedStatus2: UInt32
-class RsvpObjHdr(EasyCastStructure):
+class RsvpObjHdr(Structure):
     obj_length: UInt16
     obj_class: Byte
     obj_ctype: Byte
-class Rsvp_Hop_IPv4(EasyCastStructure):
+class Rsvp_Hop_IPv4(Structure):
     hop_ipaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     hop_LIH: UInt32
-class SENDER_TSPEC(EasyCastStructure):
+class SENDER_TSPEC(Structure):
     stspec_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     stspec_body: win32more.Windows.Win32.NetworkManagement.QoS.IntServTspecBody
-class SIPAEVENT_KSR_SIGNATURE_PAYLOAD(EasyCastStructure):
+class SIPAEVENT_KSR_SIGNATURE_PAYLOAD(Structure):
     SignAlgID: UInt32
     SignatureLength: UInt32
     Signature: Byte * 1
     _pack_ = 1
-class SIPAEVENT_REVOCATION_LIST_PAYLOAD(EasyCastStructure):
+class SIPAEVENT_REVOCATION_LIST_PAYLOAD(Structure):
     CreationTime: Int64
     DigestLength: UInt32
     HashAlgID: UInt16
     Digest: Byte * 1
     _pack_ = 1
-class SIPAEVENT_SBCP_INFO_PAYLOAD_V1(EasyCastStructure):
+class SIPAEVENT_SBCP_INFO_PAYLOAD_V1(Structure):
     PayloadVersion: UInt32
     VarDataOffset: UInt32
     HashAlgID: UInt16
@@ -1042,47 +1042,47 @@ class SIPAEVENT_SBCP_INFO_PAYLOAD_V1(EasyCastStructure):
     SignersCount: UInt32
     VarData: Byte * 1
     _pack_ = 1
-class SIPAEVENT_SI_POLICY_PAYLOAD(EasyCastStructure):
+class SIPAEVENT_SI_POLICY_PAYLOAD(Structure):
     PolicyVersion: UInt64
     PolicyNameLength: UInt16
     HashAlgID: UInt16
     DigestLength: UInt32
     VarLengthData: Byte * 1
     _pack_ = 1
-class SIPAEVENT_VSM_IDK_INFO_PAYLOAD(EasyCastStructure):
+class SIPAEVENT_VSM_IDK_INFO_PAYLOAD(Structure):
     KeyAlgID: UInt32
     Anonymous: _Anonymous_e__Union
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         RsaKeyInfo: win32more.Windows.Win32.NetworkManagement.QoS.SIPAEVENT_VSM_IDK_RSA_INFO
-class SIPAEVENT_VSM_IDK_RSA_INFO(EasyCastStructure):
+class SIPAEVENT_VSM_IDK_RSA_INFO(Structure):
     KeyBitLength: UInt32
     PublicExpLengthBytes: UInt32
     ModulusSizeBytes: UInt32
     PublicKeyData: Byte * 1
     _pack_ = 1
-class Scope_list_ipv4(EasyCastStructure):
+class Scope_list_ipv4(Structure):
     scopl_ipaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR * 1
-class Session_IPv4(EasyCastStructure):
+class Session_IPv4(Structure):
     sess_destaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     sess_protid: Byte
     sess_flags: Byte
     sess_destport: UInt16
-class TCG_PCClientPCREventStruct(EasyCastStructure):
+class TCG_PCClientPCREventStruct(Structure):
     pcrIndex: UInt32
     eventType: UInt32
     digest: Byte * 20
     eventDataSize: UInt32
     event: Byte * 1
     _pack_ = 1
-class TCG_PCClientTaggedEventStruct(EasyCastStructure):
+class TCG_PCClientTaggedEventStruct(Structure):
     EventID: UInt32
     EventDataSize: UInt32
     EventData: Byte * 1
     _pack_ = 1
 @winfunctype_pointer
 def TCI_ADD_FLOW_COMPLETE_HANDLER(ClFlowCtx: win32more.Windows.Win32.Foundation.HANDLE, Status: UInt32) -> Void: ...
-class TCI_CLIENT_FUNC_LIST(EasyCastStructure):
+class TCI_CLIENT_FUNC_LIST(Structure):
     ClNotifyHandler: win32more.Windows.Win32.NetworkManagement.QoS.TCI_NOTIFY_HANDLER
     ClAddFlowCompleteHandler: win32more.Windows.Win32.NetworkManagement.QoS.TCI_ADD_FLOW_COMPLETE_HANDLER
     ClModifyFlowCompleteHandler: win32more.Windows.Win32.NetworkManagement.QoS.TCI_MOD_FLOW_COMPLETE_HANDLER
@@ -1093,27 +1093,27 @@ def TCI_DEL_FLOW_COMPLETE_HANDLER(ClFlowCtx: win32more.Windows.Win32.Foundation.
 def TCI_MOD_FLOW_COMPLETE_HANDLER(ClFlowCtx: win32more.Windows.Win32.Foundation.HANDLE, Status: UInt32) -> Void: ...
 @winfunctype_pointer
 def TCI_NOTIFY_HANDLER(ClRegCtx: win32more.Windows.Win32.Foundation.HANDLE, ClIfcCtx: win32more.Windows.Win32.Foundation.HANDLE, Event: UInt32, SubCode: win32more.Windows.Win32.Foundation.HANDLE, BufSize: UInt32, Buffer: VoidPtr) -> Void: ...
-class TC_GEN_FILTER(EasyCastStructure):
+class TC_GEN_FILTER(Structure):
     AddressType: UInt16
     PatternSize: UInt32
     Pattern: VoidPtr
     Mask: VoidPtr
-class TC_GEN_FLOW(EasyCastStructure):
+class TC_GEN_FLOW(Structure):
     SendingFlowspec: win32more.Windows.Win32.Networking.WinSock.FLOWSPEC
     ReceivingFlowspec: win32more.Windows.Win32.Networking.WinSock.FLOWSPEC
     TcObjectsLength: UInt32
     TcObjects: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR * 1
-class TC_IFC_DESCRIPTOR(EasyCastStructure):
+class TC_IFC_DESCRIPTOR(Structure):
     Length: UInt32
     pInterfaceName: win32more.Windows.Win32.Foundation.PWSTR
     pInterfaceID: win32more.Windows.Win32.Foundation.PWSTR
     AddressListDesc: win32more.Windows.Win32.NetworkManagement.QoS.ADDRESS_LIST_DESCRIPTOR
-class TC_SUPPORTED_INFO_BUFFER(EasyCastStructure):
+class TC_SUPPORTED_INFO_BUFFER(Structure):
     InstanceIDLength: UInt16
     InstanceID: Char * 256
     InterfaceLuid: UInt64
     AddrListDesc: win32more.Windows.Win32.NetworkManagement.QoS.ADDRESS_LIST_DESCRIPTOR
-class WBCL_Iterator(EasyCastStructure):
+class WBCL_Iterator(Structure):
     firstElementPtr: VoidPtr
     logSize: UInt32
     currentElementPtr: VoidPtr
@@ -1125,7 +1125,7 @@ class WBCL_Iterator(EasyCastStructure):
     supportedAlgorithms: UInt32
     hashAlgorithm: UInt16
     _pack_ = 1
-class WBCL_LogHdr(EasyCastStructure):
+class WBCL_LogHdr(Structure):
     signature: UInt32
     version: UInt32
     entries: UInt32

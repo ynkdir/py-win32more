@@ -1,10 +1,10 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.UI.Shell
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-class ACCEL(EasyCastStructure):
+class ACCEL(Structure):
     fVirt: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS
     key: UInt16
     cmd: UInt16
@@ -14,7 +14,7 @@ FNOINVERT: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS = 2
 FSHIFT: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS = 4
 FCONTROL: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS = 8
 FALT: win32more.Windows.Win32.UI.WindowsAndMessaging.ACCEL_VIRT_FLAGS = 16
-class ALTTABINFO(EasyCastStructure):
+class ALTTABINFO(Structure):
     cbSize: UInt32
     cItems: Int32
     cColumns: Int32
@@ -34,10 +34,10 @@ AW_HOR_NEGATIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_F
 AW_SLIDE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 262144
 AW_VER_POSITIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 4
 AW_VER_NEGATIVE: win32more.Windows.Win32.UI.WindowsAndMessaging.ANIMATE_WINDOW_FLAGS = 8
-class ANIMATIONINFO(EasyCastStructure):
+class ANIMATIONINFO(Structure):
     cbSize: UInt32
     iMinAnimate: Int32
-class AUDIODESCRIPTION(EasyCastStructure):
+class AUDIODESCRIPTION(Structure):
     cbSize: UInt32
     Enabled: win32more.Windows.Win32.Foundation.BOOL
     Locale: UInt32
@@ -2371,26 +2371,26 @@ def IsWindowArranged(hwnd: win32more.Windows.Win32.Foundation.HWND) -> win32more
 CASCADE_WINDOWS_HOW = UInt32
 MDITILE_SKIPDISABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.CASCADE_WINDOWS_HOW = 2
 MDITILE_ZORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.CASCADE_WINDOWS_HOW = 4
-class CBTACTIVATESTRUCT(EasyCastStructure):
+class CBTACTIVATESTRUCT(Structure):
     fMouse: win32more.Windows.Win32.Foundation.BOOL
     hWndActive: win32more.Windows.Win32.Foundation.HWND
-class CBT_CREATEWNDA(EasyCastStructure):
+class CBT_CREATEWNDA(Structure):
     lpcs: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.CREATESTRUCTA)
     hwndInsertAfter: win32more.Windows.Win32.Foundation.HWND
-class CBT_CREATEWNDW(EasyCastStructure):
+class CBT_CREATEWNDW(Structure):
     lpcs: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.CREATESTRUCTW)
     hwndInsertAfter: win32more.Windows.Win32.Foundation.HWND
 CBT_CREATEWND = UnicodeAlias('CBT_CREATEWNDW')
-class CHANGEFILTERSTRUCT(EasyCastStructure):
+class CHANGEFILTERSTRUCT(Structure):
     cbSize: UInt32
     ExtStatus: win32more.Windows.Win32.UI.WindowsAndMessaging.MSGFLTINFO_STATUS
 CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = UInt32
 MSGFLT_ADD: win32more.Windows.Win32.UI.WindowsAndMessaging.CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 1
 MSGFLT_REMOVE: win32more.Windows.Win32.UI.WindowsAndMessaging.CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 2
-class CLIENTCREATESTRUCT(EasyCastStructure):
+class CLIENTCREATESTRUCT(Structure):
     hWindowMenu: win32more.Windows.Win32.Foundation.HANDLE
     idFirstChild: UInt32
-class CREATESTRUCTA(EasyCastStructure):
+class CREATESTRUCTA(Structure):
     lpCreateParams: VoidPtr
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
     hMenu: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU
@@ -2403,7 +2403,7 @@ class CREATESTRUCTA(EasyCastStructure):
     lpszName: win32more.Windows.Win32.Foundation.PSTR
     lpszClass: win32more.Windows.Win32.Foundation.PSTR
     dwExStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE
-class CREATESTRUCTW(EasyCastStructure):
+class CREATESTRUCTW(Structure):
     lpCreateParams: VoidPtr
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
     hMenu: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU
@@ -2417,7 +2417,7 @@ class CREATESTRUCTW(EasyCastStructure):
     lpszClass: win32more.Windows.Win32.Foundation.PWSTR
     dwExStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_EX_STYLE
 CREATESTRUCT = UnicodeAlias('CREATESTRUCTW')
-class CURSORINFO(EasyCastStructure):
+class CURSORINFO(Structure):
     cbSize: UInt32
     flags: win32more.Windows.Win32.UI.WindowsAndMessaging.CURSORINFO_FLAGS
     hCursor: win32more.Windows.Win32.UI.WindowsAndMessaging.HCURSOR
@@ -2425,7 +2425,7 @@ class CURSORINFO(EasyCastStructure):
 CURSORINFO_FLAGS = UInt32
 CURSOR_SHOWING: win32more.Windows.Win32.UI.WindowsAndMessaging.CURSORINFO_FLAGS = 1
 CURSOR_SUPPRESSED: win32more.Windows.Win32.UI.WindowsAndMessaging.CURSORINFO_FLAGS = 2
-class CURSORSHAPE(EasyCastStructure):
+class CURSORSHAPE(Structure):
     xHotSpot: Int32
     yHotSpot: Int32
     cx: Int32
@@ -2433,13 +2433,13 @@ class CURSORSHAPE(EasyCastStructure):
     cbWidth: Int32
     Planes: Byte
     BitsPixel: Byte
-class CWPRETSTRUCT(EasyCastStructure):
+class CWPRETSTRUCT(Structure):
     lResult: win32more.Windows.Win32.Foundation.LRESULT
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     wParam: win32more.Windows.Win32.Foundation.WPARAM
     message: UInt32
     hwnd: win32more.Windows.Win32.Foundation.HWND
-class CWPSTRUCT(EasyCastStructure):
+class CWPSTRUCT(Structure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     wParam: win32more.Windows.Win32.Foundation.WPARAM
     message: UInt32
@@ -2449,55 +2449,55 @@ CWP_ALL: win32more.Windows.Win32.UI.WindowsAndMessaging.CWP_FLAGS = 0
 CWP_SKIPINVISIBLE: win32more.Windows.Win32.UI.WindowsAndMessaging.CWP_FLAGS = 1
 CWP_SKIPDISABLED: win32more.Windows.Win32.UI.WindowsAndMessaging.CWP_FLAGS = 2
 CWP_SKIPTRANSPARENT: win32more.Windows.Win32.UI.WindowsAndMessaging.CWP_FLAGS = 4
-class DEBUGHOOKINFO(EasyCastStructure):
+class DEBUGHOOKINFO(Structure):
     idThread: UInt32
     idThreadInstaller: UInt32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     wParam: win32more.Windows.Win32.Foundation.WPARAM
     code: Int32
-class DEVICE_EVENT_BECOMING_READY(EasyCastStructure):
+class DEVICE_EVENT_BECOMING_READY(Structure):
     Version: UInt32
     Reason: UInt32
     Estimated100msToReady: UInt32
-class DEVICE_EVENT_EXTERNAL_REQUEST(EasyCastStructure):
+class DEVICE_EVENT_EXTERNAL_REQUEST(Structure):
     Version: UInt32
     DeviceClass: UInt32
     ButtonStatus: UInt16
     Request: UInt16
     SystemTime: Int64
-class DEVICE_EVENT_GENERIC_DATA(EasyCastStructure):
+class DEVICE_EVENT_GENERIC_DATA(Structure):
     EventNumber: UInt32
-class DEVICE_EVENT_MOUNT(EasyCastStructure):
+class DEVICE_EVENT_MOUNT(Structure):
     Version: UInt32
     Flags: UInt32
     FileSystemNameLength: UInt32
     FileSystemNameOffset: UInt32
-class DEVICE_EVENT_RBC_DATA(EasyCastStructure):
+class DEVICE_EVENT_RBC_DATA(Structure):
     EventNumber: UInt32
     SenseQualifier: Byte
     SenseCode: Byte
     SenseKey: Byte
     Reserved: Byte
     Information: UInt32
-class DEV_BROADCAST_DEVICEINTERFACE_A(EasyCastStructure):
+class DEV_BROADCAST_DEVICEINTERFACE_A(Structure):
     dbcc_size: UInt32
     dbcc_devicetype: UInt32
     dbcc_reserved: UInt32
     dbcc_classguid: Guid
     dbcc_name: win32more.Windows.Win32.Foundation.CHAR * 1
-class DEV_BROADCAST_DEVICEINTERFACE_W(EasyCastStructure):
+class DEV_BROADCAST_DEVICEINTERFACE_W(Structure):
     dbcc_size: UInt32
     dbcc_devicetype: UInt32
     dbcc_reserved: UInt32
     dbcc_classguid: Guid
     dbcc_name: Char * 1
 DEV_BROADCAST_DEVICEINTERFACE = UnicodeAlias('DEV_BROADCAST_DEVICEINTERFACE_W')
-class DEV_BROADCAST_DEVNODE(EasyCastStructure):
+class DEV_BROADCAST_DEVNODE(Structure):
     dbcd_size: UInt32
     dbcd_devicetype: UInt32
     dbcd_reserved: UInt32
     dbcd_devnode: UInt32
-class DEV_BROADCAST_HANDLE(EasyCastStructure):
+class DEV_BROADCAST_HANDLE(Structure):
     dbch_size: UInt32
     dbch_devicetype: UInt32
     dbch_reserved: UInt32
@@ -2506,7 +2506,7 @@ class DEV_BROADCAST_HANDLE(EasyCastStructure):
     dbch_eventguid: Guid
     dbch_nameoffset: Int32
     dbch_data: Byte * 1
-class DEV_BROADCAST_HANDLE32(EasyCastStructure):
+class DEV_BROADCAST_HANDLE32(Structure):
     dbch_size: UInt32
     dbch_devicetype: UInt32
     dbch_reserved: UInt32
@@ -2515,7 +2515,7 @@ class DEV_BROADCAST_HANDLE32(EasyCastStructure):
     dbch_eventguid: Guid
     dbch_nameoffset: Int32
     dbch_data: Byte * 1
-class DEV_BROADCAST_HANDLE64(EasyCastStructure):
+class DEV_BROADCAST_HANDLE64(Structure):
     dbch_size: UInt32
     dbch_devicetype: UInt32
     dbch_reserved: UInt32
@@ -2524,7 +2524,7 @@ class DEV_BROADCAST_HANDLE64(EasyCastStructure):
     dbch_eventguid: Guid
     dbch_nameoffset: Int32
     dbch_data: Byte * 1
-class DEV_BROADCAST_HDR(EasyCastStructure):
+class DEV_BROADCAST_HDR(Structure):
     dbch_size: UInt32
     dbch_devicetype: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE
     dbch_reserved: UInt32
@@ -2534,30 +2534,30 @@ DBT_DEVTYP_HANDLE: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_
 DBT_DEVTYP_OEM: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE = 0
 DBT_DEVTYP_PORT: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE = 3
 DBT_DEVTYP_VOLUME: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE = 2
-class DEV_BROADCAST_NET(EasyCastStructure):
+class DEV_BROADCAST_NET(Structure):
     dbcn_size: UInt32
     dbcn_devicetype: UInt32
     dbcn_reserved: UInt32
     dbcn_resource: UInt32
     dbcn_flags: UInt32
-class DEV_BROADCAST_OEM(EasyCastStructure):
+class DEV_BROADCAST_OEM(Structure):
     dbco_size: UInt32
     dbco_devicetype: UInt32
     dbco_reserved: UInt32
     dbco_identifier: UInt32
     dbco_suppfunc: UInt32
-class DEV_BROADCAST_PORT_A(EasyCastStructure):
+class DEV_BROADCAST_PORT_A(Structure):
     dbcp_size: UInt32
     dbcp_devicetype: UInt32
     dbcp_reserved: UInt32
     dbcp_name: win32more.Windows.Win32.Foundation.CHAR * 1
-class DEV_BROADCAST_PORT_W(EasyCastStructure):
+class DEV_BROADCAST_PORT_W(Structure):
     dbcp_size: UInt32
     dbcp_devicetype: UInt32
     dbcp_reserved: UInt32
     dbcp_name: Char * 1
 DEV_BROADCAST_PORT = UnicodeAlias('DEV_BROADCAST_PORT_W')
-class DEV_BROADCAST_VOLUME(EasyCastStructure):
+class DEV_BROADCAST_VOLUME(Structure):
     dbcv_size: UInt32
     dbcv_devicetype: UInt32
     dbcv_reserved: UInt32
@@ -2566,7 +2566,7 @@ class DEV_BROADCAST_VOLUME(EasyCastStructure):
 DEV_BROADCAST_VOLUME_FLAGS = UInt16
 DBTF_MEDIA: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_VOLUME_FLAGS = 1
 DBTF_NET: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_VOLUME_FLAGS = 2
-class DISK_HEALTH_NOTIFICATION_DATA(EasyCastStructure):
+class DISK_HEALTH_NOTIFICATION_DATA(Structure):
     DeviceGuid: Guid
 DI_FLAGS = UInt32
 DI_MASK: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 1
@@ -2575,7 +2575,7 @@ DI_NORMAL: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 3
 DI_COMPAT: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 4
 DI_DEFAULTSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 8
 DI_NOMIRROR: win32more.Windows.Win32.UI.WindowsAndMessaging.DI_FLAGS = 16
-class DLGITEMTEMPLATE(EasyCastStructure):
+class DLGITEMTEMPLATE(Structure):
     style: UInt32
     dwExtendedStyle: UInt32
     x: Int16
@@ -2586,7 +2586,7 @@ class DLGITEMTEMPLATE(EasyCastStructure):
     _pack_ = 2
 @winfunctype_pointer
 def DLGPROC(param0: win32more.Windows.Win32.Foundation.HWND, param1: UInt32, param2: win32more.Windows.Win32.Foundation.WPARAM, param3: win32more.Windows.Win32.Foundation.LPARAM) -> IntPtr: ...
-class DLGTEMPLATE(EasyCastStructure):
+class DLGTEMPLATE(Structure):
     style: UInt32
     dwExtendedStyle: UInt32
     cdit: UInt16
@@ -2595,7 +2595,7 @@ class DLGTEMPLATE(EasyCastStructure):
     cx: Int16
     cy: Int16
     _pack_ = 2
-class DROPSTRUCT(EasyCastStructure):
+class DROPSTRUCT(Structure):
     hwndSource: win32more.Windows.Win32.Foundation.HWND
     hwndSink: win32more.Windows.Win32.Foundation.HWND
     wFmt: UInt32
@@ -2605,13 +2605,13 @@ class DROPSTRUCT(EasyCastStructure):
 EDIT_CONTROL_FEATURE = Int32
 EDIT_CONTROL_FEATURE_ENTERPRISE_DATA_PROTECTION_PASTE_SUPPORT: win32more.Windows.Win32.UI.WindowsAndMessaging.EDIT_CONTROL_FEATURE = 0
 EDIT_CONTROL_FEATURE_PASTE_NOTIFICATIONS: win32more.Windows.Win32.UI.WindowsAndMessaging.EDIT_CONTROL_FEATURE = 1
-class EVENTMSG(EasyCastStructure):
+class EVENTMSG(Structure):
     message: UInt32
     paramL: UInt32
     paramH: UInt32
     time: UInt32
     hwnd: win32more.Windows.Win32.Foundation.HWND
-class FLASHWINFO(EasyCastStructure):
+class FLASHWINFO(Structure):
     cbSize: UInt32
     hwnd: win32more.Windows.Win32.Foundation.HWND
     dwFlags: win32more.Windows.Win32.UI.WindowsAndMessaging.FLASHWINFO_FLAGS
@@ -2631,7 +2631,7 @@ GDI_IMAGE_TYPE = UInt32
 IMAGE_BITMAP: win32more.Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE = 0
 IMAGE_CURSOR: win32more.Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE = 2
 IMAGE_ICON: win32more.Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE = 1
-class GETCLIPBMETADATA(EasyCastStructure):
+class GETCLIPBMETADATA(Structure):
     Version: UInt32
     IsDelayRendered: win32more.Windows.Win32.Foundation.BOOL
     IsSynthetic: win32more.Windows.Win32.Foundation.BOOL
@@ -2669,9 +2669,9 @@ GW_HWNDLAST: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 1
 GW_HWNDNEXT: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 2
 GW_HWNDPREV: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 3
 GW_OWNER: win32more.Windows.Win32.UI.WindowsAndMessaging.GET_WINDOW_CMD = 4
-class GUID_IO_DISK_CLONE_ARRIVAL_INFORMATION(EasyCastStructure):
+class GUID_IO_DISK_CLONE_ARRIVAL_INFORMATION(Structure):
     DiskNumber: UInt32
-class GUITHREADINFO(EasyCastStructure):
+class GUITHREADINFO(Structure):
     cbSize: UInt32
     flags: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS
     hwndActive: win32more.Windows.Win32.Foundation.HWND
@@ -2691,7 +2691,7 @@ HACCEL = IntPtr
 HANDEDNESS = Int32
 HANDEDNESS_LEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.HANDEDNESS = 0
 HANDEDNESS_RIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.HANDEDNESS = 1
-class HARDWAREHOOKSTRUCT(EasyCastStructure):
+class HARDWAREHOOKSTRUCT(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     message: UInt32
     wParam: win32more.Windows.Win32.Foundation.WPARAM
@@ -2704,13 +2704,13 @@ HICON = IntPtr
 HMENU = IntPtr
 @winfunctype_pointer
 def HOOKPROC(code: Int32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.LRESULT: ...
-class ICONINFO(EasyCastStructure):
+class ICONINFO(Structure):
     fIcon: win32more.Windows.Win32.Foundation.BOOL
     xHotspot: UInt32
     yHotspot: UInt32
     hbmMask: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
     hbmColor: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
-class ICONINFOEXA(EasyCastStructure):
+class ICONINFOEXA(Structure):
     cbSize: UInt32
     fIcon: win32more.Windows.Win32.Foundation.BOOL
     xHotspot: UInt32
@@ -2720,7 +2720,7 @@ class ICONINFOEXA(EasyCastStructure):
     wResID: UInt16
     szModName: win32more.Windows.Win32.Foundation.CHAR * 260
     szResName: win32more.Windows.Win32.Foundation.CHAR * 260
-class ICONINFOEXW(EasyCastStructure):
+class ICONINFOEXW(Structure):
     cbSize: UInt32
     fIcon: win32more.Windows.Win32.Foundation.BOOL
     xHotspot: UInt32
@@ -2731,13 +2731,13 @@ class ICONINFOEXW(EasyCastStructure):
     szModName: Char * 260
     szResName: Char * 260
 ICONINFOEX = UnicodeAlias('ICONINFOEXW')
-class ICONMETRICSA(EasyCastStructure):
+class ICONMETRICSA(Structure):
     cbSize: UInt32
     iHorzSpacing: Int32
     iVertSpacing: Int32
     iTitleWrap: Int32
     lfFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTA
-class ICONMETRICSW(EasyCastStructure):
+class ICONMETRICSW(Structure):
     cbSize: UInt32
     iHorzSpacing: Int32
     iVertSpacing: Int32
@@ -2757,10 +2757,10 @@ LR_VGACOLOR: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 128
 LR_COPYDELETEORG: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 8
 LR_COPYFROMRESOURCE: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 16384
 LR_COPYRETURNORG: win32more.Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS = 4
-class IndexedResourceQualifier(EasyCastStructure):
+class IndexedResourceQualifier(Structure):
     name: win32more.Windows.Win32.Foundation.PWSTR
     value: win32more.Windows.Win32.Foundation.PWSTR
-class KBDLLHOOKSTRUCT(EasyCastStructure):
+class KBDLLHOOKSTRUCT(Structure):
     vkCode: UInt32
     scanCode: UInt32
     flags: win32more.Windows.Win32.UI.WindowsAndMessaging.KBDLLHOOKSTRUCT_FLAGS
@@ -2775,7 +2775,7 @@ LLKHF_LOWER_IL_INJECTED: win32more.Windows.Win32.UI.WindowsAndMessaging.KBDLLHOO
 LAYERED_WINDOW_ATTRIBUTES_FLAGS = UInt32
 LWA_ALPHA: win32more.Windows.Win32.UI.WindowsAndMessaging.LAYERED_WINDOW_ATTRIBUTES_FLAGS = 2
 LWA_COLORKEY: win32more.Windows.Win32.UI.WindowsAndMessaging.LAYERED_WINDOW_ATTRIBUTES_FLAGS = 1
-class MDICREATESTRUCTA(EasyCastStructure):
+class MDICREATESTRUCTA(Structure):
     szClass: win32more.Windows.Win32.Foundation.PSTR
     szTitle: win32more.Windows.Win32.Foundation.PSTR
     hOwner: win32more.Windows.Win32.Foundation.HANDLE
@@ -2785,7 +2785,7 @@ class MDICREATESTRUCTA(EasyCastStructure):
     cy: Int32
     style: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class MDICREATESTRUCTW(EasyCastStructure):
+class MDICREATESTRUCTW(Structure):
     szClass: win32more.Windows.Win32.Foundation.PWSTR
     szTitle: win32more.Windows.Win32.Foundation.PWSTR
     hOwner: win32more.Windows.Win32.Foundation.HANDLE
@@ -2796,27 +2796,27 @@ class MDICREATESTRUCTW(EasyCastStructure):
     style: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE
     lParam: win32more.Windows.Win32.Foundation.LPARAM
 MDICREATESTRUCT = UnicodeAlias('MDICREATESTRUCTW')
-class MDINEXTMENU(EasyCastStructure):
+class MDINEXTMENU(Structure):
     hmenuIn: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU
     hmenuNext: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU
     hwndNext: win32more.Windows.Win32.Foundation.HWND
-class MENUBARINFO(EasyCastStructure):
+class MENUBARINFO(Structure):
     cbSize: UInt32
     rcBar: win32more.Windows.Win32.Foundation.RECT
     hMenu: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU
     hwndMenu: win32more.Windows.Win32.Foundation.HWND
     _bitfield: Int32
-class MENUEX_TEMPLATE_HEADER(EasyCastStructure):
+class MENUEX_TEMPLATE_HEADER(Structure):
     wVersion: UInt16
     wOffset: UInt16
     dwHelpId: UInt32
-class MENUEX_TEMPLATE_ITEM(EasyCastStructure):
+class MENUEX_TEMPLATE_ITEM(Structure):
     dwType: UInt32
     dwState: UInt32
     uId: UInt32
     wFlags: UInt16
     szText: Char * 1
-class MENUGETOBJECTINFO(EasyCastStructure):
+class MENUGETOBJECTINFO(Structure):
     dwFlags: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS
     uPos: UInt32
     hmenu: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU
@@ -2825,7 +2825,7 @@ class MENUGETOBJECTINFO(EasyCastStructure):
 MENUGETOBJECTINFO_FLAGS = UInt32
 MNGOF_BOTTOMGAP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS = 2
 MNGOF_TOPGAP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS = 1
-class MENUINFO(EasyCastStructure):
+class MENUINFO(Structure):
     cbSize: UInt32
     fMask: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_MASK
     dwStyle: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE
@@ -2847,7 +2847,7 @@ MNS_DRAGDROP: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 53
 MNS_MODELESS: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 1073741824
 MNS_NOCHECK: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 2147483648
 MNS_NOTIFYBYPOS: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUINFO_STYLE = 134217728
-class MENUITEMINFOA(EasyCastStructure):
+class MENUITEMINFOA(Structure):
     cbSize: UInt32
     fMask: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK
     fType: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE
@@ -2860,7 +2860,7 @@ class MENUITEMINFOA(EasyCastStructure):
     dwTypeData: win32more.Windows.Win32.Foundation.PSTR
     cch: UInt32
     hbmpItem: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
-class MENUITEMINFOW(EasyCastStructure):
+class MENUITEMINFOW(Structure):
     cbSize: UInt32
     fMask: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_MASK
     fType: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_TYPE
@@ -2874,22 +2874,22 @@ class MENUITEMINFOW(EasyCastStructure):
     cch: UInt32
     hbmpItem: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
 MENUITEMINFO = UnicodeAlias('MENUITEMINFOW')
-class MENUITEMTEMPLATE(EasyCastStructure):
+class MENUITEMTEMPLATE(Structure):
     mtOption: UInt16
     mtID: UInt16
     mtString: Char * 1
-class MENUITEMTEMPLATEHEADER(EasyCastStructure):
+class MENUITEMTEMPLATEHEADER(Structure):
     versionNumber: UInt16
     offset: UInt16
-class MENUTEMPLATEEX(EasyCastStructure):
+class MENUTEMPLATEEX(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Menu: _Menu_e__Struct
         MenuEx: _MenuEx_e__Struct
-        class _Menu_e__Struct(EasyCastStructure):
+        class _Menu_e__Struct(Structure):
             mitHeader: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUITEMTEMPLATEHEADER
             miTemplate: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUITEMTEMPLATE * 1
-        class _MenuEx_e__Struct(EasyCastStructure):
+        class _MenuEx_e__Struct(Structure):
             mexHeader: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUEX_TEMPLATE_HEADER
             mexItem: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUEX_TEMPLATE_ITEM * 1
 MENU_ITEM_FLAGS = UInt32
@@ -3002,18 +3002,18 @@ MB_ICONMASK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 2
 MB_DEFMASK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 3840
 MB_MODEMASK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 12288
 MB_MISCMASK: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGEBOX_STYLE = 49152
-class MESSAGE_RESOURCE_BLOCK(EasyCastStructure):
+class MESSAGE_RESOURCE_BLOCK(Structure):
     LowId: UInt32
     HighId: UInt32
     OffsetToEntries: UInt32
-class MESSAGE_RESOURCE_DATA(EasyCastStructure):
+class MESSAGE_RESOURCE_DATA(Structure):
     NumberOfBlocks: UInt32
     Blocks: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGE_RESOURCE_BLOCK * 1
-class MESSAGE_RESOURCE_ENTRY(EasyCastStructure):
+class MESSAGE_RESOURCE_ENTRY(Structure):
     Length: UInt16
     Flags: UInt16
     Text: Byte * 1
-class MINIMIZEDMETRICS(EasyCastStructure):
+class MINIMIZEDMETRICS(Structure):
     cbSize: UInt32
     iWidth: Int32
     iHorzGap: Int32
@@ -3024,21 +3024,21 @@ ARW_BOTTOMLEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.MINIMIZEDMETRICS_
 ARW_BOTTOMRIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE = 1
 ARW_TOPLEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE = 2
 ARW_TOPRIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.MINIMIZEDMETRICS_ARRANGE = 3
-class MINMAXINFO(EasyCastStructure):
+class MINMAXINFO(Structure):
     ptReserved: win32more.Windows.Win32.Foundation.POINT
     ptMaxSize: win32more.Windows.Win32.Foundation.POINT
     ptMaxPosition: win32more.Windows.Win32.Foundation.POINT
     ptMinTrackSize: win32more.Windows.Win32.Foundation.POINT
     ptMaxTrackSize: win32more.Windows.Win32.Foundation.POINT
-class MOUSEHOOKSTRUCT(EasyCastStructure):
+class MOUSEHOOKSTRUCT(Structure):
     pt: win32more.Windows.Win32.Foundation.POINT
     hwnd: win32more.Windows.Win32.Foundation.HWND
     wHitTestCode: UInt32
     dwExtraInfo: UIntPtr
-class MOUSEHOOKSTRUCTEX(EasyCastStructure):
+class MOUSEHOOKSTRUCTEX(Structure):
     Base: win32more.Windows.Win32.UI.WindowsAndMessaging.MOUSEHOOKSTRUCT
     mouseData: UInt32
-class MSG(EasyCastStructure):
+class MSG(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     message: UInt32
     wParam: win32more.Windows.Win32.Foundation.WPARAM
@@ -3047,7 +3047,7 @@ class MSG(EasyCastStructure):
     pt: win32more.Windows.Win32.Foundation.POINT
 @winfunctype_pointer
 def MSGBOXCALLBACK(lpHelpInfo: POINTER(win32more.Windows.Win32.UI.Shell.HELPINFO)) -> Void: ...
-class MSGBOXPARAMSA(EasyCastStructure):
+class MSGBOXPARAMSA(Structure):
     cbSize: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -3058,7 +3058,7 @@ class MSGBOXPARAMSA(EasyCastStructure):
     dwContextHelpId: UIntPtr
     lpfnMsgBoxCallback: win32more.Windows.Win32.UI.WindowsAndMessaging.MSGBOXCALLBACK
     dwLanguageId: UInt32
-class MSGBOXPARAMSW(EasyCastStructure):
+class MSGBOXPARAMSW(Structure):
     cbSize: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -3080,7 +3080,7 @@ MWMO_NONE: win32more.Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_
 MWMO_ALERTABLE: win32more.Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 2
 MWMO_INPUTAVAILABLE: win32more.Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 4
 MWMO_WAITALL: win32more.Windows.Win32.UI.WindowsAndMessaging.MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 1
-class MSLLHOOKSTRUCT(EasyCastStructure):
+class MSLLHOOKSTRUCT(Structure):
     pt: win32more.Windows.Win32.Foundation.POINT
     mouseData: UInt32
     flags: UInt32
@@ -3106,9 +3106,9 @@ MrmPlatformVersion = Int32
 MrmPlatformVersion_Default: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPlatformVersion = 0
 MrmPlatformVersion_Windows10_0_0_0: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPlatformVersion = 17432576
 MrmPlatformVersion_Windows10_0_0_5: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmPlatformVersion = 17432581
-class MrmResourceIndexerHandle(EasyCastStructure):
+class MrmResourceIndexerHandle(Structure):
     handle: VoidPtr
-class MrmResourceIndexerMessage(EasyCastStructure):
+class MrmResourceIndexerMessage(Structure):
     severity: win32more.Windows.Win32.UI.WindowsAndMessaging.MrmResourceIndexerMessageSeverity
     id: UInt32
     text: win32more.Windows.Win32.Foundation.PWSTR
@@ -3122,10 +3122,10 @@ def NAMEENUMPROCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32
 @winfunctype_pointer
 def NAMEENUMPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 NAMEENUMPROC = UnicodeAlias('NAMEENUMPROCW')
-class NCCALCSIZE_PARAMS(EasyCastStructure):
+class NCCALCSIZE_PARAMS(Structure):
     rgrc: win32more.Windows.Win32.Foundation.RECT * 3
     lppos: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPOS)
-class NONCLIENTMETRICSA(EasyCastStructure):
+class NONCLIENTMETRICSA(Structure):
     cbSize: UInt32
     iBorderWidth: Int32
     iScrollWidth: Int32
@@ -3142,7 +3142,7 @@ class NONCLIENTMETRICSA(EasyCastStructure):
     lfStatusFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTA
     lfMessageFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTA
     iPaddedBorderWidth: Int32
-class NONCLIENTMETRICSW(EasyCastStructure):
+class NONCLIENTMETRICSW(Structure):
     cbSize: UInt32
     iBorderWidth: Int32
     iScrollWidth: Int32
@@ -3221,7 +3221,7 @@ DEVICE_NOTIFY_SERVICE_HANDLE: win32more.Windows.Win32.UI.WindowsAndMessaging.REG
 DEVICE_NOTIFY_CALLBACK: win32more.Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS = 2
 DEVICE_NOTIFY_WINDOW_HANDLE: win32more.Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS = 0
 DEVICE_NOTIFY_ALL_INTERFACE_CLASSES: win32more.Windows.Win32.UI.WindowsAndMessaging.REGISTER_NOTIFICATION_FLAGS = 4
-class SCROLLBARINFO(EasyCastStructure):
+class SCROLLBARINFO(Structure):
     cbSize: UInt32
     rcScrollBar: win32more.Windows.Win32.Foundation.RECT
     dxyLineButton: Int32
@@ -3250,7 +3250,7 @@ SB_CTL: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS = 2
 SB_HORZ: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS = 0
 SB_VERT: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS = 1
 SB_BOTH: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLBAR_CONSTANTS = 3
-class SCROLLINFO(EasyCastStructure):
+class SCROLLINFO(Structure):
     cbSize: UInt32
     fMask: win32more.Windows.Win32.UI.WindowsAndMessaging.SCROLLINFO_MASK
     nMin: Int32
@@ -3294,7 +3294,7 @@ SWP_NOSENDCHANGING: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_PO
 SWP_NOSIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 1
 SWP_NOZORDER: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 4
 SWP_SHOWWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS = 64
-class SHELLHOOKINFO(EasyCastStructure):
+class SHELLHOOKINFO(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     rc: win32more.Windows.Win32.Foundation.RECT
 SHOW_WINDOW_CMD = Int32
@@ -3318,7 +3318,7 @@ SW_PARENTCLOSING: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_STA
 SW_OTHERZOOM: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_STATUS = 2
 SW_PARENTOPENING: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_STATUS = 3
 SW_OTHERUNZOOM: win32more.Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_STATUS = 4
-class STYLESTRUCT(EasyCastStructure):
+class STYLESTRUCT(Structure):
     styleOld: UInt32
     styleNew: UInt32
 SYSTEM_CURSOR_ID = UInt32
@@ -3683,11 +3683,11 @@ MDITILE_HORIZONTAL: win32more.Windows.Win32.UI.WindowsAndMessaging.TILE_WINDOWS_
 MDITILE_VERTICAL: win32more.Windows.Win32.UI.WindowsAndMessaging.TILE_WINDOWS_HOW = 0
 @winfunctype_pointer
 def TIMERPROC(param0: win32more.Windows.Win32.Foundation.HWND, param1: UInt32, param2: UIntPtr, param3: UInt32) -> Void: ...
-class TITLEBARINFO(EasyCastStructure):
+class TITLEBARINFO(Structure):
     cbSize: UInt32
     rcTitleBar: win32more.Windows.Win32.Foundation.RECT
     rgstate: UInt32 * 6
-class TITLEBARINFOEX(EasyCastStructure):
+class TITLEBARINFOEX(Structure):
     cbSize: UInt32
     rcTitleBar: win32more.Windows.Win32.Foundation.RECT
     rgstate: UInt32 * 6
@@ -3695,12 +3695,12 @@ class TITLEBARINFOEX(EasyCastStructure):
 TOOLTIP_DISMISS_FLAGS = Int32
 TDF_REGISTER: win32more.Windows.Win32.UI.WindowsAndMessaging.TOOLTIP_DISMISS_FLAGS = 1
 TDF_UNREGISTER: win32more.Windows.Win32.UI.WindowsAndMessaging.TOOLTIP_DISMISS_FLAGS = 2
-class TOUCHPREDICTIONPARAMETERS(EasyCastStructure):
+class TOUCHPREDICTIONPARAMETERS(Structure):
     cbSize: UInt32
     dwLatency: UInt32
     dwSampleTime: UInt32
     bUseHWTimeStamp: UInt32
-class TPMPARAMS(EasyCastStructure):
+class TPMPARAMS(Structure):
     cbSize: UInt32
     rcExclude: win32more.Windows.Win32.Foundation.RECT
 TRACK_POPUP_MENU_FLAGS = UInt32
@@ -3724,7 +3724,7 @@ TPM_VERNEGANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_
 TPM_NOANIMATION: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 16384
 TPM_LAYOUTRTL: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 32768
 TPM_WORKAREA: win32more.Windows.Win32.UI.WindowsAndMessaging.TRACK_POPUP_MENU_FLAGS = 65536
-class UPDATELAYEREDWINDOWINFO(EasyCastStructure):
+class UPDATELAYEREDWINDOWINFO(Structure):
     cbSize: UInt32
     hdcDst: win32more.Windows.Win32.Graphics.Gdi.HDC
     pptDst: POINTER(win32more.Windows.Win32.Foundation.POINT)
@@ -3740,14 +3740,14 @@ ULW_ALPHA: win32more.Windows.Win32.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_
 ULW_COLORKEY: win32more.Windows.Win32.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS = 1
 ULW_OPAQUE: win32more.Windows.Win32.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS = 4
 ULW_EX_NORESIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS = 8
-class VolLockBroadcast(EasyCastStructure):
+class VolLockBroadcast(Structure):
     vlb_dbh: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR
     vlb_owner: UInt32
     vlb_perms: Byte
     vlb_lockType: Byte
     vlb_drive: Byte
     vlb_flags: Byte
-class WINDOWINFO(EasyCastStructure):
+class WINDOWINFO(Structure):
     cbSize: UInt32
     rcWindow: win32more.Windows.Win32.Foundation.RECT
     rcClient: win32more.Windows.Win32.Foundation.RECT
@@ -3758,7 +3758,7 @@ class WINDOWINFO(EasyCastStructure):
     cyWindowBorders: UInt32
     atomWindowType: UInt16
     wCreatorVersion: UInt16
-class WINDOWPLACEMENT(EasyCastStructure):
+class WINDOWPLACEMENT(Structure):
     length: UInt32
     flags: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS
     showCmd: UInt32
@@ -3769,7 +3769,7 @@ WINDOWPLACEMENT_FLAGS = UInt32
 WPF_ASYNCWINDOWPLACEMENT: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS = 4
 WPF_RESTORETOMAXIMIZED: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS = 2
 WPF_SETMINPOSITION: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS = 1
-class WINDOWPOS(EasyCastStructure):
+class WINDOWPOS(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     hwndInsertAfter: win32more.Windows.Win32.Foundation.HWND
     x: Int32
@@ -3871,7 +3871,7 @@ WS_OVERLAPPEDWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE
 WS_POPUPWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 2156396544
 WS_CHILDWINDOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 1073741824
 WS_ACTIVECAPTION: win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOW_STYLE = 1
-class WNDCLASSA(EasyCastStructure):
+class WNDCLASSA(Structure):
     style: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES
     lpfnWndProc: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDPROC
     cbClsExtra: Int32
@@ -3882,7 +3882,7 @@ class WNDCLASSA(EasyCastStructure):
     hbrBackground: win32more.Windows.Win32.Graphics.Gdi.HBRUSH
     lpszMenuName: win32more.Windows.Win32.Foundation.PSTR
     lpszClassName: win32more.Windows.Win32.Foundation.PSTR
-class WNDCLASSEXA(EasyCastStructure):
+class WNDCLASSEXA(Structure):
     cbSize: UInt32
     style: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES
     lpfnWndProc: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDPROC
@@ -3895,7 +3895,7 @@ class WNDCLASSEXA(EasyCastStructure):
     lpszMenuName: win32more.Windows.Win32.Foundation.PSTR
     lpszClassName: win32more.Windows.Win32.Foundation.PSTR
     hIconSm: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
-class WNDCLASSEXW(EasyCastStructure):
+class WNDCLASSEXW(Structure):
     cbSize: UInt32
     style: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES
     lpfnWndProc: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDPROC
@@ -3909,7 +3909,7 @@ class WNDCLASSEXW(EasyCastStructure):
     lpszClassName: win32more.Windows.Win32.Foundation.PWSTR
     hIconSm: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
 WNDCLASSEX = UnicodeAlias('WNDCLASSEXW')
-class WNDCLASSW(EasyCastStructure):
+class WNDCLASSW(Structure):
     style: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES
     lpfnWndProc: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDPROC
     cbClsExtra: Int32
@@ -3939,11 +3939,11 @@ CS_DROPSHADOW: win32more.Windows.Win32.UI.WindowsAndMessaging.WNDCLASS_STYLES = 
 def WNDENUMPROC(param0: win32more.Windows.Win32.Foundation.HWND, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def WNDPROC(param0: win32more.Windows.Win32.Foundation.HWND, param1: UInt32, param2: win32more.Windows.Win32.Foundation.WPARAM, param3: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.LRESULT: ...
-class _DEV_BROADCAST_HEADER(EasyCastStructure):
+class _DEV_BROADCAST_HEADER(Structure):
     dbcd_size: UInt32
     dbcd_devicetype: UInt32
     dbcd_reserved: UInt32
-class _DEV_BROADCAST_USERDEFINED(EasyCastStructure):
+class _DEV_BROADCAST_USERDEFINED(Structure):
     dbud_dbh: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR
     dbud_szName: win32more.Windows.Win32.Foundation.CHAR * 1
 

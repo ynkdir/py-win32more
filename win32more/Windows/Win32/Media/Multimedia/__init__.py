@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media
@@ -9,30 +9,30 @@ import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.IO
 import win32more.Windows.Win32.UI.Controls
 import win32more.Windows.Win32.UI.Controls.Dialogs
-class ADPCMCOEFSET(EasyCastStructure):
+class ADPCMCOEFSET(Structure):
     iCoef1: Int16
     iCoef2: Int16
     _pack_ = 1
-class ADPCMEWAVEFORMAT(EasyCastStructure):
+class ADPCMEWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
-class ADPCMWAVEFORMAT(EasyCastStructure):
+class ADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     wNumCoef: UInt16
     aCoef: win32more.Windows.Win32.Media.Multimedia.ADPCMCOEFSET * 1
     _pack_ = 1
-class APTXWAVEFORMAT(EasyCastStructure):
+class APTXWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class AUDIOFILE_AF10WAVEFORMAT(EasyCastStructure):
+class AUDIOFILE_AF10WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class AUDIOFILE_AF36WAVEFORMAT(EasyCastStructure):
+class AUDIOFILE_AF36WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class AVICOMPRESSOPTIONS(EasyCastStructure):
+class AVICOMPRESSOPTIONS(Structure):
     fccType: UInt32
     fccHandler: UInt32
     dwKeyFrameEvery: UInt32
@@ -44,7 +44,7 @@ class AVICOMPRESSOPTIONS(EasyCastStructure):
     lpParms: VoidPtr
     cbParms: UInt32
     dwInterleaveEvery: UInt32
-class AVIFILEINFOA(EasyCastStructure):
+class AVIFILEINFOA(Structure):
     dwMaxBytesPerSec: UInt32
     dwFlags: UInt32
     dwCaps: UInt32
@@ -57,7 +57,7 @@ class AVIFILEINFOA(EasyCastStructure):
     dwLength: UInt32
     dwEditCount: UInt32
     szFileType: win32more.Windows.Win32.Foundation.CHAR * 64
-class AVIFILEINFOW(EasyCastStructure):
+class AVIFILEINFOW(Structure):
     dwMaxBytesPerSec: UInt32
     dwFlags: UInt32
     dwCaps: UInt32
@@ -73,7 +73,7 @@ class AVIFILEINFOW(EasyCastStructure):
 AVIFILEINFO = UnicodeAlias('AVIFILEINFOW')
 @winfunctype_pointer
 def AVISAVECALLBACK(param0: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class AVISTREAMINFOA(EasyCastStructure):
+class AVISTREAMINFOA(Structure):
     fccType: UInt32
     fccHandler: UInt32
     dwFlags: UInt32
@@ -92,7 +92,7 @@ class AVISTREAMINFOA(EasyCastStructure):
     dwEditCount: UInt32
     dwFormatChangeCount: UInt32
     szName: win32more.Windows.Win32.Foundation.CHAR * 64
-class AVISTREAMINFOW(EasyCastStructure):
+class AVISTREAMINFOW(Structure):
     fccType: UInt32
     fccHandler: UInt32
     dwFlags: UInt32
@@ -5127,7 +5127,7 @@ def mmTaskYield() -> Void: ...
 def mmGetCurrentTask() -> UInt32: ...
 @winfunctype_pointer
 def CAPCONTROLCALLBACK(hWnd: win32more.Windows.Win32.Foundation.HWND, nState: Int32) -> win32more.Windows.Win32.Foundation.LRESULT: ...
-class CAPDRIVERCAPS(EasyCastStructure):
+class CAPDRIVERCAPS(Structure):
     wDeviceIndex: UInt32
     fHasOverlay: win32more.Windows.Win32.Foundation.BOOL
     fHasDlgVideoSource: win32more.Windows.Win32.Foundation.BOOL
@@ -5144,11 +5144,11 @@ def CAPERRORCALLBACKA(hWnd: win32more.Windows.Win32.Foundation.HWND, nID: Int32,
 @winfunctype_pointer
 def CAPERRORCALLBACKW(hWnd: win32more.Windows.Win32.Foundation.HWND, nID: Int32, lpsz: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.LRESULT: ...
 CAPERRORCALLBACK = UnicodeAlias('CAPERRORCALLBACKW')
-class CAPINFOCHUNK(EasyCastStructure):
+class CAPINFOCHUNK(Structure):
     fccInfoID: UInt32
     lpData: VoidPtr
     cbData: Int32
-class CAPSTATUS(EasyCastStructure):
+class CAPSTATUS(Structure):
     uiImageWidth: UInt32
     uiImageHeight: UInt32
     fLiveWindow: win32more.Windows.Win32.Foundation.BOOL
@@ -5172,7 +5172,7 @@ def CAPSTATUSCALLBACKA(hWnd: win32more.Windows.Win32.Foundation.HWND, nID: Int32
 @winfunctype_pointer
 def CAPSTATUSCALLBACKW(hWnd: win32more.Windows.Win32.Foundation.HWND, nID: Int32, lpsz: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.LRESULT: ...
 CAPSTATUSCALLBACK = UnicodeAlias('CAPSTATUSCALLBACKW')
-class CAPTUREPARMS(EasyCastStructure):
+class CAPTUREPARMS(Structure):
     dwRequestMicroSecPerFrame: UInt32
     fMakeUserHitOKToCapture: win32more.Windows.Win32.Foundation.BOOL
     wPercentDropForError: UInt32
@@ -5203,7 +5203,7 @@ def CAPVIDEOCALLBACK(hWnd: win32more.Windows.Win32.Foundation.HWND, lpVHdr: POIN
 def CAPWAVECALLBACK(hWnd: win32more.Windows.Win32.Foundation.HWND, lpWHdr: POINTER(win32more.Windows.Win32.Media.Audio.WAVEHDR)) -> win32more.Windows.Win32.Foundation.LRESULT: ...
 @winfunctype_pointer
 def CAPYIELDCALLBACK(hWnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.LRESULT: ...
-class CHANNEL_CAPS(EasyCastStructure):
+class CHANNEL_CAPS(Structure):
     dwFlags: UInt32
     dwSrcRectXMod: UInt32
     dwSrcRectYMod: UInt32
@@ -5213,7 +5213,7 @@ class CHANNEL_CAPS(EasyCastStructure):
     dwDstRectYMod: UInt32
     dwDstRectWidthMod: UInt32
     dwDstRectHeightMod: UInt32
-class COMPVARS(EasyCastStructure):
+class COMPVARS(Structure):
     cbSize: Int32
     dwFlags: UInt32
     hic: win32more.Windows.Win32.Media.Multimedia.HIC
@@ -5230,51 +5230,51 @@ class COMPVARS(EasyCastStructure):
     lKeyCount: Int32
     lpState: VoidPtr
     cbState: Int32
-class CONTRESCR10WAVEFORMAT(EasyCastStructure):
+class CONTRESCR10WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
-class CONTRESVQLPCWAVEFORMAT(EasyCastStructure):
+class CONTRESVQLPCWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
-class CREATIVEADPCMWAVEFORMAT(EasyCastStructure):
+class CREATIVEADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wRevision: UInt16
     _pack_ = 1
-class CREATIVEFASTSPEECH10WAVEFORMAT(EasyCastStructure):
+class CREATIVEFASTSPEECH10WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wRevision: UInt16
     _pack_ = 1
-class CREATIVEFASTSPEECH8WAVEFORMAT(EasyCastStructure):
+class CREATIVEFASTSPEECH8WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wRevision: UInt16
     _pack_ = 1
-class CSIMAADPCMWAVEFORMAT(EasyCastStructure):
+class CSIMAADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class DIALOGICOKIADPCMWAVEFORMAT(EasyCastStructure):
+class DIALOGICOKIADPCMWAVEFORMAT(Structure):
     ewf: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class DIGIADPCMWAVEFORMAT(EasyCastStructure):
+class DIGIADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
-class DIGIFIXWAVEFORMAT(EasyCastStructure):
+class DIGIFIXWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class DIGIREALWAVEFORMAT(EasyCastStructure):
+class DIGIREALWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
-class DIGISTDWAVEFORMAT(EasyCastStructure):
+class DIGISTDWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class DOLBYAC2WAVEFORMAT(EasyCastStructure):
+class DOLBYAC2WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     nAuxBitsCode: UInt16
     _pack_ = 1
-class DRAWDIBTIME(EasyCastStructure):
+class DRAWDIBTIME(Structure):
     timeCount: Int32
     timeDraw: Int32
     timeDecompress: Int32
@@ -5286,52 +5286,52 @@ class DRAWDIBTIME(EasyCastStructure):
 def DRIVERMSGPROC(param0: UInt32, param1: UInt32, param2: UIntPtr, param3: UIntPtr, param4: UIntPtr) -> UInt32: ...
 @winfunctype_pointer
 def DRIVERPROC(param0: UIntPtr, param1: win32more.Windows.Win32.Media.Multimedia.HDRVR, param2: UInt32, param3: win32more.Windows.Win32.Foundation.LPARAM, param4: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.LRESULT: ...
-class DRMWAVEFORMAT(EasyCastStructure):
+class DRMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wReserved: UInt16
     ulContentId: UInt32
     wfxSecure: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class DRVCONFIGINFO(EasyCastStructure):
+class DRVCONFIGINFO(Structure):
     dwDCISize: UInt32
     lpszDCISectionName: win32more.Windows.Win32.Foundation.PWSTR
     lpszDCIAliasName: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
-class DRVCONFIGINFOEX(EasyCastStructure):
+class DRVCONFIGINFOEX(Structure):
     dwDCISize: UInt32
     lpszDCISectionName: win32more.Windows.Win32.Foundation.PWSTR
     lpszDCIAliasName: win32more.Windows.Win32.Foundation.PWSTR
     dnDevNode: UInt32
     _pack_ = 1
-class DRVM_IOCTL_DATA(EasyCastStructure):
+class DRVM_IOCTL_DATA(Structure):
     dwSize: UInt32
     dwCmd: UInt32
     _pack_ = 1
-class DVIADPCMWAVEFORMAT(EasyCastStructure):
+class DVIADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
-class ECHOSC1WAVEFORMAT(EasyCastStructure):
+class ECHOSC1WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class EXBMINFOHEADER(EasyCastStructure):
+class EXBMINFOHEADER(Structure):
     bmi: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
     biExtDataOffset: UInt32
     _pack_ = 1
-class FMTOWNS_SND_WAVEFORMAT(EasyCastStructure):
+class FMTOWNS_SND_WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wRevision: UInt16
     _pack_ = 1
-class G721_ADPCMWAVEFORMAT(EasyCastStructure):
+class G721_ADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     nAuxBlockSize: UInt16
     _pack_ = 1
-class G723_ADPCMWAVEFORMAT(EasyCastStructure):
+class G723_ADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     cbExtraSize: UInt16
     nAuxBlockSize: UInt16
     _pack_ = 1
-class GSM610WAVEFORMAT(EasyCastStructure):
+class GSM610WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
@@ -5406,7 +5406,7 @@ class IAVIStreaming(ComPtr):
     def Begin(self, lStart: Int32, lEnd: Int32, lRate: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def End(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class ICCOMPRESS(EasyCastStructure):
+class ICCOMPRESS(Structure):
     dwFlags: UInt32
     lpbiOutput: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
     lpOutput: VoidPtr
@@ -5419,7 +5419,7 @@ class ICCOMPRESS(EasyCastStructure):
     dwQuality: UInt32
     lpbiPrev: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
     lpPrev: VoidPtr
-class ICCOMPRESSFRAMES(EasyCastStructure):
+class ICCOMPRESSFRAMES(Structure):
     dwFlags: UInt32
     lpbiOutput: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
     lOutput: win32more.Windows.Win32.Foundation.LPARAM
@@ -5436,14 +5436,14 @@ class ICCOMPRESSFRAMES(EasyCastStructure):
     dwReserved2: UInt32
     GetData: IntPtr
     PutData: IntPtr
-class ICDECOMPRESS(EasyCastStructure):
+class ICDECOMPRESS(Structure):
     dwFlags: UInt32
     lpbiInput: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
     lpInput: VoidPtr
     lpbiOutput: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
     lpOutput: VoidPtr
     ckid: UInt32
-class ICDECOMPRESSEX(EasyCastStructure):
+class ICDECOMPRESSEX(Structure):
     dwFlags: UInt32
     lpbiSrc: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
     lpSrc: VoidPtr
@@ -5457,13 +5457,13 @@ class ICDECOMPRESSEX(EasyCastStructure):
     ySrc: Int32
     dxSrc: Int32
     dySrc: Int32
-class ICDRAW(EasyCastStructure):
+class ICDRAW(Structure):
     dwFlags: UInt32
     lpFormat: VoidPtr
     lpData: VoidPtr
     cbData: UInt32
     lTime: Int32
-class ICDRAWBEGIN(EasyCastStructure):
+class ICDRAWBEGIN(Structure):
     dwFlags: UInt32
     hpal: win32more.Windows.Win32.Graphics.Gdi.HPALETTE
     hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -5479,7 +5479,7 @@ class ICDRAWBEGIN(EasyCastStructure):
     dySrc: Int32
     dwRate: UInt32
     dwScale: UInt32
-class ICDRAWSUGGEST(EasyCastStructure):
+class ICDRAWSUGGEST(Structure):
     lpbiIn: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
     lpbiSuggest: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
     dxSrc: Int32
@@ -5487,7 +5487,7 @@ class ICDRAWSUGGEST(EasyCastStructure):
     dxDst: Int32
     dyDst: Int32
     hicDecompressor: win32more.Windows.Win32.Media.Multimedia.HIC
-class ICINFO(EasyCastStructure):
+class ICINFO(Structure):
     dwSize: UInt32
     fccType: UInt32
     fccHandler: UInt32
@@ -5497,7 +5497,7 @@ class ICINFO(EasyCastStructure):
     szName: Char * 16
     szDescription: Char * 128
     szDriver: Char * 128
-class ICOPEN(EasyCastStructure):
+class ICOPEN(Structure):
     dwSize: UInt32
     fccType: UInt32
     fccHandler: UInt32
@@ -5507,12 +5507,12 @@ class ICOPEN(EasyCastStructure):
     pV1Reserved: VoidPtr
     pV2Reserved: VoidPtr
     dnDevNode: UInt32
-class ICPALETTE(EasyCastStructure):
+class ICPALETTE(Structure):
     dwFlags: UInt32
     iStart: Int32
     iLen: Int32
     lppe: POINTER(win32more.Windows.Win32.Graphics.Gdi.PALETTEENTRY)
-class ICSETSTATUSPROC(EasyCastStructure):
+class ICSETSTATUSPROC(Structure):
     dwFlags: UInt32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     Status: IntPtr
@@ -5527,11 +5527,11 @@ class IGetFrame(ComPtr):
     def End(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetFormat(self, lpbi: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER), lpBits: VoidPtr, x: Int32, y: Int32, dx: Int32, dy: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IMAADPCMWAVEFORMAT(EasyCastStructure):
+class IMAADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
-class JOYCAPS2A(EasyCastStructure):
+class JOYCAPS2A(Structure):
     wMid: UInt16
     wPid: UInt16
     szPname: win32more.Windows.Win32.Foundation.CHAR * 32
@@ -5560,7 +5560,7 @@ class JOYCAPS2A(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
-class JOYCAPS2W(EasyCastStructure):
+class JOYCAPS2W(Structure):
     wMid: UInt16
     wPid: UInt16
     szPname: Char * 32
@@ -5590,7 +5590,7 @@ class JOYCAPS2W(EasyCastStructure):
     NameGuid: Guid
     _pack_ = 1
 JOYCAPS2 = UnicodeAlias('JOYCAPS2W')
-class JOYCAPSA(EasyCastStructure):
+class JOYCAPSA(Structure):
     wMid: UInt16
     wPid: UInt16
     szPname: win32more.Windows.Win32.Foundation.CHAR * 32
@@ -5616,7 +5616,7 @@ class JOYCAPSA(EasyCastStructure):
     szRegKey: win32more.Windows.Win32.Foundation.CHAR * 32
     szOEMVxD: win32more.Windows.Win32.Foundation.CHAR * 260
     _pack_ = 1
-class JOYCAPSW(EasyCastStructure):
+class JOYCAPSW(Structure):
     wMid: UInt16
     wPid: UInt16
     szPname: Char * 32
@@ -5643,13 +5643,13 @@ class JOYCAPSW(EasyCastStructure):
     szOEMVxD: Char * 260
     _pack_ = 1
 JOYCAPS = UnicodeAlias('JOYCAPSW')
-class JOYINFO(EasyCastStructure):
+class JOYINFO(Structure):
     wXpos: UInt32
     wYpos: UInt32
     wZpos: UInt32
     wButtons: UInt32
     _pack_ = 1
-class JOYINFOEX(EasyCastStructure):
+class JOYINFOEX(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwXpos: UInt32
@@ -5664,7 +5664,7 @@ class JOYINFOEX(EasyCastStructure):
     dwReserved1: UInt32
     dwReserved2: UInt32
     _pack_ = 1
-class JPEGINFOHEADER(EasyCastStructure):
+class JPEGINFOHEADER(Structure):
     JPEGSize: UInt32
     JPEGProcess: UInt32
     JPEGColorSpaceID: UInt32
@@ -5679,7 +5679,7 @@ def LPFNEXTDEVIO(lParam: win32more.Windows.Win32.Foundation.LPARAM, dwFlags: UIn
 def LPMMIOPROC(lpmmioinfo: win32more.Windows.Win32.Foundation.PSTR, uMsg: UInt32, lParam1: win32more.Windows.Win32.Foundation.LPARAM, lParam2: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.LRESULT: ...
 @winfunctype_pointer
 def LPTASKCALLBACK(dwInst: UIntPtr) -> Void: ...
-class MCI_ANIM_OPEN_PARMSA(EasyCastStructure):
+class MCI_ANIM_OPEN_PARMSA(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PSTR
@@ -5688,7 +5688,7 @@ class MCI_ANIM_OPEN_PARMSA(EasyCastStructure):
     dwStyle: UInt32
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
-class MCI_ANIM_OPEN_PARMSW(EasyCastStructure):
+class MCI_ANIM_OPEN_PARMSW(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PWSTR
@@ -5698,55 +5698,55 @@ class MCI_ANIM_OPEN_PARMSW(EasyCastStructure):
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
 MCI_ANIM_OPEN_PARMS = UnicodeAlias('MCI_ANIM_OPEN_PARMSW')
-class MCI_ANIM_PLAY_PARMS(EasyCastStructure):
+class MCI_ANIM_PLAY_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrom: UInt32
     dwTo: UInt32
     dwSpeed: UInt32
     _pack_ = 1
-class MCI_ANIM_RECT_PARMS(EasyCastStructure):
+class MCI_ANIM_RECT_PARMS(Structure):
     dwCallback: UIntPtr
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
-class MCI_ANIM_STEP_PARMS(EasyCastStructure):
+class MCI_ANIM_STEP_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrames: UInt32
     _pack_ = 1
-class MCI_ANIM_UPDATE_PARMS(EasyCastStructure):
+class MCI_ANIM_UPDATE_PARMS(Structure):
     dwCallback: UIntPtr
     rc: win32more.Windows.Win32.Foundation.RECT
     hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
     _pack_ = 1
-class MCI_ANIM_WINDOW_PARMSA(EasyCastStructure):
+class MCI_ANIM_WINDOW_PARMSA(Structure):
     dwCallback: UIntPtr
     hWnd: win32more.Windows.Win32.Foundation.HWND
     nCmdShow: UInt32
     lpstrText: win32more.Windows.Win32.Foundation.PSTR
     _pack_ = 1
-class MCI_ANIM_WINDOW_PARMSW(EasyCastStructure):
+class MCI_ANIM_WINDOW_PARMSW(Structure):
     dwCallback: UIntPtr
     hWnd: win32more.Windows.Win32.Foundation.HWND
     nCmdShow: UInt32
     lpstrText: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
 MCI_ANIM_WINDOW_PARMS = UnicodeAlias('MCI_ANIM_WINDOW_PARMSW')
-class MCI_BREAK_PARMS(EasyCastStructure):
+class MCI_BREAK_PARMS(Structure):
     dwCallback: UIntPtr
     nVirtKey: Int32
     hwndBreak: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
-class MCI_DGV_CAPTURE_PARMSA(EasyCastStructure):
+class MCI_DGV_CAPTURE_PARMSA(Structure):
     dwCallback: UIntPtr
     lpstrFileName: win32more.Windows.Win32.Foundation.PSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
-class MCI_DGV_CAPTURE_PARMSW(EasyCastStructure):
+class MCI_DGV_CAPTURE_PARMSW(Structure):
     dwCallback: UIntPtr
     lpstrFileName: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
 MCI_DGV_CAPTURE_PARMS = UnicodeAlias('MCI_DGV_CAPTURE_PARMSW')
-class MCI_DGV_COPY_PARMS(EasyCastStructure):
+class MCI_DGV_COPY_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrom: UInt32
     dwTo: UInt32
@@ -5754,19 +5754,11 @@ class MCI_DGV_COPY_PARMS(EasyCastStructure):
     dwAudioStream: UInt32
     dwVideoStream: UInt32
     _pack_ = 1
-class MCI_DGV_CUE_PARMS(EasyCastStructure):
+class MCI_DGV_CUE_PARMS(Structure):
     dwCallback: UIntPtr
     dwTo: UInt32
     _pack_ = 1
-class MCI_DGV_CUT_PARMS(EasyCastStructure):
-    dwCallback: UIntPtr
-    dwFrom: UInt32
-    dwTo: UInt32
-    rc: win32more.Windows.Win32.Foundation.RECT
-    dwAudioStream: UInt32
-    dwVideoStream: UInt32
-    _pack_ = 1
-class MCI_DGV_DELETE_PARMS(EasyCastStructure):
+class MCI_DGV_CUT_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrom: UInt32
     dwTo: UInt32
@@ -5774,20 +5766,28 @@ class MCI_DGV_DELETE_PARMS(EasyCastStructure):
     dwAudioStream: UInt32
     dwVideoStream: UInt32
     _pack_ = 1
-class MCI_DGV_INFO_PARMSA(EasyCastStructure):
+class MCI_DGV_DELETE_PARMS(Structure):
+    dwCallback: UIntPtr
+    dwFrom: UInt32
+    dwTo: UInt32
+    rc: win32more.Windows.Win32.Foundation.RECT
+    dwAudioStream: UInt32
+    dwVideoStream: UInt32
+    _pack_ = 1
+class MCI_DGV_INFO_PARMSA(Structure):
     dwCallback: UIntPtr
     lpstrReturn: win32more.Windows.Win32.Foundation.PSTR
     dwRetSize: UInt32
     dwItem: UInt32
     _pack_ = 1
-class MCI_DGV_INFO_PARMSW(EasyCastStructure):
+class MCI_DGV_INFO_PARMSW(Structure):
     dwCallback: UIntPtr
     lpstrReturn: win32more.Windows.Win32.Foundation.PWSTR
     dwRetSize: UInt32
     dwItem: UInt32
     _pack_ = 1
 MCI_DGV_INFO_PARMS = UnicodeAlias('MCI_DGV_INFO_PARMSW')
-class MCI_DGV_LIST_PARMSA(EasyCastStructure):
+class MCI_DGV_LIST_PARMSA(Structure):
     dwCallback: UIntPtr
     lpstrReturn: win32more.Windows.Win32.Foundation.PSTR
     dwLength: UInt32
@@ -5795,7 +5795,7 @@ class MCI_DGV_LIST_PARMSA(EasyCastStructure):
     dwItem: UInt32
     lpstrAlgorithm: win32more.Windows.Win32.Foundation.PSTR
     _pack_ = 1
-class MCI_DGV_LIST_PARMSW(EasyCastStructure):
+class MCI_DGV_LIST_PARMSW(Structure):
     dwCallback: UIntPtr
     lpstrReturn: win32more.Windows.Win32.Foundation.PWSTR
     dwLength: UInt32
@@ -5804,12 +5804,12 @@ class MCI_DGV_LIST_PARMSW(EasyCastStructure):
     lpstrAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
 MCI_DGV_LIST_PARMS = UnicodeAlias('MCI_DGV_LIST_PARMSW')
-class MCI_DGV_MONITOR_PARMS(EasyCastStructure):
+class MCI_DGV_MONITOR_PARMS(Structure):
     dwCallback: UIntPtr
     dwSource: UInt32
     dwMethod: UInt32
     _pack_ = 1
-class MCI_DGV_OPEN_PARMSA(EasyCastStructure):
+class MCI_DGV_OPEN_PARMSA(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PSTR
@@ -5818,7 +5818,7 @@ class MCI_DGV_OPEN_PARMSA(EasyCastStructure):
     dwStyle: UInt32
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
-class MCI_DGV_OPEN_PARMSW(EasyCastStructure):
+class MCI_DGV_OPEN_PARMSW(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PWSTR
@@ -5828,21 +5828,21 @@ class MCI_DGV_OPEN_PARMSW(EasyCastStructure):
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
 MCI_DGV_OPEN_PARMS = UnicodeAlias('MCI_DGV_OPEN_PARMSW')
-class MCI_DGV_PASTE_PARMS(EasyCastStructure):
+class MCI_DGV_PASTE_PARMS(Structure):
     dwCallback: UIntPtr
     dwTo: UInt32
     rc: win32more.Windows.Win32.Foundation.RECT
     dwAudioStream: UInt32
     dwVideoStream: UInt32
     _pack_ = 1
-class MCI_DGV_QUALITY_PARMSA(EasyCastStructure):
+class MCI_DGV_QUALITY_PARMSA(Structure):
     dwCallback: UIntPtr
     dwItem: UInt32
     lpstrName: win32more.Windows.Win32.Foundation.PSTR
     lpstrAlgorithm: UInt32
     dwHandle: UInt32
     _pack_ = 1
-class MCI_DGV_QUALITY_PARMSW(EasyCastStructure):
+class MCI_DGV_QUALITY_PARMSW(Structure):
     dwCallback: UIntPtr
     dwItem: UInt32
     lpstrName: win32more.Windows.Win32.Foundation.PWSTR
@@ -5850,7 +5850,7 @@ class MCI_DGV_QUALITY_PARMSW(EasyCastStructure):
     dwHandle: UInt32
     _pack_ = 1
 MCI_DGV_QUALITY_PARMS = UnicodeAlias('MCI_DGV_QUALITY_PARMSW')
-class MCI_DGV_RECORD_PARMS(EasyCastStructure):
+class MCI_DGV_RECORD_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrom: UInt32
     dwTo: UInt32
@@ -5858,44 +5858,44 @@ class MCI_DGV_RECORD_PARMS(EasyCastStructure):
     dwAudioStream: UInt32
     dwVideoStream: UInt32
     _pack_ = 1
-class MCI_DGV_RECT_PARMS(EasyCastStructure):
+class MCI_DGV_RECT_PARMS(Structure):
     dwCallback: UIntPtr
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
-class MCI_DGV_RESERVE_PARMSA(EasyCastStructure):
+class MCI_DGV_RESERVE_PARMSA(Structure):
     dwCallback: UIntPtr
     lpstrPath: win32more.Windows.Win32.Foundation.PSTR
     dwSize: UInt32
     _pack_ = 1
-class MCI_DGV_RESERVE_PARMSW(EasyCastStructure):
+class MCI_DGV_RESERVE_PARMSW(Structure):
     dwCallback: UIntPtr
     lpstrPath: win32more.Windows.Win32.Foundation.PWSTR
     dwSize: UInt32
     _pack_ = 1
 MCI_DGV_RESERVE_PARMS = UnicodeAlias('MCI_DGV_RESERVE_PARMSW')
-class MCI_DGV_RESTORE_PARMSA(EasyCastStructure):
+class MCI_DGV_RESTORE_PARMSA(Structure):
     dwCallback: UIntPtr
     lpstrFileName: win32more.Windows.Win32.Foundation.PSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
-class MCI_DGV_RESTORE_PARMSW(EasyCastStructure):
+class MCI_DGV_RESTORE_PARMSW(Structure):
     dwCallback: UIntPtr
     lpstrFileName: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
 MCI_DGV_RESTORE_PARMS = UnicodeAlias('MCI_DGV_RESTORE_PARMSW')
-class MCI_DGV_SAVE_PARMSA(EasyCastStructure):
+class MCI_DGV_SAVE_PARMSA(Structure):
     dwCallback: UIntPtr
     lpstrFileName: win32more.Windows.Win32.Foundation.PSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
-class MCI_DGV_SAVE_PARMSW(EasyCastStructure):
+class MCI_DGV_SAVE_PARMSW(Structure):
     dwCallback: UIntPtr
     lpstrFileName: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
 MCI_DGV_SAVE_PARMS = UnicodeAlias('MCI_DGV_SAVE_PARMSW')
-class MCI_DGV_SETAUDIO_PARMSA(EasyCastStructure):
+class MCI_DGV_SETAUDIO_PARMSA(Structure):
     dwCallback: UIntPtr
     dwItem: UInt32
     dwValue: UInt32
@@ -5903,7 +5903,7 @@ class MCI_DGV_SETAUDIO_PARMSA(EasyCastStructure):
     lpstrAlgorithm: win32more.Windows.Win32.Foundation.PSTR
     lpstrQuality: win32more.Windows.Win32.Foundation.PSTR
     _pack_ = 1
-class MCI_DGV_SETAUDIO_PARMSW(EasyCastStructure):
+class MCI_DGV_SETAUDIO_PARMSW(Structure):
     dwCallback: UIntPtr
     dwItem: UInt32
     dwValue: UInt32
@@ -5912,7 +5912,7 @@ class MCI_DGV_SETAUDIO_PARMSW(EasyCastStructure):
     lpstrQuality: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
 MCI_DGV_SETAUDIO_PARMS = UnicodeAlias('MCI_DGV_SETAUDIO_PARMSW')
-class MCI_DGV_SETVIDEO_PARMSA(EasyCastStructure):
+class MCI_DGV_SETVIDEO_PARMSA(Structure):
     dwCallback: UIntPtr
     dwItem: UInt32
     dwValue: UInt32
@@ -5921,7 +5921,7 @@ class MCI_DGV_SETVIDEO_PARMSA(EasyCastStructure):
     lpstrQuality: win32more.Windows.Win32.Foundation.PSTR
     dwSourceNumber: UInt32
     _pack_ = 1
-class MCI_DGV_SETVIDEO_PARMSW(EasyCastStructure):
+class MCI_DGV_SETVIDEO_PARMSW(Structure):
     dwCallback: UIntPtr
     dwItem: UInt32
     dwValue: UInt32
@@ -5931,20 +5931,20 @@ class MCI_DGV_SETVIDEO_PARMSW(EasyCastStructure):
     dwSourceNumber: UInt32
     _pack_ = 1
 MCI_DGV_SETVIDEO_PARMS = UnicodeAlias('MCI_DGV_SETVIDEO_PARMSW')
-class MCI_DGV_SET_PARMS(EasyCastStructure):
+class MCI_DGV_SET_PARMS(Structure):
     dwCallback: UIntPtr
     dwTimeFormat: UInt32
     dwAudio: UInt32
     dwFileFormat: UInt32
     dwSpeed: UInt32
     _pack_ = 1
-class MCI_DGV_SIGNAL_PARMS(EasyCastStructure):
+class MCI_DGV_SIGNAL_PARMS(Structure):
     dwCallback: UIntPtr
     dwPosition: UInt32
     dwPeriod: UInt32
     dwUserParm: UInt32
     _pack_ = 1
-class MCI_DGV_STATUS_PARMSA(EasyCastStructure):
+class MCI_DGV_STATUS_PARMSA(Structure):
     dwCallback: UIntPtr
     dwReturn: UIntPtr
     dwItem: UInt32
@@ -5952,7 +5952,7 @@ class MCI_DGV_STATUS_PARMSA(EasyCastStructure):
     lpstrDrive: win32more.Windows.Win32.Foundation.PSTR
     dwReference: UInt32
     _pack_ = 1
-class MCI_DGV_STATUS_PARMSW(EasyCastStructure):
+class MCI_DGV_STATUS_PARMSW(Structure):
     dwCallback: UIntPtr
     dwReturn: UIntPtr
     dwItem: UInt32
@@ -5961,70 +5961,70 @@ class MCI_DGV_STATUS_PARMSW(EasyCastStructure):
     dwReference: UInt32
     _pack_ = 1
 MCI_DGV_STATUS_PARMS = UnicodeAlias('MCI_DGV_STATUS_PARMSW')
-class MCI_DGV_STEP_PARMS(EasyCastStructure):
+class MCI_DGV_STEP_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrames: UInt32
     _pack_ = 1
-class MCI_DGV_UPDATE_PARMS(EasyCastStructure):
+class MCI_DGV_UPDATE_PARMS(Structure):
     dwCallback: UIntPtr
     rc: win32more.Windows.Win32.Foundation.RECT
     hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
     _pack_ = 1
-class MCI_DGV_WINDOW_PARMSA(EasyCastStructure):
+class MCI_DGV_WINDOW_PARMSA(Structure):
     dwCallback: UIntPtr
     hWnd: win32more.Windows.Win32.Foundation.HWND
     nCmdShow: UInt32
     lpstrText: win32more.Windows.Win32.Foundation.PSTR
     _pack_ = 1
-class MCI_DGV_WINDOW_PARMSW(EasyCastStructure):
+class MCI_DGV_WINDOW_PARMSW(Structure):
     dwCallback: UIntPtr
     hWnd: win32more.Windows.Win32.Foundation.HWND
     nCmdShow: UInt32
     lpstrText: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
 MCI_DGV_WINDOW_PARMS = UnicodeAlias('MCI_DGV_WINDOW_PARMSW')
-class MCI_GENERIC_PARMS(EasyCastStructure):
+class MCI_GENERIC_PARMS(Structure):
     dwCallback: UIntPtr
     _pack_ = 1
-class MCI_GETDEVCAPS_PARMS(EasyCastStructure):
+class MCI_GETDEVCAPS_PARMS(Structure):
     dwCallback: UIntPtr
     dwReturn: UInt32
     dwItem: UInt32
     _pack_ = 1
-class MCI_INFO_PARMSA(EasyCastStructure):
+class MCI_INFO_PARMSA(Structure):
     dwCallback: UIntPtr
     lpstrReturn: win32more.Windows.Win32.Foundation.PSTR
     dwRetSize: UInt32
     _pack_ = 1
-class MCI_INFO_PARMSW(EasyCastStructure):
+class MCI_INFO_PARMSW(Structure):
     dwCallback: UIntPtr
     lpstrReturn: win32more.Windows.Win32.Foundation.PWSTR
     dwRetSize: UInt32
     _pack_ = 1
 MCI_INFO_PARMS = UnicodeAlias('MCI_INFO_PARMSW')
-class MCI_LOAD_PARMSA(EasyCastStructure):
+class MCI_LOAD_PARMSA(Structure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PSTR
     _pack_ = 1
-class MCI_LOAD_PARMSW(EasyCastStructure):
+class MCI_LOAD_PARMSW(Structure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
 MCI_LOAD_PARMS = UnicodeAlias('MCI_LOAD_PARMSW')
-class MCI_OPEN_DRIVER_PARMS(EasyCastStructure):
+class MCI_OPEN_DRIVER_PARMS(Structure):
     wDeviceID: UInt32
     lpstrParams: win32more.Windows.Win32.Foundation.PWSTR
     wCustomCommandTable: UInt32
     wType: UInt32
     _pack_ = 1
-class MCI_OPEN_PARMSA(EasyCastStructure):
+class MCI_OPEN_PARMSA(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PSTR
     lpstrElementName: win32more.Windows.Win32.Foundation.PSTR
     lpstrAlias: win32more.Windows.Win32.Foundation.PSTR
     _pack_ = 1
-class MCI_OPEN_PARMSW(EasyCastStructure):
+class MCI_OPEN_PARMSW(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PWSTR
@@ -6032,18 +6032,18 @@ class MCI_OPEN_PARMSW(EasyCastStructure):
     lpstrAlias: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
 MCI_OPEN_PARMS = UnicodeAlias('MCI_OPEN_PARMSW')
-class MCI_OVLY_LOAD_PARMSA(EasyCastStructure):
+class MCI_OVLY_LOAD_PARMSA(Structure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
-class MCI_OVLY_LOAD_PARMSW(EasyCastStructure):
+class MCI_OVLY_LOAD_PARMSW(Structure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
 MCI_OVLY_LOAD_PARMS = UnicodeAlias('MCI_OVLY_LOAD_PARMSW')
-class MCI_OVLY_OPEN_PARMSA(EasyCastStructure):
+class MCI_OVLY_OPEN_PARMSA(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PSTR
@@ -6052,7 +6052,7 @@ class MCI_OVLY_OPEN_PARMSA(EasyCastStructure):
     dwStyle: UInt32
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
-class MCI_OVLY_OPEN_PARMSW(EasyCastStructure):
+class MCI_OVLY_OPEN_PARMSW(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PWSTR
@@ -6062,58 +6062,58 @@ class MCI_OVLY_OPEN_PARMSW(EasyCastStructure):
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
 MCI_OVLY_OPEN_PARMS = UnicodeAlias('MCI_OVLY_OPEN_PARMSW')
-class MCI_OVLY_RECT_PARMS(EasyCastStructure):
+class MCI_OVLY_RECT_PARMS(Structure):
     dwCallback: UIntPtr
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
-class MCI_OVLY_SAVE_PARMSA(EasyCastStructure):
+class MCI_OVLY_SAVE_PARMSA(Structure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
-class MCI_OVLY_SAVE_PARMSW(EasyCastStructure):
+class MCI_OVLY_SAVE_PARMSW(Structure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PWSTR
     rc: win32more.Windows.Win32.Foundation.RECT
     _pack_ = 1
 MCI_OVLY_SAVE_PARMS = UnicodeAlias('MCI_OVLY_SAVE_PARMSW')
-class MCI_OVLY_WINDOW_PARMSA(EasyCastStructure):
+class MCI_OVLY_WINDOW_PARMSA(Structure):
     dwCallback: UIntPtr
     hWnd: win32more.Windows.Win32.Foundation.HWND
     nCmdShow: UInt32
     lpstrText: win32more.Windows.Win32.Foundation.PSTR
     _pack_ = 1
-class MCI_OVLY_WINDOW_PARMSW(EasyCastStructure):
+class MCI_OVLY_WINDOW_PARMSW(Structure):
     dwCallback: UIntPtr
     hWnd: win32more.Windows.Win32.Foundation.HWND
     nCmdShow: UInt32
     lpstrText: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
 MCI_OVLY_WINDOW_PARMS = UnicodeAlias('MCI_OVLY_WINDOW_PARMSW')
-class MCI_PLAY_PARMS(EasyCastStructure):
+class MCI_PLAY_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrom: UInt32
     dwTo: UInt32
     _pack_ = 1
-class MCI_RECORD_PARMS(EasyCastStructure):
+class MCI_RECORD_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrom: UInt32
     dwTo: UInt32
     _pack_ = 1
-class MCI_SAVE_PARMSA(EasyCastStructure):
+class MCI_SAVE_PARMSA(Structure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PSTR
     _pack_ = 1
-class MCI_SAVE_PARMSW(EasyCastStructure):
+class MCI_SAVE_PARMSW(Structure):
     dwCallback: UIntPtr
     lpfilename: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
 MCI_SAVE_PARMS = UnicodeAlias('MCI_SAVE_PARMSW')
-class MCI_SEEK_PARMS(EasyCastStructure):
+class MCI_SEEK_PARMS(Structure):
     dwCallback: UIntPtr
     dwTo: UInt32
     _pack_ = 1
-class MCI_SEQ_SET_PARMS(EasyCastStructure):
+class MCI_SEQ_SET_PARMS(Structure):
     dwCallback: UIntPtr
     dwTimeFormat: UInt32
     dwAudio: UInt32
@@ -6123,25 +6123,25 @@ class MCI_SEQ_SET_PARMS(EasyCastStructure):
     dwMaster: UInt32
     dwOffset: UInt32
     _pack_ = 1
-class MCI_SET_PARMS(EasyCastStructure):
+class MCI_SET_PARMS(Structure):
     dwCallback: UIntPtr
     dwTimeFormat: UInt32
     dwAudio: UInt32
     _pack_ = 1
-class MCI_STATUS_PARMS(EasyCastStructure):
+class MCI_STATUS_PARMS(Structure):
     dwCallback: UIntPtr
     dwReturn: UIntPtr
     dwItem: UInt32
     dwTrack: UInt32
     _pack_ = 1
-class MCI_SYSINFO_PARMSA(EasyCastStructure):
+class MCI_SYSINFO_PARMSA(Structure):
     dwCallback: UIntPtr
     lpstrReturn: win32more.Windows.Win32.Foundation.PSTR
     dwRetSize: UInt32
     dwNumber: UInt32
     wDeviceType: UInt32
     _pack_ = 1
-class MCI_SYSINFO_PARMSW(EasyCastStructure):
+class MCI_SYSINFO_PARMSW(Structure):
     dwCallback: UIntPtr
     lpstrReturn: win32more.Windows.Win32.Foundation.PWSTR
     dwRetSize: UInt32
@@ -6149,31 +6149,31 @@ class MCI_SYSINFO_PARMSW(EasyCastStructure):
     wDeviceType: UInt32
     _pack_ = 1
 MCI_SYSINFO_PARMS = UnicodeAlias('MCI_SYSINFO_PARMSW')
-class MCI_VD_ESCAPE_PARMSA(EasyCastStructure):
+class MCI_VD_ESCAPE_PARMSA(Structure):
     dwCallback: UIntPtr
     lpstrCommand: win32more.Windows.Win32.Foundation.PSTR
     _pack_ = 1
-class MCI_VD_ESCAPE_PARMSW(EasyCastStructure):
+class MCI_VD_ESCAPE_PARMSW(Structure):
     dwCallback: UIntPtr
     lpstrCommand: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
 MCI_VD_ESCAPE_PARMS = UnicodeAlias('MCI_VD_ESCAPE_PARMSW')
-class MCI_VD_PLAY_PARMS(EasyCastStructure):
+class MCI_VD_PLAY_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrom: UInt32
     dwTo: UInt32
     dwSpeed: UInt32
     _pack_ = 1
-class MCI_VD_STEP_PARMS(EasyCastStructure):
+class MCI_VD_STEP_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrames: UInt32
     _pack_ = 1
-class MCI_WAVE_DELETE_PARMS(EasyCastStructure):
+class MCI_WAVE_DELETE_PARMS(Structure):
     dwCallback: UIntPtr
     dwFrom: UInt32
     dwTo: UInt32
     _pack_ = 1
-class MCI_WAVE_OPEN_PARMSA(EasyCastStructure):
+class MCI_WAVE_OPEN_PARMSA(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PSTR
@@ -6181,7 +6181,7 @@ class MCI_WAVE_OPEN_PARMSA(EasyCastStructure):
     lpstrAlias: win32more.Windows.Win32.Foundation.PSTR
     dwBufferSeconds: UInt32
     _pack_ = 1
-class MCI_WAVE_OPEN_PARMSW(EasyCastStructure):
+class MCI_WAVE_OPEN_PARMSW(Structure):
     dwCallback: UIntPtr
     wDeviceID: UInt32
     lpstrDeviceType: win32more.Windows.Win32.Foundation.PWSTR
@@ -6190,7 +6190,7 @@ class MCI_WAVE_OPEN_PARMSW(EasyCastStructure):
     dwBufferSeconds: UInt32
     _pack_ = 1
 MCI_WAVE_OPEN_PARMS = UnicodeAlias('MCI_WAVE_OPEN_PARMSW')
-class MCI_WAVE_SET_PARMS(EasyCastStructure):
+class MCI_WAVE_SET_PARMS(Structure):
     dwCallback: UIntPtr
     dwTimeFormat: UInt32
     dwAudio: UInt32
@@ -6207,29 +6207,29 @@ class MCI_WAVE_SET_PARMS(EasyCastStructure):
     wBitsPerSample: UInt16
     wReserved5: UInt16
     _pack_ = 1
-class MEDIASPACEADPCMWAVEFORMAT(EasyCastStructure):
+class MEDIASPACEADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wRevision: UInt16
     _pack_ = 1
-class MIDIOPENSTRMID(EasyCastStructure):
+class MIDIOPENSTRMID(Structure):
     dwStreamID: UInt32
     uDeviceID: UInt32
     _pack_ = 1
-class MIXEROPENDESC(EasyCastStructure):
+class MIXEROPENDESC(Structure):
     hmx: win32more.Windows.Win32.Media.Audio.HMIXER
     pReserved0: VoidPtr
     dwCallback: UIntPtr
     dwInstance: UIntPtr
     dnDevNode: UIntPtr
     _pack_ = 1
-class MMCKINFO(EasyCastStructure):
+class MMCKINFO(Structure):
     ckid: UInt32
     cksize: UInt32
     fccType: UInt32
     dwDataOffset: UInt32
     dwFlags: UInt32
     _pack_ = 1
-class MMIOINFO(EasyCastStructure):
+class MMIOINFO(Structure):
     dwFlags: UInt32
     fccIOProc: UInt32
     pIOProc: win32more.Windows.Win32.Media.Multimedia.LPMMIOPROC
@@ -6247,39 +6247,39 @@ class MMIOINFO(EasyCastStructure):
     dwReserved2: UInt32
     hmmio: win32more.Windows.Win32.Media.Multimedia.HMMIO
     _pack_ = 1
-class MSAUDIO1WAVEFORMAT(EasyCastStructure):
+class MSAUDIO1WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     wEncodeOptions: UInt16
     _pack_ = 1
-class NMS_VBXADPCMWAVEFORMAT(EasyCastStructure):
+class NMS_VBXADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
-class OLIADPCMWAVEFORMAT(EasyCastStructure):
+class OLIADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class OLICELPWAVEFORMAT(EasyCastStructure):
+class OLICELPWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class OLIGSMWAVEFORMAT(EasyCastStructure):
+class OLIGSMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class OLIOPRWAVEFORMAT(EasyCastStructure):
+class OLIOPRWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class OLISBCWAVEFORMAT(EasyCastStructure):
+class OLISBCWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class SIERRAADPCMWAVEFORMAT(EasyCastStructure):
+class SIERRAADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wRevision: UInt16
     _pack_ = 1
-class SONARCWAVEFORMAT(EasyCastStructure):
+class SONARCWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wCompType: UInt16
     _pack_ = 1
-class TIMEREVENT(EasyCastStructure):
+class TIMEREVENT(Structure):
     wDelay: UInt16
     wResolution: UInt16
     lpFunction: win32more.Windows.Win32.Media.LPTIMECALLBACK
@@ -6287,7 +6287,7 @@ class TIMEREVENT(EasyCastStructure):
     wFlags: UInt16
     wReserved1: UInt16
     _pack_ = 1
-class TRUESPEECHWAVEFORMAT(EasyCastStructure):
+class TRUESPEECHWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wRevision: UInt16
     nSamplesPerBlock: UInt16
@@ -6295,7 +6295,7 @@ class TRUESPEECHWAVEFORMAT(EasyCastStructure):
     _pack_ = 1
 @winfunctype_pointer
 def VFWWDMExtensionProc(pfnDeviceIoControl: VoidPtr, pfnAddPropertyPage: win32more.Windows.Win32.UI.Controls.LPFNSVADDPROPSHEETPAGE, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> UInt32: ...
-class VIDEOHDR(EasyCastStructure):
+class VIDEOHDR(Structure):
     lpData: POINTER(Byte)
     dwBufferLength: UInt32
     dwBytesUsed: UInt32
@@ -6303,7 +6303,7 @@ class VIDEOHDR(EasyCastStructure):
     dwUser: UIntPtr
     dwFlags: UInt32
     dwReserved: UIntPtr * 4
-class WAVEOPENDESC(EasyCastStructure):
+class WAVEOPENDESC(Structure):
     hWave: win32more.Windows.Win32.Media.Audio.HWAVE
     lpFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMAT)
     dwCallback: UIntPtr
@@ -6311,13 +6311,13 @@ class WAVEOPENDESC(EasyCastStructure):
     uMappedDeviceID: UInt32
     dnDevNode: UIntPtr
     _pack_ = 1
-class WMAUDIO2WAVEFORMAT(EasyCastStructure):
+class WMAUDIO2WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     dwSamplesPerBlock: UInt32
     wEncodeOptions: UInt16
     dwSuperBlockAlign: UInt32
     _pack_ = 1
-class WMAUDIO3WAVEFORMAT(EasyCastStructure):
+class WMAUDIO3WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wValidBitsPerSample: UInt16
     dwChannelMask: UInt32
@@ -6326,12 +6326,12 @@ class WMAUDIO3WAVEFORMAT(EasyCastStructure):
     wEncodeOptions: UInt16
     wReserved3: UInt16
     _pack_ = 1
-class YAMAHA_ADPCMWAVEFORMAT(EasyCastStructure):
+class YAMAHA_ADPCMWAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     _pack_ = 1
 @winfunctype_pointer
 def YIELDPROC(mciId: UInt32, dwYieldData: UInt32) -> UInt32: ...
-class s_RIFFWAVE_inst(EasyCastStructure):
+class s_RIFFWAVE_inst(Structure):
     bUnshiftedNote: Byte
     chFineTune: win32more.Windows.Win32.Foundation.CHAR
     chGain: win32more.Windows.Win32.Foundation.CHAR

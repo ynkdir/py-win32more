@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.JobObjects
@@ -85,10 +85,10 @@ JobObjectReserved25Information: win32more.Windows.Win32.System.JobObjects.JOBOBJ
 JobObjectReserved26Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 48
 JobObjectReserved27Information: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 49
 MaxJobObjectInfoClass: win32more.Windows.Win32.System.JobObjects.JOBOBJECTINFOCLASS = 50
-class JOBOBJECT_ASSOCIATE_COMPLETION_PORT(EasyCastStructure):
+class JOBOBJECT_ASSOCIATE_COMPLETION_PORT(Structure):
     CompletionKey: VoidPtr
     CompletionPort: win32more.Windows.Win32.Foundation.HANDLE
-class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION(EasyCastStructure):
+class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION(Structure):
     TotalUserTime: Int64
     TotalKernelTime: Int64
     ThisPeriodTotalUserTime: Int64
@@ -97,10 +97,10 @@ class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION(EasyCastStructure):
     TotalProcesses: UInt32
     ActiveProcesses: UInt32
     TotalTerminatedProcesses: UInt32
-class JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION(EasyCastStructure):
+class JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION(Structure):
     BasicInfo: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_BASIC_ACCOUNTING_INFORMATION
     IoInfo: win32more.Windows.Win32.System.Threading.IO_COUNTERS
-class JOBOBJECT_BASIC_LIMIT_INFORMATION(EasyCastStructure):
+class JOBOBJECT_BASIC_LIMIT_INFORMATION(Structure):
     PerProcessUserTimeLimit: Int64
     PerJobUserTimeLimit: Int64
     LimitFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_LIMIT
@@ -110,25 +110,25 @@ class JOBOBJECT_BASIC_LIMIT_INFORMATION(EasyCastStructure):
     Affinity: UIntPtr
     PriorityClass: UInt32
     SchedulingClass: UInt32
-class JOBOBJECT_BASIC_PROCESS_ID_LIST(EasyCastStructure):
+class JOBOBJECT_BASIC_PROCESS_ID_LIST(Structure):
     NumberOfAssignedProcesses: UInt32
     NumberOfProcessIdsInList: UInt32
     ProcessIdList: UIntPtr * 1
-class JOBOBJECT_BASIC_UI_RESTRICTIONS(EasyCastStructure):
+class JOBOBJECT_BASIC_UI_RESTRICTIONS(Structure):
     UIRestrictionsClass: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_UILIMIT
-class JOBOBJECT_CPU_RATE_CONTROL_INFORMATION(EasyCastStructure):
+class JOBOBJECT_CPU_RATE_CONTROL_INFORMATION(Structure):
     ControlFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_CPU_RATE_CONTROL
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         CpuRate: UInt32
         Weight: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             MinRate: UInt16
             MaxRate: UInt16
-class JOBOBJECT_END_OF_JOB_TIME_INFORMATION(EasyCastStructure):
+class JOBOBJECT_END_OF_JOB_TIME_INFORMATION(Structure):
     EndOfJobTimeAction: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_TERMINATE_AT_END_ACTION
-class JOBOBJECT_EXTENDED_LIMIT_INFORMATION(EasyCastStructure):
+class JOBOBJECT_EXTENDED_LIMIT_INFORMATION(Structure):
     BasicLimitInformation: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_BASIC_LIMIT_INFORMATION
     IoInfo: win32more.Windows.Win32.System.Threading.IO_COUNTERS
     ProcessMemoryLimit: UIntPtr
@@ -139,23 +139,23 @@ JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS = Int32
 JOBOBJECT_IO_ATTRIBUTION_CONTROL_ENABLE: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS = 1
 JOBOBJECT_IO_ATTRIBUTION_CONTROL_DISABLE: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS = 2
 JOBOBJECT_IO_ATTRIBUTION_CONTROL_VALID_FLAGS: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS = 3
-class JOBOBJECT_IO_ATTRIBUTION_INFORMATION(EasyCastStructure):
+class JOBOBJECT_IO_ATTRIBUTION_INFORMATION(Structure):
     ControlFlags: UInt32
     ReadStats: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_IO_ATTRIBUTION_STATS
     WriteStats: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_IO_ATTRIBUTION_STATS
-class JOBOBJECT_IO_ATTRIBUTION_STATS(EasyCastStructure):
+class JOBOBJECT_IO_ATTRIBUTION_STATS(Structure):
     IoCount: UIntPtr
     TotalNonOverlappedQueueTime: UInt64
     TotalNonOverlappedServiceTime: UInt64
     TotalSize: UInt64
-class JOBOBJECT_IO_RATE_CONTROL_INFORMATION(EasyCastStructure):
+class JOBOBJECT_IO_RATE_CONTROL_INFORMATION(Structure):
     MaxIops: Int64
     MaxBandwidth: Int64
     ReservationIops: Int64
     VolumeName: win32more.Windows.Win32.Foundation.PWSTR
     BaseIoSize: UInt32
     ControlFlags: UInt32
-class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1(EasyCastStructure):
+class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1(Structure):
     MaxIops: Int64
     MaxBandwidth: Int64
     ReservationIops: Int64
@@ -163,7 +163,7 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1(EasyCastStructure):
     BaseIoSize: UInt32
     ControlFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_IO_RATE_CONTROL_FLAGS
     VolumeNameLength: UInt16
-class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V2(EasyCastStructure):
+class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V2(Structure):
     MaxIops: Int64
     MaxBandwidth: Int64
     ReservationIops: Int64
@@ -177,7 +177,7 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V2(EasyCastStructure):
     MaxTimePercent: Int64
     ReservationTimePercent: Int64
     CriticalReservationTimePercent: Int64
-class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V3(EasyCastStructure):
+class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V3(Structure):
     MaxIops: Int64
     MaxBandwidth: Int64
     ReservationIops: Int64
@@ -197,9 +197,9 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V3(EasyCastStructure):
     LimitExcessNotifyIops: Int64
     LimitExcessNotifyBandwidth: Int64
     LimitExcessNotifyTimePercent: Int64
-class JOBOBJECT_JOBSET_INFORMATION(EasyCastStructure):
+class JOBOBJECT_JOBSET_INFORMATION(Structure):
     MemberLevel: UInt32
-class JOBOBJECT_LIMIT_VIOLATION_INFORMATION(EasyCastStructure):
+class JOBOBJECT_LIMIT_VIOLATION_INFORMATION(Structure):
     LimitFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_LIMIT
     ViolationLimitFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_LIMIT
     IoReadBytes: UInt64
@@ -212,7 +212,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION(EasyCastStructure):
     JobMemoryLimit: UInt64
     RateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
     RateControlToleranceLimit: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
-class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2(EasyCastStructure):
+class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2(Structure):
     LimitFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_LIMIT
     ViolationLimitFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_LIMIT
     IoReadBytes: UInt64
@@ -230,20 +230,20 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2(EasyCastStructure):
     IoRateControlToleranceLimit: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
     NetRateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
     NetRateControlToleranceLimit: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         JobHighMemoryLimit: UInt64
         JobMemoryLimit: UInt64
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         RateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
         CpuRateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         RateControlToleranceLimit: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
         CpuRateControlToleranceLimit: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
-class JOBOBJECT_NET_RATE_CONTROL_INFORMATION(EasyCastStructure):
+class JOBOBJECT_NET_RATE_CONTROL_INFORMATION(Structure):
     MaxBandwidth: UInt64
     ControlFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_NET_RATE_CONTROL_FLAGS
     DscpTag: Byte
-class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION(EasyCastStructure):
+class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION(Structure):
     IoReadBytesLimit: UInt64
     IoWriteBytesLimit: UInt64
     PerJobUserTimeLimit: Int64
@@ -251,7 +251,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION(EasyCastStructure):
     RateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
     RateControlToleranceInterval: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
     LimitFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_LIMIT
-class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2(EasyCastStructure):
+class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2(Structure):
     IoReadBytesLimit: UInt64
     IoWriteBytesLimit: UInt64
     PerJobUserTimeLimit: Int64
@@ -264,13 +264,13 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2(EasyCastStructure):
     IoRateControlToleranceInterval: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
     NetRateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
     NetRateControlToleranceInterval: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         JobHighMemoryLimit: UInt64
         JobMemoryLimit: UInt64
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         RateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
         CpuRateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         RateControlToleranceInterval: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
         CpuRateControlToleranceInterval: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
 JOBOBJECT_RATE_CONTROL_TOLERANCE = Int32
@@ -281,7 +281,7 @@ JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = Int32
 ToleranceIntervalShort: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = 1
 ToleranceIntervalMedium: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = 2
 ToleranceIntervalLong: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = 3
-class JOBOBJECT_SECURITY_LIMIT_INFORMATION(EasyCastStructure):
+class JOBOBJECT_SECURITY_LIMIT_INFORMATION(Structure):
     SecurityLimitFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_SECURITY
     JobToken: win32more.Windows.Win32.Foundation.HANDLE
     SidsToDisable: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS)
@@ -352,7 +352,7 @@ JOB_OBJECT_UILIMIT_DISPLAYSETTINGS: win32more.Windows.Win32.System.JobObjects.JO
 JOB_OBJECT_UILIMIT_GLOBALATOMS: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_UILIMIT = 32
 JOB_OBJECT_UILIMIT_DESKTOP: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_UILIMIT = 64
 JOB_OBJECT_UILIMIT_EXITWINDOWS: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_UILIMIT = 128
-class JOB_SET_ARRAY(EasyCastStructure):
+class JOB_SET_ARRAY(Structure):
     JobHandle: win32more.Windows.Win32.Foundation.HANDLE
     MemberLevel: UInt32
     Flags: UInt32

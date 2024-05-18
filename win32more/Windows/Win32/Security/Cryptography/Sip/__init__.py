@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Security.Cryptography.Catalog
@@ -44,16 +44,16 @@ def CryptSIPRemoveProvider(pgProv: POINTER(Guid)) -> win32more.Windows.Win32.Fou
 def CryptSIPGetCaps(pSubjInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_SUBJECTINFO), pCaps: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_CAP_SET_V3)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
 def CryptSIPGetSealedDigest(pSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_SUBJECTINFO), pSig: POINTER(Byte), dwSig: UInt32, pbDigest: POINTER(Byte), pcbDigest: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class MS_ADDINFO_BLOB(EasyCastStructure):
+class MS_ADDINFO_BLOB(Structure):
     cbStruct: UInt32
     cbMemObject: UInt32
     pbMemObject: POINTER(Byte)
     cbMemSignedMsg: UInt32
     pbMemSignedMsg: POINTER(Byte)
-class MS_ADDINFO_FLAT(EasyCastStructure):
+class MS_ADDINFO_FLAT(Structure):
     cbStruct: UInt32
     pIndirectData: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_INDIRECT_DATA)
-class SIP_ADD_NEWPROVIDER(EasyCastStructure):
+class SIP_ADD_NEWPROVIDER(Structure):
     cbStruct: UInt32
     pgSubject: POINTER(Guid)
     pwszDLLFileName: win32more.Windows.Win32.Foundation.PWSTR
@@ -66,20 +66,20 @@ class SIP_ADD_NEWPROVIDER(EasyCastStructure):
     pwszRemoveFuncName: win32more.Windows.Win32.Foundation.PWSTR
     pwszIsFunctionNameFmt2: win32more.Windows.Win32.Foundation.PWSTR
     pwszGetCapFuncName: win32more.Windows.Win32.Foundation.PWSTR
-class SIP_CAP_SET_V2(EasyCastStructure):
+class SIP_CAP_SET_V2(Structure):
     cbSize: UInt32
     dwVersion: UInt32
     isMultiSign: win32more.Windows.Win32.Foundation.BOOL
     dwReserved: UInt32
-class SIP_CAP_SET_V3(EasyCastStructure):
+class SIP_CAP_SET_V3(Structure):
     cbSize: UInt32
     dwVersion: UInt32
     isMultiSign: win32more.Windows.Win32.Foundation.BOOL
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwFlags: UInt32
         dwReserved: UInt32
-class SIP_DISPATCH_INFO(EasyCastStructure):
+class SIP_DISPATCH_INFO(Structure):
     cbSize: UInt32
     hSIP: win32more.Windows.Win32.Foundation.HANDLE
     pfGet: win32more.Windows.Win32.Security.Cryptography.Sip.pCryptSIPGetSignedDataMsg
@@ -87,11 +87,11 @@ class SIP_DISPATCH_INFO(EasyCastStructure):
     pfCreate: win32more.Windows.Win32.Security.Cryptography.Sip.pCryptSIPCreateIndirectData
     pfVerify: win32more.Windows.Win32.Security.Cryptography.Sip.pCryptSIPVerifyIndirectData
     pfRemove: win32more.Windows.Win32.Security.Cryptography.Sip.pCryptSIPRemoveSignedDataMsg
-class SIP_INDIRECT_DATA(EasyCastStructure):
+class SIP_INDIRECT_DATA(Structure):
     Data: win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE
     DigestAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     Digest: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class SIP_SUBJECTINFO(EasyCastStructure):
+class SIP_SUBJECTINFO(Structure):
     cbSize: UInt32
     pgSubjectType: POINTER(Guid)
     hFile: win32more.Windows.Win32.Foundation.HANDLE
@@ -110,7 +110,7 @@ class SIP_SUBJECTINFO(EasyCastStructure):
     dwUnionChoice: UInt32
     Anonymous: _Anonymous_e__Union
     pClientData: VoidPtr
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         psFlat: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.MS_ADDINFO_FLAT)
         psCatMember: POINTER(win32more.Windows.Win32.Security.Cryptography.Catalog.MS_ADDINFO_CATALOGMEMBER)
         psBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.MS_ADDINFO_BLOB)

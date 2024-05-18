@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.HtmlHelp
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -255,28 +255,28 @@ def HtmlHelpA(hwndCaller: win32more.Windows.Win32.Foundation.HWND, pszFile: win3
 @winfunctype('hhctrl.ocx')
 def HtmlHelpW(hwndCaller: win32more.Windows.Win32.Foundation.HWND, pszFile: win32more.Windows.Win32.Foundation.PWSTR, uCommand: UInt32, dwData: UIntPtr) -> win32more.Windows.Win32.Foundation.HWND: ...
 HtmlHelp = UnicodeAlias('HtmlHelpW')
-class COLUMNSTATUS(EasyCastStructure):
+class COLUMNSTATUS(Structure):
     cPropCount: Int32
     cPropsLoaded: Int32
-class CProperty(EasyCastStructure):
+class CProperty(Structure):
     dwPropID: UInt32
     cbData: UInt32
     dwType: UInt32
     Anonymous: _Anonymous_e__Union
     fPersist: win32more.Windows.Win32.Foundation.BOOL
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         lpszwData: win32more.Windows.Win32.Foundation.PWSTR
         lpvData: VoidPtr
         dwValue: UInt32
-class HHNTRACK(EasyCastStructure):
+class HHNTRACK(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszCurUrl: win32more.Windows.Win32.Foundation.PSTR
     idAction: Int32
     phhWinType: POINTER(win32more.Windows.Win32.Data.HtmlHelp.HH_WINTYPE)
-class HHN_NOTIFY(EasyCastStructure):
+class HHN_NOTIFY(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszUrl: win32more.Windows.Win32.Foundation.PSTR
-class HH_AKLINK(EasyCastStructure):
+class HH_AKLINK(Structure):
     cbStruct: Int32
     fReserved: win32more.Windows.Win32.Foundation.BOOL
     pszKeywords: POINTER(SByte)
@@ -285,17 +285,17 @@ class HH_AKLINK(EasyCastStructure):
     pszMsgTitle: POINTER(SByte)
     pszWindow: POINTER(SByte)
     fIndexOnFail: win32more.Windows.Win32.Foundation.BOOL
-class HH_ENUM_CAT(EasyCastStructure):
+class HH_ENUM_CAT(Structure):
     cbStruct: Int32
     pszCatName: win32more.Windows.Win32.Foundation.PSTR
     pszCatDescription: win32more.Windows.Win32.Foundation.PSTR
-class HH_ENUM_IT(EasyCastStructure):
+class HH_ENUM_IT(Structure):
     cbStruct: Int32
     iType: Int32
     pszCatName: win32more.Windows.Win32.Foundation.PSTR
     pszITName: win32more.Windows.Win32.Foundation.PSTR
     pszITDescription: win32more.Windows.Win32.Foundation.PSTR
-class HH_FTS_QUERY(EasyCastStructure):
+class HH_FTS_QUERY(Structure):
     cbStruct: Int32
     fUniCodeStrings: win32more.Windows.Win32.Foundation.BOOL
     pszSearchQuery: POINTER(SByte)
@@ -304,7 +304,7 @@ class HH_FTS_QUERY(EasyCastStructure):
     fTitleOnly: win32more.Windows.Win32.Foundation.BOOL
     fExecute: win32more.Windows.Win32.Foundation.BOOL
     pszWindow: POINTER(SByte)
-class HH_GLOBAL_PROPERTY(EasyCastStructure):
+class HH_GLOBAL_PROPERTY(Structure):
     id: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID
     var: win32more.Windows.Win32.System.Variant.VARIANT
 HH_GPROPID = Int32
@@ -313,7 +313,7 @@ HH_GPROPID_TOOLBAR_MARGIN: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID = 2
 HH_GPROPID_UI_LANGUAGE: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID = 3
 HH_GPROPID_CURRENT_SUBSET: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID = 4
 HH_GPROPID_CONTENT_LANGUAGE: win32more.Windows.Win32.Data.HtmlHelp.HH_GPROPID = 5
-class HH_POPUP(EasyCastStructure):
+class HH_POPUP(Structure):
     cbStruct: Int32
     hinst: win32more.Windows.Win32.Foundation.HINSTANCE
     idString: UInt32
@@ -323,11 +323,11 @@ class HH_POPUP(EasyCastStructure):
     clrBackground: win32more.Windows.Win32.Foundation.COLORREF
     rcMargins: win32more.Windows.Win32.Foundation.RECT
     pszFont: POINTER(SByte)
-class HH_SET_INFOTYPE(EasyCastStructure):
+class HH_SET_INFOTYPE(Structure):
     cbStruct: Int32
     pszCatName: win32more.Windows.Win32.Foundation.PSTR
     pszInfoTypeName: win32more.Windows.Win32.Foundation.PSTR
-class HH_WINTYPE(EasyCastStructure):
+class HH_WINTYPE(Structure):
     cbStruct: Int32
     fUniCodeStrings: win32more.Windows.Win32.Foundation.BOOL
     pszType: POINTER(SByte)
@@ -563,7 +563,7 @@ PRIORITY = Int32
 PRIORITY_LOW: win32more.Windows.Win32.Data.HtmlHelp.PRIORITY = 0
 PRIORITY_NORMAL: win32more.Windows.Win32.Data.HtmlHelp.PRIORITY = 1
 PRIORITY_HIGH: win32more.Windows.Win32.Data.HtmlHelp.PRIORITY = 2
-class ROWSTATUS(EasyCastStructure):
+class ROWSTATUS(Structure):
     lRowFirst: Int32
     cRows: Int32
     cProperties: Int32

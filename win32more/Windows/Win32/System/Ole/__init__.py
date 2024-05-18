@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media
@@ -17,7 +17,7 @@ ACTIVATE_WINDOWLESS: win32more.Windows.Win32.System.Ole.ACTIVATEFLAGS = 1
 ACTIVEOBJECT_FLAGS = UInt32
 ACTIVEOBJECT_STRONG: win32more.Windows.Win32.System.Ole.ACTIVEOBJECT_FLAGS = 0
 ACTIVEOBJECT_WEAK: win32more.Windows.Win32.System.Ole.ACTIVEOBJECT_FLAGS = 1
-class ARRAYDESC(EasyCastStructure):
+class ARRAYDESC(Structure):
     tdescElem: win32more.Windows.Win32.System.Com.TYPEDESC
     cDims: UInt16
     rgbounds: win32more.Windows.Win32.System.Com.SAFEARRAYBOUND * 1
@@ -1413,13 +1413,13 @@ BZ_DISABLECANCELBUTTON: win32more.Windows.Win32.System.Ole.BUSY_DIALOG_FLAGS = 1
 BZ_DISABLESWITCHTOBUTTON: win32more.Windows.Win32.System.Ole.BUSY_DIALOG_FLAGS = 2
 BZ_DISABLERETRYBUTTON: win32more.Windows.Win32.System.Ole.BUSY_DIALOG_FLAGS = 4
 BZ_NOTRESPONDINGDIALOG: win32more.Windows.Win32.System.Ole.BUSY_DIALOG_FLAGS = 8
-class CADWORD(EasyCastStructure):
+class CADWORD(Structure):
     cElems: UInt32
     pElems: POINTER(UInt32)
-class CALPOLESTR(EasyCastStructure):
+class CALPOLESTR(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class CAUUID(EasyCastStructure):
+class CAUUID(Structure):
     cElems: UInt32
     pElems: POINTER(Guid)
 CHANGEKIND = Int32
@@ -1442,7 +1442,7 @@ CSF_SHOWHELP: win32more.Windows.Win32.System.Ole.CHANGE_SOURCE_FLAGS = 1
 CSF_VALIDSOURCE: win32more.Windows.Win32.System.Ole.CHANGE_SOURCE_FLAGS = 2
 CSF_ONLYGETSOURCE: win32more.Windows.Win32.System.Ole.CHANGE_SOURCE_FLAGS = 4
 CSF_EXPLORER: win32more.Windows.Win32.System.Ole.CHANGE_SOURCE_FLAGS = 8
-class CLEANLOCALSTORAGE(EasyCastStructure):
+class CLEANLOCALSTORAGE(Structure):
     pInterface: win32more.Windows.Win32.System.Com.IUnknown
     pStorage: VoidPtr
     flags: UInt32
@@ -1474,7 +1474,7 @@ CF_PRIVATEFIRST: win32more.Windows.Win32.System.Ole.CLIPBOARD_FORMAT = 512
 CF_PRIVATELAST: win32more.Windows.Win32.System.Ole.CLIPBOARD_FORMAT = 767
 CF_GDIOBJFIRST: win32more.Windows.Win32.System.Ole.CLIPBOARD_FORMAT = 768
 CF_GDIOBJLAST: win32more.Windows.Win32.System.Ole.CLIPBOARD_FORMAT = 1023
-class CONTROLINFO(EasyCastStructure):
+class CONTROLINFO(Structure):
     cb: UInt32
     hAccel: win32more.Windows.Win32.UI.WindowsAndMessaging.HACCEL
     cAccel: UInt16
@@ -1496,12 +1496,12 @@ DROPEFFECT_COPY: win32more.Windows.Win32.System.Ole.DROPEFFECT = 1
 DROPEFFECT_MOVE: win32more.Windows.Win32.System.Ole.DROPEFFECT = 2
 DROPEFFECT_LINK: win32more.Windows.Win32.System.Ole.DROPEFFECT = 4
 DROPEFFECT_SCROLL: win32more.Windows.Win32.System.Ole.DROPEFFECT = 2147483648
-class DVASPECTINFO(EasyCastStructure):
+class DVASPECTINFO(Structure):
     cb: UInt32
     dwFlags: UInt32
 DVASPECTINFOFLAG = Int32
 DVASPECTINFOFLAG_CANOPTIMIZE: win32more.Windows.Win32.System.Ole.DVASPECTINFOFLAG = 1
-class DVEXTENTINFO(EasyCastStructure):
+class DVEXTENTINFO(Structure):
     cb: UInt32
     dwExtentMode: UInt32
     sizelProposed: win32more.Windows.Win32.Foundation.SIZE
@@ -1543,7 +1543,7 @@ fdexPropCanConstruct: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 1024
 fdexPropCannotConstruct: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 2048
 fdexPropCanSourceEvents: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 4096
 fdexPropCannotSourceEvents: win32more.Windows.Win32.System.Ole.FDEX_PROP_FLAGS = 8192
-class FONTDESC(EasyCastStructure):
+class FONTDESC(Structure):
     cbSizeofstruct: UInt32
     lpstrName: win32more.Windows.Win32.Foundation.PWSTR
     cySize: win32more.Windows.Win32.System.Com.CY
@@ -1914,7 +1914,7 @@ IOF_DISABLEDISPLAYASICON: win32more.Windows.Win32.System.Ole.INSERT_OBJECT_FLAGS
 IOF_HIDECHANGEICON: win32more.Windows.Win32.System.Ole.INSERT_OBJECT_FLAGS = 2048
 IOF_SHOWINSERTCONTROL: win32more.Windows.Win32.System.Ole.INSERT_OBJECT_FLAGS = 4096
 IOF_SELECTCREATECONTROL: win32more.Windows.Win32.System.Ole.INSERT_OBJECT_FLAGS = 8192
-class INTERFACEDATA(EasyCastStructure):
+class INTERFACEDATA(Structure):
     pmethdata: POINTER(win32more.Windows.Win32.System.Ole.METHODDATA)
     cMembers: UInt32
 class IObjectIdentity(ComPtr):
@@ -2739,7 +2739,7 @@ LIBFLAG_FRESTRICTED: win32more.Windows.Win32.System.Ole.LIBFLAGS = 1
 LIBFLAG_FCONTROL: win32more.Windows.Win32.System.Ole.LIBFLAGS = 2
 LIBFLAG_FHIDDEN: win32more.Windows.Win32.System.Ole.LIBFLAGS = 4
 LIBFLAG_FHASDISKIMAGE: win32more.Windows.Win32.System.Ole.LIBFLAGS = 8
-class LICINFO(EasyCastStructure):
+class LICINFO(Structure):
     cbLicInfo: Int32
     fRuntimeKeyAvail: win32more.Windows.Win32.Foundation.BOOL
     fLicVerified: win32more.Windows.Win32.Foundation.BOOL
@@ -2755,7 +2755,7 @@ MEDIAPLAYBACK_RESUME: win32more.Windows.Win32.System.Ole.MEDIAPLAYBACK_STATE = 0
 MEDIAPLAYBACK_PAUSE: win32more.Windows.Win32.System.Ole.MEDIAPLAYBACK_STATE = 1
 MEDIAPLAYBACK_PAUSE_AND_SUSPEND: win32more.Windows.Win32.System.Ole.MEDIAPLAYBACK_STATE = 2
 MEDIAPLAYBACK_RESUME_FROM_SUSPEND: win32more.Windows.Win32.System.Ole.MEDIAPLAYBACK_STATE = 3
-class METHODDATA(EasyCastStructure):
+class METHODDATA(Structure):
     szName: win32more.Windows.Win32.Foundation.PWSTR
     ppdata: POINTER(win32more.Windows.Win32.System.Ole.PARAMDATA)
     dispid: Int32
@@ -2769,7 +2769,7 @@ MULTICLASSINFO_GETTYPEINFO: win32more.Windows.Win32.System.Ole.MULTICLASSINFO_FL
 MULTICLASSINFO_GETNUMRESERVEDDISPIDS: win32more.Windows.Win32.System.Ole.MULTICLASSINFO_FLAGS = 2
 MULTICLASSINFO_GETIIDPRIMARY: win32more.Windows.Win32.System.Ole.MULTICLASSINFO_FLAGS = 4
 MULTICLASSINFO_GETIIDSOURCE: win32more.Windows.Win32.System.Ole.MULTICLASSINFO_FLAGS = 8
-class NUMPARSE(EasyCastStructure):
+class NUMPARSE(Structure):
     cDig: Int32
     dwInFlags: win32more.Windows.Win32.System.Ole.NUMPARSE_FLAGS
     dwOutFlags: win32more.Windows.Win32.System.Ole.NUMPARSE_FLAGS
@@ -2793,7 +2793,7 @@ NUMPRS_USE_ALL: win32more.Windows.Win32.System.Ole.NUMPARSE_FLAGS = 4096
 NUMPRS_STD: win32more.Windows.Win32.System.Ole.NUMPARSE_FLAGS = 8191
 NUMPRS_NEG: win32more.Windows.Win32.System.Ole.NUMPARSE_FLAGS = 65536
 NUMPRS_INEXACT: win32more.Windows.Win32.System.Ole.NUMPARSE_FLAGS = 131072
-class OBJECTDESCRIPTOR(EasyCastStructure):
+class OBJECTDESCRIPTOR(Structure):
     cbSize: UInt32
     clsid: Guid
     dwDrawAspect: UInt32
@@ -2807,7 +2807,7 @@ OPF_OBJECTISLINK: win32more.Windows.Win32.System.Ole.OBJECT_PROPERTIES_FLAGS = 1
 OPF_NOFILLDEFAULT: win32more.Windows.Win32.System.Ole.OBJECT_PROPERTIES_FLAGS = 2
 OPF_SHOWHELP: win32more.Windows.Win32.System.Ole.OBJECT_PROPERTIES_FLAGS = 4
 OPF_DISABLECONVERT: win32more.Windows.Win32.System.Ole.OBJECT_PROPERTIES_FLAGS = 8
-class OCPFIPARAMS(EasyCastStructure):
+class OCPFIPARAMS(Structure):
     cbStructSize: UInt32
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
     x: Int32
@@ -2823,7 +2823,7 @@ OLECLOSE = Int32
 OLECLOSE_SAVEIFDIRTY: win32more.Windows.Win32.System.Ole.OLECLOSE = 0
 OLECLOSE_NOSAVE: win32more.Windows.Win32.System.Ole.OLECLOSE = 1
 OLECLOSE_PROMPTSAVE: win32more.Windows.Win32.System.Ole.OLECLOSE = 2
-class OLECMD(EasyCastStructure):
+class OLECMD(Structure):
     cmdID: UInt32
     cmdf: UInt32
 OLECMDEXECOPT = Int32
@@ -3003,7 +3003,7 @@ OLECMDIDF_WINDOWSTATE_USERVISIBLE: win32more.Windows.Win32.System.Ole.OLECMDID_W
 OLECMDIDF_WINDOWSTATE_ENABLED: win32more.Windows.Win32.System.Ole.OLECMDID_WINDOWSTATE_FLAG = 2
 OLECMDIDF_WINDOWSTATE_USERVISIBLE_VALID: win32more.Windows.Win32.System.Ole.OLECMDID_WINDOWSTATE_FLAG = 65536
 OLECMDIDF_WINDOWSTATE_ENABLED_VALID: win32more.Windows.Win32.System.Ole.OLECMDID_WINDOWSTATE_FLAG = 131072
-class OLECMDTEXT(EasyCastStructure):
+class OLECMDTEXT(Structure):
     cmdtextf: UInt32
     cwActual: UInt32
     cwBuf: UInt32
@@ -3030,7 +3030,7 @@ OLEGETMONIKER_ONLYIFTHERE: win32more.Windows.Win32.System.Ole.OLEGETMONIKER = 1
 OLEGETMONIKER_FORCEASSIGN: win32more.Windows.Win32.System.Ole.OLEGETMONIKER = 2
 OLEGETMONIKER_UNASSIGN: win32more.Windows.Win32.System.Ole.OLEGETMONIKER = 3
 OLEGETMONIKER_TEMPFORUSER: win32more.Windows.Win32.System.Ole.OLEGETMONIKER = 4
-class OLEINPLACEFRAMEINFO(EasyCastStructure):
+class OLEINPLACEFRAMEINFO(Structure):
     cb: UInt32
     fMDIApp: win32more.Windows.Win32.Foundation.BOOL
     hwndFrame: win32more.Windows.Win32.Foundation.HWND
@@ -3046,7 +3046,7 @@ OLEIVERB_INPLACEACTIVATE: win32more.Windows.Win32.System.Ole.OLEIVERB = -5
 OLEIVERB_DISCARDUNDOSTATE: win32more.Windows.Win32.System.Ole.OLEIVERB = -6
 OLELINKBIND = Int32
 OLELINKBIND_EVENIFCLASSDIFF: win32more.Windows.Win32.System.Ole.OLELINKBIND = 1
-class OLEMENUGROUPWIDTHS(EasyCastStructure):
+class OLEMENUGROUPWIDTHS(Structure):
     width: Int32 * 6
 OLEMISC = Int32
 OLEMISC_RECOMPOSEONRESIZE: win32more.Windows.Win32.System.Ole.OLEMISC = 1
@@ -3078,7 +3078,7 @@ OLERENDER_FORMAT: win32more.Windows.Win32.System.Ole.OLERENDER = 2
 OLERENDER_ASIS: win32more.Windows.Win32.System.Ole.OLERENDER = 3
 @winfunctype_pointer
 def OLESTREAMQUERYCONVERTOLELINKCALLBACK(pClsid: POINTER(Guid), szClass: win32more.Windows.Win32.Foundation.PWSTR, szTopicName: win32more.Windows.Win32.Foundation.PWSTR, szItemName: win32more.Windows.Win32.Foundation.PWSTR, szUNCName: win32more.Windows.Win32.Foundation.PWSTR, linkUpdatingOption: UInt32, pvContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class OLEUIBUSYA(EasyCastStructure):
+class OLEUIBUSYA(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.BUSY_DIALOG_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3090,7 +3090,7 @@ class OLEUIBUSYA(EasyCastStructure):
     hResource: win32more.Windows.Win32.Foundation.HRSRC
     hTask: win32more.Windows.Win32.Media.HTASK
     lphWndDialog: POINTER(win32more.Windows.Win32.Foundation.HWND)
-class OLEUIBUSYW(EasyCastStructure):
+class OLEUIBUSYW(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.BUSY_DIALOG_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3103,7 +3103,7 @@ class OLEUIBUSYW(EasyCastStructure):
     hTask: win32more.Windows.Win32.Media.HTASK
     lphWndDialog: POINTER(win32more.Windows.Win32.Foundation.HWND)
 OLEUIBUSY = UnicodeAlias('OLEUIBUSYW')
-class OLEUICHANGEICONA(EasyCastStructure):
+class OLEUICHANGEICONA(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.CHANGE_ICON_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3117,7 +3117,7 @@ class OLEUICHANGEICONA(EasyCastStructure):
     clsid: Guid
     szIconExe: win32more.Windows.Win32.Foundation.CHAR * 260
     cchIconExe: Int32
-class OLEUICHANGEICONW(EasyCastStructure):
+class OLEUICHANGEICONW(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.CHANGE_ICON_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3132,7 +3132,7 @@ class OLEUICHANGEICONW(EasyCastStructure):
     szIconExe: Char * 260
     cchIconExe: Int32
 OLEUICHANGEICON = UnicodeAlias('OLEUICHANGEICONW')
-class OLEUICHANGESOURCEA(EasyCastStructure):
+class OLEUICHANGESOURCEA(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.CHANGE_SOURCE_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3150,7 +3150,7 @@ class OLEUICHANGESOURCEA(EasyCastStructure):
     nFileLength: UInt32
     lpszFrom: win32more.Windows.Win32.Foundation.PSTR
     lpszTo: win32more.Windows.Win32.Foundation.PSTR
-class OLEUICHANGESOURCEW(EasyCastStructure):
+class OLEUICHANGESOURCEW(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.CHANGE_SOURCE_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3169,7 +3169,7 @@ class OLEUICHANGESOURCEW(EasyCastStructure):
     lpszFrom: win32more.Windows.Win32.Foundation.PWSTR
     lpszTo: win32more.Windows.Win32.Foundation.PWSTR
 OLEUICHANGESOURCE = UnicodeAlias('OLEUICHANGESOURCEW')
-class OLEUICONVERTA(EasyCastStructure):
+class OLEUICONVERTA(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.UI_CONVERT_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3192,7 +3192,7 @@ class OLEUICONVERTA(EasyCastStructure):
     lpszDefLabel: win32more.Windows.Win32.Foundation.PSTR
     cClsidExclude: UInt32
     lpClsidExclude: POINTER(Guid)
-class OLEUICONVERTW(EasyCastStructure):
+class OLEUICONVERTW(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.UI_CONVERT_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3216,7 +3216,7 @@ class OLEUICONVERTW(EasyCastStructure):
     cClsidExclude: UInt32
     lpClsidExclude: POINTER(Guid)
 OLEUICONVERT = UnicodeAlias('OLEUICONVERTW')
-class OLEUIEDITLINKSA(EasyCastStructure):
+class OLEUIEDITLINKSA(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.EDIT_LINKS_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3227,7 +3227,7 @@ class OLEUIEDITLINKSA(EasyCastStructure):
     lpszTemplate: win32more.Windows.Win32.Foundation.PSTR
     hResource: win32more.Windows.Win32.Foundation.HRSRC
     lpOleUILinkContainer: win32more.Windows.Win32.System.Ole.IOleUILinkContainerA
-class OLEUIEDITLINKSW(EasyCastStructure):
+class OLEUIEDITLINKSW(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.EDIT_LINKS_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3239,7 +3239,7 @@ class OLEUIEDITLINKSW(EasyCastStructure):
     hResource: win32more.Windows.Win32.Foundation.HRSRC
     lpOleUILinkContainer: win32more.Windows.Win32.System.Ole.IOleUILinkContainerW
 OLEUIEDITLINKS = UnicodeAlias('OLEUIEDITLINKSW')
-class OLEUIGNRLPROPSA(EasyCastStructure):
+class OLEUIGNRLPROPSA(Structure):
     cbStruct: UInt32
     dwFlags: UInt32
     dwReserved1: UInt32 * 2
@@ -3247,7 +3247,7 @@ class OLEUIGNRLPROPSA(EasyCastStructure):
     lCustData: win32more.Windows.Win32.Foundation.LPARAM
     dwReserved2: UInt32 * 3
     lpOP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSA)
-class OLEUIGNRLPROPSW(EasyCastStructure):
+class OLEUIGNRLPROPSW(Structure):
     cbStruct: UInt32
     dwFlags: UInt32
     dwReserved1: UInt32 * 2
@@ -3256,7 +3256,7 @@ class OLEUIGNRLPROPSW(EasyCastStructure):
     dwReserved2: UInt32 * 3
     lpOP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSW)
 OLEUIGNRLPROPS = UnicodeAlias('OLEUIGNRLPROPSW')
-class OLEUIINSERTOBJECTA(EasyCastStructure):
+class OLEUIINSERTOBJECTA(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.INSERT_OBJECT_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3279,7 +3279,7 @@ class OLEUIINSERTOBJECTA(EasyCastStructure):
     ppvObj: POINTER(VoidPtr)
     sc: Int32
     hMetaPict: win32more.Windows.Win32.Foundation.HGLOBAL
-class OLEUIINSERTOBJECTW(EasyCastStructure):
+class OLEUIINSERTOBJECTW(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.INSERT_OBJECT_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3303,7 +3303,7 @@ class OLEUIINSERTOBJECTW(EasyCastStructure):
     sc: Int32
     hMetaPict: win32more.Windows.Win32.Foundation.HGLOBAL
 OLEUIINSERTOBJECT = UnicodeAlias('OLEUIINSERTOBJECTW')
-class OLEUILINKPROPSA(EasyCastStructure):
+class OLEUILINKPROPSA(Structure):
     cbStruct: UInt32
     dwFlags: UInt32
     dwReserved1: UInt32 * 2
@@ -3311,7 +3311,7 @@ class OLEUILINKPROPSA(EasyCastStructure):
     lCustData: win32more.Windows.Win32.Foundation.LPARAM
     dwReserved2: UInt32 * 3
     lpOP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSA)
-class OLEUILINKPROPSW(EasyCastStructure):
+class OLEUILINKPROPSW(Structure):
     cbStruct: UInt32
     dwFlags: UInt32
     dwReserved1: UInt32 * 2
@@ -3320,7 +3320,7 @@ class OLEUILINKPROPSW(EasyCastStructure):
     dwReserved2: UInt32 * 3
     lpOP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSW)
 OLEUILINKPROPS = UnicodeAlias('OLEUILINKPROPSW')
-class OLEUIOBJECTPROPSA(EasyCastStructure):
+class OLEUIOBJECTPROPSA(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.OBJECT_PROPERTIES_FLAGS
     lpPS: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETHEADERA_V2)
@@ -3331,7 +3331,7 @@ class OLEUIOBJECTPROPSA(EasyCastStructure):
     lpGP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIGNRLPROPSA)
     lpVP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIVIEWPROPSA)
     lpLP: POINTER(win32more.Windows.Win32.System.Ole.OLEUILINKPROPSA)
-class OLEUIOBJECTPROPSW(EasyCastStructure):
+class OLEUIOBJECTPROPSW(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.OBJECT_PROPERTIES_FLAGS
     lpPS: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETHEADERW_V2)
@@ -3343,13 +3343,13 @@ class OLEUIOBJECTPROPSW(EasyCastStructure):
     lpVP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIVIEWPROPSW)
     lpLP: POINTER(win32more.Windows.Win32.System.Ole.OLEUILINKPROPSW)
 OLEUIOBJECTPROPS = UnicodeAlias('OLEUIOBJECTPROPSW')
-class OLEUIPASTEENTRYA(EasyCastStructure):
+class OLEUIPASTEENTRYA(Structure):
     fmtetc: win32more.Windows.Win32.System.Com.FORMATETC
     lpstrFormatName: win32more.Windows.Win32.Foundation.PSTR
     lpstrResultText: win32more.Windows.Win32.Foundation.PSTR
     dwFlags: UInt32
     dwScratchSpace: UInt32
-class OLEUIPASTEENTRYW(EasyCastStructure):
+class OLEUIPASTEENTRYW(Structure):
     fmtetc: win32more.Windows.Win32.System.Com.FORMATETC
     lpstrFormatName: win32more.Windows.Win32.Foundation.PWSTR
     lpstrResultText: win32more.Windows.Win32.Foundation.PWSTR
@@ -3369,7 +3369,7 @@ OLEUIPASTE_LINKTYPE5: win32more.Windows.Win32.System.Ole.OLEUIPASTEFLAG = 16
 OLEUIPASTE_LINKTYPE6: win32more.Windows.Win32.System.Ole.OLEUIPASTEFLAG = 32
 OLEUIPASTE_LINKTYPE7: win32more.Windows.Win32.System.Ole.OLEUIPASTEFLAG = 64
 OLEUIPASTE_LINKTYPE8: win32more.Windows.Win32.System.Ole.OLEUIPASTEFLAG = 128
-class OLEUIPASTESPECIALA(EasyCastStructure):
+class OLEUIPASTESPECIALA(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.PASTE_SPECIAL_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3390,7 +3390,7 @@ class OLEUIPASTESPECIALA(EasyCastStructure):
     fLink: win32more.Windows.Win32.Foundation.BOOL
     hMetaPict: win32more.Windows.Win32.Foundation.HGLOBAL
     sizel: win32more.Windows.Win32.Foundation.SIZE
-class OLEUIPASTESPECIALW(EasyCastStructure):
+class OLEUIPASTESPECIALW(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.PASTE_SPECIAL_FLAGS
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -3412,7 +3412,7 @@ class OLEUIPASTESPECIALW(EasyCastStructure):
     hMetaPict: win32more.Windows.Win32.Foundation.HGLOBAL
     sizel: win32more.Windows.Win32.Foundation.SIZE
 OLEUIPASTESPECIAL = UnicodeAlias('OLEUIPASTESPECIALW')
-class OLEUIVIEWPROPSA(EasyCastStructure):
+class OLEUIVIEWPROPSA(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.VIEW_OBJECT_PROPERTIES_FLAGS
     dwReserved1: UInt32 * 2
@@ -3422,7 +3422,7 @@ class OLEUIVIEWPROPSA(EasyCastStructure):
     lpOP: POINTER(win32more.Windows.Win32.System.Ole.OLEUIOBJECTPROPSA)
     nScaleMin: Int32
     nScaleMax: Int32
-class OLEUIVIEWPROPSW(EasyCastStructure):
+class OLEUIVIEWPROPSW(Structure):
     cbStruct: UInt32
     dwFlags: win32more.Windows.Win32.System.Ole.VIEW_OBJECT_PROPERTIES_FLAGS
     dwReserved1: UInt32 * 2
@@ -3436,7 +3436,7 @@ OLEUIVIEWPROPS = UnicodeAlias('OLEUIVIEWPROPSW')
 OLEUPDATE = Int32
 OLEUPDATE_ALWAYS: win32more.Windows.Win32.System.Ole.OLEUPDATE = 1
 OLEUPDATE_ONCALL: win32more.Windows.Win32.System.Ole.OLEUPDATE = 3
-class OLEVERB(EasyCastStructure):
+class OLEVERB(Structure):
     lVerb: win32more.Windows.Win32.System.Ole.OLEIVERB
     lpszVerbName: win32more.Windows.Win32.Foundation.PWSTR
     fuFlags: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS
@@ -3458,22 +3458,22 @@ PAGEACTION_UI_DEFAULT: win32more.Windows.Win32.System.Ole.PAGEACTION_UI = 0
 PAGEACTION_UI_MODAL: win32more.Windows.Win32.System.Ole.PAGEACTION_UI = 1
 PAGEACTION_UI_MODELESS: win32more.Windows.Win32.System.Ole.PAGEACTION_UI = 2
 PAGEACTION_UI_SILENT: win32more.Windows.Win32.System.Ole.PAGEACTION_UI = 3
-class PAGERANGE(EasyCastStructure):
+class PAGERANGE(Structure):
     nFromPage: Int32
     nToPage: Int32
-class PAGESET(EasyCastStructure):
+class PAGESET(Structure):
     cbStruct: UInt32
     fOddPages: win32more.Windows.Win32.Foundation.BOOL
     fEvenPages: win32more.Windows.Win32.Foundation.BOOL
     cPageRange: UInt32
     rgPages: win32more.Windows.Win32.System.Ole.PAGERANGE * 1
-class PARAMDATA(EasyCastStructure):
+class PARAMDATA(Structure):
     szName: win32more.Windows.Win32.Foundation.PWSTR
     vt: win32more.Windows.Win32.System.Variant.VARENUM
-class PARAMDESC(EasyCastStructure):
+class PARAMDESC(Structure):
     pparamdescex: POINTER(win32more.Windows.Win32.System.Ole.PARAMDESCEX)
     wParamFlags: win32more.Windows.Win32.System.Ole.PARAMFLAGS
-class PARAMDESCEX(EasyCastStructure):
+class PARAMDESCEX(Structure):
     cBytes: UInt32
     varDefaultValue: win32more.Windows.Win32.System.Variant.VARIANT
 PARAMFLAGS = UInt16
@@ -3494,25 +3494,25 @@ PSF_DISABLEDISPLAYASICON: win32more.Windows.Win32.System.Ole.PASTE_SPECIAL_FLAGS
 PSF_HIDECHANGEICON: win32more.Windows.Win32.System.Ole.PASTE_SPECIAL_FLAGS = 32
 PSF_STAYONCLIPBOARDCHANGE: win32more.Windows.Win32.System.Ole.PASTE_SPECIAL_FLAGS = 64
 PSF_NOREFRESHDATAOBJECT: win32more.Windows.Win32.System.Ole.PASTE_SPECIAL_FLAGS = 128
-class PICTDESC(EasyCastStructure):
+class PICTDESC(Structure):
     cbSizeofstruct: UInt32
     picType: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         bmp: _bmp_e__Struct
         wmf: _wmf_e__Struct
         icon: _icon_e__Struct
         emf: _emf_e__Struct
-        class _bmp_e__Struct(EasyCastStructure):
+        class _bmp_e__Struct(Structure):
             hbitmap: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
             hpal: win32more.Windows.Win32.Graphics.Gdi.HPALETTE
-        class _wmf_e__Struct(EasyCastStructure):
+        class _wmf_e__Struct(Structure):
             hmeta: win32more.Windows.Win32.Graphics.Gdi.HMETAFILE
             xExt: Int32
             yExt: Int32
-        class _icon_e__Struct(EasyCastStructure):
+        class _icon_e__Struct(Structure):
             hicon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
-        class _emf_e__Struct(EasyCastStructure):
+        class _emf_e__Struct(Structure):
             hemf: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE
 PICTUREATTRIBUTES = Int32
 PICTURE_SCALABLE: win32more.Windows.Win32.System.Ole.PICTUREATTRIBUTES = 1
@@ -3528,7 +3528,7 @@ POINTERINACTIVE = Int32
 POINTERINACTIVE_ACTIVATEONENTRY: win32more.Windows.Win32.System.Ole.POINTERINACTIVE = 1
 POINTERINACTIVE_DEACTIVATEONLEAVE: win32more.Windows.Win32.System.Ole.POINTERINACTIVE = 2
 POINTERINACTIVE_ACTIVATEONDRAG: win32more.Windows.Win32.System.Ole.POINTERINACTIVE = 4
-class POINTF(EasyCastStructure):
+class POINTF(Structure):
     x: Single
     y: Single
 PRINTFLAG = Int32
@@ -3547,7 +3547,7 @@ PROPBAG2_TYPE_OBJECT: win32more.Windows.Win32.System.Ole.PROPBAG2_TYPE = 3
 PROPBAG2_TYPE_STREAM: win32more.Windows.Win32.System.Ole.PROPBAG2_TYPE = 4
 PROPBAG2_TYPE_STORAGE: win32more.Windows.Win32.System.Ole.PROPBAG2_TYPE = 5
 PROPBAG2_TYPE_MONIKER: win32more.Windows.Win32.System.Ole.PROPBAG2_TYPE = 6
-class PROPPAGEINFO(EasyCastStructure):
+class PROPPAGEINFO(Structure):
     cb: UInt32
     pszTitle: win32more.Windows.Win32.Foundation.PWSTR
     size: win32more.Windows.Win32.Foundation.SIZE
@@ -3558,7 +3558,7 @@ PROPPAGESTATUS = Int32
 PROPPAGESTATUS_DIRTY: win32more.Windows.Win32.System.Ole.PROPPAGESTATUS = 1
 PROPPAGESTATUS_VALIDATE: win32more.Windows.Win32.System.Ole.PROPPAGESTATUS = 2
 PROPPAGESTATUS_CLEAN: win32more.Windows.Win32.System.Ole.PROPPAGESTATUS = 4
-class QACONTAINER(EasyCastStructure):
+class QACONTAINER(Structure):
     cbSize: UInt32
     pClientSite: win32more.Windows.Win32.System.Ole.IOleClientSite
     pAdviseSink: win32more.Windows.Win32.System.Ole.IAdviseSinkEx
@@ -3584,7 +3584,7 @@ QACONTAINER_UIDEAD: win32more.Windows.Win32.System.Ole.QACONTAINERFLAGS = 16
 QACONTAINER_AUTOCLIP: win32more.Windows.Win32.System.Ole.QACONTAINERFLAGS = 32
 QACONTAINER_MESSAGEREFLECT: win32more.Windows.Win32.System.Ole.QACONTAINERFLAGS = 64
 QACONTAINER_SUPPORTSMNEMONICS: win32more.Windows.Win32.System.Ole.QACONTAINERFLAGS = 128
-class QACONTROL(EasyCastStructure):
+class QACONTROL(Structure):
     cbSize: UInt32
     dwMiscStatus: UInt32
     dwViewStatus: UInt32
@@ -3601,10 +3601,10 @@ REGKIND = Int32
 REGKIND_DEFAULT: win32more.Windows.Win32.System.Ole.REGKIND = 0
 REGKIND_REGISTER: win32more.Windows.Win32.System.Ole.REGKIND = 1
 REGKIND_NONE: win32more.Windows.Win32.System.Ole.REGKIND = 2
-class SAFEARRAYUNION(EasyCastStructure):
+class SAFEARRAYUNION(Structure):
     sfType: UInt32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         BstrStr: win32more.Windows.Win32.System.Ole.SAFEARR_BSTR
         UnknownStr: win32more.Windows.Win32.System.Ole.SAFEARR_UNKNOWN
         DispatchStr: win32more.Windows.Win32.System.Ole.SAFEARR_DISPATCH
@@ -3615,23 +3615,23 @@ class SAFEARRAYUNION(EasyCastStructure):
         WordStr: win32more.Windows.Win32.System.Com.WORD_SIZEDARR
         LongStr: win32more.Windows.Win32.System.Com.DWORD_SIZEDARR
         HyperStr: win32more.Windows.Win32.System.Com.HYPER_SIZEDARR
-class SAFEARR_BRECORD(EasyCastStructure):
+class SAFEARR_BRECORD(Structure):
     Size: UInt32
     aRecord: POINTER(POINTER(win32more.Windows.Win32.System.Ole._wireBRECORD))
-class SAFEARR_BSTR(EasyCastStructure):
+class SAFEARR_BSTR(Structure):
     Size: UInt32
     aBstr: POINTER(POINTER(win32more.Windows.Win32.System.Com.FLAGGED_WORD_BLOB))
-class SAFEARR_DISPATCH(EasyCastStructure):
+class SAFEARR_DISPATCH(Structure):
     Size: UInt32
     apDispatch: POINTER(win32more.Windows.Win32.System.Com.IDispatch)
-class SAFEARR_HAVEIID(EasyCastStructure):
+class SAFEARR_HAVEIID(Structure):
     Size: UInt32
     apUnknown: POINTER(win32more.Windows.Win32.System.Com.IUnknown)
     iid: Guid
-class SAFEARR_UNKNOWN(EasyCastStructure):
+class SAFEARR_UNKNOWN(Structure):
     Size: UInt32
     apUnknown: POINTER(win32more.Windows.Win32.System.Com.IUnknown)
-class SAFEARR_VARIANT(EasyCastStructure):
+class SAFEARR_VARIANT(Structure):
     Size: UInt32
     aVariant: POINTER(POINTER(win32more.Windows.Win32.System.Ole._wireVARIANT))
 SF_TYPE = Int32
@@ -3667,7 +3667,7 @@ UAS_NORMAL: win32more.Windows.Win32.System.Ole.UASFLAGS = 0
 UAS_BLOCKED: win32more.Windows.Win32.System.Ole.UASFLAGS = 1
 UAS_NOPARENTENABLE: win32more.Windows.Win32.System.Ole.UASFLAGS = 2
 UAS_MASK: win32more.Windows.Win32.System.Ole.UASFLAGS = 3
-class UDATE(EasyCastStructure):
+class UDATE(Structure):
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
     wDayOfYear: UInt16
 UI_CONVERT_FLAGS = UInt32
@@ -3751,19 +3751,19 @@ XFORMCOORDS_SIZE: win32more.Windows.Win32.System.Ole.XFORMCOORDS = 2
 XFORMCOORDS_HIMETRICTOCONTAINER: win32more.Windows.Win32.System.Ole.XFORMCOORDS = 4
 XFORMCOORDS_CONTAINERTOHIMETRIC: win32more.Windows.Win32.System.Ole.XFORMCOORDS = 8
 XFORMCOORDS_EVENTCOMPAT: win32more.Windows.Win32.System.Ole.XFORMCOORDS = 16
-class _wireBRECORD(EasyCastStructure):
+class _wireBRECORD(Structure):
     fFlags: UInt32
     clSize: UInt32
     pRecInfo: win32more.Windows.Win32.System.Ole.IRecordInfo
     pRecord: POINTER(Byte)
-class _wireSAFEARRAY(EasyCastStructure):
+class _wireSAFEARRAY(Structure):
     cDims: UInt16
     fFeatures: UInt16
     cbElements: UInt32
     cLocks: UInt32
     uArrayStructs: win32more.Windows.Win32.System.Ole.SAFEARRAYUNION
     rgsabound: win32more.Windows.Win32.System.Com.SAFEARRAYBOUND * 1
-class _wireVARIANT(EasyCastStructure):
+class _wireVARIANT(Structure):
     clSize: UInt32
     rpcReserved: UInt32
     vt: UInt16
@@ -3771,7 +3771,7 @@ class _wireVARIANT(EasyCastStructure):
     wReserved2: UInt16
     wReserved3: UInt16
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         llVal: Int64
         lVal: Int32
         bVal: Byte

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.SystemInformation
 NTDDI_WIN2K: UInt32 = 83886080
@@ -252,13 +252,13 @@ def VerifyVersionInfoA(lpVersionInformation: POINTER(win32more.Windows.Win32.Sys
 @winfunctype('KERNEL32.dll')
 def VerifyVersionInfoW(lpVersionInformation: POINTER(win32more.Windows.Win32.System.SystemInformation.OSVERSIONINFOEXW), dwTypeMask: win32more.Windows.Win32.System.SystemInformation.VER_FLAGS, dwlConditionMask: UInt64) -> win32more.Windows.Win32.Foundation.BOOL: ...
 VerifyVersionInfo = UnicodeAlias('VerifyVersionInfoW')
-class CACHE_DESCRIPTOR(EasyCastStructure):
+class CACHE_DESCRIPTOR(Structure):
     Level: Byte
     Associativity: Byte
     LineSize: UInt16
     Size: UInt32
     Type: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE
-class CACHE_RELATIONSHIP(EasyCastStructure):
+class CACHE_RELATIONSHIP(Structure):
     Level: Byte
     Associativity: Byte
     LineSize: UInt16
@@ -267,7 +267,7 @@ class CACHE_RELATIONSHIP(EasyCastStructure):
     Reserved: Byte * 18
     GroupCount: UInt16
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         GroupMask: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY
         GroupMasks: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY * 1
 COMPUTER_NAME_FORMAT = Int32
@@ -370,11 +370,11 @@ FirmwareTypeUnknown: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_T
 FirmwareTypeBios: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 1
 FirmwareTypeUefi: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 2
 FirmwareTypeMax: win32more.Windows.Win32.System.SystemInformation.FIRMWARE_TYPE = 3
-class GROUP_AFFINITY(EasyCastStructure):
+class GROUP_AFFINITY(Structure):
     Mask: UIntPtr
     Group: UInt16
     Reserved: UInt16 * 3
-class GROUP_RELATIONSHIP(EasyCastStructure):
+class GROUP_RELATIONSHIP(Structure):
     MaximumGroupCount: UInt16
     ActiveGroupCount: UInt16
     Reserved: Byte * 20
@@ -422,7 +422,7 @@ RelationProcessorDie: win32more.Windows.Win32.System.SystemInformation.LOGICAL_P
 RelationNumaNodeEx: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 6
 RelationProcessorModule: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 7
 RelationAll: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP = 65535
-class MEMORYSTATUS(EasyCastStructure):
+class MEMORYSTATUS(Structure):
     dwLength: UInt32
     dwMemoryLoad: UInt32
     dwTotalPhys: UIntPtr
@@ -431,7 +431,7 @@ class MEMORYSTATUS(EasyCastStructure):
     dwAvailPageFile: UIntPtr
     dwTotalVirtual: UIntPtr
     dwAvailVirtual: UIntPtr
-class MEMORYSTATUSEX(EasyCastStructure):
+class MEMORYSTATUSEX(Structure):
     dwLength: UInt32
     dwMemoryLoad: UInt32
     ullTotalPhys: UInt64
@@ -441,22 +441,22 @@ class MEMORYSTATUSEX(EasyCastStructure):
     ullTotalVirtual: UInt64
     ullAvailVirtual: UInt64
     ullAvailExtendedVirtual: UInt64
-class NUMA_NODE_RELATIONSHIP(EasyCastStructure):
+class NUMA_NODE_RELATIONSHIP(Structure):
     NodeNumber: UInt32
     Reserved: Byte * 18
     GroupCount: UInt16
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         GroupMask: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY
         GroupMasks: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY * 1
-class OSVERSIONINFOA(EasyCastStructure):
+class OSVERSIONINFOA(Structure):
     dwOSVersionInfoSize: UInt32
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
     dwBuildNumber: UInt32
     dwPlatformId: UInt32
     szCSDVersion: win32more.Windows.Win32.Foundation.CHAR * 128
-class OSVERSIONINFOEXA(EasyCastStructure):
+class OSVERSIONINFOEXA(Structure):
     dwOSVersionInfoSize: UInt32
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
@@ -468,7 +468,7 @@ class OSVERSIONINFOEXA(EasyCastStructure):
     wSuiteMask: UInt16
     wProductType: Byte
     wReserved: Byte
-class OSVERSIONINFOEXW(EasyCastStructure):
+class OSVERSIONINFOEXW(Structure):
     dwOSVersionInfoSize: UInt32
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
@@ -481,7 +481,7 @@ class OSVERSIONINFOEXW(EasyCastStructure):
     wProductType: Byte
     wReserved: Byte
 OSVERSIONINFOEX = UnicodeAlias('OSVERSIONINFOEXW')
-class OSVERSIONINFOW(EasyCastStructure):
+class OSVERSIONINFOW(Structure):
     dwOSVersionInfoSize: UInt32
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
@@ -616,12 +616,12 @@ CacheUnified: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_T
 CacheInstruction: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 1
 CacheData: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 2
 CacheTrace: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_CACHE_TYPE = 3
-class PROCESSOR_GROUP_INFO(EasyCastStructure):
+class PROCESSOR_GROUP_INFO(Structure):
     MaximumProcessorCount: Byte
     ActiveProcessorCount: Byte
     Reserved: Byte * 38
     ActiveProcessorMask: UIntPtr
-class PROCESSOR_RELATIONSHIP(EasyCastStructure):
+class PROCESSOR_RELATIONSHIP(Structure):
     Flags: Byte
     EfficiencyClass: Byte
     Reserved: Byte * 20
@@ -648,13 +648,13 @@ GlobalDataIdQpcShift: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTE
 GlobalDataIdQpcBypassEnabled: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 17
 GlobalDataIdQpcData: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 18
 GlobalDataIdQpcBias: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 19
-class SYSTEM_CPU_SET_INFORMATION(EasyCastStructure):
+class SYSTEM_CPU_SET_INFORMATION(Structure):
     Size: UInt32
     Type: win32more.Windows.Win32.System.SystemInformation.CPU_SET_INFORMATION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         CpuSet: _CpuSet_e__Struct
-        class _CpuSet_e__Struct(EasyCastStructure):
+        class _CpuSet_e__Struct(Structure):
             Id: UInt32
             Group: UInt16
             LogicalProcessorIndex: Byte
@@ -665,15 +665,15 @@ class SYSTEM_CPU_SET_INFORMATION(EasyCastStructure):
             Anonymous1: _Anonymous1_e__Union
             Anonymous2: _Anonymous2_e__Union
             AllocationTag: UInt64
-            class _Anonymous1_e__Union(EasyCastUnion):
+            class _Anonymous1_e__Union(Union):
                 AllFlags: Byte
                 Anonymous: _Anonymous_e__Struct
-                class _Anonymous_e__Struct(EasyCastStructure):
+                class _Anonymous_e__Struct(Structure):
                     _bitfield: Byte
-            class _Anonymous2_e__Union(EasyCastUnion):
+            class _Anonymous2_e__Union(Union):
                 Reserved: UInt32
                 SchedulingClass: Byte
-class SYSTEM_INFO(EasyCastStructure):
+class SYSTEM_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     dwPageSize: UInt32
     lpMinimumApplicationAddress: VoidPtr
@@ -684,39 +684,39 @@ class SYSTEM_INFO(EasyCastStructure):
     dwAllocationGranularity: UInt32
     wProcessorLevel: UInt16
     wProcessorRevision: UInt16
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwOemId: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             wProcessorArchitecture: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_ARCHITECTURE
             wReserved: UInt16
-class SYSTEM_LOGICAL_PROCESSOR_INFORMATION(EasyCastStructure):
+class SYSTEM_LOGICAL_PROCESSOR_INFORMATION(Structure):
     ProcessorMask: UIntPtr
     Relationship: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ProcessorCore: _ProcessorCore_e__Struct
         NumaNode: _NumaNode_e__Struct
         Cache: win32more.Windows.Win32.System.SystemInformation.CACHE_DESCRIPTOR
         Reserved: UInt64 * 2
-        class _ProcessorCore_e__Struct(EasyCastStructure):
+        class _ProcessorCore_e__Struct(Structure):
             Flags: Byte
-        class _NumaNode_e__Struct(EasyCastStructure):
+        class _NumaNode_e__Struct(Structure):
             NodeNumber: UInt32
-class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX(EasyCastStructure):
+class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX(Structure):
     Relationship: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP
     Size: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Processor: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_RELATIONSHIP
         NumaNode: win32more.Windows.Win32.System.SystemInformation.NUMA_NODE_RELATIONSHIP
         Cache: win32more.Windows.Win32.System.SystemInformation.CACHE_RELATIONSHIP
         Group: win32more.Windows.Win32.System.SystemInformation.GROUP_RELATIONSHIP
-class SYSTEM_POOL_ZEROING_INFORMATION(EasyCastStructure):
+class SYSTEM_POOL_ZEROING_INFORMATION(Structure):
     PoolZeroingSupportPresent: win32more.Windows.Win32.Foundation.BOOLEAN
-class SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION(EasyCastStructure):
+class SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION(Structure):
     CycleTime: UInt64
-class SYSTEM_SUPPORTED_PROCESSOR_ARCHITECTURES_INFORMATION(EasyCastStructure):
+class SYSTEM_SUPPORTED_PROCESSOR_ARCHITECTURES_INFORMATION(Structure):
     _bitfield: UInt32
 USER_CET_ENVIRONMENT = UInt32
 USER_CET_ENVIRONMENT_WIN32_PROCESS: win32more.Windows.Win32.System.SystemInformation.USER_CET_ENVIRONMENT = 0

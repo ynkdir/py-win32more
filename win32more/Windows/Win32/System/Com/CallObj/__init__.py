@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.CallObj
@@ -8,7 +8,7 @@ import win32more.Windows.Win32.System.Variant
 def CoGetInterceptor(iidIntercepted: POINTER(Guid), punkOuter: win32more.Windows.Win32.System.Com.IUnknown, iid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
 def CoGetInterceptorFromTypeInfo(iidIntercepted: POINTER(Guid), punkOuter: win32more.Windows.Win32.System.Com.IUnknown, typeInfo: win32more.Windows.Win32.System.Com.ITypeInfo, iid: POINTER(Guid), ppv: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class CALLFRAMEINFO(EasyCastStructure):
+class CALLFRAMEINFO(Structure):
     iMethod: UInt32
     fHasInValues: win32more.Windows.Win32.Foundation.BOOL
     fHasInOutValues: win32more.Windows.Win32.Foundation.BOOL
@@ -21,7 +21,7 @@ class CALLFRAMEINFO(EasyCastStructure):
     iid: Guid
     cMethod: UInt32
     cParams: UInt32
-class CALLFRAMEPARAMINFO(EasyCastStructure):
+class CALLFRAMEPARAMINFO(Structure):
     fIn: win32more.Windows.Win32.Foundation.BOOLEAN
     fOut: win32more.Windows.Win32.Foundation.BOOLEAN
     stackOffset: UInt32
@@ -37,7 +37,7 @@ CALLFRAME_FREE_OUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 
 CALLFRAME_FREE_TOP_INOUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 8
 CALLFRAME_FREE_TOP_OUT: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 16
 CALLFRAME_FREE_ALL: win32more.Windows.Win32.System.Com.CallObj.CALLFRAME_FREE = 31
-class CALLFRAME_MARSHALCONTEXT(EasyCastStructure):
+class CALLFRAME_MARSHALCONTEXT(Structure):
     fIn: win32more.Windows.Win32.Foundation.BOOLEAN
     dwDestContext: UInt32
     pvDestContext: VoidPtr

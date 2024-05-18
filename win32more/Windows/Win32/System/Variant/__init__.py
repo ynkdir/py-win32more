@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Ole
@@ -239,18 +239,18 @@ VT_RESERVED: win32more.Windows.Win32.System.Variant.VARENUM = 32768
 VT_ILLEGAL: win32more.Windows.Win32.System.Variant.VARENUM = 65535
 VT_ILLEGALMASKED: win32more.Windows.Win32.System.Variant.VARENUM = 4095
 VT_TYPEMASK: win32more.Windows.Win32.System.Variant.VARENUM = 4095
-class VARIANT(EasyCastStructure):
+class VARIANT(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         decVal: win32more.Windows.Win32.Foundation.DECIMAL
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             vt: win32more.Windows.Win32.System.Variant.VARENUM
             wReserved1: UInt16
             wReserved2: UInt16
             wReserved3: UInt16
             Anonymous: _Anonymous_e__Union
-            class _Anonymous_e__Union(EasyCastUnion):
+            class _Anonymous_e__Union(Union):
                 llVal: Int64
                 lVal: Int32
                 bVal: Byte
@@ -297,7 +297,7 @@ class VARIANT(EasyCastStructure):
                 pintVal: POINTER(Int32)
                 puintVal: POINTER(UInt32)
                 Anonymous: _Anonymous_e__Struct
-                class _Anonymous_e__Struct(EasyCastStructure):
+                class _Anonymous_e__Struct(Structure):
                     pvRecord: VoidPtr
                     pRecInfo: win32more.Windows.Win32.System.Ole.IRecordInfo
 VAR_CHANGE_FLAGS = UInt16

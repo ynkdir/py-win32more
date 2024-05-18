@@ -1,18 +1,18 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Diagnostics.ClrProfiling
 import win32more.Windows.Win32.System.WinRT.Metadata
-class COR_DEBUG_IL_TO_NATIVE_MAP(EasyCastStructure):
+class COR_DEBUG_IL_TO_NATIVE_MAP(Structure):
     ilOffset: UInt32
     nativeStartOffset: UInt32
     nativeEndOffset: UInt32
-class COR_IL_MAP(EasyCastStructure):
+class COR_IL_MAP(Structure):
     oldOffset: UInt32
     newOffset: UInt32
     fAccurate: win32more.Windows.Win32.Foundation.BOOL
-class COR_PRF_ASSEMBLY_REFERENCE_INFO(EasyCastStructure):
+class COR_PRF_ASSEMBLY_REFERENCE_INFO(Structure):
     pbPublicKeyOrToken: VoidPtr
     cbPublicKeyOrToken: UInt32
     szName: win32more.Windows.Win32.Foundation.PWSTR
@@ -28,7 +28,7 @@ COR_PRF_CLAUSE_FINALLY: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.
 COR_PRF_CODEGEN_FLAGS = Int32
 COR_PRF_CODEGEN_DISABLE_INLINING: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_CODEGEN_FLAGS = 1
 COR_PRF_CODEGEN_DISABLE_ALL_OPTIMIZATIONS: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_CODEGEN_FLAGS = 2
-class COR_PRF_CODE_INFO(EasyCastStructure):
+class COR_PRF_CODE_INFO(Structure):
     startAddress: UIntPtr
     size: UIntPtr
 COR_PRF_EVENTPIPE_LEVEL = Int32
@@ -38,7 +38,7 @@ COR_PRF_EVENTPIPE_ERROR: win32more.Windows.Win32.System.Diagnostics.ClrProfiling
 COR_PRF_EVENTPIPE_WARNING: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENTPIPE_LEVEL = 3
 COR_PRF_EVENTPIPE_INFORMATIONAL: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENTPIPE_LEVEL = 4
 COR_PRF_EVENTPIPE_VERBOSE: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENTPIPE_LEVEL = 5
-class COR_PRF_EVENTPIPE_PARAM_DESC(EasyCastStructure):
+class COR_PRF_EVENTPIPE_PARAM_DESC(Structure):
     type: UInt32
     elementType: UInt32
     name: win32more.Windows.Win32.Foundation.PWSTR
@@ -61,34 +61,34 @@ COR_PRF_EVENTPIPE_DATETIME: win32more.Windows.Win32.System.Diagnostics.ClrProfil
 COR_PRF_EVENTPIPE_GUID: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENTPIPE_PARAM_TYPE = 17
 COR_PRF_EVENTPIPE_STRING: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENTPIPE_PARAM_TYPE = 18
 COR_PRF_EVENTPIPE_ARRAY: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EVENTPIPE_PARAM_TYPE = 19
-class COR_PRF_EVENTPIPE_PROVIDER_CONFIG(EasyCastStructure):
+class COR_PRF_EVENTPIPE_PROVIDER_CONFIG(Structure):
     providerName: win32more.Windows.Win32.Foundation.PWSTR
     keywords: UInt64
     loggingLevel: UInt32
     filterData: win32more.Windows.Win32.Foundation.PWSTR
-class COR_PRF_EVENT_DATA(EasyCastStructure):
+class COR_PRF_EVENT_DATA(Structure):
     ptr: UInt64
     size: UInt32
     reserved: UInt32
-class COR_PRF_EX_CLAUSE_INFO(EasyCastStructure):
+class COR_PRF_EX_CLAUSE_INFO(Structure):
     clauseType: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_CLAUSE_TYPE
     programCounter: UIntPtr
     framePointer: UIntPtr
     shadowStackPointer: UIntPtr
-class COR_PRF_FILTER_DATA(EasyCastStructure):
+class COR_PRF_FILTER_DATA(Structure):
     Ptr: UInt64
     Size: UInt32
     Type: UInt32
 COR_PRF_FINALIZER_FLAGS = Int32
 COR_PRF_FINALIZER_CRITICAL: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_FINALIZER_FLAGS = 1
-class COR_PRF_FUNCTION(EasyCastStructure):
+class COR_PRF_FUNCTION(Structure):
     functionId: UIntPtr
     reJitId: UIntPtr
-class COR_PRF_FUNCTION_ARGUMENT_INFO(EasyCastStructure):
+class COR_PRF_FUNCTION_ARGUMENT_INFO(Structure):
     numRanges: UInt32
     totalArgumentSize: UInt32
     ranges: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_FUNCTION_ARGUMENT_RANGE * 1
-class COR_PRF_FUNCTION_ARGUMENT_RANGE(EasyCastStructure):
+class COR_PRF_FUNCTION_ARGUMENT_RANGE(Structure):
     startAddress: UIntPtr
     length: UInt32
 COR_PRF_GC_GENERATION = Int32
@@ -97,7 +97,7 @@ COR_PRF_GC_GEN_1: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PR
 COR_PRF_GC_GEN_2: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_GC_GENERATION = 2
 COR_PRF_GC_LARGE_OBJECT_HEAP: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_GC_GENERATION = 3
 COR_PRF_GC_PINNED_OBJECT_HEAP: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_GC_GENERATION = 4
-class COR_PRF_GC_GENERATION_RANGE(EasyCastStructure):
+class COR_PRF_GC_GENERATION_RANGE(Structure):
     generation: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_GC_GENERATION
     rangeStart: UIntPtr
     rangeLength: UIntPtr
@@ -137,7 +137,7 @@ COR_PRF_HIGH_MONITOR_IMMUTABLE: win32more.Windows.Win32.System.Diagnostics.ClrPr
 COR_PRF_JIT_CACHE = Int32
 COR_PRF_CACHED_FUNCTION_FOUND: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_JIT_CACHE = 0
 COR_PRF_CACHED_FUNCTION_NOT_FOUND: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_JIT_CACHE = 1
-class COR_PRF_METHOD(EasyCastStructure):
+class COR_PRF_METHOD(Structure):
     moduleId: UIntPtr
     methodId: UInt32
 COR_PRF_MISC = Int32
@@ -192,7 +192,7 @@ COR_PRF_REQUIRE_PROFILE_IMAGE: win32more.Windows.Win32.System.Diagnostics.ClrPro
 COR_PRF_ALLOWABLE_AFTER_ATTACH: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_MONITOR = 268763902
 COR_PRF_ALLOWABLE_NOTIFICATION_PROFILER: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_MONITOR = -1310512257
 COR_PRF_MONITOR_IMMUTABLE: win32more.Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_MONITOR = -285684736
-class COR_PRF_NONGC_HEAP_RANGE(EasyCastStructure):
+class COR_PRF_NONGC_HEAP_RANGE(Structure):
     rangeStart: UIntPtr
     rangeLength: UIntPtr
     rangeLengthReserved: UIntPtr
@@ -243,7 +243,7 @@ def FunctionEnter3WithInfo(functionIDOrClientID: win32more.Windows.Win32.System.
 def FunctionIDMapper(funcId: UIntPtr, pbHookFunction: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> UIntPtr: ...
 @winfunctype_pointer
 def FunctionIDMapper2(funcId: UIntPtr, clientData: VoidPtr, pbHookFunction: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> UIntPtr: ...
-class FunctionIDOrClientID(EasyCastUnion):
+class FunctionIDOrClientID(Union):
     functionID: UIntPtr
     clientID: UIntPtr
 @winfunctype_pointer

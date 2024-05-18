@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.HostComputeSystem
@@ -282,23 +282,23 @@ def GetSavedStateSymbolFieldInfo(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, 
 def ScanMemoryForDosImages(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, startAddress: UInt64, endAddress: UInt64, callbackContext: VoidPtr, foundImageCallback: win32more.Windows.Win32.System.Hypervisor.FOUND_IMAGE_CALLBACK, standaloneAddress: POINTER(UInt64), standaloneAddressCount: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('VmSavedStateDumpProvider.dll')
 def CallStackUnwind(vmSavedStateDumpHandle: VoidPtr, vpId: UInt32, imageInfo: POINTER(win32more.Windows.Win32.System.Hypervisor.MODULE_INFO), imageInfoCount: UInt32, frameCount: UInt32, callStack: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class DOS_IMAGE_INFO(EasyCastStructure):
+class DOS_IMAGE_INFO(Structure):
     PdbName: win32more.Windows.Win32.Foundation.PSTR
     ImageBaseAddress: UInt64
     ImageSize: UInt32
     Timestamp: UInt32
 @winfunctype_pointer
 def FOUND_IMAGE_CALLBACK(Context: VoidPtr, ImageInfo: POINTER(win32more.Windows.Win32.System.Hypervisor.DOS_IMAGE_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class GPA_MEMORY_CHUNK(EasyCastStructure):
+class GPA_MEMORY_CHUNK(Structure):
     GuestPhysicalStartPageIndex: UInt64
     PageCount: UInt64
-class GUEST_OS_INFO(EasyCastUnion):
+class GUEST_OS_INFO(Union):
     AsUINT64: UInt64
     ClosedSource: _ClosedSource_e__Struct
     OpenSource: _OpenSource_e__Struct
-    class _ClosedSource_e__Struct(EasyCastStructure):
+    class _ClosedSource_e__Struct(Structure):
         _bitfield: UInt64
-    class _OpenSource_e__Struct(EasyCastStructure):
+    class _OpenSource_e__Struct(Structure):
         _bitfield: UInt64
 GUEST_OS_MICROSOFT_IDS = Int32
 GuestOsMicrosoftUndefined: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 0
@@ -348,7 +348,7 @@ HDV_PCI_BAR5: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_BAR_SELECTOR = 5
 def HDV_PCI_DEVICE_GET_DETAILS(deviceContext: VoidPtr, pnpId: POINTER(win32more.Windows.Win32.System.Hypervisor.HDV_PCI_PNP_ID), probedBarsCount: UInt32, probedBars: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def HDV_PCI_DEVICE_INITIALIZE(deviceContext: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class HDV_PCI_DEVICE_INTERFACE(EasyCastStructure):
+class HDV_PCI_DEVICE_INTERFACE(Structure):
     Version: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_INTERFACE_VERSION
     Initialize: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_DEVICE_INITIALIZE
     Teardown: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_DEVICE_TEARDOWN
@@ -371,7 +371,7 @@ def HDV_PCI_DEVICE_TEARDOWN(deviceContext: VoidPtr) -> Void: ...
 HDV_PCI_INTERFACE_VERSION = Int32
 HdvPciDeviceInterfaceVersionInvalid: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_INTERFACE_VERSION = 0
 HdvPciDeviceInterfaceVersion1: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_INTERFACE_VERSION = 1
-class HDV_PCI_PNP_ID(EasyCastStructure):
+class HDV_PCI_PNP_ID(Structure):
     VendorID: UInt16
     DeviceID: UInt16
     RevisionID: Byte
@@ -388,12 +388,12 @@ def HDV_PCI_READ_INTERCEPTED_MEMORY(deviceContext: VoidPtr, barIndex: win32more.
 def HDV_PCI_WRITE_CONFIG_SPACE(deviceContext: VoidPtr, offset: UInt32, value: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def HDV_PCI_WRITE_INTERCEPTED_MEMORY(deviceContext: VoidPtr, barIndex: win32more.Windows.Win32.System.Hypervisor.HDV_PCI_BAR_SELECTOR, offset: UInt64, length: UInt64, value: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class HVSOCKET_ADDRESS_INFO(EasyCastStructure):
+class HVSOCKET_ADDRESS_INFO(Structure):
     SystemId: Guid
     VirtualMachineId: Guid
     SiloId: Guid
     Flags: UInt32
-class MODULE_INFO(EasyCastStructure):
+class MODULE_INFO(Structure):
     ProcessImageName: win32more.Windows.Win32.Foundation.PSTR
     Image: win32more.Windows.Win32.System.Hypervisor.DOS_IMAGE_INFO
 PAGING_MODE = Int32
@@ -563,7 +563,7 @@ ARM64_RegisterCntkctlEl1: win32more.Windows.Win32.System.Hypervisor.REGISTER_ID 
 ARM64_RegisterCntvCvalEl0: win32more.Windows.Win32.System.Hypervisor.REGISTER_ID = 156
 ARM64_RegisterCntvCtlEl0: win32more.Windows.Win32.System.Hypervisor.REGISTER_ID = 157
 ARM64_RegisterMax: win32more.Windows.Win32.System.Hypervisor.REGISTER_ID = 158
-class SOCKADDR_HV(EasyCastStructure):
+class SOCKADDR_HV(Structure):
     Family: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
     Reserved: UInt16
     VmId: Guid
@@ -573,55 +573,55 @@ Arch_Unknown: win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR_ARCH =
 Arch_x86: win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR_ARCH = 1
 Arch_x64: win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR_ARCH = 2
 Arch_Armv8: win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR_ARCH = 3
-class VIRTUAL_PROCESSOR_REGISTER(EasyCastUnion):
+class VIRTUAL_PROCESSOR_REGISTER(Union):
     Reg64: UInt64
     Reg32: UInt32
     Reg16: UInt16
     Reg8: Byte
     Reg128: _Reg128_e__Struct
     X64: _X64_e__Union
-    class _Reg128_e__Struct(EasyCastStructure):
+    class _Reg128_e__Struct(Structure):
         Low64: UInt64
         High64: UInt64
-    class _X64_e__Union(EasyCastUnion):
+    class _X64_e__Union(Union):
         Segment: _Segment_e__Struct
         Table: _Table_e__Struct
         FpControlStatus: _FpControlStatus_e__Struct
         XmmControlStatus: _XmmControlStatus_e__Struct
-        class _Segment_e__Struct(EasyCastStructure):
+        class _Segment_e__Struct(Structure):
             Base: UInt64
             Limit: UInt32
             Selector: UInt16
             Anonymous: _Anonymous_e__Union
-            class _Anonymous_e__Union(EasyCastUnion):
+            class _Anonymous_e__Union(Union):
                 Attributes: UInt16
                 Anonymous: _Anonymous_e__Struct
-                class _Anonymous_e__Struct(EasyCastStructure):
+                class _Anonymous_e__Struct(Structure):
                     _bitfield: UInt16
-        class _Table_e__Struct(EasyCastStructure):
+        class _Table_e__Struct(Structure):
             Limit: UInt16
             Base: UInt64
-        class _FpControlStatus_e__Struct(EasyCastStructure):
+        class _FpControlStatus_e__Struct(Structure):
             FpControl: UInt16
             FpStatus: UInt16
             FpTag: Byte
             Reserved: Byte
             LastFpOp: UInt16
             Anonymous: _Anonymous_e__Union
-            class _Anonymous_e__Union(EasyCastUnion):
+            class _Anonymous_e__Union(Union):
                 LastFpRip: UInt64
                 Anonymous: _Anonymous_e__Struct
-                class _Anonymous_e__Struct(EasyCastStructure):
+                class _Anonymous_e__Struct(Structure):
                     LastFpEip: UInt32
                     LastFpCs: UInt16
-        class _XmmControlStatus_e__Struct(EasyCastStructure):
+        class _XmmControlStatus_e__Struct(Structure):
             Anonymous: _Anonymous_e__Union
             XmmStatusControl: UInt32
             XmmStatusControlMask: UInt32
-            class _Anonymous_e__Union(EasyCastUnion):
+            class _Anonymous_e__Union(Union):
                 LastFpRdp: UInt64
                 Anonymous: _Anonymous_e__Struct
-                class _Anonymous_e__Struct(EasyCastStructure):
+                class _Anonymous_e__Struct(Structure):
                     LastFpDp: UInt32
                     LastFpDs: UInt16
 VIRTUAL_PROCESSOR_VENDOR = Int32
@@ -630,28 +630,28 @@ ProcessorVendor_Amd: win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR
 ProcessorVendor_Intel: win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR_VENDOR = 2
 ProcessorVendor_Hygon: win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR_VENDOR = 3
 ProcessorVendor_Arm: win32more.Windows.Win32.System.Hypervisor.VIRTUAL_PROCESSOR_VENDOR = 4
-class VM_GENCOUNTER(EasyCastStructure):
+class VM_GENCOUNTER(Structure):
     GenerationCount: UInt64
     GenerationCountHigh: UInt64
-class WHV_ACCESS_GPA_CONTROLS(EasyCastUnion):
+class WHV_ACCESS_GPA_CONTROLS(Union):
     AsUINT64: UInt64
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         CacheType: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE
         Reserved: UInt32
-class WHV_ADVISE_GPA_RANGE(EasyCastUnion):
+class WHV_ADVISE_GPA_RANGE(Union):
     Populate: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_POPULATE
 WHV_ADVISE_GPA_RANGE_CODE = Int32
 WHvAdviseGpaRangeCodePopulate: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE = 0
 WHvAdviseGpaRangeCodePin: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE = 1
 WHvAdviseGpaRangeCodeUnpin: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_CODE = 2
-class WHV_ADVISE_GPA_RANGE_POPULATE(EasyCastStructure):
+class WHV_ADVISE_GPA_RANGE_POPULATE(Structure):
     Flags: win32more.Windows.Win32.System.Hypervisor.WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS
     AccessType: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE
-class WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(EasyCastUnion):
+class WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(Union):
     AsUINT32: UInt32
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
 WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = Int32
 WHvAllocateVpciResourceFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = 0
@@ -661,7 +661,7 @@ WHvCacheTypeUncached: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE =
 WHvCacheTypeWriteCombining: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 1
 WHvCacheTypeWriteThrough: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 4
 WHvCacheTypeWriteBack: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE = 6
-class WHV_CAPABILITY(EasyCastUnion):
+class WHV_CAPABILITY(Union):
     HypervisorPresent: win32more.Windows.Win32.Foundation.BOOL
     Features: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_FEATURES
     ExtendedVmExits: win32more.Windows.Win32.System.Hypervisor.WHV_EXTENDED_VM_EXITS
@@ -697,18 +697,18 @@ WHvCapabilityCodeProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervis
 WHvCapabilityCodeProcessorFrequencyCap: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4103
 WHvCapabilityCodeSyntheticProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4104
 WHvCapabilityCodeProcessorPerfmonFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_CAPABILITY_CODE = 4105
-class WHV_CAPABILITY_FEATURES(EasyCastUnion):
+class WHV_CAPABILITY_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP(EasyCastStructure):
+class WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP(Structure):
     _bitfield: UInt32
     HighestFrequencyMhz: UInt32
     NominalFrequencyMhz: UInt32
     LowestFrequencyMhz: UInt32
     FrequencyStepMhz: UInt32
-class WHV_CPUID_OUTPUT(EasyCastStructure):
+class WHV_CPUID_OUTPUT(Structure):
     Eax: UInt32
     Ebx: UInt32
     Ecx: UInt32
@@ -717,12 +717,12 @@ WHV_CREATE_VPCI_DEVICE_FLAGS = Int32
 WHvCreateVpciDeviceFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_CREATE_VPCI_DEVICE_FLAGS = 0
 WHvCreateVpciDeviceFlagPhysicallyBacked: win32more.Windows.Win32.System.Hypervisor.WHV_CREATE_VPCI_DEVICE_FLAGS = 1
 WHvCreateVpciDeviceFlagUseLogicalInterrupts: win32more.Windows.Win32.System.Hypervisor.WHV_CREATE_VPCI_DEVICE_FLAGS = 2
-class WHV_DOORBELL_MATCH_DATA(EasyCastStructure):
+class WHV_DOORBELL_MATCH_DATA(Structure):
     GuestAddress: UInt64
     Value: UInt64
     Length: UInt32
     _bitfield: UInt32
-class WHV_EMULATOR_CALLBACKS(EasyCastStructure):
+class WHV_EMULATOR_CALLBACKS(Structure):
     Size: UInt32
     Reserved: UInt32
     WHvEmulatorIoPortCallback: win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_IO_PORT_CALLBACK
@@ -732,14 +732,14 @@ class WHV_EMULATOR_CALLBACKS(EasyCastStructure):
     WHvEmulatorTranslateGvaPage: win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK
 @winfunctype_pointer
 def WHV_EMULATOR_GET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK(Context: VoidPtr, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WHV_EMULATOR_IO_ACCESS_INFO(EasyCastStructure):
+class WHV_EMULATOR_IO_ACCESS_INFO(Structure):
     Direction: Byte
     Port: UInt16
     AccessSize: UInt16
     Data: UInt32
 @winfunctype_pointer
 def WHV_EMULATOR_IO_PORT_CALLBACK(Context: VoidPtr, IoAccess: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_IO_ACCESS_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WHV_EMULATOR_MEMORY_ACCESS_INFO(EasyCastStructure):
+class WHV_EMULATOR_MEMORY_ACCESS_INFO(Structure):
     GpaAddress: UInt64
     Direction: Byte
     AccessSize: Byte
@@ -748,10 +748,10 @@ class WHV_EMULATOR_MEMORY_ACCESS_INFO(EasyCastStructure):
 def WHV_EMULATOR_MEMORY_CALLBACK(Context: VoidPtr, MemoryAccess: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_EMULATOR_MEMORY_ACCESS_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK(Context: VoidPtr, RegisterNames: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME), RegisterCount: UInt32, RegisterValues: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_VALUE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WHV_EMULATOR_STATUS(EasyCastUnion):
+class WHV_EMULATOR_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
 @winfunctype_pointer
 def WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK(Context: VoidPtr, Gva: UInt64, TranslateFlags: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS, TranslationResult: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE), Gpa: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
@@ -773,12 +773,12 @@ WHvX64ExceptionTypeFloatingPointErrorFault: win32more.Windows.Win32.System.Hyper
 WHvX64ExceptionTypeAlignmentCheckFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 17
 WHvX64ExceptionTypeMachineCheckAbort: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 18
 WHvX64ExceptionTypeSimdFloatingPointFault: win32more.Windows.Win32.System.Hypervisor.WHV_EXCEPTION_TYPE = 19
-class WHV_EXTENDED_VM_EXITS(EasyCastUnion):
+class WHV_EXTENDED_VM_EXITS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_HYPERCALL_CONTEXT(EasyCastStructure):
+class WHV_HYPERCALL_CONTEXT(Structure):
     Rax: UInt64
     Rbx: UInt64
     Rcx: UInt64
@@ -789,12 +789,12 @@ class WHV_HYPERCALL_CONTEXT(EasyCastStructure):
     Reserved0: UInt64
     XmmRegisters: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128 * 6
     Reserved1: UInt64 * 2
-class WHV_INTERNAL_ACTIVITY_REGISTER(EasyCastUnion):
+class WHV_INTERNAL_ACTIVITY_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_INTERRUPT_CONTROL(EasyCastStructure):
+class WHV_INTERRUPT_CONTROL(Structure):
     _bitfield: UInt64
     Destination: UInt32
     Vector: UInt32
@@ -817,42 +817,42 @@ WHvMapGpaRangeFlagRead: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RA
 WHvMapGpaRangeFlagWrite: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 2
 WHvMapGpaRangeFlagExecute: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 4
 WHvMapGpaRangeFlagTrackDirtyPages: win32more.Windows.Win32.System.Hypervisor.WHV_MAP_GPA_RANGE_FLAGS = 8
-class WHV_MEMORY_ACCESS_CONTEXT(EasyCastStructure):
+class WHV_MEMORY_ACCESS_CONTEXT(Structure):
     InstructionByteCount: Byte
     Reserved: Byte * 3
     InstructionBytes: Byte * 16
     AccessInfo: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_INFO
     Gpa: UInt64
     Gva: UInt64
-class WHV_MEMORY_ACCESS_INFO(EasyCastUnion):
+class WHV_MEMORY_ACCESS_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
 WHV_MEMORY_ACCESS_TYPE = Int32
 WHvMemoryAccessRead: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 0
 WHvMemoryAccessWrite: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 1
 WHvMemoryAccessExecute: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 2
-class WHV_MEMORY_RANGE_ENTRY(EasyCastStructure):
+class WHV_MEMORY_RANGE_ENTRY(Structure):
     GuestAddress: UInt64
     SizeInBytes: UInt64
 WHV_MSR_ACTION = Int32
 WHvMsrActionArchitectureDefault: win32more.Windows.Win32.System.Hypervisor.WHV_MSR_ACTION = 0
 WHvMsrActionIgnoreWriteReadZero: win32more.Windows.Win32.System.Hypervisor.WHV_MSR_ACTION = 1
 WHvMsrActionExit: win32more.Windows.Win32.System.Hypervisor.WHV_MSR_ACTION = 2
-class WHV_MSR_ACTION_ENTRY(EasyCastStructure):
+class WHV_MSR_ACTION_ENTRY(Structure):
     Index: UInt32
     ReadAction: Byte
     WriteAction: Byte
     Reserved: UInt16
-class WHV_NOTIFICATION_PORT_PARAMETERS(EasyCastStructure):
+class WHV_NOTIFICATION_PORT_PARAMETERS(Structure):
     NotificationPortType: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_TYPE
     Reserved: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Doorbell: win32more.Windows.Win32.System.Hypervisor.WHV_DOORBELL_MATCH_DATA
         Event: _Event_e__Struct
-        class _Event_e__Struct(EasyCastStructure):
+        class _Event_e__Struct(Structure):
             ConnectionId: UInt32
 WHV_NOTIFICATION_PORT_PROPERTY_CODE = Int32
 WHvNotificationPortPropertyPreferredTargetVp: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_PROPERTY_CODE = 1
@@ -863,11 +863,11 @@ WHvNotificationPortTypeDoorbell: win32more.Windows.Win32.System.Hypervisor.WHV_N
 WHV_PARTITION_COUNTER_SET = Int32
 WHvPartitionCounterSetMemory: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_COUNTER_SET = 0
 WHV_PARTITION_HANDLE = IntPtr
-class WHV_PARTITION_MEMORY_COUNTERS(EasyCastStructure):
+class WHV_PARTITION_MEMORY_COUNTERS(Structure):
     Mapped4KPageCount: UInt64
     Mapped2MPageCount: UInt64
     Mapped1GPageCount: UInt64
-class WHV_PARTITION_PROPERTY(EasyCastUnion):
+class WHV_PARTITION_PROPERTY(Union):
     ExtendedVmExits: win32more.Windows.Win32.System.Hypervisor.WHV_EXTENDED_VM_EXITS
     ProcessorFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_FEATURES
     SyntheticProcessorFeaturesBanks: win32more.Windows.Win32.System.Hypervisor.WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS
@@ -929,7 +929,7 @@ WHvPartitionPropertyCodeProcessorPerfmonFeatures: win32more.Windows.Win32.System
 WHvPartitionPropertyCodeMsrActionList: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4111
 WHvPartitionPropertyCodeUnimplementedMsrAction: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 4112
 WHvPartitionPropertyCodeProcessorCount: win32more.Windows.Win32.System.Hypervisor.WHV_PARTITION_PROPERTY_CODE = 8191
-class WHV_PROCESSOR_APIC_COUNTERS(EasyCastStructure):
+class WHV_PROCESSOR_APIC_COUNTERS(Structure):
     MmioAccessCount: UInt64
     EoiAccessCount: UInt64
     TprAccessCount: UInt64
@@ -941,34 +941,34 @@ WHvProcessorCounterSetIntercepts: win32more.Windows.Win32.System.Hypervisor.WHV_
 WHvProcessorCounterSetEvents: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 2
 WHvProcessorCounterSetApic: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 3
 WHvProcessorCounterSetSyntheticFeatures: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_COUNTER_SET = 4
-class WHV_PROCESSOR_EVENT_COUNTERS(EasyCastStructure):
+class WHV_PROCESSOR_EVENT_COUNTERS(Structure):
     PageFaultCount: UInt64
     ExceptionCount: UInt64
     InterruptCount: UInt64
-class WHV_PROCESSOR_FEATURES(EasyCastUnion):
+class WHV_PROCESSOR_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_PROCESSOR_FEATURES1(EasyCastUnion):
+class WHV_PROCESSOR_FEATURES1(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_PROCESSOR_FEATURES_BANKS(EasyCastStructure):
+class WHV_PROCESSOR_FEATURES_BANKS(Structure):
     BanksCount: UInt32
     Reserved0: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUINT64: UInt64 * 2
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Bank0: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_FEATURES
             Bank1: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_FEATURES1
-class WHV_PROCESSOR_INTERCEPT_COUNTER(EasyCastStructure):
+class WHV_PROCESSOR_INTERCEPT_COUNTER(Structure):
     Count: UInt64
     Time100ns: UInt64
-class WHV_PROCESSOR_INTERCEPT_COUNTERS(EasyCastStructure):
+class WHV_PROCESSOR_INTERCEPT_COUNTERS(Structure):
     PageInvalidations: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_INTERCEPT_COUNTER
     ControlRegisterAccesses: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_INTERCEPT_COUNTER
     IoInstructions: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_INTERCEPT_COUNTER
@@ -983,15 +983,15 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS(EasyCastStructure):
     NestedPageFaultIntercepts: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_INTERCEPT_COUNTER
     Hypercalls: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_INTERCEPT_COUNTER
     RdpmcInstructions: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_INTERCEPT_COUNTER
-class WHV_PROCESSOR_PERFMON_FEATURES(EasyCastUnion):
+class WHV_PROCESSOR_PERFMON_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_PROCESSOR_RUNTIME_COUNTERS(EasyCastStructure):
+class WHV_PROCESSOR_RUNTIME_COUNTERS(Structure):
     TotalRuntime100ns: UInt64
     HypervisorRuntime100ns: UInt64
-class WHV_PROCESSOR_SYNTHETIC_FEATURES_COUNTERS(EasyCastStructure):
+class WHV_PROCESSOR_SYNTHETIC_FEATURES_COUNTERS(Structure):
     SyntheticInterruptsCount: UInt64
     LongSpinWaitHypercallsCount: UInt64
     OtherHypercallsCount: UInt64
@@ -1002,10 +1002,10 @@ WHV_PROCESSOR_VENDOR = Int32
 WHvProcessorVendorAmd: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_VENDOR = 0
 WHvProcessorVendorIntel: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_VENDOR = 1
 WHvProcessorVendorHygon: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_VENDOR = 2
-class WHV_PROCESSOR_XSAVE_FEATURES(EasyCastUnion):
+class WHV_PROCESSOR_XSAVE_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
 WHV_REGISTER_NAME = Int32
 WHvX64RegisterRax: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 0
@@ -1234,7 +1234,7 @@ WHvRegisterPendingEvent: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_
 WHvX64RegisterDeliverabilityNotifications: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483644
 WHvRegisterInternalActivityState: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483643
 WHvX64RegisterPendingDebugException: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = -2147483642
-class WHV_REGISTER_VALUE(EasyCastUnion):
+class WHV_REGISTER_VALUE(Union):
     Reg128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
     Reg64: UInt64
     Reg32: UInt32
@@ -1252,16 +1252,16 @@ class WHV_REGISTER_VALUE(EasyCastUnion):
     ExtIntEvent: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_EXT_INT_EVENT
     InternalActivity: win32more.Windows.Win32.System.Hypervisor.WHV_INTERNAL_ACTIVITY_REGISTER
     PendingDebugException: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_DEBUG_EXCEPTION
-class WHV_RUN_VP_CANCELED_CONTEXT(EasyCastStructure):
+class WHV_RUN_VP_CANCELED_CONTEXT(Structure):
     CancelReason: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_CANCEL_REASON
 WHV_RUN_VP_CANCEL_REASON = Int32
 WHvRunVpCancelReasonUser: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_CANCEL_REASON = 0
-class WHV_RUN_VP_EXIT_CONTEXT(EasyCastStructure):
+class WHV_RUN_VP_EXIT_CONTEXT(Structure):
     ExitReason: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON
     Reserved: UInt32
     VpContext: win32more.Windows.Win32.System.Hypervisor.WHV_VP_EXIT_CONTEXT
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         MemoryAccess: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_CONTEXT
         IoPortAccess: win32more.Windows.Win32.System.Hypervisor.WHV_X64_IO_PORT_ACCESS_CONTEXT
         MsrAccess: win32more.Windows.Win32.System.Hypervisor.WHV_X64_MSR_ACCESS_CONTEXT
@@ -1297,38 +1297,38 @@ WHvRunVpExitReasonHypercall: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_V
 WHvRunVpExitReasonX64ApicInitSipiTrap: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4102
 WHvRunVpExitReasonX64ApicWriteTrap: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 4103
 WHvRunVpExitReasonCanceled: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP_EXIT_REASON = 8193
-class WHV_SCHEDULER_FEATURES(EasyCastUnion):
+class WHV_SCHEDULER_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_SRIOV_RESOURCE_DESCRIPTOR(EasyCastStructure):
+class WHV_SRIOV_RESOURCE_DESCRIPTOR(Structure):
     PnpInstanceId: Char * 200
     VirtualFunctionId: win32more.Windows.Win32.Foundation.LUID
     VirtualFunctionIndex: UInt16
     Reserved: UInt16
-class WHV_SYNIC_EVENT_PARAMETERS(EasyCastStructure):
+class WHV_SYNIC_EVENT_PARAMETERS(Structure):
     VpIndex: UInt32
     TargetSint: Byte
     Reserved: Byte
     FlagNumber: UInt16
-class WHV_SYNIC_SINT_DELIVERABLE_CONTEXT(EasyCastStructure):
+class WHV_SYNIC_SINT_DELIVERABLE_CONTEXT(Structure):
     DeliverableSints: UInt16
     Reserved1: UInt16
     Reserved2: UInt32
-class WHV_SYNTHETIC_PROCESSOR_FEATURES(EasyCastUnion):
+class WHV_SYNTHETIC_PROCESSOR_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(EasyCastStructure):
+class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(Structure):
     BanksCount: UInt32
     Reserved0: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUINT64: UInt64 * 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Bank0: win32more.Windows.Win32.System.Hypervisor.WHV_SYNTHETIC_PROCESSOR_FEATURES
 WHV_TRANSLATE_GVA_FLAGS = Int32
 WHvTranslateGvaFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 0
@@ -1339,7 +1339,7 @@ WHvTranslateGvaFlagPrivilegeExempt: win32more.Windows.Win32.System.Hypervisor.WH
 WHvTranslateGvaFlagSetPageTableBits: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 16
 WHvTranslateGvaFlagEnforceSmap: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 256
 WHvTranslateGvaFlagOverrideSmap: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS = 512
-class WHV_TRANSLATE_GVA_RESULT(EasyCastStructure):
+class WHV_TRANSLATE_GVA_RESULT(Structure):
     ResultCode: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE
     Reserved: UInt32
 WHV_TRANSLATE_GVA_RESULT_CODE = Int32
@@ -1352,15 +1352,15 @@ WHvTranslateGvaResultGpaNoReadAccess: win32more.Windows.Win32.System.Hypervisor.
 WHvTranslateGvaResultGpaNoWriteAccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 6
 WHvTranslateGvaResultGpaIllegalOverlayAccess: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 7
 WHvTranslateGvaResultIntercept: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE = 8
-class WHV_TRIGGER_PARAMETERS(EasyCastStructure):
+class WHV_TRIGGER_PARAMETERS(Structure):
     TriggerType: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE
     Reserved: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Interrupt: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_CONTROL
         SynicEvent: win32more.Windows.Win32.System.Hypervisor.WHV_SYNIC_EVENT_PARAMETERS
         DeviceInterrupt: _DeviceInterrupt_e__Struct
-        class _DeviceInterrupt_e__Struct(EasyCastStructure):
+        class _DeviceInterrupt_e__Struct(Structure):
             LogicalDeviceId: UInt64
             MsiAddress: UInt64
             MsiData: UInt32
@@ -1369,17 +1369,17 @@ WHV_TRIGGER_TYPE = Int32
 WHvTriggerTypeInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE = 0
 WHvTriggerTypeSynicEvent: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE = 1
 WHvTriggerTypeDeviceInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE = 2
-class WHV_UINT128(EasyCastUnion):
+class WHV_UINT128(Union):
     Anonymous: _Anonymous_e__Struct
     Dword: UInt32 * 4
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         Low64: UInt64
         High64: UInt64
-class WHV_VIRTUAL_PROCESSOR_PROPERTY(EasyCastStructure):
+class WHV_VIRTUAL_PROCESSOR_PROPERTY(Structure):
     PropertyCode: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_PROPERTY_CODE
     Reserved: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         NumaNode: UInt16
         Padding: UInt64
 WHV_VIRTUAL_PROCESSOR_PROPERTY_CODE = Int32
@@ -1390,11 +1390,11 @@ WHvVirtualProcessorStateTypeSynicEventFlagPage: win32more.Windows.Win32.System.H
 WHvVirtualProcessorStateTypeSynicTimerState: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 2
 WHvVirtualProcessorStateTypeInterruptControllerState2: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 4096
 WHvVirtualProcessorStateTypeXsaveState: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 4097
-class WHV_VPCI_DEVICE_NOTIFICATION(EasyCastStructure):
+class WHV_VPCI_DEVICE_NOTIFICATION(Structure):
     NotificationType: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE
     Reserved1: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Reserved2: UInt64
 WHV_VPCI_DEVICE_NOTIFICATION_TYPE = Int32
 WHvVpciDeviceNotificationUndefined: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE = 0
@@ -1404,7 +1404,7 @@ WHV_VPCI_DEVICE_PROPERTY_CODE = Int32
 WHvVpciDevicePropertyCodeUndefined: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE = 0
 WHvVpciDevicePropertyCodeHardwareIDs: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE = 1
 WHvVpciDevicePropertyCodeProbedBARs: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_PROPERTY_CODE = 2
-class WHV_VPCI_DEVICE_REGISTER(EasyCastStructure):
+class WHV_VPCI_DEVICE_REGISTER(Structure):
     Location: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE
     SizeInBytes: UInt32
     OffsetInBytes: UInt64
@@ -1416,7 +1416,7 @@ WHvVpciBar2: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_
 WHvVpciBar3: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 3
 WHvVpciBar4: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 4
 WHvVpciBar5: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE = 5
-class WHV_VPCI_HARDWARE_IDS(EasyCastStructure):
+class WHV_VPCI_HARDWARE_IDS(Structure):
     VendorID: UInt16
     DeviceID: UInt16
     RevisionID: Byte
@@ -1425,7 +1425,7 @@ class WHV_VPCI_HARDWARE_IDS(EasyCastStructure):
     BaseClass: Byte
     SubVendorID: UInt16
     SubSystemID: UInt16
-class WHV_VPCI_INTERRUPT_TARGET(EasyCastStructure):
+class WHV_VPCI_INTERRUPT_TARGET(Structure):
     Vector: UInt32
     Flags: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS
     ProcessorCount: UInt32
@@ -1433,7 +1433,7 @@ class WHV_VPCI_INTERRUPT_TARGET(EasyCastStructure):
 WHV_VPCI_INTERRUPT_TARGET_FLAGS = Int32
 WHvVpciInterruptTargetFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS = 0
 WHvVpciInterruptTargetFlagMulticast: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS = 1
-class WHV_VPCI_MMIO_MAPPING(EasyCastStructure):
+class WHV_VPCI_MMIO_MAPPING(Structure):
     Location: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_REGISTER_SPACE
     Flags: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_RANGE_FLAGS
     SizeInBytes: UInt64
@@ -1442,9 +1442,9 @@ class WHV_VPCI_MMIO_MAPPING(EasyCastStructure):
 WHV_VPCI_MMIO_RANGE_FLAGS = Int32
 WHvVpciMmioRangeFlagReadAccess: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_RANGE_FLAGS = 1
 WHvVpciMmioRangeFlagWriteAccess: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_MMIO_RANGE_FLAGS = 2
-class WHV_VPCI_PROBED_BARS(EasyCastStructure):
+class WHV_VPCI_PROBED_BARS(Structure):
     Value: UInt32 * 6
-class WHV_VP_EXCEPTION_CONTEXT(EasyCastStructure):
+class WHV_VP_EXCEPTION_CONTEXT(Structure):
     InstructionByteCount: Byte
     Reserved: Byte * 3
     InstructionBytes: Byte * 16
@@ -1453,12 +1453,12 @@ class WHV_VP_EXCEPTION_CONTEXT(EasyCastStructure):
     Reserved2: Byte * 3
     ErrorCode: UInt32
     ExceptionParameter: UInt64
-class WHV_VP_EXCEPTION_INFO(EasyCastUnion):
+class WHV_VP_EXCEPTION_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class WHV_VP_EXIT_CONTEXT(EasyCastStructure):
+class WHV_VP_EXIT_CONTEXT(Structure):
     ExecutionState: win32more.Windows.Win32.System.Hypervisor.WHV_X64_VP_EXECUTION_STATE
     _bitfield: Byte
     Reserved: Byte
@@ -1466,13 +1466,13 @@ class WHV_VP_EXIT_CONTEXT(EasyCastStructure):
     Cs: win32more.Windows.Win32.System.Hypervisor.WHV_X64_SEGMENT_REGISTER
     Rip: UInt64
     Rflags: UInt64
-class WHV_X64_APIC_EOI_CONTEXT(EasyCastStructure):
+class WHV_X64_APIC_EOI_CONTEXT(Structure):
     InterruptVector: UInt32
-class WHV_X64_APIC_INIT_SIPI_CONTEXT(EasyCastStructure):
+class WHV_X64_APIC_INIT_SIPI_CONTEXT(Structure):
     ApicIcr: UInt64
-class WHV_X64_APIC_SMI_CONTEXT(EasyCastStructure):
+class WHV_X64_APIC_SMI_CONTEXT(Structure):
     ApicIcr: UInt64
-class WHV_X64_APIC_WRITE_CONTEXT(EasyCastStructure):
+class WHV_X64_APIC_WRITE_CONTEXT(Structure):
     Type: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE
     Reserved: UInt32
     WriteValue: UInt64
@@ -1482,7 +1482,7 @@ WHvX64ApicWriteTypeDfr: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_W
 WHvX64ApicWriteTypeSvr: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 240
 WHvX64ApicWriteTypeLint0: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 848
 WHvX64ApicWriteTypeLint1: win32more.Windows.Win32.System.Hypervisor.WHV_X64_APIC_WRITE_TYPE = 864
-class WHV_X64_CPUID_ACCESS_CONTEXT(EasyCastStructure):
+class WHV_X64_CPUID_ACCESS_CONTEXT(Structure):
     Rax: UInt64
     Rcx: UInt64
     Rdx: UInt64
@@ -1491,14 +1491,14 @@ class WHV_X64_CPUID_ACCESS_CONTEXT(EasyCastStructure):
     DefaultResultRcx: UInt64
     DefaultResultRdx: UInt64
     DefaultResultRbx: UInt64
-class WHV_X64_CPUID_RESULT(EasyCastStructure):
+class WHV_X64_CPUID_RESULT(Structure):
     Function: UInt32
     Reserved: UInt32 * 3
     Eax: UInt32
     Ebx: UInt32
     Ecx: UInt32
     Edx: UInt32
-class WHV_X64_CPUID_RESULT2(EasyCastStructure):
+class WHV_X64_CPUID_RESULT2(Structure):
     Function: UInt32
     Index: UInt32
     VpIndex: UInt32
@@ -1508,42 +1508,42 @@ class WHV_X64_CPUID_RESULT2(EasyCastStructure):
 WHV_X64_CPUID_RESULT2_FLAGS = Int32
 WHvX64CpuidResult2FlagSubleafSpecific: win32more.Windows.Win32.System.Hypervisor.WHV_X64_CPUID_RESULT2_FLAGS = 1
 WHvX64CpuidResult2FlagVpSpecific: win32more.Windows.Win32.System.Hypervisor.WHV_X64_CPUID_RESULT2_FLAGS = 2
-class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(EasyCastUnion):
+class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_X64_FP_CONTROL_STATUS_REGISTER(EasyCastUnion):
+class WHV_X64_FP_CONTROL_STATUS_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         FpControl: UInt16
         FpStatus: UInt16
         FpTag: Byte
         Reserved: Byte
         LastFpOp: UInt16
         Anonymous: _Anonymous_e__Union
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             LastFpRip: UInt64
             Anonymous: _Anonymous_e__Struct
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 LastFpEip: UInt32
                 LastFpCs: UInt16
                 Reserved2: UInt16
-class WHV_X64_FP_REGISTER(EasyCastUnion):
+class WHV_X64_FP_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         Mantissa: UInt64
         _bitfield: UInt64
-class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(EasyCastStructure):
+class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(Structure):
     DeliverableType: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE
-class WHV_X64_INTERRUPT_STATE_REGISTER(EasyCastUnion):
+class WHV_X64_INTERRUPT_STATE_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_X64_IO_PORT_ACCESS_CONTEXT(EasyCastStructure):
+class WHV_X64_IO_PORT_ACCESS_CONTEXT(Structure):
     InstructionByteCount: Byte
     Reserved: Byte * 3
     InstructionBytes: Byte * 16
@@ -1556,109 +1556,109 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT(EasyCastStructure):
     Rdi: UInt64
     Ds: win32more.Windows.Win32.System.Hypervisor.WHV_X64_SEGMENT_REGISTER
     Es: win32more.Windows.Win32.System.Hypervisor.WHV_X64_SEGMENT_REGISTER
-class WHV_X64_IO_PORT_ACCESS_INFO(EasyCastUnion):
+class WHV_X64_IO_PORT_ACCESS_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
 WHV_X64_LOCAL_APIC_EMULATION_MODE = Int32
 WHvX64LocalApicEmulationModeNone: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 0
 WHvX64LocalApicEmulationModeXApic: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 1
 WHvX64LocalApicEmulationModeX2Apic: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 2
-class WHV_X64_MSR_ACCESS_CONTEXT(EasyCastStructure):
+class WHV_X64_MSR_ACCESS_CONTEXT(Structure):
     AccessInfo: win32more.Windows.Win32.System.Hypervisor.WHV_X64_MSR_ACCESS_INFO
     MsrNumber: UInt32
     Rax: UInt64
     Rdx: UInt64
-class WHV_X64_MSR_ACCESS_INFO(EasyCastUnion):
+class WHV_X64_MSR_ACCESS_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class WHV_X64_MSR_EXIT_BITMAP(EasyCastUnion):
+class WHV_X64_MSR_EXIT_BITMAP(Union):
     AsUINT64: UInt64
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_X64_PENDING_DEBUG_EXCEPTION(EasyCastUnion):
+class WHV_X64_PENDING_DEBUG_EXCEPTION(Union):
     AsUINT64: UInt64
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
 WHV_X64_PENDING_EVENT_TYPE = Int32
 WHvX64PendingEventException: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_EVENT_TYPE = 0
 WHvX64PendingEventExtInt: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_EVENT_TYPE = 5
-class WHV_X64_PENDING_EXCEPTION_EVENT(EasyCastUnion):
+class WHV_X64_PENDING_EXCEPTION_EVENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         ErrorCode: UInt32
         ExceptionParameter: UInt64
-class WHV_X64_PENDING_EXT_INT_EVENT(EasyCastUnion):
+class WHV_X64_PENDING_EXT_INT_EVENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
         Reserved2: UInt64
-class WHV_X64_PENDING_INTERRUPTION_REGISTER(EasyCastUnion):
+class WHV_X64_PENDING_INTERRUPTION_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         ErrorCode: UInt32
 WHV_X64_PENDING_INTERRUPTION_TYPE = Int32
 WHvX64PendingInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 0
 WHvX64PendingNmi: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 2
 WHvX64PendingException: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 3
-class WHV_X64_RDTSC_CONTEXT(EasyCastStructure):
+class WHV_X64_RDTSC_CONTEXT(Structure):
     TscAux: UInt64
     VirtualOffset: UInt64
     Tsc: UInt64
     ReferenceTime: UInt64
     RdtscInfo: win32more.Windows.Win32.System.Hypervisor.WHV_X64_RDTSC_INFO
-class WHV_X64_RDTSC_INFO(EasyCastUnion):
+class WHV_X64_RDTSC_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_X64_SEGMENT_REGISTER(EasyCastStructure):
+class WHV_X64_SEGMENT_REGISTER(Structure):
     Base: UInt64
     Limit: UInt32
     Selector: UInt16
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Attributes: UInt16
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
-class WHV_X64_TABLE_REGISTER(EasyCastStructure):
+class WHV_X64_TABLE_REGISTER(Structure):
     Pad: UInt16 * 3
     Limit: UInt16
     Base: UInt64
 WHV_X64_UNSUPPORTED_FEATURE_CODE = Int32
 WHvUnsupportedFeatureIntercept: win32more.Windows.Win32.System.Hypervisor.WHV_X64_UNSUPPORTED_FEATURE_CODE = 1
 WHvUnsupportedFeatureTaskSwitchTss: win32more.Windows.Win32.System.Hypervisor.WHV_X64_UNSUPPORTED_FEATURE_CODE = 2
-class WHV_X64_UNSUPPORTED_FEATURE_CONTEXT(EasyCastStructure):
+class WHV_X64_UNSUPPORTED_FEATURE_CONTEXT(Structure):
     FeatureCode: win32more.Windows.Win32.System.Hypervisor.WHV_X64_UNSUPPORTED_FEATURE_CODE
     Reserved: UInt32
     FeatureParameter: UInt64
-class WHV_X64_VP_EXECUTION_STATE(EasyCastUnion):
+class WHV_X64_VP_EXECUTION_STATE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT16: UInt16
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
-class WHV_X64_XMM_CONTROL_STATUS_REGISTER(EasyCastUnion):
+class WHV_X64_XMM_CONTROL_STATUS_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         Anonymous: _Anonymous_e__Union
         XmmStatusControl: UInt32
         XmmStatusControlMask: UInt32
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             LastFpRdp: UInt64
             Anonymous: _Anonymous_e__Struct
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 LastFpDp: UInt32
                 LastFpDs: UInt16
                 Reserved: UInt16

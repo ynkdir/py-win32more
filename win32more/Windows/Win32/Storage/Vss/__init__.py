@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.VirtualDiskService
@@ -518,13 +518,13 @@ VSS_COMPONENT_TYPE = Int32
 VSS_CT_UNDEFINED: win32more.Windows.Win32.Storage.Vss.VSS_COMPONENT_TYPE = 0
 VSS_CT_DATABASE: win32more.Windows.Win32.Storage.Vss.VSS_COMPONENT_TYPE = 1
 VSS_CT_FILEGROUP: win32more.Windows.Win32.Storage.Vss.VSS_COMPONENT_TYPE = 2
-class VSS_DIFF_AREA_PROP(EasyCastStructure):
+class VSS_DIFF_AREA_PROP(Structure):
     m_pwszVolumeName: POINTER(UInt16)
     m_pwszDiffAreaVolumeName: POINTER(UInt16)
     m_llMaximumDiffSpace: Int64
     m_llAllocatedDiffSpace: Int64
     m_llUsedDiffSpace: Int64
-class VSS_DIFF_VOLUME_PROP(EasyCastStructure):
+class VSS_DIFF_VOLUME_PROP(Structure):
     m_pwszVolumeName: POINTER(UInt16)
     m_pwszVolumeDisplayName: POINTER(UInt16)
     m_llVolumeFreeSpace: Int64
@@ -555,7 +555,7 @@ VSS_ONLUNSTATECHANGE_NOTIFY_READ_WRITE: win32more.Windows.Win32.Storage.Vss.VSS_
 VSS_ONLUNSTATECHANGE_NOTIFY_LUN_PRE_RECOVERY: win32more.Windows.Win32.Storage.Vss.VSS_HARDWARE_OPTIONS = 512
 VSS_ONLUNSTATECHANGE_NOTIFY_LUN_POST_RECOVERY: win32more.Windows.Win32.Storage.Vss.VSS_HARDWARE_OPTIONS = 1024
 VSS_ONLUNSTATECHANGE_DO_MASK_LUNS: win32more.Windows.Win32.Storage.Vss.VSS_HARDWARE_OPTIONS = 2048
-class VSS_MGMT_OBJECT_PROP(EasyCastStructure):
+class VSS_MGMT_OBJECT_PROP(Structure):
     Type: win32more.Windows.Win32.Storage.Vss.VSS_MGMT_OBJECT_TYPE
     Obj: win32more.Windows.Win32.Storage.Vss.VSS_MGMT_OBJECT_UNION
 VSS_MGMT_OBJECT_TYPE = Int32
@@ -563,11 +563,11 @@ VSS_MGMT_OBJECT_UNKNOWN: win32more.Windows.Win32.Storage.Vss.VSS_MGMT_OBJECT_TYP
 VSS_MGMT_OBJECT_VOLUME: win32more.Windows.Win32.Storage.Vss.VSS_MGMT_OBJECT_TYPE = 1
 VSS_MGMT_OBJECT_DIFF_VOLUME: win32more.Windows.Win32.Storage.Vss.VSS_MGMT_OBJECT_TYPE = 2
 VSS_MGMT_OBJECT_DIFF_AREA: win32more.Windows.Win32.Storage.Vss.VSS_MGMT_OBJECT_TYPE = 3
-class VSS_MGMT_OBJECT_UNION(EasyCastUnion):
+class VSS_MGMT_OBJECT_UNION(Union):
     Vol: win32more.Windows.Win32.Storage.Vss.VSS_VOLUME_PROP
     DiffVol: win32more.Windows.Win32.Storage.Vss.VSS_DIFF_VOLUME_PROP
     DiffArea: win32more.Windows.Win32.Storage.Vss.VSS_DIFF_AREA_PROP
-class VSS_OBJECT_PROP(EasyCastStructure):
+class VSS_OBJECT_PROP(Structure):
     Type: win32more.Windows.Win32.Storage.Vss.VSS_OBJECT_TYPE
     Obj: win32more.Windows.Win32.Storage.Vss.VSS_OBJECT_UNION
 VSS_OBJECT_TYPE = Int32
@@ -577,7 +577,7 @@ VSS_OBJECT_SNAPSHOT_SET: win32more.Windows.Win32.Storage.Vss.VSS_OBJECT_TYPE = 2
 VSS_OBJECT_SNAPSHOT: win32more.Windows.Win32.Storage.Vss.VSS_OBJECT_TYPE = 3
 VSS_OBJECT_PROVIDER: win32more.Windows.Win32.Storage.Vss.VSS_OBJECT_TYPE = 4
 VSS_OBJECT_TYPE_COUNT: win32more.Windows.Win32.Storage.Vss.VSS_OBJECT_TYPE = 5
-class VSS_OBJECT_UNION(EasyCastUnion):
+class VSS_OBJECT_UNION(Union):
     Snap: win32more.Windows.Win32.Storage.Vss.VSS_SNAPSHOT_PROP
     Prov: win32more.Windows.Win32.Storage.Vss.VSS_PROVIDER_PROP
 VSS_PROTECTION_FAULT = Int32
@@ -612,7 +612,7 @@ VSS_PRV_CAPABILITY_RECYCLING: win32more.Windows.Win32.Storage.Vss.VSS_PROVIDER_C
 VSS_PRV_CAPABILITY_PLEX: win32more.Windows.Win32.Storage.Vss.VSS_PROVIDER_CAPABILITIES = 128
 VSS_PRV_CAPABILITY_DIFFERENTIAL: win32more.Windows.Win32.Storage.Vss.VSS_PROVIDER_CAPABILITIES = 256
 VSS_PRV_CAPABILITY_CLUSTERED: win32more.Windows.Win32.Storage.Vss.VSS_PROVIDER_CAPABILITIES = 512
-class VSS_PROVIDER_PROP(EasyCastStructure):
+class VSS_PROVIDER_PROP(Structure):
     m_ProviderId: Guid
     m_pwszProviderName: POINTER(UInt16)
     m_eProviderType: win32more.Windows.Win32.Storage.Vss.VSS_PROVIDER_TYPE
@@ -665,7 +665,7 @@ VSS_CTX_APP_ROLLBACK: win32more.Windows.Win32.Storage.Vss.VSS_SNAPSHOT_CONTEXT =
 VSS_CTX_CLIENT_ACCESSIBLE: win32more.Windows.Win32.Storage.Vss.VSS_SNAPSHOT_CONTEXT = 29
 VSS_CTX_CLIENT_ACCESSIBLE_WRITERS: win32more.Windows.Win32.Storage.Vss.VSS_SNAPSHOT_CONTEXT = 13
 VSS_CTX_ALL: win32more.Windows.Win32.Storage.Vss.VSS_SNAPSHOT_CONTEXT = -1
-class VSS_SNAPSHOT_PROP(EasyCastStructure):
+class VSS_SNAPSHOT_PROP(Structure):
     m_SnapshotId: Guid
     m_SnapshotSetId: Guid
     m_lSnapshotsCount: Int32
@@ -729,10 +729,10 @@ VSS_UT_BOOTABLESYSTEMSTATE: win32more.Windows.Win32.Storage.Vss.VSS_USAGE_TYPE =
 VSS_UT_SYSTEMSERVICE: win32more.Windows.Win32.Storage.Vss.VSS_USAGE_TYPE = 2
 VSS_UT_USERDATA: win32more.Windows.Win32.Storage.Vss.VSS_USAGE_TYPE = 3
 VSS_UT_OTHER: win32more.Windows.Win32.Storage.Vss.VSS_USAGE_TYPE = 4
-class VSS_VOLUME_PROP(EasyCastStructure):
+class VSS_VOLUME_PROP(Structure):
     m_pwszVolumeName: POINTER(UInt16)
     m_pwszVolumeDisplayName: POINTER(UInt16)
-class VSS_VOLUME_PROTECTION_INFO(EasyCastStructure):
+class VSS_VOLUME_PROTECTION_INFO(Structure):
     m_protectionLevel: win32more.Windows.Win32.Storage.Vss.VSS_PROTECTION_LEVEL
     m_volumeIsOfflineForProtection: win32more.Windows.Win32.Foundation.BOOL
     m_protectionFault: win32more.Windows.Win32.Storage.Vss.VSS_PROTECTION_FAULT

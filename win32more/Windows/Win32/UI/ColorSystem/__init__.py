@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -390,15 +390,15 @@ BM_S2DOT13FIXED_scARGB: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1540
 BM_R10G10B10A2: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1793
 BM_R10G10B10A2_XR: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1794
 BM_R16G16B16A16_FLOAT: win32more.Windows.Win32.UI.ColorSystem.BMFORMAT = 1795
-class BlackInformation(EasyCastStructure):
+class BlackInformation(Structure):
     fBlackOnly: win32more.Windows.Win32.Foundation.BOOL
     blackWeight: Single
-class CMYKCOLOR(EasyCastStructure):
+class CMYKCOLOR(Structure):
     cyan: UInt16
     magenta: UInt16
     yellow: UInt16
     black: UInt16
-class COLOR(EasyCastUnion):
+class COLOR(Union):
     gray: win32more.Windows.Win32.UI.ColorSystem.GRAYCOLOR
     rgb: win32more.Windows.Win32.UI.ColorSystem.RGBCOLOR
     cmyk: win32more.Windows.Win32.UI.ColorSystem.CMYKCOLOR
@@ -409,7 +409,7 @@ class COLOR(EasyCastUnion):
     named: win32more.Windows.Win32.UI.ColorSystem.NAMEDCOLOR
     hifi: win32more.Windows.Win32.UI.ColorSystem.HiFiCOLOR
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         reserved1: UInt32
         reserved2: VoidPtr
 COLORDATATYPE = Int32
@@ -420,7 +420,7 @@ COLOR_S2DOT13FIXED: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 4
 COLOR_10b_R10G10B10A2: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 5
 COLOR_10b_R10G10B10A2_XR: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 6
 COLOR_FLOAT16: win32more.Windows.Win32.UI.ColorSystem.COLORDATATYPE = 7
-class COLORMATCHSETUPA(EasyCastStructure):
+class COLORMATCHSETUPA(Structure):
     dwSize: UInt32
     dwVersion: UInt32
     dwFlags: UInt32
@@ -440,7 +440,7 @@ class COLORMATCHSETUPA(EasyCastStructure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     lpfnApplyCallback: win32more.Windows.Win32.UI.ColorSystem.PCMSCALLBACKA
     lParamApplyCallback: win32more.Windows.Win32.Foundation.LPARAM
-class COLORMATCHSETUPW(EasyCastStructure):
+class COLORMATCHSETUPW(Structure):
     dwSize: UInt32
     dwVersion: UInt32
     dwFlags: UInt32
@@ -493,7 +493,7 @@ COLOR_MATCH_TO_TARGET_ACTION = UInt32
 CS_ENABLE: win32more.Windows.Win32.UI.ColorSystem.COLOR_MATCH_TO_TARGET_ACTION = 1
 CS_DISABLE: win32more.Windows.Win32.UI.ColorSystem.COLOR_MATCH_TO_TARGET_ACTION = 2
 CS_DELETE_TRANSFORM: win32more.Windows.Win32.UI.ColorSystem.COLOR_MATCH_TO_TARGET_ACTION = 3
-class EMRCREATECOLORSPACEW(EasyCastStructure):
+class EMRCREATECOLORSPACEW(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihCS: UInt32
     lcs: win32more.Windows.Win32.UI.ColorSystem.LOGCOLORSPACEW
@@ -501,7 +501,7 @@ class EMRCREATECOLORSPACEW(EasyCastStructure):
     cbData: UInt32
     Data: Byte * 1
 EMRCREATECOLORSPACE = UnicodeAlias('EMRCREATECOLORSPACEW')
-class ENUMTYPEA(EasyCastStructure):
+class ENUMTYPEA(Structure):
     dwSize: UInt32
     dwVersion: UInt32
     dwFields: UInt32
@@ -522,7 +522,7 @@ class ENUMTYPEA(EasyCastStructure):
     dwRenderingIntent: UInt32
     dwCreator: UInt32
     dwDeviceClass: UInt32
-class ENUMTYPEW(EasyCastStructure):
+class ENUMTYPEW(Structure):
     dwSize: UInt32
     dwVersion: UInt32
     dwFields: UInt32
@@ -544,30 +544,30 @@ class ENUMTYPEW(EasyCastStructure):
     dwCreator: UInt32
     dwDeviceClass: UInt32
 ENUMTYPE = UnicodeAlias('ENUMTYPEW')
-class GENERIC3CHANNEL(EasyCastStructure):
+class GENERIC3CHANNEL(Structure):
     ch1: UInt16
     ch2: UInt16
     ch3: UInt16
-class GRAYCOLOR(EasyCastStructure):
+class GRAYCOLOR(Structure):
     gray: UInt16
-class GamutBoundaryDescription(EasyCastStructure):
+class GamutBoundaryDescription(Structure):
     pPrimaries: POINTER(win32more.Windows.Win32.UI.ColorSystem.PrimaryJabColors)
     cNeutralSamples: UInt32
     pNeutralSamples: POINTER(win32more.Windows.Win32.UI.ColorSystem.JabColorF)
     pReferenceShell: POINTER(win32more.Windows.Win32.UI.ColorSystem.GamutShell)
     pPlausibleShell: POINTER(win32more.Windows.Win32.UI.ColorSystem.GamutShell)
     pPossibleShell: POINTER(win32more.Windows.Win32.UI.ColorSystem.GamutShell)
-class GamutShell(EasyCastStructure):
+class GamutShell(Structure):
     JMin: Single
     JMax: Single
     cVertices: UInt32
     cTriangles: UInt32
     pVertices: POINTER(win32more.Windows.Win32.UI.ColorSystem.JabColorF)
     pTriangles: POINTER(win32more.Windows.Win32.UI.ColorSystem.GamutShellTriangle)
-class GamutShellTriangle(EasyCastStructure):
+class GamutShellTriangle(Structure):
     aVertexIndex: UInt32 * 3
 HCOLORSPACE = IntPtr
-class HiFiCOLOR(EasyCastStructure):
+class HiFiCOLOR(Structure):
     channel: Byte * 8
 @winfunctype_pointer
 def ICMENUMPROCA(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
@@ -619,11 +619,11 @@ class IGamutMapModelPlugIn(ComPtr):
     def Initialize(self, bstrXml: win32more.Windows.Win32.Foundation.BSTR, pSrcPlugIn: win32more.Windows.Win32.UI.ColorSystem.IDeviceModelPlugIn, pDestPlugIn: win32more.Windows.Win32.UI.ColorSystem.IDeviceModelPlugIn, pSrcGBD: POINTER(win32more.Windows.Win32.UI.ColorSystem.GamutBoundaryDescription), pDestGBD: POINTER(win32more.Windows.Win32.UI.ColorSystem.GamutBoundaryDescription)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SourceToDestinationAppearanceColors(self, cColors: UInt32, pInputColors: POINTER(win32more.Windows.Win32.UI.ColorSystem.JChColorF), pOutputColors: POINTER(win32more.Windows.Win32.UI.ColorSystem.JChColorF)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class JChColorF(EasyCastStructure):
+class JChColorF(Structure):
     J: Single
     C: Single
     h: Single
-class JabColorF(EasyCastStructure):
+class JabColorF(Structure):
     J: Single
     a: Single
     b: Single
@@ -631,7 +631,7 @@ LCSCSTYPE = Int32
 LCS_CALIBRATED_RGB: win32more.Windows.Win32.UI.ColorSystem.LCSCSTYPE = 0
 LCS_sRGB: win32more.Windows.Win32.UI.ColorSystem.LCSCSTYPE = 1934772034
 LCS_WINDOWS_COLOR_SPACE: win32more.Windows.Win32.UI.ColorSystem.LCSCSTYPE = 1466527264
-class LOGCOLORSPACEA(EasyCastStructure):
+class LOGCOLORSPACEA(Structure):
     lcsSignature: UInt32
     lcsVersion: UInt32
     lcsSize: UInt32
@@ -642,7 +642,7 @@ class LOGCOLORSPACEA(EasyCastStructure):
     lcsGammaGreen: UInt32
     lcsGammaBlue: UInt32
     lcsFilename: win32more.Windows.Win32.Foundation.CHAR * 260
-class LOGCOLORSPACEW(EasyCastStructure):
+class LOGCOLORSPACEW(Structure):
     lcsSignature: UInt32
     lcsVersion: UInt32
     lcsSize: UInt32
@@ -656,13 +656,13 @@ class LOGCOLORSPACEW(EasyCastStructure):
 LOGCOLORSPACE = UnicodeAlias('LOGCOLORSPACEW')
 @winfunctype_pointer
 def LPBMCALLBACKFN(param0: UInt32, param1: UInt32, param2: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class LabCOLOR(EasyCastStructure):
+class LabCOLOR(Structure):
     L: UInt16
     a: UInt16
     b: UInt16
-class NAMEDCOLOR(EasyCastStructure):
+class NAMEDCOLOR(Structure):
     dwIndex: UInt32
-class NAMED_PROFILE_INFO(EasyCastStructure):
+class NAMED_PROFILE_INFO(Structure):
     dwFlags: UInt32
     dwCount: UInt32
     dwCountDevCoordinates: UInt32
@@ -673,11 +673,11 @@ def PCMSCALLBACKA(param0: POINTER(win32more.Windows.Win32.UI.ColorSystem.COLORMA
 @winfunctype_pointer
 def PCMSCALLBACKW(param0: POINTER(win32more.Windows.Win32.UI.ColorSystem.COLORMATCHSETUPW), param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 PCMSCALLBACK = UnicodeAlias('PCMSCALLBACKW')
-class PROFILE(EasyCastStructure):
+class PROFILE(Structure):
     dwType: UInt32
     pProfileData: VoidPtr
     cbDataSize: UInt32
-class PROFILEHEADER(EasyCastStructure):
+class PROFILEHEADER(Structure):
     phSize: UInt32
     phCMMType: UInt32
     phVersion: UInt32
@@ -695,7 +695,7 @@ class PROFILEHEADER(EasyCastStructure):
     phIlluminant: win32more.Windows.Win32.Graphics.Gdi.CIEXYZ
     phCreator: UInt32
     phReserved: Byte * 44
-class PrimaryJabColors(EasyCastStructure):
+class PrimaryJabColors(Structure):
     red: win32more.Windows.Win32.UI.ColorSystem.JabColorF
     yellow: win32more.Windows.Win32.UI.ColorSystem.JabColorF
     green: win32more.Windows.Win32.UI.ColorSystem.JabColorF
@@ -704,7 +704,7 @@ class PrimaryJabColors(EasyCastStructure):
     magenta: win32more.Windows.Win32.UI.ColorSystem.JabColorF
     black: win32more.Windows.Win32.UI.ColorSystem.JabColorF
     white: win32more.Windows.Win32.UI.ColorSystem.JabColorF
-class PrimaryXYZColors(EasyCastStructure):
+class PrimaryXYZColors(Structure):
     red: win32more.Windows.Win32.UI.ColorSystem.XYZColorF
     yellow: win32more.Windows.Win32.UI.ColorSystem.XYZColorF
     green: win32more.Windows.Win32.UI.ColorSystem.XYZColorF
@@ -713,34 +713,34 @@ class PrimaryXYZColors(EasyCastStructure):
     magenta: win32more.Windows.Win32.UI.ColorSystem.XYZColorF
     black: win32more.Windows.Win32.UI.ColorSystem.XYZColorF
     white: win32more.Windows.Win32.UI.ColorSystem.XYZColorF
-class RGBCOLOR(EasyCastStructure):
+class RGBCOLOR(Structure):
     red: UInt16
     green: UInt16
     blue: UInt16
 WCS_DEVICE_CAPABILITIES_TYPE = Int32
 VideoCardGammaTable: win32more.Windows.Win32.UI.ColorSystem.WCS_DEVICE_CAPABILITIES_TYPE = 1
 MicrosoftHardwareColorV2: win32more.Windows.Win32.UI.ColorSystem.WCS_DEVICE_CAPABILITIES_TYPE = 2
-class WCS_DEVICE_MHC2_CAPABILITIES(EasyCastStructure):
+class WCS_DEVICE_MHC2_CAPABILITIES(Structure):
     Size: UInt32
     SupportsMhc2: win32more.Windows.Win32.Foundation.BOOL
     RegammaLutEntryCount: UInt32
     CscXyzMatrixRows: UInt32
     CscXyzMatrixColumns: UInt32
-class WCS_DEVICE_VCGT_CAPABILITIES(EasyCastStructure):
+class WCS_DEVICE_VCGT_CAPABILITIES(Structure):
     Size: UInt32
     SupportsVcgt: win32more.Windows.Win32.Foundation.BOOL
 WCS_PROFILE_MANAGEMENT_SCOPE = Int32
 WCS_PROFILE_MANAGEMENT_SCOPE_SYSTEM_WIDE: win32more.Windows.Win32.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE = 0
 WCS_PROFILE_MANAGEMENT_SCOPE_CURRENT_USER: win32more.Windows.Win32.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE = 1
-class XYZCOLOR(EasyCastStructure):
+class XYZCOLOR(Structure):
     X: UInt16
     Y: UInt16
     Z: UInt16
-class XYZColorF(EasyCastStructure):
+class XYZColorF(Structure):
     X: Single
     Y: Single
     Z: Single
-class YxyCOLOR(EasyCastStructure):
+class YxyCOLOR(Structure):
     Y: UInt16
     x: UInt16
     y: UInt16

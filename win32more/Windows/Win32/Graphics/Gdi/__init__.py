@@ -1,34 +1,34 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
-class ABC(EasyCastStructure):
+class ABC(Structure):
     abcA: Int32
     abcB: UInt32
     abcC: Int32
-class ABCFLOAT(EasyCastStructure):
+class ABCFLOAT(Structure):
     abcfA: Single
     abcfB: Single
     abcfC: Single
-class ABORTPATH(EasyCastStructure):
+class ABORTPATH(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
 ARC_DIRECTION = Int32
 AD_COUNTERCLOCKWISE: win32more.Windows.Win32.Graphics.Gdi.ARC_DIRECTION = 1
 AD_CLOCKWISE: win32more.Windows.Win32.Graphics.Gdi.ARC_DIRECTION = 2
-class AXESLISTA(EasyCastStructure):
+class AXESLISTA(Structure):
     axlReserved: UInt32
     axlNumAxes: UInt32
     axlAxisInfo: win32more.Windows.Win32.Graphics.Gdi.AXISINFOA * 16
-class AXESLISTW(EasyCastStructure):
+class AXESLISTW(Structure):
     axlReserved: UInt32
     axlNumAxes: UInt32
     axlAxisInfo: win32more.Windows.Win32.Graphics.Gdi.AXISINFOW * 16
 AXESLIST = UnicodeAlias('AXESLISTW')
-class AXISINFOA(EasyCastStructure):
+class AXISINFOA(Structure):
     axMinValue: Int32
     axMaxValue: Int32
     axAxisName: Byte * 16
-class AXISINFOW(EasyCastStructure):
+class AXISINFOW(Structure):
     axMinValue: Int32
     axMaxValue: Int32
     axAxisName: Char * 16
@@ -1718,7 +1718,7 @@ def EnumDisplayMonitors(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lprcClip:
 BACKGROUND_MODE = UInt32
 OPAQUE: win32more.Windows.Win32.Graphics.Gdi.BACKGROUND_MODE = 2
 TRANSPARENT: win32more.Windows.Win32.Graphics.Gdi.BACKGROUND_MODE = 1
-class BITMAP(EasyCastStructure):
+class BITMAP(Structure):
     bmType: Int32
     bmWidth: Int32
     bmHeight: Int32
@@ -1726,26 +1726,26 @@ class BITMAP(EasyCastStructure):
     bmPlanes: UInt16
     bmBitsPixel: UInt16
     bmBits: VoidPtr
-class BITMAPCOREHEADER(EasyCastStructure):
+class BITMAPCOREHEADER(Structure):
     bcSize: UInt32
     bcWidth: UInt16
     bcHeight: UInt16
     bcPlanes: UInt16
     bcBitCount: UInt16
-class BITMAPCOREINFO(EasyCastStructure):
+class BITMAPCOREINFO(Structure):
     bmciHeader: win32more.Windows.Win32.Graphics.Gdi.BITMAPCOREHEADER
     bmciColors: win32more.Windows.Win32.Graphics.Gdi.RGBTRIPLE * 1
-class BITMAPFILEHEADER(EasyCastStructure):
+class BITMAPFILEHEADER(Structure):
     bfType: UInt16
     bfSize: UInt32
     bfReserved1: UInt16
     bfReserved2: UInt16
     bfOffBits: UInt32
     _pack_ = 2
-class BITMAPINFO(EasyCastStructure):
+class BITMAPINFO(Structure):
     bmiHeader: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
     bmiColors: win32more.Windows.Win32.Graphics.Gdi.RGBQUAD * 1
-class BITMAPINFOHEADER(EasyCastStructure):
+class BITMAPINFOHEADER(Structure):
     biSize: UInt32
     biWidth: Int32
     biHeight: Int32
@@ -1757,7 +1757,7 @@ class BITMAPINFOHEADER(EasyCastStructure):
     biYPelsPerMeter: Int32
     biClrUsed: UInt32
     biClrImportant: UInt32
-class BITMAPV4HEADER(EasyCastStructure):
+class BITMAPV4HEADER(Structure):
     bV4Size: UInt32
     bV4Width: Int32
     bV4Height: Int32
@@ -1778,7 +1778,7 @@ class BITMAPV4HEADER(EasyCastStructure):
     bV4GammaRed: UInt32
     bV4GammaGreen: UInt32
     bV4GammaBlue: UInt32
-class BITMAPV5HEADER(EasyCastStructure):
+class BITMAPV5HEADER(Structure):
     bV5Size: UInt32
     bV5Width: Int32
     bV5Height: Int32
@@ -1810,7 +1810,7 @@ BI_RLE4: win32more.Windows.Win32.Graphics.Gdi.BI_COMPRESSION = 2
 BI_BITFIELDS: win32more.Windows.Win32.Graphics.Gdi.BI_COMPRESSION = 3
 BI_JPEG: win32more.Windows.Win32.Graphics.Gdi.BI_COMPRESSION = 4
 BI_PNG: win32more.Windows.Win32.Graphics.Gdi.BI_COMPRESSION = 5
-class BLENDFUNCTION(EasyCastStructure):
+class BLENDFUNCTION(Structure):
     BlendOp: Byte
     BlendFlags: Byte
     SourceConstantAlpha: Byte
@@ -1845,15 +1845,15 @@ def CFP_ALLOCPROC(param0: UIntPtr) -> VoidPtr: ...
 def CFP_FREEPROC(param0: VoidPtr) -> Void: ...
 @cfunctype_pointer
 def CFP_REALLOCPROC(param0: VoidPtr, param1: UIntPtr) -> VoidPtr: ...
-class CIEXYZ(EasyCastStructure):
+class CIEXYZ(Structure):
     ciexyzX: Int32
     ciexyzY: Int32
     ciexyzZ: Int32
-class CIEXYZTRIPLE(EasyCastStructure):
+class CIEXYZTRIPLE(Structure):
     ciexyzRed: win32more.Windows.Win32.Graphics.Gdi.CIEXYZ
     ciexyzGreen: win32more.Windows.Win32.Graphics.Gdi.CIEXYZ
     ciexyzBlue: win32more.Windows.Win32.Graphics.Gdi.CIEXYZ
-class COLORADJUSTMENT(EasyCastStructure):
+class COLORADJUSTMENT(Structure):
     caSize: UInt16
     caFlags: UInt16
     caIlluminantIndex: UInt16
@@ -1879,11 +1879,11 @@ WINDING: win32more.Windows.Win32.Graphics.Gdi.CREATE_POLYGON_RGN_MODE = 2
 DC_LAYOUT = UInt32
 LAYOUT_BITMAPORIENTATIONPRESERVED: win32more.Windows.Win32.Graphics.Gdi.DC_LAYOUT = 8
 LAYOUT_RTL: win32more.Windows.Win32.Graphics.Gdi.DC_LAYOUT = 1
-class DESIGNVECTOR(EasyCastStructure):
+class DESIGNVECTOR(Structure):
     dvReserved: UInt32
     dvNumAxes: UInt32
     dvValues: Int32 * 16
-class DEVMODEA(EasyCastStructure):
+class DEVMODEA(Structure):
     dmDeviceName: Byte * 32
     dmSpecVersion: UInt16
     dmDriverVersion: UInt16
@@ -1911,10 +1911,10 @@ class DEVMODEA(EasyCastStructure):
     dmReserved2: UInt32
     dmPanningWidth: UInt32
     dmPanningHeight: UInt32
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             dmOrientation: Int16
             dmPaperSize: Int16
             dmPaperLength: Int16
@@ -1923,14 +1923,14 @@ class DEVMODEA(EasyCastStructure):
             dmCopies: Int16
             dmDefaultSource: Int16
             dmPrintQuality: Int16
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             dmPosition: win32more.Windows.Win32.Foundation.POINTL
             dmDisplayOrientation: win32more.Windows.Win32.Graphics.Gdi.DEVMODE_DISPLAY_ORIENTATION
             dmDisplayFixedOutput: win32more.Windows.Win32.Graphics.Gdi.DEVMODE_DISPLAY_FIXED_OUTPUT
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         dmDisplayFlags: UInt32
         dmNup: UInt32
-class DEVMODEW(EasyCastStructure):
+class DEVMODEW(Structure):
     dmDeviceName: Char * 32
     dmSpecVersion: UInt16
     dmDriverVersion: UInt16
@@ -1958,10 +1958,10 @@ class DEVMODEW(EasyCastStructure):
     dmReserved2: UInt32
     dmPanningWidth: UInt32
     dmPanningHeight: UInt32
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             dmOrientation: Int16
             dmPaperSize: Int16
             dmPaperLength: Int16
@@ -1970,11 +1970,11 @@ class DEVMODEW(EasyCastStructure):
             dmCopies: Int16
             dmDefaultSource: Int16
             dmPrintQuality: Int16
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             dmPosition: win32more.Windows.Win32.Foundation.POINTL
             dmDisplayOrientation: win32more.Windows.Win32.Graphics.Gdi.DEVMODE_DISPLAY_ORIENTATION
             dmDisplayFixedOutput: win32more.Windows.Win32.Graphics.Gdi.DEVMODE_DISPLAY_FIXED_OUTPUT
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         dmDisplayFlags: UInt32
         dmNup: UInt32
 DEVMODE = UnicodeAlias('DEVMODEW')
@@ -2080,7 +2080,7 @@ DFC_MENU: win32more.Windows.Win32.Graphics.Gdi.DFC_TYPE = 2
 DFC_SCROLL: win32more.Windows.Win32.Graphics.Gdi.DFC_TYPE = 3
 DFC_BUTTON: win32more.Windows.Win32.Graphics.Gdi.DFC_TYPE = 4
 DFC_POPUPMENU: win32more.Windows.Win32.Graphics.Gdi.DFC_TYPE = 5
-class DIBSECTION(EasyCastStructure):
+class DIBSECTION(Structure):
     dsBm: win32more.Windows.Win32.Graphics.Gdi.BITMAP
     dsBmih: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
     dsBitfields: UInt32 * 3
@@ -2095,14 +2095,14 @@ DISPLAYCONFIG_COLOR_ENCODING_YCBCR444: win32more.Windows.Win32.Graphics.Gdi.DISP
 DISPLAYCONFIG_COLOR_ENCODING_YCBCR422: win32more.Windows.Win32.Graphics.Gdi.DISPLAYCONFIG_COLOR_ENCODING = 2
 DISPLAYCONFIG_COLOR_ENCODING_YCBCR420: win32more.Windows.Win32.Graphics.Gdi.DISPLAYCONFIG_COLOR_ENCODING = 3
 DISPLAYCONFIG_COLOR_ENCODING_INTENSITY: win32more.Windows.Win32.Graphics.Gdi.DISPLAYCONFIG_COLOR_ENCODING = 4
-class DISPLAY_DEVICEA(EasyCastStructure):
+class DISPLAY_DEVICEA(Structure):
     cb: UInt32
     DeviceName: win32more.Windows.Win32.Foundation.CHAR * 32
     DeviceString: win32more.Windows.Win32.Foundation.CHAR * 128
     StateFlags: UInt32
     DeviceID: win32more.Windows.Win32.Foundation.CHAR * 128
     DeviceKey: win32more.Windows.Win32.Foundation.CHAR * 128
-class DISPLAY_DEVICEW(EasyCastStructure):
+class DISPLAY_DEVICEW(Structure):
     cb: UInt32
     DeviceName: Char * 32
     DeviceString: Char * 128
@@ -2147,7 +2147,7 @@ DSS_MONO: win32more.Windows.Win32.Graphics.Gdi.DRAWSTATE_FLAGS = 128
 DSS_HIDEPREFIX: win32more.Windows.Win32.Graphics.Gdi.DRAWSTATE_FLAGS = 512
 DSS_PREFIXONLY: win32more.Windows.Win32.Graphics.Gdi.DRAWSTATE_FLAGS = 1024
 DSS_RIGHT: win32more.Windows.Win32.Graphics.Gdi.DRAWSTATE_FLAGS = 32768
-class DRAWTEXTPARAMS(EasyCastStructure):
+class DRAWTEXTPARAMS(Structure):
     cbSize: UInt32
     iTabLength: Int32
     iLeftMargin: Int32
@@ -2214,10 +2214,10 @@ EMBED_NOEMBEDDING: win32more.Windows.Win32.Graphics.Gdi.EMBEDDED_FONT_PRIV_STATU
 EMBED_FONT_CHARSET = UInt32
 CHARSET_UNICODE: win32more.Windows.Win32.Graphics.Gdi.EMBED_FONT_CHARSET = 1
 CHARSET_SYMBOL: win32more.Windows.Win32.Graphics.Gdi.EMBED_FONT_CHARSET = 2
-class EMR(EasyCastStructure):
+class EMR(Structure):
     iType: win32more.Windows.Win32.Graphics.Gdi.ENHANCED_METAFILE_RECORD_TYPE
     nSize: UInt32
-class EMRALPHABLEND(EasyCastStructure):
+class EMRALPHABLEND(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     xDest: Int32
@@ -2236,18 +2236,18 @@ class EMRALPHABLEND(EasyCastStructure):
     cbBitsSrc: UInt32
     cxSrc: Int32
     cySrc: Int32
-class EMRANGLEARC(EasyCastStructure):
+class EMRANGLEARC(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ptlCenter: win32more.Windows.Win32.Foundation.POINTL
     nRadius: UInt32
     eStartAngle: Single
     eSweepAngle: Single
-class EMRARC(EasyCastStructure):
+class EMRARC(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBox: win32more.Windows.Win32.Foundation.RECTL
     ptlStart: win32more.Windows.Win32.Foundation.POINTL
     ptlEnd: win32more.Windows.Win32.Foundation.POINTL
-class EMRBITBLT(EasyCastStructure):
+class EMRBITBLT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     xDest: Int32
@@ -2264,24 +2264,24 @@ class EMRBITBLT(EasyCastStructure):
     cbBmiSrc: UInt32
     offBitsSrc: UInt32
     cbBitsSrc: UInt32
-class EMRCOLORCORRECTPALETTE(EasyCastStructure):
+class EMRCOLORCORRECTPALETTE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihPalette: UInt32
     nFirstEntry: UInt32
     nPalEntries: UInt32
     nReserved: UInt32
-class EMRCOLORMATCHTOTARGET(EasyCastStructure):
+class EMRCOLORMATCHTOTARGET(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     dwAction: UInt32
     dwFlags: UInt32
     cbName: UInt32
     cbData: UInt32
     Data: Byte * 1
-class EMRCREATEBRUSHINDIRECT(EasyCastStructure):
+class EMRCREATEBRUSHINDIRECT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihBrush: UInt32
     lb: win32more.Windows.Win32.Graphics.Gdi.LOGBRUSH32
-class EMRCREATEDIBPATTERNBRUSHPT(EasyCastStructure):
+class EMRCREATEDIBPATTERNBRUSHPT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihBrush: UInt32
     iUsage: UInt32
@@ -2289,7 +2289,7 @@ class EMRCREATEDIBPATTERNBRUSHPT(EasyCastStructure):
     cbBmi: UInt32
     offBits: UInt32
     cbBits: UInt32
-class EMRCREATEMONOBRUSH(EasyCastStructure):
+class EMRCREATEMONOBRUSH(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihBrush: UInt32
     iUsage: UInt32
@@ -2297,30 +2297,30 @@ class EMRCREATEMONOBRUSH(EasyCastStructure):
     cbBmi: UInt32
     offBits: UInt32
     cbBits: UInt32
-class EMRCREATEPALETTE(EasyCastStructure):
+class EMRCREATEPALETTE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihPal: UInt32
     lgpl: win32more.Windows.Win32.Graphics.Gdi.LOGPALETTE
-class EMRCREATEPEN(EasyCastStructure):
+class EMRCREATEPEN(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihPen: UInt32
     lopn: win32more.Windows.Win32.Graphics.Gdi.LOGPEN
-class EMRELLIPSE(EasyCastStructure):
+class EMRELLIPSE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBox: win32more.Windows.Win32.Foundation.RECTL
-class EMREOF(EasyCastStructure):
+class EMREOF(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     nPalEntries: UInt32
     offPalEntries: UInt32
     nSizeLast: UInt32
-class EMREXCLUDECLIPRECT(EasyCastStructure):
+class EMREXCLUDECLIPRECT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclClip: win32more.Windows.Win32.Foundation.RECTL
-class EMREXTCREATEFONTINDIRECTW(EasyCastStructure):
+class EMREXTCREATEFONTINDIRECTW(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihFont: UInt32
     elfw: win32more.Windows.Win32.Graphics.Gdi.EXTLOGFONTW
-class EMREXTCREATEPEN(EasyCastStructure):
+class EMREXTCREATEPEN(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihPen: UInt32
     offBmi: UInt32
@@ -2328,78 +2328,78 @@ class EMREXTCREATEPEN(EasyCastStructure):
     offBits: UInt32
     cbBits: UInt32
     elp: win32more.Windows.Win32.Graphics.Gdi.EXTLOGPEN32
-class EMREXTESCAPE(EasyCastStructure):
+class EMREXTESCAPE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     iEscape: Int32
     cbEscData: Int32
     EscData: Byte * 1
-class EMREXTFLOODFILL(EasyCastStructure):
+class EMREXTFLOODFILL(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ptlStart: win32more.Windows.Win32.Foundation.POINTL
     crColor: win32more.Windows.Win32.Foundation.COLORREF
     iMode: UInt32
-class EMREXTSELECTCLIPRGN(EasyCastStructure):
+class EMREXTSELECTCLIPRGN(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     cbRgnData: UInt32
     iMode: UInt32
     RgnData: Byte * 1
-class EMREXTTEXTOUTA(EasyCastStructure):
+class EMREXTTEXTOUTA(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     iGraphicsMode: UInt32
     exScale: Single
     eyScale: Single
     emrtext: win32more.Windows.Win32.Graphics.Gdi.EMRTEXT
-class EMRFILLPATH(EasyCastStructure):
+class EMRFILLPATH(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
-class EMRFILLRGN(EasyCastStructure):
+class EMRFILLRGN(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     cbRgnData: UInt32
     ihBrush: UInt32
     RgnData: Byte * 1
-class EMRFORMAT(EasyCastStructure):
+class EMRFORMAT(Structure):
     dSignature: UInt32
     nVersion: UInt32
     cbData: UInt32
     offData: UInt32
-class EMRFRAMERGN(EasyCastStructure):
+class EMRFRAMERGN(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     cbRgnData: UInt32
     ihBrush: UInt32
     szlStroke: win32more.Windows.Win32.Foundation.SIZE
     RgnData: Byte * 1
-class EMRGDICOMMENT(EasyCastStructure):
+class EMRGDICOMMENT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     cbData: UInt32
     Data: Byte * 1
-class EMRGLSBOUNDEDRECORD(EasyCastStructure):
+class EMRGLSBOUNDEDRECORD(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     cbData: UInt32
     Data: Byte * 1
-class EMRGLSRECORD(EasyCastStructure):
+class EMRGLSRECORD(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     cbData: UInt32
     Data: Byte * 1
-class EMRGRADIENTFILL(EasyCastStructure):
+class EMRGRADIENTFILL(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     nVer: UInt32
     nTri: UInt32
     ulMode: win32more.Windows.Win32.Graphics.Gdi.GRADIENT_FILL
     Ver: win32more.Windows.Win32.Graphics.Gdi.TRIVERTEX * 1
-class EMRINVERTRGN(EasyCastStructure):
+class EMRINVERTRGN(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     cbRgnData: UInt32
     RgnData: Byte * 1
-class EMRLINETO(EasyCastStructure):
+class EMRLINETO(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ptl: win32more.Windows.Win32.Foundation.POINTL
-class EMRMASKBLT(EasyCastStructure):
+class EMRMASKBLT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     xDest: Int32
@@ -2423,20 +2423,20 @@ class EMRMASKBLT(EasyCastStructure):
     cbBmiMask: UInt32
     offBitsMask: UInt32
     cbBitsMask: UInt32
-class EMRMODIFYWORLDTRANSFORM(EasyCastStructure):
+class EMRMODIFYWORLDTRANSFORM(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     xform: win32more.Windows.Win32.Graphics.Gdi.XFORM
     iMode: win32more.Windows.Win32.Graphics.Gdi.MODIFY_WORLD_TRANSFORM_MODE
-class EMRNAMEDESCAPE(EasyCastStructure):
+class EMRNAMEDESCAPE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     iEscape: Int32
     cbDriver: Int32
     cbEscData: Int32
     EscData: Byte * 1
-class EMROFFSETCLIPRGN(EasyCastStructure):
+class EMROFFSETCLIPRGN(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ptlOffset: win32more.Windows.Win32.Foundation.POINTL
-class EMRPLGBLT(EasyCastStructure):
+class EMRPLGBLT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     aptlDest: win32more.Windows.Win32.Foundation.POINTL * 3
@@ -2458,43 +2458,43 @@ class EMRPLGBLT(EasyCastStructure):
     cbBmiMask: UInt32
     offBitsMask: UInt32
     cbBitsMask: UInt32
-class EMRPOLYDRAW(EasyCastStructure):
+class EMRPOLYDRAW(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     cptl: UInt32
     aptl: win32more.Windows.Win32.Foundation.POINTL * 1
     abTypes: Byte * 1
-class EMRPOLYDRAW16(EasyCastStructure):
+class EMRPOLYDRAW16(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     cpts: UInt32
     apts: win32more.Windows.Win32.Foundation.POINTS * 1
     abTypes: Byte * 1
-class EMRPOLYLINE(EasyCastStructure):
+class EMRPOLYLINE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     cptl: UInt32
     aptl: win32more.Windows.Win32.Foundation.POINTL * 1
-class EMRPOLYLINE16(EasyCastStructure):
+class EMRPOLYLINE16(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     cpts: UInt32
     apts: win32more.Windows.Win32.Foundation.POINTS * 1
-class EMRPOLYPOLYLINE(EasyCastStructure):
+class EMRPOLYPOLYLINE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     nPolys: UInt32
     cptl: UInt32
     aPolyCounts: UInt32 * 1
     aptl: win32more.Windows.Win32.Foundation.POINTL * 1
-class EMRPOLYPOLYLINE16(EasyCastStructure):
+class EMRPOLYPOLYLINE16(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     nPolys: UInt32
     cpts: UInt32
     aPolyCounts: UInt32 * 1
     apts: win32more.Windows.Win32.Foundation.POINTS * 1
-class EMRPOLYTEXTOUTA(EasyCastStructure):
+class EMRPOLYTEXTOUTA(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     iGraphicsMode: UInt32
@@ -2502,42 +2502,42 @@ class EMRPOLYTEXTOUTA(EasyCastStructure):
     eyScale: Single
     cStrings: Int32
     aemrtext: win32more.Windows.Win32.Graphics.Gdi.EMRTEXT * 1
-class EMRRESIZEPALETTE(EasyCastStructure):
+class EMRRESIZEPALETTE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihPal: UInt32
     cEntries: UInt32
-class EMRRESTOREDC(EasyCastStructure):
+class EMRRESTOREDC(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     iRelative: Int32
-class EMRROUNDRECT(EasyCastStructure):
+class EMRROUNDRECT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBox: win32more.Windows.Win32.Foundation.RECTL
     szlCorner: win32more.Windows.Win32.Foundation.SIZE
-class EMRSCALEVIEWPORTEXTEX(EasyCastStructure):
+class EMRSCALEVIEWPORTEXTEX(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     xNum: Int32
     xDenom: Int32
     yNum: Int32
     yDenom: Int32
-class EMRSELECTCLIPPATH(EasyCastStructure):
+class EMRSELECTCLIPPATH(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     iMode: UInt32
-class EMRSELECTOBJECT(EasyCastStructure):
+class EMRSELECTOBJECT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihObject: UInt32
-class EMRSELECTPALETTE(EasyCastStructure):
+class EMRSELECTPALETTE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihPal: UInt32
-class EMRSETARCDIRECTION(EasyCastStructure):
+class EMRSETARCDIRECTION(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     iArcDirection: UInt32
-class EMRSETCOLORADJUSTMENT(EasyCastStructure):
+class EMRSETCOLORADJUSTMENT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ColorAdjustment: win32more.Windows.Win32.Graphics.Gdi.COLORADJUSTMENT
-class EMRSETCOLORSPACE(EasyCastStructure):
+class EMRSETCOLORSPACE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihCS: UInt32
-class EMRSETDIBITSTODEVICE(EasyCastStructure):
+class EMRSETDIBITSTODEVICE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     xDest: Int32
@@ -2553,41 +2553,41 @@ class EMRSETDIBITSTODEVICE(EasyCastStructure):
     iUsageSrc: UInt32
     iStartScan: UInt32
     cScans: UInt32
-class EMRSETICMPROFILE(EasyCastStructure):
+class EMRSETICMPROFILE(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     dwFlags: UInt32
     cbName: UInt32
     cbData: UInt32
     Data: Byte * 1
-class EMRSETMAPPERFLAGS(EasyCastStructure):
+class EMRSETMAPPERFLAGS(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     dwFlags: UInt32
-class EMRSETMITERLIMIT(EasyCastStructure):
+class EMRSETMITERLIMIT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     eMiterLimit: Single
-class EMRSETPALETTEENTRIES(EasyCastStructure):
+class EMRSETPALETTEENTRIES(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ihPal: UInt32
     iStart: UInt32
     cEntries: UInt32
     aPalEntries: win32more.Windows.Win32.Graphics.Gdi.PALETTEENTRY * 1
-class EMRSETPIXELV(EasyCastStructure):
+class EMRSETPIXELV(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ptlPixel: win32more.Windows.Win32.Foundation.POINTL
     crColor: win32more.Windows.Win32.Foundation.COLORREF
-class EMRSETTEXTCOLOR(EasyCastStructure):
+class EMRSETTEXTCOLOR(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     crColor: win32more.Windows.Win32.Foundation.COLORREF
-class EMRSETVIEWPORTEXTEX(EasyCastStructure):
+class EMRSETVIEWPORTEXTEX(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     szlExtent: win32more.Windows.Win32.Foundation.SIZE
-class EMRSETVIEWPORTORGEX(EasyCastStructure):
+class EMRSETVIEWPORTORGEX(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     ptlOrigin: win32more.Windows.Win32.Foundation.POINTL
-class EMRSETWORLDTRANSFORM(EasyCastStructure):
+class EMRSETWORLDTRANSFORM(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     xform: win32more.Windows.Win32.Graphics.Gdi.XFORM
-class EMRSTRETCHBLT(EasyCastStructure):
+class EMRSTRETCHBLT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     xDest: Int32
@@ -2606,7 +2606,7 @@ class EMRSTRETCHBLT(EasyCastStructure):
     cbBitsSrc: UInt32
     cxSrc: Int32
     cySrc: Int32
-class EMRSTRETCHDIBITS(EasyCastStructure):
+class EMRSTRETCHDIBITS(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     xDest: Int32
@@ -2623,14 +2623,14 @@ class EMRSTRETCHDIBITS(EasyCastStructure):
     dwRop: UInt32
     cxDest: Int32
     cyDest: Int32
-class EMRTEXT(EasyCastStructure):
+class EMRTEXT(Structure):
     ptlReference: win32more.Windows.Win32.Foundation.POINTL
     nChars: UInt32
     offString: UInt32
     fOptions: UInt32
     rcl: win32more.Windows.Win32.Foundation.RECTL
     offDx: UInt32
-class EMRTRANSPARENTBLT(EasyCastStructure):
+class EMRTRANSPARENTBLT(Structure):
     emr: win32more.Windows.Win32.Graphics.Gdi.EMR
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     xDest: Int32
@@ -2773,7 +2773,7 @@ EMR_COLORMATCHTOTARGETW: win32more.Windows.Win32.Graphics.Gdi.ENHANCED_METAFILE_
 EMR_CREATECOLORSPACEW: win32more.Windows.Win32.Graphics.Gdi.ENHANCED_METAFILE_RECORD_TYPE = 122
 EMR_MIN: win32more.Windows.Win32.Graphics.Gdi.ENHANCED_METAFILE_RECORD_TYPE = 1
 EMR_MAX: win32more.Windows.Win32.Graphics.Gdi.ENHANCED_METAFILE_RECORD_TYPE = 122
-class ENHMETAHEADER(EasyCastStructure):
+class ENHMETAHEADER(Structure):
     iType: UInt32
     nSize: UInt32
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
@@ -2793,35 +2793,35 @@ class ENHMETAHEADER(EasyCastStructure):
     offPixelFormat: UInt32
     bOpenGL: UInt32
     szlMicrometers: win32more.Windows.Win32.Foundation.SIZE
-class ENHMETARECORD(EasyCastStructure):
+class ENHMETARECORD(Structure):
     iType: win32more.Windows.Win32.Graphics.Gdi.ENHANCED_METAFILE_RECORD_TYPE
     nSize: UInt32
     dParm: UInt32 * 1
 @winfunctype_pointer
 def ENHMFENUMPROC(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, lpht: POINTER(win32more.Windows.Win32.Graphics.Gdi.HANDLETABLE), lpmr: POINTER(win32more.Windows.Win32.Graphics.Gdi.ENHMETARECORD), nHandles: Int32, data: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
-class ENUMLOGFONTA(EasyCastStructure):
+class ENUMLOGFONTA(Structure):
     elfLogFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTA
     elfFullName: Byte * 64
     elfStyle: Byte * 32
-class ENUMLOGFONTEXA(EasyCastStructure):
+class ENUMLOGFONTEXA(Structure):
     elfLogFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTA
     elfFullName: Byte * 64
     elfStyle: Byte * 32
     elfScript: Byte * 32
-class ENUMLOGFONTEXDVA(EasyCastStructure):
+class ENUMLOGFONTEXDVA(Structure):
     elfEnumLogfontEx: win32more.Windows.Win32.Graphics.Gdi.ENUMLOGFONTEXA
     elfDesignVector: win32more.Windows.Win32.Graphics.Gdi.DESIGNVECTOR
-class ENUMLOGFONTEXDVW(EasyCastStructure):
+class ENUMLOGFONTEXDVW(Structure):
     elfEnumLogfontEx: win32more.Windows.Win32.Graphics.Gdi.ENUMLOGFONTEXW
     elfDesignVector: win32more.Windows.Win32.Graphics.Gdi.DESIGNVECTOR
 ENUMLOGFONTEXDV = UnicodeAlias('ENUMLOGFONTEXDVW')
-class ENUMLOGFONTEXW(EasyCastStructure):
+class ENUMLOGFONTEXW(Structure):
     elfLogFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
     elfFullName: Char * 64
     elfStyle: Char * 32
     elfScript: Char * 32
 ENUMLOGFONTEX = UnicodeAlias('ENUMLOGFONTEXW')
-class ENUMLOGFONTW(EasyCastStructure):
+class ENUMLOGFONTW(Structure):
     elfLogFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
     elfFullName: Char * 64
     elfStyle: Char * 32
@@ -2842,7 +2842,7 @@ ETO_NUMERICSLATIN: win32more.Windows.Win32.Graphics.Gdi.ETO_OPTIONS = 2048
 ETO_IGNORELANGUAGE: win32more.Windows.Win32.Graphics.Gdi.ETO_OPTIONS = 4096
 ETO_PDY: win32more.Windows.Win32.Graphics.Gdi.ETO_OPTIONS = 8192
 ETO_REVERSE_INDEX_MAP: win32more.Windows.Win32.Graphics.Gdi.ETO_OPTIONS = 65536
-class EXTLOGFONTA(EasyCastStructure):
+class EXTLOGFONTA(Structure):
     elfLogFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTA
     elfFullName: Byte * 64
     elfStyle: Byte * 32
@@ -2853,7 +2853,7 @@ class EXTLOGFONTA(EasyCastStructure):
     elfVendorId: Byte * 4
     elfCulture: UInt32
     elfPanose: win32more.Windows.Win32.Graphics.Gdi.PANOSE
-class EXTLOGFONTW(EasyCastStructure):
+class EXTLOGFONTW(Structure):
     elfLogFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
     elfFullName: Char * 64
     elfStyle: Char * 32
@@ -2865,7 +2865,7 @@ class EXTLOGFONTW(EasyCastStructure):
     elfCulture: UInt32
     elfPanose: win32more.Windows.Win32.Graphics.Gdi.PANOSE
 EXTLOGFONT = UnicodeAlias('EXTLOGFONTW')
-class EXTLOGPEN(EasyCastStructure):
+class EXTLOGPEN(Structure):
     elpPenStyle: UInt32
     elpWidth: UInt32
     elpBrushStyle: UInt32
@@ -2873,7 +2873,7 @@ class EXTLOGPEN(EasyCastStructure):
     elpHatch: UIntPtr
     elpNumEntries: UInt32
     elpStyleEntry: UInt32 * 1
-class EXTLOGPEN32(EasyCastStructure):
+class EXTLOGPEN32(Structure):
     elpPenStyle: UInt32
     elpWidth: UInt32
     elpBrushStyle: UInt32
@@ -2884,7 +2884,7 @@ class EXTLOGPEN32(EasyCastStructure):
 EXT_FLOOD_FILL_TYPE = UInt32
 FLOODFILLBORDER: win32more.Windows.Win32.Graphics.Gdi.EXT_FLOOD_FILL_TYPE = 0
 FLOODFILLSURFACE: win32more.Windows.Win32.Graphics.Gdi.EXT_FLOOD_FILL_TYPE = 1
-class FIXED(EasyCastStructure):
+class FIXED(Structure):
     fract: UInt16
     value: Int16
 @winfunctype_pointer
@@ -2978,7 +2978,7 @@ FW_REGULAR: win32more.Windows.Win32.Graphics.Gdi.FONT_WEIGHT = 400
 FW_DEMIBOLD: win32more.Windows.Win32.Graphics.Gdi.FONT_WEIGHT = 600
 FW_ULTRABOLD: win32more.Windows.Win32.Graphics.Gdi.FONT_WEIGHT = 800
 FW_BLACK: win32more.Windows.Win32.Graphics.Gdi.FONT_WEIGHT = 900
-class GCP_RESULTSA(EasyCastStructure):
+class GCP_RESULTSA(Structure):
     lStructSize: UInt32
     lpOutString: win32more.Windows.Win32.Foundation.PSTR
     lpOrder: POINTER(UInt32)
@@ -2988,7 +2988,7 @@ class GCP_RESULTSA(EasyCastStructure):
     lpGlyphs: win32more.Windows.Win32.Foundation.PWSTR
     nGlyphs: UInt32
     nMaxFit: Int32
-class GCP_RESULTSW(EasyCastStructure):
+class GCP_RESULTSW(Structure):
     lStructSize: UInt32
     lpOutString: win32more.Windows.Win32.Foundation.PWSTR
     lpOrder: POINTER(UInt32)
@@ -3104,13 +3104,13 @@ OEM_FIXED_FONT: win32more.Windows.Win32.Graphics.Gdi.GET_STOCK_OBJECT_FLAGS = 10
 SYSTEM_FONT: win32more.Windows.Win32.Graphics.Gdi.GET_STOCK_OBJECT_FLAGS = 13
 SYSTEM_FIXED_FONT: win32more.Windows.Win32.Graphics.Gdi.GET_STOCK_OBJECT_FLAGS = 16
 DEFAULT_PALETTE: win32more.Windows.Win32.Graphics.Gdi.GET_STOCK_OBJECT_FLAGS = 15
-class GLYPHMETRICS(EasyCastStructure):
+class GLYPHMETRICS(Structure):
     gmBlackBoxX: UInt32
     gmBlackBoxY: UInt32
     gmptGlyphOrigin: win32more.Windows.Win32.Foundation.POINT
     gmCellIncX: Int16
     gmCellIncY: Int16
-class GLYPHSET(EasyCastStructure):
+class GLYPHSET(Structure):
     cbThis: UInt32
     flAccel: UInt32
     cGlyphsSupported: UInt32
@@ -3122,10 +3122,10 @@ GRADIENT_FILL = UInt32
 GRADIENT_FILL_RECT_H: win32more.Windows.Win32.Graphics.Gdi.GRADIENT_FILL = 0
 GRADIENT_FILL_RECT_V: win32more.Windows.Win32.Graphics.Gdi.GRADIENT_FILL = 1
 GRADIENT_FILL_TRIANGLE: win32more.Windows.Win32.Graphics.Gdi.GRADIENT_FILL = 2
-class GRADIENT_RECT(EasyCastStructure):
+class GRADIENT_RECT(Structure):
     UpperLeft: UInt32
     LowerRight: UInt32
-class GRADIENT_TRIANGLE(EasyCastStructure):
+class GRADIENT_TRIANGLE(Structure):
     Vertex1: UInt32
     Vertex2: UInt32
     Vertex3: UInt32
@@ -3134,7 +3134,7 @@ GM_COMPATIBLE: win32more.Windows.Win32.Graphics.Gdi.GRAPHICS_MODE = 1
 GM_ADVANCED: win32more.Windows.Win32.Graphics.Gdi.GRAPHICS_MODE = 2
 @winfunctype_pointer
 def GRAYSTRINGPROC(param0: win32more.Windows.Win32.Graphics.Gdi.HDC, param1: win32more.Windows.Win32.Foundation.LPARAM, param2: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class HANDLETABLE(EasyCastStructure):
+class HANDLETABLE(Structure):
     objectHandle: win32more.Windows.Win32.Graphics.Gdi.HGDIOBJ * 1
 HATCH_BRUSH_STYLE = Int32
 HS_BDIAGONAL: win32more.Windows.Win32.Graphics.Gdi.HATCH_BRUSH_STYLE = 3
@@ -3163,21 +3163,21 @@ HMONITOR = IntPtr
 HPALETTE = IntPtr
 HPEN = IntPtr
 HRGN = IntPtr
-class KERNINGPAIR(EasyCastStructure):
+class KERNINGPAIR(Structure):
     wFirst: UInt16
     wSecond: UInt16
     iKernAmount: Int32
 @winfunctype_pointer
 def LINEDDAPROC(param0: Int32, param1: Int32, param2: win32more.Windows.Win32.Foundation.LPARAM) -> Void: ...
-class LOGBRUSH(EasyCastStructure):
+class LOGBRUSH(Structure):
     lbStyle: win32more.Windows.Win32.Graphics.Gdi.BRUSH_STYLE
     lbColor: win32more.Windows.Win32.Foundation.COLORREF
     lbHatch: UIntPtr
-class LOGBRUSH32(EasyCastStructure):
+class LOGBRUSH32(Structure):
     lbStyle: win32more.Windows.Win32.Graphics.Gdi.BRUSH_STYLE
     lbColor: win32more.Windows.Win32.Foundation.COLORREF
     lbHatch: UInt32
-class LOGFONTA(EasyCastStructure):
+class LOGFONTA(Structure):
     lfHeight: Int32
     lfWidth: Int32
     lfEscapement: Int32
@@ -3192,7 +3192,7 @@ class LOGFONTA(EasyCastStructure):
     lfQuality: win32more.Windows.Win32.Graphics.Gdi.FONT_QUALITY
     lfPitchAndFamily: Byte
     lfFaceName: win32more.Windows.Win32.Foundation.CHAR * 32
-class LOGFONTW(EasyCastStructure):
+class LOGFONTW(Structure):
     lfHeight: Int32
     lfWidth: Int32
     lfEscapement: Int32
@@ -3208,11 +3208,11 @@ class LOGFONTW(EasyCastStructure):
     lfPitchAndFamily: Byte
     lfFaceName: Char * 32
 LOGFONT = UnicodeAlias('LOGFONTW')
-class LOGPALETTE(EasyCastStructure):
+class LOGPALETTE(Structure):
     palVersion: UInt16
     palNumEntries: UInt16
     palPalEntry: win32more.Windows.Win32.Graphics.Gdi.PALETTEENTRY * 1
-class LOGPEN(EasyCastStructure):
+class LOGPEN(Structure):
     lopnStyle: UInt32
     lopnWidth: win32more.Windows.Win32.Foundation.POINT
     lopnColor: win32more.Windows.Win32.Foundation.COLORREF
@@ -3220,12 +3220,12 @@ class LOGPEN(EasyCastStructure):
 def LPFNDEVCAPS(param0: win32more.Windows.Win32.Foundation.PSTR, param1: win32more.Windows.Win32.Foundation.PSTR, param2: UInt32, param3: win32more.Windows.Win32.Foundation.PSTR, param4: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)) -> UInt32: ...
 @winfunctype_pointer
 def LPFNDEVMODE(param0: win32more.Windows.Win32.Foundation.HWND, param1: win32more.Windows.Win32.Foundation.HMODULE, param2: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), param3: win32more.Windows.Win32.Foundation.PSTR, param4: win32more.Windows.Win32.Foundation.PSTR, param5: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA), param6: win32more.Windows.Win32.Foundation.PSTR, param7: UInt32) -> UInt32: ...
-class MAT2(EasyCastStructure):
+class MAT2(Structure):
     eM11: win32more.Windows.Win32.Graphics.Gdi.FIXED
     eM12: win32more.Windows.Win32.Graphics.Gdi.FIXED
     eM21: win32more.Windows.Win32.Graphics.Gdi.FIXED
     eM22: win32more.Windows.Win32.Graphics.Gdi.FIXED
-class METAHEADER(EasyCastStructure):
+class METAHEADER(Structure):
     mtType: UInt16
     mtHeaderSize: UInt16
     mtVersion: UInt16
@@ -3234,7 +3234,7 @@ class METAHEADER(EasyCastStructure):
     mtMaxRecord: UInt32
     mtNoParameters: UInt16
     _pack_ = 2
-class METARECORD(EasyCastStructure):
+class METARECORD(Structure):
     rdSize: UInt32
     rdFunction: UInt16
     rdParm: UInt16 * 1
@@ -3246,15 +3246,15 @@ MWT_LEFTMULTIPLY: win32more.Windows.Win32.Graphics.Gdi.MODIFY_WORLD_TRANSFORM_MO
 MWT_RIGHTMULTIPLY: win32more.Windows.Win32.Graphics.Gdi.MODIFY_WORLD_TRANSFORM_MODE = 3
 @winfunctype_pointer
 def MONITORENUMPROC(param0: win32more.Windows.Win32.Graphics.Gdi.HMONITOR, param1: win32more.Windows.Win32.Graphics.Gdi.HDC, param2: POINTER(win32more.Windows.Win32.Foundation.RECT), param3: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class MONITORINFO(EasyCastStructure):
+class MONITORINFO(Structure):
     cbSize: UInt32
     rcMonitor: win32more.Windows.Win32.Foundation.RECT
     rcWork: win32more.Windows.Win32.Foundation.RECT
     dwFlags: UInt32
-class MONITORINFOEXA(EasyCastStructure):
+class MONITORINFOEXA(Structure):
     monitorInfo: win32more.Windows.Win32.Graphics.Gdi.MONITORINFO
     szDevice: win32more.Windows.Win32.Foundation.CHAR * 32
-class MONITORINFOEXW(EasyCastStructure):
+class MONITORINFOEXW(Structure):
     monitorInfo: win32more.Windows.Win32.Graphics.Gdi.MONITORINFO
     szDevice: Char * 32
 MONITORINFOEX = UnicodeAlias('MONITORINFOEXW')
@@ -3262,7 +3262,7 @@ MONITOR_FROM_FLAGS = UInt32
 MONITOR_DEFAULTTONEAREST: win32more.Windows.Win32.Graphics.Gdi.MONITOR_FROM_FLAGS = 2
 MONITOR_DEFAULTTONULL: win32more.Windows.Win32.Graphics.Gdi.MONITOR_FROM_FLAGS = 0
 MONITOR_DEFAULTTOPRIMARY: win32more.Windows.Win32.Graphics.Gdi.MONITOR_FROM_FLAGS = 1
-class NEWTEXTMETRICA(EasyCastStructure):
+class NEWTEXTMETRICA(Structure):
     tmHeight: Int32
     tmAscent: Int32
     tmDescent: Int32
@@ -3287,7 +3287,7 @@ class NEWTEXTMETRICA(EasyCastStructure):
     ntmSizeEM: UInt32
     ntmCellHeight: UInt32
     ntmAvgWidth: UInt32
-class NEWTEXTMETRICW(EasyCastStructure):
+class NEWTEXTMETRICW(Structure):
     tmHeight: Int32
     tmAscent: Int32
     tmDescent: Int32
@@ -3328,7 +3328,7 @@ OBJ_EXTPEN: win32more.Windows.Win32.Graphics.Gdi.OBJ_TYPE = 11
 OBJ_ENHMETADC: win32more.Windows.Win32.Graphics.Gdi.OBJ_TYPE = 12
 OBJ_ENHMETAFILE: win32more.Windows.Win32.Graphics.Gdi.OBJ_TYPE = 13
 OBJ_COLORSPACE: win32more.Windows.Win32.Graphics.Gdi.OBJ_TYPE = 14
-class OUTLINETEXTMETRICA(EasyCastStructure):
+class OUTLINETEXTMETRICA(Structure):
     otmSize: UInt32
     otmTextMetrics: win32more.Windows.Win32.Graphics.Gdi.TEXTMETRICA
     otmFiller: Byte
@@ -3361,7 +3361,7 @@ class OUTLINETEXTMETRICA(EasyCastStructure):
     otmpFaceName: win32more.Windows.Win32.Foundation.PSTR
     otmpStyleName: win32more.Windows.Win32.Foundation.PSTR
     otmpFullName: win32more.Windows.Win32.Foundation.PSTR
-class OUTLINETEXTMETRICW(EasyCastStructure):
+class OUTLINETEXTMETRICW(Structure):
     otmSize: UInt32
     otmTextMetrics: win32more.Windows.Win32.Graphics.Gdi.TEXTMETRICW
     otmFiller: Byte
@@ -3395,19 +3395,19 @@ class OUTLINETEXTMETRICW(EasyCastStructure):
     otmpStyleName: win32more.Windows.Win32.Foundation.PSTR
     otmpFullName: win32more.Windows.Win32.Foundation.PSTR
 OUTLINETEXTMETRIC = UnicodeAlias('OUTLINETEXTMETRICW')
-class PAINTSTRUCT(EasyCastStructure):
+class PAINTSTRUCT(Structure):
     hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
     fErase: win32more.Windows.Win32.Foundation.BOOL
     rcPaint: win32more.Windows.Win32.Foundation.RECT
     fRestore: win32more.Windows.Win32.Foundation.BOOL
     fIncUpdate: win32more.Windows.Win32.Foundation.BOOL
     rgbReserved: Byte * 32
-class PALETTEENTRY(EasyCastStructure):
+class PALETTEENTRY(Structure):
     peRed: Byte
     peGreen: Byte
     peBlue: Byte
     peFlags: Byte
-class PANOSE(EasyCastStructure):
+class PANOSE(Structure):
     bFamilyType: win32more.Windows.Win32.Graphics.Gdi.PAN_FAMILY_TYPE
     bSerifStyle: win32more.Windows.Win32.Graphics.Gdi.PAN_SERIF_STYLE
     bWeight: win32more.Windows.Win32.Graphics.Gdi.PAN_WEIGHT
@@ -3545,7 +3545,7 @@ PAN_XHEIGHT_CONSTANT_LARGE: win32more.Windows.Win32.Graphics.Gdi.PAN_XHEIGHT = 4
 PAN_XHEIGHT_DUCKING_SMALL: win32more.Windows.Win32.Graphics.Gdi.PAN_XHEIGHT = 5
 PAN_XHEIGHT_DUCKING_STD: win32more.Windows.Win32.Graphics.Gdi.PAN_XHEIGHT = 6
 PAN_XHEIGHT_DUCKING_LARGE: win32more.Windows.Win32.Graphics.Gdi.PAN_XHEIGHT = 7
-class PELARRAY(EasyCastStructure):
+class PELARRAY(Structure):
     paXCount: Int32
     paYCount: Int32
     paXExt: Int32
@@ -3573,10 +3573,10 @@ PS_JOIN_BEVEL: win32more.Windows.Win32.Graphics.Gdi.PEN_STYLE = 4096
 PS_JOIN_MITER: win32more.Windows.Win32.Graphics.Gdi.PEN_STYLE = 8192
 PS_JOIN_MASK: win32more.Windows.Win32.Graphics.Gdi.PEN_STYLE = 61440
 PS_TYPE_MASK: win32more.Windows.Win32.Graphics.Gdi.PEN_STYLE = 983040
-class POINTFX(EasyCastStructure):
+class POINTFX(Structure):
     x: win32more.Windows.Win32.Graphics.Gdi.FIXED
     y: win32more.Windows.Win32.Graphics.Gdi.FIXED
-class POLYTEXTA(EasyCastStructure):
+class POLYTEXTA(Structure):
     x: Int32
     y: Int32
     n: UInt32
@@ -3584,7 +3584,7 @@ class POLYTEXTA(EasyCastStructure):
     uiFlags: UInt32
     rcl: win32more.Windows.Win32.Foundation.RECT
     pdx: POINTER(Int32)
-class POLYTEXTW(EasyCastStructure):
+class POLYTEXTW(Structure):
     x: Int32
     y: Int32
     n: UInt32
@@ -3611,7 +3611,7 @@ R2_MERGEPENNOT: win32more.Windows.Win32.Graphics.Gdi.R2_MODE = 14
 R2_MERGEPEN: win32more.Windows.Win32.Graphics.Gdi.R2_MODE = 15
 R2_WHITE: win32more.Windows.Win32.Graphics.Gdi.R2_MODE = 16
 R2_LAST: win32more.Windows.Win32.Graphics.Gdi.R2_MODE = 16
-class RASTERIZER_STATUS(EasyCastStructure):
+class RASTERIZER_STATUS(Structure):
     nSize: Int16
     wFlags: Int16
     nLanguageID: Int16
@@ -3630,19 +3630,19 @@ RDW_UPDATENOW: win32more.Windows.Win32.Graphics.Gdi.REDRAW_WINDOW_FLAGS = 256
 RDW_ERASENOW: win32more.Windows.Win32.Graphics.Gdi.REDRAW_WINDOW_FLAGS = 512
 RDW_FRAME: win32more.Windows.Win32.Graphics.Gdi.REDRAW_WINDOW_FLAGS = 1024
 RDW_NOFRAME: win32more.Windows.Win32.Graphics.Gdi.REDRAW_WINDOW_FLAGS = 2048
-class RGBQUAD(EasyCastStructure):
+class RGBQUAD(Structure):
     rgbBlue: Byte
     rgbGreen: Byte
     rgbRed: Byte
     rgbReserved: Byte
-class RGBTRIPLE(EasyCastStructure):
+class RGBTRIPLE(Structure):
     rgbtBlue: Byte
     rgbtGreen: Byte
     rgbtRed: Byte
-class RGNDATA(EasyCastStructure):
+class RGNDATA(Structure):
     rdh: win32more.Windows.Win32.Graphics.Gdi.RGNDATAHEADER
     Buffer: win32more.Windows.Win32.Foundation.CHAR * 1
-class RGNDATAHEADER(EasyCastStructure):
+class RGNDATAHEADER(Structure):
     dwSize: UInt32
     iType: UInt32
     nCount: UInt32
@@ -3729,7 +3729,7 @@ COLOR_3DSHADOW: win32more.Windows.Win32.Graphics.Gdi.SYS_COLOR_INDEX = 16
 COLOR_3DHIGHLIGHT: win32more.Windows.Win32.Graphics.Gdi.SYS_COLOR_INDEX = 20
 COLOR_3DHILIGHT: win32more.Windows.Win32.Graphics.Gdi.SYS_COLOR_INDEX = 20
 COLOR_BTNHILIGHT: win32more.Windows.Win32.Graphics.Gdi.SYS_COLOR_INDEX = 20
-class TEXTMETRICA(EasyCastStructure):
+class TEXTMETRICA(Structure):
     tmHeight: Int32
     tmAscent: Int32
     tmDescent: Int32
@@ -3750,7 +3750,7 @@ class TEXTMETRICA(EasyCastStructure):
     tmStruckOut: Byte
     tmPitchAndFamily: win32more.Windows.Win32.Graphics.Gdi.TMPF_FLAGS
     tmCharSet: Byte
-class TEXTMETRICW(EasyCastStructure):
+class TEXTMETRICW(Structure):
     tmHeight: Int32
     tmAscent: Int32
     tmDescent: Int32
@@ -3794,14 +3794,14 @@ TMPF_FIXED_PITCH: win32more.Windows.Win32.Graphics.Gdi.TMPF_FLAGS = 1
 TMPF_VECTOR: win32more.Windows.Win32.Graphics.Gdi.TMPF_FLAGS = 2
 TMPF_DEVICE: win32more.Windows.Win32.Graphics.Gdi.TMPF_FLAGS = 8
 TMPF_TRUETYPE: win32more.Windows.Win32.Graphics.Gdi.TMPF_FLAGS = 4
-class TRIVERTEX(EasyCastStructure):
+class TRIVERTEX(Structure):
     x: Int32
     y: Int32
     Red: UInt16
     Green: UInt16
     Blue: UInt16
     Alpha: UInt16
-class TTEMBEDINFO(EasyCastStructure):
+class TTEMBEDINFO(Structure):
     usStructSize: UInt16
     usRootStrSize: UInt16
     pusRootStr: POINTER(UInt16)
@@ -3810,22 +3810,22 @@ TTEMBED_EMBEDEUDC: win32more.Windows.Win32.Graphics.Gdi.TTEMBED_FLAGS = 32
 TTEMBED_RAW: win32more.Windows.Win32.Graphics.Gdi.TTEMBED_FLAGS = 0
 TTEMBED_SUBSET: win32more.Windows.Win32.Graphics.Gdi.TTEMBED_FLAGS = 1
 TTEMBED_TTCOMPRESSED: win32more.Windows.Win32.Graphics.Gdi.TTEMBED_FLAGS = 4
-class TTLOADINFO(EasyCastStructure):
+class TTLOADINFO(Structure):
     usStructSize: UInt16
     usRefStrSize: UInt16
     pusRefStr: POINTER(UInt16)
 TTLOAD_EMBEDDED_FONT_STATUS = UInt32
 TTLOAD_FONT_SUBSETTED: win32more.Windows.Win32.Graphics.Gdi.TTLOAD_EMBEDDED_FONT_STATUS = 1
 TTLOAD_FONT_IN_SYSSTARTUP: win32more.Windows.Win32.Graphics.Gdi.TTLOAD_EMBEDDED_FONT_STATUS = 2
-class TTPOLYCURVE(EasyCastStructure):
+class TTPOLYCURVE(Structure):
     wType: UInt16
     cpfx: UInt16
     apfx: win32more.Windows.Win32.Graphics.Gdi.POINTFX * 1
-class TTPOLYGONHEADER(EasyCastStructure):
+class TTPOLYGONHEADER(Structure):
     cb: UInt32
     dwType: UInt32
     pfxStart: win32more.Windows.Win32.Graphics.Gdi.POINTFX
-class TTVALIDATIONTESTSPARAMS(EasyCastStructure):
+class TTVALIDATIONTESTSPARAMS(Structure):
     ulStructSize: UInt32
     lTestFromSize: Int32
     lTestToSize: Int32
@@ -3833,7 +3833,7 @@ class TTVALIDATIONTESTSPARAMS(EasyCastStructure):
     usReserved1: UInt16
     usCharCodeCount: UInt16
     pusCharCodeSet: POINTER(UInt16)
-class TTVALIDATIONTESTSPARAMSEX(EasyCastStructure):
+class TTVALIDATIONTESTSPARAMSEX(Structure):
     ulStructSize: UInt32
     lTestFromSize: Int32
     lTestToSize: Int32
@@ -3841,15 +3841,15 @@ class TTVALIDATIONTESTSPARAMSEX(EasyCastStructure):
     usReserved1: UInt16
     usCharCodeCount: UInt16
     pulCharCodeSet: POINTER(UInt32)
-class WCRANGE(EasyCastStructure):
+class WCRANGE(Structure):
     wcLow: Char
     cGlyphs: UInt16
-class WGLSWAP(EasyCastStructure):
+class WGLSWAP(Structure):
     hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
     uiFlags: UInt32
 @cfunctype_pointer
 def WRITEEMBEDPROC(param0: VoidPtr, param1: VoidPtr, param2: UInt32) -> UInt32: ...
-class XFORM(EasyCastStructure):
+class XFORM(Structure):
     eM11: Single
     eM12: Single
     eM21: Single

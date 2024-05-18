@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Authentication.Identity
 import win32more.Windows.Win32.Security.Cryptography
@@ -1077,7 +1077,7 @@ def PstValidate(pTargetName: POINTER(win32more.Windows.Win32.Foundation.UNICODE_
 def PstMapCertificate(pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), pTokenInformationType: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE), ppTokenInformation: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('certpoleng.dll')
 def PstGetUserNameForCertificate(pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), UserName: POINTER(win32more.Windows.Win32.Foundation.UNICODE_STRING)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-class CAINFO(EasyCastStructure):
+class CAINFO(Structure):
     cbSize: UInt32
     CAType: win32more.Windows.Win32.Security.Cryptography.Certificates.ENUM_CATYPES
     cCASignatureCerts: UInt32
@@ -1673,10 +1673,10 @@ XCN_CERT_LAST_RESERVED_PROP_ID: win32more.Windows.Win32.Security.Cryptography.Ce
 XCN_CERT_FIRST_USER_PROP_ID: win32more.Windows.Win32.Security.Cryptography.Certificates.CERTENROLL_PROPERTYID = 32768
 XCN_CERT_LAST_USER_PROP_ID: win32more.Windows.Win32.Security.Cryptography.Certificates.CERTENROLL_PROPERTYID = 65535
 XCN_CERT_STORE_LOCALIZED_NAME_PROP_ID: win32more.Windows.Win32.Security.Cryptography.Certificates.CERTENROLL_PROPERTYID = 4096
-class CERTTRANSBLOB(EasyCastStructure):
+class CERTTRANSBLOB(Structure):
     cb: UInt32
     pb: POINTER(Byte)
-class CERTVIEWRESTRICTION(EasyCastStructure):
+class CERTVIEWRESTRICTION(Structure):
     ColumnIndex: UInt32
     SeekOperator: Int32
     SortOrder: Int32
@@ -1763,7 +1763,7 @@ CR_DISP_UNDER_SUBMISSION: win32more.Windows.Win32.Security.Cryptography.Certific
 CSBACKUP_TYPE = UInt32
 CSBACKUP_TYPE_FULL: win32more.Windows.Win32.Security.Cryptography.Certificates.CSBACKUP_TYPE = 1
 CSBACKUP_TYPE_LOGS_ONLY: win32more.Windows.Win32.Security.Cryptography.Certificates.CSBACKUP_TYPE = 2
-class CSEDB_RSTMAPW(EasyCastStructure):
+class CSEDB_RSTMAPW(Structure):
     pwszDatabaseName: win32more.Windows.Win32.Foundation.PWSTR
     pwszNewDatabaseName: win32more.Windows.Win32.Foundation.PWSTR
 CSignerCertificate = Guid('{884e203d-217d-11da-b2a4-000e7bbb2b09}')

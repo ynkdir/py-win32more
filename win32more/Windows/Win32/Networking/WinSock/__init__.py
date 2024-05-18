@@ -1,21 +1,21 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.IO
 import win32more.Windows.Win32.System.Kernel
-class AAL5_PARAMETERS(EasyCastStructure):
+class AAL5_PARAMETERS(Structure):
     ForwardMaxCPCSSDUSize: UInt32
     BackwardMaxCPCSSDUSize: UInt32
     Mode: Byte
     SSCSType: Byte
-class AALUSER_PARAMETERS(EasyCastStructure):
+class AALUSER_PARAMETERS(Structure):
     UserDefined: UInt32
-class AAL_PARAMETERS_IE(EasyCastStructure):
+class AAL_PARAMETERS_IE(Structure):
     AALType: win32more.Windows.Win32.Networking.WinSock.AAL_TYPE
     AALSpecificParameters: _AALSpecificParameters_e__Union
-    class _AALSpecificParameters_e__Union(EasyCastUnion):
+    class _AALSpecificParameters_e__Union(Union):
         AAL5Parameters: win32more.Windows.Win32.Networking.WinSock.AAL5_PARAMETERS
         AALUserParameters: win32more.Windows.Win32.Networking.WinSock.AALUSER_PARAMETERS
 AAL_TYPE = Int32
@@ -25,7 +25,7 @@ ADDRESS_FAMILY = UInt16
 AF_INET: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY = 2
 AF_INET6: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY = 23
 AF_UNSPEC: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY = 0
-class ADDRINFOA(EasyCastStructure):
+class ADDRINFOA(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -34,7 +34,7 @@ class ADDRINFOA(EasyCastStructure):
     ai_canonname: win32more.Windows.Win32.Foundation.PSTR
     ai_addr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
     ai_next: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOA)
-class ADDRINFOEX2A(EasyCastStructure):
+class ADDRINFOEX2A(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -48,7 +48,7 @@ class ADDRINFOEX2A(EasyCastStructure):
     ai_next: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEX2A)
     ai_version: Int32
     ai_fqdn: win32more.Windows.Win32.Foundation.PSTR
-class ADDRINFOEX2W(EasyCastStructure):
+class ADDRINFOEX2W(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -63,7 +63,7 @@ class ADDRINFOEX2W(EasyCastStructure):
     ai_version: Int32
     ai_fqdn: win32more.Windows.Win32.Foundation.PWSTR
 ADDRINFOEX2 = UnicodeAlias('ADDRINFOEX2W')
-class ADDRINFOEX3(EasyCastStructure):
+class ADDRINFOEX3(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -78,7 +78,7 @@ class ADDRINFOEX3(EasyCastStructure):
     ai_version: Int32
     ai_fqdn: win32more.Windows.Win32.Foundation.PWSTR
     ai_interfaceindex: Int32
-class ADDRINFOEX4(EasyCastStructure):
+class ADDRINFOEX4(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -94,7 +94,7 @@ class ADDRINFOEX4(EasyCastStructure):
     ai_fqdn: win32more.Windows.Win32.Foundation.PWSTR
     ai_interfaceindex: Int32
     ai_resolutionhandle: win32more.Windows.Win32.Foundation.HANDLE
-class ADDRINFOEX5(EasyCastStructure):
+class ADDRINFOEX5(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -111,7 +111,7 @@ class ADDRINFOEX5(EasyCastStructure):
     ai_interfaceindex: Int32
     ai_resolutionhandle: win32more.Windows.Win32.Foundation.HANDLE
     ai_ttl: UInt32
-class ADDRINFOEX6(EasyCastStructure):
+class ADDRINFOEX6(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -131,7 +131,7 @@ class ADDRINFOEX6(EasyCastStructure):
     ai_numservers: UInt32
     ai_servers: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFO_DNS_SERVER)
     ai_responseflags: UInt64
-class ADDRINFOEXA(EasyCastStructure):
+class ADDRINFOEXA(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -143,7 +143,7 @@ class ADDRINFOEXA(EasyCastStructure):
     ai_bloblen: UIntPtr
     ai_provider: POINTER(Guid)
     ai_next: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEXA)
-class ADDRINFOEXW(EasyCastStructure):
+class ADDRINFOEXW(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -156,7 +156,7 @@ class ADDRINFOEXW(EasyCastStructure):
     ai_provider: POINTER(Guid)
     ai_next: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOEXW)
 ADDRINFOEX = UnicodeAlias('ADDRINFOEXW')
-class ADDRINFOW(EasyCastStructure):
+class ADDRINFOW(Structure):
     ai_flags: Int32
     ai_family: Int32
     ai_socktype: Int32
@@ -166,21 +166,21 @@ class ADDRINFOW(EasyCastStructure):
     ai_addr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
     ai_next: POINTER(win32more.Windows.Win32.Networking.WinSock.ADDRINFOW)
 ADDRINFO = UnicodeAlias('ADDRINFOW')
-class ADDRINFO_DNS_SERVER(EasyCastStructure):
+class ADDRINFO_DNS_SERVER(Structure):
     ai_servertype: UInt32
     ai_flags: UInt64
     ai_addrlen: UInt32
     ai_addr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ai_template: win32more.Windows.Win32.Foundation.PWSTR
-class AFPROTOCOLS(EasyCastStructure):
+class AFPROTOCOLS(Structure):
     iAddressFamily: Int32
     iProtocol: Int32
 ARP_HARDWARE_TYPE = Int32
 ARP_HW_ENET: win32more.Windows.Win32.Networking.WinSock.ARP_HARDWARE_TYPE = 1
 ARP_HW_802: win32more.Windows.Win32.Networking.WinSock.ARP_HARDWARE_TYPE = 6
-class ARP_HEADER(EasyCastStructure):
+class ARP_HEADER(Structure):
     HardwareAddressSpace: UInt16
     ProtocolAddressSpace: UInt16
     HardwareAddressLength: Byte
@@ -190,25 +190,25 @@ class ARP_HEADER(EasyCastStructure):
 ARP_OPCODE = Int32
 ARP_REQUEST: win32more.Windows.Win32.Networking.WinSock.ARP_OPCODE = 1
 ARP_RESPONSE: win32more.Windows.Win32.Networking.WinSock.ARP_OPCODE = 2
-class ASSOCIATE_NAMERES_CONTEXT_INPUT(EasyCastStructure):
+class ASSOCIATE_NAMERES_CONTEXT_INPUT(Structure):
     TransportSettingId: win32more.Windows.Win32.Networking.WinSock.TRANSPORT_SETTING_ID
     Handle: UInt64
-class ATM_ADDRESS(EasyCastStructure):
+class ATM_ADDRESS(Structure):
     AddressType: UInt32
     NumofDigits: UInt32
     Addr: Byte * 20
-class ATM_BHLI(EasyCastStructure):
+class ATM_BHLI(Structure):
     HighLayerInfoType: UInt32
     HighLayerInfoLength: UInt32
     HighLayerInfo: Byte * 8
-class ATM_BLLI(EasyCastStructure):
+class ATM_BLLI(Structure):
     Layer2Protocol: UInt32
     Layer2UserSpecifiedProtocol: UInt32
     Layer3Protocol: UInt32
     Layer3UserSpecifiedProtocol: UInt32
     Layer3IPI: UInt32
     SnapID: Byte * 5
-class ATM_BLLI_IE(EasyCastStructure):
+class ATM_BLLI_IE(Structure):
     Layer2Protocol: UInt32
     Layer2Mode: Byte
     Layer2WindowSize: Byte
@@ -220,33 +220,33 @@ class ATM_BLLI_IE(EasyCastStructure):
     Layer3UserSpecifiedProtocol: UInt32
     Layer3IPI: UInt32
     SnapID: Byte * 5
-class ATM_BROADBAND_BEARER_CAPABILITY_IE(EasyCastStructure):
+class ATM_BROADBAND_BEARER_CAPABILITY_IE(Structure):
     BearerClass: Byte
     TrafficType: Byte
     TimingRequirements: Byte
     ClippingSusceptability: Byte
     UserPlaneConnectionConfig: Byte
-class ATM_CALLING_PARTY_NUMBER_IE(EasyCastStructure):
+class ATM_CALLING_PARTY_NUMBER_IE(Structure):
     ATM_Number: win32more.Windows.Win32.Networking.WinSock.ATM_ADDRESS
     Presentation_Indication: Byte
     Screening_Indicator: Byte
-class ATM_CAUSE_IE(EasyCastStructure):
+class ATM_CAUSE_IE(Structure):
     Location: Byte
     Cause: Byte
     DiagnosticsLength: Byte
     Diagnostics: Byte * 4
-class ATM_CONNECTION_ID(EasyCastStructure):
+class ATM_CONNECTION_ID(Structure):
     DeviceNumber: UInt32
     VPI: UInt32
     VCI: UInt32
-class ATM_PVC_PARAMS(EasyCastStructure):
+class ATM_PVC_PARAMS(Structure):
     PvcConnectionId: win32more.Windows.Win32.Networking.WinSock.ATM_CONNECTION_ID
     PvcQos: win32more.Windows.Win32.Networking.WinSock.QOS
     _pack_ = 4
-class ATM_QOS_CLASS_IE(EasyCastStructure):
+class ATM_QOS_CLASS_IE(Structure):
     QOSClassForward: Byte
     QOSClassBackward: Byte
-class ATM_TD(EasyCastStructure):
+class ATM_TD(Structure):
     PeakCellRate_CLP0: UInt32
     PeakCellRate_CLP01: UInt32
     SustainableCellRate_CLP0: UInt32
@@ -254,11 +254,11 @@ class ATM_TD(EasyCastStructure):
     MaxBurstSize_CLP0: UInt32
     MaxBurstSize_CLP01: UInt32
     Tagging: win32more.Windows.Win32.Foundation.BOOL
-class ATM_TRAFFIC_DESCRIPTOR_IE(EasyCastStructure):
+class ATM_TRAFFIC_DESCRIPTOR_IE(Structure):
     Forward: win32more.Windows.Win32.Networking.WinSock.ATM_TD
     Backward: win32more.Windows.Win32.Networking.WinSock.ATM_TD
     BestEffort: win32more.Windows.Win32.Foundation.BOOL
-class ATM_TRANSIT_NETWORK_SELECTION_IE(EasyCastStructure):
+class ATM_TRANSIT_NETWORK_SELECTION_IE(Structure):
     TypeOfNetworkId: Byte
     NetworkIdPlan: Byte
     NetworkIdLength: Byte
@@ -1842,7 +1842,7 @@ def SetSocketMediaStreamingMode(value: win32more.Windows.Win32.Foundation.BOOL) 
 def WSCWriteProviderOrder(lpwdCatalogEntryId: POINTER(UInt32), dwNumberOfEntries: UInt32) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSCWriteNameSpaceOrder(lpProviderId: POINTER(Guid), dwNumberOfEntries: UInt32) -> Int32: ...
-class CMSGHDR(EasyCastStructure):
+class CMSGHDR(Structure):
     cmsg_len: UIntPtr
     cmsg_level: Int32
     cmsg_type: Int32
@@ -1854,62 +1854,62 @@ CONTROL_CHANNEL_TRIGGER_STATUS_POLICY_ERROR: win32more.Windows.Win32.Networking.
 CONTROL_CHANNEL_TRIGGER_STATUS_SYSTEM_ERROR: win32more.Windows.Win32.Networking.WinSock.CONTROL_CHANNEL_TRIGGER_STATUS = 4
 CONTROL_CHANNEL_TRIGGER_STATUS_TRANSPORT_DISCONNECTED: win32more.Windows.Win32.Networking.WinSock.CONTROL_CHANNEL_TRIGGER_STATUS = 5
 CONTROL_CHANNEL_TRIGGER_STATUS_SERVICE_UNAVAILABLE: win32more.Windows.Win32.Networking.WinSock.CONTROL_CHANNEL_TRIGGER_STATUS = 6
-class CSADDR_INFO(EasyCastStructure):
+class CSADDR_INFO(Structure):
     LocalAddr: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
     RemoteAddr: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
     iSocketType: Int32
     iProtocol: Int32
-class DL_EI48(EasyCastUnion):
+class DL_EI48(Union):
     Byte: Byte * 3
-class DL_EI64(EasyCastUnion):
+class DL_EI64(Union):
     Byte: Byte * 5
-class DL_EUI48(EasyCastUnion):
+class DL_EUI48(Union):
     Byte: Byte * 6
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         Oui: win32more.Windows.Win32.Networking.WinSock.DL_OUI
         Ei48: win32more.Windows.Win32.Networking.WinSock.DL_EI48
-class DL_EUI64(EasyCastUnion):
+class DL_EUI64(Union):
     Byte: Byte * 8
     Value: UInt64
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         Oui: win32more.Windows.Win32.Networking.WinSock.DL_OUI
         Anonymous: _Anonymous_e__Union
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             Ei64: win32more.Windows.Win32.Networking.WinSock.DL_EI64
             Anonymous: _Anonymous_e__Struct
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 Type: Byte
                 Tse: Byte
                 Ei48: win32more.Windows.Win32.Networking.WinSock.DL_EI48
-class DL_OUI(EasyCastUnion):
+class DL_OUI(Union):
     Byte: Byte * 3
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: Byte
-class DL_TEREDO_ADDRESS(EasyCastStructure):
+class DL_TEREDO_ADDRESS(Structure):
     Reserved: Byte * 6
     Anonymous: _Anonymous_e__Union
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Eui64: win32more.Windows.Win32.Networking.WinSock.DL_EUI64
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Flags: UInt16
             MappedPort: UInt16
             MappedAddress: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
             _pack_ = 1
-class DL_TEREDO_ADDRESS_PRV(EasyCastStructure):
+class DL_TEREDO_ADDRESS_PRV(Structure):
     Reserved: Byte * 6
     Anonymous: _Anonymous_e__Union
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Eui64: win32more.Windows.Win32.Networking.WinSock.DL_EUI64
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Flags: UInt16
             MappedPort: UInt16
             MappedAddress: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
@@ -1918,24 +1918,24 @@ class DL_TEREDO_ADDRESS_PRV(EasyCastStructure):
             LocalPort: UInt16
             DlDestination: win32more.Windows.Win32.Networking.WinSock.DL_EUI48
             _pack_ = 1
-class DL_TUNNEL_ADDRESS(EasyCastStructure):
+class DL_TUNNEL_ADDRESS(Structure):
     CompartmentId: win32more.Windows.Win32.System.Kernel.COMPARTMENT_ID
     ScopeId: win32more.Windows.Win32.Networking.WinSock.SCOPE_ID
     IpAddress: Byte * 1
-class ETHERNET_HEADER(EasyCastStructure):
+class ETHERNET_HEADER(Structure):
     Destination: win32more.Windows.Win32.Networking.WinSock.DL_EUI48
     Source: win32more.Windows.Win32.Networking.WinSock.DL_EUI48
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Type: UInt16
         Length: UInt16
 FALLBACK_INDEX = Int32
 FallbackIndexTcpFastopen: win32more.Windows.Win32.Networking.WinSock.FALLBACK_INDEX = 0
 FallbackIndexMax: win32more.Windows.Win32.Networking.WinSock.FALLBACK_INDEX = 1
-class FD_SET(EasyCastStructure):
+class FD_SET(Structure):
     fd_count: UInt32
     fd_array: win32more.Windows.Win32.Networking.WinSock.SOCKET * 64
-class FLOWSPEC(EasyCastStructure):
+class FLOWSPEC(Structure):
     TokenRate: UInt32
     TokenBucketSize: UInt32
     PeakBandwidth: UInt32
@@ -1944,20 +1944,20 @@ class FLOWSPEC(EasyCastStructure):
     ServiceType: UInt32
     MaxSduSize: UInt32
     MinimumPolicedSize: UInt32
-class GROUP_FILTER(EasyCastStructure):
+class GROUP_FILTER(Structure):
     gf_interface: UInt32
     gf_group: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
     gf_fmode: win32more.Windows.Win32.Networking.WinSock.MULTICAST_MODE_TYPE
     gf_numsrc: UInt32
     gf_slist: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE * 1
-class GROUP_REQ(EasyCastStructure):
+class GROUP_REQ(Structure):
     gr_interface: UInt32
     gr_group: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
-class GROUP_SOURCE_REQ(EasyCastStructure):
+class GROUP_SOURCE_REQ(Structure):
     gsr_interface: UInt32
     gsr_group: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
     gsr_source: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
-class HOSTENT(EasyCastStructure):
+class HOSTENT(Structure):
     h_name: win32more.Windows.Win32.Foundation.PSTR
     h_aliases: POINTER(POINTER(SByte))
     h_addrtype: Int16
@@ -1981,38 +1981,38 @@ ICMP4_UNREACH_HOST_ADMIN: win32more.Windows.Win32.Networking.WinSock.ICMP4_UNREA
 ICMP4_UNREACH_NET_TOS: win32more.Windows.Win32.Networking.WinSock.ICMP4_UNREACH_CODE = 11
 ICMP4_UNREACH_HOST_TOS: win32more.Windows.Win32.Networking.WinSock.ICMP4_UNREACH_CODE = 12
 ICMP4_UNREACH_ADMIN: win32more.Windows.Win32.Networking.WinSock.ICMP4_UNREACH_CODE = 13
-class ICMPV4_ADDRESS_MASK_MESSAGE(EasyCastStructure):
+class ICMPV4_ADDRESS_MASK_MESSAGE(Structure):
     Header: win32more.Windows.Win32.Networking.WinSock.ICMP_MESSAGE
     AddressMask: UInt32
-class ICMPV4_ROUTER_ADVERT_ENTRY(EasyCastStructure):
+class ICMPV4_ROUTER_ADVERT_ENTRY(Structure):
     RouterAdvertAddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     PreferenceLevel: Int32
-class ICMPV4_ROUTER_ADVERT_HEADER(EasyCastStructure):
+class ICMPV4_ROUTER_ADVERT_HEADER(Structure):
     RaHeader: win32more.Windows.Win32.Networking.WinSock.ICMP_MESSAGE
-class ICMPV4_ROUTER_SOLICIT(EasyCastStructure):
+class ICMPV4_ROUTER_SOLICIT(Structure):
     RsHeader: win32more.Windows.Win32.Networking.WinSock.ICMP_MESSAGE
-class ICMPV4_TIMESTAMP_MESSAGE(EasyCastStructure):
+class ICMPV4_TIMESTAMP_MESSAGE(Structure):
     Header: win32more.Windows.Win32.Networking.WinSock.ICMP_MESSAGE
     OriginateTimestamp: UInt32
     ReceiveTimestamp: UInt32
     TransmitTimestamp: UInt32
-class ICMP_ERROR_INFO(EasyCastStructure):
+class ICMP_ERROR_INFO(Structure):
     srcaddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_INET
     protocol: win32more.Windows.Win32.Networking.WinSock.IPPROTO
     type: Byte
     code: Byte
-class ICMP_HEADER(EasyCastStructure):
+class ICMP_HEADER(Structure):
     Type: Byte
     Code: Byte
     Checksum: UInt16
-class ICMP_MESSAGE(EasyCastStructure):
+class ICMP_MESSAGE(Structure):
     Header: win32more.Windows.Win32.Networking.WinSock.ICMP_HEADER
     Data: _Data_e__Union
-    class _Data_e__Union(EasyCastUnion):
+    class _Data_e__Union(Union):
         Data32: UInt32 * 1
         Data16: UInt16 * 2
         Data8: Byte * 4
-class IGMPV3_QUERY_HEADER(EasyCastStructure):
+class IGMPV3_QUERY_HEADER(Structure):
     Type: Byte
     Anonymous1: _Anonymous1_e__Union
     Checksum: UInt16
@@ -2020,96 +2020,96 @@ class IGMPV3_QUERY_HEADER(EasyCastStructure):
     _bitfield: Byte
     Anonymous2: _Anonymous2_e__Union
     SourceCount: UInt16
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         MaxRespCode: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         QueriersQueryInterfaceCode: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-class IGMPV3_REPORT_HEADER(EasyCastStructure):
+class IGMPV3_REPORT_HEADER(Structure):
     Type: Byte
     Reserved: Byte
     Checksum: UInt16
     Reserved2: UInt16
     RecordCount: UInt16
-class IGMPV3_REPORT_RECORD_HEADER(EasyCastStructure):
+class IGMPV3_REPORT_RECORD_HEADER(Structure):
     Type: Byte
     AuxillaryDataLength: Byte
     SourceCount: UInt16
     MulticastAddress: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
-class IGMP_HEADER(EasyCastStructure):
+class IGMP_HEADER(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Checksum: UInt16
     MulticastAddress: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         VersionType: Byte
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Reserved: Byte
         MaxRespTime: Byte
         Code: Byte
 IGMP_MAX_RESP_CODE_TYPE = Int32
 IGMP_MAX_RESP_CODE_TYPE_NORMAL: win32more.Windows.Win32.Networking.WinSock.IGMP_MAX_RESP_CODE_TYPE = 0
 IGMP_MAX_RESP_CODE_TYPE_FLOAT: win32more.Windows.Win32.Networking.WinSock.IGMP_MAX_RESP_CODE_TYPE = 1
-class IN6_ADDR(EasyCastStructure):
+class IN6_ADDR(Structure):
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         Byte: Byte * 16
         Word: UInt16 * 8
-class IN6_PKTINFO(EasyCastStructure):
+class IN6_PKTINFO(Structure):
     ipi6_addr: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
     ipi6_ifindex: UInt32
-class IN6_PKTINFO_EX(EasyCastStructure):
+class IN6_PKTINFO_EX(Structure):
     pkt_info: win32more.Windows.Win32.Networking.WinSock.IN6_PKTINFO
     scope_id: win32more.Windows.Win32.Networking.WinSock.SCOPE_ID
-class INET_PORT_RANGE(EasyCastStructure):
+class INET_PORT_RANGE(Structure):
     StartPort: UInt16
     NumberOfPorts: UInt16
-class INET_PORT_RESERVATION_INFORMATION(EasyCastStructure):
+class INET_PORT_RESERVATION_INFORMATION(Structure):
     OwningPid: UInt32
-class INET_PORT_RESERVATION_INSTANCE(EasyCastStructure):
+class INET_PORT_RESERVATION_INSTANCE(Structure):
     Reservation: win32more.Windows.Win32.Networking.WinSock.INET_PORT_RANGE
     Token: win32more.Windows.Win32.Networking.WinSock.INET_PORT_RESERVATION_TOKEN
-class INET_PORT_RESERVATION_TOKEN(EasyCastStructure):
+class INET_PORT_RESERVATION_TOKEN(Structure):
     Token: UInt64
-class INTERFACE_INFO(EasyCastStructure):
+class INTERFACE_INFO(Structure):
     iiFlags: UInt32
     iiAddress: win32more.Windows.Win32.Networking.WinSock.sockaddr_gen
     iiBroadcastAddress: win32more.Windows.Win32.Networking.WinSock.sockaddr_gen
     iiNetmask: win32more.Windows.Win32.Networking.WinSock.sockaddr_gen
-class INTERFACE_INFO_EX(EasyCastStructure):
+class INTERFACE_INFO_EX(Structure):
     iiFlags: UInt32
     iiAddress: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
     iiBroadcastAddress: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
     iiNetmask: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
-class IN_ADDR(EasyCastStructure):
+class IN_ADDR(Structure):
     S_un: _S_un_e__Union
-    class _S_un_e__Union(EasyCastUnion):
+    class _S_un_e__Union(Union):
         S_un_b: _S_un_b_e__Struct
         S_un_w: _S_un_w_e__Struct
         S_addr: UInt32
-        class _S_un_b_e__Struct(EasyCastStructure):
+        class _S_un_b_e__Struct(Structure):
             s_b1: Byte
             s_b2: Byte
             s_b3: Byte
             s_b4: Byte
-        class _S_un_w_e__Struct(EasyCastStructure):
+        class _S_un_w_e__Struct(Structure):
             s_w1: UInt16
             s_w2: UInt16
-class IN_PKTINFO(EasyCastStructure):
+class IN_PKTINFO(Structure):
     ipi_addr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     ipi_ifindex: UInt32
-class IN_PKTINFO_EX(EasyCastStructure):
+class IN_PKTINFO_EX(Structure):
     pkt_info: win32more.Windows.Win32.Networking.WinSock.IN_PKTINFO
     scope_id: win32more.Windows.Win32.Networking.WinSock.SCOPE_ID
-class IN_RECVERR(EasyCastStructure):
+class IN_RECVERR(Structure):
     protocol: win32more.Windows.Win32.Networking.WinSock.IPPROTO
     info: UInt32
     type: Byte
@@ -2152,10 +2152,10 @@ IPPROTO_RESERVED_WNV: win32more.Windows.Win32.Networking.WinSock.IPPROTO = 260
 IPPROTO_RESERVED_MAX: win32more.Windows.Win32.Networking.WinSock.IPPROTO = 261
 IPPROTO_IP: win32more.Windows.Win32.Networking.WinSock.IPPROTO = 0
 IPPROTO_RM: win32more.Windows.Win32.Networking.WinSock.IPPROTO = 113
-class IPTLS_METADATA(EasyCastStructure):
+class IPTLS_METADATA(Structure):
     SequenceNumber: UInt64
     _pack_ = 1
-class IPV4_HEADER(EasyCastStructure):
+class IPV4_HEADER(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     TotalLength: UInt16
@@ -2166,28 +2166,28 @@ class IPV4_HEADER(EasyCastStructure):
     HeaderChecksum: UInt16
     SourceAddress: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     DestinationAddress: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         VersionAndHeaderLength: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         TypeOfServiceAndEcnField: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         FlagsAndOffset: UInt16
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
-class IPV4_OPTION_HEADER(EasyCastStructure):
+class IPV4_OPTION_HEADER(Structure):
     Anonymous: _Anonymous_e__Union
     OptionLength: Byte
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         OptionType: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
 IPV4_OPTION_TYPE = Int32
 IP_OPT_EOL: win32more.Windows.Win32.Networking.WinSock.IPV4_OPTION_TYPE = 0
@@ -2200,59 +2200,59 @@ IP_OPT_SSRR: win32more.Windows.Win32.Networking.WinSock.IPV4_OPTION_TYPE = 137
 IP_OPT_SID: win32more.Windows.Win32.Networking.WinSock.IPV4_OPTION_TYPE = 136
 IP_OPT_ROUTER_ALERT: win32more.Windows.Win32.Networking.WinSock.IPV4_OPTION_TYPE = 148
 IP_OPT_MULTIDEST: win32more.Windows.Win32.Networking.WinSock.IPV4_OPTION_TYPE = 149
-class IPV4_ROUTING_HEADER(EasyCastStructure):
+class IPV4_ROUTING_HEADER(Structure):
     OptionHeader: win32more.Windows.Win32.Networking.WinSock.IPV4_OPTION_HEADER
     Pointer: Byte
-class IPV4_TIMESTAMP_OPTION(EasyCastStructure):
+class IPV4_TIMESTAMP_OPTION(Structure):
     OptionHeader: win32more.Windows.Win32.Networking.WinSock.IPV4_OPTION_HEADER
     Pointer: Byte
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         FlagsOverflow: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-class IPV6_EXTENSION_HEADER(EasyCastStructure):
+class IPV6_EXTENSION_HEADER(Structure):
     NextHeader: Byte
     Length: Byte
-class IPV6_FRAGMENT_HEADER(EasyCastStructure):
+class IPV6_FRAGMENT_HEADER(Structure):
     NextHeader: Byte
     Reserved: Byte
     Anonymous: _Anonymous_e__Union
     Id: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         OffsetAndFlags: UInt16
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
-class IPV6_HEADER(EasyCastStructure):
+class IPV6_HEADER(Structure):
     Anonymous: _Anonymous_e__Union
     PayloadLength: UInt16
     NextHeader: Byte
     HopLimit: Byte
     SourceAddress: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
     DestinationAddress: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         VersionClassFlow: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class IPV6_MREQ(EasyCastStructure):
+class IPV6_MREQ(Structure):
     ipv6mr_multiaddr: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
     ipv6mr_interface: UInt32
-class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS(EasyCastUnion):
+class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     Value: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: Byte
         Reserved2: Byte * 3
-class IPV6_OPTION_HEADER(EasyCastStructure):
+class IPV6_OPTION_HEADER(Structure):
     Type: Byte
     DataLength: Byte
-class IPV6_OPTION_JUMBOGRAM(EasyCastStructure):
+class IPV6_OPTION_JUMBOGRAM(Structure):
     Header: win32more.Windows.Win32.Networking.WinSock.IPV6_OPTION_HEADER
     JumbogramLength: Byte * 4
-class IPV6_OPTION_ROUTER_ALERT(EasyCastStructure):
+class IPV6_OPTION_ROUTER_ALERT(Structure):
     Header: win32more.Windows.Win32.Networking.WinSock.IPV6_OPTION_HEADER
     Value: Byte * 2
 IPV6_OPTION_TYPE = Int32
@@ -2262,18 +2262,18 @@ IP6OPT_TUNNEL_LIMIT: win32more.Windows.Win32.Networking.WinSock.IPV6_OPTION_TYPE
 IP6OPT_ROUTER_ALERT: win32more.Windows.Win32.Networking.WinSock.IPV6_OPTION_TYPE = 5
 IP6OPT_JUMBO: win32more.Windows.Win32.Networking.WinSock.IPV6_OPTION_TYPE = 194
 IP6OPT_NSAP_ADDR: win32more.Windows.Win32.Networking.WinSock.IPV6_OPTION_TYPE = 195
-class IPV6_ROUTER_ADVERTISEMENT_FLAGS(EasyCastUnion):
+class IPV6_ROUTER_ADVERTISEMENT_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     Value: Byte
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: Byte
-class IPV6_ROUTING_HEADER(EasyCastStructure):
+class IPV6_ROUTING_HEADER(Structure):
     NextHeader: Byte
     Length: Byte
     RoutingType: Byte
     SegmentsLeft: Byte
     Reserved: Byte * 4
-class IPX_ADDRESS_DATA(EasyCastStructure):
+class IPX_ADDRESS_DATA(Structure):
     adapternum: Int32
     netnum: Byte * 4
     nodenum: Byte * 6
@@ -2281,13 +2281,13 @@ class IPX_ADDRESS_DATA(EasyCastStructure):
     status: win32more.Windows.Win32.Foundation.BOOLEAN
     maxpkt: Int32
     linkspeed: UInt32
-class IPX_NETNUM_DATA(EasyCastStructure):
+class IPX_NETNUM_DATA(Structure):
     netnum: Byte * 4
     hopcount: UInt16
     netdelay: UInt16
     cardnum: Int32
     router: Byte * 6
-class IPX_SPXCONNSTATUS_DATA(EasyCastStructure):
+class IPX_SPXCONNSTATUS_DATA(Structure):
     ConnectionState: Byte
     WatchDogActive: Byte
     LocalConnectionId: UInt16
@@ -2306,14 +2306,14 @@ class IPX_SPXCONNSTATUS_DATA(EasyCastStructure):
     EstimatedRoundTripDelay: UInt16
     RetransmittedPackets: UInt16
     SuppressedPacket: UInt16
-class IP_MREQ(EasyCastStructure):
+class IP_MREQ(Structure):
     imr_multiaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     imr_interface: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
-class IP_MREQ_SOURCE(EasyCastStructure):
+class IP_MREQ_SOURCE(Structure):
     imr_multiaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     imr_sourceaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     imr_interface: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
-class IP_MSFILTER(EasyCastStructure):
+class IP_MSFILTER(Structure):
     imsf_multiaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     imsf_interface: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     imsf_fmode: win32more.Windows.Win32.Networking.WinSock.MULTICAST_MODE_TYPE
@@ -2323,10 +2323,10 @@ IP_OPTION_TIMESTAMP_FLAGS = Int32
 IP_OPTION_TIMESTAMP_ONLY: win32more.Windows.Win32.Networking.WinSock.IP_OPTION_TIMESTAMP_FLAGS = 0
 IP_OPTION_TIMESTAMP_ADDRESS: win32more.Windows.Win32.Networking.WinSock.IP_OPTION_TIMESTAMP_FLAGS = 1
 IP_OPTION_TIMESTAMP_SPECIFIC_ADDRESS: win32more.Windows.Win32.Networking.WinSock.IP_OPTION_TIMESTAMP_FLAGS = 3
-class LINGER(EasyCastStructure):
+class LINGER(Structure):
     l_onoff: UInt16
     l_linger: UInt16
-class LM_IRPARMS(EasyCastStructure):
+class LM_IRPARMS(Structure):
     nTXDataBytes: UInt32
     nRXDataBytes: UInt32
     nBaudRate: UInt32
@@ -2541,7 +2541,7 @@ def LPWSPSOCKET(af: Int32, type: Int32, protocol: Int32, lpProtocolInfo: POINTER
 def LPWSPSTARTUP(wVersionRequested: UInt16, lpWSPData: POINTER(win32more.Windows.Win32.Networking.WinSock.WSPDATA), lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOW), UpcallTable: win32more.Windows.Win32.Networking.WinSock.WSPUPCALLTABLE, lpProcTable: POINTER(win32more.Windows.Win32.Networking.WinSock.WSPPROC_TABLE)) -> Int32: ...
 @winfunctype_pointer
 def LPWSPSTRINGTOADDRESS(AddressString: win32more.Windows.Win32.Foundation.PWSTR, AddressFamily: Int32, lpProtocolInfo: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAPROTOCOL_INFOW), lpAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR), lpAddressLength: POINTER(Int32), lpErrno: POINTER(Int32)) -> Int32: ...
-class MLDV2_QUERY_HEADER(EasyCastStructure):
+class MLDV2_QUERY_HEADER(Structure):
     IcmpHeader: win32more.Windows.Win32.Networking.WinSock.ICMP_HEADER
     Anonymous1: _Anonymous1_e__Union
     Reserved: UInt16
@@ -2549,26 +2549,26 @@ class MLDV2_QUERY_HEADER(EasyCastStructure):
     _bitfield: Byte
     Anonymous2: _Anonymous2_e__Union
     SourceCount: UInt16
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         MaxRespCode: UInt16
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         QueriersQueryInterfaceCode: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-class MLDV2_REPORT_HEADER(EasyCastStructure):
+class MLDV2_REPORT_HEADER(Structure):
     IcmpHeader: win32more.Windows.Win32.Networking.WinSock.ICMP_HEADER
     Reserved: UInt16
     RecordCount: UInt16
-class MLDV2_REPORT_RECORD_HEADER(EasyCastStructure):
+class MLDV2_REPORT_RECORD_HEADER(Structure):
     Type: Byte
     AuxillaryDataLength: Byte
     SourceCount: UInt16
     MulticastAddress: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
-class MLD_HEADER(EasyCastStructure):
+class MLD_HEADER(Structure):
     IcmpHeader: win32more.Windows.Win32.Networking.WinSock.ICMP_HEADER
     MaxRespTime: UInt16
     Reserved: UInt16
@@ -2579,12 +2579,12 @@ MLD_MAX_RESP_CODE_TYPE_FLOAT: win32more.Windows.Win32.Networking.WinSock.MLD_MAX
 MULTICAST_MODE_TYPE = Int32
 MCAST_INCLUDE: win32more.Windows.Win32.Networking.WinSock.MULTICAST_MODE_TYPE = 0
 MCAST_EXCLUDE: win32more.Windows.Win32.Networking.WinSock.MULTICAST_MODE_TYPE = 1
-class NAPI_DOMAIN_DESCRIPTION_BLOB(EasyCastStructure):
+class NAPI_DOMAIN_DESCRIPTION_BLOB(Structure):
     AuthLevel: UInt32
     cchDomainName: UInt32
     OffsetNextDomainDescription: UInt32
     OffsetThisDomainName: UInt32
-class NAPI_PROVIDER_INSTALLATION_BLOB(EasyCastStructure):
+class NAPI_PROVIDER_INSTALLATION_BLOB(Structure):
     dwVersion: UInt32
     dwProviderType: UInt32
     fSupportsWildCard: UInt32
@@ -2597,26 +2597,26 @@ ProviderLevel_Primary: win32more.Windows.Win32.Networking.WinSock.NAPI_PROVIDER_
 NAPI_PROVIDER_TYPE = Int32
 ProviderType_Application: win32more.Windows.Win32.Networking.WinSock.NAPI_PROVIDER_TYPE = 1
 ProviderType_Service: win32more.Windows.Win32.Networking.WinSock.NAPI_PROVIDER_TYPE = 2
-class ND_NEIGHBOR_ADVERT_HEADER(EasyCastStructure):
+class ND_NEIGHBOR_ADVERT_HEADER(Structure):
     nd_na_hdr: win32more.Windows.Win32.Networking.WinSock.ICMP_MESSAGE
     nd_na_target: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
-class ND_NEIGHBOR_SOLICIT_HEADER(EasyCastStructure):
+class ND_NEIGHBOR_SOLICIT_HEADER(Structure):
     nd_ns_hdr: win32more.Windows.Win32.Networking.WinSock.ICMP_MESSAGE
     nd_ns_target: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
-class ND_OPTION_DNSSL(EasyCastStructure):
+class ND_OPTION_DNSSL(Structure):
     nd_opt_dnssl_type: Byte
     nd_opt_dnssl_len: Byte
     nd_opt_dnssl_reserved: UInt16
     nd_opt_dnssl_lifetime: UInt32
-class ND_OPTION_HDR(EasyCastStructure):
+class ND_OPTION_HDR(Structure):
     nd_opt_type: Byte
     nd_opt_len: Byte
-class ND_OPTION_MTU(EasyCastStructure):
+class ND_OPTION_MTU(Structure):
     nd_opt_mtu_type: Byte
     nd_opt_mtu_len: Byte
     nd_opt_mtu_reserved: UInt16
     nd_opt_mtu_mtu: UInt32
-class ND_OPTION_PREFIX_INFO(EasyCastStructure):
+class ND_OPTION_PREFIX_INFO(Structure):
     nd_opt_pi_type: Byte
     nd_opt_pi_len: Byte
     nd_opt_pi_prefix_len: Byte
@@ -2625,38 +2625,38 @@ class ND_OPTION_PREFIX_INFO(EasyCastStructure):
     nd_opt_pi_preferred_time: UInt32
     Anonymous2: _Anonymous2_e__Union
     nd_opt_pi_prefix: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         nd_opt_pi_flags_reserved: Byte
         Flags: _Flags_e__Struct
-        class _Flags_e__Struct(EasyCastStructure):
+        class _Flags_e__Struct(Structure):
             _bitfield: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         nd_opt_pi_reserved2: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             nd_opt_pi_reserved3: Byte * 3
             nd_opt_pi_site_prefix_len: Byte
-class ND_OPTION_RDNSS(EasyCastStructure):
+class ND_OPTION_RDNSS(Structure):
     nd_opt_rdnss_type: Byte
     nd_opt_rdnss_len: Byte
     nd_opt_rdnss_reserved: UInt16
     nd_opt_rdnss_lifetime: UInt32
-class ND_OPTION_RD_HDR(EasyCastStructure):
+class ND_OPTION_RD_HDR(Structure):
     nd_opt_rh_type: Byte
     nd_opt_rh_len: Byte
     nd_opt_rh_reserved1: UInt16
     nd_opt_rh_reserved2: UInt32
-class ND_OPTION_ROUTE_INFO(EasyCastStructure):
+class ND_OPTION_ROUTE_INFO(Structure):
     nd_opt_ri_type: Byte
     nd_opt_ri_len: Byte
     nd_opt_ri_prefix_len: Byte
     Anonymous: _Anonymous_e__Union
     nd_opt_ri_route_lifetime: UInt32
     nd_opt_ri_prefix: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         nd_opt_ri_flags_reserved: Byte
         Flags: _Flags_e__Struct
-        class _Flags_e__Struct(EasyCastStructure):
+        class _Flags_e__Struct(Structure):
             _bitfield: Byte
 ND_OPTION_TYPE = Int32
 ND_OPT_SOURCE_LINKADDR: win32more.Windows.Win32.Networking.WinSock.ND_OPTION_TYPE = 1
@@ -2672,17 +2672,17 @@ ND_OPT_TARGET_ADDR_LIST: win32more.Windows.Win32.Networking.WinSock.ND_OPTION_TY
 ND_OPT_ROUTE_INFO: win32more.Windows.Win32.Networking.WinSock.ND_OPTION_TYPE = 24
 ND_OPT_RDNSS: win32more.Windows.Win32.Networking.WinSock.ND_OPTION_TYPE = 25
 ND_OPT_DNSSL: win32more.Windows.Win32.Networking.WinSock.ND_OPTION_TYPE = 31
-class ND_REDIRECT_HEADER(EasyCastStructure):
+class ND_REDIRECT_HEADER(Structure):
     nd_rd_hdr: win32more.Windows.Win32.Networking.WinSock.ICMP_MESSAGE
     nd_rd_target: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
     nd_rd_dst: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
-class ND_ROUTER_ADVERT_HEADER(EasyCastStructure):
+class ND_ROUTER_ADVERT_HEADER(Structure):
     nd_ra_hdr: win32more.Windows.Win32.Networking.WinSock.ICMP_MESSAGE
     nd_ra_reachable: UInt32
     nd_ra_retransmit: UInt32
-class ND_ROUTER_SOLICIT_HEADER(EasyCastStructure):
+class ND_ROUTER_SOLICIT_HEADER(Structure):
     nd_rs_hdr: win32more.Windows.Win32.Networking.WinSock.ICMP_MESSAGE
-class NETRESOURCE2A(EasyCastStructure):
+class NETRESOURCE2A(Structure):
     dwScope: UInt32
     dwType: UInt32
     dwUsage: UInt32
@@ -2694,7 +2694,7 @@ class NETRESOURCE2A(EasyCastStructure):
     ServiceType: Guid
     dwProtocols: UInt32
     lpiProtocols: POINTER(Int32)
-class NETRESOURCE2W(EasyCastStructure):
+class NETRESOURCE2W(Structure):
     dwScope: UInt32
     dwType: UInt32
     dwUsage: UInt32
@@ -2707,31 +2707,31 @@ class NETRESOURCE2W(EasyCastStructure):
     dwProtocols: UInt32
     lpiProtocols: POINTER(Int32)
 NETRESOURCE2 = UnicodeAlias('NETRESOURCE2W')
-class NLA_BLOB(EasyCastStructure):
+class NLA_BLOB(Structure):
     header: _header_e__Struct
     data: _data_e__Union
-    class _header_e__Struct(EasyCastStructure):
+    class _header_e__Struct(Structure):
         type: win32more.Windows.Win32.Networking.WinSock.NLA_BLOB_DATA_TYPE
         dwSize: UInt32
         nextOffset: UInt32
-    class _data_e__Union(EasyCastUnion):
+    class _data_e__Union(Union):
         rawData: win32more.Windows.Win32.Foundation.CHAR * 1
         interfaceData: _interfaceData_e__Struct
         locationData: _locationData_e__Struct
         connectivity: _connectivity_e__Struct
         ICS: _ICS_e__Struct
-        class _interfaceData_e__Struct(EasyCastStructure):
+        class _interfaceData_e__Struct(Structure):
             dwType: UInt32
             dwSpeed: UInt32
             adapterName: win32more.Windows.Win32.Foundation.CHAR * 1
-        class _locationData_e__Struct(EasyCastStructure):
+        class _locationData_e__Struct(Structure):
             information: win32more.Windows.Win32.Foundation.CHAR * 1
-        class _connectivity_e__Struct(EasyCastStructure):
+        class _connectivity_e__Struct(Structure):
             type: win32more.Windows.Win32.Networking.WinSock.NLA_CONNECTIVITY_TYPE
             internet: win32more.Windows.Win32.Networking.WinSock.NLA_INTERNET
-        class _ICS_e__Struct(EasyCastStructure):
+        class _ICS_e__Struct(Structure):
             remote: _remote_e__Struct
-            class _remote_e__Struct(EasyCastStructure):
+            class _remote_e__Struct(Structure):
                 speed: UInt32
                 type: UInt32
                 state: UInt32
@@ -2763,7 +2763,7 @@ NL_BANDWIDTH_FLAG = Int32
 NlbwDisabled: win32more.Windows.Win32.Networking.WinSock.NL_BANDWIDTH_FLAG = 0
 NlbwEnabled: win32more.Windows.Win32.Networking.WinSock.NL_BANDWIDTH_FLAG = 1
 NlbwUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_BANDWIDTH_FLAG = -1
-class NL_BANDWIDTH_INFORMATION(EasyCastStructure):
+class NL_BANDWIDTH_INFORMATION(Structure):
     Bandwidth: UInt64
     Instability: UInt64
     BandwidthPeaked: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2784,7 +2784,7 @@ NlincPublic: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CAT
 NlincPrivate: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 2
 NlincDomainAuthenticated: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 3
 NlincCategoryStateMax: win32more.Windows.Win32.Networking.WinSock.NL_INTERFACE_NETWORK_CATEGORY_STATE = 4
-class NL_INTERFACE_OFFLOAD_ROD(EasyCastStructure):
+class NL_INTERFACE_OFFLOAD_ROD(Structure):
     _bitfield: Byte
 NL_LINK_LOCAL_ADDRESS_BEHAVIOR = Int32
 LinkLocalAlwaysOff: win32more.Windows.Win32.Networking.WinSock.NL_LINK_LOCAL_ADDRESS_BEHAVIOR = 0
@@ -2811,7 +2811,7 @@ NetworkConnectivityCostHintUnknown: win32more.Windows.Win32.Networking.WinSock.N
 NetworkConnectivityCostHintUnrestricted: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 1
 NetworkConnectivityCostHintFixed: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 2
 NetworkConnectivityCostHintVariable: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT = 3
-class NL_NETWORK_CONNECTIVITY_HINT(EasyCastStructure):
+class NL_NETWORK_CONNECTIVITY_HINT(Structure):
     ConnectivityLevel: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT
     ConnectivityCost: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT
     ApproachingDataLimit: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2824,7 +2824,7 @@ NetworkConnectivityLevelHintLocalAccess: win32more.Windows.Win32.Networking.WinS
 NetworkConnectivityLevelHintInternetAccess: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 3
 NetworkConnectivityLevelHintConstrainedInternetAccess: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 4
 NetworkConnectivityLevelHintHidden: win32more.Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT = 5
-class NL_PATH_BANDWIDTH_ROD(EasyCastStructure):
+class NL_PATH_BANDWIDTH_ROD(Structure):
     Bandwidth: UInt64
     Instability: UInt64
     BandwidthPeaked: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2924,17 +2924,17 @@ IpSuffixOriginDhcp: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN 
 IpSuffixOriginLinkLayerAddress: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 4
 IpSuffixOriginRandom: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 5
 IpSuffixOriginUnchanged: win32more.Windows.Win32.Networking.WinSock.NL_SUFFIX_ORIGIN = 16
-class NPI_MODULEID(EasyCastStructure):
+class NPI_MODULEID(Structure):
     Length: UInt16
     Type: win32more.Windows.Win32.Networking.WinSock.NPI_MODULEID_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Guid: Guid
         IfLuid: win32more.Windows.Win32.Foundation.LUID
 NPI_MODULEID_TYPE = Int32
 MIT_GUID: win32more.Windows.Win32.Networking.WinSock.NPI_MODULEID_TYPE = 1
 MIT_IF_LUID: win32more.Windows.Win32.Networking.WinSock.NPI_MODULEID_TYPE = 2
-class NSPV2_ROUTINE(EasyCastStructure):
+class NSPV2_ROUTINE(Structure):
     cbSize: UInt32
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
@@ -2945,7 +2945,7 @@ class NSPV2_ROUTINE(EasyCastStructure):
     NSPv2LookupServiceEnd: win32more.Windows.Win32.Networking.WinSock.LPNSPV2LOOKUPSERVICEEND
     NSPv2SetServiceEx: win32more.Windows.Win32.Networking.WinSock.LPNSPV2SETSERVICEEX
     NSPv2ClientSessionRundown: win32more.Windows.Win32.Networking.WinSock.LPNSPV2CLIENTSESSIONRUNDOWN
-class NSP_ROUTINE(EasyCastStructure):
+class NSP_ROUTINE(Structure):
     cbSize: UInt32
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
@@ -2958,19 +2958,19 @@ class NSP_ROUTINE(EasyCastStructure):
     NSPRemoveServiceClass: win32more.Windows.Win32.Networking.WinSock.LPNSPREMOVESERVICECLASS
     NSPGetServiceClassInfo: win32more.Windows.Win32.Networking.WinSock.LPNSPGETSERVICECLASSINFO
     NSPIoctl: win32more.Windows.Win32.Networking.WinSock.LPNSPIOCTL
-class NS_INFOA(EasyCastStructure):
+class NS_INFOA(Structure):
     dwNameSpace: UInt32
     dwNameSpaceFlags: UInt32
     lpNameSpace: win32more.Windows.Win32.Foundation.PSTR
-class NS_INFOW(EasyCastStructure):
+class NS_INFOW(Structure):
     dwNameSpace: UInt32
     dwNameSpaceFlags: UInt32
     lpNameSpace: win32more.Windows.Win32.Foundation.PWSTR
 NS_INFO = UnicodeAlias('NS_INFOW')
-class NS_SERVICE_INFOA(EasyCastStructure):
+class NS_SERVICE_INFOA(Structure):
     dwNameSpace: UInt32
     ServiceInfo: win32more.Windows.Win32.Networking.WinSock.SERVICE_INFOA
-class NS_SERVICE_INFOW(EasyCastStructure):
+class NS_SERVICE_INFOW(Structure):
     dwNameSpace: UInt32
     ServiceInfo: win32more.Windows.Win32.Networking.WinSock.SERVICE_INFOW
 NS_SERVICE_INFO = UnicodeAlias('NS_SERVICE_INFOW')
@@ -2980,10 +2980,10 @@ IP_PMTUDISC_DO: win32more.Windows.Win32.Networking.WinSock.PMTUD_STATE = 1
 IP_PMTUDISC_DONT: win32more.Windows.Win32.Networking.WinSock.PMTUD_STATE = 2
 IP_PMTUDISC_PROBE: win32more.Windows.Win32.Networking.WinSock.PMTUD_STATE = 3
 IP_PMTUDISC_MAX: win32more.Windows.Win32.Networking.WinSock.PMTUD_STATE = 4
-class PRIORITY_STATUS(EasyCastStructure):
+class PRIORITY_STATUS(Structure):
     Sender: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT
     Receiver: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT
-class PROTOCOL_INFOA(EasyCastStructure):
+class PROTOCOL_INFOA(Structure):
     dwServiceFlags: UInt32
     iAddressFamily: Int32
     iMaxSockAddr: Int32
@@ -2992,7 +2992,7 @@ class PROTOCOL_INFOA(EasyCastStructure):
     iProtocol: Int32
     dwMessageSize: UInt32
     lpProtocol: win32more.Windows.Win32.Foundation.PSTR
-class PROTOCOL_INFOW(EasyCastStructure):
+class PROTOCOL_INFOW(Structure):
     dwServiceFlags: UInt32
     iAddressFamily: Int32
     iMaxSockAddr: Int32
@@ -3002,11 +3002,11 @@ class PROTOCOL_INFOW(EasyCastStructure):
     dwMessageSize: UInt32
     lpProtocol: win32more.Windows.Win32.Foundation.PWSTR
 PROTOCOL_INFO = UnicodeAlias('PROTOCOL_INFOW')
-class PROTOENT(EasyCastStructure):
+class PROTOENT(Structure):
     p_name: win32more.Windows.Win32.Foundation.PSTR
     p_aliases: POINTER(POINTER(SByte))
     p_proto: Int16
-class Q2931_IE(EasyCastStructure):
+class Q2931_IE(Structure):
     IEType: win32more.Windows.Win32.Networking.WinSock.Q2931_IE_TYPE
     IELength: UInt32
     IE: Byte * 1
@@ -3023,11 +3023,11 @@ IE_CallingPartySubaddress: win32more.Windows.Win32.Networking.WinSock.Q2931_IE_T
 IE_Cause: win32more.Windows.Win32.Networking.WinSock.Q2931_IE_TYPE = 9
 IE_QOSClass: win32more.Windows.Win32.Networking.WinSock.Q2931_IE_TYPE = 10
 IE_TransitNetworkSelection: win32more.Windows.Win32.Networking.WinSock.Q2931_IE_TYPE = 11
-class QOS(EasyCastStructure):
+class QOS(Structure):
     SendingFlowspec: win32more.Windows.Win32.Networking.WinSock.FLOWSPEC
     ReceivingFlowspec: win32more.Windows.Win32.Networking.WinSock.FLOWSPEC
     ProviderSpecific: win32more.Windows.Win32.Networking.WinSock.WSABUF
-class RCVALL_IF(EasyCastStructure):
+class RCVALL_IF(Structure):
     Mode: win32more.Windows.Win32.Networking.WinSock.RCVALL_VALUE
     Interface: UInt32
 RCVALL_VALUE = Int32
@@ -3035,14 +3035,14 @@ RCVALL_OFF: win32more.Windows.Win32.Networking.WinSock.RCVALL_VALUE = 0
 RCVALL_ON: win32more.Windows.Win32.Networking.WinSock.RCVALL_VALUE = 1
 RCVALL_SOCKETLEVELONLY: win32more.Windows.Win32.Networking.WinSock.RCVALL_VALUE = 2
 RCVALL_IPLEVEL: win32more.Windows.Win32.Networking.WinSock.RCVALL_VALUE = 3
-class REAL_TIME_NOTIFICATION_SETTING_INPUT(EasyCastStructure):
+class REAL_TIME_NOTIFICATION_SETTING_INPUT(Structure):
     TransportSettingId: win32more.Windows.Win32.Networking.WinSock.TRANSPORT_SETTING_ID
     BrokerEventGuid: Guid
-class REAL_TIME_NOTIFICATION_SETTING_INPUT_EX(EasyCastStructure):
+class REAL_TIME_NOTIFICATION_SETTING_INPUT_EX(Structure):
     TransportSettingId: win32more.Windows.Win32.Networking.WinSock.TRANSPORT_SETTING_ID
     BrokerEventGuid: Guid
     Unmark: win32more.Windows.Win32.Foundation.BOOLEAN
-class REAL_TIME_NOTIFICATION_SETTING_OUTPUT(EasyCastStructure):
+class REAL_TIME_NOTIFICATION_SETTING_OUTPUT(Structure):
     ChannelStatus: win32more.Windows.Win32.Networking.WinSock.CONTROL_CHANNEL_TRIGGER_STATUS
 RESOURCE_DISPLAY_TYPE = UInt32
 RESOURCEDISPLAYTYPE_DOMAIN: win32more.Windows.Win32.Networking.WinSock.RESOURCE_DISPLAY_TYPE = 1
@@ -3052,20 +3052,20 @@ RESOURCEDISPLAYTYPE_GROUP: win32more.Windows.Win32.Networking.WinSock.RESOURCE_D
 RESOURCEDISPLAYTYPE_SERVER: win32more.Windows.Win32.Networking.WinSock.RESOURCE_DISPLAY_TYPE = 2
 RESOURCEDISPLAYTYPE_SHARE: win32more.Windows.Win32.Networking.WinSock.RESOURCE_DISPLAY_TYPE = 3
 RESOURCEDISPLAYTYPE_TREE: win32more.Windows.Win32.Networking.WinSock.RESOURCE_DISPLAY_TYPE = 10
-class RIORESULT(EasyCastStructure):
+class RIORESULT(Structure):
     Status: Int32
     BytesTransferred: UInt32
     SocketContext: UInt64
     RequestContext: UInt64
-class RIO_BUF(EasyCastStructure):
+class RIO_BUF(Structure):
     BufferId: win32more.Windows.Win32.Networking.WinSock.RIO_BUFFERID
     Offset: UInt32
     Length: UInt32
 RIO_BUFFERID = IntPtr
-class RIO_CMSG_BUFFER(EasyCastStructure):
+class RIO_CMSG_BUFFER(Structure):
     TotalLength: UInt32
 RIO_CQ = IntPtr
-class RIO_EXTENSION_FUNCTION_TABLE(EasyCastStructure):
+class RIO_EXTENSION_FUNCTION_TABLE(Structure):
     cbSize: UInt32
     RIOReceive: win32more.Windows.Win32.Networking.WinSock.LPFN_RIORECEIVE
     RIOReceiveEx: win32more.Windows.Win32.Networking.WinSock.LPFN_RIORECEIVEEX
@@ -3080,16 +3080,16 @@ class RIO_EXTENSION_FUNCTION_TABLE(EasyCastStructure):
     RIORegisterBuffer: win32more.Windows.Win32.Networking.WinSock.LPFN_RIOREGISTERBUFFER
     RIOResizeCompletionQueue: win32more.Windows.Win32.Networking.WinSock.LPFN_RIORESIZECOMPLETIONQUEUE
     RIOResizeRequestQueue: win32more.Windows.Win32.Networking.WinSock.LPFN_RIORESIZEREQUESTQUEUE
-class RIO_NOTIFICATION_COMPLETION(EasyCastStructure):
+class RIO_NOTIFICATION_COMPLETION(Structure):
     Type: win32more.Windows.Win32.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Event: _Event_e__Struct
         Iocp: _Iocp_e__Struct
-        class _Event_e__Struct(EasyCastStructure):
+        class _Event_e__Struct(Structure):
             EventHandle: win32more.Windows.Win32.Foundation.HANDLE
             NotifyReset: win32more.Windows.Win32.Foundation.BOOL
-        class _Iocp_e__Struct(EasyCastStructure):
+        class _Iocp_e__Struct(Structure):
             IocpHandle: win32more.Windows.Win32.Foundation.HANDLE
             CompletionKey: VoidPtr
             Overlapped: VoidPtr
@@ -3097,12 +3097,12 @@ RIO_NOTIFICATION_COMPLETION_TYPE = Int32
 RIO_EVENT_COMPLETION: win32more.Windows.Win32.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_TYPE = 1
 RIO_IOCP_COMPLETION: win32more.Windows.Win32.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_TYPE = 2
 RIO_RQ = IntPtr
-class RM_FEC_INFO(EasyCastStructure):
+class RM_FEC_INFO(Structure):
     FECBlockSize: UInt16
     FECProActivePackets: UInt16
     FECGroupSize: Byte
     fFECOnDemandParityEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
-class RM_RECEIVER_STATS(EasyCastStructure):
+class RM_RECEIVER_STATS(Structure):
     NumODataPacketsReceived: UInt64
     NumRDataPacketsReceived: UInt64
     NumDuplicateDataPackets: UInt64
@@ -3121,7 +3121,7 @@ class RM_RECEIVER_STATS(EasyCastStructure):
     NumDataPacketsBuffered: UInt64
     TotalSelectiveNaksSent: UInt64
     TotalParityNaksSent: UInt64
-class RM_SENDER_STATS(EasyCastStructure):
+class RM_SENDER_STATS(Structure):
     DataBytesSent: UInt64
     TotalBytesSent: UInt64
     NaksReceived: UInt64
@@ -3135,18 +3135,18 @@ class RM_SENDER_STATS(EasyCastStructure):
     RateKBitsPerSecOverall: UInt64
     RateKBitsPerSecLast: UInt64
     TotalODataPacketsSent: UInt64
-class RM_SEND_WINDOW(EasyCastStructure):
+class RM_SEND_WINDOW(Structure):
     RateKbitsPerSec: UInt32
     WindowSizeInMSecs: UInt32
     WindowSizeInBytes: UInt32
-class RSS_SCALABILITY_INFO(EasyCastStructure):
+class RSS_SCALABILITY_INFO(Structure):
     RssEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
-class SCOPE_ID(EasyCastStructure):
+class SCOPE_ID(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
 SCOPE_LEVEL = Int32
 ScopeLevelInterface: win32more.Windows.Win32.Networking.WinSock.SCOPE_LEVEL = 1
@@ -3164,32 +3164,32 @@ MSG_DONTROUTE: win32more.Windows.Win32.Networking.WinSock.SEND_RECV_FLAGS = 4
 MSG_WAITALL: win32more.Windows.Win32.Networking.WinSock.SEND_RECV_FLAGS = 8
 MSG_PUSH_IMMEDIATE: win32more.Windows.Win32.Networking.WinSock.SEND_RECV_FLAGS = 32
 if ARCH in 'X64,ARM64':
-    class SERVENT(EasyCastStructure):
+    class SERVENT(Structure):
         s_name: win32more.Windows.Win32.Foundation.PSTR
         s_aliases: POINTER(POINTER(SByte))
         s_proto: win32more.Windows.Win32.Foundation.PSTR
         s_port: Int16
 elif ARCH in 'X86':
-    class SERVENT(EasyCastStructure):
+    class SERVENT(Structure):
         s_name: win32more.Windows.Win32.Foundation.PSTR
         s_aliases: POINTER(POINTER(SByte))
         s_port: Int16
         s_proto: win32more.Windows.Win32.Foundation.PSTR
-class SERVICE_ADDRESS(EasyCastStructure):
+class SERVICE_ADDRESS(Structure):
     dwAddressType: UInt32
     dwAddressFlags: UInt32
     dwAddressLength: UInt32
     dwPrincipalLength: UInt32
     lpAddress: POINTER(Byte)
     lpPrincipal: POINTER(Byte)
-class SERVICE_ADDRESSES(EasyCastStructure):
+class SERVICE_ADDRESSES(Structure):
     dwAddressCount: UInt32
     Addresses: win32more.Windows.Win32.Networking.WinSock.SERVICE_ADDRESS * 1
-class SERVICE_ASYNC_INFO(EasyCastStructure):
+class SERVICE_ASYNC_INFO(Structure):
     lpServiceCallbackProc: win32more.Windows.Win32.Networking.WinSock.LPSERVICE_CALLBACK_PROC
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     hAsyncTaskHandle: win32more.Windows.Win32.Foundation.HANDLE
-class SERVICE_INFOA(EasyCastStructure):
+class SERVICE_INFOA(Structure):
     lpServiceType: POINTER(Guid)
     lpServiceName: win32more.Windows.Win32.Foundation.PSTR
     lpComment: win32more.Windows.Win32.Foundation.PSTR
@@ -3200,7 +3200,7 @@ class SERVICE_INFOA(EasyCastStructure):
     lpMachineName: win32more.Windows.Win32.Foundation.PSTR
     lpServiceAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_ADDRESSES)
     ServiceSpecificInfo: win32more.Windows.Win32.System.Com.BLOB
-class SERVICE_INFOW(EasyCastStructure):
+class SERVICE_INFOW(Structure):
     lpServiceType: POINTER(Guid)
     lpServiceName: win32more.Windows.Win32.Foundation.PWSTR
     lpComment: win32more.Windows.Win32.Foundation.PWSTR
@@ -3212,32 +3212,32 @@ class SERVICE_INFOW(EasyCastStructure):
     lpServiceAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SERVICE_ADDRESSES)
     ServiceSpecificInfo: win32more.Windows.Win32.System.Com.BLOB
 SERVICE_INFO = UnicodeAlias('SERVICE_INFOW')
-class SERVICE_TYPE_INFO(EasyCastStructure):
+class SERVICE_TYPE_INFO(Structure):
     dwTypeNameOffset: UInt32
     dwValueCount: UInt32
     Values: win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE * 1
-class SERVICE_TYPE_INFO_ABSA(EasyCastStructure):
+class SERVICE_TYPE_INFO_ABSA(Structure):
     lpTypeName: win32more.Windows.Win32.Foundation.PSTR
     dwValueCount: UInt32
     Values: win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE_ABSA * 1
-class SERVICE_TYPE_INFO_ABSW(EasyCastStructure):
+class SERVICE_TYPE_INFO_ABSW(Structure):
     lpTypeName: win32more.Windows.Win32.Foundation.PWSTR
     dwValueCount: UInt32
     Values: win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE_ABSW * 1
 SERVICE_TYPE_INFO_ABS = UnicodeAlias('SERVICE_TYPE_INFO_ABSW')
-class SERVICE_TYPE_VALUE(EasyCastStructure):
+class SERVICE_TYPE_VALUE(Structure):
     dwNameSpace: UInt32
     dwValueType: UInt32
     dwValueSize: UInt32
     dwValueNameOffset: UInt32
     dwValueOffset: UInt32
-class SERVICE_TYPE_VALUE_ABSA(EasyCastStructure):
+class SERVICE_TYPE_VALUE_ABSA(Structure):
     dwNameSpace: UInt32
     dwValueType: UInt32
     dwValueSize: UInt32
     lpValueName: win32more.Windows.Win32.Foundation.PSTR
     lpValue: VoidPtr
-class SERVICE_TYPE_VALUE_ABSW(EasyCastStructure):
+class SERVICE_TYPE_VALUE_ABSW(Structure):
     dwNameSpace: UInt32
     dwValueType: UInt32
     dwValueSize: UInt32
@@ -3250,84 +3250,84 @@ SERVICE_DEREGISTER: win32more.Windows.Win32.Networking.WinSock.SET_SERVICE_OPERA
 SERVICE_FLUSH: win32more.Windows.Win32.Networking.WinSock.SET_SERVICE_OPERATION = 3
 SERVICE_ADD_TYPE: win32more.Windows.Win32.Networking.WinSock.SET_SERVICE_OPERATION = 4
 SERVICE_DELETE_TYPE: win32more.Windows.Win32.Networking.WinSock.SET_SERVICE_OPERATION = 5
-class SNAP_HEADER(EasyCastStructure):
+class SNAP_HEADER(Structure):
     Dsap: Byte
     Ssap: Byte
     Control: Byte
     Oui: Byte * 3
     Type: UInt16
-class SOCKADDR(EasyCastStructure):
+class SOCKADDR(Structure):
     sa_family: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
     sa_data: win32more.Windows.Win32.Foundation.CHAR * 14
-class SOCKADDR_ATM(EasyCastStructure):
+class SOCKADDR_ATM(Structure):
     satm_family: UInt16
     satm_number: win32more.Windows.Win32.Networking.WinSock.ATM_ADDRESS
     satm_blli: win32more.Windows.Win32.Networking.WinSock.ATM_BLLI
     satm_bhli: win32more.Windows.Win32.Networking.WinSock.ATM_BHLI
-class SOCKADDR_DL(EasyCastStructure):
+class SOCKADDR_DL(Structure):
     sdl_family: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
     sdl_data: Byte * 8
     sdl_zero: Byte * 4
-class SOCKADDR_IN(EasyCastStructure):
+class SOCKADDR_IN(Structure):
     sin_family: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
     sin_port: UInt16
     sin_addr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     sin_zero: win32more.Windows.Win32.Foundation.CHAR * 8
-class SOCKADDR_IN6(EasyCastStructure):
+class SOCKADDR_IN6(Structure):
     sin6_family: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
     sin6_port: UInt16
     sin6_flowinfo: UInt32
     sin6_addr: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         sin6_scope_id: UInt32
         sin6_scope_struct: win32more.Windows.Win32.Networking.WinSock.SCOPE_ID
-class SOCKADDR_IN6_PAIR(EasyCastStructure):
+class SOCKADDR_IN6_PAIR(Structure):
     SourceAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_IN6)
     DestinationAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_IN6)
-class SOCKADDR_IN6_W2KSP1(EasyCastStructure):
+class SOCKADDR_IN6_W2KSP1(Structure):
     sin6_family: Int16
     sin6_port: UInt16
     sin6_flowinfo: UInt32
     sin6_addr: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
     sin6_scope_id: UInt32
-class SOCKADDR_INET(EasyCastUnion):
+class SOCKADDR_INET(Union):
     Ipv4: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_IN
     Ipv6: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_IN6
     si_family: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
-class SOCKADDR_IPX(EasyCastStructure):
+class SOCKADDR_IPX(Structure):
     sa_family: Int16
     sa_netnum: win32more.Windows.Win32.Foundation.CHAR * 4
     sa_nodenum: win32more.Windows.Win32.Foundation.CHAR * 6
     sa_socket: UInt16
-class SOCKADDR_IRDA(EasyCastStructure):
+class SOCKADDR_IRDA(Structure):
     irdaAddressFamily: UInt16
     irdaDeviceID: Byte * 4
     irdaServiceName: win32more.Windows.Win32.Foundation.CHAR * 25
-class SOCKADDR_NB(EasyCastStructure):
+class SOCKADDR_NB(Structure):
     snb_family: Int16
     snb_type: UInt16
     snb_name: win32more.Windows.Win32.Foundation.CHAR * 16
-class SOCKADDR_STORAGE(EasyCastStructure):
+class SOCKADDR_STORAGE(Structure):
     ss_family: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
     __ss_pad1: win32more.Windows.Win32.Foundation.CHAR * 6
     __ss_align: Int64
     __ss_pad2: win32more.Windows.Win32.Foundation.CHAR * 112
-class SOCKADDR_STORAGE_XP(EasyCastStructure):
+class SOCKADDR_STORAGE_XP(Structure):
     ss_family: Int16
     __ss_pad1: win32more.Windows.Win32.Foundation.CHAR * 6
     __ss_align: Int64
     __ss_pad2: win32more.Windows.Win32.Foundation.CHAR * 112
-class SOCKADDR_TP(EasyCastStructure):
+class SOCKADDR_TP(Structure):
     tp_family: UInt16
     tp_addr_type: UInt16
     tp_taddr_len: UInt16
     tp_tsel_len: UInt16
     tp_addr: Byte * 64
-class SOCKADDR_UN(EasyCastStructure):
+class SOCKADDR_UN(Structure):
     sun_family: win32more.Windows.Win32.Networking.WinSock.ADDRESS_FAMILY
     sun_path: win32more.Windows.Win32.Foundation.CHAR * 108
-class SOCKADDR_VNS(EasyCastStructure):
+class SOCKADDR_VNS(Structure):
     sin_family: UInt16
     net_address: Byte * 4
     subnet_addr: Byte * 2
@@ -3335,13 +3335,13 @@ class SOCKADDR_VNS(EasyCastStructure):
     hops: Byte
     filler: Byte * 5
 SOCKET = UIntPtr
-class SOCKET_ADDRESS(EasyCastStructure):
+class SOCKET_ADDRESS(Structure):
     lpSockaddr: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
     iSockaddrLength: Int32
-class SOCKET_ADDRESS_LIST(EasyCastStructure):
+class SOCKET_ADDRESS_LIST(Structure):
     iAddressCount: Int32
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS * 1
-class SOCKET_PEER_TARGET_NAME(EasyCastStructure):
+class SOCKET_PEER_TARGET_NAME(Structure):
     SecurityProtocol: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL
     PeerAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
     PeerTargetNameStringLen: UInt32
@@ -3351,7 +3351,7 @@ SocketPriorityHintVeryLow: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRI
 SocketPriorityHintLow: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 1
 SocketPriorityHintNormal: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 2
 SocketMaximumPriorityHintType: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 3
-class SOCKET_PROCESSOR_AFFINITY(EasyCastStructure):
+class SOCKET_PROCESSOR_AFFINITY(Structure):
     Processor: win32more.Windows.Win32.System.Kernel.PROCESSOR_NUMBER
     NumaNodeId: UInt16
     Reserved: UInt16
@@ -3360,12 +3360,12 @@ SOCKET_SECURITY_PROTOCOL_DEFAULT: win32more.Windows.Win32.Networking.WinSock.SOC
 SOCKET_SECURITY_PROTOCOL_IPSEC: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL = 1
 SOCKET_SECURITY_PROTOCOL_IPSEC2: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL = 2
 SOCKET_SECURITY_PROTOCOL_INVALID: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL = 3
-class SOCKET_SECURITY_QUERY_INFO(EasyCastStructure):
+class SOCKET_SECURITY_QUERY_INFO(Structure):
     SecurityProtocol: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL
     Flags: UInt32
     PeerApplicationAccessTokenHandle: UInt64
     PeerMachineAccessTokenHandle: UInt64
-class SOCKET_SECURITY_QUERY_INFO_IPSEC2(EasyCastStructure):
+class SOCKET_SECURITY_QUERY_INFO_IPSEC2(Structure):
     SecurityProtocol: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL
     Flags: UInt32
     PeerApplicationAccessTokenHandle: UInt64
@@ -3374,20 +3374,20 @@ class SOCKET_SECURITY_QUERY_INFO_IPSEC2(EasyCastStructure):
     QmSaId: UInt64
     NegotiationWinerr: UInt32
     SaLookupContext: Guid
-class SOCKET_SECURITY_QUERY_TEMPLATE(EasyCastStructure):
+class SOCKET_SECURITY_QUERY_TEMPLATE(Structure):
     SecurityProtocol: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL
     PeerAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
     PeerTokenAccessMask: UInt32
-class SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2(EasyCastStructure):
+class SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2(Structure):
     SecurityProtocol: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL
     PeerAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
     PeerTokenAccessMask: UInt32
     Flags: UInt32
     FieldMask: UInt32
-class SOCKET_SECURITY_SETTINGS(EasyCastStructure):
+class SOCKET_SECURITY_SETTINGS(Structure):
     SecurityProtocol: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL
     SecurityFlags: UInt32
-class SOCKET_SECURITY_SETTINGS_IPSEC(EasyCastStructure):
+class SOCKET_SECURITY_SETTINGS_IPSEC(Structure):
     SecurityProtocol: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL
     SecurityFlags: UInt32
     IpsecFlags: UInt32
@@ -3401,7 +3401,7 @@ class SOCKET_SECURITY_SETTINGS_IPSEC(EasyCastStructure):
     AllStrings: Char * 1
 SOCKET_USAGE_TYPE = Int32
 SYSTEM_CRITICAL_SOCKET: win32more.Windows.Win32.Networking.WinSock.SOCKET_USAGE_TYPE = 1
-class SOCK_NOTIFY_REGISTRATION(EasyCastStructure):
+class SOCK_NOTIFY_REGISTRATION(Structure):
     socket: win32more.Windows.Win32.Networking.WinSock.SOCKET
     completionKey: VoidPtr
     eventFilter: UInt16
@@ -3421,9 +3421,9 @@ TCPSTATE_CLOSING: win32more.Windows.Win32.Networking.WinSock.TCPSTATE = 8
 TCPSTATE_LAST_ACK: win32more.Windows.Win32.Networking.WinSock.TCPSTATE = 9
 TCPSTATE_TIME_WAIT: win32more.Windows.Win32.Networking.WinSock.TCPSTATE = 10
 TCPSTATE_MAX: win32more.Windows.Win32.Networking.WinSock.TCPSTATE = 11
-class TCP_ACK_FREQUENCY_PARAMETERS(EasyCastStructure):
+class TCP_ACK_FREQUENCY_PARAMETERS(Structure):
     TcpDelayedAckFrequency: Byte
-class TCP_HDR(EasyCastStructure):
+class TCP_HDR(Structure):
     th_sport: UInt16
     th_dport: UInt16
     th_seq: UInt32
@@ -3442,9 +3442,9 @@ TCP_ICW_LEVEL_AGGRESSIVE: win32more.Windows.Win32.Networking.WinSock.TCP_ICW_LEV
 TCP_ICW_LEVEL_EXPERIMENTAL: win32more.Windows.Win32.Networking.WinSock.TCP_ICW_LEVEL = 4
 TCP_ICW_LEVEL_COMPAT: win32more.Windows.Win32.Networking.WinSock.TCP_ICW_LEVEL = 254
 TCP_ICW_LEVEL_MAX: win32more.Windows.Win32.Networking.WinSock.TCP_ICW_LEVEL = 255
-class TCP_ICW_PARAMETERS(EasyCastStructure):
+class TCP_ICW_PARAMETERS(Structure):
     Level: win32more.Windows.Win32.Networking.WinSock.TCP_ICW_LEVEL
-class TCP_INFO_v0(EasyCastStructure):
+class TCP_INFO_v0(Structure):
     State: win32more.Windows.Win32.Networking.WinSock.TCPSTATE
     Mss: UInt32
     ConnectionTimeMs: UInt64
@@ -3464,7 +3464,7 @@ class TCP_INFO_v0(EasyCastStructure):
     DupAcksIn: UInt32
     TimeoutEpisodes: UInt32
     SynRetrans: Byte
-class TCP_INFO_v1(EasyCastStructure):
+class TCP_INFO_v1(Structure):
     State: win32more.Windows.Win32.Networking.WinSock.TCPSTATE
     Mss: UInt32
     ConnectionTimeMs: UInt64
@@ -3493,127 +3493,127 @@ class TCP_INFO_v1(EasyCastStructure):
     SndLimTransSnd: UInt32
     SndLimTimeSnd: UInt32
     SndLimBytesSnd: UInt64
-class TCP_INITIAL_RTO_PARAMETERS(EasyCastStructure):
+class TCP_INITIAL_RTO_PARAMETERS(Structure):
     Rtt: UInt16
     MaxSynRetransmissions: Byte
-class TCP_OPT_FASTOPEN(EasyCastStructure):
+class TCP_OPT_FASTOPEN(Structure):
     Kind: Byte
     Length: Byte
     Cookie: Byte * 1
     _pack_ = 1
-class TCP_OPT_MSS(EasyCastStructure):
+class TCP_OPT_MSS(Structure):
     Kind: Byte
     Length: Byte
     Mss: UInt16
     _pack_ = 1
-class TCP_OPT_SACK(EasyCastStructure):
+class TCP_OPT_SACK(Structure):
     Kind: Byte
     Length: Byte
     Block: tcp_opt_sack_block * 1
     _pack_ = 1
-    class tcp_opt_sack_block(EasyCastStructure):
+    class tcp_opt_sack_block(Structure):
         Left: UInt32
         Right: UInt32
         _pack_ = 1
-class TCP_OPT_SACK_PERMITTED(EasyCastStructure):
+class TCP_OPT_SACK_PERMITTED(Structure):
     Kind: Byte
     Length: Byte
     _pack_ = 1
-class TCP_OPT_TS(EasyCastStructure):
+class TCP_OPT_TS(Structure):
     Kind: Byte
     Length: Byte
     Val: UInt32
     EcR: UInt32
     _pack_ = 1
-class TCP_OPT_UNKNOWN(EasyCastStructure):
+class TCP_OPT_UNKNOWN(Structure):
     Kind: Byte
     Length: Byte
     _pack_ = 1
-class TCP_OPT_WS(EasyCastStructure):
+class TCP_OPT_WS(Structure):
     Kind: Byte
     Length: Byte
     ShiftCnt: Byte
     _pack_ = 1
-class TIMESTAMPING_CONFIG(EasyCastStructure):
+class TIMESTAMPING_CONFIG(Structure):
     Flags: UInt32
     TxTimestampsBuffered: UInt16
-class TIMEVAL(EasyCastStructure):
+class TIMEVAL(Structure):
     tv_sec: Int32
     tv_usec: Int32
-class TRANSMIT_FILE_BUFFERS(EasyCastStructure):
+class TRANSMIT_FILE_BUFFERS(Structure):
     Head: VoidPtr
     HeadLength: UInt32
     Tail: VoidPtr
     TailLength: UInt32
-class TRANSMIT_PACKETS_ELEMENT(EasyCastStructure):
+class TRANSMIT_PACKETS_ELEMENT(Structure):
     dwElFlags: UInt32
     cLength: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         pBuffer: VoidPtr
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             nFileOffset: Int64
             hFile: win32more.Windows.Win32.Foundation.HANDLE
-class TRANSPORT_SETTING_ID(EasyCastStructure):
+class TRANSPORT_SETTING_ID(Structure):
     Guid: Guid
 TUNNEL_SUB_TYPE = Int32
 TUNNEL_SUB_TYPE_NONE: win32more.Windows.Win32.Networking.WinSock.TUNNEL_SUB_TYPE = 0
 TUNNEL_SUB_TYPE_CP: win32more.Windows.Win32.Networking.WinSock.TUNNEL_SUB_TYPE = 1
 TUNNEL_SUB_TYPE_IPTLS: win32more.Windows.Win32.Networking.WinSock.TUNNEL_SUB_TYPE = 2
 TUNNEL_SUB_TYPE_HA: win32more.Windows.Win32.Networking.WinSock.TUNNEL_SUB_TYPE = 3
-class VLAN_TAG(EasyCastStructure):
+class VLAN_TAG(Structure):
     Anonymous: _Anonymous_e__Union
     Type: UInt16
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Tag: UInt16
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
-class WCE_DEVICELIST(EasyCastStructure):
+class WCE_DEVICELIST(Structure):
     numDevice: UInt32
     Device: win32more.Windows.Win32.Networking.WinSock.WCE_IRDA_DEVICE_INFO * 1
-class WCE_IRDA_DEVICE_INFO(EasyCastStructure):
+class WCE_IRDA_DEVICE_INFO(Structure):
     irdaDeviceID: Byte * 4
     irdaDeviceName: win32more.Windows.Win32.Foundation.CHAR * 22
     Reserved: Byte * 2
-class WINDOWS_DEVICELIST(EasyCastStructure):
+class WINDOWS_DEVICELIST(Structure):
     numDevice: UInt32
     Device: win32more.Windows.Win32.Networking.WinSock.WINDOWS_IRDA_DEVICE_INFO * 1
-class WINDOWS_IAS_QUERY(EasyCastStructure):
+class WINDOWS_IAS_QUERY(Structure):
     irdaDeviceID: Byte * 4
     irdaClassName: win32more.Windows.Win32.Foundation.CHAR * 64
     irdaAttribName: win32more.Windows.Win32.Foundation.CHAR * 256
     irdaAttribType: UInt32
     irdaAttribute: _irdaAttribute_e__Union
-    class _irdaAttribute_e__Union(EasyCastUnion):
+    class _irdaAttribute_e__Union(Union):
         irdaAttribInt: Int32
         irdaAttribOctetSeq: _irdaAttribOctetSeq_e__Struct
         irdaAttribUsrStr: _irdaAttribUsrStr_e__Struct
-        class _irdaAttribOctetSeq_e__Struct(EasyCastStructure):
+        class _irdaAttribOctetSeq_e__Struct(Structure):
             Len: UInt32
             OctetSeq: Byte * 1024
-        class _irdaAttribUsrStr_e__Struct(EasyCastStructure):
+        class _irdaAttribUsrStr_e__Struct(Structure):
             Len: UInt32
             CharSet: UInt32
             UsrStr: Byte * 256
-class WINDOWS_IAS_SET(EasyCastStructure):
+class WINDOWS_IAS_SET(Structure):
     irdaClassName: win32more.Windows.Win32.Foundation.CHAR * 64
     irdaAttribName: win32more.Windows.Win32.Foundation.CHAR * 256
     irdaAttribType: UInt32
     irdaAttribute: _irdaAttribute_e__Union
-    class _irdaAttribute_e__Union(EasyCastUnion):
+    class _irdaAttribute_e__Union(Union):
         irdaAttribInt: Int32
         irdaAttribOctetSeq: _irdaAttribOctetSeq_e__Struct
         irdaAttribUsrStr: _irdaAttribUsrStr_e__Struct
-        class _irdaAttribOctetSeq_e__Struct(EasyCastStructure):
+        class _irdaAttribOctetSeq_e__Struct(Structure):
             Len: UInt16
             OctetSeq: Byte * 1024
-        class _irdaAttribUsrStr_e__Struct(EasyCastStructure):
+        class _irdaAttribUsrStr_e__Struct(Structure):
             Len: Byte
             CharSet: Byte
             UsrStr: Byte * 256
-class WINDOWS_IRDA_DEVICE_INFO(EasyCastStructure):
+class WINDOWS_IRDA_DEVICE_INFO(Structure):
     irdaDeviceID: Byte * 4
     irdaDeviceName: win32more.Windows.Win32.Foundation.CHAR * 22
     irdaDeviceHints1: Byte
@@ -3629,27 +3629,27 @@ SOCK_DGRAM: win32more.Windows.Win32.Networking.WinSock.WINSOCK_SOCKET_TYPE = 2
 SOCK_RAW: win32more.Windows.Win32.Networking.WinSock.WINSOCK_SOCKET_TYPE = 3
 SOCK_RDM: win32more.Windows.Win32.Networking.WinSock.WINSOCK_SOCKET_TYPE = 4
 SOCK_SEQPACKET: win32more.Windows.Win32.Networking.WinSock.WINSOCK_SOCKET_TYPE = 5
-class WSABUF(EasyCastStructure):
+class WSABUF(Structure):
     len: UInt32
     buf: win32more.Windows.Win32.Foundation.PSTR
-class WSACOMPLETION(EasyCastStructure):
+class WSACOMPLETION(Structure):
     Type: win32more.Windows.Win32.Networking.WinSock.WSACOMPLETIONTYPE
     Parameters: _Parameters_e__Union
-    class _Parameters_e__Union(EasyCastUnion):
+    class _Parameters_e__Union(Union):
         WindowMessage: _WindowMessage_e__Struct
         Event: _Event_e__Struct
         Apc: _Apc_e__Struct
         Port: _Port_e__Struct
-        class _WindowMessage_e__Struct(EasyCastStructure):
+        class _WindowMessage_e__Struct(Structure):
             hWnd: win32more.Windows.Win32.Foundation.HWND
             uMsg: UInt32
             context: win32more.Windows.Win32.Foundation.WPARAM
-        class _Event_e__Struct(EasyCastStructure):
+        class _Event_e__Struct(Structure):
             lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)
-        class _Apc_e__Struct(EasyCastStructure):
+        class _Apc_e__Struct(Structure):
             lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)
             lpfnCompletionProc: win32more.Windows.Win32.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE
-        class _Port_e__Struct(EasyCastStructure):
+        class _Port_e__Struct(Structure):
             lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)
             hPort: win32more.Windows.Win32.Foundation.HANDLE
             Key: UIntPtr
@@ -3660,7 +3660,7 @@ NSP_NOTIFY_EVENT: win32more.Windows.Win32.Networking.WinSock.WSACOMPLETIONTYPE =
 NSP_NOTIFY_PORT: win32more.Windows.Win32.Networking.WinSock.WSACOMPLETIONTYPE = 3
 NSP_NOTIFY_APC: win32more.Windows.Win32.Networking.WinSock.WSACOMPLETIONTYPE = 4
 if ARCH in 'X64,ARM64':
-    class WSADATA(EasyCastStructure):
+    class WSADATA(Structure):
         wVersion: UInt16
         wHighVersion: UInt16
         iMaxSockets: UInt16
@@ -3669,7 +3669,7 @@ if ARCH in 'X64,ARM64':
         szDescription: win32more.Windows.Win32.Foundation.CHAR * 257
         szSystemStatus: win32more.Windows.Win32.Foundation.CHAR * 129
 elif ARCH in 'X86':
-    class WSADATA(EasyCastStructure):
+    class WSADATA(Structure):
         wVersion: UInt16
         wHighVersion: UInt16
         szDescription: win32more.Windows.Win32.Foundation.CHAR * 257
@@ -3685,27 +3685,27 @@ RNRSERVICE_REGISTER: win32more.Windows.Win32.Networking.WinSock.WSAESETSERVICEOP
 RNRSERVICE_DEREGISTER: win32more.Windows.Win32.Networking.WinSock.WSAESETSERVICEOP = 1
 RNRSERVICE_DELETE: win32more.Windows.Win32.Networking.WinSock.WSAESETSERVICEOP = 2
 WSAEVENT = IntPtr
-class WSAMSG(EasyCastStructure):
+class WSAMSG(Structure):
     name: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
     namelen: Int32
     lpBuffers: POINTER(win32more.Windows.Win32.Networking.WinSock.WSABUF)
     dwBufferCount: UInt32
     Control: win32more.Windows.Win32.Networking.WinSock.WSABUF
     dwFlags: UInt32
-class WSANAMESPACE_INFOA(EasyCastStructure):
+class WSANAMESPACE_INFOA(Structure):
     NSProviderId: Guid
     dwNameSpace: UInt32
     fActive: win32more.Windows.Win32.Foundation.BOOL
     dwVersion: UInt32
     lpszIdentifier: win32more.Windows.Win32.Foundation.PSTR
-class WSANAMESPACE_INFOEXA(EasyCastStructure):
+class WSANAMESPACE_INFOEXA(Structure):
     NSProviderId: Guid
     dwNameSpace: UInt32
     fActive: win32more.Windows.Win32.Foundation.BOOL
     dwVersion: UInt32
     lpszIdentifier: win32more.Windows.Win32.Foundation.PSTR
     ProviderSpecific: win32more.Windows.Win32.System.Com.BLOB
-class WSANAMESPACE_INFOEXW(EasyCastStructure):
+class WSANAMESPACE_INFOEXW(Structure):
     NSProviderId: Guid
     dwNameSpace: UInt32
     fActive: win32more.Windows.Win32.Foundation.BOOL
@@ -3713,35 +3713,35 @@ class WSANAMESPACE_INFOEXW(EasyCastStructure):
     lpszIdentifier: win32more.Windows.Win32.Foundation.PWSTR
     ProviderSpecific: win32more.Windows.Win32.System.Com.BLOB
 WSANAMESPACE_INFOEX = UnicodeAlias('WSANAMESPACE_INFOEXW')
-class WSANAMESPACE_INFOW(EasyCastStructure):
+class WSANAMESPACE_INFOW(Structure):
     NSProviderId: Guid
     dwNameSpace: UInt32
     fActive: win32more.Windows.Win32.Foundation.BOOL
     dwVersion: UInt32
     lpszIdentifier: win32more.Windows.Win32.Foundation.PWSTR
 WSANAMESPACE_INFO = UnicodeAlias('WSANAMESPACE_INFOW')
-class WSANETWORKEVENTS(EasyCastStructure):
+class WSANETWORKEVENTS(Structure):
     lNetworkEvents: Int32
     iErrorCode: Int32 * 10
-class WSANSCLASSINFOA(EasyCastStructure):
+class WSANSCLASSINFOA(Structure):
     lpszName: win32more.Windows.Win32.Foundation.PSTR
     dwNameSpace: UInt32
     dwValueType: UInt32
     dwValueSize: UInt32
     lpValue: VoidPtr
-class WSANSCLASSINFOW(EasyCastStructure):
+class WSANSCLASSINFOW(Structure):
     lpszName: win32more.Windows.Win32.Foundation.PWSTR
     dwNameSpace: UInt32
     dwValueType: UInt32
     dwValueSize: UInt32
     lpValue: VoidPtr
 WSANSCLASSINFO = UnicodeAlias('WSANSCLASSINFOW')
-class WSAPOLLDATA(EasyCastStructure):
+class WSAPOLLDATA(Structure):
     result: Int32
     fds: UInt32
     timeout: Int32
     fdArray: win32more.Windows.Win32.Networking.WinSock.WSAPOLLFD * 1
-class WSAPOLLFD(EasyCastStructure):
+class WSAPOLLFD(Structure):
     fd: win32more.Windows.Win32.Networking.WinSock.SOCKET
     events: win32more.Windows.Win32.Networking.WinSock.WSAPOLL_EVENT_FLAGS
     revents: win32more.Windows.Win32.Networking.WinSock.WSAPOLL_EVENT_FLAGS
@@ -3756,10 +3756,10 @@ POLLWRBAND: win32more.Windows.Win32.Networking.WinSock.WSAPOLL_EVENT_FLAGS = 32
 POLLERR: win32more.Windows.Win32.Networking.WinSock.WSAPOLL_EVENT_FLAGS = 1
 POLLHUP: win32more.Windows.Win32.Networking.WinSock.WSAPOLL_EVENT_FLAGS = 2
 POLLNVAL: win32more.Windows.Win32.Networking.WinSock.WSAPOLL_EVENT_FLAGS = 4
-class WSAPROTOCOLCHAIN(EasyCastStructure):
+class WSAPROTOCOLCHAIN(Structure):
     ChainLen: Int32
     ChainEntries: UInt32 * 7
-class WSAPROTOCOL_INFOA(EasyCastStructure):
+class WSAPROTOCOL_INFOA(Structure):
     dwServiceFlags1: UInt32
     dwServiceFlags2: UInt32
     dwServiceFlags3: UInt32
@@ -3780,7 +3780,7 @@ class WSAPROTOCOL_INFOA(EasyCastStructure):
     dwMessageSize: UInt32
     dwProviderReserved: UInt32
     szProtocol: win32more.Windows.Win32.Foundation.CHAR * 256
-class WSAPROTOCOL_INFOW(EasyCastStructure):
+class WSAPROTOCOL_INFOW(Structure):
     dwServiceFlags1: UInt32
     dwServiceFlags2: UInt32
     dwServiceFlags3: UInt32
@@ -3802,7 +3802,7 @@ class WSAPROTOCOL_INFOW(EasyCastStructure):
     dwProviderReserved: UInt32
     szProtocol: Char * 256
 WSAPROTOCOL_INFO = UnicodeAlias('WSAPROTOCOL_INFOW')
-class WSAQUERYSET2A(EasyCastStructure):
+class WSAQUERYSET2A(Structure):
     dwSize: UInt32
     lpszServiceInstanceName: win32more.Windows.Win32.Foundation.PSTR
     lpVersion: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAVERSION)
@@ -3817,7 +3817,7 @@ class WSAQUERYSET2A(EasyCastStructure):
     lpcsaBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.CSADDR_INFO)
     dwOutputFlags: UInt32
     lpBlob: POINTER(win32more.Windows.Win32.System.Com.BLOB)
-class WSAQUERYSET2W(EasyCastStructure):
+class WSAQUERYSET2W(Structure):
     dwSize: UInt32
     lpszServiceInstanceName: win32more.Windows.Win32.Foundation.PWSTR
     lpVersion: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAVERSION)
@@ -3833,7 +3833,7 @@ class WSAQUERYSET2W(EasyCastStructure):
     dwOutputFlags: UInt32
     lpBlob: POINTER(win32more.Windows.Win32.System.Com.BLOB)
 WSAQUERYSET2 = UnicodeAlias('WSAQUERYSET2W')
-class WSAQUERYSETA(EasyCastStructure):
+class WSAQUERYSETA(Structure):
     dwSize: UInt32
     lpszServiceInstanceName: win32more.Windows.Win32.Foundation.PSTR
     lpServiceClassId: POINTER(Guid)
@@ -3849,7 +3849,7 @@ class WSAQUERYSETA(EasyCastStructure):
     lpcsaBuffer: POINTER(win32more.Windows.Win32.Networking.WinSock.CSADDR_INFO)
     dwOutputFlags: UInt32
     lpBlob: POINTER(win32more.Windows.Win32.System.Com.BLOB)
-class WSAQUERYSETW(EasyCastStructure):
+class WSAQUERYSETW(Structure):
     dwSize: UInt32
     lpszServiceInstanceName: win32more.Windows.Win32.Foundation.PWSTR
     lpServiceClassId: POINTER(Guid)
@@ -3866,34 +3866,34 @@ class WSAQUERYSETW(EasyCastStructure):
     dwOutputFlags: UInt32
     lpBlob: POINTER(win32more.Windows.Win32.System.Com.BLOB)
 WSAQUERYSET = UnicodeAlias('WSAQUERYSETW')
-class WSASENDMSG(EasyCastStructure):
+class WSASENDMSG(Structure):
     lpMsg: POINTER(win32more.Windows.Win32.Networking.WinSock.WSAMSG)
     dwFlags: UInt32
     lpNumberOfBytesSent: POINTER(UInt32)
     lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)
     lpCompletionRoutine: win32more.Windows.Win32.Networking.WinSock.LPWSAOVERLAPPED_COMPLETION_ROUTINE
-class WSASERVICECLASSINFOA(EasyCastStructure):
+class WSASERVICECLASSINFOA(Structure):
     lpServiceClassId: POINTER(Guid)
     lpszServiceClassName: win32more.Windows.Win32.Foundation.PSTR
     dwCount: UInt32
     lpClassInfos: POINTER(win32more.Windows.Win32.Networking.WinSock.WSANSCLASSINFOA)
-class WSASERVICECLASSINFOW(EasyCastStructure):
+class WSASERVICECLASSINFOW(Structure):
     lpServiceClassId: POINTER(Guid)
     lpszServiceClassName: win32more.Windows.Win32.Foundation.PWSTR
     dwCount: UInt32
     lpClassInfos: POINTER(win32more.Windows.Win32.Networking.WinSock.WSANSCLASSINFOW)
 WSASERVICECLASSINFO = UnicodeAlias('WSASERVICECLASSINFOW')
-class WSATHREADID(EasyCastStructure):
+class WSATHREADID(Structure):
     ThreadHandle: win32more.Windows.Win32.Foundation.HANDLE
     Reserved: UIntPtr
-class WSAVERSION(EasyCastStructure):
+class WSAVERSION(Structure):
     dwVersion: UInt32
     ecHow: win32more.Windows.Win32.Networking.WinSock.WSAECOMPARATOR
 WSA_COMPATIBILITY_BEHAVIOR_ID = Int32
 WsaBehaviorAll: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID = 0
 WsaBehaviorReceiveBuffering: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID = 1
 WsaBehaviorAutoTuning: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID = 2
-class WSA_COMPATIBILITY_MODE(EasyCastStructure):
+class WSA_COMPATIBILITY_MODE(Structure):
     BehaviorId: win32more.Windows.Win32.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID
     TargetOsVersion: UInt32
 WSA_ERROR = Int32
@@ -3997,17 +3997,17 @@ WSA_QOS_ESHAPERATEOBJ: win32more.Windows.Win32.Networking.WinSock.WSA_ERROR = 11
 WSA_QOS_RESERVED_PETYPE: win32more.Windows.Win32.Networking.WinSock.WSA_ERROR = 11031
 WSA_SECURE_HOST_NOT_FOUND: win32more.Windows.Win32.Networking.WinSock.WSA_ERROR = 11032
 WSA_IPSEC_NAME_POLICY_ERROR: win32more.Windows.Win32.Networking.WinSock.WSA_ERROR = 11033
-class WSC_PROVIDER_AUDIT_INFO(EasyCastStructure):
+class WSC_PROVIDER_AUDIT_INFO(Structure):
     RecordSize: UInt32
     Reserved: VoidPtr
 WSC_PROVIDER_INFO_TYPE = Int32
 ProviderInfoLspCategories: win32more.Windows.Win32.Networking.WinSock.WSC_PROVIDER_INFO_TYPE = 0
 ProviderInfoAudit: win32more.Windows.Win32.Networking.WinSock.WSC_PROVIDER_INFO_TYPE = 1
-class WSPDATA(EasyCastStructure):
+class WSPDATA(Structure):
     wVersion: UInt16
     wHighVersion: UInt16
     szDescription: Char * 256
-class WSPPROC_TABLE(EasyCastStructure):
+class WSPPROC_TABLE(Structure):
     lpWSPAccept: win32more.Windows.Win32.Networking.WinSock.LPWSPACCEPT
     lpWSPAddressToString: win32more.Windows.Win32.Networking.WinSock.LPWSPADDRESSTOSTRING
     lpWSPAsyncSelect: win32more.Windows.Win32.Networking.WinSock.LPWSPASYNCSELECT
@@ -4038,7 +4038,7 @@ class WSPPROC_TABLE(EasyCastStructure):
     lpWSPShutdown: win32more.Windows.Win32.Networking.WinSock.LPWSPSHUTDOWN
     lpWSPSocket: win32more.Windows.Win32.Networking.WinSock.LPWSPSOCKET
     lpWSPStringToAddress: win32more.Windows.Win32.Networking.WinSock.LPWSPSTRINGTOADDRESS
-class WSPUPCALLTABLE(EasyCastStructure):
+class WSPUPCALLTABLE(Structure):
     lpWPUCloseEvent: win32more.Windows.Win32.Networking.WinSock.LPWPUCLOSEEVENT
     lpWPUCloseSocketHandle: win32more.Windows.Win32.Networking.WinSock.LPWPUCLOSESOCKETHANDLE
     lpWPUCreateEvent: win32more.Windows.Win32.Networking.WinSock.LPWPUCREATEEVENT
@@ -4057,25 +4057,25 @@ class WSPUPCALLTABLE(EasyCastStructure):
 eWINDOW_ADVANCE_METHOD = Int32
 E_WINDOW_ADVANCE_BY_TIME: win32more.Windows.Win32.Networking.WinSock.eWINDOW_ADVANCE_METHOD = 1
 E_WINDOW_USE_AS_DATA_CACHE: win32more.Windows.Win32.Networking.WinSock.eWINDOW_ADVANCE_METHOD = 2
-class netent(EasyCastStructure):
+class netent(Structure):
     n_name: win32more.Windows.Win32.Foundation.PSTR
     n_aliases: POINTER(POINTER(SByte))
     n_addrtype: Int16
     n_net: UInt32
-class sockaddr_gen(EasyCastUnion):
+class sockaddr_gen(Union):
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKADDR
     AddressIn: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_IN
     AddressIn6: win32more.Windows.Win32.Networking.WinSock.sockaddr_in6_old
-class sockaddr_in6_old(EasyCastStructure):
+class sockaddr_in6_old(Structure):
     sin6_family: Int16
     sin6_port: UInt16
     sin6_flowinfo: UInt32
     sin6_addr: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
 socklen_t = Int32
-class sockproto(EasyCastStructure):
+class sockproto(Structure):
     sp_family: UInt16
     sp_protocol: UInt16
-class tcp_keepalive(EasyCastStructure):
+class tcp_keepalive(Structure):
     onoff: UInt32
     keepalivetime: UInt32
     keepaliveinterval: UInt32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
@@ -7,7 +7,7 @@ import win32more.Windows.Win32.Media.Audio.Endpoints
 import win32more.Windows.Win32.Media.KernelStreaming
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
-class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS(EasyCastStructure):
+class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS(Structure):
     u32Size: UInt32
     u32TSSessionId: UInt32
     targetEndpointConnectorType: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType

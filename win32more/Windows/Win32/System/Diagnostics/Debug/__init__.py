@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.WinTrust
 import win32more.Windows.Win32.Storage.FileSystem
@@ -15,11 +15,11 @@ import win32more.Windows.Win32.System.Time
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.WindowsAndMessaging
 if ARCH in 'X86':
-    class ADDRESS(EasyCastStructure):
+    class ADDRESS(Structure):
         Offset: UInt32
         Segment: UInt16
         Mode: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE
-class ADDRESS64(EasyCastStructure):
+class ADDRESS64(Structure):
     Offset: UInt64
     Segment: UInt16
     Mode: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE
@@ -28,39 +28,39 @@ AddrMode1616: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 0
 AddrMode1632: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 1
 AddrModeReal: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 2
 AddrModeFlat: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 3
-class AER_BRIDGE_DESCRIPTOR_FLAGS(EasyCastUnion):
+class AER_BRIDGE_DESCRIPTOR_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class AER_ENDPOINT_DESCRIPTOR_FLAGS(EasyCastUnion):
+class AER_ENDPOINT_DESCRIPTOR_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class AER_ROOTPORT_DESCRIPTOR_FLAGS(EasyCastUnion):
+class AER_ROOTPORT_DESCRIPTOR_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class APC_CALLBACK_DATA(EasyCastStructure):
+class APC_CALLBACK_DATA(Structure):
     Parameter: UIntPtr
     ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)
     Reserved0: UIntPtr
     Reserved1: UIntPtr
-class API_VERSION(EasyCastStructure):
+class API_VERSION(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
     Revision: UInt16
     Reserved: UInt16
 if ARCH in 'X86,X64':
-    class ARM64_NT_CONTEXT(EasyCastStructure):
+    class ARM64_NT_CONTEXT(Structure):
         ContextFlags: UInt32
         Cpsr: UInt32
         Anonymous: _Anonymous_e__Union
@@ -73,10 +73,10 @@ if ARCH in 'X86,X64':
         Bvr: UInt64 * 8
         Wcr: UInt32 * 2
         Wvr: UInt64 * 2
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             Anonymous: _Anonymous_e__Struct
             X: UInt64 * 31
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 X0: UInt64
                 X1: UInt64
                 X2: UInt64
@@ -108,13 +108,13 @@ if ARCH in 'X86,X64':
                 X28: UInt64
                 Fp: UInt64
                 Lr: UInt64
-class ARM64_NT_NEON128(EasyCastUnion):
+class ARM64_NT_NEON128(Union):
     Anonymous: _Anonymous_e__Struct
     D: Double * 2
     S: Single * 4
     H: UInt16 * 8
     B: Byte * 16
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         Low: UInt64
         High: Int64
 EXCEPTION_EXECUTE_HANDLER: Int32 = 1
@@ -1633,7 +1633,7 @@ WINLOGON_FATAL_ERROR: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_
 MANUALLY_INITIATED_CRASH1: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_ERROR = 3735936685
 BUGCHECK_CONTEXT_MODIFIER: win32more.Windows.Win32.System.Diagnostics.Debug.BUGCHECK_ERROR = 2147483648
 if ARCH in 'ARM64':
-    class CONTEXT(EasyCastStructure):
+    class CONTEXT(Structure):
         ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS
         Cpsr: UInt32
         Anonymous: _Anonymous_e__Union
@@ -1646,10 +1646,10 @@ if ARCH in 'ARM64':
         Bvr: UInt64 * 8
         Wcr: UInt32 * 2
         Wvr: UInt64 * 2
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             Anonymous: _Anonymous_e__Struct
             X: UInt64 * 31
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 X0: UInt64
                 X1: UInt64
                 X2: UInt64
@@ -1682,7 +1682,7 @@ if ARCH in 'ARM64':
                 Fp: UInt64
                 Lr: UInt64
 elif ARCH in 'X64':
-    class CONTEXT(EasyCastStructure):
+    class CONTEXT(Structure):
         P1Home: UInt64
         P2Home: UInt64
         P3Home: UInt64
@@ -1729,10 +1729,10 @@ elif ARCH in 'X64':
         LastBranchFromRip: UInt64
         LastExceptionToRip: UInt64
         LastExceptionFromRip: UInt64
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             FltSave: win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_FORMAT
             Anonymous: _Anonymous_e__Struct
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 Header: win32more.Windows.Win32.System.Diagnostics.Debug.M128A * 2
                 Legacy: win32more.Windows.Win32.System.Diagnostics.Debug.M128A * 8
                 Xmm0: win32more.Windows.Win32.System.Diagnostics.Debug.M128A
@@ -1752,7 +1752,7 @@ elif ARCH in 'X64':
                 Xmm14: win32more.Windows.Win32.System.Diagnostics.Debug.M128A
                 Xmm15: win32more.Windows.Win32.System.Diagnostics.Debug.M128A
 elif ARCH in 'X86':
-    class CONTEXT(EasyCastStructure):
+    class CONTEXT(Structure):
         ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS
         Dr0: UInt32
         Dr1: UInt32
@@ -1835,18 +1835,18 @@ CONTEXT_SERVICE_ACTIVE_ARM: win32more.Windows.Win32.System.Diagnostics.Debug.CON
 CONTEXT_EXCEPTION_REQUEST_ARM: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS = 1073741824
 CONTEXT_EXCEPTION_REPORTING_ARM: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS = 2147483648
 CONTEXT_UNWOUND_TO_CALL_ARM: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS = 536870912
-class CPU_INFORMATION(EasyCastUnion):
+class CPU_INFORMATION(Union):
     X86CpuInfo: _X86CpuInfo_e__Struct
     OtherCpuInfo: _OtherCpuInfo_e__Struct
-    class _X86CpuInfo_e__Struct(EasyCastStructure):
+    class _X86CpuInfo_e__Struct(Structure):
         VendorId: UInt32 * 3
         VersionInformation: UInt32
         FeatureInformation: UInt32
         AMDExtendedCpuFeatures: UInt32
-    class _OtherCpuInfo_e__Struct(EasyCastStructure):
+    class _OtherCpuInfo_e__Struct(Structure):
         ProcessorFeatures: UInt64 * 2
         _pack_ = 4
-class CREATE_PROCESS_DEBUG_INFO(EasyCastStructure):
+class CREATE_PROCESS_DEBUG_INFO(Structure):
     hFile: win32more.Windows.Win32.Foundation.HANDLE
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
     hThread: win32more.Windows.Win32.Foundation.HANDLE
@@ -1857,11 +1857,11 @@ class CREATE_PROCESS_DEBUG_INFO(EasyCastStructure):
     lpStartAddress: win32more.Windows.Win32.System.Threading.LPTHREAD_START_ROUTINE
     lpImageName: VoidPtr
     fUnicode: UInt16
-class CREATE_THREAD_DEBUG_INFO(EasyCastStructure):
+class CREATE_THREAD_DEBUG_INFO(Structure):
     hThread: win32more.Windows.Win32.Foundation.HANDLE
     lpThreadLocalBase: VoidPtr
     lpStartAddress: win32more.Windows.Win32.System.Threading.LPTHREAD_START_ROUTINE
-class DBGHELP_DATA_REPORT_STRUCT(EasyCastStructure):
+class DBGHELP_DATA_REPORT_STRUCT(Structure):
     pBinPathNonExist: win32more.Windows.Win32.Foundation.PWSTR
     pSymbolPathNonExist: win32more.Windows.Win32.Foundation.PWSTR
 DBGPROP_ATTRIB_FLAGS = Int32
@@ -1900,12 +1900,12 @@ DBGPROP_INFO_DEBUGPROP: win32more.Windows.Win32.System.Diagnostics.Debug.DBGPROP
 DBGPROP_INFO_BEAUTIFY: win32more.Windows.Win32.System.Diagnostics.Debug.DBGPROP_INFO = 33554432
 DBGPROP_INFO_CALLTOSTRING: win32more.Windows.Win32.System.Diagnostics.Debug.DBGPROP_INFO = 67108864
 DBGPROP_INFO_AUTOEXPAND: win32more.Windows.Win32.System.Diagnostics.Debug.DBGPROP_INFO = 134217728
-class DEBUG_EVENT(EasyCastStructure):
+class DEBUG_EVENT(Structure):
     dwDebugEventCode: win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_EVENT_CODE
     dwProcessId: UInt32
     dwThreadId: UInt32
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         Exception: win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_DEBUG_INFO
         CreateThread: win32more.Windows.Win32.System.Diagnostics.Debug.CREATE_THREAD_DEBUG_INFO
         CreateProcessInfo: win32more.Windows.Win32.System.Diagnostics.Debug.CREATE_PROCESS_DEBUG_INFO
@@ -1928,7 +1928,7 @@ UNLOAD_DLL_DEBUG_EVENT: win32more.Windows.Win32.System.Diagnostics.Debug.DEBUG_E
 @winfunctype_pointer
 def DIGEST_FUNCTION(refdata: VoidPtr, pData: POINTER(Byte), dwLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'ARM64':
-    class DISPATCHER_CONTEXT(EasyCastStructure):
+    class DISPATCHER_CONTEXT(Structure):
         ControlPc: UIntPtr
         ImageBase: UIntPtr
         FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY)
@@ -1942,7 +1942,7 @@ if ARCH in 'ARM64':
         ControlPcIsUnwound: win32more.Windows.Win32.Foundation.BOOLEAN
         NonVolatileRegisters: POINTER(Byte)
 elif ARCH in 'X64':
-    class DISPATCHER_CONTEXT(EasyCastStructure):
+    class DISPATCHER_CONTEXT(Structure):
         ControlPc: UInt64
         ImageBase: UInt64
         FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY)
@@ -1954,12 +1954,12 @@ elif ARCH in 'X64':
         HistoryTable: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE)
         ScopeIndex: UInt32
         Fill0: UInt32
-class DUMP_FILE_ATTRIBUTES(EasyCastUnion):
+class DUMP_FILE_ATTRIBUTES(Union):
     Anonymous: _Anonymous_e__Struct
     Attributes: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
-class DUMP_HEADER32(EasyCastStructure):
+class DUMP_HEADER32(Structure):
     Signature: UInt32
     ValidDump: UInt32
     MajorVersion: UInt32
@@ -1998,10 +1998,10 @@ class DUMP_HEADER32(EasyCastStructure):
     SystemUpTime: Int64
     SystemTime: Int64
     _reserved3: Byte * 56
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         PhysicalMemoryBlock: win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_DESCRIPTOR32
         PhysicalMemoryBlockBuffer: Byte * 700
-class DUMP_HEADER64(EasyCastStructure):
+class DUMP_HEADER64(Structure):
     Signature: UInt32
     ValidDump: UInt32
     MajorVersion: UInt32
@@ -2038,7 +2038,7 @@ class DUMP_HEADER64(EasyCastStructure):
     Attributes: win32more.Windows.Win32.System.Diagnostics.Debug.DUMP_FILE_ATTRIBUTES
     BootId: UInt32
     _reserved0: Byte * 4008
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         PhysicalMemoryBlock: win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_DESCRIPTOR64
         PhysicalMemoryBlockBuffer: Byte * 700
 DUMP_TYPE = Int32
@@ -2051,7 +2051,7 @@ DUMP_TYPE_TRIAGE: win32more.Windows.Win32.System.Diagnostics.Debug.DUMP_TYPE = 4
 DUMP_TYPE_BITMAP_FULL: win32more.Windows.Win32.System.Diagnostics.Debug.DUMP_TYPE = 5
 DUMP_TYPE_BITMAP_KERNEL: win32more.Windows.Win32.System.Diagnostics.Debug.DUMP_TYPE = 6
 DUMP_TYPE_AUTOMATIC: win32more.Windows.Win32.System.Diagnostics.Debug.DUMP_TYPE = 7
-class DebugPropertyInfo(EasyCastStructure):
+class DebugPropertyInfo(Structure):
     m_dwValidFields: UInt32
     m_bstrName: win32more.Windows.Win32.Foundation.BSTR
     m_bstrType: win32more.Windows.Win32.Foundation.BSTR
@@ -2059,27 +2059,27 @@ class DebugPropertyInfo(EasyCastStructure):
     m_bstrFullName: win32more.Windows.Win32.Foundation.BSTR
     m_dwAttrib: UInt32
     m_pDebugProp: win32more.Windows.Win32.System.Diagnostics.Debug.IDebugProperty
-class EXCEPTION_DEBUG_INFO(EasyCastStructure):
+class EXCEPTION_DEBUG_INFO(Structure):
     ExceptionRecord: win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD
     dwFirstChance: UInt32
-class EXCEPTION_POINTERS(EasyCastStructure):
+class EXCEPTION_POINTERS(Structure):
     ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD)
     ContextRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT)
-class EXCEPTION_RECORD(EasyCastStructure):
+class EXCEPTION_RECORD(Structure):
     ExceptionCode: win32more.Windows.Win32.Foundation.NTSTATUS
     ExceptionFlags: UInt32
     ExceptionRecord: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD)
     ExceptionAddress: VoidPtr
     NumberParameters: UInt32
     ExceptionInformation: UIntPtr * 15
-class EXCEPTION_RECORD32(EasyCastStructure):
+class EXCEPTION_RECORD32(Structure):
     ExceptionCode: win32more.Windows.Win32.Foundation.NTSTATUS
     ExceptionFlags: UInt32
     ExceptionRecord: UInt32
     ExceptionAddress: UInt32
     NumberParameters: UInt32
     ExceptionInformation: UInt32 * 15
-class EXCEPTION_RECORD64(EasyCastStructure):
+class EXCEPTION_RECORD64(Structure):
     ExceptionCode: win32more.Windows.Win32.Foundation.NTSTATUS
     ExceptionFlags: UInt32
     ExceptionRecord: UInt64
@@ -2087,9 +2087,9 @@ class EXCEPTION_RECORD64(EasyCastStructure):
     NumberParameters: UInt32
     __unusedAlignment: UInt32
     ExceptionInformation: UInt64 * 15
-class EXIT_PROCESS_DEBUG_INFO(EasyCastStructure):
+class EXIT_PROCESS_DEBUG_INFO(Structure):
     dwExitCode: UInt32
-class EXIT_THREAD_DEBUG_INFO(EasyCastStructure):
+class EXIT_THREAD_DEBUG_INFO(Structure):
     dwExitCode: UInt32
 EX_PROP_INFO_FLAGS = Int32
 EX_PROP_INFO_ID: win32more.Windows.Win32.System.Diagnostics.Debug.EX_PROP_INFO_FLAGS = 256
@@ -2097,7 +2097,7 @@ EX_PROP_INFO_NTYPE: win32more.Windows.Win32.System.Diagnostics.Debug.EX_PROP_INF
 EX_PROP_INFO_NVALUE: win32more.Windows.Win32.System.Diagnostics.Debug.EX_PROP_INFO_FLAGS = 1024
 EX_PROP_INFO_LOCKBYTES: win32more.Windows.Win32.System.Diagnostics.Debug.EX_PROP_INFO_FLAGS = 2048
 EX_PROP_INFO_DEBUGEXTPROP: win32more.Windows.Win32.System.Diagnostics.Debug.EX_PROP_INFO_FLAGS = 4096
-class ExtendedDebugPropertyInfo(EasyCastStructure):
+class ExtendedDebugPropertyInfo(Structure):
     dwValidFields: UInt32
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     pszType: win32more.Windows.Win32.Foundation.PWSTR
@@ -2271,7 +2271,7 @@ FORMAT_MESSAGE_FROM_HMODULE: win32more.Windows.Win32.System.Diagnostics.Debug.FO
 FORMAT_MESSAGE_FROM_STRING: win32more.Windows.Win32.System.Diagnostics.Debug.FORMAT_MESSAGE_OPTIONS = 1024
 FORMAT_MESSAGE_FROM_SYSTEM: win32more.Windows.Win32.System.Diagnostics.Debug.FORMAT_MESSAGE_OPTIONS = 4096
 FORMAT_MESSAGE_IGNORE_INSERTS: win32more.Windows.Win32.System.Diagnostics.Debug.FORMAT_MESSAGE_OPTIONS = 512
-class FPO_DATA(EasyCastStructure):
+class FPO_DATA(Structure):
     ulOffStart: UInt32
     cbProcSize: UInt32
     cdwLocals: UInt32
@@ -2340,7 +2340,7 @@ class IEnumDebugPropertyInfo(ComPtr):
     def Clone(self, ppepi: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IEnumDebugPropertyInfo)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetCount(self, pcelt: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IMAGEHLP_CBA_EVENTW(EasyCastStructure):
+class IMAGEHLP_CBA_EVENTW(Structure):
     severity: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY
     code: UInt32
     desc: win32more.Windows.Win32.Foundation.PWSTR
@@ -2351,13 +2351,13 @@ sevInfo: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEV
 sevProblem: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 1
 sevAttn: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 2
 sevFatal: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY = 3
-class IMAGEHLP_CBA_READ_MEMORY(EasyCastStructure):
+class IMAGEHLP_CBA_READ_MEMORY(Structure):
     addr: UInt64
     buf: VoidPtr
     bytes: UInt32
     bytesread: POINTER(UInt32)
 if ARCH in 'X86':
-    class IMAGEHLP_DEFERRED_SYMBOL_LOAD(EasyCastStructure):
+    class IMAGEHLP_DEFERRED_SYMBOL_LOAD(Structure):
         SizeOfStruct: UInt32
         BaseOfImage: UInt32
         CheckSum: UInt32
@@ -2365,7 +2365,7 @@ if ARCH in 'X86':
         FileName: win32more.Windows.Win32.Foundation.CHAR * 260
         Reparse: win32more.Windows.Win32.Foundation.BOOLEAN
         hFile: win32more.Windows.Win32.Foundation.HANDLE
-class IMAGEHLP_DEFERRED_SYMBOL_LOAD64(EasyCastStructure):
+class IMAGEHLP_DEFERRED_SYMBOL_LOAD64(Structure):
     SizeOfStruct: UInt32
     BaseOfImage: UInt64
     CheckSum: UInt32
@@ -2374,7 +2374,7 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOAD64(EasyCastStructure):
     Reparse: win32more.Windows.Win32.Foundation.BOOLEAN
     hFile: win32more.Windows.Win32.Foundation.HANDLE
     Flags: UInt32
-class IMAGEHLP_DEFERRED_SYMBOL_LOADW64(EasyCastStructure):
+class IMAGEHLP_DEFERRED_SYMBOL_LOADW64(Structure):
     SizeOfStruct: UInt32
     BaseOfImage: UInt64
     CheckSum: UInt32
@@ -2384,12 +2384,12 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOADW64(EasyCastStructure):
     hFile: win32more.Windows.Win32.Foundation.HANDLE
     Flags: UInt32
 if ARCH in 'X86':
-    class IMAGEHLP_DUPLICATE_SYMBOL(EasyCastStructure):
+    class IMAGEHLP_DUPLICATE_SYMBOL(Structure):
         SizeOfStruct: UInt32
         NumberOfDups: UInt32
         Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL)
         SelectedSymbol: UInt32
-class IMAGEHLP_DUPLICATE_SYMBOL64(EasyCastStructure):
+class IMAGEHLP_DUPLICATE_SYMBOL64(Structure):
     SizeOfStruct: UInt32
     NumberOfDups: UInt32
     Symbol: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64)
@@ -2403,7 +2403,7 @@ SYMOPT_EX_MAX: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_EXTENDE
 IMAGEHLP_GET_TYPE_INFO_FLAGS = UInt32
 IMAGEHLP_GET_TYPE_INFO_CHILDREN: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_GET_TYPE_INFO_FLAGS = 2
 IMAGEHLP_GET_TYPE_INFO_UNCACHED: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_GET_TYPE_INFO_FLAGS = 1
-class IMAGEHLP_GET_TYPE_INFO_PARAMS(EasyCastStructure):
+class IMAGEHLP_GET_TYPE_INFO_PARAMS(Structure):
     SizeOfStruct: UInt32
     Flags: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_GET_TYPE_INFO_FLAGS
     NumIds: UInt32
@@ -2427,18 +2427,18 @@ hdBase: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 0
 hdSym: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 1
 hdSrc: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 2
 hdMax: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_HD_TYPE = 3
-class IMAGEHLP_JIT_SYMBOLMAP(EasyCastStructure):
+class IMAGEHLP_JIT_SYMBOLMAP(Structure):
     SizeOfStruct: UInt32
     Address: UInt64
     BaseOfImage: UInt64
-class IMAGEHLP_LINE64(EasyCastStructure):
+class IMAGEHLP_LINE64(Structure):
     SizeOfStruct: UInt32
     Key: VoidPtr
     LineNumber: UInt32
     FileName: win32more.Windows.Win32.Foundation.PSTR
     Address: UInt64
 if ARCH in 'X86':
-    class IMAGEHLP_LINEW(EasyCastStructure):
+    class IMAGEHLP_LINEW(Structure):
         SizeOfStruct: UInt32
         Key: VoidPtr
         LineNumber: UInt32
@@ -2446,13 +2446,13 @@ if ARCH in 'X86':
         Address: UInt64
 if ARCH in 'X86':
     IMAGEHLP_LINE = UnicodeAlias('IMAGEHLP_LINEW')
-class IMAGEHLP_LINEW64(EasyCastStructure):
+class IMAGEHLP_LINEW64(Structure):
     SizeOfStruct: UInt32
     Key: VoidPtr
     LineNumber: UInt32
     FileName: win32more.Windows.Win32.Foundation.PWSTR
     Address: UInt64
-class IMAGEHLP_MODULE64(EasyCastStructure):
+class IMAGEHLP_MODULE64(Structure):
     SizeOfStruct: UInt32
     BaseOfImage: UInt64
     ImageSize: UInt32
@@ -2478,11 +2478,11 @@ class IMAGEHLP_MODULE64(EasyCastStructure):
     Publics: win32more.Windows.Win32.Foundation.BOOL
     MachineType: UInt32
     Reserved: UInt32
-class IMAGEHLP_MODULE64_EX(EasyCastStructure):
+class IMAGEHLP_MODULE64_EX(Structure):
     Module: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULE64
     RegionFlags: UInt32
 if ARCH in 'X86':
-    class IMAGEHLP_MODULEW(EasyCastStructure):
+    class IMAGEHLP_MODULEW(Structure):
         SizeOfStruct: UInt32
         BaseOfImage: UInt32
         ImageSize: UInt32
@@ -2495,7 +2495,7 @@ if ARCH in 'X86':
         LoadedImageName: Char * 256
 if ARCH in 'X86':
     IMAGEHLP_MODULE = UnicodeAlias('IMAGEHLP_MODULEW')
-class IMAGEHLP_MODULEW64(EasyCastStructure):
+class IMAGEHLP_MODULEW64(Structure):
     SizeOfStruct: UInt32
     BaseOfImage: UInt64
     ImageSize: UInt32
@@ -2521,7 +2521,7 @@ class IMAGEHLP_MODULEW64(EasyCastStructure):
     Publics: win32more.Windows.Win32.Foundation.BOOL
     MachineType: UInt32
     Reserved: UInt32
-class IMAGEHLP_MODULEW64_EX(EasyCastStructure):
+class IMAGEHLP_MODULEW64_EX(Structure):
     Module: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_MODULEW64
     RegionFlags: UInt32
 IMAGEHLP_SF_TYPE = Int32
@@ -2530,7 +2530,7 @@ sfDbg: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 1
 sfPdb: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 2
 sfMpd: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 3
 sfMax: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SF_TYPE = 4
-class IMAGEHLP_STACK_FRAME(EasyCastStructure):
+class IMAGEHLP_STACK_FRAME(Structure):
     InstructionOffset: UInt64
     ReturnOffset: UInt64
     FrameOffset: UInt64
@@ -2562,18 +2562,18 @@ BindForwarder32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATU
 BindForwarder64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 17
 BindForwarderNOT32: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 18
 BindForwarderNOT64: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_STATUS_REASON = 19
-class IMAGEHLP_SYMBOL64(EasyCastStructure):
+class IMAGEHLP_SYMBOL64(Structure):
     SizeOfStruct: UInt32
     Address: UInt64
     Size: UInt32
     Flags: UInt32
     MaxNameLength: UInt32
     Name: win32more.Windows.Win32.Foundation.CHAR * 1
-class IMAGEHLP_SYMBOL64_PACKAGE(EasyCastStructure):
+class IMAGEHLP_SYMBOL64_PACKAGE(Structure):
     sym: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64
     name: win32more.Windows.Win32.Foundation.CHAR * 2001
 if ARCH in 'X86':
-    class IMAGEHLP_SYMBOLW(EasyCastStructure):
+    class IMAGEHLP_SYMBOLW(Structure):
         SizeOfStruct: UInt32
         Address: UInt32
         Size: UInt32
@@ -2582,25 +2582,25 @@ if ARCH in 'X86':
         Name: Char * 1
 if ARCH in 'X86':
     IMAGEHLP_SYMBOL = UnicodeAlias('IMAGEHLP_SYMBOLW')
-class IMAGEHLP_SYMBOLW64(EasyCastStructure):
+class IMAGEHLP_SYMBOLW64(Structure):
     SizeOfStruct: UInt32
     Address: UInt64
     Size: UInt32
     Flags: UInt32
     MaxNameLength: UInt32
     Name: Char * 1
-class IMAGEHLP_SYMBOLW64_PACKAGE(EasyCastStructure):
+class IMAGEHLP_SYMBOLW64_PACKAGE(Structure):
     sym: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOLW64
     name: Char * 2001
 if ARCH in 'X86':
-    class IMAGEHLP_SYMBOLW_PACKAGE(EasyCastStructure):
+    class IMAGEHLP_SYMBOLW_PACKAGE(Structure):
         sym: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOLW
         name: Char * 2001
 if ARCH in 'X86':
-    class IMAGEHLP_SYMBOL_PACKAGE(EasyCastStructure):
+    class IMAGEHLP_SYMBOL_PACKAGE(Structure):
         sym: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL
         name: win32more.Windows.Win32.Foundation.CHAR * 2001
-class IMAGEHLP_SYMBOL_SRC(EasyCastStructure):
+class IMAGEHLP_SYMBOL_SRC(Structure):
     sizeofstruct: UInt32
     type: UInt32
     file: win32more.Windows.Win32.Foundation.CHAR * 260
@@ -2641,15 +2641,15 @@ TI_GET_INDIRECTVIRTUALBASECLASS: win32more.Windows.Win32.System.Diagnostics.Debu
 TI_GET_VIRTUALBASETABLETYPE: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_TYPE_INFO = 33
 TI_GET_OBJECTPOINTERTYPE: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_TYPE_INFO = 34
 IMAGEHLP_SYMBOL_TYPE_INFO_MAX: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_TYPE_INFO = 35
-class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY(EasyCastStructure):
+class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         UnwindData: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class IMAGE_COFF_SYMBOLS_HEADER(EasyCastStructure):
+class IMAGE_COFF_SYMBOLS_HEADER(Structure):
     NumberOfSymbols: UInt32
     LvaToFirstSymbol: UInt32
     NumberOfLinenumbers: UInt32
@@ -2658,7 +2658,7 @@ class IMAGE_COFF_SYMBOLS_HEADER(EasyCastStructure):
     RvaToLastByteOfCode: UInt32
     RvaToFirstByteOfData: UInt32
     RvaToLastByteOfData: UInt32
-class IMAGE_COR20_HEADER(EasyCastStructure):
+class IMAGE_COR20_HEADER(Structure):
     cb: UInt32
     MajorRuntimeVersion: UInt16
     MinorRuntimeVersion: UInt16
@@ -2671,13 +2671,13 @@ class IMAGE_COR20_HEADER(EasyCastStructure):
     VTableFixups: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DATA_DIRECTORY
     ExportAddressTableJumps: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DATA_DIRECTORY
     ManagedNativeHeader: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DATA_DIRECTORY
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         EntryPointToken: UInt32
         EntryPointRVA: UInt32
-class IMAGE_DATA_DIRECTORY(EasyCastStructure):
+class IMAGE_DATA_DIRECTORY(Structure):
     VirtualAddress: UInt32
     Size: UInt32
-class IMAGE_DEBUG_DIRECTORY(EasyCastStructure):
+class IMAGE_DEBUG_DIRECTORY(Structure):
     Characteristics: UInt32
     TimeDateStamp: UInt32
     MajorVersion: UInt16
@@ -2687,7 +2687,7 @@ class IMAGE_DEBUG_DIRECTORY(EasyCastStructure):
     AddressOfRawData: UInt32
     PointerToRawData: UInt32
 if ARCH in 'X86':
-    class IMAGE_DEBUG_INFORMATION(EasyCastStructure):
+    class IMAGE_DEBUG_INFORMATION(Structure):
         List: win32more.Windows.Win32.System.Kernel.LIST_ENTRY
         ReservedSize: UInt32
         ReservedMappedBase: VoidPtr
@@ -2794,7 +2794,7 @@ IMAGE_FILE_SYSTEM_2: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE
 IMAGE_FILE_DLL_2: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE_CHARACTERISTICS2 = 8192
 IMAGE_FILE_UP_SYSTEM_ONLY_2: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE_CHARACTERISTICS2 = 16384
 IMAGE_FILE_BYTES_REVERSED_HI_2: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE_CHARACTERISTICS2 = 32768
-class IMAGE_FILE_HEADER(EasyCastStructure):
+class IMAGE_FILE_HEADER(Structure):
     Machine: win32more.Windows.Win32.System.SystemInformation.IMAGE_FILE_MACHINE
     NumberOfSections: UInt16
     TimeDateStamp: UInt32
@@ -2802,25 +2802,25 @@ class IMAGE_FILE_HEADER(EasyCastStructure):
     NumberOfSymbols: UInt32
     SizeOfOptionalHeader: UInt16
     Characteristics: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE_CHARACTERISTICS
-class IMAGE_FUNCTION_ENTRY(EasyCastStructure):
+class IMAGE_FUNCTION_ENTRY(Structure):
     StartingAddress: UInt32
     EndingAddress: UInt32
     EndOfPrologue: UInt32
-class IMAGE_FUNCTION_ENTRY64(EasyCastStructure):
+class IMAGE_FUNCTION_ENTRY64(Structure):
     StartingAddress: UInt64
     EndingAddress: UInt64
     Anonymous: _Anonymous_e__Union
     _pack_ = 4
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         EndOfPrologue: UInt64
         UnwindInfoAddress: UInt64
         _pack_ = 4
-class IMAGE_LOAD_CONFIG_CODE_INTEGRITY(EasyCastStructure):
+class IMAGE_LOAD_CONFIG_CODE_INTEGRITY(Structure):
     Flags: UInt16
     Catalog: UInt16
     CatalogOffset: UInt32
     Reserved: UInt32
-class IMAGE_LOAD_CONFIG_DIRECTORY32(EasyCastStructure):
+class IMAGE_LOAD_CONFIG_DIRECTORY32(Structure):
     Size: UInt32
     TimeDateStamp: UInt32
     MajorVersion: UInt16
@@ -2870,7 +2870,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32(EasyCastStructure):
     GuardXFGTableDispatchFunctionPointer: UInt32
     CastGuardOsDeterminedFailureMode: UInt32
     GuardMemcpyFunctionPointer: UInt32
-class IMAGE_LOAD_CONFIG_DIRECTORY64(EasyCastStructure):
+class IMAGE_LOAD_CONFIG_DIRECTORY64(Structure):
     Size: UInt32
     TimeDateStamp: UInt32
     MajorVersion: UInt16
@@ -2921,15 +2921,15 @@ class IMAGE_LOAD_CONFIG_DIRECTORY64(EasyCastStructure):
     CastGuardOsDeterminedFailureMode: UInt64
     GuardMemcpyFunctionPointer: UInt64
     _pack_ = 4
-class IMAGE_NT_HEADERS32(EasyCastStructure):
+class IMAGE_NT_HEADERS32(Structure):
     Signature: UInt32
     FileHeader: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE_HEADER
     OptionalHeader: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER32
-class IMAGE_NT_HEADERS64(EasyCastStructure):
+class IMAGE_NT_HEADERS64(Structure):
     Signature: UInt32
     FileHeader: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE_HEADER
     OptionalHeader: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER64
-class IMAGE_OPTIONAL_HEADER32(EasyCastStructure):
+class IMAGE_OPTIONAL_HEADER32(Structure):
     Magic: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER_MAGIC
     MajorLinkerVersion: Byte
     MinorLinkerVersion: Byte
@@ -2961,7 +2961,7 @@ class IMAGE_OPTIONAL_HEADER32(EasyCastStructure):
     LoaderFlags: UInt32
     NumberOfRvaAndSizes: UInt32
     DataDirectory: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DATA_DIRECTORY * 16
-class IMAGE_OPTIONAL_HEADER64(EasyCastStructure):
+class IMAGE_OPTIONAL_HEADER64(Structure):
     Magic: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER_MAGIC
     MajorLinkerVersion: Byte
     MinorLinkerVersion: Byte
@@ -2998,10 +2998,10 @@ IMAGE_NT_OPTIONAL_HDR_MAGIC: win32more.Windows.Win32.System.Diagnostics.Debug.IM
 IMAGE_NT_OPTIONAL_HDR32_MAGIC: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER_MAGIC = 267
 IMAGE_NT_OPTIONAL_HDR64_MAGIC: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER_MAGIC = 523
 IMAGE_ROM_OPTIONAL_HDR_MAGIC: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER_MAGIC = 263
-class IMAGE_ROM_HEADERS(EasyCastStructure):
+class IMAGE_ROM_HEADERS(Structure):
     FileHeader: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_FILE_HEADER
     OptionalHeader: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ROM_OPTIONAL_HEADER
-class IMAGE_ROM_OPTIONAL_HEADER(EasyCastStructure):
+class IMAGE_ROM_OPTIONAL_HEADER(Structure):
     Magic: UInt16
     MajorLinkerVersion: Byte
     MinorLinkerVersion: Byte
@@ -3015,11 +3015,11 @@ class IMAGE_ROM_OPTIONAL_HEADER(EasyCastStructure):
     GprMask: UInt32
     CprMask: UInt32 * 4
     GpValue: UInt32
-class IMAGE_RUNTIME_FUNCTION_ENTRY(EasyCastStructure):
+class IMAGE_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     EndAddress: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         UnwindInfoAddress: UInt32
         UnwindData: UInt32
 IMAGE_SECTION_CHARACTERISTICS = UInt32
@@ -3062,7 +3062,7 @@ IMAGE_SCN_MEM_EXECUTE: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SE
 IMAGE_SCN_MEM_READ: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_CHARACTERISTICS = 1073741824
 IMAGE_SCN_MEM_WRITE: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_CHARACTERISTICS = 2147483648
 IMAGE_SCN_SCALE_INDEX: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_CHARACTERISTICS = 1
-class IMAGE_SECTION_HEADER(EasyCastStructure):
+class IMAGE_SECTION_HEADER(Structure):
     Name: Byte * 8
     Misc: _Misc_e__Union
     VirtualAddress: UInt32
@@ -3073,7 +3073,7 @@ class IMAGE_SECTION_HEADER(EasyCastStructure):
     NumberOfRelocations: UInt16
     NumberOfLinenumbers: UInt16
     Characteristics: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_SECTION_CHARACTERISTICS
-    class _Misc_e__Union(EasyCastUnion):
+    class _Misc_e__Union(Union):
         PhysicalAddress: UInt32
         VirtualSize: UInt32
 IMAGE_SUBSYSTEM = UInt16
@@ -3099,7 +3099,7 @@ class IObjectSafety(ComPtr):
     def GetInterfaceSafetyOptions(self, riid: POINTER(Guid), pdwSupportedOptions: POINTER(UInt32), pdwEnabledOptions: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetInterfaceSafetyOptions(self, riid: POINTER(Guid), dwOptionSetMask: UInt32, dwEnabledOptions: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IPMI_OS_SEL_RECORD(EasyCastStructure):
+class IPMI_OS_SEL_RECORD(Structure):
     Signature: UInt32
     Version: UInt32
     Length: UInt32
@@ -3131,7 +3131,7 @@ class IPerPropertyBrowsing2(ComPtr):
     @commethod(6)
     def SetPredefinedValue(self, dispid: Int32, dwCookie: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 if ARCH in 'X86':
-    class KDHELP(EasyCastStructure):
+    class KDHELP(Structure):
         Thread: UInt32
         ThCallbackStack: UInt32
         NextCallback: UInt32
@@ -3144,7 +3144,7 @@ if ARCH in 'X86':
         StackBase: UInt32
         StackLimit: UInt32
         Reserved: UInt32 * 5
-class KDHELP64(EasyCastStructure):
+class KDHELP64(Structure):
     Thread: UInt64
     ThCallbackStack: UInt32
     ThCallbackBStore: UInt32
@@ -3163,7 +3163,7 @@ class KDHELP64(EasyCastStructure):
     RetpolineStubSize: UInt32
     Reserved0: UInt64 * 2
 if ARCH in 'ARM64':
-    class KNONVOLATILE_CONTEXT_POINTERS(EasyCastStructure):
+    class KNONVOLATILE_CONTEXT_POINTERS(Structure):
         X19: POINTER(UInt64)
         X20: POINTER(UInt64)
         X21: POINTER(UInt64)
@@ -3185,13 +3185,13 @@ if ARCH in 'ARM64':
         D14: POINTER(UInt64)
         D15: POINTER(UInt64)
 elif ARCH in 'X64':
-    class KNONVOLATILE_CONTEXT_POINTERS(EasyCastStructure):
+    class KNONVOLATILE_CONTEXT_POINTERS(Structure):
         Anonymous1: _Anonymous1_e__Union
         Anonymous2: _Anonymous2_e__Union
-        class _Anonymous1_e__Union(EasyCastUnion):
+        class _Anonymous1_e__Union(Union):
             FloatingContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A) * 16
             Anonymous: _Anonymous_e__Struct
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 Xmm0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
                 Xmm1: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
                 Xmm2: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
@@ -3208,10 +3208,10 @@ elif ARCH in 'X64':
                 Xmm13: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
                 Xmm14: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
                 Xmm15: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
-        class _Anonymous2_e__Union(EasyCastUnion):
+        class _Anonymous2_e__Union(Union):
             IntegerContext: POINTER(UInt64) * 16
             Anonymous: _Anonymous_e__Struct
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 Rax: POINTER(UInt64)
                 Rcx: POINTER(UInt64)
                 Rdx: POINTER(UInt64)
@@ -3229,24 +3229,24 @@ elif ARCH in 'X64':
                 R14: POINTER(UInt64)
                 R15: POINTER(UInt64)
 elif ARCH in 'X86':
-    class KNONVOLATILE_CONTEXT_POINTERS(EasyCastStructure):
+    class KNONVOLATILE_CONTEXT_POINTERS(Structure):
         Dummy: UInt32
-class LDT_ENTRY(EasyCastStructure):
+class LDT_ENTRY(Structure):
     LimitLow: UInt16
     BaseLow: UInt16
     HighWord: _HighWord_e__Union
-    class _HighWord_e__Union(EasyCastUnion):
+    class _HighWord_e__Union(Union):
         Bytes: _Bytes_e__Struct
         Bits: _Bits_e__Struct
-        class _Bytes_e__Struct(EasyCastStructure):
+        class _Bytes_e__Struct(Structure):
             BaseMid: Byte
             Flags1: Byte
             Flags2: Byte
             BaseHi: Byte
-        class _Bits_e__Struct(EasyCastStructure):
+        class _Bits_e__Struct(Structure):
             _bitfield: UInt32
 if ARCH in 'X64,ARM64':
-    class LOADED_IMAGE(EasyCastStructure):
+    class LOADED_IMAGE(Structure):
         ModuleName: win32more.Windows.Win32.Foundation.PSTR
         hFile: win32more.Windows.Win32.Foundation.HANDLE
         MappedAddress: POINTER(Byte)
@@ -3262,7 +3262,7 @@ if ARCH in 'X64,ARM64':
         Links: win32more.Windows.Win32.System.Kernel.LIST_ENTRY
         SizeOfImage: UInt32
 elif ARCH in 'X86':
-    class LOADED_IMAGE(EasyCastStructure):
+    class LOADED_IMAGE(Structure):
         ModuleName: win32more.Windows.Win32.Foundation.PSTR
         hFile: win32more.Windows.Win32.Foundation.HANDLE
         MappedAddress: POINTER(Byte)
@@ -3277,7 +3277,7 @@ elif ARCH in 'X86':
         Version: Byte
         Links: win32more.Windows.Win32.System.Kernel.LIST_ENTRY
         SizeOfImage: UInt32
-class LOAD_DLL_DEBUG_INFO(EasyCastStructure):
+class LOAD_DLL_DEBUG_INFO(Structure):
     hFile: win32more.Windows.Win32.Foundation.HANDLE
     lpBaseOfDll: VoidPtr
     dwDebugInfoFileOffset: UInt32
@@ -3288,25 +3288,25 @@ class LOAD_DLL_DEBUG_INFO(EasyCastStructure):
 def LPCALL_BACK_USER_INTERRUPT_ROUTINE() -> UInt32: ...
 @winfunctype_pointer
 def LPTOP_LEVEL_EXCEPTION_FILTER(ExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)) -> Int32: ...
-class M128A(EasyCastStructure):
+class M128A(Structure):
     Low: UInt64
     High: Int64
 if ARCH in 'X64,ARM64':
-    class MINIDUMP_CALLBACK_INFORMATION(EasyCastStructure):
+    class MINIDUMP_CALLBACK_INFORMATION(Structure):
         CallbackRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_ROUTINE
         CallbackParam: VoidPtr
         _pack_ = 4
 elif ARCH in 'X86':
-    class MINIDUMP_CALLBACK_INFORMATION(EasyCastStructure):
+    class MINIDUMP_CALLBACK_INFORMATION(Structure):
         CallbackRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_ROUTINE
         CallbackParam: VoidPtr
-class MINIDUMP_CALLBACK_INPUT(EasyCastStructure):
+class MINIDUMP_CALLBACK_INPUT(Structure):
     ProcessId: UInt32
     ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE
     CallbackType: UInt32
     Anonymous: _Anonymous_e__Union
     _pack_ = 4
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Status: win32more.Windows.Win32.Foundation.HRESULT
         Thread: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_CALLBACK
         ThreadEx: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_EX_CALLBACK
@@ -3319,10 +3319,10 @@ class MINIDUMP_CALLBACK_INPUT(EasyCastStructure):
         VmQuery: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_VM_QUERY_CALLBACK
         VmPreRead: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_VM_PRE_READ_CALLBACK
         VmPostRead: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_VM_POST_READ_CALLBACK
-class MINIDUMP_CALLBACK_OUTPUT(EasyCastStructure):
+class MINIDUMP_CALLBACK_OUTPUT(Structure):
     Anonymous: _Anonymous_e__Union
     _pack_ = 4
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ModuleWriteFlags: UInt32
         ThreadWriteFlags: UInt32
         SecondaryFlags: UInt32
@@ -3333,20 +3333,20 @@ class MINIDUMP_CALLBACK_OUTPUT(EasyCastStructure):
         Anonymous4: _Anonymous4_e__Struct
         Anonymous5: _Anonymous5_e__Struct
         Status: win32more.Windows.Win32.Foundation.HRESULT
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             MemoryBase: UInt64
             MemorySize: UInt32
             _pack_ = 4
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             CheckCancel: win32more.Windows.Win32.Foundation.BOOL
             Cancel: win32more.Windows.Win32.Foundation.BOOL
-        class _Anonymous3_e__Struct(EasyCastStructure):
+        class _Anonymous3_e__Struct(Structure):
             VmRegion: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MEMORY_INFO
             Continue: win32more.Windows.Win32.Foundation.BOOL
-        class _Anonymous4_e__Struct(EasyCastStructure):
+        class _Anonymous4_e__Struct(Structure):
             VmQueryStatus: win32more.Windows.Win32.Foundation.HRESULT
             VmQueryResult: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MEMORY_INFO
-        class _Anonymous5_e__Struct(EasyCastStructure):
+        class _Anonymous5_e__Struct(Structure):
             VmReadStatus: win32more.Windows.Win32.Foundation.HRESULT
             VmReadBytesCompleted: UInt32
 @winfunctype_pointer
@@ -3373,11 +3373,11 @@ VmStartCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLB
 VmQueryCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 18
 VmPreReadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 19
 VmPostReadCallback: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_CALLBACK_TYPE = 20
-class MINIDUMP_DIRECTORY(EasyCastStructure):
+class MINIDUMP_DIRECTORY(Structure):
     StreamType: UInt32
     Location: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_LOCATION_DESCRIPTOR
     _pack_ = 4
-class MINIDUMP_EXCEPTION(EasyCastStructure):
+class MINIDUMP_EXCEPTION(Structure):
     ExceptionCode: UInt32
     ExceptionFlags: UInt32
     ExceptionRecord: UInt64
@@ -3387,36 +3387,36 @@ class MINIDUMP_EXCEPTION(EasyCastStructure):
     ExceptionInformation: UInt64 * 15
     _pack_ = 4
 if ARCH in 'X64,ARM64':
-    class MINIDUMP_EXCEPTION_INFORMATION(EasyCastStructure):
+    class MINIDUMP_EXCEPTION_INFORMATION(Structure):
         ThreadId: UInt32
         ExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)
         ClientPointers: win32more.Windows.Win32.Foundation.BOOL
         _pack_ = 4
 elif ARCH in 'X86':
-    class MINIDUMP_EXCEPTION_INFORMATION(EasyCastStructure):
+    class MINIDUMP_EXCEPTION_INFORMATION(Structure):
         ThreadId: UInt32
         ExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)
         ClientPointers: win32more.Windows.Win32.Foundation.BOOL
-class MINIDUMP_EXCEPTION_INFORMATION64(EasyCastStructure):
+class MINIDUMP_EXCEPTION_INFORMATION64(Structure):
     ThreadId: UInt32
     ExceptionRecord: UInt64
     ContextRecord: UInt64
     ClientPointers: win32more.Windows.Win32.Foundation.BOOL
     _pack_ = 4
-class MINIDUMP_EXCEPTION_STREAM(EasyCastStructure):
+class MINIDUMP_EXCEPTION_STREAM(Structure):
     ThreadId: UInt32
     __alignment: UInt32
     ExceptionRecord: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_EXCEPTION
     ThreadContext: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_LOCATION_DESCRIPTOR
     _pack_ = 4
-class MINIDUMP_FUNCTION_TABLE_DESCRIPTOR(EasyCastStructure):
+class MINIDUMP_FUNCTION_TABLE_DESCRIPTOR(Structure):
     MinimumAddress: UInt64
     MaximumAddress: UInt64
     BaseAddress: UInt64
     EntryCount: UInt32
     SizeOfAlignPad: UInt32
     _pack_ = 4
-class MINIDUMP_FUNCTION_TABLE_STREAM(EasyCastStructure):
+class MINIDUMP_FUNCTION_TABLE_STREAM(Structure):
     SizeOfHeader: UInt32
     SizeOfDescriptor: UInt32
     SizeOfNativeDescriptor: UInt32
@@ -3424,13 +3424,13 @@ class MINIDUMP_FUNCTION_TABLE_STREAM(EasyCastStructure):
     NumberOfDescriptors: UInt32
     SizeOfAlignPad: UInt32
     _pack_ = 4
-class MINIDUMP_HANDLE_DATA_STREAM(EasyCastStructure):
+class MINIDUMP_HANDLE_DATA_STREAM(Structure):
     SizeOfHeader: UInt32
     SizeOfDescriptor: UInt32
     NumberOfDescriptors: UInt32
     Reserved: UInt32
     _pack_ = 4
-class MINIDUMP_HANDLE_DESCRIPTOR(EasyCastStructure):
+class MINIDUMP_HANDLE_DESCRIPTOR(Structure):
     Handle: UInt64
     TypeNameRva: UInt32
     ObjectNameRva: UInt32
@@ -3439,7 +3439,7 @@ class MINIDUMP_HANDLE_DESCRIPTOR(EasyCastStructure):
     HandleCount: UInt32
     PointerCount: UInt32
     _pack_ = 4
-class MINIDUMP_HANDLE_DESCRIPTOR_2(EasyCastStructure):
+class MINIDUMP_HANDLE_DESCRIPTOR_2(Structure):
     Handle: UInt64
     TypeNameRva: UInt32
     ObjectNameRva: UInt32
@@ -3450,7 +3450,7 @@ class MINIDUMP_HANDLE_DESCRIPTOR_2(EasyCastStructure):
     ObjectInfoRva: UInt32
     Reserved0: UInt32
     _pack_ = 4
-class MINIDUMP_HANDLE_OBJECT_INFORMATION(EasyCastStructure):
+class MINIDUMP_HANDLE_OBJECT_INFORMATION(Structure):
     NextInfoRva: UInt32
     InfoType: UInt32
     SizeOfInfo: UInt32
@@ -3466,13 +3466,13 @@ MiniEventInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP
 MiniSectionInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 7
 MiniSemaphoreInformation1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 8
 MiniHandleObjectInformationTypeMax: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE = 9
-class MINIDUMP_HANDLE_OPERATION_LIST(EasyCastStructure):
+class MINIDUMP_HANDLE_OPERATION_LIST(Structure):
     SizeOfHeader: UInt32
     SizeOfEntry: UInt32
     NumberOfEntries: UInt32
     Reserved: UInt32
     _pack_ = 4
-class MINIDUMP_HEADER(EasyCastStructure):
+class MINIDUMP_HEADER(Structure):
     Signature: UInt32
     Version: UInt32
     NumberOfStreams: UInt32
@@ -3481,43 +3481,43 @@ class MINIDUMP_HEADER(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     Flags: UInt64
     _pack_ = 4
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Reserved: UInt32
         TimeDateStamp: UInt32
-class MINIDUMP_INCLUDE_MODULE_CALLBACK(EasyCastStructure):
+class MINIDUMP_INCLUDE_MODULE_CALLBACK(Structure):
     BaseOfImage: UInt64
     _pack_ = 4
-class MINIDUMP_INCLUDE_THREAD_CALLBACK(EasyCastStructure):
+class MINIDUMP_INCLUDE_THREAD_CALLBACK(Structure):
     ThreadId: UInt32
     _pack_ = 4
-class MINIDUMP_IO_CALLBACK(EasyCastStructure):
+class MINIDUMP_IO_CALLBACK(Structure):
     Handle: win32more.Windows.Win32.Foundation.HANDLE
     Offset: UInt64
     Buffer: VoidPtr
     BufferBytes: UInt32
     _pack_ = 4
-class MINIDUMP_LOCATION_DESCRIPTOR(EasyCastStructure):
+class MINIDUMP_LOCATION_DESCRIPTOR(Structure):
     DataSize: UInt32
     Rva: UInt32
     _pack_ = 4
-class MINIDUMP_LOCATION_DESCRIPTOR64(EasyCastStructure):
+class MINIDUMP_LOCATION_DESCRIPTOR64(Structure):
     DataSize: UInt64
     Rva: UInt64
     _pack_ = 4
-class MINIDUMP_MEMORY64_LIST(EasyCastStructure):
+class MINIDUMP_MEMORY64_LIST(Structure):
     NumberOfMemoryRanges: UInt64
     BaseRva: UInt64
     MemoryRanges: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR64 * 1
     _pack_ = 4
-class MINIDUMP_MEMORY_DESCRIPTOR(EasyCastStructure):
+class MINIDUMP_MEMORY_DESCRIPTOR(Structure):
     StartOfMemoryRange: UInt64
     Memory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_LOCATION_DESCRIPTOR
     _pack_ = 4
-class MINIDUMP_MEMORY_DESCRIPTOR64(EasyCastStructure):
+class MINIDUMP_MEMORY_DESCRIPTOR64(Structure):
     StartOfMemoryRange: UInt64
     DataSize: UInt64
     _pack_ = 4
-class MINIDUMP_MEMORY_INFO(EasyCastStructure):
+class MINIDUMP_MEMORY_INFO(Structure):
     BaseAddress: UInt64
     AllocationBase: UInt64
     AllocationProtect: UInt32
@@ -3528,16 +3528,16 @@ class MINIDUMP_MEMORY_INFO(EasyCastStructure):
     Type: UInt32
     __alignment2: UInt32
     _pack_ = 4
-class MINIDUMP_MEMORY_INFO_LIST(EasyCastStructure):
+class MINIDUMP_MEMORY_INFO_LIST(Structure):
     SizeOfHeader: UInt32
     SizeOfEntry: UInt32
     NumberOfEntries: UInt64
     _pack_ = 4
-class MINIDUMP_MEMORY_LIST(EasyCastStructure):
+class MINIDUMP_MEMORY_LIST(Structure):
     NumberOfMemoryRanges: UInt32
     MemoryRanges: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR * 1
     _pack_ = 4
-class MINIDUMP_MISC_INFO(EasyCastStructure):
+class MINIDUMP_MISC_INFO(Structure):
     SizeOfInfo: UInt32
     Flags1: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MISC_INFO_FLAGS
     ProcessId: UInt32
@@ -3545,7 +3545,7 @@ class MINIDUMP_MISC_INFO(EasyCastStructure):
     ProcessUserTime: UInt32
     ProcessKernelTime: UInt32
     _pack_ = 4
-class MINIDUMP_MISC_INFO_2(EasyCastStructure):
+class MINIDUMP_MISC_INFO_2(Structure):
     SizeOfInfo: UInt32
     Flags1: UInt32
     ProcessId: UInt32
@@ -3558,7 +3558,7 @@ class MINIDUMP_MISC_INFO_2(EasyCastStructure):
     ProcessorMaxIdleState: UInt32
     ProcessorCurrentIdleState: UInt32
     _pack_ = 4
-class MINIDUMP_MISC_INFO_3(EasyCastStructure):
+class MINIDUMP_MISC_INFO_3(Structure):
     SizeOfInfo: UInt32
     Flags1: UInt32
     ProcessId: UInt32
@@ -3576,7 +3576,7 @@ class MINIDUMP_MISC_INFO_3(EasyCastStructure):
     TimeZoneId: UInt32
     TimeZone: win32more.Windows.Win32.System.Time.TIME_ZONE_INFORMATION
     _pack_ = 4
-class MINIDUMP_MISC_INFO_4(EasyCastStructure):
+class MINIDUMP_MISC_INFO_4(Structure):
     SizeOfInfo: UInt32
     Flags1: UInt32
     ProcessId: UInt32
@@ -3596,7 +3596,7 @@ class MINIDUMP_MISC_INFO_4(EasyCastStructure):
     BuildString: Char * 260
     DbgBldStr: Char * 40
     _pack_ = 4
-class MINIDUMP_MISC_INFO_5(EasyCastStructure):
+class MINIDUMP_MISC_INFO_5(Structure):
     SizeOfInfo: UInt32
     Flags1: UInt32
     ProcessId: UInt32
@@ -3621,7 +3621,7 @@ class MINIDUMP_MISC_INFO_5(EasyCastStructure):
 MINIDUMP_MISC_INFO_FLAGS = UInt32
 MINIDUMP_MISC1_PROCESS_ID: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MISC_INFO_FLAGS = 1
 MINIDUMP_MISC1_PROCESS_TIMES: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MISC_INFO_FLAGS = 2
-class MINIDUMP_MODULE(EasyCastStructure):
+class MINIDUMP_MODULE(Structure):
     BaseOfImage: UInt64
     SizeOfImage: UInt32
     CheckSum: UInt32
@@ -3633,7 +3633,7 @@ class MINIDUMP_MODULE(EasyCastStructure):
     Reserved0: UInt64
     Reserved1: UInt64
     _pack_ = 4
-class MINIDUMP_MODULE_CALLBACK(EasyCastStructure):
+class MINIDUMP_MODULE_CALLBACK(Structure):
     FullPath: win32more.Windows.Win32.Foundation.PWSTR
     BaseOfImage: UInt64
     SizeOfImage: UInt32
@@ -3645,11 +3645,11 @@ class MINIDUMP_MODULE_CALLBACK(EasyCastStructure):
     MiscRecord: VoidPtr
     SizeOfMiscRecord: UInt32
     _pack_ = 4
-class MINIDUMP_MODULE_LIST(EasyCastStructure):
+class MINIDUMP_MODULE_LIST(Structure):
     NumberOfModules: UInt32
     Modules: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MODULE * 1
     _pack_ = 4
-class MINIDUMP_PROCESS_VM_COUNTERS_1(EasyCastStructure):
+class MINIDUMP_PROCESS_VM_COUNTERS_1(Structure):
     Revision: UInt16
     PageFaultCount: UInt32
     PeakWorkingSetSize: UInt64
@@ -3662,7 +3662,7 @@ class MINIDUMP_PROCESS_VM_COUNTERS_1(EasyCastStructure):
     PeakPagefileUsage: UInt64
     PrivateUsage: UInt64
     _pack_ = 4
-class MINIDUMP_PROCESS_VM_COUNTERS_2(EasyCastStructure):
+class MINIDUMP_PROCESS_VM_COUNTERS_2(Structure):
     Revision: UInt16
     Flags: UInt16
     PageFaultCount: UInt32
@@ -3685,7 +3685,7 @@ class MINIDUMP_PROCESS_VM_COUNTERS_2(EasyCastStructure):
     JobPrivateCommitLimit: UInt64
     JobTotalCommitLimit: UInt64
     _pack_ = 4
-class MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(EasyCastStructure):
+class MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(Structure):
     Offset: UInt64
     Bytes: UInt32
     FailureStatus: win32more.Windows.Win32.Foundation.HRESULT
@@ -3733,11 +3733,11 @@ ceStreamBucketParameters: win32more.Windows.Win32.System.Diagnostics.Debug.MINID
 ceStreamProcessModuleMap: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32779
 ceStreamDiagnosisList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 32780
 LastReservedStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 65535
-class MINIDUMP_STRING(EasyCastStructure):
+class MINIDUMP_STRING(Structure):
     Length: UInt32
     Buffer: Char * 1
     _pack_ = 4
-class MINIDUMP_SYSTEM_BASIC_INFORMATION(EasyCastStructure):
+class MINIDUMP_SYSTEM_BASIC_INFORMATION(Structure):
     TimerResolution: UInt32
     PageSize: UInt32
     NumberOfPhysicalPages: UInt32
@@ -3749,13 +3749,13 @@ class MINIDUMP_SYSTEM_BASIC_INFORMATION(EasyCastStructure):
     ActiveProcessorsAffinityMask: UInt64
     NumberOfProcessors: UInt32
     _pack_ = 4
-class MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION(EasyCastStructure):
+class MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION(Structure):
     AvailablePages: UInt64
     CommittedPages: UInt64
     CommitLimit: UInt64
     PeakCommitment: UInt64
     _pack_ = 4
-class MINIDUMP_SYSTEM_FILECACHE_INFORMATION(EasyCastStructure):
+class MINIDUMP_SYSTEM_FILECACHE_INFORMATION(Structure):
     CurrentSize: UInt64
     PeakSize: UInt64
     PageFaultCount: UInt32
@@ -3766,7 +3766,7 @@ class MINIDUMP_SYSTEM_FILECACHE_INFORMATION(EasyCastStructure):
     TransitionRePurposeCount: UInt32
     Flags: UInt32
     _pack_ = 4
-class MINIDUMP_SYSTEM_INFO(EasyCastStructure):
+class MINIDUMP_SYSTEM_INFO(Structure):
     ProcessorArchitecture: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_ARCHITECTURE
     ProcessorLevel: UInt16
     ProcessorRevision: UInt16
@@ -3779,19 +3779,19 @@ class MINIDUMP_SYSTEM_INFO(EasyCastStructure):
     Anonymous2: _Anonymous2_e__Union
     Cpu: win32more.Windows.Win32.System.Diagnostics.Debug.CPU_INFORMATION
     _pack_ = 4
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Reserved0: UInt16
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             NumberOfProcessors: Byte
             ProductType: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Reserved1: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             SuiteMask: UInt16
             Reserved2: UInt16
-class MINIDUMP_SYSTEM_MEMORY_INFO_1(EasyCastStructure):
+class MINIDUMP_SYSTEM_MEMORY_INFO_1(Structure):
     Revision: UInt16
     Flags: UInt16
     BasicInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_SYSTEM_BASIC_INFORMATION
@@ -3799,7 +3799,7 @@ class MINIDUMP_SYSTEM_MEMORY_INFO_1(EasyCastStructure):
     BasicPerfInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION
     PerfInfo: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION
     _pack_ = 4
-class MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION(EasyCastStructure):
+class MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION(Structure):
     IdleProcessTime: UInt64
     IoReadTransferCount: UInt64
     IoWriteTransferCount: UInt64
@@ -3879,7 +3879,7 @@ class MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION(EasyCastStructure):
     ResidentAvailablePages: Int64
     SharedCommittedPages: UInt64
     _pack_ = 4
-class MINIDUMP_THREAD(EasyCastStructure):
+class MINIDUMP_THREAD(Structure):
     ThreadId: UInt32
     SuspendCount: UInt32
     PriorityClass: UInt32
@@ -3889,7 +3889,7 @@ class MINIDUMP_THREAD(EasyCastStructure):
     ThreadContext: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_LOCATION_DESCRIPTOR
     _pack_ = 4
 if ARCH in 'ARM64':
-    class MINIDUMP_THREAD_CALLBACK(EasyCastStructure):
+    class MINIDUMP_THREAD_CALLBACK(Structure):
         ThreadId: UInt32
         ThreadHandle: win32more.Windows.Win32.Foundation.HANDLE
         Pad: UInt32
@@ -3899,7 +3899,7 @@ if ARCH in 'ARM64':
         StackEnd: UInt64
         _pack_ = 4
 elif ARCH in 'X86,X64':
-    class MINIDUMP_THREAD_CALLBACK(EasyCastStructure):
+    class MINIDUMP_THREAD_CALLBACK(Structure):
         ThreadId: UInt32
         ThreadHandle: win32more.Windows.Win32.Foundation.HANDLE
         Context: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT
@@ -3907,7 +3907,7 @@ elif ARCH in 'X86,X64':
         StackBase: UInt64
         StackEnd: UInt64
         _pack_ = 4
-class MINIDUMP_THREAD_EX(EasyCastStructure):
+class MINIDUMP_THREAD_EX(Structure):
     ThreadId: UInt32
     SuspendCount: UInt32
     PriorityClass: UInt32
@@ -3918,7 +3918,7 @@ class MINIDUMP_THREAD_EX(EasyCastStructure):
     BackingStore: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR
     _pack_ = 4
 if ARCH in 'ARM64':
-    class MINIDUMP_THREAD_EX_CALLBACK(EasyCastStructure):
+    class MINIDUMP_THREAD_EX_CALLBACK(Structure):
         ThreadId: UInt32
         ThreadHandle: win32more.Windows.Win32.Foundation.HANDLE
         Pad: UInt32
@@ -3930,7 +3930,7 @@ if ARCH in 'ARM64':
         BackingStoreEnd: UInt64
         _pack_ = 4
 elif ARCH in 'X86,X64':
-    class MINIDUMP_THREAD_EX_CALLBACK(EasyCastStructure):
+    class MINIDUMP_THREAD_EX_CALLBACK(Structure):
         ThreadId: UInt32
         ThreadHandle: win32more.Windows.Win32.Foundation.HANDLE
         Context: win32more.Windows.Win32.System.Diagnostics.Debug.CONTEXT
@@ -3940,11 +3940,11 @@ elif ARCH in 'X86,X64':
         BackingStoreBase: UInt64
         BackingStoreEnd: UInt64
         _pack_ = 4
-class MINIDUMP_THREAD_EX_LIST(EasyCastStructure):
+class MINIDUMP_THREAD_EX_LIST(Structure):
     NumberOfThreads: UInt32
     Threads: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_EX * 1
     _pack_ = 4
-class MINIDUMP_THREAD_INFO(EasyCastStructure):
+class MINIDUMP_THREAD_INFO(Structure):
     ThreadId: UInt32
     DumpFlags: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_INFO_DUMP_FLAGS
     DumpError: UInt32
@@ -3963,29 +3963,29 @@ MINIDUMP_THREAD_INFO_INVALID_CONTEXT: win32more.Windows.Win32.System.Diagnostics
 MINIDUMP_THREAD_INFO_INVALID_INFO: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_INFO_DUMP_FLAGS = 8
 MINIDUMP_THREAD_INFO_INVALID_TEB: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_INFO_DUMP_FLAGS = 32
 MINIDUMP_THREAD_INFO_WRITING_THREAD: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_INFO_DUMP_FLAGS = 2
-class MINIDUMP_THREAD_INFO_LIST(EasyCastStructure):
+class MINIDUMP_THREAD_INFO_LIST(Structure):
     SizeOfHeader: UInt32
     SizeOfEntry: UInt32
     NumberOfEntries: UInt32
     _pack_ = 4
-class MINIDUMP_THREAD_LIST(EasyCastStructure):
+class MINIDUMP_THREAD_LIST(Structure):
     NumberOfThreads: UInt32
     Threads: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD * 1
     _pack_ = 4
-class MINIDUMP_THREAD_NAME(EasyCastStructure):
+class MINIDUMP_THREAD_NAME(Structure):
     ThreadId: UInt32
     RvaOfThreadName: UInt64
     _pack_ = 4
-class MINIDUMP_THREAD_NAME_LIST(EasyCastStructure):
+class MINIDUMP_THREAD_NAME_LIST(Structure):
     NumberOfThreadNames: UInt32
     ThreadNames: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_NAME * 1
     _pack_ = 4
-class MINIDUMP_TOKEN_INFO_HEADER(EasyCastStructure):
+class MINIDUMP_TOKEN_INFO_HEADER(Structure):
     TokenSize: UInt32
     TokenId: UInt32
     TokenHandle: UInt64
     _pack_ = 4
-class MINIDUMP_TOKEN_INFO_LIST(EasyCastStructure):
+class MINIDUMP_TOKEN_INFO_LIST(Structure):
     TokenListSize: UInt32
     TokenListEntries: UInt32
     ListHeaderSize: UInt32
@@ -4019,65 +4019,65 @@ MiniDumpWithIptTrace: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_
 MiniDumpScanInaccessiblePartialPages: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 8388608
 MiniDumpFilterWriteCombinedMemory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 16777216
 MiniDumpValidTypeFlags: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_TYPE = 33554431
-class MINIDUMP_UNLOADED_MODULE(EasyCastStructure):
+class MINIDUMP_UNLOADED_MODULE(Structure):
     BaseOfImage: UInt64
     SizeOfImage: UInt32
     CheckSum: UInt32
     TimeDateStamp: UInt32
     ModuleNameRva: UInt32
     _pack_ = 4
-class MINIDUMP_UNLOADED_MODULE_LIST(EasyCastStructure):
+class MINIDUMP_UNLOADED_MODULE_LIST(Structure):
     SizeOfHeader: UInt32
     SizeOfEntry: UInt32
     NumberOfEntries: UInt32
     _pack_ = 4
-class MINIDUMP_USER_RECORD(EasyCastStructure):
+class MINIDUMP_USER_RECORD(Structure):
     Type: UInt32
     Memory: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_LOCATION_DESCRIPTOR
     _pack_ = 4
 if ARCH in 'X64,ARM64':
-    class MINIDUMP_USER_STREAM(EasyCastStructure):
+    class MINIDUMP_USER_STREAM(Structure):
         Type: UInt32
         BufferSize: UInt32
         Buffer: VoidPtr
         _pack_ = 4
 elif ARCH in 'X86':
-    class MINIDUMP_USER_STREAM(EasyCastStructure):
+    class MINIDUMP_USER_STREAM(Structure):
         Type: UInt32
         BufferSize: UInt32
         Buffer: VoidPtr
 if ARCH in 'X64,ARM64':
-    class MINIDUMP_USER_STREAM_INFORMATION(EasyCastStructure):
+    class MINIDUMP_USER_STREAM_INFORMATION(Structure):
         UserStreamCount: UInt32
         UserStreamArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM)
         _pack_ = 4
 elif ARCH in 'X86':
-    class MINIDUMP_USER_STREAM_INFORMATION(EasyCastStructure):
+    class MINIDUMP_USER_STREAM_INFORMATION(Structure):
         UserStreamCount: UInt32
         UserStreamArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_USER_STREAM)
-class MINIDUMP_VM_POST_READ_CALLBACK(EasyCastStructure):
+class MINIDUMP_VM_POST_READ_CALLBACK(Structure):
     Offset: UInt64
     Buffer: VoidPtr
     Size: UInt32
     Completed: UInt32
     Status: win32more.Windows.Win32.Foundation.HRESULT
     _pack_ = 4
-class MINIDUMP_VM_PRE_READ_CALLBACK(EasyCastStructure):
+class MINIDUMP_VM_PRE_READ_CALLBACK(Structure):
     Offset: UInt64
     Buffer: VoidPtr
     Size: UInt32
     _pack_ = 4
-class MINIDUMP_VM_QUERY_CALLBACK(EasyCastStructure):
+class MINIDUMP_VM_QUERY_CALLBACK(Structure):
     Offset: UInt64
     _pack_ = 4
-class MODLOAD_CVMISC(EasyCastStructure):
+class MODLOAD_CVMISC(Structure):
     oCV: UInt32
     cCV: UIntPtr
     oMisc: UInt32
     cMisc: UIntPtr
     dtImage: UInt32
     cImage: UInt32
-class MODLOAD_DATA(EasyCastStructure):
+class MODLOAD_DATA(Structure):
     ssize: UInt32
     ssig: win32more.Windows.Win32.System.Diagnostics.Debug.MODLOAD_DATA_TYPE
     data: VoidPtr
@@ -4086,10 +4086,10 @@ class MODLOAD_DATA(EasyCastStructure):
 MODLOAD_DATA_TYPE = UInt32
 DBHHEADER_DEBUGDIRS: win32more.Windows.Win32.System.Diagnostics.Debug.MODLOAD_DATA_TYPE = 1
 DBHHEADER_CVMISC: win32more.Windows.Win32.System.Diagnostics.Debug.MODLOAD_DATA_TYPE = 2
-class MODLOAD_PDBGUID_PDBAGE(EasyCastStructure):
+class MODLOAD_PDBGUID_PDBAGE(Structure):
     PdbGuid: Guid
     PdbAge: UInt32
-class MODULE_TYPE_INFO(EasyCastStructure):
+class MODULE_TYPE_INFO(Structure):
     dataLength: UInt16
     leaf: UInt16
     data: Byte * 1
@@ -4137,12 +4137,12 @@ OBJECT_ATTRIB_IS_MACRO: win32more.Windows.Win32.System.Diagnostics.Debug.OBJECT_
 OBJECT_ATTRIB_IS_TYPE: win32more.Windows.Win32.System.Diagnostics.Debug.OBJECT_ATTRIB_FLAGS = 536870912
 OBJECT_ATTRIB_IS_INHERITED: win32more.Windows.Win32.System.Diagnostics.Debug.OBJECT_ATTRIB_FLAGS = 1073741824
 OBJECT_ATTRIB_IS_INTERFACE: win32more.Windows.Win32.System.Diagnostics.Debug.OBJECT_ATTRIB_FLAGS = -2147483648
-class OMAP(EasyCastStructure):
+class OMAP(Structure):
     rva: UInt32
     rvaTo: UInt32
 OPEN_THREAD_WAIT_CHAIN_SESSION_FLAGS = UInt32
 WCT_ASYNC_OPEN_FLAG: win32more.Windows.Win32.System.Diagnostics.Debug.OPEN_THREAD_WAIT_CHAIN_SESSION_FLAGS = 1
-class OUTPUT_DEBUG_STRING_INFO(EasyCastStructure):
+class OUTPUT_DEBUG_STRING_INFO(Structure):
     lpDebugStringData: win32more.Windows.Win32.Foundation.PSTR
     fUnicode: UInt16
     nDebugStringLength: UInt16
@@ -4191,18 +4191,18 @@ elif ARCH in 'X64':
     def PGET_RUNTIME_FUNCTION_CALLBACK(ControlPc: UInt64, Context: VoidPtr) -> POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY): ...
 @winfunctype_pointer
 def PGET_TARGET_ATTRIBUTE_VALUE64(hProcess: win32more.Windows.Win32.Foundation.HANDLE, Attribute: UInt32, AttributeData: UInt64, AttributeValue: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class PHYSICAL_MEMORY_DESCRIPTOR32(EasyCastStructure):
+class PHYSICAL_MEMORY_DESCRIPTOR32(Structure):
     NumberOfRuns: UInt32
     NumberOfPages: UInt32
     Run: win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_RUN32 * 1
-class PHYSICAL_MEMORY_DESCRIPTOR64(EasyCastStructure):
+class PHYSICAL_MEMORY_DESCRIPTOR64(Structure):
     NumberOfRuns: UInt32
     NumberOfPages: UInt64
     Run: win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_RUN64 * 1
-class PHYSICAL_MEMORY_RUN32(EasyCastStructure):
+class PHYSICAL_MEMORY_RUN32(Structure):
     BasePage: UInt32
     PageCount: UInt32
-class PHYSICAL_MEMORY_RUN64(EasyCastStructure):
+class PHYSICAL_MEMORY_RUN64(Structure):
     BasePage: UInt64
     PageCount: UInt64
 @winfunctype_pointer
@@ -4327,7 +4327,7 @@ def PTRANSLATE_ADDRESS_ROUTINE64(hProcess: win32more.Windows.Win32.Foundation.HA
 def PVECTORED_EXCEPTION_HANDLER(ExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)) -> Int32: ...
 @winfunctype_pointer
 def PWAITCHAINCALLBACK(WctHandle: VoidPtr, Context: UIntPtr, CallbackStatus: UInt32, NodeCount: POINTER(UInt32), NodeInfoArray: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.WAITCHAIN_NODE_INFO), IsCycle: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> Void: ...
-class RIP_INFO(EasyCastStructure):
+class RIP_INFO(Structure):
     dwError: UInt32
     dwType: win32more.Windows.Win32.System.Diagnostics.Debug.RIP_INFO_TYPE
 RIP_INFO_TYPE = UInt32
@@ -4339,11 +4339,11 @@ UNW_FLAG_NHANDLER: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_
 UNW_FLAG_EHANDLER: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 1
 UNW_FLAG_UHANDLER: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 2
 UNW_FLAG_CHAININFO: win32more.Windows.Win32.System.Diagnostics.Debug.RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 4
-class SOURCEFILEW(EasyCastStructure):
+class SOURCEFILEW(Structure):
     ModBase: UInt64
     FileName: win32more.Windows.Win32.Foundation.PWSTR
 SOURCEFILE = UnicodeAlias('SOURCEFILEW')
-class SRCCODEINFOW(EasyCastStructure):
+class SRCCODEINFOW(Structure):
     SizeOfStruct: UInt32
     Key: VoidPtr
     ModBase: UInt64
@@ -4353,7 +4353,7 @@ class SRCCODEINFOW(EasyCastStructure):
     Address: UInt64
 SRCCODEINFO = UnicodeAlias('SRCCODEINFOW')
 if ARCH in 'X86':
-    class STACKFRAME(EasyCastStructure):
+    class STACKFRAME(Structure):
         AddrPC: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS
         AddrReturn: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS
         AddrFrame: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS
@@ -4365,7 +4365,7 @@ if ARCH in 'X86':
         Reserved: UInt32 * 3
         KdHelp: win32more.Windows.Win32.System.Diagnostics.Debug.KDHELP
         AddrBStore: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS
-class STACKFRAME64(EasyCastStructure):
+class STACKFRAME64(Structure):
     AddrPC: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS64
     AddrReturn: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS64
     AddrFrame: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS64
@@ -4377,7 +4377,7 @@ class STACKFRAME64(EasyCastStructure):
     Virtual: win32more.Windows.Win32.Foundation.BOOL
     Reserved: UInt64 * 3
     KdHelp: win32more.Windows.Win32.System.Diagnostics.Debug.KDHELP64
-class STACKFRAME_EX(EasyCastStructure):
+class STACKFRAME_EX(Structure):
     AddrPC: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS64
     AddrReturn: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS64
     AddrFrame: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS64
@@ -4395,7 +4395,7 @@ class STACKFRAME_EX(EasyCastStructure):
 def SYMADDSOURCESTREAM(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: UInt64, param2: win32more.Windows.Win32.Foundation.PSTR, param3: POINTER(Byte), param4: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def SYMADDSOURCESTREAMA(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: UInt64, param2: win32more.Windows.Win32.Foundation.PSTR, param3: POINTER(Byte), param4: UIntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class SYMBOL_INFOW(EasyCastStructure):
+class SYMBOL_INFOW(Structure):
     SizeOfStruct: UInt32
     TypeIndex: UInt32
     Reserved: UInt64 * 2
@@ -4430,15 +4430,15 @@ SYMFLAG_THUNK: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAG
 SYMFLAG_TLSREL: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS = 16384
 SYMFLAG_VALUEPRESENT: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS = 1
 SYMFLAG_VIRTUAL: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS = 4096
-class SYMBOL_INFO_PACKAGEW(EasyCastStructure):
+class SYMBOL_INFO_PACKAGEW(Structure):
     si: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFOW
     name: Char * 2001
 SYMBOL_INFO_PACKAGE = UnicodeAlias('SYMBOL_INFO_PACKAGEW')
-class SYMSRV_EXTENDED_OUTPUT_DATA(EasyCastStructure):
+class SYMSRV_EXTENDED_OUTPUT_DATA(Structure):
     sizeOfStruct: UInt32
     version: UInt32
     filePtrMsg: Char * 261
-class SYMSRV_INDEX_INFOW(EasyCastStructure):
+class SYMSRV_INDEX_INFOW(Structure):
     sizeofstruct: UInt32
     file: Char * 261
     stripped: win32more.Windows.Win32.Foundation.BOOL
@@ -4490,14 +4490,14 @@ ThreadWriteBackingStore: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD
 ThreadWriteInstructionWindow: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 16
 ThreadWriteThreadData: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 32
 ThreadWriteThreadInfo: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_WRITE_FLAGS = 64
-class TI_FINDCHILDREN_PARAMS(EasyCastStructure):
+class TI_FINDCHILDREN_PARAMS(Structure):
     Count: UInt32
     Start: UInt32
     ChildId: UInt32 * 1
-class UNLOAD_DLL_DEBUG_INFO(EasyCastStructure):
+class UNLOAD_DLL_DEBUG_INFO(Structure):
     lpBaseOfDll: VoidPtr
 if ARCH in 'X64,ARM64':
-    class UNWIND_HISTORY_TABLE(EasyCastStructure):
+    class UNWIND_HISTORY_TABLE(Structure):
         Count: UInt32
         LocalHint: Byte
         GlobalHint: Byte
@@ -4507,29 +4507,29 @@ if ARCH in 'X64,ARM64':
         HighAddress: UIntPtr
         Entry: win32more.Windows.Win32.System.Diagnostics.Debug.UNWIND_HISTORY_TABLE_ENTRY * 12
 if ARCH in 'ARM64':
-    class UNWIND_HISTORY_TABLE_ENTRY(EasyCastStructure):
+    class UNWIND_HISTORY_TABLE_ENTRY(Structure):
         ImageBase: UIntPtr
         FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY)
 elif ARCH in 'X64':
-    class UNWIND_HISTORY_TABLE_ENTRY(EasyCastStructure):
+    class UNWIND_HISTORY_TABLE_ENTRY(Structure):
         ImageBase: UIntPtr
         FunctionEntry: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY)
 VER_PLATFORM = UInt32
 VER_PLATFORM_WIN32s: win32more.Windows.Win32.System.Diagnostics.Debug.VER_PLATFORM = 0
 VER_PLATFORM_WIN32_WINDOWS: win32more.Windows.Win32.System.Diagnostics.Debug.VER_PLATFORM = 1
 VER_PLATFORM_WIN32_NT: win32more.Windows.Win32.System.Diagnostics.Debug.VER_PLATFORM = 2
-class WAITCHAIN_NODE_INFO(EasyCastStructure):
+class WAITCHAIN_NODE_INFO(Structure):
     ObjectType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE
     ObjectStatus: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         LockObject: _LockObject_e__Struct
         ThreadObject: _ThreadObject_e__Struct
-        class _LockObject_e__Struct(EasyCastStructure):
+        class _LockObject_e__Struct(Structure):
             ObjectName: Char * 128
             Timeout: Int64
             Alertable: win32more.Windows.Win32.Foundation.BOOL
-        class _ThreadObject_e__Struct(EasyCastStructure):
+        class _ThreadObject_e__Struct(Structure):
             ProcessId: UInt32
             ThreadId: UInt32
             WaitTime: UInt32
@@ -4564,7 +4564,7 @@ WctUnknownType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE
 WctSocketIoType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 11
 WctSmbIoType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 12
 WctMaxType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE = 13
-class WHEA_AER_BRIDGE_DESCRIPTOR(EasyCastStructure):
+class WHEA_AER_BRIDGE_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte
@@ -4580,7 +4580,7 @@ class WHEA_AER_BRIDGE_DESCRIPTOR(EasyCastStructure):
     SecondaryUncorrectableErrorSev: UInt32
     SecondaryCapsAndControl: UInt32
     _pack_ = 1
-class WHEA_AER_ENDPOINT_DESCRIPTOR(EasyCastStructure):
+class WHEA_AER_ENDPOINT_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte
@@ -4593,7 +4593,7 @@ class WHEA_AER_ENDPOINT_DESCRIPTOR(EasyCastStructure):
     CorrectableErrorMask: UInt32
     AdvancedCapsAndControl: UInt32
     _pack_ = 1
-class WHEA_AER_ROOTPORT_DESCRIPTOR(EasyCastStructure):
+class WHEA_AER_ROOTPORT_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte
@@ -4607,7 +4607,7 @@ class WHEA_AER_ROOTPORT_DESCRIPTOR(EasyCastStructure):
     AdvancedCapsAndControl: UInt32
     RootErrorCommand: UInt32
     _pack_ = 1
-class WHEA_DEVICE_DRIVER_DESCRIPTOR(EasyCastStructure):
+class WHEA_DEVICE_DRIVER_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte
@@ -4625,7 +4625,7 @@ class WHEA_DEVICE_DRIVER_DESCRIPTOR(EasyCastStructure):
     PacketStateBuffer: POINTER(Byte)
     OpenHandles: Int32
     _pack_ = 1
-class WHEA_DRIVER_BUFFER_SET(EasyCastStructure):
+class WHEA_DRIVER_BUFFER_SET(Structure):
     Version: UInt32
     Data: POINTER(Byte)
     DataSize: UInt32
@@ -4633,12 +4633,12 @@ class WHEA_DRIVER_BUFFER_SET(EasyCastStructure):
     SectionFriendlyName: POINTER(Byte)
     Flags: POINTER(Byte)
     _pack_ = 1
-class WHEA_ERROR_SOURCE_CONFIGURATION_DD(EasyCastStructure):
+class WHEA_ERROR_SOURCE_CONFIGURATION_DD(Structure):
     Initialize: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER
     Uninitialize: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER
     Correct: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER
     _pack_ = 1
-class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER(EasyCastStructure):
+class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER(Structure):
     Version: UInt32
     SourceGuid: Guid
     LogTag: UInt16
@@ -4650,7 +4650,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER(EasyCastStructure):
     CreatorId: Guid
     PartitionId: Guid
     _pack_ = 1
-class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1(EasyCastStructure):
+class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1(Structure):
     Version: UInt32
     SourceGuid: Guid
     LogTag: UInt16
@@ -4660,7 +4660,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1(EasyCastStructure):
     _pack_ = 1
 @winfunctype_pointer
 def WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER(ErrorSourceDesc: VoidPtr, MaximumSectionLength: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-class WHEA_ERROR_SOURCE_DESCRIPTOR(EasyCastStructure):
+class WHEA_ERROR_SOURCE_DESCRIPTOR(Structure):
     Length: UInt32
     Version: UInt32
     Type: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE
@@ -4673,7 +4673,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR(EasyCastStructure):
     Flags: UInt32
     Info: _Info_e__Union
     _pack_ = 1
-    class _Info_e__Union(EasyCastUnion):
+    class _Info_e__Union(Union):
         XpfMceDescriptor: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_XPF_MCE_DESCRIPTOR
         XpfCmcDescriptor: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_XPF_CMC_DESCRIPTOR
         XpfNmiDescriptor: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_XPF_NMI_DESCRIPTOR
@@ -4716,7 +4716,7 @@ WheaErrSrcTypeSei: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_S
 WheaErrSrcTypeMax: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_ERROR_SOURCE_TYPE = 19
 @winfunctype_pointer
 def WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER(Context: VoidPtr) -> Void: ...
-class WHEA_GENERIC_ERROR_DESCRIPTOR(EasyCastStructure):
+class WHEA_GENERIC_ERROR_DESCRIPTOR(Structure):
     Type: UInt16
     Reserved: Byte
     Enabled: Byte
@@ -4729,7 +4729,7 @@ class WHEA_GENERIC_ERROR_DESCRIPTOR(EasyCastStructure):
     ErrStatusAddress: Int64
     Notify: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_NOTIFICATION_DESCRIPTOR
     _pack_ = 1
-class WHEA_GENERIC_ERROR_DESCRIPTOR_V2(EasyCastStructure):
+class WHEA_GENERIC_ERROR_DESCRIPTOR_V2(Structure):
     Type: UInt16
     Reserved: Byte
     Enabled: Byte
@@ -4749,27 +4749,27 @@ class WHEA_GENERIC_ERROR_DESCRIPTOR_V2(EasyCastStructure):
     ReadAckPreserveMask: UInt64
     ReadAckWriteMask: UInt64
     _pack_ = 1
-class WHEA_IPF_CMC_DESCRIPTOR(EasyCastStructure):
+class WHEA_IPF_CMC_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: Byte
     Reserved: Byte
     _pack_ = 1
-class WHEA_IPF_CPE_DESCRIPTOR(EasyCastStructure):
+class WHEA_IPF_CPE_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: Byte
     Reserved: Byte
     _pack_ = 1
-class WHEA_IPF_MCA_DESCRIPTOR(EasyCastStructure):
+class WHEA_IPF_MCA_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: Byte
     Reserved: Byte
     _pack_ = 1
-class WHEA_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
+class WHEA_NOTIFICATION_DESCRIPTOR(Structure):
     Type: Byte
     Length: Byte
     Flags: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_NOTIFICATION_FLAGS
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         Polled: _Polled_e__Struct
         Interrupt: _Interrupt_e__Struct
         LocalInterrupt: _LocalInterrupt_e__Struct
@@ -4778,18 +4778,10 @@ class WHEA_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
         Sea: _Sea_e__Struct
         Sei: _Sei_e__Struct
         Gsiv: _Gsiv_e__Struct
-        class _Polled_e__Struct(EasyCastStructure):
+        class _Polled_e__Struct(Structure):
             PollInterval: UInt32
             _pack_ = 1
-        class _Interrupt_e__Struct(EasyCastStructure):
-            PollInterval: UInt32
-            Vector: UInt32
-            SwitchToPollingThreshold: UInt32
-            SwitchToPollingWindow: UInt32
-            ErrorThreshold: UInt32
-            ErrorThresholdWindow: UInt32
-            _pack_ = 1
-        class _LocalInterrupt_e__Struct(EasyCastStructure):
+        class _Interrupt_e__Struct(Structure):
             PollInterval: UInt32
             Vector: UInt32
             SwitchToPollingThreshold: UInt32
@@ -4797,7 +4789,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
             ErrorThreshold: UInt32
             ErrorThresholdWindow: UInt32
             _pack_ = 1
-        class _Sci_e__Struct(EasyCastStructure):
+        class _LocalInterrupt_e__Struct(Structure):
             PollInterval: UInt32
             Vector: UInt32
             SwitchToPollingThreshold: UInt32
@@ -4805,7 +4797,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
             ErrorThreshold: UInt32
             ErrorThresholdWindow: UInt32
             _pack_ = 1
-        class _Nmi_e__Struct(EasyCastStructure):
+        class _Sci_e__Struct(Structure):
             PollInterval: UInt32
             Vector: UInt32
             SwitchToPollingThreshold: UInt32
@@ -4813,7 +4805,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
             ErrorThreshold: UInt32
             ErrorThresholdWindow: UInt32
             _pack_ = 1
-        class _Sea_e__Struct(EasyCastStructure):
+        class _Nmi_e__Struct(Structure):
             PollInterval: UInt32
             Vector: UInt32
             SwitchToPollingThreshold: UInt32
@@ -4821,7 +4813,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
             ErrorThreshold: UInt32
             ErrorThresholdWindow: UInt32
             _pack_ = 1
-        class _Sei_e__Struct(EasyCastStructure):
+        class _Sea_e__Struct(Structure):
             PollInterval: UInt32
             Vector: UInt32
             SwitchToPollingThreshold: UInt32
@@ -4829,7 +4821,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
             ErrorThreshold: UInt32
             ErrorThresholdWindow: UInt32
             _pack_ = 1
-        class _Gsiv_e__Struct(EasyCastStructure):
+        class _Sei_e__Struct(Structure):
             PollInterval: UInt32
             Vector: UInt32
             SwitchToPollingThreshold: UInt32
@@ -4837,23 +4829,31 @@ class WHEA_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
             ErrorThreshold: UInt32
             ErrorThresholdWindow: UInt32
             _pack_ = 1
-class WHEA_NOTIFICATION_FLAGS(EasyCastUnion):
+        class _Gsiv_e__Struct(Structure):
+            PollInterval: UInt32
+            Vector: UInt32
+            SwitchToPollingThreshold: UInt32
+            SwitchToPollingWindow: UInt32
+            ErrorThreshold: UInt32
+            ErrorThresholdWindow: UInt32
+            _pack_ = 1
+class WHEA_NOTIFICATION_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
         _pack_ = 1
-class WHEA_PCI_SLOT_NUMBER(EasyCastStructure):
+class WHEA_PCI_SLOT_NUMBER(Structure):
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         bits: _bits_e__Struct
         AsULONG: UInt32
         _pack_ = 1
-        class _bits_e__Struct(EasyCastStructure):
+        class _bits_e__Struct(Structure):
             _bitfield: UInt32
             _pack_ = 1
-class WHEA_XPF_CMC_DESCRIPTOR(EasyCastStructure):
+class WHEA_XPF_CMC_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
     NumberOfBanks: Byte
@@ -4861,7 +4861,7 @@ class WHEA_XPF_CMC_DESCRIPTOR(EasyCastStructure):
     Notify: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_NOTIFICATION_DESCRIPTOR
     Banks: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_XPF_MC_BANK_DESCRIPTOR * 32
     _pack_ = 1
-class WHEA_XPF_MCE_DESCRIPTOR(EasyCastStructure):
+class WHEA_XPF_MCE_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: Byte
     NumberOfBanks: Byte
@@ -4870,7 +4870,7 @@ class WHEA_XPF_MCE_DESCRIPTOR(EasyCastStructure):
     MCG_GlobalControl: UInt64
     Banks: win32more.Windows.Win32.System.Diagnostics.Debug.WHEA_XPF_MC_BANK_DESCRIPTOR * 32
     _pack_ = 1
-class WHEA_XPF_MC_BANK_DESCRIPTOR(EasyCastStructure):
+class WHEA_XPF_MC_BANK_DESCRIPTOR(Structure):
     BankNumber: Byte
     ClearOnInitialization: win32more.Windows.Win32.Foundation.BOOLEAN
     StatusDataFormat: Byte
@@ -4881,11 +4881,11 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR(EasyCastStructure):
     MiscMsr: UInt32
     ControlData: UInt64
     _pack_ = 1
-class WHEA_XPF_NMI_DESCRIPTOR(EasyCastStructure):
+class WHEA_XPF_NMI_DESCRIPTOR(Structure):
     Type: UInt16
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
     _pack_ = 1
-class WOW64_CONTEXT(EasyCastStructure):
+class WOW64_CONTEXT(Structure):
     ContextFlags: win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_CONTEXT_FLAGS
     Dr0: UInt32
     Dr1: UInt32
@@ -4926,10 +4926,10 @@ WOW64_CONTEXT_EXCEPTION_ACTIVE: win32more.Windows.Win32.System.Diagnostics.Debug
 WOW64_CONTEXT_SERVICE_ACTIVE: win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_CONTEXT_FLAGS = 268435456
 WOW64_CONTEXT_EXCEPTION_REQUEST: win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_CONTEXT_FLAGS = 1073741824
 WOW64_CONTEXT_EXCEPTION_REPORTING: win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_CONTEXT_FLAGS = 2147483648
-class WOW64_DESCRIPTOR_TABLE_ENTRY(EasyCastStructure):
+class WOW64_DESCRIPTOR_TABLE_ENTRY(Structure):
     Selector: UInt32
     Descriptor: win32more.Windows.Win32.System.Diagnostics.Debug.WOW64_LDT_ENTRY
-class WOW64_FLOATING_SAVE_AREA(EasyCastStructure):
+class WOW64_FLOATING_SAVE_AREA(Structure):
     ControlWord: UInt32
     StatusWord: UInt32
     TagWord: UInt32
@@ -4939,41 +4939,41 @@ class WOW64_FLOATING_SAVE_AREA(EasyCastStructure):
     DataSelector: UInt32
     RegisterArea: Byte * 80
     Cr0NpxState: UInt32
-class WOW64_LDT_ENTRY(EasyCastStructure):
+class WOW64_LDT_ENTRY(Structure):
     LimitLow: UInt16
     BaseLow: UInt16
     HighWord: _HighWord_e__Union
-    class _HighWord_e__Union(EasyCastUnion):
+    class _HighWord_e__Union(Union):
         Bytes: _Bytes_e__Struct
         Bits: _Bits_e__Struct
-        class _Bytes_e__Struct(EasyCastStructure):
+        class _Bytes_e__Struct(Structure):
             BaseMid: Byte
             Flags1: Byte
             Flags2: Byte
             BaseHi: Byte
-        class _Bits_e__Struct(EasyCastStructure):
+        class _Bits_e__Struct(Structure):
             _bitfield: UInt32
-class XPF_MCE_FLAGS(EasyCastUnion):
+class XPF_MCE_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsULONG: UInt32
     _pack_ = 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         _pack_ = 1
-class XPF_MC_BANK_FLAGS(EasyCastUnion):
+class XPF_MC_BANK_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUCHAR: Byte
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: Byte
-class XSAVE_AREA(EasyCastStructure):
+class XSAVE_AREA(Structure):
     LegacyState: win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_FORMAT
     Header: win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_AREA_HEADER
-class XSAVE_AREA_HEADER(EasyCastStructure):
+class XSAVE_AREA_HEADER(Structure):
     Mask: UInt64
     CompactionMask: UInt64
     Reserved2: UInt64 * 6
 if ARCH in 'X64,ARM64':
-    class XSAVE_FORMAT(EasyCastStructure):
+    class XSAVE_FORMAT(Structure):
         ControlWord: UInt16
         StatusWord: UInt16
         TagWord: Byte
@@ -4991,7 +4991,7 @@ if ARCH in 'X64,ARM64':
         XmmRegisters: win32more.Windows.Win32.System.Diagnostics.Debug.M128A * 16
         Reserved4: Byte * 96
 elif ARCH in 'X86':
-    class XSAVE_FORMAT(EasyCastStructure):
+    class XSAVE_FORMAT(Structure):
         ControlWord: UInt16
         StatusWord: UInt16
         TagWord: Byte
@@ -5008,7 +5008,7 @@ elif ARCH in 'X86':
         FloatRegisters: win32more.Windows.Win32.System.Diagnostics.Debug.M128A * 8
         XmmRegisters: win32more.Windows.Win32.System.Diagnostics.Debug.M128A * 8
         Reserved4: Byte * 224
-class XSTATE_CONFIGURATION(EasyCastStructure):
+class XSTATE_CONFIGURATION(Structure):
     EnabledFeatures: UInt64
     EnabledVolatileFeatures: UInt64
     Size: UInt32
@@ -5022,26 +5022,26 @@ class XSTATE_CONFIGURATION(EasyCastStructure):
     ExtendedFeatureDisableFeatures: UInt64
     AllNonLargeFeatureSize: UInt32
     Spare: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ControlFlags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class XSTATE_CONFIG_FEATURE_MSC_INFO(EasyCastStructure):
+class XSTATE_CONFIG_FEATURE_MSC_INFO(Structure):
     SizeOfInfo: UInt32
     ContextSize: UInt32
     EnabledFeatures: UInt64
     Features: win32more.Windows.Win32.System.Diagnostics.Debug.XSTATE_FEATURE * 64
     _pack_ = 4
 if ARCH in 'X64,ARM64':
-    class XSTATE_CONTEXT(EasyCastStructure):
+    class XSTATE_CONTEXT(Structure):
         Mask: UInt64
         Length: UInt32
         Reserved1: UInt32
         Area: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_AREA)
         Buffer: VoidPtr
 elif ARCH in 'X86':
-    class XSTATE_CONTEXT(EasyCastStructure):
+    class XSTATE_CONTEXT(Structure):
         Mask: UInt64
         Length: UInt32
         Reserved1: UInt32
@@ -5049,7 +5049,7 @@ elif ARCH in 'X86':
         Reserved2: UInt32
         Buffer: VoidPtr
         Reserved3: UInt32
-class XSTATE_FEATURE(EasyCastStructure):
+class XSTATE_FEATURE(Structure):
     Offset: UInt32
     Size: UInt32
 

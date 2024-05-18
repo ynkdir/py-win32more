@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -7,7 +7,7 @@ import win32more.Windows.Win32.System.Kernel
 import win32more.Windows.Win32.System.Ole
 import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.System.WindowsProgramming
-class ACTCTX_SECTION_KEYED_DATA_2600(EasyCastStructure):
+class ACTCTX_SECTION_KEYED_DATA_2600(Structure):
     cbSize: UInt32
     ulDataFormatVersion: UInt32
     lpData: VoidPtr
@@ -18,13 +18,13 @@ class ACTCTX_SECTION_KEYED_DATA_2600(EasyCastStructure):
     ulSectionTotalLength: UInt32
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
     ulAssemblyRosterIndex: UInt32
-class ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA(EasyCastStructure):
+class ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA(Structure):
     lpInformation: VoidPtr
     lpSectionBase: VoidPtr
     ulSectionLength: UInt32
     lpSectionGlobalDataBase: VoidPtr
     ulSectionGlobalDataLength: UInt32
-class ACTIVATION_CONTEXT_BASIC_INFORMATION(EasyCastStructure):
+class ACTIVATION_CONTEXT_BASIC_INFORMATION(Structure):
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
     dwFlags: UInt32
 @winfunctype_pointer
@@ -1130,23 +1130,23 @@ def WldpCanExecuteFile(host: POINTER(Guid), options: win32more.Windows.Win32.Sys
 def WldpCanExecuteBuffer(host: POINTER(Guid), options: win32more.Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_EVALUATION_OPTIONS, buffer: POINTER(Byte), bufferSize: UInt32, auditInfo: win32more.Windows.Win32.Foundation.PWSTR, result: POINTER(win32more.Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_POLICY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Wldp.dll')
 def WldpCanExecuteStream(host: POINTER(Guid), options: win32more.Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_EVALUATION_OPTIONS, stream: win32more.Windows.Win32.System.Com.IStream, auditInfo: win32more.Windows.Win32.Foundation.PWSTR, result: POINTER(win32more.Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_POLICY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class CABINFOA(EasyCastStructure):
+class CABINFOA(Structure):
     pszCab: win32more.Windows.Win32.Foundation.PSTR
     pszInf: win32more.Windows.Win32.Foundation.PSTR
     pszSection: win32more.Windows.Win32.Foundation.PSTR
     szSrcPath: win32more.Windows.Win32.Foundation.CHAR * 260
     dwFlags: UInt32
-class CABINFOW(EasyCastStructure):
+class CABINFOW(Structure):
     pszCab: win32more.Windows.Win32.Foundation.PWSTR
     pszInf: win32more.Windows.Win32.Foundation.PWSTR
     pszSection: win32more.Windows.Win32.Foundation.PWSTR
     szSrcPath: Char * 260
     dwFlags: UInt32
 CABINFO = UnicodeAlias('CABINFOW')
-class CLIENT_ID(EasyCastStructure):
+class CLIENT_ID(Structure):
     UniqueProcess: win32more.Windows.Win32.Foundation.HANDLE
     UniqueThread: win32more.Windows.Win32.Foundation.HANDLE
-class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG(EasyCastStructure):
+class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG(Structure):
     Size: UInt32
     TriggerId: win32more.Windows.Win32.Foundation.PWSTR
 CameraUIControl = Guid('{16d5a2be-b1c5-47b3-8eae-ccbcf452c7e8}')
@@ -1170,20 +1170,20 @@ class CameraUIControlVideoFormat(Int32):  # enum
 class CameraUIControlViewType(Int32):  # enum
     SingleItem = 0
     ItemList = 1
-class DATETIME(EasyCastStructure):
+class DATETIME(Structure):
     year: UInt16
     month: UInt16
     day: UInt16
     hour: UInt16
     min: UInt16
     sec: UInt16
-class DCICMD(EasyCastStructure):
+class DCICMD(Structure):
     dwCommand: UInt32
     dwParam1: UInt32
     dwParam2: UInt32
     dwVersion: UInt32
     dwReserved: UInt32
-class DCICREATEINPUT(EasyCastStructure):
+class DCICREATEINPUT(Structure):
     cmd: win32more.Windows.Win32.System.WindowsProgramming.DCICMD
     dwCompression: UInt32
     dwMask: UInt32 * 3
@@ -1192,22 +1192,22 @@ class DCICREATEINPUT(EasyCastStructure):
     dwDCICaps: UInt32
     dwBitCount: UInt32
     lpSurface: VoidPtr
-class DCIENUMINPUT(EasyCastStructure):
+class DCIENUMINPUT(Structure):
     cmd: win32more.Windows.Win32.System.WindowsProgramming.DCICMD
     rSrc: win32more.Windows.Win32.Foundation.RECT
     rDst: win32more.Windows.Win32.Foundation.RECT
     EnumCallback: IntPtr
     lpContext: VoidPtr
-class DCIOFFSCREEN(EasyCastStructure):
+class DCIOFFSCREEN(Structure):
     dciInfo: win32more.Windows.Win32.System.WindowsProgramming.DCISURFACEINFO
     Draw: IntPtr
     SetClipList: IntPtr
     SetDestination: IntPtr
-class DCIOVERLAY(EasyCastStructure):
+class DCIOVERLAY(Structure):
     dciInfo: win32more.Windows.Win32.System.WindowsProgramming.DCISURFACEINFO
     dwChromakeyValue: UInt32
     dwChromakeyMask: UInt32
-class DCISURFACEINFO(EasyCastStructure):
+class DCISURFACEINFO(Structure):
     dwSize: UInt32
     dwDCICaps: UInt32
     dwCompression: UInt32
@@ -1237,7 +1237,7 @@ DECISION_LOCATION_ENFORCE_STATE_LIST: win32more.Windows.Win32.System.WindowsProg
 DECISION_LOCATION_NOT_FOUND: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 8
 DECISION_LOCATION_UNKNOWN: win32more.Windows.Win32.System.WindowsProgramming.DECISION_LOCATION = 9
 if ARCH in 'X64,ARM64':
-    class DELAYLOAD_INFO(EasyCastStructure):
+    class DELAYLOAD_INFO(Structure):
         Size: UInt32
         DelayloadDescriptor: POINTER(win32more.Windows.Win32.System.WindowsProgramming.IMAGE_DELAYLOAD_DESCRIPTOR)
         ThunkAddress: POINTER(win32more.Windows.Win32.System.WindowsProgramming.IMAGE_THUNK_DATA64)
@@ -1247,7 +1247,7 @@ if ARCH in 'X64,ARM64':
         Unused: VoidPtr
         LastError: UInt32
 elif ARCH in 'X86':
-    class DELAYLOAD_INFO(EasyCastStructure):
+    class DELAYLOAD_INFO(Structure):
         Size: UInt32
         DelayloadDescriptor: POINTER(win32more.Windows.Win32.System.WindowsProgramming.IMAGE_DELAYLOAD_DESCRIPTOR)
         ThunkAddress: POINTER(win32more.Windows.Win32.System.WindowsProgramming.IMAGE_THUNK_DATA32)
@@ -1256,10 +1256,10 @@ elif ARCH in 'X86':
         TargetModuleBase: VoidPtr
         Unused: VoidPtr
         LastError: UInt32
-class DELAYLOAD_PROC_DESCRIPTOR(EasyCastStructure):
+class DELAYLOAD_PROC_DESCRIPTOR(Structure):
     ImportDescribedByName: UInt32
     Description: _Description_e__Union
-    class _Description_e__Union(EasyCastUnion):
+    class _Description_e__Union(Union):
         Name: win32more.Windows.Win32.Foundation.PSTR
         Ordinal: UInt32
 DefaultBrowserSyncSettings = Guid('{3ac83423-3112-4aa6-9b5b-1feb23d0c5f9}')
@@ -1276,7 +1276,7 @@ FEATURE_ENABLED_STATE = Int32
 FEATURE_ENABLED_STATE_DEFAULT: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_ENABLED_STATE = 0
 FEATURE_ENABLED_STATE_DISABLED: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_ENABLED_STATE = 1
 FEATURE_ENABLED_STATE_ENABLED: win32more.Windows.Win32.System.WindowsProgramming.FEATURE_ENABLED_STATE = 2
-class FEATURE_ERROR(EasyCastStructure):
+class FEATURE_ERROR(Structure):
     hr: win32more.Windows.Win32.Foundation.HRESULT
     lineNumber: UInt16
     file: win32more.Windows.Win32.Foundation.PSTR
@@ -1292,14 +1292,14 @@ class FEATURE_ERROR(EasyCastStructure):
     originCallerModule: win32more.Windows.Win32.Foundation.PSTR
     originName: win32more.Windows.Win32.Foundation.PSTR
 FEATURE_STATE_CHANGE_SUBSCRIPTION = IntPtr
-class FILE_CASE_SENSITIVE_INFO(EasyCastStructure):
+class FILE_CASE_SENSITIVE_INFO(Structure):
     Flags: UInt32
 HWINWATCH = IntPtr
-class HW_PROFILE_INFOA(EasyCastStructure):
+class HW_PROFILE_INFOA(Structure):
     dwDockInfo: UInt32
     szHwProfileGuid: win32more.Windows.Win32.Foundation.CHAR * 39
     szHwProfileName: win32more.Windows.Win32.Foundation.CHAR * 80
-class HW_PROFILE_INFOW(EasyCastStructure):
+class HW_PROFILE_INFOW(Structure):
     dwDockInfo: UInt32
     szHwProfileGuid: Char * 39
     szHwProfileName: Char * 80
@@ -1385,7 +1385,7 @@ class IFClipNotificationHelper(ComPtr):
     _iid_ = Guid('{3d5e3d21-bd41-4c2a-a669-b17ce87fb50b}')
     @commethod(3)
     def ShowSystemDialog(self, titleText: win32more.Windows.Win32.Foundation.BSTR, bodyText: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IMAGE_DELAYLOAD_DESCRIPTOR(EasyCastStructure):
+class IMAGE_DELAYLOAD_DESCRIPTOR(Structure):
     Attributes: _Attributes_e__Union
     DllNameRVA: UInt32
     ModuleHandleRVA: UInt32
@@ -1394,33 +1394,33 @@ class IMAGE_DELAYLOAD_DESCRIPTOR(EasyCastStructure):
     BoundImportAddressTableRVA: UInt32
     UnloadInformationTableRVA: UInt32
     TimeDateStamp: UInt32
-    class _Attributes_e__Union(EasyCastUnion):
+    class _Attributes_e__Union(Union):
         AllAttributes: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class IMAGE_THUNK_DATA32(EasyCastStructure):
+class IMAGE_THUNK_DATA32(Structure):
     u1: _u1_e__Union
-    class _u1_e__Union(EasyCastUnion):
+    class _u1_e__Union(Union):
         ForwarderString: UInt32
         Function: UInt32
         Ordinal: UInt32
         AddressOfData: UInt32
-class IMAGE_THUNK_DATA64(EasyCastStructure):
+class IMAGE_THUNK_DATA64(Structure):
     u1: _u1_e__Union
-    class _u1_e__Union(EasyCastUnion):
+    class _u1_e__Union(Union):
         ForwarderString: UInt64
         Function: UInt64
         Ordinal: UInt64
         AddressOfData: UInt64
-class IMEPROA(EasyCastStructure):
+class IMEPROA(Structure):
     hWnd: win32more.Windows.Win32.Foundation.HWND
     InstDate: win32more.Windows.Win32.System.WindowsProgramming.DATETIME
     wVersion: UInt32
     szDescription: Byte * 50
     szName: Byte * 80
     szOptions: Byte * 30
-class IMEPROW(EasyCastStructure):
+class IMEPROW(Structure):
     hWnd: win32more.Windows.Win32.Foundation.HWND
     InstDate: win32more.Windows.Win32.System.WindowsProgramming.DATETIME
     wVersion: UInt32
@@ -1428,7 +1428,7 @@ class IMEPROW(EasyCastStructure):
     szName: Char * 80
     szOptions: Char * 30
 IMEPRO = UnicodeAlias('IMEPROW')
-class IMESTRUCT(EasyCastStructure):
+class IMESTRUCT(Structure):
     fnc: UInt32
     wParam: win32more.Windows.Win32.Foundation.WPARAM
     wCount: UInt32
@@ -1442,7 +1442,7 @@ class IWindowsLockModeHelper(ComPtr):
     _iid_ = Guid('{f342d19e-cc22-4648-bb5d-03ccf75b47c5}')
     @commethod(3)
     def GetSMode(self, isSmode: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class JAVA_TRUST(EasyCastStructure):
+class JAVA_TRUST(Structure):
     cbSize: UInt32
     flag: UInt32
     fAllActiveXPermissions: win32more.Windows.Win32.Foundation.BOOL
@@ -1455,7 +1455,7 @@ class JAVA_TRUST(EasyCastStructure):
     pwszZone: win32more.Windows.Win32.Foundation.PWSTR
     guidZone: Guid
     hVerify: win32more.Windows.Win32.Foundation.HRESULT
-class JIT_DEBUG_INFO(EasyCastStructure):
+class JIT_DEBUG_INFO(Structure):
     dwSize: UInt32
     dwProcessorArchitecture: UInt32
     dwThreadID: UInt32
@@ -1463,7 +1463,7 @@ class JIT_DEBUG_INFO(EasyCastStructure):
     lpExceptionAddress: UInt64
     lpExceptionRecord: UInt64
     lpContextRecord: UInt64
-class LDR_DATA_TABLE_ENTRY(EasyCastStructure):
+class LDR_DATA_TABLE_ENTRY(Structure):
     Reserved1: VoidPtr * 2
     InMemoryOrderLinks: win32more.Windows.Win32.System.Kernel.LIST_ENTRY
     Reserved2: VoidPtr * 2
@@ -1474,12 +1474,12 @@ class LDR_DATA_TABLE_ENTRY(EasyCastStructure):
     Reserved5: VoidPtr * 3
     Anonymous: _Anonymous_e__Union
     TimeDateStamp: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         CheckSum: UInt32
         Reserved6: VoidPtr
 @winfunctype_pointer
 def PDELAYLOAD_FAILURE_DLL_CALLBACK(NotificationReason: UInt32, DelayloadInfo: POINTER(win32more.Windows.Win32.System.WindowsProgramming.DELAYLOAD_INFO)) -> VoidPtr: ...
-class PERUSERSECTIONA(EasyCastStructure):
+class PERUSERSECTIONA(Structure):
     szGUID: win32more.Windows.Win32.Foundation.CHAR * 59
     szDispName: win32more.Windows.Win32.Foundation.CHAR * 128
     szLocale: win32more.Windows.Win32.Foundation.CHAR * 10
@@ -1488,7 +1488,7 @@ class PERUSERSECTIONA(EasyCastStructure):
     szCompID: win32more.Windows.Win32.Foundation.CHAR * 128
     dwIsInstalled: UInt32
     bRollback: win32more.Windows.Win32.Foundation.BOOL
-class PERUSERSECTIONW(EasyCastStructure):
+class PERUSERSECTIONW(Structure):
     szGUID: Char * 59
     szDispName: Char * 128
     szLocale: Char * 10
@@ -1504,13 +1504,13 @@ def PFEATURE_STATE_CHANGE_CALLBACK(context: VoidPtr) -> Void: ...
 def PFIBER_CALLOUT_ROUTINE(lpParameter: VoidPtr) -> VoidPtr: ...
 @winfunctype_pointer
 def PQUERYACTCTXW_FUNC(dwFlags: UInt32, hActCtx: win32more.Windows.Win32.Foundation.HANDLE, pvSubInstance: VoidPtr, ulInfoClass: UInt32, pvBuffer: VoidPtr, cbBuffer: UIntPtr, pcbWrittenOrRequired: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class PUBLIC_OBJECT_BASIC_INFORMATION(EasyCastStructure):
+class PUBLIC_OBJECT_BASIC_INFORMATION(Structure):
     Attributes: UInt32
     GrantedAccess: UInt32
     HandleCount: UInt32
     PointerCount: UInt32
     Reserved: UInt32 * 10
-class PUBLIC_OBJECT_TYPE_INFORMATION(EasyCastStructure):
+class PUBLIC_OBJECT_TYPE_INFORMATION(Structure):
     TypeName: win32more.Windows.Win32.Foundation.UNICODE_STRING
     Reserved: UInt32 * 22
 @winfunctype_pointer
@@ -1551,51 +1551,51 @@ def PWLDP_SETDYNAMICCODETRUST_API(hFileHandle: win32more.Windows.Win32.Foundatio
 def PWLDP_SETWINDOWSLOCKDOWNRESTRICTION_API(LockdownRestriction: win32more.Windows.Win32.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_RESTRICTION) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def REGINSTALLA(hm: win32more.Windows.Win32.Foundation.HMODULE, pszSection: win32more.Windows.Win32.Foundation.PSTR, pstTable: POINTER(win32more.Windows.Win32.System.WindowsProgramming.STRTABLEA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class STRENTRYA(EasyCastStructure):
+class STRENTRYA(Structure):
     pszName: win32more.Windows.Win32.Foundation.PSTR
     pszValue: win32more.Windows.Win32.Foundation.PSTR
-class STRENTRYW(EasyCastStructure):
+class STRENTRYW(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     pszValue: win32more.Windows.Win32.Foundation.PWSTR
 STRENTRY = UnicodeAlias('STRENTRYW')
-class STRINGEXSTRUCT(EasyCastStructure):
+class STRINGEXSTRUCT(Structure):
     dwSize: UInt32
     uDeterminePos: UInt32
     uDetermineDelimPos: UInt32
     uYomiPos: UInt32
     uYomiDelimPos: UInt32
-class STRTABLEA(EasyCastStructure):
+class STRTABLEA(Structure):
     cEntries: UInt32
     pse: POINTER(win32more.Windows.Win32.System.WindowsProgramming.STRENTRYA)
-class STRTABLEW(EasyCastStructure):
+class STRTABLEW(Structure):
     cEntries: UInt32
     pse: POINTER(win32more.Windows.Win32.System.WindowsProgramming.STRENTRYW)
 STRTABLE = UnicodeAlias('STRTABLEW')
-class SYSTEM_BASIC_INFORMATION(EasyCastStructure):
+class SYSTEM_BASIC_INFORMATION(Structure):
     Reserved1: Byte * 24
     Reserved2: VoidPtr * 4
     NumberOfProcessors: SByte
-class SYSTEM_CODEINTEGRITY_INFORMATION(EasyCastStructure):
+class SYSTEM_CODEINTEGRITY_INFORMATION(Structure):
     Length: UInt32
     CodeIntegrityOptions: UInt32
-class SYSTEM_EXCEPTION_INFORMATION(EasyCastStructure):
+class SYSTEM_EXCEPTION_INFORMATION(Structure):
     Reserved1: Byte * 16
-class SYSTEM_INTERRUPT_INFORMATION(EasyCastStructure):
+class SYSTEM_INTERRUPT_INFORMATION(Structure):
     Reserved1: Byte * 24
-class SYSTEM_LOOKASIDE_INFORMATION(EasyCastStructure):
+class SYSTEM_LOOKASIDE_INFORMATION(Structure):
     Reserved1: Byte * 32
-class SYSTEM_PERFORMANCE_INFORMATION(EasyCastStructure):
+class SYSTEM_PERFORMANCE_INFORMATION(Structure):
     Reserved1: Byte * 312
-class SYSTEM_POLICY_INFORMATION(EasyCastStructure):
+class SYSTEM_POLICY_INFORMATION(Structure):
     Reserved1: VoidPtr * 2
     Reserved2: UInt32 * 3
-class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION(EasyCastStructure):
+class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION(Structure):
     IdleTime: Int64
     KernelTime: Int64
     UserTime: Int64
     Reserved1: Int64 * 2
     Reserved2: UInt32
-class SYSTEM_PROCESS_INFORMATION(EasyCastStructure):
+class SYSTEM_PROCESS_INFORMATION(Structure):
     NextEntryOffset: UInt32
     NumberOfThreads: UInt32
     Reserved1: Byte * 48
@@ -1619,11 +1619,11 @@ class SYSTEM_PROCESS_INFORMATION(EasyCastStructure):
     PeakPagefileUsage: UIntPtr
     PrivatePageCount: UIntPtr
     Reserved7: Int64 * 6
-class SYSTEM_REGISTRY_QUOTA_INFORMATION(EasyCastStructure):
+class SYSTEM_REGISTRY_QUOTA_INFORMATION(Structure):
     RegistryQuotaAllowed: UInt32
     RegistryQuotaUsed: UInt32
     Reserved1: VoidPtr
-class SYSTEM_THREAD_INFORMATION(EasyCastStructure):
+class SYSTEM_THREAD_INFORMATION(Structure):
     Reserved1: Int64 * 3
     Reserved2: UInt32
     StartAddress: VoidPtr
@@ -1633,19 +1633,19 @@ class SYSTEM_THREAD_INFORMATION(EasyCastStructure):
     Reserved3: UInt32
     ThreadState: UInt32
     WaitReason: UInt32
-class SYSTEM_TIMEOFDAY_INFORMATION(EasyCastStructure):
+class SYSTEM_TIMEOFDAY_INFORMATION(Structure):
     Reserved1: Byte * 48
 if ARCH in 'X64,ARM64':
-    class TCP_REQUEST_QUERY_INFORMATION_EX32_XP(EasyCastStructure):
+    class TCP_REQUEST_QUERY_INFORMATION_EX32_XP(Structure):
         ID: win32more.Windows.Win32.System.WindowsProgramming.TDIObjectID
         Context: UInt32 * 4
-class TCP_REQUEST_QUERY_INFORMATION_EX_W2K(EasyCastStructure):
+class TCP_REQUEST_QUERY_INFORMATION_EX_W2K(Structure):
     ID: win32more.Windows.Win32.System.WindowsProgramming.TDIObjectID
     Context: Byte * 16
-class TCP_REQUEST_QUERY_INFORMATION_EX_XP(EasyCastStructure):
+class TCP_REQUEST_QUERY_INFORMATION_EX_XP(Structure):
     ID: win32more.Windows.Win32.System.WindowsProgramming.TDIObjectID
     Context: UIntPtr * 4
-class TCP_REQUEST_SET_INFORMATION_EX(EasyCastStructure):
+class TCP_REQUEST_SET_INFORMATION_EX(Structure):
     ID: win32more.Windows.Win32.System.WindowsProgramming.TDIObjectID
     BufferSize: UInt32
     Buffer: Byte * 1
@@ -1658,15 +1658,15 @@ CL_TL_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY
 CO_TL_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 1024
 ER_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 896
 IF_ENTITY: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE = 512
-class TDIEntityID(EasyCastStructure):
+class TDIEntityID(Structure):
     tei_entity: win32more.Windows.Win32.System.WindowsProgramming.TDIENTITY_ENTITY_TYPE
     tei_instance: UInt32
-class TDIObjectID(EasyCastStructure):
+class TDIObjectID(Structure):
     toi_entity: win32more.Windows.Win32.System.WindowsProgramming.TDIEntityID
     toi_class: UInt32
     toi_type: UInt32
     toi_id: UInt32
-class TDI_TL_IO_CONTROL_ENDPOINT(EasyCastStructure):
+class TDI_TL_IO_CONTROL_ENDPOINT(Structure):
     Type: win32more.Windows.Win32.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE
     Level: UInt32
     Anonymous: _Anonymous_e__Union
@@ -1674,7 +1674,7 @@ class TDI_TL_IO_CONTROL_ENDPOINT(EasyCastStructure):
     InputBufferLength: UInt32
     OutputBuffer: VoidPtr
     OutputBufferLength: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         IoControlCode: UInt32
         OptionName: UInt32
 TDI_TL_IO_CONTROL_TYPE = Int32
@@ -1682,9 +1682,9 @@ EndpointIoControlType: win32more.Windows.Win32.System.WindowsProgramming.TDI_TL_
 SetSockOptIoControlType: win32more.Windows.Win32.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE = 1
 GetSockOptIoControlType: win32more.Windows.Win32.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE = 2
 SocketIoControlType: win32more.Windows.Win32.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE = 3
-class THREAD_NAME_INFORMATION(EasyCastStructure):
+class THREAD_NAME_INFORMATION(Structure):
     ThreadName: win32more.Windows.Win32.Foundation.UNICODE_STRING
-class UNDETERMINESTRUCT(EasyCastStructure):
+class UNDETERMINESTRUCT(Structure):
     dwSize: UInt32
     uDefIMESize: UInt32
     uDefIMEPos: UInt32
@@ -1705,13 +1705,13 @@ VALUENAME_ENTERPRISE_DEFINED_CLASS_ID: win32more.Windows.Win32.System.WindowsPro
 VALUENAME_BUILT_IN_LIST: win32more.Windows.Win32.System.WindowsProgramming.VALUENAME = 2
 WINSTATIONINFOCLASS = Int32
 WinStationInformation: win32more.Windows.Win32.System.WindowsProgramming.WINSTATIONINFOCLASS = 8
-class WINSTATIONINFORMATIONW(EasyCastStructure):
+class WINSTATIONINFORMATIONW(Structure):
     Reserved2: Byte * 70
     LogonId: UInt32
     Reserved3: Byte * 1140
 @winfunctype_pointer
 def WINWATCHNOTIFYPROC(hww: win32more.Windows.Win32.System.WindowsProgramming.HWINWATCH, hwnd: win32more.Windows.Win32.Foundation.HWND, code: UInt32, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Void: ...
-class WLDP_DEVICE_SECURITY_INFORMATION(EasyCastStructure):
+class WLDP_DEVICE_SECURITY_INFORMATION(Structure):
     UnlockIdSize: UInt32
     UnlockId: POINTER(Byte)
     ManufacturerIDLength: UInt32
@@ -1737,7 +1737,7 @@ WLDP_HOST_ID_IE: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID 
 WLDP_HOST_ID_MSI: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 6
 WLDP_HOST_ID_ALL: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 7
 WLDP_HOST_ID_MAX: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID = 8
-class WLDP_HOST_INFORMATION(EasyCastStructure):
+class WLDP_HOST_INFORMATION(Structure):
     dwRevision: UInt32
     dwHostId: win32more.Windows.Win32.System.WindowsProgramming.WLDP_HOST_ID
     szSource: win32more.Windows.Win32.Foundation.PWSTR

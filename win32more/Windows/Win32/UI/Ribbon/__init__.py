@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -140,13 +140,13 @@ UI_EVENTLOCATION_Ribbon: win32more.Windows.Win32.UI.Ribbon.UI_EVENTLOCATION = 0
 UI_EVENTLOCATION_QAT: win32more.Windows.Win32.UI.Ribbon.UI_EVENTLOCATION = 1
 UI_EVENTLOCATION_ApplicationMenu: win32more.Windows.Win32.UI.Ribbon.UI_EVENTLOCATION = 2
 UI_EVENTLOCATION_ContextPopup: win32more.Windows.Win32.UI.Ribbon.UI_EVENTLOCATION = 3
-class UI_EVENTPARAMS(EasyCastStructure):
+class UI_EVENTPARAMS(Structure):
     EventType: win32more.Windows.Win32.UI.Ribbon.UI_EVENTTYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Modes: Int32
         Params: win32more.Windows.Win32.UI.Ribbon.UI_EVENTPARAMS_COMMAND
-class UI_EVENTPARAMS_COMMAND(EasyCastStructure):
+class UI_EVENTPARAMS_COMMAND(Structure):
     CommandID: UInt32
     CommandName: win32more.Windows.Win32.Foundation.PWSTR
     ParentCommandID: UInt32

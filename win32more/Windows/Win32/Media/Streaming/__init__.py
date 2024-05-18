@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Streaming
@@ -19,42 +19,42 @@ DEVPKEY_Device_SupportsSetNextAVT: win32more.Windows.Win32.Devices.Properties.DE
 GUID_DEVINTERFACE_DMR: Guid = Guid('{d0875fb4-2196-4c7a-a63d-e416addd60a1}')
 GUID_DEVINTERFACE_DMP: Guid = Guid('{25b4e268-2a05-496e-803b-266837fbda4b}')
 GUID_DEVINTERFACE_DMS: Guid = Guid('{c96037ae-a558-4470-b432-115a31b85553}')
-class CapturedMetadataExposureCompensation(EasyCastStructure):
+class CapturedMetadataExposureCompensation(Structure):
     Flags: UInt64
     Value: Int32
-class CapturedMetadataISOGains(EasyCastStructure):
+class CapturedMetadataISOGains(Structure):
     AnalogGain: Single
     DigitalGain: Single
-class CapturedMetadataWhiteBalanceGains(EasyCastStructure):
+class CapturedMetadataWhiteBalanceGains(Structure):
     R: Single
     G: Single
     B: Single
-class FaceCharacterization(EasyCastStructure):
+class FaceCharacterization(Structure):
     BlinkScoreLeft: UInt32
     BlinkScoreRight: UInt32
     FacialExpression: UInt32
     FacialExpressionScore: UInt32
-class FaceCharacterizationBlobHeader(EasyCastStructure):
+class FaceCharacterizationBlobHeader(Structure):
     Size: UInt32
     Count: UInt32
-class FaceRectInfo(EasyCastStructure):
+class FaceRectInfo(Structure):
     Region: win32more.Windows.Win32.Foundation.RECT
     confidenceLevel: Int32
-class FaceRectInfoBlobHeader(EasyCastStructure):
+class FaceRectInfoBlobHeader(Structure):
     Size: UInt32
     Count: UInt32
-class HistogramBlobHeader(EasyCastStructure):
+class HistogramBlobHeader(Structure):
     Size: UInt32
     Histograms: UInt32
-class HistogramDataHeader(EasyCastStructure):
+class HistogramDataHeader(Structure):
     Size: UInt32
     ChannelMask: UInt32
     Linear: UInt32
-class HistogramGrid(EasyCastStructure):
+class HistogramGrid(Structure):
     Width: UInt32
     Height: UInt32
     Region: win32more.Windows.Win32.Foundation.RECT
-class HistogramHeader(EasyCastStructure):
+class HistogramHeader(Structure):
     Size: UInt32
     Bins: UInt32
     FourCC: UInt32
@@ -67,7 +67,7 @@ MF_TRANSFER_VIDEO_FRAME_FLAGS = Int32
 MF_TRANSFER_VIDEO_FRAME_DEFAULT: win32more.Windows.Win32.Media.Streaming.MF_TRANSFER_VIDEO_FRAME_FLAGS = 0
 MF_TRANSFER_VIDEO_FRAME_STRETCH: win32more.Windows.Win32.Media.Streaming.MF_TRANSFER_VIDEO_FRAME_FLAGS = 1
 MF_TRANSFER_VIDEO_FRAME_IGNORE_PAR: win32more.Windows.Win32.Media.Streaming.MF_TRANSFER_VIDEO_FRAME_FLAGS = 2
-class MetadataTimeStamps(EasyCastStructure):
+class MetadataTimeStamps(Structure):
     Flags: UInt32
     Device: Int64
     Presentation: Int64

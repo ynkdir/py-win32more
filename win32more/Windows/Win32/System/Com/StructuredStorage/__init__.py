@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -319,76 +319,76 @@ def VariantToPropVariant(pVar: POINTER(win32more.Windows.Win32.System.Variant.VA
 def StgSerializePropVariant(ppropvar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT), ppProp: POINTER(POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE)), pcb: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('PROPSYS.dll')
 def StgDeserializePropVariant(pprop: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.SERIALIZEDPROPERTYVALUE), cbMax: UInt32, ppropvar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class BSTRBLOB(EasyCastStructure):
+class BSTRBLOB(Structure):
     cbSize: UInt32
     pData: POINTER(Byte)
-class CABOOL(EasyCastStructure):
+class CABOOL(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)
-class CABSTR(EasyCastStructure):
+class CABSTR(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.Foundation.BSTR)
-class CABSTRBLOB(EasyCastStructure):
+class CABSTRBLOB(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.BSTRBLOB)
-class CAC(EasyCastStructure):
+class CAC(Structure):
     cElems: UInt32
     pElems: win32more.Windows.Win32.Foundation.PSTR
-class CACLIPDATA(EasyCastStructure):
+class CACLIPDATA(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.CLIPDATA)
-class CACLSID(EasyCastStructure):
+class CACLSID(Structure):
     cElems: UInt32
     pElems: POINTER(Guid)
-class CACY(EasyCastStructure):
+class CACY(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.System.Com.CY)
-class CADATE(EasyCastStructure):
+class CADATE(Structure):
     cElems: UInt32
     pElems: POINTER(Double)
-class CADBL(EasyCastStructure):
+class CADBL(Structure):
     cElems: UInt32
     pElems: POINTER(Double)
-class CAFILETIME(EasyCastStructure):
+class CAFILETIME(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
-class CAFLT(EasyCastStructure):
+class CAFLT(Structure):
     cElems: UInt32
     pElems: POINTER(Single)
-class CAH(EasyCastStructure):
+class CAH(Structure):
     cElems: UInt32
     pElems: POINTER(Int64)
-class CAI(EasyCastStructure):
+class CAI(Structure):
     cElems: UInt32
     pElems: POINTER(Int16)
-class CAL(EasyCastStructure):
+class CAL(Structure):
     cElems: UInt32
     pElems: POINTER(Int32)
-class CALPSTR(EasyCastStructure):
+class CALPSTR(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.Foundation.PSTR)
-class CALPWSTR(EasyCastStructure):
+class CALPWSTR(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class CAPROPVARIANT(EasyCastStructure):
+class CAPROPVARIANT(Structure):
     cElems: UInt32
     pElems: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
-class CASCODE(EasyCastStructure):
+class CASCODE(Structure):
     cElems: UInt32
     pElems: POINTER(Int32)
-class CAUB(EasyCastStructure):
+class CAUB(Structure):
     cElems: UInt32
     pElems: POINTER(Byte)
-class CAUH(EasyCastStructure):
+class CAUH(Structure):
     cElems: UInt32
     pElems: POINTER(UInt64)
-class CAUI(EasyCastStructure):
+class CAUI(Structure):
     cElems: UInt32
     pElems: POINTER(UInt16)
-class CAUL(EasyCastStructure):
+class CAUL(Structure):
     cElems: UInt32
     pElems: POINTER(UInt32)
-class CLIPDATA(EasyCastStructure):
+class CLIPDATA(Structure):
     cbSize: UInt32
     ulClipFmt: Int32
     pClipData: POINTER(Byte)
@@ -592,9 +592,9 @@ class IStorage(ComPtr):
     def SetStateBits(self, grfStateBits: UInt32, grfMask: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def Stat(self, pstatstg: POINTER(win32more.Windows.Win32.System.Com.STATSTG), grfStatFlag: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class OLESTREAM(EasyCastStructure):
+class OLESTREAM(Structure):
     lpstbl: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.OLESTREAMVTBL)
-class OLESTREAMVTBL(EasyCastStructure):
+class OLESTREAMVTBL(Structure):
     Get: IntPtr
     Put: IntPtr
 PIDMSI_STATUS_VALUE = Int32
@@ -608,34 +608,34 @@ PIDMSI_STATUS_REVIEW: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMS
 PIDMSI_STATUS_PROOF: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 7
 PIDMSI_STATUS_FINAL: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 8
 PIDMSI_STATUS_OTHER: win32more.Windows.Win32.System.Com.StructuredStorage.PIDMSI_STATUS_VALUE = 32767
-class PROPBAG2(EasyCastStructure):
+class PROPBAG2(Structure):
     dwType: UInt32
     vt: win32more.Windows.Win32.System.Variant.VARENUM
     cfType: UInt16
     dwHint: UInt32
     pstrName: win32more.Windows.Win32.Foundation.PWSTR
     clsid: Guid
-class PROPSPEC(EasyCastStructure):
+class PROPSPEC(Structure):
     ulKind: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC_KIND
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         propid: UInt32
         lpwstr: win32more.Windows.Win32.Foundation.PWSTR
 PROPSPEC_KIND = UInt32
 PRSPEC_LPWSTR: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC_KIND = 0
 PRSPEC_PROPID: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC_KIND = 1
-class PROPVARIANT(EasyCastStructure):
+class PROPVARIANT(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         decVal: win32more.Windows.Win32.Foundation.DECIMAL
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             vt: win32more.Windows.Win32.System.Variant.VARENUM
             wReserved1: UInt16
             wReserved2: UInt16
             wReserved3: UInt16
             Anonymous: _Anonymous_e__Union
-            class _Anonymous_e__Union(EasyCastUnion):
+            class _Anonymous_e__Union(Union):
                 cVal: win32more.Windows.Win32.Foundation.CHAR
                 bVal: Byte
                 iVal: Int16
@@ -732,14 +732,14 @@ PVCU_HOUR: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_
 PVCU_DAY: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 4
 PVCU_MONTH: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 5
 PVCU_YEAR: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVAR_COMPARE_UNIT = 6
-class RemSNB(EasyCastStructure):
+class RemSNB(Structure):
     ulCntStr: UInt32
     ulCntChar: UInt32
     rgString: Char * 1
-class SERIALIZEDPROPERTYVALUE(EasyCastStructure):
+class SERIALIZEDPROPERTYVALUE(Structure):
     dwType: UInt32
     rgb: Byte * 1
-class STATPROPSETSTG(EasyCastStructure):
+class STATPROPSETSTG(Structure):
     fmtid: Guid
     clsid: Guid
     grfFlags: UInt32
@@ -747,7 +747,7 @@ class STATPROPSETSTG(EasyCastStructure):
     ctime: win32more.Windows.Win32.Foundation.FILETIME
     atime: win32more.Windows.Win32.Foundation.FILETIME
     dwOSVersion: UInt32
-class STATPROPSTG(EasyCastStructure):
+class STATPROPSTG(Structure):
     lpwstrName: win32more.Windows.Win32.Foundation.PWSTR
     propid: UInt32
     vt: win32more.Windows.Win32.System.Variant.VARENUM
@@ -762,12 +762,12 @@ STGMOVE = Int32
 STGMOVE_MOVE: win32more.Windows.Win32.System.Com.StructuredStorage.STGMOVE = 0
 STGMOVE_COPY: win32more.Windows.Win32.System.Com.StructuredStorage.STGMOVE = 1
 STGMOVE_SHALLOWCOPY: win32more.Windows.Win32.System.Com.StructuredStorage.STGMOVE = 2
-class STGOPTIONS(EasyCastStructure):
+class STGOPTIONS(Structure):
     usVersion: UInt16
     reserved: UInt16
     ulSectorSize: UInt32
     pwcsTemplateFile: win32more.Windows.Win32.Foundation.PWSTR
-class VERSIONEDSTREAM(EasyCastStructure):
+class VERSIONEDSTREAM(Structure):
     guidVersion: Guid
     pStream: win32more.Windows.Win32.System.Com.IStream
 

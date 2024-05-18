@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.Ldap
 import win32more.Windows.Win32.Security.Authentication.Identity
@@ -762,13 +762,13 @@ def ber_flatten(pBerElement: POINTER(win32more.Windows.Win32.Networking.Ldap.Ber
 def ber_printf(pBerElement: POINTER(win32more.Windows.Win32.Networking.Ldap.BerElement), fmt: win32more.Windows.Win32.Foundation.PSTR, *__arglist) -> Int32: ...
 @cfunctype('WLDAP32.dll', variadic=True)
 def ber_scanf(pBerElement: POINTER(win32more.Windows.Win32.Networking.Ldap.BerElement), fmt: win32more.Windows.Win32.Foundation.PSTR, *__arglist) -> UInt32: ...
-class BerElement(EasyCastStructure):
+class BerElement(Structure):
     opaque: win32more.Windows.Win32.Foundation.PSTR
 @cfunctype_pointer
 def DBGPRINT(Format: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
 @cfunctype_pointer
 def DEREFERENCECONNECTION(PrimaryConnection: POINTER(win32more.Windows.Win32.Networking.Ldap.LDAP), ConnectionToDereference: POINTER(win32more.Windows.Win32.Networking.Ldap.LDAP)) -> UInt32: ...
-class LDAP(EasyCastStructure):
+class LDAP(Structure):
     ld_sb: _ld_sb_e__Struct
     ld_host: win32more.Windows.Win32.Foundation.PSTR
     ld_version: UInt32
@@ -785,28 +785,28 @@ class LDAP(EasyCastStructure):
     ld_cldaptimeout: UInt32
     ld_refhoplimit: UInt32
     ld_options: UInt32
-    class _ld_sb_e__Struct(EasyCastStructure):
+    class _ld_sb_e__Struct(Structure):
         sb_sd: UIntPtr
         Reserved1: Byte * 41
         sb_naddr: UIntPtr
         Reserved2: Byte * 24
-class LDAPAPIFeatureInfoA(EasyCastStructure):
+class LDAPAPIFeatureInfoA(Structure):
     ldapaif_info_version: Int32
     ldapaif_name: win32more.Windows.Win32.Foundation.PSTR
     ldapaif_version: Int32
-class LDAPAPIFeatureInfoW(EasyCastStructure):
+class LDAPAPIFeatureInfoW(Structure):
     ldapaif_info_version: Int32
     ldapaif_name: win32more.Windows.Win32.Foundation.PWSTR
     ldapaif_version: Int32
 LDAPAPIFeatureInfo = UnicodeAlias('LDAPAPIFeatureInfoW')
-class LDAPAPIInfoA(EasyCastStructure):
+class LDAPAPIInfoA(Structure):
     ldapai_info_version: Int32
     ldapai_api_version: Int32
     ldapai_protocol_version: Int32
     ldapai_extensions: POINTER(POINTER(SByte))
     ldapai_vendor_name: win32more.Windows.Win32.Foundation.PSTR
     ldapai_vendor_version: Int32
-class LDAPAPIInfoW(EasyCastStructure):
+class LDAPAPIInfoW(Structure):
     ldapai_info_version: Int32
     ldapai_api_version: Int32
     ldapai_protocol_version: Int32
@@ -814,16 +814,16 @@ class LDAPAPIInfoW(EasyCastStructure):
     ldapai_vendor_name: win32more.Windows.Win32.Foundation.PWSTR
     ldapai_vendor_version: Int32
 LDAPAPIInfo = UnicodeAlias('LDAPAPIInfoW')
-class LDAPControlA(EasyCastStructure):
+class LDAPControlA(Structure):
     ldctl_oid: win32more.Windows.Win32.Foundation.PSTR
     ldctl_value: win32more.Windows.Win32.Networking.Ldap.LDAP_BERVAL
     ldctl_iscritical: win32more.Windows.Win32.Foundation.BOOLEAN
-class LDAPControlW(EasyCastStructure):
+class LDAPControlW(Structure):
     ldctl_oid: win32more.Windows.Win32.Foundation.PWSTR
     ldctl_value: win32more.Windows.Win32.Networking.Ldap.LDAP_BERVAL
     ldctl_iscritical: win32more.Windows.Win32.Foundation.BOOLEAN
 LDAPControl = UnicodeAlias('LDAPControlW')
-class LDAPMessage(EasyCastStructure):
+class LDAPMessage(Structure):
     lm_msgid: UInt32
     lm_msgtype: UInt32
     lm_ber: VoidPtr
@@ -837,31 +837,31 @@ class LDAPMessage(EasyCastStructure):
     lm_chased: win32more.Windows.Win32.Foundation.BOOLEAN
     lm_eom: win32more.Windows.Win32.Foundation.BOOLEAN
     ConnectionReferenced: win32more.Windows.Win32.Foundation.BOOLEAN
-class LDAPModA(EasyCastStructure):
+class LDAPModA(Structure):
     mod_op: UInt32
     mod_type: win32more.Windows.Win32.Foundation.PSTR
     mod_vals: _mod_vals_e__Union
-    class _mod_vals_e__Union(EasyCastUnion):
+    class _mod_vals_e__Union(Union):
         modv_strvals: POINTER(win32more.Windows.Win32.Foundation.PSTR)
         modv_bvals: POINTER(POINTER(win32more.Windows.Win32.Networking.Ldap.LDAP_BERVAL))
-class LDAPModW(EasyCastStructure):
+class LDAPModW(Structure):
     mod_op: UInt32
     mod_type: win32more.Windows.Win32.Foundation.PWSTR
     mod_vals: _mod_vals_e__Union
-    class _mod_vals_e__Union(EasyCastUnion):
+    class _mod_vals_e__Union(Union):
         modv_strvals: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
         modv_bvals: POINTER(POINTER(win32more.Windows.Win32.Networking.Ldap.LDAP_BERVAL))
 LDAPMod = UnicodeAlias('LDAPModW')
-class LDAPSortKeyA(EasyCastStructure):
+class LDAPSortKeyA(Structure):
     sk_attrtype: win32more.Windows.Win32.Foundation.PSTR
     sk_matchruleoid: win32more.Windows.Win32.Foundation.PSTR
     sk_reverseorder: win32more.Windows.Win32.Foundation.BOOLEAN
-class LDAPSortKeyW(EasyCastStructure):
+class LDAPSortKeyW(Structure):
     sk_attrtype: win32more.Windows.Win32.Foundation.PWSTR
     sk_matchruleoid: win32more.Windows.Win32.Foundation.PWSTR
     sk_reverseorder: win32more.Windows.Win32.Foundation.BOOLEAN
 LDAPSortKey = UnicodeAlias('LDAPSortKeyW')
-class LDAPVLVInfo(EasyCastStructure):
+class LDAPVLVInfo(Structure):
     ldvlv_version: Int32
     ldvlv_before_count: UInt32
     ldvlv_after_count: UInt32
@@ -870,10 +870,10 @@ class LDAPVLVInfo(EasyCastStructure):
     ldvlv_attrvalue: POINTER(win32more.Windows.Win32.Networking.Ldap.LDAP_BERVAL)
     ldvlv_context: POINTER(win32more.Windows.Win32.Networking.Ldap.LDAP_BERVAL)
     ldvlv_extradata: VoidPtr
-class LDAP_BERVAL(EasyCastStructure):
+class LDAP_BERVAL(Structure):
     bv_len: UInt32
     bv_val: win32more.Windows.Win32.Foundation.PSTR
-class LDAP_REFERRAL_CALLBACK(EasyCastStructure):
+class LDAP_REFERRAL_CALLBACK(Structure):
     SizeOfCallbacks: UInt32
     QueryForConnection: win32more.Windows.Win32.Networking.Ldap.QUERYFORCONNECTION
     NotifyRoutine: win32more.Windows.Win32.Networking.Ldap.NOTIFYOFNEWCONNECTION
@@ -942,10 +942,10 @@ LDAP_CONTROL_NOT_FOUND: win32more.Windows.Win32.Networking.Ldap.LDAP_RETCODE = 9
 LDAP_MORE_RESULTS_TO_RETURN: win32more.Windows.Win32.Networking.Ldap.LDAP_RETCODE = 95
 LDAP_CLIENT_LOOP: win32more.Windows.Win32.Networking.Ldap.LDAP_RETCODE = 96
 LDAP_REFERRAL_LIMIT_EXCEEDED: win32more.Windows.Win32.Networking.Ldap.LDAP_RETCODE = 97
-class LDAP_TIMEVAL(EasyCastStructure):
+class LDAP_TIMEVAL(Structure):
     tv_sec: Int32
     tv_usec: Int32
-class LDAP_VERSION_INFO(EasyCastStructure):
+class LDAP_VERSION_INFO(Structure):
     lv_size: UInt32
     lv_major: UInt32
     lv_minor: UInt32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Time
 wszW32TimeRegKeyTimeProviders: String = 'System\\CurrentControlSet\\Services\\W32Time\\TimeProviders'
@@ -43,7 +43,7 @@ def TzSpecificLocalTimeToSystemTimeEx(lpTimeZoneInformation: POINTER(win32more.W
 def LocalFileTimeToLocalSystemTime(timeZoneInformation: POINTER(win32more.Windows.Win32.System.Time.TIME_ZONE_INFORMATION), localFileTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME), localSystemTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def LocalSystemTimeToLocalFileTime(timeZoneInformation: POINTER(win32more.Windows.Win32.System.Time.TIME_ZONE_INFORMATION), localSystemTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME), localFileTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class DYNAMIC_TIME_ZONE_INFORMATION(EasyCastStructure):
+class DYNAMIC_TIME_ZONE_INFORMATION(Structure):
     Bias: Int32
     StandardName: Char * 32
     StandardDate: win32more.Windows.Win32.Foundation.SYSTEMTIME
@@ -53,7 +53,7 @@ class DYNAMIC_TIME_ZONE_INFORMATION(EasyCastStructure):
     DaylightBias: Int32
     TimeZoneKeyName: Char * 128
     DynamicDaylightTimeDisabled: win32more.Windows.Win32.Foundation.BOOLEAN
-class TIME_ZONE_INFORMATION(EasyCastStructure):
+class TIME_ZONE_INFORMATION(Structure):
     Bias: Int32
     StandardName: Char * 32
     StandardDate: win32more.Windows.Win32.Foundation.SYSTEMTIME

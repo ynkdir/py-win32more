@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.TaskScheduler
@@ -48,7 +48,7 @@ TASK_TRIGGER_FLAG_DISABLED: UInt32 = 4
 TASK_MAX_RUN_TIMES: UInt32 = 1440
 CLSID_CTask: Guid = Guid('{148bd520-a2ab-11ce-b11f-00aa00530503}')
 CLSID_CTaskScheduler: Guid = Guid('{148bd52a-a2ab-11ce-b11f-00aa00530503}')
-class DAILY(EasyCastStructure):
+class DAILY(Structure):
     DaysInterval: UInt16
 class IAction(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
@@ -951,10 +951,10 @@ class IWeeklyTrigger(ComPtr):
     def get_RandomDelay(self, pRandomDelay: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def put_RandomDelay(self, randomDelay: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class MONTHLYDATE(EasyCastStructure):
+class MONTHLYDATE(Structure):
     rgfDays: UInt32
     rgfMonths: UInt16
-class MONTHLYDOW(EasyCastStructure):
+class MONTHLYDOW(Structure):
     wWhichWeek: UInt16
     rgfDaysOfTheWeek: UInt16
     rgfMonths: UInt16
@@ -1024,7 +1024,7 @@ TASK_STATE_DISABLED: win32more.Windows.Win32.System.TaskScheduler.TASK_STATE = 1
 TASK_STATE_QUEUED: win32more.Windows.Win32.System.TaskScheduler.TASK_STATE = 2
 TASK_STATE_READY: win32more.Windows.Win32.System.TaskScheduler.TASK_STATE = 3
 TASK_STATE_RUNNING: win32more.Windows.Win32.System.TaskScheduler.TASK_STATE = 4
-class TASK_TRIGGER(EasyCastStructure):
+class TASK_TRIGGER(Structure):
     cbTriggerSize: UInt16
     Reserved1: UInt16
     wBeginYear: UInt16
@@ -1064,7 +1064,7 @@ TASK_TRIGGER_BOOT: win32more.Windows.Win32.System.TaskScheduler.TASK_TRIGGER_TYP
 TASK_TRIGGER_LOGON: win32more.Windows.Win32.System.TaskScheduler.TASK_TRIGGER_TYPE2 = 9
 TASK_TRIGGER_SESSION_STATE_CHANGE: win32more.Windows.Win32.System.TaskScheduler.TASK_TRIGGER_TYPE2 = 11
 TASK_TRIGGER_CUSTOM_TRIGGER_01: win32more.Windows.Win32.System.TaskScheduler.TASK_TRIGGER_TYPE2 = 12
-class TRIGGER_TYPE_UNION(EasyCastUnion):
+class TRIGGER_TYPE_UNION(Union):
     Daily: win32more.Windows.Win32.System.TaskScheduler.DAILY
     Weekly: win32more.Windows.Win32.System.TaskScheduler.WEEKLY
     MonthlyDate: win32more.Windows.Win32.System.TaskScheduler.MONTHLYDATE
@@ -1072,7 +1072,7 @@ class TRIGGER_TYPE_UNION(EasyCastUnion):
 TaskHandlerPS = Guid('{f2a69db7-da2c-4352-9066-86fee6dacac9}')
 TaskHandlerStatusPS = Guid('{9f15266d-d7ba-48f0-93c1-e6895f6fe5ac}')
 TaskScheduler = Guid('{0f87369f-a4e5-4cfc-bd3e-73e6154572dd}')
-class WEEKLY(EasyCastStructure):
+class WEEKLY(Structure):
     WeeksInterval: UInt16
     rgfDaysOfTheWeek: UInt16
 

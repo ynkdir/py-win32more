@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
@@ -311,7 +311,7 @@ def EapHostPeerGetIdentity(dwVersion: UInt32, dwFlags: UInt32, eapMethodType: wi
 def EapHostPeerGetEncryptedPassword(dwSizeofPassword: UInt32, szPassword: win32more.Windows.Win32.Foundation.PWSTR, ppszEncPassword: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
 @winfunctype('eappprxy.dll')
 def EapHostPeerFreeRuntimeMemory(pData: POINTER(Byte)) -> Void: ...
-class EAPHOST_AUTH_INFO(EasyCastStructure):
+class EAPHOST_AUTH_INFO(Structure):
     status: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS
     dwErrorCode: UInt32
     dwReasonCode: UInt32
@@ -323,7 +323,7 @@ EapHostAuthNegotiatingType: win32more.Windows.Win32.Security.ExtensibleAuthentic
 EapHostAuthInProgress: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 4
 EapHostAuthSucceeded: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 5
 EapHostAuthFailed: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS = 6
-class EAPHOST_IDENTITY_UI_PARAMS(EasyCastStructure):
+class EAPHOST_IDENTITY_UI_PARAMS(Structure):
     eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
     dwFlags: UInt32
     dwSizeofConnectionData: UInt32
@@ -335,18 +335,18 @@ class EAPHOST_IDENTITY_UI_PARAMS(EasyCastStructure):
     pwszIdentity: win32more.Windows.Win32.Foundation.PWSTR
     dwError: UInt32
     pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)
-class EAPHOST_INTERACTIVE_UI_PARAMS(EasyCastStructure):
+class EAPHOST_INTERACTIVE_UI_PARAMS(Structure):
     dwSizeofContextData: UInt32
     pContextData: POINTER(Byte)
     dwSizeofInteractiveUIData: UInt32
     pInteractiveUIData: POINTER(Byte)
     dwError: UInt32
     pEapError: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ERROR)
-class EAP_ATTRIBUTE(EasyCastStructure):
+class EAP_ATTRIBUTE(Structure):
     eaType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE
     dwLength: UInt32
     pValue: POINTER(Byte)
-class EAP_ATTRIBUTES(EasyCastStructure):
+class EAP_ATTRIBUTES(Structure):
     dwNumberOfAttributes: UInt32
     pAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE)
 EAP_ATTRIBUTE_TYPE = Int32
@@ -448,7 +448,7 @@ eatMethodId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.E
 eatEMSK: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 9003
 eatSessionId: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = 9004
 eatReserved: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE = -1
-class EAP_AUTHENTICATOR_METHOD_ROUTINES(EasyCastStructure):
+class EAP_AUTHENTICATOR_METHOD_ROUTINES(Structure):
     dwSizeInBytes: UInt32
     pEapType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE)
     EapMethodAuthenticatorInitialize: IntPtr
@@ -465,11 +465,11 @@ EAP_AUTHENTICATOR_SEND_TIMEOUT = Int32
 EAP_AUTHENTICATOR_SEND_TIMEOUT_NONE: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_AUTHENTICATOR_SEND_TIMEOUT = 0
 EAP_AUTHENTICATOR_SEND_TIMEOUT_BASIC: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_AUTHENTICATOR_SEND_TIMEOUT = 1
 EAP_AUTHENTICATOR_SEND_TIMEOUT_INTERACTIVE: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_AUTHENTICATOR_SEND_TIMEOUT = 2
-class EAP_CONFIG_INPUT_FIELD_ARRAY(EasyCastStructure):
+class EAP_CONFIG_INPUT_FIELD_ARRAY(Structure):
     dwVersion: UInt32
     dwNumberOfFields: UInt32
     pFields: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_DATA)
-class EAP_CONFIG_INPUT_FIELD_DATA(EasyCastStructure):
+class EAP_CONFIG_INPUT_FIELD_DATA(Structure):
     dwSize: UInt32
     Type: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE
     dwFlagProps: UInt32
@@ -487,10 +487,10 @@ EapConfigInputPSK: win32more.Windows.Win32.Security.ExtensibleAuthenticationProt
 EapConfigInputEdit: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 6
 EapConfigSmartCardUsername: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 7
 EapConfigSmartCardError: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_TYPE = 8
-class EAP_CRED_EXPIRY_REQ(EasyCastStructure):
+class EAP_CRED_EXPIRY_REQ(Structure):
     curCreds: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY
     newCreds: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY
-class EAP_ERROR(EasyCastStructure):
+class EAP_ERROR(Structure):
     dwWinError: UInt32
     type: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
     dwReasonCode: UInt32
@@ -499,7 +499,7 @@ class EAP_ERROR(EasyCastStructure):
     helpLinkGuid: Guid
     pRootCauseString: win32more.Windows.Win32.Foundation.PWSTR
     pRepairString: win32more.Windows.Win32.Foundation.PWSTR
-class EAP_INTERACTIVE_UI_DATA(EasyCastStructure):
+class EAP_INTERACTIVE_UI_DATA(Structure):
     dwVersion: UInt32
     dwSize: UInt32
     dwDataType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_INTERACTIVE_UI_DATA_TYPE
@@ -519,33 +519,33 @@ EAP_METHOD_AUTHENTICATOR_RESPONSE_RESULT: win32more.Windows.Win32.Security.Exten
 EAP_METHOD_AUTHENTICATOR_RESPONSE_RESPOND: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 3
 EAP_METHOD_AUTHENTICATOR_RESPONSE_AUTHENTICATE: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 4
 EAP_METHOD_AUTHENTICATOR_RESPONSE_HANDLE_IDENTITY: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION = 5
-class EAP_METHOD_AUTHENTICATOR_RESULT(EasyCastStructure):
+class EAP_METHOD_AUTHENTICATOR_RESULT(Structure):
     fIsSuccess: win32more.Windows.Win32.Foundation.BOOL
     dwFailureReason: UInt32
     pAuthAttribs: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES)
-class EAP_METHOD_INFO(EasyCastStructure):
+class EAP_METHOD_INFO(Structure):
     eaptype: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
     pwszAuthorName: win32more.Windows.Win32.Foundation.PWSTR
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     eapProperties: UInt32
     pInnerMethodInfo: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO)
-class EAP_METHOD_INFO_ARRAY(EasyCastStructure):
+class EAP_METHOD_INFO_ARRAY(Structure):
     dwNumberOfMethods: UInt32
     pEapMethods: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO)
-class EAP_METHOD_INFO_ARRAY_EX(EasyCastStructure):
+class EAP_METHOD_INFO_ARRAY_EX(Structure):
     dwNumberOfMethods: UInt32
     pEapMethods: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_EX)
-class EAP_METHOD_INFO_EX(EasyCastStructure):
+class EAP_METHOD_INFO_EX(Structure):
     eaptype: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
     pwszAuthorName: win32more.Windows.Win32.Foundation.PWSTR
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     eapProperties: UInt32
     pInnerMethodInfoArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_INFO_ARRAY_EX)
-class EAP_METHOD_PROPERTY(EasyCastStructure):
+class EAP_METHOD_PROPERTY(Structure):
     eapMethodPropertyType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE
     eapMethodPropertyValueType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_TYPE
     eapMethodPropertyValue: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE
-class EAP_METHOD_PROPERTY_ARRAY(EasyCastStructure):
+class EAP_METHOD_PROPERTY_ARRAY(Structure):
     dwNumberOfProperties: UInt32
     pMethodProperty: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY)
 EAP_METHOD_PROPERTY_TYPE = Int32
@@ -580,27 +580,27 @@ emptPropMethodChaining: win32more.Windows.Win32.Security.ExtensibleAuthenticatio
 emptPropSharedStateEquivalence: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 28
 emptLegacyMethodPropertyFlag: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 31
 emptPropVendorSpecific: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_TYPE = 255
-class EAP_METHOD_PROPERTY_VALUE(EasyCastUnion):
+class EAP_METHOD_PROPERTY_VALUE(Union):
     empvBool: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_BOOL
     empvDword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_DWORD
     empvString: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_STRING
-class EAP_METHOD_PROPERTY_VALUE_BOOL(EasyCastStructure):
+class EAP_METHOD_PROPERTY_VALUE_BOOL(Structure):
     length: UInt32
     value: win32more.Windows.Win32.Foundation.BOOL
-class EAP_METHOD_PROPERTY_VALUE_DWORD(EasyCastStructure):
+class EAP_METHOD_PROPERTY_VALUE_DWORD(Structure):
     length: UInt32
     value: UInt32
-class EAP_METHOD_PROPERTY_VALUE_STRING(EasyCastStructure):
+class EAP_METHOD_PROPERTY_VALUE_STRING(Structure):
     length: UInt32
     value: POINTER(Byte)
 EAP_METHOD_PROPERTY_VALUE_TYPE = Int32
 empvtBool: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_TYPE = 0
 empvtDword: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_TYPE = 1
 empvtString: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_PROPERTY_VALUE_TYPE = 2
-class EAP_METHOD_TYPE(EasyCastStructure):
+class EAP_METHOD_TYPE(Structure):
     eapType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_TYPE
     dwAuthorId: UInt32
-class EAP_PEER_METHOD_ROUTINES(EasyCastStructure):
+class EAP_PEER_METHOD_ROUTINES(Structure):
     dwVersion: UInt32
     pEapType: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_TYPE)
     EapPeerInitialize: IntPtr
@@ -616,15 +616,15 @@ class EAP_PEER_METHOD_ROUTINES(EasyCastStructure):
     EapPeerSetResponseAttributes: IntPtr
     EapPeerEndSession: IntPtr
     EapPeerShutdown: IntPtr
-class EAP_TYPE(EasyCastStructure):
+class EAP_TYPE(Structure):
     type: Byte
     dwVendorId: UInt32
     dwVendorType: UInt32
-class EAP_UI_DATA_FORMAT(EasyCastUnion):
+class EAP_UI_DATA_FORMAT(Union):
     credData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY)
     credExpiryData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CRED_EXPIRY_REQ)
     credLogonData: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_CONFIG_INPUT_FIELD_ARRAY)
-class EapCertificateCredential(EasyCastStructure):
+class EapCertificateCredential(Structure):
     certHash: Byte * 20
     password: win32more.Windows.Win32.Foundation.PWSTR
 EapCode = Int32
@@ -634,7 +634,7 @@ EapCodeResponse: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtoc
 EapCodeSuccess: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCode = 3
 EapCodeFailure: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCode = 4
 EapCodeMaximum: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCode = 4
-class EapCredential(EasyCastStructure):
+class EapCredential(Structure):
     credType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType
     credData: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialTypeData
 EapCredentialType = Int32
@@ -643,7 +643,7 @@ EAP_USERNAME_PASSWORD_CREDENTIAL: win32more.Windows.Win32.Security.ExtensibleAut
 EAP_WINLOGON_CREDENTIAL: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType = 2
 EAP_CERTIFICATE_CREDENTIAL: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType = 3
 EAP_SIM_CREDENTIAL: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCredentialType = 4
-class EapCredentialTypeData(EasyCastUnion):
+class EapCredentialTypeData(Union):
     username_password: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapUsernamePasswordCredential
     certificate: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapCertificateCredential
     sim: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapSimCredential
@@ -652,7 +652,7 @@ EapHostPeerAuthStatus: win32more.Windows.Win32.Security.ExtensibleAuthentication
 EapHostPeerIdentity: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerAuthParams = 2
 EapHostPeerIdentityExtendedInfo: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerAuthParams = 3
 EapHostNapInfo: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerAuthParams = 4
-class EapHostPeerMethodResult(EasyCastStructure):
+class EapHostPeerMethodResult(Structure):
     fIsSuccess: win32more.Windows.Win32.Foundation.BOOL
     dwFailureReasonCode: UInt32
     fSaveConnectionData: win32more.Windows.Win32.Foundation.BOOL
@@ -677,12 +677,12 @@ EapHostPeerResponseInvokeUi: win32more.Windows.Win32.Security.ExtensibleAuthenti
 EapHostPeerResponseRespond: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 4
 EapHostPeerResponseStartAuthentication: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 5
 EapHostPeerResponseNone: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapHostPeerResponseAction = 6
-class EapPacket(EasyCastStructure):
+class EapPacket(Structure):
     Code: Byte
     Id: Byte
     Length: Byte * 2
     Data: Byte * 1
-class EapPeerMethodOutput(EasyCastStructure):
+class EapPeerMethodOutput(Structure):
     action: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction
     fAllowNotifications: win32more.Windows.Win32.Foundation.BOOL
 EapPeerMethodResponseAction = Int32
@@ -692,7 +692,7 @@ EapPeerMethodResponseActionResult: win32more.Windows.Win32.Security.ExtensibleAu
 EapPeerMethodResponseActionInvokeUI: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction = 3
 EapPeerMethodResponseActionRespond: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction = 4
 EapPeerMethodResponseActionNone: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResponseAction = 5
-class EapPeerMethodResult(EasyCastStructure):
+class EapPeerMethodResult(Structure):
     fIsSuccess: win32more.Windows.Win32.Foundation.BOOL
     dwFailureReasonCode: UInt32
     fSaveConnectionData: win32more.Windows.Win32.Foundation.BOOL
@@ -709,9 +709,9 @@ EapPeerMethodResultReason = Int32
 EapPeerMethodResultUnknown: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResultReason = 1
 EapPeerMethodResultSuccess: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResultReason = 2
 EapPeerMethodResultFailure: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EapPeerMethodResultReason = 3
-class EapSimCredential(EasyCastStructure):
+class EapSimCredential(Structure):
     iccID: win32more.Windows.Win32.Foundation.PWSTR
-class EapUsernamePasswordCredential(EasyCastStructure):
+class EapUsernamePasswordCredential(Structure):
     username: win32more.Windows.Win32.Foundation.PWSTR
     password: win32more.Windows.Win32.Foundation.PWSTR
 class IAccountingProviderConfig(ComPtr):
@@ -777,7 +777,7 @@ ISOLATION_STATE_UNKNOWN: win32more.Windows.Win32.Security.ExtensibleAuthenticati
 ISOLATION_STATE_NOT_RESTRICTED: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.ISOLATION_STATE = 1
 ISOLATION_STATE_IN_PROBATION: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.ISOLATION_STATE = 2
 ISOLATION_STATE_RESTRICTED_ACCESS: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.ISOLATION_STATE = 3
-class LEGACY_IDENTITY_UI_PARAMS(EasyCastStructure):
+class LEGACY_IDENTITY_UI_PARAMS(Structure):
     eapType: UInt32
     dwFlags: UInt32
     dwSizeofConnectionData: UInt32
@@ -788,14 +788,14 @@ class LEGACY_IDENTITY_UI_PARAMS(EasyCastStructure):
     pUserDataOut: POINTER(Byte)
     pwszIdentity: win32more.Windows.Win32.Foundation.PWSTR
     dwError: UInt32
-class LEGACY_INTERACTIVE_UI_PARAMS(EasyCastStructure):
+class LEGACY_INTERACTIVE_UI_PARAMS(Structure):
     eapType: UInt32
     dwSizeofContextData: UInt32
     pContextData: POINTER(Byte)
     dwSizeofInteractiveUIData: UInt32
     pInteractiveUIData: POINTER(Byte)
     dwError: UInt32
-class NgcTicketContext(EasyCastStructure):
+class NgcTicketContext(Structure):
     wszTicket: Char * 45
     hKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
     hImpersonateToken: win32more.Windows.Win32.Foundation.HANDLE
@@ -811,14 +811,14 @@ EAPACTION_SendWithTimeout: win32more.Windows.Win32.Security.ExtensibleAuthentica
 EAPACTION_SendWithTimeoutInteractive: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 6
 EAPACTION_IndicateTLV: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 7
 EAPACTION_IndicateIdentity: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION = 8
-class PPP_EAP_INFO(EasyCastStructure):
+class PPP_EAP_INFO(Structure):
     dwSizeInBytes: UInt32
     dwEapTypeId: UInt32
     RasEapInitialize: IntPtr
     RasEapBegin: IntPtr
     RasEapEnd: IntPtr
     RasEapMakeMessage: IntPtr
-class PPP_EAP_INPUT(EasyCastStructure):
+class PPP_EAP_INPUT(Structure):
     dwSizeInBytes: UInt32
     fFlags: UInt32
     fAuthenticator: win32more.Windows.Win32.Foundation.BOOL
@@ -840,7 +840,7 @@ class PPP_EAP_INPUT(EasyCastStructure):
     hReserved: win32more.Windows.Win32.Foundation.HANDLE
     guidConnectionId: Guid
     isVpn: win32more.Windows.Win32.Foundation.BOOL
-class PPP_EAP_OUTPUT(EasyCastStructure):
+class PPP_EAP_OUTPUT(Structure):
     dwSizeInBytes: UInt32
     Action: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.PPP_EAP_ACTION
     dwAuthResultCode: UInt32
@@ -856,12 +856,12 @@ class PPP_EAP_OUTPUT(EasyCastStructure):
     dwSizeOfUserData: UInt32
     pNgcKerbTicket: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.NgcTicketContext)
     fSaveToCredMan: win32more.Windows.Win32.Foundation.BOOL
-class PPP_EAP_PACKET(EasyCastStructure):
+class PPP_EAP_PACKET(Structure):
     Code: Byte
     Id: Byte
     Length: Byte * 2
     Data: Byte * 1
-class RAS_AUTH_ATTRIBUTE(EasyCastStructure):
+class RAS_AUTH_ATTRIBUTE(Structure):
     raaType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.RAS_AUTH_ATTRIBUTE_TYPE
     dwLength: UInt32
     Value: VoidPtr

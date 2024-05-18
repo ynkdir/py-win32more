@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Registry
@@ -274,20 +274,20 @@ ENUM_SERVICE_STATE = UInt32
 SERVICE_ACTIVE: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE = 1
 SERVICE_INACTIVE: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE = 2
 SERVICE_STATE_ALL: win32more.Windows.Win32.System.Services.ENUM_SERVICE_STATE = 3
-class ENUM_SERVICE_STATUSA(EasyCastStructure):
+class ENUM_SERVICE_STATUSA(Structure):
     lpServiceName: win32more.Windows.Win32.Foundation.PSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PSTR
     ServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS
-class ENUM_SERVICE_STATUSW(EasyCastStructure):
+class ENUM_SERVICE_STATUSW(Structure):
     lpServiceName: win32more.Windows.Win32.Foundation.PWSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR
     ServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS
 ENUM_SERVICE_STATUS = UnicodeAlias('ENUM_SERVICE_STATUSW')
-class ENUM_SERVICE_STATUS_PROCESSA(EasyCastStructure):
+class ENUM_SERVICE_STATUS_PROCESSA(Structure):
     lpServiceName: win32more.Windows.Win32.Foundation.PSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PSTR
     ServiceStatusProcess: win32more.Windows.Win32.System.Services.SERVICE_STATUS_PROCESS
-class ENUM_SERVICE_STATUS_PROCESSW(EasyCastStructure):
+class ENUM_SERVICE_STATUS_PROCESSW(Structure):
     lpServiceName: win32more.Windows.Win32.Foundation.PWSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR
     ServiceStatusProcess: win32more.Windows.Win32.System.Services.SERVICE_STATUS_PROCESS
@@ -321,7 +321,7 @@ def PFN_SC_NOTIFY_CALLBACK(pParameter: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def PSC_NOTIFICATION_CALLBACK(dwNotify: UInt32, pCallbackContext: VoidPtr) -> Void: ...
 PSC_NOTIFICATION_REGISTRATION = IntPtr
-class QUERY_SERVICE_CONFIGA(EasyCastStructure):
+class QUERY_SERVICE_CONFIGA(Structure):
     dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE
     dwStartType: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE
     dwErrorControl: win32more.Windows.Win32.System.Services.SERVICE_ERROR
@@ -331,7 +331,7 @@ class QUERY_SERVICE_CONFIGA(EasyCastStructure):
     lpDependencies: win32more.Windows.Win32.Foundation.PSTR
     lpServiceStartName: win32more.Windows.Win32.Foundation.PSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PSTR
-class QUERY_SERVICE_CONFIGW(EasyCastStructure):
+class QUERY_SERVICE_CONFIGW(Structure):
     dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE
     dwStartType: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE
     dwErrorControl: win32more.Windows.Win32.System.Services.SERVICE_ERROR
@@ -342,16 +342,16 @@ class QUERY_SERVICE_CONFIGW(EasyCastStructure):
     lpServiceStartName: win32more.Windows.Win32.Foundation.PWSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR
 QUERY_SERVICE_CONFIG = UnicodeAlias('QUERY_SERVICE_CONFIGW')
-class QUERY_SERVICE_LOCK_STATUSA(EasyCastStructure):
+class QUERY_SERVICE_LOCK_STATUSA(Structure):
     fIsLocked: UInt32
     lpLockOwner: win32more.Windows.Win32.Foundation.PSTR
     dwLockDuration: UInt32
-class QUERY_SERVICE_LOCK_STATUSW(EasyCastStructure):
+class QUERY_SERVICE_LOCK_STATUSW(Structure):
     fIsLocked: UInt32
     lpLockOwner: win32more.Windows.Win32.Foundation.PWSTR
     dwLockDuration: UInt32
 QUERY_SERVICE_LOCK_STATUS = UnicodeAlias('QUERY_SERVICE_LOCK_STATUSW')
-class SC_ACTION(EasyCastStructure):
+class SC_ACTION(Structure):
     Type: win32more.Windows.Win32.System.Services.SC_ACTION_TYPE
     Delay: UInt32
 SC_ACTION_TYPE = Int32
@@ -380,28 +380,28 @@ SERVICE_CONFIG_REQUIRED_PRIVILEGES_INFO: win32more.Windows.Win32.System.Services
 SERVICE_CONFIG_SERVICE_SID_INFO: win32more.Windows.Win32.System.Services.SERVICE_CONFIG = 5
 SERVICE_CONFIG_TRIGGER_INFO: win32more.Windows.Win32.System.Services.SERVICE_CONFIG = 8
 SERVICE_CONFIG_LAUNCH_PROTECTED: win32more.Windows.Win32.System.Services.SERVICE_CONFIG = 12
-class SERVICE_CONTROL_STATUS_REASON_PARAMSA(EasyCastStructure):
+class SERVICE_CONTROL_STATUS_REASON_PARAMSA(Structure):
     dwReason: UInt32
     pszComment: win32more.Windows.Win32.Foundation.PSTR
     ServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS_PROCESS
-class SERVICE_CONTROL_STATUS_REASON_PARAMSW(EasyCastStructure):
+class SERVICE_CONTROL_STATUS_REASON_PARAMSW(Structure):
     dwReason: UInt32
     pszComment: win32more.Windows.Win32.Foundation.PWSTR
     ServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS_PROCESS
 SERVICE_CONTROL_STATUS_REASON_PARAMS = UnicodeAlias('SERVICE_CONTROL_STATUS_REASON_PARAMSW')
-class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM(EasyCastStructure):
+class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM(Structure):
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         CustomStateId: win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_CUSTOM_STATE_ID
         s: _s_e__Struct
-        class _s_e__Struct(EasyCastStructure):
+        class _s_e__Struct(Structure):
             DataOffset: UInt32
             Data: Byte * 1
-class SERVICE_DELAYED_AUTO_START_INFO(EasyCastStructure):
+class SERVICE_DELAYED_AUTO_START_INFO(Structure):
     fDelayedAutostart: win32more.Windows.Win32.Foundation.BOOL
-class SERVICE_DESCRIPTIONA(EasyCastStructure):
+class SERVICE_DESCRIPTIONA(Structure):
     lpDescription: win32more.Windows.Win32.Foundation.PSTR
-class SERVICE_DESCRIPTIONW(EasyCastStructure):
+class SERVICE_DESCRIPTIONW(Structure):
     lpDescription: win32more.Windows.Win32.Foundation.PWSTR
 SERVICE_DESCRIPTION = UnicodeAlias('SERVICE_DESCRIPTIONW')
 SERVICE_DIRECTORY_TYPE = Int32
@@ -412,22 +412,22 @@ SERVICE_ERROR_CRITICAL: win32more.Windows.Win32.System.Services.SERVICE_ERROR = 
 SERVICE_ERROR_IGNORE: win32more.Windows.Win32.System.Services.SERVICE_ERROR = 0
 SERVICE_ERROR_NORMAL: win32more.Windows.Win32.System.Services.SERVICE_ERROR = 1
 SERVICE_ERROR_SEVERE: win32more.Windows.Win32.System.Services.SERVICE_ERROR = 2
-class SERVICE_FAILURE_ACTIONSA(EasyCastStructure):
+class SERVICE_FAILURE_ACTIONSA(Structure):
     dwResetPeriod: UInt32
     lpRebootMsg: win32more.Windows.Win32.Foundation.PSTR
     lpCommand: win32more.Windows.Win32.Foundation.PSTR
     cActions: UInt32
     lpsaActions: POINTER(win32more.Windows.Win32.System.Services.SC_ACTION)
-class SERVICE_FAILURE_ACTIONSW(EasyCastStructure):
+class SERVICE_FAILURE_ACTIONSW(Structure):
     dwResetPeriod: UInt32
     lpRebootMsg: win32more.Windows.Win32.Foundation.PWSTR
     lpCommand: win32more.Windows.Win32.Foundation.PWSTR
     cActions: UInt32
     lpsaActions: POINTER(win32more.Windows.Win32.System.Services.SC_ACTION)
 SERVICE_FAILURE_ACTIONS = UnicodeAlias('SERVICE_FAILURE_ACTIONSW')
-class SERVICE_FAILURE_ACTIONS_FLAG(EasyCastStructure):
+class SERVICE_FAILURE_ACTIONS_FLAG(Structure):
     fFailureActionsOnNonCrashFailures: win32more.Windows.Win32.Foundation.BOOL
-class SERVICE_LAUNCH_PROTECTED_INFO(EasyCastStructure):
+class SERVICE_LAUNCH_PROTECTED_INFO(Structure):
     dwLaunchProtected: UInt32
 @winfunctype_pointer
 def SERVICE_MAIN_FUNCTIONA(dwNumServicesArgs: UInt32, lpServiceArgVectors: POINTER(POINTER(SByte))) -> Void: ...
@@ -445,13 +445,13 @@ SERVICE_NOTIFY_RUNNING: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY =
 SERVICE_NOTIFY_START_PENDING: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY = 2
 SERVICE_NOTIFY_STOP_PENDING: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY = 4
 SERVICE_NOTIFY_STOPPED: win32more.Windows.Win32.System.Services.SERVICE_NOTIFY = 1
-class SERVICE_NOTIFY_1(EasyCastStructure):
+class SERVICE_NOTIFY_1(Structure):
     dwVersion: UInt32
     pfnNotifyCallback: win32more.Windows.Win32.System.Services.PFN_SC_NOTIFY_CALLBACK
     pContext: VoidPtr
     dwNotificationStatus: UInt32
     ServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS_PROCESS
-class SERVICE_NOTIFY_2A(EasyCastStructure):
+class SERVICE_NOTIFY_2A(Structure):
     dwVersion: UInt32
     pfnNotifyCallback: win32more.Windows.Win32.System.Services.PFN_SC_NOTIFY_CALLBACK
     pContext: VoidPtr
@@ -459,7 +459,7 @@ class SERVICE_NOTIFY_2A(EasyCastStructure):
     ServiceStatus: win32more.Windows.Win32.System.Services.SERVICE_STATUS_PROCESS
     dwNotificationTriggered: UInt32
     pszServiceNames: win32more.Windows.Win32.Foundation.PSTR
-class SERVICE_NOTIFY_2W(EasyCastStructure):
+class SERVICE_NOTIFY_2W(Structure):
     dwVersion: UInt32
     pfnNotifyCallback: win32more.Windows.Win32.System.Services.PFN_SC_NOTIFY_CALLBACK
     pContext: VoidPtr
@@ -468,18 +468,18 @@ class SERVICE_NOTIFY_2W(EasyCastStructure):
     dwNotificationTriggered: UInt32
     pszServiceNames: win32more.Windows.Win32.Foundation.PWSTR
 SERVICE_NOTIFY_2 = UnicodeAlias('SERVICE_NOTIFY_2W')
-class SERVICE_PREFERRED_NODE_INFO(EasyCastStructure):
+class SERVICE_PREFERRED_NODE_INFO(Structure):
     usPreferredNode: UInt16
     fDelete: win32more.Windows.Win32.Foundation.BOOLEAN
-class SERVICE_PRESHUTDOWN_INFO(EasyCastStructure):
+class SERVICE_PRESHUTDOWN_INFO(Structure):
     dwPreshutdownTimeout: UInt32
 SERVICE_REGISTRY_STATE_TYPE = Int32
 ServiceRegistryStateParameters: win32more.Windows.Win32.System.Services.SERVICE_REGISTRY_STATE_TYPE = 0
 ServiceRegistryStatePersistent: win32more.Windows.Win32.System.Services.SERVICE_REGISTRY_STATE_TYPE = 1
 MaxServiceRegistryStateType: win32more.Windows.Win32.System.Services.SERVICE_REGISTRY_STATE_TYPE = 2
-class SERVICE_REQUIRED_PRIVILEGES_INFOA(EasyCastStructure):
+class SERVICE_REQUIRED_PRIVILEGES_INFOA(Structure):
     pmszRequiredPrivileges: win32more.Windows.Win32.Foundation.PSTR
-class SERVICE_REQUIRED_PRIVILEGES_INFOW(EasyCastStructure):
+class SERVICE_REQUIRED_PRIVILEGES_INFOW(Structure):
     pmszRequiredPrivileges: win32more.Windows.Win32.Foundation.PWSTR
 SERVICE_REQUIRED_PRIVILEGES_INFO = UnicodeAlias('SERVICE_REQUIRED_PRIVILEGES_INFOW')
 SERVICE_RUNS_IN_PROCESS = UInt32
@@ -489,9 +489,9 @@ SERVICE_SHARED_DIRECTORY_TYPE = Int32
 ServiceSharedDirectoryPersistentState: win32more.Windows.Win32.System.Services.SERVICE_SHARED_DIRECTORY_TYPE = 0
 SERVICE_SHARED_REGISTRY_STATE_TYPE = Int32
 ServiceSharedRegistryPersistentState: win32more.Windows.Win32.System.Services.SERVICE_SHARED_REGISTRY_STATE_TYPE = 0
-class SERVICE_SID_INFO(EasyCastStructure):
+class SERVICE_SID_INFO(Structure):
     dwServiceSidType: UInt32
-class SERVICE_START_REASON(EasyCastStructure):
+class SERVICE_START_REASON(Structure):
     dwReason: UInt32
 SERVICE_START_TYPE = UInt32
 SERVICE_AUTO_START: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE = 2
@@ -499,7 +499,7 @@ SERVICE_BOOT_START: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE =
 SERVICE_DEMAND_START: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE = 3
 SERVICE_DISABLED: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE = 4
 SERVICE_SYSTEM_START: win32more.Windows.Win32.System.Services.SERVICE_START_TYPE = 1
-class SERVICE_STATUS(EasyCastStructure):
+class SERVICE_STATUS(Structure):
     dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE
     dwCurrentState: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CURRENT_STATE
     dwControlsAccepted: UInt32
@@ -516,7 +516,7 @@ SERVICE_START_PENDING: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CU
 SERVICE_STOP_PENDING: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CURRENT_STATE = 3
 SERVICE_STOPPED: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CURRENT_STATE = 1
 SERVICE_STATUS_HANDLE = IntPtr
-class SERVICE_STATUS_PROCESS(EasyCastStructure):
+class SERVICE_STATUS_PROCESS(Structure):
     dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE
     dwCurrentState: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CURRENT_STATE
     dwControlsAccepted: UInt32
@@ -526,17 +526,17 @@ class SERVICE_STATUS_PROCESS(EasyCastStructure):
     dwWaitHint: UInt32
     dwProcessId: UInt32
     dwServiceFlags: win32more.Windows.Win32.System.Services.SERVICE_RUNS_IN_PROCESS
-class SERVICE_TABLE_ENTRYA(EasyCastStructure):
+class SERVICE_TABLE_ENTRYA(Structure):
     lpServiceName: win32more.Windows.Win32.Foundation.PSTR
     lpServiceProc: win32more.Windows.Win32.System.Services.LPSERVICE_MAIN_FUNCTIONA
-class SERVICE_TABLE_ENTRYW(EasyCastStructure):
+class SERVICE_TABLE_ENTRYW(Structure):
     lpServiceName: win32more.Windows.Win32.Foundation.PWSTR
     lpServiceProc: win32more.Windows.Win32.System.Services.LPSERVICE_MAIN_FUNCTIONW
 SERVICE_TABLE_ENTRY = UnicodeAlias('SERVICE_TABLE_ENTRYW')
-class SERVICE_TIMECHANGE_INFO(EasyCastStructure):
+class SERVICE_TIMECHANGE_INFO(Structure):
     liNewTime: Int64
     liOldTime: Int64
-class SERVICE_TRIGGER(EasyCastStructure):
+class SERVICE_TRIGGER(Structure):
     dwTriggerType: win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_TYPE
     dwAction: win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_ACTION
     pTriggerSubtype: POINTER(Guid)
@@ -545,13 +545,13 @@ class SERVICE_TRIGGER(EasyCastStructure):
 SERVICE_TRIGGER_ACTION = UInt32
 SERVICE_TRIGGER_ACTION_SERVICE_START: win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_ACTION = 1
 SERVICE_TRIGGER_ACTION_SERVICE_STOP: win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_ACTION = 2
-class SERVICE_TRIGGER_CUSTOM_STATE_ID(EasyCastStructure):
+class SERVICE_TRIGGER_CUSTOM_STATE_ID(Structure):
     Data: UInt32 * 2
-class SERVICE_TRIGGER_INFO(EasyCastStructure):
+class SERVICE_TRIGGER_INFO(Structure):
     cTriggers: UInt32
     pTriggers: POINTER(win32more.Windows.Win32.System.Services.SERVICE_TRIGGER)
     pReserved: POINTER(Byte)
-class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM(EasyCastStructure):
+class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM(Structure):
     dwDataType: win32more.Windows.Win32.System.Services.SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE
     cbData: UInt32
     pData: POINTER(Byte)

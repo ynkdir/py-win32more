@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Imapi
 import win32more.Windows.Win32.System.AddressBook
@@ -1433,7 +1433,7 @@ IMMPID_RP_DOMAIN: win32more.Windows.Win32.Storage.Imapi.IMMPID_RP_ENUM = 8210
 IMMPID_RP_ADDRESS_OTHER: win32more.Windows.Win32.Storage.Imapi.IMMPID_RP_ENUM = 8211
 IMMPID_RP_DISPLAY_NAME: win32more.Windows.Win32.Storage.Imapi.IMMPID_RP_ENUM = 8212
 IMMPID_RP_AFTER__: win32more.Windows.Win32.Storage.Imapi.IMMPID_RP_ENUM = 8213
-class IMMP_MPV_STORE_DRIVER_HANDLE(EasyCastStructure):
+class IMMP_MPV_STORE_DRIVER_HANDLE(Structure):
     guidSignature: Guid
 class IMultisession(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
@@ -1715,11 +1715,11 @@ ProgressItems = Guid('{2c941fc9-975b-59be-a960-9a2a262853a5}')
 RECORDER_TYPES = Int32
 RECORDER_CDR: win32more.Windows.Win32.Storage.Imapi.RECORDER_TYPES = 1
 RECORDER_CDRW: win32more.Windows.Win32.Storage.Imapi.RECORDER_TYPES = 2
-class SPropAttrArray(EasyCastStructure):
+class SPropAttrArray(Structure):
     cValues: UInt32
     aPropAttr: UInt32 * 1
 tagIMMPID_CPV_STRUCT = Guid('{a2a76b2a-e52d-11d1-aa64-00c04fa35b82}')
-class tagIMMPID_GUIDLIST_ITEM(EasyCastStructure):
+class tagIMMPID_GUIDLIST_ITEM(Structure):
     pguid: POINTER(Guid)
     dwStart: UInt32
     dwLast: UInt32

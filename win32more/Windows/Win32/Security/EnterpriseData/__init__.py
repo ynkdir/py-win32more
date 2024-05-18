@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.EnterpriseData
 import win32more.Windows.Win32.Storage.Packaging.Appx
@@ -36,9 +36,9 @@ ENTERPRISE_POLICY_NONE: win32more.Windows.Win32.Security.EnterpriseData.ENTERPRI
 ENTERPRISE_POLICY_ALLOWED: win32more.Windows.Win32.Security.EnterpriseData.ENTERPRISE_DATA_POLICIES = 1
 ENTERPRISE_POLICY_ENLIGHTENED: win32more.Windows.Win32.Security.EnterpriseData.ENTERPRISE_DATA_POLICIES = 2
 ENTERPRISE_POLICY_EXEMPT: win32more.Windows.Win32.Security.EnterpriseData.ENTERPRISE_DATA_POLICIES = 4
-class FILE_UNPROTECT_OPTIONS(EasyCastStructure):
+class FILE_UNPROTECT_OPTIONS(Structure):
     audit: Byte
-class HTHREAD_NETWORK_CONTEXT(EasyCastStructure):
+class HTHREAD_NETWORK_CONTEXT(Structure):
     ThreadId: UInt32
     ThreadContext: win32more.Windows.Win32.Foundation.HANDLE
 class IProtectionPolicyManagerInterop(ComPtr):

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.RightsManagement
 import win32more.Windows.Win32.Foundation
 DRMHANDLE_INVALID: UInt32 = 0
@@ -240,7 +240,7 @@ def DRMAcquireIssuanceLicenseTemplate(hClient: UInt32, uFlags: UInt32, pvReserve
 DRMATTESTTYPE = Int32
 DRMATTESTTYPE_FULLENVIRONMENT: win32more.Windows.Win32.Data.RightsManagement.DRMATTESTTYPE = 0
 DRMATTESTTYPE_HASHONLY: win32more.Windows.Win32.Data.RightsManagement.DRMATTESTTYPE = 1
-class DRMBOUNDLICENSEPARAMS(EasyCastStructure):
+class DRMBOUNDLICENSEPARAMS(Structure):
     uVersion: UInt32
     hEnablingPrincipal: UInt32
     hSecureStore: UInt32
@@ -263,7 +263,7 @@ DRMENCODINGTYPE_RAW: win32more.Windows.Win32.Data.RightsManagement.DRMENCODINGTY
 DRMGLOBALOPTIONS = Int32
 DRMGLOBALOPTIONS_USE_WINHTTP: win32more.Windows.Win32.Data.RightsManagement.DRMGLOBALOPTIONS = 0
 DRMGLOBALOPTIONS_USE_SERVERSECURITYPROCESSOR: win32more.Windows.Win32.Data.RightsManagement.DRMGLOBALOPTIONS = 1
-class DRMID(EasyCastStructure):
+class DRMID(Structure):
     uVersion: UInt32
     wszIDType: win32more.Windows.Win32.Foundation.PWSTR
     wszID: win32more.Windows.Win32.Foundation.PWSTR
@@ -275,11 +275,11 @@ DRMSPECTYPE_FILENAME: win32more.Windows.Win32.Data.RightsManagement.DRMSPECTYPE 
 DRMTIMETYPE = Int32
 DRMTIMETYPE_SYSTEMUTC: win32more.Windows.Win32.Data.RightsManagement.DRMTIMETYPE = 0
 DRMTIMETYPE_SYSTEMLOCAL: win32more.Windows.Win32.Data.RightsManagement.DRMTIMETYPE = 1
-class DRM_ACTSERV_INFO(EasyCastStructure):
+class DRM_ACTSERV_INFO(Structure):
     uVersion: UInt32
     wszPubKey: win32more.Windows.Win32.Foundation.PWSTR
     wszURL: win32more.Windows.Win32.Foundation.PWSTR
-class DRM_CLIENT_VERSION_INFO(EasyCastStructure):
+class DRM_CLIENT_VERSION_INFO(Structure):
     uStructVersion: UInt32
     dwVersion: UInt32 * 4
     wszHierarchy: Char * 256
@@ -289,7 +289,7 @@ DRM_DISTRIBUTION_POINT_INFO = Int32
 DRM_DISTRIBUTION_POINT_LICENSE_ACQUISITION: win32more.Windows.Win32.Data.RightsManagement.DRM_DISTRIBUTION_POINT_INFO = 0
 DRM_DISTRIBUTION_POINT_PUBLISHING: win32more.Windows.Win32.Data.RightsManagement.DRM_DISTRIBUTION_POINT_INFO = 1
 DRM_DISTRIBUTION_POINT_REFERRAL_INFO: win32more.Windows.Win32.Data.RightsManagement.DRM_DISTRIBUTION_POINT_INFO = 2
-class DRM_LICENSE_ACQ_DATA(EasyCastStructure):
+class DRM_LICENSE_ACQ_DATA(Structure):
     uVersion: UInt32
     wszURL: win32more.Windows.Win32.Foundation.PWSTR
     wszLocalFilename: win32more.Windows.Win32.Foundation.PWSTR

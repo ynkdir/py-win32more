@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Security.Cryptography.Catalog
@@ -100,17 +100,17 @@ def CryptCATCatalogInfoFromContext(hCatInfo: IntPtr, psCatInfo: POINTER(win32mor
 def CryptCATAdminResolveCatalogPath(hCatAdmin: IntPtr, pwszCatalogFile: win32more.Windows.Win32.Foundation.PWSTR, psCatInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.Catalog.CATALOG_INFO), dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
 def CryptCATAdminPauseServiceForBackup(dwFlags: UInt32, fResume: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class CATALOG_INFO(EasyCastStructure):
+class CATALOG_INFO(Structure):
     cbStruct: UInt32
     wszCatalogFile: Char * 260
-class CRYPTCATATTRIBUTE(EasyCastStructure):
+class CRYPTCATATTRIBUTE(Structure):
     cbStruct: UInt32
     pwszReferenceTag: win32more.Windows.Win32.Foundation.PWSTR
     dwAttrTypeAndAction: UInt32
     cbValue: UInt32
     pbValue: POINTER(Byte)
     dwReserved: UInt32
-class CRYPTCATCDF(EasyCastStructure):
+class CRYPTCATCDF(Structure):
     cbStruct: UInt32
     hFile: win32more.Windows.Win32.Foundation.HANDLE
     dwCurFilePos: UInt32
@@ -118,7 +118,7 @@ class CRYPTCATCDF(EasyCastStructure):
     fEOF: win32more.Windows.Win32.Foundation.BOOL
     pwszResultDir: win32more.Windows.Win32.Foundation.PWSTR
     hCATStore: win32more.Windows.Win32.Foundation.HANDLE
-class CRYPTCATMEMBER(EasyCastStructure):
+class CRYPTCATMEMBER(Structure):
     cbStruct: UInt32
     pwszReferenceTag: win32more.Windows.Win32.Foundation.PWSTR
     pwszFileName: win32more.Windows.Win32.Foundation.PWSTR
@@ -130,7 +130,7 @@ class CRYPTCATMEMBER(EasyCastStructure):
     hReserved: win32more.Windows.Win32.Foundation.HANDLE
     sEncodedIndirectData: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     sEncodedMemberInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CRYPTCATSTORE(EasyCastStructure):
+class CRYPTCATSTORE(Structure):
     cbStruct: UInt32
     dwPublicVersion: UInt32
     pwszP7File: win32more.Windows.Win32.Foundation.PWSTR
@@ -154,7 +154,7 @@ CRYPTCAT_OPEN_FLAGS_MASK: win32more.Windows.Win32.Security.Cryptography.Catalog.
 CRYPTCAT_VERSION = UInt32
 CRYPTCAT_VERSION_1: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_VERSION = 256
 CRYPTCAT_VERSION_2: win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCAT_VERSION = 512
-class MS_ADDINFO_CATALOGMEMBER(EasyCastStructure):
+class MS_ADDINFO_CATALOGMEMBER(Structure):
     cbStruct: UInt32
     pStore: POINTER(win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCATSTORE)
     pMember: POINTER(win32more.Windows.Win32.Security.Cryptography.Catalog.CRYPTCATMEMBER)

@@ -1,7 +1,7 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
-class APP_LOCAL_DEVICE_ID(EasyCastStructure):
+class APP_LOCAL_DEVICE_ID(Structure):
     value: Byte * 32
 TRUE: win32more.Windows.Win32.Foundation.BOOL = 1
 FALSE: win32more.Windows.Win32.Foundation.BOOL = 0
@@ -6794,21 +6794,21 @@ BOOLEAN = Byte
 BSTR = String
 CHAR = SByte
 COLORREF = UInt32
-class DECIMAL(EasyCastStructure):
+class DECIMAL(Structure):
     wReserved: UInt16
     Anonymous1: _Anonymous1_e__Union
     Hi32: UInt32
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         signscale: UInt16
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             scale: Byte
             sign: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Lo64: UInt64
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Lo32: UInt32
             Mid32: UInt32
 DUPLICATE_HANDLE_OPTIONS = UInt32
@@ -6816,10 +6816,10 @@ DUPLICATE_CLOSE_SOURCE: win32more.Windows.Win32.Foundation.DUPLICATE_HANDLE_OPTI
 DUPLICATE_SAME_ACCESS: win32more.Windows.Win32.Foundation.DUPLICATE_HANDLE_OPTIONS = 2
 @winfunctype_pointer
 def FARPROC() -> IntPtr: ...
-class FILETIME(EasyCastStructure):
+class FILETIME(Structure):
     dwLowDateTime: UInt32
     dwHighDateTime: UInt32
-class FLOAT128(EasyCastStructure):
+class FLOAT128(Structure):
     LowPart: Int64
     HighPart: Int64
 GENERIC_ACCESS_RIGHTS = UInt32
@@ -6845,7 +6845,7 @@ HUMPD = IntPtr
 HWND = IntPtr
 LPARAM = IntPtr
 LRESULT = IntPtr
-class LUID(EasyCastStructure):
+class LUID(Structure):
     LowPart: UInt32
     HighPart: Int32
 @winfunctype_pointer
@@ -6915,34 +6915,34 @@ STATUS_SEVERITY_WARNING: win32more.Windows.Win32.Foundation.NTSTATUS_SEVERITY_CO
 STATUS_SEVERITY_ERROR: win32more.Windows.Win32.Foundation.NTSTATUS_SEVERITY_CODE = 3
 @winfunctype_pointer
 def PAPCFUNC(Parameter: UIntPtr) -> Void: ...
-class POINT(EasyCastStructure):
+class POINT(Structure):
     x: Int32
     y: Int32
-class POINTL(EasyCastStructure):
+class POINTL(Structure):
     x: Int32
     y: Int32
-class POINTS(EasyCastStructure):
+class POINTS(Structure):
     x: Int16
     y: Int16
 @winfunctype_pointer
 def PROC() -> IntPtr: ...
 PSTR = Bytes
 PWSTR = String
-class RECT(EasyCastStructure):
+class RECT(Structure):
     left: Int32
     top: Int32
     right: Int32
     bottom: Int32
-class RECTL(EasyCastStructure):
+class RECTL(Structure):
     left: Int32
     top: Int32
     right: Int32
     bottom: Int32
 SHANDLE_PTR = IntPtr
-class SIZE(EasyCastStructure):
+class SIZE(Structure):
     cx: Int32
     cy: Int32
-class SYSTEMTIME(EasyCastStructure):
+class SYSTEMTIME(Structure):
     wYear: UInt16
     wMonth: UInt16
     wDayOfWeek: UInt16
@@ -6951,7 +6951,7 @@ class SYSTEMTIME(EasyCastStructure):
     wMinute: UInt16
     wSecond: UInt16
     wMilliseconds: UInt16
-class UNICODE_STRING(EasyCastStructure):
+class UNICODE_STRING(Structure):
     Length: UInt16
     MaximumLength: UInt16
     Buffer: win32more.Windows.Win32.Foundation.PWSTR

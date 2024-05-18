@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -94,7 +94,7 @@ BROADCAST_SYSTEM_MESSAGE_INFO = UInt32
 BSM_ALLCOMPONENTS: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO = 0
 BSM_ALLDESKTOPS: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO = 16
 BSM_APPLICATIONS: win32more.Windows.Win32.System.StationsAndDesktops.BROADCAST_SYSTEM_MESSAGE_INFO = 8
-class BSMINFO(EasyCastStructure):
+class BSMINFO(Structure):
     cbSize: UInt32
     hdesk: win32more.Windows.Win32.System.StationsAndDesktops.HDESK
     hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -123,7 +123,7 @@ DESKTOP_CONTROL_FLAGS = UInt32
 DF_ALLOWOTHERACCOUNTHOOK: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS = 1
 HDESK = IntPtr
 HWINSTA = IntPtr
-class USEROBJECTFLAGS(EasyCastStructure):
+class USEROBJECTFLAGS(Structure):
     fInherit: win32more.Windows.Win32.Foundation.BOOL
     fReserved: win32more.Windows.Win32.Foundation.BOOL
     dwFlags: UInt32

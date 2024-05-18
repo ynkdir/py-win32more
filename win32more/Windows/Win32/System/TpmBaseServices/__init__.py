@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.TpmBaseServices
 TBS_CONTEXT_VERSION_ONE: UInt32 = 1
@@ -69,22 +69,22 @@ TBS_COMMAND_PRIORITY_NORMAL: win32more.Windows.Win32.System.TpmBaseServices.TBS_
 TBS_COMMAND_PRIORITY_SYSTEM: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_PRIORITY = 400
 TBS_COMMAND_PRIORITY_HIGH: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_PRIORITY = 300
 TBS_COMMAND_PRIORITY_MAX: win32more.Windows.Win32.System.TpmBaseServices.TBS_COMMAND_PRIORITY = 2147483648
-class TBS_CONTEXT_PARAMS(EasyCastStructure):
+class TBS_CONTEXT_PARAMS(Structure):
     version: UInt32
-class TBS_CONTEXT_PARAMS2(EasyCastStructure):
+class TBS_CONTEXT_PARAMS2(Structure):
     version: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         asUINT32: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class TPM_DEVICE_INFO(EasyCastStructure):
+class TPM_DEVICE_INFO(Structure):
     structVersion: UInt32
     tpmVersion: UInt32
     tpmInterfaceType: UInt32
     tpmImpRevision: UInt32
-class TPM_WNF_PROVISIONING(EasyCastStructure):
+class TPM_WNF_PROVISIONING(Structure):
     status: UInt32
     message: Byte * 28
 

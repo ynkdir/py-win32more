@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Memory
@@ -221,7 +221,7 @@ def AddSecureMemoryCacheCallback(pfnCallBack: win32more.Windows.Win32.System.Mem
 @winfunctype('KERNEL32.dll')
 def RemoveSecureMemoryCacheCallback(pfnCallBack: win32more.Windows.Win32.System.Memory.PSECURE_MEMORY_CACHE_CALLBACK) -> win32more.Windows.Win32.Foundation.BOOL: ...
 AtlThunkData_t = IntPtr
-class CFG_CALL_TARGET_INFO(EasyCastStructure):
+class CFG_CALL_TARGET_INFO(Structure):
     Offset: UIntPtr
     Flags: UIntPtr
 FILE_MAP = UInt32
@@ -262,7 +262,7 @@ HeapCompatibilityInformation: win32more.Windows.Win32.System.Memory.HEAP_INFORMA
 HeapEnableTerminationOnCorruption: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 1
 HeapOptimizeResources: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 3
 HeapTag: win32more.Windows.Win32.System.Memory.HEAP_INFORMATION_CLASS = 7
-class HEAP_SUMMARY(EasyCastStructure):
+class HEAP_SUMMARY(Structure):
     cb: UInt32
     cbAllocated: UIntPtr
     cbCommitted: UIntPtr
@@ -277,7 +277,7 @@ LPTR: win32more.Windows.Win32.System.Memory.LOCAL_ALLOC_FLAGS = 64
 NONZEROLHND: win32more.Windows.Win32.System.Memory.LOCAL_ALLOC_FLAGS = 2
 NONZEROLPTR: win32more.Windows.Win32.System.Memory.LOCAL_ALLOC_FLAGS = 0
 if ARCH in 'X64,ARM64':
-    class MEMORY_BASIC_INFORMATION(EasyCastStructure):
+    class MEMORY_BASIC_INFORMATION(Structure):
         BaseAddress: VoidPtr
         AllocationBase: VoidPtr
         AllocationProtect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS
@@ -287,7 +287,7 @@ if ARCH in 'X64,ARM64':
         Protect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS
         Type: win32more.Windows.Win32.System.Memory.PAGE_TYPE
 elif ARCH in 'X86':
-    class MEMORY_BASIC_INFORMATION(EasyCastStructure):
+    class MEMORY_BASIC_INFORMATION(Structure):
         BaseAddress: VoidPtr
         AllocationBase: VoidPtr
         AllocationProtect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS
@@ -295,7 +295,7 @@ elif ARCH in 'X86':
         State: win32more.Windows.Win32.System.Memory.VIRTUAL_ALLOCATION_TYPE
         Protect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS
         Type: win32more.Windows.Win32.System.Memory.PAGE_TYPE
-class MEMORY_BASIC_INFORMATION32(EasyCastStructure):
+class MEMORY_BASIC_INFORMATION32(Structure):
     BaseAddress: UInt32
     AllocationBase: UInt32
     AllocationProtect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS
@@ -303,7 +303,7 @@ class MEMORY_BASIC_INFORMATION32(EasyCastStructure):
     State: win32more.Windows.Win32.System.Memory.VIRTUAL_ALLOCATION_TYPE
     Protect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS
     Type: win32more.Windows.Win32.System.Memory.PAGE_TYPE
-class MEMORY_BASIC_INFORMATION64(EasyCastStructure):
+class MEMORY_BASIC_INFORMATION64(Structure):
     BaseAddress: UInt64
     AllocationBase: UInt64
     AllocationProtect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS
@@ -313,13 +313,13 @@ class MEMORY_BASIC_INFORMATION64(EasyCastStructure):
     Protect: win32more.Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS
     Type: win32more.Windows.Win32.System.Memory.PAGE_TYPE
     __alignment2: UInt32
-class MEMORY_MAPPED_VIEW_ADDRESS(EasyCastStructure):
+class MEMORY_MAPPED_VIEW_ADDRESS(Structure):
     Value: VoidPtr
-class MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE(EasyCastStructure):
+class MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE(Structure):
     Type: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE
     Reserved: UInt32
     Value: UInt64
-class MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION(EasyCastStructure):
+class MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION(Structure):
     NextEntryOffset: UInt32
     SizeOfInformation: UInt32
     Flags: UInt32
@@ -330,7 +330,7 @@ class MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION(EasyCastStructure):
 MEMORY_RESOURCE_NOTIFICATION_TYPE = Int32
 LowMemoryResourceNotification: win32more.Windows.Win32.System.Memory.MEMORY_RESOURCE_NOTIFICATION_TYPE = 0
 HighMemoryResourceNotification: win32more.Windows.Win32.System.Memory.MEMORY_RESOURCE_NOTIFICATION_TYPE = 1
-class MEM_ADDRESS_REQUIREMENTS(EasyCastStructure):
+class MEM_ADDRESS_REQUIREMENTS(Structure):
     LowestStartingAddress: VoidPtr
     HighestEndingAddress: VoidPtr
     Alignment: UIntPtr
@@ -340,12 +340,12 @@ MemDedicatedAttributeReadLatency: win32more.Windows.Win32.System.Memory.MEM_DEDI
 MemDedicatedAttributeWriteBandwidth: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 2
 MemDedicatedAttributeWriteLatency: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 3
 MemDedicatedAttributeMax: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE = 4
-class MEM_EXTENDED_PARAMETER(EasyCastStructure):
+class MEM_EXTENDED_PARAMETER(Structure):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Struct(EasyCastStructure):
+    class _Anonymous1_e__Struct(Structure):
         _bitfield: UInt64
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         ULong64: UInt64
         Pointer: VoidPtr
         Size: UIntPtr
@@ -417,20 +417,20 @@ MEM_MAPPED: win32more.Windows.Win32.System.Memory.PAGE_TYPE = 262144
 MEM_IMAGE: win32more.Windows.Win32.System.Memory.PAGE_TYPE = 16777216
 @winfunctype_pointer
 def PBAD_MEMORY_CALLBACK_ROUTINE() -> Void: ...
-class PROCESS_HEAP_ENTRY(EasyCastStructure):
+class PROCESS_HEAP_ENTRY(Structure):
     lpData: VoidPtr
     cbData: UInt32
     cbOverhead: Byte
     iRegionIndex: Byte
     wFlags: UInt16
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Block: _Block_e__Struct
         Region: _Region_e__Struct
-        class _Block_e__Struct(EasyCastStructure):
+        class _Block_e__Struct(Structure):
             hMem: win32more.Windows.Win32.Foundation.HANDLE
             dwReserved: UInt32 * 3
-        class _Region_e__Struct(EasyCastStructure):
+        class _Region_e__Struct(Structure):
             dwCommittedSize: UInt32
             dwUnCommittedSize: UInt32
             lpFirstBlock: VoidPtr
@@ -468,7 +468,7 @@ MEM_DECOMMIT: win32more.Windows.Win32.System.Memory.VIRTUAL_FREE_TYPE = 16384
 MEM_RELEASE: win32more.Windows.Win32.System.Memory.VIRTUAL_FREE_TYPE = 32768
 WIN32_MEMORY_INFORMATION_CLASS = Int32
 MemoryRegionInfo: win32more.Windows.Win32.System.Memory.WIN32_MEMORY_INFORMATION_CLASS = 0
-class WIN32_MEMORY_PARTITION_INFORMATION(EasyCastStructure):
+class WIN32_MEMORY_PARTITION_INFORMATION(Structure):
     Flags: UInt32
     NumaNode: UInt32
     Channel: UInt32
@@ -489,19 +489,19 @@ class WIN32_MEMORY_PARTITION_INFORMATION(EasyCastStructure):
 WIN32_MEMORY_PARTITION_INFORMATION_CLASS = Int32
 MemoryPartitionInfo: win32more.Windows.Win32.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION_CLASS = 0
 MemoryPartitionDedicatedMemoryInfo: win32more.Windows.Win32.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION_CLASS = 1
-class WIN32_MEMORY_RANGE_ENTRY(EasyCastStructure):
+class WIN32_MEMORY_RANGE_ENTRY(Structure):
     VirtualAddress: VoidPtr
     NumberOfBytes: UIntPtr
-class WIN32_MEMORY_REGION_INFORMATION(EasyCastStructure):
+class WIN32_MEMORY_REGION_INFORMATION(Structure):
     AllocationBase: VoidPtr
     AllocationProtect: UInt32
     Anonymous: _Anonymous_e__Union
     RegionSize: UIntPtr
     CommitSize: UIntPtr
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
 
 

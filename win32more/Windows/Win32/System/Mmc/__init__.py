@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -129,14 +129,14 @@ CCM_SPECIAL_SUBMENU: win32more.Windows.Win32.System.Mmc.CCM_SPECIAL = 2
 CCM_SPECIAL_DEFAULT_ITEM: win32more.Windows.Win32.System.Mmc.CCM_SPECIAL = 4
 CCM_SPECIAL_INSERTION_POINT: win32more.Windows.Win32.System.Mmc.CCM_SPECIAL = 8
 CCM_SPECIAL_TESTONLY: win32more.Windows.Win32.System.Mmc.CCM_SPECIAL = 16
-class CONTEXTMENUITEM(EasyCastStructure):
+class CONTEXTMENUITEM(Structure):
     strName: win32more.Windows.Win32.Foundation.PWSTR
     strStatusBarText: win32more.Windows.Win32.Foundation.PWSTR
     lCommandID: Int32
     lInsertionPointID: Int32
     fFlags: Int32
     fSpecialFlags: Int32
-class CONTEXTMENUITEM2(EasyCastStructure):
+class CONTEXTMENUITEM2(Structure):
     strName: win32more.Windows.Win32.Foundation.PWSTR
     strStatusBarText: win32more.Windows.Win32.Foundation.PWSTR
     lCommandID: Int32
@@ -741,11 +741,11 @@ Icon_Warning: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32515
 Icon_Information: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32516
 Icon_First: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32513
 Icon_Last: win32more.Windows.Win32.System.Mmc.IconIdentifier = 32516
-class MENUBUTTONDATA(EasyCastStructure):
+class MENUBUTTONDATA(Structure):
     idCommand: Int32
     x: Int32
     y: Int32
-class MMCBUTTON(EasyCastStructure):
+class MMCBUTTON(Structure):
     nBitmap: Int32
     idCommand: Int32
     fsState: Byte
@@ -764,12 +764,12 @@ CHECKED: win32more.Windows.Win32.System.Mmc.MMC_BUTTON_STATE = 2
 HIDDEN: win32more.Windows.Win32.System.Mmc.MMC_BUTTON_STATE = 4
 INDETERMINATE: win32more.Windows.Win32.System.Mmc.MMC_BUTTON_STATE = 8
 BUTTONPRESSED: win32more.Windows.Win32.System.Mmc.MMC_BUTTON_STATE = 16
-class MMC_COLUMN_DATA(EasyCastStructure):
+class MMC_COLUMN_DATA(Structure):
     nColIndex: Int32
     dwFlags: UInt32
     nWidth: Int32
     ulReserved: UIntPtr
-class MMC_COLUMN_SET_DATA(EasyCastStructure):
+class MMC_COLUMN_SET_DATA(Structure):
     cbSize: Int32
     nNumCols: Int32
     pColData: POINTER(win32more.Windows.Win32.System.Mmc.MMC_COLUMN_DATA)
@@ -791,17 +791,17 @@ MMC_CONTROL_TYPE = Int32
 TOOLBAR: win32more.Windows.Win32.System.Mmc.MMC_CONTROL_TYPE = 0
 MENUBUTTON: win32more.Windows.Win32.System.Mmc.MMC_CONTROL_TYPE = 1
 COMBOBOXBAR: win32more.Windows.Win32.System.Mmc.MMC_CONTROL_TYPE = 2
-class MMC_EXPANDSYNC_STRUCT(EasyCastStructure):
+class MMC_EXPANDSYNC_STRUCT(Structure):
     bHandled: win32more.Windows.Win32.Foundation.BOOL
     bExpanding: win32more.Windows.Win32.Foundation.BOOL
     hItem: IntPtr
-class MMC_EXT_VIEW_DATA(EasyCastStructure):
+class MMC_EXT_VIEW_DATA(Structure):
     viewID: Guid
     pszURL: win32more.Windows.Win32.Foundation.PWSTR
     pszViewTitle: win32more.Windows.Win32.Foundation.PWSTR
     pszTooltipText: win32more.Windows.Win32.Foundation.PWSTR
     bReplacesDefaultView: win32more.Windows.Win32.Foundation.BOOL
-class MMC_FILTERDATA(EasyCastStructure):
+class MMC_FILTERDATA(Structure):
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     cchTextMax: Int32
     lValue: Int32
@@ -813,7 +813,7 @@ MMC_FILTER_TYPE = Int32
 MMC_STRING_FILTER: win32more.Windows.Win32.System.Mmc.MMC_FILTER_TYPE = 0
 MMC_INT_FILTER: win32more.Windows.Win32.System.Mmc.MMC_FILTER_TYPE = 1
 MMC_FILTER_NOVALUE: win32more.Windows.Win32.System.Mmc.MMC_FILTER_TYPE = 32768
-class MMC_LISTPAD_INFO(EasyCastStructure):
+class MMC_LISTPAD_INFO(Structure):
     szTitle: win32more.Windows.Win32.Foundation.PWSTR
     szButtonText: win32more.Windows.Win32.Foundation.PWSTR
     nCommandID: IntPtr
@@ -859,7 +859,7 @@ MMC_PROPERTY_ACTION = Int32
 MMC_PROPACT_DELETING: win32more.Windows.Win32.System.Mmc.MMC_PROPERTY_ACTION = 1
 MMC_PROPACT_CHANGING: win32more.Windows.Win32.System.Mmc.MMC_PROPERTY_ACTION = 2
 MMC_PROPACT_INITIALIZED: win32more.Windows.Win32.System.Mmc.MMC_PROPERTY_ACTION = 3
-class MMC_RESTORE_VIEW(EasyCastStructure):
+class MMC_RESTORE_VIEW(Structure):
     dwSize: UInt32
     cookie: IntPtr
     pViewType: win32more.Windows.Win32.Foundation.PWSTR
@@ -873,38 +873,38 @@ MMC_SCOPE_ITEM_STATE = Int32
 MMC_SCOPE_ITEM_STATE_NORMAL: win32more.Windows.Win32.System.Mmc.MMC_SCOPE_ITEM_STATE = 1
 MMC_SCOPE_ITEM_STATE_BOLD: win32more.Windows.Win32.System.Mmc.MMC_SCOPE_ITEM_STATE = 2
 MMC_SCOPE_ITEM_STATE_EXPANDEDONCE: win32more.Windows.Win32.System.Mmc.MMC_SCOPE_ITEM_STATE = 3
-class MMC_SNAPIN_PROPERTY(EasyCastStructure):
+class MMC_SNAPIN_PROPERTY(Structure):
     pszPropName: win32more.Windows.Win32.Foundation.PWSTR
     varValue: win32more.Windows.Win32.System.Variant.VARIANT
     eAction: win32more.Windows.Win32.System.Mmc.MMC_PROPERTY_ACTION
-class MMC_SORT_DATA(EasyCastStructure):
+class MMC_SORT_DATA(Structure):
     nColIndex: Int32
     dwSortOptions: UInt32
     ulReserved: UIntPtr
-class MMC_SORT_SET_DATA(EasyCastStructure):
+class MMC_SORT_SET_DATA(Structure):
     cbSize: Int32
     nNumItems: Int32
     pSortData: POINTER(win32more.Windows.Win32.System.Mmc.MMC_SORT_DATA)
-class MMC_TASK(EasyCastStructure):
+class MMC_TASK(Structure):
     sDisplayObject: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_OBJECT
     szText: win32more.Windows.Win32.Foundation.PWSTR
     szHelpString: win32more.Windows.Win32.Foundation.PWSTR
     eActionType: win32more.Windows.Win32.System.Mmc.MMC_ACTION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         nCommandID: IntPtr
         szActionURL: win32more.Windows.Win32.Foundation.PWSTR
         szScript: win32more.Windows.Win32.Foundation.PWSTR
-class MMC_TASK_DISPLAY_BITMAP(EasyCastStructure):
+class MMC_TASK_DISPLAY_BITMAP(Structure):
     szMouseOverBitmap: win32more.Windows.Win32.Foundation.PWSTR
     szMouseOffBitmap: win32more.Windows.Win32.Foundation.PWSTR
-class MMC_TASK_DISPLAY_OBJECT(EasyCastStructure):
+class MMC_TASK_DISPLAY_OBJECT(Structure):
     eDisplayType: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         uBitmap: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_BITMAP
         uSymbol: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_SYMBOL
-class MMC_TASK_DISPLAY_SYMBOL(EasyCastStructure):
+class MMC_TASK_DISPLAY_SYMBOL(Structure):
     szFontFamilyName: win32more.Windows.Win32.Foundation.PWSTR
     szURLtoEOT: win32more.Windows.Win32.Foundation.PWSTR
     szSymbolString: win32more.Windows.Win32.Foundation.PWSTR
@@ -918,7 +918,7 @@ MMC_VIEW_TYPE = Int32
 MMC_VIEW_TYPE_LIST: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE = 0
 MMC_VIEW_TYPE_HTML: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE = 1
 MMC_VIEW_TYPE_OCX: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE = 2
-class MMC_VISIBLE_COLUMNS(EasyCastStructure):
+class MMC_VISIBLE_COLUMNS(Structure):
     nVisibleColumns: Int32
     rgVisibleCols: Int32 * 1
 class MenuItem(ComPtr):
@@ -978,18 +978,18 @@ class Property(ComPtr):
     def put_Value(self, Value: win32more.Windows.Win32.System.Variant.VARIANT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Name(self, Name: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class RDCOMPARE(EasyCastStructure):
+class RDCOMPARE(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     nColumn: Int32
     lUserParam: win32more.Windows.Win32.Foundation.LPARAM
     prdch1: POINTER(win32more.Windows.Win32.System.Mmc.RDITEMHDR)
     prdch2: POINTER(win32more.Windows.Win32.System.Mmc.RDITEMHDR)
-class RDITEMHDR(EasyCastStructure):
+class RDITEMHDR(Structure):
     dwFlags: UInt32
     cookie: IntPtr
     lpReserved: win32more.Windows.Win32.Foundation.LPARAM
-class RESULTDATAITEM(EasyCastStructure):
+class RESULTDATAITEM(Structure):
     mask: UInt32
     bScopeItem: win32more.Windows.Win32.Foundation.BOOL
     itemID: IntPtr
@@ -1000,26 +1000,26 @@ class RESULTDATAITEM(EasyCastStructure):
     nState: UInt32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     iIndent: Int32
-class RESULTFINDINFO(EasyCastStructure):
+class RESULTFINDINFO(Structure):
     psz: win32more.Windows.Win32.Foundation.PWSTR
     nStart: Int32
     dwOptions: UInt32
-class RESULT_VIEW_TYPE_INFO(EasyCastStructure):
+class RESULT_VIEW_TYPE_INFO(Structure):
     pstrPersistableViewDescription: win32more.Windows.Win32.Foundation.PWSTR
     eViewType: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE
     dwMiscOptions: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwListOptions: UInt32
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             dwHTMLOptions: UInt32
             pstrURL: win32more.Windows.Win32.Foundation.PWSTR
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             dwOCXOptions: UInt32
             pUnkControl: win32more.Windows.Win32.System.Com.IUnknown
-class SCOPEDATAITEM(EasyCastStructure):
+class SCOPEDATAITEM(Structure):
     mask: UInt32
     displayname: win32more.Windows.Win32.Foundation.PWSTR
     nImage: Int32
@@ -1029,20 +1029,20 @@ class SCOPEDATAITEM(EasyCastStructure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     relativeID: IntPtr
     ID: IntPtr
-class SColumnSetID(EasyCastStructure):
+class SColumnSetID(Structure):
     dwFlags: UInt32
     cBytes: UInt32
     id: Byte * 1
-class SMMCDataObjects(EasyCastStructure):
+class SMMCDataObjects(Structure):
     count: UInt32
     lpDataObject: win32more.Windows.Win32.System.Com.IDataObject * 1
-class SMMCObjectTypes(EasyCastStructure):
+class SMMCObjectTypes(Structure):
     count: UInt32
     guid: Guid * 1
-class SNodeID(EasyCastStructure):
+class SNodeID(Structure):
     cBytes: UInt32
     id: Byte * 1
-class SNodeID2(EasyCastStructure):
+class SNodeID2(Structure):
     dwFlags: UInt32
     cBytes: UInt32
     id: Byte * 1

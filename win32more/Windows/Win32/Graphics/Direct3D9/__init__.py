@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D9
@@ -719,7 +719,7 @@ def D3DPERF_GetStatus() -> UInt32: ...
 @winfunctype('d3d9.dll')
 def Direct3DCreate9Ex(SDKVersion: UInt32, param1: POINTER(win32more.Windows.Win32.Graphics.Direct3D9.IDirect3D9Ex)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 if ARCH in 'X64,ARM64':
-    class D3DADAPTER_IDENTIFIER9(EasyCastStructure):
+    class D3DADAPTER_IDENTIFIER9(Structure):
         Driver: win32more.Windows.Win32.Foundation.CHAR * 512
         Description: win32more.Windows.Win32.Foundation.CHAR * 512
         DeviceName: win32more.Windows.Win32.Foundation.CHAR * 32
@@ -731,7 +731,7 @@ if ARCH in 'X64,ARM64':
         DeviceIdentifier: Guid
         WHQLLevel: UInt32
 elif ARCH in 'X86':
-    class D3DADAPTER_IDENTIFIER9(EasyCastStructure):
+    class D3DADAPTER_IDENTIFIER9(Structure):
         Driver: win32more.Windows.Win32.Foundation.CHAR * 512
         Description: win32more.Windows.Win32.Foundation.CHAR * 512
         DeviceName: win32more.Windows.Win32.Foundation.CHAR * 32
@@ -744,11 +744,11 @@ elif ARCH in 'X86':
         WHQLLevel: UInt32
         _pack_ = 4
 if ARCH in 'X64,ARM64':
-    class D3DAES_CTR_IV(EasyCastStructure):
+    class D3DAES_CTR_IV(Structure):
         IV: UInt64
         Count: UInt64
 elif ARCH in 'X86':
-    class D3DAES_CTR_IV(EasyCastStructure):
+    class D3DAES_CTR_IV(Structure):
         IV: UInt64
         Count: UInt64
         _pack_ = 4
@@ -760,32 +760,32 @@ D3DAUTHENTICATEDCHANNELTYPE = Int32
 D3DAUTHENTICATEDCHANNEL_D3D9: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNELTYPE = 1
 D3DAUTHENTICATEDCHANNEL_DRIVER_SOFTWARE: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNELTYPE = 2
 D3DAUTHENTICATEDCHANNEL_DRIVER_HARDWARE: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNELTYPE = 3
-class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION(Structure):
     Parameters: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT
     DXVA2DecodeHandle: win32more.Windows.Win32.Foundation.HANDLE
     CryptoSessionHandle: win32more.Windows.Win32.Foundation.HANDLE
     DeviceHandle: win32more.Windows.Win32.Foundation.HANDLE
-class D3DAUTHENTICATEDCHANNEL_CONFIGUREINITIALIZE(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_CONFIGUREINITIALIZE(Structure):
     Parameters: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT
     StartSequenceQuery: UInt32
     StartSequenceConfigure: UInt32
-class D3DAUTHENTICATEDCHANNEL_CONFIGUREPROTECTION(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_CONFIGUREPROTECTION(Structure):
     Parameters: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT
     Protections: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS
-class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE(Structure):
     Parameters: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT
     ProcessIdentiferType: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE
     ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE
     AllowAccess: win32more.Windows.Win32.Foundation.BOOL
-class D3DAUTHENTICATEDCHANNEL_CONFIGUREUNCOMPRESSEDENCRYPTION(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_CONFIGUREUNCOMPRESSEDENCRYPTION(Structure):
     Parameters: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT
     EncryptionGuid: Guid
-class D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(Structure):
     omac: win32more.Windows.Win32.Graphics.Direct3D9.D3D_OMAC
     ConfigureType: Guid
     hChannel: win32more.Windows.Win32.Foundation.HANDLE
     SequenceNumber: UInt32
-class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT(Structure):
     omac: win32more.Windows.Win32.Graphics.Direct3D9.D3D_OMAC
     ConfigureType: Guid
     hChannel: win32more.Windows.Win32.Foundation.HANDLE
@@ -795,96 +795,96 @@ D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE = Int32
 PROCESSIDTYPE_UNKNOWN: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE = 0
 PROCESSIDTYPE_DWM: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE = 1
 PROCESSIDTYPE_HANDLE: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE = 2
-class D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class D3DAUTHENTICATEDCHANNEL_QUERYCHANNELTYPE_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYCHANNELTYPE_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     ChannelType: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNELTYPE
-class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_INPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_INPUT(Structure):
     Input: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_INPUT
     DXVA2DecodeHandle: win32more.Windows.Win32.Foundation.HANDLE
-class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYCRYPTOSESSION_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     DXVA2DecodeHandle: win32more.Windows.Win32.Foundation.HANDLE
     CryptoSessionHandle: win32more.Windows.Win32.Foundation.HANDLE
     DeviceHandle: win32more.Windows.Win32.Foundation.HANDLE
-class D3DAUTHENTICATEDCHANNEL_QUERYDEVICEHANDLE_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYDEVICEHANDLE_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     DeviceHandle: win32more.Windows.Win32.Foundation.HANDLE
-class D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUIDCOUNT_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUIDCOUNT_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     NumEncryptionGuids: UInt32
-class D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUID_INPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUID_INPUT(Structure):
     Input: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_INPUT
     EncryptionGuidIndex: UInt32
-class D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUID_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUID_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     EncryptionGuidIndex: UInt32
     EncryptionGuid: Guid
-class D3DAUTHENTICATEDCHANNEL_QUERYINFOBUSTYPE_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYINFOBUSTYPE_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     BusType: win32more.Windows.Win32.Graphics.Direct3D9.D3DBUSTYPE
     bAccessibleInContiguousBlocks: win32more.Windows.Win32.Foundation.BOOL
     bAccessibleInNonContiguousBlocks: win32more.Windows.Win32.Foundation.BOOL
-class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTIDCOUNT_INPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTIDCOUNT_INPUT(Structure):
     Input: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_INPUT
     DeviceHandle: win32more.Windows.Win32.Foundation.HANDLE
     CryptoSessionHandle: win32more.Windows.Win32.Foundation.HANDLE
-class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTIDCOUNT_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTIDCOUNT_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     DeviceHandle: win32more.Windows.Win32.Foundation.HANDLE
     CryptoSessionHandle: win32more.Windows.Win32.Foundation.HANDLE
     NumOutputIDs: UInt32
-class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT(Structure):
     Input: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_INPUT
     DeviceHandle: win32more.Windows.Win32.Foundation.HANDLE
     CryptoSessionHandle: win32more.Windows.Win32.Foundation.HANDLE
     OutputIDIndex: UInt32
 if ARCH in 'X64,ARM64':
-    class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT(EasyCastStructure):
+    class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT(Structure):
         Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
         DeviceHandle: win32more.Windows.Win32.Foundation.HANDLE
         CryptoSessionHandle: win32more.Windows.Win32.Foundation.HANDLE
         OutputIDIndex: UInt32
         OutputID: UInt64
 elif ARCH in 'X86':
-    class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT(EasyCastStructure):
+    class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_OUTPUT(Structure):
         Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
         DeviceHandle: win32more.Windows.Win32.Foundation.HANDLE
         CryptoSessionHandle: win32more.Windows.Win32.Foundation.HANDLE
         OutputIDIndex: UInt32
         OutputID: UInt64
         _pack_ = 4
-class D3DAUTHENTICATEDCHANNEL_QUERYPROTECTION_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYPROTECTION_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     ProtectionFlags: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS
-class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESSCOUNT_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESSCOUNT_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     NumRestrictedSharedResourceProcesses: UInt32
-class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_INPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_INPUT(Structure):
     Input: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_INPUT
     ProcessIndex: UInt32
-class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     ProcessIndex: UInt32
     ProcessIdentifer: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE
     ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE
-class D3DAUTHENTICATEDCHANNEL_QUERYUNCOMPRESSEDENCRYPTIONLEVEL_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYUNCOMPRESSEDENCRYPTIONLEVEL_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     EncryptionGuid: Guid
-class D3DAUTHENTICATEDCHANNEL_QUERYUNRESTRICTEDPROTECTEDSHAREDRESOURCECOUNT_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERYUNRESTRICTEDPROTECTEDSHAREDRESOURCECOUNT_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     NumUnrestrictedProtectedSharedResources: UInt32
-class D3DAUTHENTICATEDCHANNEL_QUERY_INPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERY_INPUT(Structure):
     QueryType: Guid
     hChannel: win32more.Windows.Win32.Foundation.HANDLE
     SequenceNumber: UInt32
-class D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(EasyCastStructure):
+class D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(Structure):
     omac: win32more.Windows.Win32.Graphics.Direct3D9.D3D_OMAC
     QueryType: Guid
     hChannel: win32more.Windows.Win32.Foundation.HANDLE
@@ -922,14 +922,14 @@ D3DBLENDOP_SUBTRACT: win32more.Windows.Win32.Graphics.Direct3D9.D3DBLENDOP = 2
 D3DBLENDOP_REVSUBTRACT: win32more.Windows.Win32.Graphics.Direct3D9.D3DBLENDOP = 3
 D3DBLENDOP_MIN: win32more.Windows.Win32.Graphics.Direct3D9.D3DBLENDOP = 4
 D3DBLENDOP_MAX: win32more.Windows.Win32.Graphics.Direct3D9.D3DBLENDOP = 5
-class D3DBOX(EasyCastStructure):
+class D3DBOX(Structure):
     Left: UInt32
     Top: UInt32
     Right: UInt32
     Bottom: UInt32
     Front: UInt32
     Back: UInt32
-class D3DBRANCH(EasyCastStructure):
+class D3DBRANCH(Structure):
     dwMask: UInt32
     dwValue: UInt32
     bNegate: win32more.Windows.Win32.Foundation.BOOL
@@ -946,7 +946,7 @@ D3DBUSIMPL_MODIFIER_TRACKS_ON_MOTHER_BOARD_TO_SOCKET: win32more.Windows.Win32.Gr
 D3DBUSIMPL_MODIFIER_DAUGHTER_BOARD_CONNECTOR: win32more.Windows.Win32.Graphics.Direct3D9.D3DBUSTYPE = 262144
 D3DBUSIMPL_MODIFIER_DAUGHTER_BOARD_CONNECTOR_INSIDE_OF_NUAE: win32more.Windows.Win32.Graphics.Direct3D9.D3DBUSTYPE = 327680
 D3DBUSIMPL_MODIFIER_NON_STANDARD: win32more.Windows.Win32.Graphics.Direct3D9.D3DBUSTYPE = -2147483648
-class D3DCAPS9(EasyCastStructure):
+class D3DCAPS9(Structure):
     DeviceType: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEVTYPE
     AdapterOrdinal: UInt32
     Caps: UInt32
@@ -1016,7 +1016,7 @@ class D3DCAPS9(EasyCastStructure):
     MaxPShaderInstructionsExecuted: UInt32
     MaxVertexShader30InstructionSlots: UInt32
     MaxPixelShader30InstructionSlots: UInt32
-class D3DCLIPSTATUS(EasyCastStructure):
+class D3DCLIPSTATUS(Structure):
     dwFlags: UInt32
     dwStatus: UInt32
     minx: Single
@@ -1025,7 +1025,7 @@ class D3DCLIPSTATUS(EasyCastStructure):
     maxy: Single
     minz: Single
     maxz: Single
-class D3DCLIPSTATUS9(EasyCastStructure):
+class D3DCLIPSTATUS9(Structure):
     ClipUnion: UInt32
     ClipIntersection: UInt32
 D3DCMPFUNC = Int32
@@ -1037,17 +1037,17 @@ D3DCMP_GREATER: win32more.Windows.Win32.Graphics.Direct3D9.D3DCMPFUNC = 5
 D3DCMP_NOTEQUAL: win32more.Windows.Win32.Graphics.Direct3D9.D3DCMPFUNC = 6
 D3DCMP_GREATEREQUAL: win32more.Windows.Win32.Graphics.Direct3D9.D3DCMPFUNC = 7
 D3DCMP_ALWAYS: win32more.Windows.Win32.Graphics.Direct3D9.D3DCMPFUNC = 8
-class D3DCOLORVALUE(EasyCastStructure):
+class D3DCOLORVALUE(Structure):
     r: Single
     g: Single
     b: Single
     a: Single
-class D3DCOMPOSERECTDESC(EasyCastStructure):
+class D3DCOMPOSERECTDESC(Structure):
     X: UInt16
     Y: UInt16
     Width: UInt16
     Height: UInt16
-class D3DCOMPOSERECTDESTINATION(EasyCastStructure):
+class D3DCOMPOSERECTDESTINATION(Structure):
     SrcRectIndex: UInt16
     Reserved: UInt16
     X: Int16
@@ -1118,7 +1118,7 @@ D3DDEGREE_LINEAR: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEGREETYPE = 1
 D3DDEGREE_QUADRATIC: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEGREETYPE = 2
 D3DDEGREE_CUBIC: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEGREETYPE = 3
 D3DDEGREE_QUINTIC: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEGREETYPE = 5
-class D3DDEVICEDESC(EasyCastStructure):
+class D3DDEVICEDESC(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dcmColorModel: UInt32
@@ -1153,7 +1153,7 @@ class D3DDEVICEDESC(EasyCastStructure):
     dwTextureOpCaps: UInt32
     wMaxTextureBlendStages: UInt16
     wMaxSimultaneousTextures: UInt16
-class D3DDEVICEDESC7(EasyCastStructure):
+class D3DDEVICEDESC7(Structure):
     dwDevCaps: UInt32
     dpcLineCaps: win32more.Windows.Win32.Graphics.Direct3D9.D3DPRIMCAPS
     dpcTriCaps: win32more.Windows.Win32.Graphics.Direct3D9.D3DPRIMCAPS
@@ -1186,40 +1186,40 @@ class D3DDEVICEDESC7(EasyCastStructure):
     dwReserved2: UInt32
     dwReserved3: UInt32
     dwReserved4: UInt32
-class D3DDEVICE_CREATION_PARAMETERS(EasyCastStructure):
+class D3DDEVICE_CREATION_PARAMETERS(Structure):
     AdapterOrdinal: UInt32
     DeviceType: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEVTYPE
     hFocusWindow: win32more.Windows.Win32.Foundation.HWND
     BehaviorFlags: UInt32
-class D3DDEVINFO_D3D9BANDWIDTHTIMINGS(EasyCastStructure):
+class D3DDEVINFO_D3D9BANDWIDTHTIMINGS(Structure):
     MaxBandwidthUtilized: Single
     FrontEndUploadMemoryUtilizedPercent: Single
     VertexRateUtilizedPercent: Single
     TriangleSetupRateUtilizedPercent: Single
     FillRateUtilizedPercent: Single
-class D3DDEVINFO_D3D9CACHEUTILIZATION(EasyCastStructure):
+class D3DDEVINFO_D3D9CACHEUTILIZATION(Structure):
     TextureCacheHitRate: Single
     PostTransformVertexCacheHitRate: Single
-class D3DDEVINFO_D3D9INTERFACETIMINGS(EasyCastStructure):
+class D3DDEVINFO_D3D9INTERFACETIMINGS(Structure):
     WaitingForGPUToUseApplicationResourceTimePercent: Single
     WaitingForGPUToAcceptMoreCommandsTimePercent: Single
     WaitingForGPUToStayWithinLatencyTimePercent: Single
     WaitingForGPUExclusiveResourceTimePercent: Single
     WaitingForGPUOtherTimePercent: Single
-class D3DDEVINFO_D3D9PIPELINETIMINGS(EasyCastStructure):
+class D3DDEVINFO_D3D9PIPELINETIMINGS(Structure):
     VertexProcessingTimePercent: Single
     PixelProcessingTimePercent: Single
     OtherGPUProcessingTimePercent: Single
     GPUIdleTimePercent: Single
-class D3DDEVINFO_D3D9STAGETIMINGS(EasyCastStructure):
+class D3DDEVINFO_D3D9STAGETIMINGS(Structure):
     MemoryProcessingPercent: Single
     ComputationProcessingPercent: Single
-class D3DDEVINFO_D3DVERTEXSTATS(EasyCastStructure):
+class D3DDEVINFO_D3DVERTEXSTATS(Structure):
     NumRenderedTriangles: UInt32
     NumExtraClippingTriangles: UInt32
-class D3DDEVINFO_RESOURCEMANAGER(EasyCastStructure):
+class D3DDEVINFO_RESOURCEMANAGER(Structure):
     stats: win32more.Windows.Win32.Graphics.Direct3D9.D3DRESOURCESTATS * 8
-class D3DDEVINFO_VCACHE(EasyCastStructure):
+class D3DDEVINFO_VCACHE(Structure):
     Pattern: UInt32
     OptMethod: UInt32
     CacheSize: UInt32
@@ -1229,19 +1229,19 @@ D3DDEVTYPE_HAL: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEVTYPE = 1
 D3DDEVTYPE_REF: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEVTYPE = 2
 D3DDEVTYPE_SW: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEVTYPE = 3
 D3DDEVTYPE_NULLREF: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEVTYPE = 4
-class D3DDISPLAYMODE(EasyCastStructure):
+class D3DDISPLAYMODE(Structure):
     Width: UInt32
     Height: UInt32
     RefreshRate: UInt32
     Format: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
-class D3DDISPLAYMODEEX(EasyCastStructure):
+class D3DDISPLAYMODEEX(Structure):
     Size: UInt32
     Width: UInt32
     Height: UInt32
     RefreshRate: UInt32
     Format: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
     ScanLineOrdering: win32more.Windows.Win32.Graphics.Direct3D9.D3DSCANLINEORDERING
-class D3DDISPLAYMODEFILTER(EasyCastStructure):
+class D3DDISPLAYMODEFILTER(Structure):
     Size: UInt32
     Format: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
     ScanLineOrdering: win32more.Windows.Win32.Graphics.Direct3D9.D3DSCANLINEORDERING
@@ -1250,26 +1250,26 @@ D3DDISPLAYROTATION_IDENTITY: win32more.Windows.Win32.Graphics.Direct3D9.D3DDISPL
 D3DDISPLAYROTATION_90: win32more.Windows.Win32.Graphics.Direct3D9.D3DDISPLAYROTATION = 2
 D3DDISPLAYROTATION_180: win32more.Windows.Win32.Graphics.Direct3D9.D3DDISPLAYROTATION = 3
 D3DDISPLAYROTATION_270: win32more.Windows.Win32.Graphics.Direct3D9.D3DDISPLAYROTATION = 4
-class D3DDP_PTRSTRIDE(EasyCastStructure):
+class D3DDP_PTRSTRIDE(Structure):
     lpvData: VoidPtr
     dwStride: UInt32
-class D3DDRAWPRIMITIVESTRIDEDDATA(EasyCastStructure):
+class D3DDRAWPRIMITIVESTRIDEDDATA(Structure):
     position: win32more.Windows.Win32.Graphics.Direct3D9.D3DDP_PTRSTRIDE
     normal: win32more.Windows.Win32.Graphics.Direct3D9.D3DDP_PTRSTRIDE
     diffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DDP_PTRSTRIDE
     specular: win32more.Windows.Win32.Graphics.Direct3D9.D3DDP_PTRSTRIDE
     textureCoords: win32more.Windows.Win32.Graphics.Direct3D9.D3DDP_PTRSTRIDE * 8
-class D3DENCRYPTED_BLOCK_INFO(EasyCastStructure):
+class D3DENCRYPTED_BLOCK_INFO(Structure):
     NumEncryptedBytesAtBeginning: UInt32
     NumBytesInSkipPattern: UInt32
     NumBytesInEncryptPattern: UInt32
-class D3DEXECUTEBUFFERDESC(EasyCastStructure):
+class D3DEXECUTEBUFFERDESC(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwCaps: UInt32
     dwBufferSize: UInt32
     lpData: VoidPtr
-class D3DEXECUTEDATA(EasyCastStructure):
+class D3DEXECUTEDATA(Structure):
     dwSize: UInt32
     dwVertexOffset: UInt32
     dwVertexCount: UInt32
@@ -1281,12 +1281,12 @@ D3DFILLMODE = Int32
 D3DFILL_POINT: win32more.Windows.Win32.Graphics.Direct3D9.D3DFILLMODE = 1
 D3DFILL_WIREFRAME: win32more.Windows.Win32.Graphics.Direct3D9.D3DFILLMODE = 2
 D3DFILL_SOLID: win32more.Windows.Win32.Graphics.Direct3D9.D3DFILLMODE = 3
-class D3DFINDDEVICERESULT(EasyCastStructure):
+class D3DFINDDEVICERESULT(Structure):
     dwSize: UInt32
     guid: Guid
     ddHwDesc: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEVICEDESC
     ddSwDesc: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEVICEDESC
-class D3DFINDDEVICESEARCH(EasyCastStructure):
+class D3DFINDDEVICESEARCH(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     bHardware: win32more.Windows.Win32.Foundation.BOOL
@@ -1365,35 +1365,35 @@ D3DFMT_CxV8U8: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT = 117
 D3DFMT_A1: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT = 118
 D3DFMT_A2B10G10R10_XR_BIAS: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT = 119
 D3DFMT_BINARYBUFFER: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT = 199
-class D3DGAMMARAMP(EasyCastStructure):
+class D3DGAMMARAMP(Structure):
     red: UInt16 * 256
     green: UInt16 * 256
     blue: UInt16 * 256
-class D3DHVERTEX(EasyCastStructure):
+class D3DHVERTEX(Structure):
     dwFlags: UInt32
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         hx: Single
         dvHX: Single
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hy: Single
         dvHY: Single
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         hz: Single
         dvHZ: Single
-class D3DINDEXBUFFER_DESC(EasyCastStructure):
+class D3DINDEXBUFFER_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
     Type: win32more.Windows.Win32.Graphics.Direct3D9.D3DRESOURCETYPE
     Usage: UInt32
     Pool: win32more.Windows.Win32.Graphics.Direct3D9.D3DPOOL
     Size: UInt32
-class D3DINSTRUCTION(EasyCastStructure):
+class D3DINSTRUCTION(Structure):
     bOpcode: Byte
     bSize: Byte
     wCount: UInt16
-class D3DLIGHT(EasyCastStructure):
+class D3DLIGHT(Structure):
     dwSize: UInt32
     dltType: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTTYPE
     dcvColor: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
@@ -1406,7 +1406,7 @@ class D3DLIGHT(EasyCastStructure):
     dvAttenuation2: Single
     dvTheta: Single
     dvPhi: Single
-class D3DLIGHT2(EasyCastStructure):
+class D3DLIGHT2(Structure):
     dwSize: UInt32
     dltType: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTTYPE
     dcvColor: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
@@ -1420,7 +1420,7 @@ class D3DLIGHT2(EasyCastStructure):
     dvTheta: Single
     dvPhi: Single
     dwFlags: UInt32
-class D3DLIGHT7(EasyCastStructure):
+class D3DLIGHT7(Structure):
     dltType: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTTYPE
     dcvDiffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
     dcvSpecular: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
@@ -1434,7 +1434,7 @@ class D3DLIGHT7(EasyCastStructure):
     dvAttenuation2: Single
     dvTheta: Single
     dvPhi: Single
-class D3DLIGHT9(EasyCastStructure):
+class D3DLIGHT9(Structure):
     Type: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTTYPE
     Diffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
     Specular: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
@@ -1448,18 +1448,18 @@ class D3DLIGHT9(EasyCastStructure):
     Attenuation2: Single
     Theta: Single
     Phi: Single
-class D3DLIGHTDATA(EasyCastStructure):
+class D3DLIGHTDATA(Structure):
     dwSize: UInt32
     lpIn: POINTER(win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTINGELEMENT)
     dwInSize: UInt32
     lpOut: POINTER(win32more.Windows.Win32.Graphics.Direct3D9.D3DTLVERTEX)
     dwOutSize: UInt32
-class D3DLIGHTINGCAPS(EasyCastStructure):
+class D3DLIGHTINGCAPS(Structure):
     dwSize: UInt32
     dwCaps: UInt32
     dwLightingModel: UInt32
     dwNumLights: UInt32
-class D3DLIGHTINGELEMENT(EasyCastStructure):
+class D3DLIGHTINGELEMENT(Structure):
     dvPosition: win32more.Windows.Win32.Graphics.Direct3D.D3DVECTOR
     dvNormal: win32more.Windows.Win32.Graphics.Direct3D.D3DVECTOR
 D3DLIGHTSTATETYPE = Int32
@@ -1475,23 +1475,23 @@ D3DLIGHTTYPE = Int32
 D3DLIGHT_POINT: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTTYPE = 1
 D3DLIGHT_SPOT: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTTYPE = 2
 D3DLIGHT_DIRECTIONAL: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTTYPE = 3
-class D3DLINE(EasyCastStructure):
+class D3DLINE(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         v1: UInt16
         wV1: UInt16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         v2: UInt16
         wV2: UInt16
-class D3DLOCKED_BOX(EasyCastStructure):
+class D3DLOCKED_BOX(Structure):
     RowPitch: Int32
     SlicePitch: Int32
     pBits: VoidPtr
-class D3DLOCKED_RECT(EasyCastStructure):
+class D3DLOCKED_RECT(Structure):
     Pitch: Int32
     pBits: VoidPtr
-class D3DLVERTEX(EasyCastStructure):
+class D3DLVERTEX(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
@@ -1500,28 +1500,28 @@ class D3DLVERTEX(EasyCastStructure):
     Anonymous5: _Anonymous5_e__Union
     Anonymous6: _Anonymous6_e__Union
     Anonymous7: _Anonymous7_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         x: Single
         dvX: Single
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         y: Single
         dvY: Single
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         z: Single
         dvZ: Single
-    class _Anonymous4_e__Union(EasyCastUnion):
+    class _Anonymous4_e__Union(Union):
         color: UInt32
         dcColor: UInt32
-    class _Anonymous5_e__Union(EasyCastUnion):
+    class _Anonymous5_e__Union(Union):
         specular: UInt32
         dcSpecular: UInt32
-    class _Anonymous6_e__Union(EasyCastUnion):
+    class _Anonymous6_e__Union(Union):
         tu: Single
         dvTU: Single
-    class _Anonymous7_e__Union(EasyCastUnion):
+    class _Anonymous7_e__Union(Union):
         tv: Single
         dvTV: Single
-class D3DMATERIAL(EasyCastStructure):
+class D3DMATERIAL(Structure):
     dwSize: UInt32
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
@@ -1530,43 +1530,43 @@ class D3DMATERIAL(EasyCastStructure):
     Anonymous5: _Anonymous5_e__Union
     hTexture: UInt32
     dwRampSize: UInt32
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         diffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvDiffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         ambient: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvAmbient: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         specular: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvSpecular: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
-    class _Anonymous4_e__Union(EasyCastUnion):
+    class _Anonymous4_e__Union(Union):
         emissive: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvEmissive: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
-    class _Anonymous5_e__Union(EasyCastUnion):
+    class _Anonymous5_e__Union(Union):
         power: Single
         dvPower: Single
-class D3DMATERIAL7(EasyCastStructure):
+class D3DMATERIAL7(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
     Anonymous4: _Anonymous4_e__Union
     Anonymous5: _Anonymous5_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         diffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvDiffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         ambient: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvAmbient: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         specular: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvSpecular: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
-    class _Anonymous4_e__Union(EasyCastUnion):
+    class _Anonymous4_e__Union(Union):
         emissive: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvEmissive: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
-    class _Anonymous5_e__Union(EasyCastUnion):
+    class _Anonymous5_e__Union(Union):
         power: Single
         dvPower: Single
-class D3DMATERIAL9(EasyCastStructure):
+class D3DMATERIAL9(Structure):
     Diffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
     Ambient: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
     Specular: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
@@ -1576,20 +1576,20 @@ D3DMATERIALCOLORSOURCE = Int32
 D3DMCS_MATERIAL: win32more.Windows.Win32.Graphics.Direct3D9.D3DMATERIALCOLORSOURCE = 0
 D3DMCS_COLOR1: win32more.Windows.Win32.Graphics.Direct3D9.D3DMATERIALCOLORSOURCE = 1
 D3DMCS_COLOR2: win32more.Windows.Win32.Graphics.Direct3D9.D3DMATERIALCOLORSOURCE = 2
-class D3DMATRIXLOAD(EasyCastStructure):
+class D3DMATRIXLOAD(Structure):
     hDestMatrix: UInt32
     hSrcMatrix: UInt32
-class D3DMATRIXMULTIPLY(EasyCastStructure):
+class D3DMATRIXMULTIPLY(Structure):
     hDestMatrix: UInt32
     hSrcMatrix1: UInt32
     hSrcMatrix2: UInt32
 if ARCH in 'X64,ARM64':
-    class D3DMEMORYPRESSURE(EasyCastStructure):
+    class D3DMEMORYPRESSURE(Structure):
         BytesEvictedFromProcess: UInt64
         SizeOfInefficientAllocation: UInt64
         LevelOfEfficiency: UInt32
 elif ARCH in 'X86':
-    class D3DMEMORYPRESSURE(EasyCastStructure):
+    class D3DMEMORYPRESSURE(Structure):
         BytesEvictedFromProcess: UInt64
         SizeOfInefficientAllocation: UInt64
         LevelOfEfficiency: UInt32
@@ -1630,12 +1630,12 @@ D3DOP_SETSTATUS: win32more.Windows.Win32.Graphics.Direct3D9.D3DOPCODE = 14
 D3DPATCHEDGESTYLE = Int32
 D3DPATCHEDGE_DISCRETE: win32more.Windows.Win32.Graphics.Direct3D9.D3DPATCHEDGESTYLE = 0
 D3DPATCHEDGE_CONTINUOUS: win32more.Windows.Win32.Graphics.Direct3D9.D3DPATCHEDGESTYLE = 1
-class D3DPICKRECORD(EasyCastStructure):
+class D3DPICKRECORD(Structure):
     bOpcode: Byte
     bPad: Byte
     dwOffset: UInt32
     dvZ: Single
-class D3DPOINT(EasyCastStructure):
+class D3DPOINT(Structure):
     wCount: UInt16
     wFirst: UInt16
 D3DPOOL = Int32
@@ -1644,21 +1644,21 @@ D3DPOOL_MANAGED: win32more.Windows.Win32.Graphics.Direct3D9.D3DPOOL = 1
 D3DPOOL_SYSTEMMEM: win32more.Windows.Win32.Graphics.Direct3D9.D3DPOOL = 2
 D3DPOOL_SCRATCH: win32more.Windows.Win32.Graphics.Direct3D9.D3DPOOL = 3
 if ARCH in 'X64,ARM64':
-    class D3DPRESENTSTATS(EasyCastStructure):
+    class D3DPRESENTSTATS(Structure):
         PresentCount: UInt32
         PresentRefreshCount: UInt32
         SyncRefreshCount: UInt32
         SyncQPCTime: Int64
         SyncGPUTime: Int64
 elif ARCH in 'X86':
-    class D3DPRESENTSTATS(EasyCastStructure):
+    class D3DPRESENTSTATS(Structure):
         PresentCount: UInt32
         PresentRefreshCount: UInt32
         SyncRefreshCount: UInt32
         SyncQPCTime: Int64
         SyncGPUTime: Int64
         _pack_ = 4
-class D3DPRESENT_PARAMETERS(EasyCastStructure):
+class D3DPRESENT_PARAMETERS(Structure):
     BackBufferWidth: UInt32
     BackBufferHeight: UInt32
     BackBufferFormat: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
@@ -1673,7 +1673,7 @@ class D3DPRESENT_PARAMETERS(EasyCastStructure):
     Flags: UInt32
     FullScreen_RefreshRateInHz: UInt32
     PresentationInterval: UInt32
-class D3DPRIMCAPS(EasyCastStructure):
+class D3DPRIMCAPS(Structure):
     dwSize: UInt32
     dwMiscCaps: UInt32
     dwRasterCaps: UInt32
@@ -1695,13 +1695,13 @@ D3DPT_LINESTRIP: win32more.Windows.Win32.Graphics.Direct3D9.D3DPRIMITIVETYPE = 3
 D3DPT_TRIANGLELIST: win32more.Windows.Win32.Graphics.Direct3D9.D3DPRIMITIVETYPE = 4
 D3DPT_TRIANGLESTRIP: win32more.Windows.Win32.Graphics.Direct3D9.D3DPRIMITIVETYPE = 5
 D3DPT_TRIANGLEFAN: win32more.Windows.Win32.Graphics.Direct3D9.D3DPRIMITIVETYPE = 6
-class D3DPROCESSVERTICES(EasyCastStructure):
+class D3DPROCESSVERTICES(Structure):
     dwFlags: UInt32
     wStart: UInt16
     wDest: UInt16
     dwCount: UInt32
     dwReserved: UInt32
-class D3DPSHADERCAPS2_0(EasyCastStructure):
+class D3DPSHADERCAPS2_0(Structure):
     Caps: UInt32
     DynamicFlowControlDepth: Int32
     NumTemps: Int32
@@ -1723,18 +1723,18 @@ D3DQUERYTYPE_PIXELTIMINGS: win32more.Windows.Win32.Graphics.Direct3D9.D3DQUERYTY
 D3DQUERYTYPE_BANDWIDTHTIMINGS: win32more.Windows.Win32.Graphics.Direct3D9.D3DQUERYTYPE = 17
 D3DQUERYTYPE_CACHEUTILIZATION: win32more.Windows.Win32.Graphics.Direct3D9.D3DQUERYTYPE = 18
 D3DQUERYTYPE_MEMORYPRESSURE: win32more.Windows.Win32.Graphics.Direct3D9.D3DQUERYTYPE = 19
-class D3DRANGE(EasyCastStructure):
+class D3DRANGE(Structure):
     Offset: UInt32
     Size: UInt32
-class D3DRASTER_STATUS(EasyCastStructure):
+class D3DRASTER_STATUS(Structure):
     InVBlank: win32more.Windows.Win32.Foundation.BOOL
     ScanLine: UInt32
-class D3DRECT(EasyCastStructure):
+class D3DRECT(Structure):
     x1: Int32
     y1: Int32
     x2: Int32
     y2: Int32
-class D3DRECTPATCH_INFO(EasyCastStructure):
+class D3DRECTPATCH_INFO(Structure):
     StartVertexOffsetWidth: UInt32
     StartVertexOffsetHeight: UInt32
     Width: UInt32
@@ -1846,7 +1846,7 @@ D3DRS_SEPARATEALPHABLENDENABLE: win32more.Windows.Win32.Graphics.Direct3D9.D3DRE
 D3DRS_SRCBLENDALPHA: win32more.Windows.Win32.Graphics.Direct3D9.D3DRENDERSTATETYPE = 207
 D3DRS_DESTBLENDALPHA: win32more.Windows.Win32.Graphics.Direct3D9.D3DRENDERSTATETYPE = 208
 D3DRS_BLENDOPALPHA: win32more.Windows.Win32.Graphics.Direct3D9.D3DRENDERSTATETYPE = 209
-class D3DRESOURCESTATS(EasyCastStructure):
+class D3DRESOURCESTATS(Structure):
     bThrashing: win32more.Windows.Win32.Foundation.BOOL
     ApproxBytesDownloaded: UInt32
     NumEvicts: UInt32
@@ -2036,30 +2036,30 @@ D3DSPSM_DW: win32more.Windows.Win32.Graphics.Direct3D9.D3DSHADER_PARAM_SRCMOD_TY
 D3DSPSM_ABS: win32more.Windows.Win32.Graphics.Direct3D9.D3DSHADER_PARAM_SRCMOD_TYPE = 184549376
 D3DSPSM_ABSNEG: win32more.Windows.Win32.Graphics.Direct3D9.D3DSHADER_PARAM_SRCMOD_TYPE = 201326592
 D3DSPSM_NOT: win32more.Windows.Win32.Graphics.Direct3D9.D3DSHADER_PARAM_SRCMOD_TYPE = 218103808
-class D3DSPAN(EasyCastStructure):
+class D3DSPAN(Structure):
     wCount: UInt16
     wFirst: UInt16
-class D3DSTATE(EasyCastStructure):
+class D3DSTATE(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         dlstLightStateType: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTSTATETYPE
         drstRenderStateType: win32more.Windows.Win32.Graphics.Direct3D9.D3DRENDERSTATETYPE
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         dwArg: UInt32 * 1
         dvArg: Single * 1
 D3DSTATEBLOCKTYPE = Int32
 D3DSBT_ALL: win32more.Windows.Win32.Graphics.Direct3D9.D3DSTATEBLOCKTYPE = 1
 D3DSBT_PIXELSTATE: win32more.Windows.Win32.Graphics.Direct3D9.D3DSTATEBLOCKTYPE = 2
 D3DSBT_VERTEXSTATE: win32more.Windows.Win32.Graphics.Direct3D9.D3DSTATEBLOCKTYPE = 3
-class D3DSTATS(EasyCastStructure):
+class D3DSTATS(Structure):
     dwSize: UInt32
     dwTrianglesDrawn: UInt32
     dwLinesDrawn: UInt32
     dwPointsDrawn: UInt32
     dwSpansDrawn: UInt32
     dwVerticesProcessed: UInt32
-class D3DSTATUS(EasyCastStructure):
+class D3DSTATUS(Structure):
     dwFlags: UInt32
     dwStatus: UInt32
     drExtent: win32more.Windows.Win32.Graphics.Direct3D9.D3DRECT
@@ -2072,7 +2072,7 @@ D3DSTENCILOP_DECRSAT: win32more.Windows.Win32.Graphics.Direct3D9.D3DSTENCILOP = 
 D3DSTENCILOP_INVERT: win32more.Windows.Win32.Graphics.Direct3D9.D3DSTENCILOP = 6
 D3DSTENCILOP_INCR: win32more.Windows.Win32.Graphics.Direct3D9.D3DSTENCILOP = 7
 D3DSTENCILOP_DECR: win32more.Windows.Win32.Graphics.Direct3D9.D3DSTENCILOP = 8
-class D3DSURFACE_DESC(EasyCastStructure):
+class D3DSURFACE_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
     Type: win32more.Windows.Win32.Graphics.Direct3D9.D3DRESOURCETYPE
     Usage: UInt32
@@ -2117,7 +2117,7 @@ D3DTEXF_ANISOTROPIC: win32more.Windows.Win32.Graphics.Direct3D9.D3DTEXTUREFILTER
 D3DTEXF_PYRAMIDALQUAD: win32more.Windows.Win32.Graphics.Direct3D9.D3DTEXTUREFILTERTYPE = 6
 D3DTEXF_GAUSSIANQUAD: win32more.Windows.Win32.Graphics.Direct3D9.D3DTEXTUREFILTERTYPE = 7
 D3DTEXF_CONVOLUTIONMONO: win32more.Windows.Win32.Graphics.Direct3D9.D3DTEXTUREFILTERTYPE = 8
-class D3DTEXTURELOAD(EasyCastStructure):
+class D3DTEXTURELOAD(Structure):
     hDestTexture: UInt32
     hSrcTexture: UInt32
 D3DTEXTUREMAGFILTER = Int32
@@ -2187,7 +2187,7 @@ D3DTTFF_COUNT2: win32more.Windows.Win32.Graphics.Direct3D9.D3DTEXTURETRANSFORMFL
 D3DTTFF_COUNT3: win32more.Windows.Win32.Graphics.Direct3D9.D3DTEXTURETRANSFORMFLAGS = 3
 D3DTTFF_COUNT4: win32more.Windows.Win32.Graphics.Direct3D9.D3DTEXTURETRANSFORMFLAGS = 4
 D3DTTFF_PROJECTED: win32more.Windows.Win32.Graphics.Direct3D9.D3DTEXTURETRANSFORMFLAGS = 256
-class D3DTLVERTEX(EasyCastStructure):
+class D3DTLVERTEX(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
@@ -2196,34 +2196,34 @@ class D3DTLVERTEX(EasyCastStructure):
     Anonymous6: _Anonymous6_e__Union
     Anonymous7: _Anonymous7_e__Union
     Anonymous8: _Anonymous8_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         sx: Single
         dvSX: Single
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         sy: Single
         dvSY: Single
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         sz: Single
         dvSZ: Single
-    class _Anonymous4_e__Union(EasyCastUnion):
+    class _Anonymous4_e__Union(Union):
         rhw: Single
         dvRHW: Single
-    class _Anonymous5_e__Union(EasyCastUnion):
+    class _Anonymous5_e__Union(Union):
         color: UInt32
         dcColor: UInt32
-    class _Anonymous6_e__Union(EasyCastUnion):
+    class _Anonymous6_e__Union(Union):
         specular: UInt32
         dcSpecular: UInt32
-    class _Anonymous7_e__Union(EasyCastUnion):
+    class _Anonymous7_e__Union(Union):
         tu: Single
         dvTU: Single
-    class _Anonymous8_e__Union(EasyCastUnion):
+    class _Anonymous8_e__Union(Union):
         tv: Single
         dvTV: Single
-class D3DTRANSFORMCAPS(EasyCastStructure):
+class D3DTRANSFORMCAPS(Structure):
     dwSize: UInt32
     dwCaps: UInt32
-class D3DTRANSFORMDATA(EasyCastStructure):
+class D3DTRANSFORMDATA(Structure):
     dwSize: UInt32
     lpIn: VoidPtr
     dwInSize: UInt32
@@ -2245,26 +2245,26 @@ D3DTS_TEXTURE4: win32more.Windows.Win32.Graphics.Direct3D9.D3DTRANSFORMSTATETYPE
 D3DTS_TEXTURE5: win32more.Windows.Win32.Graphics.Direct3D9.D3DTRANSFORMSTATETYPE = 21
 D3DTS_TEXTURE6: win32more.Windows.Win32.Graphics.Direct3D9.D3DTRANSFORMSTATETYPE = 22
 D3DTS_TEXTURE7: win32more.Windows.Win32.Graphics.Direct3D9.D3DTRANSFORMSTATETYPE = 23
-class D3DTRIANGLE(EasyCastStructure):
+class D3DTRIANGLE(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
     wFlags: UInt16
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         v1: UInt16
         wV1: UInt16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         v2: UInt16
         wV2: UInt16
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         v3: UInt16
         wV3: UInt16
-class D3DTRIPATCH_INFO(EasyCastStructure):
+class D3DTRIPATCH_INFO(Structure):
     StartVertexOffset: UInt32
     NumVertices: UInt32
     Basis: win32more.Windows.Win32.Graphics.Direct3D9.D3DBASISTYPE
     Degree: win32more.Windows.Win32.Graphics.Direct3D9.D3DDEGREETYPE
-class D3DVERTEX(EasyCastStructure):
+class D3DVERTEX(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
@@ -2273,28 +2273,28 @@ class D3DVERTEX(EasyCastStructure):
     Anonymous6: _Anonymous6_e__Union
     Anonymous7: _Anonymous7_e__Union
     Anonymous8: _Anonymous8_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         x: Single
         dvX: Single
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         y: Single
         dvY: Single
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         z: Single
         dvZ: Single
-    class _Anonymous4_e__Union(EasyCastUnion):
+    class _Anonymous4_e__Union(Union):
         nx: Single
         dvNX: Single
-    class _Anonymous5_e__Union(EasyCastUnion):
+    class _Anonymous5_e__Union(Union):
         ny: Single
         dvNY: Single
-    class _Anonymous6_e__Union(EasyCastUnion):
+    class _Anonymous6_e__Union(Union):
         nz: Single
         dvNZ: Single
-    class _Anonymous7_e__Union(EasyCastUnion):
+    class _Anonymous7_e__Union(Union):
         tu: Single
         dvTU: Single
-    class _Anonymous8_e__Union(EasyCastUnion):
+    class _Anonymous8_e__Union(Union):
         tv: Single
         dvTV: Single
 D3DVERTEXBLENDFLAGS = Int32
@@ -2304,19 +2304,19 @@ D3DVBF_2WEIGHTS: win32more.Windows.Win32.Graphics.Direct3D9.D3DVERTEXBLENDFLAGS 
 D3DVBF_3WEIGHTS: win32more.Windows.Win32.Graphics.Direct3D9.D3DVERTEXBLENDFLAGS = 3
 D3DVBF_TWEENING: win32more.Windows.Win32.Graphics.Direct3D9.D3DVERTEXBLENDFLAGS = 255
 D3DVBF_0WEIGHTS: win32more.Windows.Win32.Graphics.Direct3D9.D3DVERTEXBLENDFLAGS = 256
-class D3DVERTEXBUFFERDESC(EasyCastStructure):
+class D3DVERTEXBUFFERDESC(Structure):
     dwSize: UInt32
     dwCaps: UInt32
     dwFVF: UInt32
     dwNumVertices: UInt32
-class D3DVERTEXBUFFER_DESC(EasyCastStructure):
+class D3DVERTEXBUFFER_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
     Type: win32more.Windows.Win32.Graphics.Direct3D9.D3DRESOURCETYPE
     Usage: UInt32
     Pool: win32more.Windows.Win32.Graphics.Direct3D9.D3DPOOL
     Size: UInt32
     FVF: UInt32
-class D3DVERTEXELEMENT9(EasyCastStructure):
+class D3DVERTEXELEMENT9(Structure):
     Stream: UInt16
     Offset: UInt16
     Type: Byte
@@ -2327,7 +2327,7 @@ D3DVERTEXTYPE = Int32
 D3DVT_VERTEX: win32more.Windows.Win32.Graphics.Direct3D9.D3DVERTEXTYPE = 1
 D3DVT_LVERTEX: win32more.Windows.Win32.Graphics.Direct3D9.D3DVERTEXTYPE = 2
 D3DVT_TLVERTEX: win32more.Windows.Win32.Graphics.Direct3D9.D3DVERTEXTYPE = 3
-class D3DVIEWPORT(EasyCastStructure):
+class D3DVIEWPORT(Structure):
     dwSize: UInt32
     dwX: UInt32
     dwY: UInt32
@@ -2339,7 +2339,7 @@ class D3DVIEWPORT(EasyCastStructure):
     dvMaxY: Single
     dvMinZ: Single
     dvMaxZ: Single
-class D3DVIEWPORT2(EasyCastStructure):
+class D3DVIEWPORT2(Structure):
     dwSize: UInt32
     dwX: UInt32
     dwY: UInt32
@@ -2351,21 +2351,21 @@ class D3DVIEWPORT2(EasyCastStructure):
     dvClipHeight: Single
     dvMinZ: Single
     dvMaxZ: Single
-class D3DVIEWPORT7(EasyCastStructure):
+class D3DVIEWPORT7(Structure):
     dwX: UInt32
     dwY: UInt32
     dwWidth: UInt32
     dwHeight: UInt32
     dvMinZ: Single
     dvMaxZ: Single
-class D3DVIEWPORT9(EasyCastStructure):
+class D3DVIEWPORT9(Structure):
     X: UInt32
     Y: UInt32
     Width: UInt32
     Height: UInt32
     MinZ: Single
     MaxZ: Single
-class D3DVOLUME_DESC(EasyCastStructure):
+class D3DVOLUME_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
     Type: win32more.Windows.Win32.Graphics.Direct3D9.D3DRESOURCETYPE
     Usage: UInt32
@@ -2373,7 +2373,7 @@ class D3DVOLUME_DESC(EasyCastStructure):
     Width: UInt32
     Height: UInt32
     Depth: UInt32
-class D3DVSHADERCAPS2_0(EasyCastStructure):
+class D3DVSHADERCAPS2_0(Structure):
     Caps: UInt32
     DynamicFlowControlDepth: Int32
     NumTemps: Int32
@@ -2389,7 +2389,7 @@ D3DZBUFFERTYPE = Int32
 D3DZB_FALSE: win32more.Windows.Win32.Graphics.Direct3D9.D3DZBUFFERTYPE = 0
 D3DZB_TRUE: win32more.Windows.Win32.Graphics.Direct3D9.D3DZBUFFERTYPE = 1
 D3DZB_USEW: win32more.Windows.Win32.Graphics.Direct3D9.D3DZBUFFERTYPE = 2
-class D3D_OMAC(EasyCastStructure):
+class D3D_OMAC(Structure):
     Omac: Byte * 16
 class IDirect3D9(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown

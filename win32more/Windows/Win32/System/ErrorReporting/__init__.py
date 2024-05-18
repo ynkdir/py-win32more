@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.ErrorReporting
@@ -163,7 +163,7 @@ WerConsentApproved: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 
 WerConsentDenied: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 3
 WerConsentAlwaysPrompt: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 4
 WerConsentMax: win32more.Windows.Win32.System.ErrorReporting.WER_CONSENT = 5
-class WER_DUMP_CUSTOM_OPTIONS(EasyCastStructure):
+class WER_DUMP_CUSTOM_OPTIONS(Structure):
     dwSize: UInt32
     dwMask: UInt32
     dwDumpFlags: UInt32
@@ -175,7 +175,7 @@ class WER_DUMP_CUSTOM_OPTIONS(EasyCastStructure):
     dwPreferredModuleFlags: UInt32
     dwOtherModuleFlags: UInt32
     wzPreferredModuleList: Char * 256
-class WER_DUMP_CUSTOM_OPTIONS_V2(EasyCastStructure):
+class WER_DUMP_CUSTOM_OPTIONS_V2(Structure):
     dwSize: UInt32
     dwMask: UInt32
     dwDumpFlags: UInt32
@@ -189,7 +189,7 @@ class WER_DUMP_CUSTOM_OPTIONS_V2(EasyCastStructure):
     wzPreferredModuleList: Char * 256
     dwPreferredModuleResetFlags: UInt32
     dwOtherModuleResetFlags: UInt32
-class WER_DUMP_CUSTOM_OPTIONS_V3(EasyCastStructure):
+class WER_DUMP_CUSTOM_OPTIONS_V3(Structure):
     dwSize: UInt32
     dwMask: UInt32
     dwDumpFlags: UInt32
@@ -213,7 +213,7 @@ WerDumpTypeMiniDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE
 WerDumpTypeHeapDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 3
 WerDumpTypeTriageDump: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 4
 WerDumpTypeMax: win32more.Windows.Win32.System.ErrorReporting.WER_DUMP_TYPE = 5
-class WER_EXCEPTION_INFORMATION(EasyCastStructure):
+class WER_EXCEPTION_INFORMATION(Structure):
     pExceptionPointers: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)
     bClientPointers: win32more.Windows.Win32.Foundation.BOOL
 WER_FAULT_REPORTING = UInt32
@@ -240,7 +240,7 @@ WER_REGISTER_FILE_TYPE = Int32
 WerRegFileTypeUserDocument: win32more.Windows.Win32.System.ErrorReporting.WER_REGISTER_FILE_TYPE = 1
 WerRegFileTypeOther: win32more.Windows.Win32.System.ErrorReporting.WER_REGISTER_FILE_TYPE = 2
 WerRegFileTypeMax: win32more.Windows.Win32.System.ErrorReporting.WER_REGISTER_FILE_TYPE = 3
-class WER_REPORT_INFORMATION(EasyCastStructure):
+class WER_REPORT_INFORMATION(Structure):
     dwSize: UInt32
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
     wzConsentKey: Char * 64
@@ -249,7 +249,7 @@ class WER_REPORT_INFORMATION(EasyCastStructure):
     wzApplicationPath: Char * 260
     wzDescription: Char * 512
     hwndParent: win32more.Windows.Win32.Foundation.HWND
-class WER_REPORT_INFORMATION_V3(EasyCastStructure):
+class WER_REPORT_INFORMATION_V3(Structure):
     dwSize: UInt32
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
     wzConsentKey: Char * 64
@@ -260,7 +260,7 @@ class WER_REPORT_INFORMATION_V3(EasyCastStructure):
     hwndParent: win32more.Windows.Win32.Foundation.HWND
     wzNamespacePartner: Char * 64
     wzNamespaceGroup: Char * 64
-class WER_REPORT_INFORMATION_V4(EasyCastStructure):
+class WER_REPORT_INFORMATION_V4(Structure):
     dwSize: UInt32
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
     wzConsentKey: Char * 64
@@ -274,7 +274,7 @@ class WER_REPORT_INFORMATION_V4(EasyCastStructure):
     rgbApplicationIdentity: Byte * 16
     hSnapshot: win32more.Windows.Win32.Foundation.HANDLE
     hDeleteFilesImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE
-class WER_REPORT_INFORMATION_V5(EasyCastStructure):
+class WER_REPORT_INFORMATION_V5(Structure):
     dwSize: UInt32
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
     wzConsentKey: Char * 64
@@ -289,13 +289,13 @@ class WER_REPORT_INFORMATION_V5(EasyCastStructure):
     hSnapshot: win32more.Windows.Win32.Foundation.HANDLE
     hDeleteFilesImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE
     submitResultMax: win32more.Windows.Win32.System.ErrorReporting.WER_SUBMIT_RESULT
-class WER_REPORT_METADATA_V1(EasyCastStructure):
+class WER_REPORT_METADATA_V1(Structure):
     Signature: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_SIGNATURE
     BucketId: Guid
     ReportId: Guid
     CreationTime: win32more.Windows.Win32.Foundation.FILETIME
     SizeInBytes: UInt64
-class WER_REPORT_METADATA_V2(EasyCastStructure):
+class WER_REPORT_METADATA_V2(Structure):
     Signature: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_SIGNATURE
     BucketId: Guid
     ReportId: Guid
@@ -307,7 +307,7 @@ class WER_REPORT_METADATA_V2(EasyCastStructure):
     NumberOfFiles: UInt32
     SizeOfFileNames: UInt32
     FileNames: win32more.Windows.Win32.Foundation.PWSTR
-class WER_REPORT_METADATA_V3(EasyCastStructure):
+class WER_REPORT_METADATA_V3(Structure):
     Signature: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_SIGNATURE
     BucketId: Guid
     ReportId: Guid
@@ -325,10 +325,10 @@ class WER_REPORT_METADATA_V3(EasyCastStructure):
     Description: Char * 512
     BucketIdString: Char * 260
     LegacyBucketId: UInt64
-class WER_REPORT_PARAMETER(EasyCastStructure):
+class WER_REPORT_PARAMETER(Structure):
     Name: Char * 129
     Value: Char * 260
-class WER_REPORT_SIGNATURE(EasyCastStructure):
+class WER_REPORT_SIGNATURE(Structure):
     EventName: Char * 65
     Parameters: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_PARAMETER * 10
 WER_REPORT_TYPE = Int32
@@ -350,7 +350,7 @@ WerUICloseDlgHeader: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI
 WerUICloseDlgBody: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 9
 WerUICloseDlgButtonText: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 10
 WerUIMax: win32more.Windows.Win32.System.ErrorReporting.WER_REPORT_UI = 11
-class WER_RUNTIME_EXCEPTION_INFORMATION(EasyCastStructure):
+class WER_RUNTIME_EXCEPTION_INFORMATION(Structure):
     dwSize: UInt32
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
     hThread: win32more.Windows.Win32.Foundation.HANDLE

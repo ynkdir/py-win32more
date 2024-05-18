@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D.Common
 import win32more.Windows.Win32.Graphics.Direct3D
@@ -38,22 +38,22 @@ COMPOSITION_FRAME_ID_TYPE = Int32
 COMPOSITION_FRAME_ID_CREATED: win32more.Windows.Win32.Graphics.DirectComposition.COMPOSITION_FRAME_ID_TYPE = 0
 COMPOSITION_FRAME_ID_CONFIRMED: win32more.Windows.Win32.Graphics.DirectComposition.COMPOSITION_FRAME_ID_TYPE = 1
 COMPOSITION_FRAME_ID_COMPLETED: win32more.Windows.Win32.Graphics.DirectComposition.COMPOSITION_FRAME_ID_TYPE = 2
-class COMPOSITION_FRAME_STATS(EasyCastStructure):
+class COMPOSITION_FRAME_STATS(Structure):
     startTime: UInt64
     targetTime: UInt64
     framePeriod: UInt64
-class COMPOSITION_STATS(EasyCastStructure):
+class COMPOSITION_STATS(Structure):
     presentCount: UInt32
     refreshCount: UInt32
     virtualRefreshCount: UInt32
     time: UInt64
-class COMPOSITION_TARGET_ID(EasyCastStructure):
+class COMPOSITION_TARGET_ID(Structure):
     displayAdapterLuid: win32more.Windows.Win32.Foundation.LUID
     renderAdapterLuid: win32more.Windows.Win32.Foundation.LUID
     vidPnSourceId: UInt32
     vidPnTargetId: UInt32
     uniqueId: UInt32
-class COMPOSITION_TARGET_STATS(EasyCastStructure):
+class COMPOSITION_TARGET_STATS(Structure):
     outstandingPresents: UInt32
     presentTime: UInt64
     vblankDuration: UInt64
@@ -81,7 +81,7 @@ DCOMPOSITION_DEPTH_MODE_TREE: win32more.Windows.Win32.Graphics.DirectComposition
 DCOMPOSITION_DEPTH_MODE_SPATIAL: win32more.Windows.Win32.Graphics.DirectComposition.DCOMPOSITION_DEPTH_MODE = 1
 DCOMPOSITION_DEPTH_MODE_SORTED: win32more.Windows.Win32.Graphics.DirectComposition.DCOMPOSITION_DEPTH_MODE = 3
 DCOMPOSITION_DEPTH_MODE_INHERIT: win32more.Windows.Win32.Graphics.DirectComposition.DCOMPOSITION_DEPTH_MODE = -1
-class DCOMPOSITION_FRAME_STATISTICS(EasyCastStructure):
+class DCOMPOSITION_FRAME_STATISTICS(Structure):
     lastFrameTime: Int64
     currentCompositionRate: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL
     currentTime: Int64
@@ -91,7 +91,7 @@ DCOMPOSITION_OPACITY_MODE = Int32
 DCOMPOSITION_OPACITY_MODE_LAYER: win32more.Windows.Win32.Graphics.DirectComposition.DCOMPOSITION_OPACITY_MODE = 0
 DCOMPOSITION_OPACITY_MODE_MULTIPLY: win32more.Windows.Win32.Graphics.DirectComposition.DCOMPOSITION_OPACITY_MODE = 1
 DCOMPOSITION_OPACITY_MODE_INHERIT: win32more.Windows.Win32.Graphics.DirectComposition.DCOMPOSITION_OPACITY_MODE = -1
-class DCompositionInkTrailPoint(EasyCastStructure):
+class DCompositionInkTrailPoint(Structure):
     x: Single
     y: Single
     radius: Single

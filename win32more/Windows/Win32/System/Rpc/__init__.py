@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.IO
 import win32more.Windows.Win32.System.Rpc
-class ARRAY_INFO(EasyCastStructure):
+class ARRAY_INFO(Structure):
     Dimension: Int32
     BufferConformanceMark: POINTER(UInt32)
     BufferVarianceMark: POINTER(UInt32)
@@ -1320,13 +1320,13 @@ def RpcCertGeneratePrincipalNameW(Context: POINTER(win32more.Windows.Win32.Secur
 RpcCertGeneratePrincipalName = UnicodeAlias('RpcCertGeneratePrincipalNameW')
 @winfunctype('RPCRT4.dll')
 def RpcCertGeneratePrincipalNameA(Context: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), Flags: UInt32, pBuffer: POINTER(win32more.Windows.Win32.Foundation.PSTR)) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
-class BinaryParam(EasyCastStructure):
+class BinaryParam(Structure):
     Buffer: VoidPtr
     Size: Int16
-class CLIENT_CALL_RETURN(EasyCastUnion):
+class CLIENT_CALL_RETURN(Union):
     Pointer: VoidPtr
     Simple: IntPtr
-class COMM_FAULT_OFFSETS(EasyCastStructure):
+class COMM_FAULT_OFFSETS(Structure):
     CommOffset: Int16
     FaultOffset: Int16
 @winfunctype_pointer
@@ -1358,19 +1358,19 @@ eeptShortVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 4
 eeptPointerVal: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 5
 eeptNone: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 6
 eeptBinary: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes = 7
-class FULL_PTR_XLAT_TABLES(EasyCastStructure):
+class FULL_PTR_XLAT_TABLES(Structure):
     RefIdToPointer: VoidPtr
     PointerToRefId: VoidPtr
     NextRefId: UInt32
     XlatSide: win32more.Windows.Win32.System.Rpc.XLAT_SIDE
-class GENERIC_BINDING_INFO(EasyCastStructure):
+class GENERIC_BINDING_INFO(Structure):
     pObj: VoidPtr
     Size: UInt32
     pfnBind: win32more.Windows.Win32.System.Rpc.GENERIC_BINDING_ROUTINE
     pfnUnbind: win32more.Windows.Win32.System.Rpc.GENERIC_UNBIND_ROUTINE
 @winfunctype_pointer
 def GENERIC_BINDING_ROUTINE(param0: VoidPtr) -> VoidPtr: ...
-class GENERIC_BINDING_ROUTINE_PAIR(EasyCastStructure):
+class GENERIC_BINDING_ROUTINE_PAIR(Structure):
     pfnBind: win32more.Windows.Win32.System.Rpc.GENERIC_BINDING_ROUTINE
     pfnUnbind: win32more.Windows.Win32.System.Rpc.GENERIC_UNBIND_ROUTINE
 @winfunctype_pointer
@@ -1386,7 +1386,7 @@ IDL_CS_NEW_BUFFER_CONVERT: win32more.Windows.Win32.System.Rpc.IDL_CS_CONVERT = 2
 def I_RpcFreeCalloutStateFn(CallOutState: POINTER(win32more.Windows.Win32.System.Rpc.RDR_CALLOUT_STATE)) -> Void: ...
 @winfunctype_pointer
 def I_RpcPerformCalloutFn(Context: VoidPtr, CallOutState: POINTER(win32more.Windows.Win32.System.Rpc.RDR_CALLOUT_STATE), Stage: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
-class I_RpcProxyCallbackInterface(EasyCastStructure):
+class I_RpcProxyCallbackInterface(Structure):
     IsValidMachineFn: win32more.Windows.Win32.System.Rpc.I_RpcProxyIsValidMachineFn
     GetClientAddressFn: win32more.Windows.Win32.System.Rpc.I_RpcProxyGetClientAddressFn
     GetConnectionTimeoutFn: win32more.Windows.Win32.System.Rpc.I_RpcProxyGetConnectionTimeoutFn
@@ -1413,7 +1413,7 @@ def I_RpcProxyUpdatePerfCounterFn(Counter: win32more.Windows.Win32.System.Rpc.Rp
 LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = Int32
 MarshalDirectionMarshal: win32more.Windows.Win32.System.Rpc.LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 0
 MarshalDirectionUnmarshal: win32more.Windows.Win32.System.Rpc.LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 1
-class MALLOC_FREE_STRUCT(EasyCastStructure):
+class MALLOC_FREE_STRUCT(Structure):
     pfnAllocate: IntPtr
     pfnFree: IntPtr
 @winfunctype_pointer
@@ -1430,25 +1430,25 @@ MES_DYNAMIC_BUFFER_HANDLE: win32more.Windows.Win32.System.Rpc.MIDL_ES_HANDLE_STY
 def MIDL_ES_READ(state: VoidPtr, pbuffer: POINTER(POINTER(SByte)), psize: POINTER(UInt32)) -> Void: ...
 @winfunctype_pointer
 def MIDL_ES_WRITE(state: VoidPtr, buffer: win32more.Windows.Win32.Foundation.PSTR, size: UInt32) -> Void: ...
-class MIDL_FORMAT_STRING(EasyCastStructure):
+class MIDL_FORMAT_STRING(Structure):
     Pad: Int16
     Format: Byte * 1
-class MIDL_INTERCEPTION_INFO(EasyCastStructure):
+class MIDL_INTERCEPTION_INFO(Structure):
     Version: UInt32
     ProcString: POINTER(Byte)
     ProcFormatOffsetTable: POINTER(UInt16)
     ProcCount: UInt32
     TypeString: POINTER(Byte)
-class MIDL_INTERFACE_METHOD_PROPERTIES(EasyCastStructure):
+class MIDL_INTERFACE_METHOD_PROPERTIES(Structure):
     MethodCount: UInt16
     MethodProperties: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.MIDL_METHOD_PROPERTY_MAP))
-class MIDL_METHOD_PROPERTY(EasyCastStructure):
+class MIDL_METHOD_PROPERTY(Structure):
     Id: UInt32
     Value: UIntPtr
-class MIDL_METHOD_PROPERTY_MAP(EasyCastStructure):
+class MIDL_METHOD_PROPERTY_MAP(Structure):
     Count: UInt32
     Properties: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_METHOD_PROPERTY)
-class MIDL_SERVER_INFO(EasyCastStructure):
+class MIDL_SERVER_INFO(Structure):
     pStubDesc: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUB_DESC)
     DispatchTable: POINTER(win32more.Windows.Win32.System.Rpc.SERVER_ROUTINE)
     ProcString: POINTER(Byte)
@@ -1457,14 +1457,14 @@ class MIDL_SERVER_INFO(EasyCastStructure):
     pTransferSyntax: POINTER(win32more.Windows.Win32.System.Rpc.RPC_SYNTAX_IDENTIFIER)
     nCount: UIntPtr
     pSyntaxInfo: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_SYNTAX_INFO)
-class MIDL_STUBLESS_PROXY_INFO(EasyCastStructure):
+class MIDL_STUBLESS_PROXY_INFO(Structure):
     pStubDesc: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUB_DESC)
     ProcFormatString: POINTER(Byte)
     FormatStringOffset: POINTER(UInt16)
     pTransferSyntax: POINTER(win32more.Windows.Win32.System.Rpc.RPC_SYNTAX_IDENTIFIER)
     nCount: UIntPtr
     pSyntaxInfo: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_SYNTAX_INFO)
-class MIDL_STUB_DESC(EasyCastStructure):
+class MIDL_STUB_DESC(Structure):
     RpcInterfaceInformation: VoidPtr
     pfnAllocate: win32more.Windows.Win32.System.Rpc.PFN_RPC_ALLOCATE
     pfnFree: win32more.Windows.Win32.System.Rpc.PFN_RPC_FREE
@@ -1485,11 +1485,11 @@ class MIDL_STUB_DESC(EasyCastStructure):
     CsRoutineTables: POINTER(win32more.Windows.Win32.System.Rpc.NDR_CS_ROUTINES)
     ProxyServerInfo: VoidPtr
     pExprInfo: POINTER(win32more.Windows.Win32.System.Rpc.NDR_EXPR_DESC)
-    class _IMPLICIT_HANDLE_INFO_e__Union(EasyCastUnion):
+    class _IMPLICIT_HANDLE_INFO_e__Union(Union):
         pAutoHandle: POINTER(VoidPtr)
         pPrimitiveHandle: POINTER(VoidPtr)
         pGenericBindingInfo: POINTER(win32more.Windows.Win32.System.Rpc.GENERIC_BINDING_INFO)
-class MIDL_STUB_MESSAGE(EasyCastStructure):
+class MIDL_STUB_MESSAGE(Structure):
     RpcMsg: POINTER(win32more.Windows.Win32.System.Rpc.RPC_MESSAGE)
     Buffer: POINTER(Byte)
     BufferStart: POINTER(Byte)
@@ -1549,7 +1549,7 @@ class MIDL_STUB_MESSAGE(EasyCastStructure):
     Reserved51_3: IntPtr
     Reserved51_4: IntPtr
     Reserved51_5: IntPtr
-class MIDL_SYNTAX_INFO(EasyCastStructure):
+class MIDL_SYNTAX_INFO(Structure):
     TransferSyntax: win32more.Windows.Win32.System.Rpc.RPC_SYNTAX_IDENTIFIER
     DispatchTable: POINTER(win32more.Windows.Win32.System.Rpc.RPC_DISPATCH_TABLE)
     ProcString: POINTER(Byte)
@@ -1558,53 +1558,53 @@ class MIDL_SYNTAX_INFO(EasyCastStructure):
     aUserMarshalQuadruple: VoidPtr
     pMethodProperties: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_INTERFACE_METHOD_PROPERTIES)
     pReserved2: UIntPtr
-class MIDL_TYPE_PICKLING_INFO(EasyCastStructure):
+class MIDL_TYPE_PICKLING_INFO(Structure):
     Version: UInt32
     Flags: UInt32
     Reserved: UIntPtr * 3
-class MIDL_WINRT_TYPE_SERIALIZATION_INFO(EasyCastStructure):
+class MIDL_WINRT_TYPE_SERIALIZATION_INFO(Structure):
     Version: UInt32
     TypeFormatString: POINTER(Byte)
     FormatStringSize: UInt16
     TypeOffset: UInt16
     StubDesc: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUB_DESC)
-class NDR64_ARRAY_ELEMENT_INFO(EasyCastStructure):
+class NDR64_ARRAY_ELEMENT_INFO(Structure):
     ElementMemSize: UInt32
     Element: VoidPtr
-class NDR64_ARRAY_FLAGS(EasyCastStructure):
+class NDR64_ARRAY_FLAGS(Structure):
     _bitfield: Byte
-class NDR64_BINDINGS(EasyCastUnion):
+class NDR64_BINDINGS(Union):
     Primitive: win32more.Windows.Win32.System.Rpc.NDR64_BIND_PRIMITIVE
     Generic: win32more.Windows.Win32.System.Rpc.NDR64_BIND_GENERIC
     Context: win32more.Windows.Win32.System.Rpc.NDR64_BIND_CONTEXT
-class NDR64_BIND_AND_NOTIFY_EXTENSION(EasyCastStructure):
+class NDR64_BIND_AND_NOTIFY_EXTENSION(Structure):
     Binding: win32more.Windows.Win32.System.Rpc.NDR64_BIND_CONTEXT
     NotifyIndex: UInt16
-class NDR64_BIND_CONTEXT(EasyCastStructure):
+class NDR64_BIND_CONTEXT(Structure):
     HandleType: Byte
     Flags: Byte
     StackOffset: UInt16
     RoutineIndex: Byte
     Ordinal: Byte
-class NDR64_BIND_GENERIC(EasyCastStructure):
+class NDR64_BIND_GENERIC(Structure):
     HandleType: Byte
     Flags: Byte
     StackOffset: UInt16
     RoutineIndex: Byte
     Size: Byte
-class NDR64_BIND_PRIMITIVE(EasyCastStructure):
+class NDR64_BIND_PRIMITIVE(Structure):
     HandleType: Byte
     Flags: Byte
     StackOffset: UInt16
     Reserved: UInt16
-class NDR64_BOGUS_ARRAY_HEADER_FORMAT(EasyCastStructure):
+class NDR64_BOGUS_ARRAY_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_ARRAY_FLAGS
     NumberDims: Byte
     NumberElements: UInt32
     Element: VoidPtr
-class NDR64_BOGUS_STRUCTURE_HEADER_FORMAT(EasyCastStructure):
+class NDR64_BOGUS_STRUCTURE_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_STRUCTURE_FLAGS
@@ -1613,21 +1613,21 @@ class NDR64_BOGUS_STRUCTURE_HEADER_FORMAT(EasyCastStructure):
     OriginalMemberLayout: VoidPtr
     OriginalPointerLayout: VoidPtr
     PointerLayout: VoidPtr
-class NDR64_BUFFER_ALIGN_FORMAT(EasyCastStructure):
+class NDR64_BUFFER_ALIGN_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Reserved: UInt16
     Reserved2: UInt32
-class NDR64_CONFORMANT_STRING_FORMAT(EasyCastStructure):
+class NDR64_CONFORMANT_STRING_FORMAT(Structure):
     Header: win32more.Windows.Win32.System.Rpc.NDR64_STRING_HEADER_FORMAT
-class NDR64_CONF_ARRAY_HEADER_FORMAT(EasyCastStructure):
+class NDR64_CONF_ARRAY_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_ARRAY_FLAGS
     Reserved: Byte
     ElementSize: UInt32
     ConfDescriptor: VoidPtr
-class NDR64_CONF_BOGUS_STRUCTURE_HEADER_FORMAT(EasyCastStructure):
+class NDR64_CONF_BOGUS_STRUCTURE_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_STRUCTURE_FLAGS
@@ -1637,14 +1637,14 @@ class NDR64_CONF_BOGUS_STRUCTURE_HEADER_FORMAT(EasyCastStructure):
     OriginalPointerLayout: VoidPtr
     PointerLayout: VoidPtr
     ConfArrayDescription: VoidPtr
-class NDR64_CONF_STRUCTURE_HEADER_FORMAT(EasyCastStructure):
+class NDR64_CONF_STRUCTURE_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_STRUCTURE_FLAGS
     Reserve: Byte
     MemorySize: UInt32
     ArrayDescription: VoidPtr
-class NDR64_CONF_VAR_ARRAY_HEADER_FORMAT(EasyCastStructure):
+class NDR64_CONF_VAR_ARRAY_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_ARRAY_FLAGS
@@ -1652,29 +1652,29 @@ class NDR64_CONF_VAR_ARRAY_HEADER_FORMAT(EasyCastStructure):
     ElementSize: UInt32
     ConfDescriptor: VoidPtr
     VarDescriptor: VoidPtr
-class NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT(EasyCastStructure):
+class NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT(Structure):
     FixedArrayFormat: win32more.Windows.Win32.System.Rpc.NDR64_BOGUS_ARRAY_HEADER_FORMAT
     ConfDescription: VoidPtr
     VarDescription: VoidPtr
     OffsetDescription: VoidPtr
-class NDR64_CONSTANT_IID_FORMAT(EasyCastStructure):
+class NDR64_CONSTANT_IID_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
     Reserved: UInt16
     Guid: Guid
-class NDR64_CONTEXT_HANDLE_FLAGS(EasyCastStructure):
+class NDR64_CONTEXT_HANDLE_FLAGS(Structure):
     _bitfield: Byte
-class NDR64_CONTEXT_HANDLE_FORMAT(EasyCastStructure):
+class NDR64_CONTEXT_HANDLE_FORMAT(Structure):
     FormatCode: Byte
     ContextFlags: Byte
     RundownRoutineIndex: Byte
     Ordinal: Byte
-class NDR64_EMBEDDED_COMPLEX_FORMAT(EasyCastStructure):
+class NDR64_EMBEDDED_COMPLEX_FORMAT(Structure):
     FormatCode: Byte
     Reserve1: Byte
     Reserve2: UInt16
     Type: VoidPtr
-class NDR64_ENCAPSULATED_UNION(EasyCastStructure):
+class NDR64_ENCAPSULATED_UNION(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: Byte
@@ -1682,56 +1682,56 @@ class NDR64_ENCAPSULATED_UNION(EasyCastStructure):
     MemoryOffset: UInt32
     MemorySize: UInt32
     Reserved: UInt32
-class NDR64_EXPR_CONST32(EasyCastStructure):
+class NDR64_EXPR_CONST32(Structure):
     ExprType: Byte
     Reserved: Byte
     Reserved1: UInt16
     ConstValue: UInt32
-class NDR64_EXPR_CONST64(EasyCastStructure):
+class NDR64_EXPR_CONST64(Structure):
     ExprType: Byte
     Reserved: Byte
     Reserved1: UInt16
     ConstValue: Int64
-class NDR64_EXPR_NOOP(EasyCastStructure):
+class NDR64_EXPR_NOOP(Structure):
     ExprType: Byte
     Size: Byte
     Reserved: UInt16
-class NDR64_EXPR_OPERATOR(EasyCastStructure):
+class NDR64_EXPR_OPERATOR(Structure):
     ExprType: Byte
     Operator: Byte
     CastType: Byte
     Reserved: Byte
-class NDR64_EXPR_VAR(EasyCastStructure):
+class NDR64_EXPR_VAR(Structure):
     ExprType: Byte
     VarType: Byte
     Reserved: UInt16
     Offset: UInt32
-class NDR64_FIXED_REPEAT_FORMAT(EasyCastStructure):
+class NDR64_FIXED_REPEAT_FORMAT(Structure):
     RepeatFormat: win32more.Windows.Win32.System.Rpc.NDR64_REPEAT_FORMAT
     Iterations: UInt32
     Reserved: UInt32
-class NDR64_FIX_ARRAY_HEADER_FORMAT(EasyCastStructure):
+class NDR64_FIX_ARRAY_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_ARRAY_FLAGS
     Reserved: Byte
     TotalSize: UInt32
-class NDR64_IID_FLAGS(EasyCastStructure):
+class NDR64_IID_FLAGS(Structure):
     _bitfield: Byte
-class NDR64_IID_FORMAT(EasyCastStructure):
+class NDR64_IID_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
     Reserved: UInt16
     IIDDescriptor: VoidPtr
-class NDR64_MEMPAD_FORMAT(EasyCastStructure):
+class NDR64_MEMPAD_FORMAT(Structure):
     FormatCode: Byte
     Reserve1: Byte
     MemPad: UInt16
     Reserved2: UInt32
-class NDR64_NON_CONFORMANT_STRING_FORMAT(EasyCastStructure):
+class NDR64_NON_CONFORMANT_STRING_FORMAT(Structure):
     Header: win32more.Windows.Win32.System.Rpc.NDR64_STRING_HEADER_FORMAT
     TotalSize: UInt32
-class NDR64_NON_ENCAPSULATED_UNION(EasyCastStructure):
+class NDR64_NON_ENCAPSULATED_UNION(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: Byte
@@ -1739,21 +1739,21 @@ class NDR64_NON_ENCAPSULATED_UNION(EasyCastStructure):
     MemorySize: UInt32
     Switch: VoidPtr
     Reserved: UInt32
-class NDR64_NO_REPEAT_FORMAT(EasyCastStructure):
+class NDR64_NO_REPEAT_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
     Reserved1: UInt16
     Reserved2: UInt32
-class NDR64_PARAM_FLAGS(EasyCastStructure):
+class NDR64_PARAM_FLAGS(Structure):
     _bitfield: UInt16
-class NDR64_PARAM_FORMAT(EasyCastStructure):
+class NDR64_PARAM_FORMAT(Structure):
     Type: VoidPtr
     Attributes: win32more.Windows.Win32.System.Rpc.NDR64_PARAM_FLAGS
     Reserved: UInt16
     StackOffset: UInt32
-class NDR64_PIPE_FLAGS(EasyCastStructure):
+class NDR64_PIPE_FLAGS(Structure):
     _bitfield: Byte
-class NDR64_PIPE_FORMAT(EasyCastStructure):
+class NDR64_PIPE_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
     Alignment: Byte
@@ -1761,19 +1761,19 @@ class NDR64_PIPE_FORMAT(EasyCastStructure):
     Type: VoidPtr
     MemorySize: UInt32
     BufferSize: UInt32
-class NDR64_POINTER_FORMAT(EasyCastStructure):
+class NDR64_POINTER_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
     Reserved: UInt16
     Pointee: VoidPtr
-class NDR64_POINTER_INSTANCE_HEADER_FORMAT(EasyCastStructure):
+class NDR64_POINTER_INSTANCE_HEADER_FORMAT(Structure):
     Offset: UInt32
     Reserved: UInt32
-class NDR64_POINTER_REPEAT_FLAGS(EasyCastStructure):
+class NDR64_POINTER_REPEAT_FLAGS(Structure):
     _bitfield: Byte
-class NDR64_PROC_FLAGS(EasyCastStructure):
+class NDR64_PROC_FLAGS(Structure):
     _bitfield: UInt32
-class NDR64_PROC_FORMAT(EasyCastStructure):
+class NDR64_PROC_FORMAT(Structure):
     Flags: UInt32
     StackSize: UInt32
     ConstantClientBufferSize: UInt32
@@ -1782,18 +1782,18 @@ class NDR64_PROC_FORMAT(EasyCastStructure):
     FloatDoubleMask: UInt16
     NumberOfParams: UInt16
     ExtensionSize: UInt16
-class NDR64_RANGED_STRING_FORMAT(EasyCastStructure):
+class NDR64_RANGED_STRING_FORMAT(Structure):
     Header: win32more.Windows.Win32.System.Rpc.NDR64_STRING_HEADER_FORMAT
     Reserved: UInt32
     Min: UInt64
     Max: UInt64
-class NDR64_RANGE_FORMAT(EasyCastStructure):
+class NDR64_RANGE_FORMAT(Structure):
     FormatCode: Byte
     RangeType: Byte
     Reserved: UInt16
     MinValue: Int64
     MaxValue: Int64
-class NDR64_RANGE_PIPE_FORMAT(EasyCastStructure):
+class NDR64_RANGE_PIPE_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
     Alignment: Byte
@@ -1803,49 +1803,49 @@ class NDR64_RANGE_PIPE_FORMAT(EasyCastStructure):
     BufferSize: UInt32
     MinValue: UInt32
     MaxValue: UInt32
-class NDR64_REPEAT_FORMAT(EasyCastStructure):
+class NDR64_REPEAT_FORMAT(Structure):
     FormatCode: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_POINTER_REPEAT_FLAGS
     Reserved: UInt16
     Increment: UInt32
     OffsetToArray: UInt32
     NumberOfPointers: UInt32
-class NDR64_RPC_FLAGS(EasyCastStructure):
+class NDR64_RPC_FLAGS(Structure):
     _bitfield: UInt16
-class NDR64_SIMPLE_MEMBER_FORMAT(EasyCastStructure):
+class NDR64_SIMPLE_MEMBER_FORMAT(Structure):
     FormatCode: Byte
     Reserved1: Byte
     Reserved2: UInt16
     Reserved3: UInt32
-class NDR64_SIMPLE_REGION_FORMAT(EasyCastStructure):
+class NDR64_SIMPLE_REGION_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     RegionSize: UInt16
     Reserved: UInt32
-class NDR64_SIZED_CONFORMANT_STRING_FORMAT(EasyCastStructure):
+class NDR64_SIZED_CONFORMANT_STRING_FORMAT(Structure):
     Header: win32more.Windows.Win32.System.Rpc.NDR64_STRING_HEADER_FORMAT
     SizeDescription: VoidPtr
-class NDR64_STRING_FLAGS(EasyCastStructure):
+class NDR64_STRING_FLAGS(Structure):
     _bitfield: Byte
-class NDR64_STRING_HEADER_FORMAT(EasyCastStructure):
+class NDR64_STRING_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_STRING_FLAGS
     ElementSize: UInt16
-class NDR64_STRUCTURE_FLAGS(EasyCastStructure):
+class NDR64_STRUCTURE_FLAGS(Structure):
     _bitfield: Byte
-class NDR64_STRUCTURE_HEADER_FORMAT(EasyCastStructure):
+class NDR64_STRUCTURE_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_STRUCTURE_FLAGS
     Reserve: Byte
     MemorySize: UInt32
-class NDR64_SYSTEM_HANDLE_FORMAT(EasyCastStructure):
+class NDR64_SYSTEM_HANDLE_FORMAT(Structure):
     FormatCode: Byte
     HandleType: Byte
     DesiredAccess: UInt32
-class NDR64_TRANSMIT_AS_FLAGS(EasyCastStructure):
+class NDR64_TRANSMIT_AS_FLAGS(Structure):
     _bitfield: Byte
-class NDR64_TRANSMIT_AS_FORMAT(EasyCastStructure):
+class NDR64_TRANSMIT_AS_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
     RoutineIndex: UInt16
@@ -1854,25 +1854,25 @@ class NDR64_TRANSMIT_AS_FORMAT(EasyCastStructure):
     PresentedTypeMemorySize: UInt32
     TransmittedTypeBufferSize: UInt32
     TransmittedType: VoidPtr
-class NDR64_TYPE_STRICT_CONTEXT_HANDLE(EasyCastStructure):
+class NDR64_TYPE_STRICT_CONTEXT_HANDLE(Structure):
     FormatCode: Byte
     RealFormatCode: Byte
     Reserved: UInt16
     Type: VoidPtr
     CtxtFlags: UInt32
     CtxtID: UInt32
-class NDR64_UNION_ARM(EasyCastStructure):
+class NDR64_UNION_ARM(Structure):
     CaseValue: Int64
     Type: VoidPtr
     Reserved: UInt32
-class NDR64_UNION_ARM_SELECTOR(EasyCastStructure):
+class NDR64_UNION_ARM_SELECTOR(Structure):
     Reserved1: Byte
     Alignment: Byte
     Reserved2: UInt16
     Arms: UInt32
-class NDR64_USER_MARSHAL_FLAGS(EasyCastStructure):
+class NDR64_USER_MARSHAL_FLAGS(Structure):
     _bitfield: Byte
-class NDR64_USER_MARSHAL_FORMAT(EasyCastStructure):
+class NDR64_USER_MARSHAL_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
     RoutineIndex: UInt16
@@ -1881,7 +1881,7 @@ class NDR64_USER_MARSHAL_FORMAT(EasyCastStructure):
     UserTypeMemorySize: UInt32
     TransmittedTypeBufferSize: UInt32
     TransmittedType: VoidPtr
-class NDR64_VAR_ARRAY_HEADER_FORMAT(EasyCastStructure):
+class NDR64_VAR_ARRAY_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_ARRAY_FLAGS
@@ -1890,15 +1890,15 @@ class NDR64_VAR_ARRAY_HEADER_FORMAT(EasyCastStructure):
     ElementSize: UInt32
     VarDescriptor: VoidPtr
 NDR_ALLOC_ALL_NODES_CONTEXT = IntPtr
-class NDR_CS_ROUTINES(EasyCastStructure):
+class NDR_CS_ROUTINES(Structure):
     pSizeConvertRoutines: POINTER(win32more.Windows.Win32.System.Rpc.NDR_CS_SIZE_CONVERT_ROUTINES)
     pTagGettingRoutines: POINTER(win32more.Windows.Win32.System.Rpc.CS_TAG_GETTING_ROUTINE)
-class NDR_CS_SIZE_CONVERT_ROUTINES(EasyCastStructure):
+class NDR_CS_SIZE_CONVERT_ROUTINES(Structure):
     pfnNetSize: win32more.Windows.Win32.System.Rpc.CS_TYPE_NET_SIZE_ROUTINE
     pfnToNetCs: win32more.Windows.Win32.System.Rpc.CS_TYPE_TO_NETCS_ROUTINE
     pfnLocalSize: win32more.Windows.Win32.System.Rpc.CS_TYPE_LOCAL_SIZE_ROUTINE
     pfnFromNetCs: win32more.Windows.Win32.System.Rpc.CS_TYPE_FROM_NETCS_ROUTINE
-class NDR_EXPR_DESC(EasyCastStructure):
+class NDR_EXPR_DESC(Structure):
     pOffset: POINTER(UInt16)
     pFormatExpr: POINTER(Byte)
 @winfunctype_pointer
@@ -1908,15 +1908,15 @@ def NDR_NOTIFY_ROUTINE() -> Void: ...
 NDR_POINTER_QUEUE_STATE = IntPtr
 @winfunctype_pointer
 def NDR_RUNDOWN(context: VoidPtr) -> Void: ...
-class NDR_SCONTEXT(EasyCastStructure):
+class NDR_SCONTEXT(Structure):
     pad: VoidPtr * 2
     userContext: VoidPtr
-class NDR_USER_MARSHAL_INFO(EasyCastStructure):
+class NDR_USER_MARSHAL_INFO(Structure):
     InformationLevel: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Level1: win32more.Windows.Win32.System.Rpc.NDR_USER_MARSHAL_INFO_LEVEL1
-class NDR_USER_MARSHAL_INFO_LEVEL1(EasyCastStructure):
+class NDR_USER_MARSHAL_INFO_LEVEL1(Structure):
     Buffer: VoidPtr
     BufferSize: UInt32
     pfnAllocate: IntPtr
@@ -1939,7 +1939,7 @@ PROXY_SENDRECEIVE: win32more.Windows.Win32.System.Rpc.PROXY_PHASE = 3
 PROXY_UNMARSHAL: win32more.Windows.Win32.System.Rpc.PROXY_PHASE = 4
 @winfunctype_pointer
 def PRPC_RUNDOWN(AssociationContext: VoidPtr) -> Void: ...
-class RDR_CALLOUT_STATE(EasyCastStructure):
+class RDR_CALLOUT_STATE(Structure):
     LastError: win32more.Windows.Win32.System.Rpc.RPC_STATUS
     LastEEInfo: VoidPtr
     LastCalledStage: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE
@@ -1968,24 +1968,24 @@ RpcSendComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 1
 RpcReceiveComplete: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 2
 RpcClientDisconnect: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 3
 RpcClientCancel: win32more.Windows.Win32.System.Rpc.RPC_ASYNC_EVENT = 4
-class RPC_ASYNC_NOTIFICATION_INFO(EasyCastUnion):
+class RPC_ASYNC_NOTIFICATION_INFO(Union):
     APC: _APC_e__Struct
     IOC: _IOC_e__Struct
     IntPtr: _IntPtr_e__Struct
     hEvent: win32more.Windows.Win32.Foundation.HANDLE
     NotificationRoutine: win32more.Windows.Win32.System.Rpc.PFN_RPCNOTIFICATION_ROUTINE
-    class _APC_e__Struct(EasyCastStructure):
+    class _APC_e__Struct(Structure):
         NotificationRoutine: win32more.Windows.Win32.System.Rpc.PFN_RPCNOTIFICATION_ROUTINE
         hThread: win32more.Windows.Win32.Foundation.HANDLE
-    class _IOC_e__Struct(EasyCastStructure):
+    class _IOC_e__Struct(Structure):
         hIOPort: win32more.Windows.Win32.Foundation.HANDLE
         dwNumberOfBytesTransferred: UInt32
         dwCompletionKey: UIntPtr
         lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)
-    class _IntPtr_e__Struct(EasyCastStructure):
+    class _IntPtr_e__Struct(Structure):
         hWnd: win32more.Windows.Win32.Foundation.HWND
         Msg: UInt32
-class RPC_ASYNC_STATE(EasyCastStructure):
+class RPC_ASYNC_STATE(Structure):
     Size: UInt32
     Signature: UInt32
     Lock: Int32
@@ -2002,19 +2002,19 @@ def RPC_AUTH_KEY_RETRIEVAL_FN(Arg: VoidPtr, ServerPrincName: win32more.Windows.W
 RPC_BINDING_HANDLE_OPTIONS_FLAGS = UInt32
 RPC_BHO_NONCAUSAL: win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_OPTIONS_FLAGS = 1
 RPC_BHO_DONTLINGER: win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_OPTIONS_FLAGS = 2
-class RPC_BINDING_HANDLE_OPTIONS_V1(EasyCastStructure):
+class RPC_BINDING_HANDLE_OPTIONS_V1(Structure):
     Version: UInt32
     Flags: win32more.Windows.Win32.System.Rpc.RPC_BINDING_HANDLE_OPTIONS_FLAGS
     ComTimeout: UInt32
     CallTimeout: UInt32
-class RPC_BINDING_HANDLE_SECURITY_V1_A(EasyCastStructure):
+class RPC_BINDING_HANDLE_SECURITY_V1_A(Structure):
     Version: UInt32
     ServerPrincName: POINTER(Byte)
     AuthnLevel: UInt32
     AuthnSvc: UInt32
     AuthIdentity: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_A)
     SecurityQos: POINTER(win32more.Windows.Win32.System.Rpc.RPC_SECURITY_QOS)
-class RPC_BINDING_HANDLE_SECURITY_V1_W(EasyCastStructure):
+class RPC_BINDING_HANDLE_SECURITY_V1_W(Structure):
     Version: UInt32
     ServerPrincName: POINTER(UInt16)
     AuthnLevel: UInt32
@@ -2022,7 +2022,7 @@ class RPC_BINDING_HANDLE_SECURITY_V1_W(EasyCastStructure):
     AuthIdentity: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W)
     SecurityQos: POINTER(win32more.Windows.Win32.System.Rpc.RPC_SECURITY_QOS)
 RPC_BINDING_HANDLE_SECURITY_V1 = UnicodeAlias('RPC_BINDING_HANDLE_SECURITY_V1_W')
-class RPC_BINDING_HANDLE_TEMPLATE_V1_A(EasyCastStructure):
+class RPC_BINDING_HANDLE_TEMPLATE_V1_A(Structure):
     Version: UInt32
     Flags: UInt32
     ProtocolSequence: UInt32
@@ -2030,9 +2030,9 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_A(EasyCastStructure):
     StringEndpoint: POINTER(Byte)
     u1: _u1_e__Union
     ObjectUuid: Guid
-    class _u1_e__Union(EasyCastUnion):
+    class _u1_e__Union(Union):
         Reserved: POINTER(Byte)
-class RPC_BINDING_HANDLE_TEMPLATE_V1_W(EasyCastStructure):
+class RPC_BINDING_HANDLE_TEMPLATE_V1_W(Structure):
     Version: UInt32
     Flags: UInt32
     ProtocolSequence: UInt32
@@ -2040,15 +2040,15 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_W(EasyCastStructure):
     StringEndpoint: POINTER(UInt16)
     u1: _u1_e__Union
     ObjectUuid: Guid
-    class _u1_e__Union(EasyCastUnion):
+    class _u1_e__Union(Union):
         Reserved: POINTER(UInt16)
 RPC_BINDING_HANDLE_TEMPLATE_V1 = UnicodeAlias('RPC_BINDING_HANDLE_TEMPLATE_V1_W')
-class RPC_BINDING_VECTOR(EasyCastStructure):
+class RPC_BINDING_VECTOR(Structure):
     Count: UInt32
     BindingH: VoidPtr * 1
 @winfunctype_pointer
 def RPC_BLOCKING_FN(hWnd: VoidPtr, Context: VoidPtr, hSyncEvent: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
-class RPC_CALL_ATTRIBUTES_V1_A(EasyCastStructure):
+class RPC_CALL_ATTRIBUTES_V1_A(Structure):
     Version: UInt32
     Flags: UInt32
     ServerPrincipalNameBufferLength: UInt32
@@ -2058,7 +2058,7 @@ class RPC_CALL_ATTRIBUTES_V1_A(EasyCastStructure):
     AuthenticationLevel: UInt32
     AuthenticationService: UInt32
     NullSession: win32more.Windows.Win32.Foundation.BOOL
-class RPC_CALL_ATTRIBUTES_V1_W(EasyCastStructure):
+class RPC_CALL_ATTRIBUTES_V1_W(Structure):
     Version: UInt32
     Flags: UInt32
     ServerPrincipalNameBufferLength: UInt32
@@ -2069,7 +2069,7 @@ class RPC_CALL_ATTRIBUTES_V1_W(EasyCastStructure):
     AuthenticationService: UInt32
     NullSession: win32more.Windows.Win32.Foundation.BOOL
 RPC_CALL_ATTRIBUTES_V1 = UnicodeAlias('RPC_CALL_ATTRIBUTES_V1_W')
-class RPC_CALL_ATTRIBUTES_V2_A(EasyCastStructure):
+class RPC_CALL_ATTRIBUTES_V2_A(Structure):
     Version: UInt32
     Flags: UInt32
     ServerPrincipalNameBufferLength: UInt32
@@ -2088,7 +2088,7 @@ class RPC_CALL_ATTRIBUTES_V2_A(EasyCastStructure):
     CallLocalAddress: POINTER(win32more.Windows.Win32.System.Rpc.RPC_CALL_LOCAL_ADDRESS_V1)
     OpNum: UInt16
     InterfaceUuid: Guid
-class RPC_CALL_ATTRIBUTES_V2_W(EasyCastStructure):
+class RPC_CALL_ATTRIBUTES_V2_W(Structure):
     Version: UInt32
     Flags: UInt32
     ServerPrincipalNameBufferLength: UInt32
@@ -2108,7 +2108,7 @@ class RPC_CALL_ATTRIBUTES_V2_W(EasyCastStructure):
     OpNum: UInt16
     InterfaceUuid: Guid
 RPC_CALL_ATTRIBUTES_V2 = UnicodeAlias('RPC_CALL_ATTRIBUTES_V2_W')
-class RPC_CALL_ATTRIBUTES_V3_A(EasyCastStructure):
+class RPC_CALL_ATTRIBUTES_V3_A(Structure):
     Version: UInt32
     Flags: UInt32
     ServerPrincipalNameBufferLength: UInt32
@@ -2129,7 +2129,7 @@ class RPC_CALL_ATTRIBUTES_V3_A(EasyCastStructure):
     InterfaceUuid: Guid
     ClientIdentifierBufferLength: UInt32
     ClientIdentifier: POINTER(Byte)
-class RPC_CALL_ATTRIBUTES_V3_W(EasyCastStructure):
+class RPC_CALL_ATTRIBUTES_V3_W(Structure):
     Version: UInt32
     Flags: UInt32
     ServerPrincipalNameBufferLength: UInt32
@@ -2151,7 +2151,7 @@ class RPC_CALL_ATTRIBUTES_V3_W(EasyCastStructure):
     ClientIdentifierBufferLength: UInt32
     ClientIdentifier: POINTER(Byte)
 RPC_CALL_ATTRIBUTES_V3 = UnicodeAlias('RPC_CALL_ATTRIBUTES_V3_W')
-class RPC_CALL_LOCAL_ADDRESS_V1(EasyCastStructure):
+class RPC_CALL_LOCAL_ADDRESS_V1(Structure):
     Version: UInt32
     Buffer: VoidPtr
     BufferSize: UInt32
@@ -2160,12 +2160,12 @@ class RPC_CALL_LOCAL_ADDRESS_V1(EasyCastStructure):
 def RPC_CLIENT_ALLOC(Size: UIntPtr) -> VoidPtr: ...
 @winfunctype_pointer
 def RPC_CLIENT_FREE(Ptr: VoidPtr) -> Void: ...
-class RPC_CLIENT_INFORMATION1(EasyCastStructure):
+class RPC_CLIENT_INFORMATION1(Structure):
     UserName: POINTER(Byte)
     ComputerName: POINTER(Byte)
     Privilege: UInt16
     AuthFlags: UInt32
-class RPC_CLIENT_INTERFACE(EasyCastStructure):
+class RPC_CLIENT_INTERFACE(Structure):
     Length: UInt32
     InterfaceId: win32more.Windows.Win32.System.Rpc.RPC_SYNTAX_IDENTIFIER
     TransferSyntax: win32more.Windows.Win32.System.Rpc.RPC_SYNTAX_IDENTIFIER
@@ -2186,7 +2186,7 @@ RPC_C_HTTP_FLAG_USE_SSL: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS = 1
 RPC_C_HTTP_FLAG_USE_FIRST_AUTH_SCHEME: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS = 2
 RPC_C_HTTP_FLAG_IGNORE_CERT_CN_INVALID: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS = 8
 RPC_C_HTTP_FLAG_ENABLE_CERT_REVOCATION_CHECK: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS = 16
-class RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR(EasyCastStructure):
+class RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR(Structure):
     BufferSize: UInt32
     Buffer: win32more.Windows.Win32.Foundation.PSTR
 RPC_C_QOS_CAPABILITIES = UInt32
@@ -2202,38 +2202,38 @@ RPC_C_QOS_IDENTITY_STATIC: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
 RPC_C_QOS_IDENTITY_DYNAMIC: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY = 1
 @winfunctype_pointer
 def RPC_DISPATCH_FUNCTION(Message: POINTER(win32more.Windows.Win32.System.Rpc.RPC_MESSAGE)) -> Void: ...
-class RPC_DISPATCH_TABLE(EasyCastStructure):
+class RPC_DISPATCH_TABLE(Structure):
     DispatchTableCount: UInt32
     DispatchTable: win32more.Windows.Win32.System.Rpc.RPC_DISPATCH_FUNCTION
     Reserved: IntPtr
-class RPC_EE_INFO_PARAM(EasyCastStructure):
+class RPC_EE_INFO_PARAM(Structure):
     ParameterType: win32more.Windows.Win32.System.Rpc.ExtendedErrorParamTypes
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         AnsiString: win32more.Windows.Win32.Foundation.PSTR
         UnicodeString: win32more.Windows.Win32.Foundation.PWSTR
         LVal: Int32
         SVal: Int16
         PVal: UInt64
         BVal: win32more.Windows.Win32.System.Rpc.BinaryParam
-class RPC_ENDPOINT_TEMPLATEA(EasyCastStructure):
+class RPC_ENDPOINT_TEMPLATEA(Structure):
     Version: UInt32
     ProtSeq: win32more.Windows.Win32.Foundation.PSTR
     Endpoint: win32more.Windows.Win32.Foundation.PSTR
     SecurityDescriptor: VoidPtr
     Backlog: UInt32
-class RPC_ENDPOINT_TEMPLATEW(EasyCastStructure):
+class RPC_ENDPOINT_TEMPLATEW(Structure):
     Version: UInt32
     ProtSeq: win32more.Windows.Win32.Foundation.PWSTR
     Endpoint: win32more.Windows.Win32.Foundation.PWSTR
     SecurityDescriptor: VoidPtr
     Backlog: UInt32
 RPC_ENDPOINT_TEMPLATE = UnicodeAlias('RPC_ENDPOINT_TEMPLATEW')
-class RPC_ERROR_ENUM_HANDLE(EasyCastStructure):
+class RPC_ERROR_ENUM_HANDLE(Structure):
     Signature: UInt32
     CurrentPos: VoidPtr
     Head: VoidPtr
-class RPC_EXTENDED_ERROR_INFO(EasyCastStructure):
+class RPC_EXTENDED_ERROR_INFO(Structure):
     Version: UInt32
     ComputerName: win32more.Windows.Win32.Foundation.PWSTR
     ProcessID: UInt32
@@ -2244,7 +2244,7 @@ class RPC_EXTENDED_ERROR_INFO(EasyCastStructure):
     Flags: UInt16
     NumberOfParameters: Int32
     Parameters: win32more.Windows.Win32.System.Rpc.RPC_EE_INFO_PARAM * 4
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         SystemTime: win32more.Windows.Win32.Foundation.SYSTEMTIME
         FileTime: win32more.Windows.Win32.Foundation.FILETIME
 @winfunctype_pointer
@@ -2257,14 +2257,14 @@ RPCHTTP_RS_ACCESS_1: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAG
 RPCHTTP_RS_SESSION: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE = 3
 RPCHTTP_RS_ACCESS_2: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE = 4
 RPCHTTP_RS_INTERFACE: win32more.Windows.Win32.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE = 5
-class RPC_HTTP_TRANSPORT_CREDENTIALS_A(EasyCastStructure):
+class RPC_HTTP_TRANSPORT_CREDENTIALS_A(Structure):
     TransportCredentials: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_A)
     Flags: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS
     AuthenticationTarget: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_AUTHN_TARGET
     NumberOfAuthnSchemes: UInt32
     AuthnSchemes: POINTER(UInt32)
     ServerCertificateSubject: POINTER(Byte)
-class RPC_HTTP_TRANSPORT_CREDENTIALS_V2_A(EasyCastStructure):
+class RPC_HTTP_TRANSPORT_CREDENTIALS_V2_A(Structure):
     TransportCredentials: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_A)
     Flags: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS
     AuthenticationTarget: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_AUTHN_TARGET
@@ -2274,7 +2274,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V2_A(EasyCastStructure):
     ProxyCredentials: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_A)
     NumberOfProxyAuthnSchemes: UInt32
     ProxyAuthnSchemes: POINTER(UInt32)
-class RPC_HTTP_TRANSPORT_CREDENTIALS_V2_W(EasyCastStructure):
+class RPC_HTTP_TRANSPORT_CREDENTIALS_V2_W(Structure):
     TransportCredentials: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W)
     Flags: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS
     AuthenticationTarget: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_AUTHN_TARGET
@@ -2285,7 +2285,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V2_W(EasyCastStructure):
     NumberOfProxyAuthnSchemes: UInt32
     ProxyAuthnSchemes: POINTER(UInt32)
 RPC_HTTP_TRANSPORT_CREDENTIALS_V2 = UnicodeAlias('RPC_HTTP_TRANSPORT_CREDENTIALS_V2_W')
-class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_A(EasyCastStructure):
+class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_A(Structure):
     TransportCredentials: VoidPtr
     Flags: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS
     AuthenticationTarget: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_AUTHN_TARGET
@@ -2295,7 +2295,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_A(EasyCastStructure):
     ProxyCredentials: VoidPtr
     NumberOfProxyAuthnSchemes: UInt32
     ProxyAuthnSchemes: POINTER(UInt32)
-class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W(EasyCastStructure):
+class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W(Structure):
     TransportCredentials: VoidPtr
     Flags: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS
     AuthenticationTarget: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_AUTHN_TARGET
@@ -2306,7 +2306,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W(EasyCastStructure):
     NumberOfProxyAuthnSchemes: UInt32
     ProxyAuthnSchemes: POINTER(UInt32)
 RPC_HTTP_TRANSPORT_CREDENTIALS_V3 = UnicodeAlias('RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W')
-class RPC_HTTP_TRANSPORT_CREDENTIALS_W(EasyCastStructure):
+class RPC_HTTP_TRANSPORT_CREDENTIALS_W(Structure):
     TransportCredentials: POINTER(win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W)
     Flags: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_FLAGS
     AuthenticationTarget: win32more.Windows.Win32.System.Rpc.RPC_C_HTTP_AUTHN_TARGET
@@ -2316,20 +2316,20 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_W(EasyCastStructure):
 RPC_HTTP_TRANSPORT_CREDENTIALS = UnicodeAlias('RPC_HTTP_TRANSPORT_CREDENTIALS_W')
 @winfunctype_pointer
 def RPC_IF_CALLBACK_FN(InterfaceUuid: VoidPtr, Context: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
-class RPC_IF_ID(EasyCastStructure):
+class RPC_IF_ID(Structure):
     Uuid: Guid
     VersMajor: UInt16
     VersMinor: UInt16
-class RPC_IF_ID_VECTOR(EasyCastStructure):
+class RPC_IF_ID_VECTOR(Structure):
     Count: UInt32
     IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID) * 1
-class RPC_IMPORT_CONTEXT_P(EasyCastStructure):
+class RPC_IMPORT_CONTEXT_P(Structure):
     LookupContext: VoidPtr
     ProposedHandle: VoidPtr
     Bindings: POINTER(win32more.Windows.Win32.System.Rpc.RPC_BINDING_VECTOR)
 @winfunctype_pointer
 def RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN(IfGroup: VoidPtr, IdleCallbackContext: VoidPtr, IsGroupIdle: UInt32) -> Void: ...
-class RPC_INTERFACE_TEMPLATEA(EasyCastStructure):
+class RPC_INTERFACE_TEMPLATEA(Structure):
     Version: UInt32
     IfSpec: VoidPtr
     MgrTypeUuid: POINTER(Guid)
@@ -2341,7 +2341,7 @@ class RPC_INTERFACE_TEMPLATEA(EasyCastStructure):
     UuidVector: POINTER(win32more.Windows.Win32.System.Rpc.UUID_VECTOR)
     Annotation: win32more.Windows.Win32.Foundation.PSTR
     SecurityDescriptor: VoidPtr
-class RPC_INTERFACE_TEMPLATEW(EasyCastStructure):
+class RPC_INTERFACE_TEMPLATEW(Structure):
     Version: UInt32
     IfSpec: VoidPtr
     MgrTypeUuid: POINTER(Guid)
@@ -2354,7 +2354,7 @@ class RPC_INTERFACE_TEMPLATEW(EasyCastStructure):
     Annotation: win32more.Windows.Win32.Foundation.PWSTR
     SecurityDescriptor: VoidPtr
 RPC_INTERFACE_TEMPLATE = UnicodeAlias('RPC_INTERFACE_TEMPLATEW')
-class RPC_MESSAGE(EasyCastStructure):
+class RPC_MESSAGE(Structure):
     Handle: VoidPtr
     DataRepresentation: UInt32
     Buffer: VoidPtr
@@ -2383,47 +2383,47 @@ RpcNotificationTypeHwnd: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYP
 RpcNotificationTypeCallback: win32more.Windows.Win32.System.Rpc.RPC_NOTIFICATION_TYPES = 5
 @winfunctype_pointer
 def RPC_OBJECT_INQ_FN(ObjectUuid: POINTER(Guid), TypeUuid: POINTER(Guid), Status: POINTER(win32more.Windows.Win32.System.Rpc.RPC_STATUS)) -> Void: ...
-class RPC_POLICY(EasyCastStructure):
+class RPC_POLICY(Structure):
     Length: UInt32
     EndpointFlags: UInt32
     NICFlags: UInt32
-class RPC_PROTSEQ_ENDPOINT(EasyCastStructure):
+class RPC_PROTSEQ_ENDPOINT(Structure):
     RpcProtocolSequence: POINTER(Byte)
     Endpoint: POINTER(Byte)
-class RPC_PROTSEQ_VECTORA(EasyCastStructure):
+class RPC_PROTSEQ_VECTORA(Structure):
     Count: UInt32
     Protseq: POINTER(Byte) * 1
-class RPC_PROTSEQ_VECTORW(EasyCastStructure):
+class RPC_PROTSEQ_VECTORW(Structure):
     Count: UInt32
     Protseq: POINTER(UInt16) * 1
 RPC_PROTSEQ_VECTOR = UnicodeAlias('RPC_PROTSEQ_VECTORW')
 @winfunctype_pointer
 def RPC_SECURITY_CALLBACK_FN(Context: VoidPtr) -> Void: ...
-class RPC_SECURITY_QOS(EasyCastStructure):
+class RPC_SECURITY_QOS(Structure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
     IdentityTracking: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
     ImpersonationType: win32more.Windows.Win32.System.Com.RPC_C_IMP_LEVEL
-class RPC_SECURITY_QOS_V2_A(EasyCastStructure):
+class RPC_SECURITY_QOS_V2_A(Structure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
     IdentityTracking: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
     ImpersonationType: win32more.Windows.Win32.System.Com.RPC_C_IMP_LEVEL
     AdditionalSecurityInfoType: win32more.Windows.Win32.System.Rpc.RPC_C_AUTHN_INFO_TYPE
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_A)
-class RPC_SECURITY_QOS_V2_W(EasyCastStructure):
+class RPC_SECURITY_QOS_V2_W(Structure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
     IdentityTracking: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
     ImpersonationType: win32more.Windows.Win32.System.Com.RPC_C_IMP_LEVEL
     AdditionalSecurityInfoType: win32more.Windows.Win32.System.Rpc.RPC_C_AUTHN_INFO_TYPE
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_W)
 RPC_SECURITY_QOS_V2 = UnicodeAlias('RPC_SECURITY_QOS_V2_W')
-class RPC_SECURITY_QOS_V3_A(EasyCastStructure):
+class RPC_SECURITY_QOS_V3_A(Structure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
     IdentityTracking: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
@@ -2431,9 +2431,9 @@ class RPC_SECURITY_QOS_V3_A(EasyCastStructure):
     AdditionalSecurityInfoType: win32more.Windows.Win32.System.Rpc.RPC_C_AUTHN_INFO_TYPE
     u: _u_e__Union
     Sid: VoidPtr
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_A)
-class RPC_SECURITY_QOS_V3_W(EasyCastStructure):
+class RPC_SECURITY_QOS_V3_W(Structure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
     IdentityTracking: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
@@ -2441,10 +2441,10 @@ class RPC_SECURITY_QOS_V3_W(EasyCastStructure):
     AdditionalSecurityInfoType: win32more.Windows.Win32.System.Rpc.RPC_C_AUTHN_INFO_TYPE
     u: _u_e__Union
     Sid: VoidPtr
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_W)
 RPC_SECURITY_QOS_V3 = UnicodeAlias('RPC_SECURITY_QOS_V3_W')
-class RPC_SECURITY_QOS_V4_A(EasyCastStructure):
+class RPC_SECURITY_QOS_V4_A(Structure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
     IdentityTracking: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
@@ -2453,9 +2453,9 @@ class RPC_SECURITY_QOS_V4_A(EasyCastStructure):
     u: _u_e__Union
     Sid: VoidPtr
     EffectiveOnly: UInt32
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_A)
-class RPC_SECURITY_QOS_V4_W(EasyCastStructure):
+class RPC_SECURITY_QOS_V4_W(Structure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
     IdentityTracking: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
@@ -2464,10 +2464,10 @@ class RPC_SECURITY_QOS_V4_W(EasyCastStructure):
     u: _u_e__Union
     Sid: VoidPtr
     EffectiveOnly: UInt32
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_W)
 RPC_SECURITY_QOS_V4 = UnicodeAlias('RPC_SECURITY_QOS_V4_W')
-class RPC_SECURITY_QOS_V5_A(EasyCastStructure):
+class RPC_SECURITY_QOS_V5_A(Structure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
     IdentityTracking: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
@@ -2477,9 +2477,9 @@ class RPC_SECURITY_QOS_V5_A(EasyCastStructure):
     Sid: VoidPtr
     EffectiveOnly: UInt32
     ServerSecurityDescriptor: VoidPtr
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_A)
-class RPC_SECURITY_QOS_V5_W(EasyCastStructure):
+class RPC_SECURITY_QOS_V5_W(Structure):
     Version: UInt32
     Capabilities: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_CAPABILITIES
     IdentityTracking: win32more.Windows.Win32.System.Rpc.RPC_C_QOS_IDENTITY
@@ -2489,14 +2489,14 @@ class RPC_SECURITY_QOS_V5_W(EasyCastStructure):
     Sid: VoidPtr
     EffectiveOnly: UInt32
     ServerSecurityDescriptor: VoidPtr
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         HttpCredentials: POINTER(win32more.Windows.Win32.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_W)
 RPC_SECURITY_QOS_V5 = UnicodeAlias('RPC_SECURITY_QOS_V5_W')
-class RPC_SEC_CONTEXT_KEY_INFO(EasyCastStructure):
+class RPC_SEC_CONTEXT_KEY_INFO(Structure):
     EncryptAlgorithm: UInt32
     KeySize: UInt32
     SignatureAlgorithm: UInt32
-class RPC_SERVER_INTERFACE(EasyCastStructure):
+class RPC_SERVER_INTERFACE(Structure):
     Length: UInt32
     InterfaceId: win32more.Windows.Win32.System.Rpc.RPC_SYNTAX_IDENTIFIER
     TransferSyntax: win32more.Windows.Win32.System.Rpc.RPC_SYNTAX_IDENTIFIER
@@ -2508,7 +2508,7 @@ class RPC_SERVER_INTERFACE(EasyCastStructure):
     Flags: UInt32
 @cfunctype_pointer
 def RPC_SETFILTER_FUNC(pfnFilter: win32more.Windows.Win32.System.Rpc.RPCLT_PDU_FILTER_FUNC) -> Void: ...
-class RPC_STATS_VECTOR(EasyCastStructure):
+class RPC_STATS_VECTOR(Structure):
     Count: UInt32
     Stats: UInt32 * 1
 RPC_STATUS = Int32
@@ -2626,14 +2626,14 @@ RPC_S_PRF_ELT_NOT_ADDED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1926
 RPC_S_PRF_ELT_NOT_REMOVED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1927
 RPC_S_GRP_ELT_NOT_ADDED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1928
 RPC_S_GRP_ELT_NOT_REMOVED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 1929
-class RPC_SYNTAX_IDENTIFIER(EasyCastStructure):
+class RPC_SYNTAX_IDENTIFIER(Structure):
     SyntaxGUID: Guid
     SyntaxVersion: win32more.Windows.Win32.System.Rpc.RPC_VERSION
-class RPC_TRANSFER_SYNTAX(EasyCastStructure):
+class RPC_TRANSFER_SYNTAX(Structure):
     Uuid: Guid
     VersMajor: UInt16
     VersMinor: UInt16
-class RPC_VERSION(EasyCastStructure):
+class RPC_VERSION(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
 RpcCallClientLocality = Int32
@@ -2663,13 +2663,13 @@ RpcFailedLbsDecisions: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 9
 RpcAttemptedLbsMessages: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 10
 RpcFailedLbsMessages: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 11
 RpcLastCounter: win32more.Windows.Win32.System.Rpc.RpcPerfCounters = 12
-class SCONTEXT_QUEUE(EasyCastStructure):
+class SCONTEXT_QUEUE(Structure):
     NumberOfObjects: UInt32
     ArrayOfObjects: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.NDR_SCONTEXT))
 SEC_WINNT_AUTH_IDENTITY = UInt32
 SEC_WINNT_AUTH_IDENTITY_ANSI: win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY = 1
 SEC_WINNT_AUTH_IDENTITY_UNICODE: win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY = 2
-class SEC_WINNT_AUTH_IDENTITY_A(EasyCastStructure):
+class SEC_WINNT_AUTH_IDENTITY_A(Structure):
     User: POINTER(Byte)
     UserLength: UInt32
     Domain: POINTER(Byte)
@@ -2677,7 +2677,7 @@ class SEC_WINNT_AUTH_IDENTITY_A(EasyCastStructure):
     Password: POINTER(Byte)
     PasswordLength: UInt32
     Flags: win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY
-class SEC_WINNT_AUTH_IDENTITY_W(EasyCastStructure):
+class SEC_WINNT_AUTH_IDENTITY_W(Structure):
     User: POINTER(UInt16)
     UserLength: UInt32
     Domain: POINTER(UInt16)
@@ -2694,7 +2694,7 @@ STUB_MARSHAL: win32more.Windows.Win32.System.Rpc.STUB_PHASE = 2
 STUB_CALL_SERVER_NO_HRESULT: win32more.Windows.Win32.System.Rpc.STUB_PHASE = 3
 @winfunctype_pointer
 def STUB_THUNK(param0: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE)) -> Void: ...
-class USER_MARSHAL_CB(EasyCastStructure):
+class USER_MARSHAL_CB(Structure):
     Flags: UInt32
     pStubMsg: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE)
     pReserve: POINTER(Byte)
@@ -2711,7 +2711,7 @@ USER_MARSHAL_CB_FREE: win32more.Windows.Win32.System.Rpc.USER_MARSHAL_CB_TYPE = 
 def USER_MARSHAL_FREEING_ROUTINE(param0: POINTER(UInt32), param1: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def USER_MARSHAL_MARSHALLING_ROUTINE(param0: POINTER(UInt32), param1: POINTER(Byte), param2: VoidPtr) -> POINTER(Byte): ...
-class USER_MARSHAL_ROUTINE_QUADRUPLE(EasyCastStructure):
+class USER_MARSHAL_ROUTINE_QUADRUPLE(Structure):
     pfnBufferSize: win32more.Windows.Win32.System.Rpc.USER_MARSHAL_SIZING_ROUTINE
     pfnMarshall: win32more.Windows.Win32.System.Rpc.USER_MARSHAL_MARSHALLING_ROUTINE
     pfnUnmarshall: win32more.Windows.Win32.System.Rpc.USER_MARSHAL_UNMARSHALLING_ROUTINE
@@ -2720,7 +2720,7 @@ class USER_MARSHAL_ROUTINE_QUADRUPLE(EasyCastStructure):
 def USER_MARSHAL_SIZING_ROUTINE(param0: POINTER(UInt32), param1: UInt32, param2: VoidPtr) -> UInt32: ...
 @winfunctype_pointer
 def USER_MARSHAL_UNMARSHALLING_ROUTINE(param0: POINTER(UInt32), param1: POINTER(Byte), param2: VoidPtr) -> POINTER(Byte): ...
-class UUID_VECTOR(EasyCastStructure):
+class UUID_VECTOR(Structure):
     Count: UInt32
     Uuid: POINTER(Guid) * 1
 XLAT_SIDE = Int32
@@ -2728,7 +2728,7 @@ XLAT_SERVER: win32more.Windows.Win32.System.Rpc.XLAT_SIDE = 1
 XLAT_CLIENT: win32more.Windows.Win32.System.Rpc.XLAT_SIDE = 2
 @winfunctype_pointer
 def XMIT_HELPER_ROUTINE(param0: POINTER(win32more.Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE)) -> Void: ...
-class XMIT_ROUTINE_QUINTUPLE(EasyCastStructure):
+class XMIT_ROUTINE_QUINTUPLE(Structure):
     pfnTranslateToXmit: win32more.Windows.Win32.System.Rpc.XMIT_HELPER_ROUTINE
     pfnTranslateFromXmit: win32more.Windows.Win32.System.Rpc.XMIT_HELPER_ROUTINE
     pfnFreeXmit: win32more.Windows.Win32.System.Rpc.XMIT_HELPER_ROUTINE

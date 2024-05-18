@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.Multimedia
@@ -145,11 +145,11 @@ class IReferenceClockTimerControl(ComPtr):
 def LPDRVCALLBACK(hdrvr: win32more.Windows.Win32.Media.Multimedia.HDRVR, uMsg: UInt32, dwUser: UIntPtr, dw1: UIntPtr, dw2: UIntPtr) -> Void: ...
 @winfunctype_pointer
 def LPTIMECALLBACK(uTimerID: UInt32, uMsg: UInt32, dwUser: UIntPtr, dw1: UIntPtr, dw2: UIntPtr) -> Void: ...
-class MMTIME(EasyCastStructure):
+class MMTIME(Structure):
     wType: UInt32
     u: _u_e__Union
     _pack_ = 1
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         ms: UInt32
         sample: UInt32
         cb: UInt32
@@ -157,7 +157,7 @@ class MMTIME(EasyCastStructure):
         smpte: _smpte_e__Struct
         midi: _midi_e__Struct
         _pack_ = 1
-        class _smpte_e__Struct(EasyCastStructure):
+        class _smpte_e__Struct(Structure):
             hour: Byte
             min: Byte
             sec: Byte
@@ -165,20 +165,20 @@ class MMTIME(EasyCastStructure):
             fps: Byte
             dummy: Byte
             pad: Byte * 2
-        class _midi_e__Struct(EasyCastStructure):
+        class _midi_e__Struct(Structure):
             songptrpos: UInt32
             _pack_ = 1
-class TIMECAPS(EasyCastStructure):
+class TIMECAPS(Structure):
     wPeriodMin: UInt32
     wPeriodMax: UInt32
-class TIMECODE(EasyCastUnion):
+class TIMECODE(Union):
     Anonymous: _Anonymous_e__Struct
     qw: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         wFrameRate: UInt16
         wFrameFract: UInt16
         dwFrames: UInt32
-class TIMECODE_SAMPLE(EasyCastStructure):
+class TIMECODE_SAMPLE(Structure):
     qwTick: Int64
     timecode: win32more.Windows.Win32.Media.TIMECODE
     dwUser: UInt32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.UI.Input
 @winfunctype('USER32.dll')
@@ -36,7 +36,7 @@ IMO_UNAVAILABLE: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_ORIGIN_ID = 0
 IMO_HARDWARE: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_ORIGIN_ID = 1
 IMO_INJECTED: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_ORIGIN_ID = 2
 IMO_SYSTEM: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_ORIGIN_ID = 4
-class INPUT_MESSAGE_SOURCE(EasyCastStructure):
+class INPUT_MESSAGE_SOURCE(Structure):
     deviceType: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_DEVICE_TYPE
     originId: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_ORIGIN_ID
 MOUSE_STATE = UInt16
@@ -45,23 +45,23 @@ MOUSE_MOVE_ABSOLUTE: win32more.Windows.Win32.UI.Input.MOUSE_STATE = 1
 MOUSE_VIRTUAL_DESKTOP: win32more.Windows.Win32.UI.Input.MOUSE_STATE = 2
 MOUSE_ATTRIBUTES_CHANGED: win32more.Windows.Win32.UI.Input.MOUSE_STATE = 4
 MOUSE_MOVE_NOCOALESCE: win32more.Windows.Win32.UI.Input.MOUSE_STATE = 8
-class RAWHID(EasyCastStructure):
+class RAWHID(Structure):
     dwSizeHid: UInt32
     dwCount: UInt32
     bRawData: Byte * 1
-class RAWINPUT(EasyCastStructure):
+class RAWINPUT(Structure):
     header: win32more.Windows.Win32.UI.Input.RAWINPUTHEADER
     data: _data_e__Union
-    class _data_e__Union(EasyCastUnion):
+    class _data_e__Union(Union):
         mouse: win32more.Windows.Win32.UI.Input.RAWMOUSE
         keyboard: win32more.Windows.Win32.UI.Input.RAWKEYBOARD
         hid: win32more.Windows.Win32.UI.Input.RAWHID
-class RAWINPUTDEVICE(EasyCastStructure):
+class RAWINPUTDEVICE(Structure):
     usUsagePage: UInt16
     usUsage: UInt16
     dwFlags: win32more.Windows.Win32.UI.Input.RAWINPUTDEVICE_FLAGS
     hwndTarget: win32more.Windows.Win32.Foundation.HWND
-class RAWINPUTDEVICELIST(EasyCastStructure):
+class RAWINPUTDEVICELIST(Structure):
     hDevice: win32more.Windows.Win32.Foundation.HANDLE
     dwType: win32more.Windows.Win32.UI.Input.RID_DEVICE_INFO_TYPE
 RAWINPUTDEVICE_FLAGS = UInt32
@@ -75,29 +75,29 @@ RIDEV_NOHOTKEYS: win32more.Windows.Win32.UI.Input.RAWINPUTDEVICE_FLAGS = 512
 RIDEV_APPKEYS: win32more.Windows.Win32.UI.Input.RAWINPUTDEVICE_FLAGS = 1024
 RIDEV_EXINPUTSINK: win32more.Windows.Win32.UI.Input.RAWINPUTDEVICE_FLAGS = 4096
 RIDEV_DEVNOTIFY: win32more.Windows.Win32.UI.Input.RAWINPUTDEVICE_FLAGS = 8192
-class RAWINPUTHEADER(EasyCastStructure):
+class RAWINPUTHEADER(Structure):
     dwType: UInt32
     dwSize: UInt32
     hDevice: win32more.Windows.Win32.Foundation.HANDLE
     wParam: win32more.Windows.Win32.Foundation.WPARAM
-class RAWKEYBOARD(EasyCastStructure):
+class RAWKEYBOARD(Structure):
     MakeCode: UInt16
     Flags: UInt16
     Reserved: UInt16
     VKey: UInt16
     Message: UInt32
     ExtraInformation: UInt32
-class RAWMOUSE(EasyCastStructure):
+class RAWMOUSE(Structure):
     usFlags: win32more.Windows.Win32.UI.Input.MOUSE_STATE
     Anonymous: _Anonymous_e__Union
     ulRawButtons: UInt32
     lLastX: Int32
     lLastY: Int32
     ulExtraInformation: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ulButtons: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             usButtonFlags: UInt16
             usButtonData: UInt16
 RAW_INPUT_DATA_COMMAND_FLAGS = UInt32
@@ -107,28 +107,28 @@ RAW_INPUT_DEVICE_INFO_COMMAND = UInt32
 RIDI_PREPARSEDDATA: win32more.Windows.Win32.UI.Input.RAW_INPUT_DEVICE_INFO_COMMAND = 536870917
 RIDI_DEVICENAME: win32more.Windows.Win32.UI.Input.RAW_INPUT_DEVICE_INFO_COMMAND = 536870919
 RIDI_DEVICEINFO: win32more.Windows.Win32.UI.Input.RAW_INPUT_DEVICE_INFO_COMMAND = 536870923
-class RID_DEVICE_INFO(EasyCastStructure):
+class RID_DEVICE_INFO(Structure):
     cbSize: UInt32
     dwType: win32more.Windows.Win32.UI.Input.RID_DEVICE_INFO_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         mouse: win32more.Windows.Win32.UI.Input.RID_DEVICE_INFO_MOUSE
         keyboard: win32more.Windows.Win32.UI.Input.RID_DEVICE_INFO_KEYBOARD
         hid: win32more.Windows.Win32.UI.Input.RID_DEVICE_INFO_HID
-class RID_DEVICE_INFO_HID(EasyCastStructure):
+class RID_DEVICE_INFO_HID(Structure):
     dwVendorId: UInt32
     dwProductId: UInt32
     dwVersionNumber: UInt32
     usUsagePage: UInt16
     usUsage: UInt16
-class RID_DEVICE_INFO_KEYBOARD(EasyCastStructure):
+class RID_DEVICE_INFO_KEYBOARD(Structure):
     dwType: UInt32
     dwSubType: UInt32
     dwKeyboardMode: UInt32
     dwNumberOfFunctionKeys: UInt32
     dwNumberOfIndicators: UInt32
     dwNumberOfKeysTotal: UInt32
-class RID_DEVICE_INFO_MOUSE(EasyCastStructure):
+class RID_DEVICE_INFO_MOUSE(Structure):
     dwId: UInt32
     dwNumberOfButtons: UInt32
     dwSampleRate: UInt32

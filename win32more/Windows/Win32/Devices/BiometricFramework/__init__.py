@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.BiometricFramework
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -497,13 +497,13 @@ def PWINBIO_QUERY_SENSOR_INTERFACE_FN(SensorInterface: POINTER(POINTER(win32more
 def PWINBIO_QUERY_STORAGE_INTERFACE_FN(StorageInterface: POINTER(POINTER(win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_STORAGE_INTERFACE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PWINBIO_VERIFY_CALLBACK(VerifyCallbackContext: VoidPtr, OperationStatus: win32more.Windows.Win32.Foundation.HRESULT, UnitId: UInt32, Match: win32more.Windows.Win32.Foundation.BOOLEAN, RejectDetail: UInt32) -> Void: ...
-class WINBIO_ACCOUNT_POLICY(EasyCastStructure):
+class WINBIO_ACCOUNT_POLICY(Structure):
     Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
     AntiSpoofBehavior: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ANTI_SPOOF_POLICY_ACTION
-class WINBIO_ADAPTER_INTERFACE_VERSION(EasyCastStructure):
+class WINBIO_ADAPTER_INTERFACE_VERSION(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
-class WINBIO_ANTI_SPOOF_POLICY(EasyCastStructure):
+class WINBIO_ANTI_SPOOF_POLICY(Structure):
     Action: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ANTI_SPOOF_POLICY_ACTION
     Source: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_POLICY_SOURCE
 WINBIO_ANTI_SPOOF_POLICY_ACTION = Int32
@@ -515,7 +515,7 @@ WINBIO_ASYNC_NOTIFY_NONE: win32more.Windows.Win32.Devices.BiometricFramework.WIN
 WINBIO_ASYNC_NOTIFY_CALLBACK: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ASYNC_NOTIFICATION_METHOD = 1
 WINBIO_ASYNC_NOTIFY_MESSAGE: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ASYNC_NOTIFICATION_METHOD = 2
 WINBIO_ASYNC_NOTIFY_MAXIMUM_VALUE: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ASYNC_NOTIFICATION_METHOD = 3
-class WINBIO_ASYNC_RESULT(EasyCastStructure):
+class WINBIO_ASYNC_RESULT(Structure):
     SessionHandle: UInt32
     Operation: UInt32
     SequenceNumber: UInt64
@@ -524,7 +524,7 @@ class WINBIO_ASYNC_RESULT(EasyCastStructure):
     UnitId: UInt32
     UserData: VoidPtr
     Parameters: _Parameters_e__Union
-    class _Parameters_e__Union(EasyCastUnion):
+    class _Parameters_e__Union(Union):
         Verify: _Verify_e__Struct
         Identify: _Identify_e__Struct
         EnrollBegin: _EnrollBegin_e__Struct
@@ -546,48 +546,48 @@ class WINBIO_ASYNC_RESULT(EasyCastStructure):
         MonitorPresence: _MonitorPresence_e__Struct
         GetProtectionPolicy: _GetProtectionPolicy_e__Struct
         NotifyUnitStatusChange: _NotifyUnitStatusChange_e__Struct
-        class _Verify_e__Struct(EasyCastStructure):
+        class _Verify_e__Struct(Structure):
             Match: win32more.Windows.Win32.Foundation.BOOLEAN
             RejectDetail: UInt32
-        class _Identify_e__Struct(EasyCastStructure):
+        class _Identify_e__Struct(Structure):
             Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
             SubFactor: Byte
             RejectDetail: UInt32
-        class _EnrollBegin_e__Struct(EasyCastStructure):
+        class _EnrollBegin_e__Struct(Structure):
             SubFactor: Byte
-        class _EnrollCapture_e__Struct(EasyCastStructure):
+        class _EnrollCapture_e__Struct(Structure):
             RejectDetail: UInt32
-        class _EnrollCommit_e__Struct(EasyCastStructure):
+        class _EnrollCommit_e__Struct(Structure):
             Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
             IsNewTemplate: win32more.Windows.Win32.Foundation.BOOLEAN
-        class _EnumEnrollments_e__Struct(EasyCastStructure):
+        class _EnumEnrollments_e__Struct(Structure):
             Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
             SubFactorCount: UIntPtr
             SubFactorArray: POINTER(Byte)
-        class _CaptureSample_e__Struct(EasyCastStructure):
+        class _CaptureSample_e__Struct(Structure):
             Sample: POINTER(win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_BIR)
             SampleSize: UIntPtr
             RejectDetail: UInt32
-        class _DeleteTemplate_e__Struct(EasyCastStructure):
+        class _DeleteTemplate_e__Struct(Structure):
             Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
             SubFactor: Byte
-        class _GetProperty_e__Struct(EasyCastStructure):
+        class _GetProperty_e__Struct(Structure):
             PropertyType: UInt32
             PropertyId: UInt32
             Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
             SubFactor: Byte
             PropertyBufferSize: UIntPtr
             PropertyBuffer: VoidPtr
-        class _SetProperty_e__Struct(EasyCastStructure):
+        class _SetProperty_e__Struct(Structure):
             PropertyType: UInt32
             PropertyId: UInt32
             Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
             SubFactor: Byte
             PropertyBufferSize: UIntPtr
             PropertyBuffer: VoidPtr
-        class _GetEvent_e__Struct(EasyCastStructure):
+        class _GetEvent_e__Struct(Structure):
             Event: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_EVENT
-        class _ControlUnit_e__Struct(EasyCastStructure):
+        class _ControlUnit_e__Struct(Structure):
             Component: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_COMPONENT
             ControlCode: UInt32
             OperationStatus: UInt32
@@ -596,36 +596,36 @@ class WINBIO_ASYNC_RESULT(EasyCastStructure):
             ReceiveBuffer: POINTER(Byte)
             ReceiveBufferSize: UIntPtr
             ReceiveDataSize: UIntPtr
-        class _EnumServiceProviders_e__Struct(EasyCastStructure):
+        class _EnumServiceProviders_e__Struct(Structure):
             BspCount: UIntPtr
             BspSchemaArray: POINTER(win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_BSP_SCHEMA)
-        class _EnumBiometricUnits_e__Struct(EasyCastStructure):
+        class _EnumBiometricUnits_e__Struct(Structure):
             UnitCount: UIntPtr
             UnitSchemaArray: POINTER(win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_UNIT_SCHEMA)
-        class _EnumDatabases_e__Struct(EasyCastStructure):
+        class _EnumDatabases_e__Struct(Structure):
             StorageCount: UIntPtr
             StorageSchemaArray: POINTER(win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_STORAGE_SCHEMA)
-        class _VerifyAndReleaseTicket_e__Struct(EasyCastStructure):
+        class _VerifyAndReleaseTicket_e__Struct(Structure):
             Match: win32more.Windows.Win32.Foundation.BOOLEAN
             RejectDetail: UInt32
             Ticket: UInt64
-        class _IdentifyAndReleaseTicket_e__Struct(EasyCastStructure):
+        class _IdentifyAndReleaseTicket_e__Struct(Structure):
             Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
             SubFactor: Byte
             RejectDetail: UInt32
             Ticket: UInt64
-        class _EnrollSelect_e__Struct(EasyCastStructure):
+        class _EnrollSelect_e__Struct(Structure):
             SelectorValue: UInt64
-        class _MonitorPresence_e__Struct(EasyCastStructure):
+        class _MonitorPresence_e__Struct(Structure):
             ChangeType: UInt32
             PresenceCount: UIntPtr
             PresenceArray: POINTER(win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_PRESENCE)
-        class _GetProtectionPolicy_e__Struct(EasyCastStructure):
+        class _GetProtectionPolicy_e__Struct(Structure):
             Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
             Policy: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_PROTECTION_POLICY
-        class _NotifyUnitStatusChange_e__Struct(EasyCastStructure):
+        class _NotifyUnitStatusChange_e__Struct(Structure):
             ExtendedStatus: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_EXTENDED_UNIT_STATUS
-class WINBIO_BDB_ANSI_381_HEADER(EasyCastStructure):
+class WINBIO_BDB_ANSI_381_HEADER(Structure):
     RecordLength: UInt64
     FormatIdentifier: UInt32
     VersionNumber: UInt32
@@ -641,7 +641,7 @@ class WINBIO_BDB_ANSI_381_HEADER(EasyCastStructure):
     PixelDepth: Byte
     ImageCompressionAlg: Byte
     Reserved: UInt16
-class WINBIO_BDB_ANSI_381_RECORD(EasyCastStructure):
+class WINBIO_BDB_ANSI_381_RECORD(Structure):
     BlockLength: UInt32
     HorizontalLineLength: UInt16
     VerticalLineLength: UInt16
@@ -651,15 +651,15 @@ class WINBIO_BDB_ANSI_381_RECORD(EasyCastStructure):
     ImageQuality: Byte
     ImpressionType: Byte
     Reserved: Byte
-class WINBIO_BIR(EasyCastStructure):
+class WINBIO_BIR(Structure):
     HeaderBlock: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_BIR_DATA
     StandardDataBlock: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_BIR_DATA
     VendorDataBlock: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_BIR_DATA
     SignatureBlock: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_BIR_DATA
-class WINBIO_BIR_DATA(EasyCastStructure):
+class WINBIO_BIR_DATA(Structure):
     Size: UInt32
     Offset: UInt32
-class WINBIO_BIR_HEADER(EasyCastStructure):
+class WINBIO_BIR_HEADER(Structure):
     ValidFields: UInt16
     HeaderVersion: Byte
     PatronHeaderVersion: Byte
@@ -672,29 +672,29 @@ class WINBIO_BIR_HEADER(EasyCastStructure):
     ValidityPeriod: _ValidityPeriod_e__Struct
     BiometricDataFormat: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
     ProductId: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
-    class _ValidityPeriod_e__Struct(EasyCastStructure):
+    class _ValidityPeriod_e__Struct(Structure):
         BeginDate: Int64
         EndDate: Int64
-class WINBIO_BLANK_PAYLOAD(EasyCastStructure):
+class WINBIO_BLANK_PAYLOAD(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
-class WINBIO_BSP_SCHEMA(EasyCastStructure):
+class WINBIO_BSP_SCHEMA(Structure):
     BiometricFactor: UInt32
     BspId: Guid
     Description: UInt16 * 256
     Vendor: UInt16 * 256
     Version: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_VERSION
-class WINBIO_CALIBRATION_INFO(EasyCastStructure):
+class WINBIO_CALIBRATION_INFO(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
     CalibrationData: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_DATA
-class WINBIO_CAPTURE_DATA(EasyCastStructure):
+class WINBIO_CAPTURE_DATA(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
     SensorStatus: UInt32
     RejectDetail: UInt32
     CaptureData: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_DATA
-class WINBIO_CAPTURE_PARAMETERS(EasyCastStructure):
+class WINBIO_CAPTURE_PARAMETERS(Structure):
     PayloadSize: UInt32
     Purpose: Byte
     Format: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
@@ -714,22 +714,22 @@ WINBIO_CREDENTIAL_SET: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO
 WINBIO_CREDENTIAL_TYPE = Int32
 WINBIO_CREDENTIAL_PASSWORD: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_CREDENTIAL_TYPE = 1
 WINBIO_CREDENTIAL_ALL: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_CREDENTIAL_TYPE = -1
-class WINBIO_DATA(EasyCastStructure):
+class WINBIO_DATA(Structure):
     Size: UInt32
     Data: Byte * 1
-class WINBIO_DIAGNOSTICS(EasyCastStructure):
+class WINBIO_DIAGNOSTICS(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
     SensorStatus: UInt32
     VendorDiagnostics: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_DATA
-class WINBIO_ENCRYPTED_CAPTURE_PARAMS(EasyCastStructure):
+class WINBIO_ENCRYPTED_CAPTURE_PARAMS(Structure):
     PayloadSize: UInt32
     Purpose: Byte
     Format: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
     VendorFormat: Guid
     Flags: Byte
     NonceSize: UInt32
-class WINBIO_ENGINE_INTERFACE(EasyCastStructure):
+class WINBIO_ENGINE_INTERFACE(Structure):
     Version: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
     Type: UInt32
     Size: UIntPtr
@@ -775,89 +775,89 @@ class WINBIO_ENGINE_INTERFACE(EasyCastStructure):
     AcceptPrivateSensorTypeInfo: win32more.Windows.Win32.Devices.BiometricFramework.PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN
     CreateEnrollmentAuthenticated: win32more.Windows.Win32.Devices.BiometricFramework.PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN
     IdentifyFeatureSetAuthenticated: win32more.Windows.Win32.Devices.BiometricFramework.PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN
-class WINBIO_EVENT(EasyCastStructure):
+class WINBIO_EVENT(Structure):
     Type: UInt32
     Parameters: _Parameters_e__Union
-    class _Parameters_e__Union(EasyCastUnion):
+    class _Parameters_e__Union(Union):
         Unclaimed: _Unclaimed_e__Struct
         UnclaimedIdentify: _UnclaimedIdentify_e__Struct
         Error: _Error_e__Struct
-        class _Unclaimed_e__Struct(EasyCastStructure):
+        class _Unclaimed_e__Struct(Structure):
             UnitId: UInt32
             RejectDetail: UInt32
-        class _UnclaimedIdentify_e__Struct(EasyCastStructure):
+        class _UnclaimedIdentify_e__Struct(Structure):
             UnitId: UInt32
             Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
             SubFactor: Byte
             RejectDetail: UInt32
-        class _Error_e__Struct(EasyCastStructure):
+        class _Error_e__Struct(Structure):
             ErrorCode: win32more.Windows.Win32.Foundation.HRESULT
-class WINBIO_EXTENDED_ENGINE_INFO(EasyCastStructure):
+class WINBIO_EXTENDED_ENGINE_INFO(Structure):
     GenericEngineCapabilities: UInt32
     Factor: UInt32
     Specific: _Specific_e__Union
-    class _Specific_e__Union(EasyCastUnion):
+    class _Specific_e__Union(Union):
         Null: UInt32
         FacialFeatures: _FacialFeatures_e__Struct
         Fingerprint: _Fingerprint_e__Struct
         Iris: _Iris_e__Struct
         Voice: _Voice_e__Struct
-        class _FacialFeatures_e__Struct(EasyCastStructure):
+        class _FacialFeatures_e__Struct(Structure):
             Capabilities: UInt32
             EnrollmentRequirements: _EnrollmentRequirements_e__Struct
-            class _EnrollmentRequirements_e__Struct(EasyCastStructure):
+            class _EnrollmentRequirements_e__Struct(Structure):
                 Null: UInt32
-        class _Fingerprint_e__Struct(EasyCastStructure):
+        class _Fingerprint_e__Struct(Structure):
             Capabilities: UInt32
             EnrollmentRequirements: _EnrollmentRequirements_e__Struct
-            class _EnrollmentRequirements_e__Struct(EasyCastStructure):
+            class _EnrollmentRequirements_e__Struct(Structure):
                 GeneralSamples: UInt32
                 Center: UInt32
                 TopEdge: UInt32
                 BottomEdge: UInt32
                 LeftEdge: UInt32
                 RightEdge: UInt32
-        class _Iris_e__Struct(EasyCastStructure):
+        class _Iris_e__Struct(Structure):
             Capabilities: UInt32
             EnrollmentRequirements: _EnrollmentRequirements_e__Struct
-            class _EnrollmentRequirements_e__Struct(EasyCastStructure):
+            class _EnrollmentRequirements_e__Struct(Structure):
                 Null: UInt32
-        class _Voice_e__Struct(EasyCastStructure):
+        class _Voice_e__Struct(Structure):
             Capabilities: UInt32
             EnrollmentRequirements: _EnrollmentRequirements_e__Struct
-            class _EnrollmentRequirements_e__Struct(EasyCastStructure):
+            class _EnrollmentRequirements_e__Struct(Structure):
                 Null: UInt32
-class WINBIO_EXTENDED_ENROLLMENT_PARAMETERS(EasyCastStructure):
+class WINBIO_EXTENDED_ENROLLMENT_PARAMETERS(Structure):
     Size: UIntPtr
     SubFactor: Byte
-class WINBIO_EXTENDED_ENROLLMENT_STATUS(EasyCastStructure):
+class WINBIO_EXTENDED_ENROLLMENT_STATUS(Structure):
     TemplateStatus: win32more.Windows.Win32.Foundation.HRESULT
     RejectDetail: UInt32
     PercentComplete: UInt32
     Factor: UInt32
     SubFactor: Byte
     Specific: _Specific_e__Union
-    class _Specific_e__Union(EasyCastUnion):
+    class _Specific_e__Union(Union):
         Null: UInt32
         FacialFeatures: _FacialFeatures_e__Struct
         Fingerprint: _Fingerprint_e__Struct
         Iris: _Iris_e__Struct
         Voice: _Voice_e__Struct
-        class _FacialFeatures_e__Struct(EasyCastStructure):
+        class _FacialFeatures_e__Struct(Structure):
             BoundingBox: win32more.Windows.Win32.Foundation.RECT
             Distance: Int32
             OpaqueEngineData: _OpaqueEngineData_e__Struct
-            class _OpaqueEngineData_e__Struct(EasyCastStructure):
+            class _OpaqueEngineData_e__Struct(Structure):
                 AdapterId: Guid
                 Data: UInt32 * 78
-        class _Fingerprint_e__Struct(EasyCastStructure):
+        class _Fingerprint_e__Struct(Structure):
             GeneralSamples: UInt32
             Center: UInt32
             TopEdge: UInt32
             BottomEdge: UInt32
             LeftEdge: UInt32
             RightEdge: UInt32
-        class _Iris_e__Struct(EasyCastStructure):
+        class _Iris_e__Struct(Structure):
             EyeBoundingBox_1: win32more.Windows.Win32.Foundation.RECT
             EyeBoundingBox_2: win32more.Windows.Win32.Foundation.RECT
             PupilCenter_1: win32more.Windows.Win32.Foundation.POINT
@@ -867,64 +867,64 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS(EasyCastStructure):
             GridPointIndex: UInt16
             Point3D: _Point3D_e__Struct
             StopCaptureAndShowCriticalFeedback: win32more.Windows.Win32.Foundation.BOOL
-            class _Point3D_e__Struct(EasyCastStructure):
+            class _Point3D_e__Struct(Structure):
                 X: Double
                 Y: Double
                 Z: Double
-        class _Voice_e__Struct(EasyCastStructure):
+        class _Voice_e__Struct(Structure):
             Reserved: UInt32
-class WINBIO_EXTENDED_SENSOR_INFO(EasyCastStructure):
+class WINBIO_EXTENDED_SENSOR_INFO(Structure):
     GenericSensorCapabilities: UInt32
     Factor: UInt32
     Specific: _Specific_e__Union
-    class _Specific_e__Union(EasyCastUnion):
+    class _Specific_e__Union(Union):
         Null: UInt32
         FacialFeatures: _FacialFeatures_e__Struct
         Fingerprint: _Fingerprint_e__Struct
         Iris: _Iris_e__Struct
         Voice: _Voice_e__Struct
-        class _FacialFeatures_e__Struct(EasyCastStructure):
+        class _FacialFeatures_e__Struct(Structure):
             FrameSize: win32more.Windows.Win32.Foundation.RECT
             FrameOffset: win32more.Windows.Win32.Foundation.POINT
             MandatoryOrientation: UInt32
             HardwareInfo: _HardwareInfo_e__Struct
-            class _HardwareInfo_e__Struct(EasyCastStructure):
+            class _HardwareInfo_e__Struct(Structure):
                 ColorSensorId: Char * 260
                 InfraredSensorId: Char * 260
                 InfraredSensorRotationAngle: UInt32
-        class _Fingerprint_e__Struct(EasyCastStructure):
+        class _Fingerprint_e__Struct(Structure):
             Reserved: UInt32
-        class _Iris_e__Struct(EasyCastStructure):
+        class _Iris_e__Struct(Structure):
             FrameSize: win32more.Windows.Win32.Foundation.RECT
             FrameOffset: win32more.Windows.Win32.Foundation.POINT
             MandatoryOrientation: UInt32
-        class _Voice_e__Struct(EasyCastStructure):
+        class _Voice_e__Struct(Structure):
             Reserved: UInt32
-class WINBIO_EXTENDED_STORAGE_INFO(EasyCastStructure):
+class WINBIO_EXTENDED_STORAGE_INFO(Structure):
     GenericStorageCapabilities: UInt32
     Factor: UInt32
     Specific: _Specific_e__Union
-    class _Specific_e__Union(EasyCastUnion):
+    class _Specific_e__Union(Union):
         Null: UInt32
         FacialFeatures: _FacialFeatures_e__Struct
         Fingerprint: _Fingerprint_e__Struct
         Iris: _Iris_e__Struct
         Voice: _Voice_e__Struct
-        class _FacialFeatures_e__Struct(EasyCastStructure):
+        class _FacialFeatures_e__Struct(Structure):
             Capabilities: UInt32
-        class _Fingerprint_e__Struct(EasyCastStructure):
+        class _Fingerprint_e__Struct(Structure):
             Capabilities: UInt32
-        class _Iris_e__Struct(EasyCastStructure):
+        class _Iris_e__Struct(Structure):
             Capabilities: UInt32
-        class _Voice_e__Struct(EasyCastStructure):
+        class _Voice_e__Struct(Structure):
             Capabilities: UInt32
-class WINBIO_EXTENDED_UNIT_STATUS(EasyCastStructure):
+class WINBIO_EXTENDED_UNIT_STATUS(Structure):
     Availability: UInt32
     ReasonCode: UInt32
-class WINBIO_FP_BU_STATE(EasyCastStructure):
+class WINBIO_FP_BU_STATE(Structure):
     SensorAttached: win32more.Windows.Win32.Foundation.BOOL
     CreationResult: win32more.Windows.Win32.Foundation.HRESULT
-class WINBIO_FRAMEWORK_INTERFACE(EasyCastStructure):
+class WINBIO_FRAMEWORK_INTERFACE(Structure):
     Version: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
     Type: UInt32
     Size: UIntPtr
@@ -973,32 +973,32 @@ class WINBIO_FRAMEWORK_INTERFACE(EasyCastStructure):
     ReleaseSecureBuffer: win32more.Windows.Win32.Devices.BiometricFramework.PIBIO_FRAMEWORK_RELEASE_SECURE_BUFFER_FN
     QueryAuthorizedEnrollments: win32more.Windows.Win32.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_QUERY_AUTHORIZED_ENROLLMENTS_FN
     DecryptSample: win32more.Windows.Win32.Devices.BiometricFramework.PIBIO_FRAMEWORK_VSM_DECRYPT_SAMPLE_FN
-class WINBIO_GESTURE_METADATA(EasyCastStructure):
+class WINBIO_GESTURE_METADATA(Structure):
     Size: UIntPtr
     BiometricType: UInt32
     MatchType: UInt32
     ProtectionType: UInt32
-class WINBIO_GET_INDICATOR(EasyCastStructure):
+class WINBIO_GET_INDICATOR(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
     IndicatorStatus: UInt32
-class WINBIO_IDENTITY(EasyCastStructure):
+class WINBIO_IDENTITY(Structure):
     Type: UInt32
     Value: _Value_e__Union
-    class _Value_e__Union(EasyCastUnion):
+    class _Value_e__Union(Union):
         Null: UInt32
         Wildcard: UInt32
         TemplateGuid: Guid
         AccountSid: _AccountSid_e__Struct
         SecureId: Byte * 32
-        class _AccountSid_e__Struct(EasyCastStructure):
+        class _AccountSid_e__Struct(Structure):
             Size: UInt32
             Data: Byte * 68
-class WINBIO_NOTIFY_WAKE(EasyCastStructure):
+class WINBIO_NOTIFY_WAKE(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
     Reason: UInt32
-class WINBIO_PIPELINE(EasyCastStructure):
+class WINBIO_PIPELINE(Structure):
     SensorHandle: win32more.Windows.Win32.Foundation.HANDLE
     EngineHandle: win32more.Windows.Win32.Foundation.HANDLE
     StorageHandle: win32more.Windows.Win32.Foundation.HANDLE
@@ -1017,7 +1017,7 @@ WINBIO_POLICY_ADMIN: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_P
 WINBIO_POOL = UInt32
 WINBIO_POOL_SYSTEM: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_POOL = 1
 WINBIO_POOL_PRIVATE: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_POOL = 2
-class WINBIO_PRESENCE(EasyCastStructure):
+class WINBIO_PRESENCE(Structure):
     Factor: UInt32
     SubFactor: Byte
     Status: win32more.Windows.Win32.Foundation.HRESULT
@@ -1027,56 +1027,56 @@ class WINBIO_PRESENCE(EasyCastStructure):
     Ticket: UInt64
     Properties: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_PRESENCE_PROPERTIES
     Authorization: _Authorization_e__Struct
-    class _Authorization_e__Struct(EasyCastStructure):
+    class _Authorization_e__Struct(Structure):
         Size: UInt32
         Data: Byte * 32
-class WINBIO_PRESENCE_PROPERTIES(EasyCastUnion):
+class WINBIO_PRESENCE_PROPERTIES(Union):
     FacialFeatures: _FacialFeatures_e__Struct
     Iris: _Iris_e__Struct
-    class _FacialFeatures_e__Struct(EasyCastStructure):
+    class _FacialFeatures_e__Struct(Structure):
         BoundingBox: win32more.Windows.Win32.Foundation.RECT
         Distance: Int32
         OpaqueEngineData: _OpaqueEngineData_e__Struct
-        class _OpaqueEngineData_e__Struct(EasyCastStructure):
+        class _OpaqueEngineData_e__Struct(Structure):
             AdapterId: Guid
             Data: UInt32 * 78
-    class _Iris_e__Struct(EasyCastStructure):
+    class _Iris_e__Struct(Structure):
         EyeBoundingBox_1: win32more.Windows.Win32.Foundation.RECT
         EyeBoundingBox_2: win32more.Windows.Win32.Foundation.RECT
         PupilCenter_1: win32more.Windows.Win32.Foundation.POINT
         PupilCenter_2: win32more.Windows.Win32.Foundation.POINT
         Distance: Int32
-class WINBIO_PRIVATE_SENSOR_TYPE_INFO(EasyCastStructure):
+class WINBIO_PRIVATE_SENSOR_TYPE_INFO(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
     PrivateSensorTypeInfo: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_DATA
-class WINBIO_PROTECTION_POLICY(EasyCastStructure):
+class WINBIO_PROTECTION_POLICY(Structure):
     Version: UInt32
     Identity: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY
     DatabaseId: Guid
     UserState: UInt64
     PolicySize: UIntPtr
     Policy: Byte * 128
-class WINBIO_REGISTERED_FORMAT(EasyCastStructure):
+class WINBIO_REGISTERED_FORMAT(Structure):
     Owner: UInt16
     Type: UInt16
-class WINBIO_SECURE_BUFFER_HEADER_V1(EasyCastStructure):
+class WINBIO_SECURE_BUFFER_HEADER_V1(Structure):
     Type: UInt32
     Size: UInt32
     Flags: UInt32
     ValidationTag: UInt64
-class WINBIO_SECURE_CONNECTION_DATA(EasyCastStructure):
+class WINBIO_SECURE_CONNECTION_DATA(Structure):
     Size: UInt32
     Version: UInt16
     Flags: UInt16
     ModelCertificateSize: UInt32
     IntermediateCA1Size: UInt32
     IntermediateCA2Size: UInt32
-class WINBIO_SECURE_CONNECTION_PARAMS(EasyCastStructure):
+class WINBIO_SECURE_CONNECTION_PARAMS(Structure):
     PayloadSize: UInt32
     Version: UInt16
     Flags: UInt16
-class WINBIO_SENSOR_ATTRIBUTES(EasyCastStructure):
+class WINBIO_SENSOR_ATTRIBUTES(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
     WinBioVersion: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_VERSION
@@ -1089,7 +1089,7 @@ class WINBIO_SENSOR_ATTRIBUTES(EasyCastStructure):
     FirmwareVersion: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_VERSION
     SupportedFormatEntries: UInt32
     SupportedFormat: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT * 1
-class WINBIO_SENSOR_INTERFACE(EasyCastStructure):
+class WINBIO_SENSOR_INTERFACE(Structure):
     Version: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
     Type: UInt32
     Size: UIntPtr
@@ -1130,10 +1130,10 @@ WINBIO_SETTING_SOURCE_INVALID: win32more.Windows.Win32.Devices.BiometricFramewor
 WINBIO_SETTING_SOURCE_DEFAULT: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_SETTING_SOURCE = 1
 WINBIO_SETTING_SOURCE_LOCAL: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_SETTING_SOURCE = 3
 WINBIO_SETTING_SOURCE_POLICY: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_SETTING_SOURCE = 2
-class WINBIO_SET_INDICATOR(EasyCastStructure):
+class WINBIO_SET_INDICATOR(Structure):
     PayloadSize: UInt32
     IndicatorStatus: UInt32
-class WINBIO_STORAGE_INTERFACE(EasyCastStructure):
+class WINBIO_STORAGE_INTERFACE(Structure):
     Version: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
     Type: UInt32
     Size: UIntPtr
@@ -1168,7 +1168,7 @@ class WINBIO_STORAGE_INTERFACE(EasyCastStructure):
     Reserved2: win32more.Windows.Win32.Devices.BiometricFramework.PIBIO_STORAGE_RESERVED_2_FN
     UpdateRecordBegin: win32more.Windows.Win32.Devices.BiometricFramework.PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN
     UpdateRecordCommit: win32more.Windows.Win32.Devices.BiometricFramework.PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN
-class WINBIO_STORAGE_RECORD(EasyCastStructure):
+class WINBIO_STORAGE_RECORD(Structure):
     Identity: POINTER(win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_IDENTITY)
     SubFactor: Byte
     IndexVector: POINTER(UInt32)
@@ -1177,19 +1177,19 @@ class WINBIO_STORAGE_RECORD(EasyCastStructure):
     TemplateBlobSize: UIntPtr
     PayloadBlob: POINTER(Byte)
     PayloadBlobSize: UIntPtr
-class WINBIO_STORAGE_SCHEMA(EasyCastStructure):
+class WINBIO_STORAGE_SCHEMA(Structure):
     BiometricFactor: UInt32
     DatabaseId: Guid
     DataFormat: Guid
     Attributes: UInt32
     FilePath: UInt16 * 256
     ConnectionString: UInt16 * 256
-class WINBIO_SUPPORTED_ALGORITHMS(EasyCastStructure):
+class WINBIO_SUPPORTED_ALGORITHMS(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
     NumberOfAlgorithms: UInt32
     AlgorithmData: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_DATA
-class WINBIO_UNIT_SCHEMA(EasyCastStructure):
+class WINBIO_UNIT_SCHEMA(Structure):
     UnitId: UInt32
     PoolType: UInt32
     BiometricFactor: UInt32
@@ -1201,10 +1201,10 @@ class WINBIO_UNIT_SCHEMA(EasyCastStructure):
     Model: UInt16 * 256
     SerialNumber: UInt16 * 256
     FirmwareVersion: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_VERSION
-class WINBIO_UPDATE_FIRMWARE(EasyCastStructure):
+class WINBIO_UPDATE_FIRMWARE(Structure):
     PayloadSize: UInt32
     FirmwareData: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_DATA
-class WINBIO_VERSION(EasyCastStructure):
+class WINBIO_VERSION(Structure):
     MajorVersion: UInt32
     MinorVersion: UInt32
 WINIBIO_ENGINE_CONTEXT = IntPtr

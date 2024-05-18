@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -32,7 +32,7 @@ AEC_VAD_NORMAL: win32more.Windows.Win32.Media.MediaFoundation.AEC_VAD_MODE = 1
 AEC_VAD_FOR_AGC: win32more.Windows.Win32.Media.MediaFoundation.AEC_VAD_MODE = 2
 AEC_VAD_FOR_SILENCE_SUPPRESSION: win32more.Windows.Win32.Media.MediaFoundation.AEC_VAD_MODE = 3
 ALawCodecWrapper = Guid('{36cb6e0c-78c1-42b2-9943-846262f31786}')
-class AM_MEDIA_TYPE(EasyCastStructure):
+class AM_MEDIA_TYPE(Structure):
     majortype: Guid
     subtype: Guid
     bFixedSizeSamples: win32more.Windows.Win32.Foundation.BOOL
@@ -42,24 +42,24 @@ class AM_MEDIA_TYPE(EasyCastStructure):
     pUnk: win32more.Windows.Win32.System.Com.IUnknown
     cbFormat: UInt32
     pbFormat: POINTER(Byte)
-class ASF_FLAT_PICTURE(EasyCastStructure):
+class ASF_FLAT_PICTURE(Structure):
     bPictureType: Byte
     dwDataLen: UInt32
     _pack_ = 1
-class ASF_FLAT_SYNCHRONISED_LYRICS(EasyCastStructure):
+class ASF_FLAT_SYNCHRONISED_LYRICS(Structure):
     bTimeStampFormat: Byte
     bContentType: Byte
     dwLyricsLen: UInt32
     _pack_ = 1
-class ASF_INDEX_DESCRIPTOR(EasyCastStructure):
+class ASF_INDEX_DESCRIPTOR(Structure):
     Identifier: win32more.Windows.Win32.Media.MediaFoundation.ASF_INDEX_IDENTIFIER
     cPerEntryBytes: UInt16
     szDescription: Char * 32
     dwInterval: UInt32
-class ASF_INDEX_IDENTIFIER(EasyCastStructure):
+class ASF_INDEX_IDENTIFIER(Structure):
     guidIndexType: Guid
     wStreamNumber: UInt16
-class ASF_MUX_STATISTICS(EasyCastStructure):
+class ASF_MUX_STATISTICS(Structure):
     cFramesWritten: UInt32
     cFramesDropped: UInt32
 ASF_SELECTION_STATUS = Int32
@@ -69,7 +69,7 @@ ASF_STATUS_ALLDATAUNITS: win32more.Windows.Win32.Media.MediaFoundation.ASF_SELEC
 ASF_STATUSFLAGS = Int32
 ASF_STATUSFLAGS_INCOMPLETE: win32more.Windows.Win32.Media.MediaFoundation.ASF_STATUSFLAGS = 1
 ASF_STATUSFLAGS_NONFATAL_ERROR: win32more.Windows.Win32.Media.MediaFoundation.ASF_STATUSFLAGS = 2
-class AecQualityMetrics_Struct(EasyCastStructure):
+class AecQualityMetrics_Struct(Structure):
     i64Timestamp: Int64
     ConvergenceFlag: Byte
     MicClippedFlag: Byte
@@ -3056,24 +3056,24 @@ CWVC1DecMediaObject = Guid('{c9bfbccf-e60e-4588-a3df-5a03b1fd9585}')
 CWVC1EncMediaObject = Guid('{44653d0d-8cca-41e7-baca-884337b747ac}')
 CZuneAACCCDecMediaObject = Guid('{a74e98f2-52d6-4b4e-885b-e0a6ca4f187a}')
 CZuneM4S2DecMediaObject = Guid('{c56fc25c-0fc6-404a-9503-b10bf51a8ab9}')
-class CodecAPIEventData(EasyCastStructure):
+class CodecAPIEventData(Structure):
     guid: Guid
     dataLength: UInt32
     reserved: UInt32 * 3
 D3D12_BITSTREAM_ENCRYPTION_TYPE = Int32
 D3D12_BITSTREAM_ENCRYPTION_TYPE_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_BITSTREAM_ENCRYPTION_TYPE = 0
-class D3D12_FEATURE_DATA_VIDEO_ARCHITECTURE(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ARCHITECTURE(Structure):
     IOCoherent: win32more.Windows.Win32.Foundation.BOOL
-class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE(Structure):
     VideoDecoderHeapDesc: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODER_HEAP_DESC
     MemoryPoolL0Size: UInt64
     MemoryPoolL1Size: UInt64
-class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE1(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE1(Structure):
     VideoDecoderHeapDesc: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODER_HEAP_DESC
     Protected: win32more.Windows.Win32.Foundation.BOOL
     MemoryPoolL0Size: UInt64
     MemoryPoolL1Size: UInt64
-class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT(Structure):
     NodeIndex: UInt32
     Configuration: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION
     DecodeSample: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SAMPLE
@@ -3082,16 +3082,16 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT(EasyCastStructure):
     BitRate: UInt32
     SupportFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS
     ScaleSupport: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SCALE_SUPPORT
-class D3D12_FEATURE_DATA_VIDEO_DECODE_FORMATS(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODE_FORMATS(Structure):
     NodeIndex: UInt32
     Configuration: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION
     FormatCount: UInt32
     pOutputFormats: POINTER(win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT)
-class D3D12_FEATURE_DATA_VIDEO_DECODE_FORMAT_COUNT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODE_FORMAT_COUNT(Structure):
     NodeIndex: UInt32
     Configuration: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION
     FormatCount: UInt32
-class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM(Structure):
     NodeIndex: UInt32
     DecodeProfile: Guid
     Width: UInt32
@@ -3100,18 +3100,18 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM(EasyCastStructure):
     Components: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS
     BinCount: UInt32
     CounterBitDepth: UInt32
-class D3D12_FEATURE_DATA_VIDEO_DECODE_PROFILES(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODE_PROFILES(Structure):
     NodeIndex: UInt32
     ProfileCount: UInt32
     pProfiles: POINTER(Guid)
-class D3D12_FEATURE_DATA_VIDEO_DECODE_PROFILE_COUNT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODE_PROFILE_COUNT(Structure):
     NodeIndex: UInt32
     ProfileCount: UInt32
-class D3D12_FEATURE_DATA_VIDEO_DECODE_PROTECTED_RESOURCES(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODE_PROTECTED_RESOURCES(Structure):
     NodeIndex: UInt32
     Configuration: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION
     SupportFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS
-class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT(Structure):
     NodeIndex: UInt32
     Configuration: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION
     Width: UInt32
@@ -3122,23 +3122,23 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT(EasyCastStructure):
     SupportFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_SUPPORT_FLAGS
     ConfigurationFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS
     DecodeTier: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_TIER
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     Profile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
     CodecSupportLimits: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     Profile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
     PictureSupport: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     Profile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
@@ -3147,32 +3147,32 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG(EasyCastStr
     FrameResolution: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC
     CodecSupport: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     Profile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
     Level: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVEL_SETTING
     SubregionMode: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE(Structure):
     HeapDesc: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_HEAP_DESC
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
     MemoryPoolL0Size: UInt64
     MemoryPoolL1Size: UInt64
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     Profile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_INTRA_REFRESH_MODE(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_INTRA_REFRESH_MODE(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     Profile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
     Level: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVEL_SETTING
     IntraRefreshMode: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     ResolutionRatiosCount: UInt32
@@ -3182,28 +3182,28 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION(EasyCastStructure):
     ResolutionWidthMultipleRequirement: UInt32
     ResolutionHeightMultipleRequirement: UInt32
     pResolutionRatios: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_RATIO_DESC)
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     ResolutionRatiosCount: UInt32
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     Profile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
     MinSupportedLevel: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVEL_SETTING
     MaxSupportedLevel: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVEL_SETTING
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_MODE(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_MODE(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     RateControlMode: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE
     IsSupported: win32more.Windows.Win32.Foundation.BOOL
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS(Structure):
     MaxSubregionsNumber: UInt32
     MaxIntraRefreshFrameDuration: UInt32
     SubregionBlockPixelsSize: UInt32
     QPMapRegionPixelsSize: UInt32
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     Profile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
@@ -3213,7 +3213,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS(EasyCastStructure):
     CompressedBitstreamBufferAccessAlignment: UInt32
     EncoderMetadataBufferAccessAlignment: UInt32
     MaxEncoderOutputMetadataBufferSize: UInt32
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     InputFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
@@ -3230,7 +3230,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT(EasyCastStructure):
     SuggestedProfile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
     SuggestedLevel: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVEL_SETTING
     pResolutionDependentSupport: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS)
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1(Structure):
     NodeIndex: UInt32
     Codec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     InputFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
@@ -3249,52 +3249,52 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1(EasyCastStructure):
     pResolutionDependentSupport: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS)
     SubregionFrameEncodingData: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA
     MaxQualityVsSpeed: UInt32
-class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMANDS(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMANDS(Structure):
     NodeIndex: UInt32
     CommandCount: UInt32
     pCommandInfos: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_INFO)
-class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_COUNT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_COUNT(Structure):
     NodeIndex: UInt32
     CommandCount: UInt32
-class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETERS(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETERS(Structure):
     CommandId: Guid
     Stage: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE
     ParameterCount: UInt32
     pParameterInfos: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO)
-class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETER_COUNT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETER_COUNT(Structure):
     CommandId: Guid
     Stage: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE
     ParameterCount: UInt32
     ParameterPacking: UInt32
-class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE(Structure):
     NodeIndex: UInt32
     CommandId: Guid
     pCreationParameters: VoidPtr
     CreationParametersSizeInBytes: UIntPtr
     MemoryPoolL0Size: UInt64
     MemoryPoolL1Size: UInt64
-class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SUPPORT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SUPPORT(Structure):
     NodeIndex: UInt32
     CommandId: Guid
     pInputData: VoidPtr
     InputDataSizeInBytes: UIntPtr
     pOutputData: VoidPtr
     OutputDataSizeInBytes: UIntPtr
-class D3D12_FEATURE_DATA_VIDEO_FEATURE_AREA_SUPPORT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_FEATURE_AREA_SUPPORT(Structure):
     NodeIndex: UInt32
     VideoDecodeSupport: win32more.Windows.Win32.Foundation.BOOL
     VideoProcessSupport: win32more.Windows.Win32.Foundation.BOOL
     VideoEncodeSupport: win32more.Windows.Win32.Foundation.BOOL
-class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR(Structure):
     NodeIndex: UInt32
     InputFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     BlockSizeFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_FLAGS
     PrecisionFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAGS
     SizeRange: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SIZE_RANGE
-class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_PROTECTED_RESOURCES(Structure):
     NodeIndex: UInt32
     SupportFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS
-class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE(Structure):
     NodeIndex: UInt32
     InputFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     BlockSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE
@@ -3305,14 +3305,14 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE(EasyCastStructure):
     MotionVectorHeapMemoryPoolL1Size: UInt64
     MotionEstimatorMemoryPoolL0Size: UInt64
     MotionEstimatorMemoryPoolL1Size: UInt64
-class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE(Structure):
     NodeMask: UInt32
     pOutputStreamDesc: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC)
     NumInputStreamDescs: UInt32
     pInputStreamDescs: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC)
     MemoryPoolL0Size: UInt64
     MemoryPoolL1Size: UInt64
-class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE1(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE1(Structure):
     NodeMask: UInt32
     pOutputStreamDesc: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC)
     NumInputStreamDescs: UInt32
@@ -3320,13 +3320,13 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE1(EasyCastStructure):
     Protected: win32more.Windows.Win32.Foundation.BOOL
     MemoryPoolL0Size: UInt64
     MemoryPoolL1Size: UInt64
-class D3D12_FEATURE_DATA_VIDEO_PROCESS_MAX_INPUT_STREAMS(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_PROCESS_MAX_INPUT_STREAMS(Structure):
     NodeIndex: UInt32
     MaxInputStreams: UInt32
-class D3D12_FEATURE_DATA_VIDEO_PROCESS_PROTECTED_RESOURCES(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_PROCESS_PROTECTED_RESOURCES(Structure):
     NodeIndex: UInt32
     SupportFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS
-class D3D12_FEATURE_DATA_VIDEO_PROCESS_REFERENCE_INFO(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_PROCESS_REFERENCE_INFO(Structure):
     NodeIndex: UInt32
     DeinterlaceMode: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_DEINTERLACE_FLAGS
     Filters: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_FILTER_FLAGS
@@ -3336,7 +3336,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_REFERENCE_INFO(EasyCastStructure):
     EnableAutoProcessing: win32more.Windows.Win32.Foundation.BOOL
     PastFrames: UInt32
     FutureFrames: UInt32
-class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT(EasyCastStructure):
+class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT(Structure):
     NodeIndex: UInt32
     InputSample: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SAMPLE
     InputFieldType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FIELD_TYPE
@@ -3395,27 +3395,27 @@ D3D12_FEATURE_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT: win32more.Windows.Win
 D3D12_FEATURE_VIDEO_ENCODER_RESOURCE_REQUIREMENTS: win32more.Windows.Win32.Media.MediaFoundation.D3D12_FEATURE_VIDEO = 45
 D3D12_FEATURE_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG: win32more.Windows.Win32.Media.MediaFoundation.D3D12_FEATURE_VIDEO = 46
 D3D12_FEATURE_VIDEO_ENCODER_SUPPORT1: win32more.Windows.Win32.Media.MediaFoundation.D3D12_FEATURE_VIDEO = 47
-class D3D12_QUERY_DATA_VIDEO_DECODE_STATISTICS(EasyCastStructure):
+class D3D12_QUERY_DATA_VIDEO_DECODE_STATISTICS(Structure):
     Status: UInt64
     NumMacroblocksAffected: UInt64
     FrameRate: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL
     BitRate: UInt32
-class D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT(EasyCastStructure):
+class D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT(Structure):
     pMotionVectorHeap: win32more.Windows.Win32.Media.MediaFoundation.ID3D12VideoMotionVectorHeap
     PixelWidth: UInt32
     PixelHeight: UInt32
-class D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT(EasyCastStructure):
+class D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT(Structure):
     pMotionVectorTexture2D: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     MotionVectorCoordinate: win32more.Windows.Win32.Media.MediaFoundation.D3D12_RESOURCE_COORDINATE
-class D3D12_RESOURCE_COORDINATE(EasyCastStructure):
+class D3D12_RESOURCE_COORDINATE(Structure):
     X: UInt64
     Y: UInt32
     Z: UInt32
     SubresourceIndex: UInt32
-class D3D12_VIDEO_DECODER_DESC(EasyCastStructure):
+class D3D12_VIDEO_DECODER_DESC(Structure):
     NodeMask: UInt32
     Configuration: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION
-class D3D12_VIDEO_DECODER_HEAP_DESC(EasyCastStructure):
+class D3D12_VIDEO_DECODER_HEAP_DESC(Structure):
     NodeMask: UInt32
     Configuration: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION
     DecodeWidth: UInt32
@@ -3429,11 +3429,11 @@ D3D12_VIDEO_DECODE_ARGUMENT_TYPE_PICTURE_PARAMETERS: win32more.Windows.Win32.Med
 D3D12_VIDEO_DECODE_ARGUMENT_TYPE_INVERSE_QUANTIZATION_MATRIX: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_ARGUMENT_TYPE = 1
 D3D12_VIDEO_DECODE_ARGUMENT_TYPE_SLICE_CONTROL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_ARGUMENT_TYPE = 2
 D3D12_VIDEO_DECODE_ARGUMENT_TYPE_HUFFMAN_TABLE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_ARGUMENT_TYPE = 3
-class D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM(EasyCastStructure):
+class D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM(Structure):
     pBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Offset: UInt64
     Size: UInt64
-class D3D12_VIDEO_DECODE_CONFIGURATION(EasyCastStructure):
+class D3D12_VIDEO_DECODE_CONFIGURATION(Structure):
     DecodeProfile: Guid
     BitstreamEncryption: win32more.Windows.Win32.Media.MediaFoundation.D3D12_BITSTREAM_ENCRYPTION_TYPE
     InterlaceType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE
@@ -3443,13 +3443,13 @@ D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_HEIGHT_ALIGNMENT_MULTIPLE_32_REQUIRED: win
 D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_POST_PROCESSING_SUPPORTED: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS = 2
 D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_REFERENCE_ONLY_ALLOCATIONS_REQUIRED: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS = 4
 D3D12_VIDEO_DECODE_CONFIGURATION_FLAG_ALLOW_RESOLUTION_CHANGE_ON_NON_KEY_FRAME: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS = 8
-class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS(EasyCastStructure):
+class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     pReferenceTexture2D: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     ReferenceSubresource: UInt32
     OutputColorSpace: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE
     DecodeColorSpace: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE
-class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1(EasyCastStructure):
+class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     pReferenceTexture2D: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     ReferenceSubresource: UInt32
@@ -3460,7 +3460,7 @@ class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1(EasyCastStructure):
 D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS = Int32
 D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS = 0
 D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAG_SUPPORTED: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS = 1
-class D3D12_VIDEO_DECODE_FRAME_ARGUMENT(EasyCastStructure):
+class D3D12_VIDEO_DECODE_FRAME_ARGUMENT(Structure):
     Type: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_ARGUMENT_TYPE
     Size: UInt32
     pData: VoidPtr
@@ -3481,25 +3481,25 @@ D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_R: win32more.Windows.Win32.Media.Med
 D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_G: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS = 2
 D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_B: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS = 4
 D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAG_A: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS = 8
-class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS(EasyCastStructure):
+class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS(Structure):
     NumFrameArguments: UInt32
     FrameArguments: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_FRAME_ARGUMENT * 10
     ReferenceFrames: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_REFERENCE_FRAMES
     CompressedBitstream: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM
     pHeap: win32more.Windows.Win32.Media.MediaFoundation.ID3D12VideoDecoderHeap
-class D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM(EasyCastStructure):
+class D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM(Structure):
     Offset: UInt64
     pBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
-class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS(EasyCastStructure):
+class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS(Structure):
     pOutputTexture2D: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     OutputSubresource: UInt32
     ConversionArguments: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS
-class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1(EasyCastStructure):
+class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1(Structure):
     pOutputTexture2D: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     OutputSubresource: UInt32
     ConversionArguments: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1
     Histograms: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM * 4
-class D3D12_VIDEO_DECODE_REFERENCE_FRAMES(EasyCastStructure):
+class D3D12_VIDEO_DECODE_REFERENCE_FRAMES(Structure):
     NumTexture2Ds: UInt32
     ppTexture2Ds: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource)
     pSubresources: POINTER(UInt32)
@@ -3518,17 +3518,17 @@ D3D12_VIDEO_DECODE_TIER_NOT_SUPPORTED: win32more.Windows.Win32.Media.MediaFounda
 D3D12_VIDEO_DECODE_TIER_1: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_TIER = 1
 D3D12_VIDEO_DECODE_TIER_2: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_TIER = 2
 D3D12_VIDEO_DECODE_TIER_3: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_TIER = 3
-class D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG(Structure):
     CdefBits: UInt64
     CdefDampingMinus3: UInt64
     CdefYPriStrength: UInt64 * 8
     CdefUVPriStrength: UInt64 * 8
     CdefYSecStrength: UInt64 * 8
     CdefUVSecStrength: UInt64 * 8
-class D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION(Structure):
     FeatureFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS
     OrderHintBitsMinus1: UInt32
-class D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION_SUPPORT(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION_SUPPORT(Structure):
     SupportedFeatureFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS
     RequiredFeatureFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS
     SupportedInterpolationFilters: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_INTERPOLATION_FILTERS_FLAGS
@@ -3570,7 +3570,7 @@ D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_MOTION_MODE_SWITCHABLE: win32more.Windows.W
 D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_ALLOW_HIGH_PRECISION_MV: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = 8388608
 D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_SKIP_MODE_PRESENT: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = 16777216
 D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_DELTA_LF_PARAMS: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS = 33554432
-class D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT(Structure):
     Use128SuperBlocks: win32more.Windows.Win32.Foundation.BOOL
     TilesConfiguration: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES
     ValidationFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_VALIDATION_FLAGS
@@ -3642,10 +3642,10 @@ D3D12_VIDEO_ENCODER_AV1_LEVELS_7_0: win32more.Windows.Win32.Media.MediaFoundatio
 D3D12_VIDEO_ENCODER_AV1_LEVELS_7_1: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_LEVELS = 21
 D3D12_VIDEO_ENCODER_AV1_LEVELS_7_2: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_LEVELS = 22
 D3D12_VIDEO_ENCODER_AV1_LEVELS_7_3: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_LEVELS = 23
-class D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS(Structure):
     Level: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_LEVELS
     Tier: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_TIER
-class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA(Structure):
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAGS
     FrameType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE
     CompoundPredictionType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_COMP_PREDICTION_TYPE
@@ -3687,13 +3687,13 @@ D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAG_ENABLE_WARPED_MOTION: win32more.Win
 D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAG_REDUCED_TX_SET: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAGS = 4096
 D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAG_MOTION_MODE_SWITCHABLE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAGS = 8192
 D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAG_ALLOW_HIGH_PRECISION_MV: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_FLAGS = 16384
-class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES(Structure):
     RowCount: UInt64
     ColCount: UInt64
     RowHeights: UInt64 * 64
     ColWidths: UInt64 * 64
     ContextUpdateTileId: UInt64
-class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES(Structure):
     CompoundPredictionType: UInt64
     LoopFilter: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG
     LoopFilterDelta: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG
@@ -3718,7 +3718,7 @@ D3D12_VIDEO_ENCODER_AV1_PROFILE = Int32
 D3D12_VIDEO_ENCODER_AV1_PROFILE_MAIN: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PROFILE = 0
 D3D12_VIDEO_ENCODER_AV1_PROFILE_HIGH: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PROFILE = 1
 D3D12_VIDEO_ENCODER_AV1_PROFILE_PROFESSIONAL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PROFILE = 2
-class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR(Structure):
     ReconstructedPictureResourceIndex: UInt32
     TemporalLayerIndexPlus1: UInt32
     SpatialLayerIndexPlus1: UInt32
@@ -3726,7 +3726,7 @@ class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR(EasyCastStructure):
     WarpedMotionInfo: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO
     OrderHint: UInt32
     PictureIndex: UInt32
-class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO(Structure):
     TransformationType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION
     TransformationMatrix: Int32 * 8
     InvalidAffineSet: win32more.Windows.Win32.Foundation.BOOL
@@ -3741,7 +3741,7 @@ D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAG_IDENTITY: wi
 D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAG_TRANSLATION: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAGS = 2
 D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAG_ROTZOOM: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAGS = 4
 D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAG_AFFINE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAGS = 8
-class D3D12_VIDEO_ENCODER_AV1_RESTORATION_CONFIG(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_RESTORATION_CONFIG(Structure):
     FrameRestorationType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE * 3
     LoopRestorationPixelSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_RESTORATION_TILESIZE * 3
 D3D12_VIDEO_ENCODER_AV1_RESTORATION_SUPPORT_FLAGS = Int32
@@ -3767,13 +3767,13 @@ D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_BLOCK_SIZE_8x8: win32more.Windows.Win32.Med
 D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_BLOCK_SIZE_16x16: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_BLOCK_SIZE = 2
 D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_BLOCK_SIZE_32x32: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_BLOCK_SIZE = 3
 D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_BLOCK_SIZE_64x64: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_BLOCK_SIZE = 4
-class D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG(Structure):
     UpdateMap: UInt64
     TemporalUpdate: UInt64
     UpdateData: UInt64
     NumSegments: UInt64
     SegmentsData: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA * 8
-class D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MAP(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MAP(Structure):
     SegmentsMapByteSize: UInt32
     pSegmentsMap: POINTER(Byte)
 D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MODE = Int32
@@ -3797,10 +3797,10 @@ D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MODE_FLAG_ALT_LF_V: win32more.Windows.Win32
 D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MODE_FLAG_REF_FRAME: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MODE_FLAGS = 64
 D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MODE_FLAG_ALT_SKIP: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MODE_FLAGS = 128
 D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MODE_FLAG_ALT_GLOBALMV: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_MODE_FLAGS = 256
-class D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA(Structure):
     EnabledFeatures: UInt64
     FeatureValue: Int64 * 8
-class D3D12_VIDEO_ENCODER_AV1_SEQUENCE_STRUCTURE(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_AV1_SEQUENCE_STRUCTURE(Structure):
     IntraDistance: UInt32
     InterFramePeriod: UInt32
 D3D12_VIDEO_ENCODER_AV1_TIER = Int32
@@ -3819,7 +3819,7 @@ D3D12_VIDEO_ENCODER_CODEC = Int32
 D3D12_VIDEO_ENCODER_CODEC_H264: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC = 0
 D3D12_VIDEO_ENCODER_CODEC_HEVC: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC = 1
 D3D12_VIDEO_ENCODER_CODEC_AV1: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC = 2
-class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG(Structure):
     LoopFilterLevel: UInt64 * 2
     LoopFilterLevelU: UInt64
     LoopFilterLevelV: UInt64
@@ -3829,16 +3829,16 @@ class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG(EasyCastStructure):
     RefDeltas: Int64 * 8
     UpdateModeDelta: UInt64
     ModeDeltas: Int64 * 2
-class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG(Structure):
     DeltaLFPresent: UInt64
     DeltaLFMulti: UInt64
     DeltaLFRes: UInt64
-class D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT(Structure):
     PredictionMode: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_COMP_PREDICTION_TYPE
     MaxUniqueReferencesPerFrame: UInt32
     SupportedFrameTypes: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE_FLAGS
     SupportedReferenceWarpedMotionFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAGS
-class D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG(Structure):
     BaseQIndex: UInt64
     YDCDeltaQ: Int64
     UDCDeltaQ: Int64
@@ -3849,17 +3849,17 @@ class D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG(EasyCastStructure):
     QMY: UInt64
     QMU: UInt64
     QMV: UInt64
-class D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG(Structure):
     DeltaQPresent: UInt64
     DeltaQRes: UInt64
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pH264Config: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264)
         pHEVCConfig: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC)
         pAV1Config: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION)
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264(Structure):
     ConfigurationFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_FLAGS
     DirectModeConfig: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_DIRECT_MODES
     DisableDeblockingFilterConfig: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODES
@@ -3890,7 +3890,7 @@ D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODE_FLAG_3_USE_T
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODE_FLAG_4_DISABLE_CHROMA_BLOCK_EDGES: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODE_FLAGS = 16
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODE_FLAG_5_DISABLE_CHROMA_BLOCK_EDGES_AND_LUMA_BOUNDARIES: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODE_FLAGS = 32
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODE_FLAG_6_DISABLE_CHROMA_BLOCK_EDGES_AND_USE_LUMA_TWO_STAGE_DEBLOCKING: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODE_FLAGS = 64
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC(Structure):
     ConfigurationFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS
     MinLumaCodingUnitSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE
     MaxLumaCodingUnitSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE
@@ -3927,15 +3927,15 @@ D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_4x4: win32more.Windows.Win32
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_8x8: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE = 1
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_16x16: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE = 2
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_32x32: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE = 3
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pH264Support: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264)
         pHEVCSupport: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC)
         pHEVCSupport1: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1)
         pAV1Support: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION_SUPPORT)
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264(Structure):
     SupportFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAGS
     DisableDeblockingFilterSupportedModes: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODE_FLAGS
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAGS = Int32
@@ -3948,7 +3948,7 @@ D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAG_DIRECT_SPATIAL_ENCODIN
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAG_DIRECT_TEMPORAL_ENCODING_SUPPORT: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAGS = 32
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAG_CONSTRAINED_INTRAPREDICTION_SUPPORT: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAGS = 64
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAG_NUM_REF_IDX_ACTIVE_OVERRIDE_FLAG_SLICE_SUPPORT: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264_FLAGS = 128
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC(Structure):
     SupportFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS
     MinLumaCodingUnitSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE
     MaxLumaCodingUnitSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE
@@ -3956,7 +3956,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC(EasyCastStructure):
     MaxLumaTransformUnitSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE
     max_transform_hierarchy_depth_inter: Byte
     max_transform_hierarchy_depth_intra: Byte
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1(Structure):
     SupportFlags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS
     MinLumaCodingUnitSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE
     MaxLumaCodingUnitSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE
@@ -4010,29 +4010,29 @@ D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = Int32
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = 0
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_SEPARATE_COLOUR_PLANE_SUPPORT: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = 1
 D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_SEPARATE_COLOUR_PLANE_REQUIRED: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1 = 2
-class D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pH264Support: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_H264)
         pHEVCSupport: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_HEVC)
         pAV1Support: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT)
-class D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_H264(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_H264(Structure):
     MaxL0ReferencesForP: UInt32
     MaxL0ReferencesForB: UInt32
     MaxL1ReferencesForB: UInt32
     MaxLongTermReferences: UInt32
     MaxDPBCapacity: UInt32
-class D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_HEVC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_HEVC(Structure):
     MaxL0ReferencesForP: UInt32
     MaxL0ReferencesForB: UInt32
     MaxL1ReferencesForB: UInt32
     MaxLongTermReferences: UInt32
     MaxDPBCapacity: UInt32
-class D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM(Structure):
     pBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     FrameStartOffset: UInt64
-class D3D12_VIDEO_ENCODER_DESC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_DESC(Structure):
     NodeMask: UInt32
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FLAGS
     EncodeCodec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
@@ -4040,13 +4040,13 @@ class D3D12_VIDEO_ENCODER_DESC(EasyCastStructure):
     InputFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     CodecConfiguration: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION
     MaxMotionEstimationPrecision: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE
-class D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS(Structure):
     SequenceControlDesc: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC
     PictureControlDesc: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC
     pInputFrame: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     InputFrameSubresource: UInt32
     CurrentFrameBitstreamMetadataSize: UInt32
-class D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS(Structure):
     Bitstream: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM
     ReconstructedPicture: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE
     EncoderOutputMetadata: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER
@@ -4057,15 +4057,15 @@ D3D12_VIDEO_ENCODER_ENCODE_ERROR_FLAG_SUBREGION_LAYOUT_CONFIGURATION_NOT_SUPPORT
 D3D12_VIDEO_ENCODER_ENCODE_ERROR_FLAG_INVALID_REFERENCE_PICTURES: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODE_ERROR_FLAGS = 4
 D3D12_VIDEO_ENCODER_ENCODE_ERROR_FLAG_RECONFIGURATION_REQUEST_NOT_SUPPORTED: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODE_ERROR_FLAGS = 8
 D3D12_VIDEO_ENCODER_ENCODE_ERROR_FLAG_INVALID_METADATA_BUFFER_SOURCE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODE_ERROR_FLAGS = 16
-class D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(Structure):
     pBuffer: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Offset: UInt64
 D3D12_VIDEO_ENCODER_FLAGS = Int32
 D3D12_VIDEO_ENCODER_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FLAGS = 0
-class D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pAV1Support: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT)
 D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = Int32
 D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_FULL_FRAME: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = 0
@@ -4075,7 +4075,7 @@ D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_PARTITIONING_ROWS_PER_SU
 D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_PARTITIONING_SUBREGIONS_PER_FRAME: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = 4
 D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_UNIFORM_GRID_PARTITION: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = 5
 D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE_CONFIGURABLE_GRID_PARTITION: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = 6
-class D3D12_VIDEO_ENCODER_FRAME_SUBREGION_METADATA(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_FRAME_SUBREGION_METADATA(Structure):
     bSize: UInt64
     bStartOffset: UInt64
     bHeaderSize: UInt64
@@ -4089,7 +4089,7 @@ D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC_I_FRAME: win32more.Windows.Win32.Media.Media
 D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC_P_FRAME: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC = 1
 D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC_B_FRAME: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC = 2
 D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC_IDR_FRAME: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC = 3
-class D3D12_VIDEO_ENCODER_HEAP_DESC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_HEAP_DESC(Structure):
     NodeMask: UInt32
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_HEAP_FLAGS
     EncodeCodec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
@@ -4099,7 +4099,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC(EasyCastStructure):
     pResolutionList: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC)
 D3D12_VIDEO_ENCODER_HEAP_FLAGS = Int32
 D3D12_VIDEO_ENCODER_HEAP_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_HEAP_FLAGS = 0
-class D3D12_VIDEO_ENCODER_INTRA_REFRESH(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_INTRA_REFRESH(Structure):
     Mode: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE
     IntraRefreshDuration: UInt32
 D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE = Int32
@@ -4140,14 +4140,14 @@ D3D12_VIDEO_ENCODER_LEVELS_HEVC_52: win32more.Windows.Win32.Media.MediaFoundatio
 D3D12_VIDEO_ENCODER_LEVELS_HEVC_6: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVELS_HEVC = 10
 D3D12_VIDEO_ENCODER_LEVELS_HEVC_61: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVELS_HEVC = 11
 D3D12_VIDEO_ENCODER_LEVELS_HEVC_62: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVELS_HEVC = 12
-class D3D12_VIDEO_ENCODER_LEVEL_SETTING(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_LEVEL_SETTING(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pH264LevelSetting: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVELS_H264)
         pHEVCLevelSetting: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC)
         pAV1LevelSetting: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS)
-class D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC(Structure):
     Level: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVELS_HEVC
     Tier: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_TIER_HEVC
 D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE = Int32
@@ -4156,27 +4156,27 @@ D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_FULL_PIXEL: win32more.Windo
 D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_HALF_PIXEL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE = 2
 D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_QUARTER_PIXEL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE = 3
 D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE_EIGHTH_PIXEL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE = 4
-class D3D12_VIDEO_ENCODER_OUTPUT_METADATA(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_OUTPUT_METADATA(Structure):
     EncodeErrorFlags: UInt64
     EncodeStats: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS
     EncodedBitstreamWrittenBytesCount: UInt64
     WrittenSubregionsCount: UInt64
-class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS(Structure):
     AverageQP: UInt64
     IntraCodingUnitsCount: UInt64
     InterCodingUnitsCount: UInt64
     SkipCodingUnitsCount: UInt64
     AverageMotionEstimationXDirection: UInt64
     AverageMotionEstimationYDirection: UInt64
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pH264PicData: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264)
         pHEVCPicData: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC)
         pHEVCPicData1: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1)
         pAV1PicData: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA)
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264(Structure):
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAGS
     FrameType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_TYPE_H264
     pic_parameter_set_id: UInt32
@@ -4203,17 +4203,17 @@ D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAGS = Int32
 D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAGS = 0
 D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAG_REQUEST_INTRA_CONSTRAINED_SLICES: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAGS = 1
 D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAG_REQUEST_NUM_REF_IDX_ACTIVE_OVERRIDE_FLAG_SLICE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_FLAGS = 2
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_REFERENCE_PICTURE_LIST_MODIFICATION_OPERATION(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_REFERENCE_PICTURE_LIST_MODIFICATION_OPERATION(Structure):
     modification_of_pic_nums_idc: Byte
     abs_diff_pic_num_minus1: UInt32
     long_term_pic_num: UInt32
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_REFERENCE_PICTURE_MARKING_OPERATION(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264_REFERENCE_PICTURE_MARKING_OPERATION(Structure):
     memory_management_control_operation: Byte
     difference_of_pic_nums_minus1: UInt32
     long_term_pic_num: UInt32
     long_term_frame_idx: UInt32
     max_long_term_frame_idx_plus1: UInt32
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC(Structure):
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS
     FrameType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC
     slice_pic_parameter_set_id: UInt32
@@ -4231,7 +4231,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC(EasyCastStructure):
     pList1RefPicModifications: POINTER(UInt32)
     QPMapValuesCount: UInt32
     pRateControlQPMap: POINTER(SByte)
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC1(Structure):
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS
     FrameType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC
     slice_pic_parameter_set_id: UInt32
@@ -4262,7 +4262,7 @@ D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAG_REQUEST_INTRA_CONSTRAIN
 D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAG_REQUEST_NUM_REF_IDX_ACTIVE_OVERRIDE_FLAG_SLICE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS = 2
 D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAG_CROSS_COMPONENT_PREDICTION: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS = 4
 D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAG_CHROMA_QP_OFFSET_LIST: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS = 8
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC(Structure):
     IntraRefreshFrameIndex: UInt32
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS
     PictureControlCodecData: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA
@@ -4270,30 +4270,30 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC(EasyCastStructure):
 D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS = Int32
 D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS = 0
 D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_USED_AS_REFERENCE_PICTURE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAGS = 1
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pSlicesPartition_H264: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES)
         pSlicesPartition_HEVC: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES)
         pTilesPartition_AV1: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES)
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         MaxBytesPerSlice: UInt32
         NumberOfCodingUnitsPerSlice: UInt32
         NumberOfRowsPerSlice: UInt32
         NumberOfSlicesPerFrame: UInt32
-class D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(Structure):
     Width: UInt32
     Height: UInt32
-class D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_RATIO_DESC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_RATIO_DESC(Structure):
     WidthRatio: UInt32
     HeightRatio: UInt32
-class D3D12_VIDEO_ENCODER_PROFILE_DESC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_PROFILE_DESC(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pH264Profile: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_H264)
         pHEVCProfile: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_HEVC)
         pAV1Profile: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PROFILE)
@@ -4311,14 +4311,14 @@ D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN_444: win32more.Windows.Win32.Media.MediaFo
 D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN10_444: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_HEVC = 6
 D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN12_444: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_HEVC = 7
 D3D12_VIDEO_ENCODER_PROFILE_HEVC_MAIN16_444: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_HEVC = 8
-class D3D12_VIDEO_ENCODER_RATE_CONTROL(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL(Structure):
     Mode: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS
     ConfigParams: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS
     TargetFrameRate: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP(Structure):
     QualityVsSpeed: UInt32
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR(Structure):
     InitialQP: UInt32
     MinQP: UInt32
     MaxQP: UInt32
@@ -4326,7 +4326,7 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR(EasyCastStructure):
     TargetBitRate: UInt64
     VBVCapacity: UInt64
     InitialVBVFullness: UInt64
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1(Structure):
     InitialQP: UInt32
     MinQP: UInt32
     MaxQP: UInt32
@@ -4335,10 +4335,10 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1(EasyCastStructure):
     VBVCapacity: UInt64
     InitialVBVFullness: UInt64
     QualityVsSpeed: UInt32
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pConfiguration_CQP: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP)
         pConfiguration_CBR: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR)
         pConfiguration_VBR: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR)
@@ -4348,11 +4348,11 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS(EasyCastStructure):
         pConfiguration_VBR1: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1)
         pConfiguration_QVBR1: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1)
         pConfiguration_AbsoluteQPMap: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP)
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP(Structure):
     ConstantQP_FullIntracodedFrame: UInt32
     ConstantQP_InterPredictedFrame_PrevRefOnly: UInt32
     ConstantQP_InterPredictedFrame_BiDirectionalRef: UInt32
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1(Structure):
     ConstantQP_FullIntracodedFrame: UInt32
     ConstantQP_InterPredictedFrame_PrevRefOnly: UInt32
     ConstantQP_InterPredictedFrame_BiDirectionalRef: UInt32
@@ -4373,7 +4373,7 @@ D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_CQP: win32more.Windows.Win32.Media.MediaFo
 D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_CBR: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE = 2
 D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_VBR: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE = 3
 D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_QVBR: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE = 4
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR(Structure):
     InitialQP: UInt32
     MinQP: UInt32
     MaxQP: UInt32
@@ -4381,7 +4381,7 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR(EasyCastStructure):
     TargetAvgBitRate: UInt64
     PeakBitRate: UInt64
     ConstantQualityTarget: UInt32
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1(Structure):
     InitialQP: UInt32
     MinQP: UInt32
     MaxQP: UInt32
@@ -4392,7 +4392,7 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1(EasyCastStructure):
     VBVCapacity: UInt64
     InitialVBVFullness: UInt64
     QualityVsSpeed: UInt32
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR(Structure):
     InitialQP: UInt32
     MinQP: UInt32
     MaxQP: UInt32
@@ -4401,7 +4401,7 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR(EasyCastStructure):
     PeakBitRate: UInt64
     VBVCapacity: UInt64
     InitialVBVFullness: UInt64
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1(Structure):
     InitialQP: UInt32
     MinQP: UInt32
     MaxQP: UInt32
@@ -4411,31 +4411,31 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1(EasyCastStructure):
     VBVCapacity: UInt64
     InitialVBVFullness: UInt64
     QualityVsSpeed: UInt32
-class D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE(Structure):
     pReconstructedPicture: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     ReconstructedPictureSubresource: UInt32
-class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_H264(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_H264(Structure):
     ReconstructedPictureResourceIndex: UInt32
     IsLongTermReference: win32more.Windows.Win32.Foundation.BOOL
     LongTermPictureIdx: UInt32
     PictureOrderCountNumber: UInt32
     FrameDecodingOrderNumber: UInt32
     TemporalLayerIndex: UInt32
-class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC(Structure):
     ReconstructedPictureResourceIndex: UInt32
     IsRefUsedByCurrentPic: win32more.Windows.Win32.Foundation.BOOL
     IsLongTermReference: win32more.Windows.Win32.Foundation.BOOL
     PictureOrderCountNumber: UInt32
     TemporalLayerIndex: UInt32
-class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS(Structure):
     EncoderCodec: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC
     EncoderProfile: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_DESC
     EncoderInputFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     EncodedPictureEffectiveResolution: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC
     HWLayoutMetadata: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER
-class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS(Structure):
     ResolvedLayoutMetadata: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER
-class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC(Structure):
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAGS
     IntraRefreshConfig: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_INTRA_REFRESH
     RateControl: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL
@@ -4450,20 +4450,20 @@ D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAG_RATE_CONTROL_CHANGE: win32more.Windows
 D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAG_SUBREGION_LAYOUT_CHANGE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAGS = 4
 D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAG_REQUEST_INTRA_REFRESH: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAGS = 8
 D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAG_GOP_SEQUENCE_CHANGE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAGS = 16
-class D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pH264GroupOfPictures: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_H264)
         pHEVCGroupOfPictures: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_HEVC)
         pAV1SequenceStructure: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_SEQUENCE_STRUCTURE)
-class D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_H264(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_H264(Structure):
     GOPLength: UInt32
     PPicturePeriod: UInt32
     pic_order_cnt_type: Byte
     log2_max_frame_num_minus4: Byte
     log2_max_pic_order_cnt_lsb_minus4: Byte
-class D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_HEVC(EasyCastStructure):
+class D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_HEVC(Structure):
     GOPLength: UInt32
     PPicturePeriod: UInt32
     log2_max_pic_order_cnt_lsb_minus4: Byte
@@ -4499,14 +4499,14 @@ D3D12_VIDEO_ENCODER_VALIDATION_FLAG_SUBREGION_LAYOUT_MODE_NOT_SUPPORTED: win32mo
 D3D12_VIDEO_ENCODER_VALIDATION_FLAG_RESOLUTION_NOT_SUPPORTED_IN_LIST: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_VALIDATION_FLAGS = 512
 D3D12_VIDEO_ENCODER_VALIDATION_FLAG_GOP_STRUCTURE_NOT_SUPPORTED: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_VALIDATION_FLAGS = 2048
 D3D12_VIDEO_ENCODER_VALIDATION_FLAG_SUBREGION_LAYOUT_DATA_NOT_SUPPORTED: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_VALIDATION_FLAGS = 4096
-class D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(EasyCastStructure):
+class D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(Structure):
     NumTexture2Ds: UInt32
     ppTexture2Ds: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource)
     pSubresources: POINTER(UInt32)
-class D3D12_VIDEO_EXTENSION_COMMAND_DESC(EasyCastStructure):
+class D3D12_VIDEO_EXTENSION_COMMAND_DESC(Structure):
     NodeMask: UInt32
     CommandId: Guid
-class D3D12_VIDEO_EXTENSION_COMMAND_INFO(EasyCastStructure):
+class D3D12_VIDEO_EXTENSION_COMMAND_INFO(Structure):
     CommandId: Guid
     Name: win32more.Windows.Win32.Foundation.PWSTR
     CommandListSupportFlags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_LIST_SUPPORT_FLAGS
@@ -4514,7 +4514,7 @@ D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAGS = Int32
 D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAGS = 0
 D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAG_READ: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAGS = 1
 D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAG_WRITE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAGS = 2
-class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO(EasyCastStructure):
+class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO(Structure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     Type: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_TYPE
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_FLAGS
@@ -4542,7 +4542,7 @@ D3D12_VIDEO_FIELD_TYPE = Int32
 D3D12_VIDEO_FIELD_TYPE_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FIELD_TYPE = 0
 D3D12_VIDEO_FIELD_TYPE_INTERLACED_TOP_FIELD_FIRST: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FIELD_TYPE = 1
 D3D12_VIDEO_FIELD_TYPE_INTERLACED_BOTTOM_FIELD_FIRST: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FIELD_TYPE = 2
-class D3D12_VIDEO_FORMAT(EasyCastStructure):
+class D3D12_VIDEO_FORMAT(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ColorSpace: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE
 D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE = Int32
@@ -4554,19 +4554,19 @@ D3D12_VIDEO_FRAME_STEREO_FORMAT_MONO: win32more.Windows.Win32.Media.MediaFoundat
 D3D12_VIDEO_FRAME_STEREO_FORMAT_HORIZONTAL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FRAME_STEREO_FORMAT = 2
 D3D12_VIDEO_FRAME_STEREO_FORMAT_VERTICAL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FRAME_STEREO_FORMAT = 3
 D3D12_VIDEO_FRAME_STEREO_FORMAT_SEPARATE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FRAME_STEREO_FORMAT = 4
-class D3D12_VIDEO_MOTION_ESTIMATOR_DESC(EasyCastStructure):
+class D3D12_VIDEO_MOTION_ESTIMATOR_DESC(Structure):
     NodeMask: UInt32
     InputFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     BlockSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE
     Precision: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION
     SizeRange: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SIZE_RANGE
-class D3D12_VIDEO_MOTION_ESTIMATOR_INPUT(EasyCastStructure):
+class D3D12_VIDEO_MOTION_ESTIMATOR_INPUT(Structure):
     pInputTexture2D: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     InputSubresourceIndex: UInt32
     pReferenceTexture2D: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     ReferenceSubresourceIndex: UInt32
     pHintMotionVectorHeap: win32more.Windows.Win32.Media.MediaFoundation.ID3D12VideoMotionVectorHeap
-class D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT(EasyCastStructure):
+class D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT(Structure):
     pMotionVectorHeap: win32more.Windows.Win32.Media.MediaFoundation.ID3D12VideoMotionVectorHeap
 D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE = Int32
 D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_8X8: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE = 0
@@ -4580,13 +4580,13 @@ D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_QUARTER_PEL: win32more.Windows.Win
 D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAGS = Int32
 D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAGS = 0
 D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAG_QUARTER_PEL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAGS = 1
-class D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC(EasyCastStructure):
+class D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC(Structure):
     NodeMask: UInt32
     InputFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     BlockSize: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE
     Precision: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION
     SizeRange: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SIZE_RANGE
-class D3D12_VIDEO_PROCESS_ALPHA_BLENDING(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_ALPHA_BLENDING(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     Alpha: Single
 D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE = Int32
@@ -4637,23 +4637,23 @@ D3D12_VIDEO_PROCESS_FILTER_FLAG_NOISE_REDUCTION: win32more.Windows.Win32.Media.M
 D3D12_VIDEO_PROCESS_FILTER_FLAG_EDGE_ENHANCEMENT: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_FILTER_FLAGS = 32
 D3D12_VIDEO_PROCESS_FILTER_FLAG_ANAMORPHIC_SCALING: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_FILTER_FLAGS = 64
 D3D12_VIDEO_PROCESS_FILTER_FLAG_STEREO_ADJUSTMENT: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_FILTER_FLAGS = 128
-class D3D12_VIDEO_PROCESS_FILTER_RANGE(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_FILTER_RANGE(Structure):
     Minimum: Int32
     Maximum: Int32
     Default: Int32
     Multiplier: Single
-class D3D12_VIDEO_PROCESS_INPUT_STREAM(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_INPUT_STREAM(Structure):
     pTexture2D: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Subresource: UInt32
     ReferenceSet: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_REFERENCE_SET
-class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS(Structure):
     InputStream: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM * 2
     Transform: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_TRANSFORM
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS
     RateInfo: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE
     FilterLevels: Int32 * 32
     AlphaBlending: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_ALPHA_BLENDING
-class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1(Structure):
     InputStream: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM * 2
     Transform: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_TRANSFORM
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS
@@ -4661,7 +4661,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1(EasyCastStructure):
     FilterLevels: Int32 * 32
     AlphaBlending: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_ALPHA_BLENDING
     FieldType: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FIELD_TYPE
-class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ColorSpace: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE
     SourceAspectRatio: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL
@@ -4683,10 +4683,10 @@ D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS = Int32
 D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS = 0
 D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAG_FRAME_DISCONTINUITY: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS = 1
 D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAG_FRAME_REPEAT: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS = 2
-class D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE(Structure):
     OutputIndex: UInt32
     InputFrameOrField: UInt32
-class D3D12_VIDEO_PROCESS_LUMA_KEY(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_LUMA_KEY(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     Lower: Single
     Upper: Single
@@ -4699,13 +4699,13 @@ D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_180: win32more.Windows.Win32.Media.Med
 D3D12_VIDEO_PROCESS_ORIENTATION_FLIP_VERTICAL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_ORIENTATION = 5
 D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_270: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_ORIENTATION = 6
 D3D12_VIDEO_PROCESS_ORIENTATION_CLOCKWISE_270_FLIP_HORIZONTAL: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_ORIENTATION = 7
-class D3D12_VIDEO_PROCESS_OUTPUT_STREAM(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_OUTPUT_STREAM(Structure):
     pTexture2D: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Subresource: UInt32
-class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS(Structure):
     OutputStream: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM * 2
     TargetRectangle: win32more.Windows.Win32.Foundation.RECT
-class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ColorSpace: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE
     AlphaFillMode: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE
@@ -4713,7 +4713,7 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC(EasyCastStructure):
     BackgroundColor: Single * 4
     FrameRate: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL
     EnableStereo: win32more.Windows.Win32.Foundation.BOOL
-class D3D12_VIDEO_PROCESS_REFERENCE_SET(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_REFERENCE_SET(Structure):
     NumPastFrames: UInt32
     ppPastFrames: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource)
     pPastSubresources: POINTER(UInt32)
@@ -4723,67 +4723,67 @@ class D3D12_VIDEO_PROCESS_REFERENCE_SET(EasyCastStructure):
 D3D12_VIDEO_PROCESS_SUPPORT_FLAGS = Int32
 D3D12_VIDEO_PROCESS_SUPPORT_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_SUPPORT_FLAGS = 0
 D3D12_VIDEO_PROCESS_SUPPORT_FLAG_SUPPORTED: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_SUPPORT_FLAGS = 1
-class D3D12_VIDEO_PROCESS_TRANSFORM(EasyCastStructure):
+class D3D12_VIDEO_PROCESS_TRANSFORM(Structure):
     SourceRectangle: win32more.Windows.Win32.Foundation.RECT
     DestinationRectangle: win32more.Windows.Win32.Foundation.RECT
     Orientation: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_ORIENTATION
 D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS = Int32
 D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS = 0
 D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAG_SUPPORTED: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS = 1
-class D3D12_VIDEO_SAMPLE(EasyCastStructure):
+class D3D12_VIDEO_SAMPLE(Structure):
     Width: UInt32
     Height: UInt32
     Format: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_FORMAT
-class D3D12_VIDEO_SCALE_SUPPORT(EasyCastStructure):
+class D3D12_VIDEO_SCALE_SUPPORT(Structure):
     OutputSizeRange: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SIZE_RANGE
     Flags: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SCALE_SUPPORT_FLAGS
 D3D12_VIDEO_SCALE_SUPPORT_FLAGS = Int32
 D3D12_VIDEO_SCALE_SUPPORT_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SCALE_SUPPORT_FLAGS = 0
 D3D12_VIDEO_SCALE_SUPPORT_FLAG_POW2_ONLY: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SCALE_SUPPORT_FLAGS = 1
 D3D12_VIDEO_SCALE_SUPPORT_FLAG_EVEN_DIMENSIONS_ONLY: win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_SCALE_SUPPORT_FLAGS = 2
-class D3D12_VIDEO_SIZE_RANGE(EasyCastStructure):
+class D3D12_VIDEO_SIZE_RANGE(Structure):
     MaxWidth: UInt32
     MaxHeight: UInt32
     MinWidth: UInt32
     MinHeight: UInt32
 if ARCH in 'X64,ARM64':
-    class D3DCONTENTPROTECTIONCAPS(EasyCastStructure):
+    class D3DCONTENTPROTECTIONCAPS(Structure):
         Caps: UInt32
         KeyExchangeType: Guid
         BufferAlignmentStart: UInt32
         BlockAlignmentSize: UInt32
         ProtectedMemorySize: UInt64
 elif ARCH in 'X86':
-    class D3DCONTENTPROTECTIONCAPS(EasyCastStructure):
+    class D3DCONTENTPROTECTIONCAPS(Structure):
         Caps: UInt32
         KeyExchangeType: Guid
         BufferAlignmentStart: UInt32
         BlockAlignmentSize: UInt32
         ProtectedMemorySize: UInt64
         _pack_ = 4
-class D3DOVERLAYCAPS(EasyCastStructure):
+class D3DOVERLAYCAPS(Structure):
     Caps: UInt32
     MaxOverlayDisplayWidth: UInt32
     MaxOverlayDisplayHeight: UInt32
-class DEVICE_INFO(EasyCastStructure):
+class DEVICE_INFO(Structure):
     pFriendlyDeviceName: win32more.Windows.Win32.Foundation.BSTR
     pUniqueDeviceName: win32more.Windows.Win32.Foundation.BSTR
     pManufacturerName: win32more.Windows.Win32.Foundation.BSTR
     pModelName: win32more.Windows.Win32.Foundation.BSTR
     pIconURL: win32more.Windows.Win32.Foundation.BSTR
-class DIRTYRECT_INFO(EasyCastStructure):
+class DIRTYRECT_INFO(Structure):
     FrameNumber: UInt32
     NumDirtyRects: UInt32
     DirtyRects: win32more.Windows.Win32.Foundation.RECT * 1
-class DXVA2_AES_CTR_IV(EasyCastStructure):
+class DXVA2_AES_CTR_IV(Structure):
     IV: UInt64
     Count: UInt64
-class DXVA2_AYUVSample16(EasyCastStructure):
+class DXVA2_AYUVSample16(Structure):
     Cr: UInt16
     Cb: UInt16
     Y: UInt16
     Alpha: UInt16
-class DXVA2_AYUVSample8(EasyCastStructure):
+class DXVA2_AYUVSample8(Structure):
     Cr: Byte
     Cb: Byte
     Y: Byte
@@ -4798,7 +4798,7 @@ DXVA2_SliceControlBufferType: win32more.Windows.Win32.Media.MediaFoundation.DXVA
 DXVA2_BitStreamDateBufferType: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_BufferfType = 6
 DXVA2_MotionVectorBuffer: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_BufferfType = 7
 DXVA2_FilmGrainBuffer: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_BufferfType = 8
-class DXVA2_ConfigPictureDecode(EasyCastStructure):
+class DXVA2_ConfigPictureDecode(Structure):
     guidConfigBitstreamEncryption: Guid
     guidConfigMBcontrolEncryption: Guid
     guidConfigResidDiffEncryption: Guid
@@ -4816,7 +4816,7 @@ class DXVA2_ConfigPictureDecode(EasyCastStructure):
     Config4GroupedCoefs: UInt32
     ConfigMinRenderTargetBuffCount: UInt16
     ConfigDecoderSpecific: UInt16
-class DXVA2_DecodeBufferDesc(EasyCastStructure):
+class DXVA2_DecodeBufferDesc(Structure):
     CompressedBufferType: UInt32
     BufferIndex: UInt32
     DataOffset: UInt32
@@ -4828,11 +4828,11 @@ class DXVA2_DecodeBufferDesc(EasyCastStructure):
     Stride: UInt32
     ReservedBits: UInt32
     pvPVPState: VoidPtr
-class DXVA2_DecodeExecuteParams(EasyCastStructure):
+class DXVA2_DecodeExecuteParams(Structure):
     NumCompBuffers: UInt32
     pCompressedBuffers: POINTER(win32more.Windows.Win32.Media.MediaFoundation.DXVA2_DecodeBufferDesc)
     pExtensionData: POINTER(win32more.Windows.Win32.Media.MediaFoundation.DXVA2_DecodeExtensionData)
-class DXVA2_DecodeExtensionData(EasyCastStructure):
+class DXVA2_DecodeExtensionData(Structure):
     Function: UInt32
     pPrivateInputData: VoidPtr
     PrivateInputDataSize: UInt32
@@ -4861,12 +4861,12 @@ DXVA2_DetailFilterTech_Unknown: win32more.Windows.Win32.Media.MediaFoundation.DX
 DXVA2_DetailFilterTech_Edge: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_DetailFilterTech = 2
 DXVA2_DetailFilterTech_Sharpening: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_DetailFilterTech = 4
 DXVA2_DetailFilterTech_Mask: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_DetailFilterTech = 7
-class DXVA2_ExtendedFormat(EasyCastStructure):
+class DXVA2_ExtendedFormat(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
 DXVA2_FilterType = Int32
 DXVA2_NoiseFilterLumaLevel: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_FilterType = 1
@@ -4881,19 +4881,19 @@ DXVA2_DetailFilterLumaRadius: win32more.Windows.Win32.Media.MediaFoundation.DXVA
 DXVA2_DetailFilterChromaLevel: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_FilterType = 10
 DXVA2_DetailFilterChromaThreshold: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_FilterType = 11
 DXVA2_DetailFilterChromaRadius: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_FilterType = 12
-class DXVA2_FilterValues(EasyCastStructure):
+class DXVA2_FilterValues(Structure):
     Level: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
     Threshold: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
     Radius: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
-class DXVA2_Fixed32(EasyCastStructure):
+class DXVA2_Fixed32(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ll: Int32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Fraction: UInt16
             Value: Int16
-class DXVA2_Frequency(EasyCastStructure):
+class DXVA2_Frequency(Structure):
     Numerator: UInt32
     Denominator: UInt32
 DXVA2_NoiseFilterTech = Int32
@@ -4919,7 +4919,7 @@ DXVA2_ProcAmp_Contrast: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Proc
 DXVA2_ProcAmp_Hue: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_ProcAmp = 4
 DXVA2_ProcAmp_Saturation: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_ProcAmp = 8
 DXVA2_ProcAmp_Mask: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_ProcAmp = 15
-class DXVA2_ProcAmpValues(EasyCastStructure):
+class DXVA2_ProcAmpValues(Structure):
     Brightness: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
     Contrast: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
     Hue: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
@@ -4947,7 +4947,7 @@ DXVA2_VPDev_HardwareDevice: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_
 DXVA2_VPDev_EmulatedDXVA1: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VPDev = 2
 DXVA2_VPDev_SoftwareDevice: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VPDev = 4
 DXVA2_VPDev_Mask: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VPDev = 7
-class DXVA2_ValueRange(EasyCastStructure):
+class DXVA2_ValueRange(Structure):
     MinValue: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
     MaxValue: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
     DefaultValue: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
@@ -4963,7 +4963,7 @@ DXVA2_VideoChromaSubsampling_MPEG2: win32more.Windows.Win32.Media.MediaFoundatio
 DXVA2_VideoChromaSubsampling_MPEG1: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoChromaSubSampling = 1
 DXVA2_VideoChromaSubsampling_DV_PAL: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoChromaSubSampling = 6
 DXVA2_VideoChromaSubsampling_Cosited: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoChromaSubSampling = 7
-class DXVA2_VideoDesc(EasyCastStructure):
+class DXVA2_VideoDesc(Structure):
     SampleWidth: UInt32
     SampleHeight: UInt32
     SampleFormat: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_ExtendedFormat
@@ -5009,7 +5009,7 @@ DXVA2_VideoProcess_LinearScaling: win32more.Windows.Win32.Media.MediaFoundation.
 DXVA2_VideoProcess_GammaCompensated: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoProcess = 16384
 DXVA2_VideoProcess_MaintainsOriginalFieldData: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoProcess = 32768
 DXVA2_VideoProcess_Mask: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoProcess = 65535
-class DXVA2_VideoProcessBltParams(EasyCastStructure):
+class DXVA2_VideoProcessBltParams(Structure):
     TargetFrame: Int64
     TargetRect: win32more.Windows.Win32.Foundation.RECT
     ConstrictionSize: win32more.Windows.Win32.Foundation.SIZE
@@ -5023,7 +5023,7 @@ class DXVA2_VideoProcessBltParams(EasyCastStructure):
     DetailFilterLuma: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_FilterValues
     DetailFilterChroma: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_FilterValues
     DestData: UInt32
-class DXVA2_VideoProcessorCaps(EasyCastStructure):
+class DXVA2_VideoProcessorCaps(Structure):
     DeviceCaps: UInt32
     InputPool: win32more.Windows.Win32.Graphics.Direct3D9.D3DPOOL
     NumForwardRefSamples: UInt32
@@ -5038,7 +5038,7 @@ DXVA2_VideoRenderTargetType = Int32
 DXVA2_VideoDecoderRenderTarget: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoRenderTargetType = 0
 DXVA2_VideoProcessorRenderTarget: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoRenderTargetType = 1
 DXVA2_VideoSoftwareRenderTarget: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoRenderTargetType = 2
-class DXVA2_VideoSample(EasyCastStructure):
+class DXVA2_VideoSample(Structure):
     Start: Int64
     End: Int64
     SampleFormat: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_ExtendedFormat
@@ -5065,11 +5065,11 @@ DXVA2_VideoTransferMatrix_Unknown: win32more.Windows.Win32.Media.MediaFoundation
 DXVA2_VideoTransferMatrix_BT709: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoTransferMatrix = 1
 DXVA2_VideoTransferMatrix_BT601: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoTransferMatrix = 2
 DXVA2_VideoTransferMatrix_SMPTE240M: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_VideoTransferMatrix = 3
-class DXVABufferInfo(EasyCastStructure):
+class DXVABufferInfo(Structure):
     pCompSurface: VoidPtr
     DataOffset: UInt32
     DataSize: UInt32
-class DXVACompBufferInfo(EasyCastStructure):
+class DXVACompBufferInfo(Structure):
     NumCompBuffers: UInt32
     WidthToCreate: UInt32
     HeightToCreate: UInt32
@@ -5077,13 +5077,13 @@ class DXVACompBufferInfo(EasyCastStructure):
     Usage: UInt32
     Pool: win32more.Windows.Win32.Graphics.Direct3D9.D3DPOOL
     Format: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
-class DXVAHDETW_CREATEVIDEOPROCESSOR(EasyCastStructure):
+class DXVAHDETW_CREATEVIDEOPROCESSOR(Structure):
     pObject: UInt64
     pD3D9Ex: UInt64
     VPGuid: Guid
-class DXVAHDETW_DESTROYVIDEOPROCESSOR(EasyCastStructure):
+class DXVAHDETW_DESTROYVIDEOPROCESSOR(Structure):
     pObject: UInt64
-class DXVAHDETW_VIDEOPROCESSBLTHD(EasyCastStructure):
+class DXVAHDETW_VIDEOPROCESSBLTHD(Structure):
     pObject: UInt64
     pOutputSurface: UInt64
     TargetRect: win32more.Windows.Win32.Foundation.RECT
@@ -5092,7 +5092,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD(EasyCastStructure):
     OutputFrame: UInt32
     StreamCount: UInt32
     Enter: win32more.Windows.Win32.Foundation.BOOL
-class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM(EasyCastStructure):
+class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM(Structure):
     pObject: UInt64
     pInputSurface: UInt64
     SourceRect: win32more.Windows.Win32.Foundation.RECT
@@ -5105,18 +5105,18 @@ class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM(EasyCastStructure):
     InputFrameOrField: UInt32
     PastFrames: UInt32
     FutureFrames: UInt32
-class DXVAHDETW_VIDEOPROCESSBLTSTATE(EasyCastStructure):
+class DXVAHDETW_VIDEOPROCESSBLTSTATE(Structure):
     pObject: UInt64
     State: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_BLT_STATE
     DataSize: UInt32
     SetState: win32more.Windows.Win32.Foundation.BOOL
-class DXVAHDETW_VIDEOPROCESSSTREAMSTATE(EasyCastStructure):
+class DXVAHDETW_VIDEOPROCESSSTREAMSTATE(Structure):
     pObject: UInt64
     StreamNumber: UInt32
     State: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_STREAM_STATE
     DataSize: UInt32
     SetState: win32more.Windows.Win32.Foundation.BOOL
-class DXVAHDSW_CALLBACKS(EasyCastStructure):
+class DXVAHDSW_CALLBACKS(Structure):
     CreateDevice: win32more.Windows.Win32.Media.MediaFoundation.PDXVAHDSW_CreateDevice
     ProposeVideoPrivateFormat: win32more.Windows.Win32.Media.MediaFoundation.PDXVAHDSW_ProposeVideoPrivateFormat
     GetVideoProcessorDeviceCaps: win32more.Windows.Win32.Media.MediaFoundation.PDXVAHDSW_GetVideoProcessorDeviceCaps
@@ -5145,43 +5145,43 @@ DXVAHD_BLT_STATE_OUTPUT_COLOR_SPACE: win32more.Windows.Win32.Media.MediaFoundati
 DXVAHD_BLT_STATE_ALPHA_FILL: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_BLT_STATE = 3
 DXVAHD_BLT_STATE_CONSTRICTION: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_BLT_STATE = 4
 DXVAHD_BLT_STATE_PRIVATE: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_BLT_STATE = 1000
-class DXVAHD_BLT_STATE_ALPHA_FILL_DATA(EasyCastStructure):
+class DXVAHD_BLT_STATE_ALPHA_FILL_DATA(Structure):
     Mode: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_ALPHA_FILL_MODE
     StreamNumber: UInt32
-class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA(EasyCastStructure):
+class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA(Structure):
     YCbCr: win32more.Windows.Win32.Foundation.BOOL
     BackgroundColor: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_COLOR
-class DXVAHD_BLT_STATE_CONSTRICTION_DATA(EasyCastStructure):
+class DXVAHD_BLT_STATE_CONSTRICTION_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     Size: win32more.Windows.Win32.Foundation.SIZE
-class DXVAHD_BLT_STATE_OUTPUT_COLOR_SPACE_DATA(EasyCastStructure):
+class DXVAHD_BLT_STATE_OUTPUT_COLOR_SPACE_DATA(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DXVAHD_BLT_STATE_PRIVATE_DATA(EasyCastStructure):
+class DXVAHD_BLT_STATE_PRIVATE_DATA(Structure):
     Guid: Guid
     DataSize: UInt32
     pData: VoidPtr
-class DXVAHD_BLT_STATE_TARGET_RECT_DATA(EasyCastStructure):
+class DXVAHD_BLT_STATE_TARGET_RECT_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     TargetRect: win32more.Windows.Win32.Foundation.RECT
-class DXVAHD_COLOR(EasyCastUnion):
+class DXVAHD_COLOR(Union):
     RGB: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_COLOR_RGBA
     YCbCr: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_COLOR_YCbCrA
-class DXVAHD_COLOR_RGBA(EasyCastStructure):
+class DXVAHD_COLOR_RGBA(Structure):
     R: Single
     G: Single
     B: Single
     A: Single
-class DXVAHD_COLOR_YCbCrA(EasyCastStructure):
+class DXVAHD_COLOR_YCbCrA(Structure):
     Y: Single
     Cb: Single
     Cr: Single
     A: Single
-class DXVAHD_CONTENT_DESC(EasyCastStructure):
+class DXVAHD_CONTENT_DESC(Structure):
     InputFrameFormat: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_FRAME_FORMAT
     InputFrameRate: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_RATIONAL
     InputWidth: UInt32
@@ -5189,7 +5189,7 @@ class DXVAHD_CONTENT_DESC(EasyCastStructure):
     OutputFrameRate: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_RATIONAL
     OutputWidth: UInt32
     OutputHeight: UInt32
-class DXVAHD_CUSTOM_RATE_DATA(EasyCastStructure):
+class DXVAHD_CUSTOM_RATE_DATA(Structure):
     CustomRate: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_RATIONAL
     OutputFrames: UInt32
     InputInterlaced: win32more.Windows.Win32.Foundation.BOOL
@@ -5229,7 +5229,7 @@ DXVAHD_FILTER_CAPS_SATURATION: win32more.Windows.Win32.Media.MediaFoundation.DXV
 DXVAHD_FILTER_CAPS_NOISE_REDUCTION: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_FILTER_CAPS = 16
 DXVAHD_FILTER_CAPS_EDGE_ENHANCEMENT: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_FILTER_CAPS = 32
 DXVAHD_FILTER_CAPS_ANAMORPHIC_SCALING: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_FILTER_CAPS = 64
-class DXVAHD_FILTER_RANGE_DATA(EasyCastStructure):
+class DXVAHD_FILTER_RANGE_DATA(Structure):
     Minimum: Int32
     Maximum: Int32
     Default: Int32
@@ -5265,10 +5265,10 @@ DXVAHD_PROCESSOR_CAPS_DEINTERLACE_ADAPTIVE: win32more.Windows.Win32.Media.MediaF
 DXVAHD_PROCESSOR_CAPS_DEINTERLACE_MOTION_COMPENSATION: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_PROCESSOR_CAPS = 8
 DXVAHD_PROCESSOR_CAPS_INVERSE_TELECINE: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_PROCESSOR_CAPS = 16
 DXVAHD_PROCESSOR_CAPS_FRAME_RATE_CONVERSION: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_PROCESSOR_CAPS = 32
-class DXVAHD_RATIONAL(EasyCastStructure):
+class DXVAHD_RATIONAL(Structure):
     Numerator: UInt32
     Denominator: UInt32
-class DXVAHD_STREAM_DATA(EasyCastStructure):
+class DXVAHD_STREAM_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     OutputIndex: UInt32
     InputFrameOrField: UInt32
@@ -5296,65 +5296,65 @@ DXVAHD_STREAM_STATE_FILTER_NOISE_REDUCTION: win32more.Windows.Win32.Media.MediaF
 DXVAHD_STREAM_STATE_FILTER_EDGE_ENHANCEMENT: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_STREAM_STATE = 105
 DXVAHD_STREAM_STATE_FILTER_ANAMORPHIC_SCALING: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_STREAM_STATE = 106
 DXVAHD_STREAM_STATE_PRIVATE: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_STREAM_STATE = 1000
-class DXVAHD_STREAM_STATE_ALPHA_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_ALPHA_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     Alpha: Single
-class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     SourceAspectRatio: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_RATIONAL
     DestinationAspectRatio: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_RATIONAL
-class DXVAHD_STREAM_STATE_D3DFORMAT_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_D3DFORMAT_DATA(Structure):
     Format: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
-class DXVAHD_STREAM_STATE_DESTINATION_RECT_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_DESTINATION_RECT_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     DestinationRect: win32more.Windows.Win32.Foundation.RECT
-class DXVAHD_STREAM_STATE_FILTER_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_FILTER_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     Level: Int32
-class DXVAHD_STREAM_STATE_FRAME_FORMAT_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_FRAME_FORMAT_DATA(Structure):
     FrameFormat: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_FRAME_FORMAT
-class DXVAHD_STREAM_STATE_INPUT_COLOR_SPACE_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_INPUT_COLOR_SPACE_DATA(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DXVAHD_STREAM_STATE_LUMA_KEY_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_LUMA_KEY_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     Lower: Single
     Upper: Single
-class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA(Structure):
     RepeatFrame: win32more.Windows.Win32.Foundation.BOOL
     OutputRate: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_OUTPUT_RATE
     CustomRate: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_RATIONAL
-class DXVAHD_STREAM_STATE_PALETTE_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_PALETTE_DATA(Structure):
     Count: UInt32
     pEntries: POINTER(UInt32)
-class DXVAHD_STREAM_STATE_PRIVATE_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_PRIVATE_DATA(Structure):
     Guid: Guid
     DataSize: UInt32
     pData: VoidPtr
-class DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     ITelecineFlags: UInt32
     Frames: UInt32
     InputField: UInt32
-class DXVAHD_STREAM_STATE_SOURCE_RECT_DATA(EasyCastStructure):
+class DXVAHD_STREAM_STATE_SOURCE_RECT_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     SourceRect: win32more.Windows.Win32.Foundation.RECT
 DXVAHD_SURFACE_TYPE = Int32
 DXVAHD_SURFACE_TYPE_VIDEO_INPUT: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_SURFACE_TYPE = 0
 DXVAHD_SURFACE_TYPE_VIDEO_INPUT_PRIVATE: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_SURFACE_TYPE = 1
 DXVAHD_SURFACE_TYPE_VIDEO_OUTPUT: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_SURFACE_TYPE = 2
-class DXVAHD_VPCAPS(EasyCastStructure):
+class DXVAHD_VPCAPS(Structure):
     VPGuid: Guid
     PastFrames: UInt32
     FutureFrames: UInt32
     ProcessorCaps: UInt32
     ITelecineCaps: UInt32
     CustomRateCount: UInt32
-class DXVAHD_VPDEVCAPS(EasyCastStructure):
+class DXVAHD_VPDEVCAPS(Structure):
     DeviceType: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_DEVICE_TYPE
     DeviceCaps: UInt32
     FeatureCaps: UInt32
@@ -5366,16 +5366,16 @@ class DXVAHD_VPDEVCAPS(EasyCastStructure):
     VideoProcessorCount: UInt32
     MaxInputStreams: UInt32
     MaxStreamStates: UInt32
-class DXVAUncompDataInfo(EasyCastStructure):
+class DXVAUncompDataInfo(Structure):
     UncompWidth: UInt32
     UncompHeight: UInt32
     UncompFormat: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
-class DXVA_AYUVsample2(EasyCastStructure):
+class DXVA_AYUVsample2(Structure):
     bCrValue: Byte
     bCbValue: Byte
     bY_Value: Byte
     bSampleAlpha8: Byte
-class DXVA_BufferDescription(EasyCastStructure):
+class DXVA_BufferDescription(Structure):
     dwTypeIndex: UInt32
     dwBufferIndex: UInt32
     dwDataOffset: UInt32
@@ -5387,25 +5387,25 @@ class DXVA_BufferDescription(EasyCastStructure):
     dwStride: UInt32
     dwReservedBits: UInt32
     _pack_ = 1
-class DXVA_COPPCommand(EasyCastStructure):
+class DXVA_COPPCommand(Structure):
     macKDI: Guid
     guidCommandID: Guid
     dwSequence: UInt32
     cbSizeData: UInt32
     CommandData: Byte * 4056
-class DXVA_COPPSignature(EasyCastStructure):
+class DXVA_COPPSignature(Structure):
     Signature: Byte * 256
-class DXVA_COPPStatusInput(EasyCastStructure):
+class DXVA_COPPStatusInput(Structure):
     rApp: Guid
     guidStatusRequestID: Guid
     dwSequence: UInt32
     cbSizeData: UInt32
     StatusData: Byte * 4056
-class DXVA_COPPStatusOutput(EasyCastStructure):
+class DXVA_COPPStatusOutput(Structure):
     macKDI: Guid
     cbSizeData: UInt32
     COPPStatus: Byte * 4076
-class DXVA_ConfigPictureDecode(EasyCastStructure):
+class DXVA_ConfigPictureDecode(Structure):
     dwFunction: UInt32
     dwReservedBits: UInt32 * 3
     guidConfigBitstreamEncryption: Guid
@@ -5424,7 +5424,7 @@ class DXVA_ConfigPictureDecode(EasyCastStructure):
     bConfigSpecificIDCT: Byte
     bConfig4GroupedCoefs: Byte
     _pack_ = 1
-class DXVA_DeinterlaceBlt(EasyCastStructure):
+class DXVA_DeinterlaceBlt(Structure):
     Size: UInt32
     Reserved: UInt32
     rtTarget: Int64
@@ -5433,7 +5433,7 @@ class DXVA_DeinterlaceBlt(EasyCastStructure):
     NumSourceSurfaces: UInt32
     Alpha: Single
     Source: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoSample * 32
-class DXVA_DeinterlaceBltEx(EasyCastStructure):
+class DXVA_DeinterlaceBltEx(Structure):
     Size: UInt32
     BackgroundColor: win32more.Windows.Win32.Media.MediaFoundation.DXVA_AYUVsample2
     rcTarget: win32more.Windows.Win32.Foundation.RECT
@@ -5444,7 +5444,7 @@ class DXVA_DeinterlaceBltEx(EasyCastStructure):
     DestinationFormat: UInt32
     DestinationFlags: UInt32
 if ARCH in 'X64,ARM64':
-    class DXVA_DeinterlaceBltEx32(EasyCastStructure):
+    class DXVA_DeinterlaceBltEx32(Structure):
         Size: UInt32
         BackgroundColor: win32more.Windows.Win32.Media.MediaFoundation.DXVA_AYUVsample2
         rcTarget: win32more.Windows.Win32.Foundation.RECT
@@ -5454,7 +5454,7 @@ if ARCH in 'X64,ARM64':
         Source: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoSample32 * 32
         DestinationFormat: UInt32
         DestinationFlags: UInt32
-class DXVA_DeinterlaceCaps(EasyCastStructure):
+class DXVA_DeinterlaceCaps(Structure):
     Size: UInt32
     NumPreviousOutputFrames: UInt32
     InputPool: UInt32
@@ -5463,11 +5463,11 @@ class DXVA_DeinterlaceCaps(EasyCastStructure):
     d3dOutputFormat: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
     VideoProcessingCaps: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoProcessCaps
     DeinterlaceTechnology: win32more.Windows.Win32.Media.MediaFoundation.DXVA_DeinterlaceTech
-class DXVA_DeinterlaceQueryAvailableModes(EasyCastStructure):
+class DXVA_DeinterlaceQueryAvailableModes(Structure):
     Size: UInt32
     NumGuids: UInt32
     Guids: Guid * 32
-class DXVA_DeinterlaceQueryModeCaps(EasyCastStructure):
+class DXVA_DeinterlaceQueryModeCaps(Structure):
     Size: UInt32
     Guid: Guid
     VideoDesc: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoDesc
@@ -5487,9 +5487,9 @@ DXVA_DestinationFlag_Background_Changed: win32more.Windows.Win32.Media.MediaFoun
 DXVA_DestinationFlag_TargetRect_Changed: win32more.Windows.Win32.Media.MediaFoundation.DXVA_DestinationFlags = 2
 DXVA_DestinationFlag_ColorData_Changed: win32more.Windows.Win32.Media.MediaFoundation.DXVA_DestinationFlags = 4
 DXVA_DestinationFlag_Alpha_Changed: win32more.Windows.Win32.Media.MediaFoundation.DXVA_DestinationFlags = 8
-class DXVA_ExtendedFormat(EasyCastStructure):
+class DXVA_ExtendedFormat(Structure):
     _bitfield: UInt32
-class DXVA_Frequency(EasyCastStructure):
+class DXVA_Frequency(Structure):
     Numerator: UInt32
     Denominator: UInt32
 DXVA_NominalRange = Int32
@@ -5501,7 +5501,7 @@ DXVA_NominalRange_Wide: win32more.Windows.Win32.Media.MediaFoundation.DXVA_Nomin
 DXVA_NominalRange_0_255: win32more.Windows.Win32.Media.MediaFoundation.DXVA_NominalRange = 1
 DXVA_NominalRange_16_235: win32more.Windows.Win32.Media.MediaFoundation.DXVA_NominalRange = 2
 DXVA_NominalRange_48_208: win32more.Windows.Win32.Media.MediaFoundation.DXVA_NominalRange = 3
-class DXVA_PictureParameters(EasyCastStructure):
+class DXVA_PictureParameters(Structure):
     wDecodedPictureIndex: UInt16
     wDeblockedPictureIndex: UInt16
     wForwardRefPictureIndex: UInt16
@@ -5539,7 +5539,7 @@ class DXVA_PictureParameters(EasyCastStructure):
     bBitstreamConcealmentNeed: Byte
     bBitstreamConcealmentMethod: Byte
     _pack_ = 1
-class DXVA_ProcAmpControlBlt(EasyCastStructure):
+class DXVA_ProcAmpControlBlt(Structure):
     Size: UInt32
     DstRect: win32more.Windows.Win32.Foundation.RECT
     SrcRect: win32more.Windows.Win32.Foundation.RECT
@@ -5548,7 +5548,7 @@ class DXVA_ProcAmpControlBlt(EasyCastStructure):
     Contrast: Single
     Hue: Single
     Saturation: Single
-class DXVA_ProcAmpControlCaps(EasyCastStructure):
+class DXVA_ProcAmpControlCaps(Structure):
     Size: UInt32
     InputPool: UInt32
     d3dOutputFormat: win32more.Windows.Win32.Graphics.Direct3D9.D3DFORMAT
@@ -5560,7 +5560,7 @@ DXVA_ProcAmp_Brightness: win32more.Windows.Win32.Media.MediaFoundation.DXVA_Proc
 DXVA_ProcAmp_Contrast: win32more.Windows.Win32.Media.MediaFoundation.DXVA_ProcAmpControlProp = 2
 DXVA_ProcAmp_Hue: win32more.Windows.Win32.Media.MediaFoundation.DXVA_ProcAmpControlProp = 4
 DXVA_ProcAmp_Saturation: win32more.Windows.Win32.Media.MediaFoundation.DXVA_ProcAmpControlProp = 8
-class DXVA_ProcAmpControlQueryRange(EasyCastStructure):
+class DXVA_ProcAmpControlQueryRange(Structure):
     Size: UInt32
     ProcAmpControlProp: win32more.Windows.Win32.Media.MediaFoundation.DXVA_ProcAmpControlProp
     VideoDesc: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoDesc
@@ -5592,7 +5592,7 @@ DXVA_VideoChromaSubsampling_MPEG2: win32more.Windows.Win32.Media.MediaFoundation
 DXVA_VideoChromaSubsampling_MPEG1: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoChromaSubsampling = 1
 DXVA_VideoChromaSubsampling_DV_PAL: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoChromaSubsampling = 6
 DXVA_VideoChromaSubsampling_Cosited: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoChromaSubsampling = 7
-class DXVA_VideoDesc(EasyCastStructure):
+class DXVA_VideoDesc(Structure):
     Size: UInt32
     SampleWidth: UInt32
     SampleHeight: UInt32
@@ -5631,18 +5631,18 @@ DXVA_VideoProcess_SubStreams: win32more.Windows.Win32.Media.MediaFoundation.DXVA
 DXVA_VideoProcess_SubStreamsExtended: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoProcessCaps = 64
 DXVA_VideoProcess_YUV2RGBExtended: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoProcessCaps = 128
 DXVA_VideoProcess_AlphaBlendExtended: win32more.Windows.Win32.Media.MediaFoundation.DXVA_VideoProcessCaps = 256
-class DXVA_VideoPropertyRange(EasyCastStructure):
+class DXVA_VideoPropertyRange(Structure):
     MinValue: Single
     MaxValue: Single
     DefaultValue: Single
     StepSize: Single
-class DXVA_VideoSample(EasyCastStructure):
+class DXVA_VideoSample(Structure):
     rtStart: Int64
     rtEnd: Int64
     SampleFormat: win32more.Windows.Win32.Media.MediaFoundation.DXVA_SampleFormat
     lpDDSSrcSurface: VoidPtr
 if ARCH in 'X64,ARM64':
-    class DXVA_VideoSample2(EasyCastStructure):
+    class DXVA_VideoSample2(Structure):
         Size: UInt32
         Reserved: UInt32
         rtStart: Int64
@@ -5654,7 +5654,7 @@ if ARCH in 'X64,ARM64':
         rcDst: win32more.Windows.Win32.Foundation.RECT
         Palette: win32more.Windows.Win32.Media.MediaFoundation.DXVA_AYUVsample2 * 16
 elif ARCH in 'X86':
-    class DXVA_VideoSample2(EasyCastStructure):
+    class DXVA_VideoSample2(Structure):
         rtStart: Int64
         rtEnd: Int64
         SampleFormat: UInt32
@@ -5664,7 +5664,7 @@ elif ARCH in 'X86':
         rcDst: win32more.Windows.Win32.Foundation.RECT
         Palette: win32more.Windows.Win32.Media.MediaFoundation.DXVA_AYUVsample2 * 16
 if ARCH in 'X64,ARM64':
-    class DXVA_VideoSample32(EasyCastStructure):
+    class DXVA_VideoSample32(Structure):
         rtStart: Int64
         rtEnd: Int64
         SampleFormat: UInt32
@@ -5697,7 +5697,7 @@ DeviceStreamState_Stop: win32more.Windows.Win32.Media.MediaFoundation.DeviceStre
 DeviceStreamState_Pause: win32more.Windows.Win32.Media.MediaFoundation.DeviceStreamState = 1
 DeviceStreamState_Run: win32more.Windows.Win32.Media.MediaFoundation.DeviceStreamState = 2
 DeviceStreamState_Disabled: win32more.Windows.Win32.Media.MediaFoundation.DeviceStreamState = 3
-class DigitalWindowSetting(EasyCastStructure):
+class DigitalWindowSetting(Structure):
     OriginX: Double
     OriginY: Double
     WindowSize: Double
@@ -10019,7 +10019,7 @@ KSMETHOD_OPMVIDEOOUTPUT_STARTINITIALIZATION: win32more.Windows.Win32.Media.Media
 KSMETHOD_OPMVIDEOOUTPUT_FINISHINITIALIZATION: win32more.Windows.Win32.Media.MediaFoundation.KSMETHOD_OPMVIDEOOUTPUT = 1
 KSMETHOD_OPMVIDEOOUTPUT_GETINFORMATION: win32more.Windows.Win32.Media.MediaFoundation.KSMETHOD_OPMVIDEOOUTPUT = 2
 KSPROPSETID_OPMVideoOutput = Guid('{06f414bb-f43a-4fe2-a566-774b4c81f0db}')
-class MACROBLOCK_DATA(EasyCastStructure):
+class MACROBLOCK_DATA(Structure):
     flags: UInt32
     motionVectorX: Int16
     motionVectorY: Int16
@@ -10038,7 +10038,7 @@ MF3DVideoOutputType_BaseView: win32more.Windows.Win32.Media.MediaFoundation.MF3D
 MF3DVideoOutputType_Stereo: win32more.Windows.Win32.Media.MediaFoundation.MF3DVideoOutputType = 1
 MFAMRNBByteStreamHandler = Guid('{efe6208a-0a2c-49fa-8a01-3768b559b6da}')
 MFAMRNBSinkClassFactory = Guid('{b0271158-70d2-4c5b-9f94-76f549d90fdf}')
-class MFARGB(EasyCastStructure):
+class MFARGB(Structure):
     rgbBlue: Byte
     rgbGreen: Byte
     rgbRed: Byte
@@ -10061,7 +10061,7 @@ MFASYNC_WORKQUEUE_TYPE = Int32
 MF_STANDARD_WORKQUEUE: win32more.Windows.Win32.Media.MediaFoundation.MFASYNC_WORKQUEUE_TYPE = 0
 MF_WINDOW_WORKQUEUE: win32more.Windows.Win32.Media.MediaFoundation.MFASYNC_WORKQUEUE_TYPE = 1
 MF_MULTITHREADED_WORKQUEUE: win32more.Windows.Win32.Media.MediaFoundation.MFASYNC_WORKQUEUE_TYPE = 2
-class MFAYUVSample(EasyCastStructure):
+class MFAYUVSample(Structure):
     bCrValue: Byte
     bCbValue: Byte
     bYValue: Byte
@@ -10072,10 +10072,10 @@ MFaudioConstriction48_16: win32more.Windows.Win32.Media.MediaFoundation.MFAudioC
 MFaudioConstriction44_16: win32more.Windows.Win32.Media.MediaFoundation.MFAudioConstriction = 2
 MFaudioConstriction14_14: win32more.Windows.Win32.Media.MediaFoundation.MFAudioConstriction = 3
 MFaudioConstrictionMute: win32more.Windows.Win32.Media.MediaFoundation.MFAudioConstriction = 4
-class MFAudioDecoderDegradationInfo(EasyCastStructure):
+class MFAudioDecoderDegradationInfo(Structure):
     eDegradationReason: win32more.Windows.Win32.Media.MediaFoundation.MFT_AUDIO_DECODER_DEGRADATION_REASON
     eType: win32more.Windows.Win32.Media.MediaFoundation.MFT_AUDIO_DECODER_DEGRADATION_TYPE
-class MFBYTESTREAM_BUFFERING_PARAMS(EasyCastStructure):
+class MFBYTESTREAM_BUFFERING_PARAMS(Structure):
     cbTotalFileSize: UInt64
     cbPlayableDataSize: UInt64
     prgBuckets: POINTER(win32more.Windows.Win32.Media.MediaFoundation.MF_LEAKY_BUCKET_PAIR)
@@ -10091,7 +10091,7 @@ MFCLOCK_CHARACTERISTICS_FLAGS = Int32
 MFCLOCK_CHARACTERISTICS_FLAG_FREQUENCY_10MHZ: win32more.Windows.Win32.Media.MediaFoundation.MFCLOCK_CHARACTERISTICS_FLAGS = 2
 MFCLOCK_CHARACTERISTICS_FLAG_ALWAYS_RUNNING: win32more.Windows.Win32.Media.MediaFoundation.MFCLOCK_CHARACTERISTICS_FLAGS = 4
 MFCLOCK_CHARACTERISTICS_FLAG_IS_SYSTEM_CLOCK: win32more.Windows.Win32.Media.MediaFoundation.MFCLOCK_CHARACTERISTICS_FLAGS = 8
-class MFCLOCK_PROPERTIES(EasyCastStructure):
+class MFCLOCK_PROPERTIES(Structure):
     qwCorrelationRate: UInt64
     guidClockId: Guid
     dwClockFlags: UInt32
@@ -10105,13 +10105,13 @@ MFCLOCK_STATE_INVALID: win32more.Windows.Win32.Media.MediaFoundation.MFCLOCK_STA
 MFCLOCK_STATE_RUNNING: win32more.Windows.Win32.Media.MediaFoundation.MFCLOCK_STATE = 1
 MFCLOCK_STATE_STOPPED: win32more.Windows.Win32.Media.MediaFoundation.MFCLOCK_STATE = 2
 MFCLOCK_STATE_PAUSED: win32more.Windows.Win32.Media.MediaFoundation.MFCLOCK_STATE = 3
-class MFCONTENTPROTECTIONDEVICE_INPUT_DATA(EasyCastStructure):
+class MFCONTENTPROTECTIONDEVICE_INPUT_DATA(Structure):
     HWProtectionFunctionID: UInt32
     PrivateDataByteCount: UInt32
     HWProtectionDataByteCount: UInt32
     Reserved: UInt32
     InputData: Byte * 4
-class MFCONTENTPROTECTIONDEVICE_OUTPUT_DATA(EasyCastStructure):
+class MFCONTENTPROTECTIONDEVICE_OUTPUT_DATA(Structure):
     PrivateDataByteCount: UInt32
     MaxHWProtectionDataByteCount: UInt32
     HWProtectionDataByteCount: UInt32
@@ -10119,29 +10119,29 @@ class MFCONTENTPROTECTIONDEVICE_OUTPUT_DATA(EasyCastStructure):
     TransportTimeInHundredsOfNanoseconds: Int64
     ExecutionTimeInHundredsOfNanoseconds: Int64
     OutputData: Byte * 4
-class MFCONTENTPROTECTIONDEVICE_REALTIMECLIENT_DATA(EasyCastStructure):
+class MFCONTENTPROTECTIONDEVICE_REALTIMECLIENT_DATA(Structure):
     TaskIndex: UInt32
     ClassName: Char * 260
     BasePriority: Int32
-class MFCameraExtrinsic_CalibratedTransform(EasyCastStructure):
+class MFCameraExtrinsic_CalibratedTransform(Structure):
     CalibrationId: Guid
     Position: win32more.Windows.Win32.Media.MediaFoundation.MF_FLOAT3
     Orientation: win32more.Windows.Win32.Media.MediaFoundation.MF_QUATERNION
-class MFCameraExtrinsics(EasyCastStructure):
+class MFCameraExtrinsics(Structure):
     TransformCount: UInt32
     CalibratedTransforms: win32more.Windows.Win32.Media.MediaFoundation.MFCameraExtrinsic_CalibratedTransform * 1
-class MFCameraIntrinsic_CameraModel(EasyCastStructure):
+class MFCameraIntrinsic_CameraModel(Structure):
     FocalLength_x: Single
     FocalLength_y: Single
     PrincipalPoint_x: Single
     PrincipalPoint_y: Single
-class MFCameraIntrinsic_DistortionModel(EasyCastStructure):
+class MFCameraIntrinsic_DistortionModel(Structure):
     Radial_k1: Single
     Radial_k2: Single
     Radial_k3: Single
     Tangential_p1: Single
     Tangential_p2: Single
-class MFCameraIntrinsic_DistortionModel6KT(EasyCastStructure):
+class MFCameraIntrinsic_DistortionModel6KT(Structure):
     Radial_k1: Single
     Radial_k2: Single
     Radial_k3: Single
@@ -10150,7 +10150,7 @@ class MFCameraIntrinsic_DistortionModel6KT(EasyCastStructure):
     Radial_k6: Single
     Tangential_p1: Single
     Tangential_p2: Single
-class MFCameraIntrinsic_DistortionModelArcTan(EasyCastStructure):
+class MFCameraIntrinsic_DistortionModelArcTan(Structure):
     Radial_k0: Single
     DistortionCenter_x: Single
     DistortionCenter_y: Single
@@ -10159,7 +10159,7 @@ class MFCameraIntrinsic_DistortionModelArcTan(EasyCastStructure):
 MFCameraIntrinsic_DistortionModelType = Int32
 MFCameraIntrinsic_DistortionModelType_6KT: win32more.Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_DistortionModelType = 0
 MFCameraIntrinsic_DistortionModelType_ArcTan: win32more.Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_DistortionModelType = 1
-class MFCameraIntrinsic_PinholeCameraModel(EasyCastStructure):
+class MFCameraIntrinsic_PinholeCameraModel(Structure):
     FocalLength: win32more.Windows.Win32.Media.MediaFoundation.MF_FLOAT2
     PrincipalPoint: win32more.Windows.Win32.Media.MediaFoundation.MF_FLOAT2
 MFCameraOcclusionState = Int32
@@ -10169,14 +10169,14 @@ MFCameraOcclusionState_OccludedByCameraHardware: win32more.Windows.Win32.Media.M
 MFDepthMeasurement = Int32
 DistanceToFocalPlane: win32more.Windows.Win32.Media.MediaFoundation.MFDepthMeasurement = 0
 DistanceToOpticalCenter: win32more.Windows.Win32.Media.MediaFoundation.MFDepthMeasurement = 1
-class MFExtendedCameraIntrinsic_IntrinsicModel(EasyCastStructure):
+class MFExtendedCameraIntrinsic_IntrinsicModel(Structure):
     Width: UInt32
     Height: UInt32
     SplitFrameId: UInt32
     CameraModel: win32more.Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_CameraModel
 MFFLACBytestreamHandler = Guid('{0e41cfb8-0506-40f4-a516-77cc23642d91}')
 MFFLACSinkClassFactory = Guid('{7d39c56f-6075-47c9-9bae-8cf9e531b5f5}')
-class MFFOLDDOWN_MATRIX(EasyCastStructure):
+class MFFOLDDOWN_MATRIX(Structure):
     cbSize: UInt32
     cSrcChannels: UInt32
     cDstChannels: UInt32
@@ -10188,11 +10188,11 @@ MFFrameSourceTypes_Infrared: win32more.Windows.Win32.Media.MediaFoundation.MFFra
 MFFrameSourceTypes_Depth: win32more.Windows.Win32.Media.MediaFoundation.MFFrameSourceTypes = 4
 MFFrameSourceTypes_Image: win32more.Windows.Win32.Media.MediaFoundation.MFFrameSourceTypes = 8
 MFFrameSourceTypes_Custom: win32more.Windows.Win32.Media.MediaFoundation.MFFrameSourceTypes = 128
-class MFINPUTTRUSTAUTHORITY_ACCESS_ACTION(EasyCastStructure):
+class MFINPUTTRUSTAUTHORITY_ACCESS_ACTION(Structure):
     Action: win32more.Windows.Win32.Media.MediaFoundation.MFPOLICYMANAGER_ACTION
     pbTicket: POINTER(Byte)
     cbTicket: UInt32
-class MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS(EasyCastStructure):
+class MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS(Structure):
     dwSize: UInt32
     dwVer: UInt32
     cbSignatureOffset: UInt32
@@ -10210,7 +10210,7 @@ MFMEDIASOURCE_HAS_MULTIPLE_PRESENTATIONS: win32more.Windows.Win32.Media.MediaFou
 MFMEDIASOURCE_CAN_SKIPFORWARD: win32more.Windows.Win32.Media.MediaFoundation.MFMEDIASOURCE_CHARACTERISTICS = 32
 MFMEDIASOURCE_CAN_SKIPBACKWARD: win32more.Windows.Win32.Media.MediaFoundation.MFMEDIASOURCE_CHARACTERISTICS = 64
 MFMEDIASOURCE_DOES_NOT_USE_NETWORK: win32more.Windows.Win32.Media.MediaFoundation.MFMEDIASOURCE_CHARACTERISTICS = 128
-class MFMPEG2DLNASINKSTATS(EasyCastStructure):
+class MFMPEG2DLNASINKSTATS(Structure):
     cBytesWritten: UInt64
     fPAL: win32more.Windows.Win32.Foundation.BOOL
     fccVideo: UInt32
@@ -10225,7 +10225,7 @@ class MFMPEG2DLNASINKSTATS(EasyCastStructure):
     cAudioChannels: UInt32
     cAudioBytesReceived: UInt64
     cAudioFramesEncoded: UInt64
-class MFMediaKeyStatus(EasyCastStructure):
+class MFMediaKeyStatus(Structure):
     pbKeyId: POINTER(Byte)
     cbKeyId: UInt32
     eMediaKeyStatus: win32more.Windows.Win32.Media.MediaFoundation.MF_MEDIAKEY_STATUS
@@ -10282,7 +10282,7 @@ MFNetAuthenticationFlags = Int32
 MFNET_AUTHENTICATION_PROXY: win32more.Windows.Win32.Media.MediaFoundation.MFNetAuthenticationFlags = 1
 MFNET_AUTHENTICATION_CLEAR_TEXT: win32more.Windows.Win32.Media.MediaFoundation.MFNetAuthenticationFlags = 2
 MFNET_AUTHENTICATION_LOGGED_ON_USER: win32more.Windows.Win32.Media.MediaFoundation.MFNetAuthenticationFlags = 4
-class MFNetCredentialManagerGetParam(EasyCastStructure):
+class MFNetCredentialManagerGetParam(Structure):
     hrOp: win32more.Windows.Win32.Foundation.HRESULT
     fAllowLoggedOnUser: win32more.Windows.Win32.Foundation.BOOL
     fClearTextPackage: win32more.Windows.Win32.Foundation.BOOL
@@ -10308,7 +10308,7 @@ MFNominalRange_48_208: win32more.Windows.Win32.Media.MediaFoundation.MFNominalRa
 MFNominalRange_64_127: win32more.Windows.Win32.Media.MediaFoundation.MFNominalRange = 4
 MFNominalRange_Last: win32more.Windows.Win32.Media.MediaFoundation.MFNominalRange = 5
 MFNominalRange_ForceDWORD: win32more.Windows.Win32.Media.MediaFoundation.MFNominalRange = 2147483647
-class MFOffset(EasyCastStructure):
+class MFOffset(Structure):
     fract: UInt16
     value: Int16
 @winfunctype_pointer
@@ -10326,7 +10326,7 @@ PEACTION_RESERVED1: win32more.Windows.Win32.Media.MediaFoundation.MFPOLICYMANAGE
 PEACTION_RESERVED2: win32more.Windows.Win32.Media.MediaFoundation.MFPOLICYMANAGER_ACTION = 6
 PEACTION_RESERVED3: win32more.Windows.Win32.Media.MediaFoundation.MFPOLICYMANAGER_ACTION = 7
 PEACTION_LAST: win32more.Windows.Win32.Media.MediaFoundation.MFPOLICYMANAGER_ACTION = 7
-class MFP_ACQUIRE_USER_CREDENTIAL_EVENT(EasyCastStructure):
+class MFP_ACQUIRE_USER_CREDENTIAL_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     dwUserData: UIntPtr
     fProceedWithAuthentication: win32more.Windows.Win32.Foundation.BOOL
@@ -10343,9 +10343,9 @@ MFP_OPTION_NONE: win32more.Windows.Win32.Media.MediaFoundation.MFP_CREATION_OPTI
 MFP_OPTION_FREE_THREADED_CALLBACK: win32more.Windows.Win32.Media.MediaFoundation.MFP_CREATION_OPTIONS = 1
 MFP_OPTION_NO_MMCSS: win32more.Windows.Win32.Media.MediaFoundation.MFP_CREATION_OPTIONS = 2
 MFP_OPTION_NO_REMOTE_DESKTOP_OPTIMIZATION: win32more.Windows.Win32.Media.MediaFoundation.MFP_CREATION_OPTIONS = 4
-class MFP_ERROR_EVENT(EasyCastStructure):
+class MFP_ERROR_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
-class MFP_EVENT_HEADER(EasyCastStructure):
+class MFP_EVENT_HEADER(Structure):
     eEventType: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_TYPE
     hrEvent: win32more.Windows.Win32.Foundation.HRESULT
     pMediaPlayer: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaPlayer
@@ -10365,17 +10365,17 @@ MFP_EVENT_TYPE_MF: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_TYPE 
 MFP_EVENT_TYPE_ERROR: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_TYPE = 10
 MFP_EVENT_TYPE_PLAYBACK_ENDED: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_TYPE = 11
 MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_TYPE = 12
-class MFP_FRAME_STEP_EVENT(EasyCastStructure):
+class MFP_FRAME_STEP_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
-class MFP_MEDIAITEM_CLEARED_EVENT(EasyCastStructure):
+class MFP_MEDIAITEM_CLEARED_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
-class MFP_MEDIAITEM_CREATED_EVENT(EasyCastStructure):
+class MFP_MEDIAITEM_CREATED_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
     dwUserData: UIntPtr
-class MFP_MEDIAITEM_SET_EVENT(EasyCastStructure):
+class MFP_MEDIAITEM_SET_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
 MFP_MEDIAPLAYER_STATE = Int32
@@ -10384,54 +10384,54 @@ MFP_MEDIAPLAYER_STATE_STOPPED: win32more.Windows.Win32.Media.MediaFoundation.MFP
 MFP_MEDIAPLAYER_STATE_PLAYING: win32more.Windows.Win32.Media.MediaFoundation.MFP_MEDIAPLAYER_STATE = 2
 MFP_MEDIAPLAYER_STATE_PAUSED: win32more.Windows.Win32.Media.MediaFoundation.MFP_MEDIAPLAYER_STATE = 3
 MFP_MEDIAPLAYER_STATE_SHUTDOWN: win32more.Windows.Win32.Media.MediaFoundation.MFP_MEDIAPLAYER_STATE = 4
-class MFP_MF_EVENT(EasyCastStructure):
+class MFP_MF_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     MFEventType: UInt32
     pMFMediaEvent: win32more.Windows.Win32.Media.MediaFoundation.IMFMediaEvent
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
-class MFP_PAUSE_EVENT(EasyCastStructure):
+class MFP_PAUSE_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
-class MFP_PLAYBACK_ENDED_EVENT(EasyCastStructure):
+class MFP_PLAYBACK_ENDED_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
-class MFP_PLAY_EVENT(EasyCastStructure):
+class MFP_PLAY_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
-class MFP_POSITION_SET_EVENT(EasyCastStructure):
+class MFP_POSITION_SET_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
-class MFP_RATE_SET_EVENT(EasyCastStructure):
+class MFP_RATE_SET_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
     flRate: Single
-class MFP_STOP_EVENT(EasyCastStructure):
+class MFP_STOP_EVENT(Structure):
     header: win32more.Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER
     pMediaItem: win32more.Windows.Win32.Media.MediaFoundation.IMFPMediaItem
-class MFPaletteEntry(EasyCastUnion):
+class MFPaletteEntry(Union):
     ARGB: win32more.Windows.Win32.Media.MediaFoundation.MFARGB
     AYCbCr: win32more.Windows.Win32.Media.MediaFoundation.MFAYUVSample
-class MFPinholeCameraIntrinsic_IntrinsicModel(EasyCastStructure):
+class MFPinholeCameraIntrinsic_IntrinsicModel(Structure):
     Width: UInt32
     Height: UInt32
     CameraModel: win32more.Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_PinholeCameraModel
     DistortionModel: win32more.Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_DistortionModel
-class MFPinholeCameraIntrinsics(EasyCastStructure):
+class MFPinholeCameraIntrinsics(Structure):
     IntrinsicModelCount: UInt32
     IntrinsicModels: win32more.Windows.Win32.Media.MediaFoundation.MFPinholeCameraIntrinsic_IntrinsicModel * 1
 MFRATE_DIRECTION = Int32
 MFRATE_FORWARD: win32more.Windows.Win32.Media.MediaFoundation.MFRATE_DIRECTION = 0
 MFRATE_REVERSE: win32more.Windows.Win32.Media.MediaFoundation.MFRATE_DIRECTION = 1
-class MFRR_COMPONENTS(EasyCastStructure):
+class MFRR_COMPONENTS(Structure):
     dwRRInfoVersion: UInt32
     dwRRComponents: UInt32
     pRRComponents: POINTER(win32more.Windows.Win32.Media.MediaFoundation.MFRR_COMPONENT_HASH_INFO)
-class MFRR_COMPONENT_HASH_INFO(EasyCastStructure):
+class MFRR_COMPONENT_HASH_INFO(Structure):
     ulReason: UInt32
     rgHeaderHash: Char * 43
     rgPublicKeyHash: Char * 43
     wszName: Char * 260
-class MFRatio(EasyCastStructure):
+class MFRatio(Structure):
     Numerator: UInt32
     Denominator: UInt32
 MFSESSION_GETFULLTOPOLOGY_FLAGS = Int32
@@ -10498,12 +10498,12 @@ MFTOPOLOGY_HARDWARE_MODE = Int32
 MFTOPOLOGY_HWMODE_SOFTWARE_ONLY: win32more.Windows.Win32.Media.MediaFoundation.MFTOPOLOGY_HARDWARE_MODE = 0
 MFTOPOLOGY_HWMODE_USE_HARDWARE: win32more.Windows.Win32.Media.MediaFoundation.MFTOPOLOGY_HARDWARE_MODE = 1
 MFTOPOLOGY_HWMODE_USE_ONLY_HARDWARE: win32more.Windows.Win32.Media.MediaFoundation.MFTOPOLOGY_HARDWARE_MODE = 2
-class MFTOPONODE_ATTRIBUTE_UPDATE(EasyCastStructure):
+class MFTOPONODE_ATTRIBUTE_UPDATE(Structure):
     NodeId: UInt64
     guidAttributeKey: Guid
     attrType: win32more.Windows.Win32.Media.MediaFoundation.MF_ATTRIBUTE_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         u32: UInt32
         u64: UInt64
         d: Double
@@ -10531,7 +10531,7 @@ MFT_ENUM_FLAG_SORTANDFILTER_WEB_ONLY: win32more.Windows.Win32.Media.MediaFoundat
 MFT_ENUM_FLAG_SORTANDFILTER_WEB_ONLY_EDGEMODE: win32more.Windows.Win32.Media.MediaFoundation.MFT_ENUM_FLAG = 576
 MFT_ENUM_FLAG_UNTRUSTED_STOREMFT: win32more.Windows.Win32.Media.MediaFoundation.MFT_ENUM_FLAG = 1024
 MFT_ENUM_FLAG_ALL: win32more.Windows.Win32.Media.MediaFoundation.MFT_ENUM_FLAG = 63
-class MFT_INPUT_STREAM_INFO(EasyCastStructure):
+class MFT_INPUT_STREAM_INFO(Structure):
     hnsMaxLatency: Int64
     dwFlags: UInt32
     cbSize: UInt32
@@ -10553,19 +10553,19 @@ MFT_MESSAGE_NOTIFY_EVENT: win32more.Windows.Win32.Media.MediaFoundation.MFT_MESS
 MFT_MESSAGE_COMMAND_SET_OUTPUT_STREAM_STATE: win32more.Windows.Win32.Media.MediaFoundation.MFT_MESSAGE_TYPE = 268435463
 MFT_MESSAGE_COMMAND_FLUSH_OUTPUT_STREAM: win32more.Windows.Win32.Media.MediaFoundation.MFT_MESSAGE_TYPE = 268435464
 MFT_MESSAGE_COMMAND_MARKER: win32more.Windows.Win32.Media.MediaFoundation.MFT_MESSAGE_TYPE = 536870912
-class MFT_OUTPUT_DATA_BUFFER(EasyCastStructure):
+class MFT_OUTPUT_DATA_BUFFER(Structure):
     dwStreamID: UInt32
     pSample: win32more.Windows.Win32.Media.MediaFoundation.IMFSample
     dwStatus: UInt32
     pEvents: win32more.Windows.Win32.Media.MediaFoundation.IMFCollection
-class MFT_OUTPUT_STREAM_INFO(EasyCastStructure):
+class MFT_OUTPUT_STREAM_INFO(Structure):
     dwFlags: UInt32
     cbSize: UInt32
     cbAlignment: UInt32
-class MFT_REGISTER_TYPE_INFO(EasyCastStructure):
+class MFT_REGISTER_TYPE_INFO(Structure):
     guidMajorType: Guid
     guidSubtype: Guid
-class MFT_REGISTRATION_INFO(EasyCastStructure):
+class MFT_REGISTRATION_INFO(Structure):
     clsid: Guid
     guidCategory: Guid
     uiFlags: UInt32
@@ -10574,10 +10574,10 @@ class MFT_REGISTRATION_INFO(EasyCastStructure):
     pInTypes: POINTER(win32more.Windows.Win32.Media.MediaFoundation.MFT_REGISTER_TYPE_INFO)
     cOutTypes: UInt32
     pOutTypes: POINTER(win32more.Windows.Win32.Media.MediaFoundation.MFT_REGISTER_TYPE_INFO)
-class MFT_STREAM_STATE_PARAM(EasyCastStructure):
+class MFT_STREAM_STATE_PARAM(Structure):
     StreamId: UInt32
     State: win32more.Windows.Win32.Media.MediaFoundation.MF_STREAM_STATE
-class MFVIDEOFORMAT(EasyCastStructure):
+class MFVIDEOFORMAT(Structure):
     dwSize: UInt32
     videoInfo: win32more.Windows.Win32.Media.MediaFoundation.MFVideoInfo
     guidFormat: Guid
@@ -10600,11 +10600,11 @@ MFVideo3DSampleFormat_Packed_TopBottom: win32more.Windows.Win32.Media.MediaFound
 MFVideo3DSampleFormat = Int32
 MFSampleExtension_3DVideo_MultiView: win32more.Windows.Win32.Media.MediaFoundation.MFVideo3DSampleFormat = 1
 MFSampleExtension_3DVideo_Packed: win32more.Windows.Win32.Media.MediaFoundation.MFVideo3DSampleFormat = 0
-class MFVideoAlphaBitmap(EasyCastStructure):
+class MFVideoAlphaBitmap(Structure):
     GetBitmapFromDC: win32more.Windows.Win32.Foundation.BOOL
     bitmap: _bitmap_e__Union
     params: win32more.Windows.Win32.Media.MediaFoundation.MFVideoAlphaBitmapParams
-    class _bitmap_e__Union(EasyCastUnion):
+    class _bitmap_e__Union(Union):
         hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
         pDDS: win32more.Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9
 MFVideoAlphaBitmapFlags = Int32
@@ -10615,14 +10615,14 @@ MFVideoAlphaBitmap_DestRect: win32more.Windows.Win32.Media.MediaFoundation.MFVid
 MFVideoAlphaBitmap_FilterMode: win32more.Windows.Win32.Media.MediaFoundation.MFVideoAlphaBitmapFlags = 16
 MFVideoAlphaBitmap_Alpha: win32more.Windows.Win32.Media.MediaFoundation.MFVideoAlphaBitmapFlags = 32
 MFVideoAlphaBitmap_BitMask: win32more.Windows.Win32.Media.MediaFoundation.MFVideoAlphaBitmapFlags = 63
-class MFVideoAlphaBitmapParams(EasyCastStructure):
+class MFVideoAlphaBitmapParams(Structure):
     dwFlags: UInt32
     clrSrcKey: win32more.Windows.Win32.Foundation.COLORREF
     rcSrc: win32more.Windows.Win32.Foundation.RECT
     nrcDest: win32more.Windows.Win32.Media.MediaFoundation.MFVideoNormalizedRect
     fAlpha: Single
     dwFilterMode: UInt32
-class MFVideoArea(EasyCastStructure):
+class MFVideoArea(Structure):
     OffsetX: win32more.Windows.Win32.Media.MediaFoundation.MFOffset
     OffsetY: win32more.Windows.Win32.Media.MediaFoundation.MFOffset
     Area: win32more.Windows.Win32.Foundation.SIZE
@@ -10644,7 +10644,7 @@ MFVideoChromaSubsampling_DV_PAL: win32more.Windows.Win32.Media.MediaFoundation.M
 MFVideoChromaSubsampling_Cosited: win32more.Windows.Win32.Media.MediaFoundation.MFVideoChromaSubsampling = 7
 MFVideoChromaSubsampling_Last: win32more.Windows.Win32.Media.MediaFoundation.MFVideoChromaSubsampling = 8
 MFVideoChromaSubsampling_ForceDWORD: win32more.Windows.Win32.Media.MediaFoundation.MFVideoChromaSubsampling = 2147483647
-class MFVideoCompressedInfo(EasyCastStructure):
+class MFVideoCompressedInfo(Structure):
     AvgBitrate: Int64
     AvgBitErrorRate: Int64
     MaxKeyFrameSpacing: UInt32
@@ -10676,7 +10676,7 @@ MFVideoFlag_BottomUpLinearRep: win32more.Windows.Win32.Media.MediaFoundation.MFV
 MFVideoFlags_DXVASurface: win32more.Windows.Win32.Media.MediaFoundation.MFVideoFlags = 1048576
 MFVideoFlags_RenderTargetSurface: win32more.Windows.Win32.Media.MediaFoundation.MFVideoFlags = 4194304
 MFVideoFlags_ForceQWORD: win32more.Windows.Win32.Media.MediaFoundation.MFVideoFlags = 2147483647
-class MFVideoInfo(EasyCastStructure):
+class MFVideoInfo(Structure):
     dwWidth: UInt32
     dwHeight: UInt32
     PixelAspectRatio: win32more.Windows.Win32.Media.MediaFoundation.MFRatio
@@ -10717,7 +10717,7 @@ MFVideoMixPrefs_AllowDropToBob: win32more.Windows.Win32.Media.MediaFoundation.MF
 MFVideoMixPrefs_ForceBob: win32more.Windows.Win32.Media.MediaFoundation.MFVideoMixPrefs = 8
 MFVideoMixPrefs_EnableRotation: win32more.Windows.Win32.Media.MediaFoundation.MFVideoMixPrefs = 16
 MFVideoMixPrefs_Mask: win32more.Windows.Win32.Media.MediaFoundation.MFVideoMixPrefs = 31
-class MFVideoNormalizedRect(EasyCastStructure):
+class MFVideoNormalizedRect(Structure):
     left: Single
     top: Single
     right: Single
@@ -10770,7 +10770,7 @@ MFVideoSrcContentHintFlags = Int32
 MFVideoSrcContentHintFlag_None: win32more.Windows.Win32.Media.MediaFoundation.MFVideoSrcContentHintFlags = 0
 MFVideoSrcContentHintFlag_16x9: win32more.Windows.Win32.Media.MediaFoundation.MFVideoSrcContentHintFlags = 1
 MFVideoSrcContentHintFlag_235_1: win32more.Windows.Win32.Media.MediaFoundation.MFVideoSrcContentHintFlags = 2
-class MFVideoSurfaceInfo(EasyCastStructure):
+class MFVideoSurfaceInfo(Structure):
     Format: UInt32
     PaletteEntries: UInt32
     Palette: win32more.Windows.Win32.Media.MediaFoundation.MFPaletteEntry * 1
@@ -10840,13 +10840,13 @@ VRHP_SMALLROOM: win32more.Windows.Win32.Media.MediaFoundation.MF_AUVRHP_ROOMMODE
 VRHP_MEDIUMROOM: win32more.Windows.Win32.Media.MediaFoundation.MF_AUVRHP_ROOMMODEL = 1
 VRHP_BIGROOM: win32more.Windows.Win32.Media.MediaFoundation.MF_AUVRHP_ROOMMODEL = 2
 VRHP_CUSTUMIZEDROOM: win32more.Windows.Win32.Media.MediaFoundation.MF_AUVRHP_ROOMMODEL = 3
-class MF_BYTE_STREAM_CACHE_RANGE(EasyCastStructure):
+class MF_BYTE_STREAM_CACHE_RANGE(Structure):
     qwStartOffset: UInt64
     qwEndOffset: UInt64
 MF_CAMERA_CONTROL_CONFIGURATION_TYPE = Int32
 MF_CAMERA_CONTROL_CONFIGURATION_TYPE_PRESTART: win32more.Windows.Win32.Media.MediaFoundation.MF_CAMERA_CONTROL_CONFIGURATION_TYPE = 0
 MF_CAMERA_CONTROL_CONFIGURATION_TYPE_POSTSTART: win32more.Windows.Win32.Media.MediaFoundation.MF_CAMERA_CONTROL_CONFIGURATION_TYPE = 1
-class MF_CAMERA_CONTROL_RANGE_INFO(EasyCastStructure):
+class MF_CAMERA_CONTROL_RANGE_INFO(Structure):
     minValue: Int32
     maxValue: Int32
     stepValue: Int32
@@ -11034,10 +11034,10 @@ MF_OPENMODE_FAIL_IF_EXIST: win32more.Windows.Win32.Media.MediaFoundation.MF_FILE
 MF_OPENMODE_RESET_IF_EXIST: win32more.Windows.Win32.Media.MediaFoundation.MF_FILE_OPENMODE = 2
 MF_OPENMODE_APPEND_IF_EXIST: win32more.Windows.Win32.Media.MediaFoundation.MF_FILE_OPENMODE = 3
 MF_OPENMODE_DELETE_IF_EXIST: win32more.Windows.Win32.Media.MediaFoundation.MF_FILE_OPENMODE = 4
-class MF_FLOAT2(EasyCastStructure):
+class MF_FLOAT2(Structure):
     x: Single
     y: Single
-class MF_FLOAT3(EasyCastStructure):
+class MF_FLOAT3(Structure):
     x: Single
     y: Single
     z: Single
@@ -11045,7 +11045,7 @@ MF_HDCP_STATUS = Int32
 MF_HDCP_STATUS_ON: win32more.Windows.Win32.Media.MediaFoundation.MF_HDCP_STATUS = 0
 MF_HDCP_STATUS_OFF: win32more.Windows.Win32.Media.MediaFoundation.MF_HDCP_STATUS = 1
 MF_HDCP_STATUS_ON_WITH_TYPE_ENFORCEMENT: win32more.Windows.Win32.Media.MediaFoundation.MF_HDCP_STATUS = 2
-class MF_LEAKY_BUCKET_PAIR(EasyCastStructure):
+class MF_LEAKY_BUCKET_PAIR(Structure):
     dwBitrate: UInt32
     msBufferWindow: UInt32
 MF_MEDIAKEYSESSION_MESSAGETYPE = Int32
@@ -11259,7 +11259,7 @@ MF_QUALITY_NORMAL_MINUS_3: win32more.Windows.Win32.Media.MediaFoundation.MF_QUAL
 MF_QUALITY_NORMAL_MINUS_4: win32more.Windows.Win32.Media.MediaFoundation.MF_QUALITY_LEVEL = 4
 MF_QUALITY_NORMAL_MINUS_5: win32more.Windows.Win32.Media.MediaFoundation.MF_QUALITY_LEVEL = 5
 MF_NUM_QUALITY_LEVELS: win32more.Windows.Win32.Media.MediaFoundation.MF_QUALITY_LEVEL = 6
-class MF_QUATERNION(EasyCastStructure):
+class MF_QUATERNION(Structure):
     x: Single
     y: Single
     z: Single
@@ -11293,7 +11293,7 @@ MF_SINK_WRITER_CONSTANTS = UInt32
 MF_SINK_WRITER_INVALID_STREAM_INDEX: win32more.Windows.Win32.Media.MediaFoundation.MF_SINK_WRITER_CONSTANTS = 4294967295
 MF_SINK_WRITER_ALL_STREAMS: win32more.Windows.Win32.Media.MediaFoundation.MF_SINK_WRITER_CONSTANTS = 4294967294
 MF_SINK_WRITER_MEDIASINK: win32more.Windows.Win32.Media.MediaFoundation.MF_SINK_WRITER_CONSTANTS = 4294967295
-class MF_SINK_WRITER_STATISTICS(EasyCastStructure):
+class MF_SINK_WRITER_STATISTICS(Structure):
     cb: UInt32
     llLastTimestampReceived: Int64
     llLastTimestampEncoded: Int64
@@ -11442,7 +11442,7 @@ MF_TOPOSTATUS_ENDED: win32more.Windows.Win32.Media.MediaFoundation.MF_TOPOSTATUS
 MF_TRANSCODE_ADJUST_PROFILE_FLAGS = Int32
 MF_TRANSCODE_ADJUST_PROFILE_DEFAULT: win32more.Windows.Win32.Media.MediaFoundation.MF_TRANSCODE_ADJUST_PROFILE_FLAGS = 0
 MF_TRANSCODE_ADJUST_PROFILE_USE_SOURCE_ATTRIBUTES: win32more.Windows.Win32.Media.MediaFoundation.MF_TRANSCODE_ADJUST_PROFILE_FLAGS = 1
-class MF_TRANSCODE_SINK_INFO(EasyCastStructure):
+class MF_TRANSCODE_SINK_INFO(Structure):
     dwVideoStreamID: UInt32
     pVideoMediaType: win32more.Windows.Win32.Media.MediaFoundation.IMFMediaType
     dwAudioStreamID: UInt32
@@ -11464,7 +11464,7 @@ MIRROR_VERTICAL: win32more.Windows.Win32.Media.MediaFoundation.MF_VIDEO_PROCESSO
 MF_VIDEO_PROCESSOR_ROTATION = Int32
 ROTATION_NONE: win32more.Windows.Win32.Media.MediaFoundation.MF_VIDEO_PROCESSOR_ROTATION = 0
 ROTATION_NORMAL: win32more.Windows.Win32.Media.MediaFoundation.MF_VIDEO_PROCESSOR_ROTATION = 1
-class MF_VIDEO_SPHERICAL_VIEWDIRECTION(EasyCastStructure):
+class MF_VIDEO_SPHERICAL_VIEWDIRECTION(Structure):
     iHeading: Int32
     iPitch: Int32
     iRoll: Int32
@@ -11474,20 +11474,20 @@ MICARRAY_SIMPLE_SUM: win32more.Windows.Win32.Media.MediaFoundation.MIC_ARRAY_MOD
 MICARRAY_SINGLE_BEAM: win32more.Windows.Win32.Media.MediaFoundation.MIC_ARRAY_MODE = 512
 MICARRAY_FIXED_BEAM: win32more.Windows.Win32.Media.MediaFoundation.MIC_ARRAY_MODE = 1024
 MICARRAY_EXTERN_BEAM: win32more.Windows.Win32.Media.MediaFoundation.MIC_ARRAY_MODE = 2048
-class MOVEREGION_INFO(EasyCastStructure):
+class MOVEREGION_INFO(Structure):
     FrameNumber: UInt32
     NumMoveRegions: UInt32
     MoveRegions: win32more.Windows.Win32.Media.MediaFoundation.MOVE_RECT * 1
-class MOVE_RECT(EasyCastStructure):
+class MOVE_RECT(Structure):
     SourcePoint: win32more.Windows.Win32.Foundation.POINT
     DestRect: win32more.Windows.Win32.Foundation.RECT
 MP3ACMCodecWrapper = Guid('{11103421-354c-4cca-a7a3-1aff9a5b6701}')
-class MPEG1VIDEOINFO(EasyCastStructure):
+class MPEG1VIDEOINFO(Structure):
     hdr: win32more.Windows.Win32.Media.MediaFoundation.VIDEOINFOHEADER
     dwStartTimeCode: UInt32
     cbSequenceHeader: UInt32
     bSequenceHeader: Byte * 1
-class MPEG2VIDEOINFO(EasyCastStructure):
+class MPEG2VIDEOINFO(Structure):
     hdr: win32more.Windows.Win32.Media.MediaFoundation.VIDEOINFOHEADER2
     dwStartTimeCode: UInt32
     cbSequenceHeader: UInt32
@@ -11508,14 +11508,14 @@ AMMPEG2_27MhzTimebase: win32more.Windows.Win32.Media.MediaFoundation.MPEG2VIDEOI
 AMMPEG2_WidescreenAnalogOut: win32more.Windows.Win32.Media.MediaFoundation.MPEG2VIDEOINFO_FLAGS = 512
 MSAMRNBDecoder = Guid('{265011ae-5481-4f77-a295-abb6ffe8d63e}')
 MSAMRNBEncoder = Guid('{2fae8afe-04a3-423a-a814-85db454712b0}')
-class MT_ARBITRARY_HEADER(EasyCastStructure):
+class MT_ARBITRARY_HEADER(Structure):
     majortype: Guid
     subtype: Guid
     bFixedSizeSamples: win32more.Windows.Win32.Foundation.BOOL
     bTemporalCompression: win32more.Windows.Win32.Foundation.BOOL
     lSampleSize: UInt32
     formattype: Guid
-class MT_CUSTOM_VIDEO_PRIMARIES(EasyCastStructure):
+class MT_CUSTOM_VIDEO_PRIMARIES(Structure):
     fRx: Single
     fRy: Single
     fGx: Single
@@ -11525,7 +11525,7 @@ class MT_CUSTOM_VIDEO_PRIMARIES(EasyCastStructure):
     fWx: Single
     fWy: Single
 MULawCodecWrapper = Guid('{92b66080-5e2d-449e-90c4-c41f268e5514}')
-class OPM_ACP_AND_CGMSA_SIGNALING(EasyCastStructure):
+class OPM_ACP_AND_CGMSA_SIGNALING(Structure):
     rnRandomNumber: win32more.Windows.Win32.Media.MediaFoundation.OPM_RANDOM_NUMBER
     ulStatusFlags: UInt32
     ulAvailableTVProtectionStandards: UInt32
@@ -11545,7 +11545,7 @@ OPM_ACP_OFF: win32more.Windows.Win32.Media.MediaFoundation.OPM_ACP_PROTECTION_LE
 OPM_ACP_LEVEL_ONE: win32more.Windows.Win32.Media.MediaFoundation.OPM_ACP_PROTECTION_LEVEL = 1
 OPM_ACP_LEVEL_TWO: win32more.Windows.Win32.Media.MediaFoundation.OPM_ACP_PROTECTION_LEVEL = 2
 OPM_ACP_LEVEL_THREE: win32more.Windows.Win32.Media.MediaFoundation.OPM_ACP_PROTECTION_LEVEL = 3
-class OPM_ACTUAL_OUTPUT_FORMAT(EasyCastStructure):
+class OPM_ACTUAL_OUTPUT_FORMAT(Structure):
     rnRandomNumber: win32more.Windows.Win32.Media.MediaFoundation.OPM_RANDOM_NUMBER
     ulStatusFlags: UInt32
     ulDisplayWidth: UInt32
@@ -11575,14 +11575,14 @@ OPM_CGMSA_COPY_NO_MORE: win32more.Windows.Win32.Media.MediaFoundation.OPM_CGMSA 
 OPM_CGMSA_COPY_ONE_GENERATION: win32more.Windows.Win32.Media.MediaFoundation.OPM_CGMSA = 3
 OPM_CGMSA_COPY_NEVER: win32more.Windows.Win32.Media.MediaFoundation.OPM_CGMSA = 4
 OPM_CGMSA_REDISTRIBUTION_CONTROL_REQUIRED: win32more.Windows.Win32.Media.MediaFoundation.OPM_CGMSA = 8
-class OPM_CONFIGURE_PARAMETERS(EasyCastStructure):
+class OPM_CONFIGURE_PARAMETERS(Structure):
     omac: win32more.Windows.Win32.Media.MediaFoundation.OPM_OMAC
     guidSetting: Guid
     ulSequenceNumber: UInt32
     cbParametersSize: UInt32
     abParameters: Byte * 4056
     _pack_ = 1
-class OPM_CONNECTED_HDCP_DEVICE_INFORMATION(EasyCastStructure):
+class OPM_CONNECTED_HDCP_DEVICE_INFORMATION(Structure):
     rnRandomNumber: win32more.Windows.Win32.Media.MediaFoundation.OPM_RANDOM_NUMBER
     ulStatusFlags: UInt32
     ulHDCPFlags: UInt32
@@ -11611,7 +11611,7 @@ OPM_CONNECTOR_TYPE_MIRACAST: win32more.Windows.Win32.Media.MediaFoundation.OPM_C
 OPM_CONNECTOR_TYPE_TRANSPORT_AGNOSTIC_DIGITAL_MODE_A: win32more.Windows.Win32.Media.MediaFoundation.OPM_CONNECTOR_TYPE = 16
 OPM_CONNECTOR_TYPE_TRANSPORT_AGNOSTIC_DIGITAL_MODE_B: win32more.Windows.Win32.Media.MediaFoundation.OPM_CONNECTOR_TYPE = 17
 OPM_COPP_COMPATIBLE_CONNECTOR_TYPE_INTERNAL: win32more.Windows.Win32.Media.MediaFoundation.OPM_CONNECTOR_TYPE = -2147483648
-class OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS(EasyCastStructure):
+class OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS(Structure):
     rnRandomNumber: win32more.Windows.Win32.Media.MediaFoundation.OPM_RANDOM_NUMBER
     guidInformation: Guid
     ulSequenceNumber: UInt32
@@ -11624,17 +11624,17 @@ OPM_DPCP_ON: win32more.Windows.Win32.Media.MediaFoundation.OPM_DPCP_PROTECTION_L
 OPM_DVI_CHARACTERISTIC = Int32
 OPM_DVI_CHARACTERISTIC_1_0: win32more.Windows.Win32.Media.MediaFoundation.OPM_DVI_CHARACTERISTIC = 1
 OPM_DVI_CHARACTERISTIC_1_1_OR_ABOVE: win32more.Windows.Win32.Media.MediaFoundation.OPM_DVI_CHARACTERISTIC = 2
-class OPM_ENCRYPTED_INITIALIZATION_PARAMETERS(EasyCastStructure):
+class OPM_ENCRYPTED_INITIALIZATION_PARAMETERS(Structure):
     abEncryptedInitializationParameters: Byte * 256
-class OPM_GET_CODEC_INFO_INFORMATION(EasyCastStructure):
+class OPM_GET_CODEC_INFO_INFORMATION(Structure):
     rnRandomNumber: win32more.Windows.Win32.Media.MediaFoundation.OPM_RANDOM_NUMBER
     Merit: UInt32
     _pack_ = 1
-class OPM_GET_CODEC_INFO_PARAMETERS(EasyCastStructure):
+class OPM_GET_CODEC_INFO_PARAMETERS(Structure):
     cbVerifier: UInt32
     Verifier: Byte * 4052
     _pack_ = 1
-class OPM_GET_INFO_PARAMETERS(EasyCastStructure):
+class OPM_GET_INFO_PARAMETERS(Structure):
     omac: win32more.Windows.Win32.Media.MediaFoundation.OPM_OMAC
     rnRandomNumber: win32more.Windows.Win32.Media.MediaFoundation.OPM_RANDOM_NUMBER
     guidInformation: Guid
@@ -11645,7 +11645,7 @@ class OPM_GET_INFO_PARAMETERS(EasyCastStructure):
 OPM_HDCP_FLAGS = Int32
 OPM_HDCP_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.OPM_HDCP_FLAGS = 0
 OPM_HDCP_FLAG_REPEATER: win32more.Windows.Win32.Media.MediaFoundation.OPM_HDCP_FLAGS = 1
-class OPM_HDCP_KEY_SELECTION_VECTOR(EasyCastStructure):
+class OPM_HDCP_KEY_SELECTION_VECTOR(Structure):
     abKeySelectionVector: Byte * 5
 OPM_HDCP_PROTECTION_LEVEL = Int32
 OPM_HDCP_OFF: win32more.Windows.Win32.Media.MediaFoundation.OPM_HDCP_PROTECTION_LEVEL = 0
@@ -11665,12 +11665,12 @@ OPM_ASPECT_RATIO_EN300294_BOX_16_BY_9_TOP: win32more.Windows.Win32.Media.MediaFo
 OPM_ASPECT_RATIO_EN300294_BOX_GT_16_BY_9_CENTER: win32more.Windows.Win32.Media.MediaFoundation.OPM_IMAGE_ASPECT_RATIO_EN300294 = 5
 OPM_ASPECT_RATIO_EN300294_FULL_FORMAT_4_BY_3_PROTECTED_CENTER: win32more.Windows.Win32.Media.MediaFoundation.OPM_IMAGE_ASPECT_RATIO_EN300294 = 6
 OPM_ASPECT_RATIO_EN300294_FULL_FORMAT_16_BY_9_ANAMORPHIC: win32more.Windows.Win32.Media.MediaFoundation.OPM_IMAGE_ASPECT_RATIO_EN300294 = 7
-class OPM_OMAC(EasyCastStructure):
+class OPM_OMAC(Structure):
     abOMAC: Byte * 16
 OPM_OUTPUT_HARDWARE_PROTECTION = Int32
 OPM_OUTPUT_HARDWARE_PROTECTION_NOT_SUPPORTED: win32more.Windows.Win32.Media.MediaFoundation.OPM_OUTPUT_HARDWARE_PROTECTION = 0
 OPM_OUTPUT_HARDWARE_PROTECTION_SUPPORTED: win32more.Windows.Win32.Media.MediaFoundation.OPM_OUTPUT_HARDWARE_PROTECTION = 1
-class OPM_OUTPUT_ID_DATA(EasyCastStructure):
+class OPM_OUTPUT_ID_DATA(Structure):
     rnRandomNumber: win32more.Windows.Win32.Media.MediaFoundation.OPM_RANDOM_NUMBER
     ulStatusFlags: UInt32
     OutputId: UInt64
@@ -11702,14 +11702,14 @@ OPM_PROTECTION_TYPE_CGMSA: win32more.Windows.Win32.Media.MediaFoundation.OPM_PRO
 OPM_PROTECTION_TYPE_HDCP: win32more.Windows.Win32.Media.MediaFoundation.OPM_PROTECTION_TYPE = 8
 OPM_PROTECTION_TYPE_DPCP: win32more.Windows.Win32.Media.MediaFoundation.OPM_PROTECTION_TYPE = 16
 OPM_PROTECTION_TYPE_TYPE_ENFORCEMENT_HDCP: win32more.Windows.Win32.Media.MediaFoundation.OPM_PROTECTION_TYPE = 32
-class OPM_RANDOM_NUMBER(EasyCastStructure):
+class OPM_RANDOM_NUMBER(Structure):
     abRandomNumber: Byte * 16
-class OPM_REQUESTED_INFORMATION(EasyCastStructure):
+class OPM_REQUESTED_INFORMATION(Structure):
     omac: win32more.Windows.Win32.Media.MediaFoundation.OPM_OMAC
     cbRequestedInformationSize: UInt32
     abRequestedInformation: Byte * 4076
     _pack_ = 1
-class OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS(EasyCastStructure):
+class OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS(Structure):
     ulNewTVProtectionStandard: UInt32
     ulAspectRatioChangeMask1: UInt32
     ulAspectRatioData1: UInt32
@@ -11721,16 +11721,16 @@ class OPM_SET_ACP_AND_CGMSA_SIGNALING_PARAMETERS(EasyCastStructure):
     ulReserved2: UInt32 * 4
     ulReserved3: UInt32
     _pack_ = 1
-class OPM_SET_HDCP_SRM_PARAMETERS(EasyCastStructure):
+class OPM_SET_HDCP_SRM_PARAMETERS(Structure):
     ulSRMVersion: UInt32
     _pack_ = 1
-class OPM_SET_PROTECTION_LEVEL_PARAMETERS(EasyCastStructure):
+class OPM_SET_PROTECTION_LEVEL_PARAMETERS(Structure):
     ulProtectionType: UInt32
     ulProtectionLevel: UInt32
     Reserved: UInt32
     Reserved2: UInt32
     _pack_ = 1
-class OPM_STANDARD_INFORMATION(EasyCastStructure):
+class OPM_STANDARD_INFORMATION(Structure):
     rnRandomNumber: win32more.Windows.Win32.Media.MediaFoundation.OPM_RANDOM_NUMBER
     ulStatusFlags: UInt32
     ulInformation: UInt32
@@ -11804,7 +11804,7 @@ PLAYTO_SOURCE_IMAGE: win32more.Windows.Win32.Media.MediaFoundation.PLAYTO_SOURCE
 PLAYTO_SOURCE_AUDIO: win32more.Windows.Win32.Media.MediaFoundation.PLAYTO_SOURCE_CREATEFLAGS = 2
 PLAYTO_SOURCE_VIDEO: win32more.Windows.Win32.Media.MediaFoundation.PLAYTO_SOURCE_CREATEFLAGS = 4
 PLAYTO_SOURCE_PROTECTED: win32more.Windows.Win32.Media.MediaFoundation.PLAYTO_SOURCE_CREATEFLAGS = 8
-class ROI_AREA(EasyCastStructure):
+class ROI_AREA(Structure):
     rect: win32more.Windows.Win32.Foundation.RECT
     QPDelta: Int32
 SAMPLE_PROTECTION_VERSION = Int32
@@ -11816,19 +11816,19 @@ SAMPLE_PROTECTION_VERSION_AES128CTR: win32more.Windows.Win32.Media.MediaFoundati
 SEEK_ORIGIN = Int32
 _msoBegin: win32more.Windows.Win32.Media.MediaFoundation.SEEK_ORIGIN = 0
 _msoCurrent: win32more.Windows.Win32.Media.MediaFoundation.SEEK_ORIGIN = 1
-class SENSORPROFILEID(EasyCastStructure):
+class SENSORPROFILEID(Structure):
     Type: Guid
     Index: UInt32
     Unused: UInt32
-class STREAM_MEDIUM(EasyCastStructure):
+class STREAM_MEDIUM(Structure):
     gidMedium: Guid
     unMediumInstance: UInt32
-class TOC_DESCRIPTOR(EasyCastStructure):
+class TOC_DESCRIPTOR(Structure):
     guidID: Guid
     wStreamNumber: UInt16
     guidType: Guid
     wLanguageIndex: UInt16
-class TOC_ENTRY_DESCRIPTOR(EasyCastStructure):
+class TOC_ENTRY_DESCRIPTOR(Structure):
     qwStartTime: UInt64
     qwEndTime: UInt64
     qwStartPacketOffset: UInt64
@@ -11837,14 +11837,14 @@ class TOC_ENTRY_DESCRIPTOR(EasyCastStructure):
 TOC_POS_TYPE = Int32
 TOC_POS_INHEADER: win32more.Windows.Win32.Media.MediaFoundation.TOC_POS_TYPE = 0
 TOC_POS_TOPLEVELOBJECT: win32more.Windows.Win32.Media.MediaFoundation.TOC_POS_TYPE = 1
-class VIDEOINFOHEADER(EasyCastStructure):
+class VIDEOINFOHEADER(Structure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
     dwBitRate: UInt32
     dwBitErrorRate: UInt32
     AvgTimePerFrame: Int64
     bmiHeader: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
-class VIDEOINFOHEADER2(EasyCastStructure):
+class VIDEOINFOHEADER2(Structure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
     dwBitRate: UInt32
@@ -11857,7 +11857,7 @@ class VIDEOINFOHEADER2(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     dwReserved2: UInt32
     bmiHeader: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwControlFlags: UInt32
         dwReserved1: UInt32
 VorbisDecoderMFT = Guid('{1a198ef2-60e5-4ea8-90d8-da1f2832c288}')

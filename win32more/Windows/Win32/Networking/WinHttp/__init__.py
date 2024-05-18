@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinHttp
 import win32more.Windows.Win32.Networking.WinSock
@@ -677,7 +677,7 @@ def WinHttpGetProxySettingsEx(hResolver: VoidPtr, ProxySettingsType: win32more.W
 def WinHttpGetProxySettingsResultEx(hResolver: VoidPtr, pProxySettingsEx: VoidPtr) -> UInt32: ...
 @winfunctype('WINHTTP.dll')
 def WinHttpFreeProxySettingsEx(ProxySettingsType: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_TYPE, pProxySettingsEx: VoidPtr) -> UInt32: ...
-class HTTP_VERSION_INFO(EasyCastStructure):
+class HTTP_VERSION_INFO(Structure):
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
 class IWinHttpRequest(ComPtr):
@@ -732,7 +732,7 @@ class IWinHttpRequestEvents(ComPtr):
     def OnResponseFinished(self) -> Void: ...
     @commethod(6)
     def OnError(self, ErrorNumber: Int32, ErrorDescription: win32more.Windows.Win32.Foundation.BSTR) -> Void: ...
-class URL_COMPONENTS(EasyCastStructure):
+class URL_COMPONENTS(Structure):
     dwStructSize: UInt32
     lpszScheme: win32more.Windows.Win32.Foundation.PWSTR
     dwSchemeLength: UInt32
@@ -753,17 +753,17 @@ WINHTTP_ACCESS_TYPE_NO_PROXY: win32more.Windows.Win32.Networking.WinHttp.WINHTTP
 WINHTTP_ACCESS_TYPE_DEFAULT_PROXY: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ACCESS_TYPE = 0
 WINHTTP_ACCESS_TYPE_NAMED_PROXY: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ACCESS_TYPE = 3
 WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ACCESS_TYPE = 4
-class WINHTTP_ASYNC_RESULT(EasyCastStructure):
+class WINHTTP_ASYNC_RESULT(Structure):
     dwResult: UIntPtr
     dwError: UInt32
-class WINHTTP_AUTOPROXY_OPTIONS(EasyCastStructure):
+class WINHTTP_AUTOPROXY_OPTIONS(Structure):
     dwFlags: UInt32
     dwAutoDetectFlags: UInt32
     lpszAutoConfigUrl: win32more.Windows.Win32.Foundation.PWSTR
     lpvReserved: VoidPtr
     dwReserved: UInt32
     fAutoLogonIfChallenged: win32more.Windows.Win32.Foundation.BOOL
-class WINHTTP_CERTIFICATE_INFO(EasyCastStructure):
+class WINHTTP_CERTIFICATE_INFO(Structure):
     ftExpiry: win32more.Windows.Win32.Foundation.FILETIME
     ftStart: win32more.Windows.Win32.Foundation.FILETIME
     lpszSubjectInfo: win32more.Windows.Win32.Foundation.PWSTR
@@ -772,21 +772,21 @@ class WINHTTP_CERTIFICATE_INFO(EasyCastStructure):
     lpszSignatureAlgName: win32more.Windows.Win32.Foundation.PWSTR
     lpszEncryptionAlgName: win32more.Windows.Win32.Foundation.PWSTR
     dwKeySize: UInt32
-class WINHTTP_CONNECTION_GROUP(EasyCastStructure):
+class WINHTTP_CONNECTION_GROUP(Structure):
     cConnections: UInt32
     guidGroup: Guid
 if ARCH in 'X64,ARM64':
-    class WINHTTP_CONNECTION_INFO(EasyCastStructure):
+    class WINHTTP_CONNECTION_INFO(Structure):
         cbSize: UInt32
         LocalAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
         RemoteAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
 elif ARCH in 'X86':
-    class WINHTTP_CONNECTION_INFO(EasyCastStructure):
+    class WINHTTP_CONNECTION_INFO(Structure):
         cbSize: UInt32
         LocalAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
         RemoteAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
         _pack_ = 4
-class WINHTTP_CREDS(EasyCastStructure):
+class WINHTTP_CREDS(Structure):
     lpszUserName: win32more.Windows.Win32.Foundation.PSTR
     lpszPassword: win32more.Windows.Win32.Foundation.PSTR
     lpszRealm: win32more.Windows.Win32.Foundation.PSTR
@@ -797,7 +797,7 @@ WINHTTP_CREDS_AUTHSCHEME = UInt32
 WINHTTP_AUTH_SCHEME_BASIC: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME = 1
 WINHTTP_AUTH_SCHEME_NTLM: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME = 2
 WINHTTP_AUTH_SCHEME_NEGOTIATE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CREDS_AUTHSCHEME = 16
-class WINHTTP_CREDS_EX(EasyCastStructure):
+class WINHTTP_CREDS_EX(Structure):
     lpszUserName: win32more.Windows.Win32.Foundation.PSTR
     lpszPassword: win32more.Windows.Win32.Foundation.PSTR
     lpszRealm: win32more.Windows.Win32.Foundation.PSTR
@@ -805,31 +805,31 @@ class WINHTTP_CREDS_EX(EasyCastStructure):
     lpszHostName: win32more.Windows.Win32.Foundation.PSTR
     dwPort: UInt32
     lpszUrl: win32more.Windows.Win32.Foundation.PSTR
-class WINHTTP_CURRENT_USER_IE_PROXY_CONFIG(EasyCastStructure):
+class WINHTTP_CURRENT_USER_IE_PROXY_CONFIG(Structure):
     fAutoDetect: win32more.Windows.Win32.Foundation.BOOL
     lpszAutoConfigUrl: win32more.Windows.Win32.Foundation.PWSTR
     lpszProxy: win32more.Windows.Win32.Foundation.PWSTR
     lpszProxyBypass: win32more.Windows.Win32.Foundation.PWSTR
-class WINHTTP_EXTENDED_HEADER(EasyCastStructure):
+class WINHTTP_EXTENDED_HEADER(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pwszName: win32more.Windows.Win32.Foundation.PWSTR
         pszName: win32more.Windows.Win32.Foundation.PSTR
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         pwszValue: win32more.Windows.Win32.Foundation.PWSTR
         pszValue: win32more.Windows.Win32.Foundation.PSTR
-class WINHTTP_FAILED_CONNECTION_RETRIES(EasyCastStructure):
+class WINHTTP_FAILED_CONNECTION_RETRIES(Structure):
     dwMaxRetries: UInt32
     dwAllowedRetryConditions: UInt32
-class WINHTTP_HEADER_NAME(EasyCastUnion):
+class WINHTTP_HEADER_NAME(Union):
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pszName: win32more.Windows.Win32.Foundation.PSTR
-class WINHTTP_HOST_CONNECTION_GROUP(EasyCastStructure):
+class WINHTTP_HOST_CONNECTION_GROUP(Structure):
     pwszHost: win32more.Windows.Win32.Foundation.PWSTR
     cConnectionGroups: UInt32
     pConnectionGroups: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_CONNECTION_GROUP)
-class WINHTTP_HTTP2_RECEIVE_WINDOW(EasyCastStructure):
+class WINHTTP_HTTP2_RECEIVE_WINDOW(Structure):
     ulStreamWindow: UInt32
     ulStreamWindowUpdateDelta: UInt32
 WINHTTP_INTERNET_SCHEME = Int32
@@ -838,11 +838,11 @@ WINHTTP_INTERNET_SCHEME_HTTPS: win32more.Windows.Win32.Networking.WinHttp.WINHTT
 WINHTTP_INTERNET_SCHEME_FTP: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_INTERNET_SCHEME = 3
 WINHTTP_INTERNET_SCHEME_SOCKS: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_INTERNET_SCHEME = 4
 if ARCH in 'X64,ARM64':
-    class WINHTTP_MATCH_CONNECTION_GUID(EasyCastStructure):
+    class WINHTTP_MATCH_CONNECTION_GUID(Structure):
         ConnectionGuid: Guid
         ullFlags: UInt64
 elif ARCH in 'X86':
-    class WINHTTP_MATCH_CONNECTION_GUID(EasyCastStructure):
+    class WINHTTP_MATCH_CONNECTION_GUID(Structure):
         ConnectionGuid: Guid
         ullFlags: UInt64
         _pack_ = 4
@@ -856,27 +856,27 @@ WINHTTP_FLAG_REFRESH: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_OPEN_RE
 WINHTTP_FLAG_SECURE: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_OPEN_REQUEST_FLAGS = 8388608
 @winfunctype_pointer
 def WINHTTP_PROXY_CHANGE_CALLBACK(ullFlags: UInt64, pvContext: VoidPtr) -> Void: ...
-class WINHTTP_PROXY_INFO(EasyCastStructure):
+class WINHTTP_PROXY_INFO(Structure):
     dwAccessType: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ACCESS_TYPE
     lpszProxy: win32more.Windows.Win32.Foundation.PWSTR
     lpszProxyBypass: win32more.Windows.Win32.Foundation.PWSTR
-class WINHTTP_PROXY_NETWORKING_KEY(EasyCastStructure):
+class WINHTTP_PROXY_NETWORKING_KEY(Structure):
     pbBuffer: Byte * 128
-class WINHTTP_PROXY_RESULT(EasyCastStructure):
+class WINHTTP_PROXY_RESULT(Structure):
     cEntries: UInt32
     pEntries: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY)
-class WINHTTP_PROXY_RESULT_ENTRY(EasyCastStructure):
+class WINHTTP_PROXY_RESULT_ENTRY(Structure):
     fProxy: win32more.Windows.Win32.Foundation.BOOL
     fBypass: win32more.Windows.Win32.Foundation.BOOL
     ProxyScheme: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_INTERNET_SCHEME
     pwszProxy: win32more.Windows.Win32.Foundation.PWSTR
     ProxyPort: UInt16
-class WINHTTP_PROXY_RESULT_EX(EasyCastStructure):
+class WINHTTP_PROXY_RESULT_EX(Structure):
     cEntries: UInt32
     pEntries: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_RESULT_ENTRY)
     hProxyDetectionHandle: win32more.Windows.Win32.Foundation.HANDLE
     dwProxyInterfaceAffinity: UInt32
-class WINHTTP_PROXY_SETTINGS(EasyCastStructure):
+class WINHTTP_PROXY_SETTINGS(Structure):
     dwStructSize: UInt32
     dwFlags: UInt32
     dwCurrentSettingsVersion: UInt32
@@ -894,7 +894,7 @@ class WINHTTP_PROXY_SETTINGS(EasyCastStructure):
     cNetworkKeys: UInt32
     pNetworkKeys: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_NETWORKING_KEY)
 if ARCH in 'X64,ARM64':
-    class WINHTTP_PROXY_SETTINGS_EX(EasyCastStructure):
+    class WINHTTP_PROXY_SETTINGS_EX(Structure):
         ullGenerationId: UInt64
         ullFlags: UInt64
         pcwszAutoconfigUrl: win32more.Windows.Win32.Foundation.PWSTR
@@ -905,7 +905,7 @@ if ARCH in 'X64,ARM64':
         dwInterfaceIndex: UInt32
         pcwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR
 elif ARCH in 'X86':
-    class WINHTTP_PROXY_SETTINGS_EX(EasyCastStructure):
+    class WINHTTP_PROXY_SETTINGS_EX(Structure):
         ullGenerationId: UInt64
         ullFlags: UInt64
         pcwszAutoconfigUrl: win32more.Windows.Win32.Foundation.PWSTR
@@ -917,12 +917,12 @@ elif ARCH in 'X86':
         pcwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 4
 if ARCH in 'X64,ARM64':
-    class WINHTTP_PROXY_SETTINGS_PARAM(EasyCastStructure):
+    class WINHTTP_PROXY_SETTINGS_PARAM(Structure):
         ullFlags: UInt64
         pcwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR
         pcwszProbeHost: win32more.Windows.Win32.Foundation.PWSTR
 elif ARCH in 'X86':
-    class WINHTTP_PROXY_SETTINGS_PARAM(EasyCastStructure):
+    class WINHTTP_PROXY_SETTINGS_PARAM(Structure):
         ullFlags: UInt64
         pcwszConnectionName: win32more.Windows.Win32.Foundation.PWSTR
         pcwszProbeHost: win32more.Windows.Win32.Foundation.PWSTR
@@ -931,17 +931,17 @@ WINHTTP_PROXY_SETTINGS_TYPE = Int32
 WinHttpProxySettingsTypeUnknown: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_TYPE = 0
 WinHttpProxySettingsTypeWsl: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_TYPE = 1
 WinHttpProxySettingsTypeWsa: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_PROXY_SETTINGS_TYPE = 2
-class WINHTTP_QUERY_CONNECTION_GROUP_RESULT(EasyCastStructure):
+class WINHTTP_QUERY_CONNECTION_GROUP_RESULT(Structure):
     cHosts: UInt32
     pHostConnectionGroups: POINTER(win32more.Windows.Win32.Networking.WinHttp.WINHTTP_HOST_CONNECTION_GROUP)
 if ARCH in 'X64,ARM64':
-    class WINHTTP_REQUEST_STATS(EasyCastStructure):
+    class WINHTTP_REQUEST_STATS(Structure):
         ullFlags: UInt64
         ulIndex: UInt32
         cStats: UInt32
         rgullStats: UInt64 * 32
 elif ARCH in 'X86':
-    class WINHTTP_REQUEST_STATS(EasyCastStructure):
+    class WINHTTP_REQUEST_STATS(Structure):
         ullFlags: UInt64
         ulIndex: UInt32
         cStats: UInt32
@@ -967,11 +967,11 @@ WinHttpProxyTlsHandshakeServerLeg2Size: win32more.Windows.Win32.Networking.WinHt
 WinHttpRequestStatLast: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 16
 WinHttpRequestStatMax: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_STAT_ENTRY = 32
 if ARCH in 'X64,ARM64':
-    class WINHTTP_REQUEST_TIMES(EasyCastStructure):
+    class WINHTTP_REQUEST_TIMES(Structure):
         cTimes: UInt32
         rgullTimes: UInt64 * 64
 elif ARCH in 'X86':
-    class WINHTTP_REQUEST_TIMES(EasyCastStructure):
+    class WINHTTP_REQUEST_TIMES(Structure):
         cTimes: UInt32
         rgullTimes: UInt64 * 64
         _pack_ = 4
@@ -1015,7 +1015,7 @@ WinHttpProxyTlsHandshakeClientLeg3End: win32more.Windows.Win32.Networking.WinHtt
 WinHttpRequestTimeLast: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 36
 WinHttpRequestTimeMax: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_REQUEST_TIME_ENTRY = 64
 if ARCH in 'X64,ARM64':
-    class WINHTTP_RESOLVER_CACHE_CONFIG(EasyCastStructure):
+    class WINHTTP_RESOLVER_CACHE_CONFIG(Structure):
         ulMaxResolverCacheEntries: UInt32
         ulMaxCacheEntryAge: UInt32
         ulMinCacheEntryTtl: UInt32
@@ -1023,7 +1023,7 @@ if ARCH in 'X64,ARM64':
         ullConnResolutionWaitTime: UInt64
         ullFlags: UInt64
 elif ARCH in 'X86':
-    class WINHTTP_RESOLVER_CACHE_CONFIG(EasyCastStructure):
+    class WINHTTP_RESOLVER_CACHE_CONFIG(Structure):
         ulMaxResolverCacheEntries: UInt32
         ulMaxCacheEntryAge: UInt32
         ulMinCacheEntryTtl: UInt32
@@ -1039,7 +1039,7 @@ WinHttpSecureDnsSettingTryEncryptionWithFallback: win32more.Windows.Win32.Networ
 WinHttpSecureDnsSettingMax: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_SECURE_DNS_SETTING = 4
 @winfunctype_pointer
 def WINHTTP_STATUS_CALLBACK(hInternet: VoidPtr, dwContext: UIntPtr, dwInternetStatus: UInt32, lpvStatusInformation: VoidPtr, dwStatusInformationLength: UInt32) -> Void: ...
-class WINHTTP_WEB_SOCKET_ASYNC_RESULT(EasyCastStructure):
+class WINHTTP_WEB_SOCKET_ASYNC_RESULT(Structure):
     AsyncResult: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_ASYNC_RESULT
     Operation: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION
 WINHTTP_WEB_SOCKET_BUFFER_TYPE = Int32
@@ -1066,7 +1066,7 @@ WINHTTP_WEB_SOCKET_SEND_OPERATION: win32more.Windows.Win32.Networking.WinHttp.WI
 WINHTTP_WEB_SOCKET_RECEIVE_OPERATION: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION = 1
 WINHTTP_WEB_SOCKET_CLOSE_OPERATION: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION = 2
 WINHTTP_WEB_SOCKET_SHUTDOWN_OPERATION: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_OPERATION = 3
-class WINHTTP_WEB_SOCKET_STATUS(EasyCastStructure):
+class WINHTTP_WEB_SOCKET_STATUS(Structure):
     dwBytesTransferred: UInt32
     eBufferType: win32more.Windows.Win32.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE
 WIN_HTTP_CREATE_URL_FLAGS = UInt32

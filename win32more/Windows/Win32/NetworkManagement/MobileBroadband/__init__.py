@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.MobileBroadband
 import win32more.Windows.Win32.System.Com
@@ -521,7 +521,7 @@ MBN_COMPRESSION_ENABLE: win32more.Windows.Win32.NetworkManagement.MobileBroadban
 MBN_CONNECTION_MODE = Int32
 MBN_CONNECTION_MODE_PROFILE: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_CONNECTION_MODE = 0
 MBN_CONNECTION_MODE_TMP_PROFILE: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_CONNECTION_MODE = 1
-class MBN_CONTEXT(EasyCastStructure):
+class MBN_CONTEXT(Structure):
     contextID: UInt32
     contextType: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_CONTEXT_TYPE
     accessString: win32more.Windows.Win32.Foundation.BSTR
@@ -570,7 +570,7 @@ MBN_DATA_CLASS_3XRTT: win32more.Windows.Win32.NetworkManagement.MobileBroadband.
 MBN_DATA_CLASS_1XEVDO_REVB: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_DATA_CLASS = 2097152
 MBN_DATA_CLASS_UMB: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_DATA_CLASS = 4194304
 MBN_DATA_CLASS_CUSTOM: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_DATA_CLASS = -2147483648
-class MBN_DEVICE_SERVICE(EasyCastStructure):
+class MBN_DEVICE_SERVICE(Structure):
     deviceServiceID: win32more.Windows.Win32.Foundation.BSTR
     dataWriteSupported: win32more.Windows.Win32.Foundation.VARIANT_BOOL
     dataReadSupported: win32more.Windows.Win32.Foundation.VARIANT_BOOL
@@ -579,7 +579,7 @@ MBN_DEVICE_SERVICES_CAPABLE_INTERFACE_ARRIVAL: win32more.Windows.Win32.NetworkMa
 MBN_DEVICE_SERVICES_CAPABLE_INTERFACE_REMOVAL: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_DEVICE_SERVICES_INTERFACE_STATE = 1
 MBN_DEVICE_SERVICE_SESSIONS_STATE = Int32
 MBN_DEVICE_SERVICE_SESSIONS_RESTORED: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_DEVICE_SERVICE_SESSIONS_STATE = 0
-class MBN_INTERFACE_CAPS(EasyCastStructure):
+class MBN_INTERFACE_CAPS(Structure):
     cellularClass: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_CELLULAR_CLASS
     voiceClass: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_VOICE_CLASS
     dataClass: UInt32
@@ -610,7 +610,7 @@ MBN_PIN_FORMAT = Int32
 MBN_PIN_FORMAT_NONE: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_FORMAT = 0
 MBN_PIN_FORMAT_NUMERIC: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_FORMAT = 1
 MBN_PIN_FORMAT_ALPHANUMERIC: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_FORMAT = 2
-class MBN_PIN_INFO(EasyCastStructure):
+class MBN_PIN_INFO(Structure):
     pinState: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_STATE
     pinType: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_TYPE
     attemptsRemaining: UInt32
@@ -633,12 +633,12 @@ MBN_PIN_TYPE_NETWORK_SUBSET_PIN: win32more.Windows.Win32.NetworkManagement.Mobil
 MBN_PIN_TYPE_SVC_PROVIDER_PIN: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_TYPE = 8
 MBN_PIN_TYPE_CORPORATE_PIN: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_TYPE = 9
 MBN_PIN_TYPE_SUBSIDY_LOCK: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_PIN_TYPE = 10
-class MBN_PROVIDER(EasyCastStructure):
+class MBN_PROVIDER(Structure):
     providerID: win32more.Windows.Win32.Foundation.BSTR
     providerState: UInt32
     providerName: win32more.Windows.Win32.Foundation.BSTR
     dataClass: UInt32
-class MBN_PROVIDER2(EasyCastStructure):
+class MBN_PROVIDER2(Structure):
     provider: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_PROVIDER
     cellularClass: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_CELLULAR_CLASS
     signalStrength: UInt32
@@ -713,7 +713,7 @@ MBN_SMS_CDMA_LANG_JAPANESE: win32more.Windows.Win32.NetworkManagement.MobileBroa
 MBN_SMS_CDMA_LANG_KOREAN: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_SMS_CDMA_LANG = 5
 MBN_SMS_CDMA_LANG_CHINESE: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_SMS_CDMA_LANG = 6
 MBN_SMS_CDMA_LANG_HEBREW: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_SMS_CDMA_LANG = 7
-class MBN_SMS_FILTER(EasyCastStructure):
+class MBN_SMS_FILTER(Structure):
     flag: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_SMS_FLAG
     messageIndex: UInt32
 MBN_SMS_FLAG = Int32
@@ -731,7 +731,7 @@ MBN_SMS_STATUS_FLAG = Int32
 MBN_SMS_FLAG_NONE: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_SMS_STATUS_FLAG = 0
 MBN_SMS_FLAG_MESSAGE_STORE_FULL: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_SMS_STATUS_FLAG = 1
 MBN_SMS_FLAG_NEW_MESSAGE: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_SMS_STATUS_FLAG = 2
-class MBN_SMS_STATUS_INFO(EasyCastStructure):
+class MBN_SMS_STATUS_INFO(Structure):
     flag: UInt32
     messageIndex: UInt32
 MBN_VOICE_CALL_STATE = Int32
@@ -751,9 +751,9 @@ WWAEXT_SMS_CONSTANTS = Int32
 MBN_MESSAGE_INDEX_NONE: win32more.Windows.Win32.NetworkManagement.MobileBroadband.WWAEXT_SMS_CONSTANTS = 0
 MBN_CDMA_SHORT_MSG_SIZE_UNKNOWN: win32more.Windows.Win32.NetworkManagement.MobileBroadband.WWAEXT_SMS_CONSTANTS = 0
 MBN_CDMA_SHORT_MSG_SIZE_MAX: win32more.Windows.Win32.NetworkManagement.MobileBroadband.WWAEXT_SMS_CONSTANTS = 160
-class __DummyPinType__(EasyCastStructure):
+class __DummyPinType__(Structure):
     pinType: UInt32
-class __mbnapi_ReferenceRemainingTypes__(EasyCastStructure):
+class __mbnapi_ReferenceRemainingTypes__(Structure):
     bandClass: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_BAND_CLASS
     contextConstants: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_CONTEXT_CONSTANTS
     ctrlCaps: win32more.Windows.Win32.NetworkManagement.MobileBroadband.MBN_CTRL_CAPS

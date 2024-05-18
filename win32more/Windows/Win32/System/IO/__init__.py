@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
 @winfunctype('KERNEL32.dll')
@@ -24,26 +24,26 @@ def GetOverlappedResultEx(hFile: win32more.Windows.Win32.Foundation.HANDLE, lpOv
 def CancelSynchronousIo(hThread: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def BindIoCompletionCallback(FileHandle: win32more.Windows.Win32.Foundation.HANDLE, Function: win32more.Windows.Win32.System.IO.LPOVERLAPPED_COMPLETION_ROUTINE, Flags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class IO_STATUS_BLOCK(EasyCastStructure):
+class IO_STATUS_BLOCK(Structure):
     Anonymous: _Anonymous_e__Union
     Information: UIntPtr
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Status: win32more.Windows.Win32.Foundation.NTSTATUS
         Pointer: VoidPtr
 @winfunctype_pointer
 def LPOVERLAPPED_COMPLETION_ROUTINE(dwErrorCode: UInt32, dwNumberOfBytesTransfered: UInt32, lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> Void: ...
-class OVERLAPPED(EasyCastStructure):
+class OVERLAPPED(Structure):
     Internal: UIntPtr
     InternalHigh: UIntPtr
     Anonymous: _Anonymous_e__Union
     hEvent: win32more.Windows.Win32.Foundation.HANDLE
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Pointer: VoidPtr
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Offset: UInt32
             OffsetHigh: UInt32
-class OVERLAPPED_ENTRY(EasyCastStructure):
+class OVERLAPPED_ENTRY(Structure):
     lpCompletionKey: UIntPtr
     lpOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)
     Internal: UIntPtr

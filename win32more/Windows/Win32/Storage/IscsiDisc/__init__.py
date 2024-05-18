@@ -1,9 +1,9 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.IscsiDisc
 import win32more.Windows.Win32.System.Ioctl
-class ATA_PASS_THROUGH_DIRECT(EasyCastStructure):
+class ATA_PASS_THROUGH_DIRECT(Structure):
     Length: UInt16
     AtaFlags: UInt16
     PathId: Byte
@@ -17,7 +17,7 @@ class ATA_PASS_THROUGH_DIRECT(EasyCastStructure):
     PreviousTaskFile: Byte * 8
     CurrentTaskFile: Byte * 8
 if ARCH in 'X64,ARM64':
-    class ATA_PASS_THROUGH_DIRECT32(EasyCastStructure):
+    class ATA_PASS_THROUGH_DIRECT32(Structure):
         Length: UInt16
         AtaFlags: UInt16
         PathId: Byte
@@ -30,7 +30,7 @@ if ARCH in 'X64,ARM64':
         DataBuffer: VoidPtr
         PreviousTaskFile: Byte * 8
         CurrentTaskFile: Byte * 8
-class ATA_PASS_THROUGH_EX(EasyCastStructure):
+class ATA_PASS_THROUGH_EX(Structure):
     Length: UInt16
     AtaFlags: UInt16
     PathId: Byte
@@ -44,7 +44,7 @@ class ATA_PASS_THROUGH_EX(EasyCastStructure):
     PreviousTaskFile: Byte * 8
     CurrentTaskFile: Byte * 8
 if ARCH in 'X64,ARM64':
-    class ATA_PASS_THROUGH_EX32(EasyCastStructure):
+    class ATA_PASS_THROUGH_EX32(Structure):
         Length: UInt16
         AtaFlags: UInt16
         PathId: Byte
@@ -430,7 +430,7 @@ def ReportRadiusServerListW(BufferSizeInChar: POINTER(UInt32), Buffer: win32more
 ReportRadiusServerList = UnicodeAlias('ReportRadiusServerListW')
 @winfunctype('ISCSIDSC.dll')
 def ReportRadiusServerListA(BufferSizeInChar: POINTER(UInt32), Buffer: win32more.Windows.Win32.Foundation.PSTR) -> UInt32: ...
-class DSM_NOTIFICATION_REQUEST_BLOCK(EasyCastStructure):
+class DSM_NOTIFICATION_REQUEST_BLOCK(Structure):
     Size: UInt32
     Version: UInt32
     NotifyFlags: UInt32
@@ -438,16 +438,16 @@ class DSM_NOTIFICATION_REQUEST_BLOCK(EasyCastStructure):
     Reserved: UInt32 * 3
     DataSetRangesCount: UInt32
     DataSetRanges: win32more.Windows.Win32.Storage.IscsiDisc.MP_DEVICE_DATA_SET_RANGE * 1
-class DUMP_DRIVER(EasyCastStructure):
+class DUMP_DRIVER(Structure):
     DumpDriverList: VoidPtr
     DriverName: Char * 15
     BaseName: Char * 15
-class DUMP_DRIVER_EX(EasyCastStructure):
+class DUMP_DRIVER_EX(Structure):
     DumpDriverList: VoidPtr
     DriverName: Char * 15
     BaseName: Char * 15
     DriverFullPath: win32more.Windows.Win32.Storage.IscsiDisc.NTSCSI_UNICODE_STRING
-class DUMP_POINTERS(EasyCastStructure):
+class DUMP_POINTERS(Structure):
     AdapterObject: POINTER(win32more.Windows.Win32.Storage.IscsiDisc._ADAPTER_OBJECT)
     MappedRegisterBase: VoidPtr
     DumpData: VoidPtr
@@ -458,7 +458,7 @@ class DUMP_POINTERS(EasyCastStructure):
     UseDiskDump: win32more.Windows.Win32.Foundation.BOOLEAN
     Spare1: Byte * 2
     DeviceObject: VoidPtr
-class DUMP_POINTERS_EX(EasyCastStructure):
+class DUMP_POINTERS_EX(Structure):
     Header: win32more.Windows.Win32.Storage.IscsiDisc.DUMP_POINTERS_VERSION
     DumpData: VoidPtr
     CommonBufferVa: VoidPtr
@@ -475,17 +475,17 @@ class DUMP_POINTERS_EX(EasyCastStructure):
     DeviceReady: POINTER(win32more.Windows.Win32.Foundation.BOOLEAN)
     DumpDevicePowerOn: win32more.Windows.Win32.Storage.IscsiDisc.PDUMP_DEVICE_POWERON_ROUTINE
     DumpDevicePowerOnContext: VoidPtr
-class DUMP_POINTERS_VERSION(EasyCastStructure):
+class DUMP_POINTERS_VERSION(Structure):
     Version: UInt32
     Size: UInt32
-class FIRMWARE_REQUEST_BLOCK(EasyCastStructure):
+class FIRMWARE_REQUEST_BLOCK(Structure):
     Version: UInt32
     Size: UInt32
     Function: UInt32
     Flags: UInt32
     DataBufferOffset: UInt32
     DataBufferLength: UInt32
-class HYBRID_DEMOTE_BY_SIZE(EasyCastStructure):
+class HYBRID_DEMOTE_BY_SIZE(Structure):
     Version: UInt32
     Size: UInt32
     SourcePriority: Byte
@@ -493,12 +493,12 @@ class HYBRID_DEMOTE_BY_SIZE(EasyCastStructure):
     Reserved0: UInt16
     Reserved1: UInt32
     LbaCount: UInt64
-class HYBRID_DIRTY_THRESHOLDS(EasyCastStructure):
+class HYBRID_DIRTY_THRESHOLDS(Structure):
     Version: UInt32
     Size: UInt32
     DirtyLowThreshold: UInt32
     DirtyHighThreshold: UInt32
-class HYBRID_INFORMATION(EasyCastStructure):
+class HYBRID_INFORMATION(Structure):
     Version: UInt32
     Size: UInt32
     HybridSupported: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -509,9 +509,9 @@ class HYBRID_INFORMATION(EasyCastStructure):
     CacheSize: UInt64
     Attributes: _Attributes_e__Struct
     Priorities: _Priorities_e__Struct
-    class _Attributes_e__Struct(EasyCastStructure):
+    class _Attributes_e__Struct(Structure):
         _bitfield: UInt32
-    class _Priorities_e__Struct(EasyCastStructure):
+    class _Priorities_e__Struct(Structure):
         PriorityLevelCount: Byte
         MaxPriorityBehavior: win32more.Windows.Win32.Foundation.BOOLEAN
         OptimalWriteGranularity: Byte
@@ -520,40 +520,40 @@ class HYBRID_INFORMATION(EasyCastStructure):
         DirtyThresholdHigh: UInt32
         SupportedCommands: _SupportedCommands_e__Struct
         Priority: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_PRIORITY_LEVEL_DESCRIPTOR * 1
-        class _SupportedCommands_e__Struct(EasyCastStructure):
+        class _SupportedCommands_e__Struct(Structure):
             _bitfield: UInt32
             MaxEvictCommands: UInt32
             MaxLbaRangeCountForEvict: UInt32
             MaxLbaRangeCountForChangeLba: UInt32
-class HYBRID_REQUEST_BLOCK(EasyCastStructure):
+class HYBRID_REQUEST_BLOCK(Structure):
     Version: UInt32
     Size: UInt32
     Function: UInt32
     Flags: UInt32
     DataBufferOffset: UInt32
     DataBufferLength: UInt32
-class IDE_IO_CONTROL(EasyCastStructure):
+class IDE_IO_CONTROL(Structure):
     HeaderLength: UInt32
     Signature: Byte * 8
     Timeout: UInt32
     ControlCode: UInt32
     ReturnStatus: UInt32
     DataLength: UInt32
-class IKE_AUTHENTICATION_INFORMATION(EasyCastStructure):
+class IKE_AUTHENTICATION_INFORMATION(Structure):
     AuthMethod: win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_METHOD
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         PsKey: win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_PRESHARED_KEY
 IKE_AUTHENTICATION_METHOD = Int32
 IKE_AUTHENTICATION_PRESHARED_KEY_METHOD: win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_METHOD = 1
-class IKE_AUTHENTICATION_PRESHARED_KEY(EasyCastStructure):
+class IKE_AUTHENTICATION_PRESHARED_KEY(Structure):
     SecurityFlags: UInt64
     IdType: Byte
     IdLengthInBytes: UInt32
     Id: POINTER(Byte)
     KeyLengthInBytes: UInt32
     Key: POINTER(Byte)
-class IO_SCSI_CAPABILITIES(EasyCastStructure):
+class IO_SCSI_CAPABILITIES(Structure):
     Length: UInt32
     MaximumTransferLength: UInt32
     MaximumPhysicalPages: UInt32
@@ -566,14 +566,14 @@ ISCSI_AUTH_TYPES = Int32
 ISCSI_NO_AUTH_TYPE: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_AUTH_TYPES = 0
 ISCSI_CHAP_AUTH_TYPE: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_AUTH_TYPES = 1
 ISCSI_MUTUAL_CHAP_AUTH_TYPE: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_AUTH_TYPES = 2
-class ISCSI_CONNECTION_INFOA(EasyCastStructure):
+class ISCSI_CONNECTION_INFOA(Structure):
     ConnectionId: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitiatorAddress: win32more.Windows.Win32.Foundation.PSTR
     TargetAddress: win32more.Windows.Win32.Foundation.PSTR
     InitiatorSocket: UInt16
     TargetSocket: UInt16
     CID: Byte * 2
-class ISCSI_CONNECTION_INFOW(EasyCastStructure):
+class ISCSI_CONNECTION_INFOW(Structure):
     ConnectionId: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitiatorAddress: win32more.Windows.Win32.Foundation.PWSTR
     TargetAddress: win32more.Windows.Win32.Foundation.PWSTR
@@ -581,7 +581,7 @@ class ISCSI_CONNECTION_INFOW(EasyCastStructure):
     TargetSocket: UInt16
     CID: Byte * 2
 ISCSI_CONNECTION_INFO = UnicodeAlias('ISCSI_CONNECTION_INFOW')
-class ISCSI_CONNECTION_INFO_EX(EasyCastStructure):
+class ISCSI_CONNECTION_INFO_EX(Structure):
     ConnectionId: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     State: Byte
     Protocol: Byte
@@ -591,7 +591,7 @@ class ISCSI_CONNECTION_INFO_EX(EasyCastStructure):
     AuthType: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_AUTH_TYPES
     EstimatedThroughput: UInt64
     MaxDatagramSize: UInt32
-class ISCSI_DEVICE_ON_SESSIONA(EasyCastStructure):
+class ISCSI_DEVICE_ON_SESSIONA(Structure):
     InitiatorName: win32more.Windows.Win32.Foundation.CHAR * 256
     TargetName: win32more.Windows.Win32.Foundation.CHAR * 224
     ScsiAddress: win32more.Windows.Win32.Storage.IscsiDisc.SCSI_ADDRESS
@@ -600,7 +600,7 @@ class ISCSI_DEVICE_ON_SESSIONA(EasyCastStructure):
     LegacyName: win32more.Windows.Win32.Foundation.CHAR * 260
     StorageDeviceNumber: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_NUMBER
     DeviceInstance: UInt32
-class ISCSI_DEVICE_ON_SESSIONW(EasyCastStructure):
+class ISCSI_DEVICE_ON_SESSIONW(Structure):
     InitiatorName: Char * 256
     TargetName: Char * 224
     ScsiAddress: win32more.Windows.Win32.Storage.IscsiDisc.SCSI_ADDRESS
@@ -613,7 +613,7 @@ ISCSI_DEVICE_ON_SESSION = UnicodeAlias('ISCSI_DEVICE_ON_SESSIONW')
 ISCSI_DIGEST_TYPES = Int32
 ISCSI_DIGEST_TYPE_NONE: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_DIGEST_TYPES = 0
 ISCSI_DIGEST_TYPE_CRC32C: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_DIGEST_TYPES = 1
-class ISCSI_LOGIN_OPTIONS(EasyCastStructure):
+class ISCSI_LOGIN_OPTIONS(Structure):
     Version: UInt32
     InformationSpecified: UInt32
     LoginFlags: UInt32
@@ -627,7 +627,7 @@ class ISCSI_LOGIN_OPTIONS(EasyCastStructure):
     PasswordLength: UInt32
     Username: POINTER(Byte)
     Password: POINTER(Byte)
-class ISCSI_SESSION_INFOA(EasyCastStructure):
+class ISCSI_SESSION_INFOA(Structure):
     SessionId: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitiatorName: win32more.Windows.Win32.Foundation.PSTR
     TargetNodeName: win32more.Windows.Win32.Foundation.PSTR
@@ -636,7 +636,7 @@ class ISCSI_SESSION_INFOA(EasyCastStructure):
     TSID: Byte * 2
     ConnectionCount: UInt32
     Connections: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_CONNECTION_INFOA)
-class ISCSI_SESSION_INFOW(EasyCastStructure):
+class ISCSI_SESSION_INFOW(Structure):
     SessionId: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitiatorName: win32more.Windows.Win32.Foundation.PWSTR
     TargetNodeName: win32more.Windows.Win32.Foundation.PWSTR
@@ -646,7 +646,7 @@ class ISCSI_SESSION_INFOW(EasyCastStructure):
     ConnectionCount: UInt32
     Connections: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_CONNECTION_INFOW)
 ISCSI_SESSION_INFO = UnicodeAlias('ISCSI_SESSION_INFOW')
-class ISCSI_SESSION_INFO_EX(EasyCastStructure):
+class ISCSI_SESSION_INFO_EX(Structure):
     SessionId: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitialR2t: win32more.Windows.Win32.Foundation.BOOLEAN
     ImmediateData: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -660,7 +660,7 @@ class ISCSI_SESSION_INFO_EX(EasyCastStructure):
     MaximumConnections: UInt32
     ConnectionCount: UInt32
     Connections: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_CONNECTION_INFO_EX)
-class ISCSI_TARGET_MAPPINGA(EasyCastStructure):
+class ISCSI_TARGET_MAPPINGA(Structure):
     InitiatorName: win32more.Windows.Win32.Foundation.CHAR * 256
     TargetName: win32more.Windows.Win32.Foundation.CHAR * 224
     OSDeviceName: win32more.Windows.Win32.Foundation.CHAR * 260
@@ -669,7 +669,7 @@ class ISCSI_TARGET_MAPPINGA(EasyCastStructure):
     OSTargetNumber: UInt32
     LUNCount: UInt32
     LUNList: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.SCSI_LUN_LIST)
-class ISCSI_TARGET_MAPPINGW(EasyCastStructure):
+class ISCSI_TARGET_MAPPINGW(Structure):
     InitiatorName: Char * 256
     TargetName: Char * 224
     OSDeviceName: Char * 260
@@ -679,36 +679,36 @@ class ISCSI_TARGET_MAPPINGW(EasyCastStructure):
     LUNCount: UInt32
     LUNList: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.SCSI_LUN_LIST)
 ISCSI_TARGET_MAPPING = UnicodeAlias('ISCSI_TARGET_MAPPINGW')
-class ISCSI_TARGET_PORTALA(EasyCastStructure):
+class ISCSI_TARGET_PORTALA(Structure):
     SymbolicName: win32more.Windows.Win32.Foundation.CHAR * 256
     Address: win32more.Windows.Win32.Foundation.CHAR * 256
     Socket: UInt16
-class ISCSI_TARGET_PORTALW(EasyCastStructure):
+class ISCSI_TARGET_PORTALW(Structure):
     SymbolicName: Char * 256
     Address: Char * 256
     Socket: UInt16
 ISCSI_TARGET_PORTAL = UnicodeAlias('ISCSI_TARGET_PORTALW')
-class ISCSI_TARGET_PORTAL_GROUPA(EasyCastStructure):
+class ISCSI_TARGET_PORTAL_GROUPA(Structure):
     Count: UInt32
     Portals: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA * 1
-class ISCSI_TARGET_PORTAL_GROUPW(EasyCastStructure):
+class ISCSI_TARGET_PORTAL_GROUPW(Structure):
     Count: UInt32
     Portals: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW * 1
 ISCSI_TARGET_PORTAL_GROUP = UnicodeAlias('ISCSI_TARGET_PORTAL_GROUPW')
-class ISCSI_TARGET_PORTAL_INFOA(EasyCastStructure):
+class ISCSI_TARGET_PORTAL_INFOA(Structure):
     InitiatorName: win32more.Windows.Win32.Foundation.CHAR * 256
     InitiatorPortNumber: UInt32
     SymbolicName: win32more.Windows.Win32.Foundation.CHAR * 256
     Address: win32more.Windows.Win32.Foundation.CHAR * 256
     Socket: UInt16
-class ISCSI_TARGET_PORTAL_INFOW(EasyCastStructure):
+class ISCSI_TARGET_PORTAL_INFOW(Structure):
     InitiatorName: Char * 256
     InitiatorPortNumber: UInt32
     SymbolicName: Char * 256
     Address: Char * 256
     Socket: UInt16
 ISCSI_TARGET_PORTAL_INFO = UnicodeAlias('ISCSI_TARGET_PORTAL_INFOW')
-class ISCSI_TARGET_PORTAL_INFO_EXA(EasyCastStructure):
+class ISCSI_TARGET_PORTAL_INFO_EXA(Structure):
     InitiatorName: win32more.Windows.Win32.Foundation.CHAR * 256
     InitiatorPortNumber: UInt32
     SymbolicName: win32more.Windows.Win32.Foundation.CHAR * 256
@@ -716,7 +716,7 @@ class ISCSI_TARGET_PORTAL_INFO_EXA(EasyCastStructure):
     Socket: UInt16
     SecurityFlags: UInt64
     LoginOptions: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS
-class ISCSI_TARGET_PORTAL_INFO_EXW(EasyCastStructure):
+class ISCSI_TARGET_PORTAL_INFO_EXW(Structure):
     InitiatorName: Char * 256
     InitiatorPortNumber: UInt32
     SymbolicName: Char * 256
@@ -725,14 +725,14 @@ class ISCSI_TARGET_PORTAL_INFO_EXW(EasyCastStructure):
     SecurityFlags: UInt64
     LoginOptions: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS
 ISCSI_TARGET_PORTAL_INFO_EX = UnicodeAlias('ISCSI_TARGET_PORTAL_INFO_EXW')
-class ISCSI_UNIQUE_SESSION_ID(EasyCastStructure):
+class ISCSI_UNIQUE_SESSION_ID(Structure):
     AdapterUnique: UInt64
     AdapterSpecific: UInt64
-class ISCSI_VERSION_INFO(EasyCastStructure):
+class ISCSI_VERSION_INFO(Structure):
     MajorVersion: UInt32
     MinorVersion: UInt32
     BuildNumber: UInt32
-class MPIO_PASS_THROUGH_PATH(EasyCastStructure):
+class MPIO_PASS_THROUGH_PATH(Structure):
     PassThrough: win32more.Windows.Win32.Storage.IscsiDisc.SCSI_PASS_THROUGH
     Version: UInt32
     Length: UInt16
@@ -740,7 +740,7 @@ class MPIO_PASS_THROUGH_PATH(EasyCastStructure):
     PortNumber: Byte
     MpioPathId: UInt64
 if ARCH in 'X64,ARM64':
-    class MPIO_PASS_THROUGH_PATH32(EasyCastStructure):
+    class MPIO_PASS_THROUGH_PATH32(Structure):
         PassThrough: win32more.Windows.Win32.Storage.IscsiDisc.SCSI_PASS_THROUGH32
         Version: UInt32
         Length: UInt16
@@ -748,14 +748,14 @@ if ARCH in 'X64,ARM64':
         PortNumber: Byte
         MpioPathId: UInt64
 if ARCH in 'X64,ARM64':
-    class MPIO_PASS_THROUGH_PATH32_EX(EasyCastStructure):
+    class MPIO_PASS_THROUGH_PATH32_EX(Structure):
         PassThroughOffset: UInt32
         Version: UInt32
         Length: UInt16
         Flags: Byte
         PortNumber: Byte
         MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH_DIRECT(EasyCastStructure):
+class MPIO_PASS_THROUGH_PATH_DIRECT(Structure):
     PassThrough: win32more.Windows.Win32.Storage.IscsiDisc.SCSI_PASS_THROUGH_DIRECT
     Version: UInt32
     Length: UInt16
@@ -763,7 +763,7 @@ class MPIO_PASS_THROUGH_PATH_DIRECT(EasyCastStructure):
     PortNumber: Byte
     MpioPathId: UInt64
 if ARCH in 'X64,ARM64':
-    class MPIO_PASS_THROUGH_PATH_DIRECT32(EasyCastStructure):
+    class MPIO_PASS_THROUGH_PATH_DIRECT32(Structure):
         PassThrough: win32more.Windows.Win32.Storage.IscsiDisc.SCSI_PASS_THROUGH_DIRECT32
         Version: UInt32
         Length: UInt16
@@ -771,28 +771,28 @@ if ARCH in 'X64,ARM64':
         PortNumber: Byte
         MpioPathId: UInt64
 if ARCH in 'X64,ARM64':
-    class MPIO_PASS_THROUGH_PATH_DIRECT32_EX(EasyCastStructure):
+    class MPIO_PASS_THROUGH_PATH_DIRECT32_EX(Structure):
         PassThroughOffset: UInt32
         Version: UInt32
         Length: UInt16
         Flags: Byte
         PortNumber: Byte
         MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH_DIRECT_EX(EasyCastStructure):
+class MPIO_PASS_THROUGH_PATH_DIRECT_EX(Structure):
     PassThroughOffset: UInt32
     Version: UInt32
     Length: UInt16
     Flags: Byte
     PortNumber: Byte
     MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH_EX(EasyCastStructure):
+class MPIO_PASS_THROUGH_PATH_EX(Structure):
     PassThroughOffset: UInt32
     Version: UInt32
     Length: UInt16
     Flags: Byte
     PortNumber: Byte
     MpioPathId: UInt64
-class MP_DEVICE_DATA_SET_RANGE(EasyCastStructure):
+class MP_DEVICE_DATA_SET_RANGE(Structure):
     StartingOffset: Int64
     LengthInBytes: UInt64
 MP_STORAGE_DIAGNOSTIC_LEVEL = Int32
@@ -803,11 +803,11 @@ MpStorageDiagnosticTargetTypeUndefined: win32more.Windows.Win32.Storage.IscsiDis
 MpStorageDiagnosticTargetTypeMiniport: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 2
 MpStorageDiagnosticTargetTypeHbaFirmware: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 3
 MpStorageDiagnosticTargetTypeMax: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 4
-class NTSCSI_UNICODE_STRING(EasyCastStructure):
+class NTSCSI_UNICODE_STRING(Structure):
     Length: UInt16
     MaximumLength: UInt16
     Buffer: win32more.Windows.Win32.Foundation.PWSTR
-class NVCACHE_HINT_PAYLOAD(EasyCastStructure):
+class NVCACHE_HINT_PAYLOAD(Structure):
     Command: Byte
     Feature7_0: Byte
     Feature15_8: Byte
@@ -821,7 +821,7 @@ class NVCACHE_HINT_PAYLOAD(EasyCastStructure):
     Auxiliary7_0: Byte
     Auxiliary23_16: Byte
     Reserved: Byte * 4
-class NVCACHE_PRIORITY_LEVEL_DESCRIPTOR(EasyCastStructure):
+class NVCACHE_PRIORITY_LEVEL_DESCRIPTOR(Structure):
     PriorityLevel: Byte
     Reserved0: Byte * 3
     ConsumedNVMSizeFraction: UInt32
@@ -829,7 +829,7 @@ class NVCACHE_PRIORITY_LEVEL_DESCRIPTOR(EasyCastStructure):
     ConsumedNVMSizeForDirtyDataFraction: UInt32
     ConsumedMappingResourcesForDirtyDataFraction: UInt32
     Reserved1: UInt32
-class NVCACHE_REQUEST_BLOCK(EasyCastStructure):
+class NVCACHE_REQUEST_BLOCK(Structure):
     NRBSize: UInt32
     Function: UInt16
     NRBFlags: UInt32
@@ -849,7 +849,7 @@ NvCacheTypeUnknown: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_TYPE = 0
 NvCacheTypeNone: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_TYPE = 1
 NvCacheTypeWriteBack: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_TYPE = 2
 NvCacheTypeWriteThrough: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_TYPE = 3
-class NV_FEATURE_PARAMETER(EasyCastStructure):
+class NV_FEATURE_PARAMETER(Structure):
     NVPowerModeEnabled: UInt16
     NVParameterReserv1: UInt16
     NVCmdEnabled: UInt16
@@ -860,17 +860,17 @@ class NV_FEATURE_PARAMETER(EasyCastStructure):
     NVReadSpeed: UInt16
     NVWrtSpeed: UInt16
     DeviceSpinUpTime: UInt32
-class NV_SEP_CACHE_PARAMETER(EasyCastStructure):
+class NV_SEP_CACHE_PARAMETER(Structure):
     Version: UInt32
     Size: UInt32
     Flags: _Flags_e__Union
     WriteCacheType: Byte
     WriteCacheTypeEffective: Byte
     ParameterReserve1: Byte * 3
-    class _Flags_e__Union(EasyCastUnion):
+    class _Flags_e__Union(Union):
         CacheFlags: _CacheFlags_e__Struct
         CacheFlagsSet: Byte
-        class _CacheFlags_e__Struct(EasyCastStructure):
+        class _CacheFlags_e__Struct(Structure):
             _bitfield: Byte
 NV_SEP_WRITE_CACHE_TYPE = Int32
 NVSEPWriteCacheTypeUnknown: win32more.Windows.Win32.Storage.IscsiDisc.NV_SEP_WRITE_CACHE_TYPE = 0
@@ -879,7 +879,7 @@ NVSEPWriteCacheTypeWriteBack: win32more.Windows.Win32.Storage.IscsiDisc.NV_SEP_W
 NVSEPWriteCacheTypeWriteThrough: win32more.Windows.Win32.Storage.IscsiDisc.NV_SEP_WRITE_CACHE_TYPE = 3
 @winfunctype_pointer
 def PDUMP_DEVICE_POWERON_ROUTINE(Context: VoidPtr) -> Int32: ...
-class PERSISTENT_ISCSI_LOGIN_INFOA(EasyCastStructure):
+class PERSISTENT_ISCSI_LOGIN_INFOA(Structure):
     TargetName: win32more.Windows.Win32.Foundation.CHAR * 224
     IsInformationalSession: win32more.Windows.Win32.Foundation.BOOLEAN
     InitiatorInstance: win32more.Windows.Win32.Foundation.CHAR * 256
@@ -888,7 +888,7 @@ class PERSISTENT_ISCSI_LOGIN_INFOA(EasyCastStructure):
     SecurityFlags: UInt64
     Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGA)
     LoginOptions: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS
-class PERSISTENT_ISCSI_LOGIN_INFOW(EasyCastStructure):
+class PERSISTENT_ISCSI_LOGIN_INFOW(Structure):
     TargetName: Char * 224
     IsInformationalSession: win32more.Windows.Win32.Foundation.BOOLEAN
     InitiatorInstance: Char * 256
@@ -898,20 +898,20 @@ class PERSISTENT_ISCSI_LOGIN_INFOW(EasyCastStructure):
     Mappings: POINTER(win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_MAPPINGW)
     LoginOptions: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS
 PERSISTENT_ISCSI_LOGIN_INFO = UnicodeAlias('PERSISTENT_ISCSI_LOGIN_INFOW')
-class SCSI_ADAPTER_BUS_INFO(EasyCastStructure):
+class SCSI_ADAPTER_BUS_INFO(Structure):
     NumberOfBuses: Byte
     BusData: win32more.Windows.Win32.Storage.IscsiDisc.SCSI_BUS_DATA * 1
-class SCSI_ADDRESS(EasyCastStructure):
+class SCSI_ADDRESS(Structure):
     Length: UInt32
     PortNumber: Byte
     PathId: Byte
     TargetId: Byte
     Lun: Byte
-class SCSI_BUS_DATA(EasyCastStructure):
+class SCSI_BUS_DATA(Structure):
     NumberOfLogicalUnits: Byte
     InitiatorBusId: Byte
     InquiryDataOffset: UInt32
-class SCSI_INQUIRY_DATA(EasyCastStructure):
+class SCSI_INQUIRY_DATA(Structure):
     PathId: Byte
     TargetId: Byte
     Lun: Byte
@@ -919,10 +919,10 @@ class SCSI_INQUIRY_DATA(EasyCastStructure):
     InquiryDataLength: UInt32
     NextInquiryDataOffset: UInt32
     InquiryData: Byte * 1
-class SCSI_LUN_LIST(EasyCastStructure):
+class SCSI_LUN_LIST(Structure):
     OSLUN: UInt32
     TargetLUN: UInt64
-class SCSI_PASS_THROUGH(EasyCastStructure):
+class SCSI_PASS_THROUGH(Structure):
     Length: UInt16
     ScsiStatus: Byte
     PathId: Byte
@@ -937,7 +937,7 @@ class SCSI_PASS_THROUGH(EasyCastStructure):
     SenseInfoOffset: UInt32
     Cdb: Byte * 16
 if ARCH in 'X64,ARM64':
-    class SCSI_PASS_THROUGH32(EasyCastStructure):
+    class SCSI_PASS_THROUGH32(Structure):
         Length: UInt16
         ScsiStatus: Byte
         PathId: Byte
@@ -952,7 +952,7 @@ if ARCH in 'X64,ARM64':
         SenseInfoOffset: UInt32
         Cdb: Byte * 16
 if ARCH in 'X64,ARM64':
-    class SCSI_PASS_THROUGH32_EX(EasyCastStructure):
+    class SCSI_PASS_THROUGH32_EX(Structure):
         Version: UInt32
         Length: UInt32
         CdbLength: UInt32
@@ -969,7 +969,7 @@ if ARCH in 'X64,ARM64':
         DataOutBufferOffset: UInt32
         DataInBufferOffset: UInt32
         Cdb: Byte * 1
-class SCSI_PASS_THROUGH_DIRECT(EasyCastStructure):
+class SCSI_PASS_THROUGH_DIRECT(Structure):
     Length: UInt16
     ScsiStatus: Byte
     PathId: Byte
@@ -984,7 +984,7 @@ class SCSI_PASS_THROUGH_DIRECT(EasyCastStructure):
     SenseInfoOffset: UInt32
     Cdb: Byte * 16
 if ARCH in 'X64,ARM64':
-    class SCSI_PASS_THROUGH_DIRECT32(EasyCastStructure):
+    class SCSI_PASS_THROUGH_DIRECT32(Structure):
         Length: UInt16
         ScsiStatus: Byte
         PathId: Byte
@@ -999,7 +999,7 @@ if ARCH in 'X64,ARM64':
         SenseInfoOffset: UInt32
         Cdb: Byte * 16
 if ARCH in 'X64,ARM64':
-    class SCSI_PASS_THROUGH_DIRECT32_EX(EasyCastStructure):
+    class SCSI_PASS_THROUGH_DIRECT32_EX(Structure):
         Version: UInt32
         Length: UInt32
         CdbLength: UInt32
@@ -1016,7 +1016,7 @@ if ARCH in 'X64,ARM64':
         DataOutBuffer: VoidPtr
         DataInBuffer: VoidPtr
         Cdb: Byte * 1
-class SCSI_PASS_THROUGH_DIRECT_EX(EasyCastStructure):
+class SCSI_PASS_THROUGH_DIRECT_EX(Structure):
     Version: UInt32
     Length: UInt32
     CdbLength: UInt32
@@ -1033,7 +1033,7 @@ class SCSI_PASS_THROUGH_DIRECT_EX(EasyCastStructure):
     DataOutBuffer: VoidPtr
     DataInBuffer: VoidPtr
     Cdb: Byte * 1
-class SCSI_PASS_THROUGH_EX(EasyCastStructure):
+class SCSI_PASS_THROUGH_EX(Structure):
     Version: UInt32
     Length: UInt32
     CdbLength: UInt32
@@ -1050,14 +1050,14 @@ class SCSI_PASS_THROUGH_EX(EasyCastStructure):
     DataOutBufferOffset: UIntPtr
     DataInBufferOffset: UIntPtr
     Cdb: Byte * 1
-class SRB_IO_CONTROL(EasyCastStructure):
+class SRB_IO_CONTROL(Structure):
     HeaderLength: UInt32
     Signature: Byte * 8
     Timeout: UInt32
     ControlCode: UInt32
     ReturnCode: UInt32
     Length: UInt32
-class STORAGE_DIAGNOSTIC_MP_REQUEST(EasyCastStructure):
+class STORAGE_DIAGNOSTIC_MP_REQUEST(Structure):
     Version: UInt32
     Size: UInt32
     TargetType: win32more.Windows.Win32.Storage.IscsiDisc.MP_STORAGE_DIAGNOSTIC_TARGET_TYPE
@@ -1066,31 +1066,31 @@ class STORAGE_DIAGNOSTIC_MP_REQUEST(EasyCastStructure):
     BufferSize: UInt32
     Reserved: UInt32
     DataBuffer: Byte * 1
-class STORAGE_ENDURANCE_DATA_DESCRIPTOR(EasyCastStructure):
+class STORAGE_ENDURANCE_DATA_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     EnduranceInfo: win32more.Windows.Win32.Storage.IscsiDisc.STORAGE_ENDURANCE_INFO
-class STORAGE_ENDURANCE_INFO(EasyCastStructure):
+class STORAGE_ENDURANCE_INFO(Structure):
     ValidFields: UInt32
     GroupId: UInt32
     Flags: _Flags_e__Struct
     LifePercentage: UInt32
     BytesReadCount: Byte * 16
     ByteWriteCount: Byte * 16
-    class _Flags_e__Struct(EasyCastStructure):
+    class _Flags_e__Struct(Structure):
         _bitfield: UInt32
-class STORAGE_FIRMWARE_ACTIVATE(EasyCastStructure):
+class STORAGE_FIRMWARE_ACTIVATE(Structure):
     Version: UInt32
     Size: UInt32
     SlotToActivate: Byte
     Reserved0: Byte * 3
-class STORAGE_FIRMWARE_DOWNLOAD(EasyCastStructure):
+class STORAGE_FIRMWARE_DOWNLOAD(Structure):
     Version: UInt32
     Size: UInt32
     Offset: UInt64
     BufferSize: UInt64
     ImageBuffer: Byte * 1
-class STORAGE_FIRMWARE_DOWNLOAD_V2(EasyCastStructure):
+class STORAGE_FIRMWARE_DOWNLOAD_V2(Structure):
     Version: UInt32
     Size: UInt32
     Offset: UInt64
@@ -1099,7 +1099,7 @@ class STORAGE_FIRMWARE_DOWNLOAD_V2(EasyCastStructure):
     Reserved: Byte * 3
     ImageSize: UInt32
     ImageBuffer: Byte * 1
-class STORAGE_FIRMWARE_INFO(EasyCastStructure):
+class STORAGE_FIRMWARE_INFO(Structure):
     Version: UInt32
     Size: UInt32
     UpgradeSupport: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1108,7 +1108,7 @@ class STORAGE_FIRMWARE_INFO(EasyCastStructure):
     PendingActivateSlot: Byte
     Reserved: UInt32
     Slot: win32more.Windows.Win32.Storage.IscsiDisc.STORAGE_FIRMWARE_SLOT_INFO * 1
-class STORAGE_FIRMWARE_INFO_V2(EasyCastStructure):
+class STORAGE_FIRMWARE_INFO_V2(Structure):
     Version: UInt32
     Size: UInt32
     UpgradeSupport: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1120,15 +1120,15 @@ class STORAGE_FIRMWARE_INFO_V2(EasyCastStructure):
     ImagePayloadAlignment: UInt32
     ImagePayloadMaxSize: UInt32
     Slot: win32more.Windows.Win32.Storage.IscsiDisc.STORAGE_FIRMWARE_SLOT_INFO_V2 * 1
-class STORAGE_FIRMWARE_SLOT_INFO(EasyCastStructure):
+class STORAGE_FIRMWARE_SLOT_INFO(Structure):
     SlotNumber: Byte
     ReadOnly: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte * 6
     Revision: _Revision_e__Union
-    class _Revision_e__Union(EasyCastUnion):
+    class _Revision_e__Union(Union):
         Info: Byte * 8
         AsUlonglong: UInt64
-class STORAGE_FIRMWARE_SLOT_INFO_V2(EasyCastStructure):
+class STORAGE_FIRMWARE_SLOT_INFO_V2(Structure):
     SlotNumber: Byte
     ReadOnly: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte * 6

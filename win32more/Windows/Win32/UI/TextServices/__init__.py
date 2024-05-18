@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -2283,10 +2283,10 @@ TF_ATTR_TARGET_NOTCONVERTED: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_
 TF_ATTR_INPUT_ERROR: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = 4
 TF_ATTR_FIXEDCONVERTED: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = 5
 TF_ATTR_OTHER: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO = -1
-class TF_DA_COLOR(EasyCastStructure):
+class TF_DA_COLOR(Structure):
     type: win32more.Windows.Win32.UI.TextServices.TF_DA_COLORTYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         nIndex: Int32
         cr: win32more.Windows.Win32.Foundation.COLORREF
 TF_DA_COLORTYPE = Int32
@@ -2299,18 +2299,18 @@ TF_LS_SOLID: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE = 1
 TF_LS_DOT: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE = 2
 TF_LS_DASH: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE = 3
 TF_LS_SQUIGGLE: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE = 4
-class TF_DISPLAYATTRIBUTE(EasyCastStructure):
+class TF_DISPLAYATTRIBUTE(Structure):
     crText: win32more.Windows.Win32.UI.TextServices.TF_DA_COLOR
     crBk: win32more.Windows.Win32.UI.TextServices.TF_DA_COLOR
     lsStyle: win32more.Windows.Win32.UI.TextServices.TF_DA_LINESTYLE
     fBoldLine: win32more.Windows.Win32.Foundation.BOOL
     crLine: win32more.Windows.Win32.UI.TextServices.TF_DA_COLOR
     bAttr: win32more.Windows.Win32.UI.TextServices.TF_DA_ATTR_INFO
-class TF_HALTCOND(EasyCastStructure):
+class TF_HALTCOND(Structure):
     pHaltRange: win32more.Windows.Win32.UI.TextServices.ITfRange
     aHaltPos: win32more.Windows.Win32.UI.TextServices.TfAnchor
     dwFlags: UInt32
-class TF_INPUTPROCESSORPROFILE(EasyCastStructure):
+class TF_INPUTPROCESSORPROFILE(Structure):
     dwProfileType: UInt32
     langid: UInt16
     clsid: Guid
@@ -2320,74 +2320,74 @@ class TF_INPUTPROCESSORPROFILE(EasyCastStructure):
     dwCaps: UInt32
     hkl: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HKL
     dwFlags: UInt32
-class TF_LANGBARITEMINFO(EasyCastStructure):
+class TF_LANGBARITEMINFO(Structure):
     clsidService: Guid
     guidItem: Guid
     dwStyle: UInt32
     ulSort: UInt32
     szDescription: Char * 32
-class TF_LANGUAGEPROFILE(EasyCastStructure):
+class TF_LANGUAGEPROFILE(Structure):
     clsid: Guid
     langid: UInt16
     catid: Guid
     fActive: win32more.Windows.Win32.Foundation.BOOL
     guidProfile: Guid
-class TF_LBBALLOONINFO(EasyCastStructure):
+class TF_LBBALLOONINFO(Structure):
     style: win32more.Windows.Win32.UI.TextServices.TfLBBalloonStyle
     bstrText: win32more.Windows.Win32.Foundation.BSTR
-class TF_LMLATTELEMENT(EasyCastStructure):
+class TF_LMLATTELEMENT(Structure):
     dwFrameStart: UInt32
     dwFrameLen: UInt32
     dwFlags: UInt32
     Anonymous: _Anonymous_e__Union
     bstrText: win32more.Windows.Win32.Foundation.BSTR
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         iCost: Int32
-class TF_PERSISTENT_PROPERTY_HEADER_ACP(EasyCastStructure):
+class TF_PERSISTENT_PROPERTY_HEADER_ACP(Structure):
     guidType: Guid
     ichStart: Int32
     cch: Int32
     cb: UInt32
     dwPrivate: UInt32
     clsidTIP: Guid
-class TF_PRESERVEDKEY(EasyCastStructure):
+class TF_PRESERVEDKEY(Structure):
     uVKey: UInt32
     uModifiers: UInt32
-class TF_PROPERTYVAL(EasyCastStructure):
+class TF_PROPERTYVAL(Structure):
     guidId: Guid
     varValue: win32more.Windows.Win32.System.Variant.VARIANT
-class TF_SELECTION(EasyCastStructure):
+class TF_SELECTION(Structure):
     range: win32more.Windows.Win32.UI.TextServices.ITfRange
     style: win32more.Windows.Win32.UI.TextServices.TF_SELECTIONSTYLE
-class TF_SELECTIONSTYLE(EasyCastStructure):
+class TF_SELECTIONSTYLE(Structure):
     ase: win32more.Windows.Win32.UI.TextServices.TfActiveSelEnd
     fInterimChar: win32more.Windows.Win32.Foundation.BOOL
 TKBLayoutType = Int32
 TKBLT_UNDEFINED: win32more.Windows.Win32.UI.TextServices.TKBLayoutType = 0
 TKBLT_CLASSIC: win32more.Windows.Win32.UI.TextServices.TKBLayoutType = 1
 TKBLT_OPTIMIZED: win32more.Windows.Win32.UI.TextServices.TKBLayoutType = 2
-class TS_ATTRVAL(EasyCastStructure):
+class TS_ATTRVAL(Structure):
     idAttr: Guid
     dwOverlapId: UInt32
     varValue: win32more.Windows.Win32.System.Variant.VARIANT
-class TS_RUNINFO(EasyCastStructure):
+class TS_RUNINFO(Structure):
     uCount: UInt32
     type: win32more.Windows.Win32.UI.TextServices.TsRunType
-class TS_SELECTIONSTYLE(EasyCastStructure):
+class TS_SELECTIONSTYLE(Structure):
     ase: win32more.Windows.Win32.UI.TextServices.TsActiveSelEnd
     fInterimChar: win32more.Windows.Win32.Foundation.BOOL
-class TS_SELECTION_ACP(EasyCastStructure):
+class TS_SELECTION_ACP(Structure):
     acpStart: Int32
     acpEnd: Int32
     style: win32more.Windows.Win32.UI.TextServices.TS_SELECTIONSTYLE
-class TS_SELECTION_ANCHOR(EasyCastStructure):
+class TS_SELECTION_ANCHOR(Structure):
     paStart: win32more.Windows.Win32.UI.TextServices.IAnchor
     paEnd: win32more.Windows.Win32.UI.TextServices.IAnchor
     style: win32more.Windows.Win32.UI.TextServices.TS_SELECTIONSTYLE
-class TS_STATUS(EasyCastStructure):
+class TS_STATUS(Structure):
     dwDynamicFlags: UInt32
     dwStaticFlags: UInt32
-class TS_TEXTCHANGE(EasyCastStructure):
+class TS_TEXTCHANGE(Structure):
     acpStart: Int32
     acpOldEnd: Int32
     acpNewEnd: Int32

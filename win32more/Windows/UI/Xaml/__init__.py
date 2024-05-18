@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.Activation
@@ -472,7 +472,7 @@ class ColorPaletteResources(ComPtr):
     ErrorText = property(get_ErrorText, put_ErrorText)
     ListLow = property(get_ListLow, put_ListLow)
     ListMedium = property(get_ListMedium, put_ListMedium)
-class CornerRadius(EasyCastStructure):
+class CornerRadius(Structure):
     TopLeft: Double
     TopRight: Double
     BottomRight: Double
@@ -856,7 +856,7 @@ class DropCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_DropResult(self: win32more.Windows.UI.Xaml.IDropCompletedEventArgs) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     DropResult = property(get_DropResult, None)
-class Duration(EasyCastStructure):
+class Duration(Structure):
     TimeSpan: win32more.Windows.Foundation.TimeSpan
     Type: win32more.Windows.UI.Xaml.DurationType
 class _DurationHelper_Meta_(ComPtr.__class__):
@@ -1430,7 +1430,7 @@ class FrameworkViewSource(ComPtr):
     def CreateInstance(cls) -> win32more.Windows.UI.Xaml.FrameworkViewSource: ...
     @winrt_mixinmethod
     def CreateView(self: win32more.Windows.ApplicationModel.Core.IFrameworkViewSource) -> win32more.Windows.ApplicationModel.Core.IFrameworkView: ...
-class GridLength(EasyCastStructure):
+class GridLength(Structure):
     Value: Double
     GridUnitType: win32more.Windows.UI.Xaml.GridUnitType
 class _GridLengthHelper_Meta_(ComPtr.__class__):
@@ -4579,7 +4579,7 @@ class TextWrapping(Int32):  # enum
     NoWrap = 1
     Wrap = 2
     WrapWholeWords = 3
-class Thickness(EasyCastStructure):
+class Thickness(Structure):
     Left: Double
     Top: Double
     Right: Double

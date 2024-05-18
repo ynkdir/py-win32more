@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Gaming
 import win32more.Windows.Win32.System.Com
@@ -85,7 +85,7 @@ GAMING_DEVICE_DEVICE_ID_XBOX_ONE_X_DEVKIT: win32more.Windows.Win32.Gaming.GAMING
 GAMING_DEVICE_DEVICE_ID_XBOX_SERIES_S: win32more.Windows.Win32.Gaming.GAMING_DEVICE_DEVICE_ID = 489159355
 GAMING_DEVICE_DEVICE_ID_XBOX_SERIES_X: win32more.Windows.Win32.Gaming.GAMING_DEVICE_DEVICE_ID = 796540415
 GAMING_DEVICE_DEVICE_ID_XBOX_SERIES_X_DEVKIT: win32more.Windows.Win32.Gaming.GAMING_DEVICE_DEVICE_ID = -561359263
-class GAMING_DEVICE_MODEL_INFORMATION(EasyCastStructure):
+class GAMING_DEVICE_MODEL_INFORMATION(Structure):
     vendorId: win32more.Windows.Win32.Gaming.GAMING_DEVICE_VENDOR_ID
     deviceId: win32more.Windows.Win32.Gaming.GAMING_DEVICE_DEVICE_ID
 GAMING_DEVICE_VENDOR_ID = Int32

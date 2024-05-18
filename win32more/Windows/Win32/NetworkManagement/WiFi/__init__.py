@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
@@ -1050,7 +1050,7 @@ def DOT11EXTIHV_STOP_POST_ASSOCIATE(hIhvExtAdapter: win32more.Windows.Win32.Foun
 def DOT11EXTIHV_VALIDATE_PROFILE(hIhvExtAdapter: win32more.Windows.Win32.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS), pIhvConnProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE), pIhvSecProfile: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXT_ALLOCATE_BUFFER(dwByteCount: UInt32, ppvBuffer: POINTER(VoidPtr)) -> UInt32: ...
-class DOT11EXT_APIS(EasyCastStructure):
+class DOT11EXT_APIS(Structure):
     Dot11ExtAllocateBuffer: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_ALLOCATE_BUFFER
     Dot11ExtFreeBuffer: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_FREE_BUFFER
     Dot11ExtSetProfileCustomUserData: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA
@@ -1081,15 +1081,15 @@ DOT11EXT_IHV_CONNECTION_PHASE = Int32
 connection_phase_any: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE = 0
 connection_phase_initial_connection: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE = 1
 connection_phase_post_l3_connection: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE = 2
-class DOT11EXT_IHV_CONNECTIVITY_PROFILE(EasyCastStructure):
+class DOT11EXT_IHV_CONNECTIVITY_PROFILE(Structure):
     pszXmlFragmentIhvConnectivity: win32more.Windows.Win32.Foundation.PWSTR
-class DOT11EXT_IHV_DISCOVERY_PROFILE(EasyCastStructure):
+class DOT11EXT_IHV_DISCOVERY_PROFILE(Structure):
     IhvConnectivityProfile: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE
     IhvSecurityProfile: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE
-class DOT11EXT_IHV_DISCOVERY_PROFILE_LIST(EasyCastStructure):
+class DOT11EXT_IHV_DISCOVERY_PROFILE_LIST(Structure):
     dwCount: UInt32
     pIhvDiscoveryProfiles: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE)
-class DOT11EXT_IHV_HANDLERS(EasyCastStructure):
+class DOT11EXT_IHV_HANDLERS(Structure):
     Dot11ExtIhvDeinitService: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXTIHV_DEINIT_SERVICE
     Dot11ExtIhvInitAdapter: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXTIHV_INIT_ADAPTER
     Dot11ExtIhvDeinitAdapter: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXTIHV_DEINIT_ADAPTER
@@ -1115,22 +1115,22 @@ IndicationTypePmkidCandidateList: win32more.Windows.Win32.NetworkManagement.WiFi
 IndicationTypeTkipMicFailure: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 2
 IndicationTypePhyStateChange: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 3
 IndicationTypeLinkQuality: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE = 4
-class DOT11EXT_IHV_PARAMS(EasyCastStructure):
+class DOT11EXT_IHV_PARAMS(Structure):
     dot11ExtIhvProfileParams: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS
     wstrProfileName: Char * 256
     dwProfileTypeFlags: UInt32
     interfaceGuid: Guid
-class DOT11EXT_IHV_PROFILE_PARAMS(EasyCastStructure):
+class DOT11EXT_IHV_PROFILE_PARAMS(Structure):
     pSsidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_IHV_SSID_LIST)
     BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     pMSSecuritySettings: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSSECURITY_SETTINGS)
-class DOT11EXT_IHV_SECURITY_PROFILE(EasyCastStructure):
+class DOT11EXT_IHV_SECURITY_PROFILE(Structure):
     pszXmlFragmentIhvSecurity: win32more.Windows.Win32.Foundation.PWSTR
     bUseMSOnex: win32more.Windows.Win32.Foundation.BOOL
-class DOT11EXT_IHV_SSID_LIST(EasyCastStructure):
+class DOT11EXT_IHV_SSID_LIST(Structure):
     ulCount: UInt32
     SSIDs: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID * 1
-class DOT11EXT_IHV_UI_REQUEST(EasyCastStructure):
+class DOT11EXT_IHV_UI_REQUEST(Structure):
     dwSessionId: UInt32
     guidUIRequest: Guid
     UIPageClsid: Guid
@@ -1182,19 +1182,19 @@ def DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA(hDot11SvcHandle: win32more.Windows.Win
 def DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, dwUnicastCipherAlgo: UInt32) -> UInt32: ...
 @winfunctype_pointer
 def DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES(hDot11SvcHandle: win32more.Windows.Win32.Foundation.HANDLE, hConnectSession: win32more.Windows.Win32.Foundation.HANDLE, dwNumProperties: UInt32, pProperties: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_AP_PROPERTY), pvReserved: VoidPtr) -> UInt32: ...
-class DOT11EXT_VIRTUAL_STATION_APIS(EasyCastStructure):
+class DOT11EXT_VIRTUAL_STATION_APIS(Structure):
     Dot11ExtRequestVirtualStation: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_REQUEST_VIRTUAL_STATION
     Dot11ExtReleaseVirtualStation: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_RELEASE_VIRTUAL_STATION
     Dot11ExtQueryVirtualStationProperties: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES
     Dot11ExtSetVirtualStationAPProperties: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES
-class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY(EasyCastStructure):
+class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY(Structure):
     dot11SSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     dot11AuthAlgo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
     dot11CipherAlgo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
     bIsPassPhrase: win32more.Windows.Win32.Foundation.BOOL
     dwKeyLength: UInt32
     ucKeyData: Byte * 64
-class DOT11_ACCESSNETWORKOPTIONS(EasyCastStructure):
+class DOT11_ACCESSNETWORKOPTIONS(Structure):
     AccessNetworkType: Byte
     Internet: Byte
     ASRA: Byte
@@ -1206,11 +1206,11 @@ dot11_AC_param_BK: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AC_PARAM
 dot11_AC_param_VI: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AC_PARAM = 2
 dot11_AC_param_VO: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AC_PARAM = 3
 dot11_AC_param_max: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AC_PARAM = 4
-class DOT11_ADAPTER(EasyCastStructure):
+class DOT11_ADAPTER(Structure):
     gAdapterId: Guid
     pszDescription: win32more.Windows.Win32.Foundation.PWSTR
     Dot11CurrentOpMode: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CURRENT_OPERATION_MODE
-class DOT11_ADDITIONAL_IE(EasyCastStructure):
+class DOT11_ADDITIONAL_IE(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uBeaconIEsOffset: UInt32
     uBeaconIEsLength: UInt32
@@ -1235,7 +1235,7 @@ DOT11_ADHOC_NETWORK_CONNECTION_STATUS_DISCONNECTED: win32more.Windows.Win32.Netw
 DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTING: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 12
 DOT11_ADHOC_NETWORK_CONNECTION_STATUS_CONNECTED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 13
 DOT11_ADHOC_NETWORK_CONNECTION_STATUS_FORMED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS = 14
-class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS(EasyCastStructure):
+class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Status: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT
     hContext: win32more.Windows.Win32.Foundation.HANDLE
@@ -1249,12 +1249,12 @@ dot11_ANQP_query_result_advertisement_protocol_not_supported_on_remote: win32mor
 dot11_ANQP_query_result_gas_protocol_failure: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 5
 dot11_ANQP_query_result_advertisement_server_not_responding: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 6
 dot11_ANQP_query_result_access_issues: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ANQP_QUERY_RESULT = 7
-class DOT11_AP_JOIN_REQUEST(EasyCastStructure):
+class DOT11_AP_JOIN_REQUEST(Structure):
     uJoinFailureTimeout: UInt32
     OperationalRateSet: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RATE_SET
     uChCenterFrequency: UInt32
     dot11BSSDescription: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION
-class DOT11_ASSOCIATION_COMPLETION_PARAMETERS(EasyCastStructure):
+class DOT11_ASSOCIATION_COMPLETION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     MacAddr: Byte * 6
     uStatus: UInt32
@@ -1281,7 +1281,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS(EasyCastStructure):
     uEncapTableSize: UInt32
     MulticastMgmtCipher: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
     uAssocComebackTime: UInt32
-class DOT11_ASSOCIATION_INFO_EX(EasyCastStructure):
+class DOT11_ASSOCIATION_INFO_EX(Structure):
     PeerMacAddress: Byte * 6
     BSSID: Byte * 6
     usCapabilityInformation: UInt16
@@ -1295,17 +1295,17 @@ class DOT11_ASSOCIATION_INFO_EX(EasyCastStructure):
     ullNumOfTxPacketFailures: UInt64
     ullNumOfRxPacketSuccesses: UInt64
     ullNumOfRxPacketFailures: UInt64
-class DOT11_ASSOCIATION_INFO_LIST(EasyCastStructure):
+class DOT11_ASSOCIATION_INFO_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11AssocInfo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ASSOCIATION_INFO_EX * 1
-class DOT11_ASSOCIATION_PARAMS(EasyCastStructure):
+class DOT11_ASSOCIATION_PARAMS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     BSSID: Byte * 6
     uAssocRequestIEsOffset: UInt32
     uAssocRequestIEsLength: UInt32
-class DOT11_ASSOCIATION_START_PARAMETERS(EasyCastStructure):
+class DOT11_ASSOCIATION_START_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     MacAddr: Byte * 6
     SSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
@@ -1331,25 +1331,25 @@ DOT11_AUTH_ALGO_OWE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_A
 DOT11_AUTH_ALGO_WPA3_ENT: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = 11
 DOT11_AUTH_ALGO_IHV_START: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = -2147483648
 DOT11_AUTH_ALGO_IHV_END: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM = -1
-class DOT11_AUTH_ALGORITHM_LIST(EasyCastStructure):
+class DOT11_AUTH_ALGORITHM_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     AlgorithmIds: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM * 1
-class DOT11_AUTH_CIPHER_PAIR(EasyCastStructure):
+class DOT11_AUTH_CIPHER_PAIR(Structure):
     AuthAlgoId: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
     CipherAlgoId: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
-class DOT11_AUTH_CIPHER_PAIR_LIST(EasyCastStructure):
+class DOT11_AUTH_CIPHER_PAIR_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     AuthCipherPairs: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR * 1
-class DOT11_AVAILABLE_CHANNEL_LIST(EasyCastStructure):
+class DOT11_AVAILABLE_CHANNEL_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     uChannelNumber: UInt32 * 1
-class DOT11_AVAILABLE_FREQUENCY_LIST(EasyCastStructure):
+class DOT11_AVAILABLE_FREQUENCY_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
@@ -1358,15 +1358,15 @@ DOT11_BAND = Int32
 dot11_band_2p4g: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND = 1
 dot11_band_4p9g: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND = 2
 dot11_band_5g: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND = 3
-class DOT11_BSSID_CANDIDATE(EasyCastStructure):
+class DOT11_BSSID_CANDIDATE(Structure):
     BSSID: Byte * 6
     uFlags: UInt32
-class DOT11_BSSID_LIST(EasyCastStructure):
+class DOT11_BSSID_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     BSSIDs: Byte * 6
-class DOT11_BSS_DESCRIPTION(EasyCastStructure):
+class DOT11_BSS_DESCRIPTION(Structure):
     uReserved: UInt32
     dot11BSSID: Byte * 6
     dot11BSSType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
@@ -1375,7 +1375,7 @@ class DOT11_BSS_DESCRIPTION(EasyCastStructure):
     usCapabilityInformation: UInt16
     uBufferLength: UInt32
     ucBuffer: Byte * 1
-class DOT11_BSS_ENTRY(EasyCastStructure):
+class DOT11_BSS_ENTRY(Structure):
     uPhyId: UInt32
     PhySpecificInfo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO
     dot11BSSID: Byte * 6
@@ -1389,29 +1389,29 @@ class DOT11_BSS_ENTRY(EasyCastStructure):
     usCapabilityInformation: UInt16
     uBufferLength: UInt32
     ucBuffer: Byte * 1
-class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(EasyCastUnion):
+class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(Union):
     uChCenterFrequency: UInt32
     FHSS: _FHSS_e__Struct
-    class _FHSS_e__Struct(EasyCastStructure):
+    class _FHSS_e__Struct(Structure):
         uHopPattern: UInt32
         uHopSet: UInt32
         uDwellTime: UInt32
-class DOT11_BSS_LIST(EasyCastStructure):
+class DOT11_BSS_LIST(Structure):
     uNumOfBytes: UInt32
     pucBuffer: POINTER(Byte)
 DOT11_BSS_TYPE = Int32
 dot11_BSS_type_infrastructure: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE = 1
 dot11_BSS_type_independent: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE = 2
 dot11_BSS_type_any: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE = 3
-class DOT11_BYTE_ARRAY(EasyCastStructure):
+class DOT11_BYTE_ARRAY(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfBytes: UInt32
     uTotalNumOfBytes: UInt32
     ucBuffer: Byte * 1
-class DOT11_CAN_SUSTAIN_AP_PARAMETERS(EasyCastStructure):
+class DOT11_CAN_SUSTAIN_AP_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ulReason: UInt32
-class DOT11_CHANNEL_HINT(EasyCastStructure):
+class DOT11_CHANNEL_HINT(Structure):
     Dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
     uChannelNumber: UInt32
 DOT11_CIPHER_ALGORITHM = Int32
@@ -1432,12 +1432,12 @@ DOT11_CIPHER_ALGO_RSN_USE_GROUP: win32more.Windows.Win32.NetworkManagement.WiFi.
 DOT11_CIPHER_ALGO_WEP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = 257
 DOT11_CIPHER_ALGO_IHV_START: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = -2147483648
 DOT11_CIPHER_ALGO_IHV_END: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM = -1
-class DOT11_CIPHER_ALGORITHM_LIST(EasyCastStructure):
+class DOT11_CIPHER_ALGORITHM_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     AlgorithmIds: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM * 1
-class DOT11_CIPHER_DEFAULT_KEY_VALUE(EasyCastStructure):
+class DOT11_CIPHER_DEFAULT_KEY_VALUE(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uKeyIndex: UInt32
     AlgorithmId: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
@@ -1446,7 +1446,7 @@ class DOT11_CIPHER_DEFAULT_KEY_VALUE(EasyCastStructure):
     bStatic: win32more.Windows.Win32.Foundation.BOOLEAN
     usKeyLength: UInt16
     ucKey: Byte * 1
-class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE(EasyCastStructure):
+class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE(Structure):
     PeerMacAddr: Byte * 6
     AlgorithmId: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
     Direction: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIRECTION
@@ -1454,15 +1454,15 @@ class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE(EasyCastStructure):
     bStatic: win32more.Windows.Win32.Foundation.BOOLEAN
     usKeyLength: UInt16
     ucKey: Byte * 1
-class DOT11_CONNECTION_COMPLETION_PARAMETERS(EasyCastStructure):
+class DOT11_CONNECTION_COMPLETION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uStatus: UInt32
-class DOT11_CONNECTION_START_PARAMETERS(EasyCastStructure):
+class DOT11_CONNECTION_START_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     BSSType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     AdhocBSSID: Byte * 6
     AdhocSSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
-class DOT11_COUNTERS_ENTRY(EasyCastStructure):
+class DOT11_COUNTERS_ENTRY(Structure):
     uTransmittedFragmentCount: UInt32
     uMulticastTransmittedFrameCount: UInt32
     uFailedCount: UInt32
@@ -1476,32 +1476,32 @@ class DOT11_COUNTERS_ENTRY(EasyCastStructure):
     uMulticastReceivedFrameCount: UInt32
     uFCSErrorCount: UInt32
     uTransmittedFrameCount: UInt32
-class DOT11_COUNTRY_OR_REGION_STRING_LIST(EasyCastStructure):
+class DOT11_COUNTRY_OR_REGION_STRING_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     CountryOrRegionStrings: Byte * 3
-class DOT11_CURRENT_OFFLOAD_CAPABILITY(EasyCastStructure):
+class DOT11_CURRENT_OFFLOAD_CAPABILITY(Structure):
     uReserved: UInt32
     uFlags: UInt32
-class DOT11_CURRENT_OPERATION_MODE(EasyCastStructure):
+class DOT11_CURRENT_OPERATION_MODE(Structure):
     uReserved: UInt32
     uCurrentOpMode: UInt32
-class DOT11_CURRENT_OPTIONAL_CAPABILITY(EasyCastStructure):
+class DOT11_CURRENT_OPTIONAL_CAPABILITY(Structure):
     uReserved: UInt32
     bDot11CFPollable: win32more.Windows.Win32.Foundation.BOOLEAN
     bDot11PCF: win32more.Windows.Win32.Foundation.BOOLEAN
     bDot11PCFMPDUTransferToPC: win32more.Windows.Win32.Foundation.BOOLEAN
     bStrictlyOrderedServiceClass: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_DATA_RATE_MAPPING_ENTRY(EasyCastStructure):
+class DOT11_DATA_RATE_MAPPING_ENTRY(Structure):
     ucDataRateIndex: Byte
     ucDataRateFlag: Byte
     usDataRateValue: UInt16
-class DOT11_DATA_RATE_MAPPING_TABLE(EasyCastStructure):
+class DOT11_DATA_RATE_MAPPING_TABLE(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uDataRateMappingLength: UInt32
     DataRateMappingEntries: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_ENTRY * 126
-class DOT11_DEFAULT_WEP_OFFLOAD(EasyCastStructure):
+class DOT11_DEFAULT_WEP_OFFLOAD(Structure):
     uReserved: UInt32
     hOffloadContext: win32more.Windows.Win32.Foundation.HANDLE
     hOffload: win32more.Windows.Win32.Foundation.HANDLE
@@ -1516,7 +1516,7 @@ class DOT11_DEFAULT_WEP_OFFLOAD(EasyCastStructure):
     usDot11RWBitMaps: UInt16 * 16
     usKeyLength: UInt16
     ucKey: Byte * 1
-class DOT11_DEFAULT_WEP_UPLOAD(EasyCastStructure):
+class DOT11_DEFAULT_WEP_UPLOAD(Structure):
     uReserved: UInt32
     dot11OffloadType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE
     hOffload: win32more.Windows.Win32.Foundation.HANDLE
@@ -1527,20 +1527,20 @@ DOT11_DIRECTION = Int32
 DOT11_DIR_INBOUND: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIRECTION = 1
 DOT11_DIR_OUTBOUND: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIRECTION = 2
 DOT11_DIR_BOTH: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIRECTION = 3
-class DOT11_DISASSOCIATE_PEER_REQUEST(EasyCastStructure):
+class DOT11_DISASSOCIATE_PEER_REQUEST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerMacAddr: Byte * 6
     usReason: UInt16
-class DOT11_DISASSOCIATION_PARAMETERS(EasyCastStructure):
+class DOT11_DISASSOCIATION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     MacAddr: Byte * 6
     uReason: UInt32
     uIHVDataOffset: UInt32
     uIHVDataSize: UInt32
-class DOT11_DIVERSITY_SELECTION_RX(EasyCastStructure):
+class DOT11_DIVERSITY_SELECTION_RX(Structure):
     uAntennaListIndex: UInt32
     bDiversitySelectionRX: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_DIVERSITY_SELECTION_RX_LIST(EasyCastStructure):
+class DOT11_DIVERSITY_SELECTION_RX_LIST(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11DiversitySelectionRx: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DIVERSITY_SELECTION_RX * 1
@@ -1553,18 +1553,18 @@ DOT11_DS_INFO = Int32
 DOT11_DS_CHANGED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DS_INFO = 0
 DOT11_DS_UNCHANGED: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DS_INFO = 1
 DOT11_DS_UNKNOWN: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DS_INFO = 2
-class DOT11_EAP_RESULT(EasyCastStructure):
+class DOT11_EAP_RESULT(Structure):
     dwFailureReasonCode: UInt32
     pAttribArray: POINTER(win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES)
-class DOT11_ENCAP_ENTRY(EasyCastStructure):
+class DOT11_ENCAP_ENTRY(Structure):
     usEtherType: UInt16
     usEncapType: UInt16
-class DOT11_ERP_PHY_ATTRIBUTES(EasyCastStructure):
+class DOT11_ERP_PHY_ATTRIBUTES(Structure):
     HRDSSSAttributes: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HRDSSS_PHY_ATTRIBUTES
     bERPPBCCOptionImplemented: win32more.Windows.Win32.Foundation.BOOLEAN
     bDSSSOFDMOptionImplemented: win32more.Windows.Win32.Foundation.BOOLEAN
     bShortSlotTimeOptionImplemented: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_EXTAP_ATTRIBUTES(EasyCastStructure):
+class DOT11_EXTAP_ATTRIBUTES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uScanSSIDListSize: UInt32
     uDesiredSSIDListSize: UInt32
@@ -1579,7 +1579,7 @@ class DOT11_EXTAP_ATTRIBUTES(EasyCastStructure):
     pInfraSupportedUcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR)
     uInfraNumSupportedMcastAlgoPairs: UInt32
     pInfraSupportedMcastAlgoPairs: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR)
-class DOT11_EXTSTA_ATTRIBUTES(EasyCastStructure):
+class DOT11_EXTSTA_ATTRIBUTES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uScanSSIDListSize: UInt32
     uDesiredBSSIDListSize: UInt32
@@ -1614,7 +1614,7 @@ class DOT11_EXTSTA_ATTRIBUTES(EasyCastStructure):
     bActionFramesSupported: win32more.Windows.Win32.Foundation.BOOLEAN
     bANQPQueryOffloadSupported: win32more.Windows.Win32.Foundation.BOOLEAN
     bHESSIDConnectionSupported: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_EXTSTA_CAPABILITY(EasyCastStructure):
+class DOT11_EXTSTA_CAPABILITY(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uScanSSIDListSize: UInt32
     uDesiredBSSIDListSize: UInt32
@@ -1626,7 +1626,7 @@ class DOT11_EXTSTA_CAPABILITY(EasyCastStructure):
     uWEPKeyValueMaxLength: UInt32
     uPMKIDCacheSize: UInt32
     uMaxNumPerSTADefaultKeyTables: UInt32
-class DOT11_EXTSTA_RECV_CONTEXT(EasyCastStructure):
+class DOT11_EXTSTA_RECV_CONTEXT(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uReceiveFlags: UInt32
     uPhyId: UInt32
@@ -1637,41 +1637,41 @@ class DOT11_EXTSTA_RECV_CONTEXT(EasyCastStructure):
     uSizeMediaSpecificInfo: UInt32
     pvMediaSpecificInfo: VoidPtr
     ullTimestamp: UInt64
-class DOT11_EXTSTA_SEND_CONTEXT(EasyCastStructure):
+class DOT11_EXTSTA_SEND_CONTEXT(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     usExemptionActionType: UInt16
     uPhyId: UInt32
     uDelayedSleepValue: UInt32
     pvMediaSpecificInfo: VoidPtr
     uSendFlags: UInt32
-class DOT11_FRAGMENT_DESCRIPTOR(EasyCastStructure):
+class DOT11_FRAGMENT_DESCRIPTOR(Structure):
     uOffset: UInt32
     uLength: UInt32
-class DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS(EasyCastStructure):
+class DOT11_GO_NEGOTIATION_CONFIRMATION_SEND_COMPLETE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     DialogToken: Byte
     Status: Int32
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS(EasyCastStructure):
+class DOT11_GO_NEGOTIATION_REQUEST_SEND_COMPLETE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     DialogToken: Byte
     Status: Int32
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS(EasyCastStructure):
+class DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     DialogToken: Byte
     Status: Int32
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_HOPPING_PATTERN_ENTRY(EasyCastStructure):
+class DOT11_HOPPING_PATTERN_ENTRY(Structure):
     uHoppingPatternIndex: UInt32
     uRandomTableFieldNumber: UInt32
-class DOT11_HOPPING_PATTERN_ENTRY_LIST(EasyCastStructure):
+class DOT11_HOPPING_PATTERN_ENTRY_LIST(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11HoppingPatternEntry: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HOPPING_PATTERN_ENTRY * 1
@@ -1679,20 +1679,20 @@ DOT11_HOP_ALGO_ADOPTED = Int32
 dot11_hop_algo_current: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HOP_ALGO_ADOPTED = 0
 dot11_hop_algo_hop_index: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HOP_ALGO_ADOPTED = 1
 dot11_hop_algo_hcc: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HOP_ALGO_ADOPTED = 2
-class DOT11_HRDSSS_PHY_ATTRIBUTES(EasyCastStructure):
+class DOT11_HRDSSS_PHY_ATTRIBUTES(Structure):
     bShortPreambleOptionImplemented: win32more.Windows.Win32.Foundation.BOOLEAN
     bPBCCOptionImplemented: win32more.Windows.Win32.Foundation.BOOLEAN
     bChannelAgilityPresent: win32more.Windows.Win32.Foundation.BOOLEAN
     uHRCCAModeSupported: UInt32
-class DOT11_IBSS_PARAMS(EasyCastStructure):
+class DOT11_IBSS_PARAMS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     bJoinOnly: win32more.Windows.Win32.Foundation.BOOLEAN
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_IHV_VERSION_INFO(EasyCastStructure):
+class DOT11_IHV_VERSION_INFO(Structure):
     dwVerMin: UInt32
     dwVerMax: UInt32
-class DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS(EasyCastStructure):
+class DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerMacAddr: Byte * 6
     uStatus: UInt32
@@ -1710,14 +1710,14 @@ class DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS(EasyCastStructure):
     uActivePhyListSize: UInt32
     uBeaconOffset: UInt32
     uBeaconSize: UInt32
-class DOT11_INCOMING_ASSOC_DECISION(EasyCastStructure):
+class DOT11_INCOMING_ASSOC_DECISION(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerMacAddr: Byte * 6
     bAccept: win32more.Windows.Win32.Foundation.BOOLEAN
     usReasonCode: UInt16
     uAssocResponseIEsOffset: UInt32
     uAssocResponseIEsLength: UInt32
-class DOT11_INCOMING_ASSOC_DECISION_V2(EasyCastStructure):
+class DOT11_INCOMING_ASSOC_DECISION_V2(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerMacAddr: Byte * 6
     bAccept: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1725,16 +1725,16 @@ class DOT11_INCOMING_ASSOC_DECISION_V2(EasyCastStructure):
     uAssocResponseIEsOffset: UInt32
     uAssocResponseIEsLength: UInt32
     WFDStatus: Byte
-class DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS(EasyCastStructure):
+class DOT11_INCOMING_ASSOC_REQUEST_RECEIVED_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerMacAddr: Byte * 6
     bReAssocReq: win32more.Windows.Win32.Foundation.BOOLEAN
     uAssocReqOffset: UInt32
     uAssocReqSize: UInt32
-class DOT11_INCOMING_ASSOC_STARTED_PARAMETERS(EasyCastStructure):
+class DOT11_INCOMING_ASSOC_STARTED_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerMacAddr: Byte * 6
-class DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS(EasyCastStructure):
+class DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     ReceiverAddress: Byte * 6
@@ -1742,42 +1742,42 @@ class DOT11_INVITATION_REQUEST_SEND_COMPLETE_PARAMETERS(EasyCastStructure):
     Status: Int32
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS(EasyCastStructure):
+class DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ReceiverDeviceAddress: Byte * 6
     DialogToken: Byte
     Status: Int32
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_IV48_COUNTER(EasyCastStructure):
+class DOT11_IV48_COUNTER(Structure):
     uIV32Counter: UInt32
     usIV16Counter: UInt16
-class DOT11_JOIN_REQUEST(EasyCastStructure):
+class DOT11_JOIN_REQUEST(Structure):
     uJoinFailureTimeout: UInt32
     OperationalRateSet: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RATE_SET
     uChCenterFrequency: UInt32
     dot11BSSDescription: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION
-class DOT11_KEY_ALGO_BIP(EasyCastStructure):
+class DOT11_KEY_ALGO_BIP(Structure):
     ucIPN: Byte * 6
     ulBIPKeyLength: UInt32
     ucBIPKey: Byte * 1
-class DOT11_KEY_ALGO_BIP_GMAC_256(EasyCastStructure):
+class DOT11_KEY_ALGO_BIP_GMAC_256(Structure):
     ucIPN: Byte * 6
     ulBIPGmac256KeyLength: UInt32
     ucBIPGmac256Key: Byte * 1
-class DOT11_KEY_ALGO_CCMP(EasyCastStructure):
+class DOT11_KEY_ALGO_CCMP(Structure):
     ucIV48Counter: Byte * 6
     ulCCMPKeyLength: UInt32
     ucCCMPKey: Byte * 1
-class DOT11_KEY_ALGO_GCMP(EasyCastStructure):
+class DOT11_KEY_ALGO_GCMP(Structure):
     ucIV48Counter: Byte * 6
     ulGCMPKeyLength: UInt32
     ucGCMPKey: Byte * 1
-class DOT11_KEY_ALGO_GCMP_256(EasyCastStructure):
+class DOT11_KEY_ALGO_GCMP_256(Structure):
     ucIV48Counter: Byte * 6
     ulGCMP256KeyLength: UInt32
     ucGCMP256Key: Byte * 1
-class DOT11_KEY_ALGO_TKIP_MIC(EasyCastStructure):
+class DOT11_KEY_ALGO_TKIP_MIC(Structure):
     ucIV48Counter: Byte * 6
     ulTKIPKeyLength: UInt32
     ulMICKeyLength: UInt32
@@ -1786,19 +1786,19 @@ DOT11_KEY_DIRECTION = Int32
 dot11_key_direction_both: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_KEY_DIRECTION = 1
 dot11_key_direction_inbound: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_KEY_DIRECTION = 2
 dot11_key_direction_outbound: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_KEY_DIRECTION = 3
-class DOT11_LINK_QUALITY_ENTRY(EasyCastStructure):
+class DOT11_LINK_QUALITY_ENTRY(Structure):
     PeerMacAddr: Byte * 6
     ucLinkQuality: Byte
-class DOT11_LINK_QUALITY_PARAMETERS(EasyCastStructure):
+class DOT11_LINK_QUALITY_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uLinkQualityListSize: UInt32
     uLinkQualityListOffset: UInt32
-class DOT11_MAC_ADDRESS_LIST(EasyCastStructure):
+class DOT11_MAC_ADDRESS_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     MacAddrs: Byte * 6
-class DOT11_MAC_FRAME_STATISTICS(EasyCastStructure):
+class DOT11_MAC_FRAME_STATISTICS(Structure):
     ullTransmittedFrameCount: UInt64
     ullReceivedFrameCount: UInt64
     ullTransmittedFailureFrameCount: UInt64
@@ -1813,14 +1813,14 @@ class DOT11_MAC_FRAME_STATISTICS(EasyCastStructure):
     ullWEPICVErrorCount: UInt64
     ullDecryptSuccessCount: UInt64
     ullDecryptFailureCount: UInt64
-class DOT11_MAC_INFO(EasyCastStructure):
+class DOT11_MAC_INFO(Structure):
     uReserved: UInt32
     uNdisPortNumber: UInt32
     MacAddr: Byte * 6
-class DOT11_MAC_PARAMETERS(EasyCastStructure):
+class DOT11_MAC_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uOpmodeMask: UInt32
-class DOT11_MANUFACTURING_CALLBACK_PARAMETERS(EasyCastStructure):
+class DOT11_MANUFACTURING_CALLBACK_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     dot11ManufacturingCallbackType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE
     uStatus: UInt32
@@ -1831,23 +1831,23 @@ dot11_manufacturing_callback_self_test_complete: win32more.Windows.Win32.Network
 dot11_manufacturing_callback_sleep_complete: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE = 2
 dot11_manufacturing_callback_IHV_start: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE = -2147483648
 dot11_manufacturing_callback_IHV_end: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_CALLBACK_TYPE = -1
-class DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC(EasyCastStructure):
+class DOT11_MANUFACTURING_FUNCTIONAL_TEST_QUERY_ADC(Structure):
     Dot11Band: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND
     uChannel: UInt32
     ADCPowerLevel: Int32
-class DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX(EasyCastStructure):
+class DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX(Structure):
     bEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
     Dot11Band: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND
     uChannel: UInt32
     PowerLevel: Int32
-class DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX(EasyCastStructure):
+class DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX(Structure):
     bEnable: win32more.Windows.Win32.Foundation.BOOLEAN
     bOpenLoop: win32more.Windows.Win32.Foundation.BOOLEAN
     Dot11Band: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BAND
     uChannel: UInt32
     uSetPowerLevel: UInt32
     ADCPowerLevel: Int32
-class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS(EasyCastStructure):
+class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS(Structure):
     SelfTestType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE
     uTestID: UInt32
     bResult: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1855,7 +1855,7 @@ class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS(EasyCastStructure):
     pvContext: VoidPtr
     uBytesWrittenOut: UInt32
     ucBufferOut: Byte * 1
-class DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS(EasyCastStructure):
+class DOT11_MANUFACTURING_SELF_TEST_SET_PARAMS(Structure):
     SelfTestType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE
     uTestID: UInt32
     uPinBitMask: UInt32
@@ -1866,22 +1866,22 @@ DOT11_MANUFACTURING_SELF_TEST_TYPE = Int32
 DOT11_MANUFACTURING_SELF_TEST_TYPE_INTERFACE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE = 1
 DOT11_MANUFACTURING_SELF_TEST_TYPE_RF_INTERFACE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE = 2
 DOT11_MANUFACTURING_SELF_TEST_TYPE_BT_COEXISTENCE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_SELF_TEST_TYPE = 3
-class DOT11_MANUFACTURING_TEST(EasyCastStructure):
+class DOT11_MANUFACTURING_TEST(Structure):
     dot11ManufacturingTestType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE
     uBufferLength: UInt32
     ucBuffer: Byte * 1
-class DOT11_MANUFACTURING_TEST_QUERY_DATA(EasyCastStructure):
+class DOT11_MANUFACTURING_TEST_QUERY_DATA(Structure):
     uKey: UInt32
     uOffset: UInt32
     uBufferLength: UInt32
     uBytesRead: UInt32
     ucBufferOut: Byte * 1
-class DOT11_MANUFACTURING_TEST_SET_DATA(EasyCastStructure):
+class DOT11_MANUFACTURING_TEST_SET_DATA(Structure):
     uKey: UInt32
     uOffset: UInt32
     uBufferLength: UInt32
     ucBufferIn: Byte * 1
-class DOT11_MANUFACTURING_TEST_SLEEP(EasyCastStructure):
+class DOT11_MANUFACTURING_TEST_SLEEP(Structure):
     uSleepTime: UInt32
     pvContext: VoidPtr
 DOT11_MANUFACTURING_TEST_TYPE = Int32
@@ -1897,11 +1897,11 @@ dot11_manufacturing_test_sleep: win32more.Windows.Win32.NetworkManagement.WiFi.D
 dot11_manufacturing_test_awake: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = 9
 dot11_manufacturing_test_IHV_start: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = -2147483648
 dot11_manufacturing_test_IHV_end: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MANUFACTURING_TEST_TYPE = -1
-class DOT11_MD_CAPABILITY_ENTRY_LIST(EasyCastStructure):
+class DOT11_MD_CAPABILITY_ENTRY_LIST(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11MDCapabilityEntry: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY * 1
-class DOT11_MPDU_MAX_LENGTH_INDICATION(EasyCastStructure):
+class DOT11_MPDU_MAX_LENGTH_INDICATION(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uPhyId: UInt32
     uMPDUMaxLength: UInt32
@@ -1909,7 +1909,7 @@ DOT11_MSONEX_RESULT = Int32
 DOT11_MSONEX_SUCCESS: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT = 0
 DOT11_MSONEX_FAILURE: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT = 1
 DOT11_MSONEX_IN_PROGRESS: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MSONEX_RESULT = 2
-class DOT11_MSONEX_RESULT_PARAMS(EasyCastStructure):
+class DOT11_MSONEX_RESULT_PARAMS(Structure):
     Dot11OnexAuthStatus: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS
     Dot11OneXReasonCode: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE
     pbMPPESendKey: POINTER(Byte)
@@ -1917,32 +1917,32 @@ class DOT11_MSONEX_RESULT_PARAMS(EasyCastStructure):
     pbMPPERecvKey: POINTER(Byte)
     dwMPPERecvKeyLen: UInt32
     pDot11EapResult: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_EAP_RESULT)
-class DOT11_MSSECURITY_SETTINGS(EasyCastStructure):
+class DOT11_MSSECURITY_SETTINGS(Structure):
     dot11AuthAlgorithm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
     dot11CipherAlgorithm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
     fOneXEnabled: win32more.Windows.Win32.Foundation.BOOL
     eapMethodType: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
     dwEapConnectionDataLen: UInt32
     pEapConnectionData: POINTER(Byte)
-class DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY(EasyCastStructure):
+class DOT11_MULTI_DOMAIN_CAPABILITY_ENTRY(Structure):
     uMultiDomainCapabilityIndex: UInt32
     uFirstChannelNumber: UInt32
     uNumberOfChannels: UInt32
     lMaximumTransmitPowerLevel: Int32
-class DOT11_NETWORK(EasyCastStructure):
+class DOT11_NETWORK(Structure):
     dot11Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
-class DOT11_NETWORK_LIST(EasyCastStructure):
+class DOT11_NETWORK_LIST(Structure):
     dwNumberOfItems: UInt32
     dwIndex: UInt32
     Network: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_NETWORK * 1
-class DOT11_NIC_SPECIFIC_EXTENSION(EasyCastStructure):
+class DOT11_NIC_SPECIFIC_EXTENSION(Structure):
     uBufferLength: UInt32
     uTotalBufferLength: UInt32
     ucBuffer: Byte * 1
-class DOT11_OFDM_PHY_ATTRIBUTES(EasyCastStructure):
+class DOT11_OFDM_PHY_ATTRIBUTES(Structure):
     uFrequencyBandsSupported: UInt32
-class DOT11_OFFLOAD_CAPABILITY(EasyCastStructure):
+class DOT11_OFFLOAD_CAPABILITY(Structure):
     uReserved: UInt32
     uFlags: UInt32
     uSupportedWEPAlgorithms: UInt32
@@ -1950,12 +1950,12 @@ class DOT11_OFFLOAD_CAPABILITY(EasyCastStructure):
     uMaxWEPKeyMappingLength: UInt32
     uSupportedAuthAlgorithms: UInt32
     uMaxAuthKeyMappingLength: UInt32
-class DOT11_OFFLOAD_NETWORK(EasyCastStructure):
+class DOT11_OFFLOAD_NETWORK(Structure):
     Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     UnicastCipher: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
     AuthAlgo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
     Dot11ChannelHints: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CHANNEL_HINT * 4
-class DOT11_OFFLOAD_NETWORK_LIST_INFO(EasyCastStructure):
+class DOT11_OFFLOAD_NETWORK_LIST_INFO(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ulFlags: UInt32
     FastScanPeriod: UInt32
@@ -1963,28 +1963,28 @@ class DOT11_OFFLOAD_NETWORK_LIST_INFO(EasyCastStructure):
     SlowScanPeriod: UInt32
     uNumOfEntries: UInt32
     offloadNetworkList: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_OFFLOAD_NETWORK * 1
-class DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS(EasyCastStructure):
+class DOT11_OFFLOAD_NETWORK_STATUS_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Status: Int32
 DOT11_OFFLOAD_TYPE = Int32
 dot11_offload_type_wep: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE = 1
 dot11_offload_type_auth: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE = 2
-class DOT11_OI(EasyCastStructure):
+class DOT11_OI(Structure):
     OILength: UInt16
     OI: Byte * 5
-class DOT11_OPERATION_MODE_CAPABILITY(EasyCastStructure):
+class DOT11_OPERATION_MODE_CAPABILITY(Structure):
     uReserved: UInt32
     uMajorVersion: UInt32
     uMinorVersion: UInt32
     uNumOfTXBuffers: UInt32
     uNumOfRXBuffers: UInt32
     uOpModeCapability: UInt32
-class DOT11_OPTIONAL_CAPABILITY(EasyCastStructure):
+class DOT11_OPTIONAL_CAPABILITY(Structure):
     uReserved: UInt32
     bDot11PCF: win32more.Windows.Win32.Foundation.BOOLEAN
     bDot11PCFMPDUTransferToPC: win32more.Windows.Win32.Foundation.BOOLEAN
     bStrictlyOrderedServiceClass: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_PEER_INFO(EasyCastStructure):
+class DOT11_PEER_INFO(Structure):
     MacAddress: Byte * 6
     usCapabilityInformation: UInt16
     AuthAlgo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
@@ -1998,25 +1998,25 @@ class DOT11_PEER_INFO(EasyCastStructure):
     PowerMode: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE
     liAssociationUpTime: Int64
     Statistics: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PEER_STATISTICS
-class DOT11_PEER_INFO_LIST(EasyCastStructure):
+class DOT11_PEER_INFO_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     PeerInfo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PEER_INFO * 1
-class DOT11_PEER_STATISTICS(EasyCastStructure):
+class DOT11_PEER_STATISTICS(Structure):
     ullDecryptSuccessCount: UInt64
     ullDecryptFailureCount: UInt64
     ullTxPacketSuccessCount: UInt64
     ullTxPacketFailureCount: UInt64
     ullRxPacketSuccessCount: UInt64
     ullRxPacketFailureCount: UInt64
-class DOT11_PER_MSDU_COUNTERS(EasyCastStructure):
+class DOT11_PER_MSDU_COUNTERS(Structure):
     uTransmittedFragmentCount: UInt32
     uRetryCount: UInt32
     uRTSSuccessCount: UInt32
     uRTSFailureCount: UInt32
     uACKFailureCount: UInt32
-class DOT11_PHY_ATTRIBUTES(EasyCastStructure):
+class DOT11_PHY_ATTRIBUTES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
     bHardwarePhyState: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2031,11 +2031,11 @@ class DOT11_PHY_ATTRIBUTES(EasyCastStructure):
     uNumDataRateMappingEntries: UInt32
     DataRateMappingEntries: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_DATA_RATE_MAPPING_ENTRY * 126
     SupportedDataRatesValue: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SUPPORTED_DATA_RATES_VALUE_V2
-    class _PhySpecificAttributes_e__Union(EasyCastUnion):
+    class _PhySpecificAttributes_e__Union(Union):
         HRDSSSAttributes: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_HRDSSS_PHY_ATTRIBUTES
         OFDMAttributes: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_OFDM_PHY_ATTRIBUTES
         ERPAttributes: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ERP_PHY_ATTRIBUTES
-class DOT11_PHY_FRAME_STATISTICS(EasyCastStructure):
+class DOT11_PHY_FRAME_STATISTICS(Structure):
     ullTransmittedFrameCount: UInt64
     ullMulticastTransmittedFrameCount: UInt64
     ullFailedCount: UInt64
@@ -2054,19 +2054,19 @@ class DOT11_PHY_FRAME_STATISTICS(EasyCastStructure):
     ullReceivedFragmentCount: UInt64
     ullPromiscuousReceivedFragmentCount: UInt64
     ullFCSErrorCount: UInt64
-class DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS(EasyCastStructure):
+class DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ulPhyId: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ulChannel: UInt32
         ulFrequency: UInt32
-class DOT11_PHY_ID_LIST(EasyCastStructure):
+class DOT11_PHY_ID_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11PhyId: UInt32 * 1
-class DOT11_PHY_STATE_PARAMETERS(EasyCastStructure):
+class DOT11_PHY_STATE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uPhyId: UInt32
     bHardwarePhyState: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2087,7 +2087,7 @@ dot11_phy_type_he: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
 dot11_phy_type_eht: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = 11
 dot11_phy_type_IHV_start: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = -2147483648
 dot11_phy_type_IHV_end: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE = -1
-class DOT11_PHY_TYPE_INFO(EasyCastStructure):
+class DOT11_PHY_TYPE_INFO(Structure):
     dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
     bUseParameters: win32more.Windows.Win32.Foundation.BOOLEAN
     uProbeDelay: UInt32
@@ -2096,43 +2096,43 @@ class DOT11_PHY_TYPE_INFO(EasyCastStructure):
     ChDescriptionType: win32more.Windows.Win32.NetworkManagement.WiFi.CH_DESCRIPTION_TYPE
     uChannelListSize: UInt32
     ucChannelListBuffer: Byte * 1
-class DOT11_PHY_TYPE_LIST(EasyCastStructure):
+class DOT11_PHY_TYPE_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE * 1
-class DOT11_PMKID_CANDIDATE_LIST_PARAMETERS(EasyCastStructure):
+class DOT11_PMKID_CANDIDATE_LIST_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uCandidateListSize: UInt32
     uCandidateListOffset: UInt32
-class DOT11_PMKID_ENTRY(EasyCastStructure):
+class DOT11_PMKID_ENTRY(Structure):
     BSSID: Byte * 6
     PMKID: Byte * 16
     uFlags: UInt32
-class DOT11_PMKID_LIST(EasyCastStructure):
+class DOT11_PMKID_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     PMKIDs: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PMKID_ENTRY * 1
-class DOT11_PORT_STATE(EasyCastStructure):
+class DOT11_PORT_STATE(Structure):
     PeerMacAddress: Byte * 6
     uSessionId: UInt32
     bPortControlled: win32more.Windows.Win32.Foundation.BOOL
     bPortAuthorized: win32more.Windows.Win32.Foundation.BOOL
-class DOT11_PORT_STATE_NOTIFICATION(EasyCastStructure):
+class DOT11_PORT_STATE_NOTIFICATION(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerMac: Byte * 6
     bOpen: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO(EasyCastStructure):
+class DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     bEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_POWER_MGMT_MODE(EasyCastStructure):
+class DOT11_POWER_MGMT_MODE(Structure):
     dot11PowerMode: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE
     uPowerSaveLevel: UInt32
     usListenInterval: UInt16
     usAID: UInt16
     bReceiveDTIMs: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_POWER_MGMT_MODE_STATUS_INFO(EasyCastStructure):
+class DOT11_POWER_MGMT_MODE_STATUS_INFO(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PowerSaveMode: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE
     uPowerSaveLevel: UInt32
@@ -2148,16 +2148,16 @@ dot11_power_mode_reason_legacy_WFD_device: win32more.Windows.Win32.NetworkManage
 dot11_power_mode_reason_compliant_AP: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON = 3
 dot11_power_mode_reason_compliant_WFD_device: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON = 4
 dot11_power_mode_reason_others: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE_REASON = 5
-class DOT11_PRIVACY_EXEMPTION(EasyCastStructure):
+class DOT11_PRIVACY_EXEMPTION(Structure):
     usEtherType: UInt16
     usExemptionActionType: UInt16
     usExemptionPacketType: UInt16
-class DOT11_PRIVACY_EXEMPTION_LIST(EasyCastStructure):
+class DOT11_PRIVACY_EXEMPTION_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     PrivacyExemptionEntries: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION * 1
-class DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS(EasyCastStructure):
+class DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     ReceiverAddress: Byte * 6
@@ -2165,21 +2165,21 @@ class DOT11_PROVISION_DISCOVERY_REQUEST_SEND_COMPLETE_PARAMETERS(EasyCastStructu
     Status: Int32
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS(EasyCastStructure):
+class DOT11_PROVISION_DISCOVERY_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ReceiverDeviceAddress: Byte * 6
     DialogToken: Byte
     Status: Int32
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_QOS_PARAMS(EasyCastStructure):
+class DOT11_QOS_PARAMS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ucEnabledQoSProtocolFlags: Byte
-class DOT11_QOS_TX_DURATION(EasyCastStructure):
+class DOT11_QOS_TX_DURATION(Structure):
     uNominalMSDUSize: UInt32
     uMinPHYRate: UInt32
     uDuration: UInt32
-class DOT11_QOS_TX_MEDIUM_TIME(EasyCastStructure):
+class DOT11_QOS_TX_MEDIUM_TIME(Structure):
     dot11PeerAddress: Byte * 6
     ucQoSPriority: Byte
     uMediumTimeAdmited: UInt32
@@ -2187,30 +2187,30 @@ DOT11_RADIO_STATE = Int32
 dot11_radio_state_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE = 0
 dot11_radio_state_on: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE = 1
 dot11_radio_state_off: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE = 2
-class DOT11_RATE_SET(EasyCastStructure):
+class DOT11_RATE_SET(Structure):
     uRateSetLength: UInt32
     ucRateSet: Byte * 126
-class DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS(EasyCastStructure):
+class DOT11_RECEIVED_GO_NEGOTIATION_CONFIRMATION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     DialogToken: Byte
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS(EasyCastStructure):
+class DOT11_RECEIVED_GO_NEGOTIATION_REQUEST_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     DialogToken: Byte
     RequestContext: VoidPtr
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS(EasyCastStructure):
+class DOT11_RECEIVED_GO_NEGOTIATION_RESPONSE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     DialogToken: Byte
     ResponseContext: VoidPtr
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS(EasyCastStructure):
+class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     TransmitterDeviceAddress: Byte * 6
     BSSID: Byte * 6
@@ -2218,14 +2218,14 @@ class DOT11_RECEIVED_INVITATION_REQUEST_PARAMETERS(EasyCastStructure):
     RequestContext: VoidPtr
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS(EasyCastStructure):
+class DOT11_RECEIVED_INVITATION_RESPONSE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     TransmitterDeviceAddress: Byte * 6
     BSSID: Byte * 6
     DialogToken: Byte
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS(EasyCastStructure):
+class DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     TransmitterDeviceAddress: Byte * 6
     BSSID: Byte * 6
@@ -2233,14 +2233,14 @@ class DOT11_RECEIVED_PROVISION_DISCOVERY_REQUEST_PARAMETERS(EasyCastStructure):
     RequestContext: VoidPtr
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS(EasyCastStructure):
+class DOT11_RECEIVED_PROVISION_DISCOVERY_RESPONSE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     TransmitterDeviceAddress: Byte * 6
     BSSID: Byte * 6
     DialogToken: Byte
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_RECV_EXTENSION_INFO(EasyCastStructure):
+class DOT11_RECV_EXTENSION_INFO(Structure):
     uVersion: UInt32
     pvReserved: VoidPtr
     dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
@@ -2264,7 +2264,7 @@ class DOT11_RECV_EXTENSION_INFO(EasyCastStructure):
     usNumberOfMPDUsReceived: UInt16
     usNumberOfFragments: UInt16
     pNdisPackets: VoidPtr * 1
-class DOT11_RECV_EXTENSION_INFO_V2(EasyCastStructure):
+class DOT11_RECV_EXTENSION_INFO_V2(Structure):
     uVersion: UInt32
     pvReserved: VoidPtr
     dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
@@ -2286,26 +2286,26 @@ class DOT11_RECV_EXTENSION_INFO_V2(EasyCastStructure):
     usNumberOfMPDUsReceived: UInt16
     usNumberOfFragments: UInt16
     pNdisPackets: VoidPtr * 1
-class DOT11_RECV_SENSITIVITY(EasyCastStructure):
+class DOT11_RECV_SENSITIVITY(Structure):
     ucDataRate: Byte
     lRSSIMin: Int32
     lRSSIMax: Int32
-class DOT11_RECV_SENSITIVITY_LIST(EasyCastStructure):
+class DOT11_RECV_SENSITIVITY_LIST(Structure):
     Anonymous: _Anonymous_e__Union
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11RecvSensitivity: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RECV_SENSITIVITY * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
         uPhyId: UInt32
-class DOT11_REG_DOMAINS_SUPPORT_VALUE(EasyCastStructure):
+class DOT11_REG_DOMAINS_SUPPORT_VALUE(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11RegDomainValue: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_REG_DOMAIN_VALUE * 1
-class DOT11_REG_DOMAIN_VALUE(EasyCastStructure):
+class DOT11_REG_DOMAIN_VALUE(Structure):
     uRegDomainsSupportIndex: UInt32
     uRegDomainsSupportValue: UInt32
-class DOT11_RESET_REQUEST(EasyCastStructure):
+class DOT11_RESET_REQUEST(Structure):
     dot11ResetType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RESET_TYPE
     dot11MacAddress: Byte * 6
     bSetDefaultMIB: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2313,19 +2313,19 @@ DOT11_RESET_TYPE = Int32
 dot11_reset_type_phy: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RESET_TYPE = 1
 dot11_reset_type_mac: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RESET_TYPE = 2
 dot11_reset_type_phy_and_mac: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RESET_TYPE = 3
-class DOT11_ROAMING_COMPLETION_PARAMETERS(EasyCastStructure):
+class DOT11_ROAMING_COMPLETION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uStatus: UInt32
-class DOT11_ROAMING_START_PARAMETERS(EasyCastStructure):
+class DOT11_ROAMING_START_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     AdhocBSSID: Byte * 6
     AdhocSSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     uRoamingReason: UInt32
-class DOT11_RSSI_RANGE(EasyCastStructure):
+class DOT11_RSSI_RANGE(Structure):
     dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
     uRSSIMin: UInt32
     uRSSIMax: UInt32
-class DOT11_SCAN_REQUEST(EasyCastStructure):
+class DOT11_SCAN_REQUEST(Structure):
     dot11BSSType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     dot11BSSID: Byte * 6
     dot11SSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
@@ -2339,7 +2339,7 @@ class DOT11_SCAN_REQUEST(EasyCastStructure):
     uIEsOffset: UInt32
     uIEsLength: UInt32
     ucBuffer: Byte * 1
-class DOT11_SCAN_REQUEST_V2(EasyCastStructure):
+class DOT11_SCAN_REQUEST_V2(Structure):
     dot11BSSType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     dot11BSSID: Byte * 6
     dot11ScanType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SCAN_TYPE
@@ -2359,12 +2359,12 @@ dot11_scan_type_active: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SCA
 dot11_scan_type_passive: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SCAN_TYPE = 2
 dot11_scan_type_auto: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SCAN_TYPE = 3
 dot11_scan_type_forced: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SCAN_TYPE = -2147483648
-class DOT11_SECURITY_PACKET_HEADER(EasyCastStructure):
+class DOT11_SECURITY_PACKET_HEADER(Structure):
     PeerMac: Byte * 6
     usEtherType: UInt16
     Data: Byte * 1
     _pack_ = 1
-class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS(EasyCastStructure):
+class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     DialogToken: Byte
@@ -2376,7 +2376,7 @@ class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS(EasyCastStructure):
     bUseGroupID: win32more.Windows.Win32.Foundation.BOOLEAN
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS(EasyCastStructure):
+class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     DialogToken: Byte
@@ -2387,7 +2387,7 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS(EasyCastStructure):
     GroupCapability: Byte
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS(EasyCastStructure):
+class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PeerDeviceAddress: Byte * 6
     DialogToken: Byte
@@ -2402,7 +2402,7 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS(EasyCastStructure):
     bUseGroupID: win32more.Windows.Win32.Foundation.BOOLEAN
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_SEND_INVITATION_REQUEST_PARAMETERS(EasyCastStructure):
+class DOT11_SEND_INVITATION_REQUEST_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     DialogToken: Byte
     PeerDeviceAddress: Byte * 6
@@ -2417,7 +2417,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS(EasyCastStructure):
     bLocalGO: win32more.Windows.Win32.Foundation.BOOLEAN
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS(EasyCastStructure):
+class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ReceiverDeviceAddress: Byte * 6
     DialogToken: Byte
@@ -2431,7 +2431,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS(EasyCastStructure):
     bUseSpecifiedOperatingChannel: win32more.Windows.Win32.Foundation.BOOLEAN
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS(EasyCastStructure):
+class DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     DialogToken: Byte
     PeerDeviceAddress: Byte * 6
@@ -2441,7 +2441,7 @@ class DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS(EasyCastStructure):
     bUseGroupID: win32more.Windows.Win32.Foundation.BOOLEAN
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS(EasyCastStructure):
+class DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ReceiverDeviceAddress: Byte * 6
     DialogToken: Byte
@@ -2449,20 +2449,20 @@ class DOT11_SEND_PROVISION_DISCOVERY_RESPONSE_PARAMETERS(EasyCastStructure):
     uSendTimeout: UInt32
     uIEsOffset: UInt32
     uIEsLength: UInt32
-class DOT11_SSID(EasyCastStructure):
+class DOT11_SSID(Structure):
     uSSIDLength: UInt32
     ucSSID: Byte * 32
-class DOT11_SSID_LIST(EasyCastStructure):
+class DOT11_SSID_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     SSIDs: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID * 1
-class DOT11_START_REQUEST(EasyCastStructure):
+class DOT11_START_REQUEST(Structure):
     uStartFailureTimeout: UInt32
     OperationalRateSet: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RATE_SET
     uChCenterFrequency: UInt32
     dot11BSSDescription: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_DESCRIPTION
-class DOT11_STATISTICS(EasyCastStructure):
+class DOT11_STATISTICS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ullFourWayHandshakeFailures: UInt64
     ullTKIPCounterMeasuresInvoked: UInt64
@@ -2470,86 +2470,86 @@ class DOT11_STATISTICS(EasyCastStructure):
     MacUcastCounters: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MAC_FRAME_STATISTICS
     MacMcastCounters: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_MAC_FRAME_STATISTICS
     PhyCounters: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_FRAME_STATISTICS * 1
-class DOT11_STATUS_INDICATION(EasyCastStructure):
+class DOT11_STATUS_INDICATION(Structure):
     uStatusType: UInt32
     ndisStatus: Int32
-class DOT11_STOP_AP_PARAMETERS(EasyCastStructure):
+class DOT11_STOP_AP_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ulReason: UInt32
-class DOT11_SUPPORTED_ANTENNA(EasyCastStructure):
+class DOT11_SUPPORTED_ANTENNA(Structure):
     uAntennaListIndex: UInt32
     bSupportedAntenna: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_SUPPORTED_ANTENNA_LIST(EasyCastStructure):
+class DOT11_SUPPORTED_ANTENNA_LIST(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11SupportedAntenna: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SUPPORTED_ANTENNA * 1
-class DOT11_SUPPORTED_DATA_RATES_VALUE(EasyCastStructure):
+class DOT11_SUPPORTED_DATA_RATES_VALUE(Structure):
     ucSupportedTxDataRatesValue: Byte * 8
     ucSupportedRxDataRatesValue: Byte * 8
-class DOT11_SUPPORTED_DATA_RATES_VALUE_V2(EasyCastStructure):
+class DOT11_SUPPORTED_DATA_RATES_VALUE_V2(Structure):
     ucSupportedTxDataRatesValue: Byte * 255
     ucSupportedRxDataRatesValue: Byte * 255
-class DOT11_SUPPORTED_DSSS_CHANNEL(EasyCastStructure):
+class DOT11_SUPPORTED_DSSS_CHANNEL(Structure):
     uChannel: UInt32
-class DOT11_SUPPORTED_DSSS_CHANNEL_LIST(EasyCastStructure):
+class DOT11_SUPPORTED_DSSS_CHANNEL_LIST(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11SupportedDSSSChannel: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SUPPORTED_DSSS_CHANNEL * 1
-class DOT11_SUPPORTED_OFDM_FREQUENCY(EasyCastStructure):
+class DOT11_SUPPORTED_OFDM_FREQUENCY(Structure):
     uCenterFrequency: UInt32
-class DOT11_SUPPORTED_OFDM_FREQUENCY_LIST(EasyCastStructure):
+class DOT11_SUPPORTED_OFDM_FREQUENCY_LIST(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11SupportedOFDMFrequency: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SUPPORTED_OFDM_FREQUENCY * 1
-class DOT11_SUPPORTED_PHY_TYPES(EasyCastStructure):
+class DOT11_SUPPORTED_PHY_TYPES(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11PHYType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE * 1
-class DOT11_SUPPORTED_POWER_LEVELS(EasyCastStructure):
+class DOT11_SUPPORTED_POWER_LEVELS(Structure):
     uNumOfSupportedPowerLevels: UInt32
     uTxPowerLevelValues: UInt32 * 8
 DOT11_TEMP_TYPE = Int32
 dot11_temp_type_unknown: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_TEMP_TYPE = 0
 dot11_temp_type_1: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_TEMP_TYPE = 1
 dot11_temp_type_2: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_TEMP_TYPE = 2
-class DOT11_TKIPMIC_FAILURE_PARAMETERS(EasyCastStructure):
+class DOT11_TKIPMIC_FAILURE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     bDefaultKeyFailure: win32more.Windows.Win32.Foundation.BOOLEAN
     uKeyIndex: UInt32
     PeerMac: Byte * 6
-class DOT11_UPDATE_IE(EasyCastStructure):
+class DOT11_UPDATE_IE(Structure):
     dot11UpdateIEOp: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_UPDATE_IE_OP
     uBufferLength: UInt32
     ucBuffer: Byte * 1
 DOT11_UPDATE_IE_OP = Int32
 dot11_update_ie_op_create_replace: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_UPDATE_IE_OP = 1
 dot11_update_ie_op_delete: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_UPDATE_IE_OP = 2
-class DOT11_VENUEINFO(EasyCastStructure):
+class DOT11_VENUEINFO(Structure):
     VenueGroup: Byte
     VenueType: Byte
-class DOT11_VWIFI_ATTRIBUTES(EasyCastStructure):
+class DOT11_VWIFI_ATTRIBUTES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uTotalNumOfEntries: UInt32
     Combinations: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_VWIFI_COMBINATION * 1
-class DOT11_VWIFI_COMBINATION(EasyCastStructure):
+class DOT11_VWIFI_COMBINATION(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumInfrastructure: UInt32
     uNumAdhoc: UInt32
     uNumSoftAP: UInt32
-class DOT11_VWIFI_COMBINATION_V2(EasyCastStructure):
+class DOT11_VWIFI_COMBINATION_V2(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumInfrastructure: UInt32
     uNumAdhoc: UInt32
     uNumSoftAP: UInt32
     uNumVirtualStation: UInt32
-class DOT11_VWIFI_COMBINATION_V3(EasyCastStructure):
+class DOT11_VWIFI_COMBINATION_V3(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumInfrastructure: UInt32
     uNumAdhoc: UInt32
     uNumSoftAP: UInt32
     uNumVirtualStation: UInt32
     uNumWFDGroup: UInt32
-class DOT11_WEP_OFFLOAD(EasyCastStructure):
+class DOT11_WEP_OFFLOAD(Structure):
     uReserved: UInt32
     hOffloadContext: win32more.Windows.Win32.Foundation.HANDLE
     hOffload: win32more.Windows.Win32.Foundation.HANDLE
@@ -2565,14 +2565,14 @@ class DOT11_WEP_OFFLOAD(EasyCastStructure):
     usDot11RWBitMaps: UInt16 * 16
     usKeyLength: UInt16
     ucKey: Byte * 1
-class DOT11_WEP_UPLOAD(EasyCastStructure):
+class DOT11_WEP_UPLOAD(Structure):
     uReserved: UInt32
     dot11OffloadType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE
     hOffload: win32more.Windows.Win32.Foundation.HANDLE
     uNumOfRWsUsed: UInt32
     dot11IV48Counters: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_IV48_COUNTER * 16
     usDot11RWBitMaps: UInt16 * 16
-class DOT11_WFD_ADDITIONAL_IE(EasyCastStructure):
+class DOT11_WFD_ADDITIONAL_IE(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uBeaconIEsOffset: UInt32
     uBeaconIEsLength: UInt32
@@ -2580,18 +2580,18 @@ class DOT11_WFD_ADDITIONAL_IE(EasyCastStructure):
     uProbeResponseIEsLength: UInt32
     uDefaultRequestIEsOffset: UInt32
     uDefaultRequestIEsLength: UInt32
-class DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR(EasyCastStructure):
+class DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR(Structure):
     AdvertisementID: UInt32
     ConfigMethods: UInt16
     ServiceNameLength: Byte
     ServiceName: Byte * 255
-class DOT11_WFD_ADVERTISED_SERVICE_LIST(EasyCastStructure):
+class DOT11_WFD_ADVERTISED_SERVICE_LIST(Structure):
     ServiceCount: UInt16
     AdvertisedService: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR * 1
-class DOT11_WFD_ADVERTISEMENT_ID(EasyCastStructure):
+class DOT11_WFD_ADVERTISEMENT_ID(Structure):
     AdvertisementID: UInt32
     ServiceAddress: Byte * 6
-class DOT11_WFD_ATTRIBUTES(EasyCastStructure):
+class DOT11_WFD_ATTRIBUTES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumConcurrentGORole: UInt32
     uNumConcurrentClientRole: UInt32
@@ -2607,14 +2607,14 @@ class DOT11_WFD_ATTRIBUTES(EasyCastStructure):
     pSupportedCountryOrRegionStrings: POINTER(Byte)
     uDiscoveryFilterListSize: UInt32
     uGORoleClientTableSize: UInt32
-class DOT11_WFD_CHANNEL(EasyCastStructure):
+class DOT11_WFD_CHANNEL(Structure):
     CountryRegionString: Byte * 3
     OperatingClass: Byte
     ChannelNumber: Byte
-class DOT11_WFD_CONFIGURATION_TIMEOUT(EasyCastStructure):
+class DOT11_WFD_CONFIGURATION_TIMEOUT(Structure):
     GOTimeout: Byte
     ClientTimeout: Byte
-class DOT11_WFD_DEVICE_CAPABILITY_CONFIG(EasyCastStructure):
+class DOT11_WFD_DEVICE_CAPABILITY_CONFIG(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     bServiceDiscoveryEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
     bClientDiscoverabilityEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2623,7 +2623,7 @@ class DOT11_WFD_DEVICE_CAPABILITY_CONFIG(EasyCastStructure):
     bDeviceLimitReached: win32more.Windows.Win32.Foundation.BOOLEAN
     bInvitationProcedureEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
     WPSVersionsEnabled: UInt32
-class DOT11_WFD_DEVICE_ENTRY(EasyCastStructure):
+class DOT11_WFD_DEVICE_ENTRY(Structure):
     uPhyId: UInt32
     PhySpecificInfo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO
     dot11BSSID: Byte * 6
@@ -2640,31 +2640,31 @@ class DOT11_WFD_DEVICE_ENTRY(EasyCastStructure):
     uBeaconIEsLength: UInt32
     uProbeResponseIEsOffset: UInt32
     uProbeResponseIEsLength: UInt32
-class DOT11_WFD_DEVICE_INFO(EasyCastStructure):
+class DOT11_WFD_DEVICE_INFO(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     DeviceAddress: Byte * 6
     ConfigMethods: UInt16
     PrimaryDeviceType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DEVICE_TYPE
     DeviceName: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_DEVICE_NAME
-class DOT11_WFD_DEVICE_LISTEN_CHANNEL(EasyCastStructure):
+class DOT11_WFD_DEVICE_LISTEN_CHANNEL(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ChannelNumber: Byte
-class DOT11_WFD_DEVICE_TYPE(EasyCastStructure):
+class DOT11_WFD_DEVICE_TYPE(Structure):
     CategoryID: UInt16
     SubCategoryID: UInt16
     OUI: Byte * 4
-class DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS(EasyCastStructure):
+class DOT11_WFD_DISCOVER_COMPLETE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Status: Int32
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     uListOffset: UInt32
     uListLength: UInt32
-class DOT11_WFD_DISCOVER_DEVICE_FILTER(EasyCastStructure):
+class DOT11_WFD_DISCOVER_DEVICE_FILTER(Structure):
     DeviceID: Byte * 6
     ucBitmask: Byte
     GroupSSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
-class DOT11_WFD_DISCOVER_REQUEST(EasyCastStructure):
+class DOT11_WFD_DISCOVER_REQUEST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     DiscoverType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE
     ScanType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE
@@ -2680,18 +2680,18 @@ dot11_wfd_discover_type_find_only: win32more.Windows.Win32.NetworkManagement.WiF
 dot11_wfd_discover_type_auto: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = 3
 dot11_wfd_discover_type_scan_social_channels: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = 4
 dot11_wfd_discover_type_forced: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = -2147483648
-class DOT11_WFD_GO_INTENT(EasyCastStructure):
+class DOT11_WFD_GO_INTENT(Structure):
     _bitfield: Byte
-class DOT11_WFD_GROUP_ID(EasyCastStructure):
+class DOT11_WFD_GROUP_ID(Structure):
     DeviceAddress: Byte * 6
     SSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
-class DOT11_WFD_GROUP_JOIN_PARAMETERS(EasyCastStructure):
+class DOT11_WFD_GROUP_JOIN_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     GOOperatingChannel: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_CHANNEL
     GOConfigTime: UInt32
     bInGroupFormation: win32more.Windows.Win32.Foundation.BOOLEAN
     bWaitForWPSReady: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG(EasyCastStructure):
+class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     bPersistentGroupEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
     bIntraBSSDistributionSupported: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2699,7 +2699,7 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG(EasyCastStructure):
     bPersistentReconnectSupported: win32more.Windows.Win32.Foundation.BOOLEAN
     bGroupFormationEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
     uMaximumGroupLimit: UInt32
-class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2(EasyCastStructure):
+class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     bPersistentGroupEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
     bIntraBSSDistributionSupported: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2708,47 +2708,47 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2(EasyCastStructure):
     bGroupFormationEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
     uMaximumGroupLimit: UInt32
     bEapolKeyIpAddressAllocationSupported: win32more.Windows.Win32.Foundation.BOOLEAN
-class DOT11_WFD_GROUP_START_PARAMETERS(EasyCastStructure):
+class DOT11_WFD_GROUP_START_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     AdvertisedOperatingChannel: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_CHANNEL
-class DOT11_WFD_INVITATION_FLAGS(EasyCastStructure):
+class DOT11_WFD_INVITATION_FLAGS(Structure):
     _bitfield: Byte
 DOT11_WFD_SCAN_TYPE = Int32
 dot11_wfd_scan_type_active: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE = 1
 dot11_wfd_scan_type_passive: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE = 2
 dot11_wfd_scan_type_auto: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE = 3
-class DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST(EasyCastStructure):
+class DOT11_WFD_SECONDARY_DEVICE_TYPE_LIST(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     SecondaryDeviceTypes: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DEVICE_TYPE * 1
-class DOT11_WFD_SERVICE_HASH_LIST(EasyCastStructure):
+class DOT11_WFD_SERVICE_HASH_LIST(Structure):
     ServiceHashCount: UInt16
     ServiceHash: Byte * 6
-class DOT11_WFD_SESSION_ID(EasyCastStructure):
+class DOT11_WFD_SESSION_ID(Structure):
     SessionID: UInt32
     SessionAddress: Byte * 6
-class DOT11_WFD_SESSION_INFO(EasyCastStructure):
+class DOT11_WFD_SESSION_INFO(Structure):
     uSessionInfoLength: UInt16
     ucSessionInfo: Byte * 144
-class DOT11_WME_AC_PARAMETERS(EasyCastStructure):
+class DOT11_WME_AC_PARAMETERS(Structure):
     ucAccessCategoryIndex: Byte
     ucAIFSN: Byte
     ucECWmin: Byte
     ucECWmax: Byte
     usTXOPLimit: UInt16
-class DOT11_WME_AC_PARAMETERS_LIST(EasyCastStructure):
+class DOT11_WME_AC_PARAMETERS_LIST(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11WMEACParameters: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WME_AC_PARAMETERS * 1
-class DOT11_WME_UPDATE_IE(EasyCastStructure):
+class DOT11_WME_UPDATE_IE(Structure):
     uParamElemMinBeaconIntervals: UInt32
     uWMEInfoElemOffset: UInt32
     uWMEInfoElemLength: UInt32
     uWMEParamElemOffset: UInt32
     uWMEParamElemLength: UInt32
     ucBuffer: Byte * 1
-class DOT11_WPA_TSC(EasyCastStructure):
+class DOT11_WPA_TSC(Structure):
     uReserved: UInt32
     dot11OffloadType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_OFFLOAD_TYPE
     hOffload: win32more.Windows.Win32.Foundation.HANDLE
@@ -2761,7 +2761,7 @@ DOT11_WPS_CONFIG_METHOD_NFC_INTERFACE: win32more.Windows.Win32.NetworkManagement
 DOT11_WPS_CONFIG_METHOD_PUSHBUTTON: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 128
 DOT11_WPS_CONFIG_METHOD_KEYPAD: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 256
 DOT11_WPS_CONFIG_METHOD_WFDS_DEFAULT: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WPS_CONFIG_METHOD = 4096
-class DOT11_WPS_DEVICE_NAME(EasyCastStructure):
+class DOT11_WPS_DEVICE_NAME(Structure):
     uDeviceNameLength: UInt32
     ucDeviceName: Byte * 32
 DOT11_WPS_DEVICE_PASSWORD_ID = Int32
@@ -2900,7 +2900,7 @@ class IEnumDot11AdHocSecuritySettings(ComPtr):
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class L2_NOTIFICATION_DATA(EasyCastStructure):
+class L2_NOTIFICATION_DATA(Structure):
     NotificationSource: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_NOTIFICATION_SOURCES
     NotificationCode: UInt32
     InterfaceGuid: Guid
@@ -2913,7 +2913,7 @@ OneXAuthIdentityUser: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_I
 OneXAuthIdentityExplicitUser: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 3
 OneXAuthIdentityGuest: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 4
 OneXAuthIdentityInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY = 5
-class ONEX_AUTH_PARAMS(EasyCastStructure):
+class ONEX_AUTH_PARAMS(Structure):
     fUpdatePending: win32more.Windows.Win32.Foundation.BOOL
     oneXConnProfile: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     authIdentity: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY
@@ -2942,7 +2942,7 @@ OneXAuthNoAuthenticatorFound: win32more.Windows.Win32.NetworkManagement.WiFi.ONE
 OneXAuthSuccess: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 3
 OneXAuthFailure: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 4
 OneXAuthInvalid: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS = 5
-class ONEX_EAP_ERROR(EasyCastStructure):
+class ONEX_EAP_ERROR(Structure):
     dwWinError: UInt32
     type: win32more.Windows.Win32.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
     dwReasonCode: UInt32
@@ -2985,36 +2985,36 @@ ONEX_UI_CANCELLED: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CO
 ONEX_PROFILE_INVALID_EXPLICIT_CREDENTIALS: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327698
 ONEX_PROFILE_EXPIRED_EXPLICIT_CREDENTIALS: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327699
 ONEX_UI_NOT_PERMITTED: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_REASON_CODE = 327700
-class ONEX_RESULT_UPDATE_DATA(EasyCastStructure):
+class ONEX_RESULT_UPDATE_DATA(Structure):
     oneXStatus: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_STATUS
     BackendSupport: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT
     fBackendEngaged: win32more.Windows.Win32.Foundation.BOOL
     _bitfield: UInt32
     authParams: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     eapError: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
-class ONEX_STATUS(EasyCastStructure):
+class ONEX_STATUS(Structure):
     authStatus: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_STATUS
     dwReason: UInt32
     dwError: UInt32
-class ONEX_USER_INFO(EasyCastStructure):
+class ONEX_USER_INFO(Structure):
     authIdentity: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY
     _bitfield: UInt32
     UserName: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     DomainName: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
-class ONEX_VARIABLE_BLOB(EasyCastStructure):
+class ONEX_VARIABLE_BLOB(Structure):
     dwSize: UInt32
     dwOffset: UInt32
-class WDIAG_IHV_WLAN_ID(EasyCastStructure):
+class WDIAG_IHV_WLAN_ID(Structure):
     strProfileName: Char * 256
     Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     dwFlags: UInt32
     dwReasonCode: UInt32
-class WFDSVC_CONNECTION_CAPABILITY(EasyCastStructure):
+class WFDSVC_CONNECTION_CAPABILITY(Structure):
     bNew: win32more.Windows.Win32.Foundation.BOOLEAN
     bClient: win32more.Windows.Win32.Foundation.BOOLEAN
     bGO: win32more.Windows.Win32.Foundation.BOOLEAN
-class WFD_GROUP_ID(EasyCastStructure):
+class WFD_GROUP_ID(Structure):
     DeviceAddress: Byte * 6
     GroupSSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
 @winfunctype_pointer
@@ -3028,7 +3028,7 @@ WFD_ROLE_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WiFi.WFD_ROLE_TYPE 
 WLAN_ADHOC_NETWORK_STATE = Int32
 wlan_adhoc_network_state_formed: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_ADHOC_NETWORK_STATE = 0
 wlan_adhoc_network_state_connected: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_ADHOC_NETWORK_STATE = 1
-class WLAN_ASSOCIATION_ATTRIBUTES(EasyCastStructure):
+class WLAN_ASSOCIATION_ATTRIBUTES(Structure):
     dot11Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     dot11Bssid: Byte * 6
@@ -3037,7 +3037,7 @@ class WLAN_ASSOCIATION_ATTRIBUTES(EasyCastStructure):
     wlanSignalQuality: UInt32
     ulRxRate: UInt32
     ulTxRate: UInt32
-class WLAN_AUTH_CIPHER_PAIR_LIST(EasyCastStructure):
+class WLAN_AUTH_CIPHER_PAIR_LIST(Structure):
     dwNumberOfItems: UInt32
     pAuthCipherPairList: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_CIPHER_PAIR * 1
 WLAN_AUTOCONF_OPCODE = Int32
@@ -3049,7 +3049,7 @@ wlan_autoconf_opcode_allow_explicit_creds: win32more.Windows.Win32.NetworkManage
 wlan_autoconf_opcode_block_period: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 5
 wlan_autoconf_opcode_allow_virtual_station_extensibility: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 6
 wlan_autoconf_opcode_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AUTOCONF_OPCODE = 7
-class WLAN_AVAILABLE_NETWORK(EasyCastStructure):
+class WLAN_AVAILABLE_NETWORK(Structure):
     strProfileName: Char * 256
     dot11Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
@@ -3065,15 +3065,15 @@ class WLAN_AVAILABLE_NETWORK(EasyCastStructure):
     dot11DefaultCipherAlgorithm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
     dwFlags: UInt32
     dwReserved: UInt32
-class WLAN_AVAILABLE_NETWORK_LIST(EasyCastStructure):
+class WLAN_AVAILABLE_NETWORK_LIST(Structure):
     dwNumberOfItems: UInt32
     dwIndex: UInt32
     Network: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK * 1
-class WLAN_AVAILABLE_NETWORK_LIST_V2(EasyCastStructure):
+class WLAN_AVAILABLE_NETWORK_LIST_V2(Structure):
     dwNumberOfItems: UInt32
     dwIndex: UInt32
     Network: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_AVAILABLE_NETWORK_V2 * 1
-class WLAN_AVAILABLE_NETWORK_V2(EasyCastStructure):
+class WLAN_AVAILABLE_NETWORK_V2(Structure):
     strProfileName: Char * 256
     dot11Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
@@ -3092,7 +3092,7 @@ class WLAN_AVAILABLE_NETWORK_V2(EasyCastStructure):
     dot11HESSID: Byte * 6
     VenueInfo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_VENUEINFO
     dwReserved: UInt32
-class WLAN_BSS_ENTRY(EasyCastStructure):
+class WLAN_BSS_ENTRY(Structure):
     dot11Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     uPhyId: UInt32
     dot11Bssid: Byte * 6
@@ -3109,11 +3109,11 @@ class WLAN_BSS_ENTRY(EasyCastStructure):
     wlanRateSet: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_RATE_SET
     ulIeOffset: UInt32
     ulIeSize: UInt32
-class WLAN_BSS_LIST(EasyCastStructure):
+class WLAN_BSS_LIST(Structure):
     dwTotalSize: UInt32
     dwNumberOfItems: UInt32
     wlanBssEntries: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_BSS_ENTRY * 1
-class WLAN_CONNECTION_ATTRIBUTES(EasyCastStructure):
+class WLAN_CONNECTION_ATTRIBUTES(Structure):
     isState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE
     wlanConnectionMode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE
     strProfileName: Char * 256
@@ -3126,7 +3126,7 @@ wlan_connection_mode_discovery_secure: win32more.Windows.Win32.NetworkManagement
 wlan_connection_mode_discovery_unsecure: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE = 3
 wlan_connection_mode_auto: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE = 4
 wlan_connection_mode_invalid: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE = 5
-class WLAN_CONNECTION_NOTIFICATION_DATA(EasyCastStructure):
+class WLAN_CONNECTION_NOTIFICATION_DATA(Structure):
     wlanConnectionMode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE
     strProfileName: Char * 256
     dot11Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
@@ -3138,14 +3138,14 @@ class WLAN_CONNECTION_NOTIFICATION_DATA(EasyCastStructure):
 WLAN_CONNECTION_NOTIFICATION_FLAGS = UInt32
 WLAN_CONNECTION_NOTIFICATION_ADHOC_NETWORK_FORMED: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_NOTIFICATION_FLAGS = 1
 WLAN_CONNECTION_NOTIFICATION_CONSOLE_USER_PROFILE: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_NOTIFICATION_FLAGS = 4
-class WLAN_CONNECTION_PARAMETERS(EasyCastStructure):
+class WLAN_CONNECTION_PARAMETERS(Structure):
     wlanConnectionMode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE
     strProfile: win32more.Windows.Win32.Foundation.PWSTR
     pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID)
     pDesiredBssidList: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSSID_LIST)
     dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     dwFlags: UInt32
-class WLAN_CONNECTION_PARAMETERS_V2(EasyCastStructure):
+class WLAN_CONNECTION_PARAMETERS_V2(Structure):
     wlanConnectionMode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE
     strProfile: win32more.Windows.Win32.Foundation.PWSTR
     pDot11Ssid: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID)
@@ -3154,14 +3154,14 @@ class WLAN_CONNECTION_PARAMETERS_V2(EasyCastStructure):
     dot11BssType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_BSS_TYPE
     dwFlags: UInt32
     pDot11AccessNetworkOptions: POINTER(win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_ACCESSNETWORKOPTIONS)
-class WLAN_COUNTRY_OR_REGION_STRING_LIST(EasyCastStructure):
+class WLAN_COUNTRY_OR_REGION_STRING_LIST(Structure):
     dwNumberOfItems: UInt32
     pCountryOrRegionStringList: Byte * 3
-class WLAN_DEVICE_SERVICE_GUID_LIST(EasyCastStructure):
+class WLAN_DEVICE_SERVICE_GUID_LIST(Structure):
     dwNumberOfItems: UInt32
     dwIndex: UInt32
     DeviceService: Guid * 1
-class WLAN_DEVICE_SERVICE_NOTIFICATION_DATA(EasyCastStructure):
+class WLAN_DEVICE_SERVICE_NOTIFICATION_DATA(Structure):
     DeviceService: Guid
     dwOpCode: UInt32
     dwDataSize: UInt32
@@ -3171,10 +3171,10 @@ wlan_filter_list_type_gp_permit: win32more.Windows.Win32.NetworkManagement.WiFi.
 wlan_filter_list_type_gp_deny: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE = 1
 wlan_filter_list_type_user_permit: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE = 2
 wlan_filter_list_type_user_deny: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_FILTER_LIST_TYPE = 3
-class WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS(EasyCastStructure):
+class WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS(Structure):
     hostedNetworkSSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
     dwMaxNumberOfPeers: UInt32
-class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE(EasyCastStructure):
+class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE(Structure):
     OldState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE
     NewState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_STATE
     PeerStateChangeReason: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON
@@ -3190,10 +3190,10 @@ wlan_hosted_network_opcode_enable: win32more.Windows.Win32.NetworkManagement.WiF
 WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = Int32
 wlan_hosted_network_peer_state_invalid: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = 0
 wlan_hosted_network_peer_state_authenticated: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_AUTH_STATE = 1
-class WLAN_HOSTED_NETWORK_PEER_STATE(EasyCastStructure):
+class WLAN_HOSTED_NETWORK_PEER_STATE(Structure):
     PeerMacAddress: Byte * 6
     PeerAuthState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_PEER_AUTH_STATE
-class WLAN_HOSTED_NETWORK_RADIO_STATE(EasyCastStructure):
+class WLAN_HOSTED_NETWORK_RADIO_STATE(Structure):
     dot11SoftwareRadioState: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE
     dot11HardwareRadioState: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE
 WLAN_HOSTED_NETWORK_REASON = Int32
@@ -3226,18 +3226,18 @@ wlan_hosted_network_reason_device_change: win32more.Windows.Win32.NetworkManagem
 wlan_hosted_network_reason_properties_change: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 26
 wlan_hosted_network_reason_virtual_station_blocking_use: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 27
 wlan_hosted_network_reason_service_available_on_virtual_station: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON = 28
-class WLAN_HOSTED_NETWORK_SECURITY_SETTINGS(EasyCastStructure):
+class WLAN_HOSTED_NETWORK_SECURITY_SETTINGS(Structure):
     dot11AuthAlgo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
     dot11CipherAlgo: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
 WLAN_HOSTED_NETWORK_STATE = Int32
 wlan_hosted_network_unavailable: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE = 0
 wlan_hosted_network_idle: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE = 1
 wlan_hosted_network_active: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE = 2
-class WLAN_HOSTED_NETWORK_STATE_CHANGE(EasyCastStructure):
+class WLAN_HOSTED_NETWORK_STATE_CHANGE(Structure):
     OldState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE
     NewState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE
     StateChangeReason: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_REASON
-class WLAN_HOSTED_NETWORK_STATUS(EasyCastStructure):
+class WLAN_HOSTED_NETWORK_STATUS(Structure):
     HostedNetworkState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_HOSTED_NETWORK_STATE
     IPDeviceID: Guid
     wlanHostedNetworkBSSID: Byte * 6
@@ -3248,18 +3248,18 @@ class WLAN_HOSTED_NETWORK_STATUS(EasyCastStructure):
 WLAN_IHV_CONTROL_TYPE = Int32
 wlan_ihv_control_type_service: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_IHV_CONTROL_TYPE = 0
 wlan_ihv_control_type_driver: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_IHV_CONTROL_TYPE = 1
-class WLAN_INTERFACE_CAPABILITY(EasyCastStructure):
+class WLAN_INTERFACE_CAPABILITY(Structure):
     interfaceType: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_TYPE
     bDot11DSupported: win32more.Windows.Win32.Foundation.BOOL
     dwMaxDesiredSsidListSize: UInt32
     dwMaxDesiredBssidListSize: UInt32
     dwNumberOfSupportedPhys: UInt32
     dot11PhyTypes: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE * 64
-class WLAN_INTERFACE_INFO(EasyCastStructure):
+class WLAN_INTERFACE_INFO(Structure):
     InterfaceGuid: Guid
     strInterfaceDescription: Char * 256
     isState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_STATE
-class WLAN_INTERFACE_INFO_LIST(EasyCastStructure):
+class WLAN_INTERFACE_INFO_LIST(Structure):
     dwNumberOfItems: UInt32
     dwIndex: UInt32
     InterfaceInfo: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTERFACE_INFO * 1
@@ -3305,7 +3305,7 @@ wlan_intf_opcode_security_start: win32more.Windows.Win32.NetworkManagement.WiFi.
 wlan_intf_opcode_security_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 805306367
 wlan_intf_opcode_ihv_start: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 805306368
 wlan_intf_opcode_ihv_end: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_INTF_OPCODE = 1073741823
-class WLAN_MAC_FRAME_STATISTICS(EasyCastStructure):
+class WLAN_MAC_FRAME_STATISTICS(Structure):
     ullTransmittedFrameCount: UInt64
     ullReceivedFrameCount: UInt64
     ullWEPExcludedCount: UInt64
@@ -3318,7 +3318,7 @@ class WLAN_MAC_FRAME_STATISTICS(EasyCastStructure):
     ullWEPICVErrorCount: UInt64
     ullDecryptSuccessCount: UInt64
     ullDecryptFailureCount: UInt64
-class WLAN_MSM_NOTIFICATION_DATA(EasyCastStructure):
+class WLAN_MSM_NOTIFICATION_DATA(Structure):
     wlanConnectionMode: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_CONNECTION_MODE
     strProfileName: Char * 256
     dot11Ssid: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
@@ -3403,7 +3403,7 @@ wlan_operational_state_off: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_
 wlan_operational_state_on: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPERATIONAL_STATE = 2
 wlan_operational_state_going_off: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPERATIONAL_STATE = 3
 wlan_operational_state_going_on: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_OPERATIONAL_STATE = 4
-class WLAN_PHY_FRAME_STATISTICS(EasyCastStructure):
+class WLAN_PHY_FRAME_STATISTICS(Structure):
     ullTransmittedFrameCount: UInt64
     ullMulticastTransmittedFrameCount: UInt64
     ullFailedCount: UInt64
@@ -3422,7 +3422,7 @@ class WLAN_PHY_FRAME_STATISTICS(EasyCastStructure):
     ullReceivedFragmentCount: UInt64
     ullPromiscuousReceivedFragmentCount: UInt64
     ullFCSErrorCount: UInt64
-class WLAN_PHY_RADIO_STATE(EasyCastStructure):
+class WLAN_PHY_RADIO_STATE(Structure):
     dwPhyIndex: UInt32
     dot11SoftwareRadioState: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE
     dot11HardwareRadioState: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RADIO_STATE
@@ -3432,27 +3432,27 @@ wlan_power_setting_low_saving: win32more.Windows.Win32.NetworkManagement.WiFi.WL
 wlan_power_setting_medium_saving: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_POWER_SETTING = 2
 wlan_power_setting_maximum_saving: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_POWER_SETTING = 3
 wlan_power_setting_invalid: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_POWER_SETTING = 4
-class WLAN_PROFILE_INFO(EasyCastStructure):
+class WLAN_PROFILE_INFO(Structure):
     strProfileName: Char * 256
     dwFlags: UInt32
-class WLAN_PROFILE_INFO_LIST(EasyCastStructure):
+class WLAN_PROFILE_INFO_LIST(Structure):
     dwNumberOfItems: UInt32
     dwIndex: UInt32
     ProfileInfo: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_PROFILE_INFO * 1
-class WLAN_RADIO_STATE(EasyCastStructure):
+class WLAN_RADIO_STATE(Structure):
     dwNumberOfPhys: UInt32
     PhyRadioState: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_PHY_RADIO_STATE * 64
-class WLAN_RATE_SET(EasyCastStructure):
+class WLAN_RATE_SET(Structure):
     uRateSetLength: UInt32
     usRateSet: UInt16 * 126
-class WLAN_RAW_DATA(EasyCastStructure):
+class WLAN_RAW_DATA(Structure):
     dwDataSize: UInt32
     DataBlob: Byte * 1
-class WLAN_RAW_DATA_LIST(EasyCastStructure):
+class WLAN_RAW_DATA_LIST(Structure):
     dwTotalSize: UInt32
     dwNumberOfItems: UInt32
     DataList: _Anonymous_e__Struct * 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         dwDataOffset: UInt32
         dwDataSize: UInt32
 WLAN_SECURABLE_OBJECT = Int32
@@ -3474,14 +3474,14 @@ wlan_secure_hosted_network_elevated_access: win32more.Windows.Win32.NetworkManag
 wlan_secure_virtual_station_extensibility: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 15
 wlan_secure_wfd_elevated_access: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 16
 WLAN_SECURABLE_OBJECT_COUNT: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SECURABLE_OBJECT = 17
-class WLAN_SECURITY_ATTRIBUTES(EasyCastStructure):
+class WLAN_SECURITY_ATTRIBUTES(Structure):
     bSecurityEnabled: win32more.Windows.Win32.Foundation.BOOL
     bOneXEnabled: win32more.Windows.Win32.Foundation.BOOL
     dot11AuthAlgorithm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
     dot11CipherAlgorithm: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
 WLAN_SET_EAPHOST_FLAGS = UInt32
 WLAN_SET_EAPHOST_DATA_ALL_USERS: win32more.Windows.Win32.NetworkManagement.WiFi.WLAN_SET_EAPHOST_FLAGS = 1
-class WLAN_STATISTICS(EasyCastStructure):
+class WLAN_STATISTICS(Structure):
     ullFourWayHandshakeFailures: UInt64
     ullTKIPCounterMeasuresInvoked: UInt64
     ullReserved: UInt64

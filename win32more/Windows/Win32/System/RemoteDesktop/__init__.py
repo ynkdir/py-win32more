@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
@@ -10,7 +10,7 @@ import win32more.Windows.Win32.System.RemoteDesktop
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-class AAAccountingData(EasyCastStructure):
+class AAAccountingData(Structure):
     userName: win32more.Windows.Win32.Foundation.BSTR
     clientName: win32more.Windows.Win32.Foundation.BSTR
     authType: win32more.Windows.Win32.System.RemoteDesktop.AAAuthSchemes
@@ -46,7 +46,7 @@ AA_UNTRUSTED: win32more.Windows.Win32.System.RemoteDesktop.AATrustClassID = 0
 AA_TRUSTEDUSER_UNTRUSTEDCLIENT: win32more.Windows.Win32.System.RemoteDesktop.AATrustClassID = 1
 AA_TRUSTEDUSER_TRUSTEDCLIENT: win32more.Windows.Win32.System.RemoteDesktop.AATrustClassID = 2
 ADsTSUserEx = Guid('{e2e9cae6-1e7b-4b8e-babd-e9bf6292ac29}')
-class AE_CURRENT_POSITION(EasyCastStructure):
+class AE_CURRENT_POSITION(Structure):
     u64DevicePosition: UInt64
     u64StreamPosition: UInt64
     u64PaddingFrames: UInt64
@@ -459,24 +459,24 @@ def WTSSetRenderHint(pRenderHintID: POINTER(UInt64), hwndOwner: win32more.Window
 def ProcessIdToSessionId(dwProcessId: UInt32, pSessionId: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def WTSGetActiveConsoleSessionId() -> UInt32: ...
-class BITMAP_RENDERER_STATISTICS(EasyCastStructure):
+class BITMAP_RENDERER_STATISTICS(Structure):
     dwFramesDelivered: UInt32
     dwFramesDropped: UInt32
-class CHANNEL_DEF(EasyCastStructure):
+class CHANNEL_DEF(Structure):
     name: win32more.Windows.Win32.Foundation.CHAR * 8
     options: UInt32
     _pack_ = 1
-class CHANNEL_ENTRY_POINTS(EasyCastStructure):
+class CHANNEL_ENTRY_POINTS(Structure):
     cbSize: UInt32
     protocolVersion: UInt32
     pVirtualChannelInit: win32more.Windows.Win32.System.RemoteDesktop.PVIRTUALCHANNELINIT
     pVirtualChannelOpen: win32more.Windows.Win32.System.RemoteDesktop.PVIRTUALCHANNELOPEN
     pVirtualChannelClose: win32more.Windows.Win32.System.RemoteDesktop.PVIRTUALCHANNELCLOSE
     pVirtualChannelWrite: win32more.Windows.Win32.System.RemoteDesktop.PVIRTUALCHANNELWRITE
-class CHANNEL_PDU_HEADER(EasyCastStructure):
+class CHANNEL_PDU_HEADER(Structure):
     length: UInt32
     flags: UInt32
-class CLIENT_DISPLAY(EasyCastStructure):
+class CLIENT_DISPLAY(Structure):
     HorizontalResolution: UInt32
     VerticalResolution: UInt32
     ColorDepth: UInt32
@@ -1679,10 +1679,10 @@ PLACEMENT_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 8
 ORCHESTRATION_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 16
 PROVISIONING_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 32
 TASK_PLUGIN: win32more.Windows.Win32.System.RemoteDesktop.PLUGIN_TYPE = 64
-class PRODUCT_INFOA(EasyCastStructure):
+class PRODUCT_INFOA(Structure):
     CompanyName: win32more.Windows.Win32.Foundation.CHAR * 256
     ProductID: win32more.Windows.Win32.Foundation.CHAR * 4
-class PRODUCT_INFOW(EasyCastStructure):
+class PRODUCT_INFOW(Structure):
     CompanyName: Char * 256
     ProductID: Char * 4
 PRODUCT_INFO = UnicodeAlias('PRODUCT_INFOW')
@@ -1727,7 +1727,7 @@ RD_FARM_AUTO_PERSONAL_VM: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_T
 RD_FARM_MANUAL_PERSONAL_RDSH: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = 4
 RD_FARM_AUTO_PERSONAL_RDSH: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = 5
 RD_FARM_TYPE_UNKNOWN: win32more.Windows.Win32.System.RemoteDesktop.RD_FARM_TYPE = -1
-class RFX_GFX_MONITOR_INFO(EasyCastStructure):
+class RFX_GFX_MONITOR_INFO(Structure):
     left: Int32
     top: Int32
     right: Int32
@@ -1737,44 +1737,44 @@ class RFX_GFX_MONITOR_INFO(EasyCastStructure):
     orientation: UInt32
     primary: win32more.Windows.Win32.Foundation.BOOL
     _pack_ = 1
-class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST(EasyCastStructure):
+class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_REQUEST(Structure):
     channelHdr: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_MSG_HEADER
-class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE(EasyCastStructure):
+class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE(Structure):
     channelHdr: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_MSG_HEADER
     reserved: UInt32
     monitorCount: UInt32
     MonitorData: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_MONITOR_INFO * 16
     clientUniqueId: Char * 32
     _pack_ = 1
-class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM(EasyCastStructure):
+class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM(Structure):
     channelHdr: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_MSG_HEADER
-class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY(EasyCastStructure):
+class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY(Structure):
     channelHdr: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_MSG_HEADER
     ulWidth: UInt32
     ulHeight: UInt32
     ulBpp: UInt32
     Reserved: UInt32
     _pack_ = 1
-class RFX_GFX_MSG_DESKTOP_INPUT_RESET(EasyCastStructure):
+class RFX_GFX_MSG_DESKTOP_INPUT_RESET(Structure):
     channelHdr: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_MSG_HEADER
     ulWidth: UInt32
     ulHeight: UInt32
     _pack_ = 1
-class RFX_GFX_MSG_DESKTOP_RESEND_REQUEST(EasyCastStructure):
+class RFX_GFX_MSG_DESKTOP_RESEND_REQUEST(Structure):
     channelHdr: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_MSG_HEADER
     RedrawRect: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_RECT
-class RFX_GFX_MSG_DISCONNECT_NOTIFY(EasyCastStructure):
+class RFX_GFX_MSG_DISCONNECT_NOTIFY(Structure):
     channelHdr: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_MSG_HEADER
     DisconnectReason: UInt32
     _pack_ = 1
-class RFX_GFX_MSG_HEADER(EasyCastStructure):
+class RFX_GFX_MSG_HEADER(Structure):
     uMSGType: UInt16
     cbSize: UInt16
     _pack_ = 1
-class RFX_GFX_MSG_RDP_DATA(EasyCastStructure):
+class RFX_GFX_MSG_RDP_DATA(Structure):
     channelHdr: win32more.Windows.Win32.System.RemoteDesktop.RFX_GFX_MSG_HEADER
     rdpData: Byte * 1
-class RFX_GFX_RECT(EasyCastStructure):
+class RFX_GFX_RECT(Structure):
     left: Int32
     top: Int32
     right: Int32
@@ -1848,7 +1848,7 @@ TSSD_AddrV46Type = Int32
 TSSD_ADDR_UNDEFINED: win32more.Windows.Win32.System.RemoteDesktop.TSSD_AddrV46Type = 0
 TSSD_ADDR_IPv4: win32more.Windows.Win32.System.RemoteDesktop.TSSD_AddrV46Type = 4
 TSSD_ADDR_IPv6: win32more.Windows.Win32.System.RemoteDesktop.TSSD_AddrV46Type = 6
-class TSSD_ConnectionPoint(EasyCastStructure):
+class TSSD_ConnectionPoint(Structure):
     ServerAddressB: Byte * 16
     AddressType: win32more.Windows.Win32.System.RemoteDesktop.TSSD_AddrV46Type
     PortNumber: UInt16
@@ -1876,10 +1876,10 @@ VM_HOST_STATUS_INIT_PENDING: win32more.Windows.Win32.System.RemoteDesktop.VM_HOS
 VM_HOST_STATUS_INIT_IN_PROGRESS: win32more.Windows.Win32.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS = 1
 VM_HOST_STATUS_INIT_COMPLETE: win32more.Windows.Win32.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS = 2
 VM_HOST_STATUS_INIT_FAILED: win32more.Windows.Win32.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS = 3
-class VM_NOTIFY_ENTRY(EasyCastStructure):
+class VM_NOTIFY_ENTRY(Structure):
     VmName: Char * 128
     VmHost: Char * 128
-class VM_NOTIFY_INFO(EasyCastStructure):
+class VM_NOTIFY_INFO(Structure):
     dwNumEntries: UInt32
     ppVmEntries: POINTER(POINTER(win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_ENTRY))
 VM_NOTIFY_STATUS = Int32
@@ -1888,15 +1888,15 @@ VM_NOTIFY_STATUS_IN_PROGRESS: win32more.Windows.Win32.System.RemoteDesktop.VM_NO
 VM_NOTIFY_STATUS_COMPLETE: win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_STATUS = 2
 VM_NOTIFY_STATUS_FAILED: win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_STATUS = 3
 VM_NOTIFY_STATUS_CANCELED: win32more.Windows.Win32.System.RemoteDesktop.VM_NOTIFY_STATUS = 4
-class VM_PATCH_INFO(EasyCastStructure):
+class VM_PATCH_INFO(Structure):
     dwNumEntries: UInt32
     pVmNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class WRDS_CONNECTION_SETTING(EasyCastUnion):
+class WRDS_CONNECTION_SETTING(Union):
     WRdsConnectionSettings1: win32more.Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_1
-class WRDS_CONNECTION_SETTINGS(EasyCastStructure):
+class WRDS_CONNECTION_SETTINGS(Structure):
     WRdsConnectionSettingLevel: win32more.Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL
     WRdsConnectionSetting: win32more.Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTING
-class WRDS_CONNECTION_SETTINGS_1(EasyCastStructure):
+class WRDS_CONNECTION_SETTINGS_1(Structure):
     fInheritInitialProgram: win32more.Windows.Win32.Foundation.BOOLEAN
     fInheritColorDepth: win32more.Windows.Win32.Foundation.BOOLEAN
     fHideTitleBar: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1965,7 +1965,7 @@ class WRDS_CONNECTION_SETTINGS_1(EasyCastStructure):
 WRDS_CONNECTION_SETTING_LEVEL = Int32
 WRDS_CONNECTION_SETTING_LEVEL_INVALID: win32more.Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL = 0
 WRDS_CONNECTION_SETTING_LEVEL_1: win32more.Windows.Win32.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL = 1
-class WRDS_DYNAMIC_TIME_ZONE_INFORMATION(EasyCastStructure):
+class WRDS_DYNAMIC_TIME_ZONE_INFORMATION(Structure):
     Bias: Int32
     StandardName: Char * 32
     StandardDate: win32more.Windows.Win32.System.RemoteDesktop.WTS_SYSTEMTIME
@@ -1975,25 +1975,25 @@ class WRDS_DYNAMIC_TIME_ZONE_INFORMATION(EasyCastStructure):
     DaylightBias: Int32
     TimeZoneKeyName: Char * 128
     DynamicDaylightTimeDisabled: UInt16
-class WRDS_LISTENER_SETTING(EasyCastUnion):
+class WRDS_LISTENER_SETTING(Union):
     WRdsListenerSettings1: win32more.Windows.Win32.System.RemoteDesktop.WRDS_LISTENER_SETTINGS_1
-class WRDS_LISTENER_SETTINGS(EasyCastStructure):
+class WRDS_LISTENER_SETTINGS(Structure):
     WRdsListenerSettingLevel: win32more.Windows.Win32.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL
     WRdsListenerSetting: win32more.Windows.Win32.System.RemoteDesktop.WRDS_LISTENER_SETTING
-class WRDS_LISTENER_SETTINGS_1(EasyCastStructure):
+class WRDS_LISTENER_SETTINGS_1(Structure):
     MaxProtocolListenerConnectionCount: UInt32
     SecurityDescriptorSize: UInt32
     pSecurityDescriptor: POINTER(Byte)
 WRDS_LISTENER_SETTING_LEVEL = Int32
 WRDS_LISTENER_SETTING_LEVEL_INVALID: win32more.Windows.Win32.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL = 0
 WRDS_LISTENER_SETTING_LEVEL_1: win32more.Windows.Win32.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL = 1
-class WRDS_SETTING(EasyCastUnion):
+class WRDS_SETTING(Union):
     WRdsSettings1: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTINGS_1
-class WRDS_SETTINGS(EasyCastStructure):
+class WRDS_SETTINGS(Structure):
     WRdsSettingType: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_TYPE
     WRdsSettingLevel: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_LEVEL
     WRdsSetting: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING
-class WRDS_SETTINGS_1(EasyCastStructure):
+class WRDS_SETTINGS_1(Structure):
     WRdsDisableClipStatus: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_STATUS
     WRdsDisableClipValue: UInt32
     WRdsDisableLPTStatus: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING_STATUS
@@ -2041,7 +2041,7 @@ WRDS_SETTING_TYPE_SAM: win32more.Windows.Win32.System.RemoteDesktop.WRDS_SETTING
 WRdsGraphicsChannelType = Int32
 WRdsGraphicsChannelType_GuaranteedDelivery: win32more.Windows.Win32.System.RemoteDesktop.WRdsGraphicsChannelType = 0
 WRdsGraphicsChannelType_BestEffortDelivery: win32more.Windows.Win32.System.RemoteDesktop.WRdsGraphicsChannelType = 1
-class WTSCLIENTA(EasyCastStructure):
+class WTSCLIENTA(Structure):
     ClientName: win32more.Windows.Win32.Foundation.CHAR * 21
     Domain: win32more.Windows.Win32.Foundation.CHAR * 18
     UserName: win32more.Windows.Win32.Foundation.CHAR * 21
@@ -2061,7 +2061,7 @@ class WTSCLIENTA(EasyCastStructure):
     OutBufCountClient: UInt16
     OutBufLength: UInt16
     DeviceId: win32more.Windows.Win32.Foundation.CHAR * 261
-class WTSCLIENTW(EasyCastStructure):
+class WTSCLIENTW(Structure):
     ClientName: Char * 21
     Domain: Char * 18
     UserName: Char * 21
@@ -2082,7 +2082,7 @@ class WTSCLIENTW(EasyCastStructure):
     OutBufLength: UInt16
     DeviceId: Char * 261
 WTSCLIENT = UnicodeAlias('WTSCLIENTW')
-class WTSCONFIGINFOA(EasyCastStructure):
+class WTSCONFIGINFOA(Structure):
     version: UInt32
     fConnectClientDrivesAtLogon: UInt32
     fConnectPrinterAtLogon: UInt32
@@ -2094,7 +2094,7 @@ class WTSCONFIGINFOA(EasyCastStructure):
     WorkDirectory: win32more.Windows.Win32.Foundation.CHAR * 261
     InitialProgram: win32more.Windows.Win32.Foundation.CHAR * 261
     ApplicationName: win32more.Windows.Win32.Foundation.CHAR * 261
-class WTSCONFIGINFOW(EasyCastStructure):
+class WTSCONFIGINFOW(Structure):
     version: UInt32
     fConnectClientDrivesAtLogon: UInt32
     fConnectPrinterAtLogon: UInt32
@@ -2107,7 +2107,7 @@ class WTSCONFIGINFOW(EasyCastStructure):
     InitialProgram: Char * 261
     ApplicationName: Char * 261
 WTSCONFIGINFO = UnicodeAlias('WTSCONFIGINFOW')
-class WTSINFOA(EasyCastStructure):
+class WTSINFOA(Structure):
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
     SessionId: UInt32
     IncomingBytes: UInt32
@@ -2124,14 +2124,14 @@ class WTSINFOA(EasyCastStructure):
     LastInputTime: Int64
     LogonTime: Int64
     CurrentTime: Int64
-class WTSINFOEXA(EasyCastStructure):
+class WTSINFOEXA(Structure):
     Level: UInt32
     Data: win32more.Windows.Win32.System.RemoteDesktop.WTSINFOEX_LEVEL_A
-class WTSINFOEXW(EasyCastStructure):
+class WTSINFOEXW(Structure):
     Level: UInt32
     Data: win32more.Windows.Win32.System.RemoteDesktop.WTSINFOEX_LEVEL_W
 WTSINFOEX = UnicodeAlias('WTSINFOEXW')
-class WTSINFOEX_LEVEL1_A(EasyCastStructure):
+class WTSINFOEX_LEVEL1_A(Structure):
     SessionId: UInt32
     SessionState: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
     SessionFlags: Int32
@@ -2149,7 +2149,7 @@ class WTSINFOEX_LEVEL1_A(EasyCastStructure):
     OutgoingFrames: UInt32
     IncomingCompressedBytes: UInt32
     OutgoingCompressedBytes: UInt32
-class WTSINFOEX_LEVEL1_W(EasyCastStructure):
+class WTSINFOEX_LEVEL1_W(Structure):
     SessionId: UInt32
     SessionState: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
     SessionFlags: Int32
@@ -2168,12 +2168,12 @@ class WTSINFOEX_LEVEL1_W(EasyCastStructure):
     IncomingCompressedBytes: UInt32
     OutgoingCompressedBytes: UInt32
 WTSINFOEX_LEVEL1 = UnicodeAlias('WTSINFOEX_LEVEL1_W')
-class WTSINFOEX_LEVEL_A(EasyCastUnion):
+class WTSINFOEX_LEVEL_A(Union):
     WTSInfoExLevel1: win32more.Windows.Win32.System.RemoteDesktop.WTSINFOEX_LEVEL1_A
-class WTSINFOEX_LEVEL_W(EasyCastUnion):
+class WTSINFOEX_LEVEL_W(Union):
     WTSInfoExLevel1: win32more.Windows.Win32.System.RemoteDesktop.WTSINFOEX_LEVEL1_W
 WTSINFOEX_LEVEL = UnicodeAlias('WTSINFOEX_LEVEL_W')
-class WTSINFOW(EasyCastStructure):
+class WTSINFOW(Structure):
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
     SessionId: UInt32
     IncomingBytes: UInt32
@@ -2191,7 +2191,7 @@ class WTSINFOW(EasyCastStructure):
     LogonTime: Int64
     CurrentTime: Int64
 WTSINFO = UnicodeAlias('WTSINFOW')
-class WTSLISTENERCONFIGA(EasyCastStructure):
+class WTSLISTENERCONFIGA(Structure):
     version: UInt32
     fEnableListener: UInt32
     MaxConnectionCount: UInt32
@@ -2223,7 +2223,7 @@ class WTSLISTENERCONFIGA(EasyCastStructure):
     LogonDomain: win32more.Windows.Win32.Foundation.CHAR * 18
     WorkDirectory: win32more.Windows.Win32.Foundation.CHAR * 261
     InitialProgram: win32more.Windows.Win32.Foundation.CHAR * 261
-class WTSLISTENERCONFIGW(EasyCastStructure):
+class WTSLISTENERCONFIGW(Structure):
     version: UInt32
     fEnableListener: UInt32
     MaxConnectionCount: UInt32
@@ -2262,12 +2262,12 @@ WTSSBX_ADDRESS_FAMILY_AF_INET: win32more.Windows.Win32.System.RemoteDesktop.WTSS
 WTSSBX_ADDRESS_FAMILY_AF_INET6: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 2
 WTSSBX_ADDRESS_FAMILY_AF_IPX: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 3
 WTSSBX_ADDRESS_FAMILY_AF_NETBIOS: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY = 4
-class WTSSBX_IP_ADDRESS(EasyCastStructure):
+class WTSSBX_IP_ADDRESS(Structure):
     AddressFamily: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_ADDRESS_FAMILY
     Address: Byte * 16
     PortNumber: UInt16
     dwScope: UInt32
-class WTSSBX_MACHINE_CONNECT_INFO(EasyCastStructure):
+class WTSSBX_MACHINE_CONNECT_INFO(Structure):
     wczMachineFQDN: Char * 257
     wczMachineNetBiosName: Char * 17
     dwNumOfIPAddr: UInt32
@@ -2276,7 +2276,7 @@ WTSSBX_MACHINE_DRAIN = Int32
 WTSSBX_MACHINE_DRAIN_UNSPEC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_DRAIN = 0
 WTSSBX_MACHINE_DRAIN_OFF: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_DRAIN = 1
 WTSSBX_MACHINE_DRAIN_ON: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_DRAIN = 2
-class WTSSBX_MACHINE_INFO(EasyCastStructure):
+class WTSSBX_MACHINE_INFO(Structure):
     ClientConnectInfo: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_MACHINE_CONNECT_INFO
     wczFarmName: Char * 257
     InternalIPAddress: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_IP_ADDRESS
@@ -2298,7 +2298,7 @@ WTSSBX_NOTIFICATION_REMOVED: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX
 WTSSBX_NOTIFICATION_CHANGED: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE = 2
 WTSSBX_NOTIFICATION_ADDED: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE = 4
 WTSSBX_NOTIFICATION_RESYNC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_NOTIFICATION_TYPE = 8
-class WTSSBX_SESSION_INFO(EasyCastStructure):
+class WTSSBX_SESSION_INFO(Structure):
     wszUserName: Char * 105
     wszDomainName: Char * 257
     ApplicationType: Char * 257
@@ -2310,10 +2310,10 @@ WTSSBX_SESSION_STATE = Int32
 WTSSBX_SESSION_STATE_UNSPEC: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_SESSION_STATE = 0
 WTSSBX_SESSION_STATE_ACTIVE: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_SESSION_STATE = 1
 WTSSBX_SESSION_STATE_DISCONNECTED: win32more.Windows.Win32.System.RemoteDesktop.WTSSBX_SESSION_STATE = 2
-class WTSSESSION_NOTIFICATION(EasyCastStructure):
+class WTSSESSION_NOTIFICATION(Structure):
     cbSize: UInt32
     dwSessionId: UInt32
-class WTSUSERCONFIGA(EasyCastStructure):
+class WTSUSERCONFIGA(Structure):
     Source: UInt32
     InheritInitialProgram: UInt32
     AllowLogonTerminalServer: UInt32
@@ -2332,7 +2332,7 @@ class WTSUSERCONFIGA(EasyCastStructure):
     TerminalServerProfilePath: win32more.Windows.Win32.Foundation.CHAR * 261
     TerminalServerHomeDir: win32more.Windows.Win32.Foundation.CHAR * 261
     TerminalServerHomeDirDrive: win32more.Windows.Win32.Foundation.CHAR * 4
-class WTSUSERCONFIGW(EasyCastStructure):
+class WTSUSERCONFIGW(Structure):
     Source: UInt32
     InheritInitialProgram: UInt32
     AllowLogonTerminalServer: UInt32
@@ -2352,12 +2352,12 @@ class WTSUSERCONFIGW(EasyCastStructure):
     TerminalServerHomeDir: Char * 261
     TerminalServerHomeDirDrive: Char * 4
 WTSUSERCONFIG = UnicodeAlias('WTSUSERCONFIGW')
-class WTS_CACHE_STATS(EasyCastStructure):
+class WTS_CACHE_STATS(Structure):
     Specific: UInt32
     Data: win32more.Windows.Win32.System.RemoteDesktop.WTS_CACHE_STATS_UN
     ProtocolType: UInt16
     Length: UInt16
-class WTS_CACHE_STATS_UN(EasyCastUnion):
+class WTS_CACHE_STATS_UN(Union):
     ProtocolCache: win32more.Windows.Win32.System.RemoteDesktop.WTS_PROTOCOL_CACHE * 4
     TShareCacheStats: UInt32
     Reserved: UInt32 * 20
@@ -2365,10 +2365,10 @@ WTS_CERT_TYPE = Int32
 WTS_CERT_TYPE_INVALID: win32more.Windows.Win32.System.RemoteDesktop.WTS_CERT_TYPE = 0
 WTS_CERT_TYPE_PROPRIETORY: win32more.Windows.Win32.System.RemoteDesktop.WTS_CERT_TYPE = 1
 WTS_CERT_TYPE_X509: win32more.Windows.Win32.System.RemoteDesktop.WTS_CERT_TYPE = 2
-class WTS_CLIENT_ADDRESS(EasyCastStructure):
+class WTS_CLIENT_ADDRESS(Structure):
     AddressFamily: UInt32
     Address: Byte * 20
-class WTS_CLIENT_DATA(EasyCastStructure):
+class WTS_CLIENT_DATA(Structure):
     fDisableCtrlAltDel: win32more.Windows.Win32.Foundation.BOOLEAN
     fDoubleClickDetect: win32more.Windows.Win32.Foundation.BOOLEAN
     fEnableWindowsKey: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2424,7 +2424,7 @@ class WTS_CLIENT_DATA(EasyCastStructure):
     fDisableLPT: win32more.Windows.Win32.Foundation.BOOLEAN
     fDisableClip: win32more.Windows.Win32.Foundation.BOOLEAN
     fDisablePNP: win32more.Windows.Win32.Foundation.BOOLEAN
-class WTS_CLIENT_DISPLAY(EasyCastStructure):
+class WTS_CLIENT_DISPLAY(Structure):
     HorizontalResolution: UInt32
     VerticalResolution: UInt32
     ColorDepth: UInt32
@@ -2462,7 +2462,7 @@ WTSListen: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS =
 WTSReset: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 7
 WTSDown: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 8
 WTSInit: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS = 9
-class WTS_DISPLAY_IOCTL(EasyCastStructure):
+class WTS_DISPLAY_IOCTL(Structure):
     pDisplayIOCtlData: Byte * 256
     cbDisplayIOCtlData: UInt32
 WTS_INFO_CLASS = Int32
@@ -2496,7 +2496,7 @@ WTSConfigInfo: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 26
 WTSValidationInfo: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 27
 WTSSessionAddressV4: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 28
 WTSIsRemoteSession: win32more.Windows.Win32.System.RemoteDesktop.WTS_INFO_CLASS = 29
-class WTS_LICENSE_CAPABILITIES(EasyCastStructure):
+class WTS_LICENSE_CAPABILITIES(Structure):
     KeyExchangeAlg: UInt32
     ProtocolVer: UInt32
     fAuthenticateServer: win32more.Windows.Win32.Foundation.BOOL
@@ -2509,7 +2509,7 @@ WTS_LOGON_ERR_NOT_HANDLED: win32more.Windows.Win32.System.RemoteDesktop.WTS_LOGO
 WTS_LOGON_ERR_HANDLED_SHOW: win32more.Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 2
 WTS_LOGON_ERR_HANDLED_DONT_SHOW: win32more.Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 3
 WTS_LOGON_ERR_HANDLED_DONT_SHOW_START_OVER: win32more.Windows.Win32.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE = 4
-class WTS_POLICY_DATA(EasyCastStructure):
+class WTS_POLICY_DATA(Structure):
     fDisableEncryption: win32more.Windows.Win32.Foundation.BOOLEAN
     fDisableAutoReconnect: win32more.Windows.Win32.Foundation.BOOLEAN
     ColorDepth: UInt32
@@ -2520,18 +2520,18 @@ class WTS_POLICY_DATA(EasyCastStructure):
     fDisableLPT: win32more.Windows.Win32.Foundation.BOOLEAN
     fDisableClip: win32more.Windows.Win32.Foundation.BOOLEAN
     fDisablePNPRedir: win32more.Windows.Win32.Foundation.BOOLEAN
-class WTS_PROCESS_INFOA(EasyCastStructure):
+class WTS_PROCESS_INFOA(Structure):
     SessionId: UInt32
     ProcessId: UInt32
     pProcessName: win32more.Windows.Win32.Foundation.PSTR
     pUserSid: win32more.Windows.Win32.Security.PSID
-class WTS_PROCESS_INFOW(EasyCastStructure):
+class WTS_PROCESS_INFOW(Structure):
     SessionId: UInt32
     ProcessId: UInt32
     pProcessName: win32more.Windows.Win32.Foundation.PWSTR
     pUserSid: win32more.Windows.Win32.Security.PSID
 WTS_PROCESS_INFO = UnicodeAlias('WTS_PROCESS_INFOW')
-class WTS_PROCESS_INFO_EXA(EasyCastStructure):
+class WTS_PROCESS_INFO_EXA(Structure):
     SessionId: UInt32
     ProcessId: UInt32
     pProcessName: win32more.Windows.Win32.Foundation.PSTR
@@ -2544,7 +2544,7 @@ class WTS_PROCESS_INFO_EXA(EasyCastStructure):
     PeakWorkingSetSize: UInt32
     UserTime: Int64
     KernelTime: Int64
-class WTS_PROCESS_INFO_EXW(EasyCastStructure):
+class WTS_PROCESS_INFO_EXW(Structure):
     SessionId: UInt32
     ProcessId: UInt32
     pProcessName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2558,24 +2558,24 @@ class WTS_PROCESS_INFO_EXW(EasyCastStructure):
     UserTime: Int64
     KernelTime: Int64
 WTS_PROCESS_INFO_EX = UnicodeAlias('WTS_PROCESS_INFO_EXW')
-class WTS_PROPERTY_VALUE(EasyCastStructure):
+class WTS_PROPERTY_VALUE(Structure):
     Type: UInt16
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         ulVal: UInt32
         strVal: _strVal_e__Struct
         bVal: _bVal_e__Struct
         guidVal: Guid
-        class _strVal_e__Struct(EasyCastStructure):
+        class _strVal_e__Struct(Structure):
             size: UInt32
             pstrVal: win32more.Windows.Win32.Foundation.PWSTR
-        class _bVal_e__Struct(EasyCastStructure):
+        class _bVal_e__Struct(Structure):
             size: UInt32
             pbVal: win32more.Windows.Win32.Foundation.PSTR
-class WTS_PROTOCOL_CACHE(EasyCastStructure):
+class WTS_PROTOCOL_CACHE(Structure):
     CacheReads: UInt32
     CacheHits: UInt32
-class WTS_PROTOCOL_COUNTERS(EasyCastStructure):
+class WTS_PROTOCOL_COUNTERS(Structure):
     WdBytes: UInt32
     WdFrames: UInt32
     WaitForOutBuf: UInt32
@@ -2594,7 +2594,7 @@ class WTS_PROTOCOL_COUNTERS(EasyCastStructure):
     Length: UInt16
     Specific: UInt16
     Reserved: UInt32 * 100
-class WTS_PROTOCOL_STATUS(EasyCastStructure):
+class WTS_PROTOCOL_STATUS(Structure):
     Output: win32more.Windows.Win32.System.RemoteDesktop.WTS_PROTOCOL_COUNTERS
     Input: win32more.Windows.Win32.System.RemoteDesktop.WTS_PROTOCOL_COUNTERS
     Cache: win32more.Windows.Win32.System.RemoteDesktop.WTS_CACHE_STATS
@@ -2625,30 +2625,30 @@ WTS_SECURITY_MESSAGE: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_
 WTS_SECURITY_CONNECT: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 256
 WTS_SECURITY_DISCONNECT: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 512
 WTS_SECURITY_GUEST_ACCESS: win32more.Windows.Win32.System.RemoteDesktop.WTS_SECURITY_FLAGS = 32
-class WTS_SERVER_INFOA(EasyCastStructure):
+class WTS_SERVER_INFOA(Structure):
     pServerName: win32more.Windows.Win32.Foundation.PSTR
-class WTS_SERVER_INFOW(EasyCastStructure):
+class WTS_SERVER_INFOW(Structure):
     pServerName: win32more.Windows.Win32.Foundation.PWSTR
 WTS_SERVER_INFO = UnicodeAlias('WTS_SERVER_INFOW')
-class WTS_SERVICE_STATE(EasyCastStructure):
+class WTS_SERVICE_STATE(Structure):
     RcmServiceState: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_SERVICE_STATE
     RcmDrainState: win32more.Windows.Win32.System.RemoteDesktop.WTS_RCM_DRAIN_STATE
-class WTS_SESSION_ADDRESS(EasyCastStructure):
+class WTS_SESSION_ADDRESS(Structure):
     AddressFamily: UInt32
     Address: Byte * 20
-class WTS_SESSION_ID(EasyCastStructure):
+class WTS_SESSION_ID(Structure):
     SessionUniqueGuid: Guid
     SessionId: UInt32
-class WTS_SESSION_INFOA(EasyCastStructure):
+class WTS_SESSION_INFOA(Structure):
     SessionId: UInt32
     pWinStationName: win32more.Windows.Win32.Foundation.PSTR
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
-class WTS_SESSION_INFOW(EasyCastStructure):
+class WTS_SESSION_INFOW(Structure):
     SessionId: UInt32
     pWinStationName: win32more.Windows.Win32.Foundation.PWSTR
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
 WTS_SESSION_INFO = UnicodeAlias('WTS_SESSION_INFOW')
-class WTS_SESSION_INFO_1A(EasyCastStructure):
+class WTS_SESSION_INFO_1A(Structure):
     ExecEnvId: UInt32
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
     SessionId: UInt32
@@ -2657,7 +2657,7 @@ class WTS_SESSION_INFO_1A(EasyCastStructure):
     pUserName: win32more.Windows.Win32.Foundation.PSTR
     pDomainName: win32more.Windows.Win32.Foundation.PSTR
     pFarmName: win32more.Windows.Win32.Foundation.PSTR
-class WTS_SESSION_INFO_1W(EasyCastStructure):
+class WTS_SESSION_INFO_1W(Structure):
     ExecEnvId: UInt32
     State: win32more.Windows.Win32.System.RemoteDesktop.WTS_CONNECTSTATE_CLASS
     SessionId: UInt32
@@ -2667,27 +2667,27 @@ class WTS_SESSION_INFO_1W(EasyCastStructure):
     pDomainName: win32more.Windows.Win32.Foundation.PWSTR
     pFarmName: win32more.Windows.Win32.Foundation.PWSTR
 WTS_SESSION_INFO_1 = UnicodeAlias('WTS_SESSION_INFO_1W')
-class WTS_SMALL_RECT(EasyCastStructure):
+class WTS_SMALL_RECT(Structure):
     Left: Int16
     Top: Int16
     Right: Int16
     Bottom: Int16
-class WTS_SOCKADDR(EasyCastStructure):
+class WTS_SOCKADDR(Structure):
     sin_family: UInt16
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         ipv4: _ipv4_e__Struct
         ipv6: _ipv6_e__Struct
-        class _ipv4_e__Struct(EasyCastStructure):
+        class _ipv4_e__Struct(Structure):
             sin_port: UInt16
             IN_ADDR: UInt32
             sin_zero: Byte * 8
-        class _ipv6_e__Struct(EasyCastStructure):
+        class _ipv6_e__Struct(Structure):
             sin6_port: UInt16
             sin6_flowinfo: UInt32
             sin6_addr: UInt16 * 8
             sin6_scope_id: UInt32
-class WTS_SYSTEMTIME(EasyCastStructure):
+class WTS_SYSTEMTIME(Structure):
     wYear: UInt16
     wMonth: UInt16
     wDayOfWeek: UInt16
@@ -2696,7 +2696,7 @@ class WTS_SYSTEMTIME(EasyCastStructure):
     wMinute: UInt16
     wSecond: UInt16
     wMilliseconds: UInt16
-class WTS_TIME_ZONE_INFORMATION(EasyCastStructure):
+class WTS_TIME_ZONE_INFORMATION(Structure):
     Bias: Int32
     StandardName: Char * 32
     StandardDate: win32more.Windows.Win32.System.RemoteDesktop.WTS_SYSTEMTIME
@@ -2708,21 +2708,21 @@ WTS_TYPE_CLASS = Int32
 WTSTypeProcessInfoLevel0: win32more.Windows.Win32.System.RemoteDesktop.WTS_TYPE_CLASS = 0
 WTSTypeProcessInfoLevel1: win32more.Windows.Win32.System.RemoteDesktop.WTS_TYPE_CLASS = 1
 WTSTypeSessionInfoLevel1: win32more.Windows.Win32.System.RemoteDesktop.WTS_TYPE_CLASS = 2
-class WTS_USER_CREDENTIAL(EasyCastStructure):
+class WTS_USER_CREDENTIAL(Structure):
     UserName: Char * 256
     Password: Char * 256
     Domain: Char * 256
-class WTS_USER_DATA(EasyCastStructure):
+class WTS_USER_DATA(Structure):
     WorkDirectory: Char * 257
     InitialProgram: Char * 257
     UserTimeZone: win32more.Windows.Win32.System.RemoteDesktop.WTS_TIME_ZONE_INFORMATION
-class WTS_VALIDATION_INFORMATIONA(EasyCastStructure):
+class WTS_VALIDATION_INFORMATIONA(Structure):
     ProductInfo: win32more.Windows.Win32.System.RemoteDesktop.PRODUCT_INFOA
     License: Byte * 16384
     LicenseLength: UInt32
     HardwareID: Byte * 20
     HardwareIDLength: UInt32
-class WTS_VALIDATION_INFORMATIONW(EasyCastStructure):
+class WTS_VALIDATION_INFORMATIONW(Structure):
     ProductInfo: win32more.Windows.Win32.System.RemoteDesktop.PRODUCT_INFOW
     License: Byte * 16384
     LicenseLength: UInt32
@@ -2736,7 +2736,7 @@ Workspace = Guid('{4f1dfca6-3aad-48e1-8406-4bc21a501d7c}')
 class _ITSWkspEvents(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{b922bbb8-4c55-4fea-8496-beb0b44285e9}')
-class pluginResource(EasyCastStructure):
+class pluginResource(Structure):
     alias: Char * 256
     name: Char * 256
     resourceFileContents: win32more.Windows.Win32.Foundation.PWSTR
@@ -2748,14 +2748,14 @@ class pluginResource(EasyCastStructure):
     iconContents: POINTER(Byte)
     pcePluginBlobSize: UInt32
     blobContents: POINTER(Byte)
-class pluginResource2(EasyCastStructure):
+class pluginResource2(Structure):
     resourceV1: win32more.Windows.Win32.System.RemoteDesktop.pluginResource
     pceFileAssocListSize: UInt32
     fileAssocList: POINTER(win32more.Windows.Win32.System.RemoteDesktop.pluginResource2FileAssociation)
     securityDescriptor: win32more.Windows.Win32.Foundation.PWSTR
     pceFolderListSize: UInt32
     folderList: POINTER(POINTER(UInt16))
-class pluginResource2FileAssociation(EasyCastStructure):
+class pluginResource2FileAssociation(Structure):
     extName: Char * 256
     primaryHandler: Byte
     pceIconSize: UInt32

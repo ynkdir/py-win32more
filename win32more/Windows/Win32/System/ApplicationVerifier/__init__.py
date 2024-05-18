@@ -1,14 +1,14 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.ApplicationVerifier
-class AVRF_BACKTRACE_INFORMATION(EasyCastStructure):
+class AVRF_BACKTRACE_INFORMATION(Structure):
     Depth: UInt32
     Index: UInt32
     ReturnAddresses: UInt64 * 32
 @winfunctype_pointer
 def AVRF_HANDLEOPERATION_ENUMERATE_CALLBACK(HandleOperation: POINTER(win32more.Windows.Win32.System.ApplicationVerifier.AVRF_HANDLE_OPERATION), EnumerationContext: VoidPtr, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
-class AVRF_HANDLE_OPERATION(EasyCastStructure):
+class AVRF_HANDLE_OPERATION(Structure):
     Handle: UInt64
     ProcessId: UInt32
     ThreadId: UInt32
@@ -17,7 +17,7 @@ class AVRF_HANDLE_OPERATION(EasyCastStructure):
     BackTraceInformation: win32more.Windows.Win32.System.ApplicationVerifier.AVRF_BACKTRACE_INFORMATION
 @winfunctype_pointer
 def AVRF_HEAPALLOCATION_ENUMERATE_CALLBACK(HeapAllocation: POINTER(win32more.Windows.Win32.System.ApplicationVerifier.AVRF_HEAP_ALLOCATION), EnumerationContext: VoidPtr, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
-class AVRF_HEAP_ALLOCATION(EasyCastStructure):
+class AVRF_HEAP_ALLOCATION(Structure):
     HeapHandle: UInt64
     UserAllocation: UInt64
     UserAllocationSize: UInt64

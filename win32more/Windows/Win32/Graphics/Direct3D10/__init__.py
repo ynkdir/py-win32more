@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D10
@@ -393,7 +393,7 @@ D3D10_BLEND_SRC1_COLOR: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND 
 D3D10_BLEND_INV_SRC1_COLOR: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND = 17
 D3D10_BLEND_SRC1_ALPHA: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND = 18
 D3D10_BLEND_INV_SRC1_ALPHA: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND = 19
-class D3D10_BLEND_DESC(EasyCastStructure):
+class D3D10_BLEND_DESC(Structure):
     AlphaToCoverageEnable: win32more.Windows.Win32.Foundation.BOOL
     BlendEnable: win32more.Windows.Win32.Foundation.BOOL * 8
     SrcBlend: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND
@@ -403,7 +403,7 @@ class D3D10_BLEND_DESC(EasyCastStructure):
     DestBlendAlpha: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND
     BlendOpAlpha: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND_OP
     RenderTargetWriteMask: Byte * 8
-class D3D10_BLEND_DESC1(EasyCastStructure):
+class D3D10_BLEND_DESC1(Structure):
     AlphaToCoverageEnable: win32more.Windows.Win32.Foundation.BOOL
     IndependentBlendEnable: win32more.Windows.Win32.Foundation.BOOL
     RenderTarget: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_RENDER_TARGET_BLEND_DESC1 * 8
@@ -413,35 +413,35 @@ D3D10_BLEND_OP_SUBTRACT: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND
 D3D10_BLEND_OP_REV_SUBTRACT: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND_OP = 3
 D3D10_BLEND_OP_MIN: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND_OP = 4
 D3D10_BLEND_OP_MAX: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND_OP = 5
-class D3D10_BOX(EasyCastStructure):
+class D3D10_BOX(Structure):
     left: UInt32
     top: UInt32
     front: UInt32
     right: UInt32
     bottom: UInt32
     back: UInt32
-class D3D10_BUFFER_DESC(EasyCastStructure):
+class D3D10_BUFFER_DESC(Structure):
     ByteWidth: UInt32
     Usage: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_USAGE
     BindFlags: UInt32
     CPUAccessFlags: UInt32
     MiscFlags: UInt32
-class D3D10_BUFFER_RTV(EasyCastStructure):
+class D3D10_BUFFER_RTV(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         FirstElement: UInt32
         ElementOffset: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         NumElements: UInt32
         ElementWidth: UInt32
-class D3D10_BUFFER_SRV(EasyCastStructure):
+class D3D10_BUFFER_SRV(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         FirstElement: UInt32
         ElementOffset: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         NumElements: UInt32
         ElementWidth: UInt32
 D3D10_CLEAR_FLAG = Int32
@@ -482,10 +482,10 @@ D3D10_COUNTER_PS_COMPUTATION_LIMITED: win32more.Windows.Win32.Graphics.Direct3D1
 D3D10_COUNTER_POST_TRANSFORM_CACHE_HIT_RATE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_COUNTER = 16
 D3D10_COUNTER_TEXTURE_CACHE_HIT_RATE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_COUNTER = 17
 D3D10_COUNTER_DEVICE_DEPENDENT_0: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_COUNTER = 1073741824
-class D3D10_COUNTER_DESC(EasyCastStructure):
+class D3D10_COUNTER_DESC(Structure):
     Counter: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_COUNTER
     MiscFlags: UInt32
-class D3D10_COUNTER_INFO(EasyCastStructure):
+class D3D10_COUNTER_INFO(Structure):
     LastDeviceDependentCounter: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_COUNTER
     NumSimultaneousCounters: UInt32
     NumDetectableParallelUnits: Byte
@@ -511,12 +511,12 @@ D3D10_CULL_MODE = Int32
 D3D10_CULL_NONE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_CULL_MODE = 1
 D3D10_CULL_FRONT: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_CULL_MODE = 2
 D3D10_CULL_BACK: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_CULL_MODE = 3
-class D3D10_DEPTH_STENCILOP_DESC(EasyCastStructure):
+class D3D10_DEPTH_STENCILOP_DESC(Structure):
     StencilFailOp: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_STENCIL_OP
     StencilDepthFailOp: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_STENCIL_OP
     StencilPassOp: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_STENCIL_OP
     StencilFunc: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_COMPARISON_FUNC
-class D3D10_DEPTH_STENCIL_DESC(EasyCastStructure):
+class D3D10_DEPTH_STENCIL_DESC(Structure):
     DepthEnable: win32more.Windows.Win32.Foundation.BOOL
     DepthWriteMask: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_DEPTH_WRITE_MASK
     DepthFunc: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_COMPARISON_FUNC
@@ -525,11 +525,11 @@ class D3D10_DEPTH_STENCIL_DESC(EasyCastStructure):
     StencilWriteMask: Byte
     FrontFace: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_DEPTH_STENCILOP_DESC
     BackFace: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_DEPTH_STENCILOP_DESC
-class D3D10_DEPTH_STENCIL_VIEW_DESC(EasyCastStructure):
+class D3D10_DEPTH_STENCIL_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_DSV_DIMENSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_DSV
         Texture1DArray: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_ARRAY_DSV
         Texture2D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX2D_DSV
@@ -578,14 +578,14 @@ D3D10_DSV_DIMENSION_TEXTURE2D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10
 D3D10_DSV_DIMENSION_TEXTURE2DARRAY: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_DSV_DIMENSION = 4
 D3D10_DSV_DIMENSION_TEXTURE2DMS: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_DSV_DIMENSION = 5
 D3D10_DSV_DIMENSION_TEXTURE2DMSARRAY: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_DSV_DIMENSION = 6
-class D3D10_EFFECT_DESC(EasyCastStructure):
+class D3D10_EFFECT_DESC(Structure):
     IsChildEffect: win32more.Windows.Win32.Foundation.BOOL
     ConstantBuffers: UInt32
     SharedConstantBuffers: UInt32
     GlobalVariables: UInt32
     SharedGlobalVariables: UInt32
     Techniques: UInt32
-class D3D10_EFFECT_SHADER_DESC(EasyCastStructure):
+class D3D10_EFFECT_SHADER_DESC(Structure):
     pInputSignature: POINTER(Byte)
     IsInline: win32more.Windows.Win32.Foundation.BOOL
     pBytecode: POINTER(Byte)
@@ -593,7 +593,7 @@ class D3D10_EFFECT_SHADER_DESC(EasyCastStructure):
     SODecl: win32more.Windows.Win32.Foundation.PSTR
     NumInputSignatureEntries: UInt32
     NumOutputSignatureEntries: UInt32
-class D3D10_EFFECT_TYPE_DESC(EasyCastStructure):
+class D3D10_EFFECT_TYPE_DESC(Structure):
     TypeName: win32more.Windows.Win32.Foundation.PSTR
     Class: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_VARIABLE_CLASS
     Type: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_VARIABLE_TYPE
@@ -604,7 +604,7 @@ class D3D10_EFFECT_TYPE_DESC(EasyCastStructure):
     PackedSize: UInt32
     UnpackedSize: UInt32
     Stride: UInt32
-class D3D10_EFFECT_VARIABLE_DESC(EasyCastStructure):
+class D3D10_EFFECT_VARIABLE_DESC(Structure):
     Name: win32more.Windows.Win32.Foundation.PSTR
     Semantic: win32more.Windows.Win32.Foundation.PSTR
     Flags: UInt32
@@ -669,10 +669,10 @@ D3D10_FORMAT_SUPPORT_MULTISAMPLE_RENDERTARGET: win32more.Windows.Win32.Graphics.
 D3D10_FORMAT_SUPPORT_MULTISAMPLE_LOAD: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_FORMAT_SUPPORT = 4194304
 D3D10_FORMAT_SUPPORT_SHADER_GATHER: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_FORMAT_SUPPORT = 8388608
 D3D10_FORMAT_SUPPORT_BACK_BUFFER_CAST: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_FORMAT_SUPPORT = 16777216
-class D3D10_INFO_QUEUE_FILTER(EasyCastStructure):
+class D3D10_INFO_QUEUE_FILTER(Structure):
     AllowList: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_INFO_QUEUE_FILTER_DESC
     DenyList: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_INFO_QUEUE_FILTER_DESC
-class D3D10_INFO_QUEUE_FILTER_DESC(EasyCastStructure):
+class D3D10_INFO_QUEUE_FILTER_DESC(Structure):
     NumCategories: UInt32
     pCategoryList: POINTER(win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MESSAGE_CATEGORY)
     NumSeverities: UInt32
@@ -682,7 +682,7 @@ class D3D10_INFO_QUEUE_FILTER_DESC(EasyCastStructure):
 D3D10_INPUT_CLASSIFICATION = Int32
 D3D10_INPUT_PER_VERTEX_DATA: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_INPUT_CLASSIFICATION = 0
 D3D10_INPUT_PER_INSTANCE_DATA: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_INPUT_CLASSIFICATION = 1
-class D3D10_INPUT_ELEMENT_DESC(EasyCastStructure):
+class D3D10_INPUT_ELEMENT_DESC(Structure):
     SemanticName: win32more.Windows.Win32.Foundation.PSTR
     SemanticIndex: UInt32
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
@@ -696,16 +696,16 @@ D3D10_MAP_WRITE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MAP = 2
 D3D10_MAP_READ_WRITE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MAP = 3
 D3D10_MAP_WRITE_DISCARD: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MAP = 4
 D3D10_MAP_WRITE_NO_OVERWRITE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MAP = 5
-class D3D10_MAPPED_TEXTURE2D(EasyCastStructure):
+class D3D10_MAPPED_TEXTURE2D(Structure):
     pData: VoidPtr
     RowPitch: UInt32
-class D3D10_MAPPED_TEXTURE3D(EasyCastStructure):
+class D3D10_MAPPED_TEXTURE3D(Structure):
     pData: VoidPtr
     RowPitch: UInt32
     DepthPitch: UInt32
 D3D10_MAP_FLAG = Int32
 D3D10_MAP_FLAG_DO_NOT_WAIT: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MAP_FLAG = 1048576
-class D3D10_MESSAGE(EasyCastStructure):
+class D3D10_MESSAGE(Structure):
     Category: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MESSAGE_CATEGORY
     Severity: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MESSAGE_SEVERITY
     ID: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MESSAGE_ID
@@ -1237,7 +1237,7 @@ D3D10_MESSAGE_SEVERITY_ERROR: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_
 D3D10_MESSAGE_SEVERITY_WARNING: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MESSAGE_SEVERITY = 2
 D3D10_MESSAGE_SEVERITY_INFO: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MESSAGE_SEVERITY = 3
 D3D10_MESSAGE_SEVERITY_MESSAGE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_MESSAGE_SEVERITY = 4
-class D3D10_PASS_DESC(EasyCastStructure):
+class D3D10_PASS_DESC(Structure):
     Name: win32more.Windows.Win32.Foundation.PSTR
     Annotations: UInt32
     pIAInputSignature: POINTER(Byte)
@@ -1245,7 +1245,7 @@ class D3D10_PASS_DESC(EasyCastStructure):
     StencilRef: UInt32
     SampleMask: UInt32
     BlendFactor: Single * 4
-class D3D10_PASS_SHADER_DESC(EasyCastStructure):
+class D3D10_PASS_SHADER_DESC(Structure):
     pShaderVariable: win32more.Windows.Win32.Graphics.Direct3D10.ID3D10EffectShaderVariable
     ShaderIndex: UInt32
 D3D10_QUERY = Int32
@@ -1257,7 +1257,7 @@ D3D10_QUERY_PIPELINE_STATISTICS: win32more.Windows.Win32.Graphics.Direct3D10.D3D
 D3D10_QUERY_OCCLUSION_PREDICATE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_QUERY = 5
 D3D10_QUERY_SO_STATISTICS: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_QUERY = 6
 D3D10_QUERY_SO_OVERFLOW_PREDICATE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_QUERY = 7
-class D3D10_QUERY_DATA_PIPELINE_STATISTICS(EasyCastStructure):
+class D3D10_QUERY_DATA_PIPELINE_STATISTICS(Structure):
     IAVertices: UInt64
     IAPrimitives: UInt64
     VSInvocations: UInt64
@@ -1266,20 +1266,20 @@ class D3D10_QUERY_DATA_PIPELINE_STATISTICS(EasyCastStructure):
     CInvocations: UInt64
     CPrimitives: UInt64
     PSInvocations: UInt64
-class D3D10_QUERY_DATA_SO_STATISTICS(EasyCastStructure):
+class D3D10_QUERY_DATA_SO_STATISTICS(Structure):
     NumPrimitivesWritten: UInt64
     PrimitivesStorageNeeded: UInt64
-class D3D10_QUERY_DATA_TIMESTAMP_DISJOINT(EasyCastStructure):
+class D3D10_QUERY_DATA_TIMESTAMP_DISJOINT(Structure):
     Frequency: UInt64
     Disjoint: win32more.Windows.Win32.Foundation.BOOL
-class D3D10_QUERY_DESC(EasyCastStructure):
+class D3D10_QUERY_DESC(Structure):
     Query: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_QUERY
     MiscFlags: UInt32
 D3D10_QUERY_MISC_FLAG = Int32
 D3D10_QUERY_MISC_PREDICATEHINT: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_QUERY_MISC_FLAG = 1
 D3D10_RAISE_FLAG = Int32
 D3D10_RAISE_FLAG_DRIVER_INTERNAL_ERROR: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_RAISE_FLAG = 1
-class D3D10_RASTERIZER_DESC(EasyCastStructure):
+class D3D10_RASTERIZER_DESC(Structure):
     FillMode: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_FILL_MODE
     CullMode: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_CULL_MODE
     FrontCounterClockwise: win32more.Windows.Win32.Foundation.BOOL
@@ -1290,7 +1290,7 @@ class D3D10_RASTERIZER_DESC(EasyCastStructure):
     ScissorEnable: win32more.Windows.Win32.Foundation.BOOL
     MultisampleEnable: win32more.Windows.Win32.Foundation.BOOL
     AntialiasedLineEnable: win32more.Windows.Win32.Foundation.BOOL
-class D3D10_RENDER_TARGET_BLEND_DESC1(EasyCastStructure):
+class D3D10_RENDER_TARGET_BLEND_DESC1(Structure):
     BlendEnable: win32more.Windows.Win32.Foundation.BOOL
     SrcBlend: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND
     DestBlend: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND
@@ -1299,11 +1299,11 @@ class D3D10_RENDER_TARGET_BLEND_DESC1(EasyCastStructure):
     DestBlendAlpha: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND
     BlendOpAlpha: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BLEND_OP
     RenderTargetWriteMask: Byte
-class D3D10_RENDER_TARGET_VIEW_DESC(EasyCastStructure):
+class D3D10_RENDER_TARGET_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_RTV_DIMENSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BUFFER_RTV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_RTV
         Texture1DArray: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_ARRAY_RTV
@@ -1334,7 +1334,7 @@ D3D10_RTV_DIMENSION_TEXTURE2DARRAY: win32more.Windows.Win32.Graphics.Direct3D10.
 D3D10_RTV_DIMENSION_TEXTURE2DMS: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_RTV_DIMENSION = 6
 D3D10_RTV_DIMENSION_TEXTURE2DMSARRAY: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_RTV_DIMENSION = 7
 D3D10_RTV_DIMENSION_TEXTURE3D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_RTV_DIMENSION = 8
-class D3D10_SAMPLER_DESC(EasyCastStructure):
+class D3D10_SAMPLER_DESC(Structure):
     Filter: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_FILTER
     AddressU: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEXTURE_ADDRESS_MODE
     AddressV: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEXTURE_ADDRESS_MODE
@@ -1345,18 +1345,18 @@ class D3D10_SAMPLER_DESC(EasyCastStructure):
     BorderColor: Single * 4
     MinLOD: Single
     MaxLOD: Single
-class D3D10_SHADER_BUFFER_DESC(EasyCastStructure):
+class D3D10_SHADER_BUFFER_DESC(Structure):
     Name: win32more.Windows.Win32.Foundation.PSTR
     Type: win32more.Windows.Win32.Graphics.Direct3D.D3D_CBUFFER_TYPE
     Variables: UInt32
     Size: UInt32
     uFlags: UInt32
-class D3D10_SHADER_DEBUG_FILE_INFO(EasyCastStructure):
+class D3D10_SHADER_DEBUG_FILE_INFO(Structure):
     FileName: UInt32
     FileNameLen: UInt32
     FileData: UInt32
     FileLen: UInt32
-class D3D10_SHADER_DEBUG_INFO(EasyCastStructure):
+class D3D10_SHADER_DEBUG_INFO(Structure):
     Size: UInt32
     Creator: UInt32
     EntrypointName: UInt32
@@ -1378,14 +1378,14 @@ class D3D10_SHADER_DEBUG_INFO(EasyCastStructure):
     ScopeVariableInfo: UInt32
     UintOffset: UInt32
     StringOffset: UInt32
-class D3D10_SHADER_DEBUG_INPUT_INFO(EasyCastStructure):
+class D3D10_SHADER_DEBUG_INPUT_INFO(Structure):
     Var: UInt32
     InitialRegisterSet: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_REGTYPE
     InitialBank: UInt32
     InitialRegister: UInt32
     InitialComponent: UInt32
     InitialValue: UInt32
-class D3D10_SHADER_DEBUG_INST_INFO(EasyCastStructure):
+class D3D10_SHADER_DEBUG_INST_INFO(Structure):
     Id: UInt32
     Opcode: UInt32
     uOutputs: UInt32
@@ -1396,7 +1396,7 @@ class D3D10_SHADER_DEBUG_INST_INFO(EasyCastStructure):
     ScopeInfo: UInt32
     AccessedVars: UInt32
     AccessedVarsInfo: UInt32
-class D3D10_SHADER_DEBUG_OUTPUTREG_INFO(EasyCastStructure):
+class D3D10_SHADER_DEBUG_OUTPUTREG_INFO(Structure):
     OutputRegisterSet: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_REGTYPE
     OutputReg: UInt32
     TempArrayReg: UInt32
@@ -1404,7 +1404,7 @@ class D3D10_SHADER_DEBUG_OUTPUTREG_INFO(EasyCastStructure):
     OutputVars: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_OUTPUTVAR * 4
     IndexReg: UInt32
     IndexComp: UInt32
-class D3D10_SHADER_DEBUG_OUTPUTVAR(EasyCastStructure):
+class D3D10_SHADER_DEBUG_OUTPUTVAR(Structure):
     Var: UInt32
     uValueMin: UInt32
     uValueMax: UInt32
@@ -1437,7 +1437,7 @@ D3D10_SHADER_DEBUG_SCOPE_FUNC_PARAMS: win32more.Windows.Win32.Graphics.Direct3D1
 D3D10_SHADER_DEBUG_SCOPE_STATEBLOCK: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_SCOPETYPE = 5
 D3D10_SHADER_DEBUG_SCOPE_NAMESPACE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_SCOPETYPE = 6
 D3D10_SHADER_DEBUG_SCOPE_ANNOTATION: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_SCOPETYPE = 7
-class D3D10_SHADER_DEBUG_SCOPEVAR_INFO(EasyCastStructure):
+class D3D10_SHADER_DEBUG_SCOPEVAR_INFO(Structure):
     TokenId: UInt32
     VarType: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_VARTYPE
     Class: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_VARIABLE_CLASS
@@ -1449,13 +1449,13 @@ class D3D10_SHADER_DEBUG_SCOPEVAR_INFO(EasyCastStructure):
     ArrayStrides: UInt32
     uVariables: UInt32
     uFirstVariable: UInt32
-class D3D10_SHADER_DEBUG_SCOPE_INFO(EasyCastStructure):
+class D3D10_SHADER_DEBUG_SCOPE_INFO(Structure):
     ScopeType: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_SCOPETYPE
     Name: UInt32
     uNameLen: UInt32
     uVariables: UInt32
     VariableData: UInt32
-class D3D10_SHADER_DEBUG_TOKEN_INFO(EasyCastStructure):
+class D3D10_SHADER_DEBUG_TOKEN_INFO(Structure):
     File: UInt32
     Line: UInt32
     Column: UInt32
@@ -1464,14 +1464,14 @@ class D3D10_SHADER_DEBUG_TOKEN_INFO(EasyCastStructure):
 D3D10_SHADER_DEBUG_VARTYPE = Int32
 D3D10_SHADER_DEBUG_VAR_VARIABLE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_VARTYPE = 0
 D3D10_SHADER_DEBUG_VAR_FUNCTION: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DEBUG_VARTYPE = 1
-class D3D10_SHADER_DEBUG_VAR_INFO(EasyCastStructure):
+class D3D10_SHADER_DEBUG_VAR_INFO(Structure):
     TokenId: UInt32
     Type: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_VARIABLE_TYPE
     Register: UInt32
     Component: UInt32
     ScopeVar: UInt32
     ScopeVarOffset: UInt32
-class D3D10_SHADER_DESC(EasyCastStructure):
+class D3D10_SHADER_DESC(Structure):
     Version: UInt32
     Creator: win32more.Windows.Win32.Foundation.PSTR
     Flags: UInt32
@@ -1500,7 +1500,7 @@ class D3D10_SHADER_DESC(EasyCastStructure):
     EmitInstructionCount: UInt32
     GSOutputTopology: win32more.Windows.Win32.Graphics.Direct3D.D3D_PRIMITIVE_TOPOLOGY
     GSMaxOutputVertexCount: UInt32
-class D3D10_SHADER_INPUT_BIND_DESC(EasyCastStructure):
+class D3D10_SHADER_INPUT_BIND_DESC(Structure):
     Name: win32more.Windows.Win32.Foundation.PSTR
     Type: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_INPUT_TYPE
     BindPoint: UInt32
@@ -1509,11 +1509,11 @@ class D3D10_SHADER_INPUT_BIND_DESC(EasyCastStructure):
     ReturnType: win32more.Windows.Win32.Graphics.Direct3D.D3D_RESOURCE_RETURN_TYPE
     Dimension: win32more.Windows.Win32.Graphics.Direct3D.D3D_SRV_DIMENSION
     NumSamples: UInt32
-class D3D10_SHADER_RESOURCE_VIEW_DESC(EasyCastStructure):
+class D3D10_SHADER_RESOURCE_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D.D3D_SRV_DIMENSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BUFFER_SRV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_SRV
         Texture1DArray: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_ARRAY_SRV
@@ -1523,11 +1523,11 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC(EasyCastStructure):
         Texture2DMSArray: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX2DMS_ARRAY_SRV
         Texture3D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX3D_SRV
         TextureCube: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEXCUBE_SRV
-class D3D10_SHADER_RESOURCE_VIEW_DESC1(EasyCastStructure):
+class D3D10_SHADER_RESOURCE_VIEW_DESC1(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D.D3D_SRV_DIMENSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BUFFER_SRV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_SRV
         Texture1DArray: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_ARRAY_SRV
@@ -1538,7 +1538,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1(EasyCastStructure):
         Texture3D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX3D_SRV
         TextureCube: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEXCUBE_SRV
         TextureCubeArray: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEXCUBE_ARRAY_SRV1
-class D3D10_SHADER_TYPE_DESC(EasyCastStructure):
+class D3D10_SHADER_TYPE_DESC(Structure):
     Class: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_VARIABLE_CLASS
     Type: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_VARIABLE_TYPE
     Rows: UInt32
@@ -1546,13 +1546,13 @@ class D3D10_SHADER_TYPE_DESC(EasyCastStructure):
     Elements: UInt32
     Members: UInt32
     Offset: UInt32
-class D3D10_SHADER_VARIABLE_DESC(EasyCastStructure):
+class D3D10_SHADER_VARIABLE_DESC(Structure):
     Name: win32more.Windows.Win32.Foundation.PSTR
     StartOffset: UInt32
     Size: UInt32
     uFlags: UInt32
     DefaultValue: VoidPtr
-class D3D10_SIGNATURE_PARAMETER_DESC(EasyCastStructure):
+class D3D10_SIGNATURE_PARAMETER_DESC(Structure):
     SemanticName: win32more.Windows.Win32.Foundation.PSTR
     SemanticIndex: UInt32
     Register: UInt32
@@ -1560,7 +1560,7 @@ class D3D10_SIGNATURE_PARAMETER_DESC(EasyCastStructure):
     ComponentType: win32more.Windows.Win32.Graphics.Direct3D.D3D_REGISTER_COMPONENT_TYPE
     Mask: Byte
     ReadWriteMask: Byte
-class D3D10_SO_DECLARATION_ENTRY(EasyCastStructure):
+class D3D10_SO_DECLARATION_ENTRY(Structure):
     SemanticName: win32more.Windows.Win32.Foundation.PSTR
     SemanticIndex: UInt32
     StartComponent: Byte
@@ -1569,7 +1569,7 @@ class D3D10_SO_DECLARATION_ENTRY(EasyCastStructure):
 D3D10_STANDARD_MULTISAMPLE_QUALITY_LEVELS = Int32
 D3D10_STANDARD_MULTISAMPLE_PATTERN: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_STANDARD_MULTISAMPLE_QUALITY_LEVELS = -1
 D3D10_CENTER_MULTISAMPLE_PATTERN: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_STANDARD_MULTISAMPLE_QUALITY_LEVELS = -2
-class D3D10_STATE_BLOCK_MASK(EasyCastStructure):
+class D3D10_STATE_BLOCK_MASK(Structure):
     VS: Byte
     VSSamplers: Byte * 2
     VSShaderResources: Byte * 16
@@ -1603,85 +1603,85 @@ D3D10_STENCIL_OP_DECR_SAT: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_STE
 D3D10_STENCIL_OP_INVERT: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_STENCIL_OP = 6
 D3D10_STENCIL_OP_INCR: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_STENCIL_OP = 7
 D3D10_STENCIL_OP_DECR: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_STENCIL_OP = 8
-class D3D10_SUBRESOURCE_DATA(EasyCastStructure):
+class D3D10_SUBRESOURCE_DATA(Structure):
     pSysMem: VoidPtr
     SysMemPitch: UInt32
     SysMemSlicePitch: UInt32
-class D3D10_TECHNIQUE_DESC(EasyCastStructure):
+class D3D10_TECHNIQUE_DESC(Structure):
     Name: win32more.Windows.Win32.Foundation.PSTR
     Passes: UInt32
     Annotations: UInt32
-class D3D10_TEX1D_ARRAY_DSV(EasyCastStructure):
+class D3D10_TEX1D_ARRAY_DSV(Structure):
     MipSlice: UInt32
     FirstArraySlice: UInt32
     ArraySize: UInt32
-class D3D10_TEX1D_ARRAY_RTV(EasyCastStructure):
+class D3D10_TEX1D_ARRAY_RTV(Structure):
     MipSlice: UInt32
     FirstArraySlice: UInt32
     ArraySize: UInt32
-class D3D10_TEX1D_ARRAY_SRV(EasyCastStructure):
+class D3D10_TEX1D_ARRAY_SRV(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
     FirstArraySlice: UInt32
     ArraySize: UInt32
-class D3D10_TEX1D_DSV(EasyCastStructure):
+class D3D10_TEX1D_DSV(Structure):
     MipSlice: UInt32
-class D3D10_TEX1D_RTV(EasyCastStructure):
+class D3D10_TEX1D_RTV(Structure):
     MipSlice: UInt32
-class D3D10_TEX1D_SRV(EasyCastStructure):
+class D3D10_TEX1D_SRV(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
-class D3D10_TEX2DMS_ARRAY_DSV(EasyCastStructure):
+class D3D10_TEX2DMS_ARRAY_DSV(Structure):
     FirstArraySlice: UInt32
     ArraySize: UInt32
-class D3D10_TEX2DMS_ARRAY_RTV(EasyCastStructure):
+class D3D10_TEX2DMS_ARRAY_RTV(Structure):
     FirstArraySlice: UInt32
     ArraySize: UInt32
-class D3D10_TEX2DMS_ARRAY_SRV(EasyCastStructure):
+class D3D10_TEX2DMS_ARRAY_SRV(Structure):
     FirstArraySlice: UInt32
     ArraySize: UInt32
-class D3D10_TEX2DMS_DSV(EasyCastStructure):
+class D3D10_TEX2DMS_DSV(Structure):
     UnusedField_NothingToDefine: UInt32
-class D3D10_TEX2DMS_RTV(EasyCastStructure):
+class D3D10_TEX2DMS_RTV(Structure):
     UnusedField_NothingToDefine: UInt32
-class D3D10_TEX2DMS_SRV(EasyCastStructure):
+class D3D10_TEX2DMS_SRV(Structure):
     UnusedField_NothingToDefine: UInt32
-class D3D10_TEX2D_ARRAY_DSV(EasyCastStructure):
+class D3D10_TEX2D_ARRAY_DSV(Structure):
     MipSlice: UInt32
     FirstArraySlice: UInt32
     ArraySize: UInt32
-class D3D10_TEX2D_ARRAY_RTV(EasyCastStructure):
+class D3D10_TEX2D_ARRAY_RTV(Structure):
     MipSlice: UInt32
     FirstArraySlice: UInt32
     ArraySize: UInt32
-class D3D10_TEX2D_ARRAY_SRV(EasyCastStructure):
+class D3D10_TEX2D_ARRAY_SRV(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
     FirstArraySlice: UInt32
     ArraySize: UInt32
-class D3D10_TEX2D_DSV(EasyCastStructure):
+class D3D10_TEX2D_DSV(Structure):
     MipSlice: UInt32
-class D3D10_TEX2D_RTV(EasyCastStructure):
+class D3D10_TEX2D_RTV(Structure):
     MipSlice: UInt32
-class D3D10_TEX2D_SRV(EasyCastStructure):
+class D3D10_TEX2D_SRV(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
-class D3D10_TEX3D_RTV(EasyCastStructure):
+class D3D10_TEX3D_RTV(Structure):
     MipSlice: UInt32
     FirstWSlice: UInt32
     WSize: UInt32
-class D3D10_TEX3D_SRV(EasyCastStructure):
+class D3D10_TEX3D_SRV(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
-class D3D10_TEXCUBE_ARRAY_SRV1(EasyCastStructure):
+class D3D10_TEXCUBE_ARRAY_SRV1(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
     First2DArrayFace: UInt32
     NumCubes: UInt32
-class D3D10_TEXCUBE_SRV(EasyCastStructure):
+class D3D10_TEXCUBE_SRV(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
-class D3D10_TEXTURE1D_DESC(EasyCastStructure):
+class D3D10_TEXTURE1D_DESC(Structure):
     Width: UInt32
     MipLevels: UInt32
     ArraySize: UInt32
@@ -1690,7 +1690,7 @@ class D3D10_TEXTURE1D_DESC(EasyCastStructure):
     BindFlags: UInt32
     CPUAccessFlags: UInt32
     MiscFlags: UInt32
-class D3D10_TEXTURE2D_DESC(EasyCastStructure):
+class D3D10_TEXTURE2D_DESC(Structure):
     Width: UInt32
     Height: UInt32
     MipLevels: UInt32
@@ -1701,7 +1701,7 @@ class D3D10_TEXTURE2D_DESC(EasyCastStructure):
     BindFlags: UInt32
     CPUAccessFlags: UInt32
     MiscFlags: UInt32
-class D3D10_TEXTURE3D_DESC(EasyCastStructure):
+class D3D10_TEXTURE3D_DESC(Structure):
     Width: UInt32
     Height: UInt32
     Depth: UInt32
@@ -1729,7 +1729,7 @@ D3D10_USAGE_DEFAULT: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_USAGE = 0
 D3D10_USAGE_IMMUTABLE: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_USAGE = 1
 D3D10_USAGE_DYNAMIC: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_USAGE = 2
 D3D10_USAGE_STAGING: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_USAGE = 3
-class D3D10_VIEWPORT(EasyCastStructure):
+class D3D10_VIEWPORT(Structure):
     TopLeftX: Int32
     TopLeftY: Int32
     Width: UInt32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.Vhd
@@ -7,12 +7,12 @@ import win32more.Windows.Win32.System.IO
 APPLY_SNAPSHOT_VHDSET_FLAG = Int32
 APPLY_SNAPSHOT_VHDSET_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.APPLY_SNAPSHOT_VHDSET_FLAG = 0
 APPLY_SNAPSHOT_VHDSET_FLAG_WRITEABLE: win32more.Windows.Win32.Storage.Vhd.APPLY_SNAPSHOT_VHDSET_FLAG = 1
-class APPLY_SNAPSHOT_VHDSET_PARAMETERS(EasyCastStructure):
+class APPLY_SNAPSHOT_VHDSET_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.APPLY_SNAPSHOT_VHDSET_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             SnapshotId: Guid
             LeafSnapshotId: Guid
 APPLY_SNAPSHOT_VHDSET_VERSION = Int32
@@ -31,15 +31,15 @@ ATTACH_VIRTUAL_DISK_FLAG_RESTRICTED_RANGE: win32more.Windows.Win32.Storage.Vhd.A
 ATTACH_VIRTUAL_DISK_FLAG_SINGLE_PARTITION: win32more.Windows.Win32.Storage.Vhd.ATTACH_VIRTUAL_DISK_FLAG = 256
 ATTACH_VIRTUAL_DISK_FLAG_REGISTER_VOLUME: win32more.Windows.Win32.Storage.Vhd.ATTACH_VIRTUAL_DISK_FLAG = 512
 ATTACH_VIRTUAL_DISK_FLAG_AT_BOOT: win32more.Windows.Win32.Storage.Vhd.ATTACH_VIRTUAL_DISK_FLAG = 1024
-class ATTACH_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class ATTACH_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.ATTACH_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
         Version2: _Version2_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             Reserved: UInt32
-        class _Version2_e__Struct(EasyCastStructure):
+        class _Version2_e__Struct(Structure):
             RestrictedOffset: UInt64
             RestrictedLength: UInt64
 ATTACH_VIRTUAL_DISK_VERSION = Int32
@@ -120,12 +120,12 @@ COMPACT_VIRTUAL_DISK_FLAG = Int32
 COMPACT_VIRTUAL_DISK_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.COMPACT_VIRTUAL_DISK_FLAG = 0
 COMPACT_VIRTUAL_DISK_FLAG_NO_ZERO_SCAN: win32more.Windows.Win32.Storage.Vhd.COMPACT_VIRTUAL_DISK_FLAG = 1
 COMPACT_VIRTUAL_DISK_FLAG_NO_BLOCK_MOVES: win32more.Windows.Win32.Storage.Vhd.COMPACT_VIRTUAL_DISK_FLAG = 2
-class COMPACT_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class COMPACT_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.COMPACT_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             Reserved: UInt32
 COMPACT_VIRTUAL_DISK_VERSION = Int32
 COMPACT_VIRTUAL_DISK_VERSION_UNSPECIFIED: win32more.Windows.Win32.Storage.Vhd.COMPACT_VIRTUAL_DISK_VERSION = 0
@@ -143,22 +143,22 @@ CREATE_VIRTUAL_DISK_FLAG_SPARSE_FILE: win32more.Windows.Win32.Storage.Vhd.CREATE
 CREATE_VIRTUAL_DISK_FLAG_PMEM_COMPATIBLE: win32more.Windows.Win32.Storage.Vhd.CREATE_VIRTUAL_DISK_FLAG = 256
 CREATE_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES: win32more.Windows.Win32.Storage.Vhd.CREATE_VIRTUAL_DISK_FLAG = 512
 CREATE_VIRTUAL_DISK_FLAG_SUPPORT_SPARSE_FILES_ANY_FS: win32more.Windows.Win32.Storage.Vhd.CREATE_VIRTUAL_DISK_FLAG = 1024
-class CREATE_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class CREATE_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.CREATE_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
         Version2: _Version2_e__Struct
         Version3: _Version3_e__Struct
         Version4: _Version4_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             UniqueId: Guid
             MaximumSize: UInt64
             BlockSizeInBytes: UInt32
             SectorSizeInBytes: UInt32
             ParentPath: win32more.Windows.Win32.Foundation.PWSTR
             SourcePath: win32more.Windows.Win32.Foundation.PWSTR
-        class _Version2_e__Struct(EasyCastStructure):
+        class _Version2_e__Struct(Structure):
             UniqueId: Guid
             MaximumSize: UInt64
             BlockSizeInBytes: UInt32
@@ -170,7 +170,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
             ParentVirtualStorageType: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE
             SourceVirtualStorageType: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE
             ResiliencyGuid: Guid
-        class _Version3_e__Struct(EasyCastStructure):
+        class _Version3_e__Struct(Structure):
             UniqueId: Guid
             MaximumSize: UInt64
             BlockSizeInBytes: UInt32
@@ -184,7 +184,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
             ResiliencyGuid: Guid
             SourceLimitPath: win32more.Windows.Win32.Foundation.PWSTR
             BackingStorageType: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE
-        class _Version4_e__Struct(EasyCastStructure):
+        class _Version4_e__Struct(Structure):
             UniqueId: Guid
             MaximumSize: UInt64
             BlockSizeInBytes: UInt32
@@ -209,12 +209,12 @@ CREATE_VIRTUAL_DISK_VERSION_4: win32more.Windows.Win32.Storage.Vhd.CREATE_VIRTUA
 DELETE_SNAPSHOT_VHDSET_FLAG = Int32
 DELETE_SNAPSHOT_VHDSET_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.DELETE_SNAPSHOT_VHDSET_FLAG = 0
 DELETE_SNAPSHOT_VHDSET_FLAG_PERSIST_RCT: win32more.Windows.Win32.Storage.Vhd.DELETE_SNAPSHOT_VHDSET_FLAG = 1
-class DELETE_SNAPSHOT_VHDSET_PARAMETERS(EasyCastStructure):
+class DELETE_SNAPSHOT_VHDSET_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.DELETE_SNAPSHOT_VHDSET_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             SnapshotId: Guid
 DELETE_SNAPSHOT_VHDSET_VERSION = Int32
 DELETE_SNAPSHOT_VHDSET_VERSION_UNSPECIFIED: win32more.Windows.Win32.Storage.Vhd.DELETE_SNAPSHOT_VHDSET_VERSION = 0
@@ -240,12 +240,12 @@ DETACH_VIRTUAL_DISK_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.DETACH_VIRTUA
 EXPAND_VIRTUAL_DISK_FLAG = Int32
 EXPAND_VIRTUAL_DISK_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.EXPAND_VIRTUAL_DISK_FLAG = 0
 EXPAND_VIRTUAL_DISK_FLAG_NOTIFY_CHANGE: win32more.Windows.Win32.Storage.Vhd.EXPAND_VIRTUAL_DISK_FLAG = 1
-class EXPAND_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class EXPAND_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.EXPAND_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             NewSize: UInt64
 EXPAND_VIRTUAL_DISK_VERSION = Int32
 EXPAND_VIRTUAL_DISK_VERSION_UNSPECIFIED: win32more.Windows.Win32.Storage.Vhd.EXPAND_VIRTUAL_DISK_VERSION = 0
@@ -253,12 +253,12 @@ EXPAND_VIRTUAL_DISK_VERSION_1: win32more.Windows.Win32.Storage.Vhd.EXPAND_VIRTUA
 FORK_VIRTUAL_DISK_FLAG = Int32
 FORK_VIRTUAL_DISK_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.FORK_VIRTUAL_DISK_FLAG = 0
 FORK_VIRTUAL_DISK_FLAG_EXISTING_FILE: win32more.Windows.Win32.Storage.Vhd.FORK_VIRTUAL_DISK_FLAG = 1
-class FORK_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class FORK_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.FORK_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             ForkedVirtualDiskPath: win32more.Windows.Win32.Foundation.PWSTR
 FORK_VIRTUAL_DISK_VERSION = Int32
 FORK_VIRTUAL_DISK_VERSION_UNSPECIFIED: win32more.Windows.Win32.Storage.Vhd.FORK_VIRTUAL_DISK_VERSION = 0
@@ -267,10 +267,10 @@ GET_STORAGE_DEPENDENCY_FLAG = Int32
 GET_STORAGE_DEPENDENCY_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.GET_STORAGE_DEPENDENCY_FLAG = 0
 GET_STORAGE_DEPENDENCY_FLAG_HOST_VOLUMES: win32more.Windows.Win32.Storage.Vhd.GET_STORAGE_DEPENDENCY_FLAG = 1
 GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE: win32more.Windows.Win32.Storage.Vhd.GET_STORAGE_DEPENDENCY_FLAG = 2
-class GET_VIRTUAL_DISK_INFO(EasyCastStructure):
+class GET_VIRTUAL_DISK_INFO(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.GET_VIRTUAL_DISK_INFO_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Size: _Size_e__Struct
         Identifier: Guid
         ParentLocation: _ParentLocation_e__Struct
@@ -286,19 +286,19 @@ class GET_VIRTUAL_DISK_INFO(EasyCastStructure):
         FragmentationPercentage: UInt32
         VirtualDiskId: Guid
         ChangeTrackingState: _ChangeTrackingState_e__Struct
-        class _Size_e__Struct(EasyCastStructure):
+        class _Size_e__Struct(Structure):
             VirtualSize: UInt64
             PhysicalSize: UInt64
             BlockSize: UInt32
             SectorSize: UInt32
-        class _ParentLocation_e__Struct(EasyCastStructure):
+        class _ParentLocation_e__Struct(Structure):
             ParentResolved: win32more.Windows.Win32.Foundation.BOOL
             ParentLocationBuffer: Char * 1
-        class _PhysicalDisk_e__Struct(EasyCastStructure):
+        class _PhysicalDisk_e__Struct(Structure):
             LogicalSectorSize: UInt32
             PhysicalSectorSize: UInt32
             IsRemote: win32more.Windows.Win32.Foundation.BOOL
-        class _ChangeTrackingState_e__Struct(EasyCastStructure):
+        class _ChangeTrackingState_e__Struct(Structure):
             Enabled: win32more.Windows.Win32.Foundation.BOOL
             NewerChanges: win32more.Windows.Win32.Foundation.BOOL
             MostRecentId: Char * 1
@@ -321,15 +321,15 @@ GET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID: win32more.Windows.Win32.Storage.Vhd.GET_V
 GET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE: win32more.Windows.Win32.Storage.Vhd.GET_VIRTUAL_DISK_INFO_VERSION = 15
 MERGE_VIRTUAL_DISK_FLAG = Int32
 MERGE_VIRTUAL_DISK_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.MERGE_VIRTUAL_DISK_FLAG = 0
-class MERGE_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class MERGE_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.MERGE_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
         Version2: _Version2_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             MergeDepth: UInt32
-        class _Version2_e__Struct(EasyCastStructure):
+        class _Version2_e__Struct(Structure):
             MergeSourceDepth: UInt32
             MergeTargetDepth: UInt32
 MERGE_VIRTUAL_DISK_VERSION = Int32
@@ -342,12 +342,12 @@ MIRROR_VIRTUAL_DISK_FLAG_EXISTING_FILE: win32more.Windows.Win32.Storage.Vhd.MIRR
 MIRROR_VIRTUAL_DISK_FLAG_SKIP_MIRROR_ACTIVATION: win32more.Windows.Win32.Storage.Vhd.MIRROR_VIRTUAL_DISK_FLAG = 2
 MIRROR_VIRTUAL_DISK_FLAG_ENABLE_SMB_COMPRESSION: win32more.Windows.Win32.Storage.Vhd.MIRROR_VIRTUAL_DISK_FLAG = 4
 MIRROR_VIRTUAL_DISK_FLAG_IS_LIVE_MIGRATION: win32more.Windows.Win32.Storage.Vhd.MIRROR_VIRTUAL_DISK_FLAG = 8
-class MIRROR_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class MIRROR_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.MIRROR_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             MirrorVirtualDiskPath: win32more.Windows.Win32.Foundation.PWSTR
 MIRROR_VIRTUAL_DISK_VERSION = Int32
 MIRROR_VIRTUAL_DISK_VERSION_UNSPECIFIED: win32more.Windows.Win32.Storage.Vhd.MIRROR_VIRTUAL_DISK_VERSION = 0
@@ -355,14 +355,14 @@ MIRROR_VIRTUAL_DISK_VERSION_1: win32more.Windows.Win32.Storage.Vhd.MIRROR_VIRTUA
 MODIFY_VHDSET_FLAG = Int32
 MODIFY_VHDSET_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.MODIFY_VHDSET_FLAG = 0
 MODIFY_VHDSET_FLAG_WRITEABLE_SNAPSHOT: win32more.Windows.Win32.Storage.Vhd.MODIFY_VHDSET_FLAG = 1
-class MODIFY_VHDSET_PARAMETERS(EasyCastStructure):
+class MODIFY_VHDSET_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.MODIFY_VHDSET_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         SnapshotPath: _SnapshotPath_e__Struct
         SnapshotId: Guid
         DefaultFilePath: win32more.Windows.Win32.Foundation.PWSTR
-        class _SnapshotPath_e__Struct(EasyCastStructure):
+        class _SnapshotPath_e__Struct(Structure):
             SnapshotId: Guid
             SnapshotFilePath: win32more.Windows.Win32.Foundation.PWSTR
 MODIFY_VHDSET_VERSION = Int32
@@ -384,20 +384,20 @@ OPEN_VIRTUAL_DISK_FLAG_NO_WRITE_HARDENING: win32more.Windows.Win32.Storage.Vhd.O
 OPEN_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES: win32more.Windows.Win32.Storage.Vhd.OPEN_VIRTUAL_DISK_FLAG = 512
 OPEN_VIRTUAL_DISK_FLAG_SUPPORT_SPARSE_FILES_ANY_FS: win32more.Windows.Win32.Storage.Vhd.OPEN_VIRTUAL_DISK_FLAG = 1024
 OPEN_VIRTUAL_DISK_FLAG_SUPPORT_ENCRYPTED_FILES: win32more.Windows.Win32.Storage.Vhd.OPEN_VIRTUAL_DISK_FLAG = 2048
-class OPEN_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class OPEN_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.OPEN_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
         Version2: _Version2_e__Struct
         Version3: _Version3_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             RWDepth: UInt32
-        class _Version2_e__Struct(EasyCastStructure):
+        class _Version2_e__Struct(Structure):
             GetInfoOnly: win32more.Windows.Win32.Foundation.BOOL
             ReadOnly: win32more.Windows.Win32.Foundation.BOOL
             ResiliencyGuid: Guid
-        class _Version3_e__Struct(EasyCastStructure):
+        class _Version3_e__Struct(Structure):
             GetInfoOnly: win32more.Windows.Win32.Foundation.BOOL
             ReadOnly: win32more.Windows.Win32.Foundation.BOOL
             ResiliencyGuid: Guid
@@ -409,18 +409,18 @@ OPEN_VIRTUAL_DISK_VERSION_2: win32more.Windows.Win32.Storage.Vhd.OPEN_VIRTUAL_DI
 OPEN_VIRTUAL_DISK_VERSION_3: win32more.Windows.Win32.Storage.Vhd.OPEN_VIRTUAL_DISK_VERSION = 3
 QUERY_CHANGES_VIRTUAL_DISK_FLAG = Int32
 QUERY_CHANGES_VIRTUAL_DISK_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.QUERY_CHANGES_VIRTUAL_DISK_FLAG = 0
-class QUERY_CHANGES_VIRTUAL_DISK_RANGE(EasyCastStructure):
+class QUERY_CHANGES_VIRTUAL_DISK_RANGE(Structure):
     ByteOffset: UInt64
     ByteLength: UInt64
     Reserved: UInt64
 RAW_SCSI_VIRTUAL_DISK_FLAG = Int32
 RAW_SCSI_VIRTUAL_DISK_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.RAW_SCSI_VIRTUAL_DISK_FLAG = 0
-class RAW_SCSI_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class RAW_SCSI_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.RAW_SCSI_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             RSVDHandle: win32more.Windows.Win32.Foundation.BOOL
             DataIn: Byte
             CdbLength: Byte
@@ -430,12 +430,12 @@ class RAW_SCSI_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
             DataBuffer: VoidPtr
             SenseInfo: POINTER(Byte)
             Cdb: POINTER(Byte)
-class RAW_SCSI_VIRTUAL_DISK_RESPONSE(EasyCastStructure):
+class RAW_SCSI_VIRTUAL_DISK_RESPONSE(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.RAW_SCSI_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             ScsiStatus: Byte
             SenseInfoLength: Byte
             DataTransferLength: UInt32
@@ -446,20 +446,20 @@ RESIZE_VIRTUAL_DISK_FLAG = Int32
 RESIZE_VIRTUAL_DISK_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.RESIZE_VIRTUAL_DISK_FLAG = 0
 RESIZE_VIRTUAL_DISK_FLAG_ALLOW_UNSAFE_VIRTUAL_SIZE: win32more.Windows.Win32.Storage.Vhd.RESIZE_VIRTUAL_DISK_FLAG = 1
 RESIZE_VIRTUAL_DISK_FLAG_RESIZE_TO_SMALLEST_SAFE_VIRTUAL_SIZE: win32more.Windows.Win32.Storage.Vhd.RESIZE_VIRTUAL_DISK_FLAG = 2
-class RESIZE_VIRTUAL_DISK_PARAMETERS(EasyCastStructure):
+class RESIZE_VIRTUAL_DISK_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.RESIZE_VIRTUAL_DISK_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             NewSize: UInt64
 RESIZE_VIRTUAL_DISK_VERSION = Int32
 RESIZE_VIRTUAL_DISK_VERSION_UNSPECIFIED: win32more.Windows.Win32.Storage.Vhd.RESIZE_VIRTUAL_DISK_VERSION = 0
 RESIZE_VIRTUAL_DISK_VERSION_1: win32more.Windows.Win32.Storage.Vhd.RESIZE_VIRTUAL_DISK_VERSION = 1
-class SET_VIRTUAL_DISK_INFO(EasyCastStructure):
+class SET_VIRTUAL_DISK_INFO(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.SET_VIRTUAL_DISK_INFO_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ParentFilePath: win32more.Windows.Win32.Foundation.PWSTR
         UniqueIdentifier: Guid
         ParentPathWithDepthInfo: _ParentPathWithDepthInfo_e__Struct
@@ -467,10 +467,10 @@ class SET_VIRTUAL_DISK_INFO(EasyCastStructure):
         VirtualDiskId: Guid
         ChangeTrackingEnabled: win32more.Windows.Win32.Foundation.BOOL
         ParentLocator: _ParentLocator_e__Struct
-        class _ParentPathWithDepthInfo_e__Struct(EasyCastStructure):
+        class _ParentPathWithDepthInfo_e__Struct(Structure):
             ChildDepth: UInt32
             ParentFilePath: win32more.Windows.Win32.Foundation.PWSTR
-        class _ParentLocator_e__Struct(EasyCastStructure):
+        class _ParentLocator_e__Struct(Structure):
             LinkageId: Guid
             ParentFilePath: win32more.Windows.Win32.Foundation.PWSTR
 SET_VIRTUAL_DISK_INFO_VERSION = Int32
@@ -482,18 +482,18 @@ SET_VIRTUAL_DISK_INFO_PHYSICAL_SECTOR_SIZE: win32more.Windows.Win32.Storage.Vhd.
 SET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID: win32more.Windows.Win32.Storage.Vhd.SET_VIRTUAL_DISK_INFO_VERSION = 5
 SET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE: win32more.Windows.Win32.Storage.Vhd.SET_VIRTUAL_DISK_INFO_VERSION = 6
 SET_VIRTUAL_DISK_INFO_PARENT_LOCATOR: win32more.Windows.Win32.Storage.Vhd.SET_VIRTUAL_DISK_INFO_VERSION = 7
-class STORAGE_DEPENDENCY_INFO(EasyCastStructure):
+class STORAGE_DEPENDENCY_INFO(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.STORAGE_DEPENDENCY_INFO_VERSION
     NumberEntries: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1Entries: win32more.Windows.Win32.Storage.Vhd.STORAGE_DEPENDENCY_INFO_TYPE_1 * 1
         Version2Entries: win32more.Windows.Win32.Storage.Vhd.STORAGE_DEPENDENCY_INFO_TYPE_2 * 1
-class STORAGE_DEPENDENCY_INFO_TYPE_1(EasyCastStructure):
+class STORAGE_DEPENDENCY_INFO_TYPE_1(Structure):
     DependencyTypeFlags: win32more.Windows.Win32.Storage.Vhd.DEPENDENT_DISK_FLAG
     ProviderSpecificFlags: UInt32
     VirtualStorageType: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE
-class STORAGE_DEPENDENCY_INFO_TYPE_2(EasyCastStructure):
+class STORAGE_DEPENDENCY_INFO_TYPE_2(Structure):
     DependencyTypeFlags: win32more.Windows.Win32.Storage.Vhd.DEPENDENT_DISK_FLAG
     ProviderSpecificFlags: UInt32
     VirtualStorageType: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE
@@ -509,12 +509,12 @@ STORAGE_DEPENDENCY_INFO_VERSION_2: win32more.Windows.Win32.Storage.Vhd.STORAGE_D
 TAKE_SNAPSHOT_VHDSET_FLAG = Int32
 TAKE_SNAPSHOT_VHDSET_FLAG_NONE: win32more.Windows.Win32.Storage.Vhd.TAKE_SNAPSHOT_VHDSET_FLAG = 0
 TAKE_SNAPSHOT_VHDSET_FLAG_WRITEABLE: win32more.Windows.Win32.Storage.Vhd.TAKE_SNAPSHOT_VHDSET_FLAG = 1
-class TAKE_SNAPSHOT_VHDSET_PARAMETERS(EasyCastStructure):
+class TAKE_SNAPSHOT_VHDSET_PARAMETERS(Structure):
     Version: win32more.Windows.Win32.Storage.Vhd.TAKE_SNAPSHOT_VHDSET_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version1: _Version1_e__Struct
-        class _Version1_e__Struct(EasyCastStructure):
+        class _Version1_e__Struct(Structure):
             SnapshotId: Guid
 TAKE_SNAPSHOT_VHDSET_VERSION = Int32
 TAKE_SNAPSHOT_VHDSET_VERSION_UNSPECIFIED: win32more.Windows.Win32.Storage.Vhd.TAKE_SNAPSHOT_VHDSET_VERSION = 0
@@ -530,11 +530,11 @@ VIRTUAL_DISK_ACCESS_METAOPS: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_DISK_AC
 VIRTUAL_DISK_ACCESS_READ: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_DISK_ACCESS_MASK = 851968
 VIRTUAL_DISK_ACCESS_ALL: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_DISK_ACCESS_MASK = 4128768
 VIRTUAL_DISK_ACCESS_WRITABLE: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_DISK_ACCESS_MASK = 3276800
-class VIRTUAL_DISK_PROGRESS(EasyCastStructure):
+class VIRTUAL_DISK_PROGRESS(Structure):
     OperationStatus: UInt32
     CurrentValue: UInt64
     CompletionValue: UInt64
-class VIRTUAL_STORAGE_TYPE(EasyCastStructure):
+class VIRTUAL_STORAGE_TYPE(Structure):
     DeviceId: UInt32
     VendorId: Guid
 

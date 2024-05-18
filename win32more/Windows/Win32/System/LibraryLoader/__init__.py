@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.LibraryLoader
 FIND_RESOURCE_DIRECTORY_TYPES: UInt32 = 256
@@ -145,7 +145,7 @@ def ENUMRESTYPEPROCA(hModule: win32more.Windows.Win32.Foundation.HMODULE, lpType
 @winfunctype_pointer
 def ENUMRESTYPEPROCW(hModule: win32more.Windows.Win32.Foundation.HMODULE, lpType: win32more.Windows.Win32.Foundation.PWSTR, lParam: IntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 ENUMRESTYPEPROC = UnicodeAlias('ENUMRESTYPEPROCW')
-class ENUMUILANG(EasyCastStructure):
+class ENUMUILANG(Structure):
     NumOfEnumUILang: UInt32
     SizeOfEnumUIBuffer: UInt32
     pEnumUIBuffer: POINTER(UInt16)
@@ -169,11 +169,11 @@ def PGET_MODULE_HANDLE_EXA(dwFlags: UInt32, lpModuleName: win32more.Windows.Win3
 @winfunctype_pointer
 def PGET_MODULE_HANDLE_EXW(dwFlags: UInt32, lpModuleName: win32more.Windows.Win32.Foundation.PWSTR, phModule: POINTER(win32more.Windows.Win32.Foundation.HMODULE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 PGET_MODULE_HANDLE_EX = UnicodeAlias('PGET_MODULE_HANDLE_EXW')
-class REDIRECTION_DESCRIPTOR(EasyCastStructure):
+class REDIRECTION_DESCRIPTOR(Structure):
     Version: UInt32
     FunctionCount: UInt32
     Redirections: POINTER(win32more.Windows.Win32.System.LibraryLoader.REDIRECTION_FUNCTION_DESCRIPTOR)
-class REDIRECTION_FUNCTION_DESCRIPTOR(EasyCastStructure):
+class REDIRECTION_FUNCTION_DESCRIPTOR(Structure):
     DllName: win32more.Windows.Win32.Foundation.PSTR
     FunctionName: win32more.Windows.Win32.Foundation.PSTR
     RedirectionTarget: VoidPtr

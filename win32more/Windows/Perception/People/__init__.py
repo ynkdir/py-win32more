@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
@@ -79,7 +79,7 @@ class HandMeshObserver(ComPtr):
     Source = property(get_Source, None)
     TriangleIndexCount = property(get_TriangleIndexCount, None)
     VertexCount = property(get_VertexCount, None)
-class HandMeshVertex(EasyCastStructure):
+class HandMeshVertex(Structure):
     Position: win32more.Windows.Foundation.Numerics.Vector3
     Normal: win32more.Windows.Foundation.Numerics.Vector3
 class HandMeshVertexState(ComPtr):
@@ -203,7 +203,7 @@ class IHeadPose(ComPtr):
     ForwardDirection = property(get_ForwardDirection, None)
     Position = property(get_Position, None)
     UpDirection = property(get_UpDirection, None)
-class JointPose(EasyCastStructure):
+class JointPose(Structure):
     Orientation: win32more.Windows.Foundation.Numerics.Quaternion
     Position: win32more.Windows.Foundation.Numerics.Vector3
     Radius: Single

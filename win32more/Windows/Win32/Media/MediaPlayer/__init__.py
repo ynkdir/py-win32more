@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media.MediaFoundation
@@ -2723,7 +2723,7 @@ PlayerState = Int32
 stop_state: win32more.Windows.Win32.Media.MediaPlayer.PlayerState = 0
 pause_state: win32more.Windows.Win32.Media.MediaPlayer.PlayerState = 1
 play_state: win32more.Windows.Win32.Media.MediaPlayer.PlayerState = 2
-class TimedLevel(EasyCastStructure):
+class TimedLevel(Structure):
     frequency: Byte * 2048
     waveform: Byte * 2048
     state: Int32
@@ -2753,7 +2753,7 @@ wmpcnLicenseUpdated: win32more.Windows.Win32.Media.MediaPlayer.WMPCallbackNotifi
 wmpcnNewCatalogAvailable: win32more.Windows.Win32.Media.MediaPlayer.WMPCallbackNotification = 4
 wmpcnNewPluginAvailable: win32more.Windows.Win32.Media.MediaPlayer.WMPCallbackNotification = 5
 wmpcnDisableRadioSkipping: win32more.Windows.Win32.Media.MediaPlayer.WMPCallbackNotification = 6
-class WMPContextMenuInfo(EasyCastStructure):
+class WMPContextMenuInfo(Structure):
     dwID: UInt32
     bstrMenuText: win32more.Windows.Win32.Foundation.BSTR
     bstrHelpText: win32more.Windows.Win32.Foundation.BSTR
@@ -2887,7 +2887,7 @@ WMPTransactionType = Int32
 wmpttNoTransaction: win32more.Windows.Win32.Media.MediaPlayer.WMPTransactionType = 0
 wmpttDownload: win32more.Windows.Win32.Media.MediaPlayer.WMPTransactionType = 1
 wmpttBuy: win32more.Windows.Win32.Media.MediaPlayer.WMPTransactionType = 2
-class WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC(EasyCastStructure):
+class WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC(Structure):
     dwCurrentTransactionID: UInt32
     dwReturnedObjectCount: UInt32
     dwUnretrievedObjectCount: UInt32
@@ -2895,7 +2895,7 @@ class WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC(EasyCastStructure):
     dwFlags: UInt32
     wsObjectPathnameList: Char * 1
     _pack_ = 1
-class WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE(EasyCastStructure):
+class WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE(Structure):
     dwChangesSinceTransactionID: UInt32
     dwResultSetStartingIndex: UInt32
     _pack_ = 1

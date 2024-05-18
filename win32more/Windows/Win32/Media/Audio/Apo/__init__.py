@@ -1,20 +1,20 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
-class APOInitBaseStruct(EasyCastStructure):
+class APOInitBaseStruct(Structure):
     cbSize: UInt32
     clsid: Guid
-class APOInitSystemEffects(EasyCastStructure):
+class APOInitSystemEffects(Structure):
     APOInit: win32more.Windows.Win32.Media.Audio.Apo.APOInitBaseStruct
     pAPOEndpointProperties: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
     pAPOSystemEffectsProperties: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
     pReserved: VoidPtr
     pDeviceCollection: win32more.Windows.Win32.Media.Audio.IMMDeviceCollection
-class APOInitSystemEffects2(EasyCastStructure):
+class APOInitSystemEffects2(Structure):
     APOInit: win32more.Windows.Win32.Media.Audio.Apo.APOInitBaseStruct
     pAPOEndpointProperties: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
     pAPOSystemEffectsProperties: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
@@ -24,7 +24,7 @@ class APOInitSystemEffects2(EasyCastStructure):
     nSoftwareIoConnectorIndex: UInt32
     AudioProcessingMode: Guid
     InitializeForDiscoveryOnly: win32more.Windows.Win32.Foundation.BOOL
-class APOInitSystemEffects3(EasyCastStructure):
+class APOInitSystemEffects3(Structure):
     APOInit: win32more.Windows.Win32.Media.Audio.Apo.APOInitBaseStruct
     pAPOEndpointProperties: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
     pServiceProvider: win32more.Windows.Win32.System.Com.IServiceProvider
@@ -41,18 +41,18 @@ APO_CONNECTION_BUFFER_TYPE = Int32
 APO_CONNECTION_BUFFER_TYPE_ALLOCATED: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE = 0
 APO_CONNECTION_BUFFER_TYPE_EXTERNAL: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE = 1
 APO_CONNECTION_BUFFER_TYPE_DEPENDANT: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE = 2
-class APO_CONNECTION_DESCRIPTOR(EasyCastStructure):
+class APO_CONNECTION_DESCRIPTOR(Structure):
     Type: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE
     pBuffer: UIntPtr
     u32MaxFrameCount: UInt32
     pFormat: win32more.Windows.Win32.Media.Audio.Apo.IAudioMediaType
     u32Signature: UInt32
-class APO_CONNECTION_PROPERTY(EasyCastStructure):
+class APO_CONNECTION_PROPERTY(Structure):
     pBuffer: UIntPtr
     u32ValidFrameCount: UInt32
     u32BufferFlags: win32more.Windows.Win32.Media.Audio.Apo.APO_BUFFER_FLAGS
     u32Signature: UInt32
-class APO_CONNECTION_PROPERTY_V2(EasyCastStructure):
+class APO_CONNECTION_PROPERTY_V2(Structure):
     property: win32more.Windows.Win32.Media.Audio.Apo.APO_CONNECTION_PROPERTY
     u64QPCTime: UInt64
 APO_FLAG = Int32
@@ -70,20 +70,20 @@ APO_LOG_LEVEL_ERROR: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 2
 APO_LOG_LEVEL_WARNING: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 3
 APO_LOG_LEVEL_INFO: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 4
 APO_LOG_LEVEL_VERBOSE: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 5
-class APO_NOTIFICATION(EasyCastStructure):
+class APO_NOTIFICATION(Structure):
     type: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         audioEndpointVolumeChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION
         audioEndpointPropertyChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION
         audioSystemEffectsPropertyChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION
         audioEndpointVolumeChange2: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2
         deviceOrientation: win32more.Windows.Win32.Media.Audio.Apo.DEVICE_ORIENTATION_TYPE
         audioMicrophoneBoostChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_MICROPHONE_BOOST_NOTIFICATION
-class APO_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
+class APO_NOTIFICATION_DESCRIPTOR(Structure):
     type: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         audioEndpointVolume: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR
         audioEndpointPropertyChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR
         audioSystemEffectsPropertyChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR
@@ -96,7 +96,7 @@ APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE: win32more.Windows.Win32.Me
 APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 4
 APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 5
 APO_NOTIFICATION_TYPE_MICROPHONE_BOOST: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE = 6
-class APO_REG_PROPERTIES(EasyCastStructure):
+class APO_REG_PROPERTIES(Structure):
     clsid: Guid
     Flags: win32more.Windows.Win32.Media.Audio.Apo.APO_FLAG
     szFriendlyName: Char * 256
@@ -110,26 +110,26 @@ class APO_REG_PROPERTIES(EasyCastStructure):
     u32MaxInstances: UInt32
     u32NumAPOInterfaces: UInt32
     iidAPOInterfaceList: Guid * 1
-class AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
+class AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(Structure):
     device: win32more.Windows.Win32.Media.Audio.IMMDevice
-class AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION(EasyCastStructure):
+class AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION(Structure):
     endpoint: win32more.Windows.Win32.Media.Audio.IMMDevice
     propertyStore: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
     propertyKey: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY
-class AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
+class AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR(Structure):
     device: win32more.Windows.Win32.Media.Audio.IMMDevice
-class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION(EasyCastStructure):
+class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION(Structure):
     endpoint: win32more.Windows.Win32.Media.Audio.IMMDevice
     volume: POINTER(win32more.Windows.Win32.Media.Audio.AUDIO_VOLUME_NOTIFICATION_DATA)
-class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2(EasyCastStructure):
+class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2(Structure):
     endpoint: win32more.Windows.Win32.Media.Audio.IMMDevice
     volume: POINTER(win32more.Windows.Win32.Media.Audio.Apo.AUDIO_VOLUME_NOTIFICATION_DATA2)
 AUDIO_FLOW_TYPE = Int32
 AUDIO_FLOW_PULL: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_FLOW_TYPE = 0
 AUDIO_FLOW_PUSH: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_FLOW_TYPE = 1
-class AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
+class AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR(Structure):
     device: win32more.Windows.Win32.Media.Audio.IMMDevice
-class AUDIO_MICROPHONE_BOOST_NOTIFICATION(EasyCastStructure):
+class AUDIO_MICROPHONE_BOOST_NOTIFICATION(Structure):
     endpoint: win32more.Windows.Win32.Media.Audio.IMMDevice
     eventContext: Guid
     microphoneBoostEnabled: win32more.Windows.Win32.Foundation.BOOL
@@ -139,14 +139,14 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION(EasyCastStructure):
     levelStepInDb: Single
     muteSupported: win32more.Windows.Win32.Foundation.BOOL
     mute: win32more.Windows.Win32.Foundation.BOOL
-class AUDIO_SYSTEMEFFECT(EasyCastStructure):
+class AUDIO_SYSTEMEFFECT(Structure):
     id: Guid
     canSetState: win32more.Windows.Win32.Foundation.BOOL
     state: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE
-class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(EasyCastStructure):
+class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(Structure):
     device: win32more.Windows.Win32.Media.Audio.IMMDevice
     propertyStoreContext: Guid
-class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(EasyCastStructure):
+class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(Structure):
     endpoint: win32more.Windows.Win32.Media.Audio.IMMDevice
     propertyStoreContext: Guid
     propertyStoreType: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE
@@ -155,7 +155,7 @@ class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(EasyCastStructure):
 AUDIO_SYSTEMEFFECT_STATE = Int32
 AUDIO_SYSTEMEFFECT_STATE_OFF: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE = 0
 AUDIO_SYSTEMEFFECT_STATE_ON: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE = 1
-class AUDIO_VOLUME_NOTIFICATION_DATA2(EasyCastStructure):
+class AUDIO_VOLUME_NOTIFICATION_DATA2(Structure):
     notificationData: POINTER(win32more.Windows.Win32.Media.Audio.AUDIO_VOLUME_NOTIFICATION_DATA)
     masterVolumeInDb: Single
     volumeMinInDb: Single
@@ -231,7 +231,7 @@ SID_AudioProcessingObjectLoggingService: Guid = Guid('{8b8008af-09f9-456e-a173-b
 AUDIOMEDIATYPE_EQUAL_FORMAT_TYPES: UInt32 = 2
 AUDIOMEDIATYPE_EQUAL_FORMAT_DATA: UInt32 = 4
 AUDIOMEDIATYPE_EQUAL_FORMAT_USER_DATA: UInt32 = 8
-class AudioFXExtensionParams(EasyCastStructure):
+class AudioFXExtensionParams(Structure):
     AddPageParam: win32more.Windows.Win32.Foundation.LPARAM
     pwstrEndpointID: win32more.Windows.Win32.Foundation.PWSTR
     pFxProperties: win32more.Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
@@ -367,7 +367,7 @@ class IAudioSystemEffectsCustomFormats(ComPtr):
     def GetFormat(self, nFormat: UInt32, ppFormat: POINTER(win32more.Windows.Win32.Media.Audio.Apo.IAudioMediaType)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetFormatRepresentation(self, nFormat: UInt32, ppwstrFormatRep: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class UNCOMPRESSEDAUDIOFORMAT(EasyCastStructure):
+class UNCOMPRESSEDAUDIOFORMAT(Structure):
     guidFormatType: Guid
     dwSamplesPerFrame: UInt32
     dwBytesPerSampleContainer: UInt32

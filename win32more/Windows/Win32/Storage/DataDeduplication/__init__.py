@@ -1,22 +1,22 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.DataDeduplication
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
 DEDUP_CHUNKLIB_MAX_CHUNKS_ENUM: UInt32 = 1024
-class DDP_FILE_EXTENT(EasyCastStructure):
+class DDP_FILE_EXTENT(Structure):
     Length: Int64
     Offset: Int64
 DEDUP_BACKUP_SUPPORT_PARAM_TYPE = Int32
 DEDUP_RECONSTRUCT_UNOPTIMIZED: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_BACKUP_SUPPORT_PARAM_TYPE = 1
 DEDUP_RECONSTRUCT_OPTIMIZED: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_BACKUP_SUPPORT_PARAM_TYPE = 2
-class DEDUP_CHUNK_INFO_HASH32(EasyCastStructure):
+class DEDUP_CHUNK_INFO_HASH32(Structure):
     ChunkFlags: UInt32
     ChunkOffsetInStream: UInt64
     ChunkSize: UInt64
     HashVal: Byte * 32
-class DEDUP_CONTAINER_EXTENT(EasyCastStructure):
+class DEDUP_CONTAINER_EXTENT(Structure):
     ContainerIndex: UInt32
     StartOffset: Int64
     Length: Int64
@@ -27,7 +27,7 @@ DEDUP_PT_AvgChunkSizeBytes: win32more.Windows.Win32.Storage.DataDeduplication.DE
 DEDUP_PT_InvariantChunking: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_SET_PARAM_TYPE = 4
 DEDUP_PT_DisableStrongHashComputation: win32more.Windows.Win32.Storage.DataDeduplication.DEDUP_SET_PARAM_TYPE = 5
 DedupBackupSupport = Guid('{73d6b2ad-2984-4715-b2e3-924c149744dd}')
-class DedupChunk(EasyCastStructure):
+class DedupChunk(Structure):
     Hash: win32more.Windows.Win32.Storage.DataDeduplication.DedupHash
     Flags: win32more.Windows.Win32.Storage.DataDeduplication.DedupChunkFlags
     LogicalSize: UInt32
@@ -61,17 +61,17 @@ DedupDataPortVolumeStatus_Initializing: win32more.Windows.Win32.Storage.DataDedu
 DedupDataPortVolumeStatus_Ready: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 4
 DedupDataPortVolumeStatus_Maintenance: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 5
 DedupDataPortVolumeStatus_Shutdown: win32more.Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus = 6
-class DedupHash(EasyCastStructure):
+class DedupHash(Structure):
     Hash: Byte * 32
 DedupHashingAlgorithm = Int32
 DedupHashingAlgorithm_Unknonwn: win32more.Windows.Win32.Storage.DataDeduplication.DedupHashingAlgorithm = 0
 DedupHashingAlgorithm_V1: win32more.Windows.Win32.Storage.DataDeduplication.DedupHashingAlgorithm = 1
-class DedupStream(EasyCastStructure):
+class DedupStream(Structure):
     Path: win32more.Windows.Win32.Foundation.BSTR
     Offset: UInt64
     Length: UInt64
     ChunkCount: UInt32
-class DedupStreamEntry(EasyCastStructure):
+class DedupStreamEntry(Structure):
     Hash: win32more.Windows.Win32.Storage.DataDeduplication.DedupHash
     LogicalSize: UInt32
     Offset: UInt64

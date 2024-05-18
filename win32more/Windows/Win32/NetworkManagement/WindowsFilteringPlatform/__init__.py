@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform
 import win32more.Windows.Win32.Security
@@ -962,17 +962,17 @@ DL_ADDRESS_TYPE = Int32
 DlUnicast: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.DL_ADDRESS_TYPE = 0
 DlMulticast: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.DL_ADDRESS_TYPE = 1
 DlBroadcast: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.DL_ADDRESS_TYPE = 2
-class FWPM_ACTION0(EasyCastStructure):
+class FWPM_ACTION0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         filterType: Guid
         calloutKey: Guid
 FWPM_APPC_NETWORK_CAPABILITY_TYPE = Int32
 FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_APPC_NETWORK_CAPABILITY_TYPE = 0
 FWPM_APPC_NETWORK_CAPABILITY_INTERNET_CLIENT_SERVER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_APPC_NETWORK_CAPABILITY_TYPE = 1
 FWPM_APPC_NETWORK_CAPABILITY_INTERNET_PRIVATE_NETWORK: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_APPC_NETWORK_CAPABILITY_TYPE = 2
-class FWPM_CALLOUT0(EasyCastStructure):
+class FWPM_CALLOUT0(Structure):
     calloutKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
@@ -980,16 +980,16 @@ class FWPM_CALLOUT0(EasyCastStructure):
     providerData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     applicableLayer: Guid
     calloutId: UInt32
-class FWPM_CALLOUT_CHANGE0(EasyCastStructure):
+class FWPM_CALLOUT_CHANGE0(Structure):
     changeType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE
     calloutKey: Guid
     calloutId: UInt32
 @winfunctype_pointer
 def FWPM_CALLOUT_CHANGE_CALLBACK0(context: VoidPtr, change: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CALLOUT_CHANGE0)) -> Void: ...
-class FWPM_CALLOUT_ENUM_TEMPLATE0(EasyCastStructure):
+class FWPM_CALLOUT_ENUM_TEMPLATE0(Structure):
     providerKey: POINTER(Guid)
     layerKey: Guid
-class FWPM_CALLOUT_SUBSCRIPTION0(EasyCastStructure):
+class FWPM_CALLOUT_SUBSCRIPTION0(Structure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CALLOUT_ENUM_TEMPLATE0)
     flags: UInt32
     sessionKey: Guid
@@ -997,13 +997,13 @@ FWPM_CHANGE_TYPE = Int32
 FWPM_CHANGE_ADD: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE = 1
 FWPM_CHANGE_DELETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE = 2
 FWPM_CHANGE_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE = 3
-class FWPM_CLASSIFY_OPTION0(EasyCastStructure):
+class FWPM_CLASSIFY_OPTION0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE
     value: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VALUE0
-class FWPM_CLASSIFY_OPTIONS0(EasyCastStructure):
+class FWPM_CLASSIFY_OPTIONS0(Structure):
     numOptions: UInt32
     options: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CLASSIFY_OPTION0)
-class FWPM_CONNECTION0(EasyCastStructure):
+class FWPM_CONNECTION0(Structure):
     connectionId: UInt64
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
@@ -1018,26 +1018,26 @@ class FWPM_CONNECTION0(EasyCastStructure):
     bytesTransferredOut: UInt64
     bytesTransferredTotal: UInt64
     startSysTime: win32more.Windows.Win32.Foundation.FILETIME
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteV4Address: UInt32
         remoteV6Address: Byte * 16
 @winfunctype_pointer
 def FWPM_CONNECTION_CALLBACK0(context: VoidPtr, eventType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION_EVENT_TYPE, connection: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION0)) -> Void: ...
-class FWPM_CONNECTION_ENUM_TEMPLATE0(EasyCastStructure):
+class FWPM_CONNECTION_ENUM_TEMPLATE0(Structure):
     connectionId: UInt64
     flags: UInt32
 FWPM_CONNECTION_EVENT_TYPE = Int32
 FWPM_CONNECTION_EVENT_ADD: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION_EVENT_TYPE = 0
 FWPM_CONNECTION_EVENT_DELETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION_EVENT_TYPE = 1
 FWPM_CONNECTION_EVENT_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION_EVENT_TYPE = 2
-class FWPM_CONNECTION_SUBSCRIPTION0(EasyCastStructure):
+class FWPM_CONNECTION_SUBSCRIPTION0(Structure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CONNECTION_ENUM_TEMPLATE0)
     flags: UInt32
     sessionKey: Guid
-class FWPM_DISPLAY_DATA0(EasyCastStructure):
+class FWPM_DISPLAY_DATA0(Structure):
     name: win32more.Windows.Win32.Foundation.PWSTR
     description: win32more.Windows.Win32.Foundation.PWSTR
 @winfunctype_pointer
@@ -1050,7 +1050,7 @@ FWPM_ENGINE_MONITOR_IPSEC_CONNECTIONS: win32more.Windows.Win32.NetworkManagement
 FWPM_ENGINE_PACKET_QUEUING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 4
 FWPM_ENGINE_TXN_WATCHDOG_TIMEOUT_IN_MSEC: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 5
 FWPM_ENGINE_OPTION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_ENGINE_OPTION = 6
-class FWPM_FIELD0(EasyCastStructure):
+class FWPM_FIELD0(Structure):
     fieldKey: POINTER(Guid)
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD_TYPE
     dataType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE
@@ -1059,7 +1059,7 @@ FWPM_FIELD_RAW_DATA: win32more.Windows.Win32.NetworkManagement.WindowsFilteringP
 FWPM_FIELD_IP_ADDRESS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD_TYPE = 1
 FWPM_FIELD_FLAGS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD_TYPE = 2
 FWPM_FIELD_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD_TYPE = 3
-class FWPM_FILTER0(EasyCastStructure):
+class FWPM_FILTER0(Structure):
     filterKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS
@@ -1075,20 +1075,20 @@ class FWPM_FILTER0(EasyCastStructure):
     reserved: POINTER(Guid)
     filterId: UInt64
     effectiveWeight: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VALUE0
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         rawContext: UInt64
         providerContextKey: Guid
-class FWPM_FILTER_CHANGE0(EasyCastStructure):
+class FWPM_FILTER_CHANGE0(Structure):
     changeType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE
     filterKey: Guid
     filterId: UInt64
 @winfunctype_pointer
 def FWPM_FILTER_CHANGE_CALLBACK0(context: VoidPtr, change: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_CHANGE0)) -> Void: ...
-class FWPM_FILTER_CONDITION0(EasyCastStructure):
+class FWPM_FILTER_CONDITION0(Structure):
     fieldKey: Guid
     matchType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_MATCH_TYPE
     conditionValue: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
-class FWPM_FILTER_ENUM_TEMPLATE0(EasyCastStructure):
+class FWPM_FILTER_ENUM_TEMPLATE0(Structure):
     providerKey: POINTER(Guid)
     layerKey: Guid
     enumType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_FILTER_ENUM_TYPE
@@ -1107,11 +1107,11 @@ FWPM_FILTER_FLAG_CLEAR_ACTION_RIGHT: win32more.Windows.Win32.NetworkManagement.W
 FWPM_FILTER_FLAG_PERMIT_IF_CALLOUT_UNREGISTERED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 16
 FWPM_FILTER_FLAG_DISABLED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 32
 FWPM_FILTER_FLAG_INDEXED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_FLAGS = 64
-class FWPM_FILTER_SUBSCRIPTION0(EasyCastStructure):
+class FWPM_FILTER_SUBSCRIPTION0(Structure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_ENUM_TEMPLATE0)
     flags: UInt32
     sessionKey: Guid
-class FWPM_LAYER0(EasyCastStructure):
+class FWPM_LAYER0(Structure):
     layerKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
@@ -1119,47 +1119,47 @@ class FWPM_LAYER0(EasyCastStructure):
     field: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FIELD0)
     defaultSubLayerKey: Guid
     layerId: UInt16
-class FWPM_LAYER_ENUM_TEMPLATE0(EasyCastStructure):
+class FWPM_LAYER_ENUM_TEMPLATE0(Structure):
     reserved: UInt64
-class FWPM_LAYER_STATISTICS0(EasyCastStructure):
+class FWPM_LAYER_STATISTICS0(Structure):
     layerId: Guid
     classifyPermitCount: UInt32
     classifyBlockCount: UInt32
     classifyVetoCount: UInt32
     numCacheEntries: UInt32
-class FWPM_NETWORK_CONNECTION_POLICY_SETTING0(EasyCastStructure):
+class FWPM_NETWORK_CONNECTION_POLICY_SETTING0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE
     value: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VALUE0
-class FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0(EasyCastStructure):
+class FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0(Structure):
     numSettings: UInt32
     settings: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NETWORK_CONNECTION_POLICY_SETTING0)
-class FWPM_NET_EVENT0(EasyCastStructure):
+class FWPM_NET_EVENT0(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER0
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE0)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE0)
         ikeEmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_EM_FAILURE0)
         classifyDrop: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CLASSIFY_DROP0)
         ipsecDrop: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IPSEC_KERNEL_DROP0)
         idpDrop: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IPSEC_DOSP_DROP0)
-class FWPM_NET_EVENT1(EasyCastStructure):
+class FWPM_NET_EVENT1(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER1
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE1)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE0)
         ikeEmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_EM_FAILURE1)
         classifyDrop: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CLASSIFY_DROP1)
         ipsecDrop: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IPSEC_KERNEL_DROP0)
         idpDrop: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IPSEC_DOSP_DROP0)
-class FWPM_NET_EVENT2(EasyCastStructure):
+class FWPM_NET_EVENT2(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER2
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE1)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE0)
         ikeEmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_EM_FAILURE1)
@@ -1170,11 +1170,11 @@ class FWPM_NET_EVENT2(EasyCastStructure):
         capabilityDrop: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CAPABILITY_DROP0)
         capabilityAllow: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CAPABILITY_ALLOW0)
         classifyDropMac: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CLASSIFY_DROP_MAC0)
-class FWPM_NET_EVENT3(EasyCastStructure):
+class FWPM_NET_EVENT3(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER3
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE1)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE0)
         ikeEmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_EM_FAILURE1)
@@ -1185,11 +1185,11 @@ class FWPM_NET_EVENT3(EasyCastStructure):
         capabilityDrop: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CAPABILITY_DROP0)
         capabilityAllow: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CAPABILITY_ALLOW0)
         classifyDropMac: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CLASSIFY_DROP_MAC0)
-class FWPM_NET_EVENT4(EasyCastStructure):
+class FWPM_NET_EVENT4(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER3
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE2)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE1)
         ikeEmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_EM_FAILURE1)
@@ -1200,11 +1200,11 @@ class FWPM_NET_EVENT4(EasyCastStructure):
         capabilityDrop: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CAPABILITY_DROP0)
         capabilityAllow: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CAPABILITY_ALLOW0)
         classifyDropMac: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_CLASSIFY_DROP_MAC0)
-class FWPM_NET_EVENT5(EasyCastStructure):
+class FWPM_NET_EVENT5(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER3
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE2)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE1)
         ikeEmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_EM_FAILURE1)
@@ -1226,15 +1226,15 @@ def FWPM_NET_EVENT_CALLBACK2(context: VoidPtr, event: POINTER(win32more.Windows.
 def FWPM_NET_EVENT_CALLBACK3(context: VoidPtr, event: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT4)) -> Void: ...
 @winfunctype_pointer
 def FWPM_NET_EVENT_CALLBACK4(context: VoidPtr, event: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT5)) -> Void: ...
-class FWPM_NET_EVENT_CAPABILITY_ALLOW0(EasyCastStructure):
+class FWPM_NET_EVENT_CAPABILITY_ALLOW0(Structure):
     networkCapabilityId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_APPC_NETWORK_CAPABILITY_TYPE
     filterId: UInt64
     isLoopback: win32more.Windows.Win32.Foundation.BOOL
-class FWPM_NET_EVENT_CAPABILITY_DROP0(EasyCastStructure):
+class FWPM_NET_EVENT_CAPABILITY_DROP0(Structure):
     networkCapabilityId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_APPC_NETWORK_CAPABILITY_TYPE
     filterId: UInt64
     isLoopback: win32more.Windows.Win32.Foundation.BOOL
-class FWPM_NET_EVENT_CLASSIFY_ALLOW0(EasyCastStructure):
+class FWPM_NET_EVENT_CLASSIFY_ALLOW0(Structure):
     filterId: UInt64
     layerId: UInt16
     reauthReason: UInt32
@@ -1242,10 +1242,10 @@ class FWPM_NET_EVENT_CLASSIFY_ALLOW0(EasyCastStructure):
     currentProfile: UInt32
     msFwpDirection: UInt32
     isLoopback: win32more.Windows.Win32.Foundation.BOOL
-class FWPM_NET_EVENT_CLASSIFY_DROP0(EasyCastStructure):
+class FWPM_NET_EVENT_CLASSIFY_DROP0(Structure):
     filterId: UInt64
     layerId: UInt16
-class FWPM_NET_EVENT_CLASSIFY_DROP1(EasyCastStructure):
+class FWPM_NET_EVENT_CLASSIFY_DROP1(Structure):
     filterId: UInt64
     layerId: UInt16
     reauthReason: UInt32
@@ -1253,7 +1253,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP1(EasyCastStructure):
     currentProfile: UInt32
     msFwpDirection: UInt32
     isLoopback: win32more.Windows.Win32.Foundation.BOOL
-class FWPM_NET_EVENT_CLASSIFY_DROP2(EasyCastStructure):
+class FWPM_NET_EVENT_CLASSIFY_DROP2(Structure):
     filterId: UInt64
     layerId: UInt16
     reauthReason: UInt32
@@ -1264,7 +1264,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP2(EasyCastStructure):
     vSwitchId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     vSwitchSourcePort: UInt32
     vSwitchDestinationPort: UInt32
-class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0(EasyCastStructure):
+class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0(Structure):
     localMacAddr: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY6
     remoteMacAddr: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY6
     mediaType: UInt32
@@ -1284,12 +1284,12 @@ class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0(EasyCastStructure):
     vSwitchId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     vSwitchSourcePort: UInt32
     vSwitchDestinationPort: UInt32
-class FWPM_NET_EVENT_ENUM_TEMPLATE0(EasyCastStructure):
+class FWPM_NET_EVENT_ENUM_TEMPLATE0(Structure):
     startTime: win32more.Windows.Win32.Foundation.FILETIME
     endTime: win32more.Windows.Win32.Foundation.FILETIME
     numFilterConditions: UInt32
     filterCondition: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER_CONDITION0)
-class FWPM_NET_EVENT_HEADER0(EasyCastStructure):
+class FWPM_NET_EVENT_HEADER0(Structure):
     timeStamp: win32more.Windows.Win32.Foundation.FILETIME
     flags: UInt32
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
@@ -1301,13 +1301,13 @@ class FWPM_NET_EVENT_HEADER0(EasyCastStructure):
     scopeId: UInt32
     appId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     userId: POINTER(win32more.Windows.Win32.Security.SID)
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localAddrV4: UInt32
         localAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteAddrV4: UInt32
         remoteAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
-class FWPM_NET_EVENT_HEADER1(EasyCastStructure):
+class FWPM_NET_EVENT_HEADER1(Structure):
     timeStamp: win32more.Windows.Win32.Foundation.FILETIME
     flags: UInt32
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
@@ -1320,20 +1320,20 @@ class FWPM_NET_EVENT_HEADER1(EasyCastStructure):
     appId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     userId: POINTER(win32more.Windows.Win32.Security.SID)
     Anonymous3: _Anonymous3_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localAddrV4: UInt32
         localAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteAddrV4: UInt32
         remoteAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             reserved1: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF
             Anonymous: _Anonymous_e__Union
-            class _Anonymous_e__Union(EasyCastUnion):
+            class _Anonymous_e__Union(Union):
                 Anonymous: _Anonymous_e__Struct
-                class _Anonymous_e__Struct(EasyCastStructure):
+                class _Anonymous_e__Struct(Structure):
                     reserved2: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY6
                     reserved3: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY6
                     reserved4: UInt32
@@ -1343,7 +1343,7 @@ class FWPM_NET_EVENT_HEADER1(EasyCastStructure):
                     reserved8: UInt32
                     reserved9: UInt16
                     reserved10: UInt64
-class FWPM_NET_EVENT_HEADER2(EasyCastStructure):
+class FWPM_NET_EVENT_HEADER2(Structure):
     timeStamp: win32more.Windows.Win32.Foundation.FILETIME
     flags: UInt32
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
@@ -1357,13 +1357,13 @@ class FWPM_NET_EVENT_HEADER2(EasyCastStructure):
     userId: POINTER(win32more.Windows.Win32.Security.SID)
     addressFamily: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF
     packageSid: POINTER(win32more.Windows.Win32.Security.SID)
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localAddrV4: UInt32
         localAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteAddrV4: UInt32
         remoteAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
-class FWPM_NET_EVENT_HEADER3(EasyCastStructure):
+class FWPM_NET_EVENT_HEADER3(Structure):
     timeStamp: win32more.Windows.Win32.Foundation.FILETIME
     flags: UInt32
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
@@ -1380,13 +1380,13 @@ class FWPM_NET_EVENT_HEADER3(EasyCastStructure):
     enterpriseId: win32more.Windows.Win32.Foundation.PWSTR
     policyFlags: UInt64
     effectiveName: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localAddrV4: UInt32
         localAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteAddrV4: UInt32
         remoteAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
-class FWPM_NET_EVENT_IKEEXT_EM_FAILURE0(EasyCastStructure):
+class FWPM_NET_EVENT_IKEEXT_EM_FAILURE0(Structure):
     failureErrorCode: UInt32
     failurePoint: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT
     flags: UInt32
@@ -1396,7 +1396,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE0(EasyCastStructure):
     endCertHash: Byte * 20
     mmId: UInt64
     qmFilterId: UInt64
-class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1(EasyCastStructure):
+class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1(Structure):
     failureErrorCode: UInt32
     failurePoint: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT
     flags: UInt32
@@ -1413,7 +1413,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1(EasyCastStructure):
     numRemotePrincipalGroupSids: UInt32
     remotePrincipalGroupSids: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     saTrafficType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_TYPE
-class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0(EasyCastStructure):
+class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0(Structure):
     failureErrorCode: UInt32
     failurePoint: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT
     flags: UInt32
@@ -1424,7 +1424,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE0(EasyCastStructure):
     endCertHash: Byte * 20
     mmId: UInt64
     mmFilterId: UInt64
-class FWPM_NET_EVENT_IKEEXT_MM_FAILURE1(EasyCastStructure):
+class FWPM_NET_EVENT_IKEEXT_MM_FAILURE1(Structure):
     failureErrorCode: UInt32
     failurePoint: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT
     flags: UInt32
@@ -1441,7 +1441,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE1(EasyCastStructure):
     localPrincipalGroupSids: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     numRemotePrincipalGroupSids: UInt32
     remotePrincipalGroupSids: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2(EasyCastStructure):
+class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2(Structure):
     failureErrorCode: UInt32
     failurePoint: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT
     flags: UInt32
@@ -1459,7 +1459,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2(EasyCastStructure):
     numRemotePrincipalGroupSids: UInt32
     remotePrincipalGroupSids: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     providerContextKey: POINTER(Guid)
-class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0(EasyCastStructure):
+class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0(Structure):
     failureErrorCode: UInt32
     failurePoint: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT
     keyingModuleType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE
@@ -1469,11 +1469,11 @@ class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0(EasyCastStructure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     qmFilterId: UInt64
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
-class FWPM_NET_EVENT_IKEEXT_QM_FAILURE1(EasyCastStructure):
+class FWPM_NET_EVENT_IKEEXT_QM_FAILURE1(Structure):
     failureErrorCode: UInt32
     failurePoint: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT
     keyingModuleType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE
@@ -1485,31 +1485,31 @@ class FWPM_NET_EVENT_IKEEXT_QM_FAILURE1(EasyCastStructure):
     qmFilterId: UInt64
     mmSaLuid: UInt64
     mmProviderContextKey: Guid
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
-class FWPM_NET_EVENT_IPSEC_DOSP_DROP0(EasyCastStructure):
+class FWPM_NET_EVENT_IPSEC_DOSP_DROP0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     failureStatus: Int32
     direction: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DIRECTION
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         publicHostV4Addr: UInt32
         publicHostV6Addr: Byte * 16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         internalHostV4Addr: UInt32
         internalHostV6Addr: Byte * 16
-class FWPM_NET_EVENT_IPSEC_KERNEL_DROP0(EasyCastStructure):
+class FWPM_NET_EVENT_IPSEC_KERNEL_DROP0(Structure):
     failureStatus: Int32
     direction: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DIRECTION
     spi: UInt32
     filterId: UInt64
     layerId: UInt16
-class FWPM_NET_EVENT_LPM_PACKET_ARRIVAL0(EasyCastStructure):
+class FWPM_NET_EVENT_LPM_PACKET_ARRIVAL0(Structure):
     spi: UInt32
-class FWPM_NET_EVENT_SUBSCRIPTION0(EasyCastStructure):
+class FWPM_NET_EVENT_SUBSCRIPTION0(Structure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_ENUM_TEMPLATE0)
     flags: UInt32
     sessionKey: Guid
@@ -1526,18 +1526,18 @@ FWPM_NET_EVENT_TYPE_CAPABILITY_ALLOW: win32more.Windows.Win32.NetworkManagement.
 FWPM_NET_EVENT_TYPE_CLASSIFY_DROP_MAC: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 9
 FWPM_NET_EVENT_TYPE_LPM_PACKET_ARRIVAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 10
 FWPM_NET_EVENT_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE = 11
-class FWPM_PROVIDER0(EasyCastStructure):
+class FWPM_PROVIDER0(Structure):
     providerKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
     providerData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     serviceName: win32more.Windows.Win32.Foundation.PWSTR
-class FWPM_PROVIDER_CHANGE0(EasyCastStructure):
+class FWPM_PROVIDER_CHANGE0(Structure):
     changeType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE
     providerKey: Guid
 @winfunctype_pointer
 def FWPM_PROVIDER_CHANGE_CALLBACK0(context: VoidPtr, change: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CHANGE0)) -> Void: ...
-class FWPM_PROVIDER_CONTEXT0(EasyCastStructure):
+class FWPM_PROVIDER_CONTEXT0(Structure):
     providerContextKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
@@ -1546,7 +1546,7 @@ class FWPM_PROVIDER_CONTEXT0(EasyCastStructure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE
     Anonymous: _Anonymous_e__Union
     providerContextId: UInt64
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         keyingPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_KEYING_POLICY0)
         ikeQmTransportPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSPORT_POLICY0)
         ikeQmTunnelPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TUNNEL_POLICY0)
@@ -1556,7 +1556,7 @@ class FWPM_PROVIDER_CONTEXT0(EasyCastStructure):
         authIpMmPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY0)
         dataBuffer: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB)
         classifyOptions: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CLASSIFY_OPTIONS0)
-class FWPM_PROVIDER_CONTEXT1(EasyCastStructure):
+class FWPM_PROVIDER_CONTEXT1(Structure):
     providerContextKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
@@ -1565,7 +1565,7 @@ class FWPM_PROVIDER_CONTEXT1(EasyCastStructure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE
     Anonymous: _Anonymous_e__Union
     providerContextId: UInt64
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         keyingPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_KEYING_POLICY0)
         ikeQmTransportPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSPORT_POLICY1)
         ikeQmTunnelPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TUNNEL_POLICY1)
@@ -1578,7 +1578,7 @@ class FWPM_PROVIDER_CONTEXT1(EasyCastStructure):
         ikeV2QmTunnelPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TUNNEL_POLICY1)
         ikeV2MmPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY1)
         idpOptions: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_OPTIONS0)
-class FWPM_PROVIDER_CONTEXT2(EasyCastStructure):
+class FWPM_PROVIDER_CONTEXT2(Structure):
     providerContextKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
@@ -1587,7 +1587,7 @@ class FWPM_PROVIDER_CONTEXT2(EasyCastStructure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE
     Anonymous: _Anonymous_e__Union
     providerContextId: UInt64
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         keyingPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_KEYING_POLICY1)
         ikeQmTransportPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSPORT_POLICY2)
         ikeQmTunnelPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TUNNEL_POLICY2)
@@ -1601,7 +1601,7 @@ class FWPM_PROVIDER_CONTEXT2(EasyCastStructure):
         ikeV2QmTransportPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSPORT_POLICY2)
         ikeV2MmPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY2)
         idpOptions: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_OPTIONS0)
-class FWPM_PROVIDER_CONTEXT3(EasyCastStructure):
+class FWPM_PROVIDER_CONTEXT3(Structure):
     providerContextKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
@@ -1610,7 +1610,7 @@ class FWPM_PROVIDER_CONTEXT3(EasyCastStructure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE
     Anonymous: _Anonymous_e__Union
     providerContextId: UInt64
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         keyingPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_KEYING_POLICY1)
         ikeQmTransportPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSPORT_POLICY2)
         ikeQmTunnelPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TUNNEL_POLICY3)
@@ -1625,16 +1625,16 @@ class FWPM_PROVIDER_CONTEXT3(EasyCastStructure):
         ikeV2MmPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY2)
         idpOptions: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_OPTIONS0)
         networkConnectionPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0)
-class FWPM_PROVIDER_CONTEXT_CHANGE0(EasyCastStructure):
+class FWPM_PROVIDER_CONTEXT_CHANGE0(Structure):
     changeType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE
     providerContextKey: Guid
     providerContextId: UInt64
 @winfunctype_pointer
 def FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0(context: VoidPtr, change: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_CHANGE0)) -> Void: ...
-class FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0(EasyCastStructure):
+class FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0(Structure):
     providerKey: POINTER(Guid)
     providerContextType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE
-class FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0(EasyCastStructure):
+class FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0(Structure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0)
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBSCRIPTION_FLAGS
     sessionKey: Guid
@@ -1654,9 +1654,9 @@ FWPM_IPSEC_DOSP_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilter
 FWPM_IPSEC_IKEV2_QM_TRANSPORT_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 12
 FWPM_NETWORK_CONNECTION_POLICY_CONTEXT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 13
 FWPM_PROVIDER_CONTEXT_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE = 14
-class FWPM_PROVIDER_ENUM_TEMPLATE0(EasyCastStructure):
+class FWPM_PROVIDER_ENUM_TEMPLATE0(Structure):
     reserved: UInt64
-class FWPM_PROVIDER_SUBSCRIPTION0(EasyCastStructure):
+class FWPM_PROVIDER_SUBSCRIPTION0(Structure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_ENUM_TEMPLATE0)
     flags: UInt32
     sessionKey: Guid
@@ -1666,7 +1666,7 @@ FWPM_SERVICE_START_PENDING: win32more.Windows.Win32.NetworkManagement.WindowsFil
 FWPM_SERVICE_STOP_PENDING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SERVICE_STATE = 2
 FWPM_SERVICE_RUNNING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SERVICE_STATE = 3
 FWPM_SERVICE_STATE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SERVICE_STATE = 4
-class FWPM_SESSION0(EasyCastStructure):
+class FWPM_SESSION0(Structure):
     sessionKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
@@ -1675,9 +1675,9 @@ class FWPM_SESSION0(EasyCastStructure):
     sid: POINTER(win32more.Windows.Win32.Security.SID)
     username: win32more.Windows.Win32.Foundation.PWSTR
     kernelMode: win32more.Windows.Win32.Foundation.BOOL
-class FWPM_SESSION_ENUM_TEMPLATE0(EasyCastStructure):
+class FWPM_SESSION_ENUM_TEMPLATE0(Structure):
     reserved: UInt64
-class FWPM_STATISTICS0(EasyCastStructure):
+class FWPM_STATISTICS0(Structure):
     numLayerStatistics: UInt32
     layerStatistics: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_LAYER_STATISTICS0)
     inboundAllowedConnectionsV4: UInt32
@@ -1714,31 +1714,31 @@ class FWPM_STATISTICS0(EasyCastStructure):
     reauthReasonNewInboundMCastBCastPacket: UInt64
     reauthReasonEDPPolicyChanged: UInt64
     reauthReasonProxyHandleChanged: UInt64
-class FWPM_SUBLAYER0(EasyCastStructure):
+class FWPM_SUBLAYER0(Structure):
     subLayerKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
     providerKey: POINTER(Guid)
     providerData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     weight: UInt16
-class FWPM_SUBLAYER_CHANGE0(EasyCastStructure):
+class FWPM_SUBLAYER_CHANGE0(Structure):
     changeType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_CHANGE_TYPE
     subLayerKey: Guid
 @winfunctype_pointer
 def FWPM_SUBLAYER_CHANGE_CALLBACK0(context: VoidPtr, change: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBLAYER_CHANGE0)) -> Void: ...
-class FWPM_SUBLAYER_ENUM_TEMPLATE0(EasyCastStructure):
+class FWPM_SUBLAYER_ENUM_TEMPLATE0(Structure):
     providerKey: POINTER(Guid)
-class FWPM_SUBLAYER_SUBSCRIPTION0(EasyCastStructure):
+class FWPM_SUBLAYER_SUBSCRIPTION0(Structure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBLAYER_ENUM_TEMPLATE0)
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBSCRIPTION_FLAGS
     sessionKey: Guid
 FWPM_SUBSCRIPTION_FLAGS = UInt32
 FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_ADD: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBSCRIPTION_FLAGS = 1
 FWPM_SUBSCRIPTION_FLAG_NOTIFY_ON_DELETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SUBSCRIPTION_FLAGS = 2
-class FWPM_SYSTEM_PORTS0(EasyCastStructure):
+class FWPM_SYSTEM_PORTS0(Structure):
     numTypes: UInt32
     types: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORTS_BY_TYPE0)
-class FWPM_SYSTEM_PORTS_BY_TYPE0(EasyCastStructure):
+class FWPM_SYSTEM_PORTS_BY_TYPE0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORT_TYPE
     numPorts: UInt32
     ports: POINTER(UInt16)
@@ -1750,23 +1750,23 @@ FWPM_SYSTEM_PORT_TEREDO: win32more.Windows.Win32.NetworkManagement.WindowsFilter
 FWPM_SYSTEM_PORT_IPHTTPS_IN: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORT_TYPE = 2
 FWPM_SYSTEM_PORT_IPHTTPS_OUT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORT_TYPE = 3
 FWPM_SYSTEM_PORT_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_SYSTEM_PORT_TYPE = 4
-class FWPM_VSWITCH_EVENT0(EasyCastStructure):
+class FWPM_VSWITCH_EVENT0(Structure):
     eventType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT_TYPE
     vSwitchId: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         positionInfo: _positionInfo_e__Struct
         reorderInfo: _reorderInfo_e__Struct
-        class _positionInfo_e__Struct(EasyCastStructure):
+        class _positionInfo_e__Struct(Structure):
             numvSwitchFilterExtensions: UInt32
             vSwitchFilterExtensions: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-        class _reorderInfo_e__Struct(EasyCastStructure):
+        class _reorderInfo_e__Struct(Structure):
             inRequiredPosition: win32more.Windows.Win32.Foundation.BOOL
             numvSwitchFilterExtensions: UInt32
             vSwitchFilterExtensions: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
 @winfunctype_pointer
 def FWPM_VSWITCH_EVENT_CALLBACK0(context: VoidPtr, vSwitchEvent: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT0)) -> UInt32: ...
-class FWPM_VSWITCH_EVENT_SUBSCRIPTION0(EasyCastStructure):
+class FWPM_VSWITCH_EVENT_SUBSCRIPTION0(Structure):
     flags: UInt32
     sessionKey: Guid
 FWPM_VSWITCH_EVENT_TYPE = Int32
@@ -1790,11 +1790,11 @@ FWP_AF_INET: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.
 FWP_AF_INET6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF = 1
 FWP_AF_ETHER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF = 2
 FWP_AF_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF = 3
-class FWP_BYTE_ARRAY16(EasyCastStructure):
+class FWP_BYTE_ARRAY16(Structure):
     byteArray16: Byte * 16
-class FWP_BYTE_ARRAY6(EasyCastStructure):
+class FWP_BYTE_ARRAY6(Structure):
     byteArray6: Byte * 6
-class FWP_BYTE_BLOB(EasyCastStructure):
+class FWP_BYTE_BLOB(Structure):
     size: UInt32
     data: POINTER(Byte)
 FWP_CLASSIFY_OPTION_TYPE = Int32
@@ -1807,10 +1807,10 @@ FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_MM_POLICY_KEY: win32more.Windows.Win32.
 FWP_CLASSIFY_OPTION_SECURE_SOCKET_AUTHIP_QM_POLICY_KEY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 6
 FWP_CLASSIFY_OPTION_LOCAL_ONLY_MAPPING: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 7
 FWP_CLASSIFY_OPTION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CLASSIFY_OPTION_TYPE = 8
-class FWP_CONDITION_VALUE0(EasyCastStructure):
+class FWP_CONDITION_VALUE0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         uint8: Byte
         uint16: UInt16
         uint32: UInt32
@@ -1894,24 +1894,24 @@ FWP_NETWORK_CONNECTION_POLICY_SOURCE_ADDRESS: win32more.Windows.Win32.NetworkMan
 FWP_NETWORK_CONNECTION_POLICY_NEXT_HOP_INTERFACE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 1
 FWP_NETWORK_CONNECTION_POLICY_NEXT_HOP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 2
 FWP_NETWORK_CONNECTION_POLICY_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE = 3
-class FWP_RANGE0(EasyCastStructure):
+class FWP_RANGE0(Structure):
     valueLow: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VALUE0
     valueHigh: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VALUE0
-class FWP_TOKEN_INFORMATION(EasyCastStructure):
+class FWP_TOKEN_INFORMATION(Structure):
     sidCount: UInt32
     sids: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES)
     restrictedSidCount: UInt32
     restrictedSids: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES)
-class FWP_V4_ADDR_AND_MASK(EasyCastStructure):
+class FWP_V4_ADDR_AND_MASK(Structure):
     addr: UInt32
     mask: UInt32
-class FWP_V6_ADDR_AND_MASK(EasyCastStructure):
+class FWP_V6_ADDR_AND_MASK(Structure):
     addr: Byte * 16
     prefixLength: Byte
-class FWP_VALUE0(EasyCastStructure):
+class FWP_VALUE0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         uint8: Byte
         uint16: UInt16
         uint32: UInt32
@@ -1939,20 +1939,20 @@ IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = Int32
 IKEEXT_IMPERSONATION_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = 0
 IKEEXT_IMPERSONATION_SOCKET_PRINCIPAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = 1
 IKEEXT_IMPERSONATION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE = 2
-class IKEEXT_AUTHENTICATION_METHOD0(EasyCastStructure):
+class IKEEXT_AUTHENTICATION_METHOD0(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         presharedKeyAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION0
         certificateAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_AUTHENTICATION0
         kerberosAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION0
         ntlmV2Authentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_NTLM_V2_AUTHENTICATION0
         sslAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_AUTHENTICATION0
         cgaAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IPV6_CGA_AUTHENTICATION0
-class IKEEXT_AUTHENTICATION_METHOD1(EasyCastStructure):
+class IKEEXT_AUTHENTICATION_METHOD1(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         presharedKeyAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION1
         certificateAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_AUTHENTICATION1
         kerberosAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION0
@@ -1960,10 +1960,10 @@ class IKEEXT_AUTHENTICATION_METHOD1(EasyCastStructure):
         sslAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_AUTHENTICATION1
         cgaAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IPV6_CGA_AUTHENTICATION0
         eapAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EAP_AUTHENTICATION0
-class IKEEXT_AUTHENTICATION_METHOD2(EasyCastStructure):
+class IKEEXT_AUTHENTICATION_METHOD2(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         presharedKeyAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION1
         certificateAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_AUTHENTICATION2
         kerberosAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION1
@@ -1987,90 +1987,90 @@ IKEEXT_SSL_ECDSA_P384: win32more.Windows.Win32.NetworkManagement.WindowsFilterin
 IKEEXT_EAP: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 11
 IKEEXT_RESERVED: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 12
 IKEEXT_AUTHENTICATION_METHOD_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE = 13
-class IKEEXT_CERTIFICATE_AUTHENTICATION0(EasyCastStructure):
+class IKEEXT_CERTIFICATE_AUTHENTICATION0(Structure):
     inboundConfigType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE
     Anonymous1: _Anonymous1_e__Union
     outboundConfigType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE
     Anonymous2: _Anonymous2_e__Union
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         inboundEnterpriseStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
         inboundTrustedRootStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             inboundRootArraySize: UInt32
             inboundRootArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         outboundEnterpriseStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
         outboundTrustedRootStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             outboundRootArraySize: UInt32
             outboundRootArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
-class IKEEXT_CERTIFICATE_AUTHENTICATION1(EasyCastStructure):
+class IKEEXT_CERTIFICATE_AUTHENTICATION1(Structure):
     inboundConfigType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE
     Anonymous1: _Anonymous1_e__Union
     outboundConfigType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE
     Anonymous2: _Anonymous2_e__Union
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH
     localCertLocationUrl: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         inboundEnterpriseStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
         inboundTrustedRootStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             inboundRootArraySize: UInt32
             inboundRootArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         outboundEnterpriseStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
         outboundTrustedRootStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             outboundRootArraySize: UInt32
             outboundRootArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
-class IKEEXT_CERTIFICATE_AUTHENTICATION2(EasyCastStructure):
+class IKEEXT_CERTIFICATE_AUTHENTICATION2(Structure):
     inboundConfigType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE
     Anonymous1: _Anonymous1_e__Union
     outboundConfigType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE
     Anonymous2: _Anonymous2_e__Union
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH
     localCertLocationUrl: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         Anonymous3: _Anonymous3_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             inboundRootArraySize: UInt32
             inboundRootCriteria: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CRITERIA0)
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             inboundEnterpriseStoreArraySize: UInt32
             inboundEnterpriseStoreCriteria: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CRITERIA0)
-        class _Anonymous3_e__Struct(EasyCastStructure):
+        class _Anonymous3_e__Struct(Structure):
             inboundRootStoreArraySize: UInt32
             inboundTrustedRootStoreCriteria: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CRITERIA0)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         Anonymous3: _Anonymous3_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             outboundRootArraySize: UInt32
             outboundRootCriteria: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CRITERIA0)
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             outboundEnterpriseStoreArraySize: UInt32
             outboundEnterpriseStoreCriteria: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CRITERIA0)
-        class _Anonymous3_e__Struct(EasyCastStructure):
+        class _Anonymous3_e__Struct(Structure):
             outboundRootStoreArraySize: UInt32
             outboundTrustedRootStoreCriteria: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CRITERIA0)
-class IKEEXT_CERTIFICATE_CREDENTIAL0(EasyCastStructure):
+class IKEEXT_CERTIFICATE_CREDENTIAL0(Structure):
     subjectName: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     certHash: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     flags: UInt32
-class IKEEXT_CERTIFICATE_CREDENTIAL1(EasyCastStructure):
+class IKEEXT_CERTIFICATE_CREDENTIAL1(Structure):
     subjectName: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     certHash: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     flags: UInt32
     certificate: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-class IKEEXT_CERTIFICATE_CRITERIA0(EasyCastStructure):
+class IKEEXT_CERTIFICATE_CRITERIA0(Structure):
     certData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     certHash: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     eku: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_EKUS0)
@@ -2097,7 +2097,7 @@ IKEEXT_CERT_CRITERIA_OU: win32more.Windows.Win32.NetworkManagement.WindowsFilter
 IKEEXT_CERT_CRITERIA_O: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 5
 IKEEXT_CERT_CRITERIA_DC: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 6
 IKEEXT_CERT_CRITERIA_NAME_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE = 7
-class IKEEXT_CERT_EKUS0(EasyCastStructure):
+class IKEEXT_CERT_EKUS0(Structure):
     numEku: UInt32
     eku: POINTER(win32more.Windows.Win32.Foundation.PSTR)
 IKEEXT_CERT_FLAGS = UInt32
@@ -2110,13 +2110,13 @@ IKEEXT_CERT_FLAG_PREFER_NAP_CERTIFICATE_OUTBOUND: win32more.Windows.Win32.Networ
 IKEEXT_CERT_FLAG_SELECT_NAP_CERTIFICATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 64
 IKEEXT_CERT_FLAG_VERIFY_NAP_CERTIFICATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 128
 IKEEXT_CERT_FLAG_FOLLOW_RENEWAL_CERTIFICATE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS = 256
-class IKEEXT_CERT_NAME0(EasyCastStructure):
+class IKEEXT_CERT_NAME0(Structure):
     nameType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CRITERIA_NAME_TYPE
     certName: win32more.Windows.Win32.Foundation.PWSTR
-class IKEEXT_CERT_ROOT_CONFIG0(EasyCastStructure):
+class IKEEXT_CERT_ROOT_CONFIG0(Structure):
     certData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_FLAGS
-class IKEEXT_CIPHER_ALGORITHM0(EasyCastStructure):
+class IKEEXT_CIPHER_ALGORITHM0(Structure):
     algoIdentifier: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE
     keyLen: UInt32
     rounds: UInt32
@@ -2129,61 +2129,61 @@ IKEEXT_CIPHER_AES_256: win32more.Windows.Win32.NetworkManagement.WindowsFilterin
 IKEEXT_CIPHER_AES_GCM_128_16ICV: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 5
 IKEEXT_CIPHER_AES_GCM_256_16ICV: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 6
 IKEEXT_CIPHER_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_TYPE = 7
-class IKEEXT_COMMON_STATISTICS0(EasyCastStructure):
+class IKEEXT_COMMON_STATISTICS0(Structure):
     v4Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0
     v6Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0
     totalPacketsReceived: UInt32
     totalInvalidPacketsReceived: UInt32
     currentQueuedWorkitems: UInt32
-class IKEEXT_COMMON_STATISTICS1(EasyCastStructure):
+class IKEEXT_COMMON_STATISTICS1(Structure):
     v4Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1
     v6Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1
     totalPacketsReceived: UInt32
     totalInvalidPacketsReceived: UInt32
     currentQueuedWorkitems: UInt32
-class IKEEXT_COOKIE_PAIR0(EasyCastStructure):
+class IKEEXT_COOKIE_PAIR0(Structure):
     initiator: UInt64
     responder: UInt64
-class IKEEXT_CREDENTIAL0(EasyCastStructure):
+class IKEEXT_CREDENTIAL0(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     impersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         presharedKey: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION0)
         certificate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CREDENTIAL0)
         name: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_NAME_CREDENTIAL0)
-class IKEEXT_CREDENTIAL1(EasyCastStructure):
+class IKEEXT_CREDENTIAL1(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     impersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         presharedKey: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION1)
         certificate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CREDENTIAL1)
         name: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_NAME_CREDENTIAL0)
-class IKEEXT_CREDENTIAL2(EasyCastStructure):
+class IKEEXT_CREDENTIAL2(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     impersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         presharedKey: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION1)
         certificate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CREDENTIAL1)
         name: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_NAME_CREDENTIAL0)
-class IKEEXT_CREDENTIALS0(EasyCastStructure):
+class IKEEXT_CREDENTIALS0(Structure):
     numCredentials: UInt32
     credentials: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL_PAIR0)
-class IKEEXT_CREDENTIALS1(EasyCastStructure):
+class IKEEXT_CREDENTIALS1(Structure):
     numCredentials: UInt32
     credentials: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL_PAIR1)
-class IKEEXT_CREDENTIALS2(EasyCastStructure):
+class IKEEXT_CREDENTIALS2(Structure):
     numCredentials: UInt32
     credentials: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL_PAIR2)
-class IKEEXT_CREDENTIAL_PAIR0(EasyCastStructure):
+class IKEEXT_CREDENTIAL_PAIR0(Structure):
     localCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL0
     peerCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL0
-class IKEEXT_CREDENTIAL_PAIR1(EasyCastStructure):
+class IKEEXT_CREDENTIAL_PAIR1(Structure):
     localCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL1
     peerCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL1
-class IKEEXT_CREDENTIAL_PAIR2(EasyCastStructure):
+class IKEEXT_CREDENTIAL_PAIR2(Structure):
     localCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL2
     peerCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIAL2
 IKEEXT_DH_GROUP = Int32
@@ -2196,20 +2196,20 @@ IKEEXT_DH_ECP_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPla
 IKEEXT_DH_ECP_384: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 5
 IKEEXT_DH_GROUP_24: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 6
 IKEEXT_DH_GROUP_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_DH_GROUP = 7
-class IKEEXT_EAP_AUTHENTICATION0(EasyCastStructure):
+class IKEEXT_EAP_AUTHENTICATION0(Structure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EAP_AUTHENTICATION_FLAGS
 IKEEXT_EAP_AUTHENTICATION_FLAGS = UInt32
 IKEEXT_EAP_FLAG_LOCAL_AUTH_ONLY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EAP_AUTHENTICATION_FLAGS = 1
 IKEEXT_EAP_FLAG_REMOTE_AUTH_ONLY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EAP_AUTHENTICATION_FLAGS = 2
-class IKEEXT_EM_POLICY0(EasyCastStructure):
+class IKEEXT_EM_POLICY0(Structure):
     numAuthenticationMethods: UInt32
     authenticationMethods: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD0)
     initiatorImpersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
-class IKEEXT_EM_POLICY1(EasyCastStructure):
+class IKEEXT_EM_POLICY1(Structure):
     numAuthenticationMethods: UInt32
     authenticationMethods: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD1)
     initiatorImpersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
-class IKEEXT_EM_POLICY2(EasyCastStructure):
+class IKEEXT_EM_POLICY2(Structure):
     numAuthenticationMethods: UInt32
     authenticationMethods: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD2)
     initiatorImpersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
@@ -2221,7 +2221,7 @@ IKEEXT_EM_SA_STATE_AUTH_COMPLETE: win32more.Windows.Win32.NetworkManagement.Wind
 IKEEXT_EM_SA_STATE_FINAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 4
 IKEEXT_EM_SA_STATE_COMPLETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 5
 IKEEXT_EM_SA_STATE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_SA_STATE = 6
-class IKEEXT_INTEGRITY_ALGORITHM0(EasyCastStructure):
+class IKEEXT_INTEGRITY_ALGORITHM0(Structure):
     algoIdentifier: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE
 IKEEXT_INTEGRITY_TYPE = Int32
 IKEEXT_INTEGRITY_MD5: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE = 0
@@ -2229,19 +2229,19 @@ IKEEXT_INTEGRITY_SHA1: win32more.Windows.Win32.NetworkManagement.WindowsFilterin
 IKEEXT_INTEGRITY_SHA_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE = 2
 IKEEXT_INTEGRITY_SHA_384: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE = 3
 IKEEXT_INTEGRITY_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_TYPE = 4
-class IKEEXT_IPV6_CGA_AUTHENTICATION0(EasyCastStructure):
+class IKEEXT_IPV6_CGA_AUTHENTICATION0(Structure):
     keyContainerName: win32more.Windows.Win32.Foundation.PWSTR
     cspName: win32more.Windows.Win32.Foundation.PWSTR
     cspType: UInt32
     cgaModifier: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
     cgaCollisionCount: Byte
-class IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0(EasyCastStructure):
+class IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0(Structure):
     totalSocketReceiveFailures: UInt32
     totalSocketSendFailures: UInt32
-class IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1(EasyCastStructure):
+class IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1(Structure):
     totalSocketReceiveFailures: UInt32
     totalSocketSendFailures: UInt32
-class IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0(EasyCastStructure):
+class IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0(Structure):
     currentActiveMainModes: UInt32
     totalMainModesStarted: UInt32
     totalSuccessfulMainModes: UInt32
@@ -2260,7 +2260,7 @@ class IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0(EasyCastStructure):
     totalFailedExtendedModes: UInt32
     totalImpersonationExtendedModes: UInt32
     totalImpersonationMainModes: UInt32
-class IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS1(EasyCastStructure):
+class IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS1(Structure):
     currentActiveMainModes: UInt32
     totalMainModesStarted: UInt32
     totalSuccessfulMainModes: UInt32
@@ -2279,22 +2279,22 @@ class IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS1(EasyCastStructure):
     totalFailedExtendedModes: UInt32
     totalImpersonationExtendedModes: UInt32
     totalImpersonationMainModes: UInt32
-class IKEEXT_KERBEROS_AUTHENTICATION0(EasyCastStructure):
+class IKEEXT_KERBEROS_AUTHENTICATION0(Structure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION_FLAGS
-class IKEEXT_KERBEROS_AUTHENTICATION1(EasyCastStructure):
+class IKEEXT_KERBEROS_AUTHENTICATION1(Structure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION_FLAGS
     proxyServer: win32more.Windows.Win32.Foundation.PWSTR
 IKEEXT_KERBEROS_AUTHENTICATION_FLAGS = UInt32
 IKEEXT_KERB_AUTH_DISABLE_INITIATOR_TOKEN_GENERATION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION_FLAGS = 1
 IKEEXT_KERB_AUTH_DONT_ACCEPT_EXPLICIT_CREDENTIALS: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KERBEROS_AUTHENTICATION_FLAGS = 2
-class IKEEXT_KEYMODULE_STATISTICS0(EasyCastStructure):
+class IKEEXT_KEYMODULE_STATISTICS0(Structure):
     v4Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0
     v6Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0
     errorFrequencyTable: UInt32 * 97
     mainModeNegotiationTime: UInt32
     quickModeNegotiationTime: UInt32
     extendedModeNegotiationTime: UInt32
-class IKEEXT_KEYMODULE_STATISTICS1(EasyCastStructure):
+class IKEEXT_KEYMODULE_STATISTICS1(Structure):
     v4Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS1
     v6Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS1
     errorFrequencyTable: UInt32 * 97
@@ -2314,11 +2314,11 @@ IKEEXT_MM_SA_STATE_FINAL: win32more.Windows.Win32.NetworkManagement.WindowsFilte
 IKEEXT_MM_SA_STATE_FINAL_SENT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 4
 IKEEXT_MM_SA_STATE_COMPLETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 5
 IKEEXT_MM_SA_STATE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_MM_SA_STATE = 6
-class IKEEXT_NAME_CREDENTIAL0(EasyCastStructure):
+class IKEEXT_NAME_CREDENTIAL0(Structure):
     principalName: win32more.Windows.Win32.Foundation.PWSTR
-class IKEEXT_NTLM_V2_AUTHENTICATION0(EasyCastStructure):
+class IKEEXT_NTLM_V2_AUTHENTICATION0(Structure):
     flags: UInt32
-class IKEEXT_POLICY0(EasyCastStructure):
+class IKEEXT_POLICY0(Structure):
     softExpirationTime: UInt32
     numAuthenticationMethods: UInt32
     authenticationMethods: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD0)
@@ -2327,7 +2327,7 @@ class IKEEXT_POLICY0(EasyCastStructure):
     ikeProposals: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PROPOSAL0)
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY_FLAG
     maxDynamicFilters: UInt32
-class IKEEXT_POLICY1(EasyCastStructure):
+class IKEEXT_POLICY1(Structure):
     softExpirationTime: UInt32
     numAuthenticationMethods: UInt32
     authenticationMethods: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD1)
@@ -2337,7 +2337,7 @@ class IKEEXT_POLICY1(EasyCastStructure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY_FLAG
     maxDynamicFilters: UInt32
     retransmitDurationSecs: UInt32
-class IKEEXT_POLICY2(EasyCastStructure):
+class IKEEXT_POLICY2(Structure):
     softExpirationTime: UInt32
     numAuthenticationMethods: UInt32
     authenticationMethods: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD2)
@@ -2352,15 +2352,15 @@ IKEEXT_POLICY_FLAG_DISABLE_DIAGNOSTICS: win32more.Windows.Win32.NetworkManagemen
 IKEEXT_POLICY_FLAG_NO_MACHINE_LUID_VERIFY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY_FLAG = 2
 IKEEXT_POLICY_FLAG_NO_IMPERSONATION_LUID_VERIFY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY_FLAG = 4
 IKEEXT_POLICY_FLAG_ENABLE_OPTIONAL_DH: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_POLICY_FLAG = 8
-class IKEEXT_PRESHARED_KEY_AUTHENTICATION0(EasyCastStructure):
+class IKEEXT_PRESHARED_KEY_AUTHENTICATION0(Structure):
     presharedKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-class IKEEXT_PRESHARED_KEY_AUTHENTICATION1(EasyCastStructure):
+class IKEEXT_PRESHARED_KEY_AUTHENTICATION1(Structure):
     presharedKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS
 IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS = UInt32
 IKEEXT_PSK_FLAG_LOCAL_AUTH_ONLY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS = 1
 IKEEXT_PSK_FLAG_REMOTE_AUTH_ONLY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS = 2
-class IKEEXT_PROPOSAL0(EasyCastStructure):
+class IKEEXT_PROPOSAL0(Structure):
     cipherAlgorithm: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CIPHER_ALGORITHM0
     integrityAlgorithm: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_INTEGRITY_ALGORITHM0
     maxLifetimeSeconds: UInt32
@@ -2372,11 +2372,11 @@ IKEEXT_QM_SA_STATE_INITIAL: win32more.Windows.Win32.NetworkManagement.WindowsFil
 IKEEXT_QM_SA_STATE_FINAL: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_QM_SA_STATE = 2
 IKEEXT_QM_SA_STATE_COMPLETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_QM_SA_STATE = 3
 IKEEXT_QM_SA_STATE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_QM_SA_STATE = 4
-class IKEEXT_RESERVED_AUTHENTICATION0(EasyCastStructure):
+class IKEEXT_RESERVED_AUTHENTICATION0(Structure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_RESERVED_AUTHENTICATION_FLAGS
 IKEEXT_RESERVED_AUTHENTICATION_FLAGS = UInt32
 IKEEXT_RESERVED_AUTH_DISABLE_INITIATOR_TOKEN_GENERATION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_RESERVED_AUTHENTICATION_FLAGS = 1
-class IKEEXT_SA_DETAILS0(EasyCastStructure):
+class IKEEXT_SA_DETAILS0(Structure):
     saId: UInt64
     keyModuleType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
@@ -2387,9 +2387,9 @@ class IKEEXT_SA_DETAILS0(EasyCastStructure):
     ikeCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIALS0
     ikePolicyKey: Guid
     virtualIfTunnelId: UInt64
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         v4UdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
-class IKEEXT_SA_DETAILS1(EasyCastStructure):
+class IKEEXT_SA_DETAILS1(Structure):
     saId: UInt64
     keyModuleType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
@@ -2401,9 +2401,9 @@ class IKEEXT_SA_DETAILS1(EasyCastStructure):
     ikePolicyKey: Guid
     virtualIfTunnelId: UInt64
     correlationKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         v4UdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
-class IKEEXT_SA_DETAILS2(EasyCastStructure):
+class IKEEXT_SA_DETAILS2(Structure):
     saId: UInt64
     keyModuleType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEY_MODULE_TYPE
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
@@ -2415,9 +2415,9 @@ class IKEEXT_SA_DETAILS2(EasyCastStructure):
     ikePolicyKey: Guid
     virtualIfTunnelId: UInt64
     correlationKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         v4UdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
-class IKEEXT_SA_ENUM_TEMPLATE0(EasyCastStructure):
+class IKEEXT_SA_ENUM_TEMPLATE0(Structure):
     localSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
     remoteSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
     localMainModeCertHash: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
@@ -2425,32 +2425,32 @@ IKEEXT_SA_ROLE = Int32
 IKEEXT_SA_ROLE_INITIATOR: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_SA_ROLE = 0
 IKEEXT_SA_ROLE_RESPONDER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_SA_ROLE = 1
 IKEEXT_SA_ROLE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_SA_ROLE = 2
-class IKEEXT_STATISTICS0(EasyCastStructure):
+class IKEEXT_STATISTICS0(Structure):
     ikeStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEYMODULE_STATISTICS0
     authipStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEYMODULE_STATISTICS0
     commonStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_COMMON_STATISTICS0
-class IKEEXT_STATISTICS1(EasyCastStructure):
+class IKEEXT_STATISTICS1(Structure):
     ikeStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEYMODULE_STATISTICS1
     authipStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEYMODULE_STATISTICS1
     ikeV2Statistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_KEYMODULE_STATISTICS1
     commonStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_COMMON_STATISTICS1
-class IKEEXT_TRAFFIC0(EasyCastStructure):
+class IKEEXT_TRAFFIC0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     authIpFilterId: UInt64
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteV4Address: UInt32
         remoteV6Address: Byte * 16
-class IPSEC_ADDRESS_INFO0(EasyCastStructure):
+class IPSEC_ADDRESS_INFO0(Structure):
     numV4Addresses: UInt32
     v4Addresses: POINTER(UInt32)
     numV6Addresses: UInt32
     v6Addresses: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16)
-class IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0(EasyCastStructure):
+class IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0(Structure):
     invalidSpisOnInbound: UInt32
     decryptionFailuresOnInbound: UInt32
     authenticationFailuresOnInbound: UInt32
@@ -2460,7 +2460,7 @@ class IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0(EasyCastStructure):
     saNotInitializedOnInbound: UInt32
     receiveOverIncorrectSaInbound: UInt32
     secureReceivesNotMatchingFilters: UInt32
-class IPSEC_AGGREGATE_DROP_PACKET_STATISTICS1(EasyCastStructure):
+class IPSEC_AGGREGATE_DROP_PACKET_STATISTICS1(Structure):
     invalidSpisOnInbound: UInt32
     decryptionFailuresOnInbound: UInt32
     authenticationFailuresOnInbound: UInt32
@@ -2471,7 +2471,7 @@ class IPSEC_AGGREGATE_DROP_PACKET_STATISTICS1(EasyCastStructure):
     receiveOverIncorrectSaInbound: UInt32
     secureReceivesNotMatchingFilters: UInt32
     totalDropPacketsInbound: UInt32
-class IPSEC_AGGREGATE_SA_STATISTICS0(EasyCastStructure):
+class IPSEC_AGGREGATE_SA_STATISTICS0(Structure):
     activeSas: UInt32
     pendingSaNegotiations: UInt32
     totalSasAdded: UInt32
@@ -2479,18 +2479,18 @@ class IPSEC_AGGREGATE_SA_STATISTICS0(EasyCastStructure):
     successfulRekeys: UInt32
     activeTunnels: UInt32
     offloadedSas: UInt32
-class IPSEC_AH_DROP_PACKET_STATISTICS0(EasyCastStructure):
+class IPSEC_AH_DROP_PACKET_STATISTICS0(Structure):
     invalidSpisOnInbound: UInt32
     authenticationFailuresOnInbound: UInt32
     replayCheckFailuresOnInbound: UInt32
     saNotInitializedOnInbound: UInt32
-class IPSEC_AUTH_AND_CIPHER_TRANSFORM0(EasyCastStructure):
+class IPSEC_AUTH_AND_CIPHER_TRANSFORM0(Structure):
     authTransform: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TRANSFORM0
     cipherTransform: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TRANSFORM0
-class IPSEC_AUTH_TRANSFORM0(EasyCastStructure):
+class IPSEC_AUTH_TRANSFORM0(Structure):
     authTransformId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TRANSFORM_ID0
     cryptoModuleId: POINTER(Guid)
-class IPSEC_AUTH_TRANSFORM_ID0(EasyCastStructure):
+class IPSEC_AUTH_TRANSFORM_ID0(Structure):
     authType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE
     authConfig: Byte
 IPSEC_AUTH_TYPE = Int32
@@ -2501,10 +2501,10 @@ IPSEC_AUTH_AES_128: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPl
 IPSEC_AUTH_AES_192: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 4
 IPSEC_AUTH_AES_256: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 5
 IPSEC_AUTH_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TYPE = 6
-class IPSEC_CIPHER_TRANSFORM0(EasyCastStructure):
+class IPSEC_CIPHER_TRANSFORM0(Structure):
     cipherTransformId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TRANSFORM_ID0
     cryptoModuleId: POINTER(Guid)
-class IPSEC_CIPHER_TRANSFORM_ID0(EasyCastStructure):
+class IPSEC_CIPHER_TRANSFORM_ID0(Structure):
     cipherType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TYPE
     cipherConfig: Byte
 IPSEC_CIPHER_TYPE = Int32
@@ -2521,7 +2521,7 @@ IPSEC_DOSP_FLAG_DISABLE_AUTHIP: win32more.Windows.Win32.NetworkManagement.Window
 IPSEC_DOSP_FLAG_DISABLE_DEFAULT_BLOCK: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_FLAGS = 8
 IPSEC_DOSP_FLAG_FILTER_BLOCK: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_FLAGS = 16
 IPSEC_DOSP_FLAG_FILTER_EXEMPT: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_DOSP_FLAGS = 32
-class IPSEC_DOSP_OPTIONS0(EasyCastStructure):
+class IPSEC_DOSP_OPTIONS0(Structure):
     stateIdleTimeoutSeconds: UInt32
     perIPRateLimitQueueIdleTimeoutSeconds: UInt32
     ipV6IPsecUnauthDscp: Byte
@@ -2544,16 +2544,16 @@ class IPSEC_DOSP_OPTIONS0(EasyCastStructure):
     internalIFLuids: POINTER(UInt64)
     publicV6AddrMask: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_V6_ADDR_AND_MASK
     internalV6AddrMask: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_V6_ADDR_AND_MASK
-class IPSEC_DOSP_STATE0(EasyCastStructure):
+class IPSEC_DOSP_STATE0(Structure):
     publicHostV6Addr: Byte * 16
     internalHostV6Addr: Byte * 16
     totalInboundIPv6IPsecAuthPackets: UInt64
     totalOutboundIPv6IPsecAuthPackets: UInt64
     durationSecs: UInt32
-class IPSEC_DOSP_STATE_ENUM_TEMPLATE0(EasyCastStructure):
+class IPSEC_DOSP_STATE_ENUM_TEMPLATE0(Structure):
     publicV6AddrMask: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_V6_ADDR_AND_MASK
     internalV6AddrMask: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_V6_ADDR_AND_MASK
-class IPSEC_DOSP_STATISTICS0(EasyCastStructure):
+class IPSEC_DOSP_STATISTICS0(Structure):
     totalStateEntriesCreated: UInt64
     currentStateEntries: UInt64
     totalInboundAllowedIPv6IPsecUnauthPkts: UInt64
@@ -2572,7 +2572,7 @@ class IPSEC_DOSP_STATISTICS0(EasyCastStructure):
     totalInboundRatelimitDiscardedDefBlockExemptPkts: UInt64
     totalInboundDiscardedDefBlockPkts: UInt64
     currentInboundIPv6IPsecUnauthPerIPRateLimitQueues: UInt64
-class IPSEC_ESP_DROP_PACKET_STATISTICS0(EasyCastStructure):
+class IPSEC_ESP_DROP_PACKET_STATISTICS0(Structure):
     invalidSpisOnInbound: UInt32
     decryptionFailuresOnInbound: UInt32
     authenticationFailuresOnInbound: UInt32
@@ -2583,43 +2583,43 @@ IPSEC_FAILURE_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPl
 IPSEC_FAILURE_ME: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT = 1
 IPSEC_FAILURE_PEER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT = 2
 IPSEC_FAILURE_POINT_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_FAILURE_POINT = 3
-class IPSEC_GETSPI0(EasyCastStructure):
+class IPSEC_GETSPI0(Structure):
     inboundIpsecTraffic: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC0
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous: _Anonymous_e__Union
     rngCryptoModuleID: POINTER(Guid)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         inboundUdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
-class IPSEC_GETSPI1(EasyCastStructure):
+class IPSEC_GETSPI1(Structure):
     inboundIpsecTraffic: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC1
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous: _Anonymous_e__Union
     rngCryptoModuleID: POINTER(Guid)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         inboundUdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
-class IPSEC_ID0(EasyCastStructure):
+class IPSEC_ID0(Structure):
     mmTargetName: win32more.Windows.Win32.Foundation.PWSTR
     emTargetName: win32more.Windows.Win32.Foundation.PWSTR
     numTokens: UInt32
     tokens: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN0)
     explicitCredentials: UInt64
     logonId: UInt64
-class IPSEC_KEYING_POLICY0(EasyCastStructure):
+class IPSEC_KEYING_POLICY0(Structure):
     numKeyMods: UInt32
     keyModKeys: POINTER(Guid)
-class IPSEC_KEYING_POLICY1(EasyCastStructure):
+class IPSEC_KEYING_POLICY1(Structure):
     numKeyMods: UInt32
     keyModKeys: POINTER(Guid)
     flags: UInt32
-class IPSEC_KEYMODULE_STATE0(EasyCastStructure):
+class IPSEC_KEYMODULE_STATE0(Structure):
     keyModuleKey: Guid
     stateBlob: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-class IPSEC_KEY_MANAGER0(EasyCastStructure):
+class IPSEC_KEY_MANAGER0(Structure):
     keyManagerKey: Guid
     displayData: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_DISPLAY_DATA0
     flags: UInt32
     keyDictationTimeoutHint: Byte
-class IPSEC_KEY_MANAGER_CALLBACKS0(EasyCastStructure):
+class IPSEC_KEY_MANAGER_CALLBACKS0(Structure):
     reserved: Guid
     flags: UInt32
     keyDictationCheck: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0
@@ -2656,28 +2656,28 @@ IPSEC_POLICY_FLAG_TUNNEL_ALLOW_OUTBOUND_CLEAR_CONNECTION: win32more.Windows.Win3
 IPSEC_POLICY_FLAG_TUNNEL_BYPASS_ALREADY_SECURE_CONNECTION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 2048
 IPSEC_POLICY_FLAG_TUNNEL_BYPASS_ICMPV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 4096
 IPSEC_POLICY_FLAG_KEY_MANAGER_ALLOW_DICTATE_KEY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG = 8192
-class IPSEC_PROPOSAL0(EasyCastStructure):
+class IPSEC_PROPOSAL0(Structure):
     lifetime: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_LIFETIME0
     numSaTransforms: UInt32
     saTransforms: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_TRANSFORM0)
     pfsGroup: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP
-class IPSEC_SA0(EasyCastStructure):
+class IPSEC_SA0(Structure):
     spi: UInt32
     saTransformType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ahInformation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_AUTH_INFORMATION0)
         espAuthInformation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_AUTH_INFORMATION0)
         espCipherInformation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CIPHER_INFORMATION0)
         espAuthAndCipherInformation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_AUTH_AND_CIPHER_INFORMATION0)
         espAuthFwInformation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_AUTH_INFORMATION0)
-class IPSEC_SA_AUTH_AND_CIPHER_INFORMATION0(EasyCastStructure):
+class IPSEC_SA_AUTH_AND_CIPHER_INFORMATION0(Structure):
     saCipherInformation: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CIPHER_INFORMATION0
     saAuthInformation: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_AUTH_INFORMATION0
-class IPSEC_SA_AUTH_INFORMATION0(EasyCastStructure):
+class IPSEC_SA_AUTH_INFORMATION0(Structure):
     authTransform: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TRANSFORM0
     authKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-class IPSEC_SA_BUNDLE0(EasyCastStructure):
+class IPSEC_SA_BUNDLE0(Structure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS
     lifetime: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_LIFETIME0
     idleTimeoutSeconds: UInt32
@@ -2692,9 +2692,9 @@ class IPSEC_SA_BUNDLE0(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     mmSaId: UInt64
     pfsGroup: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         peerV4PrivateAddress: UInt32
-class IPSEC_SA_BUNDLE1(EasyCastStructure):
+class IPSEC_SA_BUNDLE1(Structure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS
     lifetime: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_LIFETIME0
     idleTimeoutSeconds: UInt32
@@ -2711,7 +2711,7 @@ class IPSEC_SA_BUNDLE1(EasyCastStructure):
     pfsGroup: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP
     saLookupContext: Guid
     qmFilterId: UInt64
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         peerV4PrivateAddress: UInt32
 IPSEC_SA_BUNDLE_FLAGS = UInt32
 IPSEC_SA_BUNDLE_FLAG_ND_SECURE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 1
@@ -2724,43 +2724,43 @@ IPSEC_SA_BUNDLE_FLAG_ASSUME_UDP_CONTEXT_OUTBOUND: win32more.Windows.Win32.Networ
 IPSEC_SA_BUNDLE_FLAG_ND_PEER_BOUNDARY: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 4096
 IPSEC_SA_BUNDLE_FLAG_SUPPRESS_DUPLICATE_DELETION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 8192
 IPSEC_SA_BUNDLE_FLAG_PEER_SUPPORTS_GUARANTEE_ENCRYPTION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE_FLAGS = 16384
-class IPSEC_SA_CIPHER_INFORMATION0(EasyCastStructure):
+class IPSEC_SA_CIPHER_INFORMATION0(Structure):
     cipherTransform: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TRANSFORM0
     cipherKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
-class IPSEC_SA_CONTEXT0(EasyCastStructure):
+class IPSEC_SA_CONTEXT0(Structure):
     saContextId: UInt64
     inboundSa: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_DETAILS0)
     outboundSa: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_DETAILS0)
-class IPSEC_SA_CONTEXT1(EasyCastStructure):
+class IPSEC_SA_CONTEXT1(Structure):
     saContextId: UInt64
     inboundSa: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_DETAILS1)
     outboundSa: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_DETAILS1)
 @winfunctype_pointer
 def IPSEC_SA_CONTEXT_CALLBACK0(context: VoidPtr, change: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_CHANGE0)) -> Void: ...
-class IPSEC_SA_CONTEXT_CHANGE0(EasyCastStructure):
+class IPSEC_SA_CONTEXT_CHANGE0(Structure):
     changeType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_EVENT_TYPE0
     saContextId: UInt64
-class IPSEC_SA_CONTEXT_ENUM_TEMPLATE0(EasyCastStructure):
+class IPSEC_SA_CONTEXT_ENUM_TEMPLATE0(Structure):
     localSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
     remoteSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
 IPSEC_SA_CONTEXT_EVENT_TYPE0 = Int32
 IPSEC_SA_CONTEXT_EVENT_ADD: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_EVENT_TYPE0 = 1
 IPSEC_SA_CONTEXT_EVENT_DELETE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_EVENT_TYPE0 = 2
 IPSEC_SA_CONTEXT_EVENT_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_EVENT_TYPE0 = 3
-class IPSEC_SA_CONTEXT_SUBSCRIPTION0(EasyCastStructure):
+class IPSEC_SA_CONTEXT_SUBSCRIPTION0(Structure):
     enumTemplate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_CONTEXT_ENUM_TEMPLATE0)
     flags: UInt32
     sessionKey: Guid
-class IPSEC_SA_DETAILS0(EasyCastStructure):
+class IPSEC_SA_DETAILS0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     saDirection: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DIRECTION
     traffic: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC0
     saBundle: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE0
     Anonymous: _Anonymous_e__Union
     transportFilter: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER0)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         udpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
-class IPSEC_SA_DETAILS1(EasyCastStructure):
+class IPSEC_SA_DETAILS1(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     saDirection: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DIRECTION
     traffic: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC1
@@ -2768,41 +2768,41 @@ class IPSEC_SA_DETAILS1(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     transportFilter: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER0)
     virtualIfTunnelInfo: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_VIRTUAL_IF_TUNNEL_INFO0
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         udpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
-class IPSEC_SA_ENUM_TEMPLATE0(EasyCastStructure):
+class IPSEC_SA_ENUM_TEMPLATE0(Structure):
     saDirection: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DIRECTION
-class IPSEC_SA_IDLE_TIMEOUT0(EasyCastStructure):
+class IPSEC_SA_IDLE_TIMEOUT0(Structure):
     idleTimeoutSeconds: UInt32
     idleTimeoutSecondsFailOver: UInt32
-class IPSEC_SA_LIFETIME0(EasyCastStructure):
+class IPSEC_SA_LIFETIME0(Structure):
     lifetimeSeconds: UInt32
     lifetimeKilobytes: UInt32
     lifetimePackets: UInt32
-class IPSEC_SA_TRANSFORM0(EasyCastStructure):
+class IPSEC_SA_TRANSFORM0(Structure):
     ipsecTransformType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ahTransform: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TRANSFORM0)
         espAuthTransform: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TRANSFORM0)
         espCipherTransform: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_CIPHER_TRANSFORM0)
         espAuthAndCipherTransform: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_AND_CIPHER_TRANSFORM0)
         espAuthFwTransform: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TRANSFORM0)
-class IPSEC_STATISTICS0(EasyCastStructure):
+class IPSEC_STATISTICS0(Structure):
     aggregateSaStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AGGREGATE_SA_STATISTICS0
     espDropPacketStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_ESP_DROP_PACKET_STATISTICS0
     ahDropPacketStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AH_DROP_PACKET_STATISTICS0
     aggregateDropPacketStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0
     inboundTrafficStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_STATISTICS0
     outboundTrafficStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_STATISTICS0
-class IPSEC_STATISTICS1(EasyCastStructure):
+class IPSEC_STATISTICS1(Structure):
     aggregateSaStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AGGREGATE_SA_STATISTICS0
     espDropPacketStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_ESP_DROP_PACKET_STATISTICS0
     ahDropPacketStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AH_DROP_PACKET_STATISTICS0
     aggregateDropPacketStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AGGREGATE_DROP_PACKET_STATISTICS1
     inboundTrafficStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_STATISTICS1
     outboundTrafficStatistics: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_STATISTICS1
-class IPSEC_TOKEN0(EasyCastStructure):
+class IPSEC_TOKEN0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_TYPE
     principal: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_PRINCIPAL
     mode: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_MODE
@@ -2819,23 +2819,23 @@ IPSEC_TOKEN_TYPE = Int32
 IPSEC_TOKEN_TYPE_MACHINE: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_TYPE = 0
 IPSEC_TOKEN_TYPE_IMPERSONATION: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_TYPE = 1
 IPSEC_TOKEN_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TOKEN_TYPE = 2
-class IPSEC_TRAFFIC0(EasyCastStructure):
+class IPSEC_TRAFFIC0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     trafficType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_TYPE
     Anonymous3: _Anonymous3_e__Union
     remotePort: UInt16
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteV4Address: UInt32
         remoteV6Address: Byte * 16
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         ipsecFilterId: UInt64
         tunnelPolicyId: UInt64
-class IPSEC_TRAFFIC1(EasyCastStructure):
+class IPSEC_TRAFFIC1(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
@@ -2846,42 +2846,42 @@ class IPSEC_TRAFFIC1(EasyCastStructure):
     ipProtocol: Byte
     localIfLuid: UInt64
     realIfProfileId: UInt32
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteV4Address: UInt32
         remoteV6Address: Byte * 16
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         ipsecFilterId: UInt64
         tunnelPolicyId: UInt64
-class IPSEC_TRAFFIC_SELECTOR0(EasyCastStructure):
+class IPSEC_TRAFFIC_SELECTOR0(Structure):
     protocolId: Byte
     portStart: UInt16
     portEnd: UInt16
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         startV4Address: UInt32
         startV6Address: Byte * 16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         endV4Address: UInt32
         endV6Address: Byte * 16
-class IPSEC_TRAFFIC_SELECTOR_POLICY0(EasyCastStructure):
+class IPSEC_TRAFFIC_SELECTOR_POLICY0(Structure):
     flags: UInt32
     numLocalTrafficSelectors: UInt32
     localTrafficSelectors: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_SELECTOR0)
     numRemoteTrafficSelectors: UInt32
     remoteTrafficSelectors: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_SELECTOR0)
-class IPSEC_TRAFFIC_STATISTICS0(EasyCastStructure):
+class IPSEC_TRAFFIC_STATISTICS0(Structure):
     encryptedByteCount: UInt64
     authenticatedAHByteCount: UInt64
     authenticatedESPByteCount: UInt64
     transportByteCount: UInt64
     tunnelByteCount: UInt64
     offloadByteCount: UInt64
-class IPSEC_TRAFFIC_STATISTICS1(EasyCastStructure):
+class IPSEC_TRAFFIC_STATISTICS1(Structure):
     encryptedByteCount: UInt64
     authenticatedAHByteCount: UInt64
     authenticatedESPByteCount: UInt64
@@ -2900,55 +2900,55 @@ IPSEC_TRANSFORM_ESP_CIPHER: win32more.Windows.Win32.NetworkManagement.WindowsFil
 IPSEC_TRANSFORM_ESP_AUTH_AND_CIPHER: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE = 4
 IPSEC_TRANSFORM_ESP_AUTH_FW: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE = 5
 IPSEC_TRANSFORM_TYPE_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE = 6
-class IPSEC_TRANSPORT_POLICY0(EasyCastStructure):
+class IPSEC_TRANSPORT_POLICY0(Structure):
     numIpsecProposals: UInt32
     ipsecProposals: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PROPOSAL0)
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG
     ndAllowClearTimeoutSeconds: UInt32
     saIdleTimeout: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_IDLE_TIMEOUT0
     emPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_POLICY0)
-class IPSEC_TRANSPORT_POLICY1(EasyCastStructure):
+class IPSEC_TRANSPORT_POLICY1(Structure):
     numIpsecProposals: UInt32
     ipsecProposals: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PROPOSAL0)
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG
     ndAllowClearTimeoutSeconds: UInt32
     saIdleTimeout: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_IDLE_TIMEOUT0
     emPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_POLICY1)
-class IPSEC_TRANSPORT_POLICY2(EasyCastStructure):
+class IPSEC_TRANSPORT_POLICY2(Structure):
     numIpsecProposals: UInt32
     ipsecProposals: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PROPOSAL0)
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG
     ndAllowClearTimeoutSeconds: UInt32
     saIdleTimeout: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_IDLE_TIMEOUT0
     emPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_POLICY2)
-class IPSEC_TUNNEL_ENDPOINT0(EasyCastStructure):
+class IPSEC_TUNNEL_ENDPOINT0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         v4Address: UInt32
         v6Address: Byte * 16
-class IPSEC_TUNNEL_ENDPOINTS0(EasyCastStructure):
+class IPSEC_TUNNEL_ENDPOINTS0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteV4Address: UInt32
         remoteV6Address: Byte * 16
-class IPSEC_TUNNEL_ENDPOINTS1(EasyCastStructure):
+class IPSEC_TUNNEL_ENDPOINTS1(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     localIfLuid: UInt64
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteV4Address: UInt32
         remoteV6Address: Byte * 16
-class IPSEC_TUNNEL_ENDPOINTS2(EasyCastStructure):
+class IPSEC_TUNNEL_ENDPOINTS2(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
@@ -2956,27 +2956,27 @@ class IPSEC_TUNNEL_ENDPOINTS2(EasyCastStructure):
     remoteFqdn: win32more.Windows.Win32.Foundation.PWSTR
     numAddresses: UInt32
     remoteAddresses: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TUNNEL_ENDPOINT0)
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         remoteV4Address: UInt32
         remoteV6Address: Byte * 16
-class IPSEC_TUNNEL_POLICY0(EasyCastStructure):
+class IPSEC_TUNNEL_POLICY0(Structure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG
     numIpsecProposals: UInt32
     ipsecProposals: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PROPOSAL0)
     tunnelEndpoints: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TUNNEL_ENDPOINTS0
     saIdleTimeout: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_IDLE_TIMEOUT0
     emPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_POLICY0)
-class IPSEC_TUNNEL_POLICY1(EasyCastStructure):
+class IPSEC_TUNNEL_POLICY1(Structure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG
     numIpsecProposals: UInt32
     ipsecProposals: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PROPOSAL0)
     tunnelEndpoints: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TUNNEL_ENDPOINTS1
     saIdleTimeout: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_IDLE_TIMEOUT0
     emPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_POLICY1)
-class IPSEC_TUNNEL_POLICY2(EasyCastStructure):
+class IPSEC_TUNNEL_POLICY2(Structure):
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_POLICY_FLAG
     numIpsecProposals: UInt32
     ipsecProposals: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PROPOSAL0)
@@ -2984,7 +2984,7 @@ class IPSEC_TUNNEL_POLICY2(EasyCastStructure):
     saIdleTimeout: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_IDLE_TIMEOUT0
     emPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_EM_POLICY2)
     fwdPathSaLifetime: UInt32
-class IPSEC_TUNNEL_POLICY3(EasyCastStructure):
+class IPSEC_TUNNEL_POLICY3(Structure):
     flags: UInt32
     numIpsecProposals: UInt32
     ipsecProposals: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PROPOSAL0)
@@ -2995,10 +2995,10 @@ class IPSEC_TUNNEL_POLICY3(EasyCastStructure):
     compartmentId: UInt32
     numTrafficSelectorPolicy: UInt32
     trafficSelectorPolicies: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_SELECTOR_POLICY0)
-class IPSEC_V4_UDP_ENCAPSULATION0(EasyCastStructure):
+class IPSEC_V4_UDP_ENCAPSULATION0(Structure):
     localUdpEncapPort: UInt16
     remoteUdpEncapPort: UInt16
-class IPSEC_VIRTUAL_IF_TUNNEL_INFO0(EasyCastStructure):
+class IPSEC_VIRTUAL_IF_TUNNEL_INFO0(Structure):
     virtualIfTunnelId: UInt64
     trafficSelectorId: UInt64
 

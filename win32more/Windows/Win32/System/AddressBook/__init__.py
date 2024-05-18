@@ -1,17 +1,17 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.AddressBook
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
-class ADRENTRY(EasyCastStructure):
+class ADRENTRY(Structure):
     ulReserved1: UInt32
     cValues: UInt32
     rgPropVals: POINTER(win32more.Windows.Win32.System.AddressBook.SPropValue)
-class ADRLIST(EasyCastStructure):
+class ADRLIST(Structure):
     cEntries: UInt32
     aEntries: win32more.Windows.Win32.System.AddressBook.ADRENTRY * 1
-class ADRPARM(EasyCastStructure):
+class ADRPARM(Structure):
     cbABContEntryID: UInt32
     lpABContEntryID: POINTER(win32more.Windows.Win32.System.AddressBook.ENTRYID)
     ulFlags: UInt32
@@ -364,58 +364,58 @@ def ScInitMapiUtil(ulFlags: UInt32) -> Int32: ...
 def DeinitMapiUtil() -> Void: ...
 @winfunctype_pointer
 def CALLERRELEASE(ulCallerData: UInt32, lpTblData: win32more.Windows.Win32.System.AddressBook.ITableData, lpVue: win32more.Windows.Win32.System.AddressBook.IMAPITable) -> Void: ...
-class DTBLBUTTON(EasyCastStructure):
+class DTBLBUTTON(Structure):
     ulbLpszLabel: UInt32
     ulFlags: UInt32
     ulPRControl: UInt32
-class DTBLCHECKBOX(EasyCastStructure):
+class DTBLCHECKBOX(Structure):
     ulbLpszLabel: UInt32
     ulFlags: UInt32
     ulPRPropertyName: UInt32
-class DTBLCOMBOBOX(EasyCastStructure):
+class DTBLCOMBOBOX(Structure):
     ulbLpszCharsAllowed: UInt32
     ulFlags: UInt32
     ulNumCharsAllowed: UInt32
     ulPRPropertyName: UInt32
     ulPRTableName: UInt32
-class DTBLDDLBX(EasyCastStructure):
+class DTBLDDLBX(Structure):
     ulFlags: UInt32
     ulPRDisplayProperty: UInt32
     ulPRSetProperty: UInt32
     ulPRTableName: UInt32
-class DTBLEDIT(EasyCastStructure):
+class DTBLEDIT(Structure):
     ulbLpszCharsAllowed: UInt32
     ulFlags: UInt32
     ulNumCharsAllowed: UInt32
     ulPropTag: UInt32
-class DTBLGROUPBOX(EasyCastStructure):
+class DTBLGROUPBOX(Structure):
     ulbLpszLabel: UInt32
     ulFlags: UInt32
-class DTBLLABEL(EasyCastStructure):
+class DTBLLABEL(Structure):
     ulbLpszLabelName: UInt32
     ulFlags: UInt32
-class DTBLLBX(EasyCastStructure):
+class DTBLLBX(Structure):
     ulFlags: UInt32
     ulPRSetProperty: UInt32
     ulPRTableName: UInt32
-class DTBLMVDDLBX(EasyCastStructure):
+class DTBLMVDDLBX(Structure):
     ulFlags: UInt32
     ulMVPropTag: UInt32
-class DTBLMVLISTBOX(EasyCastStructure):
+class DTBLMVLISTBOX(Structure):
     ulFlags: UInt32
     ulMVPropTag: UInt32
-class DTBLPAGE(EasyCastStructure):
+class DTBLPAGE(Structure):
     ulbLpszLabel: UInt32
     ulFlags: UInt32
     ulbLpszComponent: UInt32
     ulContext: UInt32
-class DTBLRADIOBUTTON(EasyCastStructure):
+class DTBLRADIOBUTTON(Structure):
     ulbLpszLabel: UInt32
     ulFlags: UInt32
     ulcButtons: UInt32
     ulPropTag: UInt32
     lReturnValue: Int32
-class DTCTL(EasyCastStructure):
+class DTCTL(Structure):
     ulCtlType: UInt32
     ulCtlFlags: UInt32
     lpbNotif: POINTER(Byte)
@@ -423,7 +423,7 @@ class DTCTL(EasyCastStructure):
     lpszFilter: POINTER(SByte)
     ulItemID: UInt32
     ctl: _ctl_e__Union
-    class _ctl_e__Union(EasyCastUnion):
+    class _ctl_e__Union(Union):
         lpv: VoidPtr
         lplabel: POINTER(win32more.Windows.Win32.System.AddressBook.DTBLLABEL)
         lpedit: POINTER(win32more.Windows.Win32.System.AddressBook.DTBLEDIT)
@@ -437,39 +437,39 @@ class DTCTL(EasyCastStructure):
         lpmvlbx: POINTER(win32more.Windows.Win32.System.AddressBook.DTBLMVLISTBOX)
         lpmvddlbx: POINTER(win32more.Windows.Win32.System.AddressBook.DTBLMVDDLBX)
         lppage: POINTER(win32more.Windows.Win32.System.AddressBook.DTBLPAGE)
-class DTPAGE(EasyCastStructure):
+class DTPAGE(Structure):
     cctl: UInt32
     lpszResourceName: POINTER(SByte)
     Anonymous: _Anonymous_e__Union
     lpctl: POINTER(win32more.Windows.Win32.System.AddressBook.DTCTL)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         lpszComponent: POINTER(SByte)
         ulItemID: UInt32
-class ENTRYID(EasyCastStructure):
+class ENTRYID(Structure):
     abFlags: Byte * 4
     ab: Byte * 1
-class ERROR_NOTIFICATION(EasyCastStructure):
+class ERROR_NOTIFICATION(Structure):
     cbEntryID: UInt32
     lpEntryID: POINTER(win32more.Windows.Win32.System.AddressBook.ENTRYID)
     scode: Int32
     ulFlags: UInt32
     lpMAPIError: POINTER(win32more.Windows.Win32.System.AddressBook.MAPIERROR)
-class EXTENDED_NOTIFICATION(EasyCastStructure):
+class EXTENDED_NOTIFICATION(Structure):
     ulEvent: UInt32
     cb: UInt32
     pbEventParameters: POINTER(Byte)
-class FLATENTRY(EasyCastStructure):
+class FLATENTRY(Structure):
     cb: UInt32
     abEntry: Byte * 1
-class FLATENTRYLIST(EasyCastStructure):
+class FLATENTRYLIST(Structure):
     cEntries: UInt32
     cbEntries: UInt32
     abEntries: Byte * 1
-class FLATMTSIDLIST(EasyCastStructure):
+class FLATMTSIDLIST(Structure):
     cMTSIDs: UInt32
     cbMTSIDs: UInt32
     abMTSIDs: Byte * 1
-class FlagList(EasyCastStructure):
+class FlagList(Structure):
     cFlags: UInt32
     ulFlag: UInt32 * 1
 Gender = Int32
@@ -834,25 +834,25 @@ def LPWABFREEBUFFER(lpWABObject: win32more.Windows.Win32.System.AddressBook.IWAB
 def LPWABOPEN(lppAdrBook: POINTER(win32more.Windows.Win32.System.AddressBook.IAddrBook), lppWABObject: POINTER(win32more.Windows.Win32.System.AddressBook.IWABObject), lpWP: POINTER(win32more.Windows.Win32.System.AddressBook.WAB_PARAM), Reserved2: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPWABOPENEX(lppAdrBook: POINTER(win32more.Windows.Win32.System.AddressBook.IAddrBook), lppWABObject: POINTER(win32more.Windows.Win32.System.AddressBook.IWABObject), lpWP: POINTER(win32more.Windows.Win32.System.AddressBook.WAB_PARAM), Reserved: UInt32, fnAllocateBuffer: win32more.Windows.Win32.System.AddressBook.LPALLOCATEBUFFER, fnAllocateMore: win32more.Windows.Win32.System.AddressBook.LPALLOCATEMORE, fnFreeBuffer: win32more.Windows.Win32.System.AddressBook.LPFREEBUFFER) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class MAPIERROR(EasyCastStructure):
+class MAPIERROR(Structure):
     ulVersion: UInt32
     lpszError: POINTER(SByte)
     lpszComponent: POINTER(SByte)
     ulLowLevelError: UInt32
     ulContext: UInt32
-class MAPINAMEID(EasyCastStructure):
+class MAPINAMEID(Structure):
     lpguid: POINTER(Guid)
     ulKind: UInt32
     Kind: _Kind_e__Union
-    class _Kind_e__Union(EasyCastUnion):
+    class _Kind_e__Union(Union):
         lID: Int32
         lpwstrName: win32more.Windows.Win32.Foundation.PWSTR
-class MAPIUID(EasyCastStructure):
+class MAPIUID(Structure):
     ab: Byte * 16
-class MTSID(EasyCastStructure):
+class MTSID(Structure):
     cb: UInt32
     ab: Byte * 1
-class NEWMAIL_NOTIFICATION(EasyCastStructure):
+class NEWMAIL_NOTIFICATION(Structure):
     cbEntryID: UInt32
     lpEntryID: POINTER(win32more.Windows.Win32.System.AddressBook.ENTRYID)
     cbParentID: UInt32
@@ -860,21 +860,21 @@ class NEWMAIL_NOTIFICATION(EasyCastStructure):
     ulFlags: UInt32
     lpszMessageClass: POINTER(SByte)
     ulMessageFlags: UInt32
-class NOTIFICATION(EasyCastStructure):
+class NOTIFICATION(Structure):
     ulEventType: UInt32
     ulAlignPad: UInt32
     info: _info_e__Union
-    class _info_e__Union(EasyCastUnion):
+    class _info_e__Union(Union):
         err: win32more.Windows.Win32.System.AddressBook.ERROR_NOTIFICATION
         newmail: win32more.Windows.Win32.System.AddressBook.NEWMAIL_NOTIFICATION
         obj: win32more.Windows.Win32.System.AddressBook.OBJECT_NOTIFICATION
         tab: win32more.Windows.Win32.System.AddressBook.TABLE_NOTIFICATION
         ext: win32more.Windows.Win32.System.AddressBook.EXTENDED_NOTIFICATION
         statobj: win32more.Windows.Win32.System.AddressBook.STATUS_OBJECT_NOTIFICATION
-class NOTIFKEY(EasyCastStructure):
+class NOTIFKEY(Structure):
     cb: UInt32
     ab: Byte * 1
-class OBJECT_NOTIFICATION(EasyCastStructure):
+class OBJECT_NOTIFICATION(Structure):
     cbEntryID: UInt32
     lpEntryID: POINTER(win32more.Windows.Win32.System.AddressBook.ENTRYID)
     ulObjType: UInt32
@@ -887,90 +887,90 @@ class OBJECT_NOTIFICATION(EasyCastStructure):
     lpPropTagArray: POINTER(win32more.Windows.Win32.System.AddressBook.SPropTagArray)
 @winfunctype_pointer
 def PFNIDLE(param0: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class SAndRestriction(EasyCastStructure):
+class SAndRestriction(Structure):
     cRes: UInt32
     lpRes: POINTER(win32more.Windows.Win32.System.AddressBook.SRestriction)
-class SAppTimeArray(EasyCastStructure):
+class SAppTimeArray(Structure):
     cValues: UInt32
     lpat: POINTER(Double)
-class SBinary(EasyCastStructure):
+class SBinary(Structure):
     cb: UInt32
     lpb: POINTER(Byte)
-class SBinaryArray(EasyCastStructure):
+class SBinaryArray(Structure):
     cValues: UInt32
     lpbin: POINTER(win32more.Windows.Win32.System.AddressBook.SBinary)
-class SBitMaskRestriction(EasyCastStructure):
+class SBitMaskRestriction(Structure):
     relBMR: UInt32
     ulPropTag: UInt32
     ulMask: UInt32
-class SCommentRestriction(EasyCastStructure):
+class SCommentRestriction(Structure):
     cValues: UInt32
     lpRes: POINTER(win32more.Windows.Win32.System.AddressBook.SRestriction)
     lpProp: POINTER(win32more.Windows.Win32.System.AddressBook.SPropValue)
-class SComparePropsRestriction(EasyCastStructure):
+class SComparePropsRestriction(Structure):
     relop: UInt32
     ulPropTag1: UInt32
     ulPropTag2: UInt32
-class SContentRestriction(EasyCastStructure):
+class SContentRestriction(Structure):
     ulFuzzyLevel: UInt32
     ulPropTag: UInt32
     lpProp: POINTER(win32more.Windows.Win32.System.AddressBook.SPropValue)
-class SCurrencyArray(EasyCastStructure):
+class SCurrencyArray(Structure):
     cValues: UInt32
     lpcur: POINTER(win32more.Windows.Win32.System.Com.CY)
-class SDateTimeArray(EasyCastStructure):
+class SDateTimeArray(Structure):
     cValues: UInt32
     lpft: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
-class SDoubleArray(EasyCastStructure):
+class SDoubleArray(Structure):
     cValues: UInt32
     lpdbl: POINTER(Double)
-class SExistRestriction(EasyCastStructure):
+class SExistRestriction(Structure):
     ulReserved1: UInt32
     ulPropTag: UInt32
     ulReserved2: UInt32
-class SGuidArray(EasyCastStructure):
+class SGuidArray(Structure):
     cValues: UInt32
     lpguid: POINTER(Guid)
-class SLPSTRArray(EasyCastStructure):
+class SLPSTRArray(Structure):
     cValues: UInt32
     lppszA: POINTER(win32more.Windows.Win32.Foundation.PSTR)
-class SLargeIntegerArray(EasyCastStructure):
+class SLargeIntegerArray(Structure):
     cValues: UInt32
     lpli: POINTER(Int64)
-class SLongArray(EasyCastStructure):
+class SLongArray(Structure):
     cValues: UInt32
     lpl: POINTER(Int32)
-class SNotRestriction(EasyCastStructure):
+class SNotRestriction(Structure):
     ulReserved: UInt32
     lpRes: POINTER(win32more.Windows.Win32.System.AddressBook.SRestriction)
-class SOrRestriction(EasyCastStructure):
+class SOrRestriction(Structure):
     cRes: UInt32
     lpRes: POINTER(win32more.Windows.Win32.System.AddressBook.SRestriction)
-class SPropProblem(EasyCastStructure):
+class SPropProblem(Structure):
     ulIndex: UInt32
     ulPropTag: UInt32
     scode: Int32
-class SPropProblemArray(EasyCastStructure):
+class SPropProblemArray(Structure):
     cProblem: UInt32
     aProblem: win32more.Windows.Win32.System.AddressBook.SPropProblem * 1
-class SPropTagArray(EasyCastStructure):
+class SPropTagArray(Structure):
     cValues: UInt32
     aulPropTag: UInt32 * 1
-class SPropValue(EasyCastStructure):
+class SPropValue(Structure):
     ulPropTag: UInt32
     dwAlignPad: UInt32
     Value: win32more.Windows.Win32.System.AddressBook.__UPV
-class SPropertyRestriction(EasyCastStructure):
+class SPropertyRestriction(Structure):
     relop: UInt32
     ulPropTag: UInt32
     lpProp: POINTER(win32more.Windows.Win32.System.AddressBook.SPropValue)
-class SRealArray(EasyCastStructure):
+class SRealArray(Structure):
     cValues: UInt32
     lpflt: POINTER(Single)
-class SRestriction(EasyCastStructure):
+class SRestriction(Structure):
     rt: UInt32
     res: _res_e__Union
-    class _res_e__Union(EasyCastUnion):
+    class _res_e__Union(Union):
         resCompareProps: win32more.Windows.Win32.System.AddressBook.SComparePropsRestriction
         resAnd: win32more.Windows.Win32.System.AddressBook.SAndRestriction
         resOr: win32more.Windows.Win32.System.AddressBook.SOrRestriction
@@ -982,47 +982,47 @@ class SRestriction(EasyCastStructure):
         resExist: win32more.Windows.Win32.System.AddressBook.SExistRestriction
         resSub: win32more.Windows.Win32.System.AddressBook.SSubRestriction
         resComment: win32more.Windows.Win32.System.AddressBook.SCommentRestriction
-class SRow(EasyCastStructure):
+class SRow(Structure):
     ulAdrEntryPad: UInt32
     cValues: UInt32
     lpProps: POINTER(win32more.Windows.Win32.System.AddressBook.SPropValue)
-class SRowSet(EasyCastStructure):
+class SRowSet(Structure):
     cRows: UInt32
     aRow: win32more.Windows.Win32.System.AddressBook.SRow * 1
-class SShortArray(EasyCastStructure):
+class SShortArray(Structure):
     cValues: UInt32
     lpi: POINTER(Int16)
-class SSizeRestriction(EasyCastStructure):
+class SSizeRestriction(Structure):
     relop: UInt32
     ulPropTag: UInt32
     cb: UInt32
-class SSortOrder(EasyCastStructure):
+class SSortOrder(Structure):
     ulPropTag: UInt32
     ulOrder: UInt32
-class SSortOrderSet(EasyCastStructure):
+class SSortOrderSet(Structure):
     cSorts: UInt32
     cCategories: UInt32
     cExpanded: UInt32
     aSort: win32more.Windows.Win32.System.AddressBook.SSortOrder * 1
-class SSubRestriction(EasyCastStructure):
+class SSubRestriction(Structure):
     ulSubObject: UInt32
     lpRes: POINTER(win32more.Windows.Win32.System.AddressBook.SRestriction)
-class STATUS_OBJECT_NOTIFICATION(EasyCastStructure):
+class STATUS_OBJECT_NOTIFICATION(Structure):
     cbEntryID: UInt32
     lpEntryID: POINTER(win32more.Windows.Win32.System.AddressBook.ENTRYID)
     cValues: UInt32
     lpPropVals: POINTER(win32more.Windows.Win32.System.AddressBook.SPropValue)
-class SWStringArray(EasyCastStructure):
+class SWStringArray(Structure):
     cValues: UInt32
     lppszW: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class TABLE_NOTIFICATION(EasyCastStructure):
+class TABLE_NOTIFICATION(Structure):
     ulTableEvent: UInt32
     hResult: win32more.Windows.Win32.Foundation.HRESULT
     propIndex: win32more.Windows.Win32.System.AddressBook.SPropValue
     propPrior: win32more.Windows.Win32.System.AddressBook.SPropValue
     row: win32more.Windows.Win32.System.AddressBook.SRow
     ulPad: UInt32
-class WABEXTDISPLAY(EasyCastStructure):
+class WABEXTDISPLAY(Structure):
     cbSize: UInt32
     lpWABObject: win32more.Windows.Win32.System.AddressBook.IWABObject
     lpAdrBook: win32more.Windows.Win32.System.AddressBook.IAddrBook
@@ -1032,19 +1032,19 @@ class WABEXTDISPLAY(EasyCastStructure):
     ulFlags: UInt32
     lpv: VoidPtr
     lpsz: POINTER(SByte)
-class WABIMPORTPARAM(EasyCastStructure):
+class WABIMPORTPARAM(Structure):
     cbSize: UInt32
     lpAdrBook: win32more.Windows.Win32.System.AddressBook.IAddrBook
     hWnd: win32more.Windows.Win32.Foundation.HWND
     ulFlags: UInt32
     lpszFileName: win32more.Windows.Win32.Foundation.PSTR
-class WAB_PARAM(EasyCastStructure):
+class WAB_PARAM(Structure):
     cbSize: UInt32
     hwnd: win32more.Windows.Win32.Foundation.HWND
     szFileName: win32more.Windows.Win32.Foundation.PSTR
     ulFlags: UInt32
     guidPSExt: Guid
-class __UPV(EasyCastUnion):
+class __UPV(Union):
     i: Int16
     l: Int32
     ul: UInt32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
@@ -1108,11 +1108,11 @@ class IWbemUnsecuredApartment(ComPtr):
     _iid_ = Guid('{31739d04-3471-4cf4-9a7c-57a44ae71956}')
     @commethod(4)
     def CreateSinkStub(self, pSink: win32more.Windows.Win32.System.Wmi.IWbemObjectSink, dwFlags: UInt32, wszReserved: win32more.Windows.Win32.Foundation.PWSTR, ppStub: POINTER(win32more.Windows.Win32.System.Wmi.IWbemObjectSink)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class MI_Application(EasyCastStructure):
+class MI_Application(Structure):
     reserved1: UInt64
     reserved2: IntPtr
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ApplicationFT)
-class MI_ApplicationFT(EasyCastStructure):
+class MI_ApplicationFT(Structure):
     Close: IntPtr
     NewSession: IntPtr
     NewHostedProvider: IntPtr
@@ -1124,21 +1124,21 @@ class MI_ApplicationFT(EasyCastStructure):
     NewDeserializer: IntPtr
     NewInstanceFromClass: IntPtr
     NewClass: IntPtr
-class MI_Array(EasyCastStructure):
+class MI_Array(Structure):
     data: VoidPtr
     size: UInt32
-class MI_ArrayField(EasyCastStructure):
+class MI_ArrayField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Array
     exists: Byte
     flags: Byte
-class MI_BooleanA(EasyCastStructure):
+class MI_BooleanA(Structure):
     data: POINTER(Byte)
     size: UInt32
-class MI_BooleanAField(EasyCastStructure):
+class MI_BooleanAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_BooleanA
     exists: Byte
     flags: Byte
-class MI_BooleanField(EasyCastStructure):
+class MI_BooleanField(Structure):
     value: Byte
     exists: Byte
     flags: Byte
@@ -1153,24 +1153,24 @@ MI_REASON_NONE: win32more.Windows.Win32.System.Wmi.MI_CancellationReason = 0
 MI_REASON_TIMEOUT: win32more.Windows.Win32.System.Wmi.MI_CancellationReason = 1
 MI_REASON_SHUTDOWN: win32more.Windows.Win32.System.Wmi.MI_CancellationReason = 2
 MI_REASON_SERVICESTOP: win32more.Windows.Win32.System.Wmi.MI_CancellationReason = 3
-class MI_Char16A(EasyCastStructure):
+class MI_Char16A(Structure):
     data: POINTER(UInt16)
     size: UInt32
-class MI_Char16AField(EasyCastStructure):
+class MI_Char16AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Char16A
     exists: Byte
     flags: Byte
-class MI_Char16Field(EasyCastStructure):
+class MI_Char16Field(Structure):
     value: UInt16
     exists: Byte
     flags: Byte
-class MI_Class(EasyCastStructure):
+class MI_Class(Structure):
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassFT)
     classDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl)
     namespaceName: POINTER(UInt16)
     serverName: POINTER(UInt16)
     reserved: IntPtr * 4
-class MI_ClassDecl(EasyCastStructure):
+class MI_ClassDecl(Structure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
@@ -1186,7 +1186,7 @@ class MI_ClassDecl(EasyCastStructure):
     schema: POINTER(win32more.Windows.Win32.System.Wmi.MI_SchemaDecl)
     providerFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ProviderFT)
     owningClass: POINTER(win32more.Windows.Win32.System.Wmi.MI_Class)
-class MI_ClassFT(EasyCastStructure):
+class MI_ClassFT(Structure):
     GetClassNameA: IntPtr
     GetNameSpace: IntPtr
     GetServerName: IntPtr
@@ -1201,7 +1201,7 @@ class MI_ClassFT(EasyCastStructure):
     GetParentClass: IntPtr
     Delete: IntPtr
     Clone: IntPtr
-class MI_ClientFT_V1(EasyCastStructure):
+class MI_ClientFT_V1(Structure):
     applicationFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ApplicationFT)
     sessionFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_SessionFT)
     operationFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationFT)
@@ -1212,186 +1212,186 @@ class MI_ClientFT_V1(EasyCastStructure):
     destinationOptionsFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_DestinationOptionsFT)
     operationOptionsFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationOptionsFT)
     utilitiesFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_UtilitiesFT)
-class MI_ConstBooleanA(EasyCastStructure):
+class MI_ConstBooleanA(Structure):
     data: POINTER(Byte)
     size: UInt32
-class MI_ConstBooleanAField(EasyCastStructure):
+class MI_ConstBooleanAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstBooleanA
     exists: Byte
     flags: Byte
-class MI_ConstBooleanField(EasyCastStructure):
+class MI_ConstBooleanField(Structure):
     value: Byte
     exists: Byte
     flags: Byte
-class MI_ConstChar16A(EasyCastStructure):
+class MI_ConstChar16A(Structure):
     data: POINTER(UInt16)
     size: UInt32
-class MI_ConstChar16AField(EasyCastStructure):
+class MI_ConstChar16AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstChar16A
     exists: Byte
     flags: Byte
-class MI_ConstChar16Field(EasyCastStructure):
+class MI_ConstChar16Field(Structure):
     value: UInt16
     exists: Byte
     flags: Byte
-class MI_ConstDatetimeA(EasyCastStructure):
+class MI_ConstDatetimeA(Structure):
     data: POINTER(win32more.Windows.Win32.System.Wmi.MI_Datetime)
     size: UInt32
-class MI_ConstDatetimeAField(EasyCastStructure):
+class MI_ConstDatetimeAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstDatetimeA
     exists: Byte
     flags: Byte
-class MI_ConstDatetimeField(EasyCastStructure):
+class MI_ConstDatetimeField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Datetime
     exists: Byte
     flags: Byte
-class MI_ConstInstanceA(EasyCastStructure):
+class MI_ConstInstanceA(Structure):
     data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance))
     size: UInt32
-class MI_ConstInstanceAField(EasyCastStructure):
+class MI_ConstInstanceAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstInstanceA
     exists: Byte
     flags: Byte
-class MI_ConstInstanceField(EasyCastStructure):
+class MI_ConstInstanceField(Structure):
     value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
     exists: Byte
     flags: Byte
-class MI_ConstReal32A(EasyCastStructure):
+class MI_ConstReal32A(Structure):
     data: POINTER(Single)
     size: UInt32
-class MI_ConstReal32AField(EasyCastStructure):
+class MI_ConstReal32AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstReal32A
     exists: Byte
     flags: Byte
-class MI_ConstReal32Field(EasyCastStructure):
+class MI_ConstReal32Field(Structure):
     value: Single
     exists: Byte
     flags: Byte
-class MI_ConstReal64A(EasyCastStructure):
+class MI_ConstReal64A(Structure):
     data: POINTER(Double)
     size: UInt32
-class MI_ConstReal64AField(EasyCastStructure):
+class MI_ConstReal64AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstReal64A
     exists: Byte
     flags: Byte
-class MI_ConstReal64Field(EasyCastStructure):
+class MI_ConstReal64Field(Structure):
     value: Double
     exists: Byte
     flags: Byte
-class MI_ConstReferenceA(EasyCastStructure):
+class MI_ConstReferenceA(Structure):
     data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance))
     size: UInt32
-class MI_ConstReferenceAField(EasyCastStructure):
+class MI_ConstReferenceAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstReferenceA
     exists: Byte
     flags: Byte
-class MI_ConstReferenceField(EasyCastStructure):
+class MI_ConstReferenceField(Structure):
     value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
     exists: Byte
     flags: Byte
-class MI_ConstSint16A(EasyCastStructure):
+class MI_ConstSint16A(Structure):
     data: POINTER(Int16)
     size: UInt32
-class MI_ConstSint16AField(EasyCastStructure):
+class MI_ConstSint16AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstSint16A
     exists: Byte
     flags: Byte
-class MI_ConstSint16Field(EasyCastStructure):
+class MI_ConstSint16Field(Structure):
     value: Int16
     exists: Byte
     flags: Byte
-class MI_ConstSint32A(EasyCastStructure):
+class MI_ConstSint32A(Structure):
     data: POINTER(Int32)
     size: UInt32
-class MI_ConstSint32AField(EasyCastStructure):
+class MI_ConstSint32AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstSint32A
     exists: Byte
     flags: Byte
-class MI_ConstSint32Field(EasyCastStructure):
+class MI_ConstSint32Field(Structure):
     value: Int32
     exists: Byte
     flags: Byte
-class MI_ConstSint64A(EasyCastStructure):
+class MI_ConstSint64A(Structure):
     data: POINTER(Int64)
     size: UInt32
-class MI_ConstSint64AField(EasyCastStructure):
+class MI_ConstSint64AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstSint64A
     exists: Byte
     flags: Byte
-class MI_ConstSint64Field(EasyCastStructure):
+class MI_ConstSint64Field(Structure):
     value: Int64
     exists: Byte
     flags: Byte
-class MI_ConstSint8A(EasyCastStructure):
+class MI_ConstSint8A(Structure):
     data: POINTER(SByte)
     size: UInt32
-class MI_ConstSint8AField(EasyCastStructure):
+class MI_ConstSint8AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstSint8A
     exists: Byte
     flags: Byte
-class MI_ConstSint8Field(EasyCastStructure):
+class MI_ConstSint8Field(Structure):
     value: SByte
     exists: Byte
     flags: Byte
-class MI_ConstStringA(EasyCastStructure):
+class MI_ConstStringA(Structure):
     data: POINTER(POINTER(UInt16))
     size: UInt32
-class MI_ConstStringAField(EasyCastStructure):
+class MI_ConstStringAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstStringA
     exists: Byte
     flags: Byte
-class MI_ConstStringField(EasyCastStructure):
+class MI_ConstStringField(Structure):
     value: POINTER(UInt16)
     exists: Byte
     flags: Byte
-class MI_ConstUint16A(EasyCastStructure):
+class MI_ConstUint16A(Structure):
     data: POINTER(UInt16)
     size: UInt32
-class MI_ConstUint16AField(EasyCastStructure):
+class MI_ConstUint16AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstUint16A
     exists: Byte
     flags: Byte
-class MI_ConstUint16Field(EasyCastStructure):
+class MI_ConstUint16Field(Structure):
     value: UInt16
     exists: Byte
     flags: Byte
-class MI_ConstUint32A(EasyCastStructure):
+class MI_ConstUint32A(Structure):
     data: POINTER(UInt32)
     size: UInt32
-class MI_ConstUint32AField(EasyCastStructure):
+class MI_ConstUint32AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstUint32A
     exists: Byte
     flags: Byte
-class MI_ConstUint32Field(EasyCastStructure):
+class MI_ConstUint32Field(Structure):
     value: UInt32
     exists: Byte
     flags: Byte
-class MI_ConstUint64A(EasyCastStructure):
+class MI_ConstUint64A(Structure):
     data: POINTER(UInt64)
     size: UInt32
-class MI_ConstUint64AField(EasyCastStructure):
+class MI_ConstUint64AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstUint64A
     exists: Byte
     flags: Byte
-class MI_ConstUint64Field(EasyCastStructure):
+class MI_ConstUint64Field(Structure):
     value: UInt64
     exists: Byte
     flags: Byte
-class MI_ConstUint8A(EasyCastStructure):
+class MI_ConstUint8A(Structure):
     data: POINTER(Byte)
     size: UInt32
-class MI_ConstUint8AField(EasyCastStructure):
+class MI_ConstUint8AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ConstUint8A
     exists: Byte
     flags: Byte
-class MI_ConstUint8Field(EasyCastStructure):
+class MI_ConstUint8Field(Structure):
     value: Byte
     exists: Byte
     flags: Byte
-class MI_Context(EasyCastStructure):
+class MI_Context(Structure):
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ContextFT)
     reserved: IntPtr * 3
-class MI_ContextFT(EasyCastStructure):
+class MI_ContextFT(Structure):
     PostResult: IntPtr
     PostInstance: IntPtr
     PostIndication: IntPtr
@@ -1422,27 +1422,27 @@ class MI_ContextFT(EasyCastStructure):
     PostError: IntPtr
     PostCimError: IntPtr
     WriteError: IntPtr
-class MI_Datetime(EasyCastStructure):
+class MI_Datetime(Structure):
     isTimestamp: UInt32
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         timestamp: win32more.Windows.Win32.System.Wmi.MI_Timestamp
         interval: win32more.Windows.Win32.System.Wmi.MI_Interval
-class MI_DatetimeA(EasyCastStructure):
+class MI_DatetimeA(Structure):
     data: POINTER(win32more.Windows.Win32.System.Wmi.MI_Datetime)
     size: UInt32
-class MI_DatetimeAField(EasyCastStructure):
+class MI_DatetimeAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_DatetimeA
     exists: Byte
     flags: Byte
-class MI_DatetimeField(EasyCastStructure):
+class MI_DatetimeField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Datetime
     exists: Byte
     flags: Byte
-class MI_Deserializer(EasyCastStructure):
+class MI_Deserializer(Structure):
     reserved1: UInt64
     reserved2: IntPtr
-class MI_DeserializerFT(EasyCastStructure):
+class MI_DeserializerFT(Structure):
     Close: IntPtr
     DeserializeClass: IntPtr
     Class_GetClassName: IntPtr
@@ -1451,11 +1451,11 @@ class MI_DeserializerFT(EasyCastStructure):
     Instance_GetClassName: IntPtr
 @winfunctype_pointer
 def MI_Deserializer_ClassObjectNeeded(context: VoidPtr, serverName: POINTER(UInt16), namespaceName: POINTER(UInt16), className: POINTER(UInt16), requestedClassObject: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Class))) -> win32more.Windows.Win32.System.Wmi.MI_Result: ...
-class MI_DestinationOptions(EasyCastStructure):
+class MI_DestinationOptions(Structure):
     reserved1: UInt64
     reserved2: IntPtr
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_DestinationOptionsFT)
-class MI_DestinationOptionsFT(EasyCastStructure):
+class MI_DestinationOptionsFT(Structure):
     Delete: IntPtr
     SetString: IntPtr
     SetNumber: IntPtr
@@ -1510,42 +1510,42 @@ MI_ERRORCATEGORY_AUTHENTICATION_ERROR: win32more.Windows.Win32.System.Wmi.MI_Err
 MI_ERRORCATEGORY_LIMITS_EXCEEDED: win32more.Windows.Win32.System.Wmi.MI_ErrorCategory = 29
 MI_ERRORCATEGORY_QUOTA_EXCEEDED: win32more.Windows.Win32.System.Wmi.MI_ErrorCategory = 30
 MI_ERRORCATEGORY_NOT_ENABLED: win32more.Windows.Win32.System.Wmi.MI_ErrorCategory = 31
-class MI_FeatureDecl(EasyCastStructure):
+class MI_FeatureDecl(Structure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
     qualifiers: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Qualifier))
     numQualifiers: UInt32
-class MI_Filter(EasyCastStructure):
+class MI_Filter(Structure):
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_FilterFT)
     reserved: IntPtr * 3
-class MI_FilterFT(EasyCastStructure):
+class MI_FilterFT(Structure):
     Evaluate: IntPtr
     GetExpression: IntPtr
-class MI_HostedProvider(EasyCastStructure):
+class MI_HostedProvider(Structure):
     reserved1: UInt64
     reserved2: IntPtr
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_HostedProviderFT)
-class MI_HostedProviderFT(EasyCastStructure):
+class MI_HostedProviderFT(Structure):
     Close: IntPtr
     GetApplication: IntPtr
-class MI_Instance(EasyCastStructure):
+class MI_Instance(Structure):
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_InstanceFT)
     classDecl: POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl)
     serverName: POINTER(UInt16)
     nameSpace: POINTER(UInt16)
     reserved: IntPtr * 4
-class MI_InstanceA(EasyCastStructure):
+class MI_InstanceA(Structure):
     data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance))
     size: UInt32
-class MI_InstanceAField(EasyCastStructure):
+class MI_InstanceAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_InstanceA
     exists: Byte
     flags: Byte
-class MI_InstanceExFT(EasyCastStructure):
+class MI_InstanceExFT(Structure):
     parent: win32more.Windows.Win32.System.Wmi.MI_InstanceFT
     Normalize: IntPtr
-class MI_InstanceFT(EasyCastStructure):
+class MI_InstanceFT(Structure):
     Clone: IntPtr
     Destruct: IntPtr
     Delete: IntPtr
@@ -1564,11 +1564,11 @@ class MI_InstanceFT(EasyCastStructure):
     GetServerName: IntPtr
     SetServerName: IntPtr
     GetClass: IntPtr
-class MI_InstanceField(EasyCastStructure):
+class MI_InstanceField(Structure):
     value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
     exists: Byte
     flags: Byte
-class MI_Interval(EasyCastStructure):
+class MI_Interval(Structure):
     days: UInt32
     hours: UInt32
     minutes: UInt32
@@ -1584,7 +1584,7 @@ MI_LOCALE_TYPE_CLOSEST_UI: win32more.Windows.Win32.System.Wmi.MI_LocaleType = 2
 MI_LOCALE_TYPE_CLOSEST_DATA: win32more.Windows.Win32.System.Wmi.MI_LocaleType = 3
 @cfunctype_pointer
 def MI_MainFunction(server: POINTER(win32more.Windows.Win32.System.Wmi.MI_Server)) -> POINTER(win32more.Windows.Win32.System.Wmi.MI_Module): ...
-class MI_MethodDecl(EasyCastStructure):
+class MI_MethodDecl(Structure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
@@ -1600,7 +1600,7 @@ class MI_MethodDecl(EasyCastStructure):
     function: win32more.Windows.Win32.System.Wmi.MI_MethodDecl_Invoke
 @winfunctype_pointer
 def MI_MethodDecl_Invoke(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), methodName: POINTER(UInt16), instanceName: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance), parameters: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)) -> Void: ...
-class MI_Module(EasyCastStructure):
+class MI_Module(Structure):
     version: UInt32
     generatorVersion: UInt32
     flags: UInt32
@@ -1614,7 +1614,7 @@ def MI_Module_Load(self: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_M
 MI_Module_Self = IntPtr
 @winfunctype_pointer
 def MI_Module_Unload(self: POINTER(win32more.Windows.Win32.System.Wmi.MI_Module_Self), context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context)) -> Void: ...
-class MI_ObjectDecl(EasyCastStructure):
+class MI_ObjectDecl(Structure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
@@ -1623,7 +1623,7 @@ class MI_ObjectDecl(EasyCastStructure):
     properties: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertyDecl))
     numProperties: UInt32
     size: UInt32
-class MI_Operation(EasyCastStructure):
+class MI_Operation(Structure):
     reserved1: UInt64
     reserved2: IntPtr
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationFT)
@@ -1648,7 +1648,7 @@ def MI_OperationCallback_WriteError(operation: POINTER(win32more.Windows.Win32.S
 def MI_OperationCallback_WriteMessage(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, channel: UInt32, message: POINTER(UInt16)) -> Void: ...
 @winfunctype_pointer
 def MI_OperationCallback_WriteProgress(operation: POINTER(win32more.Windows.Win32.System.Wmi.MI_Operation), callbackContext: VoidPtr, activity: POINTER(UInt16), currentOperation: POINTER(UInt16), statusDescription: POINTER(UInt16), percentageComplete: UInt32, secondsRemaining: UInt32) -> Void: ...
-class MI_OperationCallbacks(EasyCastStructure):
+class MI_OperationCallbacks(Structure):
     callbackContext: VoidPtr
     promptUser: win32more.Windows.Win32.System.Wmi.MI_OperationCallback_PromptUser
     writeError: win32more.Windows.Win32.System.Wmi.MI_OperationCallback_WriteError
@@ -1658,18 +1658,18 @@ class MI_OperationCallbacks(EasyCastStructure):
     indicationResult: win32more.Windows.Win32.System.Wmi.MI_OperationCallback_Indication
     classResult: win32more.Windows.Win32.System.Wmi.MI_OperationCallback_Class
     streamedParameterResult: win32more.Windows.Win32.System.Wmi.MI_OperationCallback_StreamedParameter
-class MI_OperationFT(EasyCastStructure):
+class MI_OperationFT(Structure):
     Close: IntPtr
     Cancel: IntPtr
     GetSession: IntPtr
     GetInstance: IntPtr
     GetIndication: IntPtr
     GetClass: IntPtr
-class MI_OperationOptions(EasyCastStructure):
+class MI_OperationOptions(Structure):
     reserved1: UInt64
     reserved2: IntPtr
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_OperationOptionsFT)
-class MI_OperationOptionsFT(EasyCastStructure):
+class MI_OperationOptionsFT(Structure):
     Delete: IntPtr
     SetString: IntPtr
     SetNumber: IntPtr
@@ -1683,7 +1683,7 @@ class MI_OperationOptionsFT(EasyCastStructure):
     Clone: IntPtr
     SetInterval: IntPtr
     GetInterval: IntPtr
-class MI_ParameterDecl(EasyCastStructure):
+class MI_ParameterDecl(Structure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
@@ -1693,11 +1693,11 @@ class MI_ParameterDecl(EasyCastStructure):
     className: POINTER(UInt16)
     subscript: UInt32
     offset: UInt32
-class MI_ParameterSet(EasyCastStructure):
+class MI_ParameterSet(Structure):
     reserved1: UInt64
     reserved2: IntPtr
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_ParameterSetFT)
-class MI_ParameterSetFT(EasyCastStructure):
+class MI_ParameterSetFT(Structure):
     GetMethodReturnType: IntPtr
     GetParameterCount: IntPtr
     GetParameterAt: IntPtr
@@ -1705,7 +1705,7 @@ class MI_ParameterSetFT(EasyCastStructure):
 MI_PromptType = Int32
 MI_PROMPTTYPE_NORMAL: win32more.Windows.Win32.System.Wmi.MI_PromptType = 0
 MI_PROMPTTYPE_CRITICAL: win32more.Windows.Win32.System.Wmi.MI_PromptType = 1
-class MI_PropertyDecl(EasyCastStructure):
+class MI_PropertyDecl(Structure):
     flags: UInt32
     code: UInt32
     name: POINTER(UInt16)
@@ -1718,10 +1718,10 @@ class MI_PropertyDecl(EasyCastStructure):
     origin: POINTER(UInt16)
     propagator: POINTER(UInt16)
     value: VoidPtr
-class MI_PropertySet(EasyCastStructure):
+class MI_PropertySet(Structure):
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySetFT)
     reserved: IntPtr * 3
-class MI_PropertySetFT(EasyCastStructure):
+class MI_PropertySetFT(Structure):
     GetElementCount: IntPtr
     ContainsElement: IntPtr
     AddElement: IntPtr
@@ -1733,7 +1733,7 @@ class MI_PropertySetFT(EasyCastStructure):
 MI_ProviderArchitecture = Int32
 MI_PROVIDER_ARCHITECTURE_32BIT: win32more.Windows.Win32.System.Wmi.MI_ProviderArchitecture = 0
 MI_PROVIDER_ARCHITECTURE_64BIT: win32more.Windows.Win32.System.Wmi.MI_ProviderArchitecture = 1
-class MI_ProviderFT(EasyCastStructure):
+class MI_ProviderFT(Structure):
     Load: win32more.Windows.Win32.System.Wmi.MI_ProviderFT_Load
     Unload: win32more.Windows.Win32.System.Wmi.MI_ProviderFT_Unload
     GetInstance: win32more.Windows.Win32.System.Wmi.MI_ProviderFT_GetInstance
@@ -1776,56 +1776,56 @@ def MI_ProviderFT_Subscribe(self: VoidPtr, context: POINTER(win32more.Windows.Wi
 def MI_ProviderFT_Unload(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context)) -> Void: ...
 @winfunctype_pointer
 def MI_ProviderFT_Unsubscribe(self: VoidPtr, context: POINTER(win32more.Windows.Win32.System.Wmi.MI_Context), nameSpace: POINTER(UInt16), className: POINTER(UInt16), subscriptionID: UInt64, subscriptionSelf: VoidPtr) -> Void: ...
-class MI_Qualifier(EasyCastStructure):
+class MI_Qualifier(Structure):
     name: POINTER(UInt16)
     type: UInt32
     flavor: UInt32
     value: VoidPtr
-class MI_QualifierDecl(EasyCastStructure):
+class MI_QualifierDecl(Structure):
     name: POINTER(UInt16)
     type: UInt32
     scope: UInt32
     flavor: UInt32
     subscript: UInt32
     value: VoidPtr
-class MI_QualifierSet(EasyCastStructure):
+class MI_QualifierSet(Structure):
     reserved1: UInt64
     reserved2: IntPtr
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_QualifierSetFT)
-class MI_QualifierSetFT(EasyCastStructure):
+class MI_QualifierSetFT(Structure):
     GetQualifierCount: IntPtr
     GetQualifierAt: IntPtr
     GetQualifier: IntPtr
-class MI_Real32A(EasyCastStructure):
+class MI_Real32A(Structure):
     data: POINTER(Single)
     size: UInt32
-class MI_Real32AField(EasyCastStructure):
+class MI_Real32AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Real32A
     exists: Byte
     flags: Byte
-class MI_Real32Field(EasyCastStructure):
+class MI_Real32Field(Structure):
     value: Single
     exists: Byte
     flags: Byte
-class MI_Real64A(EasyCastStructure):
+class MI_Real64A(Structure):
     data: POINTER(Double)
     size: UInt32
-class MI_Real64AField(EasyCastStructure):
+class MI_Real64AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Real64A
     exists: Byte
     flags: Byte
-class MI_Real64Field(EasyCastStructure):
+class MI_Real64Field(Structure):
     value: Double
     exists: Byte
     flags: Byte
-class MI_ReferenceA(EasyCastStructure):
+class MI_ReferenceA(Structure):
     data: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance))
     size: UInt32
-class MI_ReferenceAField(EasyCastStructure):
+class MI_ReferenceAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_ReferenceA
     exists: Byte
     flags: Byte
-class MI_ReferenceField(EasyCastStructure):
+class MI_ReferenceField(Structure):
     value: POINTER(win32more.Windows.Win32.System.Wmi.MI_Instance)
     exists: Byte
     flags: Byte
@@ -1857,36 +1857,36 @@ MI_RESULT_FILTERED_ENUMERATION_NOT_SUPPORTED: win32more.Windows.Win32.System.Wmi
 MI_RESULT_CONTINUATION_ON_ERROR_NOT_SUPPORTED: win32more.Windows.Win32.System.Wmi.MI_Result = 26
 MI_RESULT_SERVER_LIMITS_EXCEEDED: win32more.Windows.Win32.System.Wmi.MI_Result = 27
 MI_RESULT_SERVER_IS_SHUTTING_DOWN: win32more.Windows.Win32.System.Wmi.MI_Result = 28
-class MI_SchemaDecl(EasyCastStructure):
+class MI_SchemaDecl(Structure):
     qualifierDecls: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_QualifierDecl))
     numQualifierDecls: UInt32
     classDecls: POINTER(POINTER(win32more.Windows.Win32.System.Wmi.MI_ClassDecl))
     numClassDecls: UInt32
-class MI_Serializer(EasyCastStructure):
+class MI_Serializer(Structure):
     reserved1: UInt64
     reserved2: IntPtr
-class MI_SerializerFT(EasyCastStructure):
+class MI_SerializerFT(Structure):
     Close: IntPtr
     SerializeClass: IntPtr
     SerializeInstance: IntPtr
-class MI_Server(EasyCastStructure):
+class MI_Server(Structure):
     serverFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ServerFT)
     contextFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_ContextFT)
     instanceFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_InstanceFT)
     propertySetFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_PropertySetFT)
     filterFT: POINTER(win32more.Windows.Win32.System.Wmi.MI_FilterFT)
-class MI_ServerFT(EasyCastStructure):
+class MI_ServerFT(Structure):
     GetVersion: IntPtr
     GetSystemName: IntPtr
-class MI_Session(EasyCastStructure):
+class MI_Session(Structure):
     reserved1: UInt64
     reserved2: IntPtr
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_SessionFT)
-class MI_SessionCallbacks(EasyCastStructure):
+class MI_SessionCallbacks(Structure):
     callbackContext: VoidPtr
     writeMessage: IntPtr
     writeError: IntPtr
-class MI_SessionFT(EasyCastStructure):
+class MI_SessionFT(Structure):
     Close: IntPtr
     GetApplication: IntPtr
     GetInstance: IntPtr
@@ -1902,66 +1902,66 @@ class MI_SessionFT(EasyCastStructure):
     GetClass: IntPtr
     EnumerateClasses: IntPtr
     TestConnection: IntPtr
-class MI_Sint16A(EasyCastStructure):
+class MI_Sint16A(Structure):
     data: POINTER(Int16)
     size: UInt32
-class MI_Sint16AField(EasyCastStructure):
+class MI_Sint16AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Sint16A
     exists: Byte
     flags: Byte
-class MI_Sint16Field(EasyCastStructure):
+class MI_Sint16Field(Structure):
     value: Int16
     exists: Byte
     flags: Byte
-class MI_Sint32A(EasyCastStructure):
+class MI_Sint32A(Structure):
     data: POINTER(Int32)
     size: UInt32
-class MI_Sint32AField(EasyCastStructure):
+class MI_Sint32AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Sint32A
     exists: Byte
     flags: Byte
-class MI_Sint32Field(EasyCastStructure):
+class MI_Sint32Field(Structure):
     value: Int32
     exists: Byte
     flags: Byte
-class MI_Sint64A(EasyCastStructure):
+class MI_Sint64A(Structure):
     data: POINTER(Int64)
     size: UInt32
-class MI_Sint64AField(EasyCastStructure):
+class MI_Sint64AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Sint64A
     exists: Byte
     flags: Byte
-class MI_Sint64Field(EasyCastStructure):
+class MI_Sint64Field(Structure):
     value: Int64
     exists: Byte
     flags: Byte
-class MI_Sint8A(EasyCastStructure):
+class MI_Sint8A(Structure):
     data: POINTER(SByte)
     size: UInt32
-class MI_Sint8AField(EasyCastStructure):
+class MI_Sint8AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Sint8A
     exists: Byte
     flags: Byte
-class MI_Sint8Field(EasyCastStructure):
+class MI_Sint8Field(Structure):
     value: SByte
     exists: Byte
     flags: Byte
-class MI_StringA(EasyCastStructure):
+class MI_StringA(Structure):
     data: POINTER(POINTER(UInt16))
     size: UInt32
-class MI_StringAField(EasyCastStructure):
+class MI_StringAField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_StringA
     exists: Byte
     flags: Byte
-class MI_StringField(EasyCastStructure):
+class MI_StringField(Structure):
     value: POINTER(UInt16)
     exists: Byte
     flags: Byte
-class MI_SubscriptionDeliveryOptions(EasyCastStructure):
+class MI_SubscriptionDeliveryOptions(Structure):
     reserved1: UInt64
     reserved2: IntPtr
     ft: POINTER(win32more.Windows.Win32.System.Wmi.MI_SubscriptionDeliveryOptionsFT)
-class MI_SubscriptionDeliveryOptionsFT(EasyCastStructure):
+class MI_SubscriptionDeliveryOptionsFT(Structure):
     SetString: IntPtr
     SetNumber: IntPtr
     SetDateTime: IntPtr
@@ -1982,7 +1982,7 @@ class MI_SubscriptionDeliveryOptionsFT(EasyCastStructure):
 MI_SubscriptionDeliveryType = Int32
 MI_SubscriptionDeliveryType_Pull: win32more.Windows.Win32.System.Wmi.MI_SubscriptionDeliveryType = 1
 MI_SubscriptionDeliveryType_Push: win32more.Windows.Win32.System.Wmi.MI_SubscriptionDeliveryType = 2
-class MI_Timestamp(EasyCastStructure):
+class MI_Timestamp(Structure):
     year: UInt32
     month: UInt32
     day: UInt32
@@ -2025,64 +2025,64 @@ MI_STRINGA: win32more.Windows.Win32.System.Wmi.MI_Type = 29
 MI_REFERENCEA: win32more.Windows.Win32.System.Wmi.MI_Type = 30
 MI_INSTANCEA: win32more.Windows.Win32.System.Wmi.MI_Type = 31
 MI_ARRAY: win32more.Windows.Win32.System.Wmi.MI_Type = 16
-class MI_Uint16A(EasyCastStructure):
+class MI_Uint16A(Structure):
     data: POINTER(UInt16)
     size: UInt32
-class MI_Uint16AField(EasyCastStructure):
+class MI_Uint16AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Uint16A
     exists: Byte
     flags: Byte
-class MI_Uint16Field(EasyCastStructure):
+class MI_Uint16Field(Structure):
     value: UInt16
     exists: Byte
     flags: Byte
-class MI_Uint32A(EasyCastStructure):
+class MI_Uint32A(Structure):
     data: POINTER(UInt32)
     size: UInt32
-class MI_Uint32AField(EasyCastStructure):
+class MI_Uint32AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Uint32A
     exists: Byte
     flags: Byte
-class MI_Uint32Field(EasyCastStructure):
+class MI_Uint32Field(Structure):
     value: UInt32
     exists: Byte
     flags: Byte
-class MI_Uint64A(EasyCastStructure):
+class MI_Uint64A(Structure):
     data: POINTER(UInt64)
     size: UInt32
-class MI_Uint64AField(EasyCastStructure):
+class MI_Uint64AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Uint64A
     exists: Byte
     flags: Byte
-class MI_Uint64Field(EasyCastStructure):
+class MI_Uint64Field(Structure):
     value: UInt64
     exists: Byte
     flags: Byte
-class MI_Uint8A(EasyCastStructure):
+class MI_Uint8A(Structure):
     data: POINTER(Byte)
     size: UInt32
-class MI_Uint8AField(EasyCastStructure):
+class MI_Uint8AField(Structure):
     value: win32more.Windows.Win32.System.Wmi.MI_Uint8A
     exists: Byte
     flags: Byte
-class MI_Uint8Field(EasyCastStructure):
+class MI_Uint8Field(Structure):
     value: Byte
     exists: Byte
     flags: Byte
-class MI_UserCredentials(EasyCastStructure):
+class MI_UserCredentials(Structure):
     authenticationType: POINTER(UInt16)
     credentials: _credentials_e__Union
-    class _credentials_e__Union(EasyCastUnion):
+    class _credentials_e__Union(Union):
         usernamePassword: win32more.Windows.Win32.System.Wmi.MI_UsernamePasswordCreds
         certificateThumbprint: POINTER(UInt16)
-class MI_UsernamePasswordCreds(EasyCastStructure):
+class MI_UsernamePasswordCreds(Structure):
     domain: POINTER(UInt16)
     username: POINTER(UInt16)
     password: POINTER(UInt16)
-class MI_UtilitiesFT(EasyCastStructure):
+class MI_UtilitiesFT(Structure):
     MapErrorToMiErrorCategory: IntPtr
     CimErrorFromErrorCode: IntPtr
-class MI_Value(EasyCastUnion):
+class MI_Value(Union):
     boolean: Byte
     uint8: Byte
     sint8: SByte
@@ -2117,7 +2117,7 @@ class MI_Value(EasyCastUnion):
     instancea: win32more.Windows.Win32.System.Wmi.MI_InstanceA
     array: win32more.Windows.Win32.System.Wmi.MI_Array
 MofCompiler = Guid('{6daf9757-2e37-11d2-aec9-00c04fb68820}')
-class SWbemAnalysisMatrix(EasyCastStructure):
+class SWbemAnalysisMatrix(Structure):
     m_uVersion: UInt32
     m_uMatrixType: UInt32
     m_pszProperty: win32more.Windows.Win32.Foundation.PWSTR
@@ -2125,12 +2125,12 @@ class SWbemAnalysisMatrix(EasyCastStructure):
     m_uEntries: UInt32
     m_pValues: POINTER(VoidPtr)
     m_pbTruthTable: POINTER(win32more.Windows.Win32.Foundation.BOOL)
-class SWbemAnalysisMatrixList(EasyCastStructure):
+class SWbemAnalysisMatrixList(Structure):
     m_uVersion: UInt32
     m_uMatrixType: UInt32
     m_uNumMatrices: UInt32
     m_pMatrices: POINTER(win32more.Windows.Win32.System.Wmi.SWbemAnalysisMatrix)
-class SWbemAssocQueryInf(EasyCastStructure):
+class SWbemAssocQueryInf(Structure):
     m_uVersion: UInt32
     m_uAnalysisType: UInt32
     m_uFeatureMask: UInt32
@@ -2161,7 +2161,7 @@ SWbemProperty = Guid('{04b83d5d-21ae-11d2-8b33-00600806d9b6}')
 SWbemPropertySet = Guid('{04b83d5c-21ae-11d2-8b33-00600806d9b6}')
 SWbemQualifier = Guid('{04b83d5f-21ae-11d2-8b33-00600806d9b6}')
 SWbemQualifierSet = Guid('{04b83d5e-21ae-11d2-8b33-00600806d9b6}')
-class SWbemQueryQualifiedName(EasyCastStructure):
+class SWbemQueryQualifiedName(Structure):
     m_uVersion: UInt32
     m_uTokenType: UInt32
     m_uNameListSize: UInt32
@@ -2171,7 +2171,7 @@ class SWbemQueryQualifiedName(EasyCastStructure):
     m_puArrayIndex: POINTER(UInt32)
 SWbemRefreshableItem = Guid('{8c6854bc-de4b-11d3-b390-00105a1f473a}')
 SWbemRefresher = Guid('{d269bf5c-d9c1-11d3-b38f-00105a1f473a}')
-class SWbemRpnConst(EasyCastUnion):
+class SWbemRpnConst(Union):
     m_pszStrVal: win32more.Windows.Win32.Foundation.PWSTR
     m_bBoolVal: win32more.Windows.Win32.Foundation.BOOL
     m_lLongVal: Int32
@@ -2179,7 +2179,7 @@ class SWbemRpnConst(EasyCastUnion):
     m_dblVal: Double
     m_lVal64: Int64
     m_uVal64: Int64
-class SWbemRpnEncodedQuery(EasyCastStructure):
+class SWbemRpnEncodedQuery(Structure):
     m_uVersion: UInt32
     m_uTokenType: UInt32
     m_uParsedFeatureMask: UInt64
@@ -2198,7 +2198,7 @@ class SWbemRpnEncodedQuery(EasyCastStructure):
     m_uOrderByListSize: UInt32
     m_ppszOrderByList: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     m_uOrderDirectionEl: POINTER(UInt32)
-class SWbemRpnQueryToken(EasyCastStructure):
+class SWbemRpnQueryToken(Structure):
     m_uVersion: UInt32
     m_uTokenType: UInt32
     m_uSubexpressionShape: UInt32
@@ -2211,7 +2211,7 @@ class SWbemRpnQueryToken(EasyCastStructure):
     m_Const2: win32more.Windows.Win32.System.Wmi.SWbemRpnConst
     m_pszRightFunc: win32more.Windows.Win32.Foundation.PWSTR
     m_pszLeftFunc: win32more.Windows.Win32.Foundation.PWSTR
-class SWbemRpnTokenList(EasyCastStructure):
+class SWbemRpnTokenList(Structure):
     m_uVersion: UInt32
     m_uTokenType: UInt32
     m_uNumTokens: UInt32
@@ -2449,7 +2449,7 @@ WBEM_FLAG_CONSOLE_PRINT: win32more.Windows.Win32.System.Wmi.WBEM_COMPILER_OPTION
 WBEM_FLAG_DONT_ADD_TO_LIST: win32more.Windows.Win32.System.Wmi.WBEM_COMPILER_OPTIONS = 16
 WBEM_FLAG_SPLIT_FILES: win32more.Windows.Win32.System.Wmi.WBEM_COMPILER_OPTIONS = 32
 WBEM_FLAG_STORE_FILE: win32more.Windows.Win32.System.Wmi.WBEM_COMPILER_OPTIONS = 256
-class WBEM_COMPILE_STATUS_INFO(EasyCastStructure):
+class WBEM_COMPILE_STATUS_INFO(Structure):
     lPhaseError: Int32
     hRes: win32more.Windows.Win32.Foundation.HRESULT
     ObjectNum: Int32

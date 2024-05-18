@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.HttpServer
 import win32more.Windows.Win32.Networking.WinSock
@@ -189,12 +189,12 @@ def HttpDeleteServiceConfiguration(ServiceHandle: win32more.Windows.Win32.Founda
 def HttpQueryServiceConfiguration(ServiceHandle: win32more.Windows.Win32.Foundation.HANDLE, ConfigId: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pInput: VoidPtr, InputLength: UInt32, pOutput: VoidPtr, OutputLength: UInt32, pReturnLength: POINTER(UInt32), pOverlapped: POINTER(win32more.Windows.Win32.System.IO.OVERLAPPED)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpGetExtension(Version: win32more.Windows.Win32.Networking.HttpServer.HTTPAPI_VERSION, Extension: UInt32, Buffer: VoidPtr, BufferSize: UInt32) -> UInt32: ...
-class HTTP2_SETTINGS_LIMITS_PARAM(EasyCastStructure):
+class HTTP2_SETTINGS_LIMITS_PARAM(Structure):
     Http2MaxSettingsPerFrame: UInt32
     Http2MaxSettingsPerMinute: UInt32
-class HTTP2_WINDOW_SIZE_PARAM(EasyCastStructure):
+class HTTP2_WINDOW_SIZE_PARAM(Structure):
     Http2ReceiveWindowSize: UInt32
-class HTTPAPI_VERSION(EasyCastStructure):
+class HTTPAPI_VERSION(Structure):
     HttpApiMajorVersion: UInt16
     HttpApiMinorVersion: UInt16
 HTTP_503_RESPONSE_VERBOSITY = Int32
@@ -209,16 +209,16 @@ HTTP_AUTH_STATUS = Int32
 HttpAuthStatusSuccess: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS = 0
 HttpAuthStatusNotAuthenticated: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS = 1
 HttpAuthStatusFailure: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS = 2
-class HTTP_BANDWIDTH_LIMIT_INFO(EasyCastStructure):
+class HTTP_BANDWIDTH_LIMIT_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     MaxBandwidth: UInt32
-class HTTP_BINDING_INFO(EasyCastStructure):
+class HTTP_BINDING_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     RequestQueueHandle: win32more.Windows.Win32.Foundation.HANDLE
-class HTTP_BYTE_RANGE(EasyCastStructure):
+class HTTP_BYTE_RANGE(Structure):
     StartingOffset: UInt64
     Length: UInt64
-class HTTP_CACHE_POLICY(EasyCastStructure):
+class HTTP_CACHE_POLICY(Structure):
     Policy: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE
     SecondsToLive: UInt32
 HTTP_CACHE_POLICY_TYPE = Int32
@@ -226,15 +226,15 @@ HttpCachePolicyNocache: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE
 HttpCachePolicyUserInvalidates: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 1
 HttpCachePolicyTimeToLive: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 2
 HttpCachePolicyMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE = 3
-class HTTP_CHANNEL_BIND_INFO(EasyCastStructure):
+class HTTP_CHANNEL_BIND_INFO(Structure):
     Hardening: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTHENTICATION_HARDENING_LEVELS
     Flags: UInt32
     ServiceNames: POINTER(POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE))
     NumberOfServiceNames: UInt32
-class HTTP_CONNECTION_LIMIT_INFO(EasyCastStructure):
+class HTTP_CONNECTION_LIMIT_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     MaxConnections: UInt32
-class HTTP_COOKED_URL(EasyCastStructure):
+class HTTP_COOKED_URL(Structure):
     FullUrlLength: UInt16
     HostLength: UInt16
     AbsPathLength: UInt16
@@ -246,32 +246,32 @@ class HTTP_COOKED_URL(EasyCastStructure):
 HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID = Int32
 CreateRequestQueueExternalIdProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID = 1
 CreateRequestQueueMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID = 2
-class HTTP_CREATE_REQUEST_QUEUE_PROPERTY_INFO(EasyCastStructure):
+class HTTP_CREATE_REQUEST_QUEUE_PROPERTY_INFO(Structure):
     PropertyId: win32more.Windows.Win32.Networking.HttpServer.HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID
     PropertyInfoLength: UInt32
     PropertyInfo: VoidPtr
-class HTTP_DATA_CHUNK(EasyCastStructure):
+class HTTP_DATA_CHUNK(Structure):
     DataChunkType: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         FromMemory: _FromMemory_e__Struct
         FromFileHandle: _FromFileHandle_e__Struct
         FromFragmentCache: _FromFragmentCache_e__Struct
         FromFragmentCacheEx: _FromFragmentCacheEx_e__Struct
         Trailers: _Trailers_e__Struct
-        class _FromMemory_e__Struct(EasyCastStructure):
+        class _FromMemory_e__Struct(Structure):
             pBuffer: VoidPtr
             BufferLength: UInt32
-        class _FromFileHandle_e__Struct(EasyCastStructure):
+        class _FromFileHandle_e__Struct(Structure):
             ByteRange: win32more.Windows.Win32.Networking.HttpServer.HTTP_BYTE_RANGE
             FileHandle: win32more.Windows.Win32.Foundation.HANDLE
-        class _FromFragmentCache_e__Struct(EasyCastStructure):
+        class _FromFragmentCache_e__Struct(Structure):
             FragmentNameLength: UInt16
             pFragmentName: win32more.Windows.Win32.Foundation.PWSTR
-        class _FromFragmentCacheEx_e__Struct(EasyCastStructure):
+        class _FromFragmentCacheEx_e__Struct(Structure):
             ByteRange: win32more.Windows.Win32.Networking.HttpServer.HTTP_BYTE_RANGE
             pFragmentName: win32more.Windows.Win32.Foundation.PWSTR
-        class _Trailers_e__Struct(EasyCastStructure):
+        class _Trailers_e__Struct(Structure):
             TrailerCount: UInt16
             pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
 HTTP_DATA_CHUNK_TYPE = Int32
@@ -284,14 +284,14 @@ HttpDataChunkMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CH
 HTTP_DELEGATE_REQUEST_PROPERTY_ID = Int32
 DelegateRequestReservedProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_ID = 0
 DelegateRequestDelegateUrlProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_ID = 1
-class HTTP_DELEGATE_REQUEST_PROPERTY_INFO(EasyCastStructure):
+class HTTP_DELEGATE_REQUEST_PROPERTY_INFO(Structure):
     PropertyId: win32more.Windows.Win32.Networking.HttpServer.HTTP_DELEGATE_REQUEST_PROPERTY_ID
     PropertyInfoLength: UInt32
     PropertyInfo: VoidPtr
 HTTP_ENABLED_STATE = Int32
 HttpEnabledStateActive: win32more.Windows.Win32.Networking.HttpServer.HTTP_ENABLED_STATE = 0
 HttpEnabledStateInactive: win32more.Windows.Win32.Networking.HttpServer.HTTP_ENABLED_STATE = 1
-class HTTP_ERROR_HEADERS_PARAM(EasyCastStructure):
+class HTTP_ERROR_HEADERS_PARAM(Structure):
     StatusCode: UInt16
     HeaderCount: UInt16
     Headers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
@@ -303,7 +303,7 @@ HttpFeatureDelegateEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATUR
 HttpFeatureHttp3: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 4
 HttpFeatureLast: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = 5
 HttpFeaturemax: win32more.Windows.Win32.Networking.HttpServer.HTTP_FEATURE_ID = -1
-class HTTP_FLOWRATE_INFO(EasyCastStructure):
+class HTTP_FLOWRATE_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     MaxBandwidth: UInt32
     MaxPeakBandwidth: UInt32
@@ -366,13 +366,13 @@ HttpHeaderMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID 
 HTTP_INITIALIZE = UInt32
 HTTP_INITIALIZE_CONFIG: win32more.Windows.Win32.Networking.HttpServer.HTTP_INITIALIZE = 2
 HTTP_INITIALIZE_SERVER: win32more.Windows.Win32.Networking.HttpServer.HTTP_INITIALIZE = 1
-class HTTP_KNOWN_HEADER(EasyCastStructure):
+class HTTP_KNOWN_HEADER(Structure):
     RawValueLength: UInt16
     pRawValue: win32more.Windows.Win32.Foundation.PSTR
-class HTTP_LISTEN_ENDPOINT_INFO(EasyCastStructure):
+class HTTP_LISTEN_ENDPOINT_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     EnableSharing: win32more.Windows.Win32.Foundation.BOOLEAN
-class HTTP_LOGGING_INFO(EasyCastStructure):
+class HTTP_LOGGING_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     LoggingFlags: UInt32
     SoftwareName: win32more.Windows.Win32.Foundation.PWSTR
@@ -398,11 +398,11 @@ HttpLoggingTypeW3C: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_T
 HttpLoggingTypeIIS: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 1
 HttpLoggingTypeNCSA: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 2
 HttpLoggingTypeRaw: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOGGING_TYPE = 3
-class HTTP_LOG_DATA(EasyCastStructure):
+class HTTP_LOG_DATA(Structure):
     Type: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_TYPE
 HTTP_LOG_DATA_TYPE = Int32
 HttpLogDataTypeFields: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA_TYPE = 0
-class HTTP_LOG_FIELDS_DATA(EasyCastStructure):
+class HTTP_LOG_FIELDS_DATA(Structure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_LOG_DATA
     UserNameLength: UInt16
     UriStemLength: UInt16
@@ -433,12 +433,12 @@ class HTTP_LOG_FIELDS_DATA(EasyCastStructure):
     Win32Status: UInt32
     MethodNum: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB
     SubStatus: UInt16
-class HTTP_MULTIPLE_KNOWN_HEADERS(EasyCastStructure):
+class HTTP_MULTIPLE_KNOWN_HEADERS(Structure):
     HeaderId: win32more.Windows.Win32.Networking.HttpServer.HTTP_HEADER_ID
     Flags: UInt32
     KnownHeaderCount: UInt16
     KnownHeaders: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_KNOWN_HEADER)
-class HTTP_PERFORMANCE_PARAM(EasyCastStructure):
+class HTTP_PERFORMANCE_PARAM(Structure):
     Type: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE
     BufferSize: UInt32
     Buffer: VoidPtr
@@ -450,30 +450,30 @@ PerformanceParamMaxConcurrentClientStreams: win32more.Windows.Win32.Networking.H
 PerformanceParamMaxReceiveBufferSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 4
 PerformanceParamDecryptOnSspiThread: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 5
 PerformanceParamMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM_TYPE = 6
-class HTTP_PROPERTY_FLAGS(EasyCastStructure):
+class HTTP_PROPERTY_FLAGS(Structure):
     _bitfield: UInt32
-class HTTP_PROTECTION_LEVEL_INFO(EasyCastStructure):
+class HTTP_PROTECTION_LEVEL_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     Level: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE
 HTTP_PROTECTION_LEVEL_TYPE = Int32
 HttpProtectionLevelUnrestricted: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE = 0
 HttpProtectionLevelEdgeRestricted: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE = 1
 HttpProtectionLevelRestricted: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROTECTION_LEVEL_TYPE = 2
-class HTTP_QOS_SETTING_INFO(EasyCastStructure):
+class HTTP_QOS_SETTING_INFO(Structure):
     QosType: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE
     QosSetting: VoidPtr
 HTTP_QOS_SETTING_TYPE = Int32
 HttpQosSettingTypeBandwidth: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE = 0
 HttpQosSettingTypeConnectionLimit: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE = 1
 HttpQosSettingTypeFlowRate: win32more.Windows.Win32.Networking.HttpServer.HTTP_QOS_SETTING_TYPE = 2
-class HTTP_QUERY_REQUEST_QUALIFIER_QUIC(EasyCastStructure):
+class HTTP_QUERY_REQUEST_QUALIFIER_QUIC(Structure):
     Freshness: UInt64
-class HTTP_QUERY_REQUEST_QUALIFIER_TCP(EasyCastStructure):
+class HTTP_QUERY_REQUEST_QUALIFIER_TCP(Structure):
     Freshness: UInt64
-class HTTP_QUIC_API_TIMINGS(EasyCastStructure):
+class HTTP_QUIC_API_TIMINGS(Structure):
     ConnectionTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_QUIC_CONNECTION_API_TIMINGS
     StreamTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_QUIC_STREAM_API_TIMINGS
-class HTTP_QUIC_CONNECTION_API_TIMINGS(EasyCastStructure):
+class HTTP_QUIC_CONNECTION_API_TIMINGS(Structure):
     OpenTime: UInt64
     CloseTime: UInt64
     StartTime: UInt64
@@ -487,7 +487,7 @@ class HTTP_QUIC_CONNECTION_API_TIMINGS(EasyCastStructure):
     SetCallbackHandlerCount: UInt64
     SetCallbackHandlerSum: UInt64
     ControlStreamTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_QUIC_STREAM_API_TIMINGS
-class HTTP_QUIC_STREAM_API_TIMINGS(EasyCastStructure):
+class HTTP_QUIC_STREAM_API_TIMINGS(Structure):
     OpenCount: UInt64
     OpenSum: UInt64
     CloseCount: UInt64
@@ -506,7 +506,7 @@ class HTTP_QUIC_STREAM_API_TIMINGS(EasyCastStructure):
     SetParamSum: UInt64
     SetCallbackHandlerCount: UInt64
     SetCallbackHandlerSum: UInt64
-class HTTP_QUIC_STREAM_REQUEST_STATS(EasyCastStructure):
+class HTTP_QUIC_STREAM_REQUEST_STATS(Structure):
     StreamWaitStart: UInt64
     StreamWaitEnd: UInt64
     RequestHeadersCompressionStart: UInt64
@@ -518,7 +518,7 @@ class HTTP_QUIC_STREAM_REQUEST_STATS(EasyCastStructure):
 HTTP_RECEIVE_HTTP_REQUEST_FLAGS = UInt32
 HTTP_RECEIVE_REQUEST_FLAG_COPY_BODY: win32more.Windows.Win32.Networking.HttpServer.HTTP_RECEIVE_HTTP_REQUEST_FLAGS = 1
 HTTP_RECEIVE_REQUEST_FLAG_FLUSH_BODY: win32more.Windows.Win32.Networking.HttpServer.HTTP_RECEIVE_HTTP_REQUEST_FLAGS = 2
-class HTTP_REQUEST_AUTH_INFO(EasyCastStructure):
+class HTTP_REQUEST_AUTH_INFO(Structure):
     AuthStatus: win32more.Windows.Win32.Networking.HttpServer.HTTP_AUTH_STATUS
     SecStatus: win32more.Windows.Win32.Foundation.HRESULT
     Flags: UInt32
@@ -539,18 +539,18 @@ HttpRequestAuthTypeDigest: win32more.Windows.Win32.Networking.HttpServer.HTTP_RE
 HttpRequestAuthTypeNTLM: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 3
 HttpRequestAuthTypeNegotiate: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 4
 HttpRequestAuthTypeKerberos: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_AUTH_TYPE = 5
-class HTTP_REQUEST_CHANNEL_BIND_STATUS(EasyCastStructure):
+class HTTP_REQUEST_CHANNEL_BIND_STATUS(Structure):
     ServiceName: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE)
     ChannelToken: POINTER(Byte)
     ChannelTokenSize: UInt32
     Flags: UInt32
-class HTTP_REQUEST_HEADERS(EasyCastStructure):
+class HTTP_REQUEST_HEADERS(Structure):
     UnknownHeaderCount: UInt16
     pUnknownHeaders: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
     TrailerCount: UInt16
     pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
     KnownHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_KNOWN_HEADER * 41
-class HTTP_REQUEST_INFO(EasyCastStructure):
+class HTTP_REQUEST_INFO(Structure):
     InfoType: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO_TYPE
     InfoLength: UInt32
     pInfo: VoidPtr
@@ -574,12 +574,12 @@ HttpRequestPropertySni: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUE
 HttpRequestPropertyStreamError: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 5
 HttpRequestPropertyWskApiTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 6
 HttpRequestPropertyQuicApiTimings: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_PROPERTY = 7
-class HTTP_REQUEST_PROPERTY_SNI(EasyCastStructure):
+class HTTP_REQUEST_PROPERTY_SNI(Structure):
     Hostname: Char * 256
     Flags: UInt32
-class HTTP_REQUEST_PROPERTY_STREAM_ERROR(EasyCastStructure):
+class HTTP_REQUEST_PROPERTY_STREAM_ERROR(Structure):
     ErrorCode: UInt32
-class HTTP_REQUEST_SIZING_INFO(EasyCastStructure):
+class HTTP_REQUEST_SIZING_INFO(Structure):
     Flags: UInt64
     RequestIndex: UInt32
     RequestSizingCount: UInt32
@@ -591,7 +591,7 @@ HttpRequestSizingTypeTlsHandshakeLeg2ClientData: win32more.Windows.Win32.Network
 HttpRequestSizingTypeTlsHandshakeLeg2ServerData: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 3
 HttpRequestSizingTypeHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 4
 HttpRequestSizingTypeMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_SIZING_TYPE = 5
-class HTTP_REQUEST_TIMING_INFO(EasyCastStructure):
+class HTTP_REQUEST_TIMING_INFO(Structure):
     RequestTimingCount: UInt32
     RequestTiming: UInt64 * 30
 HTTP_REQUEST_TIMING_TYPE = Int32
@@ -626,13 +626,13 @@ HttpRequestTimingTypeHttp3StreamStart: win32more.Windows.Win32.Networking.HttpSe
 HttpRequestTimingTypeHttp3HeaderDecodeStart: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 28
 HttpRequestTimingTypeHttp3HeaderDecodeEnd: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 29
 HttpRequestTimingTypeMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_TIMING_TYPE = 30
-class HTTP_REQUEST_TOKEN_BINDING_INFO(EasyCastStructure):
+class HTTP_REQUEST_TOKEN_BINDING_INFO(Structure):
     TokenBinding: POINTER(Byte)
     TokenBindingSize: UInt32
     EKM: POINTER(Byte)
     EKMSize: UInt32
     KeyType: Byte
-class HTTP_REQUEST_V1(EasyCastStructure):
+class HTTP_REQUEST_V1(Structure):
     Flags: UInt32
     ConnectionId: UInt64
     RequestId: UInt64
@@ -651,17 +651,17 @@ class HTTP_REQUEST_V1(EasyCastStructure):
     pEntityChunks: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK)
     RawConnectionId: UInt64
     pSslInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_INFO)
-class HTTP_REQUEST_V2(EasyCastStructure):
+class HTTP_REQUEST_V2(Structure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_V1
     RequestInfoCount: UInt16
     pRequestInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_REQUEST_INFO)
-class HTTP_RESPONSE_HEADERS(EasyCastStructure):
+class HTTP_RESPONSE_HEADERS(Structure):
     UnknownHeaderCount: UInt16
     pUnknownHeaders: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
     TrailerCount: UInt16
     pTrailers: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_UNKNOWN_HEADER)
     KnownHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_KNOWN_HEADER * 30
-class HTTP_RESPONSE_INFO(EasyCastStructure):
+class HTTP_RESPONSE_INFO(Structure):
     Type: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE
     Length: UInt32
     pInfo: VoidPtr
@@ -670,7 +670,7 @@ HttpResponseInfoTypeMultipleKnownHeaders: win32more.Windows.Win32.Networking.Htt
 HttpResponseInfoTypeAuthenticationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 1
 HttpResponseInfoTypeQoSProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 2
 HttpResponseInfoTypeChannelBind: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO_TYPE = 3
-class HTTP_RESPONSE_V1(EasyCastStructure):
+class HTTP_RESPONSE_V1(Structure):
     Flags: UInt32
     Version: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERSION
     StatusCode: UInt16
@@ -679,7 +679,7 @@ class HTTP_RESPONSE_V1(EasyCastStructure):
     Headers: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_HEADERS
     EntityChunkCount: UInt16
     pEntityChunks: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK)
-class HTTP_RESPONSE_V2(EasyCastStructure):
+class HTTP_RESPONSE_V2(Structure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_V1
     ResponseInfoCount: UInt16
     pResponseInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_RESPONSE_INFO)
@@ -687,15 +687,15 @@ HTTP_SCHEME = Int32
 HttpSchemeHttp: win32more.Windows.Win32.Networking.HttpServer.HTTP_SCHEME = 0
 HttpSchemeHttps: win32more.Windows.Win32.Networking.HttpServer.HTTP_SCHEME = 1
 HttpSchemeMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_SCHEME = 2
-class HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS(EasyCastStructure):
+class HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS(Structure):
     RealmLength: UInt16
     Realm: win32more.Windows.Win32.Foundation.PWSTR
-class HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS(EasyCastStructure):
+class HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS(Structure):
     DomainNameLength: UInt16
     DomainName: win32more.Windows.Win32.Foundation.PWSTR
     RealmLength: UInt16
     Realm: win32more.Windows.Win32.Foundation.PWSTR
-class HTTP_SERVER_AUTHENTICATION_INFO(EasyCastStructure):
+class HTTP_SERVER_AUTHENTICATION_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     AuthSchemes: UInt32
     ReceiveMutualAuth: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -718,17 +718,17 @@ HttpServerListenEndpointProperty: win32more.Windows.Win32.Networking.HttpServer.
 HttpServerChannelBindProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 10
 HttpServerProtectionLevelProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 11
 HttpServerDelegationProperty: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVER_PROPERTY = 16
-class HTTP_SERVICE_BINDING_A(EasyCastStructure):
+class HTTP_SERVICE_BINDING_A(Structure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE
     Buffer: win32more.Windows.Win32.Foundation.PSTR
     BufferSize: UInt32
-class HTTP_SERVICE_BINDING_BASE(EasyCastStructure):
+class HTTP_SERVICE_BINDING_BASE(Structure):
     Type: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE
 HTTP_SERVICE_BINDING_TYPE = Int32
 HttpServiceBindingTypeNone: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE = 0
 HttpServiceBindingTypeW: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE = 1
 HttpServiceBindingTypeA: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_TYPE = 2
-class HTTP_SERVICE_BINDING_W(EasyCastStructure):
+class HTTP_SERVICE_BINDING_W(Structure):
     Base: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_BINDING_BASE
     Buffer: win32more.Windows.Win32.Foundation.PWSTR
     BufferSize: UInt32
@@ -736,7 +736,7 @@ HTTP_SERVICE_BINDING = UnicodeAlias('HTTP_SERVICE_BINDING_W')
 HTTP_SERVICE_CONFIG_CACHE_KEY = Int32
 MaxCacheResponseSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_CACHE_KEY = 0
 CacheRangeChunkSize: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_CACHE_KEY = 1
-class HTTP_SERVICE_CONFIG_CACHE_SET(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_CACHE_SET(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_CACHE_KEY
     ParamDesc: UInt32
 HTTP_SERVICE_CONFIG_ID = Int32
@@ -754,10 +754,10 @@ HttpServiceConfigSslCcsCertInfoEx: win32more.Windows.Win32.Networking.HttpServer
 HttpServiceConfigSslScopedCcsCertInfo: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 11
 HttpServiceConfigSslScopedCcsCertInfoEx: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 12
 HttpServiceConfigMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID = 13
-class HTTP_SERVICE_CONFIG_IP_LISTEN_PARAM(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_IP_LISTEN_PARAM(Structure):
     AddrLength: UInt16
     pAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
-class HTTP_SERVICE_CONFIG_IP_LISTEN_QUERY(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_IP_LISTEN_QUERY(Structure):
     AddrCount: UInt32
     AddrList: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE * 1
 HTTP_SERVICE_CONFIG_QUERY_TYPE = Int32
@@ -767,31 +767,31 @@ HttpServiceConfigQueryMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_SE
 HTTP_SERVICE_CONFIG_SETTING_KEY = Int32
 HttpNone: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SETTING_KEY = 0
 HttpTlsThrottle: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SETTING_KEY = 1
-class HTTP_SERVICE_CONFIG_SETTING_SET(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SETTING_SET(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SETTING_KEY
     ParamDesc: UInt32
-class HTTP_SERVICE_CONFIG_SSL_CCS_KEY(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_CCS_KEY(Structure):
     LocalAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
-class HTTP_SERVICE_CONFIG_SSL_CCS_QUERY(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_CCS_QUERY(Structure):
     QueryDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_CCS_KEY
     dwToken: UInt32
-class HTTP_SERVICE_CONFIG_SSL_CCS_QUERY_EX(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_CCS_QUERY_EX(Structure):
     QueryDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_CCS_KEY
     dwToken: UInt32
     ParamType: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE
-class HTTP_SERVICE_CONFIG_SSL_CCS_SET(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_CCS_SET(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_CCS_KEY
     ParamDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_PARAM
-class HTTP_SERVICE_CONFIG_SSL_CCS_SET_EX(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_CCS_SET_EX(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_CCS_KEY
     ParamDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_PARAM_EX
-class HTTP_SERVICE_CONFIG_SSL_KEY(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_KEY(Structure):
     pIpPort: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
-class HTTP_SERVICE_CONFIG_SSL_KEY_EX(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_KEY_EX(Structure):
     IpPort: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
-class HTTP_SERVICE_CONFIG_SSL_PARAM(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_PARAM(Structure):
     SslHashLength: UInt32
     pSslHash: VoidPtr
     AppId: Guid
@@ -802,74 +802,74 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM(EasyCastStructure):
     pDefaultSslCtlIdentifier: win32more.Windows.Win32.Foundation.PWSTR
     pDefaultSslCtlStoreName: win32more.Windows.Win32.Foundation.PWSTR
     DefaultFlags: UInt32
-class HTTP_SERVICE_CONFIG_SSL_PARAM_EX(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_PARAM_EX(Structure):
     ParamType: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE
     Flags: UInt64
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Http2WindowSizeParam: win32more.Windows.Win32.Networking.HttpServer.HTTP2_WINDOW_SIZE_PARAM
         Http2SettingsLimitsParam: win32more.Windows.Win32.Networking.HttpServer.HTTP2_SETTINGS_LIMITS_PARAM
         HttpPerformanceParam: win32more.Windows.Win32.Networking.HttpServer.HTTP_PERFORMANCE_PARAM
         HttpTlsRestrictionsParam: win32more.Windows.Win32.Networking.HttpServer.HTTP_TLS_RESTRICTIONS_PARAM
         HttpErrorHeadersParam: win32more.Windows.Win32.Networking.HttpServer.HTTP_ERROR_HEADERS_PARAM
         HttpTlsSessionTicketKeysParam: win32more.Windows.Win32.Networking.HttpServer.HTTP_TLS_SESSION_TICKET_KEYS_PARAM
-class HTTP_SERVICE_CONFIG_SSL_QUERY(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_QUERY(Structure):
     QueryDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_KEY
     dwToken: UInt32
-class HTTP_SERVICE_CONFIG_SSL_QUERY_EX(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_QUERY_EX(Structure):
     QueryDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_KEY_EX
     dwToken: UInt32
     ParamType: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE
-class HTTP_SERVICE_CONFIG_SSL_SET(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_SET(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_KEY
     ParamDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_PARAM
-class HTTP_SERVICE_CONFIG_SSL_SET_EX(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_SET_EX(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_KEY_EX
     ParamDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_PARAM_EX
-class HTTP_SERVICE_CONFIG_SSL_SNI_KEY(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_SNI_KEY(Structure):
     IpPort: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
     Host: win32more.Windows.Win32.Foundation.PWSTR
-class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY(Structure):
     QueryDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_SNI_KEY
     dwToken: UInt32
-class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY_EX(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_SNI_QUERY_EX(Structure):
     QueryDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_SNI_KEY
     dwToken: UInt32
     ParamType: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE
-class HTTP_SERVICE_CONFIG_SSL_SNI_SET(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_SNI_SET(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_SNI_KEY
     ParamDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_PARAM
-class HTTP_SERVICE_CONFIG_SSL_SNI_SET_EX(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_SSL_SNI_SET_EX(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_SNI_KEY
     ParamDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_SSL_PARAM_EX
 HTTP_SERVICE_CONFIG_TIMEOUT_KEY = Int32
 IdleConnectionTimeout: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_TIMEOUT_KEY = 0
 HeaderWaitTimeout: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_TIMEOUT_KEY = 1
-class HTTP_SERVICE_CONFIG_TIMEOUT_SET(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_TIMEOUT_SET(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_TIMEOUT_KEY
     ParamDesc: UInt16
-class HTTP_SERVICE_CONFIG_URLACL_KEY(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_URLACL_KEY(Structure):
     pUrlPrefix: win32more.Windows.Win32.Foundation.PWSTR
-class HTTP_SERVICE_CONFIG_URLACL_PARAM(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_URLACL_PARAM(Structure):
     pStringSecurityDescriptor: win32more.Windows.Win32.Foundation.PWSTR
-class HTTP_SERVICE_CONFIG_URLACL_QUERY(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_URLACL_QUERY(Structure):
     QueryDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_URLACL_KEY
     dwToken: UInt32
-class HTTP_SERVICE_CONFIG_URLACL_SET(EasyCastStructure):
+class HTTP_SERVICE_CONFIG_URLACL_SET(Structure):
     KeyDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_URLACL_KEY
     ParamDesc: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_URLACL_PARAM
-class HTTP_SSL_CLIENT_CERT_INFO(EasyCastStructure):
+class HTTP_SSL_CLIENT_CERT_INFO(Structure):
     CertFlags: UInt32
     CertEncodedSize: UInt32
     pCertEncoded: POINTER(Byte)
     Token: win32more.Windows.Win32.Foundation.HANDLE
     CertDeniedByMapper: win32more.Windows.Win32.Foundation.BOOLEAN
-class HTTP_SSL_INFO(EasyCastStructure):
+class HTTP_SSL_INFO(Structure):
     ServerCertKeySize: UInt16
     ConnectionKeySize: UInt16
     ServerCertIssuerSize: UInt32
@@ -878,7 +878,7 @@ class HTTP_SSL_INFO(EasyCastStructure):
     pServerCertSubject: win32more.Windows.Win32.Foundation.PSTR
     pClientCertInfo: POINTER(win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_CLIENT_CERT_INFO)
     SslClientCertNegotiated: UInt32
-class HTTP_SSL_PROTOCOL_INFO(EasyCastStructure):
+class HTTP_SSL_PROTOCOL_INFO(Structure):
     Protocol: UInt32
     CipherType: UInt32
     CipherStrength: UInt32
@@ -894,10 +894,10 @@ ExParamTypeTlsRestrictions: win32more.Windows.Win32.Networking.HttpServer.HTTP_S
 ExParamTypeErrorHeaders: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 4
 ExParamTypeTlsSessionTicketKeys: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 5
 ExParamTypeMax: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE = 6
-class HTTP_STATE_INFO(EasyCastStructure):
+class HTTP_STATE_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     State: win32more.Windows.Win32.Networking.HttpServer.HTTP_ENABLED_STATE
-class HTTP_TIMEOUT_LIMIT_INFO(EasyCastStructure):
+class HTTP_TIMEOUT_LIMIT_INFO(Structure):
     Flags: win32more.Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     EntityBody: UInt16
     DrainEntityBody: UInt16
@@ -905,16 +905,16 @@ class HTTP_TIMEOUT_LIMIT_INFO(EasyCastStructure):
     IdleConnection: UInt16
     HeaderWait: UInt16
     MinSendRate: UInt32
-class HTTP_TLS_RESTRICTIONS_PARAM(EasyCastStructure):
+class HTTP_TLS_RESTRICTIONS_PARAM(Structure):
     RestrictionCount: UInt32
     TlsRestrictions: VoidPtr
-class HTTP_TLS_SESSION_TICKET_KEYS_PARAM(EasyCastStructure):
+class HTTP_TLS_SESSION_TICKET_KEYS_PARAM(Structure):
     SessionTicketKeyCount: UInt32
     SessionTicketKeys: VoidPtr
-class HTTP_TRANSPORT_ADDRESS(EasyCastStructure):
+class HTTP_TRANSPORT_ADDRESS(Structure):
     pRemoteAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
     pLocalAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
-class HTTP_UNKNOWN_HEADER(EasyCastStructure):
+class HTTP_UNKNOWN_HEADER(Structure):
     NameLength: UInt16
     RawValueLength: UInt16
     pName: win32more.Windows.Win32.Foundation.PSTR
@@ -941,10 +941,10 @@ HttpVerbLOCK: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 17
 HttpVerbUNLOCK: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 18
 HttpVerbSEARCH: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 19
 HttpVerbMaximum: win32more.Windows.Win32.Networking.HttpServer.HTTP_VERB = 20
-class HTTP_VERSION(EasyCastStructure):
+class HTTP_VERSION(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
-class HTTP_WSK_API_TIMINGS(EasyCastStructure):
+class HTTP_WSK_API_TIMINGS(Structure):
     ConnectCount: UInt64
     ConnectSum: UInt64
     DisconnectCount: UInt64

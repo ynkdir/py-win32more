@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.UI.Controls
 import win32more.Windows.Win32.UI.Input.Pointer
@@ -60,17 +60,17 @@ def GetPointerDeviceRects(device: win32more.Windows.Win32.Foundation.HANDLE, poi
 def GetPointerDeviceCursors(device: win32more.Windows.Win32.Foundation.HANDLE, cursorCount: POINTER(UInt32), deviceCursors: POINTER(win32more.Windows.Win32.UI.Controls.POINTER_DEVICE_CURSOR_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def GetRawPointerDeviceData(pointerId: UInt32, historyCount: UInt32, propertiesCount: UInt32, pProperties: POINTER(win32more.Windows.Win32.UI.Controls.POINTER_DEVICE_PROPERTY), pValues: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class INPUT_INJECTION_VALUE(EasyCastStructure):
+class INPUT_INJECTION_VALUE(Structure):
     page: UInt16
     usage: UInt16
     value: Int32
     index: UInt16
-class INPUT_TRANSFORM(EasyCastStructure):
+class INPUT_TRANSFORM(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         m: Single * 16
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _11: Single
             _12: Single
             _13: Single
@@ -119,7 +119,7 @@ POINTER_FLAG_WHEEL: win32more.Windows.Win32.UI.Input.Pointer.POINTER_FLAGS = 524
 POINTER_FLAG_HWHEEL: win32more.Windows.Win32.UI.Input.Pointer.POINTER_FLAGS = 1048576
 POINTER_FLAG_CAPTURECHANGED: win32more.Windows.Win32.UI.Input.Pointer.POINTER_FLAGS = 2097152
 POINTER_FLAG_HASTRANSFORM: win32more.Windows.Win32.UI.Input.Pointer.POINTER_FLAGS = 4194304
-class POINTER_INFO(EasyCastStructure):
+class POINTER_INFO(Structure):
     pointerType: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE
     pointerId: UInt32
     frameId: UInt32
@@ -136,7 +136,7 @@ class POINTER_INFO(EasyCastStructure):
     dwKeyStates: UInt32
     PerformanceCount: UInt64
     ButtonChangeType: win32more.Windows.Win32.UI.Input.Pointer.POINTER_BUTTON_CHANGE_TYPE
-class POINTER_PEN_INFO(EasyCastStructure):
+class POINTER_PEN_INFO(Structure):
     pointerInfo: win32more.Windows.Win32.UI.Input.Pointer.POINTER_INFO
     penFlags: UInt32
     penMask: UInt32
@@ -144,7 +144,7 @@ class POINTER_PEN_INFO(EasyCastStructure):
     rotation: UInt32
     tiltX: Int32
     tiltY: Int32
-class POINTER_TOUCH_INFO(EasyCastStructure):
+class POINTER_TOUCH_INFO(Structure):
     pointerInfo: win32more.Windows.Win32.UI.Input.Pointer.POINTER_INFO
     touchFlags: UInt32
     touchMask: UInt32

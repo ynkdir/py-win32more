@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media.WindowsMediaFormat
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
-class AM_WMT_EVENT_DATA(EasyCastStructure):
+class AM_WMT_EVENT_DATA(Structure):
     hrStatus: win32more.Windows.Win32.Foundation.HRESULT
     pData: VoidPtr
 WMT_VIDEOIMAGE_SAMPLE_INPUT_FRAME: UInt32 = 1
@@ -372,29 +372,29 @@ def WMCreateWriterFileSink(ppSink: POINTER(win32more.Windows.Win32.Media.Windows
 def WMCreateWriterNetworkSink(ppSink: POINTER(win32more.Windows.Win32.Media.WindowsMediaFormat.IWMWriterNetworkSink)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WMVCore.dll')
 def WMCreateWriterPushSink(ppSink: POINTER(win32more.Windows.Win32.Media.WindowsMediaFormat.IWMWriterPushSink)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class DRM_COPY_OPL(EasyCastStructure):
+class DRM_COPY_OPL(Structure):
     wMinimumCopyLevel: UInt16
     oplIdIncludes: win32more.Windows.Win32.Media.WindowsMediaFormat.DRM_OPL_OUTPUT_IDS
     oplIdExcludes: win32more.Windows.Win32.Media.WindowsMediaFormat.DRM_OPL_OUTPUT_IDS
-class DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS(EasyCastStructure):
+class DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS(Structure):
     wCompressedDigitalVideo: UInt16
     wUncompressedDigitalVideo: UInt16
     wAnalogVideo: UInt16
     wCompressedDigitalAudio: UInt16
     wUncompressedDigitalAudio: UInt16
-class DRM_OPL_OUTPUT_IDS(EasyCastStructure):
+class DRM_OPL_OUTPUT_IDS(Structure):
     cIds: UInt16
     rgIds: POINTER(Guid)
-class DRM_OUTPUT_PROTECTION(EasyCastStructure):
+class DRM_OUTPUT_PROTECTION(Structure):
     guidId: Guid
     bConfigData: Byte
-class DRM_PLAY_OPL(EasyCastStructure):
+class DRM_PLAY_OPL(Structure):
     minOPL: win32more.Windows.Win32.Media.WindowsMediaFormat.DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS
     oplIdReserved: win32more.Windows.Win32.Media.WindowsMediaFormat.DRM_OPL_OUTPUT_IDS
     vopi: win32more.Windows.Win32.Media.WindowsMediaFormat.DRM_VIDEO_OUTPUT_PROTECTION_IDS
-class DRM_VAL16(EasyCastStructure):
+class DRM_VAL16(Structure):
     val: Byte * 16
-class DRM_VIDEO_OUTPUT_PROTECTION_IDS(EasyCastStructure):
+class DRM_VIDEO_OUTPUT_PROTECTION_IDS(Structure):
     cEntries: UInt16
     rgVop: POINTER(win32more.Windows.Win32.Media.WindowsMediaFormat.DRM_OUTPUT_PROTECTION)
 class INSNetSourceCreator(ComPtr):
@@ -1748,13 +1748,13 @@ NETSOURCE_URLCREDPOLICY_SETTING_ANONYMOUSONLY: win32more.Windows.Win32.Media.Win
 WEBSTREAM_SAMPLE_TYPE = Int32
 WEBSTREAM_SAMPLE_TYPE_FILE: win32more.Windows.Win32.Media.WindowsMediaFormat.WEBSTREAM_SAMPLE_TYPE = 1
 WEBSTREAM_SAMPLE_TYPE_RENDER: win32more.Windows.Win32.Media.WindowsMediaFormat.WEBSTREAM_SAMPLE_TYPE = 2
-class WMDRM_IMPORT_INIT_STRUCT(EasyCastStructure):
+class WMDRM_IMPORT_INIT_STRUCT(Structure):
     dwVersion: UInt32
     cbEncryptedSessionKeyMessage: UInt32
     pbEncryptedSessionKeyMessage: POINTER(Byte)
     cbEncryptedKeyMessage: UInt32
     pbEncryptedKeyMessage: POINTER(Byte)
-class WMMPEG2VIDEOINFO(EasyCastStructure):
+class WMMPEG2VIDEOINFO(Structure):
     hdr: win32more.Windows.Win32.Media.WindowsMediaFormat.WMVIDEOINFOHEADER2
     dwStartTimeCode: UInt32
     cbSequenceHeader: UInt32
@@ -1762,7 +1762,7 @@ class WMMPEG2VIDEOINFO(EasyCastStructure):
     dwLevel: UInt32
     dwFlags: UInt32
     dwSequenceHeader: UInt32 * 1
-class WMSCRIPTFORMAT(EasyCastStructure):
+class WMSCRIPTFORMAT(Structure):
     scriptType: Guid
 WMT_ATTR_DATATYPE = Int32
 WMT_TYPE_DWORD: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_ATTR_DATATYPE = 0
@@ -1776,7 +1776,7 @@ WMT_ATTR_IMAGETYPE = Int32
 WMT_IMAGETYPE_BITMAP: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_ATTR_IMAGETYPE = 1
 WMT_IMAGETYPE_JPEG: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_ATTR_IMAGETYPE = 2
 WMT_IMAGETYPE_GIF: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_ATTR_IMAGETYPE = 3
-class WMT_BUFFER_SEGMENT(EasyCastStructure):
+class WMT_BUFFER_SEGMENT(Structure):
     pBuffer: win32more.Windows.Win32.Media.WindowsMediaFormat.INSSBuffer
     cbOffset: UInt32
     cbLength: UInt32
@@ -1784,7 +1784,7 @@ WMT_CODEC_INFO_TYPE = Int32
 WMT_CODECINFO_AUDIO: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_CODEC_INFO_TYPE = 0
 WMT_CODECINFO_VIDEO: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_CODEC_INFO_TYPE = 1
 WMT_CODECINFO_UNKNOWN: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_CODEC_INFO_TYPE = -1
-class WMT_COLORSPACEINFO_EXTENSION_DATA(EasyCastStructure):
+class WMT_COLORSPACEINFO_EXTENSION_DATA(Structure):
     ucColorPrimaries: Byte
     ucColorTransferChar: Byte
     ucColorMatrixCoef: Byte
@@ -1798,7 +1798,7 @@ WMT_DRMLA_TRUST = Int32
 WMT_DRMLA_UNTRUSTED: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_DRMLA_TRUST = 0
 WMT_DRMLA_TRUSTED: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_DRMLA_TRUST = 1
 WMT_DRMLA_TAMPERED: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_DRMLA_TRUST = 2
-class WMT_FILESINK_DATA_UNIT(EasyCastStructure):
+class WMT_FILESINK_DATA_UNIT(Structure):
     packetHeaderBuffer: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_BUFFER_SEGMENT
     cPayloads: UInt32
     pPayloadHeaderBuffers: POINTER(win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_BUFFER_SEGMENT)
@@ -1833,7 +1833,7 @@ WMT_OFFSET_FORMAT_FRAME_NUMBERS: win32more.Windows.Win32.Media.WindowsMediaForma
 WMT_OFFSET_FORMAT_PLAYLIST_OFFSET: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_OFFSET_FORMAT = 2
 WMT_OFFSET_FORMAT_TIMECODE: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_OFFSET_FORMAT = 3
 WMT_OFFSET_FORMAT_100NS_APPROXIMATE: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_OFFSET_FORMAT = 4
-class WMT_PAYLOAD_FRAGMENT(EasyCastStructure):
+class WMT_PAYLOAD_FRAGMENT(Structure):
     dwPayloadIndex: UInt32
     segmentData: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_BUFFER_SEGMENT
 WMT_PLAY_MODE = Int32
@@ -1919,7 +1919,7 @@ WMT_STREAM_SELECTION = Int32
 WMT_OFF: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_STREAM_SELECTION = 0
 WMT_CLEANPOINT_ONLY: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_STREAM_SELECTION = 1
 WMT_ON: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_STREAM_SELECTION = 2
-class WMT_TIMECODE_EXTENSION_DATA(EasyCastStructure):
+class WMT_TIMECODE_EXTENSION_DATA(Structure):
     wRange: UInt16
     dwTimecode: UInt32
     dwUserbits: UInt32
@@ -1938,7 +1938,7 @@ WMT_VER_4_0: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_VERSION = 2621
 WMT_VER_7_0: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_VERSION = 458752
 WMT_VER_8_0: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_VERSION = 524288
 WMT_VER_9_0: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_VERSION = 589824
-class WMT_VIDEOIMAGE_SAMPLE(EasyCastStructure):
+class WMT_VIDEOIMAGE_SAMPLE(Structure):
     dwMagic: UInt32
     cbStruct: UInt32
     dwControlFlags: UInt32
@@ -1960,7 +1960,7 @@ class WMT_VIDEOIMAGE_SAMPLE(EasyCastStructure):
     lPrevMotionYoffset: Int32
     lPrevBlendCoef1: Int32
     lPrevBlendCoef2: Int32
-class WMT_VIDEOIMAGE_SAMPLE2(EasyCastStructure):
+class WMT_VIDEOIMAGE_SAMPLE2(Structure):
     dwMagic: UInt32
     dwStructSize: UInt32
     dwControlFlags: UInt32
@@ -1988,7 +1988,7 @@ class WMT_VIDEOIMAGE_SAMPLE2(EasyCastStructure):
     fEffectPara3: Single
     fEffectPara4: Single
     bKeepPrevImage: win32more.Windows.Win32.Foundation.BOOL
-class WMT_WATERMARK_ENTRY(EasyCastStructure):
+class WMT_WATERMARK_ENTRY(Structure):
     wmetType: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_WATERMARK_ENTRY_TYPE
     clsid: Guid
     cbDisplayName: UInt32
@@ -1996,25 +1996,25 @@ class WMT_WATERMARK_ENTRY(EasyCastStructure):
 WMT_WATERMARK_ENTRY_TYPE = Int32
 WMT_WMETYPE_AUDIO: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_WATERMARK_ENTRY_TYPE = 1
 WMT_WMETYPE_VIDEO: win32more.Windows.Win32.Media.WindowsMediaFormat.WMT_WATERMARK_ENTRY_TYPE = 2
-class WMT_WEBSTREAM_FORMAT(EasyCastStructure):
+class WMT_WEBSTREAM_FORMAT(Structure):
     cbSize: UInt16
     cbSampleHeaderFixedData: UInt16
     wVersion: UInt16
     wReserved: UInt16
-class WMT_WEBSTREAM_SAMPLE_HEADER(EasyCastStructure):
+class WMT_WEBSTREAM_SAMPLE_HEADER(Structure):
     cbLength: UInt16
     wPart: UInt16
     cTotalParts: UInt16
     wSampleType: UInt16
     wszURL: Char * 1
-class WMVIDEOINFOHEADER(EasyCastStructure):
+class WMVIDEOINFOHEADER(Structure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
     dwBitRate: UInt32
     dwBitErrorRate: UInt32
     AvgTimePerFrame: Int64
     bmiHeader: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
-class WMVIDEOINFOHEADER2(EasyCastStructure):
+class WMVIDEOINFOHEADER2(Structure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
     dwBitRate: UInt32
@@ -2027,16 +2027,16 @@ class WMVIDEOINFOHEADER2(EasyCastStructure):
     dwReserved1: UInt32
     dwReserved2: UInt32
     bmiHeader: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
-class WM_ADDRESS_ACCESSENTRY(EasyCastStructure):
+class WM_ADDRESS_ACCESSENTRY(Structure):
     dwIPAddress: UInt32
     dwMask: UInt32
 WM_AETYPE = Int32
 WM_AETYPE_INCLUDE: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_AETYPE = 105
 WM_AETYPE_EXCLUDE: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_AETYPE = 101
-class WM_CLIENT_PROPERTIES(EasyCastStructure):
+class WM_CLIENT_PROPERTIES(Structure):
     dwIPAddress: UInt32
     dwPort: UInt32
-class WM_CLIENT_PROPERTIES_EX(EasyCastStructure):
+class WM_CLIENT_PROPERTIES_EX(Structure):
     cbSize: UInt32
     pwszIPAddress: win32more.Windows.Win32.Foundation.PWSTR
     pwszPort: win32more.Windows.Win32.Foundation.PWSTR
@@ -2060,11 +2060,11 @@ WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BB_BOTTOM: win32more.Windows.Win32.Media.Windows
 WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BC_BOTTOM: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_DM_IT_FIRST_FRAME_COHERENCY = 8
 WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_CD_BOTTOM: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_DM_IT_FIRST_FRAME_COHERENCY = 9
 WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_DD_BOTTOM: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_DM_IT_FIRST_FRAME_COHERENCY = 10
-class WM_LEAKY_BUCKET_PAIR(EasyCastStructure):
+class WM_LEAKY_BUCKET_PAIR(Structure):
     dwBitrate: UInt32
     msBufferWindow: UInt32
     _pack_ = 1
-class WM_MEDIA_TYPE(EasyCastStructure):
+class WM_MEDIA_TYPE(Structure):
     majortype: Guid
     subtype: Guid
     bFixedSizeSamples: win32more.Windows.Win32.Foundation.BOOL
@@ -2074,7 +2074,7 @@ class WM_MEDIA_TYPE(EasyCastStructure):
     pUnk: win32more.Windows.Win32.System.Com.IUnknown
     cbFormat: UInt32
     pbFormat: POINTER(Byte)
-class WM_PICTURE(EasyCastStructure):
+class WM_PICTURE(Structure):
     pwszMIMEType: win32more.Windows.Win32.Foundation.PWSTR
     bPictureType: Byte
     pwszDescription: win32more.Windows.Win32.Foundation.PWSTR
@@ -2085,10 +2085,10 @@ WM_PLAYBACK_DRC_LEVEL = Int32
 WM_PLAYBACK_DRC_HIGH: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_PLAYBACK_DRC_LEVEL = 0
 WM_PLAYBACK_DRC_MEDIUM: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_PLAYBACK_DRC_LEVEL = 1
 WM_PLAYBACK_DRC_LOW: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_PLAYBACK_DRC_LEVEL = 2
-class WM_PORT_NUMBER_RANGE(EasyCastStructure):
+class WM_PORT_NUMBER_RANGE(Structure):
     wPortBegin: UInt16
     wPortEnd: UInt16
-class WM_READER_CLIENTINFO(EasyCastStructure):
+class WM_READER_CLIENTINFO(Structure):
     cbSize: UInt32
     wszLang: win32more.Windows.Win32.Foundation.PWSTR
     wszBrowserUserAgent: win32more.Windows.Win32.Foundation.PWSTR
@@ -2098,7 +2098,7 @@ class WM_READER_CLIENTINFO(EasyCastStructure):
     wszHostExe: win32more.Windows.Win32.Foundation.PWSTR
     qwHostVersion: UInt64
     wszPlayerUserAgent: win32more.Windows.Win32.Foundation.PWSTR
-class WM_READER_STATISTICS(EasyCastStructure):
+class WM_READER_STATISTICS(Structure):
     cbSize: UInt32
     dwBandwidth: UInt32
     cPacketsReceived: UInt32
@@ -2112,30 +2112,30 @@ WM_SF_TYPE = Int32
 WM_SF_CLEANPOINT: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_SF_TYPE = 1
 WM_SF_DISCONTINUITY: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_SF_TYPE = 2
 WM_SF_DATALOSS: win32more.Windows.Win32.Media.WindowsMediaFormat.WM_SF_TYPE = 4
-class WM_STREAM_PRIORITY_RECORD(EasyCastStructure):
+class WM_STREAM_PRIORITY_RECORD(Structure):
     wStreamNumber: UInt16
     fMandatory: win32more.Windows.Win32.Foundation.BOOL
     _pack_ = 2
-class WM_STREAM_TYPE_INFO(EasyCastStructure):
+class WM_STREAM_TYPE_INFO(Structure):
     guidMajorType: Guid
     cbFormat: UInt32
     _pack_ = 1
-class WM_SYNCHRONISED_LYRICS(EasyCastStructure):
+class WM_SYNCHRONISED_LYRICS(Structure):
     bTimeStampFormat: Byte
     bContentType: Byte
     pwszContentDescriptor: win32more.Windows.Win32.Foundation.PWSTR
     dwLyricsLen: UInt32
     pbLyrics: POINTER(Byte)
     _pack_ = 1
-class WM_USER_TEXT(EasyCastStructure):
+class WM_USER_TEXT(Structure):
     pwszDescription: win32more.Windows.Win32.Foundation.PWSTR
     pwszText: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
-class WM_USER_WEB_URL(EasyCastStructure):
+class WM_USER_WEB_URL(Structure):
     pwszDescription: win32more.Windows.Win32.Foundation.PWSTR
     pwszURL: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
-class WM_WRITER_STATISTICS(EasyCastStructure):
+class WM_WRITER_STATISTICS(Structure):
     qwSampleCount: UInt64
     qwByteCount: UInt64
     qwDroppedSampleCount: UInt64
@@ -2146,7 +2146,7 @@ class WM_WRITER_STATISTICS(EasyCastStructure):
     dwCurrentSampleRate: UInt32
     dwAverageSampleRate: UInt32
     dwExpectedSampleRate: UInt32
-class WM_WRITER_STATISTICS_EX(EasyCastStructure):
+class WM_WRITER_STATISTICS_EX(Structure):
     dwBitratePlusOverhead: UInt32
     dwCurrentSampleDropRateInQueue: UInt32
     dwCurrentSampleDropRateInCodec: UInt32

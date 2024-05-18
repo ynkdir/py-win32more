@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetBios
-class ACTION_HEADER(EasyCastStructure):
+class ACTION_HEADER(Structure):
     transport_id: UInt32
     action_code: UInt16
     reserved: UInt16
-class ADAPTER_STATUS(EasyCastStructure):
+class ADAPTER_STATUS(Structure):
     adapter_address: Byte * 6
     rev_major: Byte
     reserved0: Byte
@@ -120,26 +120,26 @@ NRC_SYSTEM: UInt32 = 64
 NRC_PENDING: UInt32 = 255
 @winfunctype('NETAPI32.dll')
 def Netbios(pncb: POINTER(win32more.Windows.Win32.NetworkManagement.NetBios.NCB)) -> Byte: ...
-class FIND_NAME_BUFFER(EasyCastStructure):
+class FIND_NAME_BUFFER(Structure):
     length: Byte
     access_control: Byte
     frame_control: Byte
     destination_addr: Byte * 6
     source_addr: Byte * 6
     routing_info: Byte * 18
-class FIND_NAME_HEADER(EasyCastStructure):
+class FIND_NAME_HEADER(Structure):
     node_count: UInt16
     reserved: Byte
     unique_group: Byte
-class LANA_ENUM(EasyCastStructure):
+class LANA_ENUM(Structure):
     length: Byte
     lana: Byte * 255
-class NAME_BUFFER(EasyCastStructure):
+class NAME_BUFFER(Structure):
     name: Byte * 16
     name_num: Byte
     name_flags: Byte
 if ARCH in 'X64,ARM64':
-    class NCB(EasyCastStructure):
+    class NCB(Structure):
         ncb_command: Byte
         ncb_retcode: Byte
         ncb_lsn: Byte
@@ -156,7 +156,7 @@ if ARCH in 'X64,ARM64':
         ncb_reserve: Byte * 18
         ncb_event: win32more.Windows.Win32.Foundation.HANDLE
 elif ARCH in 'X86':
-    class NCB(EasyCastStructure):
+    class NCB(Structure):
         ncb_command: Byte
         ncb_retcode: Byte
         ncb_lsn: Byte
@@ -172,14 +172,14 @@ elif ARCH in 'X86':
         ncb_cmd_cplt: Byte
         ncb_reserve: Byte * 10
         ncb_event: win32more.Windows.Win32.Foundation.HANDLE
-class SESSION_BUFFER(EasyCastStructure):
+class SESSION_BUFFER(Structure):
     lsn: Byte
     state: Byte
     local_name: Byte * 16
     remote_name: Byte * 16
     rcvs_outstanding: Byte
     sends_outstanding: Byte
-class SESSION_HEADER(EasyCastStructure):
+class SESSION_HEADER(Structure):
     sess_name: Byte
     num_sess: Byte
     rcv_dg_outstanding: Byte

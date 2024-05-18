@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.IndexServer
 import win32more.Windows.Win32.System.Com
@@ -168,7 +168,7 @@ CHUNK_EOW: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE = 1
 CHUNK_EOS: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE = 2
 CHUNK_EOP: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE = 3
 CHUNK_EOC: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE = 4
-class CI_STATE(EasyCastStructure):
+class CI_STATE(Structure):
     cbStruct: UInt32
     cWordList: UInt32
     cPersistentIndex: UInt32
@@ -185,27 +185,27 @@ class CI_STATE(EasyCastStructure):
     cSecQDocuments: UInt32
     dwPropCacheSize: UInt32
 if ARCH in 'X64,ARM64':
-    class DBID(EasyCastStructure):
+    class DBID(Structure):
         uGuid: _uGuid_e__Union
         eKind: UInt32
         uName: _uName_e__Union
-        class _uGuid_e__Union(EasyCastUnion):
+        class _uGuid_e__Union(Union):
             guid: Guid
             pguid: POINTER(Guid)
-        class _uName_e__Union(EasyCastUnion):
+        class _uName_e__Union(Union):
             pwszName: win32more.Windows.Win32.Foundation.PWSTR
             ulPropid: UInt32
 elif ARCH in 'X86':
-    class DBID(EasyCastStructure):
+    class DBID(Structure):
         uGuid: _uGuid_e__Union
         eKind: UInt32
         uName: _uName_e__Union
         _pack_ = 2
-        class _uGuid_e__Union(EasyCastUnion):
+        class _uGuid_e__Union(Union):
             guid: Guid
             pguid: POINTER(Guid)
             _pack_ = 2
-        class _uName_e__Union(EasyCastUnion):
+        class _uName_e__Union(Union):
             pwszName: win32more.Windows.Win32.Foundation.PWSTR
             ulPropid: UInt32
             _pack_ = 2
@@ -217,11 +217,11 @@ DBKIND_PGUID_NAME: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 3
 DBKIND_PGUID_PROPID: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 4
 DBKIND_PROPID: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 5
 DBKIND_GUID: win32more.Windows.Win32.Storage.IndexServer.DBKINDENUM = 6
-class FILTERREGION(EasyCastStructure):
+class FILTERREGION(Structure):
     idChunk: UInt32
     cwcStart: UInt32
     cwcExtent: UInt32
-class FULLPROPSPEC(EasyCastStructure):
+class FULLPROPSPEC(Structure):
     guidPropSet: Guid
     psProperty: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC
 IFILTER_FLAGS = Int32
@@ -260,7 +260,7 @@ class IPhraseSink(ComPtr):
     def PutSmallPhrase(self, pwcNoun: win32more.Windows.Win32.Foundation.PWSTR, cwcNoun: UInt32, pwcModifier: win32more.Windows.Win32.Foundation.PWSTR, cwcModifier: UInt32, ulAttachmentType: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PutPhrase(self, pwcPhrase: win32more.Windows.Win32.Foundation.PWSTR, cwcPhrase: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class STAT_CHUNK(EasyCastStructure):
+class STAT_CHUNK(Structure):
     idChunk: UInt32
     breakType: win32more.Windows.Win32.Storage.IndexServer.CHUNK_BREAKTYPE
     flags: win32more.Windows.Win32.Storage.IndexServer.CHUNKSTATE

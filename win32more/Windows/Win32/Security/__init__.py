@@ -1,52 +1,52 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
-class ACCESS_ALLOWED_ACE(EasyCastStructure):
+class ACCESS_ALLOWED_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class ACCESS_ALLOWED_CALLBACK_ACE(EasyCastStructure):
+class ACCESS_ALLOWED_CALLBACK_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class ACCESS_ALLOWED_CALLBACK_OBJECT_ACE(EasyCastStructure):
-    Header: win32more.Windows.Win32.Security.ACE_HEADER
-    Mask: UInt32
-    Flags: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
-    ObjectType: Guid
-    InheritedObjectType: Guid
-    SidStart: UInt32
-class ACCESS_ALLOWED_OBJECT_ACE(EasyCastStructure):
+class ACCESS_ALLOWED_CALLBACK_OBJECT_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     Flags: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
     ObjectType: Guid
     InheritedObjectType: Guid
     SidStart: UInt32
-class ACCESS_DENIED_ACE(EasyCastStructure):
-    Header: win32more.Windows.Win32.Security.ACE_HEADER
-    Mask: UInt32
-    SidStart: UInt32
-class ACCESS_DENIED_CALLBACK_ACE(EasyCastStructure):
-    Header: win32more.Windows.Win32.Security.ACE_HEADER
-    Mask: UInt32
-    SidStart: UInt32
-class ACCESS_DENIED_CALLBACK_OBJECT_ACE(EasyCastStructure):
+class ACCESS_ALLOWED_OBJECT_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     Flags: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
     ObjectType: Guid
     InheritedObjectType: Guid
     SidStart: UInt32
-class ACCESS_DENIED_OBJECT_ACE(EasyCastStructure):
+class ACCESS_DENIED_ACE(Structure):
+    Header: win32more.Windows.Win32.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class ACCESS_DENIED_CALLBACK_ACE(Structure):
+    Header: win32more.Windows.Win32.Security.ACE_HEADER
+    Mask: UInt32
+    SidStart: UInt32
+class ACCESS_DENIED_CALLBACK_OBJECT_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     Flags: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
     ObjectType: Guid
     InheritedObjectType: Guid
     SidStart: UInt32
-class ACCESS_REASONS(EasyCastStructure):
+class ACCESS_DENIED_OBJECT_ACE(Structure):
+    Header: win32more.Windows.Win32.Security.ACE_HEADER
+    Mask: UInt32
+    Flags: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
+    ObjectType: Guid
+    InheritedObjectType: Guid
+    SidStart: UInt32
+class ACCESS_REASONS(Structure):
     Data: UInt32 * 32
 ACE_FLAGS = UInt32
 CONTAINER_INHERIT_ACE: win32more.Windows.Win32.Security.ACE_FLAGS = 2
@@ -62,14 +62,14 @@ SUB_OBJECTS_ONLY_INHERIT: win32more.Windows.Win32.Security.ACE_FLAGS = 1
 INHERIT_NO_PROPAGATE: win32more.Windows.Win32.Security.ACE_FLAGS = 4
 INHERIT_ONLY: win32more.Windows.Win32.Security.ACE_FLAGS = 8
 NO_INHERITANCE: win32more.Windows.Win32.Security.ACE_FLAGS = 0
-class ACE_HEADER(EasyCastStructure):
+class ACE_HEADER(Structure):
     AceType: Byte
     AceFlags: Byte
     AceSize: UInt16
 ACE_REVISION = UInt32
 ACL_REVISION: win32more.Windows.Win32.Security.ACE_REVISION = 2
 ACL_REVISION_DS: win32more.Windows.Win32.Security.ACE_REVISION = 4
-class ACL(EasyCastStructure):
+class ACL(Structure):
     AclRevision: Byte
     Sbz1: Byte
     AclSize: UInt16
@@ -78,9 +78,9 @@ class ACL(EasyCastStructure):
 ACL_INFORMATION_CLASS = Int32
 AclRevisionInformation: win32more.Windows.Win32.Security.ACL_INFORMATION_CLASS = 1
 AclSizeInformation: win32more.Windows.Win32.Security.ACL_INFORMATION_CLASS = 2
-class ACL_REVISION_INFORMATION(EasyCastStructure):
+class ACL_REVISION_INFORMATION(Structure):
     AclRevision: UInt32
-class ACL_SIZE_INFORMATION(EasyCastStructure):
+class ACL_SIZE_INFORMATION(Structure):
     AceCount: UInt32
     AclBytesInUse: UInt32
     AclBytesFree: UInt32
@@ -451,12 +451,12 @@ def LogonUserExW(lpszUsername: win32more.Windows.Win32.Foundation.PWSTR, lpszDom
 LogonUserEx = UnicodeAlias('LogonUserExW')
 @winfunctype('ntdll.dll')
 def RtlConvertSidToUnicodeString(UnicodeString: POINTER(win32more.Windows.Win32.Foundation.UNICODE_STRING), Sid: win32more.Windows.Win32.Security.PSID, AllocateDestinationString: win32more.Windows.Win32.Foundation.BOOLEAN) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-class CLAIM_SECURITY_ATTRIBUTES_INFORMATION(EasyCastStructure):
+class CLAIM_SECURITY_ATTRIBUTES_INFORMATION(Structure):
     Version: UInt16
     Reserved: UInt16
     AttributeCount: UInt32
     Attribute: _Attribute_e__Union
-    class _Attribute_e__Union(EasyCastUnion):
+    class _Attribute_e__Union(Union):
         pAttributeV1: POINTER(win32more.Windows.Win32.Security.CLAIM_SECURITY_ATTRIBUTE_V1)
 CLAIM_SECURITY_ATTRIBUTE_FLAGS = UInt32
 CLAIM_SECURITY_ATTRIBUTE_NON_INHERITABLE: win32more.Windows.Win32.Security.CLAIM_SECURITY_ATTRIBUTE_FLAGS = 1
@@ -465,33 +465,33 @@ CLAIM_SECURITY_ATTRIBUTE_USE_FOR_DENY_ONLY: win32more.Windows.Win32.Security.CLA
 CLAIM_SECURITY_ATTRIBUTE_DISABLED_BY_DEFAULT: win32more.Windows.Win32.Security.CLAIM_SECURITY_ATTRIBUTE_FLAGS = 8
 CLAIM_SECURITY_ATTRIBUTE_DISABLED: win32more.Windows.Win32.Security.CLAIM_SECURITY_ATTRIBUTE_FLAGS = 16
 CLAIM_SECURITY_ATTRIBUTE_MANDATORY: win32more.Windows.Win32.Security.CLAIM_SECURITY_ATTRIBUTE_FLAGS = 32
-class CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE(EasyCastStructure):
+class CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE(Structure):
     Version: UInt64
     Name: win32more.Windows.Win32.Foundation.PWSTR
-class CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE(EasyCastStructure):
+class CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE(Structure):
     pValue: VoidPtr
     ValueLength: UInt32
-class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1(EasyCastStructure):
+class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1(Structure):
     Name: UInt32
     ValueType: win32more.Windows.Win32.Security.CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE
     Reserved: UInt16
     Flags: win32more.Windows.Win32.Security.CLAIM_SECURITY_ATTRIBUTE_FLAGS
     ValueCount: UInt32
     Values: _Values_e__Union
-    class _Values_e__Union(EasyCastUnion):
+    class _Values_e__Union(Union):
         pInt64: UInt32 * 1
         pUint64: UInt32 * 1
         ppString: UInt32 * 1
         pFqbn: UInt32 * 1
         pOctetString: UInt32 * 1
-class CLAIM_SECURITY_ATTRIBUTE_V1(EasyCastStructure):
+class CLAIM_SECURITY_ATTRIBUTE_V1(Structure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     ValueType: win32more.Windows.Win32.Security.CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE
     Reserved: UInt16
     Flags: UInt32
     ValueCount: UInt32
     Values: _Values_e__Union
-    class _Values_e__Union(EasyCastUnion):
+    class _Values_e__Union(Union):
         pInt64: POINTER(Int64)
         pUint64: POINTER(UInt64)
         ppString: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
@@ -519,14 +519,14 @@ ENUM_PERIOD_DAYS: win32more.Windows.Win32.Security.ENUM_PERIOD = 3
 ENUM_PERIOD_WEEKS: win32more.Windows.Win32.Security.ENUM_PERIOD = 4
 ENUM_PERIOD_MONTHS: win32more.Windows.Win32.Security.ENUM_PERIOD = 5
 ENUM_PERIOD_YEARS: win32more.Windows.Win32.Security.ENUM_PERIOD = 6
-class GENERIC_MAPPING(EasyCastStructure):
+class GENERIC_MAPPING(Structure):
     GenericRead: UInt32
     GenericWrite: UInt32
     GenericExecute: UInt32
     GenericAll: UInt32
-class LLFILETIME(EasyCastStructure):
+class LLFILETIME(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ll: Int64
         ft: win32more.Windows.Win32.Foundation.FILETIME
 LOGON32_LOGON = UInt32
@@ -541,7 +541,7 @@ LOGON32_PROVIDER = UInt32
 LOGON32_PROVIDER_DEFAULT: win32more.Windows.Win32.Security.LOGON32_PROVIDER = 0
 LOGON32_PROVIDER_WINNT50: win32more.Windows.Win32.Security.LOGON32_PROVIDER = 3
 LOGON32_PROVIDER_WINNT40: win32more.Windows.Win32.Security.LOGON32_PROVIDER = 2
-class LUID_AND_ATTRIBUTES(EasyCastStructure):
+class LUID_AND_ATTRIBUTES(Structure):
     Luid: win32more.Windows.Win32.Foundation.LUID
     Attributes: win32more.Windows.Win32.Security.TOKEN_PRIVILEGES_ATTRIBUTES
 MANDATORY_LEVEL = Int32
@@ -567,19 +567,19 @@ SACL_SECURITY_INFORMATION: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFO
 SCOPE_SECURITY_INFORMATION: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION = 64
 UNPROTECTED_DACL_SECURITY_INFORMATION: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION = 536870912
 UNPROTECTED_SACL_SECURITY_INFORMATION: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION = 268435456
-class OBJECT_TYPE_LIST(EasyCastStructure):
+class OBJECT_TYPE_LIST(Structure):
     Level: UInt16
     Sbz: UInt16
     ObjectType: POINTER(Guid)
 @winfunctype_pointer
 def PLSA_AP_CALL_PACKAGE_UNTRUSTED(ClientRequest: POINTER(VoidPtr), ProtocolSubmitBuffer: VoidPtr, ClientBufferBase: VoidPtr, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(VoidPtr), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-class PRIVILEGE_SET(EasyCastStructure):
+class PRIVILEGE_SET(Structure):
     PrivilegeCount: UInt32
     Control: UInt32
     Privilege: win32more.Windows.Win32.Security.LUID_AND_ATTRIBUTES * 1
 PSECURITY_DESCRIPTOR = VoidPtr
 PSID = VoidPtr
-class QUOTA_LIMITS(EasyCastStructure):
+class QUOTA_LIMITS(Structure):
     PagedPoolLimit: UIntPtr
     NonPagedPoolLimit: UIntPtr
     MinimumWorkingSetSize: UIntPtr
@@ -587,7 +587,7 @@ class QUOTA_LIMITS(EasyCastStructure):
     PagefileLimit: UIntPtr
     TimeLimit: Int64
 SAFER_LEVEL_HANDLE = IntPtr
-class SECURITY_ATTRIBUTES(EasyCastStructure):
+class SECURITY_ATTRIBUTES(Structure):
     nLength: UInt32
     lpSecurityDescriptor: VoidPtr
     bInheritHandle: win32more.Windows.Win32.Foundation.BOOL
@@ -603,12 +603,12 @@ SEF_MACL_NO_EXECUTE_UP: win32more.Windows.Win32.Security.SECURITY_AUTO_INHERIT_F
 SEF_MACL_NO_READ_UP: win32more.Windows.Win32.Security.SECURITY_AUTO_INHERIT_FLAGS = 512
 SEF_MACL_NO_WRITE_UP: win32more.Windows.Win32.Security.SECURITY_AUTO_INHERIT_FLAGS = 256
 SEF_SACL_AUTO_INHERIT: win32more.Windows.Win32.Security.SECURITY_AUTO_INHERIT_FLAGS = 2
-class SECURITY_CAPABILITIES(EasyCastStructure):
+class SECURITY_CAPABILITIES(Structure):
     AppContainerSid: win32more.Windows.Win32.Security.PSID
     Capabilities: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES)
     CapabilityCount: UInt32
     Reserved: UInt32
-class SECURITY_DESCRIPTOR(EasyCastStructure):
+class SECURITY_DESCRIPTOR(Structure):
     Revision: Byte
     Sbz1: Byte
     Control: win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_CONTROL
@@ -631,7 +631,7 @@ SE_DACL_PROTECTED: win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_CONTROL 
 SE_SACL_PROTECTED: win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_CONTROL = 8192
 SE_RM_CONTROL_VALID: win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_CONTROL = 16384
 SE_SELF_RELATIVE: win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_CONTROL = 32768
-class SECURITY_DESCRIPTOR_RELATIVE(EasyCastStructure):
+class SECURITY_DESCRIPTOR_RELATIVE(Structure):
     Revision: Byte
     Sbz1: Byte
     Control: win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_CONTROL
@@ -644,21 +644,21 @@ SecurityAnonymous: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL
 SecurityIdentification: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 1
 SecurityImpersonation: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 2
 SecurityDelegation: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL = 3
-class SECURITY_QUALITY_OF_SERVICE(EasyCastStructure):
+class SECURITY_QUALITY_OF_SERVICE(Structure):
     Length: UInt32
     ImpersonationLevel: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL
     ContextTrackingMode: Byte
     EffectiveOnly: win32more.Windows.Win32.Foundation.BOOLEAN
 @winfunctype_pointer
 def SEC_THREAD_START(lpThreadParameter: VoidPtr) -> UInt32: ...
-class SE_ACCESS_REPLY(EasyCastStructure):
+class SE_ACCESS_REPLY(Structure):
     Size: UInt32
     ResultListCount: UInt32
     GrantedAccess: POINTER(UInt32)
     AccessStatus: POINTER(UInt32)
     AccessReason: POINTER(win32more.Windows.Win32.Security.ACCESS_REASONS)
     Privileges: POINTER(POINTER(win32more.Windows.Win32.Security.PRIVILEGE_SET))
-class SE_ACCESS_REQUEST(EasyCastStructure):
+class SE_ACCESS_REQUEST(Structure):
     Size: UInt32
     SeSecurityDescriptor: POINTER(win32more.Windows.Win32.Security.SE_SECURITY_DESCRIPTOR)
     DesiredAccess: UInt32
@@ -667,31 +667,31 @@ class SE_ACCESS_REQUEST(EasyCastStructure):
     GenericMapping: POINTER(win32more.Windows.Win32.Security.GENERIC_MAPPING)
     ObjectTypeListCount: UInt32
     ObjectTypeList: POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST)
-class SE_IMPERSONATION_STATE(EasyCastStructure):
+class SE_IMPERSONATION_STATE(Structure):
     Token: VoidPtr
     CopyOnOpen: win32more.Windows.Win32.Foundation.BOOLEAN
     EffectiveOnly: win32more.Windows.Win32.Foundation.BOOLEAN
     Level: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL
-class SE_SECURITY_DESCRIPTOR(EasyCastStructure):
+class SE_SECURITY_DESCRIPTOR(Structure):
     Size: UInt32
     Flags: UInt32
     SecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
-class SE_SID(EasyCastUnion):
+class SE_SID(Union):
     Sid: win32more.Windows.Win32.Security.SID
     Buffer: Byte * 68
-class SID(EasyCastStructure):
+class SID(Structure):
     Revision: Byte
     SubAuthorityCount: Byte
     IdentifierAuthority: win32more.Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY
     SubAuthority: UInt32 * 1
-class SID_AND_ATTRIBUTES(EasyCastStructure):
+class SID_AND_ATTRIBUTES(Structure):
     Sid: win32more.Windows.Win32.Security.PSID
     Attributes: UInt32
-class SID_AND_ATTRIBUTES_HASH(EasyCastStructure):
+class SID_AND_ATTRIBUTES_HASH(Structure):
     SidCount: UInt32
     SidAttr: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES)
     Hash: UIntPtr * 32
-class SID_IDENTIFIER_AUTHORITY(EasyCastStructure):
+class SID_IDENTIFIER_AUTHORITY(Structure):
     Value: Byte * 6
 SID_NAME_USE = Int32
 SidTypeUser: win32more.Windows.Win32.Security.SID_NAME_USE = 1
@@ -705,48 +705,48 @@ SidTypeUnknown: win32more.Windows.Win32.Security.SID_NAME_USE = 8
 SidTypeComputer: win32more.Windows.Win32.Security.SID_NAME_USE = 9
 SidTypeLabel: win32more.Windows.Win32.Security.SID_NAME_USE = 10
 SidTypeLogonSession: win32more.Windows.Win32.Security.SID_NAME_USE = 11
-class SYSTEM_ACCESS_FILTER_ACE(EasyCastStructure):
+class SYSTEM_ACCESS_FILTER_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class SYSTEM_ALARM_ACE(EasyCastStructure):
+class SYSTEM_ALARM_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class SYSTEM_ALARM_CALLBACK_ACE(EasyCastStructure):
+class SYSTEM_ALARM_CALLBACK_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class SYSTEM_ALARM_CALLBACK_OBJECT_ACE(EasyCastStructure):
+class SYSTEM_ALARM_CALLBACK_OBJECT_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     Flags: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
     ObjectType: Guid
     InheritedObjectType: Guid
     SidStart: UInt32
-class SYSTEM_ALARM_OBJECT_ACE(EasyCastStructure):
+class SYSTEM_ALARM_OBJECT_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     Flags: UInt32
     ObjectType: Guid
     InheritedObjectType: Guid
     SidStart: UInt32
-class SYSTEM_AUDIT_ACE(EasyCastStructure):
+class SYSTEM_AUDIT_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class SYSTEM_AUDIT_CALLBACK_ACE(EasyCastStructure):
+class SYSTEM_AUDIT_CALLBACK_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class SYSTEM_AUDIT_CALLBACK_OBJECT_ACE(EasyCastStructure):
+class SYSTEM_AUDIT_CALLBACK_OBJECT_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     Flags: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
     ObjectType: Guid
     InheritedObjectType: Guid
     SidStart: UInt32
-class SYSTEM_AUDIT_OBJECT_ACE(EasyCastStructure):
+class SYSTEM_AUDIT_OBJECT_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     Flags: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
@@ -756,23 +756,23 @@ class SYSTEM_AUDIT_OBJECT_ACE(EasyCastStructure):
 SYSTEM_AUDIT_OBJECT_ACE_FLAGS = UInt32
 ACE_OBJECT_TYPE_PRESENT: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS = 1
 ACE_INHERITED_OBJECT_TYPE_PRESENT: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS = 2
-class SYSTEM_MANDATORY_LABEL_ACE(EasyCastStructure):
+class SYSTEM_MANDATORY_LABEL_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class SYSTEM_PROCESS_TRUST_LABEL_ACE(EasyCastStructure):
+class SYSTEM_PROCESS_TRUST_LABEL_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class SYSTEM_RESOURCE_ATTRIBUTE_ACE(EasyCastStructure):
+class SYSTEM_RESOURCE_ATTRIBUTE_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class SYSTEM_SCOPED_POLICY_ID_ACE(EasyCastStructure):
+class SYSTEM_SCOPED_POLICY_ID_ACE(Structure):
     Header: win32more.Windows.Win32.Security.ACE_HEADER
     Mask: UInt32
     SidStart: UInt32
-class TOKEN_ACCESS_INFORMATION(EasyCastStructure):
+class TOKEN_ACCESS_INFORMATION(Structure):
     SidHash: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES_HASH)
     RestrictedSidHash: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES_HASH)
     Privileges: POINTER(win32more.Windows.Win32.Security.TOKEN_PRIVILEGES)
@@ -808,29 +808,29 @@ TOKEN_TRUST_CONSTRAINT_MASK: win32more.Windows.Win32.Security.TOKEN_ACCESS_MASK 
 TOKEN_ACCESS_PSEUDO_HANDLE_WIN8: win32more.Windows.Win32.Security.TOKEN_ACCESS_MASK = 24
 TOKEN_ACCESS_PSEUDO_HANDLE: win32more.Windows.Win32.Security.TOKEN_ACCESS_MASK = 24
 TOKEN_ALL_ACCESS: win32more.Windows.Win32.Security.TOKEN_ACCESS_MASK = 983551
-class TOKEN_APPCONTAINER_INFORMATION(EasyCastStructure):
+class TOKEN_APPCONTAINER_INFORMATION(Structure):
     TokenAppContainer: win32more.Windows.Win32.Security.PSID
-class TOKEN_AUDIT_POLICY(EasyCastStructure):
+class TOKEN_AUDIT_POLICY(Structure):
     PerUserPolicy: Byte * 30
-class TOKEN_CONTROL(EasyCastStructure):
+class TOKEN_CONTROL(Structure):
     TokenId: win32more.Windows.Win32.Foundation.LUID
     AuthenticationId: win32more.Windows.Win32.Foundation.LUID
     ModifiedId: win32more.Windows.Win32.Foundation.LUID
     TokenSource: win32more.Windows.Win32.Security.TOKEN_SOURCE
-class TOKEN_DEFAULT_DACL(EasyCastStructure):
+class TOKEN_DEFAULT_DACL(Structure):
     DefaultDacl: POINTER(win32more.Windows.Win32.Security.ACL)
-class TOKEN_DEVICE_CLAIMS(EasyCastStructure):
+class TOKEN_DEVICE_CLAIMS(Structure):
     DeviceClaims: VoidPtr
-class TOKEN_ELEVATION(EasyCastStructure):
+class TOKEN_ELEVATION(Structure):
     TokenIsElevated: UInt32
 TOKEN_ELEVATION_TYPE = Int32
 TokenElevationTypeDefault: win32more.Windows.Win32.Security.TOKEN_ELEVATION_TYPE = 1
 TokenElevationTypeFull: win32more.Windows.Win32.Security.TOKEN_ELEVATION_TYPE = 2
 TokenElevationTypeLimited: win32more.Windows.Win32.Security.TOKEN_ELEVATION_TYPE = 3
-class TOKEN_GROUPS(EasyCastStructure):
+class TOKEN_GROUPS(Structure):
     GroupCount: UInt32
     Groups: win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES * 1
-class TOKEN_GROUPS_AND_PRIVILEGES(EasyCastStructure):
+class TOKEN_GROUPS_AND_PRIVILEGES(Structure):
     SidCount: UInt32
     SidLength: UInt32
     Sids: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES)
@@ -891,24 +891,24 @@ TokenIsLessPrivilegedAppContainer: win32more.Windows.Win32.Security.TOKEN_INFORM
 TokenIsSandboxed: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 47
 TokenIsAppSilo: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 48
 MaxTokenInfoClass: win32more.Windows.Win32.Security.TOKEN_INFORMATION_CLASS = 49
-class TOKEN_LINKED_TOKEN(EasyCastStructure):
+class TOKEN_LINKED_TOKEN(Structure):
     LinkedToken: win32more.Windows.Win32.Foundation.HANDLE
-class TOKEN_MANDATORY_LABEL(EasyCastStructure):
+class TOKEN_MANDATORY_LABEL(Structure):
     Label: win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES
-class TOKEN_MANDATORY_POLICY(EasyCastStructure):
+class TOKEN_MANDATORY_POLICY(Structure):
     Policy: win32more.Windows.Win32.Security.TOKEN_MANDATORY_POLICY_ID
 TOKEN_MANDATORY_POLICY_ID = UInt32
 TOKEN_MANDATORY_POLICY_OFF: win32more.Windows.Win32.Security.TOKEN_MANDATORY_POLICY_ID = 0
 TOKEN_MANDATORY_POLICY_NO_WRITE_UP: win32more.Windows.Win32.Security.TOKEN_MANDATORY_POLICY_ID = 1
 TOKEN_MANDATORY_POLICY_NEW_PROCESS_MIN: win32more.Windows.Win32.Security.TOKEN_MANDATORY_POLICY_ID = 2
 TOKEN_MANDATORY_POLICY_VALID_MASK: win32more.Windows.Win32.Security.TOKEN_MANDATORY_POLICY_ID = 3
-class TOKEN_ORIGIN(EasyCastStructure):
+class TOKEN_ORIGIN(Structure):
     OriginatingLogonSession: win32more.Windows.Win32.Foundation.LUID
-class TOKEN_OWNER(EasyCastStructure):
+class TOKEN_OWNER(Structure):
     Owner: win32more.Windows.Win32.Security.PSID
-class TOKEN_PRIMARY_GROUP(EasyCastStructure):
+class TOKEN_PRIMARY_GROUP(Structure):
     PrimaryGroup: win32more.Windows.Win32.Security.PSID
-class TOKEN_PRIVILEGES(EasyCastStructure):
+class TOKEN_PRIVILEGES(Structure):
     PrivilegeCount: UInt32
     Privileges: win32more.Windows.Win32.Security.LUID_AND_ATTRIBUTES * 1
 TOKEN_PRIVILEGES_ATTRIBUTES = UInt32
@@ -916,10 +916,10 @@ SE_PRIVILEGE_ENABLED: win32more.Windows.Win32.Security.TOKEN_PRIVILEGES_ATTRIBUT
 SE_PRIVILEGE_ENABLED_BY_DEFAULT: win32more.Windows.Win32.Security.TOKEN_PRIVILEGES_ATTRIBUTES = 1
 SE_PRIVILEGE_REMOVED: win32more.Windows.Win32.Security.TOKEN_PRIVILEGES_ATTRIBUTES = 4
 SE_PRIVILEGE_USED_FOR_ACCESS: win32more.Windows.Win32.Security.TOKEN_PRIVILEGES_ATTRIBUTES = 2147483648
-class TOKEN_SOURCE(EasyCastStructure):
+class TOKEN_SOURCE(Structure):
     SourceName: win32more.Windows.Win32.Foundation.CHAR * 8
     SourceIdentifier: win32more.Windows.Win32.Foundation.LUID
-class TOKEN_STATISTICS(EasyCastStructure):
+class TOKEN_STATISTICS(Structure):
     TokenId: win32more.Windows.Win32.Foundation.LUID
     AuthenticationId: win32more.Windows.Win32.Foundation.LUID
     ExpirationTime: Int64
@@ -933,9 +933,9 @@ class TOKEN_STATISTICS(EasyCastStructure):
 TOKEN_TYPE = Int32
 TokenPrimary: win32more.Windows.Win32.Security.TOKEN_TYPE = 1
 TokenImpersonation: win32more.Windows.Win32.Security.TOKEN_TYPE = 2
-class TOKEN_USER(EasyCastStructure):
+class TOKEN_USER(Structure):
     User: win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES
-class TOKEN_USER_CLAIMS(EasyCastStructure):
+class TOKEN_USER_CLAIMS(Structure):
     UserClaims: VoidPtr
 WELL_KNOWN_SID_TYPE = Int32
 WinNullSid: win32more.Windows.Win32.Security.WELL_KNOWN_SID_TYPE = 0

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media.DirectShow
@@ -18,7 +18,7 @@ ATSCChannelTuneRequest = Guid('{0369b4e6-45b6-11d3-b650-00c04f79498e}')
 ATSCComponentType = Guid('{a8dcf3d5-0780-4ef4-8a83-2cffaacb8ace}')
 ATSCLocator = Guid('{8872ff1b-98fa-4d7a-8d93-c9f1055f85bb}')
 ATSCTuningSpace = Guid('{a2e30750-6c3d-11d3-b653-00c04f79498e}')
-class ATSC_FILTER_OPTIONS(EasyCastStructure):
+class ATSC_FILTER_OPTIONS(Structure):
     fSpecifyEtmId: win32more.Windows.Win32.Foundation.BOOL
     EtmId: UInt32
     _pack_ = 1
@@ -257,7 +257,7 @@ STREAMBUFFER_EC_RATE_CHANGING_FOR_SETPOSITIONS: Int32 = 815
 STREAMBUFFER_EC_SETPOSITIONS_EVENTS_DONE: Int32 = 816
 AuxInTuningSpace = Guid('{f9769a06-7aca-4e39-9cfb-97bb35f0e77e}')
 BDANETWORKTYPE_ATSC = Guid('{71985f51-1ca1-11d3-9cc8-00c04f7971e0}')
-class BDA_DEBUG_DATA(EasyCastStructure):
+class BDA_DEBUG_DATA(Structure):
     lResult: Int32
     uuidDebugDataType: Guid
     ulDataSize: UInt32
@@ -273,7 +273,7 @@ Bda_DigitalStandard_ATSC: win32more.Windows.Win32.Media.DirectShow.Tv.BDA_Digita
 Bda_DigitalStandard_ISDB_T: win32more.Windows.Win32.Media.DirectShow.Tv.BDA_DigitalSignalStandard = 16
 Bda_DigitalStandard_ISDB_S: win32more.Windows.Win32.Media.DirectShow.Tv.BDA_DigitalSignalStandard = 32
 Bda_DigitalStandard_ISDB_C: win32more.Windows.Win32.Media.DirectShow.Tv.BDA_DigitalSignalStandard = 64
-class BDA_EVENT_DATA(EasyCastStructure):
+class BDA_EVENT_DATA(Structure):
     lResult: Int32
     ulEventID: UInt32
     uuidEventType: Guid
@@ -288,13 +288,13 @@ BDA_SignalType = Int32
 Bda_SignalType_Unknown: win32more.Windows.Win32.Media.DirectShow.Tv.BDA_SignalType = 0
 Bda_SignalType_Analog: win32more.Windows.Win32.Media.DirectShow.Tv.BDA_SignalType = 1
 Bda_SignalType_Digital: win32more.Windows.Win32.Media.DirectShow.Tv.BDA_SignalType = 2
-class BDA_TRANSPORT_INFO(EasyCastStructure):
+class BDA_TRANSPORT_INFO(Structure):
     ulcbPhyiscalPacket: UInt32
     ulcbPhyiscalFrame: UInt32
     ulcbPhyiscalFrameAlignment: UInt32
     AvgTimePerFrame: Int64
 BSKYB_TERRESTRIAL_TV_NETWORK_TYPE = Guid('{9e9e46c6-3aba-4f08-ad0e-cc5ac8148c2b}')
-class BadSampleInfo(EasyCastStructure):
+class BadSampleInfo(Structure):
     hrReason: win32more.Windows.Win32.Foundation.HRESULT
     _pack_ = 1
 BfEnTvRat_Attributes_CAE_TV = Int32
@@ -325,7 +325,7 @@ BfIsAttr_6: win32more.Windows.Win32.Media.DirectShow.Tv.BfEnTvRat_GenericAttribu
 BfIsAttr_7: win32more.Windows.Win32.Media.DirectShow.Tv.BfEnTvRat_GenericAttributes = 128
 BfValidAttrSubmask: win32more.Windows.Win32.Media.DirectShow.Tv.BfEnTvRat_GenericAttributes = 255
 BroadcastEventService = Guid('{0b3ffb92-0919-4934-9d5b-619c719d0202}')
-class CAPTURE_STREAMTIME(EasyCastStructure):
+class CAPTURE_STREAMTIME(Structure):
     StreamTime: Int64
 COPPEventBlockReason = Int32
 COPP_Unknown: win32more.Windows.Win32.Media.DirectShow.Tv.COPPEventBlockReason = -1
@@ -373,7 +373,7 @@ CROSSBAR_DEFAULT_FLAGS = Int32
 DEF_MODE_PROFILE: win32more.Windows.Win32.Media.DirectShow.Tv.CROSSBAR_DEFAULT_FLAGS = 1
 DEF_MODE_STREAMS: win32more.Windows.Win32.Media.DirectShow.Tv.CROSSBAR_DEFAULT_FLAGS = 2
 CXDSData = Guid('{c4c4c4f4-0049-4e2b-98fb-9537f6ce516d}')
-class ChannelChangeInfo(EasyCastStructure):
+class ChannelChangeInfo(Structure):
     state: win32more.Windows.Win32.Media.DirectShow.Tv.ChannelChangeSpanningEvent_State
     TimeStamp: UInt64
 ChannelChangeSpanningEvent_State = Int32
@@ -381,20 +381,20 @@ ChannelChangeSpanningEvent_Start: win32more.Windows.Win32.Media.DirectShow.Tv.Ch
 ChannelChangeSpanningEvent_End: win32more.Windows.Win32.Media.DirectShow.Tv.ChannelChangeSpanningEvent_State = 2
 ChannelIDTuneRequest = Guid('{3a9428a7-31a4-45e9-9efb-e055bf7bb3db}')
 ChannelIDTuningSpace = Guid('{cc829a2f-3365-463f-af13-81dbb6f3a555}')
-class ChannelInfo(EasyCastStructure):
+class ChannelInfo(Structure):
     lFrequency: Int32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         DVB: _DVB_e__Struct
         DC: _DC_e__Struct
         ATSC: _ATSC_e__Struct
-        class _DVB_e__Struct(EasyCastStructure):
+        class _DVB_e__Struct(Structure):
             lONID: Int32
             lTSID: Int32
             lSID: Int32
-        class _DC_e__Struct(EasyCastStructure):
+        class _DC_e__Struct(Structure):
             lProgNumber: Int32
-        class _ATSC_e__Struct(EasyCastStructure):
+        class _ATSC_e__Struct(Structure):
             lProgNumber: Int32
 ChannelTuneRequest = Guid('{0369b4e5-45b6-11d3-b650-00c04f79498e}')
 ChannelType = Int32
@@ -407,7 +407,7 @@ ChannelTypeSubtitles: win32more.Windows.Win32.Media.DirectShow.Tv.ChannelType = 
 ChannelTypeCaptions: win32more.Windows.Win32.Media.DirectShow.Tv.ChannelType = 32
 ChannelTypeSuperimpose: win32more.Windows.Win32.Media.DirectShow.Tv.ChannelType = 64
 ChannelTypeData: win32more.Windows.Win32.Media.DirectShow.Tv.ChannelType = 128
-class ChannelTypeInfo(EasyCastStructure):
+class ChannelTypeInfo(Structure):
     channelType: win32more.Windows.Win32.Media.DirectShow.Tv.ChannelType
     timeStamp: UInt64
 Component = Guid('{59dc47a8-116c-11d3-9d8e-00c04f72d980}')
@@ -541,20 +541,20 @@ DISPID_DVBTUNER_SID: win32more.Windows.Win32.Media.DirectShow.Tv.DISPID_TUNER = 
 DISPID_MP2TUNER_TSID: win32more.Windows.Win32.Media.DirectShow.Tv.DISPID_TUNER = 101
 DISPID_MP2TUNER_PROGNO: win32more.Windows.Win32.Media.DirectShow.Tv.DISPID_TUNER = 102
 DISPID_MP2TUNERFACTORY_CREATETUNEREQUEST: win32more.Windows.Win32.Media.DirectShow.Tv.DISPID_TUNER = 1
-class DSHOW_STREAM_DESC(EasyCastStructure):
+class DSHOW_STREAM_DESC(Structure):
     VersionNo: UInt32
     StreamId: UInt32
     Default: win32more.Windows.Win32.Foundation.BOOL
     Creation: win32more.Windows.Win32.Foundation.BOOL
     Reserved: UInt32
-class DSMCC_ELEMENT(EasyCastStructure):
+class DSMCC_ELEMENT(Structure):
     pid: UInt16
     bComponentTag: Byte
     dwCarouselId: UInt32
     dwTransactionId: UInt32
     pNext: POINTER(win32more.Windows.Win32.Media.DirectShow.Tv.DSMCC_ELEMENT)
     _pack_ = 1
-class DSMCC_FILTER_OPTIONS(EasyCastStructure):
+class DSMCC_FILTER_OPTIONS(Structure):
     fSpecifyProtocol: win32more.Windows.Win32.Foundation.BOOL
     Protocol: Byte
     fSpecifyType: win32more.Windows.Win32.Foundation.BOOL
@@ -571,7 +571,7 @@ class DSMCC_FILTER_OPTIONS(EasyCastStructure):
     fGetModuleCall: win32more.Windows.Win32.Foundation.BOOL
     NumberOfBlocksInModule: UInt16
     _pack_ = 1
-class DSMCC_SECTION(EasyCastStructure):
+class DSMCC_SECTION(Structure):
     TableId: Byte
     Header: _Header_e__Union
     TableIdExtension: UInt16
@@ -587,18 +587,18 @@ class DSMCC_SECTION(EasyCastStructure):
     MessageLength: UInt16
     RemainingData: Byte * 1
     _pack_ = 1
-    class _Header_e__Union(EasyCastUnion):
+    class _Header_e__Union(Union):
         S: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_HEADER_BITS_MIDL
         W: UInt16
         _pack_ = 1
-    class _Version_e__Union(EasyCastUnion):
+    class _Version_e__Union(Union):
         S: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_HEADER_VERSION_BITS_MIDL
         B: Byte
 DTFilter = Guid('{c4c4c4f2-0049-4e2b-98fb-9537f6ce516d}')
 DVBCLocator = Guid('{c531d9fd-9685-4028-8b68-6e1232079f1e}')
 DVBSLocator = Guid('{1df7d126-4050-47f0-a7cf-4c4ca9241333}')
 DVBSTuningSpace = Guid('{b64016f3-c9a2-4066-96f0-bd9563314726}')
-class DVBScramblingControlSpanningEvent(EasyCastStructure):
+class DVBScramblingControlSpanningEvent(Structure):
     ulPID: UInt32
     fScrambled: win32more.Windows.Win32.Foundation.BOOL
 DVBTLocator = Guid('{9cd64701-bdf3-4d14-8e03-f12983d86664}')
@@ -606,7 +606,7 @@ DVBTLocator2 = Guid('{efe3fa02-45d7-4920-be96-53fa7f35b0e6}')
 DVBTuneRequest = Guid('{15d6504a-5494-499c-886c-973c9e53b9f1}')
 DVBTuningSpace = Guid('{c6b14b32-76aa-4a86-a7ac-5c79aaf58da7}')
 DVB_CABLE_TV_NETWORK_TYPE = Guid('{dc0c0fe7-0485-4266-b93f-68fbf80ed834}')
-class DVB_EIT_FILTER_OPTIONS(EasyCastStructure):
+class DVB_EIT_FILTER_OPTIONS(Structure):
     fSpecifySegment: win32more.Windows.Win32.Foundation.BOOL
     bSegment: Byte
     _pack_ = 1
@@ -675,7 +675,7 @@ dvdTitle_Orig_Other: win32more.Windows.Win32.Media.DirectShow.Tv.DVDTextStringTy
 dvdOther_Scene: win32more.Windows.Win32.Media.DirectShow.Tv.DVDTextStringType = 80
 dvdOther_Cut: win32more.Windows.Win32.Media.DirectShow.Tv.DVDTextStringType = 81
 dvdOther_Take: win32more.Windows.Win32.Media.DirectShow.Tv.DVDTextStringType = 82
-class DVR_STREAM_DESC(EasyCastStructure):
+class DVR_STREAM_DESC(Structure):
     Version: UInt32
     StreamId: UInt32
     Default: win32more.Windows.Win32.Foundation.BOOL
@@ -701,15 +701,15 @@ DownResEventParam = Int32
 DOWNRES_Always: win32more.Windows.Win32.Media.DirectShow.Tv.DownResEventParam = 0
 DOWNRES_InWindowOnly: win32more.Windows.Win32.Media.DirectShow.Tv.DownResEventParam = 1
 DOWNRES_Undefined: win32more.Windows.Win32.Media.DirectShow.Tv.DownResEventParam = 2
-class DualMonoInfo(EasyCastStructure):
+class DualMonoInfo(Structure):
     LangID1: UInt16
     LangID2: UInt16
     lISOLangCode1: Int32
     lISOLangCode2: Int32
-class DvbParentalRatingDescriptor(EasyCastStructure):
+class DvbParentalRatingDescriptor(Structure):
     ulNumParams: UInt32
     pParams: win32more.Windows.Win32.Media.DirectShow.Tv.DvbParentalRatingParam * 1
-class DvbParentalRatingParam(EasyCastStructure):
+class DvbParentalRatingParam(Structure):
     szCountryCode: win32more.Windows.Win32.Foundation.CHAR * 4
     bRating: Byte
 ECHOSTAR_SATELLITE_TV_NETWORK_TYPE = Guid('{c4f6b31b-c6bf-4759-886f-a7386dca27a0}')
@@ -5147,7 +5147,7 @@ KSDATAFORMAT_TYPE_BDA_IP = Guid('{e25f7b8e-cccc-11d2-8f25-00c04f7971e2}')
 KSDATAFORMAT_TYPE_BDA_IP_CONTROL = Guid('{dadd5799-7d5b-4b63-80fb-d1442f26b621}')
 KSDATAFORMAT_TYPE_MPE = Guid('{455f176c-4b06-47ce-9aef-8caef73df7b5}')
 KSDATAFORMAT_TYPE_MPEG2_SECTIONS = Guid('{455f176c-4b06-47ce-9aef-8caef73df7b5}')
-class KSEVENTDATA_BDA_RF_TUNER_SCAN_S(EasyCastStructure):
+class KSEVENTDATA_BDA_RF_TUNER_SCAN_S(Structure):
     EventData: win32more.Windows.Win32.Media.KernelStreaming.KSEVENTDATA
     StartFrequency: UInt32
     EndFrequency: UInt32
@@ -5253,130 +5253,130 @@ KSMETHOD_BDA_WMDRMTUNER_GETPIDPROTECTION: win32more.Windows.Win32.Media.DirectSh
 KSMETHOD_BDA_WMDRMTUNER_SETSYNCVALUE: win32more.Windows.Win32.Media.DirectShow.Tv.KSMETHOD_BDA_WMDRM_TUNER = 3
 KSMETHOD_BDA_WMDRMTUNER_STARTCODEPROFILE: win32more.Windows.Win32.Media.DirectShow.Tv.KSMETHOD_BDA_WMDRM_TUNER = 4
 KSMETHOD_BDA_WMDRMTUNER_PURCHASE_ENTITLEMENT: win32more.Windows.Win32.Media.DirectShow.Tv.KSMETHOD_BDA_WMDRM_TUNER = 5
-class KSM_BDA_BUFFER(EasyCastStructure):
+class KSM_BDA_BUFFER(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulBufferSize: UInt32
     argbBuffer: Byte * 1
-class KSM_BDA_CAS_CAPTURETOKEN(EasyCastStructure):
+class KSM_BDA_CAS_CAPTURETOKEN(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulTokenLength: UInt32
     argbToken: Byte * 1
-class KSM_BDA_CAS_CLOSEMMIDIALOG(EasyCastStructure):
+class KSM_BDA_CAS_CLOSEMMIDIALOG(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulDialogRequest: UInt32
     cLanguage: win32more.Windows.Win32.Foundation.CHAR * 12
     ulDialogNumber: UInt32
     ulReason: UInt32
-class KSM_BDA_CAS_ENTITLEMENTTOKEN(EasyCastStructure):
+class KSM_BDA_CAS_ENTITLEMENTTOKEN(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulDialogRequest: UInt32
     cLanguage: win32more.Windows.Win32.Foundation.CHAR * 12
     ulRequestType: UInt32
     ulEntitlementTokenLen: UInt32
     argbEntitlementToken: Byte * 1
-class KSM_BDA_CAS_OPENBROADCASTMMI(EasyCastStructure):
+class KSM_BDA_CAS_OPENBROADCASTMMI(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulDialogRequest: UInt32
     cLanguage: win32more.Windows.Win32.Foundation.CHAR * 12
     ulEventId: UInt32
-class KSM_BDA_DEBUG_LEVEL(EasyCastStructure):
+class KSM_BDA_DEBUG_LEVEL(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ucDebugLevel: Byte
     ulDebugStringSize: UInt32
     argbDebugString: Byte * 1
-class KSM_BDA_DRM_SETDRM(EasyCastStructure):
+class KSM_BDA_DRM_SETDRM(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     NewDRMuuid: Guid
-class KSM_BDA_EVENT_COMPLETE(EasyCastStructure):
+class KSM_BDA_EVENT_COMPLETE(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulEventID: UInt32
     ulEventResult: UInt32
-class KSM_BDA_GDDS_SERVICEFROMTUNEXML(EasyCastStructure):
+class KSM_BDA_GDDS_SERVICEFROMTUNEXML(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulTuneXmlLength: UInt32
     argbTuneXml: Byte * 1
-class KSM_BDA_GDDS_TUNEXMLFROMIDX(EasyCastStructure):
+class KSM_BDA_GDDS_TUNEXMLFROMIDX(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulIdx: UInt64
-class KSM_BDA_GPNV_GETVALUE(EasyCastStructure):
+class KSM_BDA_GPNV_GETVALUE(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulNameLength: UInt32
     cLanguage: win32more.Windows.Win32.Foundation.CHAR * 12
     argbData: Byte * 1
-class KSM_BDA_GPNV_NAMEINDEX(EasyCastStructure):
+class KSM_BDA_GPNV_NAMEINDEX(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulValueNameIndex: UInt32
-class KSM_BDA_GPNV_SETVALUE(EasyCastStructure):
+class KSM_BDA_GPNV_SETVALUE(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulDialogRequest: UInt32
     cLanguage: win32more.Windows.Win32.Foundation.CHAR * 12
     ulNameLength: UInt32
     ulValueLength: UInt32
     argbName: Byte * 1
-class KSM_BDA_ISDBCAS_REQUEST(EasyCastStructure):
+class KSM_BDA_ISDBCAS_REQUEST(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulRequestID: UInt32
     ulIsdbCommandSize: UInt32
     argbIsdbCommandData: Byte * 1
-class KSM_BDA_PIN(EasyCastStructure):
+class KSM_BDA_PIN(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     Anonymous: _Anonymous_e__Union
     Reserved: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         PinId: UInt32
         PinType: UInt32
-class KSM_BDA_PIN_PAIR(EasyCastStructure):
+class KSM_BDA_PIN_PAIR(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         InputPinId: UInt32
         InputPinType: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         OutputPinId: UInt32
         OutputPinType: UInt32
-class KSM_BDA_SCAN_CAPABILTIES(EasyCastStructure):
+class KSM_BDA_SCAN_CAPABILTIES(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     uuidBroadcastStandard: Guid
-class KSM_BDA_SCAN_FILTER(EasyCastStructure):
+class KSM_BDA_SCAN_FILTER(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulScanModulationTypeSize: UInt32
     AnalogVideoStandards: UInt64
     argbScanModulationTypes: Byte * 1
-class KSM_BDA_SCAN_START(EasyCastStructure):
+class KSM_BDA_SCAN_START(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     LowerFrequency: UInt32
     HigherFrequency: UInt32
-class KSM_BDA_TS_SELECTOR_SETTSID(EasyCastStructure):
+class KSM_BDA_TS_SELECTOR_SETTSID(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     usTSID: UInt16
-class KSM_BDA_TUNER_TUNEREQUEST(EasyCastStructure):
+class KSM_BDA_TUNER_TUNEREQUEST(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulTuneLength: UInt32
     argbTuneData: Byte * 1
-class KSM_BDA_USERACTIVITY_USEREASON(EasyCastStructure):
+class KSM_BDA_USERACTIVITY_USEREASON(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulUseReason: UInt32
-class KSM_BDA_WMDRMTUNER_GETPIDPROTECTION(EasyCastStructure):
+class KSM_BDA_WMDRMTUNER_GETPIDPROTECTION(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulPID: UInt32
-class KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT(EasyCastStructure):
+class KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulDialogRequest: UInt32
     cLanguage: win32more.Windows.Win32.Foundation.CHAR * 12
     ulPurchaseTokenLength: UInt32
     argbDataBuffer: Byte * 1
-class KSM_BDA_WMDRMTUNER_SETPIDPROTECTION(EasyCastStructure):
+class KSM_BDA_WMDRMTUNER_SETPIDPROTECTION(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulPID: UInt32
     uuidKeyID: Guid
-class KSM_BDA_WMDRMTUNER_SYNCVALUE(EasyCastStructure):
+class KSM_BDA_WMDRMTUNER_SYNCVALUE(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulSyncValue: UInt32
-class KSM_BDA_WMDRM_LICENSE(EasyCastStructure):
+class KSM_BDA_WMDRM_LICENSE(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     uuidKeyID: Guid
-class KSM_BDA_WMDRM_RENEWLICENSE(EasyCastStructure):
+class KSM_BDA_WMDRM_RENEWLICENSE(Structure):
     NodeMethod: win32more.Windows.Win32.Media.KernelStreaming.KSM_NODE
     ulXMRLicenseLength: UInt32
     ulEntitlementTokenLength: UInt32
@@ -5480,7 +5480,7 @@ KSPROPERTY_BDA_PIN_TYPE: win32more.Windows.Win32.Media.DirectShow.Tv.KSPROPERTY_
 KSPROPERTY_BDA_PIN_EVENT = Int32
 KSEVENT_BDA_PIN_CONNECTED: win32more.Windows.Win32.Media.DirectShow.Tv.KSPROPERTY_BDA_PIN_EVENT = 0
 KSEVENT_BDA_PIN_DISCONNECTED: win32more.Windows.Win32.Media.DirectShow.Tv.KSPROPERTY_BDA_PIN_EVENT = 1
-class KSPROPERTY_BDA_RF_TUNER_CAPS_S(EasyCastStructure):
+class KSPROPERTY_BDA_RF_TUNER_CAPS_S(Structure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSP_NODE
     Mode: UInt32
     AnalogStandardsSupported: UInt32
@@ -5491,16 +5491,16 @@ class KSPROPERTY_BDA_RF_TUNER_CAPS_S(EasyCastStructure):
     AnalogSensingRange: UInt32
     DigitalSensingRange: UInt32
     MilliSecondsPerMHz: UInt32
-class KSPROPERTY_BDA_RF_TUNER_SCAN_STATUS_S(EasyCastStructure):
+class KSPROPERTY_BDA_RF_TUNER_SCAN_STATUS_S(Structure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSP_NODE
     CurrentFrequency: UInt32
     FrequencyRangeMin: UInt32
     FrequencyRangeMax: UInt32
     MilliSecondsLeft: UInt32
-class KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE_S(EasyCastStructure):
+class KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE_S(Structure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSP_NODE
     AutoDetect: win32more.Windows.Win32.Foundation.BOOL
-class KSPROPERTY_BDA_RF_TUNER_STANDARD_S(EasyCastStructure):
+class KSPROPERTY_BDA_RF_TUNER_STANDARD_S(Structure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSP_NODE
     SignalType: win32more.Windows.Win32.Media.DirectShow.Tv.BDA_SignalType
     SignalStandard: UInt32
@@ -5542,20 +5542,20 @@ KSPROPSETID_BdaSignalStats = Guid('{1347d106-cf3a-428a-a5cb-ac0d9a2a4338}')
 KSPROPSETID_BdaTableSection = Guid('{516b99c5-971c-4aaf-b3f3-d9fda8a15e16}')
 KSPROPSETID_BdaTopology = Guid('{a14ee835-0a23-11d3-9cc7-00c04f7971e0}')
 KSPROPSETID_BdaVoidTransform = Guid('{71985f46-1ca1-11d3-9cc8-00c04f7971e0}')
-class KSP_BDA_NODE_PIN(EasyCastStructure):
+class KSP_BDA_NODE_PIN(Structure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     ulNodeType: UInt32
     ulInputPinId: UInt32
     ulOutputPinId: UInt32
-class KSP_NODE_ESPID(EasyCastStructure):
+class KSP_NODE_ESPID(Structure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSP_NODE
     EsPid: UInt32
-class KS_DATARANGE_BDA_ANTENNA(EasyCastStructure):
+class KS_DATARANGE_BDA_ANTENNA(Structure):
     DataRange: win32more.Windows.Win32.Media.KernelStreaming.KSDATAFORMAT
-class KS_DATARANGE_BDA_TRANSPORT(EasyCastStructure):
+class KS_DATARANGE_BDA_TRANSPORT(Structure):
     DataRange: win32more.Windows.Win32.Media.KernelStreaming.KSDATAFORMAT
     BdaTransportInfo: win32more.Windows.Win32.Media.DirectShow.Tv.BDA_TRANSPORT_INFO
-class LONG_SECTION(EasyCastStructure):
+class LONG_SECTION(Structure):
     TableId: Byte
     Header: _Header_e__Union
     TableIdExtension: UInt16
@@ -5564,15 +5564,15 @@ class LONG_SECTION(EasyCastStructure):
     LastSectionNumber: Byte
     RemainingData: Byte * 1
     _pack_ = 1
-    class _Header_e__Union(EasyCastUnion):
+    class _Header_e__Union(Union):
         S: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_HEADER_BITS_MIDL
         W: UInt16
         _pack_ = 1
-    class _Version_e__Union(EasyCastUnion):
+    class _Version_e__Union(Union):
         S: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_HEADER_VERSION_BITS_MIDL
         B: Byte
 LanguageComponentType = Guid('{1be49f30-0e1b-11d3-9d8e-00c04f72d980}')
-class LanguageInfo(EasyCastStructure):
+class LanguageInfo(Structure):
     LangID: UInt16
     lISOLangCode: Int32
 LicenseEventBlockReason = Int32
@@ -5586,7 +5586,7 @@ MPEG2Component = Guid('{055cb2d7-2969-45cd-914b-76890722f112}')
 MPEG2ComponentType = Guid('{418008f3-cf67-4668-9628-10dc52be1d08}')
 MPEG2TuneRequest = Guid('{0955ac62-bf2e-4cba-a2b9-a63f772d46cf}')
 MPEG2TuneRequestFactory = Guid('{2c63e4eb-4cea-41b8-919c-e947ea19a77c}')
-class MPEG2_FILTER(EasyCastStructure):
+class MPEG2_FILTER(Structure):
     bVersionNumber: Byte
     wFilterSize: UInt16
     fUseRawFilteringBits: win32more.Windows.Win32.Foundation.BOOL
@@ -5605,15 +5605,15 @@ class MPEG2_FILTER(EasyCastStructure):
     fSpecifyAtscOptions: win32more.Windows.Win32.Foundation.BOOL
     Atsc: win32more.Windows.Win32.Media.DirectShow.Tv.ATSC_FILTER_OPTIONS
     _pack_ = 1
-class MPEG2_FILTER2(EasyCastStructure):
+class MPEG2_FILTER2(Structure):
     Anonymous: _Anonymous_e__Union
     fSpecifyDvbEitOptions: win32more.Windows.Win32.Foundation.BOOL
     DvbEit: win32more.Windows.Win32.Media.DirectShow.Tv.DVB_EIT_FILTER_OPTIONS
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         bVersion1Bytes: Byte * 124
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             bVersionNumber: Byte
             wFilterSize: UInt16
             fUseRawFilteringBits: win32more.Windows.Win32.Foundation.BOOL
@@ -5632,14 +5632,14 @@ class MPEG2_FILTER2(EasyCastStructure):
             fSpecifyAtscOptions: win32more.Windows.Win32.Foundation.BOOL
             Atsc: win32more.Windows.Win32.Media.DirectShow.Tv.ATSC_FILTER_OPTIONS
             _pack_ = 1
-class MPEG_BCS_DEMUX(EasyCastStructure):
+class MPEG_BCS_DEMUX(Structure):
     AVMGraphId: UInt32
     _pack_ = 1
-class MPEG_CONTEXT(EasyCastStructure):
+class MPEG_CONTEXT(Structure):
     Type: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_CONTEXT_TYPE
     U: _U_e__Union
     _pack_ = 1
-    class _U_e__Union(EasyCastUnion):
+    class _U_e__Union(Union):
         Demux: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_BCS_DEMUX
         Winsock: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_WINSOCK
 MPEG_CONTEXT_TYPE = Int32
@@ -5648,26 +5648,26 @@ MPEG_CONTEXT_WINSOCK: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_CONTEXT_T
 MPEG_CURRENT_NEXT_BIT = Int32
 MPEG_SECTION_IS_NEXT: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_CURRENT_NEXT_BIT = 0
 MPEG_SECTION_IS_CURRENT: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_CURRENT_NEXT_BIT = 1
-class MPEG_DATE(EasyCastStructure):
+class MPEG_DATE(Structure):
     Date: Byte
     Month: Byte
     Year: UInt16
     _pack_ = 1
-class MPEG_DATE_AND_TIME(EasyCastStructure):
+class MPEG_DATE_AND_TIME(Structure):
     D: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_DATE
     T: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_TIME
     _pack_ = 1
-class MPEG_HEADER_BITS(EasyCastStructure):
+class MPEG_HEADER_BITS(Structure):
     _bitfield: UInt16
     _pack_ = 1
-class MPEG_HEADER_BITS_MIDL(EasyCastStructure):
+class MPEG_HEADER_BITS_MIDL(Structure):
     Bits: UInt16
     _pack_ = 1
-class MPEG_HEADER_VERSION_BITS(EasyCastStructure):
+class MPEG_HEADER_VERSION_BITS(Structure):
     _bitfield: Byte
-class MPEG_HEADER_VERSION_BITS_MIDL(EasyCastStructure):
+class MPEG_HEADER_VERSION_BITS_MIDL(Structure):
     Bits: Byte
-class MPEG_PACKET_LIST(EasyCastStructure):
+class MPEG_PACKET_LIST(Structure):
     wPacketCount: UInt16
     PacketList: POINTER(win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_RQST_PACKET) * 1
     _pack_ = 1
@@ -5681,11 +5681,11 @@ MPEG_RQST_GET_SECTIONS_STREAM: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_
 MPEG_RQST_GET_PES_STREAM: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_REQUEST_TYPE = 6
 MPEG_RQST_GET_TS_STREAM: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_REQUEST_TYPE = 7
 MPEG_RQST_START_MPE_STREAM: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_REQUEST_TYPE = 8
-class MPEG_RQST_PACKET(EasyCastStructure):
+class MPEG_RQST_PACKET(Structure):
     dwLength: UInt32
     pSection: POINTER(win32more.Windows.Win32.Media.DirectShow.Tv.SECTION)
     _pack_ = 1
-class MPEG_SERVICE_REQUEST(EasyCastStructure):
+class MPEG_SERVICE_REQUEST(Structure):
     Type: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_REQUEST_TYPE
     Context: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_CONTEXT
     Pid: UInt16
@@ -5693,32 +5693,32 @@ class MPEG_SERVICE_REQUEST(EasyCastStructure):
     Filter: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG2_FILTER
     Flags: UInt32
     _pack_ = 1
-class MPEG_SERVICE_RESPONSE(EasyCastStructure):
+class MPEG_SERVICE_RESPONSE(Structure):
     IPAddress: UInt32
     Port: UInt16
     _pack_ = 1
-class MPEG_STREAM_BUFFER(EasyCastStructure):
+class MPEG_STREAM_BUFFER(Structure):
     hr: win32more.Windows.Win32.Foundation.HRESULT
     dwDataBufferSize: UInt32
     dwSizeOfDataRead: UInt32
     pDataBuffer: POINTER(Byte)
     _pack_ = 1
-class MPEG_STREAM_FILTER(EasyCastStructure):
+class MPEG_STREAM_FILTER(Structure):
     wPidValue: UInt16
     dwFilterSize: UInt32
     fCrcEnabled: win32more.Windows.Win32.Foundation.BOOL
     rgchFilter: Byte * 16
     rgchMask: Byte * 16
     _pack_ = 1
-class MPEG_TIME(EasyCastStructure):
+class MPEG_TIME(Structure):
     Hours: Byte
     Minutes: Byte
     Seconds: Byte
     _pack_ = 1
-class MPEG_WINSOCK(EasyCastStructure):
+class MPEG_WINSOCK(Structure):
     AVMGraphId: UInt32
     _pack_ = 1
-class MPE_ELEMENT(EasyCastStructure):
+class MPE_ELEMENT(Structure):
     pid: UInt16
     bComponentTag: Byte
     pNext: POINTER(win32more.Windows.Win32.Media.DirectShow.Tv.MPE_ELEMENT)
@@ -5848,31 +5848,31 @@ dispidServiceP: win32more.Windows.Win32.Media.DirectShow.Tv.MSViddispidList = 28
 Mpeg2Data = Guid('{c666e115-bb62-4027-a113-82d643fe2d99}')
 Mpeg2DataLib = Guid('{dbaf6c1b-b6a4-4898-ae65-204f0d9509a1}')
 Mpeg2Stream = Guid('{f91d96c7-8509-4d0b-ab26-a0dd10904bb7}')
-class Mpeg2TableSampleHdr(EasyCastStructure):
+class Mpeg2TableSampleHdr(Structure):
     SectionCount: Byte
     Reserved: Byte * 3
     SectionOffsets: Int32 * 1
     _pack_ = 1
-class PBDAParentalControl(EasyCastStructure):
+class PBDAParentalControl(Structure):
     rating_system_count: UInt32
     rating_systems: POINTER(win32more.Windows.Win32.Media.DirectShow.Tv.RATING_SYSTEM)
     _pack_ = 1
 PBDA_ALWAYS_TUNE_IN_MUX = Guid('{1e1d7141-583f-4ac2-b019-1f430eda0f4c}')
-class PBDA_TAG_ATTRIBUTE(EasyCastStructure):
+class PBDA_TAG_ATTRIBUTE(Structure):
     TableUUId: Guid
     TableId: Byte
     VersionNo: UInt16
     TableDataSize: UInt32
     TableData: Byte * 1
-class PIC_SEQ_SAMPLE(EasyCastStructure):
+class PIC_SEQ_SAMPLE(Structure):
     _bitfield: UInt32
-class PIDListSpanningEvent(EasyCastStructure):
+class PIDListSpanningEvent(Structure):
     wPIDCount: UInt16
     pulPIDs: UInt32 * 1
-class PID_BITS(EasyCastStructure):
+class PID_BITS(Structure):
     _bitfield: UInt16
     _pack_ = 1
-class PID_BITS_MIDL(EasyCastStructure):
+class PID_BITS_MIDL(Structure):
     Bits: UInt16
     _pack_ = 1
 PINNAME_BDA_ANALOG_AUDIO = Guid('{d28a580a-9b1f-4b0c-9c33-9bf0a8ea636b}')
@@ -5887,7 +5887,7 @@ PersistTuneXmlUtility = Guid('{e77026b0-b97f-4cbb-b7fb-f4f03ad69f11}')
 PositionModeList = Int32
 FrameMode: win32more.Windows.Win32.Media.DirectShow.Tv.PositionModeList = 0
 TenthsSecondsMode: win32more.Windows.Win32.Media.DirectShow.Tv.PositionModeList = 1
-class ProgramElement(EasyCastStructure):
+class ProgramElement(Structure):
     wProgramNumber: UInt16
     wProgramMapPID: UInt16
 ProtType = Int32
@@ -5901,15 +5901,15 @@ PROT_COPY_BF: win32more.Windows.Win32.Media.DirectShow.Tv.ProtType = 7
 PROT_COPY_CN_RECORDING_STOP: win32more.Windows.Win32.Media.DirectShow.Tv.ProtType = 8
 PROT_COPY_FREE_SECURE: win32more.Windows.Win32.Media.DirectShow.Tv.ProtType = 9
 PROT_COPY_INVALID: win32more.Windows.Win32.Media.DirectShow.Tv.ProtType = 50
-class RATING_ATTRIBUTE(EasyCastStructure):
+class RATING_ATTRIBUTE(Structure):
     rating_attribute_id: UInt32
     rating_attribute_value: UInt32
     _pack_ = 1
-class RATING_INFO(EasyCastStructure):
+class RATING_INFO(Structure):
     rating_system_count: UInt32
     lpratingsystem: POINTER(win32more.Windows.Win32.Media.DirectShow.Tv.RATING_SYSTEM)
     _pack_ = 1
-class RATING_SYSTEM(EasyCastStructure):
+class RATING_SYSTEM(Structure):
     rating_system_id: Guid
     _bitfield: Byte
     country_code: Byte * 3
@@ -5928,32 +5928,32 @@ REVOKED_SAC: win32more.Windows.Win32.Media.DirectShow.Tv.RevokedComponent = 1
 REVOKED_APP_STUB: win32more.Windows.Win32.Media.DirectShow.Tv.RevokedComponent = 2
 REVOKED_SECURE_PIPELINE: win32more.Windows.Win32.Media.DirectShow.Tv.RevokedComponent = 3
 REVOKED_MAX_TYPES: win32more.Windows.Win32.Media.DirectShow.Tv.RevokedComponent = 4
-class SAMPLE_LIVE_STREAM_TIME(EasyCastStructure):
+class SAMPLE_LIVE_STREAM_TIME(Structure):
     qwStreamTime: UInt64
     qwLiveTime: UInt64
-class SAMPLE_SEQ_OFFSET(EasyCastStructure):
+class SAMPLE_SEQ_OFFSET(Structure):
     _bitfield: UInt32
-class SBE2_STREAM_DESC(EasyCastStructure):
+class SBE2_STREAM_DESC(Structure):
     Version: UInt32
     StreamId: UInt32
     Default: UInt32
     Reserved: UInt32
-class SBE_PIN_DATA(EasyCastStructure):
+class SBE_PIN_DATA(Structure):
     cDataBytes: UInt64
     cSamplesProcessed: UInt64
     cDiscontinuities: UInt64
     cSyncPoints: UInt64
     cTimestamps: UInt64
-class SECTION(EasyCastStructure):
+class SECTION(Structure):
     TableId: Byte
     Header: _Header_e__Union
     SectionData: Byte * 1
     _pack_ = 1
-    class _Header_e__Union(EasyCastUnion):
+    class _Header_e__Union(Union):
         S: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_HEADER_BITS_MIDL
         W: UInt16
         _pack_ = 1
-class STREAMBUFFER_ATTRIBUTE(EasyCastStructure):
+class STREAMBUFFER_ATTRIBUTE(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     StreamBufferAttributeType: win32more.Windows.Win32.Media.DirectShow.Tv.STREAMBUFFER_ATTR_DATATYPE
     pbAttribute: POINTER(Byte)
@@ -6263,12 +6263,12 @@ SourceSizeList = Int32
 sslFullSize: win32more.Windows.Win32.Media.DirectShow.Tv.SourceSizeList = 0
 sslClipByOverScan: win32more.Windows.Win32.Media.DirectShow.Tv.SourceSizeList = 1
 sslClipByClipRect: win32more.Windows.Win32.Media.DirectShow.Tv.SourceSizeList = 2
-class SpanningEventDescriptor(EasyCastStructure):
+class SpanningEventDescriptor(Structure):
     wDataLen: UInt16
     wProgNumber: UInt16
     wSID: UInt16
     bDescriptor: Byte * 1
-class SpanningEventEmmMessage(EasyCastStructure):
+class SpanningEventEmmMessage(Structure):
     bCAbroadcasterGroupId: Byte
     bMessageControl: Byte
     wServiceId: UInt16
@@ -6283,24 +6283,24 @@ class SpanningEventEmmMessage(EasyCastStructure):
     wMessageLength: UInt16
     szMessageArea: Char * 1
 SystemTuningSpaces = Guid('{d02aac50-027e-11d3-9d8e-00c04f72d980}')
-class TID_EXTENSION(EasyCastStructure):
+class TID_EXTENSION(Structure):
     wTidExt: UInt16
     wCount: UInt16
     _pack_ = 1
 TIFLoad = Guid('{14eb8748-1753-4393-95ae-4f7e7a87aad6}')
-class TRANSPORT_PROPERTIES(EasyCastStructure):
+class TRANSPORT_PROPERTIES(Structure):
     PID: UInt32
     PCR: Int64
     Fields: _Fields_e__Union
-    class _Fields_e__Union(EasyCastUnion):
+    class _Fields_e__Union(Union):
         Others: _Others
         Value: Int64
-        class _Others(EasyCastStructure):
+        class _Others(Structure):
             _bitfield: Int64
 TuneRequest = Guid('{b46e0d38-ab35-4a06-a137-70576b01b39f}')
 TunerMarshaler = Guid('{6438570b-0c08-4a25-9504-8012bb4d50cf}')
 TuningSpace = Guid('{5ffdc5e6-b83a-4b55-b6e8-c69e765fe9db}')
-class UDCR_TAG(EasyCastStructure):
+class UDCR_TAG(Structure):
     bVersion: Byte
     KID: Byte * 25
     ullBaseCounter: UInt64
@@ -6326,7 +6326,7 @@ VA_MATRIX_COEFF_ITU_R_BT_470_SYSTEM_B_G: win32more.Windows.Win32.Media.DirectSho
 VA_MATRIX_COEFF_SMPTE_170M: win32more.Windows.Win32.Media.DirectShow.Tv.VA_MATRIX_COEFFICIENTS = 6
 VA_MATRIX_COEFF_SMPTE_240M: win32more.Windows.Win32.Media.DirectShow.Tv.VA_MATRIX_COEFFICIENTS = 7
 VA_MATRIX_COEFF_H264_YCgCo: win32more.Windows.Win32.Media.DirectShow.Tv.VA_MATRIX_COEFFICIENTS = 8
-class VA_OPTIONAL_VIDEO_PROPERTIES(EasyCastStructure):
+class VA_OPTIONAL_VIDEO_PROPERTIES(Structure):
     dwPictureHeight: UInt16
     dwPictureWidth: UInt16
     dwAspectRatioX: UInt16
@@ -6352,7 +6352,7 @@ VA_VIDEO_NTSC: win32more.Windows.Win32.Media.DirectShow.Tv.VA_VIDEO_FORMAT = 2
 VA_VIDEO_SECAM: win32more.Windows.Win32.Media.DirectShow.Tv.VA_VIDEO_FORMAT = 3
 VA_VIDEO_MAC: win32more.Windows.Win32.Media.DirectShow.Tv.VA_VIDEO_FORMAT = 4
 VA_VIDEO_UNSPECIFIED: win32more.Windows.Win32.Media.DirectShow.Tv.VA_VIDEO_FORMAT = 5
-class WMDRMProtectionInfo(EasyCastStructure):
+class WMDRMProtectionInfo(Structure):
     wszKID: UInt16 * 25
     qwCounter: UInt64
     qwIndex: UInt64

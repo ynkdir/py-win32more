@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -9,7 +9,7 @@ import win32more.Windows.Win32.System.SystemServices
 import win32more.Windows.Win32.System.Threading
 @winfunctype_pointer
 def APC_CALLBACK_FUNCTION(param0: UInt32, param1: VoidPtr, param2: VoidPtr) -> Void: ...
-class APP_MEMORY_INFORMATION(EasyCastStructure):
+class APP_MEMORY_INFORMATION(Structure):
     AvailableCommit: UInt64
     PrivateCommitUsage: UInt64
     PeakPrivateCommitUsage: UInt64
@@ -773,7 +773,7 @@ def GetNumaAvailableMemoryNode(Node: Byte, AvailableBytes: POINTER(UInt64)) -> w
 def GetNumaAvailableMemoryNodeEx(Node: UInt16, AvailableBytes: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetNumaProximityNode(ProximityId: UInt32, NodeNumber: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class CONDITION_VARIABLE(EasyCastStructure):
+class CONDITION_VARIABLE(Structure):
     Ptr: VoidPtr
 CREATE_EVENT = UInt32
 CREATE_EVENT_INITIAL_SET: win32more.Windows.Win32.System.Threading.CREATE_EVENT = 2
@@ -781,14 +781,14 @@ CREATE_EVENT_MANUAL_RESET: win32more.Windows.Win32.System.Threading.CREATE_EVENT
 CREATE_PROCESS_LOGON_FLAGS = UInt32
 LOGON_WITH_PROFILE: win32more.Windows.Win32.System.Threading.CREATE_PROCESS_LOGON_FLAGS = 1
 LOGON_NETCREDENTIALS_ONLY: win32more.Windows.Win32.System.Threading.CREATE_PROCESS_LOGON_FLAGS = 2
-class CRITICAL_SECTION(EasyCastStructure):
+class CRITICAL_SECTION(Structure):
     DebugInfo: POINTER(win32more.Windows.Win32.System.Threading.CRITICAL_SECTION_DEBUG)
     LockCount: Int32
     RecursionCount: Int32
     OwningThread: win32more.Windows.Win32.Foundation.HANDLE
     LockSemaphore: win32more.Windows.Win32.Foundation.HANDLE
     SpinCount: UIntPtr
-class CRITICAL_SECTION_DEBUG(EasyCastStructure):
+class CRITICAL_SECTION_DEBUG(Structure):
     Type: UInt16
     CreatorBackTraceIndex: UInt16
     CriticalSection: POINTER(win32more.Windows.Win32.System.Threading.CRITICAL_SECTION)
@@ -803,9 +803,9 @@ GR_GDIOBJECTS: win32more.Windows.Win32.System.Threading.GET_GUI_RESOURCES_FLAGS 
 GR_GDIOBJECTS_PEAK: win32more.Windows.Win32.System.Threading.GET_GUI_RESOURCES_FLAGS = 2
 GR_USEROBJECTS: win32more.Windows.Win32.System.Threading.GET_GUI_RESOURCES_FLAGS = 1
 GR_USEROBJECTS_PEAK: win32more.Windows.Win32.System.Threading.GET_GUI_RESOURCES_FLAGS = 4
-class INIT_ONCE(EasyCastUnion):
+class INIT_ONCE(Union):
     Ptr: VoidPtr
-class IO_COUNTERS(EasyCastStructure):
+class IO_COUNTERS(Structure):
     ReadOperationCount: UInt64
     WriteOperationCount: UInt64
     OtherOperationCount: UInt64
@@ -856,11 +856,11 @@ MEMORY_PRIORITY_LOW: win32more.Windows.Win32.System.Threading.MEMORY_PRIORITY = 
 MEMORY_PRIORITY_MEDIUM: win32more.Windows.Win32.System.Threading.MEMORY_PRIORITY = 3
 MEMORY_PRIORITY_BELOW_NORMAL: win32more.Windows.Win32.System.Threading.MEMORY_PRIORITY = 4
 MEMORY_PRIORITY_NORMAL: win32more.Windows.Win32.System.Threading.MEMORY_PRIORITY = 5
-class MEMORY_PRIORITY_INFORMATION(EasyCastStructure):
+class MEMORY_PRIORITY_INFORMATION(Structure):
     MemoryPriority: win32more.Windows.Win32.System.Threading.MEMORY_PRIORITY
-class OVERRIDE_PREFETCH_PARAMETER(EasyCastStructure):
+class OVERRIDE_PREFETCH_PARAMETER(Structure):
     Value: UInt32
-class PEB(EasyCastStructure):
+class PEB(Structure):
     Reserved1: Byte * 2
     BeingDebugged: Byte
     Reserved2: Byte * 1
@@ -880,7 +880,7 @@ class PEB(EasyCastStructure):
     Reserved11: Byte * 128
     Reserved12: VoidPtr * 1
     SessionId: UInt32
-class PEB_LDR_DATA(EasyCastStructure):
+class PEB_LDR_DATA(Structure):
     Reserved1: Byte * 8
     Reserved2: VoidPtr * 3
     InMemoryOrderModuleList: win32more.Windows.Win32.System.Kernel.LIST_ENTRY
@@ -965,7 +965,7 @@ PROCESS_STANDARD_RIGHTS_REQUIRED: win32more.Windows.Win32.System.Threading.PROCE
 PROCESS_AFFINITY_AUTO_UPDATE_FLAGS = UInt32
 PROCESS_AFFINITY_DISABLE_AUTO_UPDATE: win32more.Windows.Win32.System.Threading.PROCESS_AFFINITY_AUTO_UPDATE_FLAGS = 0
 PROCESS_AFFINITY_ENABLE_AUTO_UPDATE: win32more.Windows.Win32.System.Threading.PROCESS_AFFINITY_AUTO_UPDATE_FLAGS = 1
-class PROCESS_BASIC_INFORMATION(EasyCastStructure):
+class PROCESS_BASIC_INFORMATION(Structure):
     ExitStatus: win32more.Windows.Win32.Foundation.NTSTATUS
     PebBaseAddress: POINTER(win32more.Windows.Win32.System.Threading.PEB)
     AffinityMask: UIntPtr
@@ -1008,24 +1008,24 @@ PROCESS_DEP_FLAGS = UInt32
 PROCESS_DEP_ENABLE: win32more.Windows.Win32.System.Threading.PROCESS_DEP_FLAGS = 1
 PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION: win32more.Windows.Win32.System.Threading.PROCESS_DEP_FLAGS = 2
 PROCESS_DEP_NONE: win32more.Windows.Win32.System.Threading.PROCESS_DEP_FLAGS = 0
-class PROCESS_DYNAMIC_EH_CONTINUATION_TARGET(EasyCastStructure):
+class PROCESS_DYNAMIC_EH_CONTINUATION_TARGET(Structure):
     TargetAddress: UIntPtr
     Flags: UIntPtr
-class PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION(EasyCastStructure):
+class PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION(Structure):
     NumberOfTargets: UInt16
     Reserved: UInt16
     Reserved2: UInt32
     Targets: POINTER(win32more.Windows.Win32.System.Threading.PROCESS_DYNAMIC_EH_CONTINUATION_TARGET)
-class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE(EasyCastStructure):
+class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE(Structure):
     BaseAddress: UIntPtr
     Size: UIntPtr
     Flags: UInt32
-class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION(EasyCastStructure):
+class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION(Structure):
     NumberOfRanges: UInt16
     Reserved: UInt16
     Reserved2: UInt32
     Ranges: POINTER(win32more.Windows.Win32.System.Threading.PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE)
-class PROCESS_INFORMATION(EasyCastStructure):
+class PROCESS_INFORMATION(Structure):
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
     hThread: win32more.Windows.Win32.Foundation.HANDLE
     dwProcessId: UInt32
@@ -1044,14 +1044,14 @@ ProcessMachineTypeInfo: win32more.Windows.Win32.System.Threading.PROCESS_INFORMA
 ProcessOverrideSubsequentPrefetchParameter: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 10
 ProcessMaxOverridePrefetchParameter: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 11
 ProcessInformationClassMax: win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION_CLASS = 12
-class PROCESS_LEAP_SECOND_INFO(EasyCastStructure):
+class PROCESS_LEAP_SECOND_INFO(Structure):
     Flags: UInt32
     Reserved: UInt32
-class PROCESS_MACHINE_INFORMATION(EasyCastStructure):
+class PROCESS_MACHINE_INFORMATION(Structure):
     ProcessMachine: win32more.Windows.Win32.System.SystemInformation.IMAGE_FILE_MACHINE
     Res0: UInt16
     MachineAttributes: win32more.Windows.Win32.System.Threading.MACHINE_ATTRIBUTES
-class PROCESS_MEMORY_EXHAUSTION_INFO(EasyCastStructure):
+class PROCESS_MEMORY_EXHAUSTION_INFO(Structure):
     Version: UInt16
     Reserved: UInt16
     Type: win32more.Windows.Win32.System.Threading.PROCESS_MEMORY_EXHAUSTION_TYPE
@@ -1084,7 +1084,7 @@ MaxProcessMitigationPolicy: win32more.Windows.Win32.System.Threading.PROCESS_MIT
 PROCESS_NAME_FORMAT = UInt32
 PROCESS_NAME_WIN32: win32more.Windows.Win32.System.Threading.PROCESS_NAME_FORMAT = 0
 PROCESS_NAME_NATIVE: win32more.Windows.Win32.System.Threading.PROCESS_NAME_FORMAT = 1
-class PROCESS_POWER_THROTTLING_STATE(EasyCastStructure):
+class PROCESS_POWER_THROTTLING_STATE(Structure):
     Version: UInt32
     ControlMask: UInt32
     StateMask: UInt32
@@ -1099,7 +1099,7 @@ PROTECTION_LEVEL_CODEGEN_LIGHT: win32more.Windows.Win32.System.Threading.PROCESS
 PROTECTION_LEVEL_AUTHENTICODE: win32more.Windows.Win32.System.Threading.PROCESS_PROTECTION_LEVEL = 7
 PROTECTION_LEVEL_PPL_APP: win32more.Windows.Win32.System.Threading.PROCESS_PROTECTION_LEVEL = 8
 PROTECTION_LEVEL_NONE: win32more.Windows.Win32.System.Threading.PROCESS_PROTECTION_LEVEL = 4294967294
-class PROCESS_PROTECTION_LEVEL_INFORMATION(EasyCastStructure):
+class PROCESS_PROTECTION_LEVEL_INFORMATION(Structure):
     ProtectionLevel: win32more.Windows.Win32.System.Threading.PROCESS_PROTECTION_LEVEL
 PROC_THREAD_ATTRIBUTE_NUM = UInt32
 ProcThreadAttributeParentProcess: win32more.Windows.Win32.System.Threading.PROC_THREAD_ATTRIBUTE_NUM = 0
@@ -1150,19 +1150,19 @@ QUEUE_USER_APC_FLAGS = Int32
 QUEUE_USER_APC_FLAGS_NONE: win32more.Windows.Win32.System.Threading.QUEUE_USER_APC_FLAGS = 0
 QUEUE_USER_APC_FLAGS_SPECIAL_USER_APC: win32more.Windows.Win32.System.Threading.QUEUE_USER_APC_FLAGS = 1
 QUEUE_USER_APC_CALLBACK_DATA_CONTEXT: win32more.Windows.Win32.System.Threading.QUEUE_USER_APC_FLAGS = 65536
-class REASON_CONTEXT(EasyCastStructure):
+class REASON_CONTEXT(Structure):
     Version: UInt32
     Flags: win32more.Windows.Win32.System.Threading.POWER_REQUEST_CONTEXT_FLAGS
     Reason: _Reason_e__Union
-    class _Reason_e__Union(EasyCastUnion):
+    class _Reason_e__Union(Union):
         Detailed: _Detailed_e__Struct
         SimpleReasonString: win32more.Windows.Win32.Foundation.PWSTR
-        class _Detailed_e__Struct(EasyCastStructure):
+        class _Detailed_e__Struct(Structure):
             LocalizedReasonModule: win32more.Windows.Win32.Foundation.HMODULE
             LocalizedReasonId: UInt32
             ReasonStringCount: UInt32
             ReasonStrings: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class RTL_USER_PROCESS_PARAMETERS(EasyCastStructure):
+class RTL_USER_PROCESS_PARAMETERS(Structure):
     Reserved1: Byte * 16
     Reserved2: VoidPtr * 10
     ImagePathName: win32more.Windows.Win32.Foundation.UNICODE_STRING
@@ -1175,9 +1175,9 @@ RTWQ_WORKQUEUE_TYPE = Int32
 RTWQ_STANDARD_WORKQUEUE: win32more.Windows.Win32.System.Threading.RTWQ_WORKQUEUE_TYPE = 0
 RTWQ_WINDOW_WORKQUEUE: win32more.Windows.Win32.System.Threading.RTWQ_WORKQUEUE_TYPE = 1
 RTWQ_MULTITHREADED_WORKQUEUE: win32more.Windows.Win32.System.Threading.RTWQ_WORKQUEUE_TYPE = 2
-class SRWLOCK(EasyCastStructure):
+class SRWLOCK(Structure):
     Ptr: VoidPtr
-class STARTUPINFOA(EasyCastStructure):
+class STARTUPINFOA(Structure):
     cb: UInt32
     lpReserved: win32more.Windows.Win32.Foundation.PSTR
     lpDesktop: win32more.Windows.Win32.Foundation.PSTR
@@ -1196,14 +1196,14 @@ class STARTUPINFOA(EasyCastStructure):
     hStdInput: win32more.Windows.Win32.Foundation.HANDLE
     hStdOutput: win32more.Windows.Win32.Foundation.HANDLE
     hStdError: win32more.Windows.Win32.Foundation.HANDLE
-class STARTUPINFOEXA(EasyCastStructure):
+class STARTUPINFOEXA(Structure):
     StartupInfo: win32more.Windows.Win32.System.Threading.STARTUPINFOA
     lpAttributeList: win32more.Windows.Win32.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST
-class STARTUPINFOEXW(EasyCastStructure):
+class STARTUPINFOEXW(Structure):
     StartupInfo: win32more.Windows.Win32.System.Threading.STARTUPINFOW
     lpAttributeList: win32more.Windows.Win32.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST
 STARTUPINFOEX = UnicodeAlias('STARTUPINFOEXW')
-class STARTUPINFOW(EasyCastStructure):
+class STARTUPINFOW(Structure):
     cb: UInt32
     lpReserved: win32more.Windows.Win32.Foundation.PWSTR
     lpDesktop: win32more.Windows.Win32.Foundation.PWSTR
@@ -1253,13 +1253,13 @@ SYNCHRONIZATION_READ_CONTROL: win32more.Windows.Win32.System.Threading.SYNCHRONI
 SYNCHRONIZATION_WRITE_DAC: win32more.Windows.Win32.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS = 262144
 SYNCHRONIZATION_WRITE_OWNER: win32more.Windows.Win32.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS = 524288
 SYNCHRONIZATION_SYNCHRONIZE: win32more.Windows.Win32.System.Threading.SYNCHRONIZATION_ACCESS_RIGHTS = 1048576
-class SYNCHRONIZATION_BARRIER(EasyCastStructure):
+class SYNCHRONIZATION_BARRIER(Structure):
     Reserved1: UInt32
     Reserved2: UInt32
     Reserved3: UIntPtr * 2
     Reserved4: UInt32
     Reserved5: UInt32
-class TEB(EasyCastStructure):
+class TEB(Structure):
     Reserved1: VoidPtr * 12
     ProcessEnvironmentBlock: POINTER(win32more.Windows.Win32.System.Threading.PEB)
     Reserved2: VoidPtr * 399
@@ -1300,7 +1300,7 @@ ThreadAbsoluteCpuPriority: win32more.Windows.Win32.System.Threading.THREAD_INFOR
 ThreadDynamicCodePolicy: win32more.Windows.Win32.System.Threading.THREAD_INFORMATION_CLASS = 2
 ThreadPowerThrottling: win32more.Windows.Win32.System.Threading.THREAD_INFORMATION_CLASS = 3
 ThreadInformationClassMax: win32more.Windows.Win32.System.Threading.THREAD_INFORMATION_CLASS = 4
-class THREAD_POWER_THROTTLING_STATE(EasyCastStructure):
+class THREAD_POWER_THROTTLING_STATE(Structure):
     Version: UInt32
     ControlMask: UInt32
     StateMask: UInt32
@@ -1315,7 +1315,7 @@ THREAD_PRIORITY_MIN: win32more.Windows.Win32.System.Threading.THREAD_PRIORITY = 
 THREAD_PRIORITY_LOWEST: win32more.Windows.Win32.System.Threading.THREAD_PRIORITY = -2
 THREAD_PRIORITY_NORMAL: win32more.Windows.Win32.System.Threading.THREAD_PRIORITY = 0
 THREAD_PRIORITY_TIME_CRITICAL: win32more.Windows.Win32.System.Threading.THREAD_PRIORITY = 15
-class TP_CALLBACK_ENVIRON_V3(EasyCastStructure):
+class TP_CALLBACK_ENVIRON_V3(Structure):
     Version: UInt32
     Pool: win32more.Windows.Win32.System.Threading.PTP_POOL
     CleanupGroup: win32more.Windows.Win32.System.Threading.PTP_CLEANUP_GROUP
@@ -1326,10 +1326,10 @@ class TP_CALLBACK_ENVIRON_V3(EasyCastStructure):
     u: _u_e__Union
     CallbackPriority: win32more.Windows.Win32.System.Threading.TP_CALLBACK_PRIORITY
     Size: UInt32
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         Flags: UInt32
         s: _s_e__Struct
-        class _s_e__Struct(EasyCastStructure):
+        class _s_e__Struct(Structure):
             _bitfield: UInt32
 TP_CALLBACK_PRIORITY = Int32
 TP_CALLBACK_PRIORITY_HIGH: win32more.Windows.Win32.System.Threading.TP_CALLBACK_PRIORITY = 0
@@ -1337,21 +1337,21 @@ TP_CALLBACK_PRIORITY_NORMAL: win32more.Windows.Win32.System.Threading.TP_CALLBAC
 TP_CALLBACK_PRIORITY_LOW: win32more.Windows.Win32.System.Threading.TP_CALLBACK_PRIORITY = 2
 TP_CALLBACK_PRIORITY_INVALID: win32more.Windows.Win32.System.Threading.TP_CALLBACK_PRIORITY = 3
 TP_CALLBACK_PRIORITY_COUNT: win32more.Windows.Win32.System.Threading.TP_CALLBACK_PRIORITY = 3
-class TP_POOL_STACK_INFORMATION(EasyCastStructure):
+class TP_POOL_STACK_INFORMATION(Structure):
     StackReserve: UIntPtr
     StackCommit: UIntPtr
-class UMS_SCHEDULER_STARTUP_INFO(EasyCastStructure):
+class UMS_SCHEDULER_STARTUP_INFO(Structure):
     UmsVersion: UInt32
     CompletionList: VoidPtr
     SchedulerProc: win32more.Windows.Win32.System.Threading.PRTL_UMS_SCHEDULER_ENTRY_POINT
     SchedulerParam: VoidPtr
-class UMS_SYSTEM_THREAD_INFORMATION(EasyCastStructure):
+class UMS_SYSTEM_THREAD_INFORMATION(Structure):
     UmsVersion: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ThreadUmsFlags: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
 UMS_THREAD_INFO_CLASS = Int32
 UmsThreadInvalidInfoClass: win32more.Windows.Win32.System.Threading.UMS_THREAD_INFO_CLASS = 0

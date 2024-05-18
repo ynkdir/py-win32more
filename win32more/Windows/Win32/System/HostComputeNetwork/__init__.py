@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.HostComputeNetwork
 @winfunctype('computenetwork.dll')
@@ -113,7 +113,7 @@ HCN_PORT_PROTOCOL = Int32
 HCN_PORT_PROTOCOL_TCP: win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_PROTOCOL = 1
 HCN_PORT_PROTOCOL_UDP: win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_PROTOCOL = 2
 HCN_PORT_PROTOCOL_BOTH: win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_PROTOCOL = 3
-class HCN_PORT_RANGE_ENTRY(EasyCastStructure):
+class HCN_PORT_RANGE_ENTRY(Structure):
     OwningPartitionId: Guid
     TargetPartitionId: Guid
     Protocol: win32more.Windows.Win32.System.HostComputeNetwork.HCN_PORT_PROTOCOL
@@ -123,7 +123,7 @@ class HCN_PORT_RANGE_ENTRY(EasyCastStructure):
     DeliveryMode: UInt32
     StartingPort: UInt16
     EndingPort: UInt16
-class HCN_PORT_RANGE_RESERVATION(EasyCastStructure):
+class HCN_PORT_RANGE_RESERVATION(Structure):
     startingPort: UInt16
     endingPort: UInt16
 

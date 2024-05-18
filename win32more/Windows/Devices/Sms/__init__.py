@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Sms
 import win32more.Windows.Foundation
@@ -1019,7 +1019,7 @@ class SmsDeviceStatusChangedEventHandler(MulticastDelegate):
     _iid_ = Guid('{982b1162-3dd7-4618-af89-0c272d5d06d8}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Devices.Sms.SmsDevice) -> Void: ...
-class SmsEncodedLength(EasyCastStructure):
+class SmsEncodedLength(Structure):
     SegmentCount: UInt32
     CharacterCountLastSegment: UInt32
     CharactersPerSegment: UInt32

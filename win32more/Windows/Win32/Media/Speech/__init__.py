@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Speech
@@ -2325,7 +2325,7 @@ SPADS_RecoProfile: win32more.Windows.Win32.Media.Speech.SPADAPTATIONSETTINGS = 2
 SPADS_Immediate: win32more.Windows.Win32.Media.Speech.SPADAPTATIONSETTINGS = 4
 SPADS_Reset: win32more.Windows.Win32.Media.Speech.SPADAPTATIONSETTINGS = 8
 SPADS_HighVolumeDataSource: win32more.Windows.Win32.Media.Speech.SPADAPTATIONSETTINGS = 16
-class SPAUDIOBUFFERINFO(EasyCastStructure):
+class SPAUDIOBUFFERINFO(Structure):
     ulMsMinNotification: UInt32
     ulMsBufferSize: UInt32
     ulMsEventBias: UInt32
@@ -2337,7 +2337,7 @@ SPAS_CLOSED: win32more.Windows.Win32.Media.Speech.SPAUDIOSTATE = 0
 SPAS_STOP: win32more.Windows.Win32.Media.Speech.SPAUDIOSTATE = 1
 SPAS_PAUSE: win32more.Windows.Win32.Media.Speech.SPAUDIOSTATE = 2
 SPAS_RUN: win32more.Windows.Win32.Media.Speech.SPAUDIOSTATE = 3
-class SPAUDIOSTATUS(EasyCastStructure):
+class SPAUDIOSTATUS(Structure):
     cbFreeBuffSpace: Int32
     cbNonBlockingIO: UInt32
     State: win32more.Windows.Win32.Media.Speech.SPAUDIOSTATE
@@ -2345,7 +2345,7 @@ class SPAUDIOSTATUS(EasyCastStructure):
     CurDevicePos: UInt64
     dwAudioLevel: UInt32
     dwReserved2: UInt32
-class SPBINARYGRAMMAR(EasyCastStructure):
+class SPBINARYGRAMMAR(Structure):
     ulTotalSerializedSize: UInt32
 SPBOOKMARKOPTIONS = Int32
 SPBO_NONE: win32more.Windows.Win32.Media.Speech.SPBOOKMARKOPTIONS = 0
@@ -2387,10 +2387,10 @@ SPAF_CONSUME_LEADING_SPACES: win32more.Windows.Win32.Media.Speech.SPDISPLAYATTRI
 SPAF_BUFFER_POSITION: win32more.Windows.Win32.Media.Speech.SPDISPLAYATTRIBUTES = 16
 SPAF_ALL: win32more.Windows.Win32.Media.Speech.SPDISPLAYATTRIBUTES = 31
 SPAF_USER_SPECIFIED: win32more.Windows.Win32.Media.Speech.SPDISPLAYATTRIBUTES = 128
-class SPDISPLAYPHRASE(EasyCastStructure):
+class SPDISPLAYPHRASE(Structure):
     ulNumTokens: UInt32
     pTokens: POINTER(win32more.Windows.Win32.Media.Speech.SPDISPLAYTOKEN)
-class SPDISPLAYTOKEN(EasyCastStructure):
+class SPDISPLAYTOKEN(Structure):
     pszLexical: win32more.Windows.Win32.Foundation.PWSTR
     pszDisplay: win32more.Windows.Win32.Foundation.PWSTR
     bDisplayAttributes: Byte
@@ -2414,7 +2414,7 @@ SPENDSRSTREAMFLAGS = Int32
 SPESF_NONE: win32more.Windows.Win32.Media.Speech.SPENDSRSTREAMFLAGS = 0
 SPESF_STREAM_RELEASED: win32more.Windows.Win32.Media.Speech.SPENDSRSTREAMFLAGS = 1
 SPESF_EMULATED: win32more.Windows.Win32.Media.Speech.SPENDSRSTREAMFLAGS = 2
-class SPEVENT(EasyCastStructure):
+class SPEVENT(Structure):
     _bitfield: Int32
     ulStreamNum: UInt32
     ullAudioStreamOffset: UInt64
@@ -2461,7 +2461,7 @@ SPEI_MAX_SR: win32more.Windows.Win32.Media.Speech.SPEVENTENUM = 55
 SPEI_RESERVED1: win32more.Windows.Win32.Media.Speech.SPEVENTENUM = 30
 SPEI_RESERVED2: win32more.Windows.Win32.Media.Speech.SPEVENTENUM = 33
 SPEI_RESERVED3: win32more.Windows.Win32.Media.Speech.SPEVENTENUM = 63
-class SPEVENTEX(EasyCastStructure):
+class SPEVENTEX(Structure):
     _bitfield: Int32
     ulStreamNum: UInt32
     ullAudioStreamOffset: UInt64
@@ -2474,7 +2474,7 @@ SPET_LPARAM_IS_TOKEN: win32more.Windows.Win32.Media.Speech.SPEVENTLPARAMTYPE = 1
 SPET_LPARAM_IS_OBJECT: win32more.Windows.Win32.Media.Speech.SPEVENTLPARAMTYPE = 2
 SPET_LPARAM_IS_POINTER: win32more.Windows.Win32.Media.Speech.SPEVENTLPARAMTYPE = 3
 SPET_LPARAM_IS_STRING: win32more.Windows.Win32.Media.Speech.SPEVENTLPARAMTYPE = 4
-class SPEVENTSOURCEINFO(EasyCastStructure):
+class SPEVENTSOURCEINFO(Structure):
     ullEventInterest: UInt64
     ullQueuedInterest: UInt64
     ulCount: UInt32
@@ -2561,12 +2561,12 @@ Subsequence: win32more.Windows.Win32.Media.Speech.SPMATCHINGMODE = 1
 OrderedSubset: win32more.Windows.Win32.Media.Speech.SPMATCHINGMODE = 3
 SubsequenceContentRequired: win32more.Windows.Win32.Media.Speech.SPMATCHINGMODE = 5
 OrderedSubsetContentRequired: win32more.Windows.Win32.Media.Speech.SPMATCHINGMODE = 7
-class SPNORMALIZATIONLIST(EasyCastStructure):
+class SPNORMALIZATIONLIST(Structure):
     ulSize: UInt32
     ppszzNormalizedList: POINTER(POINTER(UInt16))
 @winfunctype_pointer
 def SPNOTIFYCALLBACK(wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> Void: ...
-class SPPARSEINFO(EasyCastStructure):
+class SPPARSEINFO(Structure):
     cbSize: UInt32
     hRule: win32more.Windows.Win32.Media.Speech.SPRULEHANDLE
     ullAudioStreamPosition: UInt64
@@ -2588,21 +2588,21 @@ SPPS_Interjection: win32more.Windows.Win32.Media.Speech.SPPARTOFSPEECH = 20480
 SPPS_Noncontent: win32more.Windows.Win32.Media.Speech.SPPARTOFSPEECH = 24576
 SPPS_LMA: win32more.Windows.Win32.Media.Speech.SPPARTOFSPEECH = 28672
 SPPS_SuppressWord: win32more.Windows.Win32.Media.Speech.SPPARTOFSPEECH = 61440
-class SPPATHENTRY(EasyCastStructure):
+class SPPATHENTRY(Structure):
     hTransition: win32more.Windows.Win32.Media.Speech.SPTRANSITIONID
     elem: win32more.Windows.Win32.Media.Speech.SPPHRASEELEMENT
-class SPPHRASE(EasyCastStructure):
+class SPPHRASE(Structure):
     Base: win32more.Windows.Win32.Media.Speech.SPPHRASE_50
     pSML: win32more.Windows.Win32.Foundation.PWSTR
     pSemanticErrorInfo: POINTER(win32more.Windows.Win32.Media.Speech.SPSEMANTICERRORINFO)
-class SPPHRASEALT(EasyCastStructure):
+class SPPHRASEALT(Structure):
     pPhrase: win32more.Windows.Win32.Media.Speech.ISpPhraseBuilder
     ulStartElementInParent: UInt32
     cElementsInParent: UInt32
     cElementsInAlternate: UInt32
     pvAltExtra: VoidPtr
     cbAltExtra: UInt32
-class SPPHRASEALTREQUEST(EasyCastStructure):
+class SPPHRASEALTREQUEST(Structure):
     ulStartElement: UInt32
     cElements: UInt32
     ulRequestAltCount: UInt32
@@ -2610,7 +2610,7 @@ class SPPHRASEALTREQUEST(EasyCastStructure):
     cbResultExtra: UInt32
     pPhrase: win32more.Windows.Win32.Media.Speech.ISpPhrase
     pRecoContext: win32more.Windows.Win32.Media.Speech.ISpRecoContext
-class SPPHRASEELEMENT(EasyCastStructure):
+class SPPHRASEELEMENT(Structure):
     ulAudioTimeOffset: UInt32
     ulAudioSizeTime: UInt32
     ulAudioStreamOffset: UInt32
@@ -2625,7 +2625,7 @@ class SPPHRASEELEMENT(EasyCastStructure):
     ActualConfidence: SByte
     Reserved: Byte
     SREngineConfidence: Single
-class SPPHRASEPROPERTY(EasyCastStructure):
+class SPPHRASEPROPERTY(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
     pszValue: win32more.Windows.Win32.Foundation.PWSTR
@@ -2636,10 +2636,10 @@ class SPPHRASEPROPERTY(EasyCastStructure):
     pFirstChild: POINTER(win32more.Windows.Win32.Media.Speech.SPPHRASEPROPERTY)
     SREngineConfidence: Single
     Confidence: SByte
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ulId: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             bType: Byte
             bReserved: Byte
             usArrayIndex: UInt16
@@ -2647,14 +2647,14 @@ SPPHRASEPROPERTYHANDLE = IntPtr
 SPPHRASEPROPERTYUNIONTYPE = Int32
 SPPPUT_UNUSED: win32more.Windows.Win32.Media.Speech.SPPHRASEPROPERTYUNIONTYPE = 0
 SPPPUT_ARRAY_INDEX: win32more.Windows.Win32.Media.Speech.SPPHRASEPROPERTYUNIONTYPE = 1
-class SPPHRASEREPLACEMENT(EasyCastStructure):
+class SPPHRASEREPLACEMENT(Structure):
     bDisplayAttributes: Byte
     pszReplacementText: win32more.Windows.Win32.Foundation.PWSTR
     ulFirstElement: UInt32
     ulCountOfElements: UInt32
 SPPHRASERNG = Int32
 SPPR_ALL_ELEMENTS: win32more.Windows.Win32.Media.Speech.SPPHRASERNG = -1
-class SPPHRASERULE(EasyCastStructure):
+class SPPHRASERULE(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     ulId: UInt32
     ulFirstElement: UInt32
@@ -2664,7 +2664,7 @@ class SPPHRASERULE(EasyCastStructure):
     SREngineConfidence: Single
     Confidence: SByte
 SPPHRASERULEHANDLE = IntPtr
-class SPPHRASE_50(EasyCastStructure):
+class SPPHRASE_50(Structure):
     cbSize: UInt32
     LangID: UInt16
     wHomophoneGroupId: UInt16
@@ -2684,7 +2684,7 @@ class SPPHRASE_50(EasyCastStructure):
     pSREnginePrivateData: POINTER(Byte)
 SPPRONUNCIATIONFLAGS = Int32
 ePRONFLAG_USED: win32more.Windows.Win32.Media.Speech.SPPRONUNCIATIONFLAGS = 1
-class SPPROPERTYINFO(EasyCastStructure):
+class SPPROPERTYINFO(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     ulId: UInt32
     pszValue: win32more.Windows.Win32.Foundation.PWSTR
@@ -2694,7 +2694,7 @@ SPPROPSRC_RECO_INST: win32more.Windows.Win32.Media.Speech.SPPROPSRC = 0
 SPPROPSRC_RECO_CTX: win32more.Windows.Win32.Media.Speech.SPPROPSRC = 1
 SPPROPSRC_RECO_GRAMMAR: win32more.Windows.Win32.Media.Speech.SPPROPSRC = 2
 SPRECOCONTEXTHANDLE = IntPtr
-class SPRECOCONTEXTSTATUS(EasyCastStructure):
+class SPRECOCONTEXTSTATUS(Structure):
     eInterference: win32more.Windows.Win32.Media.Speech.SPINTERFERENCE
     szRequestTypeOfUI: Char * 255
     dwReserved1: UInt32
@@ -2707,7 +2707,7 @@ SPREF_ExtendableParse: win32more.Windows.Win32.Media.Speech.SPRECOEVENTFLAGS = 8
 SPREF_ReSent: win32more.Windows.Win32.Media.Speech.SPRECOEVENTFLAGS = 16
 SPREF_Hypothesis: win32more.Windows.Win32.Media.Speech.SPRECOEVENTFLAGS = 32
 SPREF_FalseRecognition: win32more.Windows.Win32.Media.Speech.SPRECOEVENTFLAGS = 64
-class SPRECOGNIZERSTATUS(EasyCastStructure):
+class SPRECOGNIZERSTATUS(Structure):
     AudioStatus: win32more.Windows.Win32.Media.Speech.SPAUDIOSTATUS
     ullRecognitionStreamPos: UInt64
     ulStreamNumber: UInt32
@@ -2716,7 +2716,7 @@ class SPRECOGNIZERSTATUS(EasyCastStructure):
     cLangIDs: UInt32
     aLangID: UInt16 * 20
     ullRecognitionStreamTime: UInt64
-class SPRECORESULTINFO(EasyCastStructure):
+class SPRECORESULTINFO(Structure):
     cbSize: UInt32
     eResultType: win32more.Windows.Win32.Media.Speech.SPRESULTTYPE
     fHypothesis: win32more.Windows.Win32.Foundation.BOOL
@@ -2729,11 +2729,11 @@ class SPRECORESULTINFO(EasyCastStructure):
     pPhrase: win32more.Windows.Win32.Media.Speech.ISpPhraseBuilder
     aPhraseAlts: POINTER(win32more.Windows.Win32.Media.Speech.SPPHRASEALT)
     ulNumAlts: UInt32
-class SPRECORESULTINFOEX(EasyCastStructure):
+class SPRECORESULTINFOEX(Structure):
     Base: win32more.Windows.Win32.Media.Speech.SPRECORESULTINFO
     ullStreamTimeStart: UInt64
     ullStreamTimeEnd: UInt64
-class SPRECORESULTTIMES(EasyCastStructure):
+class SPRECORESULTTIMES(Structure):
     ftStreamTime: win32more.Windows.Win32.Foundation.FILETIME
     ullLength: UInt64
     dwTickCount: UInt32
@@ -2752,11 +2752,11 @@ SPRT_FALSE_RECOGNITION: win32more.Windows.Win32.Media.Speech.SPRESULTTYPE = 4
 SPRT_TYPE_MASK: win32more.Windows.Win32.Media.Speech.SPRESULTTYPE = 3
 SPRT_EMULATED: win32more.Windows.Win32.Media.Speech.SPRESULTTYPE = 8
 SPRT_EXTENDABLE_PARSE: win32more.Windows.Win32.Media.Speech.SPRESULTTYPE = 16
-class SPRULE(EasyCastStructure):
+class SPRULE(Structure):
     pszRuleName: win32more.Windows.Win32.Foundation.PWSTR
     ulRuleId: UInt32
     dwAttributes: UInt32
-class SPRULEENTRY(EasyCastStructure):
+class SPRULEENTRY(Structure):
     hRule: win32more.Windows.Win32.Media.Speech.SPRULEHANDLE
     hInitialState: win32more.Windows.Win32.Media.Speech.SPSTATEHANDLE
     Attributes: UInt32
@@ -2773,7 +2773,7 @@ SPRS_ACTIVE_USER_DELIMITED: win32more.Windows.Win32.Media.Speech.SPRULESTATE = 4
 SPRUNSTATE = Int32
 SPRS_DONE: win32more.Windows.Win32.Media.Speech.SPRUNSTATE = 1
 SPRS_IS_SPEAKING: win32more.Windows.Win32.Media.Speech.SPRUNSTATE = 2
-class SPSEMANTICERRORINFO(EasyCastStructure):
+class SPSEMANTICERRORINFO(Structure):
     ulLineNumber: UInt32
     pszScriptLine: win32more.Windows.Win32.Foundation.PWSTR
     pszSource: win32more.Windows.Win32.Foundation.PWSTR
@@ -2785,29 +2785,29 @@ SPSMF_SRGS_SEMANTICINTERPRETATION_MS: win32more.Windows.Win32.Media.Speech.SPSEM
 SPSMF_SRGS_SAPIPROPERTIES: win32more.Windows.Win32.Media.Speech.SPSEMANTICFORMAT = 2
 SPSMF_UPS: win32more.Windows.Win32.Media.Speech.SPSEMANTICFORMAT = 4
 SPSMF_SRGS_SEMANTICINTERPRETATION_W3C: win32more.Windows.Win32.Media.Speech.SPSEMANTICFORMAT = 8
-class SPSERIALIZEDEVENT(EasyCastStructure):
+class SPSERIALIZEDEVENT(Structure):
     _bitfield: Int32
     ulStreamNum: UInt32
     ullAudioStreamOffset: UInt64
     SerializedwParam: UInt32
     SerializedlParam: Int32
-class SPSERIALIZEDEVENT64(EasyCastStructure):
+class SPSERIALIZEDEVENT64(Structure):
     _bitfield: Int32
     ulStreamNum: UInt32
     ullAudioStreamOffset: UInt64
     SerializedwParam: UInt64
     SerializedlParam: Int64
-class SPSERIALIZEDPHRASE(EasyCastStructure):
+class SPSERIALIZEDPHRASE(Structure):
     ulSerializedSize: UInt32
-class SPSERIALIZEDRESULT(EasyCastStructure):
+class SPSERIALIZEDRESULT(Structure):
     ulSerializedSize: UInt32
-class SPSHORTCUTPAIR(EasyCastStructure):
+class SPSHORTCUTPAIR(Structure):
     pNextSHORTCUTPAIR: POINTER(win32more.Windows.Win32.Media.Speech.SPSHORTCUTPAIR)
     LangID: UInt16
     shType: win32more.Windows.Win32.Media.Speech.SPSHORTCUTTYPE
     pszDisplay: win32more.Windows.Win32.Foundation.PWSTR
     pszSpoken: win32more.Windows.Win32.Foundation.PWSTR
-class SPSHORTCUTPAIRLIST(EasyCastStructure):
+class SPSHORTCUTPAIRLIST(Structure):
     ulSize: UInt32
     pvBuffer: POINTER(Byte)
     pFirstShortcutPair: POINTER(win32more.Windows.Win32.Media.Speech.SPSHORTCUTPAIR)
@@ -2821,7 +2821,7 @@ SPPS_RESERVED2: win32more.Windows.Win32.Media.Speech.SPSHORTCUTTYPE = 16384
 SPPS_RESERVED3: win32more.Windows.Win32.Media.Speech.SPSHORTCUTTYPE = 20480
 SPPS_RESERVED4: win32more.Windows.Win32.Media.Speech.SPSHORTCUTTYPE = 61440
 SPSTATEHANDLE = IntPtr
-class SPSTATEINFO(EasyCastStructure):
+class SPSTATEINFO(Structure):
     cAllocatedEntries: UInt32
     pTransitions: POINTER(win32more.Windows.Win32.Media.Speech.SPTRANSITIONENTRY)
     cEpsilons: UInt32
@@ -2903,17 +2903,17 @@ SPSF_NUM_FORMATS: win32more.Windows.Win32.Media.Speech.SPSTREAMFORMAT = 69
 SPSTREAMFORMATTYPE = Int32
 SPWF_INPUT: win32more.Windows.Win32.Media.Speech.SPSTREAMFORMATTYPE = 0
 SPWF_SRENGINE: win32more.Windows.Win32.Media.Speech.SPSTREAMFORMATTYPE = 1
-class SPTEXTSELECTIONINFO(EasyCastStructure):
+class SPTEXTSELECTIONINFO(Structure):
     ulStartActiveOffset: UInt32
     cchActiveChars: UInt32
     ulStartSelection: UInt32
     cchSelection: UInt32
-class SPTMTHREADINFO(EasyCastStructure):
+class SPTMTHREADINFO(Structure):
     lPoolSize: Int32
     lPriority: Int32
     ulConcurrencyLimit: UInt32
     ulMaxQuickAllocThreads: UInt32
-class SPTRANSITIONENTRY(EasyCastStructure):
+class SPTRANSITIONENTRY(Structure):
     ID: win32more.Windows.Win32.Media.Speech.SPTRANSITIONID
     hNextState: win32more.Windows.Win32.Media.Speech.SPSTATEHANDLE
     Type: Byte
@@ -2921,23 +2921,23 @@ class SPTRANSITIONENTRY(EasyCastStructure):
     Anonymous1: _Anonymous1_e__Struct
     Weight: Single
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Struct(EasyCastStructure):
+    class _Anonymous1_e__Struct(Structure):
         fHasProperty: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         Anonymous3: _Anonymous3_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             hRuleInitialState: win32more.Windows.Win32.Media.Speech.SPSTATEHANDLE
             hRule: win32more.Windows.Win32.Media.Speech.SPRULEHANDLE
             pvClientRuleContext: VoidPtr
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             hWord: win32more.Windows.Win32.Media.Speech.SPWORDHANDLE
             pvClientWordContext: VoidPtr
-        class _Anonymous3_e__Struct(EasyCastStructure):
+        class _Anonymous3_e__Struct(Structure):
             pvGrammarCookie: VoidPtr
 SPTRANSITIONID = IntPtr
-class SPTRANSITIONPROPERTY(EasyCastStructure):
+class SPTRANSITIONPROPERTY(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     ulId: UInt32
     pszValue: win32more.Windows.Win32.Foundation.PWSTR
@@ -2967,7 +2967,7 @@ SPDF_PRONUNCIATION: win32more.Windows.Win32.Media.Speech.SPVALUETYPE = 32
 SPDF_AUDIO: win32more.Windows.Win32.Media.Speech.SPVALUETYPE = 64
 SPDF_ALTERNATES: win32more.Windows.Win32.Media.Speech.SPVALUETYPE = 128
 SPDF_ALL: win32more.Windows.Win32.Media.Speech.SPVALUETYPE = 255
-class SPVCONTEXT(EasyCastStructure):
+class SPVCONTEXT(Structure):
     pCategory: win32more.Windows.Win32.Foundation.PWSTR
     pBefore: win32more.Windows.Win32.Foundation.PWSTR
     pAfter: win32more.Windows.Win32.Foundation.PWSTR
@@ -3008,7 +3008,7 @@ SPMIN_VOLUME: win32more.Windows.Win32.Media.Speech.SPVLIMITS = 0
 SPMAX_VOLUME: win32more.Windows.Win32.Media.Speech.SPVLIMITS = 100
 SPMIN_RATE: win32more.Windows.Win32.Media.Speech.SPVLIMITS = -10
 SPMAX_RATE: win32more.Windows.Win32.Media.Speech.SPVLIMITS = 10
-class SPVOICESTATUS(EasyCastStructure):
+class SPVOICESTATUS(Structure):
     ulCurrentStream: UInt32
     ulLastStreamQueued: UInt32
     hrLastResult: win32more.Windows.Win32.Foundation.HRESULT
@@ -3022,7 +3022,7 @@ class SPVOICESTATUS(EasyCastStructure):
     VisemeId: win32more.Windows.Win32.Media.Speech.SPVISEMES
     dwReserved1: UInt32
     dwReserved2: UInt32
-class SPVPITCH(EasyCastStructure):
+class SPVPITCH(Structure):
     MiddleAdj: Int32
     RangeAdj: Int32
 SPVPRIORITY = Int32
@@ -3031,7 +3031,7 @@ SPVPRI_ALERT: win32more.Windows.Win32.Media.Speech.SPVPRIORITY = 1
 SPVPRI_OVER: win32more.Windows.Win32.Media.Speech.SPVPRIORITY = 2
 SPVSKIPTYPE = Int32
 SPVST_SENTENCE: win32more.Windows.Win32.Media.Speech.SPVSKIPTYPE = 1
-class SPVSTATE(EasyCastStructure):
+class SPVSTATE(Structure):
     eAction: win32more.Windows.Win32.Media.Speech.SPVACTIONS
     LangID: UInt16
     wReserved: UInt16
@@ -3043,20 +3043,20 @@ class SPVSTATE(EasyCastStructure):
     pPhoneIds: POINTER(UInt16)
     ePartOfSpeech: win32more.Windows.Win32.Media.Speech.SPPARTOFSPEECH
     Context: win32more.Windows.Win32.Media.Speech.SPVCONTEXT
-class SPVTEXTFRAG(EasyCastStructure):
+class SPVTEXTFRAG(Structure):
     pNext: POINTER(win32more.Windows.Win32.Media.Speech.SPVTEXTFRAG)
     State: win32more.Windows.Win32.Media.Speech.SPVSTATE
     pTextStart: win32more.Windows.Win32.Foundation.PWSTR
     ulTextLen: UInt32
     ulTextSrcOffset: UInt32
-class SPWORD(EasyCastStructure):
+class SPWORD(Structure):
     pNextWord: POINTER(win32more.Windows.Win32.Media.Speech.SPWORD)
     LangID: UInt16
     wReserved: UInt16
     eWordType: win32more.Windows.Win32.Media.Speech.SPWORDTYPE
     pszWord: win32more.Windows.Win32.Foundation.PWSTR
     pFirstWordPronunciation: POINTER(win32more.Windows.Win32.Media.Speech.SPWORDPRONUNCIATION)
-class SPWORDENTRY(EasyCastStructure):
+class SPWORDENTRY(Structure):
     hWord: win32more.Windows.Win32.Media.Speech.SPWORDHANDLE
     LangID: UInt16
     pszDisplayText: win32more.Windows.Win32.Foundation.PWSTR
@@ -3067,7 +3067,7 @@ SPWORDHANDLE = IntPtr
 SPWORDINFOOPT = Int32
 SPWIO_NONE: win32more.Windows.Win32.Media.Speech.SPWORDINFOOPT = 0
 SPWIO_WANT_TEXT: win32more.Windows.Win32.Media.Speech.SPWORDINFOOPT = 1
-class SPWORDLIST(EasyCastStructure):
+class SPWORDLIST(Structure):
     ulSize: UInt32
     pvBuffer: POINTER(Byte)
     pFirstWord: POINTER(win32more.Windows.Win32.Media.Speech.SPWORD)
@@ -3075,14 +3075,14 @@ SPWORDPRONOUNCEABLE = Int32
 SPWP_UNKNOWN_WORD_UNPRONOUNCEABLE: win32more.Windows.Win32.Media.Speech.SPWORDPRONOUNCEABLE = 0
 SPWP_UNKNOWN_WORD_PRONOUNCEABLE: win32more.Windows.Win32.Media.Speech.SPWORDPRONOUNCEABLE = 1
 SPWP_KNOWN_WORD_PRONOUNCEABLE: win32more.Windows.Win32.Media.Speech.SPWORDPRONOUNCEABLE = 2
-class SPWORDPRONUNCIATION(EasyCastStructure):
+class SPWORDPRONUNCIATION(Structure):
     pNextWordPronunciation: POINTER(win32more.Windows.Win32.Media.Speech.SPWORDPRONUNCIATION)
     eLexiconType: win32more.Windows.Win32.Media.Speech.SPLEXICONTYPE
     LangID: UInt16
     wPronunciationFlags: UInt16
     ePartOfSpeech: win32more.Windows.Win32.Media.Speech.SPPARTOFSPEECH
     szPronunciation: UInt16 * 1
-class SPWORDPRONUNCIATIONLIST(EasyCastStructure):
+class SPWORDPRONUNCIATIONLIST(Structure):
     ulSize: UInt32
     pvBuffer: POINTER(Byte)
     pFirstWordPronunciation: POINTER(win32more.Windows.Win32.Media.Speech.SPWORDPRONUNCIATION)

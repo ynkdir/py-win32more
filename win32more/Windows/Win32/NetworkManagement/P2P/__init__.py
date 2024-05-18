@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.P2P
 import win32more.Windows.Win32.Networking.WinSock
@@ -498,7 +498,7 @@ def PeerDistGetOverlappedResult(lpOverlapped: POINTER(win32more.Windows.Win32.Sy
 def PeerDistServerOpenContentInformationEx(hPeerDist: IntPtr, cbContentIdentifier: UInt32, pContentIdentifier: POINTER(Byte), ullContentOffset: UInt64, cbContentLength: UInt64, pRetrievalOptions: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS), hCompletionPort: win32more.Windows.Win32.Foundation.HANDLE, ulCompletionKey: UIntPtr, phContentInfo: POINTER(IntPtr)) -> UInt32: ...
 @winfunctype('PeerDist.dll')
 def PeerDistClientGetInformationByHandle(hPeerDist: IntPtr, hContentHandle: IntPtr, PeerDistClientInfoClass: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS, dwBufferSize: UInt32, lpInformation: VoidPtr) -> UInt32: ...
-class DRT_ADDRESS(EasyCastStructure):
+class DRT_ADDRESS(Structure):
     socketAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
     flags: UInt32
     nearness: Int32
@@ -512,10 +512,10 @@ DRT_ADDRESS_FLAG_TOO_BUSY: win32more.Windows.Win32.NetworkManagement.P2P.DRT_ADD
 DRT_ADDRESS_FLAG_BAD_VALIDATE_ID: win32more.Windows.Win32.NetworkManagement.P2P.DRT_ADDRESS_FLAGS = 32
 DRT_ADDRESS_FLAG_SUSPECT_UNREGISTERED_ID: win32more.Windows.Win32.NetworkManagement.P2P.DRT_ADDRESS_FLAGS = 64
 DRT_ADDRESS_FLAG_INQUIRE: win32more.Windows.Win32.NetworkManagement.P2P.DRT_ADDRESS_FLAGS = 128
-class DRT_ADDRESS_LIST(EasyCastStructure):
+class DRT_ADDRESS_LIST(Structure):
     AddressCount: UInt32
     AddressList: win32more.Windows.Win32.NetworkManagement.P2P.DRT_ADDRESS * 1
-class DRT_BOOTSTRAP_PROVIDER(EasyCastStructure):
+class DRT_BOOTSTRAP_PROVIDER(Structure):
     pvContext: VoidPtr
     Attach: IntPtr
     Detach: IntPtr
@@ -526,29 +526,29 @@ class DRT_BOOTSTRAP_PROVIDER(EasyCastStructure):
     Unregister: IntPtr
 @winfunctype_pointer
 def DRT_BOOTSTRAP_RESOLVE_CALLBACK(hr: win32more.Windows.Win32.Foundation.HRESULT, pvContext: VoidPtr, pAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS_LIST), fFatalError: win32more.Windows.Win32.Foundation.BOOL) -> Void: ...
-class DRT_DATA(EasyCastStructure):
+class DRT_DATA(Structure):
     cb: UInt32
     pb: POINTER(Byte)
-class DRT_EVENT_DATA(EasyCastStructure):
+class DRT_EVENT_DATA(Structure):
     type: win32more.Windows.Win32.NetworkManagement.P2P.DRT_EVENT_TYPE
     hr: win32more.Windows.Win32.Foundation.HRESULT
     pvContext: VoidPtr
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         leafsetKeyChange: _leafsetKeyChange_e__Struct
         registrationStateChange: _registrationStateChange_e__Struct
         statusChange: _statusChange_e__Struct
-        class _leafsetKeyChange_e__Struct(EasyCastStructure):
+        class _leafsetKeyChange_e__Struct(Structure):
             change: win32more.Windows.Win32.NetworkManagement.P2P.DRT_LEAFSET_KEY_CHANGE_TYPE
             localKey: win32more.Windows.Win32.NetworkManagement.P2P.DRT_DATA
             remoteKey: win32more.Windows.Win32.NetworkManagement.P2P.DRT_DATA
-        class _registrationStateChange_e__Struct(EasyCastStructure):
+        class _registrationStateChange_e__Struct(Structure):
             state: win32more.Windows.Win32.NetworkManagement.P2P.DRT_REGISTRATION_STATE
             localKey: win32more.Windows.Win32.NetworkManagement.P2P.DRT_DATA
-        class _statusChange_e__Struct(EasyCastStructure):
+        class _statusChange_e__Struct(Structure):
             status: win32more.Windows.Win32.NetworkManagement.P2P.DRT_STATUS
             bootstrapAddresses: _bootstrapAddresses_e__Struct
-            class _bootstrapAddresses_e__Struct(EasyCastStructure):
+            class _bootstrapAddresses_e__Struct(Structure):
                 cntAddress: UInt32
                 pAddresses: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE)
 DRT_EVENT_TYPE = Int32
@@ -562,7 +562,7 @@ DRT_MATCH_TYPE = Int32
 DRT_MATCH_EXACT: win32more.Windows.Win32.NetworkManagement.P2P.DRT_MATCH_TYPE = 0
 DRT_MATCH_NEAR: win32more.Windows.Win32.NetworkManagement.P2P.DRT_MATCH_TYPE = 1
 DRT_MATCH_INTERMEDIATE: win32more.Windows.Win32.NetworkManagement.P2P.DRT_MATCH_TYPE = 2
-class DRT_REGISTRATION(EasyCastStructure):
+class DRT_REGISTRATION(Structure):
     key: win32more.Windows.Win32.NetworkManagement.P2P.DRT_DATA
     appData: win32more.Windows.Win32.NetworkManagement.P2P.DRT_DATA
 DRT_REGISTRATION_STATE = Int32
@@ -571,7 +571,7 @@ DRT_SCOPE = Int32
 DRT_GLOBAL_SCOPE: win32more.Windows.Win32.NetworkManagement.P2P.DRT_SCOPE = 1
 DRT_SITE_LOCAL_SCOPE: win32more.Windows.Win32.NetworkManagement.P2P.DRT_SCOPE = 2
 DRT_LINK_LOCAL_SCOPE: win32more.Windows.Win32.NetworkManagement.P2P.DRT_SCOPE = 3
-class DRT_SEARCH_INFO(EasyCastStructure):
+class DRT_SEARCH_INFO(Structure):
     dwSize: UInt32
     fIterative: win32more.Windows.Win32.Foundation.BOOL
     fAllowCurrentInstanceMatch: win32more.Windows.Win32.Foundation.BOOL
@@ -579,7 +579,7 @@ class DRT_SEARCH_INFO(EasyCastStructure):
     cMaxEndpoints: UInt32
     pMaximumKey: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.DRT_DATA)
     pMinimumKey: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.DRT_DATA)
-class DRT_SEARCH_RESULT(EasyCastStructure):
+class DRT_SEARCH_RESULT(Structure):
     dwSize: UInt32
     type: win32more.Windows.Win32.NetworkManagement.P2P.DRT_MATCH_TYPE
     pvContext: VoidPtr
@@ -588,7 +588,7 @@ DRT_SECURITY_MODE = Int32
 DRT_SECURE_RESOLVE: win32more.Windows.Win32.NetworkManagement.P2P.DRT_SECURITY_MODE = 0
 DRT_SECURE_MEMBERSHIP: win32more.Windows.Win32.NetworkManagement.P2P.DRT_SECURITY_MODE = 1
 DRT_SECURE_CONFIDENTIALPAYLOAD: win32more.Windows.Win32.NetworkManagement.P2P.DRT_SECURITY_MODE = 2
-class DRT_SECURITY_PROVIDER(EasyCastStructure):
+class DRT_SECURITY_PROVIDER(Structure):
     pvContext: VoidPtr
     Attach: IntPtr
     Detach: IntPtr
@@ -603,7 +603,7 @@ class DRT_SECURITY_PROVIDER(EasyCastStructure):
     ValidateRemoteCredential: IntPtr
     SignData: IntPtr
     VerifyData: IntPtr
-class DRT_SETTINGS(EasyCastStructure):
+class DRT_SETTINGS(Structure):
     dwSize: UInt32
     cbKey: UInt32
     bProtocolMajorVersion: Byte
@@ -619,17 +619,17 @@ DRT_ACTIVE: win32more.Windows.Win32.NetworkManagement.P2P.DRT_STATUS = 0
 DRT_ALONE: win32more.Windows.Win32.NetworkManagement.P2P.DRT_STATUS = 1
 DRT_NO_NETWORK: win32more.Windows.Win32.NetworkManagement.P2P.DRT_STATUS = 10
 DRT_FAULTED: win32more.Windows.Win32.NetworkManagement.P2P.DRT_STATUS = 20
-class PEERDIST_CLIENT_BASIC_INFO(EasyCastStructure):
+class PEERDIST_CLIENT_BASIC_INFO(Structure):
     fFlashCrowd: win32more.Windows.Win32.Foundation.BOOL
 PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = Int32
 PeerDistClientBasicInfo: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 0
 MaximumPeerDistClientInfoByHandlesClass: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 1
-class PEERDIST_CONTENT_TAG(EasyCastStructure):
+class PEERDIST_CONTENT_TAG(Structure):
     Data: Byte * 16
-class PEERDIST_PUBLICATION_OPTIONS(EasyCastStructure):
+class PEERDIST_PUBLICATION_OPTIONS(Structure):
     dwVersion: UInt32
     dwFlags: UInt32
-class PEERDIST_RETRIEVAL_OPTIONS(EasyCastStructure):
+class PEERDIST_RETRIEVAL_OPTIONS(Structure):
     cbSize: UInt32
     dwContentInfoMinVersion: UInt32
     dwContentInfoMaxVersion: UInt32
@@ -642,19 +642,19 @@ PEERDIST_STATUS = Int32
 PEERDIST_STATUS_DISABLED: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_STATUS = 0
 PEERDIST_STATUS_UNAVAILABLE: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_STATUS = 1
 PEERDIST_STATUS_AVAILABLE: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_STATUS = 2
-class PEERDIST_STATUS_INFO(EasyCastStructure):
+class PEERDIST_STATUS_INFO(Structure):
     cbSize: UInt32
     status: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_STATUS
     dwMinVer: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE
     dwMaxVer: win32more.Windows.Win32.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE
-class PEER_ADDRESS(EasyCastStructure):
+class PEER_ADDRESS(Structure):
     dwSize: UInt32
     sin6: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_IN6
-class PEER_APPLICATION(EasyCastStructure):
+class PEER_APPLICATION(Structure):
     id: Guid
     data: win32more.Windows.Win32.NetworkManagement.P2P.PEER_DATA
     pwzDescription: win32more.Windows.Win32.Foundation.PWSTR
-class PEER_APPLICATION_REGISTRATION_INFO(EasyCastStructure):
+class PEER_APPLICATION_REGISTRATION_INFO(Structure):
     application: win32more.Windows.Win32.NetworkManagement.P2P.PEER_APPLICATION
     pwzApplicationToLaunch: win32more.Windows.Win32.Foundation.PWSTR
     pwzApplicationArguments: win32more.Windows.Win32.Foundation.PWSTR
@@ -662,7 +662,7 @@ class PEER_APPLICATION_REGISTRATION_INFO(EasyCastStructure):
 PEER_APPLICATION_REGISTRATION_TYPE = Int32
 PEER_APPLICATION_CURRENT_USER: win32more.Windows.Win32.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE = 0
 PEER_APPLICATION_ALL_USERS: win32more.Windows.Win32.NetworkManagement.P2P.PEER_APPLICATION_REGISTRATION_TYPE = 1
-class PEER_APP_LAUNCH_INFO(EasyCastStructure):
+class PEER_APP_LAUNCH_INFO(Structure):
     pContact: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONTACT)
     pEndpoint: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_ENDPOINT)
     pInvitation: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_INVITATION)
@@ -670,10 +670,10 @@ PEER_CHANGE_TYPE = Int32
 PEER_CHANGE_ADDED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CHANGE_TYPE = 0
 PEER_CHANGE_DELETED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CHANGE_TYPE = 1
 PEER_CHANGE_UPDATED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CHANGE_TYPE = 2
-class PEER_COLLAB_EVENT_DATA(EasyCastStructure):
+class PEER_COLLAB_EVENT_DATA(Structure):
     eventType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_COLLAB_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         watchListChangedData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_WATCHLIST_CHANGED_DATA
         presenceChangedData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_PRESENCE_CHANGED_DATA
         applicationChangedData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_APPLICATION_CHANGED_DATA
@@ -681,7 +681,7 @@ class PEER_COLLAB_EVENT_DATA(EasyCastStructure):
         endpointChangedData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_ENDPOINT_CHANGED_DATA
         peopleNearMeChangedData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA
         requestStatusChangedData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_REQUEST_STATUS_CHANGED_DATA
-class PEER_COLLAB_EVENT_REGISTRATION(EasyCastStructure):
+class PEER_COLLAB_EVENT_REGISTRATION(Structure):
     eventType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_COLLAB_EVENT_TYPE
     pInstance: POINTER(Guid)
 PEER_COLLAB_EVENT_TYPE = Int32
@@ -699,7 +699,7 @@ PEER_EVENT_REQUEST_STATUS_CHANGED: win32more.Windows.Win32.NetworkManagement.P2P
 PEER_CONNECTION_FLAGS = Int32
 PEER_CONNECTION_NEIGHBOR: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONNECTION_FLAGS = 1
 PEER_CONNECTION_DIRECT: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONNECTION_FLAGS = 2
-class PEER_CONNECTION_INFO(EasyCastStructure):
+class PEER_CONNECTION_INFO(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     ullConnectionId: UInt64
@@ -710,7 +710,7 @@ PEER_CONNECTION_STATUS = Int32
 PEER_CONNECTED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONNECTION_STATUS = 1
 PEER_DISCONNECTED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONNECTION_STATUS = 2
 PEER_CONNECTION_FAILED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONNECTION_STATUS = 3
-class PEER_CONTACT(EasyCastStructure):
+class PEER_CONTACT(Structure):
     pwzPeerName: win32more.Windows.Win32.Foundation.PWSTR
     pwzNickName: win32more.Windows.Win32.Foundation.PWSTR
     pwzDisplayName: win32more.Windows.Win32.Foundation.PWSTR
@@ -718,7 +718,7 @@ class PEER_CONTACT(EasyCastStructure):
     fWatch: win32more.Windows.Win32.Foundation.BOOL
     WatcherPermissions: win32more.Windows.Win32.NetworkManagement.P2P.PEER_WATCH_PERMISSION
     credentials: win32more.Windows.Win32.NetworkManagement.P2P.PEER_DATA
-class PEER_CREDENTIAL_INFO(EasyCastStructure):
+class PEER_CREDENTIAL_INFO(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     pwzFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
@@ -729,79 +729,79 @@ class PEER_CREDENTIAL_INFO(EasyCastStructure):
     ftValidityEnd: win32more.Windows.Win32.Foundation.FILETIME
     cRoles: UInt32
     pRoles: POINTER(Guid)
-class PEER_DATA(EasyCastStructure):
+class PEER_DATA(Structure):
     cbData: UInt32
     pbData: POINTER(Byte)
-class PEER_ENDPOINT(EasyCastStructure):
+class PEER_ENDPOINT(Structure):
     address: win32more.Windows.Win32.NetworkManagement.P2P.PEER_ADDRESS
     pwzEndpointName: win32more.Windows.Win32.Foundation.PWSTR
-class PEER_EVENT_APPLICATION_CHANGED_DATA(EasyCastStructure):
+class PEER_EVENT_APPLICATION_CHANGED_DATA(Structure):
     pContact: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONTACT)
     pEndpoint: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_ENDPOINT)
     changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CHANGE_TYPE
     pApplication: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_APPLICATION)
-class PEER_EVENT_CONNECTION_CHANGE_DATA(EasyCastStructure):
+class PEER_EVENT_CONNECTION_CHANGE_DATA(Structure):
     dwSize: UInt32
     status: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONNECTION_STATUS
     ullConnectionId: UInt64
     ullNodeId: UInt64
     ullNextConnectionId: UInt64
     hrConnectionFailedReason: win32more.Windows.Win32.Foundation.HRESULT
-class PEER_EVENT_ENDPOINT_CHANGED_DATA(EasyCastStructure):
+class PEER_EVENT_ENDPOINT_CHANGED_DATA(Structure):
     pContact: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONTACT)
     pEndpoint: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_ENDPOINT)
-class PEER_EVENT_INCOMING_DATA(EasyCastStructure):
+class PEER_EVENT_INCOMING_DATA(Structure):
     dwSize: UInt32
     ullConnectionId: UInt64
     type: Guid
     data: win32more.Windows.Win32.NetworkManagement.P2P.PEER_DATA
-class PEER_EVENT_MEMBER_CHANGE_DATA(EasyCastStructure):
+class PEER_EVENT_MEMBER_CHANGE_DATA(Structure):
     dwSize: UInt32
     changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_MEMBER_CHANGE_TYPE
     pwzIdentity: win32more.Windows.Win32.Foundation.PWSTR
-class PEER_EVENT_NODE_CHANGE_DATA(EasyCastStructure):
+class PEER_EVENT_NODE_CHANGE_DATA(Structure):
     dwSize: UInt32
     changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_NODE_CHANGE_TYPE
     ullNodeId: UInt64
     pwzPeerId: win32more.Windows.Win32.Foundation.PWSTR
-class PEER_EVENT_OBJECT_CHANGED_DATA(EasyCastStructure):
+class PEER_EVENT_OBJECT_CHANGED_DATA(Structure):
     pContact: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONTACT)
     pEndpoint: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_ENDPOINT)
     changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CHANGE_TYPE
     pObject: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_OBJECT)
-class PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA(EasyCastStructure):
+class PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA(Structure):
     changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CHANGE_TYPE
     pPeopleNearMe: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_PEOPLE_NEAR_ME)
-class PEER_EVENT_PRESENCE_CHANGED_DATA(EasyCastStructure):
+class PEER_EVENT_PRESENCE_CHANGED_DATA(Structure):
     pContact: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONTACT)
     pEndpoint: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_ENDPOINT)
     changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CHANGE_TYPE
     pPresenceInfo: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_PRESENCE_INFO)
-class PEER_EVENT_RECORD_CHANGE_DATA(EasyCastStructure):
+class PEER_EVENT_RECORD_CHANGE_DATA(Structure):
     dwSize: UInt32
     changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE
     recordId: Guid
     recordType: Guid
-class PEER_EVENT_REQUEST_STATUS_CHANGED_DATA(EasyCastStructure):
+class PEER_EVENT_REQUEST_STATUS_CHANGED_DATA(Structure):
     pEndpoint: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_ENDPOINT)
     hrChange: win32more.Windows.Win32.Foundation.HRESULT
-class PEER_EVENT_SYNCHRONIZED_DATA(EasyCastStructure):
+class PEER_EVENT_SYNCHRONIZED_DATA(Structure):
     dwSize: UInt32
     recordType: Guid
-class PEER_EVENT_WATCHLIST_CHANGED_DATA(EasyCastStructure):
+class PEER_EVENT_WATCHLIST_CHANGED_DATA(Structure):
     pContact: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_CONTACT)
     changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_CHANGE_TYPE
-class PEER_GRAPH_EVENT_DATA(EasyCastStructure):
+class PEER_GRAPH_EVENT_DATA(Structure):
     eventType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GRAPH_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwStatus: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GRAPH_STATUS_FLAGS
         incomingData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_INCOMING_DATA
         recordChangeData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_RECORD_CHANGE_DATA
         connectionChangeData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_CONNECTION_CHANGE_DATA
         nodeChangeData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_NODE_CHANGE_DATA
         synchronizedData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_SYNCHRONIZED_DATA
-class PEER_GRAPH_EVENT_REGISTRATION(EasyCastStructure):
+class PEER_GRAPH_EVENT_REGISTRATION(Structure):
     eventType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GRAPH_EVENT_TYPE
     pType: POINTER(Guid)
 PEER_GRAPH_EVENT_TYPE = Int32
@@ -814,7 +814,7 @@ PEER_GRAPH_EVENT_INCOMING_DATA: win32more.Windows.Win32.NetworkManagement.P2P.PE
 PEER_GRAPH_EVENT_CONNECTION_REQUIRED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GRAPH_EVENT_TYPE = 7
 PEER_GRAPH_EVENT_NODE_CHANGED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GRAPH_EVENT_TYPE = 8
 PEER_GRAPH_EVENT_SYNCHRONIZED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GRAPH_EVENT_TYPE = 9
-class PEER_GRAPH_PROPERTIES(EasyCastStructure):
+class PEER_GRAPH_PROPERTIES(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwScope: UInt32
@@ -841,17 +841,17 @@ PEER_GRAPH_STATUS_SYNCHRONIZED: win32more.Windows.Win32.NetworkManagement.P2P.PE
 PEER_GROUP_AUTHENTICATION_SCHEME = Int32
 PEER_GROUP_GMC_AUTHENTICATION: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_AUTHENTICATION_SCHEME = 1
 PEER_GROUP_PASSWORD_AUTHENTICATION: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_AUTHENTICATION_SCHEME = 2
-class PEER_GROUP_EVENT_DATA(EasyCastStructure):
+class PEER_GROUP_EVENT_DATA(Structure):
     eventType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwStatus: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_STATUS
         incomingData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_INCOMING_DATA
         recordChangeData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_RECORD_CHANGE_DATA
         connectionChangeData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_CONNECTION_CHANGE_DATA
         memberChangeData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_EVENT_MEMBER_CHANGE_DATA
         hrConnectionFailedReason: win32more.Windows.Win32.Foundation.HRESULT
-class PEER_GROUP_EVENT_REGISTRATION(EasyCastStructure):
+class PEER_GROUP_EVENT_REGISTRATION(Structure):
     eventType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_EVENT_TYPE
     pType: POINTER(Guid)
 PEER_GROUP_EVENT_TYPE = Int32
@@ -866,7 +866,7 @@ PEER_GROUP_EVENT_CONNECTION_FAILED: win32more.Windows.Win32.NetworkManagement.P2
 PEER_GROUP_EVENT_AUTHENTICATION_FAILED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_EVENT_TYPE = 11
 PEER_GROUP_ISSUE_CREDENTIAL_FLAGS = Int32
 PEER_GROUP_STORE_CREDENTIALS: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_ISSUE_CREDENTIAL_FLAGS = 1
-class PEER_GROUP_PROPERTIES(EasyCastStructure):
+class PEER_GROUP_PROPERTIES(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     pwzCloud: win32more.Windows.Win32.Foundation.PWSTR
@@ -887,11 +887,11 @@ PEER_DEFER_EXPIRATION: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_
 PEER_GROUP_STATUS = Int32
 PEER_GROUP_STATUS_LISTENING: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_STATUS = 1
 PEER_GROUP_STATUS_HAS_CONNECTIONS: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_STATUS = 2
-class PEER_INVITATION(EasyCastStructure):
+class PEER_INVITATION(Structure):
     applicationId: Guid
     applicationData: win32more.Windows.Win32.NetworkManagement.P2P.PEER_DATA
     pwzMessage: win32more.Windows.Win32.Foundation.PWSTR
-class PEER_INVITATION_INFO(EasyCastStructure):
+class PEER_INVITATION_INFO(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     pwzCloudName: win32more.Windows.Win32.Foundation.PWSTR
@@ -911,7 +911,7 @@ class PEER_INVITATION_INFO(EasyCastStructure):
     ppwzClassifiers: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     pSubjectPublicKey: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO)
     authScheme: win32more.Windows.Win32.NetworkManagement.P2P.PEER_GROUP_AUTHENTICATION_SCHEME
-class PEER_INVITATION_RESPONSE(EasyCastStructure):
+class PEER_INVITATION_RESPONSE(Structure):
     action: win32more.Windows.Win32.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_TYPE
     pwzMessage: win32more.Windows.Win32.Foundation.PWSTR
     hrExtendedInfo: win32more.Windows.Win32.Foundation.HRESULT
@@ -920,7 +920,7 @@ PEER_INVITATION_RESPONSE_DECLINED: win32more.Windows.Win32.NetworkManagement.P2P
 PEER_INVITATION_RESPONSE_ACCEPTED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_TYPE = 1
 PEER_INVITATION_RESPONSE_EXPIRED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_TYPE = 2
 PEER_INVITATION_RESPONSE_ERROR: win32more.Windows.Win32.NetworkManagement.P2P.PEER_INVITATION_RESPONSE_TYPE = 3
-class PEER_MEMBER(EasyCastStructure):
+class PEER_MEMBER(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     pwzIdentity: win32more.Windows.Win32.Foundation.PWSTR
@@ -937,7 +937,7 @@ PEER_MEMBER_JOINED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_MEMBER_CH
 PEER_MEMBER_LEFT: win32more.Windows.Win32.NetworkManagement.P2P.PEER_MEMBER_CHANGE_TYPE = 5
 PEER_MEMBER_FLAGS = Int32
 PEER_MEMBER_PRESENT: win32more.Windows.Win32.NetworkManagement.P2P.PEER_MEMBER_FLAGS = 1
-class PEER_NAME_PAIR(EasyCastStructure):
+class PEER_NAME_PAIR(Structure):
     dwSize: UInt32
     pwzPeerName: win32more.Windows.Win32.Foundation.PWSTR
     pwzFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
@@ -945,32 +945,32 @@ PEER_NODE_CHANGE_TYPE = Int32
 PEER_NODE_CHANGE_CONNECTED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_NODE_CHANGE_TYPE = 1
 PEER_NODE_CHANGE_DISCONNECTED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_NODE_CHANGE_TYPE = 2
 PEER_NODE_CHANGE_UPDATED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_NODE_CHANGE_TYPE = 3
-class PEER_NODE_INFO(EasyCastStructure):
+class PEER_NODE_INFO(Structure):
     dwSize: UInt32
     ullNodeId: UInt64
     pwzPeerId: win32more.Windows.Win32.Foundation.PWSTR
     cAddresses: UInt32
     pAddresses: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_ADDRESS)
     pwzAttributes: win32more.Windows.Win32.Foundation.PWSTR
-class PEER_OBJECT(EasyCastStructure):
+class PEER_OBJECT(Structure):
     id: Guid
     data: win32more.Windows.Win32.NetworkManagement.P2P.PEER_DATA
     dwPublicationScope: UInt32
-class PEER_PEOPLE_NEAR_ME(EasyCastStructure):
+class PEER_PEOPLE_NEAR_ME(Structure):
     pwzNickName: win32more.Windows.Win32.Foundation.PWSTR
     endpoint: win32more.Windows.Win32.NetworkManagement.P2P.PEER_ENDPOINT
     id: Guid
-class PEER_PNRP_CLOUD_INFO(EasyCastStructure):
+class PEER_PNRP_CLOUD_INFO(Structure):
     pwzCloudName: win32more.Windows.Win32.Foundation.PWSTR
     dwScope: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_SCOPE
     dwScopeId: UInt32
-class PEER_PNRP_ENDPOINT_INFO(EasyCastStructure):
+class PEER_PNRP_ENDPOINT_INFO(Structure):
     pwzPeerName: win32more.Windows.Win32.Foundation.PWSTR
     cAddresses: UInt32
     ppAddresses: POINTER(POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR))
     pwzComment: win32more.Windows.Win32.Foundation.PWSTR
     payload: win32more.Windows.Win32.NetworkManagement.P2P.PEER_DATA
-class PEER_PNRP_REGISTRATION_INFO(EasyCastStructure):
+class PEER_PNRP_REGISTRATION_INFO(Structure):
     pwzCloudName: win32more.Windows.Win32.Foundation.PWSTR
     pwzPublishingIdentity: win32more.Windows.Win32.Foundation.PWSTR
     cAddresses: UInt32
@@ -978,7 +978,7 @@ class PEER_PNRP_REGISTRATION_INFO(EasyCastStructure):
     wPort: UInt16
     pwzComment: win32more.Windows.Win32.Foundation.PWSTR
     payload: win32more.Windows.Win32.NetworkManagement.P2P.PEER_DATA
-class PEER_PRESENCE_INFO(EasyCastStructure):
+class PEER_PRESENCE_INFO(Structure):
     status: win32more.Windows.Win32.NetworkManagement.P2P.PEER_PRESENCE_STATUS
     pwzDescriptiveText: win32more.Windows.Win32.Foundation.PWSTR
 PEER_PRESENCE_STATUS = Int32
@@ -995,7 +995,7 @@ PEER_PUBLICATION_SCOPE_NONE: win32more.Windows.Win32.NetworkManagement.P2P.PEER_
 PEER_PUBLICATION_SCOPE_NEAR_ME: win32more.Windows.Win32.NetworkManagement.P2P.PEER_PUBLICATION_SCOPE = 1
 PEER_PUBLICATION_SCOPE_INTERNET: win32more.Windows.Win32.NetworkManagement.P2P.PEER_PUBLICATION_SCOPE = 2
 PEER_PUBLICATION_SCOPE_ALL: win32more.Windows.Win32.NetworkManagement.P2P.PEER_PUBLICATION_SCOPE = 3
-class PEER_RECORD(EasyCastStructure):
+class PEER_RECORD(Structure):
     dwSize: UInt32
     type: Guid
     id: Guid
@@ -1017,7 +1017,7 @@ PEER_RECORD_EXPIRED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_RECORD_C
 PEER_RECORD_FLAGS = Int32
 PEER_RECORD_FLAG_AUTOREFRESH: win32more.Windows.Win32.NetworkManagement.P2P.PEER_RECORD_FLAGS = 1
 PEER_RECORD_FLAG_DELETED: win32more.Windows.Win32.NetworkManagement.P2P.PEER_RECORD_FLAGS = 2
-class PEER_SECURITY_INTERFACE(EasyCastStructure):
+class PEER_SECURITY_INTERFACE(Structure):
     dwSize: UInt32
     pwzSspFilename: win32more.Windows.Win32.Foundation.PWSTR
     pwzPackageName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1033,7 +1033,7 @@ PEER_SIGNIN_NONE: win32more.Windows.Win32.NetworkManagement.P2P.PEER_SIGNIN_FLAG
 PEER_SIGNIN_NEAR_ME: win32more.Windows.Win32.NetworkManagement.P2P.PEER_SIGNIN_FLAGS = 1
 PEER_SIGNIN_INTERNET: win32more.Windows.Win32.NetworkManagement.P2P.PEER_SIGNIN_FLAGS = 2
 PEER_SIGNIN_ALL: win32more.Windows.Win32.NetworkManagement.P2P.PEER_SIGNIN_FLAGS = 3
-class PEER_VERSION_DATA(EasyCastStructure):
+class PEER_VERSION_DATA(Structure):
     wVersion: UInt16
     wHighestVersion: UInt16
 PEER_WATCH_PERMISSION = Int32
@@ -1047,12 +1047,12 @@ def PFNPEER_ON_PASSWORD_AUTH_FAILED(hGraph: VoidPtr, pvContext: VoidPtr) -> win3
 def PFNPEER_SECURE_RECORD(hGraph: VoidPtr, pvContext: VoidPtr, pRecord: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_RECORD), changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE, ppSecurityData: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_DATA))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFNPEER_VALIDATE_RECORD(hGraph: VoidPtr, pvContext: VoidPtr, pRecord: POINTER(win32more.Windows.Win32.NetworkManagement.P2P.PEER_RECORD), changeType: win32more.Windows.Win32.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class PNRPCLOUDINFO(EasyCastStructure):
+class PNRPCLOUDINFO(Structure):
     dwSize: UInt32
     Cloud: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_CLOUD_ID
     enCloudState: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_CLOUD_STATE
     enCloudFlags: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_CLOUD_FLAGS
-class PNRPINFO_V1(EasyCastStructure):
+class PNRPINFO_V1(Structure):
     dwSize: UInt32
     lpwszIdentity: win32more.Windows.Win32.Foundation.PWSTR
     nMaxResolve: UInt32
@@ -1062,7 +1062,7 @@ class PNRPINFO_V1(EasyCastStructure):
     dwFlags: UInt32
     saHint: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
     enNameState: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE
-class PNRPINFO_V2(EasyCastStructure):
+class PNRPINFO_V2(Structure):
     dwSize: UInt32
     lpwszIdentity: win32more.Windows.Win32.Foundation.PWSTR
     nMaxResolve: UInt32
@@ -1074,7 +1074,7 @@ class PNRPINFO_V2(EasyCastStructure):
     enNameState: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE
     enExtendedPayloadType: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_EXTENDED_PAYLOAD_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         blobPayload: win32more.Windows.Win32.System.Com.BLOB
         pwszPayload: win32more.Windows.Win32.Foundation.PWSTR
 PNRP_CLOUD_FLAGS = Int32
@@ -1082,7 +1082,7 @@ PNRP_CLOUD_NO_FLAGS: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_CLOUD_FL
 PNRP_CLOUD_NAME_LOCAL: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_CLOUD_FLAGS = 1
 PNRP_CLOUD_RESOLVE_ONLY: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_CLOUD_FLAGS = 2
 PNRP_CLOUD_FULL_PARTICIPANT: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_CLOUD_FLAGS = 4
-class PNRP_CLOUD_ID(EasyCastStructure):
+class PNRP_CLOUD_ID(Structure):
     AddressFamily: Int32
     Scope: win32more.Windows.Win32.NetworkManagement.P2P.PNRP_SCOPE
     ScopeId: UInt32

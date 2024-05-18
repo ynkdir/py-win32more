@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -940,37 +940,37 @@ def DebugCreate(InterfaceId: POINTER(Guid), Interface: POINTER(VoidPtr)) -> win3
 def DebugCreateEx(InterfaceId: POINTER(Guid), DbgEngOptions: UInt32, Interface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('dbgmodel.dll')
 def CreateDataModelManager(debugHost: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugHost, manager: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDataModelManager)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class ArrayDimension(EasyCastStructure):
+class ArrayDimension(Structure):
     LowerBound: Int64
     Length: UInt64
     Stride: UInt64
-class BUSDATA(EasyCastStructure):
+class BUSDATA(Structure):
     BusDataType: UInt32
     BusNumber: UInt32
     SlotNumber: UInt32
     Buffer: VoidPtr
     Offset: UInt32
     Length: UInt32
-class CKCL_DATA(EasyCastStructure):
+class CKCL_DATA(Structure):
     NextLogEvent: VoidPtr
     TAnalyzeString: win32more.Windows.Win32.Foundation.PSTR
     TAnalyzeReturnType: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TANALYZE_RETURN
-class CKCL_LISTHEAD(EasyCastStructure):
+class CKCL_LISTHEAD(Structure):
     LogEventListHead: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CKCL_DATA)
     Heap: win32more.Windows.Win32.Foundation.HANDLE
-class CPU_INFO(EasyCastStructure):
+class CPU_INFO(Structure):
     Type: UInt32
     NumCPUs: UInt32
     CurrentProc: UInt32
     ProcInfo: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_ALL * 2048
     Mhz: UInt32
-class CPU_INFO_v1(EasyCastStructure):
+class CPU_INFO_v1(Structure):
     Type: UInt32
     NumCPUs: UInt32
     CurrentProc: UInt32
     ProcInfo: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_ALL * 32
     Mhz: UInt32
-class CPU_INFO_v2(EasyCastStructure):
+class CPU_INFO_v2(Structure):
     Type: UInt32
     NumCPUs: UInt32
     CurrentProc: UInt32
@@ -983,15 +983,15 @@ CallingConventionFastCall: win32more.Windows.Win32.System.Diagnostics.Debug.Exte
 CallingConventionStdCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 3
 CallingConventionSysCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 4
 CallingConventionThisCall: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CallingConventionKind = 5
-class DBGKD_DEBUG_DATA_HEADER32(EasyCastStructure):
+class DBGKD_DEBUG_DATA_HEADER32(Structure):
     List: win32more.Windows.Win32.System.Kernel.LIST_ENTRY32
     OwnerTag: UInt32
     Size: UInt32
-class DBGKD_DEBUG_DATA_HEADER64(EasyCastStructure):
+class DBGKD_DEBUG_DATA_HEADER64(Structure):
     List: win32more.Windows.Win32.System.Kernel.LIST_ENTRY64
     OwnerTag: UInt32
     Size: UInt32
-class DBGKD_GET_VERSION32(EasyCastStructure):
+class DBGKD_GET_VERSION32(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
     ProtocolVersion: UInt16
@@ -1006,7 +1006,7 @@ class DBGKD_GET_VERSION32(EasyCastStructure):
     KeUserCallbackDispatcher: UInt32
     BreakpointWithStatus: UInt32
     DebuggerDataList: UInt32
-class DBGKD_GET_VERSION64(EasyCastStructure):
+class DBGKD_GET_VERSION64(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
     ProtocolVersion: Byte
@@ -1034,7 +1034,7 @@ DBGKD_MAJOR_HYPERVISOR: win32more.Windows.Win32.System.Diagnostics.Debug.Extensi
 DBGKD_MAJOR_MIDORI: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DBGKD_MAJOR_TYPES = 9
 DBGKD_MAJOR_CE: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DBGKD_MAJOR_TYPES = 10
 DBGKD_MAJOR_COUNT: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DBGKD_MAJOR_TYPES = 11
-class DBG_THREAD_ATTRIBUTES(EasyCastStructure):
+class DBG_THREAD_ATTRIBUTES(Structure):
     ThreadIndex: UInt32
     ProcessID: UInt64
     ThreadID: UInt64
@@ -1046,7 +1046,7 @@ class DBG_THREAD_ATTRIBUTES(EasyCastStructure):
     Timeout_msec: UInt32
     StringData: win32more.Windows.Win32.Foundation.CHAR * 100
     SymName: win32more.Windows.Win32.Foundation.CHAR * 100
-class DEBUG_ANALYSIS_PROCESSOR_INFO(EasyCastStructure):
+class DEBUG_ANALYSIS_PROCESSOR_INFO(Structure):
     SizeOfStruct: UInt32
     Model: UInt32
     Family: UInt32
@@ -1062,7 +1062,7 @@ class DEBUG_ANALYSIS_PROCESSOR_INFO(EasyCastStructure):
     Name: win32more.Windows.Win32.Foundation.CHAR * 64
     Version: win32more.Windows.Win32.Foundation.CHAR * 64
     Description: win32more.Windows.Win32.Foundation.CHAR * 64
-class DEBUG_BREAKPOINT_PARAMETERS(EasyCastStructure):
+class DEBUG_BREAKPOINT_PARAMETERS(Structure):
     Offset: UInt64
     Id: UInt32
     BreakType: UInt32
@@ -1075,16 +1075,16 @@ class DEBUG_BREAKPOINT_PARAMETERS(EasyCastStructure):
     MatchThread: UInt32
     CommandSize: UInt32
     OffsetExpressionSize: UInt32
-class DEBUG_CACHED_SYMBOL_INFO(EasyCastStructure):
+class DEBUG_CACHED_SYMBOL_INFO(Structure):
     ModBase: UInt64
     Arg1: UInt64
     Arg2: UInt64
     Id: UInt32
     Arg3: UInt32
-class DEBUG_CLIENT_CONTEXT(EasyCastStructure):
+class DEBUG_CLIENT_CONTEXT(Structure):
     cbSize: UInt32
     eClient: UInt32
-class DEBUG_CPU_MICROCODE_VERSION(EasyCastStructure):
+class DEBUG_CPU_MICROCODE_VERSION(Structure):
     SizeOfStruct: UInt32
     CachedSignature: Int64
     InitialSignature: Int64
@@ -1092,23 +1092,23 @@ class DEBUG_CPU_MICROCODE_VERSION(EasyCastStructure):
     ProcessorFamily: UInt32
     ProcessorStepping: UInt32
     ProcessorArchRev: UInt32
-class DEBUG_CPU_SPEED_INFO(EasyCastStructure):
+class DEBUG_CPU_SPEED_INFO(Structure):
     SizeOfStruct: UInt32
     CurrentSpeed: UInt32
     RatedSpeed: UInt32
     NameString: Char * 256
-class DEBUG_CREATE_PROCESS_OPTIONS(EasyCastStructure):
+class DEBUG_CREATE_PROCESS_OPTIONS(Structure):
     CreateFlags: UInt32
     EngCreateFlags: UInt32
     VerifierFlags: UInt32
     Reserved: UInt32
-class DEBUG_DECODE_ERROR(EasyCastStructure):
+class DEBUG_DECODE_ERROR(Structure):
     SizeOfStruct: UInt32
     Code: UInt32
     TreatAsStatus: win32more.Windows.Win32.Foundation.BOOL
     Source: win32more.Windows.Win32.Foundation.CHAR * 64
     Message: win32more.Windows.Win32.Foundation.CHAR * 260
-class DEBUG_DEVICE_OBJECT_INFO(EasyCastStructure):
+class DEBUG_DEVICE_OBJECT_INFO(Structure):
     SizeOfStruct: UInt32
     DevObjAddress: UInt64
     ReferenceCount: UInt32
@@ -1117,7 +1117,7 @@ class DEBUG_DEVICE_OBJECT_INFO(EasyCastStructure):
     CurrentIrp: UInt64
     DevExtension: UInt64
     DevObjExtension: UInt64
-class DEBUG_DRIVER_OBJECT_INFO(EasyCastStructure):
+class DEBUG_DRIVER_OBJECT_INFO(Structure):
     SizeOfStruct: UInt32
     DriverSize: UInt32
     DriverObjAddress: UInt64
@@ -1125,16 +1125,16 @@ class DEBUG_DRIVER_OBJECT_INFO(EasyCastStructure):
     DriverExtension: UInt64
     DeviceObject: UInt64
     DriverName: _DriverName_e__Struct
-    class _DriverName_e__Struct(EasyCastStructure):
+    class _DriverName_e__Struct(Structure):
         Length: UInt16
         MaximumLength: UInt16
         Buffer: UInt64
-class DEBUG_EVENT_CONTEXT(EasyCastStructure):
+class DEBUG_EVENT_CONTEXT(Structure):
     Size: UInt32
     ProcessEngineId: UInt32
     ThreadEngineId: UInt32
     FrameEngineId: UInt32
-class DEBUG_EXCEPTION_FILTER_PARAMETERS(EasyCastStructure):
+class DEBUG_EXCEPTION_FILTER_PARAMETERS(Structure):
     ExecutionOption: UInt32
     ContinueOption: UInt32
     TextSize: UInt32
@@ -1946,24 +1946,24 @@ DEBUG_FLR_WINLOGON_BLACKBOX: win32more.Windows.Win32.System.Diagnostics.Debug.Ex
 DEBUG_FLR_CUSTOM_COMMAND: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_FLR_PARAM_TYPE = -268435431
 DEBUG_FLR_CUSTOM_COMMAND_OUTPUT: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_FLR_PARAM_TYPE = -268435430
 DEBUG_FLR_MASK_ALL: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_FLR_PARAM_TYPE = -1
-class DEBUG_GET_TEXT_COMPLETIONS_IN(EasyCastStructure):
+class DEBUG_GET_TEXT_COMPLETIONS_IN(Structure):
     Flags: UInt32
     MatchCountLimit: UInt32
     Reserved: UInt64 * 3
-class DEBUG_GET_TEXT_COMPLETIONS_OUT(EasyCastStructure):
+class DEBUG_GET_TEXT_COMPLETIONS_OUT(Structure):
     Flags: UInt32
     ReplaceIndex: UInt32
     MatchCount: UInt32
     Reserved1: UInt32
     Reserved2: UInt64 * 2
-class DEBUG_HANDLE_DATA_BASIC(EasyCastStructure):
+class DEBUG_HANDLE_DATA_BASIC(Structure):
     TypeNameSize: UInt32
     ObjectNameSize: UInt32
     Attributes: UInt32
     GrantedAccess: UInt32
     HandleCount: UInt32
     PointerCount: UInt32
-class DEBUG_IRP_INFO(EasyCastStructure):
+class DEBUG_IRP_INFO(Structure):
     SizeOfStruct: UInt32
     IrpAddress: UInt64
     IoStatus: UInt32
@@ -1974,37 +1974,37 @@ class DEBUG_IRP_INFO(EasyCastStructure):
     CancelRoutine: UInt64
     CurrentStack: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_IRP_STACK_INFO
     Stack: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_IRP_STACK_INFO * 10
-class DEBUG_IRP_STACK_INFO(EasyCastStructure):
+class DEBUG_IRP_STACK_INFO(Structure):
     Major: Byte
     Minor: Byte
     DeviceObject: UInt64
     FileObject: UInt64
     CompletionRoutine: UInt64
     StackAddress: UInt64
-class DEBUG_LAST_EVENT_INFO_BREAKPOINT(EasyCastStructure):
+class DEBUG_LAST_EVENT_INFO_BREAKPOINT(Structure):
     Id: UInt32
-class DEBUG_LAST_EVENT_INFO_EXCEPTION(EasyCastStructure):
+class DEBUG_LAST_EVENT_INFO_EXCEPTION(Structure):
     ExceptionRecord: win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD64
     FirstChance: UInt32
-class DEBUG_LAST_EVENT_INFO_EXIT_PROCESS(EasyCastStructure):
+class DEBUG_LAST_EVENT_INFO_EXIT_PROCESS(Structure):
     ExitCode: UInt32
-class DEBUG_LAST_EVENT_INFO_EXIT_THREAD(EasyCastStructure):
+class DEBUG_LAST_EVENT_INFO_EXIT_THREAD(Structure):
     ExitCode: UInt32
-class DEBUG_LAST_EVENT_INFO_LOAD_MODULE(EasyCastStructure):
+class DEBUG_LAST_EVENT_INFO_LOAD_MODULE(Structure):
     Base: UInt64
-class DEBUG_LAST_EVENT_INFO_SERVICE_EXCEPTION(EasyCastStructure):
+class DEBUG_LAST_EVENT_INFO_SERVICE_EXCEPTION(Structure):
     Kind: UInt32
     DataSize: UInt32
     Address: UInt64
-class DEBUG_LAST_EVENT_INFO_SYSTEM_ERROR(EasyCastStructure):
+class DEBUG_LAST_EVENT_INFO_SYSTEM_ERROR(Structure):
     Error: UInt32
     Level: UInt32
-class DEBUG_LAST_EVENT_INFO_UNLOAD_MODULE(EasyCastStructure):
+class DEBUG_LAST_EVENT_INFO_UNLOAD_MODULE(Structure):
     Base: UInt64
-class DEBUG_MODULE_AND_ID(EasyCastStructure):
+class DEBUG_MODULE_AND_ID(Structure):
     ModuleBase: UInt64
     Id: UInt64
-class DEBUG_MODULE_PARAMETERS(EasyCastStructure):
+class DEBUG_MODULE_PARAMETERS(Structure):
     Base: UInt64
     Size: UInt32
     TimeDateStamp: UInt32
@@ -2017,10 +2017,10 @@ class DEBUG_MODULE_PARAMETERS(EasyCastStructure):
     SymbolFileNameSize: UInt32
     MappedImageNameSize: UInt32
     Reserved: UInt64 * 2
-class DEBUG_OFFSET_REGION(EasyCastStructure):
+class DEBUG_OFFSET_REGION(Structure):
     Base: UInt64
     Size: UInt64
-class DEBUG_PNP_TRIAGE_INFO(EasyCastStructure):
+class DEBUG_PNP_TRIAGE_INFO(Structure):
     SizeOfStruct: UInt32
     Lock_Address: UInt64
     Lock_ActiveCount: Int32
@@ -2031,13 +2031,13 @@ class DEBUG_PNP_TRIAGE_INFO(EasyCastStructure):
     TriagedThread: UInt64
     ThreadCount: Int32
     TriagedThread_WaitTime: UInt64
-class DEBUG_POOLTAG_DESCRIPTION(EasyCastStructure):
+class DEBUG_POOLTAG_DESCRIPTION(Structure):
     SizeOfStruct: UInt32
     PoolTag: UInt32
     Description: win32more.Windows.Win32.Foundation.CHAR * 260
     Binary: win32more.Windows.Win32.Foundation.CHAR * 32
     Owner: win32more.Windows.Win32.Foundation.CHAR * 32
-class DEBUG_POOL_DATA(EasyCastStructure):
+class DEBUG_POOL_DATA(Structure):
     SizeofStruct: UInt32
     PoolBlock: UInt64
     Pool: UInt64
@@ -2048,10 +2048,10 @@ class DEBUG_POOL_DATA(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     Reserved2: UInt64 * 4
     PoolTagDescription: win32more.Windows.Win32.Foundation.CHAR * 64
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUlong: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
 DEBUG_POOL_REGION = Int32
 DbgPoolRegionUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 0
@@ -2061,48 +2061,48 @@ DbgPoolRegionNonPaged: win32more.Windows.Win32.System.Diagnostics.Debug.Extensio
 DbgPoolRegionNonPagedExpansion: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 4
 DbgPoolRegionSessionPaged: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 5
 DbgPoolRegionMax: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 6
-class DEBUG_PROCESSOR_IDENTIFICATION_ALL(EasyCastUnion):
+class DEBUG_PROCESSOR_IDENTIFICATION_ALL(Union):
     Alpha: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_ALPHA
     Amd64: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_AMD64
     Ia64: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_IA64
     X86: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_X86
     Arm: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_ARM
     Arm64: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_PROCESSOR_IDENTIFICATION_ARM64
-class DEBUG_PROCESSOR_IDENTIFICATION_ALPHA(EasyCastStructure):
+class DEBUG_PROCESSOR_IDENTIFICATION_ALPHA(Structure):
     Type: UInt32
     Revision: UInt32
-class DEBUG_PROCESSOR_IDENTIFICATION_AMD64(EasyCastStructure):
+class DEBUG_PROCESSOR_IDENTIFICATION_AMD64(Structure):
     Family: UInt32
     Model: UInt32
     Stepping: UInt32
     VendorString: win32more.Windows.Win32.Foundation.CHAR * 16
-class DEBUG_PROCESSOR_IDENTIFICATION_ARM(EasyCastStructure):
+class DEBUG_PROCESSOR_IDENTIFICATION_ARM(Structure):
     Model: UInt32
     Revision: UInt32
     VendorString: win32more.Windows.Win32.Foundation.CHAR * 16
-class DEBUG_PROCESSOR_IDENTIFICATION_ARM64(EasyCastStructure):
+class DEBUG_PROCESSOR_IDENTIFICATION_ARM64(Structure):
     Model: UInt32
     Revision: UInt32
     VendorString: win32more.Windows.Win32.Foundation.CHAR * 16
-class DEBUG_PROCESSOR_IDENTIFICATION_IA64(EasyCastStructure):
+class DEBUG_PROCESSOR_IDENTIFICATION_IA64(Structure):
     Model: UInt32
     Revision: UInt32
     Family: UInt32
     ArchRev: UInt32
     VendorString: win32more.Windows.Win32.Foundation.CHAR * 16
-class DEBUG_PROCESSOR_IDENTIFICATION_X86(EasyCastStructure):
+class DEBUG_PROCESSOR_IDENTIFICATION_X86(Structure):
     Family: UInt32
     Model: UInt32
     Stepping: UInt32
     VendorString: win32more.Windows.Win32.Foundation.CHAR * 16
-class DEBUG_READ_USER_MINIDUMP_STREAM(EasyCastStructure):
+class DEBUG_READ_USER_MINIDUMP_STREAM(Structure):
     StreamType: UInt32
     Flags: UInt32
     Offset: UInt64
     Buffer: VoidPtr
     BufferSize: UInt32
     BufferUsed: UInt32
-class DEBUG_REGISTER_DESCRIPTION(EasyCastStructure):
+class DEBUG_REGISTER_DESCRIPTION(Structure):
     Type: UInt32
     Flags: UInt32
     SubregMaster: UInt32
@@ -2110,7 +2110,7 @@ class DEBUG_REGISTER_DESCRIPTION(EasyCastStructure):
     SubregMask: UInt64
     SubregShift: UInt32
     Reserved0: UInt32
-class DEBUG_SMBIOS_INFO(EasyCastStructure):
+class DEBUG_SMBIOS_INFO(Structure):
     SizeOfStruct: UInt32
     SmbiosMajorVersion: Byte
     SmbiosMinorVersion: Byte
@@ -2131,13 +2131,13 @@ class DEBUG_SMBIOS_INFO(EasyCastStructure):
     SystemProductName: win32more.Windows.Win32.Foundation.CHAR * 64
     SystemSKU: win32more.Windows.Win32.Foundation.CHAR * 64
     SystemVersion: win32more.Windows.Win32.Foundation.CHAR * 64
-class DEBUG_SPECIFIC_FILTER_PARAMETERS(EasyCastStructure):
+class DEBUG_SPECIFIC_FILTER_PARAMETERS(Structure):
     ExecutionOption: UInt32
     ContinueOption: UInt32
     TextSize: UInt32
     CommandSize: UInt32
     ArgumentSize: UInt32
-class DEBUG_STACK_FRAME(EasyCastStructure):
+class DEBUG_STACK_FRAME(Structure):
     InstructionOffset: UInt64
     ReturnOffset: UInt64
     FrameOffset: UInt64
@@ -2147,7 +2147,7 @@ class DEBUG_STACK_FRAME(EasyCastStructure):
     Reserved: UInt64 * 6
     Virtual: win32more.Windows.Win32.Foundation.BOOL
     FrameNumber: UInt32
-class DEBUG_STACK_FRAME_EX(EasyCastStructure):
+class DEBUG_STACK_FRAME_EX(Structure):
     InstructionOffset: UInt64
     ReturnOffset: UInt64
     FrameOffset: UInt64
@@ -2159,7 +2159,7 @@ class DEBUG_STACK_FRAME_EX(EasyCastStructure):
     FrameNumber: UInt32
     InlineFrameContext: UInt32
     Reserved1: UInt32
-class DEBUG_SYMBOL_ENTRY(EasyCastStructure):
+class DEBUG_SYMBOL_ENTRY(Structure):
     ModuleBase: UInt64
     Offset: UInt64
     Id: UInt64
@@ -2172,14 +2172,14 @@ class DEBUG_SYMBOL_ENTRY(EasyCastStructure):
     Tag: UInt32
     Arg32: UInt32
     Reserved: UInt32
-class DEBUG_SYMBOL_PARAMETERS(EasyCastStructure):
+class DEBUG_SYMBOL_PARAMETERS(Structure):
     Module: UInt64
     TypeId: UInt32
     ParentSymbol: UInt32
     SubElements: UInt32
     Flags: UInt32
     Reserved: UInt64
-class DEBUG_SYMBOL_SOURCE_ENTRY(EasyCastStructure):
+class DEBUG_SYMBOL_SOURCE_ENTRY(Structure):
     ModuleBase: UInt64
     Offset: UInt64
     FileNameId: UInt64
@@ -2192,7 +2192,7 @@ class DEBUG_SYMBOL_SOURCE_ENTRY(EasyCastStructure):
     StartColumn: UInt32
     EndColumn: UInt32
     Reserved: UInt32
-class DEBUG_THREAD_BASIC_INFORMATION(EasyCastStructure):
+class DEBUG_THREAD_BASIC_INFORMATION(Structure):
     Valid: UInt32
     ExitStatus: UInt32
     PriorityClass: UInt32
@@ -2203,17 +2203,17 @@ class DEBUG_THREAD_BASIC_INFORMATION(EasyCastStructure):
     UserTime: UInt64
     StartOffset: UInt64
     Affinity: UInt64
-class DEBUG_TRIAGE_FOLLOWUP_INFO(EasyCastStructure):
+class DEBUG_TRIAGE_FOLLOWUP_INFO(Structure):
     SizeOfStruct: UInt32
     OwnerNameSize: UInt32
     OwnerName: win32more.Windows.Win32.Foundation.PSTR
-class DEBUG_TRIAGE_FOLLOWUP_INFO_2(EasyCastStructure):
+class DEBUG_TRIAGE_FOLLOWUP_INFO_2(Structure):
     SizeOfStruct: UInt32
     OwnerNameSize: UInt32
     OwnerName: win32more.Windows.Win32.Foundation.PSTR
     FeaturePathSize: UInt32
     FeaturePath: win32more.Windows.Win32.Foundation.PSTR
-class DEBUG_TYPED_DATA(EasyCastStructure):
+class DEBUG_TYPED_DATA(Structure):
     ModBase: UInt64
     Offset: UInt64
     EngineHandle: UInt64
@@ -2225,11 +2225,11 @@ class DEBUG_TYPED_DATA(EasyCastStructure):
     Tag: UInt32
     Register: UInt32
     Internal: UInt64 * 9
-class DEBUG_VALUE(EasyCastStructure):
+class DEBUG_VALUE(Structure):
     Anonymous: _Anonymous_e__Union
     TailOfRawBytes: UInt32
     Type: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         I8: Byte
         I16: UInt16
         I32: UInt32
@@ -2248,13 +2248,13 @@ class DEBUG_VALUE(EasyCastStructure):
         I64Parts32: _I64Parts32_e__Struct
         F128Parts64: _F128Parts64_e__Struct
         RawBytes: Byte * 24
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             I64: UInt64
             Nat: win32more.Windows.Win32.Foundation.BOOL
-        class _I64Parts32_e__Struct(EasyCastStructure):
+        class _I64Parts32_e__Struct(Structure):
             LowPart: UInt32
             HighPart: UInt32
-        class _F128Parts64_e__Struct(EasyCastStructure):
+        class _F128Parts64_e__Struct(Structure):
             LowPart: UInt64
             HighPart: Int64
 class DebugBaseEventCallbacks(ComPtr):
@@ -2269,17 +2269,17 @@ def EXTDLL_ITERATERTLBALANCEDNODES(RootNode: UInt64, EntryOffset: UInt32, Callba
 def EXTDLL_QUERYDATABYTAG(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient4, dwDataTag: UInt32, pQueryInfo: VoidPtr, pData: POINTER(Byte), cbData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def EXTDLL_QUERYDATABYTAGEX(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient4, dwDataTag: UInt32, pQueryInfo: VoidPtr, pData: POINTER(Byte), cbData: UInt32, pDataEx: POINTER(Byte), cbDataEx: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class EXTSTACKTRACE(EasyCastStructure):
+class EXTSTACKTRACE(Structure):
     FramePointer: UInt32
     ProgramCounter: UInt32
     ReturnAddress: UInt32
     Args: UInt32 * 4
-class EXTSTACKTRACE32(EasyCastStructure):
+class EXTSTACKTRACE32(Structure):
     FramePointer: UInt32
     ProgramCounter: UInt32
     ReturnAddress: UInt32
     Args: UInt32 * 4
-class EXTSTACKTRACE64(EasyCastStructure):
+class EXTSTACKTRACE64(Structure):
     FramePointer: UInt64
     ProgramCounter: UInt64
     ReturnAddress: UInt64
@@ -2292,17 +2292,17 @@ def EXTS_TABLE_ENTRY_CALLBACK(Entry: UInt64, Context: VoidPtr) -> win32more.Wind
 def EXT_ANALYSIS_PLUGIN(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient4, CallPhase: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.FA_EXTENSION_PLUGIN_PHASE, pAnalysis: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugFailureAnalysis2) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def EXT_ANALYZER(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient, BucketSuffix: win32more.Windows.Win32.Foundation.PSTR, cbBucketSuffix: UInt32, DebugText: win32more.Windows.Win32.Foundation.PSTR, cbDebugText: UInt32, Flags: POINTER(UInt32), pAnalysis: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugFailureAnalysis) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class EXT_API_VERSION(EasyCastStructure):
+class EXT_API_VERSION(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
     Revision: UInt16
     Reserved: UInt16
-class EXT_CAB_XML_DATA(EasyCastStructure):
+class EXT_CAB_XML_DATA(Structure):
     SizeOfStruct: UInt32
     XmlObjectTag: win32more.Windows.Win32.Foundation.PWSTR
     NumSubTags: UInt32
     SubTags: _SUBTAGS * 1
-    class _SUBTAGS(EasyCastStructure):
+    class _SUBTAGS(Structure):
         SubTag: win32more.Windows.Win32.Foundation.PWSTR
         MatchPattern: win32more.Windows.Win32.Foundation.PWSTR
         ReturnText: win32more.Windows.Win32.Foundation.PWSTR
@@ -2311,7 +2311,7 @@ class EXT_CAB_XML_DATA(EasyCastStructure):
         Reserved2: UInt32
 @winfunctype_pointer
 def EXT_DECODE_ERROR(pDecodeError: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_DECODE_ERROR)) -> Void: ...
-class EXT_FIND_FILE(EasyCastStructure):
+class EXT_FIND_FILE(Structure):
     FileName: win32more.Windows.Win32.Foundation.PWSTR
     IndexedSize: UInt64
     ImageTimeDateStamp: UInt32
@@ -2334,7 +2334,7 @@ def EXT_GET_FAILURE_ANALYSIS(Client: win32more.Windows.Win32.System.Diagnostics.
 def EXT_GET_FA_ENTRIES_DATA(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient4, Count: POINTER(UInt32), Entries: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.FA_ENTRY))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def EXT_GET_HANDLE_TRACE(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient, TraceType: UInt32, StartIndex: UInt32, HandleValue: POINTER(UInt64), StackFunctions: POINTER(UInt64), StackTraceSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class EXT_MATCH_PATTERN_A(EasyCastStructure):
+class EXT_MATCH_PATTERN_A(Structure):
     Str: win32more.Windows.Win32.Foundation.PSTR
     Pattern: win32more.Windows.Win32.Foundation.PSTR
     CaseSensitive: UInt32
@@ -2365,7 +2365,7 @@ EXT_TDOP_SET_PTR_FROM_TYPE_ID_AND_U64: win32more.Windows.Win32.System.Diagnostic
 EXT_TDOP_COUNT: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.EXT_TDOP = 19
 @winfunctype_pointer
 def EXT_TRIAGE_FOLLOWUP(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient4, SymbolName: win32more.Windows.Win32.Foundation.PSTR, OwnerInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_TRIAGE_FOLLOWUP_INFO)) -> UInt32: ...
-class EXT_TYPED_DATA(EasyCastStructure):
+class EXT_TYPED_DATA(Structure):
     Operation: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.EXT_TDOP
     Flags: UInt32
     InData: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_TYPED_DATA
@@ -2388,7 +2388,7 @@ def EXT_XML_DATA(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extens
 ErrorClass = Int32
 ErrorClassWarning: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ErrorClass = 0
 ErrorClassError: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ErrorClass = 1
-class FA_ENTRY(EasyCastStructure):
+class FA_ENTRY(Structure):
     Tag: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_FLR_PARAM_TYPE
     FullSize: UInt16
     DataSize: UInt16
@@ -2409,7 +2409,7 @@ FA_PLUGIN_INITIALIZATION: win32more.Windows.Win32.System.Diagnostics.Debug.Exten
 FA_PLUGIN_STACK_ANALYSIS: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.FA_EXTENSION_PLUGIN_PHASE = 2
 FA_PLUGIN_PRE_BUCKETING: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.FA_EXTENSION_PLUGIN_PHASE = 4
 FA_PLUGIN_POST_BUCKETING: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.FA_EXTENSION_PLUGIN_PHASE = 8
-class FIELD_INFO(EasyCastStructure):
+class FIELD_INFO(Structure):
     fName: POINTER(Byte)
     printName: POINTER(Byte)
     size: UInt32
@@ -2421,40 +2421,40 @@ class FIELD_INFO(EasyCastStructure):
     BufferSize: UInt32
     BitField: _BitField
     _bitfield: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         fieldCallBack: VoidPtr
         pBuffer: VoidPtr
-    class _BitField(EasyCastStructure):
+    class _BitField(Structure):
         Position: UInt16
         Size: UInt16
-class GET_CONTEXT_EX(EasyCastStructure):
+class GET_CONTEXT_EX(Structure):
     Status: UInt32
     ContextSize: UInt32
     pContext: VoidPtr
-class GET_CURRENT_PROCESS_ADDRESS(EasyCastStructure):
+class GET_CURRENT_PROCESS_ADDRESS(Structure):
     Processor: UInt32
     CurrentThread: UInt64
     Address: UInt64
-class GET_CURRENT_THREAD_ADDRESS(EasyCastStructure):
+class GET_CURRENT_THREAD_ADDRESS(Structure):
     Processor: UInt32
     Address: UInt64
-class GET_EXPRESSION_EX(EasyCastStructure):
+class GET_EXPRESSION_EX(Structure):
     Expression: win32more.Windows.Win32.Foundation.PSTR
     Remainder: win32more.Windows.Win32.Foundation.PSTR
     Value: UInt64
-class GET_INPUT_LINE(EasyCastStructure):
+class GET_INPUT_LINE(Structure):
     Prompt: win32more.Windows.Win32.Foundation.PSTR
     Buffer: win32more.Windows.Win32.Foundation.PSTR
     BufferSize: UInt32
     InputSize: UInt32
-class GET_PEB_ADDRESS(EasyCastStructure):
+class GET_PEB_ADDRESS(Structure):
     CurrentThread: UInt64
     Address: UInt64
-class GET_SET_SYMPATH(EasyCastStructure):
+class GET_SET_SYMPATH(Structure):
     Args: win32more.Windows.Win32.Foundation.PSTR
     Result: win32more.Windows.Win32.Foundation.PSTR
     Length: Int32
-class GET_TEB_ADDRESS(EasyCastStructure):
+class GET_TEB_ADDRESS(Structure):
     Address: UInt64
 class ICodeAddressConcept(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
@@ -8588,40 +8588,40 @@ class IModelPropertyAccessor(ComPtr):
     def GetValue(self, key: win32more.Windows.Win32.Foundation.PWSTR, contextObject: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IModelObject, value: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IModelObject)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetValue(self, key: win32more.Windows.Win32.Foundation.PWSTR, contextObject: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IModelObject, value: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IModelObject) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INLINE_FRAME_CONTEXT(EasyCastUnion):
+class INLINE_FRAME_CONTEXT(Union):
     ContextValue: UInt32
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         FrameId: Byte
         FrameType: Byte
         FrameSignature: UInt16
-class IOSPACE(EasyCastStructure):
+class IOSPACE(Structure):
     Address: UInt32
     Length: UInt32
     Data: UInt32
-class IOSPACE32(EasyCastStructure):
+class IOSPACE32(Structure):
     Address: UInt32
     Length: UInt32
     Data: UInt32
-class IOSPACE64(EasyCastStructure):
+class IOSPACE64(Structure):
     Address: UInt64
     Length: UInt32
     Data: UInt32
-class IOSPACE_EX(EasyCastStructure):
+class IOSPACE_EX(Structure):
     Address: UInt32
     Length: UInt32
     Data: UInt32
     InterfaceType: UInt32
     BusNumber: UInt32
     AddressSpace: UInt32
-class IOSPACE_EX32(EasyCastStructure):
+class IOSPACE_EX32(Structure):
     Address: UInt32
     Length: UInt32
     Data: UInt32
     InterfaceType: UInt32
     BusNumber: UInt32
     AddressSpace: UInt32
-class IOSPACE_EX64(EasyCastStructure):
+class IOSPACE_EX64(Structure):
     Address: UInt64
     Length: UInt32
     Data: UInt32
@@ -8658,7 +8658,7 @@ IntrinsicFloat: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.Intr
 IntrinsicHRESULT: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 9
 IntrinsicChar16: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 10
 IntrinsicChar32: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IntrinsicKind = 11
-class KDDEBUGGER_DATA32(EasyCastStructure):
+class KDDEBUGGER_DATA32(Structure):
     Header: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DBGKD_DEBUG_DATA_HEADER32
     KernBase: UInt32
     BreakpointWithStatus: UInt32
@@ -8725,7 +8725,7 @@ class KDDEBUGGER_DATA32(EasyCastStructure):
     KdPrintWritePointer: UInt32
     KdPrintRolloverCount: UInt32
     MmLoadedUserImageList: UInt32
-class KDDEBUGGER_DATA64(EasyCastStructure):
+class KDDEBUGGER_DATA64(Structure):
     Header: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DBGKD_DEBUG_DATA_HEADER64
     KernBase: UInt64
     BreakpointWithStatus: UInt64
@@ -8891,7 +8891,7 @@ class KDDEBUGGER_DATA64(EasyCastStructure):
     OffsetPrcbExceptionStack: UInt16
 @winfunctype_pointer
 def KDEXTS_LOCK_CALLBACKROUTINE(pLock: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.KDEXTS_LOCK_INFO), Context: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class KDEXTS_LOCK_INFO(EasyCastStructure):
+class KDEXTS_LOCK_INFO(Structure):
     SizeOfStruct: UInt32
     Address: UInt64
     OwningThread: UInt64
@@ -8902,7 +8902,7 @@ class KDEXTS_LOCK_INFO(EasyCastStructure):
     NumSharedWaiters: UInt32
     pOwnerThreads: POINTER(UInt64)
     pWaiterThreads: POINTER(UInt64)
-class KDEXTS_PTE_INFO(EasyCastStructure):
+class KDEXTS_PTE_INFO(Structure):
     SizeOfStruct: UInt32
     VirtualAddress: UInt64
     PpeAddress: UInt64
@@ -8914,14 +8914,14 @@ class KDEXTS_PTE_INFO(EasyCastStructure):
     _bitfield2: UInt32
 @winfunctype_pointer
 def KDEXT_DUMP_HANDLE_CALLBACK(HandleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.KDEXT_HANDLE_INFORMATION), Flags: UInt32, Context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
-class KDEXT_FILELOCK_OWNER(EasyCastStructure):
+class KDEXT_FILELOCK_OWNER(Structure):
     Sizeofstruct: UInt32
     FileObject: UInt64
     OwnerThread: UInt64
     WaitIrp: UInt64
     DeviceObject: UInt64
     BlockingDirver: win32more.Windows.Win32.Foundation.CHAR * 32
-class KDEXT_HANDLE_INFORMATION(EasyCastStructure):
+class KDEXT_HANDLE_INFORMATION(Structure):
     HandleTableEntry: UInt64
     Handle: UInt64
     Object: UInt64
@@ -8929,12 +8929,12 @@ class KDEXT_HANDLE_INFORMATION(EasyCastStructure):
     GrantedAccess: UInt64
     HandleAttributes: UInt32
     PagedOut: win32more.Windows.Win32.Foundation.BOOLEAN
-class KDEXT_PROCESS_FIND_PARAMS(EasyCastStructure):
+class KDEXT_PROCESS_FIND_PARAMS(Structure):
     SizeofStruct: UInt32
     Pid: UInt32
     Session: UInt32
     ImageName: win32more.Windows.Win32.Foundation.PSTR
-class KDEXT_THREAD_FIND_PARAMS(EasyCastStructure):
+class KDEXT_THREAD_FIND_PARAMS(Structure):
     SizeofStruct: UInt32
     StackPointer: UInt64
     Cid: UInt32
@@ -8944,7 +8944,7 @@ LanguageUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.Lan
 LanguageC: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 1
 LanguageCPP: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 2
 LanguageAssembly: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.LanguageKind = 3
-class Location(EasyCastStructure):
+class Location(Structure):
     HostDefined: UInt64
     Offset: UInt64
 LocationKind = Int32
@@ -8963,7 +8963,7 @@ ObjectError: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelOb
 ObjectIntrinsic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 7
 ObjectMethod: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 8
 ObjectKeyReference: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ModelObjectKind = 9
-class OS_INFO(EasyCastStructure):
+class OS_INFO(Structure):
     MajorVer: UInt32
     MinorVer: UInt32
     Build: UInt32
@@ -8981,9 +8981,9 @@ class OS_INFO(EasyCastStructure):
     Language: win32more.Windows.Win32.Foundation.CHAR * 30
     BuildVersion: win32more.Windows.Win32.Foundation.CHAR * 64
     ServicePackString: win32more.Windows.Win32.Foundation.CHAR * 64
-    class _s_e__Struct(EasyCastStructure):
+    class _s_e__Struct(Structure):
         _bitfield: UInt32
-class OS_INFO_v1(EasyCastStructure):
+class OS_INFO_v1(Structure):
     Type: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.OS_TYPE
     Anonymous: _Anonymous_e__Union
     ProductType: UInt32
@@ -8993,13 +8993,13 @@ class OS_INFO_v1(EasyCastStructure):
     Language: win32more.Windows.Win32.Foundation.CHAR * 30
     OsString: win32more.Windows.Win32.Foundation.CHAR * 64
     ServicePackString: win32more.Windows.Win32.Foundation.CHAR * 64
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Version: _Version_e__Struct
         Ver64: UInt64
-        class _Version_e__Struct(EasyCastStructure):
+        class _Version_e__Struct(Structure):
             Major: UInt32
             Minor: UInt32
-    class _s_e__Struct(EasyCastStructure):
+    class _s_e__Struct(Structure):
         _bitfield: UInt32
 OS_TYPE = Int32
 WIN_95: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.OS_TYPE = 0
@@ -9078,22 +9078,22 @@ def PGET_POOL_TAG_DESCRIPTION(PoolTag: UInt32, pDescription: POINTER(win32more.W
 def PGET_PROCESS_COMMIT(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient, TotalCommitCharge: POINTER(UInt64), NumberOfProcesses: POINTER(UInt32), CommitData: POINTER(POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PROCESS_COMMIT_USAGE))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PGET_SMBIOS_INFO(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient, pSmbiosInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_SMBIOS_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class PHYSICAL(EasyCastStructure):
+class PHYSICAL(Structure):
     Address: UInt64
     BufLen: UInt32
     Buf: Byte * 1
-class PHYSICAL_TO_VIRTUAL(EasyCastStructure):
+class PHYSICAL_TO_VIRTUAL(Structure):
     Status: UInt32
     Size: UInt32
     PdeAddress: UInt64
-class PHYSICAL_WITH_FLAGS(EasyCastStructure):
+class PHYSICAL_WITH_FLAGS(Structure):
     Address: UInt64
     BufLen: UInt32
     Flags: UInt32
     Buf: Byte * 1
 @winfunctype_pointer
 def PKDEXTS_GET_PTE_INFO(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient, Virtual: UInt64, PteInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.KDEXTS_PTE_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class POINTER_SEARCH_PHYSICAL(EasyCastStructure):
+class POINTER_SEARCH_PHYSICAL(Structure):
     Offset: UInt64
     Length: UInt64
     PointerMin: UInt64
@@ -9102,10 +9102,10 @@ class POINTER_SEARCH_PHYSICAL(EasyCastStructure):
     MatchOffsets: POINTER(UInt64)
     MatchOffsetsSize: UInt32
     MatchOffsetsCount: UInt32
-class PROCESSORINFO(EasyCastStructure):
+class PROCESSORINFO(Structure):
     Processor: UInt16
     NumberProcessors: UInt16
-class PROCESS_COMMIT_USAGE(EasyCastStructure):
+class PROCESS_COMMIT_USAGE(Structure):
     ImageFileName: Byte * 16
     ClientId: UInt64
     ProcessAddress: UInt64
@@ -9113,7 +9113,7 @@ class PROCESS_COMMIT_USAGE(EasyCastStructure):
     SharedCommitCharge: UInt64
     ReleasedCommitDebt: UInt64
     Reserved: UInt64
-class PROCESS_NAME_ENTRY(EasyCastStructure):
+class PROCESS_NAME_ENTRY(Structure):
     ProcessId: UInt32
     NameOffset: UInt32
     NameSize: UInt32
@@ -9213,51 +9213,51 @@ FormatEnumNameOnly: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.
 FormatEscapedStringWithQuote: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 13
 FormatUTF32String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 14
 FormatQuotedUTF32String: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PreferredFormat = 15
-class READCONTROLSPACE(EasyCastStructure):
+class READCONTROLSPACE(Structure):
     Processor: UInt16
     Address: UInt32
     BufLen: UInt32
     Buf: Byte * 1
-class READCONTROLSPACE32(EasyCastStructure):
+class READCONTROLSPACE32(Structure):
     Processor: UInt16
     Address: UInt32
     BufLen: UInt32
     Buf: Byte * 1
-class READCONTROLSPACE64(EasyCastStructure):
+class READCONTROLSPACE64(Structure):
     Processor: UInt16
     Address: UInt64
     BufLen: UInt32
     Buf: Byte * 1
-class READ_WRITE_MSR(EasyCastStructure):
+class READ_WRITE_MSR(Structure):
     Msr: UInt32
     Value: Int64
 RawSearchFlags = Int32
 RawSearchNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.RawSearchFlags = 0
 RawSearchNoBases: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.RawSearchFlags = 1
-class SEARCHMEMORY(EasyCastStructure):
+class SEARCHMEMORY(Structure):
     SearchAddress: UInt64
     SearchLength: UInt64
     FoundAddress: UInt64
     PatternLength: UInt32
     Pattern: VoidPtr
-class STACK_SRC_INFO(EasyCastStructure):
+class STACK_SRC_INFO(Structure):
     ImagePath: win32more.Windows.Win32.Foundation.PWSTR
     ModuleName: win32more.Windows.Win32.Foundation.PWSTR
     Function: win32more.Windows.Win32.Foundation.PWSTR
     Displacement: UInt32
     Row: UInt32
     Column: UInt32
-class STACK_SYM_FRAME_INFO(EasyCastStructure):
+class STACK_SYM_FRAME_INFO(Structure):
     StackFrameEx: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_STACK_FRAME_EX
     SrcInfo: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.STACK_SRC_INFO
-class SYMBOL_INFO_EX(EasyCastStructure):
+class SYMBOL_INFO_EX(Structure):
     SizeOfStruct: UInt32
     TypeOfInfo: UInt32
     Offset: UInt64
     Line: UInt32
     Displacement: UInt32
     Reserved: UInt32 * 4
-class SYM_DUMP_PARAM(EasyCastStructure):
+class SYM_DUMP_PARAM(Structure):
     size: UInt32
     sName: POINTER(Byte)
     Options: UInt32
@@ -9272,7 +9272,7 @@ class SYM_DUMP_PARAM(EasyCastStructure):
     TypeSize: UInt32
     BufferSize: UInt32
     _bitfield: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Context: VoidPtr
         pBuffer: VoidPtr
 ScriptChangeKind = Int32
@@ -9287,19 +9287,19 @@ ScriptDebugEventFilterEntry: win32more.Windows.Win32.System.Diagnostics.Debug.Ex
 ScriptDebugEventFilterException: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 1
 ScriptDebugEventFilterUnhandledException: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 2
 ScriptDebugEventFilterAbort: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEventFilter = 3
-class ScriptDebugEventInformation(EasyCastStructure):
+class ScriptDebugEventInformation(Structure):
     DebugEvent: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugEvent
     EventPosition: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugPosition
     EventSpanEnd: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.ScriptDebugPosition
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         ExceptionInformation: _ExceptionInformation_e__Struct
         BreakpointInformation: _BreakpointInformation_e__Struct
-        class _ExceptionInformation_e__Struct(EasyCastStructure):
+        class _ExceptionInformation_e__Struct(Structure):
             IsUncaught: Byte
-        class _BreakpointInformation_e__Struct(EasyCastStructure):
+        class _BreakpointInformation_e__Struct(Structure):
             BreakpointId: UInt64
-class ScriptDebugPosition(EasyCastStructure):
+class ScriptDebugPosition(Structure):
     Line: UInt32
     Column: UInt32
 ScriptDebugState = Int32
@@ -9339,7 +9339,7 @@ EXIT_STATUS: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TANALYZ
 DISK_READ_0_BYTES: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TANALYZE_RETURN = 3
 DISK_WRITE: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TANALYZE_RETURN = 4
 NT_STATUS_CODE: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TANALYZE_RETURN = 5
-class TARGET_DEBUG_INFO(EasyCastStructure):
+class TARGET_DEBUG_INFO(Structure):
     SizeOfStruct: UInt32
     EntryDate: UInt64
     DebugeeClass: UInt32
@@ -9349,7 +9349,7 @@ class TARGET_DEBUG_INFO(EasyCastStructure):
     OsInfo: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.OS_INFO
     Cpu: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CPU_INFO
     DumpFile: win32more.Windows.Win32.Foundation.CHAR * 260
-class TARGET_DEBUG_INFO_v1(EasyCastStructure):
+class TARGET_DEBUG_INFO_v1(Structure):
     SizeOfStruct: UInt32
     Id: UInt64
     Source: UInt64
@@ -9363,7 +9363,7 @@ class TARGET_DEBUG_INFO_v1(EasyCastStructure):
     DumpFile: win32more.Windows.Win32.Foundation.CHAR * 260
     FailureData: VoidPtr
     StackTr: win32more.Windows.Win32.Foundation.CHAR * 4096
-class TARGET_DEBUG_INFO_v2(EasyCastStructure):
+class TARGET_DEBUG_INFO_v2(Structure):
     SizeOfStruct: UInt32
     EntryDate: UInt64
     DebugeeClass: UInt32
@@ -9373,7 +9373,7 @@ class TARGET_DEBUG_INFO_v2(EasyCastStructure):
     OsInfo: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.OS_INFO
     Cpu: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.CPU_INFO_v2
     DumpFile: win32more.Windows.Win32.Foundation.CHAR * 260
-class TRANSLATE_VIRTUAL_TO_PHYSICAL(EasyCastStructure):
+class TRANSLATE_VIRTUAL_TO_PHYSICAL(Structure):
     Virtual: UInt64
     Physical: UInt64
 TypeKind = Int32
@@ -9386,7 +9386,7 @@ TypeTypedef: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKin
 TypeEnum: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 6
 TypeIntrinsic: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 7
 TypeExtendedArray: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.TypeKind = 8
-class VIRTUAL_TO_PHYSICAL(EasyCastStructure):
+class VIRTUAL_TO_PHYSICAL(Structure):
     Status: UInt32
     Size: UInt32
     PdeAddress: UInt64
@@ -9395,10 +9395,10 @@ class VIRTUAL_TO_PHYSICAL(EasyCastStructure):
 VarArgsKind = Int32
 VarArgsNone: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.VarArgsKind = 0
 VarArgsCStyle: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.VarArgsKind = 1
-class WDBGEXTS_CLR_DATA_INTERFACE(EasyCastStructure):
+class WDBGEXTS_CLR_DATA_INTERFACE(Structure):
     Iid: POINTER(Guid)
     Iface: VoidPtr
-class WDBGEXTS_DISASSEMBLE_BUFFER(EasyCastStructure):
+class WDBGEXTS_DISASSEMBLE_BUFFER(Structure):
     InOffset: UInt64
     OutOffset: UInt64
     AddrFlags: UInt32
@@ -9408,15 +9408,15 @@ class WDBGEXTS_DISASSEMBLE_BUFFER(EasyCastStructure):
     DataBuffer: VoidPtr
     DisasmBuffer: win32more.Windows.Win32.Foundation.PWSTR
     Reserved0: UInt64 * 3
-class WDBGEXTS_MODULE_IN_RANGE(EasyCastStructure):
+class WDBGEXTS_MODULE_IN_RANGE(Structure):
     Start: UInt64
     End: UInt64
     FoundModBase: UInt64
     FoundModSize: UInt32
-class WDBGEXTS_QUERY_INTERFACE(EasyCastStructure):
+class WDBGEXTS_QUERY_INTERFACE(Structure):
     Iid: POINTER(Guid)
     Iface: VoidPtr
-class WDBGEXTS_THREAD_OS_INFO(EasyCastStructure):
+class WDBGEXTS_THREAD_OS_INFO(Structure):
     ThreadId: UInt32
     ExitStatus: UInt32
     PriorityClass: UInt32
@@ -9427,7 +9427,7 @@ class WDBGEXTS_THREAD_OS_INFO(EasyCastStructure):
     UserTime: UInt64
     StartOffset: UInt64
     Affinity: UInt64
-class WINDBG_EXTENSION_APIS(EasyCastStructure):
+class WINDBG_EXTENSION_APIS(Structure):
     nSize: UInt32
     lpOutputRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_OUTPUT_ROUTINE
     lpGetExpressionRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_GET_EXPRESSION
@@ -9440,7 +9440,7 @@ class WINDBG_EXTENSION_APIS(EasyCastStructure):
     lpSetThreadContextRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_SET_THREAD_CONTEXT_ROUTINE
     lpIoctlRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_IOCTL_ROUTINE
     lpStackTraceRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_STACKTRACE_ROUTINE
-class WINDBG_EXTENSION_APIS32(EasyCastStructure):
+class WINDBG_EXTENSION_APIS32(Structure):
     nSize: UInt32
     lpOutputRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_OUTPUT_ROUTINE
     lpGetExpressionRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_GET_EXPRESSION32
@@ -9453,7 +9453,7 @@ class WINDBG_EXTENSION_APIS32(EasyCastStructure):
     lpSetThreadContextRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_SET_THREAD_CONTEXT_ROUTINE
     lpIoctlRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_IOCTL_ROUTINE
     lpStackTraceRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_STACKTRACE_ROUTINE32
-class WINDBG_EXTENSION_APIS64(EasyCastStructure):
+class WINDBG_EXTENSION_APIS64(Structure):
     nSize: UInt32
     lpOutputRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_OUTPUT_ROUTINE
     lpGetExpressionRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_GET_EXPRESSION64
@@ -9466,7 +9466,7 @@ class WINDBG_EXTENSION_APIS64(EasyCastStructure):
     lpSetThreadContextRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_SET_THREAD_CONTEXT_ROUTINE
     lpIoctlRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_IOCTL_ROUTINE
     lpStackTraceRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_STACKTRACE_ROUTINE64
-class WINDBG_OLDKD_EXTENSION_APIS(EasyCastStructure):
+class WINDBG_OLDKD_EXTENSION_APIS(Structure):
     nSize: UInt32
     lpOutputRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_OUTPUT_ROUTINE
     lpGetExpressionRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_GET_EXPRESSION32
@@ -9477,14 +9477,14 @@ class WINDBG_OLDKD_EXTENSION_APIS(EasyCastStructure):
     lpWriteVirtualMemRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32
     lpReadPhysicalMemRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_OLDKD_READ_PHYSICAL_MEMORY
     lpWritePhysicalMemRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_OLDKD_WRITE_PHYSICAL_MEMORY
-class WINDBG_OLD_EXTENSION_APIS(EasyCastStructure):
+class WINDBG_OLD_EXTENSION_APIS(Structure):
     nSize: UInt32
     lpOutputRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_OUTPUT_ROUTINE
     lpGetExpressionRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_GET_EXPRESSION
     lpGetSymbolRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_GET_SYMBOL
     lpDisasmRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_DISASM
     lpCheckControlCRoutine: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.PWINDBG_CHECK_CONTROL_C
-class XML_DRIVER_NODE_INFO(EasyCastStructure):
+class XML_DRIVER_NODE_INFO(Structure):
     FileName: win32more.Windows.Win32.Foundation.CHAR * 64
     FileSize: UInt64
     CreationDate: UInt64

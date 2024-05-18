@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -120,20 +120,20 @@ def AbortDoc(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC) -> Int32: ...
 def SetAbortProc(hdc: win32more.Windows.Win32.Graphics.Gdi.HDC, proc: win32more.Windows.Win32.Storage.Xps.ABORTPROC) -> Int32: ...
 @winfunctype('USER32.dll')
 def PrintWindow(hwnd: win32more.Windows.Win32.Foundation.HWND, hdcBlt: win32more.Windows.Win32.Graphics.Gdi.HDC, nFlags: win32more.Windows.Win32.Storage.Xps.PRINT_WINDOW_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class DOCINFOA(EasyCastStructure):
+class DOCINFOA(Structure):
     cbSize: Int32
     lpszDocName: win32more.Windows.Win32.Foundation.PSTR
     lpszOutput: win32more.Windows.Win32.Foundation.PSTR
     lpszDatatype: win32more.Windows.Win32.Foundation.PSTR
     fwType: UInt32
-class DOCINFOW(EasyCastStructure):
+class DOCINFOW(Structure):
     cbSize: Int32
     lpszDocName: win32more.Windows.Win32.Foundation.PWSTR
     lpszOutput: win32more.Windows.Win32.Foundation.PWSTR
     lpszDatatype: win32more.Windows.Win32.Foundation.PWSTR
     fwType: UInt32
 DOCINFO = UnicodeAlias('DOCINFOW')
-class DRAWPATRECT(EasyCastStructure):
+class DRAWPATRECT(Structure):
     ptPosition: win32more.Windows.Win32.Foundation.POINT
     ptSize: win32more.Windows.Win32.Foundation.POINT
     wStyle: UInt16
@@ -1477,16 +1477,16 @@ DC_TRUETYPE: win32more.Windows.Win32.Storage.Xps.PRINTER_DEVICE_CAPABILITIES = 1
 DC_VERSION: win32more.Windows.Win32.Storage.Xps.PRINTER_DEVICE_CAPABILITIES = 10
 PRINT_WINDOW_FLAGS = UInt32
 PW_CLIENTONLY: win32more.Windows.Win32.Storage.Xps.PRINT_WINDOW_FLAGS = 1
-class PSFEATURE_CUSTPAPER(EasyCastStructure):
+class PSFEATURE_CUSTPAPER(Structure):
     lOrientation: Int32
     lWidth: Int32
     lHeight: Int32
     lWidthOffset: Int32
     lHeightOffset: Int32
-class PSFEATURE_OUTPUT(EasyCastStructure):
+class PSFEATURE_OUTPUT(Structure):
     bPageIndependent: win32more.Windows.Win32.Foundation.BOOL
     bSetPageDevice: win32more.Windows.Win32.Foundation.BOOL
-class PSINJECTDATA(EasyCastStructure):
+class PSINJECTDATA(Structure):
     DataBytes: UInt32
     InjectionPoint: win32more.Windows.Win32.Storage.Xps.PSINJECT_POINT
     PageNumber: UInt16
@@ -1522,24 +1522,24 @@ PSINJECT_PAGEBBOX: win32more.Windows.Win32.Storage.Xps.PSINJECT_POINT = 106
 PSINJECT_ENDPAGECOMMENTS: win32more.Windows.Win32.Storage.Xps.PSINJECT_POINT = 107
 PSINJECT_VMSAVE: win32more.Windows.Win32.Storage.Xps.PSINJECT_POINT = 200
 PSINJECT_VMRESTORE: win32more.Windows.Win32.Storage.Xps.PSINJECT_POINT = 201
-class XPS_COLOR(EasyCastStructure):
+class XPS_COLOR(Structure):
     colorType: win32more.Windows.Win32.Storage.Xps.XPS_COLOR_TYPE
     value: XPS_COLOR_VALUE
-    class XPS_COLOR_VALUE(EasyCastUnion):
+    class XPS_COLOR_VALUE(Union):
         sRGB: _sRGB_e__Struct
         scRGB: _scRGB_e__Struct
         context: _context_e__Struct
-        class _sRGB_e__Struct(EasyCastStructure):
+        class _sRGB_e__Struct(Structure):
             alpha: Byte
             red: Byte
             green: Byte
             blue: Byte
-        class _scRGB_e__Struct(EasyCastStructure):
+        class _scRGB_e__Struct(Structure):
             alpha: Single
             red: Single
             green: Single
             blue: Single
-        class _context_e__Struct(EasyCastStructure):
+        class _context_e__Struct(Structure):
             channelCount: Byte
             channels: Single * 9
 XPS_COLOR_INTERPOLATION = Int32
@@ -1549,7 +1549,7 @@ XPS_COLOR_TYPE = Int32
 XPS_COLOR_TYPE_SRGB: win32more.Windows.Win32.Storage.Xps.XPS_COLOR_TYPE = 1
 XPS_COLOR_TYPE_SCRGB: win32more.Windows.Win32.Storage.Xps.XPS_COLOR_TYPE = 2
 XPS_COLOR_TYPE_CONTEXT: win32more.Windows.Win32.Storage.Xps.XPS_COLOR_TYPE = 3
-class XPS_DASH(EasyCastStructure):
+class XPS_DASH(Structure):
     length: Single
     gap: Single
 XPS_DASH_CAP = Int32
@@ -1569,12 +1569,12 @@ XPS_FONT_EMBEDDING_NORMAL: win32more.Windows.Win32.Storage.Xps.XPS_FONT_EMBEDDIN
 XPS_FONT_EMBEDDING_OBFUSCATED: win32more.Windows.Win32.Storage.Xps.XPS_FONT_EMBEDDING = 2
 XPS_FONT_EMBEDDING_RESTRICTED: win32more.Windows.Win32.Storage.Xps.XPS_FONT_EMBEDDING = 3
 XPS_FONT_EMBEDDING_RESTRICTED_UNOBFUSCATED: win32more.Windows.Win32.Storage.Xps.XPS_FONT_EMBEDDING = 4
-class XPS_GLYPH_INDEX(EasyCastStructure):
+class XPS_GLYPH_INDEX(Structure):
     index: Int32
     advanceWidth: Single
     horizontalOffset: Single
     verticalOffset: Single
-class XPS_GLYPH_MAPPING(EasyCastStructure):
+class XPS_GLYPH_MAPPING(Structure):
     unicodeStringStart: UInt32
     unicodeStringLength: UInt16
     glyphIndicesStart: UInt32
@@ -1597,7 +1597,7 @@ XPS_LINE_JOIN = Int32
 XPS_LINE_JOIN_MITER: win32more.Windows.Win32.Storage.Xps.XPS_LINE_JOIN = 1
 XPS_LINE_JOIN_BEVEL: win32more.Windows.Win32.Storage.Xps.XPS_LINE_JOIN = 2
 XPS_LINE_JOIN_ROUND: win32more.Windows.Win32.Storage.Xps.XPS_LINE_JOIN = 3
-class XPS_MATRIX(EasyCastStructure):
+class XPS_MATRIX(Structure):
     m11: Single
     m12: Single
     m21: Single
@@ -1615,10 +1615,10 @@ XPS_OBJECT_TYPE_IMAGE_BRUSH: win32more.Windows.Win32.Storage.Xps.XPS_OBJECT_TYPE
 XPS_OBJECT_TYPE_LINEAR_GRADIENT_BRUSH: win32more.Windows.Win32.Storage.Xps.XPS_OBJECT_TYPE = 8
 XPS_OBJECT_TYPE_RADIAL_GRADIENT_BRUSH: win32more.Windows.Win32.Storage.Xps.XPS_OBJECT_TYPE = 9
 XPS_OBJECT_TYPE_VISUAL_BRUSH: win32more.Windows.Win32.Storage.Xps.XPS_OBJECT_TYPE = 10
-class XPS_POINT(EasyCastStructure):
+class XPS_POINT(Structure):
     x: Single
     y: Single
-class XPS_RECT(EasyCastStructure):
+class XPS_RECT(Structure):
     x: Single
     y: Single
     width: Single
@@ -1651,7 +1651,7 @@ XPS_SIGN_POLICY_SIGNATURE_RELATIONSHIPS: win32more.Windows.Win32.Storage.Xps.XPS
 XPS_SIGN_POLICY_PRINT_TICKET: win32more.Windows.Win32.Storage.Xps.XPS_SIGN_POLICY = 4
 XPS_SIGN_POLICY_DISCARD_CONTROL: win32more.Windows.Win32.Storage.Xps.XPS_SIGN_POLICY = 8
 XPS_SIGN_POLICY_ALL: win32more.Windows.Win32.Storage.Xps.XPS_SIGN_POLICY = 15
-class XPS_SIZE(EasyCastStructure):
+class XPS_SIZE(Structure):
     width: Single
     height: Single
 XPS_SPREAD_METHOD = Int32

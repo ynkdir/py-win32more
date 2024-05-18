@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -11,7 +11,7 @@ class BitmapAlphaMode(Int32):  # enum
     Premultiplied = 0
     Straight = 1
     Ignore = 2
-class BitmapBounds(EasyCastStructure):
+class BitmapBounds(Structure):
     X: UInt32
     Y: UInt32
     Width: UInt32
@@ -275,7 +275,7 @@ class BitmapPixelFormat(Int32):  # enum
     Nv12 = 103
     P010 = 104
     Yuy2 = 107
-class BitmapPlaneDescription(EasyCastStructure):
+class BitmapPlaneDescription(Structure):
     StartIndex: Int32
     Width: Int32
     Height: Int32
@@ -329,7 +329,7 @@ class BitmapRotation(Int32):  # enum
     Clockwise90Degrees = 1
     Clockwise180Degrees = 2
     Clockwise270Degrees = 3
-class BitmapSize(EasyCastStructure):
+class BitmapSize(Structure):
     Width: UInt32
     Height: UInt32
 class BitmapTransform(ComPtr):

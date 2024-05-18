@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.EventNotificationService
@@ -74,7 +74,7 @@ class ISensOnNow(ComPtr):
     def OnBatteryPower(self, dwBatteryLifePercent: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def BatteryLow(self, dwBatteryLifePercent: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class QOCINFO(EasyCastStructure):
+class QOCINFO(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwInSpeed: UInt32
@@ -83,7 +83,7 @@ SENS = Guid('{d597cafe-5b9f-11d1-8dd2-00aa004abd5e}')
 SENS_CONNECTION_TYPE = UInt32
 CONNECTION_LAN: win32more.Windows.Win32.System.EventNotificationService.SENS_CONNECTION_TYPE = 0
 CONNECTION_WAN: win32more.Windows.Win32.System.EventNotificationService.SENS_CONNECTION_TYPE = 1
-class SENS_QOCINFO(EasyCastStructure):
+class SENS_QOCINFO(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwOutSpeed: UInt32

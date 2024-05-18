@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -11,7 +11,7 @@ import win32more.Windows.Perception
 import win32more.Windows.Perception.Spatial
 import win32more.Windows.UI.Core
 import win32more.Windows.Win32.System.WinRT
-class HolographicAdapterId(EasyCastStructure):
+class HolographicAdapterId(Structure):
     LowPart: UInt32
     HighPart: Int32
 class HolographicCamera(ComPtr):
@@ -207,7 +207,7 @@ class HolographicFrame(ComPtr):
     Duration = property(get_Duration, None)
     Id = property(get_Id, None)
     RemovedCameras = property(get_RemovedCameras, None)
-class HolographicFrameId(EasyCastStructure):
+class HolographicFrameId(Structure):
     Value: UInt64
 class HolographicFramePrediction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -419,7 +419,7 @@ class HolographicSpaceUserPresence(Int32):  # enum
     Absent = 0
     PresentPassive = 1
     PresentActive = 2
-class HolographicStereoTransform(EasyCastStructure):
+class HolographicStereoTransform(Structure):
     Left: win32more.Windows.Foundation.Numerics.Matrix4x4
     Right: win32more.Windows.Foundation.Numerics.Matrix4x4
 class HolographicViewConfiguration(ComPtr):

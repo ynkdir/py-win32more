@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.WinWlx
@@ -120,20 +120,20 @@ def PWLX_SWITCH_DESKTOP_TO_WINLOGON(hWlx: win32more.Windows.Win32.Foundation.HAN
 def PWLX_USE_CTRL_ALT_DEL(hWlx: win32more.Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype_pointer
 def PWLX_WIN31_MIGRATE(hWlx: win32more.Windows.Win32.Foundation.HANDLE) -> Void: ...
-class WLX_CLIENT_CREDENTIALS_INFO_V1_0(EasyCastStructure):
+class WLX_CLIENT_CREDENTIALS_INFO_V1_0(Structure):
     dwType: UInt32
     pszUserName: win32more.Windows.Win32.Foundation.PWSTR
     pszDomain: win32more.Windows.Win32.Foundation.PWSTR
     pszPassword: win32more.Windows.Win32.Foundation.PWSTR
     fPromptForPassword: win32more.Windows.Win32.Foundation.BOOL
-class WLX_CLIENT_CREDENTIALS_INFO_V2_0(EasyCastStructure):
+class WLX_CLIENT_CREDENTIALS_INFO_V2_0(Structure):
     dwType: UInt32
     pszUserName: win32more.Windows.Win32.Foundation.PWSTR
     pszDomain: win32more.Windows.Win32.Foundation.PWSTR
     pszPassword: win32more.Windows.Win32.Foundation.PWSTR
     fPromptForPassword: win32more.Windows.Win32.Foundation.BOOL
     fDisconnectOnLogonFailure: win32more.Windows.Win32.Foundation.BOOL
-class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0(EasyCastStructure):
+class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0(Structure):
     dwType: UInt32
     UserToken: win32more.Windows.Win32.Foundation.HANDLE
     LogonId: win32more.Windows.Win32.Foundation.LUID
@@ -161,12 +161,12 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0(EasyCastStructure):
     UserFlags: UInt32
     PrivateDataLen: UInt32
     PrivateData: POINTER(Byte)
-class WLX_DESKTOP(EasyCastStructure):
+class WLX_DESKTOP(Structure):
     Size: UInt32
     Flags: UInt32
     hDesktop: win32more.Windows.Win32.System.StationsAndDesktops.HDESK
     pszDesktopName: win32more.Windows.Win32.Foundation.PWSTR
-class WLX_DISPATCH_VERSION_1_0(EasyCastStructure):
+class WLX_DISPATCH_VERSION_1_0(Structure):
     WlxUseCtrlAltDel: win32more.Windows.Win32.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
     WlxSetContextPointer: win32more.Windows.Win32.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
     WlxSasNotify: win32more.Windows.Win32.Security.WinWlx.PWLX_SAS_NOTIFY
@@ -180,7 +180,7 @@ class WLX_DISPATCH_VERSION_1_0(EasyCastStructure):
     WlxSwitchDesktopToUser: win32more.Windows.Win32.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_USER
     WlxSwitchDesktopToWinlogon: win32more.Windows.Win32.Security.WinWlx.PWLX_SWITCH_DESKTOP_TO_WINLOGON
     WlxChangePasswordNotify: win32more.Windows.Win32.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY
-class WLX_DISPATCH_VERSION_1_1(EasyCastStructure):
+class WLX_DISPATCH_VERSION_1_1(Structure):
     WlxUseCtrlAltDel: win32more.Windows.Win32.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
     WlxSetContextPointer: win32more.Windows.Win32.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
     WlxSasNotify: win32more.Windows.Win32.Security.WinWlx.PWLX_SAS_NOTIFY
@@ -198,7 +198,7 @@ class WLX_DISPATCH_VERSION_1_1(EasyCastStructure):
     WlxSetReturnDesktop: win32more.Windows.Win32.Security.WinWlx.PWLX_SET_RETURN_DESKTOP
     WlxCreateUserDesktop: win32more.Windows.Win32.Security.WinWlx.PWLX_CREATE_USER_DESKTOP
     WlxChangePasswordNotifyEx: win32more.Windows.Win32.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX
-class WLX_DISPATCH_VERSION_1_2(EasyCastStructure):
+class WLX_DISPATCH_VERSION_1_2(Structure):
     WlxUseCtrlAltDel: win32more.Windows.Win32.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
     WlxSetContextPointer: win32more.Windows.Win32.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
     WlxSasNotify: win32more.Windows.Win32.Security.WinWlx.PWLX_SAS_NOTIFY
@@ -217,7 +217,7 @@ class WLX_DISPATCH_VERSION_1_2(EasyCastStructure):
     WlxCreateUserDesktop: win32more.Windows.Win32.Security.WinWlx.PWLX_CREATE_USER_DESKTOP
     WlxChangePasswordNotifyEx: win32more.Windows.Win32.Security.WinWlx.PWLX_CHANGE_PASSWORD_NOTIFY_EX
     WlxCloseUserDesktop: win32more.Windows.Win32.Security.WinWlx.PWLX_CLOSE_USER_DESKTOP
-class WLX_DISPATCH_VERSION_1_3(EasyCastStructure):
+class WLX_DISPATCH_VERSION_1_3(Structure):
     WlxUseCtrlAltDel: win32more.Windows.Win32.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
     WlxSetContextPointer: win32more.Windows.Win32.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
     WlxSasNotify: win32more.Windows.Win32.Security.WinWlx.PWLX_SAS_NOTIFY
@@ -243,7 +243,7 @@ class WLX_DISPATCH_VERSION_1_3(EasyCastStructure):
     WlxQueryInetConnectorCredentials: win32more.Windows.Win32.Security.WinWlx.PWLX_QUERY_IC_CREDENTIALS
     WlxDisconnect: win32more.Windows.Win32.Security.WinWlx.PWLX_DISCONNECT
     WlxQueryTerminalServicesData: win32more.Windows.Win32.Security.WinWlx.PWLX_QUERY_TERMINAL_SERVICES_DATA
-class WLX_DISPATCH_VERSION_1_4(EasyCastStructure):
+class WLX_DISPATCH_VERSION_1_4(Structure):
     WlxUseCtrlAltDel: win32more.Windows.Win32.Security.WinWlx.PWLX_USE_CTRL_ALT_DEL
     WlxSetContextPointer: win32more.Windows.Win32.Security.WinWlx.PWLX_SET_CONTEXT_POINTER
     WlxSasNotify: win32more.Windows.Win32.Security.WinWlx.PWLX_SAS_NOTIFY
@@ -271,12 +271,12 @@ class WLX_DISPATCH_VERSION_1_4(EasyCastStructure):
     WlxQueryTerminalServicesData: win32more.Windows.Win32.Security.WinWlx.PWLX_QUERY_TERMINAL_SERVICES_DATA
     WlxQueryConsoleSwitchCredentials: win32more.Windows.Win32.Security.WinWlx.PWLX_QUERY_CONSOLESWITCH_CREDENTIALS
     WlxQueryTsLogonCredentials: win32more.Windows.Win32.Security.WinWlx.PWLX_QUERY_TS_LOGON_CREDENTIALS
-class WLX_MPR_NOTIFY_INFO(EasyCastStructure):
+class WLX_MPR_NOTIFY_INFO(Structure):
     pszUserName: win32more.Windows.Win32.Foundation.PWSTR
     pszDomain: win32more.Windows.Win32.Foundation.PWSTR
     pszPassword: win32more.Windows.Win32.Foundation.PWSTR
     pszOldPassword: win32more.Windows.Win32.Foundation.PWSTR
-class WLX_NOTIFICATION_INFO(EasyCastStructure):
+class WLX_NOTIFICATION_INFO(Structure):
     Size: UInt32
     Flags: UInt32
     UserName: win32more.Windows.Win32.Foundation.PWSTR
@@ -285,17 +285,17 @@ class WLX_NOTIFICATION_INFO(EasyCastStructure):
     hToken: win32more.Windows.Win32.Foundation.HANDLE
     hDesktop: win32more.Windows.Win32.System.StationsAndDesktops.HDESK
     pStatusCallback: win32more.Windows.Win32.Security.WinWlx.PFNMSGECALLBACK
-class WLX_PROFILE_V1_0(EasyCastStructure):
+class WLX_PROFILE_V1_0(Structure):
     dwType: UInt32
     pszProfile: win32more.Windows.Win32.Foundation.PWSTR
-class WLX_PROFILE_V2_0(EasyCastStructure):
+class WLX_PROFILE_V2_0(Structure):
     dwType: UInt32
     pszProfile: win32more.Windows.Win32.Foundation.PWSTR
     pszPolicy: win32more.Windows.Win32.Foundation.PWSTR
     pszNetworkDefaultUserProfile: win32more.Windows.Win32.Foundation.PWSTR
     pszServerName: win32more.Windows.Win32.Foundation.PWSTR
     pszEnvironment: win32more.Windows.Win32.Foundation.PWSTR
-class WLX_SC_NOTIFICATION_INFO(EasyCastStructure):
+class WLX_SC_NOTIFICATION_INFO(Structure):
     pszCard: win32more.Windows.Win32.Foundation.PWSTR
     pszReader: win32more.Windows.Win32.Foundation.PWSTR
     pszContainer: win32more.Windows.Win32.Foundation.PWSTR
@@ -304,7 +304,7 @@ WLX_SHUTDOWN_TYPE = UInt32
 WLX_SAS_ACTION_SHUTDOWN: win32more.Windows.Win32.Security.WinWlx.WLX_SHUTDOWN_TYPE = 5
 WLX_SAS_ACTION_SHUTDOWN_REBOOT: win32more.Windows.Win32.Security.WinWlx.WLX_SHUTDOWN_TYPE = 11
 WLX_SAS_ACTION_SHUTDOWN_POWER_OFF: win32more.Windows.Win32.Security.WinWlx.WLX_SHUTDOWN_TYPE = 10
-class WLX_TERMINAL_SERVICES_DATA(EasyCastStructure):
+class WLX_TERMINAL_SERVICES_DATA(Structure):
     ProfilePath: Char * 257
     HomeDir: Char * 257
     HomeDirDrive: Char * 4

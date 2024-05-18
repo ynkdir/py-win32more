@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Tapi
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.DirectShow
@@ -14,7 +14,7 @@ ACDGE_GROUP_REMOVED: win32more.Windows.Win32.Devices.Tapi.ACDGROUP_EVENT = 1
 ACDQUEUE_EVENT = Int32
 ACDQE_NEW_QUEUE: win32more.Windows.Win32.Devices.Tapi.ACDQUEUE_EVENT = 0
 ACDQE_QUEUE_REMOVED: win32more.Windows.Win32.Devices.Tapi.ACDQUEUE_EVENT = 1
-class ADDRALIAS(EasyCastStructure):
+class ADDRALIAS(Structure):
     rgchName: win32more.Windows.Win32.Foundation.CHAR * 41
     rgchEName: win32more.Windows.Win32.Foundation.CHAR * 11
     rgchSrvr: win32more.Windows.Win32.Foundation.CHAR * 12
@@ -1856,7 +1856,7 @@ DISCONNECT_CODE = Int32
 DC_NORMAL: win32more.Windows.Win32.Devices.Tapi.DISCONNECT_CODE = 0
 DC_NOANSWER: win32more.Windows.Win32.Devices.Tapi.DISCONNECT_CODE = 1
 DC_REJECTED: win32more.Windows.Win32.Devices.Tapi.DISCONNECT_CODE = 2
-class DTR(EasyCastStructure):
+class DTR(Structure):
     wYear: UInt16
     wMonth: UInt16
     wDay: UInt16
@@ -3581,7 +3581,7 @@ class ITnef(ComPtr):
     def EncodeRecips(self, ulFlags: UInt32, lpRecipientTable: win32more.Windows.Win32.System.AddressBook.IMAPITable) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def FinishComponent(self, ulFlags: UInt32, ulComponentID: UInt32, lpCustomPropList: POINTER(win32more.Windows.Win32.System.AddressBook.SPropTagArray), lpCustomProps: POINTER(win32more.Windows.Win32.System.AddressBook.SPropValue), lpPropList: POINTER(win32more.Windows.Win32.System.AddressBook.SPropTagArray), lpProblems: POINTER(POINTER(win32more.Windows.Win32.Devices.Tapi.STnefProblemArray))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class LINEADDRESSCAPS(EasyCastStructure):
+class LINEADDRESSCAPS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3640,7 +3640,7 @@ class LINEADDRESSCAPS(EasyCastStructure):
     dwOfferingModes: UInt32
     dwAvailableMediaModes: UInt32
     _pack_ = 1
-class LINEADDRESSSTATUS(EasyCastStructure):
+class LINEADDRESSSTATUS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3658,12 +3658,12 @@ class LINEADDRESSSTATUS(EasyCastStructure):
     dwDevSpecificSize: UInt32
     dwDevSpecificOffset: UInt32
     _pack_ = 1
-class LINEAGENTACTIVITYENTRY(EasyCastStructure):
+class LINEAGENTACTIVITYENTRY(Structure):
     dwID: UInt32
     dwNameSize: UInt32
     dwNameOffset: UInt32
     _pack_ = 1
-class LINEAGENTACTIVITYLIST(EasyCastStructure):
+class LINEAGENTACTIVITYLIST(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3671,7 +3671,7 @@ class LINEAGENTACTIVITYLIST(EasyCastStructure):
     dwListSize: UInt32
     dwListOffset: UInt32
     _pack_ = 1
-class LINEAGENTCAPS(EasyCastStructure):
+class LINEAGENTCAPS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3688,7 +3688,7 @@ class LINEAGENTCAPS(EasyCastStructure):
     dwAgentExtensionIDListOffset: UInt32
     ProxyGUID: Guid
     _pack_ = 1
-class LINEAGENTENTRY(EasyCastStructure):
+class LINEAGENTENTRY(Structure):
     hAgent: UInt32
     dwNameSize: UInt32
     dwNameOffset: UInt32
@@ -3697,18 +3697,18 @@ class LINEAGENTENTRY(EasyCastStructure):
     dwPINSize: UInt32
     dwPINOffset: UInt32
     _pack_ = 1
-class LINEAGENTGROUPENTRY(EasyCastStructure):
+class LINEAGENTGROUPENTRY(Structure):
     GroupID: _GroupID_e__Struct
     dwNameSize: UInt32
     dwNameOffset: UInt32
     _pack_ = 1
-    class _GroupID_e__Struct(EasyCastStructure):
+    class _GroupID_e__Struct(Structure):
         dwGroupID1: UInt32
         dwGroupID2: UInt32
         dwGroupID3: UInt32
         dwGroupID4: UInt32
         _pack_ = 1
-class LINEAGENTGROUPLIST(EasyCastStructure):
+class LINEAGENTGROUPLIST(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3716,7 +3716,7 @@ class LINEAGENTGROUPLIST(EasyCastStructure):
     dwListSize: UInt32
     dwListOffset: UInt32
     _pack_ = 1
-class LINEAGENTINFO(EasyCastStructure):
+class LINEAGENTINFO(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3731,7 +3731,7 @@ class LINEAGENTINFO(EasyCastStructure):
     dwTotalACDCallTime: UInt32
     dwTotalACDWrapUpTime: UInt32
     _pack_ = 1
-class LINEAGENTLIST(EasyCastStructure):
+class LINEAGENTLIST(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3739,13 +3739,13 @@ class LINEAGENTLIST(EasyCastStructure):
     dwListSize: UInt32
     dwListOffset: UInt32
     _pack_ = 1
-class LINEAGENTSESSIONENTRY(EasyCastStructure):
+class LINEAGENTSESSIONENTRY(Structure):
     hAgentSession: UInt32
     hAgent: UInt32
     GroupID: Guid
     dwWorkingAddressID: UInt32
     _pack_ = 1
-class LINEAGENTSESSIONINFO(EasyCastStructure):
+class LINEAGENTSESSIONINFO(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3764,7 +3764,7 @@ class LINEAGENTSESSIONINFO(EasyCastStructure):
     dwLongestTimeToAnswer: UInt32
     dwAverageTimeToAnswer: UInt32
     _pack_ = 1
-class LINEAGENTSESSIONLIST(EasyCastStructure):
+class LINEAGENTSESSIONLIST(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3772,7 +3772,7 @@ class LINEAGENTSESSIONLIST(EasyCastStructure):
     dwListSize: UInt32
     dwListOffset: UInt32
     _pack_ = 1
-class LINEAGENTSTATUS(EasyCastStructure):
+class LINEAGENTSTATUS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3788,7 +3788,7 @@ class LINEAGENTSTATUS(EasyCastStructure):
     dwValidStates: UInt32
     dwValidNextStates: UInt32
     _pack_ = 1
-class LINEAPPINFO(EasyCastStructure):
+class LINEAPPINFO(Structure):
     dwMachineNameSize: UInt32
     dwMachineNameOffset: UInt32
     dwUserNameSize: UInt32
@@ -3802,7 +3802,7 @@ class LINEAPPINFO(EasyCastStructure):
     _pack_ = 1
 @winfunctype_pointer
 def LINECALLBACK(hDevice: UInt32, dwMessage: UInt32, dwInstance: UIntPtr, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Void: ...
-class LINECALLINFO(EasyCastStructure):
+class LINECALLINFO(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3882,7 +3882,7 @@ class LINECALLINFO(EasyCastStructure):
     dwReceivingFlowspecSize: UInt32
     dwReceivingFlowspecOffset: UInt32
     _pack_ = 1
-class LINECALLLIST(EasyCastStructure):
+class LINECALLLIST(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3890,7 +3890,7 @@ class LINECALLLIST(EasyCastStructure):
     dwCallsSize: UInt32
     dwCallsOffset: UInt32
     _pack_ = 1
-class LINECALLPARAMS(EasyCastStructure):
+class LINECALLPARAMS(Structure):
     dwTotalSize: UInt32
     dwBearerMode: UInt32
     dwMinRate: UInt32
@@ -3933,7 +3933,7 @@ class LINECALLPARAMS(EasyCastStructure):
     dwCallingPartyIDSize: UInt32
     dwCallingPartyIDOffset: UInt32
     _pack_ = 1
-class LINECALLSTATUS(EasyCastStructure):
+class LINECALLSTATUS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3946,12 +3946,12 @@ class LINECALLSTATUS(EasyCastStructure):
     dwCallFeatures2: UInt32
     tStateEntryTime: win32more.Windows.Win32.Foundation.SYSTEMTIME
     _pack_ = 1
-class LINECALLTREATMENTENTRY(EasyCastStructure):
+class LINECALLTREATMENTENTRY(Structure):
     dwCallTreatmentID: UInt32
     dwCallTreatmentNameSize: UInt32
     dwCallTreatmentNameOffset: UInt32
     _pack_ = 1
-class LINECARDENTRY(EasyCastStructure):
+class LINECARDENTRY(Structure):
     dwPermanentCardID: UInt32
     dwCardNameSize: UInt32
     dwCardNameOffset: UInt32
@@ -3964,7 +3964,7 @@ class LINECARDENTRY(EasyCastStructure):
     dwInternationalRuleOffset: UInt32
     dwOptions: UInt32
     _pack_ = 1
-class LINECOUNTRYENTRY(EasyCastStructure):
+class LINECOUNTRYENTRY(Structure):
     dwCountryID: UInt32
     dwCountryCode: UInt32
     dwNextCountryID: UInt32
@@ -3977,7 +3977,7 @@ class LINECOUNTRYENTRY(EasyCastStructure):
     dwInternationalRuleSize: UInt32
     dwInternationalRuleOffset: UInt32
     _pack_ = 1
-class LINECOUNTRYLIST(EasyCastStructure):
+class LINECOUNTRYLIST(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -3985,7 +3985,7 @@ class LINECOUNTRYLIST(EasyCastStructure):
     dwCountryListSize: UInt32
     dwCountryListOffset: UInt32
     _pack_ = 1
-class LINEDEVCAPS(EasyCastStructure):
+class LINEDEVCAPS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4042,7 +4042,7 @@ class LINEDEVCAPS(EasyCastStructure):
     dwDeviceClassesOffset: UInt32
     PermanentLineGuid: Guid
     _pack_ = 1
-class LINEDEVSTATUS(EasyCastStructure):
+class LINEDEVSTATUS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4066,7 +4066,7 @@ class LINEDEVSTATUS(EasyCastStructure):
     dwAppInfoSize: UInt32
     dwAppInfoOffset: UInt32
     _pack_ = 1
-class LINEDIALPARAMS(EasyCastStructure):
+class LINEDIALPARAMS(Structure):
     dwDialPause: UInt32
     dwDialSpeed: UInt32
     dwDigitDuration: UInt32
@@ -4074,13 +4074,13 @@ class LINEDIALPARAMS(EasyCastStructure):
     _pack_ = 1
 @winfunctype_pointer
 def LINEEVENT(htLine: win32more.Windows.Win32.Devices.Tapi.HTAPILINE, htCall: win32more.Windows.Win32.Devices.Tapi.HTAPICALL, dwMsg: UInt32, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Void: ...
-class LINEEXTENSIONID(EasyCastStructure):
+class LINEEXTENSIONID(Structure):
     dwExtensionID0: UInt32
     dwExtensionID1: UInt32
     dwExtensionID2: UInt32
     dwExtensionID3: UInt32
     _pack_ = 1
-class LINEFORWARD(EasyCastStructure):
+class LINEFORWARD(Structure):
     dwForwardMode: UInt32
     dwCallerAddressSize: UInt32
     dwCallerAddressOffset: UInt32
@@ -4088,18 +4088,18 @@ class LINEFORWARD(EasyCastStructure):
     dwDestAddressSize: UInt32
     dwDestAddressOffset: UInt32
     _pack_ = 1
-class LINEFORWARDLIST(EasyCastStructure):
+class LINEFORWARDLIST(Structure):
     dwTotalSize: UInt32
     dwNumEntries: UInt32
     ForwardList: win32more.Windows.Win32.Devices.Tapi.LINEFORWARD * 1
     _pack_ = 1
-class LINEGENERATETONE(EasyCastStructure):
+class LINEGENERATETONE(Structure):
     dwFrequency: UInt32
     dwCadenceOn: UInt32
     dwCadenceOff: UInt32
     dwVolume: UInt32
     _pack_ = 1
-class LINEINITIALIZEEXPARAMS(EasyCastStructure):
+class LINEINITIALIZEEXPARAMS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4107,11 +4107,11 @@ class LINEINITIALIZEEXPARAMS(EasyCastStructure):
     Handles: _Handles_e__Union
     dwCompletionKey: UInt32
     _pack_ = 1
-    class _Handles_e__Union(EasyCastUnion):
+    class _Handles_e__Union(Union):
         hEvent: win32more.Windows.Win32.Foundation.HANDLE
         hCompletionPort: win32more.Windows.Win32.Foundation.HANDLE
         _pack_ = 1
-class LINELOCATIONENTRY(EasyCastStructure):
+class LINELOCATIONENTRY(Structure):
     dwPermanentLocationID: UInt32
     dwLocationNameSize: UInt32
     dwLocationNameOffset: UInt32
@@ -4130,21 +4130,21 @@ class LINELOCATIONENTRY(EasyCastStructure):
     dwCancelCallWaitingSize: UInt32
     dwCancelCallWaitingOffset: UInt32
     _pack_ = 1
-class LINEMEDIACONTROLCALLSTATE(EasyCastStructure):
+class LINEMEDIACONTROLCALLSTATE(Structure):
     dwCallStates: UInt32
     dwMediaControl: UInt32
     _pack_ = 1
-class LINEMEDIACONTROLDIGIT(EasyCastStructure):
+class LINEMEDIACONTROLDIGIT(Structure):
     dwDigit: UInt32
     dwDigitModes: UInt32
     dwMediaControl: UInt32
     _pack_ = 1
-class LINEMEDIACONTROLMEDIA(EasyCastStructure):
+class LINEMEDIACONTROLMEDIA(Structure):
     dwMediaModes: UInt32
     dwDuration: UInt32
     dwMediaControl: UInt32
     _pack_ = 1
-class LINEMEDIACONTROLTONE(EasyCastStructure):
+class LINEMEDIACONTROLTONE(Structure):
     dwAppSpecific: UInt32
     dwDuration: UInt32
     dwFrequency1: UInt32
@@ -4152,7 +4152,7 @@ class LINEMEDIACONTROLTONE(EasyCastStructure):
     dwFrequency3: UInt32
     dwMediaControl: UInt32
     _pack_ = 1
-class LINEMESSAGE(EasyCastStructure):
+class LINEMESSAGE(Structure):
     hDevice: UInt32
     dwMessageID: UInt32
     dwCallbackInstance: UIntPtr
@@ -4160,19 +4160,19 @@ class LINEMESSAGE(EasyCastStructure):
     dwParam2: UIntPtr
     dwParam3: UIntPtr
     _pack_ = 1
-class LINEMONITORTONE(EasyCastStructure):
+class LINEMONITORTONE(Structure):
     dwAppSpecific: UInt32
     dwDuration: UInt32
     dwFrequency1: UInt32
     dwFrequency2: UInt32
     dwFrequency3: UInt32
     _pack_ = 1
-class LINEPROVIDERENTRY(EasyCastStructure):
+class LINEPROVIDERENTRY(Structure):
     dwPermanentProviderID: UInt32
     dwProviderFilenameSize: UInt32
     dwProviderFilenameOffset: UInt32
     _pack_ = 1
-class LINEPROVIDERLIST(EasyCastStructure):
+class LINEPROVIDERLIST(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4180,7 +4180,7 @@ class LINEPROVIDERLIST(EasyCastStructure):
     dwProviderListSize: UInt32
     dwProviderListOffset: UInt32
     _pack_ = 1
-class LINEPROXYREQUEST(EasyCastStructure):
+class LINEPROXYREQUEST(Structure):
     dwSize: UInt32
     dwClientMachineNameSize: UInt32
     dwClientMachineNameOffset: UInt32
@@ -4190,7 +4190,7 @@ class LINEPROXYREQUEST(EasyCastStructure):
     dwRequestType: UInt32
     Anonymous: _Anonymous_e__Union
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         SetAgentGroup: _SetAgentGroup_e__Struct
         SetAgentState: _SetAgentState_e__Struct
         SetAgentActivity: _SetAgentActivity_e__Struct
@@ -4211,62 +4211,62 @@ class LINEPROXYREQUEST(EasyCastStructure):
         SetQueueMeasurementPeriod: _SetQueueMeasurementPeriod_e__Struct
         GetQueueInfo: _GetQueueInfo_e__Struct
         GetGroupList: _GetGroupList_e__Struct
-        class _SetAgentGroup_e__Struct(EasyCastStructure):
+        class _SetAgentGroup_e__Struct(Structure):
             dwAddressID: UInt32
             GroupList: win32more.Windows.Win32.Devices.Tapi.LINEAGENTGROUPLIST
             _pack_ = 1
-        class _SetAgentState_e__Struct(EasyCastStructure):
+        class _SetAgentState_e__Struct(Structure):
             dwAddressID: UInt32
             dwAgentState: UInt32
             dwNextAgentState: UInt32
             _pack_ = 1
-        class _SetAgentActivity_e__Struct(EasyCastStructure):
+        class _SetAgentActivity_e__Struct(Structure):
             dwAddressID: UInt32
             dwActivityID: UInt32
             _pack_ = 1
-        class _GetAgentCaps_e__Struct(EasyCastStructure):
+        class _GetAgentCaps_e__Struct(Structure):
             dwAddressID: UInt32
             AgentCaps: win32more.Windows.Win32.Devices.Tapi.LINEAGENTCAPS
             _pack_ = 1
-        class _GetAgentStatus_e__Struct(EasyCastStructure):
+        class _GetAgentStatus_e__Struct(Structure):
             dwAddressID: UInt32
             AgentStatus: win32more.Windows.Win32.Devices.Tapi.LINEAGENTSTATUS
             _pack_ = 1
-        class _AgentSpecific_e__Struct(EasyCastStructure):
+        class _AgentSpecific_e__Struct(Structure):
             dwAddressID: UInt32
             dwAgentExtensionIDIndex: UInt32
             dwSize: UInt32
             Params: Byte * 1
             _pack_ = 1
-        class _GetAgentActivityList_e__Struct(EasyCastStructure):
+        class _GetAgentActivityList_e__Struct(Structure):
             dwAddressID: UInt32
             ActivityList: win32more.Windows.Win32.Devices.Tapi.LINEAGENTACTIVITYLIST
             _pack_ = 1
-        class _GetAgentGroupList_e__Struct(EasyCastStructure):
+        class _GetAgentGroupList_e__Struct(Structure):
             dwAddressID: UInt32
             GroupList: win32more.Windows.Win32.Devices.Tapi.LINEAGENTGROUPLIST
             _pack_ = 1
-        class _CreateAgent_e__Struct(EasyCastStructure):
+        class _CreateAgent_e__Struct(Structure):
             hAgent: UInt32
             dwAgentIDSize: UInt32
             dwAgentIDOffset: UInt32
             dwAgentPINSize: UInt32
             dwAgentPINOffset: UInt32
             _pack_ = 1
-        class _SetAgentStateEx_e__Struct(EasyCastStructure):
+        class _SetAgentStateEx_e__Struct(Structure):
             hAgent: UInt32
             dwAgentState: UInt32
             dwNextAgentState: UInt32
             _pack_ = 1
-        class _SetAgentMeasurementPeriod_e__Struct(EasyCastStructure):
+        class _SetAgentMeasurementPeriod_e__Struct(Structure):
             hAgent: UInt32
             dwMeasurementPeriod: UInt32
             _pack_ = 1
-        class _GetAgentInfo_e__Struct(EasyCastStructure):
+        class _GetAgentInfo_e__Struct(Structure):
             hAgent: UInt32
             AgentInfo: win32more.Windows.Win32.Devices.Tapi.LINEAGENTINFO
             _pack_ = 1
-        class _CreateAgentSession_e__Struct(EasyCastStructure):
+        class _CreateAgentSession_e__Struct(Structure):
             hAgentSession: UInt32
             dwAgentPINSize: UInt32
             dwAgentPINOffset: UInt32
@@ -4274,34 +4274,34 @@ class LINEPROXYREQUEST(EasyCastStructure):
             GroupID: Guid
             dwWorkingAddressID: UInt32
             _pack_ = 1
-        class _GetAgentSessionList_e__Struct(EasyCastStructure):
+        class _GetAgentSessionList_e__Struct(Structure):
             hAgent: UInt32
             SessionList: win32more.Windows.Win32.Devices.Tapi.LINEAGENTSESSIONLIST
             _pack_ = 1
-        class _GetAgentSessionInfo_e__Struct(EasyCastStructure):
+        class _GetAgentSessionInfo_e__Struct(Structure):
             hAgentSession: UInt32
             SessionInfo: win32more.Windows.Win32.Devices.Tapi.LINEAGENTSESSIONINFO
             _pack_ = 1
-        class _SetAgentSessionState_e__Struct(EasyCastStructure):
+        class _SetAgentSessionState_e__Struct(Structure):
             hAgentSession: UInt32
             dwAgentSessionState: UInt32
             dwNextAgentSessionState: UInt32
             _pack_ = 1
-        class _GetQueueList_e__Struct(EasyCastStructure):
+        class _GetQueueList_e__Struct(Structure):
             GroupID: Guid
             QueueList: win32more.Windows.Win32.Devices.Tapi.LINEQUEUELIST
             _pack_ = 1
-        class _SetQueueMeasurementPeriod_e__Struct(EasyCastStructure):
+        class _SetQueueMeasurementPeriod_e__Struct(Structure):
             dwQueueID: UInt32
             dwMeasurementPeriod: UInt32
             _pack_ = 1
-        class _GetQueueInfo_e__Struct(EasyCastStructure):
+        class _GetQueueInfo_e__Struct(Structure):
             dwQueueID: UInt32
             QueueInfo: win32more.Windows.Win32.Devices.Tapi.LINEQUEUEINFO
             _pack_ = 1
-        class _GetGroupList_e__Struct(EasyCastStructure):
+        class _GetGroupList_e__Struct(Structure):
             GroupList: win32more.Windows.Win32.Devices.Tapi.LINEAGENTGROUPLIST
-class LINEPROXYREQUESTLIST(EasyCastStructure):
+class LINEPROXYREQUESTLIST(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4309,12 +4309,12 @@ class LINEPROXYREQUESTLIST(EasyCastStructure):
     dwListSize: UInt32
     dwListOffset: UInt32
     _pack_ = 1
-class LINEQUEUEENTRY(EasyCastStructure):
+class LINEQUEUEENTRY(Structure):
     dwQueueID: UInt32
     dwNameSize: UInt32
     dwNameOffset: UInt32
     _pack_ = 1
-class LINEQUEUEINFO(EasyCastStructure):
+class LINEQUEUEINFO(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4329,7 +4329,7 @@ class LINEQUEUEINFO(EasyCastStructure):
     dwAverageWaitTime: UInt32
     dwFinalDisposition: UInt32
     _pack_ = 1
-class LINEQUEUELIST(EasyCastStructure):
+class LINEQUEUELIST(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4337,14 +4337,14 @@ class LINEQUEUELIST(EasyCastStructure):
     dwListSize: UInt32
     dwListOffset: UInt32
     _pack_ = 1
-class LINEREQMAKECALLW(EasyCastStructure):
+class LINEREQMAKECALLW(Structure):
     szDestAddress: Char * 80
     szAppName: Char * 40
     szCalledParty: Char * 40
     szComment: Char * 80
     _pack_ = 1
 LINEREQMAKECALL = UnicodeAlias('LINEREQMAKECALLW')
-class LINEREQMEDIACALLW(EasyCastStructure):
+class LINEREQMEDIACALLW(Structure):
     hWnd: win32more.Windows.Win32.Foundation.HWND
     wRequestID: win32more.Windows.Win32.Foundation.WPARAM
     szDeviceClass: Char * 40
@@ -4357,12 +4357,12 @@ class LINEREQMEDIACALLW(EasyCastStructure):
     szComment: Char * 80
     _pack_ = 1
 LINEREQMEDIACALL = UnicodeAlias('LINEREQMEDIACALLW')
-class LINETERMCAPS(EasyCastStructure):
+class LINETERMCAPS(Structure):
     dwTermDev: UInt32
     dwTermModes: UInt32
     dwTermSharing: UInt32
     _pack_ = 1
-class LINETRANSLATECAPS(EasyCastStructure):
+class LINETRANSLATECAPS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4375,7 +4375,7 @@ class LINETRANSLATECAPS(EasyCastStructure):
     dwCardListOffset: UInt32
     dwCurrentPreferredCardID: UInt32
     _pack_ = 1
-class LINETRANSLATEOUTPUT(EasyCastStructure):
+class LINETRANSLATEOUTPUT(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4421,12 +4421,12 @@ ME_ASR_TERMINAL_EVENT: win32more.Windows.Win32.Devices.Tapi.MSP_EVENT = 4
 ME_TTS_TERMINAL_EVENT: win32more.Windows.Win32.Devices.Tapi.MSP_EVENT = 5
 ME_FILE_TERMINAL_EVENT: win32more.Windows.Win32.Devices.Tapi.MSP_EVENT = 6
 ME_TONE_TERMINAL_EVENT: win32more.Windows.Win32.Devices.Tapi.MSP_EVENT = 7
-class MSP_EVENT_INFO(EasyCastStructure):
+class MSP_EVENT_INFO(Structure):
     dwSize: UInt32
     Event: win32more.Windows.Win32.Devices.Tapi.MSP_EVENT
     hCall: POINTER(Int32)
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         MSP_ADDRESS_EVENT_INFO: _MSP_ADDRESS_EVENT_INFO_e__Struct
         MSP_CALL_EVENT_INFO: _MSP_CALL_EVENT_INFO_e__Struct
         MSP_TSP_DATA: _MSP_TSP_DATA_e__Struct
@@ -4435,47 +4435,47 @@ class MSP_EVENT_INFO(EasyCastStructure):
         MSP_ASR_TERMINAL_EVENT_INFO: _MSP_ASR_TERMINAL_EVENT_INFO_e__Struct
         MSP_TTS_TERMINAL_EVENT_INFO: _MSP_TTS_TERMINAL_EVENT_INFO_e__Struct
         MSP_TONE_TERMINAL_EVENT_INFO: _MSP_TONE_TERMINAL_EVENT_INFO_e__Struct
-        class _MSP_ADDRESS_EVENT_INFO_e__Struct(EasyCastStructure):
+        class _MSP_ADDRESS_EVENT_INFO_e__Struct(Structure):
             Type: win32more.Windows.Win32.Devices.Tapi.MSP_ADDRESS_EVENT
             pTerminal: win32more.Windows.Win32.Devices.Tapi.ITTerminal
-        class _MSP_CALL_EVENT_INFO_e__Struct(EasyCastStructure):
+        class _MSP_CALL_EVENT_INFO_e__Struct(Structure):
             Type: win32more.Windows.Win32.Devices.Tapi.MSP_CALL_EVENT
             Cause: win32more.Windows.Win32.Devices.Tapi.MSP_CALL_EVENT_CAUSE
             pStream: win32more.Windows.Win32.Devices.Tapi.ITStream
             pTerminal: win32more.Windows.Win32.Devices.Tapi.ITTerminal
             hrError: win32more.Windows.Win32.Foundation.HRESULT
-        class _MSP_TSP_DATA_e__Struct(EasyCastStructure):
+        class _MSP_TSP_DATA_e__Struct(Structure):
             dwBufferSize: UInt32
             pBuffer: Byte * 1
-        class _MSP_PRIVATE_EVENT_INFO_e__Struct(EasyCastStructure):
+        class _MSP_PRIVATE_EVENT_INFO_e__Struct(Structure):
             pEvent: win32more.Windows.Win32.System.Com.IDispatch
             lEventCode: Int32
-        class _MSP_FILE_TERMINAL_EVENT_INFO_e__Struct(EasyCastStructure):
+        class _MSP_FILE_TERMINAL_EVENT_INFO_e__Struct(Structure):
             pParentFileTerminal: win32more.Windows.Win32.Devices.Tapi.ITTerminal
             pFileTrack: win32more.Windows.Win32.Devices.Tapi.ITFileTrack
             TerminalMediaState: win32more.Windows.Win32.Devices.Tapi.TERMINAL_MEDIA_STATE
             ftecEventCause: win32more.Windows.Win32.Devices.Tapi.FT_STATE_EVENT_CAUSE
             hrErrorCode: win32more.Windows.Win32.Foundation.HRESULT
-        class _MSP_ASR_TERMINAL_EVENT_INFO_e__Struct(EasyCastStructure):
+        class _MSP_ASR_TERMINAL_EVENT_INFO_e__Struct(Structure):
             pASRTerminal: win32more.Windows.Win32.Devices.Tapi.ITTerminal
             hrErrorCode: win32more.Windows.Win32.Foundation.HRESULT
-        class _MSP_TTS_TERMINAL_EVENT_INFO_e__Struct(EasyCastStructure):
+        class _MSP_TTS_TERMINAL_EVENT_INFO_e__Struct(Structure):
             pTTSTerminal: win32more.Windows.Win32.Devices.Tapi.ITTerminal
             hrErrorCode: win32more.Windows.Win32.Foundation.HRESULT
-        class _MSP_TONE_TERMINAL_EVENT_INFO_e__Struct(EasyCastStructure):
+        class _MSP_TONE_TERMINAL_EVENT_INFO_e__Struct(Structure):
             pToneTerminal: win32more.Windows.Win32.Devices.Tapi.ITTerminal
             hrErrorCode: win32more.Windows.Win32.Foundation.HRESULT
 McastAddressAllocation = Guid('{df0daef2-a289-11d1-8697-006008b0e5d2}')
-class NSID(EasyCastStructure):
+class NSID(Structure):
     dwSize: UInt32
     uchType: Byte * 16
     xtype: UInt32
     lTime: Int32
     address: _address_e__Union
-    class _address_e__Union(EasyCastUnion):
+    class _address_e__Union(Union):
         alias: win32more.Windows.Win32.Devices.Tapi.ADDRALIAS
         rgchInterNet: win32more.Windows.Win32.Foundation.CHAR * 1
-class PHONEBUTTONINFO(EasyCastStructure):
+class PHONEBUTTONINFO(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4489,7 +4489,7 @@ class PHONEBUTTONINFO(EasyCastStructure):
     _pack_ = 1
 @winfunctype_pointer
 def PHONECALLBACK(hDevice: UInt32, dwMessage: UInt32, dwInstance: UIntPtr, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Void: ...
-class PHONECAPS(EasyCastStructure):
+class PHONECAPS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4555,13 +4555,13 @@ PCS_PHONEINFO: win32more.Windows.Win32.Devices.Tapi.PHONECAPS_STRING = 1
 PCS_PROVIDERINFO: win32more.Windows.Win32.Devices.Tapi.PHONECAPS_STRING = 2
 @winfunctype_pointer
 def PHONEEVENT(htPhone: win32more.Windows.Win32.Devices.Tapi.HTAPIPHONE, dwMsg: UInt32, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Void: ...
-class PHONEEXTENSIONID(EasyCastStructure):
+class PHONEEXTENSIONID(Structure):
     dwExtensionID0: UInt32
     dwExtensionID1: UInt32
     dwExtensionID2: UInt32
     dwExtensionID3: UInt32
     _pack_ = 1
-class PHONEINITIALIZEEXPARAMS(EasyCastStructure):
+class PHONEINITIALIZEEXPARAMS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4569,11 +4569,11 @@ class PHONEINITIALIZEEXPARAMS(EasyCastStructure):
     Handles: _Handles_e__Union
     dwCompletionKey: UInt32
     _pack_ = 1
-    class _Handles_e__Union(EasyCastUnion):
+    class _Handles_e__Union(Union):
         hEvent: win32more.Windows.Win32.Foundation.HANDLE
         hCompletionPort: win32more.Windows.Win32.Foundation.HANDLE
         _pack_ = 1
-class PHONEMESSAGE(EasyCastStructure):
+class PHONEMESSAGE(Structure):
     hDevice: UInt32
     dwMessageID: UInt32
     dwCallbackInstance: UIntPtr
@@ -4581,7 +4581,7 @@ class PHONEMESSAGE(EasyCastStructure):
     dwParam2: UIntPtr
     dwParam3: UIntPtr
     _pack_ = 1
-class PHONESTATUS(EasyCastStructure):
+class PHONESTATUS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32
@@ -4738,7 +4738,7 @@ QOS_SERVICE_LEVEL = Int32
 QSL_NEEDED: win32more.Windows.Win32.Devices.Tapi.QOS_SERVICE_LEVEL = 1
 QSL_IF_AVAILABLE: win32more.Windows.Win32.Devices.Tapi.QOS_SERVICE_LEVEL = 2
 QSL_BEST_EFFORT: win32more.Windows.Win32.Devices.Tapi.QOS_SERVICE_LEVEL = 3
-class RENDDATA(EasyCastStructure):
+class RENDDATA(Structure):
     atyp: UInt16
     ulPosition: UInt32
     dxWidth: UInt16
@@ -4752,12 +4752,12 @@ RAS_REGION: win32more.Windows.Win32.Devices.Tapi.RND_ADVERTISING_SCOPE = 3
 RAS_WORLD: win32more.Windows.Win32.Devices.Tapi.RND_ADVERTISING_SCOPE = 4
 Rendezvous = Guid('{f1029e5b-cb5b-11d0-8d59-00c04fd91ac0}')
 RequestMakeCall = Guid('{ac48ffe0-f8c4-11d1-a030-00c04fb6809f}')
-class STnefProblem(EasyCastStructure):
+class STnefProblem(Structure):
     ulComponent: UInt32
     ulAttribute: UInt32
     ulPropTag: UInt32
     scode: Int32
-class STnefProblemArray(EasyCastStructure):
+class STnefProblemArray(Structure):
     cProblem: UInt32
     aProblem: win32more.Windows.Win32.Devices.Tapi.STnefProblem * 1
 TAPI = Guid('{21d6d48e-a88b-11d0-83dd-00aa003ccabd}')
@@ -4769,12 +4769,12 @@ TE_TRANSLATECHANGE: win32more.Windows.Win32.Devices.Tapi.TAPIOBJECT_EVENT = 3
 TE_ADDRESSCLOSE: win32more.Windows.Win32.Devices.Tapi.TAPIOBJECT_EVENT = 4
 TE_PHONECREATE: win32more.Windows.Win32.Devices.Tapi.TAPIOBJECT_EVENT = 5
 TE_PHONEREMOVE: win32more.Windows.Win32.Devices.Tapi.TAPIOBJECT_EVENT = 6
-class TAPI_CUSTOMTONE(EasyCastStructure):
+class TAPI_CUSTOMTONE(Structure):
     dwFrequency: UInt32
     dwCadenceOn: UInt32
     dwCadenceOff: UInt32
     dwVolume: UInt32
-class TAPI_DETECTTONE(EasyCastStructure):
+class TAPI_DETECTTONE(Structure):
     dwAppSpecific: UInt32
     dwDuration: UInt32
     dwFrequency1: UInt32
@@ -4843,12 +4843,12 @@ TS_NOTINUSE: win32more.Windows.Win32.Devices.Tapi.TERMINAL_STATE = 1
 TERMINAL_TYPE = Int32
 TT_STATIC: win32more.Windows.Win32.Devices.Tapi.TERMINAL_TYPE = 0
 TT_DYNAMIC: win32more.Windows.Win32.Devices.Tapi.TERMINAL_TYPE = 1
-class TRP(EasyCastStructure):
+class TRP(Structure):
     trpid: UInt16
     cbgrtrp: UInt16
     cch: UInt16
     cbRgb: UInt16
-class TUISPICREATEDIALOGINSTANCEPARAMS(EasyCastStructure):
+class TUISPICREATEDIALOGINSTANCEPARAMS(Structure):
     dwRequestID: UInt32
     hdDlgInst: win32more.Windows.Win32.Devices.Tapi.HDRVDIALOGINSTANCE
     htDlgInst: UInt32
@@ -4857,7 +4857,7 @@ class TUISPICREATEDIALOGINSTANCEPARAMS(EasyCastStructure):
     dwSize: UInt32
 @winfunctype_pointer
 def TUISPIDLLCALLBACK(dwObjectID: UIntPtr, dwObjectType: UInt32, lpParams: VoidPtr, dwSize: UInt32) -> Int32: ...
-class VARSTRING(EasyCastStructure):
+class VARSTRING(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
     dwUsedSize: UInt32

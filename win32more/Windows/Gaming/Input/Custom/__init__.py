@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Gaming.Input
@@ -17,12 +17,12 @@ class GameControllerFactoryManager(ComPtr):
     def RegisterCustomFactoryForHardwareId(cls: win32more.Windows.Gaming.Input.Custom.IGameControllerFactoryManagerStatics, factory: win32more.Windows.Gaming.Input.Custom.ICustomGameControllerFactory, hardwareVendorId: UInt16, hardwareProductId: UInt16) -> Void: ...
     @winrt_classmethod
     def RegisterCustomFactoryForXusbType(cls: win32more.Windows.Gaming.Input.Custom.IGameControllerFactoryManagerStatics, factory: win32more.Windows.Gaming.Input.Custom.ICustomGameControllerFactory, xusbType: win32more.Windows.Gaming.Input.Custom.XusbDeviceType, xusbSubtype: win32more.Windows.Gaming.Input.Custom.XusbDeviceSubtype) -> Void: ...
-class GameControllerVersionInfo(EasyCastStructure):
+class GameControllerVersionInfo(Structure):
     Major: UInt16
     Minor: UInt16
     Build: UInt16
     Revision: UInt16
-class GipFirmwareUpdateProgress(EasyCastStructure):
+class GipFirmwareUpdateProgress(Structure):
     PercentCompleted: Double
     CurrentComponentId: UInt32
 class GipFirmwareUpdateResult(ComPtr):

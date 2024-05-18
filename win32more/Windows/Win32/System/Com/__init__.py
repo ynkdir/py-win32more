@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -44,7 +44,7 @@ APTTYPEQUALIFIER_NA_ON_IMPLICIT_MTA: win32more.Windows.Win32.System.Com.APTTYPEQ
 APTTYPEQUALIFIER_NA_ON_MAINSTA: win32more.Windows.Win32.System.Com.APTTYPEQUALIFIER = 5
 APTTYPEQUALIFIER_APPLICATION_STA: win32more.Windows.Win32.System.Com.APTTYPEQUALIFIER = 6
 APTTYPEQUALIFIER_RESERVED_1: win32more.Windows.Win32.System.Com.APTTYPEQUALIFIER = 7
-class AUTHENTICATEINFO(EasyCastStructure):
+class AUTHENTICATEINFO(Structure):
     dwFlags: UInt32
     dwReserved: UInt32
 COLE_DEFAULT_PRINCIPAL: win32more.Windows.Win32.Foundation.PWSTR = -1
@@ -397,7 +397,7 @@ class AsyncIUnknown(ComPtr):
     def Begin_Release(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Finish_Release(self) -> UInt32: ...
-class BINDINFO(EasyCastStructure):
+class BINDINFO(Structure):
     cbSize: UInt32
     szExtraInfo: win32more.Windows.Win32.Foundation.PWSTR
     stgmedData: win32more.Windows.Win32.System.Com.STGMEDIUM
@@ -415,34 +415,34 @@ class BINDINFO(EasyCastStructure):
 BINDINFOF = Int32
 BINDINFOF_URLENCODESTGMEDDATA: win32more.Windows.Win32.System.Com.BINDINFOF = 1
 BINDINFOF_URLENCODEDEXTRAINFO: win32more.Windows.Win32.System.Com.BINDINFOF = 2
-class BINDPTR(EasyCastUnion):
+class BINDPTR(Union):
     lpfuncdesc: POINTER(win32more.Windows.Win32.System.Com.FUNCDESC)
     lpvardesc: POINTER(win32more.Windows.Win32.System.Com.VARDESC)
     lptcomp: win32more.Windows.Win32.System.Com.ITypeComp
 BIND_FLAGS = Int32
 BIND_MAYBOTHERUSER: win32more.Windows.Win32.System.Com.BIND_FLAGS = 1
 BIND_JUSTTESTEXISTENCE: win32more.Windows.Win32.System.Com.BIND_FLAGS = 2
-class BIND_OPTS(EasyCastStructure):
+class BIND_OPTS(Structure):
     cbStruct: UInt32
     grfFlags: UInt32
     grfMode: UInt32
     dwTickCountDeadline: UInt32
-class BIND_OPTS2(EasyCastStructure):
+class BIND_OPTS2(Structure):
     Base: win32more.Windows.Win32.System.Com.BIND_OPTS
     dwTrackFlags: UInt32
     dwClassContext: UInt32
     locale: UInt32
     pServerInfo: POINTER(win32more.Windows.Win32.System.Com.COSERVERINFO)
-class BIND_OPTS3(EasyCastStructure):
+class BIND_OPTS3(Structure):
     Base: win32more.Windows.Win32.System.Com.BIND_OPTS2
     hwnd: win32more.Windows.Win32.Foundation.HWND
-class BLOB(EasyCastStructure):
+class BLOB(Structure):
     cbSize: UInt32
     pBlobData: POINTER(Byte)
-class BYTE_BLOB(EasyCastStructure):
+class BYTE_BLOB(Structure):
     clSize: UInt32
     abData: Byte * 1
-class BYTE_SIZEDARR(EasyCastStructure):
+class BYTE_SIZEDARR(Structure):
     clSize: UInt32
     pData: POINTER(Byte)
 CALLCONV = Int32
@@ -463,7 +463,7 @@ CALLTYPE_NESTED: win32more.Windows.Win32.System.Com.CALLTYPE = 2
 CALLTYPE_ASYNC: win32more.Windows.Win32.System.Com.CALLTYPE = 3
 CALLTYPE_TOPLEVEL_CALLPENDING: win32more.Windows.Win32.System.Com.CALLTYPE = 4
 CALLTYPE_ASYNC_CALLPENDING: win32more.Windows.Win32.System.Com.CALLTYPE = 5
-class CATEGORYINFO(EasyCastStructure):
+class CATEGORYINFO(Structure):
     catid: Guid
     lcid: UInt32
     szDescription: Char * 128
@@ -498,7 +498,7 @@ CLSCTX_ALLOW_LOWER_TRUST_REGISTRATION: win32more.Windows.Win32.System.Com.CLSCTX
 CLSCTX_PS_DLL: win32more.Windows.Win32.System.Com.CLSCTX = 2147483648
 CLSCTX_ALL: win32more.Windows.Win32.System.Com.CLSCTX = 23
 CLSCTX_SERVER: win32more.Windows.Win32.System.Com.CLSCTX = 21
-class COAUTHIDENTITY(EasyCastStructure):
+class COAUTHIDENTITY(Structure):
     User: POINTER(UInt16)
     UserLength: UInt32
     Domain: POINTER(UInt16)
@@ -506,7 +506,7 @@ class COAUTHIDENTITY(EasyCastStructure):
     Password: POINTER(UInt16)
     PasswordLength: UInt32
     Flags: UInt32
-class COAUTHINFO(EasyCastStructure):
+class COAUTHINFO(Structure):
     dwAuthnSvc: UInt32
     dwAuthzSvc: UInt32
     pwszServerPrincName: win32more.Windows.Win32.Foundation.PWSTR
@@ -526,10 +526,10 @@ SD_LAUNCHPERMISSIONS: win32more.Windows.Win32.System.Com.COMSD = 0
 SD_ACCESSPERMISSIONS: win32more.Windows.Win32.System.Com.COMSD = 1
 SD_LAUNCHRESTRICTIONS: win32more.Windows.Win32.System.Com.COMSD = 2
 SD_ACCESSRESTRICTIONS: win32more.Windows.Win32.System.Com.COMSD = 3
-class CONNECTDATA(EasyCastStructure):
+class CONNECTDATA(Structure):
     pUnk: win32more.Windows.Win32.System.Com.IUnknown
     dwCookie: UInt32
-class COSERVERINFO(EasyCastStructure):
+class COSERVERINFO(Structure):
     dwReserved1: UInt32
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pAuthInfo: POINTER(win32more.Windows.Win32.System.Com.COAUTHINFO)
@@ -563,32 +563,32 @@ CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_16: win32more.Windows.Win32.System.Com.
 CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_17: win32more.Windows.Win32.System.Com.CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483632
 CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_18: win32more.Windows.Win32.System.Com.CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483631
 CO_MTA_USAGE_COOKIE = IntPtr
-class CSPLATFORM(EasyCastStructure):
+class CSPLATFORM(Structure):
     dwPlatformId: UInt32
     dwVersionHi: UInt32
     dwVersionLo: UInt32
     dwProcessorArch: UInt32
-class CUSTDATA(EasyCastStructure):
+class CUSTDATA(Structure):
     cCustData: UInt32
     prgCustData: POINTER(win32more.Windows.Win32.System.Com.CUSTDATAITEM)
-class CUSTDATAITEM(EasyCastStructure):
+class CUSTDATAITEM(Structure):
     guid: Guid
     varValue: win32more.Windows.Win32.System.Variant.VARIANT
 CWMO_FLAGS = Int32
 CWMO_DEFAULT: win32more.Windows.Win32.System.Com.CWMO_FLAGS = 0
 CWMO_DISPATCH_CALLS: win32more.Windows.Win32.System.Com.CWMO_FLAGS = 1
 CWMO_DISPATCH_WINDOW_MESSAGES: win32more.Windows.Win32.System.Com.CWMO_FLAGS = 2
-class CY(EasyCastUnion):
+class CY(Union):
     Anonymous: _Anonymous_e__Struct
     int64: Int64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         Lo: UInt32
         Hi: Int32
-class ComCallData(EasyCastStructure):
+class ComCallData(Structure):
     dwDispid: UInt32
     dwReserved: UInt32
     pUserDefined: VoidPtr
-class ContextProperty(EasyCastStructure):
+class ContextProperty(Structure):
     policyId: Guid
     flags: UInt32
     pUnk: win32more.Windows.Win32.System.Com.IUnknown
@@ -611,7 +611,7 @@ DISPATCH_METHOD: win32more.Windows.Win32.System.Com.DISPATCH_FLAGS = 1
 DISPATCH_PROPERTYGET: win32more.Windows.Win32.System.Com.DISPATCH_FLAGS = 2
 DISPATCH_PROPERTYPUT: win32more.Windows.Win32.System.Com.DISPATCH_FLAGS = 4
 DISPATCH_PROPERTYPUTREF: win32more.Windows.Win32.System.Com.DISPATCH_FLAGS = 8
-class DISPPARAMS(EasyCastStructure):
+class DISPPARAMS(Structure):
     rgvarg: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)
     rgdispidNamedArgs: POINTER(Int32)
     cArgs: UInt32
@@ -623,23 +623,23 @@ DVASPECT_ICON: win32more.Windows.Win32.System.Com.DVASPECT = 4
 DVASPECT_DOCPRINT: win32more.Windows.Win32.System.Com.DVASPECT = 8
 DVASPECT_OPAQUE: win32more.Windows.Win32.System.Com.DVASPECT = 16
 DVASPECT_TRANSPARENT: win32more.Windows.Win32.System.Com.DVASPECT = 32
-class DVTARGETDEVICE(EasyCastStructure):
+class DVTARGETDEVICE(Structure):
     tdSize: UInt32
     tdDriverNameOffset: UInt16
     tdDeviceNameOffset: UInt16
     tdPortNameOffset: UInt16
     tdExtDevmodeOffset: UInt16
     tdData: Byte * 1
-class DWORD_BLOB(EasyCastStructure):
+class DWORD_BLOB(Structure):
     clSize: UInt32
     alData: UInt32 * 1
-class DWORD_SIZEDARR(EasyCastStructure):
+class DWORD_SIZEDARR(Structure):
     clSize: UInt32
     pData: POINTER(UInt32)
-class ELEMDESC(EasyCastStructure):
+class ELEMDESC(Structure):
     tdesc: win32more.Windows.Win32.System.Com.TYPEDESC
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         idldesc: win32more.Windows.Win32.System.Com.IDLDESC
         paramdesc: win32more.Windows.Win32.System.Ole.PARAMDESC
 EOLE_AUTHENTICATION_CAPABILITIES = Int32
@@ -659,7 +659,7 @@ EOAC_AUTO_IMPERSONATE: win32more.Windows.Win32.System.Com.EOLE_AUTHENTICATION_CA
 EOAC_DISABLE_AAA: win32more.Windows.Win32.System.Com.EOLE_AUTHENTICATION_CAPABILITIES = 4096
 EOAC_NO_CUSTOM_MARSHAL: win32more.Windows.Win32.System.Com.EOLE_AUTHENTICATION_CAPABILITIES = 8192
 EOAC_RESERVED1: win32more.Windows.Win32.System.Com.EOLE_AUTHENTICATION_CAPABILITIES = 16384
-class EXCEPINFO(EasyCastStructure):
+class EXCEPINFO(Structure):
     wCode: UInt16
     wReserved: UInt16
     bstrSource: win32more.Windows.Win32.Foundation.BSTR
@@ -673,25 +673,25 @@ EXTCONN = Int32
 EXTCONN_STRONG: win32more.Windows.Win32.System.Com.EXTCONN = 1
 EXTCONN_WEAK: win32more.Windows.Win32.System.Com.EXTCONN = 2
 EXTCONN_CALLABLE: win32more.Windows.Win32.System.Com.EXTCONN = 4
-class FLAGGED_BYTE_BLOB(EasyCastStructure):
+class FLAGGED_BYTE_BLOB(Structure):
     fFlags: UInt32
     clSize: UInt32
     abData: Byte * 1
-class FLAGGED_WORD_BLOB(EasyCastStructure):
+class FLAGGED_WORD_BLOB(Structure):
     fFlags: UInt32
     clSize: UInt32
     asData: UInt16 * 1
-class FLAG_STGMEDIUM(EasyCastStructure):
+class FLAG_STGMEDIUM(Structure):
     ContextFlags: Int32
     fPassOwnership: Int32
     Stgmed: win32more.Windows.Win32.System.Com.STGMEDIUM
-class FORMATETC(EasyCastStructure):
+class FORMATETC(Structure):
     cfFormat: UInt16
     ptd: POINTER(win32more.Windows.Win32.System.Com.DVTARGETDEVICE)
     dwAspect: UInt32
     lindex: Int32
     tymed: UInt32
-class FUNCDESC(EasyCastStructure):
+class FUNCDESC(Structure):
     memid: Int32
     lprgscode: POINTER(Int32)
     lprgelemdescParam: POINTER(win32more.Windows.Win32.System.Com.ELEMDESC)
@@ -724,10 +724,10 @@ FUNC_PUREVIRTUAL: win32more.Windows.Win32.System.Com.FUNCKIND = 1
 FUNC_NONVIRTUAL: win32more.Windows.Win32.System.Com.FUNCKIND = 2
 FUNC_STATIC: win32more.Windows.Win32.System.Com.FUNCKIND = 3
 FUNC_DISPATCH: win32more.Windows.Win32.System.Com.FUNCKIND = 4
-class GDI_OBJECT(EasyCastStructure):
+class GDI_OBJECT(Structure):
     ObjectType: UInt32
     u: _u_e__Struct
-    class _u_e__Struct(EasyCastUnion):
+    class _u_e__Struct(Union):
         hBitmap: POINTER(win32more.Windows.Win32.System.SystemServices.userHBITMAP)
         hPalette: POINTER(win32more.Windows.Win32.System.SystemServices.userHPALETTE)
         hGeneric: POINTER(win32more.Windows.Win32.System.SystemServices.userHGLOBAL)
@@ -764,7 +764,7 @@ GLOBALOPT_UNMARSHALING_POLICY_VALUES = Int32
 COMGLB_UNMARSHALING_POLICY_NORMAL: win32more.Windows.Win32.System.Com.GLOBALOPT_UNMARSHALING_POLICY_VALUES = 0
 COMGLB_UNMARSHALING_POLICY_STRONG: win32more.Windows.Win32.System.Com.GLOBALOPT_UNMARSHALING_POLICY_VALUES = 1
 COMGLB_UNMARSHALING_POLICY_HYBRID: win32more.Windows.Win32.System.Com.GLOBALOPT_UNMARSHALING_POLICY_VALUES = 2
-class HYPER_SIZEDARR(EasyCastStructure):
+class HYPER_SIZEDARR(Structure):
     clSize: UInt32
     pData: POINTER(Int64)
 class IActivationFilter(ComPtr):
@@ -1038,7 +1038,7 @@ class IContextCallback(ComPtr):
     _iid_ = Guid('{000001da-0000-0000-c000-000000000046}')
     @commethod(3)
     def ContextCallback(self, pfnCallback: win32more.Windows.Win32.System.Com.PFNCONTEXTCALL, pParam: POINTER(win32more.Windows.Win32.System.Com.ComCallData), riid: POINTER(Guid), iMethod: Int32, pUnk: win32more.Windows.Win32.System.Com.IUnknown) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IDLDESC(EasyCastStructure):
+class IDLDESC(Structure):
     dwReserved: UIntPtr
     wIDLFlags: win32more.Windows.Win32.System.Com.IDLFLAGS
 IDLFLAGS = UInt16
@@ -1361,7 +1361,7 @@ class IMultiQI(ComPtr):
     _iid_ = Guid('{00000020-0000-0000-c000-000000000046}')
     @commethod(3)
     def QueryMultipleInterfaces(self, cMQIs: UInt32, pMQIs: POINTER(win32more.Windows.Win32.System.Com.MULTI_QI)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INTERFACEINFO(EasyCastStructure):
+class INTERFACEINFO(Structure):
     pUnk: win32more.Windows.Win32.System.Com.IUnknown
     iid: Guid
     wMethod: UInt16
@@ -2021,7 +2021,7 @@ MSHLFLAGS_RESERVED1: win32more.Windows.Win32.System.Com.MSHLFLAGS = 8
 MSHLFLAGS_RESERVED2: win32more.Windows.Win32.System.Com.MSHLFLAGS = 16
 MSHLFLAGS_RESERVED3: win32more.Windows.Win32.System.Com.MSHLFLAGS = 32
 MSHLFLAGS_RESERVED4: win32more.Windows.Win32.System.Com.MSHLFLAGS = 64
-class MULTI_QI(EasyCastStructure):
+class MULTI_QI(Structure):
     pIID: POINTER(Guid)
     pItf: win32more.Windows.Win32.System.Com.IUnknown
     hr: win32more.Windows.Win32.Foundation.HRESULT
@@ -2035,7 +2035,7 @@ PENDINGTYPE_TOPLEVEL: win32more.Windows.Win32.System.Com.PENDINGTYPE = 1
 PENDINGTYPE_NESTED: win32more.Windows.Win32.System.Com.PENDINGTYPE = 2
 @winfunctype_pointer
 def PFNCONTEXTCALL(pParam: POINTER(win32more.Windows.Win32.System.Com.ComCallData)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class QUERYCONTEXT(EasyCastStructure):
+class QUERYCONTEXT(Structure):
     dwContext: UInt32
     Platform: win32more.Windows.Win32.System.Com.CSPLATFORM
     Locale: UInt32
@@ -2051,7 +2051,7 @@ REGCLS_AGILE: win32more.Windows.Win32.System.Com.REGCLS = 16
 ROT_FLAGS = UInt32
 ROTFLAGS_REGISTRATIONKEEPSALIVE: win32more.Windows.Win32.System.Com.ROT_FLAGS = 1
 ROTFLAGS_ALLOWANYCLIENT: win32more.Windows.Win32.System.Com.ROT_FLAGS = 2
-class RPCOLEMESSAGE(EasyCastStructure):
+class RPCOLEMESSAGE(Structure):
     reserved1: VoidPtr
     dataRepresentation: UInt32
     Buffer: VoidPtr
@@ -2084,24 +2084,24 @@ RPC_C_IMP_LEVEL_ANONYMOUS: win32more.Windows.Win32.System.Com.RPC_C_IMP_LEVEL = 
 RPC_C_IMP_LEVEL_IDENTIFY: win32more.Windows.Win32.System.Com.RPC_C_IMP_LEVEL = 2
 RPC_C_IMP_LEVEL_IMPERSONATE: win32more.Windows.Win32.System.Com.RPC_C_IMP_LEVEL = 3
 RPC_C_IMP_LEVEL_DELEGATE: win32more.Windows.Win32.System.Com.RPC_C_IMP_LEVEL = 4
-class RemSTGMEDIUM(EasyCastStructure):
+class RemSTGMEDIUM(Structure):
     tymed: UInt32
     dwHandleType: UInt32
     pData: UInt32
     pUnkForRelease: UInt32
     cbData: UInt32
     data: Byte * 1
-class SAFEARRAY(EasyCastStructure):
+class SAFEARRAY(Structure):
     cDims: UInt16
     fFeatures: win32more.Windows.Win32.System.Com.ADVANCED_FEATURE_FLAGS
     cbElements: UInt32
     cLocks: UInt32
     pvData: VoidPtr
     rgsabound: win32more.Windows.Win32.System.Com.SAFEARRAYBOUND * 1
-class SAFEARRAYBOUND(EasyCastStructure):
+class SAFEARRAYBOUND(Structure):
     cElements: UInt32
     lLbound: Int32
-class SChannelHookCallInfo(EasyCastStructure):
+class SChannelHookCallInfo(Structure):
     iid: Guid
     cbSize: UInt32
     uCausality: Guid
@@ -2112,19 +2112,19 @@ SERVERCALL = Int32
 SERVERCALL_ISHANDLED: win32more.Windows.Win32.System.Com.SERVERCALL = 0
 SERVERCALL_REJECTED: win32more.Windows.Win32.System.Com.SERVERCALL = 1
 SERVERCALL_RETRYLATER: win32more.Windows.Win32.System.Com.SERVERCALL = 2
-class SOLE_AUTHENTICATION_INFO(EasyCastStructure):
+class SOLE_AUTHENTICATION_INFO(Structure):
     dwAuthnSvc: UInt32
     dwAuthzSvc: UInt32
     pAuthInfo: VoidPtr
-class SOLE_AUTHENTICATION_LIST(EasyCastStructure):
+class SOLE_AUTHENTICATION_LIST(Structure):
     cAuthInfo: UInt32
     aAuthInfo: POINTER(win32more.Windows.Win32.System.Com.SOLE_AUTHENTICATION_INFO)
-class SOLE_AUTHENTICATION_SERVICE(EasyCastStructure):
+class SOLE_AUTHENTICATION_SERVICE(Structure):
     dwAuthnSvc: UInt32
     dwAuthzSvc: UInt32
     pPrincipalName: win32more.Windows.Win32.Foundation.PWSTR
     hr: win32more.Windows.Win32.Foundation.HRESULT
-class STATDATA(EasyCastStructure):
+class STATDATA(Structure):
     formatetc: win32more.Windows.Win32.System.Com.FORMATETC
     advf: UInt32
     pAdvSink: win32more.Windows.Win32.System.Com.IAdviseSink
@@ -2133,7 +2133,7 @@ STATFLAG = Int32
 STATFLAG_DEFAULT: win32more.Windows.Win32.System.Com.STATFLAG = 0
 STATFLAG_NONAME: win32more.Windows.Win32.System.Com.STATFLAG = 1
 STATFLAG_NOOPEN: win32more.Windows.Win32.System.Com.STATFLAG = 2
-class STATSTG(EasyCastStructure):
+class STATSTG(Structure):
     pwcsName: win32more.Windows.Win32.Foundation.PWSTR
     type: UInt32
     cbSize: UInt64
@@ -2170,11 +2170,11 @@ STGM_CONVERT: win32more.Windows.Win32.System.Com.STGM = 131072
 STGM_FAILIFTHERE: win32more.Windows.Win32.System.Com.STGM = 0
 STGM_NOSNAPSHOT: win32more.Windows.Win32.System.Com.STGM = 2097152
 STGM_DIRECT_SWMR: win32more.Windows.Win32.System.Com.STGM = 4194304
-class STGMEDIUM(EasyCastStructure):
+class STGMEDIUM(Structure):
     tymed: UInt32
     u: _u_e__Union
     pUnkForRelease: win32more.Windows.Win32.System.Com.IUnknown
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         hBitmap: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
         hMetaFilePict: VoidPtr
         hEnhMetaFile: win32more.Windows.Win32.Graphics.Gdi.HENHMETAFILE
@@ -2199,7 +2199,7 @@ SYS_WIN64: win32more.Windows.Win32.System.Com.SYSKIND = 3
 ShutdownType = Int32
 IdleShutdown: win32more.Windows.Win32.System.Com.ShutdownType = 0
 ForcedShutdown: win32more.Windows.Win32.System.Com.ShutdownType = 1
-class StorageLayout(EasyCastStructure):
+class StorageLayout(Structure):
     LayoutType: UInt32
     pwcsElementName: win32more.Windows.Win32.Foundation.PWSTR
     cOffset: Int64
@@ -2207,7 +2207,7 @@ class StorageLayout(EasyCastStructure):
 THDTYPE = Int32
 THDTYPE_BLOCKMESSAGES: win32more.Windows.Win32.System.Com.THDTYPE = 0
 THDTYPE_PROCESSMESSAGES: win32more.Windows.Win32.System.Com.THDTYPE = 1
-class TLIBATTR(EasyCastStructure):
+class TLIBATTR(Structure):
     guid: Guid
     lcid: UInt32
     syskind: win32more.Windows.Win32.System.Com.SYSKIND
@@ -2223,7 +2223,7 @@ TYMED_GDI: win32more.Windows.Win32.System.Com.TYMED = 16
 TYMED_MFPICT: win32more.Windows.Win32.System.Com.TYMED = 32
 TYMED_ENHMF: win32more.Windows.Win32.System.Com.TYMED = 64
 TYMED_NULL: win32more.Windows.Win32.System.Com.TYMED = 0
-class TYPEATTR(EasyCastStructure):
+class TYPEATTR(Structure):
     guid: Guid
     lcid: UInt32
     dwReserved: UInt32
@@ -2242,10 +2242,10 @@ class TYPEATTR(EasyCastStructure):
     wMinorVerNum: UInt16
     tdescAlias: win32more.Windows.Win32.System.Com.TYPEDESC
     idldescType: win32more.Windows.Win32.System.Com.IDLDESC
-class TYPEDESC(EasyCastStructure):
+class TYPEDESC(Structure):
     Anonymous: _Anonymous_e__Union
     vt: win32more.Windows.Win32.System.Variant.VARENUM
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         lptdesc: POINTER(win32more.Windows.Win32.System.Com.TYPEDESC)
         lpadesc: POINTER(win32more.Windows.Win32.System.Ole.ARRAYDESC)
         hreftype: UInt32
@@ -2310,14 +2310,14 @@ Uri_PROPERTY_PORT: win32more.Windows.Win32.System.Com.Uri_PROPERTY = 16
 Uri_PROPERTY_SCHEME: win32more.Windows.Win32.System.Com.Uri_PROPERTY = 17
 Uri_PROPERTY_ZONE: win32more.Windows.Win32.System.Com.Uri_PROPERTY = 18
 Uri_PROPERTY_DWORD_LAST: win32more.Windows.Win32.System.Com.Uri_PROPERTY = 18
-class VARDESC(EasyCastStructure):
+class VARDESC(Structure):
     memid: Int32
     lpstrSchema: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
     elemdescVar: win32more.Windows.Win32.System.Com.ELEMDESC
     wVarFlags: win32more.Windows.Win32.System.Com.VARFLAGS
     varkind: win32more.Windows.Win32.System.Com.VARKIND
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         oInst: UInt32
         lpvarValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)
 VARFLAGS = UInt16
@@ -2339,16 +2339,16 @@ VAR_PERINSTANCE: win32more.Windows.Win32.System.Com.VARKIND = 0
 VAR_STATIC: win32more.Windows.Win32.System.Com.VARKIND = 1
 VAR_CONST: win32more.Windows.Win32.System.Com.VARKIND = 2
 VAR_DISPATCH: win32more.Windows.Win32.System.Com.VARKIND = 3
-class WORD_BLOB(EasyCastStructure):
+class WORD_BLOB(Structure):
     clSize: UInt32
     asData: UInt16 * 1
-class WORD_SIZEDARR(EasyCastStructure):
+class WORD_SIZEDARR(Structure):
     clSize: UInt32
     pData: POINTER(UInt16)
-class uCLSSPEC(EasyCastStructure):
+class uCLSSPEC(Structure):
     tyspec: UInt32
     tagged_union: _tagged_union_e__Struct
-    class _tagged_union_e__Struct(EasyCastUnion):
+    class _tagged_union_e__Struct(Union):
         clsid: Guid
         pFileExt: win32more.Windows.Win32.Foundation.PWSTR
         pMimeType: win32more.Windows.Win32.Foundation.PWSTR
@@ -2356,23 +2356,23 @@ class uCLSSPEC(EasyCastStructure):
         pFileName: win32more.Windows.Win32.Foundation.PWSTR
         ByName: _ByName_e__Struct
         ByObjectId: _ByObjectId_e__Struct
-        class _ByName_e__Struct(EasyCastStructure):
+        class _ByName_e__Struct(Structure):
             pPackageName: win32more.Windows.Win32.Foundation.PWSTR
             PolicyId: Guid
-        class _ByObjectId_e__Struct(EasyCastStructure):
+        class _ByObjectId_e__Struct(Structure):
             ObjectId: Guid
             PolicyId: Guid
-class userFLAG_STGMEDIUM(EasyCastStructure):
+class userFLAG_STGMEDIUM(Structure):
     ContextFlags: Int32
     fPassOwnership: Int32
     Stgmed: win32more.Windows.Win32.System.Com.userSTGMEDIUM
-class userSTGMEDIUM(EasyCastStructure):
+class userSTGMEDIUM(Structure):
     u: _STGMEDIUM_UNION
     pUnkForRelease: win32more.Windows.Win32.System.Com.IUnknown
-    class _STGMEDIUM_UNION(EasyCastStructure):
+    class _STGMEDIUM_UNION(Structure):
         tymed: UInt32
         u: _u_e__Struct
-        class _u_e__Struct(EasyCastUnion):
+        class _u_e__Struct(Union):
             hMetaFilePict: POINTER(win32more.Windows.Win32.System.SystemServices.userHMETAFILEPICT)
             hHEnhMetaFile: POINTER(win32more.Windows.Win32.System.SystemServices.userHENHMETAFILE)
             hGdiHandle: POINTER(win32more.Windows.Win32.System.Com.GDI_OBJECT)

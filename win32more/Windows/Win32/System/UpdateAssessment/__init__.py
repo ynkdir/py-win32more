@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.UpdateAssessment
@@ -8,7 +8,7 @@ class IWaaSAssessor(ComPtr):
     _iid_ = Guid('{2347bbef-1a3b-45a4-902d-3e09c269b45e}')
     @commethod(3)
     def GetOSUpdateAssessment(self, result: POINTER(win32more.Windows.Win32.System.UpdateAssessment.OSUpdateAssessment)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class OSUpdateAssessment(EasyCastStructure):
+class OSUpdateAssessment(Structure):
     isEndOfSupport: win32more.Windows.Win32.Foundation.BOOL
     assessmentForCurrent: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessment
     assessmentForUpToDate: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessment
@@ -19,7 +19,7 @@ class OSUpdateAssessment(EasyCastStructure):
     currentOSReleaseTime: win32more.Windows.Win32.Foundation.FILETIME
     upToDateOSBuild: win32more.Windows.Win32.Foundation.PWSTR
     upToDateOSReleaseTime: win32more.Windows.Win32.Foundation.FILETIME
-class UpdateAssessment(EasyCastStructure):
+class UpdateAssessment(Structure):
     status: win32more.Windows.Win32.System.UpdateAssessment.UpdateAssessmentStatus
     impact: win32more.Windows.Win32.System.UpdateAssessment.UpdateImpactLevel
     daysOutOfDate: UInt32

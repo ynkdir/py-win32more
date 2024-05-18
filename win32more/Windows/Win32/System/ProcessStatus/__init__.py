@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.ProcessStatus
 PSAPI_VERSION: UInt32 = 2
@@ -125,7 +125,7 @@ def K32GetProcessImageFileNameA(hProcess: win32more.Windows.Win32.Foundation.HAN
 @winfunctype('KERNEL32.dll')
 def K32GetProcessImageFileNameW(hProcess: win32more.Windows.Win32.Foundation.HANDLE, lpImageFileName: win32more.Windows.Win32.Foundation.PWSTR, nSize: UInt32) -> UInt32: ...
 K32GetProcessImageFileName = UnicodeAlias('K32GetProcessImageFileNameW')
-class ENUM_PAGE_FILE_INFORMATION(EasyCastStructure):
+class ENUM_PAGE_FILE_INFORMATION(Structure):
     cb: UInt32
     Reserved: UInt32
     TotalSize: UIntPtr
@@ -136,7 +136,7 @@ LIST_MODULES_ALL: win32more.Windows.Win32.System.ProcessStatus.ENUM_PROCESS_MODU
 LIST_MODULES_DEFAULT: win32more.Windows.Win32.System.ProcessStatus.ENUM_PROCESS_MODULES_EX_FLAGS = 0
 LIST_MODULES_32BIT: win32more.Windows.Win32.System.ProcessStatus.ENUM_PROCESS_MODULES_EX_FLAGS = 1
 LIST_MODULES_64BIT: win32more.Windows.Win32.System.ProcessStatus.ENUM_PROCESS_MODULES_EX_FLAGS = 2
-class MODULEINFO(EasyCastStructure):
+class MODULEINFO(Structure):
     lpBaseOfDll: VoidPtr
     SizeOfImage: UInt32
     EntryPoint: VoidPtr
@@ -145,7 +145,7 @@ def PENUM_PAGE_FILE_CALLBACKA(pContext: VoidPtr, pPageFileInfo: POINTER(win32mor
 @winfunctype_pointer
 def PENUM_PAGE_FILE_CALLBACKW(pContext: VoidPtr, pPageFileInfo: POINTER(win32more.Windows.Win32.System.ProcessStatus.ENUM_PAGE_FILE_INFORMATION), lpFilename: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 PENUM_PAGE_FILE_CALLBACK = UnicodeAlias('PENUM_PAGE_FILE_CALLBACKW')
-class PERFORMANCE_INFORMATION(EasyCastStructure):
+class PERFORMANCE_INFORMATION(Structure):
     cb: UInt32
     CommitTotal: UIntPtr
     CommitLimit: UIntPtr
@@ -160,7 +160,7 @@ class PERFORMANCE_INFORMATION(EasyCastStructure):
     HandleCount: UInt32
     ProcessCount: UInt32
     ThreadCount: UInt32
-class PROCESS_MEMORY_COUNTERS(EasyCastStructure):
+class PROCESS_MEMORY_COUNTERS(Structure):
     cb: UInt32
     PageFaultCount: UInt32
     PeakWorkingSetSize: UIntPtr
@@ -171,7 +171,7 @@ class PROCESS_MEMORY_COUNTERS(EasyCastStructure):
     QuotaNonPagedPoolUsage: UIntPtr
     PagefileUsage: UIntPtr
     PeakPagefileUsage: UIntPtr
-class PROCESS_MEMORY_COUNTERS_EX(EasyCastStructure):
+class PROCESS_MEMORY_COUNTERS_EX(Structure):
     cb: UInt32
     PageFaultCount: UInt32
     PeakWorkingSetSize: UIntPtr
@@ -183,7 +183,7 @@ class PROCESS_MEMORY_COUNTERS_EX(EasyCastStructure):
     PagefileUsage: UIntPtr
     PeakPagefileUsage: UIntPtr
     PrivateUsage: UIntPtr
-class PROCESS_MEMORY_COUNTERS_EX2(EasyCastStructure):
+class PROCESS_MEMORY_COUNTERS_EX2(Structure):
     cb: UInt32
     PageFaultCount: UInt32
     PeakWorkingSetSize: UIntPtr
@@ -197,31 +197,31 @@ class PROCESS_MEMORY_COUNTERS_EX2(EasyCastStructure):
     PrivateUsage: UIntPtr
     PrivateWorkingSetSize: UIntPtr
     SharedCommitUsage: UInt64
-class PSAPI_WORKING_SET_BLOCK(EasyCastUnion):
+class PSAPI_WORKING_SET_BLOCK(Union):
     Flags: UIntPtr
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UIntPtr
-class PSAPI_WORKING_SET_EX_BLOCK(EasyCastUnion):
+class PSAPI_WORKING_SET_EX_BLOCK(Union):
     Flags: UIntPtr
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Invalid: _Invalid_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UIntPtr
-        class _Invalid_e__Struct(EasyCastStructure):
+        class _Invalid_e__Struct(Structure):
             _bitfield: UIntPtr
-class PSAPI_WORKING_SET_EX_INFORMATION(EasyCastStructure):
+class PSAPI_WORKING_SET_EX_INFORMATION(Structure):
     VirtualAddress: VoidPtr
     VirtualAttributes: win32more.Windows.Win32.System.ProcessStatus.PSAPI_WORKING_SET_EX_BLOCK
-class PSAPI_WORKING_SET_INFORMATION(EasyCastStructure):
+class PSAPI_WORKING_SET_INFORMATION(Structure):
     NumberOfEntries: UIntPtr
     WorkingSetInfo: win32more.Windows.Win32.System.ProcessStatus.PSAPI_WORKING_SET_BLOCK * 1
-class PSAPI_WS_WATCH_INFORMATION(EasyCastStructure):
+class PSAPI_WS_WATCH_INFORMATION(Structure):
     FaultingPc: VoidPtr
     FaultingVa: VoidPtr
-class PSAPI_WS_WATCH_INFORMATION_EX(EasyCastStructure):
+class PSAPI_WS_WATCH_INFORMATION_EX(Structure):
     BasicInfo: win32more.Windows.Win32.System.ProcessStatus.PSAPI_WS_WATCH_INFORMATION
     FaultingThreadId: UIntPtr
     Flags: UIntPtr

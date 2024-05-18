@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Gaming.Input
@@ -421,10 +421,10 @@ class InjectedInputPenParameters(UInt32):  # enum
     Rotation = 2
     TiltX = 4
     TiltY = 8
-class InjectedInputPoint(EasyCastStructure):
+class InjectedInputPoint(Structure):
     PositionX: Int32
     PositionY: Int32
-class InjectedInputPointerInfo(EasyCastStructure):
+class InjectedInputPointerInfo(Structure):
     PointerId: UInt32
     PointerOptions: win32more.Windows.UI.Input.Preview.Injection.InjectedInputPointerOptions
     PixelLocation: win32more.Windows.UI.Input.Preview.Injection.InjectedInputPoint
@@ -444,7 +444,7 @@ class InjectedInputPointerOptions(UInt32):  # enum
     Update = 131072
     PointerUp = 262144
     CaptureChanged = 2097152
-class InjectedInputRectangle(EasyCastStructure):
+class InjectedInputRectangle(Structure):
     Left: Int32
     Top: Int32
     Bottom: Int32

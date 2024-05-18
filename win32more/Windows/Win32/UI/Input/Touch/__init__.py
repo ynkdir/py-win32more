@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Input.Touch
@@ -23,7 +23,7 @@ def CloseGestureInfoHandle(hGestureInfo: win32more.Windows.Win32.UI.Input.Touch.
 def SetGestureConfig(hwnd: win32more.Windows.Win32.Foundation.HWND, dwReserved: UInt32, cIDs: UInt32, pGestureConfig: POINTER(win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG), cbSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def GetGestureConfig(hwnd: win32more.Windows.Win32.Foundation.HWND, dwReserved: UInt32, dwFlags: UInt32, pcIDs: POINTER(UInt32), pGestureConfig: POINTER(win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG), cbSize: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class GESTURECONFIG(EasyCastStructure):
+class GESTURECONFIG(Structure):
     dwID: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID
     dwWant: UInt32
     dwBlock: UInt32
@@ -36,7 +36,7 @@ GID_ROTATE: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 5
 GID_TWOFINGERTAP: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 6
 GID_PRESSANDTAP: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 7
 GID_ROLLOVER: win32more.Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID = 7
-class GESTUREINFO(EasyCastStructure):
+class GESTUREINFO(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     dwID: UInt32
@@ -46,7 +46,7 @@ class GESTUREINFO(EasyCastStructure):
     dwSequenceID: UInt32
     ullArguments: UInt64
     cbExtraArgs: UInt32
-class GESTURENOTIFYSTRUCT(EasyCastStructure):
+class GESTURENOTIFYSTRUCT(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     hwndTarget: win32more.Windows.Win32.Foundation.HWND
@@ -221,7 +221,7 @@ TOUCHEVENTF_PRIMARY: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 
 TOUCHEVENTF_NOCOALESCE: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 32
 TOUCHEVENTF_PEN: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 64
 TOUCHEVENTF_PALM: win32more.Windows.Win32.UI.Input.Touch.TOUCHEVENTF_FLAGS = 128
-class TOUCHINPUT(EasyCastStructure):
+class TOUCHINPUT(Structure):
     x: Int32
     y: Int32
     hSource: win32more.Windows.Win32.Foundation.HANDLE

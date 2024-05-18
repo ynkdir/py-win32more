@@ -1,15 +1,15 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Input.Ime
 import win32more.Windows.Win32.UI.Input.KeyboardAndMouse
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-class APPLETIDLIST(EasyCastStructure):
+class APPLETIDLIST(Structure):
     count: Int32
     pIIDList: POINTER(Guid)
-class APPLYCANDEXPARAM(EasyCastStructure):
+class APPLYCANDEXPARAM(Structure):
     dwSize: UInt32
     lpwstrDisplay: win32more.Windows.Win32.Foundation.PWSTR
     lpwstrReading: win32more.Windows.Win32.Foundation.PWSTR
@@ -797,18 +797,18 @@ def ImmGetIMCCLockCount(param0: win32more.Windows.Win32.UI.Input.Ime.HIMCC) -> U
 def ImmReSizeIMCC(param0: win32more.Windows.Win32.UI.Input.Ime.HIMCC, param1: UInt32) -> win32more.Windows.Win32.UI.Input.Ime.HIMCC: ...
 @winfunctype('IMM32.dll')
 def ImmGetIMCCSize(param0: win32more.Windows.Win32.UI.Input.Ime.HIMCC) -> UInt32: ...
-class CANDIDATEFORM(EasyCastStructure):
+class CANDIDATEFORM(Structure):
     dwIndex: UInt32
     dwStyle: UInt32
     ptCurrentPos: win32more.Windows.Win32.Foundation.POINT
     rcArea: win32more.Windows.Win32.Foundation.RECT
-class CANDIDATEINFO(EasyCastStructure):
+class CANDIDATEINFO(Structure):
     dwSize: UInt32
     dwCount: UInt32
     dwOffset: UInt32 * 32
     dwPrivateSize: UInt32
     dwPrivateOffset: UInt32
-class CANDIDATELIST(EasyCastStructure):
+class CANDIDATELIST(Structure):
     dwSize: UInt32
     dwStyle: UInt32
     dwCount: UInt32
@@ -817,11 +817,11 @@ class CANDIDATELIST(EasyCastStructure):
     dwPageSize: UInt32
     dwOffset: UInt32 * 1
 CActiveIMM = Guid('{4955dd33-b159-11d0-8fcf-00aa006bcc59}')
-class COMPOSITIONFORM(EasyCastStructure):
+class COMPOSITIONFORM(Structure):
     dwStyle: UInt32
     ptCurrentPos: win32more.Windows.Win32.Foundation.POINT
     rcArea: win32more.Windows.Win32.Foundation.RECT
-class COMPOSITIONSTRING(EasyCastStructure):
+class COMPOSITIONSTRING(Structure):
     dwSize: UInt32
     dwCompReadAttrLen: UInt32
     dwCompReadAttrOffset: UInt32
@@ -856,7 +856,7 @@ GGL_LEVEL: win32more.Windows.Win32.UI.Input.Ime.GET_GUIDE_LINE_TYPE = 1
 GGL_INDEX: win32more.Windows.Win32.UI.Input.Ime.GET_GUIDE_LINE_TYPE = 2
 GGL_STRING: win32more.Windows.Win32.UI.Input.Ime.GET_GUIDE_LINE_TYPE = 3
 GGL_PRIVATE: win32more.Windows.Win32.UI.Input.Ime.GET_GUIDE_LINE_TYPE = 4
-class GUIDELINE(EasyCastStructure):
+class GUIDELINE(Structure):
     dwSize: UInt32
     dwLevel: UInt32
     dwIndex: UInt32
@@ -1379,7 +1379,7 @@ class IImeSpecifyApplets(ComPtr):
     def GetAppletIIDList(self, refiid: POINTER(Guid), lpIIDList: POINTER(win32more.Windows.Win32.UI.Input.Ime.APPLETIDLIST)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def IMCENUMPROC(param0: win32more.Windows.Win32.UI.Input.Ime.HIMC, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class IMEAPPLETCFG(EasyCastStructure):
+class IMEAPPLETCFG(Structure):
     dwConfig: UInt32
     wchTitle: Char * 64
     wchTitleFontFace: Char * 32
@@ -1389,7 +1389,7 @@ class IMEAPPLETCFG(EasyCastStructure):
     langID: UInt16
     dummy: UInt16
     lReserved1: win32more.Windows.Win32.Foundation.LPARAM
-class IMEAPPLETUI(EasyCastStructure):
+class IMEAPPLETUI(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     dwStyle: UInt32
     width: Int32
@@ -1400,34 +1400,34 @@ class IMEAPPLETUI(EasyCastStructure):
     maxHeight: Int32
     lReserved1: win32more.Windows.Win32.Foundation.LPARAM
     lReserved2: win32more.Windows.Win32.Foundation.LPARAM
-class IMECHARINFO(EasyCastStructure):
+class IMECHARINFO(Structure):
     wch: Char
     dwCharInfo: UInt32
-class IMECHARPOSITION(EasyCastStructure):
+class IMECHARPOSITION(Structure):
     dwSize: UInt32
     dwCharPos: UInt32
     pt: win32more.Windows.Win32.Foundation.POINT
     cLineHeight: UInt32
     rcDocument: win32more.Windows.Win32.Foundation.RECT
-class IMECOMPOSITIONSTRINGINFO(EasyCastStructure):
+class IMECOMPOSITIONSTRINGINFO(Structure):
     iCompStrLen: Int32
     iCaretPos: Int32
     iEditStart: Int32
     iEditLen: Int32
     iTargetStart: Int32
     iTargetLen: Int32
-class IMEDLG(EasyCastStructure):
+class IMEDLG(Structure):
     cbIMEDLG: Int32
     hwnd: win32more.Windows.Win32.Foundation.HWND
     lpwstrWord: win32more.Windows.Win32.Foundation.PWSTR
     nTabId: Int32
     _pack_ = 1
-class IMEDP(EasyCastStructure):
+class IMEDP(Structure):
     wrdModifier: win32more.Windows.Win32.UI.Input.Ime.IMEWRD
     wrdModifiee: win32more.Windows.Win32.UI.Input.Ime.IMEWRD
     relID: win32more.Windows.Win32.UI.Input.Ime.IMEREL
     _pack_ = 1
-class IMEFAREASTINFO(EasyCastStructure):
+class IMEFAREASTINFO(Structure):
     dwSize: UInt32
     dwType: UInt32
     dwData: UInt32 * 1
@@ -1459,7 +1459,7 @@ IFED_MSIME_TEXT_USER: win32more.Windows.Win32.UI.Input.Ime.IMEFMT = 23
 IFED_PIME2_BIN_USER: win32more.Windows.Win32.UI.Input.Ime.IMEFMT = 24
 IFED_PIME2_BIN_SYSTEM: win32more.Windows.Win32.UI.Input.Ime.IMEFMT = 25
 IFED_PIME2_BIN_STANDARD_SYSTEM: win32more.Windows.Win32.UI.Input.Ime.IMEFMT = 26
-class IMEINFO(EasyCastStructure):
+class IMEINFO(Structure):
     dwPrivateDataSize: UInt32
     fdwProperty: UInt32
     fdwConversionCaps: UInt32
@@ -1467,50 +1467,50 @@ class IMEINFO(EasyCastStructure):
     fdwUICaps: UInt32
     fdwSCSCaps: UInt32
     fdwSelectCaps: UInt32
-class IMEITEM(EasyCastStructure):
+class IMEITEM(Structure):
     cbSize: Int32
     iType: Int32
     lpItemData: VoidPtr
-class IMEITEMCANDIDATE(EasyCastStructure):
+class IMEITEMCANDIDATE(Structure):
     uCount: UInt32
     imeItem: win32more.Windows.Win32.UI.Input.Ime.IMEITEM * 1
-class IMEKMS(EasyCastStructure):
+class IMEKMS(Structure):
     cbSize: Int32
     hIMC: win32more.Windows.Win32.UI.Input.Ime.HIMC
     cKeyList: UInt32
     pKeyList: POINTER(win32more.Windows.Win32.UI.Input.Ime.IMEKMSKEY)
     _pack_ = 1
-class IMEKMSFUNCDESC(EasyCastStructure):
+class IMEKMSFUNCDESC(Structure):
     cbSize: Int32
     idLang: UInt16
     dwControl: UInt32
     pwszDescription: Char * 128
     _pack_ = 1
-class IMEKMSINIT(EasyCastStructure):
+class IMEKMSINIT(Structure):
     cbSize: Int32
     hWnd: win32more.Windows.Win32.Foundation.HWND
     _pack_ = 1
-class IMEKMSINVK(EasyCastStructure):
+class IMEKMSINVK(Structure):
     cbSize: Int32
     hIMC: win32more.Windows.Win32.UI.Input.Ime.HIMC
     dwControl: UInt32
     _pack_ = 1
-class IMEKMSKEY(EasyCastStructure):
+class IMEKMSKEY(Structure):
     dwStatus: UInt32
     dwCompStatus: UInt32
     dwVKEY: UInt32
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     _pack_ = 1
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         dwControl: UInt32
         dwNotUsed: UInt32
         _pack_ = 1
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         pwszDscr: Char * 31
         pwszNoUse: Char * 31
         _pack_ = 1
-class IMEKMSKMP(EasyCastStructure):
+class IMEKMSKMP(Structure):
     cbSize: Int32
     hIMC: win32more.Windows.Win32.UI.Input.Ime.HIMC
     idLang: UInt16
@@ -1519,12 +1519,12 @@ class IMEKMSKMP(EasyCastStructure):
     cKeyList: Int32
     pKeyList: POINTER(win32more.Windows.Win32.UI.Input.Ime.IMEKMSKEY)
     _pack_ = 1
-class IMEKMSNTFY(EasyCastStructure):
+class IMEKMSNTFY(Structure):
     cbSize: Int32
     hIMC: win32more.Windows.Win32.UI.Input.Ime.HIMC
     fSelect: win32more.Windows.Win32.Foundation.BOOL
     _pack_ = 1
-class IMEMENUITEMINFOA(EasyCastStructure):
+class IMEMENUITEMINFOA(Structure):
     cbSize: UInt32
     fType: UInt32
     fState: UInt32
@@ -1534,7 +1534,7 @@ class IMEMENUITEMINFOA(EasyCastStructure):
     dwItemData: UInt32
     szString: win32more.Windows.Win32.Foundation.CHAR * 80
     hbmpItem: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
-class IMEMENUITEMINFOW(EasyCastStructure):
+class IMEMENUITEMINFOW(Structure):
     cbSize: UInt32
     fType: UInt32
     fState: UInt32
@@ -1575,24 +1575,24 @@ IFED_REL_KEIYOU_TARU_YOUGEN: win32more.Windows.Win32.UI.Input.Ime.IMEREL = 21
 IFED_REL_UNKNOWN1: win32more.Windows.Win32.UI.Input.Ime.IMEREL = 22
 IFED_REL_UNKNOWN2: win32more.Windows.Win32.UI.Input.Ime.IMEREL = 23
 IFED_REL_ALL: win32more.Windows.Win32.UI.Input.Ime.IMEREL = 24
-class IMESHF(EasyCastStructure):
+class IMESHF(Structure):
     cbShf: UInt16
     verDic: UInt16
     szTitle: win32more.Windows.Win32.Foundation.CHAR * 48
     szDescription: win32more.Windows.Win32.Foundation.CHAR * 256
     szCopyright: win32more.Windows.Win32.Foundation.CHAR * 128
     _pack_ = 1
-class IMESTRINGCANDIDATE(EasyCastStructure):
+class IMESTRINGCANDIDATE(Structure):
     uCount: UInt32
     lpwstr: win32more.Windows.Win32.Foundation.PWSTR * 1
-class IMESTRINGCANDIDATEINFO(EasyCastStructure):
+class IMESTRINGCANDIDATEINFO(Structure):
     dwFarEastId: UInt32
     lpFarEastInfo: POINTER(win32more.Windows.Win32.UI.Input.Ime.IMEFAREASTINFO)
     fInfoMask: UInt32
     iSelIndex: Int32
     uCount: UInt32
     lpwstr: win32more.Windows.Win32.Foundation.PWSTR * 1
-class IMESTRINGINFO(EasyCastStructure):
+class IMESTRINGINFO(Structure):
     dwFarEastId: UInt32
     lpwstr: win32more.Windows.Win32.Foundation.PWSTR
 IMEUCT = Int32
@@ -1601,7 +1601,7 @@ IFED_UCT_STRING_SJIS: win32more.Windows.Win32.UI.Input.Ime.IMEUCT = 1
 IFED_UCT_STRING_UNICODE: win32more.Windows.Win32.UI.Input.Ime.IMEUCT = 2
 IFED_UCT_USER_DEFINED: win32more.Windows.Win32.UI.Input.Ime.IMEUCT = 3
 IFED_UCT_MAX: win32more.Windows.Win32.UI.Input.Ime.IMEUCT = 4
-class IMEWRD(EasyCastStructure):
+class IMEWRD(Structure):
     pwchReading: win32more.Windows.Win32.Foundation.PWSTR
     pwchDisplay: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
@@ -1610,11 +1610,11 @@ class IMEWRD(EasyCastStructure):
     uct: win32more.Windows.Win32.UI.Input.Ime.IMEUCT
     pvComment: VoidPtr
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ulPos: UInt32
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             nPos1: UInt16
             nPos2: UInt16
             _pack_ = 1
@@ -1710,7 +1710,7 @@ IME_SMODE_AUTOMATIC: win32more.Windows.Win32.UI.Input.Ime.IME_SENTENCE_MODE = 4
 IME_SMODE_PHRASEPREDICT: win32more.Windows.Win32.UI.Input.Ime.IME_SENTENCE_MODE = 8
 IME_SMODE_CONVERSATION: win32more.Windows.Win32.UI.Input.Ime.IME_SENTENCE_MODE = 16
 IME_SMODE_RESERVED: win32more.Windows.Win32.UI.Input.Ime.IME_SENTENCE_MODE = 61440
-class INPUTCONTEXT(EasyCastStructure):
+class INPUTCONTEXT(Structure):
     hWnd: win32more.Windows.Win32.Foundation.HWND
     fOpen: win32more.Windows.Win32.Foundation.BOOL
     ptStatusWndPos: win32more.Windows.Win32.Foundation.POINT
@@ -1728,10 +1728,10 @@ class INPUTCONTEXT(EasyCastStructure):
     hMsgBuf: win32more.Windows.Win32.UI.Input.Ime.HIMCC
     fdwInit: UInt32
     dwReserve: UInt32 * 3
-    class _lfFont_e__Union(EasyCastUnion):
+    class _lfFont_e__Union(Union):
         A: win32more.Windows.Win32.Graphics.Gdi.LOGFONTA
         W: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
-class MORRSLT(EasyCastStructure):
+class MORRSLT(Structure):
     dwSize: UInt32
     pwchOutput: win32more.Windows.Win32.Foundation.PWSTR
     cchOutput: UInt16
@@ -1746,15 +1746,15 @@ class MORRSLT(EasyCastStructure):
     pPrivate: VoidPtr
     BLKBuff: Char * 1
     _pack_ = 1
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pwchRead: win32more.Windows.Win32.Foundation.PWSTR
         pwchComp: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 1
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         cchRead: UInt16
         cchComp: UInt16
         _pack_ = 1
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         pchReadIdxWDD: POINTER(UInt16)
         pchCompIdxWDD: POINTER(UInt16)
         _pack_ = 1
@@ -1774,11 +1774,11 @@ CPS_CONVERT: win32more.Windows.Win32.UI.Input.Ime.NOTIFY_IME_INDEX = 2
 CPS_REVERT: win32more.Windows.Win32.UI.Input.Ime.NOTIFY_IME_INDEX = 3
 @winfunctype_pointer
 def PFNLOG(param0: POINTER(win32more.Windows.Win32.UI.Input.Ime.IMEDP), param1: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class POSTBL(EasyCastStructure):
+class POSTBL(Structure):
     nPos: UInt16
     szName: POINTER(Byte)
     _pack_ = 1
-class RECONVERTSTRING(EasyCastStructure):
+class RECONVERTSTRING(Structure):
     dwSize: UInt32
     dwVersion: UInt32
     dwStrLen: UInt32
@@ -1787,7 +1787,7 @@ class RECONVERTSTRING(EasyCastStructure):
     dwCompStrOffset: UInt32
     dwTargetStrLen: UInt32
     dwTargetStrOffset: UInt32
-class REGISTERWORDA(EasyCastStructure):
+class REGISTERWORDA(Structure):
     lpReading: win32more.Windows.Win32.Foundation.PSTR
     lpWord: win32more.Windows.Win32.Foundation.PSTR
 @winfunctype_pointer
@@ -1795,7 +1795,7 @@ def REGISTERWORDENUMPROCA(lpszReading: win32more.Windows.Win32.Foundation.PSTR, 
 @winfunctype_pointer
 def REGISTERWORDENUMPROCW(lpszReading: win32more.Windows.Win32.Foundation.PWSTR, param1: UInt32, lpszString: win32more.Windows.Win32.Foundation.PWSTR, param3: VoidPtr) -> Int32: ...
 REGISTERWORDENUMPROC = UnicodeAlias('REGISTERWORDENUMPROCW')
-class REGISTERWORDW(EasyCastStructure):
+class REGISTERWORDW(Structure):
     lpReading: win32more.Windows.Win32.Foundation.PWSTR
     lpWord: win32more.Windows.Win32.Foundation.PWSTR
 REGISTERWORD = UnicodeAlias('REGISTERWORDW')
@@ -1805,24 +1805,24 @@ SCS_CHANGEATTR: win32more.Windows.Win32.UI.Input.Ime.SET_COMPOSITION_STRING_TYPE
 SCS_CHANGECLAUSE: win32more.Windows.Win32.UI.Input.Ime.SET_COMPOSITION_STRING_TYPE = 36
 SCS_SETRECONVERTSTRING: win32more.Windows.Win32.UI.Input.Ime.SET_COMPOSITION_STRING_TYPE = 65536
 SCS_QUERYRECONVERTSTRING: win32more.Windows.Win32.UI.Input.Ime.SET_COMPOSITION_STRING_TYPE = 131072
-class SOFTKBDDATA(EasyCastStructure):
+class SOFTKBDDATA(Structure):
     uCount: UInt32
     wCode: UInt16 * 256
-class STYLEBUFA(EasyCastStructure):
+class STYLEBUFA(Structure):
     dwStyle: UInt32
     szDescription: win32more.Windows.Win32.Foundation.CHAR * 32
-class STYLEBUFW(EasyCastStructure):
+class STYLEBUFW(Structure):
     dwStyle: UInt32
     szDescription: Char * 32
 STYLEBUF = UnicodeAlias('STYLEBUFW')
-class TRANSMSG(EasyCastStructure):
+class TRANSMSG(Structure):
     message: UInt32
     wParam: win32more.Windows.Win32.Foundation.WPARAM
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class TRANSMSGLIST(EasyCastStructure):
+class TRANSMSGLIST(Structure):
     uMsgCount: UInt32
     TransMsg: win32more.Windows.Win32.UI.Input.Ime.TRANSMSG * 1
-class WDD(EasyCastStructure):
+class WDD(Structure):
     wDispPos: UInt16
     Anonymous1: _Anonymous1_e__Union
     cchDisp: UInt16
@@ -1832,11 +1832,11 @@ class WDD(EasyCastStructure):
     _bitfield: UInt16
     pReserved: VoidPtr
     _pack_ = 1
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         wReadPos: UInt16
         wCompPos: UInt16
         _pack_ = 1
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         cchRead: UInt16
         cchComp: UInt16
         _pack_ = 1

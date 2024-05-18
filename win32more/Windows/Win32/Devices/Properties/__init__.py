@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 DEVPROP_TRUE: win32more.Windows.Win32.Devices.Properties.DEVPROP_BOOLEAN = 255
@@ -207,16 +207,16 @@ MAX_DEVPROP_TYPEMOD: UInt32 = 8192
 DEVPROP_MASK_TYPE: UInt32 = 4095
 DEVPROP_MASK_TYPEMOD: UInt32 = 61440
 DEVPROPID_FIRST_USABLE: UInt32 = 2
-class DEVPROPCOMPKEY(EasyCastStructure):
+class DEVPROPCOMPKEY(Structure):
     Key: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY
     Store: win32more.Windows.Win32.Devices.Properties.DEVPROPSTORE
     LocaleName: win32more.Windows.Win32.Foundation.PWSTR
-class DEVPROPERTY(EasyCastStructure):
+class DEVPROPERTY(Structure):
     CompKey: win32more.Windows.Win32.Devices.Properties.DEVPROPCOMPKEY
     Type: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE
     BufferSize: UInt32
     Buffer: VoidPtr
-class DEVPROPKEY(EasyCastStructure):
+class DEVPROPKEY(Structure):
     fmtid: Guid
     pid: UInt32
 DEVPROPSTORE = Int32

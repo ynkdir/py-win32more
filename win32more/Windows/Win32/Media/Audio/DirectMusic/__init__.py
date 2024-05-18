@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.Audio
@@ -245,13 +245,13 @@ DV_SL: UInt32 = 2
 DV_CAP_AUD16Bits: UInt32 = 0
 DV_CAP_AUD12Bits: UInt32 = 1
 SIZE_DVINFO: UInt32 = 32
-class CONNECTION(EasyCastStructure):
+class CONNECTION(Structure):
     usSource: UInt16
     usControl: UInt16
     usDestination: UInt16
     usTransform: UInt16
     lScale: Int32
-class CONNECTIONLIST(EasyCastStructure):
+class CONNECTIONLIST(Structure):
     cbSize: UInt32
     cConnections: UInt32
 DIRECTSOUNDDEVICE_DATAFLOW = Int32
@@ -261,39 +261,39 @@ DIRECTSOUNDDEVICE_TYPE = Int32
 DIRECTSOUNDDEVICE_TYPE_EMULATED: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE = 0
 DIRECTSOUNDDEVICE_TYPE_VXD: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE = 1
 DIRECTSOUNDDEVICE_TYPE_WDM: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE = 2
-class DLSHEADER(EasyCastStructure):
+class DLSHEADER(Structure):
     cInstruments: UInt32
-class DLSID(EasyCastStructure):
+class DLSID(Structure):
     ulData1: UInt32
     usData2: UInt16
     usData3: UInt16
     abData4: Byte * 8
-class DLSVERSION(EasyCastStructure):
+class DLSVERSION(Structure):
     dwVersionMS: UInt32
     dwVersionLS: UInt32
-class DMUS_ARTICPARAMS(EasyCastStructure):
+class DMUS_ARTICPARAMS(Structure):
     LFO: win32more.Windows.Win32.Media.Audio.DirectMusic.DMUS_LFOPARAMS
     VolEG: win32more.Windows.Win32.Media.Audio.DirectMusic.DMUS_VEGPARAMS
     PitchEG: win32more.Windows.Win32.Media.Audio.DirectMusic.DMUS_PEGPARAMS
     Misc: win32more.Windows.Win32.Media.Audio.DirectMusic.DMUS_MSCPARAMS
-class DMUS_ARTICULATION(EasyCastStructure):
+class DMUS_ARTICULATION(Structure):
     ulArt1Idx: UInt32
     ulFirstExtCkIdx: UInt32
-class DMUS_ARTICULATION2(EasyCastStructure):
+class DMUS_ARTICULATION2(Structure):
     ulArtIdx: UInt32
     ulFirstExtCkIdx: UInt32
     ulNextArtIdx: UInt32
-class DMUS_BUFFERDESC(EasyCastStructure):
+class DMUS_BUFFERDESC(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     guidBufferFormat: Guid
     cbBuffer: UInt32
-class DMUS_CLOCKINFO7(EasyCastStructure):
+class DMUS_CLOCKINFO7(Structure):
     dwSize: UInt32
     ctType: win32more.Windows.Win32.Media.Audio.DirectMusic.DMUS_CLOCKTYPE
     guidClock: Guid
     wszDescription: Char * 128
-class DMUS_CLOCKINFO8(EasyCastStructure):
+class DMUS_CLOCKINFO8(Structure):
     dwSize: UInt32
     ctType: win32more.Windows.Win32.Media.Audio.DirectMusic.DMUS_CLOCKTYPE
     guidClock: Guid
@@ -302,47 +302,47 @@ class DMUS_CLOCKINFO8(EasyCastStructure):
 DMUS_CLOCKTYPE = Int32
 DMUS_CLOCK_SYSTEM: win32more.Windows.Win32.Media.Audio.DirectMusic.DMUS_CLOCKTYPE = 0
 DMUS_CLOCK_WAVE: win32more.Windows.Win32.Media.Audio.DirectMusic.DMUS_CLOCKTYPE = 1
-class DMUS_COPYRIGHT(EasyCastStructure):
+class DMUS_COPYRIGHT(Structure):
     cbSize: UInt32
     byCopyright: Byte * 4
-class DMUS_DOWNLOADINFO(EasyCastStructure):
+class DMUS_DOWNLOADINFO(Structure):
     dwDLType: UInt32
     dwDLId: UInt32
     dwNumOffsetTableEntries: UInt32
     cbSize: UInt32
-class DMUS_EVENTHEADER(EasyCastStructure):
+class DMUS_EVENTHEADER(Structure):
     cbEvent: UInt32
     dwChannelGroup: UInt32
     rtDelta: Int64
     dwFlags: UInt32
     _pack_ = 4
-class DMUS_EXTENSIONCHUNK(EasyCastStructure):
+class DMUS_EXTENSIONCHUNK(Structure):
     cbSize: UInt32
     ulNextExtCkIdx: UInt32
     ExtCkID: UInt32
     byExtCk: Byte * 4
-class DMUS_INSTRUMENT(EasyCastStructure):
+class DMUS_INSTRUMENT(Structure):
     ulPatch: UInt32
     ulFirstRegionIdx: UInt32
     ulGlobalArtIdx: UInt32
     ulFirstExtCkIdx: UInt32
     ulCopyrightIdx: UInt32
     ulFlags: UInt32
-class DMUS_LFOPARAMS(EasyCastStructure):
+class DMUS_LFOPARAMS(Structure):
     pcFrequency: Int32
     tcDelay: Int32
     gcVolumeScale: Int32
     pcPitchScale: Int32
     gcMWToVolume: Int32
     pcMWToPitch: Int32
-class DMUS_MSCPARAMS(EasyCastStructure):
+class DMUS_MSCPARAMS(Structure):
     ptDefaultPan: Int32
-class DMUS_NOTERANGE(EasyCastStructure):
+class DMUS_NOTERANGE(Structure):
     dwLowNote: UInt32
     dwHighNote: UInt32
-class DMUS_OFFSETTABLE(EasyCastStructure):
+class DMUS_OFFSETTABLE(Structure):
     ulOffsetTable: UInt32 * 1
-class DMUS_PEGPARAMS(EasyCastStructure):
+class DMUS_PEGPARAMS(Structure):
     tcAttack: Int32
     tcDecay: Int32
     ptSustain: Int32
@@ -350,7 +350,7 @@ class DMUS_PEGPARAMS(EasyCastStructure):
     tcVel2Attack: Int32
     tcKey2Decay: Int32
     pcRange: Int32
-class DMUS_PORTCAPS(EasyCastStructure):
+class DMUS_PORTCAPS(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     guidPort: Guid
@@ -362,7 +362,7 @@ class DMUS_PORTCAPS(EasyCastStructure):
     dwMaxAudioChannels: UInt32
     dwEffectFlags: UInt32
     wszDescription: Char * 128
-class DMUS_PORTPARAMS7(EasyCastStructure):
+class DMUS_PORTPARAMS7(Structure):
     dwSize: UInt32
     dwValidParams: UInt32
     dwVoices: UInt32
@@ -371,7 +371,7 @@ class DMUS_PORTPARAMS7(EasyCastStructure):
     dwSampleRate: UInt32
     dwEffectFlags: UInt32
     fShare: win32more.Windows.Win32.Foundation.BOOL
-class DMUS_PORTPARAMS8(EasyCastStructure):
+class DMUS_PORTPARAMS8(Structure):
     dwSize: UInt32
     dwValidParams: UInt32
     dwVoices: UInt32
@@ -381,7 +381,7 @@ class DMUS_PORTPARAMS8(EasyCastStructure):
     dwEffectFlags: UInt32
     fShare: win32more.Windows.Win32.Foundation.BOOL
     dwFeatures: UInt32
-class DMUS_REGION(EasyCastStructure):
+class DMUS_REGION(Structure):
     RangeKey: win32more.Windows.Win32.Media.Audio.DirectMusic.RGNRANGE
     RangeVelocity: win32more.Windows.Win32.Media.Audio.DirectMusic.RGNRANGE
     fusOptions: UInt16
@@ -392,7 +392,7 @@ class DMUS_REGION(EasyCastStructure):
     WaveLink: win32more.Windows.Win32.Media.Audio.DirectMusic.WAVELINK
     WSMP: win32more.Windows.Win32.Media.Audio.DirectMusic.WSMPL
     WLOOP: win32more.Windows.Win32.Media.Audio.DirectMusic.WLOOP * 1
-class DMUS_SYNTHSTATS(EasyCastStructure):
+class DMUS_SYNTHSTATS(Structure):
     dwSize: UInt32
     dwValidStats: UInt32
     dwVoices: UInt32
@@ -401,7 +401,7 @@ class DMUS_SYNTHSTATS(EasyCastStructure):
     dwLostNotes: UInt32
     dwFreeMemory: UInt32
     lPeakVolume: Int32
-class DMUS_SYNTHSTATS8(EasyCastStructure):
+class DMUS_SYNTHSTATS8(Structure):
     dwSize: UInt32
     dwValidStats: UInt32
     dwVoices: UInt32
@@ -411,33 +411,33 @@ class DMUS_SYNTHSTATS8(EasyCastStructure):
     dwFreeMemory: UInt32
     lPeakVolume: Int32
     dwSynthMemUse: UInt32
-class DMUS_VEGPARAMS(EasyCastStructure):
+class DMUS_VEGPARAMS(Structure):
     tcAttack: Int32
     tcDecay: Int32
     ptSustain: Int32
     tcRelease: Int32
     tcVel2Attack: Int32
     tcKey2Decay: Int32
-class DMUS_VOICE_STATE(EasyCastStructure):
+class DMUS_VOICE_STATE(Structure):
     bExists: win32more.Windows.Win32.Foundation.BOOL
     spPosition: UInt64
-class DMUS_WAVE(EasyCastStructure):
+class DMUS_WAVE(Structure):
     ulFirstExtCkIdx: UInt32
     ulCopyrightIdx: UInt32
     ulWaveDataIdx: UInt32
     WaveformatEx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
-class DMUS_WAVEARTDL(EasyCastStructure):
+class DMUS_WAVEARTDL(Structure):
     ulDownloadIdIdx: UInt32
     ulBus: UInt32
     ulBuffers: UInt32
     ulMasterDLId: UInt32
     usOptions: UInt16
-class DMUS_WAVEDATA(EasyCastStructure):
+class DMUS_WAVEDATA(Structure):
     cbSize: UInt32
     byData: Byte * 4
-class DMUS_WAVEDL(EasyCastStructure):
+class DMUS_WAVEDL(Structure):
     cbWaveData: UInt32
-class DMUS_WAVES_REVERB_PARAMS(EasyCastStructure):
+class DMUS_WAVES_REVERB_PARAMS(Structure):
     fInGain: Single
     fReverbMix: Single
     fReverbTime: Single
@@ -451,7 +451,7 @@ DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A: win32more.Windows.Win32.Media.Audio.
 DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W: win32more.Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE = 6
 DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A: win32more.Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE = 7
 DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W: win32more.Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE = 8
-class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA(EasyCastStructure):
+class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA(Structure):
     DeviceId: Guid
     DescriptionA: win32more.Windows.Win32.Foundation.CHAR * 256
     DescriptionW: Char * 256
@@ -461,7 +461,7 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_1_DATA(EasyCastStructure):
     DataFlow: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
     WaveDeviceId: UInt32
     Devnode: UInt32
-class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA(EasyCastStructure):
+class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA(Structure):
     Type: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE
     DataFlow: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
     DeviceId: Guid
@@ -469,7 +469,7 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA(EasyCastStructure):
     Module: win32more.Windows.Win32.Foundation.PSTR
     Interface: win32more.Windows.Win32.Foundation.PSTR
     WaveDeviceId: UInt32
-class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA(EasyCastStructure):
+class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA(Structure):
     Type: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_TYPE
     DataFlow: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
     DeviceId: Guid
@@ -477,24 +477,24 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA(EasyCastStructure):
     Module: win32more.Windows.Win32.Foundation.PWSTR
     Interface: win32more.Windows.Win32.Foundation.PWSTR
     WaveDeviceId: UInt32
-class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA(EasyCastStructure):
+class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_1_DATA(Structure):
     Callback: win32more.Windows.Win32.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK1
     Context: VoidPtr
-class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA(EasyCastStructure):
+class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_A_DATA(Structure):
     Callback: win32more.Windows.Win32.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA
     Context: VoidPtr
-class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA(EasyCastStructure):
+class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA(Structure):
     Callback: win32more.Windows.Win32.Media.Audio.DirectMusic.LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW
     Context: VoidPtr
-class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA(EasyCastStructure):
+class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A_DATA(Structure):
     DeviceName: win32more.Windows.Win32.Foundation.PSTR
     DataFlow: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
     DeviceId: Guid
-class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA(EasyCastStructure):
+class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA(Structure):
     DeviceName: win32more.Windows.Win32.Foundation.PWSTR
     DataFlow: win32more.Windows.Win32.Media.Audio.DirectMusic.DIRECTSOUNDDEVICE_DATAFLOW
     DeviceId: Guid
-class DVAudInfo(EasyCastStructure):
+class DVAudInfo(Structure):
     bAudStyle: Byte * 2
     bAudQu: Byte * 2
     bNumAudPin: Byte
@@ -705,7 +705,7 @@ class IDirectMusicThru(ComPtr):
     _iid_ = Guid('{ced153e7-3606-11d2-b9f9-0000f875ac12}')
     @commethod(3)
     def ThruChannel(self, dwSourceChannelGroup: UInt32, dwSourceChannel: UInt32, dwDestinationChannelGroup: UInt32, dwDestinationChannel: UInt32, pDestinationPort: win32more.Windows.Win32.Media.Audio.DirectMusic.IDirectMusicPort) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INSTHEADER(EasyCastStructure):
+class INSTHEADER(Structure):
     cRegions: UInt32
     Locale: win32more.Windows.Win32.Media.Audio.DirectMusic.MIDILOCALE
 @winfunctype_pointer
@@ -715,14 +715,14 @@ def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKA(param0: POINTER(win32more.Windows.Wi
 @winfunctype_pointer
 def LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW(param0: POINTER(win32more.Windows.Win32.Media.Audio.DirectMusic.DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA), param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 LPFNDIRECTSOUNDDEVICEENUMERATECALLBACK = UnicodeAlias('LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW')
-class MDEVICECAPSEX(EasyCastStructure):
+class MDEVICECAPSEX(Structure):
     cbSize: UInt32
     pCaps: VoidPtr
     _pack_ = 1
-class MIDILOCALE(EasyCastStructure):
+class MIDILOCALE(Structure):
     ulBank: UInt32
     ulInstrument: UInt32
-class MIDIOPENDESC(EasyCastStructure):
+class MIDIOPENDESC(Structure):
     hMidi: win32more.Windows.Win32.Media.Audio.HMIDI
     dwCallback: UIntPtr
     dwInstance: UIntPtr
@@ -730,30 +730,30 @@ class MIDIOPENDESC(EasyCastStructure):
     cIds: UInt32
     rgIds: win32more.Windows.Win32.Media.Multimedia.MIDIOPENSTRMID * 1
     _pack_ = 1
-class POOLCUE(EasyCastStructure):
+class POOLCUE(Structure):
     ulOffset: UInt32
-class POOLTABLE(EasyCastStructure):
+class POOLTABLE(Structure):
     cbSize: UInt32
     cCues: UInt32
-class RGNHEADER(EasyCastStructure):
+class RGNHEADER(Structure):
     RangeKey: win32more.Windows.Win32.Media.Audio.DirectMusic.RGNRANGE
     RangeVelocity: win32more.Windows.Win32.Media.Audio.DirectMusic.RGNRANGE
     fusOptions: UInt16
     usKeyGroup: UInt16
-class RGNRANGE(EasyCastStructure):
+class RGNRANGE(Structure):
     usLow: UInt16
     usHigh: UInt16
-class WAVELINK(EasyCastStructure):
+class WAVELINK(Structure):
     fusOptions: UInt16
     usPhaseGroup: UInt16
     ulChannel: UInt32
     ulTableIndex: UInt32
-class WLOOP(EasyCastStructure):
+class WLOOP(Structure):
     cbSize: UInt32
     ulType: UInt32
     ulStart: UInt32
     ulLength: UInt32
-class WSMPL(EasyCastStructure):
+class WSMPL(Structure):
     cbSize: UInt32
     usUnityNote: UInt16
     sFineTune: Int16

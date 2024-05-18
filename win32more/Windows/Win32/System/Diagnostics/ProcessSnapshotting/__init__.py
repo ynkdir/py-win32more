@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting
@@ -27,13 +27,13 @@ def PssWalkMarkerSetPosition(WalkMarkerHandle: win32more.Windows.Win32.System.Di
 def PssWalkMarkerSeekToBeginning(WalkMarkerHandle: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSSWALK) -> UInt32: ...
 HPSS = IntPtr
 HPSSWALK = IntPtr
-class PSS_ALLOCATOR(EasyCastStructure):
+class PSS_ALLOCATOR(Structure):
     Context: VoidPtr
     AllocRoutine: IntPtr
     FreeRoutine: IntPtr
-class PSS_AUXILIARY_PAGES_INFORMATION(EasyCastStructure):
+class PSS_AUXILIARY_PAGES_INFORMATION(Structure):
     AuxPagesCaptured: UInt32
-class PSS_AUXILIARY_PAGE_ENTRY(EasyCastStructure):
+class PSS_AUXILIARY_PAGE_ENTRY(Structure):
     Address: VoidPtr
     BasicInformation: win32more.Windows.Win32.System.Memory.MEMORY_BASIC_INFORMATION
     CaptureTime: win32more.Windows.Win32.Foundation.FILETIME
@@ -65,7 +65,7 @@ PSS_CREATE_RELEASE_SECTION: win32more.Windows.Win32.System.Diagnostics.ProcessSn
 PSS_DUPLICATE_FLAGS = Int32
 PSS_DUPLICATE_NONE: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_DUPLICATE_FLAGS = 0
 PSS_DUPLICATE_CLOSE_SOURCE: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_DUPLICATE_FLAGS = 1
-class PSS_HANDLE_ENTRY(EasyCastStructure):
+class PSS_HANDLE_ENTRY(Structure):
     Handle: win32more.Windows.Win32.Foundation.HANDLE
     Flags: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_HANDLE_FLAGS
     ObjectType: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_OBJECT_TYPE
@@ -82,14 +82,14 @@ class PSS_HANDLE_ENTRY(EasyCastStructure):
     ObjectNameLength: UInt16
     ObjectName: win32more.Windows.Win32.Foundation.PWSTR
     TypeSpecificInformation: _TypeSpecificInformation_e__Union
-    class _TypeSpecificInformation_e__Union(EasyCastUnion):
+    class _TypeSpecificInformation_e__Union(Union):
         Process: _Process_e__Struct
         Thread: _Thread_e__Struct
         Mutant: _Mutant_e__Struct
         Event: _Event_e__Struct
         Section: _Section_e__Struct
         Semaphore: _Semaphore_e__Struct
-        class _Process_e__Struct(EasyCastStructure):
+        class _Process_e__Struct(Structure):
             ExitStatus: UInt32
             PebBaseAddress: VoidPtr
             AffinityMask: UIntPtr
@@ -97,7 +97,7 @@ class PSS_HANDLE_ENTRY(EasyCastStructure):
             ProcessId: UInt32
             ParentProcessId: UInt32
             Flags: UInt32
-        class _Thread_e__Struct(EasyCastStructure):
+        class _Thread_e__Struct(Structure):
             ExitStatus: UInt32
             TebBaseAddress: VoidPtr
             ProcessId: UInt32
@@ -106,19 +106,19 @@ class PSS_HANDLE_ENTRY(EasyCastStructure):
             Priority: Int32
             BasePriority: Int32
             Win32StartAddress: VoidPtr
-        class _Mutant_e__Struct(EasyCastStructure):
+        class _Mutant_e__Struct(Structure):
             CurrentCount: Int32
             Abandoned: win32more.Windows.Win32.Foundation.BOOL
             OwnerProcessId: UInt32
             OwnerThreadId: UInt32
-        class _Event_e__Struct(EasyCastStructure):
+        class _Event_e__Struct(Structure):
             ManualReset: win32more.Windows.Win32.Foundation.BOOL
             Signaled: win32more.Windows.Win32.Foundation.BOOL
-        class _Section_e__Struct(EasyCastStructure):
+        class _Section_e__Struct(Structure):
             BaseAddress: VoidPtr
             AllocationAttributes: UInt32
             MaximumSize: Int64
-        class _Semaphore_e__Struct(EasyCastStructure):
+        class _Semaphore_e__Struct(Structure):
             CurrentCount: Int32
             MaximumCount: Int32
 PSS_HANDLE_FLAGS = Int32
@@ -127,9 +127,9 @@ PSS_HANDLE_HAVE_TYPE: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshot
 PSS_HANDLE_HAVE_NAME: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_HANDLE_FLAGS = 2
 PSS_HANDLE_HAVE_BASIC_INFORMATION: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_HANDLE_FLAGS = 4
 PSS_HANDLE_HAVE_TYPE_SPECIFIC_INFORMATION: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_HANDLE_FLAGS = 8
-class PSS_HANDLE_INFORMATION(EasyCastStructure):
+class PSS_HANDLE_INFORMATION(Structure):
     HandlesCaptured: UInt32
-class PSS_HANDLE_TRACE_INFORMATION(EasyCastStructure):
+class PSS_HANDLE_TRACE_INFORMATION(Structure):
     SectionHandle: win32more.Windows.Win32.Foundation.HANDLE
     Size: UInt32
 PSS_OBJECT_TYPE = Int32
@@ -140,7 +140,7 @@ PSS_OBJECT_TYPE_MUTANT: win32more.Windows.Win32.System.Diagnostics.ProcessSnapsh
 PSS_OBJECT_TYPE_EVENT: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_OBJECT_TYPE = 4
 PSS_OBJECT_TYPE_SECTION: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_OBJECT_TYPE = 5
 PSS_OBJECT_TYPE_SEMAPHORE: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_OBJECT_TYPE = 6
-class PSS_PERFORMANCE_COUNTERS(EasyCastStructure):
+class PSS_PERFORMANCE_COUNTERS(Structure):
     TotalCycleCount: UInt64
     TotalWallClockPeriod: UInt64
     VaCloneCycleCount: UInt64
@@ -160,7 +160,7 @@ PSS_PROCESS_FLAGS_WOW64: win32more.Windows.Win32.System.Diagnostics.ProcessSnaps
 PSS_PROCESS_FLAGS_RESERVED_03: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_PROCESS_FLAGS = 4
 PSS_PROCESS_FLAGS_RESERVED_04: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_PROCESS_FLAGS = 8
 PSS_PROCESS_FLAGS_FROZEN: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_PROCESS_FLAGS = 16
-class PSS_PROCESS_INFORMATION(EasyCastStructure):
+class PSS_PROCESS_INFORMATION(Structure):
     ExitStatus: UInt32
     PebBaseAddress: VoidPtr
     AffinityMask: UIntPtr
@@ -196,7 +196,7 @@ PSS_QUERY_HANDLE_INFORMATION: win32more.Windows.Win32.System.Diagnostics.Process
 PSS_QUERY_THREAD_INFORMATION: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_QUERY_INFORMATION_CLASS = 5
 PSS_QUERY_HANDLE_TRACE_INFORMATION: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_QUERY_INFORMATION_CLASS = 6
 PSS_QUERY_PERFORMANCE_COUNTERS: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_QUERY_INFORMATION_CLASS = 7
-class PSS_THREAD_ENTRY(EasyCastStructure):
+class PSS_THREAD_ENTRY(Structure):
     ExitStatus: UInt32
     TebBaseAddress: VoidPtr
     ProcessId: UInt32
@@ -219,12 +219,12 @@ class PSS_THREAD_ENTRY(EasyCastStructure):
 PSS_THREAD_FLAGS = Int32
 PSS_THREAD_FLAGS_NONE: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_THREAD_FLAGS = 0
 PSS_THREAD_FLAGS_TERMINATED: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_THREAD_FLAGS = 1
-class PSS_THREAD_INFORMATION(EasyCastStructure):
+class PSS_THREAD_INFORMATION(Structure):
     ThreadsCaptured: UInt32
     ContextLength: UInt32
-class PSS_VA_CLONE_INFORMATION(EasyCastStructure):
+class PSS_VA_CLONE_INFORMATION(Structure):
     VaCloneHandle: win32more.Windows.Win32.Foundation.HANDLE
-class PSS_VA_SPACE_ENTRY(EasyCastStructure):
+class PSS_VA_SPACE_ENTRY(Structure):
     BaseAddress: VoidPtr
     AllocationBase: VoidPtr
     AllocationProtect: UInt32
@@ -238,7 +238,7 @@ class PSS_VA_SPACE_ENTRY(EasyCastStructure):
     CheckSum: UInt32
     MappedFileNameLength: UInt16
     MappedFileName: win32more.Windows.Win32.Foundation.PWSTR
-class PSS_VA_SPACE_INFORMATION(EasyCastStructure):
+class PSS_VA_SPACE_INFORMATION(Structure):
     RegionCount: UInt32
 PSS_WALK_INFORMATION_CLASS = Int32
 PSS_WALK_AUXILIARY_PAGES: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.PSS_WALK_INFORMATION_CLASS = 0

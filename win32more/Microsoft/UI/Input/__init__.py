@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Content
@@ -35,7 +35,7 @@ class ContextMenuKeyEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Handled(self: win32more.Microsoft.UI.Input.IContextMenuKeyEventArgs) -> Boolean: ...
     Handled = property(get_Handled, put_Handled)
-class CrossSlideThresholds(EasyCastStructure):
+class CrossSlideThresholds(Structure):
     SelectionStart: Single
     SpeedBumpStart: Single
     SpeedBumpEnd: Single
@@ -1539,7 +1539,7 @@ class ManipulationCompletedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
-class ManipulationDelta(EasyCastStructure):
+class ManipulationDelta(Structure):
     Translation: win32more.Windows.Foundation.Point
     Scale: Single
     Rotation: Single
@@ -1595,7 +1595,7 @@ class ManipulationUpdatedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
-class ManipulationVelocities(EasyCastStructure):
+class ManipulationVelocities(Structure):
     Linear: win32more.Windows.Foundation.Point
     Angular: Single
     Expansion: Single
@@ -1667,7 +1667,7 @@ class NonClientRegionsChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ChangedRegions(self: win32more.Microsoft.UI.Input.INonClientRegionsChangedEventArgs) -> ReceiveArray[win32more.Microsoft.UI.Input.NonClientRegionKind]: ...
     ChangedRegions = property(get_ChangedRegions, None)
-class PhysicalKeyStatus(EasyCastStructure):
+class PhysicalKeyStatus(Structure):
     RepeatCount: UInt32
     ScanCode: UInt32
     IsExtendedKey: Boolean

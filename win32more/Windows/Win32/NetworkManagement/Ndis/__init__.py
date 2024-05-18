@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
 IOCTL_NDIS_RESERVED5: UInt32 = 1507380
@@ -1862,19 +1862,19 @@ NIIF_NDIS_ISCSI_INTERFACE: UInt32 = 128
 NIIF_NDIS_RESERVED4: UInt32 = 256
 IF_MAX_STRING_SIZE: UInt32 = 256
 IF_MAX_PHYS_ADDRESS_LENGTH: UInt32 = 32
-class BSSID_INFO(EasyCastStructure):
+class BSSID_INFO(Structure):
     BSSID: Byte * 6
     PMKID: Byte * 16
-class GEN_GET_NETCARD_TIME(EasyCastStructure):
+class GEN_GET_NETCARD_TIME(Structure):
     ReadTime: UInt64
-class GEN_GET_TIME_CAPS(EasyCastStructure):
+class GEN_GET_TIME_CAPS(Structure):
     Flags: UInt32
     ClockPrecision: UInt32
 IF_ADMINISTRATIVE_STATE = Int32
 IF_ADMINISTRATIVE_DISABLED: win32more.Windows.Win32.NetworkManagement.Ndis.IF_ADMINISTRATIVE_STATE = 0
 IF_ADMINISTRATIVE_ENABLED: win32more.Windows.Win32.NetworkManagement.Ndis.IF_ADMINISTRATIVE_STATE = 1
 IF_ADMINISTRATIVE_DEMANDDIAL: win32more.Windows.Win32.NetworkManagement.Ndis.IF_ADMINISTRATIVE_STATE = 2
-class IF_COUNTED_STRING_LH(EasyCastStructure):
+class IF_COUNTED_STRING_LH(Structure):
     Length: UInt16
     String: Char * 257
 IF_OPER_STATUS = Int32
@@ -1885,18 +1885,18 @@ IfOperStatusUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STAT
 IfOperStatusDormant: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 5
 IfOperStatusNotPresent: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 6
 IfOperStatusLowerLayerDown: win32more.Windows.Win32.NetworkManagement.Ndis.IF_OPER_STATUS = 7
-class IF_PHYSICAL_ADDRESS_LH(EasyCastStructure):
+class IF_PHYSICAL_ADDRESS_LH(Structure):
     Length: UInt16
     Address: Byte * 32
-class NDIS_802_11_AI_REQFI(EasyCastStructure):
+class NDIS_802_11_AI_REQFI(Structure):
     Capabilities: UInt16
     ListenInterval: UInt16
     CurrentAPAddress: Byte * 6
-class NDIS_802_11_AI_RESFI(EasyCastStructure):
+class NDIS_802_11_AI_RESFI(Structure):
     Capabilities: UInt16
     StatusCode: UInt16
     AssociationId: UInt16
-class NDIS_802_11_ASSOCIATION_INFORMATION(EasyCastStructure):
+class NDIS_802_11_ASSOCIATION_INFORMATION(Structure):
     Length: UInt32
     AvailableRequestFixedIEs: UInt16
     RequestFixedIEs: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AI_REQFI
@@ -1906,10 +1906,10 @@ class NDIS_802_11_ASSOCIATION_INFORMATION(EasyCastStructure):
     ResponseFixedIEs: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AI_RESFI
     ResponseIELength: UInt32
     OffsetResponseIEs: UInt32
-class NDIS_802_11_AUTHENTICATION_ENCRYPTION(EasyCastStructure):
+class NDIS_802_11_AUTHENTICATION_ENCRYPTION(Structure):
     AuthModeSupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_MODE
     EncryptStatusSupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_WEP_STATUS
-class NDIS_802_11_AUTHENTICATION_EVENT(EasyCastStructure):
+class NDIS_802_11_AUTHENTICATION_EVENT(Structure):
     Status: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_STATUS_INDICATION
     Request: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_REQUEST * 1
 NDIS_802_11_AUTHENTICATION_MODE = Int32
@@ -1926,38 +1926,38 @@ Ndis802_11AuthModeWPA3Ent192: win32more.Windows.Win32.NetworkManagement.Ndis.NDI
 Ndis802_11AuthModeWPA3SAE: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_MODE = 9
 Ndis802_11AuthModeWPA3Ent: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_MODE = 10
 Ndis802_11AuthModeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_MODE = 11
-class NDIS_802_11_AUTHENTICATION_REQUEST(EasyCastStructure):
+class NDIS_802_11_AUTHENTICATION_REQUEST(Structure):
     Length: UInt32
     Bssid: Byte * 6
     Flags: UInt32
-class NDIS_802_11_BSSID_LIST(EasyCastStructure):
+class NDIS_802_11_BSSID_LIST(Structure):
     NumberOfItems: UInt32
     Bssid: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WLAN_BSSID * 1
-class NDIS_802_11_BSSID_LIST_EX(EasyCastStructure):
+class NDIS_802_11_BSSID_LIST_EX(Structure):
     NumberOfItems: UInt32
     Bssid: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WLAN_BSSID_EX * 1
-class NDIS_802_11_CAPABILITY(EasyCastStructure):
+class NDIS_802_11_CAPABILITY(Structure):
     Length: UInt32
     Version: UInt32
     NoOfPMKIDs: UInt32
     NoOfAuthEncryptPairsSupported: UInt32
     AuthenticationEncryptionSupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_ENCRYPTION * 1
-class NDIS_802_11_CONFIGURATION(EasyCastStructure):
+class NDIS_802_11_CONFIGURATION(Structure):
     Length: UInt32
     BeaconPeriod: UInt32
     ATIMWindow: UInt32
     DSConfig: UInt32
     FHConfig: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_CONFIGURATION_FH
-class NDIS_802_11_CONFIGURATION_FH(EasyCastStructure):
+class NDIS_802_11_CONFIGURATION_FH(Structure):
     Length: UInt32
     HopPattern: UInt32
     HopSet: UInt32
     DwellTime: UInt32
-class NDIS_802_11_FIXED_IEs(EasyCastStructure):
+class NDIS_802_11_FIXED_IEs(Structure):
     Timestamp: Byte * 8
     BeaconInterval: UInt16
     Capabilities: UInt16
-class NDIS_802_11_KEY(EasyCastStructure):
+class NDIS_802_11_KEY(Structure):
     Length: UInt32
     KeyIndex: UInt32
     KeyLength: UInt32
@@ -1979,17 +1979,17 @@ Ndis802_11OFDM5: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETW
 Ndis802_11OFDM24: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETWORK_TYPE = 3
 Ndis802_11Automode: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETWORK_TYPE = 4
 Ndis802_11NetworkTypeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETWORK_TYPE = 5
-class NDIS_802_11_NETWORK_TYPE_LIST(EasyCastStructure):
+class NDIS_802_11_NETWORK_TYPE_LIST(Structure):
     NumberOfItems: UInt32
     NetworkType: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETWORK_TYPE * 1
-class NDIS_802_11_NON_BCAST_SSID_LIST(EasyCastStructure):
+class NDIS_802_11_NON_BCAST_SSID_LIST(Structure):
     NumberOfItems: UInt32
     Non_Bcast_Ssid: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_SSID * 1
-class NDIS_802_11_PMKID(EasyCastStructure):
+class NDIS_802_11_PMKID(Structure):
     Length: UInt32
     BSSIDInfoCount: UInt32
     BSSIDInfo: win32more.Windows.Win32.NetworkManagement.Ndis.BSSID_INFO * 1
-class NDIS_802_11_PMKID_CANDIDATE_LIST(EasyCastStructure):
+class NDIS_802_11_PMKID_CANDIDATE_LIST(Structure):
     Version: UInt32
     NumCandidates: UInt32
     CandidateList: win32more.Windows.Win32.NetworkManagement.Ndis.PMKID_CANDIDATE * 1
@@ -2009,14 +2009,14 @@ Ndis802_11RadioStatusHardwareSoftwareOff: win32more.Windows.Win32.NetworkManagem
 Ndis802_11RadioStatusMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_RADIO_STATUS = 4
 NDIS_802_11_RELOAD_DEFAULTS = Int32
 Ndis802_11ReloadWEPKeys: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_RELOAD_DEFAULTS = 0
-class NDIS_802_11_REMOVE_KEY(EasyCastStructure):
+class NDIS_802_11_REMOVE_KEY(Structure):
     Length: UInt32
     KeyIndex: UInt32
     BSSID: Byte * 6
-class NDIS_802_11_SSID(EasyCastStructure):
+class NDIS_802_11_SSID(Structure):
     SsidLength: UInt32
     Ssid: Byte * 32
-class NDIS_802_11_STATISTICS(EasyCastStructure):
+class NDIS_802_11_STATISTICS(Structure):
     Length: UInt32
     TransmittedFragmentCount: Int64
     MulticastTransmittedFrameCount: Int64
@@ -2042,25 +2042,25 @@ class NDIS_802_11_STATISTICS(EasyCastStructure):
     WEPICVErrorCount: Int64
     DecryptSuccessCount: Int64
     DecryptFailureCount: Int64
-class NDIS_802_11_STATUS_INDICATION(EasyCastStructure):
+class NDIS_802_11_STATUS_INDICATION(Structure):
     StatusType: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_STATUS_TYPE
 NDIS_802_11_STATUS_TYPE = Int32
 Ndis802_11StatusType_Authentication: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_STATUS_TYPE = 0
 Ndis802_11StatusType_MediaStreamMode: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_STATUS_TYPE = 1
 Ndis802_11StatusType_PMKID_CandidateList: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_STATUS_TYPE = 2
 Ndis802_11StatusTypeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_STATUS_TYPE = 3
-class NDIS_802_11_TEST(EasyCastStructure):
+class NDIS_802_11_TEST(Structure):
     Length: UInt32
     Type: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         AuthenticationEvent: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_EVENT
         RssiTrigger: Int32
-class NDIS_802_11_VARIABLE_IEs(EasyCastStructure):
+class NDIS_802_11_VARIABLE_IEs(Structure):
     ElementID: Byte
     Length: Byte
     data: Byte * 1
-class NDIS_802_11_WEP(EasyCastStructure):
+class NDIS_802_11_WEP(Structure):
     Length: UInt32
     KeyIndex: UInt32
     KeyLength: UInt32
@@ -2085,7 +2085,7 @@ NdisRingStateOpening: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_
 NdisRingStateClosing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 4
 NdisRingStateOpenFailure: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 5
 NdisRingStateRingFailure: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_5_RING_STATE = 6
-class NDIS_CO_DEVICE_PROFILE(EasyCastStructure):
+class NDIS_CO_DEVICE_PROFILE(Structure):
     DeviceDescription: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_VAR_DATA_DESC
     DevSpecificInfo: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_VAR_DATA_DESC
     ulTAPISupplementaryPassThru: UInt32
@@ -2114,7 +2114,7 @@ class NDIS_CO_DEVICE_PROFILE(EasyCastStructure):
     ulUUIDropSize: UInt32
     ulUUISendUserUserInfoSize: UInt32
     ulUUICallInfoSize: UInt32
-class NDIS_CO_LINK_SPEED(EasyCastStructure):
+class NDIS_CO_LINK_SPEED(Structure):
     Outbound: UInt32
     Inbound: UInt32
 NDIS_DEVICE_POWER_STATE = Int32
@@ -2158,15 +2158,15 @@ NdisFddiRingNonOperationalDup: win32more.Windows.Win32.NetworkManagement.Ndis.ND
 NdisFddiRingOperationalDup: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 6
 NdisFddiRingDirected: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 7
 NdisFddiRingTrace: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_FDDI_RING_MGT_STATE = 8
-class NDIS_GUID(EasyCastStructure):
+class NDIS_GUID(Structure):
     Guid: Guid
     Anonymous: _Anonymous_e__Union
     Size: UInt32
     Flags: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Oid: UInt32
         Status: Int32
-class NDIS_HARDWARE_CROSSTIMESTAMP(EasyCastStructure):
+class NDIS_HARDWARE_CROSSTIMESTAMP(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
     SystemTimestamp1: UInt64
@@ -2178,7 +2178,7 @@ NdisHardwareStatusInitializing: win32more.Windows.Win32.NetworkManagement.Ndis.N
 NdisHardwareStatusReset: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 2
 NdisHardwareStatusClosing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 3
 NdisHardwareStatusNotReady: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_HARDWARE_STATUS = 4
-class NDIS_INTERFACE_INFORMATION(EasyCastStructure):
+class NDIS_INTERFACE_INFORMATION(Structure):
     ifOperStatus: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_OPER_STATUS
     ifOperStatusFlags: UInt32
     MediaConnectState: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE
@@ -2216,51 +2216,51 @@ NdisInterruptModerationUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.N
 NdisInterruptModerationNotSupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 1
 NdisInterruptModerationEnabled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 2
 NdisInterruptModerationDisabled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 3
-class NDIS_INTERRUPT_MODERATION_PARAMETERS(EasyCastStructure):
+class NDIS_INTERRUPT_MODERATION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
     InterruptModeration: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION
-class NDIS_IPSEC_OFFLOAD_V1(EasyCastStructure):
+class NDIS_IPSEC_OFFLOAD_V1(Structure):
     Supported: _Supported_e__Struct
     IPv4AH: _IPv4AH_e__Struct
     IPv4ESP: _IPv4ESP_e__Struct
-    class _Supported_e__Struct(EasyCastStructure):
+    class _Supported_e__Struct(Structure):
         Encapsulation: UInt32
         AhEspCombined: UInt32
         TransportTunnelCombined: UInt32
         IPv4Options: UInt32
         Flags: UInt32
-    class _IPv4AH_e__Struct(EasyCastStructure):
+    class _IPv4AH_e__Struct(Structure):
         _bitfield: UInt32
-    class _IPv4ESP_e__Struct(EasyCastStructure):
+    class _IPv4ESP_e__Struct(Structure):
         _bitfield: UInt32
-class NDIS_IP_OPER_STATE(EasyCastStructure):
+class NDIS_IP_OPER_STATE(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
     IpOperationalStatus: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_IP_OPER_STATUS
-class NDIS_IP_OPER_STATUS(EasyCastStructure):
+class NDIS_IP_OPER_STATUS(Structure):
     AddressFamily: UInt32
     OperationalStatus: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_OPER_STATUS
     OperationalStatusFlags: UInt32
-class NDIS_IP_OPER_STATUS_INFO(EasyCastStructure):
+class NDIS_IP_OPER_STATUS_INFO(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
     NumberofAddressFamiliesReturned: UInt32
     IpOperationalStatus: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_IP_OPER_STATUS * 32
-class NDIS_IRDA_PACKET_INFO(EasyCastStructure):
+class NDIS_IRDA_PACKET_INFO(Structure):
     ExtraBOFs: UInt32
     MinTurnAroundTime: UInt32
-class NDIS_LINK_PARAMETERS(EasyCastStructure):
+class NDIS_LINK_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     MediaDuplexState: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_DUPLEX_STATE
     XmitLinkSpeed: UInt64
     RcvLinkSpeed: UInt64
     PauseFunctions: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS
     AutoNegotiationFlags: UInt32
-class NDIS_LINK_SPEED(EasyCastStructure):
+class NDIS_LINK_SPEED(Structure):
     XmitLinkSpeed: UInt64
     RcvLinkSpeed: UInt64
-class NDIS_LINK_STATE(EasyCastStructure):
+class NDIS_LINK_STATE(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     MediaConnectState: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE
     MediaDuplexState: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_DUPLEX_STATE
@@ -2298,18 +2298,18 @@ NdisPossibleNetworkChange: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_N
 NdisDefinitelyNetworkChange: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 2
 NdisNetworkChangeFromMediaConnect: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 3
 NdisNetworkChangeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_NETWORK_CHANGE_TYPE = 4
-class NDIS_OBJECT_HEADER(EasyCastStructure):
+class NDIS_OBJECT_HEADER(Structure):
     Type: Byte
     Revision: Byte
     Size: UInt16
-class NDIS_OFFLOAD(EasyCastStructure):
+class NDIS_OFFLOAD(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Checksum: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_TCP_IP_CHECKSUM_OFFLOAD
     LsoV1: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_TCP_LARGE_SEND_OFFLOAD_V1
     IPsecV1: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_IPSEC_OFFLOAD_V1
     LsoV2: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_TCP_LARGE_SEND_OFFLOAD_V2
     Flags: UInt32
-class NDIS_OFFLOAD_PARAMETERS(EasyCastStructure):
+class NDIS_OFFLOAD_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     IPv4Checksum: Byte
     TCPIPv4Checksum: Byte
@@ -2323,11 +2323,11 @@ class NDIS_OFFLOAD_PARAMETERS(EasyCastStructure):
     TcpConnectionIPv4: Byte
     TcpConnectionIPv6: Byte
     Flags: UInt32
-class NDIS_OPER_STATE(EasyCastStructure):
+class NDIS_OPER_STATE(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     OperationalStatus: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_OPER_STATUS
     OperationalStatusFlags: UInt32
-class NDIS_PCI_DEVICE_CUSTOM_PROPERTIES(EasyCastStructure):
+class NDIS_PCI_DEVICE_CUSTOM_PROPERTIES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     DeviceType: UInt32
     CurrentSpeedAndMode: UInt32
@@ -2364,33 +2364,33 @@ NdisPhysicalMediumWiredCoWan: win32more.Windows.Win32.NetworkManagement.Ndis.NDI
 NdisPhysicalMediumOther: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 19
 NdisPhysicalMediumNative802_15_4: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 20
 NdisPhysicalMediumMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PHYSICAL_MEDIUM = 21
-class NDIS_PM_PACKET_PATTERN(EasyCastStructure):
+class NDIS_PM_PACKET_PATTERN(Structure):
     Priority: UInt32
     Reserved: UInt32
     MaskSize: UInt32
     PatternOffset: UInt32
     PatternSize: UInt32
     PatternFlags: UInt32
-class NDIS_PM_WAKE_UP_CAPABILITIES(EasyCastStructure):
+class NDIS_PM_WAKE_UP_CAPABILITIES(Structure):
     MinMagicPacketWakeUp: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE
     MinPatternWakeUp: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE
     MinLinkChangeWakeUp: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_DEVICE_POWER_STATE
-class NDIS_PNP_CAPABILITIES(EasyCastStructure):
+class NDIS_PNP_CAPABILITIES(Structure):
     Flags: UInt32
     WakeUpCapabilities: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PM_WAKE_UP_CAPABILITIES
-class NDIS_PORT(EasyCastStructure):
+class NDIS_PORT(Structure):
     Next: POINTER(win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT)
     NdisReserved: VoidPtr
     MiniportReserved: VoidPtr
     ProtocolReserved: VoidPtr
     PortCharacteristics: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CHARACTERISTICS
-class NDIS_PORT_ARRAY(EasyCastStructure):
+class NDIS_PORT_ARRAY(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     NumberOfPorts: UInt32
     OffsetFirstPort: UInt32
     ElementSize: UInt32
     Ports: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CHARACTERISTICS * 1
-class NDIS_PORT_AUTHENTICATION_PARAMETERS(EasyCastStructure):
+class NDIS_PORT_AUTHENTICATION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     SendControlState: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE
     RcvControlState: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE
@@ -2401,7 +2401,7 @@ NdisPortAuthorizationUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDI
 NdisPortAuthorized: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 1
 NdisPortUnauthorized: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 2
 NdisPortReauthorizing: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_AUTHORIZATION_STATE = 3
-class NDIS_PORT_CHARACTERISTICS(EasyCastStructure):
+class NDIS_PORT_CHARACTERISTICS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PortNumber: UInt32
     Flags: UInt32
@@ -2418,7 +2418,7 @@ NDIS_PORT_CONTROL_STATE = Int32
 NdisPortControlStateUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE = 0
 NdisPortControlStateControlled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE = 1
 NdisPortControlStateUncontrolled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE = 2
-class NDIS_PORT_STATE(EasyCastStructure):
+class NDIS_PORT_STATE(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     MediaConnectState: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_MEDIA_CONNECT_STATE
     XmitLinkSpeed: UInt64
@@ -2440,18 +2440,18 @@ NdisProcessorVendorUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_
 NdisProcessorVendorGenuinIntel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 1
 NdisProcessorVendorGenuineIntel: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 1
 NdisProcessorVendorAuthenticAMD: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PROCESSOR_VENDOR = 2
-class NDIS_RECEIVE_HASH_PARAMETERS(EasyCastStructure):
+class NDIS_RECEIVE_HASH_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
     HashInformation: UInt32
     HashSecretKeySize: UInt16
     HashSecretKeyOffset: UInt32
-class NDIS_RECEIVE_SCALE_CAPABILITIES(EasyCastStructure):
+class NDIS_RECEIVE_SCALE_CAPABILITIES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     CapabilitiesFlags: UInt32
     NumberOfInterruptMessages: UInt32
     NumberOfReceiveQueues: UInt32
-class NDIS_RECEIVE_SCALE_PARAMETERS(EasyCastStructure):
+class NDIS_RECEIVE_SCALE_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt16
     BaseCpuNumber: UInt16
@@ -2473,7 +2473,7 @@ NdisRequestGeneric1: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST
 NdisRequestGeneric2: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 9
 NdisRequestGeneric3: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 10
 NdisRequestGeneric4: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_REQUEST_TYPE = 11
-class NDIS_STATISTICS_INFO(EasyCastStructure):
+class NDIS_STATISTICS_INFO(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     SupportedStatistics: UInt32
     ifInDiscards: UInt64
@@ -2494,11 +2494,11 @@ class NDIS_STATISTICS_INFO(EasyCastStructure):
     ifHCOutUcastOctets: UInt64
     ifHCOutMulticastOctets: UInt64
     ifHCOutBroadcastOctets: UInt64
-class NDIS_STATISTICS_VALUE(EasyCastStructure):
+class NDIS_STATISTICS_VALUE(Structure):
     Oid: UInt32
     DataLength: UInt32
     Data: Byte * 1
-class NDIS_STATISTICS_VALUE_EX(EasyCastStructure):
+class NDIS_STATISTICS_VALUE_EX(Structure):
     Oid: UInt32
     DataLength: UInt32
     Length: UInt32
@@ -2509,61 +2509,61 @@ NdisPauseFunctionsSendOnly: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_
 NdisPauseFunctionsReceiveOnly: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 2
 NdisPauseFunctionsSendAndReceive: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 3
 NdisPauseFunctionsUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 4
-class NDIS_TCP_CONNECTION_OFFLOAD(EasyCastStructure):
+class NDIS_TCP_CONNECTION_OFFLOAD(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Encapsulation: UInt32
     _bitfield: UInt32
     TcpConnectionOffloadCapacity: UInt32
     Flags: UInt32
-class NDIS_TCP_IP_CHECKSUM_OFFLOAD(EasyCastStructure):
+class NDIS_TCP_IP_CHECKSUM_OFFLOAD(Structure):
     IPv4Transmit: _IPv4Transmit_e__Struct
     IPv4Receive: _IPv4Receive_e__Struct
     IPv6Transmit: _IPv6Transmit_e__Struct
     IPv6Receive: _IPv6Receive_e__Struct
-    class _IPv4Transmit_e__Struct(EasyCastStructure):
+    class _IPv4Transmit_e__Struct(Structure):
         Encapsulation: UInt32
         _bitfield: UInt32
-    class _IPv4Receive_e__Struct(EasyCastStructure):
+    class _IPv4Receive_e__Struct(Structure):
         Encapsulation: UInt32
         _bitfield: UInt32
-    class _IPv6Transmit_e__Struct(EasyCastStructure):
+    class _IPv6Transmit_e__Struct(Structure):
         Encapsulation: UInt32
         _bitfield: UInt32
-    class _IPv6Receive_e__Struct(EasyCastStructure):
+    class _IPv6Receive_e__Struct(Structure):
         Encapsulation: UInt32
         _bitfield: UInt32
-class NDIS_TCP_LARGE_SEND_OFFLOAD_V1(EasyCastStructure):
+class NDIS_TCP_LARGE_SEND_OFFLOAD_V1(Structure):
     IPv4: _IPv4_e__Struct
-    class _IPv4_e__Struct(EasyCastStructure):
+    class _IPv4_e__Struct(Structure):
         Encapsulation: UInt32
         MaxOffLoadSize: UInt32
         MinSegmentCount: UInt32
         _bitfield: UInt32
-class NDIS_TCP_LARGE_SEND_OFFLOAD_V2(EasyCastStructure):
+class NDIS_TCP_LARGE_SEND_OFFLOAD_V2(Structure):
     IPv4: _IPv4_e__Struct
     IPv6: _IPv6_e__Struct
-    class _IPv4_e__Struct(EasyCastStructure):
+    class _IPv4_e__Struct(Structure):
         Encapsulation: UInt32
         MaxOffLoadSize: UInt32
         MinSegmentCount: UInt32
-    class _IPv6_e__Struct(EasyCastStructure):
+    class _IPv6_e__Struct(Structure):
         Encapsulation: UInt32
         MaxOffLoadSize: UInt32
         MinSegmentCount: UInt32
         _bitfield: UInt32
-class NDIS_TIMEOUT_DPC_REQUEST_CAPABILITIES(EasyCastStructure):
+class NDIS_TIMEOUT_DPC_REQUEST_CAPABILITIES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
     TimeoutArrayLength: UInt32
     TimeoutArray: UInt32 * 1
-class NDIS_TIMESTAMP_CAPABILITIES(EasyCastStructure):
+class NDIS_TIMESTAMP_CAPABILITIES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     HardwareClockFrequencyHz: UInt64
     CrossTimestamp: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved1: UInt64
     Reserved2: UInt64
     TimestampFlags: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_TIMESTAMP_CAPABILITY_FLAGS
-class NDIS_TIMESTAMP_CAPABILITY_FLAGS(EasyCastStructure):
+class NDIS_TIMESTAMP_CAPABILITY_FLAGS(Structure):
     PtpV2OverUdpIPv4EventMsgReceiveHw: win32more.Windows.Win32.Foundation.BOOLEAN
     PtpV2OverUdpIPv4AllMsgReceiveHw: win32more.Windows.Win32.Foundation.BOOLEAN
     PtpV2OverUdpIPv4EventMsgTransmitHw: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2578,7 +2578,7 @@ class NDIS_TIMESTAMP_CAPABILITY_FLAGS(EasyCastStructure):
     AllReceiveSw: win32more.Windows.Win32.Foundation.BOOLEAN
     AllTransmitSw: win32more.Windows.Win32.Foundation.BOOLEAN
     TaggedTransmitSw: win32more.Windows.Win32.Foundation.BOOLEAN
-class NDIS_VAR_DATA_DESC(EasyCastStructure):
+class NDIS_VAR_DATA_DESC(Structure):
     Length: UInt16
     MaximumLength: UInt16
     Offset: UIntPtr
@@ -2603,14 +2603,14 @@ NdisWanMediumSSTP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIU
 NdisWanMediumAgileVPN: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 14
 NdisWanMediumGre: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 15
 NdisWanMediumSubTypeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_MEDIUM_SUBTYPE = 16
-class NDIS_WAN_PROTOCOL_CAPS(EasyCastStructure):
+class NDIS_WAN_PROTOCOL_CAPS(Structure):
     Flags: UInt32
     Reserved: UInt32
 NDIS_WAN_QUALITY = Int32
 NdisWanRaw: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_QUALITY = 0
 NdisWanErrorControl: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_QUALITY = 1
 NdisWanReliable: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WAN_QUALITY = 2
-class NDIS_WLAN_BSSID(EasyCastStructure):
+class NDIS_WLAN_BSSID(Structure):
     Length: UInt32
     MacAddress: Byte * 6
     Reserved: Byte * 2
@@ -2621,7 +2621,7 @@ class NDIS_WLAN_BSSID(EasyCastStructure):
     Configuration: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_CONFIGURATION
     InfrastructureMode: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETWORK_INFRASTRUCTURE
     SupportedRates: Byte * 8
-class NDIS_WLAN_BSSID_EX(EasyCastStructure):
+class NDIS_WLAN_BSSID_EX(Structure):
     Length: UInt32
     MacAddress: Byte * 6
     Reserved: Byte * 2
@@ -2634,13 +2634,13 @@ class NDIS_WLAN_BSSID_EX(EasyCastStructure):
     SupportedRates: Byte * 16
     IELength: UInt32
     IEs: Byte * 1
-class NDIS_WMI_ENUM_ADAPTER(EasyCastStructure):
+class NDIS_WMI_ENUM_ADAPTER(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     IfIndex: UInt32
     NetLuid: win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH
     DeviceNameLength: UInt16
     DeviceName: win32more.Windows.Win32.Foundation.CHAR * 1
-class NDIS_WMI_EVENT_HEADER(EasyCastStructure):
+class NDIS_WMI_EVENT_HEADER(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     IfIndex: UInt32
     NetLuid: win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH
@@ -2649,24 +2649,24 @@ class NDIS_WMI_EVENT_HEADER(EasyCastStructure):
     DeviceNameLength: UInt32
     DeviceNameOffset: UInt32
     Padding: Byte * 4
-class NDIS_WMI_IPSEC_OFFLOAD_V1(EasyCastStructure):
+class NDIS_WMI_IPSEC_OFFLOAD_V1(Structure):
     Supported: _Supported_e__Struct
     IPv4AH: _IPv4AH_e__Struct
     IPv4ESP: _IPv4ESP_e__Struct
-    class _Supported_e__Struct(EasyCastStructure):
+    class _Supported_e__Struct(Structure):
         Encapsulation: UInt32
         AhEspCombined: UInt32
         TransportTunnelCombined: UInt32
         IPv4Options: UInt32
         Flags: UInt32
-    class _IPv4AH_e__Struct(EasyCastStructure):
+    class _IPv4AH_e__Struct(Structure):
         Md5: UInt32
         Sha_1: UInt32
         Transport: UInt32
         Tunnel: UInt32
         Send: UInt32
         Receive: UInt32
-    class _IPv4ESP_e__Struct(EasyCastStructure):
+    class _IPv4ESP_e__Struct(Structure):
         Des: UInt32
         Reserved: UInt32
         TripleDes: UInt32
@@ -2675,33 +2675,33 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1(EasyCastStructure):
         Tunnel: UInt32
         Send: UInt32
         Receive: UInt32
-class NDIS_WMI_METHOD_HEADER(EasyCastStructure):
+class NDIS_WMI_METHOD_HEADER(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PortNumber: UInt32
     NetLuid: win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH
     RequestId: UInt64
     Timeout: UInt32
     Padding: Byte * 4
-class NDIS_WMI_OFFLOAD(EasyCastStructure):
+class NDIS_WMI_OFFLOAD(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Checksum: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD
     LsoV1: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1
     IPsecV1: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WMI_IPSEC_OFFLOAD_V1
     LsoV2: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V2
     Flags: UInt32
-class NDIS_WMI_OUTPUT_INFO(EasyCastStructure):
+class NDIS_WMI_OUTPUT_INFO(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
     SupportedRevision: Byte
     DataOffset: UInt32
-class NDIS_WMI_SET_HEADER(EasyCastStructure):
+class NDIS_WMI_SET_HEADER(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     PortNumber: UInt32
     NetLuid: win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH
     RequestId: UInt64
     Timeout: UInt32
     Padding: Byte * 4
-class NDIS_WMI_TCP_CONNECTION_OFFLOAD(EasyCastStructure):
+class NDIS_WMI_TCP_CONNECTION_OFFLOAD(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Encapsulation: UInt32
     SupportIPv4: UInt32
@@ -2710,59 +2710,59 @@ class NDIS_WMI_TCP_CONNECTION_OFFLOAD(EasyCastStructure):
     SupportSack: UInt32
     TcpConnectionOffloadCapacity: UInt32
     Flags: UInt32
-class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD(EasyCastStructure):
+class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD(Structure):
     IPv4Transmit: _IPv4Transmit_e__Struct
     IPv4Receive: _IPv4Receive_e__Struct
     IPv6Transmit: _IPv6Transmit_e__Struct
     IPv6Receive: _IPv6Receive_e__Struct
-    class _IPv4Transmit_e__Struct(EasyCastStructure):
+    class _IPv4Transmit_e__Struct(Structure):
         Encapsulation: UInt32
         IpOptionsSupported: UInt32
         TcpOptionsSupported: UInt32
         TcpChecksum: UInt32
         UdpChecksum: UInt32
         IpChecksum: UInt32
-    class _IPv4Receive_e__Struct(EasyCastStructure):
+    class _IPv4Receive_e__Struct(Structure):
         Encapsulation: UInt32
         IpOptionsSupported: UInt32
         TcpOptionsSupported: UInt32
         TcpChecksum: UInt32
         UdpChecksum: UInt32
         IpChecksum: UInt32
-    class _IPv6Transmit_e__Struct(EasyCastStructure):
+    class _IPv6Transmit_e__Struct(Structure):
         Encapsulation: UInt32
         IpExtensionHeadersSupported: UInt32
         TcpOptionsSupported: UInt32
         TcpChecksum: UInt32
         UdpChecksum: UInt32
-    class _IPv6Receive_e__Struct(EasyCastStructure):
+    class _IPv6Receive_e__Struct(Structure):
         Encapsulation: UInt32
         IpExtensionHeadersSupported: UInt32
         TcpOptionsSupported: UInt32
         TcpChecksum: UInt32
         UdpChecksum: UInt32
-class NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1(EasyCastStructure):
+class NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1(Structure):
     IPv4: _IPv4_e__Struct
-    class _IPv4_e__Struct(EasyCastStructure):
+    class _IPv4_e__Struct(Structure):
         Encapsulation: UInt32
         MaxOffLoadSize: UInt32
         MinSegmentCount: UInt32
         TcpOptions: UInt32
         IpOptions: UInt32
-class NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V2(EasyCastStructure):
+class NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V2(Structure):
     IPv4: _IPv4_e__Struct
     IPv6: _IPv6_e__Struct
-    class _IPv4_e__Struct(EasyCastStructure):
+    class _IPv4_e__Struct(Structure):
         Encapsulation: UInt32
         MaxOffLoadSize: UInt32
         MinSegmentCount: UInt32
-    class _IPv6_e__Struct(EasyCastStructure):
+    class _IPv6_e__Struct(Structure):
         Encapsulation: UInt32
         MaxOffLoadSize: UInt32
         MinSegmentCount: UInt32
         IpExtensionHeadersSupported: UInt32
         TcpOptionsSupported: UInt32
-class NDK_ADAPTER_INFO(EasyCastStructure):
+class NDK_ADAPTER_INFO(Structure):
     Version: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_VERSION
     VendorId: UInt32
     DeviceId: UInt32
@@ -2792,27 +2792,27 @@ NdkInfiniBand: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOG
 NdkRoCE: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 3
 NdkRoCEv2: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 4
 NdkMaxTechnology: win32more.Windows.Win32.NetworkManagement.Ndis.NDK_RDMA_TECHNOLOGY = 5
-class NDK_VERSION(EasyCastStructure):
+class NDK_VERSION(Structure):
     Major: UInt16
     Minor: UInt16
-class NETWORK_ADDRESS(EasyCastStructure):
+class NETWORK_ADDRESS(Structure):
     AddressLength: UInt16
     AddressType: UInt16
     Address: Byte * 1
-class NETWORK_ADDRESS_IP(EasyCastStructure):
+class NETWORK_ADDRESS_IP(Structure):
     sin_port: UInt16
     IN_ADDR: UInt32
     sin_zero: Byte * 8
-class NETWORK_ADDRESS_IP6(EasyCastStructure):
+class NETWORK_ADDRESS_IP6(Structure):
     sin6_port: UInt16
     sin6_flowinfo: UInt32
     sin6_addr: UInt16 * 8
     sin6_scope_id: UInt32
-class NETWORK_ADDRESS_IPX(EasyCastStructure):
+class NETWORK_ADDRESS_IPX(Structure):
     NetworkAddress: UInt32
     NodeAddress: Byte * 6
     Socket: UInt16
-class NETWORK_ADDRESS_LIST(EasyCastStructure):
+class NETWORK_ADDRESS_LIST(Structure):
     AddressCount: Int32
     AddressType: UInt16
     Address: win32more.Windows.Win32.NetworkManagement.Ndis.NETWORK_ADDRESS * 1
@@ -2826,7 +2826,7 @@ NET_IF_ADMIN_STATUS = Int32
 NET_IF_ADMIN_STATUS_UP: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_ADMIN_STATUS = 1
 NET_IF_ADMIN_STATUS_DOWN: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_ADMIN_STATUS = 2
 NET_IF_ADMIN_STATUS_TESTING: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_ADMIN_STATUS = 3
-class NET_IF_ALIAS_LH(EasyCastStructure):
+class NET_IF_ALIAS_LH(Structure):
     ifAliasLength: UInt16
     ifAliasOffset: UInt16
 NET_IF_CONNECTION_TYPE = Int32
@@ -2855,7 +2855,7 @@ NET_IF_OPER_STATUS_UNKNOWN: win32more.Windows.Win32.NetworkManagement.Ndis.NET_I
 NET_IF_OPER_STATUS_DORMANT: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_OPER_STATUS = 5
 NET_IF_OPER_STATUS_NOT_PRESENT: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_OPER_STATUS = 6
 NET_IF_OPER_STATUS_LOWER_LAYER_DOWN: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_OPER_STATUS = 7
-class NET_IF_RCV_ADDRESS_LH(EasyCastStructure):
+class NET_IF_RCV_ADDRESS_LH(Structure):
     ifRcvAddressType: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_RCV_ADDRESS_TYPE
     ifRcvAddressLength: UInt16
     ifRcvAddressOffset: UInt16
@@ -2863,16 +2863,16 @@ NET_IF_RCV_ADDRESS_TYPE = Int32
 NET_IF_RCV_ADDRESS_TYPE_OTHER: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_RCV_ADDRESS_TYPE = 1
 NET_IF_RCV_ADDRESS_TYPE_VOLATILE: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_RCV_ADDRESS_TYPE = 2
 NET_IF_RCV_ADDRESS_TYPE_NON_VOLATILE: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_RCV_ADDRESS_TYPE = 3
-class NET_LUID_LH(EasyCastUnion):
+class NET_LUID_LH(Union):
     Value: UInt64
     Info: _Info_e__Struct
-    class _Info_e__Struct(EasyCastStructure):
+    class _Info_e__Struct(Structure):
         _bitfield: UInt64
-class NET_PHYSICAL_LOCATION_LH(EasyCastStructure):
+class NET_PHYSICAL_LOCATION_LH(Structure):
     BusNumber: UInt32
     SlotNumber: UInt32
     FunctionNumber: UInt32
-class OFFLOAD_ALGO_INFO(EasyCastStructure):
+class OFFLOAD_ALGO_INFO(Structure):
     algoIdentifier: UInt32
     algoKeylen: UInt32
     algoRounds: UInt32
@@ -2887,7 +2887,7 @@ OFFLOAD_IPSEC_INTEGRITY_NONE: win32more.Windows.Win32.NetworkManagement.Ndis.OFF
 OFFLOAD_IPSEC_INTEGRITY_MD5: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_INTEGRITY_ALGO = 1
 OFFLOAD_IPSEC_INTEGRITY_SHA: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_INTEGRITY_ALGO = 2
 OFFLOAD_IPSEC_INTEGRITY_MAX: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_INTEGRITY_ALGO = 3
-class OFFLOAD_IPSEC_ADD_SA(EasyCastStructure):
+class OFFLOAD_IPSEC_ADD_SA(Structure):
     SrcAddr: UInt32
     SrcMask: UInt32
     DestAddr: UInt32
@@ -2903,7 +2903,7 @@ class OFFLOAD_IPSEC_ADD_SA(EasyCastStructure):
     OffloadHandle: win32more.Windows.Win32.Foundation.HANDLE
     KeyLen: UInt32
     KeyMat: Byte * 1
-class OFFLOAD_IPSEC_ADD_UDPESP_SA(EasyCastStructure):
+class OFFLOAD_IPSEC_ADD_UDPESP_SA(Structure):
     SrcAddr: UInt32
     SrcMask: UInt32
     DstAddr: UInt32
@@ -2921,27 +2921,27 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA(EasyCastStructure):
     EncapTypeEntryOffldHandle: win32more.Windows.Win32.Foundation.HANDLE
     KeyLen: UInt32
     KeyMat: Byte * 1
-class OFFLOAD_IPSEC_DELETE_SA(EasyCastStructure):
+class OFFLOAD_IPSEC_DELETE_SA(Structure):
     OffloadHandle: win32more.Windows.Win32.Foundation.HANDLE
-class OFFLOAD_IPSEC_DELETE_UDPESP_SA(EasyCastStructure):
+class OFFLOAD_IPSEC_DELETE_UDPESP_SA(Structure):
     OffloadHandle: win32more.Windows.Win32.Foundation.HANDLE
     EncapTypeEntryOffldHandle: win32more.Windows.Win32.Foundation.HANDLE
-class OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY(EasyCastStructure):
+class OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY(Structure):
     UdpEncapType: win32more.Windows.Win32.NetworkManagement.Ndis.UDP_ENCAP_TYPE
     DstEncapPort: UInt16
 OFFLOAD_OPERATION_E = Int32
 AUTHENTICATE: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_OPERATION_E = 1
 ENCRYPT: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_OPERATION_E = 2
-class OFFLOAD_SECURITY_ASSOCIATION(EasyCastStructure):
+class OFFLOAD_SECURITY_ASSOCIATION(Structure):
     Operation: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_OPERATION_E
     SPI: UInt32
     IntegrityAlgo: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_ALGO_INFO
     ConfAlgo: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_ALGO_INFO
     Reserved: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_ALGO_INFO
-class PMKID_CANDIDATE(EasyCastStructure):
+class PMKID_CANDIDATE(Structure):
     BSSID: Byte * 6
     Flags: UInt32
-class TRANSPORT_HEADER_OFFSET(EasyCastStructure):
+class TRANSPORT_HEADER_OFFSET(Structure):
     ProtocolType: UInt16
     HeaderOffset: UInt16
 TUNNEL_TYPE = Int32

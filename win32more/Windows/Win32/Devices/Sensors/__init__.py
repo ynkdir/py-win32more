@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.PortableDevices
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Devices.Sensors
@@ -505,13 +505,13 @@ MagnetometerAccuracy_Unknown: win32more.Windows.Win32.Devices.Sensors.MAGNETOMET
 MagnetometerAccuracy_Unreliable: win32more.Windows.Win32.Devices.Sensors.MAGNETOMETER_ACCURACY = 1
 MagnetometerAccuracy_Approximate: win32more.Windows.Win32.Devices.Sensors.MAGNETOMETER_ACCURACY = 2
 MagnetometerAccuracy_High: win32more.Windows.Win32.Devices.Sensors.MAGNETOMETER_ACCURACY = 3
-class MATRIX3X3(EasyCastStructure):
+class MATRIX3X3(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         M: Single * 9
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             A11: Single
             A12: Single
             A13: Single
@@ -521,7 +521,7 @@ class MATRIX3X3(EasyCastStructure):
             A31: Single
             A32: Single
             A33: Single
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             V1: win32more.Windows.Win32.Devices.Sensors.VEC3D
             V2: win32more.Windows.Win32.Devices.Sensors.VEC3D
             V3: win32more.Windows.Win32.Devices.Sensors.VEC3D
@@ -546,12 +546,12 @@ PROXIMITY_TYPE = Int32
 ProximityType_ObjectProximity: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_TYPE = 0
 ProximityType_HumanProximity: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_TYPE = 1
 ProximityType_Force_Dword: win32more.Windows.Win32.Devices.Sensors.PROXIMITY_TYPE = -1
-class QUATERNION(EasyCastStructure):
+class QUATERNION(Structure):
     X: Single
     Y: Single
     Z: Single
     W: Single
-class SENSOR_COLLECTION_LIST(EasyCastStructure):
+class SENSOR_COLLECTION_LIST(Structure):
     AllocatedSizeInBytes: UInt32
     Count: UInt32
     List: win32more.Windows.Win32.Devices.Sensors.SENSOR_VALUE_PAIR * 1
@@ -559,7 +559,7 @@ SENSOR_CONNECTION_TYPES = Int32
 SensorConnectionType_Integrated: win32more.Windows.Win32.Devices.Sensors.SENSOR_CONNECTION_TYPES = 0
 SensorConnectionType_Attached: win32more.Windows.Win32.Devices.Sensors.SENSOR_CONNECTION_TYPES = 1
 SensorConnectionType_External: win32more.Windows.Win32.Devices.Sensors.SENSOR_CONNECTION_TYPES = 2
-class SENSOR_PROPERTY_LIST(EasyCastStructure):
+class SENSOR_PROPERTY_LIST(Structure):
     AllocatedSizeInBytes: UInt32
     Count: UInt32
     List: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY * 1
@@ -568,7 +568,7 @@ SensorState_Initializing: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE =
 SensorState_Idle: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE = 1
 SensorState_Active: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE = 2
 SensorState_Error: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE = 3
-class SENSOR_VALUE_PAIR(EasyCastStructure):
+class SENSOR_VALUE_PAIR(Structure):
     Key: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY
     Value: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT
 SIMPLE_DEVICE_ORIENTATION = Int32
@@ -602,7 +602,7 @@ SIMPLE_DEVICE_ORIENTATION_ROTATED_180: win32more.Windows.Win32.Devices.Sensors.S
 SIMPLE_DEVICE_ORIENTATION_ROTATED_270: win32more.Windows.Win32.Devices.Sensors.SimpleDeviceOrientation = 3
 SIMPLE_DEVICE_ORIENTATION_ROTATED_FACE_UP: win32more.Windows.Win32.Devices.Sensors.SimpleDeviceOrientation = 4
 SIMPLE_DEVICE_ORIENTATION_ROTATED_FACE_DOWN: win32more.Windows.Win32.Devices.Sensors.SimpleDeviceOrientation = 5
-class VEC3D(EasyCastStructure):
+class VEC3D(Structure):
     X: Single
     Y: Single
     Z: Single

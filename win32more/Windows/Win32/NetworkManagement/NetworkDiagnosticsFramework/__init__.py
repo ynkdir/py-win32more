@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
 import win32more.Windows.Win32.Networking.WinSock
@@ -90,17 +90,17 @@ DS_REJECTED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramewo
 DS_INDETERMINATE: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS = 3
 DS_DEFERRED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS = 4
 DS_PASSTHROUGH: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS = 5
-class DIAG_SOCKADDR(EasyCastStructure):
+class DIAG_SOCKADDR(Structure):
     family: UInt16
     data: win32more.Windows.Win32.Foundation.CHAR * 126
-class DiagnosticsInfo(EasyCastStructure):
+class DiagnosticsInfo(Structure):
     cost: Int32
     flags: UInt32
-class HELPER_ATTRIBUTE(EasyCastStructure):
+class HELPER_ATTRIBUTE(Structure):
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     type: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Boolean: win32more.Windows.Win32.Foundation.BOOL
         Char: Byte
         Byte: Byte
@@ -115,15 +115,15 @@ class HELPER_ATTRIBUTE(EasyCastStructure):
         LifeTime: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.LIFE_TIME
         Address: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAG_SOCKADDR
         OctetString: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.OCTET_STRING
-class HYPOTHESIS(EasyCastStructure):
+class HYPOTHESIS(Structure):
     pwszClassName: win32more.Windows.Win32.Foundation.PWSTR
     pwszDescription: win32more.Windows.Win32.Foundation.PWSTR
     celt: UInt32
     rgAttributes: POINTER(win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE)
-class HelperAttributeInfo(EasyCastStructure):
+class HelperAttributeInfo(Structure):
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     type: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE
-class HypothesisResult(EasyCastStructure):
+class HypothesisResult(Structure):
     hypothesis: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS
     pathStatus: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS
 class INetDiagExtensibleHelper(ComPtr):
@@ -189,10 +189,10 @@ class INetDiagHelperUtilFactory(ComPtr):
     _iid_ = Guid('{104613fb-bc57-4178-95ba-88809698354a}')
     @commethod(3)
     def CreateUtilityInstance(self, riid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class LIFE_TIME(EasyCastStructure):
+class LIFE_TIME(Structure):
     startTime: win32more.Windows.Win32.Foundation.FILETIME
     endTime: win32more.Windows.Win32.Foundation.FILETIME
-class OCTET_STRING(EasyCastStructure):
+class OCTET_STRING(Structure):
     dwLength: UInt32
     lpValue: POINTER(Byte)
 PROBLEM_TYPE = Int32
@@ -218,7 +218,7 @@ RS_REPAIRED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramewo
 RS_UNREPAIRED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS = 2
 RS_DEFERRED: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS = 3
 RS_USER_ACTION: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_STATUS = 4
-class RepairInfo(EasyCastStructure):
+class RepairInfo(Structure):
     guid: Guid
     pwszClassName: win32more.Windows.Win32.Foundation.PWSTR
     pwszDescription: win32more.Windows.Win32.Foundation.PWSTR
@@ -229,17 +229,17 @@ class RepairInfo(EasyCastStructure):
     risk: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.REPAIR_RISK
     UiInfo: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UiInfo
     rootCauseIndex: Int32
-class RepairInfoEx(EasyCastStructure):
+class RepairInfoEx(Structure):
     repair: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.RepairInfo
     repairRank: UInt16
-class RootCauseInfo(EasyCastStructure):
+class RootCauseInfo(Structure):
     pwszDescription: win32more.Windows.Win32.Foundation.PWSTR
     rootCauseID: Guid
     rootCauseFlags: UInt32
     networkInterfaceID: Guid
     pRepairs: POINTER(win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.RepairInfoEx)
     repairCount: UInt16
-class ShellCommandInfo(EasyCastStructure):
+class ShellCommandInfo(Structure):
     pwszOperation: win32more.Windows.Win32.Foundation.PWSTR
     pwszFile: win32more.Windows.Win32.Foundation.PWSTR
     pwszParameters: win32more.Windows.Win32.Foundation.PWSTR
@@ -251,10 +251,10 @@ UIT_NONE: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.
 UIT_SHELL_COMMAND: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE = 2
 UIT_HELP_PANE: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE = 3
 UIT_DUI: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE = 4
-class UiInfo(EasyCastStructure):
+class UiInfo(Structure):
     type: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pwzNull: win32more.Windows.Win32.Foundation.PWSTR
         ShellInfo: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ShellCommandInfo
         pwzHelpUrl: win32more.Windows.Win32.Foundation.PWSTR

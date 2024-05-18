@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Authentication.Identity
@@ -52,7 +52,7 @@ ASC_REQ_PROXY_BINDINGS: win32more.Windows.Win32.Security.Authentication.Identity
 ASC_REQ_ALLOW_MISSING_BINDINGS: win32more.Windows.Win32.Security.Authentication.Identity.ASC_REQ_FLAGS = 268435456
 ASC_REQ_HIGH_FLAGS = UInt64
 ASC_REQ_MESSAGES: win32more.Windows.Win32.Security.Authentication.Identity.ASC_REQ_HIGH_FLAGS = 4294967296
-class AUDIT_POLICY_INFORMATION(EasyCastStructure):
+class AUDIT_POLICY_INFORMATION(Structure):
     AuditSubCategoryGuid: Guid
     AuditingInformation: UInt32
     AuditCategoryGuid: Guid
@@ -1935,7 +1935,7 @@ def SLGetGenuineInformation(pQueryId: POINTER(Guid), pwszValueName: win32more.Wi
 def SLQueryLicenseValueFromApp(valueName: win32more.Windows.Win32.Foundation.PWSTR, valueType: POINTER(UInt32), dataBuffer: VoidPtr, dataSize: UInt32, resultDataSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SAS.dll')
 def SendSAS(AsUser: win32more.Windows.Win32.Foundation.BOOL) -> Void: ...
-class CENTRAL_ACCESS_POLICY(EasyCastStructure):
+class CENTRAL_ACCESS_POLICY(Structure):
     CAPID: win32more.Windows.Win32.Security.PSID
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Description: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -1943,7 +1943,7 @@ class CENTRAL_ACCESS_POLICY(EasyCastStructure):
     Flags: UInt32
     CAPECount: UInt32
     CAPEs: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.CENTRAL_ACCESS_POLICY_ENTRY))
-class CENTRAL_ACCESS_POLICY_ENTRY(EasyCastStructure):
+class CENTRAL_ACCESS_POLICY_ENTRY(Structure):
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Description: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ChangeId: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -1959,7 +1959,7 @@ def CHANGE_PASSWORD_FN_A(param0: POINTER(SByte), param1: POINTER(SByte), param2:
 @winfunctype_pointer
 def CHANGE_PASSWORD_FN_W(param0: POINTER(UInt16), param1: POINTER(UInt16), param2: POINTER(UInt16), param3: POINTER(UInt16), param4: POINTER(UInt16), param5: win32more.Windows.Win32.Foundation.BOOLEAN, param6: UInt32, param7: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 CHANGE_PASSWORD_FN = UnicodeAlias('CHANGE_PASSWORD_FN_W')
-class CLEAR_BLOCK(EasyCastStructure):
+class CLEAR_BLOCK(Structure):
     data: win32more.Windows.Win32.Foundation.CHAR * 8
 @winfunctype_pointer
 def COMPLETE_AUTH_TOKEN_FN(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
@@ -1967,7 +1967,7 @@ CRED_FETCH = Int32
 CredFetchDefault: win32more.Windows.Win32.Security.Authentication.Identity.CRED_FETCH = 0
 CredFetchDPAPI: win32more.Windows.Win32.Security.Authentication.Identity.CRED_FETCH = 1
 CredFetchForced: win32more.Windows.Win32.Security.Authentication.Identity.CRED_FETCH = 2
-class CRYPTO_SETTINGS(EasyCastStructure):
+class CRYPTO_SETTINGS(Structure):
     eAlgorithmUsage: win32more.Windows.Win32.Security.Authentication.Identity.eTlsAlgorithmUsage
     strCngAlgId: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     cChainingModes: UInt32
@@ -1988,7 +1988,7 @@ def CrediUnmarshalandDecodeStringFn(MarshaledString: win32more.Windows.Win32.Fou
 def DECRYPT_MESSAGE_FN(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), param2: UInt32, param3: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def DELETE_SECURITY_CONTEXT_FN(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class DOMAIN_PASSWORD_INFORMATION(EasyCastStructure):
+class DOMAIN_PASSWORD_INFORMATION(Structure):
     MinPasswordLength: UInt16
     PasswordHistoryLength: UInt16
     PasswordProperties: win32more.Windows.Win32.Security.Authentication.Identity.DOMAIN_PASSWORD_PROPERTIES
@@ -2001,7 +2001,7 @@ DOMAIN_PASSWORD_NO_CLEAR_CHANGE: win32more.Windows.Win32.Security.Authentication
 DOMAIN_LOCKOUT_ADMINS: win32more.Windows.Win32.Security.Authentication.Identity.DOMAIN_PASSWORD_PROPERTIES = 8
 DOMAIN_PASSWORD_STORE_CLEARTEXT: win32more.Windows.Win32.Security.Authentication.Identity.DOMAIN_PASSWORD_PROPERTIES = 16
 DOMAIN_REFUSE_PASSWORD_CHANGE: win32more.Windows.Win32.Security.Authentication.Identity.DOMAIN_PASSWORD_PROPERTIES = 32
-class ENCRYPTED_CREDENTIALW(EasyCastStructure):
+class ENCRYPTED_CREDENTIALW(Structure):
     Cred: win32more.Windows.Win32.Security.Credentials.CREDENTIALW
     ClearCredentialBlobSize: UInt32
 @winfunctype_pointer
@@ -2088,7 +2088,7 @@ ISC_REQ_HIGH_FLAGS = UInt64
 ISC_REQ_MESSAGES: win32more.Windows.Win32.Security.Authentication.Identity.ISC_REQ_HIGH_FLAGS = 4294967296
 ISC_REQ_DEFERRED_CRED_VALIDATION: win32more.Windows.Win32.Security.Authentication.Identity.ISC_REQ_HIGH_FLAGS = 8589934592
 ISC_REQ_NO_POST_HANDSHAKE_AUTH: win32more.Windows.Win32.Security.Authentication.Identity.ISC_REQ_HIGH_FLAGS = 17179869184
-class KDC_PROXY_CACHE_ENTRY_DATA(EasyCastStructure):
+class KDC_PROXY_CACHE_ENTRY_DATA(Structure):
     SinceLastUsed: UInt64
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ProxyServerName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -2101,33 +2101,33 @@ class KDC_PROXY_CACHE_ENTRY_DATA(EasyCastStructure):
 KERB_ADDRESS_TYPE = UInt32
 DS_INET_ADDRESS: win32more.Windows.Win32.Security.Authentication.Identity.KERB_ADDRESS_TYPE = 1
 DS_NETBIOS_ADDRESS: win32more.Windows.Win32.Security.Authentication.Identity.KERB_ADDRESS_TYPE = 2
-class KERB_ADD_BINDING_CACHE_ENTRY_EX_REQUEST(EasyCastStructure):
+class KERB_ADD_BINDING_CACHE_ENTRY_EX_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     RealmName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     KdcAddress: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     AddressType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_ADDRESS_TYPE
     DcFlags: UInt32
-class KERB_ADD_BINDING_CACHE_ENTRY_REQUEST(EasyCastStructure):
+class KERB_ADD_BINDING_CACHE_ENTRY_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     RealmName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     KdcAddress: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     AddressType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_ADDRESS_TYPE
-class KERB_ADD_CREDENTIALS_REQUEST(EasyCastStructure):
+class KERB_ADD_CREDENTIALS_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Password: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LogonId: win32more.Windows.Win32.Foundation.LUID
     Flags: win32more.Windows.Win32.Security.Authentication.Identity.KERB_REQUEST_FLAGS
-class KERB_ADD_CREDENTIALS_REQUEST_EX(EasyCastStructure):
+class KERB_ADD_CREDENTIALS_REQUEST_EX(Structure):
     Credentials: win32more.Windows.Win32.Security.Authentication.Identity.KERB_ADD_CREDENTIALS_REQUEST
     PrincipalNameCount: UInt32
     PrincipalNames: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING * 1
-class KERB_AUTH_DATA(EasyCastStructure):
+class KERB_AUTH_DATA(Structure):
     Type: UInt32
     Length: UInt32
     Data: POINTER(Byte)
-class KERB_BINDING_CACHE_ENTRY_DATA(EasyCastStructure):
+class KERB_BINDING_CACHE_ENTRY_DATA(Structure):
     DiscoveryTime: UInt64
     RealmName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     KdcAddress: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -2136,15 +2136,15 @@ class KERB_BINDING_CACHE_ENTRY_DATA(EasyCastStructure):
     DcFlags: UInt32
     CacheFlags: UInt32
     KdcName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class KERB_CERTIFICATE_HASHINFO(EasyCastStructure):
+class KERB_CERTIFICATE_HASHINFO(Structure):
     StoreNameLength: UInt16
     HashLength: UInt16
-class KERB_CERTIFICATE_INFO(EasyCastStructure):
+class KERB_CERTIFICATE_INFO(Structure):
     CertInfoSize: UInt32
     InfoType: UInt32
 KERB_CERTIFICATE_INFO_TYPE = Int32
 CertHashInfo: win32more.Windows.Win32.Security.Authentication.Identity.KERB_CERTIFICATE_INFO_TYPE = 1
-class KERB_CERTIFICATE_LOGON(EasyCastStructure):
+class KERB_CERTIFICATE_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -2152,43 +2152,43 @@ class KERB_CERTIFICATE_LOGON(EasyCastStructure):
     Flags: UInt32
     CspDataLength: UInt32
     CspData: POINTER(Byte)
-class KERB_CERTIFICATE_S4U_LOGON(EasyCastStructure):
+class KERB_CERTIFICATE_S4U_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
     Flags: UInt32
     UserPrincipalName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     CertificateLength: UInt32
     Certificate: POINTER(Byte)
-class KERB_CERTIFICATE_UNLOCK_LOGON(EasyCastStructure):
+class KERB_CERTIFICATE_UNLOCK_LOGON(Structure):
     Logon: win32more.Windows.Win32.Security.Authentication.Identity.KERB_CERTIFICATE_LOGON
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class KERB_CHANGEPASSWORD_REQUEST(EasyCastStructure):
+class KERB_CHANGEPASSWORD_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     AccountName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     OldPassword: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     NewPassword: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Impersonating: win32more.Windows.Win32.Foundation.BOOLEAN
-class KERB_CLEANUP_MACHINE_PKINIT_CREDS_REQUEST(EasyCastStructure):
+class KERB_CLEANUP_MACHINE_PKINIT_CREDS_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class KERB_CLOUD_KERBEROS_DEBUG_DATA(EasyCastStructure):
+class KERB_CLOUD_KERBEROS_DEBUG_DATA(Structure):
     _bitfield: UInt32
-class KERB_CLOUD_KERBEROS_DEBUG_DATA_V0(EasyCastStructure):
+class KERB_CLOUD_KERBEROS_DEBUG_DATA_V0(Structure):
     _bitfield: UInt32
-class KERB_CLOUD_KERBEROS_DEBUG_REQUEST(EasyCastStructure):
+class KERB_CLOUD_KERBEROS_DEBUG_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class KERB_CLOUD_KERBEROS_DEBUG_RESPONSE(EasyCastStructure):
+class KERB_CLOUD_KERBEROS_DEBUG_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Version: UInt32
     Length: UInt32
     Data: UInt32 * 1
-class KERB_CRYPTO_KEY(EasyCastStructure):
+class KERB_CRYPTO_KEY(Structure):
     KeyType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY_TYPE
     Length: UInt32
     Value: POINTER(Byte)
-class KERB_CRYPTO_KEY32(EasyCastStructure):
+class KERB_CRYPTO_KEY32(Structure):
     KeyType: Int32
     Length: UInt32
     Offset: UInt32
@@ -2199,7 +2199,7 @@ KERB_ETYPE_DES_CBC_MD5: win32more.Windows.Win32.Security.Authentication.Identity
 KERB_ETYPE_NULL: win32more.Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY_TYPE = 0
 KERB_ETYPE_RC4_HMAC_NT: win32more.Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY_TYPE = 23
 KERB_ETYPE_RC4_MD4: win32more.Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY_TYPE = -128
-class KERB_DECRYPT_REQUEST(EasyCastStructure):
+class KERB_DECRYPT_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
     Flags: UInt32
@@ -2210,13 +2210,13 @@ class KERB_DECRYPT_REQUEST(EasyCastStructure):
     InitialVectorSize: UInt32
     InitialVector: POINTER(Byte)
     EncryptedData: POINTER(Byte)
-class KERB_DECRYPT_RESPONSE(EasyCastStructure):
+class KERB_DECRYPT_RESPONSE(Structure):
     DecryptedData: Byte * 1
-class KERB_EXTERNAL_NAME(EasyCastStructure):
+class KERB_EXTERNAL_NAME(Structure):
     NameType: Int16
     NameCount: UInt16
     Names: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING * 1
-class KERB_EXTERNAL_TICKET(EasyCastStructure):
+class KERB_EXTERNAL_TICKET(Structure):
     ServiceName: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.KERB_EXTERNAL_NAME)
     TargetName: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.KERB_EXTERNAL_NAME)
     ClientName: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.KERB_EXTERNAL_NAME)
@@ -2233,12 +2233,12 @@ class KERB_EXTERNAL_TICKET(EasyCastStructure):
     TimeSkew: Int64
     EncodedTicketSize: UInt32
     EncodedTicket: POINTER(Byte)
-class KERB_INTERACTIVE_LOGON(EasyCastStructure):
+class KERB_INTERACTIVE_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
     LogonDomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Password: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class KERB_INTERACTIVE_PROFILE(EasyCastStructure):
+class KERB_INTERACTIVE_PROFILE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROFILE_BUFFER_TYPE
     LogonCount: UInt16
     BadPasswordCount: UInt16
@@ -2255,7 +2255,7 @@ class KERB_INTERACTIVE_PROFILE(EasyCastStructure):
     HomeDirectoryDrive: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LogonServer: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserFlags: UInt32
-class KERB_INTERACTIVE_UNLOCK_LOGON(EasyCastStructure):
+class KERB_INTERACTIVE_UNLOCK_LOGON(Structure):
     Logon: win32more.Windows.Win32.Security.Authentication.Identity.KERB_INTERACTIVE_LOGON
     LogonId: win32more.Windows.Win32.Foundation.LUID
 KERB_LOGON_SUBMIT_TYPE = Int32
@@ -2272,11 +2272,11 @@ KerbCertificateS4ULogon: win32more.Windows.Win32.Security.Authentication.Identit
 KerbCertificateUnlockLogon: win32more.Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE = 15
 KerbNoElevationLogon: win32more.Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE = 83
 KerbLuidLogon: win32more.Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE = 84
-class KERB_NET_ADDRESS(EasyCastStructure):
+class KERB_NET_ADDRESS(Structure):
     Family: UInt32
     Length: UInt32
     Address: win32more.Windows.Win32.Foundation.PSTR
-class KERB_NET_ADDRESSES(EasyCastStructure):
+class KERB_NET_ADDRESSES(Structure):
     Number: UInt32
     Addresses: win32more.Windows.Win32.Security.Authentication.Identity.KERB_NET_ADDRESS * 1
 KERB_PROFILE_BUFFER_TYPE = Int32
@@ -2321,82 +2321,82 @@ KerbQueryS4U2ProxyCacheMessage: win32more.Windows.Win32.Security.Authentication.
 KerbRetrieveKeyTabMessage: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE = 34
 KerbRefreshPolicyMessage: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE = 35
 KerbPrintCloudKerberosDebugMessage: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE = 36
-class KERB_PURGE_BINDING_CACHE_REQUEST(EasyCastStructure):
+class KERB_PURGE_BINDING_CACHE_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
-class KERB_PURGE_KDC_PROXY_CACHE_REQUEST(EasyCastStructure):
+class KERB_PURGE_KDC_PROXY_CACHE_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class KERB_PURGE_KDC_PROXY_CACHE_RESPONSE(EasyCastStructure):
+class KERB_PURGE_KDC_PROXY_CACHE_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfPurged: UInt32
-class KERB_PURGE_TKT_CACHE_EX_REQUEST(EasyCastStructure):
+class KERB_PURGE_TKT_CACHE_EX_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
     Flags: UInt32
     TicketTemplate: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_CACHE_INFO_EX
-class KERB_PURGE_TKT_CACHE_REQUEST(EasyCastStructure):
+class KERB_PURGE_TKT_CACHE_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
     ServerName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     RealmName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class KERB_QUERY_BINDING_CACHE_REQUEST(EasyCastStructure):
+class KERB_QUERY_BINDING_CACHE_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
-class KERB_QUERY_BINDING_CACHE_RESPONSE(EasyCastStructure):
+class KERB_QUERY_BINDING_CACHE_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfEntries: UInt32
     Entries: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.KERB_BINDING_CACHE_ENTRY_DATA)
-class KERB_QUERY_DOMAIN_EXTENDED_POLICIES_REQUEST(EasyCastStructure):
+class KERB_QUERY_DOMAIN_EXTENDED_POLICIES_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class KERB_QUERY_DOMAIN_EXTENDED_POLICIES_RESPONSE(EasyCastStructure):
+class KERB_QUERY_DOMAIN_EXTENDED_POLICIES_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
     ExtendedPolicies: UInt32
     DsFlags: UInt32
-class KERB_QUERY_KDC_PROXY_CACHE_REQUEST(EasyCastStructure):
+class KERB_QUERY_KDC_PROXY_CACHE_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class KERB_QUERY_KDC_PROXY_CACHE_RESPONSE(EasyCastStructure):
+class KERB_QUERY_KDC_PROXY_CACHE_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfEntries: UInt32
     Entries: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.KDC_PROXY_CACHE_ENTRY_DATA)
-class KERB_QUERY_S4U2PROXY_CACHE_REQUEST(EasyCastStructure):
+class KERB_QUERY_S4U2PROXY_CACHE_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class KERB_QUERY_S4U2PROXY_CACHE_RESPONSE(EasyCastStructure):
+class KERB_QUERY_S4U2PROXY_CACHE_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfCreds: UInt32
     Creds: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.KERB_S4U2PROXY_CRED)
-class KERB_QUERY_TKT_CACHE_EX2_RESPONSE(EasyCastStructure):
+class KERB_QUERY_TKT_CACHE_EX2_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfTickets: UInt32
     Tickets: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_CACHE_INFO_EX2 * 1
-class KERB_QUERY_TKT_CACHE_EX3_RESPONSE(EasyCastStructure):
+class KERB_QUERY_TKT_CACHE_EX3_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfTickets: UInt32
     Tickets: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_CACHE_INFO_EX3 * 1
-class KERB_QUERY_TKT_CACHE_EX_RESPONSE(EasyCastStructure):
+class KERB_QUERY_TKT_CACHE_EX_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfTickets: UInt32
     Tickets: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_CACHE_INFO_EX * 1
-class KERB_QUERY_TKT_CACHE_REQUEST(EasyCastStructure):
+class KERB_QUERY_TKT_CACHE_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class KERB_QUERY_TKT_CACHE_RESPONSE(EasyCastStructure):
+class KERB_QUERY_TKT_CACHE_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfTickets: UInt32
     Tickets: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_CACHE_INFO * 1
-class KERB_REFRESH_POLICY_REQUEST(EasyCastStructure):
+class KERB_REFRESH_POLICY_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
-class KERB_REFRESH_POLICY_RESPONSE(EasyCastStructure):
+class KERB_REFRESH_POLICY_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
-class KERB_REFRESH_SCCRED_REQUEST(EasyCastStructure):
+class KERB_REFRESH_SCCRED_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CredentialBlob: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LogonId: win32more.Windows.Win32.Foundation.LUID
@@ -2405,17 +2405,17 @@ KERB_REQUEST_FLAGS = UInt32
 KERB_REQUEST_ADD_CREDENTIAL: win32more.Windows.Win32.Security.Authentication.Identity.KERB_REQUEST_FLAGS = 1
 KERB_REQUEST_REPLACE_CREDENTIAL: win32more.Windows.Win32.Security.Authentication.Identity.KERB_REQUEST_FLAGS = 2
 KERB_REQUEST_REMOVE_CREDENTIAL: win32more.Windows.Win32.Security.Authentication.Identity.KERB_REQUEST_FLAGS = 4
-class KERB_RETRIEVE_KEY_TAB_REQUEST(EasyCastStructure):
+class KERB_RETRIEVE_KEY_TAB_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     Flags: UInt32
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Password: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class KERB_RETRIEVE_KEY_TAB_RESPONSE(EasyCastStructure):
+class KERB_RETRIEVE_KEY_TAB_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     KeyTabLength: UInt32
     KeyTab: POINTER(Byte)
-class KERB_RETRIEVE_TKT_REQUEST(EasyCastStructure):
+class KERB_RETRIEVE_TKT_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
     TargetName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -2423,14 +2423,14 @@ class KERB_RETRIEVE_TKT_REQUEST(EasyCastStructure):
     CacheOptions: UInt32
     EncryptionType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY_TYPE
     CredentialsHandle: win32more.Windows.Win32.Security.Credentials.SecHandle
-class KERB_RETRIEVE_TKT_RESPONSE(EasyCastStructure):
+class KERB_RETRIEVE_TKT_RESPONSE(Structure):
     Ticket: win32more.Windows.Win32.Security.Authentication.Identity.KERB_EXTERNAL_TICKET
-class KERB_S4U2PROXY_CACHE_ENTRY_INFO(EasyCastStructure):
+class KERB_S4U2PROXY_CACHE_ENTRY_INFO(Structure):
     ServerName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Flags: UInt32
     LastStatus: win32more.Windows.Win32.Foundation.NTSTATUS
     Expiry: Int64
-class KERB_S4U2PROXY_CRED(EasyCastStructure):
+class KERB_S4U2PROXY_CRED(Structure):
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Flags: UInt32
@@ -2438,12 +2438,12 @@ class KERB_S4U2PROXY_CRED(EasyCastStructure):
     Expiry: Int64
     CountOfEntries: UInt32
     Entries: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.KERB_S4U2PROXY_CACHE_ENTRY_INFO)
-class KERB_S4U_LOGON(EasyCastStructure):
+class KERB_S4U_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
     Flags: UInt32
     ClientUpn: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ClientRealm: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class KERB_SETPASSWORD_EX_REQUEST(EasyCastStructure):
+class KERB_SETPASSWORD_EX_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
     CredentialsHandle: win32more.Windows.Win32.Security.Credentials.SecHandle
@@ -2456,7 +2456,7 @@ class KERB_SETPASSWORD_EX_REQUEST(EasyCastStructure):
     Impersonating: win32more.Windows.Win32.Foundation.BOOLEAN
     KdcAddress: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     KdcAddressType: UInt32
-class KERB_SETPASSWORD_REQUEST(EasyCastStructure):
+class KERB_SETPASSWORD_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
     CredentialsHandle: win32more.Windows.Win32.Security.Credentials.SecHandle
@@ -2464,26 +2464,26 @@ class KERB_SETPASSWORD_REQUEST(EasyCastStructure):
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     AccountName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Password: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class KERB_SMART_CARD_LOGON(EasyCastStructure):
+class KERB_SMART_CARD_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
     Pin: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     CspDataLength: UInt32
     CspData: POINTER(Byte)
-class KERB_SMART_CARD_PROFILE(EasyCastStructure):
+class KERB_SMART_CARD_PROFILE(Structure):
     Profile: win32more.Windows.Win32.Security.Authentication.Identity.KERB_INTERACTIVE_PROFILE
     CertificateSize: UInt32
     CertificateData: POINTER(Byte)
-class KERB_SMART_CARD_UNLOCK_LOGON(EasyCastStructure):
+class KERB_SMART_CARD_UNLOCK_LOGON(Structure):
     Logon: win32more.Windows.Win32.Security.Authentication.Identity.KERB_SMART_CARD_LOGON
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class KERB_SUBMIT_TKT_REQUEST(EasyCastStructure):
+class KERB_SUBMIT_TKT_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
     Flags: UInt32
     Key: win32more.Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY32
     KerbCredSize: UInt32
     KerbCredOffset: UInt32
-class KERB_TICKET_CACHE_INFO(EasyCastStructure):
+class KERB_TICKET_CACHE_INFO(Structure):
     ServerName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     RealmName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     StartTime: Int64
@@ -2491,7 +2491,7 @@ class KERB_TICKET_CACHE_INFO(EasyCastStructure):
     RenewTime: Int64
     EncryptionType: Int32
     TicketFlags: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_FLAGS
-class KERB_TICKET_CACHE_INFO_EX(EasyCastStructure):
+class KERB_TICKET_CACHE_INFO_EX(Structure):
     ClientName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ClientRealm: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ServerName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -2501,7 +2501,7 @@ class KERB_TICKET_CACHE_INFO_EX(EasyCastStructure):
     RenewTime: Int64
     EncryptionType: Int32
     TicketFlags: UInt32
-class KERB_TICKET_CACHE_INFO_EX2(EasyCastStructure):
+class KERB_TICKET_CACHE_INFO_EX2(Structure):
     ClientName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ClientRealm: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ServerName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -2513,7 +2513,7 @@ class KERB_TICKET_CACHE_INFO_EX2(EasyCastStructure):
     TicketFlags: UInt32
     SessionKeyType: UInt32
     BranchId: UInt32
-class KERB_TICKET_CACHE_INFO_EX3(EasyCastStructure):
+class KERB_TICKET_CACHE_INFO_EX3(Structure):
     ClientName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ClientRealm: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ServerName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -2542,20 +2542,20 @@ KERB_TICKET_FLAGS_proxy: win32more.Windows.Win32.Security.Authentication.Identit
 KERB_TICKET_FLAGS_renewable: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_FLAGS = 8388608
 KERB_TICKET_FLAGS_reserved: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_FLAGS = 2147483648
 KERB_TICKET_FLAGS_reserved1: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_FLAGS = 1
-class KERB_TICKET_LOGON(EasyCastStructure):
+class KERB_TICKET_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
     Flags: UInt32
     ServiceTicketLength: UInt32
     TicketGrantingTicketLength: UInt32
     ServiceTicket: POINTER(Byte)
     TicketGrantingTicket: POINTER(Byte)
-class KERB_TICKET_PROFILE(EasyCastStructure):
+class KERB_TICKET_PROFILE(Structure):
     Profile: win32more.Windows.Win32.Security.Authentication.Identity.KERB_INTERACTIVE_PROFILE
     SessionKey: win32more.Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY
-class KERB_TICKET_UNLOCK_LOGON(EasyCastStructure):
+class KERB_TICKET_UNLOCK_LOGON(Structure):
     Logon: win32more.Windows.Win32.Security.Authentication.Identity.KERB_TICKET_LOGON
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class KERB_TRANSFER_CRED_REQUEST(EasyCastStructure):
+class KERB_TRANSFER_CRED_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     OriginLogonId: win32more.Windows.Win32.Foundation.LUID
     DestinationLogonId: win32more.Windows.Win32.Foundation.LUID
@@ -2563,7 +2563,7 @@ class KERB_TRANSFER_CRED_REQUEST(EasyCastStructure):
 KSEC_CONTEXT_TYPE = Int32
 KSecPaged: win32more.Windows.Win32.Security.Authentication.Identity.KSEC_CONTEXT_TYPE = 0
 KSecNonPaged: win32more.Windows.Win32.Security.Authentication.Identity.KSEC_CONTEXT_TYPE = 1
-class KSEC_LIST_ENTRY(EasyCastStructure):
+class KSEC_LIST_ENTRY(Structure):
     List: win32more.Windows.Win32.System.Kernel.LIST_ENTRY
     RefCount: Int32
     Signature: UInt32
@@ -2595,12 +2595,12 @@ def KspSetPagingModeFn(PagingMode: win32more.Windows.Win32.Foundation.BOOLEAN) -
 def KspUnsealMessageFn(ContextId: UIntPtr, Message: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), MessageSeqNo: UInt32, pfQOP: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def KspVerifySignatureFn(ContextId: UIntPtr, Message: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), MessageSeqNo: UInt32, pfQOP: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-class LOGON_HOURS(EasyCastStructure):
+class LOGON_HOURS(Structure):
     UnitsPerWeek: UInt16
     LogonHours: POINTER(Byte)
 @winfunctype_pointer
 def LSA_AP_POST_LOGON_USER(PostLogonUserInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_POST_LOGON_USER_INFO)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-class LSA_AUTH_INFORMATION(EasyCastStructure):
+class LSA_AUTH_INFORMATION(Structure):
     LastUpdateTime: Int64
     AuthType: win32more.Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION_AUTH_TYPE
     AuthInfoLength: UInt32
@@ -2610,7 +2610,7 @@ TRUST_AUTH_TYPE_NONE: win32more.Windows.Win32.Security.Authentication.Identity.L
 TRUST_AUTH_TYPE_NT4OWF: win32more.Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION_AUTH_TYPE = 1
 TRUST_AUTH_TYPE_CLEAR: win32more.Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION_AUTH_TYPE = 2
 TRUST_AUTH_TYPE_VERSION: win32more.Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION_AUTH_TYPE = 3
-class LSA_DISPATCH_TABLE(EasyCastStructure):
+class LSA_DISPATCH_TABLE(Structure):
     CreateLogonSession: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_CREATE_LOGON_SESSION
     DeleteLogonSession: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_DELETE_LOGON_SESSION
     AddCredential: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_ADD_CREDENTIAL
@@ -2622,15 +2622,15 @@ class LSA_DISPATCH_TABLE(EasyCastStructure):
     FreeClientBuffer: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_FREE_CLIENT_BUFFER
     CopyToClientBuffer: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_COPY_TO_CLIENT_BUFFER
     CopyFromClientBuffer: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_COPY_FROM_CLIENT_BUFFER
-class LSA_ENUMERATION_INFORMATION(EasyCastStructure):
+class LSA_ENUMERATION_INFORMATION(Structure):
     Sid: win32more.Windows.Win32.Security.PSID
-class LSA_FOREST_TRUST_BINARY_DATA(EasyCastStructure):
+class LSA_FOREST_TRUST_BINARY_DATA(Structure):
     Length: UInt32
     Buffer: POINTER(Byte)
-class LSA_FOREST_TRUST_COLLISION_INFORMATION(EasyCastStructure):
+class LSA_FOREST_TRUST_COLLISION_INFORMATION(Structure):
     RecordCount: UInt32
     Entries: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_RECORD))
-class LSA_FOREST_TRUST_COLLISION_RECORD(EasyCastStructure):
+class LSA_FOREST_TRUST_COLLISION_RECORD(Structure):
     Index: UInt32
     Type: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_RECORD_TYPE
     Flags: UInt32
@@ -2639,31 +2639,31 @@ LSA_FOREST_TRUST_COLLISION_RECORD_TYPE = Int32
 CollisionTdo: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_RECORD_TYPE = 0
 CollisionXref: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_RECORD_TYPE = 1
 CollisionOther: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_RECORD_TYPE = 2
-class LSA_FOREST_TRUST_DOMAIN_INFO(EasyCastStructure):
+class LSA_FOREST_TRUST_DOMAIN_INFO(Structure):
     Sid: win32more.Windows.Win32.Security.PSID
     DnsName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     NetbiosName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class LSA_FOREST_TRUST_INFORMATION(EasyCastStructure):
+class LSA_FOREST_TRUST_INFORMATION(Structure):
     RecordCount: UInt32
     Entries: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD))
-class LSA_FOREST_TRUST_INFORMATION2(EasyCastStructure):
+class LSA_FOREST_TRUST_INFORMATION2(Structure):
     RecordCount: UInt32
     Entries: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD2))
-class LSA_FOREST_TRUST_RECORD(EasyCastStructure):
+class LSA_FOREST_TRUST_RECORD(Structure):
     Flags: UInt32
     ForestTrustType: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE
     Time: Int64
     ForestTrustData: _ForestTrustData_e__Union
-    class _ForestTrustData_e__Union(EasyCastUnion):
+    class _ForestTrustData_e__Union(Union):
         TopLevelName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
         DomainInfo: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_DOMAIN_INFO
         Data: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_BINARY_DATA
-class LSA_FOREST_TRUST_RECORD2(EasyCastStructure):
+class LSA_FOREST_TRUST_RECORD2(Structure):
     Flags: UInt32
     ForestTrustType: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE
     Time: Int64
     ForestTrustData: _ForestTrustData_e__Union
-    class _ForestTrustData_e__Union(EasyCastUnion):
+    class _ForestTrustData_e__Union(Union):
         TopLevelName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
         DomainInfo: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_DOMAIN_INFO
         BinaryData: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_BINARY_DATA
@@ -2675,29 +2675,29 @@ ForestTrustDomainInfo: win32more.Windows.Win32.Security.Authentication.Identity.
 ForestTrustBinaryInfo: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE = 3
 ForestTrustScannerInfo: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE = 4
 ForestTrustRecordTypeLast: win32more.Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE = 4
-class LSA_FOREST_TRUST_SCANNER_INFO(EasyCastStructure):
+class LSA_FOREST_TRUST_SCANNER_INFO(Structure):
     DomainSid: win32more.Windows.Win32.Security.PSID
     DnsName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     NetbiosName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 LSA_HANDLE = IntPtr
-class LSA_LAST_INTER_LOGON_INFO(EasyCastStructure):
+class LSA_LAST_INTER_LOGON_INFO(Structure):
     LastSuccessfulLogon: Int64
     LastFailedLogon: Int64
     FailedAttemptCountSinceLastSuccessfulLogon: UInt32
 LSA_LOOKUP_DOMAIN_INFO_CLASS = Int32
 AccountDomainInformation: win32more.Windows.Win32.Security.Authentication.Identity.LSA_LOOKUP_DOMAIN_INFO_CLASS = 5
 DnsDomainInformation: win32more.Windows.Win32.Security.Authentication.Identity.LSA_LOOKUP_DOMAIN_INFO_CLASS = 12
-class LSA_OBJECT_ATTRIBUTES(EasyCastStructure):
+class LSA_OBJECT_ATTRIBUTES(Structure):
     Length: UInt32
     RootDirectory: win32more.Windows.Win32.Foundation.HANDLE
     ObjectName: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING)
     Attributes: UInt32
     SecurityDescriptor: VoidPtr
     SecurityQualityOfService: VoidPtr
-class LSA_REFERENCED_DOMAIN_LIST(EasyCastStructure):
+class LSA_REFERENCED_DOMAIN_LIST(Structure):
     Entries: UInt32
     Domains: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_TRUST_INFORMATION)
-class LSA_SECPKG_FUNCTION_TABLE(EasyCastStructure):
+class LSA_SECPKG_FUNCTION_TABLE(Structure):
     CreateLogonSession: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_CREATE_LOGON_SESSION
     DeleteLogonSession: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_DELETE_LOGON_SESSION
     AddCredential: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_ADD_CREDENTIAL
@@ -2762,11 +2762,11 @@ class LSA_SECPKG_FUNCTION_TABLE(EasyCastStructure):
     GetAppModeInfo: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_GET_APP_MODE_INFO
     SetAppModeInfo: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_SET_APP_MODE_INFO
     GetClientInfoEx: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_GET_CLIENT_INFO_EX
-class LSA_STRING(EasyCastStructure):
+class LSA_STRING(Structure):
     Length: UInt16
     MaximumLength: UInt16
     Buffer: win32more.Windows.Win32.Foundation.PSTR
-class LSA_TOKEN_INFORMATION_NULL(EasyCastStructure):
+class LSA_TOKEN_INFORMATION_NULL(Structure):
     ExpirationTime: Int64
     Groups: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS)
 LSA_TOKEN_INFORMATION_TYPE = Int32
@@ -2774,7 +2774,7 @@ LsaTokenInformationNull: win32more.Windows.Win32.Security.Authentication.Identit
 LsaTokenInformationV1: win32more.Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE = 1
 LsaTokenInformationV2: win32more.Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE = 2
 LsaTokenInformationV3: win32more.Windows.Win32.Security.Authentication.Identity.LSA_TOKEN_INFORMATION_TYPE = 3
-class LSA_TOKEN_INFORMATION_V1(EasyCastStructure):
+class LSA_TOKEN_INFORMATION_V1(Structure):
     ExpirationTime: Int64
     User: win32more.Windows.Win32.Security.TOKEN_USER
     Groups: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS)
@@ -2782,7 +2782,7 @@ class LSA_TOKEN_INFORMATION_V1(EasyCastStructure):
     Privileges: POINTER(win32more.Windows.Win32.Security.TOKEN_PRIVILEGES)
     Owner: win32more.Windows.Win32.Security.TOKEN_OWNER
     DefaultDacl: win32more.Windows.Win32.Security.TOKEN_DEFAULT_DACL
-class LSA_TOKEN_INFORMATION_V3(EasyCastStructure):
+class LSA_TOKEN_INFORMATION_V3(Structure):
     ExpirationTime: Int64
     User: win32more.Windows.Win32.Security.TOKEN_USER
     Groups: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS)
@@ -2793,23 +2793,23 @@ class LSA_TOKEN_INFORMATION_V3(EasyCastStructure):
     UserClaims: win32more.Windows.Win32.Security.TOKEN_USER_CLAIMS
     DeviceClaims: win32more.Windows.Win32.Security.TOKEN_DEVICE_CLAIMS
     DeviceGroups: POINTER(win32more.Windows.Win32.Security.TOKEN_GROUPS)
-class LSA_TRANSLATED_NAME(EasyCastStructure):
+class LSA_TRANSLATED_NAME(Structure):
     Use: win32more.Windows.Win32.Security.SID_NAME_USE
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainIndex: Int32
-class LSA_TRANSLATED_SID(EasyCastStructure):
+class LSA_TRANSLATED_SID(Structure):
     Use: win32more.Windows.Win32.Security.SID_NAME_USE
     RelativeId: UInt32
     DomainIndex: Int32
-class LSA_TRANSLATED_SID2(EasyCastStructure):
+class LSA_TRANSLATED_SID2(Structure):
     Use: win32more.Windows.Win32.Security.SID_NAME_USE
     Sid: win32more.Windows.Win32.Security.PSID
     DomainIndex: Int32
     Flags: UInt32
-class LSA_TRUST_INFORMATION(EasyCastStructure):
+class LSA_TRUST_INFORMATION(Structure):
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Sid: win32more.Windows.Win32.Security.PSID
-class LSA_UNICODE_STRING(EasyCastStructure):
+class LSA_UNICODE_STRING(Structure):
     Length: UInt16
     MaximumLength: UInt16
     Buffer: win32more.Windows.Win32.Foundation.PWSTR
@@ -2830,21 +2830,21 @@ MsvAvTimestamp: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_
 MsvAvRestrictions: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_AVID = 8
 MsvAvTargetName: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_AVID = 9
 MsvAvChannelBindings: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_AVID = 10
-class MSV1_0_AV_PAIR(EasyCastStructure):
+class MSV1_0_AV_PAIR(Structure):
     AvId: UInt16
     AvLen: UInt16
-class MSV1_0_CHANGEPASSWORD_REQUEST(EasyCastStructure):
+class MSV1_0_CHANGEPASSWORD_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     AccountName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     OldPassword: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     NewPassword: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Impersonating: win32more.Windows.Win32.Foundation.BOOLEAN
-class MSV1_0_CHANGEPASSWORD_RESPONSE(EasyCastStructure):
+class MSV1_0_CHANGEPASSWORD_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
     PasswordInfoValid: win32more.Windows.Win32.Foundation.BOOLEAN
     DomainPasswordInfo: win32more.Windows.Win32.Security.Authentication.Identity.DOMAIN_PASSWORD_INFORMATION
-class MSV1_0_CREDENTIAL_KEY(EasyCastStructure):
+class MSV1_0_CREDENTIAL_KEY(Structure):
     Data: Byte * 20
 MSV1_0_CREDENTIAL_KEY_TYPE = Int32
 InvalidCredKey: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_CREDENTIAL_KEY_TYPE = 0
@@ -2852,12 +2852,12 @@ DeprecatedIUMCredKey: win32more.Windows.Win32.Security.Authentication.Identity.M
 DomainUserCredKey: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_CREDENTIAL_KEY_TYPE = 2
 LocalUserCredKey: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_CREDENTIAL_KEY_TYPE = 3
 ExternallySuppliedCredKey: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_CREDENTIAL_KEY_TYPE = 4
-class MSV1_0_INTERACTIVE_LOGON(EasyCastStructure):
+class MSV1_0_INTERACTIVE_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE
     LogonDomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Password: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class MSV1_0_INTERACTIVE_PROFILE(EasyCastStructure):
+class MSV1_0_INTERACTIVE_PROFILE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROFILE_BUFFER_TYPE
     LogonCount: UInt16
     BadPasswordCount: UInt16
@@ -2874,11 +2874,11 @@ class MSV1_0_INTERACTIVE_PROFILE(EasyCastStructure):
     HomeDirectoryDrive: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     LogonServer: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserFlags: UInt32
-class MSV1_0_IUM_SUPPLEMENTAL_CREDENTIAL(EasyCastStructure):
+class MSV1_0_IUM_SUPPLEMENTAL_CREDENTIAL(Structure):
     Version: UInt32
     EncryptedCredsSize: UInt32
     EncryptedCreds: Byte * 1
-class MSV1_0_LM20_LOGON(EasyCastStructure):
+class MSV1_0_LM20_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE
     LogonDomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -2887,7 +2887,7 @@ class MSV1_0_LM20_LOGON(EasyCastStructure):
     CaseSensitiveChallengeResponse: win32more.Windows.Win32.Security.Authentication.Identity.LSA_STRING
     CaseInsensitiveChallengeResponse: win32more.Windows.Win32.Security.Authentication.Identity.LSA_STRING
     ParameterControl: UInt32
-class MSV1_0_LM20_LOGON_PROFILE(EasyCastStructure):
+class MSV1_0_LM20_LOGON_PROFILE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROFILE_BUFFER_TYPE
     KickOffTime: Int64
     LogoffTime: Int64
@@ -2907,7 +2907,7 @@ MsV1_0S4ULogon: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_
 MsV1_0VirtualLogon: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE = 82
 MsV1_0NoElevationLogon: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE = 83
 MsV1_0LuidLogon: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE = 84
-class MSV1_0_NTLM3_RESPONSE(EasyCastStructure):
+class MSV1_0_NTLM3_RESPONSE(Structure):
     Response: Byte * 16
     RespType: Byte
     HiRespType: Byte
@@ -2917,14 +2917,14 @@ class MSV1_0_NTLM3_RESPONSE(EasyCastStructure):
     ChallengeFromClient: Byte * 8
     AvPairsOff: UInt32
     Buffer: Byte * 1
-class MSV1_0_PASSTHROUGH_REQUEST(EasyCastStructure):
+class MSV1_0_PASSTHROUGH_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     PackageName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DataLength: UInt32
     LogonData: POINTER(Byte)
     Pad: UInt32
-class MSV1_0_PASSTHROUGH_RESPONSE(EasyCastStructure):
+class MSV1_0_PASSTHROUGH_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
     Pad: UInt32
     DataLength: UInt32
@@ -2959,7 +2959,7 @@ MsV1_0GetStrongCredentialKey: win32more.Windows.Win32.Security.Authentication.Id
 MsV1_0TransferCred: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE = 22
 MsV1_0ProvisionTbal: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE = 23
 MsV1_0DeleteTbalSecrets: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE = 24
-class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL(EasyCastStructure):
+class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL(Structure):
     Version: UInt32
     Flags: UInt32
     CredentialKey: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_CREDENTIAL_KEY
@@ -2967,12 +2967,12 @@ class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL(EasyCastStructure):
     EncryptedCredsSize: UInt32
     EncryptedCreds: Byte * 1
     _pack_ = 1
-class MSV1_0_S4U_LOGON(EasyCastStructure):
+class MSV1_0_S4U_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE
     Flags: UInt32
     UserPrincipalName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class MSV1_0_SUBAUTH_LOGON(EasyCastStructure):
+class MSV1_0_SUBAUTH_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_LOGON_SUBMIT_TYPE
     LogonDomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -2982,33 +2982,33 @@ class MSV1_0_SUBAUTH_LOGON(EasyCastStructure):
     AuthenticationInfo2: win32more.Windows.Win32.Security.Authentication.Identity.LSA_STRING
     ParameterControl: win32more.Windows.Win32.Security.Authentication.Identity.MSV_SUBAUTH_LOGON_PARAMETER_CONTROL
     SubAuthPackageId: UInt32
-class MSV1_0_SUBAUTH_REQUEST(EasyCastStructure):
+class MSV1_0_SUBAUTH_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
     SubAuthPackageId: UInt32
     SubAuthInfoLength: UInt32
     SubAuthSubmitBuffer: POINTER(Byte)
-class MSV1_0_SUBAUTH_RESPONSE(EasyCastStructure):
+class MSV1_0_SUBAUTH_RESPONSE(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
     SubAuthInfoLength: UInt32
     SubAuthReturnBuffer: POINTER(Byte)
-class MSV1_0_SUPPLEMENTAL_CREDENTIAL(EasyCastStructure):
+class MSV1_0_SUPPLEMENTAL_CREDENTIAL(Structure):
     Version: UInt32
     Flags: win32more.Windows.Win32.Security.Authentication.Identity.MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS
     LmPassword: Byte * 16
     NtPassword: Byte * 16
-class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2(EasyCastStructure):
+class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2(Structure):
     Version: UInt32
     Flags: UInt32
     NtPassword: Byte * 16
     CredentialKey: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_CREDENTIAL_KEY
-class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V3(EasyCastStructure):
+class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V3(Structure):
     Version: UInt32
     Flags: UInt32
     CredentialKeyType: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_CREDENTIAL_KEY_TYPE
     NtPassword: Byte * 16
     CredentialKey: win32more.Windows.Win32.Security.Authentication.Identity.MSV1_0_CREDENTIAL_KEY
     ShaPassword: Byte * 20
-class MSV1_0_VALIDATION_INFO(EasyCastStructure):
+class MSV1_0_VALIDATION_INFO(Structure):
     LogoffTime: Int64
     KickoffTime: Int64
     LogonServer: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -3043,10 +3043,10 @@ MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = UInt32
 MSV1_0_CRED_LM_PRESENT: win32more.Windows.Win32.Security.Authentication.Identity.MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = 1
 MSV1_0_CRED_NT_PRESENT: win32more.Windows.Win32.Security.Authentication.Identity.MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = 2
 MSV1_0_CRED_VERSION: win32more.Windows.Win32.Security.Authentication.Identity.MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = 0
-class NEGOTIATE_CALLER_NAME_REQUEST(EasyCastStructure):
+class NEGOTIATE_CALLER_NAME_REQUEST(Structure):
     MessageType: UInt32
     LogonId: win32more.Windows.Win32.Foundation.LUID
-class NEGOTIATE_CALLER_NAME_RESPONSE(EasyCastStructure):
+class NEGOTIATE_CALLER_NAME_RESPONSE(Structure):
     MessageType: UInt32
     CallerName: win32more.Windows.Win32.Foundation.PWSTR
 NEGOTIATE_MESSAGES = Int32
@@ -3055,27 +3055,27 @@ NegGetCallerName: win32more.Windows.Win32.Security.Authentication.Identity.NEGOT
 NegTransferCredentials: win32more.Windows.Win32.Security.Authentication.Identity.NEGOTIATE_MESSAGES = 2
 NegMsgReserved1: win32more.Windows.Win32.Security.Authentication.Identity.NEGOTIATE_MESSAGES = 3
 NegCallPackageMax: win32more.Windows.Win32.Security.Authentication.Identity.NEGOTIATE_MESSAGES = 4
-class NEGOTIATE_PACKAGE_PREFIX(EasyCastStructure):
+class NEGOTIATE_PACKAGE_PREFIX(Structure):
     PackageId: UIntPtr
     PackageDataA: VoidPtr
     PackageDataW: VoidPtr
     PrefixLen: UIntPtr
     Prefix: Byte * 32
-class NEGOTIATE_PACKAGE_PREFIXES(EasyCastStructure):
+class NEGOTIATE_PACKAGE_PREFIXES(Structure):
     MessageType: UInt32
     PrefixCount: UInt32
     Offset: UInt32
     Pad: UInt32
-class NETLOGON_GENERIC_INFO(EasyCastStructure):
+class NETLOGON_GENERIC_INFO(Structure):
     Identity: win32more.Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_IDENTITY_INFO
     PackageName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DataLength: UInt32
     LogonData: POINTER(Byte)
-class NETLOGON_INTERACTIVE_INFO(EasyCastStructure):
+class NETLOGON_INTERACTIVE_INFO(Structure):
     Identity: win32more.Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_IDENTITY_INFO
     LmOwfPassword: win32more.Windows.Win32.System.PasswordManagement.LM_OWF_PASSWORD
     NtOwfPassword: win32more.Windows.Win32.System.PasswordManagement.LM_OWF_PASSWORD
-class NETLOGON_LOGON_IDENTITY_INFO(EasyCastStructure):
+class NETLOGON_LOGON_IDENTITY_INFO(Structure):
     LogonDomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ParameterControl: UInt32
     LogonId: Int64
@@ -3089,12 +3089,12 @@ NetlogonGenericInformation: win32more.Windows.Win32.Security.Authentication.Iden
 NetlogonInteractiveTransitiveInformation: win32more.Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_INFO_CLASS = 5
 NetlogonNetworkTransitiveInformation: win32more.Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_INFO_CLASS = 6
 NetlogonServiceTransitiveInformation: win32more.Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_INFO_CLASS = 7
-class NETLOGON_NETWORK_INFO(EasyCastStructure):
+class NETLOGON_NETWORK_INFO(Structure):
     Identity: win32more.Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_IDENTITY_INFO
     LmChallenge: win32more.Windows.Win32.Security.Authentication.Identity.CLEAR_BLOCK
     NtChallengeResponse: win32more.Windows.Win32.Security.Authentication.Identity.LSA_STRING
     LmChallengeResponse: win32more.Windows.Win32.Security.Authentication.Identity.LSA_STRING
-class NETLOGON_SERVICE_INFO(EasyCastStructure):
+class NETLOGON_SERVICE_INFO(Structure):
     Identity: win32more.Windows.Win32.Security.Authentication.Identity.NETLOGON_LOGON_IDENTITY_INFO
     LmOwfPassword: win32more.Windows.Win32.System.PasswordManagement.LM_OWF_PASSWORD
     NtOwfPassword: win32more.Windows.Win32.System.PasswordManagement.LM_OWF_PASSWORD
@@ -3112,17 +3112,17 @@ def PKSEC_REFERENCE_LIST_ENTRY(Entry: POINTER(win32more.Windows.Win32.Security.A
 def PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA(pvAuthData: VoidPtr, Size: POINTER(UInt32), SerializedData: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PKSEC_SERIALIZE_WINNT_AUTH_DATA(pvAuthData: VoidPtr, Size: POINTER(UInt32), SerializedData: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-class PKU2U_CERTIFICATE_S4U_LOGON(EasyCastStructure):
+class PKU2U_CERTIFICATE_S4U_LOGON(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.PKU2U_LOGON_SUBMIT_TYPE
     Flags: UInt32
     UserPrincipalName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     CertificateLength: UInt32
     Certificate: POINTER(Byte)
-class PKU2U_CERT_BLOB(EasyCastStructure):
+class PKU2U_CERT_BLOB(Structure):
     CertOffset: UInt32
     CertLength: UInt16
-class PKU2U_CREDUI_CONTEXT(EasyCastStructure):
+class PKU2U_CREDUI_CONTEXT(Structure):
     Version: UInt64
     cbHeaderLength: UInt16
     cbStructureLength: UInt32
@@ -3276,13 +3276,13 @@ def PLSA_SET_APP_MODE_INFO(UserFunction: UInt32, Argument1: UIntPtr, Argument2: 
 def PLSA_UNLOAD_PACKAGE() -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_UPDATE_PRIMARY_CREDENTIALS(PrimaryCredentials: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED), Credentials: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_ARRAY)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-class POLICY_ACCOUNT_DOMAIN_INFO(EasyCastStructure):
+class POLICY_ACCOUNT_DOMAIN_INFO(Structure):
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainSid: win32more.Windows.Win32.Security.PSID
-class POLICY_AUDIT_CATEGORIES_INFO(EasyCastStructure):
+class POLICY_AUDIT_CATEGORIES_INFO(Structure):
     MaximumCategoryCount: UInt32
     SubCategoriesInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.POLICY_AUDIT_SUBCATEGORIES_INFO)
-class POLICY_AUDIT_EVENTS_INFO(EasyCastStructure):
+class POLICY_AUDIT_EVENTS_INFO(Structure):
     AuditingMode: win32more.Windows.Win32.Foundation.BOOLEAN
     EventAuditingOptions: POINTER(UInt32)
     MaximumAuditEventCount: UInt32
@@ -3296,39 +3296,39 @@ AuditCategoryPolicyChange: win32more.Windows.Win32.Security.Authentication.Ident
 AuditCategoryAccountManagement: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_AUDIT_EVENT_TYPE = 6
 AuditCategoryDirectoryServiceAccess: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_AUDIT_EVENT_TYPE = 7
 AuditCategoryAccountLogon: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_AUDIT_EVENT_TYPE = 8
-class POLICY_AUDIT_FULL_QUERY_INFO(EasyCastStructure):
+class POLICY_AUDIT_FULL_QUERY_INFO(Structure):
     ShutDownOnFull: win32more.Windows.Win32.Foundation.BOOLEAN
     LogIsFull: win32more.Windows.Win32.Foundation.BOOLEAN
-class POLICY_AUDIT_FULL_SET_INFO(EasyCastStructure):
+class POLICY_AUDIT_FULL_SET_INFO(Structure):
     ShutDownOnFull: win32more.Windows.Win32.Foundation.BOOLEAN
-class POLICY_AUDIT_LOG_INFO(EasyCastStructure):
+class POLICY_AUDIT_LOG_INFO(Structure):
     AuditLogPercentFull: UInt32
     MaximumLogSize: UInt32
     AuditRetentionPeriod: Int64
     AuditLogFullShutdownInProgress: win32more.Windows.Win32.Foundation.BOOLEAN
     TimeToShutdown: Int64
     NextAuditRecordId: UInt32
-class POLICY_AUDIT_SID_ARRAY(EasyCastStructure):
+class POLICY_AUDIT_SID_ARRAY(Structure):
     UsersCount: UInt32
     UserSidArray: POINTER(win32more.Windows.Win32.Security.PSID)
-class POLICY_AUDIT_SUBCATEGORIES_INFO(EasyCastStructure):
+class POLICY_AUDIT_SUBCATEGORIES_INFO(Structure):
     MaximumSubCategoryCount: UInt32
     EventAuditingOptions: POINTER(UInt32)
-class POLICY_DEFAULT_QUOTA_INFO(EasyCastStructure):
+class POLICY_DEFAULT_QUOTA_INFO(Structure):
     QuotaLimits: win32more.Windows.Win32.Security.QUOTA_LIMITS
-class POLICY_DNS_DOMAIN_INFO(EasyCastStructure):
+class POLICY_DNS_DOMAIN_INFO(Structure):
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DnsDomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DnsForestName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainGuid: Guid
     Sid: win32more.Windows.Win32.Security.PSID
-class POLICY_DOMAIN_EFS_INFO(EasyCastStructure):
+class POLICY_DOMAIN_EFS_INFO(Structure):
     InfoLength: UInt32
     EfsBlob: POINTER(Byte)
 POLICY_DOMAIN_INFORMATION_CLASS = Int32
 PolicyDomainEfsInformation: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_DOMAIN_INFORMATION_CLASS = 2
 PolicyDomainKerberosTicketInformation: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_DOMAIN_INFORMATION_CLASS = 3
-class POLICY_DOMAIN_KERBEROS_TICKET_INFO(EasyCastStructure):
+class POLICY_DOMAIN_KERBEROS_TICKET_INFO(Structure):
     AuthenticationOptions: UInt32
     MaxServiceTicketAge: Int64
     MaxTicketAge: Int64
@@ -3356,16 +3356,16 @@ PolicyLastEntry: win32more.Windows.Win32.Security.Authentication.Identity.POLICY
 POLICY_LSA_SERVER_ROLE = Int32
 PolicyServerRoleBackup: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_LSA_SERVER_ROLE = 2
 PolicyServerRolePrimary: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_LSA_SERVER_ROLE = 3
-class POLICY_LSA_SERVER_ROLE_INFO(EasyCastStructure):
+class POLICY_LSA_SERVER_ROLE_INFO(Structure):
     LsaServerRole: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_LSA_SERVER_ROLE
-class POLICY_MACHINE_ACCT_INFO(EasyCastStructure):
+class POLICY_MACHINE_ACCT_INFO(Structure):
     Rid: UInt32
     Sid: win32more.Windows.Win32.Security.PSID
-class POLICY_MACHINE_ACCT_INFO2(EasyCastStructure):
+class POLICY_MACHINE_ACCT_INFO2(Structure):
     Rid: UInt32
     Sid: win32more.Windows.Win32.Security.PSID
     ObjectGuid: Guid
-class POLICY_MODIFICATION_INFO(EasyCastStructure):
+class POLICY_MODIFICATION_INFO(Structure):
     ModifiedId: Int64
     DatabaseCreationTime: Int64
 POLICY_NOTIFICATION_INFORMATION_CLASS = Int32
@@ -3378,12 +3378,12 @@ PolicyNotifyDomainKerberosTicketInformation: win32more.Windows.Win32.Security.Au
 PolicyNotifyMachineAccountPasswordInformation: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_NOTIFICATION_INFORMATION_CLASS = 7
 PolicyNotifyGlobalSaclInformation: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_NOTIFICATION_INFORMATION_CLASS = 8
 PolicyNotifyMax: win32more.Windows.Win32.Security.Authentication.Identity.POLICY_NOTIFICATION_INFORMATION_CLASS = 9
-class POLICY_PD_ACCOUNT_INFO(EasyCastStructure):
+class POLICY_PD_ACCOUNT_INFO(Structure):
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class POLICY_PRIMARY_DOMAIN_INFO(EasyCastStructure):
+class POLICY_PRIMARY_DOMAIN_INFO(Structure):
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Sid: win32more.Windows.Win32.Security.PSID
-class POLICY_REPLICA_SOURCE_INFO(EasyCastStructure):
+class POLICY_REPLICA_SOURCE_INFO(Structure):
     ReplicaSource: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     ReplicaAccountName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
 @winfunctype_pointer
@@ -3400,7 +3400,7 @@ def PSAM_INIT_NOTIFICATION_ROUTINE() -> win32more.Windows.Win32.Foundation.BOOLE
 def PSAM_PASSWORD_FILTER_ROUTINE(AccountName: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING), FullName: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING), Password: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING), SetOperation: win32more.Windows.Win32.Foundation.BOOLEAN) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
 def PSAM_PASSWORD_NOTIFICATION_ROUTINE(UserName: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING), RelativeId: UInt32, NewPassword: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
-class PctPublicKey(EasyCastStructure):
+class PctPublicKey(Structure):
     Type: UInt32
     cbKey: UInt32
     pKey: Byte * 1
@@ -3433,44 +3433,44 @@ def QUERY_SECURITY_PACKAGE_INFO_FN_W(param0: POINTER(UInt16), param1: POINTER(PO
 QUERY_SECURITY_PACKAGE_INFO_FN = UnicodeAlias('QUERY_SECURITY_PACKAGE_INFO_FN_W')
 @winfunctype_pointer
 def REVERT_SECURITY_CONTEXT_FN(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class SAM_REGISTER_MAPPING_ELEMENT(EasyCastStructure):
+class SAM_REGISTER_MAPPING_ELEMENT(Structure):
     Original: win32more.Windows.Win32.Foundation.PSTR
     Mapped: win32more.Windows.Win32.Foundation.PSTR
     Continuable: win32more.Windows.Win32.Foundation.BOOLEAN
-class SAM_REGISTER_MAPPING_LIST(EasyCastStructure):
+class SAM_REGISTER_MAPPING_LIST(Structure):
     Count: UInt32
     Elements: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SAM_REGISTER_MAPPING_ELEMENT)
-class SAM_REGISTER_MAPPING_TABLE(EasyCastStructure):
+class SAM_REGISTER_MAPPING_TABLE(Structure):
     Count: UInt32
     Lists: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SAM_REGISTER_MAPPING_LIST)
 SASL_AUTHZID_STATE = Int32
 Sasl_AuthZIDForbidden: win32more.Windows.Win32.Security.Authentication.Identity.SASL_AUTHZID_STATE = 0
 Sasl_AuthZIDProcessed: win32more.Windows.Win32.Security.Authentication.Identity.SASL_AUTHZID_STATE = 1
-class SCHANNEL_ALERT_TOKEN(EasyCastStructure):
+class SCHANNEL_ALERT_TOKEN(Structure):
     dwTokenType: UInt32
     dwAlertType: win32more.Windows.Win32.Security.Authentication.Identity.SCHANNEL_ALERT_TOKEN_ALERT_TYPE
     dwAlertNumber: UInt32
 SCHANNEL_ALERT_TOKEN_ALERT_TYPE = UInt32
 TLS1_ALERT_WARNING: win32more.Windows.Win32.Security.Authentication.Identity.SCHANNEL_ALERT_TOKEN_ALERT_TYPE = 1
 TLS1_ALERT_FATAL: win32more.Windows.Win32.Security.Authentication.Identity.SCHANNEL_ALERT_TOKEN_ALERT_TYPE = 2
-class SCHANNEL_CERT_HASH(EasyCastStructure):
+class SCHANNEL_CERT_HASH(Structure):
     dwLength: UInt32
     dwFlags: UInt32
     hProv: UIntPtr
     ShaHash: Byte * 20
-class SCHANNEL_CERT_HASH_STORE(EasyCastStructure):
+class SCHANNEL_CERT_HASH_STORE(Structure):
     dwLength: UInt32
     dwFlags: UInt32
     hProv: UIntPtr
     ShaHash: Byte * 20
     pwszStoreName: Char * 128
-class SCHANNEL_CLIENT_SIGNATURE(EasyCastStructure):
+class SCHANNEL_CLIENT_SIGNATURE(Structure):
     cbLength: UInt32
     aiHash: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     cbHash: UInt32
     HashValue: Byte * 36
     CertThumbprint: Byte * 20
-class SCHANNEL_CRED(EasyCastStructure):
+class SCHANNEL_CRED(Structure):
     dwVersion: UInt32
     cCreds: UInt32
     paCred: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))
@@ -3503,20 +3503,20 @@ SCH_SEND_AUX_RECORD: win32more.Windows.Win32.Security.Authentication.Identity.SC
 SCH_SEND_ROOT_CERT: win32more.Windows.Win32.Security.Authentication.Identity.SCHANNEL_CRED_FLAGS = 262144
 SCH_USE_STRONG_CRYPTO: win32more.Windows.Win32.Security.Authentication.Identity.SCHANNEL_CRED_FLAGS = 4194304
 SCH_USE_PRESHAREDKEY_ONLY: win32more.Windows.Win32.Security.Authentication.Identity.SCHANNEL_CRED_FLAGS = 8388608
-class SCHANNEL_SESSION_TOKEN(EasyCastStructure):
+class SCHANNEL_SESSION_TOKEN(Structure):
     dwTokenType: UInt32
     dwFlags: win32more.Windows.Win32.Security.Authentication.Identity.SCHANNEL_SESSION_TOKEN_FLAGS
 SCHANNEL_SESSION_TOKEN_FLAGS = UInt32
 SSL_SESSION_ENABLE_RECONNECTS: win32more.Windows.Win32.Security.Authentication.Identity.SCHANNEL_SESSION_TOKEN_FLAGS = 1
 SSL_SESSION_DISABLE_RECONNECTS: win32more.Windows.Win32.Security.Authentication.Identity.SCHANNEL_SESSION_TOKEN_FLAGS = 2
-class SCH_CRED(EasyCastStructure):
+class SCH_CRED(Structure):
     dwVersion: UInt32
     cCreds: UInt32
     paSecret: POINTER(VoidPtr)
     paPublic: POINTER(VoidPtr)
     cMappers: UInt32
     aphMappers: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity._HMAPPER))
-class SCH_CREDENTIALS(EasyCastStructure):
+class SCH_CREDENTIALS(Structure):
     dwVersion: UInt32
     dwCredFormat: UInt32
     cCreds: UInt32
@@ -3528,23 +3528,23 @@ class SCH_CREDENTIALS(EasyCastStructure):
     dwFlags: UInt32
     cTlsParameters: UInt32
     pTlsParameters: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.TLS_PARAMETERS)
-class SCH_CRED_PUBLIC_CERTCHAIN(EasyCastStructure):
+class SCH_CRED_PUBLIC_CERTCHAIN(Structure):
     dwType: UInt32
     cbCertChain: UInt32
     pCertChain: POINTER(Byte)
-class SCH_CRED_SECRET_CAPI(EasyCastStructure):
+class SCH_CRED_SECRET_CAPI(Structure):
     dwType: UInt32
     hProv: UIntPtr
-class SCH_CRED_SECRET_PRIVKEY(EasyCastStructure):
+class SCH_CRED_SECRET_PRIVKEY(Structure):
     dwType: UInt32
     pPrivateKey: POINTER(Byte)
     cbPrivateKey: UInt32
     pszPassword: win32more.Windows.Win32.Foundation.PSTR
-class SCH_EXTENSION_DATA(EasyCastStructure):
+class SCH_EXTENSION_DATA(Structure):
     ExtensionType: UInt16
     pExtData: POINTER(Byte)
     cbExtData: UInt32
-class SECPKG_APP_MODE_INFO(EasyCastStructure):
+class SECPKG_APP_MODE_INFO(Structure):
     UserFunction: UInt32
     Argument1: UIntPtr
     Argument2: UIntPtr
@@ -3596,10 +3596,10 @@ SECPKG_ATTR_LCT_STATUS = Int32
 SecPkgAttrLastClientTokenYes: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR_LCT_STATUS = 0
 SecPkgAttrLastClientTokenNo: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR_LCT_STATUS = 1
 SecPkgAttrLastClientTokenMaybe: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR_LCT_STATUS = 2
-class SECPKG_BYTE_VECTOR(EasyCastStructure):
+class SECPKG_BYTE_VECTOR(Structure):
     ByteArrayOffset: UInt32
     ByteArrayLength: UInt16
-class SECPKG_CALL_INFO(EasyCastStructure):
+class SECPKG_CALL_INFO(Structure):
     ProcessId: UInt32
     ThreadId: UInt32
     Attributes: UInt32
@@ -3611,21 +3611,21 @@ SecPkgCallPackagePinDcMessage: win32more.Windows.Win32.Security.Authentication.I
 SecPkgCallPackageUnpinAllDcsMessage: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CALL_PACKAGE_MESSAGE_TYPE = 1025
 SecPkgCallPackageTransferCredMessage: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CALL_PACKAGE_MESSAGE_TYPE = 1026
 SecPkgCallPackageMaxMessage: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CALL_PACKAGE_MESSAGE_TYPE = 1026
-class SECPKG_CALL_PACKAGE_PIN_DC_REQUEST(EasyCastStructure):
+class SECPKG_CALL_PACKAGE_PIN_DC_REQUEST(Structure):
     MessageType: UInt32
     Flags: UInt32
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DcName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DcFlags: UInt32
-class SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST(EasyCastStructure):
+class SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST(Structure):
     MessageType: UInt32
     OriginLogonId: win32more.Windows.Win32.Foundation.LUID
     DestinationLogonId: win32more.Windows.Win32.Foundation.LUID
     Flags: UInt32
-class SECPKG_CALL_PACKAGE_UNPIN_ALL_DCS_REQUEST(EasyCastStructure):
+class SECPKG_CALL_PACKAGE_UNPIN_ALL_DCS_REQUEST(Structure):
     MessageType: UInt32
     Flags: UInt32
-class SECPKG_CLIENT_INFO(EasyCastStructure):
+class SECPKG_CLIENT_INFO(Structure):
     LogonId: win32more.Windows.Win32.Foundation.LUID
     ProcessID: UInt32
     ThreadID: UInt32
@@ -3635,7 +3635,7 @@ class SECPKG_CLIENT_INFO(EasyCastStructure):
     ClientFlags: Byte
     ImpersonationLevel: win32more.Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL
     ClientToken: win32more.Windows.Win32.Foundation.HANDLE
-class SECPKG_CLIENT_INFO_EX(EasyCastStructure):
+class SECPKG_CLIENT_INFO_EX(Structure):
     LogonId: win32more.Windows.Win32.Foundation.LUID
     ProcessID: UInt32
     ThreadID: UInt32
@@ -3647,13 +3647,13 @@ class SECPKG_CLIENT_INFO_EX(EasyCastStructure):
     ClientToken: win32more.Windows.Win32.Foundation.HANDLE
     IdentificationLogonId: win32more.Windows.Win32.Foundation.LUID
     IdentificationToken: win32more.Windows.Win32.Foundation.HANDLE
-class SECPKG_CONTEXT_THUNKS(EasyCastStructure):
+class SECPKG_CONTEXT_THUNKS(Structure):
     InfoLevelCount: UInt32
     Levels: UInt32 * 1
 SECPKG_CRED = UInt32
 SECPKG_CRED_INBOUND: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CRED = 1
 SECPKG_CRED_OUTBOUND: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CRED = 2
-class SECPKG_CREDENTIAL(EasyCastStructure):
+class SECPKG_CREDENTIAL(Structure):
     Version: UInt64
     cbHeaderLength: UInt16
     cbStructureLength: UInt32
@@ -3674,28 +3674,28 @@ SecPkgCredClass_Ephemeral: win32more.Windows.Win32.Security.Authentication.Ident
 SecPkgCredClass_PersistedGeneric: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CRED_CLASS = 20
 SecPkgCredClass_PersistedSpecific: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CRED_CLASS = 30
 SecPkgCredClass_Explicit: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CRED_CLASS = 40
-class SECPKG_DLL_FUNCTIONS(EasyCastStructure):
+class SECPKG_DLL_FUNCTIONS(Structure):
     AllocateHeap: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_ALLOCATE_LSA_HEAP
     FreeHeap: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_FREE_LSA_HEAP
     RegisterCallback: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_REGISTER_CALLBACK
     LocatePackageById: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_LOCATE_PKG_BY_ID
-class SECPKG_EVENT_NOTIFY(EasyCastStructure):
+class SECPKG_EVENT_NOTIFY(Structure):
     EventClass: UInt32
     Reserved: UInt32
     EventDataSize: UInt32
     EventData: VoidPtr
     PackageParameter: VoidPtr
-class SECPKG_EVENT_PACKAGE_CHANGE(EasyCastStructure):
+class SECPKG_EVENT_PACKAGE_CHANGE(Structure):
     ChangeType: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_PACKAGE_CHANGE_TYPE
     PackageId: UIntPtr
     PackageName: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
-class SECPKG_EVENT_ROLE_CHANGE(EasyCastStructure):
+class SECPKG_EVENT_ROLE_CHANGE(Structure):
     PreviousRole: UInt32
     NewRole: UInt32
-class SECPKG_EXTENDED_INFORMATION(EasyCastStructure):
+class SECPKG_EXTENDED_INFORMATION(Structure):
     Class: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_EXTENDED_INFORMATION_CLASS
     Info: _Info_e__Union
-    class _Info_e__Union(EasyCastUnion):
+    class _Info_e__Union(Union):
         GssInfo: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_GSS_INFO
         ContextThunks: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CONTEXT_THUNKS
         MutualAuthLevel: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_MUTUAL_AUTH_LEVEL
@@ -3710,10 +3710,10 @@ SecpkgWowClientDll: win32more.Windows.Win32.Security.Authentication.Identity.SEC
 SecpkgExtraOids: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_EXTENDED_INFORMATION_CLASS = 5
 SecpkgMaxInfo: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_EXTENDED_INFORMATION_CLASS = 6
 SecpkgNego2Info: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_EXTENDED_INFORMATION_CLASS = 7
-class SECPKG_EXTRA_OIDS(EasyCastStructure):
+class SECPKG_EXTRA_OIDS(Structure):
     OidCount: UInt32
     Oids: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_SERIALIZED_OID * 1
-class SECPKG_FUNCTION_TABLE(EasyCastStructure):
+class SECPKG_FUNCTION_TABLE(Structure):
     InitializePackage: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_AP_INITIALIZE_PACKAGE
     LogonUserA: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_AP_LOGON_USER
     CallPackage: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_AP_CALL_PACKAGE
@@ -3757,10 +3757,10 @@ class SECPKG_FUNCTION_TABLE(EasyCastStructure):
     PreLogonUserSurrogate: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_AP_PRE_LOGON_USER_SURROGATE
     PostLogonUserSurrogate: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_AP_POST_LOGON_USER_SURROGATE
     ExtractTargetInfo: win32more.Windows.Win32.Security.Authentication.Identity.SpExtractTargetInfoFn
-class SECPKG_GSS_INFO(EasyCastStructure):
+class SECPKG_GSS_INFO(Structure):
     EncodedIdLength: UInt32
     EncodedId: Byte * 4
-class SECPKG_KERNEL_FUNCTIONS(EasyCastStructure):
+class SECPKG_KERNEL_FUNCTIONS(Structure):
     AllocateHeap: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_ALLOCATE_LSA_HEAP
     FreeHeap: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_FREE_LSA_HEAP
     CreateContextList: win32more.Windows.Win32.Security.Authentication.Identity.PKSEC_CREATE_CONTEXT_LIST
@@ -3770,7 +3770,7 @@ class SECPKG_KERNEL_FUNCTIONS(EasyCastStructure):
     SerializeWinntAuthData: win32more.Windows.Win32.Security.Authentication.Identity.PKSEC_SERIALIZE_WINNT_AUTH_DATA
     SerializeSchannelAuthData: win32more.Windows.Win32.Security.Authentication.Identity.PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA
     LocatePackageById: win32more.Windows.Win32.Security.Authentication.Identity.PKSEC_LOCATE_PKG_BY_ID
-class SECPKG_KERNEL_FUNCTION_TABLE(EasyCastStructure):
+class SECPKG_KERNEL_FUNCTION_TABLE(Structure):
     Initialize: win32more.Windows.Win32.Security.Authentication.Identity.KspInitPackageFn
     DeleteContext: win32more.Windows.Win32.Security.Authentication.Identity.KspDeleteContextFn
     InitContext: win32more.Windows.Win32.Security.Authentication.Identity.KspInitContextFn
@@ -3786,7 +3786,7 @@ class SECPKG_KERNEL_FUNCTION_TABLE(EasyCastStructure):
     ImportContext: win32more.Windows.Win32.Security.Authentication.Identity.SpImportSecurityContextFn
     SetPackagePagingMode: win32more.Windows.Win32.Security.Authentication.Identity.KspSetPagingModeFn
     SerializeAuthData: win32more.Windows.Win32.Security.Authentication.Identity.KspSerializeAuthDataFn
-class SECPKG_MUTUAL_AUTH_LEVEL(EasyCastStructure):
+class SECPKG_MUTUAL_AUTH_LEVEL(Structure):
     MutualAuthLevel: UInt32
 SECPKG_NAME_TYPE = Int32
 SecNameSamCompatible: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_NAME_TYPE = 0
@@ -3794,10 +3794,10 @@ SecNameAlternateId: win32more.Windows.Win32.Security.Authentication.Identity.SEC
 SecNameFlat: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_NAME_TYPE = 2
 SecNameDN: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_NAME_TYPE = 3
 SecNameSPN: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_NAME_TYPE = 4
-class SECPKG_NEGO2_INFO(EasyCastStructure):
+class SECPKG_NEGO2_INFO(Structure):
     AuthScheme: Byte * 16
     PackageFlags: UInt32
-class SECPKG_NTLM_TARGETINFO(EasyCastStructure):
+class SECPKG_NTLM_TARGETINFO(Structure):
     Flags: UInt32
     MsvAvNbComputerName: win32more.Windows.Win32.Foundation.PWSTR
     MsvAvNbDomainName: win32more.Windows.Win32.Foundation.PWSTR
@@ -3811,7 +3811,7 @@ SECPKG_PACKAGE_CHANGE_TYPE = UInt32
 SECPKG_PACKAGE_CHANGE_LOAD: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_PACKAGE_CHANGE_TYPE = 0
 SECPKG_PACKAGE_CHANGE_UNLOAD: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_PACKAGE_CHANGE_TYPE = 1
 SECPKG_PACKAGE_CHANGE_SELECT: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_PACKAGE_CHANGE_TYPE = 2
-class SECPKG_PARAMETERS(EasyCastStructure):
+class SECPKG_PARAMETERS(Structure):
     Version: UInt32
     MachineState: UInt32
     SetupMode: UInt32
@@ -3819,11 +3819,11 @@ class SECPKG_PARAMETERS(EasyCastStructure):
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DnsDomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainGuid: Guid
-class SECPKG_POST_LOGON_USER_INFO(EasyCastStructure):
+class SECPKG_POST_LOGON_USER_INFO(Structure):
     Flags: UInt32
     LogonId: win32more.Windows.Win32.Foundation.LUID
     LinkedLogonId: win32more.Windows.Win32.Foundation.LUID
-class SECPKG_PRIMARY_CRED(EasyCastStructure):
+class SECPKG_PRIMARY_CRED(Structure):
     LogonId: win32more.Windows.Win32.Foundation.LUID
     DownlevelName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -3838,7 +3838,7 @@ class SECPKG_PRIMARY_CRED(EasyCastStructure):
     Spare2: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Spare3: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Spare4: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class SECPKG_PRIMARY_CRED_EX(EasyCastStructure):
+class SECPKG_PRIMARY_CRED_EX(Structure):
     LogonId: win32more.Windows.Win32.Foundation.LUID
     DownlevelName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -3856,7 +3856,7 @@ class SECPKG_PRIMARY_CRED_EX(EasyCastStructure):
     PackageId: UIntPtr
     PrevLogonId: win32more.Windows.Win32.Foundation.LUID
     FlagsEx: UInt32
-class SECPKG_REDIRECTED_LOGON_BUFFER(EasyCastStructure):
+class SECPKG_REDIRECTED_LOGON_BUFFER(Structure):
     RedirectedLogonGuid: Guid
     RedirectedLogonHandle: win32more.Windows.Win32.Foundation.HANDLE
     Init: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_INIT
@@ -3865,41 +3865,41 @@ class SECPKG_REDIRECTED_LOGON_BUFFER(EasyCastStructure):
     GetLogonCreds: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS
     GetSupplementalCreds: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS
     GetRedirectedLogonSid: win32more.Windows.Win32.Security.Authentication.Identity.PLSA_REDIRECTED_LOGON_GET_SID
-class SECPKG_SERIALIZED_OID(EasyCastStructure):
+class SECPKG_SERIALIZED_OID(Structure):
     OidLength: UInt32
     OidAttributes: UInt32
     OidValue: Byte * 32
 SECPKG_SESSIONINFO_TYPE = Int32
 SecSessionPrimaryCred: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_SESSIONINFO_TYPE = 0
-class SECPKG_SHORT_VECTOR(EasyCastStructure):
+class SECPKG_SHORT_VECTOR(Structure):
     ShortArrayOffset: UInt32
     ShortArrayCount: UInt16
-class SECPKG_SUPPLEMENTAL_CRED(EasyCastStructure):
+class SECPKG_SUPPLEMENTAL_CRED(Structure):
     PackageName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     CredentialSize: UInt32
     Credentials: POINTER(Byte)
-class SECPKG_SUPPLEMENTAL_CRED_ARRAY(EasyCastStructure):
+class SECPKG_SUPPLEMENTAL_CRED_ARRAY(Structure):
     CredentialCount: UInt32
     Credentials: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED * 1
-class SECPKG_SUPPLIED_CREDENTIAL(EasyCastStructure):
+class SECPKG_SUPPLIED_CREDENTIAL(Structure):
     cbHeaderLength: UInt16
     cbStructureLength: UInt16
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_SHORT_VECTOR
     DomainName: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_SHORT_VECTOR
     PackedCredentials: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_BYTE_VECTOR
     CredFlags: UInt32
-class SECPKG_SURROGATE_LOGON(EasyCastStructure):
+class SECPKG_SURROGATE_LOGON(Structure):
     Version: UInt32
     SurrogateLogonID: win32more.Windows.Win32.Foundation.LUID
     EntryCount: UInt32
     Entries: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_SURROGATE_LOGON_ENTRY)
-class SECPKG_SURROGATE_LOGON_ENTRY(EasyCastStructure):
+class SECPKG_SURROGATE_LOGON_ENTRY(Structure):
     Type: Guid
     Data: VoidPtr
-class SECPKG_TARGETINFO(EasyCastStructure):
+class SECPKG_TARGETINFO(Structure):
     DomainSid: win32more.Windows.Win32.Security.PSID
     ComputerName: win32more.Windows.Win32.Foundation.PWSTR
-class SECPKG_USER_FUNCTION_TABLE(EasyCastStructure):
+class SECPKG_USER_FUNCTION_TABLE(Structure):
     InstanceInit: win32more.Windows.Win32.Security.Authentication.Identity.SpInstanceInitFn
     InitUserModeContext: win32more.Windows.Win32.Security.Authentication.Identity.SpInitUserModeContextFn
     MakeSignature: win32more.Windows.Win32.Security.Authentication.Identity.SpMakeSignatureFn
@@ -3915,9 +3915,9 @@ class SECPKG_USER_FUNCTION_TABLE(EasyCastStructure):
     ExportContext: win32more.Windows.Win32.Security.Authentication.Identity.SpExportSecurityContextFn
     ImportContext: win32more.Windows.Win32.Security.Authentication.Identity.SpImportSecurityContextFn
     MarshalAttributeData: win32more.Windows.Win32.Security.Authentication.Identity.SpMarshalAttributeDataFn
-class SECPKG_WOW_CLIENT_DLL(EasyCastStructure):
+class SECPKG_WOW_CLIENT_DLL(Structure):
     WowClientDllPath: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
-class SECURITY_LOGON_SESSION_DATA(EasyCastStructure):
+class SECURITY_LOGON_SESSION_DATA(Structure):
     Size: UInt32
     LogonId: win32more.Windows.Win32.Foundation.LUID
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
@@ -3955,7 +3955,7 @@ class SECURITY_LOGON_TYPE(Int32):  # enum
     CachedInteractive = 11
     CachedRemoteInteractive = 12
     CachedUnlock = 13
-class SECURITY_PACKAGE_OPTIONS(EasyCastStructure):
+class SECURITY_PACKAGE_OPTIONS(Structure):
     Size: UInt32
     Type: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_PACKAGE_OPTIONS_TYPE
     Flags: UInt32
@@ -3965,19 +3965,19 @@ SECURITY_PACKAGE_OPTIONS_TYPE = UInt32
 SECPKG_OPTIONS_TYPE_UNKNOWN: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_PACKAGE_OPTIONS_TYPE = 0
 SECPKG_OPTIONS_TYPE_LSA: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_PACKAGE_OPTIONS_TYPE = 1
 SECPKG_OPTIONS_TYPE_SSPI: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_PACKAGE_OPTIONS_TYPE = 2
-class SECURITY_STRING(EasyCastStructure):
+class SECURITY_STRING(Structure):
     Length: UInt16
     MaximumLength: UInt16
     Buffer: POINTER(UInt16)
-class SECURITY_USER_DATA(EasyCastStructure):
+class SECURITY_USER_DATA(Structure):
     UserName: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
     LogonDomainName: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
     LogonServer: win32more.Windows.Win32.Security.Authentication.Identity.SECURITY_STRING
     pSid: win32more.Windows.Win32.Security.PSID
-class SEC_APPLICATION_PROTOCOLS(EasyCastStructure):
+class SEC_APPLICATION_PROTOCOLS(Structure):
     ProtocolListsSize: UInt32
     ProtocolLists: win32more.Windows.Win32.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_LIST * 1
-class SEC_APPLICATION_PROTOCOL_LIST(EasyCastStructure):
+class SEC_APPLICATION_PROTOCOL_LIST(Structure):
     ProtoNegoExt: win32more.Windows.Win32.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT
     ProtocolListSize: UInt16
     ProtocolList: Byte * 1
@@ -3989,10 +3989,10 @@ SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = Int32
 SecApplicationProtocolNegotiationStatus_None: win32more.Windows.Win32.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = 0
 SecApplicationProtocolNegotiationStatus_Success: win32more.Windows.Win32.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = 1
 SecApplicationProtocolNegotiationStatus_SelectedClientOnly: win32more.Windows.Win32.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = 2
-class SEC_CERTIFICATE_REQUEST_CONTEXT(EasyCastStructure):
+class SEC_CERTIFICATE_REQUEST_CONTEXT(Structure):
     cbCertificateRequestContext: Byte
     rgCertificateRequestContext: Byte * 1
-class SEC_CHANNEL_BINDINGS(EasyCastStructure):
+class SEC_CHANNEL_BINDINGS(Structure):
     dwInitiatorAddrType: UInt32
     cbInitiatorLength: UInt32
     dwInitiatorOffset: UInt32
@@ -4001,7 +4001,7 @@ class SEC_CHANNEL_BINDINGS(EasyCastStructure):
     dwAcceptorOffset: UInt32
     cbApplicationDataLength: UInt32
     dwApplicationDataOffset: UInt32
-class SEC_CHANNEL_BINDINGS_EX(EasyCastStructure):
+class SEC_CHANNEL_BINDINGS_EX(Structure):
     magicNumber: UInt32
     flags: UInt32
     cbHeaderLength: UInt32
@@ -4014,37 +4014,37 @@ class SEC_CHANNEL_BINDINGS_EX(EasyCastStructure):
     dwAcceptorOffset: UInt32
     cbApplicationDataLength: UInt32
     dwApplicationDataOffset: UInt32
-class SEC_CHANNEL_BINDINGS_RESULT(EasyCastStructure):
+class SEC_CHANNEL_BINDINGS_RESULT(Structure):
     flags: UInt32
-class SEC_DTLS_MTU(EasyCastStructure):
+class SEC_DTLS_MTU(Structure):
     PathMTU: UInt16
-class SEC_FLAGS(EasyCastStructure):
+class SEC_FLAGS(Structure):
     Flags: UInt64
 @winfunctype_pointer
 def SEC_GET_KEY_FN(Arg: VoidPtr, Principal: VoidPtr, KeyVer: UInt32, Key: POINTER(VoidPtr), Status: POINTER(win32more.Windows.Win32.Foundation.HRESULT)) -> Void: ...
-class SEC_NEGOTIATION_INFO(EasyCastStructure):
+class SEC_NEGOTIATION_INFO(Structure):
     Size: UInt32
     NameLength: UInt32
     Name: POINTER(UInt16)
     Reserved: VoidPtr
-class SEC_PRESHAREDKEY(EasyCastStructure):
+class SEC_PRESHAREDKEY(Structure):
     KeySize: UInt16
     Key: Byte * 1
-class SEC_PRESHAREDKEY_IDENTITY(EasyCastStructure):
+class SEC_PRESHAREDKEY_IDENTITY(Structure):
     KeyIdentitySize: UInt16
     KeyIdentity: Byte * 1
-class SEC_SRTP_MASTER_KEY_IDENTIFIER(EasyCastStructure):
+class SEC_SRTP_MASTER_KEY_IDENTIFIER(Structure):
     MasterKeyIdentifierSize: Byte
     MasterKeyIdentifier: Byte * 1
-class SEC_SRTP_PROTECTION_PROFILES(EasyCastStructure):
+class SEC_SRTP_PROTECTION_PROFILES(Structure):
     ProfilesSize: UInt16
     ProfilesList: UInt16 * 1
-class SEC_TOKEN_BINDING(EasyCastStructure):
+class SEC_TOKEN_BINDING(Structure):
     MajorVersion: Byte
     MinorVersion: Byte
     KeyParametersSize: UInt16
     KeyParameters: Byte * 1
-class SEC_TRAFFIC_SECRETS(EasyCastStructure):
+class SEC_TRAFFIC_SECRETS(Structure):
     SymmetricAlgId: Char * 64
     ChainingMode: Char * 64
     HashAlgId: Char * 64
@@ -4059,7 +4059,7 @@ SEC_TRAFFIC_SECRET_TYPE = Int32
 SecTrafficSecret_None: win32more.Windows.Win32.Security.Authentication.Identity.SEC_TRAFFIC_SECRET_TYPE = 0
 SecTrafficSecret_Client: win32more.Windows.Win32.Security.Authentication.Identity.SEC_TRAFFIC_SECRET_TYPE = 1
 SecTrafficSecret_Server: win32more.Windows.Win32.Security.Authentication.Identity.SEC_TRAFFIC_SECRET_TYPE = 2
-class SEC_WINNT_AUTH_IDENTITY32(EasyCastStructure):
+class SEC_WINNT_AUTH_IDENTITY32(Structure):
     User: UInt32
     UserLength: UInt32
     Domain: UInt32
@@ -4067,7 +4067,7 @@ class SEC_WINNT_AUTH_IDENTITY32(EasyCastStructure):
     Password: UInt32
     PasswordLength: UInt32
     Flags: UInt32
-class SEC_WINNT_AUTH_IDENTITY_EX2(EasyCastStructure):
+class SEC_WINNT_AUTH_IDENTITY_EX2(Structure):
     Version: UInt32
     cbHeaderLength: UInt16
     cbStructureLength: UInt32
@@ -4080,7 +4080,7 @@ class SEC_WINNT_AUTH_IDENTITY_EX2(EasyCastStructure):
     Flags: UInt32
     PackageListOffset: UInt32
     PackageListLength: UInt16
-class SEC_WINNT_AUTH_IDENTITY_EX32(EasyCastStructure):
+class SEC_WINNT_AUTH_IDENTITY_EX32(Structure):
     Version: UInt32
     Length: UInt32
     User: UInt32
@@ -4092,7 +4092,7 @@ class SEC_WINNT_AUTH_IDENTITY_EX32(EasyCastStructure):
     Flags: UInt32
     PackageList: UInt32
     PackageListLength: UInt32
-class SEC_WINNT_AUTH_IDENTITY_EXA(EasyCastStructure):
+class SEC_WINNT_AUTH_IDENTITY_EXA(Structure):
     Version: UInt32
     Length: UInt32
     User: POINTER(Byte)
@@ -4104,7 +4104,7 @@ class SEC_WINNT_AUTH_IDENTITY_EXA(EasyCastStructure):
     Flags: UInt32
     PackageList: POINTER(Byte)
     PackageListLength: UInt32
-class SEC_WINNT_AUTH_IDENTITY_EXW(EasyCastStructure):
+class SEC_WINNT_AUTH_IDENTITY_EXW(Structure):
     Version: UInt32
     Length: UInt32
     User: POINTER(UInt16)
@@ -4117,13 +4117,13 @@ class SEC_WINNT_AUTH_IDENTITY_EXW(EasyCastStructure):
     PackageList: POINTER(UInt16)
     PackageListLength: UInt32
 SEC_WINNT_AUTH_IDENTITY_EX = UnicodeAlias('SEC_WINNT_AUTH_IDENTITY_EXW')
-class SEC_WINNT_AUTH_IDENTITY_INFO(EasyCastUnion):
+class SEC_WINNT_AUTH_IDENTITY_INFO(Union):
     AuthIdExw: win32more.Windows.Win32.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EXW
     AuthIdExa: win32more.Windows.Win32.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EXA
     AuthId_a: win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_A
     AuthId_w: win32more.Windows.Win32.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W
     AuthIdEx2: win32more.Windows.Win32.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EX2
-class SEND_GENERIC_TLS_EXTENSION(EasyCastStructure):
+class SEND_GENERIC_TLS_EXTENSION(Structure):
     ExtensionType: UInt16
     HandshakeType: UInt16
     Flags: UInt32
@@ -4139,21 +4139,21 @@ def SET_CREDENTIALS_ATTRIBUTES_FN_A(param0: POINTER(win32more.Windows.Win32.Secu
 @winfunctype_pointer
 def SET_CREDENTIALS_ATTRIBUTES_FN_W(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: UInt32, param2: VoidPtr, param3: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 SET_CREDENTIALS_ATTRIBUTES_FN = UnicodeAlias('SET_CREDENTIALS_ATTRIBUTES_FN_W')
-class SE_ADT_ACCESS_REASON(EasyCastStructure):
+class SE_ADT_ACCESS_REASON(Structure):
     AccessMask: UInt32
     AccessReasons: UInt32 * 32
     ObjectTypeIndex: UInt32
     AccessGranted: UInt32
     SecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
-class SE_ADT_CLAIMS(EasyCastStructure):
+class SE_ADT_CLAIMS(Structure):
     Length: UInt32
     Claims: VoidPtr
-class SE_ADT_OBJECT_TYPE(EasyCastStructure):
+class SE_ADT_OBJECT_TYPE(Structure):
     ObjectType: Guid
     Flags: UInt16
     Level: UInt16
     AccessMask: UInt32
-class SE_ADT_PARAMETER_ARRAY(EasyCastStructure):
+class SE_ADT_PARAMETER_ARRAY(Structure):
     CategoryId: UInt32
     AuditId: UInt32
     ParameterCount: UInt32
@@ -4162,12 +4162,12 @@ class SE_ADT_PARAMETER_ARRAY(EasyCastStructure):
     Type: UInt16
     Flags: UInt32
     Parameters: win32more.Windows.Win32.Security.Authentication.Identity.SE_ADT_PARAMETER_ARRAY_ENTRY * 32
-class SE_ADT_PARAMETER_ARRAY_ENTRY(EasyCastStructure):
+class SE_ADT_PARAMETER_ARRAY_ENTRY(Structure):
     Type: win32more.Windows.Win32.Security.Authentication.Identity.SE_ADT_PARAMETER_TYPE
     Length: UInt32
     Data: UIntPtr * 2
     Address: VoidPtr
-class SE_ADT_PARAMETER_ARRAY_EX(EasyCastStructure):
+class SE_ADT_PARAMETER_ARRAY_EX(Structure):
     CategoryId: UInt32
     AuditId: UInt32
     Version: UInt32
@@ -4243,13 +4243,13 @@ SL_REFERRALTYPE_APPID: win32more.Windows.Win32.Security.Authentication.Identity.
 SL_REFERRALTYPE_OVERRIDE_SKUID: win32more.Windows.Win32.Security.Authentication.Identity.SLREFERRALTYPE = 2
 SL_REFERRALTYPE_OVERRIDE_APPID: win32more.Windows.Win32.Security.Authentication.Identity.SLREFERRALTYPE = 3
 SL_REFERRALTYPE_BEST_MATCH: win32more.Windows.Win32.Security.Authentication.Identity.SLREFERRALTYPE = 4
-class SL_ACTIVATION_INFO_HEADER(EasyCastStructure):
+class SL_ACTIVATION_INFO_HEADER(Structure):
     cbSize: UInt32
     type: win32more.Windows.Win32.Security.Authentication.Identity.SL_ACTIVATION_TYPE
 SL_ACTIVATION_TYPE = Int32
 SL_ACTIVATION_TYPE_DEFAULT: win32more.Windows.Win32.Security.Authentication.Identity.SL_ACTIVATION_TYPE = 0
 SL_ACTIVATION_TYPE_ACTIVE_DIRECTORY: win32more.Windows.Win32.Security.Authentication.Identity.SL_ACTIVATION_TYPE = 1
-class SL_AD_ACTIVATION_INFO(EasyCastStructure):
+class SL_AD_ACTIVATION_INFO(Structure):
     header: win32more.Windows.Win32.Security.Authentication.Identity.SL_ACTIVATION_INFO_HEADER
     pwszProductKey: win32more.Windows.Win32.Foundation.PWSTR
     pwszActivationObjectName: win32more.Windows.Win32.Foundation.PWSTR
@@ -4259,26 +4259,26 @@ SL_GEN_STATE_INVALID_LICENSE: win32more.Windows.Win32.Security.Authentication.Id
 SL_GEN_STATE_TAMPERED: win32more.Windows.Win32.Security.Authentication.Identity.SL_GENUINE_STATE = 2
 SL_GEN_STATE_OFFLINE: win32more.Windows.Win32.Security.Authentication.Identity.SL_GENUINE_STATE = 3
 SL_GEN_STATE_LAST: win32more.Windows.Win32.Security.Authentication.Identity.SL_GENUINE_STATE = 4
-class SL_LICENSING_STATUS(EasyCastStructure):
+class SL_LICENSING_STATUS(Structure):
     SkuId: Guid
     eStatus: win32more.Windows.Win32.Security.Authentication.Identity.SLLICENSINGSTATUS
     dwGraceTime: UInt32
     dwTotalGraceDays: UInt32
     hrReason: win32more.Windows.Win32.Foundation.HRESULT
     qwValidityExpiration: UInt64
-class SL_NONGENUINE_UI_OPTIONS(EasyCastStructure):
+class SL_NONGENUINE_UI_OPTIONS(Structure):
     cbSize: UInt32
     pComponentId: POINTER(Guid)
     hResultUI: win32more.Windows.Win32.Foundation.HRESULT
-class SL_SYSTEM_POLICY_INFORMATION(EasyCastStructure):
+class SL_SYSTEM_POLICY_INFORMATION(Structure):
     Reserved1: VoidPtr * 2
     Reserved2: UInt32 * 3
-class SR_SECURITY_DESCRIPTOR(EasyCastStructure):
+class SR_SECURITY_DESCRIPTOR(Structure):
     Length: UInt32
     SecurityDescriptor: POINTER(Byte)
 @winfunctype_pointer
 def SSL_CRACK_CERTIFICATE_FN(pbCertificate: POINTER(Byte), cbCertificate: UInt32, VerifySignature: win32more.Windows.Win32.Foundation.BOOL, ppCertificate: POINTER(POINTER(win32more.Windows.Win32.Security.Authentication.Identity.X509Certificate))) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class SSL_CREDENTIAL_CERTIFICATE(EasyCastStructure):
+class SSL_CREDENTIAL_CERTIFICATE(Structure):
     cbPrivateKey: UInt32
     pPrivateKey: POINTER(Byte)
     cbCertificate: UInt32
@@ -4291,18 +4291,18 @@ def SSL_EMPTY_CACHE_FN_W(pszTargetName: win32more.Windows.Win32.Foundation.PWSTR
 SSL_EMPTY_CACHE_FN = UnicodeAlias('SSL_EMPTY_CACHE_FN_W')
 @winfunctype_pointer
 def SSL_FREE_CERTIFICATE_FN(pCertificate: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.X509Certificate)) -> Void: ...
-class SUBSCRIBE_GENERIC_TLS_EXTENSION(EasyCastStructure):
+class SUBSCRIBE_GENERIC_TLS_EXTENSION(Structure):
     Flags: UInt32
     SubscriptionsCount: UInt32
     Subscriptions: win32more.Windows.Win32.Security.Authentication.Identity.TLS_EXTENSION_SUBSCRIPTION * 1
 SchGetExtensionsOptions = Int32
 SCH_EXTENSIONS_OPTIONS_NONE: win32more.Windows.Win32.Security.Authentication.Identity.SchGetExtensionsOptions = 0
 SCH_NO_RECORD_HEADER: win32more.Windows.Win32.Security.Authentication.Identity.SchGetExtensionsOptions = 1
-class SecBuffer(EasyCastStructure):
+class SecBuffer(Structure):
     cbBuffer: UInt32
     BufferType: UInt32
     pvBuffer: VoidPtr
-class SecBufferDesc(EasyCastStructure):
+class SecBufferDesc(Structure):
     ulVersion: UInt32
     cBuffers: UInt32
     pBuffers: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBuffer)
@@ -4312,39 +4312,39 @@ SecService: win32more.Windows.Win32.Security.Authentication.Identity.SecDelegati
 SecTree: win32more.Windows.Win32.Security.Authentication.Identity.SecDelegationType = 2
 SecDirectory: win32more.Windows.Win32.Security.Authentication.Identity.SecDelegationType = 3
 SecObject: win32more.Windows.Win32.Security.Authentication.Identity.SecDelegationType = 4
-class SecPkgContext_AccessToken(EasyCastStructure):
+class SecPkgContext_AccessToken(Structure):
     AccessToken: VoidPtr
-class SecPkgContext_ApplicationProtocol(EasyCastStructure):
+class SecPkgContext_ApplicationProtocol(Structure):
     ProtoNegoStatus: win32more.Windows.Win32.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS
     ProtoNegoExt: win32more.Windows.Win32.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT
     ProtocolIdSize: Byte
     ProtocolId: Byte * 255
-class SecPkgContext_AuthorityA(EasyCastStructure):
+class SecPkgContext_AuthorityA(Structure):
     sAuthorityName: POINTER(SByte)
-class SecPkgContext_AuthorityW(EasyCastStructure):
+class SecPkgContext_AuthorityW(Structure):
     sAuthorityName: POINTER(UInt16)
 SecPkgContext_Authority = UnicodeAlias('SecPkgContext_AuthorityW')
-class SecPkgContext_AuthzID(EasyCastStructure):
+class SecPkgContext_AuthzID(Structure):
     AuthzIDLength: UInt32
     AuthzID: win32more.Windows.Win32.Foundation.PSTR
-class SecPkgContext_Bindings(EasyCastStructure):
+class SecPkgContext_Bindings(Structure):
     BindingsLength: UInt32
     Bindings: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SEC_CHANNEL_BINDINGS)
-class SecPkgContext_CertInfo(EasyCastStructure):
+class SecPkgContext_CertInfo(Structure):
     dwVersion: UInt32
     cbSubjectName: UInt32
     pwszSubjectName: win32more.Windows.Win32.Foundation.PWSTR
     cbIssuerName: UInt32
     pwszIssuerName: win32more.Windows.Win32.Foundation.PWSTR
     dwKeySize: UInt32
-class SecPkgContext_CertificateValidationResult(EasyCastStructure):
+class SecPkgContext_CertificateValidationResult(Structure):
     dwChainErrorStatus: UInt32
     hrVerifyChainStatus: win32more.Windows.Win32.Foundation.HRESULT
-class SecPkgContext_Certificates(EasyCastStructure):
+class SecPkgContext_Certificates(Structure):
     cCertificates: UInt32
     cbCertificateChain: UInt32
     pbCertificateChain: POINTER(Byte)
-class SecPkgContext_CipherInfo(EasyCastStructure):
+class SecPkgContext_CipherInfo(Structure):
     dwVersion: UInt32
     dwProtocol: UInt32
     dwCipherSuite: UInt32
@@ -4360,12 +4360,12 @@ class SecPkgContext_CipherInfo(EasyCastStructure):
     dwMaxExchangeLen: UInt32
     szCertificate: Char * 64
     dwKeyType: UInt32
-class SecPkgContext_ClientCertPolicyResult(EasyCastStructure):
+class SecPkgContext_ClientCertPolicyResult(Structure):
     dwPolicyResult: win32more.Windows.Win32.Foundation.HRESULT
     guidPolicyId: Guid
-class SecPkgContext_ClientSpecifiedTarget(EasyCastStructure):
+class SecPkgContext_ClientSpecifiedTarget(Structure):
     sTargetName: POINTER(UInt16)
-class SecPkgContext_ConnectionInfo(EasyCastStructure):
+class SecPkgContext_ConnectionInfo(Structure):
     dwProtocol: UInt32
     aiCipher: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwCipherStrength: UInt32
@@ -4373,7 +4373,7 @@ class SecPkgContext_ConnectionInfo(EasyCastStructure):
     dwHashStrength: UInt32
     aiExch: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwExchStrength: UInt32
-class SecPkgContext_ConnectionInfoEx(EasyCastStructure):
+class SecPkgContext_ConnectionInfoEx(Structure):
     dwVersion: UInt32
     dwProtocol: UInt32
     szCipher: Char * 64
@@ -4382,185 +4382,185 @@ class SecPkgContext_ConnectionInfoEx(EasyCastStructure):
     dwHashStrength: UInt32
     szExchange: Char * 64
     dwExchStrength: UInt32
-class SecPkgContext_CredInfo(EasyCastStructure):
+class SecPkgContext_CredInfo(Structure):
     CredClass: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_CRED_CLASS
     IsPromptingNeeded: UInt32
-class SecPkgContext_CredentialNameA(EasyCastStructure):
+class SecPkgContext_CredentialNameA(Structure):
     CredentialType: UInt32
     sCredentialName: POINTER(SByte)
-class SecPkgContext_CredentialNameW(EasyCastStructure):
+class SecPkgContext_CredentialNameW(Structure):
     CredentialType: UInt32
     sCredentialName: POINTER(UInt16)
 SecPkgContext_CredentialName = UnicodeAlias('SecPkgContext_CredentialNameW')
-class SecPkgContext_DceInfo(EasyCastStructure):
+class SecPkgContext_DceInfo(Structure):
     AuthzSvc: UInt32
     pPac: VoidPtr
-class SecPkgContext_EapKeyBlock(EasyCastStructure):
+class SecPkgContext_EapKeyBlock(Structure):
     rgbKeys: Byte * 128
     rgbIVs: Byte * 64
-class SecPkgContext_EapPrfInfo(EasyCastStructure):
+class SecPkgContext_EapPrfInfo(Structure):
     dwVersion: UInt32
     cbPrfData: UInt32
     pbPrfData: POINTER(Byte)
-class SecPkgContext_EarlyStart(EasyCastStructure):
+class SecPkgContext_EarlyStart(Structure):
     dwEarlyStartFlags: UInt32
-class SecPkgContext_Flags(EasyCastStructure):
+class SecPkgContext_Flags(Structure):
     Flags: UInt32
-class SecPkgContext_IssuerListInfoEx(EasyCastStructure):
+class SecPkgContext_IssuerListInfoEx(Structure):
     aIssuers: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     cIssuers: UInt32
-class SecPkgContext_KeyInfoA(EasyCastStructure):
+class SecPkgContext_KeyInfoA(Structure):
     sSignatureAlgorithmName: POINTER(SByte)
     sEncryptAlgorithmName: POINTER(SByte)
     KeySize: UInt32
     SignatureAlgorithm: UInt32
     EncryptAlgorithm: UInt32
-class SecPkgContext_KeyInfoW(EasyCastStructure):
+class SecPkgContext_KeyInfoW(Structure):
     sSignatureAlgorithmName: POINTER(UInt16)
     sEncryptAlgorithmName: POINTER(UInt16)
     KeySize: UInt32
     SignatureAlgorithm: UInt32
     EncryptAlgorithm: UInt32
 SecPkgContext_KeyInfo = UnicodeAlias('SecPkgContext_KeyInfoW')
-class SecPkgContext_KeyingMaterial(EasyCastStructure):
+class SecPkgContext_KeyingMaterial(Structure):
     cbKeyingMaterial: UInt32
     pbKeyingMaterial: POINTER(Byte)
-class SecPkgContext_KeyingMaterialInfo(EasyCastStructure):
+class SecPkgContext_KeyingMaterialInfo(Structure):
     cbLabel: UInt16
     pszLabel: win32more.Windows.Win32.Foundation.PSTR
     cbContextValue: UInt16
     pbContextValue: POINTER(Byte)
     cbKeyingMaterial: UInt32
-class SecPkgContext_KeyingMaterial_Inproc(EasyCastStructure):
+class SecPkgContext_KeyingMaterial_Inproc(Structure):
     cbLabel: UInt16
     pszLabel: win32more.Windows.Win32.Foundation.PSTR
     cbContextValue: UInt16
     pbContextValue: POINTER(Byte)
     cbKeyingMaterial: UInt32
     pbKeyingMaterial: POINTER(Byte)
-class SecPkgContext_LastClientTokenStatus(EasyCastStructure):
+class SecPkgContext_LastClientTokenStatus(Structure):
     LastClientTokenStatus: win32more.Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR_LCT_STATUS
-class SecPkgContext_Lifespan(EasyCastStructure):
+class SecPkgContext_Lifespan(Structure):
     tsStart: Int64
     tsExpiry: Int64
-class SecPkgContext_LocalCredentialInfo(EasyCastStructure):
+class SecPkgContext_LocalCredentialInfo(Structure):
     cbCertificateChain: UInt32
     pbCertificateChain: POINTER(Byte)
     cCertificates: UInt32
     fFlags: UInt32
     dwBits: UInt32
-class SecPkgContext_LogoffTime(EasyCastStructure):
+class SecPkgContext_LogoffTime(Structure):
     tsLogoffTime: Int64
-class SecPkgContext_MappedCredAttr(EasyCastStructure):
+class SecPkgContext_MappedCredAttr(Structure):
     dwAttribute: UInt32
     pvBuffer: VoidPtr
-class SecPkgContext_NamesA(EasyCastStructure):
+class SecPkgContext_NamesA(Structure):
     sUserName: POINTER(SByte)
-class SecPkgContext_NamesW(EasyCastStructure):
+class SecPkgContext_NamesW(Structure):
     sUserName: POINTER(UInt16)
 SecPkgContext_Names = UnicodeAlias('SecPkgContext_NamesW')
-class SecPkgContext_NativeNamesA(EasyCastStructure):
+class SecPkgContext_NativeNamesA(Structure):
     sClientName: POINTER(SByte)
     sServerName: POINTER(SByte)
-class SecPkgContext_NativeNamesW(EasyCastStructure):
+class SecPkgContext_NativeNamesW(Structure):
     sClientName: POINTER(UInt16)
     sServerName: POINTER(UInt16)
 SecPkgContext_NativeNames = UnicodeAlias('SecPkgContext_NativeNamesW')
-class SecPkgContext_NegoKeys(EasyCastStructure):
+class SecPkgContext_NegoKeys(Structure):
     KeyType: UInt32
     KeyLength: UInt16
     KeyValue: POINTER(Byte)
     VerifyKeyType: UInt32
     VerifyKeyLength: UInt16
     VerifyKeyValue: POINTER(Byte)
-class SecPkgContext_NegoPackageInfo(EasyCastStructure):
+class SecPkgContext_NegoPackageInfo(Structure):
     PackageMask: UInt32
-class SecPkgContext_NegoStatus(EasyCastStructure):
+class SecPkgContext_NegoStatus(Structure):
     LastStatus: UInt32
-class SecPkgContext_NegotiatedTlsExtensions(EasyCastStructure):
+class SecPkgContext_NegotiatedTlsExtensions(Structure):
     ExtensionsCount: UInt32
     Extensions: POINTER(UInt16)
-class SecPkgContext_NegotiationInfoA(EasyCastStructure):
+class SecPkgContext_NegotiationInfoA(Structure):
     PackageInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoA)
     NegotiationState: UInt32
-class SecPkgContext_NegotiationInfoW(EasyCastStructure):
+class SecPkgContext_NegotiationInfoW(Structure):
     PackageInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW)
     NegotiationState: UInt32
 SecPkgContext_NegotiationInfo = UnicodeAlias('SecPkgContext_NegotiationInfoW')
-class SecPkgContext_PackageInfoA(EasyCastStructure):
+class SecPkgContext_PackageInfoA(Structure):
     PackageInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoA)
-class SecPkgContext_PackageInfoW(EasyCastStructure):
+class SecPkgContext_PackageInfoW(Structure):
     PackageInfo: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgInfoW)
 SecPkgContext_PackageInfo = UnicodeAlias('SecPkgContext_PackageInfoW')
-class SecPkgContext_PasswordExpiry(EasyCastStructure):
+class SecPkgContext_PasswordExpiry(Structure):
     tsPasswordExpires: Int64
-class SecPkgContext_ProtoInfoA(EasyCastStructure):
+class SecPkgContext_ProtoInfoA(Structure):
     sProtocolName: POINTER(SByte)
     majorVersion: UInt32
     minorVersion: UInt32
-class SecPkgContext_ProtoInfoW(EasyCastStructure):
+class SecPkgContext_ProtoInfoW(Structure):
     sProtocolName: POINTER(UInt16)
     majorVersion: UInt32
     minorVersion: UInt32
 SecPkgContext_ProtoInfo = UnicodeAlias('SecPkgContext_ProtoInfoW')
-class SecPkgContext_RemoteCredentialInfo(EasyCastStructure):
+class SecPkgContext_RemoteCredentialInfo(Structure):
     cbCertificateChain: UInt32
     pbCertificateChain: POINTER(Byte)
     cCertificates: UInt32
     fFlags: UInt32
     dwBits: UInt32
-class SecPkgContext_SaslContext(EasyCastStructure):
+class SecPkgContext_SaslContext(Structure):
     SaslContext: VoidPtr
-class SecPkgContext_SessionAppData(EasyCastStructure):
+class SecPkgContext_SessionAppData(Structure):
     dwFlags: UInt32
     cbAppData: UInt32
     pbAppData: POINTER(Byte)
-class SecPkgContext_SessionInfo(EasyCastStructure):
+class SecPkgContext_SessionInfo(Structure):
     dwFlags: UInt32
     cbSessionId: UInt32
     rgbSessionId: Byte * 32
-class SecPkgContext_SessionKey(EasyCastStructure):
+class SecPkgContext_SessionKey(Structure):
     SessionKeyLength: UInt32
     SessionKey: POINTER(Byte)
-class SecPkgContext_Sizes(EasyCastStructure):
+class SecPkgContext_Sizes(Structure):
     cbMaxToken: UInt32
     cbMaxSignature: UInt32
     cbBlockSize: UInt32
     cbSecurityTrailer: UInt32
-class SecPkgContext_SrtpParameters(EasyCastStructure):
+class SecPkgContext_SrtpParameters(Structure):
     ProtectionProfile: UInt16
     MasterKeyIdentifierSize: Byte
     MasterKeyIdentifier: POINTER(Byte)
-class SecPkgContext_StreamSizes(EasyCastStructure):
+class SecPkgContext_StreamSizes(Structure):
     cbHeader: UInt32
     cbTrailer: UInt32
     cbMaximumMessage: UInt32
     cBuffers: UInt32
     cbBlockSize: UInt32
-class SecPkgContext_SubjectAttributes(EasyCastStructure):
+class SecPkgContext_SubjectAttributes(Structure):
     AttributeInfo: VoidPtr
-class SecPkgContext_SupportedSignatures(EasyCastStructure):
+class SecPkgContext_SupportedSignatures(Structure):
     cSignatureAndHashAlgorithms: UInt16
     pSignatureAndHashAlgorithms: POINTER(UInt16)
-class SecPkgContext_Target(EasyCastStructure):
+class SecPkgContext_Target(Structure):
     TargetLength: UInt32
     Target: win32more.Windows.Win32.Foundation.PSTR
-class SecPkgContext_TargetInformation(EasyCastStructure):
+class SecPkgContext_TargetInformation(Structure):
     MarshalledTargetInfoLength: UInt32
     MarshalledTargetInfo: POINTER(Byte)
-class SecPkgContext_TokenBinding(EasyCastStructure):
+class SecPkgContext_TokenBinding(Structure):
     MajorVersion: Byte
     MinorVersion: Byte
     KeyParametersSize: UInt16
     KeyParameters: POINTER(Byte)
-class SecPkgContext_UiInfo(EasyCastStructure):
+class SecPkgContext_UiInfo(Structure):
     hParentWindow: win32more.Windows.Win32.Foundation.HWND
-class SecPkgContext_UserFlags(EasyCastStructure):
+class SecPkgContext_UserFlags(Structure):
     UserFlags: UInt32
-class SecPkgCred_CipherStrengths(EasyCastStructure):
+class SecPkgCred_CipherStrengths(Structure):
     dwMinimumCipherStrength: UInt32
     dwMaximumCipherStrength: UInt32
-class SecPkgCred_ClientCertPolicy(EasyCastStructure):
+class SecPkgCred_ClientCertPolicy(Structure):
     dwFlags: UInt32
     guidPolicyId: Guid
     dwCertFlags: UInt32
@@ -4570,51 +4570,51 @@ class SecPkgCred_ClientCertPolicy(EasyCastStructure):
     fOmitUsageCheck: win32more.Windows.Win32.Foundation.BOOL
     pwszSslCtlStoreName: win32more.Windows.Win32.Foundation.PWSTR
     pwszSslCtlIdentifier: win32more.Windows.Win32.Foundation.PWSTR
-class SecPkgCred_SessionTicketKey(EasyCastStructure):
+class SecPkgCred_SessionTicketKey(Structure):
     TicketInfoVersion: UInt32
     KeyId: Byte * 16
     KeyingMaterial: Byte * 64
     KeyingMaterialSize: Byte
-class SecPkgCred_SessionTicketKeys(EasyCastStructure):
+class SecPkgCred_SessionTicketKeys(Structure):
     cSessionTicketKeys: UInt32
     pSessionTicketKeys: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgCred_SessionTicketKey)
-class SecPkgCred_SupportedAlgs(EasyCastStructure):
+class SecPkgCred_SupportedAlgs(Structure):
     cSupportedAlgs: UInt32
     palgSupportedAlgs: POINTER(win32more.Windows.Win32.Security.Cryptography.ALG_ID)
-class SecPkgCred_SupportedProtocols(EasyCastStructure):
+class SecPkgCred_SupportedProtocols(Structure):
     grbitProtocol: UInt32
-class SecPkgCredentials_Cert(EasyCastStructure):
+class SecPkgCredentials_Cert(Structure):
     EncodedCertSize: UInt32
     EncodedCert: POINTER(Byte)
-class SecPkgCredentials_KdcProxySettingsW(EasyCastStructure):
+class SecPkgCredentials_KdcProxySettingsW(Structure):
     Version: UInt32
     Flags: UInt32
     ProxyServerOffset: UInt16
     ProxyServerLength: UInt16
     ClientTlsCredOffset: UInt16
     ClientTlsCredLength: UInt16
-class SecPkgCredentials_NamesA(EasyCastStructure):
+class SecPkgCredentials_NamesA(Structure):
     sUserName: POINTER(SByte)
-class SecPkgCredentials_NamesW(EasyCastStructure):
+class SecPkgCredentials_NamesW(Structure):
     sUserName: POINTER(UInt16)
 SecPkgCredentials_Names = UnicodeAlias('SecPkgCredentials_NamesW')
-class SecPkgCredentials_SSIProviderA(EasyCastStructure):
+class SecPkgCredentials_SSIProviderA(Structure):
     sProviderName: POINTER(SByte)
     ProviderInfoLength: UInt32
     ProviderInfo: win32more.Windows.Win32.Foundation.PSTR
-class SecPkgCredentials_SSIProviderW(EasyCastStructure):
+class SecPkgCredentials_SSIProviderW(Structure):
     sProviderName: POINTER(UInt16)
     ProviderInfoLength: UInt32
     ProviderInfo: win32more.Windows.Win32.Foundation.PSTR
 SecPkgCredentials_SSIProvider = UnicodeAlias('SecPkgCredentials_SSIProviderW')
-class SecPkgInfoA(EasyCastStructure):
+class SecPkgInfoA(Structure):
     fCapabilities: UInt32
     wVersion: UInt16
     wRPCID: UInt16
     cbMaxToken: UInt32
     Name: POINTER(SByte)
     Comment: POINTER(SByte)
-class SecPkgInfoW(EasyCastStructure):
+class SecPkgInfoW(Structure):
     fCapabilities: UInt32
     wVersion: UInt16
     wRPCID: UInt16
@@ -4622,7 +4622,7 @@ class SecPkgInfoW(EasyCastStructure):
     Name: POINTER(UInt16)
     Comment: POINTER(UInt16)
 SecPkgInfo = UnicodeAlias('SecPkgInfoW')
-class SecurityFunctionTableA(EasyCastStructure):
+class SecurityFunctionTableA(Structure):
     dwVersion: UInt32
     EnumerateSecurityPackagesA: win32more.Windows.Win32.Security.Authentication.Identity.ENUMERATE_SECURITY_PACKAGES_FN_A
     QueryCredentialsAttributesA: win32more.Windows.Win32.Security.Authentication.Identity.QUERY_CREDENTIALS_ATTRIBUTES_FN_A
@@ -4655,7 +4655,7 @@ class SecurityFunctionTableA(EasyCastStructure):
     ChangeAccountPasswordA: win32more.Windows.Win32.Security.Authentication.Identity.CHANGE_PASSWORD_FN_A
     QueryContextAttributesExA: win32more.Windows.Win32.Security.Authentication.Identity.QUERY_CONTEXT_ATTRIBUTES_EX_FN_A
     QueryCredentialsAttributesExA: win32more.Windows.Win32.Security.Authentication.Identity.QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_A
-class SecurityFunctionTableW(EasyCastStructure):
+class SecurityFunctionTableW(Structure):
     dwVersion: UInt32
     EnumerateSecurityPackagesW: win32more.Windows.Win32.Security.Authentication.Identity.ENUMERATE_SECURITY_PACKAGES_FN_W
     QueryCredentialsAttributesW: win32more.Windows.Win32.Security.Authentication.Identity.QUERY_CREDENTIALS_ATTRIBUTES_FN_W
@@ -4787,10 +4787,10 @@ def SslDeserializeCertificateStoreFn(SerializedCertificateStore: win32more.Windo
 def SslGetExtensionsFn(clientHello: POINTER(Byte), clientHelloByteSize: UInt32, genericExtensions: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SCH_EXTENSION_DATA), genericExtensionsCount: Byte, bytesToRead: POINTER(UInt32), flags: win32more.Windows.Win32.Security.Authentication.Identity.SchGetExtensionsOptions) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def SslGetServerIdentityFn(ClientHello: POINTER(Byte), ClientHelloSize: UInt32, ServerIdentity: POINTER(POINTER(Byte)), ServerIdentitySize: POINTER(UInt32), Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class TLS_EXTENSION_SUBSCRIPTION(EasyCastStructure):
+class TLS_EXTENSION_SUBSCRIPTION(Structure):
     ExtensionType: UInt16
     HandshakeType: UInt16
-class TLS_PARAMETERS(EasyCastStructure):
+class TLS_PARAMETERS(Structure):
     cAlpnIds: UInt32
     rgstrAlpnIds: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING)
     grbitDisabledProtocols: UInt32
@@ -4799,55 +4799,55 @@ class TLS_PARAMETERS(EasyCastStructure):
     dwFlags: UInt32
 TOKENBINDING_EXTENSION_FORMAT = Int32
 TOKENBINDING_EXTENSION_FORMAT_UNDEFINED: win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_EXTENSION_FORMAT = 0
-class TOKENBINDING_IDENTIFIER(EasyCastStructure):
+class TOKENBINDING_IDENTIFIER(Structure):
     keyType: Byte
 TOKENBINDING_KEY_PARAMETERS_TYPE = Int32
 TOKENBINDING_KEY_PARAMETERS_TYPE_RSA2048_PKCS: win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_KEY_PARAMETERS_TYPE = 0
 TOKENBINDING_KEY_PARAMETERS_TYPE_RSA2048_PSS: win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_KEY_PARAMETERS_TYPE = 1
 TOKENBINDING_KEY_PARAMETERS_TYPE_ECDSAP256: win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_KEY_PARAMETERS_TYPE = 2
 TOKENBINDING_KEY_PARAMETERS_TYPE_ANYEXISTING: win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_KEY_PARAMETERS_TYPE = 255
-class TOKENBINDING_KEY_TYPES(EasyCastStructure):
+class TOKENBINDING_KEY_TYPES(Structure):
     keyCount: UInt32
     keyType: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_KEY_PARAMETERS_TYPE)
-class TOKENBINDING_RESULT_DATA(EasyCastStructure):
+class TOKENBINDING_RESULT_DATA(Structure):
     bindingType: win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_TYPE
     identifierSize: UInt32
     identifierData: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_IDENTIFIER)
     extensionFormat: win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_EXTENSION_FORMAT
     extensionSize: UInt32
     extensionData: VoidPtr
-class TOKENBINDING_RESULT_LIST(EasyCastStructure):
+class TOKENBINDING_RESULT_LIST(Structure):
     resultCount: UInt32
     resultData: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_RESULT_DATA)
 TOKENBINDING_TYPE = Int32
 TOKENBINDING_TYPE_PROVIDED: win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_TYPE = 0
 TOKENBINDING_TYPE_REFERRED: win32more.Windows.Win32.Security.Authentication.Identity.TOKENBINDING_TYPE = 1
-class TRUSTED_CONTROLLERS_INFO(EasyCastStructure):
+class TRUSTED_CONTROLLERS_INFO(Structure):
     Entries: UInt32
     Names: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING)
-class TRUSTED_DOMAIN_AUTH_INFORMATION(EasyCastStructure):
+class TRUSTED_DOMAIN_AUTH_INFORMATION(Structure):
     IncomingAuthInfos: UInt32
     IncomingAuthenticationInformation: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION)
     IncomingPreviousAuthenticationInformation: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION)
     OutgoingAuthInfos: UInt32
     OutgoingAuthenticationInformation: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION)
     OutgoingPreviousAuthenticationInformation: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION)
-class TRUSTED_DOMAIN_FULL_INFORMATION(EasyCastStructure):
+class TRUSTED_DOMAIN_FULL_INFORMATION(Structure):
     Information: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_INFORMATION_EX
     PosixOffset: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_POSIX_OFFSET_INFO
     AuthInformation: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_AUTH_INFORMATION
-class TRUSTED_DOMAIN_FULL_INFORMATION2(EasyCastStructure):
+class TRUSTED_DOMAIN_FULL_INFORMATION2(Structure):
     Information: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_INFORMATION_EX2
     PosixOffset: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_POSIX_OFFSET_INFO
     AuthInformation: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_AUTH_INFORMATION
-class TRUSTED_DOMAIN_INFORMATION_EX(EasyCastStructure):
+class TRUSTED_DOMAIN_INFORMATION_EX(Structure):
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     FlatName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Sid: win32more.Windows.Win32.Security.PSID
     TrustDirection: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_TRUST_DIRECTION
     TrustType: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_TRUST_TYPE
     TrustAttributes: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_TRUST_ATTRIBUTES
-class TRUSTED_DOMAIN_INFORMATION_EX2(EasyCastStructure):
+class TRUSTED_DOMAIN_INFORMATION_EX2(Structure):
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     FlatName: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     Sid: win32more.Windows.Win32.Security.PSID
@@ -4856,9 +4856,9 @@ class TRUSTED_DOMAIN_INFORMATION_EX2(EasyCastStructure):
     TrustAttributes: UInt32
     ForestTrustLength: UInt32
     ForestTrustInfo: POINTER(Byte)
-class TRUSTED_DOMAIN_NAME_INFO(EasyCastStructure):
+class TRUSTED_DOMAIN_NAME_INFO(Structure):
     Name: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class TRUSTED_DOMAIN_SUPPORTED_ENCRYPTION_TYPES(EasyCastStructure):
+class TRUSTED_DOMAIN_SUPPORTED_ENCRYPTION_TYPES(Structure):
     SupportedEncryptionTypes: UInt32
 TRUSTED_DOMAIN_TRUST_ATTRIBUTES = UInt32
 TRUST_ATTRIBUTE_NON_TRANSITIVE: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_DOMAIN_TRUST_ATTRIBUTES = 1
@@ -4894,12 +4894,12 @@ TrustedDomainFullInformation2Internal: win32more.Windows.Win32.Security.Authenti
 TrustedDomainSupportedEncryptionTypes: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_INFORMATION_CLASS = 13
 TrustedDomainAuthInformationInternalAes: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_INFORMATION_CLASS = 14
 TrustedDomainFullInformationInternalAes: win32more.Windows.Win32.Security.Authentication.Identity.TRUSTED_INFORMATION_CLASS = 15
-class TRUSTED_PASSWORD_INFO(EasyCastStructure):
+class TRUSTED_PASSWORD_INFO(Structure):
     Password: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
     OldPassword: win32more.Windows.Win32.Security.Authentication.Identity.LSA_UNICODE_STRING
-class TRUSTED_POSIX_OFFSET_INFO(EasyCastStructure):
+class TRUSTED_POSIX_OFFSET_INFO(Structure):
     Offset: UInt32
-class USER_ALL_INFORMATION(EasyCastStructure):
+class USER_ALL_INFORMATION(Structure):
     LastLogon: Int64
     LastLogoff: Int64
     PasswordLastSet: Int64
@@ -4934,11 +4934,11 @@ class USER_ALL_INFORMATION(EasyCastStructure):
     PasswordExpired: win32more.Windows.Win32.Foundation.BOOLEAN
     PrivateDataSensitive: win32more.Windows.Win32.Foundation.BOOLEAN
     _pack_ = 4
-class USER_SESSION_KEY(EasyCastStructure):
+class USER_SESSION_KEY(Structure):
     data: win32more.Windows.Win32.System.PasswordManagement.CYPHER_BLOCK * 2
 @winfunctype_pointer
 def VERIFY_SIGNATURE_FN(param0: POINTER(win32more.Windows.Win32.Security.Credentials.SecHandle), param1: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecBufferDesc), param2: UInt32, param3: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class X509Certificate(EasyCastStructure):
+class X509Certificate(Structure):
     Version: UInt32
     SerialNumber: UInt32 * 4
     SignatureAlgorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WindowsSync
@@ -191,12 +191,12 @@ class ICustomFilterInfo(ComPtr):
     _iid_ = Guid('{1d335dff-6f88-4e4d-91a8-a3f351cfd473}')
     @commethod(4)
     def GetSyncFilter(self, pISyncFilter: POINTER(win32more.Windows.Win32.System.WindowsSync.ISyncFilter)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class ID_PARAMETERS(EasyCastStructure):
+class ID_PARAMETERS(Structure):
     dwSize: UInt32
     replicaId: win32more.Windows.Win32.System.WindowsSync.ID_PARAMETER_PAIR
     itemId: win32more.Windows.Win32.System.WindowsSync.ID_PARAMETER_PAIR
     changeUnitId: win32more.Windows.Win32.System.WindowsSync.ID_PARAMETER_PAIR
-class ID_PARAMETER_PAIR(EasyCastStructure):
+class ID_PARAMETER_PAIR(Structure):
     fIsVariable: win32more.Windows.Win32.Foundation.BOOL
     cbIdSize: UInt16
 class IDataRetrieverCallback(ComPtr):
@@ -907,7 +907,7 @@ SCRA_TRANSFER_AND_DEFER: win32more.Windows.Win32.System.WindowsSync.SYNC_CONSTRA
 SCRA_MERGE: win32more.Windows.Win32.System.WindowsSync.SYNC_CONSTRAINT_RESOLVE_ACTION = 4
 SCRA_RENAME_SOURCE: win32more.Windows.Win32.System.WindowsSync.SYNC_CONSTRAINT_RESOLVE_ACTION = 5
 SCRA_RENAME_DESTINATION: win32more.Windows.Win32.System.WindowsSync.SYNC_CONSTRAINT_RESOLVE_ACTION = 6
-class SYNC_FILTER_CHANGE(EasyCastStructure):
+class SYNC_FILTER_CHANGE(Structure):
     fMoveIn: win32more.Windows.Win32.Foundation.BOOL
     moveVersion: win32more.Windows.Win32.System.WindowsSync.SYNC_VERSION
 SYNC_FULL_ENUMERATION_ACTION = Int32
@@ -921,7 +921,7 @@ SPS_CHANGE_APPLICATION: win32more.Windows.Win32.System.WindowsSync.SYNC_PROGRESS
 SYNC_PROVIDER_ROLE = Int32
 SPR_SOURCE: win32more.Windows.Win32.System.WindowsSync.SYNC_PROVIDER_ROLE = 0
 SPR_DESTINATION: win32more.Windows.Win32.System.WindowsSync.SYNC_PROVIDER_ROLE = 1
-class SYNC_RANGE(EasyCastStructure):
+class SYNC_RANGE(Structure):
     pbClosedLowerBound: POINTER(Byte)
     pbClosedUpperBound: POINTER(Byte)
 SYNC_REGISTRATION_EVENT = Int32
@@ -943,18 +943,18 @@ SYNC_SERIALIZATION_VERSION = Int32
 SYNC_SERIALIZATION_VERSION_V1: win32more.Windows.Win32.System.WindowsSync.SYNC_SERIALIZATION_VERSION = 1
 SYNC_SERIALIZATION_VERSION_V2: win32more.Windows.Win32.System.WindowsSync.SYNC_SERIALIZATION_VERSION = 4
 SYNC_SERIALIZATION_VERSION_V3: win32more.Windows.Win32.System.WindowsSync.SYNC_SERIALIZATION_VERSION = 5
-class SYNC_SESSION_STATISTICS(EasyCastStructure):
+class SYNC_SESSION_STATISTICS(Structure):
     dwChangesApplied: UInt32
     dwChangesFailed: UInt32
 SYNC_STATISTICS = Int32
 SYNC_STATISTICS_RANGE_COUNT: win32more.Windows.Win32.System.WindowsSync.SYNC_STATISTICS = 0
-class SYNC_TIME(EasyCastStructure):
+class SYNC_TIME(Structure):
     dwDate: UInt32
     dwTime: UInt32
-class SYNC_VERSION(EasyCastStructure):
+class SYNC_VERSION(Structure):
     dwLastUpdatingReplicaKey: UInt32
     ullTickCount: UInt64
-class SyncProviderConfigUIConfiguration(EasyCastStructure):
+class SyncProviderConfigUIConfiguration(Structure):
     dwVersion: UInt32
     guidInstanceId: Guid
     clsidConfigUI: Guid
@@ -962,7 +962,7 @@ class SyncProviderConfigUIConfiguration(EasyCastStructure):
     dwCapabilities: UInt32
     dwSupportedArchitecture: UInt32
     fIsGlobal: win32more.Windows.Win32.Foundation.BOOL
-class SyncProviderConfiguration(EasyCastStructure):
+class SyncProviderConfiguration(Structure):
     dwVersion: UInt32
     guidInstanceId: Guid
     clsidProvider: Guid

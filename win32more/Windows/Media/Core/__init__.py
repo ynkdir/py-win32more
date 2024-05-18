@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.Foundation
@@ -2817,7 +2817,7 @@ class MseStreamSource(ComPtr):
     LiveSeekableRange = property(get_LiveSeekableRange, put_LiveSeekableRange)
     ReadyState = property(get_ReadyState, None)
     SourceBuffers = property(get_SourceBuffers, None)
-class MseTimeRange(EasyCastStructure):
+class MseTimeRange(Structure):
     Start: win32more.Windows.Foundation.TimeSpan
     End: win32more.Windows.Foundation.TimeSpan
 class SceneAnalysisEffect(ComPtr):
@@ -3160,7 +3160,7 @@ class TimedTextDisplayAlignment(Int32):  # enum
     Before = 0
     After = 1
     Center = 2
-class TimedTextDouble(EasyCastStructure):
+class TimedTextDouble(Structure):
     Value: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit
 class TimedTextFlowDirection(Int32):  # enum
@@ -3195,13 +3195,13 @@ class TimedTextLineAlignment(Int32):  # enum
     Start = 0
     End = 1
     Center = 2
-class TimedTextPadding(EasyCastStructure):
+class TimedTextPadding(Structure):
     Before: Double
     After: Double
     Start: Double
     End: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit
-class TimedTextPoint(EasyCastStructure):
+class TimedTextPoint(Structure):
     X: Double
     Y: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit
@@ -3322,7 +3322,7 @@ class TimedTextRubyReserve(Int32):  # enum
 class TimedTextScrollMode(Int32):  # enum
     Popon = 0
     Rollup = 1
-class TimedTextSize(EasyCastStructure):
+class TimedTextSize(Structure):
     Height: Double
     Width: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.DirectShow
 import win32more.Windows.Win32.Networking.WinSock
@@ -1397,7 +1397,7 @@ RTCWS_ALLOWED: win32more.Windows.Win32.System.RealTimeCommunications.RTC_WATCHER
 RTCWS_BLOCKED: win32more.Windows.Win32.System.RealTimeCommunications.RTC_WATCHER_STATE = 3
 RTCWS_DENIED: win32more.Windows.Win32.System.RealTimeCommunications.RTC_WATCHER_STATE = 4
 RTCWS_PROMPT: win32more.Windows.Win32.System.RealTimeCommunications.RTC_WATCHER_STATE = 5
-class TRANSPORT_SETTING(EasyCastStructure):
+class TRANSPORT_SETTING(Structure):
     SettingId: win32more.Windows.Win32.Networking.WinSock.TRANSPORT_SETTING_ID
     Length: POINTER(UInt32)
     Value: POINTER(Byte)

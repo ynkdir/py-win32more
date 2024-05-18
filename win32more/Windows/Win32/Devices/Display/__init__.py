@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Display
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -20,11 +20,11 @@ AR_NOSENSOR: win32more.Windows.Win32.Devices.Display.AR_STATE = 16
 AR_NOT_SUPPORTED: win32more.Windows.Win32.Devices.Display.AR_STATE = 32
 AR_DOCKED: win32more.Windows.Win32.Devices.Display.AR_STATE = 64
 AR_LAPTOP: win32more.Windows.Win32.Devices.Display.AR_STATE = 128
-class Adapter(EasyCastStructure):
+class Adapter(Structure):
     AdapterName: Char * 128
     numSources: Int32
     sources: win32more.Windows.Win32.Devices.Display.Sources * 1
-class Adapters(EasyCastStructure):
+class Adapters(Structure):
     numAdapters: Int32
     adapter: win32more.Windows.Win32.Devices.Display.Adapter * 1
 GUID_DEVINTERFACE_DISPLAY_ADAPTER: Guid = Guid('{5b45201d-f2f2-4f3b-85bb-30ff1f953599}')
@@ -1012,68 +1012,68 @@ BacklightOptimizationDesktop: win32more.Windows.Win32.Devices.Display.BACKLIGHT_
 BacklightOptimizationDynamic: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 2
 BacklightOptimizationDimmed: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 3
 BacklightOptimizationEDR: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL = 4
-class BACKLIGHT_REDUCTION_GAMMA_RAMP(EasyCastStructure):
+class BACKLIGHT_REDUCTION_GAMMA_RAMP(Structure):
     R: UInt16 * 256
     G: UInt16 * 256
     B: UInt16 * 256
-class BANK_POSITION(EasyCastStructure):
+class BANK_POSITION(Structure):
     ReadBankPosition: UInt32
     WriteBankPosition: UInt32
-class BLENDOBJ(EasyCastStructure):
+class BLENDOBJ(Structure):
     BlendFunction: win32more.Windows.Win32.Graphics.Gdi.BLENDFUNCTION
 BRIGHTNESS_INTERFACE_VERSION = Int32
 BRIGHTNESS_INTERFACE_VERSION_1: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_INTERFACE_VERSION = 1
 BRIGHTNESS_INTERFACE_VERSION_2: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_INTERFACE_VERSION = 2
 BRIGHTNESS_INTERFACE_VERSION_3: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_INTERFACE_VERSION = 3
-class BRIGHTNESS_LEVEL(EasyCastStructure):
+class BRIGHTNESS_LEVEL(Structure):
     Count: Byte
     Level: Byte * 103
-class BRIGHTNESS_NIT_RANGE(EasyCastStructure):
+class BRIGHTNESS_NIT_RANGE(Structure):
     MinLevelInMillinit: UInt32
     MaxLevelInMillinit: UInt32
     StepSizeInMillinit: UInt32
-class BRIGHTNESS_NIT_RANGES(EasyCastStructure):
+class BRIGHTNESS_NIT_RANGES(Structure):
     NormalRangeCount: UInt32
     RangeCount: UInt32
     PreferredMaximumBrightness: UInt32
     SupportedRanges: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_NIT_RANGE * 16
-class BRUSHOBJ(EasyCastStructure):
+class BRUSHOBJ(Structure):
     iSolidColor: UInt32
     pvRbrush: VoidPtr
     flColorType: UInt32
 BlackScreenDiagnosticsCalloutParam = Int32
 BlackScreenDiagnosticsData: win32more.Windows.Win32.Devices.Display.BlackScreenDiagnosticsCalloutParam = 1
 BlackScreenDisplayRecovery: win32more.Windows.Win32.Devices.Display.BlackScreenDiagnosticsCalloutParam = 2
-class CDDDXGK_REDIRBITMAPPRESENTINFO(EasyCastStructure):
+class CDDDXGK_REDIRBITMAPPRESENTINFO(Structure):
     NumDirtyRects: UInt32
     DirtyRect: POINTER(win32more.Windows.Win32.Foundation.RECT)
     NumContexts: UInt32
     hContext: win32more.Windows.Win32.Foundation.HANDLE * 65
     bDoNotSynchronizeWithDxContent: win32more.Windows.Win32.Foundation.BOOLEAN
-class CHAR_IMAGE_INFO(EasyCastStructure):
+class CHAR_IMAGE_INFO(Structure):
     CharInfo: win32more.Windows.Win32.System.Console.CHAR_INFO
     FontImageInfo: win32more.Windows.Win32.Devices.Display.FONT_IMAGE_INFO
-class CHROMATICITY_COORDINATE(EasyCastStructure):
+class CHROMATICITY_COORDINATE(Structure):
     x: Single
     y: Single
-class CIECHROMA(EasyCastStructure):
+class CIECHROMA(Structure):
     x: Int32
     y: Int32
     Y: Int32
-class CLIPLINE(EasyCastStructure):
+class CLIPLINE(Structure):
     ptfxA: win32more.Windows.Win32.Devices.Display.POINTFIX
     ptfxB: win32more.Windows.Win32.Devices.Display.POINTFIX
     lStyleState: Int32
     c: UInt32
     arun: win32more.Windows.Win32.Devices.Display.RUN * 1
-class CLIPOBJ(EasyCastStructure):
+class CLIPOBJ(Structure):
     iUniq: UInt32
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
     iDComplexity: Byte
     iFComplexity: Byte
     iMode: Byte
     fjOptions: Byte
-class COLORINFO(EasyCastStructure):
+class COLORINFO(Structure):
     Red: win32more.Windows.Win32.Devices.Display.CIECHROMA
     Green: win32more.Windows.Win32.Devices.Display.CIECHROMA
     Blue: win32more.Windows.Win32.Devices.Display.CIECHROMA
@@ -1090,53 +1090,53 @@ class COLORINFO(EasyCastStructure):
     YellowInMagentaDye: Int32
     CyanInYellowDye: Int32
     MagentaInYellowDye: Int32
-class COLORSPACE_TRANSFORM(EasyCastStructure):
+class COLORSPACE_TRANSFORM(Structure):
     Type: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_TYPE
     Data: _Data_e__Union
-    class _Data_e__Union(EasyCastUnion):
+    class _Data_e__Union(Union):
         Rgb256x3x16: win32more.Windows.Win32.Devices.Display.GAMMA_RAMP_RGB256x3x16
         Dxgi1: win32more.Windows.Win32.Devices.Display.GAMMA_RAMP_DXGI_1
         T3x4: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_3x4
         MatrixV2: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_MATRIX_V2
-class COLORSPACE_TRANSFORM_1DLUT_CAP(EasyCastStructure):
+class COLORSPACE_TRANSFORM_1DLUT_CAP(Structure):
     NumberOfLUTEntries: UInt32
     DataCap: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_DATA_CAP
-class COLORSPACE_TRANSFORM_3x4(EasyCastStructure):
+class COLORSPACE_TRANSFORM_3x4(Structure):
     ColorMatrix3x4: Single * 12
     ScalarMultiplier: Single
     LookupTable1D: win32more.Windows.Win32.Devices.Display.GAMMA_RAMP_RGB * 4096
-class COLORSPACE_TRANSFORM_DATA_CAP(EasyCastStructure):
+class COLORSPACE_TRANSFORM_DATA_CAP(Structure):
     DataType: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_DATA_TYPE
     Anonymous: _Anonymous_e__Union
     NumericRangeMin: Single
     NumericRangeMax: Single
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         Value: UInt32
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             _bitfield: UInt32
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             _bitfield: UInt32
 COLORSPACE_TRANSFORM_DATA_TYPE = Int32
 COLORSPACE_TRANSFORM_DATA_TYPE_FIXED_POINT: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_DATA_TYPE = 0
 COLORSPACE_TRANSFORM_DATA_TYPE_FLOAT: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_DATA_TYPE = 1
-class COLORSPACE_TRANSFORM_MATRIX_CAP(EasyCastStructure):
+class COLORSPACE_TRANSFORM_MATRIX_CAP(Structure):
     Anonymous: _Anonymous_e__Union
     DataCap: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_DATA_CAP
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class COLORSPACE_TRANSFORM_MATRIX_V2(EasyCastStructure):
+class COLORSPACE_TRANSFORM_MATRIX_V2(Structure):
     StageControlLookupTable1DDegamma: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_STAGE_CONTROL
     LookupTable1DDegamma: win32more.Windows.Win32.Devices.Display.GAMMA_RAMP_RGB * 4096
     StageControlColorMatrix3x3: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_STAGE_CONTROL
     ColorMatrix3x3: Single * 9
     StageControlLookupTable1DRegamma: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_STAGE_CONTROL
     LookupTable1DRegamma: win32more.Windows.Win32.Devices.Display.GAMMA_RAMP_RGB * 4096
-class COLORSPACE_TRANSFORM_SET_INPUT(EasyCastStructure):
+class COLORSPACE_TRANSFORM_SET_INPUT(Structure):
     OutputWireColorSpaceExpected: win32more.Windows.Win32.Devices.Display.OUTPUT_WIRE_COLOR_SPACE_TYPE
     OutputWireFormatExpected: win32more.Windows.Win32.Devices.Display.OUTPUT_WIRE_FORMAT
     ColorSpaceTransform: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM
@@ -1144,7 +1144,7 @@ COLORSPACE_TRANSFORM_STAGE_CONTROL = Int32
 ColorSpaceTransformStageControl_No_Change: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_STAGE_CONTROL = 0
 ColorSpaceTransformStageControl_Enable: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_STAGE_CONTROL = 1
 ColorSpaceTransformStageControl_Bypass: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_STAGE_CONTROL = 2
-class COLORSPACE_TRANSFORM_TARGET_CAPS(EasyCastStructure):
+class COLORSPACE_TRANSFORM_TARGET_CAPS(Structure):
     Version: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_TARGET_CAPS_VERSION
     LookupTable1DDegammaCap: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_1DLUT_CAP
     ColorMatrix3x3Cap: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_MATRIX_CAP
@@ -1160,18 +1160,18 @@ COLORSPACE_TRANSFORM_TYPE_RGB256x3x16: win32more.Windows.Win32.Devices.Display.C
 COLORSPACE_TRANSFORM_TYPE_DXGI_1: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_TYPE = 3
 COLORSPACE_TRANSFORM_TYPE_MATRIX_3x4: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_TYPE = 4
 COLORSPACE_TRANSFORM_TYPE_MATRIX_V2: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_TYPE = 5
-class DEVHTADJDATA(EasyCastStructure):
+class DEVHTADJDATA(Structure):
     DeviceFlags: UInt32
     DeviceXDPI: UInt32
     DeviceYDPI: UInt32
     pDefHTInfo: POINTER(win32more.Windows.Win32.Devices.Display.DEVHTINFO)
     pAdjHTInfo: POINTER(win32more.Windows.Win32.Devices.Display.DEVHTINFO)
-class DEVHTINFO(EasyCastStructure):
+class DEVHTINFO(Structure):
     HTFlags: UInt32
     HTPatternSize: UInt32
     DevPelsDPI: UInt32
     ColorInfo: win32more.Windows.Win32.Devices.Display.COLORINFO
-class DEVINFO(EasyCastStructure):
+class DEVINFO(Structure):
     flGraphicsCaps: UInt32
     lfDefaultFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
     lfAnsiVarFont: win32more.Windows.Win32.Graphics.Gdi.LOGFONTW
@@ -1184,17 +1184,17 @@ class DEVINFO(EasyCastStructure):
     flGraphicsCaps2: UInt32
 DHPDEV = IntPtr
 DHSURF = IntPtr
-class DISPLAYCONFIG_2DREGION(EasyCastStructure):
+class DISPLAYCONFIG_2DREGION(Structure):
     cx: UInt32
     cy: UInt32
-class DISPLAYCONFIG_ADAPTER_NAME(EasyCastStructure):
+class DISPLAYCONFIG_ADAPTER_NAME(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     adapterDevicePath: Char * 128
-class DISPLAYCONFIG_DESKTOP_IMAGE_INFO(EasyCastStructure):
+class DISPLAYCONFIG_DESKTOP_IMAGE_INFO(Structure):
     PathSourceSize: win32more.Windows.Win32.Foundation.POINTL
     DesktopImageRegion: win32more.Windows.Win32.Foundation.RECTL
     DesktopImageClip: win32more.Windows.Win32.Foundation.RECTL
-class DISPLAYCONFIG_DEVICE_INFO_HEADER(EasyCastStructure):
+class DISPLAYCONFIG_DEVICE_INFO_HEADER(Structure):
     type: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_TYPE
     size: UInt32
     adapterId: win32more.Windows.Win32.Foundation.LUID
@@ -1213,30 +1213,30 @@ DISPLAYCONFIG_DEVICE_INFO_SET_ADVANCED_COLOR_STATE: win32more.Windows.Win32.Devi
 DISPLAYCONFIG_DEVICE_INFO_GET_SDR_WHITE_LEVEL: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_TYPE = 11
 DISPLAYCONFIG_DEVICE_INFO_GET_MONITOR_SPECIALIZATION: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_TYPE = 12
 DISPLAYCONFIG_DEVICE_INFO_SET_MONITOR_SPECIALIZATION: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_TYPE = 13
-class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO(EasyCastStructure):
+class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     Anonymous: _Anonymous_e__Union
     colorEncoding: win32more.Windows.Win32.Graphics.Gdi.DISPLAYCONFIG_COLOR_ENCODING
     bitsPerColorChannel: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION(EasyCastStructure):
+class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DISPLAYCONFIG_MODE_INFO(EasyCastStructure):
+class DISPLAYCONFIG_MODE_INFO(Structure):
     infoType: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_MODE_INFO_TYPE
     id: UInt32
     adapterId: win32more.Windows.Win32.Foundation.LUID
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         targetMode: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_TARGET_MODE
         sourceMode: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_SOURCE_MODE
         desktopImageInfo: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DESKTOP_IMAGE_INFO
@@ -1244,21 +1244,21 @@ DISPLAYCONFIG_MODE_INFO_TYPE = Int32
 DISPLAYCONFIG_MODE_INFO_TYPE_SOURCE: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_MODE_INFO_TYPE = 1
 DISPLAYCONFIG_MODE_INFO_TYPE_TARGET: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_MODE_INFO_TYPE = 2
 DISPLAYCONFIG_MODE_INFO_TYPE_DESKTOP_IMAGE: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_MODE_INFO_TYPE = 3
-class DISPLAYCONFIG_PATH_INFO(EasyCastStructure):
+class DISPLAYCONFIG_PATH_INFO(Structure):
     sourceInfo: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_PATH_SOURCE_INFO
     targetInfo: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_PATH_TARGET_INFO
     flags: UInt32
-class DISPLAYCONFIG_PATH_SOURCE_INFO(EasyCastStructure):
+class DISPLAYCONFIG_PATH_SOURCE_INFO(Structure):
     adapterId: win32more.Windows.Win32.Foundation.LUID
     id: UInt32
     Anonymous: _Anonymous_e__Union
     statusFlags: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         modeInfoIdx: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DISPLAYCONFIG_PATH_TARGET_INFO(EasyCastStructure):
+class DISPLAYCONFIG_PATH_TARGET_INFO(Structure):
     adapterId: win32more.Windows.Win32.Foundation.LUID
     id: UInt32
     Anonymous: _Anonymous_e__Union
@@ -1269,10 +1269,10 @@ class DISPLAYCONFIG_PATH_TARGET_INFO(EasyCastStructure):
     scanLineOrdering: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_SCANLINE_ORDERING
     targetAvailable: win32more.Windows.Win32.Foundation.BOOL
     statusFlags: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         modeInfoIdx: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
 DISPLAYCONFIG_PIXELFORMAT = Int32
 DISPLAYCONFIG_PIXELFORMAT_8BPP: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_PIXELFORMAT = 1
@@ -1280,7 +1280,7 @@ DISPLAYCONFIG_PIXELFORMAT_16BPP: win32more.Windows.Win32.Devices.Display.DISPLAY
 DISPLAYCONFIG_PIXELFORMAT_24BPP: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_PIXELFORMAT = 3
 DISPLAYCONFIG_PIXELFORMAT_32BPP: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_PIXELFORMAT = 4
 DISPLAYCONFIG_PIXELFORMAT_NONGDI: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_PIXELFORMAT = 5
-class DISPLAYCONFIG_RATIONAL(EasyCastStructure):
+class DISPLAYCONFIG_RATIONAL(Structure):
     Numerator: UInt32
     Denominator: UInt32
 DISPLAYCONFIG_ROTATION = Int32
@@ -1301,56 +1301,56 @@ DISPLAYCONFIG_SCANLINE_ORDERING_PROGRESSIVE: win32more.Windows.Win32.Devices.Dis
 DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_SCANLINE_ORDERING = 2
 DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_UPPERFIELDFIRST: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_SCANLINE_ORDERING = 2
 DISPLAYCONFIG_SCANLINE_ORDERING_INTERLACED_LOWERFIELDFIRST: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_SCANLINE_ORDERING = 3
-class DISPLAYCONFIG_SDR_WHITE_LEVEL(EasyCastStructure):
+class DISPLAYCONFIG_SDR_WHITE_LEVEL(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     SDRWhiteLevel: UInt32
-class DISPLAYCONFIG_SET_ADVANCED_COLOR_STATE(EasyCastStructure):
+class DISPLAYCONFIG_SET_ADVANCED_COLOR_STATE(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DISPLAYCONFIG_SET_MONITOR_SPECIALIZATION(EasyCastStructure):
+class DISPLAYCONFIG_SET_MONITOR_SPECIALIZATION(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     Anonymous: _Anonymous_e__Union
     specializationType: Guid
     specializationSubType: Guid
     specializationApplicationName: Char * 128
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DISPLAYCONFIG_SET_TARGET_PERSISTENCE(EasyCastStructure):
+class DISPLAYCONFIG_SET_TARGET_PERSISTENCE(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DISPLAYCONFIG_SOURCE_DEVICE_NAME(EasyCastStructure):
+class DISPLAYCONFIG_SOURCE_DEVICE_NAME(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     viewGdiDeviceName: Char * 32
-class DISPLAYCONFIG_SOURCE_MODE(EasyCastStructure):
+class DISPLAYCONFIG_SOURCE_MODE(Structure):
     width: UInt32
     height: UInt32
     pixelFormat: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_PIXELFORMAT
     position: win32more.Windows.Win32.Foundation.POINTL
-class DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION(EasyCastStructure):
+class DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DISPLAYCONFIG_TARGET_BASE_TYPE(EasyCastStructure):
+class DISPLAYCONFIG_TARGET_BASE_TYPE(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     baseOutputTechnology: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY
-class DISPLAYCONFIG_TARGET_DEVICE_NAME(EasyCastStructure):
+class DISPLAYCONFIG_TARGET_DEVICE_NAME(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     flags: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS
     outputTechnology: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY
@@ -1359,16 +1359,16 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME(EasyCastStructure):
     connectorInstance: UInt32
     monitorFriendlyDeviceName: Char * 64
     monitorDevicePath: Char * 128
-class DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS(EasyCastStructure):
+class DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DISPLAYCONFIG_TARGET_MODE(EasyCastStructure):
+class DISPLAYCONFIG_TARGET_MODE(Structure):
     targetVideoSignalInfo: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_VIDEO_SIGNAL_INFO
-class DISPLAYCONFIG_TARGET_PREFERRED_MODE(EasyCastStructure):
+class DISPLAYCONFIG_TARGET_PREFERRED_MODE(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     width: UInt32
     height: UInt32
@@ -1399,7 +1399,7 @@ DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INDIRECT_WIRED: win32more.Windows.Win32.Devices.
 DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INDIRECT_VIRTUAL: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY = 17
 DISPLAYCONFIG_OUTPUT_TECHNOLOGY_DISPLAYPORT_USB_TUNNEL: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY = 18
 DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY = -2147483648
-class DISPLAYCONFIG_VIDEO_SIGNAL_INFO(EasyCastStructure):
+class DISPLAYCONFIG_VIDEO_SIGNAL_INFO(Structure):
     pixelRate: UInt64
     hSyncFreq: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_RATIONAL
     vSyncFreq: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_RATIONAL
@@ -1407,58 +1407,58 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO(EasyCastStructure):
     totalSize: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_2DREGION
     Anonymous: _Anonymous_e__Union
     scanLineOrdering: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_SCANLINE_ORDERING
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         AdditionalSignalInfo: _AdditionalSignalInfo_e__Struct
         videoStandard: UInt32
-        class _AdditionalSignalInfo_e__Struct(EasyCastStructure):
+        class _AdditionalSignalInfo_e__Struct(Structure):
             _bitfield: UInt32
-class DISPLAY_BRIGHTNESS(EasyCastStructure):
+class DISPLAY_BRIGHTNESS(Structure):
     ucDisplayPolicy: Byte
     ucACBrightness: Byte
     ucDCBrightness: Byte
-class DRH_APIBITMAPDATA(EasyCastStructure):
+class DRH_APIBITMAPDATA(Structure):
     pso: POINTER(win32more.Windows.Win32.Devices.Display.SURFOBJ)
     b: win32more.Windows.Win32.Foundation.BOOL
-class DRIVEROBJ(EasyCastStructure):
+class DRIVEROBJ(Structure):
     pvObj: VoidPtr
     pFreeProc: win32more.Windows.Win32.Devices.Display.FREEOBJPROC
     hdev: win32more.Windows.Win32.Devices.Display.HDEV
     dhpdev: win32more.Windows.Win32.Devices.Display.DHPDEV
-class DRVENABLEDATA(EasyCastStructure):
+class DRVENABLEDATA(Structure):
     iDriverVersion: UInt32
     c: UInt32
     pdrvfn: POINTER(win32more.Windows.Win32.Devices.Display.DRVFN)
-class DRVFN(EasyCastStructure):
+class DRVFN(Structure):
     iFunc: UInt32
     pfn: win32more.Windows.Win32.Devices.Display.PFN
 DSI_CONTROL_TRANSMISSION_MODE = Int32
 DCT_DEFAULT: win32more.Windows.Win32.Devices.Display.DSI_CONTROL_TRANSMISSION_MODE = 0
 DCT_FORCE_LOW_POWER: win32more.Windows.Win32.Devices.Display.DSI_CONTROL_TRANSMISSION_MODE = 1
 DCT_FORCE_HIGH_PERFORMANCE: win32more.Windows.Win32.Devices.Display.DSI_CONTROL_TRANSMISSION_MODE = 2
-class DXGK_WIN32K_PARAM_DATA(EasyCastStructure):
+class DXGK_WIN32K_PARAM_DATA(Structure):
     PathsArray: VoidPtr
     ModesArray: VoidPtr
     NumPathArrayElements: UInt32
     NumModeArrayElements: UInt32
     SDCFlags: UInt32
-class DisplayMode(EasyCastStructure):
+class DisplayMode(Structure):
     DeviceName: Char * 32
     devMode: win32more.Windows.Win32.Graphics.Gdi.DEVMODEW
-class DisplayModes(EasyCastStructure):
+class DisplayModes(Structure):
     numDisplayModes: Int32
     displayMode: win32more.Windows.Win32.Devices.Display.DisplayMode * 1
-class EMFINFO(EasyCastStructure):
+class EMFINFO(Structure):
     nSize: UInt32
     hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
     pvEMF: POINTER(Byte)
     pvCurrentRecord: POINTER(Byte)
-class ENGSAFESEMAPHORE(EasyCastStructure):
+class ENGSAFESEMAPHORE(Structure):
     hsem: win32more.Windows.Win32.Devices.Display.HSEMAPHORE
     lCount: Int32
 ENG_DEVICE_ATTRIBUTE = Int32
 QDA_RESERVED: win32more.Windows.Win32.Devices.Display.ENG_DEVICE_ATTRIBUTE = 0
 QDA_ACCELERATION_LEVEL: win32more.Windows.Win32.Devices.Display.ENG_DEVICE_ATTRIBUTE = 1
-class ENG_EVENT(EasyCastStructure):
+class ENG_EVENT(Structure):
     pKEvent: VoidPtr
     fFlags: UInt32
 ENG_SYSTEM_ATTRIBUTE = Int32
@@ -1466,7 +1466,7 @@ EngProcessorFeature: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUT
 EngNumberOfProcessors: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 2
 EngOptimumAvailableUserMemory: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 3
 EngOptimumAvailableSystemMemory: win32more.Windows.Win32.Devices.Display.ENG_SYSTEM_ATTRIBUTE = 4
-class ENG_TIME_FIELDS(EasyCastStructure):
+class ENG_TIME_FIELDS(Structure):
     usYear: UInt16
     usMonth: UInt16
     usDay: UInt16
@@ -1475,10 +1475,10 @@ class ENG_TIME_FIELDS(EasyCastStructure):
     usSecond: UInt16
     usMilliseconds: UInt16
     usWeekday: UInt16
-class ENUMRECTS(EasyCastStructure):
+class ENUMRECTS(Structure):
     c: UInt32
     arcl: win32more.Windows.Win32.Foundation.RECTL * 1
-class FD_DEVICEMETRICS(EasyCastStructure):
+class FD_DEVICEMETRICS(Structure):
     flRealizedType: UInt32
     pteBase: win32more.Windows.Win32.Devices.Display.POINTE
     pteSide: win32more.Windows.Win32.Devices.Display.POINTE
@@ -1501,44 +1501,44 @@ class FD_DEVICEMETRICS(EasyCastStructure):
     lMinC: Int32
     lMinD: Int32
     alReserved: Int32 * 1
-class FD_GLYPHATTR(EasyCastStructure):
+class FD_GLYPHATTR(Structure):
     cjThis: UInt32
     cGlyphs: UInt32
     iMode: UInt32
     aGlyphAttr: Byte * 1
-class FD_GLYPHSET(EasyCastStructure):
+class FD_GLYPHSET(Structure):
     cjThis: UInt32
     flAccel: UInt32
     cGlyphsSupported: UInt32
     cRuns: UInt32
     awcrun: win32more.Windows.Win32.Devices.Display.WCRUN * 1
-class FD_KERNINGPAIR(EasyCastStructure):
+class FD_KERNINGPAIR(Structure):
     wcFirst: Char
     wcSecond: Char
     fwdKern: Int16
-class FD_LIGATURE(EasyCastStructure):
+class FD_LIGATURE(Structure):
     culThis: UInt32
     ulType: UInt32
     cLigatures: UInt32
     alig: win32more.Windows.Win32.Devices.Display.LIGATURE * 1
 if ARCH in 'X64,ARM64':
-    class FD_XFORM(EasyCastStructure):
+    class FD_XFORM(Structure):
         eXX: Single
         eXY: Single
         eYX: Single
         eYY: Single
 elif ARCH in 'X86':
-    class FD_XFORM(EasyCastStructure):
+    class FD_XFORM(Structure):
         eXX: UInt32
         eXY: UInt32
         eYX: UInt32
         eYY: UInt32
 if ARCH in 'X86':
-    class FLOATOBJ(EasyCastStructure):
+    class FLOATOBJ(Structure):
         ul1: UInt32
         ul2: UInt32
 if ARCH in 'X64,ARM64':
-    class FLOATOBJ_XFORM(EasyCastStructure):
+    class FLOATOBJ_XFORM(Structure):
         eM11: Single
         eM12: Single
         eM21: Single
@@ -1546,7 +1546,7 @@ if ARCH in 'X64,ARM64':
         eDx: Single
         eDy: Single
 elif ARCH in 'X86':
-    class FLOATOBJ_XFORM(EasyCastStructure):
+    class FLOATOBJ_XFORM(Structure):
         eM11: win32more.Windows.Win32.Devices.Display.FLOATOBJ
         eM12: win32more.Windows.Win32.Devices.Display.FLOATOBJ
         eM21: win32more.Windows.Win32.Devices.Display.FLOATOBJ
@@ -1554,14 +1554,14 @@ elif ARCH in 'X86':
         eDx: win32more.Windows.Win32.Devices.Display.FLOATOBJ
         eDy: win32more.Windows.Win32.Devices.Display.FLOATOBJ
 if ARCH in 'X64,ARM64':
-    class FLOAT_LONG(EasyCastUnion):
+    class FLOAT_LONG(Union):
         e: Single
         l: Int32
 elif ARCH in 'X86':
-    class FLOAT_LONG(EasyCastUnion):
+    class FLOAT_LONG(Union):
         e: UInt32
         l: Int32
-class FONTDIFF(EasyCastStructure):
+class FONTDIFF(Structure):
     jReserved1: Byte
     jReserved2: Byte
     jReserved3: Byte
@@ -1571,7 +1571,7 @@ class FONTDIFF(EasyCastStructure):
     fwdAveCharWidth: Int16
     fwdMaxCharInc: Int16
     ptlCaret: win32more.Windows.Win32.Foundation.POINTL
-class FONTINFO(EasyCastStructure):
+class FONTINFO(Structure):
     cjThis: UInt32
     flCaps: UInt32
     cGlyphsSupported: UInt32
@@ -1579,7 +1579,7 @@ class FONTINFO(EasyCastStructure):
     cjMaxGlyph4: UInt32
     cjMaxGlyph8: UInt32
     cjMaxGlyph32: UInt32
-class FONTOBJ(EasyCastStructure):
+class FONTOBJ(Structure):
     iUniq: UInt32
     iFace: UInt32
     cxMax: UInt32
@@ -1590,54 +1590,54 @@ class FONTOBJ(EasyCastStructure):
     ulStyleSize: UInt32
     pvConsumer: VoidPtr
     pvProducer: VoidPtr
-class FONTSIM(EasyCastStructure):
+class FONTSIM(Structure):
     dpBold: Int32
     dpItalic: Int32
     dpBoldItalic: Int32
-class FONT_IMAGE_INFO(EasyCastStructure):
+class FONT_IMAGE_INFO(Structure):
     FontSize: win32more.Windows.Win32.System.Console.COORD
     ImageBits: POINTER(Byte)
 @winfunctype_pointer
 def FREEOBJPROC(pDriverObj: POINTER(win32more.Windows.Win32.Devices.Display.DRIVEROBJ)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class FSCNTL_SCREEN_INFO(EasyCastStructure):
+class FSCNTL_SCREEN_INFO(Structure):
     Position: win32more.Windows.Win32.System.Console.COORD
     ScreenSize: win32more.Windows.Win32.System.Console.COORD
     nNumberOfChars: UInt32
-class FSVIDEO_COPY_FRAME_BUFFER(EasyCastStructure):
+class FSVIDEO_COPY_FRAME_BUFFER(Structure):
     SrcScreen: win32more.Windows.Win32.Devices.Display.FSCNTL_SCREEN_INFO
     DestScreen: win32more.Windows.Win32.Devices.Display.FSCNTL_SCREEN_INFO
-class FSVIDEO_CURSOR_POSITION(EasyCastStructure):
+class FSVIDEO_CURSOR_POSITION(Structure):
     Coord: win32more.Windows.Win32.Devices.Display.VIDEO_CURSOR_POSITION
     dwType: UInt32
-class FSVIDEO_MODE_INFORMATION(EasyCastStructure):
+class FSVIDEO_MODE_INFORMATION(Structure):
     VideoMode: win32more.Windows.Win32.Devices.Display.VIDEO_MODE_INFORMATION
     VideoMemory: win32more.Windows.Win32.Devices.Display.VIDEO_MEMORY_INFORMATION
-class FSVIDEO_REVERSE_MOUSE_POINTER(EasyCastStructure):
+class FSVIDEO_REVERSE_MOUSE_POINTER(Structure):
     Screen: win32more.Windows.Win32.Devices.Display.FSCNTL_SCREEN_INFO
     dwType: UInt32
-class FSVIDEO_SCREEN_INFORMATION(EasyCastStructure):
+class FSVIDEO_SCREEN_INFORMATION(Structure):
     ScreenSize: win32more.Windows.Win32.System.Console.COORD
     FontSize: win32more.Windows.Win32.System.Console.COORD
-class FSVIDEO_WRITE_TO_FRAME_BUFFER(EasyCastStructure):
+class FSVIDEO_WRITE_TO_FRAME_BUFFER(Structure):
     SrcBuffer: POINTER(win32more.Windows.Win32.Devices.Display.CHAR_IMAGE_INFO)
     DestScreen: win32more.Windows.Win32.Devices.Display.FSCNTL_SCREEN_INFO
-class GAMMARAMP(EasyCastStructure):
+class GAMMARAMP(Structure):
     Red: UInt16 * 256
     Green: UInt16 * 256
     Blue: UInt16 * 256
-class GAMMA_RAMP_DXGI_1(EasyCastStructure):
+class GAMMA_RAMP_DXGI_1(Structure):
     Scale: win32more.Windows.Win32.Devices.Display.GAMMA_RAMP_RGB
     Offset: win32more.Windows.Win32.Devices.Display.GAMMA_RAMP_RGB
     GammaCurve: win32more.Windows.Win32.Devices.Display.GAMMA_RAMP_RGB * 1025
-class GAMMA_RAMP_RGB(EasyCastStructure):
+class GAMMA_RAMP_RGB(Structure):
     Red: Single
     Green: Single
     Blue: Single
-class GAMMA_RAMP_RGB256x3x16(EasyCastStructure):
+class GAMMA_RAMP_RGB256x3x16(Structure):
     Red: UInt16 * 256
     Green: UInt16 * 256
     Blue: UInt16 * 256
-class GDIINFO(EasyCastStructure):
+class GDIINFO(Structure):
     ulVersion: UInt32
     ulTechnology: UInt32
     ulHorzSize: UInt32
@@ -1683,11 +1683,11 @@ class GDIINFO(EasyCastStructure):
     flShadeBlend: UInt32
     ulPhysicalPixelCharacteristics: UInt32
     ulPhysicalPixelGamma: UInt32
-class GLYPHBITS(EasyCastStructure):
+class GLYPHBITS(Structure):
     ptlOrigin: win32more.Windows.Win32.Foundation.POINTL
     sizlBitmap: win32more.Windows.Win32.Foundation.SIZE
     aj: Byte * 1
-class GLYPHDATA(EasyCastStructure):
+class GLYPHDATA(Structure):
     gdf: win32more.Windows.Win32.Devices.Display.GLYPHDEF
     hg: UInt32
     fxD: Int32
@@ -1697,10 +1697,10 @@ class GLYPHDATA(EasyCastStructure):
     fxInkBottom: Int32
     rclInk: win32more.Windows.Win32.Foundation.RECTL
     ptqD: win32more.Windows.Win32.Devices.Display.POINTQF
-class GLYPHDEF(EasyCastUnion):
+class GLYPHDEF(Union):
     pgb: POINTER(win32more.Windows.Win32.Devices.Display.GLYPHBITS)
     ppo: POINTER(win32more.Windows.Win32.Devices.Display.PATHOBJ)
-class GLYPHPOS(EasyCastStructure):
+class GLYPHPOS(Structure):
     hg: UInt32
     pgdf: POINTER(win32more.Windows.Win32.Devices.Display.GLYPHDEF)
     ptl: win32more.Windows.Win32.Foundation.POINTL
@@ -1721,7 +1721,7 @@ class ICloneViewHelper(ComPtr):
     def SetActiveTopology(self, wszAdaptorName: win32more.Windows.Win32.Foundation.PWSTR, ulSourceID: UInt32, ulCount: UInt32, pulTargetID: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Commit(self, fFinalCall: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IFIEXTRA(EasyCastStructure):
+class IFIEXTRA(Structure):
     ulIdentifier: UInt32
     dpFontSig: Int32
     cig: UInt32
@@ -1729,7 +1729,7 @@ class IFIEXTRA(EasyCastStructure):
     dpAxesInfoW: Int32
     aulReserved: UInt32 * 1
 if ARCH in 'X64,ARM64':
-    class IFIMETRICS(EasyCastStructure):
+    class IFIMETRICS(Structure):
         cjThis: UInt32
         cjIfiExtra: UInt32
         dpwszFamilyName: Int32
@@ -1791,7 +1791,7 @@ if ARCH in 'X64,ARM64':
         panose: win32more.Windows.Win32.Graphics.Gdi.PANOSE
         Align: VoidPtr
 elif ARCH in 'X86':
-    class IFIMETRICS(EasyCastStructure):
+    class IFIMETRICS(Structure):
         cjThis: UInt32
         cjIfiExtra: UInt32
         dpwszFamilyName: Int32
@@ -1851,7 +1851,7 @@ elif ARCH in 'X86':
         cKerningPairs: UInt32
         ulPanoseCulture: UInt32
         panose: win32more.Windows.Win32.Graphics.Gdi.PANOSE
-class INDIRECT_DISPLAY_INFO(EasyCastStructure):
+class INDIRECT_DISPLAY_INFO(Structure):
     DisplayAdapterLuid: win32more.Windows.Win32.Foundation.LUID
     Flags: UInt32
     NumMonitors: UInt32
@@ -1871,13 +1871,13 @@ class IViewHelper(ComPtr):
     def SetConfiguration(self, pIStream: win32more.Windows.Win32.System.Com.IStream, pulStatus: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetProceedOnNewConfiguration(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class LIGATURE(EasyCastStructure):
+class LIGATURE(Structure):
     culSize: UInt32
     pwsz: win32more.Windows.Win32.Foundation.PWSTR
     chglyph: UInt32
     ahglyph: UInt32 * 1
 if ARCH in 'X64,ARM64':
-    class LINEATTRS(EasyCastStructure):
+    class LINEATTRS(Structure):
         fl: UInt32
         iJoin: UInt32
         iEndCap: UInt32
@@ -1887,7 +1887,7 @@ if ARCH in 'X64,ARM64':
         pstyle: POINTER(win32more.Windows.Win32.Devices.Display.FLOAT_LONG)
         elStyleState: win32more.Windows.Win32.Devices.Display.FLOAT_LONG
 elif ARCH in 'X86':
-    class LINEATTRS(EasyCastStructure):
+    class LINEATTRS(Structure):
         fl: UInt32
         iJoin: UInt32
         iEndCap: UInt32
@@ -1930,7 +1930,7 @@ MC_VERTICAL_POSITION: win32more.Windows.Win32.Devices.Display.MC_POSITION_TYPE =
 MC_SIZE_TYPE = Int32
 MC_WIDTH: win32more.Windows.Win32.Devices.Display.MC_SIZE_TYPE = 0
 MC_HEIGHT: win32more.Windows.Win32.Devices.Display.MC_SIZE_TYPE = 1
-class MC_TIMING_REPORT(EasyCastStructure):
+class MC_TIMING_REPORT(Structure):
     dwHorizontalFrequencyInHZ: UInt32
     dwVerticalFrequencyInHZ: UInt32
     bTimingStatusByte: Byte
@@ -1938,7 +1938,7 @@ class MC_TIMING_REPORT(EasyCastStructure):
 MC_VCP_CODE_TYPE = Int32
 MC_MOMENTARY: win32more.Windows.Win32.Devices.Display.MC_VCP_CODE_TYPE = 0
 MC_SET_PARAMETER: win32more.Windows.Win32.Devices.Display.MC_VCP_CODE_TYPE = 1
-class MIPI_DSI_CAPS(EasyCastStructure):
+class MIPI_DSI_CAPS(Structure):
     DSITypeMajor: Byte
     DSITypeMinor: Byte
     SpecVersionMajor: Byte
@@ -1957,31 +1957,31 @@ class MIPI_DSI_CAPS(EasyCastStructure):
     ProductLo: Byte
     LengthHi: Byte
     LengthLo: Byte
-class MIPI_DSI_PACKET(EasyCastStructure):
+class MIPI_DSI_PACKET(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     EccFiller: Byte
     Payload: Byte * 8
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         DataId: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         LongWriteWordCount: UInt16
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Data0: Byte
             Data1: Byte
-class MIPI_DSI_RESET(EasyCastStructure):
+class MIPI_DSI_RESET(Structure):
     Flags: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Results: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class MIPI_DSI_TRANSMISSION(EasyCastStructure):
+class MIPI_DSI_TRANSMISSION(Structure):
     TotalBufferSize: UInt32
     PacketCount: Byte
     FailedPacket: Byte
@@ -1991,7 +1991,7 @@ class MIPI_DSI_TRANSMISSION(EasyCastStructure):
     MipiErrors: UInt16
     HostErrors: UInt16
     Packets: win32more.Windows.Win32.Devices.Display.MIPI_DSI_PACKET * 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
 ORIENTATION_PREFERENCE = Int32
 ORIENTATION_PREFERENCE_NONE: win32more.Windows.Win32.Devices.Display.ORIENTATION_PREFERENCE = 0
@@ -2013,75 +2013,75 @@ OUTPUT_WIRE_COLOR_SPACE_G22_P709_WCG: win32more.Windows.Win32.Devices.Display.OU
 OUTPUT_WIRE_COLOR_SPACE_G22_P2020: win32more.Windows.Win32.Devices.Display.OUTPUT_WIRE_COLOR_SPACE_TYPE = 31
 OUTPUT_WIRE_COLOR_SPACE_G2084_P2020_HDR10PLUS: win32more.Windows.Win32.Devices.Display.OUTPUT_WIRE_COLOR_SPACE_TYPE = 32
 OUTPUT_WIRE_COLOR_SPACE_G2084_P2020_DVLL: win32more.Windows.Win32.Devices.Display.OUTPUT_WIRE_COLOR_SPACE_TYPE = 33
-class OUTPUT_WIRE_FORMAT(EasyCastStructure):
+class OUTPUT_WIRE_FORMAT(Structure):
     ColorEncoding: win32more.Windows.Win32.Devices.Display.OUTPUT_COLOR_ENCODING
     BitsPerPixel: UInt32
-class PALOBJ(EasyCastStructure):
+class PALOBJ(Structure):
     ulReserved: UInt32
-class PANEL_BRIGHTNESS_SENSOR_DATA(EasyCastStructure):
+class PANEL_BRIGHTNESS_SENSOR_DATA(Structure):
     Anonymous: _Anonymous_e__Union
     AlsReading: Single
     ChromaticityCoordinate: win32more.Windows.Win32.Devices.Display.CHROMATICITY_COORDINATE
     ColorTemperature: Single
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PANEL_GET_BACKLIGHT_REDUCTION(EasyCastStructure):
+class PANEL_GET_BACKLIGHT_REDUCTION(Structure):
     BacklightUsersetting: UInt16
     BacklightEffective: UInt16
     GammaRamp: win32more.Windows.Win32.Devices.Display.BACKLIGHT_REDUCTION_GAMMA_RAMP
-class PANEL_GET_BRIGHTNESS(EasyCastStructure):
+class PANEL_GET_BRIGHTNESS(Structure):
     Version: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_INTERFACE_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Level: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             CurrentInMillinits: UInt32
             TargetInMillinits: UInt32
-class PANEL_QUERY_BRIGHTNESS_CAPS(EasyCastStructure):
+class PANEL_QUERY_BRIGHTNESS_CAPS(Structure):
     Version: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_INTERFACE_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PANEL_QUERY_BRIGHTNESS_RANGES(EasyCastStructure):
+class PANEL_QUERY_BRIGHTNESS_RANGES(Structure):
     Version: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_INTERFACE_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         BrightnessLevel: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_LEVEL
         NitRanges: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_NIT_RANGES
-class PANEL_SET_BACKLIGHT_OPTIMIZATION(EasyCastStructure):
+class PANEL_SET_BACKLIGHT_OPTIMIZATION(Structure):
     Level: win32more.Windows.Win32.Devices.Display.BACKLIGHT_OPTIMIZATION_LEVEL
-class PANEL_SET_BRIGHTNESS(EasyCastStructure):
+class PANEL_SET_BRIGHTNESS(Structure):
     Version: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_INTERFACE_VERSION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Level: Byte
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Millinits: UInt32
             TransitionTimeInMs: UInt32
             SensorData: win32more.Windows.Win32.Devices.Display.PANEL_BRIGHTNESS_SENSOR_DATA
-class PANEL_SET_BRIGHTNESS_STATE(EasyCastStructure):
+class PANEL_SET_BRIGHTNESS_STATE(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PATHDATA(EasyCastStructure):
+class PATHDATA(Structure):
     flags: UInt32
     count: UInt32
     pptfx: POINTER(win32more.Windows.Win32.Devices.Display.POINTFIX)
-class PATHOBJ(EasyCastStructure):
+class PATHOBJ(Structure):
     fl: UInt32
     cCurves: UInt32
-class PERBANDINFO(EasyCastStructure):
+class PERBANDINFO(Structure):
     bRepeatThisBand: win32more.Windows.Win32.Foundation.BOOL
     szlBand: win32more.Windows.Win32.Foundation.SIZE
     ulHorzRes: UInt32
@@ -2276,22 +2276,22 @@ def PFN_EngSubtractRgn(hrgnResult: win32more.Windows.Win32.Foundation.HANDLE, hR
 def PFN_EngUnionRgn(hrgnResult: win32more.Windows.Win32.Foundation.HANDLE, hRgnA: win32more.Windows.Win32.Foundation.HANDLE, hRgnB: win32more.Windows.Win32.Foundation.HANDLE) -> Int32: ...
 @winfunctype_pointer
 def PFN_EngXorRgn(hrgnResult: win32more.Windows.Win32.Foundation.HANDLE, hRgnA: win32more.Windows.Win32.Foundation.HANDLE, hRgnB: win32more.Windows.Win32.Foundation.HANDLE) -> Int32: ...
-class PHYSICAL_MONITOR(EasyCastStructure):
+class PHYSICAL_MONITOR(Structure):
     hPhysicalMonitor: win32more.Windows.Win32.Foundation.HANDLE
     szPhysicalMonitorDescription: Char * 128
     _pack_ = 1
 if ARCH in 'X64,ARM64':
-    class POINTE(EasyCastStructure):
+    class POINTE(Structure):
         x: Single
         y: Single
 elif ARCH in 'X86':
-    class POINTE(EasyCastStructure):
+    class POINTE(Structure):
         x: UInt32
         y: UInt32
-class POINTFIX(EasyCastStructure):
+class POINTFIX(Structure):
     x: Int32
     y: Int32
-class POINTQF(EasyCastStructure):
+class POINTQF(Structure):
     x: Int64
     y: Int64
 @winfunctype_pointer
@@ -2303,15 +2303,15 @@ QDC_DATABASE_CURRENT: win32more.Windows.Win32.Devices.Display.QUERY_DISPLAY_CONF
 QDC_VIRTUAL_MODE_AWARE: win32more.Windows.Win32.Devices.Display.QUERY_DISPLAY_CONFIG_FLAGS = 16
 QDC_INCLUDE_HMD: win32more.Windows.Win32.Devices.Display.QUERY_DISPLAY_CONFIG_FLAGS = 32
 QDC_VIRTUAL_REFRESH_RATE_AWARE: win32more.Windows.Win32.Devices.Display.QUERY_DISPLAY_CONFIG_FLAGS = 64
-class RECTFX(EasyCastStructure):
+class RECTFX(Structure):
     xLeft: Int32
     yTop: Int32
     xRight: Int32
     yBottom: Int32
-class RUN(EasyCastStructure):
+class RUN(Structure):
     iStart: Int32
     iStop: Int32
-class SET_ACTIVE_COLOR_PROFILE_NAME(EasyCastStructure):
+class SET_ACTIVE_COLOR_PROFILE_NAME(Structure):
     ColorProfileName: Char * 1
 SET_DISPLAY_CONFIG_FLAGS = UInt32
 SDC_USE_DATABASE_CURRENT: win32more.Windows.Win32.Devices.Display.SET_DISPLAY_CONFIG_FLAGS = 15
@@ -2333,14 +2333,14 @@ SDC_VIRTUAL_MODE_AWARE: win32more.Windows.Win32.Devices.Display.SET_DISPLAY_CONF
 SDC_VIRTUAL_REFRESH_RATE_AWARE: win32more.Windows.Win32.Devices.Display.SET_DISPLAY_CONFIG_FLAGS = 131072
 @cfunctype_pointer
 def SORTCOMP(pv1: VoidPtr, pv2: VoidPtr) -> Int32: ...
-class STROBJ(EasyCastStructure):
+class STROBJ(Structure):
     cGlyphs: UInt32
     flAccel: UInt32
     ulCharInc: UInt32
     rclBkGround: win32more.Windows.Win32.Foundation.RECTL
     pgp: POINTER(win32more.Windows.Win32.Devices.Display.GLYPHPOS)
     pwszOrg: win32more.Windows.Win32.Foundation.PWSTR
-class SURFOBJ(EasyCastStructure):
+class SURFOBJ(Structure):
     dhsurf: win32more.Windows.Win32.Devices.Display.DHSURF
     hsurf: win32more.Windows.Win32.Devices.Display.HSURF
     dhpdev: win32more.Windows.Win32.Devices.Display.DHPDEV
@@ -2354,18 +2354,18 @@ class SURFOBJ(EasyCastStructure):
     iBitmapFormat: UInt32
     iType: UInt16
     fjBitmap: UInt16
-class Sources(EasyCastStructure):
+class Sources(Structure):
     sourceId: UInt32
     numTargets: Int32
     aTargets: UInt32 * 1
-class TYPE1_FONT(EasyCastStructure):
+class TYPE1_FONT(Structure):
     hPFM: win32more.Windows.Win32.Foundation.HANDLE
     hPFB: win32more.Windows.Win32.Foundation.HANDLE
     ulIdentifier: UInt32
-class VGA_CHAR(EasyCastStructure):
+class VGA_CHAR(Structure):
     Char: win32more.Windows.Win32.Foundation.CHAR
     Attributes: win32more.Windows.Win32.Foundation.CHAR
-class VIDEOPARAMETERS(EasyCastStructure):
+class VIDEOPARAMETERS(Structure):
     Guid: Guid
     dwOffset: UInt32
     dwCommand: UInt32
@@ -2389,7 +2389,7 @@ class VIDEOPARAMETERS(EasyCastStructure):
     dwCPKey: UInt32
     bCP_APSTriggerBits: UInt32
     bOEMCopyProtection: Byte * 256
-class VIDEO_BANK_SELECT(EasyCastStructure):
+class VIDEO_BANK_SELECT(Structure):
     Length: UInt32
     Size: UInt32
     BankingFlags: UInt32
@@ -2409,26 +2409,26 @@ VideoBanked1RW: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 1
 VideoBanked1R1W: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 2
 VideoBanked2RW: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 3
 NumVideoBankTypes: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 4
-class VIDEO_BRIGHTNESS_POLICY(EasyCastStructure):
+class VIDEO_BRIGHTNESS_POLICY(Structure):
     DefaultToBiosPolicy: win32more.Windows.Win32.Foundation.BOOLEAN
     LevelCount: Byte
     Level: _Anonymous_e__Struct * 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         BatteryLevel: Byte
         Brightness: Byte
-class VIDEO_CLUT(EasyCastStructure):
+class VIDEO_CLUT(Structure):
     NumEntries: UInt16
     FirstEntry: UInt16
     LookupTable: _Anonymous_e__Union * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         RgbArray: win32more.Windows.Win32.Devices.Display.VIDEO_CLUTDATA
         RgbLong: UInt32
-class VIDEO_CLUTDATA(EasyCastStructure):
+class VIDEO_CLUTDATA(Structure):
     Red: Byte
     Green: Byte
     Blue: Byte
     Unused: Byte
-class VIDEO_COLOR_CAPABILITIES(EasyCastStructure):
+class VIDEO_COLOR_CAPABILITIES(Structure):
     Length: UInt32
     AttributeFlags: UInt32
     RedPhosphoreDecay: Int32
@@ -2447,27 +2447,27 @@ class VIDEO_COLOR_CAPABILITIES(EasyCastStructure):
     RedGamma: Int32
     GreenGamma: Int32
     BlueGamma: Int32
-class VIDEO_COLOR_LUT_DATA(EasyCastStructure):
+class VIDEO_COLOR_LUT_DATA(Structure):
     Length: UInt32
     LutDataFormat: UInt32
     LutData: Byte * 1
-class VIDEO_CURSOR_ATTRIBUTES(EasyCastStructure):
+class VIDEO_CURSOR_ATTRIBUTES(Structure):
     Width: UInt16
     Height: UInt16
     Column: Int16
     Row: Int16
     Rate: Byte
     Enable: Byte
-class VIDEO_CURSOR_POSITION(EasyCastStructure):
+class VIDEO_CURSOR_POSITION(Structure):
     Column: Int16
     Row: Int16
-class VIDEO_DEVICE_SESSION_STATUS(EasyCastStructure):
+class VIDEO_DEVICE_SESSION_STATUS(Structure):
     bEnable: UInt32
     bSuccess: UInt32
-class VIDEO_HARDWARE_STATE(EasyCastStructure):
+class VIDEO_HARDWARE_STATE(Structure):
     StateHeader: POINTER(win32more.Windows.Win32.Devices.Display.VIDEO_HARDWARE_STATE_HEADER)
     StateLength: UInt32
-class VIDEO_HARDWARE_STATE_HEADER(EasyCastStructure):
+class VIDEO_HARDWARE_STATE_HEADER(Structure):
     Length: UInt32
     PortValue: Byte * 48
     AttribIndexDataState: UInt32
@@ -2498,25 +2498,25 @@ class VIDEO_HARDWARE_STATE_HEADER(EasyCastStructure):
     DIBXlatLength: UInt32
     VesaInfoOffset: UInt32
     FrameBufferData: VoidPtr
-class VIDEO_LOAD_FONT_INFORMATION(EasyCastStructure):
+class VIDEO_LOAD_FONT_INFORMATION(Structure):
     WidthInPixels: UInt16
     HeightInPixels: UInt16
     FontSize: UInt32
     Font: Byte * 1
-class VIDEO_LUT_RGB256WORDS(EasyCastStructure):
+class VIDEO_LUT_RGB256WORDS(Structure):
     Red: UInt16 * 256
     Green: UInt16 * 256
     Blue: UInt16 * 256
-class VIDEO_MEMORY(EasyCastStructure):
+class VIDEO_MEMORY(Structure):
     RequestedVirtualAddress: VoidPtr
-class VIDEO_MEMORY_INFORMATION(EasyCastStructure):
+class VIDEO_MEMORY_INFORMATION(Structure):
     VideoRamBase: VoidPtr
     VideoRamLength: UInt32
     FrameBufferBase: VoidPtr
     FrameBufferLength: UInt32
-class VIDEO_MODE(EasyCastStructure):
+class VIDEO_MODE(Structure):
     RequestedMode: UInt32
-class VIDEO_MODE_INFORMATION(EasyCastStructure):
+class VIDEO_MODE_INFORMATION(Structure):
     Length: UInt32
     ModeIndex: UInt32
     VisScreenWidth: UInt32
@@ -2537,17 +2537,17 @@ class VIDEO_MODE_INFORMATION(EasyCastStructure):
     VideoMemoryBitmapWidth: UInt32
     VideoMemoryBitmapHeight: UInt32
     DriverSpecificAttributeFlags: UInt32
-class VIDEO_MONITOR_DESCRIPTOR(EasyCastStructure):
+class VIDEO_MONITOR_DESCRIPTOR(Structure):
     DescriptorSize: UInt32
     Descriptor: Byte * 1
-class VIDEO_NUM_MODES(EasyCastStructure):
+class VIDEO_NUM_MODES(Structure):
     NumModes: UInt32
     ModeInformationLength: UInt32
-class VIDEO_PALETTE_DATA(EasyCastStructure):
+class VIDEO_PALETTE_DATA(Structure):
     NumEntries: UInt16
     FirstEntry: UInt16
     Colors: UInt16 * 1
-class VIDEO_PERFORMANCE_COUNTER(EasyCastStructure):
+class VIDEO_PERFORMANCE_COUNTER(Structure):
     NbOfAllocationEvicted: UInt64 * 10
     NbOfAllocationMarked: UInt64 * 10
     NbOfAllocationRestored: UInt64 * 10
@@ -2569,7 +2569,7 @@ class VIDEO_PERFORMANCE_COUNTER(EasyCastStructure):
     KBytesPageOut: UInt64
     NbOfRotateOut: UInt64
     KBytesRotateOut: UInt64
-class VIDEO_POINTER_ATTRIBUTES(EasyCastStructure):
+class VIDEO_POINTER_ATTRIBUTES(Structure):
     Flags: UInt32
     Width: UInt32
     Height: UInt32
@@ -2578,16 +2578,16 @@ class VIDEO_POINTER_ATTRIBUTES(EasyCastStructure):
     Column: Int16
     Row: Int16
     Pixels: Byte * 1
-class VIDEO_POINTER_CAPABILITIES(EasyCastStructure):
+class VIDEO_POINTER_CAPABILITIES(Structure):
     Flags: UInt32
     MaxWidth: UInt32
     MaxHeight: UInt32
     HWPtrBitmapStart: UInt32
     HWPtrBitmapEnd: UInt32
-class VIDEO_POINTER_POSITION(EasyCastStructure):
+class VIDEO_POINTER_POSITION(Structure):
     Column: Int16
     Row: Int16
-class VIDEO_POWER_MANAGEMENT(EasyCastStructure):
+class VIDEO_POWER_MANAGEMENT(Structure):
     Length: UInt32
     DPMSVersion: UInt32
     PowerState: UInt32
@@ -2600,33 +2600,33 @@ VideoPowerOff: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 4
 VideoPowerHibernate: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 5
 VideoPowerShutdown: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 6
 VideoPowerMaximum: win32more.Windows.Win32.Devices.Display.VIDEO_POWER_STATE = 7
-class VIDEO_PUBLIC_ACCESS_RANGES(EasyCastStructure):
+class VIDEO_PUBLIC_ACCESS_RANGES(Structure):
     InIoSpace: UInt32
     MappedInIoSpace: UInt32
     VirtualAddress: VoidPtr
-class VIDEO_QUERY_PERFORMANCE_COUNTER(EasyCastStructure):
+class VIDEO_QUERY_PERFORMANCE_COUNTER(Structure):
     BufferSize: UInt32
     Buffer: POINTER(win32more.Windows.Win32.Devices.Display.VIDEO_PERFORMANCE_COUNTER)
-class VIDEO_REGISTER_VDM(EasyCastStructure):
+class VIDEO_REGISTER_VDM(Structure):
     MinimumStateSize: UInt32
-class VIDEO_SHARE_MEMORY(EasyCastStructure):
+class VIDEO_SHARE_MEMORY(Structure):
     ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE
     ViewOffset: UInt32
     ViewSize: UInt32
     RequestedVirtualAddress: VoidPtr
-class VIDEO_SHARE_MEMORY_INFORMATION(EasyCastStructure):
+class VIDEO_SHARE_MEMORY_INFORMATION(Structure):
     SharedViewOffset: UInt32
     SharedViewSize: UInt32
     VirtualAddress: VoidPtr
-class VIDEO_VDM(EasyCastStructure):
+class VIDEO_VDM(Structure):
     ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE
-class VIDEO_WIN32K_CALLBACKS(EasyCastStructure):
+class VIDEO_WIN32K_CALLBACKS(Structure):
     PhysDisp: VoidPtr
     Callout: win32more.Windows.Win32.Devices.Display.PVIDEO_WIN32K_CALLOUT
     bACPI: UInt32
     pPhysDeviceObject: win32more.Windows.Win32.Foundation.HANDLE
     DualviewFlags: UInt32
-class VIDEO_WIN32K_CALLBACKS_PARAMS(EasyCastStructure):
+class VIDEO_WIN32K_CALLBACKS_PARAMS(Structure):
     CalloutType: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE
     PhysDisp: VoidPtr
     Param: UIntPtr
@@ -2648,11 +2648,11 @@ VideoUpdateCursor: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACK
 VideoDisableMultiPlaneOverlay: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 14
 VideoDesktopDuplicationChange: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 15
 VideoBlackScreenDiagnostics: win32more.Windows.Win32.Devices.Display.VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 16
-class WCRUN(EasyCastStructure):
+class WCRUN(Structure):
     wcLow: Char
     cGlyphs: UInt16
     phg: POINTER(UInt32)
-class WNDOBJ(EasyCastStructure):
+class WNDOBJ(Structure):
     coClient: win32more.Windows.Win32.Devices.Display.CLIPOBJ
     pvConsumer: VoidPtr
     rclClient: win32more.Windows.Win32.Foundation.RECTL
@@ -2660,7 +2660,7 @@ class WNDOBJ(EasyCastStructure):
 @winfunctype_pointer
 def WNDOBJCHANGEPROC(pwo: POINTER(win32more.Windows.Win32.Devices.Display.WNDOBJ), fl: UInt32) -> Void: ...
 if ARCH in 'X64,ARM64':
-    class XFORML(EasyCastStructure):
+    class XFORML(Structure):
         eM11: Single
         eM12: Single
         eM21: Single
@@ -2668,16 +2668,16 @@ if ARCH in 'X64,ARM64':
         eDx: Single
         eDy: Single
 elif ARCH in 'X86':
-    class XFORML(EasyCastStructure):
+    class XFORML(Structure):
         eM11: UInt32
         eM12: UInt32
         eM21: UInt32
         eM22: UInt32
         eDx: UInt32
         eDy: UInt32
-class XFORMOBJ(EasyCastStructure):
+class XFORMOBJ(Structure):
     ulReserved: UInt32
-class XLATEOBJ(EasyCastStructure):
+class XLATEOBJ(Structure):
     iUniq: UInt32
     flXlate: UInt32
     iSrcType: UInt16

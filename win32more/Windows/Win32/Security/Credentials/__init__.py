@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security.Credentials
@@ -478,13 +478,13 @@ def SCardListReadersWithDeviceInstanceIdW(hContext: UIntPtr, szDeviceInstanceId:
 SCardListReadersWithDeviceInstanceId = UnicodeAlias('SCardListReadersWithDeviceInstanceIdW')
 @winfunctype('WinSCard.dll')
 def SCardAudit(hContext: UIntPtr, dwEvent: UInt32) -> Int32: ...
-class BINARY_BLOB_CREDENTIAL_INFO(EasyCastStructure):
+class BINARY_BLOB_CREDENTIAL_INFO(Structure):
     cbBlob: UInt32
     pbBlob: POINTER(Byte)
-class CERT_CREDENTIAL_INFO(EasyCastStructure):
+class CERT_CREDENTIAL_INFO(Structure):
     cbSize: UInt32
     rgbHashOfCert: Byte * 20
-class CREDENTIALA(EasyCastStructure):
+class CREDENTIALA(Structure):
     Flags: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS
     Type: win32more.Windows.Win32.Security.Credentials.CRED_TYPE
     TargetName: win32more.Windows.Win32.Foundation.PSTR
@@ -497,7 +497,7 @@ class CREDENTIALA(EasyCastStructure):
     Attributes: POINTER(win32more.Windows.Win32.Security.Credentials.CREDENTIAL_ATTRIBUTEA)
     TargetAlias: win32more.Windows.Win32.Foundation.PSTR
     UserName: win32more.Windows.Win32.Foundation.PSTR
-class CREDENTIALW(EasyCastStructure):
+class CREDENTIALW(Structure):
     Flags: win32more.Windows.Win32.Security.Credentials.CRED_FLAGS
     Type: win32more.Windows.Win32.Security.Credentials.CRED_TYPE
     TargetName: win32more.Windows.Win32.Foundation.PWSTR
@@ -511,18 +511,18 @@ class CREDENTIALW(EasyCastStructure):
     TargetAlias: win32more.Windows.Win32.Foundation.PWSTR
     UserName: win32more.Windows.Win32.Foundation.PWSTR
 CREDENTIAL = UnicodeAlias('CREDENTIALW')
-class CREDENTIAL_ATTRIBUTEA(EasyCastStructure):
+class CREDENTIAL_ATTRIBUTEA(Structure):
     Keyword: win32more.Windows.Win32.Foundation.PSTR
     Flags: UInt32
     ValueSize: UInt32
     Value: POINTER(Byte)
-class CREDENTIAL_ATTRIBUTEW(EasyCastStructure):
+class CREDENTIAL_ATTRIBUTEW(Structure):
     Keyword: win32more.Windows.Win32.Foundation.PWSTR
     Flags: UInt32
     ValueSize: UInt32
     Value: POINTER(Byte)
 CREDENTIAL_ATTRIBUTE = UnicodeAlias('CREDENTIAL_ATTRIBUTEW')
-class CREDENTIAL_TARGET_INFORMATIONA(EasyCastStructure):
+class CREDENTIAL_TARGET_INFORMATIONA(Structure):
     TargetName: win32more.Windows.Win32.Foundation.PSTR
     NetbiosServerName: win32more.Windows.Win32.Foundation.PSTR
     DnsServerName: win32more.Windows.Win32.Foundation.PSTR
@@ -533,7 +533,7 @@ class CREDENTIAL_TARGET_INFORMATIONA(EasyCastStructure):
     Flags: UInt32
     CredTypeCount: UInt32
     CredTypes: POINTER(UInt32)
-class CREDENTIAL_TARGET_INFORMATIONW(EasyCastStructure):
+class CREDENTIAL_TARGET_INFORMATIONW(Structure):
     TargetName: win32more.Windows.Win32.Foundation.PWSTR
     NetbiosServerName: win32more.Windows.Win32.Foundation.PWSTR
     DnsServerName: win32more.Windows.Win32.Foundation.PWSTR
@@ -552,11 +552,11 @@ CredsspCertificateCreds: win32more.Windows.Win32.Security.Credentials.CREDSPP_SU
 CredsspSubmitBufferBoth: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 50
 CredsspSubmitBufferBothOld: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 51
 CredsspCredEx: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE = 100
-class CREDSSP_CRED(EasyCastStructure):
+class CREDSSP_CRED(Structure):
     Type: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE
     pSchannelCred: VoidPtr
     pSpnegoCred: VoidPtr
-class CREDSSP_CRED_EX(EasyCastStructure):
+class CREDSSP_CRED_EX(Structure):
     Type: win32more.Windows.Win32.Security.Credentials.CREDSPP_SUBMIT_TYPE
     Version: UInt32
     Flags: UInt32
@@ -590,13 +590,13 @@ CREDUI_FLAGS_SERVER_CREDENTIAL: win32more.Windows.Win32.Security.Credentials.CRE
 CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 64
 CREDUI_FLAGS_USERNAME_TARGET_CREDENTIALS: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 524288
 CREDUI_FLAGS_VALIDATE_USERNAME: win32more.Windows.Win32.Security.Credentials.CREDUI_FLAGS = 1024
-class CREDUI_INFOA(EasyCastStructure):
+class CREDUI_INFOA(Structure):
     cbSize: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
     pszMessageText: win32more.Windows.Win32.Foundation.PSTR
     pszCaptionText: win32more.Windows.Win32.Foundation.PSTR
     hbmBanner: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
-class CREDUI_INFOW(EasyCastStructure):
+class CREDUI_INFOW(Structure):
     cbSize: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
     pszMessageText: win32more.Windows.Win32.Foundation.PWSTR
@@ -646,7 +646,7 @@ CRED_TYPE_GENERIC_CERTIFICATE: win32more.Windows.Win32.Security.Credentials.CRED
 CRED_TYPE_DOMAIN_EXTENDED: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 6
 CRED_TYPE_MAXIMUM: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 7
 CRED_TYPE_MAXIMUM_EX: win32more.Windows.Win32.Security.Credentials.CRED_TYPE = 1007
-class KeyCredentialManagerInfo(EasyCastStructure):
+class KeyCredentialManagerInfo(Structure):
     containerId: Guid
 KeyCredentialManagerOperationErrorStates = Int32
 KeyCredentialManagerOperationErrorStateNone: win32more.Windows.Win32.Security.Credentials.KeyCredentialManagerOperationErrorStates = 0
@@ -670,7 +670,7 @@ def LPOCNCONNPROCW(param0: UIntPtr, param1: win32more.Windows.Win32.Foundation.P
 LPOCNCONNPROC = UnicodeAlias('LPOCNCONNPROCW')
 @winfunctype_pointer
 def LPOCNDSCPROC(param0: UIntPtr, param1: UIntPtr, param2: VoidPtr) -> Void: ...
-class OPENCARDNAMEA(EasyCastStructure):
+class OPENCARDNAMEA(Structure):
     dwStructSize: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     hSCardContext: UIntPtr
@@ -694,7 +694,7 @@ class OPENCARDNAMEA(EasyCastStructure):
     lpfnCheck: win32more.Windows.Win32.Security.Credentials.LPOCNCHKPROC
     lpfnDisconnect: win32more.Windows.Win32.Security.Credentials.LPOCNDSCPROC
     hCardHandle: UIntPtr
-class OPENCARDNAMEW(EasyCastStructure):
+class OPENCARDNAMEW(Structure):
     dwStructSize: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     hSCardContext: UIntPtr
@@ -719,7 +719,7 @@ class OPENCARDNAMEW(EasyCastStructure):
     lpfnDisconnect: win32more.Windows.Win32.Security.Credentials.LPOCNDSCPROC
     hCardHandle: UIntPtr
 OPENCARDNAME = UnicodeAlias('OPENCARDNAMEW')
-class OPENCARDNAME_EXA(EasyCastStructure):
+class OPENCARDNAME_EXA(Structure):
     dwStructSize: UInt32
     hSCardContext: UIntPtr
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -738,7 +738,7 @@ class OPENCARDNAME_EXA(EasyCastStructure):
     nMaxCard: UInt32
     dwActiveProtocol: UInt32
     hCardHandle: UIntPtr
-class OPENCARDNAME_EXW(EasyCastStructure):
+class OPENCARDNAME_EXW(Structure):
     dwStructSize: UInt32
     hSCardContext: UIntPtr
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -758,7 +758,7 @@ class OPENCARDNAME_EXW(EasyCastStructure):
     dwActiveProtocol: UInt32
     hCardHandle: UIntPtr
 OPENCARDNAME_EX = UnicodeAlias('OPENCARDNAME_EXW')
-class OPENCARD_SEARCH_CRITERIAA(EasyCastStructure):
+class OPENCARD_SEARCH_CRITERIAA(Structure):
     dwStructSize: UInt32
     lpstrGroupNames: win32more.Windows.Win32.Foundation.PSTR
     nMaxGroupNames: UInt32
@@ -772,7 +772,7 @@ class OPENCARD_SEARCH_CRITERIAA(EasyCastStructure):
     pvUserData: VoidPtr
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
-class OPENCARD_SEARCH_CRITERIAW(EasyCastStructure):
+class OPENCARD_SEARCH_CRITERIAW(Structure):
     dwStructSize: UInt32
     lpstrGroupNames: win32more.Windows.Win32.Foundation.PWSTR
     nMaxGroupNames: UInt32
@@ -787,22 +787,22 @@ class OPENCARD_SEARCH_CRITERIAW(EasyCastStructure):
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
 OPENCARD_SEARCH_CRITERIA = UnicodeAlias('OPENCARD_SEARCH_CRITERIAW')
-class READER_SEL_REQUEST(EasyCastStructure):
+class READER_SEL_REQUEST(Structure):
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
     MatchType: win32more.Windows.Win32.Security.Credentials.READER_SEL_REQUEST_MATCH_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ReaderAndContainerParameter: _ReaderAndContainerParameter_e__Struct
         SerialNumberParameter: _SerialNumberParameter_e__Struct
-        class _ReaderAndContainerParameter_e__Struct(EasyCastStructure):
+        class _ReaderAndContainerParameter_e__Struct(Structure):
             cbReaderNameOffset: UInt32
             cchReaderNameLength: UInt32
             cbContainerNameOffset: UInt32
             cchContainerNameLength: UInt32
             dwDesiredCardModuleVersion: UInt32
             dwCspFlags: UInt32
-        class _SerialNumberParameter_e__Struct(EasyCastStructure):
+        class _SerialNumberParameter_e__Struct(Structure):
             cbSerialNumberOffset: UInt32
             cbSerialNumberLength: UInt32
             dwDesiredCardModuleVersion: UInt32
@@ -810,26 +810,26 @@ READER_SEL_REQUEST_MATCH_TYPE = Int32
 RSR_MATCH_TYPE_READER_AND_CONTAINER: win32more.Windows.Win32.Security.Credentials.READER_SEL_REQUEST_MATCH_TYPE = 1
 RSR_MATCH_TYPE_SERIAL_NUMBER: win32more.Windows.Win32.Security.Credentials.READER_SEL_REQUEST_MATCH_TYPE = 2
 RSR_MATCH_TYPE_ALL_CARDS: win32more.Windows.Win32.Security.Credentials.READER_SEL_REQUEST_MATCH_TYPE = 3
-class READER_SEL_RESPONSE(EasyCastStructure):
+class READER_SEL_RESPONSE(Structure):
     cbReaderNameOffset: UInt32
     cchReaderNameLength: UInt32
     cbCardNameOffset: UInt32
     cchCardNameLength: UInt32
-class SCARD_ATRMASK(EasyCastStructure):
+class SCARD_ATRMASK(Structure):
     cbAtr: UInt32
     rgbAtr: Byte * 36
     rgbMask: Byte * 36
-class SCARD_IO_REQUEST(EasyCastStructure):
+class SCARD_IO_REQUEST(Structure):
     dwProtocol: UInt32
     cbPciLength: UInt32
-class SCARD_READERSTATEA(EasyCastStructure):
+class SCARD_READERSTATEA(Structure):
     szReader: win32more.Windows.Win32.Foundation.PSTR
     pvUserData: VoidPtr
     dwCurrentState: win32more.Windows.Win32.Security.Credentials.SCARD_STATE
     dwEventState: win32more.Windows.Win32.Security.Credentials.SCARD_STATE
     cbAtr: UInt32
     rgbAtr: Byte * 36
-class SCARD_READERSTATEW(EasyCastStructure):
+class SCARD_READERSTATEW(Structure):
     szReader: win32more.Windows.Win32.Foundation.PWSTR
     pvUserData: VoidPtr
     dwCurrentState: win32more.Windows.Win32.Security.Credentials.SCARD_STATE
@@ -852,29 +852,29 @@ SCARD_STATE_INUSE: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 25
 SCARD_STATE_MUTE: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 512
 SCARD_STATE_CHANGED: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 2
 SCARD_STATE_UNKNOWN: win32more.Windows.Win32.Security.Credentials.SCARD_STATE = 4
-class SCARD_T0_COMMAND(EasyCastStructure):
+class SCARD_T0_COMMAND(Structure):
     bCla: Byte
     bIns: Byte
     bP1: Byte
     bP2: Byte
     bP3: Byte
-class SCARD_T0_REQUEST(EasyCastStructure):
+class SCARD_T0_REQUEST(Structure):
     ioRequest: win32more.Windows.Win32.Security.Credentials.SCARD_IO_REQUEST
     bSw1: Byte
     bSw2: Byte
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         CmdBytes: win32more.Windows.Win32.Security.Credentials.SCARD_T0_COMMAND
         rgbHeader: Byte * 5
-class SCARD_T1_REQUEST(EasyCastStructure):
+class SCARD_T1_REQUEST(Structure):
     ioRequest: win32more.Windows.Win32.Security.Credentials.SCARD_IO_REQUEST
-class SecHandle(EasyCastStructure):
+class SecHandle(Structure):
     dwLower: UIntPtr
     dwUpper: UIntPtr
-class SecPkgContext_ClientCreds(EasyCastStructure):
+class SecPkgContext_ClientCreds(Structure):
     AuthBufferLen: UInt32
     AuthBuffer: POINTER(Byte)
-class USERNAME_TARGET_CREDENTIAL_INFO(EasyCastStructure):
+class USERNAME_TARGET_CREDENTIAL_INFO(Structure):
     UserName: win32more.Windows.Win32.Foundation.PWSTR
 
 

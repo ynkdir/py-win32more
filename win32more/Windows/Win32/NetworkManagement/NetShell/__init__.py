@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetShell
 NETSH_ERROR_BASE: UInt32 = 15000
@@ -50,7 +50,7 @@ def PrintMessage(pwszFormat: win32more.Windows.Win32.Foundation.PWSTR, *__arglis
 def RegisterContext(pChildContext: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.NS_CONTEXT_ATTRIBUTES)) -> UInt32: ...
 @winfunctype('NETSH.dll')
 def RegisterHelper(pguidParentContext: POINTER(Guid), pfnRegisterSubContext: POINTER(win32more.Windows.Win32.NetworkManagement.NetShell.NS_HELPER_ATTRIBUTES)) -> UInt32: ...
-class CMD_ENTRY(EasyCastStructure):
+class CMD_ENTRY(Structure):
     pwszCmdToken: win32more.Windows.Win32.Foundation.PWSTR
     pfnCmdHandler: win32more.Windows.Win32.NetworkManagement.NetShell.PFN_HANDLE_CMD
     dwShortCmdHelpToken: UInt32
@@ -58,7 +58,7 @@ class CMD_ENTRY(EasyCastStructure):
     dwFlags: UInt32
     pOsVersionCheck: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_OSVERSIONCHECK
     pfnCustomHelpFn: win32more.Windows.Win32.NetworkManagement.NetShell.PFN_CUSTOM_HELP
-class CMD_GROUP_ENTRY(EasyCastStructure):
+class CMD_GROUP_ENTRY(Structure):
     pwszCmdGroupToken: win32more.Windows.Win32.Foundation.PWSTR
     dwShortCmdHelpToken: UInt32
     ulCmdGroupSize: UInt32
@@ -73,7 +73,7 @@ CMD_FLAG_ONLINE: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS
 CMD_FLAG_HIDDEN: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = 32
 CMD_FLAG_LIMIT_MASK: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = 65535
 CMD_FLAG_PRIORITY: win32more.Windows.Win32.NetworkManagement.NetShell.NS_CMD_FLAGS = -2147483648
-class NS_CONTEXT_ATTRIBUTES(EasyCastStructure):
+class NS_CONTEXT_ATTRIBUTES(Structure):
     Anonymous: _Anonymous_e__Union
     pwszContext: win32more.Windows.Win32.Foundation.PWSTR
     guidHelper: Guid
@@ -88,10 +88,10 @@ class NS_CONTEXT_ATTRIBUTES(EasyCastStructure):
     pfnConnectFn: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_CONTEXT_CONNECT_FN
     pReserved: VoidPtr
     pfnOsVersionCheck: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_OSVERSIONCHECK
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         _ullAlign: UInt64
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             dwVersion: UInt32
             dwReserved: UInt32
 NS_EVENTS = Int32
@@ -100,15 +100,15 @@ NS_EVENT_LAST_N: win32more.Windows.Win32.NetworkManagement.NetShell.NS_EVENTS = 
 NS_EVENT_LAST_SECS: win32more.Windows.Win32.NetworkManagement.NetShell.NS_EVENTS = 2
 NS_EVENT_FROM_N: win32more.Windows.Win32.NetworkManagement.NetShell.NS_EVENTS = 4
 NS_EVENT_FROM_START: win32more.Windows.Win32.NetworkManagement.NetShell.NS_EVENTS = 8
-class NS_HELPER_ATTRIBUTES(EasyCastStructure):
+class NS_HELPER_ATTRIBUTES(Structure):
     Anonymous: _Anonymous_e__Union
     guidHelper: Guid
     pfnStart: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_HELPER_START_FN
     pfnStop: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_HELPER_STOP_FN
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         _ullAlign: UInt64
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             dwVersion: UInt32
             dwReserved: UInt32
 NS_MODE_CHANGE = Int32
@@ -144,11 +144,11 @@ def PNS_HELPER_START_FN(pguidParent: POINTER(Guid), dwVersion: UInt32) -> UInt32
 def PNS_HELPER_STOP_FN(dwReserved: UInt32) -> UInt32: ...
 @winfunctype_pointer
 def PNS_OSVERSIONCHECK(CIMOSType: UInt32, CIMOSProductSuite: UInt32, CIMOSVersion: win32more.Windows.Win32.Foundation.PWSTR, CIMOSBuildNumber: win32more.Windows.Win32.Foundation.PWSTR, CIMServicePackMajorVersion: win32more.Windows.Win32.Foundation.PWSTR, CIMServicePackMinorVersion: win32more.Windows.Win32.Foundation.PWSTR, uiReserved: UInt32, dwReserved: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class TAG_TYPE(EasyCastStructure):
+class TAG_TYPE(Structure):
     pwszTag: win32more.Windows.Win32.Foundation.PWSTR
     dwRequired: UInt32
     bPresent: win32more.Windows.Win32.Foundation.BOOL
-class TOKEN_VALUE(EasyCastStructure):
+class TOKEN_VALUE(Structure):
     pwszToken: win32more.Windows.Win32.Foundation.PWSTR
     dwValue: UInt32
 

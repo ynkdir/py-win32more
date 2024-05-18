@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Cryptography
@@ -1195,7 +1195,7 @@ def CreateSymbolicLinkTransactedA(lpSymlinkFileName: win32more.Windows.Win32.Fou
 @winfunctype('KERNEL32.dll')
 def CreateSymbolicLinkTransactedW(lpSymlinkFileName: win32more.Windows.Win32.Foundation.PWSTR, lpTargetFileName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: win32more.Windows.Win32.Storage.FileSystem.SYMBOLIC_LINK_FLAGS, hTransaction: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 CreateSymbolicLinkTransacted = UnicodeAlias('CreateSymbolicLinkTransactedW')
-class BY_HANDLE_FILE_INFORMATION(EasyCastStructure):
+class BY_HANDLE_FILE_INFORMATION(Structure):
     dwFileAttributes: UInt32
     ftCreationTime: win32more.Windows.Win32.Foundation.FILETIME
     ftLastAccessTime: win32more.Windows.Win32.Foundation.FILETIME
@@ -1240,10 +1240,10 @@ ClfsIoStatsMax: win32more.Windows.Win32.Storage.FileSystem.CLFS_IOSTATS_CLASS = 
 CLFS_LOG_ARCHIVE_MODE = Int32
 ClfsLogArchiveEnabled: win32more.Windows.Win32.Storage.FileSystem.CLFS_LOG_ARCHIVE_MODE = 1
 ClfsLogArchiveDisabled: win32more.Windows.Win32.Storage.FileSystem.CLFS_LOG_ARCHIVE_MODE = 2
-class CLFS_LOG_NAME_INFORMATION(EasyCastStructure):
+class CLFS_LOG_NAME_INFORMATION(Structure):
     NameLengthInBytes: UInt16
     Name: Char * 1
-class CLFS_MGMT_NOTIFICATION(EasyCastStructure):
+class CLFS_MGMT_NOTIFICATION(Structure):
     Notification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE
     Lsn: win32more.Windows.Win32.Storage.FileSystem.CLS_LSN
     LogIsPinned: UInt16
@@ -1252,13 +1252,13 @@ ClfsMgmtAdvanceTailNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS
 ClfsMgmtLogFullHandlerNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 1
 ClfsMgmtLogUnpinnedNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 2
 ClfsMgmtLogWriteNotification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE = 3
-class CLFS_MGMT_POLICY(EasyCastStructure):
+class CLFS_MGMT_POLICY(Structure):
     Version: UInt32
     LengthInBytes: UInt32
     PolicyFlags: UInt32
     PolicyType: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE
     PolicyParameters: _PolicyParameters_e__Union
-    class _PolicyParameters_e__Union(EasyCastUnion):
+    class _PolicyParameters_e__Union(Union):
         MaximumSize: _MaximumSize_e__Struct
         MinimumSize: _MinimumSize_e__Struct
         NewContainerSize: _NewContainerSize_e__Struct
@@ -1269,28 +1269,28 @@ class CLFS_MGMT_POLICY(EasyCastStructure):
         NewContainerPrefix: _NewContainerPrefix_e__Struct
         NewContainerSuffix: _NewContainerSuffix_e__Struct
         NewContainerExtension: _NewContainerExtension_e__Struct
-        class _MaximumSize_e__Struct(EasyCastStructure):
+        class _MaximumSize_e__Struct(Structure):
             Containers: UInt32
-        class _MinimumSize_e__Struct(EasyCastStructure):
+        class _MinimumSize_e__Struct(Structure):
             Containers: UInt32
-        class _NewContainerSize_e__Struct(EasyCastStructure):
+        class _NewContainerSize_e__Struct(Structure):
             SizeInBytes: UInt32
-        class _GrowthRate_e__Struct(EasyCastStructure):
+        class _GrowthRate_e__Struct(Structure):
             AbsoluteGrowthInContainers: UInt32
             RelativeGrowthPercentage: UInt32
-        class _LogTail_e__Struct(EasyCastStructure):
+        class _LogTail_e__Struct(Structure):
             MinimumAvailablePercentage: UInt32
             MinimumAvailableContainers: UInt32
-        class _AutoShrink_e__Struct(EasyCastStructure):
+        class _AutoShrink_e__Struct(Structure):
             Percentage: UInt32
-        class _AutoGrow_e__Struct(EasyCastStructure):
+        class _AutoGrow_e__Struct(Structure):
             Enabled: UInt32
-        class _NewContainerPrefix_e__Struct(EasyCastStructure):
+        class _NewContainerPrefix_e__Struct(Structure):
             PrefixLengthInBytes: UInt16
             PrefixString: Char * 1
-        class _NewContainerSuffix_e__Struct(EasyCastStructure):
+        class _NewContainerSuffix_e__Struct(Structure):
             NextContainerSuffix: UInt64
-        class _NewContainerExtension_e__Struct(EasyCastStructure):
+        class _NewContainerExtension_e__Struct(Structure):
             ExtensionLengthInBytes: UInt16
             ExtensionString: Char * 1
 CLFS_MGMT_POLICY_TYPE = Int32
@@ -1305,20 +1305,20 @@ ClfsMgmtPolicyNewContainerPrefix: win32more.Windows.Win32.Storage.FileSystem.CLF
 ClfsMgmtPolicyNewContainerSuffix: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 8
 ClfsMgmtPolicyNewContainerExtension: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 9
 ClfsMgmtPolicyInvalid: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 10
-class CLFS_NODE_ID(EasyCastStructure):
+class CLFS_NODE_ID(Structure):
     cType: UInt32
     cbNode: UInt32
-class CLFS_PHYSICAL_LSN_INFORMATION(EasyCastStructure):
+class CLFS_PHYSICAL_LSN_INFORMATION(Structure):
     StreamIdentifier: Byte
     VirtualLsn: win32more.Windows.Win32.Storage.FileSystem.CLS_LSN
     PhysicalLsn: win32more.Windows.Win32.Storage.FileSystem.CLS_LSN
-class CLFS_STREAM_ID_INFORMATION(EasyCastStructure):
+class CLFS_STREAM_ID_INFORMATION(Structure):
     StreamIdentifier: Byte
-class CLS_ARCHIVE_DESCRIPTOR(EasyCastStructure):
+class CLS_ARCHIVE_DESCRIPTOR(Structure):
     coffLow: UInt64
     coffHigh: UInt64
     infoContainer: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTAINER_INFORMATION
-class CLS_CONTAINER_INFORMATION(EasyCastStructure):
+class CLS_CONTAINER_INFORMATION(Structure):
     FileAttributes: UInt32
     CreationTime: UInt64
     LastAccessTime: UInt64
@@ -1335,7 +1335,7 @@ ClsContextNone: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 0
 ClsContextUndoNext: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 1
 ClsContextPrevious: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 2
 ClsContextForward: win32more.Windows.Win32.Storage.FileSystem.CLS_CONTEXT_MODE = 3
-class CLS_INFORMATION(EasyCastStructure):
+class CLS_INFORMATION(Structure):
     TotalAvailable: Int64
     CurrentAvailable: Int64
     TotalReservation: Int64
@@ -1356,13 +1356,13 @@ class CLS_INFORMATION(EasyCastStructure):
 CLS_IOSTATS_CLASS = Int32
 ClsIoStatsDefault: win32more.Windows.Win32.Storage.FileSystem.CLS_IOSTATS_CLASS = 0
 ClsIoStatsMax: win32more.Windows.Win32.Storage.FileSystem.CLS_IOSTATS_CLASS = 65535
-class CLS_IO_STATISTICS(EasyCastStructure):
+class CLS_IO_STATISTICS(Structure):
     hdrIoStats: win32more.Windows.Win32.Storage.FileSystem.CLS_IO_STATISTICS_HEADER
     cFlush: UInt64
     cbFlush: UInt64
     cMetaFlush: UInt64
     cbMetaFlush: UInt64
-class CLS_IO_STATISTICS_HEADER(EasyCastStructure):
+class CLS_IO_STATISTICS_HEADER(Structure):
     ubMajorVersion: Byte
     ubMinorVersion: Byte
     eStatsClass: win32more.Windows.Win32.Storage.FileSystem.CLFS_IOSTATS_CLASS
@@ -1375,9 +1375,9 @@ ClfsLogPhysicalNameInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_L
 ClfsLogStreamIdentifierInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 3
 ClfsLogSystemMarkingInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 4
 ClfsLogPhysicalLsnInformation: win32more.Windows.Win32.Storage.FileSystem.CLS_LOG_INFORMATION_CLASS = 5
-class CLS_LSN(EasyCastStructure):
+class CLS_LSN(Structure):
     Internal: UInt64
-class CLS_SCAN_CONTEXT(EasyCastStructure):
+class CLS_SCAN_CONTEXT(Structure):
     cidNode: win32more.Windows.Win32.Storage.FileSystem.CLFS_NODE_ID
     hLog: win32more.Windows.Win32.Foundation.HANDLE
     cIndex: UInt32
@@ -1385,7 +1385,7 @@ class CLS_SCAN_CONTEXT(EasyCastStructure):
     cContainersReturned: UInt32
     eScanMode: Byte
     pinfoContainer: POINTER(win32more.Windows.Win32.Storage.FileSystem.CLS_CONTAINER_INFORMATION)
-class CLS_WRITE_ENTRY(EasyCastStructure):
+class CLS_WRITE_ENTRY(Structure):
     Buffer: VoidPtr
     ByteLength: UInt32
 COMPRESSION_FORMAT = UInt16
@@ -1395,9 +1395,9 @@ COMPRESSION_FORMAT_LZNT1: win32more.Windows.Win32.Storage.FileSystem.COMPRESSION
 COMPRESSION_FORMAT_XPRESS: win32more.Windows.Win32.Storage.FileSystem.COMPRESSION_FORMAT = 3
 COMPRESSION_FORMAT_XPRESS_HUFF: win32more.Windows.Win32.Storage.FileSystem.COMPRESSION_FORMAT = 4
 COMPRESSION_FORMAT_XP10: win32more.Windows.Win32.Storage.FileSystem.COMPRESSION_FORMAT = 5
-class CONNECTION_INFO_0(EasyCastStructure):
+class CONNECTION_INFO_0(Structure):
     coni0_id: UInt32
-class CONNECTION_INFO_1(EasyCastStructure):
+class CONNECTION_INFO_1(Structure):
     coni1_id: UInt32
     coni1_type: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE
     coni1_num_opens: UInt32
@@ -1414,13 +1414,13 @@ COPYFILE2_PHASE_WRITE_DESTINATION: win32more.Windows.Win32.Storage.FileSystem.CO
 COPYFILE2_PHASE_SERVER_COPY: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_COPY_PHASE = 5
 COPYFILE2_PHASE_NAMEGRAFT_COPY: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_COPY_PHASE = 6
 COPYFILE2_PHASE_MAX: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_COPY_PHASE = 7
-class COPYFILE2_EXTENDED_PARAMETERS(EasyCastStructure):
+class COPYFILE2_EXTENDED_PARAMETERS(Structure):
     dwSize: UInt32
     dwCopyFlags: UInt32
     pfCancel: POINTER(win32more.Windows.Win32.Foundation.BOOL)
     pProgressRoutine: win32more.Windows.Win32.Storage.FileSystem.PCOPYFILE2_PROGRESS_ROUTINE
     pvCallbackContext: VoidPtr
-class COPYFILE2_EXTENDED_PARAMETERS_V2(EasyCastStructure):
+class COPYFILE2_EXTENDED_PARAMETERS_V2(Structure):
     dwSize: UInt32
     dwCopyFlags: UInt32
     pfCancel: POINTER(win32more.Windows.Win32.Foundation.BOOL)
@@ -1430,18 +1430,18 @@ class COPYFILE2_EXTENDED_PARAMETERS_V2(EasyCastStructure):
     ioDesiredSize: UInt32
     ioDesiredRate: UInt32
     reserved: VoidPtr * 8
-class COPYFILE2_MESSAGE(EasyCastStructure):
+class COPYFILE2_MESSAGE(Structure):
     Type: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_MESSAGE_TYPE
     dwPadding: UInt32
     Info: _Info_e__Union
-    class _Info_e__Union(EasyCastUnion):
+    class _Info_e__Union(Union):
         ChunkStarted: _ChunkStarted_e__Struct
         ChunkFinished: _ChunkFinished_e__Struct
         StreamStarted: _StreamStarted_e__Struct
         StreamFinished: _StreamFinished_e__Struct
         PollContinue: _PollContinue_e__Struct
         Error: _Error_e__Struct
-        class _ChunkStarted_e__Struct(EasyCastStructure):
+        class _ChunkStarted_e__Struct(Structure):
             dwStreamNumber: UInt32
             dwReserved: UInt32
             hSourceFile: win32more.Windows.Win32.Foundation.HANDLE
@@ -1450,7 +1450,7 @@ class COPYFILE2_MESSAGE(EasyCastStructure):
             uliChunkSize: UInt64
             uliStreamSize: UInt64
             uliTotalFileSize: UInt64
-        class _ChunkFinished_e__Struct(EasyCastStructure):
+        class _ChunkFinished_e__Struct(Structure):
             dwStreamNumber: UInt32
             dwFlags: UInt32
             hSourceFile: win32more.Windows.Win32.Foundation.HANDLE
@@ -1461,14 +1461,14 @@ class COPYFILE2_MESSAGE(EasyCastStructure):
             uliStreamBytesTransferred: UInt64
             uliTotalFileSize: UInt64
             uliTotalBytesTransferred: UInt64
-        class _StreamStarted_e__Struct(EasyCastStructure):
+        class _StreamStarted_e__Struct(Structure):
             dwStreamNumber: UInt32
             dwReserved: UInt32
             hSourceFile: win32more.Windows.Win32.Foundation.HANDLE
             hDestinationFile: win32more.Windows.Win32.Foundation.HANDLE
             uliStreamSize: UInt64
             uliTotalFileSize: UInt64
-        class _StreamFinished_e__Struct(EasyCastStructure):
+        class _StreamFinished_e__Struct(Structure):
             dwStreamNumber: UInt32
             dwReserved: UInt32
             hSourceFile: win32more.Windows.Win32.Foundation.HANDLE
@@ -1477,9 +1477,9 @@ class COPYFILE2_MESSAGE(EasyCastStructure):
             uliStreamBytesTransferred: UInt64
             uliTotalFileSize: UInt64
             uliTotalBytesTransferred: UInt64
-        class _PollContinue_e__Struct(EasyCastStructure):
+        class _PollContinue_e__Struct(Structure):
             dwReserved: UInt32
-        class _Error_e__Struct(EasyCastStructure):
+        class _Error_e__Struct(Structure):
             CopyPhase: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_COPY_PHASE
             dwStreamNumber: UInt32
             hrFailure: win32more.Windows.Win32.Foundation.HRESULT
@@ -1504,7 +1504,7 @@ COPYFILE2_CALLBACK_STREAM_FINISHED: win32more.Windows.Win32.Storage.FileSystem.C
 COPYFILE2_CALLBACK_POLL_CONTINUE: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_MESSAGE_TYPE = 5
 COPYFILE2_CALLBACK_ERROR: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_MESSAGE_TYPE = 6
 COPYFILE2_CALLBACK_MAX: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_MESSAGE_TYPE = 7
-class CREATEFILE2_EXTENDED_PARAMETERS(EasyCastStructure):
+class CREATEFILE2_EXTENDED_PARAMETERS(Structure):
     dwSize: UInt32
     dwFileAttributes: UInt32
     dwFileFlags: UInt32
@@ -1525,11 +1525,11 @@ DISKQUOTA_USERNAME_RESOLVE = UInt32
 DISKQUOTA_USERNAME_RESOLVE_ASYNC: win32more.Windows.Win32.Storage.FileSystem.DISKQUOTA_USERNAME_RESOLVE = 2
 DISKQUOTA_USERNAME_RESOLVE_NONE: win32more.Windows.Win32.Storage.FileSystem.DISKQUOTA_USERNAME_RESOLVE = 0
 DISKQUOTA_USERNAME_RESOLVE_SYNC: win32more.Windows.Win32.Storage.FileSystem.DISKQUOTA_USERNAME_RESOLVE = 1
-class DISKQUOTA_USER_INFORMATION(EasyCastStructure):
+class DISKQUOTA_USER_INFORMATION(Structure):
     QuotaUsed: Int64
     QuotaThreshold: Int64
     QuotaLimit: Int64
-class DISK_SPACE_INFORMATION(EasyCastStructure):
+class DISK_SPACE_INFORMATION(Structure):
     ActualTotalAllocationUnits: UInt64
     ActualAvailableAllocationUnits: UInt64
     ActualPoolUnavailableAllocationUnits: UInt64
@@ -1543,62 +1543,62 @@ class DISK_SPACE_INFORMATION(EasyCastStructure):
     PoolAvailableAllocationUnits: UInt64
     SectorsPerAllocationUnit: UInt32
     BytesPerSector: UInt32
-class EFS_CERTIFICATE_BLOB(EasyCastStructure):
+class EFS_CERTIFICATE_BLOB(Structure):
     dwCertEncodingType: UInt32
     cbData: UInt32
     pbData: POINTER(Byte)
-class EFS_COMPATIBILITY_INFO(EasyCastStructure):
+class EFS_COMPATIBILITY_INFO(Structure):
     EfsVersion: UInt32
-class EFS_DECRYPTION_STATUS_INFO(EasyCastStructure):
+class EFS_DECRYPTION_STATUS_INFO(Structure):
     dwDecryptionError: UInt32
     dwHashOffset: UInt32
     cbHash: UInt32
-class EFS_ENCRYPTION_STATUS_INFO(EasyCastStructure):
+class EFS_ENCRYPTION_STATUS_INFO(Structure):
     bHasCurrentKey: win32more.Windows.Win32.Foundation.BOOL
     dwEncryptionError: UInt32
-class EFS_HASH_BLOB(EasyCastStructure):
+class EFS_HASH_BLOB(Structure):
     cbData: UInt32
     pbData: POINTER(Byte)
-class EFS_KEY_INFO(EasyCastStructure):
+class EFS_KEY_INFO(Structure):
     dwVersion: UInt32
     Entropy: UInt32
     Algorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     KeyLength: UInt32
-class EFS_PIN_BLOB(EasyCastStructure):
+class EFS_PIN_BLOB(Structure):
     cbPadding: UInt32
     cbData: UInt32
     pbData: POINTER(Byte)
-class EFS_RPC_BLOB(EasyCastStructure):
+class EFS_RPC_BLOB(Structure):
     cbData: UInt32
     pbData: POINTER(Byte)
-class EFS_VERSION_INFO(EasyCastStructure):
+class EFS_VERSION_INFO(Structure):
     EfsVersion: UInt32
     SubVersion: UInt32
-class ENCRYPTED_FILE_METADATA_SIGNATURE(EasyCastStructure):
+class ENCRYPTED_FILE_METADATA_SIGNATURE(Structure):
     dwEfsAccessType: UInt32
     pCertificatesAdded: POINTER(win32more.Windows.Win32.Storage.FileSystem.ENCRYPTION_CERTIFICATE_HASH_LIST)
     pEncryptionCertificate: POINTER(win32more.Windows.Win32.Storage.FileSystem.ENCRYPTION_CERTIFICATE)
     pEfsStreamSignature: POINTER(win32more.Windows.Win32.Storage.FileSystem.EFS_RPC_BLOB)
-class ENCRYPTION_CERTIFICATE(EasyCastStructure):
+class ENCRYPTION_CERTIFICATE(Structure):
     cbTotalLength: UInt32
     pUserSid: POINTER(win32more.Windows.Win32.Security.SID)
     pCertBlob: POINTER(win32more.Windows.Win32.Storage.FileSystem.EFS_CERTIFICATE_BLOB)
-class ENCRYPTION_CERTIFICATE_HASH(EasyCastStructure):
+class ENCRYPTION_CERTIFICATE_HASH(Structure):
     cbTotalLength: UInt32
     pUserSid: POINTER(win32more.Windows.Win32.Security.SID)
     pHash: POINTER(win32more.Windows.Win32.Storage.FileSystem.EFS_HASH_BLOB)
     lpDisplayInformation: win32more.Windows.Win32.Foundation.PWSTR
-class ENCRYPTION_CERTIFICATE_HASH_LIST(EasyCastStructure):
+class ENCRYPTION_CERTIFICATE_HASH_LIST(Structure):
     nCert_Hash: UInt32
     pUsers: POINTER(POINTER(win32more.Windows.Win32.Storage.FileSystem.ENCRYPTION_CERTIFICATE_HASH))
-class ENCRYPTION_CERTIFICATE_LIST(EasyCastStructure):
+class ENCRYPTION_CERTIFICATE_LIST(Structure):
     nUsers: UInt32
     pUsers: POINTER(POINTER(win32more.Windows.Win32.Storage.FileSystem.ENCRYPTION_CERTIFICATE))
-class ENCRYPTION_PROTECTOR(EasyCastStructure):
+class ENCRYPTION_PROTECTOR(Structure):
     cbTotalLength: UInt32
     pUserSid: POINTER(win32more.Windows.Win32.Security.SID)
     lpProtectorDescriptor: win32more.Windows.Win32.Foundation.PWSTR
-class ENCRYPTION_PROTECTOR_LIST(EasyCastStructure):
+class ENCRYPTION_PROTECTOR_LIST(Structure):
     nProtectors: UInt32
     pProtectors: POINTER(POINTER(win32more.Windows.Win32.Storage.FileSystem.ENCRYPTION_PROTECTOR))
 ERASE_TAPE_TYPE = UInt32
@@ -1608,7 +1608,7 @@ TAPE_ERASE_SHORT: win32more.Windows.Win32.Storage.FileSystem.ERASE_TAPE_TYPE = 0
 def FCACHE_CREATE_CALLBACK(lpstrName: win32more.Windows.Win32.Foundation.PSTR, lpvData: VoidPtr, cbFileSize: POINTER(UInt32), cbFileSizeHigh: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HANDLE: ...
 @winfunctype_pointer
 def FCACHE_RICHCREATE_CALLBACK(lpstrName: win32more.Windows.Win32.Foundation.PSTR, lpvData: VoidPtr, cbFileSize: POINTER(UInt32), cbFileSizeHigh: POINTER(UInt32), pfDidWeScanIt: POINTER(win32more.Windows.Win32.Foundation.BOOL), pfIsStuffed: POINTER(win32more.Windows.Win32.Foundation.BOOL), pfStoredWithDots: POINTER(win32more.Windows.Win32.Foundation.BOOL), pfStoredWithTerminatingDot: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HANDLE: ...
-class FH_OVERLAPPED(EasyCastStructure):
+class FH_OVERLAPPED(Structure):
     Internal: UIntPtr
     InternalHigh: UIntPtr
     Offset: UInt32
@@ -1655,20 +1655,20 @@ FILE_ACTION_REMOVED: win32more.Windows.Win32.Storage.FileSystem.FILE_ACTION = 2
 FILE_ACTION_MODIFIED: win32more.Windows.Win32.Storage.FileSystem.FILE_ACTION = 3
 FILE_ACTION_RENAMED_OLD_NAME: win32more.Windows.Win32.Storage.FileSystem.FILE_ACTION = 4
 FILE_ACTION_RENAMED_NEW_NAME: win32more.Windows.Win32.Storage.FileSystem.FILE_ACTION = 5
-class FILE_ALIGNMENT_INFO(EasyCastStructure):
+class FILE_ALIGNMENT_INFO(Structure):
     AlignmentRequirement: UInt32
-class FILE_ALLOCATION_INFO(EasyCastStructure):
+class FILE_ALLOCATION_INFO(Structure):
     AllocationSize: Int64
-class FILE_ATTRIBUTE_TAG_INFO(EasyCastStructure):
+class FILE_ATTRIBUTE_TAG_INFO(Structure):
     FileAttributes: UInt32
     ReparseTag: UInt32
-class FILE_BASIC_INFO(EasyCastStructure):
+class FILE_BASIC_INFO(Structure):
     CreationTime: Int64
     LastAccessTime: Int64
     LastWriteTime: Int64
     ChangeTime: Int64
     FileAttributes: UInt32
-class FILE_COMPRESSION_INFO(EasyCastStructure):
+class FILE_COMPRESSION_INFO(Structure):
     CompressedFileSize: Int64
     CompressionFormat: win32more.Windows.Win32.Storage.FileSystem.COMPRESSION_FORMAT
     CompressionUnitShift: Byte
@@ -1686,9 +1686,9 @@ FILE_DEVICE_CD_ROM: win32more.Windows.Win32.Storage.FileSystem.FILE_DEVICE_TYPE 
 FILE_DEVICE_DISK: win32more.Windows.Win32.Storage.FileSystem.FILE_DEVICE_TYPE = 7
 FILE_DEVICE_TAPE: win32more.Windows.Win32.Storage.FileSystem.FILE_DEVICE_TYPE = 31
 FILE_DEVICE_DVD: win32more.Windows.Win32.Storage.FileSystem.FILE_DEVICE_TYPE = 51
-class FILE_DISPOSITION_INFO(EasyCastStructure):
+class FILE_DISPOSITION_INFO(Structure):
     DeleteFile: win32more.Windows.Win32.Foundation.BOOLEAN
-class FILE_DISPOSITION_INFO_EX(EasyCastStructure):
+class FILE_DISPOSITION_INFO_EX(Structure):
     Flags: win32more.Windows.Win32.Storage.FileSystem.FILE_DISPOSITION_INFO_EX_FLAGS
 FILE_DISPOSITION_INFO_EX_FLAGS = UInt32
 FILE_DISPOSITION_FLAG_DO_NOT_DELETE: win32more.Windows.Win32.Storage.FileSystem.FILE_DISPOSITION_INFO_EX_FLAGS = 0
@@ -1697,9 +1697,9 @@ FILE_DISPOSITION_FLAG_POSIX_SEMANTICS: win32more.Windows.Win32.Storage.FileSyste
 FILE_DISPOSITION_FLAG_FORCE_IMAGE_SECTION_CHECK: win32more.Windows.Win32.Storage.FileSystem.FILE_DISPOSITION_INFO_EX_FLAGS = 4
 FILE_DISPOSITION_FLAG_ON_CLOSE: win32more.Windows.Win32.Storage.FileSystem.FILE_DISPOSITION_INFO_EX_FLAGS = 8
 FILE_DISPOSITION_FLAG_IGNORE_READONLY_ATTRIBUTE: win32more.Windows.Win32.Storage.FileSystem.FILE_DISPOSITION_INFO_EX_FLAGS = 16
-class FILE_END_OF_FILE_INFO(EasyCastStructure):
+class FILE_END_OF_FILE_INFO(Structure):
     EndOfFile: Int64
-class FILE_EXTENT(EasyCastStructure):
+class FILE_EXTENT(Structure):
     VolumeOffset: UInt64
     ExtentLength: UInt64
 FILE_FLAGS_AND_ATTRIBUTES = UInt32
@@ -1753,7 +1753,7 @@ FILE_FLUSH_DEFAULT: win32more.Windows.Win32.Storage.FileSystem.FILE_FLUSH_MODE =
 FILE_FLUSH_DATA: win32more.Windows.Win32.Storage.FileSystem.FILE_FLUSH_MODE = 1
 FILE_FLUSH_MIN_METADATA: win32more.Windows.Win32.Storage.FileSystem.FILE_FLUSH_MODE = 2
 FILE_FLUSH_NO_SYNC: win32more.Windows.Win32.Storage.FileSystem.FILE_FLUSH_MODE = 3
-class FILE_FULL_DIR_INFO(EasyCastStructure):
+class FILE_FULL_DIR_INFO(Structure):
     NextEntryOffset: UInt32
     FileIndex: UInt32
     CreationTime: Int64
@@ -1766,9 +1766,9 @@ class FILE_FULL_DIR_INFO(EasyCastStructure):
     FileNameLength: UInt32
     EaSize: UInt32
     FileName: Char * 1
-class FILE_ID_128(EasyCastStructure):
+class FILE_ID_128(Structure):
     Identifier: Byte * 16
-class FILE_ID_BOTH_DIR_INFO(EasyCastStructure):
+class FILE_ID_BOTH_DIR_INFO(Structure):
     NextEntryOffset: UInt32
     FileIndex: UInt32
     CreationTime: Int64
@@ -1784,15 +1784,15 @@ class FILE_ID_BOTH_DIR_INFO(EasyCastStructure):
     ShortName: Char * 12
     FileId: Int64
     FileName: Char * 1
-class FILE_ID_DESCRIPTOR(EasyCastStructure):
+class FILE_ID_DESCRIPTOR(Structure):
     dwSize: UInt32
     Type: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         FileId: Int64
         ObjectId: Guid
         ExtendedFileId: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
-class FILE_ID_EXTD_DIR_INFO(EasyCastStructure):
+class FILE_ID_EXTD_DIR_INFO(Structure):
     NextEntryOffset: UInt32
     FileIndex: UInt32
     CreationTime: Int64
@@ -1807,7 +1807,7 @@ class FILE_ID_EXTD_DIR_INFO(EasyCastStructure):
     ReparsePointTag: UInt32
     FileId: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
     FileName: Char * 1
-class FILE_ID_INFO(EasyCastStructure):
+class FILE_ID_INFO(Structure):
     VolumeSerialNumber: UInt64
     FileId: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
 FILE_ID_TYPE = Int32
@@ -1815,9 +1815,9 @@ FileIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 0
 ObjectIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 1
 ExtendedFileIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 2
 MaximumFileIdType: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE = 3
-class FILE_INFO_2(EasyCastStructure):
+class FILE_INFO_2(Structure):
     fi2_id: UInt32
-class FILE_INFO_3(EasyCastStructure):
+class FILE_INFO_3(Structure):
     fi3_id: UInt32
     fi3_permissions: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_FLAGS_PERMISSIONS
     fi3_num_locks: UInt32
@@ -1854,9 +1854,9 @@ FILE_INFO_FLAGS_PERMISSIONS = UInt32
 PERM_FILE_READ: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_FLAGS_PERMISSIONS = 1
 PERM_FILE_WRITE: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_FLAGS_PERMISSIONS = 2
 PERM_FILE_CREATE: win32more.Windows.Win32.Storage.FileSystem.FILE_INFO_FLAGS_PERMISSIONS = 4
-class FILE_IO_PRIORITY_HINT_INFO(EasyCastStructure):
+class FILE_IO_PRIORITY_HINT_INFO(Structure):
     PriorityHint: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT
-class FILE_NAME_INFO(EasyCastStructure):
+class FILE_NAME_INFO(Structure):
     FileNameLength: UInt32
     FileName: Char * 1
 FILE_NOTIFY_CHANGE = UInt32
@@ -1868,7 +1868,7 @@ FILE_NOTIFY_CHANGE_LAST_WRITE: win32more.Windows.Win32.Storage.FileSystem.FILE_N
 FILE_NOTIFY_CHANGE_LAST_ACCESS: win32more.Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE = 32
 FILE_NOTIFY_CHANGE_CREATION: win32more.Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE = 64
 FILE_NOTIFY_CHANGE_SECURITY: win32more.Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE = 256
-class FILE_NOTIFY_EXTENDED_INFORMATION(EasyCastStructure):
+class FILE_NOTIFY_EXTENDED_INFORMATION(Structure):
     NextEntryOffset: UInt32
     Action: win32more.Windows.Win32.Storage.FileSystem.FILE_ACTION
     CreationTime: Int64
@@ -1883,15 +1883,15 @@ class FILE_NOTIFY_EXTENDED_INFORMATION(EasyCastStructure):
     ParentFileId: Int64
     FileNameLength: UInt32
     FileName: Char * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ReparsePointTag: UInt32
         EaSize: UInt32
-class FILE_NOTIFY_INFORMATION(EasyCastStructure):
+class FILE_NOTIFY_INFORMATION(Structure):
     NextEntryOffset: UInt32
     Action: win32more.Windows.Win32.Storage.FileSystem.FILE_ACTION
     FileNameLength: UInt32
     FileName: Char * 1
-class FILE_REMOTE_PROTOCOL_INFO(EasyCastStructure):
+class FILE_REMOTE_PROTOCOL_INFO(Structure):
     StructureVersion: UInt16
     StructureSize: UInt16
     Protocol: UInt32
@@ -1902,28 +1902,28 @@ class FILE_REMOTE_PROTOCOL_INFO(EasyCastStructure):
     Flags: UInt32
     GenericReserved: _GenericReserved_e__Struct
     ProtocolSpecific: _ProtocolSpecific_e__Union
-    class _GenericReserved_e__Struct(EasyCastStructure):
+    class _GenericReserved_e__Struct(Structure):
         Reserved: UInt32 * 8
-    class _ProtocolSpecific_e__Union(EasyCastUnion):
+    class _ProtocolSpecific_e__Union(Union):
         Smb2: _Smb2_e__Struct
         Reserved: UInt32 * 16
-        class _Smb2_e__Struct(EasyCastStructure):
+        class _Smb2_e__Struct(Structure):
             Server: _Server_e__Struct
             Share: _Share_e__Struct
-            class _Server_e__Struct(EasyCastStructure):
+            class _Server_e__Struct(Structure):
                 Capabilities: UInt32
-            class _Share_e__Struct(EasyCastStructure):
+            class _Share_e__Struct(Structure):
                 Capabilities: UInt32
                 ShareFlags: UInt32
-class FILE_RENAME_INFO(EasyCastStructure):
+class FILE_RENAME_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     RootDirectory: win32more.Windows.Win32.Foundation.HANDLE
     FileNameLength: UInt32
     FileName: Char * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ReplaceIfExists: win32more.Windows.Win32.Foundation.BOOLEAN
         Flags: UInt32
-class FILE_SEGMENT_ELEMENT(EasyCastUnion):
+class FILE_SEGMENT_ELEMENT(Union):
     Buffer: VoidPtr
     Alignment: UInt64
 FILE_SHARE_MODE = UInt32
@@ -1931,13 +1931,13 @@ FILE_SHARE_NONE: win32more.Windows.Win32.Storage.FileSystem.FILE_SHARE_MODE = 0
 FILE_SHARE_DELETE: win32more.Windows.Win32.Storage.FileSystem.FILE_SHARE_MODE = 4
 FILE_SHARE_READ: win32more.Windows.Win32.Storage.FileSystem.FILE_SHARE_MODE = 1
 FILE_SHARE_WRITE: win32more.Windows.Win32.Storage.FileSystem.FILE_SHARE_MODE = 2
-class FILE_STANDARD_INFO(EasyCastStructure):
+class FILE_STANDARD_INFO(Structure):
     AllocationSize: Int64
     EndOfFile: Int64
     NumberOfLinks: UInt32
     DeletePending: win32more.Windows.Win32.Foundation.BOOLEAN
     Directory: win32more.Windows.Win32.Foundation.BOOLEAN
-class FILE_STORAGE_INFO(EasyCastStructure):
+class FILE_STORAGE_INFO(Structure):
     LogicalBytesPerSector: UInt32
     PhysicalBytesPerSectorForAtomicity: UInt32
     PhysicalBytesPerSectorForPerformance: UInt32
@@ -1945,7 +1945,7 @@ class FILE_STORAGE_INFO(EasyCastStructure):
     Flags: UInt32
     ByteOffsetForSectorAlignment: UInt32
     ByteOffsetForPartitionAlignment: UInt32
-class FILE_STREAM_INFO(EasyCastStructure):
+class FILE_STREAM_INFO(Structure):
     NextEntryOffset: UInt32
     StreamNameLength: UInt32
     StreamSize: Int64
@@ -1973,7 +1973,7 @@ FIND_FIRST_EX_FLAGS = UInt32
 FIND_FIRST_EX_CASE_SENSITIVE: win32more.Windows.Win32.Storage.FileSystem.FIND_FIRST_EX_FLAGS = 1
 FIND_FIRST_EX_LARGE_FETCH: win32more.Windows.Win32.Storage.FileSystem.FIND_FIRST_EX_FLAGS = 2
 FIND_FIRST_EX_ON_DISK_ENTRIES_ONLY: win32more.Windows.Win32.Storage.FileSystem.FIND_FIRST_EX_FLAGS = 4
-class FIO_CONTEXT(EasyCastStructure):
+class FIO_CONTEXT(Structure):
     m_dwTempHack: UInt32
     m_dwSignature: UInt32
     m_hFile: win32more.Windows.Win32.Foundation.HANDLE
@@ -2102,27 +2102,27 @@ class IEnumDiskQuotaUsers(ComPtr):
     def Reset(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(win32more.Windows.Win32.Storage.FileSystem.IEnumDiskQuotaUsers)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IORING_BUFFER_INFO(EasyCastStructure):
+class IORING_BUFFER_INFO(Structure):
     Address: VoidPtr
     Length: UInt32
-class IORING_BUFFER_REF(EasyCastStructure):
+class IORING_BUFFER_REF(Structure):
     Kind: win32more.Windows.Win32.Storage.FileSystem.IORING_REF_KIND
     Buffer: BufferUnion
-    class BufferUnion(EasyCastUnion):
+    class BufferUnion(Union):
         Address: VoidPtr
         IndexAndOffset: win32more.Windows.Win32.Storage.FileSystem.IORING_REGISTERED_BUFFER
-class IORING_CAPABILITIES(EasyCastStructure):
+class IORING_CAPABILITIES(Structure):
     MaxVersion: win32more.Windows.Win32.Storage.FileSystem.IORING_VERSION
     MaxSubmissionQueueSize: UInt32
     MaxCompletionQueueSize: UInt32
     FeatureFlags: win32more.Windows.Win32.Storage.FileSystem.IORING_FEATURE_FLAGS
-class IORING_CQE(EasyCastStructure):
+class IORING_CQE(Structure):
     UserData: UIntPtr
     ResultCode: win32more.Windows.Win32.Foundation.HRESULT
     Information: UIntPtr
 IORING_CREATE_ADVISORY_FLAGS = Int32
 IORING_CREATE_ADVISORY_FLAGS_NONE: win32more.Windows.Win32.Storage.FileSystem.IORING_CREATE_ADVISORY_FLAGS = 0
-class IORING_CREATE_FLAGS(EasyCastStructure):
+class IORING_CREATE_FLAGS(Structure):
     Required: win32more.Windows.Win32.Storage.FileSystem.IORING_CREATE_REQUIRED_FLAGS
     Advisory: win32more.Windows.Win32.Storage.FileSystem.IORING_CREATE_ADVISORY_FLAGS
 IORING_CREATE_REQUIRED_FLAGS = Int32
@@ -2131,13 +2131,13 @@ IORING_FEATURE_FLAGS = Int32
 IORING_FEATURE_FLAGS_NONE: win32more.Windows.Win32.Storage.FileSystem.IORING_FEATURE_FLAGS = 0
 IORING_FEATURE_UM_EMULATION: win32more.Windows.Win32.Storage.FileSystem.IORING_FEATURE_FLAGS = 1
 IORING_FEATURE_SET_COMPLETION_EVENT: win32more.Windows.Win32.Storage.FileSystem.IORING_FEATURE_FLAGS = 2
-class IORING_HANDLE_REF(EasyCastStructure):
+class IORING_HANDLE_REF(Structure):
     Kind: win32more.Windows.Win32.Storage.FileSystem.IORING_REF_KIND
     Handle: HandleUnion
-    class HandleUnion(EasyCastUnion):
+    class HandleUnion(Union):
         Handle: win32more.Windows.Win32.Foundation.HANDLE
         Index: UInt32
-class IORING_INFO(EasyCastStructure):
+class IORING_INFO(Structure):
     IoRingVersion: win32more.Windows.Win32.Storage.FileSystem.IORING_VERSION
     Flags: win32more.Windows.Win32.Storage.FileSystem.IORING_CREATE_FLAGS
     SubmissionQueueSize: UInt32
@@ -2153,7 +2153,7 @@ IORING_OP_FLUSH: win32more.Windows.Win32.Storage.FileSystem.IORING_OP_CODE = 6
 IORING_REF_KIND = Int32
 IORING_REF_RAW: win32more.Windows.Win32.Storage.FileSystem.IORING_REF_KIND = 0
 IORING_REF_REGISTERED: win32more.Windows.Win32.Storage.FileSystem.IORING_REF_KIND = 1
-class IORING_REGISTERED_BUFFER(EasyCastStructure):
+class IORING_REGISTERED_BUFFER(Structure):
     BufferIndex: UInt32
     Offset: UInt32
 IORING_SQE_FLAGS = Int32
@@ -2164,18 +2164,18 @@ IORING_VERSION_INVALID: win32more.Windows.Win32.Storage.FileSystem.IORING_VERSIO
 IORING_VERSION_1: win32more.Windows.Win32.Storage.FileSystem.IORING_VERSION = 1
 IORING_VERSION_2: win32more.Windows.Win32.Storage.FileSystem.IORING_VERSION = 2
 IORING_VERSION_3: win32more.Windows.Win32.Storage.FileSystem.IORING_VERSION = 300
-class KCRM_MARSHAL_HEADER(EasyCastStructure):
+class KCRM_MARSHAL_HEADER(Structure):
     VersionMajor: UInt32
     VersionMinor: UInt32
     NumProtocols: UInt32
     Unused: UInt32
-class KCRM_PROTOCOL_BLOB(EasyCastStructure):
+class KCRM_PROTOCOL_BLOB(Structure):
     ProtocolId: Guid
     StaticInfoLength: UInt32
     TransactionIdInfoLength: UInt32
     Unused1: UInt32
     Unused2: UInt32
-class KCRM_TRANSACTION_BLOB(EasyCastStructure):
+class KCRM_TRANSACTION_BLOB(Structure):
     UOW: Guid
     TmIdentity: Guid
     IsolationLevel: UInt32
@@ -2185,7 +2185,7 @@ class KCRM_TRANSACTION_BLOB(EasyCastStructure):
 LOCK_FILE_FLAGS = UInt32
 LOCKFILE_EXCLUSIVE_LOCK: win32more.Windows.Win32.Storage.FileSystem.LOCK_FILE_FLAGS = 2
 LOCKFILE_FAIL_IMMEDIATELY: win32more.Windows.Win32.Storage.FileSystem.LOCK_FILE_FLAGS = 1
-class LOG_MANAGEMENT_CALLBACKS(EasyCastStructure):
+class LOG_MANAGEMENT_CALLBACKS(Structure):
     CallbackContext: VoidPtr
     AdvanceTailCallback: win32more.Windows.Win32.Storage.FileSystem.PLOG_TAIL_ADVANCE_CALLBACK
     LogFullHandlerCallback: win32more.Windows.Win32.Storage.FileSystem.PLOG_FULL_HANDLER_CALLBACK
@@ -2221,18 +2221,18 @@ MOVEFILE_DELAY_UNTIL_REBOOT: win32more.Windows.Win32.Storage.FileSystem.MOVE_FIL
 MOVEFILE_REPLACE_EXISTING: win32more.Windows.Win32.Storage.FileSystem.MOVE_FILE_FLAGS = 1
 MOVEFILE_WRITE_THROUGH: win32more.Windows.Win32.Storage.FileSystem.MOVE_FILE_FLAGS = 8
 MOVEFILE_FAIL_IF_NOT_TRACKABLE: win32more.Windows.Win32.Storage.FileSystem.MOVE_FILE_FLAGS = 32
-class MediaLabelInfo(EasyCastStructure):
+class MediaLabelInfo(Structure):
     LabelType: Char * 64
     LabelIDSize: UInt32
     LabelID: Byte * 256
     LabelAppDescr: Char * 256
-class NAME_CACHE_CONTEXT(EasyCastStructure):
+class NAME_CACHE_CONTEXT(Structure):
     m_dwSignature: UInt32
-class NTMS_ALLOCATION_INFORMATION(EasyCastStructure):
+class NTMS_ALLOCATION_INFORMATION(Structure):
     dwSize: UInt32
     lpReserved: VoidPtr
     AllocatedFrom: Guid
-class NTMS_ASYNC_IO(EasyCastStructure):
+class NTMS_ASYNC_IO(Structure):
     OperationId: Guid
     EventId: Guid
     dwOperationType: UInt32
@@ -2240,7 +2240,7 @@ class NTMS_ASYNC_IO(EasyCastStructure):
     dwAsyncState: UInt32
     hEvent: win32more.Windows.Win32.Foundation.HANDLE
     bOnStateChange: win32more.Windows.Win32.Foundation.BOOL
-class NTMS_CHANGERINFORMATIONA(EasyCastStructure):
+class NTMS_CHANGERINFORMATIONA(Structure):
     Number: UInt32
     ChangerType: Guid
     szSerialNumber: win32more.Windows.Win32.Foundation.CHAR * 32
@@ -2251,7 +2251,7 @@ class NTMS_CHANGERINFORMATIONA(EasyCastStructure):
     ScsiTarget: UInt16
     ScsiLun: UInt16
     Library: Guid
-class NTMS_CHANGERINFORMATIONW(EasyCastStructure):
+class NTMS_CHANGERINFORMATIONW(Structure):
     Number: UInt32
     ChangerType: Guid
     szSerialNumber: Char * 32
@@ -2263,22 +2263,22 @@ class NTMS_CHANGERINFORMATIONW(EasyCastStructure):
     ScsiLun: UInt16
     Library: Guid
 NTMS_CHANGERINFORMATION = UnicodeAlias('NTMS_CHANGERINFORMATIONW')
-class NTMS_CHANGERTYPEINFORMATIONA(EasyCastStructure):
+class NTMS_CHANGERTYPEINFORMATIONA(Structure):
     szVendor: win32more.Windows.Win32.Foundation.CHAR * 128
     szProduct: win32more.Windows.Win32.Foundation.CHAR * 128
     DeviceType: UInt32
-class NTMS_CHANGERTYPEINFORMATIONW(EasyCastStructure):
+class NTMS_CHANGERTYPEINFORMATIONW(Structure):
     szVendor: Char * 128
     szProduct: Char * 128
     DeviceType: UInt32
 NTMS_CHANGERTYPEINFORMATION = UnicodeAlias('NTMS_CHANGERTYPEINFORMATIONW')
-class NTMS_COMPUTERINFORMATION(EasyCastStructure):
+class NTMS_COMPUTERINFORMATION(Structure):
     dwLibRequestPurgeTime: UInt32
     dwOpRequestPurgeTime: UInt32
     dwLibRequestFlags: UInt32
     dwOpRequestFlags: UInt32
     dwMediaPoolPolicy: UInt32
-class NTMS_DRIVEINFORMATIONA(EasyCastStructure):
+class NTMS_DRIVEINFORMATIONA(Structure):
     Number: UInt32
     State: UInt32
     DriveType: Guid
@@ -2295,7 +2295,7 @@ class NTMS_DRIVEINFORMATIONA(EasyCastStructure):
     Library: Guid
     Reserved: Guid
     dwDeferDismountDelay: UInt32
-class NTMS_DRIVEINFORMATIONW(EasyCastStructure):
+class NTMS_DRIVEINFORMATIONW(Structure):
     Number: UInt32
     State: UInt32
     DriveType: Guid
@@ -2313,22 +2313,22 @@ class NTMS_DRIVEINFORMATIONW(EasyCastStructure):
     Reserved: Guid
     dwDeferDismountDelay: UInt32
 NTMS_DRIVEINFORMATION = UnicodeAlias('NTMS_DRIVEINFORMATIONW')
-class NTMS_DRIVETYPEINFORMATIONA(EasyCastStructure):
+class NTMS_DRIVETYPEINFORMATIONA(Structure):
     szVendor: win32more.Windows.Win32.Foundation.CHAR * 128
     szProduct: win32more.Windows.Win32.Foundation.CHAR * 128
     NumberOfHeads: UInt32
     DeviceType: win32more.Windows.Win32.Storage.FileSystem.FILE_DEVICE_TYPE
-class NTMS_DRIVETYPEINFORMATIONW(EasyCastStructure):
+class NTMS_DRIVETYPEINFORMATIONW(Structure):
     szVendor: Char * 128
     szProduct: Char * 128
     NumberOfHeads: UInt32
     DeviceType: win32more.Windows.Win32.Storage.FileSystem.FILE_DEVICE_TYPE
 NTMS_DRIVETYPEINFORMATION = UnicodeAlias('NTMS_DRIVETYPEINFORMATIONW')
-class NTMS_FILESYSTEM_INFO(EasyCastStructure):
+class NTMS_FILESYSTEM_INFO(Structure):
     FileSystemType: Char * 64
     VolumeName: Char * 256
     SerialNumber: UInt32
-class NTMS_I1_LIBRARYINFORMATION(EasyCastStructure):
+class NTMS_I1_LIBRARYINFORMATION(Structure):
     LibraryType: UInt32
     CleanerSlot: Guid
     CleanerSlotDefault: Guid
@@ -2350,7 +2350,7 @@ class NTMS_I1_LIBRARYINFORMATION(EasyCastStructure):
     dwNumberOfMediaTypes: UInt32
     dwNumberOfLibRequests: UInt32
     Reserved: Guid
-class NTMS_I1_LIBREQUESTINFORMATIONA(EasyCastStructure):
+class NTMS_I1_LIBREQUESTINFORMATIONA(Structure):
     OperationCode: UInt32
     OperationOption: UInt32
     State: UInt32
@@ -2364,7 +2364,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONA(EasyCastStructure):
     szApplication: win32more.Windows.Win32.Foundation.CHAR * 64
     szUser: win32more.Windows.Win32.Foundation.CHAR * 64
     szComputer: win32more.Windows.Win32.Foundation.CHAR * 64
-class NTMS_I1_LIBREQUESTINFORMATIONW(EasyCastStructure):
+class NTMS_I1_LIBREQUESTINFORMATIONW(Structure):
     OperationCode: UInt32
     OperationOption: UInt32
     State: UInt32
@@ -2379,7 +2379,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONW(EasyCastStructure):
     szUser: Char * 64
     szComputer: Char * 64
 NTMS_I1_LIBREQUESTINFORMATION = UnicodeAlias('NTMS_I1_LIBREQUESTINFORMATIONW')
-class NTMS_I1_OBJECTINFORMATIONA(EasyCastStructure):
+class NTMS_I1_OBJECTINFORMATIONA(Structure):
     dwSize: UInt32
     dwType: UInt32
     Created: win32more.Windows.Win32.Foundation.SYSTEMTIME
@@ -2390,7 +2390,7 @@ class NTMS_I1_OBJECTINFORMATIONA(EasyCastStructure):
     szName: win32more.Windows.Win32.Foundation.CHAR * 64
     szDescription: win32more.Windows.Win32.Foundation.CHAR * 127
     Info: _Info_e__Union
-    class _Info_e__Union(EasyCastUnion):
+    class _Info_e__Union(Union):
         Drive: win32more.Windows.Win32.Storage.FileSystem.NTMS_DRIVEINFORMATIONA
         DriveType: win32more.Windows.Win32.Storage.FileSystem.NTMS_DRIVETYPEINFORMATIONA
         Library: win32more.Windows.Win32.Storage.FileSystem.NTMS_I1_LIBRARYINFORMATION
@@ -2406,7 +2406,7 @@ class NTMS_I1_OBJECTINFORMATIONA(EasyCastStructure):
         MediaType: win32more.Windows.Win32.Storage.FileSystem.NTMS_MEDIATYPEINFORMATION
         LibRequest: win32more.Windows.Win32.Storage.FileSystem.NTMS_I1_LIBREQUESTINFORMATIONA
         OpRequest: win32more.Windows.Win32.Storage.FileSystem.NTMS_I1_OPREQUESTINFORMATIONA
-class NTMS_I1_OBJECTINFORMATIONW(EasyCastStructure):
+class NTMS_I1_OBJECTINFORMATIONW(Structure):
     dwSize: UInt32
     dwType: UInt32
     Created: win32more.Windows.Win32.Foundation.SYSTEMTIME
@@ -2417,7 +2417,7 @@ class NTMS_I1_OBJECTINFORMATIONW(EasyCastStructure):
     szName: Char * 64
     szDescription: Char * 127
     Info: _Info_e__Union
-    class _Info_e__Union(EasyCastUnion):
+    class _Info_e__Union(Union):
         Drive: win32more.Windows.Win32.Storage.FileSystem.NTMS_DRIVEINFORMATIONW
         DriveType: win32more.Windows.Win32.Storage.FileSystem.NTMS_DRIVETYPEINFORMATIONW
         Library: win32more.Windows.Win32.Storage.FileSystem.NTMS_I1_LIBRARYINFORMATION
@@ -2434,7 +2434,7 @@ class NTMS_I1_OBJECTINFORMATIONW(EasyCastStructure):
         LibRequest: win32more.Windows.Win32.Storage.FileSystem.NTMS_I1_LIBREQUESTINFORMATIONW
         OpRequest: win32more.Windows.Win32.Storage.FileSystem.NTMS_I1_OPREQUESTINFORMATIONW
 NTMS_I1_OBJECTINFORMATION = UnicodeAlias('NTMS_I1_OBJECTINFORMATIONW')
-class NTMS_I1_OPREQUESTINFORMATIONA(EasyCastStructure):
+class NTMS_I1_OPREQUESTINFORMATIONA(Structure):
     Request: UInt32
     Submitted: win32more.Windows.Win32.Foundation.SYSTEMTIME
     State: UInt32
@@ -2446,7 +2446,7 @@ class NTMS_I1_OPREQUESTINFORMATIONA(EasyCastStructure):
     szApplication: win32more.Windows.Win32.Foundation.CHAR * 64
     szUser: win32more.Windows.Win32.Foundation.CHAR * 64
     szComputer: win32more.Windows.Win32.Foundation.CHAR * 64
-class NTMS_I1_OPREQUESTINFORMATIONW(EasyCastStructure):
+class NTMS_I1_OPREQUESTINFORMATIONW(Structure):
     Request: UInt32
     Submitted: win32more.Windows.Win32.Foundation.SYSTEMTIME
     State: UInt32
@@ -2459,7 +2459,7 @@ class NTMS_I1_OPREQUESTINFORMATIONW(EasyCastStructure):
     szUser: Char * 64
     szComputer: Char * 64
 NTMS_I1_OPREQUESTINFORMATION = UnicodeAlias('NTMS_I1_OPREQUESTINFORMATIONW')
-class NTMS_I1_PARTITIONINFORMATIONA(EasyCastStructure):
+class NTMS_I1_PARTITIONINFORMATIONA(Structure):
     PhysicalMedia: Guid
     LogicalMedia: Guid
     State: UInt32
@@ -2470,7 +2470,7 @@ class NTMS_I1_PARTITIONINFORMATIONA(EasyCastStructure):
     szOmidLabelInfo: win32more.Windows.Win32.Foundation.CHAR * 256
     dwMountCount: UInt32
     dwAllocateCount: UInt32
-class NTMS_I1_PARTITIONINFORMATIONW(EasyCastStructure):
+class NTMS_I1_PARTITIONINFORMATIONW(Structure):
     PhysicalMedia: Guid
     LogicalMedia: Guid
     State: UInt32
@@ -2482,7 +2482,7 @@ class NTMS_I1_PARTITIONINFORMATIONW(EasyCastStructure):
     dwMountCount: UInt32
     dwAllocateCount: UInt32
 NTMS_I1_PARTITIONINFORMATION = UnicodeAlias('NTMS_I1_PARTITIONINFORMATIONW')
-class NTMS_I1_PMIDINFORMATIONA(EasyCastStructure):
+class NTMS_I1_PMIDINFORMATIONA(Structure):
     CurrentLibrary: Guid
     MediaPool: Guid
     Location: Guid
@@ -2494,7 +2494,7 @@ class NTMS_I1_PMIDINFORMATIONA(EasyCastStructure):
     szSequenceNumber: win32more.Windows.Win32.Foundation.CHAR * 32
     MediaState: UInt32
     dwNumberOfPartitions: UInt32
-class NTMS_I1_PMIDINFORMATIONW(EasyCastStructure):
+class NTMS_I1_PMIDINFORMATIONW(Structure):
     CurrentLibrary: Guid
     MediaPool: Guid
     Location: Guid
@@ -2507,18 +2507,18 @@ class NTMS_I1_PMIDINFORMATIONW(EasyCastStructure):
     MediaState: UInt32
     dwNumberOfPartitions: UInt32
 NTMS_I1_PMIDINFORMATION = UnicodeAlias('NTMS_I1_PMIDINFORMATIONW')
-class NTMS_IEDOORINFORMATION(EasyCastStructure):
+class NTMS_IEDOORINFORMATION(Structure):
     Number: UInt32
     State: UInt32
     MaxOpenSecs: UInt16
     Library: Guid
-class NTMS_IEPORTINFORMATION(EasyCastStructure):
+class NTMS_IEPORTINFORMATION(Structure):
     Number: UInt32
     Content: UInt32
     Position: UInt32
     MaxExtendSecs: UInt16
     Library: Guid
-class NTMS_LIBRARYINFORMATION(EasyCastStructure):
+class NTMS_LIBRARYINFORMATION(Structure):
     LibraryType: UInt32
     CleanerSlot: Guid
     CleanerSlotDefault: Guid
@@ -2542,7 +2542,7 @@ class NTMS_LIBRARYINFORMATION(EasyCastStructure):
     Reserved: Guid
     AutoRecovery: win32more.Windows.Win32.Foundation.BOOL
     dwFlags: UInt32
-class NTMS_LIBREQUESTINFORMATIONA(EasyCastStructure):
+class NTMS_LIBREQUESTINFORMATIONA(Structure):
     OperationCode: UInt32
     OperationOption: UInt32
     State: UInt32
@@ -2559,7 +2559,7 @@ class NTMS_LIBREQUESTINFORMATIONA(EasyCastStructure):
     dwErrorCode: UInt32
     WorkItemId: Guid
     dwPriority: UInt32
-class NTMS_LIBREQUESTINFORMATIONW(EasyCastStructure):
+class NTMS_LIBREQUESTINFORMATIONW(Structure):
     OperationCode: UInt32
     OperationOption: UInt32
     State: UInt32
@@ -2577,10 +2577,10 @@ class NTMS_LIBREQUESTINFORMATIONW(EasyCastStructure):
     WorkItemId: Guid
     dwPriority: UInt32
 NTMS_LIBREQUESTINFORMATION = UnicodeAlias('NTMS_LIBREQUESTINFORMATIONW')
-class NTMS_LMIDINFORMATION(EasyCastStructure):
+class NTMS_LMIDINFORMATION(Structure):
     MediaPool: Guid
     dwNumberOfPartitions: UInt32
-class NTMS_MEDIAPOOLINFORMATION(EasyCastStructure):
+class NTMS_MEDIAPOOLINFORMATION(Structure):
     PoolType: UInt32
     MediaType: Guid
     Parent: Guid
@@ -2590,18 +2590,18 @@ class NTMS_MEDIAPOOLINFORMATION(EasyCastStructure):
     dwNumberOfPhysicalMedia: UInt32
     dwNumberOfLogicalMedia: UInt32
     dwNumberOfMediaPools: UInt32
-class NTMS_MEDIATYPEINFORMATION(EasyCastStructure):
+class NTMS_MEDIATYPEINFORMATION(Structure):
     MediaType: UInt32
     NumberOfSides: UInt32
     ReadWriteCharacteristics: UInt32
     DeviceType: win32more.Windows.Win32.Storage.FileSystem.FILE_DEVICE_TYPE
-class NTMS_MOUNT_INFORMATION(EasyCastStructure):
+class NTMS_MOUNT_INFORMATION(Structure):
     dwSize: UInt32
     lpReserved: VoidPtr
-class NTMS_NOTIFICATIONINFORMATION(EasyCastStructure):
+class NTMS_NOTIFICATIONINFORMATION(Structure):
     dwOperation: UInt32
     ObjectId: Guid
-class NTMS_OBJECTINFORMATIONA(EasyCastStructure):
+class NTMS_OBJECTINFORMATIONA(Structure):
     dwSize: UInt32
     dwType: UInt32
     Created: win32more.Windows.Win32.Foundation.SYSTEMTIME
@@ -2612,7 +2612,7 @@ class NTMS_OBJECTINFORMATIONA(EasyCastStructure):
     szName: win32more.Windows.Win32.Foundation.CHAR * 64
     szDescription: win32more.Windows.Win32.Foundation.CHAR * 127
     Info: _Info_e__Union
-    class _Info_e__Union(EasyCastUnion):
+    class _Info_e__Union(Union):
         Drive: win32more.Windows.Win32.Storage.FileSystem.NTMS_DRIVEINFORMATIONA
         DriveType: win32more.Windows.Win32.Storage.FileSystem.NTMS_DRIVETYPEINFORMATIONA
         Library: win32more.Windows.Win32.Storage.FileSystem.NTMS_LIBRARYINFORMATION
@@ -2629,7 +2629,7 @@ class NTMS_OBJECTINFORMATIONA(EasyCastStructure):
         LibRequest: win32more.Windows.Win32.Storage.FileSystem.NTMS_LIBREQUESTINFORMATIONA
         OpRequest: win32more.Windows.Win32.Storage.FileSystem.NTMS_OPREQUESTINFORMATIONA
         Computer: win32more.Windows.Win32.Storage.FileSystem.NTMS_COMPUTERINFORMATION
-class NTMS_OBJECTINFORMATIONW(EasyCastStructure):
+class NTMS_OBJECTINFORMATIONW(Structure):
     dwSize: UInt32
     dwType: UInt32
     Created: win32more.Windows.Win32.Foundation.SYSTEMTIME
@@ -2640,7 +2640,7 @@ class NTMS_OBJECTINFORMATIONW(EasyCastStructure):
     szName: Char * 64
     szDescription: Char * 127
     Info: _Info_e__Union
-    class _Info_e__Union(EasyCastUnion):
+    class _Info_e__Union(Union):
         Drive: win32more.Windows.Win32.Storage.FileSystem.NTMS_DRIVEINFORMATIONW
         DriveType: win32more.Windows.Win32.Storage.FileSystem.NTMS_DRIVETYPEINFORMATIONW
         Library: win32more.Windows.Win32.Storage.FileSystem.NTMS_LIBRARYINFORMATION
@@ -2661,7 +2661,7 @@ NTMS_OBJECTINFORMATION = UnicodeAlias('NTMS_OBJECTINFORMATIONW')
 NTMS_OMID_TYPE = UInt32
 NTMS_OMID_TYPE_FILESYSTEM_INFO: win32more.Windows.Win32.Storage.FileSystem.NTMS_OMID_TYPE = 2
 NTMS_OMID_TYPE_RAW_LABEL: win32more.Windows.Win32.Storage.FileSystem.NTMS_OMID_TYPE = 1
-class NTMS_OPREQUESTINFORMATIONA(EasyCastStructure):
+class NTMS_OPREQUESTINFORMATIONA(Structure):
     Request: UInt32
     Submitted: win32more.Windows.Win32.Foundation.SYSTEMTIME
     State: UInt32
@@ -2673,7 +2673,7 @@ class NTMS_OPREQUESTINFORMATIONA(EasyCastStructure):
     szApplication: win32more.Windows.Win32.Foundation.CHAR * 64
     szUser: win32more.Windows.Win32.Foundation.CHAR * 64
     szComputer: win32more.Windows.Win32.Foundation.CHAR * 64
-class NTMS_OPREQUESTINFORMATIONW(EasyCastStructure):
+class NTMS_OPREQUESTINFORMATIONW(Structure):
     Request: UInt32
     Submitted: win32more.Windows.Win32.Foundation.SYSTEMTIME
     State: UInt32
@@ -2686,7 +2686,7 @@ class NTMS_OPREQUESTINFORMATIONW(EasyCastStructure):
     szUser: Char * 64
     szComputer: Char * 64
 NTMS_OPREQUESTINFORMATION = UnicodeAlias('NTMS_OPREQUESTINFORMATIONW')
-class NTMS_PARTITIONINFORMATIONA(EasyCastStructure):
+class NTMS_PARTITIONINFORMATIONA(Structure):
     PhysicalMedia: Guid
     LogicalMedia: Guid
     State: UInt32
@@ -2698,7 +2698,7 @@ class NTMS_PARTITIONINFORMATIONA(EasyCastStructure):
     dwMountCount: UInt32
     dwAllocateCount: UInt32
     Capacity: Int64
-class NTMS_PARTITIONINFORMATIONW(EasyCastStructure):
+class NTMS_PARTITIONINFORMATIONW(Structure):
     PhysicalMedia: Guid
     LogicalMedia: Guid
     State: UInt32
@@ -2711,7 +2711,7 @@ class NTMS_PARTITIONINFORMATIONW(EasyCastStructure):
     dwAllocateCount: UInt32
     Capacity: Int64
 NTMS_PARTITIONINFORMATION = UnicodeAlias('NTMS_PARTITIONINFORMATIONW')
-class NTMS_PMIDINFORMATIONA(EasyCastStructure):
+class NTMS_PMIDINFORMATIONA(Structure):
     CurrentLibrary: Guid
     MediaPool: Guid
     Location: Guid
@@ -2726,7 +2726,7 @@ class NTMS_PMIDINFORMATIONA(EasyCastStructure):
     dwMediaTypeCode: UInt32
     dwDensityCode: UInt32
     MountedPartition: Guid
-class NTMS_PMIDINFORMATIONW(EasyCastStructure):
+class NTMS_PMIDINFORMATIONW(Structure):
     CurrentLibrary: Guid
     MediaPool: Guid
     Location: Guid
@@ -2742,7 +2742,7 @@ class NTMS_PMIDINFORMATIONW(EasyCastStructure):
     dwDensityCode: UInt32
     MountedPartition: Guid
 NTMS_PMIDINFORMATION = UnicodeAlias('NTMS_PMIDINFORMATIONW')
-class NTMS_STORAGESLOTINFORMATION(EasyCastStructure):
+class NTMS_STORAGESLOTINFORMATION(Structure):
     Number: UInt32
     State: UInt32
     Library: Guid
@@ -2992,7 +2992,7 @@ NTMS_UITYPE_INFO: win32more.Windows.Win32.Storage.FileSystem.NtmsUITypes = 1
 NTMS_UITYPE_REQ: win32more.Windows.Win32.Storage.FileSystem.NtmsUITypes = 2
 NTMS_UITYPE_ERR: win32more.Windows.Win32.Storage.FileSystem.NtmsUITypes = 3
 NTMS_UITYPE_MAX: win32more.Windows.Win32.Storage.FileSystem.NtmsUITypes = 4
-class OFSTRUCT(EasyCastStructure):
+class OFSTRUCT(Structure):
     cBytes: Byte
     fFixedDisk: Byte
     nErrCode: UInt16
@@ -3032,24 +3032,24 @@ ReadDirectoryNotifyInformation: win32more.Windows.Win32.Storage.FileSystem.READ_
 ReadDirectoryNotifyExtendedInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 2
 ReadDirectoryNotifyFullInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 3
 ReadDirectoryNotifyMaximumInformation: win32more.Windows.Win32.Storage.FileSystem.READ_DIRECTORY_NOTIFY_INFORMATION_CLASS = 4
-class REPARSE_GUID_DATA_BUFFER(EasyCastStructure):
+class REPARSE_GUID_DATA_BUFFER(Structure):
     ReparseTag: UInt32
     ReparseDataLength: UInt16
     Reserved: UInt16
     ReparseGuid: Guid
     GenericReparseBuffer: _GenericReparseBuffer_e__Struct
-    class _GenericReparseBuffer_e__Struct(EasyCastStructure):
+    class _GenericReparseBuffer_e__Struct(Structure):
         DataBuffer: Byte * 1
 REPLACE_FILE_FLAGS = UInt32
 REPLACEFILE_WRITE_THROUGH: win32more.Windows.Win32.Storage.FileSystem.REPLACE_FILE_FLAGS = 1
 REPLACEFILE_IGNORE_MERGE_ERRORS: win32more.Windows.Win32.Storage.FileSystem.REPLACE_FILE_FLAGS = 2
 REPLACEFILE_IGNORE_ACL_ERRORS: win32more.Windows.Win32.Storage.FileSystem.REPLACE_FILE_FLAGS = 4
-class SERVER_ALIAS_INFO_0(EasyCastStructure):
+class SERVER_ALIAS_INFO_0(Structure):
     srvai0_alias: win32more.Windows.Win32.Foundation.PWSTR
     srvai0_target: win32more.Windows.Win32.Foundation.PWSTR
     srvai0_default: win32more.Windows.Win32.Foundation.BOOLEAN
     srvai0_reserved: UInt32
-class SERVER_CERTIFICATE_INFO_0(EasyCastStructure):
+class SERVER_CERTIFICATE_INFO_0(Structure):
     srvci0_name: win32more.Windows.Win32.Foundation.PWSTR
     srvci0_subject: win32more.Windows.Win32.Foundation.PWSTR
     srvci0_issuer: win32more.Windows.Win32.Foundation.PWSTR
@@ -3065,21 +3065,21 @@ class SERVER_CERTIFICATE_INFO_0(EasyCastStructure):
     srvci0_mapping_status: UInt32
 SERVER_CERTIFICATE_TYPE = Int32
 QUIC: win32more.Windows.Win32.Storage.FileSystem.SERVER_CERTIFICATE_TYPE = 0
-class SESSION_INFO_0(EasyCastStructure):
+class SESSION_INFO_0(Structure):
     sesi0_cname: win32more.Windows.Win32.Foundation.PWSTR
-class SESSION_INFO_1(EasyCastStructure):
+class SESSION_INFO_1(Structure):
     sesi1_cname: win32more.Windows.Win32.Foundation.PWSTR
     sesi1_username: win32more.Windows.Win32.Foundation.PWSTR
     sesi1_num_opens: UInt32
     sesi1_time: UInt32
     sesi1_idle_time: UInt32
     sesi1_user_flags: win32more.Windows.Win32.Storage.FileSystem.SESSION_INFO_USER_FLAGS
-class SESSION_INFO_10(EasyCastStructure):
+class SESSION_INFO_10(Structure):
     sesi10_cname: win32more.Windows.Win32.Foundation.PWSTR
     sesi10_username: win32more.Windows.Win32.Foundation.PWSTR
     sesi10_time: UInt32
     sesi10_idle_time: UInt32
-class SESSION_INFO_2(EasyCastStructure):
+class SESSION_INFO_2(Structure):
     sesi2_cname: win32more.Windows.Win32.Foundation.PWSTR
     sesi2_username: win32more.Windows.Win32.Foundation.PWSTR
     sesi2_num_opens: UInt32
@@ -3087,7 +3087,7 @@ class SESSION_INFO_2(EasyCastStructure):
     sesi2_idle_time: UInt32
     sesi2_user_flags: win32more.Windows.Win32.Storage.FileSystem.SESSION_INFO_USER_FLAGS
     sesi2_cltype_name: win32more.Windows.Win32.Foundation.PWSTR
-class SESSION_INFO_502(EasyCastStructure):
+class SESSION_INFO_502(Structure):
     sesi502_cname: win32more.Windows.Win32.Foundation.PWSTR
     sesi502_username: win32more.Windows.Win32.Foundation.PWSTR
     sesi502_num_opens: UInt32
@@ -3103,24 +3103,24 @@ SET_FILE_POINTER_MOVE_METHOD = UInt32
 FILE_BEGIN: win32more.Windows.Win32.Storage.FileSystem.SET_FILE_POINTER_MOVE_METHOD = 0
 FILE_CURRENT: win32more.Windows.Win32.Storage.FileSystem.SET_FILE_POINTER_MOVE_METHOD = 1
 FILE_END: win32more.Windows.Win32.Storage.FileSystem.SET_FILE_POINTER_MOVE_METHOD = 2
-class SHARE_INFO_0(EasyCastStructure):
+class SHARE_INFO_0(Structure):
     shi0_netname: win32more.Windows.Win32.Foundation.PWSTR
-class SHARE_INFO_1(EasyCastStructure):
+class SHARE_INFO_1(Structure):
     shi1_netname: win32more.Windows.Win32.Foundation.PWSTR
     shi1_type: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE
     shi1_remark: win32more.Windows.Win32.Foundation.PWSTR
-class SHARE_INFO_1004(EasyCastStructure):
+class SHARE_INFO_1004(Structure):
     shi1004_remark: win32more.Windows.Win32.Foundation.PWSTR
-class SHARE_INFO_1005(EasyCastStructure):
+class SHARE_INFO_1005(Structure):
     shi1005_flags: UInt32
-class SHARE_INFO_1006(EasyCastStructure):
+class SHARE_INFO_1006(Structure):
     shi1006_max_uses: UInt32
-class SHARE_INFO_1501(EasyCastStructure):
+class SHARE_INFO_1501(Structure):
     shi1501_reserved: UInt32
     shi1501_security_descriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
-class SHARE_INFO_1503(EasyCastStructure):
+class SHARE_INFO_1503(Structure):
     shi1503_sharefilter: Guid
-class SHARE_INFO_2(EasyCastStructure):
+class SHARE_INFO_2(Structure):
     shi2_netname: win32more.Windows.Win32.Foundation.PWSTR
     shi2_type: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE
     shi2_remark: win32more.Windows.Win32.Foundation.PWSTR
@@ -3129,12 +3129,12 @@ class SHARE_INFO_2(EasyCastStructure):
     shi2_current_uses: UInt32
     shi2_path: win32more.Windows.Win32.Foundation.PWSTR
     shi2_passwd: win32more.Windows.Win32.Foundation.PWSTR
-class SHARE_INFO_501(EasyCastStructure):
+class SHARE_INFO_501(Structure):
     shi501_netname: win32more.Windows.Win32.Foundation.PWSTR
     shi501_type: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE
     shi501_remark: win32more.Windows.Win32.Foundation.PWSTR
     shi501_flags: UInt32
-class SHARE_INFO_502(EasyCastStructure):
+class SHARE_INFO_502(Structure):
     shi502_netname: win32more.Windows.Win32.Foundation.PWSTR
     shi502_type: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE
     shi502_remark: win32more.Windows.Win32.Foundation.PWSTR
@@ -3145,7 +3145,7 @@ class SHARE_INFO_502(EasyCastStructure):
     shi502_passwd: win32more.Windows.Win32.Foundation.PWSTR
     shi502_reserved: UInt32
     shi502_security_descriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
-class SHARE_INFO_503(EasyCastStructure):
+class SHARE_INFO_503(Structure):
     shi503_netname: win32more.Windows.Win32.Foundation.PWSTR
     shi503_type: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE
     shi503_remark: win32more.Windows.Win32.Foundation.PWSTR
@@ -3174,7 +3174,7 @@ STYPE_IPC: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE = 3
 STYPE_SPECIAL: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE = 2147483648
 STYPE_TEMPORARY: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE = 1073741824
 STYPE_MASK: win32more.Windows.Win32.Storage.FileSystem.SHARE_TYPE = 255
-class STAT_SERVER_0(EasyCastStructure):
+class STAT_SERVER_0(Structure):
     sts0_start: UInt32
     sts0_fopens: UInt32
     sts0_devopens: UInt32
@@ -3192,7 +3192,7 @@ class STAT_SERVER_0(EasyCastStructure):
     sts0_avresponse: UInt32
     sts0_reqbufneed: UInt32
     sts0_bigbufneed: UInt32
-class STAT_WORKSTATION_0(EasyCastStructure):
+class STAT_WORKSTATION_0(Structure):
     StatisticsStartTime: Int64
     BytesReceived: Int64
     SmbsReceived: Int64
@@ -3267,10 +3267,10 @@ TAPE_FILEMARKS: win32more.Windows.Win32.Storage.FileSystem.TAPEMARK_TYPE = 1
 TAPE_LONG_FILEMARKS: win32more.Windows.Win32.Storage.FileSystem.TAPEMARK_TYPE = 3
 TAPE_SETMARKS: win32more.Windows.Win32.Storage.FileSystem.TAPEMARK_TYPE = 0
 TAPE_SHORT_FILEMARKS: win32more.Windows.Win32.Storage.FileSystem.TAPEMARK_TYPE = 2
-class TAPE_ERASE(EasyCastStructure):
+class TAPE_ERASE(Structure):
     Type: win32more.Windows.Win32.Storage.FileSystem.ERASE_TAPE_TYPE
     Immediate: win32more.Windows.Win32.Foundation.BOOLEAN
-class TAPE_GET_POSITION(EasyCastStructure):
+class TAPE_GET_POSITION(Structure):
     Type: win32more.Windows.Win32.Storage.FileSystem.TAPE_POSITION_TYPE
     Partition: UInt32
     Offset: Int64
@@ -3290,37 +3290,37 @@ TAPE_SPACE_SETMARKS: win32more.Windows.Win32.Storage.FileSystem.TAPE_POSITION_ME
 TAPE_POSITION_TYPE = UInt32
 TAPE_ABSOLUTE_POSITION: win32more.Windows.Win32.Storage.FileSystem.TAPE_POSITION_TYPE = 0
 TAPE_LOGICAL_POSITION: win32more.Windows.Win32.Storage.FileSystem.TAPE_POSITION_TYPE = 1
-class TAPE_PREPARE(EasyCastStructure):
+class TAPE_PREPARE(Structure):
     Operation: win32more.Windows.Win32.Storage.FileSystem.PREPARE_TAPE_OPERATION
     Immediate: win32more.Windows.Win32.Foundation.BOOLEAN
-class TAPE_SET_POSITION(EasyCastStructure):
+class TAPE_SET_POSITION(Structure):
     Method: win32more.Windows.Win32.Storage.FileSystem.TAPE_POSITION_METHOD
     Partition: UInt32
     Offset: Int64
     Immediate: win32more.Windows.Win32.Foundation.BOOLEAN
-class TAPE_WRITE_MARKS(EasyCastStructure):
+class TAPE_WRITE_MARKS(Structure):
     Type: win32more.Windows.Win32.Storage.FileSystem.TAPEMARK_TYPE
     Count: UInt32
     Immediate: win32more.Windows.Win32.Foundation.BOOLEAN
-class TRANSACTION_NOTIFICATION(EasyCastStructure):
+class TRANSACTION_NOTIFICATION(Structure):
     TransactionKey: VoidPtr
     TransactionNotification: UInt32
     TmVirtualClock: Int64
     ArgumentLength: UInt32
-class TRANSACTION_NOTIFICATION_MARSHAL_ARGUMENT(EasyCastStructure):
+class TRANSACTION_NOTIFICATION_MARSHAL_ARGUMENT(Structure):
     MarshalCookie: UInt32
     UOW: Guid
-class TRANSACTION_NOTIFICATION_PROPAGATE_ARGUMENT(EasyCastStructure):
+class TRANSACTION_NOTIFICATION_PROPAGATE_ARGUMENT(Structure):
     PropagationCookie: UInt32
     UOW: Guid
     TmIdentity: Guid
     BufferLength: UInt32
-class TRANSACTION_NOTIFICATION_RECOVERY_ARGUMENT(EasyCastStructure):
+class TRANSACTION_NOTIFICATION_RECOVERY_ARGUMENT(Structure):
     EnlistmentId: Guid
     UOW: Guid
-class TRANSACTION_NOTIFICATION_SAVEPOINT_ARGUMENT(EasyCastStructure):
+class TRANSACTION_NOTIFICATION_SAVEPOINT_ARGUMENT(Structure):
     SavepointId: UInt32
-class TRANSACTION_NOTIFICATION_TM_ONLINE_ARGUMENT(EasyCastStructure):
+class TRANSACTION_NOTIFICATION_TM_ONLINE_ARGUMENT(Structure):
     TmIdentity: Guid
     Flags: UInt32
 TRANSACTION_OUTCOME = Int32
@@ -3331,14 +3331,14 @@ TXFS_MINIVERSION = UInt32
 TXFS_MINIVERSION_COMMITTED_VIEW: win32more.Windows.Win32.Storage.FileSystem.TXFS_MINIVERSION = 0
 TXFS_MINIVERSION_DIRTY_VIEW: win32more.Windows.Win32.Storage.FileSystem.TXFS_MINIVERSION = 65535
 TXFS_MINIVERSION_DEFAULT_VIEW: win32more.Windows.Win32.Storage.FileSystem.TXFS_MINIVERSION = 65534
-class TXF_ID(EasyCastStructure):
+class TXF_ID(Structure):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 4
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         LowPart: Int64
         HighPart: Int64
         _pack_ = 4
-class TXF_LOG_RECORD_AFFECTED_FILE(EasyCastStructure):
+class TXF_LOG_RECORD_AFFECTED_FILE(Structure):
     Version: UInt16
     RecordLength: UInt32
     Flags: UInt32
@@ -3347,12 +3347,12 @@ class TXF_LOG_RECORD_AFFECTED_FILE(EasyCastStructure):
     FileNameLength: UInt32
     FileNameByteOffsetInStructure: UInt32
     _pack_ = 4
-class TXF_LOG_RECORD_BASE(EasyCastStructure):
+class TXF_LOG_RECORD_BASE(Structure):
     Version: UInt16
     RecordType: win32more.Windows.Win32.Storage.FileSystem.TXF_LOG_RECORD_TYPE
     RecordLength: UInt32
     _pack_ = 4
-class TXF_LOG_RECORD_TRUNCATE(EasyCastStructure):
+class TXF_LOG_RECORD_TRUNCATE(Structure):
     Version: UInt16
     RecordType: UInt16
     RecordLength: UInt32
@@ -3367,7 +3367,7 @@ TXF_LOG_RECORD_TYPE = UInt16
 TXF_LOG_RECORD_TYPE_AFFECTED_FILE: win32more.Windows.Win32.Storage.FileSystem.TXF_LOG_RECORD_TYPE = 4
 TXF_LOG_RECORD_TYPE_TRUNCATE: win32more.Windows.Win32.Storage.FileSystem.TXF_LOG_RECORD_TYPE = 2
 TXF_LOG_RECORD_TYPE_WRITE: win32more.Windows.Win32.Storage.FileSystem.TXF_LOG_RECORD_TYPE = 1
-class TXF_LOG_RECORD_WRITE(EasyCastStructure):
+class TXF_LOG_RECORD_WRITE(Structure):
     Version: UInt16
     RecordType: UInt16
     RecordLength: UInt32
@@ -3411,7 +3411,7 @@ VIF_CANNOTREADDST: win32more.Windows.Win32.Storage.FileSystem.VER_INSTALL_FILE_S
 VIF_BUFFTOOSMALL: win32more.Windows.Win32.Storage.FileSystem.VER_INSTALL_FILE_STATUS = 262144
 VIF_CANNOTLOADLZ32: win32more.Windows.Win32.Storage.FileSystem.VER_INSTALL_FILE_STATUS = 524288
 VIF_CANNOTLOADCABINET: win32more.Windows.Win32.Storage.FileSystem.VER_INSTALL_FILE_STATUS = 1048576
-class VOLUME_ALLOCATE_BC_STREAM_INPUT(EasyCastStructure):
+class VOLUME_ALLOCATE_BC_STREAM_INPUT(Structure):
     Version: UInt32
     RequestsPerPeriod: UInt32
     Period: UInt32
@@ -3422,60 +3422,60 @@ class VOLUME_ALLOCATE_BC_STREAM_INPUT(EasyCastStructure):
     HighestByteOffset: UInt64
     AccessType: UInt32
     AccessMode: UInt32
-class VOLUME_ALLOCATE_BC_STREAM_OUTPUT(EasyCastStructure):
+class VOLUME_ALLOCATE_BC_STREAM_OUTPUT(Structure):
     RequestSize: UInt64
     NumOutStandingRequests: UInt32
-class VOLUME_ALLOCATION_HINT_INPUT(EasyCastStructure):
+class VOLUME_ALLOCATION_HINT_INPUT(Structure):
     ClusterSize: UInt32
     NumberOfClusters: UInt32
     StartingClusterNumber: Int64
-class VOLUME_ALLOCATION_HINT_OUTPUT(EasyCastStructure):
+class VOLUME_ALLOCATION_HINT_OUTPUT(Structure):
     Bitmap: UInt32 * 1
-class VOLUME_CRITICAL_IO(EasyCastStructure):
+class VOLUME_CRITICAL_IO(Structure):
     AccessType: UInt32
     ExtentsCount: UInt32
     Extents: win32more.Windows.Win32.Storage.FileSystem.FILE_EXTENT * 1
-class VOLUME_FAILOVER_SET(EasyCastStructure):
+class VOLUME_FAILOVER_SET(Structure):
     NumberOfDisks: UInt32
     DiskNumbers: UInt32 * 1
-class VOLUME_GET_BC_PROPERTIES_INPUT(EasyCastStructure):
+class VOLUME_GET_BC_PROPERTIES_INPUT(Structure):
     Version: UInt32
     Reserved1: UInt32
     LowestByteOffset: UInt64
     HighestByteOffset: UInt64
     AccessType: UInt32
     AccessMode: UInt32
-class VOLUME_GET_BC_PROPERTIES_OUTPUT(EasyCastStructure):
+class VOLUME_GET_BC_PROPERTIES_OUTPUT(Structure):
     MaximumRequestsPerPeriod: UInt32
     MinimumPeriod: UInt32
     MaximumRequestSize: UInt64
     EstimatedTimePerRequest: UInt32
     NumOutStandingRequests: UInt32
     RequestSize: UInt64
-class VOLUME_LOGICAL_OFFSET(EasyCastStructure):
+class VOLUME_LOGICAL_OFFSET(Structure):
     LogicalOffset: Int64
-class VOLUME_NUMBER(EasyCastStructure):
+class VOLUME_NUMBER(Structure):
     VolumeNumber: UInt32
     VolumeManagerName: Char * 8
-class VOLUME_PHYSICAL_OFFSET(EasyCastStructure):
+class VOLUME_PHYSICAL_OFFSET(Structure):
     DiskNumber: UInt32
     Offset: Int64
-class VOLUME_PHYSICAL_OFFSETS(EasyCastStructure):
+class VOLUME_PHYSICAL_OFFSETS(Structure):
     NumberOfPhysicalOffsets: UInt32
     PhysicalOffset: win32more.Windows.Win32.Storage.FileSystem.VOLUME_PHYSICAL_OFFSET * 1
-class VOLUME_READ_PLEX_INPUT(EasyCastStructure):
+class VOLUME_READ_PLEX_INPUT(Structure):
     ByteOffset: Int64
     Length: UInt32
     PlexNumber: UInt32
-class VOLUME_SET_GPT_ATTRIBUTES_INFORMATION(EasyCastStructure):
+class VOLUME_SET_GPT_ATTRIBUTES_INFORMATION(Structure):
     GptAttributes: UInt64
     RevertOnClose: win32more.Windows.Win32.Foundation.BOOLEAN
     ApplyToAllConnectedVolumes: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved1: UInt16
     Reserved2: UInt32
-class VOLUME_SHRINK_INFO(EasyCastStructure):
+class VOLUME_SHRINK_INFO(Structure):
     VolumeSize: UInt64
-class VS_FIXEDFILEINFO(EasyCastStructure):
+class VS_FIXEDFILEINFO(Structure):
     dwSignature: UInt32
     dwStrucVersion: UInt32
     dwFileVersionMS: UInt32
@@ -3538,7 +3538,7 @@ VFT_DRV: win32more.Windows.Win32.Storage.FileSystem.VS_FIXEDFILEINFO_FILE_TYPE =
 VFT_FONT: win32more.Windows.Win32.Storage.FileSystem.VS_FIXEDFILEINFO_FILE_TYPE = 4
 VFT_VXD: win32more.Windows.Win32.Storage.FileSystem.VS_FIXEDFILEINFO_FILE_TYPE = 5
 VFT_STATIC_LIB: win32more.Windows.Win32.Storage.FileSystem.VS_FIXEDFILEINFO_FILE_TYPE = 7
-class WIM_ENTRY_INFO(EasyCastStructure):
+class WIM_ENTRY_INFO(Structure):
     WimEntryInfoSize: UInt32
     WimType: UInt32
     DataSourceId: Int64
@@ -3546,18 +3546,18 @@ class WIM_ENTRY_INFO(EasyCastStructure):
     WimPath: win32more.Windows.Win32.Foundation.PWSTR
     WimIndex: UInt32
     Flags: UInt32
-class WIM_EXTERNAL_FILE_INFO(EasyCastStructure):
+class WIM_EXTERNAL_FILE_INFO(Structure):
     DataSourceId: Int64
     ResourceHash: Byte * 20
     Flags: UInt32
-class WIN32_FILE_ATTRIBUTE_DATA(EasyCastStructure):
+class WIN32_FILE_ATTRIBUTE_DATA(Structure):
     dwFileAttributes: UInt32
     ftCreationTime: win32more.Windows.Win32.Foundation.FILETIME
     ftLastAccessTime: win32more.Windows.Win32.Foundation.FILETIME
     ftLastWriteTime: win32more.Windows.Win32.Foundation.FILETIME
     nFileSizeHigh: UInt32
     nFileSizeLow: UInt32
-class WIN32_FIND_DATAA(EasyCastStructure):
+class WIN32_FIND_DATAA(Structure):
     dwFileAttributes: UInt32
     ftCreationTime: win32more.Windows.Win32.Foundation.FILETIME
     ftLastAccessTime: win32more.Windows.Win32.Foundation.FILETIME
@@ -3568,7 +3568,7 @@ class WIN32_FIND_DATAA(EasyCastStructure):
     dwReserved1: UInt32
     cFileName: win32more.Windows.Win32.Foundation.CHAR * 260
     cAlternateFileName: win32more.Windows.Win32.Foundation.CHAR * 14
-class WIN32_FIND_DATAW(EasyCastStructure):
+class WIN32_FIND_DATAW(Structure):
     dwFileAttributes: UInt32
     ftCreationTime: win32more.Windows.Win32.Foundation.FILETIME
     ftLastAccessTime: win32more.Windows.Win32.Foundation.FILETIME
@@ -3580,10 +3580,10 @@ class WIN32_FIND_DATAW(EasyCastStructure):
     cFileName: Char * 260
     cAlternateFileName: Char * 14
 WIN32_FIND_DATA = UnicodeAlias('WIN32_FIND_DATAW')
-class WIN32_FIND_STREAM_DATA(EasyCastStructure):
+class WIN32_FIND_STREAM_DATA(Structure):
     StreamSize: Int64
     cStreamName: Char * 296
-class WIN32_STREAM_ID(EasyCastStructure):
+class WIN32_STREAM_ID(Structure):
     dwStreamId: win32more.Windows.Win32.Storage.FileSystem.WIN_STREAM_ID
     dwStreamAttributes: UInt32
     Size: Int64
@@ -3600,9 +3600,9 @@ BACKUP_REPARSE_DATA: win32more.Windows.Win32.Storage.FileSystem.WIN_STREAM_ID = 
 BACKUP_SECURITY_DATA: win32more.Windows.Win32.Storage.FileSystem.WIN_STREAM_ID = 3
 BACKUP_SPARSE_BLOCK: win32more.Windows.Win32.Storage.FileSystem.WIN_STREAM_ID = 9
 BACKUP_TXFS_DATA: win32more.Windows.Win32.Storage.FileSystem.WIN_STREAM_ID = 10
-class WOF_FILE_COMPRESSION_INFO_V0(EasyCastStructure):
+class WOF_FILE_COMPRESSION_INFO_V0(Structure):
     Algorithm: UInt32
-class WOF_FILE_COMPRESSION_INFO_V1(EasyCastStructure):
+class WOF_FILE_COMPRESSION_INFO_V1(Structure):
     Algorithm: UInt32
     Flags: UInt32
 @winfunctype_pointer

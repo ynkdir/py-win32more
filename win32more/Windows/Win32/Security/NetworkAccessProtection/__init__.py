@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.NetworkAccessProtection
 maxSoHAttributeCount: UInt32 = 100
@@ -17,10 +17,10 @@ failureCategoryCount: UInt32 = 5
 ComponentTypeEnforcementClientSoH: UInt32 = 1
 ComponentTypeEnforcementClientRp: UInt32 = 2
 percentageNotSupported: UInt32 = 101
-class CorrelationId(EasyCastStructure):
+class CorrelationId(Structure):
     connId: Guid
     timeStamp: win32more.Windows.Win32.Foundation.FILETIME
-class CountedString(EasyCastStructure):
+class CountedString(Structure):
     length: UInt16
     string: win32more.Windows.Win32.Foundation.PWSTR
 ExtendedIsolationState = Int32
@@ -35,9 +35,9 @@ failureCategoryClientComponent: win32more.Windows.Win32.Security.NetworkAccessPr
 failureCategoryClientCommunication: win32more.Windows.Win32.Security.NetworkAccessProtection.FailureCategory = 3
 failureCategoryServerComponent: win32more.Windows.Win32.Security.NetworkAccessProtection.FailureCategory = 4
 failureCategoryServerCommunication: win32more.Windows.Win32.Security.NetworkAccessProtection.FailureCategory = 5
-class FailureCategoryMapping(EasyCastStructure):
+class FailureCategoryMapping(Structure):
     mappingCompliance: win32more.Windows.Win32.Foundation.BOOL * 5
-class FixupInfo(EasyCastStructure):
+class FixupInfo(Structure):
     state: win32more.Windows.Win32.Security.NetworkAccessProtection.FixupState
     percentage: Byte
     resultCodes: win32more.Windows.Win32.Security.NetworkAccessProtection.ResultCodes
@@ -46,15 +46,15 @@ FixupState = Int32
 fixupStateSuccess: win32more.Windows.Win32.Security.NetworkAccessProtection.FixupState = 0
 fixupStateInProgress: win32more.Windows.Win32.Security.NetworkAccessProtection.FixupState = 1
 fixupStateCouldNotUpdate: win32more.Windows.Win32.Security.NetworkAccessProtection.FixupState = 2
-class Ipv4Address(EasyCastStructure):
+class Ipv4Address(Structure):
     addr: Byte * 4
-class Ipv6Address(EasyCastStructure):
+class Ipv6Address(Structure):
     addr: Byte * 16
-class IsolationInfo(EasyCastStructure):
+class IsolationInfo(Structure):
     isolationState: win32more.Windows.Win32.Security.NetworkAccessProtection.IsolationState
     probEndTime: win32more.Windows.Win32.Foundation.FILETIME
     failureUrl: win32more.Windows.Win32.Security.NetworkAccessProtection.CountedString
-class IsolationInfoEx(EasyCastStructure):
+class IsolationInfoEx(Structure):
     isolationState: win32more.Windows.Win32.Security.NetworkAccessProtection.IsolationState
     extendedIsolationState: win32more.Windows.Win32.Security.NetworkAccessProtection.ExtendedIsolationState
     probEndTime: win32more.Windows.Win32.Foundation.FILETIME
@@ -63,7 +63,7 @@ IsolationState = Int32
 isolationStateNotRestricted: win32more.Windows.Win32.Security.NetworkAccessProtection.IsolationState = 1
 isolationStateInProbation: win32more.Windows.Win32.Security.NetworkAccessProtection.IsolationState = 2
 isolationStateRestrictedAccess: win32more.Windows.Win32.Security.NetworkAccessProtection.IsolationState = 3
-class NapComponentRegistrationInfo(EasyCastStructure):
+class NapComponentRegistrationInfo(Structure):
     id: UInt32
     friendlyName: win32more.Windows.Win32.Security.NetworkAccessProtection.CountedString
     description: win32more.Windows.Win32.Security.NetworkAccessProtection.CountedString
@@ -82,26 +82,26 @@ tracingLevelUndefined: win32more.Windows.Win32.Security.NetworkAccessProtection.
 tracingLevelBasic: win32more.Windows.Win32.Security.NetworkAccessProtection.NapTracingLevel = 1
 tracingLevelAdvanced: win32more.Windows.Win32.Security.NetworkAccessProtection.NapTracingLevel = 2
 tracingLevelDebug: win32more.Windows.Win32.Security.NetworkAccessProtection.NapTracingLevel = 3
-class NetworkSoH(EasyCastStructure):
+class NetworkSoH(Structure):
     size: UInt16
     data: POINTER(Byte)
-class PrivateData(EasyCastStructure):
+class PrivateData(Structure):
     size: UInt16
     data: POINTER(Byte)
 RemoteConfigurationType = Int32
 remoteConfigTypeMachine: win32more.Windows.Win32.Security.NetworkAccessProtection.RemoteConfigurationType = 1
 remoteConfigTypeConfigBlob: win32more.Windows.Win32.Security.NetworkAccessProtection.RemoteConfigurationType = 2
-class ResultCodes(EasyCastStructure):
+class ResultCodes(Structure):
     count: UInt16
     results: POINTER(win32more.Windows.Win32.Foundation.HRESULT)
-class SoH(EasyCastStructure):
+class SoH(Structure):
     count: UInt16
     attributes: POINTER(win32more.Windows.Win32.Security.NetworkAccessProtection.SoHAttribute)
-class SoHAttribute(EasyCastStructure):
+class SoHAttribute(Structure):
     type: UInt16
     size: UInt16
     value: POINTER(Byte)
-class SystemHealthAgentState(EasyCastStructure):
+class SystemHealthAgentState(Structure):
     id: UInt32
     shaResultCodes: win32more.Windows.Win32.Security.NetworkAccessProtection.ResultCodes
     failureCategory: win32more.Windows.Win32.Security.NetworkAccessProtection.FailureCategory

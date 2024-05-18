@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Dhcp
 OPTION_PAD: UInt32 = 0
@@ -745,23 +745,23 @@ def DhcpV4GetPolicyEx(ServerIpAddress: win32more.Windows.Win32.Foundation.PWSTR,
 def DhcpV4SetPolicyEx(ServerIpAddress: win32more.Windows.Win32.Foundation.PWSTR, FieldsModified: UInt32, GlobalPolicy: win32more.Windows.Win32.Foundation.BOOL, SubnetAddress: UInt32, PolicyName: win32more.Windows.Win32.Foundation.PWSTR, Policy: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_EX)) -> UInt32: ...
 @winfunctype('DHCPSAPI.dll')
 def DhcpV4EnumPoliciesEx(ServerIpAddress: win32more.Windows.Win32.Foundation.PWSTR, ResumeHandle: POINTER(UInt32), PreferredMaximum: UInt32, GlobalPolicy: win32more.Windows.Win32.Foundation.BOOL, SubnetAddress: UInt32, EnumInfo: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_EX_ARRAY)), ElementsRead: POINTER(UInt32), ElementsTotal: POINTER(UInt32)) -> UInt32: ...
-class DATE_TIME(EasyCastStructure):
+class DATE_TIME(Structure):
     dwLowDateTime: UInt32
     dwHighDateTime: UInt32
-class DHCPAPI_PARAMS(EasyCastStructure):
+class DHCPAPI_PARAMS(Structure):
     Flags: UInt32
     OptionId: UInt32
     IsVendor: win32more.Windows.Win32.Foundation.BOOL
     Data: POINTER(Byte)
     nBytesData: UInt32
-class DHCPCAPI_CLASSID(EasyCastStructure):
+class DHCPCAPI_CLASSID(Structure):
     Flags: UInt32
     Data: POINTER(Byte)
     nBytesData: UInt32
-class DHCPCAPI_PARAMS_ARRAY(EasyCastStructure):
+class DHCPCAPI_PARAMS_ARRAY(Structure):
     nParams: UInt32
     Params: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPAPI_PARAMS)
-class DHCPDS_SERVER(EasyCastStructure):
+class DHCPDS_SERVER(Structure):
     Version: UInt32
     ServerName: win32more.Windows.Win32.Foundation.PWSTR
     ServerAddress: UInt32
@@ -769,11 +769,11 @@ class DHCPDS_SERVER(EasyCastStructure):
     State: UInt32
     DsLocation: win32more.Windows.Win32.Foundation.PWSTR
     DsLocType: UInt32
-class DHCPDS_SERVERS(EasyCastStructure):
+class DHCPDS_SERVERS(Structure):
     Flags: UInt32
     NumElements: UInt32
     Servers: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPDS_SERVER)
-class DHCPV4_FAILOVER_CLIENT_INFO(EasyCastStructure):
+class DHCPV4_FAILOVER_CLIENT_INFO(Structure):
     ClientIpAddress: UInt32
     SubnetMask: UInt32
     ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
@@ -795,10 +795,10 @@ class DHCPV4_FAILOVER_CLIENT_INFO(EasyCastStructure):
     BndMsgStatus: UInt32
     PolicyName: win32more.Windows.Win32.Foundation.PWSTR
     Flags: Byte
-class DHCPV4_FAILOVER_CLIENT_INFO_ARRAY(EasyCastStructure):
+class DHCPV4_FAILOVER_CLIENT_INFO_ARRAY(Structure):
     NumElements: UInt32
     Clients: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO))
-class DHCPV4_FAILOVER_CLIENT_INFO_EX(EasyCastStructure):
+class DHCPV4_FAILOVER_CLIENT_INFO_EX(Structure):
     ClientIpAddress: UInt32
     SubnetMask: UInt32
     ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
@@ -821,26 +821,26 @@ class DHCPV4_FAILOVER_CLIENT_INFO_EX(EasyCastStructure):
     PolicyName: win32more.Windows.Win32.Foundation.PWSTR
     Flags: Byte
     AddressStateEx: UInt32
-class DHCPV6CAPI_CLASSID(EasyCastStructure):
+class DHCPV6CAPI_CLASSID(Structure):
     Flags: UInt32
     Data: POINTER(Byte)
     nBytesData: UInt32
-class DHCPV6CAPI_PARAMS(EasyCastStructure):
+class DHCPV6CAPI_PARAMS(Structure):
     Flags: UInt32
     OptionId: UInt32
     IsVendor: win32more.Windows.Win32.Foundation.BOOL
     Data: POINTER(Byte)
     nBytesData: UInt32
-class DHCPV6CAPI_PARAMS_ARRAY(EasyCastStructure):
+class DHCPV6CAPI_PARAMS_ARRAY(Structure):
     nParams: UInt32
     Params: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6CAPI_PARAMS)
-class DHCPV6Prefix(EasyCastStructure):
+class DHCPV6Prefix(Structure):
     prefix: Byte * 16
     prefixLength: UInt32
     preferredLifeTime: UInt32
     validLifeTime: UInt32
     status: win32more.Windows.Win32.NetworkManagement.Dhcp.StatusCode
-class DHCPV6PrefixLeaseInformation(EasyCastStructure):
+class DHCPV6PrefixLeaseInformation(Structure):
     nPrefixes: UInt32
     prefixArray: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6Prefix)
     iaid: UInt32
@@ -851,7 +851,7 @@ class DHCPV6PrefixLeaseInformation(EasyCastStructure):
     status: win32more.Windows.Win32.NetworkManagement.Dhcp.StatusCode
     ServerId: POINTER(Byte)
     ServerIdLen: UInt32
-class DHCPV6_BIND_ELEMENT(EasyCastStructure):
+class DHCPV6_BIND_ELEMENT(Structure):
     Flags: UInt32
     fBoundToDHCPServer: win32more.Windows.Win32.Foundation.BOOL
     AdapterPrimaryAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
@@ -860,72 +860,72 @@ class DHCPV6_BIND_ELEMENT(EasyCastStructure):
     IpV6IfIndex: UInt32
     IfIdSize: UInt32
     IfId: POINTER(Byte)
-class DHCPV6_BIND_ELEMENT_ARRAY(EasyCastStructure):
+class DHCPV6_BIND_ELEMENT_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT)
-class DHCPV6_IP_ARRAY(EasyCastStructure):
+class DHCPV6_IP_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS)
-class DHCPV6_STATELESS_PARAMS(EasyCastStructure):
+class DHCPV6_STATELESS_PARAMS(Structure):
     Status: win32more.Windows.Win32.Foundation.BOOL
     PurgeInterval: UInt32
 DHCPV6_STATELESS_PARAM_TYPE = Int32
 DhcpStatelessPurgeInterval: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAM_TYPE = 1
 DhcpStatelessStatus: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6_STATELESS_PARAM_TYPE = 2
-class DHCPV6_STATELESS_SCOPE_STATS(EasyCastStructure):
+class DHCPV6_STATELESS_SCOPE_STATS(Structure):
     SubnetAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     NumStatelessClientsAdded: UInt64
     NumStatelessClientsRemoved: UInt64
-class DHCPV6_STATELESS_STATS(EasyCastStructure):
+class DHCPV6_STATELESS_STATS(Structure):
     NumScopes: UInt32
     ScopeStats: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCPV6_STATELESS_SCOPE_STATS)
-class DHCP_ADDR_PATTERN(EasyCastStructure):
+class DHCP_ADDR_PATTERN(Structure):
     MatchHWType: win32more.Windows.Win32.Foundation.BOOL
     HWType: Byte
     IsWildcard: win32more.Windows.Win32.Foundation.BOOL
     Length: Byte
     Pattern: Byte * 255
-class DHCP_ALL_OPTIONS(EasyCastStructure):
+class DHCP_ALL_OPTIONS(Structure):
     Flags: UInt32
     NonVendorOptions: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY)
     NumVendorOptions: UInt32
     VendorOptions: POINTER(_Anonymous_e__Struct)
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         Option: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION
         VendorName: win32more.Windows.Win32.Foundation.PWSTR
         ClassName: win32more.Windows.Win32.Foundation.PWSTR
-class DHCP_ALL_OPTION_VALUES(EasyCastStructure):
+class DHCP_ALL_OPTION_VALUES(Structure):
     Flags: UInt32
     NumElements: UInt32
     Options: POINTER(_Anonymous_e__Struct)
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         ClassName: win32more.Windows.Win32.Foundation.PWSTR
         VendorName: win32more.Windows.Win32.Foundation.PWSTR
         IsVendor: win32more.Windows.Win32.Foundation.BOOL
         OptionsArray: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY)
-class DHCP_ALL_OPTION_VALUES_PB(EasyCastStructure):
+class DHCP_ALL_OPTION_VALUES_PB(Structure):
     Flags: UInt32
     NumElements: UInt32
     Options: POINTER(_Anonymous_e__Struct)
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         PolicyName: win32more.Windows.Win32.Foundation.PWSTR
         VendorName: win32more.Windows.Win32.Foundation.PWSTR
         IsVendor: win32more.Windows.Win32.Foundation.BOOL
         OptionsArray: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY)
-class DHCP_ATTRIB(EasyCastStructure):
+class DHCP_ATTRIB(Structure):
     DhcpAttribId: UInt32
     DhcpAttribType: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         DhcpAttribBool: win32more.Windows.Win32.Foundation.BOOL
         DhcpAttribUlong: UInt32
-class DHCP_ATTRIB_ARRAY(EasyCastStructure):
+class DHCP_ATTRIB_ARRAY(Structure):
     NumElements: UInt32
     DhcpAttribs: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_ATTRIB)
-class DHCP_BINARY_DATA(EasyCastStructure):
+class DHCP_BINARY_DATA(Structure):
     DataLength: UInt32
     Data: POINTER(Byte)
-class DHCP_BIND_ELEMENT(EasyCastStructure):
+class DHCP_BIND_ELEMENT(Structure):
     Flags: UInt32
     fBoundToDHCPServer: win32more.Windows.Win32.Foundation.BOOL
     AdapterPrimaryAddress: UInt32
@@ -933,15 +933,15 @@ class DHCP_BIND_ELEMENT(EasyCastStructure):
     IfDescription: win32more.Windows.Win32.Foundation.PWSTR
     IfIdSize: UInt32
     IfId: POINTER(Byte)
-class DHCP_BIND_ELEMENT_ARRAY(EasyCastStructure):
+class DHCP_BIND_ELEMENT_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BIND_ELEMENT)
-class DHCP_BOOTP_IP_RANGE(EasyCastStructure):
+class DHCP_BOOTP_IP_RANGE(Structure):
     StartAddress: UInt32
     EndAddress: UInt32
     BootpAllocated: UInt32
     MaxBootpAllowed: UInt32
-class DHCP_CALLOUT_TABLE(EasyCastStructure):
+class DHCP_CALLOUT_TABLE(Structure):
     DhcpControlHook: win32more.Windows.Win32.NetworkManagement.Dhcp.LPDHCP_CONTROL
     DhcpNewPktHook: win32more.Windows.Win32.NetworkManagement.Dhcp.LPDHCP_NEWPKT
     DhcpPktDropHook: win32more.Windows.Win32.NetworkManagement.Dhcp.LPDHCP_DROP_SEND
@@ -952,20 +952,20 @@ class DHCP_CALLOUT_TABLE(EasyCastStructure):
     DhcpDeleteClientHook: win32more.Windows.Win32.NetworkManagement.Dhcp.LPDHCP_DELETE_CLIENT
     DhcpExtensionHook: VoidPtr
     DhcpReservedHook: VoidPtr
-class DHCP_CLASS_INFO(EasyCastStructure):
+class DHCP_CLASS_INFO(Structure):
     ClassName: win32more.Windows.Win32.Foundation.PWSTR
     ClassComment: win32more.Windows.Win32.Foundation.PWSTR
     ClassDataLength: UInt32
     IsVendor: win32more.Windows.Win32.Foundation.BOOL
     Flags: UInt32
     ClassData: POINTER(Byte)
-class DHCP_CLASS_INFO_ARRAY(EasyCastStructure):
+class DHCP_CLASS_INFO_ARRAY(Structure):
     NumElements: UInt32
     Classes: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLASS_INFO)
-class DHCP_CLASS_INFO_ARRAY_V6(EasyCastStructure):
+class DHCP_CLASS_INFO_ARRAY_V6(Structure):
     NumElements: UInt32
     Classes: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLASS_INFO_V6)
-class DHCP_CLASS_INFO_V6(EasyCastStructure):
+class DHCP_CLASS_INFO_V6(Structure):
     ClassName: win32more.Windows.Win32.Foundation.PWSTR
     ClassComment: win32more.Windows.Win32.Foundation.PWSTR
     ClassDataLength: UInt32
@@ -973,7 +973,7 @@ class DHCP_CLASS_INFO_V6(EasyCastStructure):
     EnterpriseNumber: UInt32
     Flags: UInt32
     ClassData: POINTER(Byte)
-class DHCP_CLIENT_FILTER_STATUS_INFO(EasyCastStructure):
+class DHCP_CLIENT_FILTER_STATUS_INFO(Structure):
     ClientIpAddress: UInt32
     SubnetMask: UInt32
     ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
@@ -987,10 +987,10 @@ class DHCP_CLIENT_FILTER_STATUS_INFO(EasyCastStructure):
     ProbationEnds: win32more.Windows.Win32.NetworkManagement.Dhcp.DATE_TIME
     QuarantineCapable: win32more.Windows.Win32.Foundation.BOOL
     FilterStatus: UInt32
-class DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY(EasyCastStructure):
+class DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY(Structure):
     NumElements: UInt32
     Clients: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLIENT_FILTER_STATUS_INFO))
-class DHCP_CLIENT_INFO(EasyCastStructure):
+class DHCP_CLIENT_INFO(Structure):
     ClientIpAddress: UInt32
     SubnetMask: UInt32
     ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
@@ -998,22 +998,22 @@ class DHCP_CLIENT_INFO(EasyCastStructure):
     ClientComment: win32more.Windows.Win32.Foundation.PWSTR
     ClientLeaseExpires: win32more.Windows.Win32.NetworkManagement.Dhcp.DATE_TIME
     OwnerHost: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_HOST_INFO
-class DHCP_CLIENT_INFO_ARRAY(EasyCastStructure):
+class DHCP_CLIENT_INFO_ARRAY(Structure):
     NumElements: UInt32
     Clients: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLIENT_INFO))
-class DHCP_CLIENT_INFO_ARRAY_V4(EasyCastStructure):
+class DHCP_CLIENT_INFO_ARRAY_V4(Structure):
     NumElements: UInt32
     Clients: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V4))
-class DHCP_CLIENT_INFO_ARRAY_V5(EasyCastStructure):
+class DHCP_CLIENT_INFO_ARRAY_V5(Structure):
     NumElements: UInt32
     Clients: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V5))
-class DHCP_CLIENT_INFO_ARRAY_V6(EasyCastStructure):
+class DHCP_CLIENT_INFO_ARRAY_V6(Structure):
     NumElements: UInt32
     Clients: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_V6))
-class DHCP_CLIENT_INFO_ARRAY_VQ(EasyCastStructure):
+class DHCP_CLIENT_INFO_ARRAY_VQ(Structure):
     NumElements: UInt32
     Clients: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_VQ))
-class DHCP_CLIENT_INFO_EX(EasyCastStructure):
+class DHCP_CLIENT_INFO_EX(Structure):
     ClientIpAddress: UInt32
     SubnetMask: UInt32
     ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
@@ -1029,10 +1029,10 @@ class DHCP_CLIENT_INFO_EX(EasyCastStructure):
     FilterStatus: UInt32
     PolicyName: win32more.Windows.Win32.Foundation.PWSTR
     Properties: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY)
-class DHCP_CLIENT_INFO_EX_ARRAY(EasyCastStructure):
+class DHCP_CLIENT_INFO_EX_ARRAY(Structure):
     NumElements: UInt32
     Clients: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_EX))
-class DHCP_CLIENT_INFO_PB(EasyCastStructure):
+class DHCP_CLIENT_INFO_PB(Structure):
     ClientIpAddress: UInt32
     SubnetMask: UInt32
     ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
@@ -1047,10 +1047,10 @@ class DHCP_CLIENT_INFO_PB(EasyCastStructure):
     QuarantineCapable: win32more.Windows.Win32.Foundation.BOOL
     FilterStatus: UInt32
     PolicyName: win32more.Windows.Win32.Foundation.PWSTR
-class DHCP_CLIENT_INFO_PB_ARRAY(EasyCastStructure):
+class DHCP_CLIENT_INFO_PB_ARRAY(Structure):
     NumElements: UInt32
     Clients: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_CLIENT_INFO_PB))
-class DHCP_CLIENT_INFO_V4(EasyCastStructure):
+class DHCP_CLIENT_INFO_V4(Structure):
     ClientIpAddress: UInt32
     SubnetMask: UInt32
     ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
@@ -1059,7 +1059,7 @@ class DHCP_CLIENT_INFO_V4(EasyCastStructure):
     ClientLeaseExpires: win32more.Windows.Win32.NetworkManagement.Dhcp.DATE_TIME
     OwnerHost: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_HOST_INFO
     bClientType: Byte
-class DHCP_CLIENT_INFO_V5(EasyCastStructure):
+class DHCP_CLIENT_INFO_V5(Structure):
     ClientIpAddress: UInt32
     SubnetMask: UInt32
     ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
@@ -1069,7 +1069,7 @@ class DHCP_CLIENT_INFO_V5(EasyCastStructure):
     OwnerHost: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_HOST_INFO
     bClientType: Byte
     AddressState: Byte
-class DHCP_CLIENT_INFO_V6(EasyCastStructure):
+class DHCP_CLIENT_INFO_V6(Structure):
     ClientIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     ClientDUID: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
     AddressType: UInt32
@@ -1079,7 +1079,7 @@ class DHCP_CLIENT_INFO_V6(EasyCastStructure):
     ClientValidLeaseExpires: win32more.Windows.Win32.NetworkManagement.Dhcp.DATE_TIME
     ClientPrefLeaseExpires: win32more.Windows.Win32.NetworkManagement.Dhcp.DATE_TIME
     OwnerHost: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_HOST_INFO_V6
-class DHCP_CLIENT_INFO_VQ(EasyCastStructure):
+class DHCP_CLIENT_INFO_VQ(Structure):
     ClientIpAddress: UInt32
     SubnetMask: UInt32
     ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
@@ -1095,7 +1095,7 @@ class DHCP_CLIENT_INFO_VQ(EasyCastStructure):
 DHCP_FAILOVER_MODE = Int32
 LoadBalance: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_MODE = 0
 HotStandby: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_MODE = 1
-class DHCP_FAILOVER_RELATIONSHIP(EasyCastStructure):
+class DHCP_FAILOVER_RELATIONSHIP(Structure):
     PrimaryServer: UInt32
     SecondaryServer: UInt32
     Mode: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_MODE
@@ -1110,13 +1110,13 @@ class DHCP_FAILOVER_RELATIONSHIP(EasyCastStructure):
     pScopes: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_ARRAY)
     Percentage: Byte
     SharedSecret: win32more.Windows.Win32.Foundation.PWSTR
-class DHCP_FAILOVER_RELATIONSHIP_ARRAY(EasyCastStructure):
+class DHCP_FAILOVER_RELATIONSHIP_ARRAY(Structure):
     NumElements: UInt32
     pRelationships: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_RELATIONSHIP)
 DHCP_FAILOVER_SERVER = Int32
 PrimaryServer: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_SERVER = 0
 SecondaryServer: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FAILOVER_SERVER = 1
-class DHCP_FAILOVER_STATISTICS(EasyCastStructure):
+class DHCP_FAILOVER_STATISTICS(Structure):
     NumAddr: UInt32
     AddrFree: UInt32
     AddrInUse: UInt32
@@ -1124,71 +1124,71 @@ class DHCP_FAILOVER_STATISTICS(EasyCastStructure):
     ThisAddrFree: UInt32
     PartnerAddrInUse: UInt32
     ThisAddrInUse: UInt32
-class DHCP_FILTER_ADD_INFO(EasyCastStructure):
+class DHCP_FILTER_ADD_INFO(Structure):
     AddrPatt: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     ListType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE
-class DHCP_FILTER_ENUM_INFO(EasyCastStructure):
+class DHCP_FILTER_ENUM_INFO(Structure):
     NumElements: UInt32
     pEnumRecords: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FILTER_RECORD)
-class DHCP_FILTER_GLOBAL_INFO(EasyCastStructure):
+class DHCP_FILTER_GLOBAL_INFO(Structure):
     EnforceAllowList: win32more.Windows.Win32.Foundation.BOOL
     EnforceDenyList: win32more.Windows.Win32.Foundation.BOOL
 DHCP_FILTER_LIST_TYPE = Int32
 Deny: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE = 0
 Allow: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FILTER_LIST_TYPE = 1
-class DHCP_FILTER_RECORD(EasyCastStructure):
+class DHCP_FILTER_RECORD(Structure):
     AddrPatt: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_ADDR_PATTERN
     Comment: win32more.Windows.Win32.Foundation.PWSTR
 DHCP_FORCE_FLAG = Int32
 DhcpFullForce: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FORCE_FLAG = 0
 DhcpNoForce: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FORCE_FLAG = 1
 DhcpFailoverForce: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_FORCE_FLAG = 2
-class DHCP_HOST_INFO(EasyCastStructure):
+class DHCP_HOST_INFO(Structure):
     IpAddress: UInt32
     NetBiosName: win32more.Windows.Win32.Foundation.PWSTR
     HostName: win32more.Windows.Win32.Foundation.PWSTR
-class DHCP_HOST_INFO_V6(EasyCastStructure):
+class DHCP_HOST_INFO_V6(Structure):
     IpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     NetBiosName: win32more.Windows.Win32.Foundation.PWSTR
     HostName: win32more.Windows.Win32.Foundation.PWSTR
-class DHCP_IPV6_ADDRESS(EasyCastStructure):
+class DHCP_IPV6_ADDRESS(Structure):
     HighOrderBits: UInt64
     LowOrderBits: UInt64
-class DHCP_IP_ARRAY(EasyCastStructure):
+class DHCP_IP_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(UInt32)
-class DHCP_IP_CLUSTER(EasyCastStructure):
+class DHCP_IP_CLUSTER(Structure):
     ClusterAddress: UInt32
     ClusterMask: UInt32
-class DHCP_IP_RANGE(EasyCastStructure):
+class DHCP_IP_RANGE(Structure):
     StartAddress: UInt32
     EndAddress: UInt32
-class DHCP_IP_RANGE_ARRAY(EasyCastStructure):
+class DHCP_IP_RANGE_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RANGE)
-class DHCP_IP_RANGE_V6(EasyCastStructure):
+class DHCP_IP_RANGE_V6(Structure):
     StartAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     EndAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
-class DHCP_IP_RESERVATION(EasyCastStructure):
+class DHCP_IP_RESERVATION(Structure):
     ReservedIpAddress: UInt32
     ReservedForClient: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA)
-class DHCP_IP_RESERVATION_INFO(EasyCastStructure):
+class DHCP_IP_RESERVATION_INFO(Structure):
     ReservedIpAddress: UInt32
     ReservedForClient: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
     ReservedClientName: win32more.Windows.Win32.Foundation.PWSTR
     ReservedClientDesc: win32more.Windows.Win32.Foundation.PWSTR
     bAllowedClientTypes: Byte
     fOptionsPresent: Byte
-class DHCP_IP_RESERVATION_V4(EasyCastStructure):
+class DHCP_IP_RESERVATION_V4(Structure):
     ReservedIpAddress: UInt32
     ReservedForClient: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA)
     bAllowedClientTypes: Byte
-class DHCP_IP_RESERVATION_V6(EasyCastStructure):
+class DHCP_IP_RESERVATION_V6(Structure):
     ReservedIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     ReservedForClient: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA)
     InterfaceId: UInt32
-class DHCP_MIB_INFO(EasyCastStructure):
+class DHCP_MIB_INFO(Structure):
     Discovers: UInt32
     Offers: UInt32
     Requests: UInt32
@@ -1199,7 +1199,7 @@ class DHCP_MIB_INFO(EasyCastStructure):
     ServerStartTime: win32more.Windows.Win32.NetworkManagement.Dhcp.DATE_TIME
     Scopes: UInt32
     ScopeInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.SCOPE_MIB_INFO)
-class DHCP_MIB_INFO_V5(EasyCastStructure):
+class DHCP_MIB_INFO_V5(Structure):
     Discovers: UInt32
     Offers: UInt32
     Requests: UInt32
@@ -1219,7 +1219,7 @@ class DHCP_MIB_INFO_V5(EasyCastStructure):
     ScopesWithDelayedOffers: UInt32
     Scopes: UInt32
     ScopeInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.SCOPE_MIB_INFO_V5)
-class DHCP_MIB_INFO_V6(EasyCastStructure):
+class DHCP_MIB_INFO_V6(Structure):
     Solicits: UInt32
     Advertises: UInt32
     Requests: UInt32
@@ -1233,7 +1233,7 @@ class DHCP_MIB_INFO_V6(EasyCastStructure):
     ServerStartTime: win32more.Windows.Win32.NetworkManagement.Dhcp.DATE_TIME
     Scopes: UInt32
     ScopeInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.SCOPE_MIB_INFO_V6)
-class DHCP_MIB_INFO_VQ(EasyCastStructure):
+class DHCP_MIB_INFO_VQ(Structure):
     Discovers: UInt32
     Offers: UInt32
     Requests: UInt32
@@ -1251,22 +1251,22 @@ class DHCP_MIB_INFO_VQ(EasyCastStructure):
     QtnIASErrors: UInt32
     Scopes: UInt32
     ScopeInfo: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.SCOPE_MIB_INFO_VQ)
-class DHCP_OPTION(EasyCastStructure):
+class DHCP_OPTION(Structure):
     OptionID: UInt32
     OptionName: win32more.Windows.Win32.Foundation.PWSTR
     OptionComment: win32more.Windows.Win32.Foundation.PWSTR
     DefaultValue: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA
     OptionType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_TYPE
-class DHCP_OPTION_ARRAY(EasyCastStructure):
+class DHCP_OPTION_ARRAY(Structure):
     NumElements: UInt32
     Options: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION)
-class DHCP_OPTION_DATA(EasyCastStructure):
+class DHCP_OPTION_DATA(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_ELEMENT)
-class DHCP_OPTION_DATA_ELEMENT(EasyCastStructure):
+class DHCP_OPTION_DATA_ELEMENT(Structure):
     OptionType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE
     Element: DHCP_OPTION_ELEMENT_UNION
-    class DHCP_OPTION_ELEMENT_UNION(EasyCastUnion):
+    class DHCP_OPTION_ELEMENT_UNION(Union):
         ByteOption: Byte
         WordOption: UInt16
         DWordOption: UInt32
@@ -1286,22 +1286,22 @@ DhcpStringDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION
 DhcpBinaryDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 6
 DhcpEncapsulatedDataOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 7
 DhcpIpv6AddressOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA_TYPE = 8
-class DHCP_OPTION_LIST(EasyCastStructure):
+class DHCP_OPTION_LIST(Structure):
     NumOptions: UInt32
     Options: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_VALUE)
-class DHCP_OPTION_SCOPE_INFO(EasyCastStructure):
+class DHCP_OPTION_SCOPE_INFO(Structure):
     ScopeType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE
     ScopeInfo: _DHCP_OPTION_SCOPE_UNION
-    class _DHCP_OPTION_SCOPE_UNION(EasyCastUnion):
+    class _DHCP_OPTION_SCOPE_UNION(Union):
         DefaultScopeInfo: VoidPtr
         GlobalScopeInfo: VoidPtr
         SubnetScopeInfo: UInt32
         ReservedScopeInfo: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_RESERVED_SCOPE
         MScopeInfo: win32more.Windows.Win32.Foundation.PWSTR
-class DHCP_OPTION_SCOPE_INFO6(EasyCastStructure):
+class DHCP_OPTION_SCOPE_INFO6(Structure):
     ScopeType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_SCOPE_TYPE6
     ScopeInfo: DHCP_OPTION_SCOPE_UNION6
-    class DHCP_OPTION_SCOPE_UNION6(EasyCastUnion):
+    class DHCP_OPTION_SCOPE_UNION6(Union):
         DefaultScopeInfo: VoidPtr
         SubnetScopeInfo: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
         ReservedScopeInfo: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_RESERVED_SCOPE6
@@ -1319,13 +1319,13 @@ DhcpGlobalOptions6: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_S
 DHCP_OPTION_TYPE = Int32
 DhcpUnaryElementTypeOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_TYPE = 0
 DhcpArrayTypeOption: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_TYPE = 1
-class DHCP_OPTION_VALUE(EasyCastStructure):
+class DHCP_OPTION_VALUE(Structure):
     OptionID: UInt32
     Value: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_DATA
-class DHCP_OPTION_VALUE_ARRAY(EasyCastStructure):
+class DHCP_OPTION_VALUE_ARRAY(Structure):
     NumElements: UInt32
     Values: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_VALUE)
-class DHCP_PERF_STATS(EasyCastStructure):
+class DHCP_PERF_STATS(Structure):
     dwNumPacketsReceived: UInt32
     dwNumPacketsDuplicate: UInt32
     dwNumPacketsExpired: UInt32
@@ -1345,7 +1345,7 @@ class DHCP_PERF_STATS(EasyCastStructure):
     dwNumPacketsInQuarWaitingQueue: UInt32
     dwNumPacketsInQuarReadyQueue: UInt32
     dwNumPacketsInQuarDecisionQueue: UInt32
-class DHCP_POLICY(EasyCastStructure):
+class DHCP_POLICY(Structure):
     PolicyName: win32more.Windows.Win32.Foundation.PWSTR
     IsGlobalPolicy: win32more.Windows.Win32.Foundation.BOOL
     Subnet: UInt32
@@ -1355,10 +1355,10 @@ class DHCP_POLICY(EasyCastStructure):
     Ranges: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RANGE_ARRAY)
     Description: win32more.Windows.Win32.Foundation.PWSTR
     Enabled: win32more.Windows.Win32.Foundation.BOOL
-class DHCP_POLICY_ARRAY(EasyCastStructure):
+class DHCP_POLICY_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY)
-class DHCP_POLICY_EX(EasyCastStructure):
+class DHCP_POLICY_EX(Structure):
     PolicyName: win32more.Windows.Win32.Foundation.PWSTR
     IsGlobalPolicy: win32more.Windows.Win32.Foundation.BOOL
     Subnet: UInt32
@@ -1369,7 +1369,7 @@ class DHCP_POLICY_EX(EasyCastStructure):
     Description: win32more.Windows.Win32.Foundation.PWSTR
     Enabled: win32more.Windows.Win32.Foundation.BOOL
     Properties: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_ARRAY)
-class DHCP_POLICY_EX_ARRAY(EasyCastStructure):
+class DHCP_POLICY_EX_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POLICY_EX)
 DHCP_POLICY_FIELDS_TO_UPDATE = Int32
@@ -1393,7 +1393,7 @@ DhcpCompBeginsWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMP
 DhcpCompNotBeginWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 3
 DhcpCompEndsWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 4
 DhcpCompNotEndWith: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR = 5
-class DHCP_POL_COND(EasyCastStructure):
+class DHCP_POL_COND(Structure):
     ParentExpr: UInt32
     Type: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE
     OptionID: UInt32
@@ -1402,29 +1402,29 @@ class DHCP_POL_COND(EasyCastStructure):
     Operator: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR
     Value: POINTER(Byte)
     ValueLength: UInt32
-class DHCP_POL_COND_ARRAY(EasyCastStructure):
+class DHCP_POL_COND_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_COND)
-class DHCP_POL_EXPR(EasyCastStructure):
+class DHCP_POL_EXPR(Structure):
     ParentExpr: UInt32
     Operator: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER
-class DHCP_POL_EXPR_ARRAY(EasyCastStructure):
+class DHCP_POL_EXPR_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_EXPR)
 DHCP_POL_LOGIC_OPER = Int32
 DhcpLogicalOr: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER = 0
 DhcpLogicalAnd: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER = 1
-class DHCP_PROPERTY(EasyCastStructure):
+class DHCP_PROPERTY(Structure):
     ID: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_ID
     Type: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE
     Value: _DHCP_PROPERTY_VALUE_UNION
-    class _DHCP_PROPERTY_VALUE_UNION(EasyCastUnion):
+    class _DHCP_PROPERTY_VALUE_UNION(Union):
         ByteValue: Byte
         WordValue: UInt16
         DWordValue: UInt32
         StringValue: win32more.Windows.Win32.Foundation.PWSTR
         BinaryValue: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
-class DHCP_PROPERTY_ARRAY(EasyCastStructure):
+class DHCP_PROPERTY_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY)
 DHCP_PROPERTY_ID = Int32
@@ -1436,28 +1436,28 @@ DhcpPropTypeWord: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_T
 DhcpPropTypeDword: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 2
 DhcpPropTypeString: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 3
 DhcpPropTypeBinary: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE = 4
-class DHCP_RESERVATION_INFO_ARRAY(EasyCastStructure):
+class DHCP_RESERVATION_INFO_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_INFO))
-class DHCP_RESERVED_SCOPE(EasyCastStructure):
+class DHCP_RESERVED_SCOPE(Structure):
     ReservedIpAddress: UInt32
     ReservedIpSubnetAddress: UInt32
-class DHCP_RESERVED_SCOPE6(EasyCastStructure):
+class DHCP_RESERVED_SCOPE6(Structure):
     ReservedIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     ReservedIpSubnetAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
 DHCP_SCAN_FLAG = Int32
 DhcpRegistryFix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SCAN_FLAG = 0
 DhcpDatabaseFix: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SCAN_FLAG = 1
-class DHCP_SCAN_ITEM(EasyCastStructure):
+class DHCP_SCAN_ITEM(Structure):
     IpAddress: UInt32
     ScanFlag: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SCAN_FLAG
-class DHCP_SCAN_LIST(EasyCastStructure):
+class DHCP_SCAN_LIST(Structure):
     NumScanItems: UInt32
     ScanItems: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SCAN_ITEM)
-class DHCP_SEARCH_INFO(EasyCastStructure):
+class DHCP_SEARCH_INFO(Structure):
     SearchType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE
     SearchInfo: DHCP_CLIENT_SEARCH_UNION
-    class DHCP_CLIENT_SEARCH_UNION(EasyCastUnion):
+    class DHCP_CLIENT_SEARCH_UNION(Union):
         ClientIpAddress: UInt32
         ClientHardwareAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
         ClientName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1469,14 +1469,14 @@ DHCP_SEARCH_INFO_TYPE_V6 = Int32
 Dhcpv6ClientIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6 = 0
 Dhcpv6ClientDUID: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6 = 1
 Dhcpv6ClientName: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6 = 2
-class DHCP_SEARCH_INFO_V6(EasyCastStructure):
+class DHCP_SEARCH_INFO_V6(Structure):
     SearchType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SEARCH_INFO_TYPE_V6
     SearchInfo: _DHCP_CLIENT_SEARCH_UNION_V6
-    class _DHCP_CLIENT_SEARCH_UNION_V6(EasyCastUnion):
+    class _DHCP_CLIENT_SEARCH_UNION_V6(Union):
         ClientIpAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
         ClientDUID: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BINARY_DATA
         ClientName: win32more.Windows.Win32.Foundation.PWSTR
-class DHCP_SERVER_CONFIG_INFO(EasyCastStructure):
+class DHCP_SERVER_CONFIG_INFO(Structure):
     APIProtocolSupport: UInt32
     DatabaseName: win32more.Windows.Win32.Foundation.PWSTR
     DatabasePath: win32more.Windows.Win32.Foundation.PWSTR
@@ -1486,7 +1486,7 @@ class DHCP_SERVER_CONFIG_INFO(EasyCastStructure):
     RestoreFlag: UInt32
     DatabaseCleanupInterval: UInt32
     DebugFlag: UInt32
-class DHCP_SERVER_CONFIG_INFO_V4(EasyCastStructure):
+class DHCP_SERVER_CONFIG_INFO_V4(Structure):
     APIProtocolSupport: UInt32
     DatabaseName: win32more.Windows.Win32.Foundation.PWSTR
     DatabasePath: win32more.Windows.Win32.Foundation.PWSTR
@@ -1500,7 +1500,7 @@ class DHCP_SERVER_CONFIG_INFO_V4(EasyCastStructure):
     cbBootTableString: UInt32
     wszBootTableString: win32more.Windows.Win32.Foundation.PWSTR
     fAuditLog: win32more.Windows.Win32.Foundation.BOOL
-class DHCP_SERVER_CONFIG_INFO_V6(EasyCastStructure):
+class DHCP_SERVER_CONFIG_INFO_V6(Structure):
     UnicastFlag: win32more.Windows.Win32.Foundation.BOOL
     RapidCommitFlag: win32more.Windows.Win32.Foundation.BOOL
     PreferredLifetime: UInt32
@@ -1510,7 +1510,7 @@ class DHCP_SERVER_CONFIG_INFO_V6(EasyCastStructure):
     PreferredLifetimeIATA: UInt32
     ValidLifetimeIATA: UInt32
     fAuditLog: win32more.Windows.Win32.Foundation.BOOL
-class DHCP_SERVER_CONFIG_INFO_VQ(EasyCastStructure):
+class DHCP_SERVER_CONFIG_INFO_VQ(Structure):
     APIProtocolSupport: UInt32
     DatabaseName: win32more.Windows.Win32.Foundation.PWSTR
     DatabasePath: win32more.Windows.Win32.Foundation.PWSTR
@@ -1527,7 +1527,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ(EasyCastStructure):
     QuarantineOn: win32more.Windows.Win32.Foundation.BOOL
     QuarDefFail: UInt32
     QuarRuntimeStatus: win32more.Windows.Win32.Foundation.BOOL
-class DHCP_SERVER_OPTIONS(EasyCastStructure):
+class DHCP_SERVER_OPTIONS(Structure):
     MessageType: POINTER(Byte)
     SubnetMask: POINTER(UInt32)
     RequestedAddress: POINTER(UInt32)
@@ -1553,53 +1553,53 @@ class DHCP_SERVER_OPTIONS(EasyCastStructure):
     DSDomainName: win32more.Windows.Win32.Foundation.PSTR
     DSDomainNameLen: UInt32
     ScopeId: POINTER(UInt32)
-class DHCP_SERVER_SPECIFIC_STRINGS(EasyCastStructure):
+class DHCP_SERVER_SPECIFIC_STRINGS(Structure):
     DefaultVendorClassName: win32more.Windows.Win32.Foundation.PWSTR
     DefaultUserClassName: win32more.Windows.Win32.Foundation.PWSTR
-class DHCP_SUBNET_ELEMENT_DATA(EasyCastStructure):
+class DHCP_SUBNET_ELEMENT_DATA(Structure):
     ElementType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE
     Element: DHCP_SUBNET_ELEMENT_UNION
-    class DHCP_SUBNET_ELEMENT_UNION(EasyCastUnion):
+    class DHCP_SUBNET_ELEMENT_UNION(Union):
         IpRange: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RANGE)
         SecondaryHost: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_HOST_INFO)
         ReservedIp: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RESERVATION)
         ExcludeIpRange: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RANGE)
         IpUsedCluster: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_CLUSTER)
-class DHCP_SUBNET_ELEMENT_DATA_V4(EasyCastStructure):
+class DHCP_SUBNET_ELEMENT_DATA_V4(Structure):
     ElementType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE
     Element: DHCP_SUBNET_ELEMENT_UNION_V4
-    class DHCP_SUBNET_ELEMENT_UNION_V4(EasyCastUnion):
+    class DHCP_SUBNET_ELEMENT_UNION_V4(Union):
         IpRange: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RANGE)
         SecondaryHost: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_HOST_INFO)
         ReservedIp: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V4)
         ExcludeIpRange: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RANGE)
         IpUsedCluster: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_CLUSTER)
-class DHCP_SUBNET_ELEMENT_DATA_V5(EasyCastStructure):
+class DHCP_SUBNET_ELEMENT_DATA_V5(Structure):
     ElementType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE
     Element: _DHCP_SUBNET_ELEMENT_UNION_V5
-    class _DHCP_SUBNET_ELEMENT_UNION_V5(EasyCastUnion):
+    class _DHCP_SUBNET_ELEMENT_UNION_V5(Union):
         IpRange: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_BOOTP_IP_RANGE)
         SecondaryHost: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_HOST_INFO)
         ReservedIp: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V4)
         ExcludeIpRange: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RANGE)
         IpUsedCluster: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_CLUSTER)
-class DHCP_SUBNET_ELEMENT_DATA_V6(EasyCastStructure):
+class DHCP_SUBNET_ELEMENT_DATA_V6(Structure):
     ElementType: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6
     Element: DHCP_SUBNET_ELEMENT_UNION_V6
-    class DHCP_SUBNET_ELEMENT_UNION_V6(EasyCastUnion):
+    class DHCP_SUBNET_ELEMENT_UNION_V6(Union):
         IpRange: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RANGE_V6)
         ReservedIp: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RESERVATION_V6)
         ExcludeIpRange: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IP_RANGE_V6)
-class DHCP_SUBNET_ELEMENT_INFO_ARRAY(EasyCastStructure):
+class DHCP_SUBNET_ELEMENT_INFO_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA)
-class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4(EasyCastStructure):
+class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V4)
-class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5(EasyCastStructure):
+class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V5)
-class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6(EasyCastStructure):
+class DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6(Structure):
     NumElements: UInt32
     Elements: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_DATA_V6)
 DHCP_SUBNET_ELEMENT_TYPE = Int32
@@ -1615,14 +1615,14 @@ DHCP_SUBNET_ELEMENT_TYPE_V6 = Int32
 Dhcpv6IpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6 = 0
 Dhcpv6ReservedIps: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6 = 1
 Dhcpv6ExcludedIpRanges: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_ELEMENT_TYPE_V6 = 2
-class DHCP_SUBNET_INFO(EasyCastStructure):
+class DHCP_SUBNET_INFO(Structure):
     SubnetAddress: UInt32
     SubnetMask: UInt32
     SubnetName: win32more.Windows.Win32.Foundation.PWSTR
     SubnetComment: win32more.Windows.Win32.Foundation.PWSTR
     PrimaryHost: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_HOST_INFO
     SubnetState: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE
-class DHCP_SUBNET_INFO_V6(EasyCastStructure):
+class DHCP_SUBNET_INFO_V6(Structure):
     SubnetAddress: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     Prefix: UInt32
     Preference: UInt16
@@ -1630,7 +1630,7 @@ class DHCP_SUBNET_INFO_V6(EasyCastStructure):
     SubnetComment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
     ScopeId: UInt32
-class DHCP_SUBNET_INFO_VQ(EasyCastStructure):
+class DHCP_SUBNET_INFO_VQ(Structure):
     SubnetAddress: UInt32
     SubnetMask: UInt32
     SubnetName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1648,15 +1648,15 @@ DhcpSubnetDisabled: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_S
 DhcpSubnetEnabledSwitched: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 2
 DhcpSubnetDisabledSwitched: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 3
 DhcpSubnetInvalidState: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUBNET_STATE = 4
-class DHCP_SUPER_SCOPE_TABLE(EasyCastStructure):
+class DHCP_SUPER_SCOPE_TABLE(Structure):
     cEntries: UInt32
     pEntries: POINTER(win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_SUPER_SCOPE_TABLE_ENTRY)
-class DHCP_SUPER_SCOPE_TABLE_ENTRY(EasyCastStructure):
+class DHCP_SUPER_SCOPE_TABLE_ENTRY(Structure):
     SubnetAddress: UInt32
     SuperScopeNumber: UInt32
     NextInSuperScope: UInt32
     SuperScopeName: win32more.Windows.Win32.Foundation.PWSTR
-class DWORD_DWORD(EasyCastStructure):
+class DWORD_DWORD(Structure):
     DWord1: UInt32
     DWord2: UInt32
 FSM_STATE = Int32
@@ -1698,22 +1698,22 @@ PROBATION: win32more.Windows.Win32.NetworkManagement.Dhcp.QuarantineStatus = 3
 EXEMPT: win32more.Windows.Win32.NetworkManagement.Dhcp.QuarantineStatus = 4
 DEFAULTQUARSETTING: win32more.Windows.Win32.NetworkManagement.Dhcp.QuarantineStatus = 5
 NOQUARINFO: win32more.Windows.Win32.NetworkManagement.Dhcp.QuarantineStatus = 6
-class SCOPE_MIB_INFO(EasyCastStructure):
+class SCOPE_MIB_INFO(Structure):
     Subnet: UInt32
     NumAddressesInuse: UInt32
     NumAddressesFree: UInt32
     NumPendingOffers: UInt32
-class SCOPE_MIB_INFO_V5(EasyCastStructure):
+class SCOPE_MIB_INFO_V5(Structure):
     Subnet: UInt32
     NumAddressesInuse: UInt32
     NumAddressesFree: UInt32
     NumPendingOffers: UInt32
-class SCOPE_MIB_INFO_V6(EasyCastStructure):
+class SCOPE_MIB_INFO_V6(Structure):
     Subnet: win32more.Windows.Win32.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     NumAddressesInuse: UInt64
     NumAddressesFree: UInt64
     NumPendingAdvertises: UInt64
-class SCOPE_MIB_INFO_VQ(EasyCastStructure):
+class SCOPE_MIB_INFO_VQ(Structure):
     Subnet: UInt32
     NumAddressesInuse: UInt32
     NumAddressesFree: UInt32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Multicast
 MCAST_CLIENT_ID_LEN: UInt32 = 17
@@ -20,13 +20,13 @@ def McastRequestAddress(AddrFamily: UInt16, pRequestID: POINTER(win32more.Window
 def McastRenewAddress(AddrFamily: UInt16, pRequestID: POINTER(win32more.Windows.Win32.NetworkManagement.Multicast.MCAST_CLIENT_UID), pRenewRequest: POINTER(win32more.Windows.Win32.NetworkManagement.Multicast.MCAST_LEASE_REQUEST), pRenewResponse: POINTER(win32more.Windows.Win32.NetworkManagement.Multicast.MCAST_LEASE_RESPONSE)) -> UInt32: ...
 @winfunctype('dhcpcsvc.dll')
 def McastReleaseAddress(AddrFamily: UInt16, pRequestID: POINTER(win32more.Windows.Win32.NetworkManagement.Multicast.MCAST_CLIENT_UID), pReleaseRequest: POINTER(win32more.Windows.Win32.NetworkManagement.Multicast.MCAST_LEASE_REQUEST)) -> UInt32: ...
-class IPNG_ADDRESS(EasyCastUnion):
+class IPNG_ADDRESS(Union):
     IpAddrV4: UInt32
     IpAddrV6: Byte * 16
-class MCAST_CLIENT_UID(EasyCastStructure):
+class MCAST_CLIENT_UID(Structure):
     ClientUID: POINTER(Byte)
     ClientUIDLength: UInt32
-class MCAST_LEASE_REQUEST(EasyCastStructure):
+class MCAST_LEASE_REQUEST(Structure):
     LeaseStartTime: Int32
     MaxLeaseStartTime: Int32
     LeaseDuration: UInt32
@@ -35,17 +35,17 @@ class MCAST_LEASE_REQUEST(EasyCastStructure):
     MinAddrCount: UInt16
     AddrCount: UInt16
     pAddrBuf: POINTER(Byte)
-class MCAST_LEASE_RESPONSE(EasyCastStructure):
+class MCAST_LEASE_RESPONSE(Structure):
     LeaseStartTime: Int32
     LeaseEndTime: Int32
     ServerAddress: win32more.Windows.Win32.NetworkManagement.Multicast.IPNG_ADDRESS
     AddrCount: UInt16
     pAddrBuf: POINTER(Byte)
-class MCAST_SCOPE_CTX(EasyCastStructure):
+class MCAST_SCOPE_CTX(Structure):
     ScopeID: win32more.Windows.Win32.NetworkManagement.Multicast.IPNG_ADDRESS
     Interface: win32more.Windows.Win32.NetworkManagement.Multicast.IPNG_ADDRESS
     ServerID: win32more.Windows.Win32.NetworkManagement.Multicast.IPNG_ADDRESS
-class MCAST_SCOPE_ENTRY(EasyCastStructure):
+class MCAST_SCOPE_ENTRY(Structure):
     ScopeCtx: win32more.Windows.Win32.NetworkManagement.Multicast.MCAST_SCOPE_CTX
     LastAddr: win32more.Windows.Win32.NetworkManagement.Multicast.IPNG_ADDRESS
     TTL: UInt32

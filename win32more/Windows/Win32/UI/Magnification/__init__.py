@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.UI.Magnification
@@ -47,16 +47,16 @@ def MagSetInputTransform(fEnabled: win32more.Windows.Win32.Foundation.BOOL, pRec
 def MagGetInputTransform(pfEnabled: POINTER(win32more.Windows.Win32.Foundation.BOOL), pRectSource: POINTER(win32more.Windows.Win32.Foundation.RECT), pRectDest: POINTER(win32more.Windows.Win32.Foundation.RECT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('MAGNIFICATION.dll')
 def MagShowSystemCursor(fShowCursor: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class MAGCOLOREFFECT(EasyCastStructure):
+class MAGCOLOREFFECT(Structure):
     transform: Single * 25
-class MAGIMAGEHEADER(EasyCastStructure):
+class MAGIMAGEHEADER(Structure):
     width: UInt32
     height: UInt32
     format: Guid
     stride: UInt32
     offset: UInt32
     cbSize: UIntPtr
-class MAGTRANSFORM(EasyCastStructure):
+class MAGTRANSFORM(Structure):
     v: Single * 9
 MW_FILTERMODE = UInt32
 MW_FILTERMODE_EXCLUDE: win32more.Windows.Win32.UI.Magnification.MW_FILTERMODE = 0

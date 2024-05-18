@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.DistributedFileSystem
@@ -80,35 +80,35 @@ def NetDfsGetFtContainerSecurity(DomainName: win32more.Windows.Win32.Foundation.
 def NetDfsSetFtContainerSecurity(DomainName: win32more.Windows.Win32.Foundation.PWSTR, SecurityInformation: UInt32, pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
 def NetDfsGetSupportedNamespaceVersion(Origin: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN, pName: win32more.Windows.Win32.Foundation.PWSTR, ppVersionInfo: POINTER(POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_SUPPORTED_NAMESPACE_VERSION_INFO))) -> UInt32: ...
-class DFS_GET_PKT_ENTRY_STATE_ARG(EasyCastStructure):
+class DFS_GET_PKT_ENTRY_STATE_ARG(Structure):
     DfsEntryPathLen: UInt16
     ServerNameLen: UInt16
     ShareNameLen: UInt16
     Level: UInt32
     Buffer: Char * 1
-class DFS_INFO_1(EasyCastStructure):
+class DFS_INFO_1(Structure):
     EntryPath: win32more.Windows.Win32.Foundation.PWSTR
-class DFS_INFO_100(EasyCastStructure):
+class DFS_INFO_100(Structure):
     Comment: win32more.Windows.Win32.Foundation.PWSTR
-class DFS_INFO_101(EasyCastStructure):
+class DFS_INFO_101(Structure):
     State: UInt32
-class DFS_INFO_102(EasyCastStructure):
+class DFS_INFO_102(Structure):
     Timeout: UInt32
-class DFS_INFO_103(EasyCastStructure):
+class DFS_INFO_103(Structure):
     PropertyFlagMask: UInt32
     PropertyFlags: UInt32
-class DFS_INFO_104(EasyCastStructure):
+class DFS_INFO_104(Structure):
     TargetPriority: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY
-class DFS_INFO_105(EasyCastStructure):
+class DFS_INFO_105(Structure):
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
     Timeout: UInt32
     PropertyFlagMask: UInt32
     PropertyFlags: UInt32
-class DFS_INFO_106(EasyCastStructure):
+class DFS_INFO_106(Structure):
     State: UInt32
     TargetPriority: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY
-class DFS_INFO_107(EasyCastStructure):
+class DFS_INFO_107(Structure):
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
     Timeout: UInt32
@@ -116,42 +116,42 @@ class DFS_INFO_107(EasyCastStructure):
     PropertyFlags: UInt32
     SdLengthReserved: UInt32
     pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
-class DFS_INFO_150(EasyCastStructure):
+class DFS_INFO_150(Structure):
     SdLengthReserved: UInt32
     pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
 if ARCH in 'X64,ARM64':
-    class DFS_INFO_1_32(EasyCastStructure):
+    class DFS_INFO_1_32(Structure):
         EntryPath: UInt32
-class DFS_INFO_2(EasyCastStructure):
+class DFS_INFO_2(Structure):
     EntryPath: win32more.Windows.Win32.Foundation.PWSTR
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
     NumberOfStorages: UInt32
-class DFS_INFO_200(EasyCastStructure):
+class DFS_INFO_200(Structure):
     FtDfsName: win32more.Windows.Win32.Foundation.PWSTR
 if ARCH in 'X64,ARM64':
-    class DFS_INFO_2_32(EasyCastStructure):
+    class DFS_INFO_2_32(Structure):
         EntryPath: UInt32
         Comment: UInt32
         State: UInt32
         NumberOfStorages: UInt32
-class DFS_INFO_3(EasyCastStructure):
+class DFS_INFO_3(Structure):
     EntryPath: win32more.Windows.Win32.Foundation.PWSTR
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
     NumberOfStorages: UInt32
     Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO)
-class DFS_INFO_300(EasyCastStructure):
+class DFS_INFO_300(Structure):
     Flags: UInt32
     DfsName: win32more.Windows.Win32.Foundation.PWSTR
 if ARCH in 'X64,ARM64':
-    class DFS_INFO_3_32(EasyCastStructure):
+    class DFS_INFO_3_32(Structure):
         EntryPath: UInt32
         Comment: UInt32
         State: UInt32
         NumberOfStorages: UInt32
         Storage: UInt32
-class DFS_INFO_4(EasyCastStructure):
+class DFS_INFO_4(Structure):
     EntryPath: win32more.Windows.Win32.Foundation.PWSTR
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
@@ -160,7 +160,7 @@ class DFS_INFO_4(EasyCastStructure):
     NumberOfStorages: UInt32
     Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO)
 if ARCH in 'X64,ARM64':
-    class DFS_INFO_4_32(EasyCastStructure):
+    class DFS_INFO_4_32(Structure):
         EntryPath: UInt32
         Comment: UInt32
         State: UInt32
@@ -168,7 +168,7 @@ if ARCH in 'X64,ARM64':
         Guid: Guid
         NumberOfStorages: UInt32
         Storage: UInt32
-class DFS_INFO_5(EasyCastStructure):
+class DFS_INFO_5(Structure):
     EntryPath: win32more.Windows.Win32.Foundation.PWSTR
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
@@ -177,11 +177,11 @@ class DFS_INFO_5(EasyCastStructure):
     PropertyFlags: UInt32
     MetadataSize: UInt32
     NumberOfStorages: UInt32
-class DFS_INFO_50(EasyCastStructure):
+class DFS_INFO_50(Structure):
     NamespaceMajorVersion: UInt32
     NamespaceMinorVersion: UInt32
     NamespaceCapabilities: UInt64
-class DFS_INFO_6(EasyCastStructure):
+class DFS_INFO_6(Structure):
     EntryPath: win32more.Windows.Win32.Foundation.PWSTR
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
@@ -191,9 +191,9 @@ class DFS_INFO_6(EasyCastStructure):
     MetadataSize: UInt32
     NumberOfStorages: UInt32
     Storage: POINTER(win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_STORAGE_INFO_1)
-class DFS_INFO_7(EasyCastStructure):
+class DFS_INFO_7(Structure):
     GenerationGuid: Guid
-class DFS_INFO_8(EasyCastStructure):
+class DFS_INFO_8(Structure):
     EntryPath: win32more.Windows.Win32.Foundation.PWSTR
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
@@ -204,7 +204,7 @@ class DFS_INFO_8(EasyCastStructure):
     SdLengthReserved: UInt32
     pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
     NumberOfStorages: UInt32
-class DFS_INFO_9(EasyCastStructure):
+class DFS_INFO_9(Structure):
     EntryPath: win32more.Windows.Win32.Foundation.PWSTR
     Comment: win32more.Windows.Win32.Foundation.PWSTR
     State: UInt32
@@ -220,34 +220,34 @@ DFS_NAMESPACE_VERSION_ORIGIN = Int32
 DFS_NAMESPACE_VERSION_ORIGIN_COMBINED: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN = 0
 DFS_NAMESPACE_VERSION_ORIGIN_SERVER: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN = 1
 DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN = 2
-class DFS_SITELIST_INFO(EasyCastStructure):
+class DFS_SITELIST_INFO(Structure):
     cSites: UInt32
     Site: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_SITENAME_INFO * 1
-class DFS_SITENAME_INFO(EasyCastStructure):
+class DFS_SITENAME_INFO(Structure):
     SiteFlags: UInt32
     SiteName: win32more.Windows.Win32.Foundation.PWSTR
-class DFS_STORAGE_INFO(EasyCastStructure):
+class DFS_STORAGE_INFO(Structure):
     State: UInt32
     ServerName: win32more.Windows.Win32.Foundation.PWSTR
     ShareName: win32more.Windows.Win32.Foundation.PWSTR
 if ARCH in 'X64,ARM64':
-    class DFS_STORAGE_INFO_0_32(EasyCastStructure):
+    class DFS_STORAGE_INFO_0_32(Structure):
         State: UInt32
         ServerName: UInt32
         ShareName: UInt32
-class DFS_STORAGE_INFO_1(EasyCastStructure):
+class DFS_STORAGE_INFO_1(Structure):
     State: UInt32
     ServerName: win32more.Windows.Win32.Foundation.PWSTR
     ShareName: win32more.Windows.Win32.Foundation.PWSTR
     TargetPriority: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY
-class DFS_SUPPORTED_NAMESPACE_VERSION_INFO(EasyCastStructure):
+class DFS_SUPPORTED_NAMESPACE_VERSION_INFO(Structure):
     DomainDfsMajorVersion: UInt32
     DomainDfsMinorVersion: UInt32
     DomainDfsCapabilities: UInt64
     StandaloneDfsMajorVersion: UInt32
     StandaloneDfsMinorVersion: UInt32
     StandaloneDfsCapabilities: UInt64
-class DFS_TARGET_PRIORITY(EasyCastStructure):
+class DFS_TARGET_PRIORITY(Structure):
     TargetPriorityClass: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_TARGET_PRIORITY_CLASS
     TargetPriorityRank: UInt16
     Reserved: UInt16

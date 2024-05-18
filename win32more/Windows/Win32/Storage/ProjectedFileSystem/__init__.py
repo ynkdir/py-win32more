@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.ProjectedFileSystem
 @winfunctype('PROJECTEDFSLIB.dll')
@@ -40,7 +40,7 @@ def PrjFileNameMatch(fileNameToCheck: win32more.Windows.Win32.Foundation.PWSTR, 
 def PrjFileNameCompare(fileName1: win32more.Windows.Win32.Foundation.PWSTR, fileName2: win32more.Windows.Win32.Foundation.PWSTR) -> Int32: ...
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjDoesNameContainWildCards(fileName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
-class PRJ_CALLBACKS(EasyCastStructure):
+class PRJ_CALLBACKS(Structure):
     StartDirectoryEnumerationCallback: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_START_DIRECTORY_ENUMERATION_CB
     EndDirectoryEnumerationCallback: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_END_DIRECTORY_ENUMERATION_CB
     GetDirectoryEnumerationCallback: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_GET_DIRECTORY_ENUMERATION_CB
@@ -49,7 +49,7 @@ class PRJ_CALLBACKS(EasyCastStructure):
     QueryFileNameCallback: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_QUERY_FILE_NAME_CB
     NotificationCallback: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION_CB
     CancelCommandCallback: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CANCEL_COMMAND_CB
-class PRJ_CALLBACK_DATA(EasyCastStructure):
+class PRJ_CALLBACK_DATA(Structure):
     Size: UInt32
     Flags: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_FLAGS
     NamespaceVirtualizationContext: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT
@@ -66,15 +66,15 @@ PRJ_CB_DATA_FLAG_ENUM_RESTART_SCAN: win32more.Windows.Win32.Storage.ProjectedFil
 PRJ_CB_DATA_FLAG_ENUM_RETURN_SINGLE_ENTRY: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_FLAGS = 2
 @winfunctype_pointer
 def PRJ_CANCEL_COMMAND_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA)) -> Void: ...
-class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS(EasyCastStructure):
+class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS(Structure):
     CommandType: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_COMPLETE_COMMAND_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Notification: _Notification_e__Struct
         Enumeration: _Enumeration_e__Struct
-        class _Notification_e__Struct(EasyCastStructure):
+        class _Notification_e__Struct(Structure):
             NotificationMask: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFY_TYPES
-        class _Enumeration_e__Struct(EasyCastStructure):
+        class _Enumeration_e__Struct(Structure):
             DirEntryBufferHandle: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_DIR_ENTRY_BUFFER_HANDLE
 PRJ_COMPLETE_COMMAND_TYPE = Int32
 PRJ_COMPLETE_COMMAND_TYPE_NOTIFICATION: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_COMPLETE_COMMAND_TYPE = 1
@@ -82,17 +82,17 @@ PRJ_COMPLETE_COMMAND_TYPE_ENUMERATION: win32more.Windows.Win32.Storage.Projected
 PRJ_DIR_ENTRY_BUFFER_HANDLE = IntPtr
 @winfunctype_pointer
 def PRJ_END_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA), enumerationId: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class PRJ_EXTENDED_INFO(EasyCastStructure):
+class PRJ_EXTENDED_INFO(Structure):
     InfoType: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_EXT_INFO_TYPE
     NextInfoOffset: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Symlink: _Symlink_e__Struct
-        class _Symlink_e__Struct(EasyCastStructure):
+        class _Symlink_e__Struct(Structure):
             TargetName: win32more.Windows.Win32.Foundation.PWSTR
 PRJ_EXT_INFO_TYPE = Int32
 PRJ_EXT_INFO_TYPE_SYMLINK: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_EXT_INFO_TYPE = 1
-class PRJ_FILE_BASIC_INFO(EasyCastStructure):
+class PRJ_FILE_BASIC_INFO(Structure):
     IsDirectory: win32more.Windows.Win32.Foundation.BOOLEAN
     FileSize: Int64
     CreationTime: Int64
@@ -128,18 +128,18 @@ PRJ_NOTIFICATION_FILE_HANDLE_CLOSED_FILE_DELETED: win32more.Windows.Win32.Storag
 PRJ_NOTIFICATION_FILE_PRE_CONVERT_TO_FULL: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION = 4096
 @winfunctype_pointer
 def PRJ_NOTIFICATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA), isDirectory: win32more.Windows.Win32.Foundation.BOOLEAN, notification: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION, destinationFileName: win32more.Windows.Win32.Foundation.PWSTR, operationParameters: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION_PARAMETERS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class PRJ_NOTIFICATION_MAPPING(EasyCastStructure):
+class PRJ_NOTIFICATION_MAPPING(Structure):
     NotificationBitMask: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFY_TYPES
     NotificationRoot: win32more.Windows.Win32.Foundation.PWSTR
-class PRJ_NOTIFICATION_PARAMETERS(EasyCastUnion):
+class PRJ_NOTIFICATION_PARAMETERS(Union):
     PostCreate: _PostCreate_e__Struct
     FileRenamed: _FileRenamed_e__Struct
     FileDeletedOnHandleClose: _FileDeletedOnHandleClose_e__Struct
-    class _PostCreate_e__Struct(EasyCastStructure):
+    class _PostCreate_e__Struct(Structure):
         NotificationMask: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFY_TYPES
-    class _FileRenamed_e__Struct(EasyCastStructure):
+    class _FileRenamed_e__Struct(Structure):
         NotificationMask: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFY_TYPES
-    class _FileDeletedOnHandleClose_e__Struct(EasyCastStructure):
+    class _FileDeletedOnHandleClose_e__Struct(Structure):
         IsFileModified: win32more.Windows.Win32.Foundation.BOOLEAN
 PRJ_NOTIFY_TYPES = UInt32
 PRJ_NOTIFY_NONE: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFY_TYPES = 0
@@ -159,23 +159,23 @@ PRJ_NOTIFY_FILE_PRE_CONVERT_TO_FULL: win32more.Windows.Win32.Storage.ProjectedFi
 PRJ_NOTIFY_USE_EXISTING_MASK: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFY_TYPES = 4294967295
 PRJ_PLACEHOLDER_ID = Int32
 PRJ_PLACEHOLDER_ID_LENGTH: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_ID = 128
-class PRJ_PLACEHOLDER_INFO(EasyCastStructure):
+class PRJ_PLACEHOLDER_INFO(Structure):
     FileBasicInfo: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_FILE_BASIC_INFO
     EaInformation: _EaInformation_e__Struct
     SecurityInformation: _SecurityInformation_e__Struct
     StreamsInformation: _StreamsInformation_e__Struct
     VersionInfo: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_PLACEHOLDER_VERSION_INFO
     VariableData: Byte * 1
-    class _EaInformation_e__Struct(EasyCastStructure):
+    class _EaInformation_e__Struct(Structure):
         EaBufferSize: UInt32
         OffsetToFirstEa: UInt32
-    class _SecurityInformation_e__Struct(EasyCastStructure):
+    class _SecurityInformation_e__Struct(Structure):
         SecurityBufferSize: UInt32
         OffsetToSecurityDescriptor: UInt32
-    class _StreamsInformation_e__Struct(EasyCastStructure):
+    class _StreamsInformation_e__Struct(Structure):
         StreamsInfoBufferSize: UInt32
         OffsetToFirstStreamInfo: UInt32
-class PRJ_PLACEHOLDER_VERSION_INFO(EasyCastStructure):
+class PRJ_PLACEHOLDER_VERSION_INFO(Structure):
     ProviderID: Byte * 128
     ContentID: Byte * 128
 @winfunctype_pointer
@@ -183,7 +183,7 @@ def PRJ_QUERY_FILE_NAME_CB(callbackData: POINTER(win32more.Windows.Win32.Storage
 PRJ_STARTVIRTUALIZING_FLAGS = Int32
 PRJ_FLAG_NONE: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_STARTVIRTUALIZING_FLAGS = 0
 PRJ_FLAG_USE_NEGATIVE_PATH_CACHE: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_STARTVIRTUALIZING_FLAGS = 1
-class PRJ_STARTVIRTUALIZING_OPTIONS(EasyCastStructure):
+class PRJ_STARTVIRTUALIZING_OPTIONS(Structure):
     Flags: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_STARTVIRTUALIZING_FLAGS
     PoolThreadCount: UInt32
     ConcurrentThreadCount: UInt32
@@ -206,7 +206,7 @@ PRJ_UPDATE_RESERVED1: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UP
 PRJ_UPDATE_RESERVED2: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_TYPES = 16
 PRJ_UPDATE_ALLOW_READ_ONLY: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_TYPES = 32
 PRJ_UPDATE_MAX_VAL: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_UPDATE_TYPES = 64
-class PRJ_VIRTUALIZATION_INSTANCE_INFO(EasyCastStructure):
+class PRJ_VIRTUALIZATION_INSTANCE_INFO(Structure):
     InstanceID: Guid
     WriteAlignment: UInt32
 

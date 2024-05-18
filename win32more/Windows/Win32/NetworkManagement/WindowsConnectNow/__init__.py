@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsConnectNow
 import win32more.Windows.Win32.System.Com
@@ -325,7 +325,7 @@ WCN_VALUE_MT_M8: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN
 WCN_VALUE_MT_ACK: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VALUE_TYPE_MESSAGE_TYPE = 13
 WCN_VALUE_MT_NACK: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VALUE_TYPE_MESSAGE_TYPE = 14
 WCN_VALUE_MT_DONE: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VALUE_TYPE_MESSAGE_TYPE = 15
-class WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE(EasyCastStructure):
+class WCN_VALUE_TYPE_PRIMARY_DEVICE_TYPE(Structure):
     Category: UInt16
     SubCategoryOUI: UInt32
     SubCategory: UInt16
@@ -350,7 +350,7 @@ WCN_VALUE_TYPE_WI_FI_PROTECTED_SETUP_STATE = Int32
 WCN_VALUE_SS_RESERVED00: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VALUE_TYPE_WI_FI_PROTECTED_SETUP_STATE = 0
 WCN_VALUE_SS_NOT_CONFIGURED: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VALUE_TYPE_WI_FI_PROTECTED_SETUP_STATE = 1
 WCN_VALUE_SS_CONFIGURED: win32more.Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_VALUE_TYPE_WI_FI_PROTECTED_SETUP_STATE = 2
-class WCN_VENDOR_EXTENSION_SPEC(EasyCastStructure):
+class WCN_VENDOR_EXTENSION_SPEC(Structure):
     VendorId: UInt32
     SubType: UInt32
     Index: UInt32

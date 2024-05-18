@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.EventLog
@@ -126,7 +126,7 @@ def ReportEventW(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, wType: wi
 ReportEvent = UnicodeAlias('ReportEventW')
 @winfunctype('ADVAPI32.dll')
 def GetEventLogInformation(hEventLog: win32more.Windows.Win32.Foundation.HANDLE, dwInfoLevel: UInt32, lpBuffer: VoidPtr, cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class EVENTLOGRECORD(EasyCastStructure):
+class EVENTLOGRECORD(Structure):
     Length: UInt32
     Reserved: UInt32
     RecordNumber: UInt32
@@ -143,9 +143,9 @@ class EVENTLOGRECORD(EasyCastStructure):
     UserSidOffset: UInt32
     DataLength: UInt32
     DataOffset: UInt32
-class EVENTLOG_FULL_INFORMATION(EasyCastStructure):
+class EVENTLOG_FULL_INFORMATION(Structure):
     dwFull: UInt32
-class EVENTSFORLOGFILE(EasyCastStructure):
+class EVENTSFORLOGFILE(Structure):
     ulSize: UInt32
     szLogicalLogFile: Char * 256
     ulNumRecords: UInt32
@@ -284,7 +284,7 @@ EVT_RENDER_FLAGS = UInt32
 EvtRenderEventValues: win32more.Windows.Win32.System.EventLog.EVT_RENDER_FLAGS = 0
 EvtRenderEventXml: win32more.Windows.Win32.System.EventLog.EVT_RENDER_FLAGS = 1
 EvtRenderBookmark: win32more.Windows.Win32.System.EventLog.EVT_RENDER_FLAGS = 2
-class EVT_RPC_LOGIN(EasyCastStructure):
+class EVT_RPC_LOGIN(Structure):
     Server: win32more.Windows.Win32.Foundation.PWSTR
     User: win32more.Windows.Win32.Foundation.PWSTR
     Domain: win32more.Windows.Win32.Foundation.PWSTR
@@ -334,11 +334,11 @@ EvtSystemComputer: win32more.Windows.Win32.System.EventLog.EVT_SYSTEM_PROPERTY_I
 EvtSystemUserID: win32more.Windows.Win32.System.EventLog.EVT_SYSTEM_PROPERTY_ID = 16
 EvtSystemVersion: win32more.Windows.Win32.System.EventLog.EVT_SYSTEM_PROPERTY_ID = 17
 EvtSystemPropertyIdEND: win32more.Windows.Win32.System.EventLog.EVT_SYSTEM_PROPERTY_ID = 18
-class EVT_VARIANT(EasyCastStructure):
+class EVT_VARIANT(Structure):
     Anonymous: _Anonymous_e__Union
     Count: UInt32
     Type: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         BooleanVal: win32more.Windows.Win32.Foundation.BOOL
         SByteVal: SByte
         Int16Val: Int16

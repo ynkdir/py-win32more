@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.Accessibility
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-class ACCESSTIMEOUT(EasyCastStructure):
+class ACCESSTIMEOUT(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     iTimeOutMSec: UInt32
@@ -891,10 +891,10 @@ ExpandCollapseState_Collapsed: win32more.Windows.Win32.UI.Accessibility.ExpandCo
 ExpandCollapseState_Expanded: win32more.Windows.Win32.UI.Accessibility.ExpandCollapseState = 1
 ExpandCollapseState_PartiallyExpanded: win32more.Windows.Win32.UI.Accessibility.ExpandCollapseState = 2
 ExpandCollapseState_LeafNode: win32more.Windows.Win32.UI.Accessibility.ExpandCollapseState = 3
-class ExtendedProperty(EasyCastStructure):
+class ExtendedProperty(Structure):
     PropertyName: win32more.Windows.Win32.Foundation.BSTR
     PropertyValue: win32more.Windows.Win32.Foundation.BSTR
-class FILTERKEYS(EasyCastStructure):
+class FILTERKEYS(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     iWaitMSec: UInt32
@@ -912,11 +912,11 @@ FlowDirections_Default: win32more.Windows.Win32.UI.Accessibility.FlowDirections 
 FlowDirections_RightToLeft: win32more.Windows.Win32.UI.Accessibility.FlowDirections = 1
 FlowDirections_BottomToTop: win32more.Windows.Win32.UI.Accessibility.FlowDirections = 2
 FlowDirections_Vertical: win32more.Windows.Win32.UI.Accessibility.FlowDirections = 4
-class HIGHCONTRASTA(EasyCastStructure):
+class HIGHCONTRASTA(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Accessibility.HIGHCONTRASTW_FLAGS
     lpszDefaultScheme: win32more.Windows.Win32.Foundation.PSTR
-class HIGHCONTRASTW(EasyCastStructure):
+class HIGHCONTRASTW(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Accessibility.HIGHCONTRASTW_FLAGS
     lpszDefaultScheme: win32more.Windows.Win32.Foundation.PWSTR
@@ -2842,7 +2842,7 @@ LiveSetting = Int32
 Off: win32more.Windows.Win32.UI.Accessibility.LiveSetting = 0
 Polite: win32more.Windows.Win32.UI.Accessibility.LiveSetting = 1
 Assertive: win32more.Windows.Win32.UI.Accessibility.LiveSetting = 2
-class MOUSEKEYS(EasyCastStructure):
+class MOUSEKEYS(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     iMaxSpeed: UInt32
@@ -2850,7 +2850,7 @@ class MOUSEKEYS(EasyCastStructure):
     iCtrlSpeed: UInt32
     dwReserved1: UInt32
     dwReserved2: UInt32
-class MSAAMENUINFO(EasyCastStructure):
+class MSAAMENUINFO(Structure):
     dwMSAASignature: UInt32
     cchWText: UInt32
     pszWText: win32more.Windows.Win32.Foundation.PWSTR
@@ -2908,7 +2908,7 @@ RowOrColumnMajor = Int32
 RowOrColumnMajor_RowMajor: win32more.Windows.Win32.UI.Accessibility.RowOrColumnMajor = 0
 RowOrColumnMajor_ColumnMajor: win32more.Windows.Win32.UI.Accessibility.RowOrColumnMajor = 1
 RowOrColumnMajor_Indeterminate: win32more.Windows.Win32.UI.Accessibility.RowOrColumnMajor = 2
-class SERIALKEYSA(EasyCastStructure):
+class SERIALKEYSA(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Accessibility.SERIALKEYS_FLAGS
     lpszActivePort: win32more.Windows.Win32.Foundation.PSTR
@@ -2916,7 +2916,7 @@ class SERIALKEYSA(EasyCastStructure):
     iBaudRate: UInt32
     iPortState: UInt32
     iActive: UInt32
-class SERIALKEYSW(EasyCastStructure):
+class SERIALKEYSW(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Accessibility.SERIALKEYS_FLAGS
     lpszActivePort: win32more.Windows.Win32.Foundation.PWSTR
@@ -2929,7 +2929,7 @@ SERIALKEYS_FLAGS = UInt32
 SERKF_AVAILABLE: win32more.Windows.Win32.UI.Accessibility.SERIALKEYS_FLAGS = 2
 SERKF_INDICATOR: win32more.Windows.Win32.UI.Accessibility.SERIALKEYS_FLAGS = 4
 SERKF_SERIALKEYSON: win32more.Windows.Win32.UI.Accessibility.SERIALKEYS_FLAGS = 1
-class SOUNDSENTRYA(EasyCastStructure):
+class SOUNDSENTRYA(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Accessibility.SOUNDSENTRY_FLAGS
     iFSTextEffect: win32more.Windows.Win32.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT
@@ -2942,7 +2942,7 @@ class SOUNDSENTRYA(EasyCastStructure):
     iWindowsEffectMSec: UInt32
     lpszWindowsEffectDLL: win32more.Windows.Win32.Foundation.PSTR
     iWindowsEffectOrdinal: UInt32
-class SOUNDSENTRYW(EasyCastStructure):
+class SOUNDSENTRYW(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Accessibility.SOUNDSENTRY_FLAGS
     iFSTextEffect: win32more.Windows.Win32.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT
@@ -2974,7 +2974,7 @@ SSWF_WINDOW: win32more.Windows.Win32.UI.Accessibility.SOUNDSENTRY_WINDOWS_EFFECT
 SOUND_SENTRY_GRAPHICS_EFFECT = UInt32
 SSGF_DISPLAY: win32more.Windows.Win32.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT = 3
 SSGF_NONE: win32more.Windows.Win32.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT = 0
-class STICKYKEYS(EasyCastStructure):
+class STICKYKEYS(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Accessibility.STICKYKEYS_FLAGS
 STICKYKEYS_FLAGS = UInt32
@@ -3055,7 +3055,7 @@ SynchronizedInputType_LeftMouseUp: win32more.Windows.Win32.UI.Accessibility.Sync
 SynchronizedInputType_LeftMouseDown: win32more.Windows.Win32.UI.Accessibility.SynchronizedInputType = 8
 SynchronizedInputType_RightMouseUp: win32more.Windows.Win32.UI.Accessibility.SynchronizedInputType = 16
 SynchronizedInputType_RightMouseDown: win32more.Windows.Win32.UI.Accessibility.SynchronizedInputType = 32
-class TOGGLEKEYS(EasyCastStructure):
+class TOGGLEKEYS(Structure):
     cbSize: UInt32
     dwFlags: UInt32
 TextDecorationLineStyle = Int32
@@ -3513,20 +3513,20 @@ UIA_LineSpacingAttributeId: win32more.Windows.Win32.UI.Accessibility.UIA_TEXTATT
 UIA_BeforeParagraphSpacingAttributeId: win32more.Windows.Win32.UI.Accessibility.UIA_TEXTATTRIBUTE_ID = 40041
 UIA_AfterParagraphSpacingAttributeId: win32more.Windows.Win32.UI.Accessibility.UIA_TEXTATTRIBUTE_ID = 40042
 UIA_SayAsInterpretAsAttributeId: win32more.Windows.Win32.UI.Accessibility.UIA_TEXTATTRIBUTE_ID = 40043
-class UIAutomationEventInfo(EasyCastStructure):
+class UIAutomationEventInfo(Structure):
     guid: Guid
     pProgrammaticName: win32more.Windows.Win32.Foundation.PWSTR
-class UIAutomationMethodInfo(EasyCastStructure):
+class UIAutomationMethodInfo(Structure):
     pProgrammaticName: win32more.Windows.Win32.Foundation.PWSTR
     doSetFocus: win32more.Windows.Win32.Foundation.BOOL
     cInParameters: UInt32
     cOutParameters: UInt32
     pParameterTypes: POINTER(win32more.Windows.Win32.UI.Accessibility.UIAutomationType)
     pParameterNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class UIAutomationParameter(EasyCastStructure):
+class UIAutomationParameter(Structure):
     type: win32more.Windows.Win32.UI.Accessibility.UIAutomationType
     pData: VoidPtr
-class UIAutomationPatternInfo(EasyCastStructure):
+class UIAutomationPatternInfo(Structure):
     guid: Guid
     pProgrammaticName: win32more.Windows.Win32.Foundation.PWSTR
     providerInterfaceId: Guid
@@ -3538,7 +3538,7 @@ class UIAutomationPatternInfo(EasyCastStructure):
     cEvents: UInt32
     pEvents: POINTER(win32more.Windows.Win32.UI.Accessibility.UIAutomationEventInfo)
     pPatternHandler: win32more.Windows.Win32.UI.Accessibility.IUIAutomationPatternHandler
-class UIAutomationPropertyInfo(EasyCastStructure):
+class UIAutomationPropertyInfo(Structure):
     guid: Guid
     pProgrammaticName: win32more.Windows.Win32.Foundation.PWSTR
     type: win32more.Windows.Win32.UI.Accessibility.UIAutomationType
@@ -3573,16 +3573,16 @@ UIAutomationType_OutDoubleArray: win32more.Windows.Win32.UI.Accessibility.UIAuto
 UIAutomationType_OutPointArray: win32more.Windows.Win32.UI.Accessibility.UIAutomationType = 196613
 UIAutomationType_OutRectArray: win32more.Windows.Win32.UI.Accessibility.UIAutomationType = 196614
 UIAutomationType_OutElementArray: win32more.Windows.Win32.UI.Accessibility.UIAutomationType = 196615
-class UiaAndOrCondition(EasyCastStructure):
+class UiaAndOrCondition(Structure):
     ConditionType: win32more.Windows.Win32.UI.Accessibility.ConditionType
     ppConditions: POINTER(POINTER(win32more.Windows.Win32.UI.Accessibility.UiaCondition))
     cConditions: Int32
-class UiaAsyncContentLoadedEventArgs(EasyCastStructure):
+class UiaAsyncContentLoadedEventArgs(Structure):
     Type: win32more.Windows.Win32.UI.Accessibility.EventArgsType
     EventId: Int32
     AsyncContentLoadedState: win32more.Windows.Win32.UI.Accessibility.AsyncContentLoadedState
     PercentComplete: Double
-class UiaCacheRequest(EasyCastStructure):
+class UiaCacheRequest(Structure):
     pViewCondition: POINTER(win32more.Windows.Win32.UI.Accessibility.UiaCondition)
     Scope: win32more.Windows.Win32.UI.Accessibility.TreeScope
     pProperties: POINTER(Int32)
@@ -3590,63 +3590,63 @@ class UiaCacheRequest(EasyCastStructure):
     pPatterns: POINTER(Int32)
     cPatterns: Int32
     automationElementMode: win32more.Windows.Win32.UI.Accessibility.AutomationElementMode
-class UiaChangeInfo(EasyCastStructure):
+class UiaChangeInfo(Structure):
     uiaId: Int32
     payload: win32more.Windows.Win32.System.Variant.VARIANT
     extraInfo: win32more.Windows.Win32.System.Variant.VARIANT
-class UiaChangesEventArgs(EasyCastStructure):
+class UiaChangesEventArgs(Structure):
     Type: win32more.Windows.Win32.UI.Accessibility.EventArgsType
     EventId: Int32
     EventIdCount: Int32
     pUiaChanges: POINTER(win32more.Windows.Win32.UI.Accessibility.UiaChangeInfo)
-class UiaCondition(EasyCastStructure):
+class UiaCondition(Structure):
     ConditionType: win32more.Windows.Win32.UI.Accessibility.ConditionType
-class UiaEventArgs(EasyCastStructure):
+class UiaEventArgs(Structure):
     Type: win32more.Windows.Win32.UI.Accessibility.EventArgsType
     EventId: Int32
 @winfunctype_pointer
 def UiaEventCallback(pArgs: POINTER(win32more.Windows.Win32.UI.Accessibility.UiaEventArgs), pRequestedData: POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY), pTreeStructure: win32more.Windows.Win32.Foundation.BSTR) -> Void: ...
-class UiaFindParams(EasyCastStructure):
+class UiaFindParams(Structure):
     MaxDepth: Int32
     FindFirst: win32more.Windows.Win32.Foundation.BOOL
     ExcludeRoot: win32more.Windows.Win32.Foundation.BOOL
     pFindCondition: POINTER(win32more.Windows.Win32.UI.Accessibility.UiaCondition)
-class UiaNotCondition(EasyCastStructure):
+class UiaNotCondition(Structure):
     ConditionType: win32more.Windows.Win32.UI.Accessibility.ConditionType
     pCondition: POINTER(win32more.Windows.Win32.UI.Accessibility.UiaCondition)
-class UiaPoint(EasyCastStructure):
+class UiaPoint(Structure):
     x: Double
     y: Double
-class UiaPropertyChangedEventArgs(EasyCastStructure):
+class UiaPropertyChangedEventArgs(Structure):
     Type: win32more.Windows.Win32.UI.Accessibility.EventArgsType
     EventId: win32more.Windows.Win32.UI.Accessibility.UIA_EVENT_ID
     PropertyId: Int32
     OldValue: win32more.Windows.Win32.System.Variant.VARIANT
     NewValue: win32more.Windows.Win32.System.Variant.VARIANT
-class UiaPropertyCondition(EasyCastStructure):
+class UiaPropertyCondition(Structure):
     ConditionType: win32more.Windows.Win32.UI.Accessibility.ConditionType
     PropertyId: win32more.Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID
     Value: win32more.Windows.Win32.System.Variant.VARIANT
     Flags: win32more.Windows.Win32.UI.Accessibility.PropertyConditionFlags
 @winfunctype_pointer
 def UiaProviderCallback(hwnd: win32more.Windows.Win32.Foundation.HWND, providerType: win32more.Windows.Win32.UI.Accessibility.ProviderType) -> POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY): ...
-class UiaRect(EasyCastStructure):
+class UiaRect(Structure):
     left: Double
     top: Double
     width: Double
     height: Double
-class UiaStructureChangedEventArgs(EasyCastStructure):
+class UiaStructureChangedEventArgs(Structure):
     Type: win32more.Windows.Win32.UI.Accessibility.EventArgsType
     EventId: Int32
     StructureChangeType: win32more.Windows.Win32.UI.Accessibility.StructureChangeType
     pRuntimeId: POINTER(Int32)
     cRuntimeIdLen: Int32
-class UiaTextEditTextChangedEventArgs(EasyCastStructure):
+class UiaTextEditTextChangedEventArgs(Structure):
     Type: win32more.Windows.Win32.UI.Accessibility.EventArgsType
     EventId: Int32
     TextEditChangeType: win32more.Windows.Win32.UI.Accessibility.TextEditChangeType
     pTextChange: POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY)
-class UiaWindowClosedEventArgs(EasyCastStructure):
+class UiaWindowClosedEventArgs(Structure):
     Type: win32more.Windows.Win32.UI.Accessibility.EventArgsType
     EventId: Int32
     pRuntimeId: POINTER(Int32)

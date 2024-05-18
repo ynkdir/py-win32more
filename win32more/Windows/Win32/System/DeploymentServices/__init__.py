@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.DeploymentServices
@@ -743,43 +743,43 @@ def PFN_WdsTransportClientSessionNegotiate(hSessionKey: win32more.Windows.Win32.
 def PFN_WdsTransportClientSessionStart(hSessionKey: win32more.Windows.Win32.Foundation.HANDLE, pCallerData: VoidPtr, ullFileSize: POINTER(UInt64)) -> Void: ...
 @winfunctype_pointer
 def PFN_WdsTransportClientSessionStartEx(hSessionKey: win32more.Windows.Win32.Foundation.HANDLE, pCallerData: VoidPtr, Info: POINTER(win32more.Windows.Win32.System.DeploymentServices.TRANSPORTCLIENT_SESSION_INFO)) -> Void: ...
-class PXE_ADDRESS(EasyCastStructure):
+class PXE_ADDRESS(Structure):
     uFlags: UInt32
     Anonymous: _Anonymous_e__Union
     uAddrLen: UInt32
     uPort: UInt16
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         bAddress: Byte * 16
         uIpAddress: UInt32
-class PXE_DHCPV6_MESSAGE(EasyCastStructure):
+class PXE_DHCPV6_MESSAGE(Structure):
     MessageType: Byte
     TransactionIDByte1: Byte
     TransactionIDByte2: Byte
     TransactionIDByte3: Byte
     Options: win32more.Windows.Win32.System.DeploymentServices.PXE_DHCPV6_OPTION * 1
     _pack_ = 1
-class PXE_DHCPV6_MESSAGE_HEADER(EasyCastStructure):
+class PXE_DHCPV6_MESSAGE_HEADER(Structure):
     MessageType: Byte
     Message: Byte * 1
     _pack_ = 1
-class PXE_DHCPV6_NESTED_RELAY_MESSAGE(EasyCastStructure):
+class PXE_DHCPV6_NESTED_RELAY_MESSAGE(Structure):
     pRelayMessage: POINTER(win32more.Windows.Win32.System.DeploymentServices.PXE_DHCPV6_RELAY_MESSAGE)
     cbRelayMessage: UInt32
     pInterfaceIdOption: VoidPtr
     cbInterfaceIdOption: UInt16
-class PXE_DHCPV6_OPTION(EasyCastStructure):
+class PXE_DHCPV6_OPTION(Structure):
     OptionCode: UInt16
     DataLength: UInt16
     Data: Byte * 1
     _pack_ = 1
-class PXE_DHCPV6_RELAY_MESSAGE(EasyCastStructure):
+class PXE_DHCPV6_RELAY_MESSAGE(Structure):
     MessageType: Byte
     HopCount: Byte
     LinkAddress: Byte * 16
     PeerAddress: Byte * 16
     Options: win32more.Windows.Win32.System.DeploymentServices.PXE_DHCPV6_OPTION * 1
     _pack_ = 1
-class PXE_DHCP_MESSAGE(EasyCastStructure):
+class PXE_DHCP_MESSAGE(Structure):
     Operation: Byte
     HardwareAddressType: Byte
     HardwareAddressLength: Byte
@@ -797,16 +797,16 @@ class PXE_DHCP_MESSAGE(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     Option: win32more.Windows.Win32.System.DeploymentServices.PXE_DHCP_OPTION
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         bMagicCookie: Byte * 4
         uMagicCookie: UInt32
         _pack_ = 1
-class PXE_DHCP_OPTION(EasyCastStructure):
+class PXE_DHCP_OPTION(Structure):
     OptionType: Byte
     OptionLength: Byte
     OptionValue: Byte * 1
     _pack_ = 1
-class PXE_PROVIDER(EasyCastStructure):
+class PXE_PROVIDER(Structure):
     uSizeOfStruct: UInt32
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pwszFilePath: win32more.Windows.Win32.Foundation.PWSTR
@@ -820,7 +820,7 @@ WDS_TRANSPORTCLIENT_RECEIVE_METADATA: win32more.Windows.Win32.System.DeploymentS
 WDS_TRANSPORTCLIENT_SESSION_STARTEX: win32more.Windows.Win32.System.DeploymentServices.TRANSPORTCLIENT_CALLBACK_ID = 4
 WDS_TRANSPORTCLIENT_SESSION_NEGOTIATE: win32more.Windows.Win32.System.DeploymentServices.TRANSPORTCLIENT_CALLBACK_ID = 5
 WDS_TRANSPORTCLIENT_MAX_CALLBACKS: win32more.Windows.Win32.System.DeploymentServices.TRANSPORTCLIENT_CALLBACK_ID = 6
-class TRANSPORTCLIENT_SESSION_INFO(EasyCastStructure):
+class TRANSPORTCLIENT_SESSION_INFO(Structure):
     ulStructureLength: UInt32
     ullFileSize: UInt64
     ulBlockSize: UInt32
@@ -887,7 +887,7 @@ WdsTptTftpCapVariableWindow: win32more.Windows.Win32.System.DeploymentServices.W
 WDSTRANSPORT_UDP_PORT_POLICY = Int32
 WdsTptUdpPortPolicyDynamic: win32more.Windows.Win32.System.DeploymentServices.WDSTRANSPORT_UDP_PORT_POLICY = 0
 WdsTptUdpPortPolicyFixed: win32more.Windows.Win32.System.DeploymentServices.WDSTRANSPORT_UDP_PORT_POLICY = 1
-class WDS_CLI_CRED(EasyCastStructure):
+class WDS_CLI_CRED(Structure):
     pwszUserName: win32more.Windows.Win32.Foundation.PWSTR
     pwszDomain: win32more.Windows.Win32.Foundation.PWSTR
     pwszPassword: win32more.Windows.Win32.Foundation.PWSTR
@@ -904,14 +904,14 @@ WDS_CLI_IMAGE_TYPE_UNKNOWN: win32more.Windows.Win32.System.DeploymentServices.WD
 WDS_CLI_IMAGE_TYPE_WIM: win32more.Windows.Win32.System.DeploymentServices.WDS_CLI_IMAGE_TYPE = 1
 WDS_CLI_IMAGE_TYPE_VHD: win32more.Windows.Win32.System.DeploymentServices.WDS_CLI_IMAGE_TYPE = 2
 WDS_CLI_IMAGE_TYPE_VHDX: win32more.Windows.Win32.System.DeploymentServices.WDS_CLI_IMAGE_TYPE = 3
-class WDS_TRANSPORTCLIENT_CALLBACKS(EasyCastStructure):
+class WDS_TRANSPORTCLIENT_CALLBACKS(Structure):
     SessionStart: win32more.Windows.Win32.System.DeploymentServices.PFN_WdsTransportClientSessionStart
     SessionStartEx: win32more.Windows.Win32.System.DeploymentServices.PFN_WdsTransportClientSessionStartEx
     ReceiveContents: win32more.Windows.Win32.System.DeploymentServices.PFN_WdsTransportClientReceiveContents
     ReceiveMetadata: win32more.Windows.Win32.System.DeploymentServices.PFN_WdsTransportClientReceiveMetadata
     SessionComplete: win32more.Windows.Win32.System.DeploymentServices.PFN_WdsTransportClientSessionComplete
     SessionNegotiate: win32more.Windows.Win32.System.DeploymentServices.PFN_WdsTransportClientSessionNegotiate
-class WDS_TRANSPORTCLIENT_REQUEST(EasyCastStructure):
+class WDS_TRANSPORTCLIENT_REQUEST(Structure):
     ulLength: UInt32
     ulApiVersion: UInt32
     ulAuthLevel: win32more.Windows.Win32.System.DeploymentServices.WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL
@@ -925,12 +925,12 @@ class WDS_TRANSPORTCLIENT_REQUEST(EasyCastStructure):
 WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL = UInt32
 WDS_TRANSPORTCLIENT_AUTH: win32more.Windows.Win32.System.DeploymentServices.WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL = 1
 WDS_TRANSPORTCLIENT_NO_AUTH: win32more.Windows.Win32.System.DeploymentServices.WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL = 2
-class WDS_TRANSPORTPROVIDER_INIT_PARAMS(EasyCastStructure):
+class WDS_TRANSPORTPROVIDER_INIT_PARAMS(Structure):
     ulLength: UInt32
     ulMcServerVersion: UInt32
     hRegistryKey: win32more.Windows.Win32.System.Registry.HKEY
     hProvider: win32more.Windows.Win32.Foundation.HANDLE
-class WDS_TRANSPORTPROVIDER_SETTINGS(EasyCastStructure):
+class WDS_TRANSPORTPROVIDER_SETTINGS(Structure):
     ulLength: UInt32
     ulProviderVersion: UInt32
 WdsTransportCacheable = Guid('{70590b16-f146-46bd-bd9d-4aaa90084bf5}')

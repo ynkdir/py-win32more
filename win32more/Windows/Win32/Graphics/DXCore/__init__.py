@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DXCore
 import win32more.Windows.Win32.System.Com
@@ -9,12 +9,12 @@ DXCORE_ADAPTER_ATTRIBUTE_D3D12_GRAPHICS: Guid = Guid('{0c9ece4d-2f6e-4f01-8c96-e
 DXCORE_ADAPTER_ATTRIBUTE_D3D12_CORE_COMPUTE: Guid = Guid('{248e2800-a793-4724-abaa-23a6de1be090}')
 @winfunctype('DXCORE.dll')
 def DXCoreCreateAdapterFactory(riid: POINTER(Guid), ppvFactory: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class DXCoreAdapterMemoryBudget(EasyCastStructure):
+class DXCoreAdapterMemoryBudget(Structure):
     budget: UInt64
     currentUsage: UInt64
     availableForReservation: UInt64
     currentReservation: UInt64
-class DXCoreAdapterMemoryBudgetNodeSegmentGroup(EasyCastStructure):
+class DXCoreAdapterMemoryBudgetNodeSegmentGroup(Structure):
     nodeIndex: UInt32
     segmentGroup: win32more.Windows.Win32.Graphics.DXCore.DXCoreSegmentGroup
 DXCoreAdapterPreference = UInt32
@@ -40,12 +40,12 @@ HardwareIDParts: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterProperty =
 DXCoreAdapterState = UInt32
 IsDriverUpdateInProgress: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterState = 0
 AdapterMemoryBudget: win32more.Windows.Win32.Graphics.DXCore.DXCoreAdapterState = 1
-class DXCoreHardwareID(EasyCastStructure):
+class DXCoreHardwareID(Structure):
     vendorID: UInt32
     deviceID: UInt32
     subSysID: UInt32
     revision: UInt32
-class DXCoreHardwareIDParts(EasyCastStructure):
+class DXCoreHardwareIDParts(Structure):
     vendorID: UInt32
     deviceID: UInt32
     subSystemID: UInt32

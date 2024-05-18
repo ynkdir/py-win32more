@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D.Common
 import win32more.Windows.Win32.Graphics.Dxgi.Common
@@ -16,7 +16,7 @@ D2D1_ALPHA_MODE_UNKNOWN: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_A
 D2D1_ALPHA_MODE_PREMULTIPLIED: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_ALPHA_MODE = 1
 D2D1_ALPHA_MODE_STRAIGHT: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_ALPHA_MODE = 2
 D2D1_ALPHA_MODE_IGNORE: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_ALPHA_MODE = 3
-class D2D1_BEZIER_SEGMENT(EasyCastStructure):
+class D2D1_BEZIER_SEGMENT(Structure):
     point1: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     point2: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     point3: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
@@ -53,7 +53,7 @@ D2D1_BORDER_MODE_HARD: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_BOR
 D2D1_COLORMATRIX_ALPHA_MODE = Int32
 D2D1_COLORMATRIX_ALPHA_MODE_PREMULTIPLIED: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_COLORMATRIX_ALPHA_MODE = 1
 D2D1_COLORMATRIX_ALPHA_MODE_STRAIGHT: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_COLORMATRIX_ALPHA_MODE = 2
-class D2D1_COLOR_F(EasyCastStructure):
+class D2D1_COLOR_F(Structure):
     r: Single
     g: Single
     b: Single
@@ -81,50 +81,50 @@ D2D1_FIGURE_END_CLOSED: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_FI
 D2D1_FILL_MODE = Int32
 D2D1_FILL_MODE_ALTERNATE: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_FILL_MODE = 0
 D2D1_FILL_MODE_WINDING: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_FILL_MODE = 1
-class D2D1_GRADIENT_STOP(EasyCastStructure):
+class D2D1_GRADIENT_STOP(Structure):
     position: Single
     color: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_COLOR_F
 D2D1_PATH_SEGMENT = Int32
 D2D1_PATH_SEGMENT_NONE: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PATH_SEGMENT = 0
 D2D1_PATH_SEGMENT_FORCE_UNSTROKED: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PATH_SEGMENT = 1
 D2D1_PATH_SEGMENT_FORCE_ROUND_LINE_JOIN: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PATH_SEGMENT = 2
-class D2D1_PIXEL_FORMAT(EasyCastStructure):
+class D2D1_PIXEL_FORMAT(Structure):
     format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     alphaMode: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_ALPHA_MODE
 D2D1_TURBULENCE_NOISE = Int32
 D2D1_TURBULENCE_NOISE_FRACTAL_SUM: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_TURBULENCE_NOISE = 0
 D2D1_TURBULENCE_NOISE_TURBULENCE: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_TURBULENCE_NOISE = 1
-class D2D_COLOR_F(EasyCastStructure):
+class D2D_COLOR_F(Structure):
     r: Single
     g: Single
     b: Single
     a: Single
-class D2D_MATRIX_3X2_F(EasyCastStructure):
+class D2D_MATRIX_3X2_F(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         m: Single * 6
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             m11: Single
             m12: Single
             m21: Single
             m22: Single
             dx: Single
             dy: Single
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             _11: Single
             _12: Single
             _21: Single
             _22: Single
             _31: Single
             _32: Single
-class D2D_MATRIX_4X3_F(EasyCastStructure):
+class D2D_MATRIX_4X3_F(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         m: Single * 12
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _11: Single
             _12: Single
             _13: Single
@@ -137,12 +137,12 @@ class D2D_MATRIX_4X3_F(EasyCastStructure):
             _41: Single
             _42: Single
             _43: Single
-class D2D_MATRIX_4X4_F(EasyCastStructure):
+class D2D_MATRIX_4X4_F(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         m: Single * 16
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _11: Single
             _12: Single
             _13: Single
@@ -159,12 +159,12 @@ class D2D_MATRIX_4X4_F(EasyCastStructure):
             _42: Single
             _43: Single
             _44: Single
-class D2D_MATRIX_5X4_F(EasyCastStructure):
+class D2D_MATRIX_5X4_F(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         m: Single * 20
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _11: Single
             _12: Single
             _13: Single
@@ -185,36 +185,36 @@ class D2D_MATRIX_5X4_F(EasyCastStructure):
             _52: Single
             _53: Single
             _54: Single
-class D2D_POINT_2F(EasyCastStructure):
+class D2D_POINT_2F(Structure):
     x: Single
     y: Single
-class D2D_POINT_2U(EasyCastStructure):
+class D2D_POINT_2U(Structure):
     x: UInt32
     y: UInt32
-class D2D_RECT_F(EasyCastStructure):
+class D2D_RECT_F(Structure):
     left: Single
     top: Single
     right: Single
     bottom: Single
-class D2D_RECT_U(EasyCastStructure):
+class D2D_RECT_U(Structure):
     left: UInt32
     top: UInt32
     right: UInt32
     bottom: UInt32
-class D2D_SIZE_F(EasyCastStructure):
+class D2D_SIZE_F(Structure):
     width: Single
     height: Single
-class D2D_SIZE_U(EasyCastStructure):
+class D2D_SIZE_U(Structure):
     width: UInt32
     height: UInt32
-class D2D_VECTOR_2F(EasyCastStructure):
+class D2D_VECTOR_2F(Structure):
     x: Single
     y: Single
-class D2D_VECTOR_3F(EasyCastStructure):
+class D2D_VECTOR_3F(Structure):
     x: Single
     y: Single
     z: Single
-class D2D_VECTOR_4F(EasyCastStructure):
+class D2D_VECTOR_4F(Structure):
     x: Single
     y: Single
     z: Single

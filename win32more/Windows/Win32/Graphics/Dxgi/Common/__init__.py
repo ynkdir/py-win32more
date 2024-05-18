@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Dxgi.Common
 _FACDXGI: UInt32 = 2170
@@ -166,25 +166,25 @@ DXGI_FORMAT_V408: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT = 132
 DXGI_FORMAT_SAMPLER_FEEDBACK_MIN_MIP_OPAQUE: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT = 189
 DXGI_FORMAT_SAMPLER_FEEDBACK_MIP_REGION_USED_OPAQUE: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT = 190
 DXGI_FORMAT_A4B4G4R4_UNORM: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT = 191
-class DXGI_GAMMA_CONTROL(EasyCastStructure):
+class DXGI_GAMMA_CONTROL(Structure):
     Scale: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RGB
     Offset: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RGB
     GammaCurve: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RGB * 1025
-class DXGI_GAMMA_CONTROL_CAPABILITIES(EasyCastStructure):
+class DXGI_GAMMA_CONTROL_CAPABILITIES(Structure):
     ScaleAndOffsetSupported: win32more.Windows.Win32.Foundation.BOOL
     MaxConvertedValue: Single
     MinConvertedValue: Single
     NumGammaControlPoints: UInt32
     ControlPointPositions: Single * 1025
-class DXGI_JPEG_AC_HUFFMAN_TABLE(EasyCastStructure):
+class DXGI_JPEG_AC_HUFFMAN_TABLE(Structure):
     CodeCounts: Byte * 16
     CodeValues: Byte * 162
-class DXGI_JPEG_DC_HUFFMAN_TABLE(EasyCastStructure):
+class DXGI_JPEG_DC_HUFFMAN_TABLE(Structure):
     CodeCounts: Byte * 12
     CodeValues: Byte * 12
-class DXGI_JPEG_QUANTIZATION_TABLE(EasyCastStructure):
+class DXGI_JPEG_QUANTIZATION_TABLE(Structure):
     Elements: Byte * 64
-class DXGI_MODE_DESC(EasyCastStructure):
+class DXGI_MODE_DESC(Structure):
     Width: UInt32
     Height: UInt32
     RefreshRate: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL
@@ -206,14 +206,14 @@ DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED: win32more.Windows.Win32.Graphics.Dxgi.Comm
 DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER = 1
 DXGI_MODE_SCANLINE_ORDER_UPPER_FIELD_FIRST: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER = 2
 DXGI_MODE_SCANLINE_ORDER_LOWER_FIELD_FIRST: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER = 3
-class DXGI_RATIONAL(EasyCastStructure):
+class DXGI_RATIONAL(Structure):
     Numerator: UInt32
     Denominator: UInt32
-class DXGI_RGB(EasyCastStructure):
+class DXGI_RGB(Structure):
     Red: Single
     Green: Single
     Blue: Single
-class DXGI_SAMPLE_DESC(EasyCastStructure):
+class DXGI_SAMPLE_DESC(Structure):
     Count: UInt32
     Quality: UInt32
 

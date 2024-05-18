@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Diagnostics.Debug
@@ -190,13 +190,13 @@ DOCUMENTNAMETYPE_URL: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScr
 DOCUMENTNAMETYPE_UNIQUE_TITLE: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.DOCUMENTNAMETYPE = 4
 DOCUMENTNAMETYPE_SOURCE_MAP_URL: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.DOCUMENTNAMETYPE = 5
 DebugHelper = Guid('{0bfcc060-8c1d-11d0-accd-00aa0060275c}')
-class DebugStackFrameDescriptor(EasyCastStructure):
+class DebugStackFrameDescriptor(Structure):
     pdsf: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugStackFrame
     dwMin: UInt32
     dwLim: UInt32
     fFinal: win32more.Windows.Win32.Foundation.BOOL
     punkFinal: win32more.Windows.Win32.System.Com.IUnknown
-class DebugStackFrameDescriptor64(EasyCastStructure):
+class DebugStackFrameDescriptor64(Structure):
     pdsf: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugStackFrame
     dwMin: UInt64
     dwLim: UInt64
@@ -1480,7 +1480,7 @@ class IWebAppDiagnosticsSetup(ComPtr):
     def DiagnosticsSupported(self, pRetVal: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateObjectWithSiteAtWebApp(self, rclsid: POINTER(Guid), dwClsContext: UInt32, riid: POINTER(Guid), hPassToObject: UIntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class JS_NATIVE_FRAME(EasyCastStructure):
+class JS_NATIVE_FRAME(Structure):
     InstructionOffset: UInt64
     ReturnOffset: UInt64
     FrameOffset: UInt64
@@ -1498,7 +1498,7 @@ JS_PROPERTY_FRAME_INFINALLYBLOCK: win32more.Windows.Win32.System.Diagnostics.Deb
 JS_PROPERTY_MEMBERS = Int32
 JS_PROPERTY_MEMBERS_ALL: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.JS_PROPERTY_MEMBERS = 0
 JS_PROPERTY_MEMBERS_ARGUMENTS: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.JS_PROPERTY_MEMBERS = 1
-class JsDebugPropertyInfo(EasyCastStructure):
+class JsDebugPropertyInfo(Structure):
     name: win32more.Windows.Win32.Foundation.BSTR
     type: win32more.Windows.Win32.Foundation.BSTR
     value: win32more.Windows.Win32.Foundation.BSTR
@@ -1520,14 +1520,14 @@ PROFILER_HEAP_ENUM_FLAGS_NONE: win32more.Windows.Win32.System.Diagnostics.Debug.
 PROFILER_HEAP_ENUM_FLAGS_STORE_RELATIONSHIP_FLAGS: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_ENUM_FLAGS = 1
 PROFILER_HEAP_ENUM_FLAGS_SUBSTRINGS: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_ENUM_FLAGS = 2
 PROFILER_HEAP_ENUM_FLAGS_RELATIONSHIP_SUBSTRINGS: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_ENUM_FLAGS = 3
-class PROFILER_HEAP_OBJECT(EasyCastStructure):
+class PROFILER_HEAP_OBJECT(Structure):
     size: UInt32
     Anonymous: _Anonymous_e__Union
     typeNameId: UInt32
     flags: UInt32
     unused: UInt16
     optionalInfoCount: UInt16
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         objectId: UIntPtr
         externalObjectAddress: VoidPtr
 PROFILER_HEAP_OBJECT_FLAGS = Int32
@@ -1544,10 +1544,10 @@ PROFILER_HEAP_OBJECT_FLAGS_WINRT_INSTANCE: win32more.Windows.Win32.System.Diagno
 PROFILER_HEAP_OBJECT_FLAGS_WINRT_RUNTIMECLASS: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_FLAGS = 1024
 PROFILER_HEAP_OBJECT_FLAGS_WINRT_DELEGATE: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_FLAGS = 2048
 PROFILER_HEAP_OBJECT_FLAGS_WINRT_NAMESPACE: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_FLAGS = 4096
-class PROFILER_HEAP_OBJECT_OPTIONAL_INFO(EasyCastStructure):
+class PROFILER_HEAP_OBJECT_OPTIONAL_INFO(Structure):
     infoType: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         prototype: UIntPtr
         functionName: win32more.Windows.Win32.Foundation.PWSTR
         elementAttributesSize: UInt32
@@ -1576,11 +1576,11 @@ PROFILER_HEAP_OBJECT_OPTIONAL_INFO_WEAKMAP_COLLECTION_LIST: win32more.Windows.Wi
 PROFILER_HEAP_OBJECT_OPTIONAL_INFO_MAP_COLLECTION_LIST: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE = 12
 PROFILER_HEAP_OBJECT_OPTIONAL_INFO_SET_COLLECTION_LIST: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE = 13
 PROFILER_HEAP_OBJECT_OPTIONAL_INFO_MAX_VALUE: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_OPTIONAL_INFO_TYPE = 13
-class PROFILER_HEAP_OBJECT_RELATIONSHIP(EasyCastStructure):
+class PROFILER_HEAP_OBJECT_RELATIONSHIP(Structure):
     relationshipId: UInt32
     relationshipInfo: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_RELATIONSHIP_INFO
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         numberValue: Double
         stringValue: win32more.Windows.Win32.Foundation.PWSTR
         bstrValue: win32more.Windows.Win32.Foundation.BSTR
@@ -1593,18 +1593,18 @@ PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_GET_ACCESSOR: win32more.Windows.Win32
 PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_SET_ACCESSOR: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = 131072
 PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_LET_VARIABLE: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = 262144
 PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_CONST_VARIABLE: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = 524288
-class PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST(EasyCastStructure):
+class PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST(Structure):
     count: UInt32
     elements: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_RELATIONSHIP * 1
-class PROFILER_HEAP_OBJECT_SCOPE_LIST(EasyCastStructure):
+class PROFILER_HEAP_OBJECT_SCOPE_LIST(Structure):
     count: UInt32
     scopes: UIntPtr * 1
-class PROFILER_HEAP_SUMMARY(EasyCastStructure):
+class PROFILER_HEAP_SUMMARY(Structure):
     version: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_SUMMARY_VERSION
     totalHeapSize: UInt32
 PROFILER_HEAP_SUMMARY_VERSION = Int32
 PROFILER_HEAP_SUMMARY_VERSION_1: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_SUMMARY_VERSION = 1
-class PROFILER_PROPERTY_TYPE_SUBSTRING_INFO(EasyCastStructure):
+class PROFILER_PROPERTY_TYPE_SUBSTRING_INFO(Structure):
     length: UInt32
     value: win32more.Windows.Win32.Foundation.PWSTR
 PROFILER_RELATIONSHIP_INFO = Int32
@@ -1674,7 +1674,7 @@ SICT_ToString: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCR
 SICT_MutationObserverCheckpoint: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPT_INVOCATION_CONTEXT_TYPE = 6
 SICT_WWAExecUnsafeLocalFunction: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPT_INVOCATION_CONTEXT_TYPE = 7
 SICT_WWAExecAtPriority: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPT_INVOCATION_CONTEXT_TYPE = 8
-class TEXT_DOCUMENT_ARRAY(EasyCastStructure):
+class TEXT_DOCUMENT_ARRAY(Structure):
     dwCount: UInt32
     Members: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentText)
 

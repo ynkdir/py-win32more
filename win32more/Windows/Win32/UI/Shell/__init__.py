@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DirectComposition
@@ -25,11 +25,11 @@ import win32more.Windows.Win32.UI.Shell
 import win32more.Windows.Win32.UI.Shell.Common
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-class AASHELLMENUFILENAME(EasyCastStructure):
+class AASHELLMENUFILENAME(Structure):
     cbTotal: Int16
     rgbReserved: Byte * 12
     szFileName: Char * 1
-class AASHELLMENUITEM(EasyCastStructure):
+class AASHELLMENUITEM(Structure):
     lpReserved1: VoidPtr
     iReserved: Int32
     uiReserved: UInt32
@@ -72,7 +72,7 @@ APPACTION_MODIFYREMOVE: win32more.Windows.Win32.UI.Shell.APPACTIONFLAGS = 128
 APPACTION_ADDLATER: win32more.Windows.Win32.UI.Shell.APPACTIONFLAGS = 256
 APPACTION_UNSCHEDULE: win32more.Windows.Win32.UI.Shell.APPACTIONFLAGS = 512
 if ARCH in 'X64,ARM64':
-    class APPBARDATA(EasyCastStructure):
+    class APPBARDATA(Structure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
         uCallbackMessage: UInt32
@@ -80,7 +80,7 @@ if ARCH in 'X64,ARM64':
         rc: win32more.Windows.Win32.Foundation.RECT
         lParam: win32more.Windows.Win32.Foundation.LPARAM
 elif ARCH in 'X86':
-    class APPBARDATA(EasyCastStructure):
+    class APPBARDATA(Structure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
         uCallbackMessage: UInt32
@@ -88,17 +88,17 @@ elif ARCH in 'X86':
         rc: win32more.Windows.Win32.Foundation.RECT
         lParam: win32more.Windows.Win32.Foundation.LPARAM
         _pack_ = 1
-class APPCATEGORYINFO(EasyCastStructure):
+class APPCATEGORYINFO(Structure):
     Locale: UInt32
     pszDescription: win32more.Windows.Win32.Foundation.PWSTR
     AppCategoryId: Guid
-class APPCATEGORYINFOLIST(EasyCastStructure):
+class APPCATEGORYINFOLIST(Structure):
     cCategory: UInt32
     pCategoryInfo: POINTER(win32more.Windows.Win32.UI.Shell.APPCATEGORYINFO)
 APPDOCLISTTYPE = Int32
 ADLT_RECENT: win32more.Windows.Win32.UI.Shell.APPDOCLISTTYPE = 0
 ADLT_FREQUENT: win32more.Windows.Win32.UI.Shell.APPDOCLISTTYPE = 1
-class APPINFODATA(EasyCastStructure):
+class APPINFODATA(Structure):
     cbSize: UInt32
     dwMask: UInt32
     pszDisplayName: win32more.Windows.Win32.Foundation.PWSTR
@@ -204,12 +204,12 @@ ASSOCF_IS_FULL_URI: win32more.Windows.Win32.UI.Shell.ASSOCF = 16384
 ASSOCF_PER_MACHINE_ONLY: win32more.Windows.Win32.UI.Shell.ASSOCF = 32768
 ASSOCF_APP_TO_APP: win32more.Windows.Win32.UI.Shell.ASSOCF = 65536
 if ARCH in 'X64,ARM64':
-    class ASSOCIATIONELEMENT(EasyCastStructure):
+    class ASSOCIATIONELEMENT(Structure):
         ac: win32more.Windows.Win32.UI.Shell.ASSOCCLASS
         hkClass: win32more.Windows.Win32.System.Registry.HKEY
         pszClass: win32more.Windows.Win32.Foundation.PWSTR
 elif ARCH in 'X86':
-    class ASSOCIATIONELEMENT(EasyCastStructure):
+    class ASSOCIATIONELEMENT(Structure):
         ac: win32more.Windows.Win32.UI.Shell.ASSOCCLASS
         hkClass: win32more.Windows.Win32.System.Registry.HKEY
         pszClass: win32more.Windows.Win32.Foundation.PWSTR
@@ -286,7 +286,7 @@ ACO_UPDOWNKEYDROPSLIST: win32more.Windows.Win32.UI.Shell.AUTOCOMPLETEOPTIONS = 3
 ACO_RTLREADING: win32more.Windows.Win32.UI.Shell.AUTOCOMPLETEOPTIONS = 64
 ACO_WORD_FILTER: win32more.Windows.Win32.UI.Shell.AUTOCOMPLETEOPTIONS = 128
 ACO_NOPREFIXFILTERING: win32more.Windows.Win32.UI.Shell.AUTOCOMPLETEOPTIONS = 256
-class AUTO_SCROLL_DATA(EasyCastStructure):
+class AUTO_SCROLL_DATA(Structure):
     iNextSample: Int32
     dwLastScroll: UInt32
     bFull: win32more.Windows.Win32.Foundation.BOOL
@@ -3481,7 +3481,7 @@ ApplicationDesignModeSettings = Guid('{958a6fb5-dcb2-4faf-aafd-7fb054ad1a3b}')
 ApplicationDestinations = Guid('{86c14003-4d6b-4ef3-a7b4-0506663b2e68}')
 ApplicationDocumentLists = Guid('{86bec222-30f2-47e0-9f25-60d11cd75c28}')
 AttachmentServices = Guid('{4125dd96-e03a-4103-8f70-e0597d803b9c}')
-class BANDINFOSFB(EasyCastStructure):
+class BANDINFOSFB(Structure):
     dwMask: UInt32
     dwStateMask: UInt32
     dwState: UInt32
@@ -3495,11 +3495,11 @@ class BANDINFOSFB(EasyCastStructure):
 BANDSITECID = Int32
 BSID_BANDADDED: win32more.Windows.Win32.UI.Shell.BANDSITECID = 0
 BSID_BANDREMOVED: win32more.Windows.Win32.UI.Shell.BANDSITECID = 1
-class BANDSITEINFO(EasyCastStructure):
+class BANDSITEINFO(Structure):
     dwMask: UInt32
     dwState: UInt32
     dwStyle: UInt32
-class BANNER_NOTIFICATION(EasyCastStructure):
+class BANNER_NOTIFICATION(Structure):
     event: win32more.Windows.Win32.UI.Shell.BANNER_NOTIFICATION_EVENT
     providerIdentity: win32more.Windows.Win32.Foundation.PWSTR
     contentId: win32more.Windows.Win32.Foundation.PWSTR
@@ -3510,7 +3510,7 @@ BNE_Closed: win32more.Windows.Win32.UI.Shell.BANNER_NOTIFICATION_EVENT = 2
 BNE_Dismissed: win32more.Windows.Win32.UI.Shell.BANNER_NOTIFICATION_EVENT = 3
 BNE_Button1Clicked: win32more.Windows.Win32.UI.Shell.BANNER_NOTIFICATION_EVENT = 4
 BNE_Button2Clicked: win32more.Windows.Win32.UI.Shell.BANNER_NOTIFICATION_EVENT = 5
-class BASEBROWSERDATALH(EasyCastStructure):
+class BASEBROWSERDATALH(Structure):
     _hwnd: win32more.Windows.Win32.Foundation.HWND
     _ptl: win32more.Windows.Win32.UI.Shell.ITravelLog
     _phlf: win32more.Windows.Win32.UI.Shell.IHlinkFrame
@@ -3538,7 +3538,7 @@ class BASEBROWSERDATALH(EasyCastStructure):
     _clsidViewPending: Guid
     _hwndFrame: win32more.Windows.Win32.Foundation.HWND
     _lPhishingFilterStatus: Int32
-class BASEBROWSERDATAXP(EasyCastStructure):
+class BASEBROWSERDATAXP(Structure):
     _hwnd: win32more.Windows.Win32.Foundation.HWND
     _ptl: win32more.Windows.Win32.UI.Shell.ITravelLog
     _phlf: win32more.Windows.Win32.UI.Shell.IHlinkFrame
@@ -3571,7 +3571,7 @@ BNSTATE = Int32
 BNS_NORMAL: win32more.Windows.Win32.UI.Shell.BNSTATE = 0
 BNS_BEGIN_NAVIGATE: win32more.Windows.Win32.UI.Shell.BNSTATE = 1
 BNS_NAVIGATE: win32more.Windows.Win32.UI.Shell.BNSTATE = 2
-class BROWSEINFOA(EasyCastStructure):
+class BROWSEINFOA(Structure):
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     pidlRoot: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     pszDisplayName: win32more.Windows.Win32.Foundation.PSTR
@@ -3580,7 +3580,7 @@ class BROWSEINFOA(EasyCastStructure):
     lpfn: win32more.Windows.Win32.UI.Shell.BFFCALLBACK
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     iImage: Int32
-class BROWSEINFOW(EasyCastStructure):
+class BROWSEINFOW(Structure):
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     pidlRoot: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     pszDisplayName: win32more.Windows.Win32.Foundation.PWSTR
@@ -3623,7 +3623,7 @@ navReserved4: win32more.Windows.Win32.UI.Shell.BrowserNavConstants = 268435456
 navReserved5: win32more.Windows.Win32.UI.Shell.BrowserNavConstants = 536870912
 navReserved6: win32more.Windows.Win32.UI.Shell.BrowserNavConstants = 1073741824
 navReserved7: win32more.Windows.Win32.UI.Shell.BrowserNavConstants = -2147483648
-class CABINETSTATE(EasyCastStructure):
+class CABINETSTATE(Structure):
     cLength: UInt16
     nVersion: UInt16
     _bitfield: Int32
@@ -3640,7 +3640,7 @@ CATINFO_NOHEADERCOUNT: win32more.Windows.Win32.UI.Shell.CATEGORYINFO_FLAGS = 32
 CATINFO_SUBSETTED: win32more.Windows.Win32.UI.Shell.CATEGORYINFO_FLAGS = 64
 CATINFO_SEPARATE_IMAGES: win32more.Windows.Win32.UI.Shell.CATEGORYINFO_FLAGS = 128
 CATINFO_SHOWEMPTY: win32more.Windows.Win32.UI.Shell.CATEGORYINFO_FLAGS = 256
-class CATEGORY_INFO(EasyCastStructure):
+class CATEGORY_INFO(Structure):
     cif: win32more.Windows.Win32.UI.Shell.CATEGORYINFO_FLAGS
     wszName: Char * 260
 CATSORT_FLAGS = Int32
@@ -3656,7 +3656,7 @@ CDCS_INACTIVE: win32more.Windows.Win32.UI.Shell.CDCONTROLSTATEF = 0
 CDCS_ENABLED: win32more.Windows.Win32.UI.Shell.CDCONTROLSTATEF = 1
 CDCS_VISIBLE: win32more.Windows.Win32.UI.Shell.CDCONTROLSTATEF = 2
 CDCS_ENABLEDVISIBLE: win32more.Windows.Win32.UI.Shell.CDCONTROLSTATEF = 3
-class CIDA(EasyCastStructure):
+class CIDA(Structure):
     cidl: UInt32
     aoffset: UInt32 * 1
     _pack_ = 1
@@ -3666,7 +3666,7 @@ class CIE4ConnectionPoint(ComPtr):
     def DoInvokeIE4(self, pf: POINTER(win32more.Windows.Win32.Foundation.BOOL), ppv: POINTER(VoidPtr), dispid: Int32, pdispparams: POINTER(win32more.Windows.Win32.System.Com.DISPPARAMS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def DoInvokePIDLIE4(self, dispid: Int32, pidl: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST), fCanCancel: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class CMINVOKECOMMANDINFO(EasyCastStructure):
+class CMINVOKECOMMANDINFO(Structure):
     cbSize: UInt32
     fMask: UInt32
     hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -3676,7 +3676,7 @@ class CMINVOKECOMMANDINFO(EasyCastStructure):
     nShow: Int32
     dwHotKey: UInt32
     hIcon: win32more.Windows.Win32.Foundation.HANDLE
-class CMINVOKECOMMANDINFOEX(EasyCastStructure):
+class CMINVOKECOMMANDINFOEX(Structure):
     cbSize: UInt32
     fMask: UInt32
     hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -3692,7 +3692,7 @@ class CMINVOKECOMMANDINFOEX(EasyCastStructure):
     lpDirectoryW: win32more.Windows.Win32.Foundation.PWSTR
     lpTitleW: win32more.Windows.Win32.Foundation.PWSTR
     ptInvoke: win32more.Windows.Win32.Foundation.POINT
-class CMINVOKECOMMANDINFOEX_REMOTE(EasyCastStructure):
+class CMINVOKECOMMANDINFOEX_REMOTE(Structure):
     cbSize: UInt32
     fMask: UInt32
     hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -3709,7 +3709,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE(EasyCastStructure):
     ptInvoke: win32more.Windows.Win32.Foundation.POINT
     lpVerbInt: UInt32
     lpVerbWInt: UInt32
-class CM_COLUMNINFO(EasyCastStructure):
+class CM_COLUMNINFO(Structure):
     cbSize: UInt32
     dwMask: UInt32
     dwState: UInt32
@@ -3735,17 +3735,17 @@ CM_STATE_VISIBLE: win32more.Windows.Win32.UI.Shell.CM_STATE = 1
 CM_STATE_FIXEDWIDTH: win32more.Windows.Win32.UI.Shell.CM_STATE = 2
 CM_STATE_NOSORTBYFOLDERNESS: win32more.Windows.Win32.UI.Shell.CM_STATE = 4
 CM_STATE_ALWAYSVISIBLE: win32more.Windows.Win32.UI.Shell.CM_STATE = 8
-class CONFIRM_CONFLICT_ITEM(EasyCastStructure):
+class CONFIRM_CONFLICT_ITEM(Structure):
     pShellItem: win32more.Windows.Win32.UI.Shell.IShellItem2
     pszOriginalName: win32more.Windows.Win32.Foundation.PWSTR
     pszAlternateName: win32more.Windows.Win32.Foundation.PWSTR
     pszLocationShort: win32more.Windows.Win32.Foundation.PWSTR
     pszLocationFull: win32more.Windows.Win32.Foundation.PWSTR
     nType: win32more.Windows.Win32.UI.Shell.SYNCMGR_CONFLICT_ITEM_TYPE
-class CONFIRM_CONFLICT_RESULT_INFO(EasyCastStructure):
+class CONFIRM_CONFLICT_RESULT_INFO(Structure):
     pszNewName: win32more.Windows.Win32.Foundation.PWSTR
     iItemIndex: UInt32
-class CPLINFO(EasyCastStructure):
+class CPLINFO(Structure):
     idIcon: Int32
     idName: Int32
     idInfo: Int32
@@ -3767,12 +3767,12 @@ CPCFO_IS_EMAIL_ADDRESS: win32more.Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_CRE
 CPCFO_ENABLE_TOUCH_KEYBOARD_AUTO_INVOKE: win32more.Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS = 4
 CPCFO_NUMBERS_ONLY: win32more.Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS = 8
 CPCFO_SHOW_ENGLISH_KEYBOARD: win32more.Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS = 16
-class CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION(EasyCastStructure):
+class CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION(Structure):
     ulAuthenticationPackage: UInt32
     clsidCredentialProvider: Guid
     cbSerialization: UInt32
     rgbSerialization: POINTER(Byte)
-class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR(EasyCastStructure):
+class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR(Structure):
     dwFieldID: UInt32
     cpft: win32more.Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_FIELD_TYPE
     pszLabel: win32more.Windows.Win32.Foundation.PWSTR
@@ -3815,7 +3815,7 @@ CPUS_UNLOCK_WORKSTATION: win32more.Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_US
 CPUS_CHANGE_PASSWORD: win32more.Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_USAGE_SCENARIO = 3
 CPUS_CREDUI: win32more.Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_USAGE_SCENARIO = 4
 CPUS_PLAP: win32more.Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_USAGE_SCENARIO = 5
-class CSFV(EasyCastStructure):
+class CSFV(Structure):
     cbSize: UInt32
     pshf: win32more.Windows.Win32.UI.Shell.IShellFolder
     psvOuter: win32more.Windows.Win32.UI.Shell.IShellView
@@ -3829,7 +3829,7 @@ CSC_UPDATECOMMANDS: win32more.Windows.Win32.UI.Shell.CommandStateChangeConstants
 CSC_NAVIGATEFORWARD: win32more.Windows.Win32.UI.Shell.CommandStateChangeConstants = 1
 CSC_NAVIGATEBACK: win32more.Windows.Win32.UI.Shell.CommandStateChangeConstants = 2
 ConflictFolder = Guid('{289978ac-a101-4341-a817-21eba7fd046d}')
-class DATABLOCK_HEADER(EasyCastStructure):
+class DATABLOCK_HEADER(Structure):
     cbSize: UInt32
     dwSignature: UInt32
     _pack_ = 1
@@ -3855,7 +3855,7 @@ DFMR_USE_SPECIFIED_VERBS: win32more.Windows.Win32.UI.Shell.DEFAULT_FOLDER_MENU_R
 DFMR_NO_ASYNC_VERBS: win32more.Windows.Win32.UI.Shell.DEFAULT_FOLDER_MENU_RESTRICTIONS = 1024
 DFMR_NO_NATIVECPU_VERBS: win32more.Windows.Win32.UI.Shell.DEFAULT_FOLDER_MENU_RESTRICTIONS = 2048
 DFMR_NO_NONWOW_VERBS: win32more.Windows.Win32.UI.Shell.DEFAULT_FOLDER_MENU_RESTRICTIONS = 4096
-class DEFCONTEXTMENU(EasyCastStructure):
+class DEFCONTEXTMENU(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     pcmcb: win32more.Windows.Win32.UI.Shell.IContextMenuCB
     pidlFolder: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
@@ -3868,7 +3868,7 @@ class DEFCONTEXTMENU(EasyCastStructure):
 DEF_SHARE_ID = Int32
 DEFSHAREID_USERS: win32more.Windows.Win32.UI.Shell.DEF_SHARE_ID = 1
 DEFSHAREID_PUBLIC: win32more.Windows.Win32.UI.Shell.DEF_SHARE_ID = 2
-class DELEGATEITEMID(EasyCastStructure):
+class DELEGATEITEMID(Structure):
     cbSize: UInt16
     wOuter: UInt16
     cbInner: UInt16
@@ -3883,7 +3883,7 @@ DBID_DELAYINIT: win32more.Windows.Win32.UI.Shell.DESKBANDCID = 4
 DBID_FINISHINIT: win32more.Windows.Win32.UI.Shell.DESKBANDCID = 5
 DBID_SETWINDOWTHEME: win32more.Windows.Win32.UI.Shell.DESKBANDCID = 6
 DBID_PERMITAUTOHIDE: win32more.Windows.Win32.UI.Shell.DESKBANDCID = 7
-class DESKBANDINFO(EasyCastStructure):
+class DESKBANDINFO(Structure):
     dwMask: UInt32
     ptMinSize: win32more.Windows.Win32.Foundation.POINTL
     ptMaxSize: win32more.Windows.Win32.Foundation.POINTL
@@ -3908,7 +3908,7 @@ DWPOS_STRETCH: win32more.Windows.Win32.UI.Shell.DESKTOP_WALLPAPER_POSITION = 2
 DWPOS_FIT: win32more.Windows.Win32.UI.Shell.DESKTOP_WALLPAPER_POSITION = 3
 DWPOS_FILL: win32more.Windows.Win32.UI.Shell.DESKTOP_WALLPAPER_POSITION = 4
 DWPOS_SPAN: win32more.Windows.Win32.UI.Shell.DESKTOP_WALLPAPER_POSITION = 5
-class DETAILSINFO(EasyCastStructure):
+class DETAILSINFO(Structure):
     pidl: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     fmt: Int32
     cxChar: Int32
@@ -3921,7 +3921,7 @@ class DFConstraint(ComPtr):
     def get_Name(self, pbs: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Value(self, pv: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class DFMICS(EasyCastStructure):
+class DFMICS(Structure):
     cbSize: UInt32
     fMask: UInt32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
@@ -3965,25 +3965,25 @@ DEVICE_PRIMARY: win32more.Windows.Win32.UI.Shell.DISPLAY_DEVICE_TYPE = 0
 DEVICE_IMMERSIVE: win32more.Windows.Win32.UI.Shell.DISPLAY_DEVICE_TYPE = 1
 @winfunctype_pointer
 def DLLGETVERSIONPROC(param0: POINTER(win32more.Windows.Win32.UI.Shell.DLLVERSIONINFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class DLLVERSIONINFO(EasyCastStructure):
+class DLLVERSIONINFO(Structure):
     cbSize: UInt32
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
     dwBuildNumber: UInt32
     dwPlatformID: UInt32
-class DLLVERSIONINFO2(EasyCastStructure):
+class DLLVERSIONINFO2(Structure):
     info1: win32more.Windows.Win32.UI.Shell.DLLVERSIONINFO
     dwFlags: UInt32
     ullVersion: UInt64
 if ARCH in 'X64,ARM64':
-    class DRAGINFOA(EasyCastStructure):
+    class DRAGINFOA(Structure):
         uSize: UInt32
         pt: win32more.Windows.Win32.Foundation.POINT
         fNC: win32more.Windows.Win32.Foundation.BOOL
         lpFileList: win32more.Windows.Win32.Foundation.PSTR
         grfKeyState: UInt32
 elif ARCH in 'X86':
-    class DRAGINFOA(EasyCastStructure):
+    class DRAGINFOA(Structure):
         uSize: UInt32
         pt: win32more.Windows.Win32.Foundation.POINT
         fNC: win32more.Windows.Win32.Foundation.BOOL
@@ -3991,14 +3991,14 @@ elif ARCH in 'X86':
         grfKeyState: UInt32
         _pack_ = 1
 if ARCH in 'X64,ARM64':
-    class DRAGINFOW(EasyCastStructure):
+    class DRAGINFOW(Structure):
         uSize: UInt32
         pt: win32more.Windows.Win32.Foundation.POINT
         fNC: win32more.Windows.Win32.Foundation.BOOL
         lpFileList: win32more.Windows.Win32.Foundation.PWSTR
         grfKeyState: UInt32
 elif ARCH in 'X86':
-    class DRAGINFOW(EasyCastStructure):
+    class DRAGINFOW(Structure):
         uSize: UInt32
         pt: win32more.Windows.Win32.Foundation.POINT
         fNC: win32more.Windows.Win32.Foundation.BOOL
@@ -4009,12 +4009,12 @@ if ARCH in 'X64,ARM64':
     DRAGINFO = UnicodeAlias('DRAGINFOW')
 elif ARCH in 'X86':
     DRAGINFO = UnicodeAlias('DRAGINFOW')
-class DROPDESCRIPTION(EasyCastStructure):
+class DROPDESCRIPTION(Structure):
     type: win32more.Windows.Win32.UI.Shell.DROPIMAGETYPE
     szMessage: Char * 260
     szInsert: Char * 260
     _pack_ = 1
-class DROPFILES(EasyCastStructure):
+class DROPFILES(Structure):
     pFiles: UInt32
     pt: win32more.Windows.Win32.Foundation.POINT
     fNC: win32more.Windows.Win32.Foundation.BOOL
@@ -4075,29 +4075,29 @@ EBO_NOWRAPPERWINDOW: win32more.Windows.Win32.UI.Shell.EXPLORER_BROWSER_OPTIONS =
 EBO_HTMLSHAREPOINTVIEW: win32more.Windows.Win32.UI.Shell.EXPLORER_BROWSER_OPTIONS = 32
 EBO_NOBORDER: win32more.Windows.Win32.UI.Shell.EXPLORER_BROWSER_OPTIONS = 64
 EBO_NOPERSISTVIEWSTATE: win32more.Windows.Win32.UI.Shell.EXPLORER_BROWSER_OPTIONS = 128
-class EXP_DARWIN_LINK(EasyCastStructure):
+class EXP_DARWIN_LINK(Structure):
     dbh: win32more.Windows.Win32.UI.Shell.DATABLOCK_HEADER
     szDarwinID: win32more.Windows.Win32.Foundation.CHAR * 260
     szwDarwinID: Char * 260
     _pack_ = 1
-class EXP_PROPERTYSTORAGE(EasyCastStructure):
+class EXP_PROPERTYSTORAGE(Structure):
     cbSize: UInt32
     dwSignature: UInt32
     abPropertyStorage: Byte * 1
     _pack_ = 1
-class EXP_SPECIAL_FOLDER(EasyCastStructure):
+class EXP_SPECIAL_FOLDER(Structure):
     cbSize: UInt32
     dwSignature: UInt32
     idSpecialFolder: UInt32
     cbOffset: UInt32
     _pack_ = 1
-class EXP_SZ_LINK(EasyCastStructure):
+class EXP_SZ_LINK(Structure):
     cbSize: UInt32
     dwSignature: UInt32
     szTarget: win32more.Windows.Win32.Foundation.CHAR * 260
     swzTarget: Char * 260
     _pack_ = 1
-class EXTRASEARCH(EasyCastStructure):
+class EXTRASEARCH(Structure):
     guidSearch: Guid
     wszFriendlyName: Char * 80
     wszUrl: Char * 2084
@@ -4130,7 +4130,7 @@ FD_UNICODE: win32more.Windows.Win32.UI.Shell.FD_FLAGS = -2147483648
 FFFP_MODE = Int32
 FFFP_EXACTMATCH: win32more.Windows.Win32.UI.Shell.FFFP_MODE = 0
 FFFP_NEARESTPARENTMATCH: win32more.Windows.Win32.UI.Shell.FFFP_MODE = 1
-class FILEDESCRIPTORA(EasyCastStructure):
+class FILEDESCRIPTORA(Structure):
     dwFlags: UInt32
     clsid: Guid
     sizel: win32more.Windows.Win32.Foundation.SIZE
@@ -4143,7 +4143,7 @@ class FILEDESCRIPTORA(EasyCastStructure):
     nFileSizeLow: UInt32
     cFileName: win32more.Windows.Win32.Foundation.CHAR * 260
     _pack_ = 1
-class FILEDESCRIPTORW(EasyCastStructure):
+class FILEDESCRIPTORW(Structure):
     dwFlags: UInt32
     clsid: Guid
     sizel: win32more.Windows.Win32.Foundation.SIZE
@@ -4157,11 +4157,11 @@ class FILEDESCRIPTORW(EasyCastStructure):
     cFileName: Char * 260
     _pack_ = 1
 FILEDESCRIPTOR = UnicodeAlias('FILEDESCRIPTORW')
-class FILEGROUPDESCRIPTORA(EasyCastStructure):
+class FILEGROUPDESCRIPTORA(Structure):
     cItems: UInt32
     fgd: win32more.Windows.Win32.UI.Shell.FILEDESCRIPTORA * 1
     _pack_ = 1
-class FILEGROUPDESCRIPTORW(EasyCastStructure):
+class FILEGROUPDESCRIPTORW(Structure):
     cItems: UInt32
     fgd: win32more.Windows.Win32.UI.Shell.FILEDESCRIPTORW * 1
     _pack_ = 1
@@ -4246,7 +4246,7 @@ FTA_AlwaysUnsafe: win32more.Windows.Win32.UI.Shell.FILETYPEATTRIBUTEFLAGS = 1310
 FTA_NoRecentDocs: win32more.Windows.Win32.UI.Shell.FILETYPEATTRIBUTEFLAGS = 1048576
 FTA_SafeForElevation: win32more.Windows.Win32.UI.Shell.FILETYPEATTRIBUTEFLAGS = 2097152
 FTA_AlwaysUseDirectInvoke: win32more.Windows.Win32.UI.Shell.FILETYPEATTRIBUTEFLAGS = 4194304
-class FILE_ATTRIBUTES_ARRAY(EasyCastStructure):
+class FILE_ATTRIBUTES_ARRAY(Structure):
     cItems: UInt32
     dwSumFileAttributes: UInt32
     dwProductFileAttributes: UInt32
@@ -4308,11 +4308,11 @@ FLVM_ICONS: win32more.Windows.Win32.UI.Shell.FOLDERLOGICALVIEWMODE = 3
 FLVM_LIST: win32more.Windows.Win32.UI.Shell.FOLDERLOGICALVIEWMODE = 4
 FLVM_CONTENT: win32more.Windows.Win32.UI.Shell.FOLDERLOGICALVIEWMODE = 5
 FLVM_LAST: win32more.Windows.Win32.UI.Shell.FOLDERLOGICALVIEWMODE = 5
-class FOLDERSETDATA(EasyCastStructure):
+class FOLDERSETDATA(Structure):
     _fs: win32more.Windows.Win32.UI.Shell.FOLDERSETTINGS
     _vidRestore: Guid
     _dwViewPriority: UInt32
-class FOLDERSETTINGS(EasyCastStructure):
+class FOLDERSETTINGS(Structure):
     ViewMode: UInt32
     fFlags: UInt32
 FOLDERVIEWMODE = Int32
@@ -4490,14 +4490,14 @@ GPFIDL_ALTNAME: win32more.Windows.Win32.UI.Shell.GPFIDL_FLAGS = 1
 GPFIDL_UNCPRINTER: win32more.Windows.Win32.UI.Shell.GPFIDL_FLAGS = 2
 GenericCredentialProvider = Guid('{25cbb996-92ed-457e-b28c-4774084bd562}')
 HDROP = IntPtr
-class HELPINFO(EasyCastStructure):
+class HELPINFO(Structure):
     cbSize: UInt32
     iContextType: win32more.Windows.Win32.UI.Shell.HELP_INFO_TYPE
     iCtrlId: Int32
     hItemHandle: win32more.Windows.Win32.Foundation.HANDLE
     dwContextId: UIntPtr
     MousePos: win32more.Windows.Win32.Foundation.POINT
-class HELPWININFOA(EasyCastStructure):
+class HELPWININFOA(Structure):
     wStructSize: Int32
     x: Int32
     y: Int32
@@ -4505,7 +4505,7 @@ class HELPWININFOA(EasyCastStructure):
     dy: Int32
     wMax: Int32
     rgchMember: win32more.Windows.Win32.Foundation.CHAR * 2
-class HELPWININFOW(EasyCastStructure):
+class HELPWININFOW(Structure):
     wStructSize: Int32
     x: Int32
     y: Int32
@@ -4524,7 +4524,7 @@ HLBWIF_FRAMEWNDMAXIMIZED: win32more.Windows.Win32.UI.Shell.HLBWIF_FLAGS = 4
 HLBWIF_DOCWNDMAXIMIZED: win32more.Windows.Win32.UI.Shell.HLBWIF_FLAGS = 8
 HLBWIF_HASWEBTOOLBARINFO: win32more.Windows.Win32.UI.Shell.HLBWIF_FLAGS = 16
 HLBWIF_WEBTOOLBARHIDDEN: win32more.Windows.Win32.UI.Shell.HLBWIF_FLAGS = 32
-class HLBWINFO(EasyCastStructure):
+class HLBWINFO(Structure):
     cbSize: UInt32
     grfHLBWIF: UInt32
     rcFramePos: win32more.Windows.Win32.Foundation.RECT
@@ -4555,7 +4555,7 @@ HLINKSETF_LOCATION: win32more.Windows.Win32.UI.Shell.HLINKSETF = 2
 HLINKWHICHMK = Int32
 HLINKWHICHMK_CONTAINER: win32more.Windows.Win32.UI.Shell.HLINKWHICHMK = 1
 HLINKWHICHMK_BASE: win32more.Windows.Win32.UI.Shell.HLINKWHICHMK = 2
-class HLITEM(EasyCastStructure):
+class HLITEM(Structure):
     uHLID: UInt32
     pwzFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
 HLNF = UInt32
@@ -4578,7 +4578,7 @@ HLSR = Int32
 HLSR_HOME: win32more.Windows.Win32.UI.Shell.HLSR = 0
 HLSR_SEARCHPAGE: win32more.Windows.Win32.UI.Shell.HLSR = 1
 HLSR_HISTORYFOLDER: win32more.Windows.Win32.UI.Shell.HLSR = 2
-class HLTBINFO(EasyCastStructure):
+class HLTBINFO(Structure):
     uDockType: UInt32
     rcTbPos: win32more.Windows.Win32.Foundation.RECT
 HLTB_INFO = Int32
@@ -9005,7 +9005,7 @@ class ISyncMgrUIOperation(ComPtr):
     _iid_ = Guid('{fc7cfa47-dfe1-45b5-a049-8cfd82bec271}')
     @commethod(3)
     def Run(self, hwndOwner: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class ITEMSPACING(EasyCastStructure):
+class ITEMSPACING(Structure):
     cxSmall: Int32
     cySmall: Int32
     cxLarge: Int32
@@ -9567,7 +9567,7 @@ KF_CATEGORY_PERUSER: win32more.Windows.Win32.UI.Shell.KF_CATEGORY = 4
 KNOWNDESTCATEGORY = Int32
 KDC_FREQUENT: win32more.Windows.Win32.UI.Shell.KNOWNDESTCATEGORY = 1
 KDC_RECENT: win32more.Windows.Win32.UI.Shell.KNOWNDESTCATEGORY = 2
-class KNOWNFOLDER_DEFINITION(EasyCastStructure):
+class KNOWNFOLDER_DEFINITION(Structure):
     category: win32more.Windows.Win32.UI.Shell.KF_CATEGORY
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     pszDescription: win32more.Windows.Win32.Foundation.PWSTR
@@ -9657,11 +9657,11 @@ MONITOR_APP_VISIBILITY = Int32
 MAV_UNKNOWN: win32more.Windows.Win32.UI.Shell.MONITOR_APP_VISIBILITY = 0
 MAV_NO_APP_VISIBLE: win32more.Windows.Win32.UI.Shell.MONITOR_APP_VISIBILITY = 1
 MAV_APP_VISIBLE: win32more.Windows.Win32.UI.Shell.MONITOR_APP_VISIBILITY = 2
-class MULTIKEYHELPA(EasyCastStructure):
+class MULTIKEYHELPA(Structure):
     mkSize: UInt32
     mkKeylist: win32more.Windows.Win32.Foundation.CHAR
     szKeyphrase: win32more.Windows.Win32.Foundation.CHAR * 1
-class MULTIKEYHELPW(EasyCastStructure):
+class MULTIKEYHELPW(Structure):
     mkSize: UInt32
     mkKeylist: Char
     szKeyphrase: Char * 1
@@ -9689,11 +9689,11 @@ NSWF_ANY_IMPLIES_ALL: win32more.Windows.Win32.UI.Shell.NAMESPACEWALKFLAG = 32768
 NATIVE_DISPLAY_ORIENTATION = Int32
 NDO_LANDSCAPE: win32more.Windows.Win32.UI.Shell.NATIVE_DISPLAY_ORIENTATION = 0
 NDO_PORTRAIT: win32more.Windows.Win32.UI.Shell.NATIVE_DISPLAY_ORIENTATION = 1
-class NC_ADDRESS(EasyCastStructure):
+class NC_ADDRESS(Structure):
     pAddrInfo: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.NET_ADDRESS_INFO)
     PortNumber: UInt16
     PrefixLength: Byte
-class NEWCPLINFOA(EasyCastStructure):
+class NEWCPLINFOA(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwHelpContext: UInt32
@@ -9703,7 +9703,7 @@ class NEWCPLINFOA(EasyCastStructure):
     szInfo: win32more.Windows.Win32.Foundation.CHAR * 64
     szHelpFile: win32more.Windows.Win32.Foundation.CHAR * 128
     _pack_ = 1
-class NEWCPLINFOW(EasyCastStructure):
+class NEWCPLINFOW(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwHelpContext: UInt32
@@ -9715,7 +9715,7 @@ class NEWCPLINFOW(EasyCastStructure):
     _pack_ = 1
 NEWCPLINFO = UnicodeAlias('NEWCPLINFOW')
 if ARCH in 'X64,ARM64':
-    class NOTIFYICONDATAA(EasyCastStructure):
+    class NOTIFYICONDATAA(Structure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
         uID: UInt32
@@ -9731,11 +9731,11 @@ if ARCH in 'X64,ARM64':
         dwInfoFlags: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
         guidItem: Guid
         hBalloonIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             uTimeout: UInt32
             uVersion: UInt32
 elif ARCH in 'X86':
-    class NOTIFYICONDATAA(EasyCastStructure):
+    class NOTIFYICONDATAA(Structure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
         uID: UInt32
@@ -9752,12 +9752,12 @@ elif ARCH in 'X86':
         guidItem: Guid
         hBalloonIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         _pack_ = 1
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             uTimeout: UInt32
             uVersion: UInt32
             _pack_ = 1
 if ARCH in 'X64,ARM64':
-    class NOTIFYICONDATAW(EasyCastStructure):
+    class NOTIFYICONDATAW(Structure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
         uID: UInt32
@@ -9773,11 +9773,11 @@ if ARCH in 'X64,ARM64':
         dwInfoFlags: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
         guidItem: Guid
         hBalloonIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             uTimeout: UInt32
             uVersion: UInt32
 elif ARCH in 'X86':
-    class NOTIFYICONDATAW(EasyCastStructure):
+    class NOTIFYICONDATAW(Structure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
         uID: UInt32
@@ -9794,7 +9794,7 @@ elif ARCH in 'X86':
         guidItem: Guid
         hBalloonIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         _pack_ = 1
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             uTimeout: UInt32
             uVersion: UInt32
             _pack_ = 1
@@ -9803,13 +9803,13 @@ if ARCH in 'X64,ARM64':
 elif ARCH in 'X86':
     NOTIFYICONDATA = UnicodeAlias('NOTIFYICONDATAW')
 if ARCH in 'X64,ARM64':
-    class NOTIFYICONIDENTIFIER(EasyCastStructure):
+    class NOTIFYICONIDENTIFIER(Structure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
         uID: UInt32
         guidItem: Guid
 elif ARCH in 'X86':
-    class NOTIFYICONIDENTIFIER(EasyCastStructure):
+    class NOTIFYICONIDENTIFIER(Structure):
         cbSize: UInt32
         hWnd: win32more.Windows.Win32.Foundation.HWND
         uID: UInt32
@@ -9844,10 +9844,10 @@ NOTIFY_ICON_STATE = UInt32
 NIS_HIDDEN: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE = 1
 NIS_SHAREDICON: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE = 2
 NPCredentialProvider = Guid('{3dd6bec0-8193-4ffe-ae25-e08e39ea4063}')
-class NRESARRAY(EasyCastStructure):
+class NRESARRAY(Structure):
     cItems: UInt32
     nr: win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA * 1
-class NSTCCUSTOMDRAW(EasyCastStructure):
+class NSTCCUSTOMDRAW(Structure):
     psi: win32more.Windows.Win32.UI.Shell.IShellItem
     uItemState: UInt32
     nstcis: UInt32
@@ -9877,7 +9877,7 @@ NSTCS2_DISPLAYPADDING: win32more.Windows.Win32.UI.Shell.NSTCSTYLE2 = 4
 NSTCS2_DISPLAYPINNEDONLY: win32more.Windows.Win32.UI.Shell.NSTCSTYLE2 = 8
 NTSCS2_NOSINGLETONAUTOEXPAND: win32more.Windows.Win32.UI.Shell.NSTCSTYLE2 = 16
 NTSCS2_NEVERINSERTNONENUMERATED: win32more.Windows.Win32.UI.Shell.NSTCSTYLE2 = 32
-class NT_CONSOLE_PROPS(EasyCastStructure):
+class NT_CONSOLE_PROPS(Structure):
     dbh: win32more.Windows.Win32.UI.Shell.DATABLOCK_HEADER
     wFillAttribute: UInt16
     wPopupFillAttribute: UInt16
@@ -9900,7 +9900,7 @@ class NT_CONSOLE_PROPS(EasyCastStructure):
     bHistoryNoDup: win32more.Windows.Win32.Foundation.BOOL
     ColorTable: win32more.Windows.Win32.Foundation.COLORREF * 16
     _pack_ = 1
-class NT_FE_CONSOLE_PROPS(EasyCastStructure):
+class NT_FE_CONSOLE_PROPS(Structure):
     dbh: win32more.Windows.Win32.UI.Shell.DATABLOCK_HEADER
     uCodePage: UInt32
     _pack_ = 1
@@ -9926,7 +9926,7 @@ NetworkExplorerFolder = Guid('{f02c1a0d-be21-4350-88b0-7367fc96ef3c}')
 NetworkPlaces = Guid('{208d2c60-3aea-1069-a2d7-08002b30309d}')
 NewProcessCauseConstants = Int32
 ProtectedModeRedirect: win32more.Windows.Win32.UI.Shell.NewProcessCauseConstants = 1
-class OPENASINFO(EasyCastStructure):
+class OPENASINFO(Structure):
     pcszFile: win32more.Windows.Win32.Foundation.PWSTR
     pcszClass: win32more.Windows.Win32.Foundation.PWSTR
     oaifInFlags: win32more.Windows.Win32.UI.Shell.OPEN_AS_INFO_FLAGS
@@ -9939,14 +9939,14 @@ OAIF_HIDE_REGISTRATION: win32more.Windows.Win32.UI.Shell.OPEN_AS_INFO_FLAGS = 32
 OAIF_URL_PROTOCOL: win32more.Windows.Win32.UI.Shell.OPEN_AS_INFO_FLAGS = 64
 OAIF_FILE_IS_URI: win32more.Windows.Win32.UI.Shell.OPEN_AS_INFO_FLAGS = 128
 if ARCH in 'X64,ARM64':
-    class OPEN_PRINTER_PROPS_INFOA(EasyCastStructure):
+    class OPEN_PRINTER_PROPS_INFOA(Structure):
         dwSize: UInt32
         pszSheetName: win32more.Windows.Win32.Foundation.PSTR
         uSheetIndex: UInt32
         dwFlags: UInt32
         bModal: win32more.Windows.Win32.Foundation.BOOL
 elif ARCH in 'X86':
-    class OPEN_PRINTER_PROPS_INFOA(EasyCastStructure):
+    class OPEN_PRINTER_PROPS_INFOA(Structure):
         dwSize: UInt32
         pszSheetName: win32more.Windows.Win32.Foundation.PSTR
         uSheetIndex: UInt32
@@ -9954,14 +9954,14 @@ elif ARCH in 'X86':
         bModal: win32more.Windows.Win32.Foundation.BOOL
         _pack_ = 1
 if ARCH in 'X64,ARM64':
-    class OPEN_PRINTER_PROPS_INFOW(EasyCastStructure):
+    class OPEN_PRINTER_PROPS_INFOW(Structure):
         dwSize: UInt32
         pszSheetName: win32more.Windows.Win32.Foundation.PWSTR
         uSheetIndex: UInt32
         dwFlags: UInt32
         bModal: win32more.Windows.Win32.Foundation.BOOL
 elif ARCH in 'X86':
-    class OPEN_PRINTER_PROPS_INFOW(EasyCastStructure):
+    class OPEN_PRINTER_PROPS_INFOW(Structure):
         dwSize: UInt32
         pszSheetName: win32more.Windows.Win32.Foundation.PWSTR
         uSheetIndex: UInt32
@@ -10030,14 +10030,14 @@ PAPPCONSTRAIN_REGISTRATION = IntPtr
 @winfunctype_pointer
 def PAPPSTATE_CHANGE_ROUTINE(Quiesced: win32more.Windows.Win32.Foundation.BOOLEAN, Context: VoidPtr) -> Void: ...
 PAPPSTATE_REGISTRATION = IntPtr
-class PARSEDURLA(EasyCastStructure):
+class PARSEDURLA(Structure):
     cbSize: UInt32
     pszProtocol: win32more.Windows.Win32.Foundation.PSTR
     cchProtocol: UInt32
     pszSuffix: win32more.Windows.Win32.Foundation.PSTR
     cchSuffix: UInt32
     nScheme: UInt32
-class PARSEDURLW(EasyCastStructure):
+class PARSEDURLW(Structure):
     cbSize: UInt32
     pszProtocol: win32more.Windows.Win32.Foundation.PWSTR
     cchProtocol: UInt32
@@ -10060,7 +10060,7 @@ PCS_REPLACEDCHAR: win32more.Windows.Win32.UI.Shell.PCS_RET = 1
 PCS_REMOVEDCHAR: win32more.Windows.Win32.UI.Shell.PCS_RET = 2
 PCS_TRUNCATED: win32more.Windows.Win32.UI.Shell.PCS_RET = 4
 PCS_PATHTOOLONG: win32more.Windows.Win32.UI.Shell.PCS_RET = 8
-class PERSIST_FOLDER_TARGET_INFO(EasyCastStructure):
+class PERSIST_FOLDER_TARGET_INFO(Structure):
     pidlTargetFolder: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     szTargetParsingName: Char * 260
     szNetworkProvider: Char * 260
@@ -10119,7 +10119,7 @@ PID_IS_DESCRIPTION: win32more.Windows.Win32.UI.Shell.PID_IS = 12
 PID_IS_COMMENT: win32more.Windows.Win32.UI.Shell.PID_IS = 13
 PID_IS_ROAMED: win32more.Windows.Win32.UI.Shell.PID_IS = 15
 PINLogonCredentialProvider = Guid('{cb82ea12-9f71-446d-89e1-8d0924e1256e}')
-class PREVIEWHANDLERFRAMEINFO(EasyCastStructure):
+class PREVIEWHANDLERFRAMEINFO(Structure):
     haccel: win32more.Windows.Win32.UI.WindowsAndMessaging.HACCEL
     cAccelEntries: UInt32
 PRF_FLAGS = Int32
@@ -10128,7 +10128,7 @@ PRF_TRYPROGRAMEXTENSIONS: win32more.Windows.Win32.UI.Shell.PRF_FLAGS = 3
 PRF_FIRSTDIRDEF: win32more.Windows.Win32.UI.Shell.PRF_FLAGS = 4
 PRF_DONTFINDLNK: win32more.Windows.Win32.UI.Shell.PRF_FLAGS = 8
 PRF_REQUIREABSOLUTE: win32more.Windows.Win32.UI.Shell.PRF_FLAGS = 16
-class PROFILEINFOA(EasyCastStructure):
+class PROFILEINFOA(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     lpUserName: win32more.Windows.Win32.Foundation.PSTR
@@ -10137,7 +10137,7 @@ class PROFILEINFOA(EasyCastStructure):
     lpServerName: win32more.Windows.Win32.Foundation.PSTR
     lpPolicyPath: win32more.Windows.Win32.Foundation.PSTR
     hProfile: win32more.Windows.Win32.Foundation.HANDLE
-class PROFILEINFOW(EasyCastStructure):
+class PROFILEINFOW(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     lpUserName: win32more.Windows.Win32.Foundation.PWSTR
@@ -10147,7 +10147,7 @@ class PROFILEINFOW(EasyCastStructure):
     lpPolicyPath: win32more.Windows.Win32.Foundation.PWSTR
     hProfile: win32more.Windows.Win32.Foundation.HANDLE
 PROFILEINFO = UnicodeAlias('PROFILEINFOW')
-class PUBAPPINFO(EasyCastStructure):
+class PUBAPPINFO(Structure):
     cbSize: UInt32
     dwMask: UInt32
     pszSource: win32more.Windows.Win32.Foundation.PWSTR
@@ -10167,19 +10167,19 @@ PreviousVersions = Guid('{596ab062-b4d2-4215-9f74-e9109b0a8153}')
 PropertiesUI = Guid('{d912f8cf-0396-4915-884e-fb425d32943b}')
 PublishDropTarget = Guid('{cc6eeffb-43f6-46c5-9619-51d571967f7d}')
 PublishingWizard = Guid('{6b33163c-76a5-4b6c-bf21-45de9cd503a1}')
-class QCMINFO(EasyCastStructure):
+class QCMINFO(Structure):
     hmenu: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU
     indexMenu: UInt32
     idCmdFirst: UInt32
     idCmdLast: UInt32
     pIdMap: POINTER(win32more.Windows.Win32.UI.Shell.QCMINFO_IDMAP)
-class QCMINFO_IDMAP(EasyCastStructure):
+class QCMINFO_IDMAP(Structure):
     nMaxIds: UInt32
     pIdList: win32more.Windows.Win32.UI.Shell.QCMINFO_IDMAP_PLACEMENT * 1
-class QCMINFO_IDMAP_PLACEMENT(EasyCastStructure):
+class QCMINFO_IDMAP_PLACEMENT(Structure):
     id: UInt32
     fFlags: UInt32
-class QITAB(EasyCastStructure):
+class QITAB(Structure):
     piid: POINTER(Guid)
     dwOffset: UInt32
 QITIPF_FLAGS = Int32
@@ -10397,7 +10397,7 @@ SECURELOCK_SUGGEST_SECURE128BIT: win32more.Windows.Win32.UI.Shell.SECURELOCKCODE
 SFBS_FLAGS = Int32
 SFBS_FLAGS_ROUND_TO_NEAREST_DISPLAYED_DIGIT: win32more.Windows.Win32.UI.Shell.SFBS_FLAGS = 1
 SFBS_FLAGS_TRUNCATE_UNDISPLAYED_DECIMAL_DIGITS: win32more.Windows.Win32.UI.Shell.SFBS_FLAGS = 2
-class SFVM_HELPTOPIC_DATA(EasyCastStructure):
+class SFVM_HELPTOPIC_DATA(Structure):
     wszHelpFile: Char * 260
     wszHelpTopic: Char * 260
 SFVM_MESSAGE_ID = Int32
@@ -10430,7 +10430,7 @@ SFVM_GETZONE: win32more.Windows.Win32.UI.Shell.SFVM_MESSAGE_ID = 58
 SFVM_GETPANE: win32more.Windows.Win32.UI.Shell.SFVM_MESSAGE_ID = 59
 SFVM_GETHELPTOPIC: win32more.Windows.Win32.UI.Shell.SFVM_MESSAGE_ID = 63
 SFVM_GETANIMATION: win32more.Windows.Win32.UI.Shell.SFVM_MESSAGE_ID = 68
-class SFVM_PROPPAGE_DATA(EasyCastStructure):
+class SFVM_PROPPAGE_DATA(Structure):
     dwReserved: UInt32
     pfn: win32more.Windows.Win32.UI.Controls.LPFNSVADDPROPSHEETPAGE
     lParam: win32more.Windows.Win32.Foundation.LPARAM
@@ -10438,12 +10438,12 @@ SFVS_SELECT = Int32
 SFVS_SELECT_NONE: win32more.Windows.Win32.UI.Shell.SFVS_SELECT = 0
 SFVS_SELECT_ALLITEMS: win32more.Windows.Win32.UI.Shell.SFVS_SELECT = 1
 SFVS_SELECT_INVERT: win32more.Windows.Win32.UI.Shell.SFVS_SELECT = 2
-class SFV_CREATE(EasyCastStructure):
+class SFV_CREATE(Structure):
     cbSize: UInt32
     pshf: win32more.Windows.Win32.UI.Shell.IShellFolder
     psvOuter: win32more.Windows.Win32.UI.Shell.IShellView
     psfvcb: win32more.Windows.Win32.UI.Shell.IShellFolderViewCB
-class SFV_SETITEMPOS(EasyCastStructure):
+class SFV_SETITEMPOS(Structure):
     pidl: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     pt: win32more.Windows.Win32.Foundation.POINT
 SHARD = Int32
@@ -10455,15 +10455,15 @@ SHARD_APPIDINFOIDLIST: win32more.Windows.Win32.UI.Shell.SHARD = 5
 SHARD_LINK: win32more.Windows.Win32.UI.Shell.SHARD = 6
 SHARD_APPIDINFOLINK: win32more.Windows.Win32.UI.Shell.SHARD = 7
 SHARD_SHELLITEM: win32more.Windows.Win32.UI.Shell.SHARD = 8
-class SHARDAPPIDINFO(EasyCastStructure):
+class SHARDAPPIDINFO(Structure):
     psi: win32more.Windows.Win32.UI.Shell.IShellItem
     pszAppID: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
-class SHARDAPPIDINFOIDLIST(EasyCastStructure):
+class SHARDAPPIDINFOIDLIST(Structure):
     pidl: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     pszAppID: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
-class SHARDAPPIDINFOLINK(EasyCastStructure):
+class SHARDAPPIDINFOLINK(Structure):
     psl: win32more.Windows.Win32.UI.Shell.IShellLinkA
     pszAppID: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
@@ -10519,13 +10519,13 @@ SHCNRF_InterruptLevel: win32more.Windows.Win32.UI.Shell.SHCNRF_SOURCE = 1
 SHCNRF_ShellLevel: win32more.Windows.Win32.UI.Shell.SHCNRF_SOURCE = 2
 SHCNRF_RecursiveInterrupt: win32more.Windows.Win32.UI.Shell.SHCNRF_SOURCE = 4096
 SHCNRF_NewDelivery: win32more.Windows.Win32.UI.Shell.SHCNRF_SOURCE = 32768
-class SHCOLUMNDATA(EasyCastStructure):
+class SHCOLUMNDATA(Structure):
     dwFlags: UInt32
     dwFileAttributes: UInt32
     dwReserved: UInt32
     pwszExt: win32more.Windows.Win32.Foundation.PWSTR
     wszFile: Char * 260
-class SHCOLUMNINFO(EasyCastStructure):
+class SHCOLUMNINFO(Structure):
     scid: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY
     vt: win32more.Windows.Win32.System.Variant.VARENUM
     fmt: UInt32
@@ -10534,12 +10534,12 @@ class SHCOLUMNINFO(EasyCastStructure):
     wszTitle: Char * 80
     wszDescription: Char * 128
     _pack_ = 1
-class SHCOLUMNINIT(EasyCastStructure):
+class SHCOLUMNINIT(Structure):
     dwFlags: UInt32
     dwReserved: UInt32
     wszFolder: Char * 260
 if ARCH in 'X64,ARM64':
-    class SHCREATEPROCESSINFOW(EasyCastStructure):
+    class SHCREATEPROCESSINFOW(Structure):
         cbSize: UInt32
         fMask: UInt32
         hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -10554,7 +10554,7 @@ if ARCH in 'X64,ARM64':
         lpStartupInfo: POINTER(win32more.Windows.Win32.System.Threading.STARTUPINFOW)
         lpProcessInformation: POINTER(win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION)
 elif ARCH in 'X86':
-    class SHCREATEPROCESSINFOW(EasyCastStructure):
+    class SHCREATEPROCESSINFOW(Structure):
         cbSize: UInt32
         fMask: UInt32
         hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -10569,22 +10569,22 @@ elif ARCH in 'X86':
         lpStartupInfo: POINTER(win32more.Windows.Win32.System.Threading.STARTUPINFOW)
         lpProcessInformation: POINTER(win32more.Windows.Win32.System.Threading.PROCESS_INFORMATION)
         _pack_ = 1
-class SHChangeDWORDAsIDList(EasyCastStructure):
+class SHChangeDWORDAsIDList(Structure):
     cb: UInt16
     dwItem1: UInt32
     dwItem2: UInt32
     cbZero: UInt16
     _pack_ = 1
-class SHChangeNotifyEntry(EasyCastStructure):
+class SHChangeNotifyEntry(Structure):
     pidl: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     fRecursive: win32more.Windows.Win32.Foundation.BOOL
     _pack_ = 1
-class SHChangeProductKeyAsIDList(EasyCastStructure):
+class SHChangeProductKeyAsIDList(Structure):
     cb: UInt16
     wszProductKey: Char * 39
     cbZero: UInt16
     _pack_ = 1
-class SHChangeUpdateImageIDList(EasyCastStructure):
+class SHChangeUpdateImageIDList(Structure):
     cb: UInt16
     iIconIndex: Int32
     iCurIndex: Int32
@@ -10593,7 +10593,7 @@ class SHChangeUpdateImageIDList(EasyCastStructure):
     szName: Char * 260
     cbZero: UInt16
     _pack_ = 1
-class SHDESCRIPTIONID(EasyCastStructure):
+class SHDESCRIPTIONID(Structure):
     dwDescriptionId: UInt32
     clsid: Guid
 SHDID_ID = Int32
@@ -10619,7 +10619,7 @@ SHDID_COMPUTER_AUDIO: win32more.Windows.Win32.UI.Shell.SHDID_ID = 19
 SHDID_COMPUTER_SHAREDDOCS: win32more.Windows.Win32.UI.Shell.SHDID_ID = 20
 SHDID_MOBILE_DEVICE: win32more.Windows.Win32.UI.Shell.SHDID_ID = 21
 SHDID_REMOTE_DESKTOP_DRIVE: win32more.Windows.Win32.UI.Shell.SHDID_ID = 22
-class SHDRAGIMAGE(EasyCastStructure):
+class SHDRAGIMAGE(Structure):
     sizeDragImage: win32more.Windows.Win32.Foundation.SIZE
     ptOffset: win32more.Windows.Win32.Foundation.POINT
     hbmpDragImage: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
@@ -10630,7 +10630,7 @@ SBSC_SHOW: win32more.Windows.Win32.UI.Shell.SHELLBROWSERSHOWCONTROL = 1
 SBSC_TOGGLE: win32more.Windows.Win32.UI.Shell.SHELLBROWSERSHOWCONTROL = 2
 SBSC_QUERY: win32more.Windows.Win32.UI.Shell.SHELLBROWSERSHOWCONTROL = 3
 if ARCH in 'X64,ARM64':
-    class SHELLEXECUTEINFOA(EasyCastStructure):
+    class SHELLEXECUTEINFOA(Structure):
         cbSize: UInt32
         fMask: UInt32
         hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -10646,11 +10646,11 @@ if ARCH in 'X64,ARM64':
         dwHotKey: UInt32
         Anonymous: _Anonymous_e__Union
         hProcess: win32more.Windows.Win32.Foundation.HANDLE
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE
             hMonitor: win32more.Windows.Win32.Foundation.HANDLE
 elif ARCH in 'X86':
-    class SHELLEXECUTEINFOA(EasyCastStructure):
+    class SHELLEXECUTEINFOA(Structure):
         cbSize: UInt32
         fMask: UInt32
         hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -10667,12 +10667,12 @@ elif ARCH in 'X86':
         Anonymous: _Anonymous_e__Union
         hProcess: win32more.Windows.Win32.Foundation.HANDLE
         _pack_ = 1
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE
             hMonitor: win32more.Windows.Win32.Foundation.HANDLE
             _pack_ = 1
 if ARCH in 'X64,ARM64':
-    class SHELLEXECUTEINFOW(EasyCastStructure):
+    class SHELLEXECUTEINFOW(Structure):
         cbSize: UInt32
         fMask: UInt32
         hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -10688,11 +10688,11 @@ if ARCH in 'X64,ARM64':
         dwHotKey: UInt32
         Anonymous: _Anonymous_e__Union
         hProcess: win32more.Windows.Win32.Foundation.HANDLE
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE
             hMonitor: win32more.Windows.Win32.Foundation.HANDLE
 elif ARCH in 'X86':
-    class SHELLEXECUTEINFOW(EasyCastStructure):
+    class SHELLEXECUTEINFOW(Structure):
         cbSize: UInt32
         fMask: UInt32
         hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -10709,7 +10709,7 @@ elif ARCH in 'X86':
         Anonymous: _Anonymous_e__Union
         hProcess: win32more.Windows.Win32.Foundation.HANDLE
         _pack_ = 1
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE
             hMonitor: win32more.Windows.Win32.Foundation.HANDLE
             _pack_ = 1
@@ -10717,10 +10717,10 @@ if ARCH in 'X64,ARM64':
     SHELLEXECUTEINFO = UnicodeAlias('SHELLEXECUTEINFOW')
 elif ARCH in 'X86':
     SHELLEXECUTEINFO = UnicodeAlias('SHELLEXECUTEINFOW')
-class SHELLFLAGSTATE(EasyCastStructure):
+class SHELLFLAGSTATE(Structure):
     _bitfield: Int32
     _pack_ = 1
-class SHELLSTATEA(EasyCastStructure):
+class SHELLSTATEA(Structure):
     _bitfield1: Int32
     dwWin95Unused: UInt32
     uWin95Unused: UInt32
@@ -10730,7 +10730,7 @@ class SHELLSTATEA(EasyCastStructure):
     uNotUsed: UInt32
     _bitfield2: Int32
     _pack_ = 1
-class SHELLSTATEW(EasyCastStructure):
+class SHELLSTATEW(Structure):
     _bitfield1: Int32
     dwWin95Unused: UInt32
     uWin95Unused: UInt32
@@ -10755,7 +10755,7 @@ SHACF_AUTOSUGGEST_FORCE_ON: win32more.Windows.Win32.UI.Shell.SHELL_AUTOCOMPLETE_
 SHACF_AUTOSUGGEST_FORCE_OFF: win32more.Windows.Win32.UI.Shell.SHELL_AUTOCOMPLETE_FLAGS = 536870912
 SHACF_AUTOAPPEND_FORCE_ON: win32more.Windows.Win32.UI.Shell.SHELL_AUTOCOMPLETE_FLAGS = 1073741824
 SHACF_AUTOAPPEND_FORCE_OFF: win32more.Windows.Win32.UI.Shell.SHELL_AUTOCOMPLETE_FLAGS = 2147483648
-class SHELL_ITEM_RESOURCE(EasyCastStructure):
+class SHELL_ITEM_RESOURCE(Structure):
     guidType: Guid
     szName: Char * 260
 SHELL_LINK_DATA_FLAGS = Int32
@@ -10794,14 +10794,14 @@ SHELL_UI_COMPONENT_TASKBARS: win32more.Windows.Win32.UI.Shell.SHELL_UI_COMPONENT
 SHELL_UI_COMPONENT_NOTIFICATIONAREA: win32more.Windows.Win32.UI.Shell.SHELL_UI_COMPONENT = 1
 SHELL_UI_COMPONENT_DESKBAND: win32more.Windows.Win32.UI.Shell.SHELL_UI_COMPONENT = 2
 if ARCH in 'X64,ARM64':
-    class SHFILEINFOA(EasyCastStructure):
+    class SHFILEINFOA(Structure):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         iIcon: Int32
         dwAttributes: UInt32
         szDisplayName: win32more.Windows.Win32.Foundation.CHAR * 260
         szTypeName: win32more.Windows.Win32.Foundation.CHAR * 80
 elif ARCH in 'X86':
-    class SHFILEINFOA(EasyCastStructure):
+    class SHFILEINFOA(Structure):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         iIcon: Int32
         dwAttributes: UInt32
@@ -10809,14 +10809,14 @@ elif ARCH in 'X86':
         szTypeName: win32more.Windows.Win32.Foundation.CHAR * 80
         _pack_ = 1
 if ARCH in 'X64,ARM64':
-    class SHFILEINFOW(EasyCastStructure):
+    class SHFILEINFOW(Structure):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         iIcon: Int32
         dwAttributes: UInt32
         szDisplayName: Char * 260
         szTypeName: Char * 80
 elif ARCH in 'X86':
-    class SHFILEINFOW(EasyCastStructure):
+    class SHFILEINFOW(Structure):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         iIcon: Int32
         dwAttributes: UInt32
@@ -10828,7 +10828,7 @@ if ARCH in 'X64,ARM64':
 elif ARCH in 'X86':
     SHFILEINFO = UnicodeAlias('SHFILEINFOW')
 if ARCH in 'X64,ARM64':
-    class SHFILEOPSTRUCTA(EasyCastStructure):
+    class SHFILEOPSTRUCTA(Structure):
         hwnd: win32more.Windows.Win32.Foundation.HWND
         wFunc: UInt32
         pFrom: POINTER(SByte)
@@ -10838,7 +10838,7 @@ if ARCH in 'X64,ARM64':
         hNameMappings: VoidPtr
         lpszProgressTitle: win32more.Windows.Win32.Foundation.PSTR
 elif ARCH in 'X86':
-    class SHFILEOPSTRUCTA(EasyCastStructure):
+    class SHFILEOPSTRUCTA(Structure):
         hwnd: win32more.Windows.Win32.Foundation.HWND
         wFunc: UInt32
         pFrom: POINTER(SByte)
@@ -10849,7 +10849,7 @@ elif ARCH in 'X86':
         lpszProgressTitle: win32more.Windows.Win32.Foundation.PSTR
         _pack_ = 1
 if ARCH in 'X64,ARM64':
-    class SHFILEOPSTRUCTW(EasyCastStructure):
+    class SHFILEOPSTRUCTW(Structure):
         hwnd: win32more.Windows.Win32.Foundation.HWND
         wFunc: UInt32
         pFrom: win32more.Windows.Win32.Foundation.PWSTR
@@ -10859,7 +10859,7 @@ if ARCH in 'X64,ARM64':
         hNameMappings: VoidPtr
         lpszProgressTitle: win32more.Windows.Win32.Foundation.PWSTR
 elif ARCH in 'X86':
-    class SHFILEOPSTRUCTW(EasyCastStructure):
+    class SHFILEOPSTRUCTW(Structure):
         hwnd: win32more.Windows.Win32.Foundation.HWND
         wFunc: UInt32
         pFrom: win32more.Windows.Win32.Foundation.PWSTR
@@ -10883,7 +10883,7 @@ SHFMT_RET = UInt32
 SHFMT_ERROR: win32more.Windows.Win32.UI.Shell.SHFMT_RET = 4294967295
 SHFMT_CANCEL: win32more.Windows.Win32.UI.Shell.SHFMT_RET = 4294967294
 SHFMT_NOFORMAT: win32more.Windows.Win32.UI.Shell.SHFMT_RET = 4294967293
-class SHFOLDERCUSTOMSETTINGS(EasyCastStructure):
+class SHFOLDERCUSTOMSETTINGS(Structure):
     dwSize: UInt32
     dwMask: UInt32
     pvid: POINTER(Guid)
@@ -11002,26 +11002,26 @@ SHGSI_LARGEICON: win32more.Windows.Win32.UI.Shell.SHGSI_FLAGS = 0
 SHGSI_SMALLICON: win32more.Windows.Win32.UI.Shell.SHGSI_FLAGS = 1
 SHGSI_SHELLICONSIZE: win32more.Windows.Win32.UI.Shell.SHGSI_FLAGS = 4
 if ARCH in 'X64,ARM64':
-    class SHNAMEMAPPINGA(EasyCastStructure):
+    class SHNAMEMAPPINGA(Structure):
         pszOldPath: win32more.Windows.Win32.Foundation.PSTR
         pszNewPath: win32more.Windows.Win32.Foundation.PSTR
         cchOldPath: Int32
         cchNewPath: Int32
 elif ARCH in 'X86':
-    class SHNAMEMAPPINGA(EasyCastStructure):
+    class SHNAMEMAPPINGA(Structure):
         pszOldPath: win32more.Windows.Win32.Foundation.PSTR
         pszNewPath: win32more.Windows.Win32.Foundation.PSTR
         cchOldPath: Int32
         cchNewPath: Int32
         _pack_ = 1
 if ARCH in 'X64,ARM64':
-    class SHNAMEMAPPINGW(EasyCastStructure):
+    class SHNAMEMAPPINGW(Structure):
         pszOldPath: win32more.Windows.Win32.Foundation.PWSTR
         pszNewPath: win32more.Windows.Win32.Foundation.PWSTR
         cchOldPath: Int32
         cchNewPath: Int32
 elif ARCH in 'X86':
-    class SHNAMEMAPPINGW(EasyCastStructure):
+    class SHNAMEMAPPINGW(Structure):
         pszOldPath: win32more.Windows.Win32.Foundation.PWSTR
         pszNewPath: win32more.Windows.Win32.Foundation.PWSTR
         cchOldPath: Int32
@@ -11036,12 +11036,12 @@ SHOP_PRINTERNAME: win32more.Windows.Win32.UI.Shell.SHOP_TYPE = 1
 SHOP_FILEPATH: win32more.Windows.Win32.UI.Shell.SHOP_TYPE = 2
 SHOP_VOLUMEGUID: win32more.Windows.Win32.UI.Shell.SHOP_TYPE = 4
 if ARCH in 'X64,ARM64':
-    class SHQUERYRBINFO(EasyCastStructure):
+    class SHQUERYRBINFO(Structure):
         cbSize: UInt32
         i64Size: Int64
         i64NumItems: Int64
 elif ARCH in 'X86':
-    class SHQUERYRBINFO(EasyCastStructure):
+    class SHQUERYRBINFO(Structure):
         cbSize: UInt32
         i64Size: Int64
         i64NumItems: Int64
@@ -11152,14 +11152,14 @@ SIID_MEDIABDRE: win32more.Windows.Win32.UI.Shell.SHSTOCKICONID = 139
 SIID_CLUSTEREDDRIVE: win32more.Windows.Win32.UI.Shell.SHSTOCKICONID = 140
 SIID_MAX_ICONS: win32more.Windows.Win32.UI.Shell.SHSTOCKICONID = 181
 if ARCH in 'X64,ARM64':
-    class SHSTOCKICONINFO(EasyCastStructure):
+    class SHSTOCKICONINFO(Structure):
         cbSize: UInt32
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         iSysImageIndex: Int32
         iIcon: Int32
         szPath: Char * 260
 elif ARCH in 'X86':
-    class SHSTOCKICONINFO(EasyCastStructure):
+    class SHSTOCKICONINFO(Structure):
         cbSize: UInt32
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         iSysImageIndex: Int32
@@ -11199,7 +11199,7 @@ SLGP_SHORTPATH: win32more.Windows.Win32.UI.Shell.SLGP_FLAGS = 1
 SLGP_UNCPRIORITY: win32more.Windows.Win32.UI.Shell.SLGP_FLAGS = 2
 SLGP_RAWPATH: win32more.Windows.Win32.UI.Shell.SLGP_FLAGS = 4
 SLGP_RELATIVEPRIORITY: win32more.Windows.Win32.UI.Shell.SLGP_FLAGS = 8
-class SLOWAPPINFO(EasyCastStructure):
+class SLOWAPPINFO(Structure):
     ullSize: UInt64
     ftLastUsed: win32more.Windows.Win32.Foundation.FILETIME
     iTimesUsed: Int32
@@ -11220,11 +11220,11 @@ SLR_KNOWNFOLDER: win32more.Windows.Win32.UI.Shell.SLR_FLAGS = 1024
 SLR_MACHINE_IN_LOCAL_TARGET: win32more.Windows.Win32.UI.Shell.SLR_FLAGS = 2048
 SLR_UPDATE_MACHINE_AND_SID: win32more.Windows.Win32.UI.Shell.SLR_FLAGS = 4096
 SLR_NO_OBJECT_ID: win32more.Windows.Win32.UI.Shell.SLR_FLAGS = 8192
-class SMCSHCHANGENOTIFYSTRUCT(EasyCastStructure):
+class SMCSHCHANGENOTIFYSTRUCT(Structure):
     lEvent: Int32
     pidl1: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     pidl2: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
-class SMDATA(EasyCastStructure):
+class SMDATA(Structure):
     dwMask: UInt32
     dwFlags: UInt32
     hmenu: win32more.Windows.Win32.UI.WindowsAndMessaging.HMENU
@@ -11237,7 +11237,7 @@ class SMDATA(EasyCastStructure):
     pidlItem: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     psf: win32more.Windows.Win32.UI.Shell.IShellFolder
     pvUserData: VoidPtr
-class SMINFO(EasyCastStructure):
+class SMINFO(Structure):
     dwMask: UInt32
     dwType: UInt32
     dwFlags: UInt32
@@ -11263,7 +11263,7 @@ SMIM_ICON: win32more.Windows.Win32.UI.Shell.SMINFOMASK = 4
 SMINFOTYPE = Int32
 SMIT_SEPARATOR: win32more.Windows.Win32.UI.Shell.SMINFOTYPE = 1
 SMIT_STRING: win32more.Windows.Win32.UI.Shell.SMINFOTYPE = 2
-class SORTCOLUMN(EasyCastStructure):
+class SORTCOLUMN(Structure):
     propkey: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY
     direction: win32more.Windows.Win32.UI.Shell.SORTDIRECTION
 SORTDIRECTION = Int32
@@ -11338,7 +11338,7 @@ STPF_USEAPPPEEKALWAYS: win32more.Windows.Win32.UI.Shell.STPFLAG = 4
 STPF_USEAPPPEEKWHENACTIVE: win32more.Windows.Win32.UI.Shell.STPFLAG = 8
 @winfunctype_pointer
 def SUBCLASSPROC(hWnd: win32more.Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM, uIdSubclass: UIntPtr, dwRefData: UIntPtr) -> win32more.Windows.Win32.Foundation.LRESULT: ...
-class SV2CVW2_PARAMS(EasyCastStructure):
+class SV2CVW2_PARAMS(Structure):
     cbSize: UInt32
     psvPrev: win32more.Windows.Win32.UI.Shell.IShellView
     pfs: POINTER(win32more.Windows.Win32.UI.Shell.FOLDERSETTINGS)
@@ -11368,7 +11368,7 @@ SYNCMGRHANDLER_HASPROPERTIES: win32more.Windows.Win32.UI.Shell.SYNCMGRHANDLERFLA
 SYNCMGRHANDLER_MAYESTABLISHCONNECTION: win32more.Windows.Win32.UI.Shell.SYNCMGRHANDLERFLAGS = 2
 SYNCMGRHANDLER_ALWAYSLISTHANDLER: win32more.Windows.Win32.UI.Shell.SYNCMGRHANDLERFLAGS = 4
 SYNCMGRHANDLER_HIDDEN: win32more.Windows.Win32.UI.Shell.SYNCMGRHANDLERFLAGS = 8
-class SYNCMGRHANDLERINFO(EasyCastStructure):
+class SYNCMGRHANDLERINFO(Structure):
     cbSize: UInt32
     hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
     SyncMgrHandlerFlags: UInt32
@@ -11376,7 +11376,7 @@ class SYNCMGRHANDLERINFO(EasyCastStructure):
 SYNCMGRINVOKEFLAGS = Int32
 SYNCMGRINVOKE_STARTSYNC: win32more.Windows.Win32.UI.Shell.SYNCMGRINVOKEFLAGS = 2
 SYNCMGRINVOKE_MINIMIZED: win32more.Windows.Win32.UI.Shell.SYNCMGRINVOKEFLAGS = 4
-class SYNCMGRITEM(EasyCastStructure):
+class SYNCMGRITEM(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     ItemID: Guid
@@ -11394,7 +11394,7 @@ SYNCMGRITEM_HIDDEN: win32more.Windows.Win32.UI.Shell.SYNCMGRITEMFLAGS = 32
 SYNCMGRITEMSTATE = Int32
 SYNCMGRITEMSTATE_UNCHECKED: win32more.Windows.Win32.UI.Shell.SYNCMGRITEMSTATE = 0
 SYNCMGRITEMSTATE_CHECKED: win32more.Windows.Win32.UI.Shell.SYNCMGRITEMSTATE = 1
-class SYNCMGRLOGERRORINFO(EasyCastStructure):
+class SYNCMGRLOGERRORINFO(Structure):
     cbSize: UInt32
     mask: UInt32
     dwSyncMgrErrorFlags: UInt32
@@ -11405,7 +11405,7 @@ SYNCMGRLOGLEVEL_INFORMATION: win32more.Windows.Win32.UI.Shell.SYNCMGRLOGLEVEL = 
 SYNCMGRLOGLEVEL_WARNING: win32more.Windows.Win32.UI.Shell.SYNCMGRLOGLEVEL = 2
 SYNCMGRLOGLEVEL_ERROR: win32more.Windows.Win32.UI.Shell.SYNCMGRLOGLEVEL = 3
 SYNCMGRLOGLEVEL_LOGLEVELMAX: win32more.Windows.Win32.UI.Shell.SYNCMGRLOGLEVEL = 3
-class SYNCMGRPROGRESSITEM(EasyCastStructure):
+class SYNCMGRPROGRESSITEM(Structure):
     cbSize: UInt32
     mask: UInt32
     lpcStatusText: win32more.Windows.Win32.Foundation.PWSTR
@@ -11432,7 +11432,7 @@ SYNCMGR_CR_NONE: win32more.Windows.Win32.UI.Shell.SYNCMGR_CANCEL_REQUEST = 0
 SYNCMGR_CR_CANCEL_ITEM: win32more.Windows.Win32.UI.Shell.SYNCMGR_CANCEL_REQUEST = 1
 SYNCMGR_CR_CANCEL_ALL: win32more.Windows.Win32.UI.Shell.SYNCMGR_CANCEL_REQUEST = 2
 SYNCMGR_CR_MAX: win32more.Windows.Win32.UI.Shell.SYNCMGR_CANCEL_REQUEST = 2
-class SYNCMGR_CONFLICT_ID_INFO(EasyCastStructure):
+class SYNCMGR_CONFLICT_ID_INFO(Structure):
     pblobID: POINTER(win32more.Windows.Win32.System.Com.BYTE_BLOB)
     pblobExtra: POINTER(win32more.Windows.Win32.System.Com.BYTE_BLOB)
 SYNCMGR_CONFLICT_ITEM_TYPE = Int32
@@ -11657,7 +11657,7 @@ SyncMgrFolder = Guid('{9c73f5e5-7ae7-4e32-a8e8-8d23b85255bf}')
 SyncMgrScheduleWizard = Guid('{8d8b8e30-c451-421b-8553-d2976afa648c}')
 SyncResultsFolder = Guid('{71d99464-3b6b-475c-b241-e15883207529}')
 SyncSetupFolder = Guid('{2e9e59c0-b437-4981-a647-9c34b9b90891}')
-class TBINFO(EasyCastStructure):
+class TBINFO(Structure):
     cbuttons: UInt32
     uFlags: UInt32
 TBPFLAG = Int32
@@ -11666,7 +11666,7 @@ TBPF_INDETERMINATE: win32more.Windows.Win32.UI.Shell.TBPFLAG = 1
 TBPF_NORMAL: win32more.Windows.Win32.UI.Shell.TBPFLAG = 2
 TBPF_ERROR: win32more.Windows.Win32.UI.Shell.TBPFLAG = 4
 TBPF_PAUSED: win32more.Windows.Win32.UI.Shell.TBPFLAG = 8
-class THUMBBUTTON(EasyCastStructure):
+class THUMBBUTTON(Structure):
     dwMask: win32more.Windows.Win32.UI.Shell.THUMBBUTTONMASK
     iId: UInt32
     iBitmap: UInt32
@@ -11696,7 +11696,7 @@ TLEF_INCLUDE_UNINVOKEABLE: win32more.Windows.Win32.UI.Shell.TLENUMF = 64
 TLEF_ABSOLUTE: win32more.Windows.Win32.UI.Shell.TLENUMF = 49
 TLEF_EXCLUDE_SUBFRAME_ENTRIES: win32more.Windows.Win32.UI.Shell.TLENUMF = 128
 TLEF_EXCLUDE_ABOUT_PAGES: win32more.Windows.Win32.UI.Shell.TLENUMF = 256
-class TOOLBARITEM(EasyCastStructure):
+class TOOLBARITEM(Structure):
     ptbar: win32more.Windows.Win32.UI.Shell.IDockingWindow
     rcBorderTool: win32more.Windows.Win32.Foundation.RECT
     pwszItem: win32more.Windows.Win32.Foundation.PWSTR
@@ -11722,12 +11722,12 @@ UR_MONITOR_DISCONNECT: win32more.Windows.Win32.UI.Shell.UNDOCK_REASON = 1
 URLASSOCIATIONDIALOG_IN_FLAGS = Int32
 URLASSOCDLG_FL_USE_DEFAULT_NAME: win32more.Windows.Win32.UI.Shell.URLASSOCIATIONDIALOG_IN_FLAGS = 1
 URLASSOCDLG_FL_REGISTER_ASSOC: win32more.Windows.Win32.UI.Shell.URLASSOCIATIONDIALOG_IN_FLAGS = 2
-class URLINVOKECOMMANDINFOA(EasyCastStructure):
+class URLINVOKECOMMANDINFOA(Structure):
     dwcbSize: UInt32
     dwFlags: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
     pcszVerb: win32more.Windows.Win32.Foundation.PSTR
-class URLINVOKECOMMANDINFOW(EasyCastStructure):
+class URLINVOKECOMMANDINFOW(Structure):
     dwcbSize: UInt32
     dwFlags: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
@@ -11800,7 +11800,7 @@ VPWF_DEFAULT: win32more.Windows.Win32.UI.Shell.VPWATERMARKFLAGS = 0
 VPWF_ALPHABLEND: win32more.Windows.Win32.UI.Shell.VPWATERMARKFLAGS = 1
 VaultProvider = Guid('{503739d0-4c5e-4cfd-b3ba-d881334f0df2}')
 VirtualDesktopManager = Guid('{aa509086-5ca9-4c25-8f95-589d3c07b48a}')
-class WINDOWDATA(EasyCastStructure):
+class WINDOWDATA(Structure):
     dwWindowID: UInt32
     uiCP: UInt32
     pidl: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
@@ -11839,7 +11839,7 @@ WTS_APPSTYLE: win32more.Windows.Win32.UI.Shell.WTS_FLAGS = 8192
 WTS_WIDETHUMBNAILS: win32more.Windows.Win32.UI.Shell.WTS_FLAGS = 16384
 WTS_IDEALCACHESIZEONLY: win32more.Windows.Win32.UI.Shell.WTS_FLAGS = 32768
 WTS_SCALEUP: win32more.Windows.Win32.UI.Shell.WTS_FLAGS = 65536
-class WTS_THUMBNAILID(EasyCastStructure):
+class WTS_THUMBNAILID(Structure):
     rgbKey: Byte * 16
 WebBrowser = Guid('{8856f961-340a-11d0-a96b-00c04fd705a2}')
 WebBrowser_V1 = Guid('{eab22ac3-30c1-11cf-a7eb-0000c05bae0b}')

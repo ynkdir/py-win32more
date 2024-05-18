@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.RemoteManagement
@@ -802,73 +802,73 @@ class IWSManSession(ComPtr):
     @commethod(18)
     def put_Timeout(self, value: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 WSMAN_API_HANDLE = IntPtr
-class WSMAN_AUTHENTICATION_CREDENTIALS(EasyCastStructure):
+class WSMAN_AUTHENTICATION_CREDENTIALS(Structure):
     authenticationMechanism: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         userAccount: win32more.Windows.Win32.System.RemoteManagement.WSMAN_USERNAME_PASSWORD_CREDS
         certificateThumbprint: win32more.Windows.Win32.Foundation.PWSTR
-class WSMAN_AUTHZ_QUOTA(EasyCastStructure):
+class WSMAN_AUTHZ_QUOTA(Structure):
     maxAllowedConcurrentShells: UInt32
     maxAllowedConcurrentOperations: UInt32
     timeslotSize: UInt32
     maxAllowedOperationsPerTimeslot: UInt32
-class WSMAN_CERTIFICATE_DETAILS(EasyCastStructure):
+class WSMAN_CERTIFICATE_DETAILS(Structure):
     subject: win32more.Windows.Win32.Foundation.PWSTR
     issuerName: win32more.Windows.Win32.Foundation.PWSTR
     issuerThumbprint: win32more.Windows.Win32.Foundation.PWSTR
     subjectName: win32more.Windows.Win32.Foundation.PWSTR
-class WSMAN_COMMAND_ARG_SET(EasyCastStructure):
+class WSMAN_COMMAND_ARG_SET(Structure):
     argsCount: UInt32
     args: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
 WSMAN_COMMAND_HANDLE = IntPtr
-class WSMAN_CONNECT_DATA(EasyCastStructure):
+class WSMAN_CONNECT_DATA(Structure):
     data: win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA
-class WSMAN_CREATE_SHELL_DATA(EasyCastStructure):
+class WSMAN_CREATE_SHELL_DATA(Structure):
     data: win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA
-class WSMAN_DATA(EasyCastStructure):
+class WSMAN_DATA(Structure):
     type: win32more.Windows.Win32.System.RemoteManagement.WSManDataType
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         text: win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_TEXT
         binaryData: win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_BINARY
         number: UInt32
-class WSMAN_DATA_BINARY(EasyCastStructure):
+class WSMAN_DATA_BINARY(Structure):
     dataLength: UInt32
     data: POINTER(Byte)
-class WSMAN_DATA_TEXT(EasyCastStructure):
+class WSMAN_DATA_TEXT(Structure):
     bufferLength: UInt32
     buffer: win32more.Windows.Win32.Foundation.PWSTR
-class WSMAN_ENVIRONMENT_VARIABLE(EasyCastStructure):
+class WSMAN_ENVIRONMENT_VARIABLE(Structure):
     name: win32more.Windows.Win32.Foundation.PWSTR
     value: win32more.Windows.Win32.Foundation.PWSTR
-class WSMAN_ENVIRONMENT_VARIABLE_SET(EasyCastStructure):
+class WSMAN_ENVIRONMENT_VARIABLE_SET(Structure):
     varsCount: UInt32
     vars: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE)
-class WSMAN_ERROR(EasyCastStructure):
+class WSMAN_ERROR(Structure):
     code: UInt32
     errorDetail: win32more.Windows.Win32.Foundation.PWSTR
     language: win32more.Windows.Win32.Foundation.PWSTR
     machineName: win32more.Windows.Win32.Foundation.PWSTR
     pluginName: win32more.Windows.Win32.Foundation.PWSTR
-class WSMAN_FILTER(EasyCastStructure):
+class WSMAN_FILTER(Structure):
     filter: win32more.Windows.Win32.Foundation.PWSTR
     dialect: win32more.Windows.Win32.Foundation.PWSTR
-class WSMAN_FRAGMENT(EasyCastStructure):
+class WSMAN_FRAGMENT(Structure):
     path: win32more.Windows.Win32.Foundation.PWSTR
     dialect: win32more.Windows.Win32.Foundation.PWSTR
-class WSMAN_KEY(EasyCastStructure):
+class WSMAN_KEY(Structure):
     key: win32more.Windows.Win32.Foundation.PWSTR
     value: win32more.Windows.Win32.Foundation.PWSTR
 WSMAN_OPERATION_HANDLE = IntPtr
-class WSMAN_OPERATION_INFO(EasyCastStructure):
+class WSMAN_OPERATION_INFO(Structure):
     fragment: win32more.Windows.Win32.System.RemoteManagement.WSMAN_FRAGMENT
     filter: win32more.Windows.Win32.System.RemoteManagement.WSMAN_FILTER
     selectorSet: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SELECTOR_SET
     optionSet: win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION_SET
     reserved: VoidPtr
     version: UInt32
-class WSMAN_OPERATION_INFOEX(EasyCastStructure):
+class WSMAN_OPERATION_INFOEX(Structure):
     fragment: win32more.Windows.Win32.System.RemoteManagement.WSMAN_FRAGMENT
     filter: win32more.Windows.Win32.System.RemoteManagement.WSMAN_FILTER
     selectorSet: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SELECTOR_SET
@@ -876,15 +876,15 @@ class WSMAN_OPERATION_INFOEX(EasyCastStructure):
     version: UInt32
     uiLocale: win32more.Windows.Win32.Foundation.PWSTR
     dataLocale: win32more.Windows.Win32.Foundation.PWSTR
-class WSMAN_OPTION(EasyCastStructure):
+class WSMAN_OPTION(Structure):
     name: win32more.Windows.Win32.Foundation.PWSTR
     value: win32more.Windows.Win32.Foundation.PWSTR
     mustComply: win32more.Windows.Win32.Foundation.BOOL
-class WSMAN_OPTION_SET(EasyCastStructure):
+class WSMAN_OPTION_SET(Structure):
     optionsCount: UInt32
     options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION)
     optionsMustUnderstand: win32more.Windows.Win32.Foundation.BOOL
-class WSMAN_OPTION_SETEX(EasyCastStructure):
+class WSMAN_OPTION_SETEX(Structure):
     optionsCount: UInt32
     options: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPTION)
     optionsMustUnderstand: win32more.Windows.Win32.Foundation.BOOL
@@ -907,7 +907,7 @@ def WSMAN_PLUGIN_RECEIVE(requestDetails: POINTER(win32more.Windows.Win32.System.
 def WSMAN_PLUGIN_RELEASE_COMMAND_CONTEXT(shellContext: VoidPtr, commandContext: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def WSMAN_PLUGIN_RELEASE_SHELL_CONTEXT(shellContext: VoidPtr) -> Void: ...
-class WSMAN_PLUGIN_REQUEST(EasyCastStructure):
+class WSMAN_PLUGIN_REQUEST(Structure):
     senderDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS)
     locale: win32more.Windows.Win32.Foundation.PWSTR
     resourceUri: win32more.Windows.Win32.Foundation.PWSTR
@@ -925,49 +925,49 @@ def WSMAN_PLUGIN_SHUTDOWN(pluginContext: VoidPtr, flags: UInt32, reason: UInt32)
 def WSMAN_PLUGIN_SIGNAL(requestDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_PLUGIN_REQUEST), flags: UInt32, shellContext: VoidPtr, commandContext: VoidPtr, code: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 @winfunctype_pointer
 def WSMAN_PLUGIN_STARTUP(flags: UInt32, applicationIdentification: win32more.Windows.Win32.Foundation.PWSTR, extraInfo: win32more.Windows.Win32.Foundation.PWSTR, pluginContext: POINTER(VoidPtr)) -> UInt32: ...
-class WSMAN_PROXY_INFO(EasyCastStructure):
+class WSMAN_PROXY_INFO(Structure):
     accessType: UInt32
     authenticationCredentials: win32more.Windows.Win32.System.RemoteManagement.WSMAN_AUTHENTICATION_CREDENTIALS
-class WSMAN_RECEIVE_DATA_RESULT(EasyCastStructure):
+class WSMAN_RECEIVE_DATA_RESULT(Structure):
     streamId: win32more.Windows.Win32.Foundation.PWSTR
     streamData: win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA
     commandState: win32more.Windows.Win32.Foundation.PWSTR
     exitCode: UInt32
-class WSMAN_RESPONSE_DATA(EasyCastUnion):
+class WSMAN_RESPONSE_DATA(Union):
     receiveData: win32more.Windows.Win32.System.RemoteManagement.WSMAN_RECEIVE_DATA_RESULT
     connectData: win32more.Windows.Win32.System.RemoteManagement.WSMAN_CONNECT_DATA
     createData: win32more.Windows.Win32.System.RemoteManagement.WSMAN_CREATE_SHELL_DATA
-class WSMAN_SELECTOR_SET(EasyCastStructure):
+class WSMAN_SELECTOR_SET(Structure):
     numberKeys: UInt32
     keys: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_KEY)
-class WSMAN_SENDER_DETAILS(EasyCastStructure):
+class WSMAN_SENDER_DETAILS(Structure):
     senderName: win32more.Windows.Win32.Foundation.PWSTR
     authenticationMechanism: win32more.Windows.Win32.Foundation.PWSTR
     certificateDetails: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_CERTIFICATE_DETAILS)
     clientToken: win32more.Windows.Win32.Foundation.HANDLE
     httpURL: win32more.Windows.Win32.Foundation.PWSTR
 WSMAN_SESSION_HANDLE = IntPtr
-class WSMAN_SHELL_ASYNC(EasyCastStructure):
+class WSMAN_SHELL_ASYNC(Structure):
     operationContext: VoidPtr
     completionFunction: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_COMPLETION_FUNCTION
 @winfunctype_pointer
 def WSMAN_SHELL_COMPLETION_FUNCTION(operationContext: VoidPtr, flags: UInt32, error: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_ERROR), shell: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_HANDLE, command: win32more.Windows.Win32.System.RemoteManagement.WSMAN_COMMAND_HANDLE, operationHandle: win32more.Windows.Win32.System.RemoteManagement.WSMAN_OPERATION_HANDLE, data: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_RESPONSE_DATA)) -> Void: ...
-class WSMAN_SHELL_DISCONNECT_INFO(EasyCastStructure):
+class WSMAN_SHELL_DISCONNECT_INFO(Structure):
     idleTimeoutMs: UInt32
 WSMAN_SHELL_HANDLE = IntPtr
-class WSMAN_SHELL_STARTUP_INFO_V10(EasyCastStructure):
+class WSMAN_SHELL_STARTUP_INFO_V10(Structure):
     inputStreamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET)
     outputStreamSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_STREAM_ID_SET)
     idleTimeoutMs: UInt32
     workingDirectory: win32more.Windows.Win32.Foundation.PWSTR
     variableSet: POINTER(win32more.Windows.Win32.System.RemoteManagement.WSMAN_ENVIRONMENT_VARIABLE_SET)
-class WSMAN_SHELL_STARTUP_INFO_V11(EasyCastStructure):
+class WSMAN_SHELL_STARTUP_INFO_V11(Structure):
     Base: win32more.Windows.Win32.System.RemoteManagement.WSMAN_SHELL_STARTUP_INFO_V10
     name: win32more.Windows.Win32.Foundation.PWSTR
-class WSMAN_STREAM_ID_SET(EasyCastStructure):
+class WSMAN_STREAM_ID_SET(Structure):
     streamIDsCount: UInt32
     streamIDs: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class WSMAN_USERNAME_PASSWORD_CREDS(EasyCastStructure):
+class WSMAN_USERNAME_PASSWORD_CREDS(Structure):
     username: win32more.Windows.Win32.Foundation.PWSTR
     password: win32more.Windows.Win32.Foundation.PWSTR
 WSMan = Guid('{bced617b-ec03-420b-8508-977dc7a686bd}')

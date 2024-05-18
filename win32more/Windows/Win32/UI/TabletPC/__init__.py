@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -404,7 +404,7 @@ rtfThreeD: win32more.Windows.Win32.UI.TabletPC.AppearanceConstants = 1
 BorderStyleConstants = Int32
 rtfNoBorder: win32more.Windows.Win32.UI.TabletPC.BorderStyleConstants = 0
 rtfFixedSingle: win32more.Windows.Win32.UI.TabletPC.BorderStyleConstants = 1
-class CHARACTER_RANGE(EasyCastStructure):
+class CHARACTER_RANGE(Structure):
     wcLow: Char
     cChars: UInt16
 CONFIDENCE_LEVEL = Int32
@@ -880,7 +880,7 @@ DISPID_PIPEPanelMoving: win32more.Windows.Win32.UI.TabletPC.DISPID_PenInputPanel
 DISPID_StrokeEvent = Int32
 DISPID_SEStrokesAdded: win32more.Windows.Win32.UI.TabletPC.DISPID_StrokeEvent = 1
 DISPID_SEStrokesRemoved: win32more.Windows.Win32.UI.TabletPC.DISPID_StrokeEvent = 2
-class DYNAMIC_RENDERER_CACHED_DATA(EasyCastStructure):
+class DYNAMIC_RENDERER_CACHED_DATA(Structure):
     strokeId: Int32
     dynamicRenderer: win32more.Windows.Win32.UI.TabletPC.IDynamicRenderer
 DynamicRenderer = Guid('{ecd32aea-746f-4dcb-bf68-082757faff18}')
@@ -922,11 +922,11 @@ FLICKMODE_ON: win32more.Windows.Win32.UI.TabletPC.FLICKMODE = 1
 FLICKMODE_LEARNING: win32more.Windows.Win32.UI.TabletPC.FLICKMODE = 2
 FLICKMODE_MAX: win32more.Windows.Win32.UI.TabletPC.FLICKMODE = 2
 FLICKMODE_DEFAULT: win32more.Windows.Win32.UI.TabletPC.FLICKMODE = 1
-class FLICK_DATA(EasyCastStructure):
+class FLICK_DATA(Structure):
     _bitfield: Int32
-class FLICK_POINT(EasyCastStructure):
+class FLICK_POINT(Structure):
     _bitfield: Int32
-class GESTURE_DATA(EasyCastStructure):
+class GESTURE_DATA(Structure):
     gestureId: Int32
     recoConfidence: Int32
     strokeCount: Int32
@@ -973,15 +973,15 @@ class IDynamicRenderer(ComPtr):
     def Refresh(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def Draw(self, hDC: win32more.Windows.Win32.Foundation.HANDLE_PTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IEC_GESTUREINFO(EasyCastStructure):
+class IEC_GESTUREINFO(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     Cursor: win32more.Windows.Win32.UI.TabletPC.IInkCursor
     Strokes: win32more.Windows.Win32.UI.TabletPC.IInkStrokes
     Gestures: win32more.Windows.Win32.System.Variant.VARIANT
-class IEC_RECOGNITIONRESULTINFO(EasyCastStructure):
+class IEC_RECOGNITIONRESULTINFO(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     RecognitionResult: win32more.Windows.Win32.UI.TabletPC.IInkRecognitionResult
-class IEC_STROKEINFO(EasyCastStructure):
+class IEC_STROKEINFO(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     Cursor: win32more.Windows.Win32.UI.TabletPC.IInkCursor
     Stroke: win32more.Windows.Win32.UI.TabletPC.IInkStrokeDisp
@@ -2233,7 +2233,7 @@ class IMathInputControl(ComPtr):
     def RemoveFunctionName(self, FunctionName: win32more.Windows.Win32.Foundation.BSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def GetHoverIcon(self, HoverImage: POINTER(win32more.Windows.Win32.System.Ole.IPictureDisp)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INKMETRIC(EasyCastStructure):
+class INKMETRIC(Structure):
     iHeight: Int32
     iFontAscent: Int32
     iFontDescent: Int32
@@ -2747,7 +2747,7 @@ IRO_CopyPen: win32more.Windows.Win32.UI.TabletPC.InkRasterOperation = 13
 IRO_MergePenNot: win32more.Windows.Win32.UI.TabletPC.InkRasterOperation = 14
 IRO_MergePen: win32more.Windows.Win32.UI.TabletPC.InkRasterOperation = 15
 IRO_White: win32more.Windows.Win32.UI.TabletPC.InkRasterOperation = 16
-class InkRecoGuide(EasyCastStructure):
+class InkRecoGuide(Structure):
     rectWritingBox: win32more.Windows.Win32.Foundation.RECT
     rectDrawnBox: win32more.Windows.Win32.Foundation.RECT
     cRows: Int32
@@ -2849,7 +2849,7 @@ KEYMODIFIER_SHIFT: win32more.Windows.Win32.UI.TabletPC.KEYMODIFIER = 4
 KEYMODIFIER_WIN: win32more.Windows.Win32.UI.TabletPC.KEYMODIFIER = 8
 KEYMODIFIER_ALTGR: win32more.Windows.Win32.UI.TabletPC.KEYMODIFIER = 16
 KEYMODIFIER_EXT: win32more.Windows.Win32.UI.TabletPC.KEYMODIFIER = 32
-class LATTICE_METRICS(EasyCastStructure):
+class LATTICE_METRICS(Structure):
     lsBaseline: win32more.Windows.Win32.UI.TabletPC.LINE_SEGMENT
     iMidlineOffset: Int16
 LINE_METRICS = Int32
@@ -2857,7 +2857,7 @@ LM_BASELINE: win32more.Windows.Win32.UI.TabletPC.LINE_METRICS = 0
 LM_MIDLINE: win32more.Windows.Win32.UI.TabletPC.LINE_METRICS = 1
 LM_ASCENDER: win32more.Windows.Win32.UI.TabletPC.LINE_METRICS = 2
 LM_DESCENDER: win32more.Windows.Win32.UI.TabletPC.LINE_METRICS = 3
-class LINE_SEGMENT(EasyCastStructure):
+class LINE_SEGMENT(Structure):
     PtA: win32more.Windows.Win32.Foundation.POINT
     PtB: win32more.Windows.Win32.Foundation.POINT
 MICUIELEMENT = Int32
@@ -2882,16 +2882,16 @@ NO_BUTTON: win32more.Windows.Win32.UI.TabletPC.MouseButton = 0
 LEFT_BUTTON: win32more.Windows.Win32.UI.TabletPC.MouseButton = 1
 RIGHT_BUTTON: win32more.Windows.Win32.UI.TabletPC.MouseButton = 2
 MIDDLE_BUTTON: win32more.Windows.Win32.UI.TabletPC.MouseButton = 4
-class PACKET_DESCRIPTION(EasyCastStructure):
+class PACKET_DESCRIPTION(Structure):
     cbPacketSize: UInt32
     cPacketProperties: UInt32
     pPacketProperties: POINTER(win32more.Windows.Win32.UI.TabletPC.PACKET_PROPERTY)
     cButtons: UInt32
     pguidButtons: POINTER(Guid)
-class PACKET_PROPERTY(EasyCastStructure):
+class PACKET_PROPERTY(Structure):
     guid: Guid
     PropertyMetrics: win32more.Windows.Win32.UI.TabletPC.PROPERTY_METRICS
-class PROPERTY_METRICS(EasyCastStructure):
+class PROPERTY_METRICS(Structure):
     nLogicalMin: Int32
     nLogicalMax: Int32
     Units: win32more.Windows.Win32.UI.TabletPC.PROPERTY_UNITS
@@ -2928,12 +2928,12 @@ PenInputPanel = Guid('{f744e496-1b5a-489e-81dc-fbd7ac6298a8}')
 PenInputPanel_Internal = Guid('{802b1fb9-056b-4720-b0cc-80d23b71171e}')
 @winfunctype_pointer
 def PfnRecoCallback(param0: UInt32, param1: POINTER(Byte), param2: win32more.Windows.Win32.UI.TabletPC.HRECOCONTEXT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class RECO_ATTRS(EasyCastStructure):
+class RECO_ATTRS(Structure):
     dwRecoCapabilityFlags: UInt32
     awcVendorName: Char * 32
     awcFriendlyName: Char * 64
     awLanguageId: UInt16 * 64
-class RECO_GUIDE(EasyCastStructure):
+class RECO_GUIDE(Structure):
     xOrigin: Int32
     yOrigin: Int32
     cxBox: Int32
@@ -2943,7 +2943,7 @@ class RECO_GUIDE(EasyCastStructure):
     cHorzBox: Int32
     cVertBox: Int32
     cyMid: Int32
-class RECO_LATTICE(EasyCastStructure):
+class RECO_LATTICE(Structure):
     ulColumnCount: UInt32
     pLatticeColumns: POINTER(win32more.Windows.Win32.UI.TabletPC.RECO_LATTICE_COLUMN)
     ulPropertyCount: UInt32
@@ -2951,28 +2951,28 @@ class RECO_LATTICE(EasyCastStructure):
     ulBestResultColumnCount: UInt32
     pulBestResultColumns: POINTER(UInt32)
     pulBestResultIndexes: POINTER(UInt32)
-class RECO_LATTICE_COLUMN(EasyCastStructure):
+class RECO_LATTICE_COLUMN(Structure):
     key: UInt32
     cpProp: win32more.Windows.Win32.UI.TabletPC.RECO_LATTICE_PROPERTIES
     cStrokes: UInt32
     pStrokes: POINTER(UInt32)
     cLatticeElements: UInt32
     pLatticeElements: POINTER(win32more.Windows.Win32.UI.TabletPC.RECO_LATTICE_ELEMENT)
-class RECO_LATTICE_ELEMENT(EasyCastStructure):
+class RECO_LATTICE_ELEMENT(Structure):
     score: Int32
     type: UInt16
     pData: POINTER(Byte)
     ulNextColumn: UInt32
     ulStrokeNumber: UInt32
     epProp: win32more.Windows.Win32.UI.TabletPC.RECO_LATTICE_PROPERTIES
-class RECO_LATTICE_PROPERTIES(EasyCastStructure):
+class RECO_LATTICE_PROPERTIES(Structure):
     cProperties: UInt32
     apProps: POINTER(POINTER(win32more.Windows.Win32.UI.TabletPC.RECO_LATTICE_PROPERTY))
-class RECO_LATTICE_PROPERTY(EasyCastStructure):
+class RECO_LATTICE_PROPERTY(Structure):
     guidProperty: Guid
     cbPropertyValue: UInt16
     pPropertyValue: POINTER(Byte)
-class RECO_RANGE(EasyCastStructure):
+class RECO_RANGE(Structure):
     iwcBegin: UInt32
     cCount: UInt32
 RECO_TYPE = Int32
@@ -3010,10 +3010,10 @@ RTSLT_AsyncObjLock: win32more.Windows.Win32.UI.TabletPC.RealTimeStylusLockType =
 SCROLLDIRECTION = Int32
 SCROLLDIRECTION_UP: win32more.Windows.Win32.UI.TabletPC.SCROLLDIRECTION = 0
 SCROLLDIRECTION_DOWN: win32more.Windows.Win32.UI.TabletPC.SCROLLDIRECTION = 1
-class STROKE_RANGE(EasyCastStructure):
+class STROKE_RANGE(Structure):
     iStrokeBegin: UInt32
     iStrokeEnd: UInt32
-class SYSTEM_EVENT_DATA(EasyCastStructure):
+class SYSTEM_EVENT_DATA(Structure):
     bModifier: Byte
     wKey: Char
     xPos: Int32
@@ -3042,7 +3042,7 @@ SHR_S: win32more.Windows.Win32.UI.TabletPC.SelectionHitResult = 8
 SHR_Selection: win32more.Windows.Win32.UI.TabletPC.SelectionHitResult = 9
 SketchInk = Guid('{f0291081-e87c-4e07-97da-a0a03761e586}')
 StrokeBuilder = Guid('{e810cee7-6e51-4cb0-aa3a-0b985b70daf7}')
-class StylusInfo(EasyCastStructure):
+class StylusInfo(Structure):
     tcid: UInt32
     cid: UInt32
     bIsInvertedCursor: win32more.Windows.Win32.Foundation.BOOL

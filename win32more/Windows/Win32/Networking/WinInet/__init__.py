@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Networking.WinHttp
@@ -9,21 +9,21 @@ import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Storage.FileSystem
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-class APP_CACHE_DOWNLOAD_ENTRY(EasyCastStructure):
+class APP_CACHE_DOWNLOAD_ENTRY(Structure):
     pwszUrl: win32more.Windows.Win32.Foundation.PWSTR
     dwEntryType: UInt32
-class APP_CACHE_DOWNLOAD_LIST(EasyCastStructure):
+class APP_CACHE_DOWNLOAD_LIST(Structure):
     dwEntryCount: UInt32
     pEntries: POINTER(win32more.Windows.Win32.Networking.WinInet.APP_CACHE_DOWNLOAD_ENTRY)
 APP_CACHE_FINALIZE_STATE = Int32
 AppCacheFinalizeStateIncomplete: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_FINALIZE_STATE = 0
 AppCacheFinalizeStateManifestChange: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_FINALIZE_STATE = 1
 AppCacheFinalizeStateComplete: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_FINALIZE_STATE = 2
-class APP_CACHE_GROUP_INFO(EasyCastStructure):
+class APP_CACHE_GROUP_INFO(Structure):
     pwszManifestUrl: win32more.Windows.Win32.Foundation.PWSTR
     ftLastAccessTime: win32more.Windows.Win32.Foundation.FILETIME
     ullSize: UInt64
-class APP_CACHE_GROUP_LIST(EasyCastStructure):
+class APP_CACHE_GROUP_LIST(Structure):
     dwAppCacheGroupCount: UInt32
     pAppCacheGroups: POINTER(win32more.Windows.Win32.Networking.WinInet.APP_CACHE_GROUP_INFO)
 APP_CACHE_STATE = Int32
@@ -31,7 +31,7 @@ AppCacheStateNoUpdateNeeded: win32more.Windows.Win32.Networking.WinInet.APP_CACH
 AppCacheStateUpdateNeeded: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 1
 AppCacheStateUpdateNeededNew: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 2
 AppCacheStateUpdateNeededMasterOnly: win32more.Windows.Win32.Networking.WinInet.APP_CACHE_STATE = 3
-class AUTO_PROXY_SCRIPT_BUFFER(EasyCastStructure):
+class AUTO_PROXY_SCRIPT_BUFFER(Structure):
     dwStructSize: UInt32
     lpszScriptBuffer: win32more.Windows.Win32.Foundation.PSTR
     dwScriptBufferSize: UInt32
@@ -1608,9 +1608,9 @@ def HttpWebSocketShutdown(hWebSocket: VoidPtr, usStatus: UInt16, pvReason: VoidP
 def HttpWebSocketQueryCloseStatus(hWebSocket: VoidPtr, pusStatus: POINTER(UInt16), pvReason: VoidPtr, dwReasonLength: UInt32, pdwReasonLengthConsumed: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WININET.dll')
 def InternetConvertUrlFromWireToWideChar(pcszUrl: win32more.Windows.Win32.Foundation.PSTR, cchUrl: UInt32, pcwszBaseUrl: win32more.Windows.Win32.Foundation.PWSTR, dwCodePageHost: UInt32, dwCodePagePath: UInt32, fEncodePathExtra: win32more.Windows.Win32.Foundation.BOOL, dwCodePageExtra: UInt32, ppwszConvertedUrl: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> UInt32: ...
-class AutoProxyHelperFunctions(EasyCastStructure):
+class AutoProxyHelperFunctions(Structure):
     lpVtbl: POINTER(win32more.Windows.Win32.Networking.WinInet.AutoProxyHelperVtbl)
-class AutoProxyHelperVtbl(EasyCastStructure):
+class AutoProxyHelperVtbl(Structure):
     IsResolvable: IntPtr
     GetIPAddress: IntPtr
     ResolveHostName: IntPtr
@@ -1633,7 +1633,7 @@ CACHE_CONFIG_CONTENT_USAGE_FC: win32more.Windows.Win32.Networking.WinInet.CACHE_
 CACHE_CONFIG_STICKY_CONTENT_USAGE_FC: win32more.Windows.Win32.Networking.WinInet.CACHE_CONFIG = 16384
 @winfunctype_pointer
 def CACHE_OPERATOR(pcei: POINTER(win32more.Windows.Win32.Networking.WinInet.INTERNET_CACHE_ENTRY_INFOA), pcbcei: POINTER(UInt32), pOpData: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class COOKIE_DLG_INFO(EasyCastStructure):
+class COOKIE_DLG_INFO(Structure):
     pszServer: win32more.Windows.Win32.Foundation.PWSTR
     pic: POINTER(win32more.Windows.Win32.Networking.WinInet.INTERNET_COOKIE)
     dwStopWarning: UInt32
@@ -1641,7 +1641,7 @@ class COOKIE_DLG_INFO(EasyCastStructure):
     cy: Int32
     pszHeader: win32more.Windows.Win32.Foundation.PWSTR
     dwOperation: UInt32
-class CookieDecision(EasyCastStructure):
+class CookieDecision(Structure):
     dwCookieState: UInt32
     fAllowSession: win32more.Windows.Win32.Foundation.BOOL
 FORTCMD = Int32
@@ -1657,22 +1657,22 @@ FTP_TRANSFER_TYPE_BINARY: win32more.Windows.Win32.Networking.WinInet.FTP_FLAGS =
 FTP_TRANSFER_TYPE_UNKNOWN: win32more.Windows.Win32.Networking.WinInet.FTP_FLAGS = 0
 INTERNET_FLAG_TRANSFER_ASCII: win32more.Windows.Win32.Networking.WinInet.FTP_FLAGS = 1
 INTERNET_FLAG_TRANSFER_BINARY: win32more.Windows.Win32.Networking.WinInet.FTP_FLAGS = 2
-class GOPHER_ABSTRACT_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_ABSTRACT_ATTRIBUTE_TYPE(Structure):
     ShortAbstract: POINTER(SByte)
     AbstractFile: POINTER(SByte)
-class GOPHER_ADMIN_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_ADMIN_ATTRIBUTE_TYPE(Structure):
     Comment: POINTER(SByte)
     EmailAddress: POINTER(SByte)
-class GOPHER_ASK_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_ASK_ATTRIBUTE_TYPE(Structure):
     QuestionType: POINTER(SByte)
     QuestionText: POINTER(SByte)
 @winfunctype_pointer
 def GOPHER_ATTRIBUTE_ENUMERATOR(lpAttributeInfo: POINTER(win32more.Windows.Win32.Networking.WinInet.GOPHER_ATTRIBUTE_TYPE), dwError: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class GOPHER_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_ATTRIBUTE_TYPE(Structure):
     CategoryId: UInt32
     AttributeId: UInt32
     AttributeType: _AttributeType_e__Union
-    class _AttributeType_e__Union(EasyCastUnion):
+    class _AttributeType_e__Union(Union):
         Admin: win32more.Windows.Win32.Networking.WinInet.GOPHER_ADMIN_ATTRIBUTE_TYPE
         ModDate: win32more.Windows.Win32.Networking.WinInet.GOPHER_MOD_DATE_ATTRIBUTE_TYPE
         Ttl: win32more.Windows.Win32.Networking.WinInet.GOPHER_TTL_ATTRIBUTE_TYPE
@@ -1690,14 +1690,14 @@ class GOPHER_ATTRIBUTE_TYPE(EasyCastStructure):
         Veronica: win32more.Windows.Win32.Networking.WinInet.GOPHER_VERONICA_ATTRIBUTE_TYPE
         Ask: win32more.Windows.Win32.Networking.WinInet.GOPHER_ASK_ATTRIBUTE_TYPE
         Unknown: win32more.Windows.Win32.Networking.WinInet.GOPHER_UNKNOWN_ATTRIBUTE_TYPE
-class GOPHER_FIND_DATAA(EasyCastStructure):
+class GOPHER_FIND_DATAA(Structure):
     DisplayString: win32more.Windows.Win32.Foundation.CHAR * 129
     GopherType: win32more.Windows.Win32.Networking.WinInet.GOPHER_TYPE
     SizeLow: UInt32
     SizeHigh: UInt32
     LastModificationTime: win32more.Windows.Win32.Foundation.FILETIME
     Locator: win32more.Windows.Win32.Foundation.CHAR * 654
-class GOPHER_FIND_DATAW(EasyCastStructure):
+class GOPHER_FIND_DATAW(Structure):
     DisplayString: Char * 129
     GopherType: win32more.Windows.Win32.Networking.WinInet.GOPHER_TYPE
     SizeLow: UInt32
@@ -1705,31 +1705,31 @@ class GOPHER_FIND_DATAW(EasyCastStructure):
     LastModificationTime: win32more.Windows.Win32.Foundation.FILETIME
     Locator: Char * 654
 GOPHER_FIND_DATA = UnicodeAlias('GOPHER_FIND_DATAW')
-class GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE(Structure):
     DegreesNorth: Int32
     MinutesNorth: Int32
     SecondsNorth: Int32
     DegreesEast: Int32
     MinutesEast: Int32
     SecondsEast: Int32
-class GOPHER_LOCATION_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_LOCATION_ATTRIBUTE_TYPE(Structure):
     Location: POINTER(SByte)
-class GOPHER_MOD_DATE_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_MOD_DATE_ATTRIBUTE_TYPE(Structure):
     DateAndTime: win32more.Windows.Win32.Foundation.FILETIME
-class GOPHER_ORGANIZATION_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_ORGANIZATION_ATTRIBUTE_TYPE(Structure):
     Organization: POINTER(SByte)
-class GOPHER_PROVIDER_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_PROVIDER_ATTRIBUTE_TYPE(Structure):
     Provider: POINTER(SByte)
-class GOPHER_SCORE_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_SCORE_ATTRIBUTE_TYPE(Structure):
     Score: Int32
-class GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE(Structure):
     LowerBound: Int32
     UpperBound: Int32
-class GOPHER_SITE_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_SITE_ATTRIBUTE_TYPE(Structure):
     Site: POINTER(SByte)
-class GOPHER_TIMEZONE_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_TIMEZONE_ATTRIBUTE_TYPE(Structure):
     Zone: Int32
-class GOPHER_TTL_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_TTL_ATTRIBUTE_TYPE(Structure):
     Ttl: UInt32
 GOPHER_TYPE = UInt32
 GOPHER_TYPE_ASK: win32more.Windows.Win32.Networking.WinInet.GOPHER_TYPE = 1073741824
@@ -1756,13 +1756,13 @@ GOPHER_TYPE_TEXT_FILE: win32more.Windows.Win32.Networking.WinInet.GOPHER_TYPE = 
 GOPHER_TYPE_TN3270: win32more.Windows.Win32.Networking.WinInet.GOPHER_TYPE = 2048
 GOPHER_TYPE_UNIX_UUENCODED: win32more.Windows.Win32.Networking.WinInet.GOPHER_TYPE = 64
 GOPHER_TYPE_UNKNOWN: win32more.Windows.Win32.Networking.WinInet.GOPHER_TYPE = 536870912
-class GOPHER_UNKNOWN_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_UNKNOWN_ATTRIBUTE_TYPE(Structure):
     Text: POINTER(SByte)
-class GOPHER_VERONICA_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_VERONICA_ATTRIBUTE_TYPE(Structure):
     TreeWalk: win32more.Windows.Win32.Foundation.BOOL
-class GOPHER_VERSION_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_VERSION_ATTRIBUTE_TYPE(Structure):
     Version: POINTER(SByte)
-class GOPHER_VIEW_ATTRIBUTE_TYPE(EasyCastStructure):
+class GOPHER_VIEW_ATTRIBUTE_TYPE(Structure):
     ContentType: POINTER(SByte)
     Language: POINTER(SByte)
     Size: UInt32
@@ -1783,10 +1783,10 @@ POLICY_EXTENSION_TYPE_WINHTTP: win32more.Windows.Win32.Networking.WinInet.HTTP_P
 POLICY_EXTENSION_TYPE_WININET: win32more.Windows.Win32.Networking.WinInet.HTTP_POLICY_EXTENSION_TYPE = 2
 HTTP_POLICY_EXTENSION_VERSION = Int32
 POLICY_EXTENSION_VERSION1: win32more.Windows.Win32.Networking.WinInet.HTTP_POLICY_EXTENSION_VERSION = 1
-class HTTP_PUSH_NOTIFICATION_STATUS(EasyCastStructure):
+class HTTP_PUSH_NOTIFICATION_STATUS(Structure):
     ChannelStatusValid: win32more.Windows.Win32.Foundation.BOOL
     ChannelStatus: UInt32
-class HTTP_PUSH_TRANSPORT_SETTING(EasyCastStructure):
+class HTTP_PUSH_TRANSPORT_SETTING(Structure):
     TransportSettingId: Guid
     BrokerEventId: Guid
 HTTP_PUSH_WAIT_HANDLE = IntPtr
@@ -1794,10 +1794,10 @@ HTTP_PUSH_WAIT_TYPE = Int32
 HttpPushWaitEnableComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 0
 HttpPushWaitReceiveComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 1
 HttpPushWaitSendComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 2
-class HTTP_REQUEST_TIMES(EasyCastStructure):
+class HTTP_REQUEST_TIMES(Structure):
     cTimes: UInt32
     rgTimes: UInt64 * 32
-class HTTP_WEB_SOCKET_ASYNC_RESULT(EasyCastStructure):
+class HTTP_WEB_SOCKET_ASYNC_RESULT(Structure):
     AsyncResult: win32more.Windows.Win32.Networking.WinInet.INTERNET_ASYNC_RESULT
     Operation: win32more.Windows.Win32.Networking.WinInet.HTTP_WEB_SOCKET_OPERATION
     BufferType: win32more.Windows.Win32.Networking.WinInet.HTTP_WEB_SOCKET_BUFFER_TYPE
@@ -1860,10 +1860,10 @@ INTERNET_ACCESS_TYPE = UInt32
 INTERNET_OPEN_TYPE_DIRECT: win32more.Windows.Win32.Networking.WinInet.INTERNET_ACCESS_TYPE = 1
 INTERNET_OPEN_TYPE_PRECONFIG: win32more.Windows.Win32.Networking.WinInet.INTERNET_ACCESS_TYPE = 0
 INTERNET_OPEN_TYPE_PROXY: win32more.Windows.Win32.Networking.WinInet.INTERNET_ACCESS_TYPE = 3
-class INTERNET_ASYNC_RESULT(EasyCastStructure):
+class INTERNET_ASYNC_RESULT(Structure):
     dwResult: UIntPtr
     dwError: UInt32
-class INTERNET_AUTH_NOTIFY_DATA(EasyCastStructure):
+class INTERNET_AUTH_NOTIFY_DATA(Structure):
     cbStruct: UInt32
     dwOptions: UInt32
     pfnNotify: win32more.Windows.Win32.Networking.WinInet.PFN_AUTH_NOTIFY
@@ -1873,7 +1873,7 @@ INTERNET_AUTODIAL_FAILIFSECURITYCHECK: win32more.Windows.Win32.Networking.WinIne
 INTERNET_AUTODIAL_FORCE_ONLINE: win32more.Windows.Win32.Networking.WinInet.INTERNET_AUTODIAL = 1
 INTERNET_AUTODIAL_FORCE_UNATTENDED: win32more.Windows.Win32.Networking.WinInet.INTERNET_AUTODIAL = 2
 INTERNET_AUTODIAL_OVERRIDE_NET_PRESENT: win32more.Windows.Win32.Networking.WinInet.INTERNET_AUTODIAL = 8
-class INTERNET_BUFFERSA(EasyCastStructure):
+class INTERNET_BUFFERSA(Structure):
     dwStructSize: UInt32
     Next: POINTER(win32more.Windows.Win32.Networking.WinInet.INTERNET_BUFFERSA)
     lpcszHeader: win32more.Windows.Win32.Foundation.PSTR
@@ -1884,7 +1884,7 @@ class INTERNET_BUFFERSA(EasyCastStructure):
     dwBufferTotal: UInt32
     dwOffsetLow: UInt32
     dwOffsetHigh: UInt32
-class INTERNET_BUFFERSW(EasyCastStructure):
+class INTERNET_BUFFERSW(Structure):
     dwStructSize: UInt32
     Next: POINTER(win32more.Windows.Win32.Networking.WinInet.INTERNET_BUFFERSW)
     lpcszHeader: win32more.Windows.Win32.Foundation.PWSTR
@@ -1896,7 +1896,7 @@ class INTERNET_BUFFERSW(EasyCastStructure):
     dwOffsetLow: UInt32
     dwOffsetHigh: UInt32
 INTERNET_BUFFERS = UnicodeAlias('INTERNET_BUFFERSW')
-class INTERNET_CACHE_CONFIG_INFOA(EasyCastStructure):
+class INTERNET_CACHE_CONFIG_INFOA(Structure):
     dwStructSize: UInt32
     dwContainer: UInt32
     dwQuota: UInt32
@@ -1907,13 +1907,13 @@ class INTERNET_CACHE_CONFIG_INFOA(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     dwNormalUsage: UInt32
     dwExemptUsage: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         CachePaths: win32more.Windows.Win32.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYA * 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             CachePath: win32more.Windows.Win32.Foundation.CHAR * 260
             dwCacheSize: UInt32
-class INTERNET_CACHE_CONFIG_INFOW(EasyCastStructure):
+class INTERNET_CACHE_CONFIG_INFOW(Structure):
     dwStructSize: UInt32
     dwContainer: UInt32
     dwQuota: UInt32
@@ -1924,34 +1924,34 @@ class INTERNET_CACHE_CONFIG_INFOW(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     dwNormalUsage: UInt32
     dwExemptUsage: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         CachePaths: win32more.Windows.Win32.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYW * 1
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             CachePath: Char * 260
             dwCacheSize: UInt32
 INTERNET_CACHE_CONFIG_INFO = UnicodeAlias('INTERNET_CACHE_CONFIG_INFOW')
-class INTERNET_CACHE_CONFIG_PATH_ENTRYA(EasyCastStructure):
+class INTERNET_CACHE_CONFIG_PATH_ENTRYA(Structure):
     CachePath: win32more.Windows.Win32.Foundation.CHAR * 260
     dwCacheSize: UInt32
-class INTERNET_CACHE_CONFIG_PATH_ENTRYW(EasyCastStructure):
+class INTERNET_CACHE_CONFIG_PATH_ENTRYW(Structure):
     CachePath: Char * 260
     dwCacheSize: UInt32
 INTERNET_CACHE_CONFIG_PATH_ENTRY = UnicodeAlias('INTERNET_CACHE_CONFIG_PATH_ENTRYW')
-class INTERNET_CACHE_CONTAINER_INFOA(EasyCastStructure):
+class INTERNET_CACHE_CONTAINER_INFOA(Structure):
     dwCacheVersion: UInt32
     lpszName: win32more.Windows.Win32.Foundation.PSTR
     lpszCachePrefix: win32more.Windows.Win32.Foundation.PSTR
     lpszVolumeLabel: win32more.Windows.Win32.Foundation.PSTR
     lpszVolumeTitle: win32more.Windows.Win32.Foundation.PSTR
-class INTERNET_CACHE_CONTAINER_INFOW(EasyCastStructure):
+class INTERNET_CACHE_CONTAINER_INFOW(Structure):
     dwCacheVersion: UInt32
     lpszName: win32more.Windows.Win32.Foundation.PWSTR
     lpszCachePrefix: win32more.Windows.Win32.Foundation.PWSTR
     lpszVolumeLabel: win32more.Windows.Win32.Foundation.PWSTR
     lpszVolumeTitle: win32more.Windows.Win32.Foundation.PWSTR
 INTERNET_CACHE_CONTAINER_INFO = UnicodeAlias('INTERNET_CACHE_CONTAINER_INFOW')
-class INTERNET_CACHE_ENTRY_INFOA(EasyCastStructure):
+class INTERNET_CACHE_ENTRY_INFOA(Structure):
     dwStructSize: UInt32
     lpszSourceUrlName: win32more.Windows.Win32.Foundation.PSTR
     lpszLocalFileName: win32more.Windows.Win32.Foundation.PSTR
@@ -1968,10 +1968,10 @@ class INTERNET_CACHE_ENTRY_INFOA(EasyCastStructure):
     dwHeaderInfoSize: UInt32
     lpszFileExtension: win32more.Windows.Win32.Foundation.PSTR
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwReserved: UInt32
         dwExemptDelta: UInt32
-class INTERNET_CACHE_ENTRY_INFOW(EasyCastStructure):
+class INTERNET_CACHE_ENTRY_INFOW(Structure):
     dwStructSize: UInt32
     lpszSourceUrlName: win32more.Windows.Win32.Foundation.PWSTR
     lpszLocalFileName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1988,11 +1988,11 @@ class INTERNET_CACHE_ENTRY_INFOW(EasyCastStructure):
     dwHeaderInfoSize: UInt32
     lpszFileExtension: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwReserved: UInt32
         dwExemptDelta: UInt32
 INTERNET_CACHE_ENTRY_INFO = UnicodeAlias('INTERNET_CACHE_ENTRY_INFOW')
-class INTERNET_CACHE_GROUP_INFOA(EasyCastStructure):
+class INTERNET_CACHE_GROUP_INFOA(Structure):
     dwGroupSize: UInt32
     dwGroupFlags: UInt32
     dwGroupType: UInt32
@@ -2000,7 +2000,7 @@ class INTERNET_CACHE_GROUP_INFOA(EasyCastStructure):
     dwDiskQuota: UInt32
     dwOwnerStorage: UInt32 * 4
     szGroupName: win32more.Windows.Win32.Foundation.CHAR * 120
-class INTERNET_CACHE_GROUP_INFOW(EasyCastStructure):
+class INTERNET_CACHE_GROUP_INFOW(Structure):
     dwGroupSize: UInt32
     dwGroupFlags: UInt32
     dwGroupType: UInt32
@@ -2009,17 +2009,17 @@ class INTERNET_CACHE_GROUP_INFOW(EasyCastStructure):
     dwOwnerStorage: UInt32 * 4
     szGroupName: Char * 120
 INTERNET_CACHE_GROUP_INFO = UnicodeAlias('INTERNET_CACHE_GROUP_INFOW')
-class INTERNET_CACHE_TIMESTAMPS(EasyCastStructure):
+class INTERNET_CACHE_TIMESTAMPS(Structure):
     ftExpires: win32more.Windows.Win32.Foundation.FILETIME
     ftLastModified: win32more.Windows.Win32.Foundation.FILETIME
-class INTERNET_CALLBACK_COOKIE(EasyCastStructure):
+class INTERNET_CALLBACK_COOKIE(Structure):
     pcwszName: win32more.Windows.Win32.Foundation.PWSTR
     pcwszValue: win32more.Windows.Win32.Foundation.PWSTR
     pcwszDomain: win32more.Windows.Win32.Foundation.PWSTR
     pcwszPath: win32more.Windows.Win32.Foundation.PWSTR
     ftExpires: win32more.Windows.Win32.Foundation.FILETIME
     dwFlags: UInt32
-class INTERNET_CERTIFICATE_INFO(EasyCastStructure):
+class INTERNET_CERTIFICATE_INFO(Structure):
     ftExpiry: win32more.Windows.Win32.Foundation.FILETIME
     ftStart: win32more.Windows.Win32.Foundation.FILETIME
     lpszSubjectInfo: POINTER(SByte)
@@ -2028,7 +2028,7 @@ class INTERNET_CERTIFICATE_INFO(EasyCastStructure):
     lpszSignatureAlgName: POINTER(SByte)
     lpszEncryptionAlgName: POINTER(SByte)
     dwKeySize: UInt32
-class INTERNET_CONNECTED_INFO(EasyCastStructure):
+class INTERNET_CONNECTED_INFO(Structure):
     dwConnectedState: win32more.Windows.Win32.Networking.WinInet.INTERNET_STATE
     dwFlags: UInt32
 INTERNET_CONNECTION = UInt32
@@ -2039,7 +2039,7 @@ INTERNET_CONNECTION_MODEM_BUSY: win32more.Windows.Win32.Networking.WinInet.INTER
 INTERNET_CONNECTION_OFFLINE: win32more.Windows.Win32.Networking.WinInet.INTERNET_CONNECTION = 32
 INTERNET_CONNECTION_PROXY: win32more.Windows.Win32.Networking.WinInet.INTERNET_CONNECTION = 4
 INTERNET_RAS_INSTALLED: win32more.Windows.Win32.Networking.WinInet.INTERNET_CONNECTION = 16
-class INTERNET_COOKIE(EasyCastStructure):
+class INTERNET_COOKIE(Structure):
     cbSize: UInt32
     pszName: win32more.Windows.Win32.Foundation.PSTR
     pszData: win32more.Windows.Win32.Foundation.PSTR
@@ -2049,7 +2049,7 @@ class INTERNET_COOKIE(EasyCastStructure):
     dwFlags: UInt32
     pszUrl: win32more.Windows.Win32.Foundation.PSTR
     pszP3PPolicy: win32more.Windows.Win32.Foundation.PSTR
-class INTERNET_COOKIE2(EasyCastStructure):
+class INTERNET_COOKIE2(Structure):
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pwszValue: win32more.Windows.Win32.Foundation.PWSTR
     pwszDomain: win32more.Windows.Win32.Foundation.PWSTR
@@ -2061,7 +2061,7 @@ INTERNET_COOKIE_FLAGS = UInt32
 INTERNET_COOKIE_HTTPONLY: win32more.Windows.Win32.Networking.WinInet.INTERNET_COOKIE_FLAGS = 8192
 INTERNET_COOKIE_THIRD_PARTY: win32more.Windows.Win32.Networking.WinInet.INTERNET_COOKIE_FLAGS = 16
 INTERNET_FLAG_RESTRICTED_ZONE: win32more.Windows.Win32.Networking.WinInet.INTERNET_COOKIE_FLAGS = 131072
-class INTERNET_CREDENTIALS(EasyCastStructure):
+class INTERNET_CREDENTIALS(Structure):
     lpcwszHostName: win32more.Windows.Win32.Foundation.PWSTR
     dwPort: UInt32
     dwScheme: UInt32
@@ -2069,21 +2069,21 @@ class INTERNET_CREDENTIALS(EasyCastStructure):
     lpcwszRealm: win32more.Windows.Win32.Foundation.PWSTR
     fAuthIdentity: win32more.Windows.Win32.Foundation.BOOL
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         pAuthIdentityOpaque: VoidPtr
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             lpcwszUserName: win32more.Windows.Win32.Foundation.PWSTR
             lpcwszPassword: win32more.Windows.Win32.Foundation.PWSTR
-class INTERNET_DIAGNOSTIC_SOCKET_INFO(EasyCastStructure):
+class INTERNET_DIAGNOSTIC_SOCKET_INFO(Structure):
     Socket: UIntPtr
     SourcePort: UInt32
     DestPort: UInt32
     Flags: UInt32
-class INTERNET_DOWNLOAD_MODE_HANDLE(EasyCastStructure):
+class INTERNET_DOWNLOAD_MODE_HANDLE(Structure):
     pcwszFileName: win32more.Windows.Win32.Foundation.PWSTR
     phFile: POINTER(win32more.Windows.Win32.Foundation.HANDLE)
-class INTERNET_END_BROWSER_SESSION_DATA(EasyCastStructure):
+class INTERNET_END_BROWSER_SESSION_DATA(Structure):
     lpBuffer: VoidPtr
     dwBufferLength: UInt32
 INTERNET_PER_CONN = UInt32
@@ -2096,38 +2096,38 @@ INTERNET_PER_CONN_AUTOCONFIG_SECONDARY_URL: win32more.Windows.Win32.Networking.W
 INTERNET_PER_CONN_AUTOCONFIG_RELOAD_DELAY_MINS: win32more.Windows.Win32.Networking.WinInet.INTERNET_PER_CONN = 7
 INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_TIME: win32more.Windows.Win32.Networking.WinInet.INTERNET_PER_CONN = 8
 INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_URL: win32more.Windows.Win32.Networking.WinInet.INTERNET_PER_CONN = 9
-class INTERNET_PER_CONN_OPTIONA(EasyCastStructure):
+class INTERNET_PER_CONN_OPTIONA(Structure):
     dwOption: win32more.Windows.Win32.Networking.WinInet.INTERNET_PER_CONN
     Value: _Value_e__Union
-    class _Value_e__Union(EasyCastUnion):
+    class _Value_e__Union(Union):
         dwValue: UInt32
         pszValue: win32more.Windows.Win32.Foundation.PSTR
         ftValue: win32more.Windows.Win32.Foundation.FILETIME
-class INTERNET_PER_CONN_OPTIONW(EasyCastStructure):
+class INTERNET_PER_CONN_OPTIONW(Structure):
     dwOption: win32more.Windows.Win32.Networking.WinInet.INTERNET_PER_CONN
     Value: _Value_e__Union
-    class _Value_e__Union(EasyCastUnion):
+    class _Value_e__Union(Union):
         dwValue: UInt32
         pszValue: win32more.Windows.Win32.Foundation.PWSTR
         ftValue: win32more.Windows.Win32.Foundation.FILETIME
 INTERNET_PER_CONN_OPTION = UnicodeAlias('INTERNET_PER_CONN_OPTIONW')
-class INTERNET_PER_CONN_OPTION_LISTA(EasyCastStructure):
+class INTERNET_PER_CONN_OPTION_LISTA(Structure):
     dwSize: UInt32
     pszConnection: win32more.Windows.Win32.Foundation.PSTR
     dwOptionCount: UInt32
     dwOptionError: UInt32
     pOptions: POINTER(win32more.Windows.Win32.Networking.WinInet.INTERNET_PER_CONN_OPTIONA)
-class INTERNET_PER_CONN_OPTION_LISTW(EasyCastStructure):
+class INTERNET_PER_CONN_OPTION_LISTW(Structure):
     dwSize: UInt32
     pszConnection: win32more.Windows.Win32.Foundation.PWSTR
     dwOptionCount: UInt32
     dwOptionError: UInt32
     pOptions: POINTER(win32more.Windows.Win32.Networking.WinInet.INTERNET_PER_CONN_OPTIONW)
 INTERNET_PER_CONN_OPTION_LIST = UnicodeAlias('INTERNET_PER_CONN_OPTION_LISTW')
-class INTERNET_PREFETCH_STATUS(EasyCastStructure):
+class INTERNET_PREFETCH_STATUS(Structure):
     dwStatus: UInt32
     dwSize: UInt32
-class INTERNET_PROXY_INFO(EasyCastStructure):
+class INTERNET_PROXY_INFO(Structure):
     dwAccessType: win32more.Windows.Win32.Networking.WinInet.INTERNET_ACCESS_TYPE
     lpszProxy: POINTER(SByte)
     lpszProxyBypass: POINTER(SByte)
@@ -2148,12 +2148,12 @@ INTERNET_SCHEME_VBSCRIPT: win32more.Windows.Win32.Networking.WinInet.INTERNET_SC
 INTERNET_SCHEME_RES: win32more.Windows.Win32.Networking.WinInet.INTERNET_SCHEME = 11
 INTERNET_SCHEME_FIRST: win32more.Windows.Win32.Networking.WinInet.INTERNET_SCHEME = 1
 INTERNET_SCHEME_LAST: win32more.Windows.Win32.Networking.WinInet.INTERNET_SCHEME = 11
-class INTERNET_SECURITY_CONNECTION_INFO(EasyCastStructure):
+class INTERNET_SECURITY_CONNECTION_INFO(Structure):
     dwSize: UInt32
     fSecure: win32more.Windows.Win32.Foundation.BOOL
     connectionInfo: win32more.Windows.Win32.Security.Authentication.Identity.SecPkgContext_ConnectionInfo
     cipherInfo: win32more.Windows.Win32.Security.Authentication.Identity.SecPkgContext_CipherInfo
-class INTERNET_SECURITY_INFO(EasyCastStructure):
+class INTERNET_SECURITY_INFO(Structure):
     dwSize: UInt32
     pCertificate: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     pcCertChain: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)
@@ -2161,7 +2161,7 @@ class INTERNET_SECURITY_INFO(EasyCastStructure):
     cipherInfo: win32more.Windows.Win32.Security.Authentication.Identity.SecPkgContext_CipherInfo
     pcUnverifiedCertChain: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)
     channelBindingToken: win32more.Windows.Win32.Security.Authentication.Identity.SecPkgContext_Bindings
-class INTERNET_SERVER_CONNECTION_STATE(EasyCastStructure):
+class INTERNET_SERVER_CONNECTION_STATE(Structure):
     lpcwszHostName: win32more.Windows.Win32.Foundation.PWSTR
     fProxy: win32more.Windows.Win32.Foundation.BOOL
     dwCounter: UInt32
@@ -2176,7 +2176,7 @@ INTERNET_STATE_DISCONNECTED: win32more.Windows.Win32.Networking.WinInet.INTERNET
 INTERNET_STATE_DISCONNECTED_BY_USER: win32more.Windows.Win32.Networking.WinInet.INTERNET_STATE = 16
 INTERNET_STATE_IDLE: win32more.Windows.Win32.Networking.WinInet.INTERNET_STATE = 256
 INTERNET_STATE_BUSY: win32more.Windows.Win32.Networking.WinInet.INTERNET_STATE = 512
-class INTERNET_VERSION_INFO(EasyCastStructure):
+class INTERNET_VERSION_INFO(Structure):
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
 class IProofOfPossessionCookieInfoManager(ComPtr):
@@ -2189,7 +2189,7 @@ class IProofOfPossessionCookieInfoManager2(ComPtr):
     _iid_ = Guid('{15e41407-b42f-4ae7-9966-34a087b2d713}')
     @commethod(3)
     def GetCookieInfoWithUriForAccount(self, webAccount: win32more.Windows.Win32.System.WinRT.IInspectable, uri: win32more.Windows.Win32.Foundation.PWSTR, cookieInfoCount: POINTER(UInt32), cookieInfo: POINTER(POINTER(win32more.Windows.Win32.Networking.WinInet.ProofOfPossessionCookieInfo))) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IncomingCookieState(EasyCastStructure):
+class IncomingCookieState(Structure):
     cSession: Int32
     cPersistent: Int32
     cAccepted: Int32
@@ -2197,7 +2197,7 @@ class IncomingCookieState(EasyCastStructure):
     cDowngraded: Int32
     cBlocked: Int32
     pszLocation: win32more.Windows.Win32.Foundation.PSTR
-class InternetCookieHistory(EasyCastStructure):
+class InternetCookieHistory(Structure):
     fAccepted: win32more.Windows.Win32.Foundation.BOOL
     fLeashed: win32more.Windows.Win32.Foundation.BOOL
     fDowngraded: win32more.Windows.Win32.Foundation.BOOL
@@ -2212,7 +2212,7 @@ COOKIE_STATE_REJECT: win32more.Windows.Win32.Networking.WinInet.InternetCookieSt
 COOKIE_STATE_MAX: win32more.Windows.Win32.Networking.WinInet.InternetCookieState = 5
 @winfunctype_pointer
 def LPINTERNET_STATUS_CALLBACK(hInternet: VoidPtr, dwContext: UIntPtr, dwInternetStatus: UInt32, lpvStatusInformation: VoidPtr, dwStatusInformationLength: UInt32) -> Void: ...
-class OutgoingCookieState(EasyCastStructure):
+class OutgoingCookieState(Structure):
     cSent: Int32
     cSuppressed: Int32
     pszLocation: win32more.Windows.Win32.Foundation.PSTR
@@ -2223,7 +2223,7 @@ def PFN_DIAL_HANDLER(param0: win32more.Windows.Win32.Foundation.HWND, param1: wi
 PROXY_AUTO_DETECT_TYPE = UInt32
 PROXY_AUTO_DETECT_TYPE_DHCP: win32more.Windows.Win32.Networking.WinInet.PROXY_AUTO_DETECT_TYPE = 1
 PROXY_AUTO_DETECT_TYPE_DNS_A: win32more.Windows.Win32.Networking.WinInet.PROXY_AUTO_DETECT_TYPE = 2
-class ProofOfPossessionCookieInfo(EasyCastStructure):
+class ProofOfPossessionCookieInfo(Structure):
     name: win32more.Windows.Win32.Foundation.PWSTR
     data: win32more.Windows.Win32.Foundation.PWSTR
     flags: UInt32
@@ -2237,7 +2237,7 @@ ConnectionEstablishmentEnd: win32more.Windows.Win32.Networking.WinInet.REQUEST_T
 TLSHandshakeStart: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 4
 TLSHandshakeEnd: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 5
 HttpRequestTimeMax: win32more.Windows.Win32.Networking.WinInet.REQUEST_TIMES = 32
-class URLCACHE_ENTRY_INFO(EasyCastStructure):
+class URLCACHE_ENTRY_INFO(Structure):
     pwszSourceUrlName: win32more.Windows.Win32.Foundation.PWSTR
     pwszLocalFileName: win32more.Windows.Win32.Foundation.PWSTR
     dwCacheEntryType: UInt32
@@ -2259,7 +2259,7 @@ UrlCacheLimitTypeIETotal: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_L
 UrlCacheLimitTypeAppContainer: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 2
 UrlCacheLimitTypeAppContainerTotal: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 3
 UrlCacheLimitTypeNum: win32more.Windows.Win32.Networking.WinInet.URL_CACHE_LIMIT_TYPE = 4
-class URL_COMPONENTSA(EasyCastStructure):
+class URL_COMPONENTSA(Structure):
     dwStructSize: UInt32
     lpszScheme: win32more.Windows.Win32.Foundation.PSTR
     dwSchemeLength: UInt32
@@ -2275,7 +2275,7 @@ class URL_COMPONENTSA(EasyCastStructure):
     dwUrlPathLength: UInt32
     lpszExtraInfo: win32more.Windows.Win32.Foundation.PSTR
     dwExtraInfoLength: UInt32
-class URL_COMPONENTSW(EasyCastStructure):
+class URL_COMPONENTSW(Structure):
     dwStructSize: UInt32
     lpszScheme: win32more.Windows.Win32.Foundation.PWSTR
     dwSchemeLength: UInt32
@@ -2292,13 +2292,13 @@ class URL_COMPONENTSW(EasyCastStructure):
     lpszExtraInfo: win32more.Windows.Win32.Foundation.PWSTR
     dwExtraInfoLength: UInt32
 URL_COMPONENTS = UnicodeAlias('URL_COMPONENTSW')
-class WININET_PROXY_INFO(EasyCastStructure):
+class WININET_PROXY_INFO(Structure):
     fProxy: win32more.Windows.Win32.Foundation.BOOL
     fBypass: win32more.Windows.Win32.Foundation.BOOL
     ProxyScheme: win32more.Windows.Win32.Networking.WinInet.INTERNET_SCHEME
     pwszProxy: win32more.Windows.Win32.Foundation.PWSTR
     ProxyPort: UInt16
-class WININET_PROXY_INFO_LIST(EasyCastStructure):
+class WININET_PROXY_INFO_LIST(Structure):
     dwProxyInfoCount: UInt32
     pProxyInfo: POINTER(win32more.Windows.Win32.Networking.WinInet.WININET_PROXY_INFO)
 WININET_SYNC_MODE = Int32

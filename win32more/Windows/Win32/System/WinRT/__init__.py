@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.Marshal
@@ -176,15 +176,15 @@ DQTAT_COM_STA: win32more.Windows.Win32.System.WinRT.DISPATCHERQUEUE_THREAD_APART
 DISPATCHERQUEUE_THREAD_TYPE = Int32
 DQTYPE_THREAD_DEDICATED: win32more.Windows.Win32.System.WinRT.DISPATCHERQUEUE_THREAD_TYPE = 1
 DQTYPE_THREAD_CURRENT: win32more.Windows.Win32.System.WinRT.DISPATCHERQUEUE_THREAD_TYPE = 2
-class DispatcherQueueOptions(EasyCastStructure):
+class DispatcherQueueOptions(Structure):
     dwSize: UInt32
     threadType: win32more.Windows.Win32.System.WinRT.DISPATCHERQUEUE_THREAD_TYPE
     apartmentType: win32more.Windows.Win32.System.WinRT.DISPATCHERQUEUE_THREAD_APARTMENTTYPE
-class EventRegistrationToken(EasyCastStructure):
+class EventRegistrationToken(Structure):
     value: Int64
 HSTRING = IntPtr
 HSTRING_BUFFER = IntPtr
-class HSTRING_HEADER(EasyCastStructure):
+class HSTRING_HEADER(Structure):
     flags: UInt32
     length: UInt32
     padding1: UInt32
@@ -464,7 +464,7 @@ RO_INIT_TYPE = Int32
 RO_INIT_SINGLETHREADED: win32more.Windows.Win32.System.WinRT.RO_INIT_TYPE = 0
 RO_INIT_MULTITHREADED: win32more.Windows.Win32.System.WinRT.RO_INIT_TYPE = 1
 RO_REGISTRATION_COOKIE = IntPtr
-class ServerInformation(EasyCastStructure):
+class ServerInformation(Structure):
     dwServerPid: UInt32
     dwServerTid: UInt32
     ui64ServerAddress: UInt64

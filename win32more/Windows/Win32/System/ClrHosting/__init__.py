@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.ClrHosting
@@ -83,7 +83,7 @@ def GetRequestedRuntimeVersionForCLSID(rclsid: POINTER(Guid), pVersion: win32mor
 def GetCLRIdentityManager(riid: POINTER(Guid), ppManager: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MSCorEE.dll')
 def CLRCreateInstance(clsid: POINTER(Guid), riid: POINTER(Guid), ppInterface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class AssemblyBindInfo(EasyCastStructure):
+class AssemblyBindInfo(Structure):
     dwAppDomainId: UInt32
     lpReferencedIdentity: win32more.Windows.Win32.Foundation.PWSTR
     lpPostPolicyIdentity: win32more.Windows.Win32.Foundation.PWSTR
@@ -99,7 +99,7 @@ Parameter7: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 6
 Parameter8: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 7
 Parameter9: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 8
 InvalidBucketParamIndex: win32more.Windows.Win32.System.ClrHosting.BucketParameterIndex = 9
-class BucketParameters(EasyCastStructure):
+class BucketParameters(Structure):
     fInited: win32more.Windows.Win32.Foundation.BOOL
     pszEventTypeName: Char * 255
     pszParams: Char * 2550
@@ -109,7 +109,7 @@ CLRRuntimeHost = Guid('{90f1a06e-7712-4762-86b5-7a5eba6bdb02}')
 CLR_DEBUGGING_PROCESS_FLAGS = Int32
 CLR_DEBUGGING_MANAGED_EVENT_PENDING: win32more.Windows.Win32.System.ClrHosting.CLR_DEBUGGING_PROCESS_FLAGS = 1
 CLR_DEBUGGING_MANAGED_EVENT_DEBUGGER_LAUNCH: win32more.Windows.Win32.System.ClrHosting.CLR_DEBUGGING_PROCESS_FLAGS = 2
-class CLR_DEBUGGING_VERSION(EasyCastStructure):
+class CLR_DEBUGGING_VERSION(Structure):
     wStructVersion: UInt16
     wMajor: UInt16
     wMinor: UInt16
@@ -118,7 +118,7 @@ class CLR_DEBUGGING_VERSION(EasyCastStructure):
 CLSID_RESOLUTION_FLAGS = Int32
 CLSID_RESOLUTION_DEFAULT: win32more.Windows.Win32.System.ClrHosting.CLSID_RESOLUTION_FLAGS = 0
 CLSID_RESOLUTION_REGISTERED: win32more.Windows.Win32.System.ClrHosting.CLSID_RESOLUTION_FLAGS = 1
-class COR_GC_STATS(EasyCastStructure):
+class COR_GC_STATS(Structure):
     Flags: UInt32
     ExplicitGCCount: UIntPtr
     GenCollectionsTaken: UIntPtr * 3
@@ -133,7 +133,7 @@ class COR_GC_STATS(EasyCastStructure):
 COR_GC_STAT_TYPES = Int32
 COR_GC_COUNTS: win32more.Windows.Win32.System.ClrHosting.COR_GC_STAT_TYPES = 1
 COR_GC_MEMORYUSAGE: win32more.Windows.Win32.System.ClrHosting.COR_GC_STAT_TYPES = 2
-class COR_GC_THREAD_STATS(EasyCastStructure):
+class COR_GC_THREAD_STATS(Structure):
     PerThreadAllocation: UInt64
     Flags: UInt32
 COR_GC_THREAD_STATS_TYPES = Int32
@@ -147,10 +147,10 @@ ComCallUnmarshalV4 = Guid('{45fb4600-e6e8-4928-b25e-50476ff79425}')
 CorRuntimeHost = Guid('{cb2f6723-ab3a-11d2-9c40-00c04fa30a3e}')
 @winfunctype_pointer
 def CreateInterfaceFnPtr(clsid: POINTER(Guid), riid: POINTER(Guid), ppInterface: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class CustomDumpItem(EasyCastStructure):
+class CustomDumpItem(Structure):
     itemKind: win32more.Windows.Win32.System.ClrHosting.ECustomDumpItemKind
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pReserved: UIntPtr
 EApiCategories = Int32
 eNoChecks: win32more.Windows.Win32.System.ClrHosting.EApiCategories = 0
@@ -1072,7 +1072,7 @@ class ITypeNameFactory(ComPtr):
 MALLOC_TYPE = Int32
 MALLOC_THREADSAFE: win32more.Windows.Win32.System.ClrHosting.MALLOC_TYPE = 1
 MALLOC_EXECUTABLE: win32more.Windows.Win32.System.ClrHosting.MALLOC_TYPE = 2
-class MDAInfo(EasyCastStructure):
+class MDAInfo(Structure):
     lpMDACaption: win32more.Windows.Win32.Foundation.PWSTR
     lpMDAMessage: win32more.Windows.Win32.Foundation.PWSTR
     lpStackTrace: win32more.Windows.Win32.Foundation.PWSTR
@@ -1089,7 +1089,7 @@ METAHOST_POLICY_SHOW_ERROR_DIALOG: win32more.Windows.Win32.System.ClrHosting.MET
 METAHOST_POLICY_USE_PROCESS_IMAGE_PATH: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 64
 METAHOST_POLICY_ENSURE_SKU_SUPPORTED: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 128
 METAHOST_POLICY_IGNORE_ERROR_MODE: win32more.Windows.Win32.System.ClrHosting.METAHOST_POLICY_FLAGS = 4096
-class ModuleBindInfo(EasyCastStructure):
+class ModuleBindInfo(Structure):
     dwAppDomainId: UInt32
     lpAssemblyIdentity: win32more.Windows.Win32.Foundation.PWSTR
     lpModuleName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1124,7 +1124,7 @@ STARTUP_ALWAYSFLOW_IMPERSONATION: win32more.Windows.Win32.System.ClrHosting.STAR
 STARTUP_TRIM_GC_COMMIT: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 524288
 STARTUP_ETW: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 1048576
 STARTUP_ARM: win32more.Windows.Win32.System.ClrHosting.STARTUP_FLAGS = 4194304
-class StackOverflowInfo(EasyCastStructure):
+class StackOverflowInfo(Structure):
     soType: win32more.Windows.Win32.System.ClrHosting.StackOverflowType
     pExceptionInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.EXCEPTION_POINTERS)
 StackOverflowType = Int32

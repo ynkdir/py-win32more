@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.ApplicationInstallationAndServicing
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.System.WindowsProgramming
-class ACTCTXA(EasyCastStructure):
+class ACTCTXA(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     lpSource: win32more.Windows.Win32.Foundation.PSTR
@@ -16,7 +16,7 @@ class ACTCTXA(EasyCastStructure):
     lpResourceName: win32more.Windows.Win32.Foundation.PSTR
     lpApplicationName: win32more.Windows.Win32.Foundation.PSTR
     hModule: win32more.Windows.Win32.Foundation.HMODULE
-class ACTCTXW(EasyCastStructure):
+class ACTCTXW(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     lpSource: win32more.Windows.Win32.Foundation.PWSTR
@@ -38,7 +38,7 @@ ACTCTX_RUN_LEVEL_AS_INVOKER: win32more.Windows.Win32.System.ApplicationInstallat
 ACTCTX_RUN_LEVEL_HIGHEST_AVAILABLE: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.ACTCTX_REQUESTED_RUN_LEVEL = 2
 ACTCTX_RUN_LEVEL_REQUIRE_ADMIN: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.ACTCTX_REQUESTED_RUN_LEVEL = 3
 ACTCTX_RUN_LEVEL_NUMBERS: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.ACTCTX_REQUESTED_RUN_LEVEL = 4
-class ACTCTX_SECTION_KEYED_DATA(EasyCastStructure):
+class ACTCTX_SECTION_KEYED_DATA(Structure):
     cbSize: UInt32
     ulDataFormatVersion: UInt32
     lpData: VoidPtr
@@ -51,7 +51,7 @@ class ACTCTX_SECTION_KEYED_DATA(EasyCastStructure):
     ulAssemblyRosterIndex: UInt32
     ulFlags: UInt32
     AssemblyMetadata: win32more.Windows.Win32.System.WindowsProgramming.ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA
-class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION(EasyCastStructure):
+class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION(Structure):
     ulFlags: UInt32
     ulEncodedAssemblyIdentityLength: UInt32
     ulManifestPathType: UInt32
@@ -71,10 +71,10 @@ class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION(EasyCastStructure):
     lpAssemblyPolicyPath: win32more.Windows.Win32.Foundation.PWSTR
     lpAssemblyDirectoryName: win32more.Windows.Win32.Foundation.PWSTR
     ulFileCount: UInt32
-class ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION(EasyCastStructure):
+class ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION(Structure):
     ElementCount: UInt32
     Elements: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.COMPATIBILITY_CONTEXT_ELEMENT * 1
-class ACTIVATION_CONTEXT_DETAILED_INFORMATION(EasyCastStructure):
+class ACTIVATION_CONTEXT_DETAILED_INFORMATION(Structure):
     dwFlags: UInt32
     ulFormatVersion: UInt32
     ulAssemblyCount: UInt32
@@ -87,10 +87,10 @@ class ACTIVATION_CONTEXT_DETAILED_INFORMATION(EasyCastStructure):
     lpRootManifestPath: win32more.Windows.Win32.Foundation.PWSTR
     lpRootConfigurationPath: win32more.Windows.Win32.Foundation.PWSTR
     lpAppDirPath: win32more.Windows.Win32.Foundation.PWSTR
-class ACTIVATION_CONTEXT_QUERY_INDEX(EasyCastStructure):
+class ACTIVATION_CONTEXT_QUERY_INDEX(Structure):
     ulAssemblyIndex: UInt32
     ulFileIndexInAssembly: UInt32
-class ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION(EasyCastStructure):
+class ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION(Structure):
     ulFlags: UInt32
     RunLevel: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.ACTCTX_REQUESTED_RUN_LEVEL
     UiAccess: UInt32
@@ -145,13 +145,13 @@ ASM_NAME_CUSTOM: win32more.Windows.Win32.System.ApplicationInstallationAndServic
 ASM_NAME_NULL_CUSTOM: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.ASM_NAME = 18
 ASM_NAME_MVID: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.ASM_NAME = 19
 ASM_NAME_MAX_PARAMS: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.ASM_NAME = 20
-class ASSEMBLY_FILE_DETAILED_INFORMATION(EasyCastStructure):
+class ASSEMBLY_FILE_DETAILED_INFORMATION(Structure):
     ulFlags: UInt32
     ulFilenameLength: UInt32
     ulPathLength: UInt32
     lpFileName: win32more.Windows.Win32.Foundation.PWSTR
     lpFilePath: win32more.Windows.Win32.Foundation.PWSTR
-class ASSEMBLY_INFO(EasyCastStructure):
+class ASSEMBLY_INFO(Structure):
     cbAssemblyInfo: UInt32
     dwAssemblyFlags: UInt32
     uliAssemblySizeInKB: UInt64
@@ -1549,17 +1549,17 @@ def FindActCtxSectionGuid(dwFlags: UInt32, lpExtensionGuid: POINTER(Guid), ulSec
 def QueryActCtxW(dwFlags: UInt32, hActCtx: win32more.Windows.Win32.Foundation.HANDLE, pvSubInstance: VoidPtr, ulInfoClass: UInt32, pvBuffer: VoidPtr, cbBuffer: UIntPtr, pcbWrittenOrRequired: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def QueryActCtxSettingsW(dwFlags: UInt32, hActCtx: win32more.Windows.Win32.Foundation.HANDLE, settingsNameSpace: win32more.Windows.Win32.Foundation.PWSTR, settingName: win32more.Windows.Win32.Foundation.PWSTR, pvBuffer: win32more.Windows.Win32.Foundation.PWSTR, dwBuffer: UIntPtr, pdwWrittenOrRequired: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class COMPATIBILITY_CONTEXT_ELEMENT(EasyCastStructure):
+class COMPATIBILITY_CONTEXT_ELEMENT(Structure):
     Id: Guid
     Type: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.ACTCTX_COMPATIBILITY_ELEMENT_TYPE
     MaxVersionTested: UInt64
 CREATE_ASM_NAME_OBJ_FLAGS = Int32
 CANOF_PARSE_DISPLAY_NAME: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.CREATE_ASM_NAME_OBJ_FLAGS = 1
 CANOF_SET_DEFAULT_VALUES: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.CREATE_ASM_NAME_OBJ_FLAGS = 2
-class DELTA_HASH(EasyCastStructure):
+class DELTA_HASH(Structure):
     HashSize: UInt32
     HashValue: Byte * 32
-class DELTA_HEADER_INFO(EasyCastStructure):
+class DELTA_HEADER_INFO(Structure):
     FileTypeSet: Int64
     FileType: Int64
     Flags: Int64
@@ -1567,17 +1567,17 @@ class DELTA_HEADER_INFO(EasyCastStructure):
     TargetFileTime: win32more.Windows.Win32.Foundation.FILETIME
     TargetHashAlgId: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     TargetHash: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.DELTA_HASH
-class DELTA_INPUT(EasyCastStructure):
+class DELTA_INPUT(Structure):
     Anonymous: _Anonymous_e__Union
     uSize: UIntPtr
     Editable: win32more.Windows.Win32.Foundation.BOOL
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         lpcStart: VoidPtr
         lpStart: VoidPtr
-class DELTA_OUTPUT(EasyCastStructure):
+class DELTA_OUTPUT(Structure):
     lpStart: VoidPtr
     uSize: UIntPtr
-class FUSION_INSTALL_REFERENCE(EasyCastStructure):
+class FUSION_INSTALL_REFERENCE(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     guidScheme: Guid
@@ -2475,7 +2475,7 @@ MSIDBSTATE = Int32
 MSIDBSTATE_ERROR: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIDBSTATE = -1
 MSIDBSTATE_READ: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIDBSTATE = 0
 MSIDBSTATE_WRITE: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIDBSTATE = 1
-class MSIFILEHASHINFO(EasyCastStructure):
+class MSIFILEHASHINFO(Structure):
     dwFileHashInfoSize: UInt32
     dwData: UInt32 * 4
 MSIHANDLE = UInt32
@@ -2507,12 +2507,12 @@ MSIPATCHDATATYPE = Int32
 MSIPATCH_DATATYPE_PATCHFILE: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIPATCHDATATYPE = 0
 MSIPATCH_DATATYPE_XMLPATH: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIPATCHDATATYPE = 1
 MSIPATCH_DATATYPE_XMLBLOB: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIPATCHDATATYPE = 2
-class MSIPATCHSEQUENCEINFOA(EasyCastStructure):
+class MSIPATCHSEQUENCEINFOA(Structure):
     szPatchData: win32more.Windows.Win32.Foundation.PSTR
     ePatchDataType: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIPATCHDATATYPE
     dwOrder: UInt32
     uStatus: UInt32
-class MSIPATCHSEQUENCEINFOW(EasyCastStructure):
+class MSIPATCHSEQUENCEINFOW(Structure):
     szPatchData: win32more.Windows.Win32.Foundation.PWSTR
     ePatchDataType: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIPATCHDATATYPE
     dwOrder: UInt32
@@ -2586,31 +2586,31 @@ PACKMAN_RUNTIME_XNA: win32more.Windows.Win32.System.ApplicationInstallationAndSe
 PACKMAN_RUNTIME_MODERN_NATIVE: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PACKMAN_RUNTIME = 4
 PACKMAN_RUNTIME_JUPITER: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PACKMAN_RUNTIME = 5
 PACKMAN_RUNTIME_INVALID: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PACKMAN_RUNTIME = 6
-class PATCH_IGNORE_RANGE(EasyCastStructure):
+class PATCH_IGNORE_RANGE(Structure):
     OffsetInOldFile: UInt32
     LengthInBytes: UInt32
-class PATCH_INTERLEAVE_MAP(EasyCastStructure):
+class PATCH_INTERLEAVE_MAP(Structure):
     CountRanges: UInt32
     Range: _Anonymous_e__Struct * 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         OldOffset: UInt32
         OldLength: UInt32
         NewLength: UInt32
-class PATCH_OLD_FILE_INFO_A(EasyCastStructure):
+class PATCH_OLD_FILE_INFO_A(Structure):
     SizeOfThisStruct: UInt32
     OldFileName: win32more.Windows.Win32.Foundation.PSTR
     IgnoreRangeCount: UInt32
     IgnoreRangeArray: POINTER(win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE)
     RetainRangeCount: UInt32
     RetainRangeArray: POINTER(win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE)
-class PATCH_OLD_FILE_INFO_H(EasyCastStructure):
+class PATCH_OLD_FILE_INFO_H(Structure):
     SizeOfThisStruct: UInt32
     OldFileHandle: win32more.Windows.Win32.Foundation.HANDLE
     IgnoreRangeCount: UInt32
     IgnoreRangeArray: POINTER(win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PATCH_IGNORE_RANGE)
     RetainRangeCount: UInt32
     RetainRangeArray: POINTER(win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE)
-class PATCH_OLD_FILE_INFO_W(EasyCastStructure):
+class PATCH_OLD_FILE_INFO_W(Structure):
     SizeOfThisStruct: UInt32
     OldFileName: win32more.Windows.Win32.Foundation.PWSTR
     IgnoreRangeCount: UInt32
@@ -2618,7 +2618,7 @@ class PATCH_OLD_FILE_INFO_W(EasyCastStructure):
     RetainRangeCount: UInt32
     RetainRangeArray: POINTER(win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PATCH_RETAIN_RANGE)
 PATCH_OLD_FILE_INFO = UnicodeAlias('PATCH_OLD_FILE_INFO_W')
-class PATCH_OPTION_DATA(EasyCastStructure):
+class PATCH_OPTION_DATA(Structure):
     SizeOfThisStruct: UInt32
     SymbolOptionFlags: UInt32
     NewFileSymbolPath: win32more.Windows.Win32.Foundation.PSTR
@@ -2628,13 +2628,13 @@ class PATCH_OPTION_DATA(EasyCastStructure):
     SymLoadContext: VoidPtr
     InterleaveMapArray: POINTER(POINTER(win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PATCH_INTERLEAVE_MAP))
     MaxLzxWindowSize: UInt32
-class PATCH_RETAIN_RANGE(EasyCastStructure):
+class PATCH_RETAIN_RANGE(Structure):
     OffsetInOldFile: UInt32
     LengthInBytes: UInt32
     OffsetInNewFile: UInt32
 @winfunctype_pointer
 def PINSTALLUI_HANDLER_RECORD(pvContext: VoidPtr, iMessageType: UInt32, hRecord: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIHANDLE) -> Int32: ...
-class PMSIHANDLE(EasyCastStructure):
+class PMSIHANDLE(Structure):
     m_h: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.MSIHANDLE
 PMSvc = Guid('{b9e511fc-e364-497a-a121-b7b3612cedce}')
 PM_ACTIVATION_POLICY = Int32
@@ -2671,17 +2671,17 @@ PM_APPLICATION_STATE_DISABLED_BACKING_UP: win32more.Windows.Win32.System.Applica
 PM_APPLICATION_STATE_DISABLED_MDIL_BINDING: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_APPLICATION_STATE = 10
 PM_APPLICATION_STATE_MAX: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_APPLICATION_STATE = 10
 PM_APPLICATION_STATE_INVALID: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_APPLICATION_STATE = 11
-class PM_APPTASKTYPE(EasyCastStructure):
+class PM_APPTASKTYPE(Structure):
     ProductID: Guid
     TaskType: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_TASK_TYPE
 PM_APP_GENRE = Int32
 PM_APP_GENRE_GAMES: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_APP_GENRE = 0
 PM_APP_GENRE_OTHER: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_APP_GENRE = 1
 PM_APP_GENRE_INVALID: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_APP_GENRE = 2
-class PM_BSATASKID(EasyCastStructure):
+class PM_BSATASKID(Structure):
     ProductID: Guid
     TaskID: win32more.Windows.Win32.Foundation.BSTR
-class PM_BWTASKID(EasyCastStructure):
+class PM_BWTASKID(Structure):
     ProductID: Guid
     TaskID: win32more.Windows.Win32.Foundation.BSTR
 PM_ENUM_APP_FILTER = Int32
@@ -2717,10 +2717,10 @@ PM_ENUM_EXTENSION_FILTER_FILEOPENPICKER_ALL: win32more.Windows.Win32.System.Appl
 PM_ENUM_EXTENSION_FILTER_FILESAVEPICKER_ALL: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_ENUM_EXTENSION_FILTER = 24
 PM_ENUM_EXTENSION_FILTER_CACHEDFILEUPDATER_ALL: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_ENUM_EXTENSION_FILTER = 25
 PM_ENUM_EXTENSION_FILTER_MAX: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_ENUM_EXTENSION_FILTER = 26
-class PM_ENUM_FILTER(EasyCastStructure):
+class PM_ENUM_FILTER(Structure):
     FilterType: Int32
     FilterParameter: _FilterParameter_e__Union
-    class _FilterParameter_e__Union(EasyCastUnion):
+    class _FilterParameter_e__Union(Union):
         Dummy: Int32
         Genre: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_APP_GENRE
         AppHubType: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_APPLICATION_HUBTYPE
@@ -2751,10 +2751,10 @@ PM_TILE_FILTER_PINNED: win32more.Windows.Win32.System.ApplicationInstallationAnd
 PM_TILE_FILTER_HUBTYPE: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_ENUM_TILE_FILTER = 10
 PM_TILE_FILTER_APP_ALL: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_ENUM_TILE_FILTER = 11
 PM_TILE_FILTER_MAX: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_ENUM_TILE_FILTER = 12
-class PM_EXTENSIONCONSUMER(EasyCastStructure):
+class PM_EXTENSIONCONSUMER(Structure):
     ConsumerPID: Guid
     ExtensionID: win32more.Windows.Win32.Foundation.BSTR
-class PM_INSTALLINFO(EasyCastStructure):
+class PM_INSTALLINFO(Structure):
     ProductID: Guid
     PackagePath: win32more.Windows.Win32.Foundation.BSTR
     InstanceID: Guid
@@ -2764,7 +2764,7 @@ class PM_INSTALLINFO(EasyCastStructure):
     DeploymentOptions: UInt32
     OfferID: Guid
     MarketplaceAppVersion: win32more.Windows.Win32.Foundation.BSTR
-class PM_INVOCATIONINFO(EasyCastStructure):
+class PM_INVOCATIONINFO(Structure):
     URIBaseOrAUMID: win32more.Windows.Win32.Foundation.BSTR
     URIFragmentOrArgs: win32more.Windows.Win32.Foundation.BSTR
 PM_LIVETILE_RECURRENCE_TYPE = Int32
@@ -2777,7 +2777,7 @@ PM_LOGO_SIZE_SMALL: win32more.Windows.Win32.System.ApplicationInstallationAndSer
 PM_LOGO_SIZE_MEDIUM: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_LOGO_SIZE = 1
 PM_LOGO_SIZE_LARGE: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_LOGO_SIZE = 2
 PM_LOGO_SIZE_INVALID: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_LOGO_SIZE = 3
-class PM_STARTAPPBLOB(EasyCastStructure):
+class PM_STARTAPPBLOB(Structure):
     cbSize: UInt32
     ProductID: Guid
     AppTitle: win32more.Windows.Win32.Foundation.BSTR
@@ -2789,7 +2789,7 @@ class PM_STARTAPPBLOB(EasyCastStructure):
     IsModern: win32more.Windows.Win32.Foundation.BOOL
     IsModernLightUp: win32more.Windows.Win32.Foundation.BOOL
     LightUpSupportMask: UInt16
-class PM_STARTTILEBLOB(EasyCastStructure):
+class PM_STARTTILEBLOB(Structure):
     cbSize: UInt32
     ProductID: Guid
     TileID: win32more.Windows.Win32.Foundation.BSTR
@@ -2842,7 +2842,7 @@ PM_TILE_SIZE_LARGE: win32more.Windows.Win32.System.ApplicationInstallationAndSer
 PM_TILE_SIZE_SQUARE310X310: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_TILE_SIZE = 3
 PM_TILE_SIZE_TALL150X310: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_TILE_SIZE = 4
 PM_TILE_SIZE_INVALID: win32more.Windows.Win32.System.ApplicationInstallationAndServicing.PM_TILE_SIZE = 5
-class PM_UPDATEINFO(EasyCastStructure):
+class PM_UPDATEINFO(Structure):
     ProductID: Guid
     PackagePath: win32more.Windows.Win32.Foundation.BSTR
     InstanceID: Guid
@@ -2850,7 +2850,7 @@ class PM_UPDATEINFO(EasyCastStructure):
     cbLicense: UInt32
     MarketplaceAppVersion: win32more.Windows.Win32.Foundation.BSTR
     DeploymentOptions: UInt32
-class PM_UPDATEINFO_LEGACY(EasyCastStructure):
+class PM_UPDATEINFO_LEGACY(Structure):
     ProductID: Guid
     PackagePath: win32more.Windows.Win32.Foundation.BSTR
     InstanceID: Guid
@@ -2861,7 +2861,7 @@ class PM_UPDATEINFO_LEGACY(EasyCastStructure):
 def PPATCH_PROGRESS_CALLBACK(CallbackContext: VoidPtr, CurrentPosition: UInt32, MaximumPosition: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PPATCH_SYMLOAD_CALLBACK(WhichFile: UInt32, SymbolFileName: win32more.Windows.Win32.Foundation.PSTR, SymType: UInt32, SymbolFileCheckSum: UInt32, SymbolFileTimeDate: UInt32, ImageFileCheckSum: UInt32, ImageFileTimeDate: UInt32, CallbackContext: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class PROTECTED_FILE_DATA(EasyCastStructure):
+class PROTECTED_FILE_DATA(Structure):
     FileName: Char * 260
     FileNumber: UInt32
 QUERYASMINFO_FLAGS = UInt32

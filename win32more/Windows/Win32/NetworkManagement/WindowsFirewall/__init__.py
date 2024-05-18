@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsFirewall
 import win32more.Windows.Win32.Security
@@ -36,12 +36,12 @@ def NetworkIsolationDiagnoseConnectFailureAndGetInfo(wszServerName: win32more.Wi
 def NetworkIsolationGetEnterpriseIdAsync(wszServerName: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, context: VoidPtr, callback: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.PNETISO_EDP_ID_CALLBACK_FN, hOperation: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> UInt32: ...
 @winfunctype('Firewallapi.dll')
 def NetworkIsolationGetEnterpriseIdClose(hOperation: win32more.Windows.Win32.Foundation.HANDLE, bWaitForOperation: win32more.Windows.Win32.Foundation.BOOL) -> UInt32: ...
-class FW_DYNAMIC_KEYWORD_ADDRESS0(EasyCastStructure):
+class FW_DYNAMIC_KEYWORD_ADDRESS0(Structure):
     id: Guid
     keyword: win32more.Windows.Win32.Foundation.PWSTR
     flags: UInt32
     addresses: win32more.Windows.Win32.Foundation.PWSTR
-class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0(EasyCastStructure):
+class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0(Structure):
     dynamicKeywordAddress: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS0
     next: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFirewall.FW_DYNAMIC_KEYWORD_ADDRESS_DATA0)
     schemaVersion: UInt16
@@ -175,20 +175,20 @@ class INATNumberOfEntriesCallback(ComPtr):
     _iid_ = Guid('{c83a0a74-91ee-41b6-b67a-67e0f00bbd78}')
     @commethod(3)
     def NewNumberOfEntries(self, lNewNumberOfEntries: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INET_FIREWALL_AC_BINARIES(EasyCastStructure):
+class INET_FIREWALL_AC_BINARIES(Structure):
     count: UInt32
     binaries: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class INET_FIREWALL_AC_CAPABILITIES(EasyCastStructure):
+class INET_FIREWALL_AC_CAPABILITIES(Structure):
     count: UInt32
     capabilities: POINTER(win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES)
-class INET_FIREWALL_AC_CHANGE(EasyCastStructure):
+class INET_FIREWALL_AC_CHANGE(Structure):
     changeType: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CHANGE_TYPE
     createType: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CREATION_TYPE
     appContainerSid: POINTER(win32more.Windows.Win32.Security.SID)
     userSid: POINTER(win32more.Windows.Win32.Security.SID)
     displayName: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         capabilities: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CAPABILITIES
         binaries: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_BINARIES
 INET_FIREWALL_AC_CHANGE_TYPE = Int32
@@ -201,7 +201,7 @@ INET_FIREWALL_AC_NONE: win32more.Windows.Win32.NetworkManagement.WindowsFirewall
 INET_FIREWALL_AC_PACKAGE_ID_ONLY: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CREATION_TYPE = 1
 INET_FIREWALL_AC_BINARY: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CREATION_TYPE = 2
 INET_FIREWALL_AC_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CREATION_TYPE = 4
-class INET_FIREWALL_APP_CONTAINER(EasyCastStructure):
+class INET_FIREWALL_APP_CONTAINER(Structure):
     appContainerSid: POINTER(win32more.Windows.Win32.Security.SID)
     userSid: POINTER(win32more.Windows.Win32.Security.SID)
     appContainerName: win32more.Windows.Win32.Foundation.PWSTR
@@ -877,7 +877,7 @@ NCM_PPPOE: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.NETCON_MEDI
 NCM_BRIDGE: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.NETCON_MEDIATYPE = 7
 NCM_SHAREDACCESSHOST_LAN: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.NETCON_MEDIATYPE = 8
 NCM_SHAREDACCESSHOST_RAS: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.NETCON_MEDIATYPE = 9
-class NETCON_PROPERTIES(EasyCastStructure):
+class NETCON_PROPERTIES(Structure):
     guidId: Guid
     pszwName: win32more.Windows.Win32.Foundation.PWSTR
     pszwDeviceName: win32more.Windows.Win32.Foundation.PWSTR

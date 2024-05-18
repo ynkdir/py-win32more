@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.AllJoyn
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
@@ -1538,7 +1538,7 @@ UNANNOUNCED: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_about_announceflag 
 ANNOUNCED: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_about_announceflag = 1
 alljoyn_aboutdata = IntPtr
 alljoyn_aboutdatalistener = IntPtr
-class alljoyn_aboutdatalistener_callbacks(EasyCastStructure):
+class alljoyn_aboutdatalistener_callbacks(Structure):
     about_datalistener_getaboutdata: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_aboutdatalistener_getaboutdata_ptr
     about_datalistener_getannouncedaboutdata: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_aboutdatalistener_getannouncedaboutdata_ptr
 @winfunctype_pointer
@@ -1549,7 +1549,7 @@ alljoyn_abouticon = IntPtr
 alljoyn_abouticonobj = IntPtr
 alljoyn_abouticonproxy = IntPtr
 alljoyn_aboutlistener = IntPtr
-class alljoyn_aboutlistener_callback(EasyCastStructure):
+class alljoyn_aboutlistener_callback(Structure):
     about_listener_announced: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_about_announced_ptr
 alljoyn_aboutobj = IntPtr
 alljoyn_aboutobjectdescription = IntPtr
@@ -1560,14 +1560,14 @@ CLAIMABLE: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_applicationstate = 1
 CLAIMED: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_applicationstate = 2
 NEED_UPDATE: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_applicationstate = 3
 alljoyn_applicationstatelistener = IntPtr
-class alljoyn_applicationstatelistener_callbacks(EasyCastStructure):
+class alljoyn_applicationstatelistener_callbacks(Structure):
     state: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_applicationstatelistener_state_ptr
 @winfunctype_pointer
 def alljoyn_applicationstatelistener_state_ptr(busName: POINTER(SByte), publicKey: POINTER(SByte), applicationState: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_applicationstate, context: VoidPtr) -> Void: ...
 alljoyn_authlistener = IntPtr
 @winfunctype_pointer
 def alljoyn_authlistener_authenticationcomplete_ptr(context: VoidPtr, authMechanism: win32more.Windows.Win32.Foundation.PSTR, peerName: win32more.Windows.Win32.Foundation.PSTR, success: Int32) -> Void: ...
-class alljoyn_authlistener_callbacks(EasyCastStructure):
+class alljoyn_authlistener_callbacks(Structure):
     request_credentials: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_authlistener_requestcredentials_ptr
     verify_credentials: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_authlistener_verifycredentials_ptr
     security_violation: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_authlistener_securityviolation_ptr
@@ -1582,7 +1582,7 @@ def alljoyn_authlistener_securityviolation_ptr(context: VoidPtr, status: win32mo
 def alljoyn_authlistener_verifycredentials_ptr(context: VoidPtr, authMechanism: win32more.Windows.Win32.Foundation.PSTR, peerName: win32more.Windows.Win32.Foundation.PSTR, credentials: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_credentials) -> Int32: ...
 @winfunctype_pointer
 def alljoyn_authlistener_verifycredentialsasync_ptr(context: VoidPtr, listener: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_authlistener, authMechanism: win32more.Windows.Win32.Foundation.PSTR, peerName: win32more.Windows.Win32.Foundation.PSTR, credentials: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_credentials, authContext: VoidPtr) -> win32more.Windows.Win32.Devices.AllJoyn.QStatus: ...
-class alljoyn_authlistenerasync_callbacks(EasyCastStructure):
+class alljoyn_authlistenerasync_callbacks(Structure):
     request_credentials: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_authlistener_requestcredentialsasync_ptr
     verify_credentials: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_authlistener_verifycredentialsasync_ptr
     security_violation: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_authlistener_securityviolation_ptr
@@ -1604,7 +1604,7 @@ def alljoyn_buslistener_bus_disconnected_ptr(context: VoidPtr) -> Void: ...
 def alljoyn_buslistener_bus_prop_changed_ptr(context: VoidPtr, prop_name: win32more.Windows.Win32.Foundation.PSTR, prop_value: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_msgarg) -> Void: ...
 @winfunctype_pointer
 def alljoyn_buslistener_bus_stopping_ptr(context: VoidPtr) -> Void: ...
-class alljoyn_buslistener_callbacks(EasyCastStructure):
+class alljoyn_buslistener_callbacks(Structure):
     listener_registered: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_buslistener_listener_registered_ptr
     listener_unregistered: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_buslistener_listener_unregistered_ptr
     found_advertised_name: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_buslistener_found_advertised_name_ptr
@@ -1624,12 +1624,12 @@ def alljoyn_buslistener_lost_advertised_name_ptr(context: VoidPtr, name: win32mo
 @winfunctype_pointer
 def alljoyn_buslistener_name_owner_changed_ptr(context: VoidPtr, busName: win32more.Windows.Win32.Foundation.PSTR, previousOwner: win32more.Windows.Win32.Foundation.PSTR, newOwner: win32more.Windows.Win32.Foundation.PSTR) -> Void: ...
 alljoyn_busobject = IntPtr
-class alljoyn_busobject_callbacks(EasyCastStructure):
+class alljoyn_busobject_callbacks(Structure):
     property_get: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_busobject_prop_get_ptr
     property_set: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_busobject_prop_set_ptr
     object_registered: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_busobject_object_registration_ptr
     object_unregistered: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_busobject_object_registration_ptr
-class alljoyn_busobject_methodentry(EasyCastStructure):
+class alljoyn_busobject_methodentry(Structure):
     member: POINTER(win32more.Windows.Win32.Devices.AllJoyn.alljoyn_interfacedescription_member)
     method_handler: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_messagereceiver_methodhandler_ptr
 @winfunctype_pointer
@@ -1638,13 +1638,13 @@ def alljoyn_busobject_object_registration_ptr(context: VoidPtr) -> Void: ...
 def alljoyn_busobject_prop_get_ptr(context: VoidPtr, ifcName: win32more.Windows.Win32.Foundation.PSTR, propName: win32more.Windows.Win32.Foundation.PSTR, val: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_msgarg) -> win32more.Windows.Win32.Devices.AllJoyn.QStatus: ...
 @winfunctype_pointer
 def alljoyn_busobject_prop_set_ptr(context: VoidPtr, ifcName: win32more.Windows.Win32.Foundation.PSTR, propName: win32more.Windows.Win32.Foundation.PSTR, val: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_msgarg) -> win32more.Windows.Win32.Devices.AllJoyn.QStatus: ...
-class alljoyn_certificateid(EasyCastStructure):
+class alljoyn_certificateid(Structure):
     serial: POINTER(Byte)
     serialLen: UIntPtr
     issuerPublicKey: POINTER(SByte)
     issuerAki: POINTER(Byte)
     issuerAkiLen: UIntPtr
-class alljoyn_certificateidarray(EasyCastStructure):
+class alljoyn_certificateidarray(Structure):
     count: UIntPtr
     ids: POINTER(win32more.Windows.Win32.Devices.AllJoyn.alljoyn_certificateid)
 alljoyn_claimcapability_masks = Int32
@@ -1656,7 +1656,7 @@ PASSWORD_GENERATED_BY_SECURITY_MANAGER: win32more.Windows.Win32.Devices.AllJoyn.
 PASSWORD_GENERATED_BY_APPLICATION: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_claimcapabilityadditionalinfo_masks = 2
 alljoyn_credentials = IntPtr
 alljoyn_interfacedescription = IntPtr
-class alljoyn_interfacedescription_member(EasyCastStructure):
+class alljoyn_interfacedescription_member(Structure):
     iface: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_interfacedescription
     memberType: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_messagetype
     name: win32more.Windows.Win32.Foundation.PSTR
@@ -1664,7 +1664,7 @@ class alljoyn_interfacedescription_member(EasyCastStructure):
     returnSignature: win32more.Windows.Win32.Foundation.PSTR
     argNames: win32more.Windows.Win32.Foundation.PSTR
     internal_member: VoidPtr
-class alljoyn_interfacedescription_property(EasyCastStructure):
+class alljoyn_interfacedescription_property(Structure):
     name: win32more.Windows.Win32.Foundation.PSTR
     signature: win32more.Windows.Win32.Foundation.PSTR
     access: Byte
@@ -1679,7 +1679,7 @@ alljoyn_keystore = IntPtr
 alljoyn_keystorelistener = IntPtr
 @winfunctype_pointer
 def alljoyn_keystorelistener_acquireexclusivelock_ptr(context: VoidPtr, listener: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystorelistener) -> win32more.Windows.Win32.Devices.AllJoyn.QStatus: ...
-class alljoyn_keystorelistener_callbacks(EasyCastStructure):
+class alljoyn_keystorelistener_callbacks(Structure):
     load_request: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystorelistener_loadrequest_ptr
     store_request: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystorelistener_storerequest_ptr
 @winfunctype_pointer
@@ -1688,12 +1688,12 @@ def alljoyn_keystorelistener_loadrequest_ptr(context: VoidPtr, listener: win32mo
 def alljoyn_keystorelistener_releaseexclusivelock_ptr(context: VoidPtr, listener: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystorelistener) -> Void: ...
 @winfunctype_pointer
 def alljoyn_keystorelistener_storerequest_ptr(context: VoidPtr, listener: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystorelistener, keyStore: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystore) -> win32more.Windows.Win32.Devices.AllJoyn.QStatus: ...
-class alljoyn_keystorelistener_with_synchronization_callbacks(EasyCastStructure):
+class alljoyn_keystorelistener_with_synchronization_callbacks(Structure):
     load_request: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystorelistener_loadrequest_ptr
     store_request: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystorelistener_storerequest_ptr
     acquire_exclusive_lock: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystorelistener_acquireexclusivelock_ptr
     release_exclusive_lock: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_keystorelistener_releaseexclusivelock_ptr
-class alljoyn_manifestarray(EasyCastStructure):
+class alljoyn_manifestarray(Structure):
     count: UIntPtr
     xmls: POINTER(POINTER(SByte))
 alljoyn_message = IntPtr
@@ -1716,11 +1716,11 @@ def alljoyn_observer_object_discovered_ptr(context: VoidPtr, proxyref: win32more
 @winfunctype_pointer
 def alljoyn_observer_object_lost_ptr(context: VoidPtr, proxyref: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_proxybusobject_ref) -> Void: ...
 alljoyn_observerlistener = IntPtr
-class alljoyn_observerlistener_callback(EasyCastStructure):
+class alljoyn_observerlistener_callback(Structure):
     object_discovered: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_observer_object_discovered_ptr
     object_lost: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_observer_object_lost_ptr
 alljoyn_permissionconfigurationlistener = IntPtr
-class alljoyn_permissionconfigurationlistener_callbacks(EasyCastStructure):
+class alljoyn_permissionconfigurationlistener_callbacks(Structure):
     factory_reset: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_permissionconfigurationlistener_factoryreset_ptr
     policy_changed: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_permissionconfigurationlistener_policychanged_ptr
     start_management: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_permissionconfigurationlistener_startmanagement_ptr
@@ -1735,7 +1735,7 @@ def alljoyn_permissionconfigurationlistener_policychanged_ptr(context: VoidPtr) 
 def alljoyn_permissionconfigurationlistener_startmanagement_ptr(context: VoidPtr) -> Void: ...
 alljoyn_permissionconfigurator = IntPtr
 alljoyn_pinglistener = IntPtr
-class alljoyn_pinglistener_callback(EasyCastStructure):
+class alljoyn_pinglistener_callback(Structure):
     destination_found: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_autopinger_destination_found_ptr
     destination_lost: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_autopinger_destination_lost_ptr
 alljoyn_proxybusobject = IntPtr
@@ -1752,7 +1752,7 @@ def alljoyn_proxybusobject_listener_setpropertycb_ptr(status: win32more.Windows.
 alljoyn_proxybusobject_ref = IntPtr
 alljoyn_securityapplicationproxy = IntPtr
 alljoyn_sessionlistener = IntPtr
-class alljoyn_sessionlistener_callbacks(EasyCastStructure):
+class alljoyn_sessionlistener_callbacks(Structure):
     session_lost: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_sessionlistener_sessionlost_ptr
     session_member_added: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_sessionlistener_sessionmemberadded_ptr
     session_member_removed: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_sessionlistener_sessionmemberremoved_ptr
@@ -1773,7 +1773,7 @@ alljoyn_sessionopts = IntPtr
 alljoyn_sessionportlistener = IntPtr
 @winfunctype_pointer
 def alljoyn_sessionportlistener_acceptsessionjoiner_ptr(context: VoidPtr, sessionPort: UInt16, joiner: win32more.Windows.Win32.Foundation.PSTR, opts: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_sessionopts) -> Int32: ...
-class alljoyn_sessionportlistener_callbacks(EasyCastStructure):
+class alljoyn_sessionportlistener_callbacks(Structure):
     accept_session_joiner: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_sessionportlistener_acceptsessionjoiner_ptr
     session_joined: win32more.Windows.Win32.Devices.AllJoyn.alljoyn_sessionportlistener_sessionjoined_ptr
 @winfunctype_pointer

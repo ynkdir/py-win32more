@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.DiagnosticDataQuery
 @winfunctype('DiagnosticDataQuery.dll')
@@ -72,34 +72,34 @@ def DdqGetDiagnosticRecordSummary(hSession: win32more.Windows.Win32.Security.Dia
 def DdqSetTranscriptConfiguration(hSession: win32more.Windows.Win32.Security.DiagnosticDataQuery.HDIAGNOSTIC_DATA_QUERY_SESSION, desiredConfig: POINTER(win32more.Windows.Win32.Security.DiagnosticDataQuery.DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('DiagnosticDataQuery.dll')
 def DdqGetTranscriptConfiguration(hSession: win32more.Windows.Win32.Security.DiagnosticDataQuery.HDIAGNOSTIC_DATA_QUERY_SESSION, currentConfig: POINTER(win32more.Windows.Win32.Security.DiagnosticDataQuery.DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class DIAGNOSTIC_DATA_EVENT_BINARY_STATS(EasyCastStructure):
+class DIAGNOSTIC_DATA_EVENT_BINARY_STATS(Structure):
     moduleName: win32more.Windows.Win32.Foundation.PWSTR
     friendlyModuleName: win32more.Windows.Win32.Foundation.PWSTR
     eventCount: UInt32
     uploadSizeBytes: UInt64
-class DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION(EasyCastStructure):
+class DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION(Structure):
     id: Int32
     name: win32more.Windows.Win32.Foundation.PWSTR
-class DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION(EasyCastStructure):
+class DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION(Structure):
     name: win32more.Windows.Win32.Foundation.PWSTR
-class DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION(EasyCastStructure):
+class DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION(Structure):
     privacyTag: Int32
     name: win32more.Windows.Win32.Foundation.PWSTR
     description: win32more.Windows.Win32.Foundation.PWSTR
-class DIAGNOSTIC_DATA_EVENT_TAG_STATS(EasyCastStructure):
+class DIAGNOSTIC_DATA_EVENT_TAG_STATS(Structure):
     privacyTag: Int32
     eventCount: UInt32
-class DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION(EasyCastStructure):
+class DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION(Structure):
     hoursOfHistoryToKeep: UInt32
     maxStoreMegabytes: UInt32
     requestedMaxStoreMegabytes: UInt32
-class DIAGNOSTIC_DATA_GENERAL_STATS(EasyCastStructure):
+class DIAGNOSTIC_DATA_GENERAL_STATS(Structure):
     optInLevel: UInt32
     transcriptSizeBytes: UInt64
     oldestEventTimestamp: UInt64
     totalEventCountLast24Hours: UInt32
     averageDailyEvents: Single
-class DIAGNOSTIC_DATA_RECORD(EasyCastStructure):
+class DIAGNOSTIC_DATA_RECORD(Structure):
     rowId: Int64
     timestamp: UInt64
     eventKeywords: UInt64
@@ -114,7 +114,7 @@ class DIAGNOSTIC_DATA_RECORD(EasyCastStructure):
     extra1: win32more.Windows.Win32.Foundation.PWSTR
     extra2: win32more.Windows.Win32.Foundation.PWSTR
     extra3: win32more.Windows.Win32.Foundation.PWSTR
-class DIAGNOSTIC_DATA_SEARCH_CRITERIA(EasyCastStructure):
+class DIAGNOSTIC_DATA_SEARCH_CRITERIA(Structure):
     producerNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     producerNameCount: UInt32
     textToMatch: win32more.Windows.Win32.Foundation.PWSTR
@@ -123,7 +123,7 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA(EasyCastStructure):
     privacyTags: POINTER(Int32)
     privacyTagCount: UInt32
     coreDataOnly: win32more.Windows.Win32.Foundation.BOOL
-class DIAGNOSTIC_REPORT_DATA(EasyCastStructure):
+class DIAGNOSTIC_REPORT_DATA(Structure):
     signature: win32more.Windows.Win32.Security.DiagnosticDataQuery.DIAGNOSTIC_REPORT_SIGNATURE
     bucketId: Guid
     reportId: Guid
@@ -141,10 +141,10 @@ class DIAGNOSTIC_REPORT_DATA(EasyCastStructure):
     bucketIdString: win32more.Windows.Win32.Foundation.PWSTR
     legacyBucketId: UInt64
     reportKey: win32more.Windows.Win32.Foundation.PWSTR
-class DIAGNOSTIC_REPORT_PARAMETER(EasyCastStructure):
+class DIAGNOSTIC_REPORT_PARAMETER(Structure):
     name: Char * 129
     value: Char * 260
-class DIAGNOSTIC_REPORT_SIGNATURE(EasyCastStructure):
+class DIAGNOSTIC_REPORT_SIGNATURE(Structure):
     eventName: Char * 65
     parameters: win32more.Windows.Win32.Security.DiagnosticDataQuery.DIAGNOSTIC_REPORT_PARAMETER * 10
 DdqAccessLevel = Int32

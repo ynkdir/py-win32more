@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Registry
@@ -1091,7 +1091,7 @@ def RegSaveKeyExW(hKey: win32more.Windows.Win32.System.Registry.HKEY, lpFile: wi
 RegSaveKeyEx = UnicodeAlias('RegSaveKeyExW')
 @winfunctype('api-ms-win-core-state-helpers-l1-1-0.dll')
 def GetRegistryValueWithFallbackW(hkeyPrimary: win32more.Windows.Win32.System.Registry.HKEY, pwszPrimarySubKey: win32more.Windows.Win32.Foundation.PWSTR, hkeyFallback: win32more.Windows.Win32.System.Registry.HKEY, pwszFallbackSubKey: win32more.Windows.Win32.Foundation.PWSTR, pwszValue: win32more.Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pdwType: POINTER(UInt32), pvData: VoidPtr, cbDataIn: UInt32, pcbDataOut: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.WIN32_ERROR: ...
-class DSKTLSYSTEMTIME(EasyCastStructure):
+class DSKTLSYSTEMTIME(Structure):
     wYear: UInt16
     wMonth: UInt16
     wDayOfWeek: UInt16
@@ -1104,12 +1104,12 @@ class DSKTLSYSTEMTIME(EasyCastStructure):
 HKEY = IntPtr
 @cfunctype_pointer
 def PQUERYHANDLER(keycontext: VoidPtr, val_list: POINTER(win32more.Windows.Win32.System.Registry.val_context), num_vals: UInt32, outputbuffer: VoidPtr, total_outlen: POINTER(UInt32), input_blen: UInt32) -> UInt32: ...
-class PVALUEA(EasyCastStructure):
+class PVALUEA(Structure):
     pv_valuename: win32more.Windows.Win32.Foundation.PSTR
     pv_valuelen: Int32
     pv_value_context: VoidPtr
     pv_type: UInt32
-class PVALUEW(EasyCastStructure):
+class PVALUEW(Structure):
     pv_valuename: win32more.Windows.Win32.Foundation.PWSTR
     pv_valuelen: Int32
     pv_value_context: VoidPtr
@@ -1132,7 +1132,7 @@ REG_OPTION_CREATE_LINK: win32more.Windows.Win32.System.Registry.REG_OPEN_CREATE_
 REG_OPTION_BACKUP_RESTORE: win32more.Windows.Win32.System.Registry.REG_OPEN_CREATE_OPTIONS = 4
 REG_OPTION_OPEN_LINK: win32more.Windows.Win32.System.Registry.REG_OPEN_CREATE_OPTIONS = 8
 REG_OPTION_DONT_VIRTUALIZE: win32more.Windows.Win32.System.Registry.REG_OPEN_CREATE_OPTIONS = 16
-class REG_PROVIDER(EasyCastStructure):
+class REG_PROVIDER(Structure):
     pi_R0_1val: win32more.Windows.Win32.System.Registry.PQUERYHANDLER
     pi_R0_allvals: win32more.Windows.Win32.System.Registry.PQUERYHANDLER
     pi_R3_1val: win32more.Windows.Win32.System.Registry.PQUERYHANDLER
@@ -1191,18 +1191,18 @@ REG_FULL_RESOURCE_DESCRIPTOR: win32more.Windows.Win32.System.Registry.REG_VALUE_
 REG_RESOURCE_REQUIREMENTS_LIST: win32more.Windows.Win32.System.Registry.REG_VALUE_TYPE = 10
 REG_QWORD: win32more.Windows.Win32.System.Registry.REG_VALUE_TYPE = 11
 REG_QWORD_LITTLE_ENDIAN: win32more.Windows.Win32.System.Registry.REG_VALUE_TYPE = 11
-class VALENTA(EasyCastStructure):
+class VALENTA(Structure):
     ve_valuename: win32more.Windows.Win32.Foundation.PSTR
     ve_valuelen: UInt32
     ve_valueptr: UIntPtr
     ve_type: win32more.Windows.Win32.System.Registry.REG_VALUE_TYPE
-class VALENTW(EasyCastStructure):
+class VALENTW(Structure):
     ve_valuename: win32more.Windows.Win32.Foundation.PWSTR
     ve_valuelen: UInt32
     ve_valueptr: UIntPtr
     ve_type: win32more.Windows.Win32.System.Registry.REG_VALUE_TYPE
 VALENT = UnicodeAlias('VALENTW')
-class val_context(EasyCastStructure):
+class val_context(Structure):
     valuelen: Int32
     value_context: VoidPtr
     val_buff_ptr: VoidPtr

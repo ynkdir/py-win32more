@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DirectDraw
 import win32more.Windows.Win32.Graphics.Gdi
@@ -1570,21 +1570,21 @@ def GdipConvertToEmfPlusToFile(refGraphics: POINTER(win32more.Windows.Win32.Grap
 @winfunctype('gdiplus.dll')
 def GdipConvertToEmfPlusToStream(refGraphics: POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpGraphics), metafile: POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpMetafile), conversionFailureFlag: POINTER(Int32), stream: win32more.Windows.Win32.System.Com.IStream, emfType: win32more.Windows.Win32.Graphics.GdiPlus.EmfType, description: win32more.Windows.Win32.Foundation.PWSTR, out_metafile: POINTER(POINTER(win32more.Windows.Win32.Graphics.GdiPlus.GpMetafile))) -> win32more.Windows.Win32.Graphics.GdiPlus.Status: ...
 Bitmap = IntPtr
-class BitmapData(EasyCastStructure):
+class BitmapData(Structure):
     Width: UInt32
     Height: UInt32
     Stride: Int32
     PixelFormat: Int32
     Scan0: VoidPtr
     Reserved: UIntPtr
-class Blur(EasyCastStructure):
+class Blur(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class BlurParams(EasyCastStructure):
+class BlurParams(Structure):
     radius: Single
     expandEdge: win32more.Windows.Win32.Foundation.BOOL
-class BrightnessContrast(EasyCastStructure):
+class BrightnessContrast(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class BrightnessContrastParams(EasyCastStructure):
+class BrightnessContrastParams(Structure):
     brightnessLevel: Int32
     contrastLevel: Int32
 BrushType = Int32
@@ -1595,10 +1595,10 @@ BrushTypePathGradient: win32more.Windows.Win32.Graphics.GdiPlus.BrushType = 3
 BrushTypeLinearGradient: win32more.Windows.Win32.Graphics.GdiPlus.BrushType = 4
 CGpEffect = IntPtr
 CachedBitmap = IntPtr
-class CharacterRange(EasyCastStructure):
+class CharacterRange(Structure):
     First: Int32
     Length: Int32
-class Color(EasyCastStructure):
+class Color(Structure):
     AliceBlue = -984833
     AntiqueWhite = -332841
     Aqua = -16711681
@@ -1757,9 +1757,9 @@ ColorAdjustTypePen: win32more.Windows.Win32.Graphics.GdiPlus.ColorAdjustType = 3
 ColorAdjustTypeText: win32more.Windows.Win32.Graphics.GdiPlus.ColorAdjustType = 4
 ColorAdjustTypeCount: win32more.Windows.Win32.Graphics.GdiPlus.ColorAdjustType = 5
 ColorAdjustTypeAny: win32more.Windows.Win32.Graphics.GdiPlus.ColorAdjustType = 6
-class ColorBalance(EasyCastStructure):
+class ColorBalance(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class ColorBalanceParams(EasyCastStructure):
+class ColorBalanceParams(Structure):
     cyanRed: Int32
     magentaGreen: Int32
     yellowBlue: Int32
@@ -1769,25 +1769,25 @@ ColorChannelFlagsM: win32more.Windows.Win32.Graphics.GdiPlus.ColorChannelFlags =
 ColorChannelFlagsY: win32more.Windows.Win32.Graphics.GdiPlus.ColorChannelFlags = 2
 ColorChannelFlagsK: win32more.Windows.Win32.Graphics.GdiPlus.ColorChannelFlags = 3
 ColorChannelFlagsLast: win32more.Windows.Win32.Graphics.GdiPlus.ColorChannelFlags = 4
-class ColorCurve(EasyCastStructure):
+class ColorCurve(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class ColorCurveParams(EasyCastStructure):
+class ColorCurveParams(Structure):
     adjustment: win32more.Windows.Win32.Graphics.GdiPlus.CurveAdjustments
     channel: win32more.Windows.Win32.Graphics.GdiPlus.CurveChannel
     adjustValue: Int32
-class ColorLUT(EasyCastStructure):
+class ColorLUT(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class ColorLUTParams(EasyCastStructure):
+class ColorLUTParams(Structure):
     lutB: Byte * 256
     lutG: Byte * 256
     lutR: Byte * 256
     lutA: Byte * 256
-class ColorMap(EasyCastStructure):
+class ColorMap(Structure):
     oldColor: win32more.Windows.Win32.Graphics.GdiPlus.Color
     newColor: win32more.Windows.Win32.Graphics.GdiPlus.Color
-class ColorMatrix(EasyCastStructure):
+class ColorMatrix(Structure):
     m: Single * 25
-class ColorMatrixEffect(EasyCastStructure):
+class ColorMatrixEffect(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
 ColorMatrixFlags = Int32
 ColorMatrixFlagsDefault: win32more.Windows.Win32.Graphics.GdiPlus.ColorMatrixFlags = 0
@@ -1796,7 +1796,7 @@ ColorMatrixFlagsAltGray: win32more.Windows.Win32.Graphics.GdiPlus.ColorMatrixFla
 ColorMode = Int32
 ColorModeARGB32: win32more.Windows.Win32.Graphics.GdiPlus.ColorMode = 0
 ColorModeARGB64: win32more.Windows.Win32.Graphics.GdiPlus.ColorMode = 1
-class ColorPalette(EasyCastStructure):
+class ColorPalette(Structure):
     Flags: UInt32
     Count: UInt32
     Entries: UInt32 * 1
@@ -1879,7 +1879,7 @@ DriverStringOptionsCmapLookup: win32more.Windows.Win32.Graphics.GdiPlus.DriverSt
 DriverStringOptionsVertical: win32more.Windows.Win32.Graphics.GdiPlus.DriverStringOptions = 2
 DriverStringOptionsRealizedAdvance: win32more.Windows.Win32.Graphics.GdiPlus.DriverStringOptions = 4
 DriverStringOptionsLimitSubpixel: win32more.Windows.Win32.Graphics.GdiPlus.DriverStringOptions = 8
-class ENHMETAHEADER3(EasyCastStructure):
+class ENHMETAHEADER3(Structure):
     iType: UInt32
     nSize: UInt32
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
@@ -1895,7 +1895,7 @@ class ENHMETAHEADER3(EasyCastStructure):
     nPalEntries: UInt32
     szlDevice: win32more.Windows.Win32.Foundation.SIZE
     szlMillimeters: win32more.Windows.Win32.Foundation.SIZE
-class Effect(EasyCastStructure):
+class Effect(Structure):
     lpVtbl: POINTER(VoidPtr)
     nativeEffect: POINTER(win32more.Windows.Win32.Graphics.GdiPlus.CGpEffect)
     auxDataSize: Int32
@@ -2176,7 +2176,7 @@ EmfType = Int32
 EmfTypeEmfOnly: win32more.Windows.Win32.Graphics.GdiPlus.EmfType = 3
 EmfTypeEmfPlusOnly: win32more.Windows.Win32.Graphics.GdiPlus.EmfType = 4
 EmfTypeEmfPlusDual: win32more.Windows.Win32.Graphics.GdiPlus.EmfType = 5
-class EncoderParameter(EasyCastStructure):
+class EncoderParameter(Structure):
     Guid: Guid
     NumberOfValues: UInt32
     Type: UInt32
@@ -2191,7 +2191,7 @@ EncoderParameterValueTypeLongRange: win32more.Windows.Win32.Graphics.GdiPlus.Enc
 EncoderParameterValueTypeUndefined: win32more.Windows.Win32.Graphics.GdiPlus.EncoderParameterValueType = 7
 EncoderParameterValueTypeRationalRange: win32more.Windows.Win32.Graphics.GdiPlus.EncoderParameterValueType = 8
 EncoderParameterValueTypePointer: win32more.Windows.Win32.Graphics.GdiPlus.EncoderParameterValueType = 9
-class EncoderParameters(EasyCastStructure):
+class EncoderParameters(Structure):
     Count: UInt32
     Parameter: win32more.Windows.Win32.Graphics.GdiPlus.EncoderParameter * 1
 EncoderValue = Int32
@@ -2243,15 +2243,15 @@ class GdiplusAbort(ComPtr):
     extends: None
     @commethod(0)
     def Abort(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class GdiplusStartupInput(EasyCastStructure):
+class GdiplusStartupInput(Structure):
     GdiplusVersion: UInt32
     DebugEventCallback: IntPtr
     SuppressBackgroundThread: win32more.Windows.Win32.Foundation.BOOL
     SuppressExternalCodecs: win32more.Windows.Win32.Foundation.BOOL
-class GdiplusStartupInputEx(EasyCastStructure):
+class GdiplusStartupInputEx(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.GdiplusStartupInput
     StartupParameters: Int32
-class GdiplusStartupOutput(EasyCastStructure):
+class GdiplusStartupOutput(Structure):
     NotificationHook: IntPtr
     NotificationUnhook: IntPtr
 GdiplusStartupParams = Int32
@@ -2364,9 +2364,9 @@ HotkeyPrefix = Int32
 HotkeyPrefixNone: win32more.Windows.Win32.Graphics.GdiPlus.HotkeyPrefix = 0
 HotkeyPrefixShow: win32more.Windows.Win32.Graphics.GdiPlus.HotkeyPrefix = 1
 HotkeyPrefixHide: win32more.Windows.Win32.Graphics.GdiPlus.HotkeyPrefix = 2
-class HueSaturationLightness(EasyCastStructure):
+class HueSaturationLightness(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class HueSaturationLightnessParams(EasyCastStructure):
+class HueSaturationLightnessParams(Structure):
     hueLevel: Int32
     saturationLevel: Int32
     lightnessLevel: Int32
@@ -2392,7 +2392,7 @@ ImageCodecFlagsBlockingDecode: win32more.Windows.Win32.Graphics.GdiPlus.ImageCod
 ImageCodecFlagsBuiltin: win32more.Windows.Win32.Graphics.GdiPlus.ImageCodecFlags = 65536
 ImageCodecFlagsSystem: win32more.Windows.Win32.Graphics.GdiPlus.ImageCodecFlags = 131072
 ImageCodecFlagsUser: win32more.Windows.Win32.Graphics.GdiPlus.ImageCodecFlags = 262144
-class ImageCodecInfo(EasyCastStructure):
+class ImageCodecInfo(Structure):
     Clsid: Guid
     FormatID: Guid
     CodecName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2421,7 +2421,7 @@ ImageFlagsHasRealDPI: win32more.Windows.Win32.Graphics.GdiPlus.ImageFlags = 4096
 ImageFlagsHasRealPixelSize: win32more.Windows.Win32.Graphics.GdiPlus.ImageFlags = 8192
 ImageFlagsReadOnly: win32more.Windows.Win32.Graphics.GdiPlus.ImageFlags = 65536
 ImageFlagsCaching: win32more.Windows.Win32.Graphics.GdiPlus.ImageFlags = 131072
-class ImageItemData(EasyCastStructure):
+class ImageItemData(Structure):
     Size: UInt32
     Position: UInt32
     Desc: VoidPtr
@@ -2452,9 +2452,9 @@ ItemDataPosition = Int32
 ItemDataPositionAfterHeader: win32more.Windows.Win32.Graphics.GdiPlus.ItemDataPosition = 0
 ItemDataPositionAfterPalette: win32more.Windows.Win32.Graphics.GdiPlus.ItemDataPosition = 1
 ItemDataPositionAfterBits: win32more.Windows.Win32.Graphics.GdiPlus.ItemDataPosition = 2
-class Levels(EasyCastStructure):
+class Levels(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class LevelsParams(EasyCastStructure):
+class LevelsParams(Structure):
     highlight: Int32
     midtone: Int32
     shadow: Int32
@@ -2492,7 +2492,7 @@ MetafileFrameUnitInch: win32more.Windows.Win32.Graphics.GdiPlus.MetafileFrameUni
 MetafileFrameUnitDocument: win32more.Windows.Win32.Graphics.GdiPlus.MetafileFrameUnit = 5
 MetafileFrameUnitMillimeter: win32more.Windows.Win32.Graphics.GdiPlus.MetafileFrameUnit = 6
 MetafileFrameUnitGdi: win32more.Windows.Win32.Graphics.GdiPlus.MetafileFrameUnit = 7
-class MetafileHeader(EasyCastStructure):
+class MetafileHeader(Structure):
     Type: win32more.Windows.Win32.Graphics.GdiPlus.MetafileType
     Size: UInt32
     Version: UInt32
@@ -2507,7 +2507,7 @@ class MetafileHeader(EasyCastStructure):
     EmfPlusHeaderSize: Int32
     LogicalDpiX: Int32
     LogicalDpiY: Int32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         WmfHeader: win32more.Windows.Win32.Graphics.Gdi.METAHEADER
         EmfHeader: win32more.Windows.Win32.Graphics.GdiPlus.ENHMETAHEADER3
 MetafileType = Int32
@@ -2535,7 +2535,7 @@ ObjectTypeCustomLineCap: win32more.Windows.Win32.Graphics.GdiPlus.ObjectType = 9
 ObjectTypeGraphics: win32more.Windows.Win32.Graphics.GdiPlus.ObjectType = 10
 ObjectTypeMax: win32more.Windows.Win32.Graphics.GdiPlus.ObjectType = 10
 ObjectTypeMin: win32more.Windows.Win32.Graphics.GdiPlus.ObjectType = 1
-class PWMFRect16(EasyCastStructure):
+class PWMFRect16(Structure):
     Left: Int16
     Top: Int16
     Right: Int16
@@ -2582,14 +2582,14 @@ PixelOffsetModeHighSpeed: win32more.Windows.Win32.Graphics.GdiPlus.PixelOffsetMo
 PixelOffsetModeHighQuality: win32more.Windows.Win32.Graphics.GdiPlus.PixelOffsetMode = 2
 PixelOffsetModeNone: win32more.Windows.Win32.Graphics.GdiPlus.PixelOffsetMode = 3
 PixelOffsetModeHalf: win32more.Windows.Win32.Graphics.GdiPlus.PixelOffsetMode = 4
-class Point(EasyCastStructure):
+class Point(Structure):
     X: Int32
     Y: Int32
-class PointF(EasyCastStructure):
+class PointF(Structure):
     X: Single
     Y: Single
 PrivateFontCollection = IntPtr
-class PropertyItem(EasyCastStructure):
+class PropertyItem(Structure):
     id: UInt32
     length: UInt32
     type: UInt16
@@ -2599,19 +2599,19 @@ QualityModeInvalid: win32more.Windows.Win32.Graphics.GdiPlus.QualityMode = -1
 QualityModeDefault: win32more.Windows.Win32.Graphics.GdiPlus.QualityMode = 0
 QualityModeLow: win32more.Windows.Win32.Graphics.GdiPlus.QualityMode = 1
 QualityModeHigh: win32more.Windows.Win32.Graphics.GdiPlus.QualityMode = 2
-class Rect(EasyCastStructure):
+class Rect(Structure):
     X: Int32
     Y: Int32
     Width: Int32
     Height: Int32
-class RectF(EasyCastStructure):
+class RectF(Structure):
     X: Single
     Y: Single
     Width: Single
     Height: Single
-class RedEyeCorrection(EasyCastStructure):
+class RedEyeCorrection(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class RedEyeCorrectionParams(EasyCastStructure):
+class RedEyeCorrectionParams(Structure):
     numberOfAreas: UInt32
     areas: POINTER(win32more.Windows.Win32.Foundation.RECT)
 Region = IntPtr
@@ -2632,15 +2632,15 @@ RotateNoneFlipXY: win32more.Windows.Win32.Graphics.GdiPlus.RotateFlipType = 2
 Rotate90FlipXY: win32more.Windows.Win32.Graphics.GdiPlus.RotateFlipType = 3
 Rotate180FlipXY: win32more.Windows.Win32.Graphics.GdiPlus.RotateFlipType = 0
 Rotate270FlipXY: win32more.Windows.Win32.Graphics.GdiPlus.RotateFlipType = 1
-class Sharpen(EasyCastStructure):
+class Sharpen(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class SharpenParams(EasyCastStructure):
+class SharpenParams(Structure):
     radius: Single
     amount: Single
-class Size(EasyCastStructure):
+class Size(Structure):
     Width: Int32
     Height: Int32
-class SizeF(EasyCastStructure):
+class SizeF(Structure):
     Width: Single
     Height: Single
 SmoothingMode = Int32
@@ -2709,9 +2709,9 @@ TextRenderingHintSingleBitPerPixel: win32more.Windows.Win32.Graphics.GdiPlus.Tex
 TextRenderingHintAntiAliasGridFit: win32more.Windows.Win32.Graphics.GdiPlus.TextRenderingHint = 3
 TextRenderingHintAntiAlias: win32more.Windows.Win32.Graphics.GdiPlus.TextRenderingHint = 4
 TextRenderingHintClearTypeGridFit: win32more.Windows.Win32.Graphics.GdiPlus.TextRenderingHint = 5
-class Tint(EasyCastStructure):
+class Tint(Structure):
     Base: win32more.Windows.Win32.Graphics.GdiPlus.Effect
-class TintParams(EasyCastStructure):
+class TintParams(Structure):
     hue: Int32
     amount: Int32
 Unit = Int32
@@ -2725,7 +2725,7 @@ UnitMillimeter: win32more.Windows.Win32.Graphics.GdiPlus.Unit = 6
 WarpMode = Int32
 WarpModePerspective: win32more.Windows.Win32.Graphics.GdiPlus.WarpMode = 0
 WarpModeBilinear: win32more.Windows.Win32.Graphics.GdiPlus.WarpMode = 1
-class WmfPlaceableFileHeader(EasyCastStructure):
+class WmfPlaceableFileHeader(Structure):
     Key: UInt32
     Hmf: Int16
     BoundingBox: win32more.Windows.Win32.Graphics.GdiPlus.PWMFRect16

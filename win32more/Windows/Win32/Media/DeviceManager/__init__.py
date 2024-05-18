@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.DeviceManager
@@ -926,10 +926,10 @@ class IWMDeviceManager3(ComPtr):
     _iid_ = Guid('{af185c41-100d-46ed-be2e-9ce8c44594ef}')
     @commethod(9)
     def SetDeviceEnumPreference(self, dwEnumPref: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class MACINFO(EasyCastStructure):
+class MACINFO(Structure):
     fUsed: win32more.Windows.Win32.Foundation.BOOL
     abMacState: Byte * 36
-class MTP_COMMAND_DATA_IN(EasyCastStructure):
+class MTP_COMMAND_DATA_IN(Structure):
     OpCode: UInt16
     NumParams: UInt32
     Params: UInt32 * 5
@@ -937,7 +937,7 @@ class MTP_COMMAND_DATA_IN(EasyCastStructure):
     CommandWriteDataSize: UInt32
     CommandWriteData: Byte * 1
     _pack_ = 1
-class MTP_COMMAND_DATA_OUT(EasyCastStructure):
+class MTP_COMMAND_DATA_OUT(Structure):
     ResponseCode: UInt16
     NumParams: UInt32
     Params: UInt32 * 5
@@ -946,19 +946,19 @@ class MTP_COMMAND_DATA_OUT(EasyCastStructure):
     _pack_ = 1
 MediaDevMgr = Guid('{25baad81-3560-11d3-8471-00c04f79dbc0}')
 MediaDevMgrClassFactory = Guid('{50040c1d-bdbf-4924-b873-f14d6c5bfd66}')
-class OPAQUECOMMAND(EasyCastStructure):
+class OPAQUECOMMAND(Structure):
     guidCommand: Guid
     dwDataLen: UInt32
     pData: POINTER(Byte)
     abMAC: Byte * 20
-class WMDMDATETIME(EasyCastStructure):
+class WMDMDATETIME(Structure):
     wYear: UInt16
     wMonth: UInt16
     wDay: UInt16
     wHour: UInt16
     wMinute: UInt16
     wSecond: UInt16
-class WMDMDetermineMaxPropStringLen(EasyCastUnion):
+class WMDMDetermineMaxPropStringLen(Union):
     sz001: Char * 27
     sz002: Char * 31
     sz003: Char * 14
@@ -1043,7 +1043,7 @@ class WMDMDetermineMaxPropStringLen(EasyCastUnion):
     sz086: Char * 30
 WMDMDevice = Guid('{807b3cdf-357a-11d3-8471-00c04f79dbc0}')
 WMDMDeviceEnum = Guid('{430e35af-3971-11d3-8474-00c04f79dbc0}')
-class WMDMID(EasyCastStructure):
+class WMDMID(Structure):
     cbSize: UInt32
     dwVendorID: UInt32
     pID: Byte * 128
@@ -1054,11 +1054,11 @@ WMDM_MSG_DEVICE_ARRIVAL: win32more.Windows.Win32.Media.DeviceManager.WMDMMessage
 WMDM_MSG_DEVICE_REMOVAL: win32more.Windows.Win32.Media.DeviceManager.WMDMMessage = 1
 WMDM_MSG_MEDIA_ARRIVAL: win32more.Windows.Win32.Media.DeviceManager.WMDMMessage = 2
 WMDM_MSG_MEDIA_REMOVAL: win32more.Windows.Win32.Media.DeviceManager.WMDMMessage = 3
-class WMDMMetadataView(EasyCastStructure):
+class WMDMMetadataView(Structure):
     pwszViewName: win32more.Windows.Win32.Foundation.PWSTR
     nDepth: UInt32
     ppwszTags: POINTER(POINTER(UInt16))
-class WMDMRIGHTS(EasyCastStructure):
+class WMDMRIGHTS(Structure):
     cbSize: UInt32
     dwContentType: UInt32
     fuFlags: UInt32
@@ -1172,24 +1172,24 @@ WMDM_FORMATCODE_M4A: win32more.Windows.Win32.Media.DeviceManager.WMDM_FORMATCODE
 WMDM_FORMATCODE_3GPA: win32more.Windows.Win32.Media.DeviceManager.WMDM_FORMATCODE = 860311617
 WMDM_FORMATCODE_3G2A: win32more.Windows.Win32.Media.DeviceManager.WMDM_FORMATCODE = 860303937
 WMDM_FORMATCODE_SECTION: win32more.Windows.Win32.Media.DeviceManager.WMDM_FORMATCODE = 48770
-class WMDM_FORMAT_CAPABILITY(EasyCastStructure):
+class WMDM_FORMAT_CAPABILITY(Structure):
     nPropConfig: UInt32
     pConfigs: POINTER(win32more.Windows.Win32.Media.DeviceManager.WMDM_PROP_CONFIG)
-class WMDM_PROP_CONFIG(EasyCastStructure):
+class WMDM_PROP_CONFIG(Structure):
     nPreference: UInt32
     nPropDesc: UInt32
     pPropDesc: POINTER(win32more.Windows.Win32.Media.DeviceManager.WMDM_PROP_DESC)
-class WMDM_PROP_DESC(EasyCastStructure):
+class WMDM_PROP_DESC(Structure):
     pwszPropName: win32more.Windows.Win32.Foundation.PWSTR
     ValidValuesForm: win32more.Windows.Win32.Media.DeviceManager.WMDM_ENUM_PROP_VALID_VALUES_FORM
     ValidValues: _ValidValues_e__Union
-    class _ValidValues_e__Union(EasyCastUnion):
+    class _ValidValues_e__Union(Union):
         ValidValuesRange: win32more.Windows.Win32.Media.DeviceManager.WMDM_PROP_VALUES_RANGE
         EnumeratedValidValues: win32more.Windows.Win32.Media.DeviceManager.WMDM_PROP_VALUES_ENUM
-class WMDM_PROP_VALUES_ENUM(EasyCastStructure):
+class WMDM_PROP_VALUES_ENUM(Structure):
     cEnumValues: UInt32
     pValues: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
-class WMDM_PROP_VALUES_RANGE(EasyCastStructure):
+class WMDM_PROP_VALUES_RANGE(Structure):
     rangeMin: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT
     rangeMax: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT
     rangeStep: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT
@@ -1212,7 +1212,7 @@ WMDM_TYPE_QWORD: win32more.Windows.Win32.Media.DeviceManager.WMDM_TAG_DATATYPE =
 WMDM_TYPE_WORD: win32more.Windows.Win32.Media.DeviceManager.WMDM_TAG_DATATYPE = 5
 WMDM_TYPE_GUID: win32more.Windows.Win32.Media.DeviceManager.WMDM_TAG_DATATYPE = 6
 WMDM_TYPE_DATE: win32more.Windows.Win32.Media.DeviceManager.WMDM_TAG_DATATYPE = 7
-class WMFILECAPABILITIES(EasyCastStructure):
+class WMFILECAPABILITIES(Structure):
     pwszMimeType: win32more.Windows.Win32.Foundation.PWSTR
     dwReserved: UInt32
 

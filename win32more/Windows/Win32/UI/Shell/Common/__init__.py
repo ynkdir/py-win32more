@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Shell.Common
@@ -10,7 +10,7 @@ PERCEIVEDFLAG_NATIVESUPPORT: UInt32 = 4
 PERCEIVEDFLAG_GDIPLUS: UInt32 = 16
 PERCEIVEDFLAG_WMSDK: UInt32 = 32
 PERCEIVEDFLAG_ZIPFOLDER: UInt32 = 64
-class COMDLG_FILTERSPEC(EasyCastStructure):
+class COMDLG_FILTERSPEC(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     pszSpec: win32more.Windows.Win32.Foundation.PWSTR
 DEVICE_SCALE_FACTOR = Int32
@@ -49,7 +49,7 @@ class IObjectCollection(ComPtr):
     def RemoveObjectAt(self, uiIndex: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Clear(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class ITEMIDLIST(EasyCastStructure):
+class ITEMIDLIST(Structure):
     mkid: win32more.Windows.Win32.UI.Shell.Common.SHITEMID
     _pack_ = 1
 PERCEIVED = Int32
@@ -90,19 +90,19 @@ SHCOLSTATE_FIXED_WIDTH: win32more.Windows.Win32.UI.Shell.Common.SHCOLSTATE = 409
 SHCOLSTATE_NODPISCALE: win32more.Windows.Win32.UI.Shell.Common.SHCOLSTATE = 8192
 SHCOLSTATE_FIXED_RATIO: win32more.Windows.Win32.UI.Shell.Common.SHCOLSTATE = 16384
 SHCOLSTATE_DISPLAYMASK: win32more.Windows.Win32.UI.Shell.Common.SHCOLSTATE = 61440
-class SHELLDETAILS(EasyCastStructure):
+class SHELLDETAILS(Structure):
     fmt: Int32
     cxChar: Int32
     str: win32more.Windows.Win32.UI.Shell.Common.STRRET
     _pack_ = 1
-class SHITEMID(EasyCastStructure):
+class SHITEMID(Structure):
     cb: UInt16
     abID: Byte * 1
     _pack_ = 1
-class STRRET(EasyCastStructure):
+class STRRET(Structure):
     uType: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pOleStr: win32more.Windows.Win32.Foundation.PWSTR
         uOffset: UInt32
         cStr: Byte * 260

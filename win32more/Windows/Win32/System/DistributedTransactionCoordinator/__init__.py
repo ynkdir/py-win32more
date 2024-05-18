@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.DistributedTransactionCoordinator
@@ -88,7 +88,7 @@ def DtcGetTransactionManagerExA(i_pszHost: win32more.Windows.Win32.Foundation.PS
 @cfunctype('XOLEHLP.dll')
 def DtcGetTransactionManagerExW(i_pwszHost: win32more.Windows.Win32.Foundation.PWSTR, i_pwszTmName: win32more.Windows.Win32.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: VoidPtr, o_ppvObject: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 DtcGetTransactionManagerEx = UnicodeAlias('DtcGetTransactionManagerExW')
-class BOID(EasyCastStructure):
+class BOID(Structure):
     rgb: Byte * 16
 DTCINITIATEDRECOVERYWORK = Int32
 DTCINITIATEDRECOVERYWORK_CHECKLUSTATUS: win32more.Windows.Win32.System.DistributedTransactionCoordinator.DTCINITIATEDRECOVERYWORK = 1
@@ -726,15 +726,15 @@ class IXATransLookup2(ComPtr):
     _iid_ = Guid('{bf193c85-0d1a-4290-b88f-d2cb8873d1e7}')
     @commethod(3)
     def Lookup(self, pXID: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), ppTransaction: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.ITransaction)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class OLE_TM_CONFIG_PARAMS_V1(EasyCastStructure):
+class OLE_TM_CONFIG_PARAMS_V1(Structure):
     dwVersion: UInt32
     dwcConcurrencyHint: UInt32
-class OLE_TM_CONFIG_PARAMS_V2(EasyCastStructure):
+class OLE_TM_CONFIG_PARAMS_V2(Structure):
     dwVersion: UInt32
     dwcConcurrencyHint: UInt32
     applicationType: win32more.Windows.Win32.System.DistributedTransactionCoordinator.APPLICATIONTYPE
     clusterResourceId: Guid
-class PROXY_CONFIG_PARAMS(EasyCastStructure):
+class PROXY_CONFIG_PARAMS(Structure):
     wcThreadsMax: UInt16
 TX_MISC_CONSTANTS = Int32
 MAX_TRAN_DESC: win32more.Windows.Win32.System.DistributedTransactionCoordinator.TX_MISC_CONSTANTS = 40
@@ -745,7 +745,7 @@ XACTHEURISTIC_ABORT: win32more.Windows.Win32.System.DistributedTransactionCoordi
 XACTHEURISTIC_COMMIT: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTHEURISTIC = 2
 XACTHEURISTIC_DAMAGE: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTHEURISTIC = 3
 XACTHEURISTIC_DANGER: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTHEURISTIC = 4
-class XACTOPT(EasyCastStructure):
+class XACTOPT(Structure):
     ulTimeout: UInt32
     szDescription: Byte * 40
 XACTRM = Int32
@@ -775,7 +775,7 @@ XACTSTAT_CLOSED: win32more.Windows.Win32.System.DistributedTransactionCoordinato
 XACTSTAT_OPEN: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT = 3
 XACTSTAT_NOTPREPARED: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT = 524227
 XACTSTAT_ALL: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT = 524287
-class XACTSTATS(EasyCastStructure):
+class XACTSTATS(Structure):
     cOpen: UInt32
     cCommitting: UInt32
     cCommitted: UInt32
@@ -791,7 +791,7 @@ XACTTC_SYNC_PHASETWO: win32more.Windows.Win32.System.DistributedTransactionCoord
 XACTTC_SYNC: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTTC = 2
 XACTTC_ASYNC_PHASEONE: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTTC = 4
 XACTTC_ASYNC: win32more.Windows.Win32.System.DistributedTransactionCoordinator.XACTTC = 4
-class XACTTRANSINFO(EasyCastStructure):
+class XACTTRANSINFO(Structure):
     uow: win32more.Windows.Win32.System.DistributedTransactionCoordinator.BOID
     isoLevel: Int32
     isoFlags: UInt32
@@ -843,12 +843,12 @@ def XA_RECOVER_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTra
 def XA_ROLLBACK_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), param1: Int32, param2: Int32) -> Int32: ...
 @cfunctype_pointer
 def XA_START_EPT(param0: POINTER(win32more.Windows.Win32.System.DistributedTransactionCoordinator.XID), param1: Int32, param2: Int32) -> Int32: ...
-class XID(EasyCastStructure):
+class XID(Structure):
     formatID: Int32
     gtrid_length: Int32
     bqual_length: Int32
     data: win32more.Windows.Win32.Foundation.CHAR * 128
-class xa_switch_t(EasyCastStructure):
+class xa_switch_t(Structure):
     name: win32more.Windows.Win32.Foundation.CHAR * 32
     flags: Int32
     version: Int32

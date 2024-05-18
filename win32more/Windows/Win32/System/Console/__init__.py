@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Console
@@ -266,10 +266,10 @@ def GetStdHandle(nStdHandle: win32more.Windows.Win32.System.Console.STD_HANDLE) 
 def SetStdHandle(nStdHandle: win32more.Windows.Win32.System.Console.STD_HANDLE, hHandle: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def SetStdHandleEx(nStdHandle: win32more.Windows.Win32.System.Console.STD_HANDLE, hHandle: win32more.Windows.Win32.Foundation.HANDLE, phPrevValue: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class CHAR_INFO(EasyCastStructure):
+class CHAR_INFO(Structure):
     Char: _Char_e__Union
     Attributes: UInt16
-    class _Char_e__Union(EasyCastUnion):
+    class _Char_e__Union(Union):
         UnicodeChar: Char
         AsciiChar: win32more.Windows.Win32.Foundation.CHAR
 CONSOLECONTROL = Int32
@@ -281,19 +281,19 @@ Reserved3: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 4
 ConsoleSetForeground: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 5
 ConsoleSetWindowOwner: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 6
 ConsoleEndTask: win32more.Windows.Win32.System.Console.CONSOLECONTROL = 7
-class CONSOLEENDTASK(EasyCastStructure):
+class CONSOLEENDTASK(Structure):
     ProcessId: win32more.Windows.Win32.Foundation.HANDLE
     hwnd: win32more.Windows.Win32.Foundation.HWND
     ConsoleEventCode: UInt32
     ConsoleFlags: UInt32
-class CONSOLESETFOREGROUND(EasyCastStructure):
+class CONSOLESETFOREGROUND(Structure):
     hProcess: win32more.Windows.Win32.Foundation.HANDLE
     bForeground: win32more.Windows.Win32.Foundation.BOOL
-class CONSOLEWINDOWOWNER(EasyCastStructure):
+class CONSOLEWINDOWOWNER(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     ProcessId: UInt32
     ThreadId: UInt32
-class CONSOLE_CARET_INFO(EasyCastStructure):
+class CONSOLE_CARET_INFO(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     rc: win32more.Windows.Win32.Foundation.RECT
 CONSOLE_CHARACTER_ATTRIBUTES = UInt16
@@ -313,20 +313,20 @@ COMMON_LVB_GRID_RVERTICAL: win32more.Windows.Win32.System.Console.CONSOLE_CHARAC
 COMMON_LVB_REVERSE_VIDEO: win32more.Windows.Win32.System.Console.CONSOLE_CHARACTER_ATTRIBUTES = 16384
 COMMON_LVB_UNDERSCORE: win32more.Windows.Win32.System.Console.CONSOLE_CHARACTER_ATTRIBUTES = 32768
 COMMON_LVB_SBCSDBCS: win32more.Windows.Win32.System.Console.CONSOLE_CHARACTER_ATTRIBUTES = 768
-class CONSOLE_CURSOR_INFO(EasyCastStructure):
+class CONSOLE_CURSOR_INFO(Structure):
     dwSize: UInt32
     bVisible: win32more.Windows.Win32.Foundation.BOOL
-class CONSOLE_FONT_INFO(EasyCastStructure):
+class CONSOLE_FONT_INFO(Structure):
     nFont: UInt32
     dwFontSize: win32more.Windows.Win32.System.Console.COORD
-class CONSOLE_FONT_INFOEX(EasyCastStructure):
+class CONSOLE_FONT_INFOEX(Structure):
     cbSize: UInt32
     nFont: UInt32
     dwFontSize: win32more.Windows.Win32.System.Console.COORD
     FontFamily: UInt32
     FontWeight: UInt32
     FaceName: Char * 32
-class CONSOLE_HISTORY_INFO(EasyCastStructure):
+class CONSOLE_HISTORY_INFO(Structure):
     cbSize: UInt32
     HistoryBufferSize: UInt32
     NumberOfHistoryBuffers: UInt32
@@ -347,21 +347,21 @@ ENABLE_WRAP_AT_EOL_OUTPUT: win32more.Windows.Win32.System.Console.CONSOLE_MODE =
 ENABLE_VIRTUAL_TERMINAL_PROCESSING: win32more.Windows.Win32.System.Console.CONSOLE_MODE = 4
 DISABLE_NEWLINE_AUTO_RETURN: win32more.Windows.Win32.System.Console.CONSOLE_MODE = 8
 ENABLE_LVB_GRID_WORLDWIDE: win32more.Windows.Win32.System.Console.CONSOLE_MODE = 16
-class CONSOLE_PROCESS_INFO(EasyCastStructure):
+class CONSOLE_PROCESS_INFO(Structure):
     dwProcessID: UInt32
     dwFlags: UInt32
-class CONSOLE_READCONSOLE_CONTROL(EasyCastStructure):
+class CONSOLE_READCONSOLE_CONTROL(Structure):
     nLength: UInt32
     nInitialChars: UInt32
     dwCtrlWakeupMask: UInt32
     dwControlKeyState: UInt32
-class CONSOLE_SCREEN_BUFFER_INFO(EasyCastStructure):
+class CONSOLE_SCREEN_BUFFER_INFO(Structure):
     dwSize: win32more.Windows.Win32.System.Console.COORD
     dwCursorPosition: win32more.Windows.Win32.System.Console.COORD
     wAttributes: win32more.Windows.Win32.System.Console.CONSOLE_CHARACTER_ATTRIBUTES
     srWindow: win32more.Windows.Win32.System.Console.SMALL_RECT
     dwMaximumWindowSize: win32more.Windows.Win32.System.Console.COORD
-class CONSOLE_SCREEN_BUFFER_INFOEX(EasyCastStructure):
+class CONSOLE_SCREEN_BUFFER_INFOEX(Structure):
     cbSize: UInt32
     dwSize: win32more.Windows.Win32.System.Console.COORD
     dwCursorPosition: win32more.Windows.Win32.System.Console.COORD
@@ -371,45 +371,45 @@ class CONSOLE_SCREEN_BUFFER_INFOEX(EasyCastStructure):
     wPopupAttributes: UInt16
     bFullscreenSupported: win32more.Windows.Win32.Foundation.BOOL
     ColorTable: win32more.Windows.Win32.Foundation.COLORREF * 16
-class CONSOLE_SELECTION_INFO(EasyCastStructure):
+class CONSOLE_SELECTION_INFO(Structure):
     dwFlags: UInt32
     dwSelectionAnchor: win32more.Windows.Win32.System.Console.COORD
     srSelection: win32more.Windows.Win32.System.Console.SMALL_RECT
-class COORD(EasyCastStructure):
+class COORD(Structure):
     X: Int16
     Y: Int16
-class FOCUS_EVENT_RECORD(EasyCastStructure):
+class FOCUS_EVENT_RECORD(Structure):
     bSetFocus: win32more.Windows.Win32.Foundation.BOOL
 HPCON = IntPtr
-class INPUT_RECORD(EasyCastStructure):
+class INPUT_RECORD(Structure):
     EventType: UInt16
     Event: _Event_e__Union
-    class _Event_e__Union(EasyCastUnion):
+    class _Event_e__Union(Union):
         KeyEvent: win32more.Windows.Win32.System.Console.KEY_EVENT_RECORD
         MouseEvent: win32more.Windows.Win32.System.Console.MOUSE_EVENT_RECORD
         WindowBufferSizeEvent: win32more.Windows.Win32.System.Console.WINDOW_BUFFER_SIZE_RECORD
         MenuEvent: win32more.Windows.Win32.System.Console.MENU_EVENT_RECORD
         FocusEvent: win32more.Windows.Win32.System.Console.FOCUS_EVENT_RECORD
-class KEY_EVENT_RECORD(EasyCastStructure):
+class KEY_EVENT_RECORD(Structure):
     bKeyDown: win32more.Windows.Win32.Foundation.BOOL
     wRepeatCount: UInt16
     wVirtualKeyCode: UInt16
     wVirtualScanCode: UInt16
     uChar: _uChar_e__Union
     dwControlKeyState: UInt32
-    class _uChar_e__Union(EasyCastUnion):
+    class _uChar_e__Union(Union):
         UnicodeChar: Char
         AsciiChar: win32more.Windows.Win32.Foundation.CHAR
-class MENU_EVENT_RECORD(EasyCastStructure):
+class MENU_EVENT_RECORD(Structure):
     dwCommandId: UInt32
-class MOUSE_EVENT_RECORD(EasyCastStructure):
+class MOUSE_EVENT_RECORD(Structure):
     dwMousePosition: win32more.Windows.Win32.System.Console.COORD
     dwButtonState: UInt32
     dwControlKeyState: UInt32
     dwEventFlags: UInt32
 @winfunctype_pointer
 def PHANDLER_ROUTINE(CtrlType: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class SMALL_RECT(EasyCastStructure):
+class SMALL_RECT(Structure):
     Left: Int16
     Top: Int16
     Right: Int16
@@ -418,7 +418,7 @@ STD_HANDLE = UInt32
 STD_INPUT_HANDLE: win32more.Windows.Win32.System.Console.STD_HANDLE = 4294967286
 STD_OUTPUT_HANDLE: win32more.Windows.Win32.System.Console.STD_HANDLE = 4294967285
 STD_ERROR_HANDLE: win32more.Windows.Win32.System.Console.STD_HANDLE = 4294967284
-class WINDOW_BUFFER_SIZE_RECORD(EasyCastStructure):
+class WINDOW_BUFFER_SIZE_RECORD(Structure):
     dwSize: win32more.Windows.Win32.System.Console.COORD
 
 

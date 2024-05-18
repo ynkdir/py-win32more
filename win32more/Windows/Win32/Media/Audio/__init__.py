@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.Audio
@@ -8,7 +8,7 @@ import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-class ACMDRIVERDETAILSA(EasyCastStructure):
+class ACMDRIVERDETAILSA(Structure):
     cbStruct: UInt32
     fccType: UInt32
     fccComp: UInt32
@@ -26,7 +26,7 @@ class ACMDRIVERDETAILSA(EasyCastStructure):
     szLicensing: win32more.Windows.Win32.Foundation.CHAR * 128
     szFeatures: win32more.Windows.Win32.Foundation.CHAR * 512
     _pack_ = 1
-class ACMDRIVERDETAILSW(EasyCastStructure):
+class ACMDRIVERDETAILSW(Structure):
     cbStruct: UInt32
     fccType: UInt32
     fccComp: UInt32
@@ -47,7 +47,7 @@ class ACMDRIVERDETAILSW(EasyCastStructure):
 ACMDRIVERDETAILS = UnicodeAlias('ACMDRIVERDETAILSW')
 @winfunctype_pointer
 def ACMDRIVERENUMCB(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class ACMDRVFORMATSUGGEST(EasyCastStructure):
+class ACMDRVFORMATSUGGEST(Structure):
     cbStruct: UInt32
     fdwSuggest: UInt32
     pwfxSrc: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
@@ -55,7 +55,7 @@ class ACMDRVFORMATSUGGEST(EasyCastStructure):
     pwfxDst: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     cbwfxDst: UInt32
     _pack_ = 1
-class ACMDRVOPENDESCA(EasyCastStructure):
+class ACMDRVOPENDESCA(Structure):
     cbStruct: UInt32
     fccType: UInt32
     fccComp: UInt32
@@ -66,7 +66,7 @@ class ACMDRVOPENDESCA(EasyCastStructure):
     pszAliasName: win32more.Windows.Win32.Foundation.PSTR
     dnDevNode: UInt32
     _pack_ = 1
-class ACMDRVOPENDESCW(EasyCastStructure):
+class ACMDRVOPENDESCW(Structure):
     cbStruct: UInt32
     fccType: UInt32
     fccComp: UInt32
@@ -78,7 +78,7 @@ class ACMDRVOPENDESCW(EasyCastStructure):
     dnDevNode: UInt32
     _pack_ = 1
 ACMDRVOPENDESC = UnicodeAlias('ACMDRVOPENDESCW')
-class ACMDRVSTREAMHEADER(EasyCastStructure):
+class ACMDRVSTREAMHEADER(Structure):
     cbStruct: UInt32
     fdwStatus: UInt32
     dwUser: UIntPtr
@@ -101,7 +101,7 @@ class ACMDRVSTREAMHEADER(EasyCastStructure):
     pbPreparedDst: POINTER(Byte)
     cbPreparedDstLength: UInt32
     _pack_ = 1
-class ACMDRVSTREAMINSTANCE(EasyCastStructure):
+class ACMDRVSTREAMINSTANCE(Structure):
     cbStruct: UInt32
     pwfxSrc: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     pwfxDst: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
@@ -113,13 +113,13 @@ class ACMDRVSTREAMINSTANCE(EasyCastStructure):
     dwDriver: UIntPtr
     has: win32more.Windows.Win32.Media.Audio.HACMSTREAM
     _pack_ = 1
-class ACMDRVSTREAMSIZE(EasyCastStructure):
+class ACMDRVSTREAMSIZE(Structure):
     cbStruct: UInt32
     fdwSize: UInt32
     cbSrcLength: UInt32
     cbDstLength: UInt32
     _pack_ = 1
-class ACMFILTERCHOOSEA(EasyCastStructure):
+class ACMFILTERCHOOSEA(Structure):
     cbStruct: UInt32
     fdwStyle: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -142,7 +142,7 @@ def ACMFILTERCHOOSEHOOKPROCA(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg
 @winfunctype_pointer
 def ACMFILTERCHOOSEHOOKPROCW(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> UInt32: ...
 ACMFILTERCHOOSEHOOKPROC = UnicodeAlias('ACMFILTERCHOOSEHOOKPROCW')
-class ACMFILTERCHOOSEW(EasyCastStructure):
+class ACMFILTERCHOOSEW(Structure):
     cbStruct: UInt32
     fdwStyle: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -161,7 +161,7 @@ class ACMFILTERCHOOSEW(EasyCastStructure):
     pfnHook: win32more.Windows.Win32.Media.Audio.ACMFILTERCHOOSEHOOKPROCW
     _pack_ = 1
 ACMFILTERCHOOSE = UnicodeAlias('ACMFILTERCHOOSEW')
-class ACMFILTERDETAILSA(EasyCastStructure):
+class ACMFILTERDETAILSA(Structure):
     cbStruct: UInt32
     dwFilterIndex: UInt32
     dwFilterTag: UInt32
@@ -170,7 +170,7 @@ class ACMFILTERDETAILSA(EasyCastStructure):
     cbwfltr: UInt32
     szFilter: win32more.Windows.Win32.Foundation.CHAR * 128
     _pack_ = 1
-class ACMFILTERDETAILSW(EasyCastStructure):
+class ACMFILTERDETAILSW(Structure):
     cbStruct: UInt32
     dwFilterIndex: UInt32
     dwFilterTag: UInt32
@@ -185,7 +185,7 @@ def ACMFILTERENUMCBA(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, pa
 @winfunctype_pointer
 def ACMFILTERENUMCBW(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERDETAILSW), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 ACMFILTERENUMCB = UnicodeAlias('ACMFILTERENUMCBW')
-class ACMFILTERTAGDETAILSA(EasyCastStructure):
+class ACMFILTERTAGDETAILSA(Structure):
     cbStruct: UInt32
     dwFilterTagIndex: UInt32
     dwFilterTag: UInt32
@@ -194,7 +194,7 @@ class ACMFILTERTAGDETAILSA(EasyCastStructure):
     cStandardFilters: UInt32
     szFilterTag: win32more.Windows.Win32.Foundation.CHAR * 48
     _pack_ = 1
-class ACMFILTERTAGDETAILSW(EasyCastStructure):
+class ACMFILTERTAGDETAILSW(Structure):
     cbStruct: UInt32
     dwFilterTagIndex: UInt32
     dwFilterTag: UInt32
@@ -209,7 +209,7 @@ def ACMFILTERTAGENUMCBA(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID,
 @winfunctype_pointer
 def ACMFILTERTAGENUMCBW(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFILTERTAGDETAILSW), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 ACMFILTERTAGENUMCB = UnicodeAlias('ACMFILTERTAGENUMCBW')
-class ACMFORMATCHOOSEA(EasyCastStructure):
+class ACMFORMATCHOOSEA(Structure):
     cbStruct: UInt32
     fdwStyle: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -232,7 +232,7 @@ def ACMFORMATCHOOSEHOOKPROCA(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg
 @winfunctype_pointer
 def ACMFORMATCHOOSEHOOKPROCW(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> UInt32: ...
 ACMFORMATCHOOSEHOOKPROC = UnicodeAlias('ACMFORMATCHOOSEHOOKPROCW')
-class ACMFORMATCHOOSEW(EasyCastStructure):
+class ACMFORMATCHOOSEW(Structure):
     cbStruct: UInt32
     fdwStyle: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -251,7 +251,7 @@ class ACMFORMATCHOOSEW(EasyCastStructure):
     pfnHook: win32more.Windows.Win32.Media.Audio.ACMFORMATCHOOSEHOOKPROCW
     _pack_ = 1
 ACMFORMATCHOOSE = UnicodeAlias('ACMFORMATCHOOSEW')
-class ACMFORMATDETAILSA(EasyCastStructure):
+class ACMFORMATDETAILSA(Structure):
     cbStruct: UInt32
     dwFormatIndex: UInt32
     dwFormatTag: UInt32
@@ -265,7 +265,7 @@ def ACMFORMATENUMCBA(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, pa
 @winfunctype_pointer
 def ACMFORMATENUMCBW(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, pafd: POINTER(win32more.Windows.Win32.Media.Audio.tACMFORMATDETAILSW), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 ACMFORMATENUMCB = UnicodeAlias('ACMFORMATENUMCBW')
-class ACMFORMATTAGDETAILSA(EasyCastStructure):
+class ACMFORMATTAGDETAILSA(Structure):
     cbStruct: UInt32
     dwFormatTagIndex: UInt32
     dwFormatTag: UInt32
@@ -274,7 +274,7 @@ class ACMFORMATTAGDETAILSA(EasyCastStructure):
     cStandardFormats: UInt32
     szFormatTag: win32more.Windows.Win32.Foundation.CHAR * 48
     _pack_ = 1
-class ACMFORMATTAGDETAILSW(EasyCastStructure):
+class ACMFORMATTAGDETAILSW(Structure):
     cbStruct: UInt32
     dwFormatTagIndex: UInt32
     dwFormatTag: UInt32
@@ -290,7 +290,7 @@ def ACMFORMATTAGENUMCBA(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID,
 def ACMFORMATTAGENUMCBW(hadid: win32more.Windows.Win32.Media.Audio.HACMDRIVERID, paftd: POINTER(win32more.Windows.Win32.Media.Audio.ACMFORMATTAGDETAILSW), dwInstance: UIntPtr, fdwSupport: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 ACMFORMATTAGENUMCB = UnicodeAlias('ACMFORMATTAGENUMCBW')
 if ARCH in 'X64,ARM64':
-    class ACMSTREAMHEADER(EasyCastStructure):
+    class ACMSTREAMHEADER(Structure):
         cbStruct: UInt32
         fdwStatus: UInt32
         dwUser: UIntPtr
@@ -305,7 +305,7 @@ if ARCH in 'X64,ARM64':
         dwReservedDriver: UInt32 * 15
         _pack_ = 1
 elif ARCH in 'X86':
-    class ACMSTREAMHEADER(EasyCastStructure):
+    class ACMSTREAMHEADER(Structure):
         cbStruct: UInt32
         fdwStatus: UInt32
         dwUser: UIntPtr
@@ -324,7 +324,7 @@ AMBISONICS_CHANNEL_ORDERING_ACN: win32more.Windows.Win32.Media.Audio.AMBISONICS_
 AMBISONICS_NORMALIZATION = Int32
 AMBISONICS_NORMALIZATION_SN3D: win32more.Windows.Win32.Media.Audio.AMBISONICS_NORMALIZATION = 0
 AMBISONICS_NORMALIZATION_N3D: win32more.Windows.Win32.Media.Audio.AMBISONICS_NORMALIZATION = 1
-class AMBISONICS_PARAMS(EasyCastStructure):
+class AMBISONICS_PARAMS(Structure):
     u32Size: UInt32
     u32Version: UInt32
     u32Type: win32more.Windows.Win32.Media.Audio.AMBISONICS_TYPE
@@ -343,21 +343,21 @@ AUDCLNT_STREAMOPTIONS_NONE: win32more.Windows.Win32.Media.Audio.AUDCLNT_STREAMOP
 AUDCLNT_STREAMOPTIONS_RAW: win32more.Windows.Win32.Media.Audio.AUDCLNT_STREAMOPTIONS = 1
 AUDCLNT_STREAMOPTIONS_MATCH_FORMAT: win32more.Windows.Win32.Media.Audio.AUDCLNT_STREAMOPTIONS = 2
 AUDCLNT_STREAMOPTIONS_AMBISONICS: win32more.Windows.Win32.Media.Audio.AUDCLNT_STREAMOPTIONS = 4
-class AUDIOCLIENT_ACTIVATION_PARAMS(EasyCastStructure):
+class AUDIOCLIENT_ACTIVATION_PARAMS(Structure):
     ActivationType: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_ACTIVATION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ProcessLoopbackParams: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS
 AUDIOCLIENT_ACTIVATION_TYPE = Int32
 AUDIOCLIENT_ACTIVATION_TYPE_DEFAULT: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_ACTIVATION_TYPE = 0
 AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_ACTIVATION_TYPE = 1
-class AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS(EasyCastStructure):
+class AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS(Structure):
     TargetProcessId: UInt32
     ProcessLoopbackMode: win32more.Windows.Win32.Media.Audio.PROCESS_LOOPBACK_MODE
 AUDIO_DUCKING_OPTIONS = Int32
 AUDIO_DUCKING_OPTIONS_DEFAULT: win32more.Windows.Win32.Media.Audio.AUDIO_DUCKING_OPTIONS = 0
 AUDIO_DUCKING_OPTIONS_DO_NOT_DUCK_OTHER_STREAMS: win32more.Windows.Win32.Media.Audio.AUDIO_DUCKING_OPTIONS = 1
-class AUDIO_EFFECT(EasyCastStructure):
+class AUDIO_EFFECT(Structure):
     id: Guid
     canSetState: win32more.Windows.Win32.Foundation.BOOL
     state: win32more.Windows.Win32.Media.Audio.AUDIO_EFFECT_STATE
@@ -384,13 +384,13 @@ AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_DEFAULT: win32more.Windows.Win32.Media.Au
 AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_USER: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 1
 AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_VOLATILE: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 2
 AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_ENUM_COUNT: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE = 3
-class AUDIO_VOLUME_NOTIFICATION_DATA(EasyCastStructure):
+class AUDIO_VOLUME_NOTIFICATION_DATA(Structure):
     guidEventContext: Guid
     bMuted: win32more.Windows.Win32.Foundation.BOOL
     fMasterVolume: Single
     nChannels: UInt32
     afChannelVolumes: Single * 1
-class AUXCAPS2A(EasyCastStructure):
+class AUXCAPS2A(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -402,7 +402,7 @@ class AUXCAPS2A(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
-class AUXCAPS2W(EasyCastStructure):
+class AUXCAPS2W(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -415,7 +415,7 @@ class AUXCAPS2W(EasyCastStructure):
     NameGuid: Guid
     _pack_ = 1
 AUXCAPS2 = UnicodeAlias('AUXCAPS2W')
-class AUXCAPSA(EasyCastStructure):
+class AUXCAPSA(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -424,7 +424,7 @@ class AUXCAPSA(EasyCastStructure):
     wReserved1: UInt16
     dwSupport: UInt32
     _pack_ = 1
-class AUXCAPSW(EasyCastStructure):
+class AUXCAPSW(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -1249,14 +1249,14 @@ def acmStreamConvert(has: win32more.Windows.Win32.Media.Audio.HACMSTREAM, pash: 
 def acmStreamPrepareHeader(has: win32more.Windows.Win32.Media.Audio.HACMSTREAM, pash: POINTER(win32more.Windows.Win32.Media.Audio.ACMSTREAMHEADER), fdwPrepare: UInt32) -> UInt32: ...
 @winfunctype('MSACM32.dll')
 def acmStreamUnprepareHeader(has: win32more.Windows.Win32.Media.Audio.HACMSTREAM, pash: POINTER(win32more.Windows.Win32.Media.Audio.ACMSTREAMHEADER), fdwUnprepare: UInt32) -> UInt32: ...
-class AudioClient3ActivationParams(EasyCastStructure):
+class AudioClient3ActivationParams(Structure):
     tracingContextId: Guid
-class AudioClientProperties(EasyCastStructure):
+class AudioClientProperties(Structure):
     cbSize: UInt32
     bIsOffload: win32more.Windows.Win32.Foundation.BOOL
     eCategory: win32more.Windows.Win32.Media.Audio.AUDIO_STREAM_CATEGORY
     Options: win32more.Windows.Win32.Media.Audio.AUDCLNT_STREAMOPTIONS
-class AudioExtensionParams(EasyCastStructure):
+class AudioExtensionParams(Structure):
     AddPageParam: win32more.Windows.Win32.Foundation.LPARAM
     pEndpoint: win32more.Windows.Win32.Media.Audio.IMMDevice
     pPnpInterface: win32more.Windows.Win32.Media.Audio.IMMDevice
@@ -1308,7 +1308,7 @@ DEVICE_STATE_ACTIVE: win32more.Windows.Win32.Media.Audio.DEVICE_STATE = 1
 DEVICE_STATE_DISABLED: win32more.Windows.Win32.Media.Audio.DEVICE_STATE = 2
 DEVICE_STATE_NOTPRESENT: win32more.Windows.Win32.Media.Audio.DEVICE_STATE = 4
 DEVICE_STATE_UNPLUGGED: win32more.Windows.Win32.Media.Audio.DEVICE_STATE = 8
-class DIRECTX_AUDIO_ACTIVATION_PARAMS(EasyCastStructure):
+class DIRECTX_AUDIO_ACTIVATION_PARAMS(Structure):
     cbDirectXAudioActivationParams: UInt32
     guidAudioSession: Guid
     dwAudioStreamFlags: UInt32
@@ -1316,7 +1316,7 @@ DataFlow = Int32
 In: win32more.Windows.Win32.Media.Audio.DataFlow = 0
 Out: win32more.Windows.Win32.Media.Audio.DataFlow = 1
 DeviceTopology = Guid('{1df639d0-5ec1-47aa-9379-828dc1aa8c59}')
-class ECHOWAVEFILTER(EasyCastStructure):
+class ECHOWAVEFILTER(Structure):
     wfltr: win32more.Windows.Win32.Media.Audio.WAVEFILTER
     dwVolume: UInt32
     dwDelay: UInt32
@@ -2071,13 +2071,13 @@ def LPACMDRIVERPROC(param0: UIntPtr, param1: win32more.Windows.Win32.Media.Audio
 def LPMIDICALLBACK(hdrvr: win32more.Windows.Win32.Media.Multimedia.HDRVR, uMsg: UInt32, dwUser: UIntPtr, dw1: UIntPtr, dw2: UIntPtr) -> Void: ...
 @winfunctype_pointer
 def LPWAVECALLBACK(hdrvr: win32more.Windows.Win32.Media.Multimedia.HDRVR, uMsg: UInt32, dwUser: UIntPtr, dw1: UIntPtr, dw2: UIntPtr) -> Void: ...
-class MIDIEVENT(EasyCastStructure):
+class MIDIEVENT(Structure):
     dwDeltaTime: UInt32
     dwStreamID: UInt32
     dwEvent: UInt32
     dwParms: UInt32 * 1
     _pack_ = 1
-class MIDIHDR(EasyCastStructure):
+class MIDIHDR(Structure):
     lpData: win32more.Windows.Win32.Foundation.PSTR
     dwBufferLength: UInt32
     dwBytesRecorded: UInt32
@@ -2088,7 +2088,7 @@ class MIDIHDR(EasyCastStructure):
     dwOffset: UInt32
     dwReserved: UIntPtr * 8
     _pack_ = 1
-class MIDIINCAPS2A(EasyCastStructure):
+class MIDIINCAPS2A(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2098,7 +2098,7 @@ class MIDIINCAPS2A(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
-class MIDIINCAPS2W(EasyCastStructure):
+class MIDIINCAPS2W(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2109,14 +2109,14 @@ class MIDIINCAPS2W(EasyCastStructure):
     NameGuid: Guid
     _pack_ = 1
 MIDIINCAPS2 = UnicodeAlias('MIDIINCAPS2W')
-class MIDIINCAPSA(EasyCastStructure):
+class MIDIINCAPSA(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
     szPname: win32more.Windows.Win32.Foundation.CHAR * 32
     dwSupport: UInt32
     _pack_ = 1
-class MIDIINCAPSW(EasyCastStructure):
+class MIDIINCAPSW(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2124,7 +2124,7 @@ class MIDIINCAPSW(EasyCastStructure):
     dwSupport: UInt32
     _pack_ = 1
 MIDIINCAPS = UnicodeAlias('MIDIINCAPSW')
-class MIDIOUTCAPS2A(EasyCastStructure):
+class MIDIOUTCAPS2A(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2138,7 +2138,7 @@ class MIDIOUTCAPS2A(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
-class MIDIOUTCAPS2W(EasyCastStructure):
+class MIDIOUTCAPS2W(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2153,7 +2153,7 @@ class MIDIOUTCAPS2W(EasyCastStructure):
     NameGuid: Guid
     _pack_ = 1
 MIDIOUTCAPS2 = UnicodeAlias('MIDIOUTCAPS2W')
-class MIDIOUTCAPSA(EasyCastStructure):
+class MIDIOUTCAPSA(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2164,7 +2164,7 @@ class MIDIOUTCAPSA(EasyCastStructure):
     wChannelMask: UInt16
     dwSupport: UInt32
     _pack_ = 1
-class MIDIOUTCAPSW(EasyCastStructure):
+class MIDIOUTCAPSW(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2176,15 +2176,15 @@ class MIDIOUTCAPSW(EasyCastStructure):
     dwSupport: UInt32
     _pack_ = 1
 MIDIOUTCAPS = UnicodeAlias('MIDIOUTCAPSW')
-class MIDIPROPTEMPO(EasyCastStructure):
+class MIDIPROPTEMPO(Structure):
     cbStruct: UInt32
     dwTempo: UInt32
     _pack_ = 1
-class MIDIPROPTIMEDIV(EasyCastStructure):
+class MIDIPROPTIMEDIV(Structure):
     cbStruct: UInt32
     dwTimeDiv: UInt32
     _pack_ = 1
-class MIDISTRMBUFFVER(EasyCastStructure):
+class MIDISTRMBUFFVER(Structure):
     dwVersion: UInt32
     dwMid: UInt32
     dwOEMVersion: UInt32
@@ -2204,7 +2204,7 @@ WAVE_FORMAT_DIRECT: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 8
 WAVE_FORMAT_DIRECT_QUERY: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 9
 WAVE_MAPPED_DEFAULT_COMMUNICATION_DEVICE: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 16
 MIDI_IO_STATUS: win32more.Windows.Win32.Media.Audio.MIDI_WAVE_OPEN_TYPE = 32
-class MIXERCAPS2A(EasyCastStructure):
+class MIXERCAPS2A(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2215,7 +2215,7 @@ class MIXERCAPS2A(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
-class MIXERCAPS2W(EasyCastStructure):
+class MIXERCAPS2W(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2227,7 +2227,7 @@ class MIXERCAPS2W(EasyCastStructure):
     NameGuid: Guid
     _pack_ = 1
 MIXERCAPS2 = UnicodeAlias('MIXERCAPS2W')
-class MIXERCAPSA(EasyCastStructure):
+class MIXERCAPSA(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2235,7 +2235,7 @@ class MIXERCAPSA(EasyCastStructure):
     fdwSupport: UInt32
     cDestinations: UInt32
     _pack_ = 1
-class MIXERCAPSW(EasyCastStructure):
+class MIXERCAPSW(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2244,7 +2244,7 @@ class MIXERCAPSW(EasyCastStructure):
     cDestinations: UInt32
     _pack_ = 1
 MIXERCAPS = UnicodeAlias('MIXERCAPSW')
-class MIXERCONTROLA(EasyCastStructure):
+class MIXERCONTROLA(Structure):
     cbStruct: UInt32
     dwControlID: UInt32
     dwControlType: UInt32
@@ -2255,25 +2255,25 @@ class MIXERCONTROLA(EasyCastStructure):
     Bounds: _Bounds_e__Union
     Metrics: _Metrics_e__Union
     _pack_ = 1
-    class _Bounds_e__Union(EasyCastUnion):
+    class _Bounds_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         dwReserved: UInt32 * 6
         _pack_ = 1
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             lMinimum: Int32
             lMaximum: Int32
             _pack_ = 1
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             dwMinimum: UInt32
             dwMaximum: UInt32
             _pack_ = 1
-    class _Metrics_e__Union(EasyCastUnion):
+    class _Metrics_e__Union(Union):
         cSteps: UInt32
         cbCustomData: UInt32
         dwReserved: UInt32 * 6
         _pack_ = 1
-class MIXERCONTROLDETAILS(EasyCastStructure):
+class MIXERCONTROLDETAILS(Structure):
     cbStruct: UInt32
     dwControlID: UInt32
     cChannels: UInt32
@@ -2281,31 +2281,31 @@ class MIXERCONTROLDETAILS(EasyCastStructure):
     cbDetails: UInt32
     paDetails: VoidPtr
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
         cMultipleItems: UInt32
         _pack_ = 1
-class MIXERCONTROLDETAILS_BOOLEAN(EasyCastStructure):
+class MIXERCONTROLDETAILS_BOOLEAN(Structure):
     fValue: Int32
     _pack_ = 1
-class MIXERCONTROLDETAILS_LISTTEXTA(EasyCastStructure):
+class MIXERCONTROLDETAILS_LISTTEXTA(Structure):
     dwParam1: UInt32
     dwParam2: UInt32
     szName: win32more.Windows.Win32.Foundation.CHAR * 64
     _pack_ = 1
-class MIXERCONTROLDETAILS_LISTTEXTW(EasyCastStructure):
+class MIXERCONTROLDETAILS_LISTTEXTW(Structure):
     dwParam1: UInt32
     dwParam2: UInt32
     szName: Char * 64
     _pack_ = 1
 MIXERCONTROLDETAILS_LISTTEXT = UnicodeAlias('MIXERCONTROLDETAILS_LISTTEXTW')
-class MIXERCONTROLDETAILS_SIGNED(EasyCastStructure):
+class MIXERCONTROLDETAILS_SIGNED(Structure):
     lValue: Int32
     _pack_ = 1
-class MIXERCONTROLDETAILS_UNSIGNED(EasyCastStructure):
+class MIXERCONTROLDETAILS_UNSIGNED(Structure):
     dwValue: UInt32
     _pack_ = 1
-class MIXERCONTROLW(EasyCastStructure):
+class MIXERCONTROLW(Structure):
     cbStruct: UInt32
     dwControlID: UInt32
     dwControlType: UInt32
@@ -2316,26 +2316,26 @@ class MIXERCONTROLW(EasyCastStructure):
     Bounds: _Bounds_e__Union
     Metrics: _Metrics_e__Union
     _pack_ = 1
-    class _Bounds_e__Union(EasyCastUnion):
+    class _Bounds_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         dwReserved: UInt32 * 6
         _pack_ = 1
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             lMinimum: Int32
             lMaximum: Int32
             _pack_ = 1
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             dwMinimum: UInt32
             dwMaximum: UInt32
             _pack_ = 1
-    class _Metrics_e__Union(EasyCastUnion):
+    class _Metrics_e__Union(Union):
         cSteps: UInt32
         cbCustomData: UInt32
         dwReserved: UInt32 * 6
         _pack_ = 1
 MIXERCONTROL = UnicodeAlias('MIXERCONTROLW')
-class MIXERLINEA(EasyCastStructure):
+class MIXERLINEA(Structure):
     cbStruct: UInt32
     dwDestination: UInt32
     dwSource: UInt32
@@ -2350,7 +2350,7 @@ class MIXERLINEA(EasyCastStructure):
     szName: win32more.Windows.Win32.Foundation.CHAR * 64
     Target: _Target_e__Struct
     _pack_ = 1
-    class _Target_e__Struct(EasyCastStructure):
+    class _Target_e__Struct(Structure):
         dwType: UInt32
         dwDeviceID: UInt32
         wMid: UInt16
@@ -2358,7 +2358,7 @@ class MIXERLINEA(EasyCastStructure):
         vDriverVersion: UInt32
         szPname: win32more.Windows.Win32.Foundation.CHAR * 32
         _pack_ = 1
-class MIXERLINECONTROLSA(EasyCastStructure):
+class MIXERLINECONTROLSA(Structure):
     cbStruct: UInt32
     dwLineID: UInt32
     Anonymous: _Anonymous_e__Union
@@ -2366,11 +2366,11 @@ class MIXERLINECONTROLSA(EasyCastStructure):
     cbmxctrl: UInt32
     pamxctrl: POINTER(win32more.Windows.Win32.Media.Audio.MIXERCONTROLA)
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwControlID: UInt32
         dwControlType: UInt32
         _pack_ = 1
-class MIXERLINECONTROLSW(EasyCastStructure):
+class MIXERLINECONTROLSW(Structure):
     cbStruct: UInt32
     dwLineID: UInt32
     Anonymous: _Anonymous_e__Union
@@ -2378,12 +2378,12 @@ class MIXERLINECONTROLSW(EasyCastStructure):
     cbmxctrl: UInt32
     pamxctrl: POINTER(win32more.Windows.Win32.Media.Audio.MIXERCONTROLW)
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwControlID: UInt32
         dwControlType: UInt32
         _pack_ = 1
 MIXERLINECONTROLS = UnicodeAlias('MIXERLINECONTROLSW')
-class MIXERLINEW(EasyCastStructure):
+class MIXERLINEW(Structure):
     cbStruct: UInt32
     dwDestination: UInt32
     dwSource: UInt32
@@ -2398,7 +2398,7 @@ class MIXERLINEW(EasyCastStructure):
     szName: Char * 64
     Target: _Target_e__Struct
     _pack_ = 1
-    class _Target_e__Struct(EasyCastStructure):
+    class _Target_e__Struct(Structure):
         dwType: UInt32
         dwDeviceID: UInt32
         wMid: UInt16
@@ -2431,7 +2431,7 @@ MIXERLINE_COMPONENTTYPE_SRC_WAVEOUT: win32more.Windows.Win32.Media.Audio.MIXERLI
 MMDeviceEnumerator = Guid('{bcde0395-e52f-467c-8e3d-c4579291692e}')
 @winfunctype_pointer
 def PAudioStateMonitorCallback(audioStateMonitor: win32more.Windows.Win32.Media.Audio.IAudioStateMonitor, context: VoidPtr) -> Void: ...
-class PCMWAVEFORMAT(EasyCastStructure):
+class PCMWAVEFORMAT(Structure):
     wf: win32more.Windows.Win32.Media.Audio.WAVEFORMAT
     wBitsPerSample: UInt16
     _pack_ = 1
@@ -2460,14 +2460,14 @@ SND_SYSTEM: win32more.Windows.Win32.Media.Audio.SND_FLAGS = 2097152
 SPATIAL_AUDIO_STREAM_OPTIONS = Int32
 SPATIAL_AUDIO_STREAM_OPTIONS_NONE: win32more.Windows.Win32.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS = 0
 SPATIAL_AUDIO_STREAM_OPTIONS_OFFLOAD: win32more.Windows.Win32.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS = 1
-class SpatialAudioClientActivationParams(EasyCastStructure):
+class SpatialAudioClientActivationParams(Structure):
     tracingContextId: Guid
     appId: Guid
     majorVersion: Int32
     minorVersion1: Int32
     minorVersion2: Int32
     minorVersion3: Int32
-class SpatialAudioHrtfActivationParams(EasyCastStructure):
+class SpatialAudioHrtfActivationParams(Structure):
     ObjectFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     StaticObjectTypeMask: win32more.Windows.Win32.Media.Audio.AudioObjectType
     MinDynamicObjectCount: UInt32
@@ -2480,7 +2480,7 @@ class SpatialAudioHrtfActivationParams(EasyCastStructure):
     Environment: POINTER(win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfEnvironmentType)
     Orientation: POINTER(Single)
     _pack_ = 1
-class SpatialAudioHrtfActivationParams2(EasyCastStructure):
+class SpatialAudioHrtfActivationParams2(Structure):
     ObjectFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     StaticObjectTypeMask: win32more.Windows.Win32.Media.Audio.AudioObjectType
     MinDynamicObjectCount: UInt32
@@ -2494,15 +2494,15 @@ class SpatialAudioHrtfActivationParams2(EasyCastStructure):
     Orientation: POINTER(Single)
     Options: win32more.Windows.Win32.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS
     _pack_ = 1
-class SpatialAudioHrtfDirectivity(EasyCastStructure):
+class SpatialAudioHrtfDirectivity(Structure):
     Type: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityType
     Scaling: Single
     _pack_ = 1
-class SpatialAudioHrtfDirectivityCardioid(EasyCastStructure):
+class SpatialAudioHrtfDirectivityCardioid(Structure):
     directivity: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivity
     Order: Single
     _pack_ = 1
-class SpatialAudioHrtfDirectivityCone(EasyCastStructure):
+class SpatialAudioHrtfDirectivityCone(Structure):
     directivity: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivity
     InnerAngle: Single
     OuterAngle: Single
@@ -2511,11 +2511,11 @@ SpatialAudioHrtfDirectivityType = Int32
 SpatialAudioHrtfDirectivity_OmniDirectional: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityType = 0
 SpatialAudioHrtfDirectivity_Cardioid: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityType = 1
 SpatialAudioHrtfDirectivity_Cone: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityType = 2
-class SpatialAudioHrtfDirectivityUnion(EasyCastUnion):
+class SpatialAudioHrtfDirectivityUnion(Union):
     Cone: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityCone
     Cardiod: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivityCardioid
     Omni: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDirectivity
-class SpatialAudioHrtfDistanceDecay(EasyCastStructure):
+class SpatialAudioHrtfDistanceDecay(Structure):
     Type: win32more.Windows.Win32.Media.Audio.SpatialAudioHrtfDistanceDecayType
     MaxGain: Single
     MinGain: Single
@@ -2536,7 +2536,7 @@ SpatialAudioMetadataCopy_Overwrite: win32more.Windows.Win32.Media.Audio.SpatialA
 SpatialAudioMetadataCopy_Append: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataCopyMode = 1
 SpatialAudioMetadataCopy_AppendMergeWithLast: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataCopyMode = 2
 SpatialAudioMetadataCopy_AppendMergeWithFirst: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataCopyMode = 3
-class SpatialAudioMetadataItemsInfo(EasyCastStructure):
+class SpatialAudioMetadataItemsInfo(Structure):
     FrameCount: UInt16
     ItemCount: UInt16
     MaxItemCount: UInt16
@@ -2546,7 +2546,7 @@ SpatialAudioMetadataWriterOverflowMode = Int32
 SpatialAudioMetadataWriterOverflow_Fail: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataWriterOverflowMode = 0
 SpatialAudioMetadataWriterOverflow_MergeWithNew: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataWriterOverflowMode = 1
 SpatialAudioMetadataWriterOverflow_MergeWithLast: win32more.Windows.Win32.Media.Audio.SpatialAudioMetadataWriterOverflowMode = 2
-class SpatialAudioObjectRenderStreamActivationParams(EasyCastStructure):
+class SpatialAudioObjectRenderStreamActivationParams(Structure):
     ObjectFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     StaticObjectTypeMask: win32more.Windows.Win32.Media.Audio.AudioObjectType
     MinDynamicObjectCount: UInt32
@@ -2555,7 +2555,7 @@ class SpatialAudioObjectRenderStreamActivationParams(EasyCastStructure):
     EventHandle: win32more.Windows.Win32.Foundation.HANDLE
     NotifyObject: win32more.Windows.Win32.Media.Audio.ISpatialAudioObjectRenderStreamNotify
     _pack_ = 1
-class SpatialAudioObjectRenderStreamActivationParams2(EasyCastStructure):
+class SpatialAudioObjectRenderStreamActivationParams2(Structure):
     ObjectFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     StaticObjectTypeMask: win32more.Windows.Win32.Media.Audio.AudioObjectType
     MinDynamicObjectCount: UInt32
@@ -2565,7 +2565,7 @@ class SpatialAudioObjectRenderStreamActivationParams2(EasyCastStructure):
     NotifyObject: win32more.Windows.Win32.Media.Audio.ISpatialAudioObjectRenderStreamNotify
     Options: win32more.Windows.Win32.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS
     _pack_ = 1
-class SpatialAudioObjectRenderStreamForMetadataActivationParams(EasyCastStructure):
+class SpatialAudioObjectRenderStreamForMetadataActivationParams(Structure):
     ObjectFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     StaticObjectTypeMask: win32more.Windows.Win32.Media.Audio.AudioObjectType
     MinDynamicObjectCount: UInt32
@@ -2577,7 +2577,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams(EasyCastStructur
     MetadataActivationParams: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
     NotifyObject: win32more.Windows.Win32.Media.Audio.ISpatialAudioObjectRenderStreamNotify
     _pack_ = 1
-class SpatialAudioObjectRenderStreamForMetadataActivationParams2(EasyCastStructure):
+class SpatialAudioObjectRenderStreamForMetadataActivationParams2(Structure):
     ObjectFormat: POINTER(win32more.Windows.Win32.Media.Audio.WAVEFORMATEX)
     StaticObjectTypeMask: win32more.Windows.Win32.Media.Audio.AudioObjectType
     MinDynamicObjectCount: UInt32
@@ -2590,24 +2590,24 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2(EasyCastStructu
     NotifyObject: win32more.Windows.Win32.Media.Audio.ISpatialAudioObjectRenderStreamNotify
     Options: win32more.Windows.Win32.Media.Audio.SPATIAL_AUDIO_STREAM_OPTIONS
     _pack_ = 1
-class VOLUMEWAVEFILTER(EasyCastStructure):
+class VOLUMEWAVEFILTER(Structure):
     wfltr: win32more.Windows.Win32.Media.Audio.WAVEFILTER
     dwVolume: UInt32
     _pack_ = 1
-class WAVEFILTER(EasyCastStructure):
+class WAVEFILTER(Structure):
     cbStruct: UInt32
     dwFilterTag: UInt32
     fdwFilter: UInt32
     dwReserved: UInt32 * 5
     _pack_ = 1
-class WAVEFORMAT(EasyCastStructure):
+class WAVEFORMAT(Structure):
     wFormatTag: UInt16
     nChannels: UInt16
     nSamplesPerSec: UInt32
     nAvgBytesPerSec: UInt32
     nBlockAlign: UInt16
     _pack_ = 1
-class WAVEFORMATEX(EasyCastStructure):
+class WAVEFORMATEX(Structure):
     wFormatTag: UInt16
     nChannels: UInt16
     nSamplesPerSec: UInt32
@@ -2616,18 +2616,18 @@ class WAVEFORMATEX(EasyCastStructure):
     wBitsPerSample: UInt16
     cbSize: UInt16
     _pack_ = 1
-class WAVEFORMATEXTENSIBLE(EasyCastStructure):
+class WAVEFORMATEXTENSIBLE(Structure):
     Format: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     Samples: _Samples_e__Union
     dwChannelMask: UInt32
     SubFormat: Guid
     _pack_ = 1
-    class _Samples_e__Union(EasyCastUnion):
+    class _Samples_e__Union(Union):
         wValidBitsPerSample: UInt16
         wSamplesPerBlock: UInt16
         wReserved: UInt16
         _pack_ = 1
-class WAVEHDR(EasyCastStructure):
+class WAVEHDR(Structure):
     lpData: win32more.Windows.Win32.Foundation.PSTR
     dwBufferLength: UInt32
     dwBytesRecorded: UInt32
@@ -2637,7 +2637,7 @@ class WAVEHDR(EasyCastStructure):
     lpNext: POINTER(win32more.Windows.Win32.Media.Audio.WAVEHDR)
     reserved: UIntPtr
     _pack_ = 1
-class WAVEINCAPS2A(EasyCastStructure):
+class WAVEINCAPS2A(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2649,7 +2649,7 @@ class WAVEINCAPS2A(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
-class WAVEINCAPS2W(EasyCastStructure):
+class WAVEINCAPS2W(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2662,7 +2662,7 @@ class WAVEINCAPS2W(EasyCastStructure):
     NameGuid: Guid
     _pack_ = 1
 WAVEINCAPS2 = UnicodeAlias('WAVEINCAPS2W')
-class WAVEINCAPSA(EasyCastStructure):
+class WAVEINCAPSA(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2671,7 +2671,7 @@ class WAVEINCAPSA(EasyCastStructure):
     wChannels: UInt16
     wReserved1: UInt16
     _pack_ = 1
-class WAVEINCAPSW(EasyCastStructure):
+class WAVEINCAPSW(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2681,7 +2681,7 @@ class WAVEINCAPSW(EasyCastStructure):
     wReserved1: UInt16
     _pack_ = 1
 WAVEINCAPS = UnicodeAlias('WAVEINCAPSW')
-class WAVEOUTCAPS2A(EasyCastStructure):
+class WAVEOUTCAPS2A(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2694,7 +2694,7 @@ class WAVEOUTCAPS2A(EasyCastStructure):
     ProductGuid: Guid
     NameGuid: Guid
     _pack_ = 1
-class WAVEOUTCAPS2W(EasyCastStructure):
+class WAVEOUTCAPS2W(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2708,7 +2708,7 @@ class WAVEOUTCAPS2W(EasyCastStructure):
     NameGuid: Guid
     _pack_ = 1
 WAVEOUTCAPS2 = UnicodeAlias('WAVEOUTCAPS2W')
-class WAVEOUTCAPSA(EasyCastStructure):
+class WAVEOUTCAPSA(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2718,7 +2718,7 @@ class WAVEOUTCAPSA(EasyCastStructure):
     wReserved1: UInt16
     dwSupport: UInt32
     _pack_ = 1
-class WAVEOUTCAPSW(EasyCastStructure):
+class WAVEOUTCAPSW(Structure):
     wMid: UInt16
     wPid: UInt16
     vDriverVersion: UInt32
@@ -2733,7 +2733,7 @@ _AUDCLNT_BUFFERFLAGS = Int32
 AUDCLNT_BUFFERFLAGS_DATA_DISCONTINUITY: win32more.Windows.Win32.Media.Audio._AUDCLNT_BUFFERFLAGS = 1
 AUDCLNT_BUFFERFLAGS_SILENT: win32more.Windows.Win32.Media.Audio._AUDCLNT_BUFFERFLAGS = 2
 AUDCLNT_BUFFERFLAGS_TIMESTAMP_ERROR: win32more.Windows.Win32.Media.Audio._AUDCLNT_BUFFERFLAGS = 4
-class tACMFORMATDETAILSW(EasyCastStructure):
+class tACMFORMATDETAILSW(Structure):
     cbStruct: UInt32
     dwFormatIndex: UInt32
     dwFormatTag: UInt32

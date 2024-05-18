@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Ole
@@ -1562,7 +1562,7 @@ LegacyTraceSession = Guid('{03837528-098b-11d8-9414-505054503030}')
 LegacyTraceSessionCollection = Guid('{03837529-098b-11d8-9414-505054503030}')
 LogFileItem = Guid('{16ec5be8-df93-4237-94e4-9ee918111d71}')
 LogFiles = Guid('{2735d9fd-f6b9-4f19-a5d9-e2d068584bc5}')
-class PDH_BROWSE_DLG_CONFIG_A(EasyCastStructure):
+class PDH_BROWSE_DLG_CONFIG_A(Structure):
     _bitfield: UInt32
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
     szDataSource: win32more.Windows.Win32.Foundation.PSTR
@@ -1573,7 +1573,7 @@ class PDH_BROWSE_DLG_CONFIG_A(EasyCastStructure):
     CallBackStatus: Int32
     dwDefaultDetailLevel: win32more.Windows.Win32.System.Performance.PERF_DETAIL
     szDialogBoxCaption: win32more.Windows.Win32.Foundation.PSTR
-class PDH_BROWSE_DLG_CONFIG_HA(EasyCastStructure):
+class PDH_BROWSE_DLG_CONFIG_HA(Structure):
     _bitfield: UInt32
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
     hDataSource: IntPtr
@@ -1584,7 +1584,7 @@ class PDH_BROWSE_DLG_CONFIG_HA(EasyCastStructure):
     CallBackStatus: Int32
     dwDefaultDetailLevel: win32more.Windows.Win32.System.Performance.PERF_DETAIL
     szDialogBoxCaption: win32more.Windows.Win32.Foundation.PSTR
-class PDH_BROWSE_DLG_CONFIG_HW(EasyCastStructure):
+class PDH_BROWSE_DLG_CONFIG_HW(Structure):
     _bitfield: UInt32
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
     hDataSource: IntPtr
@@ -1596,7 +1596,7 @@ class PDH_BROWSE_DLG_CONFIG_HW(EasyCastStructure):
     dwDefaultDetailLevel: win32more.Windows.Win32.System.Performance.PERF_DETAIL
     szDialogBoxCaption: win32more.Windows.Win32.Foundation.PWSTR
 PDH_BROWSE_DLG_CONFIG_H = UnicodeAlias('PDH_BROWSE_DLG_CONFIG_HW')
-class PDH_BROWSE_DLG_CONFIG_W(EasyCastStructure):
+class PDH_BROWSE_DLG_CONFIG_W(Structure):
     _bitfield: UInt32
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
     szDataSource: win32more.Windows.Win32.Foundation.PWSTR
@@ -1608,7 +1608,7 @@ class PDH_BROWSE_DLG_CONFIG_W(EasyCastStructure):
     dwDefaultDetailLevel: win32more.Windows.Win32.System.Performance.PERF_DETAIL
     szDialogBoxCaption: win32more.Windows.Win32.Foundation.PWSTR
 PDH_BROWSE_DLG_CONFIG = UnicodeAlias('PDH_BROWSE_DLG_CONFIG_W')
-class PDH_COUNTER_INFO_A(EasyCastStructure):
+class PDH_COUNTER_INFO_A(Structure):
     dwLength: UInt32
     dwType: UInt32
     CVersion: UInt32
@@ -1621,18 +1621,18 @@ class PDH_COUNTER_INFO_A(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     szExplainText: win32more.Windows.Win32.Foundation.PSTR
     DataBuffer: UInt32 * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         DataItemPath: win32more.Windows.Win32.System.Performance.PDH_DATA_ITEM_PATH_ELEMENTS_A
         CounterPath: win32more.Windows.Win32.System.Performance.PDH_COUNTER_PATH_ELEMENTS_A
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             szMachineName: win32more.Windows.Win32.Foundation.PSTR
             szObjectName: win32more.Windows.Win32.Foundation.PSTR
             szInstanceName: win32more.Windows.Win32.Foundation.PSTR
             szParentInstance: win32more.Windows.Win32.Foundation.PSTR
             dwInstanceIndex: UInt32
             szCounterName: win32more.Windows.Win32.Foundation.PSTR
-class PDH_COUNTER_INFO_W(EasyCastStructure):
+class PDH_COUNTER_INFO_W(Structure):
     dwLength: UInt32
     dwType: UInt32
     CVersion: UInt32
@@ -1645,11 +1645,11 @@ class PDH_COUNTER_INFO_W(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     szExplainText: win32more.Windows.Win32.Foundation.PWSTR
     DataBuffer: UInt32 * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         DataItemPath: win32more.Windows.Win32.System.Performance.PDH_DATA_ITEM_PATH_ELEMENTS_W
         CounterPath: win32more.Windows.Win32.System.Performance.PDH_COUNTER_PATH_ELEMENTS_W
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             szMachineName: win32more.Windows.Win32.Foundation.PWSTR
             szObjectName: win32more.Windows.Win32.Foundation.PWSTR
             szInstanceName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1657,14 +1657,14 @@ class PDH_COUNTER_INFO_W(EasyCastStructure):
             dwInstanceIndex: UInt32
             szCounterName: win32more.Windows.Win32.Foundation.PWSTR
 PDH_COUNTER_INFO = UnicodeAlias('PDH_COUNTER_INFO_W')
-class PDH_COUNTER_PATH_ELEMENTS_A(EasyCastStructure):
+class PDH_COUNTER_PATH_ELEMENTS_A(Structure):
     szMachineName: win32more.Windows.Win32.Foundation.PSTR
     szObjectName: win32more.Windows.Win32.Foundation.PSTR
     szInstanceName: win32more.Windows.Win32.Foundation.PSTR
     szParentInstance: win32more.Windows.Win32.Foundation.PSTR
     dwInstanceIndex: UInt32
     szCounterName: win32more.Windows.Win32.Foundation.PSTR
-class PDH_COUNTER_PATH_ELEMENTS_W(EasyCastStructure):
+class PDH_COUNTER_PATH_ELEMENTS_W(Structure):
     szMachineName: win32more.Windows.Win32.Foundation.PWSTR
     szObjectName: win32more.Windows.Win32.Foundation.PWSTR
     szInstanceName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1672,12 +1672,12 @@ class PDH_COUNTER_PATH_ELEMENTS_W(EasyCastStructure):
     dwInstanceIndex: UInt32
     szCounterName: win32more.Windows.Win32.Foundation.PWSTR
 PDH_COUNTER_PATH_ELEMENTS = UnicodeAlias('PDH_COUNTER_PATH_ELEMENTS_W')
-class PDH_DATA_ITEM_PATH_ELEMENTS_A(EasyCastStructure):
+class PDH_DATA_ITEM_PATH_ELEMENTS_A(Structure):
     szMachineName: win32more.Windows.Win32.Foundation.PSTR
     ObjectGUID: Guid
     dwItemId: UInt32
     szInstanceName: win32more.Windows.Win32.Foundation.PSTR
-class PDH_DATA_ITEM_PATH_ELEMENTS_W(EasyCastStructure):
+class PDH_DATA_ITEM_PATH_ELEMENTS_W(Structure):
     szMachineName: win32more.Windows.Win32.Foundation.PWSTR
     ObjectGUID: Guid
     dwItemId: UInt32
@@ -1690,19 +1690,19 @@ PDH_FMT = UInt32
 PDH_FMT_DOUBLE: win32more.Windows.Win32.System.Performance.PDH_FMT = 512
 PDH_FMT_LARGE: win32more.Windows.Win32.System.Performance.PDH_FMT = 1024
 PDH_FMT_LONG: win32more.Windows.Win32.System.Performance.PDH_FMT = 256
-class PDH_FMT_COUNTERVALUE(EasyCastStructure):
+class PDH_FMT_COUNTERVALUE(Structure):
     CStatus: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         longValue: Int32
         doubleValue: Double
         largeValue: Int64
         AnsiStringValue: win32more.Windows.Win32.Foundation.PSTR
         WideStringValue: win32more.Windows.Win32.Foundation.PWSTR
-class PDH_FMT_COUNTERVALUE_ITEM_A(EasyCastStructure):
+class PDH_FMT_COUNTERVALUE_ITEM_A(Structure):
     szName: win32more.Windows.Win32.Foundation.PSTR
     FmtValue: win32more.Windows.Win32.System.Performance.PDH_FMT_COUNTERVALUE
-class PDH_FMT_COUNTERVALUE_ITEM_W(EasyCastStructure):
+class PDH_FMT_COUNTERVALUE_ITEM_W(Structure):
     szName: win32more.Windows.Win32.Foundation.PWSTR
     FmtValue: win32more.Windows.Win32.System.Performance.PDH_FMT_COUNTERVALUE
 PDH_FMT_COUNTERVALUE_ITEM = UnicodeAlias('PDH_FMT_COUNTERVALUE_ITEM_W')
@@ -1710,7 +1710,7 @@ PDH_LOG = UInt32
 PDH_LOG_READ_ACCESS: win32more.Windows.Win32.System.Performance.PDH_LOG = 65536
 PDH_LOG_WRITE_ACCESS: win32more.Windows.Win32.System.Performance.PDH_LOG = 131072
 PDH_LOG_UPDATE_ACCESS: win32more.Windows.Win32.System.Performance.PDH_LOG = 262144
-class PDH_LOG_SERVICE_QUERY_INFO_A(EasyCastStructure):
+class PDH_LOG_SERVICE_QUERY_INFO_A(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwLogQuota: UInt32
@@ -1720,10 +1720,10 @@ class PDH_LOG_SERVICE_QUERY_INFO_A(EasyCastStructure):
     dwFileType: UInt32
     dwReserved: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             PdlAutoNameInterval: UInt32
             PdlAutoNameUnits: UInt32
             PdlCommandFilename: win32more.Windows.Win32.Foundation.PSTR
@@ -1732,7 +1732,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A(EasyCastStructure):
             PdlSampleInterval: UInt32
             PdlLogStartTime: win32more.Windows.Win32.Foundation.FILETIME
             PdlLogEndTime: win32more.Windows.Win32.Foundation.FILETIME
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             TlNumberOfBuffers: UInt32
             TlMinimumBuffers: UInt32
             TlMaximumBuffers: UInt32
@@ -1743,7 +1743,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A(EasyCastStructure):
             TlBuffersWritten: UInt32
             TlLogHandle: UInt32
             TlLogFileName: win32more.Windows.Win32.Foundation.PSTR
-class PDH_LOG_SERVICE_QUERY_INFO_W(EasyCastStructure):
+class PDH_LOG_SERVICE_QUERY_INFO_W(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwLogQuota: UInt32
@@ -1753,10 +1753,10 @@ class PDH_LOG_SERVICE_QUERY_INFO_W(EasyCastStructure):
     dwFileType: UInt32
     dwReserved: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             PdlAutoNameInterval: UInt32
             PdlAutoNameUnits: UInt32
             PdlCommandFilename: win32more.Windows.Win32.Foundation.PWSTR
@@ -1765,7 +1765,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_W(EasyCastStructure):
             PdlSampleInterval: UInt32
             PdlLogStartTime: win32more.Windows.Win32.Foundation.FILETIME
             PdlLogEndTime: win32more.Windows.Win32.Foundation.FILETIME
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             TlNumberOfBuffers: UInt32
             TlMinimumBuffers: UInt32
             TlMaximumBuffers: UInt32
@@ -1788,20 +1788,20 @@ PDH_PATH_FLAGS = UInt32
 PDH_PATH_WBEM_RESULT: win32more.Windows.Win32.System.Performance.PDH_PATH_FLAGS = 1
 PDH_PATH_WBEM_INPUT: win32more.Windows.Win32.System.Performance.PDH_PATH_FLAGS = 2
 PDH_PATH_WBEM_NONE: win32more.Windows.Win32.System.Performance.PDH_PATH_FLAGS = 0
-class PDH_RAW_COUNTER(EasyCastStructure):
+class PDH_RAW_COUNTER(Structure):
     CStatus: UInt32
     TimeStamp: win32more.Windows.Win32.Foundation.FILETIME
     FirstValue: Int64
     SecondValue: Int64
     MultiCount: UInt32
-class PDH_RAW_COUNTER_ITEM_A(EasyCastStructure):
+class PDH_RAW_COUNTER_ITEM_A(Structure):
     szName: win32more.Windows.Win32.Foundation.PSTR
     RawValue: win32more.Windows.Win32.System.Performance.PDH_RAW_COUNTER
-class PDH_RAW_COUNTER_ITEM_W(EasyCastStructure):
+class PDH_RAW_COUNTER_ITEM_W(Structure):
     szName: win32more.Windows.Win32.Foundation.PWSTR
     RawValue: win32more.Windows.Win32.System.Performance.PDH_RAW_COUNTER
 PDH_RAW_COUNTER_ITEM = UnicodeAlias('PDH_RAW_COUNTER_ITEM_W')
-class PDH_RAW_LOG_RECORD(EasyCastStructure):
+class PDH_RAW_LOG_RECORD(Structure):
     dwStructureSize: UInt32
     dwRecordType: win32more.Windows.Win32.System.Performance.PDH_LOG_TYPE
     dwItems: UInt32
@@ -1809,30 +1809,30 @@ class PDH_RAW_LOG_RECORD(EasyCastStructure):
 PDH_SELECT_DATA_SOURCE_FLAGS = UInt32
 PDH_FLAGS_FILE_BROWSER_ONLY: win32more.Windows.Win32.System.Performance.PDH_SELECT_DATA_SOURCE_FLAGS = 1
 PDH_FLAGS_NONE: win32more.Windows.Win32.System.Performance.PDH_SELECT_DATA_SOURCE_FLAGS = 0
-class PDH_STATISTICS(EasyCastStructure):
+class PDH_STATISTICS(Structure):
     dwFormat: UInt32
     count: UInt32
     min: win32more.Windows.Win32.System.Performance.PDH_FMT_COUNTERVALUE
     max: win32more.Windows.Win32.System.Performance.PDH_FMT_COUNTERVALUE
     mean: win32more.Windows.Win32.System.Performance.PDH_FMT_COUNTERVALUE
-class PDH_TIME_INFO(EasyCastStructure):
+class PDH_TIME_INFO(Structure):
     StartTime: Int64
     EndTime: Int64
     SampleCount: UInt32
 @winfunctype_pointer
 def PERFLIBREQUEST(RequestCode: UInt32, Buffer: VoidPtr, BufferSize: UInt32) -> UInt32: ...
-class PERF_COUNTERSET_INFO(EasyCastStructure):
+class PERF_COUNTERSET_INFO(Structure):
     CounterSetGuid: Guid
     ProviderGuid: Guid
     NumCounters: UInt32
     InstanceType: UInt32
-class PERF_COUNTERSET_INSTANCE(EasyCastStructure):
+class PERF_COUNTERSET_INSTANCE(Structure):
     CounterSetGuid: Guid
     dwSize: UInt32
     InstanceId: UInt32
     InstanceNameOffset: UInt32
     InstanceNameSize: UInt32
-class PERF_COUNTERSET_REG_INFO(EasyCastStructure):
+class PERF_COUNTERSET_REG_INFO(Structure):
     CounterSetGuid: Guid
     CounterSetType: UInt32
     DetailLevel: UInt32
@@ -1844,13 +1844,13 @@ PERF_AGGREGATE_TOTAL: win32more.Windows.Win32.System.Performance.PERF_COUNTER_AG
 PERF_AGGREGATE_AVG: win32more.Windows.Win32.System.Performance.PERF_COUNTER_AGGREGATE_FUNC = 2
 PERF_AGGREGATE_MIN: win32more.Windows.Win32.System.Performance.PERF_COUNTER_AGGREGATE_FUNC = 3
 PERF_AGGREGATE_MAX: win32more.Windows.Win32.System.Performance.PERF_COUNTER_AGGREGATE_FUNC = 4
-class PERF_COUNTER_BLOCK(EasyCastStructure):
+class PERF_COUNTER_BLOCK(Structure):
     ByteLength: UInt32
-class PERF_COUNTER_DATA(EasyCastStructure):
+class PERF_COUNTER_DATA(Structure):
     dwDataSize: UInt32
     dwSize: UInt32
 if ARCH in 'X64,ARM64':
-    class PERF_COUNTER_DEFINITION(EasyCastStructure):
+    class PERF_COUNTER_DEFINITION(Structure):
         ByteLength: UInt32
         CounterNameTitleIndex: UInt32
         CounterNameTitle: UInt32
@@ -1862,7 +1862,7 @@ if ARCH in 'X64,ARM64':
         CounterSize: UInt32
         CounterOffset: UInt32
 elif ARCH in 'X86':
-    class PERF_COUNTER_DEFINITION(EasyCastStructure):
+    class PERF_COUNTER_DEFINITION(Structure):
         ByteLength: UInt32
         CounterNameTitleIndex: UInt32
         CounterNameTitle: win32more.Windows.Win32.Foundation.PWSTR
@@ -1873,12 +1873,12 @@ elif ARCH in 'X86':
         CounterType: UInt32
         CounterSize: UInt32
         CounterOffset: UInt32
-class PERF_COUNTER_HEADER(EasyCastStructure):
+class PERF_COUNTER_HEADER(Structure):
     dwStatus: UInt32
     dwType: win32more.Windows.Win32.System.Performance.PerfCounterDataType
     dwSize: UInt32
     Reserved: UInt32
-class PERF_COUNTER_IDENTIFIER(EasyCastStructure):
+class PERF_COUNTER_IDENTIFIER(Structure):
     CounterSetGuid: Guid
     Status: UInt32
     Size: UInt32
@@ -1886,7 +1886,7 @@ class PERF_COUNTER_IDENTIFIER(EasyCastStructure):
     InstanceId: UInt32
     Index: UInt32
     Reserved: UInt32
-class PERF_COUNTER_IDENTITY(EasyCastStructure):
+class PERF_COUNTER_IDENTITY(Structure):
     CounterSetGuid: Guid
     BufferSize: UInt32
     CounterId: UInt32
@@ -1894,7 +1894,7 @@ class PERF_COUNTER_IDENTITY(EasyCastStructure):
     MachineOffset: UInt32
     NameOffset: UInt32
     Reserved: UInt32
-class PERF_COUNTER_INFO(EasyCastStructure):
+class PERF_COUNTER_INFO(Structure):
     CounterId: UInt32
     Type: UInt32
     Attrib: UInt64
@@ -1902,7 +1902,7 @@ class PERF_COUNTER_INFO(EasyCastStructure):
     DetailLevel: UInt32
     Scale: Int32
     Offset: UInt32
-class PERF_COUNTER_REG_INFO(EasyCastStructure):
+class PERF_COUNTER_REG_INFO(Structure):
     CounterId: UInt32
     Type: UInt32
     Attrib: UInt64
@@ -1914,7 +1914,7 @@ class PERF_COUNTER_REG_INFO(EasyCastStructure):
     MultiId: UInt32
     AggregateFunc: win32more.Windows.Win32.System.Performance.PERF_COUNTER_AGGREGATE_FUNC
     Reserved: UInt32
-class PERF_DATA_BLOCK(EasyCastStructure):
+class PERF_DATA_BLOCK(Structure):
     Signature: Char * 4
     LittleEndian: UInt32
     Version: UInt32
@@ -1929,7 +1929,7 @@ class PERF_DATA_BLOCK(EasyCastStructure):
     PerfTime100nSec: Int64
     SystemNameLength: UInt32
     SystemNameOffset: UInt32
-class PERF_DATA_HEADER(EasyCastStructure):
+class PERF_DATA_HEADER(Structure):
     dwTotalSize: UInt32
     dwNumCounters: UInt32
     PerfTimeStamp: Int64
@@ -1941,28 +1941,28 @@ PERF_DETAIL_NOVICE: win32more.Windows.Win32.System.Performance.PERF_DETAIL = 100
 PERF_DETAIL_ADVANCED: win32more.Windows.Win32.System.Performance.PERF_DETAIL = 200
 PERF_DETAIL_EXPERT: win32more.Windows.Win32.System.Performance.PERF_DETAIL = 300
 PERF_DETAIL_WIZARD: win32more.Windows.Win32.System.Performance.PERF_DETAIL = 400
-class PERF_INSTANCE_DEFINITION(EasyCastStructure):
+class PERF_INSTANCE_DEFINITION(Structure):
     ByteLength: UInt32
     ParentObjectTitleIndex: UInt32
     ParentObjectInstance: UInt32
     UniqueID: Int32
     NameOffset: UInt32
     NameLength: UInt32
-class PERF_INSTANCE_HEADER(EasyCastStructure):
+class PERF_INSTANCE_HEADER(Structure):
     Size: UInt32
     InstanceId: UInt32
 @winfunctype_pointer
 def PERF_MEM_ALLOC(AllocSize: UIntPtr, pContext: VoidPtr) -> VoidPtr: ...
 @winfunctype_pointer
 def PERF_MEM_FREE(pBuffer: VoidPtr, pContext: VoidPtr) -> Void: ...
-class PERF_MULTI_COUNTERS(EasyCastStructure):
+class PERF_MULTI_COUNTERS(Structure):
     dwSize: UInt32
     dwCounters: UInt32
-class PERF_MULTI_INSTANCES(EasyCastStructure):
+class PERF_MULTI_INSTANCES(Structure):
     dwTotalSize: UInt32
     dwInstances: UInt32
 if ARCH in 'X64,ARM64':
-    class PERF_OBJECT_TYPE(EasyCastStructure):
+    class PERF_OBJECT_TYPE(Structure):
         TotalByteLength: UInt32
         DefinitionLength: UInt32
         HeaderLength: UInt32
@@ -1978,7 +1978,7 @@ if ARCH in 'X64,ARM64':
         PerfTime: Int64
         PerfFreq: Int64
 elif ARCH in 'X86':
-    class PERF_OBJECT_TYPE(EasyCastStructure):
+    class PERF_OBJECT_TYPE(Structure):
         TotalByteLength: UInt32
         DefinitionLength: UInt32
         HeaderLength: UInt32
@@ -1993,17 +1993,17 @@ elif ARCH in 'X86':
         CodePage: UInt32
         PerfTime: Int64
         PerfFreq: Int64
-class PERF_PROVIDER_CONTEXT(EasyCastStructure):
+class PERF_PROVIDER_CONTEXT(Structure):
     ContextSize: UInt32
     Reserved: UInt32
     ControlCallback: win32more.Windows.Win32.System.Performance.PERFLIBREQUEST
     MemAllocRoutine: win32more.Windows.Win32.System.Performance.PERF_MEM_ALLOC
     MemFreeRoutine: win32more.Windows.Win32.System.Performance.PERF_MEM_FREE
     pMemContext: VoidPtr
-class PERF_STRING_BUFFER_HEADER(EasyCastStructure):
+class PERF_STRING_BUFFER_HEADER(Structure):
     dwSize: UInt32
     dwCounters: UInt32
-class PERF_STRING_COUNTER_HEADER(EasyCastStructure):
+class PERF_STRING_COUNTER_HEADER(Structure):
     dwCounterId: UInt32
     dwOffset: UInt32
 @winfunctype_pointer

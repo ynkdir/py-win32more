@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D
 import win32more.Windows.Win32.Graphics.Direct2D.Common
@@ -15,7 +15,7 @@ class IPdfRendererNative(ComPtr):
     def RenderPageToSurface(self, pdfPage: win32more.Windows.Win32.System.Com.IUnknown, pSurface: win32more.Windows.Win32.Graphics.Dxgi.IDXGISurface, offset: win32more.Windows.Win32.Foundation.POINT, pRenderParams: POINTER(win32more.Windows.Win32.System.WinRT.Pdf.PDF_RENDER_PARAMS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RenderPageToDeviceContext(self, pdfPage: win32more.Windows.Win32.System.Com.IUnknown, pD2DDeviceContext: win32more.Windows.Win32.Graphics.Direct2D.ID2D1DeviceContext, pRenderParams: POINTER(win32more.Windows.Win32.System.WinRT.Pdf.PDF_RENDER_PARAMS)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class PDF_RENDER_PARAMS(EasyCastStructure):
+class PDF_RENDER_PARAMS(Structure):
     SourceRect: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F
     DestinationWidth: UInt32
     DestinationHeight: UInt32

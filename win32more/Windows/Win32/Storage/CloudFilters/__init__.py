@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.CloudFilters
 import win32more.Windows.Win32.Storage.FileSystem
@@ -116,7 +116,7 @@ CF_CALLBACK_FETCH_DATA_FLAG_RECOVERY: win32more.Windows.Win32.Storage.CloudFilte
 CF_CALLBACK_FETCH_DATA_FLAG_EXPLICIT_HYDRATION: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_FETCH_DATA_FLAGS = 2
 CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS = Int32
 CF_CALLBACK_FETCH_PLACEHOLDERS_FLAG_NONE: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS = 0
-class CF_CALLBACK_INFO(EasyCastStructure):
+class CF_CALLBACK_INFO(Structure):
     StructSize: UInt32
     ConnectionKey: win32more.Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY
     CallbackContext: VoidPtr
@@ -140,10 +140,10 @@ CF_CALLBACK_OPEN_COMPLETION_FLAGS = Int32
 CF_CALLBACK_OPEN_COMPLETION_FLAG_NONE: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_OPEN_COMPLETION_FLAGS = 0
 CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNKNOWN: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_OPEN_COMPLETION_FLAGS = 1
 CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNSUPPORTED: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_OPEN_COMPLETION_FLAGS = 2
-class CF_CALLBACK_PARAMETERS(EasyCastStructure):
+class CF_CALLBACK_PARAMETERS(Structure):
     ParamSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Cancel: _Cancel_e__Struct
         FetchData: _FetchData_e__Struct
         ValidateData: _ValidateData_e__Struct
@@ -156,15 +156,15 @@ class CF_CALLBACK_PARAMETERS(EasyCastStructure):
         DeleteCompletion: _DeleteCompletion_e__Struct
         Rename: _Rename_e__Struct
         RenameCompletion: _RenameCompletion_e__Struct
-        class _Cancel_e__Struct(EasyCastStructure):
+        class _Cancel_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_CANCEL_FLAGS
             Anonymous: _Anonymous_e__Union
-            class _Anonymous_e__Union(EasyCastUnion):
+            class _Anonymous_e__Union(Union):
                 FetchData: _FetchData_e__Struct
-                class _FetchData_e__Struct(EasyCastStructure):
+                class _FetchData_e__Struct(Structure):
                     FileOffset: Int64
                     Length: Int64
-        class _FetchData_e__Struct(EasyCastStructure):
+        class _FetchData_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_FETCH_DATA_FLAGS
             RequiredFileOffset: Int64
             RequiredLength: Int64
@@ -172,34 +172,34 @@ class CF_CALLBACK_PARAMETERS(EasyCastStructure):
             OptionalLength: Int64
             LastDehydrationTime: Int64
             LastDehydrationReason: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_DEHYDRATION_REASON
-        class _ValidateData_e__Struct(EasyCastStructure):
+        class _ValidateData_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_VALIDATE_DATA_FLAGS
             RequiredFileOffset: Int64
             RequiredLength: Int64
-        class _FetchPlaceholders_e__Struct(EasyCastStructure):
+        class _FetchPlaceholders_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS
             Pattern: win32more.Windows.Win32.Foundation.PWSTR
-        class _OpenCompletion_e__Struct(EasyCastStructure):
+        class _OpenCompletion_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_OPEN_COMPLETION_FLAGS
-        class _CloseCompletion_e__Struct(EasyCastStructure):
+        class _CloseCompletion_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_CLOSE_COMPLETION_FLAGS
-        class _Dehydrate_e__Struct(EasyCastStructure):
+        class _Dehydrate_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_DEHYDRATE_FLAGS
             Reason: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_DEHYDRATION_REASON
-        class _DehydrateCompletion_e__Struct(EasyCastStructure):
+        class _DehydrateCompletion_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS
             Reason: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_DEHYDRATION_REASON
-        class _Delete_e__Struct(EasyCastStructure):
+        class _Delete_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_DELETE_FLAGS
-        class _DeleteCompletion_e__Struct(EasyCastStructure):
+        class _DeleteCompletion_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_DELETE_COMPLETION_FLAGS
-        class _Rename_e__Struct(EasyCastStructure):
+        class _Rename_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_RENAME_FLAGS
             TargetPath: win32more.Windows.Win32.Foundation.PWSTR
-        class _RenameCompletion_e__Struct(EasyCastStructure):
+        class _RenameCompletion_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_RENAME_COMPLETION_FLAGS
             SourcePath: win32more.Windows.Win32.Foundation.PWSTR
-class CF_CALLBACK_REGISTRATION(EasyCastStructure):
+class CF_CALLBACK_REGISTRATION(Structure):
     Type: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_TYPE
     Callback: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK
 CF_CALLBACK_RENAME_COMPLETION_FLAGS = Int32
@@ -246,10 +246,10 @@ CF_CREATE_FLAG_STOP_ON_ERROR: win32more.Windows.Win32.Storage.CloudFilters.CF_CR
 CF_DEHYDRATE_FLAGS = Int32
 CF_DEHYDRATE_FLAG_NONE: win32more.Windows.Win32.Storage.CloudFilters.CF_DEHYDRATE_FLAGS = 0
 CF_DEHYDRATE_FLAG_BACKGROUND: win32more.Windows.Win32.Storage.CloudFilters.CF_DEHYDRATE_FLAGS = 1
-class CF_FILE_RANGE(EasyCastStructure):
+class CF_FILE_RANGE(Structure):
     StartingOffset: Int64
     Length: Int64
-class CF_FS_METADATA(EasyCastStructure):
+class CF_FS_METADATA(Structure):
     BasicInfo: win32more.Windows.Win32.Storage.FileSystem.FILE_BASIC_INFO
     FileSize: Int64
 CF_HARDLINK_POLICY = Int32
@@ -257,7 +257,7 @@ CF_HARDLINK_POLICY_NONE: win32more.Windows.Win32.Storage.CloudFilters.CF_HARDLIN
 CF_HARDLINK_POLICY_ALLOWED: win32more.Windows.Win32.Storage.CloudFilters.CF_HARDLINK_POLICY = 1
 CF_HYDRATE_FLAGS = Int32
 CF_HYDRATE_FLAG_NONE: win32more.Windows.Win32.Storage.CloudFilters.CF_HYDRATE_FLAGS = 0
-class CF_HYDRATION_POLICY(EasyCastStructure):
+class CF_HYDRATION_POLICY(Structure):
     Primary: win32more.Windows.Win32.Storage.CloudFilters.CF_HYDRATION_POLICY_PRIMARY
     Modifier: win32more.Windows.Win32.Storage.CloudFilters.CF_HYDRATION_POLICY_MODIFIER
 CF_HYDRATION_POLICY_MODIFIER = UInt16
@@ -304,7 +304,7 @@ CF_OPERATION_ACK_DELETE_FLAGS = Int32
 CF_OPERATION_ACK_DELETE_FLAG_NONE: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_DELETE_FLAGS = 0
 CF_OPERATION_ACK_RENAME_FLAGS = Int32
 CF_OPERATION_ACK_RENAME_FLAG_NONE: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_RENAME_FLAGS = 0
-class CF_OPERATION_INFO(EasyCastStructure):
+class CF_OPERATION_INFO(Structure):
     StructSize: UInt32
     Type: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_TYPE
     ConnectionKey: win32more.Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY
@@ -312,10 +312,10 @@ class CF_OPERATION_INFO(EasyCastStructure):
     CorrelationVector: POINTER(win32more.Windows.Win32.System.CorrelationVector.CORRELATION_VECTOR)
     SyncStatus: POINTER(win32more.Windows.Win32.Storage.CloudFilters.CF_SYNC_STATUS)
     RequestKey: Int64
-class CF_OPERATION_PARAMETERS(EasyCastStructure):
+class CF_OPERATION_PARAMETERS(Structure):
     ParamSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         TransferData: _TransferData_e__Struct
         RetrieveData: _RetrieveData_e__Struct
         AckData: _AckData_e__Struct
@@ -324,44 +324,44 @@ class CF_OPERATION_PARAMETERS(EasyCastStructure):
         AckDehydrate: _AckDehydrate_e__Struct
         AckRename: _AckRename_e__Struct
         AckDelete: _AckDelete_e__Struct
-        class _TransferData_e__Struct(EasyCastStructure):
+        class _TransferData_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_TRANSFER_DATA_FLAGS
             CompletionStatus: win32more.Windows.Win32.Foundation.NTSTATUS
             Buffer: VoidPtr
             Offset: Int64
             Length: Int64
-        class _RetrieveData_e__Struct(EasyCastStructure):
+        class _RetrieveData_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_RETRIEVE_DATA_FLAGS
             Buffer: VoidPtr
             Offset: Int64
             Length: Int64
             ReturnedLength: Int64
-        class _AckData_e__Struct(EasyCastStructure):
+        class _AckData_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_DATA_FLAGS
             CompletionStatus: win32more.Windows.Win32.Foundation.NTSTATUS
             Offset: Int64
             Length: Int64
-        class _RestartHydration_e__Struct(EasyCastStructure):
+        class _RestartHydration_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_RESTART_HYDRATION_FLAGS
             FsMetadata: POINTER(win32more.Windows.Win32.Storage.CloudFilters.CF_FS_METADATA)
             FileIdentity: VoidPtr
             FileIdentityLength: UInt32
-        class _TransferPlaceholders_e__Struct(EasyCastStructure):
+        class _TransferPlaceholders_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS
             CompletionStatus: win32more.Windows.Win32.Foundation.NTSTATUS
             PlaceholderTotalCount: Int64
             PlaceholderArray: POINTER(win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_CREATE_INFO)
             PlaceholderCount: UInt32
             EntriesProcessed: UInt32
-        class _AckDehydrate_e__Struct(EasyCastStructure):
+        class _AckDehydrate_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_DEHYDRATE_FLAGS
             CompletionStatus: win32more.Windows.Win32.Foundation.NTSTATUS
             FileIdentity: VoidPtr
             FileIdentityLength: UInt32
-        class _AckRename_e__Struct(EasyCastStructure):
+        class _AckRename_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_RENAME_FLAGS
             CompletionStatus: win32more.Windows.Win32.Foundation.NTSTATUS
-        class _AckDelete_e__Struct(EasyCastStructure):
+        class _AckDelete_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_DELETE_FLAGS
             CompletionStatus: win32more.Windows.Win32.Foundation.NTSTATUS
 CF_OPERATION_RESTART_HYDRATION_FLAGS = Int32
@@ -390,7 +390,7 @@ CF_PIN_STATE_PINNED: win32more.Windows.Win32.Storage.CloudFilters.CF_PIN_STATE =
 CF_PIN_STATE_UNPINNED: win32more.Windows.Win32.Storage.CloudFilters.CF_PIN_STATE = 2
 CF_PIN_STATE_EXCLUDED: win32more.Windows.Win32.Storage.CloudFilters.CF_PIN_STATE = 3
 CF_PIN_STATE_INHERIT: win32more.Windows.Win32.Storage.CloudFilters.CF_PIN_STATE = 4
-class CF_PLACEHOLDER_BASIC_INFO(EasyCastStructure):
+class CF_PLACEHOLDER_BASIC_INFO(Structure):
     PinState: win32more.Windows.Win32.Storage.CloudFilters.CF_PIN_STATE
     InSyncState: win32more.Windows.Win32.Storage.CloudFilters.CF_IN_SYNC_STATE
     FileId: Int64
@@ -403,7 +403,7 @@ CF_PLACEHOLDER_CREATE_FLAG_DISABLE_ON_DEMAND_POPULATION: win32more.Windows.Win32
 CF_PLACEHOLDER_CREATE_FLAG_MARK_IN_SYNC: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_CREATE_FLAGS = 2
 CF_PLACEHOLDER_CREATE_FLAG_SUPERSEDE: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_CREATE_FLAGS = 4
 CF_PLACEHOLDER_CREATE_FLAG_ALWAYS_FULL: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_CREATE_FLAGS = 8
-class CF_PLACEHOLDER_CREATE_INFO(EasyCastStructure):
+class CF_PLACEHOLDER_CREATE_INFO(Structure):
     RelativeFileName: win32more.Windows.Win32.Foundation.PWSTR
     FsMetadata: win32more.Windows.Win32.Storage.CloudFilters.CF_FS_METADATA
     FileIdentity: VoidPtr
@@ -423,7 +423,7 @@ CF_PLACEHOLDER_RANGE_INFO_CLASS = Int32
 CF_PLACEHOLDER_RANGE_INFO_ONDISK: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_RANGE_INFO_CLASS = 1
 CF_PLACEHOLDER_RANGE_INFO_VALIDATED: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_RANGE_INFO_CLASS = 2
 CF_PLACEHOLDER_RANGE_INFO_MODIFIED: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_RANGE_INFO_CLASS = 3
-class CF_PLACEHOLDER_STANDARD_INFO(EasyCastStructure):
+class CF_PLACEHOLDER_STANDARD_INFO(Structure):
     OnDiskDataSize: Int64
     ValidatedDataSize: Int64
     ModifiedDataSize: Int64
@@ -443,11 +443,11 @@ CF_PLACEHOLDER_STATE_IN_SYNC: win32more.Windows.Win32.Storage.CloudFilters.CF_PL
 CF_PLACEHOLDER_STATE_PARTIAL: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_STATE = 16
 CF_PLACEHOLDER_STATE_PARTIALLY_ON_DISK: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_STATE = 32
 CF_PLACEHOLDER_STATE_INVALID: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_STATE = 4294967295
-class CF_PLATFORM_INFO(EasyCastStructure):
+class CF_PLATFORM_INFO(Structure):
     BuildNumber: UInt32
     RevisionNumber: UInt32
     IntegrationNumber: UInt32
-class CF_POPULATION_POLICY(EasyCastStructure):
+class CF_POPULATION_POLICY(Structure):
     Primary: win32more.Windows.Win32.Storage.CloudFilters.CF_POPULATION_POLICY_PRIMARY
     Modifier: win32more.Windows.Win32.Storage.CloudFilters.CF_POPULATION_POLICY_MODIFIER
 CF_POPULATION_POLICY_MODIFIER = UInt16
@@ -456,7 +456,7 @@ CF_POPULATION_POLICY_PRIMARY = UInt16
 CF_POPULATION_POLICY_PARTIAL: win32more.Windows.Win32.Storage.CloudFilters.CF_POPULATION_POLICY_PRIMARY = 0
 CF_POPULATION_POLICY_FULL: win32more.Windows.Win32.Storage.CloudFilters.CF_POPULATION_POLICY_PRIMARY = 2
 CF_POPULATION_POLICY_ALWAYS_FULL: win32more.Windows.Win32.Storage.CloudFilters.CF_POPULATION_POLICY_PRIMARY = 3
-class CF_PROCESS_INFO(EasyCastStructure):
+class CF_PROCESS_INFO(Structure):
     StructSize: UInt32
     ProcessId: UInt32
     ImagePath: win32more.Windows.Win32.Foundation.PWSTR
@@ -478,7 +478,7 @@ CF_SET_PIN_FLAG_NONE: win32more.Windows.Win32.Storage.CloudFilters.CF_SET_PIN_FL
 CF_SET_PIN_FLAG_RECURSE: win32more.Windows.Win32.Storage.CloudFilters.CF_SET_PIN_FLAGS = 1
 CF_SET_PIN_FLAG_RECURSE_ONLY: win32more.Windows.Win32.Storage.CloudFilters.CF_SET_PIN_FLAGS = 2
 CF_SET_PIN_FLAG_RECURSE_STOP_ON_ERROR: win32more.Windows.Win32.Storage.CloudFilters.CF_SET_PIN_FLAGS = 4
-class CF_SYNC_POLICIES(EasyCastStructure):
+class CF_SYNC_POLICIES(Structure):
     StructSize: UInt32
     Hydration: win32more.Windows.Win32.Storage.CloudFilters.CF_HYDRATION_POLICY
     Population: win32more.Windows.Win32.Storage.CloudFilters.CF_POPULATION_POLICY
@@ -497,7 +497,7 @@ CF_PROVIDER_STATUS_CONNECTIVITY_LOST: win32more.Windows.Win32.Storage.CloudFilte
 CF_PROVIDER_STATUS_CLEAR_FLAGS: win32more.Windows.Win32.Storage.CloudFilters.CF_SYNC_PROVIDER_STATUS = 2147483648
 CF_PROVIDER_STATUS_TERMINATED: win32more.Windows.Win32.Storage.CloudFilters.CF_SYNC_PROVIDER_STATUS = 3221225473
 CF_PROVIDER_STATUS_ERROR: win32more.Windows.Win32.Storage.CloudFilters.CF_SYNC_PROVIDER_STATUS = 3221225474
-class CF_SYNC_REGISTRATION(EasyCastStructure):
+class CF_SYNC_REGISTRATION(Structure):
     StructSize: UInt32
     ProviderName: win32more.Windows.Win32.Foundation.PWSTR
     ProviderVersion: win32more.Windows.Win32.Foundation.PWSTR
@@ -506,17 +506,17 @@ class CF_SYNC_REGISTRATION(EasyCastStructure):
     FileIdentity: VoidPtr
     FileIdentityLength: UInt32
     ProviderId: Guid
-class CF_SYNC_ROOT_BASIC_INFO(EasyCastStructure):
+class CF_SYNC_ROOT_BASIC_INFO(Structure):
     SyncRootFileId: Int64
 CF_SYNC_ROOT_INFO_CLASS = Int32
 CF_SYNC_ROOT_INFO_BASIC: win32more.Windows.Win32.Storage.CloudFilters.CF_SYNC_ROOT_INFO_CLASS = 0
 CF_SYNC_ROOT_INFO_STANDARD: win32more.Windows.Win32.Storage.CloudFilters.CF_SYNC_ROOT_INFO_CLASS = 1
 CF_SYNC_ROOT_INFO_PROVIDER: win32more.Windows.Win32.Storage.CloudFilters.CF_SYNC_ROOT_INFO_CLASS = 2
-class CF_SYNC_ROOT_PROVIDER_INFO(EasyCastStructure):
+class CF_SYNC_ROOT_PROVIDER_INFO(Structure):
     ProviderStatus: win32more.Windows.Win32.Storage.CloudFilters.CF_SYNC_PROVIDER_STATUS
     ProviderName: Char * 256
     ProviderVersion: Char * 256
-class CF_SYNC_ROOT_STANDARD_INFO(EasyCastStructure):
+class CF_SYNC_ROOT_STANDARD_INFO(Structure):
     SyncRootFileId: Int64
     HydrationPolicy: win32more.Windows.Win32.Storage.CloudFilters.CF_HYDRATION_POLICY
     PopulationPolicy: win32more.Windows.Win32.Storage.CloudFilters.CF_POPULATION_POLICY
@@ -527,7 +527,7 @@ class CF_SYNC_ROOT_STANDARD_INFO(EasyCastStructure):
     ProviderVersion: Char * 256
     SyncRootIdentityLength: UInt32
     SyncRootIdentity: Byte * 1
-class CF_SYNC_STATUS(EasyCastStructure):
+class CF_SYNC_STATUS(Structure):
     StructSize: UInt32
     Code: UInt32
     DescriptionOffset: UInt32

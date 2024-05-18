@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.UI.Input.KeyboardAndMouse
 ACTIVATE_KEYBOARD_LAYOUT_FLAGS = UInt32
@@ -255,14 +255,14 @@ def DragDetect(hwnd: win32more.Windows.Win32.Foundation.HWND, pt: win32more.Wind
 def SetActiveWindow(hWnd: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.HWND: ...
 @winfunctype('USER32.dll')
 def BlockInput(fBlockIt: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class DEADKEY(EasyCastStructure):
+class DEADKEY(Structure):
     dwBoth: UInt32
     wchComposed: Char
     uFlags: UInt16
 GET_MOUSE_MOVE_POINTS_EX_RESOLUTION = UInt32
 GMMP_USE_DISPLAY_POINTS: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.GET_MOUSE_MOVE_POINTS_EX_RESOLUTION = 1
 GMMP_USE_HIGH_RESOLUTION_POINTS: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.GET_MOUSE_MOVE_POINTS_EX_RESOLUTION = 2
-class HARDWAREINPUT(EasyCastStructure):
+class HARDWAREINPUT(Structure):
     uMsg: UInt32
     wParamL: UInt16
     wParamH: UInt16
@@ -273,10 +273,10 @@ MOD_CONTROL: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS
 MOD_NOREPEAT: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS = 16384
 MOD_SHIFT: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS = 4
 MOD_WIN: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS = 8
-class INPUT(EasyCastStructure):
+class INPUT(Structure):
     type: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.INPUT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         mi: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSEINPUT
         ki: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.KEYBDINPUT
         hi: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HARDWAREINPUT
@@ -284,14 +284,14 @@ INPUT_TYPE = UInt32
 INPUT_MOUSE: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.INPUT_TYPE = 0
 INPUT_KEYBOARD: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.INPUT_TYPE = 1
 INPUT_HARDWARE: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.INPUT_TYPE = 2
-class KBDNLSTABLES(EasyCastStructure):
+class KBDNLSTABLES(Structure):
     OEMIdentifier: UInt16
     LayoutInformation: UInt16
     NumOfVkToF: UInt32
     pVkToF: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_F)
     NumOfMouseVKey: Int32
     pusMouseVKey: POINTER(UInt16)
-class KBDTABLES(EasyCastStructure):
+class KBDTABLES(Structure):
     pCharModifiers: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MODIFIERS)
     pVkToWcharTable: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_TO_WCHAR_TABLE)
     pDeadKey: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.DEADKEY)
@@ -308,18 +308,18 @@ class KBDTABLES(EasyCastStructure):
     pLigature: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.LIGATURE1)
     dwType: UInt32
     dwSubType: UInt32
-class KBDTABLE_DESC(EasyCastStructure):
+class KBDTABLE_DESC(Structure):
     wszDllName: Char * 32
     dwType: UInt32
     dwSubType: UInt32
-class KBDTABLE_MULTI(EasyCastStructure):
+class KBDTABLE_MULTI(Structure):
     nTables: UInt32
     aKbdTables: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.KBDTABLE_DESC * 8
-class KBD_TYPE_INFO(EasyCastStructure):
+class KBD_TYPE_INFO(Structure):
     dwVersion: UInt32
     dwType: UInt32
     dwSubType: UInt32
-class KEYBDINPUT(EasyCastStructure):
+class KEYBDINPUT(Structure):
     wVk: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY
     wScan: UInt16
     dwFlags: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.KEYBD_EVENT_FLAGS
@@ -330,26 +330,26 @@ KEYEVENTF_EXTENDEDKEY: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.KEYBD_E
 KEYEVENTF_KEYUP: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.KEYBD_EVENT_FLAGS = 2
 KEYEVENTF_SCANCODE: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.KEYBD_EVENT_FLAGS = 8
 KEYEVENTF_UNICODE: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.KEYBD_EVENT_FLAGS = 4
-class LASTINPUTINFO(EasyCastStructure):
+class LASTINPUTINFO(Structure):
     cbSize: UInt32
     dwTime: UInt32
-class LIGATURE1(EasyCastStructure):
+class LIGATURE1(Structure):
     VirtualKey: Byte
     ModificationNumber: UInt16
     wch: Char * 1
-class LIGATURE2(EasyCastStructure):
+class LIGATURE2(Structure):
     VirtualKey: Byte
     ModificationNumber: UInt16
     wch: Char * 2
-class LIGATURE3(EasyCastStructure):
+class LIGATURE3(Structure):
     VirtualKey: Byte
     ModificationNumber: UInt16
     wch: Char * 3
-class LIGATURE4(EasyCastStructure):
+class LIGATURE4(Structure):
     VirtualKey: Byte
     ModificationNumber: UInt16
     wch: Char * 4
-class LIGATURE5(EasyCastStructure):
+class LIGATURE5(Structure):
     VirtualKey: Byte
     ModificationNumber: UInt16
     wch: Char * 5
@@ -359,18 +359,18 @@ MAPVK_VSC_TO_VK: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MAP_VIRTUAL_K
 MAPVK_VK_TO_CHAR: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MAP_VIRTUAL_KEY_TYPE = 2
 MAPVK_VSC_TO_VK_EX: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MAP_VIRTUAL_KEY_TYPE = 3
 MAPVK_VK_TO_VSC_EX: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MAP_VIRTUAL_KEY_TYPE = 4
-class MODIFIERS(EasyCastStructure):
+class MODIFIERS(Structure):
     pVkToBit: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_TO_BIT)
     wMaxModBits: UInt16
     ModNumber: Byte * 1
-class MOUSEINPUT(EasyCastStructure):
+class MOUSEINPUT(Structure):
     dx: Int32
     dy: Int32
     mouseData: UInt32
     dwFlags: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS
     time: UInt32
     dwExtraInfo: UIntPtr
-class MOUSEMOVEPOINT(EasyCastStructure):
+class MOUSEMOVEPOINT(Structure):
     x: Int32
     y: Int32
     time: UInt32
@@ -390,7 +390,7 @@ MOUSEEVENTF_XUP: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSE_EVENT_F
 MOUSEEVENTF_HWHEEL: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS = 4096
 MOUSEEVENTF_MOVE_NOCOALESCE: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS = 8192
 MOUSEEVENTF_VIRTUALDESK: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS = 16384
-class TRACKMOUSEEVENT(EasyCastStructure):
+class TRACKMOUSEEVENT(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_FLAGS
     hwndTrack: win32more.Windows.Win32.Foundation.HWND
@@ -649,70 +649,70 @@ VK_ZOOM: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY = 251
 VK_NONAME: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY = 252
 VK_PA1: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY = 253
 VK_OEM_CLEAR: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VIRTUAL_KEY = 254
-class VK_F(EasyCastStructure):
+class VK_F(Structure):
     Vk: Byte
     NLSFEProcType: Byte
     NLSFEProcCurrent: Byte
     NLSFEProcSwitch: Byte
     NLSFEProc: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_FPARAM * 8
     NLSFEProcAlt: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_FPARAM * 8
-class VK_FPARAM(EasyCastStructure):
+class VK_FPARAM(Structure):
     NLSFEProcIndex: Byte
     NLSFEProcParam: UInt32
-class VK_TO_BIT(EasyCastStructure):
+class VK_TO_BIT(Structure):
     Vk: Byte
     ModBits: Byte
-class VK_TO_WCHARS1(EasyCastStructure):
+class VK_TO_WCHARS1(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 1
-class VK_TO_WCHARS10(EasyCastStructure):
+class VK_TO_WCHARS10(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 10
-class VK_TO_WCHARS2(EasyCastStructure):
+class VK_TO_WCHARS2(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 2
-class VK_TO_WCHARS3(EasyCastStructure):
+class VK_TO_WCHARS3(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 3
-class VK_TO_WCHARS4(EasyCastStructure):
+class VK_TO_WCHARS4(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 4
-class VK_TO_WCHARS5(EasyCastStructure):
+class VK_TO_WCHARS5(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 5
-class VK_TO_WCHARS6(EasyCastStructure):
+class VK_TO_WCHARS6(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 6
-class VK_TO_WCHARS7(EasyCastStructure):
+class VK_TO_WCHARS7(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 7
-class VK_TO_WCHARS8(EasyCastStructure):
+class VK_TO_WCHARS8(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 8
-class VK_TO_WCHARS9(EasyCastStructure):
+class VK_TO_WCHARS9(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 9
-class VK_TO_WCHAR_TABLE(EasyCastStructure):
+class VK_TO_WCHAR_TABLE(Structure):
     pVkToWchars: POINTER(win32more.Windows.Win32.UI.Input.KeyboardAndMouse.VK_TO_WCHARS1)
     nModifications: Byte
     cbSize: Byte
-class VK_VSC(EasyCastStructure):
+class VK_VSC(Structure):
     Vk: Byte
     Vsc: Byte
-class VSC_LPWSTR(EasyCastStructure):
+class VSC_LPWSTR(Structure):
     vsc: Byte
     pwsz: win32more.Windows.Win32.Foundation.PWSTR
-class VSC_VK(EasyCastStructure):
+class VSC_VK(Structure):
     Vsc: Byte
     Vk: UInt16
 

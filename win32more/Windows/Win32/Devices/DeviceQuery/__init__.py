@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.DeviceQuery
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -31,7 +31,7 @@ def DevGetObjectPropertiesEx(ObjectType: win32more.Windows.Win32.Devices.DeviceQ
 def DevFreeObjectProperties(cPropertyCount: UInt32, pProperties: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPERTY)) -> Void: ...
 @winfunctype('api-ms-win-devices-query-l1-1-0.dll')
 def DevFindProperty(pKey: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPKEY), Store: win32more.Windows.Win32.Devices.Properties.DEVPROPSTORE, pszLocaleName: win32more.Windows.Win32.Foundation.PWSTR, cProperties: UInt32, pProperties: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPERTY)) -> POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPERTY): ...
-class DEVPROP_FILTER_EXPRESSION(EasyCastStructure):
+class DEVPROP_FILTER_EXPRESSION(Structure):
     Operator: win32more.Windows.Win32.Devices.DeviceQuery.DEVPROP_OPERATOR
     Property: win32more.Windows.Win32.Devices.Properties.DEVPROPERTY
 DEVPROP_OPERATOR = UInt32
@@ -77,7 +77,7 @@ DEVPROP_OPERATOR_MASK_MODIFIER: win32more.Windows.Win32.Devices.DeviceQuery.DEVP
 DEVPROP_OPERATOR_MASK_NOT_LOGICAL: win32more.Windows.Win32.Devices.DeviceQuery.DEVPROP_OPERATOR = 4027580415
 DEVPROP_OPERATOR_MASK_LOGICAL: win32more.Windows.Win32.Devices.DeviceQuery.DEVPROP_OPERATOR = 267386880
 DEVPROP_OPERATOR_MASK_ARRAY: win32more.Windows.Win32.Devices.DeviceQuery.DEVPROP_OPERATOR = 4026531840
-class DEV_OBJECT(EasyCastStructure):
+class DEV_OBJECT(Structure):
     ObjectType: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT_TYPE
     pszObjectId: win32more.Windows.Win32.Foundation.PWSTR
     cPropertyCount: UInt32
@@ -101,7 +101,7 @@ DevQueryFlagUpdateResults: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY
 DevQueryFlagAllProperties: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 2
 DevQueryFlagLocalize: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 4
 DevQueryFlagAsyncClose: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 8
-class DEV_QUERY_PARAMETER(EasyCastStructure):
+class DEV_QUERY_PARAMETER(Structure):
     Key: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY
     Type: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE
     BufferSize: UInt32
@@ -111,10 +111,10 @@ DevQueryResultStateChange: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY
 DevQueryResultAdd: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 1
 DevQueryResultUpdate: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 2
 DevQueryResultRemove: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION = 3
-class DEV_QUERY_RESULT_ACTION_DATA(EasyCastStructure):
+class DEV_QUERY_RESULT_ACTION_DATA(Structure):
     Action: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION
     Data: _DEV_QUERY_RESULT_UPDATE_PAYLOAD
-    class _DEV_QUERY_RESULT_UPDATE_PAYLOAD(EasyCastUnion):
+    class _DEV_QUERY_RESULT_UPDATE_PAYLOAD(Union):
         State: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE
         DeviceObject: win32more.Windows.Win32.Devices.DeviceQuery.DEV_OBJECT
 DEV_QUERY_STATE = Int32

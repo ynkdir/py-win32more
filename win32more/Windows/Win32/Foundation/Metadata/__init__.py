@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation.Metadata
-class AgileAttribute(EasyCastStructure):
+class AgileAttribute(Structure):
     pass
-class AlsoUsableForAttribute(EasyCastStructure):
+class AlsoUsableForAttribute(Structure):
     otherType: String
-class AnsiAttribute(EasyCastStructure):
+class AnsiAttribute(Structure):
     pass
 Architecture = Int32
 None_: win32more.Windows.Win32.Foundation.Metadata.Architecture = 0
@@ -13,31 +13,31 @@ X86: win32more.Windows.Win32.Foundation.Metadata.Architecture = 1
 X64: win32more.Windows.Win32.Foundation.Metadata.Architecture = 2
 Arm64: win32more.Windows.Win32.Foundation.Metadata.Architecture = 4
 All: win32more.Windows.Win32.Foundation.Metadata.Architecture = 7
-class AssociatedConstantAttribute(EasyCastStructure):
+class AssociatedConstantAttribute(Structure):
     Name: String
-class AssociatedEnumAttribute(EasyCastStructure):
+class AssociatedEnumAttribute(Structure):
     Name: String
-class CanReturnErrorsAsSuccessAttribute(EasyCastStructure):
+class CanReturnErrorsAsSuccessAttribute(Structure):
     pass
-class CanReturnMultipleSuccessValuesAttribute(EasyCastStructure):
+class CanReturnMultipleSuccessValuesAttribute(Structure):
     pass
-class ComOutPtrAttribute(EasyCastStructure):
+class ComOutPtrAttribute(Structure):
     pass
-class ConstAttribute(EasyCastStructure):
+class ConstAttribute(Structure):
     pass
-class ConstantAttribute(EasyCastStructure):
+class ConstantAttribute(Structure):
     Value: String
-class CppAttributeList(EasyCastStructure):
+class CppAttributeList(Structure):
     AttributeList: String
-class DoNotReleaseAttribute(EasyCastStructure):
+class DoNotReleaseAttribute(Structure):
     pass
-class DocumentationAttribute(EasyCastStructure):
+class DocumentationAttribute(Structure):
     Uri: String
-class FlexibleArrayAttribute(EasyCastStructure):
+class FlexibleArrayAttribute(Structure):
     pass
-class FreeWithAttribute(EasyCastStructure):
+class FreeWithAttribute(Structure):
     Name: String
-class GuidAttribute(EasyCastStructure):
+class GuidAttribute(Structure):
     a: UInt32
     b: UInt16
     c: UInt16
@@ -49,51 +49,51 @@ class GuidAttribute(EasyCastStructure):
     i: Byte
     j: Byte
     k: Byte
-class IgnoreIfReturnAttribute(EasyCastStructure):
+class IgnoreIfReturnAttribute(Structure):
     Value: String
-class InvalidHandleValueAttribute(EasyCastStructure):
+class InvalidHandleValueAttribute(Structure):
     Value: Int64
-class MemorySizeAttribute(EasyCastStructure):
+class MemorySizeAttribute(Structure):
     pass
-class MetadataTypedefAttribute(EasyCastStructure):
+class MetadataTypedefAttribute(Structure):
     pass
-class NativeArrayInfoAttribute(EasyCastStructure):
+class NativeArrayInfoAttribute(Structure):
     pass
-class NativeBitfieldAttribute(EasyCastStructure):
+class NativeBitfieldAttribute(Structure):
     name: String
     offset: Int64
     length: Int64
-class NativeEncodingAttribute(EasyCastStructure):
+class NativeEncodingAttribute(Structure):
     Name: String
-class NativeInheritanceAttribute(EasyCastStructure):
+class NativeInheritanceAttribute(Structure):
     BaseName: String
-class NativeTypeNameAttribute(EasyCastStructure):
+class NativeTypeNameAttribute(Structure):
     Name: String
-class NativeTypedefAttribute(EasyCastStructure):
+class NativeTypedefAttribute(Structure):
     pass
-class NotNullTerminatedAttribute(EasyCastStructure):
+class NotNullTerminatedAttribute(Structure):
     pass
-class NullNullTerminatedAttribute(EasyCastStructure):
+class NullNullTerminatedAttribute(Structure):
     pass
-class RAIIFreeAttribute(EasyCastStructure):
+class RAIIFreeAttribute(Structure):
     Name: String
-class ReservedAttribute(EasyCastStructure):
+class ReservedAttribute(Structure):
     pass
-class RetValAttribute(EasyCastStructure):
+class RetValAttribute(Structure):
     pass
-class RetainedAttribute(EasyCastStructure):
+class RetainedAttribute(Structure):
     pass
-class ScopedEnumAttribute(EasyCastStructure):
+class ScopedEnumAttribute(Structure):
     pass
-class StaticLibraryAttribute(EasyCastStructure):
+class StaticLibraryAttribute(Structure):
     LibName: String
-class StructSizeFieldAttribute(EasyCastStructure):
+class StructSizeFieldAttribute(Structure):
     field: String
-class SupportedArchitectureAttribute(EasyCastStructure):
+class SupportedArchitectureAttribute(Structure):
     arch: win32more.Windows.Win32.Foundation.Metadata.Architecture
-class SupportedOSPlatformAttribute(EasyCastStructure):
+class SupportedOSPlatformAttribute(Structure):
     platform: String
-class UnicodeAttribute(EasyCastStructure):
+class UnicodeAttribute(Structure):
     pass
 
 

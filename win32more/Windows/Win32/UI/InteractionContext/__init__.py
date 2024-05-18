@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.UI.Input.Pointer
 import win32more.Windows.Win32.UI.InteractionContext
@@ -70,7 +70,7 @@ CROSS_SLIDE_FLAGS_SELECT: win32more.Windows.Win32.UI.InteractionContext.CROSS_SL
 CROSS_SLIDE_FLAGS_SPEED_BUMP: win32more.Windows.Win32.UI.InteractionContext.CROSS_SLIDE_FLAGS = 2
 CROSS_SLIDE_FLAGS_REARRANGE: win32more.Windows.Win32.UI.InteractionContext.CROSS_SLIDE_FLAGS = 4
 CROSS_SLIDE_FLAGS_MAX: win32more.Windows.Win32.UI.InteractionContext.CROSS_SLIDE_FLAGS = 4294967295
-class CROSS_SLIDE_PARAMETER(EasyCastStructure):
+class CROSS_SLIDE_PARAMETER(Structure):
     threshold: win32more.Windows.Win32.UI.InteractionContext.CROSS_SLIDE_THRESHOLD
     distance: Single
 CROSS_SLIDE_THRESHOLD = Int32
@@ -95,14 +95,14 @@ INERTIA_PARAMETER_ROTATION_ANGLE: win32more.Windows.Win32.UI.InteractionContext.
 INERTIA_PARAMETER_EXPANSION_DECELERATION: win32more.Windows.Win32.UI.InteractionContext.INERTIA_PARAMETER = 5
 INERTIA_PARAMETER_EXPANSION_EXPANSION: win32more.Windows.Win32.UI.InteractionContext.INERTIA_PARAMETER = 6
 INERTIA_PARAMETER_MAX: win32more.Windows.Win32.UI.InteractionContext.INERTIA_PARAMETER = -1
-class INTERACTION_ARGUMENTS_CROSS_SLIDE(EasyCastStructure):
+class INTERACTION_ARGUMENTS_CROSS_SLIDE(Structure):
     flags: win32more.Windows.Win32.UI.InteractionContext.CROSS_SLIDE_FLAGS
-class INTERACTION_ARGUMENTS_MANIPULATION(EasyCastStructure):
+class INTERACTION_ARGUMENTS_MANIPULATION(Structure):
     delta: win32more.Windows.Win32.UI.InteractionContext.MANIPULATION_TRANSFORM
     cumulative: win32more.Windows.Win32.UI.InteractionContext.MANIPULATION_TRANSFORM
     velocity: win32more.Windows.Win32.UI.InteractionContext.MANIPULATION_VELOCITY
     railsState: win32more.Windows.Win32.UI.InteractionContext.MANIPULATION_RAILS_STATE
-class INTERACTION_ARGUMENTS_TAP(EasyCastStructure):
+class INTERACTION_ARGUMENTS_TAP(Structure):
     count: UInt32
 INTERACTION_CONFIGURATION_FLAGS = UInt32
 INTERACTION_CONFIGURATION_FLAG_NONE: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_CONFIGURATION_FLAGS = 0
@@ -133,21 +133,21 @@ INTERACTION_CONFIGURATION_FLAG_HOLD_MOUSE: win32more.Windows.Win32.UI.Interactio
 INTERACTION_CONFIGURATION_FLAG_HOLD_MULTIPLE_FINGER: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_CONFIGURATION_FLAGS = 4
 INTERACTION_CONFIGURATION_FLAG_DRAG: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_CONFIGURATION_FLAGS = 1
 INTERACTION_CONFIGURATION_FLAG_MAX: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_CONFIGURATION_FLAGS = 4294967295
-class INTERACTION_CONTEXT_CONFIGURATION(EasyCastStructure):
+class INTERACTION_CONTEXT_CONFIGURATION(Structure):
     interactionId: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_ID
     enable: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_CONFIGURATION_FLAGS
-class INTERACTION_CONTEXT_OUTPUT(EasyCastStructure):
+class INTERACTION_CONTEXT_OUTPUT(Structure):
     interactionId: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_ID
     interactionFlags: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_FLAGS
     inputType: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE
     x: Single
     y: Single
     arguments: _arguments_e__Union
-    class _arguments_e__Union(EasyCastUnion):
+    class _arguments_e__Union(Union):
         manipulation: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_ARGUMENTS_MANIPULATION
         tap: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_ARGUMENTS_TAP
         crossSlide: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_ARGUMENTS_CROSS_SLIDE
-class INTERACTION_CONTEXT_OUTPUT2(EasyCastStructure):
+class INTERACTION_CONTEXT_OUTPUT2(Structure):
     interactionId: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_ID
     interactionFlags: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_FLAGS
     inputType: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE
@@ -156,7 +156,7 @@ class INTERACTION_CONTEXT_OUTPUT2(EasyCastStructure):
     x: Single
     y: Single
     arguments: _arguments_e__Union
-    class _arguments_e__Union(EasyCastUnion):
+    class _arguments_e__Union(Union):
         manipulation: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_ARGUMENTS_MANIPULATION
         tap: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_ARGUMENTS_TAP
         crossSlide: win32more.Windows.Win32.UI.InteractionContext.INTERACTION_ARGUMENTS_CROSS_SLIDE
@@ -195,13 +195,13 @@ MANIPULATION_RAILS_STATE_UNDECIDED: win32more.Windows.Win32.UI.InteractionContex
 MANIPULATION_RAILS_STATE_FREE: win32more.Windows.Win32.UI.InteractionContext.MANIPULATION_RAILS_STATE = 1
 MANIPULATION_RAILS_STATE_RAILED: win32more.Windows.Win32.UI.InteractionContext.MANIPULATION_RAILS_STATE = 2
 MANIPULATION_RAILS_STATE_MAX: win32more.Windows.Win32.UI.InteractionContext.MANIPULATION_RAILS_STATE = -1
-class MANIPULATION_TRANSFORM(EasyCastStructure):
+class MANIPULATION_TRANSFORM(Structure):
     translationX: Single
     translationY: Single
     scale: Single
     expansion: Single
     rotation: Single
-class MANIPULATION_VELOCITY(EasyCastStructure):
+class MANIPULATION_VELOCITY(Structure):
     velocityX: Single
     velocityY: Single
     velocityExpansion: Single

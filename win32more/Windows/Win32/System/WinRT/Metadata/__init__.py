@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.System.WinRT
 import win32more.Windows.Win32.System.WinRT.Metadata
-class ASSEMBLYMETADATA(EasyCastStructure):
+class ASSEMBLYMETADATA(Structure):
     usMajorVersion: UInt16
     usMinorVersion: UInt16
     usBuildNumber: UInt16
@@ -236,22 +236,22 @@ COINITIEE = Int32
 COINITEE_DEFAULT: win32more.Windows.Win32.System.WinRT.Metadata.COINITIEE = 0
 COINITEE_DLL: win32more.Windows.Win32.System.WinRT.Metadata.COINITIEE = 1
 COINITEE_MAIN: win32more.Windows.Win32.System.WinRT.Metadata.COINITIEE = 2
-class COR_FIELD_OFFSET(EasyCastStructure):
+class COR_FIELD_OFFSET(Structure):
     ridOfField: UInt32
     ulOffset: UInt32
-class COR_NATIVE_LINK(EasyCastStructure):
+class COR_NATIVE_LINK(Structure):
     m_linkType: Byte
     m_flags: Byte
     m_entryPoint: UInt32
     _pack_ = 1
-class COR_SECATTR(EasyCastStructure):
+class COR_SECATTR(Structure):
     tkCtor: UInt32
     pCustomAttribute: VoidPtr
     cbCustomAttribute: UInt32
 COUNINITIEE = Int32
 COUNINITEE_DEFAULT: win32more.Windows.Win32.System.WinRT.Metadata.COUNINITIEE = 0
 COUNINITEE_DLL: win32more.Windows.Win32.System.WinRT.Metadata.COUNINITIEE = 1
-class CVStruct(EasyCastStructure):
+class CVStruct(Structure):
     Major: Int16
     Minor: Int16
     Sub: Int16
@@ -261,7 +261,7 @@ sdNone: win32more.Windows.Win32.System.WinRT.Metadata.CeeSectionAttr = 0
 sdReadOnly: win32more.Windows.Win32.System.WinRT.Metadata.CeeSectionAttr = 1073741888
 sdReadWrite: win32more.Windows.Win32.System.WinRT.Metadata.CeeSectionAttr = 3221225536
 sdExecute: win32more.Windows.Win32.System.WinRT.Metadata.CeeSectionAttr = 1610612768
-class CeeSectionRelocExtra(EasyCastUnion):
+class CeeSectionRelocExtra(Union):
     highAdj: UInt16
 CeeSectionRelocType = Int32
 srRelocAbsolute: win32more.Windows.Win32.System.WinRT.Metadata.CeeSectionRelocType = 0
@@ -886,57 +886,57 @@ class IHostFilter(ComPtr):
     _iid_ = Guid('{d0e80dd3-12d4-11d3-b39d-00c04ff81795}')
     @commethod(3)
     def MarkToken(self, tk: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IMAGE_COR_ILMETHOD(EasyCastUnion):
+class IMAGE_COR_ILMETHOD(Union):
     Tiny: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_TINY
     Fat: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_FAT
-class IMAGE_COR_ILMETHOD_FAT(EasyCastStructure):
+class IMAGE_COR_ILMETHOD_FAT(Structure):
     _bitfield: UInt32
     CodeSize: UInt32
     LocalVarSigTok: UInt32
-class IMAGE_COR_ILMETHOD_SECT_EH(EasyCastUnion):
+class IMAGE_COR_ILMETHOD_SECT_EH(Union):
     Small: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_EH_SMALL
     Fat: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_EH_FAT
-class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT(EasyCastStructure):
+class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT(Structure):
     Flags: win32more.Windows.Win32.System.WinRT.Metadata.CorExceptionFlag
     TryOffset: UInt32
     TryLength: UInt32
     HandlerOffset: UInt32
     HandlerLength: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ClassToken: UInt32
         FilterOffset: UInt32
 if ARCH in 'X64,ARM64':
-    class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL(EasyCastStructure):
+    class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL(Structure):
         _bitfield1: UInt32
         _bitfield2: UInt32
         Anonymous: _Anonymous_e__Union
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             ClassToken: UInt32
             FilterOffset: UInt32
 elif ARCH in 'X86':
-    class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL(EasyCastStructure):
+    class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL(Structure):
         _bitfield1: Int32
         _bitfield2: UInt32
         Anonymous: _Anonymous_e__Union
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             ClassToken: UInt32
             FilterOffset: UInt32
-class IMAGE_COR_ILMETHOD_SECT_EH_FAT(EasyCastStructure):
+class IMAGE_COR_ILMETHOD_SECT_EH_FAT(Structure):
     SectFat: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_FAT
     Clauses: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT * 1
-class IMAGE_COR_ILMETHOD_SECT_EH_SMALL(EasyCastStructure):
+class IMAGE_COR_ILMETHOD_SECT_EH_SMALL(Structure):
     SectSmall: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_SMALL
     Reserved: UInt16
     Clauses: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL * 1
-class IMAGE_COR_ILMETHOD_SECT_FAT(EasyCastStructure):
+class IMAGE_COR_ILMETHOD_SECT_FAT(Structure):
     _bitfield: UInt32
-class IMAGE_COR_ILMETHOD_SECT_SMALL(EasyCastStructure):
+class IMAGE_COR_ILMETHOD_SECT_SMALL(Structure):
     Kind: Byte
     DataSize: Byte
-class IMAGE_COR_ILMETHOD_TINY(EasyCastStructure):
+class IMAGE_COR_ILMETHOD_TINY(Structure):
     Flags_CodeSize: Byte
-class IMAGE_COR_VTABLEFIXUP(EasyCastStructure):
+class IMAGE_COR_VTABLEFIXUP(Structure):
     RVA: UInt32
     Count: UInt16
     Type: UInt16
@@ -1413,7 +1413,7 @@ NGenNever: win32more.Windows.Win32.System.WinRT.Metadata.NGenHintEnum = 3
 NativeTypeArrayFlags = Int32
 ntaSizeParamIndexSpecified: win32more.Windows.Win32.System.WinRT.Metadata.NativeTypeArrayFlags = 1
 ntaReserved: win32more.Windows.Win32.System.WinRT.Metadata.NativeTypeArrayFlags = 65534
-class OSINFO(EasyCastStructure):
+class OSINFO(Structure):
     dwOSPlatformId: UInt32
     dwOSMajorVersion: UInt32
     dwOSMinorVersion: UInt32

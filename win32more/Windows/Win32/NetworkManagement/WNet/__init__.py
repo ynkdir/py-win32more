@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WNet
 WNGETCON_CONNECTED: UInt32 = 0
@@ -227,13 +227,13 @@ def WNetSetLastErrorA(err: UInt32, lpError: win32more.Windows.Win32.Foundation.P
 @winfunctype('MPR.dll')
 def WNetSetLastErrorW(err: UInt32, lpError: win32more.Windows.Win32.Foundation.PWSTR, lpProviders: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
 WNetSetLastError = UnicodeAlias('WNetSetLastErrorW')
-class CONNECTDLGSTRUCTA(EasyCastStructure):
+class CONNECTDLGSTRUCTA(Structure):
     cbStructure: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     lpConnRes: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA)
     dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS
     dwDevNum: UInt32
-class CONNECTDLGSTRUCTW(EasyCastStructure):
+class CONNECTDLGSTRUCTW(Structure):
     cbStructure: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     lpConnRes: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW)
@@ -247,13 +247,13 @@ CONNDLG_USE_MRU: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT
 CONNDLG_HIDE_BOX: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS = 8
 CONNDLG_PERSIST: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS = 16
 CONNDLG_NOT_PERSIST: win32more.Windows.Win32.NetworkManagement.WNet.CONNECTDLGSTRUCT_FLAGS = 32
-class DISCDLGSTRUCTA(EasyCastStructure):
+class DISCDLGSTRUCTA(Structure):
     cbStructure: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     lpLocalName: win32more.Windows.Win32.Foundation.PSTR
     lpRemoteName: win32more.Windows.Win32.Foundation.PSTR
     dwFlags: win32more.Windows.Win32.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS
-class DISCDLGSTRUCTW(EasyCastStructure):
+class DISCDLGSTRUCTW(Structure):
     cbStructure: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     lpLocalName: win32more.Windows.Win32.Foundation.PWSTR
@@ -263,13 +263,13 @@ DISCDLGSTRUCT = UnicodeAlias('DISCDLGSTRUCTW')
 DISCDLGSTRUCT_FLAGS = UInt32
 DISC_UPDATE_PROFILE: win32more.Windows.Win32.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS = 1
 DISC_NO_FORCE: win32more.Windows.Win32.NetworkManagement.WNet.DISCDLGSTRUCT_FLAGS = 64
-class NETCONNECTINFOSTRUCT(EasyCastStructure):
+class NETCONNECTINFOSTRUCT(Structure):
     cbStructure: UInt32
     dwFlags: UInt32
     dwSpeed: UInt32
     dwDelay: UInt32
     dwOptDataSize: UInt32
-class NETINFOSTRUCT(EasyCastStructure):
+class NETINFOSTRUCT(Structure):
     cbStructure: UInt32
     dwProviderVersion: UInt32
     dwStatus: win32more.Windows.Win32.Foundation.WIN32_ERROR
@@ -282,7 +282,7 @@ NETINFOSTRUCT_CHARACTERISTICS = UInt32
 NETINFO_DLL16: win32more.Windows.Win32.NetworkManagement.WNet.NETINFOSTRUCT_CHARACTERISTICS = 1
 NETINFO_DISKRED: win32more.Windows.Win32.NetworkManagement.WNet.NETINFOSTRUCT_CHARACTERISTICS = 4
 NETINFO_PRINTERRED: win32more.Windows.Win32.NetworkManagement.WNet.NETINFOSTRUCT_CHARACTERISTICS = 8
-class NETRESOURCEA(EasyCastStructure):
+class NETRESOURCEA(Structure):
     dwScope: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE
     dwType: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE
     dwDisplayType: UInt32
@@ -291,7 +291,7 @@ class NETRESOURCEA(EasyCastStructure):
     lpRemoteName: win32more.Windows.Win32.Foundation.PSTR
     lpComment: win32more.Windows.Win32.Foundation.PSTR
     lpProvider: win32more.Windows.Win32.Foundation.PSTR
-class NETRESOURCEW(EasyCastStructure):
+class NETRESOURCEW(Structure):
     dwScope: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_SCOPE
     dwType: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE
     dwDisplayType: UInt32
@@ -333,16 +333,16 @@ NET_RESOURCE_TYPE = UInt32
 RESOURCETYPE_ANY: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE = 0
 RESOURCETYPE_DISK: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE = 1
 RESOURCETYPE_PRINT: win32more.Windows.Win32.NetworkManagement.WNet.NET_RESOURCE_TYPE = 2
-class NOTIFYADD(EasyCastStructure):
+class NOTIFYADD(Structure):
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
     NetResource: win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA
     dwAddFlags: win32more.Windows.Win32.NetworkManagement.WNet.NET_CONNECT_FLAGS
-class NOTIFYCANCEL(EasyCastStructure):
+class NOTIFYCANCEL(Structure):
     lpName: win32more.Windows.Win32.Foundation.PWSTR
     lpProvider: win32more.Windows.Win32.Foundation.PWSTR
     dwFlags: UInt32
     fForce: win32more.Windows.Win32.Foundation.BOOL
-class NOTIFYINFO(EasyCastStructure):
+class NOTIFYINFO(Structure):
     dwNotifyStatus: UInt32
     dwOperationStatus: UInt32
     lpContext: VoidPtr
@@ -416,11 +416,11 @@ def PF_NPPasswordChangeNotify(lpAuthentInfoType: win32more.Windows.Win32.Foundat
 def PF_NPPropertyDialog(hwndParent: win32more.Windows.Win32.Foundation.HWND, iButtonDlg: UInt32, nPropSel: UInt32, lpFileName: win32more.Windows.Win32.Foundation.PWSTR, nType: UInt32) -> UInt32: ...
 @winfunctype_pointer
 def PF_NPSearchDialog(hwndParent: win32more.Windows.Win32.Foundation.HWND, lpNetResource: POINTER(win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEW), lpBuffer: VoidPtr, cbBuffer: UInt32, lpnFlags: POINTER(UInt32)) -> UInt32: ...
-class REMOTE_NAME_INFOA(EasyCastStructure):
+class REMOTE_NAME_INFOA(Structure):
     lpUniversalName: win32more.Windows.Win32.Foundation.PSTR
     lpConnectionName: win32more.Windows.Win32.Foundation.PSTR
     lpRemainingPath: win32more.Windows.Win32.Foundation.PSTR
-class REMOTE_NAME_INFOW(EasyCastStructure):
+class REMOTE_NAME_INFOW(Structure):
     lpUniversalName: win32more.Windows.Win32.Foundation.PWSTR
     lpConnectionName: win32more.Windows.Win32.Foundation.PWSTR
     lpRemainingPath: win32more.Windows.Win32.Foundation.PWSTR
@@ -428,9 +428,9 @@ REMOTE_NAME_INFO = UnicodeAlias('REMOTE_NAME_INFOW')
 UNC_INFO_LEVEL = UInt32
 UNIVERSAL_NAME_INFO_LEVEL: win32more.Windows.Win32.NetworkManagement.WNet.UNC_INFO_LEVEL = 1
 REMOTE_NAME_INFO_LEVEL: win32more.Windows.Win32.NetworkManagement.WNet.UNC_INFO_LEVEL = 2
-class UNIVERSAL_NAME_INFOA(EasyCastStructure):
+class UNIVERSAL_NAME_INFOA(Structure):
     lpUniversalName: win32more.Windows.Win32.Foundation.PSTR
-class UNIVERSAL_NAME_INFOW(EasyCastStructure):
+class UNIVERSAL_NAME_INFOW(Structure):
     lpUniversalName: win32more.Windows.Win32.Foundation.PWSTR
 UNIVERSAL_NAME_INFO = UnicodeAlias('UNIVERSAL_NAME_INFOW')
 WNET_OPEN_ENUM_USAGE = UInt32

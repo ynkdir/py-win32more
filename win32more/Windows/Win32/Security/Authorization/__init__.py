@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Authorization
@@ -14,21 +14,21 @@ DENY_ACCESS: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE = 3
 REVOKE_ACCESS: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE = 4
 SET_AUDIT_SUCCESS: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE = 5
 SET_AUDIT_FAILURE: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE = 6
-class ACTRL_ACCESSA(EasyCastStructure):
+class ACTRL_ACCESSA(Structure):
     cEntries: UInt32
     pPropertyAccessList: POINTER(win32more.Windows.Win32.Security.Authorization.ACTRL_PROPERTY_ENTRYA)
-class ACTRL_ACCESSW(EasyCastStructure):
+class ACTRL_ACCESSW(Structure):
     cEntries: UInt32
     pPropertyAccessList: POINTER(win32more.Windows.Win32.Security.Authorization.ACTRL_PROPERTY_ENTRYW)
 ACTRL_ACCESS = UnicodeAlias('ACTRL_ACCESSW')
-class ACTRL_ACCESS_ENTRYA(EasyCastStructure):
+class ACTRL_ACCESS_ENTRYA(Structure):
     Trustee: win32more.Windows.Win32.Security.Authorization.TRUSTEE_A
     fAccessFlags: win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_ACCESS_FLAGS
     Access: UInt32
     ProvSpecificAccess: UInt32
     Inheritance: win32more.Windows.Win32.Security.ACE_FLAGS
     lpInheritProperty: win32more.Windows.Win32.Foundation.PSTR
-class ACTRL_ACCESS_ENTRYW(EasyCastStructure):
+class ACTRL_ACCESS_ENTRYW(Structure):
     Trustee: win32more.Windows.Win32.Security.Authorization.TRUSTEE_W
     fAccessFlags: win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_ACCESS_FLAGS
     Access: UInt32
@@ -41,61 +41,61 @@ ACTRL_ACCESS_ALLOWED: win32more.Windows.Win32.Security.Authorization.ACTRL_ACCES
 ACTRL_ACCESS_DENIED: win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_ACCESS_FLAGS = 2
 ACTRL_AUDIT_SUCCESS: win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_ACCESS_FLAGS = 4
 ACTRL_AUDIT_FAILURE: win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_ACCESS_FLAGS = 8
-class ACTRL_ACCESS_ENTRY_LISTA(EasyCastStructure):
+class ACTRL_ACCESS_ENTRY_LISTA(Structure):
     cEntries: UInt32
     pAccessList: POINTER(win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRYA)
-class ACTRL_ACCESS_ENTRY_LISTW(EasyCastStructure):
+class ACTRL_ACCESS_ENTRY_LISTW(Structure):
     cEntries: UInt32
     pAccessList: POINTER(win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRYW)
 ACTRL_ACCESS_ENTRY_LIST = UnicodeAlias('ACTRL_ACCESS_ENTRY_LISTW')
-class ACTRL_ACCESS_INFOA(EasyCastStructure):
+class ACTRL_ACCESS_INFOA(Structure):
     fAccessPermission: UInt32
     lpAccessPermissionName: win32more.Windows.Win32.Foundation.PSTR
-class ACTRL_ACCESS_INFOW(EasyCastStructure):
+class ACTRL_ACCESS_INFOW(Structure):
     fAccessPermission: UInt32
     lpAccessPermissionName: win32more.Windows.Win32.Foundation.PWSTR
 ACTRL_ACCESS_INFO = UnicodeAlias('ACTRL_ACCESS_INFOW')
-class ACTRL_CONTROL_INFOA(EasyCastStructure):
+class ACTRL_CONTROL_INFOA(Structure):
     lpControlId: win32more.Windows.Win32.Foundation.PSTR
     lpControlName: win32more.Windows.Win32.Foundation.PSTR
-class ACTRL_CONTROL_INFOW(EasyCastStructure):
+class ACTRL_CONTROL_INFOW(Structure):
     lpControlId: win32more.Windows.Win32.Foundation.PWSTR
     lpControlName: win32more.Windows.Win32.Foundation.PWSTR
 ACTRL_CONTROL_INFO = UnicodeAlias('ACTRL_CONTROL_INFOW')
-class ACTRL_OVERLAPPED(EasyCastStructure):
+class ACTRL_OVERLAPPED(Structure):
     Anonymous: _Anonymous_e__Union
     Reserved2: UInt32
     hEvent: win32more.Windows.Win32.Foundation.HANDLE
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Provider: VoidPtr
         Reserved1: UInt32
-class ACTRL_PROPERTY_ENTRYA(EasyCastStructure):
+class ACTRL_PROPERTY_ENTRYA(Structure):
     lpProperty: win32more.Windows.Win32.Foundation.PSTR
     pAccessEntryList: POINTER(win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_LISTA)
     fListFlags: UInt32
-class ACTRL_PROPERTY_ENTRYW(EasyCastStructure):
+class ACTRL_PROPERTY_ENTRYW(Structure):
     lpProperty: win32more.Windows.Win32.Foundation.PWSTR
     pAccessEntryList: POINTER(win32more.Windows.Win32.Security.Authorization.ACTRL_ACCESS_ENTRY_LISTW)
     fListFlags: UInt32
 ACTRL_PROPERTY_ENTRY = UnicodeAlias('ACTRL_PROPERTY_ENTRYW')
-class AUDIT_IP_ADDRESS(EasyCastStructure):
+class AUDIT_IP_ADDRESS(Structure):
     pIpAddress: Byte * 128
-class AUDIT_OBJECT_TYPE(EasyCastStructure):
+class AUDIT_OBJECT_TYPE(Structure):
     ObjectType: Guid
     Flags: UInt16
     Level: UInt16
     AccessMask: UInt32
-class AUDIT_OBJECT_TYPES(EasyCastStructure):
+class AUDIT_OBJECT_TYPES(Structure):
     Count: UInt16
     Flags: UInt16
     pObjectTypes: POINTER(win32more.Windows.Win32.Security.Authorization.AUDIT_OBJECT_TYPE)
-class AUDIT_PARAM(EasyCastStructure):
+class AUDIT_PARAM(Structure):
     Type: win32more.Windows.Win32.Security.Authorization.AUDIT_PARAM_TYPE
     Length: UInt32
     Flags: UInt32
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Data0: UIntPtr
         String: win32more.Windows.Win32.Foundation.PWSTR
         u: UIntPtr
@@ -104,10 +104,10 @@ class AUDIT_PARAM(EasyCastStructure):
         LogonId_LowPart: UInt32
         pObjectTypes: POINTER(win32more.Windows.Win32.Security.Authorization.AUDIT_OBJECT_TYPES)
         pIpAddress: POINTER(win32more.Windows.Win32.Security.Authorization.AUDIT_IP_ADDRESS)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Data1: UIntPtr
         LogonId_HighPart: Int32
-class AUDIT_PARAMS(EasyCastStructure):
+class AUDIT_PARAMS(Structure):
     Length: UInt32
     Flags: UInt32
     Count: UInt16
@@ -129,12 +129,12 @@ APT_LogonIdWithSid: win32more.Windows.Win32.Security.Authorization.AUDIT_PARAM_T
 AUTHZ_ACCESS_CHECK_FLAGS = UInt32
 AUTHZ_ACCESS_CHECK_NO_DEEP_COPY_SD: win32more.Windows.Win32.Security.Authorization.AUTHZ_ACCESS_CHECK_FLAGS = 1
 AUTHZ_ACCESS_CHECK_RESULTS_HANDLE = IntPtr
-class AUTHZ_ACCESS_REPLY(EasyCastStructure):
+class AUTHZ_ACCESS_REPLY(Structure):
     ResultListLength: UInt32
     GrantedAccessMask: POINTER(UInt32)
     SaclEvaluationResults: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_GENERATE_RESULTS)
     Error: POINTER(UInt32)
-class AUTHZ_ACCESS_REQUEST(EasyCastStructure):
+class AUTHZ_ACCESS_REQUEST(Structure):
     DesiredAccess: UInt32
     PrincipalSelfSid: win32more.Windows.Win32.Security.PSID
     ObjectTypeList: POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST)
@@ -148,18 +148,18 @@ AuthzAuditEventInfoObjectType: win32more.Windows.Win32.Security.Authorization.AU
 AuthzAuditEventInfoObjectName: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 4
 AuthzAuditEventInfoAdditionalInfo: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 5
 AUTHZ_AUDIT_EVENT_TYPE_HANDLE = IntPtr
-class AUTHZ_AUDIT_EVENT_TYPE_LEGACY(EasyCastStructure):
+class AUTHZ_AUDIT_EVENT_TYPE_LEGACY(Structure):
     CategoryId: UInt16
     AuditId: UInt16
     ParameterCount: UInt16
-class AUTHZ_AUDIT_EVENT_TYPE_OLD(EasyCastStructure):
+class AUTHZ_AUDIT_EVENT_TYPE_OLD(Structure):
     Version: UInt32
     dwFlags: UInt32
     RefCount: Int32
     hAudit: UIntPtr
     LinkId: win32more.Windows.Win32.Foundation.LUID
     u: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_TYPE_UNION
-class AUTHZ_AUDIT_EVENT_TYPE_UNION(EasyCastUnion):
+class AUTHZ_AUDIT_EVENT_TYPE_UNION(Union):
     Legacy: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_TYPE_LEGACY
 AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE = IntPtr
 AUTHZ_CLIENT_CONTEXT_HANDLE = IntPtr
@@ -187,7 +187,7 @@ AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS = UInt32
 AUTHZ_NO_SUCCESS_AUDIT: win32more.Windows.Win32.Security.Authorization.AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS = 1
 AUTHZ_NO_FAILURE_AUDIT: win32more.Windows.Win32.Security.Authorization.AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS = 2
 AUTHZ_NO_ALLOC_STRINGS: win32more.Windows.Win32.Security.Authorization.AUTHZ_INITIALIZE_OBJECT_ACCESS_AUDIT_EVENT_FLAGS = 4
-class AUTHZ_INIT_INFO(EasyCastStructure):
+class AUTHZ_INIT_INFO(Structure):
     version: UInt16
     szResourceManagerName: win32more.Windows.Win32.Foundation.PWSTR
     pfnDynamicAccessCheck: win32more.Windows.Win32.Security.Authorization.PFN_AUTHZ_DYNAMIC_ACCESS_CHECK
@@ -195,7 +195,7 @@ class AUTHZ_INIT_INFO(EasyCastStructure):
     pfnFreeDynamicGroups: win32more.Windows.Win32.Security.Authorization.PFN_AUTHZ_FREE_DYNAMIC_GROUPS
     pfnGetCentralAccessPolicy: win32more.Windows.Win32.Security.Authorization.PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY
     pfnFreeCentralAccessPolicy: win32more.Windows.Win32.Security.Authorization.PFN_AUTHZ_FREE_CENTRAL_ACCESS_POLICY
-class AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET(EasyCastStructure):
+class AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET(Structure):
     szObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR
     dwOffset: UInt32
 AUTHZ_RESOURCE_MANAGER_FLAGS = UInt32
@@ -203,7 +203,7 @@ AUTHZ_RM_FLAG_NO_AUDIT: win32more.Windows.Win32.Security.Authorization.AUTHZ_RES
 AUTHZ_RM_FLAG_INITIALIZE_UNDER_IMPERSONATION: win32more.Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_FLAGS = 2
 AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES: win32more.Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_FLAGS = 4
 AUTHZ_RESOURCE_MANAGER_HANDLE = IntPtr
-class AUTHZ_RPC_INIT_INFO_CLIENT(EasyCastStructure):
+class AUTHZ_RPC_INIT_INFO_CLIENT(Structure):
     version: UInt16
     ObjectUuid: win32more.Windows.Win32.Foundation.PWSTR
     ProtSeq: win32more.Windows.Win32.Foundation.PWSTR
@@ -211,20 +211,20 @@ class AUTHZ_RPC_INIT_INFO_CLIENT(EasyCastStructure):
     Endpoint: win32more.Windows.Win32.Foundation.PWSTR
     Options: win32more.Windows.Win32.Foundation.PWSTR
     ServerSpn: win32more.Windows.Win32.Foundation.PWSTR
-class AUTHZ_SECURITY_ATTRIBUTES_INFORMATION(EasyCastStructure):
+class AUTHZ_SECURITY_ATTRIBUTES_INFORMATION(Structure):
     Version: UInt16
     Reserved: UInt16
     AttributeCount: UInt32
     Attribute: _Attribute_e__Union
-    class _Attribute_e__Union(EasyCastUnion):
+    class _Attribute_e__Union(Union):
         pAttributeV1: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_V1)
 AUTHZ_SECURITY_ATTRIBUTE_FLAGS = UInt32
 AUTHZ_SECURITY_ATTRIBUTE_NON_INHERITABLE: win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_FLAGS = 1
 AUTHZ_SECURITY_ATTRIBUTE_VALUE_CASE_SENSITIVE: win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_FLAGS = 2
-class AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE(EasyCastStructure):
+class AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE(Structure):
     Version: UInt64
     pName: win32more.Windows.Win32.Foundation.PWSTR
-class AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE(EasyCastStructure):
+class AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE(Structure):
     pValue: VoidPtr
     ValueLength: UInt32
 AUTHZ_SECURITY_ATTRIBUTE_OPERATION = Int32
@@ -233,14 +233,14 @@ AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE_ALL: win32more.Windows.Win32.Security
 AUTHZ_SECURITY_ATTRIBUTE_OPERATION_ADD: win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION = 2
 AUTHZ_SECURITY_ATTRIBUTE_OPERATION_DELETE: win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION = 3
 AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE: win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION = 4
-class AUTHZ_SECURITY_ATTRIBUTE_V1(EasyCastStructure):
+class AUTHZ_SECURITY_ATTRIBUTE_V1(Structure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
     ValueType: UInt16
     Reserved: UInt16
     Flags: win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_FLAGS
     ValueCount: UInt32
     Values: _Values_e__Union
-    class _Values_e__Union(EasyCastUnion):
+    class _Values_e__Union(Union):
         pInt64: POINTER(Int64)
         pUint64: POINTER(UInt64)
         ppString: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
@@ -253,7 +253,7 @@ AUTHZ_SID_OPERATION_REPLACE_ALL: win32more.Windows.Win32.Security.Authorization.
 AUTHZ_SID_OPERATION_ADD: win32more.Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION = 2
 AUTHZ_SID_OPERATION_DELETE: win32more.Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION = 3
 AUTHZ_SID_OPERATION_REPLACE: win32more.Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION = 4
-class AUTHZ_SOURCE_SCHEMA_REGISTRATION(EasyCastStructure):
+class AUTHZ_SOURCE_SCHEMA_REGISTRATION(Structure):
     dwFlags: UInt32
     szEventSourceName: win32more.Windows.Win32.Foundation.PWSTR
     szEventMessageFile: win32more.Windows.Win32.Foundation.PWSTR
@@ -263,7 +263,7 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     dwObjectTypeNameCount: UInt32
     ObjectTypeNames: win32more.Windows.Win32.Security.Authorization.AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pReserved: VoidPtr
         pProviderGuid: POINTER(Guid)
 AZ_PROP_CONSTANTS = Int32
@@ -857,18 +857,18 @@ ConvertSecurityDescriptorToStringSecurityDescriptor = UnicodeAlias('ConvertSecur
 AzAuthorizationStore = Guid('{b2bcff59-a757-4b0b-a1bc-ea69981da69e}')
 AzBizRuleContext = Guid('{5c2dc96f-8d51-434b-b33c-379bccae77c3}')
 AzPrincipalLocator = Guid('{483afb5d-70df-4e16-abdc-a1de4d015a3e}')
-class EXPLICIT_ACCESS_A(EasyCastStructure):
+class EXPLICIT_ACCESS_A(Structure):
     grfAccessPermissions: UInt32
     grfAccessMode: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE
     grfInheritance: win32more.Windows.Win32.Security.ACE_FLAGS
     Trustee: win32more.Windows.Win32.Security.Authorization.TRUSTEE_A
-class EXPLICIT_ACCESS_W(EasyCastStructure):
+class EXPLICIT_ACCESS_W(Structure):
     grfAccessPermissions: UInt32
     grfAccessMode: win32more.Windows.Win32.Security.Authorization.ACCESS_MODE
     grfInheritance: win32more.Windows.Win32.Security.ACE_FLAGS
     Trustee: win32more.Windows.Win32.Security.Authorization.TRUSTEE_W
 EXPLICIT_ACCESS = UnicodeAlias('EXPLICIT_ACCESS_W')
-class FN_OBJECT_MGR_FUNCTS(EasyCastStructure):
+class FN_OBJECT_MGR_FUNCTS(Structure):
     Placeholder: UInt32
 @winfunctype_pointer
 def FN_PROGRESS(pObjectName: win32more.Windows.Win32.Foundation.PWSTR, Status: UInt32, pInvokeSetting: POINTER(win32more.Windows.Win32.Security.Authorization.PROG_INVOKE_SETTING), Args: VoidPtr, SecuritySet: win32more.Windows.Win32.Foundation.BOOL) -> Void: ...
@@ -1710,30 +1710,30 @@ class IAzTasks(ComPtr):
     def get_Count(self, plCount: POINTER(Int32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(self, ppEnumPtr: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INHERITED_FROMA(EasyCastStructure):
+class INHERITED_FROMA(Structure):
     GenerationGap: Int32
     AncestorName: win32more.Windows.Win32.Foundation.PSTR
-class INHERITED_FROMW(EasyCastStructure):
+class INHERITED_FROMW(Structure):
     GenerationGap: Int32
     AncestorName: win32more.Windows.Win32.Foundation.PWSTR
 INHERITED_FROM = UnicodeAlias('INHERITED_FROMW')
 MULTIPLE_TRUSTEE_OPERATION = Int32
 NO_MULTIPLE_TRUSTEE: win32more.Windows.Win32.Security.Authorization.MULTIPLE_TRUSTEE_OPERATION = 0
 TRUSTEE_IS_IMPERSONATE: win32more.Windows.Win32.Security.Authorization.MULTIPLE_TRUSTEE_OPERATION = 1
-class OBJECTS_AND_NAME_A(EasyCastStructure):
+class OBJECTS_AND_NAME_A(Structure):
     ObjectsPresent: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
     ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE
     ObjectTypeName: win32more.Windows.Win32.Foundation.PSTR
     InheritedObjectTypeName: win32more.Windows.Win32.Foundation.PSTR
     ptstrName: win32more.Windows.Win32.Foundation.PSTR
-class OBJECTS_AND_NAME_W(EasyCastStructure):
+class OBJECTS_AND_NAME_W(Structure):
     ObjectsPresent: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
     ObjectType: win32more.Windows.Win32.Security.Authorization.SE_OBJECT_TYPE
     ObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR
     InheritedObjectTypeName: win32more.Windows.Win32.Foundation.PWSTR
     ptstrName: win32more.Windows.Win32.Foundation.PWSTR
 OBJECTS_AND_NAME = UnicodeAlias('OBJECTS_AND_NAME_W')
-class OBJECTS_AND_SID(EasyCastStructure):
+class OBJECTS_AND_SID(Structure):
     ObjectsPresent: win32more.Windows.Win32.Security.SYSTEM_AUDIT_OBJECT_ACE_FLAGS
     ObjectTypeGuid: Guid
     InheritedObjectTypeGuid: Guid
@@ -1774,18 +1774,18 @@ TREE_SEC_INFO = UInt32
 TREE_SEC_INFO_SET: win32more.Windows.Win32.Security.Authorization.TREE_SEC_INFO = 1
 TREE_SEC_INFO_RESET: win32more.Windows.Win32.Security.Authorization.TREE_SEC_INFO = 2
 TREE_SEC_INFO_RESET_KEEP_EXPLICIT: win32more.Windows.Win32.Security.Authorization.TREE_SEC_INFO = 3
-class TRUSTEE_A(EasyCastStructure):
+class TRUSTEE_A(Structure):
     pMultipleTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_A)
     MultipleTrusteeOperation: win32more.Windows.Win32.Security.Authorization.MULTIPLE_TRUSTEE_OPERATION
     TrusteeForm: win32more.Windows.Win32.Security.Authorization.TRUSTEE_FORM
     TrusteeType: win32more.Windows.Win32.Security.Authorization.TRUSTEE_TYPE
     ptstrName: win32more.Windows.Win32.Foundation.PSTR
-class TRUSTEE_ACCESSA(EasyCastStructure):
+class TRUSTEE_ACCESSA(Structure):
     lpProperty: win32more.Windows.Win32.Foundation.PSTR
     Access: UInt32
     fAccessFlags: UInt32
     fReturnedAccess: UInt32
-class TRUSTEE_ACCESSW(EasyCastStructure):
+class TRUSTEE_ACCESSW(Structure):
     lpProperty: win32more.Windows.Win32.Foundation.PWSTR
     Access: UInt32
     fAccessFlags: UInt32
@@ -1807,7 +1807,7 @@ TRUSTEE_IS_WELL_KNOWN_GROUP: win32more.Windows.Win32.Security.Authorization.TRUS
 TRUSTEE_IS_DELETED: win32more.Windows.Win32.Security.Authorization.TRUSTEE_TYPE = 6
 TRUSTEE_IS_INVALID: win32more.Windows.Win32.Security.Authorization.TRUSTEE_TYPE = 7
 TRUSTEE_IS_COMPUTER: win32more.Windows.Win32.Security.Authorization.TRUSTEE_TYPE = 8
-class TRUSTEE_W(EasyCastStructure):
+class TRUSTEE_W(Structure):
     pMultipleTrustee: POINTER(win32more.Windows.Win32.Security.Authorization.TRUSTEE_W)
     MultipleTrusteeOperation: win32more.Windows.Win32.Security.Authorization.MULTIPLE_TRUSTEE_OPERATION
     TrusteeForm: win32more.Windows.Win32.Security.Authorization.TRUSTEE_FORM

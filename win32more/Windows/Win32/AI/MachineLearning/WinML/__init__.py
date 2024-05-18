@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.AI.MachineLearning.WinML
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -179,16 +179,16 @@ class IWinMLRuntimeFactory(ComPtr):
     _iid_ = Guid('{a807b84d-4ae5-4bc0-a76a-941aa246bd41}')
     @commethod(3)
     def CreateRuntime(self, RuntimeType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_RUNTIME_TYPE, ppRuntime: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.IWinMLRuntime)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class MLOperatorAttribute(EasyCastStructure):
+class MLOperatorAttribute(Structure):
     name: win32more.Windows.Win32.Foundation.PSTR
     type: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType
     required: Byte
-class MLOperatorAttributeNameValue(EasyCastStructure):
+class MLOperatorAttributeNameValue(Structure):
     name: win32more.Windows.Win32.Foundation.PSTR
     type: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeType
     valueCount: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         reserved: VoidPtr
         ints: POINTER(Int64)
         strings: POINTER(POINTER(SByte))
@@ -201,16 +201,16 @@ class MLOperatorAttributeType(UInt32):  # enum
     FloatArray = 7
     IntArray = 8
     StringArray = 9
-class MLOperatorEdgeDescription(EasyCastStructure):
+class MLOperatorEdgeDescription(Structure):
     edgeType: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeType
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         reserved: UInt64
         tensorDataType: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType
 class MLOperatorEdgeType(UInt32):  # enum
     Undefined = 0
     Tensor = 1
-class MLOperatorEdgeTypeConstraint(EasyCastStructure):
+class MLOperatorEdgeTypeConstraint(Structure):
     typeLabel: win32more.Windows.Win32.Foundation.PSTR
     allowedTypes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)
     allowedTypeCount: UInt32
@@ -218,7 +218,7 @@ class MLOperatorExecutionType(UInt32):  # enum
     Undefined = 0
     Cpu = 1
     D3D12 = 2
-class MLOperatorKernelDescription(EasyCastStructure):
+class MLOperatorKernelDescription(Structure):
     domain: win32more.Windows.Win32.Foundation.PSTR
     name: win32more.Windows.Win32.Foundation.PSTR
     minimumOperatorSetVersion: Int32
@@ -236,7 +236,7 @@ class MLOperatorParameterOptions(UInt32):  # enum
     Single = 0
     Optional = 1
     Variadic = 2
-class MLOperatorSchemaDescription(EasyCastStructure):
+class MLOperatorSchemaDescription(Structure):
     name: win32more.Windows.Win32.Foundation.PSTR
     operatorSetVersionAtLastChange: Int32
     inputs: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeDescription)
@@ -249,18 +249,18 @@ class MLOperatorSchemaDescription(EasyCastStructure):
     attributeCount: UInt32
     defaultAttributes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorAttributeNameValue)
     defaultAttributeCount: UInt32
-class MLOperatorSchemaEdgeDescription(EasyCastStructure):
+class MLOperatorSchemaEdgeDescription(Structure):
     options: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorParameterOptions
     typeFormat: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorSchemaEdgeTypeFormat
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         reserved: VoidPtr
         typeLabel: win32more.Windows.Win32.Foundation.PSTR
         edgeDescription: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription
 class MLOperatorSchemaEdgeTypeFormat(Int32):  # enum
     EdgeDescription = 0
     Label = 1
-class MLOperatorSetId(EasyCastStructure):
+class MLOperatorSetId(Structure):
     domain: win32more.Windows.Win32.Foundation.PSTR
     version: Int32
 class MLOperatorTensorDataType(UInt32):  # enum
@@ -280,11 +280,11 @@ class MLOperatorTensorDataType(UInt32):  # enum
     UInt64 = 13
     Complex64 = 14
     Complex128 = 15
-class WINML_BINDING_DESC(EasyCastStructure):
+class WINML_BINDING_DESC(Structure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     BindType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_BINDING_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Tensor: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_BINDING_DESC
         Sequence: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_SEQUENCE_BINDING_DESC
         Map: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_MAP_BINDING_DESC
@@ -303,58 +303,58 @@ WINML_FEATURE_TENSOR: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEA
 WINML_FEATURE_SEQUENCE: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEATURE_TYPE = 2
 WINML_FEATURE_MAP: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEATURE_TYPE = 3
 WINML_FEATURE_IMAGE: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEATURE_TYPE = 4
-class WINML_IMAGE_BINDING_DESC(EasyCastStructure):
+class WINML_IMAGE_BINDING_DESC(Structure):
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     NumDimensions: UInt32
     pShape: POINTER(Int64)
     DataSize: UInt32
     pData: VoidPtr
-class WINML_IMAGE_VARIABLE_DESC(EasyCastStructure):
+class WINML_IMAGE_VARIABLE_DESC(Structure):
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     NumDimensions: UInt32
     pShape: POINTER(Int64)
-class WINML_MAP_BINDING_DESC(EasyCastStructure):
+class WINML_MAP_BINDING_DESC(Structure):
     ElementCount: UInt32
     KeyType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     Anonymous1: _Anonymous1_e__Union
     Fields: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pStringKeys: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
         pIntKeys: POINTER(Int64)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         pStringFields: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
         pIntFields: POINTER(Int64)
         pFloatFields: POINTER(Single)
         pDoubleFields: POINTER(Double)
-class WINML_MAP_VARIABLE_DESC(EasyCastStructure):
+class WINML_MAP_VARIABLE_DESC(Structure):
     KeyType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     Fields: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
-class WINML_MODEL_DESC(EasyCastStructure):
+class WINML_MODEL_DESC(Structure):
     Author: win32more.Windows.Win32.Foundation.PWSTR
     Name: win32more.Windows.Win32.Foundation.PWSTR
     Domain: win32more.Windows.Win32.Foundation.PWSTR
     Description: win32more.Windows.Win32.Foundation.PWSTR
     Version: UIntPtr
-class WINML_RESOURCE_BINDING_DESC(EasyCastStructure):
+class WINML_RESOURCE_BINDING_DESC(Structure):
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     NumDimensions: UInt32
     pShape: POINTER(Int64)
     pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
 WINML_RUNTIME_TYPE = Int32
 WINML_RUNTIME_CNTK: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_RUNTIME_TYPE = 0
-class WINML_SEQUENCE_BINDING_DESC(EasyCastStructure):
+class WINML_SEQUENCE_BINDING_DESC(Structure):
     ElementCount: UInt32
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pStrings: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
         pInts: POINTER(Int64)
         pFloats: POINTER(Single)
         pDoubles: POINTER(Double)
-class WINML_SEQUENCE_VARIABLE_DESC(EasyCastStructure):
+class WINML_SEQUENCE_VARIABLE_DESC(Structure):
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
-class WINML_TENSOR_BINDING_DESC(EasyCastStructure):
+class WINML_TENSOR_BINDING_DESC(Structure):
     DataType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     NumDimensions: UInt32
     pShape: POINTER(Int64)
@@ -377,17 +377,17 @@ WINML_TENSOR_UINT32: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENS
 WINML_TENSOR_UINT64: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 13
 WINML_TENSOR_COMPLEX64: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 14
 WINML_TENSOR_COMPLEX128: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE = 15
-class WINML_TENSOR_VARIABLE_DESC(EasyCastStructure):
+class WINML_TENSOR_VARIABLE_DESC(Structure):
     ElementType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_DATA_TYPE
     NumDimensions: UInt32
     pShape: POINTER(Int64)
-class WINML_VARIABLE_DESC(EasyCastStructure):
+class WINML_VARIABLE_DESC(Structure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     Description: win32more.Windows.Win32.Foundation.PWSTR
     FeatureType: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_FEATURE_TYPE
     Required: win32more.Windows.Win32.Foundation.BOOL
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Tensor: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_TENSOR_VARIABLE_DESC
         Sequence: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_SEQUENCE_VARIABLE_DESC
         Map: win32more.Windows.Win32.AI.MachineLearning.WinML.WINML_MAP_VARIABLE_DESC

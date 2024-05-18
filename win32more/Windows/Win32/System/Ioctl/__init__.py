@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.FileSystem
 import win32more.Windows.Win32.Storage.Vhd
 import win32more.Windows.Win32.System.Ioctl
-class ASYNC_DUPLICATE_EXTENTS_STATUS(EasyCastStructure):
+class ASYNC_DUPLICATE_EXTENTS_STATUS(Structure):
     Version: UInt32
     State: win32more.Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_STATE
     SourceFileOffset: UInt64
@@ -1062,24 +1062,24 @@ CONTAINER_ROOT_INFO_VALID_FLAGS: UInt32 = 1023
 PROJFS_PROTOCOL_VERSION: UInt32 = 3
 EFS_TRACKED_OFFSET_HEADER_FLAG: UInt32 = 1
 SPACES_TRACKED_OFFSET_HEADER_FLAG: UInt32 = 2
-class BIN_COUNT(EasyCastStructure):
+class BIN_COUNT(Structure):
     BinRange: win32more.Windows.Win32.System.Ioctl.BIN_RANGE
     BinCount: UInt32
-class BIN_RANGE(EasyCastStructure):
+class BIN_RANGE(Structure):
     StartValue: Int64
     Length: Int64
-class BIN_RESULTS(EasyCastStructure):
+class BIN_RESULTS(Structure):
     NumberOfBins: UInt32
     BinCounts: win32more.Windows.Win32.System.Ioctl.BIN_COUNT * 1
 BIN_TYPES = Int32
 RequestSize: win32more.Windows.Win32.System.Ioctl.BIN_TYPES = 0
 RequestLocation: win32more.Windows.Win32.System.Ioctl.BIN_TYPES = 1
-class BOOT_AREA_INFO(EasyCastStructure):
+class BOOT_AREA_INFO(Structure):
     BootSectorCount: UInt32
     BootSectors: _Anonymous_e__Struct * 2
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         Offset: Int64
-class BULK_SECURITY_TEST_DATA(EasyCastStructure):
+class BULK_SECURITY_TEST_DATA(Structure):
     DesiredAccess: UInt32
     SecurityIds: UInt32 * 1
 CHANGER_DEVICE_PROBLEM_TYPE = Int32
@@ -1097,13 +1097,13 @@ DeviceProblemSensorError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PR
 DeviceProblemCartridgeEjectError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 11
 DeviceProblemGripperError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 12
 DeviceProblemDriveError: win32more.Windows.Win32.System.Ioctl.CHANGER_DEVICE_PROBLEM_TYPE = 13
-class CHANGER_ELEMENT(EasyCastStructure):
+class CHANGER_ELEMENT(Structure):
     ElementType: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE
     ElementAddress: UInt32
-class CHANGER_ELEMENT_LIST(EasyCastStructure):
+class CHANGER_ELEMENT_LIST(Structure):
     Element: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     NumberOfElements: UInt32
-class CHANGER_ELEMENT_STATUS(EasyCastStructure):
+class CHANGER_ELEMENT_STATUS(Structure):
     Element: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     SrcElementAddress: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Flags: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT_STATUS_FLAGS
@@ -1113,7 +1113,7 @@ class CHANGER_ELEMENT_STATUS(EasyCastStructure):
     Reserved: UInt16
     PrimaryVolumeID: Byte * 36
     AlternateVolumeID: Byte * 36
-class CHANGER_ELEMENT_STATUS_EX(EasyCastStructure):
+class CHANGER_ELEMENT_STATUS_EX(Structure):
     Element: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     SrcElementAddress: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Flags: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT_STATUS_FLAGS
@@ -1141,7 +1141,7 @@ ELEMENT_STATUS_NOT_BUS: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT_STA
 ELEMENT_STATUS_PVOLTAG: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT_STATUS_FLAGS = 268435456
 ELEMENT_STATUS_SVALID: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT_STATUS_FLAGS = 8388608
 ELEMENT_STATUS_PRODUCT_DATA: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT_STATUS_FLAGS = 64
-class CHANGER_EXCHANGE_MEDIUM(EasyCastStructure):
+class CHANGER_EXCHANGE_MEDIUM(Structure):
     Transport: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Source: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Destination1: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
@@ -1178,59 +1178,59 @@ CHANGER_VOLUME_IDENTIFICATION: win32more.Windows.Win32.System.Ioctl.CHANGER_FEAT
 CHANGER_VOLUME_REPLACE: win32more.Windows.Win32.System.Ioctl.CHANGER_FEATURES = 8388608
 CHANGER_VOLUME_SEARCH: win32more.Windows.Win32.System.Ioctl.CHANGER_FEATURES = 2097152
 CHANGER_VOLUME_UNDEFINE: win32more.Windows.Win32.System.Ioctl.CHANGER_FEATURES = 16777216
-class CHANGER_INITIALIZE_ELEMENT_STATUS(EasyCastStructure):
+class CHANGER_INITIALIZE_ELEMENT_STATUS(Structure):
     ElementList: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT_LIST
     BarCodeScan: win32more.Windows.Win32.Foundation.BOOLEAN
-class CHANGER_MOVE_MEDIUM(EasyCastStructure):
+class CHANGER_MOVE_MEDIUM(Structure):
     Transport: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Source: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Destination: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Flip: win32more.Windows.Win32.Foundation.BOOLEAN
-class CHANGER_PRODUCT_DATA(EasyCastStructure):
+class CHANGER_PRODUCT_DATA(Structure):
     VendorId: Byte * 8
     ProductId: Byte * 16
     Revision: Byte * 4
     SerialNumber: Byte * 32
     DeviceType: Byte
-class CHANGER_READ_ELEMENT_STATUS(EasyCastStructure):
+class CHANGER_READ_ELEMENT_STATUS(Structure):
     ElementList: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT_LIST
     VolumeTagInfo: win32more.Windows.Win32.Foundation.BOOLEAN
-class CHANGER_SEND_VOLUME_TAG_INFORMATION(EasyCastStructure):
+class CHANGER_SEND_VOLUME_TAG_INFORMATION(Structure):
     StartingElement: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     ActionCode: UInt32
     VolumeIDTemplate: Byte * 40
-class CHANGER_SET_ACCESS(EasyCastStructure):
+class CHANGER_SET_ACCESS(Structure):
     Element: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Control: UInt32
-class CHANGER_SET_POSITION(EasyCastStructure):
+class CHANGER_SET_POSITION(Structure):
     Transport: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Destination: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT
     Flip: win32more.Windows.Win32.Foundation.BOOLEAN
-class CLASS_MEDIA_CHANGE_CONTEXT(EasyCastStructure):
+class CLASS_MEDIA_CHANGE_CONTEXT(Structure):
     MediaChangeCount: UInt32
     NewState: UInt32
-class CLUSTER_RANGE(EasyCastStructure):
+class CLUSTER_RANGE(Structure):
     StartingCluster: Int64
     ClusterCount: Int64
-class CONTAINER_ROOT_INFO_INPUT(EasyCastStructure):
+class CONTAINER_ROOT_INFO_INPUT(Structure):
     Flags: UInt32
-class CONTAINER_ROOT_INFO_OUTPUT(EasyCastStructure):
+class CONTAINER_ROOT_INFO_OUTPUT(Structure):
     ContainerRootIdLength: UInt16
     ContainerRootId: Byte * 1
-class CONTAINER_VOLUME_STATE(EasyCastStructure):
+class CONTAINER_VOLUME_STATE(Structure):
     Flags: UInt32
-class CREATE_DISK(EasyCastStructure):
+class CREATE_DISK(Structure):
     PartitionStyle: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.System.Ioctl.CREATE_DISK_MBR
         Gpt: win32more.Windows.Win32.System.Ioctl.CREATE_DISK_GPT
-class CREATE_DISK_GPT(EasyCastStructure):
+class CREATE_DISK_GPT(Structure):
     DiskId: Guid
     MaxPartitionCount: UInt32
-class CREATE_DISK_MBR(EasyCastStructure):
+class CREATE_DISK_MBR(Structure):
     Signature: UInt32
-class CREATE_USN_JOURNAL_DATA(EasyCastStructure):
+class CREATE_USN_JOURNAL_DATA(Structure):
     MaximumSize: UInt64
     AllocationDelta: UInt64
 CSVFS_DISK_CONNECTIVITY = Int32
@@ -1257,30 +1257,30 @@ CsvControlStopForceDFO: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 22
 CsvControlQueryMdsPathNoPause: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 23
 CsvControlSetVolumeId: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 24
 CsvControlQueryVolumeId: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP = 25
-class CSV_CONTROL_PARAM(EasyCastStructure):
+class CSV_CONTROL_PARAM(Structure):
     Operation: win32more.Windows.Win32.System.Ioctl.CSV_CONTROL_OP
     Unused: Int64
-class CSV_IS_OWNED_BY_CSVFS(EasyCastStructure):
+class CSV_IS_OWNED_BY_CSVFS(Structure):
     OwnedByCSVFS: win32more.Windows.Win32.Foundation.BOOLEAN
-class CSV_MGMT_LOCK(EasyCastStructure):
+class CSV_MGMT_LOCK(Structure):
     Flags: UInt32
-class CSV_NAMESPACE_INFO(EasyCastStructure):
+class CSV_NAMESPACE_INFO(Structure):
     Version: UInt32
     DeviceNumber: UInt32
     StartingOffset: Int64
     SectorSize: UInt32
-class CSV_QUERY_FILE_REVISION(EasyCastStructure):
+class CSV_QUERY_FILE_REVISION(Structure):
     FileId: Int64
     FileRevision: Int64 * 3
-class CSV_QUERY_FILE_REVISION_FILE_ID_128(EasyCastStructure):
+class CSV_QUERY_FILE_REVISION_FILE_ID_128(Structure):
     FileId: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
     FileRevision: Int64 * 3
-class CSV_QUERY_MDS_PATH(EasyCastStructure):
+class CSV_QUERY_MDS_PATH(Structure):
     MdsNodeId: UInt32
     DsNodeId: UInt32
     PathLength: UInt32
     Path: Char * 1
-class CSV_QUERY_MDS_PATH_V2(EasyCastStructure):
+class CSV_QUERY_MDS_PATH_V2(Structure):
     Version: Int64
     RequiredSize: UInt32
     MdsNodeId: UInt32
@@ -1292,27 +1292,27 @@ class CSV_QUERY_MDS_PATH_V2(EasyCastStructure):
     IpAddressLength: UInt32
     PathOffset: UInt32
     PathLength: UInt32
-class CSV_QUERY_REDIRECT_STATE(EasyCastStructure):
+class CSV_QUERY_REDIRECT_STATE(Structure):
     MdsNodeId: UInt32
     DsNodeId: UInt32
     FileRedirected: win32more.Windows.Win32.Foundation.BOOLEAN
-class CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT(EasyCastStructure):
+class CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT(Structure):
     VetoedFromAltitudeIntegral: UInt64
     VetoedFromAltitudeDecimal: UInt64
     Reason: Char * 256
-class CSV_QUERY_VOLUME_ID(EasyCastStructure):
+class CSV_QUERY_VOLUME_ID(Structure):
     VolumeId: Guid
-class CSV_QUERY_VOLUME_REDIRECT_STATE(EasyCastStructure):
+class CSV_QUERY_VOLUME_REDIRECT_STATE(Structure):
     MdsNodeId: UInt32
     DsNodeId: UInt32
     IsDiskConnected: win32more.Windows.Win32.Foundation.BOOLEAN
     ClusterEnableDirectIo: win32more.Windows.Win32.Foundation.BOOLEAN
     DiskConnectivity: win32more.Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY
-class CSV_SET_VOLUME_ID(EasyCastStructure):
+class CSV_SET_VOLUME_ID(Structure):
     VolumeId: Guid
-class DECRYPTION_STATUS_BUFFER(EasyCastStructure):
+class DECRYPTION_STATUS_BUFFER(Structure):
     NoEncryptedStreams: win32more.Windows.Win32.Foundation.BOOLEAN
-class DELETE_USN_JOURNAL_DATA(EasyCastStructure):
+class DELETE_USN_JOURNAL_DATA(Structure):
     UsnJournalID: UInt64
     DeleteFlags: win32more.Windows.Win32.System.Ioctl.USN_DELETE_FLAGS
 DETECTION_TYPE = Int32
@@ -1323,20 +1323,20 @@ DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = Int32
 TCCollectionBugCheck: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 1
 TCCollectionApplicationRequested: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 2
 TCCollectionDeviceRequested: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 3
-class DEVICEDUMP_PRIVATE_SUBSECTION(EasyCastStructure):
+class DEVICEDUMP_PRIVATE_SUBSECTION(Structure):
     dwFlags: UInt32
     GPLogId: win32more.Windows.Win32.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR
     bData: Byte * 1
     _pack_ = 1
-class DEVICEDUMP_PUBLIC_SUBSECTION(EasyCastStructure):
+class DEVICEDUMP_PUBLIC_SUBSECTION(Structure):
     dwFlags: UInt32
     GPLogTable: win32more.Windows.Win32.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR * 16
     szDescription: win32more.Windows.Win32.Foundation.CHAR * 16
     bData: Byte * 1
     _pack_ = 1
-class DEVICEDUMP_RESTRICTED_SUBSECTION(EasyCastStructure):
+class DEVICEDUMP_RESTRICTED_SUBSECTION(Structure):
     bData: Byte * 1
-class DEVICEDUMP_SECTION_HEADER(EasyCastStructure):
+class DEVICEDUMP_SECTION_HEADER(Structure):
     guidDeviceDataId: Guid
     sOrganizationID: Byte * 16
     dwFirmwareRevision: UInt32
@@ -1347,7 +1347,7 @@ class DEVICEDUMP_SECTION_HEADER(EasyCastStructure):
     dwFirmwareIssueId: UInt32
     szIssueDescriptionString: Byte * 132
     _pack_ = 1
-class DEVICEDUMP_STORAGEDEVICE_DATA(EasyCastStructure):
+class DEVICEDUMP_STORAGEDEVICE_DATA(Structure):
     Descriptor: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION
     SectionHeader: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_SECTION_HEADER
     dwBufferSize: UInt32
@@ -1356,14 +1356,14 @@ class DEVICEDUMP_STORAGEDEVICE_DATA(EasyCastStructure):
     RestrictedData: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER
     PrivateData: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER
     _pack_ = 1
-class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP(EasyCastStructure):
+class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP(Structure):
     Descriptor: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION
     dwReasonForCollection: UInt32
     cDriverName: Byte * 16
     uiNumRecords: UInt32
     RecordArray: win32more.Windows.Win32.System.Ioctl.DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD * 1
     _pack_ = 1
-class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD(EasyCastStructure):
+class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD(Structure):
     Cdb: Byte * 16
     Command: Byte * 16
     StartTime: UInt64
@@ -1372,30 +1372,30 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD(EasyCastStructure):
     OperationError: UInt32
     StackSpecific: _StackSpecific_e__Union
     _pack_ = 1
-    class _StackSpecific_e__Union(EasyCastUnion):
+    class _StackSpecific_e__Union(Union):
         ExternalStack: _ExternalStack_e__Struct
         AtaPort: _AtaPort_e__Struct
         StorPort: _StorPort_e__Struct
-        class _ExternalStack_e__Struct(EasyCastStructure):
+        class _ExternalStack_e__Struct(Structure):
             dwReserved: UInt32
             _pack_ = 1
-        class _AtaPort_e__Struct(EasyCastStructure):
+        class _AtaPort_e__Struct(Structure):
             dwAtaPortSpecific: UInt32
             _pack_ = 1
-        class _StorPort_e__Struct(EasyCastStructure):
+        class _StorPort_e__Struct(Structure):
             SrbTag: UInt32
             _pack_ = 1
-class DEVICEDUMP_STRUCTURE_VERSION(EasyCastStructure):
+class DEVICEDUMP_STRUCTURE_VERSION(Structure):
     dwSignature: UInt32
     dwVersion: UInt32
     dwSize: UInt32
     _pack_ = 1
-class DEVICEDUMP_SUBSECTION_POINTER(EasyCastStructure):
+class DEVICEDUMP_SUBSECTION_POINTER(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwOffset: UInt32
     _pack_ = 1
-class DEVICE_COPY_OFFLOAD_DESCRIPTOR(EasyCastStructure):
+class DEVICE_COPY_OFFLOAD_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     MaximumTokenLifetime: UInt32
@@ -1407,12 +1407,12 @@ class DEVICE_COPY_OFFLOAD_DESCRIPTOR(EasyCastStructure):
     OptimalTransferLengthPerDescriptor: UInt32
     OptimalTransferLengthGranularity: UInt16
     Reserved: Byte * 2
-class DEVICE_DATA_SET_LBP_STATE_PARAMETERS(EasyCastStructure):
+class DEVICE_DATA_SET_LBP_STATE_PARAMETERS(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
     OutputVersion: UInt32
-class DEVICE_DATA_SET_LB_PROVISIONING_STATE(EasyCastStructure):
+class DEVICE_DATA_SET_LB_PROVISIONING_STATE(Structure):
     Size: UInt32
     Version: UInt32
     SlabSizeInBytes: UInt64
@@ -1420,7 +1420,7 @@ class DEVICE_DATA_SET_LB_PROVISIONING_STATE(EasyCastStructure):
     SlabAllocationBitMapBitCount: UInt32
     SlabAllocationBitMapLength: UInt32
     SlabAllocationBitMap: UInt32 * 1
-class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2(EasyCastStructure):
+class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2(Structure):
     Size: UInt32
     Version: UInt32
     SlabSizeInBytes: UInt64
@@ -1428,32 +1428,32 @@ class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2(EasyCastStructure):
     SlabAllocationBitMapBitCount: UInt32
     SlabAllocationBitMapLength: UInt32
     SlabAllocationBitMap: UInt32 * 1
-class DEVICE_DATA_SET_RANGE(EasyCastStructure):
+class DEVICE_DATA_SET_RANGE(Structure):
     StartingOffset: Int64
     LengthInBytes: UInt64
-class DEVICE_DATA_SET_REPAIR_OUTPUT(EasyCastStructure):
+class DEVICE_DATA_SET_REPAIR_OUTPUT(Structure):
     ParityExtent: win32more.Windows.Win32.System.Ioctl.DEVICE_DATA_SET_RANGE
-class DEVICE_DATA_SET_REPAIR_PARAMETERS(EasyCastStructure):
+class DEVICE_DATA_SET_REPAIR_PARAMETERS(Structure):
     NumberOfRepairCopies: UInt32
     SourceCopy: UInt32
     RepairCopies: UInt32 * 1
-class DEVICE_DATA_SET_SCRUB_EX_OUTPUT(EasyCastStructure):
+class DEVICE_DATA_SET_SCRUB_EX_OUTPUT(Structure):
     BytesProcessed: UInt64
     BytesRepaired: UInt64
     BytesFailed: UInt64
     ParityExtent: win32more.Windows.Win32.System.Ioctl.DEVICE_DATA_SET_RANGE
     BytesScrubbed: UInt64
-class DEVICE_DATA_SET_SCRUB_OUTPUT(EasyCastStructure):
+class DEVICE_DATA_SET_SCRUB_OUTPUT(Structure):
     BytesProcessed: UInt64
     BytesRepaired: UInt64
     BytesFailed: UInt64
-class DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT(EasyCastStructure):
+class DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT(Structure):
     TopologyRangeBytes: UInt64
     TopologyId: Byte * 16
-class DEVICE_DSM_CONVERSION_OUTPUT(EasyCastStructure):
+class DEVICE_DSM_CONVERSION_OUTPUT(Structure):
     Version: UInt32
     Source: Guid
-class DEVICE_DSM_DEFINITION(EasyCastStructure):
+class DEVICE_DSM_DEFINITION(Structure):
     Action: UInt32
     SingleRange: win32more.Windows.Win32.Foundation.BOOLEAN
     ParameterBlockAlignment: UInt32
@@ -1461,66 +1461,66 @@ class DEVICE_DSM_DEFINITION(EasyCastStructure):
     HasOutput: win32more.Windows.Win32.Foundation.BOOLEAN
     OutputBlockAlignment: UInt32
     OutputBlockLength: UInt32
-class DEVICE_DSM_FREE_SPACE_OUTPUT(EasyCastStructure):
+class DEVICE_DSM_FREE_SPACE_OUTPUT(Structure):
     Version: UInt32
     FreeSpace: UInt64
-class DEVICE_DSM_LOST_QUERY_OUTPUT(EasyCastStructure):
+class DEVICE_DSM_LOST_QUERY_OUTPUT(Structure):
     Version: UInt32
     Size: UInt32
     Alignment: UInt64
     NumberOfBits: UInt32
     BitMap: UInt32 * 1
-class DEVICE_DSM_LOST_QUERY_PARAMETERS(EasyCastStructure):
+class DEVICE_DSM_LOST_QUERY_PARAMETERS(Structure):
     Version: UInt32
     Granularity: UInt64
-class DEVICE_DSM_NOTIFICATION_PARAMETERS(EasyCastStructure):
+class DEVICE_DSM_NOTIFICATION_PARAMETERS(Structure):
     Size: UInt32
     Flags: UInt32
     NumFileTypeIDs: UInt32
     FileTypeID: Guid * 1
-class DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS(EasyCastStructure):
+class DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS(Structure):
     Size: UInt32
     TargetPriority: Byte
     Reserved: Byte * 3
-class DEVICE_DSM_OFFLOAD_READ_PARAMETERS(EasyCastStructure):
+class DEVICE_DSM_OFFLOAD_READ_PARAMETERS(Structure):
     Flags: UInt32
     TimeToLive: UInt32
     Reserved: UInt32 * 2
-class DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS(EasyCastStructure):
+class DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS(Structure):
     Flags: UInt32
     Reserved: UInt32
     TokenOffset: UInt64
     Token: win32more.Windows.Win32.System.Ioctl.STORAGE_OFFLOAD_TOKEN
-class DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT(EasyCastStructure):
+class DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT(Structure):
     Version: UInt32
     Flags: UInt32
     TotalNumberOfRanges: UInt32
     NumberOfRangesReturned: UInt32
     Ranges: win32more.Windows.Win32.System.Ioctl.DEVICE_STORAGE_ADDRESS_RANGE * 1
-class DEVICE_DSM_RANGE_ERROR_INFO(EasyCastStructure):
+class DEVICE_DSM_RANGE_ERROR_INFO(Structure):
     Version: UInt32
     Flags: UInt32
     TotalNumberOfRanges: UInt32
     NumberOfRangesReturned: UInt32
     Ranges: win32more.Windows.Win32.System.Ioctl.DEVICE_STORAGE_RANGE_ATTRIBUTES * 1
-class DEVICE_DSM_REPORT_ZONES_DATA(EasyCastStructure):
+class DEVICE_DSM_REPORT_ZONES_DATA(Structure):
     Size: UInt32
     ZoneCount: UInt32
     Attributes: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONES_ATTRIBUTES
     Reserved0: UInt32
     ZoneDescriptors: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_DESCRIPTOR * 1
-class DEVICE_DSM_REPORT_ZONES_PARAMETERS(EasyCastStructure):
+class DEVICE_DSM_REPORT_ZONES_PARAMETERS(Structure):
     Size: UInt32
     ReportOption: Byte
     Partial: Byte
     Reserved: Byte * 2
-class DEVICE_DSM_TIERING_QUERY_INPUT(EasyCastStructure):
+class DEVICE_DSM_TIERING_QUERY_INPUT(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
     NumberOfTierIds: UInt32
     TierIds: Guid * 1
-class DEVICE_DSM_TIERING_QUERY_OUTPUT(EasyCastStructure):
+class DEVICE_DSM_TIERING_QUERY_OUTPUT(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
@@ -1529,7 +1529,7 @@ class DEVICE_DSM_TIERING_QUERY_OUTPUT(EasyCastStructure):
     TotalNumberOfRegions: UInt32
     NumberOfRegionsReturned: UInt32
     Regions: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_REGION * 1
-class DEVICE_INTERNAL_STATUS_DATA(EasyCastStructure):
+class DEVICE_INTERNAL_STATUS_DATA(Structure):
     Version: UInt32
     Size: UInt32
     T10VendorId: UInt64
@@ -1555,7 +1555,7 @@ DeviceStatusDataSet2: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATU
 DeviceStatusDataSet3: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 3
 DeviceStatusDataSet4: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 4
 DeviceStatusDataSetMax: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET = 5
-class DEVICE_LB_PROVISIONING_DESCRIPTOR(EasyCastStructure):
+class DEVICE_LB_PROVISIONING_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     _bitfield: Byte
@@ -1564,22 +1564,22 @@ class DEVICE_LB_PROVISIONING_DESCRIPTOR(EasyCastStructure):
     UnmapGranularityAlignment: UInt64
     MaxUnmapLbaCount: UInt32
     MaxUnmapBlockDescriptorCount: UInt32
-class DEVICE_LOCATION(EasyCastStructure):
+class DEVICE_LOCATION(Structure):
     Socket: UInt32
     Slot: UInt32
     Adapter: UInt32
     Port: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             Channel: UInt32
             Device: UInt32
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             Target: UInt32
             Lun: UInt32
-class DEVICE_MANAGE_DATA_SET_ATTRIBUTES(EasyCastStructure):
+class DEVICE_MANAGE_DATA_SET_ATTRIBUTES(Structure):
     Size: UInt32
     Action: UInt32
     Flags: UInt32
@@ -1587,7 +1587,7 @@ class DEVICE_MANAGE_DATA_SET_ATTRIBUTES(EasyCastStructure):
     ParameterBlockLength: UInt32
     DataSetRangesOffset: UInt32
     DataSetRangesLength: UInt32
-class DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT(EasyCastStructure):
+class DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT(Structure):
     Size: UInt32
     Action: UInt32
     Flags: UInt32
@@ -1597,13 +1597,13 @@ class DEVICE_MANAGE_DATA_SET_ATTRIBUTES_OUTPUT(EasyCastStructure):
     ReservedStatus: UInt32
     OutputBlockOffset: UInt32
     OutputBlockLength: UInt32
-class DEVICE_MEDIA_INFO(EasyCastStructure):
+class DEVICE_MEDIA_INFO(Structure):
     DeviceSpecific: _DeviceSpecific_e__Union
-    class _DeviceSpecific_e__Union(EasyCastUnion):
+    class _DeviceSpecific_e__Union(Union):
         DiskInfo: _DiskInfo_e__Struct
         RemovableDiskInfo: _RemovableDiskInfo_e__Struct
         TapeInfo: _TapeInfo_e__Struct
-        class _DiskInfo_e__Struct(EasyCastStructure):
+        class _DiskInfo_e__Struct(Structure):
             Cylinders: Int64
             MediaType: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE
             TracksPerCylinder: UInt32
@@ -1611,7 +1611,7 @@ class DEVICE_MEDIA_INFO(EasyCastStructure):
             BytesPerSector: UInt32
             NumberMediaSides: UInt32
             MediaCharacteristics: UInt32
-        class _RemovableDiskInfo_e__Struct(EasyCastStructure):
+        class _RemovableDiskInfo_e__Struct(Structure):
             Cylinders: Int64
             MediaType: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE
             TracksPerCylinder: UInt32
@@ -1619,18 +1619,18 @@ class DEVICE_MEDIA_INFO(EasyCastStructure):
             BytesPerSector: UInt32
             NumberMediaSides: UInt32
             MediaCharacteristics: UInt32
-        class _TapeInfo_e__Struct(EasyCastStructure):
+        class _TapeInfo_e__Struct(Structure):
             MediaType: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE
             MediaCharacteristics: UInt32
             CurrentBlockSize: UInt32
             BusType: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE
             BusSpecificData: _BusSpecificData_e__Union
-            class _BusSpecificData_e__Union(EasyCastUnion):
+            class _BusSpecificData_e__Union(Union):
                 ScsiInformation: _ScsiInformation_e__Struct
-                class _ScsiInformation_e__Struct(EasyCastStructure):
+                class _ScsiInformation_e__Struct(Structure):
                     MediumType: Byte
                     DensityCode: Byte
-class DEVICE_POWER_DESCRIPTOR(EasyCastStructure):
+class DEVICE_POWER_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     DeviceAttentionSupported: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1641,31 +1641,31 @@ class DEVICE_POWER_DESCRIPTOR(EasyCastStructure):
     NoVerifyDuringIdlePower: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte * 2
     IdleTimeoutInMS: UInt32
-class DEVICE_SEEK_PENALTY_DESCRIPTOR(EasyCastStructure):
+class DEVICE_SEEK_PENALTY_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     IncursSeekPenalty: win32more.Windows.Win32.Foundation.BOOLEAN
-class DEVICE_STORAGE_ADDRESS_RANGE(EasyCastStructure):
+class DEVICE_STORAGE_ADDRESS_RANGE(Structure):
     StartAddress: Int64
     LengthInBytes: UInt64
-class DEVICE_STORAGE_RANGE_ATTRIBUTES(EasyCastStructure):
+class DEVICE_STORAGE_RANGE_ATTRIBUTES(Structure):
     LengthInBytes: UInt64
     Anonymous: _Anonymous_e__Union
     Reserved: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         AllFlags: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class DEVICE_TRIM_DESCRIPTOR(EasyCastStructure):
+class DEVICE_TRIM_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     TrimEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
-class DEVICE_WRITE_AGGREGATION_DESCRIPTOR(EasyCastStructure):
+class DEVICE_WRITE_AGGREGATION_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     BenefitsFromWriteAggregation: win32more.Windows.Win32.Foundation.BOOLEAN
-class DISK_CACHE_INFORMATION(EasyCastStructure):
+class DISK_CACHE_INFORMATION(Structure):
     ParametersSavable: win32more.Windows.Win32.Foundation.BOOLEAN
     ReadCacheEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
     WriteCacheEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1674,37 +1674,37 @@ class DISK_CACHE_INFORMATION(EasyCastStructure):
     DisablePrefetchTransferLength: UInt16
     PrefetchScalar: win32more.Windows.Win32.Foundation.BOOLEAN
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ScalarPrefetch: _ScalarPrefetch_e__Struct
         BlockPrefetch: _BlockPrefetch_e__Struct
-        class _ScalarPrefetch_e__Struct(EasyCastStructure):
+        class _ScalarPrefetch_e__Struct(Structure):
             Minimum: UInt16
             Maximum: UInt16
             MaximumBlocks: UInt16
-        class _BlockPrefetch_e__Struct(EasyCastStructure):
+        class _BlockPrefetch_e__Struct(Structure):
             Minimum: UInt16
             Maximum: UInt16
 DISK_CACHE_RETENTION_PRIORITY = Int32
 EqualPriority: win32more.Windows.Win32.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY = 0
 KeepPrefetchedData: win32more.Windows.Win32.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY = 1
 KeepReadData: win32more.Windows.Win32.System.Ioctl.DISK_CACHE_RETENTION_PRIORITY = 2
-class DISK_CONTROLLER_NUMBER(EasyCastStructure):
+class DISK_CONTROLLER_NUMBER(Structure):
     ControllerNumber: UInt32
     DiskNumber: UInt32
-class DISK_DETECTION_INFO(EasyCastStructure):
+class DISK_DETECTION_INFO(Structure):
     SizeOfDetectInfo: UInt32
     DetectionType: win32more.Windows.Win32.System.Ioctl.DETECTION_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Int13: win32more.Windows.Win32.System.Ioctl.DISK_INT13_INFO
             ExInt13: win32more.Windows.Win32.System.Ioctl.DISK_EX_INT13_INFO
-class DISK_EXTENT(EasyCastStructure):
+class DISK_EXTENT(Structure):
     DiskNumber: UInt32
     StartingOffset: Int64
     ExtentLength: Int64
-class DISK_EX_INT13_INFO(EasyCastStructure):
+class DISK_EX_INT13_INFO(Structure):
     ExBufferSize: UInt16
     ExFlags: UInt16
     ExCylinders: UInt32
@@ -1713,20 +1713,20 @@ class DISK_EX_INT13_INFO(EasyCastStructure):
     ExSectorsPerDrive: UInt64
     ExSectorSize: UInt16
     ExReserved: UInt16
-class DISK_GEOMETRY(EasyCastStructure):
+class DISK_GEOMETRY(Structure):
     Cylinders: Int64
     MediaType: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE
     TracksPerCylinder: UInt32
     SectorsPerTrack: UInt32
     BytesPerSector: UInt32
-class DISK_GEOMETRY_EX(EasyCastStructure):
+class DISK_GEOMETRY_EX(Structure):
     Geometry: win32more.Windows.Win32.System.Ioctl.DISK_GEOMETRY
     DiskSize: Int64
     Data: Byte * 1
-class DISK_GROW_PARTITION(EasyCastStructure):
+class DISK_GROW_PARTITION(Structure):
     PartitionNumber: UInt32
     BytesToGrow: Int64
-class DISK_HISTOGRAM(EasyCastStructure):
+class DISK_HISTOGRAM(Structure):
     DiskSize: Int64
     Start: Int64
     End: Int64
@@ -1738,29 +1738,29 @@ class DISK_HISTOGRAM(EasyCastStructure):
     ReadCount: UInt32
     WriteCount: UInt32
     Histogram: POINTER(win32more.Windows.Win32.System.Ioctl.HISTOGRAM_BUCKET)
-class DISK_INT13_INFO(EasyCastStructure):
+class DISK_INT13_INFO(Structure):
     DriveSelect: UInt16
     MaxCylinders: UInt32
     SectorsPerTrack: UInt16
     MaxHeads: UInt16
     NumberDrives: UInt16
-class DISK_LOGGING(EasyCastStructure):
+class DISK_LOGGING(Structure):
     Function: Byte
     BufferAddress: VoidPtr
     BufferSize: UInt32
-class DISK_PARTITION_INFO(EasyCastStructure):
+class DISK_PARTITION_INFO(Structure):
     SizeOfPartitionInfo: UInt32
     PartitionStyle: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Mbr: _Mbr_e__Struct
         Gpt: _Gpt_e__Struct
-        class _Mbr_e__Struct(EasyCastStructure):
+        class _Mbr_e__Struct(Structure):
             Signature: UInt32
             CheckSum: UInt32
-        class _Gpt_e__Struct(EasyCastStructure):
+        class _Gpt_e__Struct(Structure):
             DiskId: Guid
-class DISK_PERFORMANCE(EasyCastStructure):
+class DISK_PERFORMANCE(Structure):
     BytesRead: Int64
     BytesWritten: Int64
     ReadTime: Int64
@@ -1773,7 +1773,7 @@ class DISK_PERFORMANCE(EasyCastStructure):
     QueryTime: Int64
     StorageDeviceNumber: UInt32
     StorageManagerName: Char * 8
-class DISK_RECORD(EasyCastStructure):
+class DISK_RECORD(Structure):
     ByteOffset: Int64
     StartTime: Int64
     EndTime: Int64
@@ -1781,44 +1781,44 @@ class DISK_RECORD(EasyCastStructure):
     NumberOfBytes: UInt32
     DeviceNumber: Byte
     ReadRequest: win32more.Windows.Win32.Foundation.BOOLEAN
-class DRIVERSTATUS(EasyCastStructure):
+class DRIVERSTATUS(Structure):
     bDriverError: Byte
     bIDEError: Byte
     bReserved: Byte * 2
     dwReserved: UInt32 * 2
     _pack_ = 1
-class DRIVE_LAYOUT_INFORMATION(EasyCastStructure):
+class DRIVE_LAYOUT_INFORMATION(Structure):
     PartitionCount: UInt32
     Signature: UInt32
     PartitionEntry: win32more.Windows.Win32.System.Ioctl.PARTITION_INFORMATION * 1
-class DRIVE_LAYOUT_INFORMATION_EX(EasyCastStructure):
+class DRIVE_LAYOUT_INFORMATION_EX(Structure):
     PartitionStyle: UInt32
     PartitionCount: UInt32
     Anonymous: _Anonymous_e__Union
     PartitionEntry: win32more.Windows.Win32.System.Ioctl.PARTITION_INFORMATION_EX * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.System.Ioctl.DRIVE_LAYOUT_INFORMATION_MBR
         Gpt: win32more.Windows.Win32.System.Ioctl.DRIVE_LAYOUT_INFORMATION_GPT
-class DRIVE_LAYOUT_INFORMATION_GPT(EasyCastStructure):
+class DRIVE_LAYOUT_INFORMATION_GPT(Structure):
     DiskId: Guid
     StartingUsableOffset: Int64
     UsableLength: Int64
     MaxPartitionCount: UInt32
-class DRIVE_LAYOUT_INFORMATION_MBR(EasyCastStructure):
+class DRIVE_LAYOUT_INFORMATION_MBR(Structure):
     Signature: UInt32
     CheckSum: UInt32
-class DUPLICATE_EXTENTS_DATA(EasyCastStructure):
+class DUPLICATE_EXTENTS_DATA(Structure):
     FileHandle: win32more.Windows.Win32.Foundation.HANDLE
     SourceFileOffset: Int64
     TargetFileOffset: Int64
     ByteCount: Int64
 if ARCH in 'X64,ARM64':
-    class DUPLICATE_EXTENTS_DATA32(EasyCastStructure):
+    class DUPLICATE_EXTENTS_DATA32(Structure):
         FileHandle: UInt32
         SourceFileOffset: Int64
         TargetFileOffset: Int64
         ByteCount: Int64
-class DUPLICATE_EXTENTS_DATA_EX(EasyCastStructure):
+class DUPLICATE_EXTENTS_DATA_EX(Structure):
     Size: UIntPtr
     FileHandle: win32more.Windows.Win32.Foundation.HANDLE
     SourceFileOffset: Int64
@@ -1826,7 +1826,7 @@ class DUPLICATE_EXTENTS_DATA_EX(EasyCastStructure):
     ByteCount: Int64
     Flags: UInt32
 if ARCH in 'X64,ARM64':
-    class DUPLICATE_EXTENTS_DATA_EX32(EasyCastStructure):
+    class DUPLICATE_EXTENTS_DATA_EX32(Structure):
         Size: UInt32
         FileHandle: UInt32
         SourceFileOffset: Int64
@@ -1846,7 +1846,7 @@ ChangerDrive: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 4
 ChangerDoor: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 5
 ChangerKeypad: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 6
 ChangerMaxElement: win32more.Windows.Win32.System.Ioctl.ELEMENT_TYPE = 7
-class ENCRYPTED_DATA_INFO(EasyCastStructure):
+class ENCRYPTED_DATA_INFO(Structure):
     StartingFileOffset: UInt64
     OutputBufferOffset: UInt32
     BytesWithinFileSize: UInt32
@@ -1858,10 +1858,10 @@ class ENCRYPTED_DATA_INFO(EasyCastStructure):
     EncryptionFormat: Byte
     NumberOfDataBlocks: UInt16
     DataBlockSize: UInt32 * 1
-class ENCRYPTION_BUFFER(EasyCastStructure):
+class ENCRYPTION_BUFFER(Structure):
     EncryptionOperation: UInt32
     Private: Byte * 1
-class ENCRYPTION_KEY_CTRL_INPUT(EasyCastStructure):
+class ENCRYPTION_KEY_CTRL_INPUT(Structure):
     HeaderSize: UInt32
     StructureSize: UInt32
     KeyOffset: UInt16
@@ -1869,7 +1869,7 @@ class ENCRYPTION_KEY_CTRL_INPUT(EasyCastStructure):
     DplLock: UInt32
     DplUserId: UInt64
     DplCredentialId: UInt64
-class EXFAT_STATISTICS(EasyCastStructure):
+class EXFAT_STATISTICS(Structure):
     CreateHits: UInt32
     SuccessfulCreates: UInt32
     FailedCreates: UInt32
@@ -1879,12 +1879,12 @@ class EXFAT_STATISTICS(EasyCastStructure):
     NonCachedWriteBytes: UInt32
     NonCachedDiskReads: UInt32
     NonCachedDiskWrites: UInt32
-class EXTENDED_ENCRYPTED_DATA_INFO(EasyCastStructure):
+class EXTENDED_ENCRYPTED_DATA_INFO(Structure):
     ExtendedCode: UInt32
     Length: UInt32
     Flags: UInt32
     Reserved: UInt32
-class FAT_STATISTICS(EasyCastStructure):
+class FAT_STATISTICS(Structure):
     CreateHits: UInt32
     SuccessfulCreates: UInt32
     FailedCreates: UInt32
@@ -1894,7 +1894,7 @@ class FAT_STATISTICS(EasyCastStructure):
     NonCachedWriteBytes: UInt32
     NonCachedDiskReads: UInt32
     NonCachedDiskWrites: UInt32
-class FILESYSTEM_STATISTICS(EasyCastStructure):
+class FILESYSTEM_STATISTICS(Structure):
     FileSystemType: win32more.Windows.Win32.System.Ioctl.FILESYSTEM_STATISTICS_TYPE
     Version: UInt16
     SizeOfCompleteStructure: UInt32
@@ -1910,7 +1910,7 @@ class FILESYSTEM_STATISTICS(EasyCastStructure):
     MetaDataWrites: UInt32
     MetaDataWriteBytes: UInt32
     MetaDataDiskWrites: UInt32
-class FILESYSTEM_STATISTICS_EX(EasyCastStructure):
+class FILESYSTEM_STATISTICS_EX(Structure):
     FileSystemType: win32more.Windows.Win32.System.Ioctl.FILESYSTEM_STATISTICS_TYPE
     Version: UInt16
     SizeOfCompleteStructure: UInt32
@@ -1930,23 +1930,23 @@ FILESYSTEM_STATISTICS_TYPE = UInt16
 FILESYSTEM_STATISTICS_TYPE_EXFAT: win32more.Windows.Win32.System.Ioctl.FILESYSTEM_STATISTICS_TYPE = 3
 FILESYSTEM_STATISTICS_TYPE_FAT: win32more.Windows.Win32.System.Ioctl.FILESYSTEM_STATISTICS_TYPE = 2
 FILESYSTEM_STATISTICS_TYPE_NTFS: win32more.Windows.Win32.System.Ioctl.FILESYSTEM_STATISTICS_TYPE = 1
-class FILE_ALLOCATED_RANGE_BUFFER(EasyCastStructure):
+class FILE_ALLOCATED_RANGE_BUFFER(Structure):
     FileOffset: Int64
     Length: Int64
-class FILE_DESIRED_STORAGE_CLASS_INFORMATION(EasyCastStructure):
+class FILE_DESIRED_STORAGE_CLASS_INFORMATION(Structure):
     Class: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS
     Flags: UInt32
-class FILE_FS_PERSISTENT_VOLUME_INFORMATION(EasyCastStructure):
+class FILE_FS_PERSISTENT_VOLUME_INFORMATION(Structure):
     VolumeFlags: UInt32
     FlagMask: UInt32
     Version: UInt32
     Reserved: UInt32
-class FILE_INITIATE_REPAIR_OUTPUT_BUFFER(EasyCastStructure):
+class FILE_INITIATE_REPAIR_OUTPUT_BUFFER(Structure):
     Hint1: UInt64
     Hint2: UInt64
     Clsn: UInt64
     Status: UInt32
-class FILE_LAYOUT_ENTRY(EasyCastStructure):
+class FILE_LAYOUT_ENTRY(Structure):
     Version: UInt32
     NextFileOffset: UInt32
     Flags: UInt32
@@ -1956,63 +1956,63 @@ class FILE_LAYOUT_ENTRY(EasyCastStructure):
     FirstStreamOffset: UInt32
     ExtraInfoOffset: UInt32
     ExtraInfoLength: UInt32
-class FILE_LAYOUT_INFO_ENTRY(EasyCastStructure):
+class FILE_LAYOUT_INFO_ENTRY(Structure):
     BasicInformation: _BasicInformation_e__Struct
     OwnerId: UInt32
     SecurityId: UInt32
     Usn: Int64
     StorageReserveId: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID
-    class _BasicInformation_e__Struct(EasyCastStructure):
+    class _BasicInformation_e__Struct(Structure):
         CreationTime: Int64
         LastAccessTime: Int64
         LastWriteTime: Int64
         ChangeTime: Int64
         FileAttributes: UInt32
-class FILE_LAYOUT_NAME_ENTRY(EasyCastStructure):
+class FILE_LAYOUT_NAME_ENTRY(Structure):
     NextNameOffset: UInt32
     Flags: UInt32
     ParentFileReferenceNumber: UInt64
     FileNameLength: UInt32
     Reserved: UInt32
     FileName: Char * 1
-class FILE_LEVEL_TRIM(EasyCastStructure):
+class FILE_LEVEL_TRIM(Structure):
     Key: UInt32
     NumRanges: UInt32
     Ranges: win32more.Windows.Win32.System.Ioctl.FILE_LEVEL_TRIM_RANGE * 1
-class FILE_LEVEL_TRIM_OUTPUT(EasyCastStructure):
+class FILE_LEVEL_TRIM_OUTPUT(Structure):
     NumRangesProcessed: UInt32
-class FILE_LEVEL_TRIM_RANGE(EasyCastStructure):
+class FILE_LEVEL_TRIM_RANGE(Structure):
     Offset: UInt64
     Length: UInt64
-class FILE_MAKE_COMPATIBLE_BUFFER(EasyCastStructure):
+class FILE_MAKE_COMPATIBLE_BUFFER(Structure):
     CloseDisc: win32more.Windows.Win32.Foundation.BOOLEAN
-class FILE_OBJECTID_BUFFER(EasyCastStructure):
+class FILE_OBJECTID_BUFFER(Structure):
     ObjectId: Byte * 16
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ExtendedInfo: Byte * 48
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             BirthVolumeId: Byte * 16
             BirthObjectId: Byte * 16
             DomainId: Byte * 16
-class FILE_PREFETCH(EasyCastStructure):
+class FILE_PREFETCH(Structure):
     Type: UInt32
     Count: UInt32
     Prefetch: UInt64 * 1
-class FILE_PREFETCH_EX(EasyCastStructure):
+class FILE_PREFETCH_EX(Structure):
     Type: UInt32
     Count: UInt32
     Context: VoidPtr
     Prefetch: UInt64 * 1
-class FILE_PROVIDER_EXTERNAL_INFO_V0(EasyCastStructure):
+class FILE_PROVIDER_EXTERNAL_INFO_V0(Structure):
     Version: UInt32
     Algorithm: UInt32
-class FILE_PROVIDER_EXTERNAL_INFO_V1(EasyCastStructure):
+class FILE_PROVIDER_EXTERNAL_INFO_V1(Structure):
     Version: UInt32
     Algorithm: UInt32
     Flags: UInt32
-class FILE_QUERY_ON_DISK_VOL_INFO_BUFFER(EasyCastStructure):
+class FILE_QUERY_ON_DISK_VOL_INFO_BUFFER(Structure):
     DirectoryCount: Int64
     FileCount: Int64
     FsFormatMajVersion: UInt16
@@ -2024,34 +2024,34 @@ class FILE_QUERY_ON_DISK_VOL_INFO_BUFFER(EasyCastStructure):
     AbstractInfo: Char * 34
     FormattingImplementationInfo: Char * 34
     LastModifyingImplementationInfo: Char * 34
-class FILE_QUERY_SPARING_BUFFER(EasyCastStructure):
+class FILE_QUERY_SPARING_BUFFER(Structure):
     SparingUnitBytes: UInt32
     SoftwareSparing: win32more.Windows.Win32.Foundation.BOOLEAN
     TotalSpareBlocks: UInt32
     FreeSpareBlocks: UInt32
-class FILE_REFERENCE_RANGE(EasyCastStructure):
+class FILE_REFERENCE_RANGE(Structure):
     StartingFileReferenceNumber: UInt64
     EndingFileReferenceNumber: UInt64
-class FILE_REGION_INFO(EasyCastStructure):
+class FILE_REGION_INFO(Structure):
     FileOffset: Int64
     Length: Int64
     Usage: UInt32
     Reserved: UInt32
-class FILE_REGION_INPUT(EasyCastStructure):
+class FILE_REGION_INPUT(Structure):
     FileOffset: Int64
     Length: Int64
     DesiredUsage: UInt32
-class FILE_REGION_OUTPUT(EasyCastStructure):
+class FILE_REGION_OUTPUT(Structure):
     Flags: UInt32
     TotalRegionEntryCount: UInt32
     RegionEntryCount: UInt32
     Reserved: UInt32
     Region: win32more.Windows.Win32.System.Ioctl.FILE_REGION_INFO * 1
-class FILE_SET_DEFECT_MGMT_BUFFER(EasyCastStructure):
+class FILE_SET_DEFECT_MGMT_BUFFER(Structure):
     Disable: win32more.Windows.Win32.Foundation.BOOLEAN
-class FILE_SET_SPARSE_BUFFER(EasyCastStructure):
+class FILE_SET_SPARSE_BUFFER(Structure):
     SetSparse: win32more.Windows.Win32.Foundation.BOOLEAN
-class FILE_STORAGE_TIER(EasyCastStructure):
+class FILE_STORAGE_TIER(Structure):
     Id: Guid
     Name: Char * 256
     Description: Char * 256
@@ -2072,32 +2072,32 @@ FileStorageTierMediaTypeDisk: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_
 FileStorageTierMediaTypeSsd: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 2
 FileStorageTierMediaTypeScm: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 4
 FileStorageTierMediaTypeMax: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_MEDIA_TYPE = 5
-class FILE_STORAGE_TIER_REGION(EasyCastStructure):
+class FILE_STORAGE_TIER_REGION(Structure):
     TierId: Guid
     Offset: UInt64
     Length: UInt64
-class FILE_SYSTEM_RECOGNITION_INFORMATION(EasyCastStructure):
+class FILE_SYSTEM_RECOGNITION_INFORMATION(Structure):
     FileSystem: win32more.Windows.Win32.Foundation.CHAR * 9
-class FILE_TYPE_NOTIFICATION_INPUT(EasyCastStructure):
+class FILE_TYPE_NOTIFICATION_INPUT(Structure):
     Flags: UInt32
     NumFileTypeIDs: UInt32
     FileTypeID: Guid * 1
-class FILE_ZERO_DATA_INFORMATION(EasyCastStructure):
+class FILE_ZERO_DATA_INFORMATION(Structure):
     FileOffset: Int64
     BeyondFinalZero: Int64
-class FILE_ZERO_DATA_INFORMATION_EX(EasyCastStructure):
+class FILE_ZERO_DATA_INFORMATION_EX(Structure):
     FileOffset: Int64
     BeyondFinalZero: Int64
     Flags: UInt32
-class FIND_BY_SID_DATA(EasyCastStructure):
+class FIND_BY_SID_DATA(Structure):
     Restart: UInt32
     Sid: win32more.Windows.Win32.Security.SID
-class FIND_BY_SID_OUTPUT(EasyCastStructure):
+class FIND_BY_SID_OUTPUT(Structure):
     NextEntryOffset: UInt32
     FileIndex: UInt32
     FileNameLength: UInt32
     FileName: Char * 1
-class FORMAT_EX_PARAMETERS(EasyCastStructure):
+class FORMAT_EX_PARAMETERS(Structure):
     MediaType: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE
     StartCylinderNumber: UInt32
     EndCylinderNumber: UInt32
@@ -2106,50 +2106,50 @@ class FORMAT_EX_PARAMETERS(EasyCastStructure):
     FormatGapLength: UInt16
     SectorsPerTrack: UInt16
     SectorNumber: UInt16 * 1
-class FORMAT_PARAMETERS(EasyCastStructure):
+class FORMAT_PARAMETERS(Structure):
     MediaType: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE
     StartCylinderNumber: UInt32
     EndCylinderNumber: UInt32
     StartHeadNumber: UInt32
     EndHeadNumber: UInt32
-class FSCTL_GET_INTEGRITY_INFORMATION_BUFFER(EasyCastStructure):
+class FSCTL_GET_INTEGRITY_INFORMATION_BUFFER(Structure):
     ChecksumAlgorithm: UInt16
     Reserved: UInt16
     Flags: UInt32
     ChecksumChunkSizeInBytes: UInt32
     ClusterSizeInBytes: UInt32
-class FSCTL_OFFLOAD_READ_INPUT(EasyCastStructure):
+class FSCTL_OFFLOAD_READ_INPUT(Structure):
     Size: UInt32
     Flags: UInt32
     TokenTimeToLive: UInt32
     Reserved: UInt32
     FileOffset: UInt64
     CopyLength: UInt64
-class FSCTL_OFFLOAD_READ_OUTPUT(EasyCastStructure):
+class FSCTL_OFFLOAD_READ_OUTPUT(Structure):
     Size: UInt32
     Flags: UInt32
     TransferLength: UInt64
     Token: Byte * 512
-class FSCTL_OFFLOAD_WRITE_INPUT(EasyCastStructure):
+class FSCTL_OFFLOAD_WRITE_INPUT(Structure):
     Size: UInt32
     Flags: UInt32
     FileOffset: UInt64
     CopyLength: UInt64
     TransferOffset: UInt64
     Token: Byte * 512
-class FSCTL_OFFLOAD_WRITE_OUTPUT(EasyCastStructure):
+class FSCTL_OFFLOAD_WRITE_OUTPUT(Structure):
     Size: UInt32
     Flags: UInt32
     LengthWritten: UInt64
-class FSCTL_QUERY_FAT_BPB_BUFFER(EasyCastStructure):
+class FSCTL_QUERY_FAT_BPB_BUFFER(Structure):
     First0x24BytesOfBootSector: Byte * 36
-class FSCTL_QUERY_REGION_INFO_INPUT(EasyCastStructure):
+class FSCTL_QUERY_REGION_INFO_INPUT(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
     NumberOfTierIds: UInt32
     TierIds: Guid * 1
-class FSCTL_QUERY_REGION_INFO_OUTPUT(EasyCastStructure):
+class FSCTL_QUERY_REGION_INFO_OUTPUT(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
@@ -2158,18 +2158,18 @@ class FSCTL_QUERY_REGION_INFO_OUTPUT(EasyCastStructure):
     TotalNumberOfRegions: UInt32
     NumberOfRegionsReturned: UInt32
     Regions: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_REGION * 1
-class FSCTL_QUERY_STORAGE_CLASSES_OUTPUT(EasyCastStructure):
+class FSCTL_QUERY_STORAGE_CLASSES_OUTPUT(Structure):
     Version: UInt32
     Size: UInt32
     Flags: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_FLAGS
     TotalNumberOfTiers: UInt32
     NumberOfTiersReturned: UInt32
     Tiers: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER * 1
-class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER(EasyCastStructure):
+class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER(Structure):
     ChecksumAlgorithm: UInt16
     Reserved: UInt16
     Flags: UInt32
-class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX(EasyCastStructure):
+class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX(Structure):
     EnableIntegrity: Byte
     KeepIntegrityStateUnchanged: Byte
     Reserved: UInt16
@@ -2179,11 +2179,11 @@ class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX(EasyCastStructure):
 FS_BPIO_INFLAGS = Int32
 FSBPIO_INFL_None: win32more.Windows.Win32.System.Ioctl.FS_BPIO_INFLAGS = 0
 FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY: win32more.Windows.Win32.System.Ioctl.FS_BPIO_INFLAGS = 1
-class FS_BPIO_INFO(EasyCastStructure):
+class FS_BPIO_INFO(Structure):
     ActiveBypassIoCount: UInt32
     StorageDriverNameLen: UInt16
     StorageDriverName: Char * 32
-class FS_BPIO_INPUT(EasyCastStructure):
+class FS_BPIO_INPUT(Structure):
     Operation: win32more.Windows.Win32.System.Ioctl.FS_BPIO_OPERATIONS
     InFlags: win32more.Windows.Win32.System.Ioctl.FS_BPIO_INFLAGS
     Reserved1: UInt64
@@ -2204,25 +2204,25 @@ FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED: win32more.Windows.Win32.System.Ioctl.FS
 FSBPIO_OUTFL_STREAM_BYPASS_PAUSED: win32more.Windows.Win32.System.Ioctl.FS_BPIO_OUTFLAGS = 2
 FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED: win32more.Windows.Win32.System.Ioctl.FS_BPIO_OUTFLAGS = 4
 FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER: win32more.Windows.Win32.System.Ioctl.FS_BPIO_OUTFLAGS = 8
-class FS_BPIO_OUTPUT(EasyCastStructure):
+class FS_BPIO_OUTPUT(Structure):
     Operation: win32more.Windows.Win32.System.Ioctl.FS_BPIO_OPERATIONS
     OutFlags: win32more.Windows.Win32.System.Ioctl.FS_BPIO_OUTFLAGS
     Reserved1: UInt64
     Reserved2: UInt64
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Enable: win32more.Windows.Win32.System.Ioctl.FS_BPIO_RESULTS
         Query: win32more.Windows.Win32.System.Ioctl.FS_BPIO_RESULTS
         VolumeStackResume: win32more.Windows.Win32.System.Ioctl.FS_BPIO_RESULTS
         StreamResume: win32more.Windows.Win32.System.Ioctl.FS_BPIO_RESULTS
         GetInfo: win32more.Windows.Win32.System.Ioctl.FS_BPIO_INFO
-class FS_BPIO_RESULTS(EasyCastStructure):
+class FS_BPIO_RESULTS(Structure):
     OpStatus: UInt32
     FailingDriverNameLen: UInt16
     FailingDriverName: Char * 32
     FailureReasonLen: UInt16
     FailureReason: Char * 128
-class GETVERSIONINPARAMS(EasyCastStructure):
+class GETVERSIONINPARAMS(Structure):
     bVersion: Byte
     bRevision: Byte
     bReserved: Byte
@@ -2230,7 +2230,7 @@ class GETVERSIONINPARAMS(EasyCastStructure):
     fCapabilities: UInt32
     dwReserved: UInt32 * 4
     _pack_ = 1
-class GET_CHANGER_PARAMETERS(EasyCastStructure):
+class GET_CHANGER_PARAMETERS(Structure):
     Size: UInt32
     NumberTransportElements: UInt16
     NumberStorageElements: UInt16
@@ -2271,24 +2271,24 @@ CHANGER_PREDISMOUNT_ALIGN_TO_SLOT: win32more.Windows.Win32.System.Ioctl.GET_CHAN
 CHANGER_RTN_MEDIA_TO_ORIGINAL_ADDR: win32more.Windows.Win32.System.Ioctl.GET_CHANGER_PARAMETERS_FEATURES1 = 2147483680
 CHANGER_SLOTS_USE_TRAYS: win32more.Windows.Win32.System.Ioctl.GET_CHANGER_PARAMETERS_FEATURES1 = 2147483664
 CHANGER_TRUE_EXCHANGE_CAPABLE: win32more.Windows.Win32.System.Ioctl.GET_CHANGER_PARAMETERS_FEATURES1 = 2147483656
-class GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST(EasyCastStructure):
+class GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST(Structure):
     Version: UInt32
     Size: UInt32
     RequestDataType: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE
     RequestDataSet: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_SET
-class GET_DISK_ATTRIBUTES(EasyCastStructure):
+class GET_DISK_ATTRIBUTES(Structure):
     Version: UInt32
     Reserved1: UInt32
     Attributes: UInt64
-class GET_FILTER_FILE_IDENTIFIER_INPUT(EasyCastStructure):
+class GET_FILTER_FILE_IDENTIFIER_INPUT(Structure):
     AltitudeLength: UInt16
     Altitude: Char * 1
-class GET_FILTER_FILE_IDENTIFIER_OUTPUT(EasyCastStructure):
+class GET_FILTER_FILE_IDENTIFIER_OUTPUT(Structure):
     FilterFileIdentifierLength: UInt16
     FilterFileIdentifier: Byte * 1
-class GET_LENGTH_INFORMATION(EasyCastStructure):
+class GET_LENGTH_INFORMATION(Structure):
     Length: Int64
-class GET_MEDIA_TYPES(EasyCastStructure):
+class GET_MEDIA_TYPES(Structure):
     DeviceType: UInt32
     MediaInfoCount: UInt32
     MediaInfo: win32more.Windows.Win32.System.Ioctl.DEVICE_MEDIA_INFO * 1
@@ -2298,14 +2298,14 @@ GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER: win32more.Windows.Win32.System.Ioctl.G
 GPT_BASIC_DATA_ATTRIBUTE_HIDDEN: win32more.Windows.Win32.System.Ioctl.GPT_ATTRIBUTES = 4611686018427387904
 GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY: win32more.Windows.Win32.System.Ioctl.GPT_ATTRIBUTES = 2305843009213693952
 GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY: win32more.Windows.Win32.System.Ioctl.GPT_ATTRIBUTES = 1152921504606846976
-class GP_LOG_PAGE_DESCRIPTOR(EasyCastStructure):
+class GP_LOG_PAGE_DESCRIPTOR(Structure):
     LogAddress: UInt16
     LogSectors: UInt16
     _pack_ = 1
-class HISTOGRAM_BUCKET(EasyCastStructure):
+class HISTOGRAM_BUCKET(Structure):
     Reads: UInt32
     Writes: UInt32
-class IDEREGS(EasyCastStructure):
+class IDEREGS(Structure):
     bFeaturesReg: Byte
     bSectorCountReg: Byte
     bSectorNumberReg: Byte
@@ -2314,43 +2314,43 @@ class IDEREGS(EasyCastStructure):
     bDriveHeadReg: Byte
     bCommandReg: Byte
     bReserved: Byte
-class IO_IRP_EXT_TRACK_OFFSET_HEADER(EasyCastStructure):
+class IO_IRP_EXT_TRACK_OFFSET_HEADER(Structure):
     Validation: UInt16
     Flags: UInt16
     TrackedOffsetCallback: win32more.Windows.Win32.System.Ioctl.PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK
 LMR_QUERY_INFO_CLASS = Int32
 LMRQuerySessionInfo: win32more.Windows.Win32.System.Ioctl.LMR_QUERY_INFO_CLASS = 1
-class LMR_QUERY_INFO_PARAM(EasyCastStructure):
+class LMR_QUERY_INFO_PARAM(Structure):
     Operation: win32more.Windows.Win32.System.Ioctl.LMR_QUERY_INFO_CLASS
-class LMR_QUERY_SESSION_INFO(EasyCastStructure):
+class LMR_QUERY_SESSION_INFO(Structure):
     SessionId: UInt64
-class LOOKUP_STREAM_FROM_CLUSTER_ENTRY(EasyCastStructure):
+class LOOKUP_STREAM_FROM_CLUSTER_ENTRY(Structure):
     OffsetToNext: UInt32
     Flags: UInt32
     Reserved: Int64
     Cluster: Int64
     FileName: Char * 1
-class LOOKUP_STREAM_FROM_CLUSTER_INPUT(EasyCastStructure):
+class LOOKUP_STREAM_FROM_CLUSTER_INPUT(Structure):
     Flags: UInt32
     NumberOfClusters: UInt32
     Cluster: Int64 * 1
-class LOOKUP_STREAM_FROM_CLUSTER_OUTPUT(EasyCastStructure):
+class LOOKUP_STREAM_FROM_CLUSTER_OUTPUT(Structure):
     Offset: UInt32
     NumberOfMatches: UInt32
     BufferSizeRequired: UInt32
-class MARK_HANDLE_INFO(EasyCastStructure):
+class MARK_HANDLE_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     VolumeHandle: win32more.Windows.Win32.Foundation.HANDLE
     HandleInfo: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         UsnSourceInfo: UInt32
         CopyNumber: UInt32
 if ARCH in 'X64,ARM64':
-    class MARK_HANDLE_INFO32(EasyCastStructure):
+    class MARK_HANDLE_INFO32(Structure):
         Anonymous: _Anonymous_e__Union
         VolumeHandle: UInt32
         HandleInfo: UInt32
-        class _Anonymous_e__Union(EasyCastUnion):
+        class _Anonymous_e__Union(Union):
             UsnSourceInfo: UInt32
             CopyNumber: UInt32
 MEDIA_TYPE = Int32
@@ -2380,32 +2380,32 @@ F8_256_128: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 22
 F3_200Mb_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 23
 F3_240M_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 24
 F3_32M_512: win32more.Windows.Win32.System.Ioctl.MEDIA_TYPE = 25
-class MFT_ENUM_DATA_V0(EasyCastStructure):
+class MFT_ENUM_DATA_V0(Structure):
     StartFileReferenceNumber: UInt64
     LowUsn: Int64
     HighUsn: Int64
-class MFT_ENUM_DATA_V1(EasyCastStructure):
+class MFT_ENUM_DATA_V1(Structure):
     StartFileReferenceNumber: UInt64
     LowUsn: Int64
     HighUsn: Int64
     MinMajorVersion: UInt16
     MaxMajorVersion: UInt16
-class MOVE_FILE_DATA(EasyCastStructure):
+class MOVE_FILE_DATA(Structure):
     FileHandle: win32more.Windows.Win32.Foundation.HANDLE
     StartingVcn: Int64
     StartingLcn: Int64
     ClusterCount: UInt32
 if ARCH in 'X64,ARM64':
-    class MOVE_FILE_DATA32(EasyCastStructure):
+    class MOVE_FILE_DATA32(Structure):
         FileHandle: UInt32
         StartingVcn: Int64
         StartingLcn: Int64
         ClusterCount: UInt32
-class MOVE_FILE_RECORD_DATA(EasyCastStructure):
+class MOVE_FILE_RECORD_DATA(Structure):
     FileHandle: win32more.Windows.Win32.Foundation.HANDLE
     SourceFileRecord: Int64
     TargetFileRecord: Int64
-class NTFS_EXTENDED_VOLUME_DATA(EasyCastStructure):
+class NTFS_EXTENDED_VOLUME_DATA(Structure):
     ByteCount: UInt32
     MajorVersion: UInt16
     MinorVersion: UInt16
@@ -2416,13 +2416,13 @@ class NTFS_EXTENDED_VOLUME_DATA(EasyCastStructure):
     MaxDeviceTrimByteCount: UInt32
     MaxVolumeTrimExtentCount: UInt32
     MaxVolumeTrimByteCount: UInt32
-class NTFS_FILE_RECORD_INPUT_BUFFER(EasyCastStructure):
+class NTFS_FILE_RECORD_INPUT_BUFFER(Structure):
     FileReferenceNumber: Int64
-class NTFS_FILE_RECORD_OUTPUT_BUFFER(EasyCastStructure):
+class NTFS_FILE_RECORD_OUTPUT_BUFFER(Structure):
     FileReferenceNumber: Int64
     FileRecordLength: UInt32
     FileRecordBuffer: Byte * 1
-class NTFS_STATISTICS(EasyCastStructure):
+class NTFS_STATISTICS(Structure):
     LogFileFullExceptions: UInt32
     OtherExceptions: UInt32
     MftReads: UInt32
@@ -2469,26 +2469,26 @@ class NTFS_STATISTICS(EasyCastStructure):
     LogFileWriteBytes: UInt32
     Allocate: _Allocate_e__Struct
     DiskResourcesExhausted: UInt32
-    class _MftWritesUserLevel_e__Struct(EasyCastStructure):
+    class _MftWritesUserLevel_e__Struct(Structure):
         Write: UInt16
         Create: UInt16
         SetInfo: UInt16
         Flush: UInt16
-    class _Mft2WritesUserLevel_e__Struct(EasyCastStructure):
+    class _Mft2WritesUserLevel_e__Struct(Structure):
         Write: UInt16
         Create: UInt16
         SetInfo: UInt16
         Flush: UInt16
-    class _BitmapWritesUserLevel_e__Struct(EasyCastStructure):
+    class _BitmapWritesUserLevel_e__Struct(Structure):
         Write: UInt16
         Create: UInt16
         SetInfo: UInt16
-    class _MftBitmapWritesUserLevel_e__Struct(EasyCastStructure):
+    class _MftBitmapWritesUserLevel_e__Struct(Structure):
         Write: UInt16
         Create: UInt16
         SetInfo: UInt16
         Flush: UInt16
-    class _Allocate_e__Struct(EasyCastStructure):
+    class _Allocate_e__Struct(Structure):
         Calls: UInt32
         Clusters: UInt32
         Hints: UInt32
@@ -2499,7 +2499,7 @@ class NTFS_STATISTICS(EasyCastStructure):
         CacheClusters: UInt32
         CacheMiss: UInt32
         CacheMissClusters: UInt32
-class NTFS_STATISTICS_EX(EasyCastStructure):
+class NTFS_STATISTICS_EX(Structure):
     LogFileFullExceptions: UInt32
     OtherExceptions: UInt32
     MftReads: UInt64
@@ -2557,27 +2557,27 @@ class NTFS_STATISTICS_EX(EasyCastStructure):
     NtfsFillStatInfoFromMftRecordCalledCount: UInt64
     NtfsFillStatInfoFromMftRecordBailedBecauseOfAttributeListCount: UInt64
     NtfsFillStatInfoFromMftRecordBailedBecauseOfNonResReparsePointCount: UInt64
-    class _MftWritesUserLevel_e__Struct(EasyCastStructure):
+    class _MftWritesUserLevel_e__Struct(Structure):
         Write: UInt32
         Create: UInt32
         SetInfo: UInt32
         Flush: UInt32
-    class _Mft2WritesUserLevel_e__Struct(EasyCastStructure):
+    class _Mft2WritesUserLevel_e__Struct(Structure):
         Write: UInt32
         Create: UInt32
         SetInfo: UInt32
         Flush: UInt32
-    class _BitmapWritesUserLevel_e__Struct(EasyCastStructure):
+    class _BitmapWritesUserLevel_e__Struct(Structure):
         Write: UInt32
         Create: UInt32
         SetInfo: UInt32
         Flush: UInt32
-    class _MftBitmapWritesUserLevel_e__Struct(EasyCastStructure):
+    class _MftBitmapWritesUserLevel_e__Struct(Structure):
         Write: UInt32
         Create: UInt32
         SetInfo: UInt32
         Flush: UInt32
-    class _Allocate_e__Struct(EasyCastStructure):
+    class _Allocate_e__Struct(Structure):
         Calls: UInt32
         RunsReturned: UInt32
         Hints: UInt32
@@ -2588,7 +2588,7 @@ class NTFS_STATISTICS_EX(EasyCastStructure):
         HintsClusters: UInt64
         CacheClusters: UInt64
         CacheMissClusters: UInt64
-class NTFS_VOLUME_DATA_BUFFER(EasyCastStructure):
+class NTFS_VOLUME_DATA_BUFFER(Structure):
     VolumeSerialNumber: Int64
     NumberSectors: Int64
     TotalClusters: Int64
@@ -2603,7 +2603,7 @@ class NTFS_VOLUME_DATA_BUFFER(EasyCastStructure):
     Mft2StartLcn: Int64
     MftZoneStart: Int64
     MftZoneEnd: Int64
-class PARTITION_INFORMATION(EasyCastStructure):
+class PARTITION_INFORMATION(Structure):
     StartingOffset: Int64
     PartitionLength: Int64
     HiddenSectors: UInt32
@@ -2612,7 +2612,7 @@ class PARTITION_INFORMATION(EasyCastStructure):
     BootIndicator: win32more.Windows.Win32.Foundation.BOOLEAN
     RecognizedPartition: win32more.Windows.Win32.Foundation.BOOLEAN
     RewritePartition: win32more.Windows.Win32.Foundation.BOOLEAN
-class PARTITION_INFORMATION_EX(EasyCastStructure):
+class PARTITION_INFORMATION_EX(Structure):
     PartitionStyle: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE
     StartingOffset: Int64
     PartitionLength: Int64
@@ -2620,15 +2620,15 @@ class PARTITION_INFORMATION_EX(EasyCastStructure):
     RewritePartition: win32more.Windows.Win32.Foundation.BOOLEAN
     IsServicePartition: win32more.Windows.Win32.Foundation.BOOLEAN
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.System.Ioctl.PARTITION_INFORMATION_MBR
         Gpt: win32more.Windows.Win32.System.Ioctl.PARTITION_INFORMATION_GPT
-class PARTITION_INFORMATION_GPT(EasyCastStructure):
+class PARTITION_INFORMATION_GPT(Structure):
     PartitionType: Guid
     PartitionId: Guid
     Attributes: win32more.Windows.Win32.System.Ioctl.GPT_ATTRIBUTES
     Name: Char * 36
-class PARTITION_INFORMATION_MBR(EasyCastStructure):
+class PARTITION_INFORMATION_MBR(Structure):
     PartitionType: Byte
     BootIndicator: win32more.Windows.Win32.Foundation.BOOLEAN
     RecognizedPartition: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2638,28 +2638,28 @@ PARTITION_STYLE = Int32
 PARTITION_STYLE_MBR: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE = 0
 PARTITION_STYLE_GPT: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE = 1
 PARTITION_STYLE_RAW: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE = 2
-class PATHNAME_BUFFER(EasyCastStructure):
+class PATHNAME_BUFFER(Structure):
     PathNameLength: UInt32
     Name: Char * 1
-class PERF_BIN(EasyCastStructure):
+class PERF_BIN(Structure):
     NumberOfBins: UInt32
     TypeOfBin: UInt32
     BinsRanges: win32more.Windows.Win32.System.Ioctl.BIN_RANGE * 1
-class PERSISTENT_RESERVE_COMMAND(EasyCastStructure):
+class PERSISTENT_RESERVE_COMMAND(Structure):
     Version: UInt32
     Size: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         PR_IN: _PR_IN_e__Struct
         PR_OUT: _PR_OUT_e__Struct
-        class _PR_IN_e__Struct(EasyCastStructure):
+        class _PR_IN_e__Struct(Structure):
             _bitfield: Byte
             AllocationLength: UInt16
-        class _PR_OUT_e__Struct(EasyCastStructure):
+        class _PR_OUT_e__Struct(Structure):
             _bitfield1: Byte
             _bitfield2: Byte
             ParameterList: Byte * 1
-class PHYSICAL_ELEMENT_STATUS(EasyCastStructure):
+class PHYSICAL_ELEMENT_STATUS(Structure):
     Version: UInt32
     Size: UInt32
     DescriptorCount: UInt32
@@ -2667,7 +2667,7 @@ class PHYSICAL_ELEMENT_STATUS(EasyCastStructure):
     ElementIdentifierBeingDepoped: UInt32
     Reserved: UInt32
     Descriptors: win32more.Windows.Win32.System.Ioctl.PHYSICAL_ELEMENT_STATUS_DESCRIPTOR * 1
-class PHYSICAL_ELEMENT_STATUS_DESCRIPTOR(EasyCastStructure):
+class PHYSICAL_ELEMENT_STATUS_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     ElementIdentifier: UInt32
@@ -2676,7 +2676,7 @@ class PHYSICAL_ELEMENT_STATUS_DESCRIPTOR(EasyCastStructure):
     Reserved1: Byte * 2
     AssociatedCapacity: UInt64
     Reserved2: UInt32 * 4
-class PHYSICAL_ELEMENT_STATUS_REQUEST(EasyCastStructure):
+class PHYSICAL_ELEMENT_STATUS_REQUEST(Structure):
     Version: UInt32
     Size: UInt32
     StartingElement: UInt32
@@ -2685,25 +2685,25 @@ class PHYSICAL_ELEMENT_STATUS_REQUEST(EasyCastStructure):
     Reserved: Byte * 2
 @winfunctype_pointer
 def PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK(SourceContext: POINTER(win32more.Windows.Win32.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER), TargetContext: POINTER(win32more.Windows.Win32.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER), RelativeOffset: Int64) -> Void: ...
-class PLEX_READ_DATA_REQUEST(EasyCastStructure):
+class PLEX_READ_DATA_REQUEST(Structure):
     ByteOffset: Int64
     ByteLength: UInt32
     PlexNumber: UInt32
-class PREVENT_MEDIA_REMOVAL(EasyCastStructure):
+class PREVENT_MEDIA_REMOVAL(Structure):
     PreventMediaRemoval: win32more.Windows.Win32.Foundation.BOOLEAN
-class QUERY_BAD_RANGES_INPUT(EasyCastStructure):
+class QUERY_BAD_RANGES_INPUT(Structure):
     Flags: UInt32
     NumRanges: UInt32
     Ranges: win32more.Windows.Win32.System.Ioctl.QUERY_BAD_RANGES_INPUT_RANGE * 1
-class QUERY_BAD_RANGES_INPUT_RANGE(EasyCastStructure):
+class QUERY_BAD_RANGES_INPUT_RANGE(Structure):
     StartOffset: UInt64
     LengthInBytes: UInt64
-class QUERY_BAD_RANGES_OUTPUT(EasyCastStructure):
+class QUERY_BAD_RANGES_OUTPUT(Structure):
     Flags: UInt32
     NumBadRanges: UInt32
     NextOffsetToLookUp: UInt64
     BadRanges: win32more.Windows.Win32.System.Ioctl.QUERY_BAD_RANGES_OUTPUT_RANGE * 1
-class QUERY_BAD_RANGES_OUTPUT_RANGE(EasyCastStructure):
+class QUERY_BAD_RANGES_OUTPUT_RANGE(Structure):
     Flags: UInt32
     Reserved: UInt32
     StartOffset: UInt64
@@ -2714,38 +2714,38 @@ QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS: win32more.Windows.Win32.System.Ioctl.QUE
 QUERY_FILE_LAYOUT_FILTER_TYPE_FILEID: win32more.Windows.Win32.System.Ioctl.QUERY_FILE_LAYOUT_FILTER_TYPE = 2
 QUERY_FILE_LAYOUT_FILTER_TYPE_STORAGE_RESERVE_ID: win32more.Windows.Win32.System.Ioctl.QUERY_FILE_LAYOUT_FILTER_TYPE = 3
 QUERY_FILE_LAYOUT_NUM_FILTER_TYPES: win32more.Windows.Win32.System.Ioctl.QUERY_FILE_LAYOUT_FILTER_TYPE = 4
-class QUERY_FILE_LAYOUT_INPUT(EasyCastStructure):
+class QUERY_FILE_LAYOUT_INPUT(Structure):
     Anonymous: _Anonymous_e__Union
     Flags: UInt32
     FilterType: win32more.Windows.Win32.System.Ioctl.QUERY_FILE_LAYOUT_FILTER_TYPE
     Reserved: UInt32
     Filter: _Filter_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         FilterEntryCount: UInt32
         NumberOfPairs: UInt32
-    class _Filter_e__Union(EasyCastUnion):
+    class _Filter_e__Union(Union):
         ClusterRanges: win32more.Windows.Win32.System.Ioctl.CLUSTER_RANGE * 1
         FileReferenceRanges: win32more.Windows.Win32.System.Ioctl.FILE_REFERENCE_RANGE * 1
         StorageReserveIds: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID * 1
-class QUERY_FILE_LAYOUT_OUTPUT(EasyCastStructure):
+class QUERY_FILE_LAYOUT_OUTPUT(Structure):
     FileEntryCount: UInt32
     FirstFileOffset: UInt32
     Flags: UInt32
     Reserved: UInt32
-class READ_ELEMENT_ADDRESS_INFO(EasyCastStructure):
+class READ_ELEMENT_ADDRESS_INFO(Structure):
     NumberOfElements: UInt32
     ElementStatus: win32more.Windows.Win32.System.Ioctl.CHANGER_ELEMENT_STATUS * 1
-class READ_FILE_USN_DATA(EasyCastStructure):
+class READ_FILE_USN_DATA(Structure):
     MinMajorVersion: UInt16
     MaxMajorVersion: UInt16
-class READ_USN_JOURNAL_DATA_V0(EasyCastStructure):
+class READ_USN_JOURNAL_DATA_V0(Structure):
     StartUsn: Int64
     ReasonMask: UInt32
     ReturnOnlyOnClose: UInt32
     Timeout: UInt64
     BytesToWaitFor: UInt64
     UsnJournalID: UInt64
-class READ_USN_JOURNAL_DATA_V1(EasyCastStructure):
+class READ_USN_JOURNAL_DATA_V1(Structure):
     StartUsn: Int64
     ReasonMask: UInt32
     ReturnOnlyOnClose: UInt32
@@ -2754,11 +2754,11 @@ class READ_USN_JOURNAL_DATA_V1(EasyCastStructure):
     UsnJournalID: UInt64
     MinMajorVersion: UInt16
     MaxMajorVersion: UInt16
-class REASSIGN_BLOCKS(EasyCastStructure):
+class REASSIGN_BLOCKS(Structure):
     Reserved: UInt16
     Count: UInt16
     BlockNumber: UInt32 * 1
-class REASSIGN_BLOCKS_EX(EasyCastStructure):
+class REASSIGN_BLOCKS_EX(Structure):
     Reserved: UInt16
     Count: UInt16
     BlockNumber: Int64 * 1
@@ -2772,7 +2772,7 @@ REFS_SMR_VOLUME_GC_METHOD = Int32
 SmrGcMethodCompaction: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD = 1
 SmrGcMethodCompression: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD = 2
 SmrGcMethodRotation: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD = 3
-class REFS_SMR_VOLUME_GC_PARAMETERS(EasyCastStructure):
+class REFS_SMR_VOLUME_GC_PARAMETERS(Structure):
     Version: UInt32
     Flags: UInt32
     Action: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION
@@ -2785,7 +2785,7 @@ SmrGcStateInactive: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STAT
 SmrGcStatePaused: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 1
 SmrGcStateActive: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 2
 SmrGcStateActiveFullSpeed: win32more.Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE = 3
-class REFS_SMR_VOLUME_INFO_OUTPUT(EasyCastStructure):
+class REFS_SMR_VOLUME_INFO_OUTPUT(Structure):
     Version: UInt32
     Flags: UInt32
     SizeOfRandomlyWritableTier: Int64
@@ -2797,7 +2797,7 @@ class REFS_SMR_VOLUME_INFO_OUTPUT(EasyCastStructure):
     VolumeGcLastStatus: UInt32
     CurrentGcBandFillPercentage: UInt32
     Unused: UInt64 * 6
-class REFS_VOLUME_DATA_BUFFER(EasyCastStructure):
+class REFS_VOLUME_DATA_BUFFER(Structure):
     ByteCount: UInt32
     MajorVersion: UInt32
     MinorVersion: UInt32
@@ -2816,13 +2816,13 @@ class REFS_VOLUME_DATA_BUFFER(EasyCastStructure):
     MetadataChecksumType: UInt16
     Reserved0: Byte * 6
     Reserved: Int64 * 8
-class REMOVE_ELEMENT_AND_TRUNCATE_REQUEST(EasyCastStructure):
+class REMOVE_ELEMENT_AND_TRUNCATE_REQUEST(Structure):
     Version: UInt32
     Size: UInt32
     RequestCapacity: UInt64
     ElementIdentifier: UInt32
     Reserved: UInt32
-class REPAIR_COPIES_INPUT(EasyCastStructure):
+class REPAIR_COPIES_INPUT(Structure):
     Size: UInt32
     Flags: UInt32
     FileOffset: Int64
@@ -2830,16 +2830,16 @@ class REPAIR_COPIES_INPUT(EasyCastStructure):
     SourceCopy: UInt32
     NumberOfRepairCopies: UInt32
     RepairCopies: UInt32 * 1
-class REPAIR_COPIES_OUTPUT(EasyCastStructure):
+class REPAIR_COPIES_OUTPUT(Structure):
     Size: UInt32
     Status: UInt32
     ResumeFileOffset: Int64
-class REQUEST_OPLOCK_INPUT_BUFFER(EasyCastStructure):
+class REQUEST_OPLOCK_INPUT_BUFFER(Structure):
     StructureVersion: UInt16
     StructureLength: UInt16
     RequestedOplockLevel: UInt32
     Flags: UInt32
-class REQUEST_OPLOCK_OUTPUT_BUFFER(EasyCastStructure):
+class REQUEST_OPLOCK_OUTPUT_BUFFER(Structure):
     StructureVersion: UInt16
     StructureLength: UInt16
     OriginalOplockLevel: UInt32
@@ -2847,41 +2847,41 @@ class REQUEST_OPLOCK_OUTPUT_BUFFER(EasyCastStructure):
     Flags: UInt32
     AccessMode: UInt32
     ShareMode: UInt16
-class REQUEST_RAW_ENCRYPTED_DATA(EasyCastStructure):
+class REQUEST_RAW_ENCRYPTED_DATA(Structure):
     FileOffset: Int64
     Length: UInt32
-class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER(EasyCastStructure):
+class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER(Structure):
     ExtentCount: UInt32
     StartingVcn: Int64
     Extents: _Anonymous_e__Struct * 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         NextVcn: Int64
         Lcn: Int64
         ReferenceCount: UInt32
-class RETRIEVAL_POINTERS_BUFFER(EasyCastStructure):
+class RETRIEVAL_POINTERS_BUFFER(Structure):
     ExtentCount: UInt32
     StartingVcn: Int64
     Extents: _Anonymous_e__Struct * 1
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         NextVcn: Int64
         Lcn: Int64
-class RETRIEVAL_POINTER_BASE(EasyCastStructure):
+class RETRIEVAL_POINTER_BASE(Structure):
     FileAreaOffset: Int64
-class RETRIEVAL_POINTER_COUNT(EasyCastStructure):
+class RETRIEVAL_POINTER_COUNT(Structure):
     ExtentCount: UInt32
-class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO(EasyCastStructure):
+class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO(Structure):
     Version: UInt32
     Size: UInt32
     DeviceCount: UInt32
     Devices: win32more.Windows.Win32.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO * 1
-class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO(EasyCastStructure):
+class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO(Structure):
     DeviceGuid: Guid
     DeviceNumber: UInt32
     Flags: _Flags_e__Struct
     DeviceSize: UInt64
-    class _Flags_e__Struct(EasyCastStructure):
+    class _Flags_e__Struct(Structure):
         _bitfield: UInt32
-class SCM_BUS_DEDICATED_MEMORY_STATE(EasyCastStructure):
+class SCM_BUS_DEDICATED_MEMORY_STATE(Structure):
     ActivateState: win32more.Windows.Win32.Foundation.BOOLEAN
 SCM_BUS_FIRMWARE_ACTIVATION_STATE = Int32
 ScmBusFirmwareActivationState_Idle: win32more.Windows.Win32.System.Ioctl.SCM_BUS_FIRMWARE_ACTIVATION_STATE = 0
@@ -2892,13 +2892,13 @@ ScmBusProperty_RuntimeFwActivationInfo: win32more.Windows.Win32.System.Ioctl.SCM
 ScmBusProperty_DedicatedMemoryInfo: win32more.Windows.Win32.System.Ioctl.SCM_BUS_PROPERTY_ID = 1
 ScmBusProperty_DedicatedMemoryState: win32more.Windows.Win32.System.Ioctl.SCM_BUS_PROPERTY_ID = 2
 ScmBusProperty_Max: win32more.Windows.Win32.System.Ioctl.SCM_BUS_PROPERTY_ID = 3
-class SCM_BUS_PROPERTY_QUERY(EasyCastStructure):
+class SCM_BUS_PROPERTY_QUERY(Structure):
     Version: UInt32
     Size: UInt32
     PropertyId: win32more.Windows.Win32.System.Ioctl.SCM_BUS_PROPERTY_ID
     QueryType: win32more.Windows.Win32.System.Ioctl.SCM_BUS_QUERY_TYPE
     AdditionalParameters: Byte * 1
-class SCM_BUS_PROPERTY_SET(EasyCastStructure):
+class SCM_BUS_PROPERTY_SET(Structure):
     Version: UInt32
     Size: UInt32
     PropertyId: win32more.Windows.Win32.System.Ioctl.SCM_BUS_PROPERTY_ID
@@ -2908,7 +2908,7 @@ SCM_BUS_QUERY_TYPE = Int32
 ScmBusQuery_Descriptor: win32more.Windows.Win32.System.Ioctl.SCM_BUS_QUERY_TYPE = 0
 ScmBusQuery_IsSupported: win32more.Windows.Win32.System.Ioctl.SCM_BUS_QUERY_TYPE = 1
 ScmBusQuery_Max: win32more.Windows.Win32.System.Ioctl.SCM_BUS_QUERY_TYPE = 2
-class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO(EasyCastStructure):
+class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO(Structure):
     Version: UInt32
     Size: UInt32
     RuntimeFwActivationSupported: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -2918,39 +2918,39 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO(EasyCastStructure):
     EstimatedProcessorAccessQuiesceTimeInUSecs: UInt64
     EstimatedIOAccessQuiesceTimeInUSecs: UInt64
     PlatformSupportedMaxIOAccessQuiesceTimeInUSecs: UInt64
-    class _FirmwareActivationCapability_e__Struct(EasyCastStructure):
+    class _FirmwareActivationCapability_e__Struct(Structure):
         _bitfield: UInt32
 SCM_BUS_SET_TYPE = Int32
 ScmBusSet_Descriptor: win32more.Windows.Win32.System.Ioctl.SCM_BUS_SET_TYPE = 0
 ScmBusSet_IsSupported: win32more.Windows.Win32.System.Ioctl.SCM_BUS_SET_TYPE = 1
 ScmBusSet_Max: win32more.Windows.Win32.System.Ioctl.SCM_BUS_SET_TYPE = 2
-class SCM_INTERLEAVED_PD_INFO(EasyCastStructure):
+class SCM_INTERLEAVED_PD_INFO(Structure):
     DeviceHandle: UInt32
     DeviceGuid: Guid
-class SCM_LD_INTERLEAVE_SET_INFO(EasyCastStructure):
+class SCM_LD_INTERLEAVE_SET_INFO(Structure):
     Version: UInt32
     Size: UInt32
     InterleaveSetSize: UInt32
     InterleaveSet: win32more.Windows.Win32.System.Ioctl.SCM_INTERLEAVED_PD_INFO * 1
-class SCM_LOGICAL_DEVICES(EasyCastStructure):
+class SCM_LOGICAL_DEVICES(Structure):
     Version: UInt32
     Size: UInt32
     DeviceCount: UInt32
     Devices: win32more.Windows.Win32.System.Ioctl.SCM_LOGICAL_DEVICE_INSTANCE * 1
-class SCM_LOGICAL_DEVICE_INSTANCE(EasyCastStructure):
+class SCM_LOGICAL_DEVICE_INSTANCE(Structure):
     Version: UInt32
     Size: UInt32
     DeviceGuid: Guid
     SymbolicLink: Char * 256
-class SCM_PD_DESCRIPTOR_HEADER(EasyCastStructure):
+class SCM_PD_DESCRIPTOR_HEADER(Structure):
     Version: UInt32
     Size: UInt32
-class SCM_PD_DEVICE_HANDLE(EasyCastStructure):
+class SCM_PD_DEVICE_HANDLE(Structure):
     Version: UInt32
     Size: UInt32
     DeviceGuid: Guid
     DeviceHandle: UInt32
-class SCM_PD_DEVICE_INFO(EasyCastStructure):
+class SCM_PD_DEVICE_INFO(Structure):
     Version: UInt32
     Size: UInt32
     DeviceGuid: Guid
@@ -2973,15 +2973,15 @@ class SCM_PD_DEVICE_INFO(EasyCastStructure):
     SerialNumber4Byte: UInt32
     SerialNumberLengthInChars: UInt32
     SerialNumber: win32more.Windows.Win32.Foundation.CHAR * 1
-class SCM_PD_DEVICE_SPECIFIC_INFO(EasyCastStructure):
+class SCM_PD_DEVICE_SPECIFIC_INFO(Structure):
     Version: UInt32
     Size: UInt32
     NumberOfProperties: UInt32
     DeviceSpecificProperties: win32more.Windows.Win32.System.Ioctl.SCM_PD_DEVICE_SPECIFIC_PROPERTY * 1
-class SCM_PD_DEVICE_SPECIFIC_PROPERTY(EasyCastStructure):
+class SCM_PD_DEVICE_SPECIFIC_PROPERTY(Structure):
     Name: Char * 128
     Value: Int64
-class SCM_PD_FIRMWARE_ACTIVATE(EasyCastStructure):
+class SCM_PD_FIRMWARE_ACTIVATE(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
@@ -2990,7 +2990,7 @@ SCM_PD_FIRMWARE_ACTIVATION_STATE = Int32
 ScmPdFirmwareActivationState_Idle: win32more.Windows.Win32.System.Ioctl.SCM_PD_FIRMWARE_ACTIVATION_STATE = 0
 ScmPdFirmwareActivationState_Armed: win32more.Windows.Win32.System.Ioctl.SCM_PD_FIRMWARE_ACTIVATION_STATE = 1
 ScmPdFirmwareActivationState_Busy: win32more.Windows.Win32.System.Ioctl.SCM_PD_FIRMWARE_ACTIVATION_STATE = 2
-class SCM_PD_FIRMWARE_DOWNLOAD(EasyCastStructure):
+class SCM_PD_FIRMWARE_DOWNLOAD(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
@@ -2999,26 +2999,26 @@ class SCM_PD_FIRMWARE_DOWNLOAD(EasyCastStructure):
     Offset: UInt64
     FirmwareImageSizeInBytes: UInt32
     FirmwareImage: Byte * 1
-class SCM_PD_FIRMWARE_INFO(EasyCastStructure):
+class SCM_PD_FIRMWARE_INFO(Structure):
     Version: UInt32
     Size: UInt32
     ActiveSlot: Byte
     NextActiveSlot: Byte
     SlotCount: Byte
     Slots: win32more.Windows.Win32.System.Ioctl.SCM_PD_FIRMWARE_SLOT_INFO * 1
-class SCM_PD_FIRMWARE_SLOT_INFO(EasyCastStructure):
+class SCM_PD_FIRMWARE_SLOT_INFO(Structure):
     Version: UInt32
     Size: UInt32
     SlotNumber: Byte
     _bitfield: Byte
     Reserved1: Byte * 6
     Revision: Byte * 32
-class SCM_PD_FRU_ID_STRING(EasyCastStructure):
+class SCM_PD_FRU_ID_STRING(Structure):
     Version: UInt32
     Size: UInt32
     IdentifierSize: UInt32
     Identifier: Byte * 1
-class SCM_PD_HEALTH_NOTIFICATION_DATA(EasyCastStructure):
+class SCM_PD_HEALTH_NOTIFICATION_DATA(Structure):
     DeviceGuid: Guid
 SCM_PD_HEALTH_STATUS = Int32
 ScmPhysicalDeviceHealth_Unknown: win32more.Windows.Win32.System.Ioctl.SCM_PD_HEALTH_STATUS = 0
@@ -3035,11 +3035,11 @@ ScmPdLastFwActivaitonStatus_ActivationInProgress: win32more.Windows.Win32.System
 ScmPdLastFwActivaitonStatus_Retry: win32more.Windows.Win32.System.Ioctl.SCM_PD_LAST_FW_ACTIVATION_STATUS = 5
 ScmPdLastFwActivaitonStatus_FwUnsupported: win32more.Windows.Win32.System.Ioctl.SCM_PD_LAST_FW_ACTIVATION_STATUS = 6
 ScmPdLastFwActivaitonStatus_UnknownError: win32more.Windows.Win32.System.Ioctl.SCM_PD_LAST_FW_ACTIVATION_STATUS = 7
-class SCM_PD_LOCATION_STRING(EasyCastStructure):
+class SCM_PD_LOCATION_STRING(Structure):
     Version: UInt32
     Size: UInt32
     Location: Char * 1
-class SCM_PD_MANAGEMENT_STATUS(EasyCastStructure):
+class SCM_PD_MANAGEMENT_STATUS(Structure):
     Version: UInt32
     Size: UInt32
     Health: win32more.Windows.Win32.System.Ioctl.SCM_PD_HEALTH_STATUS
@@ -3087,22 +3087,22 @@ ScmPhysicalDeviceOpReason_PerformanceDegradation: win32more.Windows.Win32.System
 ScmPhysicalDeviceOpReason_ExcessiveTemperature: win32more.Windows.Win32.System.Ioctl.SCM_PD_OPERATIONAL_STATUS_REASON = 21
 ScmPhysicalDeviceOpReason_InternalFailure: win32more.Windows.Win32.System.Ioctl.SCM_PD_OPERATIONAL_STATUS_REASON = 22
 ScmPhysicalDeviceOpReason_Max: win32more.Windows.Win32.System.Ioctl.SCM_PD_OPERATIONAL_STATUS_REASON = 23
-class SCM_PD_PASSTHROUGH_INPUT(EasyCastStructure):
+class SCM_PD_PASSTHROUGH_INPUT(Structure):
     Version: UInt32
     Size: UInt32
     ProtocolGuid: Guid
     DataSize: UInt32
     Data: Byte * 1
-class SCM_PD_PASSTHROUGH_INVDIMM_INPUT(EasyCastStructure):
+class SCM_PD_PASSTHROUGH_INVDIMM_INPUT(Structure):
     Opcode: UInt32
     OpcodeParametersLength: UInt32
     OpcodeParameters: Byte * 1
-class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT(EasyCastStructure):
+class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT(Structure):
     GeneralStatus: UInt16
     ExtendedStatus: UInt16
     OutputDataLength: UInt32
     OutputData: Byte * 1
-class SCM_PD_PASSTHROUGH_OUTPUT(EasyCastStructure):
+class SCM_PD_PASSTHROUGH_OUTPUT(Structure):
     Version: UInt32
     Size: UInt32
     ProtocolGuid: Guid
@@ -3119,13 +3119,13 @@ ScmPhysicalDeviceProperty_FruIdString: win32more.Windows.Win32.System.Ioctl.SCM_
 ScmPhysicalDeviceProperty_RuntimeFwActivationInfo: win32more.Windows.Win32.System.Ioctl.SCM_PD_PROPERTY_ID = 7
 ScmPhysicalDeviceProperty_RuntimeFwActivationArmState: win32more.Windows.Win32.System.Ioctl.SCM_PD_PROPERTY_ID = 8
 ScmPhysicalDeviceProperty_Max: win32more.Windows.Win32.System.Ioctl.SCM_PD_PROPERTY_ID = 9
-class SCM_PD_PROPERTY_QUERY(EasyCastStructure):
+class SCM_PD_PROPERTY_QUERY(Structure):
     Version: UInt32
     Size: UInt32
     PropertyId: win32more.Windows.Win32.System.Ioctl.SCM_PD_PROPERTY_ID
     QueryType: win32more.Windows.Win32.System.Ioctl.SCM_PD_QUERY_TYPE
     AdditionalParameters: Byte * 1
-class SCM_PD_PROPERTY_SET(EasyCastStructure):
+class SCM_PD_PROPERTY_SET(Structure):
     Version: UInt32
     Size: UInt32
     PropertyId: win32more.Windows.Win32.System.Ioctl.SCM_PD_PROPERTY_ID
@@ -3135,19 +3135,19 @@ SCM_PD_QUERY_TYPE = Int32
 ScmPhysicalDeviceQuery_Descriptor: win32more.Windows.Win32.System.Ioctl.SCM_PD_QUERY_TYPE = 0
 ScmPhysicalDeviceQuery_IsSupported: win32more.Windows.Win32.System.Ioctl.SCM_PD_QUERY_TYPE = 1
 ScmPhysicalDeviceQuery_Max: win32more.Windows.Win32.System.Ioctl.SCM_PD_QUERY_TYPE = 2
-class SCM_PD_REINITIALIZE_MEDIA_INPUT(EasyCastStructure):
+class SCM_PD_REINITIALIZE_MEDIA_INPUT(Structure):
     Version: UInt32
     Size: UInt32
     Options: _Options_e__Struct
-    class _Options_e__Struct(EasyCastStructure):
+    class _Options_e__Struct(Structure):
         _bitfield: UInt32
-class SCM_PD_REINITIALIZE_MEDIA_OUTPUT(EasyCastStructure):
+class SCM_PD_REINITIALIZE_MEDIA_OUTPUT(Structure):
     Version: UInt32
     Size: UInt32
     Status: win32more.Windows.Win32.System.Ioctl.SCM_PD_MEDIA_REINITIALIZATION_STATUS
-class SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE(EasyCastStructure):
+class SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE(Structure):
     ArmState: win32more.Windows.Win32.Foundation.BOOLEAN
-class SCM_PD_RUNTIME_FW_ACTIVATION_INFO(EasyCastStructure):
+class SCM_PD_RUNTIME_FW_ACTIVATION_INFO(Structure):
     Version: UInt32
     Size: UInt32
     LastFirmwareActivationStatus: win32more.Windows.Win32.System.Ioctl.SCM_PD_LAST_FW_ACTIVATION_STATUS
@@ -3156,17 +3156,17 @@ SCM_PD_SET_TYPE = Int32
 ScmPhysicalDeviceSet_Descriptor: win32more.Windows.Win32.System.Ioctl.SCM_PD_SET_TYPE = 0
 ScmPhysicalDeviceSet_IsSupported: win32more.Windows.Win32.System.Ioctl.SCM_PD_SET_TYPE = 1
 ScmPhysicalDeviceSet_Max: win32more.Windows.Win32.System.Ioctl.SCM_PD_SET_TYPE = 2
-class SCM_PHYSICAL_DEVICES(EasyCastStructure):
+class SCM_PHYSICAL_DEVICES(Structure):
     Version: UInt32
     Size: UInt32
     DeviceCount: UInt32
     Devices: win32more.Windows.Win32.System.Ioctl.SCM_PHYSICAL_DEVICE_INSTANCE * 1
-class SCM_PHYSICAL_DEVICE_INSTANCE(EasyCastStructure):
+class SCM_PHYSICAL_DEVICE_INSTANCE(Structure):
     Version: UInt32
     Size: UInt32
     NfitHandle: UInt32
     SymbolicLink: Char * 256
-class SCM_REGION(EasyCastStructure):
+class SCM_REGION(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
@@ -3179,7 +3179,7 @@ class SCM_REGION(EasyCastStructure):
     BaseSPA: UInt64
     SPAOffset: UInt64
     RegionOffset: UInt64
-class SCM_REGIONS(EasyCastStructure):
+class SCM_REGIONS(Structure):
     Version: UInt32
     Size: UInt32
     RegionCount: UInt32
@@ -3187,12 +3187,12 @@ class SCM_REGIONS(EasyCastStructure):
 SCM_REGION_FLAG = Int32
 ScmRegionFlagNone: win32more.Windows.Win32.System.Ioctl.SCM_REGION_FLAG = 0
 ScmRegionFlagLabel: win32more.Windows.Win32.System.Ioctl.SCM_REGION_FLAG = 1
-class SD_CHANGE_MACHINE_SID_INPUT(EasyCastStructure):
+class SD_CHANGE_MACHINE_SID_INPUT(Structure):
     CurrentMachineSIDOffset: UInt16
     CurrentMachineSIDLength: UInt16
     NewMachineSIDOffset: UInt16
     NewMachineSIDLength: UInt16
-class SD_CHANGE_MACHINE_SID_OUTPUT(EasyCastStructure):
+class SD_CHANGE_MACHINE_SID_OUTPUT(Structure):
     NumSDChangedSuccess: UInt64
     NumSDChangedFail: UInt64
     NumSDUnused: UInt64
@@ -3200,39 +3200,39 @@ class SD_CHANGE_MACHINE_SID_OUTPUT(EasyCastStructure):
     NumMftSDChangedSuccess: UInt64
     NumMftSDChangedFail: UInt64
     NumMftSDTotal: UInt64
-class SD_ENUM_SDS_ENTRY(EasyCastStructure):
+class SD_ENUM_SDS_ENTRY(Structure):
     Hash: UInt32
     SecurityId: UInt32
     Offset: UInt64
     Length: UInt32
     Descriptor: Byte * 1
-class SD_ENUM_SDS_INPUT(EasyCastStructure):
+class SD_ENUM_SDS_INPUT(Structure):
     StartingOffset: UInt64
     MaxSDEntriesToReturn: UInt64
-class SD_ENUM_SDS_OUTPUT(EasyCastStructure):
+class SD_ENUM_SDS_OUTPUT(Structure):
     NextOffset: UInt64
     NumSDEntriesReturned: UInt64
     NumSDBytesReturned: UInt64
     SDEntry: win32more.Windows.Win32.System.Ioctl.SD_ENUM_SDS_ENTRY * 1
-class SD_GLOBAL_CHANGE_INPUT(EasyCastStructure):
+class SD_GLOBAL_CHANGE_INPUT(Structure):
     Flags: UInt32
     ChangeType: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         SdChange: win32more.Windows.Win32.System.Ioctl.SD_CHANGE_MACHINE_SID_INPUT
         SdQueryStats: win32more.Windows.Win32.System.Ioctl.SD_QUERY_STATS_INPUT
         SdEnumSds: win32more.Windows.Win32.System.Ioctl.SD_ENUM_SDS_INPUT
-class SD_GLOBAL_CHANGE_OUTPUT(EasyCastStructure):
+class SD_GLOBAL_CHANGE_OUTPUT(Structure):
     Flags: UInt32
     ChangeType: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         SdChange: win32more.Windows.Win32.System.Ioctl.SD_CHANGE_MACHINE_SID_OUTPUT
         SdQueryStats: win32more.Windows.Win32.System.Ioctl.SD_QUERY_STATS_OUTPUT
         SdEnumSds: win32more.Windows.Win32.System.Ioctl.SD_ENUM_SDS_OUTPUT
-class SD_QUERY_STATS_INPUT(EasyCastStructure):
+class SD_QUERY_STATS_INPUT(Structure):
     Reserved: UInt32
-class SD_QUERY_STATS_OUTPUT(EasyCastStructure):
+class SD_QUERY_STATS_OUTPUT(Structure):
     SdsStreamSize: UInt64
     SdsAllocationSize: UInt64
     SiiStreamSize: UInt64
@@ -3241,7 +3241,7 @@ class SD_QUERY_STATS_OUTPUT(EasyCastStructure):
     SdhAllocationSize: UInt64
     NumSDTotal: UInt64
     NumSDUnused: UInt64
-class SENDCMDINPARAMS(EasyCastStructure):
+class SENDCMDINPARAMS(Structure):
     cBufferSize: UInt32
     irDriveRegs: win32more.Windows.Win32.System.Ioctl.IDEREGS
     bDriveNumber: Byte
@@ -3249,34 +3249,34 @@ class SENDCMDINPARAMS(EasyCastStructure):
     dwReserved: UInt32 * 4
     bBuffer: Byte * 1
     _pack_ = 1
-class SENDCMDOUTPARAMS(EasyCastStructure):
+class SENDCMDOUTPARAMS(Structure):
     cBufferSize: UInt32
     DriverStatus: win32more.Windows.Win32.System.Ioctl.DRIVERSTATUS
     bBuffer: Byte * 1
     _pack_ = 1
-class SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT(EasyCastStructure):
+class SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT(Structure):
     Flags: UInt32
     AlignmentShift: UInt32
     FileOffsetToAlign: UInt64
     FallbackAlignmentShift: UInt32
-class SET_DISK_ATTRIBUTES(EasyCastStructure):
+class SET_DISK_ATTRIBUTES(Structure):
     Version: UInt32
     Persist: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved1: Byte * 3
     Attributes: UInt64
     AttributesMask: UInt64
     Reserved2: UInt32 * 4
-class SET_PARTITION_INFORMATION(EasyCastStructure):
+class SET_PARTITION_INFORMATION(Structure):
     PartitionType: Byte
-class SET_PARTITION_INFORMATION_EX(EasyCastStructure):
+class SET_PARTITION_INFORMATION_EX(Structure):
     PartitionStyle: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.System.Ioctl.SET_PARTITION_INFORMATION
         Gpt: win32more.Windows.Win32.System.Ioctl.PARTITION_INFORMATION_GPT
-class SET_PURGE_FAILURE_MODE_INPUT(EasyCastStructure):
+class SET_PURGE_FAILURE_MODE_INPUT(Structure):
     Flags: UInt32
-class SHRINK_VOLUME_INFORMATION(EasyCastStructure):
+class SHRINK_VOLUME_INFORMATION(Structure):
     ShrinkRequestType: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES
     Flags: UInt64
     NewNumberOfSectors: Int64
@@ -3284,23 +3284,23 @@ SHRINK_VOLUME_REQUEST_TYPES = Int32
 ShrinkPrepare: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES = 1
 ShrinkCommit: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES = 2
 ShrinkAbort: win32more.Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES = 3
-class SI_COPYFILE(EasyCastStructure):
+class SI_COPYFILE(Structure):
     SourceFileNameLength: UInt32
     DestinationFileNameLength: UInt32
     Flags: UInt32
     FileNameBuffer: Char * 1
-class SMB_SHARE_FLUSH_AND_PURGE_INPUT(EasyCastStructure):
+class SMB_SHARE_FLUSH_AND_PURGE_INPUT(Structure):
     Version: UInt16
-class SMB_SHARE_FLUSH_AND_PURGE_OUTPUT(EasyCastStructure):
+class SMB_SHARE_FLUSH_AND_PURGE_OUTPUT(Structure):
     cEntriesPurged: UInt32
-class STARTING_LCN_INPUT_BUFFER(EasyCastStructure):
+class STARTING_LCN_INPUT_BUFFER(Structure):
     StartingLcn: Int64
-class STARTING_LCN_INPUT_BUFFER_EX(EasyCastStructure):
+class STARTING_LCN_INPUT_BUFFER_EX(Structure):
     StartingLcn: Int64
     Flags: UInt32
-class STARTING_VCN_INPUT_BUFFER(EasyCastStructure):
+class STARTING_VCN_INPUT_BUFFER(Structure):
     StartingVcn: Int64
-class STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR(EasyCastStructure):
+class STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     BytesPerCacheLine: UInt32
@@ -3308,7 +3308,7 @@ class STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR(EasyCastStructure):
     BytesPerLogicalSector: UInt32
     BytesPerPhysicalSector: UInt32
     BytesOffsetForSectorAlignment: UInt32
-class STORAGE_ADAPTER_DESCRIPTOR(EasyCastStructure):
+class STORAGE_ADAPTER_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     MaximumTransferLength: UInt32
@@ -3323,11 +3323,11 @@ class STORAGE_ADAPTER_DESCRIPTOR(EasyCastStructure):
     BusMinorVersion: UInt16
     SrbType: Byte
     AddressType: Byte
-class STORAGE_ADAPTER_SERIAL_NUMBER(EasyCastStructure):
+class STORAGE_ADAPTER_SERIAL_NUMBER(Structure):
     Version: UInt32
     Size: UInt32
     SerialNumber: Char * 128
-class STORAGE_ALLOCATE_BC_STREAM_INPUT(EasyCastStructure):
+class STORAGE_ALLOCATE_BC_STREAM_INPUT(Structure):
     Version: UInt32
     RequestsPerPeriod: UInt32
     Period: UInt32
@@ -3336,14 +3336,14 @@ class STORAGE_ALLOCATE_BC_STREAM_INPUT(EasyCastStructure):
     Reserved1: win32more.Windows.Win32.Foundation.BOOLEAN * 2
     AccessType: UInt32
     AccessMode: UInt32
-class STORAGE_ALLOCATE_BC_STREAM_OUTPUT(EasyCastStructure):
+class STORAGE_ALLOCATE_BC_STREAM_OUTPUT(Structure):
     RequestSize: UInt64
     NumOutStandingRequests: UInt32
 STORAGE_ASSOCIATION_TYPE = Int32
 StorageIdAssocDevice: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE = 0
 StorageIdAssocPort: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE = 1
 StorageIdAssocTarget: win32more.Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE = 2
-class STORAGE_ATTRIBUTE_MGMT(EasyCastStructure):
+class STORAGE_ATTRIBUTE_MGMT(Structure):
     Version: UInt32
     Size: UInt32
     Action: win32more.Windows.Win32.System.Ioctl.STORAGE_ATTRIBUTE_MGMT_ACTION
@@ -3352,13 +3352,13 @@ STORAGE_ATTRIBUTE_MGMT_ACTION = Int32
 StorAttributeMgmt_ClearAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_ATTRIBUTE_MGMT_ACTION = 0
 StorAttributeMgmt_SetAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_ATTRIBUTE_MGMT_ACTION = 1
 StorAttributeMgmt_ResetAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_ATTRIBUTE_MGMT_ACTION = 2
-class STORAGE_BREAK_RESERVATION_REQUEST(EasyCastStructure):
+class STORAGE_BREAK_RESERVATION_REQUEST(Structure):
     Length: UInt32
     _unused: Byte
     PathId: Byte
     TargetId: Byte
     Lun: Byte
-class STORAGE_BUS_RESET_REQUEST(EasyCastStructure):
+class STORAGE_BUS_RESET_REQUEST(Structure):
     PathId: Byte
 STORAGE_COMPONENT_HEALTH_STATUS = Int32
 HealthStatusUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 0
@@ -3367,16 +3367,16 @@ HealthStatusThrottled: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HE
 HealthStatusWarning: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 3
 HealthStatusDisabled: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 4
 HealthStatusFailed: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS = 5
-class STORAGE_COUNTER(EasyCastStructure):
+class STORAGE_COUNTER(Structure):
     Type: win32more.Windows.Win32.System.Ioctl.STORAGE_COUNTER_TYPE
     Value: _Value_e__Union
-    class _Value_e__Union(EasyCastUnion):
+    class _Value_e__Union(Union):
         ManufactureDate: _ManufactureDate_e__Struct
         AsUlonglong: UInt64
-        class _ManufactureDate_e__Struct(EasyCastStructure):
+        class _ManufactureDate_e__Struct(Structure):
             Week: UInt32
             Year: UInt32
-class STORAGE_COUNTERS(EasyCastStructure):
+class STORAGE_COUNTERS(Structure):
     Version: UInt32
     Size: UInt32
     NumberOfCounters: UInt32
@@ -3411,14 +3411,14 @@ StorageCryptoAlgorithmBitlockerAESCBC: win32more.Windows.Win32.System.Ioctl.STOR
 StorageCryptoAlgorithmAESECB: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 3
 StorageCryptoAlgorithmESSIVAESCBC: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 4
 StorageCryptoAlgorithmMax: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID = 5
-class STORAGE_CRYPTO_CAPABILITY(EasyCastStructure):
+class STORAGE_CRYPTO_CAPABILITY(Structure):
     Version: UInt32
     Size: UInt32
     CryptoCapabilityIndex: UInt32
     AlgorithmId: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_ALGORITHM_ID
     KeySize: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE
     DataUnitSizeBitmask: UInt32
-class STORAGE_CRYPTO_DESCRIPTOR(EasyCastStructure):
+class STORAGE_CRYPTO_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     NumKeysSupported: UInt32
@@ -3430,14 +3430,14 @@ StorageCryptoKeySize128Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO
 StorageCryptoKeySize192Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 2
 StorageCryptoKeySize256Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 3
 StorageCryptoKeySize512Bits: win32more.Windows.Win32.System.Ioctl.STORAGE_CRYPTO_KEY_SIZE = 4
-class STORAGE_DESCRIPTOR_HEADER(EasyCastStructure):
+class STORAGE_DESCRIPTOR_HEADER(Structure):
     Version: UInt32
     Size: UInt32
-class STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR(EasyCastStructure):
+class STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     Attributes: UInt64
-class STORAGE_DEVICE_DESCRIPTOR(EasyCastStructure):
+class STORAGE_DEVICE_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     DeviceType: Byte
@@ -3451,7 +3451,7 @@ class STORAGE_DEVICE_DESCRIPTOR(EasyCastStructure):
     BusType: win32more.Windows.Win32.Storage.FileSystem.STORAGE_BUS_TYPE
     RawPropertiesLength: UInt32
     RawDeviceProperties: Byte * 1
-class STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR(EasyCastStructure):
+class STORAGE_DEVICE_FAULT_DOMAIN_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     NumberOfFaultDomains: UInt32
@@ -3468,26 +3468,26 @@ FormFactormSata: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR
 FormFactorM_2: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 8
 FormFactorPCIeBoard: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 9
 FormFactorDimm: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_FORM_FACTOR = 10
-class STORAGE_DEVICE_ID_DESCRIPTOR(EasyCastStructure):
+class STORAGE_DEVICE_ID_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     NumberOfIdentifiers: UInt32
     Identifiers: Byte * 1
-class STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR(EasyCastStructure):
+class STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     LunMaxIoCount: UInt32
     AdapterMaxIoCount: UInt32
-class STORAGE_DEVICE_LED_STATE_DESCRIPTOR(EasyCastStructure):
+class STORAGE_DEVICE_LED_STATE_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     State: UInt64
-class STORAGE_DEVICE_LOCATION_DESCRIPTOR(EasyCastStructure):
+class STORAGE_DEVICE_LOCATION_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     Location: win32more.Windows.Win32.System.Ioctl.DEVICE_LOCATION
     StringOffset: UInt32
-class STORAGE_DEVICE_MANAGEMENT_STATUS(EasyCastStructure):
+class STORAGE_DEVICE_MANAGEMENT_STATUS(Structure):
     Version: UInt32
     Size: UInt32
     Health: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_HEALTH_STATUS
@@ -3495,20 +3495,20 @@ class STORAGE_DEVICE_MANAGEMENT_STATUS(EasyCastStructure):
     NumberOfAdditionalReasons: UInt32
     OperationalStatus: win32more.Windows.Win32.System.Ioctl.STORAGE_DISK_OPERATIONAL_STATUS * 16
     AdditionalReasons: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_REASON * 1
-class STORAGE_DEVICE_NUMA_PROPERTY(EasyCastStructure):
+class STORAGE_DEVICE_NUMA_PROPERTY(Structure):
     Version: UInt32
     Size: UInt32
     NumaNode: UInt32
-class STORAGE_DEVICE_NUMBER(EasyCastStructure):
+class STORAGE_DEVICE_NUMBER(Structure):
     DeviceType: UInt32
     DeviceNumber: UInt32
     PartitionNumber: UInt32
-class STORAGE_DEVICE_NUMBERS(EasyCastStructure):
+class STORAGE_DEVICE_NUMBERS(Structure):
     Version: UInt32
     Size: UInt32
     NumberOfDevices: UInt32
     Devices: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_NUMBER * 1
-class STORAGE_DEVICE_NUMBER_EX(EasyCastStructure):
+class STORAGE_DEVICE_NUMBER_EX(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
@@ -3516,7 +3516,7 @@ class STORAGE_DEVICE_NUMBER_EX(EasyCastStructure):
     DeviceNumber: UInt32
     DeviceGuid: Guid
     PartitionNumber: UInt32
-class STORAGE_DEVICE_POWER_CAP(EasyCastStructure):
+class STORAGE_DEVICE_POWER_CAP(Structure):
     Version: UInt32
     Size: UInt32
     Units: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS
@@ -3524,7 +3524,7 @@ class STORAGE_DEVICE_POWER_CAP(EasyCastStructure):
 STORAGE_DEVICE_POWER_CAP_UNITS = Int32
 StorageDevicePowerCapUnitsPercent: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS = 0
 StorageDevicePowerCapUnitsMilliwatts: win32more.Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS = 1
-class STORAGE_DEVICE_RESILIENCY_DESCRIPTOR(EasyCastStructure):
+class STORAGE_DEVICE_RESILIENCY_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     NameOffset: UInt32
@@ -3533,27 +3533,27 @@ class STORAGE_DEVICE_RESILIENCY_DESCRIPTOR(EasyCastStructure):
     PhysicalDiskRedundancy: UInt32
     NumberOfColumns: UInt32
     Interleave: UInt32
-class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY(EasyCastStructure):
+class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY(Structure):
     Version: UInt32
     Size: UInt32
     SupportsSelfEncryption: win32more.Windows.Win32.Foundation.BOOLEAN
-class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_V2(EasyCastStructure):
+class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_V2(Structure):
     Version: UInt32
     Size: UInt32
     SupportsSelfEncryption: win32more.Windows.Win32.Foundation.BOOLEAN
     EncryptionType: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE
-class STORAGE_DEVICE_TIERING_DESCRIPTOR(EasyCastStructure):
+class STORAGE_DEVICE_TIERING_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
     TotalNumberOfTiers: UInt32
     NumberOfTiersReturned: UInt32
     Tiers: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER * 1
-class STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT(EasyCastStructure):
+class STORAGE_DEVICE_UNSAFE_SHUTDOWN_COUNT(Structure):
     Version: UInt32
     Size: UInt32
     UnsafeShutdownCount: UInt32
-class STORAGE_DIAGNOSTIC_DATA(EasyCastStructure):
+class STORAGE_DIAGNOSTIC_DATA(Structure):
     Version: UInt32
     Size: UInt32
     ProviderId: Guid
@@ -3563,7 +3563,7 @@ class STORAGE_DIAGNOSTIC_DATA(EasyCastStructure):
 STORAGE_DIAGNOSTIC_LEVEL = Int32
 StorageDiagnosticLevelDefault: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_LEVEL = 0
 StorageDiagnosticLevelMax: win32more.Windows.Win32.System.Ioctl.STORAGE_DIAGNOSTIC_LEVEL = 1
-class STORAGE_DIAGNOSTIC_REQUEST(EasyCastStructure):
+class STORAGE_DIAGNOSTIC_REQUEST(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
@@ -3595,54 +3595,54 @@ STORAGE_ENCRYPTION_TYPE = Int32
 StorageEncryptionTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE = 0
 StorageEncryptionTypeEDrive: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE = 1
 StorageEncryptionTypeTcgOpal: win32more.Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE = 2
-class STORAGE_EVENT_NOTIFICATION(EasyCastStructure):
+class STORAGE_EVENT_NOTIFICATION(Structure):
     Version: UInt32
     Size: UInt32
     Events: UInt64
-class STORAGE_FAILURE_PREDICTION_CONFIG(EasyCastStructure):
+class STORAGE_FAILURE_PREDICTION_CONFIG(Structure):
     Version: UInt32
     Size: UInt32
     Set: win32more.Windows.Win32.Foundation.BOOLEAN
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: UInt16
-class STORAGE_FRU_ID_DESCRIPTOR(EasyCastStructure):
+class STORAGE_FRU_ID_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     IdentifierSize: UInt32
     Identifier: Byte * 1
-class STORAGE_GET_BC_PROPERTIES_OUTPUT(EasyCastStructure):
+class STORAGE_GET_BC_PROPERTIES_OUTPUT(Structure):
     MaximumRequestsPerPeriod: UInt32
     MinimumPeriod: UInt32
     MaximumRequestSize: UInt64
     EstimatedTimePerRequest: UInt32
     NumOutStandingRequests: UInt32
     RequestSize: UInt64
-class STORAGE_HOTPLUG_INFO(EasyCastStructure):
+class STORAGE_HOTPLUG_INFO(Structure):
     Size: UInt32
     MediaRemovable: win32more.Windows.Win32.Foundation.BOOLEAN
     MediaHotplug: win32more.Windows.Win32.Foundation.BOOLEAN
     DeviceHotplug: win32more.Windows.Win32.Foundation.BOOLEAN
     WriteCacheEnableOverride: win32more.Windows.Win32.Foundation.BOOLEAN
-class STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR(EasyCastStructure):
+class STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     EnduranceInfo: win32more.Windows.Win32.System.Ioctl.STORAGE_HW_ENDURANCE_INFO
-class STORAGE_HW_ENDURANCE_INFO(EasyCastStructure):
+class STORAGE_HW_ENDURANCE_INFO(Structure):
     ValidFields: UInt32
     GroupId: UInt32
     Flags: _Flags_e__Struct
     LifePercentage: UInt32
     BytesReadCount: Byte * 16
     ByteWriteCount: Byte * 16
-    class _Flags_e__Struct(EasyCastStructure):
+    class _Flags_e__Struct(Structure):
         _bitfield: UInt32
-class STORAGE_HW_FIRMWARE_ACTIVATE(EasyCastStructure):
+class STORAGE_HW_FIRMWARE_ACTIVATE(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
     Slot: Byte
     Reserved0: Byte * 3
-class STORAGE_HW_FIRMWARE_DOWNLOAD(EasyCastStructure):
+class STORAGE_HW_FIRMWARE_DOWNLOAD(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
@@ -3651,7 +3651,7 @@ class STORAGE_HW_FIRMWARE_DOWNLOAD(EasyCastStructure):
     Offset: UInt64
     BufferSize: UInt64
     ImageBuffer: Byte * 1
-class STORAGE_HW_FIRMWARE_DOWNLOAD_V2(EasyCastStructure):
+class STORAGE_HW_FIRMWARE_DOWNLOAD_V2(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
@@ -3662,7 +3662,7 @@ class STORAGE_HW_FIRMWARE_DOWNLOAD_V2(EasyCastStructure):
     ImageSize: UInt32
     Reserved2: UInt32
     ImageBuffer: Byte * 1
-class STORAGE_HW_FIRMWARE_INFO(EasyCastStructure):
+class STORAGE_HW_FIRMWARE_INFO(Structure):
     Version: UInt32
     Size: UInt32
     _bitfield: Byte
@@ -3674,19 +3674,19 @@ class STORAGE_HW_FIRMWARE_INFO(EasyCastStructure):
     ImagePayloadAlignment: UInt32
     ImagePayloadMaxSize: UInt32
     Slot: win32more.Windows.Win32.System.Ioctl.STORAGE_HW_FIRMWARE_SLOT_INFO * 1
-class STORAGE_HW_FIRMWARE_INFO_QUERY(EasyCastStructure):
+class STORAGE_HW_FIRMWARE_INFO_QUERY(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt32
     Reserved: UInt32
-class STORAGE_HW_FIRMWARE_SLOT_INFO(EasyCastStructure):
+class STORAGE_HW_FIRMWARE_SLOT_INFO(Structure):
     Version: UInt32
     Size: UInt32
     SlotNumber: Byte
     _bitfield: Byte
     Reserved1: Byte * 6
     Revision: Byte * 16
-class STORAGE_IDENTIFIER(EasyCastStructure):
+class STORAGE_IDENTIFIER(Structure):
     CodeSet: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET
     Type: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE
     IdentifierSize: UInt16
@@ -3708,12 +3708,12 @@ StorageIdTypeTargetPortGroup: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENT
 StorageIdTypeLogicalUnitGroup: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 6
 StorageIdTypeMD5LogicalUnitIdentifier: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 7
 StorageIdTypeScsiNameString: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTIFIER_TYPE = 8
-class STORAGE_IDLE_POWER(EasyCastStructure):
+class STORAGE_IDLE_POWER(Structure):
     Version: UInt32
     Size: UInt32
     _bitfield: UInt32
     D3IdleTimeout: UInt32
-class STORAGE_IDLE_POWERUP_REASON(EasyCastStructure):
+class STORAGE_IDLE_POWERUP_REASON(Structure):
     Version: UInt32
     Size: UInt32
     PowerupReason: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE
@@ -3721,7 +3721,7 @@ STORAGE_ID_NAA_FORMAT = Int32
 StorageIdNAAFormatIEEEExtended: win32more.Windows.Win32.System.Ioctl.STORAGE_ID_NAA_FORMAT = 2
 StorageIdNAAFormatIEEERegistered: win32more.Windows.Win32.System.Ioctl.STORAGE_ID_NAA_FORMAT = 3
 StorageIdNAAFormatIEEEERegisteredExtended: win32more.Windows.Win32.System.Ioctl.STORAGE_ID_NAA_FORMAT = 5
-class STORAGE_LB_PROVISIONING_MAP_RESOURCES(EasyCastStructure):
+class STORAGE_LB_PROVISIONING_MAP_RESOURCES(Structure):
     Size: UInt32
     Version: UInt32
     _bitfield1: Byte
@@ -3730,7 +3730,7 @@ class STORAGE_LB_PROVISIONING_MAP_RESOURCES(EasyCastStructure):
     Reserved3: Byte * 3
     AvailableMappingResources: UInt64
     UsedMappingResources: UInt64
-class STORAGE_MEDIA_SERIAL_NUMBER_DATA(EasyCastStructure):
+class STORAGE_MEDIA_SERIAL_NUMBER_DATA(Structure):
     Reserved: UInt16
     SerialNumberLength: UInt16
     SerialNumber: Byte * 1
@@ -3798,11 +3798,11 @@ ADR_2: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 91
 STK_9940: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 92
 SAIT: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 93
 VXATape: win32more.Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE = 94
-class STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR(EasyCastStructure):
+class STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     MediumProductType: UInt32
-class STORAGE_MINIPORT_DESCRIPTOR(EasyCastStructure):
+class STORAGE_MINIPORT_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     Portdriver: win32more.Windows.Win32.System.Ioctl.STORAGE_PORT_CODE_SET
@@ -3813,46 +3813,46 @@ class STORAGE_MINIPORT_DESCRIPTOR(EasyCastStructure):
     Flags: _Flags_e__Union
     Reserved0: Byte * 2
     Reserved1: UInt32
-    class _Flags_e__Union(EasyCastUnion):
+    class _Flags_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsBYTE: Byte
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: Byte
-class STORAGE_OFFLOAD_READ_OUTPUT(EasyCastStructure):
+class STORAGE_OFFLOAD_READ_OUTPUT(Structure):
     OffloadReadFlags: UInt32
     Reserved: UInt32
     LengthProtected: UInt64
     TokenLength: UInt32
     Token: win32more.Windows.Win32.System.Ioctl.STORAGE_OFFLOAD_TOKEN
-class STORAGE_OFFLOAD_TOKEN(EasyCastStructure):
+class STORAGE_OFFLOAD_TOKEN(Structure):
     TokenType: Byte * 4
     Reserved: Byte * 2
     TokenIdLength: Byte * 2
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         StorageOffloadZeroDataToken: _StorageOffloadZeroDataToken_e__Struct
         Token: Byte * 504
-        class _StorageOffloadZeroDataToken_e__Struct(EasyCastStructure):
+        class _StorageOffloadZeroDataToken_e__Struct(Structure):
             Reserved2: Byte * 504
-class STORAGE_OFFLOAD_WRITE_OUTPUT(EasyCastStructure):
+class STORAGE_OFFLOAD_WRITE_OUTPUT(Structure):
     OffloadWriteFlags: UInt32
     Reserved: UInt32
     LengthCopied: UInt64
-class STORAGE_OPERATIONAL_REASON(EasyCastStructure):
+class STORAGE_OPERATIONAL_REASON(Structure):
     Version: UInt32
     Size: UInt32
     Reason: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON
     RawBytes: _RawBytes_e__Union
-    class _RawBytes_e__Union(EasyCastUnion):
+    class _RawBytes_e__Union(Union):
         ScsiSenseKey: _ScsiSenseKey_e__Struct
         NVDIMM_N: _NVDIMM_N_e__Struct
         AsUlong: UInt32
-        class _ScsiSenseKey_e__Struct(EasyCastStructure):
+        class _ScsiSenseKey_e__Struct(Structure):
             SenseKey: Byte
             ASC: Byte
             ASCQ: Byte
             Reserved: Byte
-        class _NVDIMM_N_e__Struct(EasyCastStructure):
+        class _NVDIMM_N_e__Struct(Structure):
             CriticalHealth: Byte
             ModuleHealth: Byte * 2
             ErrorThresholdStatus: Byte
@@ -3878,7 +3878,7 @@ DiskOpReasonLostWritePersistence: win32more.Windows.Win32.System.Ioctl.STORAGE_O
 DiskOpReasonDataPersistenceLossImminent: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 18
 DiskOpReasonWritePersistenceLossImminent: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 19
 DiskOpReasonMax: win32more.Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON = 20
-class STORAGE_PHYSICAL_ADAPTER_DATA(EasyCastStructure):
+class STORAGE_PHYSICAL_ADAPTER_DATA(Structure):
     AdapterId: UInt32
     HealthStatus: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS
     CommandProtocol: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE
@@ -3890,7 +3890,7 @@ class STORAGE_PHYSICAL_ADAPTER_DATA(EasyCastStructure):
     ExpanderConnected: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved0: Byte * 3
     Reserved1: UInt32 * 3
-class STORAGE_PHYSICAL_DEVICE_DATA(EasyCastStructure):
+class STORAGE_PHYSICAL_DEVICE_DATA(Structure):
     DeviceId: UInt32
     Role: UInt32
     HealthStatus: win32more.Windows.Win32.System.Ioctl.STORAGE_COMPONENT_HEALTH_STATUS
@@ -3903,7 +3903,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA(EasyCastStructure):
     Capacity: UInt64
     PhysicalLocation: Byte * 32
     Reserved: UInt32 * 2
-class STORAGE_PHYSICAL_NODE_DATA(EasyCastStructure):
+class STORAGE_PHYSICAL_NODE_DATA(Structure):
     NodeId: UInt32
     AdapterCount: UInt32
     AdapterDataLength: UInt32
@@ -3912,7 +3912,7 @@ class STORAGE_PHYSICAL_NODE_DATA(EasyCastStructure):
     DeviceDataLength: UInt32
     DeviceDataOffset: UInt32
     Reserved: UInt32 * 3
-class STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR(EasyCastStructure):
+class STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     NodeCount: UInt32
@@ -3931,10 +3931,10 @@ STORAGE_POWERUP_REASON_TYPE = Int32
 StoragePowerupUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE = 0
 StoragePowerupIO: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE = 1
 StoragePowerupDeviceAttention: win32more.Windows.Win32.System.Ioctl.STORAGE_POWERUP_REASON_TYPE = 2
-class STORAGE_PREDICT_FAILURE(EasyCastStructure):
+class STORAGE_PREDICT_FAILURE(Structure):
     PredictFailure: UInt32
     VendorSpecific: Byte * 512
-class STORAGE_PRIORITY_HINT_SUPPORT(EasyCastStructure):
+class STORAGE_PRIORITY_HINT_SUPPORT(Structure):
     SupportFlags: UInt32
 STORAGE_PROPERTY_ID = Int32
 StorageDeviceProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 0
@@ -3973,11 +3973,11 @@ StorageDeviceEnduranceProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PRO
 StorageDeviceLedStateProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 63
 StorageDeviceSelfEncryptionProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 64
 StorageFruIdProperty: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID = 65
-class STORAGE_PROPERTY_QUERY(EasyCastStructure):
+class STORAGE_PROPERTY_QUERY(Structure):
     PropertyId: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID
     QueryType: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE
     AdditionalParameters: Byte * 1
-class STORAGE_PROPERTY_SET(EasyCastStructure):
+class STORAGE_PROPERTY_SET(Structure):
     PropertyId: win32more.Windows.Win32.System.Ioctl.STORAGE_PROPERTY_ID
     SetType: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE
     AdditionalParameters: Byte * 1
@@ -3985,7 +3985,7 @@ STORAGE_PROTOCOL_ATA_DATA_TYPE = Int32
 AtaDataTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_ATA_DATA_TYPE = 0
 AtaDataTypeIdentify: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_ATA_DATA_TYPE = 1
 AtaDataTypeLogPage: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_ATA_DATA_TYPE = 2
-class STORAGE_PROTOCOL_COMMAND(EasyCastStructure):
+class STORAGE_PROTOCOL_COMMAND(Structure):
     Version: UInt32
     Length: UInt32
     ProtocolType: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE
@@ -4005,25 +4005,25 @@ class STORAGE_PROTOCOL_COMMAND(EasyCastStructure):
     FixedProtocolReturnData: UInt32
     Reserved1: UInt32 * 3
     Command: Byte * 1
-class STORAGE_PROTOCOL_DATA_DESCRIPTOR(EasyCastStructure):
+class STORAGE_PROTOCOL_DATA_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     ProtocolSpecificData: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA
-class STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT(EasyCastStructure):
+class STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT(Structure):
     Version: UInt32
     Size: UInt32
     ProtocolSpecificData: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_SPECIFIC_DATA_EXT
-class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE(EasyCastUnion):
+class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
 STORAGE_PROTOCOL_NVME_DATA_TYPE = Int32
 NVMeDataTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 0
 NVMeDataTypeIdentify: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 1
 NVMeDataTypeLogPage: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 2
 NVMeDataTypeFeature: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 3
-class STORAGE_PROTOCOL_SPECIFIC_DATA(EasyCastStructure):
+class STORAGE_PROTOCOL_SPECIFIC_DATA(Structure):
     ProtocolType: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE
     DataType: UInt32
     ProtocolDataRequestValue: UInt32
@@ -4034,7 +4034,7 @@ class STORAGE_PROTOCOL_SPECIFIC_DATA(EasyCastStructure):
     ProtocolDataRequestSubValue2: UInt32
     ProtocolDataRequestSubValue3: UInt32
     ProtocolDataRequestSubValue4: UInt32
-class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT(EasyCastStructure):
+class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT(Structure):
     ProtocolType: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_TYPE
     DataType: UInt32
     ProtocolDataValue: UInt32
@@ -4064,12 +4064,12 @@ UfsDataTypeQueryFlag: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_
 UfsDataTypeQueryDmeAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 4
 UfsDataTypeQueryDmePeerAttribute: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 5
 UfsDataTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_UFS_DATA_TYPE = 6
-class STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY(EasyCastStructure):
+class STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY(Structure):
     EntryLength: UInt32
     DependencyTypeFlags: UInt32
     ProviderSpecificFlags: UInt32
     VirtualStorageType: win32more.Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE
-class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY(EasyCastStructure):
+class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY(Structure):
     EntryLength: UInt32
     DependencyTypeFlags: UInt32
     ProviderSpecificFlags: UInt32
@@ -4083,14 +4083,14 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY(EasyCastStructure):
     RelativePathSize: UInt32
     DependentDeviceNameOffset: UInt32
     DependentDeviceNameSize: UInt32
-class STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST(EasyCastStructure):
+class STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST(Structure):
     RequestLevel: UInt32
     RequestFlags: UInt32
-class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE(EasyCastStructure):
+class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE(Structure):
     ResponseLevel: UInt32
     NumberEntries: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Lev1Depends: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY * 1
         Lev2Depends: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY * 1
 STORAGE_QUERY_TYPE = Int32
@@ -4098,18 +4098,18 @@ PropertyStandardQuery: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE =
 PropertyExistsQuery: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 1
 PropertyMaskQuery: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 2
 PropertyQueryMaxDefined: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_TYPE = 3
-class STORAGE_READ_CAPACITY(EasyCastStructure):
+class STORAGE_READ_CAPACITY(Structure):
     Version: UInt32
     Size: UInt32
     BlockLength: UInt32
     NumberOfBlocks: Int64
     DiskLength: Int64
-class STORAGE_REINITIALIZE_MEDIA(EasyCastStructure):
+class STORAGE_REINITIALIZE_MEDIA(Structure):
     Version: UInt32
     Size: UInt32
     TimeoutInSeconds: UInt32
     SanitizeOption: _SanitizeOption_e__Struct
-    class _SanitizeOption_e__Struct(EasyCastStructure):
+    class _SanitizeOption_e__Struct(Structure):
         _bitfield: UInt32
 STORAGE_RESERVE_ID = Int32
 StorageReserveIdNone: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 0
@@ -4125,7 +4125,7 @@ StorRpmbAuthenticatedRead: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COM
 StorRpmbReadResultRequest: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 5
 StorRpmbAuthenticatedDeviceConfigWrite: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 6
 StorRpmbAuthenticatedDeviceConfigRead: win32more.Windows.Win32.System.Ioctl.STORAGE_RPMB_COMMAND_TYPE = 7
-class STORAGE_RPMB_DATA_FRAME(EasyCastStructure):
+class STORAGE_RPMB_DATA_FRAME(Structure):
     Stuff: Byte * 196
     KeyOrMAC: Byte * 32
     Data: Byte * 256
@@ -4135,7 +4135,7 @@ class STORAGE_RPMB_DATA_FRAME(EasyCastStructure):
     BlockCount: Byte * 2
     OperationResult: Byte * 2
     RequestOrResponseType: Byte * 2
-class STORAGE_RPMB_DESCRIPTOR(EasyCastStructure):
+class STORAGE_RPMB_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     SizeInBytes: UInt32
@@ -4153,19 +4153,19 @@ STORAGE_SET_TYPE = Int32
 PropertyStandardSet: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 0
 PropertyExistsSet: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 1
 PropertySetMaxDefined: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 2
-class STORAGE_SPEC_VERSION(EasyCastUnion):
+class STORAGE_SPEC_VERSION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         MinorVersion: _MinorVersion_e__Union
         MajorVersion: UInt16
-        class _MinorVersion_e__Union(EasyCastUnion):
+        class _MinorVersion_e__Union(Union):
             Anonymous: _Anonymous_e__Struct
             AsUshort: UInt16
-            class _Anonymous_e__Struct(EasyCastStructure):
+            class _Anonymous_e__Struct(Structure):
                 SubMinor: Byte
                 Minor: Byte
-class STORAGE_TEMPERATURE_DATA_DESCRIPTOR(EasyCastStructure):
+class STORAGE_TEMPERATURE_DATA_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     CriticalTemperature: Int16
@@ -4174,7 +4174,7 @@ class STORAGE_TEMPERATURE_DATA_DESCRIPTOR(EasyCastStructure):
     Reserved0: Byte * 2
     Reserved1: UInt32 * 2
     TemperatureInfo: win32more.Windows.Win32.System.Ioctl.STORAGE_TEMPERATURE_INFO * 1
-class STORAGE_TEMPERATURE_INFO(EasyCastStructure):
+class STORAGE_TEMPERATURE_INFO(Structure):
     Index: UInt16
     Temperature: Int16
     OverThreshold: Int16
@@ -4184,7 +4184,7 @@ class STORAGE_TEMPERATURE_INFO(EasyCastStructure):
     EventGenerated: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved0: Byte
     Reserved1: UInt32
-class STORAGE_TEMPERATURE_THRESHOLD(EasyCastStructure):
+class STORAGE_TEMPERATURE_THRESHOLD(Structure):
     Version: UInt32
     Size: UInt32
     Flags: UInt16
@@ -4192,7 +4192,7 @@ class STORAGE_TEMPERATURE_THRESHOLD(EasyCastStructure):
     Threshold: Int16
     OverThreshold: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte
-class STORAGE_TIER(EasyCastStructure):
+class STORAGE_TIER(Structure):
     Id: Guid
     Name: Char * 256
     Description: Char * 256
@@ -4211,11 +4211,11 @@ StorageTierMediaTypeDisk: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDI
 StorageTierMediaTypeSsd: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 2
 StorageTierMediaTypeScm: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 4
 StorageTierMediaTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_TIER_MEDIA_TYPE = 5
-class STORAGE_TIER_REGION(EasyCastStructure):
+class STORAGE_TIER_REGION(Structure):
     TierId: Guid
     Offset: UInt64
     Length: UInt64
-class STORAGE_WRITE_CACHE_PROPERTY(EasyCastStructure):
+class STORAGE_WRITE_CACHE_PROPERTY(Structure):
     Version: UInt32
     Size: UInt32
     WriteCacheType: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_TYPE
@@ -4225,7 +4225,7 @@ class STORAGE_WRITE_CACHE_PROPERTY(EasyCastStructure):
     FlushCacheSupported: win32more.Windows.Win32.Foundation.BOOLEAN
     UserDefinedPowerProtection: win32more.Windows.Win32.Foundation.BOOLEAN
     NVCacheEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
-class STORAGE_ZONED_DEVICE_DESCRIPTOR(EasyCastStructure):
+class STORAGE_ZONED_DEVICE_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     DeviceType: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONED_DEVICE_TYPES
@@ -4233,14 +4233,14 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR(EasyCastStructure):
     ZoneAttributes: _ZoneAttributes_e__Union
     ZoneGroupCount: UInt32
     ZoneGroup: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_GROUP * 1
-    class _ZoneAttributes_e__Union(EasyCastUnion):
+    class _ZoneAttributes_e__Union(Union):
         SequentialRequiredZone: _SequentialRequiredZone_e__Struct
         SequentialPreferredZone: _SequentialPreferredZone_e__Struct
-        class _SequentialRequiredZone_e__Struct(EasyCastStructure):
+        class _SequentialRequiredZone_e__Struct(Structure):
             MaxOpenZoneCount: UInt32
             UnrestrictedRead: win32more.Windows.Win32.Foundation.BOOLEAN
             Reserved: Byte * 3
-        class _SequentialPreferredZone_e__Struct(EasyCastStructure):
+        class _SequentialPreferredZone_e__Struct(Structure):
             OptimalOpenZoneCount: UInt32
             Reserved: UInt32
 STORAGE_ZONED_DEVICE_TYPES = Int32
@@ -4262,7 +4262,7 @@ ZoneConditionClosed: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION
 ZoneConditionReadOnly: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 13
 ZoneConditionFull: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 14
 ZoneConditionOffline: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION = 15
-class STORAGE_ZONE_DESCRIPTOR(EasyCastStructure):
+class STORAGE_ZONE_DESCRIPTOR(Structure):
     Size: UInt32
     ZoneType: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES
     ZoneCondition: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION
@@ -4270,7 +4270,7 @@ class STORAGE_ZONE_DESCRIPTOR(EasyCastStructure):
     Reserved0: Byte * 3
     ZoneSize: UInt64
     WritePointerOffset: UInt64
-class STORAGE_ZONE_GROUP(EasyCastStructure):
+class STORAGE_ZONE_GROUP(Structure):
     ZoneCount: UInt32
     ZoneType: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES
     ZoneSize: UInt64
@@ -4280,49 +4280,49 @@ ZoneTypeConventional: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 
 ZoneTypeSequentialWriteRequired: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 2
 ZoneTypeSequentialWritePreferred: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 3
 ZoneTypeMax: win32more.Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES = 4
-class STREAMS_ASSOCIATE_ID_INPUT_BUFFER(EasyCastStructure):
+class STREAMS_ASSOCIATE_ID_INPUT_BUFFER(Structure):
     Flags: UInt32
     StreamId: UInt32
-class STREAMS_QUERY_ID_OUTPUT_BUFFER(EasyCastStructure):
+class STREAMS_QUERY_ID_OUTPUT_BUFFER(Structure):
     StreamId: UInt32
-class STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER(EasyCastStructure):
+class STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER(Structure):
     OptimalWriteSize: UInt32
     StreamGranularitySize: UInt32
     StreamIdMin: UInt32
     StreamIdMax: UInt32
-class STREAM_EXTENT_ENTRY(EasyCastStructure):
+class STREAM_EXTENT_ENTRY(Structure):
     Flags: UInt32
     ExtentInformation: _ExtentInformation_e__Union
-    class _ExtentInformation_e__Union(EasyCastUnion):
+    class _ExtentInformation_e__Union(Union):
         RetrievalPointers: win32more.Windows.Win32.System.Ioctl.RETRIEVAL_POINTERS_BUFFER
-class STREAM_INFORMATION_ENTRY(EasyCastStructure):
+class STREAM_INFORMATION_ENTRY(Structure):
     Version: UInt32
     Flags: UInt32
     StreamInformation: _StreamInformation
-    class _StreamInformation(EasyCastUnion):
+    class _StreamInformation(Union):
         DesiredStorageClass: _DesiredStorageClass
         DataStream: _DataStream
         Reparse: _Reparse
         Ea: _Ea
-        class _DesiredStorageClass(EasyCastStructure):
+        class _DesiredStorageClass(Structure):
             Class: win32more.Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS
             Flags: UInt32
-        class _DataStream(EasyCastStructure):
+        class _DataStream(Structure):
             Length: UInt16
             Flags: UInt16
             Reserved: UInt32
             Vdl: UInt64
-        class _Reparse(EasyCastStructure):
+        class _Reparse(Structure):
             Length: UInt16
             Flags: UInt16
             ReparseDataSize: UInt32
             ReparseDataOffset: UInt32
-        class _Ea(EasyCastStructure):
+        class _Ea(Structure):
             Length: UInt16
             Flags: UInt16
             EaSize: UInt32
             EaInformationOffset: UInt32
-class STREAM_LAYOUT_ENTRY(EasyCastStructure):
+class STREAM_LAYOUT_ENTRY(Structure):
     Version: UInt32
     NextStreamOffset: UInt32
     Flags: UInt32
@@ -4334,9 +4334,9 @@ class STREAM_LAYOUT_ENTRY(EasyCastStructure):
     AttributeFlags: UInt32
     StreamIdentifierLength: UInt32
     StreamIdentifier: Char * 1
-class TAPE_GET_STATISTICS(EasyCastStructure):
+class TAPE_GET_STATISTICS(Structure):
     Operation: UInt32
-class TAPE_STATISTICS(EasyCastStructure):
+class TAPE_STATISTICS(Structure):
     Version: UInt32
     Flags: UInt32
     RecoveredWrites: Int64
@@ -4345,40 +4345,40 @@ class TAPE_STATISTICS(EasyCastStructure):
     UnrecoveredReads: Int64
     CompressionRatioReads: Byte
     CompressionRatioWrites: Byte
-class TXFS_CREATE_MINIVERSION_INFO(EasyCastStructure):
+class TXFS_CREATE_MINIVERSION_INFO(Structure):
     StructureVersion: UInt16
     StructureLength: UInt16
     BaseVersion: UInt32
     MiniVersion: UInt16
-class TXFS_GET_METADATA_INFO_OUT(EasyCastStructure):
+class TXFS_GET_METADATA_INFO_OUT(Structure):
     TxfFileId: _TxfFileId_e__Struct
     LockingTransaction: Guid
     LastLsn: UInt64
     TransactionState: UInt32
-    class _TxfFileId_e__Struct(EasyCastStructure):
+    class _TxfFileId_e__Struct(Structure):
         LowPart: Int64
         HighPart: Int64
-class TXFS_GET_TRANSACTED_VERSION(EasyCastStructure):
+class TXFS_GET_TRANSACTED_VERSION(Structure):
     ThisBaseVersion: UInt32
     LatestVersion: UInt32
     ThisMiniVersion: UInt16
     FirstMiniVersion: UInt16
     LatestMiniVersion: UInt16
-class TXFS_LIST_TRANSACTIONS(EasyCastStructure):
+class TXFS_LIST_TRANSACTIONS(Structure):
     NumberOfTransactions: UInt64
     BufferSizeRequired: UInt64
-class TXFS_LIST_TRANSACTIONS_ENTRY(EasyCastStructure):
+class TXFS_LIST_TRANSACTIONS_ENTRY(Structure):
     TransactionId: Guid
     TransactionState: UInt32
     Reserved1: UInt32
     Reserved2: UInt32
     Reserved3: Int64
-class TXFS_LIST_TRANSACTION_LOCKED_FILES(EasyCastStructure):
+class TXFS_LIST_TRANSACTION_LOCKED_FILES(Structure):
     KtmTransaction: Guid
     NumberOfFiles: UInt64
     BufferSizeRequired: UInt64
     Offset: UInt64
-class TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY(EasyCastStructure):
+class TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY(Structure):
     Offset: UInt64
     NameFlags: UInt32
     FileId: Int64
@@ -4386,7 +4386,7 @@ class TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY(EasyCastStructure):
     Reserved2: UInt32
     Reserved3: Int64
     FileName: Char * 1
-class TXFS_MODIFY_RM(EasyCastStructure):
+class TXFS_MODIFY_RM(Structure):
     Flags: win32more.Windows.Win32.System.Ioctl.TXFS_RMF_LAGS
     LogContainerCountMax: UInt32
     LogContainerCountMin: UInt32
@@ -4395,7 +4395,7 @@ class TXFS_MODIFY_RM(EasyCastStructure):
     LogAutoShrinkPercentage: UInt32
     Reserved: UInt64
     LoggingMode: UInt16
-class TXFS_QUERY_RM_INFORMATION(EasyCastStructure):
+class TXFS_QUERY_RM_INFORMATION(Structure):
     BytesRequired: UInt32
     TailLsn: UInt64
     CurrentLsn: UInt64
@@ -4422,9 +4422,9 @@ class TXFS_QUERY_RM_INFORMATION(EasyCastStructure):
     OldestTransactionAge: UInt64
     RMName: Guid
     TmLogPathOffset: UInt32
-class TXFS_READ_BACKUP_INFORMATION_OUT(EasyCastStructure):
+class TXFS_READ_BACKUP_INFORMATION_OUT(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         BufferLength: UInt32
         Buffer: Byte * 1
 TXFS_RMF_LAGS = UInt32
@@ -4445,16 +4445,16 @@ TXFS_RM_FLAG_RESET_RM_AT_NEXT_START: win32more.Windows.Win32.System.Ioctl.TXFS_R
 TXFS_RM_FLAG_DO_NOT_RESET_RM_AT_NEXT_START: win32more.Windows.Win32.System.Ioctl.TXFS_RMF_LAGS = 32768
 TXFS_RM_FLAG_PREFER_CONSISTENCY: win32more.Windows.Win32.System.Ioctl.TXFS_RMF_LAGS = 65536
 TXFS_RM_FLAG_PREFER_AVAILABILITY: win32more.Windows.Win32.System.Ioctl.TXFS_RMF_LAGS = 131072
-class TXFS_ROLLFORWARD_REDO_INFORMATION(EasyCastStructure):
+class TXFS_ROLLFORWARD_REDO_INFORMATION(Structure):
     LastVirtualClock: Int64
     LastRedoLsn: UInt64
     HighestRecoveryLsn: UInt64
     Flags: UInt32
-class TXFS_SAVEPOINT_INFORMATION(EasyCastStructure):
+class TXFS_SAVEPOINT_INFORMATION(Structure):
     KtmTransaction: win32more.Windows.Win32.Foundation.HANDLE
     ActionCode: UInt32
     SavepointId: UInt32
-class TXFS_START_RM_INFORMATION(EasyCastStructure):
+class TXFS_START_RM_INFORMATION(Structure):
     Flags: UInt32
     LogContainerSize: UInt64
     LogContainerCountMin: UInt32
@@ -4467,14 +4467,14 @@ class TXFS_START_RM_INFORMATION(EasyCastStructure):
     LogPathLength: UInt16
     Reserved: UInt16
     LogPath: Char * 1
-class TXFS_TRANSACTION_ACTIVE_INFO(EasyCastStructure):
+class TXFS_TRANSACTION_ACTIVE_INFO(Structure):
     TransactionsActiveAtSnapshot: win32more.Windows.Win32.Foundation.BOOLEAN
-class TXFS_WRITE_BACKUP_INFORMATION(EasyCastStructure):
+class TXFS_WRITE_BACKUP_INFORMATION(Structure):
     Buffer: Byte * 1
 USN_DELETE_FLAGS = UInt32
 USN_DELETE_FLAG_DELETE: win32more.Windows.Win32.System.Ioctl.USN_DELETE_FLAGS = 1
 USN_DELETE_FLAG_NOTIFY: win32more.Windows.Win32.System.Ioctl.USN_DELETE_FLAGS = 2
-class USN_JOURNAL_DATA_V0(EasyCastStructure):
+class USN_JOURNAL_DATA_V0(Structure):
     UsnJournalID: UInt64
     FirstUsn: Int64
     NextUsn: Int64
@@ -4482,7 +4482,7 @@ class USN_JOURNAL_DATA_V0(EasyCastStructure):
     MaxUsn: Int64
     MaximumSize: UInt64
     AllocationDelta: UInt64
-class USN_JOURNAL_DATA_V1(EasyCastStructure):
+class USN_JOURNAL_DATA_V1(Structure):
     UsnJournalID: UInt64
     FirstUsn: Int64
     NextUsn: Int64
@@ -4492,7 +4492,7 @@ class USN_JOURNAL_DATA_V1(EasyCastStructure):
     AllocationDelta: UInt64
     MinSupportedMajorVersion: UInt16
     MaxSupportedMajorVersion: UInt16
-class USN_JOURNAL_DATA_V2(EasyCastStructure):
+class USN_JOURNAL_DATA_V2(Structure):
     UsnJournalID: UInt64
     FirstUsn: Int64
     NextUsn: Int64
@@ -4505,21 +4505,21 @@ class USN_JOURNAL_DATA_V2(EasyCastStructure):
     Flags: UInt32
     RangeTrackChunkSize: UInt64
     RangeTrackFileSizeThreshold: Int64
-class USN_RANGE_TRACK_OUTPUT(EasyCastStructure):
+class USN_RANGE_TRACK_OUTPUT(Structure):
     Usn: Int64
-class USN_RECORD_COMMON_HEADER(EasyCastStructure):
+class USN_RECORD_COMMON_HEADER(Structure):
     RecordLength: UInt32
     MajorVersion: UInt16
     MinorVersion: UInt16
-class USN_RECORD_EXTENT(EasyCastStructure):
+class USN_RECORD_EXTENT(Structure):
     Offset: Int64
     Length: Int64
-class USN_RECORD_UNION(EasyCastUnion):
+class USN_RECORD_UNION(Union):
     Header: win32more.Windows.Win32.System.Ioctl.USN_RECORD_COMMON_HEADER
     V2: win32more.Windows.Win32.System.Ioctl.USN_RECORD_V2
     V3: win32more.Windows.Win32.System.Ioctl.USN_RECORD_V3
     V4: win32more.Windows.Win32.System.Ioctl.USN_RECORD_V4
-class USN_RECORD_V2(EasyCastStructure):
+class USN_RECORD_V2(Structure):
     RecordLength: UInt32
     MajorVersion: UInt16
     MinorVersion: UInt16
@@ -4534,7 +4534,7 @@ class USN_RECORD_V2(EasyCastStructure):
     FileNameLength: UInt16
     FileNameOffset: UInt16
     FileName: Char * 1
-class USN_RECORD_V3(EasyCastStructure):
+class USN_RECORD_V3(Structure):
     RecordLength: UInt32
     MajorVersion: UInt16
     MinorVersion: UInt16
@@ -4549,7 +4549,7 @@ class USN_RECORD_V3(EasyCastStructure):
     FileNameLength: UInt16
     FileNameOffset: UInt16
     FileName: Char * 1
-class USN_RECORD_V4(EasyCastStructure):
+class USN_RECORD_V4(Structure):
     Header: win32more.Windows.Win32.System.Ioctl.USN_RECORD_COMMON_HEADER
     FileReferenceNumber: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
     ParentFileReferenceNumber: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
@@ -4565,24 +4565,24 @@ USN_SOURCE_AUXILIARY_DATA: win32more.Windows.Win32.System.Ioctl.USN_SOURCE_INFO_
 USN_SOURCE_DATA_MANAGEMENT: win32more.Windows.Win32.System.Ioctl.USN_SOURCE_INFO_ID = 1
 USN_SOURCE_REPLICATION_MANAGEMENT: win32more.Windows.Win32.System.Ioctl.USN_SOURCE_INFO_ID = 4
 USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT: win32more.Windows.Win32.System.Ioctl.USN_SOURCE_INFO_ID = 8
-class USN_TRACK_MODIFIED_RANGES(EasyCastStructure):
+class USN_TRACK_MODIFIED_RANGES(Structure):
     Flags: UInt32
     Unused: UInt32
     ChunkSize: UInt64
     FileSizeThreshold: Int64
-class VERIFY_INFORMATION(EasyCastStructure):
+class VERIFY_INFORMATION(Structure):
     StartingOffset: Int64
     Length: UInt32
-class VIRTUALIZATION_INSTANCE_INFO_INPUT(EasyCastStructure):
+class VIRTUALIZATION_INSTANCE_INFO_INPUT(Structure):
     NumberOfWorkerThreads: UInt32
     Flags: UInt32
-class VIRTUALIZATION_INSTANCE_INFO_INPUT_EX(EasyCastStructure):
+class VIRTUALIZATION_INSTANCE_INFO_INPUT_EX(Structure):
     HeaderSize: UInt16
     Flags: UInt32
     NotificationInfoSize: UInt32
     NotificationInfoOffset: UInt16
     ProviderMajorVersion: UInt16
-class VIRTUALIZATION_INSTANCE_INFO_OUTPUT(EasyCastStructure):
+class VIRTUALIZATION_INSTANCE_INFO_OUTPUT(Structure):
     VirtualizationInstanceID: Guid
 VIRTUAL_STORAGE_BEHAVIOR_CODE = Int32
 VirtualStorageBehaviorUndefined: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 0
@@ -4590,29 +4590,29 @@ VirtualStorageBehaviorCacheWriteThrough: win32more.Windows.Win32.System.Ioctl.VI
 VirtualStorageBehaviorCacheWriteBack: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 2
 VirtualStorageBehaviorStopIoProcessing: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 3
 VirtualStorageBehaviorRestartIoProcessing: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE = 4
-class VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT(EasyCastStructure):
+class VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT(Structure):
     Size: UInt32
     BehaviorCode: win32more.Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE
-class VOLUME_BITMAP_BUFFER(EasyCastStructure):
+class VOLUME_BITMAP_BUFFER(Structure):
     StartingLcn: Int64
     BitmapSize: Int64
     Buffer: Byte * 1
-class VOLUME_DISK_EXTENTS(EasyCastStructure):
+class VOLUME_DISK_EXTENTS(Structure):
     NumberOfDiskExtents: UInt32
     Extents: win32more.Windows.Win32.System.Ioctl.DISK_EXTENT * 1
-class VOLUME_GET_GPT_ATTRIBUTES_INFORMATION(EasyCastStructure):
+class VOLUME_GET_GPT_ATTRIBUTES_INFORMATION(Structure):
     GptAttributes: UInt64
-class WIM_PROVIDER_ADD_OVERLAY_INPUT(EasyCastStructure):
+class WIM_PROVIDER_ADD_OVERLAY_INPUT(Structure):
     WimType: UInt32
     WimIndex: UInt32
     WimFileNameOffset: UInt32
     WimFileNameLength: UInt32
-class WIM_PROVIDER_EXTERNAL_INFO(EasyCastStructure):
+class WIM_PROVIDER_EXTERNAL_INFO(Structure):
     Version: UInt32
     Flags: UInt32
     DataSourceId: Int64
     ResourceHash: Byte * 20
-class WIM_PROVIDER_OVERLAY_ENTRY(EasyCastStructure):
+class WIM_PROVIDER_OVERLAY_ENTRY(Structure):
     NextEntryOffset: UInt32
     DataSourceId: Int64
     WimGuid: Guid
@@ -4620,20 +4620,20 @@ class WIM_PROVIDER_OVERLAY_ENTRY(EasyCastStructure):
     WimType: UInt32
     WimIndex: UInt32
     Flags: UInt32
-class WIM_PROVIDER_REMOVE_OVERLAY_INPUT(EasyCastStructure):
+class WIM_PROVIDER_REMOVE_OVERLAY_INPUT(Structure):
     DataSourceId: Int64
-class WIM_PROVIDER_SUSPEND_OVERLAY_INPUT(EasyCastStructure):
+class WIM_PROVIDER_SUSPEND_OVERLAY_INPUT(Structure):
     DataSourceId: Int64
-class WIM_PROVIDER_UPDATE_OVERLAY_INPUT(EasyCastStructure):
+class WIM_PROVIDER_UPDATE_OVERLAY_INPUT(Structure):
     DataSourceId: Int64
     WimFileNameOffset: UInt32
     WimFileNameLength: UInt32
-class WOF_EXTERNAL_FILE_ID(EasyCastStructure):
+class WOF_EXTERNAL_FILE_ID(Structure):
     FileId: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
-class WOF_EXTERNAL_INFO(EasyCastStructure):
+class WOF_EXTERNAL_INFO(Structure):
     Version: UInt32
     Provider: UInt32
-class WOF_VERSION_INFO(EasyCastStructure):
+class WOF_VERSION_INFO(Structure):
     WofVersion: UInt32
 WRITE_CACHE_CHANGE = Int32
 WriteCacheChangeUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_CACHE_CHANGE = 0
@@ -4652,7 +4652,7 @@ WRITE_THROUGH = Int32
 WriteThroughUnknown: win32more.Windows.Win32.System.Ioctl.WRITE_THROUGH = 0
 WriteThroughNotSupported: win32more.Windows.Win32.System.Ioctl.WRITE_THROUGH = 1
 WriteThroughSupported: win32more.Windows.Win32.System.Ioctl.WRITE_THROUGH = 2
-class WRITE_USN_REASON_INPUT(EasyCastStructure):
+class WRITE_USN_REASON_INPUT(Structure):
     Flags: UInt32
     UsnReasonToWrite: UInt32
 

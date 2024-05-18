@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.RemoteDifferentialCompression
 import win32more.Windows.Win32.System.Com
@@ -27,7 +27,7 @@ MSRDC_DEFAULT_HORIZONSIZE_N: UInt32 = 128
 MSRDC_MAXIMUM_TRAITVALUE: UInt32 = 63
 MSRDC_MINIMUM_MATCHESREQUIRED: UInt32 = 1
 MSRDC_MAXIMUM_MATCHESREQUIRED: UInt32 = 16
-class FindSimilarFileIndexResults(EasyCastStructure):
+class FindSimilarFileIndexResults(Structure):
     m_FileIndex: UInt32
     m_MatchCount: UInt32
 FindSimilarResults = Guid('{96236a93-9dbc-11da-9e3f-0011114ae311}')
@@ -225,7 +225,7 @@ RDC_FileChecksumMismatch: win32more.Windows.Win32.Networking.RemoteDifferentialC
 RDC_ApplicationError: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 8
 RDC_Aborted: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 9
 RDC_Win32Error: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode = 10
-class RdcBufferPointer(EasyCastStructure):
+class RdcBufferPointer(Structure):
     m_Size: UInt32
     m_Used: UInt32
     m_Data: POINTER(Byte)
@@ -243,11 +243,11 @@ RdcMappingAccessMode = Int32
 RDCMAPPING_Undefined: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcMappingAccessMode = 0
 RDCMAPPING_ReadOnly: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcMappingAccessMode = 1
 RDCMAPPING_ReadWrite: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcMappingAccessMode = 2
-class RdcNeed(EasyCastStructure):
+class RdcNeed(Structure):
     m_BlockType: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedType
     m_FileOffset: UInt64
     m_BlockLength: UInt64
-class RdcNeedPointer(EasyCastStructure):
+class RdcNeedPointer(Structure):
     m_Size: UInt32
     m_Used: UInt32
     m_Data: POINTER(win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeed)
@@ -256,25 +256,25 @@ RDCNEED_SOURCE: win32more.Windows.Win32.Networking.RemoteDifferentialCompression
 RDCNEED_TARGET: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedType = 1
 RDCNEED_SEED: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedType = 2
 RDCNEED_SEED_MAX: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedType = 255
-class RdcSignature(EasyCastStructure):
+class RdcSignature(Structure):
     m_Signature: Byte * 16
     m_BlockLength: UInt16
-class RdcSignaturePointer(EasyCastStructure):
+class RdcSignaturePointer(Structure):
     m_Size: UInt32
     m_Used: UInt32
     m_Data: POINTER(win32more.Windows.Win32.Networking.RemoteDifferentialCompression.RdcSignature)
 RdcSignatureReader = Guid('{96236a8a-9dbc-11da-9e3f-0011114ae311}')
 RdcSimilarityGenerator = Guid('{96236a92-9dbc-11da-9e3f-0011114ae311}')
 Similarity = Guid('{96236a91-9dbc-11da-9e3f-0011114ae311}')
-class SimilarityData(EasyCastStructure):
+class SimilarityData(Structure):
     m_Data: Byte * 16
-class SimilarityDumpData(EasyCastStructure):
+class SimilarityDumpData(Structure):
     m_FileIndex: UInt32
     m_Data: win32more.Windows.Win32.Networking.RemoteDifferentialCompression.SimilarityData
-class SimilarityFileId(EasyCastStructure):
+class SimilarityFileId(Structure):
     m_FileId: Byte * 32
 SimilarityFileIdTable = Guid('{96236a90-9dbc-11da-9e3f-0011114ae311}')
-class SimilarityMappedViewInfo(EasyCastStructure):
+class SimilarityMappedViewInfo(Structure):
     m_Data: POINTER(Byte)
     m_Length: UInt32
 SimilarityReportProgress = Guid('{96236a8d-9dbc-11da-9e3f-0011114ae311}')

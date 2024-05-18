@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Restore
 MIN_EVENT: UInt32 = 100
@@ -30,20 +30,20 @@ def SRSetRestorePointW(pRestorePtSpec: POINTER(win32more.Windows.Win32.System.Re
 SRSetRestorePoint = UnicodeAlias('SRSetRestorePointW')
 @winfunctype('SrClient.dll')
 def SRRemoveRestorePoint(dwRPNum: UInt32) -> UInt32: ...
-class RESTOREPOINTINFOA(EasyCastStructure):
+class RESTOREPOINTINFOA(Structure):
     dwEventType: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_EVENT_TYPE
     dwRestorePtType: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_TYPE
     llSequenceNumber: Int64
     szDescription: win32more.Windows.Win32.Foundation.CHAR * 64
     _pack_ = 1
-class RESTOREPOINTINFOEX(EasyCastStructure):
+class RESTOREPOINTINFOEX(Structure):
     ftCreation: win32more.Windows.Win32.Foundation.FILETIME
     dwEventType: UInt32
     dwRestorePtType: UInt32
     dwRPNum: UInt32
     szDescription: Char * 256
     _pack_ = 1
-class RESTOREPOINTINFOW(EasyCastStructure):
+class RESTOREPOINTINFOW(Structure):
     dwEventType: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_EVENT_TYPE
     dwRestorePtType: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_TYPE
     llSequenceNumber: Int64
@@ -61,7 +61,7 @@ APPLICATION_UNINSTALL: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_T
 DEVICE_DRIVER_INSTALL: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_TYPE = 10
 MODIFY_SETTINGS: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_TYPE = 12
 CANCELLED_OPERATION: win32more.Windows.Win32.System.Restore.RESTOREPOINTINFO_TYPE = 13
-class STATEMGRSTATUS(EasyCastStructure):
+class STATEMGRSTATUS(Structure):
     nStatus: win32more.Windows.Win32.Foundation.WIN32_ERROR
     llSequenceNumber: Int64
     _pack_ = 1

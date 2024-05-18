@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Enumeration.Pnp
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -334,7 +334,7 @@ SWDeviceCapabilitiesNoDisplayInUI: win32more.Windows.Win32.Devices.Enumeration.P
 SWDeviceCapabilitiesDriverRequired: win32more.Windows.Win32.Devices.Enumeration.Pnp.SW_DEVICE_CAPABILITIES = 8
 @winfunctype_pointer
 def SW_DEVICE_CREATE_CALLBACK(hSwDevice: win32more.Windows.Win32.Devices.Enumeration.Pnp.HSWDEVICE, CreateResult: win32more.Windows.Win32.Foundation.HRESULT, pContext: VoidPtr, pszDeviceInstanceId: win32more.Windows.Win32.Foundation.PWSTR) -> Void: ...
-class SW_DEVICE_CREATE_INFO(EasyCastStructure):
+class SW_DEVICE_CREATE_INFO(Structure):
     cbSize: UInt32
     pszInstanceId: win32more.Windows.Win32.Foundation.PWSTR
     pszzHardwareIds: win32more.Windows.Win32.Foundation.PWSTR

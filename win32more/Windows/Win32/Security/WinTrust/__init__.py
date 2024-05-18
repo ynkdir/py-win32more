@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.Security.Cryptography.Sip
@@ -220,29 +220,29 @@ def OpenPersonalTrustDBDialogEx(hwndParent: win32more.Windows.Win32.Foundation.H
 def OpenPersonalTrustDBDialog(hwndParent: win32more.Windows.Win32.Foundation.HWND) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINTRUST.dll')
 def WintrustSetDefaultIncludePEPageHashes(fIncludePEPageHashes: win32more.Windows.Win32.Foundation.BOOL) -> Void: ...
-class CAT_MEMBERINFO(EasyCastStructure):
+class CAT_MEMBERINFO(Structure):
     pwszSubjGuid: win32more.Windows.Win32.Foundation.PWSTR
     dwCertVersion: UInt32
-class CAT_MEMBERINFO2(EasyCastStructure):
+class CAT_MEMBERINFO2(Structure):
     SubjectGuid: Guid
     dwCertVersion: UInt32
-class CAT_NAMEVALUE(EasyCastStructure):
+class CAT_NAMEVALUE(Structure):
     pwszTag: win32more.Windows.Win32.Foundation.PWSTR
     fdwFlags: UInt32
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CONFIG_CI_PROV_INFO(EasyCastStructure):
+class CONFIG_CI_PROV_INFO(Structure):
     cbSize: UInt32
     dwPolicies: UInt32
     pPolicies: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     result: win32more.Windows.Win32.Security.WinTrust.CONFIG_CI_PROV_INFO_RESULT
     dwScenario: UInt32
     result2: POINTER(win32more.Windows.Win32.Security.WinTrust.CONFIG_CI_PROV_INFO_RESULT2)
-class CONFIG_CI_PROV_INFO_RESULT(EasyCastStructure):
+class CONFIG_CI_PROV_INFO_RESULT(Structure):
     hr: win32more.Windows.Win32.Foundation.HRESULT
     dwResult: UInt32
     dwPolicyIndex: UInt32
     fIsExplicitDeny: win32more.Windows.Win32.Foundation.BOOLEAN
-class CONFIG_CI_PROV_INFO_RESULT2(EasyCastStructure):
+class CONFIG_CI_PROV_INFO_RESULT2(Structure):
     cbSize: UInt32
     hr: win32more.Windows.Win32.Foundation.HRESULT
     dwResult: UInt32
@@ -250,7 +250,7 @@ class CONFIG_CI_PROV_INFO_RESULT2(EasyCastStructure):
     fIsExplicitDeny: win32more.Windows.Win32.Foundation.BOOLEAN
     cbCalculatedFileHash: UInt32
     pbCalculatedFileHash: POINTER(Byte)
-class CRYPT_PROVIDER_CERT(EasyCastStructure):
+class CRYPT_PROVIDER_CERT(Structure):
     cbStruct: UInt32
     pCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     fCommercial: win32more.Windows.Win32.Foundation.BOOL
@@ -266,7 +266,7 @@ class CRYPT_PROVIDER_CERT(EasyCastStructure):
     dwCtlError: UInt32
     fIsCyclic: win32more.Windows.Win32.Foundation.BOOL
     pChainElement: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_ELEMENT)
-class CRYPT_PROVIDER_DATA(EasyCastStructure):
+class CRYPT_PROVIDER_DATA(Structure):
     cbStruct: UInt32
     pWintrustData: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA)
     fOpenedFile: win32more.Windows.Win32.Foundation.BOOL
@@ -300,14 +300,14 @@ class CRYPT_PROVIDER_DATA(EasyCastStructure):
     dwUIStateFlags: UInt32
     pSigState: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SIGSTATE)
     pSigSettings: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pPDSip: POINTER(win32more.Windows.Win32.Security.WinTrust.PROVDATA_SIP)
-class CRYPT_PROVIDER_DEFUSAGE(EasyCastStructure):
+class CRYPT_PROVIDER_DEFUSAGE(Structure):
     cbStruct: UInt32
     gActionID: Guid
     pDefPolicyCallbackData: VoidPtr
     pDefSIPClientData: VoidPtr
-class CRYPT_PROVIDER_FUNCTIONS(EasyCastStructure):
+class CRYPT_PROVIDER_FUNCTIONS(Structure):
     cbStruct: UInt32
     pfnAlloc: win32more.Windows.Win32.Security.WinTrust.PFN_CPD_MEM_ALLOC
     pfnFree: win32more.Windows.Win32.Security.WinTrust.PFN_CPD_MEM_FREE
@@ -324,18 +324,18 @@ class CRYPT_PROVIDER_FUNCTIONS(EasyCastStructure):
     pfnTestFinalPolicy: win32more.Windows.Win32.Security.WinTrust.PFN_PROVIDER_TESTFINALPOLICY_CALL
     psUIpfns: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVUI_FUNCS)
     pfnCleanupPolicy: win32more.Windows.Win32.Security.WinTrust.PFN_PROVIDER_CLEANUP_CALL
-class CRYPT_PROVIDER_PRIVDATA(EasyCastStructure):
+class CRYPT_PROVIDER_PRIVDATA(Structure):
     cbStruct: UInt32
     gProviderID: Guid
     cbProvData: UInt32
     pvProvData: VoidPtr
-class CRYPT_PROVIDER_REGDEFUSAGE(EasyCastStructure):
+class CRYPT_PROVIDER_REGDEFUSAGE(Structure):
     cbStruct: UInt32
     pgActionID: POINTER(Guid)
     pwszDllName: win32more.Windows.Win32.Foundation.PWSTR
     pwszLoadCallbackDataFunctionName: win32more.Windows.Win32.Foundation.PSTR
     pwszFreeCallbackDataFunctionName: win32more.Windows.Win32.Foundation.PSTR
-class CRYPT_PROVIDER_SGNR(EasyCastStructure):
+class CRYPT_PROVIDER_SGNR(Structure):
     cbStruct: UInt32
     sftVerifyAsOf: win32more.Windows.Win32.Foundation.FILETIME
     csCertChain: UInt32
@@ -346,7 +346,7 @@ class CRYPT_PROVIDER_SGNR(EasyCastStructure):
     csCounterSigners: UInt32
     pasCounterSigners: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SGNR)
     pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)
-class CRYPT_PROVIDER_SIGSTATE(EasyCastStructure):
+class CRYPT_PROVIDER_SIGSTATE(Structure):
     cbStruct: UInt32
     rhSecondarySigs: POINTER(VoidPtr)
     hPrimarySig: VoidPtr
@@ -359,7 +359,7 @@ class CRYPT_PROVIDER_SIGSTATE(EasyCastStructure):
     iAttemptCount: UInt32
     fCheckedSealing: win32more.Windows.Win32.Foundation.BOOL
     pSealingSignature: POINTER(win32more.Windows.Win32.Security.WinTrust.SEALING_SIGNATURE_ATTRIBUTE)
-class CRYPT_PROVUI_DATA(EasyCastStructure):
+class CRYPT_PROVUI_DATA(Structure):
     cbStruct: UInt32
     dwFinalError: UInt32
     pYesButtonText: win32more.Windows.Win32.Foundation.PWSTR
@@ -369,14 +369,14 @@ class CRYPT_PROVUI_DATA(EasyCastStructure):
     pCopyActionText: win32more.Windows.Win32.Foundation.PWSTR
     pCopyActionTextNoTS: win32more.Windows.Win32.Foundation.PWSTR
     pCopyActionTextNotSigned: win32more.Windows.Win32.Foundation.PWSTR
-class CRYPT_PROVUI_FUNCS(EasyCastStructure):
+class CRYPT_PROVUI_FUNCS(Structure):
     cbStruct: UInt32
     psUIData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVUI_DATA)
     pfnOnMoreInfoClick: win32more.Windows.Win32.Security.WinTrust.PFN_PROVUI_CALL
     pfnOnMoreInfoClickDefault: win32more.Windows.Win32.Security.WinTrust.PFN_PROVUI_CALL
     pfnOnAdvancedClick: win32more.Windows.Win32.Security.WinTrust.PFN_PROVUI_CALL
     pfnOnAdvancedClickDefault: win32more.Windows.Win32.Security.WinTrust.PFN_PROVUI_CALL
-class CRYPT_REGISTER_ACTIONID(EasyCastStructure):
+class CRYPT_REGISTER_ACTIONID(Structure):
     cbStruct: UInt32
     sInitProvider: win32more.Windows.Win32.Security.WinTrust.CRYPT_TRUST_REG_ENTRY
     sObjectProvider: win32more.Windows.Win32.Security.WinTrust.CRYPT_TRUST_REG_ENTRY
@@ -386,11 +386,11 @@ class CRYPT_REGISTER_ACTIONID(EasyCastStructure):
     sFinalPolicyProvider: win32more.Windows.Win32.Security.WinTrust.CRYPT_TRUST_REG_ENTRY
     sTestPolicyProvider: win32more.Windows.Win32.Security.WinTrust.CRYPT_TRUST_REG_ENTRY
     sCleanupProvider: win32more.Windows.Win32.Security.WinTrust.CRYPT_TRUST_REG_ENTRY
-class CRYPT_TRUST_REG_ENTRY(EasyCastStructure):
+class CRYPT_TRUST_REG_ENTRY(Structure):
     cbStruct: UInt32
     pwszDLLName: win32more.Windows.Win32.Foundation.PWSTR
     pwszFunctionName: win32more.Windows.Win32.Foundation.PWSTR
-class DRIVER_VER_INFO(EasyCastStructure):
+class DRIVER_VER_INFO(Structure):
     cbStruct: UInt32
     dwReserved1: UIntPtr
     dwReserved2: UIntPtr
@@ -403,10 +403,10 @@ class DRIVER_VER_INFO(EasyCastStructure):
     sOSVersionHigh: win32more.Windows.Win32.Security.WinTrust.DRIVER_VER_MAJORMINOR
     dwBuildNumberLow: UInt32
     dwBuildNumberHigh: UInt32
-class DRIVER_VER_MAJORMINOR(EasyCastStructure):
+class DRIVER_VER_MAJORMINOR(Structure):
     dwMajor: UInt32
     dwMinor: UInt32
-class INTENT_TO_SEAL_ATTRIBUTE(EasyCastStructure):
+class INTENT_TO_SEAL_ATTRIBUTE(Structure):
     version: UInt32
     seal: win32more.Windows.Win32.Foundation.BOOLEAN
 @winfunctype_pointer
@@ -445,7 +445,7 @@ def PFN_PROVIDER_TESTFINALPOLICY_CALL(pProvData: POINTER(win32more.Windows.Win32
 def PFN_PROVUI_CALL(hWndSecurityDialog: win32more.Windows.Win32.Foundation.HWND, pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK(pProvData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA), dwStepError: UInt32, dwRegPolicySettings: UInt32, cSigner: UInt32, rgpSigner: POINTER(POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO)), pvPolicyArg: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class PROVDATA_SIP(EasyCastStructure):
+class PROVDATA_SIP(Structure):
     cbStruct: UInt32
     gSubject: Guid
     pSip: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_DISPATCH_INFO)
@@ -453,42 +453,42 @@ class PROVDATA_SIP(EasyCastStructure):
     psSipSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_SUBJECTINFO)
     psSipCATSubjectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_SUBJECTINFO)
     psIndirectData: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.SIP_INDIRECT_DATA)
-class SEALING_SIGNATURE_ATTRIBUTE(EasyCastStructure):
+class SEALING_SIGNATURE_ATTRIBUTE(Structure):
     version: UInt32
     signerIndex: UInt32
     signatureAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     encryptedDigest: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class SEALING_TIMESTAMP_ATTRIBUTE(EasyCastStructure):
+class SEALING_TIMESTAMP_ATTRIBUTE(Structure):
     version: UInt32
     signerIndex: UInt32
     sealTimeStampToken: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class SPC_FINANCIAL_CRITERIA(EasyCastStructure):
+class SPC_FINANCIAL_CRITERIA(Structure):
     fFinancialInfoAvailable: win32more.Windows.Win32.Foundation.BOOL
     fMeetsCriteria: win32more.Windows.Win32.Foundation.BOOL
-class SPC_IMAGE(EasyCastStructure):
+class SPC_IMAGE(Structure):
     pImageLink: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
     Bitmap: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Metafile: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     EnhancedMetafile: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     GifFile: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class SPC_INDIRECT_DATA_CONTENT(EasyCastStructure):
+class SPC_INDIRECT_DATA_CONTENT(Structure):
     Data: win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE
     DigestAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     Digest: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class SPC_LINK(EasyCastStructure):
+class SPC_LINK(Structure):
     dwLinkChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pwszUrl: win32more.Windows.Win32.Foundation.PWSTR
         Moniker: win32more.Windows.Win32.Security.WinTrust.SPC_SERIALIZED_OBJECT
         pwszFile: win32more.Windows.Win32.Foundation.PWSTR
-class SPC_PE_IMAGE_DATA(EasyCastStructure):
+class SPC_PE_IMAGE_DATA(Structure):
     Flags: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     pFile: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
-class SPC_SERIALIZED_OBJECT(EasyCastStructure):
+class SPC_SERIALIZED_OBJECT(Structure):
     ClassId: Byte * 16
     SerializedData: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class SPC_SIGINFO(EasyCastStructure):
+class SPC_SIGINFO(Structure):
     dwSipVersion: UInt32
     gSIPGuid: Guid
     dwReserved1: UInt32
@@ -496,19 +496,19 @@ class SPC_SIGINFO(EasyCastStructure):
     dwReserved3: UInt32
     dwReserved4: UInt32
     dwReserved5: UInt32
-class SPC_SP_AGENCY_INFO(EasyCastStructure):
+class SPC_SP_AGENCY_INFO(Structure):
     pPolicyInformation: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
     pwszPolicyDisplayText: win32more.Windows.Win32.Foundation.PWSTR
     pLogoImage: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_IMAGE)
     pLogoLink: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
-class SPC_SP_OPUS_INFO(EasyCastStructure):
+class SPC_SP_OPUS_INFO(Structure):
     pwszProgramName: win32more.Windows.Win32.Foundation.PWSTR
     pMoreInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
     pPublisherInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.SPC_LINK)
-class SPC_STATEMENT_TYPE(EasyCastStructure):
+class SPC_STATEMENT_TYPE(Structure):
     cKeyPurposeId: UInt32
     rgpszKeyPurposeId: POINTER(win32more.Windows.Win32.Foundation.PSTR)
-class WINTRUST_BLOB_INFO(EasyCastStructure):
+class WINTRUST_BLOB_INFO(Structure):
     cbStruct: UInt32
     gSubject: Guid
     pcwszDisplayName: win32more.Windows.Win32.Foundation.PWSTR
@@ -516,7 +516,7 @@ class WINTRUST_BLOB_INFO(EasyCastStructure):
     pbMemObject: POINTER(Byte)
     cbMemSignedMsg: UInt32
     pbMemSignedMsg: POINTER(Byte)
-class WINTRUST_CATALOG_INFO(EasyCastStructure):
+class WINTRUST_CATALOG_INFO(Structure):
     cbStruct: UInt32
     dwCatalogVersion: UInt32
     pcwszCatalogFilePath: win32more.Windows.Win32.Foundation.PWSTR
@@ -527,7 +527,7 @@ class WINTRUST_CATALOG_INFO(EasyCastStructure):
     cbCalculatedFileHash: UInt32
     pcCatalogContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)
     hCatAdmin: IntPtr
-class WINTRUST_CERT_INFO(EasyCastStructure):
+class WINTRUST_CERT_INFO(Structure):
     cbStruct: UInt32
     pcwszDisplayName: win32more.Windows.Win32.Foundation.PWSTR
     psCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
@@ -535,7 +535,7 @@ class WINTRUST_CERT_INFO(EasyCastStructure):
     pahStores: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     dwFlags: UInt32
     psftVerifyAsOf: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
-class WINTRUST_DATA(EasyCastStructure):
+class WINTRUST_DATA(Structure):
     cbStruct: UInt32
     pPolicyCallbackData: VoidPtr
     pSIPClientData: VoidPtr
@@ -549,7 +549,7 @@ class WINTRUST_DATA(EasyCastStructure):
     dwProvFlags: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_PROVIDER_FLAGS
     dwUIContext: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_UICONTEXT
     pSignatureSettings: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pFile: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_FILE_INFO)
         pCatalog: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_CATALOG_INFO)
         pBlob: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_BLOB_INFO)
@@ -593,7 +593,7 @@ WTD_CHOICE_CATALOG: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_UNIO
 WTD_CHOICE_BLOB: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_UNION_CHOICE = 3
 WTD_CHOICE_SIGNER: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_UNION_CHOICE = 4
 WTD_CHOICE_CERT: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_UNION_CHOICE = 5
-class WINTRUST_FILE_INFO(EasyCastStructure):
+class WINTRUST_FILE_INFO(Structure):
     cbStruct: UInt32
     pcwszFilePath: win32more.Windows.Win32.Foundation.PWSTR
     hFile: win32more.Windows.Win32.Foundation.HANDLE
@@ -613,13 +613,13 @@ WTPF_OFFLINEOKNBU_COM: win32more.Windows.Win32.Security.WinTrust.WINTRUST_POLICY
 WTPF_VERIFY_V1_OFF: win32more.Windows.Win32.Security.WinTrust.WINTRUST_POLICY_FLAGS = 65536
 WTPF_IGNOREREVOCATIONONTS: win32more.Windows.Win32.Security.WinTrust.WINTRUST_POLICY_FLAGS = 131072
 WTPF_ALLOWONLYPERTRUST: win32more.Windows.Win32.Security.WinTrust.WINTRUST_POLICY_FLAGS = 262144
-class WINTRUST_SGNR_INFO(EasyCastStructure):
+class WINTRUST_SGNR_INFO(Structure):
     cbStruct: UInt32
     pcwszDisplayName: win32more.Windows.Win32.Foundation.PWSTR
     psSignerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO)
     chStores: UInt32
     pahStores: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
-class WINTRUST_SIGNATURE_SETTINGS(EasyCastStructure):
+class WINTRUST_SIGNATURE_SETTINGS(Structure):
     cbStruct: UInt32
     dwIndex: UInt32
     dwFlags: win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS_FLAGS
@@ -629,47 +629,47 @@ class WINTRUST_SIGNATURE_SETTINGS(EasyCastStructure):
 WINTRUST_SIGNATURE_SETTINGS_FLAGS = UInt32
 WSS_VERIFY_SPECIFIC: win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS_FLAGS = 1
 WSS_GET_SECONDARY_SIG_COUNT: win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS_FLAGS = 2
-class WIN_CERTIFICATE(EasyCastStructure):
+class WIN_CERTIFICATE(Structure):
     dwLength: UInt32
     wRevision: UInt16
     wCertificateType: UInt16
     bCertificate: Byte * 1
-class WIN_SPUB_TRUSTED_PUBLISHER_DATA(EasyCastStructure):
+class WIN_SPUB_TRUSTED_PUBLISHER_DATA(Structure):
     hClientToken: win32more.Windows.Win32.Foundation.HANDLE
     lpCertificate: POINTER(win32more.Windows.Win32.Security.WinTrust.WIN_CERTIFICATE)
-class WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT(EasyCastStructure):
+class WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT(Structure):
     hClientToken: win32more.Windows.Win32.Foundation.HANDLE
     SubjectType: POINTER(Guid)
     Subject: VoidPtr
-class WIN_TRUST_ACTDATA_SUBJECT_ONLY(EasyCastStructure):
+class WIN_TRUST_ACTDATA_SUBJECT_ONLY(Structure):
     SubjectType: POINTER(Guid)
     Subject: VoidPtr
-class WIN_TRUST_SUBJECT_FILE(EasyCastStructure):
+class WIN_TRUST_SUBJECT_FILE(Structure):
     hFile: win32more.Windows.Win32.Foundation.HANDLE
     lpPath: win32more.Windows.Win32.Foundation.PWSTR
-class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY(EasyCastStructure):
+class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY(Structure):
     hFile: win32more.Windows.Win32.Foundation.HANDLE
     lpPath: win32more.Windows.Win32.Foundation.PWSTR
     lpDisplayName: win32more.Windows.Win32.Foundation.PWSTR
-class WTD_GENERIC_CHAIN_POLICY_CREATE_INFO(EasyCastStructure):
+class WTD_GENERIC_CHAIN_POLICY_CREATE_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE
     pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_PARA)
     dwFlags: UInt32
     pvReserved: VoidPtr
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         cbStruct: UInt32
         cbSize: UInt32
-class WTD_GENERIC_CHAIN_POLICY_DATA(EasyCastStructure):
+class WTD_GENERIC_CHAIN_POLICY_DATA(Structure):
     Anonymous: _Anonymous_e__Union
     pSignerChainInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_CREATE_INFO)
     pCounterSignerChainInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_CREATE_INFO)
     pfnPolicyCallback: win32more.Windows.Win32.Security.WinTrust.PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK
     pvPolicyArg: VoidPtr
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         cbStruct: UInt32
         cbSize: UInt32
-class WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO(EasyCastStructure):
+class WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     pChainContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)
     dwSignerType: UInt32
@@ -677,7 +677,7 @@ class WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO(EasyCastStructure):
     dwError: UInt32
     cCounterSigner: UInt32
     rgpCounterSigner: POINTER(POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO))
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         cbStruct: UInt32
         cbSize: UInt32
 

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.ApplicationModel.DynamicDependency
 import win32more.Microsoft.Windows.Management.Deployment
@@ -706,7 +706,7 @@ class PackageDeploymentManager(ComPtr):
     def IsPackageRegistrationPendingForUser(self: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager, userSecurityId: WinRT_String, packageFamilyName: WinRT_String) -> Boolean: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManagerStatics) -> win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentManager: ...
-class PackageDeploymentProgress(EasyCastStructure):
+class PackageDeploymentProgress(Structure):
     Status: win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentProgressStatus
     Progress: Double
 class PackageDeploymentProgressStatus(Int32):  # enum

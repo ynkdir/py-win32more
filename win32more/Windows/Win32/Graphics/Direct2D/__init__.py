@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D
 import win32more.Windows.Win32.Graphics.Direct2D.Common
@@ -139,7 +139,7 @@ D2D1_3DTRANSFORM_PROP_TRANSFORM_MATRIX: win32more.Windows.Win32.Graphics.Direct2
 D2D1_ANTIALIAS_MODE = Int32
 D2D1_ANTIALIAS_MODE_PER_PRIMITIVE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_ANTIALIAS_MODE = 0
 D2D1_ANTIALIAS_MODE_ALIASED: win32more.Windows.Win32.Graphics.Direct2D.D2D1_ANTIALIAS_MODE = 1
-class D2D1_ARC_SEGMENT(EasyCastStructure):
+class D2D1_ARC_SEGMENT(Structure):
     point: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     size: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_F
     rotationAngle: Single
@@ -179,11 +179,11 @@ D2D1_BITMAPSOURCE_PROP_INTERPOLATION_MODE: win32more.Windows.Win32.Graphics.Dire
 D2D1_BITMAPSOURCE_PROP_ENABLE_DPI_CORRECTION: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BITMAPSOURCE_PROP = 3
 D2D1_BITMAPSOURCE_PROP_ALPHA_MODE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BITMAPSOURCE_PROP = 4
 D2D1_BITMAPSOURCE_PROP_ORIENTATION: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BITMAPSOURCE_PROP = 5
-class D2D1_BITMAP_BRUSH_PROPERTIES(EasyCastStructure):
+class D2D1_BITMAP_BRUSH_PROPERTIES(Structure):
     extendModeX: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE
     extendModeY: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE
     interpolationMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE
-class D2D1_BITMAP_BRUSH_PROPERTIES1(EasyCastStructure):
+class D2D1_BITMAP_BRUSH_PROPERTIES1(Structure):
     extendModeX: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE
     extendModeY: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE
     interpolationMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_INTERPOLATION_MODE
@@ -196,11 +196,11 @@ D2D1_BITMAP_OPTIONS_TARGET: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BITMA
 D2D1_BITMAP_OPTIONS_CANNOT_DRAW: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BITMAP_OPTIONS = 2
 D2D1_BITMAP_OPTIONS_CPU_READ: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BITMAP_OPTIONS = 4
 D2D1_BITMAP_OPTIONS_GDI_COMPATIBLE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BITMAP_OPTIONS = 8
-class D2D1_BITMAP_PROPERTIES(EasyCastStructure):
+class D2D1_BITMAP_PROPERTIES(Structure):
     pixelFormat: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT
     dpiX: Single
     dpiY: Single
-class D2D1_BITMAP_PROPERTIES1(EasyCastStructure):
+class D2D1_BITMAP_PROPERTIES1(Structure):
     pixelFormat: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT
     dpiX: Single
     dpiY: Single
@@ -220,7 +220,7 @@ D2D1_BLEND_INV_DEST_COLOR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BLEND 
 D2D1_BLEND_SRC_ALPHA_SAT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BLEND = 11
 D2D1_BLEND_BLEND_FACTOR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BLEND = 14
 D2D1_BLEND_INV_BLEND_FACTOR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BLEND = 15
-class D2D1_BLEND_DESCRIPTION(EasyCastStructure):
+class D2D1_BLEND_DESCRIPTION(Structure):
     sourceBlend: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BLEND
     destinationBlend: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BLEND
     blendOperation: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BLEND_OPERATION
@@ -246,7 +246,7 @@ D2D1_BORDER_PROP_EDGE_MODE_Y: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BOR
 D2D1_BRIGHTNESS_PROP = Int32
 D2D1_BRIGHTNESS_PROP_WHITE_POINT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BRIGHTNESS_PROP = 0
 D2D1_BRIGHTNESS_PROP_BLACK_POINT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BRIGHTNESS_PROP = 1
-class D2D1_BRUSH_PROPERTIES(EasyCastStructure):
+class D2D1_BRUSH_PROPERTIES(Structure):
     opacity: Single
     transform: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F
 D2D1_BUFFER_PRECISION = Int32
@@ -349,7 +349,7 @@ D2D1_CONVOLVEMATRIX_SCALE_MODE_CUBIC: win32more.Windows.Win32.Graphics.Direct2D.
 D2D1_CONVOLVEMATRIX_SCALE_MODE_MULTI_SAMPLE_LINEAR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CONVOLVEMATRIX_SCALE_MODE = 3
 D2D1_CONVOLVEMATRIX_SCALE_MODE_ANISOTROPIC: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CONVOLVEMATRIX_SCALE_MODE = 4
 D2D1_CONVOLVEMATRIX_SCALE_MODE_HIGH_QUALITY_CUBIC: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CONVOLVEMATRIX_SCALE_MODE = 5
-class D2D1_CREATION_PROPERTIES(EasyCastStructure):
+class D2D1_CREATION_PROPERTIES(Structure):
     threadingMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_THREADING_MODE
     debugLevel: win32more.Windows.Win32.Graphics.Direct2D.D2D1_DEBUG_LEVEL
     options: win32more.Windows.Win32.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS
@@ -358,7 +358,7 @@ D2D1_CROP_PROP_RECT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CROP_PROP = 
 D2D1_CROP_PROP_BORDER_MODE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CROP_PROP = 1
 D2D1_CROSSFADE_PROP = Int32
 D2D1_CROSSFADE_PROP_WEIGHT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CROSSFADE_PROP = 0
-class D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES(EasyCastStructure):
+class D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES(Structure):
     shaderBufferWithInputSignature: POINTER(Byte)
     shaderBufferSize: UInt32
     inputElements: POINTER(win32more.Windows.Win32.Graphics.Direct2D.D2D1_INPUT_ELEMENT_DESC)
@@ -447,13 +447,13 @@ D2D1_DPICOMPENSATION_PROP = Int32
 D2D1_DPICOMPENSATION_PROP_INTERPOLATION_MODE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_DPICOMPENSATION_PROP = 0
 D2D1_DPICOMPENSATION_PROP_BORDER_MODE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_DPICOMPENSATION_PROP = 1
 D2D1_DPICOMPENSATION_PROP_INPUT_DPI: win32more.Windows.Win32.Graphics.Direct2D.D2D1_DPICOMPENSATION_PROP = 2
-class D2D1_DRAWING_STATE_DESCRIPTION(EasyCastStructure):
+class D2D1_DRAWING_STATE_DESCRIPTION(Structure):
     antialiasMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_ANTIALIAS_MODE
     textAntialiasMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE
     tag1: UInt64
     tag2: UInt64
     transform: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F
-class D2D1_DRAWING_STATE_DESCRIPTION1(EasyCastStructure):
+class D2D1_DRAWING_STATE_DESCRIPTION1(Structure):
     antialiasMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_ANTIALIAS_MODE
     textAntialiasMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_TEXT_ANTIALIAS_MODE
     tag1: UInt64
@@ -476,11 +476,11 @@ D2D1_EDGEDETECTION_PROP_BLUR_RADIUS: win32more.Windows.Win32.Graphics.Direct2D.D
 D2D1_EDGEDETECTION_PROP_MODE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EDGEDETECTION_PROP = 2
 D2D1_EDGEDETECTION_PROP_OVERLAY_EDGES: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EDGEDETECTION_PROP = 3
 D2D1_EDGEDETECTION_PROP_ALPHA_MODE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EDGEDETECTION_PROP = 4
-class D2D1_EFFECT_INPUT_DESCRIPTION(EasyCastStructure):
+class D2D1_EFFECT_INPUT_DESCRIPTION(Structure):
     effect: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Effect
     inputIndex: UInt32
     inputRectangle: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F
-class D2D1_ELLIPSE(EasyCastStructure):
+class D2D1_ELLIPSE(Structure):
     point: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     radiusX: Single
     radiusY: Single
@@ -493,7 +493,7 @@ D2D1_EXTEND_MODE = Int32
 D2D1_EXTEND_MODE_CLAMP: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE = 0
 D2D1_EXTEND_MODE_WRAP: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE = 1
 D2D1_EXTEND_MODE_MIRROR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE = 2
-class D2D1_FACTORY_OPTIONS(EasyCastStructure):
+class D2D1_FACTORY_OPTIONS(Structure):
     debugLevel: win32more.Windows.Win32.Graphics.Direct2D.D2D1_DEBUG_LEVEL
 D2D1_FACTORY_TYPE = Int32
 D2D1_FACTORY_TYPE_SINGLE_THREADED: win32more.Windows.Win32.Graphics.Direct2D.D2D1_FACTORY_TYPE = 0
@@ -501,9 +501,9 @@ D2D1_FACTORY_TYPE_MULTI_THREADED: win32more.Windows.Win32.Graphics.Direct2D.D2D1
 D2D1_FEATURE = Int32
 D2D1_FEATURE_DOUBLES: win32more.Windows.Win32.Graphics.Direct2D.D2D1_FEATURE = 0
 D2D1_FEATURE_D3D10_X_HARDWARE_OPTIONS: win32more.Windows.Win32.Graphics.Direct2D.D2D1_FEATURE = 1
-class D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS(EasyCastStructure):
+class D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS(Structure):
     computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x: win32more.Windows.Win32.Foundation.BOOL
-class D2D1_FEATURE_DATA_DOUBLES(EasyCastStructure):
+class D2D1_FEATURE_DATA_DOUBLES(Structure):
     doublePrecisionFloatShaderOps: win32more.Windows.Win32.Foundation.BOOL
 D2D1_FEATURE_LEVEL = Int32
 D2D1_FEATURE_LEVEL_DEFAULT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_FEATURE_LEVEL = 0
@@ -563,7 +563,7 @@ D2D1_GEOMETRY_RELATION_OVERLAP: win32more.Windows.Win32.Graphics.Direct2D.D2D1_G
 D2D1_GEOMETRY_SIMPLIFICATION_OPTION = Int32
 D2D1_GEOMETRY_SIMPLIFICATION_OPTION_CUBICS_AND_LINES: win32more.Windows.Win32.Graphics.Direct2D.D2D1_GEOMETRY_SIMPLIFICATION_OPTION = 0
 D2D1_GEOMETRY_SIMPLIFICATION_OPTION_LINES: win32more.Windows.Win32.Graphics.Direct2D.D2D1_GEOMETRY_SIMPLIFICATION_OPTION = 1
-class D2D1_GRADIENT_MESH_PATCH(EasyCastStructure):
+class D2D1_GRADIENT_MESH_PATCH(Structure):
     point00: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     point01: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     point02: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
@@ -615,11 +615,11 @@ D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_VALUE: win32more.Windows.Win32.Gr
 D2D1_HUETORGB_INPUT_COLOR_SPACE_HUE_SATURATION_LIGHTNESS: win32more.Windows.Win32.Graphics.Direct2D.D2D1_HUETORGB_INPUT_COLOR_SPACE = 1
 D2D1_HUETORGB_PROP = Int32
 D2D1_HUETORGB_PROP_INPUT_COLOR_SPACE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_HUETORGB_PROP = 0
-class D2D1_HWND_RENDER_TARGET_PROPERTIES(EasyCastStructure):
+class D2D1_HWND_RENDER_TARGET_PROPERTIES(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     pixelSize: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_U
     presentOptions: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PRESENT_OPTIONS
-class D2D1_IMAGE_BRUSH_PROPERTIES(EasyCastStructure):
+class D2D1_IMAGE_BRUSH_PROPERTIES(Structure):
     sourceRectangle: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F
     extendModeX: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE
     extendModeY: win32more.Windows.Win32.Graphics.Direct2D.D2D1_EXTEND_MODE
@@ -631,24 +631,24 @@ D2D1_IMAGE_SOURCE_LOADING_OPTIONS = Int32
 D2D1_IMAGE_SOURCE_LOADING_OPTIONS_NONE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_IMAGE_SOURCE_LOADING_OPTIONS = 0
 D2D1_IMAGE_SOURCE_LOADING_OPTIONS_RELEASE_SOURCE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_IMAGE_SOURCE_LOADING_OPTIONS = 1
 D2D1_IMAGE_SOURCE_LOADING_OPTIONS_CACHE_ON_DEMAND: win32more.Windows.Win32.Graphics.Direct2D.D2D1_IMAGE_SOURCE_LOADING_OPTIONS = 2
-class D2D1_INK_BEZIER_SEGMENT(EasyCastStructure):
+class D2D1_INK_BEZIER_SEGMENT(Structure):
     point1: win32more.Windows.Win32.Graphics.Direct2D.D2D1_INK_POINT
     point2: win32more.Windows.Win32.Graphics.Direct2D.D2D1_INK_POINT
     point3: win32more.Windows.Win32.Graphics.Direct2D.D2D1_INK_POINT
 D2D1_INK_NIB_SHAPE = Int32
 D2D1_INK_NIB_SHAPE_ROUND: win32more.Windows.Win32.Graphics.Direct2D.D2D1_INK_NIB_SHAPE = 0
 D2D1_INK_NIB_SHAPE_SQUARE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_INK_NIB_SHAPE = 1
-class D2D1_INK_POINT(EasyCastStructure):
+class D2D1_INK_POINT(Structure):
     x: Single
     y: Single
     radius: Single
-class D2D1_INK_STYLE_PROPERTIES(EasyCastStructure):
+class D2D1_INK_STYLE_PROPERTIES(Structure):
     nibShape: win32more.Windows.Win32.Graphics.Direct2D.D2D1_INK_NIB_SHAPE
     nibTransform: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F
-class D2D1_INPUT_DESCRIPTION(EasyCastStructure):
+class D2D1_INPUT_DESCRIPTION(Structure):
     filter: win32more.Windows.Win32.Graphics.Direct2D.D2D1_FILTER
     levelOfDetailCount: UInt32
-class D2D1_INPUT_ELEMENT_DESC(EasyCastStructure):
+class D2D1_INPUT_ELEMENT_DESC(Structure):
     semanticName: win32more.Windows.Win32.Foundation.PSTR
     semanticIndex: UInt32
     format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
@@ -677,7 +677,7 @@ D2D1_LAYER_OPTIONS1 = Int32
 D2D1_LAYER_OPTIONS1_NONE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LAYER_OPTIONS1 = 0
 D2D1_LAYER_OPTIONS1_INITIALIZE_FROM_BACKGROUND: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LAYER_OPTIONS1 = 1
 D2D1_LAYER_OPTIONS1_IGNORE_ALPHA: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LAYER_OPTIONS1 = 2
-class D2D1_LAYER_PARAMETERS(EasyCastStructure):
+class D2D1_LAYER_PARAMETERS(Structure):
     contentBounds: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F
     geometricMask: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Geometry
     maskAntialiasMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_ANTIALIAS_MODE
@@ -685,7 +685,7 @@ class D2D1_LAYER_PARAMETERS(EasyCastStructure):
     opacity: Single
     opacityBrush: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Brush
     layerOptions: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LAYER_OPTIONS
-class D2D1_LAYER_PARAMETERS1(EasyCastStructure):
+class D2D1_LAYER_PARAMETERS1(Structure):
     contentBounds: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F
     geometricMask: win32more.Windows.Win32.Graphics.Direct2D.ID2D1Geometry
     maskAntialiasMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_ANTIALIAS_MODE
@@ -707,7 +707,7 @@ D2D1_LINEARTRANSFER_PROP_ALPHA_Y_INTERCEPT: win32more.Windows.Win32.Graphics.Dir
 D2D1_LINEARTRANSFER_PROP_ALPHA_SLOPE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LINEARTRANSFER_PROP = 10
 D2D1_LINEARTRANSFER_PROP_ALPHA_DISABLE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LINEARTRANSFER_PROP = 11
 D2D1_LINEARTRANSFER_PROP_CLAMP_OUTPUT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LINEARTRANSFER_PROP = 12
-class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES(EasyCastStructure):
+class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES(Structure):
     startPoint: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     endPoint: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
 D2D1_LINE_JOIN = Int32
@@ -718,7 +718,7 @@ D2D1_LINE_JOIN_MITER_OR_BEVEL: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LI
 D2D1_LOOKUPTABLE3D_PROP = Int32
 D2D1_LOOKUPTABLE3D_PROP_LUT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LOOKUPTABLE3D_PROP = 0
 D2D1_LOOKUPTABLE3D_PROP_ALPHA_MODE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_LOOKUPTABLE3D_PROP = 1
-class D2D1_MAPPED_RECT(EasyCastStructure):
+class D2D1_MAPPED_RECT(Structure):
     pitch: UInt32
     bits: POINTER(Byte)
 D2D1_MAP_OPTIONS = Int32
@@ -786,7 +786,7 @@ D2D1_POINTSPECULAR_SCALE_MODE_CUBIC: win32more.Windows.Win32.Graphics.Direct2D.D
 D2D1_POINTSPECULAR_SCALE_MODE_MULTI_SAMPLE_LINEAR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_POINTSPECULAR_SCALE_MODE = 3
 D2D1_POINTSPECULAR_SCALE_MODE_ANISOTROPIC: win32more.Windows.Win32.Graphics.Direct2D.D2D1_POINTSPECULAR_SCALE_MODE = 4
 D2D1_POINTSPECULAR_SCALE_MODE_HIGH_QUALITY_CUBIC: win32more.Windows.Win32.Graphics.Direct2D.D2D1_POINTSPECULAR_SCALE_MODE = 5
-class D2D1_POINT_DESCRIPTION(EasyCastStructure):
+class D2D1_POINT_DESCRIPTION(Structure):
     point: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     unitTangentVector: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     endSegment: UInt32
@@ -806,7 +806,7 @@ D2D1_PRIMITIVE_BLEND_COPY: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PRIMIT
 D2D1_PRIMITIVE_BLEND_MIN: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND = 2
 D2D1_PRIMITIVE_BLEND_ADD: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND = 3
 D2D1_PRIMITIVE_BLEND_MAX: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND = 4
-class D2D1_PRINT_CONTROL_PROPERTIES(EasyCastStructure):
+class D2D1_PRINT_CONTROL_PROPERTIES(Structure):
     fontSubset: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PRINT_FONT_SUBSET_MODE
     rasterDPI: Single
     colorSpace: win32more.Windows.Win32.Graphics.Direct2D.D2D1_COLOR_SPACE
@@ -825,7 +825,7 @@ D2D1_PROPERTY_CACHED: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PROPERTY = 
 D2D1_PROPERTY_PRECISION: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PROPERTY = -2147483641
 D2D1_PROPERTY_MIN_INPUTS: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PROPERTY = -2147483640
 D2D1_PROPERTY_MAX_INPUTS: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PROPERTY = -2147483639
-class D2D1_PROPERTY_BINDING(EasyCastStructure):
+class D2D1_PROPERTY_BINDING(Structure):
     propertyName: win32more.Windows.Win32.Foundation.PWSTR
     setFunction: win32more.Windows.Win32.Graphics.Direct2D.PD2D1_PROPERTY_SET_FUNCTION
     getFunction: win32more.Windows.Win32.Graphics.Direct2D.PD2D1_PROPERTY_GET_FUNCTION
@@ -849,21 +849,21 @@ D2D1_PROPERTY_TYPE_MATRIX_4X3: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PR
 D2D1_PROPERTY_TYPE_MATRIX_4X4: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PROPERTY_TYPE = 16
 D2D1_PROPERTY_TYPE_MATRIX_5X4: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PROPERTY_TYPE = 17
 D2D1_PROPERTY_TYPE_COLOR_CONTEXT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_PROPERTY_TYPE = 18
-class D2D1_QUADRATIC_BEZIER_SEGMENT(EasyCastStructure):
+class D2D1_QUADRATIC_BEZIER_SEGMENT(Structure):
     point1: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     point2: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
-class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES(EasyCastStructure):
+class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES(Structure):
     center: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     gradientOriginOffset: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     radiusX: Single
     radiusY: Single
-class D2D1_RENDERING_CONTROLS(EasyCastStructure):
+class D2D1_RENDERING_CONTROLS(Structure):
     bufferPrecision: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BUFFER_PRECISION
     tileSize: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_SIZE_U
 D2D1_RENDERING_PRIORITY = Int32
 D2D1_RENDERING_PRIORITY_NORMAL: win32more.Windows.Win32.Graphics.Direct2D.D2D1_RENDERING_PRIORITY = 0
 D2D1_RENDERING_PRIORITY_LOW: win32more.Windows.Win32.Graphics.Direct2D.D2D1_RENDERING_PRIORITY = 1
-class D2D1_RENDER_TARGET_PROPERTIES(EasyCastStructure):
+class D2D1_RENDER_TARGET_PROPERTIES(Structure):
     type: win32more.Windows.Win32.Graphics.Direct2D.D2D1_RENDER_TARGET_TYPE
     pixelFormat: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT
     dpiX: Single
@@ -878,7 +878,7 @@ D2D1_RENDER_TARGET_USAGE = Int32
 D2D1_RENDER_TARGET_USAGE_NONE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_RENDER_TARGET_USAGE = 0
 D2D1_RENDER_TARGET_USAGE_FORCE_BITMAP_REMOTING: win32more.Windows.Win32.Graphics.Direct2D.D2D1_RENDER_TARGET_USAGE = 1
 D2D1_RENDER_TARGET_USAGE_GDI_COMPATIBLE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_RENDER_TARGET_USAGE = 2
-class D2D1_RESOURCE_TEXTURE_PROPERTIES(EasyCastStructure):
+class D2D1_RESOURCE_TEXTURE_PROPERTIES(Structure):
     extents: POINTER(UInt32)
     dimensions: UInt32
     bufferPrecision: win32more.Windows.Win32.Graphics.Direct2D.D2D1_BUFFER_PRECISION
@@ -890,7 +890,7 @@ D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_HUE_SATURATION_VALUE: win32more.Windows.Win32.G
 D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE_HUE_SATURATION_LIGHTNESS: win32more.Windows.Win32.Graphics.Direct2D.D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE = 1
 D2D1_RGBTOHUE_PROP = Int32
 D2D1_RGBTOHUE_PROP_OUTPUT_COLOR_SPACE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_RGBTOHUE_PROP = 0
-class D2D1_ROUNDED_RECT(EasyCastStructure):
+class D2D1_ROUNDED_RECT(Structure):
     rect: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_RECT_F
     radiusX: Single
     radiusY: Single
@@ -923,7 +923,7 @@ D2D1_SHADOW_PROP_OPTIMIZATION: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SH
 D2D1_SHARPEN_PROP = Int32
 D2D1_SHARPEN_PROP_SHARPNESS: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SHARPEN_PROP = 0
 D2D1_SHARPEN_PROP_THRESHOLD: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SHARPEN_PROP = 1
-class D2D1_SIMPLE_COLOR_PROFILE(EasyCastStructure):
+class D2D1_SIMPLE_COLOR_PROFILE(Structure):
     redPrimary: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     greenPrimary: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     bluePrimary: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
@@ -977,7 +977,7 @@ D2D1_STRAIGHTEN_SCALE_MODE_LINEAR: win32more.Windows.Win32.Graphics.Direct2D.D2D
 D2D1_STRAIGHTEN_SCALE_MODE_CUBIC: win32more.Windows.Win32.Graphics.Direct2D.D2D1_STRAIGHTEN_SCALE_MODE = 2
 D2D1_STRAIGHTEN_SCALE_MODE_MULTI_SAMPLE_LINEAR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_STRAIGHTEN_SCALE_MODE = 3
 D2D1_STRAIGHTEN_SCALE_MODE_ANISOTROPIC: win32more.Windows.Win32.Graphics.Direct2D.D2D1_STRAIGHTEN_SCALE_MODE = 4
-class D2D1_STROKE_STYLE_PROPERTIES(EasyCastStructure):
+class D2D1_STROKE_STYLE_PROPERTIES(Structure):
     startCap: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CAP_STYLE
     endCap: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CAP_STYLE
     dashCap: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CAP_STYLE
@@ -985,7 +985,7 @@ class D2D1_STROKE_STYLE_PROPERTIES(EasyCastStructure):
     miterLimit: Single
     dashStyle: win32more.Windows.Win32.Graphics.Direct2D.D2D1_DASH_STYLE
     dashOffset: Single
-class D2D1_STROKE_STYLE_PROPERTIES1(EasyCastStructure):
+class D2D1_STROKE_STYLE_PROPERTIES1(Structure):
     startCap: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CAP_STYLE
     endCap: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CAP_STYLE
     dashCap: win32more.Windows.Win32.Graphics.Direct2D.D2D1_CAP_STYLE
@@ -1041,7 +1041,7 @@ D2D1_SVG_ATTRIBUTE_STRING_TYPE_ID: win32more.Windows.Win32.Graphics.Direct2D.D2D
 D2D1_SVG_DISPLAY = Int32
 D2D1_SVG_DISPLAY_INLINE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_DISPLAY = 0
 D2D1_SVG_DISPLAY_NONE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_DISPLAY = 1
-class D2D1_SVG_LENGTH(EasyCastStructure):
+class D2D1_SVG_LENGTH(Structure):
     value: Single
     units: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_LENGTH_UNITS
 D2D1_SVG_LENGTH_UNITS = Int32
@@ -1086,14 +1086,14 @@ D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_ABSOLUTE: win32more.Windows.Win32.Graphics.Di
 D2D1_SVG_PATH_COMMAND_CUBIC_SMOOTH_RELATIVE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND = 16
 D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_ABSOLUTE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND = 17
 D2D1_SVG_PATH_COMMAND_QUADRADIC_SMOOTH_RELATIVE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND = 18
-class D2D1_SVG_PRESERVE_ASPECT_RATIO(EasyCastStructure):
+class D2D1_SVG_PRESERVE_ASPECT_RATIO(Structure):
     defer: win32more.Windows.Win32.Foundation.BOOL
     align: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_ASPECT_ALIGN
     meetOrSlice: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_ASPECT_SCALING
 D2D1_SVG_UNIT_TYPE = Int32
 D2D1_SVG_UNIT_TYPE_USER_SPACE_ON_USE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_UNIT_TYPE = 0
 D2D1_SVG_UNIT_TYPE_OBJECT_BOUNDING_BOX: win32more.Windows.Win32.Graphics.Direct2D.D2D1_SVG_UNIT_TYPE = 1
-class D2D1_SVG_VIEWBOX(EasyCastStructure):
+class D2D1_SVG_VIEWBOX(Structure):
     x: Single
     y: Single
     width: Single
@@ -1133,13 +1133,13 @@ D2D1_TINT_PROP_CLAMP_OUTPUT: win32more.Windows.Win32.Graphics.Direct2D.D2D1_TINT
 D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS = Int32
 D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_NONE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS = 0
 D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS_DISABLE_DPI_SCALE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS = 1
-class D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES(EasyCastStructure):
+class D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES(Structure):
     orientation: win32more.Windows.Win32.Graphics.Direct2D.D2D1_ORIENTATION
     scaleX: Single
     scaleY: Single
     interpolationMode: win32more.Windows.Win32.Graphics.Direct2D.D2D1_INTERPOLATION_MODE
     options: win32more.Windows.Win32.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS
-class D2D1_TRIANGLE(EasyCastStructure):
+class D2D1_TRIANGLE(Structure):
     point1: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     point2: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
     point3: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F
@@ -1154,7 +1154,7 @@ D2D1_TURBULENCE_PROP_STITCHABLE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_
 D2D1_UNIT_MODE = Int32
 D2D1_UNIT_MODE_DIPS: win32more.Windows.Win32.Graphics.Direct2D.D2D1_UNIT_MODE = 0
 D2D1_UNIT_MODE_PIXELS: win32more.Windows.Win32.Graphics.Direct2D.D2D1_UNIT_MODE = 1
-class D2D1_VERTEX_BUFFER_PROPERTIES(EasyCastStructure):
+class D2D1_VERTEX_BUFFER_PROPERTIES(Structure):
     inputCount: UInt32
     usage: win32more.Windows.Win32.Graphics.Direct2D.D2D1_VERTEX_USAGE
     data: POINTER(Byte)
@@ -1164,7 +1164,7 @@ D2D1_VERTEX_OPTIONS_NONE: win32more.Windows.Win32.Graphics.Direct2D.D2D1_VERTEX_
 D2D1_VERTEX_OPTIONS_DO_NOT_CLEAR: win32more.Windows.Win32.Graphics.Direct2D.D2D1_VERTEX_OPTIONS = 1
 D2D1_VERTEX_OPTIONS_USE_DEPTH_BUFFER: win32more.Windows.Win32.Graphics.Direct2D.D2D1_VERTEX_OPTIONS = 2
 D2D1_VERTEX_OPTIONS_ASSUME_NO_OVERLAP: win32more.Windows.Win32.Graphics.Direct2D.D2D1_VERTEX_OPTIONS = 4
-class D2D1_VERTEX_RANGE(EasyCastStructure):
+class D2D1_VERTEX_RANGE(Structure):
     startVertex: UInt32
     vertexCount: UInt32
 D2D1_VERTEX_USAGE = Int32

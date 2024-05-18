@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -435,21 +435,21 @@ class SpatialAnchorTransferManager(ComPtr):
     def TryExportAnchorsAsync(cls: win32more.Windows.Perception.Spatial.ISpatialAnchorTransferManagerStatics, anchors: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Perception.Spatial.SpatialAnchor]], stream: win32more.Windows.Storage.Streams.IOutputStream) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod
     def RequestAccessAsync(cls: win32more.Windows.Perception.Spatial.ISpatialAnchorTransferManagerStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Perception.Spatial.SpatialPerceptionAccessStatus]: ...
-class SpatialBoundingBox(EasyCastStructure):
+class SpatialBoundingBox(Structure):
     Center: win32more.Windows.Foundation.Numerics.Vector3
     Extents: win32more.Windows.Foundation.Numerics.Vector3
-class SpatialBoundingFrustum(EasyCastStructure):
+class SpatialBoundingFrustum(Structure):
     Near: win32more.Windows.Foundation.Numerics.Plane
     Far: win32more.Windows.Foundation.Numerics.Plane
     Right: win32more.Windows.Foundation.Numerics.Plane
     Left: win32more.Windows.Foundation.Numerics.Plane
     Top: win32more.Windows.Foundation.Numerics.Plane
     Bottom: win32more.Windows.Foundation.Numerics.Plane
-class SpatialBoundingOrientedBox(EasyCastStructure):
+class SpatialBoundingOrientedBox(Structure):
     Center: win32more.Windows.Foundation.Numerics.Vector3
     Extents: win32more.Windows.Foundation.Numerics.Vector3
     Orientation: win32more.Windows.Foundation.Numerics.Quaternion
-class SpatialBoundingSphere(EasyCastStructure):
+class SpatialBoundingSphere(Structure):
     Center: win32more.Windows.Foundation.Numerics.Vector3
     Radius: Single
 class SpatialBoundingVolume(ComPtr):
@@ -677,7 +677,7 @@ class SpatialPerceptionAccessStatus(Int32):  # enum
     Allowed = 1
     DeniedByUser = 2
     DeniedBySystem = 3
-class SpatialRay(EasyCastStructure):
+class SpatialRay(Structure):
     Origin: win32more.Windows.Foundation.Numerics.Vector3
     Direction: win32more.Windows.Foundation.Numerics.Vector3
 class _SpatialStageFrameOfReference_Meta_(ComPtr.__class__):

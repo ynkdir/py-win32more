@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -677,23 +677,23 @@ CIP_EXE_SELF_REGISTERATION_TIMEOUT: win32more.Windows.Win32.System.Com.Urlmon.CI
 CIP_UNSAFE_TO_ABORT: win32more.Windows.Win32.System.Com.Urlmon.CIP_STATUS = 7
 CIP_NEED_REBOOT: win32more.Windows.Win32.System.Com.Urlmon.CIP_STATUS = 8
 CIP_NEED_REBOOT_UI_PERMISSION: win32more.Windows.Win32.System.Com.Urlmon.CIP_STATUS = 9
-class CODEBASEHOLD(EasyCastStructure):
+class CODEBASEHOLD(Structure):
     cbSize: UInt32
     szDistUnit: win32more.Windows.Win32.Foundation.PWSTR
     szCodeBase: win32more.Windows.Win32.Foundation.PWSTR
     dwVersionMS: UInt32
     dwVersionLS: UInt32
     dwStyle: UInt32
-class CONFIRMSAFETY(EasyCastStructure):
+class CONFIRMSAFETY(Structure):
     clsid: Guid
     pUnk: win32more.Windows.Win32.System.Com.IUnknown
     dwFlags: UInt32
-class DATAINFO(EasyCastStructure):
+class DATAINFO(Structure):
     ulTotalSize: UInt32
     ulavrPacketSize: UInt32
     ulConnectSpeed: UInt32
     ulProcessorSpeed: UInt32
-class HIT_LOGGING_INFO(EasyCastStructure):
+class HIT_LOGGING_INFO(Structure):
     dwStructSize: UInt32
     lpszLoggedUrlName: win32more.Windows.Win32.Foundation.PSTR
     StartTime: win32more.Windows.Win32.Foundation.SYSTEMTIME
@@ -1169,18 +1169,18 @@ PI_NOMIMEHANDLER: win32more.Windows.Win32.System.Com.Urlmon.PI_FLAGS = 32768
 PI_LOADAPPDIRECT: win32more.Windows.Win32.System.Com.Urlmon.PI_FLAGS = 16384
 PD_FORCE_SWITCH: win32more.Windows.Win32.System.Com.Urlmon.PI_FLAGS = 65536
 PI_PREFERDEFAULTHANDLER: win32more.Windows.Win32.System.Com.Urlmon.PI_FLAGS = 131072
-class PROTOCOLDATA(EasyCastStructure):
+class PROTOCOLDATA(Structure):
     grfFlags: UInt32
     dwState: UInt32
     pData: VoidPtr
     cbData: UInt32
-class PROTOCOLFILTERDATA(EasyCastStructure):
+class PROTOCOLFILTERDATA(Structure):
     cbSize: UInt32
     pProtocolSink: win32more.Windows.Win32.System.Com.Urlmon.IInternetProtocolSink
     pProtocol: win32more.Windows.Win32.System.Com.Urlmon.IInternetProtocol
     pUnk: win32more.Windows.Win32.System.Com.IUnknown
     dwFilterFlags: UInt32
-class PROTOCOL_ARGUMENT(EasyCastStructure):
+class PROTOCOL_ARGUMENT(Structure):
     szMethod: win32more.Windows.Win32.Foundation.PWSTR
     szTargetUrl: win32more.Windows.Win32.Foundation.PWSTR
 PSUACTION = Int32
@@ -1228,11 +1228,11 @@ QUERY_IS_SECURE: win32more.Windows.Win32.System.Com.Urlmon.QUERYOPTION = 13
 QUERY_IS_SAFE: win32more.Windows.Win32.System.Com.Urlmon.QUERYOPTION = 14
 QUERY_USES_HISTORYFOLDER: win32more.Windows.Win32.System.Com.Urlmon.QUERYOPTION = 15
 QUERY_IS_CACHED_AND_USABLE_OFFLINE: win32more.Windows.Win32.System.Com.Urlmon.QUERYOPTION = 16
-class REMSECURITY_ATTRIBUTES(EasyCastStructure):
+class REMSECURITY_ATTRIBUTES(Structure):
     nLength: UInt32
     lpSecurityDescriptor: UInt32
     bInheritHandle: win32more.Windows.Win32.Foundation.BOOL
-class RemBINDINFO(EasyCastStructure):
+class RemBINDINFO(Structure):
     cbSize: UInt32
     szExtraInfo: win32more.Windows.Win32.Foundation.PWSTR
     grfBindInfoF: UInt32
@@ -1246,13 +1246,13 @@ class RemBINDINFO(EasyCastStructure):
     iid: Guid
     pUnk: win32more.Windows.Win32.System.Com.IUnknown
     dwReserved: UInt32
-class RemFORMATETC(EasyCastStructure):
+class RemFORMATETC(Structure):
     cfFormat: UInt32
     ptd: UInt32
     dwAspect: UInt32
     lindex: Int32
     tymed: UInt32
-class SOFTDISTINFO(EasyCastStructure):
+class SOFTDISTINFO(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     dwAdState: UInt32
@@ -1269,7 +1269,7 @@ class SOFTDISTINFO(EasyCastStructure):
 SZM_FLAGS = Int32
 SZM_CREATE: win32more.Windows.Win32.System.Com.Urlmon.SZM_FLAGS = 0
 SZM_DELETE: win32more.Windows.Win32.System.Com.Urlmon.SZM_FLAGS = 1
-class StartParam(EasyCastStructure):
+class StartParam(Structure):
     iid: Guid
     pIBindCtx: win32more.Windows.Win32.System.Com.IBindCtx
     pItf: win32more.Windows.Win32.System.Com.IUnknown
@@ -1320,7 +1320,7 @@ ZAFLAGS_DETECT_INTRANET: win32more.Windows.Win32.System.Com.Urlmon.ZAFLAGS = 256
 ZAFLAGS_USE_LOCKED_ZONES: win32more.Windows.Win32.System.Com.Urlmon.ZAFLAGS = 65536
 ZAFLAGS_VERIFY_TEMPLATE_SETTINGS: win32more.Windows.Win32.System.Com.Urlmon.ZAFLAGS = 131072
 ZAFLAGS_NO_CACHE: win32more.Windows.Win32.System.Com.Urlmon.ZAFLAGS = 262144
-class ZONEATTRIBUTES(EasyCastStructure):
+class ZONEATTRIBUTES(Structure):
     cbSize: UInt32
     szDisplayName: Char * 260
     szDescription: Char * 200

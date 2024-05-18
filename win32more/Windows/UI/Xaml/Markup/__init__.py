@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -253,7 +253,7 @@ class XamlBinaryWriter(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Markup.XamlBinaryWriter'
     @winrt_classmethod
     def Write(cls: win32more.Windows.UI.Xaml.Markup.IXamlBinaryWriterStatics, inputStreams: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Streams.IRandomAccessStream], outputStreams: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Streams.IRandomAccessStream], xamlMetadataProvider: win32more.Windows.UI.Xaml.Markup.IXamlMetadataProvider) -> win32more.Windows.UI.Xaml.Markup.XamlBinaryWriterErrorInformation: ...
-class XamlBinaryWriterErrorInformation(EasyCastStructure):
+class XamlBinaryWriterErrorInformation(Structure):
     InputStreamIndex: UInt32
     LineNumber: UInt32
     LinePosition: UInt32
@@ -324,7 +324,7 @@ class XamlReader(ComPtr):
     def Load(cls: win32more.Windows.UI.Xaml.Markup.IXamlReaderStatics, xaml: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_classmethod
     def LoadWithInitialTemplateValidation(cls: win32more.Windows.UI.Xaml.Markup.IXamlReaderStatics, xaml: WinRT_String) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
-class XmlnsDefinition(EasyCastStructure):
+class XmlnsDefinition(Structure):
     XmlNamespace: WinRT_String
     Namespace: WinRT_String
 

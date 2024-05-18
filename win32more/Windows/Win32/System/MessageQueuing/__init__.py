@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -1721,7 +1721,7 @@ MQMSG_CALG_SEAL: win32more.Windows.Win32.System.MessageQueuing.MQCALG = 26626
 MQCERT_REGISTER = Int32
 MQCERT_REGISTER_ALWAYS: win32more.Windows.Win32.System.MessageQueuing.MQCERT_REGISTER = 1
 MQCERT_REGISTER_IF_NOT_EXIST: win32more.Windows.Win32.System.MessageQueuing.MQCERT_REGISTER = 2
-class MQCOLUMNSET(EasyCastStructure):
+class MQCOLUMNSET(Structure):
     cCol: UInt32
     aCol: POINTER(UInt32)
 MQConnectionState = Int32
@@ -1899,7 +1899,7 @@ MQ_JOURNAL: win32more.Windows.Win32.System.MessageQueuing.MQJOURNAL = 1
 MQMAX = Int32
 MQ_MAX_Q_NAME_LEN: win32more.Windows.Win32.System.MessageQueuing.MQMAX = 124
 MQ_MAX_Q_LABEL_LEN: win32more.Windows.Win32.System.MessageQueuing.MQMAX = 124
-class MQMGMTPROPS(EasyCastStructure):
+class MQMGMTPROPS(Structure):
     cProp: UInt32
     aPropID: POINTER(UInt32)
     aPropVar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
@@ -1973,7 +1973,7 @@ MQMSGPRIVLEVEL = Int32
 MQMSG_PRIV_LEVEL_NONE: win32more.Windows.Win32.System.MessageQueuing.MQMSGPRIVLEVEL = 0
 MQMSG_PRIV_LEVEL_BODY_BASE: win32more.Windows.Win32.System.MessageQueuing.MQMSGPRIVLEVEL = 1
 MQMSG_PRIV_LEVEL_BODY_ENHANCED: win32more.Windows.Win32.System.MessageQueuing.MQMSGPRIVLEVEL = 3
-class MQMSGPROPS(EasyCastStructure):
+class MQMSGPROPS(Structure):
     cProp: UInt32
     aPropID: POINTER(UInt32)
     aPropVar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
@@ -1987,7 +1987,7 @@ MQMSG_SEND_ROUTE_TO_REPORT_QUEUE: win32more.Windows.Win32.System.MessageQueuing.
 MQPRIORITY = Int32
 MQ_MIN_PRIORITY: win32more.Windows.Win32.System.MessageQueuing.MQPRIORITY = 0
 MQ_MAX_PRIORITY: win32more.Windows.Win32.System.MessageQueuing.MQPRIORITY = 7
-class MQPRIVATEPROPS(EasyCastStructure):
+class MQPRIVATEPROPS(Structure):
     cProp: UInt32
     aPropID: POINTER(UInt32)
     aPropVar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
@@ -1996,11 +1996,11 @@ MQPRIVLEVEL = Int32
 MQ_PRIV_LEVEL_NONE: win32more.Windows.Win32.System.MessageQueuing.MQPRIVLEVEL = 0
 MQ_PRIV_LEVEL_OPTIONAL: win32more.Windows.Win32.System.MessageQueuing.MQPRIVLEVEL = 1
 MQ_PRIV_LEVEL_BODY: win32more.Windows.Win32.System.MessageQueuing.MQPRIVLEVEL = 2
-class MQPROPERTYRESTRICTION(EasyCastStructure):
+class MQPROPERTYRESTRICTION(Structure):
     rel: UInt32
     prop: UInt32
     prval: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT
-class MQQMPROPS(EasyCastStructure):
+class MQQMPROPS(Structure):
     cProp: UInt32
     aPropID: POINTER(UInt32)
     aPropVar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
@@ -2022,21 +2022,21 @@ MQSEC_DELETE_JOURNAL_MESSAGE: win32more.Windows.Win32.System.MessageQueuing.MQQU
 MQSEC_SET_QUEUE_PROPERTIES: win32more.Windows.Win32.System.MessageQueuing.MQQUEUEACCESSMASK = 16
 MQSEC_GET_QUEUE_PROPERTIES: win32more.Windows.Win32.System.MessageQueuing.MQQUEUEACCESSMASK = 32
 MQSEC_QUEUE_GENERIC_EXECUTE: win32more.Windows.Win32.System.MessageQueuing.MQQUEUEACCESSMASK = 0
-class MQQUEUEPROPS(EasyCastStructure):
+class MQQUEUEPROPS(Structure):
     cProp: UInt32
     aPropID: POINTER(UInt32)
     aPropVar: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
     aStatus: POINTER(win32more.Windows.Win32.Foundation.HRESULT)
-class MQRESTRICTION(EasyCastStructure):
+class MQRESTRICTION(Structure):
     cRes: UInt32
     paPropRes: POINTER(win32more.Windows.Win32.System.MessageQueuing.MQPROPERTYRESTRICTION)
 MQSHARE = Int32
 MQ_DENY_NONE: win32more.Windows.Win32.System.MessageQueuing.MQSHARE = 0
 MQ_DENY_RECEIVE_SHARE: win32more.Windows.Win32.System.MessageQueuing.MQSHARE = 1
-class MQSORTKEY(EasyCastStructure):
+class MQSORTKEY(Structure):
     propColumn: UInt32
     dwOrder: UInt32
-class MQSORTSET(EasyCastStructure):
+class MQSORTSET(Structure):
     cCol: UInt32
     aCol: POINTER(win32more.Windows.Win32.System.MessageQueuing.MQSORTKEY)
 MQTRANSACTION = Int32
@@ -2098,7 +2098,7 @@ REL_LT: win32more.Windows.Win32.System.MessageQueuing.RELOPS = 3
 REL_GT: win32more.Windows.Win32.System.MessageQueuing.RELOPS = 4
 REL_LE: win32more.Windows.Win32.System.MessageQueuing.RELOPS = 5
 REL_GE: win32more.Windows.Win32.System.MessageQueuing.RELOPS = 6
-class SEQUENCE_INFO(EasyCastStructure):
+class SEQUENCE_INFO(Structure):
     SeqID: Int64
     SeqNo: UInt32
     PrevNo: UInt32

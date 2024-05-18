@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WindowsWebServices
 import win32more.Windows.Win32.Security.Authentication.Identity
@@ -580,7 +580,7 @@ def WebAuthNDeletePlatformCredential(cbCredentialId: UInt32, pbCredentialId: POI
 def WebAuthNGetErrorName(hr: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.PWSTR: ...
 @winfunctype('webauthn.dll')
 def WebAuthNGetW3CExceptionDOMError(hr: win32more.Windows.Win32.Foundation.HRESULT) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA(EasyCastStructure):
+class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA(Structure):
     dwVersion: UInt32
     cbContactId: UInt32
     pbContactId: POINTER(Byte)
@@ -599,7 +599,7 @@ class IContentPrefetcherTaskTrigger(ComPtr):
     def TriggerContentPrefetcherTask(self, packageFullName: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def IsRegisteredForContentPrefetch(self, packageFullName: win32more.Windows.Win32.Foundation.PWSTR, isRegistered: POINTER(Byte)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WEBAUTHN_ASSERTION(EasyCastStructure):
+class WEBAUTHN_ASSERTION(Structure):
     dwVersion: UInt32
     cbAuthenticatorData: UInt32
     pbAuthenticatorData: POINTER(Byte)
@@ -616,7 +616,7 @@ class WEBAUTHN_ASSERTION(EasyCastStructure):
     dwUsedTransport: UInt32
     cbUnsignedExtensionOutputs: UInt32
     pbUnsignedExtensionOutputs: POINTER(Byte)
-class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS(EasyCastStructure):
+class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS(Structure):
     dwVersion: UInt32
     dwTimeoutMilliseconds: UInt32
     CredentialList: win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_CREDENTIALS
@@ -637,7 +637,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS(EasyCastStructure):
     bAutoFill: win32more.Windows.Win32.Foundation.BOOL
     cbJsonExt: UInt32
     pbJsonExt: POINTER(Byte)
-class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS(EasyCastStructure):
+class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS(Structure):
     dwVersion: UInt32
     dwTimeoutMilliseconds: UInt32
     CredentialList: win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_CREDENTIALS
@@ -657,12 +657,12 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS(EasyCastStructure):
     pLinkedDevice: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.CTAPCBOR_HYBRID_STORAGE_LINKED_DATA)
     cbJsonExt: UInt32
     pbJsonExt: POINTER(Byte)
-class WEBAUTHN_CLIENT_DATA(EasyCastStructure):
+class WEBAUTHN_CLIENT_DATA(Structure):
     dwVersion: UInt32
     cbClientDataJSON: UInt32
     pbClientDataJSON: POINTER(Byte)
     pwszHashAlgId: win32more.Windows.Win32.Foundation.PWSTR
-class WEBAUTHN_COMMON_ATTESTATION(EasyCastStructure):
+class WEBAUTHN_COMMON_ATTESTATION(Structure):
     dwVersion: UInt32
     pwszAlg: win32more.Windows.Win32.Foundation.PWSTR
     lAlg: Int32
@@ -675,22 +675,22 @@ class WEBAUTHN_COMMON_ATTESTATION(EasyCastStructure):
     pbCertInfo: POINTER(Byte)
     cbPubArea: UInt32
     pbPubArea: POINTER(Byte)
-class WEBAUTHN_COSE_CREDENTIAL_PARAMETER(EasyCastStructure):
+class WEBAUTHN_COSE_CREDENTIAL_PARAMETER(Structure):
     dwVersion: UInt32
     pwszCredentialType: win32more.Windows.Win32.Foundation.PWSTR
     lAlg: Int32
-class WEBAUTHN_COSE_CREDENTIAL_PARAMETERS(EasyCastStructure):
+class WEBAUTHN_COSE_CREDENTIAL_PARAMETERS(Structure):
     cCredentialParameters: UInt32
     pCredentialParameters: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_COSE_CREDENTIAL_PARAMETER)
-class WEBAUTHN_CREDENTIAL(EasyCastStructure):
+class WEBAUTHN_CREDENTIAL(Structure):
     dwVersion: UInt32
     cbId: UInt32
     pbId: POINTER(Byte)
     pwszCredentialType: win32more.Windows.Win32.Foundation.PWSTR
-class WEBAUTHN_CREDENTIALS(EasyCastStructure):
+class WEBAUTHN_CREDENTIALS(Structure):
     cCredentials: UInt32
     pCredentials: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_CREDENTIAL)
-class WEBAUTHN_CREDENTIAL_ATTESTATION(EasyCastStructure):
+class WEBAUTHN_CREDENTIAL_ATTESTATION(Structure):
     dwVersion: UInt32
     pwszFormatType: win32more.Windows.Win32.Foundation.PWSTR
     cbAuthenticatorData: UInt32
@@ -711,7 +711,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION(EasyCastStructure):
     bPrfEnabled: win32more.Windows.Win32.Foundation.BOOL
     cbUnsignedExtensionOutputs: UInt32
     pbUnsignedExtensionOutputs: POINTER(Byte)
-class WEBAUTHN_CREDENTIAL_DETAILS(EasyCastStructure):
+class WEBAUTHN_CREDENTIAL_DETAILS(Structure):
     dwVersion: UInt32
     cbCredentialID: UInt32
     pbCredentialID: POINTER(Byte)
@@ -719,61 +719,61 @@ class WEBAUTHN_CREDENTIAL_DETAILS(EasyCastStructure):
     pUserInformation: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_USER_ENTITY_INFORMATION)
     bRemovable: win32more.Windows.Win32.Foundation.BOOL
     bBackedUp: win32more.Windows.Win32.Foundation.BOOL
-class WEBAUTHN_CREDENTIAL_DETAILS_LIST(EasyCastStructure):
+class WEBAUTHN_CREDENTIAL_DETAILS_LIST(Structure):
     cCredentialDetails: UInt32
     ppCredentialDetails: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_CREDENTIAL_DETAILS))
-class WEBAUTHN_CREDENTIAL_EX(EasyCastStructure):
+class WEBAUTHN_CREDENTIAL_EX(Structure):
     dwVersion: UInt32
     cbId: UInt32
     pbId: POINTER(Byte)
     pwszCredentialType: win32more.Windows.Win32.Foundation.PWSTR
     dwTransports: UInt32
-class WEBAUTHN_CREDENTIAL_LIST(EasyCastStructure):
+class WEBAUTHN_CREDENTIAL_LIST(Structure):
     cCredentials: UInt32
     ppCredentials: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_CREDENTIAL_EX))
-class WEBAUTHN_CRED_BLOB_EXTENSION(EasyCastStructure):
+class WEBAUTHN_CRED_BLOB_EXTENSION(Structure):
     cbCredBlob: UInt32
     pbCredBlob: POINTER(Byte)
-class WEBAUTHN_CRED_PROTECT_EXTENSION_IN(EasyCastStructure):
+class WEBAUTHN_CRED_PROTECT_EXTENSION_IN(Structure):
     dwCredProtect: UInt32
     bRequireCredProtect: win32more.Windows.Win32.Foundation.BOOL
-class WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT(EasyCastStructure):
+class WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT(Structure):
     cbCredID: UInt32
     pbCredID: POINTER(Byte)
     pHmacSecretSalt: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_HMAC_SECRET_SALT)
-class WEBAUTHN_EXTENSION(EasyCastStructure):
+class WEBAUTHN_EXTENSION(Structure):
     pwszExtensionIdentifier: win32more.Windows.Win32.Foundation.PWSTR
     cbExtension: UInt32
     pvExtension: VoidPtr
-class WEBAUTHN_EXTENSIONS(EasyCastStructure):
+class WEBAUTHN_EXTENSIONS(Structure):
     cExtensions: UInt32
     pExtensions: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_EXTENSION)
-class WEBAUTHN_GET_CREDENTIALS_OPTIONS(EasyCastStructure):
+class WEBAUTHN_GET_CREDENTIALS_OPTIONS(Structure):
     dwVersion: UInt32
     pwszRpId: win32more.Windows.Win32.Foundation.PWSTR
     bBrowserInPrivateMode: win32more.Windows.Win32.Foundation.BOOL
-class WEBAUTHN_HMAC_SECRET_SALT(EasyCastStructure):
+class WEBAUTHN_HMAC_SECRET_SALT(Structure):
     cbFirst: UInt32
     pbFirst: POINTER(Byte)
     cbSecond: UInt32
     pbSecond: POINTER(Byte)
-class WEBAUTHN_HMAC_SECRET_SALT_VALUES(EasyCastStructure):
+class WEBAUTHN_HMAC_SECRET_SALT_VALUES(Structure):
     pGlobalHmacSalt: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_HMAC_SECRET_SALT)
     cCredWithHmacSecretSaltList: UInt32
     pCredWithHmacSecretSaltList: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT)
-class WEBAUTHN_RP_ENTITY_INFORMATION(EasyCastStructure):
+class WEBAUTHN_RP_ENTITY_INFORMATION(Structure):
     dwVersion: UInt32
     pwszId: win32more.Windows.Win32.Foundation.PWSTR
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pwszIcon: win32more.Windows.Win32.Foundation.PWSTR
-class WEBAUTHN_USER_ENTITY_INFORMATION(EasyCastStructure):
+class WEBAUTHN_USER_ENTITY_INFORMATION(Structure):
     dwVersion: UInt32
     cbId: UInt32
     pbId: POINTER(Byte)
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pwszIcon: win32more.Windows.Win32.Foundation.PWSTR
     pwszDisplayName: win32more.Windows.Win32.Foundation.PWSTR
-class WEBAUTHN_X5C(EasyCastStructure):
+class WEBAUTHN_X5C(Structure):
     cbData: UInt32
     pbData: POINTER(Byte)
 @winfunctype_pointer
@@ -788,29 +788,29 @@ WS_ADDRESSING_VERSION = Int32
 WS_ADDRESSING_VERSION_0_9: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ADDRESSING_VERSION = 1
 WS_ADDRESSING_VERSION_1_0: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ADDRESSING_VERSION = 2
 WS_ADDRESSING_VERSION_TRANSPORT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ADDRESSING_VERSION = 3
-class WS_ANY_ATTRIBUTE(EasyCastStructure):
+class WS_ANY_ATTRIBUTE(Structure):
     localName: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING
     ns: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING
     value: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT)
-class WS_ANY_ATTRIBUTES(EasyCastStructure):
+class WS_ANY_ATTRIBUTES(Structure):
     attributes: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ANY_ATTRIBUTE)
     attributeCount: UInt32
 @winfunctype_pointer
 def WS_ASYNC_CALLBACK(errorCode: win32more.Windows.Win32.Foundation.HRESULT, callbackModel: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL, callbackState: VoidPtr) -> Void: ...
-class WS_ASYNC_CONTEXT(EasyCastStructure):
+class WS_ASYNC_CONTEXT(Structure):
     callback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CALLBACK
     callbackState: VoidPtr
 @winfunctype_pointer
 def WS_ASYNC_FUNCTION(hr: win32more.Windows.Win32.Foundation.HRESULT, callbackModel: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL, callbackState: VoidPtr, next: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_OPERATION), asyncContext: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_ASYNC_OPERATION(EasyCastStructure):
+class WS_ASYNC_OPERATION(Structure):
     function: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_FUNCTION
-class WS_ASYNC_STATE(EasyCastStructure):
+class WS_ASYNC_STATE(Structure):
     internal0: VoidPtr
     internal1: VoidPtr
     internal2: VoidPtr
     internal3: VoidPtr
     internal4: VoidPtr
-class WS_ATTRIBUTE_DESCRIPTION(EasyCastStructure):
+class WS_ATTRIBUTE_DESCRIPTION(Structure):
     attributeLocalName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     attributeNs: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     type: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TYPE
@@ -830,24 +830,24 @@ WS_HTTP_SSL_USERNAME_SECURITY_CONTEXT_BINDING_TEMPLATE_TYPE: win32more.Windows.W
 WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_BINDING_TEMPLATE_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_BINDING_TEMPLATE_TYPE = 11
 WS_TCP_SSPI_USERNAME_SECURITY_CONTEXT_BINDING_TEMPLATE_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_BINDING_TEMPLATE_TYPE = 12
 WS_TCP_SSPI_KERBEROS_APREQ_SECURITY_CONTEXT_BINDING_TEMPLATE_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_BINDING_TEMPLATE_TYPE = 13
-class WS_BOOL_DESCRIPTION(EasyCastStructure):
+class WS_BOOL_DESCRIPTION(Structure):
     value: win32more.Windows.Win32.Foundation.BOOL
-class WS_BUFFERS(EasyCastStructure):
+class WS_BUFFERS(Structure):
     bufferCount: UInt32
     buffers: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_BYTES)
-class WS_BYTES(EasyCastStructure):
+class WS_BYTES(Structure):
     length: UInt32
     bytes: POINTER(Byte)
-class WS_BYTES_DESCRIPTION(EasyCastStructure):
+class WS_BYTES_DESCRIPTION(Structure):
     minByteCount: UInt32
     maxByteCount: UInt32
-class WS_BYTE_ARRAY_DESCRIPTION(EasyCastStructure):
+class WS_BYTE_ARRAY_DESCRIPTION(Structure):
     minByteCount: UInt32
     maxByteCount: UInt32
 WS_CALLBACK_MODEL = Int32
 WS_SHORT_CALLBACK: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL = 0
 WS_LONG_CALLBACK: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CALLBACK_MODEL = 1
-class WS_CALL_PROPERTY(EasyCastStructure):
+class WS_CALL_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CALL_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -856,30 +856,30 @@ WS_CALL_PROPERTY_CHECK_MUST_UNDERSTAND: win32more.Windows.Win32.Networking.Windo
 WS_CALL_PROPERTY_SEND_MESSAGE_CONTEXT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CALL_PROPERTY_ID = 1
 WS_CALL_PROPERTY_RECEIVE_MESSAGE_CONTEXT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CALL_PROPERTY_ID = 2
 WS_CALL_PROPERTY_CALL_ID: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CALL_PROPERTY_ID = 3
-class WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE(EasyCastStructure):
+class WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE(Structure):
     keyHandle: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_HANDLE
     provider: UIntPtr
     keySpec: UInt32
 @winfunctype_pointer
 def WS_CERTIFICATE_VALIDATION_CALLBACK(certContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT), state: VoidPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT(EasyCastStructure):
+class WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT(Structure):
     callback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERTIFICATE_VALIDATION_CALLBACK
     state: VoidPtr
-class WS_CERT_CREDENTIAL(EasyCastStructure):
+class WS_CERT_CREDENTIAL(Structure):
     credentialType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL_TYPE
 WS_CERT_CREDENTIAL_TYPE = Int32
 WS_SUBJECT_NAME_CERT_CREDENTIAL_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL_TYPE = 1
 WS_THUMBPRINT_CERT_CREDENTIAL_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL_TYPE = 2
 WS_CUSTOM_CERT_CREDENTIAL_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL_TYPE = 3
-class WS_CERT_ENDPOINT_IDENTITY(EasyCastStructure):
+class WS_CERT_ENDPOINT_IDENTITY(Structure):
     identity: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY
     rawCertificateData: win32more.Windows.Win32.Networking.WindowsWebServices.WS_BYTES
 @winfunctype_pointer
 def WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK(certIssuerListNotificationCallbackState: VoidPtr, issuerList: POINTER(win32more.Windows.Win32.Security.Authentication.Identity.SecPkgContext_IssuerListInfoEx), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_CERT_MESSAGE_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
+class WS_CERT_MESSAGE_SECURITY_BINDING_CONSTRAINT(Structure):
     bindingConstraint: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
-class WS_CERT_SIGNED_SAML_AUTHENTICATOR(EasyCastStructure):
+class WS_CERT_SIGNED_SAML_AUTHENTICATOR(Structure):
     authenticator: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SAML_AUTHENTICATOR
     trustedIssuerCerts: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT))
     trustedIssuerCertCount: UInt32
@@ -893,7 +893,7 @@ WS_TCP_CHANNEL_BINDING: win32more.Windows.Win32.Networking.WindowsWebServices.WS
 WS_UDP_CHANNEL_BINDING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_BINDING = 2
 WS_CUSTOM_CHANNEL_BINDING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_BINDING = 3
 WS_NAMEDPIPE_CHANNEL_BINDING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_BINDING = 4
-class WS_CHANNEL_DECODER(EasyCastStructure):
+class WS_CHANNEL_DECODER(Structure):
     createContext: VoidPtr
     createDecoderCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CREATE_DECODER_CALLBACK
     decoderGetContentTypeCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DECODER_GET_CONTENT_TYPE_CALLBACK
@@ -901,7 +901,7 @@ class WS_CHANNEL_DECODER(EasyCastStructure):
     decoderDecodeCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DECODER_DECODE_CALLBACK
     decoderEndCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DECODER_END_CALLBACK
     freeDecoderCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FREE_DECODER_CALLBACK
-class WS_CHANNEL_ENCODER(EasyCastStructure):
+class WS_CHANNEL_ENCODER(Structure):
     createContext: VoidPtr
     createEncoderCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CREATE_ENCODER_CALLBACK
     encoderGetContentTypeCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENCODER_GET_CONTENT_TYPE_CALLBACK
@@ -909,19 +909,19 @@ class WS_CHANNEL_ENCODER(EasyCastStructure):
     encoderEncodeCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENCODER_ENCODE_CALLBACK
     encoderEndCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENCODER_END_CALLBACK
     freeEncoderCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FREE_ENCODER_CALLBACK
-class WS_CHANNEL_PROPERTIES(EasyCastStructure):
+class WS_CHANNEL_PROPERTIES(Structure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY)
     propertyCount: UInt32
-class WS_CHANNEL_PROPERTY(EasyCastStructure):
+class WS_CHANNEL_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
-class WS_CHANNEL_PROPERTY_CONSTRAINT(EasyCastStructure):
+class WS_CHANNEL_PROPERTY_CONSTRAINT(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID
     allowedValues: VoidPtr
     allowedValuesSize: UInt32
     out: _out_e__Struct
-    class _out_e__Struct(EasyCastStructure):
+    class _out_e__Struct(Structure):
         channelProperty: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY
 WS_CHANNEL_PROPERTY_ID = Int32
 WS_CHANNEL_PROPERTY_MAX_BUFFERED_MESSAGE_SIZE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID = 0
@@ -997,14 +997,14 @@ WS_CHARSET_AUTO: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHARSE
 WS_CHARSET_UTF8: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHARSET = 1
 WS_CHARSET_UTF16LE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHARSET = 2
 WS_CHARSET_UTF16BE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHARSET = 3
-class WS_CHAR_ARRAY_DESCRIPTION(EasyCastStructure):
+class WS_CHAR_ARRAY_DESCRIPTION(Structure):
     minCharCount: UInt32
     maxCharCount: UInt32
 @winfunctype_pointer
 def WS_CLOSE_CHANNEL_CALLBACK(channelInstance: VoidPtr, asyncContext: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def WS_CLOSE_LISTENER_CALLBACK(listenerInstance: VoidPtr, asyncContext: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_CONTRACT_DESCRIPTION(EasyCastStructure):
+class WS_CONTRACT_DESCRIPTION(Structure):
     operationCount: UInt32
     operations: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_DESCRIPTION))
 WS_COOKIE_MODE = Int32
@@ -1020,13 +1020,13 @@ def WS_CREATE_DECODER_CALLBACK(createContext: VoidPtr, readCallback: win32more.W
 def WS_CREATE_ENCODER_CALLBACK(createContext: VoidPtr, writeCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeContext: VoidPtr, encoderContext: POINTER(VoidPtr), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def WS_CREATE_LISTENER_CALLBACK(channelType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE, listenerParameters: VoidPtr, listenerParametersSize: UInt32, listenerInstance: POINTER(VoidPtr), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_CUSTOM_CERT_CREDENTIAL(EasyCastStructure):
+class WS_CUSTOM_CERT_CREDENTIAL(Structure):
     credential: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL
     getCertCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_GET_CERT_CALLBACK
     getCertCallbackState: VoidPtr
     certIssuerListNotificationCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK
     certIssuerListNotificationCallbackState: VoidPtr
-class WS_CUSTOM_CHANNEL_CALLBACKS(EasyCastStructure):
+class WS_CUSTOM_CHANNEL_CALLBACKS(Structure):
     createChannelCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CREATE_CHANNEL_CALLBACK
     freeChannelCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FREE_CHANNEL_CALLBACK
     resetChannelCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_RESET_CHANNEL_CALLBACK
@@ -1041,10 +1041,10 @@ class WS_CUSTOM_CHANNEL_CALLBACKS(EasyCastStructure):
     readMessageEndCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_READ_MESSAGE_END_CALLBACK
     abandonMessageCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ABANDON_MESSAGE_CALLBACK
     shutdownSessionChannelCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SHUTDOWN_SESSION_CHANNEL_CALLBACK
-class WS_CUSTOM_HTTP_PROXY(EasyCastStructure):
+class WS_CUSTOM_HTTP_PROXY(Structure):
     servers: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     bypass: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_CUSTOM_LISTENER_CALLBACKS(EasyCastStructure):
+class WS_CUSTOM_LISTENER_CALLBACKS(Structure):
     createListenerCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CREATE_LISTENER_CALLBACK
     freeListenerCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FREE_LISTENER_CALLBACK
     resetListenerCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_RESET_LISTENER_CALLBACK
@@ -1055,24 +1055,24 @@ class WS_CUSTOM_LISTENER_CALLBACKS(EasyCastStructure):
     setListenerPropertyCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SET_LISTENER_PROPERTY_CALLBACK
     createChannelForListenerCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK
     acceptChannelCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ACCEPT_CHANNEL_CALLBACK
-class WS_CUSTOM_TYPE_DESCRIPTION(EasyCastStructure):
+class WS_CUSTOM_TYPE_DESCRIPTION(Structure):
     size: UInt32
     alignment: UInt32
     readCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_READ_TYPE_CALLBACK
     writeCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WRITE_TYPE_CALLBACK
     descriptionData: VoidPtr
     isDefaultValueCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_IS_DEFAULT_VALUE_CALLBACK
-class WS_DATETIME(EasyCastStructure):
+class WS_DATETIME(Structure):
     ticks: UInt64
     format: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DATETIME_FORMAT
-class WS_DATETIME_DESCRIPTION(EasyCastStructure):
+class WS_DATETIME_DESCRIPTION(Structure):
     minValue: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DATETIME
     maxValue: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DATETIME
 WS_DATETIME_FORMAT = Int32
 WS_DATETIME_FORMAT_UTC: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DATETIME_FORMAT = 0
 WS_DATETIME_FORMAT_LOCAL: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DATETIME_FORMAT = 1
 WS_DATETIME_FORMAT_NONE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DATETIME_FORMAT = 2
-class WS_DECIMAL_DESCRIPTION(EasyCastStructure):
+class WS_DECIMAL_DESCRIPTION(Structure):
     minValue: win32more.Windows.Win32.Foundation.DECIMAL
     maxValue: win32more.Windows.Win32.Foundation.DECIMAL
 @winfunctype_pointer
@@ -1083,21 +1083,21 @@ def WS_DECODER_END_CALLBACK(encoderContext: VoidPtr, asyncContext: POINTER(win32
 def WS_DECODER_GET_CONTENT_TYPE_CALLBACK(decoderContext: VoidPtr, contentType: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING), contentEncoding: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING), newContentType: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def WS_DECODER_START_CALLBACK(encoderContext: VoidPtr, asyncContext: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_DEFAULT_VALUE(EasyCastStructure):
+class WS_DEFAULT_VALUE(Structure):
     value: VoidPtr
     valueSize: UInt32
-class WS_DEFAULT_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(EasyCastStructure):
+class WS_DEFAULT_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(Structure):
     credential: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL
-class WS_DISALLOWED_USER_AGENT_SUBSTRINGS(EasyCastStructure):
+class WS_DISALLOWED_USER_AGENT_SUBSTRINGS(Structure):
     subStringCount: UInt32
     subStrings: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING))
-class WS_DNS_ENDPOINT_IDENTITY(EasyCastStructure):
+class WS_DNS_ENDPOINT_IDENTITY(Structure):
     identity: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY
     dns: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_DOUBLE_DESCRIPTION(EasyCastStructure):
+class WS_DOUBLE_DESCRIPTION(Structure):
     minValue: Double
     maxValue: Double
-class WS_DURATION(EasyCastStructure):
+class WS_DURATION(Structure):
     negative: win32more.Windows.Win32.Foundation.BOOL
     years: UInt32
     months: UInt32
@@ -1109,13 +1109,13 @@ class WS_DURATION(EasyCastStructure):
     ticks: UInt32
 @winfunctype_pointer
 def WS_DURATION_COMPARISON_CALLBACK(duration1: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_DURATION), duration2: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_DURATION), result: POINTER(Int32), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_DURATION_DESCRIPTION(EasyCastStructure):
+class WS_DURATION_DESCRIPTION(Structure):
     minValue: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DURATION
     maxValue: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DURATION
     comparer: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DURATION_COMPARISON_CALLBACK
 @winfunctype_pointer
 def WS_DYNAMIC_STRING_CALLBACK(callbackState: VoidPtr, string: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING), found: POINTER(win32more.Windows.Win32.Foundation.BOOL), id: POINTER(UInt32), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_ELEMENT_DESCRIPTION(EasyCastStructure):
+class WS_ELEMENT_DESCRIPTION(Structure):
     elementLocalName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     elementNs: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     type: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TYPE
@@ -1138,16 +1138,16 @@ WS_ENCODING_XML_UTF8: win32more.Windows.Win32.Networking.WindowsWebServices.WS_E
 WS_ENCODING_XML_UTF16BE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENCODING = 6
 WS_ENCODING_XML_UTF16LE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENCODING = 7
 WS_ENCODING_RAW: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENCODING = 8
-class WS_ENDPOINT_ADDRESS(EasyCastStructure):
+class WS_ENDPOINT_ADDRESS(Structure):
     url: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     headers: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)
     extensions: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)
     identity: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY)
-class WS_ENDPOINT_ADDRESS_DESCRIPTION(EasyCastStructure):
+class WS_ENDPOINT_ADDRESS_DESCRIPTION(Structure):
     addressingVersion: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ADDRESSING_VERSION
 WS_ENDPOINT_ADDRESS_EXTENSION_TYPE = Int32
 WS_ENDPOINT_ADDRESS_EXTENSION_METADATA_ADDRESS: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_EXTENSION_TYPE = 1
-class WS_ENDPOINT_IDENTITY(EasyCastStructure):
+class WS_ENDPOINT_IDENTITY(Structure):
     identityType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY_TYPE
 WS_ENDPOINT_IDENTITY_TYPE = Int32
 WS_DNS_ENDPOINT_IDENTITY_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY_TYPE = 1
@@ -1156,19 +1156,19 @@ WS_SPN_ENDPOINT_IDENTITY_TYPE: win32more.Windows.Win32.Networking.WindowsWebServ
 WS_RSA_ENDPOINT_IDENTITY_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY_TYPE = 4
 WS_CERT_ENDPOINT_IDENTITY_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY_TYPE = 5
 WS_UNKNOWN_ENDPOINT_IDENTITY_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY_TYPE = 6
-class WS_ENDPOINT_POLICY_EXTENSION(EasyCastStructure):
+class WS_ENDPOINT_POLICY_EXTENSION(Structure):
     policyExtension: win32more.Windows.Win32.Networking.WindowsWebServices.WS_POLICY_EXTENSION
     assertionName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     assertionNs: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     out: _out_e__Struct
-    class _out_e__Struct(EasyCastStructure):
+    class _out_e__Struct(Structure):
         assertionValue: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)
-class WS_ENUM_DESCRIPTION(EasyCastStructure):
+class WS_ENUM_DESCRIPTION(Structure):
     values: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENUM_VALUE)
     valueCount: UInt32
     maxByteCount: UInt32
     nameIndices: POINTER(UInt32)
-class WS_ENUM_VALUE(EasyCastStructure):
+class WS_ENUM_VALUE(Structure):
     value: Int32
     name: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
 WS_ENVELOPE_VERSION = Int32
@@ -1176,7 +1176,7 @@ WS_ENVELOPE_VERSION_SOAP_1_1: win32more.Windows.Win32.Networking.WindowsWebServi
 WS_ENVELOPE_VERSION_SOAP_1_2: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENVELOPE_VERSION = 2
 WS_ENVELOPE_VERSION_NONE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENVELOPE_VERSION = 3
 WS_ERROR = IntPtr
-class WS_ERROR_PROPERTY(EasyCastStructure):
+class WS_ERROR_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -1194,19 +1194,19 @@ WS_EXTENDED_PROTECTION_POLICY_ALWAYS: win32more.Windows.Win32.Networking.Windows
 WS_EXTENDED_PROTECTION_SCENARIO = Int32
 WS_EXTENDED_PROTECTION_SCENARIO_BOUND_SERVER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_EXTENDED_PROTECTION_SCENARIO = 1
 WS_EXTENDED_PROTECTION_SCENARIO_TERMINATED_SSL: win32more.Windows.Win32.Networking.WindowsWebServices.WS_EXTENDED_PROTECTION_SCENARIO = 2
-class WS_FAULT(EasyCastStructure):
+class WS_FAULT(Structure):
     code: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_FAULT_CODE)
     reasons: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_FAULT_REASON)
     reasonCount: UInt32
     actor: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     node: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     detail: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)
-class WS_FAULT_CODE(EasyCastStructure):
+class WS_FAULT_CODE(Structure):
     value: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_QNAME
     subCode: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_FAULT_CODE)
-class WS_FAULT_DESCRIPTION(EasyCastStructure):
+class WS_FAULT_DESCRIPTION(Structure):
     envelopeVersion: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENVELOPE_VERSION
-class WS_FAULT_DETAIL_DESCRIPTION(EasyCastStructure):
+class WS_FAULT_DETAIL_DESCRIPTION(Structure):
     action: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     detailElementDescription: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION)
 WS_FAULT_DISCLOSURE = Int32
@@ -1216,10 +1216,10 @@ WS_FAULT_ERROR_PROPERTY_ID = Int32
 WS_FAULT_ERROR_PROPERTY_FAULT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FAULT_ERROR_PROPERTY_ID = 0
 WS_FAULT_ERROR_PROPERTY_ACTION: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FAULT_ERROR_PROPERTY_ID = 1
 WS_FAULT_ERROR_PROPERTY_HEADER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FAULT_ERROR_PROPERTY_ID = 2
-class WS_FAULT_REASON(EasyCastStructure):
+class WS_FAULT_REASON(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     lang: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_FIELD_DESCRIPTION(EasyCastStructure):
+class WS_FIELD_DESCRIPTION(Structure):
     mapping: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FIELD_MAPPING
     localName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     ns: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
@@ -1246,7 +1246,7 @@ WS_ANY_ELEMENT_FIELD_MAPPING: win32more.Windows.Win32.Networking.WindowsWebServi
 WS_REPEATING_ANY_ELEMENT_FIELD_MAPPING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FIELD_MAPPING = 10
 WS_ANY_CONTENT_FIELD_MAPPING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FIELD_MAPPING = 11
 WS_ANY_ATTRIBUTES_FIELD_MAPPING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FIELD_MAPPING = 12
-class WS_FLOAT_DESCRIPTION(EasyCastStructure):
+class WS_FLOAT_DESCRIPTION(Structure):
     minValue: Single
     maxValue: Single
 @winfunctype_pointer
@@ -1263,7 +1263,7 @@ def WS_GET_CERT_CALLBACK(getCertCallbackState: VoidPtr, targetAddress: POINTER(w
 def WS_GET_CHANNEL_PROPERTY_CALLBACK(channelInstance: VoidPtr, id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def WS_GET_LISTENER_PROPERTY_CALLBACK(listenerInstance: VoidPtr, id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_GUID_DESCRIPTION(EasyCastStructure):
+class WS_GUID_DESCRIPTION(Structure):
     value: Guid
 WS_HEADER_TYPE = Int32
 WS_ACTION_HEADER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEADER_TYPE = 1
@@ -1274,10 +1274,10 @@ WS_FROM_HEADER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEADER_
 WS_REPLY_TO_HEADER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEADER_TYPE = 6
 WS_FAULT_TO_HEADER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEADER_TYPE = 7
 WS_HEAP = IntPtr
-class WS_HEAP_PROPERTIES(EasyCastStructure):
+class WS_HEAP_PROPERTIES(Structure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEAP_PROPERTY)
     propertyCount: UInt32
-class WS_HEAP_PROPERTY(EasyCastStructure):
+class WS_HEAP_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEAP_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -1286,10 +1286,10 @@ WS_HEAP_PROPERTY_MAX_SIZE: win32more.Windows.Win32.Networking.WindowsWebServices
 WS_HEAP_PROPERTY_TRIM_SIZE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEAP_PROPERTY_ID = 1
 WS_HEAP_PROPERTY_REQUESTED_SIZE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEAP_PROPERTY_ID = 2
 WS_HEAP_PROPERTY_ACTUAL_SIZE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEAP_PROPERTY_ID = 3
-class WS_HOST_NAMES(EasyCastStructure):
+class WS_HOST_NAMES(Structure):
     hostNames: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING)
     hostNameCount: UInt32
-class WS_HTTPS_URL(EasyCastStructure):
+class WS_HTTPS_URL(Structure):
     url: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL
     host: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     port: UInt16
@@ -1297,40 +1297,40 @@ class WS_HTTPS_URL(EasyCastStructure):
     path: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     query: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     fragment: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_HTTP_BINDING_TEMPLATE(EasyCastStructure):
+class WS_HTTP_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
-class WS_HTTP_HEADER_AUTH_BINDING_TEMPLATE(EasyCastStructure):
+class WS_HTTP_HEADER_AUTH_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     httpHeaderAuthSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_HEADER_AUTH_SECURITY_BINDING_TEMPLATE
-class WS_HTTP_HEADER_AUTH_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_HTTP_HEADER_AUTH_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     httpHeaderAuthSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_HTTP_HEADER_AUTH_SECURITY_BINDING(EasyCastStructure):
+class WS_HTTP_HEADER_AUTH_SECURITY_BINDING(Structure):
     binding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING
     clientCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL)
-class WS_HTTP_HEADER_AUTH_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
+class WS_HTTP_HEADER_AUTH_SECURITY_BINDING_CONSTRAINT(Structure):
     bindingConstraint: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
-class WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
-class WS_HTTP_HEADER_AUTH_SECURITY_BINDING_TEMPLATE(EasyCastStructure):
+class WS_HTTP_HEADER_AUTH_SECURITY_BINDING_TEMPLATE(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
     clientCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL)
 WS_HTTP_HEADER_AUTH_TARGET = Int32
 WS_HTTP_HEADER_AUTH_TARGET_SERVICE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_HEADER_AUTH_TARGET = 1
 WS_HTTP_HEADER_AUTH_TARGET_PROXY: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_HEADER_AUTH_TARGET = 2
-class WS_HTTP_HEADER_MAPPING(EasyCastStructure):
+class WS_HTTP_HEADER_MAPPING(Structure):
     headerName: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING
     headerMappingOptions: UInt32
-class WS_HTTP_MESSAGE_MAPPING(EasyCastStructure):
+class WS_HTTP_MESSAGE_MAPPING(Structure):
     requestMappingOptions: UInt32
     responseMappingOptions: UInt32
     requestHeaderMappings: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_HEADER_MAPPING))
     requestHeaderMappingCount: UInt32
     responseHeaderMappings: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_HEADER_MAPPING))
     responseHeaderMappingCount: UInt32
-class WS_HTTP_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_HTTP_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
 WS_HTTP_PROXY_SETTING_MODE = Int32
 WS_HTTP_PROXY_SETTING_MODE_AUTO: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_PROXY_SETTING_MODE = 1
@@ -1338,72 +1338,72 @@ WS_HTTP_PROXY_SETTING_MODE_NONE: win32more.Windows.Win32.Networking.WindowsWebSe
 WS_HTTP_PROXY_SETTING_MODE_CUSTOM: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_PROXY_SETTING_MODE = 3
 @winfunctype_pointer
 def WS_HTTP_REDIRECT_CALLBACK(state: VoidPtr, originalUrl: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING), newUrl: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_HTTP_REDIRECT_CALLBACK_CONTEXT(EasyCastStructure):
+class WS_HTTP_REDIRECT_CALLBACK_CONTEXT(Structure):
     callback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_REDIRECT_CALLBACK
     state: VoidPtr
-class WS_HTTP_SSL_BINDING_TEMPLATE(EasyCastStructure):
+class WS_HTTP_SSL_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE
-class WS_HTTP_SSL_HEADER_AUTH_BINDING_TEMPLATE(EasyCastStructure):
+class WS_HTTP_SSL_HEADER_AUTH_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE
     httpHeaderAuthSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_HEADER_AUTH_SECURITY_BINDING_TEMPLATE
-class WS_HTTP_SSL_HEADER_AUTH_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_HTTP_SSL_HEADER_AUTH_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
     httpHeaderAuthSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_HTTP_SSL_KERBEROS_APREQ_BINDING_TEMPLATE(EasyCastStructure):
+class WS_HTTP_SSL_KERBEROS_APREQ_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE
     kerberosApreqMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE
-class WS_HTTP_SSL_KERBEROS_APREQ_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_HTTP_SSL_KERBEROS_APREQ_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
     kerberosApreqMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_BINDING_TEMPLATE(EasyCastStructure):
+class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE
     kerberosApreqMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE
     securityContextSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE
-class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
     kerberosApreqMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
     securityContextSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_HTTP_SSL_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_HTTP_SSL_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_HTTP_SSL_USERNAME_BINDING_TEMPLATE(EasyCastStructure):
+class WS_HTTP_SSL_USERNAME_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE
     usernameMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE
-class WS_HTTP_SSL_USERNAME_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_HTTP_SSL_USERNAME_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
     usernameMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_HTTP_SSL_USERNAME_SECURITY_CONTEXT_BINDING_TEMPLATE(EasyCastStructure):
+class WS_HTTP_SSL_USERNAME_SECURITY_CONTEXT_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE
     usernameMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE
     securityContextSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE
-class WS_HTTP_SSL_USERNAME_SECURITY_CONTEXT_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_HTTP_SSL_USERNAME_SECURITY_CONTEXT_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sslTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
     usernameMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
     securityContextSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_HTTP_URL(EasyCastStructure):
+class WS_HTTP_URL(Structure):
     url: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL
     host: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     port: UInt16
@@ -1411,23 +1411,23 @@ class WS_HTTP_URL(EasyCastStructure):
     path: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     query: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     fragment: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_INT16_DESCRIPTION(EasyCastStructure):
+class WS_INT16_DESCRIPTION(Structure):
     minValue: Int16
     maxValue: Int16
-class WS_INT32_DESCRIPTION(EasyCastStructure):
+class WS_INT32_DESCRIPTION(Structure):
     minValue: Int32
     maxValue: Int32
-class WS_INT64_DESCRIPTION(EasyCastStructure):
+class WS_INT64_DESCRIPTION(Structure):
     minValue: Int64
     maxValue: Int64
-class WS_INT8_DESCRIPTION(EasyCastStructure):
+class WS_INT8_DESCRIPTION(Structure):
     minValue: win32more.Windows.Win32.Foundation.CHAR
     maxValue: win32more.Windows.Win32.Foundation.CHAR
 WS_IP_VERSION = Int32
 WS_IP_VERSION_4: win32more.Windows.Win32.Networking.WindowsWebServices.WS_IP_VERSION = 1
 WS_IP_VERSION_6: win32more.Windows.Win32.Networking.WindowsWebServices.WS_IP_VERSION = 2
 WS_IP_VERSION_AUTO: win32more.Windows.Win32.Networking.WindowsWebServices.WS_IP_VERSION = 3
-class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
+class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT(Structure):
     bindingConstraint: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
     claimConstraints: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
@@ -1435,32 +1435,32 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
     requestSecurityTokenPropertyConstraints: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT)
     requestSecurityTokenPropertyConstraintCount: UInt32
     out: _out_e__Struct
-    class _out_e__Struct(EasyCastStructure):
+    class _out_e__Struct(Structure):
         issuerAddress: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS)
         requestSecurityTokenTemplate: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)
 @winfunctype_pointer
 def WS_IS_DEFAULT_VALUE_CALLBACK(descriptionData: VoidPtr, value: VoidPtr, defaultValue: VoidPtr, valueSize: UInt32, isDefault: POINTER(win32more.Windows.Win32.Foundation.BOOL), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_ITEM_RANGE(EasyCastStructure):
+class WS_ITEM_RANGE(Structure):
     minItemCount: UInt32
     maxItemCount: UInt32
-class WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING(EasyCastStructure):
+class WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING(Structure):
     binding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
     clientCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL)
-class WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
+class WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_CONSTRAINT(Structure):
     bindingConstraint: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
-class WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
-class WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE(EasyCastStructure):
+class WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
     clientCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL)
 WS_LISTENER = IntPtr
-class WS_LISTENER_PROPERTIES(EasyCastStructure):
+class WS_LISTENER_PROPERTIES(Structure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY)
     propertyCount: UInt32
-class WS_LISTENER_PROPERTY(EasyCastStructure):
+class WS_LISTENER_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -1490,7 +1490,7 @@ WS_LISTENER_STATE_FAULTED: win32more.Windows.Win32.Networking.WindowsWebServices
 WS_LISTENER_STATE_CLOSING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_STATE = 4
 WS_LISTENER_STATE_CLOSED: win32more.Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_STATE = 5
 WS_MESSAGE = IntPtr
-class WS_MESSAGE_DESCRIPTION(EasyCastStructure):
+class WS_MESSAGE_DESCRIPTION(Structure):
     action: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     bodyElementDescription: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ELEMENT_DESCRIPTION)
 @winfunctype_pointer
@@ -1501,10 +1501,10 @@ WS_DUPLICATE_MESSAGE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_M
 WS_REQUEST_MESSAGE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_INITIALIZATION = 2
 WS_REPLY_MESSAGE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_INITIALIZATION = 3
 WS_FAULT_MESSAGE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_INITIALIZATION = 4
-class WS_MESSAGE_PROPERTIES(EasyCastStructure):
+class WS_MESSAGE_PROPERTIES(Structure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_PROPERTY)
     propertyCount: UInt32
-class WS_MESSAGE_PROPERTY(EasyCastStructure):
+class WS_MESSAGE_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -1540,7 +1540,7 @@ WS_MESSAGE_STATE_READING: win32more.Windows.Win32.Networking.WindowsWebServices.
 WS_MESSAGE_STATE_WRITING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_STATE = 4
 WS_MESSAGE_STATE_DONE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_STATE = 5
 WS_METADATA = IntPtr
-class WS_METADATA_ENDPOINT(EasyCastStructure):
+class WS_METADATA_ENDPOINT(Structure):
     endpointAddress: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS
     endpointPolicy: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_POLICY)
     portName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
@@ -1550,14 +1550,14 @@ class WS_METADATA_ENDPOINT(EasyCastStructure):
     bindingNs: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     portTypeName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     portTypeNs: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
-class WS_METADATA_ENDPOINTS(EasyCastStructure):
+class WS_METADATA_ENDPOINTS(Structure):
     endpoints: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_METADATA_ENDPOINT)
     endpointCount: UInt32
 WS_METADATA_EXCHANGE_TYPE = Int32
 WS_METADATA_EXCHANGE_TYPE_NONE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_METADATA_EXCHANGE_TYPE = 0
 WS_METADATA_EXCHANGE_TYPE_MEX: win32more.Windows.Win32.Networking.WindowsWebServices.WS_METADATA_EXCHANGE_TYPE = 1
 WS_METADATA_EXCHANGE_TYPE_HTTP_GET: win32more.Windows.Win32.Networking.WindowsWebServices.WS_METADATA_EXCHANGE_TYPE = 2
-class WS_METADATA_PROPERTY(EasyCastStructure):
+class WS_METADATA_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_METADATA_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -1586,13 +1586,13 @@ WS_MOVE_TO_FIRST_NODE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_
 WS_MOVE_TO_BOF: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MOVE_TO = 9
 WS_MOVE_TO_EOF: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MOVE_TO = 10
 WS_MOVE_TO_CHILD_NODE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MOVE_TO = 11
-class WS_NAMEDPIPE_SSPI_TRANSPORT_SECURITY_BINDING(EasyCastStructure):
+class WS_NAMEDPIPE_SSPI_TRANSPORT_SECURITY_BINDING(Structure):
     binding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING
     clientCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL)
-class WS_NCRYPT_ASYMMETRIC_SECURITY_KEY_HANDLE(EasyCastStructure):
+class WS_NCRYPT_ASYMMETRIC_SECURITY_KEY_HANDLE(Structure):
     keyHandle: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_HANDLE
     asymmetricKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
-class WS_NETPIPE_URL(EasyCastStructure):
+class WS_NETPIPE_URL(Structure):
     url: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL
     host: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     port: UInt16
@@ -1600,7 +1600,7 @@ class WS_NETPIPE_URL(EasyCastStructure):
     path: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     query: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     fragment: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_NETTCP_URL(EasyCastStructure):
+class WS_NETTCP_URL(Structure):
     url: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL
     host: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     port: UInt16
@@ -1608,7 +1608,7 @@ class WS_NETTCP_URL(EasyCastStructure):
     path: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     query: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     fragment: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_OPAQUE_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(EasyCastStructure):
+class WS_OPAQUE_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(Structure):
     credential: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL
     opaqueAuthIdentity: VoidPtr
 @winfunctype_pointer
@@ -1628,7 +1628,7 @@ WS_OPERATION_CONTEXT_PROPERTY_OUTPUT_MESSAGE: win32more.Windows.Win32.Networking
 WS_OPERATION_CONTEXT_PROPERTY_HEAP: win32more.Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT_PROPERTY_ID = 6
 WS_OPERATION_CONTEXT_PROPERTY_LISTENER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT_PROPERTY_ID = 7
 WS_OPERATION_CONTEXT_PROPERTY_ENDPOINT_ADDRESS: win32more.Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT_PROPERTY_ID = 8
-class WS_OPERATION_DESCRIPTION(EasyCastStructure):
+class WS_OPERATION_DESCRIPTION(Structure):
     versionInfo: UInt32
     inputMessageDescription: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION)
     outputMessageDescription: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_DESCRIPTION)
@@ -1643,7 +1643,7 @@ def WS_OPERATION_FREE_STATE_CALLBACK(state: VoidPtr) -> Void: ...
 WS_OPERATION_STYLE = Int32
 WS_NON_RPC_LITERAL_OPERATION: win32more.Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_STYLE = 0
 WS_RPC_LITERAL_OPERATION: win32more.Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_STYLE = 1
-class WS_PARAMETER_DESCRIPTION(EasyCastStructure):
+class WS_PARAMETER_DESCRIPTION(Structure):
     parameterType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_PARAMETER_TYPE
     inputMessageIndex: UInt16
     outputMessageIndex: UInt16
@@ -1653,21 +1653,21 @@ WS_PARAMETER_TYPE_ARRAY: win32more.Windows.Win32.Networking.WindowsWebServices.W
 WS_PARAMETER_TYPE_ARRAY_COUNT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_PARAMETER_TYPE = 2
 WS_PARAMETER_TYPE_MESSAGES: win32more.Windows.Win32.Networking.WindowsWebServices.WS_PARAMETER_TYPE = 3
 WS_POLICY = IntPtr
-class WS_POLICY_CONSTRAINTS(EasyCastStructure):
+class WS_POLICY_CONSTRAINTS(Structure):
     channelBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_BINDING
     channelPropertyConstraints: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTY_CONSTRAINT)
     channelPropertyConstraintCount: UInt32
     securityConstraints: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONSTRAINTS)
     policyExtensions: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_POLICY_EXTENSION))
     policyExtensionCount: UInt32
-class WS_POLICY_EXTENSION(EasyCastStructure):
+class WS_POLICY_EXTENSION(Structure):
     type: win32more.Windows.Win32.Networking.WindowsWebServices.WS_POLICY_EXTENSION_TYPE
 WS_POLICY_EXTENSION_TYPE = Int32
 WS_ENDPOINT_POLICY_EXTENSION_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_POLICY_EXTENSION_TYPE = 1
-class WS_POLICY_PROPERTIES(EasyCastStructure):
+class WS_POLICY_PROPERTIES(Structure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_POLICY_PROPERTY)
     propertyCount: UInt32
-class WS_POLICY_PROPERTY(EasyCastStructure):
+class WS_POLICY_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_POLICY_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -1685,10 +1685,10 @@ WS_PROTECTION_LEVEL_SIGN: win32more.Windows.Win32.Networking.WindowsWebServices.
 WS_PROTECTION_LEVEL_SIGN_AND_ENCRYPT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_PROTECTION_LEVEL = 3
 @winfunctype_pointer
 def WS_PROXY_MESSAGE_CALLBACK(message: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE), heap: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_HEAP), state: VoidPtr, error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_PROXY_MESSAGE_CALLBACK_CONTEXT(EasyCastStructure):
+class WS_PROXY_MESSAGE_CALLBACK_CONTEXT(Structure):
     callback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_PROXY_MESSAGE_CALLBACK
     state: VoidPtr
-class WS_PROXY_PROPERTY(EasyCastStructure):
+class WS_PROXY_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_PROXY_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -1704,7 +1704,7 @@ WS_PROXY_FAULT_LANG_ID: win32more.Windows.Win32.Networking.WindowsWebServices.WS
 def WS_PULL_BYTES_CALLBACK(callbackState: VoidPtr, bytes: VoidPtr, maxSize: UInt32, actualSize: POINTER(UInt32), asyncContext: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def WS_PUSH_BYTES_CALLBACK(callbackState: VoidPtr, writeCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK, writeCallbackState: VoidPtr, asyncContext: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE(EasyCastStructure):
+class WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE(Structure):
     keyHandle: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_HANDLE
     rawKeyBytes: win32more.Windows.Win32.Networking.WindowsWebServices.WS_BYTES
 @winfunctype_pointer
@@ -1731,16 +1731,16 @@ WS_REQUEST_SECURITY_TOKEN_ACTION = Int32
 WS_REQUEST_SECURITY_TOKEN_ACTION_ISSUE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_ACTION = 1
 WS_REQUEST_SECURITY_TOKEN_ACTION_NEW_CONTEXT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_ACTION = 2
 WS_REQUEST_SECURITY_TOKEN_ACTION_RENEW_CONTEXT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_ACTION = 3
-class WS_REQUEST_SECURITY_TOKEN_PROPERTY(EasyCastStructure):
+class WS_REQUEST_SECURITY_TOKEN_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
-class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT(EasyCastStructure):
+class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID
     allowedValues: VoidPtr
     allowedValuesSize: UInt32
     out: _out_e__Struct
-    class _out_e__Struct(EasyCastStructure):
+    class _out_e__Struct(Structure):
         requestSecurityTokenProperty: win32more.Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_PROPERTY
 WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID = Int32
 WS_REQUEST_SECURITY_TOKEN_PROPERTY_APPLIES_TO: win32more.Windows.Win32.Networking.WindowsWebServices.WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID = 1
@@ -1760,15 +1760,15 @@ WS_REQUEST_SECURITY_TOKEN_PROPERTY_BEARER_KEY_TYPE_VERSION: win32more.Windows.Wi
 def WS_RESET_CHANNEL_CALLBACK(channelInstance: VoidPtr, error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def WS_RESET_LISTENER_CALLBACK(listenerInstance: VoidPtr, error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_RSA_ENDPOINT_IDENTITY(EasyCastStructure):
+class WS_RSA_ENDPOINT_IDENTITY(Structure):
     identity: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY
     modulus: win32more.Windows.Win32.Networking.WindowsWebServices.WS_BYTES
     exponent: win32more.Windows.Win32.Networking.WindowsWebServices.WS_BYTES
-class WS_SAML_AUTHENTICATOR(EasyCastStructure):
+class WS_SAML_AUTHENTICATOR(Structure):
     authenticatorType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SAML_AUTHENTICATOR_TYPE
 WS_SAML_AUTHENTICATOR_TYPE = Int32
 WS_CERT_SIGNED_SAML_AUTHENTICATOR_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SAML_AUTHENTICATOR_TYPE = 1
-class WS_SAML_MESSAGE_SECURITY_BINDING(EasyCastStructure):
+class WS_SAML_MESSAGE_SECURITY_BINDING(Structure):
     binding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
     authenticator: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SAML_AUTHENTICATOR)
@@ -1801,12 +1801,12 @@ WS_SECURITY_ALGORITHM_ASYMMETRIC_SIGNATURE_RSA_SHA_512: win32more.Windows.Win32.
 WS_SECURITY_ALGORITHM_ASYMMETRIC_KEYWRAP_RSA_1_5: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_ALGORITHM_ID = 16
 WS_SECURITY_ALGORITHM_ASYMMETRIC_KEYWRAP_RSA_OAEP: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_ALGORITHM_ID = 17
 WS_SECURITY_ALGORITHM_KEY_DERIVATION_P_SHA1: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_ALGORITHM_ID = 18
-class WS_SECURITY_ALGORITHM_PROPERTY(EasyCastStructure):
+class WS_SECURITY_ALGORITHM_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_ALGORITHM_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
 WS_SECURITY_ALGORITHM_PROPERTY_ID = Int32
-class WS_SECURITY_ALGORITHM_SUITE(EasyCastStructure):
+class WS_SECURITY_ALGORITHM_SUITE(Structure):
     canonicalizationAlgorithm: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_ALGORITHM_ID
     digestAlgorithm: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_ALGORITHM_ID
     symmetricSignatureAlgorithm: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_ALGORITHM_ID
@@ -1838,11 +1838,11 @@ WS_SECURITY_BEARER_KEY_TYPE_VERSION = Int32
 WS_SECURITY_BEARER_KEY_TYPE_VERSION_1_3_ORIGINAL_SPECIFICATION: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BEARER_KEY_TYPE_VERSION = 1
 WS_SECURITY_BEARER_KEY_TYPE_VERSION_1_3_ORIGINAL_SCHEMA: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BEARER_KEY_TYPE_VERSION = 2
 WS_SECURITY_BEARER_KEY_TYPE_VERSION_1_3_ERRATA_01: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BEARER_KEY_TYPE_VERSION = 3
-class WS_SECURITY_BINDING(EasyCastStructure):
+class WS_SECURITY_BINDING(Structure):
     bindingType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_TYPE
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTY)
     propertyCount: UInt32
-class WS_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
+class WS_SECURITY_BINDING_CONSTRAINT(Structure):
     type: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT_TYPE
     propertyConstraints: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTY_CONSTRAINT)
     propertyConstraintCount: UInt32
@@ -1855,19 +1855,19 @@ WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_CONSTRAINT_TYPE: win32more.Windows.Wi
 WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT_TYPE = 6
 WS_CERT_MESSAGE_SECURITY_BINDING_CONSTRAINT_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT_TYPE = 7
 WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_CONSTRAINT_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT_TYPE = 8
-class WS_SECURITY_BINDING_PROPERTIES(EasyCastStructure):
+class WS_SECURITY_BINDING_PROPERTIES(Structure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTY)
     propertyCount: UInt32
-class WS_SECURITY_BINDING_PROPERTY(EasyCastStructure):
+class WS_SECURITY_BINDING_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
-class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT(EasyCastStructure):
+class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTY_ID
     allowedValues: VoidPtr
     allowedValuesSize: UInt32
     out: _out_e__Struct
-    class _out_e__Struct(EasyCastStructure):
+    class _out_e__Struct(Structure):
         securityBindingProperty: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTY
 WS_SECURITY_BINDING_PROPERTY_ID = Int32
 WS_SECURITY_BINDING_PROPERTY_REQUIRE_SSL_CLIENT_CERT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTY_ID = 1
@@ -1903,26 +1903,26 @@ WS_XML_TOKEN_MESSAGE_SECURITY_BINDING_TYPE: win32more.Windows.Win32.Networking.W
 WS_SAML_MESSAGE_SECURITY_BINDING_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_TYPE = 7
 WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_TYPE = 8
 WS_NAMEDPIPE_SSPI_TRANSPORT_SECURITY_BINDING_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_TYPE = 9
-class WS_SECURITY_CONSTRAINTS(EasyCastStructure):
+class WS_SECURITY_CONSTRAINTS(Structure):
     securityPropertyConstraints: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTY_CONSTRAINT)
     securityPropertyConstraintCount: UInt32
     securityBindingConstraints: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT))
     securityBindingConstraintCount: UInt32
 WS_SECURITY_CONTEXT = IntPtr
-class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING(EasyCastStructure):
+class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING(Structure):
     binding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
     bootstrapSecurityDescription: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_DESCRIPTION)
-class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
+class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_CONSTRAINT(Structure):
     bindingConstraint: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
     bootstrapSecurityConstraint: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONSTRAINTS)
-class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
-class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_TEMPLATE(EasyCastStructure):
+class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_TEMPLATE(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
-class WS_SECURITY_CONTEXT_PROPERTY(EasyCastStructure):
+class WS_SECURITY_CONTEXT_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -1931,13 +1931,13 @@ WS_SECURITY_CONTEXT_PROPERTY_IDENTIFIER: win32more.Windows.Win32.Networking.Wind
 WS_SECURITY_CONTEXT_PROPERTY_USERNAME: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_PROPERTY_ID = 2
 WS_SECURITY_CONTEXT_PROPERTY_MESSAGE_SECURITY_WINDOWS_TOKEN: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_PROPERTY_ID = 3
 WS_SECURITY_CONTEXT_PROPERTY_SAML_ASSERTION: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_PROPERTY_ID = 4
-class WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION(Structure):
     securityContextMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
-class WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE(EasyCastStructure):
+class WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE(Structure):
     securityContextMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_TEMPLATE
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
-class WS_SECURITY_DESCRIPTION(EasyCastStructure):
+class WS_SECURITY_DESCRIPTION(Structure):
     securityBindings: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING))
     securityBindingCount: UInt32
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTY)
@@ -1954,7 +1954,7 @@ WS_SECURITY_KEY_ENTROPY_MODE = Int32
 WS_SECURITY_KEY_ENTROPY_MODE_CLIENT_ONLY: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_ENTROPY_MODE = 1
 WS_SECURITY_KEY_ENTROPY_MODE_SERVER_ONLY: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_ENTROPY_MODE = 2
 WS_SECURITY_KEY_ENTROPY_MODE_COMBINED: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_ENTROPY_MODE = 3
-class WS_SECURITY_KEY_HANDLE(EasyCastStructure):
+class WS_SECURITY_KEY_HANDLE(Structure):
     keyHandleType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_HANDLE_TYPE
 WS_SECURITY_KEY_HANDLE_TYPE = Int32
 WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_HANDLE_TYPE = 1
@@ -1964,19 +1964,19 @@ WS_SECURITY_KEY_TYPE = Int32
 WS_SECURITY_KEY_TYPE_NONE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_TYPE = 1
 WS_SECURITY_KEY_TYPE_SYMMETRIC: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_TYPE = 2
 WS_SECURITY_KEY_TYPE_ASYMMETRIC: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_KEY_TYPE = 3
-class WS_SECURITY_PROPERTIES(EasyCastStructure):
+class WS_SECURITY_PROPERTIES(Structure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTY)
     propertyCount: UInt32
-class WS_SECURITY_PROPERTY(EasyCastStructure):
+class WS_SECURITY_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
-class WS_SECURITY_PROPERTY_CONSTRAINT(EasyCastStructure):
+class WS_SECURITY_PROPERTY_CONSTRAINT(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTY_ID
     allowedValues: VoidPtr
     allowedValuesSize: UInt32
     out: _out_e__Struct
-    class _out_e__Struct(EasyCastStructure):
+    class _out_e__Struct(Structure):
         securityProperty: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTY
 WS_SECURITY_PROPERTY_ID = Int32
 WS_SECURITY_PROPERTY_TRANSPORT_PROTECTION_LEVEL: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTY_ID = 1
@@ -2017,11 +2017,11 @@ WS_SERVICE_HOST_ABORT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_
 WS_SERVICE_CHANNEL_FAULTED: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_CANCEL_REASON = 1
 @winfunctype_pointer
 def WS_SERVICE_CLOSE_CHANNEL_CALLBACK(context: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), asyncContext: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_SERVICE_CONTRACT(EasyCastStructure):
+class WS_SERVICE_CONTRACT(Structure):
     contractDescription: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_CONTRACT_DESCRIPTION)
     defaultMessageHandlerCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_MESSAGE_RECEIVE_CALLBACK
     methodTable: VoidPtr
-class WS_SERVICE_ENDPOINT(EasyCastStructure):
+class WS_SERVICE_ENDPOINT(Structure):
     address: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS
     channelBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_BINDING
     channelType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_TYPE
@@ -2031,11 +2031,11 @@ class WS_SERVICE_ENDPOINT(EasyCastStructure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ENDPOINT_PROPERTY)
     propertyCount: UInt32
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
-class WS_SERVICE_ENDPOINT_METADATA(EasyCastStructure):
+class WS_SERVICE_ENDPOINT_METADATA(Structure):
     portName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     bindingName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     bindingNs: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
-class WS_SERVICE_ENDPOINT_PROPERTY(EasyCastStructure):
+class WS_SERVICE_ENDPOINT_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ENDPOINT_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -2065,21 +2065,21 @@ WS_SERVICE_HOST_STATE_CLOSED: win32more.Windows.Win32.Networking.WindowsWebServi
 WS_SERVICE_HOST_STATE_FAULTED: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_HOST_STATE = 5
 @winfunctype_pointer
 def WS_SERVICE_MESSAGE_RECEIVE_CALLBACK(context: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), asyncContext: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_SERVICE_METADATA(EasyCastStructure):
+class WS_SERVICE_METADATA(Structure):
     documentCount: UInt32
     documents: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_METADATA_DOCUMENT))
     serviceName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     serviceNs: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
-class WS_SERVICE_METADATA_DOCUMENT(EasyCastStructure):
+class WS_SERVICE_METADATA_DOCUMENT(Structure):
     content: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     name: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING)
-class WS_SERVICE_PROPERTY(EasyCastStructure):
+class WS_SERVICE_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
-class WS_SERVICE_PROPERTY_ACCEPT_CALLBACK(EasyCastStructure):
+class WS_SERVICE_PROPERTY_ACCEPT_CALLBACK(Structure):
     callback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_ACCEPT_CHANNEL_CALLBACK
-class WS_SERVICE_PROPERTY_CLOSE_CALLBACK(EasyCastStructure):
+class WS_SERVICE_PROPERTY_CLOSE_CALLBACK(Structure):
     callback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_CLOSE_CHANNEL_CALLBACK
 WS_SERVICE_PROPERTY_ID = Int32
 WS_SERVICE_PROPERTY_HOST_USER_STATE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROPERTY_ID = 0
@@ -2098,7 +2098,7 @@ WS_SERVICE_PROXY_STATE_CLOSED: win32more.Windows.Win32.Networking.WindowsWebServ
 WS_SERVICE_PROXY_STATE_FAULTED: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SERVICE_PROXY_STATE = 5
 @winfunctype_pointer
 def WS_SERVICE_SECURITY_CALLBACK(context: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_OPERATION_CONTEXT), authorized: POINTER(win32more.Windows.Win32.Foundation.BOOL), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_SERVICE_SECURITY_IDENTITIES(EasyCastStructure):
+class WS_SERVICE_SECURITY_IDENTITIES(Structure):
     serviceIdentities: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING)
     serviceIdentityCount: UInt32
 @winfunctype_pointer
@@ -2109,7 +2109,7 @@ def WS_SET_CHANNEL_PROPERTY_CALLBACK(channelInstance: VoidPtr, id: win32more.Win
 def WS_SET_LISTENER_PROPERTY_CALLBACK(listenerInstance: VoidPtr, id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_LISTENER_PROPERTY_ID, value: VoidPtr, valueSize: UInt32, error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def WS_SHUTDOWN_SESSION_CHANNEL_CALLBACK(channelInstance: VoidPtr, asyncContext: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ASYNC_CONTEXT), error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_SOAPUDP_URL(EasyCastStructure):
+class WS_SOAPUDP_URL(Structure):
     url: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL
     host: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     port: UInt16
@@ -2117,40 +2117,40 @@ class WS_SOAPUDP_URL(EasyCastStructure):
     path: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     query: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     fragment: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_SPN_ENDPOINT_IDENTITY(EasyCastStructure):
+class WS_SPN_ENDPOINT_IDENTITY(Structure):
     identity: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY
     spn: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_SSL_TRANSPORT_SECURITY_BINDING(EasyCastStructure):
+class WS_SSL_TRANSPORT_SECURITY_BINDING(Structure):
     binding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING
     localCertCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL)
-class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
+class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT(Structure):
     bindingConstraint: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
     out: _out_e__Struct
-    class _out_e__Struct(EasyCastStructure):
+    class _out_e__Struct(Structure):
         clientCertCredentialRequired: win32more.Windows.Win32.Foundation.BOOL
-class WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
-class WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE(EasyCastStructure):
+class WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
     localCertCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL)
-class WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
-class WS_STRING(EasyCastStructure):
+class WS_STRING(Structure):
     length: UInt32
     chars: win32more.Windows.Win32.Foundation.PWSTR
-class WS_STRING_DESCRIPTION(EasyCastStructure):
+class WS_STRING_DESCRIPTION(Structure):
     minCharCount: UInt32
     maxCharCount: UInt32
-class WS_STRING_USERNAME_CREDENTIAL(EasyCastStructure):
+class WS_STRING_USERNAME_CREDENTIAL(Structure):
     credential: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_CREDENTIAL
     username: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     password: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_STRING_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(EasyCastStructure):
+class WS_STRING_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(Structure):
     credential: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL
     username: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     password: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     domain: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_STRUCT_DESCRIPTION(EasyCastStructure):
+class WS_STRUCT_DESCRIPTION(Structure):
     size: UInt32
     alignment: UInt32
     fields: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_FIELD_DESCRIPTION))
@@ -2161,83 +2161,83 @@ class WS_STRUCT_DESCRIPTION(EasyCastStructure):
     subTypes: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRUCT_DESCRIPTION))
     subTypeCount: UInt32
     structOptions: UInt32
-class WS_SUBJECT_NAME_CERT_CREDENTIAL(EasyCastStructure):
+class WS_SUBJECT_NAME_CERT_CREDENTIAL(Structure):
     credential: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL
     storeLocation: UInt32
     storeName: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     subjectName: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_TCP_BINDING_TEMPLATE(EasyCastStructure):
+class WS_TCP_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
-class WS_TCP_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_TCP_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
-class WS_TCP_SSPI_BINDING_TEMPLATE(EasyCastStructure):
+class WS_TCP_SSPI_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE
-class WS_TCP_SSPI_KERBEROS_APREQ_BINDING_TEMPLATE(EasyCastStructure):
+class WS_TCP_SSPI_KERBEROS_APREQ_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE
     kerberosApreqMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE
-class WS_TCP_SSPI_KERBEROS_APREQ_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_TCP_SSPI_KERBEROS_APREQ_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
     kerberosApreqMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_TCP_SSPI_KERBEROS_APREQ_SECURITY_CONTEXT_BINDING_TEMPLATE(EasyCastStructure):
+class WS_TCP_SSPI_KERBEROS_APREQ_SECURITY_CONTEXT_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE
     kerberosApreqMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE
     securityContextSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE
-class WS_TCP_SSPI_KERBEROS_APREQ_SECURITY_CONTEXT_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_TCP_SSPI_KERBEROS_APREQ_SECURITY_CONTEXT_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
     kerberosApreqMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
     securityContextSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_TCP_SSPI_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_TCP_SSPI_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING(EasyCastStructure):
+class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING(Structure):
     binding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING
     clientCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL)
-class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
+class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_CONSTRAINT(Structure):
     bindingConstraint: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
-class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE(EasyCastStructure):
+class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
     clientCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL)
-class WS_TCP_SSPI_USERNAME_BINDING_TEMPLATE(EasyCastStructure):
+class WS_TCP_SSPI_USERNAME_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE
     usernameMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE
-class WS_TCP_SSPI_USERNAME_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_TCP_SSPI_USERNAME_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
     usernameMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_TCP_SSPI_USERNAME_SECURITY_CONTEXT_BINDING_TEMPLATE(EasyCastStructure):
+class WS_TCP_SSPI_USERNAME_SECURITY_CONTEXT_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_TEMPLATE
     usernameMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE
     securityContextSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE
-class WS_TCP_SSPI_USERNAME_SECURITY_CONTEXT_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_TCP_SSPI_USERNAME_SECURITY_CONTEXT_POLICY_DESCRIPTION(Structure):
     channelProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
     securityProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_PROPERTIES
     sspiTransportSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION
     usernameMessageSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION
     securityContextSecurityBinding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION
-class WS_THUMBPRINT_CERT_CREDENTIAL(EasyCastStructure):
+class WS_THUMBPRINT_CERT_CREDENTIAL(Structure):
     credential: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CERT_CREDENTIAL
     storeLocation: UInt32
     storeName: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     thumbprint: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_TIMESPAN(EasyCastStructure):
+class WS_TIMESPAN(Structure):
     ticks: Int64
-class WS_TIMESPAN_DESCRIPTION(EasyCastStructure):
+class WS_TIMESPAN_DESCRIPTION(Structure):
     minValue: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TIMESPAN
     maxValue: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TIMESPAN
 WS_TRACE_API = Int32
@@ -2486,19 +2486,19 @@ WS_ELEMENT_TYPE_MAPPING: win32more.Windows.Win32.Networking.WindowsWebServices.W
 WS_ATTRIBUTE_TYPE_MAPPING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING = 2
 WS_ELEMENT_CONTENT_TYPE_MAPPING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING = 3
 WS_ANY_ELEMENT_TYPE_MAPPING: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING = 4
-class WS_UINT16_DESCRIPTION(EasyCastStructure):
+class WS_UINT16_DESCRIPTION(Structure):
     minValue: UInt16
     maxValue: UInt16
-class WS_UINT32_DESCRIPTION(EasyCastStructure):
+class WS_UINT32_DESCRIPTION(Structure):
     minValue: UInt32
     maxValue: UInt32
-class WS_UINT64_DESCRIPTION(EasyCastStructure):
+class WS_UINT64_DESCRIPTION(Structure):
     minValue: UInt64
     maxValue: UInt64
-class WS_UINT8_DESCRIPTION(EasyCastStructure):
+class WS_UINT8_DESCRIPTION(Structure):
     minValue: Byte
     maxValue: Byte
-class WS_UNION_DESCRIPTION(EasyCastStructure):
+class WS_UNION_DESCRIPTION(Structure):
     size: UInt32
     alignment: UInt32
     fields: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_UNION_FIELD_DESCRIPTION))
@@ -2506,22 +2506,22 @@ class WS_UNION_DESCRIPTION(EasyCastStructure):
     enumOffset: UInt32
     noneEnumValue: Int32
     valueIndices: POINTER(UInt32)
-class WS_UNION_FIELD_DESCRIPTION(EasyCastStructure):
+class WS_UNION_FIELD_DESCRIPTION(Structure):
     value: Int32
     field: win32more.Windows.Win32.Networking.WindowsWebServices.WS_FIELD_DESCRIPTION
-class WS_UNIQUE_ID(EasyCastStructure):
+class WS_UNIQUE_ID(Structure):
     uri: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     guid: Guid
-class WS_UNIQUE_ID_DESCRIPTION(EasyCastStructure):
+class WS_UNIQUE_ID_DESCRIPTION(Structure):
     minCharCount: UInt32
     maxCharCount: UInt32
-class WS_UNKNOWN_ENDPOINT_IDENTITY(EasyCastStructure):
+class WS_UNKNOWN_ENDPOINT_IDENTITY(Structure):
     identity: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY
     element: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)
-class WS_UPN_ENDPOINT_IDENTITY(EasyCastStructure):
+class WS_UPN_ENDPOINT_IDENTITY(Structure):
     identity: win32more.Windows.Win32.Networking.WindowsWebServices.WS_ENDPOINT_IDENTITY
     upn: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_URL(EasyCastStructure):
+class WS_URL(Structure):
     scheme: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL_SCHEME_TYPE
 WS_URL_SCHEME_TYPE = Int32
 WS_URL_HTTP_SCHEME_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL_SCHEME_TYPE = 0
@@ -2529,28 +2529,28 @@ WS_URL_HTTPS_SCHEME_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.
 WS_URL_NETTCP_SCHEME_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL_SCHEME_TYPE = 2
 WS_URL_SOAPUDP_SCHEME_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL_SCHEME_TYPE = 3
 WS_URL_NETPIPE_SCHEME_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_URL_SCHEME_TYPE = 4
-class WS_USERNAME_CREDENTIAL(EasyCastStructure):
+class WS_USERNAME_CREDENTIAL(Structure):
     credentialType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_CREDENTIAL_TYPE
 WS_USERNAME_CREDENTIAL_TYPE = Int32
 WS_STRING_USERNAME_CREDENTIAL_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_CREDENTIAL_TYPE = 1
-class WS_USERNAME_MESSAGE_SECURITY_BINDING(EasyCastStructure):
+class WS_USERNAME_MESSAGE_SECURITY_BINDING(Structure):
     binding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
     clientCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_CREDENTIAL)
     passwordValidator: win32more.Windows.Win32.Networking.WindowsWebServices.WS_VALIDATE_PASSWORD_CALLBACK
     passwordValidatorCallbackState: VoidPtr
-class WS_USERNAME_MESSAGE_SECURITY_BINDING_CONSTRAINT(EasyCastStructure):
+class WS_USERNAME_MESSAGE_SECURITY_BINDING_CONSTRAINT(Structure):
     bindingConstraint: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
-class WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(EasyCastStructure):
+class WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
-class WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE(EasyCastStructure):
+class WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE(Structure):
     securityBindingProperties: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING_PROPERTIES
     clientCredential: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_USERNAME_CREDENTIAL)
     passwordValidator: win32more.Windows.Win32.Networking.WindowsWebServices.WS_VALIDATE_PASSWORD_CALLBACK
     passwordValidatorCallbackState: VoidPtr
-class WS_UTF8_ARRAY_DESCRIPTION(EasyCastStructure):
+class WS_UTF8_ARRAY_DESCRIPTION(Structure):
     minByteCount: UInt32
     maxByteCount: UInt32
 @winfunctype_pointer
@@ -2574,9 +2574,9 @@ WS_DATETIME_VALUE_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS
 WS_TIMESPAN_VALUE_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE = 13
 WS_GUID_VALUE_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE = 14
 WS_DURATION_VALUE_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_VALUE_TYPE = 15
-class WS_VOID_DESCRIPTION(EasyCastStructure):
+class WS_VOID_DESCRIPTION(Structure):
     size: UInt32
-class WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(EasyCastStructure):
+class WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(Structure):
     credentialType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL_TYPE
 WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL_TYPE = Int32
 WS_STRING_WINDOWS_INTEGRATED_AUTH_CREDENTIAL_TYPE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL_TYPE = 1
@@ -2599,25 +2599,25 @@ WS_WRITE_NILLABLE_VALUE: win32more.Windows.Win32.Networking.WindowsWebServices.W
 WS_WRITE_NILLABLE_POINTER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WRITE_OPTION = 4
 @winfunctype_pointer
 def WS_WRITE_TYPE_CALLBACK(writer: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER), typeMapping: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TYPE_MAPPING, descriptionData: VoidPtr, value: VoidPtr, valueSize: UInt32, error: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_ERROR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class WS_WSZ_DESCRIPTION(EasyCastStructure):
+class WS_WSZ_DESCRIPTION(Structure):
     minCharCount: UInt32
     maxCharCount: UInt32
-class WS_XML_ATTRIBUTE(EasyCastStructure):
+class WS_XML_ATTRIBUTE(Structure):
     singleQuote: Byte
     isXmlNs: Byte
     prefix: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     localName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     ns: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     value: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT)
-class WS_XML_BASE64_TEXT(EasyCastStructure):
+class WS_XML_BASE64_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     bytes: POINTER(Byte)
     length: UInt32
-class WS_XML_BOOL_TEXT(EasyCastStructure):
+class WS_XML_BOOL_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: win32more.Windows.Win32.Foundation.BOOL
 WS_XML_BUFFER = IntPtr
-class WS_XML_BUFFER_PROPERTY(EasyCastStructure):
+class WS_XML_BUFFER_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -2627,10 +2627,10 @@ WS_EXCLUSIVE_XML_CANONICALIZATION_ALGORITHM: win32more.Windows.Win32.Networking.
 WS_EXCLUSIVE_WITH_COMMENTS_XML_CANONICALIZATION_ALGORITHM: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_ALGORITHM = 1
 WS_INCLUSIVE_XML_CANONICALIZATION_ALGORITHM: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_ALGORITHM = 2
 WS_INCLUSIVE_WITH_COMMENTS_XML_CANONICALIZATION_ALGORITHM: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_ALGORITHM = 3
-class WS_XML_CANONICALIZATION_INCLUSIVE_PREFIXES(EasyCastStructure):
+class WS_XML_CANONICALIZATION_INCLUSIVE_PREFIXES(Structure):
     prefixCount: UInt32
     prefixes: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
-class WS_XML_CANONICALIZATION_PROPERTY(EasyCastStructure):
+class WS_XML_CANONICALIZATION_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -2639,24 +2639,24 @@ WS_XML_CANONICALIZATION_PROPERTY_ALGORITHM: win32more.Windows.Win32.Networking.W
 WS_XML_CANONICALIZATION_PROPERTY_INCLUSIVE_PREFIXES: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_PROPERTY_ID = 1
 WS_XML_CANONICALIZATION_PROPERTY_OMITTED_ELEMENT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_PROPERTY_ID = 2
 WS_XML_CANONICALIZATION_PROPERTY_OUTPUT_BUFFER_SIZE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_CANONICALIZATION_PROPERTY_ID = 3
-class WS_XML_COMMENT_NODE(EasyCastStructure):
+class WS_XML_COMMENT_NODE(Structure):
     node: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE
     value: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING
-class WS_XML_DATETIME_TEXT(EasyCastStructure):
+class WS_XML_DATETIME_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DATETIME
-class WS_XML_DECIMAL_TEXT(EasyCastStructure):
+class WS_XML_DECIMAL_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: win32more.Windows.Win32.Foundation.DECIMAL
-class WS_XML_DICTIONARY(EasyCastStructure):
+class WS_XML_DICTIONARY(Structure):
     guid: Guid
     strings: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     stringCount: UInt32
     isConst: win32more.Windows.Win32.Foundation.BOOL
-class WS_XML_DOUBLE_TEXT(EasyCastStructure):
+class WS_XML_DOUBLE_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: Double
-class WS_XML_ELEMENT_NODE(EasyCastStructure):
+class WS_XML_ELEMENT_NODE(Structure):
     node: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE
     prefix: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     localName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
@@ -2664,25 +2664,25 @@ class WS_XML_ELEMENT_NODE(EasyCastStructure):
     attributeCount: UInt32
     attributes: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_ATTRIBUTE))
     isEmpty: win32more.Windows.Win32.Foundation.BOOL
-class WS_XML_FLOAT_TEXT(EasyCastStructure):
+class WS_XML_FLOAT_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: Single
-class WS_XML_GUID_TEXT(EasyCastStructure):
+class WS_XML_GUID_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: Guid
-class WS_XML_INT32_TEXT(EasyCastStructure):
+class WS_XML_INT32_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: Int32
-class WS_XML_INT64_TEXT(EasyCastStructure):
+class WS_XML_INT64_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: Int64
-class WS_XML_LIST_TEXT(EasyCastStructure):
+class WS_XML_LIST_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     itemCount: UInt32
     items: POINTER(POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT))
-class WS_XML_NODE(EasyCastStructure):
+class WS_XML_NODE(Structure):
     nodeType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE_TYPE
-class WS_XML_NODE_POSITION(EasyCastStructure):
+class WS_XML_NODE_POSITION(Structure):
     buffer: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_BUFFER)
     node: VoidPtr
 WS_XML_NODE_TYPE = Int32
@@ -2694,51 +2694,51 @@ WS_XML_NODE_TYPE_CDATA: win32more.Windows.Win32.Networking.WindowsWebServices.WS
 WS_XML_NODE_TYPE_END_CDATA: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE_TYPE = 7
 WS_XML_NODE_TYPE_EOF: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE_TYPE = 8
 WS_XML_NODE_TYPE_BOF: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE_TYPE = 9
-class WS_XML_QNAME(EasyCastStructure):
+class WS_XML_QNAME(Structure):
     localName: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING
     ns: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING
-class WS_XML_QNAME_DESCRIPTION(EasyCastStructure):
+class WS_XML_QNAME_DESCRIPTION(Structure):
     minLocalNameByteCount: UInt32
     maxLocalNameByteCount: UInt32
     minNsByteCount: UInt32
     maxNsByteCount: UInt32
-class WS_XML_QNAME_TEXT(EasyCastStructure):
+class WS_XML_QNAME_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     prefix: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     localName: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
     ns: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING)
 WS_XML_READER = IntPtr
-class WS_XML_READER_BINARY_ENCODING(EasyCastStructure):
+class WS_XML_READER_BINARY_ENCODING(Structure):
     encoding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING
     staticDictionary: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_DICTIONARY)
     dynamicDictionary: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_DICTIONARY)
-class WS_XML_READER_BUFFER_INPUT(EasyCastStructure):
+class WS_XML_READER_BUFFER_INPUT(Structure):
     input: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_INPUT
     encodedData: VoidPtr
     encodedDataSize: UInt32
-class WS_XML_READER_ENCODING(EasyCastStructure):
+class WS_XML_READER_ENCODING(Structure):
     encodingType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING_TYPE
 WS_XML_READER_ENCODING_TYPE = Int32
 WS_XML_READER_ENCODING_TYPE_TEXT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING_TYPE = 1
 WS_XML_READER_ENCODING_TYPE_BINARY: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING_TYPE = 2
 WS_XML_READER_ENCODING_TYPE_MTOM: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING_TYPE = 3
 WS_XML_READER_ENCODING_TYPE_RAW: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING_TYPE = 4
-class WS_XML_READER_INPUT(EasyCastStructure):
+class WS_XML_READER_INPUT(Structure):
     inputType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_INPUT_TYPE
 WS_XML_READER_INPUT_TYPE = Int32
 WS_XML_READER_INPUT_TYPE_BUFFER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_INPUT_TYPE = 1
 WS_XML_READER_INPUT_TYPE_STREAM: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_INPUT_TYPE = 2
-class WS_XML_READER_MTOM_ENCODING(EasyCastStructure):
+class WS_XML_READER_MTOM_ENCODING(Structure):
     encoding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING
     textEncoding: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING)
     readMimeHeader: win32more.Windows.Win32.Foundation.BOOL
     startInfo: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     boundary: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     startUri: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
-class WS_XML_READER_PROPERTIES(EasyCastStructure):
+class WS_XML_READER_PROPERTIES(Structure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY)
     propertyCount: UInt32
-class WS_XML_READER_PROPERTY(EasyCastStructure):
+class WS_XML_READER_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -2758,16 +2758,16 @@ WS_XML_READER_PROPERTY_STREAM_MAX_MIME_HEADERS_SIZE: win32more.Windows.Win32.Net
 WS_XML_READER_PROPERTY_MAX_MIME_PARTS: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY_ID = 12
 WS_XML_READER_PROPERTY_ALLOW_INVALID_CHARACTER_REFERENCES: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY_ID = 13
 WS_XML_READER_PROPERTY_MAX_NAMESPACES: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_PROPERTY_ID = 14
-class WS_XML_READER_RAW_ENCODING(EasyCastStructure):
+class WS_XML_READER_RAW_ENCODING(Structure):
     encoding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING
-class WS_XML_READER_STREAM_INPUT(EasyCastStructure):
+class WS_XML_READER_STREAM_INPUT(Structure):
     input: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_INPUT
     readCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_READ_CALLBACK
     readCallbackState: VoidPtr
-class WS_XML_READER_TEXT_ENCODING(EasyCastStructure):
+class WS_XML_READER_TEXT_ENCODING(Structure):
     encoding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_READER_ENCODING
     charSet: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHARSET
-class WS_XML_SECURITY_TOKEN_PROPERTY(EasyCastStructure):
+class WS_XML_SECURITY_TOKEN_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_SECURITY_TOKEN_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -2776,17 +2776,17 @@ WS_XML_SECURITY_TOKEN_PROPERTY_ATTACHED_REFERENCE: win32more.Windows.Win32.Netwo
 WS_XML_SECURITY_TOKEN_PROPERTY_UNATTACHED_REFERENCE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_SECURITY_TOKEN_PROPERTY_ID = 2
 WS_XML_SECURITY_TOKEN_PROPERTY_VALID_FROM_TIME: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_SECURITY_TOKEN_PROPERTY_ID = 3
 WS_XML_SECURITY_TOKEN_PROPERTY_VALID_TILL_TIME: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_SECURITY_TOKEN_PROPERTY_ID = 4
-class WS_XML_STRING(EasyCastStructure):
+class WS_XML_STRING(Structure):
     length: UInt32
     bytes: POINTER(Byte)
     dictionary: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_DICTIONARY)
     id: UInt32
-class WS_XML_STRING_DESCRIPTION(EasyCastStructure):
+class WS_XML_STRING_DESCRIPTION(Structure):
     minByteCount: UInt32
     maxByteCount: UInt32
-class WS_XML_TEXT(EasyCastStructure):
+class WS_XML_TEXT(Structure):
     textType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT_TYPE
-class WS_XML_TEXT_NODE(EasyCastStructure):
+class WS_XML_TEXT_NODE(Structure):
     node: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_NODE
     text: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT)
 WS_XML_TEXT_TYPE = Int32
@@ -2806,42 +2806,42 @@ WS_XML_TEXT_TYPE_DATETIME: win32more.Windows.Win32.Networking.WindowsWebServices
 WS_XML_TEXT_TYPE_TIMESPAN: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT_TYPE = 14
 WS_XML_TEXT_TYPE_QNAME: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT_TYPE = 15
 WS_XML_TEXT_TYPE_LIST: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT_TYPE = 16
-class WS_XML_TIMESPAN_TEXT(EasyCastStructure):
+class WS_XML_TIMESPAN_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: win32more.Windows.Win32.Networking.WindowsWebServices.WS_TIMESPAN
-class WS_XML_TOKEN_MESSAGE_SECURITY_BINDING(EasyCastStructure):
+class WS_XML_TOKEN_MESSAGE_SECURITY_BINDING(Structure):
     binding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_BINDING
     bindingUsage: win32more.Windows.Win32.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
     xmlToken: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_SECURITY_TOKEN)
-class WS_XML_UINT64_TEXT(EasyCastStructure):
+class WS_XML_UINT64_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: UInt64
-class WS_XML_UNIQUE_ID_TEXT(EasyCastStructure):
+class WS_XML_UNIQUE_ID_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: Guid
-class WS_XML_UTF16_TEXT(EasyCastStructure):
+class WS_XML_UTF16_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     bytes: POINTER(Byte)
     byteCount: UInt32
-class WS_XML_UTF8_TEXT(EasyCastStructure):
+class WS_XML_UTF8_TEXT(Structure):
     text: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_TEXT
     value: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_STRING
 WS_XML_WRITER = IntPtr
-class WS_XML_WRITER_BINARY_ENCODING(EasyCastStructure):
+class WS_XML_WRITER_BINARY_ENCODING(Structure):
     encoding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING
     staticDictionary: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_DICTIONARY)
     dynamicStringCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_DYNAMIC_STRING_CALLBACK
     dynamicStringCallbackState: VoidPtr
-class WS_XML_WRITER_BUFFER_OUTPUT(EasyCastStructure):
+class WS_XML_WRITER_BUFFER_OUTPUT(Structure):
     output: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_OUTPUT
-class WS_XML_WRITER_ENCODING(EasyCastStructure):
+class WS_XML_WRITER_ENCODING(Structure):
     encodingType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING_TYPE
 WS_XML_WRITER_ENCODING_TYPE = Int32
 WS_XML_WRITER_ENCODING_TYPE_TEXT: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING_TYPE = 1
 WS_XML_WRITER_ENCODING_TYPE_BINARY: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING_TYPE = 2
 WS_XML_WRITER_ENCODING_TYPE_MTOM: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING_TYPE = 3
 WS_XML_WRITER_ENCODING_TYPE_RAW: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING_TYPE = 4
-class WS_XML_WRITER_MTOM_ENCODING(EasyCastStructure):
+class WS_XML_WRITER_MTOM_ENCODING(Structure):
     encoding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING
     textEncoding: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING)
     writeMimeHeader: win32more.Windows.Win32.Foundation.BOOL
@@ -2849,15 +2849,15 @@ class WS_XML_WRITER_MTOM_ENCODING(EasyCastStructure):
     startInfo: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     startUri: win32more.Windows.Win32.Networking.WindowsWebServices.WS_STRING
     maxInlineByteCount: UInt32
-class WS_XML_WRITER_OUTPUT(EasyCastStructure):
+class WS_XML_WRITER_OUTPUT(Structure):
     outputType: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_OUTPUT_TYPE
 WS_XML_WRITER_OUTPUT_TYPE = Int32
 WS_XML_WRITER_OUTPUT_TYPE_BUFFER: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_OUTPUT_TYPE = 1
 WS_XML_WRITER_OUTPUT_TYPE_STREAM: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_OUTPUT_TYPE = 2
-class WS_XML_WRITER_PROPERTIES(EasyCastStructure):
+class WS_XML_WRITER_PROPERTIES(Structure):
     properties: POINTER(win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY)
     propertyCount: UInt32
-class WS_XML_WRITER_PROPERTY(EasyCastStructure):
+class WS_XML_WRITER_PROPERTY(Structure):
     id: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_ID
     value: VoidPtr
     valueSize: UInt32
@@ -2881,13 +2881,13 @@ WS_XML_WRITER_PROPERTY_BYTES_WRITTEN: win32more.Windows.Win32.Networking.Windows
 WS_XML_WRITER_PROPERTY_BYTES_TO_CLOSE: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_ID = 16
 WS_XML_WRITER_PROPERTY_COMPRESS_EMPTY_ELEMENTS: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_ID = 17
 WS_XML_WRITER_PROPERTY_EMIT_UNCOMPRESSED_EMPTY_ELEMENTS: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_PROPERTY_ID = 18
-class WS_XML_WRITER_RAW_ENCODING(EasyCastStructure):
+class WS_XML_WRITER_RAW_ENCODING(Structure):
     encoding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING
-class WS_XML_WRITER_STREAM_OUTPUT(EasyCastStructure):
+class WS_XML_WRITER_STREAM_OUTPUT(Structure):
     output: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_OUTPUT
     writeCallback: win32more.Windows.Win32.Networking.WindowsWebServices.WS_WRITE_CALLBACK
     writeCallbackState: VoidPtr
-class WS_XML_WRITER_TEXT_ENCODING(EasyCastStructure):
+class WS_XML_WRITER_TEXT_ENCODING(Structure):
     encoding: win32more.Windows.Win32.Networking.WindowsWebServices.WS_XML_WRITER_ENCODING
     charSet: win32more.Windows.Win32.Networking.WindowsWebServices.WS_CHARSET
 

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Pwm
 import win32more.Windows.Win32.Foundation
 GUID_DEVINTERFACE_PWM_CONTROLLER: Guid = Guid('{60824b4c-eed1-4c9c-b49c-1b961461a819}')
@@ -24,26 +24,26 @@ PWM_IOCTL_ID_PIN_SET_POLARITY: Int32 = 103
 PWM_IOCTL_ID_PIN_START: Int32 = 104
 PWM_IOCTL_ID_PIN_STOP: Int32 = 105
 PWM_IOCTL_ID_PIN_IS_STARTED: Int32 = 106
-class PWM_CONTROLLER_GET_ACTUAL_PERIOD_OUTPUT(EasyCastStructure):
+class PWM_CONTROLLER_GET_ACTUAL_PERIOD_OUTPUT(Structure):
     ActualPeriod: UInt64
-class PWM_CONTROLLER_INFO(EasyCastStructure):
+class PWM_CONTROLLER_INFO(Structure):
     Size: UIntPtr
     PinCount: UInt32
     MinimumPeriod: UInt64
     MaximumPeriod: UInt64
-class PWM_CONTROLLER_SET_DESIRED_PERIOD_INPUT(EasyCastStructure):
+class PWM_CONTROLLER_SET_DESIRED_PERIOD_INPUT(Structure):
     DesiredPeriod: UInt64
-class PWM_CONTROLLER_SET_DESIRED_PERIOD_OUTPUT(EasyCastStructure):
+class PWM_CONTROLLER_SET_DESIRED_PERIOD_OUTPUT(Structure):
     ActualPeriod: UInt64
-class PWM_PIN_GET_ACTIVE_DUTY_CYCLE_PERCENTAGE_OUTPUT(EasyCastStructure):
+class PWM_PIN_GET_ACTIVE_DUTY_CYCLE_PERCENTAGE_OUTPUT(Structure):
     Percentage: UInt64
-class PWM_PIN_GET_POLARITY_OUTPUT(EasyCastStructure):
+class PWM_PIN_GET_POLARITY_OUTPUT(Structure):
     Polarity: win32more.Windows.Win32.Devices.Pwm.PWM_POLARITY
-class PWM_PIN_IS_STARTED_OUTPUT(EasyCastStructure):
+class PWM_PIN_IS_STARTED_OUTPUT(Structure):
     IsStarted: win32more.Windows.Win32.Foundation.BOOLEAN
-class PWM_PIN_SET_ACTIVE_DUTY_CYCLE_PERCENTAGE_INPUT(EasyCastStructure):
+class PWM_PIN_SET_ACTIVE_DUTY_CYCLE_PERCENTAGE_INPUT(Structure):
     Percentage: UInt64
-class PWM_PIN_SET_POLARITY_INPUT(EasyCastStructure):
+class PWM_PIN_SET_POLARITY_INPUT(Structure):
     Polarity: win32more.Windows.Win32.Devices.Pwm.PWM_POLARITY
 PWM_POLARITY = Int32
 PWM_ACTIVE_HIGH: win32more.Windows.Win32.Devices.Pwm.PWM_POLARITY = 0

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Dwm
 import win32more.Windows.Win32.Graphics.Imaging
@@ -204,7 +204,7 @@ class IMILBitmapEffects(ComPtr):
     def Item(self, uindex: UInt32, ppEffect: POINTER(win32more.Windows.Win32.UI.Wpf.IMILBitmapEffect)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def get_Count(self, puiCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class MILMatrixF(EasyCastStructure):
+class MILMatrixF(Structure):
     _11: Double
     _12: Double
     _13: Double
@@ -221,10 +221,10 @@ class MILMatrixF(EasyCastStructure):
     _42: Double
     _43: Double
     _44: Double
-class MilPoint2D(EasyCastStructure):
+class MilPoint2D(Structure):
     X: Double
     Y: Double
-class MilRectD(EasyCastStructure):
+class MilRectD(Structure):
     left: Double
     top: Double
     right: Double

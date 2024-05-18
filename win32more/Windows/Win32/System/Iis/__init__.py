@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.Com
@@ -1002,15 +1002,15 @@ class AsyncIMSAdminBaseSinkW(ComPtr):
     def Begin_ShutdownNotify(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Finish_ShutdownNotify(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class CERT_CONTEXT_EX(EasyCastStructure):
+class CERT_CONTEXT_EX(Structure):
     CertContext: win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT
     cbAllocated: UInt32
     dwCertificateFlags: UInt32
-class CONFIGURATION_ENTRY(EasyCastStructure):
+class CONFIGURATION_ENTRY(Structure):
     _uuid_ = Guid('{9e04226f-e38c-419e-a448-62de3b3a8f43}')
     bstrKey: win32more.Windows.Win32.Foundation.BSTR
     bstrValue: win32more.Windows.Win32.Foundation.BSTR
-class EXTENSION_CONTROL_BLOCK(EasyCastStructure):
+class EXTENSION_CONTROL_BLOCK(Structure):
     cbSize: UInt32
     dwVersion: UInt32
     ConnID: win32more.Windows.Win32.System.Iis.HCONN
@@ -1040,52 +1040,52 @@ FTP_PROCESS_TERMINATE_SESSION: win32more.Windows.Win32.System.Iis.FTP_PROCESS_ST
 FTP_PROCESS_REJECT_COMMAND: win32more.Windows.Win32.System.Iis.FTP_PROCESS_STATUS = 3
 FtpProvider = Guid('{70bdc667-33b2-45f0-ac52-c3ca46f7a656}')
 HCONN = VoidPtr
-class HSE_CUSTOM_ERROR_INFO(EasyCastStructure):
+class HSE_CUSTOM_ERROR_INFO(Structure):
     pszStatus: win32more.Windows.Win32.Foundation.PSTR
     uHttpSubError: UInt16
     fAsync: win32more.Windows.Win32.Foundation.BOOL
-class HSE_EXEC_UNICODE_URL_INFO(EasyCastStructure):
+class HSE_EXEC_UNICODE_URL_INFO(Structure):
     pszUrl: win32more.Windows.Win32.Foundation.PWSTR
     pszMethod: win32more.Windows.Win32.Foundation.PSTR
     pszChildHeaders: win32more.Windows.Win32.Foundation.PSTR
     pUserInfo: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_UNICODE_URL_USER_INFO)
     pEntity: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_URL_ENTITY_INFO)
     dwExecUrlFlags: UInt32
-class HSE_EXEC_UNICODE_URL_USER_INFO(EasyCastStructure):
+class HSE_EXEC_UNICODE_URL_USER_INFO(Structure):
     hImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE
     pszCustomUserName: win32more.Windows.Win32.Foundation.PWSTR
     pszCustomAuthType: win32more.Windows.Win32.Foundation.PSTR
-class HSE_EXEC_URL_ENTITY_INFO(EasyCastStructure):
+class HSE_EXEC_URL_ENTITY_INFO(Structure):
     cbAvailable: UInt32
     lpbData: VoidPtr
-class HSE_EXEC_URL_INFO(EasyCastStructure):
+class HSE_EXEC_URL_INFO(Structure):
     pszUrl: win32more.Windows.Win32.Foundation.PSTR
     pszMethod: win32more.Windows.Win32.Foundation.PSTR
     pszChildHeaders: win32more.Windows.Win32.Foundation.PSTR
     pUserInfo: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_URL_USER_INFO)
     pEntity: POINTER(win32more.Windows.Win32.System.Iis.HSE_EXEC_URL_ENTITY_INFO)
     dwExecUrlFlags: UInt32
-class HSE_EXEC_URL_STATUS(EasyCastStructure):
+class HSE_EXEC_URL_STATUS(Structure):
     uHttpStatusCode: UInt16
     uHttpSubStatus: UInt16
     dwWin32Error: UInt32
-class HSE_EXEC_URL_USER_INFO(EasyCastStructure):
+class HSE_EXEC_URL_USER_INFO(Structure):
     hImpersonationToken: win32more.Windows.Win32.Foundation.HANDLE
     pszCustomUserName: win32more.Windows.Win32.Foundation.PSTR
     pszCustomAuthType: win32more.Windows.Win32.Foundation.PSTR
-class HSE_RESPONSE_VECTOR(EasyCastStructure):
+class HSE_RESPONSE_VECTOR(Structure):
     dwFlags: UInt32
     pszStatus: win32more.Windows.Win32.Foundation.PSTR
     pszHeaders: win32more.Windows.Win32.Foundation.PSTR
     nElementCount: UInt32
     lpElementArray: POINTER(win32more.Windows.Win32.System.Iis.HSE_VECTOR_ELEMENT)
-class HSE_SEND_HEADER_EX_INFO(EasyCastStructure):
+class HSE_SEND_HEADER_EX_INFO(Structure):
     pszStatus: win32more.Windows.Win32.Foundation.PSTR
     pszHeader: win32more.Windows.Win32.Foundation.PSTR
     cchStatus: UInt32
     cchHeader: UInt32
     fKeepConn: win32more.Windows.Win32.Foundation.BOOL
-class HSE_TF_INFO(EasyCastStructure):
+class HSE_TF_INFO(Structure):
     pfnHseIO: win32more.Windows.Win32.System.Iis.PFN_HSE_IO_COMPLETION
     pContext: VoidPtr
     hFile: win32more.Windows.Win32.Foundation.HANDLE
@@ -1097,41 +1097,41 @@ class HSE_TF_INFO(EasyCastStructure):
     pTail: VoidPtr
     TailLength: UInt32
     dwFlags: UInt32
-class HSE_TRACE_INFO(EasyCastStructure):
+class HSE_TRACE_INFO(Structure):
     fTraceRequest: win32more.Windows.Win32.Foundation.BOOL
     TraceContextId: Byte * 16
     dwReserved1: UInt32
     dwReserved2: UInt32
-class HSE_UNICODE_URL_MAPEX_INFO(EasyCastStructure):
+class HSE_UNICODE_URL_MAPEX_INFO(Structure):
     lpszPath: Char * 260
     dwFlags: UInt32
     cchMatchingPath: UInt32
     cchMatchingURL: UInt32
-class HSE_URL_MAPEX_INFO(EasyCastStructure):
+class HSE_URL_MAPEX_INFO(Structure):
     lpszPath: win32more.Windows.Win32.Foundation.CHAR * 260
     dwFlags: UInt32
     cchMatchingPath: UInt32
     cchMatchingURL: UInt32
     dwReserved1: UInt32
     dwReserved2: UInt32
-class HSE_VECTOR_ELEMENT(EasyCastStructure):
+class HSE_VECTOR_ELEMENT(Structure):
     ElementType: UInt32
     pvContext: VoidPtr
     cbOffset: UInt64
     cbSize: UInt64
-class HSE_VERSION_INFO(EasyCastStructure):
+class HSE_VERSION_INFO(Structure):
     dwExtensionVersion: UInt32
     lpszExtensionDesc: win32more.Windows.Win32.Foundation.CHAR * 256
-class HTTP_FILTER_ACCESS_DENIED(EasyCastStructure):
+class HTTP_FILTER_ACCESS_DENIED(Structure):
     pszURL: win32more.Windows.Win32.Foundation.PSTR
     pszPhysicalPath: win32more.Windows.Win32.Foundation.PSTR
     dwReason: UInt32
-class HTTP_FILTER_AUTHENT(EasyCastStructure):
+class HTTP_FILTER_AUTHENT(Structure):
     pszUser: win32more.Windows.Win32.Foundation.PSTR
     cbUserBuff: UInt32
     pszPassword: win32more.Windows.Win32.Foundation.PSTR
     cbPasswordBuff: UInt32
-class HTTP_FILTER_AUTH_COMPLETE_INFO(EasyCastStructure):
+class HTTP_FILTER_AUTH_COMPLETE_INFO(Structure):
     GetHeader: IntPtr
     SetHeader: IntPtr
     AddHeader: IntPtr
@@ -1139,7 +1139,7 @@ class HTTP_FILTER_AUTH_COMPLETE_INFO(EasyCastStructure):
     HttpStatus: UInt32
     fResetAuth: win32more.Windows.Win32.Foundation.BOOL
     dwReserved: UInt32
-class HTTP_FILTER_CONTEXT(EasyCastStructure):
+class HTTP_FILTER_CONTEXT(Structure):
     cbSize: UInt32
     Revision: UInt32
     ServerContext: VoidPtr
@@ -1151,7 +1151,7 @@ class HTTP_FILTER_CONTEXT(EasyCastStructure):
     WriteClient: IntPtr
     AllocMem: IntPtr
     ServerSupportFunction: IntPtr
-class HTTP_FILTER_LOG(EasyCastStructure):
+class HTTP_FILTER_LOG(Structure):
     pszClientHostName: win32more.Windows.Win32.Foundation.PSTR
     pszClientUserName: win32more.Windows.Win32.Foundation.PSTR
     pszServerName: win32more.Windows.Win32.Foundation.PSTR
@@ -1163,22 +1163,22 @@ class HTTP_FILTER_LOG(EasyCastStructure):
     dwBytesSent: UInt32
     dwBytesRecvd: UInt32
     msTimeForProcessing: UInt32
-class HTTP_FILTER_PREPROC_HEADERS(EasyCastStructure):
+class HTTP_FILTER_PREPROC_HEADERS(Structure):
     GetHeader: IntPtr
     SetHeader: IntPtr
     AddHeader: IntPtr
     HttpStatus: UInt32
     dwReserved: UInt32
-class HTTP_FILTER_RAW_DATA(EasyCastStructure):
+class HTTP_FILTER_RAW_DATA(Structure):
     pvInData: VoidPtr
     cbInData: UInt32
     cbInBuffer: UInt32
     dwReserved: UInt32
-class HTTP_FILTER_URL_MAP(EasyCastStructure):
+class HTTP_FILTER_URL_MAP(Structure):
     pszURL: win32more.Windows.Win32.Foundation.PSTR
     pszPhysicalPath: win32more.Windows.Win32.Foundation.PSTR
     cbPathBuff: UInt32
-class HTTP_FILTER_URL_MAP_EX(EasyCastStructure):
+class HTTP_FILTER_URL_MAP_EX(Structure):
     pszURL: win32more.Windows.Win32.Foundation.PSTR
     pszPhysicalPath: win32more.Windows.Win32.Foundation.PSTR
     cbPathBuff: UInt32
@@ -1186,17 +1186,17 @@ class HTTP_FILTER_URL_MAP_EX(EasyCastStructure):
     cchMatchingPath: UInt32
     cchMatchingURL: UInt32
     pszScriptMapEntry: win32more.Windows.Win32.Foundation.PSTR
-class HTTP_FILTER_VERSION(EasyCastStructure):
+class HTTP_FILTER_VERSION(Structure):
     dwServerFilterVersion: UInt32
     dwFilterVersion: UInt32
     lpszFilterDesc: win32more.Windows.Win32.Foundation.CHAR * 257
     dwFlags: UInt32
-class HTTP_TRACE_CONFIGURATION(EasyCastStructure):
+class HTTP_TRACE_CONFIGURATION(Structure):
     pProviderGuid: POINTER(Guid)
     dwAreas: UInt32
     dwVerbosity: UInt32
     fProviderEnabled: win32more.Windows.Win32.Foundation.BOOL
-class HTTP_TRACE_EVENT(EasyCastStructure):
+class HTTP_TRACE_EVENT(Structure):
     pProviderGuid: POINTER(Guid)
     dwArea: UInt32
     pAreaGuid: POINTER(Guid)
@@ -1210,7 +1210,7 @@ class HTTP_TRACE_EVENT(EasyCastStructure):
     dwFlags: UInt32
     cEventItems: UInt32
     pEventItems: POINTER(win32more.Windows.Win32.System.Iis.HTTP_TRACE_EVENT_ITEM)
-class HTTP_TRACE_EVENT_ITEM(EasyCastStructure):
+class HTTP_TRACE_EVENT_ITEM(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     dwDataType: win32more.Windows.Win32.System.Iis.HTTP_TRACE_TYPE
     pbData: POINTER(Byte)
@@ -1375,7 +1375,7 @@ class IMSImpExpHelpW(ComPtr):
     _iid_ = Guid('{29ff67ff-8050-480f-9f30-cc41635f2f9d}')
     @commethod(3)
     def EnumeratePathsInFile(self, pszFileName: win32more.Windows.Win32.Foundation.PWSTR, pszKeyType: win32more.Windows.Win32.Foundation.PWSTR, dwMDBufferSize: UInt32, pszBuffer: win32more.Windows.Win32.Foundation.PWSTR, pdwMDRequiredBufferSize: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class LOGGING_PARAMETERS(EasyCastStructure):
+class LOGGING_PARAMETERS(Structure):
     _uuid_ = Guid('{6c678262-fc37-406e-84e8-e9c6a5757cdc}')
     pszSessionId: win32more.Windows.Win32.Foundation.PWSTR
     pszSiteName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1395,7 +1395,7 @@ class LOGGING_PARAMETERS(EasyCastStructure):
     FtpSubStatus: UInt32
     hrStatus: win32more.Windows.Win32.Foundation.HRESULT
     pszInformation: win32more.Windows.Win32.Foundation.PWSTR
-class MD_CHANGE_OBJECT_W(EasyCastStructure):
+class MD_CHANGE_OBJECT_W(Structure):
     pszMDPath: win32more.Windows.Win32.Foundation.PWSTR
     dwMDChangeType: UInt32
     dwMDNumDataIDs: UInt32
@@ -1408,7 +1408,7 @@ BINARY_METADATA: win32more.Windows.Win32.System.Iis.METADATATYPES = 3
 EXPANDSZ_METADATA: win32more.Windows.Win32.System.Iis.METADATATYPES = 4
 MULTISZ_METADATA: win32more.Windows.Win32.System.Iis.METADATATYPES = 5
 INVALID_END_METADATA: win32more.Windows.Win32.System.Iis.METADATATYPES = 6
-class METADATA_GETALL_INTERNAL_RECORD(EasyCastStructure):
+class METADATA_GETALL_INTERNAL_RECORD(Structure):
     dwMDIdentifier: UInt32
     dwMDAttributes: UInt32
     dwMDUserType: UInt32
@@ -1416,10 +1416,10 @@ class METADATA_GETALL_INTERNAL_RECORD(EasyCastStructure):
     dwMDDataLen: UInt32
     Anonymous: _Anonymous_e__Union
     dwMDDataTag: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwMDDataOffset: UIntPtr
         pbMDData: POINTER(Byte)
-class METADATA_GETALL_RECORD(EasyCastStructure):
+class METADATA_GETALL_RECORD(Structure):
     dwMDIdentifier: UInt32
     dwMDAttributes: UInt32
     dwMDUserType: UInt32
@@ -1427,10 +1427,10 @@ class METADATA_GETALL_RECORD(EasyCastStructure):
     dwMDDataLen: UInt32
     dwMDDataOffset: UInt32
     dwMDDataTag: UInt32
-class METADATA_HANDLE_INFO(EasyCastStructure):
+class METADATA_HANDLE_INFO(Structure):
     dwMDPermissions: UInt32
     dwMDSystemChangeNumber: UInt32
-class METADATA_RECORD(EasyCastStructure):
+class METADATA_RECORD(Structure):
     dwMDIdentifier: UInt32
     dwMDAttributes: UInt32
     dwMDUserType: UInt32
@@ -1464,7 +1464,7 @@ def PFN_WEB_CORE_ACTIVATE(pszAppHostConfigFile: win32more.Windows.Win32.Foundati
 def PFN_WEB_CORE_SET_METADATA_DLL_ENTRY(pszMetadataType: win32more.Windows.Win32.Foundation.PWSTR, pszValue: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_WEB_CORE_SHUTDOWN(fImmediate: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class POST_PROCESS_PARAMETERS(EasyCastStructure):
+class POST_PROCESS_PARAMETERS(Structure):
     _uuid_ = Guid('{53337595-9165-4a8b-a202-7d5dbf7e4b8b}')
     pszSessionId: win32more.Windows.Win32.Foundation.PWSTR
     pszSiteName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1486,7 +1486,7 @@ class POST_PROCESS_PARAMETERS(EasyCastStructure):
     SessionStartTime: win32more.Windows.Win32.Foundation.FILETIME
     BytesSentPerSession: UInt64
     BytesReceivedPerSession: UInt64
-class PRE_PROCESS_PARAMETERS(EasyCastStructure):
+class PRE_PROCESS_PARAMETERS(Structure):
     _uuid_ = Guid('{07c3d591-cead-4702-abab-a70886af38a3}')
     pszSessionId: win32more.Windows.Win32.Foundation.PWSTR
     pszSiteName: win32more.Windows.Win32.Foundation.PWSTR

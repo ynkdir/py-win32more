@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Authorization
@@ -40,7 +40,7 @@ def CreateSecurityPage(psi: win32more.Windows.Win32.Security.Authorization.UI.IS
 def EditSecurity(hwndOwner: win32more.Windows.Win32.Foundation.HWND, psi: win32more.Windows.Win32.Security.Authorization.UI.ISecurityInformation) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ACLUI.dll')
 def EditSecurityAdvanced(hwndOwner: win32more.Windows.Win32.Foundation.HWND, psi: win32more.Windows.Win32.Security.Authorization.UI.ISecurityInformation, uSIPage: win32more.Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class EFFPERM_RESULT_LIST(EasyCastStructure):
+class EFFPERM_RESULT_LIST(Structure):
     fEvaluated: win32more.Windows.Win32.Foundation.BOOLEAN
     cObjectTypeListLength: UInt32
     pObjectTypeList: POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST)
@@ -100,7 +100,7 @@ SECURITY_INFO_PAGE_FLAGS = UInt32
 SI_ADVANCED: win32more.Windows.Win32.Security.Authorization.UI.SECURITY_INFO_PAGE_FLAGS = 16
 SI_EDIT_AUDITS: win32more.Windows.Win32.Security.Authorization.UI.SECURITY_INFO_PAGE_FLAGS = 2
 SI_EDIT_PROPERTIES: win32more.Windows.Win32.Security.Authorization.UI.SECURITY_INFO_PAGE_FLAGS = 128
-class SECURITY_OBJECT(EasyCastStructure):
+class SECURITY_OBJECT(Structure):
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pData: VoidPtr
     cbData: UInt32
@@ -108,24 +108,24 @@ class SECURITY_OBJECT(EasyCastStructure):
     cbData2: UInt32
     Id: UInt32
     fWellKnown: win32more.Windows.Win32.Foundation.BOOLEAN
-class SID_INFO(EasyCastStructure):
+class SID_INFO(Structure):
     pSid: win32more.Windows.Win32.Security.PSID
     pwzCommonName: win32more.Windows.Win32.Foundation.PWSTR
     pwzClass: win32more.Windows.Win32.Foundation.PWSTR
     pwzUPN: win32more.Windows.Win32.Foundation.PWSTR
-class SID_INFO_LIST(EasyCastStructure):
+class SID_INFO_LIST(Structure):
     cItems: UInt32
     aSidInfo: win32more.Windows.Win32.Security.Authorization.UI.SID_INFO * 1
-class SI_ACCESS(EasyCastStructure):
+class SI_ACCESS(Structure):
     pguid: POINTER(Guid)
     mask: UInt32
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     dwFlags: UInt32
-class SI_INHERIT_TYPE(EasyCastStructure):
+class SI_INHERIT_TYPE(Structure):
     pguid: POINTER(Guid)
     dwFlags: win32more.Windows.Win32.Security.ACE_FLAGS
     pszName: win32more.Windows.Win32.Foundation.PWSTR
-class SI_OBJECT_INFO(EasyCastStructure):
+class SI_OBJECT_INFO(Structure):
     dwFlags: win32more.Windows.Win32.Security.Authorization.UI.SI_OBJECT_INFO_FLAGS
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
     pszServerName: win32more.Windows.Win32.Foundation.PWSTR

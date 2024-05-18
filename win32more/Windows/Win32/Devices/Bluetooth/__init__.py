@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Bluetooth
 import win32more.Windows.Win32.Foundation
 AUTHENTICATION_REQUIREMENTS = Int32
@@ -933,28 +933,28 @@ def BluetoothGATTSetDescriptorValue(hDevice: win32more.Windows.Win32.Foundation.
 def BluetoothGATTRegisterEvent(hService: win32more.Windows.Win32.Foundation.HANDLE, EventType: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_EVENT_TYPE, EventParameterIn: VoidPtr, Callback: win32more.Windows.Win32.Devices.Bluetooth.PFNBLUETOOTH_GATT_EVENT_CALLBACK, CallbackContext: VoidPtr, pEventHandle: POINTER(IntPtr), Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('BluetoothApis.dll')
 def BluetoothGATTUnregisterEvent(EventHandle: IntPtr, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class BLUETOOTH_ADDRESS(EasyCastStructure):
+class BLUETOOTH_ADDRESS(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ullLong: UInt64
         rgBytes: Byte * 6
-class BLUETOOTH_AUTHENTICATE_RESPONSE(EasyCastStructure):
+class BLUETOOTH_AUTHENTICATE_RESPONSE(Structure):
     bthAddressRemote: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_ADDRESS
     authMethod: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD
     Anonymous: _Anonymous_e__Union
     negativeResponse: Byte
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pinInfo: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_PIN_INFO
         oobInfo: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_OOB_DATA_INFO
         numericCompInfo: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_NUMERIC_COMPARISON_INFO
         passkeyInfo: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_PASSKEY_INFO
-class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS(EasyCastStructure):
+class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS(Structure):
     deviceInfo: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO
     authenticationMethod: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD
     ioCapability: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY
     authenticationRequirements: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Numeric_Value: UInt32
         Passkey: UInt32
 BLUETOOTH_AUTHENTICATION_METHOD = Int32
@@ -971,10 +971,10 @@ BLUETOOTH_MITM_ProtectionRequiredBonding: win32more.Windows.Win32.Devices.Blueto
 BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 4
 BLUETOOTH_MITM_ProtectionRequiredGeneralBonding: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 5
 BLUETOOTH_MITM_ProtectionNotDefined: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS = 255
-class BLUETOOTH_COD_PAIRS(EasyCastStructure):
+class BLUETOOTH_COD_PAIRS(Structure):
     ulCODMask: UInt32
     pcszDescription: win32more.Windows.Win32.Foundation.PWSTR
-class BLUETOOTH_DEVICE_INFO(EasyCastStructure):
+class BLUETOOTH_DEVICE_INFO(Structure):
     dwSize: UInt32
     Address: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_ADDRESS
     ulClassofDevice: UInt32
@@ -984,7 +984,7 @@ class BLUETOOTH_DEVICE_INFO(EasyCastStructure):
     stLastSeen: win32more.Windows.Win32.Foundation.SYSTEMTIME
     stLastUsed: win32more.Windows.Win32.Foundation.SYSTEMTIME
     szName: Char * 248
-class BLUETOOTH_DEVICE_SEARCH_PARAMS(EasyCastStructure):
+class BLUETOOTH_DEVICE_SEARCH_PARAMS(Structure):
     dwSize: UInt32
     fReturnAuthenticated: win32more.Windows.Win32.Foundation.BOOL
     fReturnRemembered: win32more.Windows.Win32.Foundation.BOOL
@@ -993,13 +993,13 @@ class BLUETOOTH_DEVICE_SEARCH_PARAMS(EasyCastStructure):
     fIssueInquiry: win32more.Windows.Win32.Foundation.BOOL
     cTimeoutMultiplier: Byte
     hRadio: win32more.Windows.Win32.Foundation.HANDLE
-class BLUETOOTH_FIND_RADIO_PARAMS(EasyCastStructure):
+class BLUETOOTH_FIND_RADIO_PARAMS(Structure):
     dwSize: UInt32
-class BLUETOOTH_GATT_VALUE_CHANGED_EVENT(EasyCastStructure):
+class BLUETOOTH_GATT_VALUE_CHANGED_EVENT(Structure):
     ChangedAttributeHandle: UInt16
     CharacteristicValueDataSize: UIntPtr
     CharacteristicValue: POINTER(win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_VALUE)
-class BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION(EasyCastStructure):
+class BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION(Structure):
     NumCharacteristics: UInt16
     Characteristics: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC * 1
 BLUETOOTH_IO_CAPABILITY = Int32
@@ -1008,29 +1008,29 @@ BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO: win32more.Windows.Win32.Devices.Bluetooth.
 BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 2
 BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 3
 BLUETOOTH_IO_CAPABILITY_UNDEFINED: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 255
-class BLUETOOTH_LOCAL_SERVICE_INFO(EasyCastStructure):
+class BLUETOOTH_LOCAL_SERVICE_INFO(Structure):
     Enabled: win32more.Windows.Win32.Foundation.BOOL
     btAddr: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_ADDRESS
     szName: Char * 256
     szDeviceString: Char * 256
-class BLUETOOTH_NUMERIC_COMPARISON_INFO(EasyCastStructure):
+class BLUETOOTH_NUMERIC_COMPARISON_INFO(Structure):
     NumericValue: UInt32
-class BLUETOOTH_OOB_DATA_INFO(EasyCastStructure):
+class BLUETOOTH_OOB_DATA_INFO(Structure):
     C: Byte * 16
     R: Byte * 16
-class BLUETOOTH_PASSKEY_INFO(EasyCastStructure):
+class BLUETOOTH_PASSKEY_INFO(Structure):
     passkey: UInt32
-class BLUETOOTH_PIN_INFO(EasyCastStructure):
+class BLUETOOTH_PIN_INFO(Structure):
     pin: Byte * 16
     pinLength: Byte
-class BLUETOOTH_RADIO_INFO(EasyCastStructure):
+class BLUETOOTH_RADIO_INFO(Structure):
     dwSize: UInt32
     address: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_ADDRESS
     szName: Char * 248
     ulClassofDevice: UInt32
     lmpSubversion: UInt16
     manufacturer: UInt16
-class BLUETOOTH_SELECT_DEVICE_PARAMS(EasyCastStructure):
+class BLUETOOTH_SELECT_DEVICE_PARAMS(Structure):
     dwSize: UInt32
     cNumOfClasses: UInt32
     prgClassOfDevices: POINTER(win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_COD_PAIRS)
@@ -1046,34 +1046,34 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS(EasyCastStructure):
     pvParam: VoidPtr
     cNumDevices: UInt32
     pDevices: POINTER(win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO)
-class BTH_DEVICE_INFO(EasyCastStructure):
+class BTH_DEVICE_INFO(Structure):
     flags: UInt32
     address: UInt64
     classOfDevice: UInt32
     name: win32more.Windows.Win32.Foundation.CHAR * 248
-class BTH_HCI_EVENT_INFO(EasyCastStructure):
+class BTH_HCI_EVENT_INFO(Structure):
     bthAddress: UInt64
     connectionType: Byte
     connected: Byte
-class BTH_INFO_REQ(EasyCastStructure):
+class BTH_INFO_REQ(Structure):
     btAddr: UInt64
     infoType: UInt16
     _pack_ = 1
-class BTH_INFO_RSP(EasyCastStructure):
+class BTH_INFO_RSP(Structure):
     result: UInt16
     dataLen: Byte
     Anonymous: _Anonymous_e__Union
     _pack_ = 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         connectionlessMTU: UInt16
         data: Byte * 44
         _pack_ = 1
-class BTH_L2CAP_EVENT_INFO(EasyCastStructure):
+class BTH_L2CAP_EVENT_INFO(Structure):
     bthAddress: UInt64
     psm: UInt16
     connected: Byte
     initiated: Byte
-class BTH_LE_GATT_CHARACTERISTIC(EasyCastStructure):
+class BTH_LE_GATT_CHARACTERISTIC(Structure):
     ServiceHandle: UInt16
     CharacteristicUuid: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
     AttributeHandle: UInt16
@@ -1086,10 +1086,10 @@ class BTH_LE_GATT_CHARACTERISTIC(EasyCastStructure):
     IsNotifiable: win32more.Windows.Win32.Foundation.BOOLEAN
     IsIndicatable: win32more.Windows.Win32.Foundation.BOOLEAN
     HasExtendedProperties: win32more.Windows.Win32.Foundation.BOOLEAN
-class BTH_LE_GATT_CHARACTERISTIC_VALUE(EasyCastStructure):
+class BTH_LE_GATT_CHARACTERISTIC_VALUE(Structure):
     DataSize: UInt32
     Data: Byte * 1
-class BTH_LE_GATT_DESCRIPTOR(EasyCastStructure):
+class BTH_LE_GATT_DESCRIPTOR(Structure):
     ServiceHandle: UInt16
     CharacteristicHandle: UInt16
     DescriptorType: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE
@@ -1103,26 +1103,26 @@ ServerCharacteristicConfiguration: win32more.Windows.Win32.Devices.Bluetooth.BTH
 CharacteristicFormat: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 4
 CharacteristicAggregateFormat: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 5
 CustomDescriptor: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE = 6
-class BTH_LE_GATT_DESCRIPTOR_VALUE(EasyCastStructure):
+class BTH_LE_GATT_DESCRIPTOR_VALUE(Structure):
     DescriptorType: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_DESCRIPTOR_TYPE
     DescriptorUuid: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
     Anonymous: _Anonymous_e__Union
     DataSize: UInt32
     Data: Byte * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         CharacteristicExtendedProperties: _CharacteristicExtendedProperties_e__Struct
         ClientCharacteristicConfiguration: _ClientCharacteristicConfiguration_e__Struct
         ServerCharacteristicConfiguration: _ServerCharacteristicConfiguration_e__Struct
         CharacteristicFormat: _CharacteristicFormat_e__Struct
-        class _CharacteristicExtendedProperties_e__Struct(EasyCastStructure):
+        class _CharacteristicExtendedProperties_e__Struct(Structure):
             IsReliableWriteEnabled: win32more.Windows.Win32.Foundation.BOOLEAN
             IsAuxiliariesWritable: win32more.Windows.Win32.Foundation.BOOLEAN
-        class _ClientCharacteristicConfiguration_e__Struct(EasyCastStructure):
+        class _ClientCharacteristicConfiguration_e__Struct(Structure):
             IsSubscribeToNotification: win32more.Windows.Win32.Foundation.BOOLEAN
             IsSubscribeToIndication: win32more.Windows.Win32.Foundation.BOOLEAN
-        class _ServerCharacteristicConfiguration_e__Struct(EasyCastStructure):
+        class _ServerCharacteristicConfiguration_e__Struct(Structure):
             IsBroadcast: win32more.Windows.Win32.Foundation.BOOLEAN
-        class _CharacteristicFormat_e__Struct(EasyCastStructure):
+        class _CharacteristicFormat_e__Struct(Structure):
             Format: Byte
             Exponent: Byte
             Unit: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
@@ -1130,38 +1130,38 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE(EasyCastStructure):
             Description: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
 BTH_LE_GATT_EVENT_TYPE = Int32
 CharacteristicValueChangedEvent: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_EVENT_TYPE = 0
-class BTH_LE_GATT_SERVICE(EasyCastStructure):
+class BTH_LE_GATT_SERVICE(Structure):
     ServiceUuid: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
     AttributeHandle: UInt16
-class BTH_LE_UUID(EasyCastStructure):
+class BTH_LE_UUID(Structure):
     IsShortUuid: win32more.Windows.Win32.Foundation.BOOLEAN
     Value: _Value_e__Union
-    class _Value_e__Union(EasyCastUnion):
+    class _Value_e__Union(Union):
         ShortUuid: UInt16
         LongUuid: Guid
-class BTH_PING_REQ(EasyCastStructure):
+class BTH_PING_REQ(Structure):
     btAddr: UInt64
     dataLen: Byte
     data: Byte * 44
     _pack_ = 1
-class BTH_PING_RSP(EasyCastStructure):
+class BTH_PING_RSP(Structure):
     dataLen: Byte
     data: Byte * 44
-class BTH_QUERY_DEVICE(EasyCastStructure):
+class BTH_QUERY_DEVICE(Structure):
     LAP: UInt32
     length: Byte
     _pack_ = 1
-class BTH_QUERY_SERVICE(EasyCastStructure):
+class BTH_QUERY_SERVICE(Structure):
     type: UInt32
     serviceHandle: UInt32
     uuids: win32more.Windows.Win32.Devices.Bluetooth.SdpQueryUuid * 12
     numRange: UInt32
     pRange: win32more.Windows.Win32.Devices.Bluetooth.SdpAttributeRange * 1
     _pack_ = 1
-class BTH_RADIO_IN_RANGE(EasyCastStructure):
+class BTH_RADIO_IN_RANGE(Structure):
     deviceInfo: win32more.Windows.Win32.Devices.Bluetooth.BTH_DEVICE_INFO
     previousDeviceFlags: UInt32
-class BTH_SET_SERVICE(EasyCastStructure):
+class BTH_SET_SERVICE(Structure):
     pSdpVersion: POINTER(UInt32)
     pRecordHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)
     fCodService: UInt32
@@ -1191,20 +1191,20 @@ def PFN_AUTHENTICATION_CALLBACK_EX(pvParam: VoidPtr, pAuthCallbackParams: POINTE
 def PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK(uAttribId: UInt32, pValueStream: POINTER(Byte), cbStreamSize: UInt32, pvParam: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_DEVICE_CALLBACK(pvParam: VoidPtr, pDevice: POINTER(win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class RFCOMM_COMMAND(EasyCastStructure):
+class RFCOMM_COMMAND(Structure):
     CmdType: UInt32
     Data: _Data_e__Union
     _pack_ = 1
-    class _Data_e__Union(EasyCastUnion):
+    class _Data_e__Union(Union):
         MSC: win32more.Windows.Win32.Devices.Bluetooth.RFCOMM_MSC_DATA
         RLS: win32more.Windows.Win32.Devices.Bluetooth.RFCOMM_RLS_DATA
         RPN: win32more.Windows.Win32.Devices.Bluetooth.RFCOMM_RPN_DATA
-class RFCOMM_MSC_DATA(EasyCastStructure):
+class RFCOMM_MSC_DATA(Structure):
     Signals: Byte
     Break: Byte
-class RFCOMM_RLS_DATA(EasyCastStructure):
+class RFCOMM_RLS_DATA(Structure):
     LineStatus: Byte
-class RFCOMM_RPN_DATA(EasyCastStructure):
+class RFCOMM_RPN_DATA(Structure):
     Baud: Byte
     Data: Byte
     FlowControl: Byte
@@ -1212,11 +1212,11 @@ class RFCOMM_RPN_DATA(EasyCastStructure):
     XoffChar: Byte
     ParameterMask1: Byte
     ParameterMask2: Byte
-class SDP_ELEMENT_DATA(EasyCastStructure):
+class SDP_ELEMENT_DATA(Structure):
     type: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE
     specificType: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE
     data: _data_e__Union
-    class _data_e__Union(EasyCastUnion):
+    class _data_e__Union(Union):
         int128: win32more.Windows.Win32.Devices.Bluetooth.SDP_LARGE_INTEGER_16
         int64: Int64
         int32: Int32
@@ -1235,19 +1235,19 @@ class SDP_ELEMENT_DATA(EasyCastStructure):
         url: _url_e__Struct
         sequence: _sequence_e__Struct
         alternative: _alternative_e__Struct
-        class _string_e__Struct(EasyCastStructure):
+        class _string_e__Struct(Structure):
             value: POINTER(Byte)
             length: UInt32
-        class _url_e__Struct(EasyCastStructure):
+        class _url_e__Struct(Structure):
             value: POINTER(Byte)
             length: UInt32
-        class _sequence_e__Struct(EasyCastStructure):
+        class _sequence_e__Struct(Structure):
             value: POINTER(Byte)
             length: UInt32
-        class _alternative_e__Struct(EasyCastStructure):
+        class _alternative_e__Struct(Structure):
             value: POINTER(Byte)
             length: UInt32
-class SDP_LARGE_INTEGER_16(EasyCastStructure):
+class SDP_LARGE_INTEGER_16(Structure):
     LowPart: UInt64
     HighPart: Int64
 SDP_SPECIFICTYPE = Int32
@@ -1265,7 +1265,7 @@ SDP_ST_INT128: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 1056
 SDP_ST_UUID16: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 304
 SDP_ST_UUID32: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 544
 SDP_ST_UUID128: win32more.Windows.Win32.Devices.Bluetooth.SDP_SPECIFICTYPE = 1072
-class SDP_STRING_TYPE_DATA(EasyCastStructure):
+class SDP_STRING_TYPE_DATA(Structure):
     encoding: UInt16
     mibeNum: UInt16
     attributeId: UInt16
@@ -1280,22 +1280,22 @@ SDP_TYPE_SEQUENCE: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 6
 SDP_TYPE_ALTERNATIVE: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 7
 SDP_TYPE_URL: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 8
 SDP_TYPE_CONTAINER: win32more.Windows.Win32.Devices.Bluetooth.SDP_TYPE = 32
-class SDP_ULARGE_INTEGER_16(EasyCastStructure):
+class SDP_ULARGE_INTEGER_16(Structure):
     LowPart: UInt64
     HighPart: UInt64
-class SOCKADDR_BTH(EasyCastStructure):
+class SOCKADDR_BTH(Structure):
     addressFamily: UInt16
     btAddr: UInt64
     serviceClassId: Guid
     port: UInt32
     _pack_ = 1
-class SdpAttributeRange(EasyCastStructure):
+class SdpAttributeRange(Structure):
     minAttribute: UInt16
     maxAttribute: UInt16
-class SdpQueryUuid(EasyCastStructure):
+class SdpQueryUuid(Structure):
     u: win32more.Windows.Win32.Devices.Bluetooth.SdpQueryUuidUnion
     uuidType: UInt16
-class SdpQueryUuidUnion(EasyCastUnion):
+class SdpQueryUuidUnion(Union):
     uuid128: Guid
     uuid32: UInt32
     uuid16: UInt16

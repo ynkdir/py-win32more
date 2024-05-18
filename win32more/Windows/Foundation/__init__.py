@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -40,7 +40,7 @@ class AsyncStatus(Int32):  # enum
     Completed = 1
     Error = 3
     Started = 0
-class DateTime(EasyCastStructure):
+class DateTime(Structure):
     UniversalTime: Int64
 class Deferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -69,7 +69,7 @@ class EventHandler(Generic[T], MulticastDelegate):
     _piid_ = Guid('{9de1c535-6ae1-11e0-84e1-18a905bcc53f}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, args: T) -> Void: ...
-class EventRegistrationToken(EasyCastStructure):
+class EventRegistrationToken(Structure):
     Value: Int64
 FoundationContract: UInt32 = 262144
 class _GuidHelper_Meta_(ComPtr.__class__):
@@ -84,7 +84,7 @@ class GuidHelper(ComPtr, metaclass=_GuidHelper_Meta_):
     @winrt_classmethod
     def Equals(cls: win32more.Windows.Foundation.IGuidHelperStatics, target: POINTER(Guid), value: POINTER(Guid)) -> Boolean: ...
     _GuidHelper_Meta_.Empty = property(get_Empty.__wrapped__, None)
-class HResult(EasyCastStructure):
+class HResult(Structure):
     Value: Int32
 class IAsyncAction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -531,7 +531,7 @@ class MemoryBuffer(ComPtr):
     def CreateReference(self: win32more.Windows.Foundation.IMemoryBuffer) -> win32more.Windows.Foundation.IMemoryBufferReference: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-class Point(EasyCastStructure):
+class Point(Structure):
     X: Single
     Y: Single
 class PropertyType(Int32):  # enum
@@ -657,15 +657,15 @@ class PropertyValue(ComPtr):
     def CreateSizeArray(cls: win32more.Windows.Foundation.IPropertyValueStatics, value: PassArray[win32more.Windows.Foundation.Size]) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     @winrt_classmethod
     def CreateRectArray(cls: win32more.Windows.Foundation.IPropertyValueStatics, value: PassArray[win32more.Windows.Foundation.Rect]) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
-class Rect(EasyCastStructure):
+class Rect(Structure):
     X: Single
     Y: Single
     Width: Single
     Height: Single
-class Size(EasyCastStructure):
+class Size(Structure):
     Width: Single
     Height: Single
-class TimeSpan(EasyCastStructure):
+class TimeSpan(Structure):
     Duration: Int64
 class TypedEventHandler(Generic[TSender, TResult], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown

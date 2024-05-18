@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Networking.Clustering
@@ -1643,7 +1643,7 @@ CLCTL_NOTIFY_OWNER_CHANGE: win32more.Windows.Win32.Networking.Clustering.CLCTL_C
 CLCTL_VALIDATE_CHANGE_GROUP: win32more.Windows.Win32.Networking.Clustering.CLCTL_CODES = 1057061
 CLCTL_CHECK_DRAIN_VETO: win32more.Windows.Win32.Networking.Clustering.CLCTL_CODES = 1057069
 CLCTL_NOTIFY_DRAIN_COMPLETE: win32more.Windows.Win32.Networking.Clustering.CLCTL_CODES = 1057073
-class CLRES_CALLBACK_FUNCTION_TABLE(EasyCastStructure):
+class CLRES_CALLBACK_FUNCTION_TABLE(Structure):
     LogEvent: win32more.Windows.Win32.Networking.Clustering.PLOG_EVENT_ROUTINE
     SetResourceStatusEx: win32more.Windows.Win32.Networking.Clustering.PSET_RESOURCE_STATUS_ROUTINE_EX
     SetResourceLockedMode: win32more.Windows.Win32.Networking.Clustering.PSET_RESOURCE_LOCKED_MODE_ROUTINE
@@ -1661,16 +1661,16 @@ class CLRES_CALLBACK_FUNCTION_TABLE(EasyCastStructure):
     RequestDump: win32more.Windows.Win32.Networking.Clustering.PREQUEST_DUMP_ROUTINE
     SetResourceWprPolicy: win32more.Windows.Win32.Networking.Clustering.PSET_RESOURCE_WPR_POLICY_ROUTINE
     ArmWprWatchdogForCurrentResourceCall: win32more.Windows.Win32.Networking.Clustering.PARM_WPR_WATCHDOG_FOR_CURRENT_RESOURCE_CALL_ROUTINE
-class CLRES_FUNCTION_TABLE(EasyCastStructure):
+class CLRES_FUNCTION_TABLE(Structure):
     TableSize: UInt32
     Version: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         V1Functions: win32more.Windows.Win32.Networking.Clustering.CLRES_V1_FUNCTIONS
         V2Functions: win32more.Windows.Win32.Networking.Clustering.CLRES_V2_FUNCTIONS
         V3Functions: win32more.Windows.Win32.Networking.Clustering.CLRES_V3_FUNCTIONS
         V4Functions: win32more.Windows.Win32.Networking.Clustering.CLRES_V4_FUNCTIONS
-class CLRES_V1_FUNCTIONS(EasyCastStructure):
+class CLRES_V1_FUNCTIONS(Structure):
     Open: win32more.Windows.Win32.Networking.Clustering.POPEN_ROUTINE
     Close: win32more.Windows.Win32.Networking.Clustering.PCLOSE_ROUTINE
     Online: win32more.Windows.Win32.Networking.Clustering.PONLINE_ROUTINE
@@ -1682,7 +1682,7 @@ class CLRES_V1_FUNCTIONS(EasyCastStructure):
     Release: win32more.Windows.Win32.Networking.Clustering.PRELEASE_ROUTINE
     ResourceControl: win32more.Windows.Win32.Networking.Clustering.PRESOURCE_CONTROL_ROUTINE
     ResourceTypeControl: win32more.Windows.Win32.Networking.Clustering.PRESOURCE_TYPE_CONTROL_ROUTINE
-class CLRES_V2_FUNCTIONS(EasyCastStructure):
+class CLRES_V2_FUNCTIONS(Structure):
     Open: win32more.Windows.Win32.Networking.Clustering.POPEN_V2_ROUTINE
     Close: win32more.Windows.Win32.Networking.Clustering.PCLOSE_ROUTINE
     Online: win32more.Windows.Win32.Networking.Clustering.PONLINE_V2_ROUTINE
@@ -1695,7 +1695,7 @@ class CLRES_V2_FUNCTIONS(EasyCastStructure):
     ResourceControl: win32more.Windows.Win32.Networking.Clustering.PRESOURCE_CONTROL_ROUTINE
     ResourceTypeControl: win32more.Windows.Win32.Networking.Clustering.PRESOURCE_TYPE_CONTROL_ROUTINE
     Cancel: win32more.Windows.Win32.Networking.Clustering.PCANCEL_ROUTINE
-class CLRES_V3_FUNCTIONS(EasyCastStructure):
+class CLRES_V3_FUNCTIONS(Structure):
     Open: win32more.Windows.Win32.Networking.Clustering.POPEN_V2_ROUTINE
     Close: win32more.Windows.Win32.Networking.Clustering.PCLOSE_ROUTINE
     Online: win32more.Windows.Win32.Networking.Clustering.PONLINE_V2_ROUTINE
@@ -1708,7 +1708,7 @@ class CLRES_V3_FUNCTIONS(EasyCastStructure):
     BeginResourceControl: win32more.Windows.Win32.Networking.Clustering.PBEGIN_RESCALL_ROUTINE
     BeginResourceTypeControl: win32more.Windows.Win32.Networking.Clustering.PBEGIN_RESTYPECALL_ROUTINE
     Cancel: win32more.Windows.Win32.Networking.Clustering.PCANCEL_ROUTINE
-class CLRES_V4_FUNCTIONS(EasyCastStructure):
+class CLRES_V4_FUNCTIONS(Structure):
     Open: win32more.Windows.Win32.Networking.Clustering.POPEN_V2_ROUTINE
     Close: win32more.Windows.Win32.Networking.Clustering.PCLOSE_ROUTINE
     Online: win32more.Windows.Win32.Networking.Clustering.PONLINE_V2_ROUTINE
@@ -1732,7 +1732,7 @@ CLUADMEX_OT_RESOURCE: win32more.Windows.Win32.Networking.Clustering.CLUADMEX_OBJ
 CLUADMEX_OT_RESOURCETYPE: win32more.Windows.Win32.Networking.Clustering.CLUADMEX_OBJECT_TYPE = 5
 CLUADMEX_OT_NETWORK: win32more.Windows.Win32.Networking.Clustering.CLUADMEX_OBJECT_TYPE = 6
 CLUADMEX_OT_NETINTERFACE: win32more.Windows.Win32.Networking.Clustering.CLUADMEX_OBJECT_TYPE = 7
-class CLUSAPI_REASON_HANDLER(EasyCastStructure):
+class CLUSAPI_REASON_HANDLER(Structure):
     lpParameter: VoidPtr
     pfnHandler: win32more.Windows.Win32.Networking.Clustering.PCLUSAPI_PFN_REASON_HANDLER
 CLUSCTL_AFFINITYRULE_CODES = Int32
@@ -1814,7 +1814,7 @@ CLUSCTL_GROUP_GET_PRIVATE_PROPERTY_FMTS: win32more.Windows.Win32.Networking.Clus
 CLUSCTL_GROUP_GET_FAILURE_INFO: win32more.Windows.Win32.Networking.Clustering.CLUSCTL_GROUP_CODES = 50331673
 CLUSCTL_GROUP_GET_LAST_MOVE_TIME: win32more.Windows.Win32.Networking.Clustering.CLUSCTL_GROUP_CODES = 50332377
 CLUSCTL_GROUP_SET_CCF_FROM_MASTER: win32more.Windows.Win32.Networking.Clustering.CLUSCTL_GROUP_CODES = 54537606
-class CLUSCTL_GROUP_GET_LAST_MOVE_TIME_OUTPUT(EasyCastStructure):
+class CLUSCTL_GROUP_GET_LAST_MOVE_TIME_OUTPUT(Structure):
     GetTickCount64: UInt64
     GetSystemTime: win32more.Windows.Win32.Foundation.SYSTEMTIME
     NodeId: UInt32
@@ -1992,7 +1992,7 @@ CLUSCTL_RESOURCE_SCALEOUT_GET_CLUSTERS: win32more.Windows.Win32.Networking.Clust
 CLUSCTL_RESOURCE_CHECK_DRAIN_VETO: win32more.Windows.Win32.Networking.Clustering.CLUSCTL_RESOURCE_CODES = 17834285
 CLUSCTL_RESOURCE_NOTIFY_DRAIN_COMPLETE: win32more.Windows.Win32.Networking.Clustering.CLUSCTL_RESOURCE_CODES = 17834289
 CLUSCTL_RESOURCE_GET_NODES_IN_FD: win32more.Windows.Win32.Networking.Clustering.CLUSCTL_RESOURCE_CODES = 16788961
-class CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT(EasyCastStructure):
+class CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT(Structure):
     dwSize: UInt32
     dwVersion: UInt32
     eReason: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE_CHANGE_REASON
@@ -2062,7 +2062,7 @@ CLUSCTL_RESOURCE_TYPE_UPGRADE_COMPLETED: win32more.Windows.Win32.Networking.Clus
 CLUSCTL_RESOURCE_TYPE_NOTIFY_MONITOR_SHUTTING_DOWN: win32more.Windows.Win32.Networking.Clustering.CLUSCTL_RESOURCE_TYPE_CODES = 34603137
 CLUSCTL_RESOURCE_TYPE_CHECK_DRAIN_VETO: win32more.Windows.Win32.Networking.Clustering.CLUSCTL_RESOURCE_TYPE_CODES = 34611501
 CLUSCTL_RESOURCE_TYPE_NOTIFY_DRAIN_COMPLETE: win32more.Windows.Win32.Networking.Clustering.CLUSCTL_RESOURCE_TYPE_CODES = 34611505
-class CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS_EX2_INPUT(EasyCastStructure):
+class CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS_EX2_INPUT(Structure):
     dwFlags: UInt32
     guidPoolFilter: Guid
 CLUSGROUP_TYPE = Int32
@@ -2096,10 +2096,10 @@ ClusGroupTypeCrossClusterOrchestrator: win32more.Windows.Win32.Networking.Cluste
 ClusGroupTypeInfrastructureFileServer: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 122
 ClusGroupTypeCoreSddc: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 123
 ClusGroupTypeUnknown: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE = 9999
-class CLUSPROP_BINARY(EasyCastStructure):
+class CLUSPROP_BINARY(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     rgb: Byte * 1
-class CLUSPROP_BUFFER_HELPER(EasyCastUnion):
+class CLUSPROP_BUFFER_HELPER(Union):
     pb: POINTER(Byte)
     pw: POINTER(UInt16)
     pdw: POINTER(UInt32)
@@ -2128,35 +2128,35 @@ class CLUSPROP_BUFFER_HELPER(EasyCastUnion):
     pPartitionInfoValueEx: POINTER(win32more.Windows.Win32.Networking.Clustering.CLUSPROP_PARTITION_INFO_EX)
     pPartitionInfoValueEx2: POINTER(win32more.Windows.Win32.Networking.Clustering.CLUSPROP_PARTITION_INFO_EX2)
     pFileTimeValue: POINTER(win32more.Windows.Win32.Networking.Clustering.CLUSPROP_FILETIME)
-class CLUSPROP_DWORD(EasyCastStructure):
+class CLUSPROP_DWORD(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     dw: UInt32
-class CLUSPROP_FILETIME(EasyCastStructure):
+class CLUSPROP_FILETIME(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     ft: win32more.Windows.Win32.Foundation.FILETIME
-class CLUSPROP_FTSET_INFO(EasyCastStructure):
+class CLUSPROP_FTSET_INFO(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     Base2: win32more.Windows.Win32.Networking.Clustering.CLUS_FTSET_INFO
 CLUSPROP_IPADDR_ENABLENETBIOS = Int32
 CLUSPROP_IPADDR_ENABLENETBIOS_DISABLED: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_IPADDR_ENABLENETBIOS = 0
 CLUSPROP_IPADDR_ENABLENETBIOS_ENABLED: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_IPADDR_ENABLENETBIOS = 1
 CLUSPROP_IPADDR_ENABLENETBIOS_TRACK_NIC: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_IPADDR_ENABLENETBIOS = 2
-class CLUSPROP_LARGE_INTEGER(EasyCastStructure):
+class CLUSPROP_LARGE_INTEGER(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     li: Int64
-class CLUSPROP_LIST(EasyCastStructure):
+class CLUSPROP_LIST(Structure):
     nPropertyCount: UInt32
     PropertyName: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_SZ
-class CLUSPROP_LONG(EasyCastStructure):
+class CLUSPROP_LONG(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     l: Int32
-class CLUSPROP_PARTITION_INFO(EasyCastStructure):
+class CLUSPROP_PARTITION_INFO(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     Base2: win32more.Windows.Win32.Networking.Clustering.CLUS_PARTITION_INFO
-class CLUSPROP_PARTITION_INFO_EX(EasyCastStructure):
+class CLUSPROP_PARTITION_INFO_EX(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     Base2: win32more.Windows.Win32.Networking.Clustering.CLUS_PARTITION_INFO_EX
-class CLUSPROP_PARTITION_INFO_EX2(EasyCastStructure):
+class CLUSPROP_PARTITION_INFO_EX2(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_PARTITION_INFO_EX
     Base2: win32more.Windows.Win32.Networking.Clustering.CLUS_PARTITION_INFO_EX2
 CLUSPROP_PIFLAGS = Int32
@@ -2168,41 +2168,41 @@ CLUSPROP_PIFLAG_USABLE_FOR_CSV: win32more.Windows.Win32.Networking.Clustering.CL
 CLUSPROP_PIFLAG_ENCRYPTION_ENABLED: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_PIFLAGS = 32
 CLUSPROP_PIFLAG_RAW: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_PIFLAGS = 64
 CLUSPROP_PIFLAG_UNKNOWN: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_PIFLAGS = -2147483648
-class CLUSPROP_REQUIRED_DEPENDENCY(EasyCastUnion):
+class CLUSPROP_REQUIRED_DEPENDENCY(Union):
     Value: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     ResClass: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_RESOURCE_CLASS
     ResTypeName: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_SZ
-class CLUSPROP_RESOURCE_CLASS(EasyCastStructure):
+class CLUSPROP_RESOURCE_CLASS(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     rc: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CLASS
-class CLUSPROP_RESOURCE_CLASS_INFO(EasyCastStructure):
+class CLUSPROP_RESOURCE_CLASS_INFO(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     Base2: win32more.Windows.Win32.Networking.Clustering.CLUS_RESOURCE_CLASS_INFO
-class CLUSPROP_SCSI_ADDRESS(EasyCastStructure):
+class CLUSPROP_SCSI_ADDRESS(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     Base2: win32more.Windows.Win32.Networking.Clustering.CLUS_SCSI_ADDRESS
-class CLUSPROP_SECURITY_DESCRIPTOR(EasyCastStructure):
+class CLUSPROP_SECURITY_DESCRIPTOR(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         sd: win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_RELATIVE
         rgbSecurityDescriptor: Byte * 1
-class CLUSPROP_SYNTAX(EasyCastUnion):
+class CLUSPROP_SYNTAX(Union):
     dw: UInt32
     Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         wFormat: UInt16
         wType: UInt16
-class CLUSPROP_SZ(EasyCastStructure):
+class CLUSPROP_SZ(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     sz: Char * 1
-class CLUSPROP_ULARGE_INTEGER(EasyCastStructure):
+class CLUSPROP_ULARGE_INTEGER(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     li: UInt64
-class CLUSPROP_VALUE(EasyCastStructure):
+class CLUSPROP_VALUE(Structure):
     Syntax: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_SYNTAX
     cbLength: UInt32
-class CLUSPROP_WORD(EasyCastStructure):
+class CLUSPROP_WORD(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     w: UInt16
 CLUSTERSET_OBJECT_TYPE = Int32
@@ -2210,7 +2210,7 @@ CLUSTERSET_OBJECT_TYPE_NONE: win32more.Windows.Win32.Networking.Clustering.CLUST
 CLUSTERSET_OBJECT_TYPE_MEMBER: win32more.Windows.Win32.Networking.Clustering.CLUSTERSET_OBJECT_TYPE = 1
 CLUSTERSET_OBJECT_TYPE_WORKLOAD: win32more.Windows.Win32.Networking.Clustering.CLUSTERSET_OBJECT_TYPE = 2
 CLUSTERSET_OBJECT_TYPE_DATABASE: win32more.Windows.Win32.Networking.Clustering.CLUSTERSET_OBJECT_TYPE = 3
-class CLUSTERVERSIONINFO(EasyCastStructure):
+class CLUSTERVERSIONINFO(Structure):
     dwVersionInfoSize: UInt32
     MajorVersion: UInt16
     MinorVersion: UInt16
@@ -2221,19 +2221,19 @@ class CLUSTERVERSIONINFO(EasyCastStructure):
     dwClusterLowestVersion: UInt32
     dwFlags: UInt32
     dwReserved: UInt32
-class CLUSTERVERSIONINFO_NT4(EasyCastStructure):
+class CLUSTERVERSIONINFO_NT4(Structure):
     dwVersionInfoSize: UInt32
     MajorVersion: UInt16
     MinorVersion: UInt16
     BuildNumber: UInt16
     szVendorId: Char * 64
     szCSDVersion: Char * 64
-class CLUSTER_AVAILABILITY_SET_CONFIG(EasyCastStructure):
+class CLUSTER_AVAILABILITY_SET_CONFIG(Structure):
     dwVersion: UInt32
     dwUpdateDomains: UInt32
     dwFaultDomains: UInt32
     bReserveSpareNode: win32more.Windows.Win32.Foundation.BOOL
-class CLUSTER_BATCH_COMMAND(EasyCastStructure):
+class CLUSTER_BATCH_COMMAND(Structure):
     Command: win32more.Windows.Win32.Networking.Clustering.CLUSTER_REG_COMMAND
     dwOptions: UInt32
     wzName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2395,7 +2395,7 @@ CLUS_OBJECT_CLUSTER: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CONTR
 CLUS_OBJECT_GROUPSET: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CONTROL_OBJECT = 8
 CLUS_OBJECT_AFFINITYRULE: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CONTROL_OBJECT = 9
 CLUS_OBJECT_USER: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CONTROL_OBJECT = 128
-class CLUSTER_CREATE_GROUP_INFO(EasyCastStructure):
+class CLUSTER_CREATE_GROUP_INFO(Structure):
     dwVersion: UInt32
     groupType: win32more.Windows.Win32.Networking.Clustering.CLUSGROUP_TYPE
 CLUSTER_CSV_VOLUME_FAULT_STATE = Int32
@@ -2415,7 +2415,7 @@ CLUSTER_ENUM_SHARED_VOLUME_GROUP: win32more.Windows.Win32.Networking.Clustering.
 CLUSTER_ENUM_SHARED_VOLUME_RESOURCE: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ENUM = 1073741824
 CLUSTER_ENUM_INTERNAL_NETWORK: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ENUM = -2147483648
 CLUSTER_ENUM_ALL: win32more.Windows.Win32.Networking.Clustering.CLUSTER_ENUM = 63
-class CLUSTER_ENUM_ITEM(EasyCastStructure):
+class CLUSTER_ENUM_ITEM(Structure):
     dwVersion: UInt32
     dwType: UInt32
     cbId: UInt32
@@ -2430,7 +2430,7 @@ CLUSTER_GROUP_ENUM = Int32
 CLUSTER_GROUP_ENUM_CONTAINS: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_ENUM = 1
 CLUSTER_GROUP_ENUM_NODES: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_ENUM = 2
 CLUSTER_GROUP_ENUM_ALL: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_ENUM = 3
-class CLUSTER_GROUP_ENUM_ITEM(EasyCastStructure):
+class CLUSTER_GROUP_ENUM_ITEM(Structure):
     dwVersion: UInt32
     cbId: UInt32
     lpszId: win32more.Windows.Win32.Foundation.PWSTR
@@ -2456,7 +2456,7 @@ ClusterGroupOffline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP
 ClusterGroupFailed: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 2
 ClusterGroupPartialOnline: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 3
 ClusterGroupPending: win32more.Windows.Win32.Networking.Clustering.CLUSTER_GROUP_STATE = 4
-class CLUSTER_HEALTH_FAULT(EasyCastStructure):
+class CLUSTER_HEALTH_FAULT(Structure):
     Id: win32more.Windows.Win32.Foundation.PWSTR
     ErrorType: UInt32
     ErrorCode: UInt32
@@ -2464,13 +2464,13 @@ class CLUSTER_HEALTH_FAULT(EasyCastStructure):
     Provider: win32more.Windows.Win32.Foundation.PWSTR
     Flags: UInt32
     Reserved: UInt32
-class CLUSTER_HEALTH_FAULT_ARRAY(EasyCastStructure):
+class CLUSTER_HEALTH_FAULT_ARRAY(Structure):
     numFaults: UInt32
     faults: POINTER(win32more.Windows.Win32.Networking.Clustering.CLUSTER_HEALTH_FAULT)
-class CLUSTER_IP_ENTRY(EasyCastStructure):
+class CLUSTER_IP_ENTRY(Structure):
     lpszIpAddress: win32more.Windows.Win32.Foundation.PWSTR
     dwPrefixLength: UInt32
-class CLUSTER_MEMBERSHIP_INFO(EasyCastStructure):
+class CLUSTER_MEMBERSHIP_INFO(Structure):
     HasQuorum: win32more.Windows.Win32.Foundation.BOOL
     UpnodesSize: UInt32
     Upnodes: Byte * 1
@@ -2622,7 +2622,7 @@ ModifyQuorum: win32more.Windows.Win32.Networking.Clustering.CLUSTER_QUORUM_TYPE 
 CLUSTER_QUORUM_VALUE = Int32
 CLUSTER_QUORUM_MAINTAINED: win32more.Windows.Win32.Networking.Clustering.CLUSTER_QUORUM_VALUE = 0
 CLUSTER_QUORUM_LOST: win32more.Windows.Win32.Networking.Clustering.CLUSTER_QUORUM_VALUE = 1
-class CLUSTER_READ_BATCH_COMMAND(EasyCastStructure):
+class CLUSTER_READ_BATCH_COMMAND(Structure):
     Command: win32more.Windows.Win32.Networking.Clustering.CLUSTER_REG_COMMAND
     dwOptions: UInt32
     wzSubkeyName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2672,7 +2672,7 @@ CLUSTER_RESOURCE_ENUM_DEPENDS: win32more.Windows.Win32.Networking.Clustering.CLU
 CLUSTER_RESOURCE_ENUM_PROVIDES: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_ENUM = 2
 CLUSTER_RESOURCE_ENUM_NODES: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_ENUM = 4
 CLUSTER_RESOURCE_ENUM_ALL: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_ENUM = 7
-class CLUSTER_RESOURCE_ENUM_ITEM(EasyCastStructure):
+class CLUSTER_RESOURCE_ENUM_ITEM(Structure):
     dwVersion: UInt32
     cbId: UInt32
     lpszId: win32more.Windows.Win32.Foundation.PWSTR
@@ -2787,23 +2787,23 @@ ClusterSetupPhaseStart: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SE
 ClusterSetupPhaseContinue: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 2
 ClusterSetupPhaseEnd: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 3
 ClusterSetupPhaseReport: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE = 4
-class CLUSTER_SET_PASSWORD_STATUS(EasyCastStructure):
+class CLUSTER_SET_PASSWORD_STATUS(Structure):
     NodeId: UInt32
     SetAttempted: win32more.Windows.Win32.Foundation.BOOLEAN
     ReturnStatus: UInt32
 CLUSTER_SHARED_VOLUME_BACKUP_STATE = Int32
 VolumeBackupNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE = 0
 VolumeBackupInProgress: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE = 1
-class CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT(EasyCastStructure):
+class CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME
     Base2: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME
-class CLUSTER_SHARED_VOLUME_RENAME_INPUT(EasyCastStructure):
+class CLUSTER_SHARED_VOLUME_RENAME_INPUT(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME
     Base2: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME
-class CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME(EasyCastStructure):
+class CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME(Structure):
     NewVolumeName: Char * 260
     NewVolumeGuid: Char * 50
-class CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME(EasyCastStructure):
+class CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME(Structure):
     NewVolumeName: Char * 260
 CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = Int32
 ClusterSharedVolumeRenameInputTypeNone: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 0
@@ -2811,10 +2811,10 @@ ClusterSharedVolumeRenameInputTypeVolumeOffset: win32more.Windows.Win32.Networki
 ClusterSharedVolumeRenameInputTypeVolumeId: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 2
 ClusterSharedVolumeRenameInputTypeVolumeName: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 3
 ClusterSharedVolumeRenameInputTypeVolumeGuid: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE = 4
-class CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME(EasyCastStructure):
+class CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME(Structure):
     InputType: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         VolumeOffset: UInt64
         VolumeId: Char * 260
         VolumeName: Char * 260
@@ -2830,11 +2830,11 @@ SharedVolumeStatePaused: win32more.Windows.Win32.Networking.Clustering.CLUSTER_S
 SharedVolumeStateActive: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 2
 SharedVolumeStateActiveRedirected: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 3
 SharedVolumeStateActiveVolumeRedirected: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE = 4
-class CLUSTER_SHARED_VOLUME_STATE_INFO(EasyCastStructure):
+class CLUSTER_SHARED_VOLUME_STATE_INFO(Structure):
     szVolumeName: Char * 260
     szNodeName: Char * 260
     VolumeState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE
-class CLUSTER_SHARED_VOLUME_STATE_INFO_EX(EasyCastStructure):
+class CLUSTER_SHARED_VOLUME_STATE_INFO_EX(Structure):
     szVolumeName: Char * 260
     szNodeName: Char * 260
     VolumeState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_STATE
@@ -2854,13 +2854,13 @@ ClusterUpgradePhaseValidatingUpgrade: win32more.Windows.Win32.Networking.Cluster
 ClusterUpgradePhaseUpgradingComponents: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 3
 ClusterUpgradePhaseInstallingNewComponents: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 4
 ClusterUpgradePhaseUpgradeComplete: win32more.Windows.Win32.Networking.Clustering.CLUSTER_UPGRADE_PHASE = 5
-class CLUSTER_VALIDATE_CSV_FILENAME(EasyCastStructure):
+class CLUSTER_VALIDATE_CSV_FILENAME(Structure):
     szFileName: Char * 1
-class CLUSTER_VALIDATE_DIRECTORY(EasyCastStructure):
+class CLUSTER_VALIDATE_DIRECTORY(Structure):
     szPath: Char * 1
-class CLUSTER_VALIDATE_NETNAME(EasyCastStructure):
+class CLUSTER_VALIDATE_NETNAME(Structure):
     szNetworkName: Char * 1
-class CLUSTER_VALIDATE_PATH(EasyCastStructure):
+class CLUSTER_VALIDATE_PATH(Structure):
     szPath: Char * 1
 CLUS_AFFINITY_RULE_TYPE = Int32
 CLUS_AFFINITY_RULE_NONE: win32more.Windows.Win32.Networking.Clustering.CLUS_AFFINITY_RULE_TYPE = 0
@@ -2892,82 +2892,82 @@ CLUS_CHAR_SUPPORTS_UNMONITORED_STATE: win32more.Windows.Win32.Networking.Cluster
 CLUS_CHAR_INFRASTRUCTURE: win32more.Windows.Win32.Networking.Clustering.CLUS_CHARACTERISTICS = 131072
 CLUS_CHAR_VETO_DRAIN: win32more.Windows.Win32.Networking.Clustering.CLUS_CHARACTERISTICS = 262144
 CLUS_CHAR_DRAIN_LOCAL_OFFLINE: win32more.Windows.Win32.Networking.Clustering.CLUS_CHARACTERISTICS = 524288
-class CLUS_CHKDSK_INFO(EasyCastStructure):
+class CLUS_CHKDSK_INFO(Structure):
     PartitionNumber: UInt32
     ChkdskState: UInt32
     FileIdCount: UInt32
     FileIdList: UInt64 * 1
-class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_INPUT(EasyCastStructure):
+class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_INPUT(Structure):
     FileServerName: Char * 16
-class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_OUTPUT(EasyCastStructure):
+class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_OUTPUT(Structure):
     FileServerName: Char * 260
-class CLUS_CSV_MAINTENANCE_MODE_INFO(EasyCastStructure):
+class CLUS_CSV_MAINTENANCE_MODE_INFO(Structure):
     InMaintenance: win32more.Windows.Win32.Foundation.BOOL
     VolumeName: Char * 260
-class CLUS_CSV_VOLUME_INFO(EasyCastStructure):
+class CLUS_CSV_VOLUME_INFO(Structure):
     VolumeOffset: UInt64
     PartitionNumber: UInt32
     FaultState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE
     BackupState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE
     szVolumeFriendlyName: Char * 260
     szVolumeName: Char * 50
-class CLUS_CSV_VOLUME_NAME(EasyCastStructure):
+class CLUS_CSV_VOLUME_NAME(Structure):
     VolumeOffset: Int64
     szVolumeName: Char * 260
     szRootPath: Char * 263
-class CLUS_DISK_NUMBER_INFO(EasyCastStructure):
+class CLUS_DISK_NUMBER_INFO(Structure):
     DiskNumber: UInt32
     BytesPerSector: UInt32
-class CLUS_DNN_LEADER_STATUS(EasyCastStructure):
+class CLUS_DNN_LEADER_STATUS(Structure):
     IsOnline: win32more.Windows.Win32.Foundation.BOOL
     IsFileServerPresent: win32more.Windows.Win32.Foundation.BOOL
-class CLUS_DNN_SODAFS_CLONE_STATUS(EasyCastStructure):
+class CLUS_DNN_SODAFS_CLONE_STATUS(Structure):
     NodeId: UInt32
     Status: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE
 CLUS_FLAGS = Int32
 CLUS_FLAG_CORE: win32more.Windows.Win32.Networking.Clustering.CLUS_FLAGS = 1
-class CLUS_FORCE_QUORUM_INFO(EasyCastStructure):
+class CLUS_FORCE_QUORUM_INFO(Structure):
     dwSize: UInt32
     dwNodeBitMask: UInt32
     dwMaxNumberofNodes: UInt32
     multiszNodeList: Char * 1
-class CLUS_FTSET_INFO(EasyCastStructure):
+class CLUS_FTSET_INFO(Structure):
     dwRootSignature: UInt32
     dwFtType: UInt32
 CLUS_GROUP_START_SETTING = Int32
 CLUS_GROUP_START_ALWAYS: win32more.Windows.Win32.Networking.Clustering.CLUS_GROUP_START_SETTING = 0
 CLUS_GROUP_DO_NOT_START: win32more.Windows.Win32.Networking.Clustering.CLUS_GROUP_START_SETTING = 1
 CLUS_GROUP_START_ALLOWED: win32more.Windows.Win32.Networking.Clustering.CLUS_GROUP_START_SETTING = 2
-class CLUS_MAINTENANCE_MODE_INFO(EasyCastStructure):
+class CLUS_MAINTENANCE_MODE_INFO(Structure):
     InMaintenance: win32more.Windows.Win32.Foundation.BOOL
-class CLUS_MAINTENANCE_MODE_INFOEX(EasyCastStructure):
+class CLUS_MAINTENANCE_MODE_INFOEX(Structure):
     InMaintenance: win32more.Windows.Win32.Foundation.BOOL
     MaintainenceModeType: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM
     InternalState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE
     Signature: UInt32
-class CLUS_NETNAME_IP_INFO_ENTRY(EasyCastStructure):
+class CLUS_NETNAME_IP_INFO_ENTRY(Structure):
     NodeId: UInt32
     AddressSize: UInt32
     Address: Byte * 1
-class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL(EasyCastStructure):
+class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL(Structure):
     szName: Char * 64
     NumEntries: UInt32
     IpInfo: win32more.Windows.Win32.Networking.Clustering.CLUS_NETNAME_IP_INFO_ENTRY * 1
-class CLUS_NETNAME_PWD_INFO(EasyCastStructure):
+class CLUS_NETNAME_PWD_INFO(Structure):
     Flags: UInt32
     Password: Char * 16
     CreatingDC: Char * 258
     ObjectGuid: Char * 64
-class CLUS_NETNAME_PWD_INFOEX(EasyCastStructure):
+class CLUS_NETNAME_PWD_INFOEX(Structure):
     Flags: UInt32
     Password: Char * 128
     CreatingDC: Char * 258
     ObjectGuid: Char * 64
-class CLUS_NETNAME_VS_TOKEN_INFO(EasyCastStructure):
+class CLUS_NETNAME_VS_TOKEN_INFO(Structure):
     ProcessID: UInt32
     DesiredAccess: UInt32
     InheritHandle: win32more.Windows.Win32.Foundation.BOOL
-class CLUS_PARTITION_INFO(EasyCastStructure):
+class CLUS_PARTITION_INFO(Structure):
     dwFlags: UInt32
     szDeviceName: Char * 260
     szVolumeLabel: Char * 260
@@ -2975,7 +2975,7 @@ class CLUS_PARTITION_INFO(EasyCastStructure):
     rgdwMaximumComponentLength: UInt32
     dwFileSystemFlags: UInt32
     szFileSystem: Char * 32
-class CLUS_PARTITION_INFO_EX(EasyCastStructure):
+class CLUS_PARTITION_INFO_EX(Structure):
     dwFlags: UInt32
     szDeviceName: Char * 260
     szVolumeLabel: Char * 260
@@ -2988,23 +2988,23 @@ class CLUS_PARTITION_INFO_EX(EasyCastStructure):
     DeviceNumber: UInt32
     PartitionNumber: UInt32
     VolumeGuid: Guid
-class CLUS_PARTITION_INFO_EX2(EasyCastStructure):
+class CLUS_PARTITION_INFO_EX2(Structure):
     GptPartitionId: Guid
     szPartitionName: Char * 260
     EncryptionFlags: UInt32
-class CLUS_PROVIDER_STATE_CHANGE_INFO(EasyCastStructure):
+class CLUS_PROVIDER_STATE_CHANGE_INFO(Structure):
     dwSize: UInt32
     resourceState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE
     szProviderId: Char * 1
-class CLUS_RESOURCE_CLASS_INFO(EasyCastStructure):
+class CLUS_RESOURCE_CLASS_INFO(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         li: UInt64
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Anonymous: _Anonymous_e__Union
             SubClass: UInt32
-            class _Anonymous_e__Union(EasyCastUnion):
+            class _Anonymous_e__Union(Union):
                 dw: UInt32
                 rc: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CLASS
 CLUS_RESSUBCLASS = Int32
@@ -3015,40 +3015,40 @@ CLUS_RESSUBCLASS_STORAGE = Int32
 CLUS_RESSUBCLASS_STORAGE_SHARED_BUS: win32more.Windows.Win32.Networking.Clustering.CLUS_RESSUBCLASS_STORAGE = -2147483648
 CLUS_RESSUBCLASS_STORAGE_DISK: win32more.Windows.Win32.Networking.Clustering.CLUS_RESSUBCLASS_STORAGE = 1073741824
 CLUS_RESSUBCLASS_STORAGE_REPLICATION: win32more.Windows.Win32.Networking.Clustering.CLUS_RESSUBCLASS_STORAGE = 268435456
-class CLUS_SCSI_ADDRESS(EasyCastStructure):
+class CLUS_SCSI_ADDRESS(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         dw: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             PortNumber: Byte
             PathId: Byte
             TargetId: Byte
             Lun: Byte
-class CLUS_SET_MAINTENANCE_MODE_INPUT(EasyCastStructure):
+class CLUS_SET_MAINTENANCE_MODE_INPUT(Structure):
     InMaintenance: win32more.Windows.Win32.Foundation.BOOL
     ExtraParameterSize: UInt32
     ExtraParameter: Byte * 1
-class CLUS_SHARED_VOLUME_BACKUP_MODE(EasyCastStructure):
+class CLUS_SHARED_VOLUME_BACKUP_MODE(Structure):
     BackupState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE
     DelayTimerInSecs: UInt32
     VolumeName: Char * 260
-class CLUS_STARTING_PARAMS(EasyCastStructure):
+class CLUS_STARTING_PARAMS(Structure):
     dwSize: UInt32
     bForm: win32more.Windows.Win32.Foundation.BOOL
     bFirst: win32more.Windows.Win32.Foundation.BOOL
-class CLUS_STORAGE_GET_AVAILABLE_DRIVELETTERS(EasyCastStructure):
+class CLUS_STORAGE_GET_AVAILABLE_DRIVELETTERS(Structure):
     AvailDrivelettersMask: UInt32
-class CLUS_STORAGE_REMAP_DRIVELETTER(EasyCastStructure):
+class CLUS_STORAGE_REMAP_DRIVELETTER(Structure):
     CurrentDriveLetterMask: UInt32
     TargetDriveLetterMask: UInt32
-class CLUS_STORAGE_SET_DRIVELETTER(EasyCastStructure):
+class CLUS_STORAGE_SET_DRIVELETTER(Structure):
     PartitionNumber: UInt32
     DriveLetterMask: UInt32
-class CLUS_WORKER(EasyCastStructure):
+class CLUS_WORKER(Structure):
     hThread: win32more.Windows.Win32.Foundation.HANDLE
     Terminate: win32more.Windows.Win32.Foundation.BOOL
-class CREATE_CLUSTER_CONFIG(EasyCastStructure):
+class CREATE_CLUSTER_CONFIG(Structure):
     dwVersion: UInt32
     lpszClusterName: win32more.Windows.Win32.Foundation.PWSTR
     cNodes: UInt32
@@ -3058,7 +3058,7 @@ class CREATE_CLUSTER_CONFIG(EasyCastStructure):
     fEmptyCluster: win32more.Windows.Win32.Foundation.BOOLEAN
     managementPointType: win32more.Windows.Win32.Networking.Clustering.CLUSTER_MGMT_POINT_TYPE
     managementPointResType: win32more.Windows.Win32.Networking.Clustering.CLUSTER_MGMT_POINT_RESTYPE
-class CREATE_CLUSTER_NAME_ACCOUNT(EasyCastStructure):
+class CREATE_CLUSTER_NAME_ACCOUNT(Structure):
     dwVersion: UInt32
     lpszClusterName: win32more.Windows.Win32.Foundation.PWSTR
     dwFlags: UInt32
@@ -3112,7 +3112,7 @@ FAILURE_TYPE = Int32
 FAILURE_TYPE_GENERAL: win32more.Windows.Win32.Networking.Clustering.FAILURE_TYPE = 0
 FAILURE_TYPE_EMBEDDED: win32more.Windows.Win32.Networking.Clustering.FAILURE_TYPE = 1
 FAILURE_TYPE_NETWORK_LOSS: win32more.Windows.Win32.Networking.Clustering.FAILURE_TYPE = 2
-class FILESHARE_CHANGE(EasyCastStructure):
+class FILESHARE_CHANGE(Structure):
     Change: win32more.Windows.Win32.Networking.Clustering.FILESHARE_CHANGE_ENUM
     ShareName: Char * 84
 FILESHARE_CHANGE_ENUM = Int32
@@ -3120,18 +3120,18 @@ FILESHARE_CHANGE_NONE: win32more.Windows.Win32.Networking.Clustering.FILESHARE_C
 FILESHARE_CHANGE_ADD: win32more.Windows.Win32.Networking.Clustering.FILESHARE_CHANGE_ENUM = 1
 FILESHARE_CHANGE_DEL: win32more.Windows.Win32.Networking.Clustering.FILESHARE_CHANGE_ENUM = 2
 FILESHARE_CHANGE_MODIFY: win32more.Windows.Win32.Networking.Clustering.FILESHARE_CHANGE_ENUM = 3
-class FILESHARE_CHANGE_LIST(EasyCastStructure):
+class FILESHARE_CHANGE_LIST(Structure):
     NumEntries: UInt32
     ChangeEntry: win32more.Windows.Win32.Networking.Clustering.FILESHARE_CHANGE * 1
-class GET_OPERATION_CONTEXT_PARAMS(EasyCastStructure):
+class GET_OPERATION_CONTEXT_PARAMS(Structure):
     Size: UInt32
     Version: UInt32
     Type: win32more.Windows.Win32.Networking.Clustering.RESDLL_CONTEXT_OPERATION_TYPE
     Priority: UInt32
-class GROUP_FAILURE_INFO(EasyCastStructure):
+class GROUP_FAILURE_INFO(Structure):
     dwFailoverAttemptsRemaining: UInt32
     dwFailoverPeriodRemaining: UInt32
-class GROUP_FAILURE_INFO_BUFFER(EasyCastStructure):
+class GROUP_FAILURE_INFO_BUFFER(Structure):
     dwVersion: UInt32
     Info: win32more.Windows.Win32.Networking.Clustering.GROUP_FAILURE_INFO
 GRP_PLACEMENT_OPTIONS = Int32
@@ -4015,7 +4015,7 @@ MAINTENANCE_MODE_TYPE_ENUM = Int32
 MaintenanceModeTypeDisableIsAliveCheck: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM = 1
 MaintenanceModeTypeOfflineResource: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM = 2
 MaintenanceModeTypeUnclusterResource: win32more.Windows.Win32.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM = 3
-class MONITOR_STATE(EasyCastStructure):
+class MONITOR_STATE(Structure):
     LastUpdate: Int64
     State: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE
     ActiveResource: win32more.Windows.Win32.Foundation.HANDLE
@@ -4025,10 +4025,10 @@ ClusterStateNotInstalled: win32more.Windows.Win32.Networking.Clustering.NODE_CLU
 ClusterStateNotConfigured: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 1
 ClusterStateNotRunning: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 3
 ClusterStateRunning: win32more.Windows.Win32.Networking.Clustering.NODE_CLUSTER_STATE = 19
-class NOTIFY_FILTER_AND_TYPE(EasyCastStructure):
+class NOTIFY_FILTER_AND_TYPE(Structure):
     dwObjectType: UInt32
     FilterFlags: Int64
-class NodeUtilizationInfoElement(EasyCastStructure):
+class NodeUtilizationInfoElement(Structure):
     Id: UInt64
     AvailableMemory: UInt64
     AvailableMemoryAfterReclamation: UInt64
@@ -4628,7 +4628,7 @@ def POPEN_CLUSTER_CRYPT_PROVIDEREX(lpszResource: win32more.Windows.Win32.Foundat
 def POPEN_ROUTINE(ResourceName: win32more.Windows.Win32.Foundation.PWSTR, ResourceKey: win32more.Windows.Win32.System.Registry.HKEY, ResourceHandle: IntPtr) -> VoidPtr: ...
 @winfunctype_pointer
 def POPEN_V2_ROUTINE(ResourceName: win32more.Windows.Win32.Foundation.PWSTR, ResourceKey: win32more.Windows.Win32.System.Registry.HKEY, ResourceHandle: IntPtr, OpenFlags: UInt32) -> VoidPtr: ...
-class POST_UPGRADE_VERSION_INFO(EasyCastStructure):
+class POST_UPGRADE_VERSION_INFO(Structure):
     newMajorVersion: UInt32
     newUpgradeVersion: UInt32
     oldMajorVersion: UInt32
@@ -4844,7 +4844,7 @@ def PSTARTUP_ROUTINE(ResourceType: win32more.Windows.Win32.Foundation.PWSTR, Min
 def PTERMINATE_ROUTINE(Resource: VoidPtr) -> Void: ...
 @winfunctype_pointer
 def PWORKER_START_ROUTINE(pWorker: POINTER(win32more.Windows.Win32.Networking.Clustering.CLUS_WORKER), lpThreadParameter: VoidPtr) -> UInt32: ...
-class PaxosTagCStruct(EasyCastStructure):
+class PaxosTagCStruct(Structure):
     __padding__PaxosTagVtable: UInt64
     __padding__NextEpochVtable: UInt64
     __padding__NextEpoch_DateTimeVtable: UInt64
@@ -4870,10 +4870,10 @@ RESOURCE_EXIT_STATE = Int32
 ResourceExitStateContinue: win32more.Windows.Win32.Networking.Clustering.RESOURCE_EXIT_STATE = 0
 ResourceExitStateTerminate: win32more.Windows.Win32.Networking.Clustering.RESOURCE_EXIT_STATE = 1
 ResourceExitStateMax: win32more.Windows.Win32.Networking.Clustering.RESOURCE_EXIT_STATE = 2
-class RESOURCE_FAILURE_INFO(EasyCastStructure):
+class RESOURCE_FAILURE_INFO(Structure):
     dwRestartAttemptsRemaining: UInt32
     dwRestartPeriodRemaining: UInt32
-class RESOURCE_FAILURE_INFO_BUFFER(EasyCastStructure):
+class RESOURCE_FAILURE_INFO_BUFFER(Structure):
     dwVersion: UInt32
     Info: win32more.Windows.Win32.Networking.Clustering.RESOURCE_FAILURE_INFO
 RESOURCE_MONITOR_STATE = Int32
@@ -4893,30 +4893,30 @@ RmonResourceControl: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONI
 RmonResourceTypeControl: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 13
 RmonTerminateResource: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 14
 RmonDeadlocked: win32more.Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE = 15
-class RESOURCE_STATUS(EasyCastStructure):
+class RESOURCE_STATUS(Structure):
     ResourceState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE
     CheckPoint: UInt32
     WaitHint: UInt32
     EventHandle: win32more.Windows.Win32.Foundation.HANDLE
-class RESOURCE_STATUS_EX(EasyCastStructure):
+class RESOURCE_STATUS_EX(Structure):
     ResourceState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE
     CheckPoint: UInt32
     EventHandle: win32more.Windows.Win32.Foundation.HANDLE
     ApplicationSpecificErrorCode: UInt32
     Flags: UInt32
     WaitHint: UInt32
-class RESOURCE_TERMINAL_FAILURE_INFO_BUFFER(EasyCastStructure):
+class RESOURCE_TERMINAL_FAILURE_INFO_BUFFER(Structure):
     isTerminalFailure: win32more.Windows.Win32.Foundation.BOOL
     restartPeriodRemaining: UInt32
-class RESUTIL_FILETIME_DATA(EasyCastStructure):
+class RESUTIL_FILETIME_DATA(Structure):
     Default: win32more.Windows.Win32.Foundation.FILETIME
     Minimum: win32more.Windows.Win32.Foundation.FILETIME
     Maximum: win32more.Windows.Win32.Foundation.FILETIME
-class RESUTIL_LARGEINT_DATA(EasyCastStructure):
+class RESUTIL_LARGEINT_DATA(Structure):
     Default: Int64
     Minimum: Int64
     Maximum: Int64
-class RESUTIL_PROPERTY_ITEM(EasyCastStructure):
+class RESUTIL_PROPERTY_ITEM(Structure):
     Name: win32more.Windows.Win32.Foundation.PWSTR
     KeyName: win32more.Windows.Win32.Foundation.PWSTR
     Format: UInt32
@@ -4925,18 +4925,18 @@ class RESUTIL_PROPERTY_ITEM(EasyCastStructure):
     Maximum: UInt32
     Flags: UInt32
     Offset: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         DefaultPtr: UIntPtr
         Default: UInt32
         lpDefault: VoidPtr
         LargeIntData: POINTER(win32more.Windows.Win32.Networking.Clustering.RESUTIL_LARGEINT_DATA)
         ULargeIntData: POINTER(win32more.Windows.Win32.Networking.Clustering.RESUTIL_ULARGEINT_DATA)
         FileTimeData: POINTER(win32more.Windows.Win32.Networking.Clustering.RESUTIL_FILETIME_DATA)
-class RESUTIL_ULARGEINT_DATA(EasyCastStructure):
+class RESUTIL_ULARGEINT_DATA(Structure):
     Default: UInt64
     Minimum: UInt64
     Maximum: UInt64
-class ResourceUtilizationInfoElement(EasyCastStructure):
+class ResourceUtilizationInfoElement(Structure):
     PhysicalNumaId: UInt64
     CurrentMemory: UInt64
 @winfunctype_pointer
@@ -4963,7 +4963,7 @@ SrReplicatedDiskTypeLogDestination: win32more.Windows.Win32.Networking.Clusterin
 SrReplicatedDiskTypeNotInParthership: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 5
 SrReplicatedDiskTypeLogNotInParthership: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 6
 SrReplicatedDiskTypeOther: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE = 7
-class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP(EasyCastStructure):
+class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP(Structure):
     ReplicationGroupName: Char * 260
     Description: Char * 260
     LogPath: Char * 260
@@ -4977,38 +4977,38 @@ class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP(EasyCastStructure):
     CertificateThumbprint: Char * 260
     VolumeNameCount: UInt32
     VolumeNames: Char * 260
-class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP_RESULT(EasyCastStructure):
+class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP_RESULT(Structure):
     Result: UInt32
     ErrorString: Char * 260
-class SR_RESOURCE_TYPE_DISK_INFO(EasyCastStructure):
+class SR_RESOURCE_TYPE_DISK_INFO(Structure):
     Reason: win32more.Windows.Win32.Networking.Clustering.SR_DISK_REPLICATION_ELIGIBLE
     DiskGuid: Guid
-class SR_RESOURCE_TYPE_ELIGIBLE_DISKS_RESULT(EasyCastStructure):
+class SR_RESOURCE_TYPE_ELIGIBLE_DISKS_RESULT(Structure):
     Count: UInt16
     DiskInfo: win32more.Windows.Win32.Networking.Clustering.SR_RESOURCE_TYPE_DISK_INFO * 1
-class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_LOGDISKS(EasyCastStructure):
+class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_LOGDISKS(Structure):
     DataDiskGuid: Guid
     IncludeOfflineDisks: win32more.Windows.Win32.Foundation.BOOLEAN
-class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_SOURCE_DATADISKS(EasyCastStructure):
+class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_SOURCE_DATADISKS(Structure):
     DataDiskGuid: Guid
     IncludeAvailableStoargeDisks: win32more.Windows.Win32.Foundation.BOOLEAN
-class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_TARGET_DATADISKS(EasyCastStructure):
+class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_TARGET_DATADISKS(Structure):
     SourceDataDiskGuid: Guid
     TargetReplicationGroupGuid: Guid
     SkipConnectivityCheck: win32more.Windows.Win32.Foundation.BOOLEAN
     IncludeOfflineDisks: win32more.Windows.Win32.Foundation.BOOLEAN
-class SR_RESOURCE_TYPE_REPLICATED_DISK(EasyCastStructure):
+class SR_RESOURCE_TYPE_REPLICATED_DISK(Structure):
     Type: win32more.Windows.Win32.Networking.Clustering.SR_REPLICATED_DISK_TYPE
     ClusterDiskResourceGuid: Guid
     ReplicationGroupId: Guid
     ReplicationGroupName: Char * 260
-class SR_RESOURCE_TYPE_REPLICATED_DISKS_RESULT(EasyCastStructure):
+class SR_RESOURCE_TYPE_REPLICATED_DISKS_RESULT(Structure):
     Count: UInt16
     ReplicatedDisks: win32more.Windows.Win32.Networking.Clustering.SR_RESOURCE_TYPE_REPLICATED_DISK * 1
-class SR_RESOURCE_TYPE_REPLICATED_PARTITION_ARRAY(EasyCastStructure):
+class SR_RESOURCE_TYPE_REPLICATED_PARTITION_ARRAY(Structure):
     Count: UInt32
     PartitionArray: win32more.Windows.Win32.Networking.Clustering.SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO * 1
-class SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO(EasyCastStructure):
+class SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO(Structure):
     PartitionOffset: UInt64
     Capabilities: UInt32
 VM_RESDLL_CONTEXT = Int32
@@ -5017,10 +5017,10 @@ VmResdllContextSave: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CON
 VmResdllContextShutdown: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 2
 VmResdllContextShutdownForce: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 3
 VmResdllContextLiveMigration: win32more.Windows.Win32.Networking.Clustering.VM_RESDLL_CONTEXT = 4
-class WitnessTagHelper(EasyCastStructure):
+class WitnessTagHelper(Structure):
     Version: Int32
     paxosToValidate: win32more.Windows.Win32.Networking.Clustering.PaxosTagCStruct
-class WitnessTagUpdateHelper(EasyCastStructure):
+class WitnessTagUpdateHelper(Structure):
     Version: Int32
     paxosToSet: win32more.Windows.Win32.Networking.Clustering.PaxosTagCStruct
     paxosToValidate: win32more.Windows.Win32.Networking.Clustering.PaxosTagCStruct

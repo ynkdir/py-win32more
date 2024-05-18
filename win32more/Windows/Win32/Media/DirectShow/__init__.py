@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D9
 import win32more.Windows.Win32.Graphics.DirectDraw
@@ -24,26 +24,26 @@ ADVISE_PALETTE: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 2
 ADVISE_COLORKEY: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 4
 ADVISE_POSITION: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 8
 ADVISE_DISPLAY_CHANGE: win32more.Windows.Win32.Media.DirectShow.ADVISE_TYPE = 16
-class ALLOCATOR_PROPERTIES(EasyCastStructure):
+class ALLOCATOR_PROPERTIES(Structure):
     cBuffers: Int32
     cbBuffer: Int32
     cbAlign: Int32
     cbPrefix: Int32
-class AMCOPPCommand(EasyCastStructure):
+class AMCOPPCommand(Structure):
     macKDI: Guid
     guidCommandID: Guid
     dwSequence: UInt32
     cbSizeData: UInt32
     CommandData: Byte * 4056
-class AMCOPPSignature(EasyCastStructure):
+class AMCOPPSignature(Structure):
     Signature: Byte * 256
-class AMCOPPStatusInput(EasyCastStructure):
+class AMCOPPStatusInput(Structure):
     rApp: Guid
     guidStatusRequestID: Guid
     dwSequence: UInt32
     cbSizeData: UInt32
     StatusData: Byte * 4056
-class AMCOPPStatusOutput(EasyCastStructure):
+class AMCOPPStatusOutput(Structure):
     macKDI: Guid
     cbSizeData: UInt32
     COPPStatus: Byte * 4076
@@ -111,38 +111,38 @@ AMTUNER_SIGNALPRESENT: win32more.Windows.Win32.Media.DirectShow.AMTunerSignalStr
 AMTunerSubChannel = Int32
 AMTUNER_SUBCHAN_NO_TUNE: win32more.Windows.Win32.Media.DirectShow.AMTunerSubChannel = -2
 AMTUNER_SUBCHAN_DEFAULT: win32more.Windows.Win32.Media.DirectShow.AMTunerSubChannel = -1
-class AMVABUFFERINFO(EasyCastStructure):
+class AMVABUFFERINFO(Structure):
     dwTypeIndex: UInt32
     dwBufferIndex: UInt32
     dwDataOffset: UInt32
     dwDataSize: UInt32
-class AMVABeginFrameInfo(EasyCastStructure):
+class AMVABeginFrameInfo(Structure):
     dwDestSurfaceIndex: UInt32
     pInputData: VoidPtr
     dwSizeInputData: UInt32
     pOutputData: VoidPtr
     dwSizeOutputData: UInt32
-class AMVACompBufferInfo(EasyCastStructure):
+class AMVACompBufferInfo(Structure):
     dwNumCompBuffers: UInt32
     dwWidthToCreate: UInt32
     dwHeightToCreate: UInt32
     dwBytesToAllocate: UInt32
     ddCompCaps: win32more.Windows.Win32.Graphics.DirectDraw.DDSCAPS2
     ddPixelFormat: win32more.Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
-class AMVAEndFrameInfo(EasyCastStructure):
+class AMVAEndFrameInfo(Structure):
     dwSizeMiscData: UInt32
     pMiscData: VoidPtr
-class AMVAInternalMemInfo(EasyCastStructure):
+class AMVAInternalMemInfo(Structure):
     dwScratchMemAlloc: UInt32
-class AMVAUncompBufferInfo(EasyCastStructure):
+class AMVAUncompBufferInfo(Structure):
     dwMinNumSurfaces: UInt32
     dwMaxNumSurfaces: UInt32
     ddUncompPixelFormat: win32more.Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
-class AMVAUncompDataInfo(EasyCastStructure):
+class AMVAUncompDataInfo(Structure):
     dwUncompWidth: UInt32
     dwUncompHeight: UInt32
     ddUncompPixelFormat: win32more.Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
-class AMVPDATAINFO(EasyCastStructure):
+class AMVPDATAINFO(Structure):
     dwSize: UInt32
     dwMicrosecondsPerField: UInt32
     amvpDimInfo: win32more.Windows.Win32.Media.DirectShow.AMVPDIMINFO
@@ -156,13 +156,13 @@ class AMVPDATAINFO(EasyCastStructure):
     dwNumLinesInVREF: UInt32
     lHalfLinesEven: Int32
     dwReserved1: UInt32
-class AMVPDIMINFO(EasyCastStructure):
+class AMVPDIMINFO(Structure):
     dwFieldWidth: UInt32
     dwFieldHeight: UInt32
     dwVBIWidth: UInt32
     dwVBIHeight: UInt32
     rcValidRegion: win32more.Windows.Win32.Foundation.RECT
-class AMVPSIZE(EasyCastStructure):
+class AMVPSIZE(Structure):
     dwWidth: UInt32
     dwHeight: UInt32
 AMVP_MODE = Int32
@@ -175,32 +175,32 @@ AMVP_SELECT_FORMAT_BY = Int32
 AMVP_DO_NOT_CARE: win32more.Windows.Win32.Media.DirectShow.AMVP_SELECT_FORMAT_BY = 0
 AMVP_BEST_BANDWIDTH: win32more.Windows.Win32.Media.DirectShow.AMVP_SELECT_FORMAT_BY = 1
 AMVP_INPUT_SAME_AS_OUTPUT: win32more.Windows.Win32.Media.DirectShow.AMVP_SELECT_FORMAT_BY = 2
-class AM_AC3_ALTERNATE_AUDIO(EasyCastStructure):
+class AM_AC3_ALTERNATE_AUDIO(Structure):
     fStereo: win32more.Windows.Win32.Foundation.BOOL
     DualMode: UInt32
-class AM_AC3_BIT_STREAM_MODE(EasyCastStructure):
+class AM_AC3_BIT_STREAM_MODE(Structure):
     BitStreamMode: Int32
-class AM_AC3_DIALOGUE_LEVEL(EasyCastStructure):
+class AM_AC3_DIALOGUE_LEVEL(Structure):
     DialogueLevel: UInt32
-class AM_AC3_DOWNMIX(EasyCastStructure):
+class AM_AC3_DOWNMIX(Structure):
     fDownMix: win32more.Windows.Win32.Foundation.BOOL
     fDolbySurround: win32more.Windows.Win32.Foundation.BOOL
-class AM_AC3_ERROR_CONCEALMENT(EasyCastStructure):
+class AM_AC3_ERROR_CONCEALMENT(Structure):
     fRepeatPreviousBlock: win32more.Windows.Win32.Foundation.BOOL
     fErrorInCurrentBlock: win32more.Windows.Win32.Foundation.BOOL
-class AM_AC3_ROOM_TYPE(EasyCastStructure):
+class AM_AC3_ROOM_TYPE(Structure):
     fLargeRoom: win32more.Windows.Win32.Foundation.BOOL
 AM_ASPECT_RATIO_MODE = Int32
 AM_ARMODE_STRETCHED: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 0
 AM_ARMODE_LETTER_BOX: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 1
 AM_ARMODE_CROP: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 2
 AM_ARMODE_STRETCHED_AS_PRIMARY: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 3
-class AM_COLCON(EasyCastStructure):
+class AM_COLCON(Structure):
     _bitfield1: Byte
     _bitfield2: Byte
     _bitfield3: Byte
     _bitfield4: Byte
-class AM_COPY_MACROVISION(EasyCastStructure):
+class AM_COPY_MACROVISION(Structure):
     MACROVISIONLevel: UInt32
 AM_COPY_MACROVISION_LEVEL = Int32
 AM_MACROVISION_DISABLED: win32more.Windows.Win32.Media.DirectShow.AM_COPY_MACROVISION_LEVEL = 0
@@ -217,22 +217,22 @@ AM_DVDCOPYSTATE_INITIALIZE_TITLE: win32more.Windows.Win32.Media.DirectShow.AM_DV
 AM_DVDCOPYSTATE_AUTHENTICATION_NOT_REQUIRED: win32more.Windows.Win32.Media.DirectShow.AM_DVDCOPYSTATE = 2
 AM_DVDCOPYSTATE_AUTHENTICATION_REQUIRED: win32more.Windows.Win32.Media.DirectShow.AM_DVDCOPYSTATE = 3
 AM_DVDCOPYSTATE_DONE: win32more.Windows.Win32.Media.DirectShow.AM_DVDCOPYSTATE = 4
-class AM_DVDCOPY_BUSKEY(EasyCastStructure):
+class AM_DVDCOPY_BUSKEY(Structure):
     BusKey: Byte * 5
     Reserved: Byte * 1
-class AM_DVDCOPY_CHLGKEY(EasyCastStructure):
+class AM_DVDCOPY_CHLGKEY(Structure):
     ChlgKey: Byte * 10
     Reserved: Byte * 2
-class AM_DVDCOPY_DISCKEY(EasyCastStructure):
+class AM_DVDCOPY_DISCKEY(Structure):
     DiscKey: Byte * 2048
-class AM_DVDCOPY_SET_COPY_STATE(EasyCastStructure):
+class AM_DVDCOPY_SET_COPY_STATE(Structure):
     DVDCopyState: UInt32
-class AM_DVDCOPY_TITLEKEY(EasyCastStructure):
+class AM_DVDCOPY_TITLEKEY(Structure):
     KeyFlags: UInt32
     Reserved1: UInt32 * 2
     TitleKey: Byte * 6
     Reserved2: Byte * 2
-class AM_DVD_ChangeRate(EasyCastStructure):
+class AM_DVD_ChangeRate(Structure):
     StartInTime: Int64
     StartOutTime: Int64
     Rate: Int32
@@ -248,7 +248,7 @@ AM_DVD_EVR_ONLY: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 4
 AM_DVD_EVR_QOS: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 8192
 AM_DVD_ADAPT_GRAPH: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 16384
 AM_DVD_MASK: win32more.Windows.Win32.Media.DirectShow.AM_DVD_GRAPH_FLAGS = 65535
-class AM_DVD_RENDERSTATUS(EasyCastStructure):
+class AM_DVD_RENDERSTATUS(Structure):
     hrVPEStatus: win32more.Windows.Win32.Foundation.HRESULT
     bDvdVolInvalid: win32more.Windows.Win32.Foundation.BOOL
     bDvdVolUnknown: win32more.Windows.Win32.Foundation.BOOL
@@ -261,22 +261,22 @@ AM_DVD_STREAM_FLAGS = Int32
 AM_DVD_STREAM_VIDEO: win32more.Windows.Win32.Media.DirectShow.AM_DVD_STREAM_FLAGS = 1
 AM_DVD_STREAM_AUDIO: win32more.Windows.Win32.Media.DirectShow.AM_DVD_STREAM_FLAGS = 2
 AM_DVD_STREAM_SUBPIC: win32more.Windows.Win32.Media.DirectShow.AM_DVD_STREAM_FLAGS = 4
-class AM_DVD_YUV(EasyCastStructure):
+class AM_DVD_YUV(Structure):
     Reserved: Byte
     Y: Byte
     U: Byte
     V: Byte
-class AM_DvdKaraokeData(EasyCastStructure):
+class AM_DvdKaraokeData(Structure):
     dwDownmix: UInt32
     dwSpeakerAssignment: UInt32
-class AM_ExactRateChange(EasyCastStructure):
+class AM_ExactRateChange(Structure):
     OutputZeroTime: Int64
     Rate: Int32
 AM_FILESINK_FLAGS = Int32
 AM_FILE_OVERWRITE: win32more.Windows.Win32.Media.DirectShow.AM_FILESINK_FLAGS = 1
 AM_FILTER_FLAGS = Int32
 AM_FILTER_FLAGS_REMOVABLE: win32more.Windows.Win32.Media.DirectShow.AM_FILTER_FLAGS = 1
-class AM_FRAMESTEP_STEP(EasyCastStructure):
+class AM_FRAMESTEP_STEP(Structure):
     dwFramesToStep: UInt32
 AM_GRAPH_CONFIG_RECONNECT_FLAGS = Int32
 AM_GRAPH_CONFIG_RECONNECT_DIRECTCONNECT: win32more.Windows.Win32.Media.DirectShow.AM_GRAPH_CONFIG_RECONNECT_FLAGS = 1
@@ -317,12 +317,12 @@ AM_MPEG2Profile_Main: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Profile =
 AM_MPEG2Profile_SNRScalable: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Profile = 3
 AM_MPEG2Profile_SpatiallyScalable: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Profile = 4
 AM_MPEG2Profile_High: win32more.Windows.Win32.Media.DirectShow.AM_MPEG2Profile = 5
-class AM_MPEGSTREAMTYPE(EasyCastStructure):
+class AM_MPEGSTREAMTYPE(Structure):
     dwStreamId: UInt32
     dwReserved: UInt32
     mt: win32more.Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE
     bFormat: Byte * 1
-class AM_MPEGSYSTEMTYPE(EasyCastStructure):
+class AM_MPEGSYSTEMTYPE(Structure):
     dwBitRate: UInt32
     cStreams: UInt32
     Streams: win32more.Windows.Win32.Media.DirectShow.AM_MPEGSTREAMTYPE * 1
@@ -365,7 +365,7 @@ AM_PROPERTY_FRAMESTEP_STEP: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY
 AM_PROPERTY_FRAMESTEP_CANCEL: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_FRAMESTEP = 2
 AM_PROPERTY_FRAMESTEP_CANSTEP: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_FRAMESTEP = 3
 AM_PROPERTY_FRAMESTEP_CANSTEPMULTIPLE: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_FRAMESTEP = 4
-class AM_PROPERTY_SPHLI(EasyCastStructure):
+class AM_PROPERTY_SPHLI(Structure):
     HLISS: UInt16
     Reserved: UInt16
     StartPTM: UInt32
@@ -375,7 +375,7 @@ class AM_PROPERTY_SPHLI(EasyCastStructure):
     StopX: UInt16
     StopY: UInt16
     ColCon: win32more.Windows.Win32.Media.DirectShow.AM_COLCON
-class AM_PROPERTY_SPPAL(EasyCastStructure):
+class AM_PROPERTY_SPPAL(Structure):
     sppal: win32more.Windows.Win32.Media.DirectShow.AM_DVD_YUV * 16
 AM_PROPERTY_TS_RATE_CHANGE = Int32
 AM_RATE_SimpleRateChange: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 1
@@ -389,10 +389,10 @@ AM_RATE_CorrectTS: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_
 AM_RATE_ReverseMaxFullDataRate: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 9
 AM_RATE_ResetOnTimeDisc: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 10
 AM_RATE_QueryMapping: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_TS_RATE_CHANGE = 11
-class AM_QueryRate(EasyCastStructure):
+class AM_QueryRate(Structure):
     lMaxForwardFullFrame: Int32
     lMaxReverseFullFrame: Int32
-class AM_SAMPLE2_PROPERTIES(EasyCastStructure):
+class AM_SAMPLE2_PROPERTIES(Structure):
     cbData: UInt32
     dwTypeSpecificFlags: UInt32
     dwSampleFlags: UInt32
@@ -435,7 +435,7 @@ AM_SEEKING_SeekToKeyFrame: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_S
 AM_SEEKING_ReturnTime: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 8
 AM_SEEKING_Segment: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 16
 AM_SEEKING_NoFlush: win32more.Windows.Win32.Media.DirectShow.AM_SEEKING_SEEKING_FLAGS = 32
-class AM_STREAM_INFO(EasyCastStructure):
+class AM_STREAM_INFO(Structure):
     tStart: Int64
     tStop: Int64
     dwStartCookie: UInt32
@@ -446,7 +446,7 @@ AM_STREAM_INFO_START_DEFINED: win32more.Windows.Win32.Media.DirectShow.AM_STREAM
 AM_STREAM_INFO_STOP_DEFINED: win32more.Windows.Win32.Media.DirectShow.AM_STREAM_INFO_FLAGS = 2
 AM_STREAM_INFO_DISCARDING: win32more.Windows.Win32.Media.DirectShow.AM_STREAM_INFO_FLAGS = 4
 AM_STREAM_INFO_STOP_SEND_EXTRA: win32more.Windows.Win32.Media.DirectShow.AM_STREAM_INFO_FLAGS = 16
-class AM_SimpleRateChange(EasyCastStructure):
+class AM_SimpleRateChange(Structure):
     StartTime: Int64
     Rate: Int32
 AM_WST_DRAWBGMODE = Int32
@@ -454,7 +454,7 @@ AM_WST_DRAWBGMODE_Opaque: win32more.Windows.Win32.Media.DirectShow.AM_WST_DRAWBG
 AM_WST_DRAWBGMODE_Transparent: win32more.Windows.Win32.Media.DirectShow.AM_WST_DRAWBGMODE = 1
 AM_WST_LEVEL = Int32
 AM_WST_LEVEL_1_5: win32more.Windows.Win32.Media.DirectShow.AM_WST_LEVEL = 0
-class AM_WST_PAGE(EasyCastStructure):
+class AM_WST_PAGE(Structure):
     dwPageNr: UInt32
     dwSubPageNr: UInt32
     pucPageData: POINTER(Byte)
@@ -469,7 +469,7 @@ AM_WST_STATE_On: win32more.Windows.Win32.Media.DirectShow.AM_WST_STATE = 1
 AM_WST_STYLE = Int32
 AM_WST_STYLE_None: win32more.Windows.Win32.Media.DirectShow.AM_WST_STYLE = 0
 AM_WST_STYLE_Invers: win32more.Windows.Win32.Media.DirectShow.AM_WST_STYLE = 1
-class ANALOGVIDEOINFO(EasyCastStructure):
+class ANALOGVIDEOINFO(Structure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
     dwActiveWidth: UInt32
@@ -477,7 +477,7 @@ class ANALOGVIDEOINFO(EasyCastStructure):
     AvgTimePerFrame: Int64
 ATSCComponentTypeFlags = Int32
 ATSCCT_AC3: win32more.Windows.Win32.Media.DirectShow.ATSCComponentTypeFlags = 1
-class AUDIO_STREAM_CONFIG_CAPS(EasyCastStructure):
+class AUDIO_STREAM_CONFIG_CAPS(Structure):
     guid: Guid
     MinimumChannels: UInt32
     MaximumChannels: UInt32
@@ -488,13 +488,13 @@ class AUDIO_STREAM_CONFIG_CAPS(EasyCastStructure):
     MinimumSampleFrequency: UInt32
     MaximumSampleFrequency: UInt32
     SampleFrequencyGranularity: UInt32
-class AVIEXTHEADER(EasyCastStructure):
+class AVIEXTHEADER(Structure):
     fcc: UInt32
     cb: UInt32
     dwGrandFrames: UInt32
     dwFuture: UInt32 * 61
     _pack_ = 2
-class AVIFIELDINDEX(EasyCastStructure):
+class AVIFIELDINDEX(Structure):
     fcc: UInt32
     cb: UInt32
     wLongsPerEntry: UInt16
@@ -506,17 +506,17 @@ class AVIFIELDINDEX(EasyCastStructure):
     dwReserved3: UInt32
     aIndex: _avifieldindex_entry * 1
     _pack_ = 2
-    class _avifieldindex_entry(EasyCastStructure):
+    class _avifieldindex_entry(Structure):
         dwOffset: UInt32
         dwSize: UInt32
         dwOffsetField2: UInt32
         _pack_ = 2
-class AVIINDEXENTRY(EasyCastStructure):
+class AVIINDEXENTRY(Structure):
     ckid: UInt32
     dwFlags: UInt32
     dwChunkOffset: UInt32
     dwChunkLength: UInt32
-class AVIMAINHEADER(EasyCastStructure):
+class AVIMAINHEADER(Structure):
     fcc: UInt32
     cb: UInt32
     dwMicroSecPerFrame: UInt32
@@ -531,7 +531,7 @@ class AVIMAINHEADER(EasyCastStructure):
     dwHeight: UInt32
     dwReserved: UInt32 * 4
     _pack_ = 2
-class AVIMETAINDEX(EasyCastStructure):
+class AVIMETAINDEX(Structure):
     fcc: UInt32
     cb: UInt32
     wLongsPerEntry: UInt16
@@ -542,23 +542,23 @@ class AVIMETAINDEX(EasyCastStructure):
     dwReserved: UInt32 * 3
     adwIndex: UInt32 * 1
     _pack_ = 2
-class AVIOLDINDEX(EasyCastStructure):
+class AVIOLDINDEX(Structure):
     fcc: UInt32
     cb: UInt32
     aIndex: _avioldindex_entry * 1
     _pack_ = 2
-    class _avioldindex_entry(EasyCastStructure):
+    class _avioldindex_entry(Structure):
         dwChunkId: UInt32
         dwFlags: UInt32
         dwOffset: UInt32
         dwSize: UInt32
         _pack_ = 2
-class AVIPALCHANGE(EasyCastStructure):
+class AVIPALCHANGE(Structure):
     bFirstEntry: Byte
     bNumEntries: Byte
     wFlags: UInt16
     peNew: win32more.Windows.Win32.Graphics.Gdi.PALETTEENTRY * 1
-class AVISTDINDEX(EasyCastStructure):
+class AVISTDINDEX(Structure):
     fcc: UInt32
     cb: UInt32
     wLongsPerEntry: UInt16
@@ -570,11 +570,11 @@ class AVISTDINDEX(EasyCastStructure):
     dwReserved_3: UInt32
     aIndex: win32more.Windows.Win32.Media.DirectShow.AVISTDINDEX_ENTRY * 2044
     _pack_ = 2
-class AVISTDINDEX_ENTRY(EasyCastStructure):
+class AVISTDINDEX_ENTRY(Structure):
     dwOffset: UInt32
     dwSize: UInt32
     _pack_ = 2
-class AVISTREAMHEADER(EasyCastStructure):
+class AVISTREAMHEADER(Structure):
     fcc: UInt32
     cb: UInt32
     fccType: UInt32
@@ -592,12 +592,12 @@ class AVISTREAMHEADER(EasyCastStructure):
     dwSampleSize: UInt32
     rcFrame: _rcFrame_e__Struct
     _pack_ = 2
-    class _rcFrame_e__Struct(EasyCastStructure):
+    class _rcFrame_e__Struct(Structure):
         left: Int16
         top: Int16
         right: Int16
         bottom: Int16
-class AVISUPERINDEX(EasyCastStructure):
+class AVISUPERINDEX(Structure):
     fcc: UInt32
     cb: UInt32
     wLongsPerEntry: UInt16
@@ -608,12 +608,12 @@ class AVISUPERINDEX(EasyCastStructure):
     dwReserved: UInt32 * 3
     aIndex: _avisuperindex_entry * 1022
     _pack_ = 2
-    class _avisuperindex_entry(EasyCastStructure):
+    class _avisuperindex_entry(Structure):
         qwOffset: UInt64
         dwSize: UInt32
         dwDuration: UInt32
         _pack_ = 2
-class AVIStreamHeader(EasyCastStructure):
+class AVIStreamHeader(Structure):
     fccType: UInt32
     fccHandler: UInt32
     dwFlags: UInt32
@@ -628,7 +628,7 @@ class AVIStreamHeader(EasyCastStructure):
     dwQuality: UInt32
     dwSampleSize: UInt32
     rcFrame: win32more.Windows.Win32.Foundation.RECT
-class AVITCDLINDEX(EasyCastStructure):
+class AVITCDLINDEX(Structure):
     fcc: UInt32
     cb: UInt32
     wLongsPerEntry: UInt16
@@ -640,14 +640,14 @@ class AVITCDLINDEX(EasyCastStructure):
     aIndex: win32more.Windows.Win32.Media.DirectShow.AVITCDLINDEX_ENTRY * 584
     adwTrailingFill: UInt32 * 3512
     _pack_ = 2
-class AVITCDLINDEX_ENTRY(EasyCastStructure):
+class AVITCDLINDEX_ENTRY(Structure):
     dwTick: UInt32
     time: win32more.Windows.Win32.Media.TIMECODE
     dwSMPTEflags: UInt32
     dwUser: UInt32
     szReelId: SByte * 12
     _pack_ = 2
-class AVITIMECODEINDEX(EasyCastStructure):
+class AVITIMECODEINDEX(Structure):
     fcc: UInt32
     cb: UInt32
     wLongsPerEntry: UInt16
@@ -658,7 +658,7 @@ class AVITIMECODEINDEX(EasyCastStructure):
     dwReserved: UInt32 * 3
     aIndex: win32more.Windows.Win32.Media.DirectShow.TIMECODEDATA * 1022
     _pack_ = 2
-class AVITIMEDINDEX(EasyCastStructure):
+class AVITIMEDINDEX(Structure):
     fcc: UInt32
     cb: UInt32
     wLongsPerEntry: UInt16
@@ -671,7 +671,7 @@ class AVITIMEDINDEX(EasyCastStructure):
     aIndex: win32more.Windows.Win32.Media.DirectShow.AVITIMEDINDEX_ENTRY * 1362
     adwTrailingFill: UInt32 * 2734
     _pack_ = 2
-class AVITIMEDINDEX_ENTRY(EasyCastStructure):
+class AVITIMEDINDEX_ENTRY(Structure):
     dwOffset: UInt32
     dwSize: UInt32
     dwDuration: UInt32
@@ -1562,34 +1562,34 @@ SCTE28_CopyProtection: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeT
 SCTE28_Diagnostic: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 6
 SCTE28_Undesignated: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 7
 SCTE28_Reserved: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType = 8
-class BDANODE_DESCRIPTOR(EasyCastStructure):
+class BDANODE_DESCRIPTOR(Structure):
     ulBdaNodeType: UInt32
     guidFunction: Guid
     guidName: Guid
-class BDA_BUFFER(EasyCastStructure):
+class BDA_BUFFER(Structure):
     lResult: Int32
     ulBufferSize: UInt32
     argbBuffer: Byte * 1
-class BDA_CAS_CHECK_ENTITLEMENTTOKEN(EasyCastStructure):
+class BDA_CAS_CHECK_ENTITLEMENTTOKEN(Structure):
     lResult: Int32
     ulDescrambleStatus: UInt32
-class BDA_CAS_CLOSEMMIDATA(EasyCastStructure):
+class BDA_CAS_CLOSEMMIDATA(Structure):
     ulDialogNumber: UInt32
-class BDA_CAS_CLOSE_MMIDIALOG(EasyCastStructure):
+class BDA_CAS_CLOSE_MMIDIALOG(Structure):
     lResult: Int32
     SessionResult: UInt32
-class BDA_CAS_OPENMMIDATA(EasyCastStructure):
+class BDA_CAS_OPENMMIDATA(Structure):
     ulDialogNumber: UInt32
     ulDialogRequest: UInt32
     uuidDialogType: Guid
     usDialogDataLength: UInt16
     argbDialogData: Byte * 1
-class BDA_CAS_REQUESTTUNERDATA(EasyCastStructure):
+class BDA_CAS_REQUESTTUNERDATA(Structure):
     ucRequestPriority: Byte
     ucRequestReason: Byte
     ucRequestConsequences: Byte
     ulEstimatedTime: UInt32
-class BDA_CA_MODULE_UI(EasyCastStructure):
+class BDA_CA_MODULE_UI(Structure):
     ulFormat: UInt32
     ulbcDesc: UInt32
     ulDesc: UInt32 * 1
@@ -1627,20 +1627,20 @@ BDA_DISCOVERY_STATE = Int32
 BDA_DISCOVERY_UNSPECIFIED: win32more.Windows.Win32.Media.DirectShow.BDA_DISCOVERY_STATE = 0
 BDA_DISCOVERY_REQUIRED: win32more.Windows.Win32.Media.DirectShow.BDA_DISCOVERY_STATE = 1
 BDA_DISCOVERY_COMPLETE: win32more.Windows.Win32.Media.DirectShow.BDA_DISCOVERY_STATE = 2
-class BDA_DISEQC_RESPONSE(EasyCastStructure):
+class BDA_DISEQC_RESPONSE(Structure):
     ulRequestId: UInt32
     ulPacketLength: UInt32
     argbPacketData: Byte * 8
-class BDA_DISEQC_SEND(EasyCastStructure):
+class BDA_DISEQC_SEND(Structure):
     ulRequestId: UInt32
     ulPacketLength: UInt32
     argbPacketData: Byte * 8
-class BDA_DRM_DRMSTATUS(EasyCastStructure):
+class BDA_DRM_DRMSTATUS(Structure):
     lResult: Int32
     DRMuuid: Guid
     ulDrmUuidListStringSize: UInt32
     argbDrmUuidListString: Guid * 1
-class BDA_DVBT2_L1_SIGNALLING_DATA(EasyCastStructure):
+class BDA_DVBT2_L1_SIGNALLING_DATA(Structure):
     L1Pre_TYPE: Byte
     L1Pre_BWT_S1_S2: Byte
     L1Pre_REPETITION_GUARD_PAPR: Byte
@@ -1666,9 +1666,9 @@ BDA_DrmPairing_DrmNotPaired: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPai
 BDA_DrmPairing_DrmRePairSoon: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 7
 BDA_DrmPairing_Aborted: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 8
 BDA_DrmPairing_NeedSDKUpdate: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 9
-class BDA_ETHERNET_ADDRESS(EasyCastStructure):
+class BDA_ETHERNET_ADDRESS(Structure):
     rgbAddress: Byte * 6
-class BDA_ETHERNET_ADDRESS_LIST(EasyCastStructure):
+class BDA_ETHERNET_ADDRESS_LIST(Structure):
     ulcAddresses: UInt32
     rgAddressl: win32more.Windows.Win32.Media.DirectShow.BDA_ETHERNET_ADDRESS * 1
 BDA_EVENT_ID = Int32
@@ -1698,25 +1698,25 @@ BDA_FREQUENCY_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BDA_Frequenc
 BDA_Frequency_Multiplier = Int32
 BDA_FREQUENCY_MULTIPLIER_NOT_SET: win32more.Windows.Win32.Media.DirectShow.BDA_Frequency_Multiplier = -1
 BDA_FREQUENCY_MULTIPLIER_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BDA_Frequency_Multiplier = 0
-class BDA_GDDS_DATA(EasyCastStructure):
+class BDA_GDDS_DATA(Structure):
     lResult: Int32
     ulDataLength: UInt32
     ulPercentageProgress: UInt32
     argbData: Byte * 1
-class BDA_GDDS_DATATYPE(EasyCastStructure):
+class BDA_GDDS_DATATYPE(Structure):
     lResult: Int32
     uuidDataType: Guid
-class BDA_IPv4_ADDRESS(EasyCastStructure):
+class BDA_IPv4_ADDRESS(Structure):
     rgbAddress: Byte * 4
-class BDA_IPv4_ADDRESS_LIST(EasyCastStructure):
+class BDA_IPv4_ADDRESS_LIST(Structure):
     ulcAddresses: UInt32
     rgAddressl: win32more.Windows.Win32.Media.DirectShow.BDA_IPv4_ADDRESS * 1
-class BDA_IPv6_ADDRESS(EasyCastStructure):
+class BDA_IPv6_ADDRESS(Structure):
     rgbAddress: Byte * 6
-class BDA_IPv6_ADDRESS_LIST(EasyCastStructure):
+class BDA_IPv6_ADDRESS_LIST(Structure):
     ulcAddresses: UInt32
     rgAddressl: win32more.Windows.Win32.Media.DirectShow.BDA_IPv6_ADDRESS * 1
-class BDA_ISDBCAS_EMG_REQ(EasyCastStructure):
+class BDA_ISDBCAS_EMG_REQ(Structure):
     bCLA: Byte
     bINS: Byte
     bP1: Byte
@@ -1727,13 +1727,13 @@ class BDA_ISDBCAS_EMG_REQ(EasyCastStructure):
     bCABroadcasterGroupId: Byte
     bMessageControl: Byte
     bMessageCode: Byte * 1
-class BDA_ISDBCAS_REQUESTHEADER(EasyCastStructure):
+class BDA_ISDBCAS_REQUESTHEADER(Structure):
     bInstruction: Byte
     bReserved: Byte * 3
     ulDataLength: UInt32
     argbIsdbCommand: Byte * 1
     _pack_ = 1
-class BDA_ISDBCAS_RESPONSEDATA(EasyCastStructure):
+class BDA_ISDBCAS_RESPONSEDATA(Structure):
     lResult: Int32
     ulRequestID: UInt32
     ulIsdbStatus: UInt32
@@ -1744,36 +1744,36 @@ BDA_MULTICAST_MODE = Int32
 BDA_PROMISCUOUS_MULTICAST: win32more.Windows.Win32.Media.DirectShow.BDA_MULTICAST_MODE = 0
 BDA_FILTERED_MULTICAST: win32more.Windows.Win32.Media.DirectShow.BDA_MULTICAST_MODE = 1
 BDA_NO_MULTICAST: win32more.Windows.Win32.Media.DirectShow.BDA_MULTICAST_MODE = 2
-class BDA_MUX_PIDLISTITEM(EasyCastStructure):
+class BDA_MUX_PIDLISTITEM(Structure):
     usPIDNumber: UInt16
     usProgramNumber: UInt16
     ePIDType: win32more.Windows.Win32.Media.DirectShow.MUX_PID_TYPE
     _pack_ = 2
-class BDA_PID_MAP(EasyCastStructure):
+class BDA_PID_MAP(Structure):
     MediaSampleContent: win32more.Windows.Win32.Media.DirectShow.MEDIA_SAMPLE_CONTENT
     ulcPIDs: UInt32
     aulPIDs: UInt32 * 1
-class BDA_PID_UNMAP(EasyCastStructure):
+class BDA_PID_UNMAP(Structure):
     ulcPIDs: UInt32
     aulPIDs: UInt32 * 1
-class BDA_PROGRAM_PID_LIST(EasyCastStructure):
+class BDA_PROGRAM_PID_LIST(Structure):
     ulProgramNumber: UInt32
     ulcPIDs: UInt32
     ulPID: UInt32 * 1
-class BDA_RATING_PINRESET(EasyCastStructure):
+class BDA_RATING_PINRESET(Structure):
     bPinLength: Byte
     argbNewPin: Byte * 1
 BDA_Range = Int32
 BDA_RANGE_NOT_SET: win32more.Windows.Win32.Media.DirectShow.BDA_Range = -1
 BDA_RANGE_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BDA_Range = 0
-class BDA_SCAN_CAPABILTIES(EasyCastStructure):
+class BDA_SCAN_CAPABILTIES(Structure):
     lResult: Int32
     ul64AnalogStandardsSupported: UInt64
-class BDA_SCAN_START(EasyCastStructure):
+class BDA_SCAN_START(Structure):
     lResult: Int32
     LowerFrequency: UInt32
     HigerFrequency: UInt32
-class BDA_SCAN_STATE(EasyCastStructure):
+class BDA_SCAN_STATE(Structure):
     lResult: Int32
     ulSignalLock: UInt32
     ulSecondsLeft: UInt32
@@ -1782,66 +1782,66 @@ BDA_SIGNAL_STATE = Int32
 BDA_SIGNAL_UNAVAILABLE: win32more.Windows.Win32.Media.DirectShow.BDA_SIGNAL_STATE = 0
 BDA_SIGNAL_INACTIVE: win32more.Windows.Win32.Media.DirectShow.BDA_SIGNAL_STATE = 1
 BDA_SIGNAL_ACTIVE: win32more.Windows.Win32.Media.DirectShow.BDA_SIGNAL_STATE = 2
-class BDA_SIGNAL_TIMEOUTS(EasyCastStructure):
+class BDA_SIGNAL_TIMEOUTS(Structure):
     ulCarrierTimeoutMs: UInt32
     ulScanningTimeoutMs: UInt32
     ulTuningTimeoutMs: UInt32
-class BDA_STRING(EasyCastStructure):
+class BDA_STRING(Structure):
     lResult: Int32
     ulStringSize: UInt32
     argbString: Byte * 1
-class BDA_TABLE_SECTION(EasyCastStructure):
+class BDA_TABLE_SECTION(Structure):
     ulPrimarySectionId: UInt32
     ulSecondarySectionId: UInt32
     ulcbSectionLength: UInt32
     argbSectionData: UInt32 * 1
-class BDA_TEMPLATE_CONNECTION(EasyCastStructure):
+class BDA_TEMPLATE_CONNECTION(Structure):
     FromNodeType: UInt32
     FromNodePinType: UInt32
     ToNodeType: UInt32
     ToNodePinType: UInt32
-class BDA_TEMPLATE_PIN_JOINT(EasyCastStructure):
+class BDA_TEMPLATE_PIN_JOINT(Structure):
     uliTemplateConnection: UInt32
     ulcInstancesMax: UInt32
-class BDA_TS_SELECTORINFO(EasyCastStructure):
+class BDA_TS_SELECTORINFO(Structure):
     bTSInfolength: Byte
     bReserved: Byte * 2
     guidNetworkType: Guid
     bTSIDCount: Byte
     usTSID: UInt16 * 1
     _pack_ = 1
-class BDA_TS_SELECTORINFO_ISDBS_EXT(EasyCastStructure):
+class BDA_TS_SELECTORINFO_ISDBS_EXT(Structure):
     bTMCC: Byte * 48
-class BDA_TUNER_DIAGNOSTICS(EasyCastStructure):
+class BDA_TUNER_DIAGNOSTICS(Structure):
     lResult: Int32
     ulSignalLevel: UInt32
     ulSignalLevelQuality: UInt32
     ulSignalNoiseRatio: UInt32
-class BDA_TUNER_TUNERSTATE(EasyCastStructure):
+class BDA_TUNER_TUNERSTATE(Structure):
     lResult: Int32
     ulTuneLength: UInt32
     argbTuneData: Byte * 1
-class BDA_USERACTIVITY_INTERVAL(EasyCastStructure):
+class BDA_USERACTIVITY_INTERVAL(Structure):
     lResult: Int32
     ulActivityInterval: UInt32
-class BDA_WMDRMTUNER_PIDPROTECTION(EasyCastStructure):
+class BDA_WMDRMTUNER_PIDPROTECTION(Structure):
     lResult: Int32
     uuidKeyID: Guid
-class BDA_WMDRMTUNER_PURCHASEENTITLEMENT(EasyCastStructure):
+class BDA_WMDRMTUNER_PURCHASEENTITLEMENT(Structure):
     lResult: Int32
     ulDescrambleStatus: UInt32
     ulCaptureTokenLength: UInt32
     argbCaptureTokenBuffer: Byte * 1
-class BDA_WMDRM_KEYINFOLIST(EasyCastStructure):
+class BDA_WMDRM_KEYINFOLIST(Structure):
     lResult: Int32
     ulKeyuuidBufferLen: UInt32
     argKeyuuidBuffer: Guid * 1
-class BDA_WMDRM_RENEWLICENSE(EasyCastStructure):
+class BDA_WMDRM_RENEWLICENSE(Structure):
     lResult: Int32
     ulDescrambleStatus: UInt32
     ulXmrLicenseOutputLength: UInt32
     argbXmrLicenceOutputBuffer: Byte * 1
-class BDA_WMDRM_STATUS(EasyCastStructure):
+class BDA_WMDRM_STATUS(Structure):
     lResult: Int32
     ulMaxCaptureTokenSize: UInt32
     uMaxStreamingPid: UInt32
@@ -1870,7 +1870,7 @@ BDA_BCC_RATE_6_7: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCode
 BDA_BCC_RATE_8_9: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 13
 BDA_BCC_RATE_9_10: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 14
 BDA_BCC_RATE_MAX: win32more.Windows.Win32.Media.DirectShow.BinaryConvolutionCodeRate = 15
-class COLORKEY(EasyCastStructure):
+class COLORKEY(Structure):
     KeyType: UInt32
     PaletteIndex: UInt32
     LowColorValue: win32more.Windows.Win32.Foundation.COLORREF
@@ -2012,7 +2012,7 @@ DVB_Terrestrial: win32more.Windows.Win32.Media.DirectShow.DVBSystemType = 1
 DVB_Satellite: win32more.Windows.Win32.Media.DirectShow.DVBSystemType = 2
 ISDB_Terrestrial: win32more.Windows.Win32.Media.DirectShow.DVBSystemType = 3
 ISDB_Satellite: win32more.Windows.Win32.Media.DirectShow.DVBSystemType = 4
-class DVD_ATR(EasyCastStructure):
+class DVD_ATR(Structure):
     ulCAT: UInt32
     pbATRI: Byte * 768
 DVD_AUDIO_APPMODE = Int32
@@ -2036,7 +2036,7 @@ DVD_AUD_EXT_Captions: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_LANG_EX
 DVD_AUD_EXT_VisuallyImpaired: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_LANG_EXT = 2
 DVD_AUD_EXT_DirectorComments1: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_LANG_EXT = 3
 DVD_AUD_EXT_DirectorComments2: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_LANG_EXT = 4
-class DVD_AudioAttributes(EasyCastStructure):
+class DVD_AudioAttributes(Structure):
     AppMode: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_APPMODE
     AppModeData: Byte
     AudioFormat: win32more.Windows.Win32.Media.DirectShow.DVD_AUDIO_FORMAT
@@ -2054,7 +2054,7 @@ DVD_CMD_FLAG_SendEvents: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS 
 DVD_CMD_FLAG_Block: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS = 4
 DVD_CMD_FLAG_StartWhenRendered: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS = 8
 DVD_CMD_FLAG_EndAfterRendered: win32more.Windows.Win32.Media.DirectShow.DVD_CMD_FLAGS = 16
-class DVD_DECODER_CAPS(EasyCastStructure):
+class DVD_DECODER_CAPS(Structure):
     dwSize: UInt32
     dwAudioCaps: UInt32
     dFwdMaxRateVideo: Double
@@ -2090,7 +2090,7 @@ DVD_ERROR_CopyProtectOutputNotSupported: win32more.Windows.Win32.Media.DirectSho
 DVD_FRAMERATE = Int32
 DVD_FPS_25: win32more.Windows.Win32.Media.DirectShow.DVD_FRAMERATE = 1
 DVD_FPS_30NonDrop: win32more.Windows.Win32.Media.DirectShow.DVD_FRAMERATE = 3
-class DVD_HMSF_TIMECODE(EasyCastStructure):
+class DVD_HMSF_TIMECODE(Structure):
     bHours: Byte
     bMinutes: Byte
     bSeconds: Byte
@@ -2128,7 +2128,7 @@ DVD_Mix_3to1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 204
 DVD_Mix_4to1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 4096
 DVD_Mix_Lto1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 8192
 DVD_Mix_Rto1: win32more.Windows.Win32.Media.DirectShow.DVD_KARAOKE_DOWNMIX = 16384
-class DVD_KaraokeAttributes(EasyCastStructure):
+class DVD_KaraokeAttributes(Structure):
     bVersion: Byte
     fMasterOfCeremoniesInGuideVocal1: win32more.Windows.Win32.Foundation.BOOL
     fDuet: win32more.Windows.Win32.Foundation.BOOL
@@ -2141,23 +2141,23 @@ DVD_MENU_Subpicture: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 4
 DVD_MENU_Audio: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 5
 DVD_MENU_Angle: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 6
 DVD_MENU_Chapter: win32more.Windows.Win32.Media.DirectShow.DVD_MENU_ID = 7
-class DVD_MUA_Coeff(EasyCastStructure):
+class DVD_MUA_Coeff(Structure):
     log2_alpha: Double
     log2_beta: Double
-class DVD_MUA_MixingInfo(EasyCastStructure):
+class DVD_MUA_MixingInfo(Structure):
     fMixTo0: win32more.Windows.Win32.Foundation.BOOL
     fMixTo1: win32more.Windows.Win32.Foundation.BOOL
     fMix0InPhase: win32more.Windows.Win32.Foundation.BOOL
     fMix1InPhase: win32more.Windows.Win32.Foundation.BOOL
     dwSpeakerPosition: UInt32
-class DVD_MenuAttributes(EasyCastStructure):
+class DVD_MenuAttributes(Structure):
     fCompatibleRegion: win32more.Windows.Win32.Foundation.BOOL * 8
     VideoAttributes: win32more.Windows.Win32.Media.DirectShow.DVD_VideoAttributes
     fAudioPresent: win32more.Windows.Win32.Foundation.BOOL
     AudioAttributes: win32more.Windows.Win32.Media.DirectShow.DVD_AudioAttributes
     fSubpicturePresent: win32more.Windows.Win32.Foundation.BOOL
     SubpictureAttributes: win32more.Windows.Win32.Media.DirectShow.DVD_SubpictureAttributes
-class DVD_MultichannelAudioAttributes(EasyCastStructure):
+class DVD_MultichannelAudioAttributes(Structure):
     Info: win32more.Windows.Win32.Media.DirectShow.DVD_MUA_MixingInfo * 8
     Coeff: win32more.Windows.Win32.Media.DirectShow.DVD_MUA_Coeff * 8
 DVD_NavCmdType = Int32
@@ -2211,11 +2211,11 @@ DVD_PB_STOPPED_DiscReadError: win32more.Windows.Win32.Media.DirectShow.DVD_PB_ST
 DVD_PB_STOPPED_CopyProtectFailure: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 13
 DVD_PB_STOPPED_CopyProtectOutputFailure: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 14
 DVD_PB_STOPPED_CopyProtectOutputNotSupported: win32more.Windows.Win32.Media.DirectShow.DVD_PB_STOPPED = 15
-class DVD_PLAYBACK_LOCATION(EasyCastStructure):
+class DVD_PLAYBACK_LOCATION(Structure):
     TitleNum: UInt32
     ChapterNum: UInt32
     TimeCode: UInt32
-class DVD_PLAYBACK_LOCATION2(EasyCastStructure):
+class DVD_PLAYBACK_LOCATION2(Structure):
     TitleNum: UInt32
     ChapterNum: UInt32
     TimeCode: win32more.Windows.Win32.Media.DirectShow.DVD_HMSF_TIMECODE
@@ -2228,7 +2228,7 @@ DISPLAY_CONTENT_DEFAULT: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_
 DISPLAY_16x9: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 1
 DISPLAY_4x3_PANSCAN_PREFERRED: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 2
 DISPLAY_4x3_LETTERBOX_PREFERRED: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 3
-class DVD_REGION(EasyCastStructure):
+class DVD_REGION(Structure):
     CopySystem: Byte
     RegionData: Byte
     SystemRegion: Byte
@@ -2258,12 +2258,12 @@ DVD_SUBPICTURE_TYPE = Int32
 DVD_SPType_NotSpecified: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_TYPE = 0
 DVD_SPType_Language: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_TYPE = 1
 DVD_SPType_Other: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_TYPE = 2
-class DVD_SubpictureAttributes(EasyCastStructure):
+class DVD_SubpictureAttributes(Structure):
     Type: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_TYPE
     CodingMode: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_CODING
     Language: UInt32
     LanguageExtension: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT
-class DVD_TIMECODE(EasyCastStructure):
+class DVD_TIMECODE(Structure):
     _bitfield: UInt32
 DVD_TIMECODE_FLAGS = Int32
 DVD_TC_FLAG_25fps: win32more.Windows.Win32.Media.DirectShow.DVD_TIMECODE_FLAGS = 1
@@ -2313,7 +2313,7 @@ DVD_Title_Orig_Other: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringTyp
 DVD_Other_Scene: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 80
 DVD_Other_Cut: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 81
 DVD_Other_Take: win32more.Windows.Win32.Media.DirectShow.DVD_TextStringType = 82
-class DVD_TitleAttributes(EasyCastStructure):
+class DVD_TitleAttributes(Structure):
     Anonymous: _Anonymous_e__Union
     VideoAttributes: win32more.Windows.Win32.Media.DirectShow.DVD_VideoAttributes
     ulNumberOfAudioStreams: UInt32
@@ -2321,14 +2321,14 @@ class DVD_TitleAttributes(EasyCastStructure):
     MultichannelAudioAttributes: win32more.Windows.Win32.Media.DirectShow.DVD_MultichannelAudioAttributes * 8
     ulNumberOfSubpictureStreams: UInt32
     SubpictureAttributes: win32more.Windows.Win32.Media.DirectShow.DVD_SubpictureAttributes * 32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         AppMode: win32more.Windows.Win32.Media.DirectShow.DVD_TITLE_APPMODE
         TitleLength: win32more.Windows.Win32.Media.DirectShow.DVD_HMSF_TIMECODE
 DVD_VIDEO_COMPRESSION = Int32
 DVD_VideoCompression_Other: win32more.Windows.Win32.Media.DirectShow.DVD_VIDEO_COMPRESSION = 0
 DVD_VideoCompression_MPEG1: win32more.Windows.Win32.Media.DirectShow.DVD_VIDEO_COMPRESSION = 1
 DVD_VideoCompression_MPEG2: win32more.Windows.Win32.Media.DirectShow.DVD_VIDEO_COMPRESSION = 2
-class DVD_VideoAttributes(EasyCastStructure):
+class DVD_VideoAttributes(Structure):
     fPanscanPermitted: win32more.Windows.Win32.Foundation.BOOL
     fLetterboxPermitted: win32more.Windows.Win32.Foundation.BOOL
     ulAspectX: UInt32
@@ -2349,7 +2349,7 @@ DVD_WARNING_IllegalNavCommand: win32more.Windows.Win32.Media.DirectShow.DVD_WARN
 DVD_WARNING_Open: win32more.Windows.Win32.Media.DirectShow.DVD_WARNING = 4
 DVD_WARNING_Seek: win32more.Windows.Win32.Media.DirectShow.DVD_WARNING = 5
 DVD_WARNING_Read: win32more.Windows.Win32.Media.DirectShow.DVD_WARNING = 6
-class DVINFO(EasyCastStructure):
+class DVINFO(Structure):
     dwDVAAuxSrc: UInt32
     dwDVAAuxCtl: UInt32
     dwDVAAuxSrc1: UInt32
@@ -2357,7 +2357,7 @@ class DVINFO(EasyCastStructure):
     dwDVVAuxSrc: UInt32
     dwDVVAuxCtl: UInt32
     dwDVReserved: UInt32 * 2
-class DXVA2SW_CALLBACKS(EasyCastStructure):
+class DXVA2SW_CALLBACKS(Structure):
     Size: UInt32
     GetVideoProcessorRenderTargetCount: win32more.Windows.Win32.Media.DirectShow.PDXVA2SW_GETVIDEOPROCESSORRENDERTARGETCOUNT
     GetVideoProcessorRenderTargets: win32more.Windows.Win32.Media.DirectShow.PDXVA2SW_GETVIDEOPROCESSORRENDERTARGETS
@@ -2372,19 +2372,19 @@ class DXVA2SW_CALLBACKS(EasyCastStructure):
     VideoProcessEndFrame: win32more.Windows.Win32.Media.DirectShow.PDXVA2SW_VIDEOPROCESSENDFRAME
     VideoProcessSetRenderTarget: win32more.Windows.Win32.Media.DirectShow.PDXVA2SW_VIDEOPROCESSSETRENDERTARGET
     VideoProcessBlt: win32more.Windows.Win32.Media.DirectShow.PDXVA2SW_VIDEOPROCESSBLT
-class DXVA2TraceVideoProcessBltData(EasyCastStructure):
+class DXVA2TraceVideoProcessBltData(Structure):
     wmiHeader: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_HEADER
     pObject: UInt64
     pRenderTarget: UInt64
     TargetFrameTime: UInt64
     TargetRect: win32more.Windows.Win32.Foundation.RECT
     Enter: win32more.Windows.Win32.Foundation.BOOL
-class DXVA2Trace_DecodeDevBeginFrameData(EasyCastStructure):
+class DXVA2Trace_DecodeDevBeginFrameData(Structure):
     wmiHeader: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_HEADER
     pObject: UInt64
     pRenderTarget: UInt64
     Enter: win32more.Windows.Win32.Foundation.BOOL
-class DXVA2Trace_DecodeDevCreatedData(EasyCastStructure):
+class DXVA2Trace_DecodeDevCreatedData(Structure):
     wmiHeader: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_HEADER
     pObject: UInt64
     pD3DDevice: UInt64
@@ -2392,16 +2392,16 @@ class DXVA2Trace_DecodeDevCreatedData(EasyCastStructure):
     Width: UInt32
     Height: UInt32
     Enter: win32more.Windows.Win32.Foundation.BOOL
-class DXVA2Trace_DecodeDevGetBufferData(EasyCastStructure):
+class DXVA2Trace_DecodeDevGetBufferData(Structure):
     wmiHeader: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_HEADER
     pObject: UInt64
     BufferType: UInt32
     Enter: win32more.Windows.Win32.Foundation.BOOL
-class DXVA2Trace_DecodeDeviceData(EasyCastStructure):
+class DXVA2Trace_DecodeDeviceData(Structure):
     wmiHeader: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_HEADER
     pObject: UInt64
     Enter: win32more.Windows.Win32.Foundation.BOOL
-class DXVA2Trace_VideoProcessDevCreatedData(EasyCastStructure):
+class DXVA2Trace_VideoProcessDevCreatedData(Structure):
     wmiHeader: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_HEADER
     pObject: UInt64
     pD3DDevice: UInt64
@@ -2410,7 +2410,7 @@ class DXVA2Trace_VideoProcessDevCreatedData(EasyCastStructure):
     Width: UInt32
     Height: UInt32
     Enter: win32more.Windows.Win32.Foundation.BOOL
-class DXVA2Trace_VideoProcessDeviceData(EasyCastStructure):
+class DXVA2Trace_VideoProcessDeviceData(Structure):
     wmiHeader: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_HEADER
     pObject: UInt64
     Enter: win32more.Windows.Win32.Foundation.BOOL
@@ -2433,7 +2433,7 @@ DXVA2_SampleFlag_RFF: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags
 DXVA2_SampleFlag_TFF: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 131072
 DXVA2_SampleFlag_RFF_TFF_Present: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = 262144
 DXVA2_SampleFlagsMask: win32more.Windows.Win32.Media.DirectShow.DXVA2_SampleFlags = -65505
-class DXVA2_VIDEOPROCESSBLT(EasyCastStructure):
+class DXVA2_VIDEOPROCESSBLT(Structure):
     TargetFrame: Int64
     TargetRect: win32more.Windows.Win32.Foundation.RECT
     ConstrictionSize: win32more.Windows.Win32.Foundation.SIZE
@@ -2449,7 +2449,7 @@ class DXVA2_VIDEOPROCESSBLT(EasyCastStructure):
     DetailFilterChroma: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_FilterValues
     pSrcSurfaces: POINTER(win32more.Windows.Win32.Media.DirectShow.DXVA2_VIDEOSAMPLE)
     NumSrcSurfaces: UInt32
-class DXVA2_VIDEOSAMPLE(EasyCastStructure):
+class DXVA2_VIDEOSAMPLE(Structure):
     Start: Int64
     End: Int64
     SampleFormat: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_ExtendedFormat
@@ -2459,12 +2459,12 @@ class DXVA2_VIDEOSAMPLE(EasyCastStructure):
     DstRect: win32more.Windows.Win32.Foundation.RECT
     Pal: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_AYUVSample8 * 16
     PlanarAlpha: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
-class DXVA_COPPSetProtectionLevelCmdData(EasyCastStructure):
+class DXVA_COPPSetProtectionLevelCmdData(Structure):
     ProtType: UInt32
     ProtLevel: UInt32
     ExtendedInfoChangeMask: UInt32
     ExtendedInfoData: UInt32
-class DXVA_COPPSetSignalingCmdData(EasyCastStructure):
+class DXVA_COPPSetSignalingCmdData(Structure):
     ActiveTVProtectionStandard: UInt32
     AspectRatioChangeMask1: UInt32
     AspectRatioData1: UInt32
@@ -2475,13 +2475,13 @@ class DXVA_COPPSetSignalingCmdData(EasyCastStructure):
     ExtendedInfoChangeMask: UInt32 * 4
     ExtendedInfoData: UInt32 * 4
     Reserved: UInt32
-class DXVA_COPPStatusData(EasyCastStructure):
+class DXVA_COPPStatusData(Structure):
     rApp: Guid
     dwFlags: UInt32
     dwData: UInt32
     ExtendedInfoValidMask: UInt32
     ExtendedInfoData: UInt32
-class DXVA_COPPStatusDisplayData(EasyCastStructure):
+class DXVA_COPPStatusDisplayData(Structure):
     rApp: Guid
     dwFlags: UInt32
     DisplayWidth: UInt32
@@ -2490,14 +2490,14 @@ class DXVA_COPPStatusDisplayData(EasyCastStructure):
     d3dFormat: UInt32
     FreqNumerator: UInt32
     FreqDenominator: UInt32
-class DXVA_COPPStatusHDCPKeyData(EasyCastStructure):
+class DXVA_COPPStatusHDCPKeyData(Structure):
     rApp: Guid
     dwFlags: UInt32
     dwHDCPFlags: UInt32
     BKey: Guid
     Reserved1: Guid
     Reserved2: Guid
-class DXVA_COPPStatusSignalingCmdData(EasyCastStructure):
+class DXVA_COPPStatusSignalingCmdData(Structure):
     rApp: Guid
     dwFlags: UInt32
     AvailableTVProtectionStandards: UInt32
@@ -2511,7 +2511,7 @@ class DXVA_COPPStatusSignalingCmdData(EasyCastStructure):
     AspectRatioData3: UInt32
     ExtendedInfoValidMask: UInt32 * 4
     ExtendedInfoData: UInt32 * 4
-class EALocationCodeType(EasyCastStructure):
+class EALocationCodeType(Structure):
     LocationCodeScheme: win32more.Windows.Win32.Media.DirectShow.LocationCodeSchemeType
     state_code: Byte
     county_subdivision: Byte
@@ -2529,7 +2529,7 @@ BDA_FEC_LDPC: win32more.Windows.Win32.Media.DirectShow.FECMethod = 3
 BDA_FEC_BCH: win32more.Windows.Win32.Media.DirectShow.FECMethod = 4
 BDA_FEC_RS_147_130: win32more.Windows.Win32.Media.DirectShow.FECMethod = 5
 BDA_FEC_MAX: win32more.Windows.Win32.Media.DirectShow.FECMethod = 6
-class FILTER_INFO(EasyCastStructure):
+class FILTER_INFO(Structure):
     achName: Char * 128
     pGraph: win32more.Windows.Win32.Media.DirectShow.IFilterGraph
 FILTER_STATE = Int32
@@ -2548,10 +2548,10 @@ BDA_GUARD_1_128: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 5
 BDA_GUARD_19_128: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 6
 BDA_GUARD_19_256: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 7
 BDA_GUARD_MAX: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 8
-class HEAACWAVEFORMAT(EasyCastStructure):
+class HEAACWAVEFORMAT(Structure):
     wfInfo: win32more.Windows.Win32.Media.DirectShow.HEAACWAVEINFO
     pbAudioSpecificConfig: Byte * 1
-class HEAACWAVEINFO(EasyCastStructure):
+class HEAACWAVEINFO(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wPayloadType: UInt16
     wAudioProfileLevelIndication: UInt16
@@ -6683,7 +6683,7 @@ KSPROPERTY_IPSINK = Int32
 KSPROPERTY_IPSINK_MULTICASTLIST: win32more.Windows.Win32.Media.DirectShow.KSPROPERTY_IPSINK = 0
 KSPROPERTY_IPSINK_ADAPTER_DESCRIPTION: win32more.Windows.Win32.Media.DirectShow.KSPROPERTY_IPSINK = 1
 KSPROPERTY_IPSINK_ADAPTER_ADDRESS: win32more.Windows.Win32.Media.DirectShow.KSPROPERTY_IPSINK = 2
-class KS_BDA_FRAME_INFO(EasyCastStructure):
+class KS_BDA_FRAME_INFO(Structure):
     ExtendedHeaderSize: UInt32
     dwFrameFlags: UInt32
     ulEvent: UInt32
@@ -6709,7 +6709,7 @@ MMSSF_GET_INFORMATION_FLAGS = Int32
 MMSSF_HASCLOCK: win32more.Windows.Win32.Media.DirectShow.MMSSF_GET_INFORMATION_FLAGS = 1
 MMSSF_SUPPORTSEEK: win32more.Windows.Win32.Media.DirectShow.MMSSF_GET_INFORMATION_FLAGS = 2
 MMSSF_ASYNCHRONOUS: win32more.Windows.Win32.Media.DirectShow.MMSSF_GET_INFORMATION_FLAGS = 4
-class MPEG1WAVEFORMAT(EasyCastStructure):
+class MPEG1WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     fwHeadLayer: UInt16
     dwHeadBitrate: UInt32
@@ -6757,11 +6757,11 @@ HEVC_TEMPORAL_VIDEO_SUBSET: win32more.Windows.Win32.Media.DirectShow.MPEG2Stream
 ISO_IEC_USER_PRIVATE: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 128
 DOLBY_AC3_AUDIO: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 129
 DOLBY_DIGITAL_PLUS_AUDIO_ATSC: win32more.Windows.Win32.Media.DirectShow.MPEG2StreamType = 135
-class MPEG2_TRANSPORT_STRIDE(EasyCastStructure):
+class MPEG2_TRANSPORT_STRIDE(Structure):
     dwOffset: UInt32
     dwPacketLength: UInt32
     dwStride: UInt32
-class MPEGLAYER3WAVEFORMAT(EasyCastStructure):
+class MPEGLAYER3WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wID: UInt16
     fdwFlags: win32more.Windows.Win32.Media.DirectShow.MPEGLAYER3WAVEFORMAT_FLAGS
@@ -6779,14 +6779,14 @@ MP_CURVE_LINEAR: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE = 2
 MP_CURVE_SQUARE: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE = 4
 MP_CURVE_INVSQUARE: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE = 8
 MP_CURVE_SINE: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE = 16
-class MP_ENVELOPE_SEGMENT(EasyCastStructure):
+class MP_ENVELOPE_SEGMENT(Structure):
     rtStart: Int64
     rtEnd: Int64
     valStart: Single
     valEnd: Single
     iCurve: win32more.Windows.Win32.Media.DirectShow.MP_CURVE_TYPE
     flags: UInt32
-class MP_PARAMINFO(EasyCastStructure):
+class MP_PARAMINFO(Structure):
     mpType: win32more.Windows.Win32.Media.DirectShow.MP_TYPE
     mopCaps: UInt32
     mpdMinValue: Single
@@ -6804,7 +6804,7 @@ MUX_PID_TYPE = Int32
 PID_OTHER: win32more.Windows.Win32.Media.DirectShow.MUX_PID_TYPE = -1
 PID_ELEMENTARY_STREAM: win32more.Windows.Win32.Media.DirectShow.MUX_PID_TYPE = 0
 PID_MPEG2_SECTION_PSI_SI: win32more.Windows.Win32.Media.DirectShow.MUX_PID_TYPE = 1
-class MainAVIHeader(EasyCastStructure):
+class MainAVIHeader(Structure):
     dwMicroSecPerFrame: UInt32
     dwMaxBytesPerSec: UInt32
     dwPaddingGranularity: UInt32
@@ -6855,7 +6855,7 @@ BDA_MOD_DIRECTV: win32more.Windows.Win32.Media.DirectShow.ModulationType = 33
 BDA_MOD_ISDB_T_TMCC: win32more.Windows.Win32.Media.DirectShow.ModulationType = 34
 BDA_MOD_ISDB_S_TMCC: win32more.Windows.Win32.Media.DirectShow.ModulationType = 35
 BDA_MOD_MAX: win32more.Windows.Win32.Media.DirectShow.ModulationType = 36
-class NORMALIZEDRECT(EasyCastStructure):
+class NORMALIZEDRECT(Structure):
     left: Single
     top: Single
     right: Single
@@ -6893,13 +6893,13 @@ def PDXVA2SW_VIDEOPROCESSBLT(hDevice: win32more.Windows.Win32.Foundation.HANDLE,
 def PDXVA2SW_VIDEOPROCESSENDFRAME(hDevice: win32more.Windows.Win32.Foundation.HANDLE, pHandleComplete: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PDXVA2SW_VIDEOPROCESSSETRENDERTARGET(hDevice: win32more.Windows.Win32.Foundation.HANDLE, pRenderTarget: win32more.Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class PID_MAP(EasyCastStructure):
+class PID_MAP(Structure):
     ulPID: UInt32
     MediaSampleContent: win32more.Windows.Win32.Media.DirectShow.MEDIA_SAMPLE_CONTENT
 PIN_DIRECTION = Int32
 PINDIR_INPUT: win32more.Windows.Win32.Media.DirectShow.PIN_DIRECTION = 0
 PINDIR_OUTPUT: win32more.Windows.Win32.Media.DirectShow.PIN_DIRECTION = 1
-class PIN_INFO(EasyCastStructure):
+class PIN_INFO(Structure):
     pFilter: win32more.Windows.Win32.Media.DirectShow.IBaseFilter
     dir: win32more.Windows.Win32.Media.DirectShow.PIN_DIRECTION
     achName: Char * 128
@@ -6943,7 +6943,7 @@ BDA_POLARISATION_LINEAR_V: win32more.Windows.Win32.Media.DirectShow.Polarisation
 BDA_POLARISATION_CIRCULAR_L: win32more.Windows.Win32.Media.DirectShow.Polarisation = 3
 BDA_POLARISATION_CIRCULAR_R: win32more.Windows.Win32.Media.DirectShow.Polarisation = 4
 BDA_POLARISATION_MAX: win32more.Windows.Win32.Media.DirectShow.Polarisation = 5
-class Quality(EasyCastStructure):
+class Quality(Structure):
     Type: win32more.Windows.Win32.Media.DirectShow.QualityMessageType
     Proportion: Int32
     Late: Int64
@@ -6951,23 +6951,23 @@ class Quality(EasyCastStructure):
 QualityMessageType = Int32
 Famine: win32more.Windows.Win32.Media.DirectShow.QualityMessageType = 0
 Flood: win32more.Windows.Win32.Media.DirectShow.QualityMessageType = 1
-class REGFILTER(EasyCastStructure):
+class REGFILTER(Structure):
     Clsid: Guid
     Name: win32more.Windows.Win32.Foundation.PWSTR
-class REGFILTER2(EasyCastStructure):
+class REGFILTER2(Structure):
     dwVersion: UInt32
     dwMerit: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             cPins: UInt32
             rgPins: POINTER(win32more.Windows.Win32.Media.DirectShow.REGFILTERPINS)
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             cPins2: UInt32
             rgPins2: POINTER(win32more.Windows.Win32.Media.DirectShow.REGFILTERPINS2)
-class REGFILTERPINS(EasyCastStructure):
+class REGFILTERPINS(Structure):
     strName: win32more.Windows.Win32.Foundation.PWSTR
     bRendered: win32more.Windows.Win32.Foundation.BOOL
     bOutput: win32more.Windows.Win32.Foundation.BOOL
@@ -6977,7 +6977,7 @@ class REGFILTERPINS(EasyCastStructure):
     strConnectsToPin: win32more.Windows.Win32.Foundation.PWSTR
     nMediaTypes: UInt32
     lpMediaType: POINTER(win32more.Windows.Win32.Media.DirectShow.REGPINTYPES)
-class REGFILTERPINS2(EasyCastStructure):
+class REGFILTERPINS2(Structure):
     dwFlags: UInt32
     cInstances: UInt32
     nMediaTypes: UInt32
@@ -6985,11 +6985,11 @@ class REGFILTERPINS2(EasyCastStructure):
     nMediums: UInt32
     lpMedium: POINTER(win32more.Windows.Win32.Media.DirectShow.REGPINMEDIUM)
     clsPinCategory: POINTER(Guid)
-class REGPINMEDIUM(EasyCastStructure):
+class REGPINMEDIUM(Structure):
     clsMedium: Guid
     dw1: UInt32
     dw2: UInt32
-class REGPINTYPES(EasyCastStructure):
+class REGPINTYPES(Structure):
     clsMajorType: POINTER(Guid)
     clsMinorType: POINTER(Guid)
 REG_PINFLAG = Int32
@@ -6997,11 +6997,11 @@ REG_PINFLAG_B_ZERO: win32more.Windows.Win32.Media.DirectShow.REG_PINFLAG = 1
 REG_PINFLAG_B_RENDERER: win32more.Windows.Win32.Media.DirectShow.REG_PINFLAG = 2
 REG_PINFLAG_B_MANY: win32more.Windows.Win32.Media.DirectShow.REG_PINFLAG = 4
 REG_PINFLAG_B_OUTPUT: win32more.Windows.Win32.Media.DirectShow.REG_PINFLAG = 8
-class RIFFCHUNK(EasyCastStructure):
+class RIFFCHUNK(Structure):
     fcc: UInt32
     cb: UInt32
     _pack_ = 2
-class RIFFLIST(EasyCastStructure):
+class RIFFLIST(Structure):
     fcc: UInt32
     cb: UInt32
     fccListType: UInt32
@@ -7033,7 +7033,7 @@ SSUPDATE_ASYNC: win32more.Windows.Win32.Media.DirectShow.SSUPDATE_TYPE = 1
 SSUPDATE_CONTINUOUS: win32more.Windows.Win32.Media.DirectShow.SSUPDATE_TYPE = 2
 STREAMIF_CONSTANTS = Int32
 MAX_NUMBER_OF_STREAMS: win32more.Windows.Win32.Media.DirectShow.STREAMIF_CONSTANTS = 16
-class STREAM_ID_MAP(EasyCastStructure):
+class STREAM_ID_MAP(Structure):
     stream_id: UInt32
     dwMediaSampleContent: UInt32
     ulSubstreamFilterValue: UInt32
@@ -7081,7 +7081,7 @@ ScanModulationTypesMask_MCE_All_TV: win32more.Windows.Win32.Media.DirectShow.Sca
 ScanModulationTypesMask_DVBC: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 75
 BDA_SCAN_MOD_16APSK: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 268435456
 BDA_SCAN_MOD_32APSK: win32more.Windows.Win32.Media.DirectShow.ScanModulationTypes = 536870912
-class SmartCardApplication(EasyCastStructure):
+class SmartCardApplication(Structure):
     ApplicationType: win32more.Windows.Win32.Media.DirectShow.ApplicationTypeType
     ApplicationVersion: UInt16
     pbstrApplicationName: win32more.Windows.Win32.Foundation.BSTR
@@ -7103,12 +7103,12 @@ BDA_SPECTRAL_INVERSION_AUTOMATIC: win32more.Windows.Win32.Media.DirectShow.Spect
 BDA_SPECTRAL_INVERSION_NORMAL: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = 2
 BDA_SPECTRAL_INVERSION_INVERTED: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = 3
 BDA_SPECTRAL_INVERSION_MAX: win32more.Windows.Win32.Media.DirectShow.SpectralInversion = 4
-class TIMECODEDATA(EasyCastStructure):
+class TIMECODEDATA(Structure):
     time: win32more.Windows.Win32.Media.TIMECODE
     dwSMPTEflags: UInt32
     dwUser: UInt32
     _pack_ = 2
-class TRUECOLORINFO(EasyCastStructure):
+class TRUECOLORINFO(Structure):
     dwBitMasks: UInt32 * 3
     bmiColors: win32more.Windows.Win32.Graphics.Gdi.RGBQUAD * 256
 TVAudioMode = Int32
@@ -7168,14 +7168,14 @@ UOP_FLAG_Select_SubPic_Stream: win32more.Windows.Win32.Media.DirectShow.VALID_UO
 UOP_FLAG_Select_Angle: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 4194304
 UOP_FLAG_Select_Karaoke_Audio_Presentation_Mode: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 8388608
 UOP_FLAG_Select_Video_Mode_Preference: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 16777216
-class VFW_FILTERLIST(EasyCastStructure):
+class VFW_FILTERLIST(Structure):
     cFilters: UInt32
     aClsId: Guid * 1
 VIDEOENCODER_BITRATE_MODE = Int32
 ConstantBitRate: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 0
 VariableBitRateAverage: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 1
 VariableBitRatePeak: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 2
-class VIDEOINFO(EasyCastStructure):
+class VIDEOINFO(Structure):
     rcSource: win32more.Windows.Win32.Foundation.RECT
     rcTarget: win32more.Windows.Win32.Foundation.RECT
     dwBitRate: UInt32
@@ -7183,11 +7183,11 @@ class VIDEOINFO(EasyCastStructure):
     AvgTimePerFrame: Int64
     bmiHeader: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         bmiColors: win32more.Windows.Win32.Graphics.Gdi.RGBQUAD * 256
         dwBitMasks: UInt32 * 3
         TrueColorInfo: win32more.Windows.Win32.Media.DirectShow.TRUECOLORINFO
-class VIDEO_STREAM_CONFIG_CAPS(EasyCastStructure):
+class VIDEO_STREAM_CONFIG_CAPS(Structure):
     guid: Guid
     VideoStandard: UInt32
     InputSize: win32more.Windows.Win32.Foundation.SIZE
@@ -7209,7 +7209,7 @@ class VIDEO_STREAM_CONFIG_CAPS(EasyCastStructure):
     MaxFrameInterval: Int64
     MinBitsPerSecond: Int32
     MaxBitsPerSecond: Int32
-class VMR9AllocationInfo(EasyCastStructure):
+class VMR9AllocationInfo(Structure):
     dwFlags: UInt32
     dwWidth: UInt32
     dwHeight: UInt32
@@ -7218,7 +7218,7 @@ class VMR9AllocationInfo(EasyCastStructure):
     MinBuffers: UInt32
     szAspectRatio: win32more.Windows.Win32.Foundation.SIZE
     szNativeSize: win32more.Windows.Win32.Foundation.SIZE
-class VMR9AlphaBitmap(EasyCastStructure):
+class VMR9AlphaBitmap(Structure):
     dwFlags: UInt32
     hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
     pDDS: win32more.Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9
@@ -7237,7 +7237,7 @@ VMR9AlphaBitmap_FilterMode: win32more.Windows.Win32.Media.DirectShow.VMR9AlphaBi
 VMR9AspectRatioMode = Int32
 VMR9ARMode_None: win32more.Windows.Win32.Media.DirectShow.VMR9AspectRatioMode = 0
 VMR9ARMode_LetterBox: win32more.Windows.Win32.Media.DirectShow.VMR9AspectRatioMode = 1
-class VMR9DeinterlaceCaps(EasyCastStructure):
+class VMR9DeinterlaceCaps(Structure):
     dwSize: UInt32
     dwNumPreviousOutputFrames: UInt32
     dwNumForwardRefSamples: UInt32
@@ -7257,7 +7257,7 @@ DeinterlaceTech9_EdgeFiltering: win32more.Windows.Win32.Media.DirectShow.VMR9Dei
 DeinterlaceTech9_FieldAdaptive: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 32
 DeinterlaceTech9_PixelAdaptive: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 64
 DeinterlaceTech9_MotionVectorSteered: win32more.Windows.Win32.Media.DirectShow.VMR9DeinterlaceTech = 128
-class VMR9Frequency(EasyCastStructure):
+class VMR9Frequency(Structure):
     dwNumerator: UInt32
     dwDenominator: UInt32
 VMR9MixerPrefs = Int32
@@ -7286,7 +7286,7 @@ VMR9Mode_Windowed: win32more.Windows.Win32.Media.DirectShow.VMR9Mode = 1
 VMR9Mode_Windowless: win32more.Windows.Win32.Media.DirectShow.VMR9Mode = 2
 VMR9Mode_Renderless: win32more.Windows.Win32.Media.DirectShow.VMR9Mode = 4
 VMR9Mode_Mask: win32more.Windows.Win32.Media.DirectShow.VMR9Mode = 7
-class VMR9MonitorInfo(EasyCastStructure):
+class VMR9MonitorInfo(Structure):
     uDevID: UInt32
     rcMonitor: win32more.Windows.Win32.Foundation.RECT
     hMon: win32more.Windows.Win32.Graphics.Gdi.HMONITOR
@@ -7298,7 +7298,7 @@ class VMR9MonitorInfo(EasyCastStructure):
     dwDeviceId: UInt32
     dwSubSysId: UInt32
     dwRevision: UInt32
-class VMR9NormalizedRect(EasyCastStructure):
+class VMR9NormalizedRect(Structure):
     left: Single
     top: Single
     right: Single
@@ -7309,7 +7309,7 @@ VMR9Sample_Preroll: win32more.Windows.Win32.Media.DirectShow.VMR9PresentationFla
 VMR9Sample_Discontinuity: win32more.Windows.Win32.Media.DirectShow.VMR9PresentationFlags = 4
 VMR9Sample_TimeValid: win32more.Windows.Win32.Media.DirectShow.VMR9PresentationFlags = 8
 VMR9Sample_SrcDstRectsValid: win32more.Windows.Win32.Media.DirectShow.VMR9PresentationFlags = 16
-class VMR9PresentationInfo(EasyCastStructure):
+class VMR9PresentationInfo(Structure):
     dwFlags: UInt32
     lpSurf: win32more.Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9
     rtStart: Int64
@@ -7319,7 +7319,7 @@ class VMR9PresentationInfo(EasyCastStructure):
     rcDst: win32more.Windows.Win32.Foundation.RECT
     dwReserved1: UInt32
     dwReserved2: UInt32
-class VMR9ProcAmpControl(EasyCastStructure):
+class VMR9ProcAmpControl(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     Brightness: Single
@@ -7332,7 +7332,7 @@ ProcAmpControl9_Contrast: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpCo
 ProcAmpControl9_Hue: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags = 4
 ProcAmpControl9_Saturation: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags = 8
 ProcAmpControl9_Mask: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags = 15
-class VMR9ProcAmpControlRange(EasyCastStructure):
+class VMR9ProcAmpControlRange(Structure):
     dwSize: UInt32
     dwProperty: win32more.Windows.Win32.Media.DirectShow.VMR9ProcAmpControlFlags
     MinValue: Single
@@ -7350,7 +7350,7 @@ VMR9AllocFlag_OffscreenSurface: win32more.Windows.Win32.Media.DirectShow.VMR9Sur
 VMR9AllocFlag_RGBDynamicSwitch: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 16
 VMR9AllocFlag_UsageReserved: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 224
 VMR9AllocFlag_UsageMask: win32more.Windows.Win32.Media.DirectShow.VMR9SurfaceAllocationFlags = 255
-class VMR9VideoDesc(EasyCastStructure):
+class VMR9VideoDesc(Structure):
     dwSize: UInt32
     dwSampleWidth: UInt32
     dwSampleHeight: UInt32
@@ -7358,7 +7358,7 @@ class VMR9VideoDesc(EasyCastStructure):
     dwFourCC: UInt32
     InputSampleFreq: win32more.Windows.Win32.Media.DirectShow.VMR9Frequency
     OutputFrameFreq: win32more.Windows.Win32.Media.DirectShow.VMR9Frequency
-class VMR9VideoStreamInfo(EasyCastStructure):
+class VMR9VideoStreamInfo(Structure):
     pddsVideoSurface: win32more.Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9
     dwWidth: UInt32
     dwHeight: UInt32
@@ -7375,7 +7375,7 @@ VMR9_SampleFieldInterleavedEvenFirst: win32more.Windows.Win32.Media.DirectShow.V
 VMR9_SampleFieldInterleavedOddFirst: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat = 4
 VMR9_SampleFieldSingleEven: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat = 5
 VMR9_SampleFieldSingleOdd: win32more.Windows.Win32.Media.DirectShow.VMR9_SampleFormat = 6
-class VMRALLOCATIONINFO(EasyCastStructure):
+class VMRALLOCATIONINFO(Structure):
     dwFlags: UInt32
     lpHdr: POINTER(win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER)
     lpPixFmt: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT)
@@ -7384,7 +7384,7 @@ class VMRALLOCATIONINFO(EasyCastStructure):
     dwMaxBuffers: UInt32
     dwInterlaceFlags: UInt32
     szNativeSize: win32more.Windows.Win32.Foundation.SIZE
-class VMRALPHABITMAP(EasyCastStructure):
+class VMRALPHABITMAP(Structure):
     dwFlags: UInt32
     hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
     pDDS: win32more.Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7
@@ -7392,7 +7392,7 @@ class VMRALPHABITMAP(EasyCastStructure):
     rDest: win32more.Windows.Win32.Media.DirectShow.NORMALIZEDRECT
     fAlpha: Single
     clrSrcKey: win32more.Windows.Win32.Foundation.COLORREF
-class VMRDeinterlaceCaps(EasyCastStructure):
+class VMRDeinterlaceCaps(Structure):
     dwSize: UInt32
     dwNumPreviousOutputFrames: UInt32
     dwNumForwardRefSamples: UInt32
@@ -7412,13 +7412,13 @@ DeinterlaceTech_EdgeFiltering: win32more.Windows.Win32.Media.DirectShow.VMRDeint
 DeinterlaceTech_FieldAdaptive: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 32
 DeinterlaceTech_PixelAdaptive: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 64
 DeinterlaceTech_MotionVectorSteered: win32more.Windows.Win32.Media.DirectShow.VMRDeinterlaceTech = 128
-class VMRFrequency(EasyCastStructure):
+class VMRFrequency(Structure):
     dwNumerator: UInt32
     dwDenominator: UInt32
-class VMRGUID(EasyCastStructure):
+class VMRGUID(Structure):
     pGUID: POINTER(Guid)
     GUID: Guid
-class VMRMONITORINFO(EasyCastStructure):
+class VMRMONITORINFO(Structure):
     guid: win32more.Windows.Win32.Media.DirectShow.VMRGUID
     rcMonitor: win32more.Windows.Win32.Foundation.RECT
     hMon: win32more.Windows.Win32.Graphics.Gdi.HMONITOR
@@ -7455,7 +7455,7 @@ VMRMode_Windowed: win32more.Windows.Win32.Media.DirectShow.VMRMode = 1
 VMRMode_Windowless: win32more.Windows.Win32.Media.DirectShow.VMRMode = 2
 VMRMode_Renderless: win32more.Windows.Win32.Media.DirectShow.VMRMode = 4
 VMRMode_Mask: win32more.Windows.Win32.Media.DirectShow.VMRMode = 7
-class VMRPRESENTATIONINFO(EasyCastStructure):
+class VMRPRESENTATIONINFO(Structure):
     dwFlags: UInt32
     lpSurf: win32more.Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7
     rtStart: Int64
@@ -7488,7 +7488,7 @@ AMAP_ALLOW_SYSMEM: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocation
 AMAP_FORCE_SYSMEM: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocationFlags = 8
 AMAP_DIRECTED_FLIP: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocationFlags = 16
 AMAP_DXVA_TARGET: win32more.Windows.Win32.Media.DirectShow.VMRSurfaceAllocationFlags = 32
-class VMRVIDEOSTREAMINFO(EasyCastStructure):
+class VMRVIDEOSTREAMINFO(Structure):
     pddsVideoSurface: win32more.Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7
     dwWidth: UInt32
     dwHeight: UInt32
@@ -7496,7 +7496,7 @@ class VMRVIDEOSTREAMINFO(EasyCastStructure):
     fAlpha: Single
     ddClrKey: win32more.Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     rNormal: win32more.Windows.Win32.Media.DirectShow.NORMALIZEDRECT
-class VMRVideoDesc(EasyCastStructure):
+class VMRVideoDesc(Structure):
     dwSize: UInt32
     dwSampleWidth: UInt32
     dwSampleHeight: UInt32

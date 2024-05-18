@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer
 import win32more.Windows.Win32.System.Com
@@ -579,15 +579,15 @@ RADIUS_ACTION = Int32
 raContinue: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_ACTION = 0
 raReject: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_ACTION = 1
 raAccept: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_ACTION = 2
-class RADIUS_ATTRIBUTE(EasyCastStructure):
+class RADIUS_ATTRIBUTE(Structure):
     dwAttrType: UInt32
     fDataType: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_DATA_TYPE
     cbDataLength: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwValue: UInt32
         lpValue: POINTER(Byte)
-class RADIUS_ATTRIBUTE_ARRAY(EasyCastStructure):
+class RADIUS_ATTRIBUTE_ARRAY(Structure):
     cbSize: UInt32
     Add: IntPtr
     AttributeAt: IntPtr
@@ -699,7 +699,7 @@ rdtAddress: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS
 rdtInteger: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_DATA_TYPE = 3
 rdtTime: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_DATA_TYPE = 4
 rdtIpv6Address: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_DATA_TYPE = 5
-class RADIUS_EXTENSION_CONTROL_BLOCK(EasyCastStructure):
+class RADIUS_EXTENSION_CONTROL_BLOCK(Structure):
     cbSize: UInt32
     dwVersion: UInt32
     repPoint: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_EXTENSION_POINT
@@ -717,7 +717,7 @@ rrrcAccountUnknown: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServe
 rrrcAccountDisabled: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_REJECT_REASON_CODE = 2
 rrrcAccountExpired: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_REJECT_REASON_CODE = 3
 rrrcAuthenticationFailure: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_REJECT_REASON_CODE = 4
-class RADIUS_VSA_FORMAT(EasyCastStructure):
+class RADIUS_VSA_FORMAT(Structure):
     VendorId: Byte * 4
     VendorType: Byte
     VendorLength: Byte

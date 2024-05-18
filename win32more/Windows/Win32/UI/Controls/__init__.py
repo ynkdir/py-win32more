@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -2697,7 +2697,7 @@ LBPSV_NORMAL: win32more.Windows.Win32.UI.Controls.BORDER_VSCROLLSTATES = 1
 LBPSV_FOCUSED: win32more.Windows.Win32.UI.Controls.BORDER_VSCROLLSTATES = 2
 LBPSV_HOT: win32more.Windows.Win32.UI.Controls.BORDER_VSCROLLSTATES = 3
 LBPSV_DISABLED: win32more.Windows.Win32.UI.Controls.BORDER_VSCROLLSTATES = 4
-class BP_ANIMATIONPARAMS(EasyCastStructure):
+class BP_ANIMATIONPARAMS(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     style: win32more.Windows.Win32.UI.Controls.BP_ANIMATIONSTYLE
@@ -2712,7 +2712,7 @@ BPBF_COMPATIBLEBITMAP: win32more.Windows.Win32.UI.Controls.BP_BUFFERFORMAT = 0
 BPBF_DIB: win32more.Windows.Win32.UI.Controls.BP_BUFFERFORMAT = 1
 BPBF_TOPDOWNDIB: win32more.Windows.Win32.UI.Controls.BP_BUFFERFORMAT = 2
 BPBF_TOPDOWNMONODIB: win32more.Windows.Win32.UI.Controls.BP_BUFFERFORMAT = 3
-class BP_PAINTPARAMS(EasyCastStructure):
+class BP_PAINTPARAMS(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Controls.BP_PAINTPARAMS_FLAGS
     prcExclude: POINTER(win32more.Windows.Win32.Foundation.RECT)
@@ -2733,7 +2733,7 @@ BP_RADIOBUTTON_HCDISABLED: win32more.Windows.Win32.UI.Controls.BUTTONPARTS = 8
 BP_CHECKBOX_HCDISABLED: win32more.Windows.Win32.UI.Controls.BUTTONPARTS = 9
 BP_GROUPBOX_HCDISABLED: win32more.Windows.Win32.UI.Controls.BUTTONPARTS = 10
 BP_PUSHBUTTONDROPDOWN: win32more.Windows.Win32.UI.Controls.BUTTONPARTS = 11
-class BUTTON_IMAGELIST(EasyCastStructure):
+class BUTTON_IMAGELIST(Structure):
     himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST
     margin: win32more.Windows.Win32.Foundation.RECT
     uAlign: win32more.Windows.Win32.UI.Controls.BUTTON_IMAGELIST_ALIGN
@@ -2743,7 +2743,7 @@ BUTTON_IMAGELIST_ALIGN_RIGHT: win32more.Windows.Win32.UI.Controls.BUTTON_IMAGELI
 BUTTON_IMAGELIST_ALIGN_TOP: win32more.Windows.Win32.UI.Controls.BUTTON_IMAGELIST_ALIGN = 2
 BUTTON_IMAGELIST_ALIGN_BOTTOM: win32more.Windows.Win32.UI.Controls.BUTTON_IMAGELIST_ALIGN = 3
 BUTTON_IMAGELIST_ALIGN_CENTER: win32more.Windows.Win32.UI.Controls.BUTTON_IMAGELIST_ALIGN = 4
-class BUTTON_SPLITINFO(EasyCastStructure):
+class BUTTON_SPLITINFO(Structure):
     mask: UInt32
     himlGlyph: win32more.Windows.Win32.UI.Controls.HIMAGELIST
     uSplitStyle: UInt32
@@ -2752,7 +2752,7 @@ CAPTIONSTATES = Int32
 CS_ACTIVE: win32more.Windows.Win32.UI.Controls.CAPTIONSTATES = 1
 CS_INACTIVE: win32more.Windows.Win32.UI.Controls.CAPTIONSTATES = 2
 CS_DISABLED: win32more.Windows.Win32.UI.Controls.CAPTIONSTATES = 3
-class CCINFOA(EasyCastStructure):
+class CCINFOA(Structure):
     szClass: win32more.Windows.Win32.Foundation.CHAR * 32
     flOptions: UInt32
     szDesc: win32more.Windows.Win32.Foundation.CHAR * 32
@@ -2768,7 +2768,7 @@ class CCINFOA(EasyCastStructure):
     lpfnSizeToText: win32more.Windows.Win32.UI.Controls.LPFNCCSIZETOTEXTA
     dwReserved1: UInt32
     dwReserved2: UInt32
-class CCINFOW(EasyCastStructure):
+class CCINFOW(Structure):
     szClass: Char * 32
     flOptions: UInt32
     szDesc: Char * 32
@@ -2785,22 +2785,22 @@ class CCINFOW(EasyCastStructure):
     dwReserved1: UInt32
     dwReserved2: UInt32
 CCINFO = UnicodeAlias('CCINFOW')
-class CCSTYLEA(EasyCastStructure):
+class CCSTYLEA(Structure):
     flStyle: UInt32
     flExtStyle: UInt32
     szText: win32more.Windows.Win32.Foundation.CHAR * 256
     lgid: UInt16
     wReserved1: UInt16
-class CCSTYLEFLAGA(EasyCastStructure):
+class CCSTYLEFLAGA(Structure):
     flStyle: UInt32
     flStyleMask: UInt32
     pszStyle: win32more.Windows.Win32.Foundation.PSTR
-class CCSTYLEFLAGW(EasyCastStructure):
+class CCSTYLEFLAGW(Structure):
     flStyle: UInt32
     flStyleMask: UInt32
     pszStyle: win32more.Windows.Win32.Foundation.PWSTR
 CCSTYLEFLAG = UnicodeAlias('CCSTYLEFLAGW')
-class CCSTYLEW(EasyCastStructure):
+class CCSTYLEW(Structure):
     flStyle: UInt32
     flExtStyle: UInt32
     szText: Char * 256
@@ -2855,14 +2855,14 @@ COLLAPSEBUTTONSTATES = Int32
 LVCB_NORMAL: win32more.Windows.Win32.UI.Controls.COLLAPSEBUTTONSTATES = 1
 LVCB_HOVER: win32more.Windows.Win32.UI.Controls.COLLAPSEBUTTONSTATES = 2
 LVCB_PUSHED: win32more.Windows.Win32.UI.Controls.COLLAPSEBUTTONSTATES = 3
-class COLORMAP(EasyCastStructure):
+class COLORMAP(Structure):
     from_: win32more.Windows.Win32.Foundation.COLORREF
     to: win32more.Windows.Win32.Foundation.COLORREF
-class COLORSCHEME(EasyCastStructure):
+class COLORSCHEME(Structure):
     dwSize: UInt32
     clrBtnHighlight: win32more.Windows.Win32.Foundation.COLORREF
     clrBtnShadow: win32more.Windows.Win32.Foundation.COLORREF
-class COMBOBOXEXITEMA(EasyCastStructure):
+class COMBOBOXEXITEMA(Structure):
     mask: win32more.Windows.Win32.UI.Controls.COMBOBOX_EX_ITEM_FLAGS
     iItem: IntPtr
     pszText: win32more.Windows.Win32.Foundation.PSTR
@@ -2872,7 +2872,7 @@ class COMBOBOXEXITEMA(EasyCastStructure):
     iOverlay: Int32
     iIndent: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class COMBOBOXEXITEMW(EasyCastStructure):
+class COMBOBOXEXITEMW(Structure):
     mask: win32more.Windows.Win32.UI.Controls.COMBOBOX_EX_ITEM_FLAGS
     iItem: IntPtr
     pszText: win32more.Windows.Win32.Foundation.PWSTR
@@ -2883,7 +2883,7 @@ class COMBOBOXEXITEMW(EasyCastStructure):
     iIndent: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
 COMBOBOXEXITEM = UnicodeAlias('COMBOBOXEXITEMW')
-class COMBOBOXINFO(EasyCastStructure):
+class COMBOBOXINFO(Structure):
     cbSize: UInt32
     rcItem: win32more.Windows.Win32.Foundation.RECT
     rcButton: win32more.Windows.Win32.Foundation.RECT
@@ -2935,7 +2935,7 @@ CMDLS_DEFAULTED: win32more.Windows.Win32.UI.Controls.COMMANDLINKSTATES = 5
 CMDLS_DEFAULTED_ANIMATING: win32more.Windows.Win32.UI.Controls.COMMANDLINKSTATES = 6
 COMMUNICATIONSPARTS = Int32
 CSST_TAB: win32more.Windows.Win32.UI.Controls.COMMUNICATIONSPARTS = 1
-class COMPAREITEMSTRUCT(EasyCastStructure):
+class COMPAREITEMSTRUCT(Structure):
     CtlType: win32more.Windows.Win32.UI.Controls.DRAWITEMSTRUCT_CTL_TYPE
     CtlID: UInt32
     hwndItem: win32more.Windows.Win32.Foundation.HWND
@@ -3004,7 +3004,7 @@ DATETEXTSTATES = Int32
 DPDT_NORMAL: win32more.Windows.Win32.UI.Controls.DATETEXTSTATES = 1
 DPDT_DISABLED: win32more.Windows.Win32.UI.Controls.DATETEXTSTATES = 2
 DPDT_SELECTED: win32more.Windows.Win32.UI.Controls.DATETEXTSTATES = 3
-class DATETIMEPICKERINFO(EasyCastStructure):
+class DATETIMEPICKERINFO(Structure):
     cbSize: UInt32
     rcCheck: win32more.Windows.Win32.Foundation.RECT
     stateCheck: UInt32
@@ -3013,7 +3013,7 @@ class DATETIMEPICKERINFO(EasyCastStructure):
     hwndEdit: win32more.Windows.Win32.Foundation.HWND
     hwndUD: win32more.Windows.Win32.Foundation.HWND
     hwndDropDown: win32more.Windows.Win32.Foundation.HWND
-class DELETEITEMSTRUCT(EasyCastStructure):
+class DELETEITEMSTRUCT(Structure):
     CtlType: win32more.Windows.Win32.UI.Controls.DRAWITEMSTRUCT_CTL_TYPE
     CtlID: UInt32
     itemID: UInt32
@@ -3047,7 +3047,7 @@ DPAMM_MESSAGE = UInt32
 DPAMM_MERGE: win32more.Windows.Win32.UI.Controls.DPAMM_MESSAGE = 1
 DPAMM_DELETE: win32more.Windows.Win32.UI.Controls.DPAMM_MESSAGE = 2
 DPAMM_INSERT: win32more.Windows.Win32.UI.Controls.DPAMM_MESSAGE = 3
-class DPASTREAMINFO(EasyCastStructure):
+class DPASTREAMINFO(Structure):
     iPos: Int32
     pvItem: VoidPtr
 DRAGDROPPARTS = Int32
@@ -3059,7 +3059,7 @@ DD_WARNING: win32more.Windows.Win32.UI.Controls.DRAGDROPPARTS = 5
 DD_NONE: win32more.Windows.Win32.UI.Controls.DRAGDROPPARTS = 6
 DD_IMAGEBG: win32more.Windows.Win32.UI.Controls.DRAGDROPPARTS = 7
 DD_TEXTBG: win32more.Windows.Win32.UI.Controls.DRAGDROPPARTS = 8
-class DRAGLISTINFO(EasyCastStructure):
+class DRAGLISTINFO(Structure):
     uNotification: win32more.Windows.Win32.UI.Controls.DRAGLISTINFO_NOTIFICATION_FLAGS
     hWnd: win32more.Windows.Win32.Foundation.HWND
     ptCursor: win32more.Windows.Win32.Foundation.POINT
@@ -3068,7 +3068,7 @@ DL_BEGINDRAG: win32more.Windows.Win32.UI.Controls.DRAGLISTINFO_NOTIFICATION_FLAG
 DL_CANCELDRAG: win32more.Windows.Win32.UI.Controls.DRAGLISTINFO_NOTIFICATION_FLAGS = 1160
 DL_DRAGGING: win32more.Windows.Win32.UI.Controls.DRAGLISTINFO_NOTIFICATION_FLAGS = 1158
 DL_DROPPED: win32more.Windows.Win32.UI.Controls.DRAGLISTINFO_NOTIFICATION_FLAGS = 1159
-class DRAWITEMSTRUCT(EasyCastStructure):
+class DRAWITEMSTRUCT(Structure):
     CtlType: win32more.Windows.Win32.UI.Controls.DRAWITEMSTRUCT_CTL_TYPE
     CtlID: UInt32
     itemID: UInt32
@@ -3103,11 +3103,11 @@ CBXSR_DISABLED: win32more.Windows.Win32.UI.Controls.DROPDOWNBUTTONRIGHTSTATES = 
 DROPDOWNITEMSTATES = Int32
 CBDI_NORMAL: win32more.Windows.Win32.UI.Controls.DROPDOWNITEMSTATES = 1
 CBDI_HIGHLIGHTED: win32more.Windows.Win32.UI.Controls.DROPDOWNITEMSTATES = 2
-class DTBGOPTS(EasyCastStructure):
+class DTBGOPTS(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     rcClip: win32more.Windows.Win32.Foundation.RECT
-class DTTOPTS(EasyCastStructure):
+class DTTOPTS(Structure):
     dwSize: UInt32
     dwFlags: win32more.Windows.Win32.UI.Controls.DTTOPTS_FLAGS
     crText: win32more.Windows.Win32.Foundation.COLORREF
@@ -3149,7 +3149,7 @@ EC_ENDOFLINE_LF: win32more.Windows.Win32.UI.Controls.EC_ENDOFLINE = 3
 EC_SEARCHWEB_ENTRYPOINT = Int32
 EC_SEARCHWEB_ENTRYPOINT_EXTERNAL: win32more.Windows.Win32.UI.Controls.EC_SEARCHWEB_ENTRYPOINT = 0
 EC_SEARCHWEB_ENTRYPOINT_CONTEXTMENU: win32more.Windows.Win32.UI.Controls.EC_SEARCHWEB_ENTRYPOINT = 1
-class EDITBALLOONTIP(EasyCastStructure):
+class EDITBALLOONTIP(Structure):
     cbStruct: UInt32
     pszTitle: win32more.Windows.Win32.Foundation.PWSTR
     pszText: win32more.Windows.Win32.Foundation.PWSTR
@@ -3373,11 +3373,11 @@ HALIGN = Int32
 HA_LEFT: win32more.Windows.Win32.UI.Controls.HALIGN = 0
 HA_CENTER: win32more.Windows.Win32.UI.Controls.HALIGN = 1
 HA_RIGHT: win32more.Windows.Win32.UI.Controls.HALIGN = 2
-class HDHITTESTINFO(EasyCastStructure):
+class HDHITTESTINFO(Structure):
     pt: win32more.Windows.Win32.Foundation.POINT
     flags: win32more.Windows.Win32.UI.Controls.HEADER_HITTEST_INFO_FLAGS
     iItem: Int32
-class HDITEMA(EasyCastStructure):
+class HDITEMA(Structure):
     mask: win32more.Windows.Win32.UI.Controls.HDI_MASK
     cxy: Int32
     pszText: win32more.Windows.Win32.Foundation.PSTR
@@ -3390,7 +3390,7 @@ class HDITEMA(EasyCastStructure):
     type: win32more.Windows.Win32.UI.Controls.HEADER_CONTROL_FORMAT_TYPE
     pvFilter: VoidPtr
     state: win32more.Windows.Win32.UI.Controls.HEADER_CONTROL_FORMAT_STATE
-class HDITEMW(EasyCastStructure):
+class HDITEMW(Structure):
     mask: win32more.Windows.Win32.UI.Controls.HDI_MASK
     cxy: Int32
     pszText: win32more.Windows.Win32.Foundation.PWSTR
@@ -3416,15 +3416,15 @@ HDI_DI_SETITEM: win32more.Windows.Win32.UI.Controls.HDI_MASK = 64
 HDI_ORDER: win32more.Windows.Win32.UI.Controls.HDI_MASK = 128
 HDI_FILTER: win32more.Windows.Win32.UI.Controls.HDI_MASK = 256
 HDI_STATE: win32more.Windows.Win32.UI.Controls.HDI_MASK = 512
-class HDLAYOUT(EasyCastStructure):
+class HDLAYOUT(Structure):
     prc: POINTER(win32more.Windows.Win32.Foundation.RECT)
     pwpos: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.WINDOWPOS)
 HDPA = IntPtr
 HDSA = IntPtr
-class HD_TEXTFILTERA(EasyCastStructure):
+class HD_TEXTFILTERA(Structure):
     pszText: win32more.Windows.Win32.Foundation.PSTR
     cchTextMax: Int32
-class HD_TEXTFILTERW(EasyCastStructure):
+class HD_TEXTFILTERW(Structure):
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     cchTextMax: Int32
 HD_TEXTFILTER = UnicodeAlias('HD_TEXTFILTERW')
@@ -3678,7 +3678,7 @@ class IImageList2(ComPtr):
     def Replace2(self, i: Int32, hbmImage: win32more.Windows.Win32.Graphics.Gdi.HBITMAP, hbmMask: win32more.Windows.Win32.Graphics.Gdi.HBITMAP, punk: win32more.Windows.Win32.System.Com.IUnknown, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(43)
     def ReplaceFromImageList(self, i: Int32, pil: win32more.Windows.Win32.UI.Controls.IImageList, iSrc: Int32, punk: win32more.Windows.Win32.System.Com.IUnknown, dwFlags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class IMAGEINFO(EasyCastStructure):
+class IMAGEINFO(Structure):
     hbmImage: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
     hbmMask: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
     Unused1: Int32
@@ -3687,7 +3687,7 @@ class IMAGEINFO(EasyCastStructure):
 IMAGELAYOUT = Int32
 IL_VERTICAL: win32more.Windows.Win32.UI.Controls.IMAGELAYOUT = 0
 IL_HORIZONTAL: win32more.Windows.Win32.UI.Controls.IMAGELAYOUT = 1
-class IMAGELISTDRAWPARAMS(EasyCastStructure):
+class IMAGELISTDRAWPARAMS(Structure):
     cbSize: UInt32
     himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST
     i: Int32
@@ -3705,7 +3705,7 @@ class IMAGELISTDRAWPARAMS(EasyCastStructure):
     fState: UInt32
     Frame: UInt32
     crEffect: win32more.Windows.Win32.Foundation.COLORREF
-class IMAGELISTSTATS(EasyCastStructure):
+class IMAGELISTSTATS(Structure):
     cbSize: UInt32
     cAlloc: Int32
     cUsed: Int32
@@ -3753,7 +3753,7 @@ ILIF_LOWQUALITY: win32more.Windows.Win32.UI.Controls.IMAGE_LIST_ITEM_FLAGS = 2
 IMAGE_LIST_WRITE_STREAM_FLAGS = UInt32
 ILP_NORMAL: win32more.Windows.Win32.UI.Controls.IMAGE_LIST_WRITE_STREAM_FLAGS = 0
 ILP_DOWNLEVEL: win32more.Windows.Win32.UI.Controls.IMAGE_LIST_WRITE_STREAM_FLAGS = 1
-class INITCOMMONCONTROLSEX(EasyCastStructure):
+class INITCOMMONCONTROLSEX(Structure):
     dwSize: UInt32
     dwICC: win32more.Windows.Win32.UI.Controls.INITCOMMONCONTROLSEX_ICC
 INITCOMMONCONTROLSEX_ICC = UInt32
@@ -3774,7 +3774,7 @@ ICC_TREEVIEW_CLASSES: win32more.Windows.Win32.UI.Controls.INITCOMMONCONTROLSEX_I
 ICC_UPDOWN_CLASS: win32more.Windows.Win32.UI.Controls.INITCOMMONCONTROLSEX_ICC = 16
 ICC_USEREX_CLASSES: win32more.Windows.Win32.UI.Controls.INITCOMMONCONTROLSEX_ICC = 512
 ICC_WIN95_CLASSES: win32more.Windows.Win32.UI.Controls.INITCOMMONCONTROLSEX_ICC = 255
-class INTLIST(EasyCastStructure):
+class INTLIST(Structure):
     iValueCount: Int32
     iValues: Int32 * 402
 ITEMSTATES = Int32
@@ -3788,7 +3788,7 @@ FLS_NORMAL: win32more.Windows.Win32.UI.Controls.LABELSTATES = 1
 FLS_SELECTED: win32more.Windows.Win32.UI.Controls.LABELSTATES = 2
 FLS_EMPHASIZED: win32more.Windows.Win32.UI.Controls.LABELSTATES = 3
 FLS_DISABLED: win32more.Windows.Win32.UI.Controls.LABELSTATES = 4
-class LHITTESTINFO(EasyCastStructure):
+class LHITTESTINFO(Structure):
     pt: win32more.Windows.Win32.Foundation.POINT
     item: win32more.Windows.Win32.UI.Controls.LITEM
 LINKHEADERSTATES = Int32
@@ -3888,7 +3888,7 @@ LVIS_GLOW: win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_STATE_FLAGS = 16
 LVIS_ACTIVATING: win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_STATE_FLAGS = 32
 LVIS_OVERLAYMASK: win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_STATE_FLAGS = 3840
 LVIS_STATEIMAGEMASK: win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_STATE_FLAGS = 61440
-class LITEM(EasyCastStructure):
+class LITEM(Structure):
     mask: win32more.Windows.Win32.UI.Controls.LIST_ITEM_FLAGS
     iLink: Int32
     state: win32more.Windows.Win32.UI.Controls.LIST_ITEM_STATE_FLAGS
@@ -3923,14 +3923,14 @@ def LPFNPSPCALLBACKW(hwnd: win32more.Windows.Win32.Foundation.HWND, uMsg: win32m
 LPFNPSPCALLBACK = UnicodeAlias('LPFNPSPCALLBACKW')
 @winfunctype_pointer
 def LPFNSVADDPROPSHEETPAGE(param0: win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class LVBKIMAGEA(EasyCastStructure):
+class LVBKIMAGEA(Structure):
     ulFlags: win32more.Windows.Win32.UI.Controls.LIST_VIEW_BACKGROUND_IMAGE_FLAGS
     hbm: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
     pszImage: win32more.Windows.Win32.Foundation.PSTR
     cchImageMax: UInt32
     xOffsetPercent: Int32
     yOffsetPercent: Int32
-class LVBKIMAGEW(EasyCastStructure):
+class LVBKIMAGEW(Structure):
     ulFlags: win32more.Windows.Win32.UI.Controls.LIST_VIEW_BACKGROUND_IMAGE_FLAGS
     hbm: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
     pszImage: win32more.Windows.Win32.Foundation.PWSTR
@@ -3938,7 +3938,7 @@ class LVBKIMAGEW(EasyCastStructure):
     xOffsetPercent: Int32
     yOffsetPercent: Int32
 LVBKIMAGE = UnicodeAlias('LVBKIMAGEW')
-class LVCOLUMNA(EasyCastStructure):
+class LVCOLUMNA(Structure):
     mask: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_MASK
     fmt: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_FORMAT
     cx: Int32
@@ -3950,7 +3950,7 @@ class LVCOLUMNA(EasyCastStructure):
     cxMin: Int32
     cxDefault: Int32
     cxIdeal: Int32
-class LVCOLUMNW(EasyCastStructure):
+class LVCOLUMNW(Structure):
     mask: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_MASK
     fmt: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_FORMAT
     cx: Int32
@@ -3985,13 +3985,13 @@ LVCF_ORDER: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_MASK = 32
 LVCF_MINWIDTH: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_MASK = 64
 LVCF_DEFAULTWIDTH: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_MASK = 128
 LVCF_IDEALWIDTH: win32more.Windows.Win32.UI.Controls.LVCOLUMNW_MASK = 256
-class LVFINDINFOA(EasyCastStructure):
+class LVFINDINFOA(Structure):
     flags: win32more.Windows.Win32.UI.Controls.LVFINDINFOW_FLAGS
     psz: win32more.Windows.Win32.Foundation.PSTR
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     pt: win32more.Windows.Win32.Foundation.POINT
     vkDirection: UInt32
-class LVFINDINFOW(EasyCastStructure):
+class LVFINDINFOW(Structure):
     flags: win32more.Windows.Win32.UI.Controls.LVFINDINFOW_FLAGS
     psz: win32more.Windows.Win32.Foundation.PWSTR
     lParam: win32more.Windows.Win32.Foundation.LPARAM
@@ -4005,12 +4005,12 @@ LVFI_STRING: win32more.Windows.Win32.UI.Controls.LVFINDINFOW_FLAGS = 2
 LVFI_SUBSTRING: win32more.Windows.Win32.UI.Controls.LVFINDINFOW_FLAGS = 4
 LVFI_WRAP: win32more.Windows.Win32.UI.Controls.LVFINDINFOW_FLAGS = 32
 LVFI_NEARESTXY: win32more.Windows.Win32.UI.Controls.LVFINDINFOW_FLAGS = 64
-class LVFOOTERINFO(EasyCastStructure):
+class LVFOOTERINFO(Structure):
     mask: UInt32
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     cchTextMax: Int32
     cItems: UInt32
-class LVFOOTERITEM(EasyCastStructure):
+class LVFOOTERITEM(Structure):
     mask: win32more.Windows.Win32.UI.Controls.LVFOOTERITEM_MASK
     iItem: Int32
     pszText: win32more.Windows.Win32.Foundation.PWSTR
@@ -4020,7 +4020,7 @@ class LVFOOTERITEM(EasyCastStructure):
 LVFOOTERITEM_MASK = UInt32
 LVFIF_TEXT: win32more.Windows.Win32.UI.Controls.LVFOOTERITEM_MASK = 1
 LVFIF_STATE: win32more.Windows.Win32.UI.Controls.LVFOOTERITEM_MASK = 2
-class LVGROUP(EasyCastStructure):
+class LVGROUP(Structure):
     cbSize: UInt32
     mask: win32more.Windows.Win32.UI.Controls.LVGROUP_MASK
     pszHeader: win32more.Windows.Win32.Foundation.PWSTR
@@ -4045,7 +4045,7 @@ class LVGROUP(EasyCastStructure):
     cItems: UInt32
     pszSubsetTitle: win32more.Windows.Win32.Foundation.PWSTR
     cchSubsetTitle: UInt32
-class LVGROUPMETRICS(EasyCastStructure):
+class LVGROUPMETRICS(Structure):
     cbSize: UInt32
     mask: UInt32
     Left: UInt32
@@ -4074,7 +4074,7 @@ LVGF_EXTENDEDIMAGE: win32more.Windows.Win32.UI.Controls.LVGROUP_MASK = 8192
 LVGF_ITEMS: win32more.Windows.Win32.UI.Controls.LVGROUP_MASK = 16384
 LVGF_SUBSET: win32more.Windows.Win32.UI.Controls.LVGROUP_MASK = 32768
 LVGF_SUBSETITEMS: win32more.Windows.Win32.UI.Controls.LVGROUP_MASK = 65536
-class LVHITTESTINFO(EasyCastStructure):
+class LVHITTESTINFO(Structure):
     pt: win32more.Windows.Win32.Foundation.POINT
     flags: win32more.Windows.Win32.UI.Controls.LVHITTESTINFO_FLAGS
     iItem: Int32
@@ -4098,16 +4098,16 @@ LVHT_EX_GROUP_SUBSETLINK: win32more.Windows.Win32.UI.Controls.LVHITTESTINFO_FLAG
 LVHT_EX_GROUP: win32more.Windows.Win32.UI.Controls.LVHITTESTINFO_FLAGS = 4076863488
 LVHT_EX_ONCONTENTS: win32more.Windows.Win32.UI.Controls.LVHITTESTINFO_FLAGS = 67108864
 LVHT_EX_FOOTER: win32more.Windows.Win32.UI.Controls.LVHITTESTINFO_FLAGS = 134217728
-class LVINSERTGROUPSORTED(EasyCastStructure):
+class LVINSERTGROUPSORTED(Structure):
     pfnGroupCompare: win32more.Windows.Win32.UI.Controls.PFNLVGROUPCOMPARE
     pvData: VoidPtr
     lvGroup: win32more.Windows.Win32.UI.Controls.LVGROUP
-class LVINSERTMARK(EasyCastStructure):
+class LVINSERTMARK(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     iItem: Int32
     dwReserved: UInt32
-class LVITEMA(EasyCastStructure):
+class LVITEMA(Structure):
     mask: win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_FLAGS
     iItem: Int32
     iSubItem: Int32
@@ -4126,10 +4126,10 @@ class LVITEMA(EasyCastStructure):
 LVITEMA_GROUP_ID = Int32
 I_GROUPIDCALLBACK: win32more.Windows.Win32.UI.Controls.LVITEMA_GROUP_ID = -1
 I_GROUPIDNONE: win32more.Windows.Win32.UI.Controls.LVITEMA_GROUP_ID = -2
-class LVITEMINDEX(EasyCastStructure):
+class LVITEMINDEX(Structure):
     iItem: Int32
     iGroup: Int32
-class LVITEMW(EasyCastStructure):
+class LVITEMW(Structure):
     mask: win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_FLAGS
     iItem: Int32
     iSubItem: Int32
@@ -4146,19 +4146,19 @@ class LVITEMW(EasyCastStructure):
     piColFmt: POINTER(win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS)
     iGroup: Int32
 LVITEM = UnicodeAlias('LVITEMW')
-class LVSETINFOTIP(EasyCastStructure):
+class LVSETINFOTIP(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     iItem: Int32
     iSubItem: Int32
-class LVTILEINFO(EasyCastStructure):
+class LVTILEINFO(Structure):
     cbSize: UInt32
     iItem: Int32
     cColumns: UInt32
     puColumns: POINTER(UInt32)
     piColFmt: POINTER(Int32)
-class LVTILEVIEWINFO(EasyCastStructure):
+class LVTILEVIEWINFO(Structure):
     cbSize: UInt32
     dwMask: win32more.Windows.Win32.UI.Controls.LVTILEVIEWINFO_MASK
     dwFlags: win32more.Windows.Win32.UI.Controls.LVTILEVIEWINFO_FLAGS
@@ -4174,7 +4174,7 @@ LVTILEVIEWINFO_MASK = UInt32
 LVTVIM_TILESIZE: win32more.Windows.Win32.UI.Controls.LVTILEVIEWINFO_MASK = 1
 LVTVIM_COLUMNS: win32more.Windows.Win32.UI.Controls.LVTILEVIEWINFO_MASK = 2
 LVTVIM_LABELMARGIN: win32more.Windows.Win32.UI.Controls.LVTILEVIEWINFO_MASK = 4
-class MARGINS(EasyCastStructure):
+class MARGINS(Structure):
     cxLeftWidth: Int32
     cxRightWidth: Int32
     cyTopHeight: Int32
@@ -4191,7 +4191,7 @@ MAXCAPTIONSTATES = Int32
 MXCS_ACTIVE: win32more.Windows.Win32.UI.Controls.MAXCAPTIONSTATES = 1
 MXCS_INACTIVE: win32more.Windows.Win32.UI.Controls.MAXCAPTIONSTATES = 2
 MXCS_DISABLED: win32more.Windows.Win32.UI.Controls.MAXCAPTIONSTATES = 3
-class MCGRIDINFO(EasyCastStructure):
+class MCGRIDINFO(Structure):
     cbSize: UInt32
     dwPart: win32more.Windows.Win32.UI.Controls.MCGRIDINFO_PART
     dwFlags: win32more.Windows.Win32.UI.Controls.MCGRIDINFO_FLAGS
@@ -4218,7 +4218,7 @@ MCGIP_CALENDARHEADER: win32more.Windows.Win32.UI.Controls.MCGRIDINFO_PART = 5
 MCGIP_CALENDARBODY: win32more.Windows.Win32.UI.Controls.MCGRIDINFO_PART = 6
 MCGIP_CALENDARROW: win32more.Windows.Win32.UI.Controls.MCGRIDINFO_PART = 7
 MCGIP_CALENDARCELL: win32more.Windows.Win32.UI.Controls.MCGRIDINFO_PART = 8
-class MCHITTESTINFO(EasyCastStructure):
+class MCHITTESTINFO(Structure):
     cbSize: UInt32
     pt: win32more.Windows.Win32.Foundation.POINT
     uHit: win32more.Windows.Win32.UI.Controls.MCHITTESTINFO_HIT_FLAGS
@@ -4263,7 +4263,7 @@ MDRE_NORMAL: win32more.Windows.Win32.UI.Controls.MDIRESTOREBUTTONSTATES = 1
 MDRE_HOT: win32more.Windows.Win32.UI.Controls.MDIRESTOREBUTTONSTATES = 2
 MDRE_PUSHED: win32more.Windows.Win32.UI.Controls.MDIRESTOREBUTTONSTATES = 3
 MDRE_DISABLED: win32more.Windows.Win32.UI.Controls.MDIRESTOREBUTTONSTATES = 4
-class MEASUREITEMSTRUCT(EasyCastStructure):
+class MEASUREITEMSTRUCT(Structure):
     CtlType: win32more.Windows.Win32.UI.Controls.DRAWITEMSTRUCT_CTL_TYPE
     CtlID: UInt32
     itemID: UInt32
@@ -4381,47 +4381,47 @@ NAV_MB_NORMAL: win32more.Windows.Win32.UI.Controls.NAV_MENUBUTTONSTATES = 1
 NAV_MB_HOT: win32more.Windows.Win32.UI.Controls.NAV_MENUBUTTONSTATES = 2
 NAV_MB_PRESSED: win32more.Windows.Win32.UI.Controls.NAV_MENUBUTTONSTATES = 3
 NAV_MB_DISABLED: win32more.Windows.Win32.UI.Controls.NAV_MENUBUTTONSTATES = 4
-class NMBCDROPDOWN(EasyCastStructure):
+class NMBCDROPDOWN(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     rcButton: win32more.Windows.Win32.Foundation.RECT
-class NMBCHOTITEM(EasyCastStructure):
+class NMBCHOTITEM(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwFlags: win32more.Windows.Win32.UI.Controls.NMTBHOTITEM_FLAGS
-class NMCBEDRAGBEGINA(EasyCastStructure):
+class NMCBEDRAGBEGINA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItemid: Int32
     szText: win32more.Windows.Win32.Foundation.CHAR * 260
-class NMCBEDRAGBEGINW(EasyCastStructure):
+class NMCBEDRAGBEGINW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItemid: Int32
     szText: Char * 260
 NMCBEDRAGBEGIN = UnicodeAlias('NMCBEDRAGBEGINW')
-class NMCBEENDEDITA(EasyCastStructure):
+class NMCBEENDEDITA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     fChanged: win32more.Windows.Win32.Foundation.BOOL
     iNewSelection: Int32
     szText: win32more.Windows.Win32.Foundation.CHAR * 260
     iWhy: Int32
-class NMCBEENDEDITW(EasyCastStructure):
+class NMCBEENDEDITW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     fChanged: win32more.Windows.Win32.Foundation.BOOL
     iNewSelection: Int32
     szText: Char * 260
     iWhy: Int32
 NMCBEENDEDIT = UnicodeAlias('NMCBEENDEDITW')
-class NMCHAR(EasyCastStructure):
+class NMCHAR(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     ch: UInt32
     dwItemPrev: UInt32
     dwItemNext: UInt32
-class NMCOMBOBOXEXA(EasyCastStructure):
+class NMCOMBOBOXEXA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     ceItem: win32more.Windows.Win32.UI.Controls.COMBOBOXEXITEMA
-class NMCOMBOBOXEXW(EasyCastStructure):
+class NMCOMBOBOXEXW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     ceItem: win32more.Windows.Win32.UI.Controls.COMBOBOXEXITEMW
 NMCOMBOBOXEX = UnicodeAlias('NMCOMBOBOXEXW')
-class NMCUSTOMDRAW(EasyCastStructure):
+class NMCUSTOMDRAW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwDrawStage: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW_DRAW_STAGE
     hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
@@ -4452,12 +4452,12 @@ CDIS_SHOWKEYBOARDCUES: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW_DRAW_STA
 CDIS_NEARHOT: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW_DRAW_STATE_FLAGS = 1024
 CDIS_OTHERSIDEHOT: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW_DRAW_STATE_FLAGS = 2048
 CDIS_DROPHILITED: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW_DRAW_STATE_FLAGS = 4096
-class NMCUSTOMSPLITRECTINFO(EasyCastStructure):
+class NMCUSTOMSPLITRECTINFO(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     rcClient: win32more.Windows.Win32.Foundation.RECT
     rcButton: win32more.Windows.Win32.Foundation.RECT
     rcSplit: win32more.Windows.Win32.Foundation.RECT
-class NMCUSTOMTEXT(EasyCastStructure):
+class NMCUSTOMTEXT(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     hDC: win32more.Windows.Win32.Graphics.Gdi.HDC
     lpString: win32more.Windows.Win32.Foundation.PWSTR
@@ -4465,63 +4465,63 @@ class NMCUSTOMTEXT(EasyCastStructure):
     lpRect: POINTER(win32more.Windows.Win32.Foundation.RECT)
     uFormat: UInt32
     fLink: win32more.Windows.Win32.Foundation.BOOL
-class NMDATETIMECHANGE(EasyCastStructure):
+class NMDATETIMECHANGE(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwFlags: win32more.Windows.Win32.UI.Controls.NMDATETIMECHANGE_FLAGS
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
 NMDATETIMECHANGE_FLAGS = UInt32
 GDT_NONE: win32more.Windows.Win32.UI.Controls.NMDATETIMECHANGE_FLAGS = 1
 GDT_VALID: win32more.Windows.Win32.UI.Controls.NMDATETIMECHANGE_FLAGS = 0
-class NMDATETIMEFORMATA(EasyCastStructure):
+class NMDATETIMEFORMATA(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszFormat: win32more.Windows.Win32.Foundation.PSTR
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
     pszDisplay: win32more.Windows.Win32.Foundation.PSTR
     szDisplay: win32more.Windows.Win32.Foundation.CHAR * 64
-class NMDATETIMEFORMATQUERYA(EasyCastStructure):
+class NMDATETIMEFORMATQUERYA(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszFormat: win32more.Windows.Win32.Foundation.PSTR
     szMax: win32more.Windows.Win32.Foundation.SIZE
-class NMDATETIMEFORMATQUERYW(EasyCastStructure):
+class NMDATETIMEFORMATQUERYW(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszFormat: win32more.Windows.Win32.Foundation.PWSTR
     szMax: win32more.Windows.Win32.Foundation.SIZE
 NMDATETIMEFORMATQUERY = UnicodeAlias('NMDATETIMEFORMATQUERYW')
-class NMDATETIMEFORMATW(EasyCastStructure):
+class NMDATETIMEFORMATW(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszFormat: win32more.Windows.Win32.Foundation.PWSTR
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
     pszDisplay: win32more.Windows.Win32.Foundation.PWSTR
     szDisplay: Char * 64
 NMDATETIMEFORMAT = UnicodeAlias('NMDATETIMEFORMATW')
-class NMDATETIMESTRINGA(EasyCastStructure):
+class NMDATETIMESTRINGA(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszUserString: win32more.Windows.Win32.Foundation.PSTR
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
     dwFlags: UInt32
-class NMDATETIMESTRINGW(EasyCastStructure):
+class NMDATETIMESTRINGW(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszUserString: win32more.Windows.Win32.Foundation.PWSTR
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
     dwFlags: UInt32
 NMDATETIMESTRING = UnicodeAlias('NMDATETIMESTRINGW')
-class NMDATETIMEWMKEYDOWNA(EasyCastStructure):
+class NMDATETIMEWMKEYDOWNA(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     nVirtKey: Int32
     pszFormat: win32more.Windows.Win32.Foundation.PSTR
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
-class NMDATETIMEWMKEYDOWNW(EasyCastStructure):
+class NMDATETIMEWMKEYDOWNW(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     nVirtKey: Int32
     pszFormat: win32more.Windows.Win32.Foundation.PWSTR
     st: win32more.Windows.Win32.Foundation.SYSTEMTIME
 NMDATETIMEWMKEYDOWN = UnicodeAlias('NMDATETIMEWMKEYDOWNW')
-class NMDAYSTATE(EasyCastStructure):
+class NMDAYSTATE(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     stStart: win32more.Windows.Win32.Foundation.SYSTEMTIME
     cDayState: Int32
     prgDayState: POINTER(UInt32)
-class NMHDDISPINFOA(EasyCastStructure):
+class NMHDDISPINFOA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     mask: win32more.Windows.Win32.UI.Controls.HDI_MASK
@@ -4529,7 +4529,7 @@ class NMHDDISPINFOA(EasyCastStructure):
     cchTextMax: Int32
     iImage: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class NMHDDISPINFOW(EasyCastStructure):
+class NMHDDISPINFOW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     mask: win32more.Windows.Win32.UI.Controls.HDI_MASK
@@ -4538,30 +4538,30 @@ class NMHDDISPINFOW(EasyCastStructure):
     iImage: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
 NMHDDISPINFO = UnicodeAlias('NMHDDISPINFOW')
-class NMHDFILTERBTNCLICK(EasyCastStructure):
+class NMHDFILTERBTNCLICK(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     rc: win32more.Windows.Win32.Foundation.RECT
-class NMHDR(EasyCastStructure):
+class NMHDR(Structure):
     hwndFrom: win32more.Windows.Win32.Foundation.HWND
     idFrom: UIntPtr
     code: UInt32
-class NMHEADERA(EasyCastStructure):
+class NMHEADERA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     iButton: win32more.Windows.Win32.UI.Controls.HEADER_CONTROL_NOTIFICATION_BUTTON
     pitem: POINTER(win32more.Windows.Win32.UI.Controls.HDITEMA)
-class NMHEADERW(EasyCastStructure):
+class NMHEADERW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     iButton: win32more.Windows.Win32.UI.Controls.HEADER_CONTROL_NOTIFICATION_BUTTON
     pitem: POINTER(win32more.Windows.Win32.UI.Controls.HDITEMW)
 NMHEADER = UnicodeAlias('NMHEADERW')
-class NMIPADDRESS(EasyCastStructure):
+class NMIPADDRESS(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iField: Int32
     iValue: Int32
-class NMITEMACTIVATE(EasyCastStructure):
+class NMITEMACTIVATE(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     iSubItem: Int32
@@ -4571,14 +4571,14 @@ class NMITEMACTIVATE(EasyCastStructure):
     ptAction: win32more.Windows.Win32.Foundation.POINT
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     uKeyFlags: UInt32
-class NMKEY(EasyCastStructure):
+class NMKEY(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     nVKey: UInt32
     uFlags: UInt32
-class NMLINK(EasyCastStructure):
+class NMLINK(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.LITEM
-class NMLISTVIEW(EasyCastStructure):
+class NMLISTVIEW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     iSubItem: Int32
@@ -4587,11 +4587,11 @@ class NMLISTVIEW(EasyCastStructure):
     uChanged: win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_FLAGS
     ptAction: win32more.Windows.Win32.Foundation.POINT
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class NMLVCACHEHINT(EasyCastStructure):
+class NMLVCACHEHINT(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iFrom: Int32
     iTo: Int32
-class NMLVCUSTOMDRAW(EasyCastStructure):
+class NMLVCUSTOMDRAW(Structure):
     nmcd: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW
     clrText: win32more.Windows.Win32.Foundation.COLORREF
     clrTextBk: win32more.Windows.Win32.Foundation.COLORREF
@@ -4608,29 +4608,29 @@ NMLVCUSTOMDRAW_ITEM_TYPE = UInt32
 LVCDI_ITEM: win32more.Windows.Win32.UI.Controls.NMLVCUSTOMDRAW_ITEM_TYPE = 0
 LVCDI_GROUP: win32more.Windows.Win32.UI.Controls.NMLVCUSTOMDRAW_ITEM_TYPE = 1
 LVCDI_ITEMSLIST: win32more.Windows.Win32.UI.Controls.NMLVCUSTOMDRAW_ITEM_TYPE = 2
-class NMLVDISPINFOA(EasyCastStructure):
+class NMLVDISPINFOA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.LVITEMA
-class NMLVDISPINFOW(EasyCastStructure):
+class NMLVDISPINFOW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.LVITEMW
 NMLVDISPINFO = UnicodeAlias('NMLVDISPINFOW')
-class NMLVEMPTYMARKUP(EasyCastStructure):
+class NMLVEMPTYMARKUP(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwFlags: win32more.Windows.Win32.UI.Controls.NMLVEMPTYMARKUP_FLAGS
     szMarkup: Char * 2084
 NMLVEMPTYMARKUP_FLAGS = UInt32
 EMF_CENTERED: win32more.Windows.Win32.UI.Controls.NMLVEMPTYMARKUP_FLAGS = 1
-class NMLVFINDITEMA(EasyCastStructure):
+class NMLVFINDITEMA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iStart: Int32
     lvfi: win32more.Windows.Win32.UI.Controls.LVFINDINFOA
-class NMLVFINDITEMW(EasyCastStructure):
+class NMLVFINDITEMW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iStart: Int32
     lvfi: win32more.Windows.Win32.UI.Controls.LVFINDINFOW
 NMLVFINDITEM = UnicodeAlias('NMLVFINDITEMW')
-class NMLVGETINFOTIPA(EasyCastStructure):
+class NMLVGETINFOTIPA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwFlags: win32more.Windows.Win32.UI.Controls.NMLVGETINFOTIP_FLAGS
     pszText: win32more.Windows.Win32.Foundation.PSTR
@@ -4638,7 +4638,7 @@ class NMLVGETINFOTIPA(EasyCastStructure):
     iItem: Int32
     iSubItem: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class NMLVGETINFOTIPW(EasyCastStructure):
+class NMLVGETINFOTIPW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwFlags: win32more.Windows.Win32.UI.Controls.NMLVGETINFOTIP_FLAGS
     pszText: win32more.Windows.Win32.Foundation.PWSTR
@@ -4650,40 +4650,40 @@ NMLVGETINFOTIP = UnicodeAlias('NMLVGETINFOTIPW')
 NMLVGETINFOTIP_FLAGS = UInt32
 LVGIT_UNFOLDED: win32more.Windows.Win32.UI.Controls.NMLVGETINFOTIP_FLAGS = 1
 LVGIT_ZERO: win32more.Windows.Win32.UI.Controls.NMLVGETINFOTIP_FLAGS = 0
-class NMLVKEYDOWN(EasyCastStructure):
+class NMLVKEYDOWN(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     wVKey: UInt16
     flags: UInt32
     _pack_ = 1
-class NMLVLINK(EasyCastStructure):
+class NMLVLINK(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     link: win32more.Windows.Win32.UI.Controls.LITEM
     iItem: Int32
     iSubItem: Int32
-class NMLVODSTATECHANGE(EasyCastStructure):
+class NMLVODSTATECHANGE(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iFrom: Int32
     iTo: Int32
     uNewState: win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_STATE_FLAGS
     uOldState: win32more.Windows.Win32.UI.Controls.LIST_VIEW_ITEM_STATE_FLAGS
-class NMLVSCROLL(EasyCastStructure):
+class NMLVSCROLL(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dx: Int32
     dy: Int32
-class NMMOUSE(EasyCastStructure):
+class NMMOUSE(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwItemSpec: UIntPtr
     dwItemData: UIntPtr
     pt: win32more.Windows.Win32.Foundation.POINT
     dwHitInfo: win32more.Windows.Win32.Foundation.LPARAM
-class NMOBJECTNOTIFY(EasyCastStructure):
+class NMOBJECTNOTIFY(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     piid: POINTER(Guid)
     pObject: VoidPtr
     hResult: win32more.Windows.Win32.Foundation.HRESULT
     dwFlags: UInt32
-class NMPGCALCSIZE(EasyCastStructure):
+class NMPGCALCSIZE(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwFlag: win32more.Windows.Win32.UI.Controls.NMPGCALCSIZE_FLAGS
     iWidth: Int32
@@ -4691,12 +4691,12 @@ class NMPGCALCSIZE(EasyCastStructure):
 NMPGCALCSIZE_FLAGS = UInt32
 PGF_CALCHEIGHT: win32more.Windows.Win32.UI.Controls.NMPGCALCSIZE_FLAGS = 2
 PGF_CALCWIDTH: win32more.Windows.Win32.UI.Controls.NMPGCALCSIZE_FLAGS = 1
-class NMPGHOTITEM(EasyCastStructure):
+class NMPGHOTITEM(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     idOld: Int32
     idNew: Int32
     dwFlags: UInt32
-class NMPGSCROLL(EasyCastStructure):
+class NMPGSCROLL(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     fwKeys: win32more.Windows.Win32.UI.Controls.NMPGSCROLL_KEYS
     rcParent: win32more.Windows.Win32.Foundation.RECT
@@ -4715,19 +4715,19 @@ PGK_NONE: win32more.Windows.Win32.UI.Controls.NMPGSCROLL_KEYS = 0
 PGK_SHIFT: win32more.Windows.Win32.UI.Controls.NMPGSCROLL_KEYS = 1
 PGK_CONTROL: win32more.Windows.Win32.UI.Controls.NMPGSCROLL_KEYS = 2
 PGK_MENU: win32more.Windows.Win32.UI.Controls.NMPGSCROLL_KEYS = 4
-class NMRBAUTOSIZE(EasyCastStructure):
+class NMRBAUTOSIZE(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     fChanged: win32more.Windows.Win32.Foundation.BOOL
     rcTarget: win32more.Windows.Win32.Foundation.RECT
     rcActual: win32more.Windows.Win32.Foundation.RECT
-class NMREBAR(EasyCastStructure):
+class NMREBAR(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwMask: win32more.Windows.Win32.UI.Controls.NMREBAR_MASK_FLAGS
     uBand: UInt32
     fStyle: UInt32
     wID: UInt32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class NMREBARAUTOBREAK(EasyCastStructure):
+class NMREBARAUTOBREAK(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     uBand: UInt32
     wID: UInt32
@@ -4735,36 +4735,36 @@ class NMREBARAUTOBREAK(EasyCastStructure):
     uMsg: UInt32
     fStyleCurrent: UInt32
     fAutoBreak: win32more.Windows.Win32.Foundation.BOOL
-class NMREBARCHEVRON(EasyCastStructure):
+class NMREBARCHEVRON(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     uBand: UInt32
     wID: UInt32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     rc: win32more.Windows.Win32.Foundation.RECT
     lParamNM: win32more.Windows.Win32.Foundation.LPARAM
-class NMREBARCHILDSIZE(EasyCastStructure):
+class NMREBARCHILDSIZE(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     uBand: UInt32
     wID: UInt32
     rcChild: win32more.Windows.Win32.Foundation.RECT
     rcBand: win32more.Windows.Win32.Foundation.RECT
-class NMREBARSPLITTER(EasyCastStructure):
+class NMREBARSPLITTER(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     rcSizing: win32more.Windows.Win32.Foundation.RECT
 NMREBAR_MASK_FLAGS = UInt32
 RBNM_ID: win32more.Windows.Win32.UI.Controls.NMREBAR_MASK_FLAGS = 1
 RBNM_LPARAM: win32more.Windows.Win32.UI.Controls.NMREBAR_MASK_FLAGS = 4
 RBNM_STYLE: win32more.Windows.Win32.UI.Controls.NMREBAR_MASK_FLAGS = 2
-class NMSEARCHWEB(EasyCastStructure):
+class NMSEARCHWEB(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     entrypoint: win32more.Windows.Win32.UI.Controls.EC_SEARCHWEB_ENTRYPOINT
     hasQueryText: win32more.Windows.Win32.Foundation.BOOL
     invokeSucceeded: win32more.Windows.Win32.Foundation.BOOL
-class NMSELCHANGE(EasyCastStructure):
+class NMSELCHANGE(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     stSelStart: win32more.Windows.Win32.Foundation.SYSTEMTIME
     stSelEnd: win32more.Windows.Win32.Foundation.SYSTEMTIME
-class NMTBCUSTOMDRAW(EasyCastStructure):
+class NMTBCUSTOMDRAW(Structure):
     nmcd: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW
     hbrMonoDither: win32more.Windows.Win32.Graphics.Gdi.HBRUSH
     hbrLines: win32more.Windows.Win32.Graphics.Gdi.HBRUSH
@@ -4779,7 +4779,7 @@ class NMTBCUSTOMDRAW(EasyCastStructure):
     nStringBkMode: Int32
     nHLStringBkMode: Int32
     iListGap: Int32
-class NMTBDISPINFOA(EasyCastStructure):
+class NMTBDISPINFOA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwMask: win32more.Windows.Win32.UI.Controls.NMTBDISPINFOW_MASK
     idCommand: Int32
@@ -4787,7 +4787,7 @@ class NMTBDISPINFOA(EasyCastStructure):
     iImage: Int32
     pszText: win32more.Windows.Win32.Foundation.PSTR
     cchText: Int32
-class NMTBDISPINFOW(EasyCastStructure):
+class NMTBDISPINFOW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwMask: win32more.Windows.Win32.UI.Controls.NMTBDISPINFOW_MASK
     idCommand: Int32
@@ -4800,20 +4800,20 @@ NMTBDISPINFOW_MASK = UInt32
 TBNF_IMAGE: win32more.Windows.Win32.UI.Controls.NMTBDISPINFOW_MASK = 1
 TBNF_TEXT: win32more.Windows.Win32.UI.Controls.NMTBDISPINFOW_MASK = 2
 TBNF_DI_SETITEM: win32more.Windows.Win32.UI.Controls.NMTBDISPINFOW_MASK = 268435456
-class NMTBGETINFOTIPA(EasyCastStructure):
+class NMTBGETINFOTIPA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszText: win32more.Windows.Win32.Foundation.PSTR
     cchTextMax: Int32
     iItem: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class NMTBGETINFOTIPW(EasyCastStructure):
+class NMTBGETINFOTIPW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     cchTextMax: Int32
     iItem: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
 NMTBGETINFOTIP = UnicodeAlias('NMTBGETINFOTIPW')
-class NMTBHOTITEM(EasyCastStructure):
+class NMTBHOTITEM(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     idOld: Int32
     idNew: Int32
@@ -4829,7 +4829,7 @@ HICF_MOUSE: win32more.Windows.Win32.UI.Controls.NMTBHOTITEM_FLAGS = 1
 HICF_OTHER: win32more.Windows.Win32.UI.Controls.NMTBHOTITEM_FLAGS = 0
 HICF_RESELECT: win32more.Windows.Win32.UI.Controls.NMTBHOTITEM_FLAGS = 64
 HICF_TOGGLEDROPDOWN: win32more.Windows.Win32.UI.Controls.NMTBHOTITEM_FLAGS = 256
-class NMTBRESTORE(EasyCastStructure):
+class NMTBRESTORE(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pData: POINTER(UInt32)
     pCurrent: POINTER(UInt32)
@@ -4838,7 +4838,7 @@ class NMTBRESTORE(EasyCastStructure):
     cButtons: Int32
     cbBytesPerRecord: Int32
     tbButton: win32more.Windows.Win32.UI.Controls.TBBUTTON
-class NMTBSAVE(EasyCastStructure):
+class NMTBSAVE(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pData: POINTER(UInt32)
     pCurrent: POINTER(UInt32)
@@ -4846,19 +4846,19 @@ class NMTBSAVE(EasyCastStructure):
     iItem: Int32
     cButtons: Int32
     tbButton: win32more.Windows.Win32.UI.Controls.TBBUTTON
-class NMTCKEYDOWN(EasyCastStructure):
+class NMTCKEYDOWN(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     wVKey: UInt16
     flags: UInt32
     _pack_ = 1
-class NMTOOLBARA(EasyCastStructure):
+class NMTOOLBARA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     tbButton: win32more.Windows.Win32.UI.Controls.TBBUTTON
     cchText: Int32
     pszText: win32more.Windows.Win32.Foundation.PSTR
     rcButton: win32more.Windows.Win32.Foundation.RECT
-class NMTOOLBARW(EasyCastStructure):
+class NMTOOLBARW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iItem: Int32
     tbButton: win32more.Windows.Win32.UI.Controls.TBBUTTON
@@ -4866,37 +4866,37 @@ class NMTOOLBARW(EasyCastStructure):
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     rcButton: win32more.Windows.Win32.Foundation.RECT
 NMTOOLBAR = UnicodeAlias('NMTOOLBARW')
-class NMTOOLTIPSCREATED(EasyCastStructure):
+class NMTOOLTIPSCREATED(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     hwndToolTips: win32more.Windows.Win32.Foundation.HWND
-class NMTRBTHUMBPOSCHANGING(EasyCastStructure):
+class NMTRBTHUMBPOSCHANGING(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwPos: UInt32
     nReason: Int32
-class NMTREEVIEWA(EasyCastStructure):
+class NMTREEVIEWA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     action: win32more.Windows.Win32.UI.Controls.NM_TREEVIEW_ACTION
     itemOld: win32more.Windows.Win32.UI.Controls.TVITEMA
     itemNew: win32more.Windows.Win32.UI.Controls.TVITEMA
     ptDrag: win32more.Windows.Win32.Foundation.POINT
-class NMTREEVIEWW(EasyCastStructure):
+class NMTREEVIEWW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     action: win32more.Windows.Win32.UI.Controls.NM_TREEVIEW_ACTION
     itemOld: win32more.Windows.Win32.UI.Controls.TVITEMW
     itemNew: win32more.Windows.Win32.UI.Controls.TVITEMW
     ptDrag: win32more.Windows.Win32.Foundation.POINT
 NMTREEVIEW = UnicodeAlias('NMTREEVIEWW')
-class NMTTCUSTOMDRAW(EasyCastStructure):
+class NMTTCUSTOMDRAW(Structure):
     nmcd: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW
     uDrawFlags: UInt32
-class NMTTDISPINFOA(EasyCastStructure):
+class NMTTDISPINFOA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     lpszText: win32more.Windows.Win32.Foundation.PSTR
     szText: win32more.Windows.Win32.Foundation.CHAR * 80
     hinst: win32more.Windows.Win32.Foundation.HINSTANCE
     uFlags: win32more.Windows.Win32.UI.Controls.TOOLTIP_FLAGS
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class NMTTDISPINFOW(EasyCastStructure):
+class NMTTDISPINFOW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     lpszText: win32more.Windows.Win32.Foundation.PWSTR
     szText: Char * 80
@@ -4904,7 +4904,7 @@ class NMTTDISPINFOW(EasyCastStructure):
     uFlags: win32more.Windows.Win32.UI.Controls.TOOLTIP_FLAGS
     lParam: win32more.Windows.Win32.Foundation.LPARAM
 NMTTDISPINFO = UnicodeAlias('NMTTDISPINFOW')
-class NMTVASYNCDRAW(EasyCastStructure):
+class NMTVASYNCDRAW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pimldp: POINTER(win32more.Windows.Win32.UI.Controls.IMAGELISTDRAWPARAMS)
     hr: win32more.Windows.Win32.Foundation.HRESULT
@@ -4912,60 +4912,60 @@ class NMTVASYNCDRAW(EasyCastStructure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     dwRetFlags: UInt32
     iRetImageIndex: Int32
-class NMTVCUSTOMDRAW(EasyCastStructure):
+class NMTVCUSTOMDRAW(Structure):
     nmcd: win32more.Windows.Win32.UI.Controls.NMCUSTOMDRAW
     clrText: win32more.Windows.Win32.Foundation.COLORREF
     clrTextBk: win32more.Windows.Win32.Foundation.COLORREF
     iLevel: Int32
-class NMTVDISPINFOA(EasyCastStructure):
+class NMTVDISPINFOA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.TVITEMA
-class NMTVDISPINFOEXA(EasyCastStructure):
+class NMTVDISPINFOEXA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.TVITEMEXA
-class NMTVDISPINFOEXW(EasyCastStructure):
+class NMTVDISPINFOEXW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.TVITEMEXW
 NMTVDISPINFOEX = UnicodeAlias('NMTVDISPINFOEXW')
-class NMTVDISPINFOW(EasyCastStructure):
+class NMTVDISPINFOW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     item: win32more.Windows.Win32.UI.Controls.TVITEMW
 NMTVDISPINFO = UnicodeAlias('NMTVDISPINFOW')
-class NMTVGETINFOTIPA(EasyCastStructure):
+class NMTVGETINFOTIPA(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszText: win32more.Windows.Win32.Foundation.PSTR
     cchTextMax: Int32
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class NMTVGETINFOTIPW(EasyCastStructure):
+class NMTVGETINFOTIPW(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     pszText: win32more.Windows.Win32.Foundation.PWSTR
     cchTextMax: Int32
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
     lParam: win32more.Windows.Win32.Foundation.LPARAM
 NMTVGETINFOTIP = UnicodeAlias('NMTVGETINFOTIPW')
-class NMTVITEMCHANGE(EasyCastStructure):
+class NMTVITEMCHANGE(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     uChanged: UInt32
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
     uStateNew: UInt32
     uStateOld: UInt32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class NMTVKEYDOWN(EasyCastStructure):
+class NMTVKEYDOWN(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     wVKey: UInt16
     flags: UInt32
     _pack_ = 1
-class NMTVSTATEIMAGECHANGING(EasyCastStructure):
+class NMTVSTATEIMAGECHANGING(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     hti: win32more.Windows.Win32.UI.Controls.HTREEITEM
     iOldStateImageIndex: Int32
     iNewStateImageIndex: Int32
-class NMUPDOWN(EasyCastStructure):
+class NMUPDOWN(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     iPos: Int32
     iDelta: Int32
-class NMVIEWCHANGE(EasyCastStructure):
+class NMVIEWCHANGE(Structure):
     nmhdr: win32more.Windows.Win32.UI.Controls.NMHDR
     dwOldView: win32more.Windows.Win32.UI.Controls.MONTH_CALDENDAR_MESSAGES_VIEW
     dwNewView: win32more.Windows.Win32.UI.Controls.MONTH_CALDENDAR_MESSAGES_VIEW
@@ -5034,7 +5034,7 @@ PGRP_UP: win32more.Windows.Win32.UI.Controls.PAGEPARTS = 1
 PGRP_DOWN: win32more.Windows.Win32.UI.Controls.PAGEPARTS = 2
 PGRP_UPHORZ: win32more.Windows.Win32.UI.Controls.PAGEPARTS = 3
 PGRP_DOWNHORZ: win32more.Windows.Win32.UI.Controls.PAGEPARTS = 4
-class PBRANGE(EasyCastStructure):
+class PBRANGE(Structure):
     iLow: Int32
     iHigh: Int32
 @winfunctype_pointer
@@ -5061,7 +5061,7 @@ def PFNPROPSHEETCALLBACK(param0: win32more.Windows.Win32.Foundation.HWND, param1
 def PFNTVCOMPARE(lParam1: win32more.Windows.Win32.Foundation.LPARAM, lParam2: win32more.Windows.Win32.Foundation.LPARAM, lParamSort: win32more.Windows.Win32.Foundation.LPARAM) -> Int32: ...
 @winfunctype_pointer
 def PFTASKDIALOGCALLBACK(hwnd: win32more.Windows.Win32.Foundation.HWND, msg: UInt32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM, lpRefData: IntPtr) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class POINTER_DEVICE_CURSOR_INFO(EasyCastStructure):
+class POINTER_DEVICE_CURSOR_INFO(Structure):
     cursorId: UInt32
     cursor: win32more.Windows.Win32.UI.Controls.POINTER_DEVICE_CURSOR_TYPE
 POINTER_DEVICE_CURSOR_TYPE = Int32
@@ -5069,7 +5069,7 @@ POINTER_DEVICE_CURSOR_TYPE_UNKNOWN: win32more.Windows.Win32.UI.Controls.POINTER_
 POINTER_DEVICE_CURSOR_TYPE_TIP: win32more.Windows.Win32.UI.Controls.POINTER_DEVICE_CURSOR_TYPE = 1
 POINTER_DEVICE_CURSOR_TYPE_ERASER: win32more.Windows.Win32.UI.Controls.POINTER_DEVICE_CURSOR_TYPE = 2
 POINTER_DEVICE_CURSOR_TYPE_MAX: win32more.Windows.Win32.UI.Controls.POINTER_DEVICE_CURSOR_TYPE = -1
-class POINTER_DEVICE_INFO(EasyCastStructure):
+class POINTER_DEVICE_INFO(Structure):
     displayOrientation: UInt32
     device: win32more.Windows.Win32.Foundation.HANDLE
     pointerDeviceType: win32more.Windows.Win32.UI.Controls.POINTER_DEVICE_TYPE
@@ -5077,7 +5077,7 @@ class POINTER_DEVICE_INFO(EasyCastStructure):
     startingCursorId: UInt32
     maxActiveContacts: UInt16
     productString: Char * 520
-class POINTER_DEVICE_PROPERTY(EasyCastStructure):
+class POINTER_DEVICE_PROPERTY(Structure):
     logicalMin: Int32
     logicalMax: Int32
     physicalMin: Int32
@@ -5096,10 +5096,10 @@ POINTER_FEEDBACK_MODE = Int32
 POINTER_FEEDBACK_DEFAULT: win32more.Windows.Win32.UI.Controls.POINTER_FEEDBACK_MODE = 1
 POINTER_FEEDBACK_INDIRECT: win32more.Windows.Win32.UI.Controls.POINTER_FEEDBACK_MODE = 2
 POINTER_FEEDBACK_NONE: win32more.Windows.Win32.UI.Controls.POINTER_FEEDBACK_MODE = 3
-class POINTER_TYPE_INFO(EasyCastStructure):
+class POINTER_TYPE_INFO(Structure):
     type: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         touchInfo: win32more.Windows.Win32.UI.Input.Pointer.POINTER_TOUCH_INFO
         penInfo: win32more.Windows.Win32.UI.Input.Pointer.POINTER_PEN_INFO
 POPUPCHECKBACKGROUNDSTATES = Int32
@@ -5147,7 +5147,7 @@ PO_PART: win32more.Windows.Win32.UI.Controls.PROPERTYORIGIN = 1
 PO_CLASS: win32more.Windows.Win32.UI.Controls.PROPERTYORIGIN = 2
 PO_GLOBAL: win32more.Windows.Win32.UI.Controls.PROPERTYORIGIN = 3
 PO_NOTFOUND: win32more.Windows.Win32.UI.Controls.PROPERTYORIGIN = 4
-class PROPSHEETHEADERA_V1(EasyCastStructure):
+class PROPSHEETHEADERA_V1(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
@@ -5158,16 +5158,16 @@ class PROPSHEETHEADERA_V1(EasyCastStructure):
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
     pfnCallback: win32more.Windows.Win32.UI.Controls.PFNPROPSHEETCALLBACK
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         nStartPage: UInt32
         pStartPage: win32more.Windows.Win32.Foundation.PSTR
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)
         phpage: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
-class PROPSHEETHEADERA_V2(EasyCastStructure):
+class PROPSHEETHEADERA_V2(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
@@ -5181,22 +5181,22 @@ class PROPSHEETHEADERA_V2(EasyCastStructure):
     Anonymous4: _Anonymous4_e__Union
     hplWatermark: win32more.Windows.Win32.Graphics.Gdi.HPALETTE
     Anonymous5: _Anonymous5_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         nStartPage: UInt32
         pStartPage: win32more.Windows.Win32.Foundation.PSTR
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)
         phpage: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
-    class _Anonymous4_e__Union(EasyCastUnion):
+    class _Anonymous4_e__Union(Union):
         hbmWatermark: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
         pszbmWatermark: win32more.Windows.Win32.Foundation.PSTR
-    class _Anonymous5_e__Union(EasyCastUnion):
+    class _Anonymous5_e__Union(Union):
         hbmHeader: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
         pszbmHeader: win32more.Windows.Win32.Foundation.PSTR
-class PROPSHEETHEADERW_V1(EasyCastStructure):
+class PROPSHEETHEADERW_V1(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
@@ -5207,16 +5207,16 @@ class PROPSHEETHEADERW_V1(EasyCastStructure):
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
     pfnCallback: win32more.Windows.Win32.UI.Controls.PFNPROPSHEETCALLBACK
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         nStartPage: UInt32
         pStartPage: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)
         phpage: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
-class PROPSHEETHEADERW_V2(EasyCastStructure):
+class PROPSHEETHEADERW_V2(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
@@ -5230,22 +5230,22 @@ class PROPSHEETHEADERW_V2(EasyCastStructure):
     Anonymous4: _Anonymous4_e__Union
     hplWatermark: win32more.Windows.Win32.Graphics.Gdi.HPALETTE
     Anonymous5: _Anonymous5_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         nStartPage: UInt32
         pStartPage: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         ppsp: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)
         phpage: POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)
-    class _Anonymous4_e__Union(EasyCastUnion):
+    class _Anonymous4_e__Union(Union):
         hbmWatermark: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
         pszbmWatermark: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous5_e__Union(EasyCastUnion):
+    class _Anonymous5_e__Union(Union):
         hbmHeader: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
         pszbmHeader: win32more.Windows.Win32.Foundation.PWSTR
-class PROPSHEETPAGEA(EasyCastStructure):
+class PROPSHEETPAGEA(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -5260,16 +5260,16 @@ class PROPSHEETPAGEA(EasyCastStructure):
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PSTR
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
     Anonymous3: _Anonymous3_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         hbmHeader: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
         pszbmHeader: win32more.Windows.Win32.Foundation.PSTR
-class PROPSHEETPAGEA_V1(EasyCastStructure):
+class PROPSHEETPAGEA_V1(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -5280,13 +5280,13 @@ class PROPSHEETPAGEA_V1(EasyCastStructure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     pfnCallback: win32more.Windows.Win32.UI.Controls.LPFNPSPCALLBACKA
     pcRefParent: POINTER(UInt32)
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
-class PROPSHEETPAGEA_V2(EasyCastStructure):
+class PROPSHEETPAGEA_V2(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -5299,13 +5299,13 @@ class PROPSHEETPAGEA_V2(EasyCastStructure):
     pcRefParent: POINTER(UInt32)
     pszHeaderTitle: win32more.Windows.Win32.Foundation.PSTR
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PSTR
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
-class PROPSHEETPAGEA_V3(EasyCastStructure):
+class PROPSHEETPAGEA_V3(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -5319,13 +5319,13 @@ class PROPSHEETPAGEA_V3(EasyCastStructure):
     pszHeaderTitle: win32more.Windows.Win32.Foundation.PSTR
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PSTR
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
-class PROPSHEETPAGEW(EasyCastStructure):
+class PROPSHEETPAGEW(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -5340,17 +5340,17 @@ class PROPSHEETPAGEW(EasyCastStructure):
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PWSTR
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
     Anonymous3: _Anonymous3_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         hbmHeader: win32more.Windows.Win32.Graphics.Gdi.HBITMAP
         pszbmHeader: win32more.Windows.Win32.Foundation.PWSTR
 PROPSHEETPAGE = UnicodeAlias('PROPSHEETPAGEW')
-class PROPSHEETPAGEW_V1(EasyCastStructure):
+class PROPSHEETPAGEW_V1(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -5361,13 +5361,13 @@ class PROPSHEETPAGEW_V1(EasyCastStructure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     pfnCallback: win32more.Windows.Win32.UI.Controls.LPFNPSPCALLBACKW
     pcRefParent: POINTER(UInt32)
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
-class PROPSHEETPAGEW_V2(EasyCastStructure):
+class PROPSHEETPAGEW_V2(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -5380,13 +5380,13 @@ class PROPSHEETPAGEW_V2(EasyCastStructure):
     pcRefParent: POINTER(UInt32)
     pszHeaderTitle: win32more.Windows.Win32.Foundation.PWSTR
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
-class PROPSHEETPAGEW_V3(EasyCastStructure):
+class PROPSHEETPAGEW_V3(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -5400,13 +5400,13 @@ class PROPSHEETPAGEW_V3(EasyCastStructure):
     pszHeaderTitle: win32more.Windows.Win32.Foundation.PWSTR
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PWSTR
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
-class PSHNOTIFY(EasyCastStructure):
+class PSHNOTIFY(Structure):
     hdr: win32more.Windows.Win32.UI.Controls.NMHDR
     lParam: win32more.Windows.Win32.Foundation.LPARAM
 PSPCB_MESSAGE = UInt32
@@ -5433,7 +5433,7 @@ RBS_CHECKEDNORMAL: win32more.Windows.Win32.UI.Controls.RADIOBUTTONSTATES = 5
 RBS_CHECKEDHOT: win32more.Windows.Win32.UI.Controls.RADIOBUTTONSTATES = 6
 RBS_CHECKEDPRESSED: win32more.Windows.Win32.UI.Controls.RADIOBUTTONSTATES = 7
 RBS_CHECKEDDISABLED: win32more.Windows.Win32.UI.Controls.RADIOBUTTONSTATES = 8
-class RBHITTESTINFO(EasyCastStructure):
+class RBHITTESTINFO(Structure):
     pt: win32more.Windows.Win32.Foundation.POINT
     flags: UInt32
     iBand: Int32
@@ -5442,7 +5442,7 @@ CBRO_NORMAL: win32more.Windows.Win32.UI.Controls.READONLYSTATES = 1
 CBRO_HOT: win32more.Windows.Win32.UI.Controls.READONLYSTATES = 2
 CBRO_PRESSED: win32more.Windows.Win32.UI.Controls.READONLYSTATES = 3
 CBRO_DISABLED: win32more.Windows.Win32.UI.Controls.READONLYSTATES = 4
-class REBARBANDINFOA(EasyCastStructure):
+class REBARBANDINFOA(Structure):
     cbSize: UInt32
     fMask: UInt32
     fStyle: UInt32
@@ -5465,7 +5465,7 @@ class REBARBANDINFOA(EasyCastStructure):
     cxHeader: UInt32
     rcChevronLocation: win32more.Windows.Win32.Foundation.RECT
     uChevronState: UInt32
-class REBARBANDINFOW(EasyCastStructure):
+class REBARBANDINFOW(Structure):
     cbSize: UInt32
     fMask: UInt32
     fStyle: UInt32
@@ -5489,7 +5489,7 @@ class REBARBANDINFOW(EasyCastStructure):
     rcChevronLocation: win32more.Windows.Win32.Foundation.RECT
     uChevronState: UInt32
 REBARBANDINFO = UnicodeAlias('REBARBANDINFOW')
-class REBARINFO(EasyCastStructure):
+class REBARINFO(Structure):
     cbSize: UInt32
     fMask: UInt32
     himl: win32more.Windows.Win32.UI.Controls.HIMAGELIST
@@ -5706,7 +5706,7 @@ TBP_SIZINGBARBOTTOM: win32more.Windows.Win32.UI.Controls.TASKBARPARTS = 5
 TBP_SIZINGBARRIGHT: win32more.Windows.Win32.UI.Controls.TASKBARPARTS = 6
 TBP_SIZINGBARTOP: win32more.Windows.Win32.UI.Controls.TASKBARPARTS = 7
 TBP_SIZINGBARLEFT: win32more.Windows.Win32.UI.Controls.TASKBARPARTS = 8
-class TASKDIALOGCONFIG(EasyCastStructure):
+class TASKDIALOGCONFIG(Structure):
     cbSize: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
     hInstance: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -5732,11 +5732,11 @@ class TASKDIALOGCONFIG(EasyCastStructure):
     lpCallbackData: IntPtr
     cxWidth: UInt32
     _pack_ = 1
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         hMainIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszMainIcon: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 1
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         hFooterIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszFooterIcon: win32more.Windows.Win32.Foundation.PWSTR
         _pack_ = 1
@@ -5762,7 +5762,7 @@ TDLG_EXPANDEDFOOTERAREA: win32more.Windows.Win32.UI.Controls.TASKDIALOGPARTS = 1
 TDLG_PROGRESSBAR: win32more.Windows.Win32.UI.Controls.TASKDIALOGPARTS = 19
 TDLG_IMAGEALIGNMENT: win32more.Windows.Win32.UI.Controls.TASKDIALOGPARTS = 20
 TDLG_RADIOBUTTONPANE: win32more.Windows.Win32.UI.Controls.TASKDIALOGPARTS = 21
-class TASKDIALOG_BUTTON(EasyCastStructure):
+class TASKDIALOG_BUTTON(Structure):
     nButtonID: Int32
     pszButtonText: win32more.Windows.Win32.Foundation.PWSTR
     _pack_ = 1
@@ -5839,7 +5839,7 @@ CPTL_HOT: win32more.Windows.Win32.UI.Controls.TASKLINKSTATES = 2
 CPTL_PRESSED: win32more.Windows.Win32.UI.Controls.TASKLINKSTATES = 3
 CPTL_DISABLED: win32more.Windows.Win32.UI.Controls.TASKLINKSTATES = 4
 CPTL_PAGE: win32more.Windows.Win32.UI.Controls.TASKLINKSTATES = 5
-class TA_CUBIC_BEZIER(EasyCastStructure):
+class TA_CUBIC_BEZIER(Structure):
     header: win32more.Windows.Win32.UI.Controls.TA_TIMINGFUNCTION
     rX0: Single
     rY0: Single
@@ -5859,18 +5859,18 @@ TAPF_ISRTLAWARE: win32more.Windows.Win32.UI.Controls.TA_PROPERTY_FLAG = 2
 TAPF_ALLOWCOLLECTION: win32more.Windows.Win32.UI.Controls.TA_PROPERTY_FLAG = 4
 TAPF_HASBACKGROUND: win32more.Windows.Win32.UI.Controls.TA_PROPERTY_FLAG = 8
 TAPF_HASPERSPECTIVE: win32more.Windows.Win32.UI.Controls.TA_PROPERTY_FLAG = 16
-class TA_TIMINGFUNCTION(EasyCastStructure):
+class TA_TIMINGFUNCTION(Structure):
     eTimingFunctionType: win32more.Windows.Win32.UI.Controls.TA_TIMINGFUNCTION_TYPE
 TA_TIMINGFUNCTION_TYPE = Int32
 TTFT_UNDEFINED: win32more.Windows.Win32.UI.Controls.TA_TIMINGFUNCTION_TYPE = 0
 TTFT_CUBIC_BEZIER: win32more.Windows.Win32.UI.Controls.TA_TIMINGFUNCTION_TYPE = 1
-class TA_TRANSFORM(EasyCastStructure):
+class TA_TRANSFORM(Structure):
     eTransformType: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_TYPE
     dwTimingFunctionId: UInt32
     dwStartTime: UInt32
     dwDurationTime: UInt32
     eFlags: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_FLAG
-class TA_TRANSFORM_2D(EasyCastStructure):
+class TA_TRANSFORM_2D(Structure):
     header: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM
     rX: Single
     rY: Single
@@ -5878,7 +5878,7 @@ class TA_TRANSFORM_2D(EasyCastStructure):
     rInitialY: Single
     rOriginX: Single
     rOriginY: Single
-class TA_TRANSFORM_CLIP(EasyCastStructure):
+class TA_TRANSFORM_CLIP(Structure):
     header: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM
     rLeft: Single
     rTop: Single
@@ -5893,7 +5893,7 @@ TATF_NONE: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_FLAG = 0
 TATF_TARGETVALUES_USER: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_FLAG = 1
 TATF_HASINITIALVALUES: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_FLAG = 2
 TATF_HASORIGINVALUES: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_FLAG = 4
-class TA_TRANSFORM_OPACITY(EasyCastStructure):
+class TA_TRANSFORM_OPACITY(Structure):
     header: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM
     rOpacity: Single
     rInitialOpacity: Single
@@ -5902,11 +5902,11 @@ TATT_TRANSLATE_2D: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_TYPE = 0
 TATT_SCALE_2D: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_TYPE = 1
 TATT_OPACITY: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_TYPE = 2
 TATT_CLIP: win32more.Windows.Win32.UI.Controls.TA_TRANSFORM_TYPE = 3
-class TBADDBITMAP(EasyCastStructure):
+class TBADDBITMAP(Structure):
     hInst: win32more.Windows.Win32.Foundation.HINSTANCE
     nID: UIntPtr
 if ARCH in 'X64,ARM64':
-    class TBBUTTON(EasyCastStructure):
+    class TBBUTTON(Structure):
         iBitmap: Int32
         idCommand: Int32
         fsState: Byte
@@ -5915,7 +5915,7 @@ if ARCH in 'X64,ARM64':
         dwData: UIntPtr
         iString: IntPtr
 elif ARCH in 'X86':
-    class TBBUTTON(EasyCastStructure):
+    class TBBUTTON(Structure):
         iBitmap: Int32
         idCommand: Int32
         fsState: Byte
@@ -5923,7 +5923,7 @@ elif ARCH in 'X86':
         bReserved: Byte * 2
         dwData: UIntPtr
         iString: IntPtr
-class TBBUTTONINFOA(EasyCastStructure):
+class TBBUTTONINFOA(Structure):
     cbSize: UInt32
     dwMask: win32more.Windows.Win32.UI.Controls.TBBUTTONINFOW_MASK
     idCommand: Int32
@@ -5934,7 +5934,7 @@ class TBBUTTONINFOA(EasyCastStructure):
     lParam: UIntPtr
     pszText: win32more.Windows.Win32.Foundation.PSTR
     cchText: Int32
-class TBBUTTONINFOW(EasyCastStructure):
+class TBBUTTONINFOW(Structure):
     cbSize: UInt32
     dwMask: win32more.Windows.Win32.UI.Controls.TBBUTTONINFOW_MASK
     idCommand: Int32
@@ -5955,14 +5955,14 @@ TBIF_SIZE: win32more.Windows.Win32.UI.Controls.TBBUTTONINFOW_MASK = 64
 TBIF_STATE: win32more.Windows.Win32.UI.Controls.TBBUTTONINFOW_MASK = 4
 TBIF_STYLE: win32more.Windows.Win32.UI.Controls.TBBUTTONINFOW_MASK = 8
 TBIF_TEXT: win32more.Windows.Win32.UI.Controls.TBBUTTONINFOW_MASK = 2
-class TBINSERTMARK(EasyCastStructure):
+class TBINSERTMARK(Structure):
     iButton: Int32
     dwFlags: win32more.Windows.Win32.UI.Controls.TBINSERTMARK_FLAGS
 TBINSERTMARK_FLAGS = UInt32
 TBIMHT_NONE: win32more.Windows.Win32.UI.Controls.TBINSERTMARK_FLAGS = 0
 TBIMHT_AFTER: win32more.Windows.Win32.UI.Controls.TBINSERTMARK_FLAGS = 1
 TBIMHT_BACKGROUND: win32more.Windows.Win32.UI.Controls.TBINSERTMARK_FLAGS = 2
-class TBMETRICS(EasyCastStructure):
+class TBMETRICS(Structure):
     cbSize: UInt32
     dwMask: UInt32
     cxPad: Int32
@@ -5971,22 +5971,22 @@ class TBMETRICS(EasyCastStructure):
     cyBarPad: Int32
     cxButtonSpacing: Int32
     cyButtonSpacing: Int32
-class TBREPLACEBITMAP(EasyCastStructure):
+class TBREPLACEBITMAP(Structure):
     hInstOld: win32more.Windows.Win32.Foundation.HINSTANCE
     nIDOld: UIntPtr
     hInstNew: win32more.Windows.Win32.Foundation.HINSTANCE
     nIDNew: UIntPtr
     nButtons: Int32
-class TBSAVEPARAMSA(EasyCastStructure):
+class TBSAVEPARAMSA(Structure):
     hkr: win32more.Windows.Win32.System.Registry.HKEY
     pszSubKey: win32more.Windows.Win32.Foundation.PSTR
     pszValueName: win32more.Windows.Win32.Foundation.PSTR
-class TBSAVEPARAMSW(EasyCastStructure):
+class TBSAVEPARAMSW(Structure):
     hkr: win32more.Windows.Win32.System.Registry.HKEY
     pszSubKey: win32more.Windows.Win32.Foundation.PWSTR
     pszValueName: win32more.Windows.Win32.Foundation.PWSTR
 TBSAVEPARAMS = UnicodeAlias('TBSAVEPARAMSW')
-class TCHITTESTINFO(EasyCastStructure):
+class TCHITTESTINFO(Structure):
     pt: win32more.Windows.Win32.Foundation.POINT
     flags: win32more.Windows.Win32.UI.Controls.TCHITTESTINFO_FLAGS
 TCHITTESTINFO_FLAGS = UInt32
@@ -5994,7 +5994,7 @@ TCHT_NOWHERE: win32more.Windows.Win32.UI.Controls.TCHITTESTINFO_FLAGS = 1
 TCHT_ONITEM: win32more.Windows.Win32.UI.Controls.TCHITTESTINFO_FLAGS = 6
 TCHT_ONITEMICON: win32more.Windows.Win32.UI.Controls.TCHITTESTINFO_FLAGS = 2
 TCHT_ONITEMLABEL: win32more.Windows.Win32.UI.Controls.TCHITTESTINFO_FLAGS = 4
-class TCITEMA(EasyCastStructure):
+class TCITEMA(Structure):
     mask: win32more.Windows.Win32.UI.Controls.TCITEMHEADERA_MASK
     dwState: win32more.Windows.Win32.UI.Controls.TAB_CONTROL_ITEM_STATE
     dwStateMask: win32more.Windows.Win32.UI.Controls.TAB_CONTROL_ITEM_STATE
@@ -6002,7 +6002,7 @@ class TCITEMA(EasyCastStructure):
     cchTextMax: Int32
     iImage: Int32
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class TCITEMHEADERA(EasyCastStructure):
+class TCITEMHEADERA(Structure):
     mask: win32more.Windows.Win32.UI.Controls.TCITEMHEADERA_MASK
     lpReserved1: UInt32
     lpReserved2: UInt32
@@ -6015,7 +6015,7 @@ TCIF_RTLREADING: win32more.Windows.Win32.UI.Controls.TCITEMHEADERA_MASK = 4
 TCIF_TEXT: win32more.Windows.Win32.UI.Controls.TCITEMHEADERA_MASK = 1
 TCIF_PARAM: win32more.Windows.Win32.UI.Controls.TCITEMHEADERA_MASK = 8
 TCIF_STATE: win32more.Windows.Win32.UI.Controls.TCITEMHEADERA_MASK = 16
-class TCITEMHEADERW(EasyCastStructure):
+class TCITEMHEADERW(Structure):
     mask: win32more.Windows.Win32.UI.Controls.TCITEMHEADERA_MASK
     lpReserved1: UInt32
     lpReserved2: UInt32
@@ -6023,7 +6023,7 @@ class TCITEMHEADERW(EasyCastStructure):
     cchTextMax: Int32
     iImage: Int32
 TCITEMHEADER = UnicodeAlias('TCITEMHEADERW')
-class TCITEMW(EasyCastStructure):
+class TCITEMW(Structure):
     mask: win32more.Windows.Win32.UI.Controls.TCITEMHEADERA_MASK
     dwState: win32more.Windows.Win32.UI.Controls.TAB_CONTROL_ITEM_STATE
     dwStateMask: win32more.Windows.Win32.UI.Controls.TAB_CONTROL_ITEM_STATE
@@ -6412,13 +6412,13 @@ TTIS_HOT: win32more.Windows.Win32.UI.Controls.TOPTABITEMSTATES = 2
 TTIS_SELECTED: win32more.Windows.Win32.UI.Controls.TOPTABITEMSTATES = 3
 TTIS_DISABLED: win32more.Windows.Win32.UI.Controls.TOPTABITEMSTATES = 4
 TTIS_FOCUSED: win32more.Windows.Win32.UI.Controls.TOPTABITEMSTATES = 5
-class TOUCH_HIT_TESTING_INPUT(EasyCastStructure):
+class TOUCH_HIT_TESTING_INPUT(Structure):
     pointerId: UInt32
     point: win32more.Windows.Win32.Foundation.POINT
     boundingBox: win32more.Windows.Win32.Foundation.RECT
     nonOccludedBoundingBox: win32more.Windows.Win32.Foundation.RECT
     orientation: UInt32
-class TOUCH_HIT_TESTING_PROXIMITY_EVALUATION(EasyCastStructure):
+class TOUCH_HIT_TESTING_PROXIMITY_EVALUATION(Structure):
     score: UInt16
     adjustedPoint: win32more.Windows.Win32.Foundation.POINT
 TRACKBARPARTS = Int32
@@ -6496,21 +6496,21 @@ TRUESIZESCALINGTYPE = Int32
 TSST_NONE: win32more.Windows.Win32.UI.Controls.TRUESIZESCALINGTYPE = 0
 TSST_SIZE: win32more.Windows.Win32.UI.Controls.TRUESIZESCALINGTYPE = 1
 TSST_DPI: win32more.Windows.Win32.UI.Controls.TRUESIZESCALINGTYPE = 2
-class TTGETTITLE(EasyCastStructure):
+class TTGETTITLE(Structure):
     dwSize: UInt32
     uTitleBitmap: UInt32
     cch: UInt32
     pszTitle: win32more.Windows.Win32.Foundation.PWSTR
-class TTHITTESTINFOA(EasyCastStructure):
+class TTHITTESTINFOA(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     pt: win32more.Windows.Win32.Foundation.POINT
     ti: win32more.Windows.Win32.UI.Controls.TTTOOLINFOA
-class TTHITTESTINFOW(EasyCastStructure):
+class TTHITTESTINFOW(Structure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     pt: win32more.Windows.Win32.Foundation.POINT
     ti: win32more.Windows.Win32.UI.Controls.TTTOOLINFOW
 TTHITTESTINFO = UnicodeAlias('TTHITTESTINFOW')
-class TTTOOLINFOA(EasyCastStructure):
+class TTTOOLINFOA(Structure):
     cbSize: UInt32
     uFlags: win32more.Windows.Win32.UI.Controls.TOOLTIP_FLAGS
     hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -6520,7 +6520,7 @@ class TTTOOLINFOA(EasyCastStructure):
     lpszText: win32more.Windows.Win32.Foundation.PSTR
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     lpReserved: VoidPtr
-class TTTOOLINFOW(EasyCastStructure):
+class TTTOOLINFOW(Structure):
     cbSize: UInt32
     uFlags: win32more.Windows.Win32.UI.Controls.TOOLTIP_FLAGS
     hwnd: win32more.Windows.Win32.Foundation.HWND
@@ -6531,11 +6531,11 @@ class TTTOOLINFOW(EasyCastStructure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     lpReserved: VoidPtr
 TTTOOLINFO = UnicodeAlias('TTTOOLINFOW')
-class TVGETITEMPARTRECTINFO(EasyCastStructure):
+class TVGETITEMPARTRECTINFO(Structure):
     hti: win32more.Windows.Win32.UI.Controls.HTREEITEM
     prc: POINTER(win32more.Windows.Win32.Foundation.RECT)
     partID: win32more.Windows.Win32.UI.Controls.TVITEMPART
-class TVHITTESTINFO(EasyCastStructure):
+class TVHITTESTINFO(Structure):
     pt: win32more.Windows.Win32.Foundation.POINT
     flags: win32more.Windows.Win32.UI.Controls.TVHITTESTINFO_FLAGS
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
@@ -6552,22 +6552,22 @@ TVHT_ONITEMRIGHT: win32more.Windows.Win32.UI.Controls.TVHITTESTINFO_FLAGS = 32
 TVHT_ONITEMSTATEICON: win32more.Windows.Win32.UI.Controls.TVHITTESTINFO_FLAGS = 64
 TVHT_TOLEFT: win32more.Windows.Win32.UI.Controls.TVHITTESTINFO_FLAGS = 2048
 TVHT_TORIGHT: win32more.Windows.Win32.UI.Controls.TVHITTESTINFO_FLAGS = 1024
-class TVINSERTSTRUCTA(EasyCastStructure):
+class TVINSERTSTRUCTA(Structure):
     hParent: win32more.Windows.Win32.UI.Controls.HTREEITEM
     hInsertAfter: win32more.Windows.Win32.UI.Controls.HTREEITEM
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         itemex: win32more.Windows.Win32.UI.Controls.TVITEMEXA
         item: win32more.Windows.Win32.UI.Controls.TVITEMA
-class TVINSERTSTRUCTW(EasyCastStructure):
+class TVINSERTSTRUCTW(Structure):
     hParent: win32more.Windows.Win32.UI.Controls.HTREEITEM
     hInsertAfter: win32more.Windows.Win32.UI.Controls.HTREEITEM
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         itemex: win32more.Windows.Win32.UI.Controls.TVITEMEXW
         item: win32more.Windows.Win32.UI.Controls.TVITEMW
 TVINSERTSTRUCT = UnicodeAlias('TVINSERTSTRUCTW')
-class TVITEMA(EasyCastStructure):
+class TVITEMA(Structure):
     mask: win32more.Windows.Win32.UI.Controls.TVITEM_MASK
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
     state: win32more.Windows.Win32.UI.Controls.TREE_VIEW_ITEM_STATE_FLAGS
@@ -6578,7 +6578,7 @@ class TVITEMA(EasyCastStructure):
     iSelectedImage: Int32
     cChildren: win32more.Windows.Win32.UI.Controls.TVITEMEXW_CHILDREN
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class TVITEMEXA(EasyCastStructure):
+class TVITEMEXA(Structure):
     mask: win32more.Windows.Win32.UI.Controls.TVITEM_MASK
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
     state: UInt32
@@ -6594,7 +6594,7 @@ class TVITEMEXA(EasyCastStructure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     iExpandedImage: Int32
     iReserved: Int32
-class TVITEMEXW(EasyCastStructure):
+class TVITEMEXW(Structure):
     mask: win32more.Windows.Win32.UI.Controls.TVITEM_MASK
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
     state: UInt32
@@ -6618,7 +6618,7 @@ I_CHILDRENCALLBACK: win32more.Windows.Win32.UI.Controls.TVITEMEXW_CHILDREN = -1
 I_CHILDRENAUTO: win32more.Windows.Win32.UI.Controls.TVITEMEXW_CHILDREN = -2
 TVITEMPART = Int32
 TVGIPR_BUTTON: win32more.Windows.Win32.UI.Controls.TVITEMPART = 1
-class TVITEMW(EasyCastStructure):
+class TVITEMW(Structure):
     mask: win32more.Windows.Win32.UI.Controls.TVITEM_MASK
     hItem: win32more.Windows.Win32.UI.Controls.HTREEITEM
     state: win32more.Windows.Win32.UI.Controls.TREE_VIEW_ITEM_STATE_FLAGS
@@ -6642,11 +6642,11 @@ TVIF_TEXT: win32more.Windows.Win32.UI.Controls.TVITEM_MASK = 1
 TVIF_EXPANDEDIMAGE: win32more.Windows.Win32.UI.Controls.TVITEM_MASK = 512
 TVIF_INTEGRAL: win32more.Windows.Win32.UI.Controls.TVITEM_MASK = 128
 TVIF_STATEEX: win32more.Windows.Win32.UI.Controls.TVITEM_MASK = 256
-class TVSORTCB(EasyCastStructure):
+class TVSORTCB(Structure):
     hParent: win32more.Windows.Win32.UI.Controls.HTREEITEM
     lpfnCompare: win32more.Windows.Win32.UI.Controls.PFNTVCOMPARE
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-class UDACCEL(EasyCastStructure):
+class UDACCEL(Structure):
     nSec: UInt32
     nInc: UInt32
 UPDATEMETADATASTATES = Int32
@@ -6662,7 +6662,7 @@ UPS_NORMAL: win32more.Windows.Win32.UI.Controls.UPSTATES = 1
 UPS_HOT: win32more.Windows.Win32.UI.Controls.UPSTATES = 2
 UPS_PRESSED: win32more.Windows.Win32.UI.Controls.UPSTATES = 3
 UPS_DISABLED: win32more.Windows.Win32.UI.Controls.UPSTATES = 4
-class USAGE_PROPERTIES(EasyCastStructure):
+class USAGE_PROPERTIES(Structure):
     level: UInt16
     page: UInt16
     usage: UInt16
@@ -6761,7 +6761,7 @@ WSB_PROP_PALETTE: win32more.Windows.Win32.UI.Controls.WSB_PROP = 2048
 WSB_PROP_VBKGCOLOR: win32more.Windows.Win32.UI.Controls.WSB_PROP = 64
 WSB_PROP_VSTYLE: win32more.Windows.Win32.UI.Controls.WSB_PROP = 256
 WSB_PROP_WINSTYLE: win32more.Windows.Win32.UI.Controls.WSB_PROP = 1024
-class WTA_OPTIONS(EasyCastStructure):
+class WTA_OPTIONS(Structure):
     dwFlags: UInt32
     dwMask: UInt32
 _LI_METRIC = Int32

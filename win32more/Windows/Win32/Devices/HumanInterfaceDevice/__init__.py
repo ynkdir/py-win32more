@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.HumanInterfaceDevice
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -2582,10 +2582,10 @@ def HidD_GetIndexedString(HidDeviceObject: win32more.Windows.Win32.Foundation.HA
 def HidD_GetSerialNumberString(HidDeviceObject: win32more.Windows.Win32.Foundation.HANDLE, Buffer: VoidPtr, BufferLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('HID.dll')
 def HidD_GetMsGenreDescriptor(HidDeviceObject: win32more.Windows.Win32.Foundation.HANDLE, Buffer: VoidPtr, BufferLength: UInt32) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
-class CPOINT(EasyCastStructure):
+class CPOINT(Structure):
     lP: Int32
     dwLog: UInt32
-class DIACTIONA(EasyCastStructure):
+class DIACTIONA(Structure):
     uAppData: UIntPtr
     dwSemantic: UInt32
     dwFlags: UInt32
@@ -2593,10 +2593,10 @@ class DIACTIONA(EasyCastStructure):
     guidInstance: Guid
     dwObjID: UInt32
     dwHow: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         lptszActionName: win32more.Windows.Win32.Foundation.PSTR
         uResIdString: UInt32
-class DIACTIONFORMATA(EasyCastStructure):
+class DIACTIONFORMATA(Structure):
     dwSize: UInt32
     dwActionSize: UInt32
     dwDataSize: UInt32
@@ -2611,7 +2611,7 @@ class DIACTIONFORMATA(EasyCastStructure):
     ftTimeStamp: win32more.Windows.Win32.Foundation.FILETIME
     dwCRC: UInt32
     tszActionMap: win32more.Windows.Win32.Foundation.CHAR * 260
-class DIACTIONFORMATW(EasyCastStructure):
+class DIACTIONFORMATW(Structure):
     dwSize: UInt32
     dwActionSize: UInt32
     dwDataSize: UInt32
@@ -2627,7 +2627,7 @@ class DIACTIONFORMATW(EasyCastStructure):
     dwCRC: UInt32
     tszActionMap: Char * 260
 DIACTIONFORMAT = UnicodeAlias('DIACTIONFORMATW')
-class DIACTIONW(EasyCastStructure):
+class DIACTIONW(Structure):
     uAppData: UIntPtr
     dwSemantic: UInt32
     dwFlags: UInt32
@@ -2635,11 +2635,11 @@ class DIACTIONW(EasyCastStructure):
     guidInstance: Guid
     dwObjID: UInt32
     dwHow: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         lptszActionName: win32more.Windows.Win32.Foundation.PWSTR
         uResIdString: UInt32
 DIACTION = UnicodeAlias('DIACTIONW')
-class DICOLORSET(EasyCastStructure):
+class DICOLORSET(Structure):
     dwSize: UInt32
     cTextFore: UInt32
     cTextHighlight: UInt32
@@ -2649,14 +2649,14 @@ class DICOLORSET(EasyCastStructure):
     cControlFill: UInt32
     cHighlightFill: UInt32
     cAreaFill: UInt32
-class DICONDITION(EasyCastStructure):
+class DICONDITION(Structure):
     lOffset: Int32
     lPositiveCoefficient: Int32
     lNegativeCoefficient: Int32
     dwPositiveSaturation: UInt32
     dwNegativeSaturation: UInt32
     lDeadBand: Int32
-class DICONFIGUREDEVICESPARAMSA(EasyCastStructure):
+class DICONFIGUREDEVICESPARAMSA(Structure):
     dwSize: UInt32
     dwcUsers: UInt32
     lptszUserNames: win32more.Windows.Win32.Foundation.PSTR
@@ -2665,7 +2665,7 @@ class DICONFIGUREDEVICESPARAMSA(EasyCastStructure):
     hwnd: win32more.Windows.Win32.Foundation.HWND
     dics: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DICOLORSET
     lpUnkDDSTarget: win32more.Windows.Win32.System.Com.IUnknown
-class DICONFIGUREDEVICESPARAMSW(EasyCastStructure):
+class DICONFIGUREDEVICESPARAMSW(Structure):
     dwSize: UInt32
     dwcUsers: UInt32
     lptszUserNames: win32more.Windows.Win32.Foundation.PWSTR
@@ -2675,21 +2675,21 @@ class DICONFIGUREDEVICESPARAMSW(EasyCastStructure):
     dics: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DICOLORSET
     lpUnkDDSTarget: win32more.Windows.Win32.System.Com.IUnknown
 DICONFIGUREDEVICESPARAMS = UnicodeAlias('DICONFIGUREDEVICESPARAMSW')
-class DICONSTANTFORCE(EasyCastStructure):
+class DICONSTANTFORCE(Structure):
     lMagnitude: Int32
-class DICUSTOMFORCE(EasyCastStructure):
+class DICUSTOMFORCE(Structure):
     cChannels: UInt32
     dwSamplePeriod: UInt32
     cSamples: UInt32
     rglForceData: POINTER(Int32)
-class DIDATAFORMAT(EasyCastStructure):
+class DIDATAFORMAT(Structure):
     dwSize: UInt32
     dwObjSize: UInt32
     dwFlags: UInt32
     dwDataSize: UInt32
     dwNumObjs: UInt32
     rgodf: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIOBJECTDATAFORMAT)
-class DIDEVCAPS(EasyCastStructure):
+class DIDEVCAPS(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwDevType: UInt32
@@ -2701,14 +2701,14 @@ class DIDEVCAPS(EasyCastStructure):
     dwFirmwareRevision: UInt32
     dwHardwareRevision: UInt32
     dwFFDriverVersion: UInt32
-class DIDEVCAPS_DX3(EasyCastStructure):
+class DIDEVCAPS_DX3(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwDevType: UInt32
     dwAxes: UInt32
     dwButtons: UInt32
     dwPOVs: UInt32
-class DIDEVICEIMAGEINFOA(EasyCastStructure):
+class DIDEVICEIMAGEINFOA(Structure):
     tszImagePath: win32more.Windows.Win32.Foundation.CHAR * 260
     dwFlags: UInt32
     dwViewID: UInt32
@@ -2718,7 +2718,7 @@ class DIDEVICEIMAGEINFOA(EasyCastStructure):
     rgptCalloutLine: win32more.Windows.Win32.Foundation.POINT * 5
     rcCalloutRect: win32more.Windows.Win32.Foundation.RECT
     dwTextAlign: UInt32
-class DIDEVICEIMAGEINFOHEADERA(EasyCastStructure):
+class DIDEVICEIMAGEINFOHEADERA(Structure):
     dwSize: UInt32
     dwSizeImageInfo: UInt32
     dwcViews: UInt32
@@ -2728,7 +2728,7 @@ class DIDEVICEIMAGEINFOHEADERA(EasyCastStructure):
     dwBufferSize: UInt32
     dwBufferUsed: UInt32
     lprgImageInfoArray: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOA)
-class DIDEVICEIMAGEINFOHEADERW(EasyCastStructure):
+class DIDEVICEIMAGEINFOHEADERW(Structure):
     dwSize: UInt32
     dwSizeImageInfo: UInt32
     dwcViews: UInt32
@@ -2739,7 +2739,7 @@ class DIDEVICEIMAGEINFOHEADERW(EasyCastStructure):
     dwBufferUsed: UInt32
     lprgImageInfoArray: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOW)
 DIDEVICEIMAGEINFOHEADER = UnicodeAlias('DIDEVICEIMAGEINFOHEADERW')
-class DIDEVICEIMAGEINFOW(EasyCastStructure):
+class DIDEVICEIMAGEINFOW(Structure):
     tszImagePath: Char * 260
     dwFlags: UInt32
     dwViewID: UInt32
@@ -2750,7 +2750,7 @@ class DIDEVICEIMAGEINFOW(EasyCastStructure):
     rcCalloutRect: win32more.Windows.Win32.Foundation.RECT
     dwTextAlign: UInt32
 DIDEVICEIMAGEINFO = UnicodeAlias('DIDEVICEIMAGEINFOW')
-class DIDEVICEINSTANCEA(EasyCastStructure):
+class DIDEVICEINSTANCEA(Structure):
     dwSize: UInt32
     guidInstance: Guid
     guidProduct: Guid
@@ -2760,7 +2760,7 @@ class DIDEVICEINSTANCEA(EasyCastStructure):
     guidFFDriver: Guid
     wUsagePage: UInt16
     wUsage: UInt16
-class DIDEVICEINSTANCEW(EasyCastStructure):
+class DIDEVICEINSTANCEW(Structure):
     dwSize: UInt32
     guidInstance: Guid
     guidProduct: Guid
@@ -2771,14 +2771,14 @@ class DIDEVICEINSTANCEW(EasyCastStructure):
     wUsagePage: UInt16
     wUsage: UInt16
 DIDEVICEINSTANCE = UnicodeAlias('DIDEVICEINSTANCEW')
-class DIDEVICEINSTANCE_DX3A(EasyCastStructure):
+class DIDEVICEINSTANCE_DX3A(Structure):
     dwSize: UInt32
     guidInstance: Guid
     guidProduct: Guid
     dwDevType: UInt32
     tszInstanceName: win32more.Windows.Win32.Foundation.CHAR * 260
     tszProductName: win32more.Windows.Win32.Foundation.CHAR * 260
-class DIDEVICEINSTANCE_DX3W(EasyCastStructure):
+class DIDEVICEINSTANCE_DX3W(Structure):
     dwSize: UInt32
     guidInstance: Guid
     guidProduct: Guid
@@ -2786,18 +2786,18 @@ class DIDEVICEINSTANCE_DX3W(EasyCastStructure):
     tszInstanceName: Char * 260
     tszProductName: Char * 260
 DIDEVICEINSTANCE_DX3 = UnicodeAlias('DIDEVICEINSTANCE_DX3W')
-class DIDEVICEOBJECTDATA(EasyCastStructure):
+class DIDEVICEOBJECTDATA(Structure):
     dwOfs: UInt32
     dwData: UInt32
     dwTimeStamp: UInt32
     dwSequence: UInt32
     uAppData: UIntPtr
-class DIDEVICEOBJECTDATA_DX3(EasyCastStructure):
+class DIDEVICEOBJECTDATA_DX3(Structure):
     dwOfs: UInt32
     dwData: UInt32
     dwTimeStamp: UInt32
     dwSequence: UInt32
-class DIDEVICEOBJECTINSTANCEA(EasyCastStructure):
+class DIDEVICEOBJECTINSTANCEA(Structure):
     dwSize: UInt32
     guidType: Guid
     dwOfs: UInt32
@@ -2813,7 +2813,7 @@ class DIDEVICEOBJECTINSTANCEA(EasyCastStructure):
     dwDimension: UInt32
     wExponent: UInt16
     wReportId: UInt16
-class DIDEVICEOBJECTINSTANCEW(EasyCastStructure):
+class DIDEVICEOBJECTINSTANCEW(Structure):
     dwSize: UInt32
     guidType: Guid
     dwOfs: UInt32
@@ -2830,14 +2830,14 @@ class DIDEVICEOBJECTINSTANCEW(EasyCastStructure):
     wExponent: UInt16
     wReportId: UInt16
 DIDEVICEOBJECTINSTANCE = UnicodeAlias('DIDEVICEOBJECTINSTANCEW')
-class DIDEVICEOBJECTINSTANCE_DX3A(EasyCastStructure):
+class DIDEVICEOBJECTINSTANCE_DX3A(Structure):
     dwSize: UInt32
     guidType: Guid
     dwOfs: UInt32
     dwType: UInt32
     dwFlags: UInt32
     tszName: win32more.Windows.Win32.Foundation.CHAR * 260
-class DIDEVICEOBJECTINSTANCE_DX3W(EasyCastStructure):
+class DIDEVICEOBJECTINSTANCE_DX3W(Structure):
     dwSize: UInt32
     guidType: Guid
     dwOfs: UInt32
@@ -2845,16 +2845,16 @@ class DIDEVICEOBJECTINSTANCE_DX3W(EasyCastStructure):
     dwFlags: UInt32
     tszName: Char * 260
 DIDEVICEOBJECTINSTANCE_DX3 = UnicodeAlias('DIDEVICEOBJECTINSTANCE_DX3W')
-class DIDEVICESTATE(EasyCastStructure):
+class DIDEVICESTATE(Structure):
     dwSize: UInt32
     dwState: UInt32
     dwLoad: UInt32
-class DIDRIVERVERSIONS(EasyCastStructure):
+class DIDRIVERVERSIONS(Structure):
     dwSize: UInt32
     dwFirmwareRevision: UInt32
     dwHardwareRevision: UInt32
     dwFFDriverVersion: UInt32
-class DIEFFECT(EasyCastStructure):
+class DIEFFECT(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwDuration: UInt32
@@ -2869,20 +2869,20 @@ class DIEFFECT(EasyCastStructure):
     cbTypeSpecificParams: UInt32
     lpvTypeSpecificParams: VoidPtr
     dwStartDelay: UInt32
-class DIEFFECTATTRIBUTES(EasyCastStructure):
+class DIEFFECTATTRIBUTES(Structure):
     dwEffectId: UInt32
     dwEffType: UInt32
     dwStaticParams: UInt32
     dwDynamicParams: UInt32
     dwCoords: UInt32
-class DIEFFECTINFOA(EasyCastStructure):
+class DIEFFECTINFOA(Structure):
     dwSize: UInt32
     guid: Guid
     dwEffType: UInt32
     dwStaticParams: UInt32
     dwDynamicParams: UInt32
     tszName: win32more.Windows.Win32.Foundation.CHAR * 260
-class DIEFFECTINFOW(EasyCastStructure):
+class DIEFFECTINFOW(Structure):
     dwSize: UInt32
     guid: Guid
     dwEffType: UInt32
@@ -2890,7 +2890,7 @@ class DIEFFECTINFOW(EasyCastStructure):
     dwDynamicParams: UInt32
     tszName: Char * 260
 DIEFFECTINFO = UnicodeAlias('DIEFFECTINFOW')
-class DIEFFECT_DX5(EasyCastStructure):
+class DIEFFECT_DX5(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     dwDuration: UInt32
@@ -2904,36 +2904,36 @@ class DIEFFECT_DX5(EasyCastStructure):
     lpEnvelope: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIENVELOPE)
     cbTypeSpecificParams: UInt32
     lpvTypeSpecificParams: VoidPtr
-class DIEFFESCAPE(EasyCastStructure):
+class DIEFFESCAPE(Structure):
     dwSize: UInt32
     dwCommand: UInt32
     lpvInBuffer: VoidPtr
     cbInBuffer: UInt32
     lpvOutBuffer: VoidPtr
     cbOutBuffer: UInt32
-class DIENVELOPE(EasyCastStructure):
+class DIENVELOPE(Structure):
     dwSize: UInt32
     dwAttackLevel: UInt32
     dwAttackTime: UInt32
     dwFadeLevel: UInt32
     dwFadeTime: UInt32
-class DIFFDEVICEATTRIBUTES(EasyCastStructure):
+class DIFFDEVICEATTRIBUTES(Structure):
     dwFlags: UInt32
     dwFFSamplePeriod: UInt32
     dwFFMinTimeResolution: UInt32
-class DIFFOBJECTATTRIBUTES(EasyCastStructure):
+class DIFFOBJECTATTRIBUTES(Structure):
     dwFFMaxForce: UInt32
     dwFFForceResolution: UInt32
-class DIFILEEFFECT(EasyCastStructure):
+class DIFILEEFFECT(Structure):
     dwSize: UInt32
     GuidEffect: Guid
     lpDiEffect: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIEFFECT)
     szFriendlyName: win32more.Windows.Win32.Foundation.CHAR * 260
-class DIHIDFFINITINFO(EasyCastStructure):
+class DIHIDFFINITINFO(Structure):
     dwSize: UInt32
     pwszDeviceInterface: win32more.Windows.Win32.Foundation.PWSTR
     GuidInstance: Guid
-class DIJOYCONFIG(EasyCastStructure):
+class DIJOYCONFIG(Structure):
     dwSize: UInt32
     guidInstance: Guid
     hwc: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYREGHWCONFIG
@@ -2941,14 +2941,14 @@ class DIJOYCONFIG(EasyCastStructure):
     wszType: Char * 256
     wszCallout: Char * 256
     guidGameport: Guid
-class DIJOYCONFIG_DX5(EasyCastStructure):
+class DIJOYCONFIG_DX5(Structure):
     dwSize: UInt32
     guidInstance: Guid
     hwc: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYREGHWCONFIG
     dwGain: UInt32
     wszType: Char * 256
     wszCallout: Char * 256
-class DIJOYSTATE(EasyCastStructure):
+class DIJOYSTATE(Structure):
     lX: Int32
     lY: Int32
     lZ: Int32
@@ -2958,7 +2958,7 @@ class DIJOYSTATE(EasyCastStructure):
     rglSlider: Int32 * 2
     rgdwPOV: UInt32 * 4
     rgbButtons: Byte * 32
-class DIJOYSTATE2(EasyCastStructure):
+class DIJOYSTATE2(Structure):
     lX: Int32
     lY: Int32
     lZ: Int32
@@ -2989,7 +2989,7 @@ class DIJOYSTATE2(EasyCastStructure):
     lFRy: Int32
     lFRz: Int32
     rglFSlider: Int32 * 2
-class DIJOYTYPEINFO(EasyCastStructure):
+class DIJOYTYPEINFO(Structure):
     dwSize: UInt32
     hws: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS
     clsidConfig: Guid
@@ -2999,13 +2999,13 @@ class DIJOYTYPEINFO(EasyCastStructure):
     dwFlags1: UInt32
     dwFlags2: UInt32
     wszMapFile: Char * 256
-class DIJOYTYPEINFO_DX5(EasyCastStructure):
+class DIJOYTYPEINFO_DX5(Structure):
     dwSize: UInt32
     hws: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS
     clsidConfig: Guid
     wszDisplayName: Char * 256
     wszCallout: Char * 260
-class DIJOYTYPEINFO_DX6(EasyCastStructure):
+class DIJOYTYPEINFO_DX6(Structure):
     dwSize: UInt32
     hws: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS
     clsidConfig: Guid
@@ -3013,78 +3013,78 @@ class DIJOYTYPEINFO_DX6(EasyCastStructure):
     wszCallout: Char * 260
     wszHardwareId: Char * 256
     dwFlags1: UInt32
-class DIJOYUSERVALUES(EasyCastStructure):
+class DIJOYUSERVALUES(Structure):
     dwSize: UInt32
     ruv: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYREGUSERVALUES
     wszGlobalDriver: Char * 256
     wszGameportEmulator: Char * 256
-class DIMOUSESTATE(EasyCastStructure):
+class DIMOUSESTATE(Structure):
     lX: Int32
     lY: Int32
     lZ: Int32
     rgbButtons: Byte * 4
-class DIMOUSESTATE2(EasyCastStructure):
+class DIMOUSESTATE2(Structure):
     lX: Int32
     lY: Int32
     lZ: Int32
     rgbButtons: Byte * 8
-class DIOBJECTATTRIBUTES(EasyCastStructure):
+class DIOBJECTATTRIBUTES(Structure):
     dwFlags: UInt32
     wUsagePage: UInt16
     wUsage: UInt16
-class DIOBJECTCALIBRATION(EasyCastStructure):
+class DIOBJECTCALIBRATION(Structure):
     lMin: Int32
     lCenter: Int32
     lMax: Int32
-class DIOBJECTDATAFORMAT(EasyCastStructure):
+class DIOBJECTDATAFORMAT(Structure):
     pguid: POINTER(Guid)
     dwOfs: UInt32
     dwType: UInt32
     dwFlags: UInt32
-class DIPERIODIC(EasyCastStructure):
+class DIPERIODIC(Structure):
     dwMagnitude: UInt32
     lOffset: Int32
     dwPhase: UInt32
     dwPeriod: UInt32
-class DIPOVCALIBRATION(EasyCastStructure):
+class DIPOVCALIBRATION(Structure):
     lMin: Int32 * 5
     lMax: Int32 * 5
-class DIPROPCAL(EasyCastStructure):
+class DIPROPCAL(Structure):
     diph: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIPROPHEADER
     lMin: Int32
     lCenter: Int32
     lMax: Int32
-class DIPROPCALPOV(EasyCastStructure):
+class DIPROPCALPOV(Structure):
     diph: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIPROPHEADER
     lMin: Int32 * 5
     lMax: Int32 * 5
-class DIPROPCPOINTS(EasyCastStructure):
+class DIPROPCPOINTS(Structure):
     diph: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIPROPHEADER
     dwCPointsNum: UInt32
     cp: win32more.Windows.Win32.Devices.HumanInterfaceDevice.CPOINT * 8
-class DIPROPDWORD(EasyCastStructure):
+class DIPROPDWORD(Structure):
     diph: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIPROPHEADER
     dwData: UInt32
-class DIPROPGUIDANDPATH(EasyCastStructure):
+class DIPROPGUIDANDPATH(Structure):
     diph: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIPROPHEADER
     guidClass: Guid
     wszPath: Char * 260
-class DIPROPHEADER(EasyCastStructure):
+class DIPROPHEADER(Structure):
     dwSize: UInt32
     dwHeaderSize: UInt32
     dwObj: UInt32
     dwHow: UInt32
-class DIPROPPOINTER(EasyCastStructure):
+class DIPROPPOINTER(Structure):
     diph: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIPROPHEADER
     uData: UIntPtr
-class DIPROPRANGE(EasyCastStructure):
+class DIPROPRANGE(Structure):
     diph: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIPROPHEADER
     lMin: Int32
     lMax: Int32
-class DIPROPSTRING(EasyCastStructure):
+class DIPROPSTRING(Structure):
     diph: win32more.Windows.Win32.Devices.HumanInterfaceDevice.DIPROPHEADER
     wsz: Char * 260
-class DIRAMPFORCE(EasyCastStructure):
+class DIRAMPFORCE(Structure):
     lStart: Int32
     lEnd: Int32
 GPIOBUTTONS_BUTTON_TYPE = Int32
@@ -3106,20 +3106,20 @@ GPIO_BUTTON_OEM_CUSTOM2: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GP
 GPIO_BUTTON_OEM_CUSTOM3: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 15
 GPIO_BUTTON_COUNT_MIN: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 5
 GPIO_BUTTON_COUNT: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE = 16
-class HIDD_ATTRIBUTES(EasyCastStructure):
+class HIDD_ATTRIBUTES(Structure):
     Size: UInt32
     VendorID: UInt16
     ProductID: UInt16
     VersionNumber: UInt16
-class HIDD_CONFIGURATION(EasyCastStructure):
+class HIDD_CONFIGURATION(Structure):
     cookie: VoidPtr
     size: UInt32
     RingBufferSize: UInt32
     _pack_ = 4
-class HIDP_BUTTON_ARRAY_DATA(EasyCastStructure):
+class HIDP_BUTTON_ARRAY_DATA(Structure):
     ArrayIndex: UInt16
     On: win32more.Windows.Win32.Foundation.BOOLEAN
-class HIDP_BUTTON_CAPS(EasyCastStructure):
+class HIDP_BUTTON_CAPS(Structure):
     UsagePage: UInt16
     ReportID: Byte
     IsAlias: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -3135,10 +3135,10 @@ class HIDP_BUTTON_CAPS(EasyCastStructure):
     Reserved2: UInt16
     Reserved: UInt32 * 9
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Range: _Range_e__Struct
         NotRange: _NotRange_e__Struct
-        class _Range_e__Struct(EasyCastStructure):
+        class _Range_e__Struct(Structure):
             UsageMin: UInt16
             UsageMax: UInt16
             StringMin: UInt16
@@ -3147,7 +3147,7 @@ class HIDP_BUTTON_CAPS(EasyCastStructure):
             DesignatorMax: UInt16
             DataIndexMin: UInt16
             DataIndexMax: UInt16
-        class _NotRange_e__Struct(EasyCastStructure):
+        class _NotRange_e__Struct(Structure):
             Usage: UInt16
             Reserved1: UInt16
             StringIndex: UInt16
@@ -3156,7 +3156,7 @@ class HIDP_BUTTON_CAPS(EasyCastStructure):
             Reserved3: UInt16
             DataIndex: UInt16
             Reserved4: UInt16
-class HIDP_CAPS(EasyCastStructure):
+class HIDP_CAPS(Structure):
     Usage: UInt16
     UsagePage: UInt16
     InputReportByteLength: UInt16
@@ -3173,14 +3173,14 @@ class HIDP_CAPS(EasyCastStructure):
     NumberFeatureButtonCaps: UInt16
     NumberFeatureValueCaps: UInt16
     NumberFeatureDataIndices: UInt16
-class HIDP_DATA(EasyCastStructure):
+class HIDP_DATA(Structure):
     DataIndex: UInt16
     Reserved: UInt16
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         RawValue: UInt32
         On: win32more.Windows.Win32.Foundation.BOOLEAN
-class HIDP_EXTENDED_ATTRIBUTES(EasyCastStructure):
+class HIDP_EXTENDED_ATTRIBUTES(Structure):
     NumGlobalUnknowns: Byte
     Reserved: Byte * 3
     GlobalUnknowns: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_UNKNOWN_TOKEN)
@@ -3189,14 +3189,14 @@ class HIDP_EXTENDED_ATTRIBUTES(EasyCastStructure):
 HIDP_KEYBOARD_DIRECTION = Int32
 HidP_Keyboard_Break: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_DIRECTION = 0
 HidP_Keyboard_Make: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_DIRECTION = 1
-class HIDP_KEYBOARD_MODIFIER_STATE(EasyCastStructure):
+class HIDP_KEYBOARD_MODIFIER_STATE(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ul: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class HIDP_LINK_COLLECTION_NODE(EasyCastStructure):
+class HIDP_LINK_COLLECTION_NODE(Structure):
     LinkUsage: UInt16
     LinkUsagePage: UInt16
     Parent: UInt16
@@ -3210,11 +3210,11 @@ HIDP_REPORT_TYPE = Int32
 HidP_Input: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE = 0
 HidP_Output: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE = 1
 HidP_Feature: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_REPORT_TYPE = 2
-class HIDP_UNKNOWN_TOKEN(EasyCastStructure):
+class HIDP_UNKNOWN_TOKEN(Structure):
     Token: Byte
     Reserved: Byte * 3
     BitField: UInt32
-class HIDP_VALUE_CAPS(EasyCastStructure):
+class HIDP_VALUE_CAPS(Structure):
     UsagePage: UInt16
     ReportID: Byte
     IsAlias: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -3238,10 +3238,10 @@ class HIDP_VALUE_CAPS(EasyCastStructure):
     PhysicalMin: Int32
     PhysicalMax: Int32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Range: _Range_e__Struct
         NotRange: _NotRange_e__Struct
-        class _Range_e__Struct(EasyCastStructure):
+        class _Range_e__Struct(Structure):
             UsageMin: UInt16
             UsageMax: UInt16
             StringMin: UInt16
@@ -3250,7 +3250,7 @@ class HIDP_VALUE_CAPS(EasyCastStructure):
             DesignatorMax: UInt16
             DataIndexMin: UInt16
             DataIndexMax: UInt16
-        class _NotRange_e__Struct(EasyCastStructure):
+        class _NotRange_e__Struct(Structure):
             Usage: UInt16
             Reserved1: UInt16
             StringIndex: UInt16
@@ -3259,17 +3259,17 @@ class HIDP_VALUE_CAPS(EasyCastStructure):
             Reserved3: UInt16
             DataIndex: UInt16
             Reserved4: UInt16
-class HID_COLLECTION_INFORMATION(EasyCastStructure):
+class HID_COLLECTION_INFORMATION(Structure):
     DescriptorSize: UInt32
     Polled: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved1: Byte * 1
     VendorID: UInt16
     ProductID: UInt16
     VersionNumber: UInt16
-class HID_DRIVER_CONFIG(EasyCastStructure):
+class HID_DRIVER_CONFIG(Structure):
     Size: UInt32
     RingBufferSize: UInt32
-class HID_XFER_PACKET(EasyCastStructure):
+class HID_XFER_PACKET(Structure):
     reportBuffer: POINTER(Byte)
     reportBufferLen: UInt32
     reportId: Byte
@@ -3727,48 +3727,48 @@ class IDirectInputW(ComPtr):
     @commethod(7)
     def Initialize(self, param0: win32more.Windows.Win32.Foundation.HINSTANCE, param1: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 IDirectInput = UnicodeAlias('IDirectInputW')
-class INDICATOR_LIST(EasyCastStructure):
+class INDICATOR_LIST(Structure):
     MakeCode: UInt16
     IndicatorFlags: UInt16
-class INPUT_BUTTON_ENABLE_INFO(EasyCastStructure):
+class INPUT_BUTTON_ENABLE_INFO(Structure):
     ButtonType: win32more.Windows.Win32.Devices.HumanInterfaceDevice.GPIOBUTTONS_BUTTON_TYPE
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
-class JOYCALIBRATE(EasyCastStructure):
+class JOYCALIBRATE(Structure):
     wXbase: UInt32
     wXdelta: UInt32
     wYbase: UInt32
     wYdelta: UInt32
     wZbase: UInt32
     wZdelta: UInt32
-class JOYPOS(EasyCastStructure):
+class JOYPOS(Structure):
     dwX: UInt32
     dwY: UInt32
     dwZ: UInt32
     dwR: UInt32
     dwU: UInt32
     dwV: UInt32
-class JOYRANGE(EasyCastStructure):
+class JOYRANGE(Structure):
     jpMin: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYPOS
     jpMax: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYPOS
     jpCenter: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYPOS
-class JOYREGHWCONFIG(EasyCastStructure):
+class JOYREGHWCONFIG(Structure):
     hws: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYREGHWSETTINGS
     dwUsageSettings: UInt32
     hwv: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYREGHWVALUES
     dwType: UInt32
     dwReserved: UInt32
-class JOYREGHWSETTINGS(EasyCastStructure):
+class JOYREGHWSETTINGS(Structure):
     dwFlags: UInt32
     dwNumButtons: UInt32
-class JOYREGHWVALUES(EasyCastStructure):
+class JOYREGHWVALUES(Structure):
     jrvHardware: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYRANGE
     dwPOVValues: UInt32 * 4
     dwCalFlags: UInt32
-class JOYREGUSERVALUES(EasyCastStructure):
+class JOYREGUSERVALUES(Structure):
     dwTimeOut: UInt32
     jrvRanges: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYRANGE
     jpDeadZone: win32more.Windows.Win32.Devices.HumanInterfaceDevice.JOYPOS
-class KEYBOARD_ATTRIBUTES(EasyCastStructure):
+class KEYBOARD_ATTRIBUTES(Structure):
     KeyboardIdentifier: win32more.Windows.Win32.Devices.HumanInterfaceDevice.KEYBOARD_ID
     KeyboardMode: UInt16
     NumberOfFunctionKeys: UInt16
@@ -3777,7 +3777,7 @@ class KEYBOARD_ATTRIBUTES(EasyCastStructure):
     InputDataQueueLength: UInt32
     KeyRepeatMinimum: win32more.Windows.Win32.Devices.HumanInterfaceDevice.KEYBOARD_TYPEMATIC_PARAMETERS
     KeyRepeatMaximum: win32more.Windows.Win32.Devices.HumanInterfaceDevice.KEYBOARD_TYPEMATIC_PARAMETERS
-class KEYBOARD_EXTENDED_ATTRIBUTES(EasyCastStructure):
+class KEYBOARD_EXTENDED_ATTRIBUTES(Structure):
     Version: Byte
     FormFactor: Byte
     KeyType: Byte
@@ -3785,30 +3785,30 @@ class KEYBOARD_EXTENDED_ATTRIBUTES(EasyCastStructure):
     VendorSpecificPhysicalLayout: Byte
     IETFLanguageTagIndex: Byte
     ImplementedInputAssistControls: Byte
-class KEYBOARD_ID(EasyCastStructure):
+class KEYBOARD_ID(Structure):
     Type: Byte
     Subtype: Byte
-class KEYBOARD_IME_STATUS(EasyCastStructure):
+class KEYBOARD_IME_STATUS(Structure):
     UnitId: UInt16
     ImeOpen: UInt32
     ImeConvMode: UInt32
-class KEYBOARD_INDICATOR_PARAMETERS(EasyCastStructure):
+class KEYBOARD_INDICATOR_PARAMETERS(Structure):
     UnitId: UInt16
     LedFlags: UInt16
-class KEYBOARD_INDICATOR_TRANSLATION(EasyCastStructure):
+class KEYBOARD_INDICATOR_TRANSLATION(Structure):
     NumberOfIndicatorKeys: UInt16
     IndicatorList: win32more.Windows.Win32.Devices.HumanInterfaceDevice.INDICATOR_LIST * 1
-class KEYBOARD_INPUT_DATA(EasyCastStructure):
+class KEYBOARD_INPUT_DATA(Structure):
     UnitId: UInt16
     MakeCode: UInt16
     Flags: UInt16
     Reserved: UInt16
     ExtraInformation: UInt32
-class KEYBOARD_TYPEMATIC_PARAMETERS(EasyCastStructure):
+class KEYBOARD_TYPEMATIC_PARAMETERS(Structure):
     UnitId: UInt16
     Rate: UInt16
     Delay: UInt16
-class KEYBOARD_UNIT_ID_PARAMETER(EasyCastStructure):
+class KEYBOARD_UNIT_ID_PARAMETER(Structure):
     UnitId: UInt16
 @winfunctype_pointer
 def LPDICONFIGUREDEVICESCALLBACK(param0: win32more.Windows.Win32.System.Com.IUnknown, param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
@@ -3840,12 +3840,12 @@ def LPDIENUMEFFECTSINFILECALLBACK(param0: POINTER(win32more.Windows.Win32.Device
 def LPDIJOYTYPECALLBACK(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPFNSHOWJOYCPL(hWnd: win32more.Windows.Win32.Foundation.HWND) -> Void: ...
-class MOUSE_ATTRIBUTES(EasyCastStructure):
+class MOUSE_ATTRIBUTES(Structure):
     MouseIdentifier: UInt16
     NumberOfButtons: UInt16
     SampleRate: UInt16
     InputDataQueueLength: UInt32
-class MOUSE_INPUT_DATA(EasyCastStructure):
+class MOUSE_INPUT_DATA(Structure):
     UnitId: UInt16
     Flags: UInt16
     Anonymous: _Anonymous_e__Union
@@ -3853,20 +3853,20 @@ class MOUSE_INPUT_DATA(EasyCastStructure):
     LastX: Int32
     LastY: Int32
     ExtraInformation: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Buttons: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             ButtonFlags: UInt16
             ButtonData: UInt16
-class MOUSE_UNIT_ID_PARAMETER(EasyCastStructure):
+class MOUSE_UNIT_ID_PARAMETER(Structure):
     UnitId: UInt16
 @winfunctype_pointer
 def PFN_HidP_GetVersionInternal(Version: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PHIDP_INSERT_SCANCODES(Context: VoidPtr, NewScanCodes: win32more.Windows.Win32.Foundation.PSTR, Length: UInt32) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 PHIDP_PREPARSED_DATA = IntPtr
-class USAGE_AND_PAGE(EasyCastStructure):
+class USAGE_AND_PAGE(Structure):
     Usage: UInt16
     UsagePage: UInt16
 

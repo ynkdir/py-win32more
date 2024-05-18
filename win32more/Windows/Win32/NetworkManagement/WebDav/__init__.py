@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WebDav
 AUTHNEXTSTEP = Int32
@@ -35,16 +35,16 @@ def DavCancelConnectionsToServer(lpName: win32more.Windows.Win32.Foundation.PWST
 def DavRegisterAuthCallback(CallBack: win32more.Windows.Win32.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK, Version: UInt32) -> UInt32: ...
 @winfunctype('davclnt.dll')
 def DavUnregisterAuthCallback(hCallback: UInt32) -> Void: ...
-class DAV_CALLBACK_AUTH_BLOB(EasyCastStructure):
+class DAV_CALLBACK_AUTH_BLOB(Structure):
     pBuffer: VoidPtr
     ulSize: UInt32
     ulType: UInt32
-class DAV_CALLBACK_AUTH_UNP(EasyCastStructure):
+class DAV_CALLBACK_AUTH_UNP(Structure):
     pszUserName: win32more.Windows.Win32.Foundation.PWSTR
     ulUserNameLength: UInt32
     pszPassword: win32more.Windows.Win32.Foundation.PWSTR
     ulPasswordLength: UInt32
-class DAV_CALLBACK_CRED(EasyCastStructure):
+class DAV_CALLBACK_CRED(Structure):
     AuthBlob: win32more.Windows.Win32.NetworkManagement.WebDav.DAV_CALLBACK_AUTH_BLOB
     UNPBlob: win32more.Windows.Win32.NetworkManagement.WebDav.DAV_CALLBACK_AUTH_UNP
     bAuthBlobValid: win32more.Windows.Win32.Foundation.BOOL

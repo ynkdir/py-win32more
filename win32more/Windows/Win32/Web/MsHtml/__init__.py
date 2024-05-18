@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Dxgi.Common
 import win32more.Windows.Win32.Graphics.Gdi
@@ -6456,7 +6456,7 @@ DOCHOSTUIFLAG_USE_WINDOWLESS_SELECTCONTROL: win32more.Windows.Win32.Web.MsHtml.D
 DOCHOSTUIFLAG_USE_WINDOWED_SELECTCONTROL: win32more.Windows.Win32.Web.MsHtml.DOCHOSTUIFLAG = 268435456
 DOCHOSTUIFLAG_ENABLE_ACTIVEX_INACTIVATE_MODE: win32more.Windows.Win32.Web.MsHtml.DOCHOSTUIFLAG = 536870912
 DOCHOSTUIFLAG_DPI_AWARE: win32more.Windows.Win32.Web.MsHtml.DOCHOSTUIFLAG = 1073741824
-class DOCHOSTUIINFO(EasyCastStructure):
+class DOCHOSTUIINFO(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     dwDoubleClick: UInt32
@@ -7994,7 +7994,7 @@ HTMLPAINTER_SUPPORTS_XFORM: win32more.Windows.Win32.Web.MsHtml.HTML_PAINTER = 32
 HTMLPAINTER_EXPAND: win32more.Windows.Win32.Web.MsHtml.HTML_PAINTER = 65536
 HTMLPAINTER_NOSCROLLBITS: win32more.Windows.Win32.Web.MsHtml.HTML_PAINTER = 131072
 HTML_PAINTER_Max: win32more.Windows.Win32.Web.MsHtml.HTML_PAINTER = 2147483647
-class HTML_PAINTER_INFO(EasyCastStructure):
+class HTML_PAINTER_INFO(Structure):
     lFlags: Int32
     lZOrder: Int32
     iidDrawObject: Guid
@@ -8003,7 +8003,7 @@ HTML_PAINT_DRAW_FLAGS = Int32
 HTMLPAINT_DRAW_UPDATEREGION: win32more.Windows.Win32.Web.MsHtml.HTML_PAINT_DRAW_FLAGS = 1
 HTMLPAINT_DRAW_USE_XFORM: win32more.Windows.Win32.Web.MsHtml.HTML_PAINT_DRAW_FLAGS = 2
 HTML_PAINT_DRAW_FLAGS_Max: win32more.Windows.Win32.Web.MsHtml.HTML_PAINT_DRAW_FLAGS = 2147483647
-class HTML_PAINT_DRAW_INFO(EasyCastStructure):
+class HTML_PAINT_DRAW_INFO(Structure):
     rcViewport: win32more.Windows.Win32.Foundation.RECT
     hrgnUpdate: win32more.Windows.Win32.Graphics.Gdi.HRGN
     xform: win32more.Windows.Win32.Web.MsHtml.HTML_PAINT_XFORM
@@ -8016,7 +8016,7 @@ HTML_PAINT_EVENT_FLAGS = Int32
 HTMLPAINT_EVENT_TARGET: win32more.Windows.Win32.Web.MsHtml.HTML_PAINT_EVENT_FLAGS = 1
 HTMLPAINT_EVENT_SETCURSOR: win32more.Windows.Win32.Web.MsHtml.HTML_PAINT_EVENT_FLAGS = 2
 HTML_PAINT_EVENT_FLAGS_Max: win32more.Windows.Win32.Web.MsHtml.HTML_PAINT_EVENT_FLAGS = 2147483647
-class HTML_PAINT_XFORM(EasyCastStructure):
+class HTML_PAINT_XFORM(Structure):
     eM11: Single
     eM12: Single
     eM21: Single

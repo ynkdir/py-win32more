@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Snmp
 ASN_UNIVERSAL: UInt32 = 0
@@ -262,11 +262,11 @@ def SnmpEncodeMsg(session: IntPtr, srcEntity: IntPtr, dstEntity: IntPtr, context
 def SnmpDecodeMsg(session: IntPtr, srcEntity: POINTER(IntPtr), dstEntity: POINTER(IntPtr), context: POINTER(IntPtr), pdu: POINTER(IntPtr), msgBufDesc: POINTER(win32more.Windows.Win32.NetworkManagement.Snmp.smiOCTETS)) -> UInt32: ...
 @winfunctype('wsnmp32.dll')
 def SnmpFreeDescriptor(syntax: UInt32, descriptor: POINTER(win32more.Windows.Win32.NetworkManagement.Snmp.smiOCTETS)) -> UInt32: ...
-class AsnAny(EasyCastStructure):
+class AsnAny(Structure):
     asnType: Byte
     asnValue: _asnValue_e__Union
     _pack_ = 4
-    class _asnValue_e__Union(EasyCastUnion):
+    class _asnValue_e__Union(Union):
         number: Int32
         unsigned32: UInt32
         counter64: UInt64
@@ -281,22 +281,22 @@ class AsnAny(EasyCastStructure):
         arbitrary: win32more.Windows.Win32.NetworkManagement.Snmp.AsnOctetString
         _pack_ = 4
 if ARCH in 'X64,ARM64':
-    class AsnObjectIdentifier(EasyCastStructure):
+    class AsnObjectIdentifier(Structure):
         idLength: UInt32
         ids: POINTER(UInt32)
         _pack_ = 4
 elif ARCH in 'X86':
-    class AsnObjectIdentifier(EasyCastStructure):
+    class AsnObjectIdentifier(Structure):
         idLength: UInt32
         ids: POINTER(UInt32)
 if ARCH in 'X64,ARM64':
-    class AsnOctetString(EasyCastStructure):
+    class AsnOctetString(Structure):
         stream: POINTER(Byte)
         length: UInt32
         dynamic: win32more.Windows.Win32.Foundation.BOOL
         _pack_ = 4
 elif ARCH in 'X86':
-    class AsnOctetString(EasyCastStructure):
+    class AsnOctetString(Structure):
         stream: POINTER(Byte)
         length: UInt32
         dynamic: win32more.Windows.Win32.Foundation.BOOL
@@ -400,39 +400,39 @@ SNMP_PDU_TRAP: win32more.Windows.Win32.NetworkManagement.Snmp.SNMP_PDU_TYPE = 16
 SNMP_STATUS = UInt32
 SNMPAPI_ON: win32more.Windows.Win32.NetworkManagement.Snmp.SNMP_STATUS = 1
 SNMPAPI_OFF: win32more.Windows.Win32.NetworkManagement.Snmp.SNMP_STATUS = 0
-class SnmpVarBind(EasyCastStructure):
+class SnmpVarBind(Structure):
     name: win32more.Windows.Win32.NetworkManagement.Snmp.AsnObjectIdentifier
     value: win32more.Windows.Win32.NetworkManagement.Snmp.AsnAny
     _pack_ = 4
 if ARCH in 'X64,ARM64':
-    class SnmpVarBindList(EasyCastStructure):
+    class SnmpVarBindList(Structure):
         list: POINTER(win32more.Windows.Win32.NetworkManagement.Snmp.SnmpVarBind)
         len: UInt32
         _pack_ = 4
 elif ARCH in 'X86':
-    class SnmpVarBindList(EasyCastStructure):
+    class SnmpVarBindList(Structure):
         list: POINTER(win32more.Windows.Win32.NetworkManagement.Snmp.SnmpVarBind)
         len: UInt32
-class smiCNTR64(EasyCastStructure):
+class smiCNTR64(Structure):
     hipart: UInt32
     lopart: UInt32
-class smiOCTETS(EasyCastStructure):
+class smiOCTETS(Structure):
     len: UInt32
     ptr: POINTER(Byte)
-class smiOID(EasyCastStructure):
+class smiOID(Structure):
     len: UInt32
     ptr: POINTER(UInt32)
-class smiVALUE(EasyCastStructure):
+class smiVALUE(Structure):
     syntax: UInt32
     value: _value_e__Union
-    class _value_e__Union(EasyCastUnion):
+    class _value_e__Union(Union):
         sNumber: Int32
         uNumber: UInt32
         hNumber: win32more.Windows.Win32.NetworkManagement.Snmp.smiCNTR64
         string: win32more.Windows.Win32.NetworkManagement.Snmp.smiOCTETS
         oid: win32more.Windows.Win32.NetworkManagement.Snmp.smiOID
         empty: Byte
-class smiVENDORINFO(EasyCastStructure):
+class smiVENDORINFO(Structure):
     vendorName: win32more.Windows.Win32.Foundation.CHAR * 64
     vendorContact: win32more.Windows.Win32.Foundation.CHAR * 64
     vendorVersionId: win32more.Windows.Win32.Foundation.CHAR * 32

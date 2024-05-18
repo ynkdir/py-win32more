@@ -1,17 +1,17 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.ComponentServices
 import win32more.Windows.Win32.System.DistributedTransactionCoordinator
 import win32more.Windows.Win32.System.Variant
-class APPDATA(EasyCastStructure):
+class APPDATA(Structure):
     m_idApp: UInt32
     m_szAppGuid: Char * 40
     m_dwAppProcessId: UInt32
     m_AppStatistics: win32more.Windows.Win32.System.ComponentServices.APPSTATISTICS
-class APPSTATISTICS(EasyCastStructure):
+class APPSTATISTICS(Structure):
     m_cTotalCalls: UInt32
     m_cTotalInstances: UInt32
     m_cTotalClasses: UInt32
@@ -46,7 +46,7 @@ def MTSCreateActivity(riid: POINTER(Guid), ppobj: POINTER(VoidPtr)) -> win32more
 @cfunctype('MTxDM.dll')
 def GetDispenserManager(param0: POINTER(win32more.Windows.Win32.System.ComponentServices.IDispenserManager)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 AppDomainHelper = Guid('{ef24f689-14f8-4d92-b4af-d7b1f0e70fd4}')
-class ApplicationProcessRecycleInfo(EasyCastStructure):
+class ApplicationProcessRecycleInfo(Structure):
     IsRecyclable: win32more.Windows.Win32.Foundation.BOOL
     IsRecycled: win32more.Windows.Win32.Foundation.BOOL
     TimeRecycled: win32more.Windows.Win32.Foundation.FILETIME
@@ -61,7 +61,7 @@ class ApplicationProcessRecycleInfo(EasyCastStructure):
     NumActivationsLastReported: UInt32
     CallLimit: UInt32
     NumCallsLastReported: UInt32
-class ApplicationProcessStatistics(EasyCastStructure):
+class ApplicationProcessStatistics(Structure):
     NumCallsOutstanding: UInt32
     NumTrackedComponents: UInt32
     NumComponentInstances: UInt32
@@ -70,7 +70,7 @@ class ApplicationProcessStatistics(EasyCastStructure):
     Reserved2: UInt32
     Reserved3: UInt32
     Reserved4: UInt32
-class ApplicationProcessSummary(EasyCastStructure):
+class ApplicationProcessSummary(Structure):
     PartitionIdPrimaryApplication: Guid
     ApplicationIdPrimaryApplication: Guid
     ApplicationInstanceId: Guid
@@ -80,7 +80,7 @@ class ApplicationProcessSummary(EasyCastStructure):
     IsService: win32more.Windows.Win32.Foundation.BOOL
     IsPaused: win32more.Windows.Win32.Foundation.BOOL
     IsRecycled: win32more.Windows.Win32.Foundation.BOOL
-class ApplicationSummary(EasyCastStructure):
+class ApplicationSummary(Structure):
     ApplicationInstanceId: Guid
     PartitionId: Guid
     ApplicationId: Guid
@@ -116,7 +116,7 @@ comqcErrMsgNotAuthenticated: win32more.Windows.Win32.System.ComponentServices.Au
 comqcErrMsmqConnectorUsed: win32more.Windows.Win32.System.ComponentServices.AutoSvcs_Error_Constants = 2148599381
 comqcErrBadMarshaledObject: win32more.Windows.Win32.System.ComponentServices.AutoSvcs_Error_Constants = 2148599382
 ByotServerEx = Guid('{ecabb0aa-7f19-11d2-978e-0000f8757e2a}')
-class CLSIDDATA(EasyCastStructure):
+class CLSIDDATA(Structure):
     m_clsid: Guid
     m_cReferences: UInt32
     m_cBound: UInt32
@@ -125,7 +125,7 @@ class CLSIDDATA(EasyCastStructure):
     m_dwRespTime: UInt32
     m_cCallsCompleted: UInt32
     m_cCallsFailed: UInt32
-class CLSIDDATA2(EasyCastStructure):
+class CLSIDDATA2(Structure):
     m_clsid: Guid
     m_appid: Guid
     m_partid: Guid
@@ -386,7 +386,7 @@ APPTYPE_UNKNOWN: win32more.Windows.Win32.System.ComponentServices.COMPLUS_APPTYP
 APPTYPE_SERVER: win32more.Windows.Win32.System.ComponentServices.COMPLUS_APPTYPE = 1
 APPTYPE_LIBRARY: win32more.Windows.Win32.System.ComponentServices.COMPLUS_APPTYPE = 0
 APPTYPE_SWC: win32more.Windows.Win32.System.ComponentServices.COMPLUS_APPTYPE = 2
-class COMSVCSEVENTINFO(EasyCastStructure):
+class COMSVCSEVENTINFO(Structure):
     cbSize: UInt32
     dwPid: UInt32
     lTime: Int64
@@ -453,11 +453,11 @@ ClrAssemblyLocator = Guid('{458aa3b5-265a-4b75-bc05-9bea4630cf18}')
 CoMTSLocator = Guid('{ecabb0ac-7f19-11d2-978e-0000f8757e2a}')
 ComServiceEvents = Guid('{ecabb0c3-7f19-11d2-978e-0000f8757e2a}')
 ComSystemAppEventData = Guid('{ecabb0c6-7f19-11d2-978e-0000f8757e2a}')
-class ComponentHangMonitorInfo(EasyCastStructure):
+class ComponentHangMonitorInfo(Structure):
     IsMonitored: win32more.Windows.Win32.Foundation.BOOL
     TerminateOnHang: win32more.Windows.Win32.Foundation.BOOL
     AvgCallThresholdInMs: UInt32
-class ComponentStatistics(EasyCastStructure):
+class ComponentStatistics(Structure):
     NumInstances: UInt32
     NumBoundReferences: UInt32
     NumPooledObjects: UInt32
@@ -471,7 +471,7 @@ class ComponentStatistics(EasyCastStructure):
     Reserved2: UInt32
     Reserved3: UInt32
     Reserved4: UInt32
-class ComponentSummary(EasyCastStructure):
+class ComponentSummary(Structure):
     ApplicationInstanceId: Guid
     PartitionId: Guid
     ApplicationId: Guid
@@ -500,7 +500,7 @@ class ContextInfo2(ComPtr):
     def GetApplicationId(self, __MIDL__ContextInfo20001: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetApplicationInstanceId(self, __MIDL__ContextInfo20002: POINTER(win32more.Windows.Win32.Foundation.BSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class CrmLogRecordRead(EasyCastStructure):
+class CrmLogRecordRead(Structure):
     dwCrmFlags: UInt32
     dwSequenceNumber: UInt32
     blobUserData: win32more.Windows.Win32.System.Com.BLOB
@@ -523,7 +523,7 @@ GATD_INCLUDE_SWC: win32more.Windows.Win32.System.ComponentServices.GetAppTracker
 GATD_INCLUDE_CLASS_NAME: win32more.Windows.Win32.System.ComponentServices.GetAppTrackerDataFlags = 8
 GATD_INCLUDE_APPLICATION_NAME: win32more.Windows.Win32.System.ComponentServices.GetAppTrackerDataFlags = 16
 GetSecurityCallContextAppObject = Guid('{ecabb0a8-7f19-11d2-978e-0000f8757e2a}')
-class HANG_INFO(EasyCastStructure):
+class HANG_INFO(Structure):
     fAppHangMonitorEnabled: win32more.Windows.Win32.Foundation.BOOL
     fTerminateOnHang: win32more.Windows.Win32.Foundation.BOOL
     DumpType: win32more.Windows.Win32.System.ComponentServices.DUMPTYPE
@@ -1937,7 +1937,7 @@ class ObjectControl(ComPtr):
     @commethod(5)
     def CanBePooled(self, pbPoolable: POINTER(win32more.Windows.Win32.Foundation.VARIANT_BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 PoolMgr = Guid('{ecabafb5-7f19-11d2-978e-0000f8757e2a}')
-class RECYCLE_INFO(EasyCastStructure):
+class RECYCLE_INFO(Structure):
     guidCombaseProcessIdentifier: Guid
     ProcessStartTime: Int64
     dwRecycleLifetimeLimit: UInt32

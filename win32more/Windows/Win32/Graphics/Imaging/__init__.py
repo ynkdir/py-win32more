@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D.Common
 import win32more.Windows.Win32.Graphics.Dxgi.Common
@@ -1063,18 +1063,18 @@ WICBitmapPaletteTypeFixedHalftone256: win32more.Windows.Win32.Graphics.Imaging.W
 WICBitmapPaletteTypeFixedGray4: win32more.Windows.Win32.Graphics.Imaging.WICBitmapPaletteType = 10
 WICBitmapPaletteTypeFixedGray16: win32more.Windows.Win32.Graphics.Imaging.WICBitmapPaletteType = 11
 WICBitmapPaletteTypeFixedGray256: win32more.Windows.Win32.Graphics.Imaging.WICBitmapPaletteType = 12
-class WICBitmapPattern(EasyCastStructure):
+class WICBitmapPattern(Structure):
     Position: UInt64
     Length: UInt32
     Pattern: POINTER(Byte)
     Mask: POINTER(Byte)
     EndOfStream: win32more.Windows.Win32.Foundation.BOOL
-class WICBitmapPlane(EasyCastStructure):
+class WICBitmapPlane(Structure):
     Format: Guid
     pbBuffer: POINTER(Byte)
     cbStride: UInt32
     cbBufferSize: UInt32
-class WICBitmapPlaneDescription(EasyCastStructure):
+class WICBitmapPlaneDescription(Structure):
     Format: Guid
     Width: UInt32
     Height: UInt32
@@ -1119,12 +1119,12 @@ WICDdsTexture1D: win32more.Windows.Win32.Graphics.Imaging.WICDdsDimension = 0
 WICDdsTexture2D: win32more.Windows.Win32.Graphics.Imaging.WICDdsDimension = 1
 WICDdsTexture3D: win32more.Windows.Win32.Graphics.Imaging.WICDdsDimension = 2
 WICDdsTextureCube: win32more.Windows.Win32.Graphics.Imaging.WICDdsDimension = 3
-class WICDdsFormatInfo(EasyCastStructure):
+class WICDdsFormatInfo(Structure):
     DxgiFormat: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     BytesPerBlock: UInt32
     BlockWidth: UInt32
     BlockHeight: UInt32
-class WICDdsParameters(EasyCastStructure):
+class WICDdsParameters(Structure):
     Width: UInt32
     Height: UInt32
     Depth: UInt32
@@ -1174,7 +1174,7 @@ WICHeifHdrMaximumMasteringDisplayLuminanceLevel: win32more.Windows.Win32.Graphic
 WICHeifHdrCustomVideoPrimaries: win32more.Windows.Win32.Graphics.Imaging.WICHeifHdrProperties = 5
 WICHeifProperties = Int32
 WICHeifOrientation: win32more.Windows.Win32.Graphics.Imaging.WICHeifProperties = 1
-class WICImageParameters(EasyCastStructure):
+class WICImageParameters(Structure):
     PixelFormat: win32more.Windows.Win32.Graphics.Direct2D.Common.D2D1_PIXEL_FORMAT
     DpiX: Single
     DpiY: Single
@@ -1186,7 +1186,7 @@ WICJpegChrominanceProperties = Int32
 WICJpegChrominanceTable: win32more.Windows.Win32.Graphics.Imaging.WICJpegChrominanceProperties = 1
 WICJpegCommentProperties = Int32
 WICJpegCommentText: win32more.Windows.Win32.Graphics.Imaging.WICJpegCommentProperties = 1
-class WICJpegFrameHeader(EasyCastStructure):
+class WICJpegFrameHeader(Structure):
     Width: UInt32
     Height: UInt32
     TransferMatrix: win32more.Windows.Win32.Graphics.Imaging.WICJpegTransferMatrix
@@ -1200,7 +1200,7 @@ WICJpegIndexingOptionsGenerateOnDemand: win32more.Windows.Win32.Graphics.Imaging
 WICJpegIndexingOptionsGenerateOnLoad: win32more.Windows.Win32.Graphics.Imaging.WICJpegIndexingOptions = 1
 WICJpegLuminanceProperties = Int32
 WICJpegLuminanceTable: win32more.Windows.Win32.Graphics.Imaging.WICJpegLuminanceProperties = 1
-class WICJpegScanHeader(EasyCastStructure):
+class WICJpegScanHeader(Structure):
     cComponents: UInt32
     RestartInterval: UInt32
     ComponentSelectors: UInt32
@@ -1227,12 +1227,12 @@ WICMetadataCreationDefault: win32more.Windows.Win32.Graphics.Imaging.WICMetadata
 WICMetadataCreationAllowUnknown: win32more.Windows.Win32.Graphics.Imaging.WICMetadataCreationOptions = 0
 WICMetadataCreationFailUnknown: win32more.Windows.Win32.Graphics.Imaging.WICMetadataCreationOptions = 65536
 WICMetadataCreationMask: win32more.Windows.Win32.Graphics.Imaging.WICMetadataCreationOptions = -65536
-class WICMetadataHeader(EasyCastStructure):
+class WICMetadataHeader(Structure):
     Position: UInt64
     Length: UInt32
     Header: POINTER(Byte)
     DataOffset: UInt64
-class WICMetadataPattern(EasyCastStructure):
+class WICMetadataPattern(Structure):
     Position: UInt64
     Length: UInt32
     Pattern: POINTER(Byte)
@@ -1322,7 +1322,7 @@ WICRawCapabilities = Int32
 WICRawCapabilityNotSupported: win32more.Windows.Win32.Graphics.Imaging.WICRawCapabilities = 0
 WICRawCapabilityGetSupported: win32more.Windows.Win32.Graphics.Imaging.WICRawCapabilities = 1
 WICRawCapabilityFullySupported: win32more.Windows.Win32.Graphics.Imaging.WICRawCapabilities = 2
-class WICRawCapabilitiesInfo(EasyCastStructure):
+class WICRawCapabilitiesInfo(Structure):
     cbSize: UInt32
     CodecMajorVersion: UInt32
     CodecMinorVersion: UInt32
@@ -1354,13 +1354,13 @@ WICRawRotationCapabilityNotSupported: win32more.Windows.Win32.Graphics.Imaging.W
 WICRawRotationCapabilityGetSupported: win32more.Windows.Win32.Graphics.Imaging.WICRawRotationCapabilities = 1
 WICRawRotationCapabilityNinetyDegreesSupported: win32more.Windows.Win32.Graphics.Imaging.WICRawRotationCapabilities = 2
 WICRawRotationCapabilityFullySupported: win32more.Windows.Win32.Graphics.Imaging.WICRawRotationCapabilities = 3
-class WICRawToneCurve(EasyCastStructure):
+class WICRawToneCurve(Structure):
     cPoints: UInt32
     aPoints: win32more.Windows.Win32.Graphics.Imaging.WICRawToneCurvePoint * 1
-class WICRawToneCurvePoint(EasyCastStructure):
+class WICRawToneCurvePoint(Structure):
     Input: Double
     Output: Double
-class WICRect(EasyCastStructure):
+class WICRect(Structure):
     X: Int32
     Y: Int32
     Width: Int32

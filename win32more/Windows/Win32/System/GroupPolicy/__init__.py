@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -294,7 +294,7 @@ GPMTemplate = Guid('{ecf1d454-71da-4e2f-a8c0-8185465911d9}')
 GPMTrustee = Guid('{c54a700d-19b6-4211-bcb0-e8e2475e471e}')
 GPMWMIFilter = Guid('{626745d8-0dea-4062-bf60-cfc5b1ca1286}')
 GPMWMIFilterCollection = Guid('{74dc6d28-e820-47d6-a0b8-f08d93d7fa33}')
-class GPOBROWSEINFO(EasyCastStructure):
+class GPOBROWSEINFO(Structure):
     dwSize: UInt32
     dwFlags: UInt32
     hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -328,7 +328,7 @@ GPHintMachine: win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_HINT_TYPE
 GPHintSite: win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_HINT_TYPE = 2
 GPHintDomain: win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_HINT_TYPE = 3
 GPHintOrganizationalUnit: win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_HINT_TYPE = 4
-class GROUP_POLICY_OBJECTA(EasyCastStructure):
+class GROUP_POLICY_OBJECTA(Structure):
     dwOptions: UInt32
     dwVersion: UInt32
     lpDSPath: win32more.Windows.Win32.Foundation.PSTR
@@ -342,7 +342,7 @@ class GROUP_POLICY_OBJECTA(EasyCastStructure):
     lpExtensions: win32more.Windows.Win32.Foundation.PSTR
     lParam2: win32more.Windows.Win32.Foundation.LPARAM
     lpLink: win32more.Windows.Win32.Foundation.PSTR
-class GROUP_POLICY_OBJECTW(EasyCastStructure):
+class GROUP_POLICY_OBJECTW(Structure):
     dwOptions: UInt32
     dwVersion: UInt32
     lpDSPath: win32more.Windows.Win32.Foundation.PWSTR
@@ -1212,18 +1212,18 @@ class IGroupPolicyObject(ComPtr):
     def GetMachineName(self, pszName: win32more.Windows.Win32.Foundation.PWSTR, cchMaxLength: Int32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def GetPropertySheetPages(self, hPages: POINTER(POINTER(win32more.Windows.Win32.UI.Controls.HPROPSHEETPAGE)), uPageCount: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INSTALLDATA(EasyCastStructure):
+class INSTALLDATA(Structure):
     Type: win32more.Windows.Win32.System.GroupPolicy.INSTALLSPECTYPE
     Spec: win32more.Windows.Win32.System.GroupPolicy.INSTALLSPEC
-class INSTALLSPEC(EasyCastUnion):
+class INSTALLSPEC(Union):
     AppName: _AppName_e__Struct
     FileExt: win32more.Windows.Win32.Foundation.PWSTR
     ProgId: win32more.Windows.Win32.Foundation.PWSTR
     COMClass: _COMClass_e__Struct
-    class _AppName_e__Struct(EasyCastStructure):
+    class _AppName_e__Struct(Structure):
         Name: win32more.Windows.Win32.Foundation.PWSTR
         GPOId: Guid
-    class _COMClass_e__Struct(EasyCastStructure):
+    class _COMClass_e__Struct(Structure):
         Clsid: Guid
         ClsCtx: UInt32
 INSTALLSPECTYPE = Int32
@@ -1240,12 +1240,12 @@ class IRSOPInformation(ComPtr):
     def GetFlags(self, pdwFlags: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetEventLogEntryText(self, pszEventSource: win32more.Windows.Win32.Foundation.PWSTR, pszEventLogName: win32more.Windows.Win32.Foundation.PWSTR, pszEventTime: win32more.Windows.Win32.Foundation.PWSTR, dwEventID: UInt32, ppszText: POINTER(win32more.Windows.Win32.Foundation.PWSTR)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class LOCALMANAGEDAPPLICATION(EasyCastStructure):
+class LOCALMANAGEDAPPLICATION(Structure):
     pszDeploymentName: win32more.Windows.Win32.Foundation.PWSTR
     pszPolicyName: win32more.Windows.Win32.Foundation.PWSTR
     pszProductId: win32more.Windows.Win32.Foundation.PWSTR
     dwState: UInt32
-class MANAGEDAPPLICATION(EasyCastStructure):
+class MANAGEDAPPLICATION(Structure):
     pszPackageName: win32more.Windows.Win32.Foundation.PWSTR
     pszPublisher: win32more.Windows.Win32.Foundation.PWSTR
     dwVersionHi: UInt32
@@ -1270,7 +1270,7 @@ def PFNPROCESSGROUPPOLICY(dwFlags: UInt32, hToken: win32more.Windows.Win32.Found
 def PFNPROCESSGROUPPOLICYEX(dwFlags: UInt32, hToken: win32more.Windows.Win32.Foundation.HANDLE, hKeyRoot: win32more.Windows.Win32.System.Registry.HKEY, pDeletedGPOList: POINTER(win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECTA), pChangedGPOList: POINTER(win32more.Windows.Win32.System.GroupPolicy.GROUP_POLICY_OBJECTA), pHandle: UIntPtr, pbAbort: POINTER(win32more.Windows.Win32.Foundation.BOOL), pStatusCallback: win32more.Windows.Win32.System.GroupPolicy.PFNSTATUSMESSAGECALLBACK, pWbemServices: win32more.Windows.Win32.System.Wmi.IWbemServices, pRsopStatus: POINTER(win32more.Windows.Win32.Foundation.HRESULT)) -> UInt32: ...
 @winfunctype_pointer
 def PFNSTATUSMESSAGECALLBACK(bVerbose: win32more.Windows.Win32.Foundation.BOOL, lpMessage: win32more.Windows.Win32.Foundation.PWSTR) -> UInt32: ...
-class POLICYSETTINGSTATUSINFO(EasyCastStructure):
+class POLICYSETTINGSTATUSINFO(Structure):
     szKey: win32more.Windows.Win32.Foundation.PWSTR
     szEventSource: win32more.Windows.Win32.Foundation.PWSTR
     szEventLogName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1278,7 +1278,7 @@ class POLICYSETTINGSTATUSINFO(EasyCastStructure):
     dwErrorCode: UInt32
     status: win32more.Windows.Win32.System.GroupPolicy.SETTINGSTATUS
     timeLogged: win32more.Windows.Win32.Foundation.SYSTEMTIME
-class RSOP_TARGET(EasyCastStructure):
+class RSOP_TARGET(Structure):
     pwszAccountName: win32more.Windows.Win32.Foundation.PWSTR
     pwszNewSOM: win32more.Windows.Win32.Foundation.PWSTR
     psaSecurityGroups: POINTER(win32more.Windows.Win32.System.Com.SAFEARRAY)

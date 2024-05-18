@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Xml.Dom
 import win32more.Windows.Foundation
@@ -452,7 +452,7 @@ class ISyndicationTextFactory(ComPtr):
     def CreateSyndicationText(self, text: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationText: ...
     @winrt_commethod(7)
     def CreateSyndicationTextEx(self, text: WinRT_String, type: win32more.Windows.Web.Syndication.SyndicationTextType) -> win32more.Windows.Web.Syndication.SyndicationText: ...
-class RetrievalProgress(EasyCastStructure):
+class RetrievalProgress(Structure):
     BytesRetrieved: UInt32
     TotalBytesToRetrieve: UInt32
 class SyndicationAttribute(ComPtr):
@@ -1283,7 +1283,7 @@ class SyndicationTextType(Int32):  # enum
     Text = 0
     Html = 1
     Xhtml = 2
-class TransferProgress(EasyCastStructure):
+class TransferProgress(Structure):
     BytesSent: UInt32
     TotalBytesToSend: UInt32
     BytesRetrieved: UInt32

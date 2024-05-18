@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
 import win32more.Windows.Win32.Graphics.Direct3D9
@@ -10,7 +10,7 @@ MAX_D3D9ON12_QUEUES: UInt32 = 2
 def Direct3DCreate9On12Ex(SDKVersion: UInt32, pOverrideList: POINTER(win32more.Windows.Win32.Graphics.Direct3D9on12.D3D9ON12_ARGS), NumOverrideEntries: UInt32, ppOutputInterface: POINTER(win32more.Windows.Win32.Graphics.Direct3D9.IDirect3D9Ex)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('d3d9.dll')
 def Direct3DCreate9On12(SDKVersion: UInt32, pOverrideList: POINTER(win32more.Windows.Win32.Graphics.Direct3D9on12.D3D9ON12_ARGS), NumOverrideEntries: UInt32) -> win32more.Windows.Win32.Graphics.Direct3D9.IDirect3D9: ...
-class D3D9ON12_ARGS(EasyCastStructure):
+class D3D9ON12_ARGS(Structure):
     Enable9On12: win32more.Windows.Win32.Foundation.BOOL
     pD3D12Device: win32more.Windows.Win32.System.Com.IUnknown
     ppD3D12Queues: win32more.Windows.Win32.System.Com.IUnknown * 2

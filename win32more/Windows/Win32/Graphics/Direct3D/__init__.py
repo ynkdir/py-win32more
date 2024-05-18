@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.System.Com
@@ -60,12 +60,12 @@ D3D_COMPONENT_MASK_Z: UInt32 = 4
 D3D_COMPONENT_MASK_W: UInt32 = 8
 D3D_TEXTURE_LAYOUT_ROW_MAJOR: Guid = Guid('{b5dc234f-72bb-4bec-9705-8cf258df6b6c}')
 D3D_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE: Guid = Guid('{4c0f29e3-3f5f-4d35-84c9-bc0983b62c28}')
-class D3DMATRIX(EasyCastStructure):
+class D3DMATRIX(Structure):
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         m: Single * 16
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _11: Single
             _12: Single
             _13: Single
@@ -82,7 +82,7 @@ class D3DMATRIX(EasyCastStructure):
             _42: Single
             _43: Single
             _44: Single
-class D3DVECTOR(EasyCastStructure):
+class D3DVECTOR(Structure):
     x: Single
     y: Single
     z: Single
@@ -488,7 +488,7 @@ D3D11_SIT_UAV_RWBYTEADDRESS: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADE
 D3D11_SIT_UAV_APPEND_STRUCTURED: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_INPUT_TYPE = 9
 D3D11_SIT_UAV_CONSUME_STRUCTURED: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_INPUT_TYPE = 10
 D3D11_SIT_UAV_RWSTRUCTURED_WITH_COUNTER: win32more.Windows.Win32.Graphics.Direct3D.D3D_SHADER_INPUT_TYPE = 11
-class D3D_SHADER_MACRO(EasyCastStructure):
+class D3D_SHADER_MACRO(Structure):
     Name: win32more.Windows.Win32.Foundation.PSTR
     Definition: win32more.Windows.Win32.Foundation.PSTR
 D3D_SHADER_VARIABLE_CLASS = Int32

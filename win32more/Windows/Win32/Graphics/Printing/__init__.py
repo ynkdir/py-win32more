@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Devices.Communication
 import win32more.Windows.Win32.Devices.Display
@@ -16,14 +16,14 @@ import win32more.Windows.Win32.System.Power
 import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.System.Variant
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-class ADDJOB_INFO_1A(EasyCastStructure):
+class ADDJOB_INFO_1A(Structure):
     Path: win32more.Windows.Win32.Foundation.PSTR
     JobId: UInt32
-class ADDJOB_INFO_1W(EasyCastStructure):
+class ADDJOB_INFO_1W(Structure):
     Path: win32more.Windows.Win32.Foundation.PWSTR
     JobId: UInt32
 ADDJOB_INFO_1 = UnicodeAlias('ADDJOB_INFO_1W')
-class ATTRIBUTE_INFO_1(EasyCastStructure):
+class ATTRIBUTE_INFO_1(Structure):
     dwJobNumberOfPagesPerSide: UInt32
     dwDrvNumberOfPagesPerSide: UInt32
     dwNupBorderFlags: UInt32
@@ -31,7 +31,7 @@ class ATTRIBUTE_INFO_1(EasyCastStructure):
     dwDrvPageOrderFlags: UInt32
     dwJobNumberOfCopies: UInt32
     dwDrvNumberOfCopies: UInt32
-class ATTRIBUTE_INFO_2(EasyCastStructure):
+class ATTRIBUTE_INFO_2(Structure):
     dwJobNumberOfPagesPerSide: UInt32
     dwDrvNumberOfPagesPerSide: UInt32
     dwNupBorderFlags: UInt32
@@ -40,7 +40,7 @@ class ATTRIBUTE_INFO_2(EasyCastStructure):
     dwJobNumberOfCopies: UInt32
     dwDrvNumberOfCopies: UInt32
     dwColorOptimization: UInt32
-class ATTRIBUTE_INFO_3(EasyCastStructure):
+class ATTRIBUTE_INFO_3(Structure):
     dwJobNumberOfPagesPerSide: UInt32
     dwDrvNumberOfPagesPerSide: UInt32
     dwNupBorderFlags: UInt32
@@ -51,7 +51,7 @@ class ATTRIBUTE_INFO_3(EasyCastStructure):
     dwColorOptimization: UInt32
     dmPrintQuality: Int16
     dmYResolution: Int16
-class ATTRIBUTE_INFO_4(EasyCastStructure):
+class ATTRIBUTE_INFO_4(Structure):
     dwJobNumberOfPagesPerSide: UInt32
     dwDrvNumberOfPagesPerSide: UInt32
     dwNupBorderFlags: UInt32
@@ -1958,30 +1958,30 @@ def AddPrintDeviceObject(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, ph
 def UpdatePrintDeviceObject(hPrinter: win32more.Windows.Win32.Foundation.HANDLE, hDeviceObject: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SPOOLSS.dll')
 def RemovePrintDeviceObject(hDeviceObject: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class BIDI_DATA(EasyCastStructure):
+class BIDI_DATA(Structure):
     dwBidiType: UInt32
     u: _u_e__Union
-    class _u_e__Union(EasyCastUnion):
+    class _u_e__Union(Union):
         bData: win32more.Windows.Win32.Foundation.BOOL
         iData: Int32
         sData: win32more.Windows.Win32.Foundation.PWSTR
         fData: Single
         biData: win32more.Windows.Win32.Graphics.Printing.BINARY_CONTAINER
-class BIDI_REQUEST_CONTAINER(EasyCastStructure):
+class BIDI_REQUEST_CONTAINER(Structure):
     Version: UInt32
     Flags: UInt32
     Count: UInt32
     aData: win32more.Windows.Win32.Graphics.Printing.BIDI_REQUEST_DATA * 1
-class BIDI_REQUEST_DATA(EasyCastStructure):
+class BIDI_REQUEST_DATA(Structure):
     dwReqNumber: UInt32
     pSchema: win32more.Windows.Win32.Foundation.PWSTR
     data: win32more.Windows.Win32.Graphics.Printing.BIDI_DATA
-class BIDI_RESPONSE_CONTAINER(EasyCastStructure):
+class BIDI_RESPONSE_CONTAINER(Structure):
     Version: UInt32
     Flags: UInt32
     Count: UInt32
     aData: win32more.Windows.Win32.Graphics.Printing.BIDI_RESPONSE_DATA * 1
-class BIDI_RESPONSE_DATA(EasyCastStructure):
+class BIDI_RESPONSE_DATA(Structure):
     dwResult: UInt32
     dwReqNumber: UInt32
     pSchema: win32more.Windows.Win32.Foundation.PWSTR
@@ -1995,26 +1995,26 @@ BIDI_STRING: win32more.Windows.Win32.Graphics.Printing.BIDI_TYPE = 4
 BIDI_TEXT: win32more.Windows.Win32.Graphics.Printing.BIDI_TYPE = 5
 BIDI_ENUM: win32more.Windows.Win32.Graphics.Printing.BIDI_TYPE = 6
 BIDI_BLOB: win32more.Windows.Win32.Graphics.Printing.BIDI_TYPE = 7
-class BINARY_CONTAINER(EasyCastStructure):
+class BINARY_CONTAINER(Structure):
     cbBuf: UInt32
     pData: POINTER(Byte)
 BidiRequest = Guid('{b9162a23-45f9-47cc-80f5-fe0fe9b9e1a2}')
 BidiRequestContainer = Guid('{fc5b8a24-db05-4a01-8388-22edf6c2bbba}')
 BidiSpl = Guid('{2a614240-a4c5-4c33-bd87-1bc709331639}')
-class BranchOfficeJobData(EasyCastStructure):
+class BranchOfficeJobData(Structure):
     eEventType: win32more.Windows.Win32.Graphics.Printing.EBranchOfficeJobEventType
     JobId: UInt32
     JobInfo: _JobInfo_e__Union
-    class _JobInfo_e__Union(EasyCastUnion):
+    class _JobInfo_e__Union(Union):
         LogJobPrinted: win32more.Windows.Win32.Graphics.Printing.BranchOfficeJobDataPrinted
         LogJobRendered: win32more.Windows.Win32.Graphics.Printing.BranchOfficeJobDataRendered
         LogJobError: win32more.Windows.Win32.Graphics.Printing.BranchOfficeJobDataError
         LogPipelineFailed: win32more.Windows.Win32.Graphics.Printing.BranchOfficeJobDataPipelineFailed
         LogOfflineFileFull: win32more.Windows.Win32.Graphics.Printing.BranchOfficeLogOfflineFileFull
-class BranchOfficeJobDataContainer(EasyCastStructure):
+class BranchOfficeJobDataContainer(Structure):
     cJobDataEntries: UInt32
     JobData: win32more.Windows.Win32.Graphics.Printing.BranchOfficeJobData * 1
-class BranchOfficeJobDataError(EasyCastStructure):
+class BranchOfficeJobDataError(Structure):
     LastError: UInt32
     pDocumentName: win32more.Windows.Win32.Foundation.PWSTR
     pUserName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2027,11 +2027,11 @@ class BranchOfficeJobDataError(EasyCastStructure):
     pMachineName: win32more.Windows.Win32.Foundation.PWSTR
     pJobError: win32more.Windows.Win32.Foundation.PWSTR
     pErrorDescription: win32more.Windows.Win32.Foundation.PWSTR
-class BranchOfficeJobDataPipelineFailed(EasyCastStructure):
+class BranchOfficeJobDataPipelineFailed(Structure):
     pDocumentName: win32more.Windows.Win32.Foundation.PWSTR
     pPrinterName: win32more.Windows.Win32.Foundation.PWSTR
     pExtraErrorInfo: win32more.Windows.Win32.Foundation.PWSTR
-class BranchOfficeJobDataPrinted(EasyCastStructure):
+class BranchOfficeJobDataPrinted(Structure):
     Status: UInt32
     pDocumentName: win32more.Windows.Win32.Foundation.PWSTR
     pUserName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2040,7 +2040,7 @@ class BranchOfficeJobDataPrinted(EasyCastStructure):
     pPortName: win32more.Windows.Win32.Foundation.PWSTR
     Size: Int64
     TotalPages: UInt32
-class BranchOfficeJobDataRendered(EasyCastStructure):
+class BranchOfficeJobDataRendered(Structure):
     Size: Int64
     ICMMethod: UInt32
     Color: Int16
@@ -2048,9 +2048,9 @@ class BranchOfficeJobDataRendered(EasyCastStructure):
     YResolution: Int16
     Copies: Int16
     TTOption: Int16
-class BranchOfficeLogOfflineFileFull(EasyCastStructure):
+class BranchOfficeLogOfflineFileFull(Structure):
     pMachineName: win32more.Windows.Win32.Foundation.PWSTR
-class COMPROPSHEETUI(EasyCastStructure):
+class COMPROPSHEETUI(Structure):
     cbSize: UInt16
     Flags: UInt16
     hInstCaller: win32more.Windows.Win32.Foundation.HINSTANCE
@@ -2067,21 +2067,21 @@ class COMPROPSHEETUI(EasyCastStructure):
     CallerVersion: UInt16
     OptItemVersion: UInt16
     dwReserved: UIntPtr * 4
-class CONFIG_INFO_DATA_1(EasyCastStructure):
+class CONFIG_INFO_DATA_1(Structure):
     Reserved: Byte * 128
     dwVersion: UInt32
-class CORE_PRINTER_DRIVERA(EasyCastStructure):
+class CORE_PRINTER_DRIVERA(Structure):
     CoreDriverGUID: Guid
     ftDriverDate: win32more.Windows.Win32.Foundation.FILETIME
     dwlDriverVersion: UInt64
     szPackageID: win32more.Windows.Win32.Foundation.CHAR * 260
-class CORE_PRINTER_DRIVERW(EasyCastStructure):
+class CORE_PRINTER_DRIVERW(Structure):
     CoreDriverGUID: Guid
     ftDriverDate: win32more.Windows.Win32.Foundation.FILETIME
     dwlDriverVersion: UInt64
     szPackageID: Char * 260
 CORE_PRINTER_DRIVER = UnicodeAlias('CORE_PRINTER_DRIVERW')
-class CPSUICBPARAM(EasyCastStructure):
+class CPSUICBPARAM(Structure):
     cbSize: UInt16
     Reason: UInt16
     hDlg: win32more.Windows.Win32.Foundation.HWND
@@ -2092,38 +2092,38 @@ class CPSUICBPARAM(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
     UserData: UIntPtr
     Result: UIntPtr
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         OldSel: Int32
         pOldSel: POINTER(SByte)
-class CPSUIDATABLOCK(EasyCastStructure):
+class CPSUIDATABLOCK(Structure):
     cbData: UInt32
     pbData: POINTER(Byte)
-class CUSTOMSIZEPARAM(EasyCastStructure):
+class CUSTOMSIZEPARAM(Structure):
     dwOrder: Int32
     lMinVal: Int32
     lMaxVal: Int32
-class DATATYPES_INFO_1A(EasyCastStructure):
+class DATATYPES_INFO_1A(Structure):
     pName: win32more.Windows.Win32.Foundation.PSTR
-class DATATYPES_INFO_1W(EasyCastStructure):
+class DATATYPES_INFO_1W(Structure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
 DATATYPES_INFO_1 = UnicodeAlias('DATATYPES_INFO_1W')
-class DATA_HEADER(EasyCastStructure):
+class DATA_HEADER(Structure):
     dwSignature: UInt32
     wSize: UInt16
     wDataID: UInt16
     dwDataSize: UInt32
     dwReserved: UInt32
-class DELETE_PORT_DATA_1(EasyCastStructure):
+class DELETE_PORT_DATA_1(Structure):
     psztPortName: Char * 64
     Reserved: Byte * 98
     dwVersion: UInt32
     dwReserved: UInt32
-class DEVICEPROPERTYHEADER(EasyCastStructure):
+class DEVICEPROPERTYHEADER(Structure):
     cbSize: UInt16
     Flags: UInt16
     hPrinter: win32more.Windows.Win32.Foundation.HANDLE
     pszPrinterName: POINTER(SByte)
-class DEVQUERYPRINT_INFO(EasyCastStructure):
+class DEVQUERYPRINT_INFO(Structure):
     cbSize: UInt16
     Level: UInt16
     hPrinter: win32more.Windows.Win32.Foundation.HANDLE
@@ -2131,32 +2131,32 @@ class DEVQUERYPRINT_INFO(EasyCastStructure):
     pszErrorStr: win32more.Windows.Win32.Foundation.PWSTR
     cchErrorStr: UInt32
     cchNeeded: UInt32
-class DLGPAGE(EasyCastStructure):
+class DLGPAGE(Structure):
     cbSize: UInt16
     Flags: UInt16
     DlgProc: win32more.Windows.Win32.UI.WindowsAndMessaging.DLGPROC
     pTabName: POINTER(SByte)
     IconID: UIntPtr
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         DlgTemplateID: UInt16
         hDlgTemplate: win32more.Windows.Win32.Foundation.HANDLE
-class DOCEVENT_CREATEDCPRE(EasyCastStructure):
+class DOCEVENT_CREATEDCPRE(Structure):
     pszDriver: win32more.Windows.Win32.Foundation.PWSTR
     pszDevice: win32more.Windows.Win32.Foundation.PWSTR
     pdm: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)
     bIC: win32more.Windows.Win32.Foundation.BOOL
-class DOCEVENT_ESCAPE(EasyCastStructure):
+class DOCEVENT_ESCAPE(Structure):
     iEscape: Int32
     cjInput: Int32
     pvInData: VoidPtr
-class DOCEVENT_FILTER(EasyCastStructure):
+class DOCEVENT_FILTER(Structure):
     cbSize: UInt32
     cElementsAllocated: UInt32
     cElementsNeeded: UInt32
     cElementsReturned: UInt32
     aDocEventCall: UInt32 * 1
-class DOCUMENTPROPERTYHEADER(EasyCastStructure):
+class DOCUMENTPROPERTYHEADER(Structure):
     cbSize: UInt16
     Reserved: UInt16
     hPrinter: win32more.Windows.Win32.Foundation.HANDLE
@@ -2165,58 +2165,58 @@ class DOCUMENTPROPERTYHEADER(EasyCastStructure):
     pdmOut: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)
     cbOut: UInt32
     fMode: UInt32
-class DOC_INFO_1A(EasyCastStructure):
+class DOC_INFO_1A(Structure):
     pDocName: win32more.Windows.Win32.Foundation.PSTR
     pOutputFile: win32more.Windows.Win32.Foundation.PSTR
     pDatatype: win32more.Windows.Win32.Foundation.PSTR
-class DOC_INFO_1W(EasyCastStructure):
+class DOC_INFO_1W(Structure):
     pDocName: win32more.Windows.Win32.Foundation.PWSTR
     pOutputFile: win32more.Windows.Win32.Foundation.PWSTR
     pDatatype: win32more.Windows.Win32.Foundation.PWSTR
 DOC_INFO_1 = UnicodeAlias('DOC_INFO_1W')
-class DOC_INFO_2A(EasyCastStructure):
+class DOC_INFO_2A(Structure):
     pDocName: win32more.Windows.Win32.Foundation.PSTR
     pOutputFile: win32more.Windows.Win32.Foundation.PSTR
     pDatatype: win32more.Windows.Win32.Foundation.PSTR
     dwMode: UInt32
     JobId: UInt32
-class DOC_INFO_2W(EasyCastStructure):
+class DOC_INFO_2W(Structure):
     pDocName: win32more.Windows.Win32.Foundation.PWSTR
     pOutputFile: win32more.Windows.Win32.Foundation.PWSTR
     pDatatype: win32more.Windows.Win32.Foundation.PWSTR
     dwMode: UInt32
     JobId: UInt32
 DOC_INFO_2 = UnicodeAlias('DOC_INFO_2W')
-class DOC_INFO_3A(EasyCastStructure):
+class DOC_INFO_3A(Structure):
     pDocName: win32more.Windows.Win32.Foundation.PSTR
     pOutputFile: win32more.Windows.Win32.Foundation.PSTR
     pDatatype: win32more.Windows.Win32.Foundation.PSTR
     dwFlags: UInt32
-class DOC_INFO_3W(EasyCastStructure):
+class DOC_INFO_3W(Structure):
     pDocName: win32more.Windows.Win32.Foundation.PWSTR
     pOutputFile: win32more.Windows.Win32.Foundation.PWSTR
     pDatatype: win32more.Windows.Win32.Foundation.PWSTR
     dwFlags: UInt32
 DOC_INFO_3 = UnicodeAlias('DOC_INFO_3W')
-class DOC_INFO_INTERNAL(EasyCastStructure):
+class DOC_INFO_INTERNAL(Structure):
     pDocName: POINTER(SByte)
     pOutputFile: POINTER(SByte)
     pDatatype: POINTER(SByte)
     bLowILJob: win32more.Windows.Win32.Foundation.BOOL
     hTokenLowIL: win32more.Windows.Win32.Foundation.HANDLE
-class DRIVER_INFO_1A(EasyCastStructure):
+class DRIVER_INFO_1A(Structure):
     pName: win32more.Windows.Win32.Foundation.PSTR
-class DRIVER_INFO_1W(EasyCastStructure):
+class DRIVER_INFO_1W(Structure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
 DRIVER_INFO_1 = UnicodeAlias('DRIVER_INFO_1W')
-class DRIVER_INFO_2A(EasyCastStructure):
+class DRIVER_INFO_2A(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PSTR
     pDriverPath: win32more.Windows.Win32.Foundation.PSTR
     pDataFile: win32more.Windows.Win32.Foundation.PSTR
     pConfigFile: win32more.Windows.Win32.Foundation.PSTR
-class DRIVER_INFO_2W(EasyCastStructure):
+class DRIVER_INFO_2W(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
@@ -2224,7 +2224,7 @@ class DRIVER_INFO_2W(EasyCastStructure):
     pDataFile: win32more.Windows.Win32.Foundation.PWSTR
     pConfigFile: win32more.Windows.Win32.Foundation.PWSTR
 DRIVER_INFO_2 = UnicodeAlias('DRIVER_INFO_2W')
-class DRIVER_INFO_3A(EasyCastStructure):
+class DRIVER_INFO_3A(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PSTR
@@ -2235,7 +2235,7 @@ class DRIVER_INFO_3A(EasyCastStructure):
     pDependentFiles: win32more.Windows.Win32.Foundation.PSTR
     pMonitorName: win32more.Windows.Win32.Foundation.PSTR
     pDefaultDataType: win32more.Windows.Win32.Foundation.PSTR
-class DRIVER_INFO_3W(EasyCastStructure):
+class DRIVER_INFO_3W(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
@@ -2247,7 +2247,7 @@ class DRIVER_INFO_3W(EasyCastStructure):
     pMonitorName: win32more.Windows.Win32.Foundation.PWSTR
     pDefaultDataType: win32more.Windows.Win32.Foundation.PWSTR
 DRIVER_INFO_3 = UnicodeAlias('DRIVER_INFO_3W')
-class DRIVER_INFO_4A(EasyCastStructure):
+class DRIVER_INFO_4A(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PSTR
@@ -2259,7 +2259,7 @@ class DRIVER_INFO_4A(EasyCastStructure):
     pMonitorName: win32more.Windows.Win32.Foundation.PSTR
     pDefaultDataType: win32more.Windows.Win32.Foundation.PSTR
     pszzPreviousNames: win32more.Windows.Win32.Foundation.PSTR
-class DRIVER_INFO_4W(EasyCastStructure):
+class DRIVER_INFO_4W(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
@@ -2272,7 +2272,7 @@ class DRIVER_INFO_4W(EasyCastStructure):
     pDefaultDataType: win32more.Windows.Win32.Foundation.PWSTR
     pszzPreviousNames: win32more.Windows.Win32.Foundation.PWSTR
 DRIVER_INFO_4 = UnicodeAlias('DRIVER_INFO_4W')
-class DRIVER_INFO_5A(EasyCastStructure):
+class DRIVER_INFO_5A(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PSTR
@@ -2282,7 +2282,7 @@ class DRIVER_INFO_5A(EasyCastStructure):
     dwDriverAttributes: UInt32
     dwConfigVersion: UInt32
     dwDriverVersion: UInt32
-class DRIVER_INFO_5W(EasyCastStructure):
+class DRIVER_INFO_5W(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
@@ -2293,7 +2293,7 @@ class DRIVER_INFO_5W(EasyCastStructure):
     dwConfigVersion: UInt32
     dwDriverVersion: UInt32
 DRIVER_INFO_5 = UnicodeAlias('DRIVER_INFO_5W')
-class DRIVER_INFO_6A(EasyCastStructure):
+class DRIVER_INFO_6A(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PSTR
@@ -2311,7 +2311,7 @@ class DRIVER_INFO_6A(EasyCastStructure):
     pszOEMUrl: win32more.Windows.Win32.Foundation.PSTR
     pszHardwareID: win32more.Windows.Win32.Foundation.PSTR
     pszProvider: win32more.Windows.Win32.Foundation.PSTR
-class DRIVER_INFO_6W(EasyCastStructure):
+class DRIVER_INFO_6W(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
@@ -2330,7 +2330,7 @@ class DRIVER_INFO_6W(EasyCastStructure):
     pszHardwareID: win32more.Windows.Win32.Foundation.PWSTR
     pszProvider: win32more.Windows.Win32.Foundation.PWSTR
 DRIVER_INFO_6 = UnicodeAlias('DRIVER_INFO_6W')
-class DRIVER_INFO_8A(EasyCastStructure):
+class DRIVER_INFO_8A(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PSTR
@@ -2356,7 +2356,7 @@ class DRIVER_INFO_8A(EasyCastStructure):
     pszzCoreDriverDependencies: win32more.Windows.Win32.Foundation.PSTR
     ftMinInboxDriverVerDate: win32more.Windows.Win32.Foundation.FILETIME
     dwlMinInboxDriverVerVersion: UInt64
-class DRIVER_INFO_8W(EasyCastStructure):
+class DRIVER_INFO_8W(Structure):
     cVersion: UInt32
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
@@ -2383,10 +2383,10 @@ class DRIVER_INFO_8W(EasyCastStructure):
     ftMinInboxDriverVerDate: win32more.Windows.Win32.Foundation.FILETIME
     dwlMinInboxDriverVerVersion: UInt64
 DRIVER_INFO_8 = UnicodeAlias('DRIVER_INFO_8W')
-class DRIVER_UPGRADE_INFO_1(EasyCastStructure):
+class DRIVER_UPGRADE_INFO_1(Structure):
     pPrinterName: POINTER(SByte)
     pOldDriverDirectory: POINTER(SByte)
-class DRIVER_UPGRADE_INFO_2(EasyCastStructure):
+class DRIVER_UPGRADE_INFO_2(Structure):
     pPrinterName: POINTER(SByte)
     pOldDriverDirectory: POINTER(SByte)
     cVersion: UInt32
@@ -2446,7 +2446,7 @@ kResourceAdded: win32more.Windows.Win32.Graphics.Printing.EPrintXPSJobProgress =
 kFontAdded: win32more.Windows.Win32.Graphics.Printing.EPrintXPSJobProgress = 7
 kImageAdded: win32more.Windows.Win32.Graphics.Printing.EPrintXPSJobProgress = 8
 kXpsDocumentCommitted: win32more.Windows.Win32.Graphics.Printing.EPrintXPSJobProgress = 9
-class EXTCHKBOX(EasyCastStructure):
+class EXTCHKBOX(Structure):
     cbSize: UInt16
     Flags: UInt16
     pTitle: POINTER(SByte)
@@ -2455,7 +2455,7 @@ class EXTCHKBOX(EasyCastStructure):
     IconID: UIntPtr
     wReserved: UInt16 * 4
     dwReserved: UIntPtr * 2
-class EXTPUSH(EasyCastStructure):
+class EXTPUSH(Structure):
     cbSize: UInt16
     Flags: UInt16
     pTitle: POINTER(SByte)
@@ -2463,13 +2463,13 @@ class EXTPUSH(EasyCastStructure):
     IconID: UIntPtr
     Anonymous2: _Anonymous2_e__Union
     dwReserved: UIntPtr * 3
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         DlgProc: win32more.Windows.Win32.UI.WindowsAndMessaging.DLGPROC
         pfnCallBack: win32more.Windows.Win32.Foundation.FARPROC
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         DlgTemplateID: UInt16
         hDlgTemplate: win32more.Windows.Win32.Foundation.HANDLE
-class EXTTEXTMETRIC(EasyCastStructure):
+class EXTTEXTMETRIC(Structure):
     emSize: Int16
     emPointSize: Int16
     emOrientation: Int16
@@ -2513,18 +2513,18 @@ EXpsJobConsumption = Int32
 XpsJob_DocumentSequenceAdded: win32more.Windows.Win32.Graphics.Printing.EXpsJobConsumption = 0
 XpsJob_FixedDocumentAdded: win32more.Windows.Win32.Graphics.Printing.EXpsJobConsumption = 1
 XpsJob_FixedPageAdded: win32more.Windows.Win32.Graphics.Printing.EXpsJobConsumption = 2
-class FORM_INFO_1A(EasyCastStructure):
+class FORM_INFO_1A(Structure):
     Flags: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
     Size: win32more.Windows.Win32.Foundation.SIZE
     ImageableArea: win32more.Windows.Win32.Foundation.RECTL
-class FORM_INFO_1W(EasyCastStructure):
+class FORM_INFO_1W(Structure):
     Flags: UInt32
     pName: win32more.Windows.Win32.Foundation.PWSTR
     Size: win32more.Windows.Win32.Foundation.SIZE
     ImageableArea: win32more.Windows.Win32.Foundation.RECTL
 FORM_INFO_1 = UnicodeAlias('FORM_INFO_1W')
-class FORM_INFO_2A(EasyCastStructure):
+class FORM_INFO_2A(Structure):
     Flags: UInt32
     pName: win32more.Windows.Win32.Foundation.PSTR
     Size: win32more.Windows.Win32.Foundation.SIZE
@@ -2535,7 +2535,7 @@ class FORM_INFO_2A(EasyCastStructure):
     dwResourceId: UInt32
     pDisplayName: win32more.Windows.Win32.Foundation.PSTR
     wLangId: UInt16
-class FORM_INFO_2W(EasyCastStructure):
+class FORM_INFO_2W(Structure):
     Flags: UInt32
     pName: win32more.Windows.Win32.Foundation.PWSTR
     Size: win32more.Windows.Win32.Foundation.SIZE
@@ -2547,7 +2547,7 @@ class FORM_INFO_2W(EasyCastStructure):
     pDisplayName: win32more.Windows.Win32.Foundation.PWSTR
     wLangId: UInt16
 FORM_INFO_2 = UnicodeAlias('FORM_INFO_2W')
-class GLYPHRUN(EasyCastStructure):
+class GLYPHRUN(Structure):
     wcLow: Char
     wGlyphCount: UInt16
 class IAsyncGetSendNotificationCookie(ComPtr):
@@ -2683,14 +2683,14 @@ class IInterFilterCommunicator(ComPtr):
     def RequestReader(self, ppIReader: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RequestWriter(self, ppIWriter: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INSERTPSUIPAGE_INFO(EasyCastStructure):
+class INSERTPSUIPAGE_INFO(Structure):
     cbSize: UInt16
     Type: Byte
     Mode: Byte
     dwData1: UIntPtr
     dwData2: UIntPtr
     dwData3: UIntPtr
-class INVOC(EasyCastStructure):
+class INVOC(Structure):
     dwCount: UInt32
     loOffset: UInt32
 class IPartBase(ComPtr):
@@ -3445,7 +3445,7 @@ class IXpsRasterizerNotificationCallback(ComPtr):
     _iid_ = Guid('{9ab8fd0d-cb94-49c2-9cb0-97ec1d5469d2}')
     @commethod(3)
     def Continue(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class ImgErrorInfo(EasyCastStructure):
+class ImgErrorInfo(Structure):
     description: win32more.Windows.Win32.Foundation.BSTR
     guid: Guid
     helpContext: UInt32
@@ -3457,7 +3457,7 @@ class ImgErrorInfo(EasyCastStructure):
     aUserParameters: POINTER(win32more.Windows.Win32.Foundation.BSTR)
     userFallback: win32more.Windows.Win32.Foundation.BSTR
     exceptionID: UInt32
-class JOB_INFO_1A(EasyCastStructure):
+class JOB_INFO_1A(Structure):
     JobId: UInt32
     pPrinterName: win32more.Windows.Win32.Foundation.PSTR
     pMachineName: win32more.Windows.Win32.Foundation.PSTR
@@ -3471,7 +3471,7 @@ class JOB_INFO_1A(EasyCastStructure):
     TotalPages: UInt32
     PagesPrinted: UInt32
     Submitted: win32more.Windows.Win32.Foundation.SYSTEMTIME
-class JOB_INFO_1W(EasyCastStructure):
+class JOB_INFO_1W(Structure):
     JobId: UInt32
     pPrinterName: win32more.Windows.Win32.Foundation.PWSTR
     pMachineName: win32more.Windows.Win32.Foundation.PWSTR
@@ -3486,7 +3486,7 @@ class JOB_INFO_1W(EasyCastStructure):
     PagesPrinted: UInt32
     Submitted: win32more.Windows.Win32.Foundation.SYSTEMTIME
 JOB_INFO_1 = UnicodeAlias('JOB_INFO_1W')
-class JOB_INFO_2A(EasyCastStructure):
+class JOB_INFO_2A(Structure):
     JobId: UInt32
     pPrinterName: win32more.Windows.Win32.Foundation.PSTR
     pMachineName: win32more.Windows.Win32.Foundation.PSTR
@@ -3510,7 +3510,7 @@ class JOB_INFO_2A(EasyCastStructure):
     Submitted: win32more.Windows.Win32.Foundation.SYSTEMTIME
     Time: UInt32
     PagesPrinted: UInt32
-class JOB_INFO_2W(EasyCastStructure):
+class JOB_INFO_2W(Structure):
     JobId: UInt32
     pPrinterName: win32more.Windows.Win32.Foundation.PWSTR
     pMachineName: win32more.Windows.Win32.Foundation.PWSTR
@@ -3535,11 +3535,11 @@ class JOB_INFO_2W(EasyCastStructure):
     Time: UInt32
     PagesPrinted: UInt32
 JOB_INFO_2 = UnicodeAlias('JOB_INFO_2W')
-class JOB_INFO_3(EasyCastStructure):
+class JOB_INFO_3(Structure):
     JobId: UInt32
     NextJobId: UInt32
     Reserved: UInt32
-class JOB_INFO_4A(EasyCastStructure):
+class JOB_INFO_4A(Structure):
     JobId: UInt32
     pPrinterName: win32more.Windows.Win32.Foundation.PSTR
     pMachineName: win32more.Windows.Win32.Foundation.PSTR
@@ -3564,7 +3564,7 @@ class JOB_INFO_4A(EasyCastStructure):
     Time: UInt32
     PagesPrinted: UInt32
     SizeHigh: Int32
-class JOB_INFO_4W(EasyCastStructure):
+class JOB_INFO_4W(Structure):
     JobId: UInt32
     pPrinterName: win32more.Windows.Win32.Foundation.PWSTR
     pMachineName: win32more.Windows.Win32.Foundation.PWSTR
@@ -3590,22 +3590,22 @@ class JOB_INFO_4W(EasyCastStructure):
     PagesPrinted: UInt32
     SizeHigh: Int32
 JOB_INFO_4 = UnicodeAlias('JOB_INFO_4W')
-class KERNDATA(EasyCastStructure):
+class KERNDATA(Structure):
     dwSize: UInt32
     dwKernPairNum: UInt32
     KernPair: win32more.Windows.Win32.Devices.Display.FD_KERNINGPAIR * 1
-class MAPTABLE(EasyCastStructure):
+class MAPTABLE(Structure):
     dwSize: UInt32
     dwGlyphNum: UInt32
     Trans: win32more.Windows.Win32.Graphics.Printing.TRANSDATA * 1
-class MESSAGEBOX_PARAMS(EasyCastStructure):
+class MESSAGEBOX_PARAMS(Structure):
     cbSize: UInt32
     pTitle: win32more.Windows.Win32.Foundation.PWSTR
     pMessage: win32more.Windows.Win32.Foundation.PWSTR
     Style: UInt32
     dwTimeout: UInt32
     bWait: win32more.Windows.Win32.Foundation.BOOL
-class MONITOR(EasyCastStructure):
+class MONITOR(Structure):
     pfnEnumPorts: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_ENUMPORTS
     pfnOpenPort: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_OPENPORT
     pfnOpenPortEx: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_OPENPORTEX
@@ -3623,7 +3623,7 @@ class MONITOR(EasyCastStructure):
     pfnXcvOpenPort: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_XCVOPENPORT
     pfnXcvDataPort: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_XCVDATAPORT
     pfnXcvClosePort: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_XCVCLOSEPORT
-class MONITOR2(EasyCastStructure):
+class MONITOR2(Structure):
     cbSize: UInt32
     pfnEnumPorts: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_ENUMPORTS2
     pfnOpenPort: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_OPENPORT2
@@ -3647,17 +3647,17 @@ class MONITOR2(EasyCastStructure):
     pfnNotifyUsedPorts: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_NOTIFYUSEDPORTS2
     pfnNotifyUnusedPorts: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_NOTIFYUNUSEDPORTS2
     pfnPowerEvent: win32more.Windows.Win32.Graphics.Printing.PFN_PRINTING_POWEREVENT2
-class MONITOREX(EasyCastStructure):
+class MONITOREX(Structure):
     dwMonitorSize: UInt32
     Monitor: win32more.Windows.Win32.Graphics.Printing.MONITOR
-class MONITORINIT(EasyCastStructure):
+class MONITORINIT(Structure):
     cbSize: UInt32
     hSpooler: win32more.Windows.Win32.Foundation.HANDLE
     hckRegistryRoot: win32more.Windows.Win32.System.Registry.HKEY
     pMonitorReg: POINTER(win32more.Windows.Win32.Graphics.Printing.MONITORREG)
     bLocal: win32more.Windows.Win32.Foundation.BOOL
     pszServerName: win32more.Windows.Win32.Foundation.PWSTR
-class MONITORREG(EasyCastStructure):
+class MONITORREG(Structure):
     cbSize: UInt32
     fpCreateKey: IntPtr
     fpOpenKey: IntPtr
@@ -3669,31 +3669,31 @@ class MONITORREG(EasyCastStructure):
     fpDeleteValue: IntPtr
     fpEnumValue: IntPtr
     fpQueryValue: IntPtr
-class MONITORUI(EasyCastStructure):
+class MONITORUI(Structure):
     dwMonitorUISize: UInt32
     pfnAddPortUI: IntPtr
     pfnConfigurePortUI: IntPtr
     pfnDeletePortUI: IntPtr
-class MONITOR_INFO_1A(EasyCastStructure):
+class MONITOR_INFO_1A(Structure):
     pName: win32more.Windows.Win32.Foundation.PSTR
-class MONITOR_INFO_1W(EasyCastStructure):
+class MONITOR_INFO_1W(Structure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
 MONITOR_INFO_1 = UnicodeAlias('MONITOR_INFO_1W')
-class MONITOR_INFO_2A(EasyCastStructure):
+class MONITOR_INFO_2A(Structure):
     pName: win32more.Windows.Win32.Foundation.PSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PSTR
     pDLLName: win32more.Windows.Win32.Foundation.PSTR
-class MONITOR_INFO_2W(EasyCastStructure):
+class MONITOR_INFO_2W(Structure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
     pDLLName: win32more.Windows.Win32.Foundation.PWSTR
 MONITOR_INFO_2 = UnicodeAlias('MONITOR_INFO_2W')
-class MXDC_ESCAPE_HEADER_T(EasyCastStructure):
+class MXDC_ESCAPE_HEADER_T(Structure):
     cbInput: UInt32
     cbOutput: UInt32
     opCode: UInt32
     _pack_ = 1
-class MXDC_GET_FILENAME_DATA_T(EasyCastStructure):
+class MXDC_GET_FILENAME_DATA_T(Structure):
     cbOutput: UInt32
     wszData: Char * 1
     _pack_ = 1
@@ -3706,23 +3706,23 @@ MXDC_LANDSCAPE_ROTATION_ENUMS = Int32
 MXDC_LANDSCAPE_ROTATE_COUNTERCLOCKWISE_90_DEGREES: win32more.Windows.Win32.Graphics.Printing.MXDC_LANDSCAPE_ROTATION_ENUMS = 90
 MXDC_LANDSCAPE_ROTATE_NONE: win32more.Windows.Win32.Graphics.Printing.MXDC_LANDSCAPE_ROTATION_ENUMS = 0
 MXDC_LANDSCAPE_ROTATE_COUNTERCLOCKWISE_270_DEGREES: win32more.Windows.Win32.Graphics.Printing.MXDC_LANDSCAPE_ROTATION_ENUMS = -90
-class MXDC_PRINTTICKET_DATA_T(EasyCastStructure):
+class MXDC_PRINTTICKET_DATA_T(Structure):
     dwDataSize: UInt32
     bData: Byte * 1
     _pack_ = 1
-class MXDC_PRINTTICKET_ESCAPE_T(EasyCastStructure):
+class MXDC_PRINTTICKET_ESCAPE_T(Structure):
     mxdcEscape: win32more.Windows.Win32.Graphics.Printing.MXDC_ESCAPE_HEADER_T
     printTicketData: win32more.Windows.Win32.Graphics.Printing.MXDC_PRINTTICKET_DATA_T
     _pack_ = 1
-class MXDC_S0PAGE_DATA_T(EasyCastStructure):
+class MXDC_S0PAGE_DATA_T(Structure):
     dwSize: UInt32
     bData: Byte * 1
     _pack_ = 1
-class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T(EasyCastStructure):
+class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T(Structure):
     mxdcEscape: win32more.Windows.Win32.Graphics.Printing.MXDC_ESCAPE_HEADER_T
     xpsS0PageData: win32more.Windows.Win32.Graphics.Printing.MXDC_S0PAGE_DATA_T
     _pack_ = 1
-class MXDC_S0PAGE_RESOURCE_ESCAPE_T(EasyCastStructure):
+class MXDC_S0PAGE_RESOURCE_ESCAPE_T(Structure):
     mxdcEscape: win32more.Windows.Win32.Graphics.Printing.MXDC_ESCAPE_HEADER_T
     xpsS0PageResourcePassthrough: win32more.Windows.Win32.Graphics.Printing.MXDC_XPS_S0PAGE_RESOURCE_T
     _pack_ = 1
@@ -3737,7 +3737,7 @@ MXDC_RESOURCE_ICC_PROFILE: win32more.Windows.Win32.Graphics.Printing.MXDC_S0_PAG
 MXDC_RESOURCE_JPEG_THUMBNAIL: win32more.Windows.Win32.Graphics.Printing.MXDC_S0_PAGE_ENUMS = 7
 MXDC_RESOURCE_PNG_THUMBNAIL: win32more.Windows.Win32.Graphics.Printing.MXDC_S0_PAGE_ENUMS = 8
 MXDC_RESOURCE_MAX: win32more.Windows.Win32.Graphics.Printing.MXDC_S0_PAGE_ENUMS = 9
-class MXDC_XPS_S0PAGE_RESOURCE_T(EasyCastStructure):
+class MXDC_XPS_S0PAGE_RESOURCE_T(Structure):
     dwSize: UInt32
     dwResourceType: UInt32
     szUri: Byte * 260
@@ -3748,7 +3748,7 @@ NOTIFICATION_CALLBACK_COMMANDS = Int32
 NOTIFICATION_COMMAND_NOTIFY: win32more.Windows.Win32.Graphics.Printing.NOTIFICATION_CALLBACK_COMMANDS = 0
 NOTIFICATION_COMMAND_CONTEXT_ACQUIRE: win32more.Windows.Win32.Graphics.Printing.NOTIFICATION_CALLBACK_COMMANDS = 1
 NOTIFICATION_COMMAND_CONTEXT_RELEASE: win32more.Windows.Win32.Graphics.Printing.NOTIFICATION_CALLBACK_COMMANDS = 2
-class NOTIFICATION_CONFIG_1(EasyCastStructure):
+class NOTIFICATION_CONFIG_1(Structure):
     cbSize: UInt32
     fdwFlags: UInt32
     pfnNotifyCallback: win32more.Windows.Win32.Graphics.Printing.ROUTER_NOTIFY_CALLBACK
@@ -3760,7 +3760,7 @@ NOTIFICATION_CONFIG_EVENT_TRIGGER: win32more.Windows.Win32.Graphics.Printing.NOT
 NOTIFICATION_CONFIG_ASYNC_CHANNEL: win32more.Windows.Win32.Graphics.Printing.NOTIFICATION_CONFIG_FLAGS = 8
 @winfunctype_pointer
 def OEMCUIPCALLBACK(param0: POINTER(win32more.Windows.Win32.Graphics.Printing.CPSUICBPARAM), param1: POINTER(win32more.Windows.Win32.Graphics.Printing.OEMCUIPPARAM)) -> Int32: ...
-class OEMCUIPPARAM(EasyCastStructure):
+class OEMCUIPPARAM(Structure):
     cbSize: UInt32
     poemuiobj: POINTER(win32more.Windows.Win32.Graphics.Printing.OEMUIOBJ)
     hPrinter: win32more.Windows.Win32.Foundation.HANDLE
@@ -3776,7 +3776,7 @@ class OEMCUIPPARAM(EasyCastStructure):
     cOEMOptItems: UInt32
     pOEMUserData: VoidPtr
     OEMCUIPCallback: win32more.Windows.Win32.Graphics.Printing.OEMCUIPCALLBACK
-class OEMDMPARAM(EasyCastStructure):
+class OEMDMPARAM(Structure):
     cbSize: UInt32
     pdriverobj: VoidPtr
     hPrinter: win32more.Windows.Win32.Foundation.HANDLE
@@ -3786,20 +3786,20 @@ class OEMDMPARAM(EasyCastStructure):
     pOEMDMIn: VoidPtr
     pOEMDMOut: VoidPtr
     cbBufSize: UInt32
-class OEMFONTINSTPARAM(EasyCastStructure):
+class OEMFONTINSTPARAM(Structure):
     cbSize: UInt32
     hPrinter: win32more.Windows.Win32.Foundation.HANDLE
     hModule: win32more.Windows.Win32.Foundation.HANDLE
     hHeap: win32more.Windows.Win32.Foundation.HANDLE
     dwFlags: UInt32
     pFontInstallerName: win32more.Windows.Win32.Foundation.PWSTR
-class OEMUIOBJ(EasyCastStructure):
+class OEMUIOBJ(Structure):
     cbSize: UInt32
     pOemUIProcs: POINTER(win32more.Windows.Win32.Graphics.Printing.OEMUIPROCS)
-class OEMUIPROCS(EasyCastStructure):
+class OEMUIPROCS(Structure):
     DrvGetDriverSetting: win32more.Windows.Win32.Graphics.Printing.PFN_DrvGetDriverSetting
     DrvUpdateUISetting: win32more.Windows.Win32.Graphics.Printing.PFN_DrvUpdateUISetting
-class OEMUIPSPARAM(EasyCastStructure):
+class OEMUIPSPARAM(Structure):
     cbSize: UInt32
     poemuiobj: POINTER(win32more.Windows.Win32.Graphics.Printing.OEMUIOBJ)
     hPrinter: win32more.Windows.Win32.Foundation.HANDLE
@@ -3811,24 +3811,24 @@ class OEMUIPSPARAM(EasyCastStructure):
     pOEMUserData: VoidPtr
     dwFlags: UInt32
     pOemEntry: VoidPtr
-class OEM_DMEXTRAHEADER(EasyCastStructure):
+class OEM_DMEXTRAHEADER(Structure):
     dwSize: UInt32
     dwSignature: UInt32
     dwVersion: UInt32
-class OIEXT(EasyCastStructure):
+class OIEXT(Structure):
     cbSize: UInt16
     Flags: UInt16
     hInstCaller: win32more.Windows.Win32.Foundation.HINSTANCE
     pHelpFile: POINTER(SByte)
     dwReserved: UIntPtr * 4
-class OPTCOMBO(EasyCastStructure):
+class OPTCOMBO(Structure):
     cbSize: UInt16
     Flags: Byte
     cListItem: UInt16
     pListItem: POINTER(win32more.Windows.Win32.Graphics.Printing.OPTPARAM)
     Sel: Int32
     dwReserved: UInt32 * 3
-class OPTITEM(EasyCastStructure):
+class OPTITEM(Structure):
     cbSize: UInt16
     Level: Byte
     DlgPageIdx: Byte
@@ -3844,13 +3844,13 @@ class OPTITEM(EasyCastStructure):
     wReserved: UInt16
     pOIExt: POINTER(win32more.Windows.Win32.Graphics.Printing.OIEXT)
     dwReserved: UIntPtr * 3
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Sel: Int32
         pSel: POINTER(SByte)
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         pExtChkBox: POINTER(win32more.Windows.Win32.Graphics.Printing.EXTCHKBOX)
         pExtPush: POINTER(win32more.Windows.Win32.Graphics.Printing.EXTPUSH)
-class OPTPARAM(EasyCastStructure):
+class OPTPARAM(Structure):
     cbSize: UInt16
     Flags: Byte
     Style: Byte
@@ -3858,7 +3858,7 @@ class OPTPARAM(EasyCastStructure):
     IconID: UIntPtr
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     dwReserved: UIntPtr * 2
-class OPTTYPE(EasyCastStructure):
+class OPTTYPE(Structure):
     cbSize: UInt16
     Type: Byte
     Flags: Byte
@@ -3956,7 +3956,7 @@ def PFN_PRINTING_XCVDATAPORT2(param0: win32more.Windows.Win32.Foundation.HANDLE,
 def PFN_PRINTING_XCVOPENPORT(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: UInt32, param2: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_PRINTING_XCVOPENPORT2(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: UInt32, param3: POINTER(win32more.Windows.Win32.Foundation.HANDLE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class PORT_DATA_1(EasyCastStructure):
+class PORT_DATA_1(Structure):
     sztPortName: Char * 64
     dwVersion: UInt32
     dwProtocol: UInt32
@@ -3971,7 +3971,7 @@ class PORT_DATA_1(EasyCastStructure):
     dwPortNumber: UInt32
     dwSNMPEnabled: UInt32
     dwSNMPDevIndex: UInt32
-class PORT_DATA_2(EasyCastStructure):
+class PORT_DATA_2(Structure):
     sztPortName: Char * 64
     dwVersion: UInt32
     dwProtocol: UInt32
@@ -3986,33 +3986,33 @@ class PORT_DATA_2(EasyCastStructure):
     dwSNMPEnabled: UInt32
     dwSNMPDevIndex: UInt32
     dwPortMonitorMibIndex: UInt32
-class PORT_DATA_LIST_1(EasyCastStructure):
+class PORT_DATA_LIST_1(Structure):
     dwVersion: UInt32
     cPortData: UInt32
     pPortData: win32more.Windows.Win32.Graphics.Printing.PORT_DATA_2 * 1
-class PORT_INFO_1A(EasyCastStructure):
+class PORT_INFO_1A(Structure):
     pName: win32more.Windows.Win32.Foundation.PSTR
-class PORT_INFO_1W(EasyCastStructure):
+class PORT_INFO_1W(Structure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
 PORT_INFO_1 = UnicodeAlias('PORT_INFO_1W')
-class PORT_INFO_2A(EasyCastStructure):
+class PORT_INFO_2A(Structure):
     pPortName: win32more.Windows.Win32.Foundation.PSTR
     pMonitorName: win32more.Windows.Win32.Foundation.PSTR
     pDescription: win32more.Windows.Win32.Foundation.PSTR
     fPortType: UInt32
     Reserved: UInt32
-class PORT_INFO_2W(EasyCastStructure):
+class PORT_INFO_2W(Structure):
     pPortName: win32more.Windows.Win32.Foundation.PWSTR
     pMonitorName: win32more.Windows.Win32.Foundation.PWSTR
     pDescription: win32more.Windows.Win32.Foundation.PWSTR
     fPortType: UInt32
     Reserved: UInt32
 PORT_INFO_2 = UnicodeAlias('PORT_INFO_2W')
-class PORT_INFO_3A(EasyCastStructure):
+class PORT_INFO_3A(Structure):
     dwStatus: UInt32
     pszStatus: win32more.Windows.Win32.Foundation.PSTR
     dwSeverity: UInt32
-class PORT_INFO_3W(EasyCastStructure):
+class PORT_INFO_3W(Structure):
     dwStatus: UInt32
     pszStatus: win32more.Windows.Win32.Foundation.PWSTR
     dwSeverity: UInt32
@@ -4040,51 +4040,51 @@ SERVER_ACCESS_ENUMERATE: win32more.Windows.Win32.Graphics.Printing.PRINTER_ACCES
 PRINTER_ACCESS_ADMINISTER: win32more.Windows.Win32.Graphics.Printing.PRINTER_ACCESS_RIGHTS = 4
 PRINTER_ACCESS_USE: win32more.Windows.Win32.Graphics.Printing.PRINTER_ACCESS_RIGHTS = 8
 PRINTER_ACCESS_MANAGE_LIMITED: win32more.Windows.Win32.Graphics.Printing.PRINTER_ACCESS_RIGHTS = 64
-class PRINTER_CONNECTION_INFO_1A(EasyCastStructure):
+class PRINTER_CONNECTION_INFO_1A(Structure):
     dwFlags: UInt32
     pszDriverName: win32more.Windows.Win32.Foundation.PSTR
-class PRINTER_CONNECTION_INFO_1W(EasyCastStructure):
+class PRINTER_CONNECTION_INFO_1W(Structure):
     dwFlags: UInt32
     pszDriverName: win32more.Windows.Win32.Foundation.PWSTR
 PRINTER_CONNECTION_INFO_1 = UnicodeAlias('PRINTER_CONNECTION_INFO_1W')
-class PRINTER_DEFAULTSA(EasyCastStructure):
+class PRINTER_DEFAULTSA(Structure):
     pDatatype: win32more.Windows.Win32.Foundation.PSTR
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)
     DesiredAccess: win32more.Windows.Win32.Graphics.Printing.PRINTER_ACCESS_RIGHTS
-class PRINTER_DEFAULTSW(EasyCastStructure):
+class PRINTER_DEFAULTSW(Structure):
     pDatatype: win32more.Windows.Win32.Foundation.PWSTR
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)
     DesiredAccess: win32more.Windows.Win32.Graphics.Printing.PRINTER_ACCESS_RIGHTS
 PRINTER_DEFAULTS = UnicodeAlias('PRINTER_DEFAULTSW')
-class PRINTER_ENUM_VALUESA(EasyCastStructure):
+class PRINTER_ENUM_VALUESA(Structure):
     pValueName: win32more.Windows.Win32.Foundation.PSTR
     cbValueName: UInt32
     dwType: UInt32
     pData: POINTER(Byte)
     cbData: UInt32
-class PRINTER_ENUM_VALUESW(EasyCastStructure):
+class PRINTER_ENUM_VALUESW(Structure):
     pValueName: win32more.Windows.Win32.Foundation.PWSTR
     cbValueName: UInt32
     dwType: UInt32
     pData: POINTER(Byte)
     cbData: UInt32
 PRINTER_ENUM_VALUES = UnicodeAlias('PRINTER_ENUM_VALUESW')
-class PRINTER_EVENT_ATTRIBUTES_INFO(EasyCastStructure):
+class PRINTER_EVENT_ATTRIBUTES_INFO(Structure):
     cbSize: UInt32
     dwOldAttributes: UInt32
     dwNewAttributes: UInt32
-class PRINTER_INFO_1A(EasyCastStructure):
+class PRINTER_INFO_1A(Structure):
     Flags: UInt32
     pDescription: win32more.Windows.Win32.Foundation.PSTR
     pName: win32more.Windows.Win32.Foundation.PSTR
     pComment: win32more.Windows.Win32.Foundation.PSTR
-class PRINTER_INFO_1W(EasyCastStructure):
+class PRINTER_INFO_1W(Structure):
     Flags: UInt32
     pDescription: win32more.Windows.Win32.Foundation.PWSTR
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pComment: win32more.Windows.Win32.Foundation.PWSTR
 PRINTER_INFO_1 = UnicodeAlias('PRINTER_INFO_1W')
-class PRINTER_INFO_2A(EasyCastStructure):
+class PRINTER_INFO_2A(Structure):
     pServerName: win32more.Windows.Win32.Foundation.PSTR
     pPrinterName: win32more.Windows.Win32.Foundation.PSTR
     pShareName: win32more.Windows.Win32.Foundation.PSTR
@@ -4106,7 +4106,7 @@ class PRINTER_INFO_2A(EasyCastStructure):
     Status: UInt32
     cJobs: UInt32
     AveragePPM: UInt32
-class PRINTER_INFO_2W(EasyCastStructure):
+class PRINTER_INFO_2W(Structure):
     pServerName: win32more.Windows.Win32.Foundation.PWSTR
     pPrinterName: win32more.Windows.Win32.Foundation.PWSTR
     pShareName: win32more.Windows.Win32.Foundation.PWSTR
@@ -4129,86 +4129,86 @@ class PRINTER_INFO_2W(EasyCastStructure):
     cJobs: UInt32
     AveragePPM: UInt32
 PRINTER_INFO_2 = UnicodeAlias('PRINTER_INFO_2W')
-class PRINTER_INFO_3(EasyCastStructure):
+class PRINTER_INFO_3(Structure):
     pSecurityDescriptor: win32more.Windows.Win32.Security.PSECURITY_DESCRIPTOR
-class PRINTER_INFO_4A(EasyCastStructure):
+class PRINTER_INFO_4A(Structure):
     pPrinterName: win32more.Windows.Win32.Foundation.PSTR
     pServerName: win32more.Windows.Win32.Foundation.PSTR
     Attributes: UInt32
-class PRINTER_INFO_4W(EasyCastStructure):
+class PRINTER_INFO_4W(Structure):
     pPrinterName: win32more.Windows.Win32.Foundation.PWSTR
     pServerName: win32more.Windows.Win32.Foundation.PWSTR
     Attributes: UInt32
 PRINTER_INFO_4 = UnicodeAlias('PRINTER_INFO_4W')
-class PRINTER_INFO_5A(EasyCastStructure):
+class PRINTER_INFO_5A(Structure):
     pPrinterName: win32more.Windows.Win32.Foundation.PSTR
     pPortName: win32more.Windows.Win32.Foundation.PSTR
     Attributes: UInt32
     DeviceNotSelectedTimeout: UInt32
     TransmissionRetryTimeout: UInt32
-class PRINTER_INFO_5W(EasyCastStructure):
+class PRINTER_INFO_5W(Structure):
     pPrinterName: win32more.Windows.Win32.Foundation.PWSTR
     pPortName: win32more.Windows.Win32.Foundation.PWSTR
     Attributes: UInt32
     DeviceNotSelectedTimeout: UInt32
     TransmissionRetryTimeout: UInt32
 PRINTER_INFO_5 = UnicodeAlias('PRINTER_INFO_5W')
-class PRINTER_INFO_6(EasyCastStructure):
+class PRINTER_INFO_6(Structure):
     dwStatus: UInt32
-class PRINTER_INFO_7A(EasyCastStructure):
+class PRINTER_INFO_7A(Structure):
     pszObjectGUID: win32more.Windows.Win32.Foundation.PSTR
     dwAction: UInt32
-class PRINTER_INFO_7W(EasyCastStructure):
+class PRINTER_INFO_7W(Structure):
     pszObjectGUID: win32more.Windows.Win32.Foundation.PWSTR
     dwAction: UInt32
 PRINTER_INFO_7 = UnicodeAlias('PRINTER_INFO_7W')
-class PRINTER_INFO_8A(EasyCastStructure):
+class PRINTER_INFO_8A(Structure):
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)
-class PRINTER_INFO_8W(EasyCastStructure):
+class PRINTER_INFO_8W(Structure):
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)
 PRINTER_INFO_8 = UnicodeAlias('PRINTER_INFO_8W')
-class PRINTER_INFO_9A(EasyCastStructure):
+class PRINTER_INFO_9A(Structure):
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)
-class PRINTER_INFO_9W(EasyCastStructure):
+class PRINTER_INFO_9W(Structure):
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEW)
 PRINTER_INFO_9 = UnicodeAlias('PRINTER_INFO_9W')
-class PRINTER_NOTIFY_INFO(EasyCastStructure):
+class PRINTER_NOTIFY_INFO(Structure):
     Version: UInt32
     Flags: UInt32
     Count: UInt32
     aData: win32more.Windows.Win32.Graphics.Printing.PRINTER_NOTIFY_INFO_DATA * 1
-class PRINTER_NOTIFY_INFO_DATA(EasyCastStructure):
+class PRINTER_NOTIFY_INFO_DATA(Structure):
     Type: UInt16
     Field: UInt16
     Reserved: UInt32
     Id: UInt32
     NotifyData: _NotifyData_e__Union
-    class _NotifyData_e__Union(EasyCastUnion):
+    class _NotifyData_e__Union(Union):
         adwData: UInt32 * 2
         Data: _Data_e__Struct
-        class _Data_e__Struct(EasyCastStructure):
+        class _Data_e__Struct(Structure):
             cbBuf: UInt32
             pBuf: VoidPtr
-class PRINTER_NOTIFY_INIT(EasyCastStructure):
+class PRINTER_NOTIFY_INIT(Structure):
     Size: UInt32
     Reserved: UInt32
     PollTime: UInt32
-class PRINTER_NOTIFY_OPTIONS(EasyCastStructure):
+class PRINTER_NOTIFY_OPTIONS(Structure):
     Version: UInt32
     Flags: UInt32
     Count: UInt32
     pTypes: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_NOTIFY_OPTIONS_TYPE)
-class PRINTER_NOTIFY_OPTIONS_TYPE(EasyCastStructure):
+class PRINTER_NOTIFY_OPTIONS_TYPE(Structure):
     Type: UInt16
     Reserved0: UInt16
     Reserved1: UInt32
     Reserved2: UInt32
     Count: UInt32
     pFields: POINTER(UInt16)
-class PRINTER_OPTIONSA(EasyCastStructure):
+class PRINTER_OPTIONSA(Structure):
     cbSize: UInt32
     dwFlags: UInt32
-class PRINTER_OPTIONSW(EasyCastStructure):
+class PRINTER_OPTIONSW(Structure):
     cbSize: UInt32
     dwFlags: UInt32
 PRINTER_OPTIONS = UnicodeAlias('PRINTER_OPTIONSW')
@@ -4217,7 +4217,7 @@ PRINTER_OPTION_NO_CACHE: win32more.Windows.Win32.Graphics.Printing.PRINTER_OPTIO
 PRINTER_OPTION_CACHE: win32more.Windows.Win32.Graphics.Printing.PRINTER_OPTION_FLAGS = 2
 PRINTER_OPTION_CLIENT_CHANGE: win32more.Windows.Win32.Graphics.Printing.PRINTER_OPTION_FLAGS = 4
 PRINTER_OPTION_NO_CLIENT_DATA: win32more.Windows.Win32.Graphics.Printing.PRINTER_OPTION_FLAGS = 8
-class PRINTIFI32(EasyCastStructure):
+class PRINTIFI32(Structure):
     cjThis: UInt32
     cjIfiExtra: UInt32
     dpwszFamilyName: Int32
@@ -4277,7 +4277,7 @@ class PRINTIFI32(EasyCastStructure):
     cKerningPairs: UInt32
     ulPanoseCulture: UInt32
     panose: win32more.Windows.Win32.Graphics.Gdi.PANOSE
-class PRINTPROCESSOROPENDATA(EasyCastStructure):
+class PRINTPROCESSOROPENDATA(Structure):
     pDevMode: POINTER(win32more.Windows.Win32.Graphics.Gdi.DEVMODEA)
     pDatatype: win32more.Windows.Win32.Foundation.PWSTR
     pParameters: win32more.Windows.Win32.Foundation.PWSTR
@@ -4285,12 +4285,12 @@ class PRINTPROCESSOROPENDATA(EasyCastStructure):
     JobId: UInt32
     pOutputFile: win32more.Windows.Win32.Foundation.PWSTR
     pPrinterName: win32more.Windows.Win32.Foundation.PWSTR
-class PRINTPROCESSOR_CAPS_1(EasyCastStructure):
+class PRINTPROCESSOR_CAPS_1(Structure):
     dwLevel: UInt32
     dwNupOptions: UInt32
     dwPageOrderFlags: UInt32
     dwNumberOfCopies: UInt32
-class PRINTPROCESSOR_CAPS_2(EasyCastStructure):
+class PRINTPROCESSOR_CAPS_2(Structure):
     dwLevel: UInt32
     dwNupOptions: UInt32
     dwPageOrderFlags: UInt32
@@ -4300,12 +4300,12 @@ class PRINTPROCESSOR_CAPS_2(EasyCastStructure):
     dwNupBorderCaps: UInt32
     dwBookletHandlingCaps: UInt32
     dwScalingCaps: UInt32
-class PRINTPROCESSOR_INFO_1A(EasyCastStructure):
+class PRINTPROCESSOR_INFO_1A(Structure):
     pName: win32more.Windows.Win32.Foundation.PSTR
-class PRINTPROCESSOR_INFO_1W(EasyCastStructure):
+class PRINTPROCESSOR_INFO_1W(Structure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
 PRINTPROCESSOR_INFO_1 = UnicodeAlias('PRINTPROCESSOR_INFO_1W')
-class PRINTPROVIDOR(EasyCastStructure):
+class PRINTPROVIDOR(Structure):
     fpOpenPrinter: IntPtr
     fpSetJob: IntPtr
     fpGetJob: IntPtr
@@ -4420,19 +4420,19 @@ PRINT_EXECUTION_CONTEXT_SPOOLER_SERVICE: win32more.Windows.Win32.Graphics.Printi
 PRINT_EXECUTION_CONTEXT_SPOOLER_ISOLATION_HOST: win32more.Windows.Win32.Graphics.Printing.PRINT_EXECUTION_CONTEXT = 2
 PRINT_EXECUTION_CONTEXT_FILTER_PIPELINE: win32more.Windows.Win32.Graphics.Printing.PRINT_EXECUTION_CONTEXT = 3
 PRINT_EXECUTION_CONTEXT_WOW64: win32more.Windows.Win32.Graphics.Printing.PRINT_EXECUTION_CONTEXT = 4
-class PRINT_EXECUTION_DATA(EasyCastStructure):
+class PRINT_EXECUTION_DATA(Structure):
     context: win32more.Windows.Win32.Graphics.Printing.PRINT_EXECUTION_CONTEXT
     clientAppPID: UInt32
-class PRINT_FEATURE_OPTION(EasyCastStructure):
+class PRINT_FEATURE_OPTION(Structure):
     pszFeature: win32more.Windows.Win32.Foundation.PSTR
     pszOption: win32more.Windows.Win32.Foundation.PSTR
-class PROPSHEETUI_GETICON_INFO(EasyCastStructure):
+class PROPSHEETUI_GETICON_INFO(Structure):
     cbSize: UInt16
     Flags: UInt16
     cxIcon: UInt16
     cyIcon: UInt16
     hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
-class PROPSHEETUI_INFO(EasyCastStructure):
+class PROPSHEETUI_INFO(Structure):
     cbSize: UInt16
     Version: UInt16
     Flags: UInt16
@@ -4442,40 +4442,40 @@ class PROPSHEETUI_INFO(EasyCastStructure):
     lParamInit: win32more.Windows.Win32.Foundation.LPARAM
     UserData: UIntPtr
     Result: UIntPtr
-class PROPSHEETUI_INFO_HEADER(EasyCastStructure):
+class PROPSHEETUI_INFO_HEADER(Structure):
     cbSize: UInt16
     Flags: UInt16
     pTitle: POINTER(SByte)
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     hInst: win32more.Windows.Win32.Foundation.HINSTANCE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         IconID: UIntPtr
-class PROVIDOR_INFO_1A(EasyCastStructure):
+class PROVIDOR_INFO_1A(Structure):
     pName: win32more.Windows.Win32.Foundation.PSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PSTR
     pDLLName: win32more.Windows.Win32.Foundation.PSTR
-class PROVIDOR_INFO_1W(EasyCastStructure):
+class PROVIDOR_INFO_1W(Structure):
     pName: win32more.Windows.Win32.Foundation.PWSTR
     pEnvironment: win32more.Windows.Win32.Foundation.PWSTR
     pDLLName: win32more.Windows.Win32.Foundation.PWSTR
 PROVIDOR_INFO_1 = UnicodeAlias('PROVIDOR_INFO_1W')
-class PROVIDOR_INFO_2A(EasyCastStructure):
+class PROVIDOR_INFO_2A(Structure):
     pOrder: win32more.Windows.Win32.Foundation.PSTR
-class PROVIDOR_INFO_2W(EasyCastStructure):
+class PROVIDOR_INFO_2W(Structure):
     pOrder: win32more.Windows.Win32.Foundation.PWSTR
 PROVIDOR_INFO_2 = UnicodeAlias('PROVIDOR_INFO_2W')
-class PSCRIPT5_PRIVATE_DEVMODE(EasyCastStructure):
+class PSCRIPT5_PRIVATE_DEVMODE(Structure):
     wReserved: UInt16 * 57
     wSize: UInt16
-class PSPINFO(EasyCastStructure):
+class PSPINFO(Structure):
     cbSize: UInt16
     wReserved: UInt16
     hComPropSheet: win32more.Windows.Win32.Foundation.HANDLE
     hCPSUIPage: win32more.Windows.Win32.Foundation.HANDLE
     pfnComPropSheet: win32more.Windows.Win32.Graphics.Printing.PFNCOMPROPSHEET
-class PUBLISHERINFO(EasyCastStructure):
+class PUBLISHERINFO(Structure):
     dwMode: UInt32
     wMinoutlinePPEM: UInt16
     wMaxbitmapPPEM: UInt16
@@ -4528,22 +4528,22 @@ PrintJobStatus_UserIntervention: win32more.Windows.Win32.Graphics.Printing.Print
 PrintJobStatus_Restarted: win32more.Windows.Win32.Graphics.Printing.PrintJobStatus = 2048
 PrintJobStatus_Complete: win32more.Windows.Win32.Graphics.Printing.PrintJobStatus = 4096
 PrintJobStatus_Retained: win32more.Windows.Win32.Graphics.Printing.PrintJobStatus = 8192
-class PrintNamedProperty(EasyCastStructure):
+class PrintNamedProperty(Structure):
     propertyName: win32more.Windows.Win32.Foundation.PWSTR
     propertyValue: win32more.Windows.Win32.Graphics.Printing.PrintPropertyValue
-class PrintPropertiesCollection(EasyCastStructure):
+class PrintPropertiesCollection(Structure):
     numberOfProperties: UInt32
     propertiesCollection: POINTER(win32more.Windows.Win32.Graphics.Printing.PrintNamedProperty)
-class PrintPropertyValue(EasyCastStructure):
+class PrintPropertyValue(Structure):
     ePropertyType: win32more.Windows.Win32.Graphics.Printing.EPrintPropertyType
     value: _value_e__Union
-    class _value_e__Union(EasyCastUnion):
+    class _value_e__Union(Union):
         propertyByte: Byte
         propertyString: win32more.Windows.Win32.Foundation.PWSTR
         propertyInt32: Int32
         propertyInt64: Int64
         propertyBlob: _propertyBlob_e__Struct
-        class _propertyBlob_e__Struct(EasyCastStructure):
+        class _propertyBlob_e__Struct(Structure):
             cbBuf: UInt32
             pBuf: VoidPtr
 PrintSchemaAsyncOperation = Guid('{43b2f83d-10f2-48ab-831b-55fdbdbd34a4}')
@@ -4564,7 +4564,7 @@ PrinterQueue = Guid('{eb54c230-798c-4c9e-b461-29fad04039b1}')
 PrinterQueueView = Guid('{eb54c231-798c-4c9e-b461-29fad04039b1}')
 @winfunctype_pointer
 def ROUTER_NOTIFY_CALLBACK(dwCommand: UInt32, pContext: VoidPtr, dwColor: UInt32, pNofityInfo: POINTER(win32more.Windows.Win32.Graphics.Printing.PRINTER_NOTIFY_INFO), fdwFlags: UInt32, pdwResult: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class SETRESULT_INFO(EasyCastStructure):
+class SETRESULT_INFO(Structure):
     cbSize: UInt16
     wReserved: UInt16
     hSetResult: win32more.Windows.Win32.Foundation.HANDLE
@@ -4572,16 +4572,16 @@ class SETRESULT_INFO(EasyCastStructure):
 SHIMOPTS = Int32
 PTSHIM_DEFAULT: win32more.Windows.Win32.Graphics.Printing.SHIMOPTS = 0
 PTSHIM_NOSNAPSHOT: win32more.Windows.Win32.Graphics.Printing.SHIMOPTS = 1
-class SHOWUIPARAMS(EasyCastStructure):
+class SHOWUIPARAMS(Structure):
     UIType: win32more.Windows.Win32.Graphics.Printing.UI_TYPE
     MessageBoxParams: win32more.Windows.Win32.Graphics.Printing.MESSAGEBOX_PARAMS
-class SIMULATE_CAPS_1(EasyCastStructure):
+class SIMULATE_CAPS_1(Structure):
     dwLevel: UInt32
     dwPageOrderFlags: UInt32
     dwNumberOfCopies: UInt32
     dwCollate: UInt32
     dwNupOptions: UInt32
-class SPLCLIENT_INFO_1(EasyCastStructure):
+class SPLCLIENT_INFO_1(Structure):
     dwSize: UInt32
     pMachineName: win32more.Windows.Win32.Foundation.PWSTR
     pUserName: win32more.Windows.Win32.Foundation.PWSTR
@@ -4589,15 +4589,15 @@ class SPLCLIENT_INFO_1(EasyCastStructure):
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
     wProcessorArchitecture: UInt16
-class SPLCLIENT_INFO_2_W2K(EasyCastStructure):
+class SPLCLIENT_INFO_2_W2K(Structure):
     hSplPrinter: UIntPtr
 if ARCH in 'X64,ARM64':
-    class SPLCLIENT_INFO_2_WINXP(EasyCastStructure):
+    class SPLCLIENT_INFO_2_WINXP(Structure):
         hSplPrinter: UInt64
 elif ARCH in 'X86':
-    class SPLCLIENT_INFO_2_WINXP(EasyCastStructure):
+    class SPLCLIENT_INFO_2_WINXP(Structure):
         hSplPrinter: UInt32
-class SPLCLIENT_INFO_3_VISTA(EasyCastStructure):
+class SPLCLIENT_INFO_3_VISTA(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     dwSize: UInt32
@@ -4608,7 +4608,7 @@ class SPLCLIENT_INFO_3_VISTA(EasyCastStructure):
     dwMinorVersion: UInt32
     wProcessorArchitecture: UInt16
     hSplPrinter: UInt64
-class SPLCLIENT_INFO_INTERNAL(EasyCastStructure):
+class SPLCLIENT_INFO_INTERNAL(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     dwSize: UInt32
@@ -4621,15 +4621,15 @@ class SPLCLIENT_INFO_INTERNAL(EasyCastStructure):
     hSplPrinter: UInt64
     dwProcessId: UInt32
     dwSessionId: UInt32
-class TRANSDATA(EasyCastStructure):
+class TRANSDATA(Structure):
     ubCodePageID: Byte
     ubType: Byte
     uCode: _uCode_e__Union
-    class _uCode_e__Union(EasyCastUnion):
+    class _uCode_e__Union(Union):
         sCode: Int16
         ubCode: Byte
         ubPairs: Byte * 2
-class UFF_FILEHEADER(EasyCastStructure):
+class UFF_FILEHEADER(Structure):
     dwSignature: UInt32
     dwVersion: UInt32
     dwSize: UInt32
@@ -4639,7 +4639,7 @@ class UFF_FILEHEADER(EasyCastStructure):
     offFontDir: UInt32
     dwFlags: UInt32
     dwReserved: UInt32 * 4
-class UFF_FONTDIRECTORY(EasyCastStructure):
+class UFF_FONTDIRECTORY(Structure):
     dwSignature: UInt32
     wSize: UInt16
     wFontID: UInt16
@@ -4653,7 +4653,7 @@ class UFF_FONTDIRECTORY(EasyCastStructure):
     offVarData: UInt32
 UI_TYPE = Int32
 kMessageBox: win32more.Windows.Win32.Graphics.Printing.UI_TYPE = 0
-class UNIDRVINFO(EasyCastStructure):
+class UNIDRVINFO(Structure):
     dwSize: UInt32
     flGenFlags: UInt32
     wType: UInt16
@@ -4667,10 +4667,10 @@ class UNIDRVINFO(EasyCastStructure):
     SelectFont: win32more.Windows.Win32.Graphics.Printing.INVOC
     UnSelectFont: win32more.Windows.Win32.Graphics.Printing.INVOC
     wReserved: UInt16 * 4
-class UNIDRV_PRIVATE_DEVMODE(EasyCastStructure):
+class UNIDRV_PRIVATE_DEVMODE(Structure):
     wReserved: UInt16 * 4
     wSize: UInt16
-class UNIFM_HDR(EasyCastStructure):
+class UNIFM_HDR(Structure):
     dwSize: UInt32
     dwVersion: UInt32
     ulDefaultCodepage: UInt32
@@ -4681,11 +4681,11 @@ class UNIFM_HDR(EasyCastStructure):
     loWidthTable: UInt32
     loKernPair: UInt32
     dwReserved: UInt32 * 2
-class UNI_CODEPAGEINFO(EasyCastStructure):
+class UNI_CODEPAGEINFO(Structure):
     dwCodePage: UInt32
     SelectSymbolSet: win32more.Windows.Win32.Graphics.Printing.INVOC
     UnSelectSymbolSet: win32more.Windows.Win32.Graphics.Printing.INVOC
-class UNI_GLYPHSETDATA(EasyCastStructure):
+class UNI_GLYPHSETDATA(Structure):
     dwSize: UInt32
     dwVersion: UInt32
     dwFlags: UInt32
@@ -4697,16 +4697,16 @@ class UNI_GLYPHSETDATA(EasyCastStructure):
     loCodePageOffset: UInt32
     loMapTableOffset: UInt32
     dwReserved: UInt32 * 2
-class USERDATA(EasyCastStructure):
+class USERDATA(Structure):
     dwSize: UInt32
     dwItemID: UIntPtr
     pKeyWordName: win32more.Windows.Win32.Foundation.PSTR
     dwReserved: UInt32 * 8
-class WIDTHRUN(EasyCastStructure):
+class WIDTHRUN(Structure):
     wStartGlyph: UInt16
     wGlyphCount: UInt16
     loCharWidthOffset: UInt32
-class WIDTHTABLE(EasyCastStructure):
+class WIDTHTABLE(Structure):
     dwSize: UInt32
     dwRunNum: UInt32
     WidthRun: win32more.Windows.Win32.Graphics.Printing.WIDTHRUN * 1
@@ -4722,7 +4722,7 @@ XPSRAS_RENDERING_MODE_ANTIALIASED: win32more.Windows.Win32.Graphics.Printing.XPS
 XPSRAS_RENDERING_MODE_ALIASED: win32more.Windows.Win32.Graphics.Printing.XPSRAS_RENDERING_MODE = 1
 @winfunctype_pointer
 def _CPSUICALLBACK(pCPSUICBParam: POINTER(win32more.Windows.Win32.Graphics.Printing.CPSUICBPARAM)) -> Int32: ...
-class _SPLCLIENT_INFO_2_V3(EasyCastStructure):
+class _SPLCLIENT_INFO_2_V3(Structure):
     hSplPrinter: UInt64
 
 

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Xml.Dom
 import win32more.Windows.Devices.Sms
@@ -220,7 +220,7 @@ class ESimProfileClass(Int32):  # enum
     Operational = 0
     Test = 1
     Provisioning = 2
-class ESimProfileInstallProgress(EasyCastStructure):
+class ESimProfileInstallProgress(Structure):
     TotalSizeInBytes: Int32
     InstalledSizeInBytes: Int32
 class ESimProfileMetadata(ComPtr):
@@ -3161,7 +3161,7 @@ class NetworkRegistrationState(Int32):  # enum
 class ProfileMediaType(Int32):  # enum
     Wlan = 0
     Wwan = 1
-class ProfileUsage(EasyCastStructure):
+class ProfileUsage(Structure):
     UsageInMegabytes: UInt32
     LastSyncTime: win32more.Windows.Foundation.DateTime
 class ProvisionFromXmlDocumentResults(ComPtr):

@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.PortableDevices
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.EnhancedStorage
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
-class ACT_AUTHORIZATION_STATE(EasyCastStructure):
+class ACT_AUTHORIZATION_STATE(Structure):
     ulState: UInt32
 ACT_AUTHORIZATION_STATE_VALUE = Int32
 ACT_UNAUTHORIZED: win32more.Windows.Win32.Storage.EnhancedStorage.ACT_AUTHORIZATION_STATE_VALUE = 0
@@ -1427,7 +1427,7 @@ ES_E_NOT_AUTHORIZED_UNEXPECTED: UInt32 = 3221491977
 ES_E_AUTHORIZED_UNEXPECTED: UInt32 = 3221491978
 ES_E_PROVISIONED_UNEXPECTED: UInt32 = 3221491979
 ES_E_UNKNOWN_DIGEST_ALGORITHM: UInt32 = 3221491980
-class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION(EasyCastStructure):
+class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION(Structure):
     CurrentAdminFailures: Byte
     CurrentUserFailures: Byte
     TotalUserAuthenticationCount: UInt32
@@ -1518,7 +1518,7 @@ class IEnumEnhancedStorageACT(ComPtr):
     def GetACTs(self, pppIEnhancedStorageACTs: POINTER(POINTER(win32more.Windows.Win32.Storage.EnhancedStorage.IEnhancedStorageACT)), pcEnhancedStorageACTs: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetMatchingACT(self, szVolume: win32more.Windows.Win32.Foundation.PWSTR, ppIEnhancedStorageACT: POINTER(win32more.Windows.Win32.Storage.EnhancedStorage.IEnhancedStorageACT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class SILO_INFO(EasyCastStructure):
+class SILO_INFO(Structure):
     ulSTID: UInt32
     SpecificationMajor: Byte
     SpecificationMinor: Byte

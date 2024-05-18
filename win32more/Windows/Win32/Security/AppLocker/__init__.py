@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.AppLocker
@@ -65,7 +65,7 @@ def SaferSetLevelInformation(LevelHandle: win32more.Windows.Win32.Security.SAFER
 def SaferRecordEventLogEntry(hLevel: win32more.Windows.Win32.Security.SAFER_LEVEL_HANDLE, szTargetPath: win32more.Windows.Win32.Foundation.PWSTR, lpReserved: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def SaferiIsExecutableFileType(szFullPathname: win32more.Windows.Win32.Foundation.PWSTR, bFromShellExecute: win32more.Windows.Win32.Foundation.BOOLEAN) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class SAFER_CODE_PROPERTIES_V1(EasyCastStructure):
+class SAFER_CODE_PROPERTIES_V1(Structure):
     cbSize: UInt32
     dwCheckFlags: UInt32
     ImagePath: win32more.Windows.Win32.Foundation.PWSTR
@@ -78,7 +78,7 @@ class SAFER_CODE_PROPERTIES_V1(EasyCastStructure):
     pByteBlock: POINTER(Byte)
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     dwWVTUIChoice: UInt32
-class SAFER_CODE_PROPERTIES_V2(EasyCastStructure):
+class SAFER_CODE_PROPERTIES_V2(Structure):
     cbSize: UInt32
     dwCheckFlags: UInt32
     ImagePath: win32more.Windows.Win32.Foundation.PWSTR
@@ -101,7 +101,7 @@ SAFER_TOKEN_NULL_IF_EQUAL: win32more.Windows.Win32.Security.AppLocker.SAFER_COMP
 SAFER_TOKEN_COMPARE_ONLY: win32more.Windows.Win32.Security.AppLocker.SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 2
 SAFER_TOKEN_MAKE_INERT: win32more.Windows.Win32.Security.AppLocker.SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 4
 SAFER_TOKEN_WANT_FLAGS: win32more.Windows.Win32.Security.AppLocker.SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS = 8
-class SAFER_HASH_IDENTIFICATION(EasyCastStructure):
+class SAFER_HASH_IDENTIFICATION(Structure):
     header: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_HEADER
     Description: Char * 256
     FriendlyName: Char * 256
@@ -110,12 +110,12 @@ class SAFER_HASH_IDENTIFICATION(EasyCastStructure):
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     ImageSize: Int64
     dwSaferFlags: UInt32
-class SAFER_HASH_IDENTIFICATION2(EasyCastStructure):
+class SAFER_HASH_IDENTIFICATION2(Structure):
     hashIdentification: win32more.Windows.Win32.Security.AppLocker.SAFER_HASH_IDENTIFICATION
     HashSize: UInt32
     ImageHash: Byte * 64
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.ALG_ID
-class SAFER_IDENTIFICATION_HEADER(EasyCastStructure):
+class SAFER_IDENTIFICATION_HEADER(Structure):
     dwIdentificationType: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_TYPES
     cbStructSize: UInt32
     IdentificationGuid: Guid
@@ -143,7 +143,7 @@ SaferObjectRestrictedSidsAdded: win32more.Windows.Win32.Security.AppLocker.SAFER
 SaferObjectAllIdentificationGuids: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 14
 SaferObjectSingleIdentification: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 15
 SaferObjectExtendedError: win32more.Windows.Win32.Security.AppLocker.SAFER_OBJECT_INFO_CLASS = 16
-class SAFER_PATHNAME_IDENTIFICATION(EasyCastStructure):
+class SAFER_PATHNAME_IDENTIFICATION(Structure):
     header: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_HEADER
     Description: Char * 256
     ImageName: win32more.Windows.Win32.Foundation.PWSTR
@@ -156,7 +156,7 @@ SaferPolicyEvaluateUserScope: win32more.Windows.Win32.Security.AppLocker.SAFER_P
 SaferPolicyScopeFlags: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 5
 SaferPolicyDefaultLevelFlags: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 6
 SaferPolicyAuthenticodeEnabled: win32more.Windows.Win32.Security.AppLocker.SAFER_POLICY_INFO_CLASS = 7
-class SAFER_URLZONE_IDENTIFICATION(EasyCastStructure):
+class SAFER_URLZONE_IDENTIFICATION(Structure):
     header: win32more.Windows.Win32.Security.AppLocker.SAFER_IDENTIFICATION_HEADER
     UrlZoneId: UInt32
     dwSaferFlags: UInt32

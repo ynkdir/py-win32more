@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.ImageAcquisition
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
@@ -1249,7 +1249,7 @@ WIA_WSD_SERIAL_NUMBER: UInt32 = 38921
 WIA_WSD_SERIAL_NUMBER_STR: String = 'Serial number'
 WIA_WSD_SCAN_AVAILABLE_ITEM: UInt32 = 38922
 WIA_WSD_SCAN_AVAILABLE_ITEM_STR: String = 'Scan Available Item'
-class DEVICEDIALOGDATA(EasyCastStructure):
+class DEVICEDIALOGDATA(Structure):
     cbSize: UInt32
     hwndParent: win32more.Windows.Win32.Foundation.HWND
     pIWiaItemRoot: win32more.Windows.Win32.Devices.ImageAcquisition.IWiaItem
@@ -1257,7 +1257,7 @@ class DEVICEDIALOGDATA(EasyCastStructure):
     lIntent: Int32
     lItemCount: Int32
     ppWiaItems: POINTER(win32more.Windows.Win32.Devices.ImageAcquisition.IWiaItem)
-class DEVICEDIALOGDATA2(EasyCastStructure):
+class DEVICEDIALOGDATA2(Structure):
     cbSize: UInt32
     pIWiaItemRoot: win32more.Windows.Win32.Devices.ImageAcquisition.IWiaItem2
     dwFlags: UInt32
@@ -1718,7 +1718,7 @@ class IWiaVideo(ComPtr):
     def ResizeVideo(self, bStretchToFitParent: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetCurrentState(self, pState: POINTER(win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class MINIDRV_TRANSFER_CONTEXT(EasyCastStructure):
+class MINIDRV_TRANSFER_CONTEXT(Structure):
     lSize: Int32
     lWidthInPixels: Int32
     lLines: Int32
@@ -1746,11 +1746,11 @@ class MINIDRV_TRANSFER_CONTEXT(EasyCastStructure):
     lPage: Int32
     lCurIfdOffset: Int32
     lPrevIfdOffset: Int32
-class RANGEVALUE(EasyCastStructure):
+class RANGEVALUE(Structure):
     lMin: Int32
     lMax: Int32
     lStep: Int32
-class SCANINFO(EasyCastStructure):
+class SCANINFO(Structure):
     ADF: Int32
     TPA: Int32
     Endorser: Int32
@@ -1787,12 +1787,12 @@ class SCANINFO(EasyCastStructure):
     DeviceIOHandles: win32more.Windows.Win32.Foundation.HANDLE * 16
     lReserved: Int32 * 4
     pMicroDriverContext: VoidPtr
-class SCANWINDOW(EasyCastStructure):
+class SCANWINDOW(Structure):
     xPos: Int32
     yPos: Int32
     xExtent: Int32
     yExtent: Int32
-class TWAIN_CAPABILITY(EasyCastStructure):
+class TWAIN_CAPABILITY(Structure):
     lSize: Int32
     lMSG: Int32
     lCapID: Int32
@@ -1801,7 +1801,7 @@ class TWAIN_CAPABILITY(EasyCastStructure):
     lCC: Int32
     lDataSize: Int32
     Data: Byte * 1
-class VAL(EasyCastStructure):
+class VAL(Structure):
     lVal: Int32
     dblVal: Double
     pGuid: POINTER(Guid)
@@ -1811,22 +1811,22 @@ class VAL(EasyCastStructure):
     pHandle: POINTER(win32more.Windows.Win32.Foundation.HANDLE)
     lReserved: Int32
     szVal: win32more.Windows.Win32.Foundation.CHAR * 255
-class WIAS_CHANGED_VALUE_INFO(EasyCastStructure):
+class WIAS_CHANGED_VALUE_INFO(Structure):
     bChanged: win32more.Windows.Win32.Foundation.BOOL
     vt: Int32
     Old: _Old_e__Union
     Current: _Current_e__Union
-    class _Old_e__Union(EasyCastUnion):
+    class _Old_e__Union(Union):
         lVal: Int32
         fltVal: Single
         bstrVal: win32more.Windows.Win32.Foundation.BSTR
         guidVal: Guid
-    class _Current_e__Union(EasyCastUnion):
+    class _Current_e__Union(Union):
         lVal: Int32
         fltVal: Single
         bstrVal: win32more.Windows.Win32.Foundation.BSTR
         guidVal: Guid
-class WIAS_DOWN_SAMPLE_INFO(EasyCastStructure):
+class WIAS_DOWN_SAMPLE_INFO(Structure):
     ulOriginalWidth: UInt32
     ulOriginalHeight: UInt32
     ulBitsPerPixel: UInt32
@@ -1839,11 +1839,11 @@ class WIAS_DOWN_SAMPLE_INFO(EasyCastStructure):
     ulSrcBufSize: UInt32
     pSrcBuffer: POINTER(Byte)
     pDestBuffer: POINTER(Byte)
-class WIAS_ENDORSER_INFO(EasyCastStructure):
+class WIAS_ENDORSER_INFO(Structure):
     ulPageCount: UInt32
     ulNumEndorserValues: UInt32
     pEndorserValues: POINTER(win32more.Windows.Win32.Devices.ImageAcquisition.WIAS_ENDORSER_VALUE)
-class WIAS_ENDORSER_VALUE(EasyCastStructure):
+class WIAS_ENDORSER_VALUE(Structure):
     wszTokenName: win32more.Windows.Win32.Foundation.PWSTR
     wszValue: win32more.Windows.Win32.Foundation.PWSTR
 WIAVIDEO_STATE = Int32
@@ -1853,13 +1853,13 @@ WIAVIDEO_VIDEO_CREATED: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDE
 WIAVIDEO_VIDEO_PLAYING: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE = 4
 WIAVIDEO_VIDEO_PAUSED: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE = 5
 WIAVIDEO_DESTROYING_VIDEO: win32more.Windows.Win32.Devices.ImageAcquisition.WIAVIDEO_STATE = 6
-class WIA_BARCODES(EasyCastStructure):
+class WIA_BARCODES(Structure):
     Tag: UInt32
     Version: UInt32
     Size: UInt32
     Count: UInt32
     Barcodes: win32more.Windows.Win32.Devices.ImageAcquisition.WIA_BARCODE_INFO * 1
-class WIA_BARCODE_INFO(EasyCastStructure):
+class WIA_BARCODE_INFO(Structure):
     Size: UInt32
     Type: UInt32
     Page: UInt32
@@ -1869,12 +1869,12 @@ class WIA_BARCODE_INFO(EasyCastStructure):
     Rotation: UInt32
     Length: UInt32
     Text: Char * 1
-class WIA_DATA_CALLBACK_HEADER(EasyCastStructure):
+class WIA_DATA_CALLBACK_HEADER(Structure):
     lSize: Int32
     guidFormatID: Guid
     lBufferSize: Int32
     lPageCount: Int32
-class WIA_DATA_TRANSFER_INFO(EasyCastStructure):
+class WIA_DATA_TRANSFER_INFO(Structure):
     ulSize: UInt32
     ulSection: UInt32
     ulBufferSize: UInt32
@@ -1882,36 +1882,36 @@ class WIA_DATA_TRANSFER_INFO(EasyCastStructure):
     ulReserved1: UInt32
     ulReserved2: UInt32
     ulReserved3: UInt32
-class WIA_DEV_CAP(EasyCastStructure):
+class WIA_DEV_CAP(Structure):
     guid: Guid
     ulFlags: UInt32
     bstrName: win32more.Windows.Win32.Foundation.BSTR
     bstrDescription: win32more.Windows.Win32.Foundation.BSTR
     bstrIcon: win32more.Windows.Win32.Foundation.BSTR
     bstrCommandline: win32more.Windows.Win32.Foundation.BSTR
-class WIA_DEV_CAP_DRV(EasyCastStructure):
+class WIA_DEV_CAP_DRV(Structure):
     guid: POINTER(Guid)
     ulFlags: UInt32
     wszName: win32more.Windows.Win32.Foundation.PWSTR
     wszDescription: win32more.Windows.Win32.Foundation.PWSTR
     wszIcon: win32more.Windows.Win32.Foundation.PWSTR
-class WIA_DITHER_PATTERN_DATA(EasyCastStructure):
+class WIA_DITHER_PATTERN_DATA(Structure):
     lSize: Int32
     bstrPatternName: win32more.Windows.Win32.Foundation.BSTR
     lPatternWidth: Int32
     lPatternLength: Int32
     cbPattern: Int32
     pbPattern: POINTER(Byte)
-class WIA_EXTENDED_TRANSFER_INFO(EasyCastStructure):
+class WIA_EXTENDED_TRANSFER_INFO(Structure):
     ulSize: UInt32
     ulMinBufferSize: UInt32
     ulOptimalBufferSize: UInt32
     ulMaxBufferSize: UInt32
     ulNumBuffers: UInt32
-class WIA_FORMAT_INFO(EasyCastStructure):
+class WIA_FORMAT_INFO(Structure):
     guidFormatID: Guid
     lTymed: Int32
-class WIA_MICR(EasyCastStructure):
+class WIA_MICR(Structure):
     Tag: UInt32
     Version: UInt32
     Size: UInt32
@@ -1919,28 +1919,28 @@ class WIA_MICR(EasyCastStructure):
     Reserved: UInt16
     Count: UInt32
     Micr: win32more.Windows.Win32.Devices.ImageAcquisition.WIA_MICR_INFO * 1
-class WIA_MICR_INFO(EasyCastStructure):
+class WIA_MICR_INFO(Structure):
     Size: UInt32
     Page: UInt32
     Length: UInt32
     Text: Char * 1
-class WIA_PATCH_CODES(EasyCastStructure):
+class WIA_PATCH_CODES(Structure):
     Tag: UInt32
     Version: UInt32
     Size: UInt32
     Count: UInt32
     PatchCodes: win32more.Windows.Win32.Devices.ImageAcquisition.WIA_PATCH_CODE_INFO * 1
-class WIA_PATCH_CODE_INFO(EasyCastStructure):
+class WIA_PATCH_CODE_INFO(Structure):
     Type: UInt32
-class WIA_PROPERTY_CONTEXT(EasyCastStructure):
+class WIA_PROPERTY_CONTEXT(Structure):
     cProps: UInt32
     pProps: POINTER(UInt32)
     pChanged: POINTER(win32more.Windows.Win32.Foundation.BOOL)
-class WIA_PROPERTY_INFO(EasyCastStructure):
+class WIA_PROPERTY_INFO(Structure):
     lAccessFlags: UInt32
     vt: win32more.Windows.Win32.System.Variant.VARENUM
     ValidVal: _ValidVal_e__Union
-    class _ValidVal_e__Union(EasyCastUnion):
+    class _ValidVal_e__Union(Union):
         Range: _Range_e__Struct
         RangeFloat: _RangeFloat_e__Struct
         List: _List_e__Struct
@@ -1949,41 +1949,41 @@ class WIA_PROPERTY_INFO(EasyCastStructure):
         ListBStr: _ListBStr_e__Struct
         Flag: _Flag_e__Struct
         None_: _None_e__Struct
-        class _Range_e__Struct(EasyCastStructure):
+        class _Range_e__Struct(Structure):
             Min: Int32
             Nom: Int32
             Max: Int32
             Inc: Int32
-        class _RangeFloat_e__Struct(EasyCastStructure):
+        class _RangeFloat_e__Struct(Structure):
             Min: Double
             Nom: Double
             Max: Double
             Inc: Double
-        class _List_e__Struct(EasyCastStructure):
+        class _List_e__Struct(Structure):
             cNumList: Int32
             Nom: Int32
             pList: POINTER(Byte)
-        class _ListFloat_e__Struct(EasyCastStructure):
+        class _ListFloat_e__Struct(Structure):
             cNumList: Int32
             Nom: Double
             pList: POINTER(Byte)
-        class _ListGuid_e__Struct(EasyCastStructure):
+        class _ListGuid_e__Struct(Structure):
             cNumList: Int32
             Nom: Guid
             pList: POINTER(Guid)
-        class _ListBStr_e__Struct(EasyCastStructure):
+        class _ListBStr_e__Struct(Structure):
             cNumList: Int32
             Nom: win32more.Windows.Win32.Foundation.BSTR
             pList: POINTER(win32more.Windows.Win32.Foundation.BSTR)
-        class _Flag_e__Struct(EasyCastStructure):
+        class _Flag_e__Struct(Structure):
             Nom: Int32
             ValidBits: Int32
-        class _None_e__Struct(EasyCastStructure):
+        class _None_e__Struct(Structure):
             Dummy: Int32
-class WIA_PROPID_TO_NAME(EasyCastStructure):
+class WIA_PROPID_TO_NAME(Structure):
     propid: UInt32
     pszName: win32more.Windows.Win32.Foundation.PWSTR
-class WIA_RAW_HEADER(EasyCastStructure):
+class WIA_RAW_HEADER(Structure):
     Tag: UInt32
     Version: UInt32
     HeaderSize: UInt32
@@ -2006,7 +2006,7 @@ class WIA_RAW_HEADER(EasyCastStructure):
 WiaDevMgr = Guid('{a1f4e726-8cf1-11d1-bf92-0060081ed811}')
 WiaDevMgr2 = Guid('{b6c292bc-7c88-41ee-8b54-8ec92617e599}')
 WiaLog = Guid('{a1e75357-881a-419e-83e2-bb16db197c68}')
-class WiaTransferParams(EasyCastStructure):
+class WiaTransferParams(Structure):
     lMessage: Int32
     lPercentComplete: Int32
     ulTransferredBytes: UInt64

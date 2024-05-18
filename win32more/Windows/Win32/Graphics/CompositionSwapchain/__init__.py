@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.CompositionSwapchain
 import win32more.Windows.Win32.Graphics.Dxgi.Common
 import win32more.Windows.Win32.System.Com
 @winfunctype('dcomp.dll')
 def CreatePresentationFactory(d3dDevice: win32more.Windows.Win32.System.Com.IUnknown, riid: POINTER(Guid), presentationFactory: POINTER(VoidPtr)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class CompositionFrameDisplayInstance(EasyCastStructure):
+class CompositionFrameDisplayInstance(Structure):
     displayAdapterLUID: win32more.Windows.Win32.Foundation.LUID
     displayVidPnSourceId: UInt32
     displayUniqueId: UInt32
@@ -132,14 +132,14 @@ PresentStatus = Int32
 PresentStatus_Queued: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatus = 0
 PresentStatus_Skipped: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatus = 1
 PresentStatus_Canceled: win32more.Windows.Win32.Graphics.CompositionSwapchain.PresentStatus = 2
-class PresentationTransform(EasyCastStructure):
+class PresentationTransform(Structure):
     M11: Single
     M12: Single
     M21: Single
     M22: Single
     M31: Single
     M32: Single
-class SystemInterruptTime(EasyCastStructure):
+class SystemInterruptTime(Structure):
     value: UInt64
 
 

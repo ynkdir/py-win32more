@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Power
 import win32more.Windows.Win32.System.Registry
 import win32more.Windows.Win32.System.Threading
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-class ACPI_REAL_TIME(EasyCastStructure):
+class ACPI_REAL_TIME(Structure):
     Year: UInt16
     Month: Byte
     Day: Byte
@@ -18,7 +18,7 @@ class ACPI_REAL_TIME(EasyCastStructure):
     TimeZone: Int16
     DayLight: Byte
     Reserved1: Byte * 3
-class ACPI_TIME_AND_ALARM_CAPABILITIES(EasyCastStructure):
+class ACPI_TIME_AND_ALARM_CAPABILITIES(Structure):
     AcWakeSupported: win32more.Windows.Win32.Foundation.BOOLEAN
     DcWakeSupported: win32more.Windows.Win32.Foundation.BOOLEAN
     S4AcWakeSupported: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -33,7 +33,7 @@ ACPI_TIME_RESOLUTION = Int32
 AcpiTimeResolutionMilliseconds: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION = 0
 AcpiTimeResolutionSeconds: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION = 1
 AcpiTimeResolutionMax: win32more.Windows.Win32.System.Power.ACPI_TIME_RESOLUTION = 2
-class ADMINISTRATOR_POWER_POLICY(EasyCastStructure):
+class ADMINISTRATOR_POWER_POLICY(Structure):
     MinSleep: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
     MaxSleep: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
     MinVideoTimeout: UInt32
@@ -409,13 +409,13 @@ def GetDevicePowerState(hDevice: win32more.Windows.Win32.Foundation.HANDLE, pfOn
 def SetSystemPowerState(fSuspend: win32more.Windows.Win32.Foundation.BOOL, fForce: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetSystemPowerStatus(lpSystemPowerStatus: POINTER(win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class BATTERY_CHARGER_STATUS(EasyCastStructure):
+class BATTERY_CHARGER_STATUS(Structure):
     Type: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE
     VaData: UInt32 * 1
-class BATTERY_CHARGING_SOURCE(EasyCastStructure):
+class BATTERY_CHARGING_SOURCE(Structure):
     Type: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE
     MaxCurrent: UInt32
-class BATTERY_CHARGING_SOURCE_INFORMATION(EasyCastStructure):
+class BATTERY_CHARGING_SOURCE_INFORMATION(Structure):
     Type: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE
     SourceOnline: win32more.Windows.Win32.Foundation.BOOLEAN
 BATTERY_CHARGING_SOURCE_TYPE = Int32
@@ -423,7 +423,7 @@ BatteryChargingSourceType_AC: win32more.Windows.Win32.System.Power.BATTERY_CHARG
 BatteryChargingSourceType_USB: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE = 2
 BatteryChargingSourceType_Wireless: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE = 3
 BatteryChargingSourceType_Max: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE = 4
-class BATTERY_INFORMATION(EasyCastStructure):
+class BATTERY_INFORMATION(Structure):
     Capabilities: UInt32
     Technology: Byte
     Reserved: Byte * 3
@@ -434,11 +434,11 @@ class BATTERY_INFORMATION(EasyCastStructure):
     DefaultAlert2: UInt32
     CriticalBias: UInt32
     CycleCount: UInt32
-class BATTERY_MANUFACTURE_DATE(EasyCastStructure):
+class BATTERY_MANUFACTURE_DATE(Structure):
     Day: Byte
     Month: Byte
     Year: UInt16
-class BATTERY_QUERY_INFORMATION(EasyCastStructure):
+class BATTERY_QUERY_INFORMATION(Structure):
     BatteryTag: UInt32
     InformationLevel: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL
     AtRate: UInt32
@@ -452,10 +452,10 @@ BatteryManufactureDate: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFOR
 BatteryManufactureName: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 6
 BatteryUniqueID: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 7
 BatterySerialNumber: win32more.Windows.Win32.System.Power.BATTERY_QUERY_INFORMATION_LEVEL = 8
-class BATTERY_REPORTING_SCALE(EasyCastStructure):
+class BATTERY_REPORTING_SCALE(Structure):
     Granularity: UInt32
     Capacity: UInt32
-class BATTERY_SET_INFORMATION(EasyCastStructure):
+class BATTERY_SET_INFORMATION(Structure):
     BatteryTag: UInt32
     InformationLevel: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL
     Buffer: Byte * 1
@@ -466,12 +466,12 @@ BatteryDischarge: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_L
 BatteryChargingSource: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 3
 BatteryChargerId: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 4
 BatteryChargerStatus: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 5
-class BATTERY_STATUS(EasyCastStructure):
+class BATTERY_STATUS(Structure):
     PowerState: UInt32
     Capacity: UInt32
     Voltage: UInt32
     Rate: Int32
-class BATTERY_USB_CHARGER_STATUS(EasyCastStructure):
+class BATTERY_USB_CHARGER_STATUS(Structure):
     Type: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE
     Reserved: UInt32
     Flags: UInt32
@@ -481,13 +481,13 @@ class BATTERY_USB_CHARGER_STATUS(EasyCastStructure):
     PortId: UInt64
     PowerSourceInformation: VoidPtr
     OemCharger: Guid
-class BATTERY_WAIT_STATUS(EasyCastStructure):
+class BATTERY_WAIT_STATUS(Structure):
     BatteryTag: UInt32
     Timeout: UInt32
     PowerState: UInt32
     LowCapacity: UInt32
     HighCapacity: UInt32
-class CM_POWER_DATA(EasyCastStructure):
+class CM_POWER_DATA(Structure):
     PD_Size: UInt32
     PD_MostRecentPowerState: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE
     PD_Capabilities: UInt32
@@ -496,7 +496,7 @@ class CM_POWER_DATA(EasyCastStructure):
     PD_D3Latency: UInt32
     PD_PowerStateMapping: win32more.Windows.Win32.System.Power.DEVICE_POWER_STATE * 7
     PD_DeepestSystemWake: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
-class DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS(EasyCastStructure):
+class DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS(Structure):
     Callback: win32more.Windows.Win32.System.Power.PDEVICE_NOTIFY_CALLBACK_ROUTINE
     Context: VoidPtr
 DEVICE_POWER_STATE = Int32
@@ -516,33 +516,33 @@ EffectivePowerModeGameMode: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER
 EffectivePowerModeMixedReality: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE = 6
 @winfunctype_pointer
 def EFFECTIVE_POWER_MODE_CALLBACK(Mode: win32more.Windows.Win32.System.Power.EFFECTIVE_POWER_MODE, Context: VoidPtr) -> Void: ...
-class EMI_CHANNEL_MEASUREMENT_DATA(EasyCastStructure):
+class EMI_CHANNEL_MEASUREMENT_DATA(Structure):
     AbsoluteEnergy: UInt64
     AbsoluteTime: UInt64
-class EMI_CHANNEL_V2(EasyCastStructure):
+class EMI_CHANNEL_V2(Structure):
     MeasurementUnit: win32more.Windows.Win32.System.Power.EMI_MEASUREMENT_UNIT
     ChannelNameSize: UInt16
     ChannelName: Char * 1
-class EMI_MEASUREMENT_DATA_V2(EasyCastStructure):
+class EMI_MEASUREMENT_DATA_V2(Structure):
     ChannelData: win32more.Windows.Win32.System.Power.EMI_CHANNEL_MEASUREMENT_DATA * 1
 EMI_MEASUREMENT_UNIT = Int32
 EmiMeasurementUnitPicowattHours: win32more.Windows.Win32.System.Power.EMI_MEASUREMENT_UNIT = 0
-class EMI_METADATA_SIZE(EasyCastStructure):
+class EMI_METADATA_SIZE(Structure):
     MetadataSize: UInt32
-class EMI_METADATA_V1(EasyCastStructure):
+class EMI_METADATA_V1(Structure):
     MeasurementUnit: win32more.Windows.Win32.System.Power.EMI_MEASUREMENT_UNIT
     HardwareOEM: Char * 16
     HardwareModel: Char * 16
     HardwareRevision: UInt16
     MeteredHardwareNameSize: UInt16
     MeteredHardwareName: Char * 1
-class EMI_METADATA_V2(EasyCastStructure):
+class EMI_METADATA_V2(Structure):
     HardwareOEM: Char * 16
     HardwareModel: Char * 16
     HardwareRevision: UInt16
     ChannelCount: UInt16
     Channels: win32more.Windows.Win32.System.Power.EMI_CHANNEL_V2 * 1
-class EMI_VERSION(EasyCastStructure):
+class EMI_VERSION(Structure):
     EmiVersion: UInt16
 EXECUTION_STATE = UInt32
 ES_AWAYMODE_REQUIRED: win32more.Windows.Win32.System.Power.EXECUTION_STATE = 64
@@ -550,15 +550,15 @@ ES_CONTINUOUS: win32more.Windows.Win32.System.Power.EXECUTION_STATE = 2147483648
 ES_DISPLAY_REQUIRED: win32more.Windows.Win32.System.Power.EXECUTION_STATE = 2
 ES_SYSTEM_REQUIRED: win32more.Windows.Win32.System.Power.EXECUTION_STATE = 1
 ES_USER_PRESENT: win32more.Windows.Win32.System.Power.EXECUTION_STATE = 4
-class GLOBAL_MACHINE_POWER_POLICY(EasyCastStructure):
+class GLOBAL_MACHINE_POWER_POLICY(Structure):
     Revision: UInt32
     LidOpenWakeAc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
     LidOpenWakeDc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
     BroadcastCapacityResolution: UInt32
-class GLOBAL_POWER_POLICY(EasyCastStructure):
+class GLOBAL_POWER_POLICY(Structure):
     user: win32more.Windows.Win32.System.Power.GLOBAL_USER_POWER_POLICY
     mach: win32more.Windows.Win32.System.Power.GLOBAL_MACHINE_POWER_POLICY
-class GLOBAL_USER_POWER_POLICY(EasyCastStructure):
+class GLOBAL_USER_POWER_POLICY(Structure):
     Revision: UInt32
     PowerButtonAc: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
     PowerButtonDc: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
@@ -572,7 +572,7 @@ HPOWERNOTIFY = IntPtr
 LATENCY_TIME = Int32
 LT_DONT_CARE: win32more.Windows.Win32.System.Power.LATENCY_TIME = 0
 LT_LOWEST_LATENCY: win32more.Windows.Win32.System.Power.LATENCY_TIME = 1
-class MACHINE_POWER_POLICY(EasyCastStructure):
+class MACHINE_POWER_POLICY(Structure):
     Revision: UInt32
     MinSleepAc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
     MinSleepDc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
@@ -587,13 +587,13 @@ class MACHINE_POWER_POLICY(EasyCastStructure):
     pad1: Byte * 2
     OverThrottledAc: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
     OverThrottledDc: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
-class MACHINE_PROCESSOR_POWER_POLICY(EasyCastStructure):
+class MACHINE_PROCESSOR_POWER_POLICY(Structure):
     Revision: UInt32
     ProcessorPolicyAc: win32more.Windows.Win32.System.Power.PROCESSOR_POWER_POLICY
     ProcessorPolicyDc: win32more.Windows.Win32.System.Power.PROCESSOR_POWER_POLICY
 @winfunctype_pointer
 def PDEVICE_NOTIFY_CALLBACK_ROUTINE(Context: VoidPtr, Type: UInt32, Setting: VoidPtr) -> UInt32: ...
-class POWERBROADCAST_SETTING(EasyCastStructure):
+class POWERBROADCAST_SETTING(Structure):
     PowerSetting: Guid
     DataLength: UInt32
     Data: Byte * 1
@@ -607,7 +607,7 @@ PowerActionShutdownReset: win32more.Windows.Win32.System.Power.POWER_ACTION = 5
 PowerActionShutdownOff: win32more.Windows.Win32.System.Power.POWER_ACTION = 6
 PowerActionWarmEject: win32more.Windows.Win32.System.Power.POWER_ACTION = 7
 PowerActionDisplayOff: win32more.Windows.Win32.System.Power.POWER_ACTION = 8
-class POWER_ACTION_POLICY(EasyCastStructure):
+class POWER_ACTION_POLICY(Structure):
     Action: win32more.Windows.Win32.System.Power.POWER_ACTION
     Flags: UInt32
     EventCode: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY_EVENT_CODE
@@ -651,7 +651,7 @@ ACCESS_DC_POWER_SETTING_MIN: win32more.Windows.Win32.System.Power.POWER_DATA_ACC
 ACCESS_PROFILE: win32more.Windows.Win32.System.Power.POWER_DATA_ACCESSOR = 25
 ACCESS_OVERLAY_SCHEME: win32more.Windows.Win32.System.Power.POWER_DATA_ACCESSOR = 26
 ACCESS_ACTIVE_OVERLAY_SCHEME: win32more.Windows.Win32.System.Power.POWER_DATA_ACCESSOR = 27
-class POWER_IDLE_RESILIENCY(EasyCastStructure):
+class POWER_IDLE_RESILIENCY(Structure):
     CoalescingTimeout: UInt32
     IdleResiliencyPeriod: UInt32
 POWER_INFORMATION_LEVEL = Int32
@@ -754,7 +754,7 @@ SessionAllowExternalDmaDevices: win32more.Windows.Win32.System.Power.POWER_INFOR
 SendSuspendResumeNotification: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 96
 BlackBoxRecorderDirectAccessBuffer: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 97
 PowerInformationLevelMaximum: win32more.Windows.Win32.System.Power.POWER_INFORMATION_LEVEL = 98
-class POWER_MONITOR_INVOCATION(EasyCastStructure):
+class POWER_MONITOR_INVOCATION(Structure):
     Console: win32more.Windows.Win32.Foundation.BOOLEAN
     RequestReason: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON
 POWER_MONITOR_REQUEST_REASON = Int32
@@ -818,7 +818,7 @@ POWER_MONITOR_REQUEST_TYPE = Int32
 MonitorRequestTypeOff: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_TYPE = 0
 MonitorRequestTypeOnAndPresent: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_TYPE = 1
 MonitorRequestTypeToggleOn: win32more.Windows.Win32.System.Power.POWER_MONITOR_REQUEST_TYPE = 2
-class POWER_PLATFORM_INFORMATION(EasyCastStructure):
+class POWER_PLATFORM_INFORMATION(Structure):
     AoAc: win32more.Windows.Win32.Foundation.BOOLEAN
 POWER_PLATFORM_ROLE = Int32
 PlatformRoleUnspecified: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 0
@@ -834,7 +834,7 @@ PlatformRoleMaximum: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE = 
 POWER_PLATFORM_ROLE_VERSION = UInt32
 POWER_PLATFORM_ROLE_V1: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE_VERSION = 1
 POWER_PLATFORM_ROLE_V2: win32more.Windows.Win32.System.Power.POWER_PLATFORM_ROLE_VERSION = 2
-class POWER_POLICY(EasyCastStructure):
+class POWER_POLICY(Structure):
     user: win32more.Windows.Win32.System.Power.USER_POWER_POLICY
     mach: win32more.Windows.Win32.System.Power.MACHINE_POWER_POLICY
 POWER_REQUEST_TYPE = Int32
@@ -842,18 +842,18 @@ PowerRequestDisplayRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_
 PowerRequestSystemRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 1
 PowerRequestAwayModeRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 2
 PowerRequestExecutionRequired: win32more.Windows.Win32.System.Power.POWER_REQUEST_TYPE = 3
-class POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES(EasyCastStructure):
+class POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES(Structure):
     IsAllowed: win32more.Windows.Win32.Foundation.BOOLEAN
-class POWER_SESSION_CONNECT(EasyCastStructure):
+class POWER_SESSION_CONNECT(Structure):
     Connected: win32more.Windows.Win32.Foundation.BOOLEAN
     Console: win32more.Windows.Win32.Foundation.BOOLEAN
-class POWER_SESSION_RIT_STATE(EasyCastStructure):
+class POWER_SESSION_RIT_STATE(Structure):
     Active: win32more.Windows.Win32.Foundation.BOOLEAN
     LastInputTime: UInt64
-class POWER_SESSION_TIMEOUTS(EasyCastStructure):
+class POWER_SESSION_TIMEOUTS(Structure):
     InputTimeout: UInt32
     DisplayTimeout: UInt32
-class POWER_SESSION_WINLOGON(EasyCastStructure):
+class POWER_SESSION_WINLOGON(Structure):
     SessionId: UInt32
     Console: win32more.Windows.Win32.Foundation.BOOLEAN
     Locked: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -865,36 +865,36 @@ ALTITUDE_PROVISIONING: win32more.Windows.Win32.System.Power.POWER_SETTING_ALTITU
 ALTITUDE_OEM_CUSTOMIZATION: win32more.Windows.Win32.System.Power.POWER_SETTING_ALTITUDE = 4
 ALTITUDE_INTERNAL_OVERRIDE: win32more.Windows.Win32.System.Power.POWER_SETTING_ALTITUDE = 5
 ALTITUDE_OS_DEFAULT: win32more.Windows.Win32.System.Power.POWER_SETTING_ALTITUDE = 6
-class POWER_USER_PRESENCE(EasyCastStructure):
+class POWER_USER_PRESENCE(Structure):
     UserPresence: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE
 POWER_USER_PRESENCE_TYPE = Int32
 UserNotPresent: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE = 0
 UserPresent: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE = 1
 UserUnknown: win32more.Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE = 255
-class PPM_IDLESTATE_EVENT(EasyCastStructure):
+class PPM_IDLESTATE_EVENT(Structure):
     NewState: UInt32
     OldState: UInt32
     Processors: UInt64
-class PPM_IDLE_ACCOUNTING(EasyCastStructure):
+class PPM_IDLE_ACCOUNTING(Structure):
     StateCount: UInt32
     TotalTransitions: UInt32
     ResetCount: UInt32
     StartTime: UInt64
     State: win32more.Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING * 1
-class PPM_IDLE_ACCOUNTING_EX(EasyCastStructure):
+class PPM_IDLE_ACCOUNTING_EX(Structure):
     StateCount: UInt32
     TotalTransitions: UInt32
     ResetCount: UInt32
     AbortCount: UInt32
     StartTime: UInt64
     State: win32more.Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING_EX * 1
-class PPM_IDLE_STATE_ACCOUNTING(EasyCastStructure):
+class PPM_IDLE_STATE_ACCOUNTING(Structure):
     IdleTransitions: UInt32
     FailedTransitions: UInt32
     InvalidBucketIndex: UInt32
     TotalTime: UInt64
     IdleTimeBuckets: UInt32 * 6
-class PPM_IDLE_STATE_ACCOUNTING_EX(EasyCastStructure):
+class PPM_IDLE_STATE_ACCOUNTING_EX(Structure):
     TotalTime: UInt64
     IdleTransitions: UInt32
     FailedTransitions: UInt32
@@ -903,29 +903,29 @@ class PPM_IDLE_STATE_ACCOUNTING_EX(EasyCastStructure):
     MaxTimeUs: UInt32
     CancelledTransitions: UInt32
     IdleTimeBuckets: win32more.Windows.Win32.System.Power.PPM_IDLE_STATE_BUCKET_EX * 16
-class PPM_IDLE_STATE_BUCKET_EX(EasyCastStructure):
+class PPM_IDLE_STATE_BUCKET_EX(Structure):
     TotalTimeUs: UInt64
     MinTimeUs: UInt32
     MaxTimeUs: UInt32
     Count: UInt32
-class PPM_PERFSTATE_DOMAIN_EVENT(EasyCastStructure):
+class PPM_PERFSTATE_DOMAIN_EVENT(Structure):
     State: UInt32
     Latency: UInt32
     Speed: UInt32
     Processors: UInt64
-class PPM_PERFSTATE_EVENT(EasyCastStructure):
+class PPM_PERFSTATE_EVENT(Structure):
     State: UInt32
     Status: UInt32
     Latency: UInt32
     Speed: UInt32
     Processor: UInt32
-class PPM_THERMALCHANGE_EVENT(EasyCastStructure):
+class PPM_THERMALCHANGE_EVENT(Structure):
     ThermalConstraint: UInt32
     Processors: UInt64
-class PPM_THERMAL_POLICY_EVENT(EasyCastStructure):
+class PPM_THERMAL_POLICY_EVENT(Structure):
     Mode: Byte
     Processors: UInt64
-class PPM_WMI_IDLE_STATE(EasyCastStructure):
+class PPM_WMI_IDLE_STATE(Structure):
     Latency: UInt32
     Power: UInt32
     TimeCheck: UInt32
@@ -937,25 +937,25 @@ class PPM_WMI_IDLE_STATE(EasyCastStructure):
     Context: UInt32
     IdleHandler: UInt32
     Reserved1: UInt32
-class PPM_WMI_IDLE_STATES(EasyCastStructure):
+class PPM_WMI_IDLE_STATES(Structure):
     Type: UInt32
     Count: UInt32
     TargetState: UInt32
     OldState: UInt32
     TargetProcessors: UInt64
     State: win32more.Windows.Win32.System.Power.PPM_WMI_IDLE_STATE * 1
-class PPM_WMI_IDLE_STATES_EX(EasyCastStructure):
+class PPM_WMI_IDLE_STATES_EX(Structure):
     Type: UInt32
     Count: UInt32
     TargetState: UInt32
     OldState: UInt32
     TargetProcessors: VoidPtr
     State: win32more.Windows.Win32.System.Power.PPM_WMI_IDLE_STATE * 1
-class PPM_WMI_LEGACY_PERFSTATE(EasyCastStructure):
+class PPM_WMI_LEGACY_PERFSTATE(Structure):
     Frequency: UInt32
     Flags: UInt32
     PercentFrequency: UInt32
-class PPM_WMI_PERF_STATE(EasyCastStructure):
+class PPM_WMI_PERF_STATE(Structure):
     Frequency: UInt32
     Power: UInt32
     PercentFrequency: Byte
@@ -970,7 +970,7 @@ class PPM_WMI_PERF_STATE(EasyCastStructure):
     Reserved1: UInt32
     Reserved2: UInt64
     Reserved3: UInt64
-class PPM_WMI_PERF_STATES(EasyCastStructure):
+class PPM_WMI_PERF_STATES(Structure):
     Count: UInt32
     MaxFrequency: UInt32
     CurrentState: UInt32
@@ -992,7 +992,7 @@ class PPM_WMI_PERF_STATES(EasyCastStructure):
     Reserved1: UInt32
     Reserved2: UInt64
     State: win32more.Windows.Win32.System.Power.PPM_WMI_PERF_STATE * 1
-class PPM_WMI_PERF_STATES_EX(EasyCastStructure):
+class PPM_WMI_PERF_STATES_EX(Structure):
     Count: UInt32
     MaxFrequency: UInt32
     CurrentState: UInt32
@@ -1014,30 +1014,30 @@ class PPM_WMI_PERF_STATES_EX(EasyCastStructure):
     Reserved1: UInt32
     Reserved2: UInt64
     State: win32more.Windows.Win32.System.Power.PPM_WMI_PERF_STATE * 1
-class PROCESSOR_OBJECT_INFO(EasyCastStructure):
+class PROCESSOR_OBJECT_INFO(Structure):
     PhysicalID: UInt32
     PBlkAddress: UInt32
     PBlkLength: Byte
-class PROCESSOR_OBJECT_INFO_EX(EasyCastStructure):
+class PROCESSOR_OBJECT_INFO_EX(Structure):
     PhysicalID: UInt32
     PBlkAddress: UInt32
     PBlkLength: Byte
     InitialApicId: UInt32
-class PROCESSOR_POWER_INFORMATION(EasyCastStructure):
+class PROCESSOR_POWER_INFORMATION(Structure):
     Number: UInt32
     MaxMhz: UInt32
     CurrentMhz: UInt32
     MhzLimit: UInt32
     MaxIdleState: UInt32
     CurrentIdleState: UInt32
-class PROCESSOR_POWER_POLICY(EasyCastStructure):
+class PROCESSOR_POWER_POLICY(Structure):
     Revision: UInt32
     DynamicThrottle: Byte
     Spare: Byte * 3
     _bitfield: UInt32
     PolicyCount: UInt32
     Policy: win32more.Windows.Win32.System.Power.PROCESSOR_POWER_POLICY_INFO * 3
-class PROCESSOR_POWER_POLICY_INFO(EasyCastStructure):
+class PROCESSOR_POWER_POLICY_INFO(Structure):
     TimeCheck: UInt32
     DemoteLimit: UInt32
     PromoteLimit: UInt32
@@ -1049,17 +1049,17 @@ class PROCESSOR_POWER_POLICY_INFO(EasyCastStructure):
 def PWRSCHEMESENUMPROC(Index: UInt32, NameSize: UInt32, Name: win32more.Windows.Win32.Foundation.PWSTR, DescriptionSize: UInt32, Description: win32more.Windows.Win32.Foundation.PWSTR, Policy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY), Context: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
 def PWRSCHEMESENUMPROC_V1(Index: UInt32, NameSize: UInt32, Name: POINTER(SByte), DescriptionSize: UInt32, Description: POINTER(SByte), Policy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY), Context: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
-class RESUME_PERFORMANCE(EasyCastStructure):
+class RESUME_PERFORMANCE(Structure):
     PostTimeMs: UInt32
     TotalResumeTimeMs: UInt64
     ResumeCompleteTimestamp: UInt64
-class SET_POWER_SETTING_VALUE(EasyCastStructure):
+class SET_POWER_SETTING_VALUE(Structure):
     Version: UInt32
     Guid: Guid
     PowerCondition: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION
     DataLength: UInt32
     Data: Byte * 1
-class SYSTEM_BATTERY_STATE(EasyCastStructure):
+class SYSTEM_BATTERY_STATE(Structure):
     AcOnLine: win32more.Windows.Win32.Foundation.BOOLEAN
     BatteryPresent: win32more.Windows.Win32.Foundation.BOOLEAN
     Charging: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1072,7 +1072,7 @@ class SYSTEM_BATTERY_STATE(EasyCastStructure):
     EstimatedTime: UInt32
     DefaultAlert1: UInt32
     DefaultAlert2: UInt32
-class SYSTEM_POWER_CAPABILITIES(EasyCastStructure):
+class SYSTEM_POWER_CAPABILITIES(Structure):
     PowerButtonPresent: win32more.Windows.Win32.Foundation.BOOLEAN
     SleepButtonPresent: win32more.Windows.Win32.Foundation.BOOLEAN
     LidPresent: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1111,18 +1111,18 @@ PoAc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 0
 PoDc: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 1
 PoHot: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 2
 PoConditionMaximum: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION = 3
-class SYSTEM_POWER_INFORMATION(EasyCastStructure):
+class SYSTEM_POWER_INFORMATION(Structure):
     MaxIdlenessAllowed: UInt32
     Idleness: UInt32
     TimeRemaining: UInt32
     CoolingMode: win32more.Windows.Win32.System.Power.POWER_COOLING_MODE
-class SYSTEM_POWER_LEVEL(EasyCastStructure):
+class SYSTEM_POWER_LEVEL(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOLEAN
     Spare: Byte * 3
     BatteryLevel: UInt32
     PowerPolicy: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
     MinSystemState: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE
-class SYSTEM_POWER_POLICY(EasyCastStructure):
+class SYSTEM_POWER_POLICY(Structure):
     Revision: UInt32
     PowerButton: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
     SleepButton: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
@@ -1160,21 +1160,21 @@ PowerSystemSleeping3: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 
 PowerSystemHibernate: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 5
 PowerSystemShutdown: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 6
 PowerSystemMaximum: win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATE = 7
-class SYSTEM_POWER_STATUS(EasyCastStructure):
+class SYSTEM_POWER_STATUS(Structure):
     ACLineStatus: Byte
     BatteryFlag: Byte
     BatteryLifePercent: Byte
     SystemStatusFlag: Byte
     BatteryLifeTime: UInt32
     BatteryFullLifeTime: UInt32
-class THERMAL_EVENT(EasyCastStructure):
+class THERMAL_EVENT(Structure):
     Version: UInt32
     Size: UInt32
     Type: UInt32
     Temperature: UInt32
     TripPointTemperature: UInt32
     Initiator: win32more.Windows.Win32.Foundation.PWSTR
-class THERMAL_INFORMATION(EasyCastStructure):
+class THERMAL_INFORMATION(Structure):
     ThermalStamp: UInt32
     ThermalConstant1: UInt32
     ThermalConstant2: UInt32
@@ -1185,7 +1185,7 @@ class THERMAL_INFORMATION(EasyCastStructure):
     CriticalTripPoint: UInt32
     ActiveTripPointCount: Byte
     ActiveTripPoint: UInt32 * 10
-class THERMAL_POLICY(EasyCastStructure):
+class THERMAL_POLICY(Structure):
     Version: UInt32
     WaitForUpdate: win32more.Windows.Win32.Foundation.BOOLEAN
     Hibernate: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -1195,7 +1195,7 @@ class THERMAL_POLICY(EasyCastStructure):
     PassiveLimit: UInt32
     ActiveLevel: UInt32
     OverThrottled: win32more.Windows.Win32.Foundation.BOOLEAN
-class THERMAL_WAIT_READ(EasyCastStructure):
+class THERMAL_WAIT_READ(Structure):
     Timeout: UInt32
     LowTemperature: UInt32
     HighTemperature: UInt32
@@ -1209,7 +1209,7 @@ PowerUserNotPresent: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE
 PowerUserInactive: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 2
 PowerUserMaximum: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 3
 PowerUserInvalid: win32more.Windows.Win32.System.Power.USER_ACTIVITY_PRESENCE = 3
-class USER_POWER_POLICY(EasyCastStructure):
+class USER_POWER_POLICY(Structure):
     Revision: UInt32
     IdleAc: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
     IdleDc: win32more.Windows.Win32.System.Power.POWER_ACTION_POLICY
@@ -1232,7 +1232,7 @@ class USER_POWER_POLICY(EasyCastStructure):
     FanThrottleToleranceDc: Byte
     ForcedThrottleAc: Byte
     ForcedThrottleDc: Byte
-class WAKE_ALARM_INFORMATION(EasyCastStructure):
+class WAKE_ALARM_INFORMATION(Structure):
     TimerIdentifier: UInt32
     Timeout: UInt32
 

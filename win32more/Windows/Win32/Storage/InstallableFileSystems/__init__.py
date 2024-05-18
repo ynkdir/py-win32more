@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.InstallableFileSystems
@@ -146,31 +146,31 @@ def FilterGetMessage(hPort: win32more.Windows.Win32.Foundation.HANDLE, lpMessage
 def FilterReplyMessage(hPort: win32more.Windows.Win32.Foundation.HANDLE, lpReplyBuffer: POINTER(win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_REPLY_HEADER), dwReplyBufferSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterGetDosName(lpVolumeName: win32more.Windows.Win32.Foundation.PWSTR, lpDosName: win32more.Windows.Win32.Foundation.PWSTR, dwDosNameBufferSize: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class FILTER_AGGREGATE_BASIC_INFORMATION(EasyCastStructure):
+class FILTER_AGGREGATE_BASIC_INFORMATION(Structure):
     NextEntryOffset: UInt32
     Flags: UInt32
     Type: _Type_e__Union
-    class _Type_e__Union(EasyCastUnion):
+    class _Type_e__Union(Union):
         MiniFilter: _MiniFilter_e__Struct
         LegacyFilter: _LegacyFilter_e__Struct
-        class _MiniFilter_e__Struct(EasyCastStructure):
+        class _MiniFilter_e__Struct(Structure):
             FrameID: UInt32
             NumberOfInstances: UInt32
             FilterNameLength: UInt16
             FilterNameBufferOffset: UInt16
             FilterAltitudeLength: UInt16
             FilterAltitudeBufferOffset: UInt16
-        class _LegacyFilter_e__Struct(EasyCastStructure):
+        class _LegacyFilter_e__Struct(Structure):
             FilterNameLength: UInt16
             FilterNameBufferOffset: UInt16
-class FILTER_AGGREGATE_STANDARD_INFORMATION(EasyCastStructure):
+class FILTER_AGGREGATE_STANDARD_INFORMATION(Structure):
     NextEntryOffset: UInt32
     Flags: UInt32
     Type: _Type_e__Union
-    class _Type_e__Union(EasyCastUnion):
+    class _Type_e__Union(Union):
         MiniFilter: _MiniFilter_e__Struct
         LegacyFilter: _LegacyFilter_e__Struct
-        class _MiniFilter_e__Struct(EasyCastStructure):
+        class _MiniFilter_e__Struct(Structure):
             Flags: UInt32
             FrameID: UInt32
             NumberOfInstances: UInt32
@@ -178,13 +178,13 @@ class FILTER_AGGREGATE_STANDARD_INFORMATION(EasyCastStructure):
             FilterNameBufferOffset: UInt16
             FilterAltitudeLength: UInt16
             FilterAltitudeBufferOffset: UInt16
-        class _LegacyFilter_e__Struct(EasyCastStructure):
+        class _LegacyFilter_e__Struct(Structure):
             Flags: UInt32
             FilterNameLength: UInt16
             FilterNameBufferOffset: UInt16
             FilterAltitudeLength: UInt16
             FilterAltitudeBufferOffset: UInt16
-class FILTER_FULL_INFORMATION(EasyCastStructure):
+class FILTER_FULL_INFORMATION(Structure):
     NextEntryOffset: UInt32
     FrameID: UInt32
     NumberOfInstances: UInt32
@@ -194,19 +194,19 @@ FILTER_INFORMATION_CLASS = Int32
 FilterFullInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 0
 FilterAggregateBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 1
 FilterAggregateStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS = 2
-class FILTER_MESSAGE_HEADER(EasyCastStructure):
+class FILTER_MESSAGE_HEADER(Structure):
     ReplyLength: UInt32
     MessageId: UInt64
-class FILTER_REPLY_HEADER(EasyCastStructure):
+class FILTER_REPLY_HEADER(Structure):
     Status: win32more.Windows.Win32.Foundation.NTSTATUS
     MessageId: UInt64
-class FILTER_VOLUME_BASIC_INFORMATION(EasyCastStructure):
+class FILTER_VOLUME_BASIC_INFORMATION(Structure):
     FilterVolumeNameLength: UInt16
     FilterVolumeName: Char * 1
 FILTER_VOLUME_INFORMATION_CLASS = Int32
 FilterVolumeBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS = 0
 FilterVolumeStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS = 1
-class FILTER_VOLUME_STANDARD_INFORMATION(EasyCastStructure):
+class FILTER_VOLUME_STANDARD_INFORMATION(Structure):
     NextEntryOffset: UInt32
     Flags: UInt32
     FrameID: UInt32
@@ -247,14 +247,14 @@ FLT_FSTYPE_OPENAFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_F
 FLT_FSTYPE_CIMFS: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE = 30
 HFILTER = IntPtr
 HFILTER_INSTANCE = IntPtr
-class INSTANCE_AGGREGATE_STANDARD_INFORMATION(EasyCastStructure):
+class INSTANCE_AGGREGATE_STANDARD_INFORMATION(Structure):
     NextEntryOffset: UInt32
     Flags: UInt32
     Type: _Type_e__Union
-    class _Type_e__Union(EasyCastUnion):
+    class _Type_e__Union(Union):
         MiniFilter: _MiniFilter_e__Struct
         LegacyFilter: _LegacyFilter_e__Struct
-        class _MiniFilter_e__Struct(EasyCastStructure):
+        class _MiniFilter_e__Struct(Structure):
             Flags: UInt32
             FrameID: UInt32
             VolumeFileSystemType: win32more.Windows.Win32.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE
@@ -267,7 +267,7 @@ class INSTANCE_AGGREGATE_STANDARD_INFORMATION(EasyCastStructure):
             FilterNameLength: UInt16
             FilterNameBufferOffset: UInt16
             SupportedFeatures: UInt32
-        class _LegacyFilter_e__Struct(EasyCastStructure):
+        class _LegacyFilter_e__Struct(Structure):
             Flags: UInt32
             AltitudeLength: UInt16
             AltitudeBufferOffset: UInt16
@@ -276,11 +276,11 @@ class INSTANCE_AGGREGATE_STANDARD_INFORMATION(EasyCastStructure):
             FilterNameLength: UInt16
             FilterNameBufferOffset: UInt16
             SupportedFeatures: UInt32
-class INSTANCE_BASIC_INFORMATION(EasyCastStructure):
+class INSTANCE_BASIC_INFORMATION(Structure):
     NextEntryOffset: UInt32
     InstanceNameLength: UInt16
     InstanceNameBufferOffset: UInt16
-class INSTANCE_FULL_INFORMATION(EasyCastStructure):
+class INSTANCE_FULL_INFORMATION(Structure):
     NextEntryOffset: UInt32
     InstanceNameLength: UInt16
     InstanceNameBufferOffset: UInt16
@@ -295,7 +295,7 @@ InstanceBasicInformation: win32more.Windows.Win32.Storage.InstallableFileSystems
 InstancePartialInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 1
 InstanceFullInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 2
 InstanceAggregateStandardInformation: win32more.Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS = 3
-class INSTANCE_PARTIAL_INFORMATION(EasyCastStructure):
+class INSTANCE_PARTIAL_INFORMATION(Structure):
     NextEntryOffset: UInt32
     InstanceNameLength: UInt16
     InstanceNameBufferOffset: UInt16

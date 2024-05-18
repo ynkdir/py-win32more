@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Mapi
 MAPI_OLE: UInt32 = 1
@@ -84,7 +84,7 @@ def LPMAPISENDDOCUMENTS(ulUIParam: UIntPtr, lpszDelimChar: win32more.Windows.Win
 @winfunctype_pointer
 def LPMAPISENDMAILW(lhSession: UIntPtr, ulUIParam: UIntPtr, lpMessage: POINTER(win32more.Windows.Win32.System.Mapi.MapiMessageW), flFlags: UInt32, ulReserved: UInt32) -> UInt32: ...
 LPMAPISENDMAIL = UnicodeAlias('LPMAPISENDMAILW')
-class MapiFileDescW(EasyCastStructure):
+class MapiFileDescW(Structure):
     ulReserved: UInt32
     flFlags: UInt32
     nPosition: UInt32
@@ -92,13 +92,13 @@ class MapiFileDescW(EasyCastStructure):
     lpszFileName: win32more.Windows.Win32.Foundation.PWSTR
     lpFileType: VoidPtr
 MapiFileDesc = UnicodeAlias('MapiFileDescW')
-class MapiFileTagExt(EasyCastStructure):
+class MapiFileTagExt(Structure):
     ulReserved: UInt32
     cbTag: UInt32
     lpTag: POINTER(Byte)
     cbEncoding: UInt32
     lpEncoding: POINTER(Byte)
-class MapiMessageW(EasyCastStructure):
+class MapiMessageW(Structure):
     ulReserved: UInt32
     lpszSubject: win32more.Windows.Win32.Foundation.PWSTR
     lpszNoteText: win32more.Windows.Win32.Foundation.PWSTR
@@ -112,7 +112,7 @@ class MapiMessageW(EasyCastStructure):
     nFileCount: UInt32
     lpFiles: POINTER(win32more.Windows.Win32.System.Mapi.MapiFileDescW)
 MapiMessage = UnicodeAlias('MapiMessageW')
-class MapiRecipDescW(EasyCastStructure):
+class MapiRecipDescW(Structure):
     ulReserved: UInt32
     ulRecipClass: UInt32
     lpszName: win32more.Windows.Win32.Foundation.PWSTR

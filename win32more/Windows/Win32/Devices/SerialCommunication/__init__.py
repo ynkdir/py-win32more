@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Devices.SerialCommunication
 import win32more.Windows.Win32.Foundation
@@ -107,12 +107,12 @@ SERENUM_PORTION = Int32
 SerenumFirstHalf: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 0
 SerenumSecondHalf: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 1
 SerenumWhole: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION = 2
-class SERENUM_PORT_DESC(EasyCastStructure):
+class SERENUM_PORT_DESC(Structure):
     Size: UInt32
     PortHandle: VoidPtr
     PortAddress: Int64
     Reserved: UInt16 * 1
-class SERENUM_PORT_PARAMETERS(EasyCastStructure):
+class SERENUM_PORT_PARAMETERS(Structure):
     Size: UInt32
     ReadAccessor: win32more.Windows.Win32.Devices.SerialCommunication.PSERENUM_READPORT
     WriteAccessor: win32more.Windows.Win32.Devices.SerialCommunication.PSERENUM_WRITEPORT
@@ -121,35 +121,35 @@ class SERENUM_PORT_PARAMETERS(EasyCastStructure):
     Portion: win32more.Windows.Win32.Devices.SerialCommunication.SERENUM_PORTION
     NumberAxis: UInt16
     Reserved: UInt16 * 3
-class SERIALCONFIG(EasyCastStructure):
+class SERIALCONFIG(Structure):
     Size: UInt32
     Version: UInt16
     SubType: UInt32
     ProvOffset: UInt32
     ProviderSize: UInt32
     ProviderData: Char * 1
-class SERIALPERF_STATS(EasyCastStructure):
+class SERIALPERF_STATS(Structure):
     ReceivedCount: UInt32
     TransmittedCount: UInt32
     FrameErrorCount: UInt32
     SerialOverrunErrorCount: UInt32
     BufferOverrunErrorCount: UInt32
     ParityErrorCount: UInt32
-class SERIAL_BASIC_SETTINGS(EasyCastStructure):
+class SERIAL_BASIC_SETTINGS(Structure):
     Timeouts: win32more.Windows.Win32.Devices.SerialCommunication.SERIAL_TIMEOUTS
     HandFlow: win32more.Windows.Win32.Devices.SerialCommunication.SERIAL_HANDFLOW
     RxFifo: UInt32
     TxFifo: UInt32
-class SERIAL_BAUD_RATE(EasyCastStructure):
+class SERIAL_BAUD_RATE(Structure):
     BaudRate: UInt32
-class SERIAL_CHARS(EasyCastStructure):
+class SERIAL_CHARS(Structure):
     EofChar: Byte
     ErrorChar: Byte
     BreakChar: Byte
     EventChar: Byte
     XonChar: Byte
     XoffChar: Byte
-class SERIAL_COMMPROP(EasyCastStructure):
+class SERIAL_COMMPROP(Structure):
     PacketLength: UInt16
     PacketVersion: UInt16
     ServiceMask: UInt32
@@ -168,32 +168,32 @@ class SERIAL_COMMPROP(EasyCastStructure):
     ProvSpec1: UInt32
     ProvSpec2: UInt32
     ProvChar: Char * 1
-class SERIAL_HANDFLOW(EasyCastStructure):
+class SERIAL_HANDFLOW(Structure):
     ControlHandShake: UInt32
     FlowReplace: UInt32
     XonLimit: Int32
     XoffLimit: Int32
-class SERIAL_LINE_CONTROL(EasyCastStructure):
+class SERIAL_LINE_CONTROL(Structure):
     StopBits: Byte
     Parity: Byte
     WordLength: Byte
-class SERIAL_QUEUE_SIZE(EasyCastStructure):
+class SERIAL_QUEUE_SIZE(Structure):
     InSize: UInt32
     OutSize: UInt32
-class SERIAL_STATUS(EasyCastStructure):
+class SERIAL_STATUS(Structure):
     Errors: UInt32
     HoldReasons: UInt32
     AmountInInQueue: UInt32
     AmountInOutQueue: UInt32
     EofReceived: win32more.Windows.Win32.Foundation.BOOLEAN
     WaitForImmediate: win32more.Windows.Win32.Foundation.BOOLEAN
-class SERIAL_TIMEOUTS(EasyCastStructure):
+class SERIAL_TIMEOUTS(Structure):
     ReadIntervalTimeout: UInt32
     ReadTotalTimeoutMultiplier: UInt32
     ReadTotalTimeoutConstant: UInt32
     WriteTotalTimeoutMultiplier: UInt32
     WriteTotalTimeoutConstant: UInt32
-class SERIAL_XOFF_COUNTER(EasyCastStructure):
+class SERIAL_XOFF_COUNTER(Structure):
     Timeout: UInt32
     Counter: Int32
     XoffChar: Byte

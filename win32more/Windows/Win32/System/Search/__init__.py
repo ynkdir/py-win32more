@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Authorization
 import win32more.Windows.Win32.Storage.IndexServer
@@ -29,7 +29,7 @@ PERM_EXECUTE: win32more.Windows.Win32.System.Search.ACCESS_MASKENUM = 536870912
 PERM_READ: win32more.Windows.Win32.System.Search.ACCESS_MASKENUM = -2147483648
 PERM_UPDATE: win32more.Windows.Win32.System.Search.ACCESS_MASKENUM = 1073741824
 PERM_DROP: win32more.Windows.Win32.System.Search.ACCESS_MASKENUM = 256
-class AUTHENTICATION_INFO(EasyCastStructure):
+class AUTHENTICATION_INFO(Structure):
     dwSize: UInt32
     atAuthenticationType: win32more.Windows.Win32.System.Search.AUTH_TYPE
     pcwszUser: win32more.Windows.Win32.Foundation.PWSTR
@@ -3961,21 +3961,21 @@ def SQLProceduresA(hstmt: VoidPtr, szCatalogName: POINTER(Byte), cbCatalogName: 
 def SQLTablePrivilegesA(hstmt: VoidPtr, szCatalogName: POINTER(Byte), cbCatalogName: Int16, szSchemaName: POINTER(Byte), cbSchemaName: Int16, szTableName: POINTER(Byte), cbTableName: Int16) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLDriversA(henv: VoidPtr, fDirection: UInt16, szDriverDesc: POINTER(Byte), cbDriverDescMax: Int16, pcbDriverDesc: POINTER(Int16), szDriverAttributes: POINTER(Byte), cbDrvrAttrMax: Int16, pcbDrvrAttr: POINTER(Int16)) -> Int16: ...
-class BUCKETCATEGORIZE(EasyCastStructure):
+class BUCKETCATEGORIZE(Structure):
     cBuckets: UInt32
     Distribution: UInt32
 CASE_REQUIREMENT = Int32
 CASE_REQUIREMENT_ANY: win32more.Windows.Win32.System.Search.CASE_REQUIREMENT = 0
 CASE_REQUIREMENT_UPPER_IF_AQS: win32more.Windows.Win32.System.Search.CASE_REQUIREMENT = 1
-class CATEGORIZATION(EasyCastStructure):
+class CATEGORIZATION(Structure):
     ulCatType: UInt32
     Anonymous: _Anonymous_e__Union
     csColumns: win32more.Windows.Win32.System.Search.COLUMNSET
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         cClusters: UInt32
         bucket: win32more.Windows.Win32.System.Search.BUCKETCATEGORIZE
         range: win32more.Windows.Win32.System.Search.RANGECATEGORIZE
-class CATEGORIZATIONSET(EasyCastStructure):
+class CATEGORIZATIONSET(Structure):
     cCat: UInt32
     aCat: POINTER(win32more.Windows.Win32.System.Search.CATEGORIZATION)
 CHANNEL_AGENT_FLAGS = Int32
@@ -3988,7 +3988,7 @@ CLUSIONREASON_UNKNOWNSCOPE: win32more.Windows.Win32.System.Search.CLUSION_REASON
 CLUSIONREASON_DEFAULT: win32more.Windows.Win32.System.Search.CLUSION_REASON = 1
 CLUSIONREASON_USER: win32more.Windows.Win32.System.Search.CLUSION_REASON = 2
 CLUSIONREASON_GROUPPOLICY: win32more.Windows.Win32.System.Search.CLUSION_REASON = 3
-class COLUMNSET(EasyCastStructure):
+class COLUMNSET(Structure):
     cCol: UInt32
     aCol: POINTER(win32more.Windows.Win32.Storage.IndexServer.FULLPROPSPEC)
 CONDITION_CREATION_OPTIONS = Int32
@@ -3999,7 +3999,7 @@ CONDITION_CREATION_VECTOR_AND: win32more.Windows.Win32.System.Search.CONDITION_C
 CONDITION_CREATION_VECTOR_OR: win32more.Windows.Win32.System.Search.CONDITION_CREATION_OPTIONS = 4
 CONDITION_CREATION_VECTOR_LEAF: win32more.Windows.Win32.System.Search.CONDITION_CREATION_OPTIONS = 8
 CONDITION_CREATION_USE_CONTENT_LOCALE: win32more.Windows.Win32.System.Search.CONDITION_CREATION_OPTIONS = 16
-class CONTENTRESTRICTION(EasyCastStructure):
+class CONTENTRESTRICTION(Structure):
     prop: win32more.Windows.Win32.Storage.IndexServer.FULLPROPSPEC
     pwcsPhrase: win32more.Windows.Win32.Foundation.PWSTR
     lcid: UInt32
@@ -4036,7 +4036,7 @@ CATALOG_STATUS_PROCESSING_NOTIFICATIONS: win32more.Windows.Win32.System.Search.C
 CATALOG_STATUS_SHUTTING_DOWN: win32more.Windows.Win32.System.Search.CatalogStatus = 6
 CompoundCondition = Guid('{116f8d13-101e-4fa5-84d4-ff8279381935}')
 ConditionFactory = Guid('{e03e85b0-7be3-4000-ba98-6c13de9fa486}')
-class DATE_STRUCT(EasyCastStructure):
+class DATE_STRUCT(Structure):
     year: Int16
     month: UInt16
     day: UInt16
@@ -4055,18 +4055,18 @@ DBASYNCHPHASE_POPULATION: win32more.Windows.Win32.System.Search.DBASYNCHPHASEENU
 DBASYNCHPHASE_COMPLETE: win32more.Windows.Win32.System.Search.DBASYNCHPHASEENUM = 2
 DBASYNCHPHASE_CANCELED: win32more.Windows.Win32.System.Search.DBASYNCHPHASEENUM = 3
 if ARCH in 'X64,ARM64':
-    class DBBINDEXT(EasyCastStructure):
+    class DBBINDEXT(Structure):
         pExtension: POINTER(Byte)
         ulExtension: UIntPtr
 elif ARCH in 'X86':
-    class DBBINDEXT(EasyCastStructure):
+    class DBBINDEXT(Structure):
         pExtension: POINTER(Byte)
         ulExtension: UIntPtr
         _pack_ = 2
 DBBINDFLAGENUM = Int32
 DBBINDFLAG_HTML: win32more.Windows.Win32.System.Search.DBBINDFLAGENUM = 1
 if ARCH in 'X64,ARM64':
-    class DBBINDING(EasyCastStructure):
+    class DBBINDING(Structure):
         iOrdinal: UIntPtr
         obValue: UIntPtr
         obLength: UIntPtr
@@ -4083,7 +4083,7 @@ if ARCH in 'X64,ARM64':
         bPrecision: Byte
         bScale: Byte
 elif ARCH in 'X86':
-    class DBBINDING(EasyCastStructure):
+    class DBBINDING(Structure):
         iOrdinal: UIntPtr
         obValue: UIntPtr
         obLength: UIntPtr
@@ -4136,7 +4136,7 @@ DBBMK_INVALID: win32more.Windows.Win32.System.Search.DBBOOKMARK = 0
 DBBMK_FIRST: win32more.Windows.Win32.System.Search.DBBOOKMARK = 1
 DBBMK_LAST: win32more.Windows.Win32.System.Search.DBBOOKMARK = 2
 if ARCH in 'X64,ARM64':
-    class DBCOLUMNACCESS(EasyCastStructure):
+    class DBCOLUMNACCESS(Structure):
         pData: VoidPtr
         columnid: win32more.Windows.Win32.Storage.IndexServer.DBID
         cbDataLen: UIntPtr
@@ -4147,7 +4147,7 @@ if ARCH in 'X64,ARM64':
         bPrecision: Byte
         bScale: Byte
 elif ARCH in 'X86':
-    class DBCOLUMNACCESS(EasyCastStructure):
+    class DBCOLUMNACCESS(Structure):
         pData: VoidPtr
         columnid: win32more.Windows.Win32.Storage.IndexServer.DBID
         cbDataLen: UIntPtr
@@ -4159,7 +4159,7 @@ elif ARCH in 'X86':
         bScale: Byte
         _pack_ = 2
 if ARCH in 'X64,ARM64':
-    class DBCOLUMNDESC(EasyCastStructure):
+    class DBCOLUMNDESC(Structure):
         pwszTypeName: win32more.Windows.Win32.Foundation.PWSTR
         pTypeInfo: win32more.Windows.Win32.System.Com.ITypeInfo
         rgPropertySets: POINTER(win32more.Windows.Win32.System.Search.DBPROPSET)
@@ -4171,7 +4171,7 @@ if ARCH in 'X64,ARM64':
         bPrecision: Byte
         bScale: Byte
 elif ARCH in 'X86':
-    class DBCOLUMNDESC(EasyCastStructure):
+    class DBCOLUMNDESC(Structure):
         pwszTypeName: win32more.Windows.Win32.Foundation.PWSTR
         pTypeInfo: win32more.Windows.Win32.System.Com.ITypeInfo
         rgPropertySets: POINTER(win32more.Windows.Win32.System.Search.DBPROPSET)
@@ -4222,7 +4222,7 @@ DBCOLUMNFLAGS_ISROWSET: win32more.Windows.Win32.System.Search.DBCOLUMNFLAGSENUM2
 DBCOLUMNFLAGS_ISROW: win32more.Windows.Win32.System.Search.DBCOLUMNFLAGSENUM26 = 2097152
 DBCOLUMNFLAGS_ROWSPECIFICCOLUMN: win32more.Windows.Win32.System.Search.DBCOLUMNFLAGSENUM26 = 4194304
 if ARCH in 'X64,ARM64':
-    class DBCOLUMNINFO(EasyCastStructure):
+    class DBCOLUMNINFO(Structure):
         pwszName: win32more.Windows.Win32.Foundation.PWSTR
         pTypeInfo: win32more.Windows.Win32.System.Com.ITypeInfo
         iOrdinal: UIntPtr
@@ -4233,7 +4233,7 @@ if ARCH in 'X64,ARM64':
         bScale: Byte
         columnid: win32more.Windows.Win32.Storage.IndexServer.DBID
 elif ARCH in 'X86':
-    class DBCOLUMNINFO(EasyCastStructure):
+    class DBCOLUMNINFO(Structure):
         pwszName: win32more.Windows.Win32.Foundation.PWSTR
         pTypeInfo: win32more.Windows.Win32.System.Com.ITypeInfo
         iOrdinal: UIntPtr
@@ -4272,7 +4272,7 @@ DBCOMPAREOPSENUM20 = Int32
 DBCOMPAREOPS_NOTBEGINSWITH: win32more.Windows.Win32.System.Search.DBCOMPAREOPSENUM20 = 9
 DBCOMPAREOPS_NOTCONTAINS: win32more.Windows.Win32.System.Search.DBCOMPAREOPSENUM20 = 10
 if ARCH in 'X64,ARM64':
-    class DBCONSTRAINTDESC(EasyCastStructure):
+    class DBCONSTRAINTDESC(Structure):
         pConstraintID: POINTER(win32more.Windows.Win32.Storage.IndexServer.DBID)
         ConstraintType: UInt32
         cColumns: UIntPtr
@@ -4288,7 +4288,7 @@ if ARCH in 'X64,ARM64':
         cReserved: UIntPtr
         rgReserved: POINTER(win32more.Windows.Win32.System.Search.DBPROPSET)
 elif ARCH in 'X86':
-    class DBCONSTRAINTDESC(EasyCastStructure):
+    class DBCONSTRAINTDESC(Structure):
         pConstraintID: POINTER(win32more.Windows.Win32.Storage.IndexServer.DBID)
         ConstraintType: UInt32
         cColumns: UIntPtr
@@ -4323,12 +4323,12 @@ DBCOPY_ALLOW_EMULATION: win32more.Windows.Win32.System.Search.DBCOPYFLAGSENUM = 
 DBCOPY_NON_RECURSIVE: win32more.Windows.Win32.System.Search.DBCOPYFLAGSENUM = 2048
 DBCOPY_ATOMIC: win32more.Windows.Win32.System.Search.DBCOPYFLAGSENUM = 4096
 if ARCH in 'X64,ARM64':
-    class DBCOST(EasyCastStructure):
+    class DBCOST(Structure):
         eKind: UInt32
         dwUnits: UInt32
         lValue: Int32
 elif ARCH in 'X86':
-    class DBCOST(EasyCastStructure):
+    class DBCOST(Structure):
         eKind: UInt32
         dwUnits: UInt32
         lValue: Int32
@@ -4358,14 +4358,14 @@ DBDATACONVERT_SETDATABEHAVIOR: win32more.Windows.Win32.System.Search.DBDATACONVE
 DBDATACONVERT_LENGTHFROMNTS: win32more.Windows.Win32.System.Search.DBDATACONVERTENUM = 2
 DBDATACONVERT_DSTISFIXEDLENGTH: win32more.Windows.Win32.System.Search.DBDATACONVERTENUM = 4
 DBDATACONVERT_DECIMALSCALE: win32more.Windows.Win32.System.Search.DBDATACONVERTENUM = 8
-class DBDATE(EasyCastStructure):
+class DBDATE(Structure):
     year: Int16
     month: UInt16
     day: UInt16
-class DBDATETIM4(EasyCastStructure):
+class DBDATETIM4(Structure):
     numdays: UInt16
     nummins: UInt16
-class DBDATETIME(EasyCastStructure):
+class DBDATETIME(Structure):
     dtdays: Int32
     dttime: UInt32
 DBDEFERRABILITYENUM = Int32
@@ -4385,33 +4385,33 @@ DBEXECLIMITS_ABORT: win32more.Windows.Win32.System.Search.DBEXECLIMITSENUM = 1
 DBEXECLIMITS_STOP: win32more.Windows.Win32.System.Search.DBEXECLIMITSENUM = 2
 DBEXECLIMITS_SUSPEND: win32more.Windows.Win32.System.Search.DBEXECLIMITSENUM = 3
 if ARCH in 'X64,ARM64':
-    class DBFAILUREINFO(EasyCastStructure):
+    class DBFAILUREINFO(Structure):
         hRow: UIntPtr
         iColumn: UIntPtr
         failure: win32more.Windows.Win32.Foundation.HRESULT
 elif ARCH in 'X86':
-    class DBFAILUREINFO(EasyCastStructure):
+    class DBFAILUREINFO(Structure):
         hRow: UIntPtr
         iColumn: UIntPtr
         failure: win32more.Windows.Win32.Foundation.HRESULT
         _pack_ = 2
 if ARCH in 'X64,ARM64':
-    class DBIMPLICITSESSION(EasyCastStructure):
+    class DBIMPLICITSESSION(Structure):
         pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown
         piid: POINTER(Guid)
         pSession: win32more.Windows.Win32.System.Com.IUnknown
 elif ARCH in 'X86':
-    class DBIMPLICITSESSION(EasyCastStructure):
+    class DBIMPLICITSESSION(Structure):
         pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown
         piid: POINTER(Guid)
         pSession: win32more.Windows.Win32.System.Com.IUnknown
         _pack_ = 2
 if ARCH in 'X64,ARM64':
-    class DBINDEXCOLUMNDESC(EasyCastStructure):
+    class DBINDEXCOLUMNDESC(Structure):
         pColumnID: POINTER(win32more.Windows.Win32.Storage.IndexServer.DBID)
         eIndexColOrder: UInt32
 elif ARCH in 'X86':
-    class DBINDEXCOLUMNDESC(EasyCastStructure):
+    class DBINDEXCOLUMNDESC(Structure):
         pColumnID: POINTER(win32more.Windows.Win32.Storage.IndexServer.DBID)
         eIndexColOrder: UInt32
         _pack_ = 2
@@ -4453,7 +4453,7 @@ DBLITERALENUM21 = Int32
 DBLITERAL_ESCAPE_PERCENT_SUFFIX: win32more.Windows.Win32.System.Search.DBLITERALENUM21 = 29
 DBLITERAL_ESCAPE_UNDERSCORE_SUFFIX: win32more.Windows.Win32.System.Search.DBLITERALENUM21 = 30
 if ARCH in 'X64,ARM64':
-    class DBLITERALINFO(EasyCastStructure):
+    class DBLITERALINFO(Structure):
         pwszLiteralValue: win32more.Windows.Win32.Foundation.PWSTR
         pwszInvalidChars: win32more.Windows.Win32.Foundation.PWSTR
         pwszInvalidStartingChars: win32more.Windows.Win32.Foundation.PWSTR
@@ -4461,7 +4461,7 @@ if ARCH in 'X64,ARM64':
         fSupported: win32more.Windows.Win32.Foundation.BOOL
         cchMaxLen: UInt32
 elif ARCH in 'X86':
-    class DBLITERALINFO(EasyCastStructure):
+    class DBLITERALINFO(Structure):
         pwszLiteralValue: win32more.Windows.Win32.Foundation.PWSTR
         pwszInvalidChars: win32more.Windows.Win32.Foundation.PWSTR
         pwszInvalidStartingChars: win32more.Windows.Win32.Foundation.PWSTR
@@ -4476,7 +4476,7 @@ DBMATCHTYPE_PARTIAL: win32more.Windows.Win32.System.Search.DBMATCHTYPEENUM = 2
 DBMEMOWNERENUM = Int32
 DBMEMOWNER_CLIENTOWNED: win32more.Windows.Win32.System.Search.DBMEMOWNERENUM = 0
 DBMEMOWNER_PROVIDEROWNED: win32more.Windows.Win32.System.Search.DBMEMOWNERENUM = 1
-class DBMONEY(EasyCastStructure):
+class DBMONEY(Structure):
     mnyhigh: Int32
     mnylow: UInt32
 DBMOVEFLAGSENUM = Int32
@@ -4486,16 +4486,16 @@ DBMOVE_DONT_UPDATE_LINKS: win32more.Windows.Win32.System.Search.DBMOVEFLAGSENUM 
 DBMOVE_ALLOW_EMULATION: win32more.Windows.Win32.System.Search.DBMOVEFLAGSENUM = 1024
 DBMOVE_ATOMIC: win32more.Windows.Win32.System.Search.DBMOVEFLAGSENUM = 4096
 if ARCH in 'X64,ARM64':
-    class DBOBJECT(EasyCastStructure):
+    class DBOBJECT(Structure):
         dwFlags: UInt32
         iid: Guid
 elif ARCH in 'X86':
-    class DBOBJECT(EasyCastStructure):
+    class DBOBJECT(Structure):
         dwFlags: UInt32
         iid: Guid
         _pack_ = 2
 if ARCH in 'X64,ARM64':
-    class DBPARAMBINDINFO(EasyCastStructure):
+    class DBPARAMBINDINFO(Structure):
         pwszDataSourceType: win32more.Windows.Win32.Foundation.PWSTR
         pwszName: win32more.Windows.Win32.Foundation.PWSTR
         ulParamSize: UIntPtr
@@ -4503,7 +4503,7 @@ if ARCH in 'X64,ARM64':
         bPrecision: Byte
         bScale: Byte
 elif ARCH in 'X86':
-    class DBPARAMBINDINFO(EasyCastStructure):
+    class DBPARAMBINDINFO(Structure):
         pwszDataSourceType: win32more.Windows.Win32.Foundation.PWSTR
         pwszName: win32more.Windows.Win32.Foundation.PWSTR
         ulParamSize: UIntPtr
@@ -4520,7 +4520,7 @@ DBPARAMFLAGS_ISLONG: win32more.Windows.Win32.System.Search.DBPARAMFLAGSENUM = 12
 DBPARAMFLAGSENUM20 = Int32
 DBPARAMFLAGS_SCALEISNEGATIVE: win32more.Windows.Win32.System.Search.DBPARAMFLAGSENUM20 = 256
 if ARCH in 'X64,ARM64':
-    class DBPARAMINFO(EasyCastStructure):
+    class DBPARAMINFO(Structure):
         dwFlags: UInt32
         iOrdinal: UIntPtr
         pwszName: win32more.Windows.Win32.Foundation.PWSTR
@@ -4530,7 +4530,7 @@ if ARCH in 'X64,ARM64':
         bPrecision: Byte
         bScale: Byte
 elif ARCH in 'X86':
-    class DBPARAMINFO(EasyCastStructure):
+    class DBPARAMINFO(Structure):
         dwFlags: UInt32
         iOrdinal: UIntPtr
         pwszName: win32more.Windows.Win32.Foundation.PWSTR
@@ -4545,12 +4545,12 @@ DBPARAMIO_NOTPARAM: win32more.Windows.Win32.System.Search.DBPARAMIOENUM = 0
 DBPARAMIO_INPUT: win32more.Windows.Win32.System.Search.DBPARAMIOENUM = 1
 DBPARAMIO_OUTPUT: win32more.Windows.Win32.System.Search.DBPARAMIOENUM = 2
 if ARCH in 'X64,ARM64':
-    class DBPARAMS(EasyCastStructure):
+    class DBPARAMS(Structure):
         pData: VoidPtr
         cParamSets: UIntPtr
         hAccessor: win32more.Windows.Win32.System.Search.HACCESSOR
 elif ARCH in 'X86':
-    class DBPARAMS(EasyCastStructure):
+    class DBPARAMS(Structure):
         pData: VoidPtr
         cParamSets: UIntPtr
         hAccessor: win32more.Windows.Win32.System.Search.HACCESSOR
@@ -4579,14 +4579,14 @@ DBPROMPTOPTIONS_BROWSEONLY: win32more.Windows.Win32.System.Search.DBPROMPTOPTION
 DBPROMPTOPTIONS_DISABLE_PROVIDER_SELECTION: win32more.Windows.Win32.System.Search.DBPROMPTOPTIONSENUM = 16
 DBPROMPTOPTIONS_DISABLESAVEPASSWORD: win32more.Windows.Win32.System.Search.DBPROMPTOPTIONSENUM = 32
 if ARCH in 'X64,ARM64':
-    class DBPROP(EasyCastStructure):
+    class DBPROP(Structure):
         dwPropertyID: UInt32
         dwOptions: UInt32
         dwStatus: UInt32
         colid: win32more.Windows.Win32.Storage.IndexServer.DBID
         vValue: win32more.Windows.Win32.System.Variant.VARIANT
 elif ARCH in 'X86':
-    class DBPROP(EasyCastStructure):
+    class DBPROP(Structure):
         dwPropertyID: UInt32
         dwOptions: UInt32
         dwStatus: UInt32
@@ -4892,25 +4892,25 @@ DBPROPFLAGS_VIEW: win32more.Windows.Win32.System.Search.DBPROPFLAGSENUM25 = 1638
 DBPROPFLAGSENUM26 = Int32
 DBPROPFLAGS_STREAM: win32more.Windows.Win32.System.Search.DBPROPFLAGSENUM26 = 32768
 if ARCH in 'X64,ARM64':
-    class DBPROPIDSET(EasyCastStructure):
+    class DBPROPIDSET(Structure):
         rgPropertyIDs: POINTER(UInt32)
         cPropertyIDs: UInt32
         guidPropertySet: Guid
 elif ARCH in 'X86':
-    class DBPROPIDSET(EasyCastStructure):
+    class DBPROPIDSET(Structure):
         rgPropertyIDs: POINTER(UInt32)
         cPropertyIDs: UInt32
         guidPropertySet: Guid
         _pack_ = 2
 if ARCH in 'X64,ARM64':
-    class DBPROPINFO(EasyCastStructure):
+    class DBPROPINFO(Structure):
         pwszDescription: win32more.Windows.Win32.Foundation.PWSTR
         dwPropertyID: UInt32
         dwFlags: UInt32
         vtType: win32more.Windows.Win32.System.Variant.VARENUM
         vValues: win32more.Windows.Win32.System.Variant.VARIANT
 elif ARCH in 'X86':
-    class DBPROPINFO(EasyCastStructure):
+    class DBPROPINFO(Structure):
         pwszDescription: win32more.Windows.Win32.Foundation.PWSTR
         dwPropertyID: UInt32
         dwFlags: UInt32
@@ -4918,12 +4918,12 @@ elif ARCH in 'X86':
         vValues: win32more.Windows.Win32.System.Variant.VARIANT
         _pack_ = 2
 if ARCH in 'X64,ARM64':
-    class DBPROPINFOSET(EasyCastStructure):
+    class DBPROPINFOSET(Structure):
         rgPropertyInfos: POINTER(win32more.Windows.Win32.System.Search.DBPROPINFO)
         cPropertyInfos: UInt32
         guidPropertySet: Guid
 elif ARCH in 'X86':
-    class DBPROPINFOSET(EasyCastStructure):
+    class DBPROPINFOSET(Structure):
         rgPropertyInfos: POINTER(win32more.Windows.Win32.System.Search.DBPROPINFO)
         cPropertyInfos: UInt32
         guidPropertySet: Guid
@@ -4933,12 +4933,12 @@ DBPROPOPTIONS_REQUIRED: win32more.Windows.Win32.System.Search.DBPROPOPTIONSENUM 
 DBPROPOPTIONS_SETIFCHEAP: win32more.Windows.Win32.System.Search.DBPROPOPTIONSENUM = 1
 DBPROPOPTIONS_OPTIONAL: win32more.Windows.Win32.System.Search.DBPROPOPTIONSENUM = 1
 if ARCH in 'X64,ARM64':
-    class DBPROPSET(EasyCastStructure):
+    class DBPROPSET(Structure):
         rgProperties: POINTER(win32more.Windows.Win32.System.Search.DBPROP)
         cProperties: UInt32
         guidPropertySet: Guid
 elif ARCH in 'X86':
-    class DBPROPSET(EasyCastStructure):
+    class DBPROPSET(Structure):
         rgProperties: POINTER(win32more.Windows.Win32.System.Search.DBPROP)
         cProperties: UInt32
         guidPropertySet: Guid
@@ -5032,13 +5032,13 @@ DBROWSTATUS_E_FAIL: win32more.Windows.Win32.System.Search.DBROWSTATUSENUM = 19
 DBROWSTATUSENUM20 = Int32
 DBROWSTATUS_S_NOCHANGE: win32more.Windows.Win32.System.Search.DBROWSTATUSENUM20 = 20
 if ARCH in 'X64,ARM64':
-    class DBROWWATCHCHANGE(EasyCastStructure):
+    class DBROWWATCHCHANGE(Structure):
         hRegion: UIntPtr
         eChangeKind: UInt32
         hRow: UIntPtr
         iRow: UIntPtr
 elif ARCH in 'X86':
-    class DBROWWATCHCHANGE(EasyCastStructure):
+    class DBROWWATCHCHANGE(Structure):
         hRegion: UIntPtr
         eChangeKind: UInt32
         hRow: UIntPtr
@@ -5102,12 +5102,12 @@ DBTABLESTATISTICSTYPE26 = Int32
 DBSTAT_HISTOGRAM: win32more.Windows.Win32.System.Search.DBTABLESTATISTICSTYPE26 = 1
 DBSTAT_COLUMN_CARDINALITY: win32more.Windows.Win32.System.Search.DBTABLESTATISTICSTYPE26 = 2
 DBSTAT_TUPLE_CARDINALITY: win32more.Windows.Win32.System.Search.DBTABLESTATISTICSTYPE26 = 4
-class DBTIME(EasyCastStructure):
+class DBTIME(Structure):
     hour: UInt16
     minute: UInt16
     second: UInt16
 if ARCH in 'X64,ARM64':
-    class DBTIMESTAMP(EasyCastStructure):
+    class DBTIMESTAMP(Structure):
         year: Int16
         month: UInt16
         day: UInt16
@@ -5116,7 +5116,7 @@ if ARCH in 'X64,ARM64':
         second: UInt16
         fraction: UInt32
 elif ARCH in 'X86':
-    class DBTIMESTAMP(EasyCastStructure):
+    class DBTIMESTAMP(Structure):
         year: Int16
         month: UInt16
         day: UInt16
@@ -5171,18 +5171,18 @@ DBUPDELRULE_NOACTION: win32more.Windows.Win32.System.Search.DBUPDELRULEENUM = 0
 DBUPDELRULE_CASCADE: win32more.Windows.Win32.System.Search.DBUPDELRULEENUM = 1
 DBUPDELRULE_SETNULL: win32more.Windows.Win32.System.Search.DBUPDELRULEENUM = 2
 DBUPDELRULE_SETDEFAULT: win32more.Windows.Win32.System.Search.DBUPDELRULEENUM = 3
-class DBVARYBIN(EasyCastStructure):
+class DBVARYBIN(Structure):
     len: Int16
     array: Byte * 8001
-class DBVARYCHAR(EasyCastStructure):
+class DBVARYCHAR(Structure):
     len: Int16
     str: SByte * 8001
 if ARCH in 'X64,ARM64':
-    class DBVECTOR(EasyCastStructure):
+    class DBVECTOR(Structure):
         size: UIntPtr
         ptr: VoidPtr
 elif ARCH in 'X86':
-    class DBVECTOR(EasyCastStructure):
+    class DBVECTOR(Structure):
         size: UIntPtr
         ptr: VoidPtr
         _pack_ = 2
@@ -5195,17 +5195,17 @@ DBWATCHNOTIFYENUM = Int32
 DBWATCHNOTIFY_ROWSCHANGED: win32more.Windows.Win32.System.Search.DBWATCHNOTIFYENUM = 1
 DBWATCHNOTIFY_QUERYDONE: win32more.Windows.Win32.System.Search.DBWATCHNOTIFYENUM = 2
 DBWATCHNOTIFY_QUERYREEXECUTED: win32more.Windows.Win32.System.Search.DBWATCHNOTIFYENUM = 3
-class DB_NUMERIC(EasyCastStructure):
+class DB_NUMERIC(Structure):
     precision: Byte
     scale: Byte
     sign: Byte
     val: Byte * 16
-class DB_VARNUMERIC(EasyCastStructure):
+class DB_VARNUMERIC(Structure):
     precision: Byte
     scale: SByte
     sign: Byte
     val: Byte * 1
-class DCINFO(EasyCastStructure):
+class DCINFO(Structure):
     eInfoType: UInt32
     vData: win32more.Windows.Win32.System.Variant.VARIANT
 DCINFOTYPEENUM = Int32
@@ -5243,21 +5243,21 @@ class DataSourceObject(ComPtr):
 EBindInfoOptions = Int32
 BIO_BINDER: win32more.Windows.Win32.System.Search.EBindInfoOptions = 1
 if ARCH in 'X64,ARM64':
-    class ERRORINFO(EasyCastStructure):
+    class ERRORINFO(Structure):
         hrError: win32more.Windows.Win32.Foundation.HRESULT
         dwMinor: UInt32
         clsid: Guid
         iid: Guid
         dispid: Int32
 elif ARCH in 'X86':
-    class ERRORINFO(EasyCastStructure):
+    class ERRORINFO(Structure):
         hrError: win32more.Windows.Win32.Foundation.HRESULT
         dwMinor: UInt32
         clsid: Guid
         iid: Guid
         dispid: Int32
         _pack_ = 2
-class FILTERED_DATA_SOURCES(EasyCastStructure):
+class FILTERED_DATA_SOURCES(Structure):
     pwcsExtension: win32more.Windows.Win32.Foundation.PWSTR
     pwcsMime: win32more.Windows.Win32.Foundation.PWSTR
     pClsid: POINTER(Guid)
@@ -5267,7 +5267,7 @@ FF_INDEXCOMPLEXURLS: win32more.Windows.Win32.System.Search.FOLLOW_FLAGS = 1
 FF_SUPPRESSINDEXING: win32more.Windows.Win32.System.Search.FOLLOW_FLAGS = 2
 FilterRegistration = Guid('{9e175b8d-f52a-11d8-b9a5-505054503030}')
 HACCESSOR = UIntPtr
-class HITRANGE(EasyCastStructure):
+class HITRANGE(Structure):
     iPosition: UInt32
     cLength: UInt32
 class IAccessor(ComPtr):
@@ -5798,7 +5798,7 @@ class IMultipleResults(ComPtr):
     _iid_ = Guid('{0c733a90-2a1c-11ce-ade5-00aa0044773d}')
     @commethod(3)
     def GetResult(self, pUnkOuter: win32more.Windows.Win32.System.Com.IUnknown, lResultFlag: IntPtr, riid: POINTER(Guid), pcRowsAffected: POINTER(IntPtr), ppRowset: POINTER(win32more.Windows.Win32.System.Com.IUnknown)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INCREMENTAL_ACCESS_INFO(EasyCastStructure):
+class INCREMENTAL_ACCESS_INFO(Structure):
     dwSize: UInt32
     ftLastModifiedTime: win32more.Windows.Win32.Foundation.FILETIME
 INTERVAL_LIMIT_KIND = Int32
@@ -6686,10 +6686,10 @@ class ISubscriptionMgr2(ComPtr):
     def AbortItems(self, dwNumCookies: UInt32, pCookies: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def AbortAll(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class ITEMPROP(EasyCastStructure):
+class ITEMPROP(Structure):
     variantValue: win32more.Windows.Win32.System.Variant.VARIANT
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
-class ITEM_INFO(EasyCastStructure):
+class ITEM_INFO(Structure):
     dwSize: UInt32
     pcwszFromEMail: win32more.Windows.Win32.Foundation.PWSTR
     pcwszApplicationName: win32more.Windows.Win32.Foundation.PWSTR
@@ -6908,11 +6908,11 @@ class IWordSink(ComPtr):
     @commethod(7)
     def PutBreak(self, breakType: win32more.Windows.Win32.Storage.IndexServer.WORDREP_BREAK_TYPE) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 Interval = Guid('{d957171f-4bf9-4de2-bcd5-c70a7ca55836}')
-class KAGGETDIAG(EasyCastStructure):
+class KAGGETDIAG(Structure):
     ulSize: UInt32
     vDiagInfo: win32more.Windows.Win32.System.Variant.VARIANT
     sDiagField: Int16
-class KAGREQDIAG(EasyCastStructure):
+class KAGREQDIAG(Structure):
     ulDiagFlags: UInt32
     vt: win32more.Windows.Win32.System.Variant.VARENUM
     sDiagField: Int16
@@ -6925,7 +6925,7 @@ LOCKMODE_EXCLUSIVE: win32more.Windows.Win32.System.Search.LOCKMODEENUM = 1
 LOCKMODE_SHARED: win32more.Windows.Win32.System.Search.LOCKMODEENUM = 2
 LeafCondition = Guid('{52f15c89-5a17-48e1-bbcd-46a3f89c7cc2}')
 if ARCH in 'X64,ARM64':
-    class MDAXISINFO(EasyCastStructure):
+    class MDAXISINFO(Structure):
         cbSize: UIntPtr
         iAxis: UIntPtr
         cDimensions: UIntPtr
@@ -6933,7 +6933,7 @@ if ARCH in 'X64,ARM64':
         rgcColumns: POINTER(UIntPtr)
         rgpwszDimensionNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
 elif ARCH in 'X86':
-    class MDAXISINFO(EasyCastStructure):
+    class MDAXISINFO(Structure):
         cbSize: UIntPtr
         iAxis: UIntPtr
         cDimensions: UIntPtr
@@ -6954,27 +6954,27 @@ NAMED_ENTITY_CERTAINTY = Int32
 NEC_LOW: win32more.Windows.Win32.System.Search.NAMED_ENTITY_CERTAINTY = 0
 NEC_MEDIUM: win32more.Windows.Win32.System.Search.NAMED_ENTITY_CERTAINTY = 1
 NEC_HIGH: win32more.Windows.Win32.System.Search.NAMED_ENTITY_CERTAINTY = 2
-class NATLANGUAGERESTRICTION(EasyCastStructure):
+class NATLANGUAGERESTRICTION(Structure):
     prop: win32more.Windows.Win32.Storage.IndexServer.FULLPROPSPEC
     pwcsPhrase: win32more.Windows.Win32.Foundation.PWSTR
     lcid: UInt32
-class NODERESTRICTION(EasyCastStructure):
+class NODERESTRICTION(Structure):
     cRes: UInt32
     paRes: POINTER(POINTER(win32more.Windows.Win32.System.Search.RESTRICTION))
     reserved: UInt32
-class NOTRESTRICTION(EasyCastStructure):
+class NOTRESTRICTION(Structure):
     pRes: POINTER(win32more.Windows.Win32.System.Search.RESTRICTION)
 NegationCondition = Guid('{8de9c74c-605a-4acd-bee3-2b222aa2d23d}')
-class ODBC_VS_ARGS(EasyCastStructure):
+class ODBC_VS_ARGS(Structure):
     pguidEvent: POINTER(Guid)
     dwFlags: UInt32
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     RetCode: Int16
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         wszArg: win32more.Windows.Win32.Foundation.PWSTR
         szArg: win32more.Windows.Win32.Foundation.PSTR
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         wszCorrelation: win32more.Windows.Win32.Foundation.PWSTR
         szCorrelation: win32more.Windows.Win32.Foundation.PSTR
 class OLEDBSimpleProvider(ComPtr):
@@ -7065,7 +7065,7 @@ PRIORITY_LEVEL_FOREGROUND: win32more.Windows.Win32.System.Search.PRIORITY_LEVEL 
 PRIORITY_LEVEL_HIGH: win32more.Windows.Win32.System.Search.PRIORITY_LEVEL = 1
 PRIORITY_LEVEL_LOW: win32more.Windows.Win32.System.Search.PRIORITY_LEVEL = 2
 PRIORITY_LEVEL_DEFAULT: win32more.Windows.Win32.System.Search.PRIORITY_LEVEL = 3
-class PROPERTYRESTRICTION(EasyCastStructure):
+class PROPERTYRESTRICTION(Structure):
     rel: UInt32
     prop: win32more.Windows.Win32.Storage.IndexServer.FULLPROPSPEC
     prval: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT
@@ -7073,7 +7073,7 @@ PROXY_ACCESS = Int32
 PROXY_ACCESS_PRECONFIG: win32more.Windows.Win32.System.Search.PROXY_ACCESS = 0
 PROXY_ACCESS_DIRECT: win32more.Windows.Win32.System.Search.PROXY_ACCESS = 1
 PROXY_ACCESS_PROXY: win32more.Windows.Win32.System.Search.PROXY_ACCESS = 2
-class PROXY_INFO(EasyCastStructure):
+class PROXY_INFO(Structure):
     dwSize: UInt32
     pcwszUserAgent: win32more.Windows.Win32.Foundation.PWSTR
     paUseProxy: win32more.Windows.Win32.System.Search.PROXY_ACCESS
@@ -7090,14 +7090,14 @@ QPMO_APPEND_LCID_TO_LOCALIZED_PATH: win32more.Windows.Win32.System.Search.QUERY_
 QPMO_LOCALIZER_SUPPORT: win32more.Windows.Win32.System.Search.QUERY_PARSER_MANAGER_OPTION = 5
 QueryParser = Guid('{b72f8fd8-0fab-4dd9-bdbf-245a6ce1485b}')
 QueryParserManager = Guid('{5088b39a-29b4-4d9d-8245-4ee289222f66}')
-class RANGECATEGORIZE(EasyCastStructure):
+class RANGECATEGORIZE(Structure):
     cRange: UInt32
     aRangeBegin: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)
-class RESTRICTION(EasyCastStructure):
+class RESTRICTION(Structure):
     rt: UInt32
     weight: UInt32
     res: _URes
-    class _URes(EasyCastUnion):
+    class _URes(Union):
         ar: win32more.Windows.Win32.System.Search.NODERESTRICTION
         orRestriction: win32more.Windows.Win32.System.Search.NODERESTRICTION
         pxr: win32more.Windows.Win32.System.Search.NODERESTRICTION
@@ -7107,7 +7107,7 @@ class RESTRICTION(EasyCastStructure):
         nlr: win32more.Windows.Win32.System.Search.NATLANGUAGERESTRICTION
         pr: win32more.Windows.Win32.System.Search.PROPERTYRESTRICTION
 if ARCH in 'X64,ARM64':
-    class RMTPACK(EasyCastStructure):
+    class RMTPACK(Structure):
         pISeqStream: win32more.Windows.Win32.System.Com.ISequentialStream
         cbData: UInt32
         cBSTR: UInt32
@@ -7123,7 +7123,7 @@ if ARCH in 'X64,ARM64':
         cArray: UInt32
         rgArray: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)
 elif ARCH in 'X86':
-    class RMTPACK(EasyCastStructure):
+    class RMTPACK(Structure):
         pISeqStream: win32more.Windows.Win32.System.Com.ISequentialStream
         cbData: UInt32
         cBSTR: UInt32
@@ -7148,23 +7148,23 @@ ROWSETEVENT_TYPE_DATAEXPIRED: win32more.Windows.Win32.System.Search.ROWSETEVENT_
 ROWSETEVENT_TYPE_FOREGROUNDLOST: win32more.Windows.Win32.System.Search.ROWSETEVENT_TYPE = 1
 ROWSETEVENT_TYPE_SCOPESTATISTICS: win32more.Windows.Win32.System.Search.ROWSETEVENT_TYPE = 2
 RootBinder = Guid('{ff151822-b0bf-11d1-a80d-000000000000}')
-class SEARCH_COLUMN_PROPERTIES(EasyCastStructure):
+class SEARCH_COLUMN_PROPERTIES(Structure):
     Value: win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT
     lcid: UInt32
 SEARCH_INDEXING_PHASE = Int32
 SEARCH_INDEXING_PHASE_GATHERER: win32more.Windows.Win32.System.Search.SEARCH_INDEXING_PHASE = 0
 SEARCH_INDEXING_PHASE_QUERYABLE: win32more.Windows.Win32.System.Search.SEARCH_INDEXING_PHASE = 1
 SEARCH_INDEXING_PHASE_PERSISTED: win32more.Windows.Win32.System.Search.SEARCH_INDEXING_PHASE = 2
-class SEARCH_ITEM_CHANGE(EasyCastStructure):
+class SEARCH_ITEM_CHANGE(Structure):
     Change: win32more.Windows.Win32.System.Search.SEARCH_KIND_OF_CHANGE
     Priority: win32more.Windows.Win32.System.Search.SEARCH_NOTIFICATION_PRIORITY
     pUserData: POINTER(win32more.Windows.Win32.System.Com.BLOB)
     lpwszURL: win32more.Windows.Win32.Foundation.PWSTR
     lpwszOldURL: win32more.Windows.Win32.Foundation.PWSTR
-class SEARCH_ITEM_INDEXING_STATUS(EasyCastStructure):
+class SEARCH_ITEM_INDEXING_STATUS(Structure):
     dwDocID: UInt32
     hrIndexingStatus: win32more.Windows.Win32.Foundation.HRESULT
-class SEARCH_ITEM_PERSISTENT_CHANGE(EasyCastStructure):
+class SEARCH_ITEM_PERSISTENT_CHANGE(Structure):
     Change: win32more.Windows.Win32.System.Search.SEARCH_KIND_OF_CHANGE
     URL: win32more.Windows.Win32.Foundation.PWSTR
     OldURL: win32more.Windows.Win32.Foundation.PWSTR
@@ -7189,28 +7189,28 @@ SEARCH_TERM_NO_EXPANSION: win32more.Windows.Win32.System.Search.SEARCH_TERM_EXPA
 SEARCH_TERM_PREFIX_ALL: win32more.Windows.Win32.System.Search.SEARCH_TERM_EXPANSION = 1
 SEARCH_TERM_STEM_ALL: win32more.Windows.Win32.System.Search.SEARCH_TERM_EXPANSION = 2
 if ARCH in 'X64,ARM64':
-    class SEC_OBJECT(EasyCastStructure):
+    class SEC_OBJECT(Structure):
         cObjects: UInt32
         prgObjects: POINTER(win32more.Windows.Win32.System.Search.SEC_OBJECT_ELEMENT)
 elif ARCH in 'X86':
-    class SEC_OBJECT(EasyCastStructure):
+    class SEC_OBJECT(Structure):
         cObjects: UInt32
         prgObjects: POINTER(win32more.Windows.Win32.System.Search.SEC_OBJECT_ELEMENT)
         _pack_ = 2
 if ARCH in 'X64,ARM64':
-    class SEC_OBJECT_ELEMENT(EasyCastStructure):
+    class SEC_OBJECT_ELEMENT(Structure):
         guidObjectType: Guid
         ObjectID: win32more.Windows.Win32.Storage.IndexServer.DBID
 elif ARCH in 'X86':
-    class SEC_OBJECT_ELEMENT(EasyCastStructure):
+    class SEC_OBJECT_ELEMENT(Structure):
         guidObjectType: Guid
         ObjectID: win32more.Windows.Win32.Storage.IndexServer.DBID
         _pack_ = 2
-class SORTKEY(EasyCastStructure):
+class SORTKEY(Structure):
     propColumn: win32more.Windows.Win32.Storage.IndexServer.FULLPROPSPEC
     dwOrder: UInt32
     locale: UInt32
-class SORTSET(EasyCastStructure):
+class SORTSET(Structure):
     cCol: UInt32
     aCol: POINTER(win32more.Windows.Win32.System.Search.SORTKEY)
 SQLINTERVAL = Int32
@@ -7227,7 +7227,7 @@ SQL_IS_DAY_TO_SECOND: win32more.Windows.Win32.System.Search.SQLINTERVAL = 10
 SQL_IS_HOUR_TO_MINUTE: win32more.Windows.Win32.System.Search.SQLINTERVAL = 11
 SQL_IS_HOUR_TO_SECOND: win32more.Windows.Win32.System.Search.SQLINTERVAL = 12
 SQL_IS_MINUTE_TO_SECOND: win32more.Windows.Win32.System.Search.SQLINTERVAL = 13
-class SQLPERF(EasyCastStructure):
+class SQLPERF(Structure):
     TimerResolution: UInt32
     SQLidu: UInt32
     SQLiduRows: UInt32
@@ -7287,28 +7287,28 @@ VT_SS_VARBINARY: win32more.Windows.Win32.System.Search.SQLVARENUM = 208
 VT_SS_UNKNOWN: win32more.Windows.Win32.System.Search.SQLVARENUM = 209
 @winfunctype_pointer
 def SQL_ASYNC_NOTIFICATION_CALLBACK(pContext: VoidPtr, fLast: win32more.Windows.Win32.Foundation.BOOL) -> Int16: ...
-class SQL_DAY_SECOND_STRUCT(EasyCastStructure):
+class SQL_DAY_SECOND_STRUCT(Structure):
     day: UInt32
     hour: UInt32
     minute: UInt32
     second: UInt32
     fraction: UInt32
-class SQL_INTERVAL_STRUCT(EasyCastStructure):
+class SQL_INTERVAL_STRUCT(Structure):
     interval_type: win32more.Windows.Win32.System.Search.SQLINTERVAL
     interval_sign: Int16
     intval: _intval_e__Union
-    class _intval_e__Union(EasyCastUnion):
+    class _intval_e__Union(Union):
         year_month: win32more.Windows.Win32.System.Search.SQL_YEAR_MONTH_STRUCT
         day_second: win32more.Windows.Win32.System.Search.SQL_DAY_SECOND_STRUCT
-class SQL_NUMERIC_STRUCT(EasyCastStructure):
+class SQL_NUMERIC_STRUCT(Structure):
     precision: Byte
     scale: SByte
     sign: Byte
     val: Byte * 16
-class SQL_YEAR_MONTH_STRUCT(EasyCastStructure):
+class SQL_YEAR_MONTH_STRUCT(Structure):
     year: UInt32
     month: UInt32
-class SSERRORINFO(EasyCastStructure):
+class SSERRORINFO(Structure):
     pwszMessage: win32more.Windows.Win32.Foundation.PWSTR
     pwszServer: win32more.Windows.Win32.Foundation.PWSTR
     pwszProcedure: win32more.Windows.Win32.Foundation.PWSTR
@@ -7316,12 +7316,12 @@ class SSERRORINFO(EasyCastStructure):
     bState: Byte
     bClass: Byte
     wLineNumber: UInt16
-class SSVARIANT(EasyCastStructure):
+class SSVARIANT(Structure):
     vt: UInt16
     dwReserved1: UInt32
     dwReserved2: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         bTinyIntVal: Byte
         sShortIntVal: Int16
         lIntVal: Int32
@@ -7338,30 +7338,30 @@ class SSVARIANT(EasyCastStructure):
         tsDateTimeVal: win32more.Windows.Win32.System.Search.DBTIMESTAMP
         UnknownType: _UnknownType
         BLOBType: _BLOBType
-        class _NCharVal(EasyCastStructure):
+        class _NCharVal(Structure):
             sActualLength: Int16
             sMaxLength: Int16
             pwchNCharVal: win32more.Windows.Win32.Foundation.PWSTR
             rgbReserved: Byte * 5
             dwReserved: UInt32
             pwchReserved: win32more.Windows.Win32.Foundation.PWSTR
-        class _CharVal(EasyCastStructure):
+        class _CharVal(Structure):
             sActualLength: Int16
             sMaxLength: Int16
             pchCharVal: win32more.Windows.Win32.Foundation.PSTR
             rgbReserved: Byte * 5
             dwReserved: UInt32
             pwchReserved: win32more.Windows.Win32.Foundation.PWSTR
-        class _BinaryVal(EasyCastStructure):
+        class _BinaryVal(Structure):
             sActualLength: Int16
             sMaxLength: Int16
             prgbBinaryVal: POINTER(Byte)
             dwReserved: UInt32
-        class _UnknownType(EasyCastStructure):
+        class _UnknownType(Structure):
             dwActualLength: UInt32
             rgMetadata: Byte * 16
             pUnknownData: POINTER(Byte)
-        class _BLOBType(EasyCastStructure):
+        class _BLOBType(Structure):
             dbobj: win32more.Windows.Win32.System.Search.DBOBJECT
             pUnk: win32more.Windows.Win32.System.Com.IUnknown
 STRUCTURED_QUERY_MULTIOPTION = Int32
@@ -7405,7 +7405,7 @@ STRUCTURED_QUERY_SYNTAX = Int32
 SQS_NO_SYNTAX: win32more.Windows.Win32.System.Search.STRUCTURED_QUERY_SYNTAX = 0
 SQS_ADVANCED_QUERY_SYNTAX: win32more.Windows.Win32.System.Search.STRUCTURED_QUERY_SYNTAX = 1
 SQS_NATURAL_QUERY_SYNTAX: win32more.Windows.Win32.System.Search.STRUCTURED_QUERY_SYNTAX = 2
-class SUBSCRIPTIONINFO(EasyCastStructure):
+class SUBSCRIPTIONINFO(Structure):
     cbSize: UInt32
     fUpdateFlags: UInt32
     schedule: win32more.Windows.Win32.System.Search.SUBSCRIPTIONSCHEDULE
@@ -7440,7 +7440,7 @@ SUBSINFO_CHANNELFLAGS: win32more.Windows.Win32.System.Search.SUBSCRIPTIONINFOFLA
 SUBSINFO_FRIENDLYNAME: win32more.Windows.Win32.System.Search.SUBSCRIPTIONINFOFLAGS = 8192
 SUBSINFO_NEEDPASSWORD: win32more.Windows.Win32.System.Search.SUBSCRIPTIONINFOFLAGS = 16384
 SUBSINFO_TYPE: win32more.Windows.Win32.System.Search.SUBSCRIPTIONINFOFLAGS = 32768
-class SUBSCRIPTIONITEMINFO(EasyCastStructure):
+class SUBSCRIPTIONITEMINFO(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     dwPriority: UInt32
@@ -7459,16 +7459,16 @@ SUBSTYPE_DESKTOPURL: win32more.Windows.Win32.System.Search.SUBSCRIPTIONTYPE = 2
 SUBSTYPE_EXTERNAL: win32more.Windows.Win32.System.Search.SUBSCRIPTIONTYPE = 3
 SUBSTYPE_DESKTOPCHANNEL: win32more.Windows.Win32.System.Search.SUBSCRIPTIONTYPE = 4
 SubscriptionMgr = Guid('{abbe31d0-6dae-11d0-beca-00c04fd940be}')
-class TEXT_SOURCE(EasyCastStructure):
+class TEXT_SOURCE(Structure):
     pfnFillTextBuffer: win32more.Windows.Win32.System.Search.PFNFILLTEXTBUFFER
     awcBuffer: win32more.Windows.Win32.Foundation.PWSTR
     iEnd: UInt32
     iCur: UInt32
-class TIMEOUT_INFO(EasyCastStructure):
+class TIMEOUT_INFO(Structure):
     dwSize: UInt32
     dwConnectTimeout: UInt32
     dwDataTimeout: UInt32
-class TIMESTAMP_STRUCT(EasyCastStructure):
+class TIMESTAMP_STRUCT(Structure):
     year: Int16
     month: UInt16
     day: UInt16
@@ -7476,11 +7476,11 @@ class TIMESTAMP_STRUCT(EasyCastStructure):
     minute: UInt16
     second: UInt16
     fraction: UInt32
-class TIME_STRUCT(EasyCastStructure):
+class TIME_STRUCT(Structure):
     hour: UInt16
     minute: UInt16
     second: UInt16
-class VECTORRESTRICTION(EasyCastStructure):
+class VECTORRESTRICTION(Structure):
     Node: win32more.Windows.Win32.System.Search.NODERESTRICTION
     RankMethod: UInt32
 WEBCRAWL_RECURSEFLAGS = Int32

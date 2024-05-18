@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -671,11 +671,11 @@ def TdhEnumerateManifestProviderEvents(ProviderGuid: POINTER(Guid), Buffer: POIN
 def TdhGetManifestEventInformation(ProviderGuid: POINTER(Guid), EventDescriptor: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_DESCRIPTOR), Buffer: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_EVENT_INFO), BufferSize: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
 def CveEventWrite(CveId: win32more.Windows.Win32.Foundation.PWSTR, AdditionalDetails: win32more.Windows.Win32.Foundation.PWSTR) -> Int32: ...
-class CLASSIC_EVENT_ID(EasyCastStructure):
+class CLASSIC_EVENT_ID(Structure):
     EventGuid: Guid
     Type: Byte
     Reserved: Byte * 7
-class CONTROLTRACE_HANDLE(EasyCastStructure):
+class CONTROLTRACE_HANDLE(Structure):
     Value: UInt64
 CTraceRelogger = Guid('{7b40792d-05ff-44c4-9058-f440c71f17d4}')
 DECODING_SOURCE = Int32
@@ -688,33 +688,33 @@ ENABLECALLBACK_ENABLED_STATE = UInt32
 EVENT_CONTROL_CODE_DISABLE_PROVIDER: win32more.Windows.Win32.System.Diagnostics.Etw.ENABLECALLBACK_ENABLED_STATE = 0
 EVENT_CONTROL_CODE_ENABLE_PROVIDER: win32more.Windows.Win32.System.Diagnostics.Etw.ENABLECALLBACK_ENABLED_STATE = 1
 EVENT_CONTROL_CODE_CAPTURE_STATE: win32more.Windows.Win32.System.Diagnostics.Etw.ENABLECALLBACK_ENABLED_STATE = 2
-class ENABLE_TRACE_PARAMETERS(EasyCastStructure):
+class ENABLE_TRACE_PARAMETERS(Structure):
     Version: UInt32
     EnableProperty: UInt32
     ControlFlags: UInt32
     SourceId: Guid
     EnableFilterDesc: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FILTER_DESCRIPTOR)
     FilterDescCount: UInt32
-class ENABLE_TRACE_PARAMETERS_V1(EasyCastStructure):
+class ENABLE_TRACE_PARAMETERS_V1(Structure):
     Version: UInt32
     EnableProperty: UInt32
     ControlFlags: UInt32
     SourceId: Guid
     EnableFilterDesc: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FILTER_DESCRIPTOR)
-class ETW_BUFFER_CALLBACK_INFORMATION(EasyCastStructure):
+class ETW_BUFFER_CALLBACK_INFORMATION(Structure):
     TraceHandle: UInt64
     LogfileHeader: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_LOGFILE_HEADER)
     BuffersRead: UInt32
-class ETW_BUFFER_CONTEXT(EasyCastStructure):
+class ETW_BUFFER_CONTEXT(Structure):
     Anonymous: _Anonymous_e__Union
     LoggerId: UInt16
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ProcessorIndex: UInt16
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             ProcessorNumber: Byte
             Alignment: Byte
-class ETW_BUFFER_HEADER(EasyCastStructure):
+class ETW_BUFFER_HEADER(Structure):
     Reserved1: UInt32 * 4
     TimeStamp: Int64
     Reserved2: UInt32 * 4
@@ -726,17 +726,17 @@ ETW_COMPRESSION_RESUMPTION_MODE = Int32
 EtwCompressionModeRestart: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_COMPRESSION_RESUMPTION_MODE = 0
 EtwCompressionModeNoDisable: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_COMPRESSION_RESUMPTION_MODE = 1
 EtwCompressionModeNoRestart: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_COMPRESSION_RESUMPTION_MODE = 2
-class ETW_OPEN_TRACE_OPTIONS(EasyCastStructure):
+class ETW_OPEN_TRACE_OPTIONS(Structure):
     ProcessTraceModes: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_TRACE_MODES
     EventCallback: win32more.Windows.Win32.System.Diagnostics.Etw.PEVENT_RECORD_CALLBACK
     EventCallbackContext: VoidPtr
     BufferCallback: win32more.Windows.Win32.System.Diagnostics.Etw.PETW_BUFFER_CALLBACK
     BufferCallbackContext: VoidPtr
-class ETW_PMC_COUNTER_OWNER(EasyCastStructure):
+class ETW_PMC_COUNTER_OWNER(Structure):
     OwnerType: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE
     ProfileSource: UInt32
     OwnerTag: UInt32
-class ETW_PMC_COUNTER_OWNERSHIP_STATUS(EasyCastStructure):
+class ETW_PMC_COUNTER_OWNERSHIP_STATUS(Structure):
     ProcessorNumber: UInt32
     NumberOfCounters: UInt32
     CounterOwners: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER * 1
@@ -745,7 +745,7 @@ EtwPmcOwnerFree: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_
 EtwPmcOwnerUntagged: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 1
 EtwPmcOwnerTagged: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 2
 EtwPmcOwnerTaggedWithSource: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 3
-class ETW_PMC_SESSION_INFO(EasyCastStructure):
+class ETW_PMC_SESSION_INFO(Structure):
     NextEntryOffset: UInt32
     LoggerId: UInt16
     Reserved: UInt16
@@ -764,12 +764,12 @@ ETW_PROVIDER_TRAIT_TYPE = Int32
 EtwProviderTraitTypeGroup: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROVIDER_TRAIT_TYPE = 1
 EtwProviderTraitDecodeGuid: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROVIDER_TRAIT_TYPE = 2
 EtwProviderTraitTypeMax: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PROVIDER_TRAIT_TYPE = 3
-class ETW_TRACE_PARTITION_INFORMATION(EasyCastStructure):
+class ETW_TRACE_PARTITION_INFORMATION(Structure):
     PartitionId: Guid
     ParentId: Guid
     QpcOffsetFromRoot: Int64
     PartitionType: UInt32
-class ETW_TRACE_PARTITION_INFORMATION_V2(EasyCastStructure):
+class ETW_TRACE_PARTITION_INFORMATION_V2(Structure):
     QpcOffsetFromRoot: Int64
     PartitionType: UInt32
     PartitionId: win32more.Windows.Win32.Foundation.PWSTR
@@ -780,18 +780,18 @@ EventSecuritySetSACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURI
 EventSecurityAddDACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 2
 EventSecurityAddSACL: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 3
 EventSecurityMax: win32more.Windows.Win32.System.Diagnostics.Etw.EVENTSECURITYOPERATION = 4
-class EVENT_DATA_DESCRIPTOR(EasyCastStructure):
+class EVENT_DATA_DESCRIPTOR(Structure):
     Ptr: UInt64
     Size: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Reserved: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Type: Byte
             Reserved1: Byte
             Reserved2: UInt16
-class EVENT_DESCRIPTOR(EasyCastStructure):
+class EVENT_DESCRIPTOR(Structure):
     Id: UInt16
     Version: Byte
     Channel: Byte
@@ -799,34 +799,34 @@ class EVENT_DESCRIPTOR(EasyCastStructure):
     Opcode: Byte
     Task: UInt16
     Keyword: UInt64
-class EVENT_EXTENDED_ITEM_EVENT_KEY(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_EVENT_KEY(Structure):
     Key: UInt64
-class EVENT_EXTENDED_ITEM_INSTANCE(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_INSTANCE(Structure):
     InstanceId: UInt32
     ParentInstanceId: UInt32
     ParentGuid: Guid
-class EVENT_EXTENDED_ITEM_PEBS_INDEX(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_PEBS_INDEX(Structure):
     PebsIndex: UInt64
-class EVENT_EXTENDED_ITEM_PMC_COUNTERS(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_PMC_COUNTERS(Structure):
     Counter: UInt64 * 1
-class EVENT_EXTENDED_ITEM_PROCESS_START_KEY(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_PROCESS_START_KEY(Structure):
     ProcessStartKey: UInt64
-class EVENT_EXTENDED_ITEM_RELATED_ACTIVITYID(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_RELATED_ACTIVITYID(Structure):
     RelatedActivityId: Guid
-class EVENT_EXTENDED_ITEM_STACK_KEY32(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_STACK_KEY32(Structure):
     MatchId: UInt64
     StackKey: UInt32
     Padding: UInt32
-class EVENT_EXTENDED_ITEM_STACK_KEY64(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_STACK_KEY64(Structure):
     MatchId: UInt64
     StackKey: UInt64
-class EVENT_EXTENDED_ITEM_STACK_TRACE32(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_STACK_TRACE32(Structure):
     MatchId: UInt64
     Address: UInt32 * 1
-class EVENT_EXTENDED_ITEM_STACK_TRACE64(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_STACK_TRACE64(Structure):
     MatchId: UInt64
     Address: UInt64 * 1
-class EVENT_EXTENDED_ITEM_TS_ID(EasyCastStructure):
+class EVENT_EXTENDED_ITEM_TS_ID(Structure):
     SessionId: UInt32
 EVENT_FIELD_TYPE = Int32
 EventKeywordInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 0
@@ -835,35 +835,35 @@ EventChannelInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FI
 EventTaskInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 3
 EventOpcodeInformation: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 4
 EventInformationMax: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE = 5
-class EVENT_FILTER_DESCRIPTOR(EasyCastStructure):
+class EVENT_FILTER_DESCRIPTOR(Structure):
     Ptr: UInt64
     Size: UInt32
     Type: UInt32
-class EVENT_FILTER_EVENT_ID(EasyCastStructure):
+class EVENT_FILTER_EVENT_ID(Structure):
     FilterIn: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte
     Count: UInt16
     Events: UInt16 * 1
-class EVENT_FILTER_EVENT_NAME(EasyCastStructure):
+class EVENT_FILTER_EVENT_NAME(Structure):
     MatchAnyKeyword: UInt64
     MatchAllKeyword: UInt64
     Level: Byte
     FilterIn: win32more.Windows.Win32.Foundation.BOOLEAN
     NameCount: UInt16
     Names: Byte * 1
-class EVENT_FILTER_HEADER(EasyCastStructure):
+class EVENT_FILTER_HEADER(Structure):
     Id: UInt16
     Version: Byte
     Reserved: Byte * 5
     InstanceId: UInt64
     Size: UInt32
     NextOffset: UInt32
-class EVENT_FILTER_LEVEL_KW(EasyCastStructure):
+class EVENT_FILTER_LEVEL_KW(Structure):
     MatchAnyKeyword: UInt64
     MatchAllKeyword: UInt64
     Level: Byte
     FilterIn: win32more.Windows.Win32.Foundation.BOOLEAN
-class EVENT_HEADER(EasyCastStructure):
+class EVENT_HEADER(Structure):
     Size: UInt16
     HeaderType: UInt16
     Flags: UInt16
@@ -875,19 +875,19 @@ class EVENT_HEADER(EasyCastStructure):
     EventDescriptor: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_DESCRIPTOR
     Anonymous: _Anonymous_e__Union
     ActivityId: Guid
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ProcessorTime: UInt64
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             KernelTime: UInt32
             UserTime: UInt32
-class EVENT_HEADER_EXTENDED_DATA_ITEM(EasyCastStructure):
+class EVENT_HEADER_EXTENDED_DATA_ITEM(Structure):
     Reserved1: UInt16
     ExtType: UInt16
     Anonymous: _Anonymous_e__Struct
     DataSize: UInt16
     DataPtr: UInt64
-    class _Anonymous_e__Struct(EasyCastStructure):
+    class _Anonymous_e__Struct(Structure):
         _bitfield: UInt16
 EVENT_INFO_CLASS = Int32
 EventProviderBinaryTrackInfo: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 0
@@ -895,7 +895,7 @@ EventProviderSetReserved1: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_
 EventProviderSetTraits: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 2
 EventProviderUseDescriptorType: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 3
 MaxEventInfo: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 4
-class EVENT_INSTANCE_HEADER(EasyCastStructure):
+class EVENT_INSTANCE_HEADER(Structure):
     Size: UInt16
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
@@ -907,82 +907,82 @@ class EVENT_INSTANCE_HEADER(EasyCastStructure):
     ParentInstanceId: UInt32
     Anonymous3: _Anonymous3_e__Union
     ParentRegHandle: UInt64
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         FieldTypeFlags: UInt16
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             HeaderType: Byte
             MarkerFlags: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Version: UInt32
         Class: _Class_e__Struct
-        class _Class_e__Struct(EasyCastStructure):
+        class _Class_e__Struct(Structure):
             Type: Byte
             Level: Byte
             Version: UInt16
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         ProcessorTime: UInt64
         Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             KernelTime: UInt32
             UserTime: UInt32
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             EventId: UInt32
             Flags: UInt32
-class EVENT_INSTANCE_INFO(EasyCastStructure):
+class EVENT_INSTANCE_INFO(Structure):
     RegHandle: win32more.Windows.Win32.Foundation.HANDLE
     InstanceId: UInt32
-class EVENT_MAP_ENTRY(EasyCastStructure):
+class EVENT_MAP_ENTRY(Structure):
     OutputOffset: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         Value: UInt32
         InputOffset: UInt32
-class EVENT_MAP_INFO(EasyCastStructure):
+class EVENT_MAP_INFO(Structure):
     NameOffset: UInt32
     Flag: win32more.Windows.Win32.System.Diagnostics.Etw.MAP_FLAGS
     EntryCount: UInt32
     Anonymous: _Anonymous_e__Union
     MapEntryArray: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_MAP_ENTRY * 1
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         MapEntryValueType: win32more.Windows.Win32.System.Diagnostics.Etw.MAP_VALUETYPE
         FormatStringOffset: UInt32
-class EVENT_PROPERTY_INFO(EasyCastStructure):
+class EVENT_PROPERTY_INFO(Structure):
     Flags: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS
     NameOffset: UInt32
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
     Anonymous4: _Anonymous4_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         nonStructType: _nonStructType
         structType: _structType
         customSchemaType: _customSchemaType
-        class _nonStructType(EasyCastStructure):
+        class _nonStructType(Structure):
             InType: UInt16
             OutType: UInt16
             MapNameOffset: UInt32
-        class _structType(EasyCastStructure):
+        class _structType(Structure):
             StructStartIndex: UInt16
             NumOfStructMembers: UInt16
             padding: UInt32
-        class _customSchemaType(EasyCastStructure):
+        class _customSchemaType(Structure):
             InType: UInt16
             OutType: UInt16
             CustomSchemaOffset: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         count: UInt16
         countPropertyIndex: UInt16
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         length: UInt16
         lengthPropertyIndex: UInt16
-    class _Anonymous4_e__Union(EasyCastUnion):
+    class _Anonymous4_e__Union(Union):
         Reserved: UInt32
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class EVENT_RECORD(EasyCastStructure):
+class EVENT_RECORD(Structure):
     EventHeader: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_HEADER
     BufferContext: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_BUFFER_CONTEXT
     ExtendedDataCount: UInt16
@@ -990,7 +990,7 @@ class EVENT_RECORD(EasyCastStructure):
     ExtendedData: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_HEADER_EXTENDED_DATA_ITEM)
     UserData: VoidPtr
     UserContext: VoidPtr
-class EVENT_TRACE(EasyCastStructure):
+class EVENT_TRACE(Structure):
     Header: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_HEADER
     InstanceId: UInt32
     ParentInstanceId: UInt32
@@ -998,7 +998,7 @@ class EVENT_TRACE(EasyCastStructure):
     MofData: VoidPtr
     MofLength: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ClientContext: UInt32
         BufferContext: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_BUFFER_CONTEXT
 EVENT_TRACE_CONTROL = UInt32
@@ -1034,7 +1034,7 @@ EVENT_TRACE_FLAG_SYSTEMCALL: win32more.Windows.Win32.System.Diagnostics.Etw.EVEN
 EVENT_TRACE_FLAG_THREAD: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_FLAG = 2
 EVENT_TRACE_FLAG_VAMAP: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_FLAG = 32768
 EVENT_TRACE_FLAG_VIRTUAL_ALLOC: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_FLAG = 16384
-class EVENT_TRACE_HEADER(EasyCastStructure):
+class EVENT_TRACE_HEADER(Structure):
     Size: UInt16
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
@@ -1043,33 +1043,33 @@ class EVENT_TRACE_HEADER(EasyCastStructure):
     TimeStamp: Int64
     Anonymous3: _Anonymous3_e__Union
     Anonymous4: _Anonymous4_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         FieldTypeFlags: UInt16
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             HeaderType: Byte
             MarkerFlags: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Version: UInt32
         Class: _Class_e__Struct
-        class _Class_e__Struct(EasyCastStructure):
+        class _Class_e__Struct(Structure):
             Type: Byte
             Level: Byte
             Version: UInt16
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         Guid: Guid
         GuidPtr: UInt64
-    class _Anonymous4_e__Union(EasyCastUnion):
+    class _Anonymous4_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         ProcessorTime: UInt64
         Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(EasyCastStructure):
+        class _Anonymous1_e__Struct(Structure):
             KernelTime: UInt32
             UserTime: UInt32
-        class _Anonymous2_e__Struct(EasyCastStructure):
+        class _Anonymous2_e__Struct(Structure):
             ClientContext: UInt32
             Flags: UInt32
-class EVENT_TRACE_LOGFILEA(EasyCastStructure):
+class EVENT_TRACE_LOGFILEA(Structure):
     LogFileName: win32more.Windows.Win32.Foundation.PSTR
     LoggerName: win32more.Windows.Win32.Foundation.PSTR
     CurrentTime: Int64
@@ -1084,13 +1084,13 @@ class EVENT_TRACE_LOGFILEA(EasyCastStructure):
     Anonymous2: _Anonymous2_e__Union
     IsKernelTrace: UInt32
     Context: VoidPtr
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         LogFileMode: UInt32
         ProcessTraceMode: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         EventCallback: win32more.Windows.Win32.System.Diagnostics.Etw.PEVENT_CALLBACK
         EventRecordCallback: win32more.Windows.Win32.System.Diagnostics.Etw.PEVENT_RECORD_CALLBACK
-class EVENT_TRACE_LOGFILEW(EasyCastStructure):
+class EVENT_TRACE_LOGFILEW(Structure):
     LogFileName: win32more.Windows.Win32.Foundation.PWSTR
     LoggerName: win32more.Windows.Win32.Foundation.PWSTR
     CurrentTime: Int64
@@ -1105,14 +1105,14 @@ class EVENT_TRACE_LOGFILEW(EasyCastStructure):
     Anonymous2: _Anonymous2_e__Union
     IsKernelTrace: UInt32
     Context: VoidPtr
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         LogFileMode: UInt32
         ProcessTraceMode: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         EventCallback: win32more.Windows.Win32.System.Diagnostics.Etw.PEVENT_CALLBACK
         EventRecordCallback: win32more.Windows.Win32.System.Diagnostics.Etw.PEVENT_RECORD_CALLBACK
 EVENT_TRACE_LOGFILE = UnicodeAlias('EVENT_TRACE_LOGFILEW')
-class EVENT_TRACE_PROPERTIES(EasyCastStructure):
+class EVENT_TRACE_PROPERTIES(Structure):
     Wnode: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     BufferSize: UInt32
     MinimumBuffers: UInt32
@@ -1131,10 +1131,10 @@ class EVENT_TRACE_PROPERTIES(EasyCastStructure):
     LoggerThreadId: win32more.Windows.Win32.Foundation.HANDLE
     LogFileNameOffset: UInt32
     LoggerNameOffset: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         AgeLimit: Int32
         FlushThreshold: Int32
-class EVENT_TRACE_PROPERTIES_V2(EasyCastStructure):
+class EVENT_TRACE_PROPERTIES_V2(Structure):
     Wnode: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     BufferSize: UInt32
     MinimumBuffers: UInt32
@@ -1157,18 +1157,18 @@ class EVENT_TRACE_PROPERTIES_V2(EasyCastStructure):
     FilterDescCount: UInt32
     FilterDesc: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FILTER_DESCRIPTOR)
     Anonymous3: _Anonymous3_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         AgeLimit: Int32
         FlushThreshold: Int32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         V2Control: UInt32
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         V2Options: UInt64
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
 class ITraceEvent(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
@@ -1238,14 +1238,14 @@ EVENTMAP_INFO_FLAG_WBEM_NO_MAP: win32more.Windows.Win32.System.Diagnostics.Etw.M
 MAP_VALUETYPE = Int32
 EVENTMAP_ENTRY_VALUETYPE_ULONG: win32more.Windows.Win32.System.Diagnostics.Etw.MAP_VALUETYPE = 0
 EVENTMAP_ENTRY_VALUETYPE_STRING: win32more.Windows.Win32.System.Diagnostics.Etw.MAP_VALUETYPE = 1
-class MOF_FIELD(EasyCastStructure):
+class MOF_FIELD(Structure):
     DataPtr: UInt64
     Length: UInt32
     DataType: UInt32
-class OFFSETINSTANCEDATAANDLENGTH(EasyCastStructure):
+class OFFSETINSTANCEDATAANDLENGTH(Structure):
     OffsetInstanceData: UInt32
     LengthInstanceData: UInt32
-class PAYLOAD_FILTER_PREDICATE(EasyCastStructure):
+class PAYLOAD_FILTER_PREDICATE(Structure):
     FieldName: win32more.Windows.Win32.Foundation.PWSTR
     CompareOp: UInt16
     Value: win32more.Windows.Win32.Foundation.PWSTR
@@ -1279,16 +1279,16 @@ def PEVENT_TRACE_BUFFER_CALLBACKA(Logfile: POINTER(win32more.Windows.Win32.Syste
 @winfunctype_pointer
 def PEVENT_TRACE_BUFFER_CALLBACKW(Logfile: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_LOGFILEW)) -> UInt32: ...
 PEVENT_TRACE_BUFFER_CALLBACK = UnicodeAlias('PEVENT_TRACE_BUFFER_CALLBACKW')
-class PROCESSTRACE_HANDLE(EasyCastStructure):
+class PROCESSTRACE_HANDLE(Structure):
     Value: UInt64
-class PROFILE_SOURCE_INFO(EasyCastStructure):
+class PROFILE_SOURCE_INFO(Structure):
     NextEntryOffset: UInt32
     Source: UInt32
     MinInterval: UInt32
     MaxInterval: UInt32
     Reserved: UInt64
     Description: Char * 1
-class PROPERTY_DATA_DESCRIPTOR(EasyCastStructure):
+class PROPERTY_DATA_DESCRIPTOR(Structure):
     PropertyName: UInt64
     ArrayIndex: UInt32
     Reserved: UInt32
@@ -1301,23 +1301,23 @@ PropertyParamFixedLength: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERT
 PropertyParamFixedCount: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 32
 PropertyHasTags: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 64
 PropertyHasCustomSchema: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY_FLAGS = 128
-class PROVIDER_ENUMERATION_INFO(EasyCastStructure):
+class PROVIDER_ENUMERATION_INFO(Structure):
     NumberOfProviders: UInt32
     Reserved: UInt32
     TraceProviderInfoArray: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_PROVIDER_INFO * 1
-class PROVIDER_EVENT_INFO(EasyCastStructure):
+class PROVIDER_EVENT_INFO(Structure):
     NumberOfEvents: UInt32
     Reserved: UInt32
     EventDescriptorsArray: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_DESCRIPTOR * 1
-class PROVIDER_FIELD_INFO(EasyCastStructure):
+class PROVIDER_FIELD_INFO(Structure):
     NameOffset: UInt32
     DescriptionOffset: UInt32
     Value: UInt64
-class PROVIDER_FIELD_INFOARRAY(EasyCastStructure):
+class PROVIDER_FIELD_INFOARRAY(Structure):
     NumberOfElements: UInt32
     FieldType: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE
     FieldInfoArray: win32more.Windows.Win32.System.Diagnostics.Etw.PROVIDER_FIELD_INFO * 1
-class PROVIDER_FILTER_INFO(EasyCastStructure):
+class PROVIDER_FILTER_INFO(Structure):
     Id: Byte
     Version: Byte
     MessageOffset: UInt32
@@ -1325,9 +1325,9 @@ class PROVIDER_FILTER_INFO(EasyCastStructure):
     PropertyCount: UInt32
     EventPropertyInfoArray: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_PROPERTY_INFO * 1
 REGHANDLE = Int64
-class RELOGSTREAM_HANDLE(EasyCastStructure):
+class RELOGSTREAM_HANDLE(Structure):
     Value: UInt64
-class TDH_CONTEXT(EasyCastStructure):
+class TDH_CONTEXT(Structure):
     ParameterValue: UInt64
     ParameterType: win32more.Windows.Win32.System.Diagnostics.Etw.TDH_CONTEXT_TYPE
     ParameterSize: UInt32
@@ -1343,7 +1343,7 @@ TEMPLATE_FLAGS = Int32
 TEMPLATE_EVENT_DATA: win32more.Windows.Win32.System.Diagnostics.Etw.TEMPLATE_FLAGS = 1
 TEMPLATE_USER_DATA: win32more.Windows.Win32.System.Diagnostics.Etw.TEMPLATE_FLAGS = 2
 TEMPLATE_CONTROL_GUID: win32more.Windows.Win32.System.Diagnostics.Etw.TEMPLATE_FLAGS = 4
-class TRACE_ENABLE_INFO(EasyCastStructure):
+class TRACE_ENABLE_INFO(Structure):
     IsEnabled: UInt32
     Level: Byte
     Reserved1: Byte
@@ -1352,7 +1352,7 @@ class TRACE_ENABLE_INFO(EasyCastStructure):
     Reserved2: UInt32
     MatchAnyKeyword: UInt64
     MatchAllKeyword: UInt64
-class TRACE_EVENT_INFO(EasyCastStructure):
+class TRACE_EVENT_INFO(Structure):
     ProviderGuid: Guid
     EventGuid: Guid
     EventDescriptor: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_DESCRIPTOR
@@ -1373,31 +1373,31 @@ class TRACE_EVENT_INFO(EasyCastStructure):
     TopLevelPropertyCount: UInt32
     Anonymous3: _Anonymous3_e__Union
     EventPropertyInfoArray: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_PROPERTY_INFO * 1
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         EventNameOffset: UInt32
         ActivityIDNameOffset: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         EventAttributesOffset: UInt32
         RelatedActivityIDNameOffset: UInt32
-    class _Anonymous3_e__Union(EasyCastUnion):
+    class _Anonymous3_e__Union(Union):
         Flags: win32more.Windows.Win32.System.Diagnostics.Etw.TEMPLATE_FLAGS
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class TRACE_GUID_INFO(EasyCastStructure):
+class TRACE_GUID_INFO(Structure):
     InstanceCount: UInt32
     Reserved: UInt32
-class TRACE_GUID_PROPERTIES(EasyCastStructure):
+class TRACE_GUID_PROPERTIES(Structure):
     Guid: Guid
     GuidType: UInt32
     LoggerId: UInt32
     EnableLevel: UInt32
     EnableFlags: UInt32
     IsEnable: win32more.Windows.Win32.Foundation.BOOLEAN
-class TRACE_GUID_REGISTRATION(EasyCastStructure):
+class TRACE_GUID_REGISTRATION(Structure):
     Guid: POINTER(Guid)
     RegHandle: win32more.Windows.Win32.Foundation.HANDLE
-class TRACE_LOGFILE_HEADER(EasyCastStructure):
+class TRACE_LOGFILE_HEADER(Structure):
     BufferSize: UInt32
     Anonymous1: _Anonymous1_e__Union
     ProviderVersion: UInt32
@@ -1416,23 +1416,23 @@ class TRACE_LOGFILE_HEADER(EasyCastStructure):
     StartTime: Int64
     ReservedFlags: UInt32
     BuffersLost: UInt32
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Version: UInt32
         VersionDetail: _VersionDetail_e__Struct
-        class _VersionDetail_e__Struct(EasyCastStructure):
+        class _VersionDetail_e__Struct(Structure):
             MajorVersion: Byte
             MinorVersion: Byte
             SubVersion: Byte
             SubMinorVersion: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         LogInstanceGuid: Guid
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             StartBuffers: UInt32
             PointerSize: UInt32
             EventsLost: UInt32
             CpuSpeedInMHz: UInt32
-class TRACE_LOGFILE_HEADER32(EasyCastStructure):
+class TRACE_LOGFILE_HEADER32(Structure):
     BufferSize: UInt32
     Anonymous1: _Anonymous1_e__Union
     ProviderVersion: UInt32
@@ -1451,23 +1451,23 @@ class TRACE_LOGFILE_HEADER32(EasyCastStructure):
     StartTime: Int64
     ReservedFlags: UInt32
     BuffersLost: UInt32
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Version: UInt32
         VersionDetail: _VersionDetail_e__Struct
-        class _VersionDetail_e__Struct(EasyCastStructure):
+        class _VersionDetail_e__Struct(Structure):
             MajorVersion: Byte
             MinorVersion: Byte
             SubVersion: Byte
             SubMinorVersion: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         LogInstanceGuid: Guid
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             StartBuffers: UInt32
             PointerSize: UInt32
             EventsLost: UInt32
             CpuSpeedInMHz: UInt32
-class TRACE_LOGFILE_HEADER64(EasyCastStructure):
+class TRACE_LOGFILE_HEADER64(Structure):
     BufferSize: UInt32
     Anonymous1: _Anonymous1_e__Union
     ProviderVersion: UInt32
@@ -1486,18 +1486,18 @@ class TRACE_LOGFILE_HEADER64(EasyCastStructure):
     StartTime: Int64
     ReservedFlags: UInt32
     BuffersLost: UInt32
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         Version: UInt32
         VersionDetail: _VersionDetail_e__Struct
-        class _VersionDetail_e__Struct(EasyCastStructure):
+        class _VersionDetail_e__Struct(Structure):
             MajorVersion: Byte
             MinorVersion: Byte
             SubVersion: Byte
             SubMinorVersion: Byte
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         LogInstanceGuid: Guid
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             StartBuffers: UInt32
             PointerSize: UInt32
             EventsLost: UInt32
@@ -1508,18 +1508,18 @@ TRACE_MESSAGE_GUID: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_MESSAGE
 TRACE_MESSAGE_SEQUENCE: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_MESSAGE_FLAGS = 1
 TRACE_MESSAGE_SYSTEMINFO: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_MESSAGE_FLAGS = 32
 TRACE_MESSAGE_TIMESTAMP: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_MESSAGE_FLAGS = 8
-class TRACE_PERIODIC_CAPTURE_STATE_INFO(EasyCastStructure):
+class TRACE_PERIODIC_CAPTURE_STATE_INFO(Structure):
     CaptureStateFrequencyInSeconds: UInt32
     ProviderCount: UInt16
     Reserved: UInt16
-class TRACE_PROFILE_INTERVAL(EasyCastStructure):
+class TRACE_PROFILE_INTERVAL(Structure):
     Source: UInt32
     Interval: UInt32
-class TRACE_PROVIDER_INFO(EasyCastStructure):
+class TRACE_PROVIDER_INFO(Structure):
     ProviderGuid: Guid
     SchemaSource: UInt32
     ProviderNameOffset: UInt32
-class TRACE_PROVIDER_INSTANCE_INFO(EasyCastStructure):
+class TRACE_PROVIDER_INSTANCE_INFO(Structure):
     NextOffset: UInt32
     EnableCount: UInt32
     Pid: UInt32
@@ -1554,11 +1554,11 @@ TracePmcCounterOwners: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUER
 TraceUnifiedStackCachingInfo: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 26
 TracePmcSessionInformation: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 27
 MaxTraceSetInfoClass: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_QUERY_INFO_CLASS = 28
-class TRACE_STACK_CACHING_INFO(EasyCastStructure):
+class TRACE_STACK_CACHING_INFO(Structure):
     Enabled: win32more.Windows.Win32.Foundation.BOOLEAN
     CacheSize: UInt32
     BucketCount: UInt32
-class TRACE_VERSION_INFO(EasyCastStructure):
+class TRACE_VERSION_INFO(Structure):
     EtwTraceProcessingVersion: UInt32
     Reserved: UInt32
 @winfunctype_pointer
@@ -1575,43 +1575,43 @@ WMI_DISABLE_COLLECTION: win32more.Windows.Win32.System.Diagnostics.Etw.WMIDPREQU
 WMI_REGINFO: win32more.Windows.Win32.System.Diagnostics.Etw.WMIDPREQUESTCODE = 8
 WMI_EXECUTE_METHOD: win32more.Windows.Win32.System.Diagnostics.Etw.WMIDPREQUESTCODE = 9
 WMI_CAPTURE_STATE: win32more.Windows.Win32.System.Diagnostics.Etw.WMIDPREQUESTCODE = 10
-class WMIREGGUIDW(EasyCastStructure):
+class WMIREGGUIDW(Structure):
     Guid: Guid
     Flags: UInt32
     InstanceCount: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         InstanceNameList: UInt32
         BaseNameOffset: UInt32
         Pdo: UIntPtr
         InstanceInfo: UIntPtr
-class WMIREGINFOW(EasyCastStructure):
+class WMIREGINFOW(Structure):
     BufferSize: UInt32
     NextWmiRegInfo: UInt32
     RegistryPath: UInt32
     MofResourceName: UInt32
     GuidCount: UInt32
     WmiRegGuid: win32more.Windows.Win32.System.Diagnostics.Etw.WMIREGGUIDW * 1
-class WNODE_ALL_DATA(EasyCastStructure):
+class WNODE_ALL_DATA(Structure):
     WnodeHeader: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     DataBlockOffset: UInt32
     InstanceCount: UInt32
     OffsetInstanceNameOffsets: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         FixedInstanceSize: UInt32
         OffsetInstanceDataAndLength: win32more.Windows.Win32.System.Diagnostics.Etw.OFFSETINSTANCEDATAANDLENGTH * 1
-class WNODE_EVENT_ITEM(EasyCastStructure):
+class WNODE_EVENT_ITEM(Structure):
     WnodeHeader: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
-class WNODE_EVENT_REFERENCE(EasyCastStructure):
+class WNODE_EVENT_REFERENCE(Structure):
     WnodeHeader: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     TargetGuid: Guid
     TargetDataBlockSize: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         TargetInstanceIndex: UInt32
         TargetInstanceName: Char * 1
-class WNODE_HEADER(EasyCastStructure):
+class WNODE_HEADER(Structure):
     BufferSize: UInt32
     ProviderId: UInt32
     Anonymous1: _Anonymous1_e__Union
@@ -1619,17 +1619,17 @@ class WNODE_HEADER(EasyCastStructure):
     Guid: Guid
     ClientContext: UInt32
     Flags: UInt32
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         HistoricalContext: UInt64
         Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(EasyCastStructure):
+        class _Anonymous_e__Struct(Structure):
             Version: UInt32
             Linkage: UInt32
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         CountLost: UInt32
         KernelHandle: win32more.Windows.Win32.Foundation.HANDLE
         TimeStamp: Int64
-class WNODE_METHOD_ITEM(EasyCastStructure):
+class WNODE_METHOD_ITEM(Structure):
     WnodeHeader: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     OffsetInstanceName: UInt32
     InstanceIndex: UInt32
@@ -1637,14 +1637,14 @@ class WNODE_METHOD_ITEM(EasyCastStructure):
     DataBlockOffset: UInt32
     SizeDataBlock: UInt32
     VariableData: Byte * 1
-class WNODE_SINGLE_INSTANCE(EasyCastStructure):
+class WNODE_SINGLE_INSTANCE(Structure):
     WnodeHeader: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     OffsetInstanceName: UInt32
     InstanceIndex: UInt32
     DataBlockOffset: UInt32
     SizeDataBlock: UInt32
     VariableData: Byte * 1
-class WNODE_SINGLE_ITEM(EasyCastStructure):
+class WNODE_SINGLE_ITEM(Structure):
     WnodeHeader: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     OffsetInstanceName: UInt32
     InstanceIndex: UInt32
@@ -1652,7 +1652,7 @@ class WNODE_SINGLE_ITEM(EasyCastStructure):
     DataBlockOffset: UInt32
     SizeDataItem: UInt32
     VariableData: Byte * 1
-class WNODE_TOO_SMALL(EasyCastStructure):
+class WNODE_TOO_SMALL(Structure):
     WnodeHeader: win32more.Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     SizeNeeded: UInt32
 _TDH_IN_TYPE = Int32

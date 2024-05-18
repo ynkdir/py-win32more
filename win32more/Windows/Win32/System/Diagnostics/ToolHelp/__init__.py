@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.ToolHelp
 MAX_MODULE_NAME32: UInt32 = 255
@@ -41,7 +41,7 @@ TH32CS_SNAPMODULE: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TO
 TH32CS_SNAPMODULE32: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 16
 TH32CS_SNAPPROCESS: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 2
 TH32CS_SNAPTHREAD: win32more.Windows.Win32.System.Diagnostics.ToolHelp.CREATE_TOOLHELP_SNAPSHOT_FLAGS = 4
-class HEAPENTRY32(EasyCastStructure):
+class HEAPENTRY32(Structure):
     dwSize: UIntPtr
     hHandle: win32more.Windows.Win32.Foundation.HANDLE
     dwAddress: UIntPtr
@@ -55,12 +55,12 @@ HEAPENTRY32_FLAGS = UInt32
 LF32_FIXED: win32more.Windows.Win32.System.Diagnostics.ToolHelp.HEAPENTRY32_FLAGS = 1
 LF32_FREE: win32more.Windows.Win32.System.Diagnostics.ToolHelp.HEAPENTRY32_FLAGS = 2
 LF32_MOVEABLE: win32more.Windows.Win32.System.Diagnostics.ToolHelp.HEAPENTRY32_FLAGS = 4
-class HEAPLIST32(EasyCastStructure):
+class HEAPLIST32(Structure):
     dwSize: UIntPtr
     th32ProcessID: UInt32
     th32HeapID: UIntPtr
     dwFlags: UInt32
-class MODULEENTRY32W(EasyCastStructure):
+class MODULEENTRY32W(Structure):
     dwSize: UInt32
     th32ModuleID: UInt32
     th32ProcessID: UInt32
@@ -72,7 +72,7 @@ class MODULEENTRY32W(EasyCastStructure):
     szModule: Char * 256
     szExePath: Char * 260
 MODULEENTRY32 = UnicodeAlias('MODULEENTRY32W')
-class PROCESSENTRY32W(EasyCastStructure):
+class PROCESSENTRY32W(Structure):
     dwSize: UInt32
     cntUsage: UInt32
     th32ProcessID: UInt32
@@ -84,7 +84,7 @@ class PROCESSENTRY32W(EasyCastStructure):
     dwFlags: UInt32
     szExeFile: Char * 260
 PROCESSENTRY32 = UnicodeAlias('PROCESSENTRY32W')
-class THREADENTRY32(EasyCastStructure):
+class THREADENTRY32(Structure):
     dwSize: UInt32
     cntUsage: UInt32
     th32ThreadID: UInt32

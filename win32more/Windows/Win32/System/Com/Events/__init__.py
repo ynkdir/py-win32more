@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.Events
@@ -8,7 +8,7 @@ CEventClass = Guid('{cdbec9c0-7a68-11d1-88f9-0080c7d771bf}')
 CEventPublisher = Guid('{ab944620-79c6-11d1-88f9-0080c7d771bf}')
 CEventSubscription = Guid('{7542e960-79c7-11d1-88f9-0080c7d771bf}')
 CEventSystem = Guid('{4e14fba2-2e22-11d1-9964-00c04fbbb345}')
-class COMEVENTSYSCHANGEINFO(EasyCastStructure):
+class COMEVENTSYSCHANGEINFO(Structure):
     cbSize: UInt32
     changeType: win32more.Windows.Win32.System.Com.Events.EOC_ChangeType
     objectId: win32more.Windows.Win32.Foundation.BSTR

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Cryptography
@@ -60,14 +60,14 @@ CALG_THIRDPARTY_KEY_EXCHANGE: win32more.Windows.Win32.Security.Cryptography.ALG_
 CALG_THIRDPARTY_SIGNATURE: win32more.Windows.Win32.Security.Cryptography.ALG_ID = 12288
 CALG_THIRDPARTY_CIPHER: win32more.Windows.Win32.Security.Cryptography.ALG_ID = 28672
 CALG_THIRDPARTY_HASH: win32more.Windows.Win32.Security.Cryptography.ALG_ID = 36864
-class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA(EasyCastStructure):
+class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA(Structure):
     cbSize: UInt32
     dwRegPolicySettings: UInt32
     pSignerInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_INFO)
-class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS(EasyCastStructure):
+class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS(Structure):
     cbSize: UInt32
     fCommercial: win32more.Windows.Win32.Foundation.BOOL
-class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA(EasyCastStructure):
+class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA(Structure):
     cbSize: UInt32
     dwRegPolicySettings: UInt32
     fCommercial: win32more.Windows.Win32.Foundation.BOOL
@@ -3763,12 +3763,12 @@ def GetBrowserToken(dwParamType: UInt32, pParam: VoidPtr, pcbToken: POINTER(UInt
 BCRYPTGENRANDOM_FLAGS = UInt32
 BCRYPT_RNG_USE_ENTROPY_IN_BUFFER: win32more.Windows.Win32.Security.Cryptography.BCRYPTGENRANDOM_FLAGS = 1
 BCRYPT_USE_SYSTEM_PREFERRED_RNG: win32more.Windows.Win32.Security.Cryptography.BCRYPTGENRANDOM_FLAGS = 2
-class BCRYPT_ALGORITHM_IDENTIFIER(EasyCastStructure):
+class BCRYPT_ALGORITHM_IDENTIFIER(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     dwClass: UInt32
     dwFlags: UInt32
 BCRYPT_ALG_HANDLE = VoidPtr
-class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO(EasyCastStructure):
+class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO(Structure):
     cbSize: UInt32
     dwInfoVersion: UInt32
     pbNonce: POINTER(Byte)
@@ -3782,23 +3782,23 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO(EasyCastStructure):
     cbAAD: UInt32
     cbData: UInt64
     dwFlags: UInt32
-class BCRYPT_DH_KEY_BLOB(EasyCastStructure):
+class BCRYPT_DH_KEY_BLOB(Structure):
     dwMagic: win32more.Windows.Win32.Security.Cryptography.BCRYPT_DH_KEY_BLOB_MAGIC
     cbKey: UInt32
 BCRYPT_DH_KEY_BLOB_MAGIC = UInt32
 BCRYPT_DH_PUBLIC_MAGIC: win32more.Windows.Win32.Security.Cryptography.BCRYPT_DH_KEY_BLOB_MAGIC = 1112557636
 BCRYPT_DH_PRIVATE_MAGIC: win32more.Windows.Win32.Security.Cryptography.BCRYPT_DH_KEY_BLOB_MAGIC = 1448101956
-class BCRYPT_DH_PARAMETER_HEADER(EasyCastStructure):
+class BCRYPT_DH_PARAMETER_HEADER(Structure):
     cbLength: UInt32
     dwMagic: UInt32
     cbKeyLength: UInt32
-class BCRYPT_DSA_KEY_BLOB(EasyCastStructure):
+class BCRYPT_DSA_KEY_BLOB(Structure):
     dwMagic: win32more.Windows.Win32.Security.Cryptography.BCRYPT_DSA_MAGIC
     cbKey: UInt32
     Count: Byte * 4
     Seed: Byte * 20
     q: Byte * 20
-class BCRYPT_DSA_KEY_BLOB_V2(EasyCastStructure):
+class BCRYPT_DSA_KEY_BLOB_V2(Structure):
     dwMagic: win32more.Windows.Win32.Security.Cryptography.BCRYPT_DSA_MAGIC
     cbKey: UInt32
     hashAlgorithm: win32more.Windows.Win32.Security.Cryptography.HASHALGORITHM_ENUM
@@ -3809,14 +3809,14 @@ class BCRYPT_DSA_KEY_BLOB_V2(EasyCastStructure):
 BCRYPT_DSA_MAGIC = UInt32
 BCRYPT_DSA_PUBLIC_MAGIC: win32more.Windows.Win32.Security.Cryptography.BCRYPT_DSA_MAGIC = 1112560452
 BCRYPT_DSA_PRIVATE_MAGIC: win32more.Windows.Win32.Security.Cryptography.BCRYPT_DSA_MAGIC = 1448104772
-class BCRYPT_DSA_PARAMETER_HEADER(EasyCastStructure):
+class BCRYPT_DSA_PARAMETER_HEADER(Structure):
     cbLength: UInt32
     dwMagic: UInt32
     cbKeyLength: UInt32
     Count: Byte * 4
     Seed: Byte * 20
     q: Byte * 20
-class BCRYPT_DSA_PARAMETER_HEADER_V2(EasyCastStructure):
+class BCRYPT_DSA_PARAMETER_HEADER_V2(Structure):
     cbLength: UInt32
     dwMagic: UInt32
     cbKeyLength: UInt32
@@ -3825,7 +3825,7 @@ class BCRYPT_DSA_PARAMETER_HEADER_V2(EasyCastStructure):
     cbSeedLength: UInt32
     cbGroupSize: UInt32
     Count: Byte * 4
-class BCRYPT_ECCFULLKEY_BLOB(EasyCastStructure):
+class BCRYPT_ECCFULLKEY_BLOB(Structure):
     dwMagic: UInt32
     dwVersion: UInt32
     dwCurveType: win32more.Windows.Win32.Security.Cryptography.ECC_CURVE_TYPE_ENUM
@@ -3834,10 +3834,10 @@ class BCRYPT_ECCFULLKEY_BLOB(EasyCastStructure):
     cbSubgroupOrder: UInt32
     cbCofactor: UInt32
     cbSeed: UInt32
-class BCRYPT_ECCKEY_BLOB(EasyCastStructure):
+class BCRYPT_ECCKEY_BLOB(Structure):
     dwMagic: UInt32
     cbKey: UInt32
-class BCRYPT_ECC_CURVE_NAMES(EasyCastStructure):
+class BCRYPT_ECC_CURVE_NAMES(Structure):
     dwEccCurveNames: UInt32
     pEccCurveNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
 BCRYPT_FLAGS = UInt32
@@ -3861,38 +3861,38 @@ BCRYPT_SIGNATURE_INTERFACE: win32more.Windows.Win32.Security.Cryptography.BCRYPT
 NCRYPT_KEY_STORAGE_INTERFACE: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE = 65537
 NCRYPT_SCHANNEL_INTERFACE: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE = 65538
 NCRYPT_SCHANNEL_SIGNATURE_INTERFACE: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE = 65539
-class BCRYPT_INTERFACE_VERSION(EasyCastStructure):
+class BCRYPT_INTERFACE_VERSION(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
-class BCRYPT_KEY_BLOB(EasyCastStructure):
+class BCRYPT_KEY_BLOB(Structure):
     Magic: UInt32
-class BCRYPT_KEY_DATA_BLOB_HEADER(EasyCastStructure):
+class BCRYPT_KEY_DATA_BLOB_HEADER(Structure):
     dwMagic: UInt32
     dwVersion: UInt32
     cbKeyData: UInt32
 BCRYPT_KEY_HANDLE = VoidPtr
-class BCRYPT_KEY_LENGTHS_STRUCT(EasyCastStructure):
+class BCRYPT_KEY_LENGTHS_STRUCT(Structure):
     dwMinLength: UInt32
     dwMaxLength: UInt32
     dwIncrement: UInt32
-class BCRYPT_MULTI_HASH_OPERATION(EasyCastStructure):
+class BCRYPT_MULTI_HASH_OPERATION(Structure):
     iHash: UInt32
     hashOperation: win32more.Windows.Win32.Security.Cryptography.BCRYPT_HASH_OPERATION_TYPE
     pbBuffer: POINTER(Byte)
     cbBuffer: UInt32
-class BCRYPT_MULTI_OBJECT_LENGTH_STRUCT(EasyCastStructure):
+class BCRYPT_MULTI_OBJECT_LENGTH_STRUCT(Structure):
     cbPerObject: UInt32
     cbPerElement: UInt32
 BCRYPT_MULTI_OPERATION_TYPE = Int32
 BCRYPT_OPERATION_TYPE_HASH: win32more.Windows.Win32.Security.Cryptography.BCRYPT_MULTI_OPERATION_TYPE = 1
-class BCRYPT_OAEP_PADDING_INFO(EasyCastStructure):
+class BCRYPT_OAEP_PADDING_INFO(Structure):
     pszAlgId: win32more.Windows.Win32.Foundation.PWSTR
     pbLabel: POINTER(Byte)
     cbLabel: UInt32
-class BCRYPT_OID(EasyCastStructure):
+class BCRYPT_OID(Structure):
     cbOID: UInt32
     pbOID: POINTER(Byte)
-class BCRYPT_OID_LIST(EasyCastStructure):
+class BCRYPT_OID_LIST(Structure):
     dwOIDCount: UInt32
     pOIDs: POINTER(win32more.Windows.Win32.Security.Cryptography.BCRYPT_OID)
 BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS = UInt32
@@ -3906,11 +3906,11 @@ BCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION: win32more.Windows.Win32.Security.Cryptog
 BCRYPT_SECRET_AGREEMENT_OPERATION: win32more.Windows.Win32.Security.Cryptography.BCRYPT_OPERATION = 8
 BCRYPT_SIGNATURE_OPERATION: win32more.Windows.Win32.Security.Cryptography.BCRYPT_OPERATION = 16
 BCRYPT_RNG_OPERATION: win32more.Windows.Win32.Security.Cryptography.BCRYPT_OPERATION = 32
-class BCRYPT_PKCS1_PADDING_INFO(EasyCastStructure):
+class BCRYPT_PKCS1_PADDING_INFO(Structure):
     pszAlgId: win32more.Windows.Win32.Foundation.PWSTR
-class BCRYPT_PROVIDER_NAME(EasyCastStructure):
+class BCRYPT_PROVIDER_NAME(Structure):
     pszProviderName: win32more.Windows.Win32.Foundation.PWSTR
-class BCRYPT_PSS_PADDING_INFO(EasyCastStructure):
+class BCRYPT_PSS_PADDING_INFO(Structure):
     pszAlgId: win32more.Windows.Win32.Foundation.PWSTR
     cbSalt: UInt32
 BCRYPT_QUERY_PROVIDER_MODE = UInt32
@@ -3921,7 +3921,7 @@ CRYPT_MM: win32more.Windows.Win32.Security.Cryptography.BCRYPT_QUERY_PROVIDER_MO
 BCRYPT_RESOLVE_PROVIDERS_FLAGS = UInt32
 CRYPT_ALL_FUNCTIONS: win32more.Windows.Win32.Security.Cryptography.BCRYPT_RESOLVE_PROVIDERS_FLAGS = 1
 CRYPT_ALL_PROVIDERS: win32more.Windows.Win32.Security.Cryptography.BCRYPT_RESOLVE_PROVIDERS_FLAGS = 2
-class BCRYPT_RSAKEY_BLOB(EasyCastStructure):
+class BCRYPT_RSAKEY_BLOB(Structure):
     Magic: win32more.Windows.Win32.Security.Cryptography.BCRYPT_RSAKEY_BLOB_MAGIC
     BitLength: UInt32
     cbPublicExp: UInt32
@@ -3936,11 +3936,11 @@ BCRYPT_SECRET_HANDLE = VoidPtr
 BCRYPT_TABLE = UInt32
 CRYPT_LOCAL: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE = 1
 CRYPT_DOMAIN: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE = 2
-class BCryptBuffer(EasyCastStructure):
+class BCryptBuffer(Structure):
     cbBuffer: UInt32
     BufferType: UInt32
     pvBuffer: VoidPtr
-class BCryptBufferDesc(EasyCastStructure):
+class BCryptBufferDesc(Structure):
     ulVersion: UInt32
     cBuffers: UInt32
     pBuffers: POINTER(win32more.Windows.Win32.Security.Cryptography.BCryptBuffer)
@@ -3972,16 +3972,16 @@ ENUM_CEPSETUPPROP_AUTHENTICATION: win32more.Windows.Win32.Security.Cryptography.
 ENUM_CEPSETUPPROP_SSLCERTHASH: win32more.Windows.Win32.Security.Cryptography.CEPSetupProperty = 1
 ENUM_CEPSETUPPROP_URL: win32more.Windows.Win32.Security.Cryptography.CEPSetupProperty = 2
 ENUM_CEPSETUPPROP_KEYBASED_RENEWAL: win32more.Windows.Win32.Security.Cryptography.CEPSetupProperty = 3
-class CERTIFICATE_CHAIN_BLOB(EasyCastStructure):
+class CERTIFICATE_CHAIN_BLOB(Structure):
     certCount: UInt32
     rawCertificates: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class CERT_ACCESS_DESCRIPTION(EasyCastStructure):
+class CERT_ACCESS_DESCRIPTION(Structure):
     pszAccessMethod: win32more.Windows.Win32.Foundation.PSTR
     AccessLocation: win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_ENTRY
-class CERT_ALT_NAME_ENTRY(EasyCastStructure):
+class CERT_ALT_NAME_ENTRY(Structure):
     dwAltNameChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pOtherName: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OTHER_NAME)
         pwszRfc822Name: win32more.Windows.Win32.Foundation.PWSTR
         pwszDNSName: win32more.Windows.Win32.Foundation.PWSTR
@@ -3989,48 +3989,48 @@ class CERT_ALT_NAME_ENTRY(EasyCastStructure):
         pwszURL: win32more.Windows.Win32.Foundation.PWSTR
         IPAddress: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
         pszRegisteredID: win32more.Windows.Win32.Foundation.PSTR
-class CERT_ALT_NAME_INFO(EasyCastStructure):
+class CERT_ALT_NAME_INFO(Structure):
     cAltEntry: UInt32
     rgAltEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_ENTRY)
-class CERT_AUTHORITY_INFO_ACCESS(EasyCastStructure):
+class CERT_AUTHORITY_INFO_ACCESS(Structure):
     cAccDescr: UInt32
     rgAccDescr: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ACCESS_DESCRIPTION)
-class CERT_AUTHORITY_KEY_ID2_INFO(EasyCastStructure):
+class CERT_AUTHORITY_KEY_ID2_INFO(Structure):
     KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     AuthorityCertIssuer: win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_INFO
     AuthorityCertSerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_AUTHORITY_KEY_ID_INFO(EasyCastStructure):
+class CERT_AUTHORITY_KEY_ID_INFO(Structure):
     KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     CertIssuer: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     CertSerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_BASIC_CONSTRAINTS2_INFO(EasyCastStructure):
+class CERT_BASIC_CONSTRAINTS2_INFO(Structure):
     fCA: win32more.Windows.Win32.Foundation.BOOL
     fPathLenConstraint: win32more.Windows.Win32.Foundation.BOOL
     dwPathLenConstraint: UInt32
-class CERT_BASIC_CONSTRAINTS_INFO(EasyCastStructure):
+class CERT_BASIC_CONSTRAINTS_INFO(Structure):
     SubjectType: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     fPathLenConstraint: win32more.Windows.Win32.Foundation.BOOL
     dwPathLenConstraint: UInt32
     cSubtreesConstraint: UInt32
     rgSubtreesConstraint: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class CERT_BIOMETRIC_DATA(EasyCastStructure):
+class CERT_BIOMETRIC_DATA(Structure):
     dwTypeOfBiometricDataChoice: win32more.Windows.Win32.Security.Cryptography.CERT_BIOMETRIC_DATA_TYPE
     Anonymous: _Anonymous_e__Union
     HashedUrl: win32more.Windows.Win32.Security.Cryptography.CERT_HASHED_URL
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwPredefined: UInt32
         pszObjId: win32more.Windows.Win32.Foundation.PSTR
 CERT_BIOMETRIC_DATA_TYPE = UInt32
 CERT_BIOMETRIC_PREDEFINED_DATA_CHOICE: win32more.Windows.Win32.Security.Cryptography.CERT_BIOMETRIC_DATA_TYPE = 1
 CERT_BIOMETRIC_OID_DATA_CHOICE: win32more.Windows.Win32.Security.Cryptography.CERT_BIOMETRIC_DATA_TYPE = 2
-class CERT_BIOMETRIC_EXT_INFO(EasyCastStructure):
+class CERT_BIOMETRIC_EXT_INFO(Structure):
     cBiometricData: UInt32
     rgBiometricData: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_BIOMETRIC_DATA)
-class CERT_CHAIN(EasyCastStructure):
+class CERT_CHAIN(Structure):
     cCerts: UInt32
     certs: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     keyLocatorInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_INFO
-class CERT_CHAIN_CONTEXT(EasyCastStructure):
+class CERT_CHAIN_CONTEXT(Structure):
     cbSize: UInt32
     TrustStatus: win32more.Windows.Win32.Security.Cryptography.CERT_TRUST_STATUS
     cChain: UInt32
@@ -4041,7 +4041,7 @@ class CERT_CHAIN_CONTEXT(EasyCastStructure):
     dwRevocationFreshnessTime: UInt32
     dwCreateFlags: UInt32
     ChainId: Guid
-class CERT_CHAIN_ELEMENT(EasyCastStructure):
+class CERT_CHAIN_ELEMENT(Structure):
     cbSize: UInt32
     pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     TrustStatus: win32more.Windows.Win32.Security.Cryptography.CERT_TRUST_STATUS
@@ -4049,7 +4049,7 @@ class CERT_CHAIN_ELEMENT(EasyCastStructure):
     pIssuanceUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE)
     pApplicationUsage: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_USAGE)
     pwszExtendedErrorInfo: win32more.Windows.Win32.Foundation.PWSTR
-class CERT_CHAIN_ENGINE_CONFIG(EasyCastStructure):
+class CERT_CHAIN_ENGINE_CONFIG(Structure):
     cbSize: UInt32
     hRestrictedRoot: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
     hRestrictedTrust: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
@@ -4063,7 +4063,7 @@ class CERT_CHAIN_ENGINE_CONFIG(EasyCastStructure):
     hExclusiveRoot: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
     hExclusiveTrustedPeople: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
     dwExclusiveFlags: UInt32
-class CERT_CHAIN_FIND_BY_ISSUER_PARA(EasyCastStructure):
+class CERT_CHAIN_FIND_BY_ISSUER_PARA(Structure):
     cbSize: UInt32
     pszUsageIdentifier: win32more.Windows.Win32.Foundation.PSTR
     dwKeySpec: UInt32
@@ -4072,7 +4072,7 @@ class CERT_CHAIN_FIND_BY_ISSUER_PARA(EasyCastStructure):
     rgIssuer: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     pfnFindCallback: win32more.Windows.Win32.Security.Cryptography.PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK
     pvFindArg: VoidPtr
-class CERT_CHAIN_PARA(EasyCastStructure):
+class CERT_CHAIN_PARA(Structure):
     cbSize: UInt32
     RequestedUsage: win32more.Windows.Win32.Security.Cryptography.CERT_USAGE_MATCH
 CERT_CHAIN_POLICY_FLAGS = UInt32
@@ -4094,17 +4094,17 @@ CERT_CHAIN_POLICY_ALLOW_TESTROOT_FLAG: win32more.Windows.Win32.Security.Cryptogr
 CERT_CHAIN_POLICY_TRUST_TESTROOT_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_POLICY_FLAGS = 16384
 CERT_CHAIN_POLICY_IGNORE_NOT_SUPPORTED_CRITICAL_EXT_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_POLICY_FLAGS = 8192
 CERT_CHAIN_POLICY_IGNORE_PEER_TRUST_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_POLICY_FLAGS = 4096
-class CERT_CHAIN_POLICY_PARA(EasyCastStructure):
+class CERT_CHAIN_POLICY_PARA(Structure):
     cbSize: UInt32
     dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_POLICY_FLAGS
     pvExtraPolicyPara: VoidPtr
-class CERT_CHAIN_POLICY_STATUS(EasyCastStructure):
+class CERT_CHAIN_POLICY_STATUS(Structure):
     cbSize: UInt32
     dwError: UInt32
     lChainIndex: Int32
     lElementIndex: Int32
     pvExtraPolicyStatus: VoidPtr
-class CERT_CONTEXT(EasyCastStructure):
+class CERT_CONTEXT(Structure):
     dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE
     pbCertEncoded: POINTER(Byte)
     cbCertEncoded: UInt32
@@ -4114,7 +4114,7 @@ CERT_CONTROL_STORE_FLAGS = UInt32
 CERT_STORE_CTRL_COMMIT_FORCE_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_CONTROL_STORE_FLAGS = 1
 CERT_STORE_CTRL_COMMIT_CLEAR_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_CONTROL_STORE_FLAGS = 2
 CERT_STORE_CTRL_INHIBIT_DUPLICATE_HANDLE_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_CONTROL_STORE_FLAGS = 1
-class CERT_CREATE_CONTEXT_PARA(EasyCastStructure):
+class CERT_CREATE_CONTEXT_PARA(Structure):
     cbSize: UInt32
     pfnFree: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_FREE
     pvFree: VoidPtr
@@ -4123,24 +4123,24 @@ class CERT_CREATE_CONTEXT_PARA(EasyCastStructure):
 CERT_CREATE_SELFSIGN_FLAGS = UInt32
 CERT_CREATE_SELFSIGN_NO_KEY_INFO: win32more.Windows.Win32.Security.Cryptography.CERT_CREATE_SELFSIGN_FLAGS = 2
 CERT_CREATE_SELFSIGN_NO_SIGN: win32more.Windows.Win32.Security.Cryptography.CERT_CREATE_SELFSIGN_FLAGS = 1
-class CERT_CRL_CONTEXT_PAIR(EasyCastStructure):
+class CERT_CRL_CONTEXT_PAIR(Structure):
     pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
-class CERT_DH_PARAMETERS(EasyCastStructure):
+class CERT_DH_PARAMETERS(Structure):
     p: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     g: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_DSS_PARAMETERS(EasyCastStructure):
+class CERT_DSS_PARAMETERS(Structure):
     p: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     q: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     g: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_ECC_SIGNATURE(EasyCastStructure):
+class CERT_ECC_SIGNATURE(Structure):
     r: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     s: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_EXTENSION(EasyCastStructure):
+class CERT_EXTENSION(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     fCritical: win32more.Windows.Win32.Foundation.BOOL
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_EXTENSIONS(EasyCastStructure):
+class CERT_EXTENSIONS(Structure):
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
 CERT_FIND_CHAIN_IN_STORE_FLAGS = UInt32
@@ -4201,23 +4201,23 @@ CTL_FIND_USAGE: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_TYPE = 3
 CTL_FIND_SAME_USAGE_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_TYPE = 1
 CTL_FIND_EXISTING: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_TYPE = 5
 CTL_FIND_SUBJECT: win32more.Windows.Win32.Security.Cryptography.CERT_FIND_TYPE = 4
-class CERT_FORTEZZA_DATA_PROP(EasyCastStructure):
+class CERT_FORTEZZA_DATA_PROP(Structure):
     SerialNumber: Byte * 8
     CertIndex: Int32
     CertLabel: Byte * 36
-class CERT_GENERAL_SUBTREE(EasyCastStructure):
+class CERT_GENERAL_SUBTREE(Structure):
     Base: win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_ENTRY
     dwMinimum: UInt32
     fMaximum: win32more.Windows.Win32.Foundation.BOOL
     dwMaximum: UInt32
-class CERT_HASHED_URL(EasyCastStructure):
+class CERT_HASHED_URL(Structure):
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     Hash: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     pwszUrl: win32more.Windows.Win32.Foundation.PWSTR
-class CERT_ID(EasyCastStructure):
+class CERT_ID(Structure):
     dwIdChoice: win32more.Windows.Win32.Security.Cryptography.CERT_ID_OPTION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         IssuerSerialNumber: win32more.Windows.Win32.Security.Cryptography.CERT_ISSUER_SERIAL_NUMBER
         KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
         HashId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -4225,7 +4225,7 @@ CERT_ID_OPTION = UInt32
 CERT_ID_ISSUER_SERIAL_NUMBER: win32more.Windows.Win32.Security.Cryptography.CERT_ID_OPTION = 1
 CERT_ID_KEY_IDENTIFIER: win32more.Windows.Win32.Security.Cryptography.CERT_ID_OPTION = 2
 CERT_ID_SHA1_HASH: win32more.Windows.Win32.Security.Cryptography.CERT_ID_OPTION = 3
-class CERT_INFO(EasyCastStructure):
+class CERT_INFO(Structure):
     dwVersion: UInt32
     SerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SignatureAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
@@ -4238,39 +4238,39 @@ class CERT_INFO(EasyCastStructure):
     SubjectUniqueId: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class CERT_ISSUER_SERIAL_NUMBER(EasyCastStructure):
+class CERT_ISSUER_SERIAL_NUMBER(Structure):
     Issuer: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_KEYGEN_REQUEST_INFO(EasyCastStructure):
+class CERT_KEYGEN_REQUEST_INFO(Structure):
     dwVersion: UInt32
     SubjectPublicKeyInfo: win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO
     pwszChallengeString: win32more.Windows.Win32.Foundation.PWSTR
-class CERT_KEY_ATTRIBUTES_INFO(EasyCastStructure):
+class CERT_KEY_ATTRIBUTES_INFO(Structure):
     KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     IntendedKeyUsage: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     pPrivateKeyUsagePeriod: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_PRIVATE_KEY_VALIDITY)
-class CERT_KEY_CONTEXT(EasyCastStructure):
+class CERT_KEY_CONTEXT(Structure):
     cbSize: UInt32
     Anonymous: _Anonymous_e__Union
     dwKeySpec: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
 CERT_KEY_SPEC = UInt32
 AT_KEYEXCHANGE: win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC = 1
 AT_SIGNATURE: win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC = 2
 CERT_NCRYPT_KEY_SPEC: win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC = 4294967295
-class CERT_KEY_USAGE_RESTRICTION_INFO(EasyCastStructure):
+class CERT_KEY_USAGE_RESTRICTION_INFO(Structure):
     cCertPolicyId: UInt32
     rgCertPolicyId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_ID)
     RestrictedKeyUsage: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
-class CERT_LDAP_STORE_OPENED_PARA(EasyCastStructure):
+class CERT_LDAP_STORE_OPENED_PARA(Structure):
     pvLdapSessionHandle: VoidPtr
     pwszLdapUrl: win32more.Windows.Win32.Foundation.PWSTR
-class CERT_LOGOTYPE_AUDIO(EasyCastStructure):
+class CERT_LOGOTYPE_AUDIO(Structure):
     LogotypeDetails: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_DETAILS
     pLogotypeAudioInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_AUDIO_INFO)
-class CERT_LOGOTYPE_AUDIO_INFO(EasyCastStructure):
+class CERT_LOGOTYPE_AUDIO_INFO(Structure):
     dwFileSize: UInt32
     dwPlayTime: UInt32
     dwChannels: UInt32
@@ -4280,26 +4280,26 @@ CERT_LOGOTYPE_CHOICE = UInt32
 CERT_LOGOTYPE_NO_IMAGE_RESOLUTION_CHOICE: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_CHOICE = 0
 CERT_LOGOTYPE_BITS_IMAGE_RESOLUTION_CHOICE: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_CHOICE = 1
 CERT_LOGOTYPE_TABLE_SIZE_IMAGE_RESOLUTION_CHOICE: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_CHOICE = 2
-class CERT_LOGOTYPE_DATA(EasyCastStructure):
+class CERT_LOGOTYPE_DATA(Structure):
     cLogotypeImage: UInt32
     rgLogotypeImage: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE)
     cLogotypeAudio: UInt32
     rgLogotypeAudio: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_AUDIO)
-class CERT_LOGOTYPE_DETAILS(EasyCastStructure):
+class CERT_LOGOTYPE_DETAILS(Structure):
     pwszMimeType: win32more.Windows.Win32.Foundation.PWSTR
     cHashedUrl: UInt32
     rgHashedUrl: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_HASHED_URL)
-class CERT_LOGOTYPE_EXT_INFO(EasyCastStructure):
+class CERT_LOGOTYPE_EXT_INFO(Structure):
     cCommunityLogo: UInt32
     rgCommunityLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO)
     pIssuerLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO)
     pSubjectLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO)
     cOtherLogo: UInt32
     rgOtherLogo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OTHER_LOGOTYPE_INFO)
-class CERT_LOGOTYPE_IMAGE(EasyCastStructure):
+class CERT_LOGOTYPE_IMAGE(Structure):
     LogotypeDetails: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_DETAILS
     pLogotypeImageInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE_INFO)
-class CERT_LOGOTYPE_IMAGE_INFO(EasyCastStructure):
+class CERT_LOGOTYPE_IMAGE_INFO(Structure):
     dwLogotypeImageInfoChoice: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE_INFO_TYPE
     dwFileSize: UInt32
     dwXSize: UInt32
@@ -4307,33 +4307,33 @@ class CERT_LOGOTYPE_IMAGE_INFO(EasyCastStructure):
     dwLogotypeImageResolutionChoice: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_CHOICE
     Anonymous: _Anonymous_e__Union
     pwszLanguage: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwNumBits: UInt32
         dwTableSize: UInt32
 CERT_LOGOTYPE_IMAGE_INFO_TYPE = UInt32
 CERT_LOGOTYPE_GRAY_SCALE_IMAGE_INFO_CHOICE: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE_INFO_TYPE = 1
 CERT_LOGOTYPE_COLOR_IMAGE_INFO_CHOICE: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_IMAGE_INFO_TYPE = 2
-class CERT_LOGOTYPE_INFO(EasyCastStructure):
+class CERT_LOGOTYPE_INFO(Structure):
     dwLogotypeInfoChoice: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_OPTION
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pLogotypeDirectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_DATA)
         pLogotypeIndirectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_REFERENCE)
 CERT_LOGOTYPE_OPTION = UInt32
 CERT_LOGOTYPE_DIRECT_INFO_CHOICE: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_OPTION = 1
 CERT_LOGOTYPE_INDIRECT_INFO_CHOICE: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_OPTION = 2
-class CERT_LOGOTYPE_REFERENCE(EasyCastStructure):
+class CERT_LOGOTYPE_REFERENCE(Structure):
     cHashedUrl: UInt32
     rgHashedUrl: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_HASHED_URL)
-class CERT_NAME_CONSTRAINTS_INFO(EasyCastStructure):
+class CERT_NAME_CONSTRAINTS_INFO(Structure):
     cPermittedSubtree: UInt32
     rgPermittedSubtree: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_GENERAL_SUBTREE)
     cExcludedSubtree: UInt32
     rgExcludedSubtree: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_GENERAL_SUBTREE)
-class CERT_NAME_INFO(EasyCastStructure):
+class CERT_NAME_INFO(Structure):
     cRDN: UInt32
     rgRDN: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN)
-class CERT_NAME_VALUE(EasyCastStructure):
+class CERT_NAME_VALUE(Structure):
     dwValueType: UInt32
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
 CERT_OPEN_STORE_FLAGS = UInt32
@@ -4349,23 +4349,23 @@ CERT_STORE_READONLY_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_OPE
 CERT_STORE_SET_LOCALIZED_NAME_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_OPEN_STORE_FLAGS = 2
 CERT_STORE_SHARE_CONTEXT_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_OPEN_STORE_FLAGS = 128
 CERT_STORE_UPDATE_KEYID_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_OPEN_STORE_FLAGS = 1024
-class CERT_OR_CRL_BLOB(EasyCastStructure):
+class CERT_OR_CRL_BLOB(Structure):
     dwChoice: UInt32
     cbEncoded: UInt32
     pbEncoded: POINTER(Byte)
-class CERT_OR_CRL_BUNDLE(EasyCastStructure):
+class CERT_OR_CRL_BUNDLE(Structure):
     cItem: UInt32
     rgItem: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OR_CRL_BLOB)
-class CERT_OTHER_LOGOTYPE_INFO(EasyCastStructure):
+class CERT_OTHER_LOGOTYPE_INFO(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     LogotypeInfo: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_INFO
-class CERT_OTHER_NAME(EasyCastStructure):
+class CERT_OTHER_NAME(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_PAIR(EasyCastStructure):
+class CERT_PAIR(Structure):
     Forward: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Reverse: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_PHYSICAL_STORE_INFO(EasyCastStructure):
+class CERT_PHYSICAL_STORE_INFO(Structure):
     cbSize: UInt32
     pszOpenStoreProvider: win32more.Windows.Win32.Foundation.PSTR
     dwOpenEncodingType: UInt32
@@ -4373,53 +4373,53 @@ class CERT_PHYSICAL_STORE_INFO(EasyCastStructure):
     OpenParameters: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     dwFlags: UInt32
     dwPriority: UInt32
-class CERT_POLICIES_INFO(EasyCastStructure):
+class CERT_POLICIES_INFO(Structure):
     cPolicyInfo: UInt32
     rgPolicyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_INFO)
-class CERT_POLICY95_QUALIFIER1(EasyCastStructure):
+class CERT_POLICY95_QUALIFIER1(Structure):
     pszPracticesReference: win32more.Windows.Win32.Foundation.PWSTR
     pszNoticeIdentifier: win32more.Windows.Win32.Foundation.PSTR
     pszNSINoticeIdentifier: win32more.Windows.Win32.Foundation.PSTR
     cCPSURLs: UInt32
     rgCPSURLs: POINTER(win32more.Windows.Win32.Security.Cryptography.CPS_URLS)
-class CERT_POLICY_CONSTRAINTS_INFO(EasyCastStructure):
+class CERT_POLICY_CONSTRAINTS_INFO(Structure):
     fRequireExplicitPolicy: win32more.Windows.Win32.Foundation.BOOL
     dwRequireExplicitPolicySkipCerts: UInt32
     fInhibitPolicyMapping: win32more.Windows.Win32.Foundation.BOOL
     dwInhibitPolicyMappingSkipCerts: UInt32
-class CERT_POLICY_ID(EasyCastStructure):
+class CERT_POLICY_ID(Structure):
     cCertPolicyElementId: UInt32
     rgpszCertPolicyElementId: POINTER(win32more.Windows.Win32.Foundation.PSTR)
-class CERT_POLICY_INFO(EasyCastStructure):
+class CERT_POLICY_INFO(Structure):
     pszPolicyIdentifier: win32more.Windows.Win32.Foundation.PSTR
     cPolicyQualifier: UInt32
     rgPolicyQualifier: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_QUALIFIER_INFO)
-class CERT_POLICY_MAPPING(EasyCastStructure):
+class CERT_POLICY_MAPPING(Structure):
     pszIssuerDomainPolicy: win32more.Windows.Win32.Foundation.PSTR
     pszSubjectDomainPolicy: win32more.Windows.Win32.Foundation.PSTR
-class CERT_POLICY_MAPPINGS_INFO(EasyCastStructure):
+class CERT_POLICY_MAPPINGS_INFO(Structure):
     cPolicyMapping: UInt32
     rgPolicyMapping: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_MAPPING)
-class CERT_POLICY_QUALIFIER_INFO(EasyCastStructure):
+class CERT_POLICY_QUALIFIER_INFO(Structure):
     pszPolicyQualifierId: win32more.Windows.Win32.Foundation.PSTR
     Qualifier: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_POLICY_QUALIFIER_NOTICE_REFERENCE(EasyCastStructure):
+class CERT_POLICY_QUALIFIER_NOTICE_REFERENCE(Structure):
     pszOrganization: win32more.Windows.Win32.Foundation.PSTR
     cNoticeNumbers: UInt32
     rgNoticeNumbers: POINTER(Int32)
-class CERT_POLICY_QUALIFIER_USER_NOTICE(EasyCastStructure):
+class CERT_POLICY_QUALIFIER_USER_NOTICE(Structure):
     pNoticeReference: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_POLICY_QUALIFIER_NOTICE_REFERENCE)
     pszDisplayText: win32more.Windows.Win32.Foundation.PWSTR
-class CERT_PRIVATE_KEY_VALIDITY(EasyCastStructure):
+class CERT_PRIVATE_KEY_VALIDITY(Structure):
     NotBefore: win32more.Windows.Win32.Foundation.FILETIME
     NotAfter: win32more.Windows.Win32.Foundation.FILETIME
-class CERT_PUBLIC_KEY_INFO(EasyCastStructure):
+class CERT_PUBLIC_KEY_INFO(Structure):
     Algorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     PublicKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
-class CERT_QC_STATEMENT(EasyCastStructure):
+class CERT_QC_STATEMENT(Structure):
     pszStatementId: win32more.Windows.Win32.Foundation.PSTR
     StatementInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CERT_QC_STATEMENTS_EXT_INFO(EasyCastStructure):
+class CERT_QC_STATEMENTS_EXT_INFO(Structure):
     cStatement: UInt32
     rgStatement: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_QC_STATEMENT)
 CERT_QUERY_CONTENT_TYPE = UInt32
@@ -4469,10 +4469,10 @@ CERT_QUERY_FORMAT_FLAG_ALL: win32more.Windows.Win32.Security.Cryptography.CERT_Q
 CERT_QUERY_OBJECT_TYPE = UInt32
 CERT_QUERY_OBJECT_FILE: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_OBJECT_TYPE = 1
 CERT_QUERY_OBJECT_BLOB: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_OBJECT_TYPE = 2
-class CERT_RDN(EasyCastStructure):
+class CERT_RDN(Structure):
     cRDNAttr: UInt32
     rgRDNAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_RDN_ATTR)
-class CERT_RDN_ATTR(EasyCastStructure):
+class CERT_RDN_ATTR(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     dwValueType: UInt32
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -4495,19 +4495,19 @@ CERT_RDN_TELETEX_STRING: win32more.Windows.Win32.Security.Cryptography.CERT_RDN_
 CERT_RDN_UNIVERSAL_STRING: win32more.Windows.Win32.Security.Cryptography.CERT_RDN_ATTR_VALUE_TYPE = 11
 CERT_RDN_UTF8_STRING: win32more.Windows.Win32.Security.Cryptography.CERT_RDN_ATTR_VALUE_TYPE = 13
 CERT_RDN_VISIBLE_STRING: win32more.Windows.Win32.Security.Cryptography.CERT_RDN_ATTR_VALUE_TYPE = 9
-class CERT_REGISTRY_STORE_CLIENT_GPT_PARA(EasyCastStructure):
+class CERT_REGISTRY_STORE_CLIENT_GPT_PARA(Structure):
     hKeyBase: win32more.Windows.Win32.System.Registry.HKEY
     pwszRegPath: win32more.Windows.Win32.Foundation.PWSTR
-class CERT_REGISTRY_STORE_ROAMING_PARA(EasyCastStructure):
+class CERT_REGISTRY_STORE_ROAMING_PARA(Structure):
     hKey: win32more.Windows.Win32.System.Registry.HKEY
     pwszStoreDirectory: win32more.Windows.Win32.Foundation.PWSTR
-class CERT_REQUEST_INFO(EasyCastStructure):
+class CERT_REQUEST_INFO(Structure):
     dwVersion: UInt32
     Subject: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SubjectPublicKeyInfo: win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO
     cAttribute: UInt32
     rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
-class CERT_REVOCATION_CHAIN_PARA(EasyCastStructure):
+class CERT_REVOCATION_CHAIN_PARA(Structure):
     cbSize: UInt32
     hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE
     hAdditionalStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
@@ -4516,13 +4516,13 @@ class CERT_REVOCATION_CHAIN_PARA(EasyCastStructure):
     pftCurrentTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
     pftCacheResync: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
     cbMaxUrlRetrievalByteCount: UInt32
-class CERT_REVOCATION_CRL_INFO(EasyCastStructure):
+class CERT_REVOCATION_CRL_INFO(Structure):
     cbSize: UInt32
     pBaseCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
     pDeltaCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
     pCrlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY)
     fDeltaCrlEntry: win32more.Windows.Win32.Foundation.BOOL
-class CERT_REVOCATION_INFO(EasyCastStructure):
+class CERT_REVOCATION_INFO(Structure):
     cbSize: UInt32
     dwRevocationResult: UInt32
     pszRevocationOid: win32more.Windows.Win32.Foundation.PSTR
@@ -4530,14 +4530,14 @@ class CERT_REVOCATION_INFO(EasyCastStructure):
     fHasFreshnessTime: win32more.Windows.Win32.Foundation.BOOL
     dwFreshnessTime: UInt32
     pCrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_CRL_INFO)
-class CERT_REVOCATION_PARA(EasyCastStructure):
+class CERT_REVOCATION_PARA(Structure):
     cbSize: UInt32
     pIssuerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     cCertStore: UInt32
     rgCertStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     hCrlStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
     pftTimeToUse: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
-class CERT_REVOCATION_STATUS(EasyCastStructure):
+class CERT_REVOCATION_STATUS(Structure):
     cbSize: UInt32
     dwIndex: UInt32
     dwError: UInt32
@@ -4557,13 +4557,13 @@ CERT_ROOT_PROGRAM_FLAGS = UInt32
 CERT_ROOT_PROGRAM_FLAG_LSC: win32more.Windows.Win32.Security.Cryptography.CERT_ROOT_PROGRAM_FLAGS = 64
 CERT_ROOT_PROGRAM_FLAG_ORG: win32more.Windows.Win32.Security.Cryptography.CERT_ROOT_PROGRAM_FLAGS = 128
 CERT_ROOT_PROGRAM_FLAG_SUBJECT_LOGO: win32more.Windows.Win32.Security.Cryptography.CERT_ROOT_PROGRAM_FLAGS = 32
-class CERT_SELECT_CHAIN_PARA(EasyCastStructure):
+class CERT_SELECT_CHAIN_PARA(Structure):
     hChainEngine: win32more.Windows.Win32.Security.Cryptography.HCERTCHAINENGINE
     pTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
     hAdditionalStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
     pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_PARA)
     dwFlags: UInt32
-class CERT_SELECT_CRITERIA(EasyCastStructure):
+class CERT_SELECT_CRITERIA(Structure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CERT_SELECT_CRITERIA_TYPE
     cPara: UInt32
     ppPara: POINTER(VoidPtr)
@@ -4579,22 +4579,22 @@ CERT_SELECT_BY_SUBJECT_ATTR: win32more.Windows.Win32.Security.Cryptography.CERT_
 CERT_SELECT_BY_ISSUER_NAME: win32more.Windows.Win32.Security.Cryptography.CERT_SELECT_CRITERIA_TYPE = 9
 CERT_SELECT_BY_PUBLIC_KEY: win32more.Windows.Win32.Security.Cryptography.CERT_SELECT_CRITERIA_TYPE = 10
 CERT_SELECT_BY_TLS_SIGNATURES: win32more.Windows.Win32.Security.Cryptography.CERT_SELECT_CRITERIA_TYPE = 11
-class CERT_SERVER_OCSP_RESPONSE_CONTEXT(EasyCastStructure):
+class CERT_SERVER_OCSP_RESPONSE_CONTEXT(Structure):
     cbSize: UInt32
     pbEncodedOcspResponse: POINTER(Byte)
     cbEncodedOcspResponse: UInt32
-class CERT_SERVER_OCSP_RESPONSE_OPEN_PARA(EasyCastStructure):
+class CERT_SERVER_OCSP_RESPONSE_OPEN_PARA(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     pcbUsedSize: POINTER(UInt32)
     pwszOcspDirectory: win32more.Windows.Win32.Foundation.PWSTR
     pfnUpdateCallback: win32more.Windows.Win32.Security.Cryptography.PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK
     pvUpdateCallbackArg: VoidPtr
-class CERT_SIGNED_CONTENT_INFO(EasyCastStructure):
+class CERT_SIGNED_CONTENT_INFO(Structure):
     ToBeSigned: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SignatureAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     Signature: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
-class CERT_SIMPLE_CHAIN(EasyCastStructure):
+class CERT_SIMPLE_CHAIN(Structure):
     cbSize: UInt32
     TrustStatus: win32more.Windows.Win32.Security.Cryptography.CERT_TRUST_STATUS
     cElement: UInt32
@@ -4602,7 +4602,7 @@ class CERT_SIMPLE_CHAIN(EasyCastStructure):
     pTrustListInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_TRUST_LIST_INFO)
     fHasRevocationFreshnessTime: win32more.Windows.Win32.Foundation.BOOL
     dwRevocationFreshnessTime: UInt32
-class CERT_STORE_PROV_FIND_INFO(EasyCastStructure):
+class CERT_STORE_PROV_FIND_INFO(Structure):
     cbSize: UInt32
     dwMsgAndCertEncodingType: UInt32
     dwFindFlags: UInt32
@@ -4614,7 +4614,7 @@ CERT_STORE_PROV_DELETED_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT
 CERT_STORE_PROV_NO_PERSIST_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_FLAGS = 4
 CERT_STORE_PROV_SYSTEM_STORE_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_FLAGS = 8
 CERT_STORE_PROV_LM_SYSTEM_STORE_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_STORE_PROV_FLAGS = 16
-class CERT_STORE_PROV_INFO(EasyCastStructure):
+class CERT_STORE_PROV_INFO(Structure):
     cbSize: UInt32
     cStoreProvFunc: UInt32
     rgpvStoreProvFunc: POINTER(VoidPtr)
@@ -4637,63 +4637,63 @@ CERT_X500_NAME_STR: win32more.Windows.Win32.Security.Cryptography.CERT_STRING_TY
 CERT_STRONG_SIGN_FLAGS = UInt32
 CERT_STRONG_SIGN_ENABLE_CRL_CHECK: win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_FLAGS = 1
 CERT_STRONG_SIGN_ENABLE_OCSP_CHECK: win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_FLAGS = 2
-class CERT_STRONG_SIGN_PARA(EasyCastStructure):
+class CERT_STRONG_SIGN_PARA(Structure):
     cbSize: UInt32
     dwInfoChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pvInfo: VoidPtr
         pSerializedInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_SERIALIZED_INFO)
         pszOID: win32more.Windows.Win32.Foundation.PSTR
-class CERT_STRONG_SIGN_SERIALIZED_INFO(EasyCastStructure):
+class CERT_STRONG_SIGN_SERIALIZED_INFO(Structure):
     dwFlags: win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_FLAGS
     pwszCNGSignHashAlgids: win32more.Windows.Win32.Foundation.PWSTR
     pwszCNGPubKeyMinBitLengths: win32more.Windows.Win32.Foundation.PWSTR
-class CERT_SUPPORTED_ALGORITHM_INFO(EasyCastStructure):
+class CERT_SUPPORTED_ALGORITHM_INFO(Structure):
     Algorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     IntendedKeyUsage: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     IntendedCertPolicies: win32more.Windows.Win32.Security.Cryptography.CERT_POLICIES_INFO
 CERT_SYSTEM_STORE_FLAGS = UInt32
 CERT_SYSTEM_STORE_LOCATION_MASK: win32more.Windows.Win32.Security.Cryptography.CERT_SYSTEM_STORE_FLAGS = 16711680
 CERT_SYSTEM_STORE_RELOCATE_FLAG: win32more.Windows.Win32.Security.Cryptography.CERT_SYSTEM_STORE_FLAGS = 2147483648
-class CERT_SYSTEM_STORE_INFO(EasyCastStructure):
+class CERT_SYSTEM_STORE_INFO(Structure):
     cbSize: UInt32
-class CERT_SYSTEM_STORE_RELOCATE_PARA(EasyCastStructure):
+class CERT_SYSTEM_STORE_RELOCATE_PARA(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(EasyCastUnion):
+    class _Anonymous1_e__Union(Union):
         hKeyBase: win32more.Windows.Win32.System.Registry.HKEY
         pvBase: VoidPtr
-    class _Anonymous2_e__Union(EasyCastUnion):
+    class _Anonymous2_e__Union(Union):
         pvSystemStore: VoidPtr
         pszSystemStore: win32more.Windows.Win32.Foundation.PSTR
         pwszSystemStore: win32more.Windows.Win32.Foundation.PWSTR
-class CERT_TEMPLATE_EXT(EasyCastStructure):
+class CERT_TEMPLATE_EXT(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     dwMajorVersion: UInt32
     fMinorVersion: win32more.Windows.Win32.Foundation.BOOL
     dwMinorVersion: UInt32
-class CERT_TPM_SPECIFICATION_INFO(EasyCastStructure):
+class CERT_TPM_SPECIFICATION_INFO(Structure):
     pwszFamily: win32more.Windows.Win32.Foundation.PWSTR
     dwLevel: UInt32
     dwRevision: UInt32
-class CERT_TRUST_LIST_INFO(EasyCastStructure):
+class CERT_TRUST_LIST_INFO(Structure):
     cbSize: UInt32
     pCtlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY)
     pCtlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)
-class CERT_TRUST_STATUS(EasyCastStructure):
+class CERT_TRUST_STATUS(Structure):
     dwErrorStatus: UInt32
     dwInfoStatus: UInt32
-class CERT_USAGE_MATCH(EasyCastStructure):
+class CERT_USAGE_MATCH(Structure):
     dwType: UInt32
     Usage: win32more.Windows.Win32.Security.Cryptography.CTL_USAGE
-class CERT_X942_DH_PARAMETERS(EasyCastStructure):
+class CERT_X942_DH_PARAMETERS(Structure):
     p: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     g: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     q: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     j: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     pValidationParams: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_X942_DH_VALIDATION_PARAMS)
-class CERT_X942_DH_VALIDATION_PARAMS(EasyCastStructure):
+class CERT_X942_DH_VALIDATION_PARAMS(Structure):
     seed: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     pgenCounter: UInt32
 CESSetupProperty = Int32
@@ -4704,22 +4704,22 @@ ENUM_CESSETUPPROP_SSLCERTHASH: win32more.Windows.Win32.Security.Cryptography.CES
 ENUM_CESSETUPPROP_URL: win32more.Windows.Win32.Security.Cryptography.CESSetupProperty = 4
 ENUM_CESSETUPPROP_RENEWALONLY: win32more.Windows.Win32.Security.Cryptography.CESSetupProperty = 5
 ENUM_CESSETUPPROP_ALLOW_KEYBASED_RENEWAL: win32more.Windows.Win32.Security.Cryptography.CESSetupProperty = 6
-class CLAIMLIST(EasyCastStructure):
+class CLAIMLIST(Structure):
     count: UInt32
     claims: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class CMC_ADD_ATTRIBUTES_INFO(EasyCastStructure):
+class CMC_ADD_ATTRIBUTES_INFO(Structure):
     dwCmcDataReference: UInt32
     cCertReference: UInt32
     rgdwCertReference: POINTER(UInt32)
     cAttribute: UInt32
     rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
-class CMC_ADD_EXTENSIONS_INFO(EasyCastStructure):
+class CMC_ADD_EXTENSIONS_INFO(Structure):
     dwCmcDataReference: UInt32
     cCertReference: UInt32
     rgdwCertReference: POINTER(UInt32)
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class CMC_DATA_INFO(EasyCastStructure):
+class CMC_DATA_INFO(Structure):
     cTaggedAttribute: UInt32
     rgTaggedAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_ATTRIBUTE)
     cTaggedRequest: UInt32
@@ -4728,53 +4728,53 @@ class CMC_DATA_INFO(EasyCastStructure):
     rgTaggedContentInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CONTENT_INFO)
     cTaggedOtherMsg: UInt32
     rgTaggedOtherMsg: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_OTHER_MSG)
-class CMC_PEND_INFO(EasyCastStructure):
+class CMC_PEND_INFO(Structure):
     PendToken: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     PendTime: win32more.Windows.Win32.Foundation.FILETIME
-class CMC_RESPONSE_INFO(EasyCastStructure):
+class CMC_RESPONSE_INFO(Structure):
     cTaggedAttribute: UInt32
     rgTaggedAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_ATTRIBUTE)
     cTaggedContentInfo: UInt32
     rgTaggedContentInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CONTENT_INFO)
     cTaggedOtherMsg: UInt32
     rgTaggedOtherMsg: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_OTHER_MSG)
-class CMC_STATUS_INFO(EasyCastStructure):
+class CMC_STATUS_INFO(Structure):
     dwStatus: UInt32
     cBodyList: UInt32
     rgdwBodyList: POINTER(UInt32)
     pwszStatusString: win32more.Windows.Win32.Foundation.PWSTR
     dwOtherInfoChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwFailInfo: UInt32
         pPendInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_PEND_INFO)
-class CMC_TAGGED_ATTRIBUTE(EasyCastStructure):
+class CMC_TAGGED_ATTRIBUTE(Structure):
     dwBodyPartID: UInt32
     Attribute: win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE
-class CMC_TAGGED_CERT_REQUEST(EasyCastStructure):
+class CMC_TAGGED_CERT_REQUEST(Structure):
     dwBodyPartID: UInt32
     SignedCertRequest: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CMC_TAGGED_CONTENT_INFO(EasyCastStructure):
+class CMC_TAGGED_CONTENT_INFO(Structure):
     dwBodyPartID: UInt32
     EncodedContentInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CMC_TAGGED_OTHER_MSG(EasyCastStructure):
+class CMC_TAGGED_OTHER_MSG(Structure):
     dwBodyPartID: UInt32
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CMC_TAGGED_REQUEST(EasyCastStructure):
+class CMC_TAGGED_REQUEST(Structure):
     dwTaggedRequestChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pTaggedCertRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CERT_REQUEST)
 CMSCEPSetup = Guid('{aa4f5c02-8e7c-49c4-94fa-67a5cc5eadb4}')
-class CMSG_CMS_RECIPIENT_INFO(EasyCastStructure):
+class CMSG_CMS_RECIPIENT_INFO(Structure):
     dwRecipientChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_INFO)
         pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_INFO)
         pMailList: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_INFO)
-class CMSG_CMS_SIGNER_INFO(EasyCastStructure):
+class CMSG_CMS_SIGNER_INFO(Structure):
     dwVersion: UInt32
     SignerId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
@@ -4782,7 +4782,7 @@ class CMSG_CMS_SIGNER_INFO(EasyCastStructure):
     EncryptedHash: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     AuthAttrs: win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES
     UnauthAttrs: win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES
-class CMSG_CNG_CONTENT_DECRYPT_INFO(EasyCastStructure):
+class CMSG_CNG_CONTENT_DECRYPT_INFO(Structure):
     cbSize: UInt32
     ContentEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pfnAlloc: win32more.Windows.Win32.Security.Cryptography.PFN_CMSG_ALLOC
@@ -4792,7 +4792,7 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO(EasyCastStructure):
     cbContentEncryptKey: UInt32
     hCNGContentEncryptKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE
     pbCNGContentEncryptKeyObject: POINTER(Byte)
-class CMSG_CONTENT_ENCRYPT_INFO(EasyCastStructure):
+class CMSG_CONTENT_ENCRYPT_INFO(Structure):
     cbSize: UInt32
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
     ContentEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
@@ -4808,26 +4808,26 @@ class CMSG_CONTENT_ENCRYPT_INFO(EasyCastStructure):
     pbCNGContentEncryptKeyObject: POINTER(Byte)
     pbContentEncryptKey: POINTER(Byte)
     cbContentEncryptKey: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hContentEncryptKey: UIntPtr
         hCNGContentEncryptKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE
-class CMSG_CTRL_ADD_SIGNER_UNAUTH_ATTR_PARA(EasyCastStructure):
+class CMSG_CTRL_ADD_SIGNER_UNAUTH_ATTR_PARA(Structure):
     cbSize: UInt32
     dwSignerIndex: UInt32
     blob: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CMSG_CTRL_DECRYPT_PARA(EasyCastStructure):
+class CMSG_CTRL_DECRYPT_PARA(Structure):
     cbSize: UInt32
     Anonymous: _Anonymous_e__Union
     dwKeySpec: UInt32
     dwRecipientIndex: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
-class CMSG_CTRL_DEL_SIGNER_UNAUTH_ATTR_PARA(EasyCastStructure):
+class CMSG_CTRL_DEL_SIGNER_UNAUTH_ATTR_PARA(Structure):
     cbSize: UInt32
     dwSignerIndex: UInt32
     dwUnauthAttrIndex: UInt32
-class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA(EasyCastStructure):
+class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA(Structure):
     cbSize: UInt32
     Anonymous: _Anonymous_e__Union
     dwKeySpec: UInt32
@@ -4835,51 +4835,51 @@ class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA(EasyCastStructure):
     dwRecipientIndex: UInt32
     dwRecipientEncryptedKeyIndex: UInt32
     OriginatorPublicKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
-class CMSG_CTRL_KEY_TRANS_DECRYPT_PARA(EasyCastStructure):
+class CMSG_CTRL_KEY_TRANS_DECRYPT_PARA(Structure):
     cbSize: UInt32
     Anonymous: _Anonymous_e__Union
     dwKeySpec: UInt32
     pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_INFO)
     dwRecipientIndex: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
-class CMSG_CTRL_MAIL_LIST_DECRYPT_PARA(EasyCastStructure):
+class CMSG_CTRL_MAIL_LIST_DECRYPT_PARA(Structure):
     cbSize: UInt32
     hCryptProv: UIntPtr
     pMailList: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_INFO)
     dwRecipientIndex: UInt32
     dwKeyChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hKeyEncryptionKey: UIntPtr
         pvKeyEncryptionKey: VoidPtr
-class CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA(EasyCastStructure):
+class CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA(Structure):
     cbSize: UInt32
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
     dwSignerIndex: UInt32
     dwSignerType: UInt32
     pvSigner: VoidPtr
-class CMSG_ENCRYPTED_ENCODE_INFO(EasyCastStructure):
+class CMSG_ENCRYPTED_ENCODE_INFO(Structure):
     cbSize: UInt32
     ContentEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvEncryptionAuxInfo: VoidPtr
-class CMSG_ENVELOPED_ENCODE_INFO(EasyCastStructure):
+class CMSG_ENVELOPED_ENCODE_INFO(Structure):
     cbSize: UInt32
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
     ContentEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvEncryptionAuxInfo: VoidPtr
     cRecipients: UInt32
     rgpRecipients: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO))
-class CMSG_HASHED_ENCODE_INFO(EasyCastStructure):
+class CMSG_HASHED_ENCODE_INFO(Structure):
     cbSize: UInt32
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvHashAuxInfo: VoidPtr
-class CMSG_KEY_AGREE_ENCRYPT_INFO(EasyCastStructure):
+class CMSG_KEY_AGREE_ENCRYPT_INFO(Structure):
     cbSize: UInt32
     dwRecipientIndex: UInt32
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
@@ -4889,10 +4889,10 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO(EasyCastStructure):
     cKeyAgreeKeyEncryptInfo: UInt32
     rgpKeyAgreeKeyEncryptInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_KEY_ENCRYPT_INFO))
     dwFlags: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         OriginatorCertId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
         OriginatorPublicKeyInfo: win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO
-class CMSG_KEY_AGREE_KEY_ENCRYPT_INFO(EasyCastStructure):
+class CMSG_KEY_AGREE_KEY_ENCRYPT_INFO(Structure):
     cbSize: UInt32
     EncryptedKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
 CMSG_KEY_AGREE_OPTION = UInt32
@@ -4901,7 +4901,7 @@ CMSG_KEY_AGREE_STATIC_KEY_CHOICE: win32more.Windows.Win32.Security.Cryptography.
 CMSG_KEY_AGREE_ORIGINATOR = UInt32
 CMSG_KEY_AGREE_ORIGINATOR_CERT: win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_ORIGINATOR = 1
 CMSG_KEY_AGREE_ORIGINATOR_PUBLIC_KEY: win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_ORIGINATOR = 2
-class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO(EasyCastStructure):
+class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO(Structure):
     cbSize: UInt32
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvKeyEncryptionAuxInfo: VoidPtr
@@ -4914,10 +4914,10 @@ class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO(EasyCastStructure):
     UserKeyingMaterial: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cRecipientEncryptedKeys: UInt32
     rgpRecipientEncryptedKeys: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO))
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pEphemeralAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER)
         pSenderId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ID)
-class CMSG_KEY_AGREE_RECIPIENT_INFO(EasyCastStructure):
+class CMSG_KEY_AGREE_RECIPIENT_INFO(Structure):
     dwVersion: UInt32
     dwOriginatorChoice: win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_ORIGINATOR
     Anonymous: _Anonymous_e__Union
@@ -4925,34 +4925,34 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO(EasyCastStructure):
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     cRecipientEncryptedKeys: UInt32
     rgpRecipientEncryptedKeys: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCRYPTED_KEY_INFO))
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         OriginatorCertId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
         OriginatorPublicKeyInfo: win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO
-class CMSG_KEY_TRANS_ENCRYPT_INFO(EasyCastStructure):
+class CMSG_KEY_TRANS_ENCRYPT_INFO(Structure):
     cbSize: UInt32
     dwRecipientIndex: UInt32
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     EncryptedKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     dwFlags: UInt32
-class CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO(EasyCastStructure):
+class CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO(Structure):
     cbSize: UInt32
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvKeyEncryptionAuxInfo: VoidPtr
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
     RecipientPublicKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     RecipientId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
-class CMSG_KEY_TRANS_RECIPIENT_INFO(EasyCastStructure):
+class CMSG_KEY_TRANS_RECIPIENT_INFO(Structure):
     dwVersion: UInt32
     RecipientId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     EncryptedKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CMSG_MAIL_LIST_ENCRYPT_INFO(EasyCastStructure):
+class CMSG_MAIL_LIST_ENCRYPT_INFO(Structure):
     cbSize: UInt32
     dwRecipientIndex: UInt32
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     EncryptedKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     dwFlags: UInt32
-class CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO(EasyCastStructure):
+class CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO(Structure):
     cbSize: UInt32
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvKeyEncryptionAuxInfo: VoidPtr
@@ -4962,45 +4962,45 @@ class CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO(EasyCastStructure):
     KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Date: win32more.Windows.Win32.Foundation.FILETIME
     pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hKeyEncryptionKey: UIntPtr
         pvKeyEncryptionKey: VoidPtr
-class CMSG_MAIL_LIST_RECIPIENT_INFO(EasyCastStructure):
+class CMSG_MAIL_LIST_RECIPIENT_INFO(Structure):
     dwVersion: UInt32
     KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     EncryptedKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Date: win32more.Windows.Win32.Foundation.FILETIME
     pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE)
-class CMSG_RC2_AUX_INFO(EasyCastStructure):
+class CMSG_RC2_AUX_INFO(Structure):
     cbSize: UInt32
     dwBitLen: UInt32
-class CMSG_RC4_AUX_INFO(EasyCastStructure):
+class CMSG_RC4_AUX_INFO(Structure):
     cbSize: UInt32
     dwBitLen: UInt32
-class CMSG_RECIPIENT_ENCODE_INFO(EasyCastStructure):
+class CMSG_RECIPIENT_ENCODE_INFO(Structure):
     dwRecipientChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO)
         pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO)
         pMailList: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO)
-class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO(EasyCastStructure):
+class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO(Structure):
     cbSize: UInt32
     RecipientPublicKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     RecipientId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
     Date: win32more.Windows.Win32.Foundation.FILETIME
     pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE)
-class CMSG_RECIPIENT_ENCRYPTED_KEY_INFO(EasyCastStructure):
+class CMSG_RECIPIENT_ENCRYPTED_KEY_INFO(Structure):
     RecipientId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
     EncryptedKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Date: win32more.Windows.Win32.Foundation.FILETIME
     pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE)
-class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO(EasyCastStructure):
+class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO(Structure):
     cbSize: UInt32
     SignedInfo: win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNED_ENCODE_INFO
     EnvelopedInfo: win32more.Windows.Win32.Security.Cryptography.CMSG_ENVELOPED_ENCODE_INFO
-class CMSG_SIGNED_ENCODE_INFO(EasyCastStructure):
+class CMSG_SIGNED_ENCODE_INFO(Structure):
     cbSize: UInt32
     cSigners: UInt32
     rgSigners: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_SIGNER_ENCODE_INFO)
@@ -5008,7 +5008,7 @@ class CMSG_SIGNED_ENCODE_INFO(EasyCastStructure):
     rgCertEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
     cCrlEncoded: UInt32
     rgCrlEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class CMSG_SIGNER_ENCODE_INFO(EasyCastStructure):
+class CMSG_SIGNER_ENCODE_INFO(Structure):
     cbSize: UInt32
     pCertInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)
     Anonymous: _Anonymous_e__Union
@@ -5019,10 +5019,10 @@ class CMSG_SIGNER_ENCODE_INFO(EasyCastStructure):
     rgAuthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
     cUnauthAttr: UInt32
     rgUnauthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
-class CMSG_SIGNER_INFO(EasyCastStructure):
+class CMSG_SIGNER_INFO(Structure):
     dwVersion: UInt32
     Issuer: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5031,55 +5031,55 @@ class CMSG_SIGNER_INFO(EasyCastStructure):
     EncryptedHash: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     AuthAttrs: win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES
     UnauthAttrs: win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES
-class CMSG_SP3_COMPATIBLE_AUX_INFO(EasyCastStructure):
+class CMSG_SP3_COMPATIBLE_AUX_INFO(Structure):
     cbSize: UInt32
     dwFlags: UInt32
-class CMSG_STREAM_INFO(EasyCastStructure):
+class CMSG_STREAM_INFO(Structure):
     cbContent: UInt32
     pfnStreamOutput: win32more.Windows.Win32.Security.Cryptography.PFN_CMSG_STREAM_OUTPUT
     pvArg: VoidPtr
-class CMS_DH_KEY_INFO(EasyCastStructure):
+class CMS_DH_KEY_INFO(Structure):
     dwVersion: UInt32
     Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     pszContentEncObjId: win32more.Windows.Win32.Foundation.PSTR
     PubInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     pReserved: VoidPtr
-class CMS_KEY_INFO(EasyCastStructure):
+class CMS_KEY_INFO(Structure):
     dwVersion: UInt32
     Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     pbOID: POINTER(Byte)
     cbOID: UInt32
-class CPS_URLS(EasyCastStructure):
+class CPS_URLS(Structure):
     pszURL: win32more.Windows.Win32.Foundation.PWSTR
     pAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER)
     pDigest: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class CRL_CONTEXT(EasyCastStructure):
+class CRL_CONTEXT(Structure):
     dwCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE
     pbCrlEncoded: POINTER(Byte)
     cbCrlEncoded: UInt32
     pCrlInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_INFO)
     hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
-class CRL_DIST_POINT(EasyCastStructure):
+class CRL_DIST_POINT(Structure):
     DistPointName: win32more.Windows.Win32.Security.Cryptography.CRL_DIST_POINT_NAME
     ReasonFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     CRLIssuer: win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_INFO
-class CRL_DIST_POINTS_INFO(EasyCastStructure):
+class CRL_DIST_POINTS_INFO(Structure):
     cDistPoint: UInt32
     rgDistPoint: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_DIST_POINT)
-class CRL_DIST_POINT_NAME(EasyCastStructure):
+class CRL_DIST_POINT_NAME(Structure):
     dwDistPointNameChoice: UInt32
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         FullName: win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_INFO
-class CRL_ENTRY(EasyCastStructure):
+class CRL_ENTRY(Structure):
     SerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     RevocationDate: win32more.Windows.Win32.Foundation.FILETIME
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class CRL_FIND_ISSUED_FOR_PARA(EasyCastStructure):
+class CRL_FIND_ISSUED_FOR_PARA(Structure):
     pSubjectCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     pIssuerCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
-class CRL_INFO(EasyCastStructure):
+class CRL_INFO(Structure):
     dwVersion: UInt32
     SignatureAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     Issuer: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5089,25 +5089,25 @@ class CRL_INFO(EasyCastStructure):
     rgCRLEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY)
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class CRL_ISSUING_DIST_POINT(EasyCastStructure):
+class CRL_ISSUING_DIST_POINT(Structure):
     DistPointName: win32more.Windows.Win32.Security.Cryptography.CRL_DIST_POINT_NAME
     fOnlyContainsUserCerts: win32more.Windows.Win32.Foundation.BOOL
     fOnlyContainsCACerts: win32more.Windows.Win32.Foundation.BOOL
     OnlySomeReasonFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     fIndirectCRL: win32more.Windows.Win32.Foundation.BOOL
-class CRL_REVOCATION_INFO(EasyCastStructure):
+class CRL_REVOCATION_INFO(Structure):
     pCrlEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_ENTRY)
     pCrlContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CRL_CONTEXT)
     pCrlIssuerChain: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_CONTEXT)
-class CROSS_CERT_DIST_POINTS_INFO(EasyCastStructure):
+class CROSS_CERT_DIST_POINTS_INFO(Structure):
     dwSyncDeltaTime: UInt32
     cDistPoint: UInt32
     rgDistPoint: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_INFO)
-class CRYPTNET_URL_CACHE_FLUSH_INFO(EasyCastStructure):
+class CRYPTNET_URL_CACHE_FLUSH_INFO(Structure):
     cbSize: UInt32
     dwExemptSeconds: UInt32
     ExpireTime: win32more.Windows.Win32.Foundation.FILETIME
-class CRYPTNET_URL_CACHE_PRE_FETCH_INFO(EasyCastStructure):
+class CRYPTNET_URL_CACHE_PRE_FETCH_INFO(Structure):
     cbSize: UInt32
     dwObjectType: UInt32
     dwError: UInt32
@@ -5115,7 +5115,7 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO(EasyCastStructure):
     ThisUpdateTime: win32more.Windows.Win32.Foundation.FILETIME
     NextUpdateTime: win32more.Windows.Win32.Foundation.FILETIME
     PublishTime: win32more.Windows.Win32.Foundation.FILETIME
-class CRYPTNET_URL_CACHE_RESPONSE_INFO(EasyCastStructure):
+class CRYPTNET_URL_CACHE_RESPONSE_INFO(Structure):
     cbSize: UInt32
     wResponseType: UInt16
     wResponseFlags: UInt16
@@ -5123,12 +5123,12 @@ class CRYPTNET_URL_CACHE_RESPONSE_INFO(EasyCastStructure):
     dwMaxAge: UInt32
     pwszETag: win32more.Windows.Win32.Foundation.PWSTR
     dwProxyId: UInt32
-class CRYPTPROTECT_PROMPTSTRUCT(EasyCastStructure):
+class CRYPTPROTECT_PROMPTSTRUCT(Structure):
     cbSize: UInt32
     dwPromptFlags: UInt32
     hwndApp: win32more.Windows.Win32.Foundation.HWND
     szPrompt: win32more.Windows.Win32.Foundation.PWSTR
-class CRYPT_3DES_KEY_STATE(EasyCastStructure):
+class CRYPT_3DES_KEY_STATE(Structure):
     Key: Byte * 24
     IV: Byte * 8
     Feedback: Byte * 8
@@ -5143,79 +5143,79 @@ CRYPT_ACQUIRE_NCRYPT_KEY_FLAGS_MASK: win32more.Windows.Win32.Security.Cryptograp
 CRYPT_ACQUIRE_ALLOW_NCRYPT_KEY_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_ACQUIRE_FLAGS = 65536
 CRYPT_ACQUIRE_PREFER_NCRYPT_KEY_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_ACQUIRE_FLAGS = 131072
 CRYPT_ACQUIRE_ONLY_NCRYPT_KEY_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_ACQUIRE_FLAGS = 262144
-class CRYPT_AES_128_KEY_STATE(EasyCastStructure):
+class CRYPT_AES_128_KEY_STATE(Structure):
     Key: Byte * 16
     IV: Byte * 16
     EncryptionState: Byte * 176
     DecryptionState: Byte * 176
     Feedback: Byte * 16
-class CRYPT_AES_256_KEY_STATE(EasyCastStructure):
+class CRYPT_AES_256_KEY_STATE(Structure):
     Key: Byte * 32
     IV: Byte * 16
     EncryptionState: Byte * 240
     DecryptionState: Byte * 240
     Feedback: Byte * 16
-class CRYPT_ALGORITHM_IDENTIFIER(EasyCastStructure):
+class CRYPT_ALGORITHM_IDENTIFIER(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Parameters: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CRYPT_ASYNC_RETRIEVAL_COMPLETION(EasyCastStructure):
+class CRYPT_ASYNC_RETRIEVAL_COMPLETION(Structure):
     pfnCompletion: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_ASYNC_RETRIEVAL_COMPLETION_FUNC
     pvCompletion: VoidPtr
-class CRYPT_ATTRIBUTE(EasyCastStructure):
+class CRYPT_ATTRIBUTE(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     cValue: UInt32
     rgValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class CRYPT_ATTRIBUTES(EasyCastStructure):
+class CRYPT_ATTRIBUTES(Structure):
     cAttr: UInt32
     rgAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
-class CRYPT_ATTRIBUTE_TYPE_VALUE(EasyCastStructure):
+class CRYPT_ATTRIBUTE_TYPE_VALUE(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CRYPT_BIT_BLOB(EasyCastStructure):
+class CRYPT_BIT_BLOB(Structure):
     cbData: UInt32
     pbData: POINTER(Byte)
     cUnusedBits: UInt32
-class CRYPT_BLOB_ARRAY(EasyCastStructure):
+class CRYPT_BLOB_ARRAY(Structure):
     cBlob: UInt32
     rgBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class CRYPT_CONTENT_INFO(EasyCastStructure):
+class CRYPT_CONTENT_INFO(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Content: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY(EasyCastStructure):
+class CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     cValue: UInt32
     rgValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class CRYPT_CONTEXTS(EasyCastStructure):
+class CRYPT_CONTEXTS(Structure):
     cContexts: UInt32
     rgpszContexts: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class CRYPT_CONTEXT_CONFIG(EasyCastStructure):
+class CRYPT_CONTEXT_CONFIG(Structure):
     dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_CONFIG_FLAGS
     dwReserved: UInt32
 CRYPT_CONTEXT_CONFIG_FLAGS = UInt32
 CRYPT_EXCLUSIVE: win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_CONFIG_FLAGS = 1
 CRYPT_OVERRIDE: win32more.Windows.Win32.Security.Cryptography.CRYPT_CONTEXT_CONFIG_FLAGS = 65536
-class CRYPT_CONTEXT_FUNCTIONS(EasyCastStructure):
+class CRYPT_CONTEXT_FUNCTIONS(Structure):
     cFunctions: UInt32
     rgpszFunctions: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class CRYPT_CONTEXT_FUNCTION_CONFIG(EasyCastStructure):
+class CRYPT_CONTEXT_FUNCTION_CONFIG(Structure):
     dwFlags: UInt32
     dwReserved: UInt32
-class CRYPT_CONTEXT_FUNCTION_PROVIDERS(EasyCastStructure):
+class CRYPT_CONTEXT_FUNCTION_PROVIDERS(Structure):
     cProviders: UInt32
     rgpszProviders: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class CRYPT_CREDENTIALS(EasyCastStructure):
+class CRYPT_CREDENTIALS(Structure):
     cbSize: UInt32
     pszCredentialsOid: win32more.Windows.Win32.Foundation.PSTR
     pvCredentials: VoidPtr
-class CRYPT_CSP_PROVIDER(EasyCastStructure):
+class CRYPT_CSP_PROVIDER(Structure):
     dwKeySpec: UInt32
     pwszProviderName: win32more.Windows.Win32.Foundation.PWSTR
     Signature: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
-class CRYPT_DECODE_PARA(EasyCastStructure):
+class CRYPT_DECODE_PARA(Structure):
     cbSize: UInt32
     pfnAlloc: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_ALLOC
     pfnFree: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_FREE
-class CRYPT_DECRYPT_MESSAGE_PARA(EasyCastStructure):
+class CRYPT_DECRYPT_MESSAGE_PARA(Structure):
     cbSize: UInt32
     dwMsgAndCertEncodingType: UInt32
     cCertStore: UInt32
@@ -5223,21 +5223,21 @@ class CRYPT_DECRYPT_MESSAGE_PARA(EasyCastStructure):
 CRYPT_DEFAULT_CONTEXT_FLAGS = UInt32
 CRYPT_DEFAULT_CONTEXT_AUTO_RELEASE_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_DEFAULT_CONTEXT_FLAGS = 1
 CRYPT_DEFAULT_CONTEXT_PROCESS_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_DEFAULT_CONTEXT_FLAGS = 2
-class CRYPT_DEFAULT_CONTEXT_MULTI_OID_PARA(EasyCastStructure):
+class CRYPT_DEFAULT_CONTEXT_MULTI_OID_PARA(Structure):
     cOID: UInt32
     rgpszOID: POINTER(win32more.Windows.Win32.Foundation.PSTR)
 CRYPT_DEFAULT_CONTEXT_TYPE = UInt32
 CRYPT_DEFAULT_CONTEXT_CERT_SIGN_OID: win32more.Windows.Win32.Security.Cryptography.CRYPT_DEFAULT_CONTEXT_TYPE = 1
 CRYPT_DEFAULT_CONTEXT_MULTI_CERT_SIGN_OID: win32more.Windows.Win32.Security.Cryptography.CRYPT_DEFAULT_CONTEXT_TYPE = 2
-class CRYPT_DES_KEY_STATE(EasyCastStructure):
+class CRYPT_DES_KEY_STATE(Structure):
     Key: Byte * 8
     IV: Byte * 8
     Feedback: Byte * 8
-class CRYPT_ECC_CMS_SHARED_INFO(EasyCastStructure):
+class CRYPT_ECC_CMS_SHARED_INFO(Structure):
     Algorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     EntityUInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     rgbSuppPubInfo: Byte * 4
-class CRYPT_ECC_PRIVATE_KEY_INFO(EasyCastStructure):
+class CRYPT_ECC_PRIVATE_KEY_INFO(Structure):
     dwVersion: UInt32
     PrivateKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     szCurveOid: win32more.Windows.Win32.Foundation.PSTR
@@ -5248,14 +5248,14 @@ CRYPT_ENCODE_ENABLE_PUNYCODE_FLAG: win32more.Windows.Win32.Security.Cryptography
 CRYPT_UNICODE_NAME_ENCODE_DISABLE_CHECK_TYPE_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCODE_OBJECT_FLAGS = 1073741824
 CRYPT_UNICODE_NAME_ENCODE_ENABLE_T61_UNICODE_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCODE_OBJECT_FLAGS = 2147483648
 CRYPT_UNICODE_NAME_ENCODE_ENABLE_UTF8_UNICODE_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_ENCODE_OBJECT_FLAGS = 536870912
-class CRYPT_ENCODE_PARA(EasyCastStructure):
+class CRYPT_ENCODE_PARA(Structure):
     cbSize: UInt32
     pfnAlloc: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_ALLOC
     pfnFree: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_FREE
-class CRYPT_ENCRYPTED_PRIVATE_KEY_INFO(EasyCastStructure):
+class CRYPT_ENCRYPTED_PRIVATE_KEY_INFO(Structure):
     EncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     EncryptedPrivateKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CRYPT_ENCRYPT_MESSAGE_PARA(EasyCastStructure):
+class CRYPT_ENCRYPT_MESSAGE_PARA(Structure):
     cbSize: UInt32
     dwMsgEncodingType: UInt32
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
@@ -5263,14 +5263,14 @@ class CRYPT_ENCRYPT_MESSAGE_PARA(EasyCastStructure):
     pvEncryptionAuxInfo: VoidPtr
     dwFlags: UInt32
     dwInnerContentType: UInt32
-class CRYPT_ENROLLMENT_NAME_VALUE_PAIR(EasyCastStructure):
+class CRYPT_ENROLLMENT_NAME_VALUE_PAIR(Structure):
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pwszValue: win32more.Windows.Win32.Foundation.PWSTR
 CRYPT_FIND_FLAGS = UInt32
 CRYPT_FIND_USER_KEYSET_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_FIND_FLAGS = 1
 CRYPT_FIND_MACHINE_KEYSET_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_FIND_FLAGS = 2
 CRYPT_FIND_SILENT_KEYSET_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_FIND_FLAGS = 64
-class CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO(EasyCastStructure):
+class CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO(Structure):
     cbSize: UInt32
     iDeltaCrlIndicator: Int32
     pftCacheResync: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
@@ -5283,32 +5283,32 @@ CRYPT_GET_URL_FROM_PROPERTY: win32more.Windows.Win32.Security.Cryptography.CRYPT
 CRYPT_GET_URL_FROM_EXTENSION: win32more.Windows.Win32.Security.Cryptography.CRYPT_GET_URL_FLAGS = 2
 CRYPT_GET_URL_FROM_UNAUTH_ATTRIBUTE: win32more.Windows.Win32.Security.Cryptography.CRYPT_GET_URL_FLAGS = 4
 CRYPT_GET_URL_FROM_AUTH_ATTRIBUTE: win32more.Windows.Win32.Security.Cryptography.CRYPT_GET_URL_FLAGS = 8
-class CRYPT_HASH_INFO(EasyCastStructure):
+class CRYPT_HASH_INFO(Structure):
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     Hash: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CRYPT_HASH_MESSAGE_PARA(EasyCastStructure):
+class CRYPT_HASH_MESSAGE_PARA(Structure):
     cbSize: UInt32
     dwMsgEncodingType: UInt32
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvHashAuxInfo: VoidPtr
-class CRYPT_IMAGE_REF(EasyCastStructure):
+class CRYPT_IMAGE_REF(Structure):
     pszImage: win32more.Windows.Win32.Foundation.PWSTR
     dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REF_FLAGS
 CRYPT_IMAGE_REF_FLAGS = UInt32
 CRYPT_MIN_DEPENDENCIES: win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REF_FLAGS = 1
 CRYPT_PROCESS_ISOLATE: win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REF_FLAGS = 65536
-class CRYPT_IMAGE_REG(EasyCastStructure):
+class CRYPT_IMAGE_REG(Structure):
     pszImage: win32more.Windows.Win32.Foundation.PWSTR
     cInterfaces: UInt32
     rgpInterfaces: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTERFACE_REG))
 CRYPT_IMPORT_PUBLIC_KEY_FLAGS = UInt32
 CRYPT_OID_INFO_PUBKEY_SIGN_KEY_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_IMPORT_PUBLIC_KEY_FLAGS = 2147483648
 CRYPT_OID_INFO_PUBKEY_ENCRYPT_KEY_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_IMPORT_PUBLIC_KEY_FLAGS = 1073741824
-class CRYPT_INTEGER_BLOB(EasyCastStructure):
+class CRYPT_INTEGER_BLOB(Structure):
     cbData: UInt32
     pbData: POINTER(Byte)
-class CRYPT_INTERFACE_REG(EasyCastStructure):
+class CRYPT_INTERFACE_REG(Structure):
     dwInterface: win32more.Windows.Win32.Security.Cryptography.BCRYPT_INTERFACE
     dwFlags: win32more.Windows.Win32.Security.Cryptography.BCRYPT_TABLE
     cFunctions: UInt32
@@ -5354,7 +5354,7 @@ KP_SALT_EX: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PARAM_ID = 1
 KP_BLOCKLEN: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PARAM_ID = 8
 KP_GET_USE_COUNT: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PARAM_ID = 42
 KP_KEYLEN: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PARAM_ID = 9
-class CRYPT_KEY_PROV_INFO(EasyCastStructure):
+class CRYPT_KEY_PROV_INFO(Structure):
     pwszContainerName: win32more.Windows.Win32.Foundation.PWSTR
     pwszProvName: win32more.Windows.Win32.Foundation.PWSTR
     dwProvType: UInt32
@@ -5362,12 +5362,12 @@ class CRYPT_KEY_PROV_INFO(EasyCastStructure):
     cProvParam: UInt32
     rgProvParam: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_PARAM)
     dwKeySpec: UInt32
-class CRYPT_KEY_PROV_PARAM(EasyCastStructure):
+class CRYPT_KEY_PROV_PARAM(Structure):
     dwParam: UInt32
     pbData: POINTER(Byte)
     cbData: UInt32
     dwFlags: UInt32
-class CRYPT_KEY_SIGN_MESSAGE_PARA(EasyCastStructure):
+class CRYPT_KEY_SIGN_MESSAGE_PARA(Structure):
     cbSize: UInt32
     dwMsgAndCertEncodingType: win32more.Windows.Win32.Security.Cryptography.CERT_QUERY_ENCODING_TYPE
     Anonymous: _Anonymous_e__Union
@@ -5375,14 +5375,14 @@ class CRYPT_KEY_SIGN_MESSAGE_PARA(EasyCastStructure):
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvHashAuxInfo: VoidPtr
     PubKeyAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
-class CRYPT_KEY_VERIFY_MESSAGE_PARA(EasyCastStructure):
+class CRYPT_KEY_VERIFY_MESSAGE_PARA(Structure):
     cbSize: UInt32
     dwMsgEncodingType: UInt32
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
-class CRYPT_MASK_GEN_ALGORITHM(EasyCastStructure):
+class CRYPT_MASK_GEN_ALGORITHM(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
 CRYPT_MSG_TYPE = UInt32
@@ -5391,7 +5391,7 @@ CMSG_SIGNED: win32more.Windows.Win32.Security.Cryptography.CRYPT_MSG_TYPE = 2
 CMSG_ENVELOPED: win32more.Windows.Win32.Security.Cryptography.CRYPT_MSG_TYPE = 3
 CMSG_SIGNED_AND_ENVELOPED: win32more.Windows.Win32.Security.Cryptography.CRYPT_MSG_TYPE = 4
 CMSG_HASHED: win32more.Windows.Win32.Security.Cryptography.CRYPT_MSG_TYPE = 5
-class CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE(EasyCastStructure):
+class CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE(Structure):
     cbSize: UInt32
     pfnGet: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET
     pfnRelease: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE
@@ -5403,60 +5403,60 @@ CRYPT_OBJECT_LOCATOR_RELEASE_SYSTEM_SHUTDOWN: win32more.Windows.Win32.Security.C
 CRYPT_OBJECT_LOCATOR_RELEASE_SERVICE_STOP: win32more.Windows.Win32.Security.Cryptography.CRYPT_OBJECT_LOCATOR_RELEASE_REASON = 2
 CRYPT_OBJECT_LOCATOR_RELEASE_PROCESS_EXIT: win32more.Windows.Win32.Security.Cryptography.CRYPT_OBJECT_LOCATOR_RELEASE_REASON = 3
 CRYPT_OBJECT_LOCATOR_RELEASE_DLL_UNLOAD: win32more.Windows.Win32.Security.Cryptography.CRYPT_OBJECT_LOCATOR_RELEASE_REASON = 4
-class CRYPT_OBJID_TABLE(EasyCastStructure):
+class CRYPT_OBJID_TABLE(Structure):
     dwAlgId: UInt32
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
-class CRYPT_OID_FUNC_ENTRY(EasyCastStructure):
+class CRYPT_OID_FUNC_ENTRY(Structure):
     pszOID: win32more.Windows.Win32.Foundation.PSTR
     pvFuncAddr: VoidPtr
-class CRYPT_OID_INFO(EasyCastStructure):
+class CRYPT_OID_INFO(Structure):
     cbSize: UInt32
     pszOID: win32more.Windows.Win32.Foundation.PSTR
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     dwGroupId: UInt32
     Anonymous: _Anonymous_e__Union
     ExtraInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         dwValue: UInt32
         Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
         dwLength: UInt32
-class CRYPT_PASSWORD_CREDENTIALSA(EasyCastStructure):
+class CRYPT_PASSWORD_CREDENTIALSA(Structure):
     cbSize: UInt32
     pszUsername: win32more.Windows.Win32.Foundation.PSTR
     pszPassword: win32more.Windows.Win32.Foundation.PSTR
-class CRYPT_PASSWORD_CREDENTIALSW(EasyCastStructure):
+class CRYPT_PASSWORD_CREDENTIALSW(Structure):
     cbSize: UInt32
     pszUsername: win32more.Windows.Win32.Foundation.PWSTR
     pszPassword: win32more.Windows.Win32.Foundation.PWSTR
 CRYPT_PASSWORD_CREDENTIALS = UnicodeAlias('CRYPT_PASSWORD_CREDENTIALSW')
-class CRYPT_PKCS12_PBE_PARAMS(EasyCastStructure):
+class CRYPT_PKCS12_PBE_PARAMS(Structure):
     iIterations: Int32
     cbSalt: UInt32
-class CRYPT_PKCS8_EXPORT_PARAMS(EasyCastStructure):
+class CRYPT_PKCS8_EXPORT_PARAMS(Structure):
     hCryptProv: UIntPtr
     dwKeySpec: UInt32
     pszPrivateKeyObjId: win32more.Windows.Win32.Foundation.PSTR
     pEncryptPrivateKeyFunc: win32more.Windows.Win32.Security.Cryptography.PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC
     pVoidEncryptFunc: VoidPtr
-class CRYPT_PKCS8_IMPORT_PARAMS(EasyCastStructure):
+class CRYPT_PKCS8_IMPORT_PARAMS(Structure):
     PrivateKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     pResolvehCryptProvFunc: win32more.Windows.Win32.Security.Cryptography.PCRYPT_RESOLVE_HCRYPTPROV_FUNC
     pVoidResolveFunc: VoidPtr
     pDecryptPrivateKeyFunc: win32more.Windows.Win32.Security.Cryptography.PCRYPT_DECRYPT_PRIVATE_KEY_FUNC
     pVoidDecryptFunc: VoidPtr
-class CRYPT_PRIVATE_KEY_INFO(EasyCastStructure):
+class CRYPT_PRIVATE_KEY_INFO(Structure):
     Version: UInt32
     Algorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     PrivateKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     pAttributes: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
-class CRYPT_PROPERTY_REF(EasyCastStructure):
+class CRYPT_PROPERTY_REF(Structure):
     pszProperty: win32more.Windows.Win32.Foundation.PWSTR
     cbValue: UInt32
     pbValue: POINTER(Byte)
-class CRYPT_PROVIDERS(EasyCastStructure):
+class CRYPT_PROVIDERS(Structure):
     cProviders: UInt32
     rgpszProviders: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class CRYPT_PROVIDER_REF(EasyCastStructure):
+class CRYPT_PROVIDER_REF(Structure):
     dwInterface: UInt32
     pszFunction: win32more.Windows.Win32.Foundation.PWSTR
     pszProvider: win32more.Windows.Win32.Foundation.PWSTR
@@ -5464,27 +5464,27 @@ class CRYPT_PROVIDER_REF(EasyCastStructure):
     rgpProperties: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROPERTY_REF))
     pUM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REF)
     pKM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REF)
-class CRYPT_PROVIDER_REFS(EasyCastStructure):
+class CRYPT_PROVIDER_REFS(Structure):
     cProviders: UInt32
     rgpProviders: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_PROVIDER_REF))
-class CRYPT_PROVIDER_REG(EasyCastStructure):
+class CRYPT_PROVIDER_REG(Structure):
     cAliases: UInt32
     rgpszAliases: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     pUM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REG)
     pKM: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_IMAGE_REG)
-class CRYPT_PSOURCE_ALGORITHM(EasyCastStructure):
+class CRYPT_PSOURCE_ALGORITHM(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     EncodingParameters: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CRYPT_RC2_CBC_PARAMETERS(EasyCastStructure):
+class CRYPT_RC2_CBC_PARAMETERS(Structure):
     dwVersion: UInt32
     fIV: win32more.Windows.Win32.Foundation.BOOL
     rgbIV: Byte * 8
-class CRYPT_RC4_KEY_STATE(EasyCastStructure):
+class CRYPT_RC4_KEY_STATE(Structure):
     Key: Byte * 16
     SBox: Byte * 256
     i: Byte
     j: Byte
-class CRYPT_RETRIEVE_AUX_INFO(EasyCastStructure):
+class CRYPT_RETRIEVE_AUX_INFO(Structure):
     cbSize: UInt32
     pLastSyncTime: POINTER(win32more.Windows.Win32.Foundation.FILETIME)
     dwMaxUrlRetrievalByteCount: UInt32
@@ -5497,16 +5497,16 @@ class CRYPT_RETRIEVE_AUX_INFO(EasyCastStructure):
     dwHttpStatusCode: UInt32
     ppwszErrorResponseHeaders: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     ppErrorContentBlob: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB))
-class CRYPT_RSAES_OAEP_PARAMETERS(EasyCastStructure):
+class CRYPT_RSAES_OAEP_PARAMETERS(Structure):
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     MaskGenAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_MASK_GEN_ALGORITHM
     PSourceAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_PSOURCE_ALGORITHM
-class CRYPT_RSA_SSA_PSS_PARAMETERS(EasyCastStructure):
+class CRYPT_RSA_SSA_PSS_PARAMETERS(Structure):
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     MaskGenAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_MASK_GEN_ALGORITHM
     dwSaltLength: UInt32
     dwTrailerField: UInt32
-class CRYPT_SEQUENCE_OF_ANY(EasyCastStructure):
+class CRYPT_SEQUENCE_OF_ANY(Structure):
     cValue: UInt32
     rgValue: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
 CRYPT_SET_HASH_PARAM = UInt32
@@ -5530,7 +5530,7 @@ PP_USER_CERTSTORE: win32more.Windows.Win32.Security.Cryptography.CRYPT_SET_PROV_
 PP_SECURE_KEYEXCHANGE_PIN: win32more.Windows.Win32.Security.Cryptography.CRYPT_SET_PROV_PARAM_ID = 47
 PP_SECURE_SIGNATURE_PIN: win32more.Windows.Win32.Security.Cryptography.CRYPT_SET_PROV_PARAM_ID = 48
 PP_SMARTCARD_READER: win32more.Windows.Win32.Security.Cryptography.CRYPT_SET_PROV_PARAM_ID = 43
-class CRYPT_SIGN_MESSAGE_PARA(EasyCastStructure):
+class CRYPT_SIGN_MESSAGE_PARA(Structure):
     cbSize: UInt32
     dwMsgEncodingType: UInt32
     pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
@@ -5546,13 +5546,13 @@ class CRYPT_SIGN_MESSAGE_PARA(EasyCastStructure):
     rgUnauthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
     dwFlags: UInt32
     dwInnerContentType: UInt32
-class CRYPT_SMART_CARD_ROOT_INFO(EasyCastStructure):
+class CRYPT_SMART_CARD_ROOT_INFO(Structure):
     rgbCardID: Byte * 16
     luid: win32more.Windows.Win32.Security.Cryptography.ROOT_INFO_LUID
-class CRYPT_SMIME_CAPABILITIES(EasyCastStructure):
+class CRYPT_SMIME_CAPABILITIES(Structure):
     cCapability: UInt32
     rgCapability: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_SMIME_CAPABILITY)
-class CRYPT_SMIME_CAPABILITY(EasyCastStructure):
+class CRYPT_SMIME_CAPABILITY(Structure):
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Parameters: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
 CRYPT_STRING = UInt32
@@ -5570,15 +5570,15 @@ CRYPT_STRING_STRICT: win32more.Windows.Win32.Security.Cryptography.CRYPT_STRING 
 CRYPT_STRING_BASE64_ANY: win32more.Windows.Win32.Security.Cryptography.CRYPT_STRING = 6
 CRYPT_STRING_ANY: win32more.Windows.Win32.Security.Cryptography.CRYPT_STRING = 7
 CRYPT_STRING_HEX_ANY: win32more.Windows.Win32.Security.Cryptography.CRYPT_STRING = 8
-class CRYPT_TIMESTAMP_ACCURACY(EasyCastStructure):
+class CRYPT_TIMESTAMP_ACCURACY(Structure):
     dwSeconds: UInt32
     dwMillis: UInt32
     dwMicros: UInt32
-class CRYPT_TIMESTAMP_CONTEXT(EasyCastStructure):
+class CRYPT_TIMESTAMP_CONTEXT(Structure):
     cbEncoded: UInt32
     pbEncoded: POINTER(Byte)
     pTimeStamp: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_INFO)
-class CRYPT_TIMESTAMP_INFO(EasyCastStructure):
+class CRYPT_TIMESTAMP_INFO(Structure):
     dwVersion: UInt32
     pszTSAPolicyId: win32more.Windows.Win32.Foundation.PSTR
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
@@ -5591,13 +5591,13 @@ class CRYPT_TIMESTAMP_INFO(EasyCastStructure):
     Tsa: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class CRYPT_TIMESTAMP_PARA(EasyCastStructure):
+class CRYPT_TIMESTAMP_PARA(Structure):
     pszTSAPolicyId: win32more.Windows.Win32.Foundation.PSTR
     fRequestCerts: win32more.Windows.Win32.Foundation.BOOL
     Nonce: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class CRYPT_TIMESTAMP_REQUEST(EasyCastStructure):
+class CRYPT_TIMESTAMP_REQUEST(Structure):
     dwVersion: win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_VERSION
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     HashedMessage: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5606,7 +5606,7 @@ class CRYPT_TIMESTAMP_REQUEST(EasyCastStructure):
     fCertReq: win32more.Windows.Win32.Foundation.BOOL
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class CRYPT_TIMESTAMP_RESPONSE(EasyCastStructure):
+class CRYPT_TIMESTAMP_RESPONSE(Structure):
     dwStatus: win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_RESPONSE_STATUS
     cFreeText: UInt32
     rgFreeText: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
@@ -5621,16 +5621,16 @@ TIMESTAMP_STATUS_REVOCATION_WARNING: win32more.Windows.Win32.Security.Cryptograp
 TIMESTAMP_STATUS_REVOKED: win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_RESPONSE_STATUS = 5
 CRYPT_TIMESTAMP_VERSION = UInt32
 TIMESTAMP_VERSION: win32more.Windows.Win32.Security.Cryptography.CRYPT_TIMESTAMP_VERSION = 1
-class CRYPT_TIME_STAMP_REQUEST_INFO(EasyCastStructure):
+class CRYPT_TIME_STAMP_REQUEST_INFO(Structure):
     pszTimeStampAlgorithm: win32more.Windows.Win32.Foundation.PSTR
     pszContentType: win32more.Windows.Win32.Foundation.PSTR
     Content: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cAttribute: UInt32
     rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
-class CRYPT_URL_ARRAY(EasyCastStructure):
+class CRYPT_URL_ARRAY(Structure):
     cUrl: UInt32
     rgwszUrl: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class CRYPT_URL_INFO(EasyCastStructure):
+class CRYPT_URL_INFO(Structure):
     cbSize: UInt32
     dwSyncDeltaTime: UInt32
     cGroup: UInt32
@@ -5639,29 +5639,29 @@ CRYPT_VERIFY_CERT_FLAGS = UInt32
 CRYPT_VERIFY_CERT_SIGN_DISABLE_MD2_MD4_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_CERT_FLAGS = 1
 CRYPT_VERIFY_CERT_SIGN_SET_STRONG_PROPERTIES_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_CERT_FLAGS = 2
 CRYPT_VERIFY_CERT_SIGN_RETURN_STRONG_PROPERTIES_FLAG: win32more.Windows.Win32.Security.Cryptography.CRYPT_VERIFY_CERT_FLAGS = 4
-class CRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO(EasyCastStructure):
+class CRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO(Structure):
     CertSignHashCNGAlgPropData: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     CertIssuerPubKeyBitLengthPropData: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CRYPT_VERIFY_CERT_SIGN_WEAK_HASH_INFO(EasyCastStructure):
+class CRYPT_VERIFY_CERT_SIGN_WEAK_HASH_INFO(Structure):
     cCNGHashAlgid: UInt32
     rgpwszCNGHashAlgid: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     dwWeakIndex: UInt32
-class CRYPT_VERIFY_MESSAGE_PARA(EasyCastStructure):
+class CRYPT_VERIFY_MESSAGE_PARA(Structure):
     cbSize: UInt32
     dwMsgAndCertEncodingType: UInt32
     hCryptProv: win32more.Windows.Win32.Security.Cryptography.HCRYPTPROV_LEGACY
     pfnGetSignerCertificate: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_GET_SIGNER_CERTIFICATE
     pvGetArg: VoidPtr
-class CRYPT_X942_OTHER_INFO(EasyCastStructure):
+class CRYPT_X942_OTHER_INFO(Structure):
     pszContentEncryptionObjId: win32more.Windows.Win32.Foundation.PSTR
     rgbCounter: Byte * 4
     rgbKeyLength: Byte * 4
     PubInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CRYPT_XML_ALGORITHM(EasyCastStructure):
+class CRYPT_XML_ALGORITHM(Structure):
     cbSize: UInt32
     wszAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
     Encoded: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB
-class CRYPT_XML_ALGORITHM_INFO(EasyCastStructure):
+class CRYPT_XML_ALGORITHM_INFO(Structure):
     cbSize: UInt32
     wszAlgorithmURI: win32more.Windows.Win32.Foundation.PWSTR
     wszName: win32more.Windows.Win32.Foundation.PWSTR
@@ -5672,7 +5672,7 @@ class CRYPT_XML_ALGORITHM_INFO(EasyCastStructure):
     dwVerifyFlags: UInt32
     pvPaddingInfo: VoidPtr
     pvExtraInfo: VoidPtr
-class CRYPT_XML_BLOB(EasyCastStructure):
+class CRYPT_XML_BLOB(Structure):
     dwCharset: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CHARSET
     cbData: UInt32
     pbData: POINTER(Byte)
@@ -5681,7 +5681,7 @@ CRYPT_XML_CHARSET_AUTO: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_
 CRYPT_XML_CHARSET_UTF8: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CHARSET = 1
 CRYPT_XML_CHARSET_UTF16LE: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CHARSET = 2
 CRYPT_XML_CHARSET_UTF16BE: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_CHARSET = 3
-class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE(EasyCastStructure):
+class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE(Structure):
     cbSize: UInt32
     fpCryptXmlEncodeAlgorithm: win32more.Windows.Win32.Security.Cryptography.CryptXmlDllEncodeAlgorithm
     fpCryptXmlCreateDigest: win32more.Windows.Win32.Security.Cryptography.CryptXmlDllCreateDigest
@@ -5691,15 +5691,15 @@ class CRYPT_XML_CRYPTOGRAPHIC_INTERFACE(EasyCastStructure):
     fpCryptXmlSignData: win32more.Windows.Win32.Security.Cryptography.CryptXmlDllSignData
     fpCryptXmlVerifySignature: win32more.Windows.Win32.Security.Cryptography.CryptXmlDllVerifySignature
     fpCryptXmlGetAlgorithmInfo: win32more.Windows.Win32.Security.Cryptography.CryptXmlDllGetAlgorithmInfo
-class CRYPT_XML_DATA_BLOB(EasyCastStructure):
+class CRYPT_XML_DATA_BLOB(Structure):
     cbData: UInt32
     pbData: POINTER(Byte)
-class CRYPT_XML_DATA_PROVIDER(EasyCastStructure):
+class CRYPT_XML_DATA_PROVIDER(Structure):
     pvCallbackState: VoidPtr
     cbBufferSize: UInt32
     pfnRead: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_DATA_PROVIDER_READ
     pfnClose: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_DATA_PROVIDER_CLOSE
-class CRYPT_XML_DOC_CTXT(EasyCastStructure):
+class CRYPT_XML_DOC_CTXT(Structure):
     cbSize: UInt32
     hDocCtxt: VoidPtr
     pTransformsConfig: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_CHAIN_CONFIG)
@@ -5712,10 +5712,10 @@ CRYPT_XML_SIGN_ADD_KEYVALUE: win32more.Windows.Win32.Security.Cryptography.CRYPT
 CRYPT_XML_GROUP_ID = UInt32
 CRYPT_XML_GROUP_ID_HASH: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_GROUP_ID = 1
 CRYPT_XML_GROUP_ID_SIGN: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_GROUP_ID = 2
-class CRYPT_XML_ISSUER_SERIAL(EasyCastStructure):
+class CRYPT_XML_ISSUER_SERIAL(Structure):
     wszIssuer: win32more.Windows.Win32.Foundation.PWSTR
     wszSerial: win32more.Windows.Win32.Foundation.PWSTR
-class CRYPT_XML_KEYINFO_PARAM(EasyCastStructure):
+class CRYPT_XML_KEYINFO_PARAM(Structure):
     wszId: win32more.Windows.Win32.Foundation.PWSTR
     wszKeyName: win32more.Windows.Win32.Foundation.PWSTR
     SKI: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5734,7 +5734,7 @@ CRYPT_XML_KEYINFO_TYPE_KEYVALUE: win32more.Windows.Win32.Security.Cryptography.C
 CRYPT_XML_KEYINFO_TYPE_RETRIEVAL: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEYINFO_TYPE = 3
 CRYPT_XML_KEYINFO_TYPE_X509DATA: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEYINFO_TYPE = 4
 CRYPT_XML_KEYINFO_TYPE_CUSTOM: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEYINFO_TYPE = 5
-class CRYPT_XML_KEY_DSA_KEY_VALUE(EasyCastStructure):
+class CRYPT_XML_KEY_DSA_KEY_VALUE(Structure):
     P: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
     Q: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
     G: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
@@ -5742,33 +5742,33 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE(EasyCastStructure):
     J: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
     Seed: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
     Counter: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
-class CRYPT_XML_KEY_ECDSA_KEY_VALUE(EasyCastStructure):
+class CRYPT_XML_KEY_ECDSA_KEY_VALUE(Structure):
     wszNamedCurve: win32more.Windows.Win32.Foundation.PWSTR
     X: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
     Y: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
     ExplicitPara: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB
-class CRYPT_XML_KEY_INFO(EasyCastStructure):
+class CRYPT_XML_KEY_INFO(Structure):
     cbSize: UInt32
     wszId: win32more.Windows.Win32.Foundation.PWSTR
     cKeyInfo: UInt32
     rgKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_INFO_ITEM)
     hVerifyKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE
-class CRYPT_XML_KEY_INFO_ITEM(EasyCastStructure):
+class CRYPT_XML_KEY_INFO_ITEM(Structure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEYINFO_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         wszKeyName: win32more.Windows.Win32.Foundation.PWSTR
         KeyValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_VALUE
         RetrievalMethod: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB
         X509Data: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA
         Custom: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB
-class CRYPT_XML_KEY_RSA_KEY_VALUE(EasyCastStructure):
+class CRYPT_XML_KEY_RSA_KEY_VALUE(Structure):
     Modulus: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
     Exponent: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
-class CRYPT_XML_KEY_VALUE(EasyCastStructure):
+class CRYPT_XML_KEY_VALUE(Structure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_VALUE_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         DSAKeyValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_DSA_KEY_VALUE
         RSAKeyValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_RSA_KEY_VALUE
         ECDSAKeyValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_ECDSA_KEY_VALUE
@@ -5778,7 +5778,7 @@ CRYPT_XML_KEY_VALUE_TYPE_DSA: win32more.Windows.Win32.Security.Cryptography.CRYP
 CRYPT_XML_KEY_VALUE_TYPE_RSA: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_VALUE_TYPE = 2
 CRYPT_XML_KEY_VALUE_TYPE_ECDSA: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_VALUE_TYPE = 3
 CRYPT_XML_KEY_VALUE_TYPE_CUSTOM: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_VALUE_TYPE = 4
-class CRYPT_XML_OBJECT(EasyCastStructure):
+class CRYPT_XML_OBJECT(Structure):
     cbSize: UInt32
     hObject: VoidPtr
     wszId: win32more.Windows.Win32.Foundation.PWSTR
@@ -5786,7 +5786,7 @@ class CRYPT_XML_OBJECT(EasyCastStructure):
     wszEncoding: win32more.Windows.Win32.Foundation.PWSTR
     Manifest: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_REFERENCES
     Encoded: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB
-class CRYPT_XML_PROPERTY(EasyCastStructure):
+class CRYPT_XML_PROPERTY(Structure):
     dwPropId: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY_ID
     pvValue: VoidPtr
     cbValue: UInt32
@@ -5796,7 +5796,7 @@ CRYPT_XML_PROPERTY_SIGNATURE_LOCATION: win32more.Windows.Win32.Security.Cryptogr
 CRYPT_XML_PROPERTY_MAX_SIGNATURES: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY_ID = 3
 CRYPT_XML_PROPERTY_DOC_DECLARATION: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY_ID = 4
 CRYPT_XML_PROPERTY_XML_OUTPUT_CHARSET: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_PROPERTY_ID = 5
-class CRYPT_XML_REFERENCE(EasyCastStructure):
+class CRYPT_XML_REFERENCE(Structure):
     cbSize: UInt32
     hReference: VoidPtr
     wszId: win32more.Windows.Win32.Foundation.PWSTR
@@ -5806,10 +5806,10 @@ class CRYPT_XML_REFERENCE(EasyCastStructure):
     DigestValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cTransform: UInt32
     rgTransform: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM)
-class CRYPT_XML_REFERENCES(EasyCastStructure):
+class CRYPT_XML_REFERENCES(Structure):
     cReference: UInt32
     rgpReference: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_REFERENCE))
-class CRYPT_XML_SIGNATURE(EasyCastStructure):
+class CRYPT_XML_SIGNATURE(Structure):
     cbSize: UInt32
     hSignature: VoidPtr
     wszId: win32more.Windows.Win32.Foundation.PWSTR
@@ -5818,7 +5818,7 @@ class CRYPT_XML_SIGNATURE(EasyCastStructure):
     pKeyInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_INFO)
     cObject: UInt32
     rgpObject: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_OBJECT))
-class CRYPT_XML_SIGNED_INFO(EasyCastStructure):
+class CRYPT_XML_SIGNED_INFO(Structure):
     cbSize: UInt32
     wszId: win32more.Windows.Win32.Foundation.PWSTR
     Canonicalization: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ALGORITHM
@@ -5826,7 +5826,7 @@ class CRYPT_XML_SIGNED_INFO(EasyCastStructure):
     cReference: UInt32
     rgpReference: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_REFERENCE))
     Encoded: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_BLOB
-class CRYPT_XML_STATUS(EasyCastStructure):
+class CRYPT_XML_STATUS(Structure):
     cbSize: UInt32
     dwErrorStatus: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_STATUS_ERROR_STATUS
     dwInfoStatus: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_STATUS_INFO_STATUS
@@ -5844,7 +5844,7 @@ CRYPT_XML_STATUS_DIGESTING: win32more.Windows.Win32.Security.Cryptography.CRYPT_
 CRYPT_XML_STATUS_DIGEST_VALID: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_STATUS_INFO_STATUS = 8
 CRYPT_XML_STATUS_SIGNATURE_VALID: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_STATUS_INFO_STATUS = 65536
 CRYPT_XML_STATUS_OPENED_TO_ENCODE: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_STATUS_INFO_STATUS = 2147483648
-class CRYPT_XML_TRANSFORM_CHAIN_CONFIG(EasyCastStructure):
+class CRYPT_XML_TRANSFORM_CHAIN_CONFIG(Structure):
     cbSize: UInt32
     cTransformInfo: UInt32
     rgpTransformInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_INFO))
@@ -5852,19 +5852,19 @@ CRYPT_XML_TRANSFORM_FLAGS = UInt32
 CRYPT_XML_TRANSFORM_ON_STREAM: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_FLAGS = 1
 CRYPT_XML_TRANSFORM_ON_NODESET: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_FLAGS = 2
 CRYPT_XML_TRANSFORM_URI_QUERY_STRING: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_FLAGS = 3
-class CRYPT_XML_TRANSFORM_INFO(EasyCastStructure):
+class CRYPT_XML_TRANSFORM_INFO(Structure):
     cbSize: UInt32
     wszAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
     cbBufferSize: UInt32
     dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_TRANSFORM_FLAGS
     pfnCreateTransform: win32more.Windows.Win32.Security.Cryptography.PFN_CRYPT_XML_CREATE_TRANSFORM
-class CRYPT_XML_X509DATA(EasyCastStructure):
+class CRYPT_XML_X509DATA(Structure):
     cX509Data: UInt32
     rgX509Data: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA_ITEM)
-class CRYPT_XML_X509DATA_ITEM(EasyCastStructure):
+class CRYPT_XML_X509DATA_ITEM(Structure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA_TYPE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         IssuerSerial: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ISSUER_SERIAL
         SKI: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
         wszSubjectName: win32more.Windows.Win32.Foundation.PWSTR
@@ -5878,10 +5878,10 @@ CRYPT_XML_X509DATA_TYPE_SUBJECT_NAME: win32more.Windows.Win32.Security.Cryptogra
 CRYPT_XML_X509DATA_TYPE_CERTIFICATE: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA_TYPE = 4
 CRYPT_XML_X509DATA_TYPE_CRL: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA_TYPE = 5
 CRYPT_XML_X509DATA_TYPE_CUSTOM: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA_TYPE = 6
-class CTL_ANY_SUBJECT_INFO(EasyCastStructure):
+class CTL_ANY_SUBJECT_INFO(Structure):
     SubjectAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     SubjectIdentifier: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class CTL_CONTEXT(EasyCastStructure):
+class CTL_CONTEXT(Structure):
     dwMsgAndCertEncodingType: UInt32
     pbCtlEncoded: POINTER(Byte)
     cbCtlEncoded: UInt32
@@ -5890,21 +5890,21 @@ class CTL_CONTEXT(EasyCastStructure):
     hCryptMsg: VoidPtr
     pbCtlContent: POINTER(Byte)
     cbCtlContent: UInt32
-class CTL_ENTRY(EasyCastStructure):
+class CTL_ENTRY(Structure):
     SubjectIdentifier: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cAttribute: UInt32
     rgAttribute: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
-class CTL_FIND_SUBJECT_PARA(EasyCastStructure):
+class CTL_FIND_SUBJECT_PARA(Structure):
     cbSize: UInt32
     pUsagePara: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_FIND_USAGE_PARA)
     dwSubjectType: UInt32
     pvSubject: VoidPtr
-class CTL_FIND_USAGE_PARA(EasyCastStructure):
+class CTL_FIND_USAGE_PARA(Structure):
     cbSize: UInt32
     SubjectUsage: win32more.Windows.Win32.Security.Cryptography.CTL_USAGE
     ListIdentifier: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     pSigner: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_INFO)
-class CTL_INFO(EasyCastStructure):
+class CTL_INFO(Structure):
     dwVersion: UInt32
     SubjectUsage: win32more.Windows.Win32.Security.Cryptography.CTL_USAGE
     ListIdentifier: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5916,20 +5916,20 @@ class CTL_INFO(EasyCastStructure):
     rgCTLEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_ENTRY)
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class CTL_USAGE(EasyCastStructure):
+class CTL_USAGE(Structure):
     cUsageIdentifier: UInt32
     rgpszUsageIdentifier: POINTER(win32more.Windows.Win32.Foundation.PSTR)
-class CTL_USAGE_MATCH(EasyCastStructure):
+class CTL_USAGE_MATCH(Structure):
     dwType: UInt32
     Usage: win32more.Windows.Win32.Security.Cryptography.CTL_USAGE
-class CTL_VERIFY_USAGE_PARA(EasyCastStructure):
+class CTL_VERIFY_USAGE_PARA(Structure):
     cbSize: UInt32
     ListIdentifier: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cCtlStore: UInt32
     rghCtlStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
     cSignerStore: UInt32
     rghSignerStore: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
-class CTL_VERIFY_USAGE_STATUS(EasyCastStructure):
+class CTL_VERIFY_USAGE_STATUS(Structure):
     cbSize: UInt32
     dwError: UInt32
     dwFlags: UInt32
@@ -5972,7 +5972,7 @@ def CryptXmlDllVerifySignature(pSignatureMethod: POINTER(win32more.Windows.Win32
 DSAFIPSVERSION_ENUM = Int32
 DSA_FIPS186_2: win32more.Windows.Win32.Security.Cryptography.DSAFIPSVERSION_ENUM = 0
 DSA_FIPS186_3: win32more.Windows.Win32.Security.Cryptography.DSAFIPSVERSION_ENUM = 1
-class DSSSEED(EasyCastStructure):
+class DSSSEED(Structure):
     counter: UInt32
     seed: Byte * 20
 Direction = Int32
@@ -5984,23 +5984,23 @@ ECC_CURVE_TYPE_ENUM = Int32
 BCRYPT_ECC_PRIME_SHORT_WEIERSTRASS_CURVE: win32more.Windows.Win32.Security.Cryptography.ECC_CURVE_TYPE_ENUM = 1
 BCRYPT_ECC_PRIME_TWISTED_EDWARDS_CURVE: win32more.Windows.Win32.Security.Cryptography.ECC_CURVE_TYPE_ENUM = 2
 BCRYPT_ECC_PRIME_MONTGOMERY_CURVE: win32more.Windows.Win32.Security.Cryptography.ECC_CURVE_TYPE_ENUM = 3
-class ENDPOINTADDRESS(EasyCastStructure):
+class ENDPOINTADDRESS(Structure):
     serviceUrl: win32more.Windows.Win32.Foundation.PWSTR
     policyUrl: win32more.Windows.Win32.Foundation.PWSTR
     rawCertificate: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class ENDPOINTADDRESS2(EasyCastStructure):
+class ENDPOINTADDRESS2(Structure):
     serviceUrl: win32more.Windows.Win32.Foundation.PWSTR
     policyUrl: win32more.Windows.Win32.Foundation.PWSTR
     identityType: UInt32
     identityBytes: VoidPtr
-class EV_EXTRA_CERT_CHAIN_POLICY_PARA(EasyCastStructure):
+class EV_EXTRA_CERT_CHAIN_POLICY_PARA(Structure):
     cbSize: UInt32
     dwRootProgramQualifierFlags: win32more.Windows.Win32.Security.Cryptography.CERT_ROOT_PROGRAM_FLAGS
-class EV_EXTRA_CERT_CHAIN_POLICY_STATUS(EasyCastStructure):
+class EV_EXTRA_CERT_CHAIN_POLICY_STATUS(Structure):
     cbSize: UInt32
     dwQualifiers: UInt32
     dwIssuanceUsageIndex: UInt32
-class GENERIC_XML_TOKEN(EasyCastStructure):
+class GENERIC_XML_TOKEN(Structure):
     createDate: win32more.Windows.Win32.Foundation.FILETIME
     expiryDate: win32more.Windows.Win32.Foundation.FILETIME
     xmlToken: win32more.Windows.Win32.Foundation.PWSTR
@@ -6017,7 +6017,7 @@ HCERTSTOREPROV = VoidPtr
 HCRYPTASYNC = IntPtr
 HCRYPTPROV_LEGACY = UIntPtr
 HCRYPTPROV_OR_NCRYPT_KEY_HANDLE = UIntPtr
-class HMAC_INFO(EasyCastStructure):
+class HMAC_INFO(Structure):
     HashAlgid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     pbInnerString: POINTER(Byte)
     cbInnerString: UInt32
@@ -6026,12 +6026,12 @@ class HMAC_INFO(EasyCastStructure):
 HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE = UInt32
 AUTHTYPE_CLIENT: win32more.Windows.Win32.Security.Cryptography.HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE = 1
 AUTHTYPE_SERVER: win32more.Windows.Win32.Security.Cryptography.HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE = 2
-class HTTPSPolicyCallbackData(EasyCastStructure):
+class HTTPSPolicyCallbackData(Structure):
     Anonymous: _Anonymous_e__Union
     dwAuthType: win32more.Windows.Win32.Security.Cryptography.HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE
     fdwChecks: UInt32
     pwszServerName: win32more.Windows.Win32.Foundation.PWSTR
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         cbStruct: UInt32
         cbSize: UInt32
 class HandleType(Int32):  # enum
@@ -6179,27 +6179,27 @@ class IMSCEPSetup(ComPtr):
     def PreUnInstall(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def PostUnInstall(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-class INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS(EasyCastStructure):
+class INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS(Structure):
     keySize: Int32
     keyExchangeAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
     signatureAlgorithm: win32more.Windows.Win32.Foundation.PWSTR
-class INFORMATIONCARD_CRYPTO_HANDLE(EasyCastStructure):
+class INFORMATIONCARD_CRYPTO_HANDLE(Structure):
     type: win32more.Windows.Win32.Security.Cryptography.HandleType
     expiration: Int64
     cryptoParameters: VoidPtr
-class INFORMATIONCARD_HASH_CRYPTO_PARAMETERS(EasyCastStructure):
+class INFORMATIONCARD_HASH_CRYPTO_PARAMETERS(Structure):
     hashSize: Int32
     transform: win32more.Windows.Win32.Security.Cryptography.INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS
-class INFORMATIONCARD_SYMMETRIC_CRYPTO_PARAMETERS(EasyCastStructure):
+class INFORMATIONCARD_SYMMETRIC_CRYPTO_PARAMETERS(Structure):
     keySize: Int32
     blockSize: Int32
     feedbackSize: Int32
-class INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS(EasyCastStructure):
+class INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS(Structure):
     inputBlockSize: Int32
     outputBlockSize: Int32
     canTransformMultipleBlocks: win32more.Windows.Win32.Foundation.BOOL
     canReuseTransform: win32more.Windows.Win32.Foundation.BOOL
-class KEY_TYPE_SUBTYPE(EasyCastStructure):
+class KEY_TYPE_SUBTYPE(Structure):
     dwKeySpec: UInt32
     Type: Guid
     Subtype: Guid
@@ -6222,20 +6222,20 @@ NCRYPT_ALGORITHM_NAME_CLASS = UInt32
 NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE: win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALGORITHM_NAME_CLASS = 3
 NCRYPT_SECRET_AGREEMENT_INTERFACE: win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALGORITHM_NAME_CLASS = 4
 NCRYPT_SIGNATURE_INTERFACE: win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALGORITHM_NAME_CLASS = 5
-class NCRYPT_ALLOC_PARA(EasyCastStructure):
+class NCRYPT_ALLOC_PARA(Structure):
     cbSize: UInt32
     pfnAlloc: win32more.Windows.Win32.Security.Cryptography.PFN_NCRYPT_ALLOC
     pfnFree: win32more.Windows.Win32.Security.Cryptography.PFN_NCRYPT_FREE
-class NCRYPT_CIPHER_PADDING_INFO(EasyCastStructure):
+class NCRYPT_CIPHER_PADDING_INFO(Structure):
     cbSize: UInt32
     dwFlags: UInt32
     pbIV: POINTER(Byte)
     cbIV: UInt32
     pbOtherInfo: POINTER(Byte)
     cbOtherInfo: UInt32
-class NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE(EasyCastStructure):
+class NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE(Structure):
     Header: win32more.Windows.Win32.Security.Cryptography.NCRYPT_EXPORTED_ISOLATED_KEY_HEADER
-class NCRYPT_EXPORTED_ISOLATED_KEY_HEADER(EasyCastStructure):
+class NCRYPT_EXPORTED_ISOLATED_KEY_HEADER(Structure):
     Version: UInt32
     KeyUsage: UInt32
     _bitfield: UInt32
@@ -6261,22 +6261,22 @@ NCRYPT_PERSIST_FLAG: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS 
 NCRYPT_PERSIST_ONLY_FLAG: win32more.Windows.Win32.Security.Cryptography.NCRYPT_FLAGS = 1073741824
 NCRYPT_HANDLE = UIntPtr
 NCRYPT_HASH_HANDLE = UIntPtr
-class NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES(EasyCastStructure):
+class NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES(Structure):
     Version: UInt32
     Flags: UInt32
     cbPublicKeyBlob: UInt32
-class NCRYPT_KEY_ACCESS_POLICY_BLOB(EasyCastStructure):
+class NCRYPT_KEY_ACCESS_POLICY_BLOB(Structure):
     dwVersion: UInt32
     dwPolicyFlags: UInt32
     cbUserSid: UInt32
     cbApplicationSid: UInt32
-class NCRYPT_KEY_ATTEST_PADDING_INFO(EasyCastStructure):
+class NCRYPT_KEY_ATTEST_PADDING_INFO(Structure):
     magic: UInt32
     pbKeyBlob: POINTER(Byte)
     cbKeyBlob: UInt32
     pbKeyAuth: POINTER(Byte)
     cbKeyAuth: UInt32
-class NCRYPT_KEY_BLOB_HEADER(EasyCastStructure):
+class NCRYPT_KEY_BLOB_HEADER(Structure):
     cbSize: UInt32
     dwMagic: UInt32
     cbAlgName: UInt32
@@ -6288,89 +6288,89 @@ NCRYPT_HASH_OPERATION: win32more.Windows.Win32.Security.Cryptography.NCRYPT_OPER
 NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION: win32more.Windows.Win32.Security.Cryptography.NCRYPT_OPERATION = 4
 NCRYPT_SECRET_AGREEMENT_OPERATION: win32more.Windows.Win32.Security.Cryptography.NCRYPT_OPERATION = 8
 NCRYPT_SIGNATURE_OPERATION: win32more.Windows.Win32.Security.Cryptography.NCRYPT_OPERATION = 16
-class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO(EasyCastStructure):
+class NCRYPT_PCP_HMAC_AUTH_SIGNATURE_INFO(Structure):
     dwVersion: UInt32
     iExpiration: Int32
     pabNonce: Byte * 32
     pabPolicyRef: Byte * 32
     pabHMAC: Byte * 32
-class NCRYPT_PCP_RAW_POLICYDIGEST_INFO(EasyCastStructure):
+class NCRYPT_PCP_RAW_POLICYDIGEST_INFO(Structure):
     dwVersion: UInt32
     cbDigest: UInt32
-class NCRYPT_PCP_TPM_FW_VERSION_INFO(EasyCastStructure):
+class NCRYPT_PCP_TPM_FW_VERSION_INFO(Structure):
     major1: UInt16
     major2: UInt16
     minor1: UInt16
     minor2: UInt16
-class NCRYPT_PCP_TPM_WEB_AUTHN_ATTESTATION_STATEMENT(EasyCastStructure):
+class NCRYPT_PCP_TPM_WEB_AUTHN_ATTESTATION_STATEMENT(Structure):
     Magic: UInt32
     Version: UInt32
     HeaderSize: UInt32
     cbCertifyInfo: UInt32
     cbSignature: UInt32
     cbTpmPublic: UInt32
-class NCRYPT_PLATFORM_ATTEST_PADDING_INFO(EasyCastStructure):
+class NCRYPT_PLATFORM_ATTEST_PADDING_INFO(Structure):
     magic: UInt32
     pcrMask: UInt32
-class NCRYPT_PROTECT_STREAM_INFO(EasyCastStructure):
+class NCRYPT_PROTECT_STREAM_INFO(Structure):
     pfnStreamOutput: win32more.Windows.Win32.Security.Cryptography.PFNCryptStreamOutputCallback
     pvCallbackCtxt: VoidPtr
-class NCRYPT_PROTECT_STREAM_INFO_EX(EasyCastStructure):
+class NCRYPT_PROTECT_STREAM_INFO_EX(Structure):
     pfnStreamOutput: win32more.Windows.Win32.Security.Cryptography.PFNCryptStreamOutputCallbackEx
     pvCallbackCtxt: VoidPtr
 NCRYPT_PROV_HANDLE = UIntPtr
 NCRYPT_SECRET_HANDLE = UIntPtr
-class NCRYPT_SUPPORTED_LENGTHS(EasyCastStructure):
+class NCRYPT_SUPPORTED_LENGTHS(Structure):
     dwMinLength: UInt32
     dwMaxLength: UInt32
     dwIncrement: UInt32
     dwDefaultLength: UInt32
-class NCRYPT_TPM_LOADABLE_KEY_BLOB_HEADER(EasyCastStructure):
+class NCRYPT_TPM_LOADABLE_KEY_BLOB_HEADER(Structure):
     magic: UInt32
     cbHeader: UInt32
     cbPublic: UInt32
     cbPrivate: UInt32
     cbName: UInt32
-class NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT(EasyCastStructure):
+class NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT(Structure):
     Magic: UInt32
     Version: UInt32
     pcrAlg: UInt32
     cbSignature: UInt32
     cbQuote: UInt32
     cbPcrs: UInt32
-class NCRYPT_UI_POLICY(EasyCastStructure):
+class NCRYPT_UI_POLICY(Structure):
     dwVersion: UInt32
     dwFlags: UInt32
     pszCreationTitle: win32more.Windows.Win32.Foundation.PWSTR
     pszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     pszDescription: win32more.Windows.Win32.Foundation.PWSTR
-class NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS(EasyCastStructure):
+class NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS(Structure):
     Version: UInt32
     TrustletId: UInt64
     MinSvn: UInt32
     FlagsMask: UInt32
     FlagsExpected: UInt32
     _bitfield: UInt32
-class NCRYPT_VSM_KEY_ATTESTATION_STATEMENT(EasyCastStructure):
+class NCRYPT_VSM_KEY_ATTESTATION_STATEMENT(Structure):
     Magic: UInt32
     Version: UInt32
     cbSignature: UInt32
     cbReport: UInt32
     cbAttributes: UInt32
-class NCryptAlgorithmName(EasyCastStructure):
+class NCryptAlgorithmName(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     dwClass: win32more.Windows.Win32.Security.Cryptography.NCRYPT_ALGORITHM_NAME_CLASS
     dwAlgOperations: win32more.Windows.Win32.Security.Cryptography.NCRYPT_OPERATION
     dwFlags: UInt32
-class NCryptKeyName(EasyCastStructure):
+class NCryptKeyName(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     pszAlgid: win32more.Windows.Win32.Foundation.PWSTR
     dwLegacyKeySpec: win32more.Windows.Win32.Security.Cryptography.CERT_KEY_SPEC
     dwFlags: UInt32
-class NCryptProviderName(EasyCastStructure):
+class NCryptProviderName(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     pszComment: win32more.Windows.Win32.Foundation.PWSTR
-class OCSP_BASIC_RESPONSE_ENTRY(EasyCastStructure):
+class OCSP_BASIC_RESPONSE_ENTRY(Structure):
     CertId: win32more.Windows.Win32.Security.Cryptography.OCSP_CERT_ID
     dwCertStatus: UInt32
     Anonymous: _Anonymous_e__Union
@@ -6378,9 +6378,9 @@ class OCSP_BASIC_RESPONSE_ENTRY(EasyCastStructure):
     NextUpdate: win32more.Windows.Win32.Foundation.FILETIME
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pRevokedInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_BASIC_REVOKED_INFO)
-class OCSP_BASIC_RESPONSE_INFO(EasyCastStructure):
+class OCSP_BASIC_RESPONSE_INFO(Structure):
     dwVersion: UInt32
     dwResponderIdChoice: UInt32
     Anonymous: _Anonymous_e__Union
@@ -6389,41 +6389,41 @@ class OCSP_BASIC_RESPONSE_INFO(EasyCastStructure):
     rgResponseEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_BASIC_RESPONSE_ENTRY)
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         ByNameResponderId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
         ByKeyResponderId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class OCSP_BASIC_REVOKED_INFO(EasyCastStructure):
+class OCSP_BASIC_REVOKED_INFO(Structure):
     RevocationDate: win32more.Windows.Win32.Foundation.FILETIME
     dwCrlReasonCode: win32more.Windows.Win32.Security.Cryptography.CERT_REVOCATION_STATUS_REASON
-class OCSP_BASIC_SIGNED_RESPONSE_INFO(EasyCastStructure):
+class OCSP_BASIC_SIGNED_RESPONSE_INFO(Structure):
     ToBeSigned: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SignatureInfo: win32more.Windows.Win32.Security.Cryptography.OCSP_SIGNATURE_INFO
-class OCSP_CERT_ID(EasyCastStructure):
+class OCSP_CERT_ID(Structure):
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     IssuerNameHash: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     IssuerKeyHash: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     SerialNumber: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class OCSP_REQUEST_ENTRY(EasyCastStructure):
+class OCSP_REQUEST_ENTRY(Structure):
     CertId: win32more.Windows.Win32.Security.Cryptography.OCSP_CERT_ID
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class OCSP_REQUEST_INFO(EasyCastStructure):
+class OCSP_REQUEST_INFO(Structure):
     dwVersion: UInt32
     pRequestorName: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_ENTRY)
     cRequestEntry: UInt32
     rgRequestEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_REQUEST_ENTRY)
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
-class OCSP_RESPONSE_INFO(EasyCastStructure):
+class OCSP_RESPONSE_INFO(Structure):
     dwStatus: UInt32
     pszObjId: win32more.Windows.Win32.Foundation.PSTR
     Value: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
-class OCSP_SIGNATURE_INFO(EasyCastStructure):
+class OCSP_SIGNATURE_INFO(Structure):
     SignatureAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     Signature: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
     cCertEncoded: UInt32
     rgCertEncoded: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class OCSP_SIGNED_REQUEST_INFO(EasyCastStructure):
+class OCSP_SIGNED_REQUEST_INFO(Structure):
     ToBeSigned: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     pOptionalSignatureInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_SIGNATURE_INFO)
 @winfunctype_pointer
@@ -6604,30 +6604,30 @@ def PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC(dwCertEncodingType: win32more.Windows.Wi
 def PFN_NCRYPT_ALLOC(cbSize: UIntPtr) -> VoidPtr: ...
 @winfunctype_pointer
 def PFN_NCRYPT_FREE(pv: VoidPtr) -> Void: ...
-class PKCS12_PBES2_EXPORT_PARAMS(EasyCastStructure):
+class PKCS12_PBES2_EXPORT_PARAMS(Structure):
     dwSize: UInt32
     hNcryptDescriptor: VoidPtr
     pwszPbes2Alg: win32more.Windows.Win32.Foundation.PWSTR
-class POLICY_ELEMENT(EasyCastStructure):
+class POLICY_ELEMENT(Structure):
     targetEndpointAddress: win32more.Windows.Win32.Foundation.PWSTR
     issuerEndpointAddress: win32more.Windows.Win32.Foundation.PWSTR
     issuedTokenParameters: win32more.Windows.Win32.Foundation.PWSTR
     privacyNoticeLink: win32more.Windows.Win32.Foundation.PWSTR
     privacyNoticeVersion: UInt32
     useManagedPresentation: win32more.Windows.Win32.Foundation.BOOL
-class PRIVKEYVER3(EasyCastStructure):
+class PRIVKEYVER3(Structure):
     magic: UInt32
     bitlenP: UInt32
     bitlenQ: UInt32
     bitlenJ: UInt32
     bitlenX: UInt32
     DSSSeed: win32more.Windows.Win32.Security.Cryptography.DSSSEED
-class PROV_ENUMALGS(EasyCastStructure):
+class PROV_ENUMALGS(Structure):
     aiAlgid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwBitLen: UInt32
     dwNameLen: UInt32
     szName: win32more.Windows.Win32.Foundation.CHAR * 20
-class PROV_ENUMALGS_EX(EasyCastStructure):
+class PROV_ENUMALGS_EX(Structure):
     aiAlgid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwDefaultLen: UInt32
     dwMinLen: UInt32
@@ -6637,16 +6637,16 @@ class PROV_ENUMALGS_EX(EasyCastStructure):
     szName: win32more.Windows.Win32.Foundation.CHAR * 20
     dwLongNameLen: UInt32
     szLongName: win32more.Windows.Win32.Foundation.CHAR * 40
-class PUBKEY(EasyCastStructure):
+class PUBKEY(Structure):
     magic: UInt32
     bitlen: UInt32
-class PUBKEYVER3(EasyCastStructure):
+class PUBKEYVER3(Structure):
     magic: UInt32
     bitlenP: UInt32
     bitlenQ: UInt32
     bitlenJ: UInt32
     DSSSeed: win32more.Windows.Win32.Security.Cryptography.DSSSEED
-class PUBLICKEYSTRUC(EasyCastStructure):
+class PUBLICKEYSTRUC(Structure):
     bType: Byte
     bVersion: Byte
     reserved: UInt16
@@ -6657,7 +6657,7 @@ class PaddingMode(Int32):  # enum
     Zeros = 3
     ANSIX923 = 4
     ISO10126 = 5
-class RECIPIENTPOLICY(EasyCastStructure):
+class RECIPIENTPOLICY(Structure):
     recipient: win32more.Windows.Win32.Security.Cryptography.ENDPOINTADDRESS
     issuer: win32more.Windows.Win32.Security.Cryptography.ENDPOINTADDRESS
     tokenType: win32more.Windows.Win32.Foundation.PWSTR
@@ -6665,7 +6665,7 @@ class RECIPIENTPOLICY(EasyCastStructure):
     optionalClaims: win32more.Windows.Win32.Security.Cryptography.CLAIMLIST
     privacyUrl: win32more.Windows.Win32.Foundation.PWSTR
     privacyVersion: UInt32
-class RECIPIENTPOLICY2(EasyCastStructure):
+class RECIPIENTPOLICY2(Structure):
     recipient: win32more.Windows.Win32.Security.Cryptography.ENDPOINTADDRESS2
     issuer: win32more.Windows.Win32.Security.Cryptography.ENDPOINTADDRESS2
     tokenType: win32more.Windows.Win32.Foundation.PWSTR
@@ -6673,37 +6673,37 @@ class RECIPIENTPOLICY2(EasyCastStructure):
     optionalClaims: win32more.Windows.Win32.Security.Cryptography.CLAIMLIST
     privacyUrl: win32more.Windows.Win32.Foundation.PWSTR
     privacyVersion: UInt32
-class ROOT_INFO_LUID(EasyCastStructure):
+class ROOT_INFO_LUID(Structure):
     LowPart: UInt32
     HighPart: Int32
-class RSAPUBKEY(EasyCastStructure):
+class RSAPUBKEY(Structure):
     magic: UInt32
     bitlen: UInt32
     pubexp: UInt32
-class SCHANNEL_ALG(EasyCastStructure):
+class SCHANNEL_ALG(Structure):
     dwUse: UInt32
     Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     cBits: UInt32
     dwFlags: UInt32
     dwReserved: UInt32
-class SIGNER_ATTR_AUTHCODE(EasyCastStructure):
+class SIGNER_ATTR_AUTHCODE(Structure):
     cbSize: UInt32
     fCommercial: win32more.Windows.Win32.Foundation.BOOL
     fIndividual: win32more.Windows.Win32.Foundation.BOOL
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     pwszInfo: win32more.Windows.Win32.Foundation.PWSTR
-class SIGNER_BLOB_INFO(EasyCastStructure):
+class SIGNER_BLOB_INFO(Structure):
     cbSize: UInt32
     pGuidSubject: POINTER(Guid)
     cbBlob: UInt32
     pbBlob: POINTER(Byte)
     pwszDisplayName: win32more.Windows.Win32.Foundation.PWSTR
-class SIGNER_CERT(EasyCastStructure):
+class SIGNER_CERT(Structure):
     cbSize: UInt32
     dwCertChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_CHOICE
     Anonymous: _Anonymous_e__Union
     hwnd: win32more.Windows.Win32.Foundation.HWND
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pwszSpcFile: win32more.Windows.Win32.Foundation.PWSTR
         pCertStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_STORE_INFO)
         pSpcChainInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_SPC_CHAIN_INFO)
@@ -6716,16 +6716,16 @@ SIGNER_CERT_POLICY_STORE: win32more.Windows.Win32.Security.Cryptography.SIGNER_C
 SIGNER_CERT_POLICY_CHAIN: win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_POLICY = 2
 SIGNER_CERT_POLICY_SPC: win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_POLICY = 4
 SIGNER_CERT_POLICY_CHAIN_NO_ROOT: win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_POLICY = 8
-class SIGNER_CERT_STORE_INFO(EasyCastStructure):
+class SIGNER_CERT_STORE_INFO(Structure):
     cbSize: UInt32
     pSigningCert: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
     dwCertPolicy: win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_POLICY
     hCertStore: win32more.Windows.Win32.Security.Cryptography.HCERTSTORE
-class SIGNER_CONTEXT(EasyCastStructure):
+class SIGNER_CONTEXT(Structure):
     cbSize: UInt32
     cbBlob: UInt32
     pbBlob: POINTER(Byte)
-class SIGNER_DIGEST_SIGN_INFO(EasyCastStructure):
+class SIGNER_DIGEST_SIGN_INFO(Structure):
     cbSize: UInt32
     dwDigestSignChoice: UInt32
     Anonymous: _Anonymous_e__Union
@@ -6733,48 +6733,48 @@ class SIGNER_DIGEST_SIGN_INFO(EasyCastStructure):
     dwReserved: UInt32
     dwReserved2: UInt32
     dwReserved3: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pfnAuthenticodeDigestSign: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN
         pfnAuthenticodeDigestSignWithFileHandle: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE
         pfnAuthenticodeDigestSignEx: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_EX
         pfnAuthenticodeDigestSignExWithFileHandle: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE
-class SIGNER_DIGEST_SIGN_INFO_V1(EasyCastStructure):
+class SIGNER_DIGEST_SIGN_INFO_V1(Structure):
     cbSize: UInt32
     pfnAuthenticodeDigestSign: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN
     pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class SIGNER_DIGEST_SIGN_INFO_V2(EasyCastStructure):
+class SIGNER_DIGEST_SIGN_INFO_V2(Structure):
     cbSize: UInt32
     pfnAuthenticodeDigestSign: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN
     pfnAuthenticodeDigestSignEx: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_EX
     pMetadataBlob: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB)
-class SIGNER_FILE_INFO(EasyCastStructure):
+class SIGNER_FILE_INFO(Structure):
     cbSize: UInt32
     pwszFileName: win32more.Windows.Win32.Foundation.PWSTR
     hFile: win32more.Windows.Win32.Foundation.HANDLE
 SIGNER_PRIVATE_KEY_CHOICE = UInt32
 PVK_TYPE_FILE_NAME: win32more.Windows.Win32.Security.Cryptography.SIGNER_PRIVATE_KEY_CHOICE = 1
 PVK_TYPE_KEYCONTAINER: win32more.Windows.Win32.Security.Cryptography.SIGNER_PRIVATE_KEY_CHOICE = 2
-class SIGNER_PROVIDER_INFO(EasyCastStructure):
+class SIGNER_PROVIDER_INFO(Structure):
     cbSize: UInt32
     pwszProviderName: win32more.Windows.Win32.Foundation.PWSTR
     dwProviderType: UInt32
     dwKeySpec: UInt32
     dwPvkChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_PRIVATE_KEY_CHOICE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pwszPvkFileName: win32more.Windows.Win32.Foundation.PWSTR
         pwszKeyContainer: win32more.Windows.Win32.Foundation.PWSTR
 SIGNER_SIGNATURE_ATTRIBUTE_CHOICE = UInt32
 SIGNER_NO_ATTR: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_ATTRIBUTE_CHOICE = 0
 SIGNER_AUTHCODE_ATTR: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_ATTRIBUTE_CHOICE = 1
-class SIGNER_SIGNATURE_INFO(EasyCastStructure):
+class SIGNER_SIGNATURE_INFO(Structure):
     cbSize: UInt32
     algidHash: win32more.Windows.Win32.Security.Cryptography.ALG_ID
     dwAttrChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGNATURE_ATTRIBUTE_CHOICE
     Anonymous: _Anonymous_e__Union
     psAuthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
     psUnauthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pAttrAuthcode: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_ATTR_AUTHCODE)
 SIGNER_SIGN_FLAGS = UInt32
 SIG_APPEND: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS = 4096
@@ -6786,7 +6786,7 @@ SPC_INC_PE_PAGE_HASHES_FLAG: win32more.Windows.Win32.Security.Cryptography.SIGNE
 SPC_DIGEST_GENERATE_FLAG: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS = 512
 SPC_DIGEST_SIGN_FLAG: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS = 1024
 SPC_DIGEST_SIGN_EX_FLAG: win32more.Windows.Win32.Security.Cryptography.SIGNER_SIGN_FLAGS = 16384
-class SIGNER_SPC_CHAIN_INFO(EasyCastStructure):
+class SIGNER_SPC_CHAIN_INFO(Structure):
     cbSize: UInt32
     pwszSpcFile: win32more.Windows.Win32.Foundation.PWSTR
     dwCertPolicy: UInt32
@@ -6794,36 +6794,36 @@ class SIGNER_SPC_CHAIN_INFO(EasyCastStructure):
 SIGNER_SUBJECT_CHOICE = UInt32
 SIGNER_SUBJECT_FILE: win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_CHOICE = 1
 SIGNER_SUBJECT_BLOB: win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_CHOICE = 2
-class SIGNER_SUBJECT_INFO(EasyCastStructure):
+class SIGNER_SUBJECT_INFO(Structure):
     cbSize: UInt32
     pdwIndex: POINTER(UInt32)
     dwSubjectChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_CHOICE
     Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         pSignerFileInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_FILE_INFO)
         pSignerBlobInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_BLOB_INFO)
 SIGNER_TIMESTAMP_FLAGS = UInt32
 SIGNER_TIMESTAMP_AUTHENTICODE: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS = 1
 SIGNER_TIMESTAMP_RFC3161: win32more.Windows.Win32.Security.Cryptography.SIGNER_TIMESTAMP_FLAGS = 2
-class SSL_ECCKEY_BLOB(EasyCastStructure):
+class SSL_ECCKEY_BLOB(Structure):
     dwCurveType: UInt32
     cbKey: UInt32
-class SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS(EasyCastStructure):
+class SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS(Structure):
     cbSize: UInt32
     dwErrorLevel: UInt32
     dwErrorCategory: UInt32
     dwReserved: UInt32
     wszErrorText: Char * 256
-class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA(EasyCastStructure):
+class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA(Structure):
     cbSize: UInt32
     dwReserved: UInt32
     pwszServerName: win32more.Windows.Win32.Foundation.PWSTR
     rgpszHpkpValue: win32more.Windows.Win32.Foundation.PSTR * 2
-class SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_PARA(EasyCastStructure):
+class SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_PARA(Structure):
     cbSize: UInt32
     dwReserved: UInt32
     pwszServerName: win32more.Windows.Win32.Foundation.PWSTR
-class SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS(EasyCastStructure):
+class SSL_KEY_PIN_EXTRA_CERT_CHAIN_POLICY_STATUS(Structure):
     cbSize: UInt32
     lError: Int32
     wszErrorText: Char * 512

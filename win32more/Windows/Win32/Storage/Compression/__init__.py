@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Compression
 COMPRESS_ALGORITHM_INVALID: UInt32 = 0
@@ -36,7 +36,7 @@ COMPRESS_ALGORITHM_MSZIP: win32more.Windows.Win32.Storage.Compression.COMPRESS_A
 COMPRESS_ALGORITHM_XPRESS: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM = 3
 COMPRESS_ALGORITHM_XPRESS_HUFF: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM = 4
 COMPRESS_ALGORITHM_LZMS: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM = 5
-class COMPRESS_ALLOCATION_ROUTINES(EasyCastStructure):
+class COMPRESS_ALLOCATION_ROUTINES(Structure):
     Allocate: win32more.Windows.Win32.Storage.Compression.PFN_COMPRESS_ALLOCATE
     Free: win32more.Windows.Win32.Storage.Compression.PFN_COMPRESS_FREE
     UserContext: VoidPtr

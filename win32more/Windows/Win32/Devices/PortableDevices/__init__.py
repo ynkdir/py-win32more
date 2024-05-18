@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.PortableDevices
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -1755,7 +1755,7 @@ WPD_COLOR_CORRECTED_STATUS_VALUES = Int32
 WPD_COLOR_CORRECTED_STATUS_NOT_CORRECTED: win32more.Windows.Win32.Devices.PortableDevices.WPD_COLOR_CORRECTED_STATUS_VALUES = 0
 WPD_COLOR_CORRECTED_STATUS_CORRECTED: win32more.Windows.Win32.Devices.PortableDevices.WPD_COLOR_CORRECTED_STATUS_VALUES = 1
 WPD_COLOR_CORRECTED_STATUS_SHOULD_NOT_BE_CORRECTED: win32more.Windows.Win32.Devices.PortableDevices.WPD_COLOR_CORRECTED_STATUS_VALUES = 2
-class WPD_COMMAND_ACCESS_LOOKUP_ENTRY(EasyCastStructure):
+class WPD_COMMAND_ACCESS_LOOKUP_ENTRY(Structure):
     Command: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY
     AccessType: UInt32
     AccessProperty: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY

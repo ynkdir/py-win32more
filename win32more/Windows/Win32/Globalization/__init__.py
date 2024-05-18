@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Globalization
 import win32more.Windows.Win32.Graphics.Gdi
@@ -3351,7 +3351,7 @@ def lstrlenW(lpString: win32more.Windows.Win32.Foundation.PWSTR) -> Int32: ...
 lstrlen = UnicodeAlias('lstrlenW')
 @winfunctype('ADVAPI32.dll')
 def IsTextUnicode(lpv: VoidPtr, iSize: Int32, lpiResult: POINTER(win32more.Windows.Win32.Globalization.IS_TEXT_UNICODE_RESULT)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class CALDATETIME(EasyCastStructure):
+class CALDATETIME(Structure):
     CalId: UInt32
     Era: UInt32
     Year: UInt32
@@ -3384,7 +3384,7 @@ CALINFO_ENUMPROCEX = UnicodeAlias('CALINFO_ENUMPROCEXW')
 @winfunctype_pointer
 def CALINFO_ENUMPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 CALINFO_ENUMPROC = UnicodeAlias('CALINFO_ENUMPROCW')
-class CHARSETINFO(EasyCastStructure):
+class CHARSETINFO(Structure):
     ciCharset: UInt32
     ciACP: UInt32
     fs: win32more.Windows.Win32.Globalization.FONTSIGNATURE
@@ -3416,18 +3416,18 @@ CORRECTIVE_ACTION_NONE: win32more.Windows.Win32.Globalization.CORRECTIVE_ACTION 
 CORRECTIVE_ACTION_GET_SUGGESTIONS: win32more.Windows.Win32.Globalization.CORRECTIVE_ACTION = 1
 CORRECTIVE_ACTION_REPLACE: win32more.Windows.Win32.Globalization.CORRECTIVE_ACTION = 2
 CORRECTIVE_ACTION_DELETE: win32more.Windows.Win32.Globalization.CORRECTIVE_ACTION = 3
-class CPINFO(EasyCastStructure):
+class CPINFO(Structure):
     MaxCharSize: UInt32
     DefaultChar: Byte * 2
     LeadByte: Byte * 12
-class CPINFOEXA(EasyCastStructure):
+class CPINFOEXA(Structure):
     MaxCharSize: UInt32
     DefaultChar: Byte * 2
     LeadByte: Byte * 12
     UnicodeDefaultChar: Char
     CodePage: UInt32
     CodePageName: win32more.Windows.Win32.Foundation.CHAR * 260
-class CPINFOEXW(EasyCastStructure):
+class CPINFOEXW(Structure):
     MaxCharSize: UInt32
     DefaultChar: Byte * 2
     LeadByte: Byte * 12
@@ -3435,7 +3435,7 @@ class CPINFOEXW(EasyCastStructure):
     CodePage: UInt32
     CodePageName: Char * 260
 CPINFOEX = UnicodeAlias('CPINFOEXW')
-class CURRENCYFMTA(EasyCastStructure):
+class CURRENCYFMTA(Structure):
     NumDigits: UInt32
     LeadingZero: UInt32
     Grouping: UInt32
@@ -3444,7 +3444,7 @@ class CURRENCYFMTA(EasyCastStructure):
     NegativeOrder: UInt32
     PositiveOrder: UInt32
     lpCurrencySymbol: win32more.Windows.Win32.Foundation.PSTR
-class CURRENCYFMTW(EasyCastStructure):
+class CURRENCYFMTW(Structure):
     NumDigits: UInt32
     LeadingZero: UInt32
     Grouping: UInt32
@@ -3466,15 +3466,15 @@ DATEFMT_ENUMPROCEX = UnicodeAlias('DATEFMT_ENUMPROCEXW')
 @winfunctype_pointer
 def DATEFMT_ENUMPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 DATEFMT_ENUMPROC = UnicodeAlias('DATEFMT_ENUMPROCW')
-class DetectEncodingInfo(EasyCastStructure):
+class DetectEncodingInfo(Structure):
     nLangID: UInt32
     nCodePage: UInt32
     nDocPercent: Int32
     nConfidence: Int32
-class ENUMTEXTMETRICA(EasyCastStructure):
+class ENUMTEXTMETRICA(Structure):
     etmNewTextMetricEx: win32more.Windows.Win32.Globalization.NEWTEXTMETRICEXA
     etmAxesList: win32more.Windows.Win32.Graphics.Gdi.AXESLISTA
-class ENUMTEXTMETRICW(EasyCastStructure):
+class ENUMTEXTMETRICW(Structure):
     etmNewTextMetricEx: win32more.Windows.Win32.Globalization.NEWTEXTMETRICEXW
     etmAxesList: win32more.Windows.Win32.Graphics.Gdi.AXESLISTW
 ENUMTEXTMETRIC = UnicodeAlias('ENUMTEXTMETRICW')
@@ -3493,7 +3493,7 @@ CP_SUPPORTED: win32more.Windows.Win32.Globalization.ENUM_SYSTEM_CODE_PAGES_FLAGS
 ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS = UInt32
 LGRPID_INSTALLED: win32more.Windows.Win32.Globalization.ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS = 1
 LGRPID_SUPPORTED: win32more.Windows.Win32.Globalization.ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS = 2
-class FILEMUIINFO(EasyCastStructure):
+class FILEMUIINFO(Structure):
     dwSize: UInt32
     dwVersion: UInt32
     dwFileType: UInt32
@@ -3513,14 +3513,14 @@ MAP_EXPAND_LIGATURES: win32more.Windows.Win32.Globalization.FOLD_STRING_MAP_FLAG
 MAP_FOLDCZONE: win32more.Windows.Win32.Globalization.FOLD_STRING_MAP_FLAGS = 16
 MAP_FOLDDIGITS: win32more.Windows.Win32.Globalization.FOLD_STRING_MAP_FLAGS = 128
 MAP_PRECOMPOSED: win32more.Windows.Win32.Globalization.FOLD_STRING_MAP_FLAGS = 32
-class FONTSIGNATURE(EasyCastStructure):
+class FONTSIGNATURE(Structure):
     fsUsb: UInt32 * 4
     fsCsb: UInt32 * 2
 @winfunctype_pointer
 def GEO_ENUMNAMEPROC(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def GEO_ENUMPROC(param0: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
-class GOFFSET(EasyCastStructure):
+class GOFFSET(Structure):
     du: Int32
     dv: Int32
 HSAVEDUILANGUAGES = IntPtr
@@ -3945,7 +3945,7 @@ def LANGUAGEGROUP_ENUMPROCA(param0: UInt32, param1: win32more.Windows.Win32.Foun
 @winfunctype_pointer
 def LANGUAGEGROUP_ENUMPROCW(param0: UInt32, param1: win32more.Windows.Win32.Foundation.PWSTR, param2: win32more.Windows.Win32.Foundation.PWSTR, param3: UInt32, param4: IntPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 LANGUAGEGROUP_ENUMPROC = UnicodeAlias('LANGUAGEGROUP_ENUMPROCW')
-class LOCALESIGNATURE(EasyCastStructure):
+class LOCALESIGNATURE(Structure):
     lsUsb: UInt32 * 4
     lsCsbDefault: UInt32 * 2
     lsCsbSupported: UInt32 * 2
@@ -3956,7 +3956,7 @@ def LOCALE_ENUMPROCEX(param0: win32more.Windows.Win32.Foundation.PWSTR, param1: 
 @winfunctype_pointer
 def LOCALE_ENUMPROCW(param0: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.BOOL: ...
 LOCALE_ENUMPROC = UnicodeAlias('LOCALE_ENUMPROCW')
-class MAPPING_DATA_RANGE(EasyCastStructure):
+class MAPPING_DATA_RANGE(Structure):
     dwStartIndex: UInt32
     dwEndIndex: UInt32
     pszDescription: win32more.Windows.Win32.Foundation.PWSTR
@@ -3967,7 +3967,7 @@ class MAPPING_DATA_RANGE(EasyCastStructure):
     prgActionIds: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
     dwActionsCount: UInt32
     prgActionDisplayNames: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
-class MAPPING_ENUM_OPTIONS(EasyCastStructure):
+class MAPPING_ENUM_OPTIONS(Structure):
     Size: UIntPtr
     pszCategory: win32more.Windows.Win32.Foundation.PWSTR
     pszInputLanguage: win32more.Windows.Win32.Foundation.PWSTR
@@ -3978,7 +3978,7 @@ class MAPPING_ENUM_OPTIONS(EasyCastStructure):
     pszOutputContentType: win32more.Windows.Win32.Foundation.PWSTR
     pGuid: POINTER(Guid)
     _bitfield: UInt32
-class MAPPING_OPTIONS(EasyCastStructure):
+class MAPPING_OPTIONS(Structure):
     Size: UIntPtr
     pszInputLanguage: win32more.Windows.Win32.Foundation.PWSTR
     pszOutputLanguage: win32more.Windows.Win32.Foundation.PWSTR
@@ -3995,7 +3995,7 @@ class MAPPING_OPTIONS(EasyCastStructure):
     dwActionCallerDataSize: UInt32
     dwServiceFlag: UInt32
     _bitfield: UInt32
-class MAPPING_PROPERTY_BAG(EasyCastStructure):
+class MAPPING_PROPERTY_BAG(Structure):
     Size: UIntPtr
     prgResultRanges: POINTER(win32more.Windows.Win32.Globalization.MAPPING_DATA_RANGE)
     dwRangesCount: UInt32
@@ -4004,7 +4004,7 @@ class MAPPING_PROPERTY_BAG(EasyCastStructure):
     pCallerData: VoidPtr
     dwCallerDataSize: UInt32
     pContext: VoidPtr
-class MAPPING_SERVICE_INFO(EasyCastStructure):
+class MAPPING_SERVICE_INFO(Structure):
     Size: UIntPtr
     pszCopyright: win32more.Windows.Win32.Foundation.PWSTR
     wMajorVersion: UInt16
@@ -4044,7 +4044,7 @@ MIMECONTF_VALID_NLS: win32more.Windows.Win32.Globalization.MIMECONTF = 262144
 MIMECONTF_MIME_IE4: win32more.Windows.Win32.Globalization.MIMECONTF = 268435456
 MIMECONTF_MIME_LATEST: win32more.Windows.Win32.Globalization.MIMECONTF = 536870912
 MIMECONTF_MIME_REGISTRY: win32more.Windows.Win32.Globalization.MIMECONTF = 1073741824
-class MIMECPINFO(EasyCastStructure):
+class MIMECPINFO(Structure):
     dwFlags: UInt32
     uiCodePage: UInt32
     uiFamilyCodePage: UInt32
@@ -4055,7 +4055,7 @@ class MIMECPINFO(EasyCastStructure):
     wszFixedWidthFont: Char * 32
     wszProportionalFont: Char * 32
     bGDICharset: Byte
-class MIMECSETINFO(EasyCastStructure):
+class MIMECSETINFO(Structure):
     uiCodePage: UInt32
     uiInternetEncoding: UInt32
     wszCharset: Char * 50
@@ -4091,20 +4091,20 @@ MB_COMPOSITE: win32more.Windows.Win32.Globalization.MULTI_BYTE_TO_WIDE_CHAR_FLAG
 MB_ERR_INVALID_CHARS: win32more.Windows.Win32.Globalization.MULTI_BYTE_TO_WIDE_CHAR_FLAGS = 8
 MB_PRECOMPOSED: win32more.Windows.Win32.Globalization.MULTI_BYTE_TO_WIDE_CHAR_FLAGS = 1
 MB_USEGLYPHCHARS: win32more.Windows.Win32.Globalization.MULTI_BYTE_TO_WIDE_CHAR_FLAGS = 4
-class NEWTEXTMETRICEXA(EasyCastStructure):
+class NEWTEXTMETRICEXA(Structure):
     ntmTm: win32more.Windows.Win32.Graphics.Gdi.NEWTEXTMETRICA
     ntmFontSig: win32more.Windows.Win32.Globalization.FONTSIGNATURE
-class NEWTEXTMETRICEXW(EasyCastStructure):
+class NEWTEXTMETRICEXW(Structure):
     ntmTm: win32more.Windows.Win32.Graphics.Gdi.NEWTEXTMETRICW
     ntmFontSig: win32more.Windows.Win32.Globalization.FONTSIGNATURE
 NEWTEXTMETRICEX = UnicodeAlias('NEWTEXTMETRICEXW')
-class NLSVERSIONINFO(EasyCastStructure):
+class NLSVERSIONINFO(Structure):
     dwNLSVersionInfoSize: UInt32
     dwNLSVersion: UInt32
     dwDefinedVersion: UInt32
     dwEffectiveId: UInt32
     guidCustomVersion: Guid
-class NLSVERSIONINFOEX(EasyCastStructure):
+class NLSVERSIONINFOEX(Structure):
     dwNLSVersionInfoSize: UInt32
     dwNLSVersion: UInt32
     dwDefinedVersion: UInt32
@@ -4116,14 +4116,14 @@ NormalizationC: win32more.Windows.Win32.Globalization.NORM_FORM = 1
 NormalizationD: win32more.Windows.Win32.Globalization.NORM_FORM = 2
 NormalizationKC: win32more.Windows.Win32.Globalization.NORM_FORM = 5
 NormalizationKD: win32more.Windows.Win32.Globalization.NORM_FORM = 6
-class NUMBERFMTA(EasyCastStructure):
+class NUMBERFMTA(Structure):
     NumDigits: UInt32
     LeadingZero: UInt32
     Grouping: UInt32
     lpDecimalSep: win32more.Windows.Win32.Foundation.PSTR
     lpThousandSep: win32more.Windows.Win32.Foundation.PSTR
     NegativeOrder: UInt32
-class NUMBERFMTW(EasyCastStructure):
+class NUMBERFMTW(Structure):
     NumDigits: UInt32
     LeadingZero: UInt32
     Grouping: UInt32
@@ -4131,12 +4131,12 @@ class NUMBERFMTW(EasyCastStructure):
     lpThousandSep: win32more.Windows.Win32.Foundation.PWSTR
     NegativeOrder: UInt32
 NUMBERFMT = UnicodeAlias('NUMBERFMTW')
-class OPENTYPE_FEATURE_RECORD(EasyCastStructure):
+class OPENTYPE_FEATURE_RECORD(Structure):
     tagFeature: UInt32
     lParameter: Int32
 @winfunctype_pointer
 def PFN_MAPPINGCALLBACKPROC(pBag: POINTER(win32more.Windows.Win32.Globalization.MAPPING_PROPERTY_BAG), data: VoidPtr, dwDataSize: UInt32, Result: win32more.Windows.Win32.Foundation.HRESULT) -> Void: ...
-class RFC1766INFO(EasyCastStructure):
+class RFC1766INFO(Structure):
     lcid: UInt32
     wszRfc1766: Char * 6
     wszLocaleName: Char * 32
@@ -4191,41 +4191,41 @@ SCRIPTCONTF_PROPORTIONAL_FONT: win32more.Windows.Win32.Globalization.SCRIPTFONTC
 SCRIPTCONTF_SCRIPT_USER: win32more.Windows.Win32.Globalization.SCRIPTFONTCONTF = 65536
 SCRIPTCONTF_SCRIPT_HIDE: win32more.Windows.Win32.Globalization.SCRIPTFONTCONTF = 131072
 SCRIPTCONTF_SCRIPT_SYSTEM: win32more.Windows.Win32.Globalization.SCRIPTFONTCONTF = 262144
-class SCRIPTFONTINFO(EasyCastStructure):
+class SCRIPTFONTINFO(Structure):
     scripts: Int64
     wszFont: Char * 32
-class SCRIPTINFO(EasyCastStructure):
+class SCRIPTINFO(Structure):
     ScriptId: Byte
     uiCodePage: UInt32
     wszDescription: Char * 48
     wszFixedWidthFont: Char * 32
     wszProportionalFont: Char * 32
-class SCRIPT_ANALYSIS(EasyCastStructure):
+class SCRIPT_ANALYSIS(Structure):
     _bitfield: UInt16
     s: win32more.Windows.Win32.Globalization.SCRIPT_STATE
-class SCRIPT_CHARPROP(EasyCastStructure):
+class SCRIPT_CHARPROP(Structure):
     _bitfield: UInt16
-class SCRIPT_CONTROL(EasyCastStructure):
+class SCRIPT_CONTROL(Structure):
     _bitfield: UInt32
-class SCRIPT_DIGITSUBSTITUTE(EasyCastStructure):
+class SCRIPT_DIGITSUBSTITUTE(Structure):
     _bitfield1: UInt32
     _bitfield2: UInt32
     dwReserved: UInt32
-class SCRIPT_FONTPROPERTIES(EasyCastStructure):
+class SCRIPT_FONTPROPERTIES(Structure):
     cBytes: Int32
     wgBlank: UInt16
     wgDefault: UInt16
     wgInvalid: UInt16
     wgKashida: UInt16
     iKashidaWidth: Int32
-class SCRIPT_GLYPHPROP(EasyCastStructure):
+class SCRIPT_GLYPHPROP(Structure):
     sva: win32more.Windows.Win32.Globalization.SCRIPT_VISATTR
     reserved: UInt16
 SCRIPT_IS_COMPLEX_FLAGS = UInt32
 SIC_ASCIIDIGIT: win32more.Windows.Win32.Globalization.SCRIPT_IS_COMPLEX_FLAGS = 2
 SIC_COMPLEX: win32more.Windows.Win32.Globalization.SCRIPT_IS_COMPLEX_FLAGS = 1
 SIC_NEUTRAL: win32more.Windows.Win32.Globalization.SCRIPT_IS_COMPLEX_FLAGS = 4
-class SCRIPT_ITEM(EasyCastStructure):
+class SCRIPT_ITEM(Structure):
     iCharPos: Int32
     a: win32more.Windows.Win32.Globalization.SCRIPT_ANALYSIS
 SCRIPT_JUSTIFY = Int32
@@ -4245,19 +4245,19 @@ SCRIPT_JUSTIFY_ARABIC_BA: win32more.Windows.Win32.Globalization.SCRIPT_JUSTIFY =
 SCRIPT_JUSTIFY_ARABIC_BARA: win32more.Windows.Win32.Globalization.SCRIPT_JUSTIFY = 13
 SCRIPT_JUSTIFY_ARABIC_SEEN: win32more.Windows.Win32.Globalization.SCRIPT_JUSTIFY = 14
 SCRIPT_JUSTIFY_ARABIC_SEEN_M: win32more.Windows.Win32.Globalization.SCRIPT_JUSTIFY = 15
-class SCRIPT_LOGATTR(EasyCastStructure):
+class SCRIPT_LOGATTR(Structure):
     _bitfield: Byte
-class SCRIPT_PROPERTIES(EasyCastStructure):
+class SCRIPT_PROPERTIES(Structure):
     _bitfield1: UInt32
     _bitfield2: UInt32
-class SCRIPT_STATE(EasyCastStructure):
+class SCRIPT_STATE(Structure):
     _bitfield: UInt16
-class SCRIPT_TABDEF(EasyCastStructure):
+class SCRIPT_TABDEF(Structure):
     cTabStops: Int32
     iScale: Int32
     pTabStops: POINTER(Int32)
     iTabOrigin: Int32
-class SCRIPT_VISATTR(EasyCastStructure):
+class SCRIPT_VISATTR(Structure):
     _bitfield: UInt16
 SYSGEOCLASS = Int32
 GEOCLASS_NATION: win32more.Windows.Win32.Globalization.SYSGEOCLASS = 16
@@ -4285,7 +4285,7 @@ GEO_ID: win32more.Windows.Win32.Globalization.SYSGEOTYPE = 18
 SYSNLS_FUNCTION = Int32
 COMPARE_STRING: win32more.Windows.Win32.Globalization.SYSNLS_FUNCTION = 1
 SpellCheckerFactory = Guid('{7ab36653-1796-484b-bdfa-e74f1db7c1dc}')
-class TEXTRANGE_PROPERTIES(EasyCastStructure):
+class TEXTRANGE_PROPERTIES(Structure):
     potfRecords: POINTER(win32more.Windows.Win32.Globalization.OPENTYPE_FEATURE_RECORD)
     cotfRecords: Int32
 @winfunctype_pointer
@@ -4672,7 +4672,7 @@ UCPMAP_RANGE_FIXED_LEAD_SURROGATES: win32more.Windows.Win32.Globalization.UCPMap
 UCPMAP_RANGE_FIXED_ALL_SURROGATES: win32more.Windows.Win32.Globalization.UCPMapRangeOption = 2
 @cfunctype_pointer
 def UCPMapValueFilter(context: VoidPtr, value: UInt32) -> UInt32: ...
-class UCPTrie(EasyCastStructure):
+class UCPTrie(Structure):
     index: POINTER(UInt16)
     data: win32more.Windows.Win32.Globalization.UCPTrieData
     indexLength: Int32
@@ -4686,7 +4686,7 @@ class UCPTrie(EasyCastStructure):
     index3NullOffset: UInt16
     dataNullOffset: Int32
     nullValue: UInt32
-class UCPTrieData(EasyCastUnion):
+class UCPTrieData(Union):
     ptr0: VoidPtr
     ptr16: POINTER(UInt16)
     ptr32: POINTER(UInt32)
@@ -4842,7 +4842,7 @@ U_RIGHT_TO_LEFT_ISOLATE: win32more.Windows.Win32.Globalization.UCharDirection = 
 U_POP_DIRECTIONAL_ISOLATE: win32more.Windows.Win32.Globalization.UCharDirection = 22
 @cfunctype_pointer
 def UCharEnumTypeRange(context: VoidPtr, start: Int32, limit: Int32, type: win32more.Windows.Win32.Globalization.UCharCategory) -> SByte: ...
-class UCharIterator(EasyCastStructure):
+class UCharIterator(Structure):
     context: VoidPtr
     length: Int32
     start: Int32
@@ -4951,7 +4951,7 @@ UCNV_CLOSE: win32more.Windows.Win32.Globalization.UConverterCallbackReason = 4
 UCNV_CLONE: win32more.Windows.Win32.Globalization.UConverterCallbackReason = 5
 @cfunctype_pointer
 def UConverterFromUCallback(context: VoidPtr, args: POINTER(win32more.Windows.Win32.Globalization.UConverterFromUnicodeArgs), codeUnits: POINTER(UInt16), length: Int32, codePoint: Int32, reason: win32more.Windows.Win32.Globalization.UConverterCallbackReason, pErrorCode: POINTER(win32more.Windows.Win32.Globalization.UErrorCode)) -> Void: ...
-class UConverterFromUnicodeArgs(EasyCastStructure):
+class UConverterFromUnicodeArgs(Structure):
     size: UInt16
     flush: SByte
     converter: POINTER(win32more.Windows.Win32.Globalization.UConverter)
@@ -4966,7 +4966,7 @@ UCNV_IBM: win32more.Windows.Win32.Globalization.UConverterPlatform = 0
 UConverterSelector = IntPtr
 @cfunctype_pointer
 def UConverterToUCallback(context: VoidPtr, args: POINTER(win32more.Windows.Win32.Globalization.UConverterToUnicodeArgs), codeUnits: win32more.Windows.Win32.Foundation.PSTR, length: Int32, reason: win32more.Windows.Win32.Globalization.UConverterCallbackReason, pErrorCode: POINTER(win32more.Windows.Win32.Globalization.UErrorCode)) -> Void: ...
-class UConverterToUnicodeArgs(EasyCastStructure):
+class UConverterToUnicodeArgs(Structure):
     size: UInt16
     flush: SByte
     converter: POINTER(win32more.Windows.Win32.Globalization.UConverter)
@@ -5408,7 +5408,7 @@ UFIELD_CATEGORY_RELATIVE_DATETIME: win32more.Windows.Win32.Globalization.UFieldC
 UFIELD_CATEGORY_DATE_INTERVAL: win32more.Windows.Win32.Globalization.UFieldCategory = 5
 UFIELD_CATEGORY_LIST_SPAN: win32more.Windows.Win32.Globalization.UFieldCategory = 4099
 UFIELD_CATEGORY_DATE_INTERVAL_SPAN: win32more.Windows.Win32.Globalization.UFieldCategory = 4101
-class UFieldPosition(EasyCastStructure):
+class UFieldPosition(Structure):
     field: Int32
     beginIndex: Int32
     endIndex: Int32
@@ -5460,7 +5460,7 @@ U_HST_LV_SYLLABLE: win32more.Windows.Win32.Globalization.UHangulSyllableType = 4
 U_HST_LVT_SYLLABLE: win32more.Windows.Win32.Globalization.UHangulSyllableType = 5
 UHashtable = IntPtr
 UIDNA = IntPtr
-class UIDNAInfo(EasyCastStructure):
+class UIDNAInfo(Structure):
     size: Int16
     isTransitionalDifferent: SByte
     reservedB3: SByte
@@ -5768,7 +5768,7 @@ UMSGPAT_PART_TYPE_ARG_DOUBLE: win32more.Windows.Win32.Globalization.UMessagePatt
 UMutableCPTrie = IntPtr
 @cfunctype_pointer
 def UNESCAPE_CHAR_AT(offset: Int32, context: VoidPtr) -> UInt16: ...
-class UNICODERANGE(EasyCastStructure):
+class UNICODERANGE(Structure):
     wcFrom: Char
     wcTo: Char
 UNormalization2Mode = Int32
@@ -5958,7 +5958,7 @@ U_NT_NONE: win32more.Windows.Win32.Globalization.UNumericType = 0
 U_NT_DECIMAL: win32more.Windows.Win32.Globalization.UNumericType = 1
 U_NT_DIGIT: win32more.Windows.Win32.Globalization.UNumericType = 2
 U_NT_NUMERIC: win32more.Windows.Win32.Globalization.UNumericType = 3
-class UParseError(EasyCastStructure):
+class UParseError(Structure):
     line: Int32
     offset: Int32
     preContext: UInt16 * 16
@@ -6126,7 +6126,7 @@ UDAT_REL_UNIT_WEDNESDAY: win32more.Windows.Win32.Globalization.URelativeDateTime
 UDAT_REL_UNIT_THURSDAY: win32more.Windows.Win32.Globalization.URelativeDateTimeUnit = 12
 UDAT_REL_UNIT_FRIDAY: win32more.Windows.Win32.Globalization.URelativeDateTimeUnit = 13
 UDAT_REL_UNIT_SATURDAY: win32more.Windows.Win32.Globalization.URelativeDateTimeUnit = 14
-class UReplaceableCallbacks(EasyCastStructure):
+class UReplaceableCallbacks(Structure):
     length: IntPtr
     charAt: IntPtr
     char32At: IntPtr
@@ -6390,7 +6390,7 @@ UBRK_SENTENCE_TERM: win32more.Windows.Win32.Globalization.USentenceBreakTag = 0
 UBRK_SENTENCE_TERM_LIMIT: win32more.Windows.Win32.Globalization.USentenceBreakTag = 100
 UBRK_SENTENCE_SEP: win32more.Windows.Win32.Globalization.USentenceBreakTag = 100
 UBRK_SENTENCE_SEP_LIMIT: win32more.Windows.Win32.Globalization.USentenceBreakTag = 200
-class USerializedSet(EasyCastStructure):
+class USerializedSet(Structure):
     array: POINTER(UInt16)
     bmpLength: Int32
     length: Int32
@@ -6445,7 +6445,7 @@ USystemTimeZoneType = Int32
 UCAL_ZONE_TYPE_ANY: win32more.Windows.Win32.Globalization.USystemTimeZoneType = 0
 UCAL_ZONE_TYPE_CANONICAL: win32more.Windows.Win32.Globalization.USystemTimeZoneType = 1
 UCAL_ZONE_TYPE_CANONICAL_LOCATION: win32more.Windows.Win32.Globalization.USystemTimeZoneType = 2
-class UText(EasyCastStructure):
+class UText(Structure):
     magic: UInt32
     flags: Int32
     providerProperties: Int32
@@ -6480,7 +6480,7 @@ def UTextClose(ut: POINTER(win32more.Windows.Win32.Globalization.UText)) -> Void
 def UTextCopy(ut: POINTER(win32more.Windows.Win32.Globalization.UText), nativeStart: Int64, nativeLimit: Int64, nativeDest: Int64, move: SByte, status: POINTER(win32more.Windows.Win32.Globalization.UErrorCode)) -> Void: ...
 @cfunctype_pointer
 def UTextExtract(ut: POINTER(win32more.Windows.Win32.Globalization.UText), nativeStart: Int64, nativeLimit: Int64, dest: POINTER(UInt16), destCapacity: Int32, status: POINTER(win32more.Windows.Win32.Globalization.UErrorCode)) -> Int32: ...
-class UTextFuncs(EasyCastStructure):
+class UTextFuncs(Structure):
     tableSize: Int32
     reserved1: Int32
     reserved2: Int32
@@ -6607,7 +6607,7 @@ UTRACE_VERBOSE: win32more.Windows.Win32.Globalization.UTraceLevel = 9
 UTransDirection = Int32
 UTRANS_FORWARD: win32more.Windows.Win32.Globalization.UTransDirection = 0
 UTRANS_REVERSE: win32more.Windows.Win32.Globalization.UTransDirection = 1
-class UTransPosition(EasyCastStructure):
+class UTransPosition(Structure):
     contextStart: Int32
     contextLimit: Int32
     start: Int32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.HostComputeSystem
@@ -137,14 +137,14 @@ def HcsGetLayerVhdMountPath(vhdHandle: win32more.Windows.Win32.Foundation.HANDLE
 def HcsSetupBaseOSVolume(layerPath: win32more.Windows.Win32.Foundation.PWSTR, volumePath: win32more.Windows.Win32.Foundation.PWSTR, options: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 HCS_CREATE_OPTIONS = Int32
 HcsCreateOptions_1: win32more.Windows.Win32.System.HostComputeSystem.HCS_CREATE_OPTIONS = 65536
-class HCS_CREATE_OPTIONS_1(EasyCastStructure):
+class HCS_CREATE_OPTIONS_1(Structure):
     Version: win32more.Windows.Win32.System.HostComputeSystem.HCS_CREATE_OPTIONS
     UserToken: win32more.Windows.Win32.Foundation.HANDLE
     SecurityDescriptor: POINTER(win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR)
     CallbackOptions: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_OPTIONS
     CallbackContext: VoidPtr
     Callback: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_CALLBACK
-class HCS_EVENT(EasyCastStructure):
+class HCS_EVENT(Structure):
     Type: win32more.Windows.Win32.System.HostComputeSystem.HCS_EVENT_TYPE
     EventData: win32more.Windows.Win32.Foundation.PWSTR
     Operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION
@@ -220,7 +220,7 @@ HcsOperationTypeGetProcessProperties: win32more.Windows.Win32.System.HostCompute
 HcsOperationTypeModifyProcess: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 14
 HcsOperationTypeCrash: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 15
 HCS_PROCESS = IntPtr
-class HCS_PROCESS_INFORMATION(EasyCastStructure):
+class HCS_PROCESS_INFORMATION(Structure):
     ProcessId: UInt32
     Reserved: UInt32
     StdInput: win32more.Windows.Win32.Foundation.HANDLE

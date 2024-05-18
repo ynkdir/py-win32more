@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, EasyCastStructure, EasyCastUnion, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.EventCollector
 EC_VARIANT_TYPE_MASK: UInt32 = 127
@@ -107,11 +107,11 @@ EcSubscriptionRunTimeStatusInfoIdEND: win32more.Windows.Win32.System.EventCollec
 EC_SUBSCRIPTION_TYPE = Int32
 EcSubscriptionTypeSourceInitiated: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_TYPE = 0
 EcSubscriptionTypeCollectorInitiated: win32more.Windows.Win32.System.EventCollector.EC_SUBSCRIPTION_TYPE = 1
-class EC_VARIANT(EasyCastStructure):
+class EC_VARIANT(Structure):
     Anonymous: _Anonymous_e__Union
     Count: UInt32
     Type: UInt32
-    class _Anonymous_e__Union(EasyCastUnion):
+    class _Anonymous_e__Union(Union):
         BooleanVal: win32more.Windows.Win32.Foundation.BOOL
         UInt32Val: UInt32
         DateTimeVal: UInt64
