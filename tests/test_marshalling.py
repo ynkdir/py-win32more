@@ -18,7 +18,7 @@ from win32more import (
     Char,
     Double,
     EasyCastStructure,
-    ForeignFunction,
+    ForeignFunctionCall,
     Int32,
     UInt32,
     UIntPtr,
@@ -31,10 +31,7 @@ def commit(prototype):
 
 
 def functype(prototype):
-    def factory(name, types, params):
-        return CFUNCTYPE(*types)(prototype)
-
-    return ForeignFunction(prototype, factory)
+    return ForeignFunctionCall(prototype, CFUNCTYPE, [prototype])
 
 
 class TestMarshalling(unittest.TestCase):
@@ -572,8 +569,7 @@ class TestMarshalling(unittest.TestCase):
 
         class ComClassPtr(c_void_p):
             @commethod(0)
-            def f(self, x: UInt32) -> UInt32:
-                ...
+            def f(self, x: UInt32) -> UInt32: ...
 
         instance = cast(pointer(ComClassImpl()), ComClassPtr)
 

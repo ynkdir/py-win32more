@@ -13,7 +13,7 @@ from ctypes import (
 
 from win32more import (
     EasyCastStructure,
-    ForeignFunction,
+    ForeignFunctionCall,
     Int16,
     UInt16,
     Void,
@@ -27,10 +27,7 @@ def commit(prototype):
 
 
 def functype(prototype):
-    def factory(name, types, params):
-        return CFUNCTYPE(*types)(prototype)
-
-    return ForeignFunction(prototype, factory)
+    return ForeignFunctionCall(prototype, CFUNCTYPE, [prototype])
 
 
 def to_intptr(p):
@@ -121,8 +118,7 @@ class TestEasyCast(unittest.TestCase):
     def test_callable_to_cfunctype(self):
         @commit
         @cfunctype_pointer
-        def f() -> Void:
-            ...
+        def f() -> Void: ...
 
         @functype
         def g(f: f) -> py_object:
@@ -140,8 +136,7 @@ class TestEasyCast(unittest.TestCase):
     def test_callable_to_winfunctype(self):
         @commit
         @winfunctype_pointer
-        def f() -> Void:
-            ...
+        def f() -> Void: ...
 
         @functype
         def g(f: f) -> py_object:
@@ -159,8 +154,7 @@ class TestEasyCast(unittest.TestCase):
     def test_none_to_cfunctype(self):
         @commit
         @cfunctype_pointer
-        def f() -> Void:
-            ...
+        def f() -> Void: ...
 
         @functype
         def g(f: f) -> py_object:
@@ -172,8 +166,7 @@ class TestEasyCast(unittest.TestCase):
     def test_none_to_winfunctype(self):
         @commit
         @winfunctype_pointer
-        def f() -> Void:
-            ...
+        def f() -> Void: ...
 
         @functype
         def g(f: f) -> py_object:
@@ -185,8 +178,7 @@ class TestEasyCast(unittest.TestCase):
     def test_cfunctype_is_not_converted(self):
         @commit
         @cfunctype_pointer
-        def f() -> Void:
-            ...
+        def f() -> Void: ...
 
         @functype
         def g(f: f) -> py_object:
@@ -199,8 +191,7 @@ class TestEasyCast(unittest.TestCase):
     def test_winfunctype_is_not_converted(self):
         @commit
         @winfunctype_pointer
-        def f() -> Void:
-            ...
+        def f() -> Void: ...
 
         @functype
         def g(f: f) -> py_object:
@@ -213,8 +204,7 @@ class TestEasyCast(unittest.TestCase):
     def test_converted_function_pointer_remains_after_it_is_passed_to_c_function(self):
         @commit
         @cfunctype_pointer
-        def f() -> Int16:
-            ...
+        def f() -> Int16: ...
 
         in_c_callback = None
 

@@ -336,25 +336,53 @@ def FAILED(hr):
 
 
 class ForeignFunction:
-    def __init__(self, prototype, factory):
+    def __init__(self, prototype, library, entry_point, variadic, dlltype, functype):
+        self._prototype = prototype
+        self._library = library
+        self._entry_point = entry_point
+        self._variadic = variadic
+        self._dlltype = dlltype
+        self._functype = functype
+        self._delegate = None
+
+    def _create_foreign_function_call(self):
+        if self._entry_point is None:
+            entry_point = self._prototype.__name__
+        else:
+            entry_point = self._entry_point
+        if self._variadic:
+            # Disable keyword argument for variadic function.
+            params = None
+        else:
+            params = tuple((1, name) for name in self._prototype.__annotations__.keys() if name != "return")
+        return ForeignFunctionCall(
+            self._prototype, self._functype, [(entry_point, self._dlltype[self._library]), params]
+        )
+
+    def __call__(self, *args, **kwargs):
+        if self._delegate is None:
+            self._delegate = self._create_foreign_function_call()
+        return self._delegate(*args, **kwargs)
+
+
+class ForeignFunctionCall:
+    def __init__(self, prototype, functype, spec):
         hints = get_type_hints_with_patch_return_only(prototype)
         restype = hints.pop("return")
-        argtypes = list(hints.values())
-        types = [restype] + argtypes
-        params = tuple((1, name) for name in hints.keys())
-        self.hints = hints
-        self.hints.update({i: v for i, v in enumerate(argtypes)})
-        self.delegate = factory(prototype.__name__, types, params)
+        argtypes = list(v for k, v in hints.items())
+        self._hints = hints
+        self._hints.update({i: v for i, v in enumerate(hints.values())})
+        self._delegate = functype(restype, *argtypes)(*spec)
 
     def __call__(self, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
         cargs, ckwargs = self.make_args(args, kwargs)
-        result = self.delegate(*cargs, **ckwargs)
+        result = self._delegate(*cargs, **ckwargs)
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        cargs = [easycast(v, self.hints[i]) if i in self.hints else v for i, v in enumerate(args)]
-        ckwargs = {k: easycast(v, self.hints[k]) if k in self.hints else v for k, v in kwargs.items()}
+        cargs = [easycast(v, self._hints[i]) if i in self._hints else v for i, v in enumerate(args)]
+        ckwargs = {k: easycast(v, self._hints[k]) if k in self._hints else v for k, v in kwargs.items()}
         return cargs, ckwargs
 
     def make_result(self, result, _as_intptr):
@@ -366,9 +394,9 @@ class ForeignFunction:
 
 
 class ComMethod:
-    def __init__(self, vtbl_index, prototype):
-        self._vtbl_index = vtbl_index
+    def __init__(self, prototype, vtbl_index):
         self._prototype = prototype
+        self._vtbl_index = vtbl_index
         self._delegate = None
 
     def __get__(self, instance, owner=None):
@@ -378,12 +406,12 @@ class ComMethod:
 
     def __call__(self, this, *args, **kwargs):
         if self._delegate is None:
-            self._delegate = ComMethodCaller(self._vtbl_index, self._prototype)
+            self._delegate = ComMethodCall(self._prototype, self._vtbl_index)
         return self._delegate(this, *args, **kwargs)
 
 
-class ComMethodCaller:
-    def __init__(self, vtbl_index, prototype):
+class ComMethodCall:
+    def __init__(self, prototype, vtbl_index):
         hints = get_type_hints_with_patch_return_only(prototype)
         restype = hints.pop("return")
         argtypes = list(hints.values())
@@ -412,51 +440,22 @@ class ComMethodCaller:
 
 
 def cfunctype(library, entry_point=None, variadic=False):
-    def factory(name, types, params):
-        if entry_point is not None:
-            name = entry_point
-        if variadic:
-            # Disable keyword argument for variadic function.
-            params = None
-        return CFUNCTYPE(*types)((name, cdll[library]), params)
-
     def decorator(prototype):
-        delegate = None
-
-        def wrapper(*args, **kwargs):
-            nonlocal delegate
-            if delegate is None:
-                delegate = ForeignFunction(prototype, factory)
-            return delegate(*args, **kwargs)
-
-        return wrapper
+        return ForeignFunction(prototype, library, entry_point, variadic, cdll, CFUNCTYPE)
 
     return decorator
 
 
 def winfunctype(library, entry_point=None):
-    def factory(name, types, params):
-        if entry_point is not None:
-            name = entry_point
-        return WINFUNCTYPE(*types)((name, windll[library]), params)
-
     def decorator(prototype):
-        delegate = None
-
-        def wrapper(*args, **kwargs):
-            nonlocal delegate
-            if delegate is None:
-                delegate = ForeignFunction(prototype, factory)
-            return delegate(*args, **kwargs)
-
-        return wrapper
+        return ForeignFunction(prototype, library, entry_point, False, windll, WINFUNCTYPE)
 
     return decorator
 
 
 def commethod(vtbl_index):
     def decorator(prototype):
-        return ComMethod(vtbl_index, prototype)
+        return ComMethod(prototype, vtbl_index)
 
     return decorator
 

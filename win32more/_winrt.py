@@ -218,9 +218,9 @@ class WinRT_String(HSTRING):
 
 
 class WinrtMethod:
-    def __init__(self, vtbl_index, prototype):
-        self._vtbl_index = vtbl_index
+    def __init__(self, prototype, vtbl_index):
         self._prototype = prototype
+        self._vtbl_index = vtbl_index
         self._generic_delegate = {}
 
     def __get__(self, instance, owner=None):
@@ -232,12 +232,12 @@ class WinrtMethod:
         cls = getattr(this, "__orig_class__", this.__class__)
         generic_args = get_args(cls)
         if generic_args not in self._generic_delegate:
-            self._generic_delegate[generic_args] = WinrtMethodCaller(self._vtbl_index, self._prototype, cls)
+            self._generic_delegate[generic_args] = WinrtMethodCall(self._prototype, self._vtbl_index, cls)
         return self._generic_delegate[generic_args](this, *args, **kwargs)
 
 
-class WinrtMethodCaller:
-    def __init__(self, vtbl_index, prototype, cls):
+class WinrtMethodCall:
+    def __init__(self, prototype, vtbl_index, cls):
         hints = generic_get_type_hints(prototype, cls)
         restype = hints.pop("return")
 
@@ -382,7 +382,7 @@ class WinrtMethodCaller:
 
 def winrt_commethod(vtbl_index):
     def decorator(prototype):
-        return WinrtMethod(vtbl_index, prototype)
+        return WinrtMethod(prototype, vtbl_index)
 
     return decorator
 
