@@ -4,7 +4,6 @@ from ctypes import (
     POINTER,
     WINFUNCTYPE,
     Array,
-    Structure,
     c_char_p,
     c_void_p,
     c_wchar_p,
@@ -17,7 +16,7 @@ from win32more import (
     Boolean,
     Char,
     Double,
-    EasyCastStructure,
+    Structure,
     ForeignFunctionCall,
     Int32,
     UInt32,
@@ -37,7 +36,7 @@ def functype(prototype):
 class TestMarshalling(unittest.TestCase):
     def test_c_void_p(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             c_void_p: c_void_p
 
         s = S()
@@ -73,7 +72,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_c_char_p(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             c_char_p: c_char_p
 
         s = S()
@@ -115,7 +114,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_c_wchar_p(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             c_wchar_p: c_wchar_p
 
         s = S()
@@ -157,7 +156,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_boolean(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             boolean: Boolean
 
         s = S()
@@ -199,7 +198,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_int32(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             int32: Int32
 
         s = S()
@@ -242,7 +241,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_uint32(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             uint32: UInt32
 
         s = S()
@@ -285,7 +284,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_double(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             double: Double
 
         s = S()
@@ -317,7 +316,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_char(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             char: Char
 
         s = S()
@@ -352,7 +351,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_int32_array(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             int32_array_3: Int32 * 3
 
         s = S()
@@ -378,7 +377,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_c_void_p_array(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             c_void_p_array_3: c_void_p * 3
 
         s = S()
@@ -403,7 +402,7 @@ class TestMarshalling(unittest.TestCase):
 
     def test_c_wchar_p_array(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             c_wchar_p_array_3: c_wchar_p * 3
 
         s = S()
@@ -579,21 +578,21 @@ class TestMarshalling(unittest.TestCase):
 
     def test_structure_tuple_unpack(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             a: Int32
             b: c_char_p
             c: c_wchar_p
             d: c_void_p
 
         @commit
-        class T(EasyCastStructure):
+        class T(Structure):
             e: Int32
             f: S
             g: Int32
             h: Int32 * 3
 
         @commit
-        class U(EasyCastStructure):
+        class U(Structure):
             i: T
 
         u = U()

@@ -262,7 +262,7 @@ class Struct:
     # _fields_ and _anonymous_ is defined at runtime.
     def emit(self) -> str:
         writer = StringIO()
-        writer.write(f"class {self._td.name}(EasyCastStructure):\n")
+        writer.write(f"class {self._td.name}(Structure):\n")
         for fd in self._td.fields:
             writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
         return writer.getvalue()

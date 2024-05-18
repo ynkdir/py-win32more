@@ -12,7 +12,7 @@ from ctypes import (
 )
 
 from win32more import (
-    EasyCastStructure,
+    Structure,
     ForeignFunctionCall,
     Int16,
     UInt16,
@@ -106,7 +106,7 @@ class TestEasyCast(unittest.TestCase):
 
     def test_struct_array_to_c_void_p(self):
         @commit
-        class S(EasyCastStructure):
+        class S(Structure):
             p: c_void_p
 
         a = (c_char * 1)()

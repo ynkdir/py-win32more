@@ -21,8 +21,6 @@ BASE_EXPORTS = [
     "ComPtr",
     "ConstantLazyLoader",
     "Double",
-    "EasyCastStructure",
-    "EasyCastUnion",
     "FAILED",
     "Guid",
     "Int16",
@@ -34,11 +32,13 @@ BASE_EXPORTS = [
     "SUCCEEDED",
     "Single",
     "String",
+    "Structure",
     "UInt16",
     "UInt32",
     "UInt64",
     "UIntPtr",
     "UnicodeAlias",
+    "Union",
     "Void",
     "VoidPtr",
     "cfunctype",
@@ -534,9 +534,9 @@ class StructUnion:
 
     def _basetype(self) -> str:
         if "SequentialLayout" in self._td.attributes:
-            return "EasyCastStructure"
+            return "Structure"
         elif "ExplicitLayout" in self._td.attributes:
-            return "EasyCastUnion"
+            return "Union"
         else:
             raise ValueError()
 
@@ -637,7 +637,7 @@ class Attribute:
         writer = StringIO()
         md = self._td.methods[0]  # [0]=.ctor
         params = self._formatter.method_parameters_annotated(md)
-        writer.write(f"class {self._td.name}(EasyCastStructure):\n")
+        writer.write(f"class {self._td.name}(Structure):\n")
         if not params:
             writer.write("    pass\n")
         else:

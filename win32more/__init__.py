@@ -7,8 +7,8 @@ from ctypes import (
     POINTER,
     WINFUNCTYPE,
     Array,
-    Structure,
-    Union,
+    Structure as _Structure,
+    Union as _Union,
     WinError,
     _CFuncPtr,
     addressof,
@@ -84,13 +84,13 @@ class ComPtr(c_void_p):
             self.Release()
 
     @classmethod
-    def __commit__(struct):
-        struct._hints_ = get_type_hints(struct)
-        if struct._hints_["extends"] is None:
-            return struct
+    def __commit__(cls):
+        cls._hints_ = get_type_hints(cls)
+        if cls._hints_["extends"] is None:
+            return cls
         # Generic class have multiple base class (Generic[], ComPtr).
-        struct.__bases__ = tuple(struct._hints_["extends"] if t is ComPtr else t for t in struct.__bases__)
-        return struct
+        cls.__bases__ = tuple(cls._hints_["extends"] if t is ComPtr else t for t in cls.__bases__)
+        return cls
 
     def as_(self, cls):
         is_generic_alias = not isinstance(cls, type)
@@ -111,40 +111,46 @@ class ComPtr(c_void_p):
         return instance
 
 
-class EasyCastBase:
-    @classmethod
-    def __commit__(struct):
-        # FIXME: not work for Union.
-        # if hasattr(cls, "_fields_"):
-        if "_fields_" in struct.__dict__:
-            return struct
+def _struct_union_commit(cls):
+    # FIXME: not work for Union.
+    # if hasattr(cls, "_fields_"):
+    if "_fields_" in cls.__dict__:
+        return cls
 
-        hints = get_type_hints(struct)
+    hints = get_type_hints(cls)
 
-        anonymous = [hint for hint in hints.keys() if re.match(r"^Anonymous\d*$", hint)]
-        if anonymous:
-            struct._anonymous_ = anonymous
+    anonymous = [hint for hint in hints.keys() if re.match(r"^Anonymous\d*$", hint)]
+    if anonymous:
+        cls._anonymous_ = anonymous
 
-        for type_ in hints.values():
-            if type_ is not struct and issubclass(type_, (Structure, Union)):
-                type_.__commit__()
+    for type_ in hints.values():
+        if type_ is not cls and issubclass(type_, (Structure, Union)):
+            type_.__commit__()
 
-        struct._fields_ = list(hints.items())
+    cls._fields_ = list(hints.items())
 
-        for name, type_ in hints.items():
-            # use __dict__[name] to avoid calling descriptor.__get__().
-            setattr(struct, name, EasyCastDescriptor(struct.__dict__[name], type_))
+    for name, type_ in hints.items():
+        # use __dict__[name] to avoid calling descriptor.__get__().
+        setattr(cls, name, EasyCastDescriptor(cls.__dict__[name], type_))
 
-        for name, type_ in hints.items():
-            if issubclass(type_, (c_char_p, c_wchar_p)):
-                setattr(struct, f"{name}_as_intptr", AsIntPtrDescriptor(struct.__dict__[name]))
+    for name, type_ in hints.items():
+        if issubclass(type_, (c_char_p, c_wchar_p)):
+            setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
 
-        for hint in anonymous:
-            hints.update(hints[hint]._hints_)
+    for hint in anonymous:
+        hints.update(hints[hint]._hints_)
 
-        struct._hints_ = hints
+    cls._hints_ = hints
 
-        return struct
+    return cls
+
+
+class Structure(_Structure):
+    __commit__ = classmethod(_struct_union_commit)
+
+
+class Union(_Union):
+    __commit__ = classmethod(_struct_union_commit)
 
 
 class EasyCastDescriptor:
@@ -180,36 +186,27 @@ class AsIntPtrDescriptor:
         self._original_descriptor.__set__(instance, value)
 
 
-class EasyCastStructure(EasyCastBase, Structure):
-    pass
-
-
-class EasyCastUnion(EasyCastBase, Union):
-    pass
-
-
-EASY_TYPES = [  # obj_type, type_hint, c_func
-    # python objects:
-    (str, (POINTER(Int16), POINTER(UInt16)), c_wchar_p),
-    # for function call for consistency with struct.member assignment.
-    (int, (c_char_p, c_wchar_p), c_void_p),
-    # for struct.member assignment for consistency with function call.
-    (Array, (c_void_p,), None),
-    # ctypes objects:
-    (c_wchar_p, (POINTER(Int16), POINTER(UInt16)), None),
-    (c_wchar_p, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16))), pointer),
-]
-
 easycast_keep_reference = []
 
 
 def easycast(obj, type_):
-    for obj_type, type_hint, c_func in EASY_TYPES:
-        if isinstance(obj, obj_type) and issubclass(type_, type_hint):
-            if c_func is not None:
-                obj = c_func(obj)
+    if issubclass(type_, (POINTER(Int16), POINTER(UInt16))):
+        if isinstance(obj, str):
+            return cast(c_wchar_p(obj), type_)
+        elif isinstance(obj, c_wchar_p):
             return cast(obj, type_)
-    if issubclass(type_, _CFuncPtr):
+    elif issubclass(type_, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16)))):
+        if isinstance(obj, c_wchar_p):
+            return cast(pointer(obj), type_)
+    elif issubclass(type_, (c_char_p, c_wchar_p)):
+        if isinstance(obj, int):
+            # function doesn't support this conversion, though struct does it.
+            return type_(obj)
+    elif issubclass(type_, c_void_p):
+        if isinstance(obj, Array):
+            # struct doesn't support this conversion, though function does it.
+            return cast(obj, c_void_p)
+    elif issubclass(type_, _CFuncPtr):
         if isinstance(obj, type_):
             return obj
         elif callable(obj):
@@ -222,7 +219,7 @@ def easycast(obj, type_):
 
 
 def get_type_hints(prototype):
-    if sys.version_info < (3, 10) and isinstance(prototype, type) and issubclass(prototype, EasyCastBase):
+    if sys.version_info < (3, 10) and isinstance(prototype, type) and issubclass(prototype, (Structure, Union)):
         hints = _get_type_hints(prototype, localns=vars(prototype))
     else:
         hints = _get_type_hints(prototype)
@@ -232,7 +229,7 @@ def get_type_hints(prototype):
     return hints
 
 
-class Guid(EasyCastStructure):
+class Guid(Structure):
     _fields_ = [
         ("Data1", UInt32),
         ("Data2", UInt16),
