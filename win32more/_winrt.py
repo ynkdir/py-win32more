@@ -48,8 +48,6 @@ from win32more import (
     UInt32,
     UInt64,
     Void,
-    c_char_p_no,
-    c_wchar_p_no,
     easycast,
     get_type_hints,
 )
@@ -375,8 +373,6 @@ class WinrtMethodCall:
             return result.lst
         elif _as_intptr:
             return cast(result, c_void_p).value
-        elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
-            return result.value
         return result.__ctypes_from_outparam__()
 
 

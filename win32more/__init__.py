@@ -85,7 +85,7 @@ class ComPtr(c_void_p):
 
     @classmethod
     def __commit__(struct):
-        struct._hints_ = get_type_hints_with_patch(struct)
+        struct._hints_ = get_type_hints(struct)
         if struct._hints_["extends"] is None:
             return struct
         # Generic class have multiple base class (Generic[], ComPtr).
@@ -109,24 +109,6 @@ class ComPtr(c_void_p):
         if FAILED(hr):
             raise WinError(hr)
         return instance
-
-
-# to avoid auto conversion to str when struct.member access and function() result.
-class c_char_p_no(c_char_p):
-    pass
-
-
-class c_wchar_p_no(c_wchar_p):
-    pass
-
-
-def _patch_char_p(type_):
-    if type_ is c_char_p:
-        return c_char_p_no
-    elif type_ is c_wchar_p:
-        return c_wchar_p_no
-    else:
-        return type_
 
 
 class EasyCastBase:
@@ -216,8 +198,6 @@ EASY_TYPES = [  # obj_type, type_hint, c_func
     # ctypes objects:
     (c_wchar_p, (POINTER(Int16), POINTER(UInt16)), None),
     (c_wchar_p, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16))), pointer),
-    (c_char_p, (c_char_p_no,), None),
-    (c_wchar_p, (c_wchar_p_no,), None),
 ]
 
 easycast_keep_reference = []
@@ -249,21 +229,6 @@ def get_type_hints(prototype):
     for name, type_ in hints.items():
         if type_ is type(None):
             hints[name] = None
-    return hints
-
-
-def get_type_hints_with_patch(prototype):
-    hints = get_type_hints(prototype)
-    for name, type_ in hints.items():
-        hints[name] = _patch_char_p(type_)
-    return hints
-
-
-def get_type_hints_with_patch_return_only(prototype):
-    hints = get_type_hints(prototype)
-    for name, type_ in hints.items():
-        if name == "return":
-            hints[name] = _patch_char_p(type_)
     return hints
 
 
@@ -367,9 +332,11 @@ class ForeignFunction:
 
 class ForeignFunctionCall:
     def __init__(self, prototype, functype, spec):
-        hints = get_type_hints_with_patch_return_only(prototype)
-        restype = hints.pop("return")
-        argtypes = list(v for k, v in hints.items())
+        hints = get_type_hints(prototype)
+        self._restype = restype = hints.pop("return")
+        if self._restype is c_char_p or self._restype is c_wchar_p:
+            restype = c_void_p
+        argtypes = list(hints.values())
         self._hints = hints
         self._hints.update({i: v for i, v in enumerate(hints.values())})
         self._delegate = functype(restype, *argtypes)(*spec)
@@ -388,8 +355,8 @@ class ForeignFunctionCall:
     def make_result(self, result, _as_intptr):
         if _as_intptr:
             return cast(result, c_void_p).value
-        elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
-            return result.value
+        elif self._restype is c_char_p or self._restype is c_wchar_p:
+            return self._restype(result).value
         return result
 
 
@@ -412,8 +379,10 @@ class ComMethod:
 
 class ComMethodCall:
     def __init__(self, prototype, vtbl_index):
-        hints = get_type_hints_with_patch_return_only(prototype)
-        restype = hints.pop("return")
+        hints = get_type_hints(prototype)
+        self._restype = restype = hints.pop("return")
+        if self._restype is c_char_p or self._restype is c_wchar_p:
+            restype = c_void_p
         argtypes = list(hints.values())
         params = tuple((1, name) for name in hints.keys())
         hints.update({i: v for i, v in enumerate(argtypes)})
@@ -434,8 +403,8 @@ class ComMethodCall:
     def make_result(self, result, _as_intptr):
         if _as_intptr:
             return cast(result, c_void_p).value
-        elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
-            return result.value
+        elif self._restype is c_char_p or self._restype is c_wchar_p:
+            return self._restype(result).value
         return result
 
 
@@ -460,24 +429,25 @@ def commethod(vtbl_index):
     return decorator
 
 
-class BaseFuncType:
-    def __init__(self, fn, kind):
-        self.__module__ = fn.__module__  # referred by make_ready()
-        self._fn = fn
-        self._kind = kind
+class ForeignFunctionPointer:
+    def __init__(self, prototype, functype):
+        self.__module__ = prototype.__module__  # referred by make_ready()
+        self._prototype = prototype
+        self._functype = functype
 
     def __commit__(self):
-        types = list(get_type_hints_with_patch(self._fn).values())
-        types = types[-1:] + types[:-1]
-        return self._kind(*types)
+        hints = get_type_hints(self._prototype)
+        restype = hints.pop("return")
+        argtypes = list(hints.values())
+        return self._functype(restype, *argtypes)
 
 
 def cfunctype_pointer(prototype):
-    return BaseFuncType(prototype, CFUNCTYPE)
+    return ForeignFunctionPointer(prototype, CFUNCTYPE)
 
 
 def winfunctype_pointer(prototype):
-    return BaseFuncType(prototype, WINFUNCTYPE)
+    return ForeignFunctionPointer(prototype, WINFUNCTYPE)
 
 
 class LazyLoader:
