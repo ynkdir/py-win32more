@@ -792,13 +792,13 @@ class _Async__await__:
     def on_completed(self, asyncInfo, asyncStatus):
         from win32more.Windows.Foundation import IAsyncInfo
 
-        if asyncStatus.value == AsyncStatus_Completed:
+        if asyncStatus == AsyncStatus_Completed:
             self._future.get_loop().call_soon_threadsafe(self._future.set_result, asyncInfo.GetResults())
-        elif asyncStatus.value == AsyncStatus_Error:
+        elif asyncStatus == AsyncStatus_Error:
             self._future.get_loop().call_soon_threadsafe(
                 self._future.set_exception, WinError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
             )
-        elif asyncStatus.value == AsyncStatus_Canceled:
+        elif asyncStatus == AsyncStatus_Canceled:
             self._future.get_loop().call_soon_threadsafe(self._future.cancel)
         else:
             assert False, "unreachable"

@@ -2,6 +2,7 @@ import unittest
 
 from win32more import Guid
 
+
 class TestGuid(unittest.TestCase):
     def test_guid_eq(self):
         a = Guid("{00000000-0000-0000-c000-000000000046}")
@@ -11,6 +12,7 @@ class TestGuid(unittest.TestCase):
         self.assertFalse(a != b)
         self.assertFalse(a == c)
         self.assertTrue(a != c)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -12,9 +12,9 @@ from ctypes import (
 )
 
 from win32more import (
-    Structure,
     ForeignFunctionCall,
     Int16,
+    Structure,
     UInt16,
     Void,
     cfunctype_pointer,

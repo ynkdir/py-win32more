@@ -67,6 +67,10 @@ VoidPtr = c_void_p
 Void = None
 
 
+class Enum:
+    pass
+
+
 # FIXME: How to manage com reference count?  ContextManager style?
 class ComPtr(c_void_p):
     def __new__(cls, value=None, own=False):
@@ -224,8 +228,15 @@ def get_type_hints(prototype):
     else:
         hints = _get_type_hints(prototype)
     for name, type_ in hints.items():
-        if type_ is type(None):
+        if not isinstance(type_, type):
+            # generic
+            pass
+        elif type_ is type(None):
             hints[name] = None
+        elif issubclass(type_, Enum):
+            # Ctype's fundamental types are converted to python type transparently.
+            # It is not applied to subclass.  Avoid it for Enum.
+            hints[name] = type_.__bases__[1]
     return hints
 
 

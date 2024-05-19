@@ -16,11 +16,13 @@ from win32more import (
     Boolean,
     Char,
     Double,
-    Structure,
+    Enum,
     ForeignFunctionCall,
     Int32,
+    Structure,
     UInt32,
     UIntPtr,
+    cfunctype_pointer,
     commethod,
 )
 
@@ -614,6 +616,34 @@ class TestMarshalling(unittest.TestCase):
         #     return u
         # u = f((1, (2, 3, 4, 5), 6, (7, 8, 9)))
         # ctypes.ArgumentError: argument 1: TypeError: expected U instance instead of tuple
+
+    def test_enum_is_converted_to_int_transparently(self):
+        class AEnum(Enum, Int32):
+            pass
+
+        @commit
+        class S(Structure):
+            a: AEnum
+
+        @functype
+        def f(a: AEnum) -> py_object:
+            return a
+
+        @commit
+        @cfunctype_pointer
+        def g(a: AEnum) -> py_object: ...
+
+        @g
+        def h(a):
+            return a
+
+        s = S()
+        s.a = 42
+        self.assertEqual(s.a, 42)
+
+        self.assertEqual(f(42), 42)
+
+        self.assertEqual(h(42), 42)
 
 
 if __name__ == "__main__":

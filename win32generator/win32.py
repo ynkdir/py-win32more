@@ -21,6 +21,7 @@ BASE_EXPORTS = [
     "ComPtr",
     "ConstantLazyLoader",
     "Double",
+    "Enum",
     "FAILED",
     "Guid",
     "Int16",
@@ -420,7 +421,7 @@ class Enum:
         writer = StringIO()
         type_field, *value_fields = self._td.fields
         if self._td.custom_attributes.has_scoped_enum():
-            writer.write(f"class {self._td.name}({self._formatter.pytype(type_field.signature)}):  # enum\n")
+            writer.write(f"class {self._td.name}(Enum, {self._formatter.pytype(type_field.signature)}):\n")
             for fd in value_fields:
                 writer.write(f"    {fd.name} = {fd.default_value.value}\n")
         else:
