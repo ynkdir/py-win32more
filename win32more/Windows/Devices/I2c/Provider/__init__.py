@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.I2c.Provider
 import win32more.Windows.Foundation
@@ -55,7 +55,7 @@ class IProviderI2cConnectionSettings(ComPtr):
     BusSpeed = property(get_BusSpeed, put_BusSpeed)
     SharingMode = property(get_SharingMode, put_SharingMode)
     SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
-class ProviderI2cBusSpeed(Int32):  # enum
+class ProviderI2cBusSpeed(Enum, Int32):
     StandardMode = 0
     FastMode = 1
 class ProviderI2cConnectionSettings(ComPtr):
@@ -77,13 +77,13 @@ class ProviderI2cConnectionSettings(ComPtr):
     BusSpeed = property(get_BusSpeed, put_BusSpeed)
     SharingMode = property(get_SharingMode, put_SharingMode)
     SlaveAddress = property(get_SlaveAddress, put_SlaveAddress)
-class ProviderI2cSharingMode(Int32):  # enum
+class ProviderI2cSharingMode(Enum, Int32):
     Exclusive = 0
     Shared = 1
 class ProviderI2cTransferResult(Structure):
     Status: win32more.Windows.Devices.I2c.Provider.ProviderI2cTransferStatus
     BytesTransferred: UInt32
-class ProviderI2cTransferStatus(Int32):  # enum
+class ProviderI2cTransferStatus(Enum, Int32):
     FullTransfer = 0
     PartialTransfer = 1
     SlaveAddressNotAcknowledged = 2

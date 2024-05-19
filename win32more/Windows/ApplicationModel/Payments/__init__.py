@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Payments
 import win32more.Windows.Foundation
@@ -524,7 +524,7 @@ class PaymentCanMakePaymentResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.ApplicationModel.Payments.IPaymentCanMakePaymentResult) -> win32more.Windows.ApplicationModel.Payments.PaymentCanMakePaymentResultStatus: ...
     Status = property(get_Status, None)
-class PaymentCanMakePaymentResultStatus(Int32):  # enum
+class PaymentCanMakePaymentResultStatus(Enum, Int32):
     Unknown = 0
     Yes = 1
     No = 2
@@ -733,7 +733,7 @@ class PaymentMethodData(ComPtr):
     def get_JsonData(self: win32more.Windows.ApplicationModel.Payments.IPaymentMethodData) -> WinRT_String: ...
     JsonData = property(get_JsonData, None)
     SupportedMethodIds = property(get_SupportedMethodIds, None)
-class PaymentOptionPresence(Int32):  # enum
+class PaymentOptionPresence(Enum, Int32):
     None_ = 0
     Optional = 1
     Required = 2
@@ -815,7 +815,7 @@ class PaymentRequest(ComPtr):
     MerchantInfo = property(get_MerchantInfo, None)
     MethodData = property(get_MethodData, None)
     Options = property(get_Options, None)
-class PaymentRequestChangeKind(Int32):  # enum
+class PaymentRequestChangeKind(Enum, Int32):
     ShippingOption = 0
     ShippingAddress = 1
 class PaymentRequestChangedArgs(ComPtr):
@@ -870,11 +870,11 @@ class PaymentRequestChangedResult(ComPtr):
     ChangeAcceptedByMerchant = property(get_ChangeAcceptedByMerchant, put_ChangeAcceptedByMerchant)
     Message = property(get_Message, put_Message)
     UpdatedPaymentDetails = property(get_UpdatedPaymentDetails, put_UpdatedPaymentDetails)
-class PaymentRequestCompletionStatus(Int32):  # enum
+class PaymentRequestCompletionStatus(Enum, Int32):
     Succeeded = 0
     Failed = 1
     Unknown = 2
-class PaymentRequestStatus(Int32):  # enum
+class PaymentRequestStatus(Enum, Int32):
     Succeeded = 0
     Failed = 1
     Canceled = 2
@@ -953,7 +953,7 @@ class PaymentShippingOption(ComPtr):
     IsSelected = property(get_IsSelected, put_IsSelected)
     Label = property(get_Label, put_Label)
     Tag = property(get_Tag, put_Tag)
-class PaymentShippingType(Int32):  # enum
+class PaymentShippingType(Enum, Int32):
     Shipping = 0
     Delivery = 1
     Pickup = 2

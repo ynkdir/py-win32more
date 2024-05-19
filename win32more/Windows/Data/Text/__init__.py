@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Text
 import win32more.Windows.Foundation
@@ -7,7 +7,7 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Text.Core
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-class AlternateNormalizationFormat(Int32):  # enum
+class AlternateNormalizationFormat(Enum, Int32):
     NotNormalized = 0
     Number = 1
     Currency = 3
@@ -364,7 +364,7 @@ class TextPredictionGenerator(ComPtr):
     InputScope = property(get_InputScope, put_InputScope)
     LanguageAvailableButNotInstalled = property(get_LanguageAvailableButNotInstalled, None)
     ResolvedLanguage = property(get_ResolvedLanguage, None)
-class TextPredictionOptions(UInt32):  # enum
+class TextPredictionOptions(Enum, UInt32):
     None_ = 0
     Predictions = 1
     Corrections = 2
@@ -431,7 +431,7 @@ class UnicodeCharacters(ComPtr):
     def GetNumericType(cls: win32more.Windows.Data.Text.IUnicodeCharactersStatics, codepoint: UInt32) -> win32more.Windows.Data.Text.UnicodeNumericType: ...
     @winrt_classmethod
     def GetGeneralCategory(cls: win32more.Windows.Data.Text.IUnicodeCharactersStatics, codepoint: UInt32) -> win32more.Windows.Data.Text.UnicodeGeneralCategory: ...
-class UnicodeGeneralCategory(Int32):  # enum
+class UnicodeGeneralCategory(Enum, Int32):
     UppercaseLetter = 0
     LowercaseLetter = 1
     TitlecaseLetter = 2
@@ -462,7 +462,7 @@ class UnicodeGeneralCategory(Int32):  # enum
     ModifierSymbol = 27
     OtherSymbol = 28
     NotAssigned = 29
-class UnicodeNumericType(Int32):  # enum
+class UnicodeNumericType(Enum, Int32):
     None_ = 0
     Decimal = 1
     Digit = 2

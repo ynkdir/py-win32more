@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.UI.Xaml
@@ -181,7 +181,7 @@ class NavigatingCancelEventHandler(MulticastDelegate):
     _iid_ = Guid('{75d6a78f-a302-4489-9898-24ea49182910}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs) -> Void: ...
-class NavigationCacheMode(Int32):  # enum
+class NavigationCacheMode(Enum, Int32):
     Disabled = 0
     Required = 1
     Enabled = 2
@@ -229,7 +229,7 @@ class NavigationFailedEventHandler(MulticastDelegate):
     _iid_ = Guid('{4dab4671-12b2-43c7-b892-9be2dcd3e88d}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.Navigation.NavigationFailedEventArgs) -> Void: ...
-class NavigationMode(Int32):  # enum
+class NavigationMode(Enum, Int32):
     New = 0
     Back = 1
     Forward = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -109,7 +109,7 @@ class ISystemUpdateManagerStatics(ComPtr):
     UserActiveHoursEnd = property(get_UserActiveHoursEnd, None)
     UserActiveHoursMax = property(get_UserActiveHoursMax, None)
     UserActiveHoursStart = property(get_UserActiveHoursStart, None)
-class SystemUpdateAttentionRequiredReason(Int32):  # enum
+class SystemUpdateAttentionRequiredReason(Enum, Int32):
     None_ = 0
     NetworkRequired = 1
     InsufficientDiskSpace = 2
@@ -143,7 +143,7 @@ class SystemUpdateItem(ComPtr):
     Revision = property(get_Revision, None)
     State = property(get_State, None)
     Title = property(get_Title, None)
-class SystemUpdateItemState(Int32):  # enum
+class SystemUpdateItemState(Enum, Int32):
     NotStarted = 0
     Initializing = 1
     Preparing = 2
@@ -230,7 +230,7 @@ class SystemUpdateManager(ComPtr, metaclass=_SystemUpdateManager_Meta_):
     _SystemUpdateManager_Meta_.UserActiveHoursEnd = property(get_UserActiveHoursEnd.__wrapped__, None)
     _SystemUpdateManager_Meta_.UserActiveHoursMax = property(get_UserActiveHoursMax.__wrapped__, None)
     _SystemUpdateManager_Meta_.UserActiveHoursStart = property(get_UserActiveHoursStart.__wrapped__, None)
-class SystemUpdateManagerState(Int32):  # enum
+class SystemUpdateManagerState(Enum, Int32):
     Idle = 0
     Detecting = 1
     ReadyToDownload = 2
@@ -243,7 +243,7 @@ class SystemUpdateManagerState(Int32):  # enum
     Completed = 9
     AttentionRequired = 10
     Error = 11
-class SystemUpdateStartInstallAction(Int32):  # enum
+class SystemUpdateStartInstallAction(Enum, Int32):
     UpToReboot = 0
     AllowReboot = 1
 

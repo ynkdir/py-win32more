@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -27,7 +27,7 @@ class AttributedNetworkUsage(ComPtr):
     AttributionThumbnail = property(get_AttributionThumbnail, None)
     BytesReceived = property(get_BytesReceived, None)
     BytesSent = property(get_BytesSent, None)
-class CellularApnAuthenticationType(Int32):  # enum
+class CellularApnAuthenticationType(Enum, Int32):
     None_ = 0
     Pap = 1
     Chap = 2
@@ -158,7 +158,7 @@ class ConnectionProfile(ComPtr):
     ServiceProviderGuid = property(get_ServiceProviderGuid, None)
     WlanConnectionProfileDetails = property(get_WlanConnectionProfileDetails, None)
     WwanConnectionProfileDetails = property(get_WwanConnectionProfileDetails, None)
-class ConnectionProfileDeleteStatus(Int32):  # enum
+class ConnectionProfileDeleteStatus(Enum, Int32):
     Success = 0
     DeniedByUser = 1
     DeniedBySystem = 2
@@ -294,16 +294,16 @@ class DataUsage(ComPtr):
     def get_BytesReceived(self: win32more.Windows.Networking.Connectivity.IDataUsage) -> UInt64: ...
     BytesReceived = property(get_BytesReceived, None)
     BytesSent = property(get_BytesSent, None)
-class DataUsageGranularity(Int32):  # enum
+class DataUsageGranularity(Enum, Int32):
     PerMinute = 0
     PerHour = 1
     PerDay = 2
     Total = 3
-class DomainAuthenticationKind(Int32):  # enum
+class DomainAuthenticationKind(Enum, Int32):
     None_ = 0
     Ldap = 1
     Tls = 2
-class DomainConnectivityLevel(Int32):  # enum
+class DomainConnectivityLevel(Enum, Int32):
     None_ = 0
     Unauthenticated = 1
     Authenticated = 2
@@ -870,7 +870,7 @@ class NetworkAdapter(ComPtr):
     NetworkAdapterId = property(get_NetworkAdapterId, None)
     NetworkItem = property(get_NetworkItem, None)
     OutboundMaxBitsPerSecond = property(get_OutboundMaxBitsPerSecond, None)
-class NetworkAuthenticationType(Int32):  # enum
+class NetworkAuthenticationType(Enum, Int32):
     None_ = 0
     Unknown = 1
     Open80211 = 2
@@ -886,17 +886,17 @@ class NetworkAuthenticationType(Int32):  # enum
     Wpa3Sae = 11
     Owe = 12
     Wpa3Enterprise = 13
-class NetworkConnectivityLevel(Int32):  # enum
+class NetworkConnectivityLevel(Enum, Int32):
     None_ = 0
     LocalAccess = 1
     ConstrainedInternetAccess = 2
     InternetAccess = 3
-class NetworkCostType(Int32):  # enum
+class NetworkCostType(Enum, Int32):
     Unknown = 0
     Unrestricted = 1
     Fixed = 2
     Variable = 3
-class NetworkEncryptionType(Int32):  # enum
+class NetworkEncryptionType(Enum, Int32):
     None_ = 0
     Unknown = 1
     Wep = 2
@@ -982,7 +982,7 @@ class NetworkStatusChangedEventHandler(MulticastDelegate):
     _iid_ = Guid('{71ba143f-598e-49d0-84eb-8febaedcc195}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-class NetworkTypes(UInt32):  # enum
+class NetworkTypes(Enum, UInt32):
     None_ = 0
     Internet = 1
     PrivateNetwork = 2
@@ -1025,7 +1025,7 @@ class ProxyConfiguration(ComPtr):
     def get_CanConnectDirectly(self: win32more.Windows.Networking.Connectivity.IProxyConfiguration) -> Boolean: ...
     CanConnectDirectly = property(get_CanConnectDirectly, None)
     ProxyUris = property(get_ProxyUris, None)
-class RoamingStates(UInt32):  # enum
+class RoamingStates(Enum, UInt32):
     None_ = 0
     NotRoaming = 1
     Roaming = 2
@@ -1051,7 +1051,7 @@ class RoutePolicy(ComPtr):
     ConnectionProfile = property(get_ConnectionProfile, None)
     HostName = property(get_HostName, None)
     HostNameType = property(get_HostNameType, None)
-class TriStates(Int32):  # enum
+class TriStates(Enum, Int32):
     DoNotCare = 0
     No = 1
     Yes = 2
@@ -1082,7 +1082,7 @@ class WwanConnectionProfileDetails(ComPtr):
     IPKind = property(get_IPKind, None)
     PurposeGuids = property(get_PurposeGuids, None)
 WwanContract: UInt32 = 131072
-class WwanDataClass(UInt32):  # enum
+class WwanDataClass(Enum, UInt32):
     None_ = 0
     Gprs = 1
     Edge = 2
@@ -1098,13 +1098,13 @@ class WwanDataClass(UInt32):  # enum
     Cdma1xEvdoRevB = 2097152
     CdmaUmb = 4194304
     Custom = 2147483648
-class WwanNetworkIPKind(Int32):  # enum
+class WwanNetworkIPKind(Enum, Int32):
     None_ = 0
     Ipv4 = 1
     Ipv6 = 2
     Ipv4v6 = 3
     Ipv4v6v4Xlat = 4
-class WwanNetworkRegistrationState(Int32):  # enum
+class WwanNetworkRegistrationState(Enum, Int32):
     None_ = 0
     Deregistered = 1
     Searching = 2

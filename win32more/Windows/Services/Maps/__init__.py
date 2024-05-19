@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
@@ -469,7 +469,7 @@ class ManeuverWarning(ComPtr):
     def get_Severity(self: win32more.Windows.Services.Maps.IManeuverWarning) -> win32more.Windows.Services.Maps.ManeuverWarningSeverity: ...
     Kind = property(get_Kind, None)
     Severity = property(get_Severity, None)
-class ManeuverWarningKind(Int32):  # enum
+class ManeuverWarningKind(Enum, Int32):
     None_ = 0
     Accident = 1
     AdministrativeDivisionChange = 2
@@ -506,7 +506,7 @@ class ManeuverWarningKind(Int32):  # enum
     UnpavedRoad = 33
     UnscheduledConstruction = 34
     Weather = 35
-class ManeuverWarningSeverity(Int32):  # enum
+class ManeuverWarningSeverity(Enum, Int32):
     None_ = 0
     LowImpact = 1
     Minor = 2
@@ -580,7 +580,7 @@ class MapLocation(ComPtr):
     Description = property(get_Description, None)
     DisplayName = property(get_DisplayName, None)
     Point = property(get_Point, None)
-class MapLocationDesiredAccuracy(Int32):  # enum
+class MapLocationDesiredAccuracy(Enum, Int32):
     High = 0
     Low = 1
 class MapLocationFinder(ComPtr):
@@ -604,7 +604,7 @@ class MapLocationFinderResult(ComPtr):
     def get_Status(self: win32more.Windows.Services.Maps.IMapLocationFinderResult) -> win32more.Windows.Services.Maps.MapLocationFinderStatus: ...
     Locations = property(get_Locations, None)
     Status = property(get_Status, None)
-class MapLocationFinderStatus(Int32):  # enum
+class MapLocationFinderStatus(Enum, Int32):
     Success = 0
     UnknownError = 1
     InvalidCredentials = 2
@@ -619,7 +619,7 @@ class MapManager(ComPtr):
     def ShowDownloadedMapsUI(cls: win32more.Windows.Services.Maps.IMapManagerStatics) -> Void: ...
     @winrt_classmethod
     def ShowMapsUpdateUI(cls: win32more.Windows.Services.Maps.IMapManagerStatics) -> Void: ...
-class MapManeuverNotices(UInt32):  # enum
+class MapManeuverNotices(Enum, UInt32):
     None_ = 0
     Toll = 1
     Unpaved = 2
@@ -740,7 +740,7 @@ class MapRouteFinderResult(ComPtr):
     AlternateRoutes = property(get_AlternateRoutes, None)
     Route = property(get_Route, None)
     Status = property(get_Status, None)
-class MapRouteFinderStatus(Int32):  # enum
+class MapRouteFinderStatus(Enum, Int32):
     Success = 0
     UnknownError = 1
     InvalidCredentials = 2
@@ -810,7 +810,7 @@ class MapRouteManeuver(ComPtr):
     StartingPoint = property(get_StartingPoint, None)
     StreetName = property(get_StreetName, None)
     Warnings = property(get_Warnings, None)
-class MapRouteManeuverKind(Int32):  # enum
+class MapRouteManeuverKind(Enum, Int32):
     None_ = 0
     Start = 1
     Stopover = 2
@@ -836,12 +836,12 @@ class MapRouteManeuverKind(Int32):  # enum
     TrafficCircleLeft = 22
     TrafficCircleRight = 23
     TakeFerry = 24
-class MapRouteOptimization(Int32):  # enum
+class MapRouteOptimization(Enum, Int32):
     Time = 0
     Distance = 1
     TimeWithTraffic = 2
     Scenic = 3
-class MapRouteRestrictions(UInt32):  # enum
+class MapRouteRestrictions(Enum, UInt32):
     None_ = 0
     Highways = 1
     TollRoads = 2
@@ -870,7 +870,7 @@ class MapService(ComPtr, metaclass=_MapService_Meta_):
     _MapService_Meta_.DataUsagePreference = property(get_DataUsagePreference.__wrapped__, put_DataUsagePreference.__wrapped__)
     _MapService_Meta_.ServiceToken = property(get_ServiceToken.__wrapped__, put_ServiceToken.__wrapped__)
     _MapService_Meta_.WorldViewRegionCode = property(get_WorldViewRegionCode.__wrapped__, None)
-class MapServiceDataUsagePreference(Int32):  # enum
+class MapServiceDataUsagePreference(Enum, Int32):
     Default = 0
     OfflineMapDataOnly = 1
 class _PlaceInfo_Meta_(ComPtr.__class__):
@@ -935,13 +935,13 @@ class PlaceInfoCreateOptions(ComPtr):
     def get_DisplayAddress(self: win32more.Windows.Services.Maps.IPlaceInfoCreateOptions) -> WinRT_String: ...
     DisplayAddress = property(get_DisplayAddress, put_DisplayAddress)
     DisplayName = property(get_DisplayName, put_DisplayName)
-class TrafficCongestion(Int32):  # enum
+class TrafficCongestion(Enum, Int32):
     Unknown = 0
     Light = 1
     Mild = 2
     Medium = 3
     Heavy = 4
-class WaypointKind(Int32):  # enum
+class WaypointKind(Enum, Int32):
     Stop = 0
     Via = 1
 

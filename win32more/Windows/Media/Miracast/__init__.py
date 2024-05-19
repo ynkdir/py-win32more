@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Core
 import win32more.Windows.Foundation
@@ -392,7 +392,7 @@ class MiracastReceiverApplySettingsResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.Miracast.IMiracastReceiverApplySettingsResult) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class MiracastReceiverApplySettingsStatus(Int32):  # enum
+class MiracastReceiverApplySettingsStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     MiracastNotSupported = 2
@@ -401,7 +401,7 @@ class MiracastReceiverApplySettingsStatus(Int32):  # enum
     ModelNameTooLong = 5
     ModelNumberTooLong = 6
     InvalidSettings = 7
-class MiracastReceiverAuthorizationMethod(Int32):  # enum
+class MiracastReceiverAuthorizationMethod(Enum, Int32):
     None_ = 0
     ConfirmConnection = 1
     PinDisplayIfRequested = 2
@@ -486,7 +486,7 @@ class MiracastReceiverCursorImageChannelSettings(ComPtr):
     def put_MaxImageSize(self: win32more.Windows.Media.Miracast.IMiracastReceiverCursorImageChannelSettings, value: win32more.Windows.Graphics.SizeInt32) -> Void: ...
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     MaxImageSize = property(get_MaxImageSize, put_MaxImageSize)
-class MiracastReceiverDisconnectReason(Int32):  # enum
+class MiracastReceiverDisconnectReason(Enum, Int32):
     Finished = 0
     AppSpecificError = 1
     ConnectionNotAccepted = 2
@@ -526,7 +526,7 @@ class MiracastReceiverGameControllerDevice(ComPtr):
     IsTransmittingInput = property(get_IsTransmittingInput, None)
     Mode = property(get_Mode, put_Mode)
     TransmitInput = property(get_TransmitInput, put_TransmitInput)
-class MiracastReceiverGameControllerDeviceUsageMode(Int32):  # enum
+class MiracastReceiverGameControllerDeviceUsageMode(Enum, Int32):
     AsGameController = 0
     AsMouseAndKeyboard = 1
 class MiracastReceiverInputDevices(ComPtr):
@@ -558,7 +558,7 @@ class MiracastReceiverKeyboardDevice(ComPtr):
     IsRequestedByTransmitter = property(get_IsRequestedByTransmitter, None)
     IsTransmittingInput = property(get_IsTransmittingInput, None)
     TransmitInput = property(get_TransmitInput, put_TransmitInput)
-class MiracastReceiverListeningStatus(Int32):  # enum
+class MiracastReceiverListeningStatus(Enum, Int32):
     NotListening = 0
     Listening = 1
     ConnectionPending = 2
@@ -622,7 +622,7 @@ class MiracastReceiverSessionStartResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.Miracast.IMiracastReceiverSessionStartResult) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class MiracastReceiverSessionStartStatus(Int32):  # enum
+class MiracastReceiverSessionStartStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     MiracastNotSupported = 2
@@ -706,7 +706,7 @@ class MiracastReceiverVideoStreamSettings(ComPtr):
     def put_Bitrate(self: win32more.Windows.Media.Miracast.IMiracastReceiverVideoStreamSettings, value: Int32) -> Void: ...
     Bitrate = property(get_Bitrate, put_Bitrate)
     Size = property(get_Size, put_Size)
-class MiracastReceiverWiFiStatus(Int32):  # enum
+class MiracastReceiverWiFiStatus(Enum, Int32):
     MiracastSupportUndetermined = 0
     MiracastNotSupported = 1
     MiracastSupportNotOptimized = 2
@@ -733,7 +733,7 @@ class MiracastTransmitter(ComPtr):
     LastConnectionTime = property(get_LastConnectionTime, None)
     MacAddress = property(get_MacAddress, None)
     Name = property(get_Name, put_Name)
-class MiracastTransmitterAuthorizationStatus(Int32):  # enum
+class MiracastTransmitterAuthorizationStatus(Enum, Int32):
     Undecided = 0
     Allowed = 1
     AlwaysPrompt = 2

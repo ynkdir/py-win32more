@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.SmartCards
 import win32more.Windows.Foundation
@@ -757,7 +757,7 @@ class SmartCard(ComPtr):
     @winrt_mixinmethod
     def ConnectAsync(self: win32more.Windows.Devices.SmartCards.ISmartCardConnect) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.SmartCards.SmartCardConnection]: ...
     Reader = property(get_Reader, None)
-class SmartCardActivationPolicyChangeResult(Int32):  # enum
+class SmartCardActivationPolicyChangeResult(Enum, Int32):
     Denied = 0
     Allowed = 1
 class _SmartCardAppletIdGroup_Meta_(ComPtr.__class__):
@@ -823,7 +823,7 @@ class SmartCardAppletIdGroup(ComPtr, metaclass=_SmartCardAppletIdGroup_Meta_):
     SmartCardEmulationCategory = property(get_SmartCardEmulationCategory, put_SmartCardEmulationCategory)
     SmartCardEmulationType = property(get_SmartCardEmulationType, put_SmartCardEmulationType)
     _SmartCardAppletIdGroup_Meta_.MaxAppletIds = property(get_MaxAppletIds.__wrapped__, None)
-class SmartCardAppletIdGroupActivationPolicy(Int32):  # enum
+class SmartCardAppletIdGroupActivationPolicy(Enum, Int32):
     Disabled = 0
     ForegroundOverride = 1
     Enabled = 2
@@ -902,7 +902,7 @@ class SmartCardAutomaticResponseApdu(ComPtr):
     OutputState = property(get_OutputState, put_OutputState)
     ResponseApdu = property(get_ResponseApdu, put_ResponseApdu)
     ShouldMatchLength = property(get_ShouldMatchLength, put_ShouldMatchLength)
-class SmartCardAutomaticResponseStatus(Int32):  # enum
+class SmartCardAutomaticResponseStatus(Enum, Int32):
     None_ = 0
     Success = 1
     UnknownError = 2
@@ -932,7 +932,7 @@ class SmartCardConnection(ComPtr):
     def TransmitAsync(self: win32more.Windows.Devices.SmartCards.ISmartCardConnection, command: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IBuffer]: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-class SmartCardCryptogramAlgorithm(Int32):  # enum
+class SmartCardCryptogramAlgorithm(Enum, Int32):
     None_ = 0
     CbcMac = 1
     Cvc3Umd = 2
@@ -989,7 +989,7 @@ class SmartCardCryptogramGenerator(ComPtr):
     SupportedCryptogramMaterialPackageFormats = property(get_SupportedCryptogramMaterialPackageFormats, None)
     SupportedCryptogramMaterialTypes = property(get_SupportedCryptogramMaterialTypes, None)
     SupportedSmartCardCryptogramStorageKeyCapabilities = property(get_SupportedSmartCardCryptogramStorageKeyCapabilities, None)
-class SmartCardCryptogramGeneratorOperationStatus(Int32):  # enum
+class SmartCardCryptogramGeneratorOperationStatus(Enum, Int32):
     Success = 0
     AuthorizationFailed = 1
     AuthorizationCanceled = 2
@@ -1123,10 +1123,10 @@ class SmartCardCryptogramMaterialPackageCharacteristics(ComPtr):
     PackageFormat = property(get_PackageFormat, None)
     PackageName = property(get_PackageName, None)
     StorageKeyName = property(get_StorageKeyName, None)
-class SmartCardCryptogramMaterialPackageConfirmationResponseFormat(Int32):  # enum
+class SmartCardCryptogramMaterialPackageConfirmationResponseFormat(Enum, Int32):
     None_ = 0
     VisaHmac = 1
-class SmartCardCryptogramMaterialPackageFormat(Int32):  # enum
+class SmartCardCryptogramMaterialPackageFormat(Enum, Int32):
     None_ = 0
     JweRsaPki = 1
 class SmartCardCryptogramMaterialPossessionProof(ComPtr):
@@ -1139,16 +1139,16 @@ class SmartCardCryptogramMaterialPossessionProof(ComPtr):
     def get_Proof(self: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramMaterialPossessionProof) -> win32more.Windows.Storage.Streams.IBuffer: ...
     OperationStatus = property(get_OperationStatus, None)
     Proof = property(get_Proof, None)
-class SmartCardCryptogramMaterialProtectionMethod(Int32):  # enum
+class SmartCardCryptogramMaterialProtectionMethod(Enum, Int32):
     None_ = 0
     WhiteBoxing = 1
-class SmartCardCryptogramMaterialType(Int32):  # enum
+class SmartCardCryptogramMaterialType(Enum, Int32):
     None_ = 0
     StaticDataAuthentication = 1
     TripleDes112 = 2
     Aes = 3
     RsaPkcs1 = 4
-class SmartCardCryptogramPlacementOptions(UInt32):  # enum
+class SmartCardCryptogramPlacementOptions(Enum, UInt32):
     None_ = 0
     UnitsAreInNibbles = 1
     ChainOutput = 2
@@ -1210,10 +1210,10 @@ class SmartCardCryptogramPlacementStep(ComPtr):
     CryptogramPlacementOptions = property(get_CryptogramPlacementOptions, put_CryptogramPlacementOptions)
     SourceData = property(get_SourceData, put_SourceData)
     TemplateOffset = property(get_TemplateOffset, put_TemplateOffset)
-class SmartCardCryptogramStorageKeyAlgorithm(Int32):  # enum
+class SmartCardCryptogramStorageKeyAlgorithm(Enum, Int32):
     None_ = 0
     Rsa2048 = 1
-class SmartCardCryptogramStorageKeyCapabilities(UInt32):  # enum
+class SmartCardCryptogramStorageKeyCapabilities(Enum, UInt32):
     None_ = 0
     HardwareProtection = 1
     UnlockPrompt = 2
@@ -1270,7 +1270,7 @@ class SmartCardCryptogramStorageKeyInfo(ComPtr):
     OperationalRequirements = property(get_OperationalRequirements, None)
     PublicKey = property(get_PublicKey, None)
     PublicKeyBlobType = property(get_PublicKeyBlobType, None)
-class SmartCardCryptographicKeyAttestationStatus(Int32):  # enum
+class SmartCardCryptographicKeyAttestationStatus(Enum, Int32):
     NoAttestation = 0
     SoftwareKeyWithoutTpm = 1
     SoftwareKeyWithTpm = 2
@@ -1279,10 +1279,10 @@ class SmartCardCryptographicKeyAttestationStatus(Int32):  # enum
     TpmKeyWithTemporaryAttestationFailure = 5
     TpmKeyWithLongTermAttestationFailure = 6
     TpmKeyWithAttestation = 7
-class SmartCardEmulationCategory(Int32):  # enum
+class SmartCardEmulationCategory(Enum, Int32):
     Other = 0
     Payment = 1
-class SmartCardEmulationType(Int32):  # enum
+class SmartCardEmulationType(Enum, Int32):
     Host = 0
     Uicc = 1
     EmbeddedSE = 2
@@ -1354,7 +1354,7 @@ class SmartCardEmulatorConnectionDeactivatedEventArgs(ComPtr):
     def get_Reason(self: win32more.Windows.Devices.SmartCards.ISmartCardEmulatorConnectionDeactivatedEventArgs) -> win32more.Windows.Devices.SmartCards.SmartCardEmulatorConnectionDeactivatedReason: ...
     ConnectionProperties = property(get_ConnectionProperties, None)
     Reason = property(get_Reason, None)
-class SmartCardEmulatorConnectionDeactivatedReason(Int32):  # enum
+class SmartCardEmulatorConnectionDeactivatedReason(Enum, Int32):
     ConnectionLost = 0
     ConnectionRedirected = 1
 class SmartCardEmulatorConnectionProperties(ComPtr):
@@ -1367,19 +1367,19 @@ class SmartCardEmulatorConnectionProperties(ComPtr):
     def get_Source(self: win32more.Windows.Devices.SmartCards.ISmartCardEmulatorConnectionProperties) -> win32more.Windows.Devices.SmartCards.SmartCardEmulatorConnectionSource: ...
     Id = property(get_Id, None)
     Source = property(get_Source, None)
-class SmartCardEmulatorConnectionSource(Int32):  # enum
+class SmartCardEmulatorConnectionSource(Enum, Int32):
     Unknown = 0
     NfcReader = 1
 SmartCardEmulatorContract: UInt32 = 393216
-class SmartCardEmulatorEnablementPolicy(Int32):  # enum
+class SmartCardEmulatorEnablementPolicy(Enum, Int32):
     Never = 0
     Always = 1
     ScreenOn = 2
     ScreenUnlocked = 3
-class SmartCardLaunchBehavior(Int32):  # enum
+class SmartCardLaunchBehavior(Enum, Int32):
     Default = 0
     AboveLock = 1
-class SmartCardPinCharacterPolicyOption(Int32):  # enum
+class SmartCardPinCharacterPolicyOption(Enum, Int32):
     Allow = 0
     RequireAtLeastOne = 1
     Disallow = 2
@@ -1513,18 +1513,18 @@ class SmartCardReader(ComPtr):
     DeviceId = property(get_DeviceId, None)
     Kind = property(get_Kind, None)
     Name = property(get_Name, None)
-class SmartCardReaderKind(Int32):  # enum
+class SmartCardReaderKind(Enum, Int32):
     Any = 0
     Generic = 1
     Tpm = 2
     Nfc = 3
     Uicc = 4
     EmbeddedSE = 5
-class SmartCardReaderStatus(Int32):  # enum
+class SmartCardReaderStatus(Enum, Int32):
     Disconnected = 0
     Ready = 1
     Exclusive = 2
-class SmartCardStatus(Int32):  # enum
+class SmartCardStatus(Enum, Int32):
     Disconnected = 0
     Ready = 1
     Shared = 2
@@ -1553,14 +1553,14 @@ class SmartCardTriggerDetails(ComPtr):
     SourceAppletId = property(get_SourceAppletId, None)
     TriggerData = property(get_TriggerData, None)
     TriggerType = property(get_TriggerType, None)
-class SmartCardTriggerType(Int32):  # enum
+class SmartCardTriggerType(Enum, Int32):
     EmulatorTransaction = 0
     EmulatorNearFieldEntry = 1
     EmulatorNearFieldExit = 2
     EmulatorHostApplicationActivated = 3
     EmulatorAppletIdGroupRegistrationChanged = 4
     ReaderCardAdded = 5
-class SmartCardUnlockPromptingBehavior(Int32):  # enum
+class SmartCardUnlockPromptingBehavior(Enum, Int32):
     AllowUnlockPrompt = 0
     RequireUnlockPrompt = 1
     PreventUnlockPrompt = 2

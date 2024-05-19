@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -558,12 +558,12 @@ class WindowsUpdateAdministrator(ComPtr):
     def RequestRestart(cls: win32more.Windows.Management.Update.IWindowsUpdateAdministratorStatics, restartOptions: win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions) -> WinRT_String: ...
     @winrt_classmethod
     def CancelRestartRequest(cls: win32more.Windows.Management.Update.IWindowsUpdateAdministratorStatics, requestRestartToken: WinRT_String) -> Void: ...
-class WindowsUpdateAdministratorOptions(UInt32):  # enum
+class WindowsUpdateAdministratorOptions(Enum, UInt32):
     None_ = 0
     RequireAdministratorApprovalForScans = 1
     RequireAdministratorApprovalForUpdates = 2
     RequireAdministratorApprovalForActions = 4
-class WindowsUpdateAdministratorStatus(Int32):  # enum
+class WindowsUpdateAdministratorStatus(Enum, Int32):
     Succeeded = 0
     NoAdministratorRegistered = 1
     OtherAdministratorIsRegistered = 2
@@ -615,7 +615,7 @@ class WindowsUpdateAttentionRequiredInfo(ComPtr):
     def get_Timestamp(self: win32more.Windows.Management.Update.IWindowsUpdateAttentionRequiredInfo) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     Reason = property(get_Reason, None)
     Timestamp = property(get_Timestamp, None)
-class WindowsUpdateAttentionRequiredReason(Int32):  # enum
+class WindowsUpdateAttentionRequiredReason(Enum, Int32):
     None_ = 0
     SeekerUpdate = 1
     ReadyToReboot = 2

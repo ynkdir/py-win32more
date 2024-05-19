@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
@@ -83,7 +83,7 @@ class AppDiagnosticInfoWatcherEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_AppDiagnosticInfo(self: win32more.Windows.System.IAppDiagnosticInfoWatcherEventArgs) -> win32more.Windows.System.AppDiagnosticInfo: ...
     AppDiagnosticInfo = property(get_AppDiagnosticInfo, None)
-class AppDiagnosticInfoWatcherStatus(Int32):  # enum
+class AppDiagnosticInfoWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -116,7 +116,7 @@ class AppMemoryReport(ComPtr):
     PrivateCommitUsage = property(get_PrivateCommitUsage, None)
     TotalCommitLimit = property(get_TotalCommitLimit, None)
     TotalCommitUsage = property(get_TotalCommitUsage, None)
-class AppMemoryUsageLevel(Int32):  # enum
+class AppMemoryUsageLevel(Enum, Int32):
     Low = 0
     Medium = 1
     High = 2
@@ -147,11 +147,11 @@ class AppResourceGroupBackgroundTaskReport(ComPtr):
     Name = property(get_Name, None)
     TaskId = property(get_TaskId, None)
     Trigger = property(get_Trigger, None)
-class AppResourceGroupEnergyQuotaState(Int32):  # enum
+class AppResourceGroupEnergyQuotaState(Enum, Int32):
     Unknown = 0
     Over = 1
     Under = 2
-class AppResourceGroupExecutionState(Int32):  # enum
+class AppResourceGroupExecutionState(Enum, Int32):
     Unknown = 0
     Running = 1
     Suspending = 2
@@ -232,7 +232,7 @@ class AppResourceGroupInfoWatcherExecutionStateChangedEventArgs(ComPtr):
     def get_AppResourceGroupInfo(self: win32more.Windows.System.IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs) -> win32more.Windows.System.AppResourceGroupInfo: ...
     AppDiagnosticInfos = property(get_AppDiagnosticInfos, None)
     AppResourceGroupInfo = property(get_AppResourceGroupInfo, None)
-class AppResourceGroupInfoWatcherStatus(Int32):  # enum
+class AppResourceGroupInfoWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -335,7 +335,7 @@ class AppUriHandlerRegistrationManager(ComPtr):
     def GetForUser(cls: win32more.Windows.System.IAppUriHandlerRegistrationManagerStatics, user: win32more.Windows.System.User) -> win32more.Windows.System.AppUriHandlerRegistrationManager: ...
     PackageFamilyName = property(get_PackageFamilyName, None)
     User = property(get_User, None)
-class AutoUpdateTimeZoneStatus(Int32):  # enum
+class AutoUpdateTimeZoneStatus(Enum, Int32):
     Attempted = 0
     TimedOut = 1
     Failed = 2
@@ -344,7 +344,7 @@ class DateTimeSettings(ComPtr):
     _classid_ = 'Windows.System.DateTimeSettings'
     @winrt_classmethod
     def SetSystemDateTime(cls: win32more.Windows.System.IDateTimeSettingsStatics, utcDateTime: win32more.Windows.Foundation.DateTime) -> Void: ...
-class DiagnosticAccessStatus(Int32):  # enum
+class DiagnosticAccessStatus(Enum, Int32):
     Unspecified = 0
     Denied = 1
     Limited = 2
@@ -388,7 +388,7 @@ class DispatcherQueueHandler(MulticastDelegate):
     _iid_ = Guid('{dfa2dc9c-1a2d-4917-98f2-939af1d6e0c8}')
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
-class DispatcherQueuePriority(Int32):  # enum
+class DispatcherQueuePriority(Enum, Int32):
     Low = -10
     Normal = 0
     High = 10
@@ -1443,19 +1443,19 @@ class KnownUserProperties(ComPtr, metaclass=_KnownUserProperties_Meta_):
     _KnownUserProperties_Meta_.PrincipalName = property(get_PrincipalName.__wrapped__, None)
     _KnownUserProperties_Meta_.ProviderName = property(get_ProviderName.__wrapped__, None)
     _KnownUserProperties_Meta_.SessionInitiationProtocolUri = property(get_SessionInitiationProtocolUri.__wrapped__, None)
-class LaunchFileStatus(Int32):  # enum
+class LaunchFileStatus(Enum, Int32):
     Success = 0
     AppUnavailable = 1
     DeniedByPolicy = 2
     FileTypeNotSupported = 3
     Unknown = 4
-class LaunchQuerySupportStatus(Int32):  # enum
+class LaunchQuerySupportStatus(Enum, Int32):
     Available = 0
     AppNotInstalled = 1
     AppUnavailable = 2
     NotSupported = 3
     Unknown = 4
-class LaunchQuerySupportType(Int32):  # enum
+class LaunchQuerySupportType(Enum, Int32):
     Uri = 0
     UriForResults = 1
 class LaunchUriResult(ComPtr):
@@ -1468,7 +1468,7 @@ class LaunchUriResult(ComPtr):
     def get_Result(self: win32more.Windows.System.ILaunchUriResult) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     Result = property(get_Result, None)
     Status = property(get_Status, None)
-class LaunchUriStatus(Int32):  # enum
+class LaunchUriStatus(Enum, Int32):
     Success = 0
     AppUnavailable = 1
     ProtocolUnavailable = 2
@@ -1657,7 +1657,7 @@ class MemoryManager(ComPtr, metaclass=_MemoryManager_Meta_):
     _MemoryManager_Meta_.AppMemoryUsageLevel = property(get_AppMemoryUsageLevel.__wrapped__, None)
     _MemoryManager_Meta_.AppMemoryUsageLimit = property(get_AppMemoryUsageLimit.__wrapped__, None)
     _MemoryManager_Meta_.ExpectedAppMemoryUsageLimit = property(get_ExpectedAppMemoryUsageLimit.__wrapped__, None)
-class PowerState(Int32):  # enum
+class PowerState(Enum, Int32):
     ConnectedStandby = 0
     SleepS3 = 1
 class ProcessLauncher(ComPtr):
@@ -1717,7 +1717,7 @@ class ProcessMemoryReport(ComPtr):
     def get_TotalWorkingSetUsage(self: win32more.Windows.System.IProcessMemoryReport) -> UInt64: ...
     PrivateWorkingSetUsage = property(get_PrivateWorkingSetUsage, None)
     TotalWorkingSetUsage = property(get_TotalWorkingSetUsage, None)
-class ProcessorArchitecture(Int32):  # enum
+class ProcessorArchitecture(Enum, Int32):
     X86 = 0
     Arm = 5
     X64 = 9
@@ -1731,7 +1731,7 @@ class ProtocolForResultsOperation(ComPtr):
     _classid_ = 'Windows.System.ProtocolForResultsOperation'
     @winrt_mixinmethod
     def ReportCompleted(self: win32more.Windows.System.IProtocolForResultsOperation, data: win32more.Windows.Foundation.Collections.ValueSet) -> Void: ...
-class RemoteLaunchUriStatus(Int32):  # enum
+class RemoteLaunchUriStatus(Enum, Int32):
     Unknown = 0
     Success = 1
     AppUnavailable = 2
@@ -1770,7 +1770,7 @@ class RemoteLauncherOptions(ComPtr):
     def get_PreferredAppIds(self: win32more.Windows.System.IRemoteLauncherOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     FallbackUri = property(get_FallbackUri, put_FallbackUri)
     PreferredAppIds = property(get_PreferredAppIds, None)
-class ShutdownKind(Int32):  # enum
+class ShutdownKind(Enum, Int32):
     Shutdown = 0
     Restart = 1
 class ShutdownManager(ComPtr):
@@ -1838,17 +1838,17 @@ class User(ComPtr):
     AuthenticationStatus = property(get_AuthenticationStatus, None)
     NonRoamableId = property(get_NonRoamableId, None)
     Type = property(get_Type, None)
-class UserAgeConsentGroup(Int32):  # enum
+class UserAgeConsentGroup(Enum, Int32):
     Child = 0
     Minor = 1
     Adult = 2
-class UserAgeConsentResult(Int32):  # enum
+class UserAgeConsentResult(Enum, Int32):
     NotEnforced = 0
     Included = 1
     NotIncluded = 2
     Unknown = 3
     Ambiguous = 4
-class UserAuthenticationStatus(Int32):  # enum
+class UserAuthenticationStatus(Enum, Int32):
     Unauthenticated = 0
     LocallyAuthenticated = 1
     RemotelyAuthenticated = 2
@@ -1932,12 +1932,12 @@ class UserPicker(ComPtr):
     def IsSupported(cls: win32more.Windows.System.IUserPickerStatics) -> Boolean: ...
     AllowGuestAccounts = property(get_AllowGuestAccounts, put_AllowGuestAccounts)
     SuggestedSelectedUser = property(get_SuggestedSelectedUser, put_SuggestedSelectedUser)
-class UserPictureSize(Int32):  # enum
+class UserPictureSize(Enum, Int32):
     Size64x64 = 0
     Size208x208 = 1
     Size424x424 = 2
     Size1080x1080 = 3
-class UserType(Int32):  # enum
+class UserType(Enum, Int32):
     LocalUser = 0
     RemoteUser = 1
     LocalGuest = 2
@@ -1982,17 +1982,17 @@ class UserWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.System.IUserWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-class UserWatcherStatus(Int32):  # enum
+class UserWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
     Stopping = 3
     Stopped = 4
     Aborted = 5
-class UserWatcherUpdateKind(Int32):  # enum
+class UserWatcherUpdateKind(Enum, Int32):
     Properties = 0
     Picture = 1
-class VirtualKey(Int32):  # enum
+class VirtualKey(Enum, Int32):
     None_ = 0
     LeftButton = 1
     RightButton = 2
@@ -2165,7 +2165,7 @@ class VirtualKey(Int32):  # enum
     GamepadRightThumbstickDown = 216
     GamepadRightThumbstickRight = 217
     GamepadRightThumbstickLeft = 218
-class VirtualKeyModifiers(UInt32):  # enum
+class VirtualKeyModifiers(Enum, UInt32):
     None_ = 0
     Control = 1
     Menu = 2

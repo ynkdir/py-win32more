@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Usb
 import win32more.Windows.Foundation
@@ -569,7 +569,7 @@ class UsbConfigurationDescriptor(ComPtr):
     MaxPowerMilliamps = property(get_MaxPowerMilliamps, None)
     RemoteWakeup = property(get_RemoteWakeup, None)
     SelfPowered = property(get_SelfPowered, None)
-class UsbControlRecipient(Int32):  # enum
+class UsbControlRecipient(Enum, Int32):
     Device = 0
     SpecifiedInterface = 1
     Endpoint = 2
@@ -608,7 +608,7 @@ class UsbControlRequestType(ComPtr):
     ControlTransferType = property(get_ControlTransferType, put_ControlTransferType)
     Direction = property(get_Direction, put_Direction)
     Recipient = property(get_Recipient, put_Recipient)
-class UsbControlTransferType(Int32):  # enum
+class UsbControlTransferType(Enum, Int32):
     Standard = 0
     Class = 1
     Vendor = 2
@@ -769,7 +769,7 @@ class UsbEndpointDescriptor(ComPtr):
     Direction = property(get_Direction, None)
     EndpointNumber = property(get_EndpointNumber, None)
     EndpointType = property(get_EndpointType, None)
-class UsbEndpointType(Int32):  # enum
+class UsbEndpointType(Enum, Int32):
     Control = 0
     Isochronous = 1
     Bulk = 2
@@ -918,7 +918,7 @@ class UsbInterruptOutPipe(ComPtr):
     EndpointDescriptor = property(get_EndpointDescriptor, None)
     OutputStream = property(get_OutputStream, None)
     WriteOptions = property(get_WriteOptions, put_WriteOptions)
-class UsbReadOptions(UInt32):  # enum
+class UsbReadOptions(Enum, UInt32):
     None_ = 0
     AutoClearStall = 1
     OverrideAutomaticBufferManagement = 2
@@ -966,10 +966,10 @@ class UsbSetupPacket(ComPtr):
     Request = property(get_Request, put_Request)
     RequestType = property(get_RequestType, put_RequestType)
     Value = property(get_Value, put_Value)
-class UsbTransferDirection(Int32):  # enum
+class UsbTransferDirection(Enum, Int32):
     Out = 0
     In = 1
-class UsbWriteOptions(UInt32):  # enum
+class UsbWriteOptions(Enum, UInt32):
     None_ = 0
     AutoClearStall = 1
     ShortPacketTerminate = 2

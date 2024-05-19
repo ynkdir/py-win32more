@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Text
 import win32more.Windows.Foundation
@@ -9,14 +9,14 @@ import win32more.Windows.Storage.FileProperties
 import win32more.Windows.Storage.Search
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-class CommonFileQuery(Int32):  # enum
+class CommonFileQuery(Enum, Int32):
     DefaultQuery = 0
     OrderByName = 1
     OrderByTitle = 2
     OrderByMusicProperties = 3
     OrderBySearchRank = 4
     OrderByDate = 5
-class CommonFolderQuery(Int32):  # enum
+class CommonFolderQuery(Enum, Int32):
     DefaultQuery = 0
     GroupByYear = 100
     GroupByMonth = 101
@@ -76,11 +76,11 @@ class ContentIndexerQuery(ComPtr):
     @winrt_mixinmethod
     def get_QueryFolder(self: win32more.Windows.Storage.Search.IContentIndexerQuery) -> win32more.Windows.Storage.StorageFolder: ...
     QueryFolder = property(get_QueryFolder, None)
-class DateStackOption(Int32):  # enum
+class DateStackOption(Enum, Int32):
     None_ = 0
     Year = 1
     Month = 2
-class FolderDepth(Int32):  # enum
+class FolderDepth(Enum, Int32):
     Shallow = 0
     Deep = 1
 class IContentIndexer(ComPtr):
@@ -378,12 +378,12 @@ class IndexableContent(ComPtr):
     Properties = property(get_Properties, None)
     Stream = property(get_Stream, put_Stream)
     StreamContentType = property(get_StreamContentType, put_StreamContentType)
-class IndexedState(Int32):  # enum
+class IndexedState(Enum, Int32):
     Unknown = 0
     NotIndexed = 1
     PartiallyIndexed = 2
     FullyIndexed = 3
-class IndexerOption(Int32):  # enum
+class IndexerOption(Enum, Int32):
     UseIndexerWhenAvailable = 0
     OnlyUseIndexer = 1
     DoNotUseIndexer = 2

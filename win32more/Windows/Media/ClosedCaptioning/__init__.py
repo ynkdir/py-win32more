@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Media.ClosedCaptioning
 import win32more.Windows.UI
 import win32more.Windows.Win32.System.WinRT
-class ClosedCaptionColor(Int32):  # enum
+class ClosedCaptionColor(Enum, Int32):
     Default = 0
     White = 1
     Black = 2
@@ -15,14 +15,14 @@ class ClosedCaptionColor(Int32):  # enum
     Yellow = 6
     Magenta = 7
     Cyan = 8
-class ClosedCaptionEdgeEffect(Int32):  # enum
+class ClosedCaptionEdgeEffect(Enum, Int32):
     Default = 0
     None_ = 1
     Raised = 2
     Depressed = 3
     Uniform = 4
     DropShadow = 5
-class ClosedCaptionOpacity(Int32):  # enum
+class ClosedCaptionOpacity(Enum, Int32):
     Default = 0
     OneHundredPercent = 1
     SeventyFivePercent = 2
@@ -73,13 +73,13 @@ class ClosedCaptionProperties(ComPtr, metaclass=_ClosedCaptionProperties_Meta_):
     _ClosedCaptionProperties_Meta_.FontStyle = property(get_FontStyle.__wrapped__, None)
     _ClosedCaptionProperties_Meta_.RegionColor = property(get_RegionColor.__wrapped__, None)
     _ClosedCaptionProperties_Meta_.RegionOpacity = property(get_RegionOpacity.__wrapped__, None)
-class ClosedCaptionSize(Int32):  # enum
+class ClosedCaptionSize(Enum, Int32):
     Default = 0
     FiftyPercent = 1
     OneHundredPercent = 2
     OneHundredFiftyPercent = 3
     TwoHundredPercent = 4
-class ClosedCaptionStyle(Int32):  # enum
+class ClosedCaptionStyle(Enum, Int32):
     Default = 0
     MonospacedWithSerifs = 1
     ProportionalWithSerifs = 2

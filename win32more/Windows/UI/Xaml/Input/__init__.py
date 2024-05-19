@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Input
 import win32more.Windows.Foundation
@@ -194,7 +194,7 @@ class FindNextElementOptions(ComPtr):
     HintRect = property(get_HintRect, put_HintRect)
     SearchRoot = property(get_SearchRoot, put_SearchRoot)
     XYFocusNavigationStrategyOverride = property(get_XYFocusNavigationStrategyOverride, put_XYFocusNavigationStrategyOverride)
-class FocusInputDeviceKind(Int32):  # enum
+class FocusInputDeviceKind(Enum, Int32):
     None_ = 0
     Mouse = 1
     Touch = 2
@@ -276,7 +276,7 @@ class FocusMovementResult(ComPtr):
     @winrt_mixinmethod
     def get_Succeeded(self: win32more.Windows.UI.Xaml.Input.IFocusMovementResult) -> Boolean: ...
     Succeeded = property(get_Succeeded, None)
-class FocusNavigationDirection(Int32):  # enum
+class FocusNavigationDirection(Enum, Int32):
     Next = 0
     Previous = 1
     Up = 2
@@ -1318,7 +1318,7 @@ class InputScopeName(ComPtr):
     @winrt_mixinmethod
     def put_NameValue(self: win32more.Windows.UI.Xaml.Input.IInputScopeName, value: win32more.Windows.UI.Xaml.Input.InputScopeNameValue) -> Void: ...
     NameValue = property(get_NameValue, put_NameValue)
-class InputScopeNameValue(Int32):  # enum
+class InputScopeNameValue(Enum, Int32):
     Default = 0
     Url = 1
     EmailSmtpAddress = 5
@@ -1389,7 +1389,7 @@ class KeyRoutedEventArgs(ComPtr):
     Key = property(get_Key, None)
     KeyStatus = property(get_KeyStatus, None)
     OriginalKey = property(get_OriginalKey, None)
-class KeyTipPlacementMode(Int32):  # enum
+class KeyTipPlacementMode(Enum, Int32):
     Auto = 0
     Bottom = 1
     Top = 2
@@ -1463,10 +1463,10 @@ class KeyboardAcceleratorInvokedEventArgs(ComPtr):
     Element = property(get_Element, None)
     Handled = property(get_Handled, put_Handled)
     KeyboardAccelerator = property(get_KeyboardAccelerator, None)
-class KeyboardAcceleratorPlacementMode(Int32):  # enum
+class KeyboardAcceleratorPlacementMode(Enum, Int32):
     Auto = 0
     Hidden = 1
-class KeyboardNavigationMode(Int32):  # enum
+class KeyboardNavigationMode(Enum, Int32):
     Local = 0
     Cycle = 1
     Once = 2
@@ -1648,7 +1648,7 @@ class ManipulationInertiaStartingRoutedEventArgs(ComPtr):
     RotationBehavior = property(get_RotationBehavior, put_RotationBehavior)
     TranslationBehavior = property(get_TranslationBehavior, put_TranslationBehavior)
     Velocities = property(get_Velocities, None)
-class ManipulationModes(UInt32):  # enum
+class ManipulationModes(Enum, UInt32):
     None_ = 0
     TranslateX = 1
     TranslateY = 2
@@ -1891,7 +1891,7 @@ class StandardUICommand(ComPtr, metaclass=_StandardUICommand_Meta_):
     def get_KindProperty(cls: win32more.Windows.UI.Xaml.Input.IStandardUICommandStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Kind = property(get_Kind, put_Kind)
     _StandardUICommand_Meta_.KindProperty = property(get_KindProperty.__wrapped__, None)
-class StandardUICommandKind(Int32):  # enum
+class StandardUICommandKind(Enum, Int32):
     None_ = 0
     Cut = 1
     Copy = 2
@@ -1937,16 +1937,16 @@ class TappedRoutedEventArgs(ComPtr):
     def GetPosition(self: win32more.Windows.UI.Xaml.Input.ITappedRoutedEventArgs, relativeTo: win32more.Windows.UI.Xaml.UIElement) -> win32more.Windows.Foundation.Point: ...
     Handled = property(get_Handled, put_Handled)
     PointerDeviceType = property(get_PointerDeviceType, None)
-class XYFocusKeyboardNavigationMode(Int32):  # enum
+class XYFocusKeyboardNavigationMode(Enum, Int32):
     Auto = 0
     Enabled = 1
     Disabled = 2
-class XYFocusNavigationStrategy(Int32):  # enum
+class XYFocusNavigationStrategy(Enum, Int32):
     Auto = 0
     Projection = 1
     NavigationDirectionDistance = 2
     RectilinearDistance = 3
-class XYFocusNavigationStrategyOverride(Int32):  # enum
+class XYFocusNavigationStrategyOverride(Enum, Int32):
     None_ = 0
     Auto = 1
     Projection = 2

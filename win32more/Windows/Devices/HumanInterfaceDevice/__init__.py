@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.HumanInterfaceDevice
 import win32more.Windows.Foundation
@@ -69,7 +69,7 @@ class HidCollection(ComPtr):
     Type = property(get_Type, None)
     UsageId = property(get_UsageId, None)
     UsagePage = property(get_UsagePage, None)
-class HidCollectionType(Int32):  # enum
+class HidCollectionType(Enum, Int32):
     Physical = 0
     Application = 1
     Logical = 2
@@ -285,7 +285,7 @@ class HidOutputReport(ComPtr):
     def GetNumericControlByDescription(self: win32more.Windows.Devices.HumanInterfaceDevice.IHidOutputReport, controlDescription: win32more.Windows.Devices.HumanInterfaceDevice.HidNumericControlDescription) -> win32more.Windows.Devices.HumanInterfaceDevice.HidNumericControl: ...
     Data = property(get_Data, put_Data)
     Id = property(get_Id, None)
-class HidReportType(Int32):  # enum
+class HidReportType(Enum, Int32):
     Input = 0
     Output = 1
     Feature = 2

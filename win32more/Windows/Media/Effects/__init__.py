@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -56,7 +56,7 @@ class AudioEffectDefinition(ComPtr):
     def get_Properties(self: win32more.Windows.Media.Effects.IAudioEffectDefinition) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     ActivatableClassId = property(get_ActivatableClassId, None)
     Properties = property(get_Properties, None)
-class AudioEffectType(Int32):  # enum
+class AudioEffectType(Enum, Int32):
     Other = 0
     AcousticEchoCancellation = 1
     NoiseSuppression = 2
@@ -397,12 +397,12 @@ class IVideoTransformSphericalProjection(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     ProjectionMode = property(get_ProjectionMode, put_ProjectionMode)
     ViewOrientation = property(get_ViewOrientation, put_ViewOrientation)
-class MediaEffectClosedReason(Int32):  # enum
+class MediaEffectClosedReason(Enum, Int32):
     Done = 0
     UnknownError = 1
     UnsupportedEncodingFormat = 2
     EffectCurrentlyUnloaded = 3
-class MediaMemoryTypes(Int32):  # enum
+class MediaMemoryTypes(Enum, Int32):
     Gpu = 0
     Cpu = 1
     GpuAndCpu = 2

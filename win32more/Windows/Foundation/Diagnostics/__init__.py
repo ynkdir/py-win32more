@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Diagnostics
@@ -22,21 +22,21 @@ class AsyncCausalityTracer(ComPtr):
     def add_TracingStatusChanged(cls: win32more.Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_TracingStatusChanged(cls: win32more.Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-class CausalityRelation(Int32):  # enum
+class CausalityRelation(Enum, Int32):
     AssignDelegate = 0
     Join = 1
     Choice = 2
     Cancel = 3
     Error = 4
-class CausalitySource(Int32):  # enum
+class CausalitySource(Enum, Int32):
     Application = 0
     Library = 1
     System = 2
-class CausalitySynchronousWork(Int32):  # enum
+class CausalitySynchronousWork(Enum, Int32):
     CompletionNotification = 0
     ProgressNotification = 1
     Execution = 2
-class CausalityTraceLevel(Int32):  # enum
+class CausalityTraceLevel(Enum, Int32):
     Required = 0
     Important = 1
     Verbose = 2
@@ -55,7 +55,7 @@ class ErrorDetails(ComPtr):
     Description = property(get_Description, None)
     HelpUri = property(get_HelpUri, None)
     LongDescription = property(get_LongDescription, None)
-class ErrorOptions(UInt32):  # enum
+class ErrorOptions(Enum, UInt32):
     None_ = 0
     SuppressExceptions = 1
     ForceExceptions = 2
@@ -745,7 +745,7 @@ class LoggingChannelOptions(ComPtr):
     @winrt_mixinmethod
     def put_Group(self: win32more.Windows.Foundation.Diagnostics.ILoggingChannelOptions, value: Guid) -> Void: ...
     Group = property(get_Group, put_Group)
-class LoggingFieldFormat(Int32):  # enum
+class LoggingFieldFormat(Enum, Int32):
     Default = 0
     Hidden = 1
     String = 2
@@ -1008,13 +1008,13 @@ class LoggingFields(ComPtr):
     def AddRectArrayWithFormat(self: win32more.Windows.Foundation.Diagnostics.ILoggingFields, name: WinRT_String, value: PassArray[win32more.Windows.Foundation.Rect], format: win32more.Windows.Foundation.Diagnostics.LoggingFieldFormat) -> Void: ...
     @winrt_mixinmethod
     def AddRectArrayWithFormatAndTags(self: win32more.Windows.Foundation.Diagnostics.ILoggingFields, name: WinRT_String, value: PassArray[win32more.Windows.Foundation.Rect], format: win32more.Windows.Foundation.Diagnostics.LoggingFieldFormat, tags: Int32) -> Void: ...
-class LoggingLevel(Int32):  # enum
+class LoggingLevel(Enum, Int32):
     Verbose = 0
     Information = 1
     Warning = 2
     Error = 3
     Critical = 4
-class LoggingOpcode(Int32):  # enum
+class LoggingOpcode(Enum, Int32):
     Info = 0
     Start = 1
     Stop = 2

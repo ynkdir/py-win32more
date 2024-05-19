@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Xml.Dom
 import win32more.Windows.Devices.Sms
@@ -10,7 +10,7 @@ import win32more.Windows.Networking.Connectivity
 import win32more.Windows.Networking.NetworkOperators
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-class DataClasses(UInt32):  # enum
+class DataClasses(Enum, UInt32):
     None_ = 0
     Gprs = 1
     Edge = 2
@@ -80,7 +80,7 @@ class ESimAddedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ESim(self: win32more.Windows.Networking.NetworkOperators.IESimAddedEventArgs) -> win32more.Windows.Networking.NetworkOperators.ESim: ...
     ESim = property(get_ESim, None)
-class ESimAuthenticationPreference(Int32):  # enum
+class ESimAuthenticationPreference(Enum, Int32):
     OnEntry = 0
     OnAction = 1
     Never = 2
@@ -110,7 +110,7 @@ class ESimDiscoverResult(ComPtr):
     Kind = property(get_Kind, None)
     ProfileMetadata = property(get_ProfileMetadata, None)
     Result = property(get_Result, None)
-class ESimDiscoverResultKind(Int32):  # enum
+class ESimDiscoverResultKind(Enum, Int32):
     None_ = 0
     Events = 1
     ProfileMetadata = 2
@@ -145,7 +145,7 @@ class ESimOperationResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Networking.NetworkOperators.IESimOperationResult) -> win32more.Windows.Networking.NetworkOperators.ESimOperationStatus: ...
     Status = property(get_Status, None)
-class ESimOperationStatus(Int32):  # enum
+class ESimOperationStatus(Enum, Int32):
     Success = 0
     NotAuthorized = 1
     NotFound = 2
@@ -216,7 +216,7 @@ class ESimProfile(ComPtr):
     ProviderId = property(get_ProviderId, None)
     ProviderName = property(get_ProviderName, None)
     State = property(get_State, None)
-class ESimProfileClass(Int32):  # enum
+class ESimProfileClass(Enum, Int32):
     Operational = 0
     Test = 1
     Provisioning = 2
@@ -260,7 +260,7 @@ class ESimProfileMetadata(ComPtr):
     ProviderId = property(get_ProviderId, None)
     ProviderName = property(get_ProviderName, None)
     State = property(get_State, None)
-class ESimProfileMetadataState(Int32):  # enum
+class ESimProfileMetadataState(Enum, Int32):
     Unknown = 0
     WaitingForInstall = 1
     Downloading = 2
@@ -282,7 +282,7 @@ class ESimProfilePolicy(ComPtr):
     CanDelete = property(get_CanDelete, None)
     CanDisable = property(get_CanDisable, None)
     IsManagedByEnterprise = property(get_IsManagedByEnterprise, None)
-class ESimProfileState(Int32):  # enum
+class ESimProfileState(Enum, Int32):
     Unknown = 0
     Disabled = 1
     Enabled = 2
@@ -304,7 +304,7 @@ class ESimServiceInfo(ComPtr):
     def get_IsESimUiEnabled(self: win32more.Windows.Networking.NetworkOperators.IESimServiceInfo) -> Boolean: ...
     AuthenticationPreference = property(get_AuthenticationPreference, None)
     IsESimUiEnabled = property(get_IsESimUiEnabled, None)
-class ESimState(Int32):  # enum
+class ESimState(Enum, Int32):
     Unknown = 0
     Idle = 1
     Removed = 2
@@ -347,7 +347,7 @@ class ESimWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-class ESimWatcherStatus(Int32):  # enum
+class ESimWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -396,7 +396,7 @@ class HotspotAuthenticationEventDetails(ComPtr):
     @winrt_mixinmethod
     def get_EventToken(self: win32more.Windows.Networking.NetworkOperators.IHotspotAuthenticationEventDetails) -> WinRT_String: ...
     EventToken = property(get_EventToken, None)
-class HotspotAuthenticationResponseCode(Int32):  # enum
+class HotspotAuthenticationResponseCode(Enum, Int32):
     NoError = 0
     LoginSucceeded = 50
     LoginFailed = 100
@@ -2143,7 +2143,7 @@ class MobileBroadbandAccountWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher) -> Void: ...
     Status = property(get_Status, None)
-class MobileBroadbandAccountWatcherStatus(Int32):  # enum
+class MobileBroadbandAccountWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -2532,7 +2532,7 @@ class MobileBroadbandDeviceServiceTriggerDetails(ComPtr):
     DeviceServiceId = property(get_DeviceServiceId, None)
     EventId = property(get_EventId, None)
     ReceivedData = property(get_ReceivedData, None)
-class MobileBroadbandDeviceType(Int32):  # enum
+class MobileBroadbandDeviceType(Enum, Int32):
     Unknown = 0
     Embedded = 1
     Removable = 2
@@ -2632,7 +2632,7 @@ class MobileBroadbandModemIsolation(ComPtr):
     def ApplyConfigurationAsync(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolation) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def ClearConfigurationAsync(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolation) -> win32more.Windows.Foundation.IAsyncAction: ...
-class MobileBroadbandModemStatus(Int32):  # enum
+class MobileBroadbandModemStatus(Enum, Int32):
     Success = 0
     OtherFailure = 1
     Busy = 2
@@ -2749,11 +2749,11 @@ class MobileBroadbandPin(ComPtr):
     MaxLength = property(get_MaxLength, None)
     MinLength = property(get_MinLength, None)
     Type = property(get_Type, None)
-class MobileBroadbandPinFormat(Int32):  # enum
+class MobileBroadbandPinFormat(Enum, Int32):
     Unknown = 0
     Numeric = 1
     Alphanumeric = 2
-class MobileBroadbandPinLockState(Int32):  # enum
+class MobileBroadbandPinLockState(Enum, Int32):
     Unknown = 0
     Unlocked = 1
     PinRequired = 2
@@ -2797,7 +2797,7 @@ class MobileBroadbandPinOperationResult(ComPtr):
     def get_AttemptsRemaining(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandPinOperationResult) -> UInt32: ...
     AttemptsRemaining = property(get_AttemptsRemaining, None)
     IsSuccessful = property(get_IsSuccessful, None)
-class MobileBroadbandPinType(Int32):  # enum
+class MobileBroadbandPinType(Enum, Int32):
     None_ = 0
     Custom = 1
     Pin1 = 2
@@ -2809,7 +2809,7 @@ class MobileBroadbandPinType(Int32):  # enum
     ServiceProviderPin = 8
     CorporatePin = 9
     SubsidyLock = 10
-class MobileBroadbandRadioState(Int32):  # enum
+class MobileBroadbandRadioState(Enum, Int32):
     Off = 0
     On = 1
 class MobileBroadbandRadioStateChange(ComPtr):
@@ -2910,7 +2910,7 @@ class MobileBroadbandSlotManager(ComPtr):
     def remove_CurrentSlotIndexChanged(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandSlotManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CurrentSlotIndex = property(get_CurrentSlotIndex, None)
     SlotInfos = property(get_SlotInfos, None)
-class MobileBroadbandSlotState(Int32):  # enum
+class MobileBroadbandSlotState(Enum, Int32):
     Unmanaged = 0
     Unknown = 1
     OffEmpty = 2
@@ -2951,7 +2951,7 @@ class MobileBroadbandUiccApp(ComPtr):
     def ReadRecordAsync(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandUiccApp, uiccFilePath: win32more.Windows.Foundation.Collections.IIterable[UInt32], recordIndex: Int32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.MobileBroadbandUiccAppReadRecordResult]: ...
     Id = property(get_Id, None)
     Kind = property(get_Kind, None)
-class MobileBroadbandUiccAppOperationStatus(Int32):  # enum
+class MobileBroadbandUiccAppOperationStatus(Enum, Int32):
     Success = 0
     InvalidUiccFilePath = 1
     AccessConditionNotHeld = 2
@@ -2998,7 +2998,7 @@ class MobileBroadbandUiccAppsResult(ComPtr):
     def get_UiccApps(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandUiccAppsResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.NetworkOperators.MobileBroadbandUiccApp]: ...
     Status = property(get_Status, None)
     UiccApps = property(get_UiccApps, None)
-class NetworkDeviceStatus(Int32):  # enum
+class NetworkDeviceStatus(Enum, Int32):
     DeviceNotReady = 0
     DeviceReady = 1
     SimNotInserted = 2
@@ -3007,7 +3007,7 @@ class NetworkDeviceStatus(Int32):  # enum
     AccountNotActivated = 5
     DeviceLocked = 6
     DeviceBlocked = 7
-class NetworkOperatorDataUsageNotificationKind(Int32):  # enum
+class NetworkOperatorDataUsageNotificationKind(Enum, Int32):
     DataUsageProgress = 0
 class NetworkOperatorDataUsageTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -3016,7 +3016,7 @@ class NetworkOperatorDataUsageTriggerDetails(ComPtr):
     @winrt_mixinmethod
     def get_NotificationKind(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorDataUsageTriggerDetails) -> win32more.Windows.Networking.NetworkOperators.NetworkOperatorDataUsageNotificationKind: ...
     NotificationKind = property(get_NotificationKind, None)
-class NetworkOperatorEventMessageType(Int32):  # enum
+class NetworkOperatorEventMessageType(Enum, Int32):
     Gsm = 0
     Cdma = 1
     Ussd = 2
@@ -3150,7 +3150,7 @@ class NetworkOperatorTetheringOperationResult(ComPtr):
     AdditionalErrorMessage = property(get_AdditionalErrorMessage, None)
     Status = property(get_Status, None)
 NetworkOperatorsFdnContract: UInt32 = 65536
-class NetworkRegistrationState(Int32):  # enum
+class NetworkRegistrationState(Enum, Int32):
     None_ = 0
     Deregistered = 1
     Searching = 2
@@ -3158,7 +3158,7 @@ class NetworkRegistrationState(Int32):  # enum
     Roaming = 4
     Partner = 5
     Denied = 6
-class ProfileMediaType(Int32):  # enum
+class ProfileMediaType(Enum, Int32):
     Wlan = 0
     Wwan = 1
 class ProfileUsage(Structure):
@@ -3201,7 +3201,7 @@ class ProvisioningAgent(ComPtr):
     def GetProvisionedProfile(self: win32more.Windows.Networking.NetworkOperators.IProvisioningAgent, mediaType: win32more.Windows.Networking.NetworkOperators.ProfileMediaType, profileName: WinRT_String) -> win32more.Windows.Networking.NetworkOperators.ProvisionedProfile: ...
     @winrt_classmethod
     def CreateFromNetworkAccountId(cls: win32more.Windows.Networking.NetworkOperators.IProvisioningAgentStaticMethods, networkAccountId: WinRT_String) -> win32more.Windows.Networking.NetworkOperators.ProvisioningAgent: ...
-class TetheringCapability(Int32):  # enum
+class TetheringCapability(Enum, Int32):
     Enabled = 0
     DisabledByGroupPolicy = 1
     DisabledByHardwareLimitation = 2
@@ -3221,7 +3221,7 @@ class TetheringEntitlementCheckTriggerDetails(ComPtr):
     @winrt_mixinmethod
     def DenyTethering(self: win32more.Windows.Networking.NetworkOperators.ITetheringEntitlementCheckTriggerDetails, entitlementFailureReason: WinRT_String) -> Void: ...
     NetworkAccountId = property(get_NetworkAccountId, None)
-class TetheringOperationStatus(Int32):  # enum
+class TetheringOperationStatus(Enum, Int32):
     Success = 0
     Unknown = 1
     MobileBroadbandDeviceOff = 2
@@ -3231,16 +3231,16 @@ class TetheringOperationStatus(Int32):  # enum
     OperationInProgress = 6
     BluetoothDeviceOff = 7
     NetworkLimitedConnectivity = 8
-class TetheringOperationalState(Int32):  # enum
+class TetheringOperationalState(Enum, Int32):
     Unknown = 0
     On = 1
     Off = 2
     InTransition = 3
-class TetheringWiFiBand(Int32):  # enum
+class TetheringWiFiBand(Enum, Int32):
     Auto = 0
     TwoPointFourGigahertz = 1
     FiveGigahertz = 2
-class UiccAccessCondition(Int32):  # enum
+class UiccAccessCondition(Enum, Int32):
     AlwaysAllowed = 0
     Pin1 = 1
     Pin2 = 2
@@ -3249,7 +3249,7 @@ class UiccAccessCondition(Int32):  # enum
     Administrative5 = 5
     Administrative6 = 6
     NeverAllowed = 7
-class UiccAppKind(Int32):  # enum
+class UiccAppKind(Enum, Int32):
     Unknown = 0
     MF = 1
     MFSim = 2
@@ -3257,7 +3257,7 @@ class UiccAppKind(Int32):  # enum
     USim = 4
     CSim = 5
     ISim = 6
-class UiccAppRecordKind(Int32):  # enum
+class UiccAppRecordKind(Enum, Int32):
     Unknown = 0
     Transparent = 1
     RecordOriented = 2
@@ -3298,7 +3298,7 @@ class UssdReply(ComPtr):
     def get_Message(self: win32more.Windows.Networking.NetworkOperators.IUssdReply) -> win32more.Windows.Networking.NetworkOperators.UssdMessage: ...
     Message = property(get_Message, None)
     ResultCode = property(get_ResultCode, None)
-class UssdResultCode(Int32):  # enum
+class UssdResultCode(Enum, Int32):
     NoActionRequired = 0
     ActionRequired = 1
     Terminated = 2

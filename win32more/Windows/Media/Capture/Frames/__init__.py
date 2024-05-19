@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
@@ -494,10 +494,10 @@ class MediaFrameReader(ComPtr):
     @winrt_mixinmethod
     def get_AcquisitionMode(self: win32more.Windows.Media.Capture.Frames.IMediaFrameReader2) -> win32more.Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode: ...
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
-class MediaFrameReaderAcquisitionMode(Int32):  # enum
+class MediaFrameReaderAcquisitionMode(Enum, Int32):
     Realtime = 0
     Buffered = 1
-class MediaFrameReaderStartStatus(Int32):  # enum
+class MediaFrameReaderStartStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     DeviceNotAvailable = 2
@@ -588,7 +588,7 @@ class MediaFrameSourceGetPropertyResult(ComPtr):
     def get_Value(self: win32more.Windows.Media.Capture.Frames.IMediaFrameSourceGetPropertyResult) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     Value = property(get_Value, None)
-class MediaFrameSourceGetPropertyStatus(Int32):  # enum
+class MediaFrameSourceGetPropertyStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     NotSupported = 2
@@ -650,7 +650,7 @@ class MediaFrameSourceInfo(ComPtr):
     SourceGroup = property(get_SourceGroup, None)
     SourceKind = property(get_SourceKind, None)
     VideoProfileMediaDescription = property(get_VideoProfileMediaDescription, None)
-class MediaFrameSourceKind(Int32):  # enum
+class MediaFrameSourceKind(Enum, Int32):
     Custom = 0
     Color = 1
     Infrared = 2
@@ -658,7 +658,7 @@ class MediaFrameSourceKind(Int32):  # enum
     Audio = 4
     Image = 5
     Metadata = 6
-class MediaFrameSourceSetPropertyStatus(Int32):  # enum
+class MediaFrameSourceSetPropertyStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     NotSupported = 2
@@ -690,7 +690,7 @@ class MultiSourceMediaFrameReader(ComPtr):
     @winrt_mixinmethod
     def get_AcquisitionMode(self: win32more.Windows.Media.Capture.Frames.IMultiSourceMediaFrameReader2) -> win32more.Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode: ...
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
-class MultiSourceMediaFrameReaderStartStatus(Int32):  # enum
+class MultiSourceMediaFrameReaderStartStatus(Enum, Int32):
     Success = 0
     NotSupported = 1
     InsufficientResources = 2

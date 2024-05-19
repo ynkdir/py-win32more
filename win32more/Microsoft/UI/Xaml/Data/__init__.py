@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Data
@@ -105,7 +105,7 @@ class BindingExpressionBase(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Data.IBindingExpressionBase
     _classid_ = 'Microsoft.UI.Xaml.Data.BindingExpressionBase'
-class BindingMode(Int32):  # enum
+class BindingMode(Enum, Int32):
     OneWay = 1
     OneTime = 2
     TwoWay = 3
@@ -653,11 +653,11 @@ class RelativeSource(ComPtr):
     @winrt_mixinmethod
     def put_Mode(self: win32more.Microsoft.UI.Xaml.Data.IRelativeSource, value: win32more.Microsoft.UI.Xaml.Data.RelativeSourceMode) -> Void: ...
     Mode = property(get_Mode, put_Mode)
-class RelativeSourceMode(Int32):  # enum
+class RelativeSourceMode(Enum, Int32):
     None_ = 0
     TemplatedParent = 1
     Self = 2
-class UpdateSourceTrigger(Int32):  # enum
+class UpdateSourceTrigger(Enum, Int32):
     Default = 0
     PropertyChanged = 1
     Explicit = 2

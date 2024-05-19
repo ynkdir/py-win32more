@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -297,7 +297,7 @@ class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     Invoked = property(get_Invoked, put_Invoked)
     Label = property(get_Label, put_Label)
     _SettingsCommand_Meta_.AccountsCommand = property(get_AccountsCommand.__wrapped__, None)
-class SettingsEdgeLocation(Int32):  # enum
+class SettingsEdgeLocation(Enum, Int32):
     Right = 0
     Left = 1
 class _SettingsPane_Meta_(ComPtr.__class__):
@@ -331,14 +331,14 @@ class SettingsPaneCommandsRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequestedEventArgs) -> win32more.Windows.UI.ApplicationSettings.SettingsPaneCommandsRequest: ...
     Request = property(get_Request, None)
-class SupportedWebAccountActions(UInt32):  # enum
+class SupportedWebAccountActions(Enum, UInt32):
     None_ = 0
     Reconnect = 1
     Remove = 2
     ViewDetails = 4
     Manage = 8
     More = 16
-class WebAccountAction(Int32):  # enum
+class WebAccountAction(Enum, Int32):
     Reconnect = 0
     Remove = 1
     ViewDetails = 2

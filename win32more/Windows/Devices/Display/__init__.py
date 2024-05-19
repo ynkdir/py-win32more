@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Display
 import win32more.Windows.Foundation
@@ -77,15 +77,15 @@ class DisplayMonitor(ComPtr):
     RedPrimary = property(get_RedPrimary, None)
     UsageKind = property(get_UsageKind, None)
     WhitePoint = property(get_WhitePoint, None)
-class DisplayMonitorConnectionKind(Int32):  # enum
+class DisplayMonitorConnectionKind(Enum, Int32):
     Internal = 0
     Wired = 1
     Wireless = 2
     Virtual = 3
-class DisplayMonitorDescriptorKind(Int32):  # enum
+class DisplayMonitorDescriptorKind(Enum, Int32):
     Edid = 0
     DisplayId = 1
-class DisplayMonitorPhysicalConnectorKind(Int32):  # enum
+class DisplayMonitorPhysicalConnectorKind(Enum, Int32):
     Unknown = 0
     HD15 = 1
     AnalogTV = 2
@@ -94,7 +94,7 @@ class DisplayMonitorPhysicalConnectorKind(Int32):  # enum
     Lvds = 5
     Sdi = 6
     DisplayPort = 7
-class DisplayMonitorUsageKind(Int32):  # enum
+class DisplayMonitorUsageKind(Enum, Int32):
     Standard = 0
     HeadMounted = 1
     SpecialPurpose = 2

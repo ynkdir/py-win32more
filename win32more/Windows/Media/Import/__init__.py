@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -454,20 +454,20 @@ class IPhotoImportVideoSegment(ComPtr):
     Sibling = property(get_Sibling, None)
     Sidecars = property(get_Sidecars, None)
     SizeInBytes = property(get_SizeInBytes, None)
-class PhotoImportAccessMode(Int32):  # enum
+class PhotoImportAccessMode(Enum, Int32):
     ReadWrite = 0
     ReadOnly = 1
     ReadAndDelete = 2
-class PhotoImportConnectionTransport(Int32):  # enum
+class PhotoImportConnectionTransport(Enum, Int32):
     Unknown = 0
     Usb = 1
     IP = 2
     Bluetooth = 3
-class PhotoImportContentType(Int32):  # enum
+class PhotoImportContentType(Enum, Int32):
     Unknown = 0
     Image = 1
     Video = 2
-class PhotoImportContentTypeFilter(Int32):  # enum
+class PhotoImportContentTypeFilter(Enum, Int32):
     OnlyImages = 0
     OnlyVideos = 1
     ImagesAndVideos = 2
@@ -656,7 +656,7 @@ class PhotoImportImportItemsResult(ComPtr):
     TotalSizeInBytes = property(get_TotalSizeInBytes, None)
     VideosCount = property(get_VideosCount, None)
     VideosSizeInBytes = property(get_VideosSizeInBytes, None)
-class PhotoImportImportMode(Int32):  # enum
+class PhotoImportImportMode(Enum, Int32):
     ImportEverything = 0
     IgnoreSidecars = 1
     IgnoreSiblings = 2
@@ -713,7 +713,7 @@ class PhotoImportItemImportedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ImportedItem(self: win32more.Windows.Media.Import.IPhotoImportItemImportedEventArgs) -> win32more.Windows.Media.Import.PhotoImportItem: ...
     ImportedItem = property(get_ImportedItem, None)
-class PhotoImportItemSelectionMode(Int32):  # enum
+class PhotoImportItemSelectionMode(Enum, Int32):
     SelectAll = 0
     SelectNone = 1
     SelectNew = 2
@@ -745,7 +745,7 @@ class PhotoImportOperation(ComPtr):
     ContinueImportingItemsAsync = property(get_ContinueImportingItemsAsync, None)
     Session = property(get_Session, None)
     Stage = property(get_Stage, None)
-class PhotoImportPowerSource(Int32):  # enum
+class PhotoImportPowerSource(Enum, Int32):
     Unknown = 0
     Battery = 1
     External = 2
@@ -877,7 +877,7 @@ class PhotoImportSource(ComPtr):
     StorageMedia = property(get_StorageMedia, None)
     Thumbnail = property(get_Thumbnail, None)
     Type = property(get_Type, None)
-class PhotoImportSourceType(Int32):  # enum
+class PhotoImportSourceType(Enum, Int32):
     Generic = 0
     Camera = 1
     MediaPlayer = 2
@@ -885,7 +885,7 @@ class PhotoImportSourceType(Int32):  # enum
     Video = 4
     PersonalInfoManager = 5
     AudioRecorder = 6
-class PhotoImportStage(Int32):  # enum
+class PhotoImportStage(Enum, Int32):
     NotStarted = 0
     FindingItems = 1
     ImportingItems = 2
@@ -917,16 +917,16 @@ class PhotoImportStorageMedium(ComPtr):
     SerialNumber = property(get_SerialNumber, None)
     StorageMediumType = property(get_StorageMediumType, None)
     SupportedAccessMode = property(get_SupportedAccessMode, None)
-class PhotoImportStorageMediumType(Int32):  # enum
+class PhotoImportStorageMediumType(Enum, Int32):
     Undefined = 0
     Fixed = 1
     Removable = 2
-class PhotoImportSubfolderCreationMode(Int32):  # enum
+class PhotoImportSubfolderCreationMode(Enum, Int32):
     DoNotCreateSubfolders = 0
     CreateSubfoldersFromFileDate = 1
     CreateSubfoldersFromExifDate = 2
     KeepOriginalFolderStructure = 3
-class PhotoImportSubfolderDateFormat(Int32):  # enum
+class PhotoImportSubfolderDateFormat(Enum, Int32):
     Year = 0
     YearMonth = 1
     YearMonthDay = 2

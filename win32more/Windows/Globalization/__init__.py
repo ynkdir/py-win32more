@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -862,7 +862,7 @@ class CurrencyIdentifiers(ComPtr, metaclass=_CurrencyIdentifiers_Meta_):
     _CurrencyIdentifiers_Meta_.ZAR = property(get_ZAR.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.ZMW = property(get_ZMW.__wrapped__, None)
     _CurrencyIdentifiers_Meta_.ZWL = property(get_ZWL.__wrapped__, None)
-class DayOfWeek(Int32):  # enum
+class DayOfWeek(Enum, Int32):
     Sunday = 0
     Monday = 1
     Tuesday = 2
@@ -2114,7 +2114,7 @@ class Language(ComPtr, metaclass=_Language_Meta_):
     NativeName = property(get_NativeName, None)
     Script = property(get_Script, None)
     _Language_Meta_.CurrentInputMethodLanguageTag = property(get_CurrentInputMethodLanguageTag.__wrapped__, None)
-class LanguageLayoutDirection(Int32):  # enum
+class LanguageLayoutDirection(Enum, Int32):
     Ltr = 0
     Rtl = 1
     TtbLtr = 2

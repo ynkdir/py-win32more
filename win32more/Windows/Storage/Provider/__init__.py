@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -9,12 +9,12 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-class CachedFileOptions(UInt32):  # enum
+class CachedFileOptions(Enum, UInt32):
     None_ = 0
     RequireUpdateOnAccess = 1
     UseCachedFileWhenOffline = 2
     DenyAccessWhenOffline = 4
-class CachedFileTarget(Int32):  # enum
+class CachedFileTarget(Enum, Int32):
     Local = 0
     Remote = 1
 class CachedFileUpdater(ComPtr):
@@ -88,7 +88,7 @@ class FileUpdateRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.Storage.Provider.IFileUpdateRequestedEventArgs) -> win32more.Windows.Storage.Provider.FileUpdateRequest: ...
     Request = property(get_Request, None)
-class FileUpdateStatus(Int32):  # enum
+class FileUpdateStatus(Enum, Int32):
     Incomplete = 0
     Complete = 1
     UserInputNeeded = 2
@@ -573,7 +573,7 @@ class IStorageProviderUriSource(ComPtr):
     def GetPathForContentUri(self, contentUri: WinRT_String, result: win32more.Windows.Storage.Provider.StorageProviderGetPathForContentUriResult) -> Void: ...
     @winrt_commethod(7)
     def GetContentInfoForPath(self, path: WinRT_String, result: win32more.Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult) -> Void: ...
-class ReadActivationMode(Int32):  # enum
+class ReadActivationMode(Enum, Int32):
     NotNeeded = 0
     BeforeAccess = 1
 class StorageProviderFileTypeInfo(ComPtr):
@@ -646,21 +646,21 @@ class StorageProviderGetPathForContentUriResult(ComPtr):
     def put_Path(self: win32more.Windows.Storage.Provider.IStorageProviderGetPathForContentUriResult, value: WinRT_String) -> Void: ...
     Path = property(get_Path, put_Path)
     Status = property(get_Status, put_Status)
-class StorageProviderHardlinkPolicy(UInt32):  # enum
+class StorageProviderHardlinkPolicy(Enum, UInt32):
     None_ = 0
     Allowed = 1
-class StorageProviderHydrationPolicy(Int32):  # enum
+class StorageProviderHydrationPolicy(Enum, Int32):
     Partial = 0
     Progressive = 1
     Full = 2
     AlwaysFull = 3
-class StorageProviderHydrationPolicyModifier(UInt32):  # enum
+class StorageProviderHydrationPolicyModifier(Enum, UInt32):
     None_ = 0
     ValidationRequired = 1
     StreamingAllowed = 2
     AutoDehydrationAllowed = 4
     AllowFullRestartHydration = 8
-class StorageProviderInSyncPolicy(UInt32):  # enum
+class StorageProviderInSyncPolicy(Enum, UInt32):
     Default = 0
     FileCreationTime = 1
     FileReadOnlyAttribute = 2
@@ -793,7 +793,7 @@ class StorageProviderKnownFolderSyncRequestedHandler(MulticastDelegate):
     _iid_ = Guid('{c4cbb4f5-13dd-5c8e-8b96-336fc30c629b}')
     @winrt_commethod(3)
     def Invoke(self, args: win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs) -> Void: ...
-class StorageProviderKnownFolderSyncStatus(Int32):  # enum
+class StorageProviderKnownFolderSyncStatus(Enum, Int32):
     Available = 0
     Enrolling = 1
     Enrolled = 2
@@ -820,10 +820,10 @@ class StorageProviderMoreInfoUI(ComPtr):
     def put_Command(self: win32more.Windows.Storage.Provider.IStorageProviderMoreInfoUI, value: win32more.Windows.Storage.Provider.IStorageProviderUICommand) -> Void: ...
     Command = property(get_Command, put_Command)
     Message = property(get_Message, put_Message)
-class StorageProviderPopulationPolicy(Int32):  # enum
+class StorageProviderPopulationPolicy(Enum, Int32):
     Full = 1
     AlwaysFull = 2
-class StorageProviderProtectionMode(Int32):  # enum
+class StorageProviderProtectionMode(Enum, Int32):
     Unknown = 0
     Personal = 1
 class StorageProviderQuotaUI(ComPtr):
@@ -859,7 +859,7 @@ class StorageProviderQuotaUI(ComPtr):
     QuotaUsedColor = property(get_QuotaUsedColor, put_QuotaUsedColor)
     QuotaUsedInBytes = property(get_QuotaUsedInBytes, put_QuotaUsedInBytes)
     QuotaUsedLabel = property(get_QuotaUsedLabel, put_QuotaUsedLabel)
-class StorageProviderState(Int32):  # enum
+class StorageProviderState(Enum, Int32):
     InSync = 0
     Syncing = 1
     Paused = 2
@@ -1033,20 +1033,20 @@ class StorageProviderSyncRootManager(ComPtr):
     def GetSyncRootInformationForId(cls: win32more.Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics, id: WinRT_String) -> win32more.Windows.Storage.Provider.StorageProviderSyncRootInfo: ...
     @winrt_classmethod
     def GetCurrentSyncRoots(cls: win32more.Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.Provider.StorageProviderSyncRootInfo]: ...
-class StorageProviderUICommandState(Int32):  # enum
+class StorageProviderUICommandState(Enum, Int32):
     Enabled = 0
     Disabled = 1
     Hidden = 2
-class StorageProviderUriSourceStatus(Int32):  # enum
+class StorageProviderUriSourceStatus(Enum, Int32):
     Success = 0
     NoSyncRoot = 1
     FileNotFound = 2
-class UIStatus(Int32):  # enum
+class UIStatus(Enum, Int32):
     Unavailable = 0
     Hidden = 1
     Visible = 2
     Complete = 3
-class WriteActivationMode(Int32):  # enum
+class WriteActivationMode(Enum, Int32):
     ReadOnly = 0
     NotNeeded = 1
     AfterWrite = 2

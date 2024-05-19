@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Composition
@@ -31,7 +31,7 @@ class ContentCoordinateConverter(ComPtr):
     def ConvertScreenToLocalWithRect(self: win32more.Microsoft.UI.Content.IContentCoordinateConverter, screenRect: win32more.Windows.Graphics.RectInt32) -> win32more.Windows.Foundation.Rect: ...
     @winrt_classmethod
     def CreateForWindowId(cls: win32more.Microsoft.UI.Content.IContentCoordinateConverterStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
-class ContentCoordinateRoundingMode(Int32):  # enum
+class ContentCoordinateRoundingMode(Enum, Int32):
     Auto = 0
     Floor = 1
     Round = 2
@@ -209,7 +209,7 @@ class ContentIslandStateChangedEventArgs(ComPtr):
     DidRasterizationScaleChange = property(get_DidRasterizationScaleChange, None)
     DidSiteEnabledChange = property(get_DidSiteEnabledChange, None)
     DidSiteVisibleChange = property(get_DidSiteVisibleChange, None)
-class ContentLayoutDirection(Int32):  # enum
+class ContentLayoutDirection(Enum, Int32):
     LeftToRight = 0
     RightToLeft = 1
 class ContentSite(ComPtr):
@@ -378,7 +378,7 @@ class ContentSiteView(ComPtr):
     RasterizationScale = property(get_RasterizationScale, None)
     RequestedSize = property(get_RequestedSize, None)
     ShouldApplyRasterizationScale = property(get_ShouldApplyRasterizationScale, None)
-class ContentSizePolicy(Int32):  # enum
+class ContentSizePolicy(Enum, Int32):
     None_ = 0
     ResizeContentToParentWindow = 1
     ResizeParentWindowToContent = 2

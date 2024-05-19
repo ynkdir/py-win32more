@@ -1,19 +1,19 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.System.Power
 import win32more.Windows.Foundation
 import win32more.Windows.Win32.System.WinRT
-class BatteryStatus(Int32):  # enum
+class BatteryStatus(Enum, Int32):
     NotPresent = 0
     Discharging = 1
     Idle = 2
     Charging = 3
-class DisplayStatus(Int32):  # enum
+class DisplayStatus(Enum, Int32):
     Off = 0
     On = 1
     Dimmed = 2
-class EffectivePowerMode(Int32):  # enum
+class EffectivePowerMode(Enum, Int32):
     BatterySaver = 0
     BetterBattery = 1
     Balanced = 2
@@ -21,7 +21,7 @@ class EffectivePowerMode(Int32):  # enum
     MaxPerformance = 4
     GameMode = 5
     MixedReality = 6
-class EnergySaverStatus(Int32):  # enum
+class EnergySaverStatus(Enum, Int32):
     Uninitialized = 0
     Disabled = 1
     Off = 2
@@ -194,19 +194,19 @@ class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):
     _PowerManager_Meta_.SystemSuspendStatus = property(get_SystemSuspendStatus.__wrapped__, None)
     _PowerManager_Meta_.UserPresenceStatus = property(get_UserPresenceStatus.__wrapped__, None)
 PowerNotificationsContract: UInt32 = 131072
-class PowerSourceKind(Int32):  # enum
+class PowerSourceKind(Enum, Int32):
     AC = 0
     DC = 1
-class PowerSupplyStatus(Int32):  # enum
+class PowerSupplyStatus(Enum, Int32):
     NotPresent = 0
     Inadequate = 1
     Adequate = 2
-class SystemSuspendStatus(Int32):  # enum
+class SystemSuspendStatus(Enum, Int32):
     Uninitialized = 0
     Entering = 1
     AutoResume = 2
     ManualResume = 3
-class UserPresenceStatus(Int32):  # enum
+class UserPresenceStatus(Enum, Int32):
     Present = 0
     Absent = 1
 

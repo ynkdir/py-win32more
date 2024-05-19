@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Core
 import win32more.Windows.Foundation
@@ -10,7 +10,7 @@ import win32more.Windows.UI
 import win32more.Windows.UI.Popups
 import win32more.Windows.UI.StartScreen
 import win32more.Windows.Win32.System.WinRT
-class ForegroundText(Int32):  # enum
+class ForegroundText(Enum, Int32):
     Dark = 0
     Light = 1
 class IJumpList(ComPtr):
@@ -421,10 +421,10 @@ class JumpListItem(ComPtr):
     Kind = property(get_Kind, None)
     Logo = property(get_Logo, put_Logo)
     RemovedByUser = property(get_RemovedByUser, None)
-class JumpListItemKind(Int32):  # enum
+class JumpListItemKind(Enum, Int32):
     Arguments = 0
     Separator = 1
-class JumpListSystemGroupKind(Int32):  # enum
+class JumpListSystemGroupKind(Enum, Int32):
     None_ = 0
     Frequent = 1
     Recent = 2
@@ -667,15 +667,15 @@ class TileMixedRealityModel(ComPtr):
     ActivationBehavior = property(get_ActivationBehavior, put_ActivationBehavior)
     BoundingBox = property(get_BoundingBox, put_BoundingBox)
     Uri = property(get_Uri, put_Uri)
-class TileMixedRealityModelActivationBehavior(Int32):  # enum
+class TileMixedRealityModelActivationBehavior(Enum, Int32):
     Default = 0
     None_ = 1
-class TileOptions(UInt32):  # enum
+class TileOptions(Enum, UInt32):
     None_ = 0
     ShowNameOnLogo = 1
     ShowNameOnWideLogo = 2
     CopyOnDeployment = 4
-class TileSize(Int32):  # enum
+class TileSize(Enum, Int32):
     Default = 0
     Square30x30 = 1
     Square70x70 = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -417,21 +417,21 @@ class IsolatedWindowsEnvironment(ComPtr):
     @winrt_classmethod
     def FindByOwnerId(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentFactory, environmentOwnerId: WinRT_String) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironment]: ...
     Id = property(get_Id, None)
-class IsolatedWindowsEnvironmentActivator(Int32):  # enum
+class IsolatedWindowsEnvironmentActivator(Enum, Int32):
     System = 0
     User = 1
-class IsolatedWindowsEnvironmentAllowedClipboardFormats(UInt32):  # enum
+class IsolatedWindowsEnvironmentAllowedClipboardFormats(Enum, UInt32):
     None_ = 0
     Text = 1
     Image = 2
     Rtf = 4
-class IsolatedWindowsEnvironmentAvailablePrinters(UInt32):  # enum
+class IsolatedWindowsEnvironmentAvailablePrinters(Enum, UInt32):
     None_ = 0
     Local = 1
     Network = 2
     SystemPrintToPdf = 4
     SystemPrintToXps = 8
-class IsolatedWindowsEnvironmentClipboardCopyPasteDirections(UInt32):  # enum
+class IsolatedWindowsEnvironmentClipboardCopyPasteDirections(Enum, UInt32):
     None_ = 0
     HostToIsolatedWindowsEnvironment = 1
     IsolatedWindowsEnvironmentToHost = 2
@@ -454,11 +454,11 @@ class IsolatedWindowsEnvironmentCreateResult(ComPtr):
     Environment = property(get_Environment, None)
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class IsolatedWindowsEnvironmentCreateStatus(Int32):  # enum
+class IsolatedWindowsEnvironmentCreateStatus(Enum, Int32):
     Success = 0
     FailureByPolicy = 1
     UnknownFailure = 2
-class IsolatedWindowsEnvironmentCreationPriority(Int32):  # enum
+class IsolatedWindowsEnvironmentCreationPriority(Enum, Int32):
     Low = 0
     Normal = 1
 class IsolatedWindowsEnvironmentFile(ComPtr):
@@ -490,7 +490,7 @@ class IsolatedWindowsEnvironmentHost(ComPtr, metaclass=_IsolatedWindowsEnvironme
     def get_HostErrors(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentHostError]: ...
     _IsolatedWindowsEnvironmentHost_Meta_.HostErrors = property(get_HostErrors.__wrapped__, None)
     _IsolatedWindowsEnvironmentHost_Meta_.IsReady = property(get_IsReady.__wrapped__, None)
-class IsolatedWindowsEnvironmentHostError(Int32):  # enum
+class IsolatedWindowsEnvironmentHostError(Enum, Int32):
     AdminPolicyIsDisabledOrNotPresent = 0
     FeatureNotInstalled = 1
     HardwareRequirementsNotMet = 2
@@ -509,7 +509,7 @@ class IsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     File = property(get_File, None)
     Status = property(get_Status, None)
-class IsolatedWindowsEnvironmentLaunchFileStatus(Int32):  # enum
+class IsolatedWindowsEnvironmentLaunchFileStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2
@@ -634,7 +634,7 @@ class IsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationResult) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class IsolatedWindowsEnvironmentOwnerRegistrationStatus(Int32):  # enum
+class IsolatedWindowsEnvironmentOwnerRegistrationStatus(Enum, Int32):
     Success = 0
     InvalidArgument = 1
     AccessDenied = 2
@@ -650,7 +650,7 @@ class IsolatedWindowsEnvironmentPostMessageResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentPostMessageResult) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class IsolatedWindowsEnvironmentPostMessageStatus(Int32):  # enum
+class IsolatedWindowsEnvironmentPostMessageStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2
@@ -670,11 +670,11 @@ class IsolatedWindowsEnvironmentProcess(ComPtr):
     def WaitForExitAsync(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentProcess) -> win32more.Windows.Foundation.IAsyncAction: ...
     ExitCode = property(get_ExitCode, None)
     State = property(get_State, None)
-class IsolatedWindowsEnvironmentProcessState(Int32):  # enum
+class IsolatedWindowsEnvironmentProcessState(Enum, Int32):
     Running = 1
     Aborted = 2
     Completed = 3
-class IsolatedWindowsEnvironmentProgressState(Int32):  # enum
+class IsolatedWindowsEnvironmentProgressState(Enum, Int32):
     Queued = 0
     Processing = 1
     Completed = 2
@@ -713,7 +713,7 @@ class IsolatedWindowsEnvironmentShareFileResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     File = property(get_File, None)
     Status = property(get_Status, None)
-class IsolatedWindowsEnvironmentShareFileStatus(Int32):  # enum
+class IsolatedWindowsEnvironmentShareFileStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2
@@ -748,13 +748,13 @@ class IsolatedWindowsEnvironmentShareFolderResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderResult) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class IsolatedWindowsEnvironmentShareFolderStatus(Int32):  # enum
+class IsolatedWindowsEnvironmentShareFolderStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2
     FolderNotFound = 3
     AccessDenied = 4
-class IsolatedWindowsEnvironmentSignInProgress(Int32):  # enum
+class IsolatedWindowsEnvironmentSignInProgress(Enum, Int32):
     Connecting = 0
     Connected = 1
     Authenticating = 2
@@ -774,7 +774,7 @@ class IsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Process = property(get_Process, None)
     Status = property(get_Status, None)
-class IsolatedWindowsEnvironmentStartProcessStatus(Int32):  # enum
+class IsolatedWindowsEnvironmentStartProcessStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     EnvironmentUnavailable = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Gaming.Input
@@ -38,7 +38,7 @@ class GipFirmwareUpdateResult(ComPtr):
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     FinalComponentId = property(get_FinalComponentId, None)
     Status = property(get_Status, None)
-class GipFirmwareUpdateStatus(Int32):  # enum
+class GipFirmwareUpdateStatus(Enum, Int32):
     Completed = 0
     UpToDate = 1
     Failed = 2
@@ -67,7 +67,7 @@ class GipGameControllerProvider(ComPtr):
     HardwareVendorId = property(get_HardwareVendorId, None)
     HardwareVersionInfo = property(get_HardwareVersionInfo, None)
     IsConnected = property(get_IsConnected, None)
-class GipMessageClass(Int32):  # enum
+class GipMessageClass(Enum, Int32):
     Command = 0
     LowLatency = 1
     StandardLatency = 2
@@ -220,7 +220,7 @@ class IXusbGameControllerProvider(ComPtr):
     _iid_ = Guid('{6e2971eb-0efb-48b4-808b-837643b2f216}')
     @winrt_commethod(6)
     def SetVibration(self, lowFrequencyMotorSpeed: Double, highFrequencyMotorSpeed: Double) -> Void: ...
-class XusbDeviceSubtype(Int32):  # enum
+class XusbDeviceSubtype(Enum, Int32):
     Unknown = 0
     Gamepad = 1
     ArcadePad = 2
@@ -232,7 +232,7 @@ class XusbDeviceSubtype(Int32):  # enum
     GuitarBass = 8
     DrumKit = 9
     DancePad = 10
-class XusbDeviceType(Int32):  # enum
+class XusbDeviceType(Enum, Int32):
     Unknown = 0
     Gamepad = 1
 class XusbGameControllerProvider(ComPtr):

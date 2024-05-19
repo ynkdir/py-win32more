@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Background
 import win32more.Windows.Foundation
@@ -70,15 +70,15 @@ class ControlChannelTrigger(ComPtr):
     ServerKeepAliveIntervalInMinutes = property(get_ServerKeepAliveIntervalInMinutes, put_ServerKeepAliveIntervalInMinutes)
     TransportObject = property(get_TransportObject, None)
 ControlChannelTriggerContract: UInt32 = 196608
-class ControlChannelTriggerResetReason(Int32):  # enum
+class ControlChannelTriggerResetReason(Enum, Int32):
     FastUserSwitched = 0
     LowPowerExit = 1
     QuietHoursExit = 2
     ApplicationRestart = 3
-class ControlChannelTriggerResourceType(Int32):  # enum
+class ControlChannelTriggerResourceType(Enum, Int32):
     RequestSoftwareSlot = 0
     RequestHardwareSlot = 1
-class ControlChannelTriggerStatus(Int32):  # enum
+class ControlChannelTriggerStatus(Enum, Int32):
     HardwareSlotRequested = 0
     SoftwareSlotAllocated = 1
     HardwareSlotAllocated = 2
@@ -1176,7 +1176,7 @@ class MessageWebSocketMessageReceivedEventArgs(ComPtr):
     def get_IsMessageComplete(self: win32more.Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs2) -> Boolean: ...
     IsMessageComplete = property(get_IsMessageComplete, None)
     MessageType = property(get_MessageType, None)
-class MessageWebSocketReceiveMode(Int32):  # enum
+class MessageWebSocketReceiveMode(Enum, Int32):
     FullMessage = 0
     PartialMessage = 1
 class RoundTripTimeStatistics(Structure):
@@ -1265,7 +1265,7 @@ class ServerStreamWebSocketInformation(ComPtr):
     BandwidthStatistics = property(get_BandwidthStatistics, None)
     LocalAddress = property(get_LocalAddress, None)
     Protocol = property(get_Protocol, None)
-class SocketActivityConnectedStandbyAction(Int32):  # enum
+class SocketActivityConnectedStandbyAction(Enum, Int32):
     DoNotWake = 0
     Wake = 1
 class SocketActivityContext(ComPtr):
@@ -1314,7 +1314,7 @@ class SocketActivityInformation(ComPtr, metaclass=_SocketActivityInformation_Met
     StreamSocketListener = property(get_StreamSocketListener, None)
     TaskId = property(get_TaskId, None)
     _SocketActivityInformation_Meta_.AllSockets = property(get_AllSockets.__wrapped__, None)
-class SocketActivityKind(Int32):  # enum
+class SocketActivityKind(Enum, Int32):
     None_ = 0
     StreamSocketListener = 1
     DatagramSocket = 2
@@ -1329,7 +1329,7 @@ class SocketActivityTriggerDetails(ComPtr):
     def get_SocketInformation(self: win32more.Windows.Networking.Sockets.ISocketActivityTriggerDetails) -> win32more.Windows.Networking.Sockets.SocketActivityInformation: ...
     Reason = property(get_Reason, None)
     SocketInformation = property(get_SocketInformation, None)
-class SocketActivityTriggerReason(Int32):  # enum
+class SocketActivityTriggerReason(Enum, Int32):
     None_ = 0
     SocketActivity = 1
     ConnectionAccepted = 2
@@ -1340,7 +1340,7 @@ class SocketError(ComPtr):
     _classid_ = 'Windows.Networking.Sockets.SocketError'
     @winrt_classmethod
     def GetStatus(cls: win32more.Windows.Networking.Sockets.ISocketErrorStatics, hresult: Int32) -> win32more.Windows.Networking.Sockets.SocketErrorStatus: ...
-class SocketErrorStatus(Int32):  # enum
+class SocketErrorStatus(Enum, Int32):
     Unknown = 0
     OperationAborted = 1
     HttpInvalidServerResponse = 2
@@ -1372,10 +1372,10 @@ class SocketErrorStatus(Int32):  # enum
     CertificateNoRevocationCheck = 28
     CertificateRevocationServerOffline = 29
     CertificateIsInvalid = 30
-class SocketMessageType(Int32):  # enum
+class SocketMessageType(Enum, Int32):
     Binary = 0
     Utf8 = 1
-class SocketProtectionLevel(Int32):  # enum
+class SocketProtectionLevel(Enum, Int32):
     PlainSocket = 0
     Ssl = 1
     SslAllowNullEncryption = 2
@@ -1386,10 +1386,10 @@ class SocketProtectionLevel(Int32):  # enum
     Tls11 = 7
     Tls12 = 8
     Unspecified = 9
-class SocketQualityOfService(Int32):  # enum
+class SocketQualityOfService(Enum, Int32):
     Normal = 0
     LowLatency = 1
-class SocketSslErrorSeverity(Int32):  # enum
+class SocketSslErrorSeverity(Enum, Int32):
     None_ = 0
     Ignorable = 1
     Fatal = 2

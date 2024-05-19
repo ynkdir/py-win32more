@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -43,7 +43,7 @@ class AdvancedColorInfo(ComPtr):
     RedPrimary = property(get_RedPrimary, None)
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
     WhitePoint = property(get_WhitePoint, None)
-class AdvancedColorKind(Int32):  # enum
+class AdvancedColorKind(Enum, Int32):
     StandardDynamicRange = 0
     WideColorGamut = 1
     HighDynamicRange = 2
@@ -113,19 +113,19 @@ class ColorOverrideSettings(ComPtr):
     @winrt_classmethod
     def CreateFromDisplayColorOverrideScenario(cls: win32more.Windows.Graphics.Display.IColorOverrideSettingsStatics, overrideScenario: win32more.Windows.Graphics.Display.DisplayColorOverrideScenario) -> win32more.Windows.Graphics.Display.ColorOverrideSettings: ...
     DesiredDisplayColorOverrideScenario = property(get_DesiredDisplayColorOverrideScenario, None)
-class DisplayBrightnessOverrideOptions(UInt32):  # enum
+class DisplayBrightnessOverrideOptions(Enum, UInt32):
     None_ = 0
     UseDimmedPolicyWhenBatteryIsLow = 1
-class DisplayBrightnessOverrideScenario(Int32):  # enum
+class DisplayBrightnessOverrideScenario(Enum, Int32):
     IdleBrightness = 0
     BarcodeReadingBrightness = 1
     FullBrightness = 2
-class DisplayBrightnessScenario(Int32):  # enum
+class DisplayBrightnessScenario(Enum, Int32):
     DefaultBrightness = 0
     IdleBrightness = 1
     BarcodeReadingBrightness = 2
     FullBrightness = 3
-class DisplayColorOverrideScenario(Int32):  # enum
+class DisplayColorOverrideScenario(Enum, Int32):
     Accurate = 0
 class DisplayEnhancementOverride(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -260,7 +260,7 @@ class DisplayInformation(ComPtr, metaclass=_DisplayInformation_Meta_):
     ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
     StereoEnabled = property(get_StereoEnabled, None)
     _DisplayInformation_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences.__wrapped__, put_AutoRotationPreferences.__wrapped__)
-class DisplayOrientations(UInt32):  # enum
+class DisplayOrientations(Enum, UInt32):
     None_ = 0
     Landscape = 1
     Portrait = 2
@@ -324,7 +324,7 @@ class DisplayServices(ComPtr):
     _classid_ = 'Windows.Graphics.Display.DisplayServices'
     @winrt_classmethod
     def FindAll(cls: win32more.Windows.Graphics.Display.IDisplayServicesStatics) -> ReceiveArray[win32more.Windows.Graphics.DisplayId]: ...
-class HdrMetadataFormat(Int32):  # enum
+class HdrMetadataFormat(Enum, Int32):
     Hdr10 = 0
     Hdr10Plus = 1
 class IAdvancedColorInfo(ComPtr):
@@ -655,7 +655,7 @@ class NitRange(Structure):
     MinNits: Single
     MaxNits: Single
     StepSizeNits: Single
-class ResolutionScale(Int32):  # enum
+class ResolutionScale(Enum, Int32):
     Invalid = 0
     Scale100Percent = 100
     Scale120Percent = 120

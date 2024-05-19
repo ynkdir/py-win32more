@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -118,7 +118,7 @@ class CoreInputViewHidingEventArgs(ComPtr):
     _classid_ = 'Windows.UI.ViewManagement.Core.CoreInputViewHidingEventArgs'
     @winrt_mixinmethod
     def TryCancel(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewHidingEventArgs) -> Boolean: ...
-class CoreInputViewKind(Int32):  # enum
+class CoreInputViewKind(Enum, Int32):
     Default = 0
     Keyboard = 1
     Handwriting = 2
@@ -136,7 +136,7 @@ class CoreInputViewOcclusion(ComPtr):
     def get_OcclusionKind(self: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewOcclusion) -> win32more.Windows.UI.ViewManagement.Core.CoreInputViewOcclusionKind: ...
     OccludingRect = property(get_OccludingRect, None)
     OcclusionKind = property(get_OcclusionKind, None)
-class CoreInputViewOcclusionKind(Int32):  # enum
+class CoreInputViewOcclusionKind(Enum, Int32):
     Docked = 0
     Floating = 1
     Overlay = 2
@@ -178,7 +178,7 @@ class CoreInputViewTransferringXYFocusEventArgs(ComPtr):
     KeepPrimaryViewVisible = property(get_KeepPrimaryViewVisible, put_KeepPrimaryViewVisible)
     Origin = property(get_Origin, None)
     TransferHandled = property(get_TransferHandled, put_TransferHandled)
-class CoreInputViewXYFocusTransferDirection(Int32):  # enum
+class CoreInputViewXYFocusTransferDirection(Enum, Int32):
     Up = 0
     Right = 1
     Down = 2

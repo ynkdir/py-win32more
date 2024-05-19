@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.ApplicationModel.VoiceCommands
@@ -210,7 +210,7 @@ class VoiceCommandCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandCompletedEventArgs) -> win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletionReason: ...
     Reason = property(get_Reason, None)
-class VoiceCommandCompletionReason(Int32):  # enum
+class VoiceCommandCompletionReason(Enum, Int32):
     Unknown = 0
     CommunicationFailed = 1
     ResourceLimitsExceeded = 2
@@ -278,7 +278,7 @@ class VoiceCommandContentTile(ComPtr):
     TextLine2 = property(get_TextLine2, put_TextLine2)
     TextLine3 = property(get_TextLine3, put_TextLine3)
     Title = property(get_Title, put_Title)
-class VoiceCommandContentTileType(Int32):  # enum
+class VoiceCommandContentTileType(Enum, Int32):
     TitleOnly = 0
     TitleWithText = 1
     TitleWith68x68Icon = 2

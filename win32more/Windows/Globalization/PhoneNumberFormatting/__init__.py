@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Globalization.PhoneNumberFormatting
@@ -66,7 +66,7 @@ class IPhoneNumberInfoStatics(ComPtr):
     def TryParse(self, input: WinRT_String, phoneNumber: POINTER(win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo)) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult: ...
     @winrt_commethod(7)
     def TryParseWithRegion(self, input: WinRT_String, regionCode: WinRT_String, phoneNumber: POINTER(win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo)) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult: ...
-class PhoneNumberFormat(Int32):  # enum
+class PhoneNumberFormat(Enum, Int32):
     E164 = 0
     International = 1
     National = 2
@@ -139,18 +139,18 @@ class PhoneNumberInfo(ComPtr):
     def TryParseWithRegion(cls: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoStatics, input: WinRT_String, regionCode: WinRT_String, phoneNumber: POINTER(win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo)) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberParseResult: ...
     CountryCode = property(get_CountryCode, None)
     PhoneNumber = property(get_PhoneNumber, None)
-class PhoneNumberMatchResult(Int32):  # enum
+class PhoneNumberMatchResult(Enum, Int32):
     NoMatch = 0
     ShortNationalSignificantNumberMatch = 1
     NationalSignificantNumberMatch = 2
     ExactMatch = 3
-class PhoneNumberParseResult(Int32):  # enum
+class PhoneNumberParseResult(Enum, Int32):
     Valid = 0
     NotANumber = 1
     InvalidCountryCode = 2
     TooShort = 3
     TooLong = 4
-class PredictedPhoneNumberKind(Int32):  # enum
+class PredictedPhoneNumberKind(Enum, Int32):
     FixedLine = 0
     Mobile = 1
     FixedLineOrMobile = 2

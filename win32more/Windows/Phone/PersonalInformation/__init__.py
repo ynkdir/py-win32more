@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -60,7 +60,7 @@ class ContactChangeRecord(ComPtr):
     Id = property(get_Id, None)
     RemoteId = property(get_RemoteId, None)
     RevisionNumber = property(get_RevisionNumber, None)
-class ContactChangeType(Int32):  # enum
+class ContactChangeType(Enum, Int32):
     Created = 0
     Modified = 1
     Deleted = 2
@@ -150,7 +150,7 @@ class ContactQueryResult(ComPtr):
     def GetContactsAsyncInRange(self: win32more.Windows.Phone.PersonalInformation.IContactQueryResult, startIndex: UInt32, maxNumberOfItems: UInt32) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Phone.PersonalInformation.StoredContact]]: ...
     @winrt_mixinmethod
     def GetCurrentQueryOptions(self: win32more.Windows.Phone.PersonalInformation.IContactQueryResult) -> win32more.Windows.Phone.PersonalInformation.ContactQueryOptions: ...
-class ContactQueryResultOrdering(Int32):  # enum
+class ContactQueryResultOrdering(Enum, Int32):
     SystemDefault = 0
     GivenNameFamilyName = 1
     FamilyNameGivenName = 2
@@ -185,10 +185,10 @@ class ContactStore(ComPtr):
     @winrt_classmethod
     def CreateOrOpenWithOptionsAsync(cls: win32more.Windows.Phone.PersonalInformation.IContactStoreStatics, access: win32more.Windows.Phone.PersonalInformation.ContactStoreSystemAccessMode, sharing: win32more.Windows.Phone.PersonalInformation.ContactStoreApplicationAccessMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Phone.PersonalInformation.ContactStore]: ...
     RevisionNumber = property(get_RevisionNumber, None)
-class ContactStoreApplicationAccessMode(Int32):  # enum
+class ContactStoreApplicationAccessMode(Enum, Int32):
     LimitedReadOnly = 0
     ReadOnly = 1
-class ContactStoreSystemAccessMode(Int32):  # enum
+class ContactStoreSystemAccessMode(Enum, Int32):
     ReadOnly = 0
     ReadWrite = 1
 class IContactAddress(ComPtr):
@@ -681,7 +681,7 @@ class StoredContact(ComPtr):
     Id = property(get_Id, None)
     RemoteId = property(get_RemoteId, put_RemoteId)
     Store = property(get_Store, None)
-class VCardFormat(Int32):  # enum
+class VCardFormat(Enum, Int32):
     Version2_1 = 0
     Version3 = 1
 

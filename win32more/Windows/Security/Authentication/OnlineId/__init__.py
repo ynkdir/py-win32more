@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Authentication.OnlineId
 import win32more.Windows.System
 import win32more.Windows.Win32.System.WinRT
-class CredentialPromptType(Int32):  # enum
+class CredentialPromptType(Enum, Int32):
     PromptIfNeeded = 0
     RetypeCredentials = 1
     DoNotPrompt = 2
@@ -249,7 +249,7 @@ class OnlineIdSystemTicketResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Identity = property(get_Identity, None)
     Status = property(get_Status, None)
-class OnlineIdSystemTicketStatus(Int32):  # enum
+class OnlineIdSystemTicketStatus(Enum, Int32):
     Success = 0
     Error = 1
     ServiceConnectionError = 2

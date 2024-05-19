@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -170,7 +170,7 @@ class SecondaryAuthenticationFactorAuthentication(ComPtr):
     DeviceNonce = property(get_DeviceNonce, None)
     ServiceAuthenticationHmac = property(get_ServiceAuthenticationHmac, None)
     SessionNonce = property(get_SessionNonce, None)
-class SecondaryAuthenticationFactorAuthenticationMessage(Int32):  # enum
+class SecondaryAuthenticationFactorAuthenticationMessage(Enum, Int32):
     Invalid = 0
     SwipeUpWelcome = 1
     TapWelcome = 2
@@ -210,10 +210,10 @@ class SecondaryAuthenticationFactorAuthenticationResult(ComPtr):
     def get_Authentication(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationResult) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication: ...
     Authentication = property(get_Authentication, None)
     Status = property(get_Status, None)
-class SecondaryAuthenticationFactorAuthenticationScenario(Int32):  # enum
+class SecondaryAuthenticationFactorAuthenticationScenario(Enum, Int32):
     SignIn = 0
     CredentialPrompt = 1
-class SecondaryAuthenticationFactorAuthenticationStage(Int32):  # enum
+class SecondaryAuthenticationFactorAuthenticationStage(Enum, Int32):
     NotStarted = 0
     WaitingForUserConfirmation = 1
     CollectingCredential = 2
@@ -243,13 +243,13 @@ class SecondaryAuthenticationFactorAuthenticationStageInfo(ComPtr):
     DeviceId = property(get_DeviceId, None)
     Scenario = property(get_Scenario, None)
     Stage = property(get_Stage, None)
-class SecondaryAuthenticationFactorAuthenticationStatus(Int32):  # enum
+class SecondaryAuthenticationFactorAuthenticationStatus(Enum, Int32):
     Failed = 0
     Started = 1
     UnknownDevice = 2
     DisabledByPolicy = 3
     InvalidAuthenticationStage = 4
-class SecondaryAuthenticationFactorDeviceCapabilities(UInt32):  # enum
+class SecondaryAuthenticationFactorDeviceCapabilities(Enum, UInt32):
     None_ = 0
     SecureStorage = 1
     StoreKeys = 2
@@ -258,21 +258,21 @@ class SecondaryAuthenticationFactorDeviceCapabilities(UInt32):  # enum
     TransmittedDataIsEncrypted = 16
     HMacSha256 = 32
     CloseRangeDataTransmission = 64
-class SecondaryAuthenticationFactorDeviceFindScope(Int32):  # enum
+class SecondaryAuthenticationFactorDeviceFindScope(Enum, Int32):
     User = 0
     AllUsers = 1
-class SecondaryAuthenticationFactorDevicePresence(Int32):  # enum
+class SecondaryAuthenticationFactorDevicePresence(Enum, Int32):
     Absent = 0
     Present = 1
-class SecondaryAuthenticationFactorDevicePresenceMonitoringMode(Int32):  # enum
+class SecondaryAuthenticationFactorDevicePresenceMonitoringMode(Enum, Int32):
     Unsupported = 0
     AppManaged = 1
     SystemManaged = 2
-class SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus(Int32):  # enum
+class SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus(Enum, Int32):
     Unsupported = 0
     Succeeded = 1
     DisabledByPolicy = 2
-class SecondaryAuthenticationFactorFinishAuthenticationStatus(Int32):  # enum
+class SecondaryAuthenticationFactorFinishAuthenticationStatus(Enum, Int32):
     Failed = 0
     Completed = 1
     NonceExpired = 2
@@ -334,7 +334,7 @@ class SecondaryAuthenticationFactorRegistrationResult(ComPtr):
     def get_Registration(self: win32more.Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationResult) -> win32more.Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration: ...
     Registration = property(get_Registration, None)
     Status = property(get_Status, None)
-class SecondaryAuthenticationFactorRegistrationStatus(Int32):  # enum
+class SecondaryAuthenticationFactorRegistrationStatus(Enum, Int32):
     Failed = 0
     Started = 1
     CanceledByUser = 2

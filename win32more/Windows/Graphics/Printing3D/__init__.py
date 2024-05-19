@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -590,13 +590,13 @@ class Print3DTaskCompletedEventArgs(ComPtr):
     def get_ExtendedStatus(self: win32more.Windows.Graphics.Printing3D.IPrint3DTaskCompletedEventArgs) -> win32more.Windows.Graphics.Printing3D.Print3DTaskDetail: ...
     Completion = property(get_Completion, None)
     ExtendedStatus = property(get_ExtendedStatus, None)
-class Print3DTaskCompletion(Int32):  # enum
+class Print3DTaskCompletion(Enum, Int32):
     Abandoned = 0
     Canceled = 1
     Failed = 2
     Slicing = 3
     Submitted = 4
-class Print3DTaskDetail(Int32):  # enum
+class Print3DTaskDetail(Enum, Int32):
     Unknown = 0
     ModelExceedsPrintBed = 1
     UploadFailed = 2
@@ -732,7 +732,7 @@ class Printing3DBaseMaterialGroup(ComPtr):
 class Printing3DBufferDescription(Structure):
     Format: win32more.Windows.Graphics.Printing3D.Printing3DBufferFormat
     Stride: UInt32
-class Printing3DBufferFormat(Int32):  # enum
+class Printing3DBufferFormat(Enum, Int32):
     Unknown = 0
     R32G32B32A32Float = 2
     R32G32B32A32UInt = 3
@@ -1013,7 +1013,7 @@ class Printing3DMesh(ComPtr):
     VertexCount = property(get_VertexCount, put_VertexCount)
     VertexNormalsDescription = property(get_VertexNormalsDescription, put_VertexNormalsDescription)
     VertexPositionsDescription = property(get_VertexPositionsDescription, put_VertexPositionsDescription)
-class Printing3DMeshVerificationMode(Int32):  # enum
+class Printing3DMeshVerificationMode(Enum, Int32):
     FindFirstError = 0
     FindAllErrors = 1
 class Printing3DMeshVerificationResult(ComPtr):
@@ -1121,7 +1121,7 @@ class Printing3DModelTexture(ComPtr):
     TextureResource = property(get_TextureResource, put_TextureResource)
     TileStyleU = property(get_TileStyleU, put_TileStyleU)
     TileStyleV = property(get_TileStyleV, put_TileStyleV)
-class Printing3DModelUnit(Int32):  # enum
+class Printing3DModelUnit(Enum, Int32):
     Meter = 0
     Micron = 1
     Millimeter = 2
@@ -1166,11 +1166,11 @@ class Printing3DMultiplePropertyMaterialGroup(ComPtr):
     MaterialGroupId = property(get_MaterialGroupId, None)
     MaterialGroupIndices = property(get_MaterialGroupIndices, None)
     MultipleProperties = property(get_MultipleProperties, None)
-class Printing3DObjectType(Int32):  # enum
+class Printing3DObjectType(Enum, Int32):
     Model = 0
     Support = 1
     Others = 2
-class Printing3DPackageCompression(Int32):  # enum
+class Printing3DPackageCompression(Enum, Int32):
     Low = 0
     Medium = 1
     High = 2
@@ -1226,7 +1226,7 @@ class Printing3DTexture2CoordMaterialGroup(ComPtr):
     MaterialGroupId = property(get_MaterialGroupId, None)
     Texture = property(get_Texture, put_Texture)
     Texture2Coords = property(get_Texture2Coords, None)
-class Printing3DTextureEdgeBehavior(Int32):  # enum
+class Printing3DTextureEdgeBehavior(Enum, Int32):
     None_ = 0
     Wrap = 1
     Mirror = 2

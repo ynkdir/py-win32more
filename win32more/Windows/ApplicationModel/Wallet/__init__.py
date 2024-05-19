@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Wallet
 import win32more.Windows.Devices.Geolocation
@@ -307,7 +307,7 @@ class IWalletVerbFactory(ComPtr):
     _iid_ = Guid('{76012771-be58-4d5e-83ed-58b1669c7ad9}')
     @winrt_commethod(6)
     def CreateWalletVerb(self, name: WinRT_String) -> win32more.Windows.ApplicationModel.Wallet.WalletVerb: ...
-class WalletActionKind(Int32):  # enum
+class WalletActionKind(Enum, Int32):
     OpenItem = 0
     Transaction = 1
     MoreTransactions = 2
@@ -338,7 +338,7 @@ class WalletBarcode(ComPtr):
     def GetImageAsync(self: win32more.Windows.ApplicationModel.Wallet.IWalletBarcode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamReference]: ...
     Symbology = property(get_Symbology, None)
     Value = property(get_Value, None)
-class WalletBarcodeSymbology(Int32):  # enum
+class WalletBarcodeSymbology(Enum, Int32):
     Invalid = 0
     Upca = 1
     Upce = 2
@@ -352,7 +352,7 @@ class WalletBarcodeSymbology(Int32):  # enum
     Aztec = 10
     Custom = 100000
 WalletContract: UInt32 = 131072
-class WalletDetailViewPosition(Int32):  # enum
+class WalletDetailViewPosition(Enum, Int32):
     Hidden = 0
     HeaderField1 = 1
     HeaderField2 = 2
@@ -552,7 +552,7 @@ class WalletItemCustomProperty(ComPtr):
     Name = property(get_Name, put_Name)
     SummaryViewPosition = property(get_SummaryViewPosition, put_SummaryViewPosition)
     Value = property(get_Value, put_Value)
-class WalletItemKind(Int32):  # enum
+class WalletItemKind(Enum, Int32):
     Invalid = 0
     Deal = 1
     General = 2
@@ -612,7 +612,7 @@ class WalletRelevantLocation(ComPtr):
     def put_DisplayMessage(self: win32more.Windows.ApplicationModel.Wallet.IWalletRelevantLocation, value: WinRT_String) -> Void: ...
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
     Position = property(get_Position, put_Position)
-class WalletSummaryViewPosition(Int32):  # enum
+class WalletSummaryViewPosition(Enum, Int32):
     Hidden = 0
     Field1 = 1
     Field2 = 2

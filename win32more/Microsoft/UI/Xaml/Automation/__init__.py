@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Automation
@@ -27,7 +27,7 @@ class AnnotationPatternIdentifiers(ComPtr, metaclass=_AnnotationPatternIdentifie
     _AnnotationPatternIdentifiers_Meta_.AuthorProperty = property(get_AuthorProperty.__wrapped__, None)
     _AnnotationPatternIdentifiers_Meta_.DateTimeProperty = property(get_DateTimeProperty.__wrapped__, None)
     _AnnotationPatternIdentifiers_Meta_.TargetProperty = property(get_TargetProperty.__wrapped__, None)
-class AnnotationType(Int32):  # enum
+class AnnotationType(Enum, Int32):
     Unknown = 60000
     SpellingError = 60001
     GrammarError = 60002
@@ -51,11 +51,11 @@ class AnnotationType(Int32):  # enum
     AdvancedProofingIssue = 60020
     DataValidationError = 60021
     CircularReferenceError = 60022
-class AutomationActiveEnd(Int32):  # enum
+class AutomationActiveEnd(Enum, Int32):
     None_ = 0
     Start = 1
     End = 2
-class AutomationAnimationStyle(Int32):  # enum
+class AutomationAnimationStyle(Enum, Int32):
     None_ = 0
     LasVegasLights = 1
     BlinkingBackground = 2
@@ -105,7 +105,7 @@ class AutomationAnnotation(ComPtr, metaclass=_AutomationAnnotation_Meta_):
     Type = property(get_Type, put_Type)
     _AutomationAnnotation_Meta_.ElementProperty = property(get_ElementProperty.__wrapped__, None)
     _AutomationAnnotation_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
-class AutomationBulletStyle(Int32):  # enum
+class AutomationBulletStyle(Enum, Int32):
     None_ = 0
     HollowRoundBullet = 1
     FilledRoundBullet = 2
@@ -113,10 +113,10 @@ class AutomationBulletStyle(Int32):  # enum
     FilledSquareBullet = 4
     DashBullet = 5
     Other = 6
-class AutomationCaretBidiMode(Int32):  # enum
+class AutomationCaretBidiMode(Enum, Int32):
     LTR = 0
     RTL = 1
-class AutomationCaretPosition(Int32):  # enum
+class AutomationCaretPosition(Enum, Int32):
     Unknown = 0
     EndOfLine = 1
     BeginningOfLine = 2
@@ -243,12 +243,12 @@ class AutomationElementIdentifiers(ComPtr, metaclass=_AutomationElementIdentifie
     _AutomationElementIdentifiers_Meta_.OrientationProperty = property(get_OrientationProperty.__wrapped__, None)
     _AutomationElementIdentifiers_Meta_.PositionInSetProperty = property(get_PositionInSetProperty.__wrapped__, None)
     _AutomationElementIdentifiers_Meta_.SizeOfSetProperty = property(get_SizeOfSetProperty.__wrapped__, None)
-class AutomationFlowDirections(Int32):  # enum
+class AutomationFlowDirections(Enum, Int32):
     Default = 0
     RightToLeft = 1
     BottomToTop = 2
     Vertical = 3
-class AutomationOutlineStyles(Int32):  # enum
+class AutomationOutlineStyles(Enum, Int32):
     None_ = 0
     Outline = 1
     Shadow = 2
@@ -457,7 +457,7 @@ class AutomationProperty(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IAutomationProperty
     _classid_ = 'Microsoft.UI.Xaml.Automation.AutomationProperty'
-class AutomationStyleId(Int32):  # enum
+class AutomationStyleId(Enum, Int32):
     Heading1 = 70001
     Heading2 = 70002
     Heading3 = 70003
@@ -473,7 +473,7 @@ class AutomationStyleId(Int32):  # enum
     Emphasis = 70013
     Quote = 70014
     BulletedList = 70015
-class AutomationTextDecorationLineStyle(Int32):  # enum
+class AutomationTextDecorationLineStyle(Enum, Int32):
     None_ = 0
     Single = 1
     WordsOnly = 2
@@ -493,7 +493,7 @@ class AutomationTextDecorationLineStyle(Int32):  # enum
     ThickDot = 16
     ThickLongDash = 17
     Other = 18
-class AutomationTextEditChangeType(Int32):  # enum
+class AutomationTextEditChangeType(Enum, Int32):
     None_ = 0
     AutoCorrect = 1
     Composition = 2
@@ -507,7 +507,7 @@ class DockPatternIdentifiers(ComPtr, metaclass=_DockPatternIdentifiers_Meta_):
     @winrt_classmethod
     def get_DockPositionProperty(cls: win32more.Microsoft.UI.Xaml.Automation.IDockPatternIdentifiersStatics) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     _DockPatternIdentifiers_Meta_.DockPositionProperty = property(get_DockPositionProperty.__wrapped__, None)
-class DockPosition(Int32):  # enum
+class DockPosition(Enum, Int32):
     Top = 0
     Left = 1
     Bottom = 2
@@ -553,7 +553,7 @@ class ExpandCollapsePatternIdentifiers(ComPtr, metaclass=_ExpandCollapsePatternI
     @winrt_classmethod
     def get_ExpandCollapseStateProperty(cls: win32more.Microsoft.UI.Xaml.Automation.IExpandCollapsePatternIdentifiersStatics) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     _ExpandCollapsePatternIdentifiers_Meta_.ExpandCollapseStateProperty = property(get_ExpandCollapseStateProperty.__wrapped__, None)
-class ExpandCollapseState(Int32):  # enum
+class ExpandCollapseState(Enum, Int32):
     Collapsed = 0
     Expanded = 1
     PartiallyExpanded = 2
@@ -1368,11 +1368,11 @@ class RangeValuePatternIdentifiers(ComPtr, metaclass=_RangeValuePatternIdentifie
     _RangeValuePatternIdentifiers_Meta_.MinimumProperty = property(get_MinimumProperty.__wrapped__, None)
     _RangeValuePatternIdentifiers_Meta_.SmallChangeProperty = property(get_SmallChangeProperty.__wrapped__, None)
     _RangeValuePatternIdentifiers_Meta_.ValueProperty = property(get_ValueProperty.__wrapped__, None)
-class RowOrColumnMajor(Int32):  # enum
+class RowOrColumnMajor(Enum, Int32):
     RowMajor = 0
     ColumnMajor = 1
     Indeterminate = 2
-class ScrollAmount(Int32):  # enum
+class ScrollAmount(Enum, Int32):
     LargeDecrement = 0
     SmallDecrement = 1
     NoAmount = 2
@@ -1468,11 +1468,11 @@ class StylesPatternIdentifiers(ComPtr, metaclass=_StylesPatternIdentifiers_Meta_
     _StylesPatternIdentifiers_Meta_.ShapeProperty = property(get_ShapeProperty.__wrapped__, None)
     _StylesPatternIdentifiers_Meta_.StyleIdProperty = property(get_StyleIdProperty.__wrapped__, None)
     _StylesPatternIdentifiers_Meta_.StyleNameProperty = property(get_StyleNameProperty.__wrapped__, None)
-class SupportedTextSelection(Int32):  # enum
+class SupportedTextSelection(Enum, Int32):
     None_ = 0
     Single = 1
     Multiple = 2
-class SynchronizedInputType(Int32):  # enum
+class SynchronizedInputType(Enum, Int32):
     KeyUp = 1
     KeyDown = 2
     LeftMouseUp = 4
@@ -1515,7 +1515,7 @@ class TogglePatternIdentifiers(ComPtr, metaclass=_TogglePatternIdentifiers_Meta_
     @winrt_classmethod
     def get_ToggleStateProperty(cls: win32more.Microsoft.UI.Xaml.Automation.ITogglePatternIdentifiersStatics) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     _TogglePatternIdentifiers_Meta_.ToggleStateProperty = property(get_ToggleStateProperty.__wrapped__, None)
-class ToggleState(Int32):  # enum
+class ToggleState(Enum, Int32):
     Off = 0
     On = 1
     Indeterminate = 2
@@ -1564,7 +1564,7 @@ class ValuePatternIdentifiers(ComPtr, metaclass=_ValuePatternIdentifiers_Meta_):
     def get_ValueProperty(cls: win32more.Microsoft.UI.Xaml.Automation.IValuePatternIdentifiersStatics) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     _ValuePatternIdentifiers_Meta_.IsReadOnlyProperty = property(get_IsReadOnlyProperty.__wrapped__, None)
     _ValuePatternIdentifiers_Meta_.ValueProperty = property(get_ValueProperty.__wrapped__, None)
-class WindowInteractionState(Int32):  # enum
+class WindowInteractionState(Enum, Int32):
     Running = 0
     Closing = 1
     ReadyForUserInteraction = 2
@@ -1594,11 +1594,11 @@ class WindowPatternIdentifiers(ComPtr, metaclass=_WindowPatternIdentifiers_Meta_
     _WindowPatternIdentifiers_Meta_.IsTopmostProperty = property(get_IsTopmostProperty.__wrapped__, None)
     _WindowPatternIdentifiers_Meta_.WindowInteractionStateProperty = property(get_WindowInteractionStateProperty.__wrapped__, None)
     _WindowPatternIdentifiers_Meta_.WindowVisualStateProperty = property(get_WindowVisualStateProperty.__wrapped__, None)
-class WindowVisualState(Int32):  # enum
+class WindowVisualState(Enum, Int32):
     Normal = 0
     Maximized = 1
     Minimized = 2
-class ZoomUnit(Int32):  # enum
+class ZoomUnit(Enum, Int32):
     NoAmount = 0
     LargeDecrement = 1
     SmallDecrement = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.Activation
@@ -152,7 +152,7 @@ class Application(ComPtr, metaclass=_Application_Meta_):
     RequiresPointerMode = property(get_RequiresPointerMode, put_RequiresPointerMode)
     Resources = property(get_Resources, put_Resources)
     _Application_Meta_.Current = property(get_Current.__wrapped__, None)
-class ApplicationHighContrastAdjustment(UInt32):  # enum
+class ApplicationHighContrastAdjustment(Enum, UInt32):
     None_ = 0
     Auto = 4294967295
 class ApplicationInitializationCallback(MulticastDelegate):
@@ -164,13 +164,13 @@ class ApplicationInitializationCallbackParams(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.IApplicationInitializationCallbackParams
     _classid_ = 'Windows.UI.Xaml.ApplicationInitializationCallbackParams'
-class ApplicationRequiresPointerMode(Int32):  # enum
+class ApplicationRequiresPointerMode(Enum, Int32):
     Auto = 0
     WhenRequested = 1
-class ApplicationTheme(Int32):  # enum
+class ApplicationTheme(Enum, Int32):
     Light = 0
     Dark = 1
-class AutomationTextAttributesEnum(Int32):  # enum
+class AutomationTextAttributesEnum(Enum, Int32):
     AnimationStyleAttribute = 40000
     BackgroundColorAttribute = 40001
     BulletStyleAttribute = 40002
@@ -883,7 +883,7 @@ class DurationHelper(ComPtr, metaclass=_DurationHelper_Meta_):
     def Subtract(cls: win32more.Windows.UI.Xaml.IDurationHelperStatics, target: win32more.Windows.UI.Xaml.Duration, duration: win32more.Windows.UI.Xaml.Duration) -> win32more.Windows.UI.Xaml.Duration: ...
     _DurationHelper_Meta_.Automatic = property(get_Automatic.__wrapped__, None)
     _DurationHelper_Meta_.Forever = property(get_Forever.__wrapped__, None)
-class DurationType(Int32):  # enum
+class DurationType(Enum, Int32):
     Automatic = 0
     TimeSpan = 1
     Forever = 2
@@ -949,11 +949,11 @@ class ElementFactoryRecycleArgs(ComPtr):
     def put_Parent(self: win32more.Windows.UI.Xaml.IElementFactoryRecycleArgs, value: win32more.Windows.UI.Xaml.UIElement) -> Void: ...
     Element = property(get_Element, put_Element)
     Parent = property(get_Parent, put_Parent)
-class ElementHighContrastAdjustment(UInt32):  # enum
+class ElementHighContrastAdjustment(Enum, UInt32):
     None_ = 0
     Application = 2147483648
     Auto = 4294967295
-class ElementSoundKind(Int32):  # enum
+class ElementSoundKind(Enum, Int32):
     Focus = 0
     Invoke = 1
     Show = 2
@@ -961,7 +961,7 @@ class ElementSoundKind(Int32):  # enum
     MovePrevious = 4
     MoveNext = 5
     GoBack = 6
-class ElementSoundMode(Int32):  # enum
+class ElementSoundMode(Enum, Int32):
     Default = 0
     FocusOnly = 1
     Off = 2
@@ -988,15 +988,15 @@ class ElementSoundPlayer(ComPtr, metaclass=_ElementSoundPlayer_Meta_):
     _ElementSoundPlayer_Meta_.SpatialAudioMode = property(get_SpatialAudioMode.__wrapped__, put_SpatialAudioMode.__wrapped__)
     _ElementSoundPlayer_Meta_.State = property(get_State.__wrapped__, put_State.__wrapped__)
     _ElementSoundPlayer_Meta_.Volume = property(get_Volume.__wrapped__, put_Volume.__wrapped__)
-class ElementSoundPlayerState(Int32):  # enum
+class ElementSoundPlayerState(Enum, Int32):
     Auto = 0
     Off = 1
     On = 2
-class ElementSpatialAudioMode(Int32):  # enum
+class ElementSpatialAudioMode(Enum, Int32):
     Auto = 0
     Off = 1
     On = 2
-class ElementTheme(Int32):  # enum
+class ElementTheme(Enum, Int32):
     Default = 0
     Light = 1
     Dark = 2
@@ -1038,19 +1038,19 @@ class ExceptionRoutedEventHandler(MulticastDelegate):
     _iid_ = Guid('{68e0e810-f6ea-42bc-855b-5d9b67e6a262}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.UI.Xaml.ExceptionRoutedEventArgs) -> Void: ...
-class FlowDirection(Int32):  # enum
+class FlowDirection(Enum, Int32):
     LeftToRight = 0
     RightToLeft = 1
-class FocusState(Int32):  # enum
+class FocusState(Enum, Int32):
     Unfocused = 0
     Pointer = 1
     Keyboard = 2
     Programmatic = 3
-class FocusVisualKind(Int32):  # enum
+class FocusVisualKind(Enum, Int32):
     DottedLine = 0
     HighVisibility = 1
     Reveal = 2
-class FontCapitals(Int32):  # enum
+class FontCapitals(Enum, Int32):
     Normal = 0
     AllSmallCaps = 1
     SmallCaps = 2
@@ -1058,7 +1058,7 @@ class FontCapitals(Int32):  # enum
     PetiteCaps = 4
     Unicase = 5
     Titling = 6
-class FontEastAsianLanguage(Int32):  # enum
+class FontEastAsianLanguage(Enum, Int32):
     Normal = 0
     HojoKanji = 1
     Jis04 = 2
@@ -1069,26 +1069,26 @@ class FontEastAsianLanguage(Int32):  # enum
     Simplified = 7
     Traditional = 8
     TraditionalNames = 9
-class FontEastAsianWidths(Int32):  # enum
+class FontEastAsianWidths(Enum, Int32):
     Normal = 0
     Full = 1
     Half = 2
     Proportional = 3
     Quarter = 4
     Third = 5
-class FontFraction(Int32):  # enum
+class FontFraction(Enum, Int32):
     Normal = 0
     Stacked = 1
     Slashed = 2
-class FontNumeralAlignment(Int32):  # enum
+class FontNumeralAlignment(Enum, Int32):
     Normal = 0
     Proportional = 1
     Tabular = 2
-class FontNumeralStyle(Int32):  # enum
+class FontNumeralStyle(Enum, Int32):
     Normal = 0
     Lining = 1
     OldStyle = 2
-class FontVariants(Int32):  # enum
+class FontVariants(Enum, Int32):
     Normal = 0
     Superscript = 1
     Subscript = 2
@@ -1454,11 +1454,11 @@ class GridLengthHelper(ComPtr, metaclass=_GridLengthHelper_Meta_):
     @winrt_classmethod
     def Equals(cls: win32more.Windows.UI.Xaml.IGridLengthHelperStatics, target: win32more.Windows.UI.Xaml.GridLength, value: win32more.Windows.UI.Xaml.GridLength) -> Boolean: ...
     _GridLengthHelper_Meta_.Auto = property(get_Auto.__wrapped__, None)
-class GridUnitType(Int32):  # enum
+class GridUnitType(Enum, Int32):
     Auto = 0
     Pixel = 1
     Star = 2
-class HorizontalAlignment(Int32):  # enum
+class HorizontalAlignment(Enum, Int32):
     Left = 0
     Center = 1
     Right = 2
@@ -4139,7 +4139,7 @@ class LeavingBackgroundEventHandler(MulticastDelegate):
     _iid_ = Guid('{aaad5dad-4fc6-4aa4-b7cf-877e36ada4f6}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Windows.ApplicationModel.LeavingBackgroundEventArgs) -> Void: ...
-class LineStackingStrategy(Int32):  # enum
+class LineStackingStrategy(Enum, Int32):
     MaxHeight = 0
     BlockLineHeight = 1
     BaselineToBaseline = 2
@@ -4150,7 +4150,7 @@ class MediaFailedRoutedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorTrace(self: win32more.Windows.UI.Xaml.IMediaFailedRoutedEventArgs) -> WinRT_String: ...
     ErrorTrace = property(get_ErrorTrace, None)
-class OpticalMarginAlignment(Int32):  # enum
+class OpticalMarginAlignment(Enum, Int32):
     None_ = 0
     TrimSideBearings = 1
 class PointHelper(ComPtr):
@@ -4553,7 +4553,7 @@ class TargetPropertyPath(ComPtr):
     def put_Target(self: win32more.Windows.UI.Xaml.ITargetPropertyPath, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
     Path = property(get_Path, put_Path)
     Target = property(get_Target, put_Target)
-class TextAlignment(Int32):  # enum
+class TextAlignment(Enum, Int32):
     Center = 0
     Left = 1
     Start = 1
@@ -4561,21 +4561,21 @@ class TextAlignment(Int32):  # enum
     End = 2
     Justify = 3
     DetectFromContent = 4
-class TextLineBounds(Int32):  # enum
+class TextLineBounds(Enum, Int32):
     Full = 0
     TrimToCapHeight = 1
     TrimToBaseline = 2
     Tight = 3
-class TextReadingOrder(Int32):  # enum
+class TextReadingOrder(Enum, Int32):
     Default = 0
     UseFlowDirection = 0
     DetectFromContent = 1
-class TextTrimming(Int32):  # enum
+class TextTrimming(Enum, Int32):
     None_ = 0
     CharacterEllipsis = 1
     WordEllipsis = 2
     Clip = 3
-class TextWrapping(Int32):  # enum
+class TextWrapping(Enum, Int32):
     NoWrap = 1
     Wrap = 2
     WrapWholeWords = 3
@@ -5468,16 +5468,16 @@ class Vector3Transition(ComPtr):
     def put_Components(self: win32more.Windows.UI.Xaml.IVector3Transition, value: win32more.Windows.UI.Xaml.Vector3TransitionComponents) -> Void: ...
     Components = property(get_Components, put_Components)
     Duration = property(get_Duration, put_Duration)
-class Vector3TransitionComponents(UInt32):  # enum
+class Vector3TransitionComponents(Enum, UInt32):
     X = 1
     Y = 2
     Z = 4
-class VerticalAlignment(Int32):  # enum
+class VerticalAlignment(Enum, Int32):
     Top = 0
     Center = 1
     Bottom = 2
     Stretch = 3
-class Visibility(Int32):  # enum
+class Visibility(Enum, Int32):
     Visible = 0
     Collapsed = 1
 class VisualState(ComPtr):

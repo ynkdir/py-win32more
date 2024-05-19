@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Data.Xml.Dom
@@ -8,7 +8,7 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.UI.Notifications
 import win32more.Windows.Win32.System.WinRT
-class AdaptiveNotificationContentKind(Int32):  # enum
+class AdaptiveNotificationContentKind(Enum, Int32):
     Text = 0
 class AdaptiveNotificationText(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -60,7 +60,7 @@ class BadgeNotification(ComPtr):
     def get_ExpirationTime(self: win32more.Windows.UI.Notifications.IBadgeNotification) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-class BadgeTemplateType(Int32):  # enum
+class BadgeTemplateType(Enum, Int32):
     BadgeGlyph = 0
     BadgeNumber = 1
 class BadgeUpdateManager(ComPtr):
@@ -1113,19 +1113,19 @@ class NotificationData(ComPtr):
     def put_SequenceNumber(self: win32more.Windows.UI.Notifications.INotificationData, value: UInt32) -> Void: ...
     SequenceNumber = property(get_SequenceNumber, put_SequenceNumber)
     Values = property(get_Values, None)
-class NotificationKinds(UInt32):  # enum
+class NotificationKinds(Enum, UInt32):
     Unknown = 0
     Toast = 1
-class NotificationMirroring(Int32):  # enum
+class NotificationMirroring(Enum, Int32):
     Allowed = 0
     Disabled = 1
-class NotificationSetting(Int32):  # enum
+class NotificationSetting(Enum, Int32):
     Enabled = 0
     DisabledForApplication = 1
     DisabledForUser = 2
     DisabledByGroupPolicy = 3
     DisabledByManifest = 4
-class NotificationUpdateResult(Int32):  # enum
+class NotificationUpdateResult(Enum, Int32):
     Succeeded = 0
     Failed = 1
     NotificationNotFound = 2
@@ -1143,7 +1143,7 @@ class NotificationVisual(ComPtr):
     def GetBinding(self: win32more.Windows.UI.Notifications.INotificationVisual, templateName: WinRT_String) -> win32more.Windows.UI.Notifications.NotificationBinding: ...
     Bindings = property(get_Bindings, None)
     Language = property(get_Language, put_Language)
-class PeriodicUpdateRecurrence(Int32):  # enum
+class PeriodicUpdateRecurrence(Enum, Int32):
     HalfHour = 0
     Hour = 1
     SixHours = 2
@@ -1289,7 +1289,7 @@ class TileFlyoutNotification(ComPtr):
     def get_ExpirationTime(self: win32more.Windows.UI.Notifications.ITileFlyoutNotification) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.DateTime]: ...
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-class TileFlyoutTemplateType(Int32):  # enum
+class TileFlyoutTemplateType(Enum, Int32):
     TileFlyoutTemplate01 = 0
 class TileFlyoutUpdateManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1345,7 +1345,7 @@ class TileNotification(ComPtr):
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     Tag = property(get_Tag, put_Tag)
-class TileTemplateType(Int32):  # enum
+class TileTemplateType(Enum, Int32):
     TileSquareImage = 0
     TileSquareBlock = 1
     TileSquareText01 = 2
@@ -1594,7 +1594,7 @@ class ToastCollectionManager(ComPtr):
     def get_AppId(self: win32more.Windows.UI.Notifications.IToastCollectionManager) -> WinRT_String: ...
     AppId = property(get_AppId, None)
     User = property(get_User, None)
-class ToastDismissalReason(Int32):  # enum
+class ToastDismissalReason(Enum, Int32):
     UserCanceled = 0
     ApplicationHidden = 1
     TimedOut = 2
@@ -1612,7 +1612,7 @@ class ToastFailedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ErrorCode(self: win32more.Windows.UI.Notifications.IToastFailedEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ErrorCode = property(get_ErrorCode, None)
-class ToastHistoryChangedType(Int32):  # enum
+class ToastHistoryChangedType(Enum, Int32):
     Cleared = 0
     Removed = 1
     Expired = 2
@@ -1781,11 +1781,11 @@ class ToastNotificationManagerForUser(ComPtr):
     History = property(get_History, None)
     NotificationMode = property(get_NotificationMode, None)
     User = property(get_User, None)
-class ToastNotificationMode(Int32):  # enum
+class ToastNotificationMode(Enum, Int32):
     Unrestricted = 0
     PriorityOnly = 1
     AlarmsOnly = 2
-class ToastNotificationPriority(Int32):  # enum
+class ToastNotificationPriority(Enum, Int32):
     Default = 0
     High = 1
 class ToastNotifier(ComPtr):
@@ -1813,7 +1813,7 @@ class ToastNotifier(ComPtr):
     @winrt_mixinmethod
     def remove_ScheduledToastNotificationShowing(self: win32more.Windows.UI.Notifications.IToastNotifier3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Setting = property(get_Setting, None)
-class ToastTemplateType(Int32):  # enum
+class ToastTemplateType(Enum, Int32):
     ToastImageAndText01 = 0
     ToastImageAndText02 = 1
     ToastImageAndText03 = 2
@@ -1848,7 +1848,7 @@ class UserNotificationChangedEventArgs(ComPtr):
     def get_UserNotificationId(self: win32more.Windows.UI.Notifications.IUserNotificationChangedEventArgs) -> UInt32: ...
     ChangeKind = property(get_ChangeKind, None)
     UserNotificationId = property(get_UserNotificationId, None)
-class UserNotificationChangedKind(Int32):  # enum
+class UserNotificationChangedKind(Enum, Int32):
     Added = 0
     Removed = 1
 

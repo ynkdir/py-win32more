@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.ApplicationModel.DynamicDependency
 import win32more.Microsoft.Windows.Management.Deployment
@@ -709,7 +709,7 @@ class PackageDeploymentManager(ComPtr):
 class PackageDeploymentProgress(Structure):
     Status: win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentProgressStatus
     Progress: Double
-class PackageDeploymentProgressStatus(Int32):  # enum
+class PackageDeploymentProgressStatus(Enum, Int32):
     Queued = 0
     InProgress = 1
     CompletedSuccess = 2
@@ -733,7 +733,7 @@ class PackageDeploymentResult(ComPtr):
     ErrorText = property(get_ErrorText, None)
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class PackageDeploymentStatus(Int32):  # enum
+class PackageDeploymentStatus(Enum, Int32):
     InProgress = 0
     CompletedSuccess = 1
     CompletedFailure = 2
@@ -1106,7 +1106,7 @@ class StagePackageOptions(ComPtr):
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
-class StubPackageOption(Int32):  # enum
+class StubPackageOption(Enum, Int32):
     Default = 0
     InstallFull = 1
     InstallStub = 2

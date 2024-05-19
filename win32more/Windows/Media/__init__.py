@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.Foundation
@@ -27,7 +27,7 @@ class AudioBuffer(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Capacity = property(get_Capacity, None)
     Length = property(get_Length, put_Length)
-class AudioBufferAccessMode(Int32):  # enum
+class AudioBufferAccessMode(Enum, Int32):
     Read = 0
     ReadWrite = 1
     Write = 2
@@ -77,7 +77,7 @@ class AudioFrame(ComPtr):
     RelativeTime = property(get_RelativeTime, put_RelativeTime)
     SystemRelativeTime = property(get_SystemRelativeTime, put_SystemRelativeTime)
     Type = property(get_Type, None)
-class AudioProcessing(Int32):  # enum
+class AudioProcessing(Enum, Int32):
     Default = 0
     Raw = 1
 class AutoRepeatModeChangeRequestedEventArgs(ComPtr):
@@ -842,17 +842,17 @@ class MediaMarkerTypes(ComPtr, metaclass=_MediaMarkerTypes_Meta_):
     @winrt_classmethod
     def get_Bookmark(cls: win32more.Windows.Media.IMediaMarkerTypesStatics) -> WinRT_String: ...
     _MediaMarkerTypes_Meta_.Bookmark = property(get_Bookmark.__wrapped__, None)
-class MediaPlaybackAutoRepeatMode(Int32):  # enum
+class MediaPlaybackAutoRepeatMode(Enum, Int32):
     None_ = 0
     Track = 1
     List = 2
-class MediaPlaybackStatus(Int32):  # enum
+class MediaPlaybackStatus(Enum, Int32):
     Closed = 0
     Changing = 1
     Stopped = 2
     Playing = 3
     Paused = 4
-class MediaPlaybackType(Int32):  # enum
+class MediaPlaybackType(Enum, Int32):
     Unknown = 0
     Music = 1
     Video = 2
@@ -932,7 +932,7 @@ class MediaTimelineControllerFailedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_ExtendedError(self: win32more.Windows.Media.IMediaTimelineControllerFailedEventArgs) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
-class MediaTimelineControllerState(Int32):  # enum
+class MediaTimelineControllerState(Enum, Int32):
     Paused = 0
     Running = 1
     Stalled = 2
@@ -995,7 +995,7 @@ class ShuffleEnabledChangeRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_RequestedShuffleEnabled(self: win32more.Windows.Media.IShuffleEnabledChangeRequestedEventArgs) -> Boolean: ...
     RequestedShuffleEnabled = property(get_RequestedShuffleEnabled, None)
-class SoundLevel(Int32):  # enum
+class SoundLevel(Enum, Int32):
     Muted = 0
     Low = 1
     Full = 2
@@ -1112,7 +1112,7 @@ class SystemMediaTransportControls(ComPtr):
     PlaybackStatus = property(get_PlaybackStatus, put_PlaybackStatus)
     ShuffleEnabled = property(get_ShuffleEnabled, put_ShuffleEnabled)
     SoundLevel = property(get_SoundLevel, None)
-class SystemMediaTransportControlsButton(Int32):  # enum
+class SystemMediaTransportControlsButton(Enum, Int32):
     Play = 0
     Pause = 1
     Stop = 2
@@ -1164,7 +1164,7 @@ class SystemMediaTransportControlsDisplayUpdater(ComPtr):
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Type = property(get_Type, put_Type)
     VideoProperties = property(get_VideoProperties, None)
-class SystemMediaTransportControlsProperty(Int32):  # enum
+class SystemMediaTransportControlsProperty(Enum, Int32):
     SoundLevel = 0
 class SystemMediaTransportControlsPropertyChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

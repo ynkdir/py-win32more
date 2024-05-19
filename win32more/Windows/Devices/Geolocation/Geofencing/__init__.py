@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Devices.Geolocation.Geofencing
@@ -80,17 +80,17 @@ class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
     Status = property(get_Status, None)
     _GeofenceMonitor_Meta_.Current = property(get_Current.__wrapped__, None)
-class GeofenceMonitorStatus(Int32):  # enum
+class GeofenceMonitorStatus(Enum, Int32):
     Ready = 0
     Initializing = 1
     NoData = 2
     Disabled = 3
     NotInitialized = 4
     NotAvailable = 5
-class GeofenceRemovalReason(Int32):  # enum
+class GeofenceRemovalReason(Enum, Int32):
     Used = 0
     Expired = 1
-class GeofenceState(UInt32):  # enum
+class GeofenceState(Enum, UInt32):
     None_ = 0
     Entered = 1
     Exited = 2
@@ -194,7 +194,7 @@ class IGeofenceStateChangeReport(ComPtr):
     Geoposition = property(get_Geoposition, None)
     NewState = property(get_NewState, None)
     RemovalReason = property(get_RemovalReason, None)
-class MonitoredGeofenceStates(UInt32):  # enum
+class MonitoredGeofenceStates(Enum, UInt32):
     None_ = 0
     Entered = 1
     Exited = 2

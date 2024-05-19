@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -345,7 +345,7 @@ class SpeechContinuousRecognitionCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionCompletedEventArgs) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus: ...
     Status = property(get_Status, None)
-class SpeechContinuousRecognitionMode(Int32):  # enum
+class SpeechContinuousRecognitionMode(Enum, Int32):
     Default = 0
     PauseOnRecognition = 1
 class SpeechContinuousRecognitionResultGeneratedEventArgs(ComPtr):
@@ -384,7 +384,7 @@ class SpeechContinuousRecognitionSession(ComPtr):
     @winrt_mixinmethod
     def remove_ResultGenerated(self: win32more.Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionSession, value: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoStopSilenceTimeout = property(get_AutoStopSilenceTimeout, put_AutoStopSilenceTimeout)
-class SpeechRecognitionAudioProblem(Int32):  # enum
+class SpeechRecognitionAudioProblem(Enum, Int32):
     None_ = 0
     TooNoisy = 1
     NoSignal = 2
@@ -399,16 +399,16 @@ class SpeechRecognitionCompilationResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Media.SpeechRecognition.ISpeechRecognitionCompilationResult) -> win32more.Windows.Media.SpeechRecognition.SpeechRecognitionResultStatus: ...
     Status = property(get_Status, None)
-class SpeechRecognitionConfidence(Int32):  # enum
+class SpeechRecognitionConfidence(Enum, Int32):
     High = 0
     Medium = 1
     Low = 2
     Rejected = 3
-class SpeechRecognitionConstraintProbability(Int32):  # enum
+class SpeechRecognitionConstraintProbability(Enum, Int32):
     Default = 0
     Min = 1
     Max = 2
-class SpeechRecognitionConstraintType(Int32):  # enum
+class SpeechRecognitionConstraintType(Enum, Int32):
     Topic = 0
     List = 1
     Grammar = 2
@@ -543,7 +543,7 @@ class SpeechRecognitionResult(ComPtr):
     SemanticInterpretation = property(get_SemanticInterpretation, None)
     Status = property(get_Status, None)
     Text = property(get_Text, None)
-class SpeechRecognitionResultStatus(Int32):  # enum
+class SpeechRecognitionResultStatus(Enum, Int32):
     Success = 0
     TopicLanguageNotSupported = 1
     GrammarLanguageMismatch = 2
@@ -555,7 +555,7 @@ class SpeechRecognitionResultStatus(Int32):  # enum
     PauseLimitExceeded = 8
     NetworkFailure = 9
     MicrophoneUnavailable = 10
-class SpeechRecognitionScenario(Int32):  # enum
+class SpeechRecognitionScenario(Enum, Int32):
     WebSearch = 0
     Dictation = 1
     FormFilling = 2
@@ -699,7 +699,7 @@ class SpeechRecognizer(ComPtr, metaclass=_SpeechRecognizer_Meta_):
     _SpeechRecognizer_Meta_.SupportedGrammarLanguages = property(get_SupportedGrammarLanguages.__wrapped__, None)
     _SpeechRecognizer_Meta_.SupportedTopicLanguages = property(get_SupportedTopicLanguages.__wrapped__, None)
     _SpeechRecognizer_Meta_.SystemSpeechLanguage = property(get_SystemSpeechLanguage.__wrapped__, None)
-class SpeechRecognizerState(Int32):  # enum
+class SpeechRecognizerState(Enum, Int32):
     Idle = 0
     Capturing = 1
     Processing = 2

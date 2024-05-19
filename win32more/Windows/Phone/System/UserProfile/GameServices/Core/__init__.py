@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Phone.System.UserProfile.GameServices.Core
@@ -31,7 +31,7 @@ class GameService(ComPtr, metaclass=_GameService_Meta_):
     @winrt_classmethod
     def PostResult(cls: win32more.Windows.Phone.System.UserProfile.GameServices.Core.IGameService, gameVariant: UInt32, scoreKind: win32more.Windows.Phone.System.UserProfile.GameServices.Core.GameServiceScoreKind, scoreValue: Int64, gameOutcome: win32more.Windows.Phone.System.UserProfile.GameServices.Core.GameServiceGameOutcome, buffer: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     _GameService_Meta_.ServiceUri = property(get_ServiceUri.__wrapped__, None)
-class GameServiceGameOutcome(Int32):  # enum
+class GameServiceGameOutcome(Enum, Int32):
     None_ = 0
     Win = 1
     Loss = 2
@@ -42,7 +42,7 @@ class GameServicePropertyCollection(ComPtr):
     _classid_ = 'Windows.Phone.System.UserProfile.GameServices.Core.GameServicePropertyCollection'
     @winrt_mixinmethod
     def GetPropertyAsync(self: win32more.Windows.Phone.System.UserProfile.GameServices.Core.IGameServicePropertyCollection, propertyName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
-class GameServiceScoreKind(Int32):  # enum
+class GameServiceScoreKind(Enum, Int32):
     Number = 0
     Time = 1
 class IGameService(ComPtr):

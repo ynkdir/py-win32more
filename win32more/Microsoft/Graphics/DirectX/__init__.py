@@ -1,13 +1,13 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.DirectX
-class DirectXAlphaMode(Int32):  # enum
+class DirectXAlphaMode(Enum, Int32):
     Unspecified = 0
     Premultiplied = 1
     Straight = 2
     Ignore = 3
-class DirectXColorSpace(Int32):  # enum
+class DirectXColorSpace(Enum, Int32):
     RgbFullG22NoneP709 = 0
     RgbFullG10NoneP709 = 1
     RgbStudioG22NoneP709 = 2
@@ -33,7 +33,7 @@ class DirectXColorSpace(Int32):  # enum
     YccStudioG24LeftP709 = 22
     YccStudioG24LeftP2020 = 23
     YccStudioG24TopLeftP2020 = 24
-class DirectXPixelFormat(Int32):  # enum
+class DirectXPixelFormat(Enum, Int32):
     Unknown = 0
     R32G32B32A32Typeless = 1
     R32G32B32A32Float = 2
@@ -156,7 +156,7 @@ class DirectXPixelFormat(Int32):  # enum
     SamplerFeedbackMinMipOpaque = 189
     SamplerFeedbackMipRegionUsedOpaque = 190
     A4B4G4R4 = 191
-class DirectXPrimitiveTopology(Int32):  # enum
+class DirectXPrimitiveTopology(Enum, Int32):
     Undefined = 0
     PointList = 1
     LineList = 2

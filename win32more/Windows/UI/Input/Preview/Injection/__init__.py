@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Gaming.Input
@@ -210,7 +210,7 @@ class IInputInjectorStatics2(ComPtr):
     _iid_ = Guid('{a4db38fb-dd8c-414f-95ea-f87ef4c0ae6c}')
     @winrt_commethod(6)
     def TryCreateForAppBroadcastOnly(self) -> win32more.Windows.UI.Input.Preview.Injection.InputInjector: ...
-class InjectedInputButtonChangeKind(Int32):  # enum
+class InjectedInputButtonChangeKind(Enum, Int32):
     None_ = 0
     FirstButtonDown = 1
     FirstButtonUp = 2
@@ -274,7 +274,7 @@ class InjectedInputGamepadInfo(ComPtr):
     RightThumbstickX = property(get_RightThumbstickX, put_RightThumbstickX)
     RightThumbstickY = property(get_RightThumbstickY, put_RightThumbstickY)
     RightTrigger = property(get_RightTrigger, put_RightTrigger)
-class InjectedInputKeyOptions(UInt32):  # enum
+class InjectedInputKeyOptions(Enum, UInt32):
     None_ = 0
     ExtendedKey = 1
     KeyUp = 2
@@ -346,7 +346,7 @@ class InjectedInputMouseInfo(ComPtr):
     MouseData = property(get_MouseData, put_MouseData)
     MouseOptions = property(get_MouseOptions, put_MouseOptions)
     TimeOffsetInMilliseconds = property(get_TimeOffsetInMilliseconds, put_TimeOffsetInMilliseconds)
-class InjectedInputMouseOptions(UInt32):  # enum
+class InjectedInputMouseOptions(Enum, UInt32):
     None_ = 0
     Move = 1
     LeftDown = 2
@@ -362,7 +362,7 @@ class InjectedInputMouseOptions(UInt32):  # enum
     MoveNoCoalesce = 8192
     VirtualDesk = 16384
     Absolute = 32768
-class InjectedInputPenButtons(UInt32):  # enum
+class InjectedInputPenButtons(Enum, UInt32):
     None_ = 0
     Barrel = 1
     Inverted = 2
@@ -415,7 +415,7 @@ class InjectedInputPenInfo(ComPtr):
     Rotation = property(get_Rotation, put_Rotation)
     TiltX = property(get_TiltX, put_TiltX)
     TiltY = property(get_TiltY, put_TiltY)
-class InjectedInputPenParameters(UInt32):  # enum
+class InjectedInputPenParameters(Enum, UInt32):
     None_ = 0
     Pressure = 1
     Rotation = 2
@@ -430,7 +430,7 @@ class InjectedInputPointerInfo(Structure):
     PixelLocation: win32more.Windows.UI.Input.Preview.Injection.InjectedInputPoint
     TimeOffsetInMilliseconds: UInt32
     PerformanceCount: UInt64
-class InjectedInputPointerOptions(UInt32):  # enum
+class InjectedInputPointerOptions(Enum, UInt32):
     None_ = 0
     New = 1
     InRange = 2
@@ -449,7 +449,7 @@ class InjectedInputRectangle(Structure):
     Top: Int32
     Bottom: Int32
     Right: Int32
-class InjectedInputShortcut(Int32):  # enum
+class InjectedInputShortcut(Enum, Int32):
     Back = 0
     Start = 1
     Search = 2
@@ -491,12 +491,12 @@ class InjectedInputTouchInfo(ComPtr):
     PointerInfo = property(get_PointerInfo, put_PointerInfo)
     Pressure = property(get_Pressure, put_Pressure)
     TouchParameters = property(get_TouchParameters, put_TouchParameters)
-class InjectedInputTouchParameters(UInt32):  # enum
+class InjectedInputTouchParameters(Enum, UInt32):
     None_ = 0
     Contact = 1
     Orientation = 2
     Pressure = 4
-class InjectedInputVisualizationMode(Int32):  # enum
+class InjectedInputVisualizationMode(Enum, Int32):
     None_ = 0
     Default = 1
     Indirect = 2

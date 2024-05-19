@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
@@ -26,7 +26,7 @@ class EyesPose(ComPtr):
     Gaze = property(get_Gaze, None)
     IsCalibrationValid = property(get_IsCalibrationValid, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
-class HandJointKind(Int32):  # enum
+class HandJointKind(Enum, Int32):
     Palm = 0
     Wrist = 1
     ThumbMetacarpal = 2
@@ -208,7 +208,7 @@ class JointPose(Structure):
     Position: win32more.Windows.Foundation.Numerics.Vector3
     Radius: Single
     Accuracy: win32more.Windows.Perception.People.JointPoseAccuracy
-class JointPoseAccuracy(Int32):  # enum
+class JointPoseAccuracy(Enum, Int32):
     High = 0
     Approximate = 1
 

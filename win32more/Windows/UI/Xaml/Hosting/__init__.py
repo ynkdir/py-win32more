@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.UI.Composition
@@ -62,7 +62,7 @@ class DesignerAppView(ComPtr):
     ApplicationViewId = property(get_ApplicationViewId, None)
     ViewSize = property(get_ViewSize, None)
     ViewState = property(get_ViewState, None)
-class DesignerAppViewState(Int32):  # enum
+class DesignerAppViewState(Enum, Int32):
     Visible = 0
     Hidden = 1
 class DesktopWindowXamlSource(ComPtr):
@@ -379,7 +379,7 @@ class WindowsXamlManager(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
     def InitializeForCurrentThread(cls: win32more.Windows.UI.Xaml.Hosting.IWindowsXamlManagerStatics) -> win32more.Windows.UI.Xaml.Hosting.WindowsXamlManager: ...
-class XamlSourceFocusNavigationReason(Int32):  # enum
+class XamlSourceFocusNavigationReason(Enum, Int32):
     Programmatic = 0
     Restore = 1
     First = 3

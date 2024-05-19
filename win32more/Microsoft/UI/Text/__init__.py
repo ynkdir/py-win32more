@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Text
 import win32more.Windows.Foundation
@@ -7,10 +7,10 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.UI.Text
 import win32more.Windows.Win32.System.WinRT
-class CaretType(Int32):  # enum
+class CaretType(Enum, Int32):
     Normal = 0
     Null = 1
-class FindOptions(UInt32):  # enum
+class FindOptions(Enum, UInt32):
     None_ = 0
     Word = 2
     Case = 4
@@ -53,12 +53,12 @@ class FontWeights(ComPtr, metaclass=_FontWeights_Meta_):
     _FontWeights_Meta_.SemiBold = property(get_SemiBold.__wrapped__, None)
     _FontWeights_Meta_.SemiLight = property(get_SemiLight.__wrapped__, None)
     _FontWeights_Meta_.Thin = property(get_Thin.__wrapped__, None)
-class FormatEffect(Int32):  # enum
+class FormatEffect(Enum, Int32):
     Off = 0
     On = 1
     Toggle = 2
     Undefined = 3
-class HorizontalCharacterAlignment(Int32):  # enum
+class HorizontalCharacterAlignment(Enum, Int32):
     Left = 0
     Right = 1
     Center = 2
@@ -600,10 +600,10 @@ class ITextSelection(ComPtr):
     def TypeText(self, value: WinRT_String) -> Void: ...
     Options = property(get_Options, put_Options)
     Type = property(get_Type, None)
-class LetterCase(Int32):  # enum
+class LetterCase(Enum, Int32):
     Lower = 0
     Upper = 1
-class LineSpacingRule(Int32):  # enum
+class LineSpacingRule(Enum, Int32):
     Undefined = 0
     Single = 1
     OneAndHalf = 2
@@ -612,7 +612,7 @@ class LineSpacingRule(Int32):  # enum
     Exactly = 5
     Multiple = 6
     Percent = 7
-class LinkType(Int32):  # enum
+class LinkType(Enum, Int32):
     Undefined = 0
     NotALink = 1
     ClientLink = 2
@@ -622,12 +622,12 @@ class LinkType(Int32):  # enum
     AutoLinkEmail = 6
     AutoLinkPhone = 7
     AutoLinkPath = 8
-class MarkerAlignment(Int32):  # enum
+class MarkerAlignment(Enum, Int32):
     Undefined = 0
     Left = 1
     Center = 2
     Right = 3
-class MarkerStyle(Int32):  # enum
+class MarkerStyle(Enum, Int32):
     Undefined = 0
     Parenthesis = 1
     Parentheses = 2
@@ -635,7 +635,7 @@ class MarkerStyle(Int32):  # enum
     Plain = 4
     Minus = 5
     NoNumber = 6
-class MarkerType(Int32):  # enum
+class MarkerType(Enum, Int32):
     Undefined = 0
     None_ = 1
     Bullet = 2
@@ -661,13 +661,13 @@ class MarkerType(Int32):  # enum
     DevanagariVowel = 22
     DevanagariConsonant = 23
     DevanagariNumeric = 24
-class ParagraphAlignment(Int32):  # enum
+class ParagraphAlignment(Enum, Int32):
     Undefined = 0
     Left = 1
     Center = 2
     Right = 3
     Justify = 4
-class ParagraphStyle(Int32):  # enum
+class ParagraphStyle(Enum, Int32):
     Undefined = 0
     None_ = 1
     Normal = 2
@@ -680,7 +680,7 @@ class ParagraphStyle(Int32):  # enum
     Heading7 = 9
     Heading8 = 10
     Heading9 = 11
-class PointOptions(UInt32):  # enum
+class PointOptions(Enum, UInt32):
     None_ = 0
     IncludeInset = 1
     Start = 32
@@ -689,13 +689,13 @@ class PointOptions(UInt32):  # enum
     Transform = 1024
     NoHorizontalScroll = 65536
     NoVerticalScroll = 262144
-class RangeGravity(Int32):  # enum
+class RangeGravity(Enum, Int32):
     UIBehavior = 0
     Backward = 1
     Forward = 2
     Inward = 3
     Outward = 4
-class RichEditMathMode(Int32):  # enum
+class RichEditMathMode(Enum, Int32):
     NoMath = 0
     MathOnly = 1
 class RichEditTextDocument(ComPtr):
@@ -891,25 +891,25 @@ class RichEditTextRange(ComPtr):
     StartPosition = property(get_StartPosition, put_StartPosition)
     StoryLength = property(get_StoryLength, None)
     Text = property(get_Text, put_Text)
-class SelectionOptions(UInt32):  # enum
+class SelectionOptions(Enum, UInt32):
     StartActive = 1
     AtEndOfLine = 2
     Overtype = 4
     Active = 8
     Replace = 16
-class SelectionType(Int32):  # enum
+class SelectionType(Enum, Int32):
     None_ = 0
     InsertionPoint = 1
     Normal = 2
     InlineShape = 7
     Shape = 8
-class TabAlignment(Int32):  # enum
+class TabAlignment(Enum, Int32):
     Left = 0
     Center = 1
     Right = 2
     Decimal = 3
     Bar = 4
-class TabLeader(Int32):  # enum
+class TabLeader(Enum, Int32):
     Spaces = 0
     Dots = 1
     Dashes = 2
@@ -945,7 +945,7 @@ class TextConstants(ComPtr, metaclass=_TextConstants_Meta_):
     _TextConstants_Meta_.UndefinedFontStretch = property(get_UndefinedFontStretch.__wrapped__, None)
     _TextConstants_Meta_.UndefinedFontStyle = property(get_UndefinedFontStyle.__wrapped__, None)
     _TextConstants_Meta_.UndefinedInt32Value = property(get_UndefinedInt32Value.__wrapped__, None)
-class TextGetOptions(UInt32):  # enum
+class TextGetOptions(Enum, UInt32):
     None_ = 0
     AdjustCrlf = 1
     UseCrlf = 2
@@ -955,7 +955,7 @@ class TextGetOptions(UInt32):  # enum
     IncludeNumbering = 64
     FormatRtf = 8192
     UseLf = 16777216
-class TextRangeUnit(Int32):  # enum
+class TextRangeUnit(Enum, Int32):
     Character = 0
     Word = 1
     Sentence = 2
@@ -989,7 +989,7 @@ class TextRangeUnit(Int32):  # enum
     FontBound = 30
     LinkProtected = 31
     ContentLink = 32
-class TextScript(Int32):  # enum
+class TextScript(Enum, Int32):
     Undefined = 0
     Ansi = 1
     EastEurope = 2
@@ -1054,7 +1054,7 @@ class TextScript(Int32):  # enum
     Gothic = 61
     Deseret = 62
     Tifinagh = 63
-class TextSetOptions(UInt32):  # enum
+class TextSetOptions(Enum, UInt32):
     None_ = 0
     UnicodeBidi = 1
     Unlink = 8
@@ -1062,7 +1062,7 @@ class TextSetOptions(UInt32):  # enum
     CheckTextLimit = 32
     FormatRtf = 8192
     ApplyRtfDocumentDefaults = 16384
-class UnderlineType(Int32):  # enum
+class UnderlineType(Enum, Int32):
     Undefined = 0
     None_ = 1
     Single = 2
@@ -1083,7 +1083,7 @@ class UnderlineType(Int32):  # enum
     ThickDashDotDot = 17
     ThickDotted = 18
     ThickLongDash = 19
-class VerticalCharacterAlignment(Int32):  # enum
+class VerticalCharacterAlignment(Enum, Int32):
     Top = 0
     Baseline = 1
     Bottom = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -222,12 +222,12 @@ class KeyCredentialAttestationResult(ComPtr):
     AttestationBuffer = property(get_AttestationBuffer, None)
     CertificateChainBuffer = property(get_CertificateChainBuffer, None)
     Status = property(get_Status, None)
-class KeyCredentialAttestationStatus(Int32):  # enum
+class KeyCredentialAttestationStatus(Enum, Int32):
     Success = 0
     UnknownError = 1
     NotSupported = 2
     TemporaryFailure = 3
-class KeyCredentialCreationOption(Int32):  # enum
+class KeyCredentialCreationOption(Enum, Int32):
     ReplaceExisting = 0
     FailIfExists = 1
 class KeyCredentialManager(ComPtr):
@@ -263,7 +263,7 @@ class KeyCredentialRetrievalResult(ComPtr):
     def get_Status(self: win32more.Windows.Security.Credentials.IKeyCredentialRetrievalResult) -> win32more.Windows.Security.Credentials.KeyCredentialStatus: ...
     Credential = property(get_Credential, None)
     Status = property(get_Status, None)
-class KeyCredentialStatus(Int32):  # enum
+class KeyCredentialStatus(Enum, Int32):
     Success = 0
     UnknownError = 1
     NotFound = 2
@@ -401,7 +401,7 @@ class WebAccount(ComPtr):
     State = property(get_State, None)
     UserName = property(get_UserName, None)
     WebAccountProvider = property(get_WebAccountProvider, None)
-class WebAccountPictureSize(Int32):  # enum
+class WebAccountPictureSize(Enum, Int32):
     Size64x64 = 64
     Size208x208 = 208
     Size424x424 = 424
@@ -440,7 +440,7 @@ class WebAccountProvider(ComPtr):
     Id = property(get_Id, None)
     IsSystemProvider = property(get_IsSystemProvider, None)
     User = property(get_User, None)
-class WebAccountState(Int32):  # enum
+class WebAccountState(Enum, Int32):
     None_ = 0
     Connected = 1
     Error = 2

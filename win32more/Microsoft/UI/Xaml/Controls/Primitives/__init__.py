@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Input
@@ -18,7 +18,7 @@ import win32more.Windows.UI
 import win32more.Windows.UI.Xaml.Interop
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-class AnimationDirection(Int32):  # enum
+class AnimationDirection(Enum, Int32):
     Left = 0
     Top = 1
     Right = 2
@@ -630,7 +630,7 @@ class CommandBarTemplateSettings(ComPtr):
     OverflowContentMaxWidth = property(get_OverflowContentMaxWidth, None)
     OverflowContentMinWidth = property(get_OverflowContentMinWidth, None)
     OverflowContentMinimalYTranslation = property(get_OverflowContentMinimalYTranslation, None)
-class ComponentResourceLocation(Int32):  # enum
+class ComponentResourceLocation(Enum, Int32):
     Application = 0
     Nested = 1
 class _CornerRadiusFilterConverter_Meta_(ComPtr.__class__):
@@ -668,7 +668,7 @@ class CornerRadiusFilterConverter(ComPtr, metaclass=_CornerRadiusFilterConverter
     Scale = property(get_Scale, put_Scale)
     _CornerRadiusFilterConverter_Meta_.FilterProperty = property(get_FilterProperty.__wrapped__, None)
     _CornerRadiusFilterConverter_Meta_.ScaleProperty = property(get_ScaleProperty.__wrapped__, None)
-class CornerRadiusFilterKind(Int32):  # enum
+class CornerRadiusFilterKind(Enum, Int32):
     None_ = 0
     Top = 1
     Right = 2
@@ -711,7 +711,7 @@ class CornerRadiusToThicknessConverter(ComPtr, metaclass=_CornerRadiusToThicknes
     Multiplier = property(get_Multiplier, put_Multiplier)
     _CornerRadiusToThicknessConverter_Meta_.ConversionKindProperty = property(get_ConversionKindProperty.__wrapped__, None)
     _CornerRadiusToThicknessConverter_Meta_.MultiplierProperty = property(get_MultiplierProperty.__wrapped__, None)
-class CornerRadiusToThicknessConverterKind(Int32):  # enum
+class CornerRadiusToThicknessConverterKind(Enum, Int32):
     FilterTopAndBottomFromLeft = 0
     FilterTopAndBottomFromRight = 1
     FilterLeftAndRightFromTop = 2
@@ -799,7 +799,7 @@ class DragStartedEventHandler(MulticastDelegate):
     _iid_ = Guid('{13191f6d-a651-5870-b3a1-221550003512}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.Primitives.DragStartedEventArgs) -> Void: ...
-class EdgeTransitionLocation(Int32):  # enum
+class EdgeTransitionLocation(Enum, Int32):
     Left = 0
     Top = 1
     Right = 2
@@ -971,7 +971,7 @@ class FlyoutBaseClosingEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Cancel(self: win32more.Microsoft.UI.Xaml.Controls.Primitives.IFlyoutBaseClosingEventArgs, value: Boolean) -> Void: ...
     Cancel = property(get_Cancel, put_Cancel)
-class FlyoutPlacementMode(Int32):  # enum
+class FlyoutPlacementMode(Enum, Int32):
     Top = 0
     Bottom = 1
     Left = 2
@@ -986,7 +986,7 @@ class FlyoutPlacementMode(Int32):  # enum
     RightEdgeAlignedTop = 11
     RightEdgeAlignedBottom = 12
     Auto = 13
-class FlyoutShowMode(Int32):  # enum
+class FlyoutShowMode(Enum, Int32):
     Auto = 0
     Standard = 1
     Transient = 2
@@ -1024,7 +1024,7 @@ class FlyoutShowOptions(ComPtr):
     Placement = property(get_Placement, put_Placement)
     Position = property(get_Position, put_Position)
     ShowMode = property(get_ShowMode, put_ShowMode)
-class GeneratorDirection(Int32):  # enum
+class GeneratorDirection(Enum, Int32):
     Forward = 0
     Backward = 1
 class GeneratorPosition(Structure):
@@ -1234,7 +1234,7 @@ class GridViewItemTemplateSettings(ComPtr):
     @winrt_mixinmethod
     def get_DragItemsCount(self: win32more.Microsoft.UI.Xaml.Controls.Primitives.IGridViewItemTemplateSettings) -> Int32: ...
     DragItemsCount = property(get_DragItemsCount, None)
-class GroupHeaderPlacement(Int32):  # enum
+class GroupHeaderPlacement(Enum, Int32):
     Top = 0
     Left = 1
 class IAppBarButtonTemplateSettings(ComPtr):
@@ -4938,10 +4938,10 @@ class ListViewItemPresenter(ComPtr, metaclass=_ListViewItemPresenter_Meta_):
     _ListViewItemPresenter_Meta_.SelectionIndicatorPointerOverBrushProperty = property(get_SelectionIndicatorPointerOverBrushProperty.__wrapped__, None)
     _ListViewItemPresenter_Meta_.SelectionIndicatorPressedBrushProperty = property(get_SelectionIndicatorPressedBrushProperty.__wrapped__, None)
     _ListViewItemPresenter_Meta_.SelectionIndicatorVisualEnabledProperty = property(get_SelectionIndicatorVisualEnabledProperty.__wrapped__, None)
-class ListViewItemPresenterCheckMode(Int32):  # enum
+class ListViewItemPresenterCheckMode(Enum, Int32):
     Inline = 0
     Overlay = 1
-class ListViewItemPresenterSelectionIndicatorMode(Int32):  # enum
+class ListViewItemPresenterSelectionIndicatorMode(Enum, Int32):
     Inline = 0
     Overlay = 1
 class ListViewItemTemplateSettings(ComPtr):
@@ -5322,7 +5322,7 @@ class PivotPanel(ComPtr):
     def GetRegularSnapPoints(self: win32more.Microsoft.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo, orientation: win32more.Microsoft.UI.Xaml.Controls.Orientation, alignment: win32more.Microsoft.UI.Xaml.Controls.Primitives.SnapPointsAlignment, offset: POINTER(Single)) -> Single: ...
     AreHorizontalSnapPointsRegular = property(get_AreHorizontalSnapPointsRegular, None)
     AreVerticalSnapPointsRegular = property(get_AreVerticalSnapPointsRegular, None)
-class PlacementMode(Int32):  # enum
+class PlacementMode(Enum, Int32):
     Bottom = 2
     Left = 9
     Mouse = 7
@@ -5449,7 +5449,7 @@ class Popup(ComPtr, metaclass=_Popup_Meta_):
     _Popup_Meta_.ShouldConstrainToRootBoundsProperty = property(get_ShouldConstrainToRootBoundsProperty.__wrapped__, None)
     _Popup_Meta_.SystemBackdropProperty = property(get_SystemBackdropProperty.__wrapped__, None)
     _Popup_Meta_.VerticalOffsetProperty = property(get_VerticalOffsetProperty.__wrapped__, None)
-class PopupPlacementMode(Int32):  # enum
+class PopupPlacementMode(Enum, Int32):
     Auto = 0
     Top = 1
     Bottom = 2
@@ -5784,7 +5784,7 @@ class ScrollEventHandler(MulticastDelegate):
     _iid_ = Guid('{ff661ba9-8c06-5785-a23c-30d6b31631e8}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.Primitives.ScrollEventArgs) -> Void: ...
-class ScrollEventType(Int32):  # enum
+class ScrollEventType(Enum, Int32):
     SmallDecrement = 0
     SmallIncrement = 1
     LargeDecrement = 2
@@ -6087,11 +6087,11 @@ class ScrollSnapPointBase(ComPtr):
     @winrt_mixinmethod
     def get_Alignment(self: win32more.Microsoft.UI.Xaml.Controls.Primitives.IScrollSnapPointBase) -> win32more.Microsoft.UI.Xaml.Controls.Primitives.ScrollSnapPointsAlignment: ...
     Alignment = property(get_Alignment, None)
-class ScrollSnapPointsAlignment(Int32):  # enum
+class ScrollSnapPointsAlignment(Enum, Int32):
     Near = 0
     Center = 1
     Far = 2
-class ScrollingIndicatorMode(Int32):  # enum
+class ScrollingIndicatorMode(Enum, Int32):
     None_ = 0
     TouchIndicator = 1
     MouseIndicator = 2
@@ -6170,14 +6170,14 @@ class SelectorItem(ComPtr, metaclass=_SelectorItem_Meta_):
     def get_IsSelectedProperty(cls: win32more.Microsoft.UI.Xaml.Controls.Primitives.ISelectorItemStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     IsSelected = property(get_IsSelected, put_IsSelected)
     _SelectorItem_Meta_.IsSelectedProperty = property(get_IsSelectedProperty.__wrapped__, None)
-class SliderSnapsTo(Int32):  # enum
+class SliderSnapsTo(Enum, Int32):
     StepValues = 0
     Ticks = 1
 class SnapPointBase(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.Primitives.ISnapPointBase
     _classid_ = 'Microsoft.UI.Xaml.Controls.Primitives.SnapPointBase'
-class SnapPointsAlignment(Int32):  # enum
+class SnapPointsAlignment(Enum, Int32):
     Near = 0
     Center = 1
     Far = 2
@@ -6274,7 +6274,7 @@ class TickBar(ComPtr, metaclass=_TickBar_Meta_):
     def get_FillProperty(cls: win32more.Microsoft.UI.Xaml.Controls.Primitives.ITickBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     Fill = property(get_Fill, put_Fill)
     _TickBar_Meta_.FillProperty = property(get_FillProperty.__wrapped__, None)
-class TickPlacement(Int32):  # enum
+class TickPlacement(Enum, Int32):
     None_ = 0
     TopLeft = 1
     BottomRight = 2

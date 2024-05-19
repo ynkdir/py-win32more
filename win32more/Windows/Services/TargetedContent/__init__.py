@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -243,11 +243,11 @@ class TargetedContentAction(ComPtr):
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentAction'
     @winrt_mixinmethod
     def InvokeAsync(self: win32more.Windows.Services.TargetedContent.ITargetedContentAction) -> win32more.Windows.Foundation.IAsyncAction: ...
-class TargetedContentAppInstallationState(Int32):  # enum
+class TargetedContentAppInstallationState(Enum, Int32):
     NotApplicable = 0
     NotInstalled = 1
     Installed = 2
-class TargetedContentAvailability(Int32):  # enum
+class TargetedContentAvailability(Enum, Int32):
     None_ = 0
     Partial = 1
     All = 2
@@ -328,7 +328,7 @@ class TargetedContentImage(ComPtr):
     def OpenReadAsync(self: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
     Height = property(get_Height, None)
     Width = property(get_Width, None)
-class TargetedContentInteraction(Int32):  # enum
+class TargetedContentInteraction(Enum, Int32):
     Impression = 0
     ClickThrough = 1
     Hover = 2
@@ -388,7 +388,7 @@ class TargetedContentObject(ComPtr):
     Item = property(get_Item, None)
     ObjectKind = property(get_ObjectKind, None)
     Value = property(get_Value, None)
-class TargetedContentObjectKind(Int32):  # enum
+class TargetedContentObjectKind(Enum, Int32):
     Collection = 0
     Item = 1
     Value = 2
@@ -495,7 +495,7 @@ class TargetedContentValue(ComPtr):
     Uri = property(get_Uri, None)
     Uris = property(get_Uris, None)
     ValueKind = property(get_ValueKind, None)
-class TargetedContentValueKind(Int32):  # enum
+class TargetedContentValueKind(Enum, Int32):
     String = 0
     Uri = 1
     Number = 2

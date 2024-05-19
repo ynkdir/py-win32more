@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Core
 import win32more.Windows.Foundation
@@ -331,7 +331,7 @@ class IWindowTabThumbnailRequestedEventArgs(ComPtr):
     IsCompositedOnWindow = property(get_IsCompositedOnWindow, None)
     RequestedSize = property(get_RequestedSize, None)
     Tab = property(get_Tab, None)
-class SecurityAppKind(Int32):  # enum
+class SecurityAppKind(Enum, Int32):
     WebProtection = 0
 class SecurityAppManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -353,15 +353,15 @@ class SecurityAppManager(ComPtr):
     @winrt_mixinmethod
     def UpdateState(self: win32more.Windows.UI.Shell.ISecurityAppManager, kind: win32more.Windows.UI.Shell.SecurityAppKind, guidRegistration: Guid, state: win32more.Windows.UI.Shell.SecurityAppState, substatus: win32more.Windows.UI.Shell.SecurityAppSubstatus, detailsUri: win32more.Windows.Foundation.Uri) -> Void: ...
 SecurityAppManagerContract: UInt32 = 65536
-class SecurityAppState(Int32):  # enum
+class SecurityAppState(Enum, Int32):
     Disabled = 0
     Enabled = 1
-class SecurityAppSubstatus(Int32):  # enum
+class SecurityAppSubstatus(Enum, Int32):
     Undetermined = 0
     NoActionNeeded = 1
     ActionRecommended = 2
     ActionNeeded = 3
-class ShareWindowCommand(Int32):  # enum
+class ShareWindowCommand(Enum, Int32):
     None_ = 0
     StartSharing = 1
     StopSharing = 2

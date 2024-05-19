@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Custom
 import win32more.Windows.Foundation
@@ -24,11 +24,11 @@ class CustomDevice(ComPtr):
     InputStream = property(get_InputStream, None)
     OutputStream = property(get_OutputStream, None)
 CustomDeviceContract: UInt32 = 65536
-class DeviceAccessMode(Int32):  # enum
+class DeviceAccessMode(Enum, Int32):
     Read = 0
     Write = 1
     ReadWrite = 2
-class DeviceSharingMode(Int32):  # enum
+class DeviceSharingMode(Enum, Int32):
     Shared = 0
     Exclusive = 1
 class ICustomDevice(ComPtr):
@@ -85,12 +85,12 @@ class IKnownDeviceTypesStatics(ComPtr):
     @winrt_commethod(6)
     def get_Unknown(self) -> UInt16: ...
     Unknown = property(get_Unknown, None)
-class IOControlAccessMode(Int32):  # enum
+class IOControlAccessMode(Enum, Int32):
     Any = 0
     Read = 1
     Write = 2
     ReadWrite = 3
-class IOControlBufferingMethod(Int32):  # enum
+class IOControlBufferingMethod(Enum, Int32):
     Buffered = 0
     DirectInput = 1
     DirectOutput = 2

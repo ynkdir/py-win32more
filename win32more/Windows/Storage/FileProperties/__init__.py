@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
@@ -457,7 +457,7 @@ class MusicProperties(ComPtr):
     TrackNumber = property(get_TrackNumber, put_TrackNumber)
     Writers = property(get_Writers, None)
     Year = property(get_Year, put_Year)
-class PhotoOrientation(Int32):  # enum
+class PhotoOrientation(Enum, Int32):
     Unspecified = 0
     Normal = 1
     FlipHorizontal = 2
@@ -467,7 +467,7 @@ class PhotoOrientation(Int32):  # enum
     Rotate270 = 6
     Transverse = 7
     Rotate90 = 8
-class PropertyPrefetchOptions(UInt32):  # enum
+class PropertyPrefetchOptions(Enum, UInt32):
     None_ = 0
     MusicProperties = 1
     VideoProperties = 2
@@ -541,22 +541,22 @@ class StorageItemThumbnail(ComPtr):
     ReturnedSmallerCachedSize = property(get_ReturnedSmallerCachedSize, None)
     Size = property(get_Size, put_Size)
     Type = property(get_Type, None)
-class ThumbnailMode(Int32):  # enum
+class ThumbnailMode(Enum, Int32):
     PicturesView = 0
     VideosView = 1
     MusicView = 2
     DocumentsView = 3
     ListView = 4
     SingleItem = 5
-class ThumbnailOptions(UInt32):  # enum
+class ThumbnailOptions(Enum, UInt32):
     None_ = 0
     ReturnOnlyIfCached = 1
     ResizeThumbnail = 2
     UseCurrentScale = 4
-class ThumbnailType(Int32):  # enum
+class ThumbnailType(Enum, Int32):
     Image = 0
     Icon = 1
-class VideoOrientation(Int32):  # enum
+class VideoOrientation(Enum, Int32):
     Normal = 0
     Rotate90 = 90
     Rotate180 = 180

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Background
 import win32more.Windows.Devices.Enumeration
@@ -37,12 +37,12 @@ class DeviceAccessInformation(ComPtr):
     @winrt_classmethod
     def CreateFromDeviceClass(cls: win32more.Windows.Devices.Enumeration.IDeviceAccessInformationStatics, deviceClass: win32more.Windows.Devices.Enumeration.DeviceClass) -> win32more.Windows.Devices.Enumeration.DeviceAccessInformation: ...
     CurrentStatus = property(get_CurrentStatus, None)
-class DeviceAccessStatus(Int32):  # enum
+class DeviceAccessStatus(Enum, Int32):
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
     DeniedBySystem = 3
-class DeviceClass(Int32):  # enum
+class DeviceClass(Enum, Int32):
     All = 0
     AudioCapture = 1
     AudioRender = 2
@@ -155,7 +155,7 @@ class DeviceInformationCustomPairing(ComPtr):
     def add_PairingRequested(self: win32more.Windows.Devices.Enumeration.IDeviceInformationCustomPairing, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceInformationCustomPairing, win32more.Windows.Devices.Enumeration.DevicePairingRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PairingRequested(self: win32more.Windows.Devices.Enumeration.IDeviceInformationCustomPairing, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-class DeviceInformationKind(Int32):  # enum
+class DeviceInformationKind(Enum, Int32):
     Unknown = 0
     DeviceInterface = 1
     DeviceContainer = 2
@@ -206,14 +206,14 @@ class DeviceInformationUpdate(ComPtr):
     Id = property(get_Id, None)
     Kind = property(get_Kind, None)
     Properties = property(get_Properties, None)
-class DevicePairingKinds(UInt32):  # enum
+class DevicePairingKinds(Enum, UInt32):
     None_ = 0
     ConfirmOnly = 1
     DisplayPin = 2
     ProvidePin = 4
     ConfirmPinMatch = 8
     ProvidePasswordCredential = 16
-class DevicePairingProtectionLevel(Int32):  # enum
+class DevicePairingProtectionLevel(Enum, Int32):
     Default = 0
     None_ = 1
     Encryption = 2
@@ -249,7 +249,7 @@ class DevicePairingResult(ComPtr):
     def get_ProtectionLevelUsed(self: win32more.Windows.Devices.Enumeration.IDevicePairingResult) -> win32more.Windows.Devices.Enumeration.DevicePairingProtectionLevel: ...
     ProtectionLevelUsed = property(get_ProtectionLevelUsed, None)
     Status = property(get_Status, None)
-class DevicePairingResultStatus(Int32):  # enum
+class DevicePairingResultStatus(Enum, Int32):
     Paired = 0
     NotReadyToPair = 1
     NotPaired = 2
@@ -355,7 +355,7 @@ class DevicePickerAppearance(ComPtr):
     SelectedBackgroundColor = property(get_SelectedBackgroundColor, put_SelectedBackgroundColor)
     SelectedForegroundColor = property(get_SelectedForegroundColor, put_SelectedForegroundColor)
     Title = property(get_Title, put_Title)
-class DevicePickerDisplayStatusOptions(UInt32):  # enum
+class DevicePickerDisplayStatusOptions(Enum, UInt32):
     None_ = 0
     ShowProgress = 1
     ShowDisconnectButton = 2
@@ -421,7 +421,7 @@ class DeviceUnpairingResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Devices.Enumeration.IDeviceUnpairingResult) -> win32more.Windows.Devices.Enumeration.DeviceUnpairingResultStatus: ...
     Status = property(get_Status, None)
-class DeviceUnpairingResultStatus(Int32):  # enum
+class DeviceUnpairingResultStatus(Enum, Int32):
     Unpaired = 0
     AlreadyUnpaired = 1
     OperationAlreadyInProgress = 2
@@ -473,11 +473,11 @@ class DeviceWatcherEvent(ComPtr):
     DeviceInformation = property(get_DeviceInformation, None)
     DeviceInformationUpdate = property(get_DeviceInformationUpdate, None)
     Kind = property(get_Kind, None)
-class DeviceWatcherEventKind(Int32):  # enum
+class DeviceWatcherEventKind(Enum, Int32):
     Add = 0
     Update = 1
     Remove = 2
-class DeviceWatcherStatus(Int32):  # enum
+class DeviceWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -917,7 +917,7 @@ class IEnclosureLocation2(ComPtr):
     @winrt_commethod(6)
     def get_RotationAngleInDegreesClockwise(self) -> UInt32: ...
     RotationAngleInDegreesClockwise = property(get_RotationAngleInDegreesClockwise, None)
-class Panel(Int32):  # enum
+class Panel(Enum, Int32):
     Unknown = 0
     Front = 1
     Back = 2

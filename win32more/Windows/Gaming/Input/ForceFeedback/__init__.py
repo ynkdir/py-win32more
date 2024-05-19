@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
@@ -35,7 +35,7 @@ class ConditionForceEffect(ComPtr):
     Gain = property(get_Gain, put_Gain)
     Kind = property(get_Kind, None)
     State = property(get_State, None)
-class ConditionForceEffectKind(Int32):  # enum
+class ConditionForceEffectKind(Enum, Int32):
     Spring = 0
     Damper = 1
     Inertia = 2
@@ -69,17 +69,17 @@ class ConstantForceEffect(ComPtr):
     def SetParametersWithEnvelope(self: win32more.Windows.Gaming.Input.ForceFeedback.IConstantForceEffect, vector: win32more.Windows.Foundation.Numerics.Vector3, attackGain: Single, sustainGain: Single, releaseGain: Single, startDelay: win32more.Windows.Foundation.TimeSpan, attackDuration: win32more.Windows.Foundation.TimeSpan, sustainDuration: win32more.Windows.Foundation.TimeSpan, releaseDuration: win32more.Windows.Foundation.TimeSpan, repeatCount: UInt32) -> Void: ...
     Gain = property(get_Gain, put_Gain)
     State = property(get_State, None)
-class ForceFeedbackEffectAxes(UInt32):  # enum
+class ForceFeedbackEffectAxes(Enum, UInt32):
     None_ = 0
     X = 1
     Y = 2
     Z = 4
-class ForceFeedbackEffectState(Int32):  # enum
+class ForceFeedbackEffectState(Enum, Int32):
     Stopped = 0
     Running = 1
     Paused = 2
     Faulted = 3
-class ForceFeedbackLoadEffectResult(Int32):  # enum
+class ForceFeedbackLoadEffectResult(Enum, Int32):
     Succeeded = 0
     EffectStorageFull = 1
     EffectNotSupported = 2
@@ -247,7 +247,7 @@ class PeriodicForceEffect(ComPtr):
     Gain = property(get_Gain, put_Gain)
     Kind = property(get_Kind, None)
     State = property(get_State, None)
-class PeriodicForceEffectKind(Int32):  # enum
+class PeriodicForceEffectKind(Enum, Int32):
     SquareWave = 0
     SineWave = 1
     TriangleWave = 2

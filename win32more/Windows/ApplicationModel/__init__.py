@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.Activation
@@ -10,7 +10,7 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.Win32.System.WinRT
-class AddResourcePackageOptions(UInt32):  # enum
+class AddResourcePackageOptions(Enum, UInt32):
     None_ = 0
     ForceTargetAppShutdown = 1
     ApplyUpdateIfAvailable = 2
@@ -26,7 +26,7 @@ class AppDisplayInfo(ComPtr):
     def GetLogo(self: win32more.Windows.ApplicationModel.IAppDisplayInfo, size: win32more.Windows.Foundation.Size) -> win32more.Windows.Storage.Streams.RandomAccessStreamReference: ...
     Description = property(get_Description, None)
     DisplayName = property(get_DisplayName, None)
-class AppExecutionContext(Int32):  # enum
+class AppExecutionContext(Enum, Int32):
     Unknown = 0
     Host = 1
     Guest = 2
@@ -116,7 +116,7 @@ class AppInstallerInfo(ComPtr):
     UpdateUris = property(get_UpdateUris, None)
     Uri = property(get_Uri, None)
     Version = property(get_Version, None)
-class AppInstallerPolicySource(Int32):  # enum
+class AppInstallerPolicySource(Enum, Int32):
     Default = 0
     System = 1
 class _AppInstance_Meta_(ComPtr.__class__):
@@ -205,7 +205,7 @@ class FindRelatedPackagesOptions(ComPtr):
     IncludeResources = property(get_IncludeResources, put_IncludeResources)
     Relationship = property(get_Relationship, put_Relationship)
 FullTrustAppContract: UInt32 = 131072
-class FullTrustLaunchResult(Int32):  # enum
+class FullTrustLaunchResult(Enum, Int32):
     Success = 0
     AccessDenied = 1
     FileNotFound = 2
@@ -1052,7 +1052,7 @@ class LimitedAccessFeatureRequestResult(ComPtr):
     EstimatedRemovalDate = property(get_EstimatedRemovalDate, None)
     FeatureId = property(get_FeatureId, None)
     Status = property(get_Status, None)
-class LimitedAccessFeatureStatus(Int32):  # enum
+class LimitedAccessFeatureStatus(Enum, Int32):
     Unavailable = 0
     Available = 1
     AvailableWithoutToken = 2
@@ -1317,7 +1317,7 @@ class PackageContentGroupStagingEventArgs(ComPtr):
     IsContentGroupRequired = property(get_IsContentGroupRequired, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-class PackageContentGroupState(Int32):  # enum
+class PackageContentGroupState(Enum, Int32):
     NotStaged = 0
     Queued = 1
     Staging = 2
@@ -1377,11 +1377,11 @@ class PackageInstallingEventArgs(ComPtr):
     IsComplete = property(get_IsComplete, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-class PackageRelationship(Int32):  # enum
+class PackageRelationship(Enum, Int32):
     Dependencies = 0
     Dependents = 1
     All = 2
-class PackageSignatureKind(Int32):  # enum
+class PackageSignatureKind(Enum, Int32):
     None_ = 0
     Developer = 1
     Enterprise = 2
@@ -1474,7 +1474,7 @@ class PackageUninstallingEventArgs(ComPtr):
     IsComplete = property(get_IsComplete, None)
     Package = property(get_Package, None)
     Progress = property(get_Progress, None)
-class PackageUpdateAvailability(Int32):  # enum
+class PackageUpdateAvailability(Enum, Int32):
     Unknown = 0
     NoUpdates = 1
     Available = 2
@@ -1536,7 +1536,7 @@ class StartupTask(ComPtr):
     State = property(get_State, None)
     TaskId = property(get_TaskId, None)
 StartupTaskContract: UInt32 = 196608
-class StartupTaskState(Int32):  # enum
+class StartupTaskState(Enum, Int32):
     Disabled = 0
     DisabledByUser = 1
     Enabled = 2

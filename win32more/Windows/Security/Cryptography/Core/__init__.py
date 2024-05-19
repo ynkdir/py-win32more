@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -98,7 +98,7 @@ class AsymmetricKeyAlgorithmProvider(ComPtr):
     @winrt_classmethod
     def OpenAlgorithm(cls: win32more.Windows.Security.Cryptography.Core.IAsymmetricKeyAlgorithmProviderStatics, algorithm: WinRT_String) -> win32more.Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider: ...
     AlgorithmName = property(get_AlgorithmName, None)
-class Capi1KdfTargetAlgorithm(Int32):  # enum
+class Capi1KdfTargetAlgorithm(Enum, Int32):
     NotAes = 0
     Aes = 1
 class CryptographicEngine(ComPtr):
@@ -151,18 +151,18 @@ class CryptographicKey(ComPtr):
     @winrt_mixinmethod
     def ExportPublicKeyWithBlobType(self: win32more.Windows.Security.Cryptography.Core.ICryptographicKey, BlobType: win32more.Windows.Security.Cryptography.Core.CryptographicPublicKeyBlobType) -> win32more.Windows.Storage.Streams.IBuffer: ...
     KeySize = property(get_KeySize, None)
-class CryptographicPadding(Int32):  # enum
+class CryptographicPadding(Enum, Int32):
     None_ = 0
     RsaOaep = 1
     RsaPkcs1V15 = 2
     RsaPss = 3
-class CryptographicPrivateKeyBlobType(Int32):  # enum
+class CryptographicPrivateKeyBlobType(Enum, Int32):
     Pkcs8RawPrivateKeyInfo = 0
     Pkcs1RsaPrivateKey = 1
     BCryptPrivateKey = 2
     Capi1PrivateKey = 3
     BCryptEccFullPrivateKey = 4
-class CryptographicPublicKeyBlobType(Int32):  # enum
+class CryptographicPublicKeyBlobType(Enum, Int32):
     X509SubjectPublicKeyInfo = 0
     Pkcs1RsaPublicKey = 1
     BCryptPublicKey = 2

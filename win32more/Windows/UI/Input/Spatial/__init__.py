@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Haptics
 import win32more.Windows.Devices.Power
@@ -627,7 +627,7 @@ class SpatialGestureRecognizer(ComPtr):
     @winrt_mixinmethod
     def get_GestureSettings(self: win32more.Windows.UI.Input.Spatial.ISpatialGestureRecognizer) -> win32more.Windows.UI.Input.Spatial.SpatialGestureSettings: ...
     GestureSettings = property(get_GestureSettings, None)
-class SpatialGestureSettings(UInt32):  # enum
+class SpatialGestureSettings(Enum, UInt32):
     None_ = 0
     Tap = 1
     DoubleTap = 2
@@ -769,7 +769,7 @@ class SpatialInteractionManager(ComPtr):
     def IsSourceKindSupported(cls: win32more.Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics2, kind: win32more.Windows.UI.Input.Spatial.SpatialInteractionSourceKind) -> Boolean: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionManager: ...
-class SpatialInteractionPressKind(Int32):  # enum
+class SpatialInteractionPressKind(Enum, Int32):
     None_ = 0
     Select = 1
     Menu = 2
@@ -817,11 +817,11 @@ class SpatialInteractionSourceEventArgs(ComPtr):
     def get_PressKind(self: win32more.Windows.UI.Input.Spatial.ISpatialInteractionSourceEventArgs2) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionPressKind: ...
     PressKind = property(get_PressKind, None)
     State = property(get_State, None)
-class SpatialInteractionSourceHandedness(Int32):  # enum
+class SpatialInteractionSourceHandedness(Enum, Int32):
     Unspecified = 0
     Left = 1
     Right = 2
-class SpatialInteractionSourceKind(Int32):  # enum
+class SpatialInteractionSourceKind(Enum, Int32):
     Other = 0
     Hand = 1
     Voice = 2
@@ -848,7 +848,7 @@ class SpatialInteractionSourceLocation(ComPtr):
     PositionAccuracy = property(get_PositionAccuracy, None)
     SourcePointerPose = property(get_SourcePointerPose, None)
     Velocity = property(get_Velocity, None)
-class SpatialInteractionSourcePositionAccuracy(Int32):  # enum
+class SpatialInteractionSourcePositionAccuracy(Enum, Int32):
     High = 0
     Approximate = 1
 class SpatialInteractionSourceProperties(ComPtr):

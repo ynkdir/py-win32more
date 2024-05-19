@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -431,7 +431,7 @@ class IFolderPickerStatics(ComPtr):
     _iid_ = Guid('{9be34740-7ca1-5942-a3c8-46f2551ecff3}')
     @winrt_commethod(6)
     def CreateForUser(self, user: win32more.Windows.System.User) -> win32more.Windows.Storage.Pickers.FolderPicker: ...
-class PickerLocationId(Int32):  # enum
+class PickerLocationId(Enum, Int32):
     DocumentsLibrary = 0
     ComputerFolder = 1
     Desktop = 2
@@ -442,7 +442,7 @@ class PickerLocationId(Int32):  # enum
     VideosLibrary = 7
     Objects3D = 8
     Unspecified = 9
-class PickerViewMode(Int32):  # enum
+class PickerViewMode(Enum, Int32):
     List = 0
     Thumbnail = 1
 

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
@@ -44,7 +44,7 @@ class AdvancedPhotoControl(ComPtr):
     Mode = property(get_Mode, None)
     Supported = property(get_Supported, None)
     SupportedModes = property(get_SupportedModes, None)
-class AdvancedPhotoMode(Int32):  # enum
+class AdvancedPhotoMode(Enum, Int32):
     Auto = 0
     Standard = 1
     Hdr = 2
@@ -121,10 +121,10 @@ class AudioDeviceModulesManager(ComPtr):
     def FindAllById(self: win32more.Windows.Media.Devices.IAudioDeviceModulesManager, moduleId: WinRT_String) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
     @winrt_mixinmethod
     def FindAll(self: win32more.Windows.Media.Devices.IAudioDeviceModulesManager) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
-class AudioDeviceRole(Int32):  # enum
+class AudioDeviceRole(Enum, Int32):
     Default = 0
     Communications = 1
-class AutoFocusRange(Int32):  # enum
+class AutoFocusRange(Enum, Int32):
     FullRange = 0
     Macro = 1
     Normal = 2
@@ -189,7 +189,7 @@ class CameraOcclusionInfo(ComPtr):
     def add_StateChanged(self: win32more.Windows.Media.Devices.ICameraOcclusionInfo, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Devices.CameraOcclusionInfo, win32more.Windows.Media.Devices.CameraOcclusionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StateChanged(self: win32more.Windows.Media.Devices.ICameraOcclusionInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-class CameraOcclusionKind(Int32):  # enum
+class CameraOcclusionKind(Enum, Int32):
     Lid = 0
     CameraHardware = 1
 class CameraOcclusionState(ComPtr):
@@ -208,12 +208,12 @@ class CameraOcclusionStateChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Media.Devices.ICameraOcclusionStateChangedEventArgs) -> win32more.Windows.Media.Devices.CameraOcclusionState: ...
     State = property(get_State, None)
-class CameraStreamState(Int32):  # enum
+class CameraStreamState(Enum, Int32):
     NotStreaming = 0
     Streaming = 1
     BlockedForPrivacy = 2
     Shutdown = 3
-class CaptureSceneMode(Int32):  # enum
+class CaptureSceneMode(Enum, Int32):
     Auto = 0
     Manual = 1
     Macro = 2
@@ -227,11 +227,11 @@ class CaptureSceneMode(Int32):  # enum
     Landscape = 10
     NightPortrait = 11
     Backlit = 12
-class CaptureUse(Int32):  # enum
+class CaptureUse(Enum, Int32):
     None_ = 0
     Photo = 1
     Video = 2
-class ColorTemperaturePreset(Int32):  # enum
+class ColorTemperaturePreset(Enum, Int32):
     Auto = 0
     Manual = 1
     Cloudy = 2
@@ -348,7 +348,7 @@ class DigitalWindowControl(ComPtr):
     IsSupported = property(get_IsSupported, None)
     SupportedCapabilities = property(get_SupportedCapabilities, None)
     SupportedModes = property(get_SupportedModes, None)
-class DigitalWindowMode(Int32):  # enum
+class DigitalWindowMode(Enum, Int32):
     Off = 0
     On = 1
     Auto = 2
@@ -512,12 +512,12 @@ class FocusControl(ComPtr):
     SupportedPresets = property(get_SupportedPresets, None)
     Value = property(get_Value, None)
     WaitForFocusSupported = property(get_WaitForFocusSupported, None)
-class FocusMode(Int32):  # enum
+class FocusMode(Enum, Int32):
     Auto = 0
     Single = 1
     Continuous = 2
     Manual = 3
-class FocusPreset(Int32):  # enum
+class FocusPreset(Enum, Int32):
     Auto = 0
     Manual = 1
     AutoMacro = 2
@@ -582,7 +582,7 @@ class HdrVideoControl(ComPtr):
     Mode = property(get_Mode, put_Mode)
     Supported = property(get_Supported, None)
     SupportedModes = property(get_SupportedModes, None)
-class HdrVideoMode(Int32):  # enum
+class HdrVideoMode(Enum, Int32):
     Off = 0
     On = 1
     Auto = 2
@@ -1728,7 +1728,7 @@ class InfraredTorchControl(ComPtr):
     Power = property(get_Power, put_Power)
     PowerStep = property(get_PowerStep, None)
     SupportedModes = property(get_SupportedModes, None)
-class InfraredTorchMode(Int32):  # enum
+class InfraredTorchMode(Enum, Int32):
     Off = 0
     On = 1
     AlternatingFrameIllumination = 2
@@ -1766,7 +1766,7 @@ class IsoSpeedControl(ComPtr):
     Supported = property(get_Supported, None)
     SupportedPresets = property(get_SupportedPresets, None)
     Value = property(get_Value, None)
-class IsoSpeedPreset(Int32):  # enum
+class IsoSpeedPreset(Enum, Int32):
     Auto = 0
     Iso50 = 1
     Iso80 = 2
@@ -1862,17 +1862,17 @@ class LowLagPhotoSequenceControl(ComPtr):
     Supported = property(get_Supported, None)
     ThumbnailEnabled = property(get_ThumbnailEnabled, put_ThumbnailEnabled)
     ThumbnailFormat = property(get_ThumbnailFormat, put_ThumbnailFormat)
-class ManualFocusDistance(Int32):  # enum
+class ManualFocusDistance(Enum, Int32):
     Infinity = 0
     Hyperfocal = 1
     Nearest = 2
-class MediaCaptureFocusState(Int32):  # enum
+class MediaCaptureFocusState(Enum, Int32):
     Uninitialized = 0
     Lost = 1
     Searching = 2
     Focused = 3
     Failed = 4
-class MediaCaptureOptimization(Int32):  # enum
+class MediaCaptureOptimization(Enum, Int32):
     Default = 0
     Quality = 1
     Latency = 2
@@ -1880,7 +1880,7 @@ class MediaCaptureOptimization(Int32):  # enum
     LatencyThenQuality = 4
     LatencyThenPower = 5
     PowerAndQuality = 6
-class MediaCapturePauseBehavior(Int32):  # enum
+class MediaCapturePauseBehavior(Enum, Int32):
     RetainHardwareResources = 0
     ReleaseHardwareResources = 1
 class MediaDevice(ComPtr):
@@ -1966,7 +1966,7 @@ class OpticalImageStabilizationControl(ComPtr):
     Mode = property(get_Mode, put_Mode)
     Supported = property(get_Supported, None)
     SupportedModes = property(get_SupportedModes, None)
-class OpticalImageStabilizationMode(Int32):  # enum
+class OpticalImageStabilizationMode(Enum, Int32):
     Off = 0
     On = 1
     Auto = 2
@@ -2058,7 +2058,7 @@ class RegionOfInterest(ComPtr):
     BoundsNormalized = property(get_BoundsNormalized, put_BoundsNormalized)
     Type = property(get_Type, put_Type)
     Weight = property(get_Weight, put_Weight)
-class RegionOfInterestType(Int32):  # enum
+class RegionOfInterestType(Enum, Int32):
     Unknown = 0
     Face = 1
 class RegionsOfInterestControl(ComPtr):
@@ -2095,10 +2095,10 @@ class SceneModeControl(ComPtr):
     def SetValueAsync(self: win32more.Windows.Media.Devices.ISceneModeControl, sceneMode: win32more.Windows.Media.Devices.CaptureSceneMode) -> win32more.Windows.Foundation.IAsyncAction: ...
     SupportedModes = property(get_SupportedModes, None)
     Value = property(get_Value, None)
-class SendCommandStatus(Int32):  # enum
+class SendCommandStatus(Enum, Int32):
     Success = 0
     DeviceNotAvailable = 1
-class TelephonyKey(Int32):  # enum
+class TelephonyKey(Enum, Int32):
     D0 = 0
     D1 = 1
     D2 = 2
@@ -2288,7 +2288,7 @@ class VideoDeviceControllerGetDevicePropertyResult(ComPtr):
     def get_Value(self: win32more.Windows.Media.Devices.IVideoDeviceControllerGetDevicePropertyResult) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Status = property(get_Status, None)
     Value = property(get_Value, None)
-class VideoDeviceControllerGetDevicePropertyStatus(Int32):  # enum
+class VideoDeviceControllerGetDevicePropertyStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     BufferTooSmall = 2
@@ -2296,7 +2296,7 @@ class VideoDeviceControllerGetDevicePropertyStatus(Int32):  # enum
     DeviceNotAvailable = 4
     MaxPropertyValueSizeTooSmall = 5
     MaxPropertyValueSizeRequired = 6
-class VideoDeviceControllerSetDevicePropertyStatus(Int32):  # enum
+class VideoDeviceControllerSetDevicePropertyStatus(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     NotSupported = 2
@@ -2318,7 +2318,7 @@ class VideoTemporalDenoisingControl(ComPtr):
     Mode = property(get_Mode, put_Mode)
     Supported = property(get_Supported, None)
     SupportedModes = property(get_SupportedModes, None)
-class VideoTemporalDenoisingMode(Int32):  # enum
+class VideoTemporalDenoisingMode(Enum, Int32):
     Off = 0
     On = 1
     Auto = 2
@@ -2400,7 +2400,7 @@ class ZoomSettings(ComPtr):
     def put_Value(self: win32more.Windows.Media.Devices.IZoomSettings, value: Single) -> Void: ...
     Mode = property(get_Mode, put_Mode)
     Value = property(get_Value, put_Value)
-class ZoomTransitionMode(Int32):  # enum
+class ZoomTransitionMode(Enum, Int32):
     Auto = 0
     Direct = 1
     Smooth = 2

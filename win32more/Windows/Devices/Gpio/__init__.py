@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Gpio
 import win32more.Windows.Devices.Gpio.Provider
@@ -40,7 +40,7 @@ class GpioChangeCounter(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     IsStarted = property(get_IsStarted, None)
     Polarity = property(get_Polarity, put_Polarity)
-class GpioChangePolarity(Int32):  # enum
+class GpioChangePolarity(Enum, Int32):
     Falling = 0
     Rising = 1
     Both = 2
@@ -119,7 +119,7 @@ class GpioController(ComPtr):
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.Devices.Gpio.IGpioControllerStatics) -> win32more.Windows.Devices.Gpio.GpioController: ...
     PinCount = property(get_PinCount, None)
-class GpioOpenStatus(Int32):  # enum
+class GpioOpenStatus(Enum, Int32):
     PinOpened = 0
     PinUnavailable = 1
     SharingViolation = 2
@@ -156,7 +156,7 @@ class GpioPin(ComPtr):
     DebounceTimeout = property(get_DebounceTimeout, put_DebounceTimeout)
     PinNumber = property(get_PinNumber, None)
     SharingMode = property(get_SharingMode, None)
-class GpioPinDriveMode(Int32):  # enum
+class GpioPinDriveMode(Enum, Int32):
     Input = 0
     Output = 1
     InputPullUp = 2
@@ -165,10 +165,10 @@ class GpioPinDriveMode(Int32):  # enum
     OutputOpenDrainPullUp = 5
     OutputOpenSource = 6
     OutputOpenSourcePullDown = 7
-class GpioPinEdge(Int32):  # enum
+class GpioPinEdge(Enum, Int32):
     FallingEdge = 0
     RisingEdge = 1
-class GpioPinValue(Int32):  # enum
+class GpioPinValue(Enum, Int32):
     Low = 0
     High = 1
 class GpioPinValueChangedEventArgs(ComPtr):
@@ -178,7 +178,7 @@ class GpioPinValueChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Edge(self: win32more.Windows.Devices.Gpio.IGpioPinValueChangedEventArgs) -> win32more.Windows.Devices.Gpio.GpioPinEdge: ...
     Edge = property(get_Edge, None)
-class GpioSharingMode(Int32):  # enum
+class GpioSharingMode(Enum, Int32):
     Exclusive = 0
     SharedReadOnly = 1
 class IGpioChangeCounter(ComPtr):

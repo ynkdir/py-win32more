@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Printers
 import win32more.Windows.Foundation
@@ -320,7 +320,7 @@ class IppAttributeError(ComPtr):
     def GetUnsupportedValues(self: win32more.Windows.Devices.Printers.IIppAttributeError) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Printers.IppAttributeValue]: ...
     ExtendedError = property(get_ExtendedError, None)
     Reason = property(get_Reason, None)
-class IppAttributeErrorReason(Int32):  # enum
+class IppAttributeErrorReason(Enum, Int32):
     RequestEntityTooLarge = 0
     AttributeNotSupported = 1
     AttributeValuesNotSupported = 2
@@ -447,7 +447,7 @@ class IppAttributeValue(ComPtr):
     @winrt_classmethod
     def CreateMimeMediaArray(cls: win32more.Windows.Devices.Printers.IIppAttributeValueStatics, values: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Devices.Printers.IppAttributeValue: ...
     Kind = property(get_Kind, None)
-class IppAttributeValueKind(Int32):  # enum
+class IppAttributeValueKind(Enum, Int32):
     Unsupported = 0
     Unknown = 1
     NoValue = 2
@@ -544,7 +544,7 @@ class IppResolution(ComPtr):
     Height = property(get_Height, None)
     Unit = property(get_Unit, None)
     Width = property(get_Width, None)
-class IppResolutionUnit(Int32):  # enum
+class IppResolutionUnit(Enum, Int32):
     DotsPerInch = 0
     DotsPerCentimeter = 1
 class IppSetAttributesResult(ComPtr):
@@ -599,7 +599,7 @@ class PageConfigurationSettings(ComPtr):
     def put_SizeSource(self: win32more.Windows.Devices.Printers.IPageConfigurationSettings, value: win32more.Windows.Devices.Printers.PageConfigurationSource) -> Void: ...
     OrientationSource = property(get_OrientationSource, put_OrientationSource)
     SizeSource = property(get_SizeSource, put_SizeSource)
-class PageConfigurationSource(Int32):  # enum
+class PageConfigurationSource(Enum, Int32):
     PrintJobConfiguration = 0
     PdlContent = 1
 class PdlPassthroughProvider(ComPtr):

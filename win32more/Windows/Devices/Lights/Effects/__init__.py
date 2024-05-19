@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Lights
 import win32more.Windows.Devices.Lights.Effects
@@ -423,7 +423,7 @@ class LampArrayCustomEffect(ComPtr):
     Duration = property(get_Duration, put_Duration)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     ZIndex = property(get_ZIndex, put_ZIndex)
-class LampArrayEffectCompletionBehavior(Int32):  # enum
+class LampArrayEffectCompletionBehavior(Enum, Int32):
     ClearState = 0
     KeepState = 1
 class LampArrayEffectPlaylist(ComPtr):
@@ -481,10 +481,10 @@ class LampArrayEffectPlaylist(ComPtr):
     Occurrences = property(get_Occurrences, put_Occurrences)
     RepetitionMode = property(get_RepetitionMode, put_RepetitionMode)
     Size = property(get_Size, None)
-class LampArrayEffectStartMode(Int32):  # enum
+class LampArrayEffectStartMode(Enum, Int32):
     Sequential = 0
     Simultaneous = 1
-class LampArrayRepetitionMode(Int32):  # enum
+class LampArrayRepetitionMode(Enum, Int32):
     Occurrences = 0
     Forever = 1
 class LampArraySolidEffect(ComPtr):

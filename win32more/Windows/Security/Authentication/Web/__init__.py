@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -42,7 +42,7 @@ class IWebAuthenticationResult(ComPtr):
     ResponseData = property(get_ResponseData, None)
     ResponseErrorDetail = property(get_ResponseErrorDetail, None)
     ResponseStatus = property(get_ResponseStatus, None)
-class TokenBindingKeyType(Int32):  # enum
+class TokenBindingKeyType(Enum, Int32):
     Rsa2048 = 0
     EcdsaP256 = 1
     AnyExisting = 2
@@ -65,7 +65,7 @@ class WebAuthenticationBroker(ComPtr):
     def AuthenticateWithoutCallbackUriAsync(cls: win32more.Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics, options: win32more.Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Web.WebAuthenticationResult]: ...
     @winrt_classmethod
     def GetCurrentApplicationCallbackUri(cls: win32more.Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics) -> win32more.Windows.Foundation.Uri: ...
-class WebAuthenticationOptions(UInt32):  # enum
+class WebAuthenticationOptions(Enum, UInt32):
     None_ = 0
     SilentMode = 1
     UseTitle = 2
@@ -84,7 +84,7 @@ class WebAuthenticationResult(ComPtr):
     ResponseData = property(get_ResponseData, None)
     ResponseErrorDetail = property(get_ResponseErrorDetail, None)
     ResponseStatus = property(get_ResponseStatus, None)
-class WebAuthenticationStatus(Int32):  # enum
+class WebAuthenticationStatus(Enum, Int32):
     Success = 0
     UserCancel = 1
     ErrorHttp = 2

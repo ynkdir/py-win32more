@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Store
 import win32more.Windows.Foundation
@@ -91,7 +91,7 @@ class CurrentAppSimulator(ComPtr, metaclass=_CurrentAppSimulator_Meta_):
     _CurrentAppSimulator_Meta_.AppId = property(get_AppId.__wrapped__, None)
     _CurrentAppSimulator_Meta_.LicenseInformation = property(get_LicenseInformation.__wrapped__, None)
     _CurrentAppSimulator_Meta_.LinkUri = property(get_LinkUri.__wrapped__, None)
-class FulfillmentResult(Int32):  # enum
+class FulfillmentResult(Enum, Int32):
     Succeeded = 0
     NothingToFulfill = 1
     PurchasePending = 2
@@ -541,12 +541,12 @@ class ProductPurchaseDisplayProperties(ComPtr):
     Description = property(get_Description, put_Description)
     Image = property(get_Image, put_Image)
     Name = property(get_Name, put_Name)
-class ProductPurchaseStatus(Int32):  # enum
+class ProductPurchaseStatus(Enum, Int32):
     Succeeded = 0
     AlreadyPurchased = 1
     NotFulfilled = 2
     NotPurchased = 3
-class ProductType(Int32):  # enum
+class ProductType(Enum, Int32):
     Unknown = 0
     Durable = 1
     Consumable = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
@@ -21,12 +21,12 @@ class DialApp(ComPtr):
     @winrt_mixinmethod
     def GetAppStateAsync(self: win32more.Windows.Media.DialProtocol.IDialApp) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.DialProtocol.DialAppStateDetails]: ...
     AppName = property(get_AppName, None)
-class DialAppLaunchResult(Int32):  # enum
+class DialAppLaunchResult(Enum, Int32):
     Launched = 0
     FailedToLaunch = 1
     NotFound = 2
     NetworkFailure = 3
-class DialAppState(Int32):  # enum
+class DialAppState(Enum, Int32):
     Unknown = 0
     Stopped = 1
     Running = 2
@@ -41,7 +41,7 @@ class DialAppStateDetails(ComPtr):
     def get_FullXml(self: win32more.Windows.Media.DialProtocol.IDialAppStateDetails) -> WinRT_String: ...
     FullXml = property(get_FullXml, None)
     State = property(get_State, None)
-class DialAppStopResult(Int32):  # enum
+class DialAppStopResult(Enum, Int32):
     Stopped = 0
     StopFailed = 1
     OperationNotSupported = 2
@@ -67,7 +67,7 @@ class DialDevice(ComPtr):
     FriendlyName = property(get_FriendlyName, None)
     Id = property(get_Id, None)
     Thumbnail = property(get_Thumbnail, None)
-class DialDeviceDisplayStatus(Int32):  # enum
+class DialDeviceDisplayStatus(Enum, Int32):
     None_ = 0
     Connecting = 1
     Connected = 2

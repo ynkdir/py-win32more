@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Bluetooth
 import win32more.Windows.Devices.Bluetooth.GenericAttributeProfile
@@ -56,11 +56,11 @@ class BluetoothAdapter(ComPtr):
     IsLowEnergySupported = property(get_IsLowEnergySupported, None)
     IsPeripheralRoleSupported = property(get_IsPeripheralRoleSupported, None)
     MaxAdvertisementDataLength = property(get_MaxAdvertisementDataLength, None)
-class BluetoothAddressType(Int32):  # enum
+class BluetoothAddressType(Enum, Int32):
     Public = 0
     Random = 1
     Unspecified = 2
-class BluetoothCacheMode(Int32):  # enum
+class BluetoothCacheMode(Enum, Int32):
     Cached = 0
     Uncached = 1
 class BluetoothClassOfDevice(ComPtr):
@@ -83,7 +83,7 @@ class BluetoothClassOfDevice(ComPtr):
     MinorClass = property(get_MinorClass, None)
     RawValue = property(get_RawValue, None)
     ServiceCapabilities = property(get_ServiceCapabilities, None)
-class BluetoothConnectionStatus(Int32):  # enum
+class BluetoothConnectionStatus(Enum, Int32):
     Disconnected = 0
     Connected = 1
 class BluetoothDevice(ComPtr):
@@ -183,7 +183,7 @@ class BluetoothDeviceId(ComPtr):
     Id = property(get_Id, None)
     IsClassicDevice = property(get_IsClassicDevice, None)
     IsLowEnergyDevice = property(get_IsLowEnergyDevice, None)
-class BluetoothError(Int32):  # enum
+class BluetoothError(Enum, Int32):
     Success = 0
     RadioNotAvailable = 1
     ResourceInUse = 2
@@ -540,12 +540,12 @@ class BluetoothLEPreferredConnectionParametersRequest(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Status = property(get_Status, None)
-class BluetoothLEPreferredConnectionParametersRequestStatus(Int32):  # enum
+class BluetoothLEPreferredConnectionParametersRequestStatus(Enum, Int32):
     Unspecified = 0
     Success = 1
     DeviceNotAvailable = 2
     AccessDenied = 3
-class BluetoothMajorClass(Int32):  # enum
+class BluetoothMajorClass(Enum, Int32):
     Miscellaneous = 0
     Computer = 1
     Phone = 2
@@ -556,7 +556,7 @@ class BluetoothMajorClass(Int32):  # enum
     Wearable = 7
     Toy = 8
     Health = 9
-class BluetoothMinorClass(Int32):  # enum
+class BluetoothMinorClass(Enum, Int32):
     Uncategorized = 0
     ComputerDesktop = 1
     ComputerServer = 2
@@ -628,7 +628,7 @@ class BluetoothMinorClass(Int32):  # enum
     HealthAnkleProsthesis = 13
     HealthGenericHealthManager = 14
     HealthPersonalMobilityDevice = 15
-class BluetoothServiceCapabilities(UInt32):  # enum
+class BluetoothServiceCapabilities(Enum, UInt32):
     None_ = 0
     LimitedDiscoverableMode = 1
     PositioningService = 8

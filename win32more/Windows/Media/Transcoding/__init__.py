@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -124,7 +124,7 @@ class MediaTranscoder(ComPtr):
     TrimStartTime = property(get_TrimStartTime, put_TrimStartTime)
     TrimStopTime = property(get_TrimStopTime, put_TrimStopTime)
     VideoProcessingAlgorithm = property(get_VideoProcessingAlgorithm, put_VideoProcessingAlgorithm)
-class MediaVideoProcessingAlgorithm(Int32):  # enum
+class MediaVideoProcessingAlgorithm(Enum, Int32):
     Default = 0
     MrfCrf444 = 1
 class PrepareTranscodeResult(ComPtr):
@@ -139,7 +139,7 @@ class PrepareTranscodeResult(ComPtr):
     def TranscodeAsync(self: win32more.Windows.Media.Transcoding.IPrepareTranscodeResult) -> win32more.Windows.Foundation.IAsyncActionWithProgress[Double]: ...
     CanTranscode = property(get_CanTranscode, None)
     FailureReason = property(get_FailureReason, None)
-class TranscodeFailureReason(Int32):  # enum
+class TranscodeFailureReason(Enum, Int32):
     None_ = 0
     Unknown = 1
     InvalidProfile = 2

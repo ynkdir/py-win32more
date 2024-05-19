@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Pickers.Provider
 import win32more.Windows.Win32.System.WinRT
-class AddFileResult(Int32):  # enum
+class AddFileResult(Enum, Int32):
     Added = 0
     AlreadyAdded = 1
     NotAllowed = 2
@@ -80,7 +80,7 @@ class FileSavePickerUI(ComPtr):
     FileName = property(get_FileName, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
-class FileSelectionMode(Int32):  # enum
+class FileSelectionMode(Enum, Int32):
     Single = 0
     Multiple = 1
 class IFileOpenPickerUI(ComPtr):
@@ -226,7 +226,7 @@ class PickerClosingOperation(ComPtr):
     @winrt_mixinmethod
     def get_Deadline(self: win32more.Windows.Storage.Pickers.Provider.IPickerClosingOperation) -> win32more.Windows.Foundation.DateTime: ...
     Deadline = property(get_Deadline, None)
-class SetFileNameResult(Int32):  # enum
+class SetFileNameResult(Enum, Int32):
     Succeeded = 0
     NotAllowed = 1
     Unavailable = 2

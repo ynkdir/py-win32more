@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Graphics.DirectX
 import win32more.Windows.Graphics.DirectX.Direct3D11
 import win32more.Windows.Win32.System.WinRT
-class Direct3DBindings(UInt32):  # enum
+class Direct3DBindings(Enum, UInt32):
     VertexBuffer = 1
     IndexBuffer = 2
     ConstantBuffer = 4
@@ -24,7 +24,7 @@ class Direct3DSurfaceDescription(Structure):
     Height: Int32
     Format: win32more.Windows.Graphics.DirectX.DirectXPixelFormat
     MultisampleDescription: win32more.Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription
-class Direct3DUsage(Int32):  # enum
+class Direct3DUsage(Enum, Int32):
     Default = 0
     Immutable = 1
     Dynamic = 2

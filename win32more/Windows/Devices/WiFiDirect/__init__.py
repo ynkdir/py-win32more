@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.WiFiDirect
@@ -217,7 +217,7 @@ class WiFiDirectAdvertisement(ComPtr):
     LegacySettings = property(get_LegacySettings, None)
     ListenStateDiscoverability = property(get_ListenStateDiscoverability, put_ListenStateDiscoverability)
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
-class WiFiDirectAdvertisementListenStateDiscoverability(Int32):  # enum
+class WiFiDirectAdvertisementListenStateDiscoverability(Enum, Int32):
     None_ = 0
     Normal = 1
     Intensive = 2
@@ -248,7 +248,7 @@ class WiFiDirectAdvertisementPublisher(ComPtr):
     def Stop(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisher) -> Void: ...
     Advertisement = property(get_Advertisement, None)
     Status = property(get_Status, None)
-class WiFiDirectAdvertisementPublisherStatus(Int32):  # enum
+class WiFiDirectAdvertisementPublisherStatus(Enum, Int32):
     Created = 0
     Started = 1
     Stopped = 2
@@ -263,7 +263,7 @@ class WiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     def get_Error(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisherStatusChangedEventArgs) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectError: ...
     Error = property(get_Error, None)
     Status = property(get_Status, None)
-class WiFiDirectConfigurationMethod(Int32):  # enum
+class WiFiDirectConfigurationMethod(Enum, Int32):
     ProvidePin = 0
     DisplayPin = 1
     PushButton = 2
@@ -327,7 +327,7 @@ class WiFiDirectConnectionRequestedEventArgs(ComPtr):
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionRequestedEventArgs'
     @winrt_mixinmethod
     def GetConnectionRequest(self: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionRequestedEventArgs) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionRequest: ...
-class WiFiDirectConnectionStatus(Int32):  # enum
+class WiFiDirectConnectionStatus(Enum, Int32):
     Disconnected = 0
     Connected = 1
 class WiFiDirectDevice(ComPtr):
@@ -360,10 +360,10 @@ class WiFiDirectDevice(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.WiFiDirect.IWiFiDirectDeviceStatics, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.WiFiDirect.WiFiDirectDevice]: ...
     ConnectionStatus = property(get_ConnectionStatus, None)
     DeviceId = property(get_DeviceId, None)
-class WiFiDirectDeviceSelectorType(Int32):  # enum
+class WiFiDirectDeviceSelectorType(Enum, Int32):
     DeviceInterface = 0
     AssociationEndpoint = 1
-class WiFiDirectError(Int32):  # enum
+class WiFiDirectError(Enum, Int32):
     Success = 0
     RadioNotAvailable = 1
     ResourceInUse = 2
@@ -418,7 +418,7 @@ class WiFiDirectLegacySettings(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     Passphrase = property(get_Passphrase, put_Passphrase)
     Ssid = property(get_Ssid, put_Ssid)
-class WiFiDirectPairingProcedure(Int32):  # enum
+class WiFiDirectPairingProcedure(Enum, Int32):
     GroupOwnerNegotiation = 0
     Invitation = 1
 

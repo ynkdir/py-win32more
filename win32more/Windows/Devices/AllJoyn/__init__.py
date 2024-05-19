@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.AllJoyn
 import win32more.Windows.Devices.Enumeration
@@ -167,7 +167,7 @@ class AllJoynAuthenticationCompleteEventArgs(ComPtr):
     AuthenticationMechanism = property(get_AuthenticationMechanism, None)
     PeerUniqueName = property(get_PeerUniqueName, None)
     Succeeded = property(get_Succeeded, None)
-class AllJoynAuthenticationMechanism(Int32):  # enum
+class AllJoynAuthenticationMechanism(Enum, Int32):
     None_ = 0
     SrpAnonymous = 1
     SrpLogon = 2
@@ -245,7 +245,7 @@ class AllJoynBusAttachment(ComPtr):
     ConnectionSpecification = property(get_ConnectionSpecification, None)
     State = property(get_State, None)
     UniqueName = property(get_UniqueName, None)
-class AllJoynBusAttachmentState(Int32):  # enum
+class AllJoynBusAttachmentState(Enum, Int32):
     Disconnected = 0
     Connecting = 1
     Connected = 2
@@ -511,7 +511,7 @@ class AllJoynSessionLostEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgs) -> win32more.Windows.Devices.AllJoyn.AllJoynSessionLostReason: ...
     Reason = property(get_Reason, None)
-class AllJoynSessionLostReason(Int32):  # enum
+class AllJoynSessionLostReason(Enum, Int32):
     None_ = 0
     ProducerLeftSession = 1
     ProducerClosedAbruptly = 2
@@ -609,7 +609,7 @@ class AllJoynStatus(ComPtr, metaclass=_AllJoynStatus_Meta_):
     _AllJoynStatus_Meta_.OtherEndClosed = property(get_OtherEndClosed.__wrapped__, None)
     _AllJoynStatus_Meta_.SslConnectFailed = property(get_SslConnectFailed.__wrapped__, None)
     _AllJoynStatus_Meta_.SslIdentityVerificationFailed = property(get_SslIdentityVerificationFailed.__wrapped__, None)
-class AllJoynTrafficType(Int32):  # enum
+class AllJoynTrafficType(Enum, Int32):
     Unknown = 0
     Messages = 1
     RawUnreliable = 2

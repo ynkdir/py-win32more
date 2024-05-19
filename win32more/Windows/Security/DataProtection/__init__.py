@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Security.DataProtection
@@ -56,7 +56,7 @@ class IUserDataStorageItemProtectionInfo(ComPtr):
     @winrt_commethod(6)
     def get_Availability(self) -> win32more.Windows.Security.DataProtection.UserDataAvailability: ...
     Availability = property(get_Availability, None)
-class UserDataAvailability(Int32):  # enum
+class UserDataAvailability(Enum, Int32):
     Always = 0
     AfterFirstUnlock = 1
     WhileUnlocked = 2
@@ -76,7 +76,7 @@ class UserDataBufferUnprotectResult(ComPtr):
     def get_UnprotectedBuffer(self: win32more.Windows.Security.DataProtection.IUserDataBufferUnprotectResult) -> win32more.Windows.Storage.Streams.IBuffer: ...
     Status = property(get_Status, None)
     UnprotectedBuffer = property(get_UnprotectedBuffer, None)
-class UserDataBufferUnprotectStatus(Int32):  # enum
+class UserDataBufferUnprotectStatus(Enum, Int32):
     Succeeded = 0
     Unavailable = 1
 class UserDataProtectionManager(ComPtr):
@@ -108,7 +108,7 @@ class UserDataStorageItemProtectionInfo(ComPtr):
     @winrt_mixinmethod
     def get_Availability(self: win32more.Windows.Security.DataProtection.IUserDataStorageItemProtectionInfo) -> win32more.Windows.Security.DataProtection.UserDataAvailability: ...
     Availability = property(get_Availability, None)
-class UserDataStorageItemProtectionStatus(Int32):  # enum
+class UserDataStorageItemProtectionStatus(Enum, Int32):
     Succeeded = 0
     NotProtectable = 1
     DataUnavailable = 2

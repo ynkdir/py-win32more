@@ -1,15 +1,15 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.ExtendedExecution.Foreground
 import win32more.Windows.Foundation
 import win32more.Windows.Win32.System.WinRT
-class ExtendedExecutionForegroundReason(Int32):  # enum
+class ExtendedExecutionForegroundReason(Enum, Int32):
     Unspecified = 0
     SavingData = 1
     BackgroundAudio = 2
     Unconstrained = 3
-class ExtendedExecutionForegroundResult(Int32):  # enum
+class ExtendedExecutionForegroundResult(Enum, Int32):
     Allowed = 0
     Denied = 1
 class ExtendedExecutionForegroundRevokedEventArgs(ComPtr):
@@ -19,7 +19,7 @@ class ExtendedExecutionForegroundRevokedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.ApplicationModel.ExtendedExecution.Foreground.IExtendedExecutionForegroundRevokedEventArgs) -> win32more.Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundRevokedReason: ...
     Reason = property(get_Reason, None)
-class ExtendedExecutionForegroundRevokedReason(Int32):  # enum
+class ExtendedExecutionForegroundRevokedReason(Enum, Int32):
     Resumed = 0
     SystemPolicy = 1
 class ExtendedExecutionForegroundSession(ComPtr):

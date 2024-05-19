@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -32,7 +32,7 @@ class Buffer(ComPtr):
     def CreateMemoryBufferOverIBuffer(cls: win32more.Windows.Storage.Streams.IBufferStatics, input: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.MemoryBuffer: ...
     Capacity = property(get_Capacity, None)
     Length = property(get_Length, put_Length)
-class ByteOrder(Int32):  # enum
+class ByteOrder(Enum, Int32):
     LittleEndian = 0
     BigEndian = 1
 class DataReader(ComPtr):
@@ -240,7 +240,7 @@ class FileInputStream(ComPtr):
     def ReadAsync(self: win32more.Windows.Storage.Streams.IInputStream, buffer: win32more.Windows.Storage.Streams.IBuffer, count: UInt32, options: win32more.Windows.Storage.Streams.InputStreamOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Storage.Streams.IBuffer, UInt32]: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-class FileOpenDisposition(Int32):  # enum
+class FileOpenDisposition(Enum, Int32):
     OpenExisting = 0
     OpenAlways = 1
     CreateNew = 2
@@ -625,7 +625,7 @@ class InMemoryRandomAccessStream(ComPtr):
     CanWrite = property(get_CanWrite, None)
     Position = property(get_Position, None)
     Size = property(get_Size, put_Size)
-class InputStreamOptions(UInt32):  # enum
+class InputStreamOptions(Enum, UInt32):
     None_ = 0
     Partial = 1
     ReadAhead = 2
@@ -702,7 +702,7 @@ class RandomAccessStreamReference(ComPtr):
     def CreateFromUri(cls: win32more.Windows.Storage.Streams.IRandomAccessStreamReferenceStatics, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Storage.Streams.RandomAccessStreamReference: ...
     @winrt_classmethod
     def CreateFromStream(cls: win32more.Windows.Storage.Streams.IRandomAccessStreamReferenceStatics, stream: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Storage.Streams.RandomAccessStreamReference: ...
-class UnicodeEncoding(Int32):  # enum
+class UnicodeEncoding(Enum, Int32):
     Utf8 = 0
     Utf16LE = 1
     Utf16BE = 2

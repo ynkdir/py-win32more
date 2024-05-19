@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Gpio.Provider
 import win32more.Windows.Foundation
@@ -78,7 +78,7 @@ class IGpioProvider(ComPtr):
     _iid_ = Guid('{44e82707-08ca-434a-afe0-d61580446f7e}')
     @winrt_commethod(6)
     def GetControllers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Gpio.Provider.IGpioControllerProvider]: ...
-class ProviderGpioPinDriveMode(Int32):  # enum
+class ProviderGpioPinDriveMode(Enum, Int32):
     Input = 0
     Output = 1
     InputPullUp = 2
@@ -87,13 +87,13 @@ class ProviderGpioPinDriveMode(Int32):  # enum
     OutputOpenDrainPullUp = 5
     OutputOpenSource = 6
     OutputOpenSourcePullDown = 7
-class ProviderGpioPinEdge(Int32):  # enum
+class ProviderGpioPinEdge(Enum, Int32):
     FallingEdge = 0
     RisingEdge = 1
-class ProviderGpioPinValue(Int32):  # enum
+class ProviderGpioPinValue(Enum, Int32):
     Low = 0
     High = 1
-class ProviderGpioSharingMode(Int32):  # enum
+class ProviderGpioSharingMode(Enum, Int32):
     Exclusive = 0
     SharedReadOnly = 1
 

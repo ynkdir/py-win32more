@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.AppNotifications
 import win32more.Microsoft.Windows.AppNotifications.Builder
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
-class AppNotificationAudioLooping(Int32):  # enum
+class AppNotificationAudioLooping(Enum, Int32):
     None_ = 0
     Loop = 1
 class AppNotificationBuilder(ComPtr):
@@ -167,7 +167,7 @@ class AppNotificationButton(ComPtr):
     InvokeUri = property(get_InvokeUri, put_InvokeUri)
     TargetAppId = property(get_TargetAppId, put_TargetAppId)
     ToolTip = property(get_ToolTip, put_ToolTip)
-class AppNotificationButtonStyle(Int32):  # enum
+class AppNotificationButtonStyle(Enum, Int32):
     Default = 0
     Success = 1
     Critical = 2
@@ -205,10 +205,10 @@ class AppNotificationComboBox(ComPtr):
     Items = property(get_Items, put_Items)
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     Title = property(get_Title, put_Title)
-class AppNotificationDuration(Int32):  # enum
+class AppNotificationDuration(Enum, Int32):
     Default = 0
     Long = 1
-class AppNotificationImageCrop(Int32):  # enum
+class AppNotificationImageCrop(Enum, Int32):
     Default = 0
     Circle = 1
 class AppNotificationProgressBar(ComPtr):
@@ -260,13 +260,13 @@ class AppNotificationProgressBar(ComPtr):
     Title = property(get_Title, put_Title)
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
-class AppNotificationScenario(Int32):  # enum
+class AppNotificationScenario(Enum, Int32):
     Default = 0
     Reminder = 1
     Alarm = 2
     IncomingCall = 3
     Urgent = 4
-class AppNotificationSoundEvent(Int32):  # enum
+class AppNotificationSoundEvent(Enum, Int32):
     Default = 0
     IM = 1
     Mail = 2

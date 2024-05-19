@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -13,7 +13,7 @@ import win32more.Windows.UI.Xaml.Media
 import win32more.Windows.UI.Xaml.Media.Media3D
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-class AcrylicBackgroundSource(Int32):  # enum
+class AcrylicBackgroundSource(Enum, Int32):
     HostBackdrop = 0
     Backdrop = 1
 class _AcrylicBrush_Meta_(ComPtr.__class__):
@@ -79,11 +79,11 @@ class AcrylicBrush(ComPtr, metaclass=_AcrylicBrush_Meta_):
     _AcrylicBrush_Meta_.TintLuminosityOpacityProperty = property(get_TintLuminosityOpacityProperty.__wrapped__, None)
     _AcrylicBrush_Meta_.TintOpacityProperty = property(get_TintOpacityProperty.__wrapped__, None)
     _AcrylicBrush_Meta_.TintTransitionDurationProperty = property(get_TintTransitionDurationProperty.__wrapped__, None)
-class AlignmentX(Int32):  # enum
+class AlignmentX(Enum, Int32):
     Left = 0
     Center = 1
     Right = 2
-class AlignmentY(Int32):  # enum
+class AlignmentY(Enum, Int32):
     Top = 0
     Center = 1
     Bottom = 2
@@ -142,7 +142,7 @@ class ArcSegment(ComPtr, metaclass=_ArcSegment_Meta_):
     _ArcSegment_Meta_.RotationAngleProperty = property(get_RotationAngleProperty.__wrapped__, None)
     _ArcSegment_Meta_.SizeProperty = property(get_SizeProperty.__wrapped__, None)
     _ArcSegment_Meta_.SweepDirectionProperty = property(get_SweepDirectionProperty.__wrapped__, None)
-class AudioCategory(Int32):  # enum
+class AudioCategory(Enum, Int32):
     Other = 0
     ForegroundOnlyMedia = 1
     BackgroundCapableMedia = 2
@@ -155,7 +155,7 @@ class AudioCategory(Int32):  # enum
     Speech = 9
     Movie = 10
     Media = 11
-class AudioDeviceType(Int32):  # enum
+class AudioDeviceType(Enum, Int32):
     Console = 0
     Multimedia = 1
     Communications = 2
@@ -294,7 +294,7 @@ class BrushCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Xaml.Media.Brush]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.UI.Xaml.Media.Brush]: ...
     Size = property(get_Size, None)
-class BrushMappingMode(Int32):  # enum
+class BrushMappingMode(Enum, Int32):
     Absolute = 0
     RelativeToBoundingBox = 1
 class CacheMode(ComPtr):
@@ -310,7 +310,7 @@ class CacheMode(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.ICacheModeFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.CacheMode: ...
-class ColorInterpolationMode(Int32):  # enum
+class ColorInterpolationMode(Enum, Int32):
     ScRgbLinearInterpolation = 0
     SRgbLinearInterpolation = 1
 class _CompositeTransform_Meta_(ComPtr.__class__):
@@ -456,7 +456,7 @@ class DoubleCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[Double]) -> win32more.Windows.Foundation.Collections.IIterator[Double]: ...
     Size = property(get_Size, None)
-class ElementCompositeMode(Int32):  # enum
+class ElementCompositeMode(Enum, Int32):
     Inherit = 0
     SourceOver = 1
     MinBlend = 2
@@ -499,11 +499,11 @@ class EllipseGeometry(ComPtr, metaclass=_EllipseGeometry_Meta_):
     _EllipseGeometry_Meta_.CenterProperty = property(get_CenterProperty.__wrapped__, None)
     _EllipseGeometry_Meta_.RadiusXProperty = property(get_RadiusXProperty.__wrapped__, None)
     _EllipseGeometry_Meta_.RadiusYProperty = property(get_RadiusYProperty.__wrapped__, None)
-class FastPlayFallbackBehaviour(Int32):  # enum
+class FastPlayFallbackBehaviour(Enum, Int32):
     Skip = 0
     Hide = 1
     Disable = 2
-class FillRule(Int32):  # enum
+class FillRule(Enum, Int32):
     EvenOdd = 0
     Nonzero = 1
 class _FontFamily_Meta_(ComPtr.__class__):
@@ -697,7 +697,7 @@ class GradientBrush(ComPtr, metaclass=_GradientBrush_Meta_):
     _GradientBrush_Meta_.GradientStopsProperty = property(get_GradientStopsProperty.__wrapped__, None)
     _GradientBrush_Meta_.MappingModeProperty = property(get_MappingModeProperty.__wrapped__, None)
     _GradientBrush_Meta_.SpreadMethodProperty = property(get_SpreadMethodProperty.__wrapped__, None)
-class GradientSpreadMethod(Int32):  # enum
+class GradientSpreadMethod(Enum, Int32):
     Pad = 0
     Reflect = 1
     Repeat = 2
@@ -2393,7 +2393,7 @@ class LoadedImageSourceLoadCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.UI.Xaml.Media.ILoadedImageSourceLoadCompletedEventArgs) -> win32more.Windows.UI.Xaml.Media.LoadedImageSourceLoadStatus: ...
     Status = property(get_Status, None)
-class LoadedImageSourceLoadStatus(Int32):  # enum
+class LoadedImageSourceLoadStatus(Enum, Int32):
     Success = 0
     NetworkError = 1
     InvalidFormat = 2
@@ -2493,11 +2493,11 @@ class MatrixTransform(ComPtr, metaclass=_MatrixTransform_Meta_):
     def get_MatrixProperty(cls: win32more.Windows.UI.Xaml.Media.IMatrixTransformStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Matrix = property(get_Matrix, put_Matrix)
     _MatrixTransform_Meta_.MatrixProperty = property(get_MatrixProperty.__wrapped__, None)
-class MediaCanPlayResponse(Int32):  # enum
+class MediaCanPlayResponse(Enum, Int32):
     NotSupported = 0
     Maybe = 1
     Probably = 2
-class MediaElementState(Int32):  # enum
+class MediaElementState(Enum, Int32):
     Closed = 0
     Opening = 1
     Buffering = 2
@@ -2693,12 +2693,12 @@ class PathSegmentCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Xaml.Media.PathSegment]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.UI.Xaml.Media.PathSegment]: ...
     Size = property(get_Size, None)
-class PenLineCap(Int32):  # enum
+class PenLineCap(Enum, Int32):
     Flat = 0
     Square = 1
     Round = 2
     Triangle = 3
-class PenLineJoin(Int32):  # enum
+class PenLineJoin(Enum, Int32):
     Miter = 0
     Bevel = 1
     Round = 2
@@ -3099,7 +3099,7 @@ class RevealBrush(ComPtr, metaclass=_RevealBrush_Meta_):
     _RevealBrush_Meta_.ColorProperty = property(get_ColorProperty.__wrapped__, None)
     _RevealBrush_Meta_.StateProperty = property(get_StateProperty.__wrapped__, None)
     _RevealBrush_Meta_.TargetThemeProperty = property(get_TargetThemeProperty.__wrapped__, None)
-class RevealBrushState(Int32):  # enum
+class RevealBrushState(Enum, Int32):
     Normal = 0
     PointerOver = 1
     Pressed = 2
@@ -3267,24 +3267,24 @@ class SolidColorBrush(ComPtr, metaclass=_SolidColorBrush_Meta_):
     def get_ColorProperty(cls: win32more.Windows.UI.Xaml.Media.ISolidColorBrushStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Color = property(get_Color, put_Color)
     _SolidColorBrush_Meta_.ColorProperty = property(get_ColorProperty.__wrapped__, None)
-class Stereo3DVideoPackingMode(Int32):  # enum
+class Stereo3DVideoPackingMode(Enum, Int32):
     None_ = 0
     SideBySide = 1
     TopBottom = 2
-class Stereo3DVideoRenderMode(Int32):  # enum
+class Stereo3DVideoRenderMode(Enum, Int32):
     Mono = 0
     Stereo = 1
-class Stretch(Int32):  # enum
+class Stretch(Enum, Int32):
     None_ = 0
     Fill = 1
     Uniform = 2
     UniformToFill = 3
-class StyleSimulations(Int32):  # enum
+class StyleSimulations(Enum, Int32):
     None_ = 0
     BoldSimulation = 1
     ItalicSimulation = 2
     BoldItalicSimulation = 3
-class SweepDirection(Int32):  # enum
+class SweepDirection(Enum, Int32):
     Counterclockwise = 0
     Clockwise = 1
 class ThemeShadow(ComPtr):

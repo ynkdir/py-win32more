@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Bluetooth
 import win32more.Windows.Devices.Bluetooth.Advertisement
@@ -194,7 +194,7 @@ class BluetoothLEAdvertisementFilter(ComPtr):
     def get_BytePatterns(self: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementFilter) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern]: ...
     Advertisement = property(get_Advertisement, put_Advertisement)
     BytePatterns = property(get_BytePatterns, None)
-class BluetoothLEAdvertisementFlags(UInt32):  # enum
+class BluetoothLEAdvertisementFlags(Enum, UInt32):
     None_ = 0
     LimitedDiscoverableMode = 1
     GeneralDiscoverableMode = 2
@@ -252,7 +252,7 @@ class BluetoothLEAdvertisementPublisher(ComPtr):
     PreferredTransmitPowerLevelInDBm = property(get_PreferredTransmitPowerLevelInDBm, put_PreferredTransmitPowerLevelInDBm)
     Status = property(get_Status, None)
     UseExtendedAdvertisement = property(get_UseExtendedAdvertisement, put_UseExtendedAdvertisement)
-class BluetoothLEAdvertisementPublisherStatus(Int32):  # enum
+class BluetoothLEAdvertisementPublisherStatus(Enum, Int32):
     Created = 0
     Waiting = 1
     Started = 2
@@ -312,7 +312,7 @@ class BluetoothLEAdvertisementReceivedEventArgs(ComPtr):
     RawSignalStrengthInDBm = property(get_RawSignalStrengthInDBm, None)
     Timestamp = property(get_Timestamp, None)
     TransmitPowerLevelInDBm = property(get_TransmitPowerLevelInDBm, None)
-class BluetoothLEAdvertisementType(Int32):  # enum
+class BluetoothLEAdvertisementType(Enum, Int32):
     ConnectableUndirected = 0
     ConnectableDirected = 1
     ScannableUndirected = 2
@@ -383,7 +383,7 @@ class BluetoothLEAdvertisementWatcher(ComPtr):
     ScanningMode = property(get_ScanningMode, put_ScanningMode)
     SignalStrengthFilter = property(get_SignalStrengthFilter, put_SignalStrengthFilter)
     Status = property(get_Status, None)
-class BluetoothLEAdvertisementWatcherStatus(Int32):  # enum
+class BluetoothLEAdvertisementWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     Stopping = 2
@@ -423,7 +423,7 @@ class BluetoothLEManufacturerData(ComPtr):
     def put_Data(self: win32more.Windows.Devices.Bluetooth.Advertisement.IBluetoothLEManufacturerData, value: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     CompanyId = property(get_CompanyId, put_CompanyId)
     Data = property(get_Data, put_Data)
-class BluetoothLEScanningMode(Int32):  # enum
+class BluetoothLEScanningMode(Enum, Int32):
     Passive = 0
     Active = 1
     None_ = 2

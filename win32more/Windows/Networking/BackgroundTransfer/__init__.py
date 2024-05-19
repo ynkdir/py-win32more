@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Background
 import win32more.Windows.Foundation
@@ -103,7 +103,7 @@ class BackgroundDownloader(ComPtr):
     SuccessTileNotification = property(get_SuccessTileNotification, put_SuccessTileNotification)
     SuccessToastNotification = property(get_SuccessToastNotification, put_SuccessToastNotification)
     TransferGroup = property(get_TransferGroup, put_TransferGroup)
-class BackgroundTransferBehavior(Int32):  # enum
+class BackgroundTransferBehavior(Enum, Int32):
     Parallel = 0
     Serialized = 1
 class BackgroundTransferCompletionGroup(ComPtr):
@@ -164,7 +164,7 @@ class BackgroundTransferContentPart(ComPtr):
     def SetText(self: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPart, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def SetFile(self: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPart, value: win32more.Windows.Storage.IStorageFile) -> Void: ...
-class BackgroundTransferCostPolicy(Int32):  # enum
+class BackgroundTransferCostPolicy(Enum, Int32):
     Default = 0
     UnrestrictedOnly = 1
     Always = 2
@@ -190,7 +190,7 @@ class BackgroundTransferGroup(ComPtr):
     def CreateGroup(cls: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferGroupStatics, name: WinRT_String) -> win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferGroup: ...
     Name = property(get_Name, None)
     TransferBehavior = property(get_TransferBehavior, put_TransferBehavior)
-class BackgroundTransferPriority(Int32):  # enum
+class BackgroundTransferPriority(Enum, Int32):
     Default = 0
     High = 1
     Low = 2
@@ -206,7 +206,7 @@ class BackgroundTransferRangesDownloadedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferRangesDownloadedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     AddedRanges = property(get_AddedRanges, None)
     WasDownloadRestarted = property(get_WasDownloadRestarted, None)
-class BackgroundTransferStatus(Int32):  # enum
+class BackgroundTransferStatus(Enum, Int32):
     Idle = 0
     Running = 1
     PausedByApplication = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Web.WebView2.Core
 import win32more.Windows.ApplicationModel.DataTransfer
@@ -333,7 +333,7 @@ class CoreWebView2BasicAuthenticationResponse(ComPtr):
     def put_Password(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BasicAuthenticationResponse, value: WinRT_String) -> Void: ...
     Password = property(get_Password, put_Password)
     UserName = property(get_UserName, put_UserName)
-class CoreWebView2BoundsMode(Int32):  # enum
+class CoreWebView2BoundsMode(Enum, Int32):
     UseRawPixels = 0
     UseRasterizationScale = 1
 class CoreWebView2BrowserExtension(ComPtr):
@@ -353,7 +353,7 @@ class CoreWebView2BrowserExtension(ComPtr):
     Id = property(get_Id, None)
     IsEnabled = property(get_IsEnabled, None)
     Name = property(get_Name, None)
-class CoreWebView2BrowserProcessExitKind(Int32):  # enum
+class CoreWebView2BrowserProcessExitKind(Enum, Int32):
     Normal = 0
     Failed = 1
 class CoreWebView2BrowserProcessExitedEventArgs(ComPtr):
@@ -366,7 +366,7 @@ class CoreWebView2BrowserProcessExitedEventArgs(ComPtr):
     def get_BrowserProcessId(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2BrowserProcessExitedEventArgs) -> UInt32: ...
     BrowserProcessExitKind = property(get_BrowserProcessExitKind, None)
     BrowserProcessId = property(get_BrowserProcessId, None)
-class CoreWebView2BrowsingDataKinds(UInt32):  # enum
+class CoreWebView2BrowsingDataKinds(Enum, UInt32):
     FileSystems = 1
     IndexedDb = 2
     LocalStorage = 4
@@ -383,7 +383,7 @@ class CoreWebView2BrowsingDataKinds(UInt32):  # enum
     Settings = 8192
     AllProfile = 16384
     ServiceWorkers = 32768
-class CoreWebView2CapturePreviewImageFormat(Int32):  # enum
+class CoreWebView2CapturePreviewImageFormat(Enum, Int32):
     Png = 0
     Jpeg = 1
 class CoreWebView2Certificate(ComPtr):
@@ -453,7 +453,7 @@ class CoreWebView2ClientCertificate(ComPtr):
     Subject = property(get_Subject, None)
     ValidFrom = property(get_ValidFrom, None)
     ValidTo = property(get_ValidTo, None)
-class CoreWebView2ClientCertificateKind(Int32):  # enum
+class CoreWebView2ClientCertificateKind(Enum, Int32):
     SmartCard = 0
     Pin = 1
     Other = 2
@@ -576,7 +576,7 @@ class CoreWebView2ContextMenuItem(ComPtr):
     Label = property(get_Label, None)
     Name = property(get_Name, None)
     ShortcutKeyDescription = property(get_ShortcutKeyDescription, None)
-class CoreWebView2ContextMenuItemKind(Int32):  # enum
+class CoreWebView2ContextMenuItemKind(Enum, Int32):
     Command = 0
     CheckBox = 1
     Radio = 2
@@ -650,7 +650,7 @@ class CoreWebView2ContextMenuTarget(ComPtr):
     PageUri = property(get_PageUri, None)
     SelectionText = property(get_SelectionText, None)
     SourceUri = property(get_SourceUri, None)
-class CoreWebView2ContextMenuTargetKind(Int32):  # enum
+class CoreWebView2ContextMenuTargetKind(Enum, Int32):
     Page = 0
     Image = 1
     SelectedText = 2
@@ -837,7 +837,7 @@ class CoreWebView2CookieManager(ComPtr):
     def DeleteCookiesWithDomainAndPath(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CookieManager, name: WinRT_String, Domain: WinRT_String, Path: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def DeleteAllCookies(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CookieManager) -> Void: ...
-class CoreWebView2CookieSameSiteKind(Int32):  # enum
+class CoreWebView2CookieSameSiteKind(Enum, Int32):
     None_ = 0
     Lax = 1
     Strict = 2
@@ -877,7 +877,7 @@ class CoreWebView2DOMContentLoadedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_NavigationId(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DOMContentLoadedEventArgs) -> UInt64: ...
     NavigationId = property(get_NavigationId, None)
-class CoreWebView2DefaultDownloadDialogCornerAlignment(Int32):  # enum
+class CoreWebView2DefaultDownloadDialogCornerAlignment(Enum, Int32):
     TopLeft = 0
     TopRight = 1
     BottomLeft = 2
@@ -900,7 +900,7 @@ class CoreWebView2DevToolsProtocolEventReceiver(ComPtr):
     def add_DevToolsProtocolEventReceived(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2DevToolsProtocolEventReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DevToolsProtocolEventReceived(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceiver, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-class CoreWebView2DownloadInterruptReason(Int32):  # enum
+class CoreWebView2DownloadInterruptReason(Enum, Int32):
     None_ = 0
     FileFailed = 1
     FileAccessDenied = 2
@@ -1007,7 +1007,7 @@ class CoreWebView2DownloadStartingEventArgs(ComPtr):
     DownloadOperation = property(get_DownloadOperation, None)
     Handled = property(get_Handled, put_Handled)
     ResultFilePath = property(get_ResultFilePath, put_ResultFilePath)
-class CoreWebView2DownloadState(Int32):  # enum
+class CoreWebView2DownloadState(Enum, Int32):
     InProgress = 0
     Interrupted = 1
     Completed = 2
@@ -1134,7 +1134,7 @@ class CoreWebView2EnvironmentOptions(ComPtr):
     IsCustomCrashReportingEnabled = property(get_IsCustomCrashReportingEnabled, put_IsCustomCrashReportingEnabled)
     Language = property(get_Language, put_Language)
     TargetCompatibleBrowserVersion = property(get_TargetCompatibleBrowserVersion, put_TargetCompatibleBrowserVersion)
-class CoreWebView2FaviconImageFormat(Int32):  # enum
+class CoreWebView2FaviconImageFormat(Enum, Int32):
     Png = 0
     Jpeg = 1
 class CoreWebView2File(ComPtr):
@@ -1224,13 +1224,13 @@ class CoreWebView2FrameInfo(ComPtr):
     Name = property(get_Name, None)
     ParentFrameInfo = property(get_ParentFrameInfo, None)
     Source = property(get_Source, None)
-class CoreWebView2FrameKind(Int32):  # enum
+class CoreWebView2FrameKind(Enum, Int32):
     Unknown = 0
     MainFrame = 1
     Iframe = 2
     Embed = 3
     Object = 4
-class CoreWebView2HostResourceAccessKind(Int32):  # enum
+class CoreWebView2HostResourceAccessKind(Enum, Int32):
     Deny = 0
     Allow = 1
     DenyCors = 2
@@ -1278,7 +1278,7 @@ class CoreWebView2HttpResponseHeaders(ComPtr):
     def GetHeaders(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2HttpResponseHeaders, name: WinRT_String) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2HttpHeadersCollectionIterator: ...
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]: ...
-class CoreWebView2KeyEventKind(Int32):  # enum
+class CoreWebView2KeyEventKind(Enum, Int32):
     KeyDown = 0
     KeyUp = 1
     SystemKeyDown = 2
@@ -1303,10 +1303,10 @@ class CoreWebView2LaunchingExternalUriSchemeEventArgs(ComPtr):
     InitiatingOrigin = property(get_InitiatingOrigin, None)
     IsUserInitiated = property(get_IsUserInitiated, None)
     Uri = property(get_Uri, None)
-class CoreWebView2MemoryUsageTargetLevel(Int32):  # enum
+class CoreWebView2MemoryUsageTargetLevel(Enum, Int32):
     Normal = 0
     Low = 1
-class CoreWebView2MouseEventKind(Int32):  # enum
+class CoreWebView2MouseEventKind(Enum, Int32):
     HorizontalWheel = 526
     LeftButtonDoubleClick = 515
     LeftButtonDown = 513
@@ -1325,7 +1325,7 @@ class CoreWebView2MouseEventKind(Int32):  # enum
     XButtonUp = 524
     NonClientRightButtonDown = 164
     NonClientRightButtonUp = 165
-class CoreWebView2MouseEventVirtualKeys(UInt32):  # enum
+class CoreWebView2MouseEventVirtualKeys(Enum, UInt32):
     None_ = 0
     LeftButton = 1
     RightButton = 2
@@ -1334,7 +1334,7 @@ class CoreWebView2MouseEventVirtualKeys(UInt32):  # enum
     MiddleButton = 16
     XButton1 = 32
     XButton2 = 64
-class CoreWebView2MoveFocusReason(Int32):  # enum
+class CoreWebView2MoveFocusReason(Enum, Int32):
     Programmatic = 0
     Next = 1
     Previous = 2
@@ -1366,7 +1366,7 @@ class CoreWebView2NavigationCompletedEventArgs(ComPtr):
     IsSuccess = property(get_IsSuccess, None)
     NavigationId = property(get_NavigationId, None)
     WebErrorStatus = property(get_WebErrorStatus, None)
-class CoreWebView2NavigationKind(Int32):  # enum
+class CoreWebView2NavigationKind(Enum, Int32):
     Reload = 0
     BackOrForward = 1
     NewDocument = 2
@@ -1433,7 +1433,7 @@ class CoreWebView2NewWindowRequestedEventArgs(ComPtr):
     OriginalSourceFrameInfo = property(get_OriginalSourceFrameInfo, None)
     Uri = property(get_Uri, None)
     WindowFeatures = property(get_WindowFeatures, None)
-class CoreWebView2PdfToolbarItems(UInt32):  # enum
+class CoreWebView2PdfToolbarItems(Enum, UInt32):
     None_ = 0
     Save = 1
     Print = 2
@@ -1448,7 +1448,7 @@ class CoreWebView2PdfToolbarItems(UInt32):  # enum
     Search = 1024
     FullScreen = 2048
     MoreSettings = 4096
-class CoreWebView2PermissionKind(Int32):  # enum
+class CoreWebView2PermissionKind(Enum, Int32):
     UnknownPermission = 0
     Microphone = 1
     Camera = 2
@@ -1505,7 +1505,7 @@ class CoreWebView2PermissionSetting(ComPtr):
     PermissionKind = property(get_PermissionKind, None)
     PermissionOrigin = property(get_PermissionOrigin, None)
     PermissionState = property(get_PermissionState, None)
-class CoreWebView2PermissionState(Int32):  # enum
+class CoreWebView2PermissionState(Enum, Int32):
     Default = 0
     Allow = 1
     Deny = 2
@@ -1516,7 +1516,7 @@ class CoreWebView2PhysicalKeyStatus(Structure):
     IsMenuKeyDown: Int32
     WasKeyDown: Int32
     IsKeyReleased: Int32
-class CoreWebView2PointerEventKind(Int32):  # enum
+class CoreWebView2PointerEventKind(Enum, Int32):
     Activate = 587
     Down = 582
     Enter = 585
@@ -1667,30 +1667,30 @@ class CoreWebView2PointerInfo(ComPtr):
     TouchMask = property(get_TouchMask, put_TouchMask)
     TouchOrientation = property(get_TouchOrientation, put_TouchOrientation)
     TouchPressure = property(get_TouchPressure, put_TouchPressure)
-class CoreWebView2PreferredColorScheme(Int32):  # enum
+class CoreWebView2PreferredColorScheme(Enum, Int32):
     Auto = 0
     Light = 1
     Dark = 2
-class CoreWebView2PrintCollation(Int32):  # enum
+class CoreWebView2PrintCollation(Enum, Int32):
     Default = 0
     Collated = 1
     Uncollated = 2
-class CoreWebView2PrintColorMode(Int32):  # enum
+class CoreWebView2PrintColorMode(Enum, Int32):
     Default = 0
     Color = 1
     Grayscale = 2
-class CoreWebView2PrintDialogKind(Int32):  # enum
+class CoreWebView2PrintDialogKind(Enum, Int32):
     Browser = 0
     System = 1
-class CoreWebView2PrintDuplex(Int32):  # enum
+class CoreWebView2PrintDuplex(Enum, Int32):
     Default = 0
     OneSided = 1
     TwoSidedLongEdge = 2
     TwoSidedShortEdge = 3
-class CoreWebView2PrintMediaSize(Int32):  # enum
+class CoreWebView2PrintMediaSize(Enum, Int32):
     Default = 0
     Custom = 1
-class CoreWebView2PrintOrientation(Int32):  # enum
+class CoreWebView2PrintOrientation(Enum, Int32):
     Portrait = 0
     Landscape = 1
 class CoreWebView2PrintSettings(ComPtr):
@@ -1802,7 +1802,7 @@ class CoreWebView2PrintSettings(ComPtr):
     ShouldPrintBackgrounds = property(get_ShouldPrintBackgrounds, put_ShouldPrintBackgrounds)
     ShouldPrintHeaderAndFooter = property(get_ShouldPrintHeaderAndFooter, put_ShouldPrintHeaderAndFooter)
     ShouldPrintSelectionOnly = property(get_ShouldPrintSelectionOnly, put_ShouldPrintSelectionOnly)
-class CoreWebView2PrintStatus(Int32):  # enum
+class CoreWebView2PrintStatus(Enum, Int32):
     Succeeded = 0
     PrinterUnavailable = 1
     OtherError = 2
@@ -1835,7 +1835,7 @@ class CoreWebView2ProcessFailedEventArgs(ComPtr):
     ProcessDescription = property(get_ProcessDescription, None)
     ProcessFailedKind = property(get_ProcessFailedKind, None)
     Reason = property(get_Reason, None)
-class CoreWebView2ProcessFailedKind(Int32):  # enum
+class CoreWebView2ProcessFailedKind(Enum, Int32):
     BrowserProcessExited = 0
     RenderProcessExited = 1
     RenderProcessUnresponsive = 2
@@ -1846,7 +1846,7 @@ class CoreWebView2ProcessFailedKind(Int32):  # enum
     PpapiPluginProcessExited = 7
     PpapiBrokerProcessExited = 8
     UnknownProcessExited = 9
-class CoreWebView2ProcessFailedReason(Int32):  # enum
+class CoreWebView2ProcessFailedReason(Enum, Int32):
     Unexpected = 0
     Unresponsive = 1
     Terminated = 2
@@ -1864,7 +1864,7 @@ class CoreWebView2ProcessInfo(ComPtr):
     def get_Kind(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ProcessInfo) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2ProcessKind: ...
     Kind = property(get_Kind, None)
     ProcessId = property(get_ProcessId, None)
-class CoreWebView2ProcessKind(Int32):  # enum
+class CoreWebView2ProcessKind(Enum, Int32):
     Browser = 0
     Renderer = 1
     Utility = 2
@@ -1947,7 +1947,7 @@ class CoreWebView2Profile_Manual2(ComPtr):
     _iid_ = Guid('{6e62815a-6269-5756-92c3-f08afe17649c}')
     @winrt_commethod(6)
     def GetNonDefaultPermissionSettingsAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Microsoft.Web.WebView2.Core.CoreWebView2PermissionSetting]]: ...
-class CoreWebView2ScriptDialogKind(Int32):  # enum
+class CoreWebView2ScriptDialogKind(Enum, Int32):
     Alert = 0
     Confirm = 1
     Prompt = 2
@@ -1977,7 +1977,7 @@ class CoreWebView2ScriptDialogOpeningEventArgs(ComPtr):
     Message = property(get_Message, None)
     ResultText = property(get_ResultText, put_ResultText)
     Uri = property(get_Uri, None)
-class CoreWebView2ServerCertificateErrorAction(Int32):  # enum
+class CoreWebView2ServerCertificateErrorAction(Enum, Int32):
     AlwaysAllow = 0
     Cancel = 1
     Default = 2
@@ -2109,7 +2109,7 @@ class CoreWebView2SharedBuffer(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Buffer = property(get_Buffer, None)
     Size = property(get_Size, None)
-class CoreWebView2SharedBufferAccess(Int32):  # enum
+class CoreWebView2SharedBufferAccess(Enum, Int32):
     ReadOnly = 0
     ReadWrite = 1
 class CoreWebView2SourceChangedEventArgs(ComPtr):
@@ -2119,12 +2119,12 @@ class CoreWebView2SourceChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_IsNewDocument(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SourceChangedEventArgs) -> Boolean: ...
     IsNewDocument = property(get_IsNewDocument, None)
-class CoreWebView2TrackingPreventionLevel(Int32):  # enum
+class CoreWebView2TrackingPreventionLevel(Enum, Int32):
     None_ = 0
     Basic = 1
     Balanced = 2
     Strict = 3
-class CoreWebView2WebErrorStatus(Int32):  # enum
+class CoreWebView2WebErrorStatus(Enum, Int32):
     Unknown = 0
     CertificateCommonNameIsIncorrect = 1
     CertificateExpired = 2
@@ -2159,7 +2159,7 @@ class CoreWebView2WebMessageReceivedEventArgs(ComPtr):
     AdditionalObjects = property(get_AdditionalObjects, None)
     Source = property(get_Source, None)
     WebMessageAsJson = property(get_WebMessageAsJson, None)
-class CoreWebView2WebResourceContext(Int32):  # enum
+class CoreWebView2WebResourceContext(Enum, Int32):
     All = 0
     Document = 1
     Stylesheet = 2

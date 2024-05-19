@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Display.Core
 import win32more.Windows.Win32.System.WinRT
-class HdmiDisplayColorSpace(Int32):  # enum
+class HdmiDisplayColorSpace(Enum, Int32):
     RgbLimited = 0
     RgbFull = 1
     BT2020 = 2
@@ -23,7 +23,7 @@ class HdmiDisplayHdr2086Metadata(Structure):
     MinMasteringLuminance: UInt16
     MaxContentLightLevel: UInt16
     MaxFrameAverageLightLevel: UInt16
-class HdmiDisplayHdrOption(Int32):  # enum
+class HdmiDisplayHdrOption(Enum, Int32):
     None_ = 0
     EotfSdr = 1
     Eotf2084 = 2
@@ -89,7 +89,7 @@ class HdmiDisplayMode(ComPtr):
     ResolutionHeightInRawPixels = property(get_ResolutionHeightInRawPixels, None)
     ResolutionWidthInRawPixels = property(get_ResolutionWidthInRawPixels, None)
     StereoEnabled = property(get_StereoEnabled, None)
-class HdmiDisplayPixelEncoding(Int32):  # enum
+class HdmiDisplayPixelEncoding(Enum, Int32):
     Rgb444 = 0
     Ycc444 = 1
     Ycc422 = 2

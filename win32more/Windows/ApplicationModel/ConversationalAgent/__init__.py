@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.ConversationalAgent
 import win32more.Windows.Foundation
@@ -90,7 +90,7 @@ class ActivationSignalDetectionConfigurationCreationResult(ComPtr):
     def get_Configuration(self: win32more.Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfigurationCreationResult) -> win32more.Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration: ...
     Configuration = property(get_Configuration, None)
     Status = property(get_Status, None)
-class ActivationSignalDetectionConfigurationCreationStatus(Int32):  # enum
+class ActivationSignalDetectionConfigurationCreationStatus(Enum, Int32):
     Success = 0
     SignalIdNotAvailable = 1
     ModelIdNotSupported = 2
@@ -99,12 +99,12 @@ class ActivationSignalDetectionConfigurationCreationStatus(Int32):  # enum
     InvalidDisplayName = 5
     ConfigurationAlreadyExists = 6
     CreationNotSupported = 7
-class ActivationSignalDetectionConfigurationRemovalResult(Int32):  # enum
+class ActivationSignalDetectionConfigurationRemovalResult(Enum, Int32):
     Success = 0
     NotFound = 1
     CurrentlyEnabled = 2
     RemovalNotSupported = 3
-class ActivationSignalDetectionConfigurationSetModelDataResult(Int32):  # enum
+class ActivationSignalDetectionConfigurationSetModelDataResult(Enum, Int32):
     Success = 0
     EmptyModelData = 1
     UnsupportedFormat = 2
@@ -113,11 +113,11 @@ class ActivationSignalDetectionConfigurationSetModelDataResult(Int32):  # enum
     SetModelDataNotSupported = 5
     ConfigurationNotFound = 6
     UnknownError = 7
-class ActivationSignalDetectionConfigurationStateChangeResult(Int32):  # enum
+class ActivationSignalDetectionConfigurationStateChangeResult(Enum, Int32):
     Success = 0
     NoModelData = 1
     ConfigurationNotFound = 2
-class ActivationSignalDetectionTrainingDataFormat(Int32):  # enum
+class ActivationSignalDetectionTrainingDataFormat(Enum, Int32):
     Voice8kHz8BitMono = 0
     Voice8kHz16BitMono = 1
     Voice16kHz8BitMono = 2
@@ -186,18 +186,18 @@ class ActivationSignalDetector(ComPtr):
     SupportedModelDataTypes = property(get_SupportedModelDataTypes, None)
     SupportedPowerStates = property(get_SupportedPowerStates, None)
     SupportedTrainingDataFormats = property(get_SupportedTrainingDataFormats, None)
-class ActivationSignalDetectorKind(Int32):  # enum
+class ActivationSignalDetectorKind(Enum, Int32):
     AudioPattern = 0
     AudioImpulse = 1
     HardwareEvent = 2
-class ActivationSignalDetectorPowerState(Int32):  # enum
+class ActivationSignalDetectorPowerState(Enum, Int32):
     HighPower = 0
     ConnectedLowPower = 1
     DisconnectedLowPower = 2
-class ConversationalAgentActivationKind(Int32):  # enum
+class ConversationalAgentActivationKind(Enum, Int32):
     VoiceActivationPreview = 0
     Foreground = 1
-class ConversationalAgentActivationResult(Int32):  # enum
+class ConversationalAgentActivationResult(Enum, Int32):
     Success = 0
     AgentInactive = 1
     ScreenNotAvailable = 2
@@ -325,7 +325,7 @@ class ConversationalAgentSessionInterruptedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSessionInterruptedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionInterruptedEventArgs'
-class ConversationalAgentSessionUpdateResponse(Int32):  # enum
+class ConversationalAgentSessionUpdateResponse(Enum, Int32):
     Success = 0
     Failed = 1
 class ConversationalAgentSignal(ComPtr):
@@ -372,14 +372,14 @@ class ConversationalAgentSignalDetectedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignalDetectedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSignalDetectedEventArgs'
-class ConversationalAgentState(Int32):  # enum
+class ConversationalAgentState(Enum, Int32):
     Inactive = 0
     Detecting = 1
     Listening = 2
     Working = 3
     Speaking = 4
     ListeningAndSpeaking = 5
-class ConversationalAgentSystemStateChangeType(Int32):  # enum
+class ConversationalAgentSystemStateChangeType(Enum, Int32):
     UserAuthentication = 0
     ScreenAvailability = 1
     IndicatorLightAvailability = 2
@@ -391,14 +391,14 @@ class ConversationalAgentSystemStateChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_SystemStateChangeType(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSystemStateChangedEventArgs) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSystemStateChangeType: ...
     SystemStateChangeType = property(get_SystemStateChangeType, None)
-class ConversationalAgentVoiceActivationPrerequisiteKind(Int32):  # enum
+class ConversationalAgentVoiceActivationPrerequisiteKind(Enum, Int32):
     MicrophonePermission = 0
     KnownAgents = 1
     AgentAllowed = 2
     AppCapability = 3
     BackgroundTaskRegistration = 4
     PolicyPermission = 5
-class DetectionConfigurationAvailabilityChangeKind(Int32):  # enum
+class DetectionConfigurationAvailabilityChangeKind(Enum, Int32):
     SystemResourceAccess = 0
     Permission = 1
     LockScreenPermission = 2
@@ -428,7 +428,7 @@ class DetectionConfigurationAvailabilityInfo(ComPtr):
     HasSystemResourceAccess = property(get_HasSystemResourceAccess, None)
     IsEnabled = property(get_IsEnabled, None)
     UnavailableSystemResources = property(get_UnavailableSystemResources, None)
-class DetectionConfigurationTrainingStatus(Int32):  # enum
+class DetectionConfigurationTrainingStatus(Enum, Int32):
     Success = 0
     FormatNotSupported = 1
     VoiceTooQuiet = 2
@@ -805,7 +805,7 @@ class IDetectionConfigurationAvailabilityInfo2(ComPtr):
     @winrt_commethod(6)
     def get_UnavailableSystemResources(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.ConversationalAgent.SignalDetectorResourceKind]: ...
     UnavailableSystemResources = property(get_UnavailableSystemResources, None)
-class SignalDetectorResourceKind(Int32):  # enum
+class SignalDetectorResourceKind(Enum, Int32):
     ParallelModelSupport = 0
     ParallelModelSupportForAgent = 1
     ParallelSignalSupport = 2

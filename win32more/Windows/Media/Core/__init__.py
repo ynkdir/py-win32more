@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.Foundation
@@ -24,12 +24,12 @@ import win32more.Windows.Storage.FileProperties
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.Win32.System.WinRT
-class AudioDecoderDegradation(Int32):  # enum
+class AudioDecoderDegradation(Enum, Int32):
     None_ = 0
     DownmixTo2Channels = 1
     DownmixTo6Channels = 2
     DownmixTo8Channels = 3
-class AudioDecoderDegradationReason(Int32):  # enum
+class AudioDecoderDegradationReason(Enum, Int32):
     None_ = 0
     LicensingRequirement = 1
     SpatialAudioNotSupported = 2
@@ -168,7 +168,7 @@ class ChapterCue(ComPtr):
     Id = property(get_Id, put_Id)
     StartTime = property(get_StartTime, put_StartTime)
     Title = property(get_Title, put_Title)
-class CodecCategory(Int32):  # enum
+class CodecCategory(Enum, Int32):
     Encoder = 0
     Decoder = 1
 class CodecInfo(ComPtr):
@@ -190,7 +190,7 @@ class CodecInfo(ComPtr):
     IsTrusted = property(get_IsTrusted, None)
     Kind = property(get_Kind, None)
     Subtypes = property(get_Subtypes, None)
-class CodecKind(Int32):  # enum
+class CodecKind(Enum, Int32):
     Audio = 0
     Video = 1
 class CodecQuery(ComPtr):
@@ -496,7 +496,7 @@ class FaceDetectionEffectFrame(ComPtr):
     RelativeTime = property(get_RelativeTime, put_RelativeTime)
     SystemRelativeTime = property(get_SystemRelativeTime, put_SystemRelativeTime)
     Type = property(get_Type, None)
-class FaceDetectionMode(Int32):  # enum
+class FaceDetectionMode(Enum, Int32):
     HighPerformance = 0
     Balanced = 1
     HighQuality = 2
@@ -2252,7 +2252,7 @@ class MediaCueEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Cue(self: win32more.Windows.Media.Core.IMediaCueEventArgs) -> win32more.Windows.Media.Core.IMediaCue: ...
     Cue = property(get_Cue, None)
-class MediaDecoderStatus(Int32):  # enum
+class MediaDecoderStatus(Enum, Int32):
     FullySupported = 0
     UnsupportedSubtype = 1
     UnsupportedEncoderProperties = 2
@@ -2363,7 +2363,7 @@ class MediaSourceOpenOperationCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Error(self: win32more.Windows.Media.Core.IMediaSourceOpenOperationCompletedEventArgs) -> win32more.Windows.Media.Core.MediaSourceError: ...
     Error = property(get_Error, None)
-class MediaSourceState(Int32):  # enum
+class MediaSourceState(Enum, Int32):
     Initial = 0
     Opening = 1
     Opened = 2
@@ -2379,7 +2379,7 @@ class MediaSourceStateChangedEventArgs(ComPtr):
     def get_NewState(self: win32more.Windows.Media.Core.IMediaSourceStateChangedEventArgs) -> win32more.Windows.Media.Core.MediaSourceState: ...
     NewState = property(get_NewState, None)
     OldState = property(get_OldState, None)
-class MediaSourceStatus(Int32):  # enum
+class MediaSourceStatus(Enum, Int32):
     FullySupported = 0
     Unknown = 1
 class MediaStreamSample(ComPtr):
@@ -2565,7 +2565,7 @@ class MediaStreamSourceClosedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.Media.Core.IMediaStreamSourceClosedEventArgs) -> win32more.Windows.Media.Core.MediaStreamSourceClosedRequest: ...
     Request = property(get_Request, None)
-class MediaStreamSourceClosedReason(Int32):  # enum
+class MediaStreamSourceClosedReason(Enum, Int32):
     Done = 0
     UnknownError = 1
     AppReportedError = 2
@@ -2580,7 +2580,7 @@ class MediaStreamSourceClosedRequest(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.Media.Core.IMediaStreamSourceClosedRequest) -> win32more.Windows.Media.Core.MediaStreamSourceClosedReason: ...
     Reason = property(get_Reason, None)
-class MediaStreamSourceErrorStatus(Int32):  # enum
+class MediaStreamSourceErrorStatus(Enum, Int32):
     Other = 0
     OutOfMemory = 1
     FailedToOpenFile = 2
@@ -2674,19 +2674,19 @@ class MediaStreamSourceSwitchStreamsRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.Media.Core.IMediaStreamSourceSwitchStreamsRequestedEventArgs) -> win32more.Windows.Media.Core.MediaStreamSourceSwitchStreamsRequest: ...
     Request = property(get_Request, None)
-class MediaTrackKind(Int32):  # enum
+class MediaTrackKind(Enum, Int32):
     Audio = 0
     Video = 1
     TimedMetadata = 2
-class MseAppendMode(Int32):  # enum
+class MseAppendMode(Enum, Int32):
     Segments = 0
     Sequence = 1
-class MseEndOfStreamStatus(Int32):  # enum
+class MseEndOfStreamStatus(Enum, Int32):
     Success = 0
     NetworkError = 1
     DecodeError = 2
     UnknownError = 3
-class MseReadyState(Int32):  # enum
+class MseReadyState(Enum, Int32):
     Closed = 0
     Open = 1
     Ended = 2
@@ -2901,7 +2901,7 @@ class SceneAnalysisEffectFrame(ComPtr):
     RelativeTime = property(get_RelativeTime, put_RelativeTime)
     SystemRelativeTime = property(get_SystemRelativeTime, put_SystemRelativeTime)
     Type = property(get_Type, None)
-class SceneAnalysisRecommendation(Int32):  # enum
+class SceneAnalysisRecommendation(Enum, Int32):
     Standard = 0
     Hdr = 1
     LowLight = 2
@@ -2955,7 +2955,7 @@ class SpeechCue(ComPtr):
     StartPositionInInput = property(get_StartPositionInInput, put_StartPositionInInput)
     StartTime = property(get_StartTime, put_StartTime)
     Text = property(get_Text, put_Text)
-class TimedMetadataKind(Int32):  # enum
+class TimedMetadataKind(Enum, Int32):
     Caption = 0
     Chapter = 1
     Custom = 2
@@ -3071,7 +3071,7 @@ class TimedMetadataTrackError(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.Core.ITimedMetadataTrackError) -> win32more.Windows.Foundation.HResult: ...
     ErrorCode = property(get_ErrorCode, None)
     ExtendedError = property(get_ExtendedError, None)
-class TimedMetadataTrackErrorCode(Int32):  # enum
+class TimedMetadataTrackErrorCode(Enum, Int32):
     None_ = 0
     DataFormatError = 1
     NetworkError = 2
@@ -3102,11 +3102,11 @@ class TimedTextBouten(ComPtr):
     Color = property(get_Color, put_Color)
     Position = property(get_Position, put_Position)
     Type = property(get_Type, put_Type)
-class TimedTextBoutenPosition(Int32):  # enum
+class TimedTextBoutenPosition(Enum, Int32):
     Before = 0
     After = 1
     Outside = 2
-class TimedTextBoutenType(Int32):  # enum
+class TimedTextBoutenType(Enum, Int32):
     None_ = 0
     Auto = 1
     FilledCircle = 2
@@ -3156,17 +3156,17 @@ class TimedTextCue(ComPtr):
     Id = property(get_Id, put_Id)
     Lines = property(get_Lines, None)
     StartTime = property(get_StartTime, put_StartTime)
-class TimedTextDisplayAlignment(Int32):  # enum
+class TimedTextDisplayAlignment(Enum, Int32):
     Before = 0
     After = 1
     Center = 2
 class TimedTextDouble(Structure):
     Value: Double
     Unit: win32more.Windows.Media.Core.TimedTextUnit
-class TimedTextFlowDirection(Int32):  # enum
+class TimedTextFlowDirection(Enum, Int32):
     LeftToRight = 0
     RightToLeft = 1
-class TimedTextFontStyle(Int32):  # enum
+class TimedTextFontStyle(Enum, Int32):
     Normal = 0
     Oblique = 1
     Italic = 2
@@ -3191,7 +3191,7 @@ class TimedTextLine(ComPtr):
     def get_Subformats(self: win32more.Windows.Media.Core.ITimedTextLine) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Media.Core.TimedTextSubformat]: ...
     Subformats = property(get_Subformats, None)
     Text = property(get_Text, put_Text)
-class TimedTextLineAlignment(Int32):  # enum
+class TimedTextLineAlignment(Enum, Int32):
     Start = 0
     End = 1
     Center = 2
@@ -3302,24 +3302,24 @@ class TimedTextRuby(ComPtr):
     Position = property(get_Position, put_Position)
     Reserve = property(get_Reserve, put_Reserve)
     Text = property(get_Text, put_Text)
-class TimedTextRubyAlign(Int32):  # enum
+class TimedTextRubyAlign(Enum, Int32):
     Center = 0
     Start = 1
     End = 2
     SpaceAround = 3
     SpaceBetween = 4
     WithBase = 5
-class TimedTextRubyPosition(Int32):  # enum
+class TimedTextRubyPosition(Enum, Int32):
     Before = 0
     After = 1
     Outside = 2
-class TimedTextRubyReserve(Int32):  # enum
+class TimedTextRubyReserve(Enum, Int32):
     None_ = 0
     Before = 1
     After = 2
     Both = 3
     Outside = 4
-class TimedTextScrollMode(Int32):  # enum
+class TimedTextScrollMode(Enum, Int32):
     Popon = 0
     Rollup = 1
 class TimedTextSize(Structure):
@@ -3497,16 +3497,16 @@ class TimedTextSubformat(ComPtr):
     Length = property(get_Length, put_Length)
     StartIndex = property(get_StartIndex, put_StartIndex)
     SubformatStyle = property(get_SubformatStyle, put_SubformatStyle)
-class TimedTextUnit(Int32):  # enum
+class TimedTextUnit(Enum, Int32):
     Pixels = 0
     Percentage = 1
-class TimedTextWeight(Int32):  # enum
+class TimedTextWeight(Enum, Int32):
     Normal = 400
     Bold = 700
-class TimedTextWrapping(Int32):  # enum
+class TimedTextWrapping(Enum, Int32):
     NoWrap = 0
     Wrap = 1
-class TimedTextWritingMode(Int32):  # enum
+class TimedTextWritingMode(Enum, Int32):
     LeftRightTopBottom = 0
     RightLeftTopBottom = 1
     TopBottomRightLeft = 2
@@ -3557,7 +3557,7 @@ class VideoStabilizationEffectEnabledChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.Media.Core.IVideoStabilizationEffectEnabledChangedEventArgs) -> win32more.Windows.Media.Core.VideoStabilizationEffectEnabledChangedReason: ...
     Reason = property(get_Reason, None)
-class VideoStabilizationEffectEnabledChangedReason(Int32):  # enum
+class VideoStabilizationEffectEnabledChangedReason(Enum, Int32):
     Programmatic = 0
     PixelRateTooHigh = 1
     RunningSlowly = 2

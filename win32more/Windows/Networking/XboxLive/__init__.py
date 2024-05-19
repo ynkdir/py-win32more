@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -350,7 +350,7 @@ class XboxLiveEndpointPair(ComPtr):
     RemotePort = property(get_RemotePort, None)
     State = property(get_State, None)
     Template = property(get_Template, None)
-class XboxLiveEndpointPairCreationBehaviors(UInt32):  # enum
+class XboxLiveEndpointPairCreationBehaviors(Enum, UInt32):
     None_ = 0
     ReevaluatePath = 1
 class XboxLiveEndpointPairCreationResult(ComPtr):
@@ -369,7 +369,7 @@ class XboxLiveEndpointPairCreationResult(ComPtr):
     EndpointPair = property(get_EndpointPair, None)
     IsExistingPathEvaluation = property(get_IsExistingPathEvaluation, None)
     Status = property(get_Status, None)
-class XboxLiveEndpointPairCreationStatus(Int32):  # enum
+class XboxLiveEndpointPairCreationStatus(Enum, Int32):
     Succeeded = 0
     NoLocalNetworks = 1
     NoCompatibleNetworkPaths = 2
@@ -379,7 +379,7 @@ class XboxLiveEndpointPairCreationStatus(Int32):  # enum
     RemoteSystemNotAuthorized = 6
     RefusedDueToConfiguration = 7
     UnexpectedInternalError = 8
-class XboxLiveEndpointPairState(Int32):  # enum
+class XboxLiveEndpointPairState(Enum, Int32):
     Invalid = 0
     CreatingOutbound = 1
     CreatingInbound = 2
@@ -448,7 +448,7 @@ class XboxLiveInboundEndpointPairCreatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_EndpointPair(self: win32more.Windows.Networking.XboxLive.IXboxLiveInboundEndpointPairCreatedEventArgs) -> win32more.Windows.Networking.XboxLive.XboxLiveEndpointPair: ...
     EndpointPair = property(get_EndpointPair, None)
-class XboxLiveNetworkAccessKind(Int32):  # enum
+class XboxLiveNetworkAccessKind(Enum, Int32):
     Open = 0
     Moderate = 1
     Strict = 2
@@ -534,7 +534,7 @@ class XboxLiveQualityOfServiceMeasurement(ComPtr, metaclass=_XboxLiveQualityOfSe
     _XboxLiveQualityOfServiceMeasurement_Meta_.MaxPrivatePayloadSize = property(get_MaxPrivatePayloadSize.__wrapped__, None)
     _XboxLiveQualityOfServiceMeasurement_Meta_.MaxSimultaneousProbeConnections = property(get_MaxSimultaneousProbeConnections.__wrapped__, put_MaxSimultaneousProbeConnections.__wrapped__)
     _XboxLiveQualityOfServiceMeasurement_Meta_.PublishedPrivatePayload = property(get_PublishedPrivatePayload.__wrapped__, put_PublishedPrivatePayload.__wrapped__)
-class XboxLiveQualityOfServiceMeasurementStatus(Int32):  # enum
+class XboxLiveQualityOfServiceMeasurementStatus(Enum, Int32):
     NotStarted = 0
     InProgress = 1
     InProgressWithProvisionalResults = 2
@@ -547,7 +547,7 @@ class XboxLiveQualityOfServiceMeasurementStatus(Int32):  # enum
     RemoteSystemNotAuthorized = 9
     RefusedDueToConfiguration = 10
     UnexpectedInternalError = 11
-class XboxLiveQualityOfServiceMetric(Int32):  # enum
+class XboxLiveQualityOfServiceMetric(Enum, Int32):
     AverageLatencyInMilliseconds = 0
     MinLatencyInMilliseconds = 1
     MaxLatencyInMilliseconds = 2
@@ -587,7 +587,7 @@ class XboxLiveQualityOfServicePrivatePayloadResult(ComPtr):
     Status = property(get_Status, None)
     Value = property(get_Value, None)
 XboxLiveSecureSocketsContract: UInt32 = 65536
-class XboxLiveSocketKind(Int32):  # enum
+class XboxLiveSocketKind(Enum, Int32):
     None_ = 0
     Datagram = 1
     Stream = 2

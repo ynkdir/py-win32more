@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Automation
@@ -10,7 +10,7 @@ import win32more.Microsoft.UI.Xaml.Controls.Primitives
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
-class AccessibilityView(Int32):  # enum
+class AccessibilityView(Enum, Int32):
     Raw = 0
     Control = 1
     Content = 2
@@ -124,7 +124,7 @@ class AutoSuggestBoxAutomationPeer(ComPtr):
     def CreateInstanceWithOwner(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.IAutoSuggestBoxAutomationPeerFactory, owner: win32more.Microsoft.UI.Xaml.Controls.AutoSuggestBox) -> win32more.Microsoft.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer: ...
     @winrt_mixinmethod
     def Invoke(self: win32more.Microsoft.UI.Xaml.Automation.Provider.IInvokeProvider) -> Void: ...
-class AutomationControlType(Int32):  # enum
+class AutomationControlType(Enum, Int32):
     Button = 0
     Calendar = 1
     CheckBox = 2
@@ -167,7 +167,7 @@ class AutomationControlType(Int32):  # enum
     SemanticZoom = 39
     AppBar = 40
     FlipView = 41
-class AutomationEvents(Int32):  # enum
+class AutomationEvents(Enum, Int32):
     ToolTipOpened = 0
     ToolTipClosed = 1
     MenuOpened = 2
@@ -198,7 +198,7 @@ class AutomationEvents(Int32):  # enum
     ConversionTargetChanged = 27
     TextEditTextChanged = 28
     LayoutInvalidated = 29
-class AutomationHeadingLevel(Int32):  # enum
+class AutomationHeadingLevel(Enum, Int32):
     None_ = 0
     Level1 = 1
     Level2 = 2
@@ -209,36 +209,36 @@ class AutomationHeadingLevel(Int32):  # enum
     Level7 = 7
     Level8 = 8
     Level9 = 9
-class AutomationLandmarkType(Int32):  # enum
+class AutomationLandmarkType(Enum, Int32):
     None_ = 0
     Custom = 1
     Form = 2
     Main = 3
     Navigation = 4
     Search = 5
-class AutomationLiveSetting(Int32):  # enum
+class AutomationLiveSetting(Enum, Int32):
     Off = 0
     Polite = 1
     Assertive = 2
-class AutomationNavigationDirection(Int32):  # enum
+class AutomationNavigationDirection(Enum, Int32):
     Parent = 0
     NextSibling = 1
     PreviousSibling = 2
     FirstChild = 3
     LastChild = 4
-class AutomationNotificationKind(Int32):  # enum
+class AutomationNotificationKind(Enum, Int32):
     ItemAdded = 0
     ItemRemoved = 1
     ActionCompleted = 2
     ActionAborted = 3
     Other = 4
-class AutomationNotificationProcessing(Int32):  # enum
+class AutomationNotificationProcessing(Enum, Int32):
     ImportantAll = 0
     ImportantMostRecent = 1
     All = 2
     MostRecent = 3
     CurrentThenMostRecent = 4
-class AutomationOrientation(Int32):  # enum
+class AutomationOrientation(Enum, Int32):
     None_ = 0
     Horizontal = 1
     Vertical = 2
@@ -507,7 +507,7 @@ class AutomationPeerAnnotation(ComPtr, metaclass=_AutomationPeerAnnotation_Meta_
     Type = property(get_Type, put_Type)
     _AutomationPeerAnnotation_Meta_.PeerProperty = property(get_PeerProperty.__wrapped__, None)
     _AutomationPeerAnnotation_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
-class AutomationStructureChangeType(Int32):  # enum
+class AutomationStructureChangeType(Enum, Int32):
     ChildAdded = 0
     ChildRemoved = 1
     ChildrenInvalidated = 2
@@ -2661,7 +2661,7 @@ class PasswordBoxAutomationPeer(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.IPasswordBoxAutomationPeerFactory, owner: win32more.Microsoft.UI.Xaml.Controls.PasswordBox, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer: ...
-class PatternInterface(Int32):  # enum
+class PatternInterface(Enum, Int32):
     Invoke = 0
     Selection = 1
     Value = 2

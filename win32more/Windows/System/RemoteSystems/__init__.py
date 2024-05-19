@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.Foundation
@@ -718,7 +718,7 @@ class RemoteSystem(ComPtr):
     Platform = property(get_Platform, None)
     Status = property(get_Status, None)
     User = property(get_User, None)
-class RemoteSystemAccessStatus(Int32):  # enum
+class RemoteSystemAccessStatus(Enum, Int32):
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
@@ -771,7 +771,7 @@ class RemoteSystemAppRegistration(ComPtr):
     def GetForUser(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemAppRegistrationStatics, user: win32more.Windows.System.User) -> win32more.Windows.System.RemoteSystems.RemoteSystemAppRegistration: ...
     Attributes = property(get_Attributes, None)
     User = property(get_User, None)
-class RemoteSystemAuthorizationKind(Int32):  # enum
+class RemoteSystemAuthorizationKind(Enum, Int32):
     SameUser = 0
     Anonymous = 1
 class RemoteSystemAuthorizationKindFilter(ComPtr):
@@ -827,7 +827,7 @@ class RemoteSystemConnectionRequest(ComPtr):
     ConnectionToken = property(get_ConnectionToken, None)
     RemoteSystem = property(get_RemoteSystem, None)
     RemoteSystemApp = property(get_RemoteSystemApp, None)
-class RemoteSystemDiscoveryType(Int32):  # enum
+class RemoteSystemDiscoveryType(Enum, Int32):
     Any = 0
     Proximal = 1
     Cloud = 2
@@ -897,7 +897,7 @@ class RemoteSystemKinds(ComPtr, metaclass=_RemoteSystemKinds_Meta_):
     _RemoteSystemKinds_Meta_.Phone = property(get_Phone.__wrapped__, None)
     _RemoteSystemKinds_Meta_.Tablet = property(get_Tablet.__wrapped__, None)
     _RemoteSystemKinds_Meta_.Xbox = property(get_Xbox.__wrapped__, None)
-class RemoteSystemPlatform(Int32):  # enum
+class RemoteSystemPlatform(Enum, Int32):
     Unknown = 0
     Windows = 1
     Android = 2
@@ -977,7 +977,7 @@ class RemoteSystemSessionCreationResult(ComPtr):
     def get_Session(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionCreationResult) -> win32more.Windows.System.RemoteSystems.RemoteSystemSession: ...
     Session = property(get_Session, None)
     Status = property(get_Status, None)
-class RemoteSystemSessionCreationStatus(Int32):  # enum
+class RemoteSystemSessionCreationStatus(Enum, Int32):
     Success = 0
     SessionLimitsExceeded = 1
     OperationAborted = 2
@@ -988,7 +988,7 @@ class RemoteSystemSessionDisconnectedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reason(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionDisconnectedEventArgs) -> win32more.Windows.System.RemoteSystems.RemoteSystemSessionDisconnectedReason: ...
     Reason = property(get_Reason, None)
-class RemoteSystemSessionDisconnectedReason(Int32):  # enum
+class RemoteSystemSessionDisconnectedReason(Enum, Int32):
     SessionUnavailable = 0
     RemovedByController = 1
     SessionClosed = 2
@@ -1066,7 +1066,7 @@ class RemoteSystemSessionJoinResult(ComPtr):
     def get_Session(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionJoinResult) -> win32more.Windows.System.RemoteSystems.RemoteSystemSession: ...
     Session = property(get_Session, None)
     Status = property(get_Status, None)
-class RemoteSystemSessionJoinStatus(Int32):  # enum
+class RemoteSystemSessionJoinStatus(Enum, Int32):
     Success = 0
     SessionLimitsExceeded = 1
     OperationAborted = 2
@@ -1102,7 +1102,7 @@ class RemoteSystemSessionMessageChannel(ComPtr):
     @winrt_mixinmethod
     def remove_ValueSetReceived(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannel, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Session = property(get_Session, None)
-class RemoteSystemSessionMessageChannelReliability(Int32):  # enum
+class RemoteSystemSessionMessageChannelReliability(Enum, Int32):
     Reliable = 0
     Unreliable = 1
 class RemoteSystemSessionOptions(ComPtr):
@@ -1169,7 +1169,7 @@ class RemoteSystemSessionParticipantWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionParticipantWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-class RemoteSystemSessionParticipantWatcherStatus(Int32):  # enum
+class RemoteSystemSessionParticipantWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -1223,19 +1223,19 @@ class RemoteSystemSessionWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-class RemoteSystemSessionWatcherStatus(Int32):  # enum
+class RemoteSystemSessionWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
     Stopping = 3
     Stopped = 4
     Aborted = 5
-class RemoteSystemStatus(Int32):  # enum
+class RemoteSystemStatus(Enum, Int32):
     Unavailable = 0
     DiscoveringAvailability = 1
     Available = 2
     Unknown = 3
-class RemoteSystemStatusType(Int32):  # enum
+class RemoteSystemStatusType(Enum, Int32):
     Any = 0
     Available = 1
 class RemoteSystemStatusTypeFilter(ComPtr):
@@ -1292,7 +1292,7 @@ class RemoteSystemWatcher(ComPtr):
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.System.RemoteSystems.IRemoteSystemWatcher3) -> win32more.Windows.System.User: ...
     User = property(get_User, None)
-class RemoteSystemWatcherError(Int32):  # enum
+class RemoteSystemWatcherError(Enum, Int32):
     Unknown = 0
     InternetNotAvailable = 1
     AuthenticationError = 2

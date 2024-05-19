@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -139,7 +139,7 @@ class IInkAnalyzerFactory(ComPtr):
     _iid_ = Guid('{29138686-1963-49d8-9589-e14384c769e3}')
     @winrt_commethod(6)
     def CreateAnalyzer(self) -> win32more.Windows.UI.Input.Inking.Analysis.InkAnalyzer: ...
-class InkAnalysisDrawingKind(Int32):  # enum
+class InkAnalysisDrawingKind(Enum, Int32):
     Drawing = 0
     Circle = 1
     Ellipse = 2
@@ -326,7 +326,7 @@ class InkAnalysisNode(ComPtr):
     Kind = property(get_Kind, None)
     Parent = property(get_Parent, None)
     RotatedBoundingRect = property(get_RotatedBoundingRect, None)
-class InkAnalysisNodeKind(Int32):  # enum
+class InkAnalysisNodeKind(Enum, Int32):
     UnclassifiedInk = 0
     Root = 1
     WritingRegion = 2
@@ -399,10 +399,10 @@ class InkAnalysisRoot(ComPtr):
     Parent = property(get_Parent, None)
     RecognizedText = property(get_RecognizedText, None)
     RotatedBoundingRect = property(get_RotatedBoundingRect, None)
-class InkAnalysisStatus(Int32):  # enum
+class InkAnalysisStatus(Enum, Int32):
     Updated = 0
     Unchanged = 1
-class InkAnalysisStrokeKind(Int32):  # enum
+class InkAnalysisStrokeKind(Enum, Int32):
     Auto = 0
     Writing = 1
     Drawing = 2

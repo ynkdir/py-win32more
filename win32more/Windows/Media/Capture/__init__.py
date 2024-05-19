@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
@@ -191,7 +191,7 @@ class AppBroadcastBackgroundServiceStreamInfo(ComPtr):
     BroadcastStreamReader = property(get_BroadcastStreamReader, None)
     DesiredVideoEncodingBitrate = property(get_DesiredVideoEncodingBitrate, put_DesiredVideoEncodingBitrate)
     StreamState = property(get_StreamState, None)
-class AppBroadcastCameraCaptureState(Int32):  # enum
+class AppBroadcastCameraCaptureState(Enum, Int32):
     Stopped = 0
     Started = 1
     Failed = 2
@@ -205,7 +205,7 @@ class AppBroadcastCameraCaptureStateChangedEventArgs(ComPtr):
     def get_ErrorCode(self: win32more.Windows.Media.Capture.IAppBroadcastCameraCaptureStateChangedEventArgs) -> UInt32: ...
     ErrorCode = property(get_ErrorCode, None)
     State = property(get_State, None)
-class AppBroadcastCameraOverlayLocation(Int32):  # enum
+class AppBroadcastCameraOverlayLocation(Enum, Int32):
     TopLeft = 0
     TopCenter = 1
     TopRight = 2
@@ -215,15 +215,15 @@ class AppBroadcastCameraOverlayLocation(Int32):  # enum
     BottomLeft = 6
     BottomCenter = 7
     BottomRight = 8
-class AppBroadcastCameraOverlaySize(Int32):  # enum
+class AppBroadcastCameraOverlaySize(Enum, Int32):
     Small = 0
     Medium = 1
     Large = 2
-class AppBroadcastCaptureTargetType(Int32):  # enum
+class AppBroadcastCaptureTargetType(Enum, Int32):
     AppView = 0
     EntireDisplay = 1
 AppBroadcastContract: UInt32 = 131072
-class AppBroadcastExitBroadcastModeReason(Int32):  # enum
+class AppBroadcastExitBroadcastModeReason(Enum, Int32):
     NormalExit = 0
     UserCanceled = 1
     AuthorizationFail = 2
@@ -314,7 +314,7 @@ class AppBroadcastManager(ComPtr):
     def GetProviderSettings(cls: win32more.Windows.Media.Capture.IAppBroadcastManagerStatics) -> win32more.Windows.Media.Capture.AppBroadcastProviderSettings: ...
     @winrt_classmethod
     def ApplyProviderSettings(cls: win32more.Windows.Media.Capture.IAppBroadcastManagerStatics, value: win32more.Windows.Media.Capture.AppBroadcastProviderSettings) -> Void: ...
-class AppBroadcastMicrophoneCaptureState(Int32):  # enum
+class AppBroadcastMicrophoneCaptureState(Enum, Int32):
     Stopped = 0
     Started = 1
     Failed = 2
@@ -363,7 +363,7 @@ class AppBroadcastPlugInManager(ComPtr):
     DefaultPlugIn = property(get_DefaultPlugIn, put_DefaultPlugIn)
     IsBroadcastProviderAvailable = property(get_IsBroadcastProviderAvailable, None)
     PlugInList = property(get_PlugInList, None)
-class AppBroadcastPlugInState(Int32):  # enum
+class AppBroadcastPlugInState(Enum, Int32):
     Unknown = 0
     Initialized = 1
     MicrosoftSignInRequired = 2
@@ -397,7 +397,7 @@ class AppBroadcastPreview(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
     PreviewState = property(get_PreviewState, None)
     PreviewStreamReader = property(get_PreviewStreamReader, None)
-class AppBroadcastPreviewState(Int32):  # enum
+class AppBroadcastPreviewState(Enum, Int32):
     Started = 0
     Stopped = 1
     Failed = 2
@@ -541,13 +541,13 @@ class AppBroadcastServices(ComPtr):
     CaptureTargetType = property(get_CaptureTargetType, put_CaptureTargetType)
     State = property(get_State, None)
     UserName = property(get_UserName, None)
-class AppBroadcastSignInResult(Int32):  # enum
+class AppBroadcastSignInResult(Enum, Int32):
     Success = 0
     AuthenticationFailed = 1
     Unauthorized = 2
     ServiceUnavailable = 3
     Unknown = 4
-class AppBroadcastSignInState(Int32):  # enum
+class AppBroadcastSignInState(Enum, Int32):
     NotSignedIn = 0
     MicrosoftSignInInProgress = 1
     MicrosoftSignInComplete = 2
@@ -720,7 +720,7 @@ class AppBroadcastStreamReader(ComPtr):
     VideoBitrate = property(get_VideoBitrate, None)
     VideoHeight = property(get_VideoHeight, None)
     VideoWidth = property(get_VideoWidth, None)
-class AppBroadcastStreamState(Int32):  # enum
+class AppBroadcastStreamState(Enum, Int32):
     Initializing = 0
     StreamReady = 1
     Started = 2
@@ -765,7 +765,7 @@ class AppBroadcastStreamVideoHeader(ComPtr):
     HasDiscontinuity = property(get_HasDiscontinuity, None)
     IsKeyFrame = property(get_IsKeyFrame, None)
     RelativeTimestamp = property(get_RelativeTimestamp, None)
-class AppBroadcastTerminationReason(Int32):  # enum
+class AppBroadcastTerminationReason(Enum, Int32):
     NormalTermination = 0
     LostConnectionToService = 1
     NoNetworkConnectivity = 2
@@ -783,10 +783,10 @@ class AppBroadcastTriggerDetails(ComPtr):
     @winrt_mixinmethod
     def get_BackgroundService(self: win32more.Windows.Media.Capture.IAppBroadcastTriggerDetails) -> win32more.Windows.Media.Capture.AppBroadcastBackgroundService: ...
     BackgroundService = property(get_BackgroundService, None)
-class AppBroadcastVideoEncodingBitrateMode(Int32):  # enum
+class AppBroadcastVideoEncodingBitrateMode(Enum, Int32):
     Custom = 0
     Auto = 1
-class AppBroadcastVideoEncodingResolutionMode(Int32):  # enum
+class AppBroadcastVideoEncodingResolutionMode(Enum, Int32):
     Custom = 0
     Auto = 1
 class AppBroadcastViewerCountChangedEventArgs(ComPtr):
@@ -913,7 +913,7 @@ class AppCaptureFileGeneratedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_File(self: win32more.Windows.Media.Capture.IAppCaptureFileGeneratedEventArgs) -> win32more.Windows.Storage.StorageFile: ...
     File = property(get_File, None)
-class AppCaptureHistoricalBufferLengthUnit(Int32):  # enum
+class AppCaptureHistoricalBufferLengthUnit(Enum, Int32):
     Megabytes = 0
     Seconds = 1
 class AppCaptureManager(ComPtr):
@@ -924,7 +924,7 @@ class AppCaptureManager(ComPtr):
     @winrt_classmethod
     def ApplySettings(cls: win32more.Windows.Media.Capture.IAppCaptureManagerStatics, appCaptureSettings: win32more.Windows.Media.Capture.AppCaptureSettings) -> Void: ...
 AppCaptureMetadataContract: UInt32 = 65536
-class AppCaptureMetadataPriority(Int32):  # enum
+class AppCaptureMetadataPriority(Enum, Int32):
     Informational = 0
     Important = 1
 class AppCaptureMetadataWriter(ComPtr):
@@ -965,7 +965,7 @@ class AppCaptureMetadataWriter(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     RemainingStorageBytesAvailable = property(get_RemainingStorageBytesAvailable, None)
-class AppCaptureMicrophoneCaptureState(Int32):  # enum
+class AppCaptureMicrophoneCaptureState(Enum, Int32):
     Stopped = 0
     Started = 1
     Failed = 2
@@ -1012,7 +1012,7 @@ class AppCaptureRecordOperation(ComPtr):
     File = property(get_File, None)
     IsFileTruncated = property(get_IsFileTruncated, None)
     State = property(get_State, None)
-class AppCaptureRecordingState(Int32):  # enum
+class AppCaptureRecordingState(Enum, Int32):
     InProgress = 0
     Completed = 1
     Failed = 2
@@ -1208,14 +1208,14 @@ class AppCaptureState(ComPtr):
     MicrophoneCaptureError = property(get_MicrophoneCaptureError, None)
     MicrophoneCaptureState = property(get_MicrophoneCaptureState, None)
     ShouldCaptureMicrophone = property(get_ShouldCaptureMicrophone, put_ShouldCaptureMicrophone)
-class AppCaptureVideoEncodingBitrateMode(Int32):  # enum
+class AppCaptureVideoEncodingBitrateMode(Enum, Int32):
     Custom = 0
     High = 1
     Standard = 2
-class AppCaptureVideoEncodingFrameRateMode(Int32):  # enum
+class AppCaptureVideoEncodingFrameRateMode(Enum, Int32):
     Standard = 0
     High = 1
-class AppCaptureVideoEncodingResolutionMode(Int32):  # enum
+class AppCaptureVideoEncodingResolutionMode(Enum, Int32):
     Custom = 0
     High = 1
     Standard = 2
@@ -1241,19 +1241,19 @@ class CameraCaptureUI(ComPtr):
     PhotoSettings = property(get_PhotoSettings, None)
     VideoSettings = property(get_VideoSettings, None)
 CameraCaptureUIContract: UInt32 = 65536
-class CameraCaptureUIMaxPhotoResolution(Int32):  # enum
+class CameraCaptureUIMaxPhotoResolution(Enum, Int32):
     HighestAvailable = 0
     VerySmallQvga = 1
     SmallVga = 2
     MediumXga = 3
     Large3M = 4
     VeryLarge5M = 5
-class CameraCaptureUIMaxVideoResolution(Int32):  # enum
+class CameraCaptureUIMaxVideoResolution(Enum, Int32):
     HighestAvailable = 0
     LowDefinition = 1
     StandardDefinition = 2
     HighDefinition = 3
-class CameraCaptureUIMode(Int32):  # enum
+class CameraCaptureUIMode(Enum, Int32):
     PhotoOrVideo = 0
     Photo = 1
     Video = 2
@@ -1286,7 +1286,7 @@ class CameraCaptureUIPhotoCaptureSettings(ComPtr):
     CroppedSizeInPixels = property(get_CroppedSizeInPixels, put_CroppedSizeInPixels)
     Format = property(get_Format, put_Format)
     MaxResolution = property(get_MaxResolution, put_MaxResolution)
-class CameraCaptureUIPhotoFormat(Int32):  # enum
+class CameraCaptureUIPhotoFormat(Enum, Int32):
     Jpeg = 0
     Png = 1
     JpegXR = 2
@@ -1314,7 +1314,7 @@ class CameraCaptureUIVideoCaptureSettings(ComPtr):
     Format = property(get_Format, put_Format)
     MaxDurationInSeconds = property(get_MaxDurationInSeconds, put_MaxDurationInSeconds)
     MaxResolution = property(get_MaxResolution, put_MaxResolution)
-class CameraCaptureUIVideoFormat(Int32):  # enum
+class CameraCaptureUIVideoFormat(Enum, Int32):
     Mp4 = 0
     Wmv = 1
 class CameraOptionsUI(ComPtr):
@@ -1430,10 +1430,10 @@ class CapturedPhoto(ComPtr):
     def get_Thumbnail(self: win32more.Windows.Media.Capture.ICapturedPhoto) -> win32more.Windows.Media.Capture.CapturedFrame: ...
     Frame = property(get_Frame, None)
     Thumbnail = property(get_Thumbnail, None)
-class ForegroundActivationArgument(Int32):  # enum
+class ForegroundActivationArgument(Enum, Int32):
     SignInRequired = 0
     MoreSettings = 1
-class GameBarCommand(Int32):  # enum
+class GameBarCommand(Enum, Int32):
     OpenGameBar = 0
     RecordHistoricalBuffer = 1
     ToggleStartStopRecord = 2
@@ -1448,7 +1448,7 @@ class GameBarCommand(Int32):  # enum
     ToggleMicrophoneCapture = 11
     ToggleCameraCapture = 12
     ToggleRecordingIndicator = 13
-class GameBarCommandOrigin(Int32):  # enum
+class GameBarCommandOrigin(Enum, Int32):
     ShortcutKey = 0
     Cortana = 1
     AppCommand = 2
@@ -1490,7 +1490,7 @@ class GameBarServicesCommandEventArgs(ComPtr):
     def get_Origin(self: win32more.Windows.Media.Capture.IGameBarServicesCommandEventArgs) -> win32more.Windows.Media.Capture.GameBarCommandOrigin: ...
     Command = property(get_Command, None)
     Origin = property(get_Origin, None)
-class GameBarServicesDisplayMode(Int32):  # enum
+class GameBarServicesDisplayMode(Enum, Int32):
     Windowed = 0
     FullScreenExclusive = 1
 class GameBarServicesManager(ComPtr):
@@ -1526,7 +1526,7 @@ class GameBarServicesTargetInfo(ComPtr):
     DisplayMode = property(get_DisplayMode, None)
     DisplayName = property(get_DisplayName, None)
     TitleId = property(get_TitleId, None)
-class GameBarTargetCapturePolicy(Int32):  # enum
+class GameBarTargetCapturePolicy(Enum, Int32):
     EnabledBySystem = 0
     EnabledByUser = 1
     NotEnabled = 2
@@ -3503,7 +3503,7 @@ class IVideoStreamConfiguration(ComPtr):
     def get_OutputProperties(self) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
     InputProperties = property(get_InputProperties, None)
     OutputProperties = property(get_OutputProperties, None)
-class KnownVideoProfile(Int32):  # enum
+class KnownVideoProfile(Enum, Int32):
     VideoRecording = 0
     HighQualityPhoto = 1
     BalancedVideoAndPhoto = 2
@@ -3716,10 +3716,10 @@ class MediaCapture(ComPtr):
     MediaCaptureSettings = property(get_MediaCaptureSettings, None)
     ThermalStatus = property(get_ThermalStatus, None)
     VideoDeviceController = property(get_VideoDeviceController, None)
-class MediaCaptureDeviceExclusiveControlReleaseMode(Int32):  # enum
+class MediaCaptureDeviceExclusiveControlReleaseMode(Enum, Int32):
     OnDispose = 0
     OnAllStreamsStopped = 1
-class MediaCaptureDeviceExclusiveControlStatus(Int32):  # enum
+class MediaCaptureDeviceExclusiveControlStatus(Enum, Int32):
     ExclusiveControlAvailable = 0
     SharedReadOnlyAvailable = 1
 class MediaCaptureDeviceExclusiveControlStatusChangedEventArgs(ComPtr):
@@ -3857,7 +3857,7 @@ class MediaCaptureInitializationSettings(ComPtr):
     VideoDeviceId = property(get_VideoDeviceId, put_VideoDeviceId)
     VideoProfile = property(get_VideoProfile, put_VideoProfile)
     VideoSource = property(get_VideoSource, put_VideoSource)
-class MediaCaptureMemoryPreference(Int32):  # enum
+class MediaCaptureMemoryPreference(Enum, Int32):
     Auto = 0
     Cpu = 1
 class MediaCapturePauseResult(ComPtr):
@@ -3935,7 +3935,7 @@ class MediaCaptureSettings(ComPtr):
     Vertical35mmEquivalentFocalLength = property(get_Vertical35mmEquivalentFocalLength, None)
     VideoDeviceCharacteristic = property(get_VideoDeviceCharacteristic, None)
     VideoDeviceId = property(get_VideoDeviceId, None)
-class MediaCaptureSharingMode(Int32):  # enum
+class MediaCaptureSharingMode(Enum, Int32):
     ExclusiveControl = 0
     SharedReadOnly = 1
 class MediaCaptureStopResult(ComPtr):
@@ -3950,7 +3950,7 @@ class MediaCaptureStopResult(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     LastFrame = property(get_LastFrame, None)
     RecordDuration = property(get_RecordDuration, None)
-class MediaCaptureThermalStatus(Int32):  # enum
+class MediaCaptureThermalStatus(Enum, Int32):
     Normal = 0
     Overheated = 1
 class MediaCaptureVideoProfile(ComPtr):
@@ -4005,7 +4005,7 @@ class MediaCaptureVideoProfileMediaDescription(ComPtr):
     Properties = property(get_Properties, None)
     Subtype = property(get_Subtype, None)
     Width = property(get_Width, None)
-class MediaCategory(Int32):  # enum
+class MediaCategory(Enum, Int32):
     Other = 0
     Communications = 1
     Media = 2
@@ -4014,7 +4014,7 @@ class MediaCategory(Int32):  # enum
     FarFieldSpeech = 5
     UniformSpeech = 6
     VoiceTyping = 7
-class MediaStreamType(Int32):  # enum
+class MediaStreamType(Enum, Int32):
     VideoPreview = 0
     VideoRecord = 1
     Audio = 2
@@ -4030,7 +4030,7 @@ class OptionalReferencePhotoCapturedEventArgs(ComPtr):
     def get_Context(self: win32more.Windows.Media.Capture.IOptionalReferencePhotoCapturedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
     Context = property(get_Context, None)
     Frame = property(get_Frame, None)
-class PhotoCaptureSource(Int32):  # enum
+class PhotoCaptureSource(Enum, Int32):
     Auto = 0
     VideoPreview = 1
     Photo = 2
@@ -4057,7 +4057,7 @@ class PhotoConfirmationCapturedEventArgs(ComPtr):
     def get_CaptureTimeOffset(self: win32more.Windows.Media.Capture.IPhotoConfirmationCapturedEventArgs) -> win32more.Windows.Foundation.TimeSpan: ...
     CaptureTimeOffset = property(get_CaptureTimeOffset, None)
     Frame = property(get_Frame, None)
-class PowerlineFrequency(Int32):  # enum
+class PowerlineFrequency(Enum, Int32):
     Disabled = 0
     FiftyHertz = 1
     SixtyHertz = 2
@@ -4099,17 +4099,17 @@ class SourceSuspensionChangedEventArgs(ComPtr):
     def get_IsVideoSuspended(self: win32more.Windows.Media.Capture.ISourceSuspensionChangedEventArgs) -> Boolean: ...
     IsAudioSuspended = property(get_IsAudioSuspended, None)
     IsVideoSuspended = property(get_IsVideoSuspended, None)
-class StreamingCaptureMode(Int32):  # enum
+class StreamingCaptureMode(Enum, Int32):
     AudioAndVideo = 0
     Audio = 1
     Video = 2
-class VideoDeviceCharacteristic(Int32):  # enum
+class VideoDeviceCharacteristic(Enum, Int32):
     AllStreamsIndependent = 0
     PreviewRecordStreamsIdentical = 1
     PreviewPhotoStreamsIdentical = 2
     RecordPhotoStreamsIdentical = 3
     AllStreamsIdentical = 4
-class VideoRotation(Int32):  # enum
+class VideoRotation(Enum, Int32):
     None_ = 0
     Clockwise90Degrees = 1
     Clockwise180Degrees = 2

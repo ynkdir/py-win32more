@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
@@ -17,7 +17,7 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.Composition
 import win32more.Windows.Win32.System.WinRT
-class AutoLoadedDisplayPropertyKind(Int32):  # enum
+class AutoLoadedDisplayPropertyKind(Enum, Int32):
     None_ = 0
     MusicOrVideo = 1
     Music = 2
@@ -59,7 +59,7 @@ class CurrentMediaPlaybackItemChangedEventArgs(ComPtr):
     NewItem = property(get_NewItem, None)
     OldItem = property(get_OldItem, None)
     Reason = property(get_Reason, None)
-class FailedMediaStreamKind(Int32):  # enum
+class FailedMediaStreamKind(Enum, Int32):
     Unknown = 0
     Audio = 1
     Video = 2
@@ -1253,7 +1253,7 @@ class MediaBreakEndedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_MediaBreak(self: win32more.Windows.Media.Playback.IMediaBreakEndedEventArgs) -> win32more.Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
-class MediaBreakInsertionMethod(Int32):  # enum
+class MediaBreakInsertionMethod(Enum, Int32):
     Interrupt = 0
     Replace = 1
 class MediaBreakManager(ComPtr):
@@ -1341,7 +1341,7 @@ class MediaBreakStartedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_MediaBreak(self: win32more.Windows.Media.Playback.IMediaBreakStartedEventArgs) -> win32more.Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
-class MediaCommandEnablingRule(Int32):  # enum
+class MediaCommandEnablingRule(Enum, Int32):
     Auto = 0
     Always = 1
     Never = 2
@@ -1692,7 +1692,7 @@ class MediaPlaybackItem(ComPtr):
     TimedMetadataTracks = property(get_TimedMetadataTracks, None)
     TotalDownloadProgress = property(get_TotalDownloadProgress, None)
     VideoTracks = property(get_VideoTracks, None)
-class MediaPlaybackItemChangedReason(Int32):  # enum
+class MediaPlaybackItemChangedReason(Enum, Int32):
     InitialItem = 0
     EndOfStream = 1
     Error = 2
@@ -1707,7 +1707,7 @@ class MediaPlaybackItemError(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.Playback.IMediaPlaybackItemError) -> win32more.Windows.Foundation.HResult: ...
     ErrorCode = property(get_ErrorCode, None)
     ExtendedError = property(get_ExtendedError, None)
-class MediaPlaybackItemErrorCode(Int32):  # enum
+class MediaPlaybackItemErrorCode(Enum, Int32):
     None_ = 0
     Aborted = 1
     NetworkError = 2
@@ -1948,7 +1948,7 @@ class MediaPlaybackSessionOutputDegradationPolicyState(ComPtr):
     @winrt_mixinmethod
     def get_VideoConstrictionReason(self: win32more.Windows.Media.Playback.IMediaPlaybackSessionOutputDegradationPolicyState) -> win32more.Windows.Media.Playback.MediaPlaybackSessionVideoConstrictionReason: ...
     VideoConstrictionReason = property(get_VideoConstrictionReason, None)
-class MediaPlaybackSessionVideoConstrictionReason(Int32):  # enum
+class MediaPlaybackSessionVideoConstrictionReason(Enum, Int32):
     None_ = 0
     VirtualMachine = 1
     UnsupportedDisplayAdapter = 2
@@ -1985,7 +1985,7 @@ class MediaPlaybackSphericalVideoProjection(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     ProjectionMode = property(get_ProjectionMode, put_ProjectionMode)
     ViewOrientation = property(get_ViewOrientation, put_ViewOrientation)
-class MediaPlaybackState(Int32):  # enum
+class MediaPlaybackState(Enum, Int32):
     None_ = 0
     Opening = 1
     Buffering = 2
@@ -2268,7 +2268,7 @@ class MediaPlayer(ComPtr):
     TimelineController = property(get_TimelineController, put_TimelineController)
     TimelineControllerPositionOffset = property(get_TimelineControllerPositionOffset, put_TimelineControllerPositionOffset)
     Volume = property(get_Volume, put_Volume)
-class MediaPlayerAudioCategory(Int32):  # enum
+class MediaPlayerAudioCategory(Enum, Int32):
     Other = 0
     Communications = 3
     Alerts = 4
@@ -2279,7 +2279,7 @@ class MediaPlayerAudioCategory(Int32):  # enum
     Speech = 9
     Movie = 10
     Media = 11
-class MediaPlayerAudioDeviceType(Int32):  # enum
+class MediaPlayerAudioDeviceType(Enum, Int32):
     Console = 0
     Multimedia = 1
     Communications = 2
@@ -2290,7 +2290,7 @@ class MediaPlayerDataReceivedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Data(self: win32more.Windows.Media.Playback.IMediaPlayerDataReceivedEventArgs) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     Data = property(get_Data, None)
-class MediaPlayerError(Int32):  # enum
+class MediaPlayerError(Enum, Int32):
     Unknown = 0
     Aborted = 1
     NetworkError = 2
@@ -2316,7 +2316,7 @@ class MediaPlayerRateChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_NewRate(self: win32more.Windows.Media.Playback.IMediaPlayerRateChangedEventArgs) -> Double: ...
     NewRate = property(get_NewRate, None)
-class MediaPlayerState(Int32):  # enum
+class MediaPlayerState(Enum, Int32):
     Closed = 0
     Opening = 1
     Buffering = 2
@@ -2384,10 +2384,10 @@ class PlaybackMediaMarkerSequence(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Playback.PlaybackMediaMarker]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Media.Playback.PlaybackMediaMarker]: ...
     Size = property(get_Size, None)
-class SphericalVideoProjectionMode(Int32):  # enum
+class SphericalVideoProjectionMode(Enum, Int32):
     Spherical = 0
     Flat = 1
-class StereoscopicVideoRenderMode(Int32):  # enum
+class StereoscopicVideoRenderMode(Enum, Int32):
     Mono = 0
     Stereo = 1
 class TimedMetadataPresentationModeChangedEventArgs(ComPtr):
@@ -2403,7 +2403,7 @@ class TimedMetadataPresentationModeChangedEventArgs(ComPtr):
     NewPresentationMode = property(get_NewPresentationMode, None)
     OldPresentationMode = property(get_OldPresentationMode, None)
     Track = property(get_Track, None)
-class TimedMetadataTrackPresentationMode(Int32):  # enum
+class TimedMetadataTrackPresentationMode(Enum, Int32):
     Disabled = 0
     Hidden = 1
     ApplicationPresented = 2

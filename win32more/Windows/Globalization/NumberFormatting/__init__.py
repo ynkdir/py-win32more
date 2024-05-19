@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -98,7 +98,7 @@ class CurrencyFormatter(ComPtr):
     ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
-class CurrencyFormatterMode(Int32):  # enum
+class CurrencyFormatterMode(Enum, Int32):
     UseSymbol = 0
     UseCurrencyCode = 1
 class DecimalFormatter(ComPtr):
@@ -620,7 +620,7 @@ class PermilleFormatter(ComPtr):
     ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
-class RoundingAlgorithm(Int32):  # enum
+class RoundingAlgorithm(Enum, Int32):
     None_ = 0
     RoundDown = 1
     RoundUp = 2

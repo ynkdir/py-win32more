@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -7,7 +7,7 @@ import win32more.Windows.Graphics.DirectX.Direct3D11
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-class BitmapAlphaMode(Int32):  # enum
+class BitmapAlphaMode(Enum, Int32):
     Premultiplied = 0
     Straight = 1
     Ignore = 2
@@ -28,7 +28,7 @@ class BitmapBuffer(ComPtr):
     def CreateReference(self: win32more.Windows.Foundation.IMemoryBuffer) -> win32more.Windows.Foundation.IMemoryBufferReference: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-class BitmapBufferAccessMode(Int32):  # enum
+class BitmapBufferAccessMode(Enum, Int32):
     Read = 0
     ReadWrite = 1
     Write = 2
@@ -213,7 +213,7 @@ class BitmapEncoder(ComPtr, metaclass=_BitmapEncoder_Meta_):
     _BitmapEncoder_Meta_.JpegXREncoderId = property(get_JpegXREncoderId.__wrapped__, None)
     _BitmapEncoder_Meta_.PngEncoderId = property(get_PngEncoderId.__wrapped__, None)
     _BitmapEncoder_Meta_.TiffEncoderId = property(get_TiffEncoderId.__wrapped__, None)
-class BitmapFlip(Int32):  # enum
+class BitmapFlip(Enum, Int32):
     None_ = 0
     Horizontal = 1
     Vertical = 2
@@ -260,12 +260,12 @@ class BitmapFrame(ComPtr):
     OrientedPixelWidth = property(get_OrientedPixelWidth, None)
     PixelHeight = property(get_PixelHeight, None)
     PixelWidth = property(get_PixelWidth, None)
-class BitmapInterpolationMode(Int32):  # enum
+class BitmapInterpolationMode(Enum, Int32):
     NearestNeighbor = 0
     Linear = 1
     Cubic = 2
     Fant = 3
-class BitmapPixelFormat(Int32):  # enum
+class BitmapPixelFormat(Enum, Int32):
     Unknown = 0
     Rgba16 = 12
     Rgba8 = 30
@@ -324,7 +324,7 @@ class BitmapPropertySet(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]]: ...
     Size = property(get_Size, None)
-class BitmapRotation(Int32):  # enum
+class BitmapRotation(Enum, Int32):
     None_ = 0
     Clockwise90Degrees = 1
     Clockwise180Degrees = 2
@@ -394,10 +394,10 @@ class BitmapTypedValue(ComPtr):
     def get_Type(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> win32more.Windows.Foundation.PropertyType: ...
     Type = property(get_Type, None)
     Value = property(get_Value, None)
-class ColorManagementMode(Int32):  # enum
+class ColorManagementMode(Enum, Int32):
     DoNotColorManage = 0
     ColorManageToSRgb = 1
-class ExifOrientationMode(Int32):  # enum
+class ExifOrientationMode(Enum, Int32):
     IgnoreExifOrientation = 0
     RespectExifOrientation = 1
 class IBitmapBuffer(ComPtr):
@@ -783,7 +783,7 @@ class ImageStream(ComPtr):
     ContentType = property(get_ContentType, None)
     Position = property(get_Position, None)
     Size = property(get_Size, put_Size)
-class JpegSubsamplingMode(Int32):  # enum
+class JpegSubsamplingMode(Enum, Int32):
     Default = 0
     Y4Cb2Cr0 = 1
     Y4Cb2Cr2 = 2
@@ -794,7 +794,7 @@ class PixelDataProvider(ComPtr):
     _classid_ = 'Windows.Graphics.Imaging.PixelDataProvider'
     @winrt_mixinmethod
     def DetachPixelData(self: win32more.Windows.Graphics.Imaging.IPixelDataProvider) -> ReceiveArray[Byte]: ...
-class PngFilterMode(Int32):  # enum
+class PngFilterMode(Enum, Int32):
     Automatic = 0
     None_ = 1
     Sub = 2
@@ -870,7 +870,7 @@ class SoftwareBitmap(ComPtr):
     IsReadOnly = property(get_IsReadOnly, None)
     PixelHeight = property(get_PixelHeight, None)
     PixelWidth = property(get_PixelWidth, None)
-class TiffCompressionMode(Int32):  # enum
+class TiffCompressionMode(Enum, Int32):
     Automatic = 0
     None_ = 1
     Ccitt3 = 2

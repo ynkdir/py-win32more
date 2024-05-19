@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml.Interop
 import win32more.Windows.Foundation
@@ -105,7 +105,7 @@ class INotifyCollectionChangedEventArgsFactory(ComPtr):
     _iid_ = Guid('{5108eba4-4892-5a20-8374-a96815e0fd27}')
     @winrt_commethod(6)
     def CreateInstanceWithAllParameters(self, action: win32more.Microsoft.UI.Xaml.Interop.NotifyCollectionChangedAction, newItems: win32more.Microsoft.UI.Xaml.Interop.IBindableVector, oldItems: win32more.Microsoft.UI.Xaml.Interop.IBindableVector, newIndex: Int32, oldIndex: Int32, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Interop.NotifyCollectionChangedEventArgs: ...
-class NotifyCollectionChangedAction(Int32):  # enum
+class NotifyCollectionChangedAction(Enum, Int32):
     Add = 0
     Remove = 1
     Replace = 2

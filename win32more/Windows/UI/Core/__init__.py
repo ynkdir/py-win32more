@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -32,7 +32,7 @@ class AcceleratorKeyEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     KeyStatus = property(get_KeyStatus, None)
     VirtualKey = property(get_VirtualKey, None)
-class AppViewBackButtonVisibility(Int32):  # enum
+class AppViewBackButtonVisibility(Enum, Int32):
     Visible = 0
     Collapsed = 1
     Disabled = 2
@@ -89,7 +89,7 @@ class ClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     ClosestInteractiveBounds = property(get_ClosestInteractiveBounds, put_ClosestInteractiveBounds)
     PointerPosition = property(get_PointerPosition, None)
     SearchBounds = property(get_SearchBounds, None)
-class CoreAcceleratorKeyEventType(Int32):  # enum
+class CoreAcceleratorKeyEventType(Enum, Int32):
     Character = 2
     DeadCharacter = 3
     KeyDown = 0
@@ -223,7 +223,7 @@ class CoreCursor(ComPtr):
     def get_Type(self: win32more.Windows.UI.Core.ICoreCursor) -> win32more.Windows.UI.Core.CoreCursorType: ...
     Id = property(get_Id, None)
     Type = property(get_Type, None)
-class CoreCursorType(Int32):  # enum
+class CoreCursorType(Enum, Int32):
     Arrow = 0
     Cross = 1
     Custom = 2
@@ -272,12 +272,12 @@ class CoreDispatcher(ComPtr):
     def TryRunIdleAsync(self: win32more.Windows.UI.Core.ICoreDispatcher2, agileCallback: win32more.Windows.UI.Core.IdleDispatchedHandler) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     CurrentPriority = property(get_CurrentPriority, put_CurrentPriority)
     HasThreadAccess = property(get_HasThreadAccess, None)
-class CoreDispatcherPriority(Int32):  # enum
+class CoreDispatcherPriority(Enum, Int32):
     Idle = -2
     Low = -1
     Normal = 0
     High = 1
-class CoreIndependentInputFilters(UInt32):  # enum
+class CoreIndependentInputFilters(Enum, UInt32):
     None_ = 0
     MouseButton = 1
     MouseWheel = 2
@@ -385,7 +385,7 @@ class CoreIndependentInputSourceController(ComPtr):
     IsPalmRejectionEnabled = property(get_IsPalmRejectionEnabled, put_IsPalmRejectionEnabled)
     IsTransparentForUncontrolledInput = property(get_IsTransparentForUncontrolledInput, put_IsTransparentForUncontrolledInput)
     Source = property(get_Source, None)
-class CoreInputDeviceTypes(UInt32):  # enum
+class CoreInputDeviceTypes(Enum, UInt32):
     None_ = 0
     Touch = 1
     Pen = 2
@@ -397,7 +397,7 @@ class CorePhysicalKeyStatus(Structure):
     IsMenuKeyDown: Boolean
     WasKeyDown: Boolean
     IsKeyReleased: Boolean
-class CoreProcessEventsOption(Int32):  # enum
+class CoreProcessEventsOption(Enum, Int32):
     ProcessOneAndAllPending = 0
     ProcessOneIfPresent = 1
     ProcessUntilQuit = 2
@@ -405,10 +405,10 @@ class CoreProcessEventsOption(Int32):  # enum
 class CoreProximityEvaluation(Structure):
     Score: Int32
     AdjustedPoint: win32more.Windows.Foundation.Point
-class CoreProximityEvaluationScore(Int32):  # enum
+class CoreProximityEvaluationScore(Enum, Int32):
     Closest = 0
     Farthest = 2147483647
-class CoreVirtualKeyStates(UInt32):  # enum
+class CoreVirtualKeyStates(Enum, UInt32):
     None_ = 0
     Down = 1
     Locked = 2
@@ -568,12 +568,12 @@ class CoreWindow(ComPtr):
     PointerPosition = property(get_PointerPosition, put_PointerPosition)
     UIContext = property(get_UIContext, None)
     Visible = property(get_Visible, None)
-class CoreWindowActivationMode(Int32):  # enum
+class CoreWindowActivationMode(Enum, Int32):
     None_ = 0
     Deactivated = 1
     ActivatedNotForeground = 2
     ActivatedInForeground = 3
-class CoreWindowActivationState(Int32):  # enum
+class CoreWindowActivationState(Enum, Int32):
     CodeActivated = 0
     Deactivated = 1
     PointerActivated = 2
@@ -644,7 +644,7 @@ class CoreWindowEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
-class CoreWindowFlowDirection(Int32):  # enum
+class CoreWindowFlowDirection(Enum, Int32):
     LeftToRight = 0
     RightToLeft = 1
 class CoreWindowFlyout(ComPtr):

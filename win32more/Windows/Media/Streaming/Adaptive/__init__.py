@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -154,7 +154,7 @@ class AdaptiveMediaSourceCreationResult(ComPtr):
     HttpResponseMessage = property(get_HttpResponseMessage, None)
     MediaSource = property(get_MediaSource, None)
     Status = property(get_Status, None)
-class AdaptiveMediaSourceCreationStatus(Int32):  # enum
+class AdaptiveMediaSourceCreationStatus(Enum, Int32):
     Success = 0
     ManifestDownloadFailure = 1
     ManifestParseFailure = 2
@@ -202,7 +202,7 @@ class AdaptiveMediaSourceDiagnosticAvailableEventArgs(ComPtr):
     ResourceType = property(get_ResourceType, None)
     ResourceUri = property(get_ResourceUri, None)
     SegmentId = property(get_SegmentId, None)
-class AdaptiveMediaSourceDiagnosticType(Int32):  # enum
+class AdaptiveMediaSourceDiagnosticType(Enum, Int32):
     ManifestUnchangedUponReload = 0
     ManifestMismatchUponReload = 1
     ManifestSignaledEndOfLiveEventUponReload = 2
@@ -233,7 +233,7 @@ class AdaptiveMediaSourceDownloadBitrateChangedEventArgs(ComPtr):
     NewValue = property(get_NewValue, None)
     OldValue = property(get_OldValue, None)
     Reason = property(get_Reason, None)
-class AdaptiveMediaSourceDownloadBitrateChangedReason(Int32):  # enum
+class AdaptiveMediaSourceDownloadBitrateChangedReason(Enum, Int32):
     SufficientInboundBitsPerSecond = 0
     InsufficientInboundBitsPerSecond = 1
     LowBufferLevel = 2
@@ -419,7 +419,7 @@ class AdaptiveMediaSourcePlaybackBitrateChangedEventArgs(ComPtr):
     AudioOnly = property(get_AudioOnly, None)
     NewValue = property(get_NewValue, None)
     OldValue = property(get_OldValue, None)
-class AdaptiveMediaSourceResourceType(Int32):  # enum
+class AdaptiveMediaSourceResourceType(Enum, Int32):
     Manifest = 0
     InitializationSegment = 1
     MediaSegment = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -291,7 +291,7 @@ class WebAccountClientView(ComPtr):
     AccountPairwiseId = property(get_AccountPairwiseId, None)
     ApplicationCallbackUri = property(get_ApplicationCallbackUri, None)
     Type = property(get_Type, None)
-class WebAccountClientViewType(Int32):  # enum
+class WebAccountClientViewType(Enum, Int32):
     IdOnly = 0
     IdAndProperties = 1
 class WebAccountManager(ComPtr):
@@ -406,7 +406,7 @@ class WebAccountProviderManageAccountOperation(ComPtr):
     def get_Kind(self: win32more.Windows.Security.Authentication.Web.Provider.IWebAccountProviderOperation) -> win32more.Windows.Security.Authentication.Web.Provider.WebAccountProviderOperationKind: ...
     Kind = property(get_Kind, None)
     WebAccount = property(get_WebAccount, None)
-class WebAccountProviderOperationKind(Int32):  # enum
+class WebAccountProviderOperationKind(Enum, Int32):
     RequestToken = 0
     GetTokenSilently = 1
     AddAccount = 2
@@ -493,10 +493,10 @@ class WebAccountProviderTriggerDetails(ComPtr):
     def get_User(self: win32more.Windows.Security.Authentication.Web.Provider.IWebAccountProviderTokenObjects2) -> win32more.Windows.System.User: ...
     Operation = property(get_Operation, None)
     User = property(get_User, None)
-class WebAccountScope(Int32):  # enum
+class WebAccountScope(Enum, Int32):
     PerUser = 0
     PerApplication = 1
-class WebAccountSelectionOptions(UInt32):  # enum
+class WebAccountSelectionOptions(Enum, UInt32):
     Default = 0
     New = 1
 class WebProviderTokenRequest(ComPtr):

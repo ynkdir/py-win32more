@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.AI.MachineLearning.WinML
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -193,7 +193,7 @@ class MLOperatorAttributeNameValue(Structure):
         ints: POINTER(Int64)
         strings: POINTER(POINTER(SByte))
         floats: POINTER(Single)
-class MLOperatorAttributeType(UInt32):  # enum
+class MLOperatorAttributeType(Enum, UInt32):
     Undefined = 0
     Float = 2
     Int = 3
@@ -207,14 +207,14 @@ class MLOperatorEdgeDescription(Structure):
     class _Anonymous_e__Union(Union):
         reserved: UInt64
         tensorDataType: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorTensorDataType
-class MLOperatorEdgeType(UInt32):  # enum
+class MLOperatorEdgeType(Enum, UInt32):
     Undefined = 0
     Tensor = 1
 class MLOperatorEdgeTypeConstraint(Structure):
     typeLabel: win32more.Windows.Win32.Foundation.PSTR
     allowedTypes: POINTER(win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription)
     allowedTypeCount: UInt32
-class MLOperatorExecutionType(UInt32):  # enum
+class MLOperatorExecutionType(Enum, UInt32):
     Undefined = 0
     Cpu = 1
     D3D12 = 2
@@ -229,10 +229,10 @@ class MLOperatorKernelDescription(Structure):
     defaultAttributeCount: UInt32
     options: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorKernelOptions
     executionOptions: UInt32
-class MLOperatorKernelOptions(UInt32):  # enum
+class MLOperatorKernelOptions(Enum, UInt32):
     None_ = 0
     AllowDynamicInputShapes = 1
-class MLOperatorParameterOptions(UInt32):  # enum
+class MLOperatorParameterOptions(Enum, UInt32):
     Single = 0
     Optional = 1
     Variadic = 2
@@ -257,13 +257,13 @@ class MLOperatorSchemaEdgeDescription(Structure):
         reserved: VoidPtr
         typeLabel: win32more.Windows.Win32.Foundation.PSTR
         edgeDescription: win32more.Windows.Win32.AI.MachineLearning.WinML.MLOperatorEdgeDescription
-class MLOperatorSchemaEdgeTypeFormat(Int32):  # enum
+class MLOperatorSchemaEdgeTypeFormat(Enum, Int32):
     EdgeDescription = 0
     Label = 1
 class MLOperatorSetId(Structure):
     domain: win32more.Windows.Win32.Foundation.PSTR
     version: Int32
-class MLOperatorTensorDataType(UInt32):  # enum
+class MLOperatorTensorDataType(Enum, UInt32):
     Undefined = 0
     Float = 1
     UInt8 = 2

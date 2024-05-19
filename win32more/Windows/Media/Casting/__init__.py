@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
@@ -47,7 +47,7 @@ class CastingConnectionErrorOccurredEventArgs(ComPtr):
     def get_Message(self: win32more.Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs) -> WinRT_String: ...
     ErrorStatus = property(get_ErrorStatus, None)
     Message = property(get_Message, None)
-class CastingConnectionErrorStatus(Int32):  # enum
+class CastingConnectionErrorStatus(Enum, Int32):
     Succeeded = 0
     DeviceDidNotRespond = 1
     DeviceError = 2
@@ -55,7 +55,7 @@ class CastingConnectionErrorStatus(Int32):  # enum
     ProtectedPlaybackFailed = 4
     InvalidCastingSource = 5
     Unknown = 6
-class CastingConnectionState(Int32):  # enum
+class CastingConnectionState(Enum, Int32):
     Disconnected = 0
     Connected = 1
     Rendering = 2
@@ -148,7 +148,7 @@ class CastingDeviceSelectedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_SelectedCastingDevice(self: win32more.Windows.Media.Casting.ICastingDeviceSelectedEventArgs) -> win32more.Windows.Media.Casting.CastingDevice: ...
     SelectedCastingDevice = property(get_SelectedCastingDevice, None)
-class CastingPlaybackTypes(UInt32):  # enum
+class CastingPlaybackTypes(Enum, UInt32):
     None_ = 0
     Audio = 1
     Video = 2

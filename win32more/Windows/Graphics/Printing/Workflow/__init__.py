@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.Devices.Printers
@@ -364,14 +364,14 @@ class IPrintWorkflowXpsDataAvailableEventArgs(ComPtr):
     @winrt_commethod(7)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Operation = property(get_Operation, None)
-class PdlConversionHostBasedProcessingOperations(UInt32):  # enum
+class PdlConversionHostBasedProcessingOperations(Enum, UInt32):
     None_ = 0
     PageRotation = 1
     PageOrdering = 2
     Copies = 4
     BlankPageInsertion = 8
     All = 4294967295
-class PrintWorkflowAttributesMergePolicy(Int32):  # enum
+class PrintWorkflowAttributesMergePolicy(Enum, Int32):
     MergePreferPrintTicketOnConflict = 0
     MergePreferPsaOnConflict = 1
     DoNotMergeWithPrintTicket = 2
@@ -448,7 +448,7 @@ class PrintWorkflowForegroundSetupRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowForegroundSetupRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Configuration = property(get_Configuration, None)
-class PrintWorkflowJobAbortReason(Int32):  # enum
+class PrintWorkflowJobAbortReason(Enum, Int32):
     JobFailed = 0
     UserCanceled = 1
 class PrintWorkflowJobActivatedEventArgs(ComPtr):
@@ -554,7 +554,7 @@ class PrintWorkflowObjectModelTargetPackage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelTargetPackage
     _classid_ = 'Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelTargetPackage'
-class PrintWorkflowPdlConversionType(Int32):  # enum
+class PrintWorkflowPdlConversionType(Enum, Int32):
     XpsToPdf = 0
     XpsToPwgr = 1
     XpsToPclm = 2
@@ -658,12 +658,12 @@ class PrintWorkflowPrinterJob(ComPtr):
     def SetJobAttributes(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowPrinterJob, jobAttributes: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Devices.Printers.IppAttributeValue]]) -> win32more.Windows.Devices.Printers.IppSetAttributesResult: ...
     JobId = property(get_JobId, None)
     Printer = property(get_Printer, None)
-class PrintWorkflowPrinterJobStatus(Int32):  # enum
+class PrintWorkflowPrinterJobStatus(Enum, Int32):
     Error = 0
     Aborted = 1
     InProgress = 2
     Completed = 3
-class PrintWorkflowSessionStatus(Int32):  # enum
+class PrintWorkflowSessionStatus(Enum, Int32):
     Started = 0
     Completed = 1
     Aborted = 2
@@ -714,7 +714,7 @@ class PrintWorkflowSubmittedOperation(ComPtr):
     def get_XpsContent(self: win32more.Windows.Graphics.Printing.Workflow.IPrintWorkflowSubmittedOperation) -> win32more.Windows.Graphics.Printing.Workflow.PrintWorkflowSourceContent: ...
     Configuration = property(get_Configuration, None)
     XpsContent = property(get_XpsContent, None)
-class PrintWorkflowSubmittedStatus(Int32):  # enum
+class PrintWorkflowSubmittedStatus(Enum, Int32):
     Succeeded = 0
     Canceled = 1
     Failed = 2
@@ -754,7 +754,7 @@ class PrintWorkflowUIActivatedEventArgs(ComPtr):
     PrintWorkflowSession = property(get_PrintWorkflowSession, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class PrintWorkflowUICompletionStatus(Int32):  # enum
+class PrintWorkflowUICompletionStatus(Enum, Int32):
     Completed = 0
     LaunchFailed = 1
     JobFailed = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Appointments
 import win32more.Windows.ApplicationModel.Contacts
@@ -224,7 +224,7 @@ class UserDataAccount(ComPtr):
     PackageFamilyName = property(get_PackageFamilyName, None)
     ProviderProperties = property(get_ProviderProperties, None)
     UserDisplayName = property(get_UserDisplayName, put_UserDisplayName)
-class UserDataAccountContentKinds(UInt32):  # enum
+class UserDataAccountContentKinds(Enum, UInt32):
     Email = 1
     Contact = 2
     Appointment = 4
@@ -250,7 +250,7 @@ class UserDataAccountManagerForUser(ComPtr):
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerForUser) -> win32more.Windows.System.User: ...
     User = property(get_User, None)
-class UserDataAccountOtherAppReadAccess(Int32):  # enum
+class UserDataAccountOtherAppReadAccess(Enum, Int32):
     SystemOnly = 0
     Full = 1
     None_ = 2
@@ -272,7 +272,7 @@ class UserDataAccountStore(ComPtr):
     def remove_StoreChanged(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def CreateAccountWithPackageRelativeAppIdAndEnterpriseIdAsync(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore3, userDisplayName: WinRT_String, packageRelativeAppId: WinRT_String, enterpriseId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
-class UserDataAccountStoreAccessType(Int32):  # enum
+class UserDataAccountStoreAccessType(Enum, Int32):
     AllAccountsReadOnly = 0
     AppAccountsReadWrite = 1
 class UserDataAccountStoreChangedEventArgs(ComPtr):

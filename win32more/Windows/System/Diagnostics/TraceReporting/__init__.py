@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System.Diagnostics.TraceReporting
@@ -56,7 +56,7 @@ class IPlatformDiagnosticTraceRuntimeInfo(ComPtr):
     def get_EtwRuntimeFileTime(self) -> Int64: ...
     EtwRuntimeFileTime = property(get_EtwRuntimeFileTime, None)
     RuntimeFileTime = property(get_RuntimeFileTime, None)
-class PlatformDiagnosticActionState(Int32):  # enum
+class PlatformDiagnosticActionState(Enum, Int32):
     Success = 0
     FreeNetworkNotAvailable = 1
     ACPowerNotAvailable = 2
@@ -79,10 +79,10 @@ class PlatformDiagnosticActions(ComPtr):
     def GetActiveTraceRuntime(cls: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics, slotType: win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceRuntimeInfo: ...
     @winrt_classmethod
     def GetKnownTraceList(cls: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics, slotType: win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo]: ...
-class PlatformDiagnosticEscalationType(Int32):  # enum
+class PlatformDiagnosticEscalationType(Enum, Int32):
     OnCompletion = 0
     OnFailure = 1
-class PlatformDiagnosticEventBufferLatencies(UInt32):  # enum
+class PlatformDiagnosticEventBufferLatencies(Enum, UInt32):
     Normal = 1
     CostDeferred = 2
     Realtime = 4
@@ -108,7 +108,7 @@ class PlatformDiagnosticTraceInfo(ComPtr):
     Priority = property(get_Priority, None)
     ProfileHash = property(get_ProfileHash, None)
     ScenarioId = property(get_ScenarioId, None)
-class PlatformDiagnosticTracePriority(Int32):  # enum
+class PlatformDiagnosticTracePriority(Enum, Int32):
     Normal = 0
     UserElevated = 1
 class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
@@ -121,11 +121,11 @@ class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
     def get_EtwRuntimeFileTime(self: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo) -> Int64: ...
     EtwRuntimeFileTime = property(get_EtwRuntimeFileTime, None)
     RuntimeFileTime = property(get_RuntimeFileTime, None)
-class PlatformDiagnosticTraceSlotState(Int32):  # enum
+class PlatformDiagnosticTraceSlotState(Enum, Int32):
     NotRunning = 0
     Running = 1
     Throttled = 2
-class PlatformDiagnosticTraceSlotType(Int32):  # enum
+class PlatformDiagnosticTraceSlotType(Enum, Int32):
     Alternative = 0
     AlwaysOn = 1
     Mini = 2

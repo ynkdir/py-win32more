@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -110,15 +110,15 @@ class DateTimeFormatter(ComPtr, metaclass=_DateTimeFormatter_Meta_):
     _DateTimeFormatter_Meta_.LongTime = property(get_LongTime.__wrapped__, None)
     _DateTimeFormatter_Meta_.ShortDate = property(get_ShortDate.__wrapped__, None)
     _DateTimeFormatter_Meta_.ShortTime = property(get_ShortTime.__wrapped__, None)
-class DayFormat(Int32):  # enum
+class DayFormat(Enum, Int32):
     None_ = 0
     Default = 1
-class DayOfWeekFormat(Int32):  # enum
+class DayOfWeekFormat(Enum, Int32):
     None_ = 0
     Default = 1
     Abbreviated = 2
     Full = 3
-class HourFormat(Int32):  # enum
+class HourFormat(Enum, Int32):
     None_ = 0
     Default = 1
 class IDateTimeFormatter(ComPtr):
@@ -217,19 +217,19 @@ class IDateTimeFormatterStatics(ComPtr):
     LongTime = property(get_LongTime, None)
     ShortDate = property(get_ShortDate, None)
     ShortTime = property(get_ShortTime, None)
-class MinuteFormat(Int32):  # enum
+class MinuteFormat(Enum, Int32):
     None_ = 0
     Default = 1
-class MonthFormat(Int32):  # enum
+class MonthFormat(Enum, Int32):
     None_ = 0
     Default = 1
     Abbreviated = 2
     Full = 3
     Numeric = 4
-class SecondFormat(Int32):  # enum
+class SecondFormat(Enum, Int32):
     None_ = 0
     Default = 1
-class YearFormat(Int32):  # enum
+class YearFormat(Enum, Int32):
     None_ = 0
     Default = 1
     Abbreviated = 2

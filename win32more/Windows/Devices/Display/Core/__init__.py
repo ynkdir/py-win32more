@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Display
 import win32more.Windows.Devices.Display.Core
@@ -41,7 +41,7 @@ class DisplayAdapter(ComPtr):
     PciVendorId = property(get_PciVendorId, None)
     Properties = property(get_Properties, None)
     SourceCount = property(get_SourceCount, None)
-class DisplayBitsPerChannel(UInt32):  # enum
+class DisplayBitsPerChannel(Enum, UInt32):
     None_ = 0
     Bpc6 = 1
     Bpc8 = 2
@@ -69,7 +69,7 @@ class DisplayDevice(ComPtr):
     def IsCapabilitySupported(self: win32more.Windows.Devices.Display.Core.IDisplayDevice, capability: win32more.Windows.Devices.Display.Core.DisplayDeviceCapability) -> Boolean: ...
     @winrt_mixinmethod
     def CreateSimpleScanoutWithDirtyRectsAndOptions(self: win32more.Windows.Devices.Display.Core.IDisplayDevice2, source: win32more.Windows.Devices.Display.Core.DisplaySource, surface: win32more.Windows.Devices.Display.Core.DisplaySurface, subresourceIndex: UInt32, syncInterval: UInt32, dirtyRects: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Graphics.RectInt32], options: win32more.Windows.Devices.Display.Core.DisplayScanoutOptions) -> win32more.Windows.Devices.Display.Core.DisplayScanout: ...
-class DisplayDeviceCapability(Int32):  # enum
+class DisplayDeviceCapability(Enum, Int32):
     FlipOverride = 0
 class DisplayFence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -154,7 +154,7 @@ class DisplayManagerEnabledEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Devices.Display.Core.IDisplayManagerEnabledEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class DisplayManagerOptions(UInt32):  # enum
+class DisplayManagerOptions(Enum, UInt32):
     None_ = 0
     EnforceSourceOwnership = 1
     VirtualRefreshRateAware = 2
@@ -169,7 +169,7 @@ class DisplayManagerPathsFailedOrInvalidatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Devices.Display.Core.IDisplayManagerPathsFailedOrInvalidatedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class DisplayManagerResult(Int32):  # enum
+class DisplayManagerResult(Enum, Int32):
     Success = 0
     UnknownFailure = 1
     TargetAccessDenied = 2
@@ -220,7 +220,7 @@ class DisplayModeInfo(ComPtr):
     SourcePixelFormat = property(get_SourcePixelFormat, None)
     SourceResolution = property(get_SourceResolution, None)
     TargetResolution = property(get_TargetResolution, None)
-class DisplayModeQueryOptions(UInt32):  # enum
+class DisplayModeQueryOptions(Enum, UInt32):
     None_ = 0
     OnlyPreferredResolution = 1
 class DisplayPath(ComPtr):
@@ -293,21 +293,21 @@ class DisplayPath(ComPtr):
     TargetResolution = property(get_TargetResolution, put_TargetResolution)
     View = property(get_View, None)
     WireFormat = property(get_WireFormat, put_WireFormat)
-class DisplayPathScaling(Int32):  # enum
+class DisplayPathScaling(Enum, Int32):
     Identity = 0
     Centered = 1
     Stretched = 2
     AspectRatioStretched = 3
     Custom = 4
     DriverPreferred = 5
-class DisplayPathStatus(Int32):  # enum
+class DisplayPathStatus(Enum, Int32):
     Unknown = 0
     Succeeded = 1
     Pending = 2
     Failed = 3
     FailedAsync = 4
     InvalidatedAsync = 5
-class DisplayPresentStatus(Int32):  # enum
+class DisplayPresentStatus(Enum, Int32):
     Success = 0
     SourceStatusPreventedPresent = 1
     ScanoutInvalid = 2
@@ -353,7 +353,7 @@ class DisplayPrimaryDescription(ComPtr):
     MultisampleDescription = property(get_MultisampleDescription, None)
     Properties = property(get_Properties, None)
     Width = property(get_Width, None)
-class DisplayRotation(Int32):  # enum
+class DisplayRotation(Enum, Int32):
     None_ = 0
     Clockwise90Degrees = 1
     Clockwise180Degrees = 2
@@ -362,7 +362,7 @@ class DisplayScanout(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayScanout
     _classid_ = 'Windows.Devices.Display.Core.DisplayScanout'
-class DisplayScanoutOptions(UInt32):  # enum
+class DisplayScanoutOptions(Enum, UInt32):
     None_ = 0
     AllowTearing = 2
 class DisplaySource(ComPtr):
@@ -384,7 +384,7 @@ class DisplaySource(ComPtr):
     AdapterId = property(get_AdapterId, None)
     SourceId = property(get_SourceId, None)
     Status = property(get_Status, None)
-class DisplaySourceStatus(Int32):  # enum
+class DisplaySourceStatus(Enum, Int32):
     Active = 0
     PoweredOff = 1
     Invalid = 2
@@ -427,12 +427,12 @@ class DisplayState(ComPtr):
     Properties = property(get_Properties, None)
     Targets = property(get_Targets, None)
     Views = property(get_Views, None)
-class DisplayStateApplyOptions(UInt32):  # enum
+class DisplayStateApplyOptions(Enum, UInt32):
     None_ = 0
     FailIfStateChanged = 1
     ForceReapply = 2
     ForceModeEnumeration = 4
-class DisplayStateFunctionalizeOptions(UInt32):  # enum
+class DisplayStateFunctionalizeOptions(Enum, UInt32):
     None_ = 0
     FailIfStateChanged = 1
     ValidateTopologyOnly = 2
@@ -446,7 +446,7 @@ class DisplayStateOperationResult(ComPtr):
     def get_ExtendedErrorCode(self: win32more.Windows.Devices.Display.Core.IDisplayStateOperationResult) -> win32more.Windows.Foundation.HResult: ...
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     Status = property(get_Status, None)
-class DisplayStateOperationStatus(Int32):  # enum
+class DisplayStateOperationStatus(Enum, Int32):
     Success = 0
     PartialFailure = 1
     UnknownFailure = 2
@@ -502,7 +502,7 @@ class DisplayTarget(ComPtr):
     Properties = property(get_Properties, None)
     StableMonitorId = property(get_StableMonitorId, None)
     UsageKind = property(get_UsageKind, None)
-class DisplayTargetPersistence(Int32):  # enum
+class DisplayTargetPersistence(Enum, Int32):
     None_ = 0
     BootPersisted = 1
     TemporaryPersisted = 2
@@ -540,7 +540,7 @@ class DisplayTaskResult(ComPtr):
     PresentId = property(get_PresentId, None)
     PresentStatus = property(get_PresentStatus, None)
     SourceStatus = property(get_SourceStatus, None)
-class DisplayTaskSignalKind(Int32):  # enum
+class DisplayTaskSignalKind(Enum, Int32):
     OnPresentFlipAway = 0
     OnPresentFlipTo = 1
 class DisplayView(ComPtr):
@@ -593,19 +593,19 @@ class DisplayWireFormat(ComPtr):
     HdrMetadata = property(get_HdrMetadata, None)
     PixelEncoding = property(get_PixelEncoding, None)
     Properties = property(get_Properties, None)
-class DisplayWireFormatColorSpace(Int32):  # enum
+class DisplayWireFormatColorSpace(Enum, Int32):
     BT709 = 0
     BT2020 = 1
     ProfileDefinedWideColorGamut = 2
-class DisplayWireFormatEotf(Int32):  # enum
+class DisplayWireFormatEotf(Enum, Int32):
     Sdr = 0
     HdrSmpte2084 = 1
-class DisplayWireFormatHdrMetadata(Int32):  # enum
+class DisplayWireFormatHdrMetadata(Enum, Int32):
     None_ = 0
     Hdr10 = 1
     Hdr10Plus = 2
     DolbyVisionLowLatency = 3
-class DisplayWireFormatPixelEncoding(Int32):  # enum
+class DisplayWireFormatPixelEncoding(Enum, Int32):
     Rgb444 = 0
     Ycc444 = 1
     Ycc422 = 2

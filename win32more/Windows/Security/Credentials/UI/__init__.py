@@ -1,11 +1,11 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Security.Credentials.UI
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-class AuthenticationProtocol(Int32):  # enum
+class AuthenticationProtocol(Enum, Int32):
     Basic = 0
     Digest = 1
     Ntlm = 2
@@ -110,7 +110,7 @@ class CredentialPickerResults(ComPtr):
     CredentialSaved = property(get_CredentialSaved, None)
     CredentialUserName = property(get_CredentialUserName, None)
     ErrorCode = property(get_ErrorCode, None)
-class CredentialSaveOption(Int32):  # enum
+class CredentialSaveOption(Enum, Int32):
     Unselected = 0
     Selected = 1
     Hidden = 2
@@ -211,7 +211,7 @@ class IUserConsentVerifierStatics(ComPtr):
     def CheckAvailabilityAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerifierAvailability]: ...
     @winrt_commethod(7)
     def RequestVerificationAsync(self, message: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerificationResult]: ...
-class UserConsentVerificationResult(Int32):  # enum
+class UserConsentVerificationResult(Enum, Int32):
     Verified = 0
     DeviceNotPresent = 1
     NotConfiguredForUser = 2
@@ -226,7 +226,7 @@ class UserConsentVerifier(ComPtr):
     def CheckAvailabilityAsync(cls: win32more.Windows.Security.Credentials.UI.IUserConsentVerifierStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerifierAvailability]: ...
     @winrt_classmethod
     def RequestVerificationAsync(cls: win32more.Windows.Security.Credentials.UI.IUserConsentVerifierStatics, message: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.UI.UserConsentVerificationResult]: ...
-class UserConsentVerifierAvailability(Int32):  # enum
+class UserConsentVerifierAvailability(Enum, Int32):
     Available = 0
     DeviceNotPresent = 1
     NotConfiguredForUser = 2

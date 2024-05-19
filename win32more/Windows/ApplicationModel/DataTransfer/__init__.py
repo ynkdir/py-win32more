@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.Foundation
@@ -107,7 +107,7 @@ class ClipboardHistoryItemsResult(ComPtr):
     def get_Items(self: win32more.Windows.ApplicationModel.DataTransfer.IClipboardHistoryItemsResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.DataTransfer.ClipboardHistoryItem]: ...
     Items = property(get_Items, None)
     Status = property(get_Status, None)
-class ClipboardHistoryItemsResultStatus(Int32):  # enum
+class ClipboardHistoryItemsResultStatus(Enum, Int32):
     Success = 0
     AccessDenied = 1
     ClipboardHistoryDisabled = 2
@@ -175,7 +175,7 @@ class DataPackage(ComPtr):
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, put_RequestedOperation)
     ResourceMap = property(get_ResourceMap, None)
-class DataPackageOperation(UInt32):  # enum
+class DataPackageOperation(Enum, UInt32):
     None_ = 0
     Copy = 1
     Move = 2
@@ -1069,7 +1069,7 @@ class OperationCompletedEventArgs(ComPtr):
     def get_AcceptedFormatId(self: win32more.Windows.ApplicationModel.DataTransfer.IOperationCompletedEventArgs2) -> WinRT_String: ...
     AcceptedFormatId = property(get_AcceptedFormatId, None)
     Operation = property(get_Operation, None)
-class SetHistoryItemAsContentStatus(Int32):  # enum
+class SetHistoryItemAsContentStatus(Enum, Int32):
     Success = 0
     AccessDenied = 1
     ItemDeleted = 2
@@ -1169,7 +1169,7 @@ class ShareUIOptions(ComPtr):
     def put_SelectionRect(self: win32more.Windows.ApplicationModel.DataTransfer.IShareUIOptions, value: win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.Rect]) -> Void: ...
     SelectionRect = property(get_SelectionRect, put_SelectionRect)
     Theme = property(get_Theme, put_Theme)
-class ShareUITheme(Int32):  # enum
+class ShareUITheme(Enum, Int32):
     Default = 0
     Light = 1
     Dark = 2

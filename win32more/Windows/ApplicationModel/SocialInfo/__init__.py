@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.SocialInfo
 import win32more.Windows.Foundation
@@ -309,10 +309,10 @@ class SocialFeedItem(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
     Thumbnails = property(get_Thumbnails, None)
     Timestamp = property(get_Timestamp, put_Timestamp)
-class SocialFeedItemStyle(Int32):  # enum
+class SocialFeedItemStyle(Enum, Int32):
     Default = 0
     Photo = 1
-class SocialFeedKind(Int32):  # enum
+class SocialFeedKind(Enum, Int32):
     HomeFeed = 0
     ContactFeed = 1
     Dashboard = 2
@@ -352,11 +352,11 @@ class SocialFeedSharedItem(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Timestamp = property(get_Timestamp, put_Timestamp)
-class SocialFeedUpdateMode(Int32):  # enum
+class SocialFeedUpdateMode(Enum, Int32):
     Append = 0
     Replace = 1
 SocialInfoContract: UInt32 = 131072
-class SocialItemBadgeStyle(Int32):  # enum
+class SocialItemBadgeStyle(Enum, Int32):
     Hidden = 0
     Visible = 1
     VisibleWithCount = 2

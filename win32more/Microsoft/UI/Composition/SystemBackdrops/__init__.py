@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Composition
@@ -83,7 +83,7 @@ class DesktopAcrylicController(ComPtr):
     State = property(get_State, None)
     TintColor = property(get_TintColor, put_TintColor)
     TintOpacity = property(get_TintOpacity, put_TintOpacity)
-class DesktopAcrylicKind(Int32):  # enum
+class DesktopAcrylicKind(Enum, Int32):
     Default = 0
     Base = 1
     Thin = 2
@@ -298,7 +298,7 @@ class MicaController(ComPtr):
     State = property(get_State, None)
     TintColor = property(get_TintColor, put_TintColor)
     TintOpacity = property(get_TintOpacity, put_TintOpacity)
-class MicaKind(Int32):  # enum
+class MicaKind(Enum, Int32):
     Base = 0
     BaseAlt = 1
 class SystemBackdropConfiguration(ComPtr):
@@ -334,11 +334,11 @@ class SystemBackdropConfiguration(ComPtr):
     IsHighContrast = property(get_IsHighContrast, put_IsHighContrast)
     IsInputActive = property(get_IsInputActive, put_IsInputActive)
     Theme = property(get_Theme, put_Theme)
-class SystemBackdropState(Int32):  # enum
+class SystemBackdropState(Enum, Int32):
     Active = 0
     Fallback = 1
     HighContrast = 2
-class SystemBackdropTheme(Int32):  # enum
+class SystemBackdropTheme(Enum, Int32):
     Default = 0
     Light = 1
     Dark = 2

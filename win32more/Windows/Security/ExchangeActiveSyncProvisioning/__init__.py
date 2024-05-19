@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Security.ExchangeActiveSyncProvisioning
@@ -133,28 +133,28 @@ class EasComplianceResults(ComPtr):
     PasswordHistoryResult = property(get_PasswordHistoryResult, None)
     RequireEncryptionResult = property(get_RequireEncryptionResult, None)
 EasContract: UInt32 = 65536
-class EasDisallowConvenienceLogonResult(Int32):  # enum
+class EasDisallowConvenienceLogonResult(Enum, Int32):
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
     RequestedPolicyIsStricter = 3
-class EasEncryptionProviderType(Int32):  # enum
+class EasEncryptionProviderType(Enum, Int32):
     NotEvaluated = 0
     WindowsEncryption = 1
     OtherEncryption = 2
-class EasMaxInactivityTimeLockResult(Int32):  # enum
+class EasMaxInactivityTimeLockResult(Enum, Int32):
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
     RequestedPolicyIsStricter = 3
     InvalidParameter = 4
-class EasMaxPasswordFailedAttemptsResult(Int32):  # enum
+class EasMaxPasswordFailedAttemptsResult(Enum, Int32):
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
     RequestedPolicyIsStricter = 3
     InvalidParameter = 4
-class EasMinPasswordComplexCharactersResult(Int32):  # enum
+class EasMinPasswordComplexCharactersResult(Enum, Int32):
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
@@ -170,7 +170,7 @@ class EasMinPasswordComplexCharactersResult(Int32):  # enum
     ConnectedUserProviderPolicyIsWeak = 12
     ChangeConnectedAdminsPassword = 13
     ChangeConnectedUserPassword = 14
-class EasMinPasswordLengthResult(Int32):  # enum
+class EasMinPasswordLengthResult(Enum, Int32):
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
@@ -186,7 +186,7 @@ class EasMinPasswordLengthResult(Int32):  # enum
     ConnectedUserProviderPolicyIsWeak = 12
     ChangeConnectedAdminsPassword = 13
     ChangeConnectedUserPassword = 14
-class EasPasswordExpirationResult(Int32):  # enum
+class EasPasswordExpirationResult(Enum, Int32):
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
@@ -196,13 +196,13 @@ class EasPasswordExpirationResult(Int32):  # enum
     UserCannotChangePassword = 6
     AdminsCannotChangePassword = 7
     LocalControlledUsersCannotChangePassword = 8
-class EasPasswordHistoryResult(Int32):  # enum
+class EasPasswordHistoryResult(Enum, Int32):
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2
     RequestedPolicyIsStricter = 3
     InvalidParameter = 4
-class EasRequireEncryptionResult(Int32):  # enum
+class EasRequireEncryptionResult(Enum, Int32):
     NotEvaluated = 0
     Compliant = 1
     CanBeCompliant = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.Foundation
@@ -452,12 +452,12 @@ class WebViewControlPermissionRequestedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_PermissionRequest(self: win32more.Windows.Web.UI.IWebViewControlPermissionRequestedEventArgs) -> win32more.Windows.Web.UI.WebViewControlPermissionRequest: ...
     PermissionRequest = property(get_PermissionRequest, None)
-class WebViewControlPermissionState(Int32):  # enum
+class WebViewControlPermissionState(Enum, Int32):
     Unknown = 0
     Defer = 1
     Allow = 2
     Deny = 3
-class WebViewControlPermissionType(Int32):  # enum
+class WebViewControlPermissionType(Enum, Int32):
     Geolocation = 0
     UnlimitedIndexedDBQuota = 1
     Media = 2

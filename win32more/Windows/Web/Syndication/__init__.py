@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Xml.Dom
 import win32more.Windows.Foundation
@@ -681,7 +681,7 @@ class SyndicationError(ComPtr):
     _classid_ = 'Windows.Web.Syndication.SyndicationError'
     @winrt_classmethod
     def GetStatus(cls: win32more.Windows.Web.Syndication.ISyndicationErrorStatics, hresult: Int32) -> win32more.Windows.Web.Syndication.SyndicationErrorStatus: ...
-class SyndicationErrorStatus(Int32):  # enum
+class SyndicationErrorStatus(Enum, Int32):
     Unknown = 0
     MissingRequiredElement = 1
     MissingRequiredAttribute = 2
@@ -812,7 +812,7 @@ class SyndicationFeed(ComPtr):
     SourceFormat = property(get_SourceFormat, None)
     Subtitle = property(get_Subtitle, put_Subtitle)
     Title = property(get_Title, put_Title)
-class SyndicationFormat(Int32):  # enum
+class SyndicationFormat(Enum, Int32):
     Atom10 = 0
     Rss20 = 1
     Rss10 = 2
@@ -1279,7 +1279,7 @@ class SyndicationText(ComPtr):
     Text = property(get_Text, put_Text)
     Type = property(get_Type, put_Type)
     Xml = property(get_Xml, put_Xml)
-class SyndicationTextType(Int32):  # enum
+class SyndicationTextType(Enum, Int32):
     Text = 0
     Html = 1
     Xhtml = 2

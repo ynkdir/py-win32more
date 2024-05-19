@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.AI.MachineLearning
 import win32more.Windows.Foundation
@@ -748,7 +748,7 @@ class LearningModelDevice(ComPtr):
     def CreateFromDirect3D11Device(cls: win32more.Windows.AI.MachineLearning.ILearningModelDeviceStatics, device: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice) -> win32more.Windows.AI.MachineLearning.LearningModelDevice: ...
     AdapterId = property(get_AdapterId, None)
     Direct3D11Device = property(get_Direct3D11Device, None)
-class LearningModelDeviceKind(Int32):  # enum
+class LearningModelDeviceKind(Enum, Int32):
     Default = 0
     Cpu = 1
     DirectX = 2
@@ -770,12 +770,12 @@ class LearningModelEvaluationResult(ComPtr):
     ErrorStatus = property(get_ErrorStatus, None)
     Outputs = property(get_Outputs, None)
     Succeeded = property(get_Succeeded, None)
-class LearningModelFeatureKind(Int32):  # enum
+class LearningModelFeatureKind(Enum, Int32):
     Tensor = 0
     Sequence = 1
     Map = 2
     Image = 3
-class LearningModelPixelRange(Int32):  # enum
+class LearningModelPixelRange(Enum, Int32):
     ZeroTo255 = 0
     ZeroToOne = 1
     MinusOneToOne = 2
@@ -1156,7 +1156,7 @@ class TensorInt8Bit(ComPtr):
     Kind = property(get_Kind, None)
     Shape = property(get_Shape, None)
     TensorKind = property(get_TensorKind, None)
-class TensorKind(Int32):  # enum
+class TensorKind(Enum, Int32):
     Undefined = 0
     Float = 1
     UInt8 = 2

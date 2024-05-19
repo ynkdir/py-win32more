@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -243,7 +243,7 @@ class MessageTransmittedHandler(MulticastDelegate):
     _iid_ = Guid('{efaa0b4a-f6e2-4d7d-856c-78fc8efc021e}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice, messageId: Int64) -> Void: ...
-class PeerDiscoveryTypes(UInt32):  # enum
+class PeerDiscoveryTypes(Enum, UInt32):
     None_ = 0
     Browse = 1
     Triggered = 2
@@ -327,7 +327,7 @@ class PeerInformation(ComPtr):
     HostName = property(get_HostName, None)
     Id = property(get_Id, None)
     ServiceName = property(get_ServiceName, None)
-class PeerRole(Int32):  # enum
+class PeerRole(Enum, Int32):
     Peer = 0
     Host = 1
     Client = 2
@@ -362,7 +362,7 @@ class PeerWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Networking.Proximity.IPeerWatcher) -> Void: ...
     Status = property(get_Status, None)
-class PeerWatcherStatus(Int32):  # enum
+class PeerWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -430,7 +430,7 @@ class ProximityMessage(ComPtr):
     DataAsString = property(get_DataAsString, None)
     MessageType = property(get_MessageType, None)
     SubscriptionId = property(get_SubscriptionId, None)
-class TriggeredConnectState(Int32):  # enum
+class TriggeredConnectState(Enum, Int32):
     PeerFound = 0
     Listening = 1
     Connecting = 2

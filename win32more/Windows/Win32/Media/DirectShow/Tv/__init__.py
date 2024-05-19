@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media.DirectShow
@@ -5736,7 +5736,7 @@ MSVidAudioRendererDevices = Guid('{c5702ccf-9b79-11d3-b654-00c04f79498e}')
 MSVidBDATunerDevice = Guid('{a2e3074e-6c3d-11d3-b653-00c04f79498e}')
 MSVidCCA = Guid('{86151827-e47b-45ee-8421-d10e6e690979}')
 MSVidCCAToStreamBufferSink = Guid('{3ef76d68-8661-4843-8b8f-c37163d8c9ce}')
-class MSVidCCService(Int32):  # enum
+class MSVidCCService(Enum, Int32):
     None_ = 0
     Caption1 = 1
     Caption2 = 2

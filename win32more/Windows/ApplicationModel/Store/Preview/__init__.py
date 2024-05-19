@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Store.Preview
 import win32more.Windows.Foundation
@@ -10,14 +10,14 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.UI.Xaml
 import win32more.Windows.Win32.System.WinRT
-class DeliveryOptimizationDownloadMode(Int32):  # enum
+class DeliveryOptimizationDownloadMode(Enum, Int32):
     Simple = 0
     HttpOnly = 1
     Lan = 2
     Group = 3
     Internet = 4
     Bypass = 5
-class DeliveryOptimizationDownloadModeSource(Int32):  # enum
+class DeliveryOptimizationDownloadModeSource(Enum, Int32):
     Default = 0
     Policy = 1
 class DeliveryOptimizationSettings(ComPtr):
@@ -294,7 +294,7 @@ class StoreHardwareManufacturerInfo(ComPtr):
     ManufacturerName = property(get_ManufacturerName, None)
     ModelName = property(get_ModelName, None)
     StoreContentModifierId = property(get_StoreContentModifierId, None)
-class StoreLogOptions(UInt32):  # enum
+class StoreLogOptions(Enum, UInt32):
     None_ = 0
     TryElevate = 1
 class StorePreview(ComPtr):
@@ -323,7 +323,7 @@ class StorePreviewProductInfo(ComPtr):
     ProductType = property(get_ProductType, None)
     SkuInfoList = property(get_SkuInfoList, None)
     Title = property(get_Title, None)
-class StorePreviewProductPurchaseStatus(Int32):  # enum
+class StorePreviewProductPurchaseStatus(Enum, Int32):
     Succeeded = 0
     AlreadyPurchased = 1
     NotFulfilled = 2
@@ -366,7 +366,7 @@ class StorePreviewSkuInfo(ComPtr):
     SkuId = property(get_SkuId, None)
     SkuType = property(get_SkuType, None)
     Title = property(get_Title, None)
-class StoreSystemFeature(Int32):  # enum
+class StoreSystemFeature(Enum, Int32):
     ArchitectureX86 = 0
     ArchitectureX64 = 1
     ArchitectureArm = 2

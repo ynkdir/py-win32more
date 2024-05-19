@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -125,12 +125,12 @@ class MdmAlert(ComPtr):
     Status = property(get_Status, None)
     Target = property(get_Target, put_Target)
     Type = property(get_Type, put_Type)
-class MdmAlertDataType(Int32):  # enum
+class MdmAlertDataType(Enum, Int32):
     String = 0
     Base64 = 1
     Boolean = 2
     Integer = 3
-class MdmAlertMark(Int32):  # enum
+class MdmAlertMark(Enum, Int32):
     None_ = 0
     Fatal = 1
     Critical = 2
@@ -174,7 +174,7 @@ class MdmSessionManager(ComPtr, metaclass=_MdmSessionManager_Meta_):
     @winrt_classmethod
     def GetSessionById(cls: win32more.Windows.Management.IMdmSessionManagerStatics, sessionId: WinRT_String) -> win32more.Windows.Management.MdmSession: ...
     _MdmSessionManager_Meta_.SessionIds = property(get_SessionIds.__wrapped__, None)
-class MdmSessionState(Int32):  # enum
+class MdmSessionState(Enum, Int32):
     NotStarted = 0
     Starting = 1
     Connecting = 2

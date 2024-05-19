@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Haptics
 import win32more.Windows.Devices.Power
@@ -55,7 +55,7 @@ class ArcadeStick(ComPtr, metaclass=_ArcadeStick_Meta_):
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
     _ArcadeStick_Meta_.ArcadeSticks = property(get_ArcadeSticks.__wrapped__, None)
-class ArcadeStickButtons(UInt32):  # enum
+class ArcadeStickButtons(Enum, UInt32):
     None_ = 0
     StickUp = 1
     StickDown = 2
@@ -121,7 +121,7 @@ class FlightStick(ComPtr, metaclass=_FlightStick_Meta_):
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
     _FlightStick_Meta_.FlightSticks = property(get_FlightSticks.__wrapped__, None)
-class FlightStickButtons(UInt32):  # enum
+class FlightStickButtons(Enum, UInt32):
     None_ = 0
     FirePrimary = 1
     FireSecondary = 2
@@ -133,7 +133,7 @@ class FlightStickReading(Structure):
     Pitch: Double
     Yaw: Double
     Throttle: Double
-class GameControllerButtonLabel(Int32):  # enum
+class GameControllerButtonLabel(Enum, Int32):
     None_ = 0
     XboxBack = 1
     XboxStart = 2
@@ -203,11 +203,11 @@ class GameControllerButtonLabel(Int32):  # enum
     DialLeft = 66
     DialRight = 67
     Suspension = 68
-class GameControllerSwitchKind(Int32):  # enum
+class GameControllerSwitchKind(Enum, Int32):
     TwoWay = 0
     FourWay = 1
     EightWay = 2
-class GameControllerSwitchPosition(Int32):  # enum
+class GameControllerSwitchPosition(Enum, Int32):
     Center = 0
     Up = 1
     UpRight = 2
@@ -268,7 +268,7 @@ class Gamepad(ComPtr, metaclass=_Gamepad_Meta_):
     User = property(get_User, None)
     Vibration = property(get_Vibration, put_Vibration)
     _Gamepad_Meta_.Gamepads = property(get_Gamepads.__wrapped__, None)
-class GamepadButtons(UInt32):  # enum
+class GamepadButtons(Enum, UInt32):
     None_ = 0
     Menu = 1
     View = 2
@@ -587,7 +587,7 @@ class IUINavigationControllerStatics2(ComPtr):
     _iid_ = Guid('{e0cb28e3-b20b-4b0b-9ed4-f3d53cec0de4}')
     @winrt_commethod(6)
     def FromGameController(self, gameController: win32more.Windows.Gaming.Input.IGameController) -> win32more.Windows.Gaming.Input.UINavigationController: ...
-class OptionalUINavigationButtons(UInt32):  # enum
+class OptionalUINavigationButtons(Enum, UInt32):
     None_ = 0
     Context1 = 1
     Context2 = 2
@@ -665,7 +665,7 @@ class RacingWheel(ComPtr, metaclass=_RacingWheel_Meta_):
     User = property(get_User, None)
     WheelMotor = property(get_WheelMotor, None)
     _RacingWheel_Meta_.RacingWheels = property(get_RacingWheels.__wrapped__, None)
-class RacingWheelButtons(UInt32):  # enum
+class RacingWheelButtons(Enum, UInt32):
     None_ = 0
     PreviousGear = 1
     NextGear = 2
@@ -773,7 +773,7 @@ class RawGameController(ComPtr, metaclass=_RawGameController_Meta_):
     SwitchCount = property(get_SwitchCount, None)
     User = property(get_User, None)
     _RawGameController_Meta_.RawGameControllers = property(get_RawGameControllers.__wrapped__, None)
-class RequiredUINavigationButtons(UInt32):  # enum
+class RequiredUINavigationButtons(Enum, UInt32):
     None_ = 0
     Menu = 1
     View = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Appointments
 import win32more.Windows.ApplicationModel.Email
@@ -150,7 +150,7 @@ class AccessoryManager(ComPtr, metaclass=_AccessoryManager_Meta_):
     _AccessoryManager_Meta_.PhoneMute = property(get_PhoneMute.__wrapped__, put_PhoneMute.__wrapped__)
     _AccessoryManager_Meta_.SpeedDialList = property(get_SpeedDialList.__wrapped__, None)
     _AccessoryManager_Meta_.VolumeInfo = property(get_VolumeInfo.__wrapped__, None)
-class AccessoryNotificationType(UInt32):  # enum
+class AccessoryNotificationType(Enum, UInt32):
     None_ = 0
     Phone = 1
     Email = 2
@@ -223,7 +223,7 @@ class BinaryId(ComPtr):
     def get_Length(self: win32more.Windows.Phone.Notification.Management.IBinaryId) -> UInt32: ...
     Id = property(get_Id, None)
     Length = property(get_Length, None)
-class CalendarChangedEvent(Int32):  # enum
+class CalendarChangedEvent(Enum, Int32):
     LostEvents = 0
     AppointmentAdded = 1
     AppointmentChanged = 2
@@ -995,7 +995,7 @@ class MediaMetadata(ComPtr):
     Thumbnail = property(get_Thumbnail, None)
     Title = property(get_Title, None)
     Track = property(get_Track, None)
-class PhoneCallAudioEndpoint(Int32):  # enum
+class PhoneCallAudioEndpoint(Enum, Int32):
     Default = 0
     Speaker = 1
     Handsfree = 2
@@ -1039,16 +1039,16 @@ class PhoneCallDetails(ComPtr):
     PresetTextResponses = property(get_PresetTextResponses, None)
     StartTime = property(get_StartTime, None)
     State = property(get_State, None)
-class PhoneCallDirection(Int32):  # enum
+class PhoneCallDirection(Enum, Int32):
     Incoming = 0
     Outgoing = 1
-class PhoneCallState(Int32):  # enum
+class PhoneCallState(Enum, Int32):
     Unknown = 0
     Ringing = 1
     Talking = 2
     Held = 3
     Ended = 4
-class PhoneCallTransport(Int32):  # enum
+class PhoneCallTransport(Enum, Int32):
     Cellular = 0
     Voip = 1
 class PhoneLineDetails(ComPtr):
@@ -1076,11 +1076,11 @@ class PhoneLineDetails(ComPtr):
     MissedCallCount = property(get_MissedCallCount, None)
     RegistrationState = property(get_RegistrationState, None)
     VoicemailCount = property(get_VoicemailCount, None)
-class PhoneLineRegistrationState(Int32):  # enum
+class PhoneLineRegistrationState(Enum, Int32):
     Disconnected = 0
     Home = 1
     Roaming = 2
-class PhoneMediaType(Int32):  # enum
+class PhoneMediaType(Enum, Int32):
     AudioOnly = 0
     AudioVideo = 1
 class PhoneNotificationTriggerDetails(ComPtr):
@@ -1113,13 +1113,13 @@ class PhoneNotificationTriggerDetails(ComPtr):
     PhoneNotificationType = property(get_PhoneNotificationType, None)
     StartedProcessing = property(get_StartedProcessing, put_StartedProcessing)
     TimeCreated = property(get_TimeCreated, None)
-class PhoneNotificationType(Int32):  # enum
+class PhoneNotificationType(Enum, Int32):
     NewCall = 0
     CallChanged = 1
     LineChanged = 2
     PhoneCallAudioEndpointChanged = 3
     PhoneMuteChanged = 4
-class PlaybackCapability(UInt32):  # enum
+class PlaybackCapability(Enum, UInt32):
     None_ = 0
     Play = 1
     Pause = 2
@@ -1131,7 +1131,7 @@ class PlaybackCapability(UInt32):  # enum
     Previous = 128
     ChannelUp = 256
     ChannelDown = 512
-class PlaybackCommand(Int32):  # enum
+class PlaybackCommand(Enum, Int32):
     Play = 0
     Pause = 1
     Stop = 2
@@ -1142,7 +1142,7 @@ class PlaybackCommand(Int32):  # enum
     Previous = 7
     ChannelUp = 8
     ChannelDown = 9
-class PlaybackStatus(Int32):  # enum
+class PlaybackStatus(Enum, Int32):
     None_ = 0
     TrackChanged = 1
     Stopped = 2
@@ -1193,7 +1193,7 @@ class ReminderNotificationTriggerDetails(ComPtr):
     TimeCreated = property(get_TimeCreated, None)
     Timestamp = property(get_Timestamp, None)
     Title = property(get_Title, None)
-class ReminderState(Int32):  # enum
+class ReminderState(Enum, Int32):
     Active = 0
     Snoozed = 1
     Dismissed = 2
@@ -1259,7 +1259,7 @@ class ToastNotificationTriggerDetails(ComPtr):
     Text3 = property(get_Text3, None)
     Text4 = property(get_Text4, None)
     TimeCreated = property(get_TimeCreated, None)
-class VibrateState(Int32):  # enum
+class VibrateState(Enum, Int32):
     RingerOffVibrateOff = 0
     RingerOffVibrateOn = 1
     RingerOnVibrateOff = 2

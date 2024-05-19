@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -374,7 +374,7 @@ class SpatialAnchor(ComPtr):
     CoordinateSystem = property(get_CoordinateSystem, None)
     RawCoordinateSystem = property(get_RawCoordinateSystem, None)
     RemovedByUser = property(get_RemovedByUser, None)
-class SpatialAnchorExportPurpose(Int32):  # enum
+class SpatialAnchorExportPurpose(Enum, Int32):
     Relocalization = 0
     Sharing = 1
 class SpatialAnchorExportSufficiency(ComPtr):
@@ -561,14 +561,14 @@ class SpatialEntityWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Perception.Spatial.ISpatialEntityWatcher) -> Void: ...
     Status = property(get_Status, None)
-class SpatialEntityWatcherStatus(Int32):  # enum
+class SpatialEntityWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
     Stopping = 3
     Stopped = 4
     Aborted = 5
-class SpatialLocatability(Int32):  # enum
+class SpatialLocatability(Enum, Int32):
     Unavailable = 0
     OrientationOnly = 1
     PositionalTrackingActivating = 2
@@ -666,13 +666,13 @@ class SpatialLocatorPositionalTrackingDeactivatingEventArgs(ComPtr):
     @winrt_mixinmethod
     def put_Canceled(self: win32more.Windows.Perception.Spatial.ISpatialLocatorPositionalTrackingDeactivatingEventArgs, value: Boolean) -> Void: ...
     Canceled = property(get_Canceled, put_Canceled)
-class SpatialLookDirectionRange(Int32):  # enum
+class SpatialLookDirectionRange(Enum, Int32):
     ForwardOnly = 0
     Omnidirectional = 1
-class SpatialMovementRange(Int32):  # enum
+class SpatialMovementRange(Enum, Int32):
     NoMovement = 0
     Bounded = 1
-class SpatialPerceptionAccessStatus(Int32):  # enum
+class SpatialPerceptionAccessStatus(Enum, Int32):
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2

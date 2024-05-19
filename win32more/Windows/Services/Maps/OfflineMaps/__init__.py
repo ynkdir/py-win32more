@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
@@ -93,7 +93,7 @@ class OfflineMapPackageQueryResult(ComPtr):
     def get_Packages(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackage]: ...
     Packages = property(get_Packages, None)
     Status = property(get_Status, None)
-class OfflineMapPackageQueryStatus(Int32):  # enum
+class OfflineMapPackageQueryStatus(Enum, Int32):
     Success = 0
     UnknownError = 1
     InvalidCredentials = 2
@@ -105,12 +105,12 @@ class OfflineMapPackageStartDownloadResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStartDownloadResult) -> win32more.Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadStatus: ...
     Status = property(get_Status, None)
-class OfflineMapPackageStartDownloadStatus(Int32):  # enum
+class OfflineMapPackageStartDownloadStatus(Enum, Int32):
     Success = 0
     UnknownError = 1
     InvalidCredentials = 2
     DeniedWithoutCapability = 3
-class OfflineMapPackageStatus(Int32):  # enum
+class OfflineMapPackageStatus(Enum, Int32):
     NotDownloaded = 0
     Downloading = 1
     Downloaded = 2

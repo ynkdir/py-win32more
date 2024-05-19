@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.AI.MachineLearning.Preview
 import win32more.Windows.Foundation
@@ -8,7 +8,7 @@ import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
-class FeatureElementKindPreview(Int32):  # enum
+class FeatureElementKindPreview(Enum, Int32):
     Undefined = 0
     Float = 1
     UInt8 = 2
@@ -306,7 +306,7 @@ class LearningModelDescriptionPreview(ComPtr):
     Name = property(get_Name, None)
     OutputFeatures = property(get_OutputFeatures, None)
     Version = property(get_Version, None)
-class LearningModelDeviceKindPreview(Int32):  # enum
+class LearningModelDeviceKindPreview(Enum, Int32):
     LearningDeviceAny = 0
     LearningDeviceCpu = 1
     LearningDeviceGpu = 2
@@ -323,7 +323,7 @@ class LearningModelEvaluationResultPreview(ComPtr):
     def get_Outputs(self: win32more.Windows.AI.MachineLearning.Preview.ILearningModelEvaluationResultPreview) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     CorrelationId = property(get_CorrelationId, None)
     Outputs = property(get_Outputs, None)
-class LearningModelFeatureKindPreview(Int32):  # enum
+class LearningModelFeatureKindPreview(Enum, Int32):
     Undefined = 0
     Tensor = 1
     Sequence = 2

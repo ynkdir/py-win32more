@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -1150,24 +1150,24 @@ class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG(Structure):
     Size: UInt32
     TriggerId: win32more.Windows.Win32.Foundation.PWSTR
 CameraUIControl = Guid('{16d5a2be-b1c5-47b3-8eae-ccbcf452c7e8}')
-class CameraUIControlCaptureMode(Int32):  # enum
+class CameraUIControlCaptureMode(Enum, Int32):
     PhotoOrVideo = 0
     Photo = 1
     Video = 2
-class CameraUIControlLinearSelectionMode(Int32):  # enum
+class CameraUIControlLinearSelectionMode(Enum, Int32):
     Single = 0
     Multiple = 1
-class CameraUIControlMode(Int32):  # enum
+class CameraUIControlMode(Enum, Int32):
     Browse = 0
     Linear = 1
-class CameraUIControlPhotoFormat(Int32):  # enum
+class CameraUIControlPhotoFormat(Enum, Int32):
     Jpeg = 0
     Png = 1
     JpegXR = 2
-class CameraUIControlVideoFormat(Int32):  # enum
+class CameraUIControlVideoFormat(Enum, Int32):
     Mp4 = 0
     Wmv = 1
-class CameraUIControlViewType(Int32):  # enum
+class CameraUIControlViewType(Enum, Int32):
     SingleItem = 0
     ItemList = 1
 class DATETIME(Structure):

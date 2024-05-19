@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.PointOfService
 import win32more.Windows.Foundation
@@ -120,7 +120,7 @@ class BarcodeScannerReport(ComPtr):
     ScanData = property(get_ScanData, None)
     ScanDataLabel = property(get_ScanDataLabel, None)
     ScanDataType = property(get_ScanDataType, None)
-class BarcodeScannerStatus(Int32):  # enum
+class BarcodeScannerStatus(Enum, Int32):
     Online = 0
     Off = 1
     Offline = 2
@@ -463,7 +463,7 @@ class BarcodeSymbologyAttributes(ComPtr):
     IsCheckDigitValidationEnabled = property(get_IsCheckDigitValidationEnabled, put_IsCheckDigitValidationEnabled)
     IsCheckDigitValidationSupported = property(get_IsCheckDigitValidationSupported, None)
     IsDecodeLengthSupported = property(get_IsDecodeLengthSupported, None)
-class BarcodeSymbologyDecodeLengthKind(Int32):  # enum
+class BarcodeSymbologyDecodeLengthKind(Enum, Int32):
     AnyLength = 0
     Discrete = 1
     Range = 2
@@ -594,7 +594,7 @@ class CashDrawerStatus(ComPtr):
     def get_ExtendedStatus(self: win32more.Windows.Devices.PointOfService.ICashDrawerStatus) -> UInt32: ...
     ExtendedStatus = property(get_ExtendedStatus, None)
     StatusKind = property(get_StatusKind, None)
-class CashDrawerStatusKind(Int32):  # enum
+class CashDrawerStatusKind(Enum, Int32):
     Online = 0
     Off = 1
     Offline = 2
@@ -3656,7 +3656,7 @@ class LineDisplayCursorAttributes(ComPtr):
     IsAutoAdvanceEnabled = property(get_IsAutoAdvanceEnabled, put_IsAutoAdvanceEnabled)
     IsBlinkEnabled = property(get_IsBlinkEnabled, put_IsBlinkEnabled)
     Position = property(get_Position, put_Position)
-class LineDisplayCursorType(Int32):  # enum
+class LineDisplayCursorType(Enum, Int32):
     None_ = 0
     Block = 1
     HalfBlock = 2
@@ -3675,11 +3675,11 @@ class LineDisplayCustomGlyphs(ComPtr):
     def TryRedefineAsync(self: win32more.Windows.Devices.PointOfService.ILineDisplayCustomGlyphs, glyphCode: UInt32, glyphData: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     SizeInPixels = property(get_SizeInPixels, None)
     SupportedGlyphCodes = property(get_SupportedGlyphCodes, None)
-class LineDisplayDescriptorState(Int32):  # enum
+class LineDisplayDescriptorState(Enum, Int32):
     Off = 0
     On = 1
     Blink = 2
-class LineDisplayHorizontalAlignment(Int32):  # enum
+class LineDisplayHorizontalAlignment(Enum, Int32):
     Left = 0
     Center = 1
     Right = 2
@@ -3706,17 +3706,17 @@ class LineDisplayMarquee(ComPtr):
     Format = property(get_Format, put_Format)
     RepeatWaitInterval = property(get_RepeatWaitInterval, put_RepeatWaitInterval)
     ScrollWaitInterval = property(get_ScrollWaitInterval, put_ScrollWaitInterval)
-class LineDisplayMarqueeFormat(Int32):  # enum
+class LineDisplayMarqueeFormat(Enum, Int32):
     None_ = 0
     Walk = 1
     Place = 2
-class LineDisplayPowerStatus(Int32):  # enum
+class LineDisplayPowerStatus(Enum, Int32):
     Unknown = 0
     Online = 1
     Off = 2
     Offline = 3
     OffOrOffline = 4
-class LineDisplayScrollDirection(Int32):  # enum
+class LineDisplayScrollDirection(Enum, Int32):
     Up = 0
     Down = 1
     Left = 2
@@ -3750,16 +3750,16 @@ class LineDisplayStoredBitmap(ComPtr):
     @winrt_mixinmethod
     def TryDeleteAsync(self: win32more.Windows.Devices.PointOfService.ILineDisplayStoredBitmap) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     EscapeSequence = property(get_EscapeSequence, None)
-class LineDisplayTextAttribute(Int32):  # enum
+class LineDisplayTextAttribute(Enum, Int32):
     Normal = 0
     Blink = 1
     Reverse = 2
     ReverseBlink = 3
-class LineDisplayTextAttributeGranularity(Int32):  # enum
+class LineDisplayTextAttributeGranularity(Enum, Int32):
     NotSupported = 0
     EntireDisplay = 1
     PerCharacter = 2
-class LineDisplayVerticalAlignment(Int32):  # enum
+class LineDisplayVerticalAlignment(Enum, Int32):
     Top = 0
     Center = 1
     Bottom = 2
@@ -3908,11 +3908,11 @@ class MagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     Suffix = property(get_Suffix, None)
     Surname = property(get_Surname, None)
     Weight = property(get_Weight, None)
-class MagneticStripeReaderAuthenticationLevel(Int32):  # enum
+class MagneticStripeReaderAuthenticationLevel(Enum, Int32):
     NotSupported = 0
     Optional = 1
     Required = 2
-class MagneticStripeReaderAuthenticationProtocol(Int32):  # enum
+class MagneticStripeReaderAuthenticationProtocol(Enum, Int32):
     None_ = 0
     ChallengeResponse = 1
 class MagneticStripeReaderBankCardDataReceivedEventArgs(ComPtr):
@@ -4036,7 +4036,7 @@ class MagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     Track2Status = property(get_Track2Status, None)
     Track3Status = property(get_Track3Status, None)
     Track4Status = property(get_Track4Status, None)
-class MagneticStripeReaderErrorReportingType(Int32):  # enum
+class MagneticStripeReaderErrorReportingType(Enum, Int32):
     CardLevel = 0
     TrackLevel = 1
 class MagneticStripeReaderReport(ComPtr):
@@ -4070,7 +4070,7 @@ class MagneticStripeReaderReport(ComPtr):
     Track2 = property(get_Track2, None)
     Track3 = property(get_Track3, None)
     Track4 = property(get_Track4, None)
-class MagneticStripeReaderStatus(Int32):  # enum
+class MagneticStripeReaderStatus(Enum, Int32):
     Unauthenticated = 0
     Authenticated = 1
     Extended = 2
@@ -4097,14 +4097,14 @@ class MagneticStripeReaderTrackData(ComPtr):
     Data = property(get_Data, None)
     DiscretionaryData = property(get_DiscretionaryData, None)
     EncryptedData = property(get_EncryptedData, None)
-class MagneticStripeReaderTrackErrorType(Int32):  # enum
+class MagneticStripeReaderTrackErrorType(Enum, Int32):
     None_ = 0
     StartSentinelError = 1
     EndSentinelError = 2
     ParityError = 3
     LrcError = 4
     Unknown = -1
-class MagneticStripeReaderTrackIds(Int32):  # enum
+class MagneticStripeReaderTrackIds(Enum, Int32):
     None_ = 0
     Track1 = 1
     Track2 = 2
@@ -4117,7 +4117,7 @@ class MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Report(self: win32more.Windows.Devices.PointOfService.IMagneticStripeReaderVendorSpecificCardDataReceivedEventArgs) -> win32more.Windows.Devices.PointOfService.MagneticStripeReaderReport: ...
     Report = property(get_Report, None)
-class PosConnectionTypes(UInt32):  # enum
+class PosConnectionTypes(Enum, UInt32):
     Local = 1
     IP = 2
     Bluetooth = 4
@@ -4166,11 +4166,11 @@ class PosPrinter(ComPtr):
     SupportedBarcodeSymbologies = property(get_SupportedBarcodeSymbologies, None)
     SupportedCharacterSets = property(get_SupportedCharacterSets, None)
     SupportedTypeFaces = property(get_SupportedTypeFaces, None)
-class PosPrinterAlignment(Int32):  # enum
+class PosPrinterAlignment(Enum, Int32):
     Left = 0
     Center = 1
     Right = 2
-class PosPrinterBarcodeTextPosition(Int32):  # enum
+class PosPrinterBarcodeTextPosition(Enum, Int32):
     None_ = 0
     Above = 1
     Below = 2
@@ -4208,7 +4208,7 @@ class PosPrinterCapabilities(ComPtr):
     PowerReportingType = property(get_PowerReportingType, None)
     Receipt = property(get_Receipt, None)
     Slip = property(get_Slip, None)
-class PosPrinterCartridgeSensors(UInt32):  # enum
+class PosPrinterCartridgeSensors(Enum, UInt32):
     None_ = 0
     Removed = 1
     Empty = 2
@@ -4228,7 +4228,7 @@ class PosPrinterCharacterSetIds(ComPtr, metaclass=_PosPrinterCharacterSetIds_Met
     _PosPrinterCharacterSetIds_Meta_.Ansi = property(get_Ansi.__wrapped__, None)
     _PosPrinterCharacterSetIds_Meta_.Ascii = property(get_Ascii.__wrapped__, None)
     _PosPrinterCharacterSetIds_Meta_.Utf16LE = property(get_Utf16LE.__wrapped__, None)
-class PosPrinterColorCapabilities(UInt32):  # enum
+class PosPrinterColorCapabilities(Enum, UInt32):
     None_ = 0
     Primary = 1
     Custom1 = 2
@@ -4241,7 +4241,7 @@ class PosPrinterColorCapabilities(UInt32):  # enum
     Magenta = 256
     Yellow = 512
     Full = 1024
-class PosPrinterColorCartridge(Int32):  # enum
+class PosPrinterColorCartridge(Enum, Int32):
     Unknown = 0
     Primary = 1
     Custom1 = 2
@@ -4266,26 +4266,26 @@ class PosPrinterFontProperty(ComPtr):
     CharacterSizes = property(get_CharacterSizes, None)
     IsScalableToAnySize = property(get_IsScalableToAnySize, None)
     TypeFace = property(get_TypeFace, None)
-class PosPrinterLineDirection(Int32):  # enum
+class PosPrinterLineDirection(Enum, Int32):
     Horizontal = 0
     Vertical = 1
-class PosPrinterLineStyle(Int32):  # enum
+class PosPrinterLineStyle(Enum, Int32):
     SingleSolid = 0
     DoubleSolid = 1
     Broken = 2
     Chain = 3
-class PosPrinterMapMode(Int32):  # enum
+class PosPrinterMapMode(Enum, Int32):
     Dots = 0
     Twips = 1
     English = 2
     Metric = 3
-class PosPrinterMarkFeedCapabilities(UInt32):  # enum
+class PosPrinterMarkFeedCapabilities(Enum, UInt32):
     None_ = 0
     ToTakeUp = 1
     ToCutter = 2
     ToCurrentTopOfForm = 4
     ToNextTopOfForm = 8
-class PosPrinterMarkFeedKind(Int32):  # enum
+class PosPrinterMarkFeedKind(Enum, Int32):
     ToTakeUp = 0
     ToCutter = 1
     ToCurrentTopOfForm = 2
@@ -4368,7 +4368,7 @@ class PosPrinterPrintOptions(ComPtr):
     Superscript = property(get_Superscript, put_Superscript)
     TypeFace = property(get_TypeFace, put_TypeFace)
     Underline = property(get_Underline, put_Underline)
-class PosPrinterPrintSide(Int32):  # enum
+class PosPrinterPrintSide(Enum, Int32):
     Unknown = 0
     Side1 = 1
     Side2 = 2
@@ -4376,12 +4376,12 @@ class PosPrinterReleaseDeviceRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IPosPrinterReleaseDeviceRequestedEventArgs
     _classid_ = 'Windows.Devices.PointOfService.PosPrinterReleaseDeviceRequestedEventArgs'
-class PosPrinterRotation(Int32):  # enum
+class PosPrinterRotation(Enum, Int32):
     Normal = 0
     Right90 = 1
     Left90 = 2
     Rotate180 = 3
-class PosPrinterRuledLineCapabilities(UInt32):  # enum
+class PosPrinterRuledLineCapabilities(Enum, UInt32):
     None_ = 0
     Horizontal = 1
     Vertical = 2
@@ -4395,7 +4395,7 @@ class PosPrinterStatus(ComPtr):
     def get_ExtendedStatus(self: win32more.Windows.Devices.PointOfService.IPosPrinterStatus) -> UInt32: ...
     ExtendedStatus = property(get_ExtendedStatus, None)
     StatusKind = property(get_StatusKind, None)
-class PosPrinterStatusKind(Int32):  # enum
+class PosPrinterStatusKind(Enum, Int32):
     Online = 0
     Off = 1
     Offline = 2
@@ -4735,7 +4735,7 @@ class UnifiedPosErrorData(ComPtr):
     Message = property(get_Message, None)
     Reason = property(get_Reason, None)
     Severity = property(get_Severity, None)
-class UnifiedPosErrorReason(Int32):  # enum
+class UnifiedPosErrorReason(Enum, Int32):
     UnknownErrorReason = 0
     NoService = 1
     Disabled = 2
@@ -4747,19 +4747,19 @@ class UnifiedPosErrorReason(Int32):  # enum
     Timeout = 8
     Busy = 9
     Extended = 10
-class UnifiedPosErrorSeverity(Int32):  # enum
+class UnifiedPosErrorSeverity(Enum, Int32):
     UnknownErrorSeverity = 0
     Warning = 1
     Recoverable = 2
     Unrecoverable = 3
     AssistanceRequired = 4
     Fatal = 5
-class UnifiedPosHealthCheckLevel(Int32):  # enum
+class UnifiedPosHealthCheckLevel(Enum, Int32):
     UnknownHealthCheckLevel = 0
     POSInternal = 1
     External = 2
     Interactive = 3
-class UnifiedPosPowerReportingType(Int32):  # enum
+class UnifiedPosPowerReportingType(Enum, Int32):
     UnknownPowerReportingType = 0
     Standard = 1
     Advanced = 2

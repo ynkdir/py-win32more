@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.Foundation
@@ -317,10 +317,10 @@ class WebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     KeyStatus = property(get_KeyStatus, None)
     RoutingStage = property(get_RoutingStage, None)
     VirtualKey = property(get_VirtualKey, None)
-class WebViewControlAcceleratorKeyRoutingStage(Int32):  # enum
+class WebViewControlAcceleratorKeyRoutingStage(Enum, Int32):
     Tunneling = 0
     Bubbling = 1
-class WebViewControlMoveFocusReason(Int32):  # enum
+class WebViewControlMoveFocusReason(Enum, Int32):
     Programmatic = 0
     Next = 1
     Previous = 2
@@ -367,7 +367,7 @@ class WebViewControlProcess(ComPtr):
     EnterpriseId = property(get_EnterpriseId, None)
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
     ProcessId = property(get_ProcessId, None)
-class WebViewControlProcessCapabilityState(Int32):  # enum
+class WebViewControlProcessCapabilityState(Enum, Int32):
     Default = 0
     Disabled = 1
     Enabled = 2

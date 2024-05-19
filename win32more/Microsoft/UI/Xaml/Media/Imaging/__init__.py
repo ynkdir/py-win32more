@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Media
@@ -10,7 +10,7 @@ import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-class BitmapCreateOptions(UInt32):  # enum
+class BitmapCreateOptions(Enum, UInt32):
     None_ = 0
     IgnoreImageCache = 8
 class _BitmapImage_Meta_(ComPtr.__class__):
@@ -139,7 +139,7 @@ class BitmapSource(ComPtr, metaclass=_BitmapSource_Meta_):
     PixelWidth = property(get_PixelWidth, None)
     _BitmapSource_Meta_.PixelHeightProperty = property(get_PixelHeightProperty.__wrapped__, None)
     _BitmapSource_Meta_.PixelWidthProperty = property(get_PixelWidthProperty.__wrapped__, None)
-class DecodePixelType(Int32):  # enum
+class DecodePixelType(Enum, Int32):
     Physical = 0
     Logical = 1
 class DownloadProgressEventArgs(ComPtr):
@@ -560,7 +560,7 @@ class SvgImageSourceFailedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Microsoft.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs) -> win32more.Microsoft.UI.Xaml.Media.Imaging.SvgImageSourceLoadStatus: ...
     Status = property(get_Status, None)
-class SvgImageSourceLoadStatus(Int32):  # enum
+class SvgImageSourceLoadStatus(Enum, Int32):
     Success = 0
     NetworkError = 1
     InvalidFormat = 2

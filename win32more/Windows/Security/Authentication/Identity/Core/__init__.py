@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -129,7 +129,7 @@ class MicrosoftAccountMultiFactorAuthenticationManager(ComPtr, metaclass=_Micros
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticatorStatics) -> win32more.Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager: ...
     _MicrosoftAccountMultiFactorAuthenticationManager_Meta_.Current = property(get_Current.__wrapped__, None)
-class MicrosoftAccountMultiFactorAuthenticationType(Int32):  # enum
+class MicrosoftAccountMultiFactorAuthenticationType(Enum, Int32):
     User = 0
     Device = 1
 class MicrosoftAccountMultiFactorGetSessionsResult(ComPtr):
@@ -158,7 +158,7 @@ class MicrosoftAccountMultiFactorOneTimeCodedInfo(ComPtr):
     ServiceResponse = property(get_ServiceResponse, None)
     TimeInterval = property(get_TimeInterval, None)
     TimeToLive = property(get_TimeToLive, None)
-class MicrosoftAccountMultiFactorServiceResponse(Int32):  # enum
+class MicrosoftAccountMultiFactorServiceResponse(Enum, Int32):
     Success = 0
     Error = 1
     NoNetworkConnection = 2
@@ -181,11 +181,11 @@ class MicrosoftAccountMultiFactorServiceResponse(Int32):  # enum
     NgcKeyNotFoundOnServer = 19
     UIRequired = 20
     DeviceIdChanged = 21
-class MicrosoftAccountMultiFactorSessionApprovalStatus(Int32):  # enum
+class MicrosoftAccountMultiFactorSessionApprovalStatus(Enum, Int32):
     Pending = 0
     Approved = 1
     Denied = 2
-class MicrosoftAccountMultiFactorSessionAuthenticationStatus(Int32):  # enum
+class MicrosoftAccountMultiFactorSessionAuthenticationStatus(Enum, Int32):
     Authenticated = 0
     Unauthenticated = 1
 class MicrosoftAccountMultiFactorSessionInfo(ComPtr):

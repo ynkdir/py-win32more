@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Scanners
 import win32more.Windows.Foundation
@@ -250,11 +250,11 @@ class ImageScannerAutoConfiguration(ComPtr):
     def IsFormatSupported(self: win32more.Windows.Devices.Scanners.IImageScannerFormatConfiguration, value: win32more.Windows.Devices.Scanners.ImageScannerFormat) -> Boolean: ...
     DefaultFormat = property(get_DefaultFormat, None)
     Format = property(get_Format, put_Format)
-class ImageScannerAutoCroppingMode(Int32):  # enum
+class ImageScannerAutoCroppingMode(Enum, Int32):
     Disabled = 0
     SingleRegion = 1
     MultipleRegion = 2
-class ImageScannerColorMode(Int32):  # enum
+class ImageScannerColorMode(Enum, Int32):
     Color = 0
     Grayscale = 1
     Monochrome = 2
@@ -489,7 +489,7 @@ class ImageScannerFlatbedConfiguration(ComPtr):
     MinScanArea = property(get_MinScanArea, None)
     OpticalResolution = property(get_OpticalResolution, None)
     SelectedScanRegion = property(get_SelectedScanRegion, put_SelectedScanRegion)
-class ImageScannerFormat(Int32):  # enum
+class ImageScannerFormat(Enum, Int32):
     Jpeg = 0
     Png = 1
     DeviceIndependentBitmap = 2
@@ -517,7 +517,7 @@ class ImageScannerScanResult(ComPtr):
     @winrt_mixinmethod
     def get_ScannedFiles(self: win32more.Windows.Devices.Scanners.IImageScannerScanResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.StorageFile]: ...
     ScannedFiles = property(get_ScannedFiles, None)
-class ImageScannerScanSource(Int32):  # enum
+class ImageScannerScanSource(Enum, Int32):
     Default = 0
     Flatbed = 1
     Feeder = 2

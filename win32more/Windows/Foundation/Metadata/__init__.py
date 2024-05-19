@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation.Metadata
 import win32more.Windows.Win32.System.WinRT
@@ -26,7 +26,7 @@ class ApiInformation(ComPtr):
     def IsApiContractPresentByMajor(cls: win32more.Windows.Foundation.Metadata.IApiInformationStatics, contractName: WinRT_String, majorVersion: UInt16) -> Boolean: ...
     @winrt_classmethod
     def IsApiContractPresentByMajorAndMinor(cls: win32more.Windows.Foundation.Metadata.IApiInformationStatics, contractName: WinRT_String, majorVersion: UInt16, minorVersion: UInt16) -> Boolean: ...
-class AttributeTargets(UInt32):  # enum
+class AttributeTargets(Enum, UInt32):
     All = 4294967295
     Delegate = 1
     Enum = 2
@@ -40,18 +40,18 @@ class AttributeTargets(UInt32):  # enum
     Struct = 1024
     InterfaceImpl = 2048
     ApiContract = 8192
-class CompositionType(Int32):  # enum
+class CompositionType(Enum, Int32):
     Protected = 1
     Public = 2
-class DeprecationType(Int32):  # enum
+class DeprecationType(Enum, Int32):
     Deprecate = 0
     Remove = 1
-class FeatureStage(Int32):  # enum
+class FeatureStage(Enum, Int32):
     AlwaysDisabled = 0
     DisabledByDefault = 1
     EnabledByDefault = 2
     AlwaysEnabled = 3
-class GCPressureAmount(Int32):  # enum
+class GCPressureAmount(Enum, Int32):
     Low = 0
     Medium = 1
     High = 2
@@ -79,15 +79,15 @@ class IApiInformationStatics(ComPtr):
     def IsApiContractPresentByMajor(self, contractName: WinRT_String, majorVersion: UInt16) -> Boolean: ...
     @winrt_commethod(15)
     def IsApiContractPresentByMajorAndMinor(self, contractName: WinRT_String, majorVersion: UInt16, minorVersion: UInt16) -> Boolean: ...
-class MarshalingType(Int32):  # enum
+class MarshalingType(Enum, Int32):
     None_ = 1
     Agile = 2
     Standard = 3
     InvalidMarshaling = 0
-class Platform(Int32):  # enum
+class Platform(Enum, Int32):
     Windows = 0
     WindowsPhone = 1
-class ThreadingModel(Int32):  # enum
+class ThreadingModel(Enum, Int32):
     STA = 1
     MTA = 2
     Both = 3

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -7,7 +7,7 @@ import win32more.Windows.Storage
 import win32more.Windows.Storage.AccessCache
 import win32more.Windows.System
 import win32more.Windows.Win32.System.WinRT
-class AccessCacheOptions(UInt32):  # enum
+class AccessCacheOptions(Enum, UInt32):
     None_ = 0
     DisallowUserInput = 1
     FastLocationsOnly = 2
@@ -117,7 +117,7 @@ class ItemRemovedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_RemovedEntry(self: win32more.Windows.Storage.AccessCache.IItemRemovedEventArgs) -> win32more.Windows.Storage.AccessCache.AccessListEntry: ...
     RemovedEntry = property(get_RemovedEntry, None)
-class RecentStorageItemVisibility(Int32):  # enum
+class RecentStorageItemVisibility(Enum, Int32):
     AppOnly = 0
     AppAndSystem = 1
 class _StorageApplicationPermissions_Meta_(ComPtr.__class__):

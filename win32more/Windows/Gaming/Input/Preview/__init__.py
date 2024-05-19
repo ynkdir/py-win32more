@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Gaming.Input
@@ -7,25 +7,25 @@ import win32more.Windows.Gaming.Input.Custom
 import win32more.Windows.Gaming.Input.Preview
 import win32more.Windows.System
 import win32more.Windows.Win32.System.WinRT
-class DeviceCommand(Int32):  # enum
+class DeviceCommand(Enum, Int32):
     Reset = 0
-class GameControllerBatteryChargingState(Int32):  # enum
+class GameControllerBatteryChargingState(Enum, Int32):
     Unknown = 0
     Inactive = 1
     Active = 2
     Error = 3
-class GameControllerBatteryKind(Int32):  # enum
+class GameControllerBatteryKind(Enum, Int32):
     Unknown = 0
     None_ = 1
     Standard = 2
     Rechargeable = 3
-class GameControllerBatteryLevel(Int32):  # enum
+class GameControllerBatteryLevel(Enum, Int32):
     Unknown = 0
     Critical = 1
     Low = 2
     Medium = 3
     Full = 4
-class GameControllerFirmwareCorruptReason(Int32):  # enum
+class GameControllerFirmwareCorruptReason(Enum, Int32):
     Unknown = 0
     NotCorrupt = 1
     TwoUpCorrupt = 2
@@ -46,12 +46,12 @@ class HeadsetGeqGains(Structure):
     band3Gain: Int32
     band4Gain: Int32
     band5Gain: Int32
-class HeadsetLevel(Int32):  # enum
+class HeadsetLevel(Enum, Int32):
     Off = 0
     Low = 1
     Medium = 2
     High = 3
-class HeadsetOperation(Int32):  # enum
+class HeadsetOperation(Enum, Int32):
     Geq = 0
     BassBoostGain = 1
     SmartMute = 2
@@ -180,7 +180,7 @@ class LegacyGipGameControllerProvider(ComPtr):
     IsFirmwareCorrupted = property(get_IsFirmwareCorrupted, None)
     IsSyntheticDevice = property(get_IsSyntheticDevice, None)
     PreferredTypes = property(get_PreferredTypes, None)
-class RemappingButtonCategory(Int32):  # enum
+class RemappingButtonCategory(Enum, Int32):
     ButtonSettings = 0
     AnalogSettings = 1
     VibrationSettings = 2

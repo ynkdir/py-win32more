@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -144,7 +144,7 @@ class HolographicCameraViewportParameters(ComPtr):
     def get_VisibleAreaMesh(self: win32more.Windows.Graphics.Holographic.IHolographicCameraViewportParameters) -> ReceiveArray[win32more.Windows.Foundation.Numerics.Vector2]: ...
     HiddenAreaMesh = property(get_HiddenAreaMesh, None)
     VisibleAreaMesh = property(get_VisibleAreaMesh, None)
-class HolographicDepthReprojectionMethod(Int32):  # enum
+class HolographicDepthReprojectionMethod(Enum, Int32):
     DepthReprojection = 0
     AutoPlanar = 1
 class HolographicDisplay(ComPtr):
@@ -219,10 +219,10 @@ class HolographicFramePrediction(ComPtr):
     def get_Timestamp(self: win32more.Windows.Graphics.Holographic.IHolographicFramePrediction) -> win32more.Windows.Perception.PerceptionTimestamp: ...
     CameraPoses = property(get_CameraPoses, None)
     Timestamp = property(get_Timestamp, None)
-class HolographicFramePresentResult(Int32):  # enum
+class HolographicFramePresentResult(Enum, Int32):
     Success = 0
     DeviceRemoved = 1
-class HolographicFramePresentWaitBehavior(Int32):  # enum
+class HolographicFramePresentWaitBehavior(Enum, Int32):
     WaitForFrameToFinish = 0
     DoNotWaitForFrameToFinish = 1
 class HolographicFramePresentationMonitor(ComPtr):
@@ -344,7 +344,7 @@ class HolographicQuadLayerUpdateParameters(ComPtr):
     @winrt_mixinmethod
     def AcquireBufferToUpdateContentWithHardwareProtection(self: win32more.Windows.Graphics.Holographic.IHolographicQuadLayerUpdateParameters2) -> win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface: ...
     CanAcquireWithHardwareProtection = property(get_CanAcquireWithHardwareProtection, None)
-class HolographicReprojectionMode(Int32):  # enum
+class HolographicReprojectionMode(Enum, Int32):
     PositionAndOrientation = 0
     OrientationOnly = 1
     Disabled = 2
@@ -415,7 +415,7 @@ class HolographicSpaceCameraRemovedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Camera(self: win32more.Windows.Graphics.Holographic.IHolographicSpaceCameraRemovedEventArgs) -> win32more.Windows.Graphics.Holographic.HolographicCamera: ...
     Camera = property(get_Camera, None)
-class HolographicSpaceUserPresence(Int32):  # enum
+class HolographicSpaceUserPresence(Enum, Int32):
     Absent = 0
     PresentPassive = 1
     PresentActive = 2
@@ -462,7 +462,7 @@ class HolographicViewConfiguration(ComPtr):
     RenderTargetSize = property(get_RenderTargetSize, None)
     SupportedDepthReprojectionMethods = property(get_SupportedDepthReprojectionMethods, None)
     SupportedPixelFormats = property(get_SupportedPixelFormats, None)
-class HolographicViewConfigurationKind(Int32):  # enum
+class HolographicViewConfigurationKind(Enum, Int32):
     Display = 0
     PhotoVideoCamera = 1
 class IHolographicCamera(ComPtr):

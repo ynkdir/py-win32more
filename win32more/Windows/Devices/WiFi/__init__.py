@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.WiFi
 import win32more.Windows.Foundation
@@ -191,7 +191,7 @@ class IWiFiWpsConfigurationResult(ComPtr):
     def get_SupportedWpsKinds(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.WiFi.WiFiWpsKind]: ...
     Status = property(get_Status, None)
     SupportedWpsKinds = property(get_SupportedWpsKinds, None)
-class WiFiAccessStatus(Int32):  # enum
+class WiFiAccessStatus(Enum, Int32):
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
@@ -269,7 +269,7 @@ class WiFiAvailableNetwork(ComPtr):
     SignalBars = property(get_SignalBars, None)
     Ssid = property(get_Ssid, None)
     Uptime = property(get_Uptime, None)
-class WiFiConnectionMethod(Int32):  # enum
+class WiFiConnectionMethod(Enum, Int32):
     Default = 0
     WpsPin = 1
     WpsPushButton = 2
@@ -280,7 +280,7 @@ class WiFiConnectionResult(ComPtr):
     @winrt_mixinmethod
     def get_ConnectionStatus(self: win32more.Windows.Devices.WiFi.IWiFiConnectionResult) -> win32more.Windows.Devices.WiFi.WiFiConnectionStatus: ...
     ConnectionStatus = property(get_ConnectionStatus, None)
-class WiFiConnectionStatus(Int32):  # enum
+class WiFiConnectionStatus(Enum, Int32):
     UnspecifiedFailure = 0
     Success = 1
     AccessRevoked = 2
@@ -288,7 +288,7 @@ class WiFiConnectionStatus(Int32):  # enum
     NetworkNotAvailable = 4
     Timeout = 5
     UnsupportedAuthenticationProtocol = 6
-class WiFiNetworkKind(Int32):  # enum
+class WiFiNetworkKind(Enum, Int32):
     Any = 0
     Infrastructure = 1
     Adhoc = 2
@@ -302,17 +302,17 @@ class WiFiNetworkReport(ComPtr):
     def get_AvailableNetworks(self: win32more.Windows.Devices.WiFi.IWiFiNetworkReport) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.WiFi.WiFiAvailableNetwork]: ...
     AvailableNetworks = property(get_AvailableNetworks, None)
     Timestamp = property(get_Timestamp, None)
-class WiFiOnDemandHotspotAvailability(Int32):  # enum
+class WiFiOnDemandHotspotAvailability(Enum, Int32):
     Available = 0
     Unavailable = 1
-class WiFiOnDemandHotspotCellularBars(Int32):  # enum
+class WiFiOnDemandHotspotCellularBars(Enum, Int32):
     ZeroBars = 0
     OneBar = 1
     TwoBars = 2
     ThreeBars = 3
     FourBars = 4
     FiveBars = 5
-class WiFiOnDemandHotspotConnectStatus(Int32):  # enum
+class WiFiOnDemandHotspotConnectStatus(Enum, Int32):
     UnspecifiedFailure = 0
     Success = 1
     AppTimedOut = 2
@@ -404,7 +404,7 @@ class WiFiOnDemandHotspotNetworkProperties(ComPtr):
     Password = property(get_Password, put_Password)
     RemainingBatteryPercent = property(get_RemainingBatteryPercent, put_RemainingBatteryPercent)
     Ssid = property(get_Ssid, put_Ssid)
-class WiFiPhyKind(Int32):  # enum
+class WiFiPhyKind(Enum, Int32):
     Unknown = 0
     Fhss = 1
     Dsss = 2
@@ -417,7 +417,7 @@ class WiFiPhyKind(Int32):  # enum
     Dmg = 9
     HE = 10
     Eht = 11
-class WiFiReconnectionKind(Int32):  # enum
+class WiFiReconnectionKind(Enum, Int32):
     Automatic = 0
     Manual = 1
 class WiFiWpsConfigurationResult(ComPtr):
@@ -430,11 +430,11 @@ class WiFiWpsConfigurationResult(ComPtr):
     def get_SupportedWpsKinds(self: win32more.Windows.Devices.WiFi.IWiFiWpsConfigurationResult) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.WiFi.WiFiWpsKind]: ...
     Status = property(get_Status, None)
     SupportedWpsKinds = property(get_SupportedWpsKinds, None)
-class WiFiWpsConfigurationStatus(Int32):  # enum
+class WiFiWpsConfigurationStatus(Enum, Int32):
     UnspecifiedFailure = 0
     Success = 1
     Timeout = 2
-class WiFiWpsKind(Int32):  # enum
+class WiFiWpsKind(Enum, Int32):
     Unknown = 0
     Pin = 1
     PushButton = 2

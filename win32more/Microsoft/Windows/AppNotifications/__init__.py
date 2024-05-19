@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.AppNotifications
 import win32more.Windows.Foundation
@@ -118,7 +118,7 @@ class AppNotificationManager(ComPtr, metaclass=_AppNotificationManager_Meta_):
     def get_Default(cls: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManagerStatics) -> win32more.Microsoft.Windows.AppNotifications.AppNotificationManager: ...
     Setting = property(get_Setting, None)
     _AppNotificationManager_Meta_.Default = property(get_Default.__wrapped__, None)
-class AppNotificationPriority(Int32):  # enum
+class AppNotificationPriority(Enum, Int32):
     Default = 0
     High = 1
 class AppNotificationProgressData(ComPtr):
@@ -159,11 +159,11 @@ class AppNotificationProgressData(ComPtr):
     Title = property(get_Title, put_Title)
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
-class AppNotificationProgressResult(Int32):  # enum
+class AppNotificationProgressResult(Enum, Int32):
     Succeeded = 0
     AppNotificationNotFound = 1
     Unsupported = 2
-class AppNotificationSetting(Int32):  # enum
+class AppNotificationSetting(Enum, Int32):
     Enabled = 0
     DisabledForApplication = 1
     DisabledForUser = 2

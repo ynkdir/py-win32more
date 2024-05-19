@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.Foundation
@@ -363,7 +363,7 @@ class IStandardPrintTaskOptionsStatic3(ComPtr):
     @winrt_commethod(6)
     def get_CustomPageRanges(self) -> WinRT_String: ...
     CustomPageRanges = property(get_CustomPageRanges, None)
-class PrintBinding(Int32):  # enum
+class PrintBinding(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -381,33 +381,33 @@ class PrintBinding(Int32):  # enum
     Fold = 14
     JogOffset = 15
     Trim = 16
-class PrintBordering(Int32):  # enum
+class PrintBordering(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
     Bordered = 3
     Borderless = 4
-class PrintCollation(Int32):  # enum
+class PrintCollation(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
     Collated = 3
     Uncollated = 4
-class PrintColorMode(Int32):  # enum
+class PrintColorMode(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
     Color = 3
     Grayscale = 4
     Monochrome = 5
-class PrintDuplex(Int32):  # enum
+class PrintDuplex(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
     OneSided = 3
     TwoSidedShortEdge = 4
     TwoSidedLongEdge = 5
-class PrintHolePunch(Int32):  # enum
+class PrintHolePunch(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -430,7 +430,7 @@ class PrintManager(ComPtr):
     def GetForCurrentView(cls: win32more.Windows.Graphics.Printing.IPrintManagerStatic) -> win32more.Windows.Graphics.Printing.PrintManager: ...
     @winrt_classmethod
     def ShowPrintUIAsync(cls: win32more.Windows.Graphics.Printing.IPrintManagerStatic) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-class PrintMediaSize(Int32):  # enum
+class PrintMediaSize(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -604,7 +604,7 @@ class PrintMediaSize(Int32):  # enum
     Roll30Inch = 170
     Roll36Inch = 171
     Roll54Inch = 172
-class PrintMediaType(Int32):  # enum
+class PrintMediaType(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -637,7 +637,7 @@ class PrintMediaType(Int32):  # enum
     Transparency = 29
     TShirtTransfer = 30
     None_ = 31
-class PrintOrientation(Int32):  # enum
+class PrintOrientation(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -730,7 +730,7 @@ class PrintPageRangeOptions(ComPtr):
     AllowAllPages = property(get_AllowAllPages, put_AllowAllPages)
     AllowCurrentPage = property(get_AllowCurrentPage, put_AllowCurrentPage)
     AllowCustomSetOfPages = property(get_AllowCustomSetOfPages, put_AllowCustomSetOfPages)
-class PrintQuality(Int32):  # enum
+class PrintQuality(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -741,7 +741,7 @@ class PrintQuality(Int32):  # enum
     Normal = 7
     Photographic = 8
     Text = 9
-class PrintStaple(Int32):  # enum
+class PrintStaple(Enum, Int32):
     Default = 0
     NotAvailable = 1
     PrinterCustom = 2
@@ -806,7 +806,7 @@ class PrintTaskCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Completion(self: win32more.Windows.Graphics.Printing.IPrintTaskCompletedEventArgs) -> win32more.Windows.Graphics.Printing.PrintTaskCompletion: ...
     Completion = property(get_Completion, None)
-class PrintTaskCompletion(Int32):  # enum
+class PrintTaskCompletion(Enum, Int32):
     Abandoned = 0
     Canceled = 1
     Failed = 2

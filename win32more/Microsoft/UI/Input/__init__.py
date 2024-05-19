@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Content
@@ -53,7 +53,7 @@ class CrossSlidingEventArgs(ComPtr):
     CrossSlidingState = property(get_CrossSlidingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-class CrossSlidingState(Int32):  # enum
+class CrossSlidingState(Enum, Int32):
     Started = 0
     Dragging = 1
     Selecting = 2
@@ -74,7 +74,7 @@ class DraggingEventArgs(ComPtr):
     DraggingState = property(get_DraggingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-class DraggingState(Int32):  # enum
+class DraggingState(Enum, Int32):
     Started = 0
     Continuing = 1
     Completed = 2
@@ -87,7 +87,7 @@ class FocusChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Handled(self: win32more.Microsoft.UI.Input.IFocusChangedEventArgs) -> Boolean: ...
     Handled = property(get_Handled, put_Handled)
-class FocusNavigationReason(Int32):  # enum
+class FocusNavigationReason(Enum, Int32):
     Programmatic = 0
     Restore = 1
     First = 2
@@ -127,7 +127,7 @@ class FocusNavigationRequestEventArgs(ComPtr):
     def put_Result(self: win32more.Microsoft.UI.Input.IFocusNavigationRequestEventArgs, value: win32more.Microsoft.UI.Input.FocusNavigationResult) -> Void: ...
     Request = property(get_Request, None)
     Result = property(get_Result, put_Result)
-class FocusNavigationResult(Int32):  # enum
+class FocusNavigationResult(Enum, Int32):
     NotMoved = 0
     Moved = 1
     NoFocusableElements = 2
@@ -278,7 +278,7 @@ class GestureRecognizer(ComPtr):
     PivotCenter = property(get_PivotCenter, put_PivotCenter)
     PivotRadius = property(get_PivotRadius, put_PivotRadius)
     ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
-class GestureSettings(UInt32):  # enum
+class GestureSettings(Enum, UInt32):
     None_ = 0
     Tap = 1
     DoubleTap = 2
@@ -310,7 +310,7 @@ class HoldingEventArgs(ComPtr):
     HoldingState = property(get_HoldingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-class HoldingState(Int32):  # enum
+class HoldingState(Enum, Int32):
     Started = 0
     Completed = 1
     Canceled = 2
@@ -1228,7 +1228,7 @@ class InputActivationListenerActivationChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputActivationListenerActivationChangedEventArgs
     _classid_ = 'Microsoft.UI.Input.InputActivationListenerActivationChangedEventArgs'
-class InputActivationState(Int32):  # enum
+class InputActivationState(Enum, Int32):
     None_ = 0
     Deactivated = 1
     Activated = 2
@@ -1468,7 +1468,7 @@ class InputPointerSource(ComPtr):
     def GetForIsland(cls: win32more.Microsoft.UI.Input.IInputPointerSourceStatics, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputPointerSource: ...
     Cursor = property(get_Cursor, put_Cursor)
     DeviceKinds = property(get_DeviceKinds, None)
-class InputPointerSourceDeviceKinds(UInt32):  # enum
+class InputPointerSourceDeviceKinds(Enum, UInt32):
     None_ = 0
     Touch = 1
     Pen = 2
@@ -1488,7 +1488,7 @@ class InputSystemCursor(ComPtr):
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Input.IInputSystemCursorStatics, type: win32more.Microsoft.UI.Input.InputSystemCursorShape) -> win32more.Microsoft.UI.Input.InputSystemCursor: ...
     CursorShape = property(get_CursorShape, None)
-class InputSystemCursorShape(Int32):  # enum
+class InputSystemCursorShape(Enum, Int32):
     Arrow = 0
     Cross = 1
     Hand = 3
@@ -1649,7 +1649,7 @@ class NonClientPointerEventArgs(ComPtr):
     Point = property(get_Point, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     RegionKind = property(get_RegionKind, None)
-class NonClientRegionKind(Int32):  # enum
+class NonClientRegionKind(Enum, Int32):
     Close = 0
     Maximize = 1
     Minimize = 2
@@ -1674,7 +1674,7 @@ class PhysicalKeyStatus(Structure):
     IsMenuKeyDown: Boolean
     WasKeyDown: Boolean
     IsKeyReleased: Boolean
-class PointerDeviceType(Int32):  # enum
+class PointerDeviceType(Enum, Int32):
     Touch = 0
     Pen = 1
     Mouse = 2
@@ -1807,7 +1807,7 @@ class PointerPredictor(ComPtr):
     @winrt_classmethod
     def CreateForInputPointerSource(cls: win32more.Microsoft.UI.Input.IPointerPredictorStatics, inputPointerSource: win32more.Microsoft.UI.Input.InputPointerSource) -> win32more.Microsoft.UI.Input.PointerPredictor: ...
     PredictionTime = property(get_PredictionTime, put_PredictionTime)
-class PointerUpdateKind(Int32):  # enum
+class PointerUpdateKind(Enum, Int32):
     Other = 0
     LeftButtonPressed = 1
     LeftButtonReleased = 2
@@ -1842,7 +1842,7 @@ class TappedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
     TapCount = property(get_TapCount, None)
-class VirtualKeyStates(UInt32):  # enum
+class VirtualKeyStates(Enum, UInt32):
     None_ = 0
     Down = 1
     Locked = 2

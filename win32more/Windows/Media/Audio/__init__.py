@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
@@ -63,7 +63,7 @@ class AudioDeviceInputNode(ComPtr):
     EncodingProperties = property(get_EncodingProperties, None)
     OutgoingConnections = property(get_OutgoingConnections, None)
     OutgoingGain = property(get_OutgoingGain, put_OutgoingGain)
-class AudioDeviceNodeCreationStatus(Int32):  # enum
+class AudioDeviceNodeCreationStatus(Enum, Int32):
     Success = 0
     DeviceNotAvailable = 1
     FormatNotSupported = 2
@@ -188,7 +188,7 @@ class AudioFileInputNode(ComPtr):
     Position = property(get_Position, None)
     SourceFile = property(get_SourceFile, None)
     StartTime = property(get_StartTime, put_StartTime)
-class AudioFileNodeCreationStatus(Int32):  # enum
+class AudioFileNodeCreationStatus(Enum, Int32):
     Success = 0
     FileNotFound = 1
     InvalidFileType = 2
@@ -441,7 +441,7 @@ class AudioGraphConnection(ComPtr):
     def get_Gain(self: win32more.Windows.Media.Audio.IAudioGraphConnection) -> Double: ...
     Destination = property(get_Destination, None)
     Gain = property(get_Gain, put_Gain)
-class AudioGraphCreationStatus(Int32):  # enum
+class AudioGraphCreationStatus(Enum, Int32):
     Success = 0
     DeviceNotAvailable = 1
     FormatNotSupported = 2
@@ -494,7 +494,7 @@ class AudioGraphSettings(ComPtr):
     MaxPlaybackSpeedFactor = property(get_MaxPlaybackSpeedFactor, put_MaxPlaybackSpeedFactor)
     PrimaryRenderDevice = property(get_PrimaryRenderDevice, put_PrimaryRenderDevice)
     QuantumSizeSelectionMode = property(get_QuantumSizeSelectionMode, put_QuantumSizeSelectionMode)
-class AudioGraphUnrecoverableError(Int32):  # enum
+class AudioGraphUnrecoverableError(Enum, Int32):
     None_ = 0
     AudioDeviceLost = 1
     AudioSessionDisconnected = 2
@@ -580,7 +580,7 @@ class AudioNodeEmitterConeProperties(ComPtr):
     InnerAngle = property(get_InnerAngle, None)
     OuterAngle = property(get_OuterAngle, None)
     OuterAngleGain = property(get_OuterAngleGain, None)
-class AudioNodeEmitterDecayKind(Int32):  # enum
+class AudioNodeEmitterDecayKind(Enum, Int32):
     Natural = 0
     Custom = 1
 class AudioNodeEmitterDecayModel(ComPtr):
@@ -613,7 +613,7 @@ class AudioNodeEmitterNaturalDecayModelProperties(ComPtr):
     def get_CutoffDistance(self: win32more.Windows.Media.Audio.IAudioNodeEmitterNaturalDecayModelProperties) -> Double: ...
     CutoffDistance = property(get_CutoffDistance, None)
     UnityGainDistance = property(get_UnityGainDistance, None)
-class AudioNodeEmitterSettings(UInt32):  # enum
+class AudioNodeEmitterSettings(Enum, UInt32):
     None_ = 0
     DisableDoppler = 1
 class AudioNodeEmitterShape(ComPtr):
@@ -630,7 +630,7 @@ class AudioNodeEmitterShape(ComPtr):
     def CreateOmnidirectional(cls: win32more.Windows.Media.Audio.IAudioNodeEmitterShapeStatics) -> win32more.Windows.Media.Audio.AudioNodeEmitterShape: ...
     ConeProperties = property(get_ConeProperties, None)
     Kind = property(get_Kind, None)
-class AudioNodeEmitterShapeKind(Int32):  # enum
+class AudioNodeEmitterShapeKind(Enum, Int32):
     Omnidirectional = 0
     Cone = 1
 class AudioNodeListener(ComPtr):
@@ -704,12 +704,12 @@ class AudioPlaybackConnectionOpenResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Media.Audio.IAudioPlaybackConnectionOpenResult) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class AudioPlaybackConnectionOpenResultStatus(Int32):  # enum
+class AudioPlaybackConnectionOpenResultStatus(Enum, Int32):
     Success = 0
     RequestTimedOut = 1
     DeniedBySystem = 2
     UnknownFailure = 3
-class AudioPlaybackConnectionState(Int32):  # enum
+class AudioPlaybackConnectionState(Enum, Int32):
     Closed = 0
     Opened = 1
 class AudioStateMonitor(ComPtr):
@@ -2027,15 +2027,15 @@ class MediaSourceAudioInputNode(ComPtr):
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
     Position = property(get_Position, None)
     StartTime = property(get_StartTime, put_StartTime)
-class MediaSourceAudioInputNodeCreationStatus(Int32):  # enum
+class MediaSourceAudioInputNodeCreationStatus(Enum, Int32):
     Success = 0
     FormatNotSupported = 1
     NetworkError = 2
     UnknownFailure = 3
-class MixedRealitySpatialAudioFormatPolicy(Int32):  # enum
+class MixedRealitySpatialAudioFormatPolicy(Enum, Int32):
     UseMixedRealityDefaultSpatialAudioFormat = 0
     UseDeviceConfigurationDefaultSpatialAudioFormat = 1
-class QuantumSizeSelectionMode(Int32):  # enum
+class QuantumSizeSelectionMode(Enum, Int32):
     SystemDefault = 0
     LowestLatency = 1
     ClosestToDesired = 2
@@ -2180,7 +2180,7 @@ class SetDefaultSpatialAudioFormatResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Media.Audio.ISetDefaultSpatialAudioFormatResult) -> win32more.Windows.Media.Audio.SetDefaultSpatialAudioFormatStatus: ...
     Status = property(get_Status, None)
-class SetDefaultSpatialAudioFormatStatus(Int32):  # enum
+class SetDefaultSpatialAudioFormatStatus(Enum, Int32):
     Succeeded = 0
     AccessDenied = 1
     LicenseExpired = 2
@@ -2254,7 +2254,7 @@ class SpatialAudioFormatSubtype(ComPtr, metaclass=_SpatialAudioFormatSubtype_Met
     _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForHomeTheater = property(get_DolbyAtmosForHomeTheater.__wrapped__, None)
     _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForSpeakers = property(get_DolbyAtmosForSpeakers.__wrapped__, None)
     _SpatialAudioFormatSubtype_Meta_.WindowsSonic = property(get_WindowsSonic.__wrapped__, None)
-class SpatialAudioModel(Int32):  # enum
+class SpatialAudioModel(Enum, Int32):
     ObjectBased = 0
     FoldDown = 1
 

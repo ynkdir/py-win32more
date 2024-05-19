@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
@@ -778,7 +778,7 @@ class StoreCanAcquireLicenseResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     LicensableSku = property(get_LicensableSku, None)
     Status = property(get_Status, None)
-class StoreCanLicenseStatus(Int32):  # enum
+class StoreCanLicenseStatus(Enum, Int32):
     NotLicensableToUser = 0
     Licensable = 1
     LicenseActionNotApplicableToProduct = 2
@@ -828,7 +828,7 @@ class StoreConsumableResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
     TrackingId = property(get_TrackingId, None)
-class StoreConsumableStatus(Int32):  # enum
+class StoreConsumableStatus(Enum, Int32):
     Succeeded = 0
     InsufficentQuantity = 1
     NetworkError = 2
@@ -926,7 +926,7 @@ class StoreContext(ComPtr):
     CanSilentlyDownloadStorePackageUpdates = property(get_CanSilentlyDownloadStorePackageUpdates, None)
     User = property(get_User, None)
 StoreContract: UInt32 = 262144
-class StoreDurationUnit(Int32):  # enum
+class StoreDurationUnit(Enum, Int32):
     Minute = 0
     Hour = 1
     Day = 2
@@ -1030,7 +1030,7 @@ class StorePackageUpdateResult(ComPtr):
     OverallState = property(get_OverallState, None)
     StorePackageUpdateStatuses = property(get_StorePackageUpdateStatuses, None)
     StoreQueueItems = property(get_StoreQueueItems, None)
-class StorePackageUpdateState(Int32):  # enum
+class StorePackageUpdateState(Enum, Int32):
     Pending = 0
     Downloading = 1
     Deploying = 2
@@ -1221,7 +1221,7 @@ class StorePurchaseResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Services.Store.IStorePurchaseResult) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class StorePurchaseStatus(Int32):  # enum
+class StorePurchaseStatus(Enum, Int32):
     Succeeded = 0
     AlreadyPurchased = 1
     NotPurchased = 2
@@ -1263,7 +1263,7 @@ class StoreQueueItemCompletedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.Services.Store.IStoreQueueItemCompletedEventArgs) -> win32more.Windows.Services.Store.StoreQueueItemStatus: ...
     Status = property(get_Status, None)
-class StoreQueueItemExtendedState(Int32):  # enum
+class StoreQueueItemExtendedState(Enum, Int32):
     ActivePending = 0
     ActiveStarting = 1
     ActiveAcquiringLicense = 2
@@ -1279,11 +1279,11 @@ class StoreQueueItemExtendedState(Int32):  # enum
     PausedWiFiRecommended = 12
     PausedWiFiRequired = 13
     PausedReadyToInstall = 14
-class StoreQueueItemKind(Int32):  # enum
+class StoreQueueItemKind(Enum, Int32):
     Install = 0
     Update = 1
     Repair = 2
-class StoreQueueItemState(Int32):  # enum
+class StoreQueueItemState(Enum, Int32):
     Active = 0
     Completed = 1
     Canceled = 2
@@ -1321,7 +1321,7 @@ class StoreRateAndReviewResult(ComPtr):
     ExtendedJsonData = property(get_ExtendedJsonData, None)
     Status = property(get_Status, None)
     WasUpdated = property(get_WasUpdated, None)
-class StoreRateAndReviewStatus(Int32):  # enum
+class StoreRateAndReviewStatus(Enum, Int32):
     Succeeded = 0
     CanceledByUser = 1
     NetworkError = 2
@@ -1431,7 +1431,7 @@ class StoreUninstallStorePackageResult(ComPtr):
     def get_Status(self: win32more.Windows.Services.Store.IStoreUninstallStorePackageResult) -> win32more.Windows.Services.Store.StoreUninstallStorePackageStatus: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class StoreUninstallStorePackageStatus(Int32):  # enum
+class StoreUninstallStorePackageStatus(Enum, Int32):
     Succeeded = 0
     CanceledByUser = 1
     NetworkError = 2

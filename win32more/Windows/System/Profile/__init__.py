@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -393,11 +393,11 @@ class PlatformAutomaticAppSignInManager(ComPtr, metaclass=_PlatformAutomaticAppS
     @winrt_classmethod
     def get_Policy(cls: win32more.Windows.System.Profile.IPlatformAutomaticAppSignInManagerStatics) -> win32more.Windows.System.Profile.PlatformAutomaticAppSignInPolicy: ...
     _PlatformAutomaticAppSignInManager_Meta_.Policy = property(get_Policy.__wrapped__, None)
-class PlatformAutomaticAppSignInPolicy(Int32):  # enum
+class PlatformAutomaticAppSignInPolicy(Enum, Int32):
     Unknown = 0
     PermissionRequired = 1
     AlwaysAllowed = 2
-class PlatformDataCollectionLevel(Int32):  # enum
+class PlatformDataCollectionLevel(Enum, Int32):
     Security = 0
     Basic = 1
     Enhanced = 2
@@ -470,12 +470,12 @@ class SystemIdentificationInfo(ComPtr):
     def get_Source(self: win32more.Windows.System.Profile.ISystemIdentificationInfo) -> win32more.Windows.System.Profile.SystemIdentificationSource: ...
     Id = property(get_Id, None)
     Source = property(get_Source, None)
-class SystemIdentificationSource(Int32):  # enum
+class SystemIdentificationSource(Enum, Int32):
     None_ = 0
     Tpm = 1
     Uefi = 2
     Registry = 3
-class SystemOutOfBoxExperienceState(Int32):  # enum
+class SystemOutOfBoxExperienceState(Enum, Int32):
     NotStarted = 0
     InProgress = 1
     Completed = 2
@@ -501,7 +501,7 @@ class UnsupportedAppRequirement(ComPtr):
     def get_Reasons(self: win32more.Windows.System.Profile.IUnsupportedAppRequirement) -> win32more.Windows.System.Profile.UnsupportedAppRequirementReasons: ...
     Reasons = property(get_Reasons, None)
     Requirement = property(get_Requirement, None)
-class UnsupportedAppRequirementReasons(UInt32):  # enum
+class UnsupportedAppRequirementReasons(Enum, UInt32):
     Unknown = 0
     DeniedBySystem = 1
 class _WindowsIntegrityPolicy_Meta_(ComPtr.__class__):

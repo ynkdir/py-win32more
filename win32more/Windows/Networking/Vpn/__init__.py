@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.Foundation
@@ -808,11 +808,11 @@ class VpnAppId(ComPtr):
     def put_Value(self: win32more.Windows.Networking.Vpn.IVpnAppId, value: WinRT_String) -> Void: ...
     Type = property(get_Type, put_Type)
     Value = property(get_Value, put_Value)
-class VpnAppIdType(Int32):  # enum
+class VpnAppIdType(Enum, Int32):
     PackageFamilyName = 0
     FullyQualifiedBinaryName = 1
     FilePath = 2
-class VpnAuthenticationMethod(Int32):  # enum
+class VpnAuthenticationMethod(Enum, Int32):
     Mschapv2 = 0
     Eap = 1
     Certificate = 2
@@ -913,7 +913,7 @@ class VpnChannelActivityEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Networking.Vpn.IVpnChannelActivityEventArgs) -> win32more.Windows.Networking.Vpn.VpnChannelActivityEventType: ...
     Type = property(get_Type, None)
-class VpnChannelActivityEventType(Int32):  # enum
+class VpnChannelActivityEventType(Enum, Int32):
     Idle = 0
     Active = 1
 class VpnChannelActivityStateChangedArgs(ComPtr):
@@ -939,7 +939,7 @@ class VpnChannelConfiguration(ComPtr):
     ServerHostNameList = property(get_ServerHostNameList, None)
     ServerServiceName = property(get_ServerServiceName, None)
     ServerUris = property(get_ServerUris, None)
-class VpnChannelRequestCredentialsOptions(UInt32):  # enum
+class VpnChannelRequestCredentialsOptions(Enum, UInt32):
     None_ = 0
     Retrying = 1
     UseForSingleSignIn = 2
@@ -959,7 +959,7 @@ class VpnCredential(ComPtr):
     CertificateCredential = property(get_CertificateCredential, None)
     OldPasswordCredential = property(get_OldPasswordCredential, None)
     PasskeyCredential = property(get_PasskeyCredential, None)
-class VpnCredentialType(Int32):  # enum
+class VpnCredentialType(Enum, Int32):
     UsernamePassword = 0
     UsernameOtpPin = 1
     UsernamePasswordAndPin = 2
@@ -1285,7 +1285,7 @@ class VpnCustomTextBox(ComPtr):
     Compulsory = property(get_Compulsory, put_Compulsory)
     DisplayText = property(get_DisplayText, put_DisplayText)
     Label = property(get_Label, put_Label)
-class VpnDataPathType(Int32):  # enum
+class VpnDataPathType(Enum, Int32):
     Send = 0
     Receive = 1
 class VpnDomainNameAssignment(ComPtr):
@@ -1341,7 +1341,7 @@ class VpnDomainNameInfo(ComPtr):
     DomainNameType = property(get_DomainNameType, put_DomainNameType)
     WebProxyServers = property(get_WebProxyServers, None)
     WebProxyUris = property(get_WebProxyUris, None)
-class VpnDomainNameType(Int32):  # enum
+class VpnDomainNameType(Enum, Int32):
     Suffix = 0
     FullyQualified = 1
     Reserved = 65535
@@ -1376,7 +1376,7 @@ class VpnForegroundActivationOperation(ComPtr):
     _classid_ = 'Windows.Networking.Vpn.VpnForegroundActivationOperation'
     @winrt_mixinmethod
     def Complete(self: win32more.Windows.Networking.Vpn.IVpnForegroundActivationOperation, result: win32more.Windows.Foundation.Collections.ValueSet) -> Void: ...
-class VpnIPProtocol(Int32):  # enum
+class VpnIPProtocol(Enum, Int32):
     None_ = 0
     Tcp = 6
     Udp = 17
@@ -1430,12 +1430,12 @@ class VpnManagementAgent(ComPtr):
     def ConnectProfileWithPasswordCredentialAsync(self: win32more.Windows.Networking.Vpn.IVpnManagementAgent, profile: win32more.Windows.Networking.Vpn.IVpnProfile, passwordCredential: win32more.Windows.Security.Credentials.PasswordCredential) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.Vpn.VpnManagementErrorStatus]: ...
     @winrt_mixinmethod
     def DisconnectProfileAsync(self: win32more.Windows.Networking.Vpn.IVpnManagementAgent, profile: win32more.Windows.Networking.Vpn.IVpnProfile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.Vpn.VpnManagementErrorStatus]: ...
-class VpnManagementConnectionStatus(Int32):  # enum
+class VpnManagementConnectionStatus(Enum, Int32):
     Disconnected = 0
     Disconnecting = 1
     Connected = 2
     Connecting = 3
-class VpnManagementErrorStatus(Int32):  # enum
+class VpnManagementErrorStatus(Enum, Int32):
     Ok = 0
     Other = 1
     InvalidXmlSyntax = 2
@@ -1582,7 +1582,7 @@ class VpnNativeProfile(ComPtr):
     TrafficFilters = property(get_TrafficFilters, None)
     TunnelAuthenticationMethod = property(get_TunnelAuthenticationMethod, put_TunnelAuthenticationMethod)
     UserAuthenticationMethod = property(get_UserAuthenticationMethod, put_UserAuthenticationMethod)
-class VpnNativeProtocolType(Int32):  # enum
+class VpnNativeProtocolType(Enum, Int32):
     Pptp = 0
     L2tp = 1
     IpsecIkev2 = 2
@@ -1644,7 +1644,7 @@ class VpnPacketBufferList(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.Vpn.VpnPacketBuffer]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Networking.Vpn.VpnPacketBuffer]: ...
     Size = property(get_Size, None)
     Status = property(get_Status, put_Status)
-class VpnPacketBufferStatus(Int32):  # enum
+class VpnPacketBufferStatus(Enum, Int32):
     Ok = 0
     InvalidBufferSize = 1
 class VpnPickedCredential(ComPtr):
@@ -1782,7 +1782,7 @@ class VpnRouteAssignment(ComPtr):
     Ipv4InclusionRoutes = property(get_Ipv4InclusionRoutes, put_Ipv4InclusionRoutes)
     Ipv6ExclusionRoutes = property(get_Ipv6ExclusionRoutes, put_Ipv6ExclusionRoutes)
     Ipv6InclusionRoutes = property(get_Ipv6InclusionRoutes, put_Ipv6InclusionRoutes)
-class VpnRoutingPolicyType(Int32):  # enum
+class VpnRoutingPolicyType(Enum, Int32):
     SplitRouting = 0
     ForceAllTrafficOverVpn = 1
 class VpnSystemHealth(ComPtr):

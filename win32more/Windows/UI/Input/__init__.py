@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Haptics
 import win32more.Windows.Devices.Input
@@ -37,7 +37,7 @@ class CrossSlidingEventArgs(ComPtr):
     CrossSlidingState = property(get_CrossSlidingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-class CrossSlidingState(Int32):  # enum
+class CrossSlidingState(Enum, Int32):
     Started = 0
     Dragging = 1
     Selecting = 2
@@ -61,7 +61,7 @@ class DraggingEventArgs(ComPtr):
     DraggingState = property(get_DraggingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-class DraggingState(Int32):  # enum
+class DraggingState(Enum, Int32):
     Started = 0
     Continuing = 1
     Completed = 2
@@ -90,11 +90,11 @@ class EdgeGestureEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.UI.Input.IEdgeGestureEventArgs) -> win32more.Windows.UI.Input.EdgeGestureKind: ...
     Kind = property(get_Kind, None)
-class EdgeGestureKind(Int32):  # enum
+class EdgeGestureKind(Enum, Int32):
     Touch = 0
     Keyboard = 1
     Mouse = 2
-class GazeInputAccessStatus(Int32):  # enum
+class GazeInputAccessStatus(Enum, Int32):
     Unspecified = 0
     Allowed = 1
     DeniedByUser = 2
@@ -286,7 +286,7 @@ class GestureRecognizer(ComPtr):
     TapMinContactCount = property(get_TapMinContactCount, put_TapMinContactCount)
     TranslationMaxContactCount = property(get_TranslationMaxContactCount, put_TranslationMaxContactCount)
     TranslationMinContactCount = property(get_TranslationMinContactCount, put_TranslationMinContactCount)
-class GestureSettings(UInt32):  # enum
+class GestureSettings(Enum, UInt32):
     None_ = 0
     Tap = 1
     DoubleTap = 2
@@ -324,7 +324,7 @@ class HoldingEventArgs(ComPtr):
     HoldingState = property(get_HoldingState, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
-class HoldingState(Int32):  # enum
+class HoldingState(Enum, Int32):
     Started = 0
     Completed = 1
     Canceled = 2
@@ -1349,7 +1349,7 @@ class InputActivationListenerActivationChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.UI.Input.IInputActivationListenerActivationChangedEventArgs) -> win32more.Windows.UI.Input.InputActivationState: ...
     State = property(get_State, None)
-class InputActivationState(Int32):  # enum
+class InputActivationState(Enum, Int32):
     None_ = 0
     Deactivated = 1
     ActivatedNotForeground = 2
@@ -1604,7 +1604,7 @@ class PointerPointProperties(ComPtr):
     XTilt = property(get_XTilt, None)
     YTilt = property(get_YTilt, None)
     ZDistance = property(get_ZDistance, None)
-class PointerUpdateKind(Int32):  # enum
+class PointerUpdateKind(Enum, Int32):
     Other = 0
     LeftButtonPressed = 1
     LeftButtonReleased = 2
@@ -1822,7 +1822,7 @@ class RadialControllerMenuItem(ComPtr):
     def CreateFromKnownIcon(cls: win32more.Windows.UI.Input.IRadialControllerMenuItemStatics, displayText: WinRT_String, value: win32more.Windows.UI.Input.RadialControllerMenuKnownIcon) -> win32more.Windows.UI.Input.RadialControllerMenuItem: ...
     DisplayText = property(get_DisplayText, None)
     Tag = property(get_Tag, put_Tag)
-class RadialControllerMenuKnownIcon(Int32):  # enum
+class RadialControllerMenuKnownIcon(Enum, Int32):
     Scroll = 0
     Zoom = 1
     UndoRedo = 2
@@ -1894,7 +1894,7 @@ class RadialControllerScreenContactStartedEventArgs(ComPtr):
     Contact = property(get_Contact, None)
     IsButtonPressed = property(get_IsButtonPressed, None)
     SimpleHapticsController = property(get_SimpleHapticsController, None)
-class RadialControllerSystemMenuItemKind(Int32):  # enum
+class RadialControllerSystemMenuItemKind(Enum, Int32):
     Scroll = 0
     Zoom = 1
     UndoRedo = 2

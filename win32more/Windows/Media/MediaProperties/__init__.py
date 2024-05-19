@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -75,7 +75,7 @@ class AudioEncodingProperties(ComPtr):
     SampleRate = property(get_SampleRate, put_SampleRate)
     Subtype = property(get_Subtype, put_Subtype)
     Type = property(get_Type, None)
-class AudioEncodingQuality(Int32):  # enum
+class AudioEncodingQuality(Enum, Int32):
     Auto = 0
     High = 1
     Medium = 2
@@ -1233,11 +1233,11 @@ class MediaEncodingSubtypes(ComPtr, metaclass=_MediaEncodingSubtypes_Meta_):
     _MediaEncodingSubtypes_Meta_.Wvc1 = property(get_Wvc1.__wrapped__, None)
     _MediaEncodingSubtypes_Meta_.Yuy2 = property(get_Yuy2.__wrapped__, None)
     _MediaEncodingSubtypes_Meta_.Yv12 = property(get_Yv12.__wrapped__, None)
-class MediaMirroringOptions(UInt32):  # enum
+class MediaMirroringOptions(Enum, UInt32):
     None_ = 0
     Horizontal = 1
     Vertical = 2
-class MediaPixelFormat(Int32):  # enum
+class MediaPixelFormat(Enum, Int32):
     Nv12 = 0
     Bgra8 = 1
     P010 = 2
@@ -1285,12 +1285,12 @@ class MediaRatio(ComPtr):
     def get_Denominator(self: win32more.Windows.Media.MediaProperties.IMediaRatio) -> UInt32: ...
     Denominator = property(get_Denominator, put_Denominator)
     Numerator = property(get_Numerator, put_Numerator)
-class MediaRotation(Int32):  # enum
+class MediaRotation(Enum, Int32):
     None_ = 0
     Clockwise90Degrees = 1
     Clockwise180Degrees = 2
     Clockwise270Degrees = 3
-class MediaThumbnailFormat(Int32):  # enum
+class MediaThumbnailFormat(Enum, Int32):
     Bmp = 0
     Bgra8 = 1
 class _Mpeg2ProfileIds_Meta_(ComPtr.__class__):
@@ -1313,11 +1313,11 @@ class Mpeg2ProfileIds(ComPtr, metaclass=_Mpeg2ProfileIds_Meta_):
     _Mpeg2ProfileIds_Meta_.SignalNoiseRatioScalable = property(get_SignalNoiseRatioScalable.__wrapped__, None)
     _Mpeg2ProfileIds_Meta_.Simple = property(get_Simple.__wrapped__, None)
     _Mpeg2ProfileIds_Meta_.SpatiallyScalable = property(get_SpatiallyScalable.__wrapped__, None)
-class SphericalVideoFrameFormat(Int32):  # enum
+class SphericalVideoFrameFormat(Enum, Int32):
     None_ = 0
     Unsupported = 1
     Equirectangular = 2
-class StereoscopicVideoPackingMode(Int32):  # enum
+class StereoscopicVideoPackingMode(Enum, Int32):
     None_ = 0
     SideBySide = 1
     TopBottom = 2
@@ -1433,7 +1433,7 @@ class VideoEncodingProperties(ComPtr):
     Subtype = property(get_Subtype, put_Subtype)
     Type = property(get_Type, None)
     Width = property(get_Width, put_Width)
-class VideoEncodingQuality(Int32):  # enum
+class VideoEncodingQuality(Enum, Int32):
     Auto = 0
     HD1080p = 1
     HD720p = 2

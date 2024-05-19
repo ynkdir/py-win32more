@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Sms
 import win32more.Windows.Foundation
@@ -7,7 +7,7 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.WinRT
-class CellularClass(Int32):  # enum
+class CellularClass(Enum, Int32):
     None_ = 0
     Gsm = 1
     Cdma = 2
@@ -892,7 +892,7 @@ class SmsBroadcastMessage(ComPtr):
     Timestamp = property(get_Timestamp, None)
     To = property(get_To, None)
     UpdateNumber = property(get_UpdateNumber, None)
-class SmsBroadcastType(Int32):  # enum
+class SmsBroadcastType(Enum, Int32):
     Other = 0
     CmasPresidential = 1
     CmasExtreme = 2
@@ -908,7 +908,7 @@ class SmsBroadcastType(Int32):  # enum
     EtwsTsunami = 12
     EtwsTsunamiAndEarthquake = 13
     LatAlertLocal = 14
-class SmsDataFormat(Int32):  # enum
+class SmsDataFormat(Enum, Int32):
     Unknown = 0
     CdmaSubmit = 1
     GsmSubmit = 2
@@ -1005,7 +1005,7 @@ class SmsDeviceMessageStore(ComPtr):
     @winrt_mixinmethod
     def get_MaxMessages(self: win32more.Windows.Devices.Sms.ISmsDeviceMessageStore) -> UInt32: ...
     MaxMessages = property(get_MaxMessages, None)
-class SmsDeviceStatus(Int32):  # enum
+class SmsDeviceStatus(Enum, Int32):
     Off = 0
     Ready = 1
     SimNotInserted = 2
@@ -1025,7 +1025,7 @@ class SmsEncodedLength(Structure):
     CharactersPerSegment: UInt32
     ByteCountLastSegment: UInt32
     BytesPerSegment: UInt32
-class SmsEncoding(Int32):  # enum
+class SmsEncoding(Enum, Int32):
     Unknown = 0
     Optimal = 1
     SevenBitAscii = 2
@@ -1037,7 +1037,7 @@ class SmsEncoding(Int32):  # enum
     IA5 = 8
     ShiftJis = 9
     LatinHebrew = 10
-class SmsFilterActionType(Int32):  # enum
+class SmsFilterActionType(Enum, Int32):
     AcceptImmediately = 0
     Drop = 1
     Peek = 2
@@ -1115,19 +1115,19 @@ class SmsFilterRules(ComPtr):
     def get_Rules(self: win32more.Windows.Devices.Sms.ISmsFilterRules) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Devices.Sms.SmsFilterRule]: ...
     ActionType = property(get_ActionType, None)
     Rules = property(get_Rules, None)
-class SmsGeographicalScope(Int32):  # enum
+class SmsGeographicalScope(Enum, Int32):
     None_ = 0
     CellWithImmediateDisplay = 1
     LocationArea = 2
     Plmn = 3
     Cell = 4
-class SmsMessageClass(Int32):  # enum
+class SmsMessageClass(Enum, Int32):
     None_ = 0
     Class0 = 1
     Class1 = 2
     Class2 = 3
     Class3 = 4
-class SmsMessageFilter(Int32):  # enum
+class SmsMessageFilter(Enum, Int32):
     All = 0
     Unread = 1
     Read = 2
@@ -1197,7 +1197,7 @@ class SmsMessageRegistration(ComPtr, metaclass=_SmsMessageRegistration_Meta_):
     def Register(cls: win32more.Windows.Devices.Sms.ISmsMessageRegistrationStatics, id: WinRT_String, filterRules: win32more.Windows.Devices.Sms.SmsFilterRules) -> win32more.Windows.Devices.Sms.SmsMessageRegistration: ...
     Id = property(get_Id, None)
     _SmsMessageRegistration_Meta_.AllRegistrations = property(get_AllRegistrations.__wrapped__, None)
-class SmsMessageType(Int32):  # enum
+class SmsMessageType(Enum, Int32):
     Binary = 0
     Text = 1
     Wap = 2
@@ -1205,7 +1205,7 @@ class SmsMessageType(Int32):  # enum
     Broadcast = 4
     Voicemail = 5
     Status = 6
-class SmsModemErrorCode(Int32):  # enum
+class SmsModemErrorCode(Enum, Int32):
     Other = 0
     MessagingNetworkError = 1
     SmsOperationNotSupportedByDevice = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.Display
 import win32more.Microsoft.UI
@@ -42,11 +42,11 @@ class DisplayAdvancedColorInfo(ComPtr):
     RedPrimary = property(get_RedPrimary, None)
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
     WhitePoint = property(get_WhitePoint, None)
-class DisplayAdvancedColorKind(Int32):  # enum
+class DisplayAdvancedColorKind(Enum, Int32):
     StandardDynamicRange = 0
     WideColorGamut = 1
     HighDynamicRange = 2
-class DisplayHdrMetadataFormat(Int32):  # enum
+class DisplayHdrMetadataFormat(Enum, Int32):
     Hdr10 = 0
     Hdr10Plus = 1
 class DisplayInformation(ComPtr):

@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Management.Deployment
 import win32more.Windows.Win32.System.WinRT
-class AddPackageByAppInstallerOptions(UInt32):  # enum
+class AddPackageByAppInstallerOptions(Enum, UInt32):
     None_ = 0
     InstallAllResources = 32
     ForceTargetAppShutdown = 64
@@ -268,7 +268,7 @@ class DeleteSharedPackageContainerResult(ComPtr):
     def get_ExtendedError(self: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerResult) -> win32more.Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
-class DeploymentOptions(UInt32):  # enum
+class DeploymentOptions(Enum, UInt32):
     None_ = 0
     ForceApplicationShutdown = 1
     DevelopmentMode = 2
@@ -281,7 +281,7 @@ class DeploymentOptions(UInt32):  # enum
 class DeploymentProgress(Structure):
     state: win32more.Windows.Management.Deployment.DeploymentProgressState
     percentage: UInt32
-class DeploymentProgressState(Int32):  # enum
+class DeploymentProgressState(Enum, Int32):
     Queued = 0
     Processing = 1
 class DeploymentResult(ComPtr):
@@ -1075,7 +1075,7 @@ class PackageAllUserProvisioningOptions(ComPtr):
     def get_ProjectionOrderPackageFamilyNames(self: win32more.Windows.Management.Deployment.IPackageAllUserProvisioningOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     ProjectionOrderPackageFamilyNames = property(get_ProjectionOrderPackageFamilyNames, None)
-class PackageInstallState(Int32):  # enum
+class PackageInstallState(Enum, Int32):
     NotInstalled = 0
     Staged = 1
     Installed = 2
@@ -1226,21 +1226,21 @@ class PackageManagerDebugSettings(ComPtr):
     def SetContentGroupStateAsync(self: win32more.Windows.Management.Deployment.IPackageManagerDebugSettings, package: win32more.Windows.ApplicationModel.Package, contentGroupName: WinRT_String, state: win32more.Windows.ApplicationModel.PackageContentGroupState) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SetContentGroupStateWithPercentageAsync(self: win32more.Windows.Management.Deployment.IPackageManagerDebugSettings, package: win32more.Windows.ApplicationModel.Package, contentGroupName: WinRT_String, state: win32more.Windows.ApplicationModel.PackageContentGroupState, completionPercentage: Double) -> win32more.Windows.Foundation.IAsyncAction: ...
-class PackageState(Int32):  # enum
+class PackageState(Enum, Int32):
     Normal = 0
     LicenseInvalid = 1
     Modified = 2
     Tampered = 3
-class PackageStatus(UInt32):  # enum
+class PackageStatus(Enum, UInt32):
     OK = 0
     LicenseIssue = 1
     Modified = 2
     Tampered = 4
     Disabled = 8
-class PackageStubPreference(Int32):  # enum
+class PackageStubPreference(Enum, Int32):
     Full = 0
     Stub = 1
-class PackageTypes(UInt32):  # enum
+class PackageTypes(Enum, UInt32):
     None_ = 0
     Main = 1
     Framework = 2
@@ -1389,7 +1389,7 @@ class RegisterPackageOptions(ComPtr):
     InstallAllResources = property(get_InstallAllResources, put_InstallAllResources)
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
-class RemovalOptions(UInt32):  # enum
+class RemovalOptions(Enum, UInt32):
     None_ = 0
     PreserveApplicationData = 4096
     PreserveRoamableApplicationData = 128
@@ -1411,7 +1411,7 @@ class SharedPackageContainer(ComPtr):
     Id = property(get_Id, None)
     Name = property(get_Name, None)
 SharedPackageContainerContract: UInt32 = 65536
-class SharedPackageContainerCreationCollisionOptions(Int32):  # enum
+class SharedPackageContainerCreationCollisionOptions(Enum, Int32):
     FailIfExists = 0
     MergeWithExisting = 1
     ReplaceExisting = 2
@@ -1451,7 +1451,7 @@ class SharedPackageContainerMember(ComPtr):
     @winrt_mixinmethod
     def get_PackageFamilyName(self: win32more.Windows.Management.Deployment.ISharedPackageContainerMember) -> WinRT_String: ...
     PackageFamilyName = property(get_PackageFamilyName, None)
-class SharedPackageContainerOperationStatus(Int32):  # enum
+class SharedPackageContainerOperationStatus(Enum, Int32):
     Success = 0
     BlockedByPolicy = 1
     AlreadyExists = 2
@@ -1531,7 +1531,7 @@ class StagePackageOptions(ComPtr):
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
-class StubPackageOption(Int32):  # enum
+class StubPackageOption(Enum, Int32):
     Default = 0
     InstallFull = 1
     InstallStub = 2

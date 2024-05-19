@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Dispatching
@@ -152,7 +152,7 @@ class AppWindowPresenter(ComPtr):
     @winrt_mixinmethod
     def get_Kind(self: win32more.Microsoft.UI.Windowing.IAppWindowPresenter) -> win32more.Microsoft.UI.Windowing.AppWindowPresenterKind: ...
     Kind = property(get_Kind, None)
-class AppWindowPresenterKind(Int32):  # enum
+class AppWindowPresenterKind(Enum, Int32):
     Default = 0
     CompactOverlay = 1
     FullScreen = 2
@@ -262,7 +262,7 @@ class CompactOverlayPresenter(ComPtr):
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Windowing.ICompactOverlayPresenterStatics) -> win32more.Microsoft.UI.Windowing.CompactOverlayPresenter: ...
     InitialSize = property(get_InitialSize, put_InitialSize)
-class CompactOverlaySize(Int32):  # enum
+class CompactOverlaySize(Enum, Int32):
     Small = 0
     Medium = 1
     Large = 2
@@ -299,7 +299,7 @@ class DisplayArea(ComPtr, metaclass=_DisplayArea_Meta_):
     OuterBounds = property(get_OuterBounds, None)
     WorkArea = property(get_WorkArea, None)
     _DisplayArea_Meta_.Primary = property(get_Primary.__wrapped__, None)
-class DisplayAreaFallback(Int32):  # enum
+class DisplayAreaFallback(Enum, Int32):
     None_ = 0
     Primary = 1
     Nearest = 2
@@ -334,7 +334,7 @@ class DisplayAreaWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-class DisplayAreaWatcherStatus(Int32):  # enum
+class DisplayAreaWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
     EnumerationCompleted = 2
@@ -784,7 +784,7 @@ class IOverlappedPresenterStatics2(ComPtr):
     @winrt_commethod(6)
     def get_RequestedStartupState(self) -> win32more.Microsoft.UI.Windowing.OverlappedPresenterState: ...
     RequestedStartupState = property(get_RequestedStartupState, None)
-class IconShowOptions(Int32):  # enum
+class IconShowOptions(Enum, Int32):
     ShowIconAndSystemMenu = 0
     HideIconAndSystemMenu = 1
 class _OverlappedPresenter_Meta_(ComPtr.__class__):
@@ -850,11 +850,11 @@ class OverlappedPresenter(ComPtr, metaclass=_OverlappedPresenter_Meta_):
     IsResizable = property(get_IsResizable, put_IsResizable)
     State = property(get_State, None)
     _OverlappedPresenter_Meta_.RequestedStartupState = property(get_RequestedStartupState.__wrapped__, None)
-class OverlappedPresenterState(Int32):  # enum
+class OverlappedPresenterState(Enum, Int32):
     Maximized = 0
     Minimized = 1
     Restored = 2
-class TitleBarHeightOption(Int32):  # enum
+class TitleBarHeightOption(Enum, Int32):
     Standard = 0
     Tall = 1
     Collapsed = 2

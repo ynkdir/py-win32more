@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Appointments
 import win32more.Windows.Foundation
@@ -149,7 +149,7 @@ class Appointment(ComPtr):
     Subject = property(get_Subject, put_Subject)
     Uri = property(get_Uri, put_Uri)
     UserResponse = property(get_UserResponse, put_UserResponse)
-class AppointmentBusyStatus(Int32):  # enum
+class AppointmentBusyStatus(Enum, Int32):
     Busy = 0
     Tentative = 1
     Free = 2
@@ -281,12 +281,12 @@ class AppointmentCalendar(ComPtr):
     SummaryCardView = property(get_SummaryCardView, put_SummaryCardView)
     SyncManager = property(get_SyncManager, None)
     UserDataAccountId = property(get_UserDataAccountId, None)
-class AppointmentCalendarOtherAppReadAccess(Int32):  # enum
+class AppointmentCalendarOtherAppReadAccess(Enum, Int32):
     SystemOnly = 0
     Limited = 1
     Full = 2
     None_ = 3
-class AppointmentCalendarOtherAppWriteAccess(Int32):  # enum
+class AppointmentCalendarOtherAppWriteAccess(Enum, Int32):
     None_ = 0
     SystemOnly = 1
     Limited = 2
@@ -315,7 +315,7 @@ class AppointmentCalendarSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-class AppointmentCalendarSyncStatus(Int32):  # enum
+class AppointmentCalendarSyncStatus(Enum, Int32):
     Idle = 0
     Syncing = 1
     UpToDate = 2
@@ -333,11 +333,11 @@ class AppointmentConflictResult(ComPtr):
     def get_Date(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentConflictResult) -> win32more.Windows.Foundation.DateTime: ...
     Date = property(get_Date, None)
     Type = property(get_Type, None)
-class AppointmentConflictType(Int32):  # enum
+class AppointmentConflictType(Enum, Int32):
     None_ = 0
     Adjacent = 1
     Overlap = 2
-class AppointmentDaysOfWeek(UInt32):  # enum
+class AppointmentDaysOfWeek(Enum, UInt32):
     None_ = 0
     Sunday = 1
     Monday = 2
@@ -346,7 +346,7 @@ class AppointmentDaysOfWeek(UInt32):  # enum
     Thursday = 16
     Friday = 32
     Saturday = 64
-class AppointmentDetailsKind(Int32):  # enum
+class AppointmentDetailsKind(Enum, Int32):
     PlainText = 0
     Html = 1
 class AppointmentException(ComPtr):
@@ -482,13 +482,13 @@ class AppointmentOrganizer(ComPtr):
     def put_Address(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentParticipant, value: WinRT_String) -> Void: ...
     Address = property(get_Address, put_Address)
     DisplayName = property(get_DisplayName, put_DisplayName)
-class AppointmentParticipantResponse(Int32):  # enum
+class AppointmentParticipantResponse(Enum, Int32):
     None_ = 0
     Tentative = 1
     Accepted = 2
     Declined = 3
     Unknown = 4
-class AppointmentParticipantRole(Int32):  # enum
+class AppointmentParticipantRole(Enum, Int32):
     RequiredAttendee = 0
     OptionalAttendee = 1
     Resource = 2
@@ -639,14 +639,14 @@ class AppointmentRecurrence(ComPtr):
     Unit = property(get_Unit, put_Unit)
     Until = property(get_Until, put_Until)
     WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
-class AppointmentRecurrenceUnit(Int32):  # enum
+class AppointmentRecurrenceUnit(Enum, Int32):
     Daily = 0
     Weekly = 1
     Monthly = 2
     MonthlyOnDay = 3
     Yearly = 4
     YearlyOnDay = 5
-class AppointmentSensitivity(Int32):  # enum
+class AppointmentSensitivity(Enum, Int32):
     Public = 0
     Private = 1
 class AppointmentStore(ComPtr):
@@ -704,7 +704,7 @@ class AppointmentStore(ComPtr):
     @winrt_mixinmethod
     def GetChangeTracker(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentStore3, identity: WinRT_String) -> win32more.Windows.ApplicationModel.Appointments.AppointmentStoreChangeTracker: ...
     ChangeTracker = property(get_ChangeTracker, None)
-class AppointmentStoreAccessType(Int32):  # enum
+class AppointmentStoreAccessType(Enum, Int32):
     AppCalendarsReadWrite = 0
     AllCalendarsReadOnly = 1
     AllCalendarsReadWrite = 2
@@ -744,7 +744,7 @@ class AppointmentStoreChangeTracker(ComPtr):
     @winrt_mixinmethod
     def get_IsTracking(self: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreChangeTracker2) -> Boolean: ...
     IsTracking = property(get_IsTracking, None)
-class AppointmentStoreChangeType(Int32):  # enum
+class AppointmentStoreChangeType(Enum, Int32):
     AppointmentCreated = 0
     AppointmentModified = 1
     AppointmentDeleted = 2
@@ -768,16 +768,16 @@ class AppointmentStoreNotificationTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentStoreNotificationTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentStoreNotificationTriggerDetails'
-class AppointmentSummaryCardView(Int32):  # enum
+class AppointmentSummaryCardView(Enum, Int32):
     System = 0
     App = 1
-class AppointmentWeekOfMonth(Int32):  # enum
+class AppointmentWeekOfMonth(Enum, Int32):
     First = 0
     Second = 1
     Third = 2
     Fourth = 3
     Last = 4
-class FindAppointmentCalendarsOptions(UInt32):  # enum
+class FindAppointmentCalendarsOptions(Enum, UInt32):
     None_ = 0
     IncludeHidden = 1
 class FindAppointmentsOptions(ComPtr):
@@ -1533,7 +1533,7 @@ class IFindAppointmentsOptions(ComPtr):
     FetchProperties = property(get_FetchProperties, None)
     IncludeHidden = property(get_IncludeHidden, put_IncludeHidden)
     MaxCount = property(get_MaxCount, put_MaxCount)
-class RecurrenceType(Int32):  # enum
+class RecurrenceType(Enum, Int32):
     Master = 0
     Instance = 1
     ExceptionInstance = 2

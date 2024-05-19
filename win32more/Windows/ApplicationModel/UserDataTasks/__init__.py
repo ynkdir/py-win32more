@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.UserDataTasks
 import win32more.Windows.Foundation
@@ -379,7 +379,7 @@ class UserDataTaskBatch(ComPtr):
     @winrt_mixinmethod
     def get_Tasks(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskBatch) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.UserDataTasks.UserDataTask]: ...
     Tasks = property(get_Tasks, None)
-class UserDataTaskDaysOfWeek(UInt32):  # enum
+class UserDataTaskDaysOfWeek(Enum, UInt32):
     None_ = 0
     Sunday = 1
     Monday = 2
@@ -388,10 +388,10 @@ class UserDataTaskDaysOfWeek(UInt32):  # enum
     Thursday = 16
     Friday = 32
     Saturday = 64
-class UserDataTaskDetailsKind(Int32):  # enum
+class UserDataTaskDetailsKind(Enum, Int32):
     PlainText = 0
     Html = 1
-class UserDataTaskKind(Int32):  # enum
+class UserDataTaskKind(Enum, Int32):
     Single = 0
     Recurring = 1
     Regenerating = 2
@@ -457,11 +457,11 @@ class UserDataTaskListLimitedWriteOperations(ComPtr):
     def TryDeleteTaskAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskListLimitedWriteOperations, userDataTaskId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def TrySkipOccurrenceAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskListLimitedWriteOperations, userDataTaskId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-class UserDataTaskListOtherAppReadAccess(Int32):  # enum
+class UserDataTaskListOtherAppReadAccess(Enum, Int32):
     Full = 0
     SystemOnly = 1
     None_ = 2
-class UserDataTaskListOtherAppWriteAccess(Int32):  # enum
+class UserDataTaskListOtherAppWriteAccess(Enum, Int32):
     Limited = 0
     None_ = 1
 class UserDataTaskListSyncManager(ComPtr):
@@ -489,7 +489,7 @@ class UserDataTaskListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-class UserDataTaskListSyncStatus(Int32):  # enum
+class UserDataTaskListSyncStatus(Enum, Int32):
     Idle = 0
     Syncing = 1
     UpToDate = 2
@@ -509,11 +509,11 @@ class UserDataTaskManager(ComPtr):
     @winrt_classmethod
     def GetForUser(cls: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskManagerStatics, user: win32more.Windows.System.User) -> win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskManager: ...
     User = property(get_User, None)
-class UserDataTaskPriority(Int32):  # enum
+class UserDataTaskPriority(Enum, Int32):
     Normal = 0
     Low = -1
     High = 1
-class UserDataTaskQueryKind(Int32):  # enum
+class UserDataTaskQueryKind(Enum, Int32):
     All = 0
     Incomplete = 1
     Complete = 2
@@ -540,7 +540,7 @@ class UserDataTaskQueryOptions(ComPtr):
     def put_Kind(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskQueryOptions, value: win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryKind) -> Void: ...
     Kind = property(get_Kind, put_Kind)
     SortProperty = property(get_SortProperty, put_SortProperty)
-class UserDataTaskQuerySortProperty(Int32):  # enum
+class UserDataTaskQuerySortProperty(Enum, Int32):
     DueDate = 0
 class UserDataTaskReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -601,7 +601,7 @@ class UserDataTaskRecurrenceProperties(ComPtr):
     Unit = property(get_Unit, put_Unit)
     Until = property(get_Until, put_Until)
     WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
-class UserDataTaskRecurrenceUnit(Int32):  # enum
+class UserDataTaskRecurrenceUnit(Enum, Int32):
     Daily = 0
     Weekly = 1
     Monthly = 2
@@ -641,12 +641,12 @@ class UserDataTaskRegenerationProperties(ComPtr):
     Occurrences = property(get_Occurrences, put_Occurrences)
     Unit = property(get_Unit, put_Unit)
     Until = property(get_Until, put_Until)
-class UserDataTaskRegenerationUnit(Int32):  # enum
+class UserDataTaskRegenerationUnit(Enum, Int32):
     Daily = 0
     Weekly = 1
     Monthly = 2
     Yearly = 4
-class UserDataTaskSensitivity(Int32):  # enum
+class UserDataTaskSensitivity(Enum, Int32):
     Public = 0
     Private = 1
 class UserDataTaskStore(ComPtr):
@@ -661,10 +661,10 @@ class UserDataTaskStore(ComPtr):
     def FindListsAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskStore) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskList]]: ...
     @winrt_mixinmethod
     def GetListAsync(self: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskStore, taskListId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskList]: ...
-class UserDataTaskStoreAccessType(Int32):  # enum
+class UserDataTaskStoreAccessType(Enum, Int32):
     AppTasksReadWrite = 0
     AllTasksLimitedReadWrite = 1
-class UserDataTaskWeekOfMonth(Int32):  # enum
+class UserDataTaskWeekOfMonth(Enum, Int32):
     First = 0
     Second = 1
     Third = 2

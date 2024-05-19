@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.System.Threading
@@ -83,10 +83,10 @@ class WorkItemHandler(MulticastDelegate):
     _iid_ = Guid('{1d1a8b8b-fa66-414f-9cbd-b65fc99d17fa}')
     @winrt_commethod(3)
     def Invoke(self, operation: win32more.Windows.Foundation.IAsyncAction) -> Void: ...
-class WorkItemOptions(UInt32):  # enum
+class WorkItemOptions(Enum, UInt32):
     None_ = 0
     TimeSliced = 1
-class WorkItemPriority(Int32):  # enum
+class WorkItemPriority(Enum, Int32):
     Low = -1
     Normal = 0
     High = 1

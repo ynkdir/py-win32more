@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Store.Preview.InstallControl
 import win32more.Windows.Foundation
@@ -290,7 +290,7 @@ class AppInstallOptions(ComPtr):
     Repair = property(get_Repair, put_Repair)
     StageButDoNotInstall = property(get_StageButDoNotInstall, put_StageButDoNotInstall)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
-class AppInstallState(Int32):  # enum
+class AppInstallState(Enum, Int32):
     Pending = 0
     Starting = 1
     AcquiringLicense = 2
@@ -333,11 +333,11 @@ class AppInstallStatus(ComPtr):
     PercentComplete = property(get_PercentComplete, None)
     ReadyForLaunch = property(get_ReadyForLaunch, None)
     User = property(get_User, None)
-class AppInstallType(Int32):  # enum
+class AppInstallType(Enum, Int32):
     Install = 0
     Update = 1
     Repair = 2
-class AppInstallationToastNotificationMode(Int32):  # enum
+class AppInstallationToastNotificationMode(Enum, Int32):
     Default = 0
     Toast = 1
     ToastWithoutPopup = 2
@@ -370,7 +370,7 @@ class AppUpdateOptions(ComPtr):
     AllowForcedAppRestart = property(get_AllowForcedAppRestart, put_AllowForcedAppRestart)
     AutomaticallyDownloadAndInstallUpdateIfFound = property(get_AutomaticallyDownloadAndInstallUpdateIfFound, put_AutomaticallyDownloadAndInstallUpdateIfFound)
     CatalogId = property(get_CatalogId, put_CatalogId)
-class AutoUpdateSetting(Int32):  # enum
+class AutoUpdateSetting(Enum, Int32):
     Disabled = 0
     Enabled = 1
     DisabledByPolicy = 2
@@ -382,7 +382,7 @@ class GetEntitlementResult(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult) -> win32more.Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementStatus: ...
     Status = property(get_Status, None)
-class GetEntitlementStatus(Int32):  # enum
+class GetEntitlementStatus(Enum, Int32):
     Succeeded = 0
     NoStoreAccount = 1
     NetworkError = 2

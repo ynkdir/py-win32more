@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.I2c
 import win32more.Windows.Devices.I2c.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
-class I2cBusSpeed(Int32):  # enum
+class I2cBusSpeed(Enum, Int32):
     StandardMode = 0
     FastMode = 1
 class I2cConnectionSettings(ComPtr):
@@ -77,13 +77,13 @@ class I2cDevice(ComPtr):
     def FromIdAsync(cls: win32more.Windows.Devices.I2c.II2cDeviceStatics, deviceId: WinRT_String, settings: win32more.Windows.Devices.I2c.I2cConnectionSettings) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.I2c.I2cDevice]: ...
     ConnectionSettings = property(get_ConnectionSettings, None)
     DeviceId = property(get_DeviceId, None)
-class I2cSharingMode(Int32):  # enum
+class I2cSharingMode(Enum, Int32):
     Exclusive = 0
     Shared = 1
 class I2cTransferResult(Structure):
     Status: win32more.Windows.Devices.I2c.I2cTransferStatus
     BytesTransferred: UInt32
-class I2cTransferStatus(Int32):  # enum
+class I2cTransferStatus(Enum, Int32):
     FullTransfer = 0
     PartialTransfer = 1
     SlaveAddressNotAcknowledged = 2

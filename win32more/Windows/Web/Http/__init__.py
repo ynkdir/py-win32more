@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -115,7 +115,7 @@ class HttpClient(ComPtr):
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
     DefaultPrivacyAnnotation = property(get_DefaultPrivacyAnnotation, put_DefaultPrivacyAnnotation)
     DefaultRequestHeaders = property(get_DefaultRequestHeaders, None)
-class HttpCompletionOption(Int32):  # enum
+class HttpCompletionOption(Enum, Int32):
     ResponseContentRead = 0
     ResponseHeadersRead = 1
 class HttpCookie(ComPtr):
@@ -426,7 +426,7 @@ class HttpProgress(Structure):
     BytesReceived: UInt64
     TotalBytesToReceive: win32more.Windows.Foundation.IReference[UInt64]
     Retries: UInt32
-class HttpProgressStage(Int32):  # enum
+class HttpProgressStage(Enum, Int32):
     None_ = 0
     DetectingProxy = 10
     ResolvingName = 20
@@ -566,11 +566,11 @@ class HttpResponseMessage(ComPtr):
     Source = property(get_Source, put_Source)
     StatusCode = property(get_StatusCode, put_StatusCode)
     Version = property(get_Version, put_Version)
-class HttpResponseMessageSource(Int32):  # enum
+class HttpResponseMessageSource(Enum, Int32):
     None_ = 0
     Cache = 1
     Network = 2
-class HttpStatusCode(Int32):  # enum
+class HttpStatusCode(Enum, Int32):
     None_ = 0
     Continue = 100
     SwitchingProtocols = 101
@@ -719,7 +719,7 @@ class HttpTransportInformation(ComPtr):
     ServerCertificateErrorSeverity = property(get_ServerCertificateErrorSeverity, None)
     ServerCertificateErrors = property(get_ServerCertificateErrors, None)
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
-class HttpVersion(Int32):  # enum
+class HttpVersion(Enum, Int32):
     None_ = 0
     Http10 = 1
     Http11 = 2

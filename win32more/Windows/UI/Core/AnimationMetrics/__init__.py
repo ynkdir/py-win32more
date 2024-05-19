@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -33,7 +33,7 @@ class AnimationDescription(ComPtr):
     StaggerDelay = property(get_StaggerDelay, None)
     StaggerDelayFactor = property(get_StaggerDelayFactor, None)
     ZOrder = property(get_ZOrder, None)
-class AnimationEffect(Int32):  # enum
+class AnimationEffect(Enum, Int32):
     Expand = 0
     Collapse = 1
     Reposition = 2
@@ -70,7 +70,7 @@ class AnimationEffect(Int32):  # enum
     CrossFade = 33
     Peek = 34
     UpdateBadge = 35
-class AnimationEffectTarget(Int32):  # enum
+class AnimationEffectTarget(Enum, Int32):
     Primary = 0
     Added = 1
     Affected = 2
@@ -209,7 +209,7 @@ class PropertyAnimation(ComPtr):
     Delay = property(get_Delay, None)
     Duration = property(get_Duration, None)
     Type = property(get_Type, None)
-class PropertyAnimationType(Int32):  # enum
+class PropertyAnimationType(Enum, Int32):
     Scale = 0
     Translation = 1
     Opacity = 2

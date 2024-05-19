@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
@@ -8,11 +8,11 @@ import win32more.Windows.Services.Maps
 import win32more.Windows.Services.Maps.Guidance
 import win32more.Windows.UI
 import win32more.Windows.Win32.System.WinRT
-class GuidanceAudioMeasurementSystem(Int32):  # enum
+class GuidanceAudioMeasurementSystem(Enum, Int32):
     Meters = 0
     MilesAndYards = 1
     MilesAndFeet = 2
-class GuidanceAudioNotificationKind(Int32):  # enum
+class GuidanceAudioNotificationKind(Enum, Int32):
     Maneuver = 0
     Route = 1
     Gps = 2
@@ -32,7 +32,7 @@ class GuidanceAudioNotificationRequestedEventArgs(ComPtr):
     AudioFilePaths = property(get_AudioFilePaths, None)
     AudioNotification = property(get_AudioNotification, None)
     AudioText = property(get_AudioText, None)
-class GuidanceAudioNotifications(UInt32):  # enum
+class GuidanceAudioNotifications(Enum, UInt32):
     None_ = 0
     Maneuver = 1
     Route = 2
@@ -50,7 +50,7 @@ class GuidanceLaneInfo(ComPtr):
     def get_IsOnRoute(self: win32more.Windows.Services.Maps.Guidance.IGuidanceLaneInfo) -> Boolean: ...
     IsOnRoute = property(get_IsOnRoute, None)
     LaneMarkers = property(get_LaneMarkers, None)
-class GuidanceLaneMarkers(UInt32):  # enum
+class GuidanceLaneMarkers(Enum, UInt32):
     None_ = 0
     LightRight = 1
     Right = 2
@@ -102,7 +102,7 @@ class GuidanceManeuver(ComPtr):
     RoadSignpost = property(get_RoadSignpost, None)
     StartAngle = property(get_StartAngle, None)
     StartLocation = property(get_StartLocation, None)
-class GuidanceManeuverKind(Int32):  # enum
+class GuidanceManeuverKind(Enum, Int32):
     None_ = 0
     GoStraight = 1
     UTurnRight = 2
@@ -170,7 +170,7 @@ class GuidanceMapMatchedCoordinate(ComPtr):
     IsOnStreet = property(get_IsOnStreet, None)
     Location = property(get_Location, None)
     Road = property(get_Road, None)
-class GuidanceMode(Int32):  # enum
+class GuidanceMode(Enum, Int32):
     None_ = 0
     Simulation = 1
     Navigation = 2

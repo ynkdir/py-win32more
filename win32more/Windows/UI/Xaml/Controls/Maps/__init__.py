@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
@@ -2093,7 +2093,7 @@ class MapActualCameraChangingEventArgs(ComPtr):
     def get_ChangeReason(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapActualCameraChangingEventArgs2) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason: ...
     Camera = property(get_Camera, None)
     ChangeReason = property(get_ChangeReason, None)
-class MapAnimationKind(Int32):  # enum
+class MapAnimationKind(Enum, Int32):
     Default = 0
     None_ = 1
     Linear = 2
@@ -2195,11 +2195,11 @@ class MapCamera(ComPtr):
     Location = property(get_Location, put_Location)
     Pitch = property(get_Pitch, put_Pitch)
     Roll = property(get_Roll, put_Roll)
-class MapCameraChangeReason(Int32):  # enum
+class MapCameraChangeReason(Enum, Int32):
     System = 0
     UserInteraction = 1
     Programmatic = 2
-class MapColorScheme(Int32):  # enum
+class MapColorScheme(Enum, Int32):
     Light = 0
     Dark = 1
 class MapContextRequestedEventArgs(ComPtr):
@@ -3066,7 +3066,7 @@ class MapElementClickEventArgs(ComPtr):
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
     Position = property(get_Position, None)
-class MapElementCollisionBehavior(Int32):  # enum
+class MapElementCollisionBehavior(Enum, Int32):
     Hide = 0
     RemainVisible = 1
 class MapElementPointerEnteredEventArgs(ComPtr):
@@ -3311,7 +3311,7 @@ class MapInputEventArgs(ComPtr):
     def get_Location(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapInputEventArgs) -> win32more.Windows.Devices.Geolocation.Geopoint: ...
     Location = property(get_Location, None)
     Position = property(get_Position, None)
-class MapInteractionMode(Int32):  # enum
+class MapInteractionMode(Enum, Int32):
     Auto = 0
     Disabled = 1
     GestureOnly = 2
@@ -3396,7 +3396,7 @@ class MapLayer(ComPtr, metaclass=_MapLayer_Meta_):
     _MapLayer_Meta_.MapTabIndexProperty = property(get_MapTabIndexProperty.__wrapped__, None)
     _MapLayer_Meta_.VisibleProperty = property(get_VisibleProperty.__wrapped__, None)
     _MapLayer_Meta_.ZIndexProperty = property(get_ZIndexProperty.__wrapped__, None)
-class MapLoadingStatus(Int32):  # enum
+class MapLoadingStatus(Enum, Int32):
     Loading = 0
     Loaded = 1
     DataUnavailable = 2
@@ -3418,11 +3418,11 @@ class MapModel3D(ComPtr):
     def CreateFrom3MFAsync(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3DStatics, source: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D]: ...
     @winrt_classmethod
     def CreateFrom3MFWithShadingOptionAsync(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapModel3DStatics, source: win32more.Windows.Storage.Streams.IRandomAccessStreamReference, shadingOption: win32more.Windows.UI.Xaml.Controls.Maps.MapModel3DShadingOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Xaml.Controls.Maps.MapModel3D]: ...
-class MapModel3DShadingOption(Int32):  # enum
+class MapModel3DShadingOption(Enum, Int32):
     Default = 0
     Flat = 1
     Smooth = 2
-class MapPanInteractionMode(Int32):  # enum
+class MapPanInteractionMode(Enum, Int32):
     Auto = 0
     Disabled = 1
 class _MapPolygon_Meta_(ComPtr.__class__):
@@ -3518,7 +3518,7 @@ class MapPolyline(ComPtr, metaclass=_MapPolyline_Meta_):
     StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
     _MapPolyline_Meta_.PathProperty = property(get_PathProperty.__wrapped__, None)
     _MapPolyline_Meta_.StrokeDashedProperty = property(get_StrokeDashedProperty.__wrapped__, None)
-class MapProjection(Int32):  # enum
+class MapProjection(Enum, Int32):
     WebMercator = 0
     Globe = 1
 class MapRightTappedEventArgs(ComPtr):
@@ -3595,7 +3595,7 @@ class MapScene(ComPtr):
     @winrt_classmethod
     def CreateFromLocationsWithHeadingAndPitch(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapSceneStatics, locations: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Geolocation.Geopoint], headingInDegrees: Double, pitchInDegrees: Double) -> win32more.Windows.UI.Xaml.Controls.Maps.MapScene: ...
     TargetCamera = property(get_TargetCamera, None)
-class MapStyle(Int32):  # enum
+class MapStyle(Enum, Int32):
     None_ = 0
     Road = 1
     Aerial = 2
@@ -3856,7 +3856,7 @@ class MapTargetCameraChangedEventArgs(ComPtr):
     def get_ChangeReason(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapTargetCameraChangedEventArgs2) -> win32more.Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason: ...
     Camera = property(get_Camera, None)
     ChangeReason = property(get_ChangeReason, None)
-class MapTileAnimationState(Int32):  # enum
+class MapTileAnimationState(Enum, Int32):
     Stopped = 0
     Paused = 1
     Playing = 2
@@ -3936,7 +3936,7 @@ class MapTileDataSource(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_factorymethod
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapTileDataSourceFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
-class MapTileLayer(Int32):  # enum
+class MapTileLayer(Enum, Int32):
     LabelOverlay = 0
     RoadOverlay = 1
     AreaOverlay = 2
@@ -4160,10 +4160,10 @@ class MapTileUriRequestedEventArgs(ComPtr):
     X = property(get_X, None)
     Y = property(get_Y, None)
     ZoomLevel = property(get_ZoomLevel, None)
-class MapVisibleRegionKind(Int32):  # enum
+class MapVisibleRegionKind(Enum, Int32):
     Near = 0
     Full = 1
-class MapWatermarkMode(Int32):  # enum
+class MapWatermarkMode(Enum, Int32):
     Automatic = 0
     On = 1
 class MapZoomLevelRange(Structure):

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -35,7 +35,7 @@ class AsyncOperationWithProgressCompletedHandler(Generic[TResult, TProgress], Mu
     _piid_ = Guid('{e85df41d-6aa7-46e3-a8e2-f009d840c627}')
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: win32more.Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], asyncStatus: win32more.Windows.Foundation.AsyncStatus) -> Void: ...
-class AsyncStatus(Int32):  # enum
+class AsyncStatus(Enum, Int32):
     Canceled = 2
     Completed = 1
     Error = 3
@@ -534,7 +534,7 @@ class MemoryBuffer(ComPtr):
 class Point(Structure):
     X: Single
     Y: Single
-class PropertyType(Int32):  # enum
+class PropertyType(Enum, Int32):
     Empty = 0
     UInt8 = 1
     Int16 = 2

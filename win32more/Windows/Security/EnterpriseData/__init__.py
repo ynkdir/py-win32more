@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -43,14 +43,14 @@ class DataProtectionManager(ComPtr):
     def GetProtectionInfoAsync(cls: win32more.Windows.Security.EnterpriseData.IDataProtectionManagerStatics, protectedData: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.DataProtectionInfo]: ...
     @winrt_classmethod
     def GetStreamProtectionInfoAsync(cls: win32more.Windows.Security.EnterpriseData.IDataProtectionManagerStatics, protectedStream: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.DataProtectionInfo]: ...
-class DataProtectionStatus(Int32):  # enum
+class DataProtectionStatus(Enum, Int32):
     ProtectedToOtherIdentity = 0
     Protected = 1
     Revoked = 2
     Unprotected = 3
     LicenseExpired = 4
     AccessSuspended = 5
-class EnforcementLevel(Int32):  # enum
+class EnforcementLevel(Enum, Int32):
     NoProtection = 0
     Silent = 1
     Override = 2
@@ -99,7 +99,7 @@ class FileProtectionManager(ComPtr):
     def LoadFileFromContainerWithTargetAsync(cls: win32more.Windows.Security.EnterpriseData.IFileProtectionManagerStatics, containerFile: win32more.Windows.Storage.IStorageFile, target: win32more.Windows.Storage.IStorageItem) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectedContainerImportResult]: ...
     @winrt_classmethod
     def CreateProtectedAndOpenAsync(cls: win32more.Windows.Security.EnterpriseData.IFileProtectionManagerStatics, parentFolder: win32more.Windows.Storage.IStorageFolder, desiredName: WinRT_String, identity: WinRT_String, collisionOption: win32more.Windows.Storage.CreationCollisionOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectedFileCreateResult]: ...
-class FileProtectionStatus(Int32):  # enum
+class FileProtectionStatus(Enum, Int32):
     Undetermined = 0
     Unknown = 0
     Unprotected = 1
@@ -530,7 +530,7 @@ class ProtectedFileCreateResult(ComPtr):
     File = property(get_File, None)
     ProtectionInfo = property(get_ProtectionInfo, None)
     Stream = property(get_Stream, None)
-class ProtectedImportExportStatus(Int32):  # enum
+class ProtectedImportExportStatus(Enum, Int32):
     Ok = 0
     Undetermined = 1
     Unprotected = 2
@@ -539,7 +539,7 @@ class ProtectedImportExportStatus(Int32):  # enum
     ProtectedToOtherIdentity = 5
     LicenseExpired = 6
     AccessSuspended = 7
-class ProtectionPolicyAuditAction(Int32):  # enum
+class ProtectionPolicyAuditAction(Enum, Int32):
     Decrypt = 0
     CopyToLocation = 1
     SendToRecipient = 2
@@ -581,7 +581,7 @@ class ProtectionPolicyAuditInfo(ComPtr):
     DataDescription = property(get_DataDescription, put_DataDescription)
     SourceDescription = property(get_SourceDescription, put_SourceDescription)
     TargetDescription = property(get_TargetDescription, put_TargetDescription)
-class ProtectionPolicyEvaluationResult(Int32):  # enum
+class ProtectionPolicyEvaluationResult(Enum, Int32):
     Allowed = 0
     Blocked = 1
     ConsentRequired = 2
@@ -683,7 +683,7 @@ class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
     ShowEnterpriseIndicator = property(get_ShowEnterpriseIndicator, put_ShowEnterpriseIndicator)
     _ProtectionPolicyManager_Meta_.IsProtectionEnabled = property(get_IsProtectionEnabled.__wrapped__, None)
     _ProtectionPolicyManager_Meta_.PrimaryManagedIdentity = property(get_PrimaryManagedIdentity.__wrapped__, None)
-class ProtectionPolicyRequestAccessBehavior(Int32):  # enum
+class ProtectionPolicyRequestAccessBehavior(Enum, Int32):
     Decrypt = 0
     TreatOverridePolicyAsBlock = 1
 class ThreadNetworkContext(ComPtr):

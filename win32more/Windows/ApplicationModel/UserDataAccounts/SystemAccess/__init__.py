@@ -1,12 +1,12 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.UserDataAccounts.SystemAccess
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Credentials
 import win32more.Windows.Win32.System.WinRT
-class DeviceAccountAuthenticationType(Int32):  # enum
+class DeviceAccountAuthenticationType(Enum, Int32):
     Basic = 0
     OAuth = 1
     SingleSignOn = 2
@@ -244,12 +244,12 @@ class DeviceAccountConfiguration(ComPtr):
     WasIncomingServerCertificateHashConfirmed = property(get_WasIncomingServerCertificateHashConfirmed, put_WasIncomingServerCertificateHashConfirmed)
     WasModifiedByUser = property(get_WasModifiedByUser, put_WasModifiedByUser)
     WasOutgoingServerCertificateHashConfirmed = property(get_WasOutgoingServerCertificateHashConfirmed, put_WasOutgoingServerCertificateHashConfirmed)
-class DeviceAccountIconId(Int32):  # enum
+class DeviceAccountIconId(Enum, Int32):
     Exchange = 0
     Msa = 1
     Outlook = 2
     Generic = 3
-class DeviceAccountMailAgeFilter(Int32):  # enum
+class DeviceAccountMailAgeFilter(Enum, Int32):
     All = 0
     Last1Day = 1
     Last3Days = 2
@@ -257,11 +257,11 @@ class DeviceAccountMailAgeFilter(Int32):  # enum
     Last14Days = 4
     Last30Days = 5
     Last90Days = 6
-class DeviceAccountServerType(Int32):  # enum
+class DeviceAccountServerType(Enum, Int32):
     Exchange = 0
     Pop = 1
     Imap = 2
-class DeviceAccountSyncScheduleKind(Int32):  # enum
+class DeviceAccountSyncScheduleKind(Enum, Int32):
     Manual = 0
     Every15Minutes = 1
     Every30Minutes = 2

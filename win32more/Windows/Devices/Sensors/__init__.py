@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Sensors
 import win32more.Windows.Foundation
@@ -106,7 +106,7 @@ class AccelerometerReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IAccelerometerReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.AccelerometerReading: ...
     Reading = property(get_Reading, None)
-class AccelerometerReadingType(Int32):  # enum
+class AccelerometerReadingType(Enum, Int32):
     Standard = 0
     Linear = 1
     Gravity = 2
@@ -179,7 +179,7 @@ class ActivitySensorReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IActivitySensorReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.ActivitySensorReading: ...
     Reading = property(get_Reading, None)
-class ActivitySensorReadingConfidence(Int32):  # enum
+class ActivitySensorReadingConfidence(Enum, Int32):
     High = 0
     Low = 1
 class ActivitySensorTriggerDetails(ComPtr):
@@ -188,7 +188,7 @@ class ActivitySensorTriggerDetails(ComPtr):
     _classid_ = 'Windows.Devices.Sensors.ActivitySensorTriggerDetails'
     @winrt_mixinmethod
     def ReadReports(self: win32more.Windows.Devices.Sensors.IActivitySensorTriggerDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Sensors.ActivitySensorReadingChangeReport]: ...
-class ActivityType(Int32):  # enum
+class ActivityType(Enum, Int32):
     Unknown = 0
     Idle = 1
     Stationary = 2
@@ -551,11 +551,11 @@ class HingeAngleSensorReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IHingeAngleSensorReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.HingeAngleReading: ...
     Reading = property(get_Reading, None)
-class HumanEngagement(Int32):  # enum
+class HumanEngagement(Enum, Int32):
     Unknown = 0
     Engaged = 1
     Unengaged = 2
-class HumanPresence(Int32):  # enum
+class HumanPresence(Enum, Int32):
     Unknown = 0
     Present = 1
     NotPresent = 2
@@ -2613,7 +2613,7 @@ class Magnetometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     ReportThreshold = property(get_ReportThreshold, None)
-class MagnetometerAccuracy(Int32):  # enum
+class MagnetometerAccuracy(Enum, Int32):
     Unknown = 0
     Unreliable = 1
     Approximate = 2
@@ -2821,7 +2821,7 @@ class PedometerReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IPedometerReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.PedometerReading: ...
     Reading = property(get_Reading, None)
-class PedometerStepKind(Int32):  # enum
+class PedometerStepKind(Enum, Int32):
     Unknown = 0
     Walking = 1
     Running = 2
@@ -2901,7 +2901,7 @@ class SensorDataThresholdTriggerDetails(ComPtr):
     def get_SensorType(self: win32more.Windows.Devices.Sensors.ISensorDataThresholdTriggerDetails) -> win32more.Windows.Devices.Sensors.SensorType: ...
     DeviceId = property(get_DeviceId, None)
     SensorType = property(get_SensorType, None)
-class SensorOptimizationGoal(Int32):  # enum
+class SensorOptimizationGoal(Enum, Int32):
     Precision = 0
     PowerEfficiency = 1
 class SensorQuaternion(ComPtr):
@@ -2920,7 +2920,7 @@ class SensorQuaternion(ComPtr):
     X = property(get_X, None)
     Y = property(get_Y, None)
     Z = property(get_Z, None)
-class SensorReadingType(Int32):  # enum
+class SensorReadingType(Enum, Int32):
     Absolute = 0
     Relative = 1
 class SensorRotationMatrix(ComPtr):
@@ -2954,7 +2954,7 @@ class SensorRotationMatrix(ComPtr):
     M31 = property(get_M31, None)
     M32 = property(get_M32, None)
     M33 = property(get_M33, None)
-class SensorType(Int32):  # enum
+class SensorType(Enum, Int32):
     Accelerometer = 0
     ActivitySensor = 1
     Barometer = 2
@@ -2969,7 +2969,7 @@ class SensorType(Int32):  # enum
     RelativeInclinometer = 11
     RelativeOrientationSensor = 12
     SimpleOrientationSensor = 13
-class SimpleOrientation(Int32):  # enum
+class SimpleOrientation(Enum, Int32):
     NotRotated = 0
     Rotated90DegreesCounterclockwise = 1
     Rotated180DegreesCounterclockwise = 2

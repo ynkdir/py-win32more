@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -145,19 +145,19 @@ class CoreTextFormatUpdatingEventArgs(ComPtr):
     TextColor = property(get_TextColor, None)
     UnderlineColor = property(get_UnderlineColor, None)
     UnderlineType = property(get_UnderlineType, None)
-class CoreTextFormatUpdatingReason(Int32):  # enum
+class CoreTextFormatUpdatingReason(Enum, Int32):
     None_ = 0
     CompositionUnconverted = 1
     CompositionConverted = 2
     CompositionTargetUnconverted = 3
     CompositionTargetConverted = 4
-class CoreTextFormatUpdatingResult(Int32):  # enum
+class CoreTextFormatUpdatingResult(Enum, Int32):
     Succeeded = 0
     Failed = 1
-class CoreTextInputPaneDisplayPolicy(Int32):  # enum
+class CoreTextInputPaneDisplayPolicy(Enum, Int32):
     Automatic = 0
     Manual = 1
-class CoreTextInputScope(Int32):  # enum
+class CoreTextInputScope(Enum, Int32):
     Default = 0
     Url = 1
     FilePath = 2
@@ -305,7 +305,7 @@ class CoreTextSelectionUpdatingEventArgs(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
     Result = property(get_Result, put_Result)
     Selection = property(get_Selection, None)
-class CoreTextSelectionUpdatingResult(Int32):  # enum
+class CoreTextSelectionUpdatingResult(Enum, Int32):
     Succeeded = 0
     Failed = 1
 class _CoreTextServicesConstants_Meta_(ComPtr.__class__):
@@ -381,7 +381,7 @@ class CoreTextTextUpdatingEventArgs(ComPtr):
     Range = property(get_Range, None)
     Result = property(get_Result, put_Result)
     Text = property(get_Text, None)
-class CoreTextTextUpdatingResult(Int32):  # enum
+class CoreTextTextUpdatingResult(Enum, Int32):
     Succeeded = 0
     Failed = 1
 class ICoreTextCompositionCompletedEventArgs(ComPtr):

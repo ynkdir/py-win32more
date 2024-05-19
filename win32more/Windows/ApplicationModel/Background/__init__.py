@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.ApplicationModel.Background
@@ -47,7 +47,7 @@ class ActivitySensorTrigger(ComPtr):
     ReportInterval = property(get_ReportInterval, None)
     SubscribedActivities = property(get_SubscribedActivities, None)
     SupportedActivities = property(get_SupportedActivities, None)
-class AlarmAccessStatus(Int32):  # enum
+class AlarmAccessStatus(Enum, Int32):
     Unspecified = 0
     AllowedWithWakeupCapability = 1
     AllowedWithoutWakeupCapability = 2
@@ -135,7 +135,7 @@ class ApplicationTriggerDetails(ComPtr):
     @winrt_mixinmethod
     def get_Arguments(self: win32more.Windows.ApplicationModel.Background.IApplicationTriggerDetails) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     Arguments = property(get_Arguments, None)
-class ApplicationTriggerResult(Int32):  # enum
+class ApplicationTriggerResult(Enum, Int32):
     Allowed = 0
     CurrentlyRunning = 1
     DisabledByPolicy = 2
@@ -153,10 +153,10 @@ class AppointmentStoreNotificationTrigger(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.AppointmentStoreNotificationTrigger: ...
-class BackgroundAccessRequestKind(Int32):  # enum
+class BackgroundAccessRequestKind(Enum, Int32):
     AlwaysAllowed = 0
     AllowedSubjectToSystemPolicy = 1
-class BackgroundAccessStatus(Int32):  # enum
+class BackgroundAccessStatus(Enum, Int32):
     Unspecified = 0
     AllowedWithAlwaysOnRealTimeConnectivity = 1
     AllowedMayUseActiveRealTimeConnectivity = 2
@@ -240,7 +240,7 @@ class BackgroundTaskCanceledEventHandler(MulticastDelegate):
     _iid_ = Guid('{a6c4bac0-51f8-4c57-ac3f-156dd1680c4f}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.ApplicationModel.Background.IBackgroundTaskInstance, reason: win32more.Windows.ApplicationModel.Background.BackgroundTaskCancellationReason) -> Void: ...
-class BackgroundTaskCancellationReason(Int32):  # enum
+class BackgroundTaskCancellationReason(Enum, Int32):
     Abort = 0
     Terminating = 1
     LoggingOff = 2
@@ -354,7 +354,7 @@ class BackgroundTaskRegistrationGroup(ComPtr):
     AllTasks = property(get_AllTasks, None)
     Id = property(get_Id, None)
     Name = property(get_Name, None)
-class BackgroundTaskThrottleCounter(Int32):  # enum
+class BackgroundTaskThrottleCounter(Enum, Int32):
     All = 0
     Cpu = 1
     Network = 2
@@ -366,7 +366,7 @@ class BackgroundWorkCost(ComPtr, metaclass=_BackgroundWorkCost_Meta_):
     @winrt_classmethod
     def get_CurrentBackgroundWorkCost(cls: win32more.Windows.ApplicationModel.Background.IBackgroundWorkCostStatics) -> win32more.Windows.ApplicationModel.Background.BackgroundWorkCostValue: ...
     _BackgroundWorkCost_Meta_.CurrentBackgroundWorkCost = property(get_CurrentBackgroundWorkCost.__wrapped__, None)
-class BackgroundWorkCostValue(Int32):  # enum
+class BackgroundWorkCostValue(Enum, Int32):
     Low = 0
     Medium = 1
     High = 2
@@ -576,7 +576,7 @@ class CustomSystemEventTrigger(ComPtr):
     def get_Recurrence(self: win32more.Windows.ApplicationModel.Background.ICustomSystemEventTrigger) -> win32more.Windows.ApplicationModel.Background.CustomSystemEventTriggerRecurrence: ...
     Recurrence = property(get_Recurrence, None)
     TriggerId = property(get_TriggerId, None)
-class CustomSystemEventTriggerRecurrence(Int32):  # enum
+class CustomSystemEventTriggerRecurrence(Enum, Int32):
     Once = 0
     Always = 1
 class DeviceConnectionChangeTrigger(ComPtr):
@@ -632,7 +632,7 @@ class DeviceServicingTrigger(ComPtr):
     def RequestAsyncSimple(self: win32more.Windows.ApplicationModel.Background.IDeviceServicingTrigger, deviceId: WinRT_String, expectedDuration: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Background.DeviceTriggerResult]: ...
     @winrt_mixinmethod
     def RequestAsyncWithArguments(self: win32more.Windows.ApplicationModel.Background.IDeviceServicingTrigger, deviceId: WinRT_String, expectedDuration: win32more.Windows.Foundation.TimeSpan, arguments: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Background.DeviceTriggerResult]: ...
-class DeviceTriggerResult(Int32):  # enum
+class DeviceTriggerResult(Enum, Int32):
     Allowed = 0
     DeniedByUser = 1
     DeniedBySystem = 2
@@ -1580,7 +1580,7 @@ class LocationTrigger(ComPtr):
     @winrt_mixinmethod
     def get_TriggerType(self: win32more.Windows.ApplicationModel.Background.ILocationTrigger) -> win32more.Windows.ApplicationModel.Background.LocationTriggerType: ...
     TriggerType = property(get_TriggerType, None)
-class LocationTriggerType(Int32):  # enum
+class LocationTriggerType(Enum, Int32):
     Geofence = 0
 class MaintenanceTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1618,7 +1618,7 @@ class MediaProcessingTrigger(ComPtr):
     def RequestAsync(self: win32more.Windows.ApplicationModel.Background.IMediaProcessingTrigger) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Background.MediaProcessingTriggerResult]: ...
     @winrt_mixinmethod
     def RequestAsyncWithArguments(self: win32more.Windows.ApplicationModel.Background.IMediaProcessingTrigger, arguments: win32more.Windows.Foundation.Collections.ValueSet) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Background.MediaProcessingTriggerResult]: ...
-class MediaProcessingTriggerResult(Int32):  # enum
+class MediaProcessingTriggerResult(Enum, Int32):
     Allowed = 0
     CurrentlyRunning = 1
     DisabledByPolicy = 2
@@ -1934,7 +1934,7 @@ class SystemCondition(ComPtr):
     @winrt_mixinmethod
     def get_ConditionType(self: win32more.Windows.ApplicationModel.Background.ISystemCondition) -> win32more.Windows.ApplicationModel.Background.SystemConditionType: ...
     ConditionType = property(get_ConditionType, None)
-class SystemConditionType(Int32):  # enum
+class SystemConditionType(Enum, Int32):
     Invalid = 0
     UserPresent = 1
     UserNotPresent = 2
@@ -1963,7 +1963,7 @@ class SystemTrigger(ComPtr):
     def get_TriggerType(self: win32more.Windows.ApplicationModel.Background.ISystemTrigger) -> win32more.Windows.ApplicationModel.Background.SystemTriggerType: ...
     OneShot = property(get_OneShot, None)
     TriggerType = property(get_TriggerType, None)
-class SystemTriggerType(Int32):  # enum
+class SystemTriggerType(Enum, Int32):
     Invalid = 0
     SmsReceived = 1
     UserPresent = 2

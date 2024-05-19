@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.UI
@@ -237,7 +237,7 @@ class XamlDirect(ComPtr):
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.UI.Xaml.Core.Direct.IXamlDirectStatics) -> win32more.Windows.UI.Xaml.Core.Direct.XamlDirect: ...
 XamlDirectContract: UInt32 = 327680
-class XamlEventIndex(Int32):  # enum
+class XamlEventIndex(Enum, Int32):
     FrameworkElement_DataContextChanged = 16
     FrameworkElement_SizeChanged = 17
     FrameworkElement_LayoutUpdated = 18
@@ -376,7 +376,7 @@ class XamlEventIndex(Int32):  # enum
     ScrollViewer_AnchorRequested = 291
     DatePicker_SelectedDateChanged = 322
     TimePicker_SelectedTimeChanged = 323
-class XamlPropertyIndex(Int32):  # enum
+class XamlPropertyIndex(Enum, Int32):
     AutomationProperties_AcceleratorKey = 5
     AutomationProperties_AccessibilityView = 6
     AutomationProperties_AccessKey = 7
@@ -2046,7 +2046,7 @@ class XamlPropertyIndex(Int32):  # enum
     Popup_DesiredPlacement = 2453
     Popup_PlacementTarget = 2454
     AutomationProperties_AutomationControlType = 2455
-class XamlTypeIndex(Int32):  # enum
+class XamlTypeIndex(Enum, Int32):
     AutoSuggestBoxSuggestionChosenEventArgs = 34
     AutoSuggestBoxTextChangedEventArgs = 35
     CollectionViewSource = 41

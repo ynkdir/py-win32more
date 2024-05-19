@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -549,12 +549,12 @@ class IVisualInteractionSourceStatics2(ComPtr):
     _iid_ = Guid('{a979c032-5764-55e0-bc1f-0778786dcfde}')
     @winrt_commethod(6)
     def CreateFromIVisualElement(self, source: win32more.Windows.UI.Composition.IVisualElement) -> win32more.Windows.UI.Composition.Interactions.VisualInteractionSource: ...
-class InteractionBindingAxisModes(UInt32):  # enum
+class InteractionBindingAxisModes(Enum, UInt32):
     None_ = 0
     PositionX = 1
     PositionY = 2
     Scale = 4
-class InteractionChainingMode(Int32):  # enum
+class InteractionChainingMode(Enum, Int32):
     Auto = 0
     Always = 1
     Never = 2
@@ -577,11 +577,11 @@ class InteractionSourceConfiguration(ComPtr):
     PositionXSourceMode = property(get_PositionXSourceMode, put_PositionXSourceMode)
     PositionYSourceMode = property(get_PositionYSourceMode, put_PositionYSourceMode)
     ScaleSourceMode = property(get_ScaleSourceMode, put_ScaleSourceMode)
-class InteractionSourceMode(Int32):  # enum
+class InteractionSourceMode(Enum, Int32):
     Disabled = 0
     EnabledWithInertia = 1
     EnabledWithoutInertia = 2
-class InteractionSourceRedirectionMode(Int32):  # enum
+class InteractionSourceRedirectionMode(Enum, Int32):
     Disabled = 0
     Enabled = 1
 class InteractionTracker(ComPtr):
@@ -694,7 +694,7 @@ class InteractionTracker(ComPtr):
     Scale = property(get_Scale, None)
     ScaleInertiaDecayRate = property(get_ScaleInertiaDecayRate, put_ScaleInertiaDecayRate)
     ScaleVelocityInPercentPerSecond = property(get_ScaleVelocityInPercentPerSecond, None)
-class InteractionTrackerClampingOption(Int32):  # enum
+class InteractionTrackerClampingOption(Enum, Int32):
     Auto = 0
     Disabled = 1
 class InteractionTrackerCustomAnimationStateEnteredArgs(ComPtr):
@@ -810,7 +810,7 @@ class InteractionTrackerInteractingStateEnteredArgs(ComPtr):
     def get_IsFromBinding(self: win32more.Windows.UI.Composition.Interactions.IInteractionTrackerInteractingStateEnteredArgs2) -> Boolean: ...
     IsFromBinding = property(get_IsFromBinding, None)
     RequestId = property(get_RequestId, None)
-class InteractionTrackerPositionUpdateOption(Int32):  # enum
+class InteractionTrackerPositionUpdateOption(Enum, Int32):
     Default = 0
     AllowActiveCustomScaleAnimation = 1
 class InteractionTrackerRequestIgnoredArgs(ComPtr):
@@ -942,7 +942,7 @@ class VisualInteractionSource(ComPtr):
     ScaleSourceMode = property(get_ScaleSourceMode, put_ScaleSourceMode)
     ScaleVelocity = property(get_ScaleVelocity, None)
     Source = property(get_Source, None)
-class VisualInteractionSourceRedirectionMode(Int32):  # enum
+class VisualInteractionSourceRedirectionMode(Enum, Int32):
     Off = 0
     CapableTouchpadOnly = 1
     PointerWheelOnly = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -9,7 +9,7 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.System.UserProfile
 import win32more.Windows.Win32.System.WinRT
-class AccountPictureKind(Int32):  # enum
+class AccountPictureKind(Enum, Int32):
     SmallImage = 0
     LargeImage = 1
     Video = 2
@@ -360,14 +360,14 @@ class LockScreen(ComPtr, metaclass=_LockScreen_Meta_):
     @winrt_classmethod
     def SetImageStreamAsync(cls: win32more.Windows.System.UserProfile.ILockScreenStatics, value: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncAction: ...
     _LockScreen_Meta_.OriginalImageFile = property(get_OriginalImageFile.__wrapped__, None)
-class SetAccountPictureResult(Int32):  # enum
+class SetAccountPictureResult(Enum, Int32):
     Success = 0
     ChangeDisabled = 1
     LargeOrDynamicError = 2
     VideoFrameSizeError = 3
     FileSizeError = 4
     Failure = 5
-class SetImageFeedResult(Int32):  # enum
+class SetImageFeedResult(Enum, Int32):
     Success = 0
     ChangeDisabled = 1
     UserCanceled = 2

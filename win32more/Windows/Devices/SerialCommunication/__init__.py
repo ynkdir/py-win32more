@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.SerialCommunication
 import win32more.Windows.Foundation
@@ -233,30 +233,30 @@ class SerialDevice(ComPtr):
     UsbProductId = property(get_UsbProductId, None)
     UsbVendorId = property(get_UsbVendorId, None)
     WriteTimeout = property(get_WriteTimeout, put_WriteTimeout)
-class SerialError(Int32):  # enum
+class SerialError(Enum, Int32):
     Frame = 0
     BufferOverrun = 1
     ReceiveFull = 2
     ReceiveParity = 3
     TransmitFull = 4
-class SerialHandshake(Int32):  # enum
+class SerialHandshake(Enum, Int32):
     None_ = 0
     RequestToSend = 1
     XOnXOff = 2
     RequestToSendXOnXOff = 3
-class SerialParity(Int32):  # enum
+class SerialParity(Enum, Int32):
     None_ = 0
     Odd = 1
     Even = 2
     Mark = 3
     Space = 4
-class SerialPinChange(Int32):  # enum
+class SerialPinChange(Enum, Int32):
     BreakSignal = 0
     CarrierDetect = 1
     ClearToSend = 2
     DataSetReady = 3
     RingIndicator = 4
-class SerialStopBitCount(Int32):  # enum
+class SerialStopBitCount(Enum, Int32):
     One = 0
     OnePointFive = 1
     Two = 2

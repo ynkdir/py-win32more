@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -27,14 +27,14 @@ class ComponentRenewal(ComPtr):
     _classid_ = 'Windows.Media.Protection.ComponentRenewal'
     @winrt_classmethod
     def RenewSystemComponentsAsync(cls: win32more.Windows.Media.Protection.IComponentRenewalStatics, information: win32more.Windows.Media.Protection.RevocationAndRenewalInformation) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Media.Protection.RenewalStatus, UInt32]: ...
-class GraphicsTrustStatus(Int32):  # enum
+class GraphicsTrustStatus(Enum, Int32):
     TrustNotRequired = 0
     TrustEstablished = 1
     EnvironmentNotSupported = 2
     DriverNotSupported = 3
     DriverSigningFailure = 4
     UnknownFailure = 5
-class HdcpProtection(Int32):  # enum
+class HdcpProtection(Enum, Int32):
     Off = 0
     On = 1
     OnWithTypeEnforcement = 2
@@ -63,7 +63,7 @@ class HdcpSession(ComPtr):
     def remove_ProtectionChanged(self: win32more.Windows.Media.Protection.IHdcpSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
-class HdcpSetProtectionResult(Int32):  # enum
+class HdcpSetProtectionResult(Enum, Int32):
     Success = 0
     TimedOut = 1
     NotSupported = 2
@@ -260,7 +260,7 @@ class ProtectionCapabilities(ComPtr):
     def CreateInstance(cls) -> win32more.Windows.Media.Protection.ProtectionCapabilities: ...
     @winrt_mixinmethod
     def IsTypeSupported(self: win32more.Windows.Media.Protection.IProtectionCapabilities, type: WinRT_String, keySystem: WinRT_String) -> win32more.Windows.Media.Protection.ProtectionCapabilityResult: ...
-class ProtectionCapabilityResult(Int32):  # enum
+class ProtectionCapabilityResult(Enum, Int32):
     NotSupported = 0
     Maybe = 1
     Probably = 2
@@ -270,7 +270,7 @@ class RebootNeededEventHandler(MulticastDelegate):
     _iid_ = Guid('{64e12a45-973b-4a3a-b260-91898a49a82c}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Protection.MediaProtectionManager) -> Void: ...
-class RenewalStatus(Int32):  # enum
+class RenewalStatus(Enum, Int32):
     NotStarted = 0
     UpdatesInProgress = 1
     UserCancelled = 2
@@ -302,7 +302,7 @@ class RevocationAndRenewalItem(ComPtr):
     PublicKeyHash = property(get_PublicKeyHash, None)
     Reasons = property(get_Reasons, None)
     RenewalId = property(get_RenewalId, None)
-class RevocationAndRenewalReasons(UInt32):  # enum
+class RevocationAndRenewalReasons(Enum, UInt32):
     UserModeComponentLoad = 1
     KernelModeComponentLoad = 2
     AppComponent = 4
