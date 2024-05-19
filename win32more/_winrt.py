@@ -383,23 +383,22 @@ def winrt_commethod(vtbl_index):
     return decorator
 
 
-def winrt_mixinmethod(prototype):
-    def wrapper(self, *args, **kwargs):
-        hints = get_type_hints(prototype)
-        interface_class = hints["self"]
-        interface = interface_class(own=True)
-        if is_generic_alias(interface_class):
-            iid = _ro_get_parameterized_type_instance_iid(interface_class)
-        else:
-            iid = interface_class._iid_
-        hr = self.QueryInterface(pointer(iid), pointer(interface))
-        if FAILED(hr):
-            raise WinError(hr)
-        return getattr(interface, prototype.__name__)(*args, **kwargs)
+class winrt_mixinmethod:
+    def __init__(self, prototype):
+        self._prototype = prototype
 
-    wrapper.prototype = prototype
+    def __get__(self, instance, owner=None):
+        if instance is None:
+            return self
+        return types.MethodType(self.__call__, instance)
 
-    return wrapper
+    def __call__(self, instance, *args, **kwargs):
+        hints = get_type_hints(self._prototype)
+        interface_instance = instance.as_(hints["self"])
+        return getattr(interface_instance, self._prototype.__name__)(*args, **kwargs)
+
+    def argcount(self):
+        return len(self._prototype.__annotations__) - 2
 
 
 # Cls[T]?
@@ -446,65 +445,66 @@ def is_receivearray_class(cls):
     return issubclass(cls, ReceiveArray)
 
 
-def _classmethod(func):
-    cm = classmethod(func)
-    if sys.version_info < (3, 10):
-        cm.__wrapped__ = func
-    return cm
+class winrt_classmethod:
+    def __init__(self, prototype):
+        self._prototype = prototype
 
+    def __get__(self, instance, owner=None):
+        return types.MethodType(self.__call__, owner)
 
-def winrt_classmethod(prototype):
-    @_classmethod
-    def wrapper(cls, *args, **kwargs):
-        hints = get_type_hints(prototype)
+    def __call__(self, cls, *args, **kwargs):
+        hints = get_type_hints(self._prototype)
         factory_class = hints["cls"]
         factory = _ro_get_activation_factory(cls._classid_, factory_class)
-        return getattr(factory, prototype.__name__)(*args, **kwargs)
+        return getattr(factory, self._prototype.__name__)(*args, **kwargs)
 
-    wrapper.prototype = prototype
-
-    return wrapper
+    def argcount(self):
+        return len(self._prototype.__annotations__) - 2
 
 
 def winrt_factorymethod(prototype):
     return winrt_classmethod(prototype)
 
 
-def winrt_activatemethod(prototype):
-    @_classmethod
-    def wrapper(cls):
+class winrt_activatemethod:
+    def __init__(self, prototype):
+        self._prototype = prototype
+
+    def __get__(self, instance, owner=None):
+        return types.MethodType(self.__call__, owner)
+
+    def __call__(self, cls):
         return _ro_activate_instance(cls._classid_, cls)
 
-    wrapper.prototype = prototype
-
-    return wrapper
+    def argcount(self):
+        return 0
 
 
 class winrt_overload:
-    def __init__(self, func):
+    def __init__(self, func: winrt_mixinmethod | winrt_classmethod | winrt_activatemethod) -> None:
         self.funcs = [func]
 
-    def register(self, func):
+    def register(self, func: winrt_mixinmethod | winrt_classmethod | winrt_activatemethod):
         self.funcs.append(func)
         return self
 
-    def __get__(self, obj, cls=None):
-        def _classmethod(*args):
-            for func in self.funcs:
-                if isinstance(func, classmethod) and len(args) == func.prototype.__code__.co_argcount - 1:
-                    return func.__get__(obj, cls)(*args)
-            raise ValueError("no matched method")
-
-        def _method(*args):
-            for func in self.funcs:
-                if not isinstance(func, classmethod) and len(args) == func.prototype.__code__.co_argcount - 1:
-                    return func.__get__(obj, cls)(*args)
-            raise ValueError("no matched method")
-
-        if obj is None:
-            return _classmethod
+    def __get__(self, instance, owner=None):
+        if instance is None:
+            return types.MethodType(self._call_classmethod, owner)
         else:
-            return _method
+            return types.MethodType(self._call_method, instance)
+
+    def _call_classmethod(self, cls, *args, **kwargs):
+        for func in self.funcs:
+            if isinstance(func, (winrt_classmethod, winrt_activatemethod)) and len(args) == func.argcount():
+                return func(cls, *args, **kwargs)
+        raise ValueError("no matched method")
+
+    def _call_method(self, instance, *args, **kwargs):
+        for func in self.funcs:
+            if isinstance(func, winrt_mixinmethod) and len(args) == func.argcount():
+                return func(instance, *args, **kwargs)
+        raise ValueError("no matched method")
 
 
 def _windows_create_string(s: str) -> HSTRING:

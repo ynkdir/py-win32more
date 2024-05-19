@@ -438,9 +438,9 @@ class Com:
         setter = {}
         for md in (md for md in self._td.methods if "Static" in md.attributes):
             if md.name.startswith("get_"):
-                getter[removeprefix(md.name, "get_")] = f"{md.name}.__wrapped__"
+                getter[removeprefix(md.name, "get_")] = md.name
             elif md.name.startswith("put_"):
-                setter[removeprefix(md.name, "put_")] = f"{md.name}.__wrapped__"
+                setter[removeprefix(md.name, "put_")] = md.name
         writer = StringIO()
         for name in sorted(getter | setter):
             writer.write(f"    {self._metaclass_name()}.{name} = property({getter.get(name)}, {setter.get(name)})\n")

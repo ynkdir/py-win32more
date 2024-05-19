@@ -63,7 +63,7 @@ class TestSyntax(unittest.TestCase):
         from win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime import DeploymentManager
 
         self.assertEqual(
-            set(func.prototype.__annotations__["cls"] for func in DeploymentManager.__dict__["Initialize"].funcs),
+            set(func._prototype.__annotations__["cls"] for func in DeploymentManager.__dict__["Initialize"].funcs),
             {
                 "win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IDeploymentManagerStatics2",
                 "win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IDeploymentManagerStatics",
