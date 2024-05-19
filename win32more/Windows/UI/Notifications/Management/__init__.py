@@ -57,7 +57,7 @@ class UserNotificationListener(ComPtr, metaclass=_UserNotificationListener_Meta_
     def RemoveNotification(self: win32more.Windows.UI.Notifications.Management.IUserNotificationListener, notificationId: UInt32) -> Void: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.UI.Notifications.Management.IUserNotificationListenerStatics) -> win32more.Windows.UI.Notifications.Management.UserNotificationListener: ...
-    _UserNotificationListener_Meta_.Current = property(get_Current.__wrapped__, None)
+    _UserNotificationListener_Meta_.Current = property(get_Current, None)
 class UserNotificationListenerAccessStatus(Enum, Int32):
     Unspecified = 0
     Allowed = 1

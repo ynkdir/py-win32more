@@ -252,7 +252,7 @@ class PageStackEntry(ComPtr, metaclass=_PageStackEntry_Meta_):
     NavigationTransitionInfo = property(get_NavigationTransitionInfo, None)
     Parameter = property(get_Parameter, None)
     SourcePageType = property(get_SourcePageType, None)
-    _PageStackEntry_Meta_.SourcePageTypeProperty = property(get_SourcePageTypeProperty.__wrapped__, None)
+    _PageStackEntry_Meta_.SourcePageTypeProperty = property(get_SourcePageTypeProperty, None)
 
 
 make_ready(__name__)

@@ -222,7 +222,7 @@ class ConversationalAgentDetectorManager(ComPtr, metaclass=_ConversationalAgentD
     def GetActivationSignalDetectorFromIdAsync(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManager2, detectorId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector]: ...
     @winrt_classmethod
     def get_Default(cls: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManagerStatics) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager: ...
-    _ConversationalAgentDetectorManager_Meta_.Default = property(get_Default.__wrapped__, None)
+    _ConversationalAgentDetectorManager_Meta_.Default = property(get_Default, None)
 class ConversationalAgentSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession

@@ -61,18 +61,18 @@ class ClosedCaptionProperties(ComPtr, metaclass=_ClosedCaptionProperties_Meta_):
     def get_ComputedRegionColor(cls: win32more.Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics) -> win32more.Windows.UI.Color: ...
     @winrt_classmethod
     def get_RegionOpacity(cls: win32more.Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics) -> win32more.Windows.Media.ClosedCaptioning.ClosedCaptionOpacity: ...
-    _ClosedCaptionProperties_Meta_.BackgroundColor = property(get_BackgroundColor.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.BackgroundOpacity = property(get_BackgroundOpacity.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.ComputedBackgroundColor = property(get_ComputedBackgroundColor.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.ComputedFontColor = property(get_ComputedFontColor.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.ComputedRegionColor = property(get_ComputedRegionColor.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.FontColor = property(get_FontColor.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.FontEffect = property(get_FontEffect.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.FontOpacity = property(get_FontOpacity.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.FontSize = property(get_FontSize.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.FontStyle = property(get_FontStyle.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.RegionColor = property(get_RegionColor.__wrapped__, None)
-    _ClosedCaptionProperties_Meta_.RegionOpacity = property(get_RegionOpacity.__wrapped__, None)
+    _ClosedCaptionProperties_Meta_.BackgroundColor = property(get_BackgroundColor, None)
+    _ClosedCaptionProperties_Meta_.BackgroundOpacity = property(get_BackgroundOpacity, None)
+    _ClosedCaptionProperties_Meta_.ComputedBackgroundColor = property(get_ComputedBackgroundColor, None)
+    _ClosedCaptionProperties_Meta_.ComputedFontColor = property(get_ComputedFontColor, None)
+    _ClosedCaptionProperties_Meta_.ComputedRegionColor = property(get_ComputedRegionColor, None)
+    _ClosedCaptionProperties_Meta_.FontColor = property(get_FontColor, None)
+    _ClosedCaptionProperties_Meta_.FontEffect = property(get_FontEffect, None)
+    _ClosedCaptionProperties_Meta_.FontOpacity = property(get_FontOpacity, None)
+    _ClosedCaptionProperties_Meta_.FontSize = property(get_FontSize, None)
+    _ClosedCaptionProperties_Meta_.FontStyle = property(get_FontStyle, None)
+    _ClosedCaptionProperties_Meta_.RegionColor = property(get_RegionColor, None)
+    _ClosedCaptionProperties_Meta_.RegionOpacity = property(get_RegionOpacity, None)
 class ClosedCaptionSize(Enum, Int32):
     Default = 0
     FiftyPercent = 1

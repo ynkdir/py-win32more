@@ -709,15 +709,15 @@ class UsbDeviceClasses(ComPtr, metaclass=_UsbDeviceClasses_Meta_):
     def get_Measurement(cls: win32more.Windows.Devices.Usb.IUsbDeviceClassesStatics) -> win32more.Windows.Devices.Usb.UsbDeviceClass: ...
     @winrt_classmethod
     def get_VendorSpecific(cls: win32more.Windows.Devices.Usb.IUsbDeviceClassesStatics) -> win32more.Windows.Devices.Usb.UsbDeviceClass: ...
-    _UsbDeviceClasses_Meta_.ActiveSync = property(get_ActiveSync.__wrapped__, None)
-    _UsbDeviceClasses_Meta_.CdcControl = property(get_CdcControl.__wrapped__, None)
-    _UsbDeviceClasses_Meta_.DeviceFirmwareUpdate = property(get_DeviceFirmwareUpdate.__wrapped__, None)
-    _UsbDeviceClasses_Meta_.Irda = property(get_Irda.__wrapped__, None)
-    _UsbDeviceClasses_Meta_.Measurement = property(get_Measurement.__wrapped__, None)
-    _UsbDeviceClasses_Meta_.PalmSync = property(get_PalmSync.__wrapped__, None)
-    _UsbDeviceClasses_Meta_.PersonalHealthcare = property(get_PersonalHealthcare.__wrapped__, None)
-    _UsbDeviceClasses_Meta_.Physical = property(get_Physical.__wrapped__, None)
-    _UsbDeviceClasses_Meta_.VendorSpecific = property(get_VendorSpecific.__wrapped__, None)
+    _UsbDeviceClasses_Meta_.ActiveSync = property(get_ActiveSync, None)
+    _UsbDeviceClasses_Meta_.CdcControl = property(get_CdcControl, None)
+    _UsbDeviceClasses_Meta_.DeviceFirmwareUpdate = property(get_DeviceFirmwareUpdate, None)
+    _UsbDeviceClasses_Meta_.Irda = property(get_Irda, None)
+    _UsbDeviceClasses_Meta_.Measurement = property(get_Measurement, None)
+    _UsbDeviceClasses_Meta_.PalmSync = property(get_PalmSync, None)
+    _UsbDeviceClasses_Meta_.PersonalHealthcare = property(get_PersonalHealthcare, None)
+    _UsbDeviceClasses_Meta_.Physical = property(get_Physical, None)
+    _UsbDeviceClasses_Meta_.VendorSpecific = property(get_VendorSpecific, None)
 class UsbDeviceDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Usb.IUsbDeviceDescriptor

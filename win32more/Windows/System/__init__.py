@@ -1433,16 +1433,16 @@ class KnownUserProperties(ComPtr, metaclass=_KnownUserProperties_Meta_):
     def get_DomainName(cls: win32more.Windows.System.IKnownUserPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_SessionInitiationProtocolUri(cls: win32more.Windows.System.IKnownUserPropertiesStatics) -> WinRT_String: ...
-    _KnownUserProperties_Meta_.AccountName = property(get_AccountName.__wrapped__, None)
-    _KnownUserProperties_Meta_.AgeEnforcementRegion = property(get_AgeEnforcementRegion.__wrapped__, None)
-    _KnownUserProperties_Meta_.DisplayName = property(get_DisplayName.__wrapped__, None)
-    _KnownUserProperties_Meta_.DomainName = property(get_DomainName.__wrapped__, None)
-    _KnownUserProperties_Meta_.FirstName = property(get_FirstName.__wrapped__, None)
-    _KnownUserProperties_Meta_.GuestHost = property(get_GuestHost.__wrapped__, None)
-    _KnownUserProperties_Meta_.LastName = property(get_LastName.__wrapped__, None)
-    _KnownUserProperties_Meta_.PrincipalName = property(get_PrincipalName.__wrapped__, None)
-    _KnownUserProperties_Meta_.ProviderName = property(get_ProviderName.__wrapped__, None)
-    _KnownUserProperties_Meta_.SessionInitiationProtocolUri = property(get_SessionInitiationProtocolUri.__wrapped__, None)
+    _KnownUserProperties_Meta_.AccountName = property(get_AccountName, None)
+    _KnownUserProperties_Meta_.AgeEnforcementRegion = property(get_AgeEnforcementRegion, None)
+    _KnownUserProperties_Meta_.DisplayName = property(get_DisplayName, None)
+    _KnownUserProperties_Meta_.DomainName = property(get_DomainName, None)
+    _KnownUserProperties_Meta_.FirstName = property(get_FirstName, None)
+    _KnownUserProperties_Meta_.GuestHost = property(get_GuestHost, None)
+    _KnownUserProperties_Meta_.LastName = property(get_LastName, None)
+    _KnownUserProperties_Meta_.PrincipalName = property(get_PrincipalName, None)
+    _KnownUserProperties_Meta_.ProviderName = property(get_ProviderName, None)
+    _KnownUserProperties_Meta_.SessionInitiationProtocolUri = property(get_SessionInitiationProtocolUri, None)
 class LaunchFileStatus(Enum, Int32):
     Success = 0
     AppUnavailable = 1
@@ -1653,10 +1653,10 @@ class MemoryManager(ComPtr, metaclass=_MemoryManager_Meta_):
     def add_AppMemoryUsageLimitChanging(cls: win32more.Windows.System.IMemoryManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.System.AppMemoryUsageLimitChangingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_AppMemoryUsageLimitChanging(cls: win32more.Windows.System.IMemoryManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _MemoryManager_Meta_.AppMemoryUsage = property(get_AppMemoryUsage.__wrapped__, None)
-    _MemoryManager_Meta_.AppMemoryUsageLevel = property(get_AppMemoryUsageLevel.__wrapped__, None)
-    _MemoryManager_Meta_.AppMemoryUsageLimit = property(get_AppMemoryUsageLimit.__wrapped__, None)
-    _MemoryManager_Meta_.ExpectedAppMemoryUsageLimit = property(get_ExpectedAppMemoryUsageLimit.__wrapped__, None)
+    _MemoryManager_Meta_.AppMemoryUsage = property(get_AppMemoryUsage, None)
+    _MemoryManager_Meta_.AppMemoryUsageLevel = property(get_AppMemoryUsageLevel, None)
+    _MemoryManager_Meta_.AppMemoryUsageLimit = property(get_AppMemoryUsageLimit, None)
+    _MemoryManager_Meta_.ExpectedAppMemoryUsageLimit = property(get_ExpectedAppMemoryUsageLimit, None)
 class PowerState(Enum, Int32):
     ConnectedStandby = 0
     SleepS3 = 1
@@ -1802,9 +1802,9 @@ class TimeZoneSettings(ComPtr, metaclass=_TimeZoneSettings_Meta_):
     def get_CanChangeTimeZone(cls: win32more.Windows.System.ITimeZoneSettingsStatics) -> Boolean: ...
     @winrt_classmethod
     def ChangeTimeZoneByDisplayName(cls: win32more.Windows.System.ITimeZoneSettingsStatics, timeZoneDisplayName: WinRT_String) -> Void: ...
-    _TimeZoneSettings_Meta_.CanChangeTimeZone = property(get_CanChangeTimeZone.__wrapped__, None)
-    _TimeZoneSettings_Meta_.CurrentTimeZoneDisplayName = property(get_CurrentTimeZoneDisplayName.__wrapped__, None)
-    _TimeZoneSettings_Meta_.SupportedTimeZoneDisplayNames = property(get_SupportedTimeZoneDisplayNames.__wrapped__, None)
+    _TimeZoneSettings_Meta_.CanChangeTimeZone = property(get_CanChangeTimeZone, None)
+    _TimeZoneSettings_Meta_.CurrentTimeZoneDisplayName = property(get_CurrentTimeZoneDisplayName, None)
+    _TimeZoneSettings_Meta_.SupportedTimeZoneDisplayNames = property(get_SupportedTimeZoneDisplayNames, None)
 class User(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IUser

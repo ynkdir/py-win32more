@@ -76,7 +76,7 @@ class GattServiceProviderConnection(ComPtr, metaclass=_GattServiceProviderConnec
     def get_AllServices(cls: win32more.Windows.Devices.Bluetooth.Background.IGattServiceProviderConnectionStatics) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Devices.Bluetooth.Background.GattServiceProviderConnection]: ...
     Service = property(get_Service, None)
     TriggerId = property(get_TriggerId, None)
-    _GattServiceProviderConnection_Meta_.AllServices = property(get_AllServices.__wrapped__, None)
+    _GattServiceProviderConnection_Meta_.AllServices = property(get_AllServices, None)
 class GattServiceProviderTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Background.IGattServiceProviderTriggerDetails

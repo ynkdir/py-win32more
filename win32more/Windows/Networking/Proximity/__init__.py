@@ -300,14 +300,14 @@ class PeerFinder(ComPtr, metaclass=_PeerFinder_Meta_):
     def FindAllPeersAsync(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.Proximity.PeerInformation]]: ...
     @winrt_classmethod
     def ConnectAsync(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, peerInformation: win32more.Windows.Networking.Proximity.PeerInformation) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.Sockets.StreamSocket]: ...
-    _PeerFinder_Meta_.AllowBluetooth = property(get_AllowBluetooth.__wrapped__, put_AllowBluetooth.__wrapped__)
-    _PeerFinder_Meta_.AllowInfrastructure = property(get_AllowInfrastructure.__wrapped__, put_AllowInfrastructure.__wrapped__)
-    _PeerFinder_Meta_.AllowWiFiDirect = property(get_AllowWiFiDirect.__wrapped__, put_AllowWiFiDirect.__wrapped__)
-    _PeerFinder_Meta_.AlternateIdentities = property(get_AlternateIdentities.__wrapped__, None)
-    _PeerFinder_Meta_.DiscoveryData = property(get_DiscoveryData.__wrapped__, put_DiscoveryData.__wrapped__)
-    _PeerFinder_Meta_.DisplayName = property(get_DisplayName.__wrapped__, put_DisplayName.__wrapped__)
-    _PeerFinder_Meta_.Role = property(get_Role.__wrapped__, put_Role.__wrapped__)
-    _PeerFinder_Meta_.SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes.__wrapped__, None)
+    _PeerFinder_Meta_.AllowBluetooth = property(get_AllowBluetooth, put_AllowBluetooth)
+    _PeerFinder_Meta_.AllowInfrastructure = property(get_AllowInfrastructure, put_AllowInfrastructure)
+    _PeerFinder_Meta_.AllowWiFiDirect = property(get_AllowWiFiDirect, put_AllowWiFiDirect)
+    _PeerFinder_Meta_.AlternateIdentities = property(get_AlternateIdentities, None)
+    _PeerFinder_Meta_.DiscoveryData = property(get_DiscoveryData, put_DiscoveryData)
+    _PeerFinder_Meta_.DisplayName = property(get_DisplayName, put_DisplayName)
+    _PeerFinder_Meta_.Role = property(get_Role, put_Role)
+    _PeerFinder_Meta_.SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes, None)
 class PeerInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IPeerInformation

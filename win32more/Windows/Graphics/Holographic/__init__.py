@@ -396,9 +396,9 @@ class HolographicSpace(ComPtr, metaclass=_HolographicSpace_Meta_):
     def CreateForCoreWindow(cls: win32more.Windows.Graphics.Holographic.IHolographicSpaceStatics, window: win32more.Windows.UI.Core.CoreWindow) -> win32more.Windows.Graphics.Holographic.HolographicSpace: ...
     PrimaryAdapterId = property(get_PrimaryAdapterId, None)
     UserPresence = property(get_UserPresence, None)
-    _HolographicSpace_Meta_.IsAvailable = property(get_IsAvailable.__wrapped__, None)
-    _HolographicSpace_Meta_.IsConfigured = property(get_IsConfigured.__wrapped__, None)
-    _HolographicSpace_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
+    _HolographicSpace_Meta_.IsAvailable = property(get_IsAvailable, None)
+    _HolographicSpace_Meta_.IsConfigured = property(get_IsConfigured, None)
+    _HolographicSpace_Meta_.IsSupported = property(get_IsSupported, None)
 class HolographicSpaceCameraAddedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicSpaceCameraAddedEventArgs

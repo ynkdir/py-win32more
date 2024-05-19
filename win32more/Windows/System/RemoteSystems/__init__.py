@@ -661,10 +661,10 @@ class KnownRemoteSystemCapabilities(ComPtr, metaclass=_KnownRemoteSystemCapabili
     def get_RemoteSession(cls: win32more.Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_SpatialEntity(cls: win32more.Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics) -> WinRT_String: ...
-    _KnownRemoteSystemCapabilities_Meta_.AppService = property(get_AppService.__wrapped__, None)
-    _KnownRemoteSystemCapabilities_Meta_.LaunchUri = property(get_LaunchUri.__wrapped__, None)
-    _KnownRemoteSystemCapabilities_Meta_.RemoteSession = property(get_RemoteSession.__wrapped__, None)
-    _KnownRemoteSystemCapabilities_Meta_.SpatialEntity = property(get_SpatialEntity.__wrapped__, None)
+    _KnownRemoteSystemCapabilities_Meta_.AppService = property(get_AppService, None)
+    _KnownRemoteSystemCapabilities_Meta_.LaunchUri = property(get_LaunchUri, None)
+    _KnownRemoteSystemCapabilities_Meta_.RemoteSession = property(get_RemoteSession, None)
+    _KnownRemoteSystemCapabilities_Meta_.SpatialEntity = property(get_SpatialEntity, None)
 class RemoteSystem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystem
@@ -889,14 +889,14 @@ class RemoteSystemKinds(ComPtr, metaclass=_RemoteSystemKinds_Meta_):
     def get_Desktop(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemKindStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Xbox(cls: win32more.Windows.System.RemoteSystems.IRemoteSystemKindStatics) -> WinRT_String: ...
-    _RemoteSystemKinds_Meta_.Desktop = property(get_Desktop.__wrapped__, None)
-    _RemoteSystemKinds_Meta_.Holographic = property(get_Holographic.__wrapped__, None)
-    _RemoteSystemKinds_Meta_.Hub = property(get_Hub.__wrapped__, None)
-    _RemoteSystemKinds_Meta_.Iot = property(get_Iot.__wrapped__, None)
-    _RemoteSystemKinds_Meta_.Laptop = property(get_Laptop.__wrapped__, None)
-    _RemoteSystemKinds_Meta_.Phone = property(get_Phone.__wrapped__, None)
-    _RemoteSystemKinds_Meta_.Tablet = property(get_Tablet.__wrapped__, None)
-    _RemoteSystemKinds_Meta_.Xbox = property(get_Xbox.__wrapped__, None)
+    _RemoteSystemKinds_Meta_.Desktop = property(get_Desktop, None)
+    _RemoteSystemKinds_Meta_.Holographic = property(get_Holographic, None)
+    _RemoteSystemKinds_Meta_.Hub = property(get_Hub, None)
+    _RemoteSystemKinds_Meta_.Iot = property(get_Iot, None)
+    _RemoteSystemKinds_Meta_.Laptop = property(get_Laptop, None)
+    _RemoteSystemKinds_Meta_.Phone = property(get_Phone, None)
+    _RemoteSystemKinds_Meta_.Tablet = property(get_Tablet, None)
+    _RemoteSystemKinds_Meta_.Xbox = property(get_Xbox, None)
 class RemoteSystemPlatform(Enum, Int32):
     Unknown = 0
     Windows = 1

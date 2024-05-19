@@ -18,8 +18,8 @@ class AnalyticsInfo(ComPtr, metaclass=_AnalyticsInfo_Meta_):
     def get_VersionInfo(cls: win32more.Windows.System.Profile.IAnalyticsInfoStatics) -> win32more.Windows.System.Profile.AnalyticsVersionInfo: ...
     @winrt_classmethod
     def get_DeviceForm(cls: win32more.Windows.System.Profile.IAnalyticsInfoStatics) -> WinRT_String: ...
-    _AnalyticsInfo_Meta_.DeviceForm = property(get_DeviceForm.__wrapped__, None)
-    _AnalyticsInfo_Meta_.VersionInfo = property(get_VersionInfo.__wrapped__, None)
+    _AnalyticsInfo_Meta_.DeviceForm = property(get_DeviceForm, None)
+    _AnalyticsInfo_Meta_.VersionInfo = property(get_VersionInfo, None)
 class AnalyticsVersionInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Profile.IAnalyticsVersionInfo
@@ -45,7 +45,7 @@ class EducationSettings(ComPtr, metaclass=_EducationSettings_Meta_):
     _classid_ = 'Windows.System.Profile.EducationSettings'
     @winrt_classmethod
     def get_IsEducationEnvironment(cls: win32more.Windows.System.Profile.IEducationSettingsStatics) -> Boolean: ...
-    _EducationSettings_Meta_.IsEducationEnvironment = property(get_IsEducationEnvironment.__wrapped__, None)
+    _EducationSettings_Meta_.IsEducationEnvironment = property(get_IsEducationEnvironment, None)
 class HardwareIdentification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Profile.HardwareIdentification'
@@ -362,28 +362,28 @@ class KnownRetailInfoProperties(ComPtr, metaclass=_KnownRetailInfoProperties_Met
     def get_IsOfficeInstalled(cls: win32more.Windows.System.Profile.IKnownRetailInfoPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_WindowsEdition(cls: win32more.Windows.System.Profile.IKnownRetailInfoPropertiesStatics) -> WinRT_String: ...
-    _KnownRetailInfoProperties_Meta_.BatteryLifeDescription = property(get_BatteryLifeDescription.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.DisplayDescription = property(get_DisplayDescription.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.DisplayModelName = property(get_DisplayModelName.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.FormFactor = property(get_FormFactor.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.FrontCameraDescription = property(get_FrontCameraDescription.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.GraphicsDescription = property(get_GraphicsDescription.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.HasNfc = property(get_HasNfc.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.HasOpticalDrive = property(get_HasOpticalDrive.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.HasSdSlot = property(get_HasSdSlot.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.IsFeatured = property(get_IsFeatured.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.IsOfficeInstalled = property(get_IsOfficeInstalled.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.ManufacturerName = property(get_ManufacturerName.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.Memory = property(get_Memory.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.ModelName = property(get_ModelName.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.Price = property(get_Price.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.ProcessorDescription = property(get_ProcessorDescription.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.RearCameraDescription = property(get_RearCameraDescription.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.RetailAccessCode = property(get_RetailAccessCode.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.ScreenSize = property(get_ScreenSize.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.StorageDescription = property(get_StorageDescription.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.Weight = property(get_Weight.__wrapped__, None)
-    _KnownRetailInfoProperties_Meta_.WindowsEdition = property(get_WindowsEdition.__wrapped__, None)
+    _KnownRetailInfoProperties_Meta_.BatteryLifeDescription = property(get_BatteryLifeDescription, None)
+    _KnownRetailInfoProperties_Meta_.DisplayDescription = property(get_DisplayDescription, None)
+    _KnownRetailInfoProperties_Meta_.DisplayModelName = property(get_DisplayModelName, None)
+    _KnownRetailInfoProperties_Meta_.FormFactor = property(get_FormFactor, None)
+    _KnownRetailInfoProperties_Meta_.FrontCameraDescription = property(get_FrontCameraDescription, None)
+    _KnownRetailInfoProperties_Meta_.GraphicsDescription = property(get_GraphicsDescription, None)
+    _KnownRetailInfoProperties_Meta_.HasNfc = property(get_HasNfc, None)
+    _KnownRetailInfoProperties_Meta_.HasOpticalDrive = property(get_HasOpticalDrive, None)
+    _KnownRetailInfoProperties_Meta_.HasSdSlot = property(get_HasSdSlot, None)
+    _KnownRetailInfoProperties_Meta_.IsFeatured = property(get_IsFeatured, None)
+    _KnownRetailInfoProperties_Meta_.IsOfficeInstalled = property(get_IsOfficeInstalled, None)
+    _KnownRetailInfoProperties_Meta_.ManufacturerName = property(get_ManufacturerName, None)
+    _KnownRetailInfoProperties_Meta_.Memory = property(get_Memory, None)
+    _KnownRetailInfoProperties_Meta_.ModelName = property(get_ModelName, None)
+    _KnownRetailInfoProperties_Meta_.Price = property(get_Price, None)
+    _KnownRetailInfoProperties_Meta_.ProcessorDescription = property(get_ProcessorDescription, None)
+    _KnownRetailInfoProperties_Meta_.RearCameraDescription = property(get_RearCameraDescription, None)
+    _KnownRetailInfoProperties_Meta_.RetailAccessCode = property(get_RetailAccessCode, None)
+    _KnownRetailInfoProperties_Meta_.ScreenSize = property(get_ScreenSize, None)
+    _KnownRetailInfoProperties_Meta_.StorageDescription = property(get_StorageDescription, None)
+    _KnownRetailInfoProperties_Meta_.Weight = property(get_Weight, None)
+    _KnownRetailInfoProperties_Meta_.WindowsEdition = property(get_WindowsEdition, None)
 PlatformAutomaticAppSignInContract: UInt32 = 65536
 class _PlatformAutomaticAppSignInManager_Meta_(ComPtr.__class__):
     pass
@@ -392,7 +392,7 @@ class PlatformAutomaticAppSignInManager(ComPtr, metaclass=_PlatformAutomaticAppS
     _classid_ = 'Windows.System.Profile.PlatformAutomaticAppSignInManager'
     @winrt_classmethod
     def get_Policy(cls: win32more.Windows.System.Profile.IPlatformAutomaticAppSignInManagerStatics) -> win32more.Windows.System.Profile.PlatformAutomaticAppSignInPolicy: ...
-    _PlatformAutomaticAppSignInManager_Meta_.Policy = property(get_Policy.__wrapped__, None)
+    _PlatformAutomaticAppSignInManager_Meta_.Policy = property(get_Policy, None)
 class PlatformAutomaticAppSignInPolicy(Enum, Int32):
     Unknown = 0
     PermissionRequired = 1
@@ -415,7 +415,7 @@ class PlatformDiagnosticsAndUsageDataSettings(ComPtr, metaclass=_PlatformDiagnos
     def remove_CollectionLevelChanged(cls: win32more.Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def CanCollectDiagnostics(cls: win32more.Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics, level: win32more.Windows.System.Profile.PlatformDataCollectionLevel) -> Boolean: ...
-    _PlatformDiagnosticsAndUsageDataSettings_Meta_.CollectionLevel = property(get_CollectionLevel.__wrapped__, None)
+    _PlatformDiagnosticsAndUsageDataSettings_Meta_.CollectionLevel = property(get_CollectionLevel, None)
 ProfileHardwareTokenContract: UInt32 = 65536
 ProfileRetailInfoContract: UInt32 = 65536
 ProfileSharedModeContract: UInt32 = 131072
@@ -428,8 +428,8 @@ class RetailInfo(ComPtr, metaclass=_RetailInfo_Meta_):
     def get_IsDemoModeEnabled(cls: win32more.Windows.System.Profile.IRetailInfoStatics) -> Boolean: ...
     @winrt_classmethod
     def get_Properties(cls: win32more.Windows.System.Profile.IRetailInfoStatics) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
-    _RetailInfo_Meta_.IsDemoModeEnabled = property(get_IsDemoModeEnabled.__wrapped__, None)
-    _RetailInfo_Meta_.Properties = property(get_Properties.__wrapped__, None)
+    _RetailInfo_Meta_.IsDemoModeEnabled = property(get_IsDemoModeEnabled, None)
+    _RetailInfo_Meta_.Properties = property(get_Properties, None)
 class _SharedModeSettings_Meta_(ComPtr.__class__):
     pass
 class SharedModeSettings(ComPtr, metaclass=_SharedModeSettings_Meta_):
@@ -439,8 +439,8 @@ class SharedModeSettings(ComPtr, metaclass=_SharedModeSettings_Meta_):
     def get_ShouldAvoidLocalStorage(cls: win32more.Windows.System.Profile.ISharedModeSettingsStatics2) -> Boolean: ...
     @winrt_classmethod
     def get_IsEnabled(cls: win32more.Windows.System.Profile.ISharedModeSettingsStatics) -> Boolean: ...
-    _SharedModeSettings_Meta_.IsEnabled = property(get_IsEnabled.__wrapped__, None)
-    _SharedModeSettings_Meta_.ShouldAvoidLocalStorage = property(get_ShouldAvoidLocalStorage.__wrapped__, None)
+    _SharedModeSettings_Meta_.IsEnabled = property(get_IsEnabled, None)
+    _SharedModeSettings_Meta_.ShouldAvoidLocalStorage = property(get_ShouldAvoidLocalStorage, None)
 class _SmartAppControlPolicy_Meta_(ComPtr.__class__):
     pass
 class SmartAppControlPolicy(ComPtr, metaclass=_SmartAppControlPolicy_Meta_):
@@ -452,7 +452,7 @@ class SmartAppControlPolicy(ComPtr, metaclass=_SmartAppControlPolicy_Meta_):
     def add_Changed(cls: win32more.Windows.System.Profile.ISmartAppControlPolicyStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_Changed(cls: win32more.Windows.System.Profile.ISmartAppControlPolicyStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _SmartAppControlPolicy_Meta_.IsEnabled = property(get_IsEnabled.__wrapped__, None)
+    _SmartAppControlPolicy_Meta_.IsEnabled = property(get_IsEnabled, None)
 class SystemIdentification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Profile.SystemIdentification'
@@ -490,7 +490,7 @@ class SystemSetupInfo(ComPtr, metaclass=_SystemSetupInfo_Meta_):
     def add_OutOfBoxExperienceStateChanged(cls: win32more.Windows.System.Profile.ISystemSetupInfoStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_OutOfBoxExperienceStateChanged(cls: win32more.Windows.System.Profile.ISystemSetupInfoStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _SystemSetupInfo_Meta_.OutOfBoxExperienceState = property(get_OutOfBoxExperienceState.__wrapped__, None)
+    _SystemSetupInfo_Meta_.OutOfBoxExperienceState = property(get_OutOfBoxExperienceState, None)
 class UnsupportedAppRequirement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Profile.IUnsupportedAppRequirement
@@ -521,10 +521,10 @@ class WindowsIntegrityPolicy(ComPtr, metaclass=_WindowsIntegrityPolicy_Meta_):
     def add_PolicyChanged(cls: win32more.Windows.System.Profile.IWindowsIntegrityPolicyStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_PolicyChanged(cls: win32more.Windows.System.Profile.IWindowsIntegrityPolicyStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _WindowsIntegrityPolicy_Meta_.CanDisable = property(get_CanDisable.__wrapped__, None)
-    _WindowsIntegrityPolicy_Meta_.IsDisableSupported = property(get_IsDisableSupported.__wrapped__, None)
-    _WindowsIntegrityPolicy_Meta_.IsEnabled = property(get_IsEnabled.__wrapped__, None)
-    _WindowsIntegrityPolicy_Meta_.IsEnabledForTrial = property(get_IsEnabledForTrial.__wrapped__, None)
+    _WindowsIntegrityPolicy_Meta_.CanDisable = property(get_CanDisable, None)
+    _WindowsIntegrityPolicy_Meta_.IsDisableSupported = property(get_IsDisableSupported, None)
+    _WindowsIntegrityPolicy_Meta_.IsEnabled = property(get_IsEnabled, None)
+    _WindowsIntegrityPolicy_Meta_.IsEnabledForTrial = property(get_IsEnabledForTrial, None)
 
 
 make_ready(__name__)

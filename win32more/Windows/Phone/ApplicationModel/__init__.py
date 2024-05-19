@@ -10,7 +10,7 @@ class ApplicationProfile(ComPtr, metaclass=_ApplicationProfile_Meta_):
     _classid_ = 'Windows.Phone.ApplicationModel.ApplicationProfile'
     @winrt_classmethod
     def get_Modes(cls: win32more.Windows.Phone.ApplicationModel.IApplicationProfileStatics) -> win32more.Windows.Phone.ApplicationModel.ApplicationProfileModes: ...
-    _ApplicationProfile_Meta_.Modes = property(get_Modes.__wrapped__, None)
+    _ApplicationProfile_Meta_.Modes = property(get_Modes, None)
 class ApplicationProfileModes(Enum, UInt32):
     Default = 0
     Alternate = 1

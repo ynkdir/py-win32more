@@ -96,10 +96,10 @@ class CoreApplication(ComPtr, metaclass=_CoreApplication_Meta_):
     def Run(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication, viewSource: win32more.Windows.ApplicationModel.Core.IFrameworkViewSource) -> Void: ...
     @winrt_classmethod
     def RunWithActivationFactories(cls: win32more.Windows.ApplicationModel.Core.ICoreApplication, activationFactoryCallback: win32more.Windows.Foundation.IGetActivationFactory) -> Void: ...
-    _CoreApplication_Meta_.Id = property(get_Id.__wrapped__, None)
-    _CoreApplication_Meta_.MainView = property(get_MainView.__wrapped__, None)
-    _CoreApplication_Meta_.Properties = property(get_Properties.__wrapped__, None)
-    _CoreApplication_Meta_.Views = property(get_Views.__wrapped__, None)
+    _CoreApplication_Meta_.Id = property(get_Id, None)
+    _CoreApplication_Meta_.MainView = property(get_MainView, None)
+    _CoreApplication_Meta_.Properties = property(get_Properties, None)
+    _CoreApplication_Meta_.Views = property(get_Views, None)
 class CoreApplicationView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Core.ICoreApplicationView

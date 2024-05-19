@@ -211,7 +211,7 @@ class OnlineIdSystemAuthenticator(ComPtr, metaclass=_OnlineIdSystemAuthenticator
     def get_Default(cls: win32more.Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorStatics) -> win32more.Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser: ...
     @winrt_classmethod
     def GetForUser(cls: win32more.Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorStatics, user: win32more.Windows.System.User) -> win32more.Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser: ...
-    _OnlineIdSystemAuthenticator_Meta_.Default = property(get_Default.__wrapped__, None)
+    _OnlineIdSystemAuthenticator_Meta_.Default = property(get_Default, None)
 class OnlineIdSystemAuthenticatorForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorForUser

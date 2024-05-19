@@ -505,8 +505,8 @@ class AutomationPeerAnnotation(ComPtr, metaclass=_AutomationPeerAnnotation_Meta_
     def get_PeerProperty(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.IAutomationPeerAnnotationStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     Peer = property(get_Peer, put_Peer)
     Type = property(get_Type, put_Type)
-    _AutomationPeerAnnotation_Meta_.PeerProperty = property(get_PeerProperty.__wrapped__, None)
-    _AutomationPeerAnnotation_Meta_.TypeProperty = property(get_TypeProperty.__wrapped__, None)
+    _AutomationPeerAnnotation_Meta_.PeerProperty = property(get_PeerProperty, None)
+    _AutomationPeerAnnotation_Meta_.TypeProperty = property(get_TypeProperty, None)
 class AutomationStructureChangeType(Enum, Int32):
     ChildAdded = 0
     ChildRemoved = 1

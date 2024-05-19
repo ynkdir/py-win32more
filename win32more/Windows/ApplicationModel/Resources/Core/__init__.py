@@ -338,7 +338,7 @@ class ResourceManager(ComPtr, metaclass=_ResourceManager_Meta_):
     AllResourceMaps = property(get_AllResourceMaps, None)
     DefaultContext = property(get_DefaultContext, None)
     MainResourceMap = property(get_MainResourceMap, None)
-    _ResourceManager_Meta_.Current = property(get_Current.__wrapped__, None)
+    _ResourceManager_Meta_.Current = property(get_Current, None)
 class ResourceMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Resources.Core.IResourceMap

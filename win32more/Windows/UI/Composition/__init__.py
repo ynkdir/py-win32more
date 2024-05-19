@@ -55,8 +55,8 @@ class AnimationController(ComPtr, metaclass=_AnimationController_Meta_):
     PlaybackRate = property(get_PlaybackRate, put_PlaybackRate)
     Progress = property(get_Progress, put_Progress)
     ProgressBehavior = property(get_ProgressBehavior, put_ProgressBehavior)
-    _AnimationController_Meta_.MaxPlaybackRate = property(get_MaxPlaybackRate.__wrapped__, None)
-    _AnimationController_Meta_.MinPlaybackRate = property(get_MinPlaybackRate.__wrapped__, None)
+    _AnimationController_Meta_.MaxPlaybackRate = property(get_MaxPlaybackRate, None)
+    _AnimationController_Meta_.MinPlaybackRate = property(get_MinPlaybackRate, None)
 class AnimationControllerProgressBehavior(Enum, Int32):
     Default = 0
     IncludesDelayTime = 1
@@ -922,7 +922,7 @@ class CompositionProjectedShadowCasterCollection(ComPtr, metaclass=_CompositionP
     @winrt_classmethod
     def get_MaxRespectedCasters(cls: win32more.Windows.UI.Composition.ICompositionProjectedShadowCasterCollectionStatics) -> Int32: ...
     Count = property(get_Count, None)
-    _CompositionProjectedShadowCasterCollection_Meta_.MaxRespectedCasters = property(get_MaxRespectedCasters.__wrapped__, None)
+    _CompositionProjectedShadowCasterCollection_Meta_.MaxRespectedCasters = property(get_MaxRespectedCasters, None)
 class CompositionProjectedShadowReceiver(ComPtr):
     extends: win32more.Windows.UI.Composition.CompositionObject
     default_interface: win32more.Windows.UI.Composition.ICompositionProjectedShadowReceiver
@@ -1577,8 +1577,8 @@ class Compositor(ComPtr, metaclass=_Compositor_Meta_):
     Comment = property(get_Comment, put_Comment)
     DispatcherQueue = property(get_DispatcherQueue, None)
     GlobalPlaybackRate = property(get_GlobalPlaybackRate, put_GlobalPlaybackRate)
-    _Compositor_Meta_.MaxGlobalPlaybackRate = property(get_MaxGlobalPlaybackRate.__wrapped__, None)
-    _Compositor_Meta_.MinGlobalPlaybackRate = property(get_MinGlobalPlaybackRate.__wrapped__, None)
+    _Compositor_Meta_.MaxGlobalPlaybackRate = property(get_MaxGlobalPlaybackRate, None)
+    _Compositor_Meta_.MinGlobalPlaybackRate = property(get_MinGlobalPlaybackRate, None)
 class ContainerVisual(ComPtr):
     extends: win32more.Windows.UI.Composition.Visual
     default_interface: win32more.Windows.UI.Composition.IContainerVisual

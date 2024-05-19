@@ -54,7 +54,7 @@ class ArcadeStick(ComPtr, metaclass=_ArcadeStick_Meta_):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-    _ArcadeStick_Meta_.ArcadeSticks = property(get_ArcadeSticks.__wrapped__, None)
+    _ArcadeStick_Meta_.ArcadeSticks = property(get_ArcadeSticks, None)
 class ArcadeStickButtons(Enum, UInt32):
     None_ = 0
     StickUp = 1
@@ -120,7 +120,7 @@ class FlightStick(ComPtr, metaclass=_FlightStick_Meta_):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-    _FlightStick_Meta_.FlightSticks = property(get_FlightSticks.__wrapped__, None)
+    _FlightStick_Meta_.FlightSticks = property(get_FlightSticks, None)
 class FlightStickButtons(Enum, UInt32):
     None_ = 0
     FirePrimary = 1
@@ -267,7 +267,7 @@ class Gamepad(ComPtr, metaclass=_Gamepad_Meta_):
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
     Vibration = property(get_Vibration, put_Vibration)
-    _Gamepad_Meta_.Gamepads = property(get_Gamepads.__wrapped__, None)
+    _Gamepad_Meta_.Gamepads = property(get_Gamepads, None)
 class GamepadButtons(Enum, UInt32):
     None_ = 0
     Menu = 1
@@ -664,7 +664,7 @@ class RacingWheel(ComPtr, metaclass=_RacingWheel_Meta_):
     MaxWheelAngle = property(get_MaxWheelAngle, None)
     User = property(get_User, None)
     WheelMotor = property(get_WheelMotor, None)
-    _RacingWheel_Meta_.RacingWheels = property(get_RacingWheels.__wrapped__, None)
+    _RacingWheel_Meta_.RacingWheels = property(get_RacingWheels, None)
 class RacingWheelButtons(Enum, UInt32):
     None_ = 0
     PreviousGear = 1
@@ -772,7 +772,7 @@ class RawGameController(ComPtr, metaclass=_RawGameController_Meta_):
     SimpleHapticsControllers = property(get_SimpleHapticsControllers, None)
     SwitchCount = property(get_SwitchCount, None)
     User = property(get_User, None)
-    _RawGameController_Meta_.RawGameControllers = property(get_RawGameControllers.__wrapped__, None)
+    _RawGameController_Meta_.RawGameControllers = property(get_RawGameControllers, None)
 class RequiredUINavigationButtons(Enum, UInt32):
     None_ = 0
     Menu = 1
@@ -830,7 +830,7 @@ class UINavigationController(ComPtr, metaclass=_UINavigationController_Meta_):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-    _UINavigationController_Meta_.UINavigationControllers = property(get_UINavigationControllers.__wrapped__, None)
+    _UINavigationController_Meta_.UINavigationControllers = property(get_UINavigationControllers, None)
 class UINavigationReading(Structure):
     Timestamp: UInt64
     RequiredButtons: win32more.Windows.Gaming.Input.RequiredUINavigationButtons

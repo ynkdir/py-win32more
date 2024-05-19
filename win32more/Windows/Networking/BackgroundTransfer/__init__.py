@@ -328,9 +328,9 @@ class ContentPrefetcher(ComPtr, metaclass=_ContentPrefetcher_Meta_):
     def put_IndirectContentUri(cls: win32more.Windows.Networking.BackgroundTransfer.IContentPrefetcher, value: win32more.Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod
     def get_IndirectContentUri(cls: win32more.Windows.Networking.BackgroundTransfer.IContentPrefetcher) -> win32more.Windows.Foundation.Uri: ...
-    _ContentPrefetcher_Meta_.ContentUris = property(get_ContentUris.__wrapped__, None)
-    _ContentPrefetcher_Meta_.IndirectContentUri = property(get_IndirectContentUri.__wrapped__, put_IndirectContentUri.__wrapped__)
-    _ContentPrefetcher_Meta_.LastSuccessfulPrefetchTime = property(get_LastSuccessfulPrefetchTime.__wrapped__, None)
+    _ContentPrefetcher_Meta_.ContentUris = property(get_ContentUris, None)
+    _ContentPrefetcher_Meta_.IndirectContentUri = property(get_IndirectContentUri, put_IndirectContentUri)
+    _ContentPrefetcher_Meta_.LastSuccessfulPrefetchTime = property(get_LastSuccessfulPrefetchTime, None)
 class DownloadOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IDownloadOperation

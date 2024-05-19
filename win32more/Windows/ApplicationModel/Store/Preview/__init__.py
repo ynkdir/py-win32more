@@ -276,8 +276,8 @@ class StoreConfiguration(ComPtr, metaclass=_StoreConfiguration_Meta_):
     def get_HardwareManufacturerInfo(cls: win32more.Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics) -> win32more.Windows.ApplicationModel.Store.Preview.StoreHardwareManufacturerInfo: ...
     @winrt_classmethod
     def FilterUnsupportedSystemFeaturesAsync(cls: win32more.Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics, systemFeatures: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.ApplicationModel.Store.Preview.StoreSystemFeature]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Store.Preview.StoreSystemFeature]]: ...
-    _StoreConfiguration_Meta_.HardwareManufacturerInfo = property(get_HardwareManufacturerInfo.__wrapped__, None)
-    _StoreConfiguration_Meta_.PurchasePromptingPolicy = property(get_PurchasePromptingPolicy.__wrapped__, put_PurchasePromptingPolicy.__wrapped__)
+    _StoreConfiguration_Meta_.HardwareManufacturerInfo = property(get_HardwareManufacturerInfo, None)
+    _StoreConfiguration_Meta_.PurchasePromptingPolicy = property(get_PurchasePromptingPolicy, put_PurchasePromptingPolicy)
 class StoreHardwareManufacturerInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.IStoreHardwareManufacturerInfo

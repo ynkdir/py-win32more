@@ -696,9 +696,9 @@ class SpeechRecognizer(ComPtr, metaclass=_SpeechRecognizer_Meta_):
     State = property(get_State, None)
     Timeouts = property(get_Timeouts, None)
     UIOptions = property(get_UIOptions, None)
-    _SpeechRecognizer_Meta_.SupportedGrammarLanguages = property(get_SupportedGrammarLanguages.__wrapped__, None)
-    _SpeechRecognizer_Meta_.SupportedTopicLanguages = property(get_SupportedTopicLanguages.__wrapped__, None)
-    _SpeechRecognizer_Meta_.SystemSpeechLanguage = property(get_SystemSpeechLanguage.__wrapped__, None)
+    _SpeechRecognizer_Meta_.SupportedGrammarLanguages = property(get_SupportedGrammarLanguages, None)
+    _SpeechRecognizer_Meta_.SupportedTopicLanguages = property(get_SupportedTopicLanguages, None)
+    _SpeechRecognizer_Meta_.SystemSpeechLanguage = property(get_SystemSpeechLanguage, None)
 class SpeechRecognizerState(Enum, Int32):
     Idle = 0
     Capturing = 1
@@ -766,7 +766,7 @@ class VoiceCommandManager(ComPtr, metaclass=_VoiceCommandManager_Meta_):
     def InstallCommandSetsFromStorageFileAsync(cls: win32more.Windows.Media.SpeechRecognition.IVoiceCommandManager, file: win32more.Windows.Storage.StorageFile) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def get_InstalledCommandSets(cls: win32more.Windows.Media.SpeechRecognition.IVoiceCommandManager) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Media.SpeechRecognition.VoiceCommandSet]: ...
-    _VoiceCommandManager_Meta_.InstalledCommandSets = property(get_InstalledCommandSets.__wrapped__, None)
+    _VoiceCommandManager_Meta_.InstalledCommandSets = property(get_InstalledCommandSets, None)
 class VoiceCommandSet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.IVoiceCommandSet

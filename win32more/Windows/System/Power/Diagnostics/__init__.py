@@ -14,7 +14,7 @@ class BackgroundEnergyDiagnostics(ComPtr, metaclass=_BackgroundEnergyDiagnostics
     def ComputeTotalEnergyUsage(cls: win32more.Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics) -> UInt64: ...
     @winrt_classmethod
     def ResetTotalEnergyUsage(cls: win32more.Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics) -> Void: ...
-    _BackgroundEnergyDiagnostics_Meta_.DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor.__wrapped__, None)
+    _BackgroundEnergyDiagnostics_Meta_.DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
 class _ForegroundEnergyDiagnostics_Meta_(ComPtr.__class__):
     pass
 class ForegroundEnergyDiagnostics(ComPtr, metaclass=_ForegroundEnergyDiagnostics_Meta_):
@@ -26,7 +26,7 @@ class ForegroundEnergyDiagnostics(ComPtr, metaclass=_ForegroundEnergyDiagnostics
     def ComputeTotalEnergyUsage(cls: win32more.Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics) -> UInt64: ...
     @winrt_classmethod
     def ResetTotalEnergyUsage(cls: win32more.Windows.System.Power.Diagnostics.IForegroundEnergyDiagnosticsStatics) -> Void: ...
-    _ForegroundEnergyDiagnostics_Meta_.DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor.__wrapped__, None)
+    _ForegroundEnergyDiagnostics_Meta_.DeviceSpecificConversionFactor = property(get_DeviceSpecificConversionFactor, None)
 class IBackgroundEnergyDiagnosticsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.Diagnostics.IBackgroundEnergyDiagnosticsStatics'

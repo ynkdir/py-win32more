@@ -156,10 +156,10 @@ class CollectionViewSource(ComPtr, metaclass=_CollectionViewSource_Meta_):
     ItemsPath = property(get_ItemsPath, put_ItemsPath)
     Source = property(get_Source, put_Source)
     View = property(get_View, None)
-    _CollectionViewSource_Meta_.IsSourceGroupedProperty = property(get_IsSourceGroupedProperty.__wrapped__, None)
-    _CollectionViewSource_Meta_.ItemsPathProperty = property(get_ItemsPathProperty.__wrapped__, None)
-    _CollectionViewSource_Meta_.SourceProperty = property(get_SourceProperty.__wrapped__, None)
-    _CollectionViewSource_Meta_.ViewProperty = property(get_ViewProperty.__wrapped__, None)
+    _CollectionViewSource_Meta_.IsSourceGroupedProperty = property(get_IsSourceGroupedProperty, None)
+    _CollectionViewSource_Meta_.ItemsPathProperty = property(get_ItemsPathProperty, None)
+    _CollectionViewSource_Meta_.SourceProperty = property(get_SourceProperty, None)
+    _CollectionViewSource_Meta_.ViewProperty = property(get_ViewProperty, None)
 class CurrentChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Data.ICurrentChangingEventArgs

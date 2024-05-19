@@ -77,8 +77,8 @@ class AccessKeyManager(ComPtr, metaclass=_AccessKeyManager_Meta_):
     def remove_IsDisplayModeEnabledChanged(cls: win32more.Windows.UI.Xaml.Input.IAccessKeyManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def ExitDisplayMode(cls: win32more.Windows.UI.Xaml.Input.IAccessKeyManagerStatics) -> Void: ...
-    _AccessKeyManager_Meta_.AreKeyTipsEnabled = property(get_AreKeyTipsEnabled.__wrapped__, put_AreKeyTipsEnabled.__wrapped__)
-    _AccessKeyManager_Meta_.IsDisplayModeEnabled = property(get_IsDisplayModeEnabled.__wrapped__, None)
+    _AccessKeyManager_Meta_.AreKeyTipsEnabled = property(get_AreKeyTipsEnabled, put_AreKeyTipsEnabled)
+    _AccessKeyManager_Meta_.IsDisplayModeEnabled = property(get_IsDisplayModeEnabled, None)
 class CanExecuteRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.ICanExecuteRequestedEventArgs
@@ -1444,10 +1444,10 @@ class KeyboardAccelerator(ComPtr, metaclass=_KeyboardAccelerator_Meta_):
     Key = property(get_Key, put_Key)
     Modifiers = property(get_Modifiers, put_Modifiers)
     ScopeOwner = property(get_ScopeOwner, put_ScopeOwner)
-    _KeyboardAccelerator_Meta_.IsEnabledProperty = property(get_IsEnabledProperty.__wrapped__, None)
-    _KeyboardAccelerator_Meta_.KeyProperty = property(get_KeyProperty.__wrapped__, None)
-    _KeyboardAccelerator_Meta_.ModifiersProperty = property(get_ModifiersProperty.__wrapped__, None)
-    _KeyboardAccelerator_Meta_.ScopeOwnerProperty = property(get_ScopeOwnerProperty.__wrapped__, None)
+    _KeyboardAccelerator_Meta_.IsEnabledProperty = property(get_IsEnabledProperty, None)
+    _KeyboardAccelerator_Meta_.KeyProperty = property(get_KeyProperty, None)
+    _KeyboardAccelerator_Meta_.ModifiersProperty = property(get_ModifiersProperty, None)
+    _KeyboardAccelerator_Meta_.ScopeOwnerProperty = property(get_ScopeOwnerProperty, None)
 class KeyboardAcceleratorInvokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Input.IKeyboardAcceleratorInvokedEventArgs
@@ -1890,7 +1890,7 @@ class StandardUICommand(ComPtr, metaclass=_StandardUICommand_Meta_):
     @winrt_classmethod
     def get_KindProperty(cls: win32more.Windows.UI.Xaml.Input.IStandardUICommandStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Kind = property(get_Kind, put_Kind)
-    _StandardUICommand_Meta_.KindProperty = property(get_KindProperty.__wrapped__, None)
+    _StandardUICommand_Meta_.KindProperty = property(get_KindProperty, None)
 class StandardUICommandKind(Enum, Int32):
     None_ = 0
     Cut = 1
@@ -2025,12 +2025,12 @@ class XamlUICommand(ComPtr, metaclass=_XamlUICommand_Meta_):
     IconSource = property(get_IconSource, put_IconSource)
     KeyboardAccelerators = property(get_KeyboardAccelerators, None)
     Label = property(get_Label, put_Label)
-    _XamlUICommand_Meta_.AccessKeyProperty = property(get_AccessKeyProperty.__wrapped__, None)
-    _XamlUICommand_Meta_.CommandProperty = property(get_CommandProperty.__wrapped__, None)
-    _XamlUICommand_Meta_.DescriptionProperty = property(get_DescriptionProperty.__wrapped__, None)
-    _XamlUICommand_Meta_.IconSourceProperty = property(get_IconSourceProperty.__wrapped__, None)
-    _XamlUICommand_Meta_.KeyboardAcceleratorsProperty = property(get_KeyboardAcceleratorsProperty.__wrapped__, None)
-    _XamlUICommand_Meta_.LabelProperty = property(get_LabelProperty.__wrapped__, None)
+    _XamlUICommand_Meta_.AccessKeyProperty = property(get_AccessKeyProperty, None)
+    _XamlUICommand_Meta_.CommandProperty = property(get_CommandProperty, None)
+    _XamlUICommand_Meta_.DescriptionProperty = property(get_DescriptionProperty, None)
+    _XamlUICommand_Meta_.IconSourceProperty = property(get_IconSourceProperty, None)
+    _XamlUICommand_Meta_.KeyboardAcceleratorsProperty = property(get_KeyboardAcceleratorsProperty, None)
+    _XamlUICommand_Meta_.LabelProperty = property(get_LabelProperty, None)
 
 
 make_ready(__name__)

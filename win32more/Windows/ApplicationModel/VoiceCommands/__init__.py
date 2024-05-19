@@ -308,7 +308,7 @@ class VoiceCommandDefinitionManager(ComPtr, metaclass=_VoiceCommandDefinitionMan
     def InstallCommandDefinitionsFromStorageFileAsync(cls: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinitionManagerStatics, file: win32more.Windows.Storage.StorageFile) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def get_InstalledCommandDefinitions(cls: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinitionManagerStatics) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinition]: ...
-    _VoiceCommandDefinitionManager_Meta_.InstalledCommandDefinitions = property(get_InstalledCommandDefinitions.__wrapped__, None)
+    _VoiceCommandDefinitionManager_Meta_.InstalledCommandDefinitions = property(get_InstalledCommandDefinitions, None)
 class VoiceCommandDisambiguationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandDisambiguationResult
@@ -350,7 +350,7 @@ class VoiceCommandResponse(ComPtr, metaclass=_VoiceCommandResponse_Meta_):
     Message = property(get_Message, put_Message)
     RepeatMessage = property(get_RepeatMessage, put_RepeatMessage)
     VoiceCommandContentTiles = property(get_VoiceCommandContentTiles, None)
-    _VoiceCommandResponse_Meta_.MaxSupportedVoiceCommandContentTiles = property(get_MaxSupportedVoiceCommandContentTiles.__wrapped__, None)
+    _VoiceCommandResponse_Meta_.MaxSupportedVoiceCommandContentTiles = property(get_MaxSupportedVoiceCommandContentTiles, None)
 class VoiceCommandServiceConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandServiceConnection

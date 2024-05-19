@@ -119,8 +119,8 @@ class PhoneCallOriginManager(ComPtr, metaclass=_PhoneCallOriginManager_Meta_):
     def ShowPhoneCallOriginSettingsUI(cls: win32more.Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics) -> Void: ...
     @winrt_classmethod
     def SetCallOrigin(cls: win32more.Windows.ApplicationModel.Calls.Provider.IPhoneCallOriginManagerStatics, requestId: Guid, callOrigin: win32more.Windows.ApplicationModel.Calls.Provider.PhoneCallOrigin) -> Void: ...
-    _PhoneCallOriginManager_Meta_.IsCurrentAppActiveCallOriginApp = property(get_IsCurrentAppActiveCallOriginApp.__wrapped__, None)
-    _PhoneCallOriginManager_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
+    _PhoneCallOriginManager_Meta_.IsCurrentAppActiveCallOriginApp = property(get_IsCurrentAppActiveCallOriginApp, None)
+    _PhoneCallOriginManager_Meta_.IsSupported = property(get_IsSupported, None)
 
 
 make_ready(__name__)

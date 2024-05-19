@@ -221,9 +221,9 @@ class SpatialSurfaceMeshOptions(ComPtr, metaclass=_SpatialSurfaceMeshOptions_Met
     TriangleIndexFormat = property(get_TriangleIndexFormat, put_TriangleIndexFormat)
     VertexNormalFormat = property(get_VertexNormalFormat, put_VertexNormalFormat)
     VertexPositionFormat = property(get_VertexPositionFormat, put_VertexPositionFormat)
-    _SpatialSurfaceMeshOptions_Meta_.SupportedTriangleIndexFormats = property(get_SupportedTriangleIndexFormats.__wrapped__, None)
-    _SpatialSurfaceMeshOptions_Meta_.SupportedVertexNormalFormats = property(get_SupportedVertexNormalFormats.__wrapped__, None)
-    _SpatialSurfaceMeshOptions_Meta_.SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats.__wrapped__, None)
+    _SpatialSurfaceMeshOptions_Meta_.SupportedTriangleIndexFormats = property(get_SupportedTriangleIndexFormats, None)
+    _SpatialSurfaceMeshOptions_Meta_.SupportedVertexNormalFormats = property(get_SupportedVertexNormalFormats, None)
+    _SpatialSurfaceMeshOptions_Meta_.SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats, None)
 class SpatialSurfaceObserver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver

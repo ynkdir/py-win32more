@@ -26,7 +26,7 @@ class Battery(ComPtr, metaclass=_Battery_Meta_):
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.Power.IBatteryStatics) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-    _Battery_Meta_.AggregateBattery = property(get_AggregateBattery.__wrapped__, None)
+    _Battery_Meta_.AggregateBattery = property(get_AggregateBattery, None)
 class BatteryReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Power.IBatteryReport

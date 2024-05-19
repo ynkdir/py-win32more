@@ -473,7 +473,7 @@ class XamlUIPresenter(ComPtr, metaclass=_XamlUIPresenter_Meta_):
     RootElement = property(get_RootElement, put_RootElement)
     ThemeKey = property(get_ThemeKey, put_ThemeKey)
     ThemeResourcesXaml = property(get_ThemeResourcesXaml, put_ThemeResourcesXaml)
-    _XamlUIPresenter_Meta_.CompleteTimelinesAutomatically = property(get_CompleteTimelinesAutomatically.__wrapped__, put_CompleteTimelinesAutomatically.__wrapped__)
+    _XamlUIPresenter_Meta_.CompleteTimelinesAutomatically = property(get_CompleteTimelinesAutomatically, put_CompleteTimelinesAutomatically)
 
 
 make_ready(__name__)

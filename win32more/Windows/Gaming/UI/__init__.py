@@ -23,8 +23,8 @@ class GameBar(ComPtr, metaclass=_GameBar_Meta_):
     def get_Visible(cls: win32more.Windows.Gaming.UI.IGameBarStatics) -> Boolean: ...
     @winrt_classmethod
     def get_IsInputRedirected(cls: win32more.Windows.Gaming.UI.IGameBarStatics) -> Boolean: ...
-    _GameBar_Meta_.IsInputRedirected = property(get_IsInputRedirected.__wrapped__, None)
-    _GameBar_Meta_.Visible = property(get_Visible.__wrapped__, None)
+    _GameBar_Meta_.IsInputRedirected = property(get_IsInputRedirected, None)
+    _GameBar_Meta_.Visible = property(get_Visible, None)
 class GameChatMessageOrigin(Enum, Int32):
     Voice = 0
     Text = 1

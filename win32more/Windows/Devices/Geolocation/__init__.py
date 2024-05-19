@@ -251,8 +251,8 @@ class Geolocator(ComPtr, metaclass=_Geolocator_Meta_):
     LocationStatus = property(get_LocationStatus, None)
     MovementThreshold = property(get_MovementThreshold, put_MovementThreshold)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
-    _Geolocator_Meta_.DefaultGeoposition = property(get_DefaultGeoposition.__wrapped__, put_DefaultGeoposition.__wrapped__)
-    _Geolocator_Meta_.IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended.__wrapped__, None)
+    _Geolocator_Meta_.DefaultGeoposition = property(get_DefaultGeoposition, put_DefaultGeoposition)
+    _Geolocator_Meta_.IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended, None)
 class Geopath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeopath

@@ -219,17 +219,17 @@ class SystemUpdateManager(ComPtr, metaclass=_SystemUpdateManager_Meta_):
     def RebootToCompleteInstall(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics) -> Void: ...
     @winrt_classmethod
     def StartCancelUpdates(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics) -> Void: ...
-    _SystemUpdateManager_Meta_.AttentionRequiredReason = property(get_AttentionRequiredReason.__wrapped__, None)
-    _SystemUpdateManager_Meta_.DownloadProgress = property(get_DownloadProgress.__wrapped__, None)
-    _SystemUpdateManager_Meta_.ExtendedError = property(get_ExtendedError.__wrapped__, None)
-    _SystemUpdateManager_Meta_.InstallProgress = property(get_InstallProgress.__wrapped__, None)
-    _SystemUpdateManager_Meta_.LastErrorInfo = property(get_LastErrorInfo.__wrapped__, None)
-    _SystemUpdateManager_Meta_.LastUpdateCheckTime = property(get_LastUpdateCheckTime.__wrapped__, None)
-    _SystemUpdateManager_Meta_.LastUpdateInstallTime = property(get_LastUpdateInstallTime.__wrapped__, None)
-    _SystemUpdateManager_Meta_.State = property(get_State.__wrapped__, None)
-    _SystemUpdateManager_Meta_.UserActiveHoursEnd = property(get_UserActiveHoursEnd.__wrapped__, None)
-    _SystemUpdateManager_Meta_.UserActiveHoursMax = property(get_UserActiveHoursMax.__wrapped__, None)
-    _SystemUpdateManager_Meta_.UserActiveHoursStart = property(get_UserActiveHoursStart.__wrapped__, None)
+    _SystemUpdateManager_Meta_.AttentionRequiredReason = property(get_AttentionRequiredReason, None)
+    _SystemUpdateManager_Meta_.DownloadProgress = property(get_DownloadProgress, None)
+    _SystemUpdateManager_Meta_.ExtendedError = property(get_ExtendedError, None)
+    _SystemUpdateManager_Meta_.InstallProgress = property(get_InstallProgress, None)
+    _SystemUpdateManager_Meta_.LastErrorInfo = property(get_LastErrorInfo, None)
+    _SystemUpdateManager_Meta_.LastUpdateCheckTime = property(get_LastUpdateCheckTime, None)
+    _SystemUpdateManager_Meta_.LastUpdateInstallTime = property(get_LastUpdateInstallTime, None)
+    _SystemUpdateManager_Meta_.State = property(get_State, None)
+    _SystemUpdateManager_Meta_.UserActiveHoursEnd = property(get_UserActiveHoursEnd, None)
+    _SystemUpdateManager_Meta_.UserActiveHoursMax = property(get_UserActiveHoursMax, None)
+    _SystemUpdateManager_Meta_.UserActiveHoursStart = property(get_UserActiveHoursStart, None)
 class SystemUpdateManagerState(Enum, Int32):
     Idle = 0
     Detecting = 1

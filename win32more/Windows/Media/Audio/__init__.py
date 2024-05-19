@@ -2247,13 +2247,13 @@ class SpatialAudioFormatSubtype(ComPtr, metaclass=_SpatialAudioFormatSubtype_Met
     def get_DTSHeadphoneX(cls: win32more.Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_DTSXUltra(cls: win32more.Windows.Media.Audio.ISpatialAudioFormatSubtypeStatics) -> WinRT_String: ...
-    _SpatialAudioFormatSubtype_Meta_.DTSHeadphoneX = property(get_DTSHeadphoneX.__wrapped__, None)
-    _SpatialAudioFormatSubtype_Meta_.DTSXForHomeTheater = property(get_DTSXForHomeTheater.__wrapped__, None)
-    _SpatialAudioFormatSubtype_Meta_.DTSXUltra = property(get_DTSXUltra.__wrapped__, None)
-    _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForHeadphones = property(get_DolbyAtmosForHeadphones.__wrapped__, None)
-    _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForHomeTheater = property(get_DolbyAtmosForHomeTheater.__wrapped__, None)
-    _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForSpeakers = property(get_DolbyAtmosForSpeakers.__wrapped__, None)
-    _SpatialAudioFormatSubtype_Meta_.WindowsSonic = property(get_WindowsSonic.__wrapped__, None)
+    _SpatialAudioFormatSubtype_Meta_.DTSHeadphoneX = property(get_DTSHeadphoneX, None)
+    _SpatialAudioFormatSubtype_Meta_.DTSXForHomeTheater = property(get_DTSXForHomeTheater, None)
+    _SpatialAudioFormatSubtype_Meta_.DTSXUltra = property(get_DTSXUltra, None)
+    _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForHeadphones = property(get_DolbyAtmosForHeadphones, None)
+    _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForHomeTheater = property(get_DolbyAtmosForHomeTheater, None)
+    _SpatialAudioFormatSubtype_Meta_.DolbyAtmosForSpeakers = property(get_DolbyAtmosForSpeakers, None)
+    _SpatialAudioFormatSubtype_Meta_.WindowsSonic = property(get_WindowsSonic, None)
 class SpatialAudioModel(Enum, Int32):
     ObjectBased = 0
     FoldDown = 1

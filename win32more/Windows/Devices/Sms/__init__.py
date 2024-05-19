@@ -1196,7 +1196,7 @@ class SmsMessageRegistration(ComPtr, metaclass=_SmsMessageRegistration_Meta_):
     @winrt_classmethod
     def Register(cls: win32more.Windows.Devices.Sms.ISmsMessageRegistrationStatics, id: WinRT_String, filterRules: win32more.Windows.Devices.Sms.SmsFilterRules) -> win32more.Windows.Devices.Sms.SmsMessageRegistration: ...
     Id = property(get_Id, None)
-    _SmsMessageRegistration_Meta_.AllRegistrations = property(get_AllRegistrations.__wrapped__, None)
+    _SmsMessageRegistration_Meta_.AllRegistrations = property(get_AllRegistrations, None)
 class SmsMessageType(Enum, Int32):
     Binary = 0
     Text = 1

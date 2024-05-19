@@ -1765,8 +1765,8 @@ class RadialControllerConfiguration(ComPtr, metaclass=_RadialControllerConfigura
     def GetForCurrentView(cls: win32more.Windows.UI.Input.IRadialControllerConfigurationStatics) -> win32more.Windows.UI.Input.RadialControllerConfiguration: ...
     ActiveControllerWhenMenuIsSuppressed = property(get_ActiveControllerWhenMenuIsSuppressed, put_ActiveControllerWhenMenuIsSuppressed)
     IsMenuSuppressed = property(get_IsMenuSuppressed, put_IsMenuSuppressed)
-    _RadialControllerConfiguration_Meta_.AppController = property(get_AppController.__wrapped__, put_AppController.__wrapped__)
-    _RadialControllerConfiguration_Meta_.IsAppControllerEnabled = property(get_IsAppControllerEnabled.__wrapped__, put_IsAppControllerEnabled.__wrapped__)
+    _RadialControllerConfiguration_Meta_.AppController = property(get_AppController, put_AppController)
+    _RadialControllerConfiguration_Meta_.IsAppControllerEnabled = property(get_IsAppControllerEnabled, put_IsAppControllerEnabled)
 class RadialControllerControlAcquiredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IRadialControllerControlAcquiredEventArgs

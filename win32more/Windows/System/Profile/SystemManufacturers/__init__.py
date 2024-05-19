@@ -86,7 +86,7 @@ class SmbiosInformation(ComPtr, metaclass=_SmbiosInformation_Meta_):
     _classid_ = 'Windows.System.Profile.SystemManufacturers.SmbiosInformation'
     @winrt_classmethod
     def get_SerialNumber(cls: win32more.Windows.System.Profile.SystemManufacturers.ISmbiosInformationStatics) -> WinRT_String: ...
-    _SmbiosInformation_Meta_.SerialNumber = property(get_SerialNumber.__wrapped__, None)
+    _SmbiosInformation_Meta_.SerialNumber = property(get_SerialNumber, None)
 SystemManufacturersContract: UInt32 = 196608
 class SystemSupportDeviceInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -124,9 +124,9 @@ class SystemSupportInfo(ComPtr, metaclass=_SystemSupportInfo_Meta_):
     def get_LocalSystemEdition(cls: win32more.Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_OemSupportInfo(cls: win32more.Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics) -> win32more.Windows.System.Profile.SystemManufacturers.OemSupportInfo: ...
-    _SystemSupportInfo_Meta_.LocalDeviceInfo = property(get_LocalDeviceInfo.__wrapped__, None)
-    _SystemSupportInfo_Meta_.LocalSystemEdition = property(get_LocalSystemEdition.__wrapped__, None)
-    _SystemSupportInfo_Meta_.OemSupportInfo = property(get_OemSupportInfo.__wrapped__, None)
+    _SystemSupportInfo_Meta_.LocalDeviceInfo = property(get_LocalDeviceInfo, None)
+    _SystemSupportInfo_Meta_.LocalSystemEdition = property(get_LocalSystemEdition, None)
+    _SystemSupportInfo_Meta_.OemSupportInfo = property(get_OemSupportInfo, None)
 
 
 make_ready(__name__)

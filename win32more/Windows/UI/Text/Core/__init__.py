@@ -315,7 +315,7 @@ class CoreTextServicesConstants(ComPtr, metaclass=_CoreTextServicesConstants_Met
     _classid_ = 'Windows.UI.Text.Core.CoreTextServicesConstants'
     @winrt_classmethod
     def get_HiddenCharacter(cls: win32more.Windows.UI.Text.Core.ICoreTextServicesStatics) -> Char: ...
-    _CoreTextServicesConstants_Meta_.HiddenCharacter = property(get_HiddenCharacter.__wrapped__, None)
+    _CoreTextServicesConstants_Meta_.HiddenCharacter = property(get_HiddenCharacter, None)
 class CoreTextServicesManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextServicesManager

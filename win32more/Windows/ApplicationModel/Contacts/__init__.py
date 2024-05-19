@@ -781,11 +781,11 @@ class ContactLaunchActionVerbs(ComPtr, metaclass=_ContactLaunchActionVerbs_Meta_
     def get_Post(cls: win32more.Windows.ApplicationModel.Contacts.IContactLaunchActionVerbsStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_VideoCall(cls: win32more.Windows.ApplicationModel.Contacts.IContactLaunchActionVerbsStatics) -> WinRT_String: ...
-    _ContactLaunchActionVerbs_Meta_.Call = property(get_Call.__wrapped__, None)
-    _ContactLaunchActionVerbs_Meta_.Map = property(get_Map.__wrapped__, None)
-    _ContactLaunchActionVerbs_Meta_.Message = property(get_Message.__wrapped__, None)
-    _ContactLaunchActionVerbs_Meta_.Post = property(get_Post.__wrapped__, None)
-    _ContactLaunchActionVerbs_Meta_.VideoCall = property(get_VideoCall.__wrapped__, None)
+    _ContactLaunchActionVerbs_Meta_.Call = property(get_Call, None)
+    _ContactLaunchActionVerbs_Meta_.Map = property(get_Map, None)
+    _ContactLaunchActionVerbs_Meta_.Message = property(get_Message, None)
+    _ContactLaunchActionVerbs_Meta_.Post = property(get_Post, None)
+    _ContactLaunchActionVerbs_Meta_.VideoCall = property(get_VideoCall, None)
 class ContactList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactList
@@ -1156,9 +1156,9 @@ class ContactManager(ComPtr, metaclass=_ContactManager_Meta_):
     def ShowContactCardWithPlacement(cls: win32more.Windows.ApplicationModel.Contacts.IContactManagerStatics, contact: win32more.Windows.ApplicationModel.Contacts.Contact, selection: win32more.Windows.Foundation.Rect, preferredPlacement: win32more.Windows.UI.Popups.Placement) -> Void: ...
     @winrt_classmethod
     def ShowDelayLoadedContactCard(cls: win32more.Windows.ApplicationModel.Contacts.IContactManagerStatics, contact: win32more.Windows.ApplicationModel.Contacts.Contact, selection: win32more.Windows.Foundation.Rect, preferredPlacement: win32more.Windows.UI.Popups.Placement) -> win32more.Windows.ApplicationModel.Contacts.ContactCardDelayedDataLoader: ...
-    _ContactManager_Meta_.IncludeMiddleNameInSystemDisplayAndSort = property(get_IncludeMiddleNameInSystemDisplayAndSort.__wrapped__, put_IncludeMiddleNameInSystemDisplayAndSort.__wrapped__)
-    _ContactManager_Meta_.SystemDisplayNameOrder = property(get_SystemDisplayNameOrder.__wrapped__, put_SystemDisplayNameOrder.__wrapped__)
-    _ContactManager_Meta_.SystemSortOrder = property(get_SystemSortOrder.__wrapped__, put_SystemSortOrder.__wrapped__)
+    _ContactManager_Meta_.IncludeMiddleNameInSystemDisplayAndSort = property(get_IncludeMiddleNameInSystemDisplayAndSort, put_IncludeMiddleNameInSystemDisplayAndSort)
+    _ContactManager_Meta_.SystemDisplayNameOrder = property(get_SystemDisplayNameOrder, put_SystemDisplayNameOrder)
+    _ContactManager_Meta_.SystemSortOrder = property(get_SystemSortOrder, put_SystemSortOrder)
 class ContactManagerForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactManagerForUser
@@ -2910,10 +2910,10 @@ class KnownContactField(ComPtr, metaclass=_KnownContactField_Meta_):
     def ConvertNameToType(cls: win32more.Windows.ApplicationModel.Contacts.IKnownContactFieldStatics, name: WinRT_String) -> win32more.Windows.ApplicationModel.Contacts.ContactFieldType: ...
     @winrt_classmethod
     def ConvertTypeToName(cls: win32more.Windows.ApplicationModel.Contacts.IKnownContactFieldStatics, type: win32more.Windows.ApplicationModel.Contacts.ContactFieldType) -> WinRT_String: ...
-    _KnownContactField_Meta_.Email = property(get_Email.__wrapped__, None)
-    _KnownContactField_Meta_.InstantMessage = property(get_InstantMessage.__wrapped__, None)
-    _KnownContactField_Meta_.Location = property(get_Location.__wrapped__, None)
-    _KnownContactField_Meta_.PhoneNumber = property(get_PhoneNumber.__wrapped__, None)
+    _KnownContactField_Meta_.Email = property(get_Email, None)
+    _KnownContactField_Meta_.InstantMessage = property(get_InstantMessage, None)
+    _KnownContactField_Meta_.Location = property(get_Location, None)
+    _KnownContactField_Meta_.PhoneNumber = property(get_PhoneNumber, None)
 class PinnedContactIdsQueryResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IPinnedContactIdsQueryResult

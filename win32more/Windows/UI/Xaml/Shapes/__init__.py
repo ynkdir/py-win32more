@@ -311,10 +311,10 @@ class Line(ComPtr, metaclass=_Line_Meta_):
     X2 = property(get_X2, put_X2)
     Y1 = property(get_Y1, put_Y1)
     Y2 = property(get_Y2, put_Y2)
-    _Line_Meta_.X1Property = property(get_X1Property.__wrapped__, None)
-    _Line_Meta_.X2Property = property(get_X2Property.__wrapped__, None)
-    _Line_Meta_.Y1Property = property(get_Y1Property.__wrapped__, None)
-    _Line_Meta_.Y2Property = property(get_Y2Property.__wrapped__, None)
+    _Line_Meta_.X1Property = property(get_X1Property, None)
+    _Line_Meta_.X2Property = property(get_X2Property, None)
+    _Line_Meta_.Y1Property = property(get_Y1Property, None)
+    _Line_Meta_.Y2Property = property(get_Y2Property, None)
 class _Path_Meta_(ComPtr.__class__):
     pass
 class Path(ComPtr, metaclass=_Path_Meta_):
@@ -337,7 +337,7 @@ class Path(ComPtr, metaclass=_Path_Meta_):
     @winrt_classmethod
     def get_DataProperty(cls: win32more.Windows.UI.Xaml.Shapes.IPathStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Data = property(get_Data, put_Data)
-    _Path_Meta_.DataProperty = property(get_DataProperty.__wrapped__, None)
+    _Path_Meta_.DataProperty = property(get_DataProperty, None)
 class _Polygon_Meta_(ComPtr.__class__):
     pass
 class Polygon(ComPtr, metaclass=_Polygon_Meta_):
@@ -367,8 +367,8 @@ class Polygon(ComPtr, metaclass=_Polygon_Meta_):
     def get_PointsProperty(cls: win32more.Windows.UI.Xaml.Shapes.IPolygonStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     FillRule = property(get_FillRule, put_FillRule)
     Points = property(get_Points, put_Points)
-    _Polygon_Meta_.FillRuleProperty = property(get_FillRuleProperty.__wrapped__, None)
-    _Polygon_Meta_.PointsProperty = property(get_PointsProperty.__wrapped__, None)
+    _Polygon_Meta_.FillRuleProperty = property(get_FillRuleProperty, None)
+    _Polygon_Meta_.PointsProperty = property(get_PointsProperty, None)
 class _Polyline_Meta_(ComPtr.__class__):
     pass
 class Polyline(ComPtr, metaclass=_Polyline_Meta_):
@@ -398,8 +398,8 @@ class Polyline(ComPtr, metaclass=_Polyline_Meta_):
     def get_PointsProperty(cls: win32more.Windows.UI.Xaml.Shapes.IPolylineStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     FillRule = property(get_FillRule, put_FillRule)
     Points = property(get_Points, put_Points)
-    _Polyline_Meta_.FillRuleProperty = property(get_FillRuleProperty.__wrapped__, None)
-    _Polyline_Meta_.PointsProperty = property(get_PointsProperty.__wrapped__, None)
+    _Polyline_Meta_.FillRuleProperty = property(get_FillRuleProperty, None)
+    _Polyline_Meta_.PointsProperty = property(get_PointsProperty, None)
 class _Rectangle_Meta_(ComPtr.__class__):
     pass
 class Rectangle(ComPtr, metaclass=_Rectangle_Meta_):
@@ -429,8 +429,8 @@ class Rectangle(ComPtr, metaclass=_Rectangle_Meta_):
     def get_RadiusYProperty(cls: win32more.Windows.UI.Xaml.Shapes.IRectangleStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     RadiusX = property(get_RadiusX, put_RadiusX)
     RadiusY = property(get_RadiusY, put_RadiusY)
-    _Rectangle_Meta_.RadiusXProperty = property(get_RadiusXProperty.__wrapped__, None)
-    _Rectangle_Meta_.RadiusYProperty = property(get_RadiusYProperty.__wrapped__, None)
+    _Rectangle_Meta_.RadiusXProperty = property(get_RadiusXProperty, None)
+    _Rectangle_Meta_.RadiusYProperty = property(get_RadiusYProperty, None)
 class _Shape_Meta_(ComPtr.__class__):
     pass
 class Shape(ComPtr, metaclass=_Shape_Meta_):
@@ -528,17 +528,17 @@ class Shape(ComPtr, metaclass=_Shape_Meta_):
     StrokeMiterLimit = property(get_StrokeMiterLimit, put_StrokeMiterLimit)
     StrokeStartLineCap = property(get_StrokeStartLineCap, put_StrokeStartLineCap)
     StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
-    _Shape_Meta_.FillProperty = property(get_FillProperty.__wrapped__, None)
-    _Shape_Meta_.StretchProperty = property(get_StretchProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeDashArrayProperty = property(get_StrokeDashArrayProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeDashCapProperty = property(get_StrokeDashCapProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeDashOffsetProperty = property(get_StrokeDashOffsetProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeEndLineCapProperty = property(get_StrokeEndLineCapProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeLineJoinProperty = property(get_StrokeLineJoinProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeMiterLimitProperty = property(get_StrokeMiterLimitProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeProperty = property(get_StrokeProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeStartLineCapProperty = property(get_StrokeStartLineCapProperty.__wrapped__, None)
-    _Shape_Meta_.StrokeThicknessProperty = property(get_StrokeThicknessProperty.__wrapped__, None)
+    _Shape_Meta_.FillProperty = property(get_FillProperty, None)
+    _Shape_Meta_.StretchProperty = property(get_StretchProperty, None)
+    _Shape_Meta_.StrokeDashArrayProperty = property(get_StrokeDashArrayProperty, None)
+    _Shape_Meta_.StrokeDashCapProperty = property(get_StrokeDashCapProperty, None)
+    _Shape_Meta_.StrokeDashOffsetProperty = property(get_StrokeDashOffsetProperty, None)
+    _Shape_Meta_.StrokeEndLineCapProperty = property(get_StrokeEndLineCapProperty, None)
+    _Shape_Meta_.StrokeLineJoinProperty = property(get_StrokeLineJoinProperty, None)
+    _Shape_Meta_.StrokeMiterLimitProperty = property(get_StrokeMiterLimitProperty, None)
+    _Shape_Meta_.StrokeProperty = property(get_StrokeProperty, None)
+    _Shape_Meta_.StrokeStartLineCapProperty = property(get_StrokeStartLineCapProperty, None)
+    _Shape_Meta_.StrokeThicknessProperty = property(get_StrokeThicknessProperty, None)
 
 
 make_ready(__name__)

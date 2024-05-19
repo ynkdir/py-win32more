@@ -789,11 +789,11 @@ class MediaControl(ComPtr, metaclass=_MediaControl_Meta_):
     def put_AlbumArt(cls: win32more.Windows.Media.IMediaControl, value: win32more.Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod
     def get_AlbumArt(cls: win32more.Windows.Media.IMediaControl) -> win32more.Windows.Foundation.Uri: ...
-    _MediaControl_Meta_.AlbumArt = property(get_AlbumArt.__wrapped__, put_AlbumArt.__wrapped__)
-    _MediaControl_Meta_.ArtistName = property(get_ArtistName.__wrapped__, put_ArtistName.__wrapped__)
-    _MediaControl_Meta_.IsPlaying = property(get_IsPlaying.__wrapped__, put_IsPlaying.__wrapped__)
-    _MediaControl_Meta_.SoundLevel = property(get_SoundLevel.__wrapped__, None)
-    _MediaControl_Meta_.TrackName = property(get_TrackName.__wrapped__, put_TrackName.__wrapped__)
+    _MediaControl_Meta_.AlbumArt = property(get_AlbumArt, put_AlbumArt)
+    _MediaControl_Meta_.ArtistName = property(get_ArtistName, put_ArtistName)
+    _MediaControl_Meta_.IsPlaying = property(get_IsPlaying, put_IsPlaying)
+    _MediaControl_Meta_.SoundLevel = property(get_SoundLevel, None)
+    _MediaControl_Meta_.TrackName = property(get_TrackName, put_TrackName)
 MediaControlContract: UInt32 = 65536
 class MediaExtensionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -841,7 +841,7 @@ class MediaMarkerTypes(ComPtr, metaclass=_MediaMarkerTypes_Meta_):
     _classid_ = 'Windows.Media.MediaMarkerTypes'
     @winrt_classmethod
     def get_Bookmark(cls: win32more.Windows.Media.IMediaMarkerTypesStatics) -> WinRT_String: ...
-    _MediaMarkerTypes_Meta_.Bookmark = property(get_Bookmark.__wrapped__, None)
+    _MediaMarkerTypes_Meta_.Bookmark = property(get_Bookmark, None)
 class MediaPlaybackAutoRepeatMode(Enum, Int32):
     None_ = 0
     Track = 1
@@ -1235,7 +1235,7 @@ class VideoEffects(ComPtr, metaclass=_VideoEffects_Meta_):
     _classid_ = 'Windows.Media.VideoEffects'
     @winrt_classmethod
     def get_VideoStabilization(cls: win32more.Windows.Media.IVideoEffectsStatics) -> WinRT_String: ...
-    _VideoEffects_Meta_.VideoStabilization = property(get_VideoStabilization.__wrapped__, None)
+    _VideoEffects_Meta_.VideoStabilization = property(get_VideoStabilization, None)
 class VideoFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IVideoFrame

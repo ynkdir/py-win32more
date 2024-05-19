@@ -79,7 +79,7 @@ class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
     Geofences = property(get_Geofences, None)
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
     Status = property(get_Status, None)
-    _GeofenceMonitor_Meta_.Current = property(get_Current.__wrapped__, None)
+    _GeofenceMonitor_Meta_.Current = property(get_Current, None)
 class GeofenceMonitorStatus(Enum, Int32):
     Ready = 0
     Initializing = 1

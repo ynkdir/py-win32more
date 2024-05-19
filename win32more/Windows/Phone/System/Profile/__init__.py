@@ -17,7 +17,7 @@ class RetailMode(ComPtr, metaclass=_RetailMode_Meta_):
     _classid_ = 'Windows.Phone.System.Profile.RetailMode'
     @winrt_classmethod
     def get_RetailModeEnabled(cls: win32more.Windows.Phone.System.Profile.IRetailModeStatics) -> Boolean: ...
-    _RetailMode_Meta_.RetailModeEnabled = property(get_RetailModeEnabled.__wrapped__, None)
+    _RetailMode_Meta_.RetailModeEnabled = property(get_RetailModeEnabled, None)
 
 
 make_ready(__name__)

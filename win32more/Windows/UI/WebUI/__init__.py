@@ -576,7 +576,7 @@ class WebUIBackgroundTaskInstance(ComPtr, metaclass=_WebUIBackgroundTaskInstance
     _classid_ = 'Windows.UI.WebUI.WebUIBackgroundTaskInstance'
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.UI.WebUI.IWebUIBackgroundTaskInstanceStatics) -> win32more.Windows.UI.WebUI.IWebUIBackgroundTaskInstance: ...
-    _WebUIBackgroundTaskInstance_Meta_.Current = property(get_Current.__wrapped__, None)
+    _WebUIBackgroundTaskInstance_Meta_.Current = property(get_Current, None)
 class WebUIBackgroundTaskInstanceRuntimeClass(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.IWebUIBackgroundTaskInstance

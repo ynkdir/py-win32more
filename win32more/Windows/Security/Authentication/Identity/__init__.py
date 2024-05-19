@@ -34,7 +34,7 @@ class EnterpriseKeyCredentialRegistrationManager(ComPtr, metaclass=_EnterpriseKe
     def GetRegistrationsAsync(self: win32more.Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationManager) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo]]: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationManagerStatics) -> win32more.Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationManager: ...
-    _EnterpriseKeyCredentialRegistrationManager_Meta_.Current = property(get_Current.__wrapped__, None)
+    _EnterpriseKeyCredentialRegistrationManager_Meta_.Current = property(get_Current, None)
 class IEnterpriseKeyCredentialRegistrationInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationInfo'

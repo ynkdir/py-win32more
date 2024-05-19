@@ -117,7 +117,7 @@ class AppNotificationManager(ComPtr, metaclass=_AppNotificationManager_Meta_):
     @winrt_classmethod
     def get_Default(cls: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManagerStatics) -> win32more.Microsoft.Windows.AppNotifications.AppNotificationManager: ...
     Setting = property(get_Setting, None)
-    _AppNotificationManager_Meta_.Default = property(get_Default.__wrapped__, None)
+    _AppNotificationManager_Meta_.Default = property(get_Default, None)
 class AppNotificationPriority(Enum, Int32):
     Default = 0
     High = 1

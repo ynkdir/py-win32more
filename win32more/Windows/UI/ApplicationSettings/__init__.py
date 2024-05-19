@@ -296,7 +296,7 @@ class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     Id = property(get_Id, put_Id)
     Invoked = property(get_Invoked, put_Invoked)
     Label = property(get_Label, put_Label)
-    _SettingsCommand_Meta_.AccountsCommand = property(get_AccountsCommand.__wrapped__, None)
+    _SettingsCommand_Meta_.AccountsCommand = property(get_AccountsCommand, None)
 class SettingsEdgeLocation(Enum, Int32):
     Right = 0
     Left = 1
@@ -316,7 +316,7 @@ class SettingsPane(ComPtr, metaclass=_SettingsPane_Meta_):
     def Show(cls: win32more.Windows.UI.ApplicationSettings.ISettingsPaneStatics) -> Void: ...
     @winrt_classmethod
     def get_Edge(cls: win32more.Windows.UI.ApplicationSettings.ISettingsPaneStatics) -> win32more.Windows.UI.ApplicationSettings.SettingsEdgeLocation: ...
-    _SettingsPane_Meta_.Edge = property(get_Edge.__wrapped__, None)
+    _SettingsPane_Meta_.Edge = property(get_Edge, None)
 class SettingsPaneCommandsRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequest

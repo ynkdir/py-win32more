@@ -488,8 +488,8 @@ class IsolatedWindowsEnvironmentHost(ComPtr, metaclass=_IsolatedWindowsEnvironme
     def get_IsReady(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> Boolean: ...
     @winrt_classmethod
     def get_HostErrors(cls: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentHostError]: ...
-    _IsolatedWindowsEnvironmentHost_Meta_.HostErrors = property(get_HostErrors.__wrapped__, None)
-    _IsolatedWindowsEnvironmentHost_Meta_.IsReady = property(get_IsReady.__wrapped__, None)
+    _IsolatedWindowsEnvironmentHost_Meta_.HostErrors = property(get_HostErrors, None)
+    _IsolatedWindowsEnvironmentHost_Meta_.IsReady = property(get_IsReady, None)
 class IsolatedWindowsEnvironmentHostError(Enum, Int32):
     AdminPolicyIsDisabledOrNotPresent = 0
     FeatureNotInstalled = 1

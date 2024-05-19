@@ -322,8 +322,8 @@ class BackgroundTaskRegistration(ComPtr, metaclass=_BackgroundTaskRegistration_M
     TaskGroup = property(get_TaskGroup, None)
     TaskId = property(get_TaskId, None)
     Trigger = property(get_Trigger, None)
-    _BackgroundTaskRegistration_Meta_.AllTaskGroups = property(get_AllTaskGroups.__wrapped__, None)
-    _BackgroundTaskRegistration_Meta_.AllTasks = property(get_AllTasks.__wrapped__, None)
+    _BackgroundTaskRegistration_Meta_.AllTaskGroups = property(get_AllTaskGroups, None)
+    _BackgroundTaskRegistration_Meta_.AllTasks = property(get_AllTasks, None)
 class BackgroundTaskRegistrationGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroup
@@ -365,7 +365,7 @@ class BackgroundWorkCost(ComPtr, metaclass=_BackgroundWorkCost_Meta_):
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundWorkCost'
     @winrt_classmethod
     def get_CurrentBackgroundWorkCost(cls: win32more.Windows.ApplicationModel.Background.IBackgroundWorkCostStatics) -> win32more.Windows.ApplicationModel.Background.BackgroundWorkCostValue: ...
-    _BackgroundWorkCost_Meta_.CurrentBackgroundWorkCost = property(get_CurrentBackgroundWorkCost.__wrapped__, None)
+    _BackgroundWorkCost_Meta_.CurrentBackgroundWorkCost = property(get_CurrentBackgroundWorkCost, None)
 class BackgroundWorkCostValue(Enum, Int32):
     Low = 0
     Medium = 1

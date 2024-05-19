@@ -106,10 +106,10 @@ class DateTimeFormatter(ComPtr, metaclass=_DateTimeFormatter_Meta_):
     ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     Template = property(get_Template, None)
-    _DateTimeFormatter_Meta_.LongDate = property(get_LongDate.__wrapped__, None)
-    _DateTimeFormatter_Meta_.LongTime = property(get_LongTime.__wrapped__, None)
-    _DateTimeFormatter_Meta_.ShortDate = property(get_ShortDate.__wrapped__, None)
-    _DateTimeFormatter_Meta_.ShortTime = property(get_ShortTime.__wrapped__, None)
+    _DateTimeFormatter_Meta_.LongDate = property(get_LongDate, None)
+    _DateTimeFormatter_Meta_.LongTime = property(get_LongTime, None)
+    _DateTimeFormatter_Meta_.ShortDate = property(get_ShortDate, None)
+    _DateTimeFormatter_Meta_.ShortTime = property(get_ShortTime, None)
 class DayFormat(Enum, Int32):
     None_ = 0
     Default = 1

@@ -1313,7 +1313,7 @@ class SocketActivityInformation(ComPtr, metaclass=_SocketActivityInformation_Met
     StreamSocket = property(get_StreamSocket, None)
     StreamSocketListener = property(get_StreamSocketListener, None)
     TaskId = property(get_TaskId, None)
-    _SocketActivityInformation_Meta_.AllSockets = property(get_AllSockets.__wrapped__, None)
+    _SocketActivityInformation_Meta_.AllSockets = property(get_AllSockets, None)
 class SocketActivityKind(Enum, Int32):
     None_ = 0
     StreamSocketListener = 1

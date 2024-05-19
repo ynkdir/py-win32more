@@ -971,8 +971,8 @@ class PhoneCallBlocking(ComPtr, metaclass=_PhoneCallBlocking_Meta_):
     def put_BlockPrivateNumbers(cls: win32more.Windows.ApplicationModel.Calls.IPhoneCallBlockingStatics, value: Boolean) -> Void: ...
     @winrt_classmethod
     def SetCallBlockingListAsync(cls: win32more.Windows.ApplicationModel.Calls.IPhoneCallBlockingStatics, phoneNumberList: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    _PhoneCallBlocking_Meta_.BlockPrivateNumbers = property(get_BlockPrivateNumbers.__wrapped__, put_BlockPrivateNumbers.__wrapped__)
-    _PhoneCallBlocking_Meta_.BlockUnknownNumbers = property(get_BlockUnknownNumbers.__wrapped__, put_BlockUnknownNumbers.__wrapped__)
+    _PhoneCallBlocking_Meta_.BlockPrivateNumbers = property(get_BlockPrivateNumbers, put_BlockPrivateNumbers)
+    _PhoneCallBlocking_Meta_.BlockUnknownNumbers = property(get_BlockUnknownNumbers, put_BlockUnknownNumbers)
 class PhoneCallDirection(Enum, Int32):
     Unknown = 0
     Incoming = 1
@@ -1246,8 +1246,8 @@ class PhoneCallManager(ComPtr, metaclass=_PhoneCallManager_Meta_):
     def RequestStoreAsync(cls: win32more.Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Calls.PhoneCallStore]: ...
     @winrt_classmethod
     def ShowPhoneCallUI(cls: win32more.Windows.ApplicationModel.Calls.IPhoneCallManagerStatics, phoneNumber: WinRT_String, displayName: WinRT_String) -> Void: ...
-    _PhoneCallManager_Meta_.IsCallActive = property(get_IsCallActive.__wrapped__, None)
-    _PhoneCallManager_Meta_.IsCallIncoming = property(get_IsCallIncoming.__wrapped__, None)
+    _PhoneCallManager_Meta_.IsCallActive = property(get_IsCallActive, None)
+    _PhoneCallManager_Meta_.IsCallIncoming = property(get_IsCallIncoming, None)
 class PhoneCallMedia(Enum, Int32):
     Audio = 0
     AudioAndVideo = 1

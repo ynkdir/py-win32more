@@ -128,7 +128,7 @@ class MicrosoftAccountMultiFactorAuthenticationManager(ComPtr, metaclass=_Micros
     def DenySessionAsync(self: win32more.Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticationManager, userAccountId: WinRT_String, sessionId: WinRT_String, sessionAuthenticationType: win32more.Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationType) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorServiceResponse]: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticatorStatics) -> win32more.Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager: ...
-    _MicrosoftAccountMultiFactorAuthenticationManager_Meta_.Current = property(get_Current.__wrapped__, None)
+    _MicrosoftAccountMultiFactorAuthenticationManager_Meta_.Current = property(get_Current, None)
 class MicrosoftAccountMultiFactorAuthenticationType(Enum, Int32):
     User = 0
     Device = 1

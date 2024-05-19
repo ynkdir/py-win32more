@@ -49,7 +49,7 @@ class FocusSessionManager(ComPtr, metaclass=_FocusSessionManager_Meta_):
     @winrt_classmethod
     def get_IsSupported(cls: win32more.Windows.UI.Shell.IFocusSessionManagerStatics) -> Boolean: ...
     IsFocusActive = property(get_IsFocusActive, None)
-    _FocusSessionManager_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
+    _FocusSessionManager_Meta_.IsSupported = property(get_IsSupported, None)
 class IAdaptiveCard(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.IAdaptiveCard'

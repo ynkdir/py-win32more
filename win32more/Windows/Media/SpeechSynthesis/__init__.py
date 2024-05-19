@@ -201,8 +201,8 @@ class SpeechSynthesizer(ComPtr, metaclass=_SpeechSynthesizer_Meta_):
     def get_DefaultVoice(cls: win32more.Windows.Media.SpeechSynthesis.IInstalledVoicesStatic) -> win32more.Windows.Media.SpeechSynthesis.VoiceInformation: ...
     Options = property(get_Options, None)
     Voice = property(get_Voice, put_Voice)
-    _SpeechSynthesizer_Meta_.AllVoices = property(get_AllVoices.__wrapped__, None)
-    _SpeechSynthesizer_Meta_.DefaultVoice = property(get_DefaultVoice.__wrapped__, None)
+    _SpeechSynthesizer_Meta_.AllVoices = property(get_AllVoices, None)
+    _SpeechSynthesizer_Meta_.DefaultVoice = property(get_DefaultVoice, None)
 class SpeechSynthesizerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions

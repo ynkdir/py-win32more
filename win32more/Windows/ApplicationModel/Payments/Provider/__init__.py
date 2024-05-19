@@ -94,7 +94,7 @@ class PaymentAppManager(ComPtr, metaclass=_PaymentAppManager_Meta_):
     def UnregisterAsync(self: win32more.Windows.ApplicationModel.Payments.Provider.IPaymentAppManager) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.ApplicationModel.Payments.Provider.IPaymentAppManagerStatics) -> win32more.Windows.ApplicationModel.Payments.Provider.PaymentAppManager: ...
-    _PaymentAppManager_Meta_.Current = property(get_Current.__wrapped__, None)
+    _PaymentAppManager_Meta_.Current = property(get_Current, None)
 class PaymentTransaction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.Provider.IPaymentTransaction

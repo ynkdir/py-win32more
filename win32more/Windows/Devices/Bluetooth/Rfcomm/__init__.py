@@ -226,12 +226,12 @@ class RfcommServiceId(ComPtr, metaclass=_RfcommServiceId_Meta_):
     @winrt_classmethod
     def get_GenericFileTransfer(cls: win32more.Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceIdStatics) -> win32more.Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId: ...
     Uuid = property(get_Uuid, None)
-    _RfcommServiceId_Meta_.GenericFileTransfer = property(get_GenericFileTransfer.__wrapped__, None)
-    _RfcommServiceId_Meta_.ObexFileTransfer = property(get_ObexFileTransfer.__wrapped__, None)
-    _RfcommServiceId_Meta_.ObexObjectPush = property(get_ObexObjectPush.__wrapped__, None)
-    _RfcommServiceId_Meta_.PhoneBookAccessPce = property(get_PhoneBookAccessPce.__wrapped__, None)
-    _RfcommServiceId_Meta_.PhoneBookAccessPse = property(get_PhoneBookAccessPse.__wrapped__, None)
-    _RfcommServiceId_Meta_.SerialPort = property(get_SerialPort.__wrapped__, None)
+    _RfcommServiceId_Meta_.GenericFileTransfer = property(get_GenericFileTransfer, None)
+    _RfcommServiceId_Meta_.ObexFileTransfer = property(get_ObexFileTransfer, None)
+    _RfcommServiceId_Meta_.ObexObjectPush = property(get_ObexObjectPush, None)
+    _RfcommServiceId_Meta_.PhoneBookAccessPce = property(get_PhoneBookAccessPce, None)
+    _RfcommServiceId_Meta_.PhoneBookAccessPse = property(get_PhoneBookAccessPse, None)
+    _RfcommServiceId_Meta_.SerialPort = property(get_SerialPort, None)
 class RfcommServiceProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProvider

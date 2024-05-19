@@ -681,8 +681,8 @@ class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
     def RequestAccessAsync(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics, sourceIdentity: WinRT_String, targetIdentity: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult]: ...
     Identity = property(get_Identity, put_Identity)
     ShowEnterpriseIndicator = property(get_ShowEnterpriseIndicator, put_ShowEnterpriseIndicator)
-    _ProtectionPolicyManager_Meta_.IsProtectionEnabled = property(get_IsProtectionEnabled.__wrapped__, None)
-    _ProtectionPolicyManager_Meta_.PrimaryManagedIdentity = property(get_PrimaryManagedIdentity.__wrapped__, None)
+    _ProtectionPolicyManager_Meta_.IsProtectionEnabled = property(get_IsProtectionEnabled, None)
+    _ProtectionPolicyManager_Meta_.PrimaryManagedIdentity = property(get_PrimaryManagedIdentity, None)
 class ProtectionPolicyRequestAccessBehavior(Enum, Int32):
     Decrypt = 0
     TreatOverridePolicyAsBlock = 1

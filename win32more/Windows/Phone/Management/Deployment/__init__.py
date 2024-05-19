@@ -44,8 +44,8 @@ class EnterpriseEnrollmentManager(ComPtr, metaclass=_EnterpriseEnrollmentManager
     def RequestEnrollmentAsync(cls: win32more.Windows.Phone.Management.Deployment.IEnterpriseEnrollmentManager, enrollmentToken: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Phone.Management.Deployment.EnterpriseEnrollmentResult]: ...
     @winrt_classmethod
     def RequestUnenrollmentAsync(cls: win32more.Windows.Phone.Management.Deployment.IEnterpriseEnrollmentManager, enterprise: win32more.Windows.Phone.Management.Deployment.Enterprise) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
-    _EnterpriseEnrollmentManager_Meta_.CurrentEnterprise = property(get_CurrentEnterprise.__wrapped__, None)
-    _EnterpriseEnrollmentManager_Meta_.EnrolledEnterprises = property(get_EnrolledEnterprises.__wrapped__, None)
+    _EnterpriseEnrollmentManager_Meta_.CurrentEnterprise = property(get_CurrentEnterprise, None)
+    _EnterpriseEnrollmentManager_Meta_.EnrolledEnterprises = property(get_EnrolledEnterprises, None)
 class EnterpriseEnrollmentResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Phone.Management.Deployment.IEnterpriseEnrollmentResult

@@ -169,10 +169,10 @@ class ApplicationView(ComPtr, metaclass=_ApplicationView_Meta_):
     ViewMode = property(get_ViewMode, None)
     VisibleBounds = property(get_VisibleBounds, None)
     WindowingEnvironment = property(get_WindowingEnvironment, None)
-    _ApplicationView_Meta_.PreferredLaunchViewSize = property(get_PreferredLaunchViewSize.__wrapped__, put_PreferredLaunchViewSize.__wrapped__)
-    _ApplicationView_Meta_.PreferredLaunchWindowingMode = property(get_PreferredLaunchWindowingMode.__wrapped__, put_PreferredLaunchWindowingMode.__wrapped__)
-    _ApplicationView_Meta_.TerminateAppOnFinalViewClose = property(get_TerminateAppOnFinalViewClose.__wrapped__, put_TerminateAppOnFinalViewClose.__wrapped__)
-    _ApplicationView_Meta_.Value = property(get_Value.__wrapped__, None)
+    _ApplicationView_Meta_.PreferredLaunchViewSize = property(get_PreferredLaunchViewSize, put_PreferredLaunchViewSize)
+    _ApplicationView_Meta_.PreferredLaunchWindowingMode = property(get_PreferredLaunchWindowingMode, put_PreferredLaunchWindowingMode)
+    _ApplicationView_Meta_.TerminateAppOnFinalViewClose = property(get_TerminateAppOnFinalViewClose, put_TerminateAppOnFinalViewClose)
+    _ApplicationView_Meta_.Value = property(get_Value, None)
 class ApplicationViewBoundsMode(Enum, Int32):
     UseVisible = 0
     UseCoreWindow = 1
@@ -202,7 +202,7 @@ class ApplicationViewScaling(ComPtr, metaclass=_ApplicationViewScaling_Meta_):
     def get_DisableLayoutScaling(cls: win32more.Windows.UI.ViewManagement.IApplicationViewScalingStatics) -> Boolean: ...
     @winrt_classmethod
     def TrySetDisableLayoutScaling(cls: win32more.Windows.UI.ViewManagement.IApplicationViewScalingStatics, disableLayoutScaling: Boolean) -> Boolean: ...
-    _ApplicationViewScaling_Meta_.DisableLayoutScaling = property(get_DisableLayoutScaling.__wrapped__, None)
+    _ApplicationViewScaling_Meta_.DisableLayoutScaling = property(get_DisableLayoutScaling, None)
 class ApplicationViewState(Enum, Int32):
     FullScreenLandscape = 0
     Filled = 1
@@ -323,7 +323,7 @@ class ApplicationViewTransferContext(ComPtr, metaclass=_ApplicationViewTransferC
     @winrt_classmethod
     def get_DataPackageFormatId(cls: win32more.Windows.UI.ViewManagement.IApplicationViewTransferContextStatics) -> WinRT_String: ...
     ViewId = property(get_ViewId, put_ViewId)
-    _ApplicationViewTransferContext_Meta_.DataPackageFormatId = property(get_DataPackageFormatId.__wrapped__, None)
+    _ApplicationViewTransferContext_Meta_.DataPackageFormatId = property(get_DataPackageFormatId, None)
 class ApplicationViewWindowingMode(Enum, Int32):
     Auto = 0
     PreferredLaunchViewSize = 1
@@ -1030,7 +1030,7 @@ class ProjectionManager(ComPtr, metaclass=_ProjectionManager_Meta_):
     def add_ProjectionDisplayAvailableChanged(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ProjectionDisplayAvailableChanged(cls: win32more.Windows.UI.ViewManagement.IProjectionManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _ProjectionManager_Meta_.ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable.__wrapped__, None)
+    _ProjectionManager_Meta_.ProjectionDisplayAvailable = property(get_ProjectionDisplayAvailable, None)
 class ScreenCaptureDisabledBehavior(Enum, Int32):
     DrawAsBlack = 0
     ExcludeFromCapture = 1

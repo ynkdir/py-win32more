@@ -30,7 +30,7 @@ class GameService(ComPtr, metaclass=_GameService_Meta_):
     def GrantAvatarAward(cls: win32more.Windows.Phone.System.UserProfile.GameServices.Core.IGameService, avatarAwardId: UInt32) -> Void: ...
     @winrt_classmethod
     def PostResult(cls: win32more.Windows.Phone.System.UserProfile.GameServices.Core.IGameService, gameVariant: UInt32, scoreKind: win32more.Windows.Phone.System.UserProfile.GameServices.Core.GameServiceScoreKind, scoreValue: Int64, gameOutcome: win32more.Windows.Phone.System.UserProfile.GameServices.Core.GameServiceGameOutcome, buffer: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
-    _GameService_Meta_.ServiceUri = property(get_ServiceUri.__wrapped__, None)
+    _GameService_Meta_.ServiceUri = property(get_ServiceUri, None)
 class GameServiceGameOutcome(Enum, Int32):
     None_ = 0
     Win = 1

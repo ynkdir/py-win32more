@@ -193,8 +193,8 @@ class PackageDependency(ComPtr, metaclass=_PackageDependency_Meta_):
     @winrt_classmethod
     def get_GenerationId(cls: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyStatics) -> UInt32: ...
     Id = property(get_Id, None)
-    _PackageDependency_Meta_.GenerationId = property(get_GenerationId.__wrapped__, None)
-    _PackageDependency_Meta_.PackageGraphRevisionId = property(get_PackageGraphRevisionId.__wrapped__, None)
+    _PackageDependency_Meta_.GenerationId = property(get_GenerationId, None)
+    _PackageDependency_Meta_.PackageGraphRevisionId = property(get_PackageGraphRevisionId, None)
 class PackageDependencyContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyContext
@@ -240,7 +240,7 @@ class PackageDependencyRank(ComPtr, metaclass=_PackageDependencyRank_Meta_):
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyRank'
     @winrt_classmethod
     def get_Default(cls: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyRankStatics) -> Int32: ...
-    _PackageDependencyRank_Meta_.Default = property(get_Default.__wrapped__, None)
+    _PackageDependencyRank_Meta_.Default = property(get_Default, None)
 
 
 make_ready(__name__)

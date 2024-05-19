@@ -83,7 +83,7 @@ class GuidHelper(ComPtr, metaclass=_GuidHelper_Meta_):
     def get_Empty(cls: win32more.Windows.Foundation.IGuidHelperStatics) -> Guid: ...
     @winrt_classmethod
     def Equals(cls: win32more.Windows.Foundation.IGuidHelperStatics, target: POINTER(Guid), value: POINTER(Guid)) -> Boolean: ...
-    _GuidHelper_Meta_.Empty = property(get_Empty.__wrapped__, None)
+    _GuidHelper_Meta_.Empty = property(get_Empty, None)
 class HResult(Structure):
     Value: Int32
 class IAsyncAction(ComPtr):

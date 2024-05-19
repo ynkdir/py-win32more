@@ -41,7 +41,7 @@ class DiagnosticInvoker(ComPtr, metaclass=_DiagnosticInvoker_Meta_):
     def GetForUser(cls: win32more.Windows.System.Diagnostics.IDiagnosticInvokerStatics, user: win32more.Windows.System.User) -> win32more.Windows.System.Diagnostics.DiagnosticInvoker: ...
     @winrt_classmethod
     def get_IsSupported(cls: win32more.Windows.System.Diagnostics.IDiagnosticInvokerStatics) -> Boolean: ...
-    _DiagnosticInvoker_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
+    _DiagnosticInvoker_Meta_.IsSupported = property(get_IsSupported, None)
 class IDiagnosticActionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Diagnostics.IDiagnosticActionResult'
@@ -439,7 +439,7 @@ class SystemDiagnosticInfo(ComPtr, metaclass=_SystemDiagnosticInfo_Meta_):
     def GetForCurrentSystem(cls: win32more.Windows.System.Diagnostics.ISystemDiagnosticInfoStatics) -> win32more.Windows.System.Diagnostics.SystemDiagnosticInfo: ...
     CpuUsage = property(get_CpuUsage, None)
     MemoryUsage = property(get_MemoryUsage, None)
-    _SystemDiagnosticInfo_Meta_.PreferredArchitecture = property(get_PreferredArchitecture.__wrapped__, None)
+    _SystemDiagnosticInfo_Meta_.PreferredArchitecture = property(get_PreferredArchitecture, None)
 class SystemMemoryUsage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Diagnostics.ISystemMemoryUsage

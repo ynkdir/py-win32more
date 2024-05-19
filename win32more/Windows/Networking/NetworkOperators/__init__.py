@@ -137,7 +137,7 @@ class ESimManager(ComPtr, metaclass=_ESimManager_Meta_):
     def add_ServiceInfoChanged(cls: win32more.Windows.Networking.NetworkOperators.IESimManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ServiceInfoChanged(cls: win32more.Windows.Networking.NetworkOperators.IESimManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _ESimManager_Meta_.ServiceInfo = property(get_ServiceInfo.__wrapped__, None)
+    _ESimManager_Meta_.ServiceInfo = property(get_ServiceInfo, None)
 class ESimOperationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IESimOperationResult
@@ -1997,9 +1997,9 @@ class KnownCSimFilePaths(ComPtr, metaclass=_KnownCSimFilePaths_Meta_):
     def get_Gid1(cls: win32more.Windows.Networking.NetworkOperators.IKnownCSimFilePathsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_classmethod
     def get_Gid2(cls: win32more.Windows.Networking.NetworkOperators.IKnownCSimFilePathsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
-    _KnownCSimFilePaths_Meta_.EFSpn = property(get_EFSpn.__wrapped__, None)
-    _KnownCSimFilePaths_Meta_.Gid1 = property(get_Gid1.__wrapped__, None)
-    _KnownCSimFilePaths_Meta_.Gid2 = property(get_Gid2.__wrapped__, None)
+    _KnownCSimFilePaths_Meta_.EFSpn = property(get_EFSpn, None)
+    _KnownCSimFilePaths_Meta_.Gid1 = property(get_Gid1, None)
+    _KnownCSimFilePaths_Meta_.Gid2 = property(get_Gid2, None)
 class _KnownRuimFilePaths_Meta_(ComPtr.__class__):
     pass
 class KnownRuimFilePaths(ComPtr, metaclass=_KnownRuimFilePaths_Meta_):
@@ -2011,9 +2011,9 @@ class KnownRuimFilePaths(ComPtr, metaclass=_KnownRuimFilePaths_Meta_):
     def get_Gid1(cls: win32more.Windows.Networking.NetworkOperators.IKnownRuimFilePathsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_classmethod
     def get_Gid2(cls: win32more.Windows.Networking.NetworkOperators.IKnownRuimFilePathsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
-    _KnownRuimFilePaths_Meta_.EFSpn = property(get_EFSpn.__wrapped__, None)
-    _KnownRuimFilePaths_Meta_.Gid1 = property(get_Gid1.__wrapped__, None)
-    _KnownRuimFilePaths_Meta_.Gid2 = property(get_Gid2.__wrapped__, None)
+    _KnownRuimFilePaths_Meta_.EFSpn = property(get_EFSpn, None)
+    _KnownRuimFilePaths_Meta_.Gid1 = property(get_Gid1, None)
+    _KnownRuimFilePaths_Meta_.Gid2 = property(get_Gid2, None)
 class _KnownSimFilePaths_Meta_(ComPtr.__class__):
     pass
 class KnownSimFilePaths(ComPtr, metaclass=_KnownSimFilePaths_Meta_):
@@ -2027,10 +2027,10 @@ class KnownSimFilePaths(ComPtr, metaclass=_KnownSimFilePaths_Meta_):
     def get_Gid1(cls: win32more.Windows.Networking.NetworkOperators.IKnownSimFilePathsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_classmethod
     def get_Gid2(cls: win32more.Windows.Networking.NetworkOperators.IKnownSimFilePathsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
-    _KnownSimFilePaths_Meta_.EFOns = property(get_EFOns.__wrapped__, None)
-    _KnownSimFilePaths_Meta_.EFSpn = property(get_EFSpn.__wrapped__, None)
-    _KnownSimFilePaths_Meta_.Gid1 = property(get_Gid1.__wrapped__, None)
-    _KnownSimFilePaths_Meta_.Gid2 = property(get_Gid2.__wrapped__, None)
+    _KnownSimFilePaths_Meta_.EFOns = property(get_EFOns, None)
+    _KnownSimFilePaths_Meta_.EFSpn = property(get_EFSpn, None)
+    _KnownSimFilePaths_Meta_.Gid1 = property(get_Gid1, None)
+    _KnownSimFilePaths_Meta_.Gid2 = property(get_Gid2, None)
 class _KnownUSimFilePaths_Meta_(ComPtr.__class__):
     pass
 class KnownUSimFilePaths(ComPtr, metaclass=_KnownUSimFilePaths_Meta_):
@@ -2046,11 +2046,11 @@ class KnownUSimFilePaths(ComPtr, metaclass=_KnownUSimFilePaths_Meta_):
     def get_Gid1(cls: win32more.Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_classmethod
     def get_Gid2(cls: win32more.Windows.Networking.NetworkOperators.IKnownUSimFilePathsStatics) -> win32more.Windows.Foundation.Collections.IVectorView[UInt32]: ...
-    _KnownUSimFilePaths_Meta_.EFOpl = property(get_EFOpl.__wrapped__, None)
-    _KnownUSimFilePaths_Meta_.EFPnn = property(get_EFPnn.__wrapped__, None)
-    _KnownUSimFilePaths_Meta_.EFSpn = property(get_EFSpn.__wrapped__, None)
-    _KnownUSimFilePaths_Meta_.Gid1 = property(get_Gid1.__wrapped__, None)
-    _KnownUSimFilePaths_Meta_.Gid2 = property(get_Gid2.__wrapped__, None)
+    _KnownUSimFilePaths_Meta_.EFOpl = property(get_EFOpl, None)
+    _KnownUSimFilePaths_Meta_.EFPnn = property(get_EFPnn, None)
+    _KnownUSimFilePaths_Meta_.EFSpn = property(get_EFSpn, None)
+    _KnownUSimFilePaths_Meta_.Gid1 = property(get_Gid1, None)
+    _KnownUSimFilePaths_Meta_.Gid2 = property(get_Gid2, None)
 LegacyNetworkOperatorsContract: UInt32 = 65536
 class _MobileBroadbandAccount_Meta_(ComPtr.__class__):
     pass
@@ -2082,7 +2082,7 @@ class MobileBroadbandAccount(ComPtr, metaclass=_MobileBroadbandAccount_Meta_):
     NetworkAccountId = property(get_NetworkAccountId, None)
     ServiceProviderGuid = property(get_ServiceProviderGuid, None)
     ServiceProviderName = property(get_ServiceProviderName, None)
-    _MobileBroadbandAccount_Meta_.AvailableNetworkAccountIds = property(get_AvailableNetworkAccountIds.__wrapped__, None)
+    _MobileBroadbandAccount_Meta_.AvailableNetworkAccountIds = property(get_AvailableNetworkAccountIds, None)
 class MobileBroadbandAccountEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountEventArgs

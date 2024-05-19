@@ -143,14 +143,14 @@ class LocalCategories(ComPtr, metaclass=_LocalCategories_Meta_):
     def get_SeeDo(cls: win32more.Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Shop(cls: win32more.Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics) -> WinRT_String: ...
-    _LocalCategories_Meta_.All = property(get_All.__wrapped__, None)
-    _LocalCategories_Meta_.BankAndCreditUnions = property(get_BankAndCreditUnions.__wrapped__, None)
-    _LocalCategories_Meta_.EatDrink = property(get_EatDrink.__wrapped__, None)
-    _LocalCategories_Meta_.Hospitals = property(get_Hospitals.__wrapped__, None)
-    _LocalCategories_Meta_.HotelsAndMotels = property(get_HotelsAndMotels.__wrapped__, None)
-    _LocalCategories_Meta_.Parking = property(get_Parking.__wrapped__, None)
-    _LocalCategories_Meta_.SeeDo = property(get_SeeDo.__wrapped__, None)
-    _LocalCategories_Meta_.Shop = property(get_Shop.__wrapped__, None)
+    _LocalCategories_Meta_.All = property(get_All, None)
+    _LocalCategories_Meta_.BankAndCreditUnions = property(get_BankAndCreditUnions, None)
+    _LocalCategories_Meta_.EatDrink = property(get_EatDrink, None)
+    _LocalCategories_Meta_.Hospitals = property(get_Hospitals, None)
+    _LocalCategories_Meta_.HotelsAndMotels = property(get_HotelsAndMotels, None)
+    _LocalCategories_Meta_.Parking = property(get_Parking, None)
+    _LocalCategories_Meta_.SeeDo = property(get_SeeDo, None)
+    _LocalCategories_Meta_.Shop = property(get_Shop, None)
 class LocalLocation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.LocalSearch.ILocalLocation

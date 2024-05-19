@@ -35,7 +35,7 @@ class EnvironmentManager(ComPtr, metaclass=_EnvironmentManager_Meta_):
     @winrt_classmethod
     def get_IsSupported(cls: win32more.Microsoft.Windows.System.IEnvironmentManagerStatics) -> Boolean: ...
     AreChangesTracked = property(get_AreChangesTracked, None)
-    _EnvironmentManager_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
+    _EnvironmentManager_Meta_.IsSupported = property(get_IsSupported, None)
 EnvironmentManagerContract: UInt32 = 131072
 class IEnvironmentManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

@@ -526,7 +526,7 @@ class SpatialEntityStore(ComPtr, metaclass=_SpatialEntityStore_Meta_):
     def get_IsSupported(cls: win32more.Windows.Perception.Spatial.ISpatialEntityStoreStatics) -> Boolean: ...
     @winrt_classmethod
     def TryGetForRemoteSystemSession(cls: win32more.Windows.Perception.Spatial.ISpatialEntityStoreStatics, session: win32more.Windows.System.RemoteSystems.RemoteSystemSession) -> win32more.Windows.Perception.Spatial.SpatialEntityStore: ...
-    _SpatialEntityStore_Meta_.IsSupported = property(get_IsSupported.__wrapped__, None)
+    _SpatialEntityStore_Meta_.IsSupported = property(get_IsSupported, None)
 class SpatialEntityUpdatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.ISpatialEntityUpdatedEventArgs
@@ -707,7 +707,7 @@ class SpatialStageFrameOfReference(ComPtr, metaclass=_SpatialStageFrameOfReferen
     CoordinateSystem = property(get_CoordinateSystem, None)
     LookDirectionRange = property(get_LookDirectionRange, None)
     MovementRange = property(get_MovementRange, None)
-    _SpatialStageFrameOfReference_Meta_.Current = property(get_Current.__wrapped__, None)
+    _SpatialStageFrameOfReference_Meta_.Current = property(get_Current, None)
 class SpatialStationaryFrameOfReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.ISpatialStationaryFrameOfReference

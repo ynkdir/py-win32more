@@ -52,7 +52,7 @@ class WorkplaceSettings(ComPtr, metaclass=_WorkplaceSettings_Meta_):
     _classid_ = 'Windows.Management.Workplace.WorkplaceSettings'
     @winrt_classmethod
     def get_IsMicrosoftAccountOptional(cls: win32more.Windows.Management.Workplace.IWorkplaceSettingsStatics) -> Boolean: ...
-    _WorkplaceSettings_Meta_.IsMicrosoftAccountOptional = property(get_IsMicrosoftAccountOptional.__wrapped__, None)
+    _WorkplaceSettings_Meta_.IsMicrosoftAccountOptional = property(get_IsMicrosoftAccountOptional, None)
 WorkplaceSettingsContract: UInt32 = 65536
 
 

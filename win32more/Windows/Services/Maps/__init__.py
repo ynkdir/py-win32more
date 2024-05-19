@@ -866,10 +866,10 @@ class MapService(ComPtr, metaclass=_MapService_Meta_):
     def put_ServiceToken(cls: win32more.Windows.Services.Maps.IMapServiceStatics, value: WinRT_String) -> Void: ...
     @winrt_classmethod
     def get_ServiceToken(cls: win32more.Windows.Services.Maps.IMapServiceStatics) -> WinRT_String: ...
-    _MapService_Meta_.DataAttributions = property(get_DataAttributions.__wrapped__, None)
-    _MapService_Meta_.DataUsagePreference = property(get_DataUsagePreference.__wrapped__, put_DataUsagePreference.__wrapped__)
-    _MapService_Meta_.ServiceToken = property(get_ServiceToken.__wrapped__, put_ServiceToken.__wrapped__)
-    _MapService_Meta_.WorldViewRegionCode = property(get_WorldViewRegionCode.__wrapped__, None)
+    _MapService_Meta_.DataAttributions = property(get_DataAttributions, None)
+    _MapService_Meta_.DataUsagePreference = property(get_DataUsagePreference, put_DataUsagePreference)
+    _MapService_Meta_.ServiceToken = property(get_ServiceToken, put_ServiceToken)
+    _MapService_Meta_.WorldViewRegionCode = property(get_WorldViewRegionCode, None)
 class MapServiceDataUsagePreference(Enum, Int32):
     Default = 0
     OfflineMapDataOnly = 1
@@ -911,7 +911,7 @@ class PlaceInfo(ComPtr, metaclass=_PlaceInfo_Meta_):
     DisplayName = property(get_DisplayName, None)
     Geoshape = property(get_Geoshape, None)
     Identifier = property(get_Identifier, None)
-    _PlaceInfo_Meta_.IsShowSupported = property(get_IsShowSupported.__wrapped__, None)
+    _PlaceInfo_Meta_.IsShowSupported = property(get_IsShowSupported, None)
 class PlaceInfoCreateOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.IPlaceInfoCreateOptions

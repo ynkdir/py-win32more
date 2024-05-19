@@ -48,9 +48,9 @@ class CurrentApp(ComPtr, metaclass=_CurrentApp_Meta_):
     def GetAppReceiptAsync(cls: win32more.Windows.ApplicationModel.Store.ICurrentApp) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
     def GetProductReceiptAsync(cls: win32more.Windows.ApplicationModel.Store.ICurrentApp, productId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
-    _CurrentApp_Meta_.AppId = property(get_AppId.__wrapped__, None)
-    _CurrentApp_Meta_.LicenseInformation = property(get_LicenseInformation.__wrapped__, None)
-    _CurrentApp_Meta_.LinkUri = property(get_LinkUri.__wrapped__, None)
+    _CurrentApp_Meta_.AppId = property(get_AppId, None)
+    _CurrentApp_Meta_.LicenseInformation = property(get_LicenseInformation, None)
+    _CurrentApp_Meta_.LinkUri = property(get_LinkUri, None)
 class _CurrentAppSimulator_Meta_(ComPtr.__class__):
     pass
 class CurrentAppSimulator(ComPtr, metaclass=_CurrentAppSimulator_Meta_):
@@ -88,9 +88,9 @@ class CurrentAppSimulator(ComPtr, metaclass=_CurrentAppSimulator_Meta_):
     def GetProductReceiptAsync(cls: win32more.Windows.ApplicationModel.Store.ICurrentAppSimulator, productId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
     def ReloadSimulatorAsync(cls: win32more.Windows.ApplicationModel.Store.ICurrentAppSimulator, simulatorSettingsFile: win32more.Windows.Storage.StorageFile) -> win32more.Windows.Foundation.IAsyncAction: ...
-    _CurrentAppSimulator_Meta_.AppId = property(get_AppId.__wrapped__, None)
-    _CurrentAppSimulator_Meta_.LicenseInformation = property(get_LicenseInformation.__wrapped__, None)
-    _CurrentAppSimulator_Meta_.LinkUri = property(get_LinkUri.__wrapped__, None)
+    _CurrentAppSimulator_Meta_.AppId = property(get_AppId, None)
+    _CurrentAppSimulator_Meta_.LicenseInformation = property(get_LicenseInformation, None)
+    _CurrentAppSimulator_Meta_.LinkUri = property(get_LinkUri, None)
 class FulfillmentResult(Enum, Int32):
     Succeeded = 0
     NothingToFulfill = 1

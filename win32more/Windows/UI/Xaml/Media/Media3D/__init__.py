@@ -103,18 +103,18 @@ class CompositeTransform3D(ComPtr, metaclass=_CompositeTransform3D_Meta_):
     TranslateX = property(get_TranslateX, put_TranslateX)
     TranslateY = property(get_TranslateY, put_TranslateY)
     TranslateZ = property(get_TranslateZ, put_TranslateZ)
-    _CompositeTransform3D_Meta_.CenterXProperty = property(get_CenterXProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.CenterYProperty = property(get_CenterYProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.CenterZProperty = property(get_CenterZProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.RotationXProperty = property(get_RotationXProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.RotationYProperty = property(get_RotationYProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.RotationZProperty = property(get_RotationZProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.ScaleXProperty = property(get_ScaleXProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.ScaleYProperty = property(get_ScaleYProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.ScaleZProperty = property(get_ScaleZProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.TranslateXProperty = property(get_TranslateXProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.TranslateYProperty = property(get_TranslateYProperty.__wrapped__, None)
-    _CompositeTransform3D_Meta_.TranslateZProperty = property(get_TranslateZProperty.__wrapped__, None)
+    _CompositeTransform3D_Meta_.CenterXProperty = property(get_CenterXProperty, None)
+    _CompositeTransform3D_Meta_.CenterYProperty = property(get_CenterYProperty, None)
+    _CompositeTransform3D_Meta_.CenterZProperty = property(get_CenterZProperty, None)
+    _CompositeTransform3D_Meta_.RotationXProperty = property(get_RotationXProperty, None)
+    _CompositeTransform3D_Meta_.RotationYProperty = property(get_RotationYProperty, None)
+    _CompositeTransform3D_Meta_.RotationZProperty = property(get_RotationZProperty, None)
+    _CompositeTransform3D_Meta_.ScaleXProperty = property(get_ScaleXProperty, None)
+    _CompositeTransform3D_Meta_.ScaleYProperty = property(get_ScaleYProperty, None)
+    _CompositeTransform3D_Meta_.ScaleZProperty = property(get_ScaleZProperty, None)
+    _CompositeTransform3D_Meta_.TranslateXProperty = property(get_TranslateXProperty, None)
+    _CompositeTransform3D_Meta_.TranslateYProperty = property(get_TranslateYProperty, None)
+    _CompositeTransform3D_Meta_.TranslateZProperty = property(get_TranslateZProperty, None)
 class ICompositeTransform3D(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.ICompositeTransform3D'
@@ -317,7 +317,7 @@ class Matrix3DHelper(ComPtr, metaclass=_Matrix3DHelper_Meta_):
     def GetIsIdentity(cls: win32more.Windows.UI.Xaml.Media.Media3D.IMatrix3DHelperStatics, target: win32more.Windows.UI.Xaml.Media.Media3D.Matrix3D) -> Boolean: ...
     @winrt_classmethod
     def Invert(cls: win32more.Windows.UI.Xaml.Media.Media3D.IMatrix3DHelperStatics, target: win32more.Windows.UI.Xaml.Media.Media3D.Matrix3D) -> win32more.Windows.UI.Xaml.Media.Media3D.Matrix3D: ...
-    _Matrix3DHelper_Meta_.Identity = property(get_Identity.__wrapped__, None)
+    _Matrix3DHelper_Meta_.Identity = property(get_Identity, None)
 class _PerspectiveTransform3D_Meta_(ComPtr.__class__):
     pass
 class PerspectiveTransform3D(ComPtr, metaclass=_PerspectiveTransform3D_Meta_):
@@ -354,9 +354,9 @@ class PerspectiveTransform3D(ComPtr, metaclass=_PerspectiveTransform3D_Meta_):
     Depth = property(get_Depth, put_Depth)
     OffsetX = property(get_OffsetX, put_OffsetX)
     OffsetY = property(get_OffsetY, put_OffsetY)
-    _PerspectiveTransform3D_Meta_.DepthProperty = property(get_DepthProperty.__wrapped__, None)
-    _PerspectiveTransform3D_Meta_.OffsetXProperty = property(get_OffsetXProperty.__wrapped__, None)
-    _PerspectiveTransform3D_Meta_.OffsetYProperty = property(get_OffsetYProperty.__wrapped__, None)
+    _PerspectiveTransform3D_Meta_.DepthProperty = property(get_DepthProperty, None)
+    _PerspectiveTransform3D_Meta_.OffsetXProperty = property(get_OffsetXProperty, None)
+    _PerspectiveTransform3D_Meta_.OffsetYProperty = property(get_OffsetYProperty, None)
 class Transform3D(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Media.Media3D.ITransform3D

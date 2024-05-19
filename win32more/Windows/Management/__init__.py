@@ -173,7 +173,7 @@ class MdmSessionManager(ComPtr, metaclass=_MdmSessionManager_Meta_):
     def DeleteSessionById(cls: win32more.Windows.Management.IMdmSessionManagerStatics, sessionId: WinRT_String) -> Void: ...
     @winrt_classmethod
     def GetSessionById(cls: win32more.Windows.Management.IMdmSessionManagerStatics, sessionId: WinRT_String) -> win32more.Windows.Management.MdmSession: ...
-    _MdmSessionManager_Meta_.SessionIds = property(get_SessionIds.__wrapped__, None)
+    _MdmSessionManager_Meta_.SessionIds = property(get_SessionIds, None)
 class MdmSessionState(Enum, Int32):
     NotStarted = 0
     Starting = 1

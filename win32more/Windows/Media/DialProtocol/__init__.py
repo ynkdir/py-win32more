@@ -152,7 +152,7 @@ class DialReceiverApp(ComPtr, metaclass=_DialReceiverApp_Meta_):
     def GetUniqueDeviceNameAsync(self: win32more.Windows.Media.DialProtocol.IDialReceiverApp2) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Media.DialProtocol.IDialReceiverAppStatics) -> win32more.Windows.Media.DialProtocol.DialReceiverApp: ...
-    _DialReceiverApp_Meta_.Current = property(get_Current.__wrapped__, None)
+    _DialReceiverApp_Meta_.Current = property(get_Current, None)
 class IDialApp(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.DialProtocol.IDialApp'

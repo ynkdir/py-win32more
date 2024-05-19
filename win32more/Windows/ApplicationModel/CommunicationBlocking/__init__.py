@@ -22,7 +22,7 @@ class CommunicationBlockingAccessManager(ComPtr, metaclass=_CommunicationBlockin
     def ShowBlockedCallsUI(cls: win32more.Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics) -> Void: ...
     @winrt_classmethod
     def ShowBlockedMessagesUI(cls: win32more.Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics) -> Void: ...
-    _CommunicationBlockingAccessManager_Meta_.IsBlockingActive = property(get_IsBlockingActive.__wrapped__, None)
+    _CommunicationBlockingAccessManager_Meta_.IsBlockingActive = property(get_IsBlockingActive, None)
 class _CommunicationBlockingAppManager_Meta_(ComPtr.__class__):
     pass
 class CommunicationBlockingAppManager(ComPtr, metaclass=_CommunicationBlockingAppManager_Meta_):
@@ -34,7 +34,7 @@ class CommunicationBlockingAppManager(ComPtr, metaclass=_CommunicationBlockingAp
     def get_IsCurrentAppActiveBlockingApp(cls: win32more.Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAppManagerStatics) -> Boolean: ...
     @winrt_classmethod
     def ShowCommunicationBlockingSettingsUI(cls: win32more.Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAppManagerStatics) -> Void: ...
-    _CommunicationBlockingAppManager_Meta_.IsCurrentAppActiveBlockingApp = property(get_IsCurrentAppActiveBlockingApp.__wrapped__, None)
+    _CommunicationBlockingAppManager_Meta_.IsCurrentAppActiveBlockingApp = property(get_IsCurrentAppActiveBlockingApp, None)
 CommunicationBlockingContract: UInt32 = 131072
 class ICommunicationBlockingAccessManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

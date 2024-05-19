@@ -259,7 +259,7 @@ class DisplayInformation(ComPtr, metaclass=_DisplayInformation_Meta_):
     ScreenHeightInRawPixels = property(get_ScreenHeightInRawPixels, None)
     ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
     StereoEnabled = property(get_StereoEnabled, None)
-    _DisplayInformation_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences.__wrapped__, put_AutoRotationPreferences.__wrapped__)
+    _DisplayInformation_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
 class DisplayOrientations(Enum, UInt32):
     None_ = 0
     Landscape = 1
@@ -307,12 +307,12 @@ class DisplayProperties(ComPtr, metaclass=_DisplayProperties_Meta_):
     def add_DisplayContentsInvalidated(cls: win32more.Windows.Graphics.Display.IDisplayPropertiesStatics, handler: win32more.Windows.Graphics.Display.DisplayPropertiesEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_DisplayContentsInvalidated(cls: win32more.Windows.Graphics.Display.IDisplayPropertiesStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _DisplayProperties_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences.__wrapped__, put_AutoRotationPreferences.__wrapped__)
-    _DisplayProperties_Meta_.CurrentOrientation = property(get_CurrentOrientation.__wrapped__, None)
-    _DisplayProperties_Meta_.LogicalDpi = property(get_LogicalDpi.__wrapped__, None)
-    _DisplayProperties_Meta_.NativeOrientation = property(get_NativeOrientation.__wrapped__, None)
-    _DisplayProperties_Meta_.ResolutionScale = property(get_ResolutionScale.__wrapped__, None)
-    _DisplayProperties_Meta_.StereoEnabled = property(get_StereoEnabled.__wrapped__, None)
+    _DisplayProperties_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
+    _DisplayProperties_Meta_.CurrentOrientation = property(get_CurrentOrientation, None)
+    _DisplayProperties_Meta_.LogicalDpi = property(get_LogicalDpi, None)
+    _DisplayProperties_Meta_.NativeOrientation = property(get_NativeOrientation, None)
+    _DisplayProperties_Meta_.ResolutionScale = property(get_ResolutionScale, None)
+    _DisplayProperties_Meta_.StereoEnabled = property(get_StereoEnabled, None)
 class DisplayPropertiesEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{dbdd8b01-f1a1-46d1-9ee3-543bcc995980}')

@@ -96,17 +96,17 @@ class FontWeights(ComPtr, metaclass=_FontWeights_Meta_):
     def get_SemiLight(cls: win32more.Windows.UI.Text.IFontWeightsStatics) -> win32more.Windows.UI.Text.FontWeight: ...
     @winrt_classmethod
     def get_Thin(cls: win32more.Windows.UI.Text.IFontWeightsStatics) -> win32more.Windows.UI.Text.FontWeight: ...
-    _FontWeights_Meta_.Black = property(get_Black.__wrapped__, None)
-    _FontWeights_Meta_.Bold = property(get_Bold.__wrapped__, None)
-    _FontWeights_Meta_.ExtraBlack = property(get_ExtraBlack.__wrapped__, None)
-    _FontWeights_Meta_.ExtraBold = property(get_ExtraBold.__wrapped__, None)
-    _FontWeights_Meta_.ExtraLight = property(get_ExtraLight.__wrapped__, None)
-    _FontWeights_Meta_.Light = property(get_Light.__wrapped__, None)
-    _FontWeights_Meta_.Medium = property(get_Medium.__wrapped__, None)
-    _FontWeights_Meta_.Normal = property(get_Normal.__wrapped__, None)
-    _FontWeights_Meta_.SemiBold = property(get_SemiBold.__wrapped__, None)
-    _FontWeights_Meta_.SemiLight = property(get_SemiLight.__wrapped__, None)
-    _FontWeights_Meta_.Thin = property(get_Thin.__wrapped__, None)
+    _FontWeights_Meta_.Black = property(get_Black, None)
+    _FontWeights_Meta_.Bold = property(get_Bold, None)
+    _FontWeights_Meta_.ExtraBlack = property(get_ExtraBlack, None)
+    _FontWeights_Meta_.ExtraBold = property(get_ExtraBold, None)
+    _FontWeights_Meta_.ExtraLight = property(get_ExtraLight, None)
+    _FontWeights_Meta_.Light = property(get_Light, None)
+    _FontWeights_Meta_.Medium = property(get_Medium, None)
+    _FontWeights_Meta_.Normal = property(get_Normal, None)
+    _FontWeights_Meta_.SemiBold = property(get_SemiBold, None)
+    _FontWeights_Meta_.SemiLight = property(get_SemiLight, None)
+    _FontWeights_Meta_.Thin = property(get_Thin, None)
 class FormatEffect(Enum, Int32):
     Off = 0
     On = 1
@@ -1058,14 +1058,14 @@ class TextConstants(ComPtr, metaclass=_TextConstants_Meta_):
     def get_UndefinedFontStretch(cls: win32more.Windows.UI.Text.ITextConstantsStatics) -> win32more.Windows.UI.Text.FontStretch: ...
     @winrt_classmethod
     def get_UndefinedFontStyle(cls: win32more.Windows.UI.Text.ITextConstantsStatics) -> win32more.Windows.UI.Text.FontStyle: ...
-    _TextConstants_Meta_.AutoColor = property(get_AutoColor.__wrapped__, None)
-    _TextConstants_Meta_.MaxUnitCount = property(get_MaxUnitCount.__wrapped__, None)
-    _TextConstants_Meta_.MinUnitCount = property(get_MinUnitCount.__wrapped__, None)
-    _TextConstants_Meta_.UndefinedColor = property(get_UndefinedColor.__wrapped__, None)
-    _TextConstants_Meta_.UndefinedFloatValue = property(get_UndefinedFloatValue.__wrapped__, None)
-    _TextConstants_Meta_.UndefinedFontStretch = property(get_UndefinedFontStretch.__wrapped__, None)
-    _TextConstants_Meta_.UndefinedFontStyle = property(get_UndefinedFontStyle.__wrapped__, None)
-    _TextConstants_Meta_.UndefinedInt32Value = property(get_UndefinedInt32Value.__wrapped__, None)
+    _TextConstants_Meta_.AutoColor = property(get_AutoColor, None)
+    _TextConstants_Meta_.MaxUnitCount = property(get_MaxUnitCount, None)
+    _TextConstants_Meta_.MinUnitCount = property(get_MinUnitCount, None)
+    _TextConstants_Meta_.UndefinedColor = property(get_UndefinedColor, None)
+    _TextConstants_Meta_.UndefinedFloatValue = property(get_UndefinedFloatValue, None)
+    _TextConstants_Meta_.UndefinedFontStretch = property(get_UndefinedFontStretch, None)
+    _TextConstants_Meta_.UndefinedFontStyle = property(get_UndefinedFontStyle, None)
+    _TextConstants_Meta_.UndefinedInt32Value = property(get_UndefinedInt32Value, None)
 class TextDecorations(Enum, UInt32):
     None_ = 0
     Underline = 1

@@ -85,7 +85,7 @@ class LowLevelDevicesController(ComPtr, metaclass=_LowLevelDevicesController_Met
     def get_DefaultProvider(cls: win32more.Windows.Devices.ILowLevelDevicesControllerStatics) -> win32more.Windows.Devices.ILowLevelDevicesAggregateProvider: ...
     @winrt_classmethod
     def put_DefaultProvider(cls: win32more.Windows.Devices.ILowLevelDevicesControllerStatics, value: win32more.Windows.Devices.ILowLevelDevicesAggregateProvider) -> Void: ...
-    _LowLevelDevicesController_Meta_.DefaultProvider = property(get_DefaultProvider.__wrapped__, put_DefaultProvider.__wrapped__)
+    _LowLevelDevicesController_Meta_.DefaultProvider = property(get_DefaultProvider, put_DefaultProvider)
 
 
 make_ready(__name__)

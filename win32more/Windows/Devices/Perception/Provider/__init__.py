@@ -216,9 +216,9 @@ class KnownPerceptionFrameKind(ComPtr, metaclass=_KnownPerceptionFrameKind_Meta_
     def get_Depth(cls: win32more.Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Infrared(cls: win32more.Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics) -> WinRT_String: ...
-    _KnownPerceptionFrameKind_Meta_.Color = property(get_Color.__wrapped__, None)
-    _KnownPerceptionFrameKind_Meta_.Depth = property(get_Depth.__wrapped__, None)
-    _KnownPerceptionFrameKind_Meta_.Infrared = property(get_Infrared.__wrapped__, None)
+    _KnownPerceptionFrameKind_Meta_.Color = property(get_Color, None)
+    _KnownPerceptionFrameKind_Meta_.Depth = property(get_Depth, None)
+    _KnownPerceptionFrameKind_Meta_.Infrared = property(get_Infrared, None)
 class PerceptionControlGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionControlGroup

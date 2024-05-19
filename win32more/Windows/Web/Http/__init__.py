@@ -324,13 +324,13 @@ class HttpMethod(ComPtr, metaclass=_HttpMethod_Meta_):
     @winrt_classmethod
     def get_Put(cls: win32more.Windows.Web.Http.IHttpMethodStatics) -> win32more.Windows.Web.Http.HttpMethod: ...
     Method = property(get_Method, None)
-    _HttpMethod_Meta_.Delete = property(get_Delete.__wrapped__, None)
-    _HttpMethod_Meta_.Get = property(get_Get.__wrapped__, None)
-    _HttpMethod_Meta_.Head = property(get_Head.__wrapped__, None)
-    _HttpMethod_Meta_.Options = property(get_Options.__wrapped__, None)
-    _HttpMethod_Meta_.Patch = property(get_Patch.__wrapped__, None)
-    _HttpMethod_Meta_.Post = property(get_Post.__wrapped__, None)
-    _HttpMethod_Meta_.Put = property(get_Put.__wrapped__, None)
+    _HttpMethod_Meta_.Delete = property(get_Delete, None)
+    _HttpMethod_Meta_.Get = property(get_Get, None)
+    _HttpMethod_Meta_.Head = property(get_Head, None)
+    _HttpMethod_Meta_.Options = property(get_Options, None)
+    _HttpMethod_Meta_.Patch = property(get_Patch, None)
+    _HttpMethod_Meta_.Post = property(get_Post, None)
+    _HttpMethod_Meta_.Put = property(get_Put, None)
 class HttpMultipartContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpContent

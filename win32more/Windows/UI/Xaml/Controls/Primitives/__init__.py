@@ -118,11 +118,11 @@ class ButtonBase(ComPtr, metaclass=_ButtonBase_Meta_):
     CommandParameter = property(get_CommandParameter, put_CommandParameter)
     IsPointerOver = property(get_IsPointerOver, None)
     IsPressed = property(get_IsPressed, None)
-    _ButtonBase_Meta_.ClickModeProperty = property(get_ClickModeProperty.__wrapped__, None)
-    _ButtonBase_Meta_.CommandParameterProperty = property(get_CommandParameterProperty.__wrapped__, None)
-    _ButtonBase_Meta_.CommandProperty = property(get_CommandProperty.__wrapped__, None)
-    _ButtonBase_Meta_.IsPointerOverProperty = property(get_IsPointerOverProperty.__wrapped__, None)
-    _ButtonBase_Meta_.IsPressedProperty = property(get_IsPressedProperty.__wrapped__, None)
+    _ButtonBase_Meta_.ClickModeProperty = property(get_ClickModeProperty, None)
+    _ButtonBase_Meta_.CommandParameterProperty = property(get_CommandParameterProperty, None)
+    _ButtonBase_Meta_.CommandProperty = property(get_CommandProperty, None)
+    _ButtonBase_Meta_.IsPointerOverProperty = property(get_IsPointerOverProperty, None)
+    _ButtonBase_Meta_.IsPressedProperty = property(get_IsPressedProperty, None)
 class CalendarPanel(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ICalendarPanel
@@ -301,7 +301,7 @@ class ColorPickerSlider(ComPtr, metaclass=_ColorPickerSlider_Meta_):
     @winrt_classmethod
     def get_ColorChannelProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IColorPickerSliderStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     ColorChannel = property(get_ColorChannel, put_ColorChannel)
-    _ColorPickerSlider_Meta_.ColorChannelProperty = property(get_ColorChannelProperty.__wrapped__, None)
+    _ColorPickerSlider_Meta_.ColorChannelProperty = property(get_ColorChannelProperty, None)
 class _ColorSpectrum_Meta_(ComPtr.__class__):
     pass
 class ColorSpectrum(ComPtr, metaclass=_ColorSpectrum_Meta_):
@@ -391,16 +391,16 @@ class ColorSpectrum(ComPtr, metaclass=_ColorSpectrum_Meta_):
     MinSaturation = property(get_MinSaturation, put_MinSaturation)
     MinValue = property(get_MinValue, put_MinValue)
     Shape = property(get_Shape, put_Shape)
-    _ColorSpectrum_Meta_.ColorProperty = property(get_ColorProperty.__wrapped__, None)
-    _ColorSpectrum_Meta_.ComponentsProperty = property(get_ComponentsProperty.__wrapped__, None)
-    _ColorSpectrum_Meta_.HsvColorProperty = property(get_HsvColorProperty.__wrapped__, None)
-    _ColorSpectrum_Meta_.MaxHueProperty = property(get_MaxHueProperty.__wrapped__, None)
-    _ColorSpectrum_Meta_.MaxSaturationProperty = property(get_MaxSaturationProperty.__wrapped__, None)
-    _ColorSpectrum_Meta_.MaxValueProperty = property(get_MaxValueProperty.__wrapped__, None)
-    _ColorSpectrum_Meta_.MinHueProperty = property(get_MinHueProperty.__wrapped__, None)
-    _ColorSpectrum_Meta_.MinSaturationProperty = property(get_MinSaturationProperty.__wrapped__, None)
-    _ColorSpectrum_Meta_.MinValueProperty = property(get_MinValueProperty.__wrapped__, None)
-    _ColorSpectrum_Meta_.ShapeProperty = property(get_ShapeProperty.__wrapped__, None)
+    _ColorSpectrum_Meta_.ColorProperty = property(get_ColorProperty, None)
+    _ColorSpectrum_Meta_.ComponentsProperty = property(get_ComponentsProperty, None)
+    _ColorSpectrum_Meta_.HsvColorProperty = property(get_HsvColorProperty, None)
+    _ColorSpectrum_Meta_.MaxHueProperty = property(get_MaxHueProperty, None)
+    _ColorSpectrum_Meta_.MaxSaturationProperty = property(get_MaxSaturationProperty, None)
+    _ColorSpectrum_Meta_.MaxValueProperty = property(get_MaxValueProperty, None)
+    _ColorSpectrum_Meta_.MinHueProperty = property(get_MinHueProperty, None)
+    _ColorSpectrum_Meta_.MinSaturationProperty = property(get_MinSaturationProperty, None)
+    _ColorSpectrum_Meta_.MinValueProperty = property(get_MinValueProperty, None)
+    _ColorSpectrum_Meta_.ShapeProperty = property(get_ShapeProperty, None)
 class ComboBoxTemplateSettings(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IComboBoxTemplateSettings
@@ -762,19 +762,19 @@ class FlyoutBase(ComPtr, metaclass=_FlyoutBase_Meta_):
     ShowMode = property(get_ShowMode, put_ShowMode)
     Target = property(get_Target, None)
     XamlRoot = property(get_XamlRoot, put_XamlRoot)
-    _FlyoutBase_Meta_.AllowFocusOnInteractionProperty = property(get_AllowFocusOnInteractionProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.AllowFocusWhenDisabledProperty = property(get_AllowFocusWhenDisabledProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.AreOpenCloseAnimationsEnabledProperty = property(get_AreOpenCloseAnimationsEnabledProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.AttachedFlyoutProperty = property(get_AttachedFlyoutProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.ElementSoundModeProperty = property(get_ElementSoundModeProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.InputDevicePrefersPrimaryCommandsProperty = property(get_InputDevicePrefersPrimaryCommandsProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.IsOpenProperty = property(get_IsOpenProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.LightDismissOverlayModeProperty = property(get_LightDismissOverlayModeProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.OverlayInputPassThroughElementProperty = property(get_OverlayInputPassThroughElementProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.PlacementProperty = property(get_PlacementProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.ShouldConstrainToRootBoundsProperty = property(get_ShouldConstrainToRootBoundsProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.ShowModeProperty = property(get_ShowModeProperty.__wrapped__, None)
-    _FlyoutBase_Meta_.TargetProperty = property(get_TargetProperty.__wrapped__, None)
+    _FlyoutBase_Meta_.AllowFocusOnInteractionProperty = property(get_AllowFocusOnInteractionProperty, None)
+    _FlyoutBase_Meta_.AllowFocusWhenDisabledProperty = property(get_AllowFocusWhenDisabledProperty, None)
+    _FlyoutBase_Meta_.AreOpenCloseAnimationsEnabledProperty = property(get_AreOpenCloseAnimationsEnabledProperty, None)
+    _FlyoutBase_Meta_.AttachedFlyoutProperty = property(get_AttachedFlyoutProperty, None)
+    _FlyoutBase_Meta_.ElementSoundModeProperty = property(get_ElementSoundModeProperty, None)
+    _FlyoutBase_Meta_.InputDevicePrefersPrimaryCommandsProperty = property(get_InputDevicePrefersPrimaryCommandsProperty, None)
+    _FlyoutBase_Meta_.IsOpenProperty = property(get_IsOpenProperty, None)
+    _FlyoutBase_Meta_.LightDismissOverlayModeProperty = property(get_LightDismissOverlayModeProperty, None)
+    _FlyoutBase_Meta_.OverlayInputPassThroughElementProperty = property(get_OverlayInputPassThroughElementProperty, None)
+    _FlyoutBase_Meta_.PlacementProperty = property(get_PlacementProperty, None)
+    _FlyoutBase_Meta_.ShouldConstrainToRootBoundsProperty = property(get_ShouldConstrainToRootBoundsProperty, None)
+    _FlyoutBase_Meta_.ShowModeProperty = property(get_ShowModeProperty, None)
+    _FlyoutBase_Meta_.TargetProperty = property(get_TargetProperty, None)
 class FlyoutBaseClosingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBaseClosingEventArgs
@@ -1018,28 +1018,28 @@ class GridViewItemPresenter(ComPtr, metaclass=_GridViewItemPresenter_Meta_):
     SelectedPointerOverBackground = property(get_SelectedPointerOverBackground, put_SelectedPointerOverBackground)
     SelectedPointerOverBorderBrush = property(get_SelectedPointerOverBorderBrush, put_SelectedPointerOverBorderBrush)
     SelectionCheckMarkVisualEnabled = property(get_SelectionCheckMarkVisualEnabled, put_SelectionCheckMarkVisualEnabled)
-    _GridViewItemPresenter_Meta_.CheckBrushProperty = property(get_CheckBrushProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.CheckHintBrushProperty = property(get_CheckHintBrushProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.CheckSelectingBrushProperty = property(get_CheckSelectingBrushProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.ContentMarginProperty = property(get_ContentMarginProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.DisabledOpacityProperty = property(get_DisabledOpacityProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.DragBackgroundProperty = property(get_DragBackgroundProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.DragForegroundProperty = property(get_DragForegroundProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.DragOpacityProperty = property(get_DragOpacityProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.FocusBorderBrushProperty = property(get_FocusBorderBrushProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.GridViewItemPresenterHorizontalContentAlignmentProperty = property(get_GridViewItemPresenterHorizontalContentAlignmentProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.GridViewItemPresenterPaddingProperty = property(get_GridViewItemPresenterPaddingProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.GridViewItemPresenterVerticalContentAlignmentProperty = property(get_GridViewItemPresenterVerticalContentAlignmentProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.PlaceholderBackgroundProperty = property(get_PlaceholderBackgroundProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.PointerOverBackgroundMarginProperty = property(get_PointerOverBackgroundMarginProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.PointerOverBackgroundProperty = property(get_PointerOverBackgroundProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.ReorderHintOffsetProperty = property(get_ReorderHintOffsetProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.SelectedBackgroundProperty = property(get_SelectedBackgroundProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.SelectedBorderThicknessProperty = property(get_SelectedBorderThicknessProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.SelectedForegroundProperty = property(get_SelectedForegroundProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.SelectedPointerOverBackgroundProperty = property(get_SelectedPointerOverBackgroundProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.SelectedPointerOverBorderBrushProperty = property(get_SelectedPointerOverBorderBrushProperty.__wrapped__, None)
-    _GridViewItemPresenter_Meta_.SelectionCheckMarkVisualEnabledProperty = property(get_SelectionCheckMarkVisualEnabledProperty.__wrapped__, None)
+    _GridViewItemPresenter_Meta_.CheckBrushProperty = property(get_CheckBrushProperty, None)
+    _GridViewItemPresenter_Meta_.CheckHintBrushProperty = property(get_CheckHintBrushProperty, None)
+    _GridViewItemPresenter_Meta_.CheckSelectingBrushProperty = property(get_CheckSelectingBrushProperty, None)
+    _GridViewItemPresenter_Meta_.ContentMarginProperty = property(get_ContentMarginProperty, None)
+    _GridViewItemPresenter_Meta_.DisabledOpacityProperty = property(get_DisabledOpacityProperty, None)
+    _GridViewItemPresenter_Meta_.DragBackgroundProperty = property(get_DragBackgroundProperty, None)
+    _GridViewItemPresenter_Meta_.DragForegroundProperty = property(get_DragForegroundProperty, None)
+    _GridViewItemPresenter_Meta_.DragOpacityProperty = property(get_DragOpacityProperty, None)
+    _GridViewItemPresenter_Meta_.FocusBorderBrushProperty = property(get_FocusBorderBrushProperty, None)
+    _GridViewItemPresenter_Meta_.GridViewItemPresenterHorizontalContentAlignmentProperty = property(get_GridViewItemPresenterHorizontalContentAlignmentProperty, None)
+    _GridViewItemPresenter_Meta_.GridViewItemPresenterPaddingProperty = property(get_GridViewItemPresenterPaddingProperty, None)
+    _GridViewItemPresenter_Meta_.GridViewItemPresenterVerticalContentAlignmentProperty = property(get_GridViewItemPresenterVerticalContentAlignmentProperty, None)
+    _GridViewItemPresenter_Meta_.PlaceholderBackgroundProperty = property(get_PlaceholderBackgroundProperty, None)
+    _GridViewItemPresenter_Meta_.PointerOverBackgroundMarginProperty = property(get_PointerOverBackgroundMarginProperty, None)
+    _GridViewItemPresenter_Meta_.PointerOverBackgroundProperty = property(get_PointerOverBackgroundProperty, None)
+    _GridViewItemPresenter_Meta_.ReorderHintOffsetProperty = property(get_ReorderHintOffsetProperty, None)
+    _GridViewItemPresenter_Meta_.SelectedBackgroundProperty = property(get_SelectedBackgroundProperty, None)
+    _GridViewItemPresenter_Meta_.SelectedBorderThicknessProperty = property(get_SelectedBorderThicknessProperty, None)
+    _GridViewItemPresenter_Meta_.SelectedForegroundProperty = property(get_SelectedForegroundProperty, None)
+    _GridViewItemPresenter_Meta_.SelectedPointerOverBackgroundProperty = property(get_SelectedPointerOverBackgroundProperty, None)
+    _GridViewItemPresenter_Meta_.SelectedPointerOverBorderBrushProperty = property(get_SelectedPointerOverBorderBrushProperty, None)
+    _GridViewItemPresenter_Meta_.SelectionCheckMarkVisualEnabledProperty = property(get_SelectionCheckMarkVisualEnabledProperty, None)
 class GridViewItemTemplateSettings(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IGridViewItemTemplateSettings
@@ -3525,8 +3525,8 @@ class JumpListItemBackgroundConverter(ComPtr, metaclass=_JumpListItemBackgroundC
     def get_DisabledProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IJumpListItemBackgroundConverterStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Disabled = property(get_Disabled, put_Disabled)
     Enabled = property(get_Enabled, put_Enabled)
-    _JumpListItemBackgroundConverter_Meta_.DisabledProperty = property(get_DisabledProperty.__wrapped__, None)
-    _JumpListItemBackgroundConverter_Meta_.EnabledProperty = property(get_EnabledProperty.__wrapped__, None)
+    _JumpListItemBackgroundConverter_Meta_.DisabledProperty = property(get_DisabledProperty, None)
+    _JumpListItemBackgroundConverter_Meta_.EnabledProperty = property(get_EnabledProperty, None)
 class _JumpListItemForegroundConverter_Meta_(ComPtr.__class__):
     pass
 class JumpListItemForegroundConverter(ComPtr, metaclass=_JumpListItemForegroundConverter_Meta_):
@@ -3560,8 +3560,8 @@ class JumpListItemForegroundConverter(ComPtr, metaclass=_JumpListItemForegroundC
     def get_DisabledProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IJumpListItemForegroundConverterStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Disabled = property(get_Disabled, put_Disabled)
     Enabled = property(get_Enabled, put_Enabled)
-    _JumpListItemForegroundConverter_Meta_.DisabledProperty = property(get_DisabledProperty.__wrapped__, None)
-    _JumpListItemForegroundConverter_Meta_.EnabledProperty = property(get_EnabledProperty.__wrapped__, None)
+    _JumpListItemForegroundConverter_Meta_.DisabledProperty = property(get_DisabledProperty, None)
+    _JumpListItemForegroundConverter_Meta_.EnabledProperty = property(get_EnabledProperty, None)
 class LayoutInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ILayoutInformation
@@ -4000,65 +4000,65 @@ class ListViewItemPresenter(ComPtr, metaclass=_ListViewItemPresenter_Meta_):
     SelectionIndicatorPointerOverBrush = property(get_SelectionIndicatorPointerOverBrush, put_SelectionIndicatorPointerOverBrush)
     SelectionIndicatorPressedBrush = property(get_SelectionIndicatorPressedBrush, put_SelectionIndicatorPressedBrush)
     SelectionIndicatorVisualEnabled = property(get_SelectionIndicatorVisualEnabled, put_SelectionIndicatorVisualEnabled)
-    _ListViewItemPresenter_Meta_.CheckBoxBorderBrushProperty = property(get_CheckBoxBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxBrushProperty = property(get_CheckBoxBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxCornerRadiusProperty = property(get_CheckBoxCornerRadiusProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxDisabledBorderBrushProperty = property(get_CheckBoxDisabledBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxDisabledBrushProperty = property(get_CheckBoxDisabledBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxPointerOverBorderBrushProperty = property(get_CheckBoxPointerOverBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxPointerOverBrushProperty = property(get_CheckBoxPointerOverBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxPressedBorderBrushProperty = property(get_CheckBoxPressedBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxPressedBrushProperty = property(get_CheckBoxPressedBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxSelectedBrushProperty = property(get_CheckBoxSelectedBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxSelectedDisabledBrushProperty = property(get_CheckBoxSelectedDisabledBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxSelectedPointerOverBrushProperty = property(get_CheckBoxSelectedPointerOverBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBoxSelectedPressedBrushProperty = property(get_CheckBoxSelectedPressedBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckBrushProperty = property(get_CheckBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckDisabledBrushProperty = property(get_CheckDisabledBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckHintBrushProperty = property(get_CheckHintBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckModeProperty = property(get_CheckModeProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckPressedBrushProperty = property(get_CheckPressedBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.CheckSelectingBrushProperty = property(get_CheckSelectingBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.ContentMarginProperty = property(get_ContentMarginProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.DisabledOpacityProperty = property(get_DisabledOpacityProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.DragBackgroundProperty = property(get_DragBackgroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.DragForegroundProperty = property(get_DragForegroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.DragOpacityProperty = property(get_DragOpacityProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.FocusBorderBrushProperty = property(get_FocusBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.FocusSecondaryBorderBrushProperty = property(get_FocusSecondaryBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.ListViewItemPresenterHorizontalContentAlignmentProperty = property(get_ListViewItemPresenterHorizontalContentAlignmentProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.ListViewItemPresenterPaddingProperty = property(get_ListViewItemPresenterPaddingProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.ListViewItemPresenterVerticalContentAlignmentProperty = property(get_ListViewItemPresenterVerticalContentAlignmentProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.PlaceholderBackgroundProperty = property(get_PlaceholderBackgroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.PointerOverBackgroundMarginProperty = property(get_PointerOverBackgroundMarginProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.PointerOverBackgroundProperty = property(get_PointerOverBackgroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.PointerOverBorderBrushProperty = property(get_PointerOverBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.PointerOverForegroundProperty = property(get_PointerOverForegroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.PressedBackgroundProperty = property(get_PressedBackgroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.ReorderHintOffsetProperty = property(get_ReorderHintOffsetProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.RevealBackgroundProperty = property(get_RevealBackgroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.RevealBackgroundShowsAboveContentProperty = property(get_RevealBackgroundShowsAboveContentProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.RevealBorderBrushProperty = property(get_RevealBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.RevealBorderThicknessProperty = property(get_RevealBorderThicknessProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedBackgroundProperty = property(get_SelectedBackgroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedBorderBrushProperty = property(get_SelectedBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedBorderThicknessProperty = property(get_SelectedBorderThicknessProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedDisabledBackgroundProperty = property(get_SelectedDisabledBackgroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedDisabledBorderBrushProperty = property(get_SelectedDisabledBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedForegroundProperty = property(get_SelectedForegroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedInnerBorderBrushProperty = property(get_SelectedInnerBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedPointerOverBackgroundProperty = property(get_SelectedPointerOverBackgroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedPointerOverBorderBrushProperty = property(get_SelectedPointerOverBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedPressedBackgroundProperty = property(get_SelectedPressedBackgroundProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectedPressedBorderBrushProperty = property(get_SelectedPressedBorderBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectionCheckMarkVisualEnabledProperty = property(get_SelectionCheckMarkVisualEnabledProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectionIndicatorBrushProperty = property(get_SelectionIndicatorBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectionIndicatorCornerRadiusProperty = property(get_SelectionIndicatorCornerRadiusProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectionIndicatorDisabledBrushProperty = property(get_SelectionIndicatorDisabledBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectionIndicatorModeProperty = property(get_SelectionIndicatorModeProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectionIndicatorPointerOverBrushProperty = property(get_SelectionIndicatorPointerOverBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectionIndicatorPressedBrushProperty = property(get_SelectionIndicatorPressedBrushProperty.__wrapped__, None)
-    _ListViewItemPresenter_Meta_.SelectionIndicatorVisualEnabledProperty = property(get_SelectionIndicatorVisualEnabledProperty.__wrapped__, None)
+    _ListViewItemPresenter_Meta_.CheckBoxBorderBrushProperty = property(get_CheckBoxBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxBrushProperty = property(get_CheckBoxBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxCornerRadiusProperty = property(get_CheckBoxCornerRadiusProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxDisabledBorderBrushProperty = property(get_CheckBoxDisabledBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxDisabledBrushProperty = property(get_CheckBoxDisabledBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxPointerOverBorderBrushProperty = property(get_CheckBoxPointerOverBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxPointerOverBrushProperty = property(get_CheckBoxPointerOverBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxPressedBorderBrushProperty = property(get_CheckBoxPressedBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxPressedBrushProperty = property(get_CheckBoxPressedBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxSelectedBrushProperty = property(get_CheckBoxSelectedBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxSelectedDisabledBrushProperty = property(get_CheckBoxSelectedDisabledBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxSelectedPointerOverBrushProperty = property(get_CheckBoxSelectedPointerOverBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBoxSelectedPressedBrushProperty = property(get_CheckBoxSelectedPressedBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckBrushProperty = property(get_CheckBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckDisabledBrushProperty = property(get_CheckDisabledBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckHintBrushProperty = property(get_CheckHintBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckModeProperty = property(get_CheckModeProperty, None)
+    _ListViewItemPresenter_Meta_.CheckPressedBrushProperty = property(get_CheckPressedBrushProperty, None)
+    _ListViewItemPresenter_Meta_.CheckSelectingBrushProperty = property(get_CheckSelectingBrushProperty, None)
+    _ListViewItemPresenter_Meta_.ContentMarginProperty = property(get_ContentMarginProperty, None)
+    _ListViewItemPresenter_Meta_.DisabledOpacityProperty = property(get_DisabledOpacityProperty, None)
+    _ListViewItemPresenter_Meta_.DragBackgroundProperty = property(get_DragBackgroundProperty, None)
+    _ListViewItemPresenter_Meta_.DragForegroundProperty = property(get_DragForegroundProperty, None)
+    _ListViewItemPresenter_Meta_.DragOpacityProperty = property(get_DragOpacityProperty, None)
+    _ListViewItemPresenter_Meta_.FocusBorderBrushProperty = property(get_FocusBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.FocusSecondaryBorderBrushProperty = property(get_FocusSecondaryBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.ListViewItemPresenterHorizontalContentAlignmentProperty = property(get_ListViewItemPresenterHorizontalContentAlignmentProperty, None)
+    _ListViewItemPresenter_Meta_.ListViewItemPresenterPaddingProperty = property(get_ListViewItemPresenterPaddingProperty, None)
+    _ListViewItemPresenter_Meta_.ListViewItemPresenterVerticalContentAlignmentProperty = property(get_ListViewItemPresenterVerticalContentAlignmentProperty, None)
+    _ListViewItemPresenter_Meta_.PlaceholderBackgroundProperty = property(get_PlaceholderBackgroundProperty, None)
+    _ListViewItemPresenter_Meta_.PointerOverBackgroundMarginProperty = property(get_PointerOverBackgroundMarginProperty, None)
+    _ListViewItemPresenter_Meta_.PointerOverBackgroundProperty = property(get_PointerOverBackgroundProperty, None)
+    _ListViewItemPresenter_Meta_.PointerOverBorderBrushProperty = property(get_PointerOverBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.PointerOverForegroundProperty = property(get_PointerOverForegroundProperty, None)
+    _ListViewItemPresenter_Meta_.PressedBackgroundProperty = property(get_PressedBackgroundProperty, None)
+    _ListViewItemPresenter_Meta_.ReorderHintOffsetProperty = property(get_ReorderHintOffsetProperty, None)
+    _ListViewItemPresenter_Meta_.RevealBackgroundProperty = property(get_RevealBackgroundProperty, None)
+    _ListViewItemPresenter_Meta_.RevealBackgroundShowsAboveContentProperty = property(get_RevealBackgroundShowsAboveContentProperty, None)
+    _ListViewItemPresenter_Meta_.RevealBorderBrushProperty = property(get_RevealBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.RevealBorderThicknessProperty = property(get_RevealBorderThicknessProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedBackgroundProperty = property(get_SelectedBackgroundProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedBorderBrushProperty = property(get_SelectedBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedBorderThicknessProperty = property(get_SelectedBorderThicknessProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedDisabledBackgroundProperty = property(get_SelectedDisabledBackgroundProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedDisabledBorderBrushProperty = property(get_SelectedDisabledBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedForegroundProperty = property(get_SelectedForegroundProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedInnerBorderBrushProperty = property(get_SelectedInnerBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedPointerOverBackgroundProperty = property(get_SelectedPointerOverBackgroundProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedPointerOverBorderBrushProperty = property(get_SelectedPointerOverBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedPressedBackgroundProperty = property(get_SelectedPressedBackgroundProperty, None)
+    _ListViewItemPresenter_Meta_.SelectedPressedBorderBrushProperty = property(get_SelectedPressedBorderBrushProperty, None)
+    _ListViewItemPresenter_Meta_.SelectionCheckMarkVisualEnabledProperty = property(get_SelectionCheckMarkVisualEnabledProperty, None)
+    _ListViewItemPresenter_Meta_.SelectionIndicatorBrushProperty = property(get_SelectionIndicatorBrushProperty, None)
+    _ListViewItemPresenter_Meta_.SelectionIndicatorCornerRadiusProperty = property(get_SelectionIndicatorCornerRadiusProperty, None)
+    _ListViewItemPresenter_Meta_.SelectionIndicatorDisabledBrushProperty = property(get_SelectionIndicatorDisabledBrushProperty, None)
+    _ListViewItemPresenter_Meta_.SelectionIndicatorModeProperty = property(get_SelectionIndicatorModeProperty, None)
+    _ListViewItemPresenter_Meta_.SelectionIndicatorPointerOverBrushProperty = property(get_SelectionIndicatorPointerOverBrushProperty, None)
+    _ListViewItemPresenter_Meta_.SelectionIndicatorPressedBrushProperty = property(get_SelectionIndicatorPressedBrushProperty, None)
+    _ListViewItemPresenter_Meta_.SelectionIndicatorVisualEnabledProperty = property(get_SelectionIndicatorVisualEnabledProperty, None)
 class ListViewItemPresenterCheckMode(Enum, Int32):
     Inline = 0
     Overlay = 1
@@ -4131,13 +4131,13 @@ class LoopingSelector(ComPtr, metaclass=_LoopingSelector_Meta_):
     SelectedIndex = property(get_SelectedIndex, put_SelectedIndex)
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     ShouldLoop = property(get_ShouldLoop, put_ShouldLoop)
-    _LoopingSelector_Meta_.ItemHeightProperty = property(get_ItemHeightProperty.__wrapped__, None)
-    _LoopingSelector_Meta_.ItemTemplateProperty = property(get_ItemTemplateProperty.__wrapped__, None)
-    _LoopingSelector_Meta_.ItemWidthProperty = property(get_ItemWidthProperty.__wrapped__, None)
-    _LoopingSelector_Meta_.ItemsProperty = property(get_ItemsProperty.__wrapped__, None)
-    _LoopingSelector_Meta_.SelectedIndexProperty = property(get_SelectedIndexProperty.__wrapped__, None)
-    _LoopingSelector_Meta_.SelectedItemProperty = property(get_SelectedItemProperty.__wrapped__, None)
-    _LoopingSelector_Meta_.ShouldLoopProperty = property(get_ShouldLoopProperty.__wrapped__, None)
+    _LoopingSelector_Meta_.ItemHeightProperty = property(get_ItemHeightProperty, None)
+    _LoopingSelector_Meta_.ItemTemplateProperty = property(get_ItemTemplateProperty, None)
+    _LoopingSelector_Meta_.ItemWidthProperty = property(get_ItemWidthProperty, None)
+    _LoopingSelector_Meta_.ItemsProperty = property(get_ItemsProperty, None)
+    _LoopingSelector_Meta_.SelectedIndexProperty = property(get_SelectedIndexProperty, None)
+    _LoopingSelector_Meta_.SelectedItemProperty = property(get_SelectedItemProperty, None)
+    _LoopingSelector_Meta_.ShouldLoopProperty = property(get_ShouldLoopProperty, None)
 class LoopingSelectorItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ILoopingSelectorItem
@@ -4200,7 +4200,7 @@ class NavigationViewItemPresenter(ComPtr, metaclass=_NavigationViewItemPresenter
     @winrt_classmethod
     def get_IconProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.INavigationViewItemPresenterStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Icon = property(get_Icon, put_Icon)
-    _NavigationViewItemPresenter_Meta_.IconProperty = property(get_IconProperty.__wrapped__, None)
+    _NavigationViewItemPresenter_Meta_.IconProperty = property(get_IconProperty, None)
 class OrientedVirtualizingPanel(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.VirtualizingPanel
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IOrientedVirtualizingPanel
@@ -4313,7 +4313,7 @@ class PickerFlyoutBase(ComPtr, metaclass=_PickerFlyoutBase_Meta_):
     def GetTitle(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBaseStatics, element: win32more.Windows.UI.Xaml.DependencyObject) -> WinRT_String: ...
     @winrt_classmethod
     def SetTitle(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBaseStatics, element: win32more.Windows.UI.Xaml.DependencyObject, value: WinRT_String) -> Void: ...
-    _PickerFlyoutBase_Meta_.TitleProperty = property(get_TitleProperty.__wrapped__, None)
+    _PickerFlyoutBase_Meta_.TitleProperty = property(get_TitleProperty, None)
 class PivotHeaderItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IPivotHeaderItem
@@ -4480,16 +4480,16 @@ class Popup(ComPtr, metaclass=_Popup_Meta_):
     PlacementTarget = property(get_PlacementTarget, put_PlacementTarget)
     ShouldConstrainToRootBounds = property(get_ShouldConstrainToRootBounds, put_ShouldConstrainToRootBounds)
     VerticalOffset = property(get_VerticalOffset, put_VerticalOffset)
-    _Popup_Meta_.ChildProperty = property(get_ChildProperty.__wrapped__, None)
-    _Popup_Meta_.ChildTransitionsProperty = property(get_ChildTransitionsProperty.__wrapped__, None)
-    _Popup_Meta_.DesiredPlacementProperty = property(get_DesiredPlacementProperty.__wrapped__, None)
-    _Popup_Meta_.HorizontalOffsetProperty = property(get_HorizontalOffsetProperty.__wrapped__, None)
-    _Popup_Meta_.IsLightDismissEnabledProperty = property(get_IsLightDismissEnabledProperty.__wrapped__, None)
-    _Popup_Meta_.IsOpenProperty = property(get_IsOpenProperty.__wrapped__, None)
-    _Popup_Meta_.LightDismissOverlayModeProperty = property(get_LightDismissOverlayModeProperty.__wrapped__, None)
-    _Popup_Meta_.PlacementTargetProperty = property(get_PlacementTargetProperty.__wrapped__, None)
-    _Popup_Meta_.ShouldConstrainToRootBoundsProperty = property(get_ShouldConstrainToRootBoundsProperty.__wrapped__, None)
-    _Popup_Meta_.VerticalOffsetProperty = property(get_VerticalOffsetProperty.__wrapped__, None)
+    _Popup_Meta_.ChildProperty = property(get_ChildProperty, None)
+    _Popup_Meta_.ChildTransitionsProperty = property(get_ChildTransitionsProperty, None)
+    _Popup_Meta_.DesiredPlacementProperty = property(get_DesiredPlacementProperty, None)
+    _Popup_Meta_.HorizontalOffsetProperty = property(get_HorizontalOffsetProperty, None)
+    _Popup_Meta_.IsLightDismissEnabledProperty = property(get_IsLightDismissEnabledProperty, None)
+    _Popup_Meta_.IsOpenProperty = property(get_IsOpenProperty, None)
+    _Popup_Meta_.LightDismissOverlayModeProperty = property(get_LightDismissOverlayModeProperty, None)
+    _Popup_Meta_.PlacementTargetProperty = property(get_PlacementTargetProperty, None)
+    _Popup_Meta_.ShouldConstrainToRootBoundsProperty = property(get_ShouldConstrainToRootBoundsProperty, None)
+    _Popup_Meta_.VerticalOffsetProperty = property(get_VerticalOffsetProperty, None)
 class PopupPlacementMode(Enum, Int32):
     Auto = 0
     Top = 1
@@ -4602,11 +4602,11 @@ class RangeBase(ComPtr, metaclass=_RangeBase_Meta_):
     Minimum = property(get_Minimum, put_Minimum)
     SmallChange = property(get_SmallChange, put_SmallChange)
     Value = property(get_Value, put_Value)
-    _RangeBase_Meta_.LargeChangeProperty = property(get_LargeChangeProperty.__wrapped__, None)
-    _RangeBase_Meta_.MaximumProperty = property(get_MaximumProperty.__wrapped__, None)
-    _RangeBase_Meta_.MinimumProperty = property(get_MinimumProperty.__wrapped__, None)
-    _RangeBase_Meta_.SmallChangeProperty = property(get_SmallChangeProperty.__wrapped__, None)
-    _RangeBase_Meta_.ValueProperty = property(get_ValueProperty.__wrapped__, None)
+    _RangeBase_Meta_.LargeChangeProperty = property(get_LargeChangeProperty, None)
+    _RangeBase_Meta_.MaximumProperty = property(get_MaximumProperty, None)
+    _RangeBase_Meta_.MinimumProperty = property(get_MinimumProperty, None)
+    _RangeBase_Meta_.SmallChangeProperty = property(get_SmallChangeProperty, None)
+    _RangeBase_Meta_.ValueProperty = property(get_ValueProperty, None)
 class RangeBaseValueChangedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IRangeBaseValueChangedEventArgs
@@ -4651,8 +4651,8 @@ class RepeatButton(ComPtr, metaclass=_RepeatButton_Meta_):
     def get_IntervalProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IRepeatButtonStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Delay = property(get_Delay, put_Delay)
     Interval = property(get_Interval, put_Interval)
-    _RepeatButton_Meta_.DelayProperty = property(get_DelayProperty.__wrapped__, None)
-    _RepeatButton_Meta_.IntervalProperty = property(get_IntervalProperty.__wrapped__, None)
+    _RepeatButton_Meta_.DelayProperty = property(get_DelayProperty, None)
+    _RepeatButton_Meta_.IntervalProperty = property(get_IntervalProperty, None)
 class _ScrollBar_Meta_(ComPtr.__class__):
     pass
 class ScrollBar(ComPtr, metaclass=_ScrollBar_Meta_):
@@ -4693,9 +4693,9 @@ class ScrollBar(ComPtr, metaclass=_ScrollBar_Meta_):
     IndicatorMode = property(get_IndicatorMode, put_IndicatorMode)
     Orientation = property(get_Orientation, put_Orientation)
     ViewportSize = property(get_ViewportSize, put_ViewportSize)
-    _ScrollBar_Meta_.IndicatorModeProperty = property(get_IndicatorModeProperty.__wrapped__, None)
-    _ScrollBar_Meta_.OrientationProperty = property(get_OrientationProperty.__wrapped__, None)
-    _ScrollBar_Meta_.ViewportSizeProperty = property(get_ViewportSizeProperty.__wrapped__, None)
+    _ScrollBar_Meta_.IndicatorModeProperty = property(get_IndicatorModeProperty, None)
+    _ScrollBar_Meta_.OrientationProperty = property(get_OrientationProperty, None)
+    _ScrollBar_Meta_.ViewportSizeProperty = property(get_ViewportSizeProperty, None)
 class ScrollEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollEventArgs
@@ -4781,11 +4781,11 @@ class Selector(ComPtr, metaclass=_Selector_Meta_):
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     SelectedValue = property(get_SelectedValue, put_SelectedValue)
     SelectedValuePath = property(get_SelectedValuePath, put_SelectedValuePath)
-    _Selector_Meta_.IsSynchronizedWithCurrentItemProperty = property(get_IsSynchronizedWithCurrentItemProperty.__wrapped__, None)
-    _Selector_Meta_.SelectedIndexProperty = property(get_SelectedIndexProperty.__wrapped__, None)
-    _Selector_Meta_.SelectedItemProperty = property(get_SelectedItemProperty.__wrapped__, None)
-    _Selector_Meta_.SelectedValuePathProperty = property(get_SelectedValuePathProperty.__wrapped__, None)
-    _Selector_Meta_.SelectedValueProperty = property(get_SelectedValueProperty.__wrapped__, None)
+    _Selector_Meta_.IsSynchronizedWithCurrentItemProperty = property(get_IsSynchronizedWithCurrentItemProperty, None)
+    _Selector_Meta_.SelectedIndexProperty = property(get_SelectedIndexProperty, None)
+    _Selector_Meta_.SelectedItemProperty = property(get_SelectedItemProperty, None)
+    _Selector_Meta_.SelectedValuePathProperty = property(get_SelectedValuePathProperty, None)
+    _Selector_Meta_.SelectedValueProperty = property(get_SelectedValueProperty, None)
 class _SelectorItem_Meta_(ComPtr.__class__):
     pass
 class SelectorItem(ComPtr, metaclass=_SelectorItem_Meta_):
@@ -4808,7 +4808,7 @@ class SelectorItem(ComPtr, metaclass=_SelectorItem_Meta_):
     @winrt_classmethod
     def get_IsSelectedProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ISelectorItemStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     IsSelected = property(get_IsSelected, put_IsSelected)
-    _SelectorItem_Meta_.IsSelectedProperty = property(get_IsSelectedProperty.__wrapped__, None)
+    _SelectorItem_Meta_.IsSelectedProperty = property(get_IsSelectedProperty, None)
 class SettingsFlyoutTemplateSettings(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ISettingsFlyoutTemplateSettings
@@ -4894,7 +4894,7 @@ class Thumb(ComPtr, metaclass=_Thumb_Meta_):
     @winrt_classmethod
     def get_IsDraggingProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IThumbStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     IsDragging = property(get_IsDragging, None)
-    _Thumb_Meta_.IsDraggingProperty = property(get_IsDraggingProperty.__wrapped__, None)
+    _Thumb_Meta_.IsDraggingProperty = property(get_IsDraggingProperty, None)
 class _TickBar_Meta_(ComPtr.__class__):
     pass
 class TickBar(ComPtr, metaclass=_TickBar_Meta_):
@@ -4917,7 +4917,7 @@ class TickBar(ComPtr, metaclass=_TickBar_Meta_):
     @winrt_classmethod
     def get_FillProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.ITickBarStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     Fill = property(get_Fill, put_Fill)
-    _TickBar_Meta_.FillProperty = property(get_FillProperty.__wrapped__, None)
+    _TickBar_Meta_.FillProperty = property(get_FillProperty, None)
 class TickPlacement(Enum, Int32):
     None_ = 0
     TopLeft = 1
@@ -4967,8 +4967,8 @@ class ToggleButton(ComPtr, metaclass=_ToggleButton_Meta_):
     def get_IsThreeStateProperty(cls: win32more.Windows.UI.Xaml.Controls.Primitives.IToggleButtonStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     IsChecked = property(get_IsChecked, put_IsChecked)
     IsThreeState = property(get_IsThreeState, put_IsThreeState)
-    _ToggleButton_Meta_.IsCheckedProperty = property(get_IsCheckedProperty.__wrapped__, None)
-    _ToggleButton_Meta_.IsThreeStateProperty = property(get_IsThreeStateProperty.__wrapped__, None)
+    _ToggleButton_Meta_.IsCheckedProperty = property(get_IsCheckedProperty, None)
+    _ToggleButton_Meta_.IsThreeStateProperty = property(get_IsThreeStateProperty, None)
 class ToggleSwitchTemplateSettings(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IToggleSwitchTemplateSettings

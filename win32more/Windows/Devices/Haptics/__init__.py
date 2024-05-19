@@ -159,21 +159,21 @@ class KnownSimpleHapticsControllerWaveforms(ComPtr, metaclass=_KnownSimpleHaptic
     def get_Press(cls: win32more.Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics) -> UInt16: ...
     @winrt_classmethod
     def get_Release(cls: win32more.Windows.Devices.Haptics.IKnownSimpleHapticsControllerWaveformsStatics) -> UInt16: ...
-    _KnownSimpleHapticsControllerWaveforms_Meta_.BrushContinuous = property(get_BrushContinuous.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.BuzzContinuous = property(get_BuzzContinuous.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.ChiselMarkerContinuous = property(get_ChiselMarkerContinuous.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.Click = property(get_Click.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.EraserContinuous = property(get_EraserContinuous.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.Error = property(get_Error.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.GalaxyPenContinuous = property(get_GalaxyPenContinuous.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.Hover = property(get_Hover.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.InkContinuous = property(get_InkContinuous.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.MarkerContinuous = property(get_MarkerContinuous.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.PencilContinuous = property(get_PencilContinuous.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.Press = property(get_Press.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.Release = property(get_Release.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.RumbleContinuous = property(get_RumbleContinuous.__wrapped__, None)
-    _KnownSimpleHapticsControllerWaveforms_Meta_.Success = property(get_Success.__wrapped__, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.BrushContinuous = property(get_BrushContinuous, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.BuzzContinuous = property(get_BuzzContinuous, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.ChiselMarkerContinuous = property(get_ChiselMarkerContinuous, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Click = property(get_Click, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.EraserContinuous = property(get_EraserContinuous, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Error = property(get_Error, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.GalaxyPenContinuous = property(get_GalaxyPenContinuous, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Hover = property(get_Hover, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.InkContinuous = property(get_InkContinuous, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.MarkerContinuous = property(get_MarkerContinuous, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.PencilContinuous = property(get_PencilContinuous, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Press = property(get_Press, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Release = property(get_Release, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.RumbleContinuous = property(get_RumbleContinuous, None)
+    _KnownSimpleHapticsControllerWaveforms_Meta_.Success = property(get_Success, None)
 class SimpleHapticsController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Haptics.ISimpleHapticsController

@@ -370,7 +370,7 @@ class XamlBindingHelper(ComPtr, metaclass=_XamlBindingHelper_Meta_):
     def SetPropertyFromUri(cls: win32more.Microsoft.UI.Xaml.Markup.IXamlBindingHelperStatics, dependencyObject: win32more.Windows.Win32.System.WinRT.IInspectable, propertyToSet: win32more.Microsoft.UI.Xaml.DependencyProperty, value: win32more.Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod
     def SetPropertyFromObject(cls: win32more.Microsoft.UI.Xaml.Markup.IXamlBindingHelperStatics, dependencyObject: win32more.Windows.Win32.System.WinRT.IInspectable, propertyToSet: win32more.Microsoft.UI.Xaml.DependencyProperty, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
-    _XamlBindingHelper_Meta_.DataTemplateComponentProperty = property(get_DataTemplateComponentProperty.__wrapped__, None)
+    _XamlBindingHelper_Meta_.DataTemplateComponentProperty = property(get_DataTemplateComponentProperty, None)
 class XamlMarkupHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Markup.IXamlMarkupHelper

@@ -139,17 +139,17 @@ class AccessoryManager(ComPtr, metaclass=_AccessoryManager_Meta_):
     def GetUserConsent(cls: win32more.Windows.Phone.Notification.Management.IAccessoryManager) -> Boolean: ...
     @winrt_classmethod
     def GetAppIcon(cls: win32more.Windows.Phone.Notification.Management.IAccessoryManager, appId: WinRT_String) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
-    _AccessoryManager_Meta_.BatterySaverState = property(get_BatterySaverState.__wrapped__, None)
-    _AccessoryManager_Meta_.DoNotDisturbEnabled = property(get_DoNotDisturbEnabled.__wrapped__, None)
-    _AccessoryManager_Meta_.DrivingModeEnabled = property(get_DrivingModeEnabled.__wrapped__, None)
-    _AccessoryManager_Meta_.IsPhonePinLocked = property(get_IsPhonePinLocked.__wrapped__, None)
-    _AccessoryManager_Meta_.MediaPlaybackCapabilities = property(get_MediaPlaybackCapabilities.__wrapped__, None)
-    _AccessoryManager_Meta_.MediaPlaybackStatus = property(get_MediaPlaybackStatus.__wrapped__, None)
-    _AccessoryManager_Meta_.PhoneCallAudioEndpoint = property(get_PhoneCallAudioEndpoint.__wrapped__, put_PhoneCallAudioEndpoint.__wrapped__)
-    _AccessoryManager_Meta_.PhoneLineDetails = property(get_PhoneLineDetails.__wrapped__, None)
-    _AccessoryManager_Meta_.PhoneMute = property(get_PhoneMute.__wrapped__, put_PhoneMute.__wrapped__)
-    _AccessoryManager_Meta_.SpeedDialList = property(get_SpeedDialList.__wrapped__, None)
-    _AccessoryManager_Meta_.VolumeInfo = property(get_VolumeInfo.__wrapped__, None)
+    _AccessoryManager_Meta_.BatterySaverState = property(get_BatterySaverState, None)
+    _AccessoryManager_Meta_.DoNotDisturbEnabled = property(get_DoNotDisturbEnabled, None)
+    _AccessoryManager_Meta_.DrivingModeEnabled = property(get_DrivingModeEnabled, None)
+    _AccessoryManager_Meta_.IsPhonePinLocked = property(get_IsPhonePinLocked, None)
+    _AccessoryManager_Meta_.MediaPlaybackCapabilities = property(get_MediaPlaybackCapabilities, None)
+    _AccessoryManager_Meta_.MediaPlaybackStatus = property(get_MediaPlaybackStatus, None)
+    _AccessoryManager_Meta_.PhoneCallAudioEndpoint = property(get_PhoneCallAudioEndpoint, put_PhoneCallAudioEndpoint)
+    _AccessoryManager_Meta_.PhoneLineDetails = property(get_PhoneLineDetails, None)
+    _AccessoryManager_Meta_.PhoneMute = property(get_PhoneMute, put_PhoneMute)
+    _AccessoryManager_Meta_.SpeedDialList = property(get_SpeedDialList, None)
+    _AccessoryManager_Meta_.VolumeInfo = property(get_VolumeInfo, None)
 class AccessoryNotificationType(Enum, UInt32):
     None_ = 0
     Phone = 1

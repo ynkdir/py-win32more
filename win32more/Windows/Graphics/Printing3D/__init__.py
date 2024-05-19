@@ -708,8 +708,8 @@ class Printing3DBaseMaterial(ComPtr, metaclass=_Printing3DBaseMaterial_Meta_):
     def get_Pla(cls: win32more.Windows.Graphics.Printing3D.IPrinting3DBaseMaterialStatics) -> WinRT_String: ...
     Color = property(get_Color, put_Color)
     Name = property(get_Name, put_Name)
-    _Printing3DBaseMaterial_Meta_.Abs = property(get_Abs.__wrapped__, None)
-    _Printing3DBaseMaterial_Meta_.Pla = property(get_Pla.__wrapped__, None)
+    _Printing3DBaseMaterial_Meta_.Abs = property(get_Abs, None)
+    _Printing3DBaseMaterial_Meta_.Pla = property(get_Pla, None)
 class Printing3DBaseMaterialGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing3D.IPrinting3DBaseMaterialGroup

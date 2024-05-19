@@ -22,7 +22,7 @@ class AdvertisingManager(ComPtr, metaclass=_AdvertisingManager_Meta_):
     def GetForUser(cls: win32more.Windows.System.UserProfile.IAdvertisingManagerStatics2, user: win32more.Windows.System.User) -> win32more.Windows.System.UserProfile.AdvertisingManagerForUser: ...
     @winrt_classmethod
     def get_AdvertisingId(cls: win32more.Windows.System.UserProfile.IAdvertisingManagerStatics) -> WinRT_String: ...
-    _AdvertisingManager_Meta_.AdvertisingId = property(get_AdvertisingId.__wrapped__, None)
+    _AdvertisingManager_Meta_.AdvertisingId = property(get_AdvertisingId, None)
 class AdvertisingManagerForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.UserProfile.IAdvertisingManagerForUser
@@ -104,12 +104,12 @@ class GlobalizationPreferences(ComPtr, metaclass=_GlobalizationPreferences_Meta_
     def get_HomeGeographicRegion(cls: win32more.Windows.System.UserProfile.IGlobalizationPreferencesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_WeekStartsOn(cls: win32more.Windows.System.UserProfile.IGlobalizationPreferencesStatics) -> win32more.Windows.Globalization.DayOfWeek: ...
-    _GlobalizationPreferences_Meta_.Calendars = property(get_Calendars.__wrapped__, None)
-    _GlobalizationPreferences_Meta_.Clocks = property(get_Clocks.__wrapped__, None)
-    _GlobalizationPreferences_Meta_.Currencies = property(get_Currencies.__wrapped__, None)
-    _GlobalizationPreferences_Meta_.HomeGeographicRegion = property(get_HomeGeographicRegion.__wrapped__, None)
-    _GlobalizationPreferences_Meta_.Languages = property(get_Languages.__wrapped__, None)
-    _GlobalizationPreferences_Meta_.WeekStartsOn = property(get_WeekStartsOn.__wrapped__, None)
+    _GlobalizationPreferences_Meta_.Calendars = property(get_Calendars, None)
+    _GlobalizationPreferences_Meta_.Clocks = property(get_Clocks, None)
+    _GlobalizationPreferences_Meta_.Currencies = property(get_Currencies, None)
+    _GlobalizationPreferences_Meta_.HomeGeographicRegion = property(get_HomeGeographicRegion, None)
+    _GlobalizationPreferences_Meta_.Languages = property(get_Languages, None)
+    _GlobalizationPreferences_Meta_.WeekStartsOn = property(get_WeekStartsOn, None)
 class GlobalizationPreferencesForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.UserProfile.IGlobalizationPreferencesForUser
@@ -359,7 +359,7 @@ class LockScreen(ComPtr, metaclass=_LockScreen_Meta_):
     def SetImageFileAsync(cls: win32more.Windows.System.UserProfile.ILockScreenStatics, value: win32more.Windows.Storage.IStorageFile) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def SetImageStreamAsync(cls: win32more.Windows.System.UserProfile.ILockScreenStatics, value: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncAction: ...
-    _LockScreen_Meta_.OriginalImageFile = property(get_OriginalImageFile.__wrapped__, None)
+    _LockScreen_Meta_.OriginalImageFile = property(get_OriginalImageFile, None)
 class SetAccountPictureResult(Enum, Int32):
     Success = 0
     ChangeDisabled = 1
@@ -406,8 +406,8 @@ class UserInformation(ComPtr, metaclass=_UserInformation_Meta_):
     def GetSessionInitiationProtocolUriAsync(cls: win32more.Windows.System.UserProfile.IUserInformationStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Uri]: ...
     @winrt_classmethod
     def GetDomainNameAsync(cls: win32more.Windows.System.UserProfile.IUserInformationStatics) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
-    _UserInformation_Meta_.AccountPictureChangeEnabled = property(get_AccountPictureChangeEnabled.__wrapped__, None)
-    _UserInformation_Meta_.NameAccessAllowed = property(get_NameAccessAllowed.__wrapped__, None)
+    _UserInformation_Meta_.AccountPictureChangeEnabled = property(get_AccountPictureChangeEnabled, None)
+    _UserInformation_Meta_.NameAccessAllowed = property(get_NameAccessAllowed, None)
 UserProfileContract: UInt32 = 131072
 UserProfileLockScreenContract: UInt32 = 65536
 class _UserProfilePersonalizationSettings_Meta_(ComPtr.__class__):
@@ -424,7 +424,7 @@ class UserProfilePersonalizationSettings(ComPtr, metaclass=_UserProfilePersonali
     def get_Current(cls: win32more.Windows.System.UserProfile.IUserProfilePersonalizationSettingsStatics) -> win32more.Windows.System.UserProfile.UserProfilePersonalizationSettings: ...
     @winrt_classmethod
     def IsSupported(cls: win32more.Windows.System.UserProfile.IUserProfilePersonalizationSettingsStatics) -> Boolean: ...
-    _UserProfilePersonalizationSettings_Meta_.Current = property(get_Current.__wrapped__, None)
+    _UserProfilePersonalizationSettings_Meta_.Current = property(get_Current, None)
 
 
 make_ready(__name__)

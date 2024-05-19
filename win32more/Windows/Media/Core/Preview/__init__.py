@@ -27,7 +27,7 @@ class SoundLevelBroker(ComPtr, metaclass=_SoundLevelBroker_Meta_):
     def add_SoundLevelChanged(cls: win32more.Windows.Media.Core.Preview.ISoundLevelBrokerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_SoundLevelChanged(cls: win32more.Windows.Media.Core.Preview.ISoundLevelBrokerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    _SoundLevelBroker_Meta_.SoundLevel = property(get_SoundLevel.__wrapped__, None)
+    _SoundLevelBroker_Meta_.SoundLevel = property(get_SoundLevel, None)
 
 
 make_ready(__name__)

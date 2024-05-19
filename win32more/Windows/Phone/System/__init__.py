@@ -25,7 +25,7 @@ class SystemProtection(ComPtr, metaclass=_SystemProtection_Meta_):
     def RequestScreenUnlock(cls: win32more.Windows.Phone.System.ISystemProtectionUnlockStatics) -> Void: ...
     @winrt_classmethod
     def get_ScreenLocked(cls: win32more.Windows.Phone.System.ISystemProtectionStatics) -> Boolean: ...
-    _SystemProtection_Meta_.ScreenLocked = property(get_ScreenLocked.__wrapped__, None)
+    _SystemProtection_Meta_.ScreenLocked = property(get_ScreenLocked, None)
 
 
 make_ready(__name__)

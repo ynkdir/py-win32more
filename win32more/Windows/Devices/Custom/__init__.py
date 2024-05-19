@@ -130,7 +130,7 @@ class KnownDeviceTypes(ComPtr, metaclass=_KnownDeviceTypes_Meta_):
     _classid_ = 'Windows.Devices.Custom.KnownDeviceTypes'
     @winrt_classmethod
     def get_Unknown(cls: win32more.Windows.Devices.Custom.IKnownDeviceTypesStatics) -> UInt16: ...
-    _KnownDeviceTypes_Meta_.Unknown = property(get_Unknown.__wrapped__, None)
+    _KnownDeviceTypes_Meta_.Unknown = property(get_Unknown, None)
 
 
 make_ready(__name__)

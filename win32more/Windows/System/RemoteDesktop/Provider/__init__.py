@@ -158,7 +158,7 @@ class RemoteDesktopRegistrar(ComPtr, metaclass=_RemoteDesktopRegistrar_Meta_):
     def get_DesktopInfos(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopRegistrarStatics) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.System.RemoteDesktop.Provider.RemoteDesktopInfo]: ...
     @winrt_classmethod
     def IsSwitchToLocalSessionEnabled(cls: win32more.Windows.System.RemoteDesktop.Provider.IRemoteDesktopRegistrarStatics) -> Boolean: ...
-    _RemoteDesktopRegistrar_Meta_.DesktopInfos = property(get_DesktopInfos.__wrapped__, None)
+    _RemoteDesktopRegistrar_Meta_.DesktopInfos = property(get_DesktopInfos, None)
 
 
 make_ready(__name__)

@@ -45,7 +45,7 @@ class BackgroundMediaPlayer(ComPtr, metaclass=_BackgroundMediaPlayer_Meta_):
     def IsMediaPlaying(cls: win32more.Windows.Media.Playback.IBackgroundMediaPlayerStatics) -> Boolean: ...
     @winrt_classmethod
     def Shutdown(cls: win32more.Windows.Media.Playback.IBackgroundMediaPlayerStatics) -> Void: ...
-    _BackgroundMediaPlayer_Meta_.Current = property(get_Current.__wrapped__, None)
+    _BackgroundMediaPlayer_Meta_.Current = property(get_Current, None)
 class CurrentMediaPlaybackItemChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.ICurrentMediaPlaybackItemChangedEventArgs

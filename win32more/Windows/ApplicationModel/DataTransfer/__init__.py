@@ -1205,15 +1205,15 @@ class StandardDataFormats(ComPtr, metaclass=_StandardDataFormats_Meta_):
     def get_Bitmap(cls: win32more.Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_StorageItems(cls: win32more.Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics) -> WinRT_String: ...
-    _StandardDataFormats_Meta_.ApplicationLink = property(get_ApplicationLink.__wrapped__, None)
-    _StandardDataFormats_Meta_.Bitmap = property(get_Bitmap.__wrapped__, None)
-    _StandardDataFormats_Meta_.Html = property(get_Html.__wrapped__, None)
-    _StandardDataFormats_Meta_.Rtf = property(get_Rtf.__wrapped__, None)
-    _StandardDataFormats_Meta_.StorageItems = property(get_StorageItems.__wrapped__, None)
-    _StandardDataFormats_Meta_.Text = property(get_Text.__wrapped__, None)
-    _StandardDataFormats_Meta_.Uri = property(get_Uri.__wrapped__, None)
-    _StandardDataFormats_Meta_.UserActivityJsonArray = property(get_UserActivityJsonArray.__wrapped__, None)
-    _StandardDataFormats_Meta_.WebLink = property(get_WebLink.__wrapped__, None)
+    _StandardDataFormats_Meta_.ApplicationLink = property(get_ApplicationLink, None)
+    _StandardDataFormats_Meta_.Bitmap = property(get_Bitmap, None)
+    _StandardDataFormats_Meta_.Html = property(get_Html, None)
+    _StandardDataFormats_Meta_.Rtf = property(get_Rtf, None)
+    _StandardDataFormats_Meta_.StorageItems = property(get_StorageItems, None)
+    _StandardDataFormats_Meta_.Text = property(get_Text, None)
+    _StandardDataFormats_Meta_.Uri = property(get_Uri, None)
+    _StandardDataFormats_Meta_.UserActivityJsonArray = property(get_UserActivityJsonArray, None)
+    _StandardDataFormats_Meta_.WebLink = property(get_WebLink, None)
 class TargetApplicationChosenEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.ITargetApplicationChosenEventArgs

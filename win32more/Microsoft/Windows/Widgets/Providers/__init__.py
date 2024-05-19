@@ -321,7 +321,7 @@ class WidgetUpdateRequestOptions(ComPtr, metaclass=_WidgetUpdateRequestOptions_M
     Data = property(get_Data, put_Data)
     Template = property(get_Template, put_Template)
     WidgetId = property(get_WidgetId, None)
-    _WidgetUpdateRequestOptions_Meta_.UnsetValue = property(get_UnsetValue.__wrapped__, None)
+    _WidgetUpdateRequestOptions_Meta_.UnsetValue = property(get_UnsetValue, None)
 
 
 make_ready(__name__)

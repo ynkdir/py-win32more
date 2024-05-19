@@ -133,8 +133,8 @@ class StorageApplicationPermissions(ComPtr, metaclass=_StorageApplicationPermiss
     def get_FutureAccessList(cls: win32more.Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics) -> win32more.Windows.Storage.AccessCache.StorageItemAccessList: ...
     @winrt_classmethod
     def get_MostRecentlyUsedList(cls: win32more.Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics) -> win32more.Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList: ...
-    _StorageApplicationPermissions_Meta_.FutureAccessList = property(get_FutureAccessList.__wrapped__, None)
-    _StorageApplicationPermissions_Meta_.MostRecentlyUsedList = property(get_MostRecentlyUsedList.__wrapped__, None)
+    _StorageApplicationPermissions_Meta_.FutureAccessList = property(get_FutureAccessList, None)
+    _StorageApplicationPermissions_Meta_.MostRecentlyUsedList = property(get_MostRecentlyUsedList, None)
 class StorageItemAccessList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.AccessCache.IStorageItemAccessList

@@ -124,7 +124,7 @@ class PushNotificationManager(ComPtr, metaclass=_PushNotificationManager_Meta_):
     def IsSupported(cls: win32more.Microsoft.Windows.PushNotifications.IPushNotificationManagerStatics) -> Boolean: ...
     @winrt_classmethod
     def get_Default(cls: win32more.Microsoft.Windows.PushNotifications.IPushNotificationManagerStatics) -> win32more.Microsoft.Windows.PushNotifications.PushNotificationManager: ...
-    _PushNotificationManager_Meta_.Default = property(get_Default.__wrapped__, None)
+    _PushNotificationManager_Meta_.Default = property(get_Default, None)
 class PushNotificationReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.PushNotifications.IPushNotificationReceivedEventArgs

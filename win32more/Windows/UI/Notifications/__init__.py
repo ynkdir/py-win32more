@@ -966,12 +966,12 @@ class KnownAdaptiveNotificationHints(ComPtr, metaclass=_KnownAdaptiveNotificatio
     def get_TextStacking(cls: win32more.Windows.UI.Notifications.IKnownAdaptiveNotificationHintsStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Align(cls: win32more.Windows.UI.Notifications.IKnownAdaptiveNotificationHintsStatics) -> WinRT_String: ...
-    _KnownAdaptiveNotificationHints_Meta_.Align = property(get_Align.__wrapped__, None)
-    _KnownAdaptiveNotificationHints_Meta_.MaxLines = property(get_MaxLines.__wrapped__, None)
-    _KnownAdaptiveNotificationHints_Meta_.MinLines = property(get_MinLines.__wrapped__, None)
-    _KnownAdaptiveNotificationHints_Meta_.Style = property(get_Style.__wrapped__, None)
-    _KnownAdaptiveNotificationHints_Meta_.TextStacking = property(get_TextStacking.__wrapped__, None)
-    _KnownAdaptiveNotificationHints_Meta_.Wrap = property(get_Wrap.__wrapped__, None)
+    _KnownAdaptiveNotificationHints_Meta_.Align = property(get_Align, None)
+    _KnownAdaptiveNotificationHints_Meta_.MaxLines = property(get_MaxLines, None)
+    _KnownAdaptiveNotificationHints_Meta_.MinLines = property(get_MinLines, None)
+    _KnownAdaptiveNotificationHints_Meta_.Style = property(get_Style, None)
+    _KnownAdaptiveNotificationHints_Meta_.TextStacking = property(get_TextStacking, None)
+    _KnownAdaptiveNotificationHints_Meta_.Wrap = property(get_Wrap, None)
 class _KnownAdaptiveNotificationTextStyles_Meta_(ComPtr.__class__):
     pass
 class KnownAdaptiveNotificationTextStyles(ComPtr, metaclass=_KnownAdaptiveNotificationTextStyles_Meta_):
@@ -1015,25 +1015,25 @@ class KnownAdaptiveNotificationTextStyles(ComPtr, metaclass=_KnownAdaptiveNotifi
     def get_HeaderSubtle(cls: win32more.Windows.UI.Notifications.IKnownAdaptiveNotificationTextStylesStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_HeaderNumeralSubtle(cls: win32more.Windows.UI.Notifications.IKnownAdaptiveNotificationTextStylesStatics) -> WinRT_String: ...
-    _KnownAdaptiveNotificationTextStyles_Meta_.Base = property(get_Base.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.BaseSubtle = property(get_BaseSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Body = property(get_Body.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.BodySubtle = property(get_BodySubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Caption = property(get_Caption.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.CaptionSubtle = property(get_CaptionSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Header = property(get_Header.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderNumeral = property(get_HeaderNumeral.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderNumeralSubtle = property(get_HeaderNumeralSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderSubtle = property(get_HeaderSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Subheader = property(get_Subheader.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderNumeral = property(get_SubheaderNumeral.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderNumeralSubtle = property(get_SubheaderNumeralSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderSubtle = property(get_SubheaderSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Subtitle = property(get_Subtitle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.SubtitleSubtle = property(get_SubtitleSubtle.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.Title = property(get_Title.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.TitleNumeral = property(get_TitleNumeral.__wrapped__, None)
-    _KnownAdaptiveNotificationTextStyles_Meta_.TitleSubtle = property(get_TitleSubtle.__wrapped__, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Base = property(get_Base, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.BaseSubtle = property(get_BaseSubtle, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Body = property(get_Body, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.BodySubtle = property(get_BodySubtle, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Caption = property(get_Caption, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.CaptionSubtle = property(get_CaptionSubtle, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Header = property(get_Header, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderNumeral = property(get_HeaderNumeral, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderNumeralSubtle = property(get_HeaderNumeralSubtle, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.HeaderSubtle = property(get_HeaderSubtle, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Subheader = property(get_Subheader, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderNumeral = property(get_SubheaderNumeral, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderNumeralSubtle = property(get_SubheaderNumeralSubtle, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.SubheaderSubtle = property(get_SubheaderSubtle, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Subtitle = property(get_Subtitle, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.SubtitleSubtle = property(get_SubtitleSubtle, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.Title = property(get_Title, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.TitleNumeral = property(get_TitleNumeral, None)
+    _KnownAdaptiveNotificationTextStyles_Meta_.TitleSubtle = property(get_TitleSubtle, None)
 class _KnownNotificationBindings_Meta_(ComPtr.__class__):
     pass
 class KnownNotificationBindings(ComPtr, metaclass=_KnownNotificationBindings_Meta_):
@@ -1041,7 +1041,7 @@ class KnownNotificationBindings(ComPtr, metaclass=_KnownNotificationBindings_Met
     _classid_ = 'Windows.UI.Notifications.KnownNotificationBindings'
     @winrt_classmethod
     def get_ToastGeneric(cls: win32more.Windows.UI.Notifications.IKnownNotificationBindingsStatics) -> WinRT_String: ...
-    _KnownNotificationBindings_Meta_.ToastGeneric = property(get_ToastGeneric.__wrapped__, None)
+    _KnownNotificationBindings_Meta_.ToastGeneric = property(get_ToastGeneric, None)
 class Notification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.INotification
@@ -1751,7 +1751,7 @@ class ToastNotificationManager(ComPtr, metaclass=_ToastNotificationManager_Meta_
     def CreateToastNotifierWithId(cls: win32more.Windows.UI.Notifications.IToastNotificationManagerStatics, applicationId: WinRT_String) -> win32more.Windows.UI.Notifications.ToastNotifier: ...
     @winrt_classmethod
     def GetTemplateContent(cls: win32more.Windows.UI.Notifications.IToastNotificationManagerStatics, type: win32more.Windows.UI.Notifications.ToastTemplateType) -> win32more.Windows.Data.Xml.Dom.XmlDocument: ...
-    _ToastNotificationManager_Meta_.History = property(get_History.__wrapped__, None)
+    _ToastNotificationManager_Meta_.History = property(get_History, None)
 class ToastNotificationManagerForUser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastNotificationManagerForUser

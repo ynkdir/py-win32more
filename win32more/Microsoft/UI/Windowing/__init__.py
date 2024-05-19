@@ -298,7 +298,7 @@ class DisplayArea(ComPtr, metaclass=_DisplayArea_Meta_):
     IsPrimary = property(get_IsPrimary, None)
     OuterBounds = property(get_OuterBounds, None)
     WorkArea = property(get_WorkArea, None)
-    _DisplayArea_Meta_.Primary = property(get_Primary.__wrapped__, None)
+    _DisplayArea_Meta_.Primary = property(get_Primary, None)
 class DisplayAreaFallback(Enum, Int32):
     None_ = 0
     Primary = 1
@@ -849,7 +849,7 @@ class OverlappedPresenter(ComPtr, metaclass=_OverlappedPresenter_Meta_):
     IsModal = property(get_IsModal, put_IsModal)
     IsResizable = property(get_IsResizable, put_IsResizable)
     State = property(get_State, None)
-    _OverlappedPresenter_Meta_.RequestedStartupState = property(get_RequestedStartupState.__wrapped__, None)
+    _OverlappedPresenter_Meta_.RequestedStartupState = property(get_RequestedStartupState, None)
 class OverlappedPresenterState(Enum, Int32):
     Maximized = 0
     Minimized = 1

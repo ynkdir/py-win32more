@@ -174,15 +174,15 @@ class KnownResourceQualifierName(ComPtr, metaclass=_KnownResourceQualifierName_M
     def get_TargetSize(cls: win32more.Microsoft.Windows.ApplicationModel.Resources.IKnownResourceQualifierNameStatics) -> WinRT_String: ...
     @winrt_classmethod
     def get_Theme(cls: win32more.Microsoft.Windows.ApplicationModel.Resources.IKnownResourceQualifierNameStatics) -> WinRT_String: ...
-    _KnownResourceQualifierName_Meta_.Contrast = property(get_Contrast.__wrapped__, None)
-    _KnownResourceQualifierName_Meta_.Custom = property(get_Custom.__wrapped__, None)
-    _KnownResourceQualifierName_Meta_.DeviceFamily = property(get_DeviceFamily.__wrapped__, None)
-    _KnownResourceQualifierName_Meta_.HomeRegion = property(get_HomeRegion.__wrapped__, None)
-    _KnownResourceQualifierName_Meta_.Language = property(get_Language.__wrapped__, None)
-    _KnownResourceQualifierName_Meta_.LayoutDirection = property(get_LayoutDirection.__wrapped__, None)
-    _KnownResourceQualifierName_Meta_.Scale = property(get_Scale.__wrapped__, None)
-    _KnownResourceQualifierName_Meta_.TargetSize = property(get_TargetSize.__wrapped__, None)
-    _KnownResourceQualifierName_Meta_.Theme = property(get_Theme.__wrapped__, None)
+    _KnownResourceQualifierName_Meta_.Contrast = property(get_Contrast, None)
+    _KnownResourceQualifierName_Meta_.Custom = property(get_Custom, None)
+    _KnownResourceQualifierName_Meta_.DeviceFamily = property(get_DeviceFamily, None)
+    _KnownResourceQualifierName_Meta_.HomeRegion = property(get_HomeRegion, None)
+    _KnownResourceQualifierName_Meta_.Language = property(get_Language, None)
+    _KnownResourceQualifierName_Meta_.LayoutDirection = property(get_LayoutDirection, None)
+    _KnownResourceQualifierName_Meta_.Scale = property(get_Scale, None)
+    _KnownResourceQualifierName_Meta_.TargetSize = property(get_TargetSize, None)
+    _KnownResourceQualifierName_Meta_.Theme = property(get_Theme, None)
 MrtCoreContract: UInt32 = 65536
 class ResourceCandidate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

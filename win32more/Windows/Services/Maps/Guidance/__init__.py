@@ -252,7 +252,7 @@ class GuidanceNavigator(ComPtr, metaclass=_GuidanceNavigator_Meta_):
     AudioMeasurementSystem = property(get_AudioMeasurementSystem, put_AudioMeasurementSystem)
     AudioNotifications = property(get_AudioNotifications, put_AudioNotifications)
     IsGuidanceAudioMuted = property(get_IsGuidanceAudioMuted, put_IsGuidanceAudioMuted)
-    _GuidanceNavigator_Meta_.UseAppProvidedVoice = property(get_UseAppProvidedVoice.__wrapped__, None)
+    _GuidanceNavigator_Meta_.UseAppProvidedVoice = property(get_UseAppProvidedVoice, None)
 class GuidanceReroutedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Maps.Guidance.IGuidanceReroutedEventArgs

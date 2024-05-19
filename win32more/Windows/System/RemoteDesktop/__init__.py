@@ -17,7 +17,7 @@ class InteractiveSession(ComPtr, metaclass=_InteractiveSession_Meta_):
     _classid_ = 'Windows.System.RemoteDesktop.InteractiveSession'
     @winrt_classmethod
     def get_IsRemote(cls: win32more.Windows.System.RemoteDesktop.IInteractiveSessionStatics) -> Boolean: ...
-    _InteractiveSession_Meta_.IsRemote = property(get_IsRemote.__wrapped__, None)
+    _InteractiveSession_Meta_.IsRemote = property(get_IsRemote, None)
 
 
 make_ready(__name__)

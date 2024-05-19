@@ -310,7 +310,7 @@ class XboxLiveDeviceAddress(ComPtr, metaclass=_XboxLiveDeviceAddress_Meta_):
     IsLocal = property(get_IsLocal, None)
     IsValid = property(get_IsValid, None)
     NetworkAccessKind = property(get_NetworkAccessKind, None)
-    _XboxLiveDeviceAddress_Meta_.MaxSnapshotBytesSize = property(get_MaxSnapshotBytesSize.__wrapped__, None)
+    _XboxLiveDeviceAddress_Meta_.MaxSnapshotBytesSize = property(get_MaxSnapshotBytesSize, None)
 class XboxLiveEndpointPair(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.XboxLive.IXboxLiveEndpointPair
@@ -440,7 +440,7 @@ class XboxLiveEndpointPairTemplate(ComPtr, metaclass=_XboxLiveEndpointPairTempla
     InitiatorBoundPortRangeUpper = property(get_InitiatorBoundPortRangeUpper, None)
     Name = property(get_Name, None)
     SocketKind = property(get_SocketKind, None)
-    _XboxLiveEndpointPairTemplate_Meta_.Templates = property(get_Templates.__wrapped__, None)
+    _XboxLiveEndpointPairTemplate_Meta_.Templates = property(get_Templates, None)
 class XboxLiveInboundEndpointPairCreatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.XboxLive.IXboxLiveInboundEndpointPairCreatedEventArgs
@@ -529,11 +529,11 @@ class XboxLiveQualityOfServiceMeasurement(ComPtr, metaclass=_XboxLiveQualityOfSe
     PrivatePayloadResults = property(get_PrivatePayloadResults, None)
     ShouldRequestPrivatePayloads = property(get_ShouldRequestPrivatePayloads, put_ShouldRequestPrivatePayloads)
     TimeoutInMilliseconds = property(get_TimeoutInMilliseconds, put_TimeoutInMilliseconds)
-    _XboxLiveQualityOfServiceMeasurement_Meta_.IsSystemInboundBandwidthConstrained = property(get_IsSystemInboundBandwidthConstrained.__wrapped__, put_IsSystemInboundBandwidthConstrained.__wrapped__)
-    _XboxLiveQualityOfServiceMeasurement_Meta_.IsSystemOutboundBandwidthConstrained = property(get_IsSystemOutboundBandwidthConstrained.__wrapped__, put_IsSystemOutboundBandwidthConstrained.__wrapped__)
-    _XboxLiveQualityOfServiceMeasurement_Meta_.MaxPrivatePayloadSize = property(get_MaxPrivatePayloadSize.__wrapped__, None)
-    _XboxLiveQualityOfServiceMeasurement_Meta_.MaxSimultaneousProbeConnections = property(get_MaxSimultaneousProbeConnections.__wrapped__, put_MaxSimultaneousProbeConnections.__wrapped__)
-    _XboxLiveQualityOfServiceMeasurement_Meta_.PublishedPrivatePayload = property(get_PublishedPrivatePayload.__wrapped__, put_PublishedPrivatePayload.__wrapped__)
+    _XboxLiveQualityOfServiceMeasurement_Meta_.IsSystemInboundBandwidthConstrained = property(get_IsSystemInboundBandwidthConstrained, put_IsSystemInboundBandwidthConstrained)
+    _XboxLiveQualityOfServiceMeasurement_Meta_.IsSystemOutboundBandwidthConstrained = property(get_IsSystemOutboundBandwidthConstrained, put_IsSystemOutboundBandwidthConstrained)
+    _XboxLiveQualityOfServiceMeasurement_Meta_.MaxPrivatePayloadSize = property(get_MaxPrivatePayloadSize, None)
+    _XboxLiveQualityOfServiceMeasurement_Meta_.MaxSimultaneousProbeConnections = property(get_MaxSimultaneousProbeConnections, put_MaxSimultaneousProbeConnections)
+    _XboxLiveQualityOfServiceMeasurement_Meta_.PublishedPrivatePayload = property(get_PublishedPrivatePayload, put_PublishedPrivatePayload)
 class XboxLiveQualityOfServiceMeasurementStatus(Enum, Int32):
     NotStarted = 0
     InProgress = 1

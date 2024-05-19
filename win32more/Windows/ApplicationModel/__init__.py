@@ -63,7 +63,7 @@ class AppInfo(ComPtr, metaclass=_AppInfo_Meta_):
     Package = property(get_Package, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
     SupportedFileExtensions = property(get_SupportedFileExtensions, None)
-    _AppInfo_Meta_.Current = property(get_Current.__wrapped__, None)
+    _AppInfo_Meta_.Current = property(get_Current, None)
 class AppInstallerInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IAppInstallerInfo
@@ -143,7 +143,7 @@ class AppInstance(ComPtr, metaclass=_AppInstance_Meta_):
     def GetInstances(cls: win32more.Windows.ApplicationModel.IAppInstanceStatics) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.ApplicationModel.AppInstance]: ...
     IsCurrentInstance = property(get_IsCurrentInstance, None)
     Key = property(get_Key, None)
-    _AppInstance_Meta_.RecommendedInstance = property(get_RecommendedInstance.__wrapped__, None)
+    _AppInstance_Meta_.RecommendedInstance = property(get_RecommendedInstance, None)
 class CameraApplicationManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.CameraApplicationManager'
@@ -158,8 +158,8 @@ class DesignMode(ComPtr, metaclass=_DesignMode_Meta_):
     def get_DesignMode2Enabled(cls: win32more.Windows.ApplicationModel.IDesignModeStatics2) -> Boolean: ...
     @winrt_classmethod
     def get_DesignModeEnabled(cls: win32more.Windows.ApplicationModel.IDesignModeStatics) -> Boolean: ...
-    _DesignMode_Meta_.DesignMode2Enabled = property(get_DesignMode2Enabled.__wrapped__, None)
-    _DesignMode_Meta_.DesignModeEnabled = property(get_DesignModeEnabled.__wrapped__, None)
+    _DesignMode_Meta_.DesignMode2Enabled = property(get_DesignMode2Enabled, None)
+    _DesignMode_Meta_.DesignModeEnabled = property(get_DesignModeEnabled, None)
 class EnteredBackgroundEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IEnteredBackgroundEventArgs
@@ -1185,7 +1185,7 @@ class Package(ComPtr, metaclass=_Package_Meta_):
     Status = property(get_Status, None)
     UserExternalLocation = property(get_UserExternalLocation, None)
     UserExternalPath = property(get_UserExternalPath, None)
-    _Package_Meta_.Current = property(get_Current.__wrapped__, None)
+    _Package_Meta_.Current = property(get_Current, None)
 class PackageCatalog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageCatalog
@@ -1291,7 +1291,7 @@ class PackageContentGroup(ComPtr, metaclass=_PackageContentGroup_Meta_):
     Name = property(get_Name, None)
     Package = property(get_Package, None)
     State = property(get_State, None)
-    _PackageContentGroup_Meta_.RequiredGroupName = property(get_RequiredGroupName.__wrapped__, None)
+    _PackageContentGroup_Meta_.RequiredGroupName = property(get_RequiredGroupName, None)
 class PackageContentGroupStagingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageContentGroupStagingEventArgs

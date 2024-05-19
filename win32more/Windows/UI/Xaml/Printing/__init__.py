@@ -184,7 +184,7 @@ class PrintDocument(ComPtr, metaclass=_PrintDocument_Meta_):
     @winrt_classmethod
     def get_DocumentSourceProperty(cls: win32more.Windows.UI.Xaml.Printing.IPrintDocumentStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     DocumentSource = property(get_DocumentSource, None)
-    _PrintDocument_Meta_.DocumentSourceProperty = property(get_DocumentSourceProperty.__wrapped__, None)
+    _PrintDocument_Meta_.DocumentSourceProperty = property(get_DocumentSourceProperty, None)
 
 
 make_ready(__name__)
