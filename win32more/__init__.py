@@ -115,11 +115,11 @@ class ComPtr(c_void_p):
         return instance
 
 
-def _struct_union_commit(cls):
-    # FIXME: not work for Union.
-    # if hasattr(cls, "_fields_"):
-    if "_fields_" in cls.__dict__:
-        return cls
+def _struct_union_commit(cls, start=True):
+    if start:
+        # First, register cls for circular reference.
+        module = sys.modules[cls.__module__]
+        setattr(module, cls.__name__, cls)
 
     hints = get_type_hints(cls)
 
@@ -128,8 +128,10 @@ def _struct_union_commit(cls):
         cls._anonymous_ = anonymous
 
     for type_ in hints.values():
-        if type_ is not cls and issubclass(type_, (Structure, Union)):
-            type_.__commit__()
+        # FIXME: hasattr(cls, "_fields_") not work for Union.
+        if issubclass(type_, (Structure, Union)) and "_fields_" not in type_.__dict__:
+            # nested struct or circular reference
+            _struct_union_commit(type_, False)
 
     cls._fields_ = list(hints.items())
 
@@ -475,7 +477,6 @@ class LazyLoader:
             prototype = self._lazyload.pop(name)
         except KeyError:
             raise AttributeError(f"module '{self._module.__name__}' has no attribute '{name}'") from None
-        setattr(self._module, name, prototype)
         setattr(self._module, name, prototype.__commit__())
         return getattr(self._module, name)
 
