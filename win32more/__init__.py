@@ -477,7 +477,11 @@ class LazyLoader:
             prototype = self._lazyload.pop(name)
         except KeyError:
             raise AttributeError(f"module '{self._module.__name__}' has no attribute '{name}'") from None
-        setattr(self._module, name, prototype.__commit__())
+        try:
+            setattr(self._module, name, prototype.__commit__())
+        except AttributeError as e:
+            # AttributeError will be ignored in __getattr__().
+            raise RuntimeError("Unexpected error") from e
         return getattr(self._module, name)
 
 
