@@ -123,15 +123,18 @@ def _struct_union_commit(cls, start=True):
 
     hints = get_type_hints(cls)
 
-    anonymous = [hint for hint in hints.keys() if re.match(r"^Anonymous\d*$", hint)]
-    if anonymous:
-        cls._anonymous_ = anonymous
-
     for type_ in hints.values():
-        # FIXME: hasattr(cls, "_fields_") not work for Union.
         if issubclass(type_, (Structure, Union)) and "_fields_" not in type_.__dict__:
             # nested struct or circular reference
             _struct_union_commit(type_, False)
+
+    # FIXME: hasattr(cls, "_fields_") not work for Union.
+    if "_fields_" in cls.__dict__:
+        return cls
+
+    anonymous = [name for name in hints.keys() if re.match(r"^Anonymous\d*$", name)]
+    if anonymous:
+        cls._anonymous_ = anonymous
 
     cls._fields_ = list(hints.items())
 
@@ -143,8 +146,8 @@ def _struct_union_commit(cls, start=True):
         if issubclass(type_, (c_char_p, c_wchar_p)):
             setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
 
-    for hint in anonymous:
-        hints.update(hints[hint]._hints_)
+    for name in anonymous:
+        hints.update(hints[name]._hints_)
 
     cls._hints_ = hints
 
