@@ -366,9 +366,9 @@ class ForeignFunctionCall:
         return cargs, ckwargs
 
     def make_result(self, result, _as_intptr):
-        if _as_intptr:
-            return cast(result, c_void_p).value
-        elif self._restype is c_char_p or self._restype is c_wchar_p:
+        if self._restype is c_char_p or self._restype is c_wchar_p:
+            if _as_intptr:
+                return result
             return self._restype(result).value
         return result
 
@@ -414,9 +414,9 @@ class ComMethodCall:
         return cargs, ckwargs
 
     def make_result(self, result, _as_intptr):
-        if _as_intptr:
-            return cast(result, c_void_p).value
-        elif self._restype is c_char_p or self._restype is c_wchar_p:
+        if self._restype is c_char_p or self._restype is c_wchar_p:
+            if _as_intptr:
+                return result
             return self._restype(result).value
         return result
 
