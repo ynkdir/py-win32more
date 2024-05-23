@@ -110,7 +110,7 @@ def MddBootstrapInitialize2(
 ) -> int:
     if _IsPackagedProcess() and not _IsWin11():
         raise NotImplementedError("Packaged process is not supported before Windows 11")
-    elif _IsWin11():
+    elif False and _IsWin11():  # FIXME: "Class not registered" for AppNotifications
         hr = _Initialize_Win11(_GetFrameworkPackageFamilyName(major_minor_version, version_tag), min_version)
         if FAILED(hr):
             if hr == STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED:
