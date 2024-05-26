@@ -31,7 +31,6 @@ if sys.version_info < (3, 8):
 else:
     from typing import get_args, get_origin
 
-import win32more.Windows.Win32.System.Com
 from win32more import (
     FAILED,
     Boolean,
@@ -58,6 +57,7 @@ from win32more.Windows.Win32.Foundation import (
     HRESULT,
     S_OK,
 )
+from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, CoTaskMemFree, IUnknown
 from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
     IInspectable,
@@ -76,6 +76,29 @@ TResult = TypeVar("TResult")
 TSender = TypeVar("TSender")
 
 logger = logging.getLogger(__name__)
+
+
+def IInspectable_as(self, cls):
+    if is_generic_alias(cls):
+        iid = _ro_get_parameterized_type_instance_iid(cls)
+    elif "_iid_" in cls.__dict__:
+        iid = cls._iid_
+    elif "default_interface" in cls._hints_:
+        iid = cls._hints_["default_interface"]._iid_
+    else:
+        raise RuntimeError("no _iid_ found")
+    instance = cls(own=True)
+    hr = self.QueryInterface(pointer(iid), pointer(instance))
+    if FAILED(hr):
+        raise WinError(hr)
+    return instance
+
+
+IInspectable.as_ = IInspectable_as
+
+
+def winrt_easycast(obj, type_):
+    return easycast(obj, type_)
 
 
 def generic_get_type_hints(prototype, cls):
@@ -166,7 +189,7 @@ class ReceiveArray(Generic[T]):
                 p._own = True
         else:
             self.lst[:] = self.ptr[: self.length.value]
-        win32more.Windows.Win32.System.Com.CoTaskMemFree(self.ptr)
+        CoTaskMemFree(self.ptr)
 
 
 # FIXME: Not work for array and struct entry.
@@ -335,7 +358,7 @@ class WinrtMethodCall:
                 elif is_com_instance(v) and is_com_class(self.hints[k]):
                     cargs.append(v.as_(self.hints[k]))
                 else:
-                    cargs.append(easycast(v, self.hints[k]))
+                    cargs.append(winrt_easycast(v, self.hints[k]))
             else:
                 cargs.append(v)
         ckwargs = {}
@@ -360,7 +383,7 @@ class WinrtMethodCall:
                 elif is_com_instance(v) and is_com_class(self.hints[k]):
                     ckwargs[k] = v.as_(self.hints[k])
                 else:
-                    ckwargs[k] = easycast(v, self.hints[k])
+                    ckwargs[k] = winrt_easycast(v, self.hints[k])
             else:
                 ckwargs[k] = v
         return cargs, ckwargs
@@ -701,7 +724,7 @@ class Vtbl(Structure):
             if not isinstance(r, list):
                 raise ValueError(f"list is expected: {r}")
             # FIXME: if len(r) == 0: p = 0 ?
-            p = win32more.Windows.Win32.System.Com.CoTaskMemAlloc(sizeof(c_void_p) * len(r))
+            p = CoTaskMemAlloc(sizeof(c_void_p) * len(r))
             if p == 0:
                 raise WinError()
             return_length[0] = len(r)
@@ -723,7 +746,7 @@ class Vtbl(Structure):
             return_pointer[0] = r
 
 
-class MulticastDelegate(win32more.Windows.Win32.System.Com.IUnknown):
+class MulticastDelegate(IUnknown):
     pass
 
 
@@ -748,7 +771,7 @@ class MulticastDelegateImpl(ComPtr):
         self.AddRef()
 
     def QueryInterface(self, riid, ppvObject):
-        if riid[0] == win32more.Windows.Win32.System.Com.IUnknown._iid_:
+        if riid[0] == IUnknown._iid_:
             ppvObject[0] = addressof(self._vtbl)
             self.AddRef()
             return S_OK
