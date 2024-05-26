@@ -12,6 +12,7 @@ from ctypes import (
 )
 
 from win32more import (
+    ComPtr,
     ForeignFunctionCall,
     Int16,
     Structure,
@@ -222,6 +223,17 @@ class TestEasyCast(unittest.TestCase):
         g(lambda: 99)
         r = h()
         self.assertEqual(r, 99)
+
+    def test_disable_cast_to_comptr_from_str_and_bytes(self):
+        @functype
+        def f(a: ComPtr) -> Void:
+            pass
+
+        with self.assertRaises(TypeError):
+            f("str")
+
+        with self.assertRaises(TypeError):
+            f(b"bytes")
 
 
 if __name__ == "__main__":

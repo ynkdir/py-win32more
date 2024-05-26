@@ -211,6 +211,10 @@ def easycast(obj, type_):
         if isinstance(obj, int):
             # function doesn't support this conversion, though struct does it.
             return type_(obj)
+    elif issubclass(type_, ComPtr):
+        if isinstance(obj, (str, bytes)):
+            # disable default conversion
+            raise TypeError(f"cannot convert from {type(obj)} to ComPtr")
     elif issubclass(type_, c_void_p):
         if isinstance(obj, Array):
             # struct doesn't support this conversion, though function does it.
