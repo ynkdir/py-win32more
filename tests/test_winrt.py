@@ -167,14 +167,14 @@ class TestWinrt(unittest.TestCase):
 
     def test_box_value(self):
         self.assertIsInstance(box_value("str"), IInspectable)
-        self.assertEqual(unbox_value(str, box_value("str")), "str")
+        self.assertEqual(unbox_value(box_value("str")), "str")
         self.assertEqual(box_value("str").as_(str), "str")
 
         with self.assertRaises(OSError):  # E_NOINTERFACE
-            unbox_value(str, StringMap.CreateInstance())
+            unbox_value(StringMap.CreateInstance())
 
-        with self.assertRaises(OSError):  # TYPE_E_TYPEMISMATCH
-            unbox_value(str, PropertyValue.CreateInt32(42))
+        with self.assertRaises(NotImplementedError):
+            unbox_value(PropertyValue.CreateInt32(42))
 
         with self.assertRaises(AttributeError):  # 'str' object has not attribute 'as_'
-            unbox_value(str, "non com object")
+            unbox_value("non com object")
