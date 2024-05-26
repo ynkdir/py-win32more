@@ -5,7 +5,7 @@ from win32more._winrt import Vtbl
 from win32more.Microsoft.UI.Xaml import Application, Window
 from win32more.Microsoft.UI.Xaml.Controls import Button
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector
-from win32more.Windows.Foundation import IPropertyValue, PropertyValue, Uri
+from win32more.Windows.Foundation import Uri
 from win32more.Windows.Win32.Foundation import S_OK
 from win32more.Windows.Win32.System.Com import IUnknown
 from win32more.Windows.Win32.System.WinRT import IInspectable
@@ -87,12 +87,12 @@ class MainWindow(Window):
         return None
 
     def Button1_OnClick(self, sender, e):
-        text = self.Button1.Content.as_(IPropertyValue).GetString()
-        self.Button1.Content = PropertyValue.CreateString(f"[{text}]")
+        text = self.Button1.Content.as_(str)
+        self.Button1.Content = f"[{text}]"
 
     def Button2_OnClick(self, sender, e):
-        text = self.Button2.Content.as_(IPropertyValue).GetString()
-        self.Button2.Content = PropertyValue.CreateString(f"({text})")
+        text = self.Button2.Content.as_(str)
+        self.Button2.Content = f"({text})"
 
 
 class App(XamlApplication):
