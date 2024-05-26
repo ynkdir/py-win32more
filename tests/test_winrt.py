@@ -6,7 +6,7 @@ from ctypes import (
 from pathlib import Path
 
 from win32more import FAILED
-from win32more._winrt import _ro_get_parameterized_type_instance_iid
+from win32more._winrt import _ro_get_parameterized_type_instance_iid, box_value, unbox_value
 from win32more.Windows.Devices.Display import DisplayMonitor, DisplayMonitorDescriptorKind
 from win32more.Windows.Devices.Enumeration import DeviceInformation
 from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
@@ -164,3 +164,17 @@ class TestWinrt(unittest.TestCase):
                 await ThreadPool.RunAsync(worker)
 
         asyncio.run(mainloop(main()))
+
+    def test_box_value(self):
+        self.assertIsInstance(box_value("str"), IInspectable)
+        self.assertEqual(unbox_value(str, box_value("str")), "str")
+        self.assertEqual(box_value("str").as_(str), "str")
+
+        with self.assertRaises(OSError):  # E_NOINTERFACE
+            unbox_value(str, StringMap.CreateInstance())
+
+        with self.assertRaises(OSError):  # TYPE_E_TYPEMISMATCH
+            unbox_value(str, PropertyValue.CreateInt32(42))
+
+        with self.assertRaises(AttributeError):  # 'str' object has not attribute 'as_'
+            unbox_value(str, "non com object")

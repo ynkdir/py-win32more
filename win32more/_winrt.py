@@ -79,7 +79,9 @@ logger = logging.getLogger(__name__)
 
 
 def IInspectable_as(self, cls):
-    if is_generic_alias(cls):
+    if cls is str:
+        return unbox_value(cls, self)
+    elif is_generic_alias(cls):
         iid = _ro_get_parameterized_type_instance_iid(cls)
     elif "_iid_" in cls.__dict__:
         iid = cls._iid_
@@ -98,7 +100,27 @@ IInspectable.as_ = IInspectable_as
 
 
 def winrt_easycast(obj, type_):
+    if type_ is IInspectable:
+        if isinstance(obj, str):
+            return box_value(obj)
     return easycast(obj, type_)
+
+
+def box_value(value: str) -> IInspectable:
+    from win32more.Windows.Foundation import PropertyValue
+
+    if isinstance(value, str):
+        return PropertyValue.CreateString(value)
+    raise NotImplementedError(f"box_value: {type(value)}")
+
+
+def unbox_value(type_: type[T], value: IInspectable) -> T:
+    from win32more.Windows.Foundation import IPropertyValue
+
+    property_value = value.as_(IPropertyValue)
+    if type_ is str:
+        return property_value.GetString()
+    raise NotImplementedError(f"unbox_value: {type_}")
 
 
 def generic_get_type_hints(prototype, cls):
