@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Xml.Dom
 import win32more.Windows.Devices.Sms
 import win32more.Windows.Foundation
@@ -73,6 +73,7 @@ class ESim(ComPtr):
     Policy = property(get_Policy, None)
     SlotIndex = property(get_SlotIndex, None)
     State = property(get_State, None)
+    ProfileChanged = event()
 class ESimAddedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IESimAddedEventArgs
@@ -260,6 +261,7 @@ class ESimProfileMetadata(ComPtr):
     ProviderId = property(get_ProviderId, None)
     ProviderName = property(get_ProviderName, None)
     State = property(get_State, None)
+    StateChanged = event()
 class ESimProfileMetadataState(Enum, Int32):
     Unknown = 0
     WaitingForInstall = 1
@@ -347,6 +349,11 @@ class ESimWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Windows.Networking.NetworkOperators.IESimWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    EnumerationCompleted = event()
+    Removed = event()
+    Stopped = event()
+    Updated = event()
 class ESimWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -454,6 +461,7 @@ class IESim(ComPtr):
     MobileBroadbandModemDeviceId = property(get_MobileBroadbandModemDeviceId, None)
     Policy = property(get_Policy, None)
     State = property(get_State, None)
+    ProfileChanged = event()
 class IESim2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IESim2'
@@ -529,6 +537,7 @@ class IESimManagerStatics(ComPtr):
     @winrt_commethod(9)
     def remove_ServiceInfoChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ServiceInfo = property(get_ServiceInfo, None)
+    ServiceInfoChanged = event()
 class IESimOperationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IESimOperationResult'
@@ -614,6 +623,7 @@ class IESimProfileMetadata(ComPtr):
     ProviderId = property(get_ProviderId, None)
     ProviderName = property(get_ProviderName, None)
     State = property(get_State, None)
+    StateChanged = event()
 class IESimProfilePolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IESimProfilePolicy'
@@ -682,6 +692,11 @@ class IESimWatcher(ComPtr):
     @winrt_commethod(18)
     def remove_Updated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    EnumerationCompleted = event()
+    Removed = event()
+    Stopped = event()
+    Updated = event()
 class IFdnAccessManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IFdnAccessManagerStatics'
@@ -903,6 +918,11 @@ class IMobileBroadbandAccountWatcher(ComPtr):
     @winrt_commethod(18)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
+    AccountAdded = event()
+    AccountUpdated = event()
+    AccountRemoved = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class IMobileBroadbandAntennaSar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandAntennaSar'
@@ -1270,6 +1290,7 @@ class IMobileBroadbandDeviceServiceDataSession(ComPtr):
     def add_DataReceived(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceDataSession, win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceDataReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_DataReceived(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DataReceived = event()
 class IMobileBroadbandDeviceServiceInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceInformation'
@@ -1355,6 +1376,7 @@ class IMobileBroadbandModem3(ComPtr):
     @winrt_commethod(9)
     def remove_IsInEmergencyCallModeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsInEmergencyCallMode = property(get_IsInEmergencyCallMode, None)
+    IsInEmergencyCallModeChanged = event()
 class IMobileBroadbandModem4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandModem4'
@@ -1630,6 +1652,7 @@ class IMobileBroadbandSarManager(ComPtr):
     IsBackoffEnabled = property(get_IsBackoffEnabled, None)
     IsSarControlledByHardware = property(get_IsSarControlledByHardware, None)
     IsWiFiHardwareIntegrated = property(get_IsWiFiHardwareIntegrated, None)
+    TransmissionStateChanged = event()
 class IMobileBroadbandSlotInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandSlotInfo'
@@ -1676,6 +1699,8 @@ class IMobileBroadbandSlotManager(ComPtr):
     def remove_CurrentSlotIndexChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CurrentSlotIndex = property(get_CurrentSlotIndex, None)
     SlotInfos = property(get_SlotInfos, None)
+    SlotInfoChanged = event()
+    CurrentSlotIndexChanged = event()
 class IMobileBroadbandTransmissionStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandTransmissionStateChangedEventArgs'
@@ -2143,6 +2168,11 @@ class MobileBroadbandAccountWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher) -> Void: ...
     Status = property(get_Status, None)
+    AccountAdded = event()
+    AccountUpdated = event()
+    AccountRemoved = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class MobileBroadbandAccountWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -2503,6 +2533,7 @@ class MobileBroadbandDeviceServiceDataSession(ComPtr):
     def add_DataReceived(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceDataSession, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceDataSession, win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceDataReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DataReceived(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceDataSession, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DataReceived = event()
 class MobileBroadbandDeviceServiceInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceInformation
@@ -2595,6 +2626,7 @@ class MobileBroadbandModem(ComPtr):
     IsResetSupported = property(get_IsResetSupported, None)
     MaxDeviceServiceCommandSizeInBytes = property(get_MaxDeviceServiceCommandSizeInBytes, None)
     MaxDeviceServiceDataSizeInBytes = property(get_MaxDeviceServiceDataSizeInBytes, None)
+    IsInEmergencyCallModeChanged = event()
 class MobileBroadbandModemConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModemConfiguration
@@ -2868,6 +2900,7 @@ class MobileBroadbandSarManager(ComPtr):
     IsBackoffEnabled = property(get_IsBackoffEnabled, None)
     IsSarControlledByHardware = property(get_IsSarControlledByHardware, None)
     IsWiFiHardwareIntegrated = property(get_IsWiFiHardwareIntegrated, None)
+    TransmissionStateChanged = event()
 class MobileBroadbandSlotInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandSlotInfo
@@ -2910,6 +2943,8 @@ class MobileBroadbandSlotManager(ComPtr):
     def remove_CurrentSlotIndexChanged(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandSlotManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CurrentSlotIndex = property(get_CurrentSlotIndex, None)
     SlotInfos = property(get_SlotInfos, None)
+    SlotInfoChanged = event()
+    CurrentSlotIndexChanged = event()
 class MobileBroadbandSlotState(Enum, Int32):
     Unmanaged = 0
     Unknown = 1

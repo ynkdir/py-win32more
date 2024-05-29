@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.ApplicationModel.Core
@@ -662,6 +662,11 @@ class IPackageCatalog(ComPtr):
     def add_PackageStatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.PackageCatalog, win32more.Windows.ApplicationModel.PackageStatusChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_PackageStatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    PackageStaging = event()
+    PackageInstalling = event()
+    PackageUpdating = event()
+    PackageUninstalling = event()
+    PackageStatusChanged = event()
 class IPackageCatalog2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageCatalog2'
@@ -672,6 +677,7 @@ class IPackageCatalog2(ComPtr):
     def remove_PackageContentGroupStaging(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def AddOptionalPackageAsync(self, optionalPackageFamilyName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.PackageCatalogAddOptionalPackageResult]: ...
+    PackageContentGroupStaging = event()
 class IPackageCatalog3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IPackageCatalog3'
@@ -1228,6 +1234,12 @@ class PackageCatalog(ComPtr):
     def OpenForCurrentPackage(cls: win32more.Windows.ApplicationModel.IPackageCatalogStatics) -> win32more.Windows.ApplicationModel.PackageCatalog: ...
     @winrt_classmethod
     def OpenForCurrentUser(cls: win32more.Windows.ApplicationModel.IPackageCatalogStatics) -> win32more.Windows.ApplicationModel.PackageCatalog: ...
+    PackageStaging = event()
+    PackageInstalling = event()
+    PackageUpdating = event()
+    PackageUninstalling = event()
+    PackageStatusChanged = event()
+    PackageContentGroupStaging = event()
 class PackageCatalogAddOptionalPackageResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.IPackageCatalogAddOptionalPackageResult

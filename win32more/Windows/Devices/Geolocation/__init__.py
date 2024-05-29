@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -253,6 +253,8 @@ class Geolocator(ComPtr, metaclass=_Geolocator_Meta_):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     _Geolocator_Meta_.DefaultGeoposition = property(get_DefaultGeoposition, put_DefaultGeoposition)
     _Geolocator_Meta_.IsDefaultGeopositionRecommended = property(get_IsDefaultGeopositionRecommended, None)
+    PositionChanged = event()
+    StatusChanged = event()
 class Geopath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeopath
@@ -376,6 +378,7 @@ class GeovisitMonitor(ComPtr):
     @winrt_classmethod
     def GetLastReportAsync(cls: win32more.Windows.Devices.Geolocation.IGeovisitMonitorStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Geolocation.Geovisit]: ...
     MonitoringScope = property(get_MonitoringScope, None)
+    VisitStateChanged = event()
 class GeovisitStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeovisitStateChangedEventArgs
@@ -583,6 +586,8 @@ class IGeolocator(ComPtr):
     LocationStatus = property(get_LocationStatus, None)
     MovementThreshold = property(get_MovementThreshold, put_MovementThreshold)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    PositionChanged = event()
+    StatusChanged = event()
 class IGeolocator2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeolocator2'
@@ -712,6 +717,7 @@ class IGeovisitMonitor(ComPtr):
     @winrt_commethod(10)
     def remove_VisitStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MonitoringScope = property(get_MonitoringScope, None)
+    VisitStateChanged = event()
 class IGeovisitMonitorStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.IGeovisitMonitorStatics'

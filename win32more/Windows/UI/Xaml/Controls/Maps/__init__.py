@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -30,6 +30,7 @@ class CustomMapTileDataSource(ComPtr):
     def add_BitmapRequested(self: win32more.Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource, win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_BitmapRequested(self: win32more.Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BitmapRequested = event()
 class HttpMapTileDataSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Maps.MapTileDataSource
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSource
@@ -64,6 +65,7 @@ class HttpMapTileDataSource(ComPtr):
     AdditionalRequestHeaders = property(get_AdditionalRequestHeaders, None)
     AllowCaching = property(get_AllowCaching, put_AllowCaching)
     UriFormatString = property(get_UriFormatString, put_UriFormatString)
+    UriRequested = event()
 class ICustomMapTileDataSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSource'
@@ -72,6 +74,7 @@ class ICustomMapTileDataSource(ComPtr):
     def add_BitmapRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource, win32more.Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_BitmapRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BitmapRequested = event()
 class ICustomMapTileDataSourceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.ICustomMapTileDataSourceFactory'
@@ -99,6 +102,7 @@ class IHttpMapTileDataSource(ComPtr):
     AdditionalRequestHeaders = property(get_AdditionalRequestHeaders, None)
     AllowCaching = property(get_AllowCaching, put_AllowCaching)
     UriFormatString = property(get_UriFormatString, put_UriFormatString)
+    UriRequested = event()
 class IHttpMapTileDataSourceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSourceFactory'
@@ -120,6 +124,7 @@ class ILocalMapTileDataSource(ComPtr):
     @winrt_commethod(9)
     def remove_UriRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     UriFormatString = property(get_UriFormatString, put_UriFormatString)
+    UriRequested = event()
 class ILocalMapTileDataSourceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSourceFactory'
@@ -398,6 +403,15 @@ class IMapControl(ComPtr):
     TransformOrigin = property(get_TransformOrigin, put_TransformOrigin)
     WatermarkMode = property(get_WatermarkMode, put_WatermarkMode)
     ZoomLevel = property(get_ZoomLevel, put_ZoomLevel)
+    CenterChanged = event()
+    HeadingChanged = event()
+    LoadingStatusChanged = event()
+    MapDoubleTapped = event()
+    MapHolding = event()
+    MapTapped = event()
+    PitchChanged = event()
+    TransformOriginChanged = event()
+    ZoomLevelChanged = event()
 class IMapControl2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapControl2'
@@ -512,6 +526,13 @@ class IMapControl2(ComPtr):
     TiltInteractionMode = property(get_TiltInteractionMode, put_TiltInteractionMode)
     TransitFeaturesVisible = property(get_TransitFeaturesVisible, put_TransitFeaturesVisible)
     ZoomInteractionMode = property(get_ZoomInteractionMode, put_ZoomInteractionMode)
+    MapElementClick = event()
+    MapElementPointerEntered = event()
+    MapElementPointerExited = event()
+    ActualCameraChanged = event()
+    ActualCameraChanging = event()
+    TargetCameraChanged = event()
+    CustomExperienceChanged = event()
 class IMapControl3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapControl3'
@@ -520,6 +541,7 @@ class IMapControl3(ComPtr):
     def add_MapRightTapped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.UI.Xaml.Controls.Maps.MapRightTappedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_MapRightTapped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    MapRightTapped = event()
 class IMapControl4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapControl4'
@@ -571,6 +593,7 @@ class IMapControl5(ComPtr):
     MapProjection = property(get_MapProjection, put_MapProjection)
     StyleSheet = property(get_StyleSheet, put_StyleSheet)
     ViewPadding = property(get_ViewPadding, put_ViewPadding)
+    MapContextRequested = event()
 class IMapControl6(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapControl6'
@@ -657,6 +680,10 @@ class IMapControlDataHelper(ComPtr):
     def add_TransitFeatureRightTapped(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_TransitFeatureRightTapped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BusinessLandmarkClick = event()
+    TransitFeatureClick = event()
+    BusinessLandmarkRightTapped = event()
+    TransitFeatureRightTapped = event()
 class IMapControlDataHelper2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapControlDataHelper2'
@@ -677,6 +704,10 @@ class IMapControlDataHelper2(ComPtr):
     def add_TransitFeaturePointerExited(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.Controls.Maps.MapControl, win32more.Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerExitedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_TransitFeaturePointerExited(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BusinessLandmarkPointerEntered = event()
+    TransitFeaturePointerEntered = event()
+    BusinessLandmarkPointerExited = event()
+    TransitFeaturePointerExited = event()
 class IMapControlDataHelperFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapControlDataHelperFactory'
@@ -1122,6 +1153,10 @@ class IMapElementsLayer(ComPtr):
     @winrt_commethod(15)
     def remove_MapContextRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MapElements = property(get_MapElements, put_MapElements)
+    MapElementClick = event()
+    MapElementPointerEntered = event()
+    MapElementPointerExited = event()
+    MapContextRequested = event()
 class IMapElementsLayerClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapElementsLayerClickEventArgs'
@@ -1457,6 +1492,7 @@ class IMapScene(ComPtr):
     @winrt_commethod(8)
     def remove_TargetCameraChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     TargetCamera = property(get_TargetCamera, None)
+    TargetCameraChanged = event()
 class IMapSceneStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Controls.Maps.IMapSceneStatics'
@@ -2055,6 +2091,7 @@ class LocalMapTileDataSource(ComPtr):
     @winrt_mixinmethod
     def remove_UriRequested(self: win32more.Windows.UI.Xaml.Controls.Maps.ILocalMapTileDataSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     UriFormatString = property(get_UriFormatString, put_UriFormatString)
+    UriRequested = event()
 class MapActualCameraChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapActualCameraChangedEventArgs
@@ -2688,6 +2725,24 @@ class MapControl(ComPtr, metaclass=_MapControl_Meta_):
     _MapControl_Meta_.WatermarkModeProperty = property(get_WatermarkModeProperty, None)
     _MapControl_Meta_.ZoomInteractionModeProperty = property(get_ZoomInteractionModeProperty, None)
     _MapControl_Meta_.ZoomLevelProperty = property(get_ZoomLevelProperty, None)
+    CenterChanged = event()
+    HeadingChanged = event()
+    LoadingStatusChanged = event()
+    MapDoubleTapped = event()
+    MapHolding = event()
+    MapTapped = event()
+    PitchChanged = event()
+    TransformOriginChanged = event()
+    ZoomLevelChanged = event()
+    MapElementClick = event()
+    MapElementPointerEntered = event()
+    MapElementPointerExited = event()
+    ActualCameraChanged = event()
+    ActualCameraChanging = event()
+    TargetCameraChanged = event()
+    CustomExperienceChanged = event()
+    MapRightTapped = event()
+    MapContextRequested = event()
 class MapControlBusinessLandmarkClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkClickEventArgs
@@ -2799,6 +2854,14 @@ class MapControlDataHelper(ComPtr):
     def remove_TransitFeaturePointerExited(self: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlDataHelper2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def CreateMapControl(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlDataHelperStatics, rasterRenderMode: Boolean) -> win32more.Windows.UI.Xaml.Controls.Maps.MapControl: ...
+    BusinessLandmarkClick = event()
+    TransitFeatureClick = event()
+    BusinessLandmarkRightTapped = event()
+    TransitFeatureRightTapped = event()
+    BusinessLandmarkPointerEntered = event()
+    TransitFeaturePointerEntered = event()
+    BusinessLandmarkPointerExited = event()
+    TransitFeaturePointerExited = event()
 class MapControlTransitFeatureClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapControlTransitFeatureClickEventArgs
@@ -3152,6 +3215,10 @@ class MapElementsLayer(ComPtr, metaclass=_MapElementsLayer_Meta_):
     def get_MapElementsProperty(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementsLayerStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     MapElements = property(get_MapElements, put_MapElements)
     _MapElementsLayer_Meta_.MapElementsProperty = property(get_MapElementsProperty, None)
+    MapElementClick = event()
+    MapElementPointerEntered = event()
+    MapElementPointerExited = event()
+    MapContextRequested = event()
 class MapElementsLayerClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Maps.IMapElementsLayerClickEventArgs
@@ -3595,6 +3662,7 @@ class MapScene(ComPtr):
     @winrt_classmethod
     def CreateFromLocationsWithHeadingAndPitch(cls: win32more.Windows.UI.Xaml.Controls.Maps.IMapSceneStatics, locations: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Geolocation.Geopoint], headingInDegrees: Double, pitchInDegrees: Double) -> win32more.Windows.UI.Xaml.Controls.Maps.MapScene: ...
     TargetCamera = property(get_TargetCamera, None)
+    TargetCameraChanged = event()
 class MapStyle(Enum, Int32):
     None_ = 0
     Road = 1

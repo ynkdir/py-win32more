@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Dispatching
 import win32more.Microsoft.UI.Windowing
@@ -108,6 +108,9 @@ class AppWindow(ComPtr):
     Size = property(get_Size, None)
     Title = property(get_Title, put_Title)
     TitleBar = property(get_TitleBar, None)
+    Closing = event()
+    Changed = event()
+    Destroying = event()
 class AppWindowChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindowChangedEventArgs
@@ -334,6 +337,11 @@ class DisplayAreaWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    EnumerationCompleted = event()
+    Removed = event()
+    Stopped = event()
+    Updated = event()
 class DisplayAreaWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -418,6 +426,9 @@ class IAppWindow(ComPtr):
     Size = property(get_Size, None)
     Title = property(get_Title, put_Title)
     TitleBar = property(get_TitleBar, None)
+    Changed = event()
+    Closing = event()
+    Destroying = event()
 class IAppWindow2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindow2'
@@ -701,6 +712,11 @@ class IDisplayAreaWatcher(ComPtr):
     @winrt_commethod(18)
     def remove_Updated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    EnumerationCompleted = event()
+    Removed = event()
+    Stopped = event()
+    Updated = event()
 class IFullScreenPresenter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IFullScreenPresenter'

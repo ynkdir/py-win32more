@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Bluetooth
 import win32more.Windows.Devices.Bluetooth.GenericAttributeProfile
 import win32more.Windows.Devices.Enumeration
@@ -71,6 +71,7 @@ class GattCharacteristic(ComPtr):
     Service = property(get_Service, None)
     UserDescription = property(get_UserDescription, None)
     Uuid = property(get_Uuid, None)
+    ValueChanged = event()
 class GattCharacteristicProperties(Enum, UInt32):
     None_ = 0
     Broadcast = 1
@@ -568,6 +569,9 @@ class GattLocalCharacteristic(ComPtr):
     UserDescription = property(get_UserDescription, None)
     Uuid = property(get_Uuid, None)
     WriteProtectionLevel = property(get_WriteProtectionLevel, None)
+    SubscribedClientsChanged = event()
+    ReadRequested = event()
+    WriteRequested = event()
 class GattLocalCharacteristicParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicParameters
@@ -643,6 +647,8 @@ class GattLocalDescriptor(ComPtr):
     StaticValue = property(get_StaticValue, None)
     Uuid = property(get_Uuid, None)
     WriteProtectionLevel = property(get_WriteProtectionLevel, None)
+    ReadRequested = event()
+    WriteRequested = event()
 class GattLocalDescriptorParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptorParameters
@@ -907,6 +913,7 @@ class GattReadRequest(ComPtr):
     Length = property(get_Length, None)
     Offset = property(get_Offset, None)
     State = property(get_State, None)
+    StateChanged = event()
 class GattReadRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadRequestedEventArgs
@@ -986,6 +993,7 @@ class GattServiceProvider(ComPtr):
     def CreateAsync(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderStatics, serviceUuid: Guid) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderResult]: ...
     AdvertisementStatus = property(get_AdvertisementStatus, None)
     Service = property(get_Service, None)
+    AdvertisementStatusChanged = event()
 class GattServiceProviderAdvertisementStatus(Enum, Int32):
     Created = 0
     Stopped = 1
@@ -1144,6 +1152,8 @@ class GattSession(ComPtr):
     MaintainConnection = property(get_MaintainConnection, put_MaintainConnection)
     MaxPduSize = property(get_MaxPduSize, None)
     SessionStatus = property(get_SessionStatus, None)
+    MaxPduSizeChanged = event()
+    SessionStatusChanged = event()
 class GattSessionStatus(Enum, Int32):
     Closed = 0
     Active = 1
@@ -1176,6 +1186,7 @@ class GattSubscribedClient(ComPtr):
     def remove_MaxNotificationSizeChanged(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSubscribedClient, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MaxNotificationSize = property(get_MaxNotificationSize, None)
     Session = property(get_Session, None)
+    MaxNotificationSizeChanged = event()
 class GattValueChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattValueChangedEventArgs
@@ -1213,6 +1224,7 @@ class GattWriteRequest(ComPtr):
     Option = property(get_Option, None)
     State = property(get_State, None)
     Value = property(get_Value, None)
+    StateChanged = event()
 class GattWriteRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequestedEventArgs
@@ -1276,6 +1288,7 @@ class IGattCharacteristic(ComPtr):
     ProtectionLevel = property(get_ProtectionLevel, put_ProtectionLevel)
     UserDescription = property(get_UserDescription, None)
     Uuid = property(get_Uuid, None)
+    ValueChanged = event()
 class IGattCharacteristic2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattCharacteristic2'
@@ -1813,6 +1826,9 @@ class IGattLocalCharacteristic(ComPtr):
     UserDescription = property(get_UserDescription, None)
     Uuid = property(get_Uuid, None)
     WriteProtectionLevel = property(get_WriteProtectionLevel, None)
+    SubscribedClientsChanged = event()
+    ReadRequested = event()
+    WriteRequested = event()
 class IGattLocalCharacteristicParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicParameters'
@@ -1879,6 +1895,8 @@ class IGattLocalDescriptor(ComPtr):
     StaticValue = property(get_StaticValue, None)
     Uuid = property(get_Uuid, None)
     WriteProtectionLevel = property(get_WriteProtectionLevel, None)
+    ReadRequested = event()
+    WriteRequested = event()
 class IGattLocalDescriptorParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptorParameters'
@@ -2130,6 +2148,7 @@ class IGattReadRequest(ComPtr):
     Length = property(get_Length, None)
     Offset = property(get_Offset, None)
     State = property(get_State, None)
+    StateChanged = event()
 class IGattReadRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadRequestedEventArgs'
@@ -2202,6 +2221,7 @@ class IGattServiceProvider(ComPtr):
     def StopAdvertising(self) -> Void: ...
     AdvertisementStatus = property(get_AdvertisementStatus, None)
     Service = property(get_Service, None)
+    AdvertisementStatusChanged = event()
 class IGattServiceProviderAdvertisementStatusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisementStatusChangedEventArgs'
@@ -2354,6 +2374,8 @@ class IGattSession(ComPtr):
     MaintainConnection = property(get_MaintainConnection, put_MaintainConnection)
     MaxPduSize = property(get_MaxPduSize, None)
     SessionStatus = property(get_SessionStatus, None)
+    MaxPduSizeChanged = event()
+    SessionStatusChanged = event()
 class IGattSessionStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSessionStatics'
@@ -2384,6 +2406,7 @@ class IGattSubscribedClient(ComPtr):
     def remove_MaxNotificationSizeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MaxNotificationSize = property(get_MaxNotificationSize, None)
     Session = property(get_Session, None)
+    MaxNotificationSizeChanged = event()
 class IGattValueChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattValueChangedEventArgs'
@@ -2418,6 +2441,7 @@ class IGattWriteRequest(ComPtr):
     Option = property(get_Option, None)
     State = property(get_State, None)
     Value = property(get_Value, None)
+    StateChanged = event()
 class IGattWriteRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattWriteRequestedEventArgs'

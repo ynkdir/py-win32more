@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -37,6 +37,8 @@ class CastingConnection(ComPtr):
     Device = property(get_Device, None)
     Source = property(get_Source, put_Source)
     State = property(get_State, None)
+    StateChanged = event()
+    ErrorOccurred = event()
 class CastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs
@@ -119,6 +121,8 @@ class CastingDevicePicker(ComPtr):
     def Hide(self: win32more.Windows.Media.Casting.ICastingDevicePicker) -> Void: ...
     Appearance = property(get_Appearance, None)
     Filter = property(get_Filter, None)
+    CastingDeviceSelected = event()
+    CastingDevicePickerDismissed = event()
 class CastingDevicePickerFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Casting.ICastingDevicePickerFilter
@@ -189,6 +193,8 @@ class ICastingConnection(ComPtr):
     Device = property(get_Device, None)
     Source = property(get_Source, put_Source)
     State = property(get_State, None)
+    StateChanged = event()
+    ErrorOccurred = event()
 class ICastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Casting.ICastingConnectionErrorOccurredEventArgs'
@@ -240,6 +246,8 @@ class ICastingDevicePicker(ComPtr):
     def Hide(self) -> Void: ...
     Appearance = property(get_Appearance, None)
     Filter = property(get_Filter, None)
+    CastingDeviceSelected = event()
+    CastingDevicePickerDismissed = event()
 class ICastingDevicePickerFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Casting.ICastingDevicePickerFilter'

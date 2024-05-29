@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Web.WebView2.Core
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core
@@ -273,6 +273,36 @@ class CoreWebView2(ComPtr):
     Settings = property(get_Settings, None)
     Source = property(get_Source, None)
     StatusBarText = property(get_StatusBarText, None)
+    BasicAuthenticationRequested = event()
+    ContextMenuRequested = event()
+    StatusBarTextChanged = event()
+    ServerCertificateErrorDetected = event()
+    FaviconChanged = event()
+    LaunchingExternalUriScheme = event()
+    WebResourceResponseReceived = event()
+    DOMContentLoaded = event()
+    FrameCreated = event()
+    DownloadStarting = event()
+    ClientCertificateRequested = event()
+    IsMutedChanged = event()
+    IsDocumentPlayingAudioChanged = event()
+    IsDefaultDownloadDialogOpenChanged = event()
+    NavigationStarting = event()
+    ContentLoading = event()
+    SourceChanged = event()
+    HistoryChanged = event()
+    NavigationCompleted = event()
+    FrameNavigationStarting = event()
+    FrameNavigationCompleted = event()
+    ScriptDialogOpening = event()
+    PermissionRequested = event()
+    ProcessFailed = event()
+    WebMessageReceived = event()
+    NewWindowRequested = event()
+    DocumentTitleChanged = event()
+    ContainsFullScreenElementChanged = event()
+    WebResourceRequested = event()
+    WindowCloseRequested = event()
 class CoreWebView2AcceleratorKeyPressedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2AcceleratorKeyPressedEventArgs
@@ -527,6 +557,7 @@ class CoreWebView2CompositionController(ComPtr):
     def Drop(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2CompositionController, dragInfo: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     Cursor = property(get_Cursor, None)
     RootVisualTarget = property(get_RootVisualTarget, put_RootVisualTarget)
+    CursorChanged = event()
 class CoreWebView2ContentLoadingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ContentLoadingEventArgs
@@ -576,6 +607,7 @@ class CoreWebView2ContextMenuItem(ComPtr):
     Label = property(get_Label, None)
     Name = property(get_Name, None)
     ShortcutKeyDescription = property(get_ShortcutKeyDescription, None)
+    CustomItemSelected = event()
 class CoreWebView2ContextMenuItemKind(Enum, Int32):
     Command = 0
     CheckBox = 1
@@ -743,6 +775,12 @@ class CoreWebView2Controller(ComPtr):
     RasterizationScale = property(get_RasterizationScale, put_RasterizationScale)
     ShouldDetectMonitorScaleChanges = property(get_ShouldDetectMonitorScaleChanges, put_ShouldDetectMonitorScaleChanges)
     ZoomFactor = property(get_ZoomFactor, put_ZoomFactor)
+    RasterizationScaleChanged = event()
+    ZoomFactorChanged = event()
+    MoveFocusRequested = event()
+    GotFocus = event()
+    LostFocus = event()
+    AcceleratorKeyPressed = event()
 class CoreWebView2ControllerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions
@@ -900,6 +938,7 @@ class CoreWebView2DevToolsProtocolEventReceiver(ComPtr):
     def add_DevToolsProtocolEventReceived(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceiver, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2DevToolsProtocolEventReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DevToolsProtocolEventReceived(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DevToolsProtocolEventReceiver, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DevToolsProtocolEventReceived = event()
 class CoreWebView2DownloadInterruptReason(Enum, Int32):
     None_ = 0
     FileFailed = 1
@@ -983,6 +1022,9 @@ class CoreWebView2DownloadOperation(ComPtr):
     State = property(get_State, None)
     TotalBytesToReceive = property(get_TotalBytesToReceive, None)
     Uri = property(get_Uri, None)
+    BytesReceivedChanged = event()
+    EstimatedEndTimeChanged = event()
+    StateChanged = event()
 class CoreWebView2DownloadStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2DownloadStartingEventArgs
@@ -1076,6 +1118,9 @@ class CoreWebView2Environment(ComPtr):
     BrowserVersionString = property(get_BrowserVersionString, None)
     FailureReportFolderPath = property(get_FailureReportFolderPath, None)
     UserDataFolder = property(get_UserDataFolder, None)
+    BrowserProcessExited = event()
+    ProcessInfosChanged = event()
+    NewBrowserVersionAvailable = event()
 class CoreWebView2EnvironmentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2EnvironmentOptions
@@ -1198,6 +1243,14 @@ class CoreWebView2Frame(ComPtr):
     def IsDestroyed(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame) -> Int32: ...
     FrameId = property(get_FrameId, None)
     Name = property(get_Name, None)
+    NavigationStarting = event()
+    ContentLoading = event()
+    NavigationCompleted = event()
+    DOMContentLoaded = event()
+    WebMessageReceived = event()
+    PermissionRequested = event()
+    NameChanged = event()
+    Destroyed = event()
 class CoreWebView2FrameCreatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FrameCreatedEventArgs
@@ -1933,6 +1986,7 @@ class CoreWebView2Profile(ComPtr):
     PreferredTrackingPreventionLevel = property(get_PreferredTrackingPreventionLevel, put_PreferredTrackingPreventionLevel)
     ProfileName = property(get_ProfileName, None)
     ProfilePath = property(get_ProfilePath, None)
+    Deleted = event()
 class CoreWebView2Profile_Manual(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2Profile_Manual'
@@ -2424,6 +2478,22 @@ class ICoreWebView2(ComPtr):
     DocumentTitle = property(get_DocumentTitle, None)
     Settings = property(get_Settings, None)
     Source = property(get_Source, None)
+    NavigationStarting = event()
+    ContentLoading = event()
+    SourceChanged = event()
+    HistoryChanged = event()
+    NavigationCompleted = event()
+    FrameNavigationStarting = event()
+    FrameNavigationCompleted = event()
+    ScriptDialogOpening = event()
+    PermissionRequested = event()
+    ProcessFailed = event()
+    WebMessageReceived = event()
+    NewWindowRequested = event()
+    DocumentTitleChanged = event()
+    ContainsFullScreenElementChanged = event()
+    WebResourceRequested = event()
+    WindowCloseRequested = event()
 class ICoreWebView2AcceleratorKeyPressedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2AcceleratorKeyPressedEventArgs'
@@ -2634,6 +2704,7 @@ class ICoreWebView2CompositionController(ComPtr):
     def Drop(self, dragInfo: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     Cursor = property(get_Cursor, None)
     RootVisualTarget = property(get_RootVisualTarget, put_RootVisualTarget)
+    CursorChanged = event()
 class ICoreWebView2CompositionController2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2CompositionController2'
@@ -2701,6 +2772,7 @@ class ICoreWebView2ContextMenuItem(ComPtr):
     Label = property(get_Label, None)
     Name = property(get_Name, None)
     ShortcutKeyDescription = property(get_ShortcutKeyDescription, None)
+    CustomItemSelected = event()
 class ICoreWebView2ContextMenuRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ContextMenuRequestedEventArgs'
@@ -2824,6 +2896,11 @@ class ICoreWebView2Controller(ComPtr):
     IsVisible = property(get_IsVisible, put_IsVisible)
     ParentWindow = property(get_ParentWindow, put_ParentWindow)
     ZoomFactor = property(get_ZoomFactor, put_ZoomFactor)
+    ZoomFactorChanged = event()
+    MoveFocusRequested = event()
+    GotFocus = event()
+    LostFocus = event()
+    AcceleratorKeyPressed = event()
 class ICoreWebView2Controller2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Controller2'
@@ -2856,6 +2933,7 @@ class ICoreWebView2Controller3(ComPtr):
     BoundsMode = property(get_BoundsMode, put_BoundsMode)
     RasterizationScale = property(get_RasterizationScale, put_RasterizationScale)
     ShouldDetectMonitorScaleChanges = property(get_ShouldDetectMonitorScaleChanges, put_ShouldDetectMonitorScaleChanges)
+    RasterizationScaleChanged = event()
 class ICoreWebView2Controller4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Controller4'
@@ -3034,6 +3112,7 @@ class ICoreWebView2DevToolsProtocolEventReceiver(ComPtr):
     def add_DevToolsProtocolEventReceived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2DevToolsProtocolEventReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_DevToolsProtocolEventReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DevToolsProtocolEventReceived = event()
 class ICoreWebView2DispatchAdapter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2DispatchAdapter'
@@ -3098,6 +3177,9 @@ class ICoreWebView2DownloadOperation(ComPtr):
     State = property(get_State, None)
     TotalBytesToReceive = property(get_TotalBytesToReceive, None)
     Uri = property(get_Uri, None)
+    BytesReceivedChanged = event()
+    EstimatedEndTimeChanged = event()
+    StateChanged = event()
 class ICoreWebView2DownloadStartingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2DownloadStartingEventArgs'
@@ -3137,6 +3219,7 @@ class ICoreWebView2Environment(ComPtr):
     @winrt_commethod(10)
     def CreateWebResourceResponse(self, Content: win32more.Windows.Storage.Streams.IRandomAccessStream, StatusCode: Int32, ReasonPhrase: WinRT_String, Headers: WinRT_String) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2WebResourceResponse: ...
     BrowserVersionString = property(get_BrowserVersionString, None)
+    NewBrowserVersionAvailable = event()
 class ICoreWebView2Environment10(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Environment10'
@@ -3188,6 +3271,7 @@ class ICoreWebView2Environment5(ComPtr):
     def add_BrowserProcessExited(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Environment, win32more.Microsoft.Web.WebView2.Core.CoreWebView2BrowserProcessExitedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_BrowserProcessExited(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BrowserProcessExited = event()
 class ICoreWebView2Environment6(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Environment6'
@@ -3211,6 +3295,7 @@ class ICoreWebView2Environment8(ComPtr):
     def remove_ProcessInfosChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def GetProcessInfos(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Microsoft.Web.WebView2.Core.CoreWebView2ProcessInfo]: ...
+    ProcessInfosChanged = event()
 class ICoreWebView2Environment9(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Environment9'
@@ -3342,6 +3427,8 @@ class ICoreWebView2Frame(ComPtr):
     @winrt_commethod(12)
     def IsDestroyed(self) -> Int32: ...
     Name = property(get_Name, None)
+    NameChanged = event()
+    Destroyed = event()
 class ICoreWebView2Frame2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Frame2'
@@ -3372,6 +3459,11 @@ class ICoreWebView2Frame2(ComPtr):
     def PostWebMessageAsJson(self, webMessageAsJson: WinRT_String) -> Void: ...
     @winrt_commethod(18)
     def PostWebMessageAsString(self, webMessageAsString: WinRT_String) -> Void: ...
+    NavigationStarting = event()
+    ContentLoading = event()
+    NavigationCompleted = event()
+    DOMContentLoaded = event()
+    WebMessageReceived = event()
 class ICoreWebView2Frame3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Frame3'
@@ -3380,6 +3472,7 @@ class ICoreWebView2Frame3(ComPtr):
     def add_PermissionRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Frame, win32more.Microsoft.Web.WebView2.Core.CoreWebView2PermissionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PermissionRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    PermissionRequested = event()
 class ICoreWebView2Frame4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Frame4'
@@ -4027,6 +4120,7 @@ class ICoreWebView2Profile8(ComPtr):
     def remove_Deleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def Delete(self) -> Void: ...
+    Deleted = event()
 class ICoreWebView2ScriptDialogOpeningEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ScriptDialogOpeningEventArgs'
@@ -4368,6 +4462,7 @@ class ICoreWebView2_10(ComPtr):
     def add_BasicAuthenticationRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2BasicAuthenticationRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_BasicAuthenticationRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BasicAuthenticationRequested = event()
 class ICoreWebView2_11(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_11'
@@ -4378,6 +4473,7 @@ class ICoreWebView2_11(ComPtr):
     def remove_ContextMenuRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def CallDevToolsProtocolMethodForSessionAsync(self, sessionId: WinRT_String, methodName: WinRT_String, parametersAsJson: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    ContextMenuRequested = event()
 class ICoreWebView2_12(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_12'
@@ -4389,6 +4485,7 @@ class ICoreWebView2_12(ComPtr):
     @winrt_commethod(8)
     def remove_StatusBarTextChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     StatusBarText = property(get_StatusBarText, None)
+    StatusBarTextChanged = event()
 class ICoreWebView2_13(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_13'
@@ -4406,6 +4503,7 @@ class ICoreWebView2_14(ComPtr):
     def remove_ServerCertificateErrorDetected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def ClearServerCertificateErrorActionsAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
+    ServerCertificateErrorDetected = event()
 class ICoreWebView2_15(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_15'
@@ -4419,6 +4517,7 @@ class ICoreWebView2_15(ComPtr):
     @winrt_commethod(9)
     def GetFaviconAsync(self, format: win32more.Microsoft.Web.WebView2.Core.CoreWebView2FaviconImageFormat) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     FaviconUri = property(get_FaviconUri, None)
+    FaviconChanged = event()
 class ICoreWebView2_16(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_16'
@@ -4443,6 +4542,7 @@ class ICoreWebView2_18(ComPtr):
     def add_LaunchingExternalUriScheme(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2LaunchingExternalUriSchemeEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_LaunchingExternalUriScheme(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    LaunchingExternalUriScheme = event()
 class ICoreWebView2_19(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_19'
@@ -4472,6 +4572,8 @@ class ICoreWebView2_2(ComPtr):
     def NavigateWithWebResourceRequest(self, Request: win32more.Microsoft.Web.WebView2.Core.CoreWebView2WebResourceRequest) -> Void: ...
     CookieManager = property(get_CookieManager, None)
     Environment = property(get_Environment, None)
+    WebResourceResponseReceived = event()
+    DOMContentLoaded = event()
 class ICoreWebView2_20(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_20'
@@ -4506,6 +4608,8 @@ class ICoreWebView2_4(ComPtr):
     def add_DownloadStarting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2DownloadStartingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_DownloadStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    FrameCreated = event()
+    DownloadStarting = event()
 class ICoreWebView2_5(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_5'
@@ -4514,6 +4618,7 @@ class ICoreWebView2_5(ComPtr):
     def add_ClientCertificateRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2ClientCertificateRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ClientCertificateRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ClientCertificateRequested = event()
 class ICoreWebView2_6(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_6'
@@ -4546,6 +4651,8 @@ class ICoreWebView2_8(ComPtr):
     def remove_IsDocumentPlayingAudioChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsDocumentPlayingAudio = property(get_IsDocumentPlayingAudio, None)
     IsMuted = property(get_IsMuted, put_IsMuted)
+    IsMutedChanged = event()
+    IsDocumentPlayingAudioChanged = event()
 class ICoreWebView2_9(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_9'
@@ -4571,6 +4678,7 @@ class ICoreWebView2_9(ComPtr):
     DefaultDownloadDialogCornerAlignment = property(get_DefaultDownloadDialogCornerAlignment, put_DefaultDownloadDialogCornerAlignment)
     DefaultDownloadDialogMargin = property(get_DefaultDownloadDialogMargin, put_DefaultDownloadDialogMargin)
     IsDefaultDownloadDialogOpen = property(get_IsDefaultDownloadDialogOpen, None)
+    IsDefaultDownloadDialogOpenChanged = event()
 
 
 make_ready(__name__)

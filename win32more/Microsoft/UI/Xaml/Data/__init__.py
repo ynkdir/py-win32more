@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Data
 import win32more.Windows.Foundation
@@ -361,6 +361,8 @@ class ICollectionView(ComPtr):
     HasMoreItems = property(get_HasMoreItems, None)
     IsCurrentAfterLast = property(get_IsCurrentAfterLast, None)
     IsCurrentBeforeFirst = property(get_IsCurrentBeforeFirst, None)
+    CurrentChanged = event()
+    CurrentChanging = event()
 class ICollectionViewFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Data.ICollectionViewFactory'
@@ -525,6 +527,7 @@ class INotifyDataErrorInfo(ComPtr):
     @winrt_commethod(9)
     def GetErrors(self, propertyName: WinRT_String) -> win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     HasErrors = property(get_HasErrors, None)
+    ErrorsChanged = event()
 class INotifyPropertyChanged(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Data.INotifyPropertyChanged'
@@ -533,6 +536,7 @@ class INotifyPropertyChanged(ComPtr):
     def add_PropertyChanged(self, handler: win32more.Microsoft.UI.Xaml.Data.PropertyChangedEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PropertyChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    PropertyChanged = event()
 class IPropertyChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Data.IPropertyChangedEventArgs'

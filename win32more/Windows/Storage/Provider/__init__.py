@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
@@ -50,6 +50,8 @@ class CachedFileUpdaterUI(ComPtr):
     UIStatus = property(get_UIStatus, None)
     UpdateRequest = property(get_UpdateRequest, None)
     UpdateTarget = property(get_UpdateTarget, None)
+    FileUpdateRequested = event()
+    UIRequested = event()
 CloudFilesContract: UInt32 = 458752
 class FileUpdateRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -124,6 +126,8 @@ class ICachedFileUpdaterUI(ComPtr):
     Title = property(get_Title, put_Title)
     UIStatus = property(get_UIStatus, None)
     UpdateTarget = property(get_UpdateTarget, None)
+    FileUpdateRequested = event()
+    UIRequested = event()
 class ICachedFileUpdaterUI2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Provider.ICachedFileUpdaterUI2'
@@ -309,6 +313,7 @@ class IStorageProviderKnownFolderSyncInfoSource(ComPtr):
     def add_KnownFolderSyncInfoChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_KnownFolderSyncInfoChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    KnownFolderSyncInfoChanged = event()
 class IStorageProviderKnownFolderSyncInfoSourceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSourceFactory'
@@ -423,6 +428,7 @@ class IStorageProviderStatusUISource(ComPtr):
     def add_StatusUIChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.IStorageProviderStatusUISource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_StatusUIChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    StatusUIChanged = event()
 class IStorageProviderStatusUISourceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderStatusUISourceFactory'

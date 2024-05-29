@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Input
 import win32more.Microsoft.UI.Text
@@ -285,6 +285,8 @@ class AnnotatedScrollBar(ComPtr, metaclass=_AnnotatedScrollBar_Meta_):
     _AnnotatedScrollBar_Meta_.LabelTemplateProperty = property(get_LabelTemplateProperty, None)
     _AnnotatedScrollBar_Meta_.LabelsProperty = property(get_LabelsProperty, None)
     _AnnotatedScrollBar_Meta_.SmallChangeProperty = property(get_SmallChangeProperty, None)
+    Scrolling = event()
+    DetailLabelRequested = event()
 class AnnotatedScrollBarDetailLabelRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IAnnotatedScrollBarDetailLabelRequestedEventArgs
@@ -410,6 +412,10 @@ class AppBar(ComPtr, metaclass=_AppBar_Meta_):
     _AppBar_Meta_.IsOpenProperty = property(get_IsOpenProperty, None)
     _AppBar_Meta_.IsStickyProperty = property(get_IsStickyProperty, None)
     _AppBar_Meta_.LightDismissOverlayModeProperty = property(get_LightDismissOverlayModeProperty, None)
+    Opening = event()
+    Opened = event()
+    Closing = event()
+    Closed = event()
 class _AppBarButton_Meta_(ComPtr.__class__):
     pass
 class AppBarButton(ComPtr, metaclass=_AppBarButton_Meta_):
@@ -755,6 +761,9 @@ class AutoSuggestBox(ComPtr, metaclass=_AutoSuggestBox_Meta_):
     _AutoSuggestBox_Meta_.TextMemberPathProperty = property(get_TextMemberPathProperty, None)
     _AutoSuggestBox_Meta_.TextProperty = property(get_TextProperty, None)
     _AutoSuggestBox_Meta_.UpdateTextOnSelectProperty = property(get_UpdateTextOnSelectProperty, None)
+    SuggestionChosen = event()
+    TextChanged = event()
+    QuerySubmitted = event()
 class AutoSuggestBoxQuerySubmittedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IAutoSuggestBoxQuerySubmittedEventArgs
@@ -1000,6 +1009,7 @@ class BreadcrumbBar(ComPtr, metaclass=_BreadcrumbBar_Meta_):
     ItemsSource = property(get_ItemsSource, put_ItemsSource)
     _BreadcrumbBar_Meta_.ItemTemplateProperty = property(get_ItemTemplateProperty, None)
     _BreadcrumbBar_Meta_.ItemsSourceProperty = property(get_ItemsSourceProperty, None)
+    ItemClicked = event()
 class BreadcrumbBarItem(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IBreadcrumbBarItem
@@ -1225,6 +1235,10 @@ class CalendarDatePicker(ComPtr, metaclass=_CalendarDatePicker_Meta_):
     _CalendarDatePicker_Meta_.MaxDateProperty = property(get_MaxDateProperty, None)
     _CalendarDatePicker_Meta_.MinDateProperty = property(get_MinDateProperty, None)
     _CalendarDatePicker_Meta_.PlaceholderTextProperty = property(get_PlaceholderTextProperty, None)
+    CalendarViewDayItemChanging = event()
+    DateChanged = event()
+    Opened = event()
+    Closed = event()
 class CalendarDatePickerDateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ICalendarDatePickerDateChangedEventArgs
@@ -1858,6 +1872,8 @@ class CalendarView(ComPtr, metaclass=_CalendarView_Meta_):
     _CalendarView_Meta_.TodaySelectedInnerBorderBrushProperty = property(get_TodaySelectedInnerBorderBrushProperty, None)
     _CalendarView_Meta_.VerticalDayItemAlignmentProperty = property(get_VerticalDayItemAlignmentProperty, None)
     _CalendarView_Meta_.VerticalFirstOfMonthLabelAlignmentProperty = property(get_VerticalFirstOfMonthLabelAlignmentProperty, None)
+    CalendarViewDayItemChanging = event()
+    SelectedDatesChanged = event()
 class _CalendarViewDayItem_Meta_(ComPtr.__class__):
     pass
 class CalendarViewDayItem(ComPtr, metaclass=_CalendarViewDayItem_Meta_):
@@ -2258,6 +2274,7 @@ class ColorPicker(ComPtr, metaclass=_ColorPicker_Meta_):
     _ColorPicker_Meta_.MinValueProperty = property(get_MinValueProperty, None)
     _ColorPicker_Meta_.OrientationProperty = property(get_OrientationProperty, None)
     _ColorPicker_Meta_.PreviousColorProperty = property(get_PreviousColorProperty, None)
+    ColorChanged = event()
 class ColorPickerHsvChannel(Enum, Int32):
     Hue = 0
     Saturation = 1
@@ -2493,6 +2510,9 @@ class ComboBox(ComPtr, metaclass=_ComboBox_Meta_):
     _ComboBox_Meta_.SelectionChangedTriggerProperty = property(get_SelectionChangedTriggerProperty, None)
     _ComboBox_Meta_.TextBoxStyleProperty = property(get_TextBoxStyleProperty, None)
     _ComboBox_Meta_.TextProperty = property(get_TextProperty, None)
+    DropDownClosed = event()
+    DropDownOpened = event()
+    TextSubmitted = event()
 class ComboBoxItem(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.Primitives.SelectorItem
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IComboBoxItem
@@ -2587,6 +2607,7 @@ class CommandBar(ComPtr, metaclass=_CommandBar_Meta_):
     _CommandBar_Meta_.OverflowButtonVisibilityProperty = property(get_OverflowButtonVisibilityProperty, None)
     _CommandBar_Meta_.PrimaryCommandsProperty = property(get_PrimaryCommandsProperty, None)
     _CommandBar_Meta_.SecondaryCommandsProperty = property(get_SecondaryCommandsProperty, None)
+    DynamicOverflowItemsChanging = event()
 class CommandBarDefaultLabelPosition(Enum, Int32):
     Bottom = 0
     Right = 1
@@ -2920,6 +2941,12 @@ class ContentDialog(ComPtr, metaclass=_ContentDialog_Meta_):
     _ContentDialog_Meta_.SecondaryButtonTextProperty = property(get_SecondaryButtonTextProperty, None)
     _ContentDialog_Meta_.TitleProperty = property(get_TitleProperty, None)
     _ContentDialog_Meta_.TitleTemplateProperty = property(get_TitleTemplateProperty, None)
+    Closing = event()
+    Closed = event()
+    Opened = event()
+    PrimaryButtonClick = event()
+    SecondaryButtonClick = event()
+    CloseButtonClick = event()
 class ContentDialogButton(Enum, Int32):
     None_ = 0
     Primary = 1
@@ -3535,6 +3562,9 @@ class Control(ComPtr, metaclass=_Control_Meta_):
     _Control_Meta_.TabNavigationProperty = property(get_TabNavigationProperty, None)
     _Control_Meta_.TemplateProperty = property(get_TemplateProperty, None)
     _Control_Meta_.VerticalContentAlignmentProperty = property(get_VerticalContentAlignmentProperty, None)
+    FocusEngaged = event()
+    FocusDisengaged = event()
+    IsEnabledChanged = event()
 class ControlTemplate(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.FrameworkTemplate
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IControlTemplate
@@ -3747,6 +3777,8 @@ class DatePicker(ComPtr, metaclass=_DatePicker_Meta_):
     _DatePicker_Meta_.SelectedDateProperty = property(get_SelectedDateProperty, None)
     _DatePicker_Meta_.YearFormatProperty = property(get_YearFormatProperty, None)
     _DatePicker_Meta_.YearVisibleProperty = property(get_YearVisibleProperty, None)
+    DateChanged = event()
+    SelectedDateChanged = event()
 class _DatePickerFlyout_Meta_(ComPtr.__class__):
     pass
 class DatePickerFlyout(ComPtr, metaclass=_DatePickerFlyout_Meta_):
@@ -3848,6 +3880,7 @@ class DatePickerFlyout(ComPtr, metaclass=_DatePickerFlyout_Meta_):
     _DatePickerFlyout_Meta_.MonthVisibleProperty = property(get_MonthVisibleProperty, None)
     _DatePickerFlyout_Meta_.YearFormatProperty = property(get_YearFormatProperty, None)
     _DatePickerFlyout_Meta_.YearVisibleProperty = property(get_YearVisibleProperty, None)
+    DatePicked = event()
 class _DatePickerFlyoutItem_Meta_(ComPtr.__class__):
     pass
 class DatePickerFlyoutItem(ComPtr, metaclass=_DatePickerFlyoutItem_Meta_):
@@ -4060,6 +4093,8 @@ class Expander(ComPtr, metaclass=_Expander_Meta_):
     _Expander_Meta_.HeaderTemplateProperty = property(get_HeaderTemplateProperty, None)
     _Expander_Meta_.HeaderTemplateSelectorProperty = property(get_HeaderTemplateSelectorProperty, None)
     _Expander_Meta_.IsExpandedProperty = property(get_IsExpandedProperty, None)
+    Expanding = event()
+    Collapsed = event()
 class ExpanderCollapsedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IExpanderCollapsedEventArgs
@@ -4436,6 +4471,10 @@ class Frame(ComPtr, metaclass=_Frame_Meta_):
     _Frame_Meta_.ForwardStackProperty = property(get_ForwardStackProperty, None)
     _Frame_Meta_.IsNavigationStackEnabledProperty = property(get_IsNavigationStackEnabledProperty, None)
     _Frame_Meta_.SourcePageTypeProperty = property(get_SourcePageTypeProperty, None)
+    Navigated = event()
+    Navigating = event()
+    NavigationFailed = event()
+    NavigationStopped = event()
 class _Grid_Meta_(ComPtr.__class__):
     pass
 class Grid(ComPtr, metaclass=_Grid_Meta_):
@@ -4648,6 +4687,7 @@ class GroupStyle(ComPtr):
     HeaderTemplateSelector = property(get_HeaderTemplateSelector, put_HeaderTemplateSelector)
     HidesIfEmpty = property(get_HidesIfEmpty, put_HidesIfEmpty)
     Panel = property(get_Panel, put_Panel)
+    PropertyChanged = event()
 class GroupStyleSelector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IGroupStyleSelector
@@ -4776,6 +4816,8 @@ class Hub(ComPtr, metaclass=_Hub_Meta_):
     _Hub_Meta_.IsZoomedInViewProperty = property(get_IsZoomedInViewProperty, None)
     _Hub_Meta_.OrientationProperty = property(get_OrientationProperty, None)
     _Hub_Meta_.SemanticZoomOwnerProperty = property(get_SemanticZoomOwnerProperty, None)
+    SectionHeaderClick = event()
+    SectionsInViewChanged = event()
 class _HubSection_Meta_(ComPtr.__class__):
     pass
 class HubSection(ComPtr, metaclass=_HubSection_Meta_):
@@ -5177,6 +5219,8 @@ class IAnnotatedScrollBar(ComPtr):
     Labels = property(get_Labels, put_Labels)
     ScrollController = property(get_ScrollController, None)
     SmallChange = property(get_SmallChange, put_SmallChange)
+    Scrolling = event()
+    DetailLabelRequested = event()
 class IAnnotatedScrollBarDetailLabelRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IAnnotatedScrollBarDetailLabelRequestedEventArgs'
@@ -5285,6 +5329,10 @@ class IAppBar(ComPtr):
     IsSticky = property(get_IsSticky, put_IsSticky)
     LightDismissOverlayMode = property(get_LightDismissOverlayMode, put_LightDismissOverlayMode)
     TemplateSettings = property(get_TemplateSettings, None)
+    Opening = event()
+    Opened = event()
+    Closing = event()
+    Closed = event()
 class IAppBarButton(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IAppBarButton'
@@ -5557,6 +5605,9 @@ class IAutoSuggestBox(ComPtr):
     TextBoxStyle = property(get_TextBoxStyle, put_TextBoxStyle)
     TextMemberPath = property(get_TextMemberPath, put_TextMemberPath)
     UpdateTextOnSelect = property(get_UpdateTextOnSelect, put_UpdateTextOnSelect)
+    SuggestionChosen = event()
+    TextChanged = event()
+    QuerySubmitted = event()
 class IAutoSuggestBoxQuerySubmittedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IAutoSuggestBoxQuerySubmittedEventArgs'
@@ -5784,6 +5835,7 @@ class IBreadcrumbBar(ComPtr):
     def remove_ItemClicked(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ItemTemplate = property(get_ItemTemplate, put_ItemTemplate)
     ItemsSource = property(get_ItemsSource, put_ItemsSource)
+    ItemClicked = event()
 class IBreadcrumbBarFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IBreadcrumbBarFactory'
@@ -5956,6 +6008,10 @@ class ICalendarDatePicker(ComPtr):
     MaxDate = property(get_MaxDate, put_MaxDate)
     MinDate = property(get_MinDate, put_MinDate)
     PlaceholderText = property(get_PlaceholderText, put_PlaceholderText)
+    CalendarViewDayItemChanging = event()
+    DateChanged = event()
+    Opened = event()
+    Closed = event()
 class ICalendarDatePickerDateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ICalendarDatePickerDateChangedEventArgs'
@@ -6417,6 +6473,8 @@ class ICalendarView(ComPtr):
     TodaySelectedInnerBorderBrush = property(get_TodaySelectedInnerBorderBrush, put_TodaySelectedInnerBorderBrush)
     VerticalDayItemAlignment = property(get_VerticalDayItemAlignment, put_VerticalDayItemAlignment)
     VerticalFirstOfMonthLabelAlignment = property(get_VerticalFirstOfMonthLabelAlignment, put_VerticalFirstOfMonthLabelAlignment)
+    CalendarViewDayItemChanging = event()
+    SelectedDatesChanged = event()
 class ICalendarViewDayItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ICalendarViewDayItem'
@@ -6924,6 +6982,7 @@ class IColorPicker(ComPtr):
     MinSaturation = property(get_MinSaturation, put_MinSaturation)
     MinValue = property(get_MinValue, put_MinValue)
     PreviousColor = property(get_PreviousColor, put_PreviousColor)
+    ColorChanged = event()
 class IColorPicker2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IColorPicker2'
@@ -7135,6 +7194,9 @@ class IComboBox(ComPtr):
     TemplateSettings = property(get_TemplateSettings, None)
     Text = property(get_Text, put_Text)
     TextBoxStyle = property(get_TextBoxStyle, put_TextBoxStyle)
+    DropDownClosed = event()
+    DropDownOpened = event()
+    TextSubmitted = event()
 class IComboBoxFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IComboBoxFactory'
@@ -7251,6 +7313,7 @@ class ICommandBar(ComPtr):
     OverflowButtonVisibility = property(get_OverflowButtonVisibility, put_OverflowButtonVisibility)
     PrimaryCommands = property(get_PrimaryCommands, None)
     SecondaryCommands = property(get_SecondaryCommands, None)
+    DynamicOverflowItemsChanging = event()
 class ICommandBarElement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ICommandBarElement'
@@ -7542,6 +7605,12 @@ class IContentDialog(ComPtr):
     SecondaryButtonText = property(get_SecondaryButtonText, put_SecondaryButtonText)
     Title = property(get_Title, put_Title)
     TitleTemplate = property(get_TitleTemplate, put_TitleTemplate)
+    Closing = event()
+    Closed = event()
+    Opened = event()
+    PrimaryButtonClick = event()
+    SecondaryButtonClick = event()
+    CloseButtonClick = event()
 class IContentDialogButtonClickDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IContentDialogButtonClickDeferral'
@@ -8044,6 +8113,9 @@ class IControl(ComPtr):
     TabNavigation = property(get_TabNavigation, put_TabNavigation)
     Template = property(get_Template, put_Template)
     VerticalContentAlignment = property(get_VerticalContentAlignment, put_VerticalContentAlignment)
+    FocusEngaged = event()
+    FocusDisengaged = event()
+    IsEnabledChanged = event()
 class IControlFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IControlFactory'
@@ -8349,6 +8421,8 @@ class IDatePicker(ComPtr):
     SelectedDate = property(get_SelectedDate, put_SelectedDate)
     YearFormat = property(get_YearFormat, put_YearFormat)
     YearVisible = property(get_YearVisible, put_YearVisible)
+    DateChanged = event()
+    SelectedDateChanged = event()
 class IDatePickerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IDatePickerFactory'
@@ -8415,6 +8489,7 @@ class IDatePickerFlyout(ComPtr):
     MonthVisible = property(get_MonthVisible, put_MonthVisible)
     YearFormat = property(get_YearFormat, put_YearFormat)
     YearVisible = property(get_YearVisible, put_YearVisible)
+    DatePicked = event()
 class IDatePickerFlyoutItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IDatePickerFlyoutItem'
@@ -8601,6 +8676,7 @@ class IDynamicAnimatedVisualSource(ComPtr):
     def add_AnimatedVisualInvalidated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.IDynamicAnimatedVisualSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_AnimatedVisualInvalidated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    AnimatedVisualInvalidated = event()
 class IDynamicOverflowItemsChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IDynamicOverflowItemsChangingEventArgs'
@@ -8648,6 +8724,8 @@ class IExpander(ComPtr):
     HeaderTemplateSelector = property(get_HeaderTemplateSelector, put_HeaderTemplateSelector)
     IsExpanded = property(get_IsExpanded, put_IsExpanded)
     TemplateSettings = property(get_TemplateSettings, None)
+    Expanding = event()
+    Collapsed = event()
 class IExpanderCollapsedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IExpanderCollapsedEventArgs'
@@ -8999,6 +9077,10 @@ class IFrame(ComPtr):
     ForwardStack = property(get_ForwardStack, None)
     IsNavigationStackEnabled = property(get_IsNavigationStackEnabled, put_IsNavigationStackEnabled)
     SourcePageType = property(get_SourcePageType, put_SourcePageType)
+    Navigated = event()
+    Navigating = event()
+    NavigationFailed = event()
+    NavigationStopped = event()
 class IFrameFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IFrameFactory'
@@ -9296,6 +9378,8 @@ class IHub(ComPtr):
     SectionHeaders = property(get_SectionHeaders, None)
     Sections = property(get_Sections, None)
     SectionsInView = property(get_SectionsInView, None)
+    SectionHeaderClick = event()
+    SectionsInViewChanged = event()
 class IHubFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IHubFactory'
@@ -9505,6 +9589,8 @@ class IImage(ComPtr):
     NineGrid = property(get_NineGrid, put_NineGrid)
     Source = property(get_Source, put_Source)
     Stretch = property(get_Stretch, put_Stretch)
+    ImageFailed = event()
+    ImageOpened = event()
 class IImageIcon(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IImageIcon'
@@ -9712,6 +9798,9 @@ class IInfoBar(ComPtr):
     Severity = property(get_Severity, put_Severity)
     TemplateSettings = property(get_TemplateSettings, None)
     Title = property(get_Title, put_Title)
+    CloseButtonClick = event()
+    Closing = event()
+    Closed = event()
 class IInfoBarClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IInfoBarClosedEventArgs'
@@ -9885,6 +9974,7 @@ class IItemCollectionTransitionProvider(ComPtr):
     def add_TransitionCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.ItemCollectionTransitionProvider, win32more.Microsoft.UI.Xaml.Controls.ItemCollectionTransitionCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_TransitionCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    TransitionCompleted = event()
 class IItemCollectionTransitionProviderFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IItemCollectionTransitionProviderFactory'
@@ -9955,6 +10045,7 @@ class IItemContainerGenerator(ComPtr):
     def IndexFromGeneratorPosition(self, position: win32more.Microsoft.UI.Xaml.Controls.Primitives.GeneratorPosition) -> Int32: ...
     @winrt_commethod(21)
     def Recycle(self, position: win32more.Microsoft.UI.Xaml.Controls.Primitives.GeneratorPosition, count: Int32) -> Void: ...
+    ItemsChanged = event()
 class IItemContainerMapping(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IItemContainerMapping'
@@ -10244,6 +10335,9 @@ class IItemsRepeater(ComPtr):
     ItemsSourceView = property(get_ItemsSourceView, None)
     Layout = property(get_Layout, put_Layout)
     VerticalCacheLength = property(get_VerticalCacheLength, put_VerticalCacheLength)
+    ElementPrepared = event()
+    ElementClearing = event()
+    ElementIndexChanged = event()
 class IItemsRepeater2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IItemsRepeater2'
@@ -10507,6 +10601,8 @@ class IItemsView(ComPtr):
     SelectedItems = property(get_SelectedItems, None)
     SelectionMode = property(get_SelectionMode, put_SelectionMode)
     VerticalScrollController = property(get_VerticalScrollController, put_VerticalScrollController)
+    ItemInvoked = event()
+    SelectionChanged = event()
 class IItemsViewFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IItemsViewFactory'
@@ -10673,6 +10769,8 @@ class ILayout(ComPtr):
     def add_ArrangeInvalidated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.Layout, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_ArrangeInvalidated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    MeasureInvalidated = event()
+    ArrangeInvalidated = event()
 class ILayout2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ILayout2'
@@ -10776,6 +10874,8 @@ class ILinedFlowLayout(ComPtr):
     MinItemSpacing = property(get_MinItemSpacing, put_MinItemSpacing)
     RequestedRangeLength = property(get_RequestedRangeLength, None)
     RequestedRangeStartIndex = property(get_RequestedRangeStartIndex, None)
+    ItemsInfoRequested = event()
+    ItemsUnlocked = event()
 class ILinedFlowLayoutFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ILinedFlowLayoutFactory'
@@ -10942,6 +11042,7 @@ class IListPickerFlyout(ComPtr):
     SelectedValue = property(get_SelectedValue, put_SelectedValue)
     SelectedValuePath = property(get_SelectedValuePath, put_SelectedValuePath)
     SelectionMode = property(get_SelectionMode, put_SelectionMode)
+    ItemsPicked = event()
 class IListPickerFlyoutPresenter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IListPickerFlyoutPresenter'
@@ -11122,6 +11223,12 @@ class IListViewBase(ComPtr):
     SelectionMode = property(get_SelectionMode, put_SelectionMode)
     ShowsScrollingPlaceholders = property(get_ShowsScrollingPlaceholders, put_ShowsScrollingPlaceholders)
     SingleSelectionFollowsFocus = property(get_SingleSelectionFollowsFocus, put_SingleSelectionFollowsFocus)
+    ItemClick = event()
+    DragItemsStarting = event()
+    DragItemsCompleted = event()
+    ContainerContentChanging = event()
+    ChoosingItemContainer = event()
+    ChoosingGroupHeaderContainer = event()
 class IListViewBaseFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IListViewBaseFactory'
@@ -11281,6 +11388,8 @@ class IMapControl(ComPtr):
     Layers = property(get_Layers, put_Layers)
     MapServiceToken = property(get_MapServiceToken, put_MapServiceToken)
     ZoomLevel = property(get_ZoomLevel, put_ZoomLevel)
+    MapElementClick = event()
+    MapServiceErrorOccurred = event()
 class IMapControlFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IMapControlFactory'
@@ -11344,6 +11453,7 @@ class IMapElementsLayer(ComPtr):
     @winrt_commethod(9)
     def remove_MapElementClick(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MapElements = property(get_MapElements, put_MapElements)
+    MapElementClick = event()
 class IMapElementsLayerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IMapElementsLayerFactory'
@@ -11637,6 +11747,7 @@ class IMediaTransportControls(ComPtr):
     IsZoomButtonVisible = property(get_IsZoomButtonVisible, put_IsZoomButtonVisible)
     IsZoomEnabled = property(get_IsZoomEnabled, put_IsZoomEnabled)
     ShowAndHideAutomatically = property(get_ShowAndHideAutomatically, put_ShowAndHideAutomatically)
+    ThumbnailRequested = event()
 class IMediaTransportControlsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IMediaTransportControlsFactory'
@@ -11851,6 +11962,7 @@ class IMenuFlyoutItem(ComPtr):
     KeyboardAcceleratorTextOverride = property(get_KeyboardAcceleratorTextOverride, put_KeyboardAcceleratorTextOverride)
     TemplateSettings = property(get_TemplateSettings, None)
     Text = property(get_Text, put_Text)
+    Click = event()
 class IMenuFlyoutItemBase(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IMenuFlyoutItemBase'
@@ -12112,6 +12224,9 @@ class INavigationView(ComPtr):
     PaneToggleButtonStyle = property(get_PaneToggleButtonStyle, put_PaneToggleButtonStyle)
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     SettingsItem = property(get_SettingsItem, None)
+    SelectionChanged = event()
+    ItemInvoked = event()
+    DisplayModeChanged = event()
 class INavigationView2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.INavigationView2'
@@ -12206,6 +12321,13 @@ class INavigationView2(ComPtr):
     SelectionFollowsFocus = property(get_SelectionFollowsFocus, put_SelectionFollowsFocus)
     ShoulderNavigationEnabled = property(get_ShoulderNavigationEnabled, put_ShoulderNavigationEnabled)
     TemplateSettings = property(get_TemplateSettings, None)
+    BackRequested = event()
+    PaneClosed = event()
+    PaneClosing = event()
+    PaneOpened = event()
+    PaneOpening = event()
+    Expanding = event()
+    Collapsed = event()
 class INavigationViewBackRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.INavigationViewBackRequestedEventArgs'
@@ -12780,6 +12902,7 @@ class INumberBox(ComPtr):
     TextReadingOrder = property(get_TextReadingOrder, put_TextReadingOrder)
     ValidationMode = property(get_ValidationMode, put_ValidationMode)
     Value = property(get_Value, put_Value)
+    ValueChanged = event()
 class INumberBoxFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.INumberBoxFactory'
@@ -13179,6 +13302,10 @@ class IPasswordBox(ComPtr):
     SelectionFlyout = property(get_SelectionFlyout, put_SelectionFlyout)
     SelectionHighlightColor = property(get_SelectionHighlightColor, put_SelectionHighlightColor)
     TextReadingOrder = property(get_TextReadingOrder, put_TextReadingOrder)
+    PasswordChanged = event()
+    ContextMenuOpening = event()
+    Paste = event()
+    PasswordChanging = event()
 class IPasswordBoxPasswordChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IPasswordBoxPasswordChangingEventArgs'
@@ -13410,6 +13537,7 @@ class IPickerFlyout(ComPtr):
     def ShowAtAsync(self, target: win32more.Microsoft.UI.Xaml.FrameworkElement) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     ConfirmationButtonsVisible = property(get_ConfirmationButtonsVisible, put_ConfirmationButtonsVisible)
     Content = property(get_Content, put_Content)
+    Confirmed = event()
 class IPickerFlyoutPresenter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IPickerFlyoutPresenter'
@@ -13485,6 +13613,7 @@ class IPipsPager(ComPtr):
     SelectedPageIndex = property(get_SelectedPageIndex, put_SelectedPageIndex)
     SelectedPipStyle = property(get_SelectedPipStyle, put_SelectedPipStyle)
     TemplateSettings = property(get_TemplateSettings, None)
+    SelectedIndexChanged = event()
 class IPipsPagerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IPipsPagerFactory'
@@ -13620,6 +13749,11 @@ class IPivot(ComPtr):
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     Title = property(get_Title, put_Title)
     TitleTemplate = property(get_TitleTemplate, put_TitleTemplate)
+    SelectionChanged = event()
+    PivotItemLoading = event()
+    PivotItemLoaded = event()
+    PivotItemUnloading = event()
+    PivotItemUnloaded = event()
 class IPivotFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IPivotFactory'
@@ -13922,6 +14056,7 @@ class IRadioButtons(ComPtr):
     MaxColumns = property(get_MaxColumns, put_MaxColumns)
     SelectedIndex = property(get_SelectedIndex, put_SelectedIndex)
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
+    SelectionChanged = event()
 class IRadioButtonsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IRadioButtonsFactory'
@@ -14045,6 +14180,7 @@ class IRatingControl(ComPtr):
     MaxRating = property(get_MaxRating, put_MaxRating)
     PlaceholderValue = property(get_PlaceholderValue, put_PlaceholderValue)
     Value = property(get_Value, put_Value)
+    ValueChanged = event()
 class IRatingControlFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IRatingControlFactory'
@@ -14233,6 +14369,7 @@ class IRefreshContainer(ComPtr):
     def RequestRefresh(self) -> Void: ...
     PullDirection = property(get_PullDirection, put_PullDirection)
     Visualizer = property(get_Visualizer, put_Visualizer)
+    RefreshRequested = event()
 class IRefreshContainerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IRefreshContainerFactory'
@@ -14299,6 +14436,8 @@ class IRefreshVisualizer(ComPtr):
     Content = property(get_Content, put_Content)
     Orientation = property(get_Orientation, put_Orientation)
     State = property(get_State, None)
+    RefreshRequested = event()
+    RefreshStateChanged = event()
 class IRefreshVisualizerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IRefreshVisualizerFactory'
@@ -14675,6 +14814,18 @@ class IRichEditBox(ComPtr):
     TextDocument = property(get_TextDocument, None)
     TextReadingOrder = property(get_TextReadingOrder, put_TextReadingOrder)
     TextWrapping = property(get_TextWrapping, put_TextWrapping)
+    TextChanged = event()
+    SelectionChanged = event()
+    ContextMenuOpening = event()
+    Paste = event()
+    TextCompositionStarted = event()
+    TextCompositionChanged = event()
+    TextCompositionEnded = event()
+    CopyingToClipboard = event()
+    CuttingToClipboard = event()
+    SelectionChanging = event()
+    CandidateWindowBoundsChanged = event()
+    TextChanging = event()
 class IRichEditBoxFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IRichEditBoxFactory'
@@ -14963,6 +15114,9 @@ class IRichTextBlock(ComPtr):
     TextReadingOrder = property(get_TextReadingOrder, put_TextReadingOrder)
     TextTrimming = property(get_TextTrimming, put_TextTrimming)
     TextWrapping = property(get_TextWrapping, put_TextWrapping)
+    SelectionChanged = event()
+    ContextMenuOpening = event()
+    IsTextTrimmedChanged = event()
 class IRichTextBlockOverflow(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IRichTextBlockOverflow'
@@ -15006,6 +15160,7 @@ class IRichTextBlockOverflow(ComPtr):
     MaxLines = property(get_MaxLines, put_MaxLines)
     OverflowContentTarget = property(get_OverflowContentTarget, put_OverflowContentTarget)
     Padding = property(get_Padding, put_Padding)
+    IsTextTrimmedChanged = event()
 class IRichTextBlockOverflowStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IRichTextBlockOverflowStatics'
@@ -15449,6 +15604,15 @@ class IScrollView(ComPtr):
     ZoomChainMode = property(get_ZoomChainMode, put_ZoomChainMode)
     ZoomFactor = property(get_ZoomFactor, None)
     ZoomMode = property(get_ZoomMode, put_ZoomMode)
+    ExtentChanged = event()
+    StateChanged = event()
+    ViewChanged = event()
+    ScrollAnimationStarting = event()
+    ZoomAnimationStarting = event()
+    ScrollCompleted = event()
+    ZoomCompleted = event()
+    BringingIntoView = event()
+    AnchorRequested = event()
 class IScrollViewFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IScrollViewFactory'
@@ -15737,6 +15901,11 @@ class IScrollViewer(ComPtr):
     ZoomMode = property(get_ZoomMode, put_ZoomMode)
     ZoomSnapPoints = property(get_ZoomSnapPoints, None)
     ZoomSnapPointsType = property(get_ZoomSnapPointsType, put_ZoomSnapPointsType)
+    AnchorRequested = event()
+    ViewChanging = event()
+    ViewChanged = event()
+    DirectManipulationStarted = event()
+    DirectManipulationCompleted = event()
 class IScrollViewerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IScrollViewerStatics'
@@ -16135,6 +16304,7 @@ class ISelectorBar(ComPtr):
     def remove_SelectionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Items = property(get_Items, None)
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
+    SelectionChanged = event()
 class ISelectorBarFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ISelectorBarFactory'
@@ -16224,6 +16394,8 @@ class ISemanticZoom(ComPtr):
     IsZoomedInViewActive = property(get_IsZoomedInViewActive, put_IsZoomedInViewActive)
     ZoomedInView = property(get_ZoomedInView, put_ZoomedInView)
     ZoomedOutView = property(get_ZoomedOutView, put_ZoomedOutView)
+    ViewChangeStarted = event()
+    ViewChangeCompleted = event()
 class ISemanticZoomInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ISemanticZoomInformation'
@@ -16434,6 +16606,7 @@ class ISplitButton(ComPtr):
     Command = property(get_Command, put_Command)
     CommandParameter = property(get_CommandParameter, put_CommandParameter)
     Flyout = property(get_Flyout, put_Flyout)
+    Click = event()
 class ISplitButtonClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ISplitButtonClickEventArgs'
@@ -16525,6 +16698,10 @@ class ISplitView(ComPtr):
     PaneBackground = property(get_PaneBackground, put_PaneBackground)
     PanePlacement = property(get_PanePlacement, put_PanePlacement)
     TemplateSettings = property(get_TemplateSettings, None)
+    PaneClosing = event()
+    PaneClosed = event()
+    PaneOpening = event()
+    PaneOpened = event()
 class ISplitViewFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ISplitViewFactory'
@@ -16726,6 +16903,7 @@ class ISwapChainPanel(ComPtr):
     def CreateCoreIndependentInputSource(self, deviceKinds: win32more.Microsoft.UI.Input.InputPointerSourceDeviceKinds) -> win32more.Microsoft.UI.Input.InputPointerSource: ...
     CompositionScaleX = property(get_CompositionScaleX, None)
     CompositionScaleY = property(get_CompositionScaleY, None)
+    CompositionScaleChanged = event()
 class ISwapChainPanelFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ISwapChainPanelFactory'
@@ -16833,6 +17011,7 @@ class ISwipeItem(ComPtr):
     Foreground = property(get_Foreground, put_Foreground)
     IconSource = property(get_IconSource, put_IconSource)
     Text = property(get_Text, put_Text)
+    Invoked = event()
 class ISwipeItemFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ISwipeItemFactory'
@@ -17069,6 +17248,15 @@ class ITabView(ComPtr):
     TabStripHeader = property(get_TabStripHeader, put_TabStripHeader)
     TabStripHeaderTemplate = property(get_TabStripHeaderTemplate, put_TabStripHeaderTemplate)
     TabWidthMode = property(get_TabWidthMode, put_TabWidthMode)
+    TabCloseRequested = event()
+    TabDroppedOutside = event()
+    AddTabButtonClick = event()
+    TabItemsChanged = event()
+    SelectionChanged = event()
+    TabDragStarting = event()
+    TabDragCompleted = event()
+    TabStripDragOver = event()
+    TabStripDrop = event()
 class ITabViewFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITabViewFactory'
@@ -17106,6 +17294,7 @@ class ITabViewItem(ComPtr):
     IconSource = property(get_IconSource, put_IconSource)
     IsClosable = property(get_IsClosable, put_IsClosable)
     TabViewTemplateSettings = property(get_TabViewTemplateSettings, None)
+    CloseRequested = event()
 class ITabViewItemFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITabViewItemFactory'
@@ -17401,6 +17590,10 @@ class ITeachingTip(ComPtr):
     Target = property(get_Target, put_Target)
     TemplateSettings = property(get_TemplateSettings, None)
     Title = property(get_Title, put_Title)
+    ActionButtonClick = event()
+    CloseButtonClick = event()
+    Closing = event()
+    Closed = event()
 class ITeachingTipClosedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITeachingTipClosedEventArgs'
@@ -17709,6 +17902,9 @@ class ITextBlock(ComPtr):
     TextReadingOrder = property(get_TextReadingOrder, put_TextReadingOrder)
     TextTrimming = property(get_TextTrimming, put_TextTrimming)
     TextWrapping = property(get_TextWrapping, put_TextWrapping)
+    SelectionChanged = event()
+    ContextMenuOpening = event()
+    IsTextTrimmedChanged = event()
 class ITextBlockStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITextBlockStatics'
@@ -18012,6 +18208,19 @@ class ITextBox(ComPtr):
     TextAlignment = property(get_TextAlignment, put_TextAlignment)
     TextReadingOrder = property(get_TextReadingOrder, put_TextReadingOrder)
     TextWrapping = property(get_TextWrapping, put_TextWrapping)
+    TextChanged = event()
+    SelectionChanged = event()
+    ContextMenuOpening = event()
+    Paste = event()
+    TextCompositionStarted = event()
+    TextCompositionChanged = event()
+    TextCompositionEnded = event()
+    CopyingToClipboard = event()
+    CuttingToClipboard = event()
+    BeforeTextChanging = event()
+    SelectionChanging = event()
+    CandidateWindowBoundsChanged = event()
+    TextChanging = event()
 class ITextBoxBeforeTextChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITextBoxBeforeTextChangingEventArgs'
@@ -18265,6 +18474,8 @@ class ITimePicker(ComPtr):
     MinuteIncrement = property(get_MinuteIncrement, put_MinuteIncrement)
     SelectedTime = property(get_SelectedTime, put_SelectedTime)
     Time = property(get_Time, put_Time)
+    TimeChanged = event()
+    SelectedTimeChanged = event()
 class ITimePickerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITimePickerFactory'
@@ -18296,6 +18507,7 @@ class ITimePickerFlyout(ComPtr):
     ClockIdentifier = property(get_ClockIdentifier, put_ClockIdentifier)
     MinuteIncrement = property(get_MinuteIncrement, put_MinuteIncrement)
     Time = property(get_Time, put_Time)
+    TimePicked = event()
 class ITimePickerFlyoutPresenter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITimePickerFlyoutPresenter'
@@ -18405,6 +18617,7 @@ class IToggleSplitButton(ComPtr):
     @winrt_commethod(9)
     def remove_IsCheckedChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsChecked = property(get_IsChecked, put_IsChecked)
+    IsCheckedChanged = event()
 class IToggleSplitButtonFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IToggleSplitButtonFactory'
@@ -18468,6 +18681,7 @@ class IToggleSwitch(ComPtr):
     OnContent = property(get_OnContent, put_OnContent)
     OnContentTemplate = property(get_OnContentTemplate, put_OnContentTemplate)
     TemplateSettings = property(get_TemplateSettings, None)
+    Toggled = event()
 class IToggleSwitchOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IToggleSwitchOverrides'
@@ -18550,6 +18764,8 @@ class IToolTip(ComPtr):
     PlacementTarget = property(get_PlacementTarget, put_PlacementTarget)
     TemplateSettings = property(get_TemplateSettings, None)
     VerticalOffset = property(get_VerticalOffset, put_VerticalOffset)
+    Closed = event()
+    Opened = event()
 class IToolTipFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IToolTipFactory'
@@ -18640,6 +18856,9 @@ class ITreeView(ComPtr):
     RootNodes = property(get_RootNodes, None)
     SelectedNodes = property(get_SelectedNodes, None)
     SelectionMode = property(get_SelectionMode, put_SelectionMode)
+    ItemInvoked = event()
+    Expanding = event()
+    Collapsed = event()
 class ITreeView2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITreeView2'
@@ -18713,6 +18932,8 @@ class ITreeView2(ComPtr):
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     SelectedItems = property(get_SelectedItems, None)
     SelectedNode = property(get_SelectedNode, put_SelectedNode)
+    DragItemsStarting = event()
+    DragItemsCompleted = event()
 class ITreeView3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITreeView3'
@@ -18721,6 +18942,7 @@ class ITreeView3(ComPtr):
     def add_SelectionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TreeView, win32more.Microsoft.UI.Xaml.Controls.TreeViewSelectionChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_SelectionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    SelectionChanged = event()
 class ITreeViewCollapsedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITreeViewCollapsedEventArgs'
@@ -19096,6 +19318,7 @@ class ITwoPaneView(ComPtr):
     PanePriority = property(get_PanePriority, put_PanePriority)
     TallModeConfiguration = property(get_TallModeConfiguration, put_TallModeConfiguration)
     WideModeConfiguration = property(get_WideModeConfiguration, put_WideModeConfiguration)
+    ModeChanged = event()
 class ITwoPaneViewFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITwoPaneViewFactory'
@@ -19481,6 +19704,7 @@ class IVirtualizingStackPanel(ComPtr):
     def remove_CleanUpVirtualizedItemEvent(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AreScrollSnapPointsRegular = property(get_AreScrollSnapPointsRegular, put_AreScrollSnapPointsRegular)
     Orientation = property(get_Orientation, put_Orientation)
+    CleanUpVirtualizedItemEvent = event()
 class IVirtualizingStackPanelOverrides(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IVirtualizingStackPanelOverrides'
@@ -19570,6 +19794,11 @@ class IWebView2(ComPtr):
     CoreWebView2 = property(get_CoreWebView2, None)
     DefaultBackgroundColor = property(get_DefaultBackgroundColor, put_DefaultBackgroundColor)
     Source = property(get_Source, put_Source)
+    NavigationCompleted = event()
+    WebMessageReceived = event()
+    NavigationStarting = event()
+    CoreProcessFailed = event()
+    CoreWebView2Initialized = event()
 class IWebView22(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IWebView22'
@@ -19782,6 +20011,8 @@ class Image(ComPtr, metaclass=_Image_Meta_):
     _Image_Meta_.NineGridProperty = property(get_NineGridProperty, None)
     _Image_Meta_.SourceProperty = property(get_SourceProperty, None)
     _Image_Meta_.StretchProperty = property(get_StretchProperty, None)
+    ImageFailed = event()
+    ImageOpened = event()
 class _ImageIcon_Meta_(ComPtr.__class__):
     pass
 class ImageIcon(ComPtr, metaclass=_ImageIcon_Meta_):
@@ -20040,6 +20271,9 @@ class InfoBar(ComPtr, metaclass=_InfoBar_Meta_):
     _InfoBar_Meta_.SeverityProperty = property(get_SeverityProperty, None)
     _InfoBar_Meta_.TemplateSettingsProperty = property(get_TemplateSettingsProperty, None)
     _InfoBar_Meta_.TitleProperty = property(get_TitleProperty, None)
+    CloseButtonClick = event()
+    Closing = event()
+    Closed = event()
 class InfoBarCloseReason(Enum, Int32):
     CloseButton = 0
     Programmatic = 1
@@ -20150,6 +20384,7 @@ class ItemCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Size = property(get_Size, None)
+    VectorChanged = event()
 class ItemCollectionTransition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IItemCollectionTransition
@@ -20222,6 +20457,7 @@ class ItemCollectionTransitionProvider(ComPtr):
     def ShouldAnimateCore(self: win32more.Microsoft.UI.Xaml.Controls.IItemCollectionTransitionProviderOverrides, transition: win32more.Microsoft.UI.Xaml.Controls.ItemCollectionTransition) -> Boolean: ...
     @winrt_mixinmethod
     def StartTransitions(self: win32more.Microsoft.UI.Xaml.Controls.IItemCollectionTransitionProviderOverrides, transitions: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.ItemCollectionTransition]) -> Void: ...
+    TransitionCompleted = event()
 class ItemCollectionTransitionTriggers(Enum, UInt32):
     CollectionChangeAdd = 1
     CollectionChangeRemove = 2
@@ -20294,6 +20530,7 @@ class ItemContainerGenerator(ComPtr):
     def IndexFromGeneratorPosition(self: win32more.Microsoft.UI.Xaml.Controls.IItemContainerGenerator, position: win32more.Microsoft.UI.Xaml.Controls.Primitives.GeneratorPosition) -> Int32: ...
     @winrt_mixinmethod
     def Recycle(self: win32more.Microsoft.UI.Xaml.Controls.IItemContainerGenerator, position: win32more.Microsoft.UI.Xaml.Controls.Primitives.GeneratorPosition, count: Int32) -> Void: ...
+    ItemsChanged = event()
 class _ItemsControl_Meta_(ComPtr.__class__):
     pass
 class ItemsControl(ComPtr, metaclass=_ItemsControl_Meta_):
@@ -20554,6 +20791,8 @@ class ItemsPresenter(ComPtr, metaclass=_ItemsPresenter_Meta_):
     _ItemsPresenter_Meta_.HeaderTemplateProperty = property(get_HeaderTemplateProperty, None)
     _ItemsPresenter_Meta_.HeaderTransitionsProperty = property(get_HeaderTransitionsProperty, None)
     _ItemsPresenter_Meta_.PaddingProperty = property(get_PaddingProperty, None)
+    HorizontalSnapPointsChanged = event()
+    VerticalSnapPointsChanged = event()
 class _ItemsRepeater_Meta_(ComPtr.__class__):
     pass
 class ItemsRepeater(ComPtr, metaclass=_ItemsRepeater_Meta_):
@@ -20646,6 +20885,9 @@ class ItemsRepeater(ComPtr, metaclass=_ItemsRepeater_Meta_):
     _ItemsRepeater_Meta_.ItemsSourceProperty = property(get_ItemsSourceProperty, None)
     _ItemsRepeater_Meta_.LayoutProperty = property(get_LayoutProperty, None)
     _ItemsRepeater_Meta_.VerticalCacheLengthProperty = property(get_VerticalCacheLengthProperty, None)
+    ElementPrepared = event()
+    ElementClearing = event()
+    ElementIndexChanged = event()
 class ItemsRepeaterElementClearingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IItemsRepeaterElementClearingEventArgs
@@ -20738,6 +20980,7 @@ class ItemsSourceView(ComPtr):
     def remove_CollectionChanged(self: win32more.Microsoft.UI.Xaml.Interop.INotifyCollectionChanged, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Count = property(get_Count, None)
     HasKeyIndexMapping = property(get_HasKeyIndexMapping, None)
+    CollectionChanged = event()
 class _ItemsStackPanel_Meta_(ComPtr.__class__):
     pass
 class ItemsStackPanel(ComPtr, metaclass=_ItemsStackPanel_Meta_):
@@ -20933,6 +21176,8 @@ class ItemsView(ComPtr, metaclass=_ItemsView_Meta_):
     _ItemsView_Meta_.SelectedItemProperty = property(get_SelectedItemProperty, None)
     _ItemsView_Meta_.SelectionModeProperty = property(get_SelectionModeProperty, None)
     _ItemsView_Meta_.VerticalScrollControllerProperty = property(get_VerticalScrollControllerProperty, None)
+    ItemInvoked = event()
+    SelectionChanged = event()
 class ItemsViewItemInvokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IItemsViewItemInvokedEventArgs
@@ -21074,6 +21319,8 @@ class Layout(ComPtr):
     @winrt_mixinmethod
     def CreateDefaultItemTransitionProvider(self: win32more.Microsoft.UI.Xaml.Controls.ILayoutOverrides) -> win32more.Microsoft.UI.Xaml.Controls.ItemCollectionTransitionProvider: ...
     IndexBasedLayoutOrientation = property(get_IndexBasedLayoutOrientation, None)
+    MeasureInvalidated = event()
+    ArrangeInvalidated = event()
 class LayoutContext(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ILayoutContext
@@ -21171,6 +21418,8 @@ class LinedFlowLayout(ComPtr, metaclass=_LinedFlowLayout_Meta_):
     _LinedFlowLayout_Meta_.LineHeightProperty = property(get_LineHeightProperty, None)
     _LinedFlowLayout_Meta_.LineSpacingProperty = property(get_LineSpacingProperty, None)
     _LinedFlowLayout_Meta_.MinItemSpacingProperty = property(get_MinItemSpacingProperty, None)
+    ItemsInfoRequested = event()
+    ItemsUnlocked = event()
 class LinedFlowLayoutItemCollectionTransitionProvider(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.ItemCollectionTransitionProvider
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ILinedFlowLayoutItemCollectionTransitionProvider
@@ -21361,6 +21610,7 @@ class ListPickerFlyout(ComPtr, metaclass=_ListPickerFlyout_Meta_):
     _ListPickerFlyout_Meta_.SelectedValuePathProperty = property(get_SelectedValuePathProperty, None)
     _ListPickerFlyout_Meta_.SelectedValueProperty = property(get_SelectedValueProperty, None)
     _ListPickerFlyout_Meta_.SelectionModeProperty = property(get_SelectionModeProperty, None)
+    ItemsPicked = event()
 class ListPickerFlyoutPresenter(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.Control
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IListPickerFlyoutPresenter
@@ -21628,6 +21878,12 @@ class ListViewBase(ComPtr, metaclass=_ListViewBase_Meta_):
     _ListViewBase_Meta_.SemanticZoomOwnerProperty = property(get_SemanticZoomOwnerProperty, None)
     _ListViewBase_Meta_.ShowsScrollingPlaceholdersProperty = property(get_ShowsScrollingPlaceholdersProperty, None)
     _ListViewBase_Meta_.SingleSelectionFollowsFocusProperty = property(get_SingleSelectionFollowsFocusProperty, None)
+    ItemClick = event()
+    DragItemsStarting = event()
+    DragItemsCompleted = event()
+    ContainerContentChanging = event()
+    ChoosingItemContainer = event()
+    ChoosingGroupHeaderContainer = event()
 class ListViewBaseHeaderItem(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IListViewBaseHeaderItem
@@ -21750,6 +22006,8 @@ class MapControl(ComPtr, metaclass=_MapControl_Meta_):
     _MapControl_Meta_.LayersProperty = property(get_LayersProperty, None)
     _MapControl_Meta_.MapServiceTokenProperty = property(get_MapServiceTokenProperty, None)
     _MapControl_Meta_.ZoomLevelProperty = property(get_ZoomLevelProperty, None)
+    MapElementClick = event()
+    MapServiceErrorOccurred = event()
 class MapControlMapServiceErrorOccurredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IMapControlMapServiceErrorOccurredEventArgs
@@ -21798,6 +22056,7 @@ class MapElementsLayer(ComPtr, metaclass=_MapElementsLayer_Meta_):
     def get_MapElementsProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IMapElementsLayerStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     MapElements = property(get_MapElements, put_MapElements)
     _MapElementsLayer_Meta_.MapElementsProperty = property(get_MapElementsProperty, None)
+    MapElementClick = event()
 class _MapIcon_Meta_(ComPtr.__class__):
     pass
 class MapIcon(ComPtr, metaclass=_MapIcon_Meta_):
@@ -22163,6 +22422,7 @@ class MediaTransportControls(ComPtr, metaclass=_MediaTransportControls_Meta_):
     _MediaTransportControls_Meta_.IsZoomButtonVisibleProperty = property(get_IsZoomButtonVisibleProperty, None)
     _MediaTransportControls_Meta_.IsZoomEnabledProperty = property(get_IsZoomEnabledProperty, None)
     _MediaTransportControls_Meta_.ShowAndHideAutomaticallyProperty = property(get_ShowAndHideAutomaticallyProperty, None)
+    ThumbnailRequested = event()
 class _MediaTransportControlsHelper_Meta_(ComPtr.__class__):
     pass
 class MediaTransportControlsHelper(ComPtr, metaclass=_MediaTransportControlsHelper_Meta_):
@@ -22329,6 +22589,7 @@ class MenuFlyoutItem(ComPtr, metaclass=_MenuFlyoutItem_Meta_):
     _MenuFlyoutItem_Meta_.IconProperty = property(get_IconProperty, None)
     _MenuFlyoutItem_Meta_.KeyboardAcceleratorTextOverrideProperty = property(get_KeyboardAcceleratorTextOverrideProperty, None)
     _MenuFlyoutItem_Meta_.TextProperty = property(get_TextProperty, None)
+    Click = event()
 class MenuFlyoutItemBase(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.Control
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IMenuFlyoutItemBase
@@ -22763,6 +23024,16 @@ class NavigationView(ComPtr, metaclass=_NavigationView_Meta_):
     _NavigationView_Meta_.SettingsItemProperty = property(get_SettingsItemProperty, None)
     _NavigationView_Meta_.ShoulderNavigationEnabledProperty = property(get_ShoulderNavigationEnabledProperty, None)
     _NavigationView_Meta_.TemplateSettingsProperty = property(get_TemplateSettingsProperty, None)
+    SelectionChanged = event()
+    ItemInvoked = event()
+    DisplayModeChanged = event()
+    BackRequested = event()
+    PaneClosed = event()
+    PaneClosing = event()
+    PaneOpened = event()
+    PaneOpening = event()
+    Expanding = event()
+    Collapsed = event()
 class NavigationViewBackButtonVisible(Enum, Int32):
     Collapsed = 0
     Visible = 1
@@ -23277,6 +23548,7 @@ class NumberBox(ComPtr, metaclass=_NumberBox_Meta_):
     _NumberBox_Meta_.TextReadingOrderProperty = property(get_TextReadingOrderProperty, None)
     _NumberBox_Meta_.ValidationModeProperty = property(get_ValidationModeProperty, None)
     _NumberBox_Meta_.ValueProperty = property(get_ValueProperty, None)
+    ValueChanged = event()
 class NumberBoxSpinButtonPlacementMode(Enum, Int32):
     Hidden = 0
     Compact = 1
@@ -23681,6 +23953,10 @@ class PasswordBox(ComPtr, metaclass=_PasswordBox_Meta_):
     _PasswordBox_Meta_.SelectionFlyoutProperty = property(get_SelectionFlyoutProperty, None)
     _PasswordBox_Meta_.SelectionHighlightColorProperty = property(get_SelectionHighlightColorProperty, None)
     _PasswordBox_Meta_.TextReadingOrderProperty = property(get_TextReadingOrderProperty, None)
+    PasswordChanged = event()
+    ContextMenuOpening = event()
+    Paste = event()
+    PasswordChanging = event()
 class PasswordBoxPasswordChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IPasswordBoxPasswordChangingEventArgs
@@ -23896,6 +24172,7 @@ class PickerFlyout(ComPtr, metaclass=_PickerFlyout_Meta_):
     Content = property(get_Content, put_Content)
     _PickerFlyout_Meta_.ConfirmationButtonsVisibleProperty = property(get_ConfirmationButtonsVisibleProperty, None)
     _PickerFlyout_Meta_.ContentProperty = property(get_ContentProperty, None)
+    Confirmed = event()
 class PickerFlyoutPresenter(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IPickerFlyoutPresenter
@@ -24002,6 +24279,7 @@ class PipsPager(ComPtr, metaclass=_PipsPager_Meta_):
     _PipsPager_Meta_.PreviousButtonVisibilityProperty = property(get_PreviousButtonVisibilityProperty, None)
     _PipsPager_Meta_.SelectedPageIndexProperty = property(get_SelectedPageIndexProperty, None)
     _PipsPager_Meta_.SelectedPipStyleProperty = property(get_SelectedPipStyleProperty, None)
+    SelectedIndexChanged = event()
 class PipsPagerButtonVisibility(Enum, Int32):
     Visible = 0
     VisibleOnPointerOver = 1
@@ -24155,6 +24433,11 @@ class Pivot(ComPtr, metaclass=_Pivot_Meta_):
     _Pivot_Meta_.SlideInAnimationGroupProperty = property(get_SlideInAnimationGroupProperty, None)
     _Pivot_Meta_.TitleProperty = property(get_TitleProperty, None)
     _Pivot_Meta_.TitleTemplateProperty = property(get_TitleTemplateProperty, None)
+    SelectionChanged = event()
+    PivotItemLoading = event()
+    PivotItemLoaded = event()
+    PivotItemUnloading = event()
+    PivotItemUnloaded = event()
 class PivotHeaderFocusVisualPlacement(Enum, Int32):
     ItemHeaders = 0
     SelectedItemHeader = 1
@@ -24463,6 +24746,7 @@ class RadioButtons(ComPtr, metaclass=_RadioButtons_Meta_):
     _RadioButtons_Meta_.MaxColumnsProperty = property(get_MaxColumnsProperty, None)
     _RadioButtons_Meta_.SelectedIndexProperty = property(get_SelectedIndexProperty, None)
     _RadioButtons_Meta_.SelectedItemProperty = property(get_SelectedItemProperty, None)
+    SelectionChanged = event()
 class _RadioMenuFlyoutItem_Meta_(ComPtr.__class__):
     pass
 class RadioMenuFlyoutItem(ComPtr, metaclass=_RadioMenuFlyoutItem_Meta_):
@@ -24584,6 +24868,7 @@ class RatingControl(ComPtr, metaclass=_RatingControl_Meta_):
     _RatingControl_Meta_.MaxRatingProperty = property(get_MaxRatingProperty, None)
     _RatingControl_Meta_.PlaceholderValueProperty = property(get_PlaceholderValueProperty, None)
     _RatingControl_Meta_.ValueProperty = property(get_ValueProperty, None)
+    ValueChanged = event()
 class _RatingItemFontInfo_Meta_(ComPtr.__class__):
     pass
 class RatingItemFontInfo(ComPtr, metaclass=_RatingItemFontInfo_Meta_):
@@ -24760,6 +25045,7 @@ class RefreshContainer(ComPtr, metaclass=_RefreshContainer_Meta_):
     Visualizer = property(get_Visualizer, put_Visualizer)
     _RefreshContainer_Meta_.PullDirectionProperty = property(get_PullDirectionProperty, None)
     _RefreshContainer_Meta_.VisualizerProperty = property(get_VisualizerProperty, None)
+    RefreshRequested = event()
 class RefreshInteractionRatioChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IRefreshInteractionRatioChangedEventArgs
@@ -24838,6 +25124,8 @@ class RefreshVisualizer(ComPtr, metaclass=_RefreshVisualizer_Meta_):
     _RefreshVisualizer_Meta_.InfoProviderProperty = property(get_InfoProviderProperty, None)
     _RefreshVisualizer_Meta_.OrientationProperty = property(get_OrientationProperty, None)
     _RefreshVisualizer_Meta_.StateProperty = property(get_StateProperty, None)
+    RefreshRequested = event()
+    RefreshStateChanged = event()
 class RefreshVisualizerOrientation(Enum, Int32):
     Auto = 0
     Normal = 1
@@ -25294,6 +25582,18 @@ class RichEditBox(ComPtr, metaclass=_RichEditBox_Meta_):
     _RichEditBox_Meta_.TextAlignmentProperty = property(get_TextAlignmentProperty, None)
     _RichEditBox_Meta_.TextReadingOrderProperty = property(get_TextReadingOrderProperty, None)
     _RichEditBox_Meta_.TextWrappingProperty = property(get_TextWrappingProperty, None)
+    TextChanged = event()
+    SelectionChanged = event()
+    ContextMenuOpening = event()
+    Paste = event()
+    TextCompositionStarted = event()
+    TextCompositionChanged = event()
+    TextCompositionEnded = event()
+    CopyingToClipboard = event()
+    CuttingToClipboard = event()
+    SelectionChanging = event()
+    CandidateWindowBoundsChanged = event()
+    TextChanging = event()
 class RichEditBoxSelectionChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IRichEditBoxSelectionChangingEventArgs
@@ -25601,6 +25901,9 @@ class RichTextBlock(ComPtr, metaclass=_RichTextBlock_Meta_):
     _RichTextBlock_Meta_.TextReadingOrderProperty = property(get_TextReadingOrderProperty, None)
     _RichTextBlock_Meta_.TextTrimmingProperty = property(get_TextTrimmingProperty, None)
     _RichTextBlock_Meta_.TextWrappingProperty = property(get_TextWrappingProperty, None)
+    SelectionChanged = event()
+    ContextMenuOpening = event()
+    IsTextTrimmedChanged = event()
 class _RichTextBlockOverflow_Meta_(ComPtr.__class__):
     pass
 class RichTextBlockOverflow(ComPtr, metaclass=_RichTextBlockOverflow_Meta_):
@@ -25670,6 +25973,7 @@ class RichTextBlockOverflow(ComPtr, metaclass=_RichTextBlockOverflow_Meta_):
     _RichTextBlockOverflow_Meta_.MaxLinesProperty = property(get_MaxLinesProperty, None)
     _RichTextBlockOverflow_Meta_.OverflowContentTargetProperty = property(get_OverflowContentTargetProperty, None)
     _RichTextBlockOverflow_Meta_.PaddingProperty = property(get_PaddingProperty, None)
+    IsTextTrimmedChanged = event()
 class _RowDefinition_Meta_(ComPtr.__class__):
     pass
 class RowDefinition(ComPtr, metaclass=_RowDefinition_Meta_):
@@ -26126,6 +26430,15 @@ class ScrollView(ComPtr, metaclass=_ScrollView_Meta_):
     _ScrollView_Meta_.VerticalScrollRailModeProperty = property(get_VerticalScrollRailModeProperty, None)
     _ScrollView_Meta_.ZoomChainModeProperty = property(get_ZoomChainModeProperty, None)
     _ScrollView_Meta_.ZoomModeProperty = property(get_ZoomModeProperty, None)
+    ExtentChanged = event()
+    StateChanged = event()
+    ViewChanged = event()
+    ScrollAnimationStarting = event()
+    ZoomAnimationStarting = event()
+    ScrollCompleted = event()
+    ZoomCompleted = event()
+    BringingIntoView = event()
+    AnchorRequested = event()
 class _ScrollViewer_Meta_(ComPtr.__class__):
     pass
 class ScrollViewer(ComPtr, metaclass=_ScrollViewer_Meta_):
@@ -26536,6 +26849,11 @@ class ScrollViewer(ComPtr, metaclass=_ScrollViewer_Meta_):
     _ScrollViewer_Meta_.ZoomModeProperty = property(get_ZoomModeProperty, None)
     _ScrollViewer_Meta_.ZoomSnapPointsProperty = property(get_ZoomSnapPointsProperty, None)
     _ScrollViewer_Meta_.ZoomSnapPointsTypeProperty = property(get_ZoomSnapPointsTypeProperty, None)
+    AnchorRequested = event()
+    ViewChanging = event()
+    ViewChanged = event()
+    DirectManipulationStarted = event()
+    DirectManipulationCompleted = event()
 class ScrollViewerView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IScrollViewerView
@@ -26842,6 +27160,7 @@ class SelectorBar(ComPtr, metaclass=_SelectorBar_Meta_):
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     _SelectorBar_Meta_.ItemsProperty = property(get_ItemsProperty, None)
     _SelectorBar_Meta_.SelectedItemProperty = property(get_SelectedItemProperty, None)
+    SelectionChanged = event()
 class _SelectorBarItem_Meta_(ComPtr.__class__):
     pass
 class SelectorBarItem(ComPtr, metaclass=_SelectorBarItem_Meta_):
@@ -26942,6 +27261,8 @@ class SemanticZoom(ComPtr, metaclass=_SemanticZoom_Meta_):
     _SemanticZoom_Meta_.IsZoomedInViewActiveProperty = property(get_IsZoomedInViewActiveProperty, None)
     _SemanticZoom_Meta_.ZoomedInViewProperty = property(get_ZoomedInViewProperty, None)
     _SemanticZoom_Meta_.ZoomedOutViewProperty = property(get_ZoomedOutViewProperty, None)
+    ViewChangeStarted = event()
+    ViewChangeCompleted = event()
 class SemanticZoomLocation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ISemanticZoomLocation
@@ -27150,6 +27471,7 @@ class SplitButton(ComPtr, metaclass=_SplitButton_Meta_):
     _SplitButton_Meta_.CommandParameterProperty = property(get_CommandParameterProperty, None)
     _SplitButton_Meta_.CommandProperty = property(get_CommandProperty, None)
     _SplitButton_Meta_.FlyoutProperty = property(get_FlyoutProperty, None)
+    Click = event()
 class SplitButtonClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ISplitButtonClickEventArgs
@@ -27263,6 +27585,10 @@ class SplitView(ComPtr, metaclass=_SplitView_Meta_):
     _SplitView_Meta_.PanePlacementProperty = property(get_PanePlacementProperty, None)
     _SplitView_Meta_.PaneProperty = property(get_PaneProperty, None)
     _SplitView_Meta_.TemplateSettingsProperty = property(get_TemplateSettingsProperty, None)
+    PaneClosing = event()
+    PaneClosed = event()
+    PaneOpening = event()
+    PaneOpened = event()
 class SplitViewDisplayMode(Enum, Int32):
     Overlay = 0
     Inline = 1
@@ -27410,6 +27736,8 @@ class StackPanel(ComPtr, metaclass=_StackPanel_Meta_):
     _StackPanel_Meta_.OrientationProperty = property(get_OrientationProperty, None)
     _StackPanel_Meta_.PaddingProperty = property(get_PaddingProperty, None)
     _StackPanel_Meta_.SpacingProperty = property(get_SpacingProperty, None)
+    HorizontalSnapPointsChanged = event()
+    VerticalSnapPointsChanged = event()
 class StretchDirection(Enum, Int32):
     UpOnly = 0
     DownOnly = 1
@@ -27477,6 +27805,7 @@ class SwapChainPanel(ComPtr, metaclass=_SwapChainPanel_Meta_):
     CompositionScaleY = property(get_CompositionScaleY, None)
     _SwapChainPanel_Meta_.CompositionScaleXProperty = property(get_CompositionScaleXProperty, None)
     _SwapChainPanel_Meta_.CompositionScaleYProperty = property(get_CompositionScaleYProperty, None)
+    CompositionScaleChanged = event()
 class SwipeBehaviorOnInvoked(Enum, Int32):
     Auto = 0
     Close = 1
@@ -27605,6 +27934,7 @@ class SwipeItem(ComPtr, metaclass=_SwipeItem_Meta_):
     _SwipeItem_Meta_.ForegroundProperty = property(get_ForegroundProperty, None)
     _SwipeItem_Meta_.IconSourceProperty = property(get_IconSourceProperty, None)
     _SwipeItem_Meta_.TextProperty = property(get_TextProperty, None)
+    Invoked = event()
 class SwipeItemInvokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ISwipeItemInvokedEventArgs
@@ -28110,6 +28440,15 @@ class TabView(ComPtr, metaclass=_TabView_Meta_):
     _TabView_Meta_.TabStripHeaderProperty = property(get_TabStripHeaderProperty, None)
     _TabView_Meta_.TabStripHeaderTemplateProperty = property(get_TabStripHeaderTemplateProperty, None)
     _TabView_Meta_.TabWidthModeProperty = property(get_TabWidthModeProperty, None)
+    TabCloseRequested = event()
+    TabDroppedOutside = event()
+    AddTabButtonClick = event()
+    TabItemsChanged = event()
+    SelectionChanged = event()
+    TabDragStarting = event()
+    TabDragCompleted = event()
+    TabStripDragOver = event()
+    TabStripDrop = event()
 class TabViewCloseButtonOverlayMode(Enum, Int32):
     Auto = 0
     OnPointerOver = 1
@@ -28171,6 +28510,7 @@ class TabViewItem(ComPtr, metaclass=_TabViewItem_Meta_):
     _TabViewItem_Meta_.IconSourceProperty = property(get_IconSourceProperty, None)
     _TabViewItem_Meta_.IsClosableProperty = property(get_IsClosableProperty, None)
     _TabViewItem_Meta_.TabViewTemplateSettingsProperty = property(get_TabViewTemplateSettingsProperty, None)
+    CloseRequested = event()
 class _TabViewItemTemplateSettings_Meta_(ComPtr.__class__):
     pass
 class TabViewItemTemplateSettings(ComPtr, metaclass=_TabViewItemTemplateSettings_Meta_):
@@ -28454,6 +28794,10 @@ class TeachingTip(ComPtr, metaclass=_TeachingTip_Meta_):
     _TeachingTip_Meta_.TargetProperty = property(get_TargetProperty, None)
     _TeachingTip_Meta_.TemplateSettingsProperty = property(get_TemplateSettingsProperty, None)
     _TeachingTip_Meta_.TitleProperty = property(get_TitleProperty, None)
+    ActionButtonClick = event()
+    CloseButtonClick = event()
+    Closing = event()
+    Closed = event()
 class TeachingTipCloseReason(Enum, Int32):
     CloseButton = 0
     LightDismiss = 1
@@ -28809,6 +29153,9 @@ class TextBlock(ComPtr, metaclass=_TextBlock_Meta_):
     _TextBlock_Meta_.TextReadingOrderProperty = property(get_TextReadingOrderProperty, None)
     _TextBlock_Meta_.TextTrimmingProperty = property(get_TextTrimmingProperty, None)
     _TextBlock_Meta_.TextWrappingProperty = property(get_TextWrappingProperty, None)
+    SelectionChanged = event()
+    ContextMenuOpening = event()
+    IsTextTrimmedChanged = event()
 class _TextBox_Meta_(ComPtr.__class__):
     pass
 class TextBox(ComPtr, metaclass=_TextBox_Meta_):
@@ -29119,6 +29466,19 @@ class TextBox(ComPtr, metaclass=_TextBox_Meta_):
     _TextBox_Meta_.TextProperty = property(get_TextProperty, None)
     _TextBox_Meta_.TextReadingOrderProperty = property(get_TextReadingOrderProperty, None)
     _TextBox_Meta_.TextWrappingProperty = property(get_TextWrappingProperty, None)
+    TextChanged = event()
+    SelectionChanged = event()
+    ContextMenuOpening = event()
+    Paste = event()
+    TextCompositionStarted = event()
+    TextCompositionChanged = event()
+    TextCompositionEnded = event()
+    CopyingToClipboard = event()
+    CuttingToClipboard = event()
+    BeforeTextChanging = event()
+    SelectionChanging = event()
+    CandidateWindowBoundsChanged = event()
+    TextChanging = event()
 class TextBoxBeforeTextChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ITextBoxBeforeTextChangingEventArgs
@@ -29335,6 +29695,8 @@ class TimePicker(ComPtr, metaclass=_TimePicker_Meta_):
     _TimePicker_Meta_.MinuteIncrementProperty = property(get_MinuteIncrementProperty, None)
     _TimePicker_Meta_.SelectedTimeProperty = property(get_SelectedTimeProperty, None)
     _TimePicker_Meta_.TimeProperty = property(get_TimeProperty, None)
+    TimeChanged = event()
+    SelectedTimeChanged = event()
 class _TimePickerFlyout_Meta_(ComPtr.__class__):
     pass
 class TimePickerFlyout(ComPtr, metaclass=_TimePickerFlyout_Meta_):
@@ -29380,6 +29742,7 @@ class TimePickerFlyout(ComPtr, metaclass=_TimePickerFlyout_Meta_):
     _TimePickerFlyout_Meta_.ClockIdentifierProperty = property(get_ClockIdentifierProperty, None)
     _TimePickerFlyout_Meta_.MinuteIncrementProperty = property(get_MinuteIncrementProperty, None)
     _TimePickerFlyout_Meta_.TimeProperty = property(get_TimeProperty, None)
+    TimePicked = event()
 class _TimePickerFlyoutPresenter_Meta_(ComPtr.__class__):
     pass
 class TimePickerFlyoutPresenter(ComPtr, metaclass=_TimePickerFlyoutPresenter_Meta_):
@@ -29464,6 +29827,7 @@ class ToggleSplitButton(ComPtr, metaclass=_ToggleSplitButton_Meta_):
     def get_IsCheckedProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IToggleSplitButtonStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     IsChecked = property(get_IsChecked, put_IsChecked)
     _ToggleSplitButton_Meta_.IsCheckedProperty = property(get_IsCheckedProperty, None)
+    IsCheckedChanged = event()
 class ToggleSplitButtonIsCheckedChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.IToggleSplitButtonIsCheckedChangedEventArgs
@@ -29554,6 +29918,7 @@ class ToggleSwitch(ComPtr, metaclass=_ToggleSwitch_Meta_):
     _ToggleSwitch_Meta_.OffContentTemplateProperty = property(get_OffContentTemplateProperty, None)
     _ToggleSwitch_Meta_.OnContentProperty = property(get_OnContentProperty, None)
     _ToggleSwitch_Meta_.OnContentTemplateProperty = property(get_OnContentTemplateProperty, None)
+    Toggled = event()
 class _ToolTip_Meta_(ComPtr.__class__):
     pass
 class ToolTip(ComPtr, metaclass=_ToolTip_Meta_):
@@ -29628,6 +29993,8 @@ class ToolTip(ComPtr, metaclass=_ToolTip_Meta_):
     _ToolTip_Meta_.PlacementRectProperty = property(get_PlacementRectProperty, None)
     _ToolTip_Meta_.PlacementTargetProperty = property(get_PlacementTargetProperty, None)
     _ToolTip_Meta_.VerticalOffsetProperty = property(get_VerticalOffsetProperty, None)
+    Closed = event()
+    Opened = event()
 class _ToolTipService_Meta_(ComPtr.__class__):
     pass
 class ToolTipService(ComPtr, metaclass=_ToolTipService_Meta_):
@@ -29802,6 +30169,12 @@ class TreeView(ComPtr, metaclass=_TreeView_Meta_):
     _TreeView_Meta_.ItemsSourceProperty = property(get_ItemsSourceProperty, None)
     _TreeView_Meta_.SelectedItemProperty = property(get_SelectedItemProperty, None)
     _TreeView_Meta_.SelectionModeProperty = property(get_SelectionModeProperty, None)
+    ItemInvoked = event()
+    Expanding = event()
+    Collapsed = event()
+    DragItemsStarting = event()
+    DragItemsCompleted = event()
+    SelectionChanged = event()
 class TreeViewCollapsedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ITreeViewCollapsedEventArgs
@@ -30164,6 +30537,7 @@ class TwoPaneView(ComPtr, metaclass=_TwoPaneView_Meta_):
     _TwoPaneView_Meta_.PanePriorityProperty = property(get_PanePriorityProperty, None)
     _TwoPaneView_Meta_.TallModeConfigurationProperty = property(get_TallModeConfigurationProperty, None)
     _TwoPaneView_Meta_.WideModeConfigurationProperty = property(get_WideModeConfigurationProperty, None)
+    ModeChanged = event()
 class TwoPaneViewMode(Enum, Int32):
     SinglePane = 0
     Wide = 1
@@ -30590,6 +30964,7 @@ class VirtualizingStackPanel(ComPtr, metaclass=_VirtualizingStackPanel_Meta_):
     _VirtualizingStackPanel_Meta_.IsVirtualizingProperty = property(get_IsVirtualizingProperty, None)
     _VirtualizingStackPanel_Meta_.OrientationProperty = property(get_OrientationProperty, None)
     _VirtualizingStackPanel_Meta_.VirtualizationModeProperty = property(get_VirtualizationModeProperty, None)
+    CleanUpVirtualizedItemEvent = event()
 class _WebView2_Meta_(ComPtr.__class__):
     pass
 class WebView2(ComPtr, metaclass=_WebView2_Meta_):
@@ -30678,6 +31053,11 @@ class WebView2(ComPtr, metaclass=_WebView2_Meta_):
     _WebView2_Meta_.CanGoForwardProperty = property(get_CanGoForwardProperty, None)
     _WebView2_Meta_.DefaultBackgroundColorProperty = property(get_DefaultBackgroundColorProperty, None)
     _WebView2_Meta_.SourceProperty = property(get_SourceProperty, None)
+    NavigationCompleted = event()
+    WebMessageReceived = event()
+    NavigationStarting = event()
+    CoreProcessFailed = event()
+    CoreWebView2Initialized = event()
 class _WrapGrid_Meta_(ComPtr.__class__):
     pass
 class WrapGrid(ComPtr, metaclass=_WrapGrid_Meta_):

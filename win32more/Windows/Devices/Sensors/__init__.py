@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Sensors
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -58,6 +58,8 @@ class Accelerometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     ReportThreshold = property(get_ReportThreshold, None)
+    ReadingChanged = event()
+    Shaken = event()
 class AccelerometerDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IAccelerometerDataThreshold
@@ -152,6 +154,7 @@ class ActivitySensor(ComPtr):
     PowerInMilliwatts = property(get_PowerInMilliwatts, None)
     SubscribedActivities = property(get_SubscribedActivities, None)
     SupportedActivities = property(get_SupportedActivities, None)
+    ReadingChanged = event()
 class ActivitySensorReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IActivitySensorReading
@@ -237,6 +240,7 @@ class Altimeter(ComPtr):
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
+    ReadingChanged = event()
 class AltimeterReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IAltimeterReading
@@ -298,6 +302,7 @@ class Barometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     ReportThreshold = property(get_ReportThreshold, None)
+    ReadingChanged = event()
 class BarometerDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IBarometerDataThreshold
@@ -373,6 +378,7 @@ class Compass(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     ReportThreshold = property(get_ReportThreshold, None)
+    ReadingChanged = event()
 class CompassDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ICompassDataThreshold
@@ -454,6 +460,7 @@ class Gyrometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     ReportThreshold = property(get_ReportThreshold, None)
+    ReadingChanged = event()
 class GyrometerDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IGyrometerDataThreshold
@@ -544,6 +551,7 @@ class HingeAngleSensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MinReportThresholdInDegrees = property(get_MinReportThresholdInDegrees, None)
     ReportThresholdInDegrees = property(get_ReportThresholdInDegrees, put_ReportThresholdInDegrees)
+    ReadingChanged = event()
 class HingeAngleSensorReadingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IHingeAngleSensorReadingChangedEventArgs
@@ -616,6 +624,7 @@ class HumanPresenceSensor(ComPtr):
     IsPresenceSupported = property(get_IsPresenceSupported, None)
     MaxDetectableDistanceInMillimeters = property(get_MaxDetectableDistanceInMillimeters, None)
     MinDetectableDistanceInMillimeters = property(get_MinDetectableDistanceInMillimeters, None)
+    ReadingChanged = event()
 class HumanPresenceSensorReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReading
@@ -768,6 +777,8 @@ class IAccelerometer(ComPtr):
     def remove_Shaken(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
+    Shaken = event()
 class IAccelerometer2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IAccelerometer2'
@@ -914,6 +925,7 @@ class IActivitySensor(ComPtr):
     PowerInMilliwatts = property(get_PowerInMilliwatts, None)
     SubscribedActivities = property(get_SubscribedActivities, None)
     SupportedActivities = property(get_SupportedActivities, None)
+    ReadingChanged = event()
 class IActivitySensorReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IActivitySensorReading'
@@ -991,6 +1003,7 @@ class IAltimeter(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class IAltimeter2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IAltimeter2'
@@ -1057,6 +1070,7 @@ class IBarometer(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class IBarometer2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IBarometer2'
@@ -1144,6 +1158,7 @@ class ICompass(ComPtr):
     def remove_ReadingChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class ICompass2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.ICompass2'
@@ -1257,6 +1272,7 @@ class IGyrometer(ComPtr):
     def remove_ReadingChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class IGyrometer2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IGyrometer2'
@@ -1392,6 +1408,7 @@ class IHingeAngleSensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MinReportThresholdInDegrees = property(get_MinReportThresholdInDegrees, None)
     ReportThresholdInDegrees = property(get_ReportThresholdInDegrees, put_ReportThresholdInDegrees)
+    ReadingChanged = event()
 class IHingeAngleSensorReadingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHingeAngleSensorReadingChangedEventArgs'
@@ -1456,6 +1473,7 @@ class IHumanPresenceSensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MaxDetectableDistanceInMillimeters = property(get_MaxDetectableDistanceInMillimeters, None)
     MinDetectableDistanceInMillimeters = property(get_MinDetectableDistanceInMillimeters, None)
+    ReadingChanged = event()
 class IHumanPresenceSensor2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensor2'
@@ -1635,6 +1653,7 @@ class IHumanPresenceSettingsStatics(ComPtr):
     def add_SettingsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_SettingsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    SettingsChanged = event()
 class IInclinometer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IInclinometer'
@@ -1653,6 +1672,7 @@ class IInclinometer(ComPtr):
     def remove_ReadingChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class IInclinometer2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IInclinometer2'
@@ -1794,6 +1814,7 @@ class ILightSensor(ComPtr):
     def remove_ReadingChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class ILightSensor2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.ILightSensor2'
@@ -1902,6 +1923,7 @@ class IMagnetometer(ComPtr):
     def remove_ReadingChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class IMagnetometer2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IMagnetometer2'
@@ -2024,6 +2046,7 @@ class IOrientationSensor(ComPtr):
     def remove_ReadingChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class IOrientationSensor2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IOrientationSensor2'
@@ -2144,6 +2167,7 @@ class IPedometer(ComPtr):
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     PowerInMilliwatts = property(get_PowerInMilliwatts, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class IPedometer2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IPedometer2'
@@ -2220,6 +2244,7 @@ class IProximitySensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MaxDistanceInMillimeters = property(get_MaxDistanceInMillimeters, None)
     MinDistanceInMillimeters = property(get_MinDistanceInMillimeters, None)
+    ReadingChanged = event()
 class IProximitySensorDataThresholdFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IProximitySensorDataThresholdFactory'
@@ -2331,6 +2356,7 @@ class ISimpleOrientationSensor(ComPtr):
     def add_OrientationChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Sensors.SimpleOrientationSensor, win32more.Windows.Devices.Sensors.SimpleOrientationSensorOrientationChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_OrientationChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    OrientationChanged = event()
 class ISimpleOrientationSensor2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.ISimpleOrientationSensor2'
@@ -2435,6 +2461,7 @@ class Inclinometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     ReportThreshold = property(get_ReportThreshold, None)
+    ReadingChanged = event()
 class InclinometerDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IInclinometerDataThreshold
@@ -2524,6 +2551,7 @@ class LightSensor(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     ReportThreshold = property(get_ReportThreshold, None)
+    ReadingChanged = event()
 class LightSensorDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ILightSensorDataThreshold
@@ -2613,6 +2641,7 @@ class Magnetometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     ReportThreshold = property(get_ReportThreshold, None)
+    ReadingChanged = event()
 class MagnetometerAccuracy(Enum, Int32):
     Unknown = 0
     Unreliable = 1
@@ -2720,6 +2749,7 @@ class OrientationSensor(ComPtr):
     ReadingType = property(get_ReadingType, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
+    ReadingChanged = event()
 class OrientationSensorReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IOrientationSensorReading
@@ -2785,6 +2815,7 @@ class Pedometer(ComPtr):
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     PowerInMilliwatts = property(get_PowerInMilliwatts, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
+    ReadingChanged = event()
 class PedometerDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ISensorDataThreshold
@@ -2852,6 +2883,7 @@ class ProximitySensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
     MaxDistanceInMillimeters = property(get_MaxDistanceInMillimeters, None)
     MinDistanceInMillimeters = property(get_MinDistanceInMillimeters, None)
+    ReadingChanged = event()
 class ProximitySensorDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ISensorDataThreshold
@@ -3000,6 +3032,7 @@ class SimpleOrientationSensor(ComPtr):
     def GetDefault(cls: win32more.Windows.Devices.Sensors.ISimpleOrientationSensorStatics) -> win32more.Windows.Devices.Sensors.SimpleOrientationSensor: ...
     DeviceId = property(get_DeviceId, None)
     ReadingTransform = property(get_ReadingTransform, put_ReadingTransform)
+    OrientationChanged = event()
 class SimpleOrientationSensorOrientationChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ISimpleOrientationSensorOrientationChangedEventArgs

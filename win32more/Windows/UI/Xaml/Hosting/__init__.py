@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.UI.Composition
 import win32more.Windows.UI.WindowManagement
@@ -42,6 +42,7 @@ class DesignerAppManager(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     AppUserModelId = property(get_AppUserModelId, None)
+    DesignerAppExited = event()
 class DesignerAppView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesignerAppView
@@ -98,6 +99,8 @@ class DesktopWindowXamlSource(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Content = property(get_Content, put_Content)
     HasFocus = property(get_HasFocus, None)
+    TakeFocusRequested = event()
+    GotFocus = event()
 class DesktopWindowXamlSourceGotFocusEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceGotFocusEventArgs
@@ -159,6 +162,7 @@ class IDesignerAppManager(ComPtr):
     @winrt_commethod(10)
     def LoadObjectIntoAppAsync(self, dllName: WinRT_String, classId: Guid, initializationData: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
     AppUserModelId = property(get_AppUserModelId, None)
+    DesignerAppExited = event()
 class IDesignerAppManagerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Hosting.IDesignerAppManagerFactory'
@@ -205,6 +209,8 @@ class IDesktopWindowXamlSource(ComPtr):
     def NavigateFocus(self, request: win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationRequest) -> win32more.Windows.UI.Xaml.Hosting.XamlSourceFocusNavigationResult: ...
     Content = property(get_Content, put_Content)
     HasFocus = property(get_HasFocus, None)
+    TakeFocusRequested = event()
+    GotFocus = event()
 class IDesktopWindowXamlSourceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceFactory'

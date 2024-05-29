@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Store.Preview.InstallControl
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -81,6 +81,8 @@ class AppInstallItem(ComPtr):
     PinToStartAfterInstall = property(get_PinToStartAfterInstall, put_PinToStartAfterInstall)
     PinToTaskbarAfterInstall = property(get_PinToTaskbarAfterInstall, put_PinToTaskbarAfterInstall)
     ProductId = property(get_ProductId, None)
+    Completed = event()
+    StatusChanged = event()
 class AppInstallManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManager
@@ -195,6 +197,8 @@ class AppInstallManager(ComPtr):
     AppInstallItemsWithGroupSupport = property(get_AppInstallItemsWithGroupSupport, None)
     AutoUpdateSetting = property(get_AutoUpdateSetting, put_AutoUpdateSetting)
     CanInstallForAllUsers = property(get_CanInstallForAllUsers, None)
+    ItemCompleted = event()
+    ItemStatusChanged = event()
 class AppInstallManagerItemEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManagerItemEventArgs
@@ -419,6 +423,8 @@ class IAppInstallItem(ComPtr):
     IsUserInitiated = property(get_IsUserInitiated, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
     ProductId = property(get_ProductId, None)
+    Completed = event()
+    StatusChanged = event()
 class IAppInstallItem2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem2'
@@ -522,6 +528,8 @@ class IAppInstallManager(ComPtr):
     AcquisitionIdentity = property(get_AcquisitionIdentity, put_AcquisitionIdentity)
     AppInstallItems = property(get_AppInstallItems, None)
     AutoUpdateSetting = property(get_AutoUpdateSetting, put_AutoUpdateSetting)
+    ItemCompleted = event()
+    ItemStatusChanged = event()
 class IAppInstallManager2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManager2'

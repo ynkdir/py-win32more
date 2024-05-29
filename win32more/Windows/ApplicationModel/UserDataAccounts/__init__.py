@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Appointments
 import win32more.Windows.ApplicationModel.Contacts
 import win32more.Windows.ApplicationModel.Email
@@ -142,6 +142,7 @@ class IUserDataAccountStore2(ComPtr):
     def add_StoreChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore, win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_StoreChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    StoreChanged = event()
 class IUserDataAccountStore3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore3'
@@ -272,6 +273,7 @@ class UserDataAccountStore(ComPtr):
     def remove_StoreChanged(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def CreateAccountWithPackageRelativeAppIdAndEnterpriseIdAsync(self: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore3, userDisplayName: WinRT_String, packageRelativeAppId: WinRT_String, enterpriseId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
+    StoreChanged = event()
 class UserDataAccountStoreAccessType(Enum, Int32):
     AllAccountsReadOnly = 0
     AppAccountsReadWrite = 1

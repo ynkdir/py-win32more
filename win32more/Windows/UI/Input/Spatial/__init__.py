@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Haptics
 import win32more.Windows.Devices.Power
 import win32more.Windows.Foundation
@@ -81,6 +81,20 @@ class ISpatialGestureRecognizer(ComPtr):
     @winrt_commethod(37)
     def get_GestureSettings(self) -> win32more.Windows.UI.Input.Spatial.SpatialGestureSettings: ...
     GestureSettings = property(get_GestureSettings, None)
+    RecognitionStarted = event()
+    RecognitionEnded = event()
+    Tapped = event()
+    HoldStarted = event()
+    HoldCompleted = event()
+    HoldCanceled = event()
+    ManipulationStarted = event()
+    ManipulationUpdated = event()
+    ManipulationCompleted = event()
+    ManipulationCanceled = event()
+    NavigationStarted = event()
+    NavigationUpdated = event()
+    NavigationCompleted = event()
+    NavigationCanceled = event()
 class ISpatialGestureRecognizerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Spatial.ISpatialGestureRecognizerFactory'
@@ -225,6 +239,12 @@ class ISpatialInteractionManager(ComPtr):
     def remove_InteractionDetected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
     def GetDetectedSourcesAtTimestamp(self, timeStamp: win32more.Windows.Perception.PerceptionTimestamp) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.UI.Input.Spatial.SpatialInteractionSourceState]: ...
+    SourceDetected = event()
+    SourceLost = event()
+    SourceUpdated = event()
+    SourcePressed = event()
+    SourceReleased = event()
+    InteractionDetected = event()
 class ISpatialInteractionManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics'
@@ -627,6 +647,20 @@ class SpatialGestureRecognizer(ComPtr):
     @winrt_mixinmethod
     def get_GestureSettings(self: win32more.Windows.UI.Input.Spatial.ISpatialGestureRecognizer) -> win32more.Windows.UI.Input.Spatial.SpatialGestureSettings: ...
     GestureSettings = property(get_GestureSettings, None)
+    RecognitionStarted = event()
+    RecognitionEnded = event()
+    Tapped = event()
+    HoldStarted = event()
+    HoldCompleted = event()
+    HoldCanceled = event()
+    ManipulationStarted = event()
+    ManipulationUpdated = event()
+    ManipulationCompleted = event()
+    ManipulationCanceled = event()
+    NavigationStarted = event()
+    NavigationUpdated = event()
+    NavigationCompleted = event()
+    NavigationCanceled = event()
 class SpatialGestureSettings(Enum, UInt32):
     None_ = 0
     Tap = 1
@@ -769,6 +803,12 @@ class SpatialInteractionManager(ComPtr):
     def IsSourceKindSupported(cls: win32more.Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics2, kind: win32more.Windows.UI.Input.Spatial.SpatialInteractionSourceKind) -> Boolean: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics) -> win32more.Windows.UI.Input.Spatial.SpatialInteractionManager: ...
+    SourceDetected = event()
+    SourceLost = event()
+    SourceUpdated = event()
+    SourcePressed = event()
+    SourceReleased = event()
+    InteractionDetected = event()
 class SpatialInteractionPressKind(Enum, Int32):
     None_ = 0
     Select = 1

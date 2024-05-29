@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Devices.Geolocation.Geofencing
 import win32more.Windows.Foundation
@@ -80,6 +80,8 @@ class GeofenceMonitor(ComPtr, metaclass=_GeofenceMonitor_Meta_):
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
     Status = property(get_Status, None)
     _GeofenceMonitor_Meta_.Current = property(get_Current, None)
+    GeofenceStateChanged = event()
+    StatusChanged = event()
 class GeofenceMonitorStatus(Enum, Int32):
     Ready = 0
     Initializing = 1
@@ -171,6 +173,8 @@ class IGeofenceMonitor(ComPtr):
     Geofences = property(get_Geofences, None)
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
     Status = property(get_Status, None)
+    GeofenceStateChanged = event()
+    StatusChanged = event()
 class IGeofenceMonitorStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.IGeofenceMonitorStatics'

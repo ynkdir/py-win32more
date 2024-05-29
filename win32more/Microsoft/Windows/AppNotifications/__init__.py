@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.AppNotifications
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -118,6 +118,7 @@ class AppNotificationManager(ComPtr, metaclass=_AppNotificationManager_Meta_):
     def get_Default(cls: win32more.Microsoft.Windows.AppNotifications.IAppNotificationManagerStatics) -> win32more.Microsoft.Windows.AppNotifications.AppNotificationManager: ...
     Setting = property(get_Setting, None)
     _AppNotificationManager_Meta_.Default = property(get_Default, None)
+    NotificationInvoked = event()
 class AppNotificationPriority(Enum, Int32):
     Default = 0
     High = 1
@@ -274,6 +275,7 @@ class IAppNotificationManager(ComPtr):
     @winrt_commethod(20)
     def GetAllAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.Windows.AppNotifications.AppNotification]]: ...
     Setting = property(get_Setting, None)
+    NotificationInvoked = event()
 class IAppNotificationManager2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.IAppNotificationManager2'

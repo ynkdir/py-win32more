@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.System.Power
 import win32more.Windows.Win32.System.WinRT
@@ -117,6 +117,8 @@ class IBackgroundEnergyManagerStatics(ComPtr):
     RecentEnergyUsage = property(get_RecentEnergyUsage, None)
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
     TerminationUsageLevel = property(get_TerminationUsageLevel, None)
+    RecentEnergyUsageIncreased = event()
+    RecentEnergyUsageReturnedToLow = event()
 class IForegroundEnergyManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.IForegroundEnergyManagerStatics'
@@ -147,6 +149,8 @@ class IForegroundEnergyManagerStatics(ComPtr):
     NearMaxAcceptableUsageLevel = property(get_NearMaxAcceptableUsageLevel, None)
     RecentEnergyUsage = property(get_RecentEnergyUsage, None)
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
+    RecentEnergyUsageIncreased = event()
+    RecentEnergyUsageReturnedToLow = event()
 class IPowerManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.Power.IPowerManagerStatics'
@@ -186,6 +190,11 @@ class IPowerManagerStatics(ComPtr):
     PowerSupplyStatus = property(get_PowerSupplyStatus, None)
     RemainingChargePercent = property(get_RemainingChargePercent, None)
     RemainingDischargeTime = property(get_RemainingDischargeTime, None)
+    EnergySaverStatusChanged = event()
+    BatteryStatusChanged = event()
+    PowerSupplyStatusChanged = event()
+    RemainingChargePercentChanged = event()
+    RemainingDischargeTimeChanged = event()
 class _PowerManager_Meta_(ComPtr.__class__):
     pass
 class PowerManager(ComPtr, metaclass=_PowerManager_Meta_):

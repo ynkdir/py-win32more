@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Search
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -88,6 +88,11 @@ class ISearchPane(ComPtr):
     SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
     Visible = property(get_Visible, None)
+    VisibilityChanged = event()
+    QueryChanged = event()
+    SuggestionsRequested = event()
+    QuerySubmitted = event()
+    ResultSuggestionChosen = event()
 class ISearchPaneQueryChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs'
@@ -329,6 +334,11 @@ class SearchPane(ComPtr):
     SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
     ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
     Visible = property(get_Visible, None)
+    VisibilityChanged = event()
+    QueryChanged = event()
+    SuggestionsRequested = event()
+    QuerySubmitted = event()
+    ResultSuggestionChosen = event()
 class SearchPaneQueryChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs

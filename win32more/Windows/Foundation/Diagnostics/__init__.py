@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Diagnostics
 import win32more.Windows.Storage
@@ -91,6 +91,7 @@ class FileLoggingSession(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Name = property(get_Name, None)
+    LogFileGenerated = event()
 class IAsyncCausalityTracerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics'
@@ -109,6 +110,7 @@ class IAsyncCausalityTracerStatics(ComPtr):
     def add_TracingStatusChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_TracingStatusChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    TracingStatusChanged = event()
 class IErrorDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Diagnostics.IErrorDetails'
@@ -155,6 +157,7 @@ class IFileLoggingSession(ComPtr):
     @winrt_commethod(12)
     def remove_LogFileGenerated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Name = property(get_Name, None)
+    LogFileGenerated = event()
 class IFileLoggingSessionFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Diagnostics.IFileLoggingSessionFactory'
@@ -224,6 +227,7 @@ class ILoggingChannel(ComPtr):
     Enabled = property(get_Enabled, None)
     Level = property(get_Level, None)
     Name = property(get_Name, None)
+    LoggingEnabled = event()
 class ILoggingChannel2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Diagnostics.ILoggingChannel2'
@@ -723,6 +727,7 @@ class LoggingChannel(ComPtr):
     Id = property(get_Id, None)
     Level = property(get_Level, None)
     Name = property(get_Name, None)
+    LoggingEnabled = event()
 class LoggingChannelOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingChannelOptions

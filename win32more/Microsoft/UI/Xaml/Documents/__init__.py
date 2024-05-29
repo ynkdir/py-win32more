@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Documents
 import win32more.Microsoft.UI.Xaml.Input
@@ -342,6 +342,9 @@ class Hyperlink(ComPtr, metaclass=_Hyperlink_Meta_):
     _Hyperlink_Meta_.XYFocusRightProperty = property(get_XYFocusRightProperty, None)
     _Hyperlink_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
     _Hyperlink_Meta_.XYFocusUpProperty = property(get_XYFocusUpProperty, None)
+    Click = event()
+    GotFocus = event()
+    LostFocus = event()
 class HyperlinkClickEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Documents.IHyperlinkClickEventArgs
@@ -578,6 +581,9 @@ class IHyperlink(ComPtr):
     XYFocusRightNavigationStrategy = property(get_XYFocusRightNavigationStrategy, put_XYFocusRightNavigationStrategy)
     XYFocusUp = property(get_XYFocusUp, put_XYFocusUp)
     XYFocusUpNavigationStrategy = property(get_XYFocusUpNavigationStrategy, put_XYFocusUpNavigationStrategy)
+    Click = event()
+    GotFocus = event()
+    LostFocus = event()
 class IHyperlinkClickEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Documents.IHyperlinkClickEventArgs'
@@ -838,6 +844,9 @@ class ITextElement(ComPtr):
     Name = property(get_Name, None)
     TextDecorations = property(get_TextDecorations, put_TextDecorations)
     XamlRoot = property(get_XamlRoot, put_XamlRoot)
+    AccessKeyDisplayRequested = event()
+    AccessKeyDisplayDismissed = event()
+    AccessKeyInvoked = event()
 class ITextElementFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Documents.ITextElementFactory'
@@ -1629,6 +1638,9 @@ class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     _TextElement_Meta_.KeyTipVerticalOffsetProperty = property(get_KeyTipVerticalOffsetProperty, None)
     _TextElement_Meta_.LanguageProperty = property(get_LanguageProperty, None)
     _TextElement_Meta_.TextDecorationsProperty = property(get_TextDecorationsProperty, None)
+    AccessKeyDisplayRequested = event()
+    AccessKeyDisplayDismissed = event()
+    AccessKeyInvoked = event()
 class _TextHighlighter_Meta_(ComPtr.__class__):
     pass
 class TextHighlighter(ComPtr, metaclass=_TextHighlighter_Meta_):

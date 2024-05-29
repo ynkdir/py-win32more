@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Controls
@@ -338,6 +338,7 @@ class ConnectedAnimation(ComPtr):
     def SetAnimationComponent(self: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimation, component: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationComponent, animation: win32more.Microsoft.UI.Composition.ICompositionAnimationBase) -> Void: ...
     Configuration = property(get_Configuration, put_Configuration)
     IsScaleAnimationEnabled = property(get_IsScaleAnimationEnabled, put_IsScaleAnimationEnabled)
+    Completed = event()
 class ConnectedAnimationComponent(Enum, Int32):
     OffsetX = 0
     OffsetY = 1
@@ -1378,6 +1379,7 @@ class IConnectedAnimation(ComPtr):
     def SetAnimationComponent(self, component: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationComponent, animation: win32more.Microsoft.UI.Composition.ICompositionAnimationBase) -> Void: ...
     Configuration = property(get_Configuration, put_Configuration)
     IsScaleAnimationEnabled = property(get_IsScaleAnimationEnabled, put_IsScaleAnimationEnabled)
+    Completed = event()
 class IConnectedAnimationConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IConnectedAnimationConfiguration'
@@ -2814,6 +2816,7 @@ class ITimeline(ComPtr):
     FillBehavior = property(get_FillBehavior, put_FillBehavior)
     RepeatBehavior = property(get_RepeatBehavior, put_RepeatBehavior)
     SpeedRatio = property(get_SpeedRatio, put_SpeedRatio)
+    Completed = event()
 class ITimelineFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ITimelineFactory'
@@ -4070,6 +4073,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     _Timeline_Meta_.FillBehaviorProperty = property(get_FillBehaviorProperty, None)
     _Timeline_Meta_.RepeatBehaviorProperty = property(get_RepeatBehaviorProperty, None)
     _Timeline_Meta_.SpeedRatioProperty = property(get_SpeedRatioProperty, None)
+    Completed = event()
 class TimelineCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.Timeline]

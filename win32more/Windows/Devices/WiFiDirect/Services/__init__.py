@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.WiFiDirect.Services
 import win32more.Windows.Foundation
@@ -42,6 +42,7 @@ class IWiFiDirectService(ComPtr):
     ServiceError = property(get_ServiceError, None)
     SessionInfo = property(get_SessionInfo, put_SessionInfo)
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
+    SessionDeferred = event()
 class IWiFiDirectServiceAdvertiser(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAdvertiser'
@@ -111,6 +112,9 @@ class IWiFiDirectServiceAdvertiser(ComPtr):
     ServiceName = property(get_ServiceName, None)
     ServiceNamePrefixes = property(get_ServiceNamePrefixes, None)
     ServiceStatus = property(get_ServiceStatus, put_ServiceStatus)
+    SessionRequested = event()
+    AutoAcceptSessionConnected = event()
+    AdvertisementStatusChanged = event()
 class IWiFiDirectServiceAdvertiserFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAdvertiserFactory'
@@ -186,6 +190,8 @@ class IWiFiDirectServiceSession(ComPtr):
     SessionAddress = property(get_SessionAddress, None)
     SessionId = property(get_SessionId, None)
     Status = property(get_Status, None)
+    SessionStatusChanged = event()
+    RemotePortAdded = event()
 class IWiFiDirectServiceSessionDeferredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionDeferredEventArgs'
@@ -261,6 +267,7 @@ class WiFiDirectService(ComPtr):
     ServiceError = property(get_ServiceError, None)
     SessionInfo = property(get_SessionInfo, put_SessionInfo)
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
+    SessionDeferred = event()
 class WiFiDirectServiceAdvertisementStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -344,6 +351,9 @@ class WiFiDirectServiceAdvertiser(ComPtr):
     ServiceName = property(get_ServiceName, None)
     ServiceNamePrefixes = property(get_ServiceNamePrefixes, None)
     ServiceStatus = property(get_ServiceStatus, put_ServiceStatus)
+    SessionRequested = event()
+    AutoAcceptSessionConnected = event()
+    AdvertisementStatusChanged = event()
 class WiFiDirectServiceAutoAcceptSessionConnectedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs
@@ -428,6 +438,8 @@ class WiFiDirectServiceSession(ComPtr):
     SessionAddress = property(get_SessionAddress, None)
     SessionId = property(get_SessionId, None)
     Status = property(get_Status, None)
+    SessionStatusChanged = event()
+    RemotePortAdded = event()
 class WiFiDirectServiceSessionDeferredEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionDeferredEventArgs

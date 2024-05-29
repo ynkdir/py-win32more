@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.SmartCards
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -493,6 +493,8 @@ class ISmartCardEmulator2(ComPtr):
     def Start(self) -> Void: ...
     @winrt_commethod(11)
     def IsHostCardEmulationSupported(self) -> Boolean: ...
+    ApduReceived = event()
+    ConnectionDeactivated = event()
 class ISmartCardEmulatorApduReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.SmartCards.ISmartCardEmulatorApduReceivedEventArgs'
@@ -692,6 +694,8 @@ class ISmartCardReader(ComPtr):
     DeviceId = property(get_DeviceId, None)
     Kind = property(get_Kind, None)
     Name = property(get_Name, None)
+    CardAdded = event()
+    CardRemoved = event()
 class ISmartCardReaderStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.SmartCards.ISmartCardReaderStatics'
@@ -1320,6 +1324,8 @@ class SmartCardEmulator(ComPtr, metaclass=_SmartCardEmulator_Meta_):
     def GetDefaultAsync(cls: win32more.Windows.Devices.SmartCards.ISmartCardEmulatorStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.SmartCards.SmartCardEmulator]: ...
     EnablementPolicy = property(get_EnablementPolicy, None)
     _SmartCardEmulator_Meta_.MaxAppletIdGroupRegistrations = property(get_MaxAppletIdGroupRegistrations, None)
+    ApduReceived = event()
+    ConnectionDeactivated = event()
 class SmartCardEmulatorApduReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardEmulatorApduReceivedEventArgs
@@ -1513,6 +1519,8 @@ class SmartCardReader(ComPtr):
     DeviceId = property(get_DeviceId, None)
     Kind = property(get_Kind, None)
     Name = property(get_Name, None)
+    CardAdded = event()
+    CardRemoved = event()
 class SmartCardReaderKind(Enum, Int32):
     Any = 0
     Generic = 1

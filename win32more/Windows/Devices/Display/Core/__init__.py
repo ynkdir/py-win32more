@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Display
 import win32more.Windows.Devices.Display.Core
 import win32more.Windows.Foundation
@@ -121,6 +121,10 @@ class DisplayManager(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
     def Create(cls: win32more.Windows.Devices.Display.Core.IDisplayManagerStatics, options: win32more.Windows.Devices.Display.Core.DisplayManagerOptions) -> win32more.Windows.Devices.Display.Core.DisplayManager: ...
+    Enabled = event()
+    Disabled = event()
+    Changed = event()
+    PathsFailedOrInvalidated = event()
 class DisplayManagerChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayManagerChangedEventArgs
@@ -384,6 +388,7 @@ class DisplaySource(ComPtr):
     AdapterId = property(get_AdapterId, None)
     SourceId = property(get_SourceId, None)
     Status = property(get_Status, None)
+    StatusChanged = event()
 class DisplaySourceStatus(Enum, Int32):
     Active = 0
     PoweredOff = 1
@@ -715,6 +720,10 @@ class IDisplayManager(ComPtr):
     def Start(self) -> Void: ...
     @winrt_commethod(24)
     def Stop(self) -> Void: ...
+    Enabled = event()
+    Disabled = event()
+    Changed = event()
+    PathsFailedOrInvalidated = event()
 class IDisplayManagerChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayManagerChangedEventArgs'
@@ -952,6 +961,7 @@ class IDisplaySource2(ComPtr):
     @winrt_commethod(8)
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
+    StatusChanged = event()
 class IDisplayState(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayState'

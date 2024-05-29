@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Content
 import win32more.Microsoft.UI.Dispatching
@@ -278,6 +278,15 @@ class GestureRecognizer(ComPtr):
     PivotCenter = property(get_PivotCenter, put_PivotCenter)
     PivotRadius = property(get_PivotRadius, put_PivotRadius)
     ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
+    ManipulationStarted = event()
+    Tapped = event()
+    RightTapped = event()
+    Holding = event()
+    Dragging = event()
+    ManipulationUpdated = event()
+    ManipulationInertiaStarting = event()
+    ManipulationCompleted = event()
+    CrossSliding = event()
 class GestureSettings(Enum, UInt32):
     None_ = 0
     Tap = 1
@@ -546,6 +555,15 @@ class IGestureRecognizer(ComPtr):
     PivotCenter = property(get_PivotCenter, put_PivotCenter)
     PivotRadius = property(get_PivotRadius, put_PivotRadius)
     ShowGestureFeedback = property(get_ShowGestureFeedback, put_ShowGestureFeedback)
+    Tapped = event()
+    RightTapped = event()
+    Holding = event()
+    Dragging = event()
+    ManipulationStarted = event()
+    ManipulationUpdated = event()
+    ManipulationInertiaStarting = event()
+    ManipulationCompleted = event()
+    CrossSliding = event()
 class IHoldingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.IHoldingEventArgs'
@@ -570,6 +588,7 @@ class IInputActivationListener(ComPtr):
     @winrt_commethod(8)
     def remove_InputActivationChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     State = property(get_State, None)
+    InputActivationChanged = event()
 class IInputActivationListenerActivationChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputActivationListenerActivationChangedEventArgs'
@@ -661,6 +680,8 @@ class IInputFocusController(ComPtr):
     @winrt_commethod(11)
     def remove_LostFocus(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HasFocus = property(get_HasFocus, None)
+    GotFocus = event()
+    LostFocus = event()
 class IInputFocusController2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputFocusController2'
@@ -671,6 +692,7 @@ class IInputFocusController2(ComPtr):
     def add_NavigateFocusRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Input.InputFocusController, win32more.Microsoft.UI.Input.FocusNavigationRequestEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_NavigateFocusRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    NavigateFocusRequested = event()
 class IInputFocusControllerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputFocusControllerStatics'
@@ -690,6 +712,7 @@ class IInputFocusNavigationHost(ComPtr):
     @winrt_commethod(9)
     def remove_DepartFocusRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ContainsFocus = property(get_ContainsFocus, None)
+    DepartFocusRequested = event()
 class IInputFocusNavigationHostStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputFocusNavigationHostStatics'
@@ -732,6 +755,12 @@ class IInputKeyboardSource2(ComPtr):
     def add_SystemKeyUp(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Input.InputKeyboardSource, win32more.Microsoft.UI.Input.KeyEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_SystemKeyUp(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    CharacterReceived = event()
+    ContextMenuKey = event()
+    KeyDown = event()
+    KeyUp = event()
+    SystemKeyDown = event()
+    SystemKeyUp = event()
 class IInputKeyboardSourceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputKeyboardSourceStatics'
@@ -752,6 +781,7 @@ class IInputLightDismissAction(ComPtr):
     def add_Dismissed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Input.InputLightDismissAction, win32more.Microsoft.UI.Input.InputLightDismissEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Dismissed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Dismissed = event()
 class IInputLightDismissActionStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputLightDismissActionStatics'
@@ -805,6 +835,13 @@ class IInputNonClientPointerSource(ComPtr):
     @winrt_commethod(24)
     def remove_RegionsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
+    CaptionTapped = event()
+    PointerEntered = event()
+    PointerExited = event()
+    PointerMoved = event()
+    PointerPressed = event()
+    PointerReleased = event()
+    RegionsChanged = event()
 class IInputNonClientPointerSourceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputNonClientPointerSourceStatics'
@@ -874,6 +911,16 @@ class IInputPointerSource(ComPtr):
     def remove_PointerWheelChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Cursor = property(get_Cursor, put_Cursor)
     DeviceKinds = property(get_DeviceKinds, None)
+    PointerCaptureLost = event()
+    PointerEntered = event()
+    PointerExited = event()
+    PointerMoved = event()
+    PointerPressed = event()
+    PointerReleased = event()
+    PointerRoutedAway = event()
+    PointerRoutedReleased = event()
+    PointerRoutedTo = event()
+    PointerWheelChanged = event()
 class IInputPointerSourceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputPointerSourceStatics'
@@ -1224,6 +1271,7 @@ class InputActivationListener(ComPtr):
     @winrt_classmethod
     def GetForWindowId(cls: win32more.Microsoft.UI.Input.IInputActivationListenerStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Input.InputActivationListener: ...
     State = property(get_State, None)
+    InputActivationChanged = event()
 class InputActivationListenerActivationChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputActivationListenerActivationChangedEventArgs
@@ -1297,6 +1345,9 @@ class InputFocusController(ComPtr):
     @winrt_classmethod
     def GetForIsland(cls: win32more.Microsoft.UI.Input.IInputFocusControllerStatics, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputFocusController: ...
     HasFocus = property(get_HasFocus, None)
+    LostFocus = event()
+    NavigateFocusRequested = event()
+    GotFocus = event()
 class InputFocusNavigationHost(ComPtr):
     extends: win32more.Microsoft.UI.Input.InputObject
     default_interface: win32more.Microsoft.UI.Input.IInputFocusNavigationHost
@@ -1312,6 +1363,7 @@ class InputFocusNavigationHost(ComPtr):
     @winrt_classmethod
     def GetForSiteBridge(cls: win32more.Microsoft.UI.Input.IInputFocusNavigationHostStatics, site: win32more.Microsoft.UI.Content.IContentSiteBridge) -> win32more.Microsoft.UI.Input.InputFocusNavigationHost: ...
     ContainsFocus = property(get_ContainsFocus, None)
+    DepartFocusRequested = event()
 class InputKeyboardSource(ComPtr):
     extends: win32more.Microsoft.UI.Input.InputObject
     default_interface: win32more.Microsoft.UI.Input.IInputKeyboardSource
@@ -1348,6 +1400,12 @@ class InputKeyboardSource(ComPtr):
     def GetForIsland(cls: win32more.Microsoft.UI.Input.IInputKeyboardSourceStatics2, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputKeyboardSource: ...
     @winrt_classmethod
     def GetKeyStateForCurrentThread(cls: win32more.Microsoft.UI.Input.IInputKeyboardSourceStatics, virtualKey: win32more.Windows.System.VirtualKey) -> win32more.Windows.UI.Core.CoreVirtualKeyStates: ...
+    CharacterReceived = event()
+    ContextMenuKey = event()
+    KeyDown = event()
+    KeyUp = event()
+    SystemKeyDown = event()
+    SystemKeyUp = event()
 class InputLightDismissAction(ComPtr):
     extends: win32more.Microsoft.UI.Input.InputObject
     default_interface: win32more.Microsoft.UI.Input.IInputLightDismissAction
@@ -1358,6 +1416,7 @@ class InputLightDismissAction(ComPtr):
     def remove_Dismissed(self: win32more.Microsoft.UI.Input.IInputLightDismissAction, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForWindowId(cls: win32more.Microsoft.UI.Input.IInputLightDismissActionStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Input.InputLightDismissAction: ...
+    Dismissed = event()
 class InputLightDismissEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputLightDismissEventArgs
@@ -1407,6 +1466,13 @@ class InputNonClientPointerSource(ComPtr):
     @winrt_classmethod
     def GetForWindowId(cls: win32more.Microsoft.UI.Input.IInputNonClientPointerSourceStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Input.InputNonClientPointerSource: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
+    PointerMoved = event()
+    CaptionTapped = event()
+    PointerEntered = event()
+    PointerExited = event()
+    PointerPressed = event()
+    PointerReleased = event()
+    RegionsChanged = event()
 class InputObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputObject
@@ -1468,6 +1534,16 @@ class InputPointerSource(ComPtr):
     def GetForIsland(cls: win32more.Microsoft.UI.Input.IInputPointerSourceStatics, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputPointerSource: ...
     Cursor = property(get_Cursor, put_Cursor)
     DeviceKinds = property(get_DeviceKinds, None)
+    PointerMoved = event()
+    PointerCaptureLost = event()
+    PointerEntered = event()
+    PointerExited = event()
+    PointerPressed = event()
+    PointerReleased = event()
+    PointerRoutedAway = event()
+    PointerRoutedReleased = event()
+    PointerRoutedTo = event()
+    PointerWheelChanged = event()
 class InputPointerSourceDeviceKinds(Enum, UInt32):
     None_ = 0
     Touch = 1

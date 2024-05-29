@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Media.Capture
 import win32more.Windows.Media.Capture.Core
@@ -39,6 +39,8 @@ class IVariablePhotoSequenceCapture(ComPtr):
     def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Capture.Core.VariablePhotoSequenceCapture, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    PhotoCaptured = event()
+    Stopped = event()
 class IVariablePhotoSequenceCapture2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Capture.Core.IVariablePhotoSequenceCapture2'
@@ -81,6 +83,8 @@ class VariablePhotoSequenceCapture(ComPtr):
     def remove_Stopped(self: win32more.Windows.Media.Capture.Core.IVariablePhotoSequenceCapture, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def UpdateSettingsAsync(self: win32more.Windows.Media.Capture.Core.IVariablePhotoSequenceCapture2) -> win32more.Windows.Foundation.IAsyncAction: ...
+    PhotoCaptured = event()
+    Stopped = event()
 
 
 make_ready(__name__)

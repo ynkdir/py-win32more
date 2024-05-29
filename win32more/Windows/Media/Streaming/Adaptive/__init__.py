@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Core
@@ -106,6 +106,11 @@ class AdaptiveMediaSource(ComPtr):
     IsLive = property(get_IsLive, None)
     MaxSeekableWindowSize = property(get_MaxSeekableWindowSize, None)
     MinLiveOffset = property(get_MinLiveOffset, None)
+    DownloadBitrateChanged = event()
+    PlaybackBitrateChanged = event()
+    DownloadRequested = event()
+    DownloadCompleted = event()
+    DownloadFailed = event()
 class AdaptiveMediaSourceAdvancedSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceAdvancedSettings
@@ -220,6 +225,7 @@ class AdaptiveMediaSourceDiagnostics(ComPtr):
     def add_DiagnosticAvailable(self: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDiagnostics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnostics, win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DiagnosticAvailable(self: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDiagnostics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DiagnosticAvailable = event()
 class AdaptiveMediaSourceDownloadBitrateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDownloadBitrateChangedEventArgs
@@ -493,6 +499,11 @@ class IAdaptiveMediaSource(ComPtr):
     InboundBitsPerSecondWindow = property(get_InboundBitsPerSecondWindow, put_InboundBitsPerSecondWindow)
     InitialBitrate = property(get_InitialBitrate, put_InitialBitrate)
     IsLive = property(get_IsLive, None)
+    DownloadBitrateChanged = event()
+    PlaybackBitrateChanged = event()
+    DownloadRequested = event()
+    DownloadCompleted = event()
+    DownloadFailed = event()
 class IAdaptiveMediaSource2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Streaming.Adaptive.IAdaptiveMediaSource2'
@@ -628,6 +639,7 @@ class IAdaptiveMediaSourceDiagnostics(ComPtr):
     def add_DiagnosticAvailable(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnostics, win32more.Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_DiagnosticAvailable(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DiagnosticAvailable = event()
 class IAdaptiveMediaSourceDownloadBitrateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDownloadBitrateChangedEventArgs'

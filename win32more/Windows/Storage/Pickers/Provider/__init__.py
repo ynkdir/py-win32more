@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
@@ -45,6 +45,8 @@ class FileOpenPickerUI(ComPtr):
     SelectionMode = property(get_SelectionMode, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
+    FileRemoved = event()
+    Closing = event()
 class FileRemovedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Pickers.Provider.IFileRemovedEventArgs
@@ -80,6 +82,8 @@ class FileSavePickerUI(ComPtr):
     FileName = property(get_FileName, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
+    FileNameChanged = event()
+    TargetFileRequested = event()
 class FileSelectionMode(Enum, Int32):
     Single = 0
     Multiple = 1
@@ -117,6 +121,8 @@ class IFileOpenPickerUI(ComPtr):
     SelectionMode = property(get_SelectionMode, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
+    FileRemoved = event()
+    Closing = event()
 class IFileRemovedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Pickers.Provider.IFileRemovedEventArgs'
@@ -152,6 +158,8 @@ class IFileSavePickerUI(ComPtr):
     FileName = property(get_FileName, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
+    FileNameChanged = event()
+    TargetFileRequested = event()
 class IPickerClosingDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Pickers.Provider.IPickerClosingDeferral'

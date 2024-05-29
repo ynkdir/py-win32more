@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Core
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -179,6 +179,7 @@ class ISecondaryTile2(ComPtr):
     PhoneticName = property(get_PhoneticName, put_PhoneticName)
     RoamingEnabled = property(get_RoamingEnabled, put_RoamingEnabled)
     VisualElements = property(get_VisualElements, None)
+    VisualElementsRequested = event()
 class ISecondaryTileFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.StartScreen.ISecondaryTileFactory'
@@ -560,6 +561,7 @@ class SecondaryTile(ComPtr):
     TileOptions = property(get_TileOptions, put_TileOptions)
     VisualElements = property(get_VisualElements, None)
     WideLogo = property(get_WideLogo, put_WideLogo)
+    VisualElementsRequested = event()
 class SecondaryTileVisualElements(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.StartScreen.ISecondaryTileVisualElements

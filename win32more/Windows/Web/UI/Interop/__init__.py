@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -64,6 +64,7 @@ class IWebViewControlProcess(ComPtr):
     EnterpriseId = property(get_EnterpriseId, None)
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
     ProcessId = property(get_ProcessId, None)
+    ProcessExited = event()
 class IWebViewControlProcessFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.UI.Interop.IWebViewControlProcessFactory'
@@ -118,6 +119,8 @@ class IWebViewControlSite(ComPtr):
     IsVisible = property(get_IsVisible, put_IsVisible)
     Process = property(get_Process, None)
     Scale = property(get_Scale, put_Scale)
+    MoveFocusRequested = event()
+    AcceleratorKeyPressed = event()
 class IWebViewControlSite2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Web.UI.Interop.IWebViewControlSite2'
@@ -130,6 +133,8 @@ class IWebViewControlSite2(ComPtr):
     def add_LostFocus(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Web.UI.Interop.WebViewControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_LostFocus(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    GotFocus = event()
+    LostFocus = event()
 class WebViewControl(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.UI.IWebViewControl
@@ -296,6 +301,27 @@ class WebViewControl(ComPtr):
     Scale = property(get_Scale, put_Scale)
     Settings = property(get_Settings, None)
     Source = property(get_Source, put_Source)
+    NavigationStarting = event()
+    ContentLoading = event()
+    DOMContentLoaded = event()
+    NavigationCompleted = event()
+    FrameNavigationStarting = event()
+    FrameContentLoading = event()
+    FrameDOMContentLoaded = event()
+    FrameNavigationCompleted = event()
+    ScriptNotify = event()
+    LongRunningScriptDetected = event()
+    UnsafeContentWarningDisplaying = event()
+    UnviewableContentIdentified = event()
+    PermissionRequested = event()
+    UnsupportedUriSchemeIdentified = event()
+    NewWindowRequested = event()
+    ContainsFullScreenElementChanged = event()
+    WebResourceRequested = event()
+    MoveFocusRequested = event()
+    AcceleratorKeyPressed = event()
+    GotFocus = event()
+    LostFocus = event()
 class WebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.UI.Interop.IWebViewControlAcceleratorKeyPressedEventArgs
@@ -367,6 +393,7 @@ class WebViewControlProcess(ComPtr):
     EnterpriseId = property(get_EnterpriseId, None)
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
     ProcessId = property(get_ProcessId, None)
+    ProcessExited = event()
 class WebViewControlProcessCapabilityState(Enum, Int32):
     Default = 0
     Disabled = 1

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -256,6 +256,8 @@ class IInkPresenter(ComPtr):
     StrokeContainer = property(get_StrokeContainer, put_StrokeContainer)
     StrokeInput = property(get_StrokeInput, None)
     UnprocessedInput = property(get_UnprocessedInput, None)
+    StrokesCollected = event()
+    StrokesErased = event()
 class IInkPresenter2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkPresenter2'
@@ -563,6 +565,10 @@ class IInkStrokeInput(ComPtr):
     @winrt_commethod(14)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
+    StrokeStarted = event()
+    StrokeContinued = event()
+    StrokeEnded = event()
+    StrokeCanceled = event()
 class IInkStrokeRenderingSegment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IInkStrokeRenderingSegment'
@@ -645,6 +651,13 @@ class IInkUnprocessedInput(ComPtr):
     @winrt_commethod(20)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
+    PointerEntered = event()
+    PointerHovered = event()
+    PointerExited = event()
+    PointerPressed = event()
+    PointerMoved = event()
+    PointerReleased = event()
+    PointerLost = event()
 class IPenAndInkSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.IPenAndInkSettings'
@@ -972,6 +985,8 @@ class InkPresenter(ComPtr):
     StrokeContainer = property(get_StrokeContainer, put_StrokeContainer)
     StrokeInput = property(get_StrokeInput, None)
     UnprocessedInput = property(get_UnprocessedInput, None)
+    StrokesCollected = event()
+    StrokesErased = event()
 class InkPresenterPredefinedConfiguration(Enum, Int32):
     SimpleSinglePointer = 0
     SimpleMultiplePointer = 1
@@ -1296,6 +1311,10 @@ class InkStrokeInput(ComPtr):
     @winrt_mixinmethod
     def get_InkPresenter(self: win32more.Windows.UI.Input.Inking.IInkStrokeInput) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
+    StrokeStarted = event()
+    StrokeContinued = event()
+    StrokeEnded = event()
+    StrokeCanceled = event()
 class InkStrokeRenderingSegment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkStrokeRenderingSegment
@@ -1378,6 +1397,13 @@ class InkUnprocessedInput(ComPtr):
     @winrt_mixinmethod
     def get_InkPresenter(self: win32more.Windows.UI.Input.Inking.IInkUnprocessedInput) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
+    PointerEntered = event()
+    PointerHovered = event()
+    PointerExited = event()
+    PointerPressed = event()
+    PointerMoved = event()
+    PointerReleased = event()
+    PointerLost = event()
 class PenAndInkSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IPenAndInkSettings

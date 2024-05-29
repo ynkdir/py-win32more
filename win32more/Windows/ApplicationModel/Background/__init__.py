@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.ApplicationModel.Background
 import win32more.Windows.ApplicationModel.Calls.Background
@@ -324,6 +324,8 @@ class BackgroundTaskRegistration(ComPtr, metaclass=_BackgroundTaskRegistration_M
     Trigger = property(get_Trigger, None)
     _BackgroundTaskRegistration_Meta_.AllTaskGroups = property(get_AllTaskGroups, None)
     _BackgroundTaskRegistration_Meta_.AllTasks = property(get_AllTasks, None)
+    Progress = event()
+    Completed = event()
 class BackgroundTaskRegistrationGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroup
@@ -354,6 +356,7 @@ class BackgroundTaskRegistrationGroup(ComPtr):
     AllTasks = property(get_AllTasks, None)
     Id = property(get_Id, None)
     Name = property(get_Name, None)
+    BackgroundActivated = event()
 class BackgroundTaskThrottleCounter(Enum, Int32):
     All = 0
     Cpu = 1
@@ -974,6 +977,7 @@ class IBackgroundTaskInstance(ComPtr):
     SuspendedCount = property(get_SuspendedCount, None)
     Task = property(get_Task, None)
     TriggerDetails = property(get_TriggerDetails, None)
+    Canceled = event()
 class IBackgroundTaskInstance2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskInstance2'
@@ -1017,6 +1021,8 @@ class IBackgroundTaskRegistration(ComPtr):
     def Unregister(self, cancelTask: Boolean) -> Void: ...
     Name = property(get_Name, None)
     TaskId = property(get_TaskId, None)
+    Progress = event()
+    Completed = event()
 class IBackgroundTaskRegistration2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskRegistration2'
@@ -1048,6 +1054,7 @@ class IBackgroundTaskRegistrationGroup(ComPtr):
     AllTasks = property(get_AllTasks, None)
     Id = property(get_Id, None)
     Name = property(get_Name, None)
+    BackgroundActivated = event()
 class IBackgroundTaskRegistrationGroupFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroupFactory'

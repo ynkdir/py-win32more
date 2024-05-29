@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization
@@ -50,6 +50,8 @@ class ISpeechContinuousRecognitionSession(ComPtr):
     @winrt_commethod(17)
     def remove_ResultGenerated(self, value: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoStopSilenceTimeout = property(get_AutoStopSilenceTimeout, put_AutoStopSilenceTimeout)
+    Completed = event()
+    ResultGenerated = event()
 class ISpeechRecognitionCompilationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.SpeechRecognition.ISpeechRecognitionCompilationResult'
@@ -226,6 +228,8 @@ class ISpeechRecognizer(ComPtr):
     CurrentLanguage = property(get_CurrentLanguage, None)
     Timeouts = property(get_Timeouts, None)
     UIOptions = property(get_UIOptions, None)
+    RecognitionQualityDegrading = event()
+    StateChanged = event()
 class ISpeechRecognizer2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.SpeechRecognition.ISpeechRecognizer2'
@@ -242,6 +246,7 @@ class ISpeechRecognizer2(ComPtr):
     def remove_HypothesisGenerated(self, value: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ContinuousRecognitionSession = property(get_ContinuousRecognitionSession, None)
     State = property(get_State, None)
+    HypothesisGenerated = event()
 class ISpeechRecognizerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.SpeechRecognition.ISpeechRecognizerFactory'
@@ -384,6 +389,8 @@ class SpeechContinuousRecognitionSession(ComPtr):
     @winrt_mixinmethod
     def remove_ResultGenerated(self: win32more.Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionSession, value: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoStopSilenceTimeout = property(get_AutoStopSilenceTimeout, put_AutoStopSilenceTimeout)
+    Completed = event()
+    ResultGenerated = event()
 class SpeechRecognitionAudioProblem(Enum, Int32):
     None_ = 0
     TooNoisy = 1
@@ -699,6 +706,9 @@ class SpeechRecognizer(ComPtr, metaclass=_SpeechRecognizer_Meta_):
     _SpeechRecognizer_Meta_.SupportedGrammarLanguages = property(get_SupportedGrammarLanguages, None)
     _SpeechRecognizer_Meta_.SupportedTopicLanguages = property(get_SupportedTopicLanguages, None)
     _SpeechRecognizer_Meta_.SystemSpeechLanguage = property(get_SystemSpeechLanguage, None)
+    RecognitionQualityDegrading = event()
+    StateChanged = event()
+    HypothesisGenerated = event()
 class SpeechRecognizerState(Enum, Int32):
     Idle = 0
     Capturing = 1

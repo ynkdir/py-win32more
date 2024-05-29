@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Playback
@@ -63,6 +63,7 @@ class HdcpSession(ComPtr):
     def remove_ProtectionChanged(self: win32more.Windows.Media.Protection.IHdcpSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    ProtectionChanged = event()
 class HdcpSetProtectionResult(Enum, Int32):
     Success = 0
     TimedOut = 1
@@ -98,6 +99,7 @@ class IHdcpSession(ComPtr):
     def add_ProtectionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Protection.HdcpSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_ProtectionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ProtectionChanged = event()
 class IMediaProtectionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Protection.IMediaProtectionManager'
@@ -117,6 +119,9 @@ class IMediaProtectionManager(ComPtr):
     @winrt_commethod(12)
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
+    ServiceRequested = event()
+    RebootNeeded = event()
+    ComponentLoadFailed = event()
 class IMediaProtectionPMPServer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Protection.IMediaProtectionPMPServer'
@@ -223,6 +228,9 @@ class MediaProtectionManager(ComPtr):
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Media.Protection.IMediaProtectionManager) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
+    ServiceRequested = event()
+    RebootNeeded = event()
+    ComponentLoadFailed = event()
 class MediaProtectionPMPServer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.IMediaProtectionPMPServer

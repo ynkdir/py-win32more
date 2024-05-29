@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Lights
 import win32more.Windows.Devices.Lights.Effects
 import win32more.Windows.Foundation
@@ -34,6 +34,7 @@ class ILampArrayBitmapEffect(ComPtr):
     StartDelay = property(get_StartDelay, put_StartDelay)
     SuggestedBitmapSize = property(get_SuggestedBitmapSize, None)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
+    BitmapRequested = event()
 class ILampArrayBitmapEffectFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBitmapEffectFactory'
@@ -147,6 +148,7 @@ class ILampArrayCustomEffect(ComPtr):
     def remove_UpdateRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Duration = property(get_Duration, put_Duration)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
+    UpdateRequested = event()
 class ILampArrayCustomEffectFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayCustomEffectFactory'
@@ -286,6 +288,7 @@ class LampArrayBitmapEffect(ComPtr):
     SuggestedBitmapSize = property(get_SuggestedBitmapSize, None)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     ZIndex = property(get_ZIndex, put_ZIndex)
+    BitmapRequested = event()
 class LampArrayBitmapRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapRequestedEventArgs
@@ -423,6 +426,7 @@ class LampArrayCustomEffect(ComPtr):
     Duration = property(get_Duration, put_Duration)
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     ZIndex = property(get_ZIndex, put_ZIndex)
+    UpdateRequested = event()
 class LampArrayEffectCompletionBehavior(Enum, Int32):
     ClearState = 0
     KeepState = 1

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Content
@@ -158,6 +158,10 @@ class ContentIsland(ComPtr):
     LayoutDirection = property(get_LayoutDirection, None)
     RasterizationScale = property(get_RasterizationScale, None)
     SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
+    AutomationProviderRequested = event()
+    StateChanged = event()
+    Closed = event()
+    FrameworkClosed = event()
 class ContentIslandAutomationProviderRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs
@@ -190,6 +194,8 @@ class ContentIslandEnvironment(ComPtr):
     def remove_StateChanged(self: win32more.Microsoft.UI.Content.IContentIslandEnvironment, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AppWindowId = property(get_AppWindowId, None)
     DisplayId = property(get_DisplayId, None)
+    SettingChanged = event()
+    StateChanged = event()
 class ContentIslandStateChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentIslandStateChangedEventArgs
@@ -296,6 +302,9 @@ class ContentSite(ComPtr):
     RequestedSize = property(get_RequestedSize, None)
     ShouldApplyRasterizationScale = property(get_ShouldApplyRasterizationScale, put_ShouldApplyRasterizationScale)
     View = property(get_View, None)
+    RequestedStateChanged = event()
+    Closed = event()
+    FrameworkClosed = event()
 class ContentSiteEnvironment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentSiteEnvironment
@@ -455,6 +464,8 @@ class DesktopSiteBridge(ComPtr):
     LayoutDirectionOverride = property(get_LayoutDirectionOverride, put_LayoutDirectionOverride)
     OverrideScale = property(get_OverrideScale, put_OverrideScale)
     WindowId = property(get_WindowId, None)
+    Closed = event()
+    FrameworkClosed = event()
 class IContentCoordinateConverter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentCoordinateConverter'
@@ -577,6 +588,8 @@ class IContentIsland(ComPtr):
     IsSiteVisible = property(get_IsSiteVisible, None)
     LayoutDirection = property(get_LayoutDirection, None)
     RasterizationScale = property(get_RasterizationScale, None)
+    AutomationProviderRequested = event()
+    StateChanged = event()
 class IContentIslandAutomationProviderRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs'
@@ -609,6 +622,8 @@ class IContentIslandEnvironment(ComPtr):
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AppWindowId = property(get_AppWindowId, None)
     DisplayId = property(get_DisplayId, None)
+    SettingChanged = event()
+    StateChanged = event()
 class IContentIslandEnvironmentFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandEnvironmentFactory'
@@ -721,6 +736,7 @@ class IContentSite(ComPtr):
     RequestedSize = property(get_RequestedSize, None)
     ShouldApplyRasterizationScale = property(get_ShouldApplyRasterizationScale, put_ShouldApplyRasterizationScale)
     View = property(get_View, None)
+    RequestedStateChanged = event()
 class IContentSiteBridge(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteBridge'

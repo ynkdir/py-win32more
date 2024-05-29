@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -114,6 +114,7 @@ class ISpatialSurfaceObserver(ComPtr):
     def add_ObservedSurfacesChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_ObservedSurfacesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ObservedSurfacesChanged = event()
 class ISpatialSurfaceObserverStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics'
@@ -251,6 +252,7 @@ class SpatialSurfaceObserver(ComPtr):
     def IsSupported(cls: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics2) -> Boolean: ...
     @winrt_classmethod
     def RequestAccessAsync(cls: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserverStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Perception.Spatial.SpatialPerceptionAccessStatus]: ...
+    ObservedSurfacesChanged = event()
 
 
 make_ready(__name__)

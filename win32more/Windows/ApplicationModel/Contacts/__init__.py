@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Contacts
 import win32more.Windows.Data.Text
 import win32more.Windows.Foundation
@@ -862,6 +862,7 @@ class ContactList(ComPtr):
     SyncConstraints = property(get_SyncConstraints, None)
     SyncManager = property(get_SyncManager, None)
     UserDataAccountId = property(get_UserDataAccountId, None)
+    ContactChanged = event()
 class ContactListLimitedWriteOperations(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactListLimitedWriteOperations
@@ -1048,6 +1049,7 @@ class ContactListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
+    SyncStatusChanged = event()
 class ContactListSyncStatus(Enum, Int32):
     Idle = 0
     Syncing = 1
@@ -1230,6 +1232,8 @@ class ContactPanel(ComPtr):
     @winrt_mixinmethod
     def remove_Closing(self: win32more.Windows.ApplicationModel.Contacts.IContactPanel, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HeaderColor = property(get_HeaderColor, put_HeaderColor)
+    LaunchFullAppRequested = event()
+    Closing = event()
 class ContactPanelClosingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactPanelClosingEventArgs
@@ -1488,6 +1492,7 @@ class ContactStore(ComPtr):
     def GetChangeTracker(self: win32more.Windows.ApplicationModel.Contacts.IContactStore3, identity: WinRT_String) -> win32more.Windows.ApplicationModel.Contacts.ContactChangeTracker: ...
     AggregateContactManager = property(get_AggregateContactManager, None)
     ChangeTracker = property(get_ChangeTracker, None)
+    ContactChanged = event()
 class ContactStoreAccessType(Enum, Int32):
     AppContactsReadWrite = 0
     AllContactsReadOnly = 1
@@ -2174,6 +2179,7 @@ class IContactList(ComPtr):
     SupportsServerSearch = property(get_SupportsServerSearch, None)
     SyncManager = property(get_SyncManager, None)
     UserDataAccountId = property(get_UserDataAccountId, None)
+    ContactChanged = event()
 class IContactList2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.IContactList2'
@@ -2366,6 +2372,7 @@ class IContactListSyncManager(ComPtr):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, None)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, None)
     Status = property(get_Status, None)
+    SyncStatusChanged = event()
 class IContactListSyncManager2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.IContactListSyncManager2'
@@ -2588,6 +2595,8 @@ class IContactPanel(ComPtr):
     @winrt_commethod(12)
     def remove_Closing(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HeaderColor = property(get_HeaderColor, put_HeaderColor)
+    LaunchFullAppRequested = event()
+    Closing = event()
 class IContactPanelClosingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.IContactPanelClosingEventArgs'
@@ -2793,6 +2802,7 @@ class IContactStore2(ComPtr):
     def CreateContactListInAccountAsync(self, displayName: WinRT_String, userDataAccountId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Contacts.ContactList]: ...
     AggregateContactManager = property(get_AggregateContactManager, None)
     ChangeTracker = property(get_ChangeTracker, None)
+    ContactChanged = event()
 class IContactStore3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.IContactStore3'

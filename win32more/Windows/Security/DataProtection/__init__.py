@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Security.DataProtection
 import win32more.Windows.Storage
@@ -41,6 +41,7 @@ class IUserDataProtectionManager(ComPtr):
     def add_DataAvailabilityStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Security.DataProtection.UserDataProtectionManager, win32more.Windows.Security.DataProtection.UserDataAvailabilityStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_DataAvailabilityStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DataAvailabilityStateChanged = event()
 class IUserDataProtectionManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.DataProtection.IUserDataProtectionManagerStatics'
@@ -101,6 +102,7 @@ class UserDataProtectionManager(ComPtr):
     def TryGetDefault(cls: win32more.Windows.Security.DataProtection.IUserDataProtectionManagerStatics) -> win32more.Windows.Security.DataProtection.UserDataProtectionManager: ...
     @winrt_classmethod
     def TryGetForUser(cls: win32more.Windows.Security.DataProtection.IUserDataProtectionManagerStatics, user: win32more.Windows.System.User) -> win32more.Windows.Security.DataProtection.UserDataProtectionManager: ...
+    DataAvailabilityStateChanged = event()
 class UserDataStorageItemProtectionInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.DataProtection.IUserDataStorageItemProtectionInfo

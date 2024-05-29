@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -175,6 +175,10 @@ class DataPackage(ComPtr):
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, put_RequestedOperation)
     ResourceMap = property(get_ResourceMap, None)
+    OperationCompleted = event()
+    Destroyed = event()
+    ShareCompleted = event()
+    ShareCanceled = event()
 class DataPackageOperation(Enum, UInt32):
     None_ = 0
     Copy = 1
@@ -446,6 +450,9 @@ class DataTransferManager(ComPtr):
     def ShowShareUI(cls: win32more.Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics) -> win32more.Windows.ApplicationModel.DataTransfer.DataTransferManager: ...
+    DataRequested = event()
+    TargetApplicationChosen = event()
+    ShareProvidersRequested = event()
 class HtmlFormatHelper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.HtmlFormatHelper'
@@ -516,6 +523,7 @@ class IClipboardStatics(ComPtr):
     def add_ContentChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_ContentChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ContentChanged = event()
 class IClipboardStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IClipboardStatics2'
@@ -546,6 +554,9 @@ class IClipboardStatics2(ComPtr):
     def add_HistoryEnabledChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(18)
     def remove_HistoryEnabledChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    HistoryChanged = event()
+    RoamingEnabledChanged = event()
+    HistoryEnabledChanged = event()
 class IDataPackage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackage'
@@ -589,6 +600,8 @@ class IDataPackage(ComPtr):
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, put_RequestedOperation)
     ResourceMap = property(get_ResourceMap, None)
+    OperationCompleted = event()
+    Destroyed = event()
 class IDataPackage2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackage2'
@@ -605,6 +618,7 @@ class IDataPackage3(ComPtr):
     def add_ShareCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.DataTransfer.DataPackage, win32more.Windows.ApplicationModel.DataTransfer.ShareCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ShareCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ShareCompleted = event()
 class IDataPackage4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackage4'
@@ -613,6 +627,7 @@ class IDataPackage4(ComPtr):
     def add_ShareCanceled(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.DataTransfer.DataPackage, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ShareCanceled(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ShareCanceled = event()
 class IDataPackagePropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackagePropertySet'
@@ -874,6 +889,8 @@ class IDataTransferManager(ComPtr):
     def add_TargetApplicationChosen(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.DataTransfer.DataTransferManager, win32more.Windows.ApplicationModel.DataTransfer.TargetApplicationChosenEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_TargetApplicationChosen(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DataRequested = event()
+    TargetApplicationChosen = event()
 class IDataTransferManager2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataTransferManager2'
@@ -882,6 +899,7 @@ class IDataTransferManager2(ComPtr):
     def add_ShareProvidersRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.DataTransfer.DataTransferManager, win32more.Windows.ApplicationModel.DataTransfer.ShareProvidersRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ShareProvidersRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ShareProvidersRequested = event()
 class IDataTransferManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics'

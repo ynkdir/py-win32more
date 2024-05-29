@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics
@@ -88,6 +88,9 @@ class BrightnessOverride(ComPtr):
     BrightnessLevel = property(get_BrightnessLevel, None)
     IsOverrideActive = property(get_IsOverrideActive, None)
     IsSupported = property(get_IsSupported, None)
+    IsSupportedChanged = event()
+    IsOverrideActiveChanged = event()
+    BrightnessLevelChanged = event()
 class BrightnessOverrideSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Display.IBrightnessOverrideSettings
@@ -167,6 +170,9 @@ class DisplayEnhancementOverride(ComPtr):
     CanOverride = property(get_CanOverride, None)
     ColorOverrideSettings = property(get_ColorOverrideSettings, put_ColorOverrideSettings)
     IsOverrideActive = property(get_IsOverrideActive, None)
+    CanOverrideChanged = event()
+    IsOverrideActiveChanged = event()
+    DisplayEnhancementOverrideCapabilitiesChanged = event()
 class DisplayEnhancementOverrideCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilities
@@ -260,6 +266,11 @@ class DisplayInformation(ComPtr, metaclass=_DisplayInformation_Meta_):
     ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
     StereoEnabled = property(get_StereoEnabled, None)
     _DisplayInformation_Meta_.AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
+    OrientationChanged = event()
+    DpiChanged = event()
+    StereoEnabledChanged = event()
+    ColorProfileChanged = event()
+    AdvancedColorInfoChanged = event()
 class DisplayOrientations(Enum, UInt32):
     None_ = 0
     Landscape = 1
@@ -397,6 +408,9 @@ class IBrightnessOverride(ComPtr):
     BrightnessLevel = property(get_BrightnessLevel, None)
     IsOverrideActive = property(get_IsOverrideActive, None)
     IsSupported = property(get_IsSupported, None)
+    IsSupportedChanged = event()
+    IsOverrideActiveChanged = event()
+    BrightnessLevelChanged = event()
 class IBrightnessOverrideSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IBrightnessOverrideSettings'
@@ -478,6 +492,9 @@ class IDisplayEnhancementOverride(ComPtr):
     CanOverride = property(get_CanOverride, None)
     ColorOverrideSettings = property(get_ColorOverrideSettings, put_ColorOverrideSettings)
     IsOverrideActive = property(get_IsOverrideActive, None)
+    CanOverrideChanged = event()
+    IsOverrideActiveChanged = event()
+    DisplayEnhancementOverrideCapabilitiesChanged = event()
 class IDisplayEnhancementOverrideCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilities'
@@ -546,6 +563,10 @@ class IDisplayInformation(ComPtr):
     RawDpiY = property(get_RawDpiY, None)
     ResolutionScale = property(get_ResolutionScale, None)
     StereoEnabled = property(get_StereoEnabled, None)
+    OrientationChanged = event()
+    DpiChanged = event()
+    StereoEnabledChanged = event()
+    ColorProfileChanged = event()
 class IDisplayInformation2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayInformation2'
@@ -580,6 +601,7 @@ class IDisplayInformation5(ComPtr):
     def add_AdvancedColorInfoChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.DisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_AdvancedColorInfoChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    AdvancedColorInfoChanged = event()
 class IDisplayInformationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayInformationStatics'
@@ -595,6 +617,7 @@ class IDisplayInformationStatics(ComPtr):
     @winrt_commethod(10)
     def remove_DisplayContentsInvalidated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
+    DisplayContentsInvalidated = event()
 class IDisplayPropertiesStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayPropertiesStatics'
@@ -641,6 +664,11 @@ class IDisplayPropertiesStatics(ComPtr):
     NativeOrientation = property(get_NativeOrientation, None)
     ResolutionScale = property(get_ResolutionScale, None)
     StereoEnabled = property(get_StereoEnabled, None)
+    OrientationChanged = event()
+    LogicalDpiChanged = event()
+    StereoEnabledChanged = event()
+    ColorProfileChanged = event()
+    DisplayContentsInvalidated = event()
 class IDisplayServices(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Display.IDisplayServices'

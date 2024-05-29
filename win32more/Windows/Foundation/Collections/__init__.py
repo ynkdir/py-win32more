@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.Com
@@ -90,6 +90,7 @@ class IObservableMap(Generic[K, V], ComPtr):
     def add_MapChanged(self, vhnd: win32more.Windows.Foundation.Collections.MapChangedEventHandler[K, V]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_MapChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    MapChanged = event()
 class IObservableVector(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IObservableVector'
@@ -98,6 +99,7 @@ class IObservableVector(Generic[T], ComPtr):
     def add_VectorChanged(self, vhnd: win32more.Windows.Foundation.Collections.VectorChangedEventHandler[T]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_VectorChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    VectorChanged = event()
 class IPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.Collections.IPropertySet'
@@ -193,6 +195,7 @@ class PropertySet(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     Size = property(get_Size, None)
+    MapChanged = event()
 class StringMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]
@@ -227,6 +230,7 @@ class StringMap(ComPtr):
     @winrt_mixinmethod
     def remove_MapChanged(self: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, WinRT_String], token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Size = property(get_Size, None)
+    MapChanged = event()
 class ValueSet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
@@ -261,6 +265,7 @@ class ValueSet(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
     Size = property(get_Size, None)
+    MapChanged = event()
 class VectorChangedEventHandler(Generic[T], MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _piid_ = Guid('{0c051752-9fbf-4c70-aa0c-0e4c82d9a761}')

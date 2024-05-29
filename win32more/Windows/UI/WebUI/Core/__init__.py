@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI
@@ -62,6 +62,9 @@ class IWebUICommandBar(ComPtr):
     SecondaryCommands = property(get_SecondaryCommands, None)
     Size = property(get_Size, None)
     Visible = property(get_Visible, put_Visible)
+    MenuOpened = event()
+    MenuClosed = event()
+    SizeChanged = event()
 class IWebUICommandBarBitmapIcon(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.Core.IWebUICommandBarBitmapIcon'
@@ -90,6 +93,7 @@ class IWebUICommandBarConfirmationButton(ComPtr):
     @winrt_commethod(9)
     def remove_ItemInvoked(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Text = property(get_Text, put_Text)
+    ItemInvoked = event()
 class IWebUICommandBarElement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.Core.IWebUICommandBarElement'
@@ -131,6 +135,7 @@ class IWebUICommandBarIconButton(ComPtr):
     IsChecked = property(get_IsChecked, put_IsChecked)
     IsToggleButton = property(get_IsToggleButton, put_IsToggleButton)
     Label = property(get_Label, put_Label)
+    ItemInvoked = event()
 class IWebUICommandBarItemInvokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.Core.IWebUICommandBarItemInvokedEventArgs'
@@ -238,6 +243,9 @@ class WebUICommandBar(ComPtr):
     SecondaryCommands = property(get_SecondaryCommands, None)
     Size = property(get_Size, None)
     Visible = property(get_Visible, put_Visible)
+    MenuOpened = event()
+    MenuClosed = event()
+    SizeChanged = event()
 class WebUICommandBarBitmapIcon(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarBitmapIcon
@@ -286,6 +294,7 @@ class WebUICommandBarConfirmationButton(ComPtr):
     @winrt_mixinmethod
     def remove_ItemInvoked(self: win32more.Windows.UI.WebUI.Core.IWebUICommandBarConfirmationButton, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Text = property(get_Text, put_Text)
+    ItemInvoked = event()
 WebUICommandBarContract: UInt32 = 65536
 class WebUICommandBarIconButton(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -329,6 +338,7 @@ class WebUICommandBarIconButton(ComPtr):
     IsChecked = property(get_IsChecked, put_IsChecked)
     IsToggleButton = property(get_IsToggleButton, put_IsToggleButton)
     Label = property(get_Label, put_Label)
+    ItemInvoked = event()
 class WebUICommandBarItemInvokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarItemInvokedEventArgs

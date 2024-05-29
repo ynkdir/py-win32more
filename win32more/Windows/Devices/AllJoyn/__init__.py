@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.AllJoyn
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
@@ -245,6 +245,12 @@ class AllJoynBusAttachment(ComPtr):
     ConnectionSpecification = property(get_ConnectionSpecification, None)
     State = property(get_State, None)
     UniqueName = property(get_UniqueName, None)
+    StateChanged = event()
+    CredentialsRequested = event()
+    CredentialsVerificationRequested = event()
+    AuthenticationComplete = event()
+    AcceptSessionJoinerRequested = event()
+    SessionJoined = event()
 class AllJoynBusAttachmentState(Enum, Int32):
     Disconnected = 0
     Connecting = 1
@@ -297,6 +303,7 @@ class AllJoynBusObject(ComPtr):
     def remove_Stopped(self: win32more.Windows.Devices.AllJoyn.IAllJoynBusObject, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BusAttachment = property(get_BusAttachment, None)
     Session = property(get_Session, None)
+    Stopped = event()
 class AllJoynBusObjectStoppedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynBusObjectStoppedEventArgs
@@ -479,6 +486,9 @@ class AllJoynSession(ComPtr):
     def GetFromServiceInfoAndBusAttachmentAsync(cls: win32more.Windows.Devices.AllJoyn.IAllJoynSessionStatics, serviceInfo: win32more.Windows.Devices.AllJoyn.AllJoynServiceInfo, busAttachment: win32more.Windows.Devices.AllJoyn.AllJoynBusAttachment) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.AllJoyn.AllJoynSession]: ...
     Id = property(get_Id, None)
     Status = property(get_Status, None)
+    MemberAdded = event()
+    MemberRemoved = event()
+    Lost = event()
 class AllJoynSessionJoinedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgs
@@ -835,6 +845,10 @@ class IAllJoynBusAttachment(ComPtr):
     ConnectionSpecification = property(get_ConnectionSpecification, None)
     State = property(get_State, None)
     UniqueName = property(get_UniqueName, None)
+    StateChanged = event()
+    CredentialsRequested = event()
+    CredentialsVerificationRequested = event()
+    AuthenticationComplete = event()
 class IAllJoynBusAttachment2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusAttachment2'
@@ -851,6 +865,8 @@ class IAllJoynBusAttachment2(ComPtr):
     def add_SessionJoined(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.AllJoyn.AllJoynBusAttachment, win32more.Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_SessionJoined(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    AcceptSessionJoinerRequested = event()
+    SessionJoined = event()
 class IAllJoynBusAttachmentFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusAttachmentFactory'
@@ -895,6 +911,7 @@ class IAllJoynBusObject(ComPtr):
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BusAttachment = property(get_BusAttachment, None)
     Session = property(get_Session, None)
+    Stopped = event()
 class IAllJoynBusObjectFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynBusObjectFactory'
@@ -1076,6 +1093,9 @@ class IAllJoynSession(ComPtr):
     def remove_Lost(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Id = property(get_Id, None)
     Status = property(get_Status, None)
+    MemberAdded = event()
+    MemberRemoved = event()
+    Lost = event()
 class IAllJoynSessionJoinedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgs'

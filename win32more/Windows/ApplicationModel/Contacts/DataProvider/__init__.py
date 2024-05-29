@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Contacts
 import win32more.Windows.ApplicationModel.Contacts.DataProvider
 import win32more.Windows.Foundation
@@ -27,6 +27,10 @@ class ContactDataProviderConnection(ComPtr):
     def add_DeleteContactRequested(self: win32more.Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderConnection2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection, win32more.Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequestEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DeleteContactRequested(self: win32more.Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderConnection2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    SyncRequested = event()
+    ServerSearchReadBatchRequested = event()
+    CreateOrUpdateContactRequested = event()
+    DeleteContactRequested = event()
 class ContactDataProviderTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderTriggerDetails
@@ -145,6 +149,8 @@ class IContactDataProviderConnection(ComPtr):
     def remove_ServerSearchReadBatchRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
     def Start(self) -> Void: ...
+    SyncRequested = event()
+    ServerSearchReadBatchRequested = event()
 class IContactDataProviderConnection2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderConnection2'
@@ -157,6 +163,8 @@ class IContactDataProviderConnection2(ComPtr):
     def add_DeleteContactRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection, win32more.Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequestEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_DeleteContactRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    CreateOrUpdateContactRequested = event()
+    DeleteContactRequested = event()
 class IContactDataProviderTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderTriggerDetails'

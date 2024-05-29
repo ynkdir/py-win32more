@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.PlayTo
@@ -46,6 +46,9 @@ class IPlayToConnection(ComPtr):
     @winrt_commethod(12)
     def remove_Error(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     State = property(get_State, None)
+    StateChanged = event()
+    Transferred = event()
+    Error = event()
 class IPlayToConnectionErrorEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.PlayTo.IPlayToConnectionErrorEventArgs'
@@ -93,6 +96,8 @@ class IPlayToManager(ComPtr):
     @winrt_commethod(11)
     def get_DefaultSourceSelection(self) -> Boolean: ...
     DefaultSourceSelection = property(get_DefaultSourceSelection, put_DefaultSourceSelection)
+    SourceRequested = event()
+    SourceSelected = event()
 class IPlayToManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.PlayTo.IPlayToManagerStatics'
@@ -192,6 +197,15 @@ class IPlayToReceiver(ComPtr):
     SupportsAudio = property(get_SupportsAudio, put_SupportsAudio)
     SupportsImage = property(get_SupportsImage, put_SupportsImage)
     SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
+    PlayRequested = event()
+    PauseRequested = event()
+    SourceChangeRequested = event()
+    PlaybackRateChangeRequested = event()
+    CurrentTimeChangeRequested = event()
+    MuteChangeRequested = event()
+    VolumeChangeRequested = event()
+    TimeUpdateRequested = event()
+    StopRequested = event()
 class IPlayToSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.PlayTo.IPlayToSource'
@@ -334,6 +348,9 @@ class PlayToConnection(ComPtr):
     @winrt_mixinmethod
     def remove_Error(self: win32more.Windows.Media.PlayTo.IPlayToConnection, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     State = property(get_State, None)
+    StateChanged = event()
+    Transferred = event()
+    Error = event()
 class PlayToConnectionError(Enum, Int32):
     None_ = 0
     DeviceNotResponding = 1
@@ -395,6 +412,8 @@ class PlayToManager(ComPtr):
     @winrt_classmethod
     def ShowPlayToUI(cls: win32more.Windows.Media.PlayTo.IPlayToManagerStatics) -> Void: ...
     DefaultSourceSelection = property(get_DefaultSourceSelection, put_DefaultSourceSelection)
+    SourceRequested = event()
+    SourceSelected = event()
 class PlayToReceiver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IPlayToReceiver
@@ -495,6 +514,15 @@ class PlayToReceiver(ComPtr):
     SupportsAudio = property(get_SupportsAudio, put_SupportsAudio)
     SupportsImage = property(get_SupportsImage, put_SupportsImage)
     SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
+    PlayRequested = event()
+    PauseRequested = event()
+    SourceChangeRequested = event()
+    PlaybackRateChangeRequested = event()
+    CurrentTimeChangeRequested = event()
+    MuteChangeRequested = event()
+    VolumeChangeRequested = event()
+    TimeUpdateRequested = event()
+    StopRequested = event()
 class PlayToSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.PlayTo.IPlayToSource

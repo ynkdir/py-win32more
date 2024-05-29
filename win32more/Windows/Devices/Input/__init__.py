@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Haptics
 import win32more.Windows.Devices.Input
 import win32more.Windows.Foundation
@@ -40,6 +40,7 @@ class IMouseDevice(ComPtr):
     def add_MouseMoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.MouseDevice, win32more.Windows.Devices.Input.MouseEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_MouseMoved(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    MouseMoved = event()
 class IMouseDeviceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Input.IMouseDeviceStatics'
@@ -75,6 +76,10 @@ class IPenButtonListener(ComPtr):
     def add_TailButtonLongPressed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenButtonListener, win32more.Windows.Devices.Input.PenTailButtonLongPressedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_TailButtonLongPressed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    IsSupportedChanged = event()
+    TailButtonClicked = event()
+    TailButtonDoubleClicked = event()
+    TailButtonLongPressed = event()
 class IPenButtonListenerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Input.IPenButtonListenerStatics'
@@ -119,6 +124,9 @@ class IPenDockListener(ComPtr):
     def add_Undocked(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Input.PenDockListener, win32more.Windows.Devices.Input.PenUndockedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_Undocked(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    IsSupportedChanged = event()
+    Docked = event()
+    Undocked = event()
 class IPenDockListenerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Input.IPenDockListenerStatics'
@@ -249,6 +257,7 @@ class MouseDevice(ComPtr):
     def remove_MouseMoved(self: win32more.Windows.Devices.Input.IMouseDevice, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.Devices.Input.IMouseDeviceStatics) -> win32more.Windows.Devices.Input.MouseDevice: ...
+    MouseMoved = event()
 class MouseEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Input.IMouseEventArgs
@@ -280,6 +289,10 @@ class PenButtonListener(ComPtr):
     def remove_TailButtonLongPressed(self: win32more.Windows.Devices.Input.IPenButtonListener, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.Devices.Input.IPenButtonListenerStatics) -> win32more.Windows.Devices.Input.PenButtonListener: ...
+    IsSupportedChanged = event()
+    TailButtonClicked = event()
+    TailButtonDoubleClicked = event()
+    TailButtonLongPressed = event()
 class PenDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Input.IPenDevice
@@ -312,6 +325,9 @@ class PenDockListener(ComPtr):
     def remove_Undocked(self: win32more.Windows.Devices.Input.IPenDockListener, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.Devices.Input.IPenDockListenerStatics) -> win32more.Windows.Devices.Input.PenDockListener: ...
+    IsSupportedChanged = event()
+    Docked = event()
+    Undocked = event()
 class PenDockedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Input.IPenDockedEventArgs

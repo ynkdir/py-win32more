@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI
@@ -338,6 +338,7 @@ class ConnectedAnimation(ComPtr):
     def put_Configuration(self: win32more.Windows.UI.Xaml.Media.Animation.IConnectedAnimation3, value: win32more.Windows.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration) -> Void: ...
     Configuration = property(get_Configuration, put_Configuration)
     IsScaleAnimationEnabled = property(get_IsScaleAnimationEnabled, put_IsScaleAnimationEnabled)
+    Completed = event()
 class ConnectedAnimationComponent(Enum, Int32):
     OffsetX = 0
     OffsetY = 1
@@ -1364,6 +1365,7 @@ class IConnectedAnimation(ComPtr):
     def TryStart(self, destination: win32more.Windows.UI.Xaml.UIElement) -> Boolean: ...
     @winrt_commethod(9)
     def Cancel(self) -> Void: ...
+    Completed = event()
 class IConnectedAnimation2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.IConnectedAnimation2'
@@ -2834,6 +2836,7 @@ class ITimeline(ComPtr):
     FillBehavior = property(get_FillBehavior, put_FillBehavior)
     RepeatBehavior = property(get_RepeatBehavior, put_RepeatBehavior)
     SpeedRatio = property(get_SpeedRatio, put_SpeedRatio)
+    Completed = event()
 class ITimelineFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Animation.ITimelineFactory'
@@ -4090,6 +4093,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     _Timeline_Meta_.FillBehaviorProperty = property(get_FillBehaviorProperty, None)
     _Timeline_Meta_.RepeatBehaviorProperty = property(get_RepeatBehaviorProperty, None)
     _Timeline_Meta_.SpeedRatioProperty = property(get_SpeedRatioProperty, None)
+    Completed = event()
 class TimelineCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Media.Animation.Timeline]

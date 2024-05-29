@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Media
 import win32more.Microsoft.UI.Xaml.Media.Imaging
@@ -108,6 +108,9 @@ class BitmapImage(ComPtr, metaclass=_BitmapImage_Meta_):
     _BitmapImage_Meta_.IsAnimatedBitmapProperty = property(get_IsAnimatedBitmapProperty, None)
     _BitmapImage_Meta_.IsPlayingProperty = property(get_IsPlayingProperty, None)
     _BitmapImage_Meta_.UriSourceProperty = property(get_UriSourceProperty, None)
+    DownloadProgress = event()
+    ImageOpened = event()
+    ImageFailed = event()
 class _BitmapSource_Meta_(ComPtr.__class__):
     pass
 class BitmapSource(ComPtr, metaclass=_BitmapSource_Meta_):
@@ -212,6 +215,9 @@ class IBitmapImage(ComPtr):
     IsAnimatedBitmap = property(get_IsAnimatedBitmap, None)
     IsPlaying = property(get_IsPlaying, None)
     UriSource = property(get_UriSource, put_UriSource)
+    DownloadProgress = event()
+    ImageOpened = event()
+    ImageFailed = event()
 class IBitmapImageFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.IBitmapImageFactory'
@@ -358,6 +364,8 @@ class ISvgImageSource(ComPtr):
     RasterizePixelHeight = property(get_RasterizePixelHeight, put_RasterizePixelHeight)
     RasterizePixelWidth = property(get_RasterizePixelWidth, put_RasterizePixelWidth)
     UriSource = property(get_UriSource, put_UriSource)
+    Opened = event()
+    OpenFailed = event()
 class ISvgImageSourceFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.ISvgImageSourceFactory'
@@ -553,6 +561,8 @@ class SvgImageSource(ComPtr, metaclass=_SvgImageSource_Meta_):
     _SvgImageSource_Meta_.RasterizePixelHeightProperty = property(get_RasterizePixelHeightProperty, None)
     _SvgImageSource_Meta_.RasterizePixelWidthProperty = property(get_RasterizePixelWidthProperty, None)
     _SvgImageSource_Meta_.UriSourceProperty = property(get_UriSourceProperty, None)
+    Opened = event()
+    OpenFailed = event()
 class SvgImageSourceFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.ISvgImageSourceFailedEventArgs

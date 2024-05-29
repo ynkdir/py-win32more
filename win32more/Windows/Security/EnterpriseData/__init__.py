@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
@@ -403,6 +403,9 @@ class IProtectionPolicyManagerStatics(ComPtr):
     def CheckAccess(self, sourceIdentity: WinRT_String, targetIdentity: WinRT_String) -> win32more.Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult: ...
     @winrt_commethod(20)
     def RequestAccessAsync(self, sourceIdentity: WinRT_String, targetIdentity: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult]: ...
+    ProtectedAccessSuspending = event()
+    ProtectedAccessResumed = event()
+    ProtectedContentRevoked = event()
 class IProtectionPolicyManagerStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2'
@@ -426,6 +429,7 @@ class IProtectionPolicyManagerStatics2(ComPtr):
     @winrt_commethod(14)
     def get_IsProtectionEnabled(self) -> Boolean: ...
     IsProtectionEnabled = property(get_IsProtectionEnabled, None)
+    PolicyChanged = event()
 class IProtectionPolicyManagerStatics3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics3'

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -20,6 +20,7 @@ class IPrintManager(ComPtr):
     def add_PrintTaskRequested(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintManager, win32more.Windows.Graphics.Printing.PrintTaskRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PrintTaskRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    PrintTaskRequested = event()
 class IPrintManagerStatic(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.IPrintManagerStatic'
@@ -129,6 +130,10 @@ class IPrintTask(ComPtr):
     Options = property(get_Options, None)
     Properties = property(get_Properties, None)
     Source = property(get_Source, None)
+    Previewing = event()
+    Submitting = event()
+    Progressing = event()
+    Completed = event()
 class IPrintTask2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.IPrintTask2'
@@ -430,6 +435,7 @@ class PrintManager(ComPtr):
     def GetForCurrentView(cls: win32more.Windows.Graphics.Printing.IPrintManagerStatic) -> win32more.Windows.Graphics.Printing.PrintManager: ...
     @winrt_classmethod
     def ShowPrintUIAsync(cls: win32more.Windows.Graphics.Printing.IPrintManagerStatic) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+    PrintTaskRequested = event()
 class PrintMediaSize(Enum, Int32):
     Default = 0
     NotAvailable = 1
@@ -799,6 +805,10 @@ class PrintTask(ComPtr):
     Options = property(get_Options, None)
     Properties = property(get_Properties, None)
     Source = property(get_Source, None)
+    Previewing = event()
+    Submitting = event()
+    Progressing = event()
+    Completed = event()
 class PrintTaskCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.IPrintTaskCompletedEventArgs

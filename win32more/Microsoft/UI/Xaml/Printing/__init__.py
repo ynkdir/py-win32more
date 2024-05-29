@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Printing
 import win32more.Windows.Foundation
@@ -102,6 +102,9 @@ class IPrintDocument(ComPtr):
     @winrt_commethod(17)
     def InvalidatePreview(self) -> Void: ...
     DocumentSource = property(get_DocumentSource, None)
+    Paginate = event()
+    GetPreviewPage = event()
+    AddPages = event()
 class IPrintDocumentFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Printing.IPrintDocumentFactory'
@@ -185,6 +188,9 @@ class PrintDocument(ComPtr, metaclass=_PrintDocument_Meta_):
     def get_DocumentSourceProperty(cls: win32more.Microsoft.UI.Xaml.Printing.IPrintDocumentStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     DocumentSource = property(get_DocumentSource, None)
     _PrintDocument_Meta_.DocumentSourceProperty = property(get_DocumentSourceProperty, None)
+    Paginate = event()
+    GetPreviewPage = event()
+    AddPages = event()
 
 
 make_ready(__name__)

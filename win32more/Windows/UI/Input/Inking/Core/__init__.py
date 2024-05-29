@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -77,6 +77,13 @@ class CoreInkIndependentInputSource(ComPtr):
     def Create(cls: win32more.Windows.UI.Input.Inking.Core.ICoreInkIndependentInputSourceStatics, inkPresenter: win32more.Windows.UI.Input.Inking.InkPresenter) -> win32more.Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource: ...
     InkPresenter = property(get_InkPresenter, None)
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
+    PointerEntering = event()
+    PointerHovering = event()
+    PointerExiting = event()
+    PointerPressing = event()
+    PointerMoving = event()
+    PointerReleasing = event()
+    PointerLost = event()
 class CoreInkPresenterHost(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Core.ICoreInkPresenterHost
@@ -146,6 +153,11 @@ class CoreWetStrokeUpdateSource(ComPtr):
     @winrt_classmethod
     def Create(cls: win32more.Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateSourceStatics, inkPresenter: win32more.Windows.UI.Input.Inking.InkPresenter) -> win32more.Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource: ...
     InkPresenter = property(get_InkPresenter, None)
+    WetStrokeStarting = event()
+    WetStrokeContinuing = event()
+    WetStrokeStopping = event()
+    WetStrokeCompleted = event()
+    WetStrokeCanceled = event()
 class ICoreIncrementalInkStroke(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.Core.ICoreIncrementalInkStroke'
@@ -204,6 +216,13 @@ class ICoreInkIndependentInputSource(ComPtr):
     @winrt_commethod(20)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
+    PointerEntering = event()
+    PointerHovering = event()
+    PointerExiting = event()
+    PointerPressing = event()
+    PointerMoving = event()
+    PointerReleasing = event()
+    PointerLost = event()
 class ICoreInkIndependentInputSource2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.Core.ICoreInkIndependentInputSource2'
@@ -273,6 +292,11 @@ class ICoreWetStrokeUpdateSource(ComPtr):
     @winrt_commethod(16)
     def get_InkPresenter(self) -> win32more.Windows.UI.Input.Inking.InkPresenter: ...
     InkPresenter = property(get_InkPresenter, None)
+    WetStrokeStarting = event()
+    WetStrokeContinuing = event()
+    WetStrokeStopping = event()
+    WetStrokeCompleted = event()
+    WetStrokeCanceled = event()
 class ICoreWetStrokeUpdateSourceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateSourceStatics'

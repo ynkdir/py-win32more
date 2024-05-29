@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Core
@@ -266,6 +266,9 @@ class ContentLink(ComPtr, metaclass=_ContentLink_Meta_):
     _ContentLink_Meta_.XYFocusRightProperty = property(get_XYFocusRightProperty, None)
     _ContentLink_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
     _ContentLink_Meta_.XYFocusUpProperty = property(get_XYFocusUpProperty, None)
+    Invoked = event()
+    GotFocus = event()
+    LostFocus = event()
 class ContentLinkInvokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLinkInvokedEventArgs
@@ -565,6 +568,9 @@ class Hyperlink(ComPtr, metaclass=_Hyperlink_Meta_):
     _Hyperlink_Meta_.XYFocusRightProperty = property(get_XYFocusRightProperty, None)
     _Hyperlink_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
     _Hyperlink_Meta_.XYFocusUpProperty = property(get_XYFocusUpProperty, None)
+    Click = event()
+    GotFocus = event()
+    LostFocus = event()
 class HyperlinkClickEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Documents.IHyperlinkClickEventArgs
@@ -730,6 +736,9 @@ class IContentLink(ComPtr):
     XYFocusRightNavigationStrategy = property(get_XYFocusRightNavigationStrategy, put_XYFocusRightNavigationStrategy)
     XYFocusUp = property(get_XYFocusUp, put_XYFocusUp)
     XYFocusUpNavigationStrategy = property(get_XYFocusUpNavigationStrategy, put_XYFocusUpNavigationStrategy)
+    Invoked = event()
+    GotFocus = event()
+    LostFocus = event()
 class IContentLinkInvokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.IContentLinkInvokedEventArgs'
@@ -911,6 +920,7 @@ class IHyperlink(ComPtr):
     @winrt_commethod(9)
     def remove_Click(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     NavigateUri = property(get_NavigateUri, put_NavigateUri)
+    Click = event()
 class IHyperlink2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.IHyperlink2'
@@ -986,6 +996,8 @@ class IHyperlink4(ComPtr):
     XYFocusLeftNavigationStrategy = property(get_XYFocusLeftNavigationStrategy, put_XYFocusLeftNavigationStrategy)
     XYFocusRightNavigationStrategy = property(get_XYFocusRightNavigationStrategy, put_XYFocusRightNavigationStrategy)
     XYFocusUpNavigationStrategy = property(get_XYFocusUpNavigationStrategy, put_XYFocusUpNavigationStrategy)
+    GotFocus = event()
+    LostFocus = event()
 class IHyperlink5(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.IHyperlink5'
@@ -1287,6 +1299,9 @@ class ITextElement4(ComPtr):
     KeyTipPlacementMode = property(get_KeyTipPlacementMode, put_KeyTipPlacementMode)
     KeyTipVerticalOffset = property(get_KeyTipVerticalOffset, put_KeyTipVerticalOffset)
     TextDecorations = property(get_TextDecorations, put_TextDecorations)
+    AccessKeyDisplayRequested = event()
+    AccessKeyDisplayDismissed = event()
+    AccessKeyInvoked = event()
 class ITextElement5(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Documents.ITextElement5'
@@ -2112,6 +2127,9 @@ class TextElement(ComPtr, metaclass=_TextElement_Meta_):
     _TextElement_Meta_.KeyTipVerticalOffsetProperty = property(get_KeyTipVerticalOffsetProperty, None)
     _TextElement_Meta_.LanguageProperty = property(get_LanguageProperty, None)
     _TextElement_Meta_.TextDecorationsProperty = property(get_TextDecorationsProperty, None)
+    AccessKeyDisplayRequested = event()
+    AccessKeyDisplayDismissed = event()
+    AccessKeyInvoked = event()
 class _TextHighlighter_Meta_(ComPtr.__class__):
     pass
 class TextHighlighter(ComPtr, metaclass=_TextHighlighter_Meta_):

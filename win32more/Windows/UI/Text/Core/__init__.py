@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization
@@ -113,6 +113,16 @@ class CoreTextEditContext(ComPtr):
     InputScope = property(get_InputScope, put_InputScope)
     IsReadOnly = property(get_IsReadOnly, put_IsReadOnly)
     Name = property(get_Name, put_Name)
+    TextRequested = event()
+    SelectionRequested = event()
+    LayoutRequested = event()
+    TextUpdating = event()
+    SelectionUpdating = event()
+    FormatUpdating = event()
+    CompositionStarted = event()
+    CompositionCompleted = event()
+    FocusRemoved = event()
+    NotifyFocusLeaveCompleted = event()
 class CoreTextFormatUpdatingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs
@@ -331,6 +341,7 @@ class CoreTextServicesManager(ComPtr):
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Text.Core.ICoreTextServicesManagerStatics) -> win32more.Windows.UI.Text.Core.CoreTextServicesManager: ...
     InputLanguage = property(get_InputLanguage, None)
+    InputLanguageChanged = event()
 class CoreTextTextRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextTextRequest
@@ -485,6 +496,15 @@ class ICoreTextEditContext(ComPtr):
     InputScope = property(get_InputScope, put_InputScope)
     IsReadOnly = property(get_IsReadOnly, put_IsReadOnly)
     Name = property(get_Name, put_Name)
+    TextRequested = event()
+    SelectionRequested = event()
+    LayoutRequested = event()
+    TextUpdating = event()
+    SelectionUpdating = event()
+    FormatUpdating = event()
+    CompositionStarted = event()
+    CompositionCompleted = event()
+    FocusRemoved = event()
 class ICoreTextEditContext2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextEditContext2'
@@ -493,6 +513,7 @@ class ICoreTextEditContext2(ComPtr):
     def add_NotifyFocusLeaveCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_NotifyFocusLeaveCompleted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    NotifyFocusLeaveCompleted = event()
 class ICoreTextFormatUpdatingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs'
@@ -619,6 +640,7 @@ class ICoreTextServicesManager(ComPtr):
     @winrt_commethod(9)
     def CreateEditContext(self) -> win32more.Windows.UI.Text.Core.CoreTextEditContext: ...
     InputLanguage = property(get_InputLanguage, None)
+    InputLanguageChanged = event()
 class ICoreTextServicesManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextServicesManagerStatics'

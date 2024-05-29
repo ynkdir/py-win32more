@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -80,6 +80,7 @@ class GameChatOverlayMessageSource(ComPtr):
     def remove_MessageReceived(self: win32more.Windows.Gaming.UI.IGameChatOverlayMessageSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def SetDelayBeforeClosingAfterMessageReceived(self: win32more.Windows.Gaming.UI.IGameChatOverlayMessageSource, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    MessageReceived = event()
 class GameChatOverlayPosition(Enum, Int32):
     BottomCenter = 0
     BottomLeft = 1
@@ -126,6 +127,8 @@ class IGameBarStatics(ComPtr):
     def get_IsInputRedirected(self) -> Boolean: ...
     IsInputRedirected = property(get_IsInputRedirected, None)
     Visible = property(get_Visible, None)
+    VisibilityChanged = event()
+    IsInputRedirectedChanged = event()
 class IGameChatMessageReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.UI.IGameChatMessageReceivedEventArgs'
@@ -166,6 +169,7 @@ class IGameChatOverlayMessageSource(ComPtr):
     def remove_MessageReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def SetDelayBeforeClosingAfterMessageReceived(self, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    MessageReceived = event()
 class IGameChatOverlayStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.UI.IGameChatOverlayStatics'

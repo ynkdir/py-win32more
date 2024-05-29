@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Lights
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
@@ -37,6 +37,7 @@ class ILamp(ComPtr):
     DeviceId = property(get_DeviceId, None)
     IsColorSettable = property(get_IsColorSettable, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
+    AvailabilityChanged = event()
 class ILampArray(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArray'
@@ -116,6 +117,7 @@ class ILampArray2(ComPtr):
     @winrt_commethod(8)
     def remove_AvailabilityChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsAvailable = property(get_IsAvailable, None)
+    AvailabilityChanged = event()
 class ILampArrayStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArrayStatics'
@@ -211,6 +213,7 @@ class Lamp(ComPtr):
     DeviceId = property(get_DeviceId, None)
     IsColorSettable = property(get_IsColorSettable, None)
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
+    AvailabilityChanged = event()
 class LampArray(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampArray
@@ -290,6 +293,7 @@ class LampArray(ComPtr):
     LampCount = property(get_LampCount, None)
     MinUpdateInterval = property(get_MinUpdateInterval, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
+    AvailabilityChanged = event()
 class LampArrayKind(Enum, Int32):
     Undefined = 0
     Keyboard = 1

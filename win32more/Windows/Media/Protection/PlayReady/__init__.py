@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Core
@@ -40,6 +40,11 @@ class INDClient(ComPtr):
     def ReRegistrationAsync(self, registrationCustomData: win32more.Windows.Media.Protection.PlayReady.INDCustomData) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(19)
     def Close(self) -> Void: ...
+    RegistrationCompleted = event()
+    ProximityDetectionCompleted = event()
+    LicenseFetchCompleted = event()
+    ReRegistrationNeeded = event()
+    ClosedCaptionDataReceived = event()
 class INDClientFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Protection.PlayReady.INDClientFactory'
@@ -733,6 +738,11 @@ class NDClient(ComPtr):
     def ReRegistrationAsync(self: win32more.Windows.Media.Protection.PlayReady.INDClient, registrationCustomData: win32more.Windows.Media.Protection.PlayReady.INDCustomData) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Media.Protection.PlayReady.INDClient) -> Void: ...
+    RegistrationCompleted = event()
+    ProximityDetectionCompleted = event()
+    LicenseFetchCompleted = event()
+    ReRegistrationNeeded = event()
+    ClosedCaptionDataReceived = event()
 class NDClosedCaptionFormat(Enum, Int32):
     ATSC = 0
     SCTE20 = 1

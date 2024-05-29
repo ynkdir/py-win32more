@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Chat
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -93,6 +93,7 @@ class ChatConversation(ComPtr):
     Participants = property(get_Participants, None)
     Subject = property(get_Subject, put_Subject)
     ThreadingInfo = property(get_ThreadingInfo, None)
+    RemoteParticipantComposingChanged = event()
 class ChatConversationReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatConversationReader
@@ -522,6 +523,8 @@ class ChatMessageStore(ComPtr):
     @winrt_mixinmethod
     def GetMessageBySyncIdAsync(self: win32more.Windows.ApplicationModel.Chat.IChatMessageStore3, syncId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Chat.ChatMessage]: ...
     ChangeTracker = property(get_ChangeTracker, None)
+    MessageChanged = event()
+    StoreChanged = event()
 class ChatMessageStoreChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatMessageStoreChangedEventArgs
@@ -818,6 +821,7 @@ class IChatConversation(ComPtr):
     Participants = property(get_Participants, None)
     Subject = property(get_Subject, put_Subject)
     ThreadingInfo = property(get_ThreadingInfo, None)
+    RemoteParticipantComposingChanged = event()
 class IChatConversation2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatConversation2'
@@ -1205,6 +1209,7 @@ class IChatMessageStore(ComPtr):
     @winrt_commethod(17)
     def remove_MessageChanged(self, value: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ChangeTracker = property(get_ChangeTracker, None)
+    MessageChanged = event()
 class IChatMessageStore2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatMessageStore2'
@@ -1243,6 +1248,7 @@ class IChatMessageStore2(ComPtr):
     def add_StoreChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Chat.ChatMessageStore, win32more.Windows.ApplicationModel.Chat.ChatMessageStoreChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(22)
     def remove_StoreChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    StoreChanged = event()
 class IChatMessageStore3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IChatMessageStore3'
@@ -1462,6 +1468,7 @@ class IRcsEndUserMessageManager(ComPtr):
     def add_MessageAvailableChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Chat.RcsEndUserMessageManager, win32more.Windows.ApplicationModel.Chat.RcsEndUserMessageAvailableEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_MessageAvailableChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    MessageAvailableChanged = event()
 class IRcsManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IRcsManagerStatics'
@@ -1482,6 +1489,7 @@ class IRcsManagerStatics2(ComPtr):
     def add_TransportListChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_TransportListChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    TransportListChanged = event()
 class IRcsServiceKindSupportedChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IRcsServiceKindSupportedChangedEventArgs'
@@ -1516,6 +1524,7 @@ class IRcsTransport(ComPtr):
     IsActive = property(get_IsActive, None)
     TransportFriendlyName = property(get_TransportFriendlyName, None)
     TransportId = property(get_TransportId, None)
+    ServiceKindSupportedChanged = event()
 class IRcsTransportConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.IRcsTransportConfiguration'
@@ -1609,6 +1618,7 @@ class RcsEndUserMessageManager(ComPtr):
     def add_MessageAvailableChanged(self: win32more.Windows.ApplicationModel.Chat.IRcsEndUserMessageManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Chat.RcsEndUserMessageManager, win32more.Windows.ApplicationModel.Chat.RcsEndUserMessageAvailableEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_MessageAvailableChanged(self: win32more.Windows.ApplicationModel.Chat.IRcsEndUserMessageManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    MessageAvailableChanged = event()
 class RcsManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Chat.RcsManager'
@@ -1663,6 +1673,7 @@ class RcsTransport(ComPtr):
     IsActive = property(get_IsActive, None)
     TransportFriendlyName = property(get_TransportFriendlyName, None)
     TransportId = property(get_TransportId, None)
+    ServiceKindSupportedChanged = event()
 class RcsTransportConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IRcsTransportConfiguration

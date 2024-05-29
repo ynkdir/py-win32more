@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Text
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -333,6 +333,8 @@ class IStorageQueryResultBase(ComPtr):
     @winrt_commethod(14)
     def ApplyNewQueryOptions(self, newQueryOptions: win32more.Windows.Storage.Search.QueryOptions) -> Void: ...
     Folder = property(get_Folder, None)
+    ContentsChanged = event()
+    OptionsChanged = event()
 class IValueAndLanguage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Search.IValueAndLanguage'
@@ -520,6 +522,8 @@ class StorageFileQueryResult(ComPtr):
     @winrt_mixinmethod
     def GetMatchingPropertiesWithRanges(self: win32more.Windows.Storage.Search.IStorageFileQueryResult2, file: win32more.Windows.Storage.StorageFile) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Data.Text.TextSegment]]: ...
     Folder = property(get_Folder, None)
+    ContentsChanged = event()
+    OptionsChanged = event()
 class StorageFolderQueryResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IStorageFolderQueryResult
@@ -547,6 +551,8 @@ class StorageFolderQueryResult(ComPtr):
     @winrt_mixinmethod
     def ApplyNewQueryOptions(self: win32more.Windows.Storage.Search.IStorageQueryResultBase, newQueryOptions: win32more.Windows.Storage.Search.QueryOptions) -> Void: ...
     Folder = property(get_Folder, None)
+    ContentsChanged = event()
+    OptionsChanged = event()
 class StorageItemQueryResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IStorageItemQueryResult
@@ -574,6 +580,8 @@ class StorageItemQueryResult(ComPtr):
     @winrt_mixinmethod
     def ApplyNewQueryOptions(self: win32more.Windows.Storage.Search.IStorageQueryResultBase, newQueryOptions: win32more.Windows.Storage.Search.QueryOptions) -> Void: ...
     Folder = property(get_Folder, None)
+    ContentsChanged = event()
+    OptionsChanged = event()
 class StorageLibraryChangeTrackerTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IStorageLibraryChangeTrackerTriggerDetails

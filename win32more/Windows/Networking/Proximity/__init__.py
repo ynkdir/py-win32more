@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
@@ -81,6 +81,8 @@ class IPeerFinderStatics(ComPtr):
     AlternateIdentities = property(get_AlternateIdentities, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
     SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes, None)
+    TriggeredConnectionStateChanged = event()
+    ConnectionRequested = event()
 class IPeerFinderStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerFinderStatics2'
@@ -155,6 +157,11 @@ class IPeerWatcher(ComPtr):
     @winrt_commethod(18)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Removed = event()
+    Updated = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class IProximityDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Proximity.IProximityDevice'
@@ -194,6 +201,8 @@ class IProximityDevice(ComPtr):
     BitsPerSecond = property(get_BitsPerSecond, None)
     DeviceId = property(get_DeviceId, None)
     MaxMessageBytes = property(get_MaxMessageBytes, None)
+    DeviceArrived = event()
+    DeviceDeparted = event()
 class IProximityDeviceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Proximity.IProximityDeviceStatics'
@@ -362,6 +371,11 @@ class PeerWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Networking.Proximity.IPeerWatcher) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Removed = event()
+    Updated = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class PeerWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -414,6 +428,8 @@ class ProximityDevice(ComPtr):
     BitsPerSecond = property(get_BitsPerSecond, None)
     DeviceId = property(get_DeviceId, None)
     MaxMessageBytes = property(get_MaxMessageBytes, None)
+    DeviceArrived = event()
+    DeviceDeparted = event()
 class ProximityMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IProximityMessage

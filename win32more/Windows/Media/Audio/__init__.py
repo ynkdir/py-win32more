@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -188,6 +188,7 @@ class AudioFileInputNode(ComPtr):
     Position = property(get_Position, None)
     SourceFile = property(get_SourceFile, None)
     StartTime = property(get_StartTime, put_StartTime)
+    FileCompleted = event()
 class AudioFileNodeCreationStatus(Enum, Int32):
     Success = 0
     FileNotFound = 1
@@ -305,6 +306,8 @@ class AudioFrameInputNode(ComPtr):
     OutgoingGain = property(get_OutgoingGain, put_OutgoingGain)
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
     QueuedSampleCount = property(get_QueuedSampleCount, None)
+    AudioFrameCompleted = event()
+    QuantumStarted = event()
 class AudioFrameOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioFrameOutputNode
@@ -423,6 +426,9 @@ class AudioGraph(ComPtr):
     PrimaryRenderDevice = property(get_PrimaryRenderDevice, None)
     RenderDeviceAudioProcessing = property(get_RenderDeviceAudioProcessing, None)
     SamplesPerQuantum = property(get_SamplesPerQuantum, None)
+    QuantumStarted = event()
+    QuantumProcessed = event()
+    UnrecoverableErrorOccurred = event()
 class AudioGraphBatchUpdater(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.IClosable
@@ -694,6 +700,7 @@ class AudioPlaybackConnection(ComPtr):
     def TryCreateFromId(cls: win32more.Windows.Media.Audio.IAudioPlaybackConnectionStatics, id: WinRT_String) -> win32more.Windows.Media.Audio.AudioPlaybackConnection: ...
     DeviceId = property(get_DeviceId, None)
     State = property(get_State, None)
+    StateChanged = event()
 class AudioPlaybackConnectionOpenResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioPlaybackConnectionOpenResult
@@ -739,6 +746,7 @@ class AudioStateMonitor(ComPtr):
     @winrt_classmethod
     def CreateForCaptureMonitoringWithCategoryAndDeviceId(cls: win32more.Windows.Media.Audio.IAudioStateMonitorStatics, category: win32more.Windows.Media.Capture.MediaCategory, deviceId: WinRT_String) -> win32more.Windows.Media.Audio.AudioStateMonitor: ...
     SoundLevel = property(get_SoundLevel, None)
+    SoundLevelChanged = event()
 class AudioSubmixNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioInputNode
@@ -996,6 +1004,7 @@ class IAudioFileInputNode(ComPtr):
     Position = property(get_Position, None)
     SourceFile = property(get_SourceFile, None)
     StartTime = property(get_StartTime, put_StartTime)
+    FileCompleted = event()
 class IAudioFileOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Audio.IAudioFileOutputNode'
@@ -1039,6 +1048,8 @@ class IAudioFrameInputNode(ComPtr):
     def remove_QuantumStarted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
     QueuedSampleCount = property(get_QueuedSampleCount, None)
+    AudioFrameCompleted = event()
+    QuantumStarted = event()
 class IAudioFrameOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Audio.IAudioFrameOutputNode'
@@ -1111,6 +1122,9 @@ class IAudioGraph(ComPtr):
     PrimaryRenderDevice = property(get_PrimaryRenderDevice, None)
     RenderDeviceAudioProcessing = property(get_RenderDeviceAudioProcessing, None)
     SamplesPerQuantum = property(get_SamplesPerQuantum, None)
+    QuantumStarted = event()
+    QuantumProcessed = event()
+    UnrecoverableErrorOccurred = event()
 class IAudioGraph2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Audio.IAudioGraph2'
@@ -1435,6 +1449,7 @@ class IAudioPlaybackConnection(ComPtr):
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
     State = property(get_State, None)
+    StateChanged = event()
 class IAudioPlaybackConnectionOpenResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Audio.IAudioPlaybackConnectionOpenResult'
@@ -1464,6 +1479,7 @@ class IAudioStateMonitor(ComPtr):
     @winrt_commethod(8)
     def get_SoundLevel(self) -> win32more.Windows.Media.SoundLevel: ...
     SoundLevel = property(get_SoundLevel, None)
+    SoundLevelChanged = event()
 class IAudioStateMonitorStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Audio.IAudioStateMonitorStatics'
@@ -1709,6 +1725,7 @@ class IMediaSourceAudioInputNode(ComPtr):
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
     Position = property(get_Position, None)
     StartTime = property(get_StartTime, put_StartTime)
+    MediaSourceCompleted = event()
 class IReverbEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Audio.IReverbEffectDefinition'
@@ -1865,6 +1882,7 @@ class ISpatialAudioDeviceConfiguration(ComPtr):
     DefaultSpatialAudioFormat = property(get_DefaultSpatialAudioFormat, None)
     DeviceId = property(get_DeviceId, None)
     IsSpatialAudioSupported = property(get_IsSpatialAudioSupported, None)
+    ConfigurationChanged = event()
 class ISpatialAudioDeviceConfigurationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Audio.ISpatialAudioDeviceConfigurationStatics'
@@ -2027,6 +2045,7 @@ class MediaSourceAudioInputNode(ComPtr):
     PlaybackSpeedFactor = property(get_PlaybackSpeedFactor, put_PlaybackSpeedFactor)
     Position = property(get_Position, None)
     StartTime = property(get_StartTime, put_StartTime)
+    MediaSourceCompleted = event()
 class MediaSourceAudioInputNodeCreationStatus(Enum, Int32):
     Success = 0
     FormatNotSupported = 1
@@ -2213,6 +2232,7 @@ class SpatialAudioDeviceConfiguration(ComPtr):
     DefaultSpatialAudioFormat = property(get_DefaultSpatialAudioFormat, None)
     DeviceId = property(get_DeviceId, None)
     IsSpatialAudioSupported = property(get_IsSpatialAudioSupported, None)
+    ConfigurationChanged = event()
 class SpatialAudioFormatConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.ISpatialAudioFormatConfiguration

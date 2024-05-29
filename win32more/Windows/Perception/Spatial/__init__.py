@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -23,6 +23,7 @@ class ISpatialAnchor(ComPtr):
     def remove_RawCoordinateSystemAdjusted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
     RawCoordinateSystem = property(get_RawCoordinateSystem, None)
+    RawCoordinateSystemAdjusted = event()
 class ISpatialAnchor2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.ISpatialAnchor2'
@@ -214,6 +215,10 @@ class ISpatialEntityWatcher(ComPtr):
     @winrt_commethod(16)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Updated = event()
+    Removed = event()
+    EnumerationCompleted = event()
 class ISpatialLocation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.ISpatialLocation'
@@ -279,6 +284,8 @@ class ISpatialLocator(ComPtr):
     @winrt_commethod(19)
     def CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientationAndRelativeHeading(self, relativePosition: win32more.Windows.Foundation.Numerics.Vector3, relativeOrientation: win32more.Windows.Foundation.Numerics.Quaternion, relativeHeadingInRadians: Double) -> win32more.Windows.Perception.Spatial.SpatialStationaryFrameOfReference: ...
     Locatability = property(get_Locatability, None)
+    LocatabilityChanged = event()
+    PositionalTrackingDeactivating = event()
 class ISpatialLocatorAttachedFrameOfReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.ISpatialLocatorAttachedFrameOfReference'
@@ -344,6 +351,7 @@ class ISpatialStageFrameOfReferenceStatics(ComPtr):
     @winrt_commethod(9)
     def RequestNewStageAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Perception.Spatial.SpatialStageFrameOfReference]: ...
     Current = property(get_Current, None)
+    CurrentChanged = event()
 class ISpatialStationaryFrameOfReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Perception.Spatial.ISpatialStationaryFrameOfReference'
@@ -374,6 +382,7 @@ class SpatialAnchor(ComPtr):
     CoordinateSystem = property(get_CoordinateSystem, None)
     RawCoordinateSystem = property(get_RawCoordinateSystem, None)
     RemovedByUser = property(get_RemovedByUser, None)
+    RawCoordinateSystemAdjusted = event()
 class SpatialAnchorExportPurpose(Enum, Int32):
     Relocalization = 0
     Sharing = 1
@@ -561,6 +570,10 @@ class SpatialEntityWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Perception.Spatial.ISpatialEntityWatcher) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Updated = event()
+    Removed = event()
+    EnumerationCompleted = event()
 class SpatialEntityWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -637,6 +650,8 @@ class SpatialLocator(ComPtr):
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.Perception.Spatial.ISpatialLocatorStatics) -> win32more.Windows.Perception.Spatial.SpatialLocator: ...
     Locatability = property(get_Locatability, None)
+    LocatabilityChanged = event()
+    PositionalTrackingDeactivating = event()
 class SpatialLocatorAttachedFrameOfReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.ISpatialLocatorAttachedFrameOfReference

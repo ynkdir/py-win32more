@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Bluetooth
 import win32more.Windows.Devices.Bluetooth.Advertisement
 import win32more.Windows.Foundation
@@ -252,6 +252,7 @@ class BluetoothLEAdvertisementPublisher(ComPtr):
     PreferredTransmitPowerLevelInDBm = property(get_PreferredTransmitPowerLevelInDBm, put_PreferredTransmitPowerLevelInDBm)
     Status = property(get_Status, None)
     UseExtendedAdvertisement = property(get_UseExtendedAdvertisement, put_UseExtendedAdvertisement)
+    StatusChanged = event()
 class BluetoothLEAdvertisementPublisherStatus(Enum, Int32):
     Created = 0
     Waiting = 1
@@ -383,6 +384,8 @@ class BluetoothLEAdvertisementWatcher(ComPtr):
     ScanningMode = property(get_ScanningMode, put_ScanningMode)
     SignalStrengthFilter = property(get_SignalStrengthFilter, put_SignalStrengthFilter)
     Status = property(get_Status, None)
+    Received = event()
+    Stopped = event()
 class BluetoothLEAdvertisementWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1
@@ -599,6 +602,7 @@ class IBluetoothLEAdvertisementPublisher(ComPtr):
     def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Advertisement = property(get_Advertisement, None)
     Status = property(get_Status, None)
+    StatusChanged = event()
 class IBluetoothLEAdvertisementPublisher2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementPublisher2'
@@ -736,6 +740,8 @@ class IBluetoothLEAdvertisementWatcher(ComPtr):
     ScanningMode = property(get_ScanningMode, put_ScanningMode)
     SignalStrengthFilter = property(get_SignalStrengthFilter, put_SignalStrengthFilter)
     Status = property(get_Status, None)
+    Received = event()
+    Stopped = event()
 class IBluetoothLEAdvertisementWatcher2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementWatcher2'

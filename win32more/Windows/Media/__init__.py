@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -207,6 +207,18 @@ class IMediaControl(ComPtr):
     IsPlaying = property(get_IsPlaying, put_IsPlaying)
     SoundLevel = property(get_SoundLevel, None)
     TrackName = property(get_TrackName, put_TrackName)
+    SoundLevelChanged = event()
+    PlayPressed = event()
+    PausePressed = event()
+    StopPressed = event()
+    PlayPauseTogglePressed = event()
+    RecordPressed = event()
+    NextTrackPressed = event()
+    PreviousTrackPressed = event()
+    FastForwardPressed = event()
+    RewindPressed = event()
+    ChannelUpPressed = event()
+    ChannelDownPressed = event()
 class IMediaExtension(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.IMediaExtension'
@@ -345,6 +357,8 @@ class IMediaTimelineController(ComPtr):
     ClockRate = property(get_ClockRate, put_ClockRate)
     Position = property(get_Position, put_Position)
     State = property(get_State, None)
+    PositionChanged = event()
+    StateChanged = event()
 class IMediaTimelineController2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.IMediaTimelineController2'
@@ -367,6 +381,8 @@ class IMediaTimelineController2(ComPtr):
     def remove_Ended(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Duration = property(get_Duration, put_Duration)
     IsLoopingEnabled = property(get_IsLoopingEnabled, put_IsLoopingEnabled)
+    Failed = event()
+    Ended = event()
 class IMediaTimelineControllerFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.IMediaTimelineControllerFailedEventArgs'
@@ -518,6 +534,8 @@ class ISystemMediaTransportControls(ComPtr):
     IsStopEnabled = property(get_IsStopEnabled, put_IsStopEnabled)
     PlaybackStatus = property(get_PlaybackStatus, put_PlaybackStatus)
     SoundLevel = property(get_SoundLevel, None)
+    ButtonPressed = event()
+    PropertyChanged = event()
 class ISystemMediaTransportControls2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.ISystemMediaTransportControls2'
@@ -555,6 +573,10 @@ class ISystemMediaTransportControls2(ComPtr):
     AutoRepeatMode = property(get_AutoRepeatMode, put_AutoRepeatMode)
     PlaybackRate = property(get_PlaybackRate, put_PlaybackRate)
     ShuffleEnabled = property(get_ShuffleEnabled, put_ShuffleEnabled)
+    PlaybackPositionChangeRequested = event()
+    PlaybackRateChangeRequested = event()
+    ShuffleEnabledChangeRequested = event()
+    AutoRepeatModeChangeRequested = event()
 class ISystemMediaTransportControlsButtonPressedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.ISystemMediaTransportControlsButtonPressedEventArgs'
@@ -925,6 +947,10 @@ class MediaTimelineController(ComPtr):
     IsLoopingEnabled = property(get_IsLoopingEnabled, put_IsLoopingEnabled)
     Position = property(get_Position, put_Position)
     State = property(get_State, None)
+    PositionChanged = event()
+    StateChanged = event()
+    Failed = event()
+    Ended = event()
 class MediaTimelineControllerFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IMediaTimelineControllerFailedEventArgs
@@ -1112,6 +1138,12 @@ class SystemMediaTransportControls(ComPtr):
     PlaybackStatus = property(get_PlaybackStatus, put_PlaybackStatus)
     ShuffleEnabled = property(get_ShuffleEnabled, put_ShuffleEnabled)
     SoundLevel = property(get_SoundLevel, None)
+    ButtonPressed = event()
+    PropertyChanged = event()
+    PlaybackPositionChangeRequested = event()
+    PlaybackRateChangeRequested = event()
+    ShuffleEnabledChangeRequested = event()
+    AutoRepeatModeChangeRequested = event()
 class SystemMediaTransportControlsButton(Enum, Int32):
     Play = 0
     Pause = 1

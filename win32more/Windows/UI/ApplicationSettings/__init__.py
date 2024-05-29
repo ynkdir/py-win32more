@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Credentials
@@ -29,6 +29,7 @@ class AccountsSettingsPane(ComPtr):
     def GetForCurrentView(cls: win32more.Windows.UI.ApplicationSettings.IAccountsSettingsPaneStatics) -> win32more.Windows.UI.ApplicationSettings.AccountsSettingsPane: ...
     @winrt_classmethod
     def Show(cls: win32more.Windows.UI.ApplicationSettings.IAccountsSettingsPaneStatics) -> Void: ...
+    AccountCommandsRequested = event()
 class AccountsSettingsPaneCommandsRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.IAccountsSettingsPaneCommandsRequestedEventArgs
@@ -98,6 +99,7 @@ class IAccountsSettingsPane(ComPtr):
     def add_AccountCommandsRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ApplicationSettings.AccountsSettingsPane, win32more.Windows.UI.ApplicationSettings.AccountsSettingsPaneCommandsRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_AccountCommandsRequested(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    AccountCommandsRequested = event()
 class IAccountsSettingsPaneCommandsRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ApplicationSettings.IAccountsSettingsPaneCommandsRequestedEventArgs'
@@ -197,6 +199,7 @@ class ISettingsPane(ComPtr):
     def add_CommandsRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.ApplicationSettings.SettingsPane, win32more.Windows.UI.ApplicationSettings.SettingsPaneCommandsRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_CommandsRequested(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    CommandsRequested = event()
 class ISettingsPaneCommandsRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequest'
@@ -317,6 +320,7 @@ class SettingsPane(ComPtr, metaclass=_SettingsPane_Meta_):
     @winrt_classmethod
     def get_Edge(cls: win32more.Windows.UI.ApplicationSettings.ISettingsPaneStatics) -> win32more.Windows.UI.ApplicationSettings.SettingsEdgeLocation: ...
     _SettingsPane_Meta_.Edge = property(get_Edge, None)
+    CommandsRequested = event()
 class SettingsPaneCommandsRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequest

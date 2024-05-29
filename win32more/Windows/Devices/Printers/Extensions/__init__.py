@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Printers.Extensions
 import win32more.Windows.Foundation
 import win32more.Windows.Win32.System.WinRT
@@ -23,6 +23,7 @@ class IPrint3DWorkflow(ComPtr):
     def remove_PrintRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceID = property(get_DeviceID, None)
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
+    PrintRequested = event()
 class IPrint3DWorkflow2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrint3DWorkflow2'
@@ -31,6 +32,7 @@ class IPrint3DWorkflow2(ComPtr):
     def add_PrinterChanged(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Printers.Extensions.Print3DWorkflow, win32more.Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PrinterChanged(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    PrinterChanged = event()
 class IPrint3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrintRequestedEventArgs'
@@ -80,6 +82,7 @@ class IPrintTaskConfiguration(ComPtr):
     @winrt_commethod(8)
     def remove_SaveRequested(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PrinterExtensionContext = property(get_PrinterExtensionContext, None)
+    SaveRequested = event()
 class IPrintTaskConfigurationSaveRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest'
@@ -128,6 +131,8 @@ class Print3DWorkflow(ComPtr):
     def remove_PrinterChanged(self: win32more.Windows.Devices.Printers.Extensions.IPrint3DWorkflow2, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceID = property(get_DeviceID, None)
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
+    PrintRequested = event()
+    PrinterChanged = event()
 class Print3DWorkflowDetail(Enum, Int32):
     Unknown = 0
     ModelExceedsPrintBed = 1
@@ -190,6 +195,7 @@ class PrintTaskConfiguration(ComPtr):
     @winrt_mixinmethod
     def remove_SaveRequested(self: win32more.Windows.Devices.Printers.Extensions.IPrintTaskConfiguration, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PrinterExtensionContext = property(get_PrinterExtensionContext, None)
+    SaveRequested = event()
 class PrintTaskConfigurationSaveRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest

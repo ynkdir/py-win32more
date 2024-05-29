@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.ApplicationModel.Core
@@ -152,6 +152,11 @@ class Application(ComPtr, metaclass=_Application_Meta_):
     RequiresPointerMode = property(get_RequiresPointerMode, put_RequiresPointerMode)
     Resources = property(get_Resources, put_Resources)
     _Application_Meta_.Current = property(get_Current, None)
+    UnhandledException = event()
+    Suspending = event()
+    Resuming = event()
+    LeavingBackground = event()
+    EnteredBackground = event()
 class ApplicationHighContrastAdjustment(Enum, UInt32):
     None_ = 0
     Auto = 4294967295
@@ -590,6 +595,7 @@ class DebugSettings(ComPtr):
     IsBindingTracingEnabled = property(get_IsBindingTracingEnabled, put_IsBindingTracingEnabled)
     IsOverdrawHeatMapEnabled = property(get_IsOverdrawHeatMapEnabled, put_IsOverdrawHeatMapEnabled)
     IsTextPerformanceVisualizationEnabled = property(get_IsTextPerformanceVisualizationEnabled, put_IsTextPerformanceVisualizationEnabled)
+    BindingFailed = event()
 class DependencyObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.IDependencyObject
@@ -664,6 +670,7 @@ class DependencyObjectCollection(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Xaml.DependencyObject]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.UI.Xaml.DependencyObject]: ...
     Size = property(get_Size, None)
+    VectorChanged = event()
 class _DependencyProperty_Meta_(ComPtr.__class__):
     pass
 class DependencyProperty(ComPtr, metaclass=_DependencyProperty_Meta_):
@@ -731,6 +738,7 @@ class DispatcherTimer(ComPtr):
     def Stop(self: win32more.Windows.UI.Xaml.IDispatcherTimer) -> Void: ...
     Interval = property(get_Interval, put_Interval)
     IsEnabled = property(get_IsEnabled, None)
+    Tick = event()
 class DragEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.IDragEventArgs
@@ -1379,6 +1387,14 @@ class FrameworkElement(ComPtr, metaclass=_FrameworkElement_Meta_):
     _FrameworkElement_Meta_.TagProperty = property(get_TagProperty, None)
     _FrameworkElement_Meta_.VerticalAlignmentProperty = property(get_VerticalAlignmentProperty, None)
     _FrameworkElement_Meta_.WidthProperty = property(get_WidthProperty, None)
+    Loaded = event()
+    Unloaded = event()
+    SizeChanged = event()
+    LayoutUpdated = event()
+    DataContextChanged = event()
+    Loading = event()
+    ActualThemeChanged = event()
+    EffectiveViewportChanged = event()
 class FrameworkTemplate(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.IFrameworkTemplate
@@ -1524,6 +1540,9 @@ class IApplication(ComPtr):
     DebugSettings = property(get_DebugSettings, None)
     RequestedTheme = property(get_RequestedTheme, put_RequestedTheme)
     Resources = property(get_Resources, put_Resources)
+    UnhandledException = event()
+    Suspending = event()
+    Resuming = event()
 class IApplication2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IApplication2'
@@ -1546,6 +1565,8 @@ class IApplication2(ComPtr):
     def remove_EnteredBackground(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     FocusVisualKind = property(get_FocusVisualKind, put_FocusVisualKind)
     RequiresPointerMode = property(get_RequiresPointerMode, put_RequiresPointerMode)
+    LeavingBackground = event()
+    EnteredBackground = event()
 class IApplication3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IApplication3'
@@ -1948,6 +1969,7 @@ class IDebugSettings(ComPtr):
     EnableFrameRateCounter = property(get_EnableFrameRateCounter, put_EnableFrameRateCounter)
     IsBindingTracingEnabled = property(get_IsBindingTracingEnabled, put_IsBindingTracingEnabled)
     IsOverdrawHeatMapEnabled = property(get_IsOverdrawHeatMapEnabled, put_IsOverdrawHeatMapEnabled)
+    BindingFailed = event()
 class IDebugSettings2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IDebugSettings2'
@@ -2062,6 +2084,7 @@ class IDispatcherTimer(ComPtr):
     def Stop(self) -> Void: ...
     Interval = property(get_Interval, put_Interval)
     IsEnabled = property(get_IsEnabled, None)
+    Tick = event()
 class IDispatcherTimerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IDispatcherTimerFactory'
@@ -2461,6 +2484,10 @@ class IFrameworkElement(ComPtr):
     Triggers = property(get_Triggers, None)
     VerticalAlignment = property(get_VerticalAlignment, put_VerticalAlignment)
     Width = property(get_Width, put_Width)
+    Loaded = event()
+    Unloaded = event()
+    SizeChanged = event()
+    LayoutUpdated = event()
 class IFrameworkElement2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IFrameworkElement2'
@@ -2476,6 +2503,7 @@ class IFrameworkElement2(ComPtr):
     @winrt_commethod(10)
     def GetBindingExpression(self, dp: win32more.Windows.UI.Xaml.DependencyProperty) -> win32more.Windows.UI.Xaml.Data.BindingExpression: ...
     RequestedTheme = property(get_RequestedTheme, put_RequestedTheme)
+    DataContextChanged = event()
 class IFrameworkElement3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IFrameworkElement3'
@@ -2484,6 +2512,7 @@ class IFrameworkElement3(ComPtr):
     def add_Loading(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Xaml.FrameworkElement, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Loading(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Loading = event()
 class IFrameworkElement4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IFrameworkElement4'
@@ -2534,6 +2563,7 @@ class IFrameworkElement6(ComPtr):
     @winrt_commethod(8)
     def remove_ActualThemeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ActualTheme = property(get_ActualTheme, None)
+    ActualThemeChanged = event()
 class IFrameworkElement7(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IFrameworkElement7'
@@ -2545,6 +2575,7 @@ class IFrameworkElement7(ComPtr):
     @winrt_commethod(8)
     def remove_EffectiveViewportChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsLoaded = property(get_IsLoaded, None)
+    EffectiveViewportChanged = event()
 class IFrameworkElementFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IFrameworkElementFactory'
@@ -3261,6 +3292,31 @@ class IUIElement(ComPtr):
     Transitions = property(get_Transitions, put_Transitions)
     UseLayoutRounding = property(get_UseLayoutRounding, put_UseLayoutRounding)
     Visibility = property(get_Visibility, put_Visibility)
+    KeyUp = event()
+    KeyDown = event()
+    GotFocus = event()
+    LostFocus = event()
+    DragEnter = event()
+    DragLeave = event()
+    DragOver = event()
+    Drop = event()
+    PointerPressed = event()
+    PointerMoved = event()
+    PointerReleased = event()
+    PointerEntered = event()
+    PointerExited = event()
+    PointerCaptureLost = event()
+    PointerCanceled = event()
+    PointerWheelChanged = event()
+    Tapped = event()
+    DoubleTapped = event()
+    Holding = event()
+    RightTapped = event()
+    ManipulationStarting = event()
+    ManipulationInertiaStarting = event()
+    ManipulationStarted = event()
+    ManipulationDelta = event()
+    ManipulationCompleted = event()
 class IUIElement10(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IUIElement10'
@@ -3319,6 +3375,8 @@ class IUIElement3(ComPtr):
     def StartDragAsync(self, pointerPoint: win32more.Windows.UI.Input.PointerPoint) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation]: ...
     CanDrag = property(get_CanDrag, put_CanDrag)
     Transform3D = property(get_Transform3D, put_Transform3D)
+    DragStarting = event()
+    DropCompleted = event()
 class IUIElement4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IUIElement4'
@@ -3368,6 +3426,11 @@ class IUIElement4(ComPtr):
     ContextFlyout = property(get_ContextFlyout, put_ContextFlyout)
     ExitDisplayModeOnAccessKeyInvoked = property(get_ExitDisplayModeOnAccessKeyInvoked, put_ExitDisplayModeOnAccessKeyInvoked)
     IsAccessKeyScope = property(get_IsAccessKeyScope, put_IsAccessKeyScope)
+    ContextRequested = event()
+    ContextCanceled = event()
+    AccessKeyDisplayRequested = event()
+    AccessKeyDisplayDismissed = event()
+    AccessKeyInvoked = event()
 class IUIElement5(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IUIElement5'
@@ -3441,6 +3504,9 @@ class IUIElement5(ComPtr):
     XYFocusLeftNavigationStrategy = property(get_XYFocusLeftNavigationStrategy, put_XYFocusLeftNavigationStrategy)
     XYFocusRightNavigationStrategy = property(get_XYFocusRightNavigationStrategy, put_XYFocusRightNavigationStrategy)
     XYFocusUpNavigationStrategy = property(get_XYFocusUpNavigationStrategy, put_XYFocusUpNavigationStrategy)
+    GettingFocus = event()
+    LosingFocus = event()
+    NoFocusCandidateFound = event()
 class IUIElement7(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IUIElement7'
@@ -3466,6 +3532,10 @@ class IUIElement7(ComPtr):
     @winrt_commethod(15)
     def TryInvokeKeyboardAccelerator(self, args: win32more.Windows.UI.Xaml.Input.ProcessKeyboardAcceleratorEventArgs) -> Void: ...
     KeyboardAccelerators = property(get_KeyboardAccelerators, None)
+    CharacterReceived = event()
+    ProcessKeyboardAccelerators = event()
+    PreviewKeyDown = event()
+    PreviewKeyUp = event()
 class IUIElement8(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IUIElement8'
@@ -3489,6 +3559,7 @@ class IUIElement8(ComPtr):
     KeyTipTarget = property(get_KeyTipTarget, put_KeyTipTarget)
     KeyboardAcceleratorPlacementMode = property(get_KeyboardAcceleratorPlacementMode, put_KeyboardAcceleratorPlacementMode)
     KeyboardAcceleratorPlacementTarget = property(get_KeyboardAcceleratorPlacementTarget, put_KeyboardAcceleratorPlacementTarget)
+    BringIntoViewRequested = event()
 class IUIElement9(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IUIElement9'
@@ -3958,6 +4029,8 @@ class IVisualStateGroup(ComPtr):
     Name = property(get_Name, None)
     States = property(get_States, None)
     Transitions = property(get_Transitions, None)
+    CurrentStateChanged = event()
+    CurrentStateChanging = event()
 class IVisualStateManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IVisualStateManager'
@@ -4073,6 +4146,10 @@ class IWindow(ComPtr):
     CoreWindow = property(get_CoreWindow, None)
     Dispatcher = property(get_Dispatcher, None)
     Visible = property(get_Visible, None)
+    Activated = event()
+    Closed = event()
+    SizeChanged = event()
+    VisibilityChanged = event()
 class IWindow2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IWindow2'
@@ -4130,6 +4207,7 @@ class IXamlRoot(ComPtr):
     RasterizationScale = property(get_RasterizationScale, None)
     Size = property(get_Size, None)
     UIContext = property(get_UIContext, None)
+    Changed = event()
 class IXamlRootChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.IXamlRootChangedEventArgs'
@@ -5385,6 +5463,46 @@ class UIElement(ComPtr, metaclass=_UIElement_Meta_):
     _UIElement_Meta_.XYFocusLeftNavigationStrategyProperty = property(get_XYFocusLeftNavigationStrategyProperty, None)
     _UIElement_Meta_.XYFocusRightNavigationStrategyProperty = property(get_XYFocusRightNavigationStrategyProperty, None)
     _UIElement_Meta_.XYFocusUpNavigationStrategyProperty = property(get_XYFocusUpNavigationStrategyProperty, None)
+    KeyUp = event()
+    KeyDown = event()
+    GotFocus = event()
+    LostFocus = event()
+    DragEnter = event()
+    DragLeave = event()
+    DragOver = event()
+    Drop = event()
+    PointerPressed = event()
+    PointerMoved = event()
+    PointerReleased = event()
+    PointerEntered = event()
+    PointerExited = event()
+    PointerCaptureLost = event()
+    PointerCanceled = event()
+    PointerWheelChanged = event()
+    Tapped = event()
+    DoubleTapped = event()
+    Holding = event()
+    RightTapped = event()
+    ManipulationStarting = event()
+    ManipulationInertiaStarting = event()
+    ManipulationStarted = event()
+    ManipulationDelta = event()
+    ManipulationCompleted = event()
+    DragStarting = event()
+    DropCompleted = event()
+    ContextRequested = event()
+    ContextCanceled = event()
+    AccessKeyDisplayRequested = event()
+    AccessKeyDisplayDismissed = event()
+    AccessKeyInvoked = event()
+    GettingFocus = event()
+    LosingFocus = event()
+    NoFocusCandidateFound = event()
+    CharacterReceived = event()
+    ProcessKeyboardAccelerators = event()
+    PreviewKeyDown = event()
+    PreviewKeyUp = event()
+    BringIntoViewRequested = event()
 class UIElementWeakCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.IUIElementWeakCollection
@@ -5573,6 +5691,8 @@ class VisualStateGroup(ComPtr):
     Name = property(get_Name, None)
     States = property(get_States, None)
     Transitions = property(get_Transitions, None)
+    CurrentStateChanged = event()
+    CurrentStateChanging = event()
 class _VisualStateManager_Meta_(ComPtr.__class__):
     pass
 class VisualStateManager(ComPtr, metaclass=_VisualStateManager_Meta_):
@@ -5697,6 +5817,10 @@ class Window(ComPtr, metaclass=_Window_Meta_):
     UIContext = property(get_UIContext, None)
     Visible = property(get_Visible, None)
     _Window_Meta_.Current = property(get_Current, None)
+    Activated = event()
+    Closed = event()
+    SizeChanged = event()
+    VisibilityChanged = event()
 class WindowActivatedEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{18026348-8619-4c7b-b534-ced45d9de219}')
@@ -5747,6 +5871,7 @@ class XamlRoot(ComPtr):
     RasterizationScale = property(get_RasterizationScale, None)
     Size = property(get_Size, None)
     UIContext = property(get_UIContext, None)
+    Changed = event()
 class XamlRootChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.IXamlRootChangedEventArgs

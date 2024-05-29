@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Calls
 import win32more.Windows.ApplicationModel.Contacts
 import win32more.Windows.Devices.Enumeration
@@ -106,6 +106,8 @@ class ILockScreenCallUI(ComPtr):
     @winrt_commethod(12)
     def put_CallTitle(self, value: WinRT_String) -> Void: ...
     CallTitle = property(get_CallTitle, put_CallTitle)
+    EndRequested = event()
+    Closed = event()
 class IMuteChangeEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IMuteChangeEventArgs'
@@ -181,6 +183,9 @@ class IPhoneCall(ComPtr):
     CallId = property(get_CallId, None)
     IsMuted = property(get_IsMuted, None)
     Status = property(get_Status, None)
+    StatusChanged = event()
+    AudioDeviceChanged = event()
+    IsMutedChanged = event()
 class IPhoneCallBlockingStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IPhoneCallBlockingStatics'
@@ -430,6 +435,7 @@ class IPhoneCallManagerStatics2(ComPtr):
     def RequestStoreAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Calls.PhoneCallStore]: ...
     IsCallActive = property(get_IsCallActive, None)
     IsCallIncoming = property(get_IsCallIncoming, None)
+    CallStateChanged = event()
 class IPhoneCallStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IPhoneCallStatics'
@@ -553,6 +559,7 @@ class IPhoneLine(ComPtr):
     Transport = property(get_Transport, None)
     VideoCallingCapabilities = property(get_VideoCallingCapabilities, None)
     Voicemail = property(get_Voicemail, None)
+    LineChanged = event()
 class IPhoneLine2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IPhoneLine2'
@@ -662,6 +669,8 @@ class IPhoneLineTransportDevice2(ComPtr):
     def remove_InBandRingingEnabledChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AudioRoutingStatus = property(get_AudioRoutingStatus, None)
     InBandRingingEnabled = property(get_InBandRingingEnabled, None)
+    AudioRoutingStatusChanged = event()
+    InBandRingingEnabledChanged = event()
 class IPhoneLineTransportDeviceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IPhoneLineTransportDeviceStatics'
@@ -703,6 +712,11 @@ class IPhoneLineWatcher(ComPtr):
     @winrt_commethod(18)
     def get_Status(self) -> win32more.Windows.ApplicationModel.Calls.PhoneLineWatcherStatus: ...
     Status = property(get_Status, None)
+    LineAdded = event()
+    LineRemoved = event()
+    LineUpdated = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class IPhoneLineWatcherEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IPhoneLineWatcherEventArgs'
@@ -751,6 +765,7 @@ class IVoipCallCoordinator(ComPtr):
     def TerminateCellularCall(self, callUpgradeGuid: Guid) -> Void: ...
     @winrt_commethod(16)
     def CancelUpgrade(self, callUpgradeGuid: Guid) -> Void: ...
+    MuteStateChanged = event()
 class IVoipCallCoordinator2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IVoipCallCoordinator2'
@@ -824,6 +839,11 @@ class IVoipPhoneCall(ComPtr):
     CallMedia = property(get_CallMedia, put_CallMedia)
     ContactName = property(get_ContactName, put_ContactName)
     StartTime = property(get_StartTime, put_StartTime)
+    EndRequested = event()
+    HoldRequested = event()
+    ResumeRequested = event()
+    AnswerRequested = event()
+    RejectRequested = event()
 class IVoipPhoneCall2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IVoipPhoneCall2'
@@ -871,6 +891,8 @@ class LockScreenCallUI(ComPtr):
     @winrt_mixinmethod
     def put_CallTitle(self: win32more.Windows.ApplicationModel.Calls.ILockScreenCallUI, value: WinRT_String) -> Void: ...
     CallTitle = property(get_CallTitle, put_CallTitle)
+    EndRequested = event()
+    Closed = event()
 class MuteChangeEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IMuteChangeEventArgs
@@ -952,6 +974,9 @@ class PhoneCall(ComPtr):
     CallId = property(get_CallId, None)
     IsMuted = property(get_IsMuted, None)
     Status = property(get_Status, None)
+    StatusChanged = event()
+    AudioDeviceChanged = event()
+    IsMutedChanged = event()
 class PhoneCallAudioDevice(Enum, Int32):
     Unknown = 0
     LocalDevice = 1
@@ -1405,6 +1430,7 @@ class PhoneLine(ComPtr):
     TransportDeviceId = property(get_TransportDeviceId, None)
     VideoCallingCapabilities = property(get_VideoCallingCapabilities, None)
     Voicemail = property(get_Voicemail, None)
+    LineChanged = event()
 class PhoneLineCellularDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IPhoneLineCellularDetails
@@ -1504,6 +1530,8 @@ class PhoneLineTransportDevice(ComPtr):
     DeviceId = property(get_DeviceId, None)
     InBandRingingEnabled = property(get_InBandRingingEnabled, None)
     Transport = property(get_Transport, None)
+    AudioRoutingStatusChanged = event()
+    InBandRingingEnabledChanged = event()
 class PhoneLineWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcher
@@ -1535,6 +1563,11 @@ class PhoneLineWatcher(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcher) -> win32more.Windows.ApplicationModel.Calls.PhoneLineWatcherStatus: ...
     Status = property(get_Status, None)
+    LineAdded = event()
+    LineRemoved = event()
+    LineUpdated = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class PhoneLineWatcherEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IPhoneLineWatcherEventArgs
@@ -1624,6 +1657,7 @@ class VoipCallCoordinator(ComPtr):
     def ReserveOneProcessCallResourcesAsync(self: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinator4) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Calls.VoipPhoneCallResourceReservationStatus]: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics) -> win32more.Windows.ApplicationModel.Calls.VoipCallCoordinator: ...
+    MuteStateChanged = event()
 class VoipPhoneCall(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IVoipPhoneCall
@@ -1675,6 +1709,11 @@ class VoipPhoneCall(ComPtr):
     CallMedia = property(get_CallMedia, put_CallMedia)
     ContactName = property(get_ContactName, put_ContactName)
     StartTime = property(get_StartTime, put_StartTime)
+    EndRequested = event()
+    HoldRequested = event()
+    ResumeRequested = event()
+    AnswerRequested = event()
+    RejectRequested = event()
 class VoipPhoneCallMedia(Enum, UInt32):
     None_ = 0
     Audio = 1

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -76,6 +76,10 @@ class AppDiagnosticInfoWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.System.IAppDiagnosticInfoWatcher) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Removed = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class AppDiagnosticInfoWatcherEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppDiagnosticInfoWatcherEventArgs
@@ -212,6 +216,11 @@ class AppResourceGroupInfoWatcher(ComPtr):
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.System.IAppResourceGroupInfoWatcher) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Removed = event()
+    EnumerationCompleted = event()
+    Stopped = event()
+    ExecutionStateChanged = event()
 class AppResourceGroupInfoWatcherEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppResourceGroupInfoWatcherEventArgs
@@ -372,6 +381,8 @@ class DispatcherQueue(ComPtr):
     @winrt_classmethod
     def GetForCurrentThread(cls: win32more.Windows.System.IDispatcherQueueStatics) -> win32more.Windows.System.DispatcherQueue: ...
     HasThreadAccess = property(get_HasThreadAccess, None)
+    ShutdownStarting = event()
+    ShutdownCompleted = event()
 class DispatcherQueueController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IDispatcherQueueController
@@ -423,6 +434,7 @@ class DispatcherQueueTimer(ComPtr):
     Interval = property(get_Interval, put_Interval)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
     IsRunning = property(get_IsRunning, None)
+    Tick = event()
 class FolderLauncherOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IFolderLauncherOptions
@@ -522,6 +534,10 @@ class IAppDiagnosticInfoWatcher(ComPtr):
     @winrt_commethod(16)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Removed = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class IAppDiagnosticInfoWatcherEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IAppDiagnosticInfoWatcherEventArgs'
@@ -644,6 +660,11 @@ class IAppResourceGroupInfoWatcher(ComPtr):
     @winrt_commethod(18)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Removed = event()
+    EnumerationCompleted = event()
+    Stopped = event()
+    ExecutionStateChanged = event()
 class IAppResourceGroupInfoWatcherEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IAppResourceGroupInfoWatcherEventArgs'
@@ -795,6 +816,8 @@ class IDispatcherQueue(ComPtr):
     def add_ShutdownCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.System.DispatcherQueue, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_ShutdownCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ShutdownStarting = event()
+    ShutdownCompleted = event()
 class IDispatcherQueue2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IDispatcherQueue2'
@@ -854,6 +877,7 @@ class IDispatcherQueueTimer(ComPtr):
     Interval = property(get_Interval, put_Interval)
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
     IsRunning = property(get_IsRunning, None)
+    Tick = event()
 class IFolderLauncherOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IFolderLauncherOptions'
@@ -1107,6 +1131,9 @@ class IMemoryManagerStatics(ComPtr):
     AppMemoryUsage = property(get_AppMemoryUsage, None)
     AppMemoryUsageLevel = property(get_AppMemoryUsageLevel, None)
     AppMemoryUsageLimit = property(get_AppMemoryUsageLimit, None)
+    AppMemoryUsageIncreased = event()
+    AppMemoryUsageDecreased = event()
+    AppMemoryUsageLimitChanging = event()
 class IMemoryManagerStatics2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IMemoryManagerStatics2'
@@ -1327,6 +1354,7 @@ class IUserDeviceAssociationStatics(ComPtr):
     def add_UserDeviceAssociationChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.System.UserDeviceAssociationChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_UserDeviceAssociationChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    UserDeviceAssociationChanged = event()
 class IUserPicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.IUserPicker'
@@ -1408,6 +1436,13 @@ class IUserWatcher(ComPtr):
     @winrt_commethod(22)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Removed = event()
+    Updated = event()
+    AuthenticationStatusChanged = event()
+    AuthenticationStatusChanging = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class _KnownUserProperties_Meta_(ComPtr.__class__):
     pass
 class KnownUserProperties(ComPtr, metaclass=_KnownUserProperties_Meta_):
@@ -1982,6 +2017,13 @@ class UserWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.System.IUserWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
+    Added = event()
+    Removed = event()
+    Updated = event()
+    AuthenticationStatusChanged = event()
+    AuthenticationStatusChanging = event()
+    EnumerationCompleted = event()
+    Stopped = event()
 class UserWatcherStatus(Enum, Int32):
     Created = 0
     Started = 1

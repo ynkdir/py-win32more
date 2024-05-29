@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -399,6 +399,9 @@ class HolographicSpace(ComPtr, metaclass=_HolographicSpace_Meta_):
     _HolographicSpace_Meta_.IsAvailable = property(get_IsAvailable, None)
     _HolographicSpace_Meta_.IsConfigured = property(get_IsConfigured, None)
     _HolographicSpace_Meta_.IsSupported = property(get_IsSupported, None)
+    CameraAdded = event()
+    CameraRemoved = event()
+    UserPresenceChanged = event()
 class HolographicSpaceCameraAddedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicSpaceCameraAddedEventArgs
@@ -852,6 +855,8 @@ class IHolographicSpace(ComPtr):
     @winrt_commethod(12)
     def CreateNextFrame(self) -> win32more.Windows.Graphics.Holographic.HolographicFrame: ...
     PrimaryAdapterId = property(get_PrimaryAdapterId, None)
+    CameraAdded = event()
+    CameraRemoved = event()
 class IHolographicSpace2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Holographic.IHolographicSpace2'
@@ -869,6 +874,7 @@ class IHolographicSpace2(ComPtr):
     @winrt_commethod(11)
     def CreateFramePresentationMonitor(self, maxQueuedReports: UInt32) -> win32more.Windows.Graphics.Holographic.HolographicFramePresentationMonitor: ...
     UserPresence = property(get_UserPresence, None)
+    UserPresenceChanged = event()
 class IHolographicSpace3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Holographic.IHolographicSpace3'
@@ -911,6 +917,7 @@ class IHolographicSpaceStatics2(ComPtr):
     def remove_IsAvailableChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsAvailable = property(get_IsAvailable, None)
     IsSupported = property(get_IsSupported, None)
+    IsAvailableChanged = event()
 class IHolographicSpaceStatics3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Holographic.IHolographicSpaceStatics3'

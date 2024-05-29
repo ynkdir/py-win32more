@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Playback
@@ -1076,6 +1076,8 @@ class ICompositionTargetStatics(ComPtr):
     def add_SurfaceContentsLost(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_SurfaceContentsLost(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Rendering = event()
+    SurfaceContentsLost = event()
 class ICompositionTargetStatics3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.ICompositionTargetStatics3'
@@ -1084,6 +1086,7 @@ class ICompositionTargetStatics3(ComPtr):
     def add_Rendered(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.UI.Xaml.Media.RenderedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Rendered(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Rendered = event()
 class IEllipseGeometry(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IEllipseGeometry'
@@ -1306,6 +1309,8 @@ class IImageBrush(ComPtr):
     @winrt_commethod(11)
     def remove_ImageOpened(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
+    ImageFailed = event()
+    ImageOpened = event()
 class IImageBrushStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.IImageBrushStatics'
@@ -1415,6 +1420,7 @@ class ILoadedImageSurface(ComPtr):
     DecodedPhysicalSize = property(get_DecodedPhysicalSize, None)
     DecodedSize = property(get_DecodedSize, None)
     NaturalSize = property(get_NaturalSize, None)
+    LoadCompleted = event()
 class ILoadedImageSurfaceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.ILoadedImageSurfaceStatics'
@@ -2293,6 +2299,8 @@ class ImageBrush(ComPtr, metaclass=_ImageBrush_Meta_):
     def get_ImageSourceProperty(cls: win32more.Windows.UI.Xaml.Media.IImageBrushStatics) -> win32more.Windows.UI.Xaml.DependencyProperty: ...
     ImageSource = property(get_ImageSource, put_ImageSource)
     _ImageBrush_Meta_.ImageSourceProperty = property(get_ImageSourceProperty, None)
+    ImageFailed = event()
+    ImageOpened = event()
 class ImageSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Media.IImageSource
@@ -2425,6 +2433,7 @@ class LoadedImageSurface(ComPtr):
     DecodedPhysicalSize = property(get_DecodedPhysicalSize, None)
     DecodedSize = property(get_DecodedSize, None)
     NaturalSize = property(get_NaturalSize, None)
+    LoadCompleted = event()
 class Matrix(Structure):
     M11: Double
     M12: Double

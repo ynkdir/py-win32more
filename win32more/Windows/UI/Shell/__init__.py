@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Core
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -50,6 +50,7 @@ class FocusSessionManager(ComPtr, metaclass=_FocusSessionManager_Meta_):
     def get_IsSupported(cls: win32more.Windows.UI.Shell.IFocusSessionManagerStatics) -> Boolean: ...
     IsFocusActive = property(get_IsFocusActive, None)
     _FocusSessionManager_Meta_.IsSupported = property(get_IsSupported, None)
+    IsFocusActiveChanged = event()
 class IAdaptiveCard(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.IAdaptiveCard'
@@ -90,6 +91,7 @@ class IFocusSessionManager(ComPtr):
     @winrt_commethod(12)
     def remove_IsFocusActiveChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsFocusActive = property(get_IsFocusActive, None)
+    IsFocusActiveChanged = event()
 class IFocusSessionManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.IFocusSessionManagerStatics'
@@ -139,6 +141,8 @@ class IShareWindowCommandSource(ComPtr):
     def add_CommandInvoked(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.ShareWindowCommandSource, win32more.Windows.UI.Shell.ShareWindowCommandEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_CommandInvoked(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    CommandRequested = event()
+    CommandInvoked = event()
 class IShareWindowCommandSourceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.IShareWindowCommandSourceStatics'
@@ -280,6 +284,10 @@ class IWindowTabManager(ComPtr):
     @winrt_commethod(15)
     def remove_TabThumbnailRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Tabs = property(get_Tabs, None)
+    TabSwitchRequested = event()
+    TabCloseRequested = event()
+    TabTearOutRequested = event()
+    TabThumbnailRequested = event()
 class IWindowTabManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabManagerStatics'
@@ -397,6 +405,8 @@ class ShareWindowCommandSource(ComPtr):
     def remove_CommandInvoked(self: win32more.Windows.UI.Shell.IShareWindowCommandSource, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.UI.Shell.IShareWindowCommandSourceStatics) -> win32more.Windows.UI.Shell.ShareWindowCommandSource: ...
+    CommandRequested = event()
+    CommandInvoked = event()
 class TaskbarManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.ITaskbarManager
@@ -567,6 +577,10 @@ class WindowTabManager(ComPtr):
     @winrt_classmethod
     def IsTabTearOutSupported(cls: win32more.Windows.UI.Shell.IWindowTabManagerStatics) -> Boolean: ...
     Tabs = property(get_Tabs, None)
+    TabSwitchRequested = event()
+    TabCloseRequested = event()
+    TabTearOutRequested = event()
+    TabThumbnailRequested = event()
 WindowTabManagerContract: UInt32 = 65536
 class WindowTabSwitchRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

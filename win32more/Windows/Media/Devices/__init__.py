@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -121,6 +121,7 @@ class AudioDeviceModulesManager(ComPtr):
     def FindAllById(self: win32more.Windows.Media.Devices.IAudioDeviceModulesManager, moduleId: WinRT_String) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
     @winrt_mixinmethod
     def FindAll(self: win32more.Windows.Media.Devices.IAudioDeviceModulesManager) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
+    ModuleNotificationReceived = event()
 class AudioDeviceRole(Enum, Int32):
     Default = 0
     Communications = 1
@@ -171,6 +172,12 @@ class CallControl(ComPtr):
     @winrt_classmethod
     def FromId(cls: win32more.Windows.Media.Devices.ICallControlStatics, deviceId: WinRT_String) -> win32more.Windows.Media.Devices.CallControl: ...
     HasRinger = property(get_HasRinger, None)
+    AnswerRequested = event()
+    HangUpRequested = event()
+    DialRequested = event()
+    RedialRequested = event()
+    KeypadPressed = event()
+    AudioTransferRequested = event()
 CallControlContract: UInt32 = 65536
 class CallControlEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
@@ -189,6 +196,7 @@ class CameraOcclusionInfo(ComPtr):
     def add_StateChanged(self: win32more.Windows.Media.Devices.ICameraOcclusionInfo, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Devices.CameraOcclusionInfo, win32more.Windows.Media.Devices.CameraOcclusionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_StateChanged(self: win32more.Windows.Media.Devices.ICameraOcclusionInfo, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    StateChanged = event()
 class CameraOcclusionKind(Enum, Int32):
     Lid = 0
     CameraHardware = 1
@@ -807,6 +815,7 @@ class IAudioDeviceModulesManager(ComPtr):
     def FindAllById(self, moduleId: WinRT_String) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
     @winrt_commethod(9)
     def FindAll(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Devices.AudioDeviceModule]: ...
+    ModuleNotificationReceived = event()
 class IAudioDeviceModulesManagerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Devices.IAudioDeviceModulesManagerFactory'
@@ -852,6 +861,12 @@ class ICallControl(ComPtr):
     @winrt_commethod(22)
     def remove_AudioTransferRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HasRinger = property(get_HasRinger, None)
+    AnswerRequested = event()
+    HangUpRequested = event()
+    DialRequested = event()
+    RedialRequested = event()
+    KeypadPressed = event()
+    AudioTransferRequested = event()
 class ICallControlStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Devices.ICallControlStatics'
@@ -872,6 +887,7 @@ class ICameraOcclusionInfo(ComPtr):
     def add_StateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Devices.CameraOcclusionInfo, win32more.Windows.Media.Devices.CameraOcclusionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    StateChanged = event()
 class ICameraOcclusionState(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Devices.ICameraOcclusionState'
@@ -1403,6 +1419,8 @@ class IMediaDeviceStatics(ComPtr):
     def add_DefaultAudioRenderDeviceChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(14)
     def remove_DefaultAudioRenderDeviceChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DefaultAudioCaptureDeviceChanged = event()
+    DefaultAudioRenderDeviceChanged = event()
 class IModuleCommandResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Devices.IModuleCommandResult'
