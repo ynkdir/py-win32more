@@ -28,6 +28,7 @@ WINRT_EXPORTS = [
     "TSender",
     "V",
     "WinRT_String",
+    "event",
     "winrt_activatemethod",
     "winrt_classmethod",
     "winrt_commethod",
@@ -334,6 +335,7 @@ class Com:
         writer.write(self._methods())
         writer.write(self._properties())
         writer.write(self._class_properties())
+        writer.write(self._events())
         writer.write(self._await_method())
         return writer.getvalue()
 
@@ -444,6 +446,14 @@ class Com:
         writer = StringIO()
         for name in sorted(getter | setter):
             writer.write(f"    {self._metaclass_name()}.{name} = property({getter.get(name)}, {setter.get(name)})\n")
+        return writer.getvalue()
+
+    def _events(self) -> str:
+        writer = StringIO()
+        for md in (md for md in self._td.methods if "Static" not in md.attributes):
+            if md.name.startswith("add_"):
+                name = removeprefix(md.name, "add_")
+                writer.write(f"    {name} = event()\n")
         return writer.getvalue()
 
     def _await_method(self) -> str:
