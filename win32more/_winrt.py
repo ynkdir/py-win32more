@@ -775,18 +775,8 @@ class Vtbl(Structure):
             return_length[0] = len(r)
             return_pointer[0] = cast(p, POINTER(get_args(restype)[0]))
             # TODO: str
-            if is_com_class(get_args(restype)[0]):
-                for i, o in enumerate(r):
-                    return_pointer[0][i] = o
-                    if o:
-                        o.AddRef()
-            else:
-                for i, o in enumerate(r):
-                    return_pointer[0][i] = o
-        elif is_com_class(restype):
-            if r:
-                r.AddRef()
-            return_pointer[0] = r
+            for i, o in enumerate(r):
+                return_pointer[0][i] = o
         else:
             return_pointer[0] = r
 
