@@ -88,7 +88,7 @@ class App(XamlApplication):
             "BPeriod",
             "BEqual",
         ]:
-            framework_element.FindName(name).as_(Button).add_Click(self._on_button_click)
+            framework_element.FindName(name).as_(Button).Click += self._on_button_click
 
         self.window.Activate()
 
