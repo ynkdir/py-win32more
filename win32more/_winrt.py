@@ -358,7 +358,6 @@ class WinrtMethodCall:
         self.hints.update({i: v for i, v in enumerate(hints.values())})
 
     def __call__(self, this, *args, **kwargs):
-        _as_intptr = kwargs.pop("_as_intptr", False)
         calllater = []
         cargs, ckwargs = self.make_args(args, kwargs, calllater)
         if self.restype is Void:
@@ -382,7 +381,7 @@ class WinrtMethodCall:
             raise WinError(hr)
         for callback in calllater:
             callback()
-        return self.make_result(result, _as_intptr)
+        return self.make_result(result)
 
     def make_args(self, args, kwargs, calllater):
         cargs = []
@@ -439,14 +438,12 @@ class WinrtMethodCall:
                 ckwargs[k] = v
         return cargs, ckwargs
 
-    def make_result(self, result, _as_intptr):
+    def make_result(self, result):
         if result is None:
             return None
         elif is_receivearray_class(self.restype):
             result.later()
             return result.lst
-        elif _as_intptr:
-            return cast(result, c_void_p).value
         return result.__ctypes_from_outparam__()
 
 
