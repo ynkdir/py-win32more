@@ -124,7 +124,29 @@ class TestWinrt(unittest.TestCase):
         outarray = []
         prop.GetInt32Array(outarray)
 
-        self.assertEqual(inarray[:], outarray[:])
+        self.assertEqual(inarray, outarray)
+
+    def test_receivearray_string_param(self):
+        inarray = ["a", "b", "c"]
+
+        prop = PropertyValue.CreateStringArray(inarray).as_(IPropertyValue)
+
+        outarray = []
+        prop.GetStringArray(outarray)
+
+        self.assertEqual(inarray, outarray)
+
+    def test_receivearray_object_param(self):
+        obj = StringMap()
+        inarray = [obj]
+
+        prop = PropertyValue.CreateInspectableArray(inarray).as_(IPropertyValue)
+
+        outarray = []
+        prop.GetInspectableArray(outarray)
+
+        self.assertEqual(obj.as_(IInspectable).value , outarray[0].value)
+
 
     def test_receivearray_return(self):
         async def winrt_get_monitor_descriptor():
