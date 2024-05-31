@@ -363,10 +363,9 @@ class WinrtMethodCall:
         if self.restype is Void:
             result = None
         elif is_receivearray_class(self.restype):
-            szarray = ReceiveArray(get_args(self.restype)[0], [])
-            ckwargs["return_length"] = pointer(szarray.length)
-            ckwargs["return"] = pointer(szarray.ptr)
-            result = szarray
+            result = ReceiveArray(get_args(self.restype)[0], [])
+            ckwargs["return_length"] = pointer(result.length)
+            ckwargs["return"] = pointer(result.ptr)
         elif is_com_class(self.restype):
             result = self.restype(own=True)
             ckwargs["return"] = pointer(result)
@@ -439,7 +438,7 @@ class WinrtMethodCall:
         return cargs, ckwargs
 
     def make_result(self, result):
-        if result is None:
+        if self.restype is Void:
             return None
         elif is_receivearray_class(self.restype):
             result.later()
