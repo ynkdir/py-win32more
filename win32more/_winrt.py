@@ -193,6 +193,10 @@ class PassArray(Generic[T]):
         self.length = UInt32(len(self.lst))
         self.ptr = (self.type_ * len(self.lst))(*self.lst)
 
+    def later(self):
+        # to keep self.lst instance
+        pass
+
 
 # Dummy type for list[T]
 class FillArray(Generic[T]):
@@ -388,6 +392,7 @@ class WinrtMethodCall:
                     szarray = PassArray(get_args(self.hints[k])[0], v)
                     cargs.append(szarray.length)
                     cargs.append(szarray.ptr)
+                    calllater.append(szarray.later)
                 elif isinstance(v, list) and is_fillarray_class(self.hints[k]):
                     szarray = FillArray(get_args(self.hints[k])[0], v)
                     cargs.append(szarray.length)
@@ -413,6 +418,7 @@ class WinrtMethodCall:
                     szarray = PassArray(get_args(self.hints[k])[0], v)
                     ckwargs[f"{k}_length"] = szarray.length
                     ckwargs[k] = szarray.ptr
+                    calllater.append(szarray.later)
                 elif isinstance(v, list) and is_fillarray_class(self.hints[k]):
                     szarray = FillArray(get_args(self.hints[k])[0], v)
                     ckwargs[f"{k}_length"] = szarray.length
