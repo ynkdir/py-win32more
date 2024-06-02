@@ -122,9 +122,15 @@ IInspectable.as_ = IInspectable_as
 
 
 def winrt_easycast(obj, type_):
+    from win32more._winrtrt import Vector
+    from win32more.Windows.Foundation.Collections import IVector
+
     if type_ is IInspectable:
         if isinstance(obj, str):
             return box_value(obj)
+    elif issubclass_generic(type_, IVector):
+        if isinstance(obj, list):
+            return Vector[get_args(type_)[0]](obj)
     return easycast(obj, type_)
 
 
@@ -198,6 +204,22 @@ class PassArray(Generic[T]):
         pass
 
 
+class PassArrayCallback:
+    def __init__(self, type_, size, ptr):
+        self._type = type
+        self._size = size
+        self._ptr = ptr
+        self._lst = []
+        for i in range(size):
+            if type_ is WinRT_String:
+                self._lst.append(_windows_create_string(ptr[i]))
+            else:
+                self._lst.append(ptr[i])
+
+    def later(self):
+        pass
+
+
 # Dummy type for list[T]
 class FillArray(Generic[T]):
     def __init__(self, type_, lst):
@@ -217,6 +239,21 @@ class FillArray(Generic[T]):
                 p._own = True
         else:
             self.lst[:] = self.ptr[:]
+
+
+class FillArrayCallback:
+    def __init__(self, type_, size, ptr):
+        self._type = type_
+        self._size = size
+        self._ptr = ptr
+        self._lst = [None] * size
+
+    def later(self):
+        for i, v in enumerate(self._lst):
+            if self._type is WinRT_String:
+                self._ptr[i] = WinRT_String(v)
+            else:
+                self._ptr[i] = v
 
 
 # Dummy type for list[T]
@@ -239,6 +276,26 @@ class ReceiveArray(Generic[T]):
         else:
             self.lst[:] = self.ptr[: self.length.value]
         CoTaskMemFree(self.ptr)
+
+
+class ReceiveArrayCallback:
+    def __init__(self, type_, psize, pptr):
+        self._type = type
+        self._psize = psize
+        self._pptr = pptr
+        self._lst = []
+
+    def later(self):
+        self._psize[0] = len(self._lst)
+        ptr = CoTaskMemAlloc(len(self._lst) * sizeof(self._type))
+        if not ptr:
+            raise WinError()
+        self._pptr[0] = ptr
+        for i, v in enumerate(self._lst):
+            if self._type is WinRT_String:
+                self._pptr[0][i] = WinRT_String(v)
+            else:
+                self._pptr[0][i] = v
 
 
 # FIXME: Not work for array and struct entry.
@@ -481,6 +538,12 @@ def is_generic_instance(obj):
     return isinstance(obj, Generic)
 
 
+def issubclass_generic(cls, type_):
+    if is_generic_alias(cls):
+        return issubclass(get_origin(cls), type_)
+    return issubclass(cls, type_)
+
+
 def is_delegate_class(cls):
     if is_generic_alias(cls):
         cls = get_origin(cls)
@@ -696,7 +759,10 @@ class Vtbl(Structure):
         vtbl_size = max(method._vtbl_index for method in methods) + 1
         lpvtbl = (c_void_p * vtbl_size)()
         for method in methods:
-            lpvtbl[method._vtbl_index] = self._make_thunk(method)
+            if isinstance(method, WinrtMethod):
+                lpvtbl[method._vtbl_index] = self._make_thunk_winrt(method)
+            else:
+                lpvtbl[method._vtbl_index] = self._make_thunk_com(method)
         return lpvtbl
 
     def _interface_methods(self):
@@ -710,27 +776,44 @@ class Vtbl(Structure):
                 methods.append(getattr(interface, name))
         return methods
 
-    def _make_thunk(self, method):
+    def _make_thunk_com(self, method):
         hints = generic_get_type_hints(method._prototype, self._interface)
         restype = hints.pop("return")
         argtypes = [self._make_allocator(t) for t in hints.values()]
-        if isinstance(method, WinrtMethod):
-            if restype is Void:
-                pass
-            elif is_receivearray_class(restype):
+        closure = partial(self._com_callback_error_check, getattr(self._owner, method._prototype.__name__))
+        thunk = WINFUNCTYPE(restype, c_void_p, *argtypes)(closure)
+        self._keep_reference_in_python_world_.append(thunk)
+        return cast(thunk, c_void_p)
+
+    def _make_thunk_winrt(self, method):
+        hints = generic_get_type_hints(method._prototype, self._interface)
+        restype = hints.pop("return")
+        argtypes = []
+        for type_ in hints.values():
+            if is_passarray_class(type_):
+                argtypes.append(UInt32)
+                argtypes.append(POINTER(get_args(type_)[0]))
+            elif is_fillarray_class(type_):
+                argtypes.append(UInt32)
+                argtypes.append(POINTER(get_args(type_)[0]))
+            elif is_receivearray_class(type_):
                 argtypes.append(POINTER(UInt32))
-                argtypes.append(POINTER(POINTER(get_args(restype)[0])))
-            elif is_generic_alias(restype):
-                argtypes.append(POINTER(get_origin(restype)))
+                argtypes.append(POINTER(POINTER(get_args(type_)[0])))
             else:
-                argtypes.append(POINTER(restype))
-            closure = partial(
-                self._winrt_callback_error_check, getattr(self._owner, method._prototype.__name__), restype
-            )
-            thunk = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)(closure)
+                argtypes.append(self._make_allocator(type_))
+        if restype is Void:
+            pass
+        elif is_receivearray_class(restype):
+            argtypes.append(POINTER(UInt32))
+            argtypes.append(POINTER(POINTER(get_args(restype)[0])))
+        elif is_generic_alias(restype):
+            argtypes.append(POINTER(get_origin(restype)))
         else:
-            closure = partial(self._com_callback_error_check, getattr(self._owner, method._prototype.__name__))
-            thunk = WINFUNCTYPE(restype, c_void_p, *argtypes)(closure)
+            argtypes.append(POINTER(restype))
+        closure = partial(
+            self._winrt_callback_error_check, getattr(self._owner, method._prototype.__name__), restype, hints
+        )
+        thunk = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)(closure)
         self._keep_reference_in_python_world_.append(thunk)
         return cast(thunk, c_void_p)
 
@@ -748,22 +831,54 @@ class Vtbl(Structure):
             # FIXME: How to return error for IUnknown.AddRef(), IUnknown.Release()
             return E_FAIL
 
-    def _winrt_callback_error_check(self, callback, restype, this, *args):
+    def _winrt_callback_error_check(self, callback, restype, hints, this, *args):
         try:
-            self._winrt_callback(callback, restype, this, *args)
+            self._winrt_callback(callback, restype, hints, this, *args)
             return S_OK
         except Exception:
             logger.exception(f"Unhandled exception caught: {callback}{args}")
             return E_FAIL
 
-    def _winrt_callback(self, callback, restype, this, *args):
+    def _winrt_callback(self, callback, restype, hints, this, *args):
+        calllater = []
+
         if restype is Void:
             pass
         elif is_receivearray_class(restype):
             *args, return_length, return_pointer = args
         else:
             *args, return_pointer = args
-        r = callback(*args)
+
+        i = 0
+        pyargs = []
+        for type_ in hints.values():
+            if is_passarray_class(type_):
+                szarray = PassArrayCallback(get_args(type_)[0], args[i], args[i + 1])
+                pyargs.append(szarray._lst)
+                calllater.append(szarray.later)
+                i += 2
+            elif is_fillarray_class(type_):
+                szarray = FillArrayCallback(get_args(type_)[0], args[i], args[i + 1])
+                pyargs.append(szarray._lst)
+                calllater.append(szarray.later)
+                i += 2
+            elif is_receivearray_class(type_):
+                szarray = ReceiveArrayCallback(get_args(type_)[0], args[i], args[i + 1])
+                pyargs.append(szarray._lst)
+                calllater.append(szarray.later)
+                i += 2
+            elif type_ is WinRT_String:
+                pyargs.append(_windows_get_string_raw_buffer(args[i]))
+                i += 1
+            else:
+                pyargs.append(args[i])
+                i += 1
+
+        r = callback(*pyargs)
+
+        for later in calllater:
+            later()
+
         if restype is Void:
             if r is not None:
                 raise ValueError(f"{r} cannot be treated as Void")
@@ -774,11 +889,17 @@ class Vtbl(Structure):
             p = CoTaskMemAlloc(sizeof(c_void_p) * len(r))
             if p == 0:
                 raise WinError()
+            type_ = get_args(restype)[0]
             return_length[0] = len(r)
-            return_pointer[0] = cast(p, POINTER(get_args(restype)[0]))
-            # TODO: str
-            for i, o in enumerate(r):
-                return_pointer[0][i] = o
+            return_pointer[0] = cast(p, POINTER(type_))
+            if type_ is WinRT_String:
+                for i, o in enumerate(r):
+                    return_pointer[0][i] = WinRT_String(o, own=False)
+            else:
+                for i, o in enumerate(r):
+                    return_pointer[0][i] = o
+        elif restype is WinRT_String:
+            return_pointer[0] = WinRT_String(r, own=False)
         else:
             return_pointer[0] = r
 
