@@ -179,7 +179,7 @@ class AsIntPtrDescriptor:
         if instance is None:
             return self._original_descriptor.__get__(instance, owner)
         address = addressof(instance) + self._original_descriptor.offset
-        return c_void_p.from_address(address).value
+        return UIntPtr.from_address(address).value
 
     def __set__(self, instance, value):
         self._original_descriptor.__set__(instance, value)
@@ -342,7 +342,7 @@ class ForeignFunctionCall:
         hints = get_type_hints(prototype)
         self._restype = restype = hints.pop("return")
         if self._restype is c_char_p or self._restype is c_wchar_p:
-            restype = c_void_p
+            restype = UIntPtr
         argtypes = list(hints.values())
         self._hints = hints
         self._hints.update({i: v for i, v in enumerate(hints.values())})
@@ -389,7 +389,7 @@ class ComMethodCall:
         hints = get_type_hints(prototype)
         self._restype = restype = hints.pop("return")
         if self._restype is c_char_p or self._restype is c_wchar_p:
-            restype = c_void_p
+            restype = UIntPtr
         argtypes = list(hints.values())
         params = tuple((1, name) for name in hints.keys())
         hints.update({i: v for i, v in enumerate(argtypes)})

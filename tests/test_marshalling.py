@@ -91,6 +91,7 @@ class TestMarshalling(unittest.TestCase):
 
         s.c_char_p = 0
         self.assertIsNone(s.c_char_p)
+        self.assertEqual(s.c_char_p_as_intptr, 0)
 
         s.c_char_p = 1234
         self.assertIsInstance(s.c_char_p_as_intptr, int)
@@ -133,6 +134,7 @@ class TestMarshalling(unittest.TestCase):
 
         s.c_wchar_p = 0
         self.assertIsNone(s.c_wchar_p)
+        self.assertEqual(s.c_wchar_p_as_intptr, 0)
 
         s.c_wchar_p = 1234
         self.assertIsInstance(s.c_wchar_p_as_intptr, int)
@@ -492,6 +494,9 @@ class TestMarshalling(unittest.TestCase):
         x = g(0)
         self.assertIsNone(x)
 
+        x = g(0, _as_intptr=True)
+        self.assertEqual(x, 0)
+
         x = g(i)
         self.assertIsInstance(x, bytes)
         self.assertEqual(x, s.value)
@@ -538,6 +543,9 @@ class TestMarshalling(unittest.TestCase):
 
         x = g(0)
         self.assertIsNone(x)
+
+        x = g(0, _as_intptr=True)
+        self.assertEqual(x, 0)
 
         x = g(i)
         self.assertIsInstance(x, str)
