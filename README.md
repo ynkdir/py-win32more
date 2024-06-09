@@ -6,7 +6,9 @@
 Win32more is a python bindings for Windows API generated from metadata.
 
 https://github.com/microsoft/win32metadata
+
 https://www.nuget.org/packages/Microsoft.Windows.SDK.Contracts
+
 https://github.com/microsoft/WindowsAppSDK
 
 ## Installation
