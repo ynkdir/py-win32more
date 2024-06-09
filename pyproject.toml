@@ -5,9 +5,30 @@ build-backend = "hatchling.build"
 [project]
 name = "win32more"
 version = "0.5.0"
+description = "Python bindings for Windows API"
+readme = "readme.txt"
+requires-python = ">= 3.8"
+authors = [
+    { name = "Yukihiro Nakadaira", email = "yukihiro.nakadaira@gmail.com" },
+]
 dependencies = [
     "typing_extensions; python_version < '3.9'",
 ]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Operating System :: Microsoft :: Windows",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+
+[project.urls]
+Homepage = "https://github.com/ynkdir/py-win32more"
 
 [tool.hatch.build]
 only-include = ["win32more", "win32generator"]
@@ -34,19 +55,7 @@ python = [
     "3.9-32",
     "3.8-64",
     "3.8-32",
-    "3.7-64",
-    "3.7-32",
 ]
-
-# for 3.7: coverage[toml] fails to install
-[tool.hatch.envs.hatch-test]
-dependencies = [
-    "pytest",
-]
-
-# for 3.7: pytest.exe fails with "SyntaxError: Non-UTF-8 code starting with '\x90' ..."
-[tool.hatch.envs.hatch-test.scripts]
-run = "python -m pytest {env:HATCH_TEST_ARGS:} {args}"
 
 [tool.ruff]
 line-length = 120
