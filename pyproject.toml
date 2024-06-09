@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "win32more"
 version = "0.5.1"
 description = "Python bindings for Windows API"
-readme = "readme.txt"
+readme = "README.md"
 requires-python = ">= 3.8"
 authors = [
     { name = "Yukihiro Nakadaira", email = "yukihiro.nakadaira@gmail.com" },
