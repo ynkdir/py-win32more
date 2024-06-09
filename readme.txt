@@ -1,6 +1,11 @@
-Python bindings for Win32 API generated from win32metadata.
+Python bindings for Windows API
+
+Generated from
 
 https://github.com/microsoft/win32metadata
+https://www.nuget.org/packages/Microsoft.Windows.SDK.Contracts
+https://github.com/microsoft/WindowsAppSDK
+
 
 Usage:
 
