@@ -82,7 +82,8 @@ class Formatter:
             else:
                 return f"POINTER({self.pytype(ttype.type)})"
         elif ttype.kind == "Array":
-            return f"{self.pytype(ttype.type)} * {ttype.size}"
+            assert ttype.rank == 1 and ttype.lower_bounds == [0] and len(ttype.sizes) == 1
+            return f"{self.pytype(ttype.type)} * {ttype.sizes[0]}"
         elif ttype.kind == "Type":
             if ttype.is_nested:
                 return ttype.name

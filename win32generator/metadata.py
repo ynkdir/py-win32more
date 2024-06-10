@@ -54,10 +54,22 @@ class TType:
         return TType(self["Type"])
 
     @property
-    def size(self) -> int:
-        if self["Size"] is None:
+    def lower_bounds(self) -> list[int]:
+        if self["LowerBounds"] is None:
             raise KeyError()
-        return self["Size"]
+        return self["LowerBounds"]
+
+    @property
+    def rank(self) -> int:
+        if self["Rank"] is None:
+            raise KeyError()
+        return self["Rank"]
+
+    @property
+    def sizes(self) -> list[int]:
+        if self["Sizes"] is None:
+            raise KeyError()
+        return self["Sizes"]
 
     @property
     def type_arguments(self) -> list[TType]:
