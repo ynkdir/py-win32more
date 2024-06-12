@@ -35,10 +35,10 @@ from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, 
 _module = sys.modules[__name__]
 
 # TODO: keep sync with WindowsAppSDK-VersionInfo.h
-# VERSION: 1.5.240428000
+# VERSION: 1.5.240607001
 WINDOWSAPPSDK_RELEASE_MAJORMINOR = 0x00010005
 WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W = ""
-WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = 0x13890077009C0000
+WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = 0x1389009F00370000
 
 if ARCH == "ARM64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_Arm64
