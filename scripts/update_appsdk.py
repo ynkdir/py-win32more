@@ -43,7 +43,7 @@ def main():
     nupkg = NupkgDownload(f"https://globalcdn.nuget.org/packages/microsoft.windowsappsdk.{args.version}.nupkg")
     version_info = nupkg.readjson("WindowsAppSDK-VersionInfo.json")
 
-    ed = Edit("win32more/mddbootstrap/__init__.py")
+    ed = Edit("win32more/mddbootstrap.py")
     ed.substitute("^# VERSION: .*$", f"# VERSION: {args.version}")
     ed.substitute(
         "^WINDOWSAPPSDK_RELEASE_MAJORMINOR = .*$",
