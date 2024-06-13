@@ -405,6 +405,7 @@ class PrintColorMode(Enum, Int32):
     Color = 3
     Grayscale = 4
     Monochrome = 5
+    AutoSelect = 6
 class PrintDuplex(Enum, Int32):
     Default = 0
     NotAvailable = 1

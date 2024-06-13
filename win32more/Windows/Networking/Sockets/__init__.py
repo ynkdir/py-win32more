@@ -1402,6 +1402,7 @@ class SocketProtectionLevel(Enum, Int32):
     Tls11 = 7
     Tls12 = 8
     Unspecified = 9
+    Tls13 = 10
 class SocketQualityOfService(Enum, Int32):
     Normal = 0
     LowLatency = 1

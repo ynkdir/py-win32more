@@ -643,6 +643,12 @@ class IVpnPlugInProfile2(ComPtr):
     def get_ConnectionStatus(self) -> win32more.Windows.Networking.Vpn.VpnManagementConnectionStatus: ...
     ConnectionStatus = property(get_ConnectionStatus, None)
     RequireVpnClientAppUI = property(get_RequireVpnClientAppUI, put_RequireVpnClientAppUI)
+class IVpnPlugInReconnectTransport(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.Vpn.IVpnPlugInReconnectTransport'
+    _iid_ = Guid('{9d5a1092-bb46-4d34-9d88-f217893076f4}')
+    @winrt_commethod(6)
+    def ReconnectTransport(self, channel: win32more.Windows.Networking.Vpn.VpnChannel, context: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
 class IVpnProfile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.Vpn.IVpnProfile'

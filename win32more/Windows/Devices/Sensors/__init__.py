@@ -417,6 +417,25 @@ class CompassReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.ICompassReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.CompassReading: ...
     Reading = property(get_Reading, None)
+class DetectedPerson(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Sensors.IDetectedPerson
+    _classid_ = 'Windows.Devices.Sensors.DetectedPerson'
+    @winrt_mixinmethod
+    def get_Engagement(self: win32more.Windows.Devices.Sensors.IDetectedPerson) -> win32more.Windows.Devices.Sensors.HumanEngagement: ...
+    @winrt_mixinmethod
+    def get_DistanceInMillimeters(self: win32more.Windows.Devices.Sensors.IDetectedPerson) -> win32more.Windows.Foundation.IReference[UInt32]: ...
+    @winrt_mixinmethod
+    def get_HeadOrientation(self: win32more.Windows.Devices.Sensors.IDetectedPerson) -> win32more.Windows.Devices.Sensors.HeadOrientation: ...
+    @winrt_mixinmethod
+    def get_HeadPosition(self: win32more.Windows.Devices.Sensors.IDetectedPerson) -> win32more.Windows.Devices.Sensors.HeadPosition: ...
+    @winrt_mixinmethod
+    def get_PersonId(self: win32more.Windows.Devices.Sensors.IDetectedPerson) -> win32more.Windows.Foundation.IReference[Int32]: ...
+    DistanceInMillimeters = property(get_DistanceInMillimeters, None)
+    Engagement = property(get_Engagement, None)
+    HeadOrientation = property(get_HeadOrientation, None)
+    HeadPosition = property(get_HeadPosition, None)
+    PersonId = property(get_PersonId, None)
 class Gyrometer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IGyrometer
@@ -509,6 +528,29 @@ class GyrometerReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IGyrometerReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.GyrometerReading: ...
     Reading = property(get_Reading, None)
+class HeadOrientation(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Sensors.IHeadOrientation
+    _classid_ = 'Windows.Devices.Sensors.HeadOrientation'
+    @winrt_mixinmethod
+    def get_RollInDegrees(self: win32more.Windows.Devices.Sensors.IHeadOrientation) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_mixinmethod
+    def get_PitchInDegrees(self: win32more.Windows.Devices.Sensors.IHeadOrientation) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_mixinmethod
+    def get_YawInDegrees(self: win32more.Windows.Devices.Sensors.IHeadOrientation) -> win32more.Windows.Foundation.IReference[Double]: ...
+    PitchInDegrees = property(get_PitchInDegrees, None)
+    RollInDegrees = property(get_RollInDegrees, None)
+    YawInDegrees = property(get_YawInDegrees, None)
+class HeadPosition(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Sensors.IHeadPosition
+    _classid_ = 'Windows.Devices.Sensors.HeadPosition'
+    @winrt_mixinmethod
+    def get_AzimuthInDegrees(self: win32more.Windows.Devices.Sensors.IHeadPosition) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_mixinmethod
+    def get_AltitudeInDegrees(self: win32more.Windows.Devices.Sensors.IHeadPosition) -> win32more.Windows.Foundation.IReference[Double]: ...
+    AltitudeInDegrees = property(get_AltitudeInDegrees, None)
+    AzimuthInDegrees = property(get_AzimuthInDegrees, None)
 class HingeAngleReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IHingeAngleReading
@@ -609,6 +651,16 @@ class HumanPresenceSensor(ComPtr):
     def get_IsPresenceSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor2) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsEngagementSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor2) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_MaxDetectablePersons(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor3) -> Int32: ...
+    @winrt_mixinmethod
+    def get_MinDetectableAzimuthInDegrees(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor3) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_mixinmethod
+    def get_MaxDetectableAzimuthInDegrees(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor3) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_mixinmethod
+    def get_MinDetectableAltitudeInDegrees(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor3) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_mixinmethod
+    def get_MaxDetectableAltitudeInDegrees(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensor3) -> win32more.Windows.Foundation.IReference[Double]: ...
     @winrt_classmethod
     def FromId(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSensorStatics2, sensorId: WinRT_String) -> win32more.Windows.Devices.Sensors.HumanPresenceSensor: ...
     @winrt_classmethod
@@ -622,7 +674,12 @@ class HumanPresenceSensor(ComPtr):
     DeviceId = property(get_DeviceId, None)
     IsEngagementSupported = property(get_IsEngagementSupported, None)
     IsPresenceSupported = property(get_IsPresenceSupported, None)
+    MaxDetectableAltitudeInDegrees = property(get_MaxDetectableAltitudeInDegrees, None)
+    MaxDetectableAzimuthInDegrees = property(get_MaxDetectableAzimuthInDegrees, None)
     MaxDetectableDistanceInMillimeters = property(get_MaxDetectableDistanceInMillimeters, None)
+    MaxDetectablePersons = property(get_MaxDetectablePersons, None)
+    MinDetectableAltitudeInDegrees = property(get_MinDetectableAltitudeInDegrees, None)
+    MinDetectableAzimuthInDegrees = property(get_MinDetectableAzimuthInDegrees, None)
     MinDetectableDistanceInMillimeters = property(get_MinDetectableDistanceInMillimeters, None)
     ReadingChanged = event()
 class HumanPresenceSensorReading(ComPtr):
@@ -639,8 +696,14 @@ class HumanPresenceSensorReading(ComPtr):
     def get_DistanceInMillimeters(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReading) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_mixinmethod
+    def get_OnlookerPresence(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReading3) -> win32more.Windows.Devices.Sensors.HumanPresence: ...
+    @winrt_mixinmethod
+    def get_DetectedPersons(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReading3) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Sensors.DetectedPerson]: ...
+    DetectedPersons = property(get_DetectedPersons, None)
     DistanceInMillimeters = property(get_DistanceInMillimeters, None)
     Engagement = property(get_Engagement, None)
+    OnlookerPresence = property(get_OnlookerPresence, None)
     Presence = property(get_Presence, None)
     Properties = property(get_Properties, None)
     Timestamp = property(get_Timestamp, None)
@@ -1254,6 +1317,25 @@ class ICompassStatics2(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.Compass]: ...
+class IDetectedPerson(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IDetectedPerson'
+    _iid_ = Guid('{168cc0d9-3f05-5029-a0bf-cdcab4be3f9e}')
+    @winrt_commethod(6)
+    def get_Engagement(self) -> win32more.Windows.Devices.Sensors.HumanEngagement: ...
+    @winrt_commethod(7)
+    def get_DistanceInMillimeters(self) -> win32more.Windows.Foundation.IReference[UInt32]: ...
+    @winrt_commethod(8)
+    def get_HeadOrientation(self) -> win32more.Windows.Devices.Sensors.HeadOrientation: ...
+    @winrt_commethod(9)
+    def get_HeadPosition(self) -> win32more.Windows.Devices.Sensors.HeadPosition: ...
+    @winrt_commethod(10)
+    def get_PersonId(self) -> win32more.Windows.Foundation.IReference[Int32]: ...
+    DistanceInMillimeters = property(get_DistanceInMillimeters, None)
+    Engagement = property(get_Engagement, None)
+    HeadOrientation = property(get_HeadOrientation, None)
+    HeadPosition = property(get_HeadPosition, None)
+    PersonId = property(get_PersonId, None)
 class IGyrometer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IGyrometer'
@@ -1374,6 +1456,29 @@ class IGyrometerStatics2(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.Gyrometer]: ...
+class IHeadOrientation(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHeadOrientation'
+    _iid_ = Guid('{519f54a9-513e-55e8-9c35-3e8da21dee69}')
+    @winrt_commethod(6)
+    def get_RollInDegrees(self) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_commethod(7)
+    def get_PitchInDegrees(self) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_commethod(8)
+    def get_YawInDegrees(self) -> win32more.Windows.Foundation.IReference[Double]: ...
+    PitchInDegrees = property(get_PitchInDegrees, None)
+    RollInDegrees = property(get_RollInDegrees, None)
+    YawInDegrees = property(get_YawInDegrees, None)
+class IHeadPosition(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHeadPosition'
+    _iid_ = Guid('{585aeb65-cf35-5e6d-a76a-37db131e17de}')
+    @winrt_commethod(6)
+    def get_AzimuthInDegrees(self) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_commethod(7)
+    def get_AltitudeInDegrees(self) -> win32more.Windows.Foundation.IReference[Double]: ...
+    AltitudeInDegrees = property(get_AltitudeInDegrees, None)
+    AzimuthInDegrees = property(get_AzimuthInDegrees, None)
 class IHingeAngleReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHingeAngleReading'
@@ -1484,6 +1589,25 @@ class IHumanPresenceSensor2(ComPtr):
     def get_IsEngagementSupported(self) -> Boolean: ...
     IsEngagementSupported = property(get_IsEngagementSupported, None)
     IsPresenceSupported = property(get_IsPresenceSupported, None)
+class IHumanPresenceSensor3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensor3'
+    _iid_ = Guid('{963f006d-090d-532c-9eaf-803a9f69285b}')
+    @winrt_commethod(6)
+    def get_MaxDetectablePersons(self) -> Int32: ...
+    @winrt_commethod(7)
+    def get_MinDetectableAzimuthInDegrees(self) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_commethod(8)
+    def get_MaxDetectableAzimuthInDegrees(self) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_commethod(9)
+    def get_MinDetectableAltitudeInDegrees(self) -> win32more.Windows.Foundation.IReference[Double]: ...
+    @winrt_commethod(10)
+    def get_MaxDetectableAltitudeInDegrees(self) -> win32more.Windows.Foundation.IReference[Double]: ...
+    MaxDetectableAltitudeInDegrees = property(get_MaxDetectableAltitudeInDegrees, None)
+    MaxDetectableAzimuthInDegrees = property(get_MaxDetectableAzimuthInDegrees, None)
+    MaxDetectablePersons = property(get_MaxDetectablePersons, None)
+    MinDetectableAltitudeInDegrees = property(get_MinDetectableAltitudeInDegrees, None)
+    MinDetectableAzimuthInDegrees = property(get_MinDetectableAzimuthInDegrees, None)
 class IHumanPresenceSensorExtension(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorExtension'
@@ -1525,6 +1649,16 @@ class IHumanPresenceSensorReading2(ComPtr):
     @winrt_commethod(6)
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     Properties = property(get_Properties, None)
+class IHumanPresenceSensorReading3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorReading3'
+    _iid_ = Guid('{b876d918-f069-586f-90e3-7c6fa5c5d33a}')
+    @winrt_commethod(6)
+    def get_OnlookerPresence(self) -> win32more.Windows.Devices.Sensors.HumanPresence: ...
+    @winrt_commethod(7)
+    def get_DetectedPersons(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Sensors.DetectedPerson]: ...
+    DetectedPersons = property(get_DetectedPersons, None)
+    OnlookerPresence = property(get_OnlookerPresence, None)
 class IHumanPresenceSensorReadingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorReadingChangedEventArgs'

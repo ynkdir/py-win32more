@@ -16,6 +16,12 @@ import win32more.Windows.Media.Transcoding
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.Win32.System.WinRT
+class AcousticEchoCancellationConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Media.Effects.IAcousticEchoCancellationConfiguration
+    _classid_ = 'Windows.Media.Effects.AcousticEchoCancellationConfiguration'
+    @winrt_mixinmethod
+    def SetEchoCancellationRenderEndpoint(self: win32more.Windows.Media.Effects.IAcousticEchoCancellationConfiguration, deviceId: WinRT_String) -> Void: ...
 class AudioCaptureEffectsManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager
@@ -33,7 +39,18 @@ class AudioEffect(ComPtr):
     _classid_ = 'Windows.Media.Effects.AudioEffect'
     @winrt_mixinmethod
     def get_AudioEffectType(self: win32more.Windows.Media.Effects.IAudioEffect) -> win32more.Windows.Media.Effects.AudioEffectType: ...
+    @winrt_mixinmethod
+    def get_AcousticEchoCancellationConfiguration(self: win32more.Windows.Media.Effects.IAudioEffect2) -> win32more.Windows.Media.Effects.AcousticEchoCancellationConfiguration: ...
+    @winrt_mixinmethod
+    def get_CanSetState(self: win32more.Windows.Media.Effects.IAudioEffect2) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_State(self: win32more.Windows.Media.Effects.IAudioEffect2) -> win32more.Windows.Media.Effects.AudioEffectState: ...
+    @winrt_mixinmethod
+    def SetState(self: win32more.Windows.Media.Effects.IAudioEffect2, newState: win32more.Windows.Media.Effects.AudioEffectState) -> Void: ...
+    AcousticEchoCancellationConfiguration = property(get_AcousticEchoCancellationConfiguration, None)
     AudioEffectType = property(get_AudioEffectType, None)
+    CanSetState = property(get_CanSetState, None)
+    State = property(get_State, None)
 class AudioEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IAudioEffectDefinition
@@ -57,6 +74,9 @@ class AudioEffectDefinition(ComPtr):
     def get_Properties(self: win32more.Windows.Media.Effects.IAudioEffectDefinition) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
     ActivatableClassId = property(get_ActivatableClassId, None)
     Properties = property(get_Properties, None)
+class AudioEffectState(Enum, Int32):
+    Off = 0
+    On = 1
 class AudioEffectType(Enum, Int32):
     Other = 0
     AcousticEchoCancellation = 1
@@ -123,6 +143,12 @@ class CompositeVideoFrameContext(ComPtr):
     BackgroundFrame = property(get_BackgroundFrame, None)
     OutputFrame = property(get_OutputFrame, None)
     SurfacesToOverlay = property(get_SurfacesToOverlay, None)
+class IAcousticEchoCancellationConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Effects.IAcousticEchoCancellationConfiguration'
+    _iid_ = Guid('{587e735b-175b-5177-a407-2e33bafe33a5}')
+    @winrt_commethod(6)
+    def SetEchoCancellationRenderEndpoint(self, deviceId: WinRT_String) -> Void: ...
 class IAudioCaptureEffectsManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioCaptureEffectsManager'
@@ -141,6 +167,21 @@ class IAudioEffect(ComPtr):
     @winrt_commethod(6)
     def get_AudioEffectType(self) -> win32more.Windows.Media.Effects.AudioEffectType: ...
     AudioEffectType = property(get_AudioEffectType, None)
+class IAudioEffect2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Effects.IAudioEffect2'
+    _iid_ = Guid('{06703cb0-757e-5757-8af0-6ba58a8b2990}')
+    @winrt_commethod(6)
+    def get_AcousticEchoCancellationConfiguration(self) -> win32more.Windows.Media.Effects.AcousticEchoCancellationConfiguration: ...
+    @winrt_commethod(7)
+    def get_CanSetState(self) -> Boolean: ...
+    @winrt_commethod(8)
+    def get_State(self) -> win32more.Windows.Media.Effects.AudioEffectState: ...
+    @winrt_commethod(9)
+    def SetState(self, newState: win32more.Windows.Media.Effects.AudioEffectState) -> Void: ...
+    AcousticEchoCancellationConfiguration = property(get_AcousticEchoCancellationConfiguration, None)
+    CanSetState = property(get_CanSetState, None)
+    State = property(get_State, None)
 class IAudioEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioEffectDefinition'

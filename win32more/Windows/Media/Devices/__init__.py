@@ -7,6 +7,7 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Capture
 import win32more.Windows.Media.Devices
 import win32more.Windows.Media.Devices.Core
+import win32more.Windows.Media.Effects
 import win32more.Windows.Media.MediaProperties
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.Com
@@ -67,6 +68,9 @@ class AudioDeviceController(ComPtr):
     def GetMediaStreamProperties(self: win32more.Windows.Media.Devices.IMediaDeviceController, mediaStreamType: win32more.Windows.Media.Capture.MediaStreamType) -> win32more.Windows.Media.MediaProperties.IMediaEncodingProperties: ...
     @winrt_mixinmethod
     def SetMediaStreamPropertiesAsync(self: win32more.Windows.Media.Devices.IMediaDeviceController, mediaStreamType: win32more.Windows.Media.Capture.MediaStreamType, mediaEncodingProperties: win32more.Windows.Media.MediaProperties.IMediaEncodingProperties) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_mixinmethod
+    def get_AudioCaptureEffectsManager(self: win32more.Windows.Media.Devices.IAudioDeviceController2) -> win32more.Windows.Media.Effects.AudioCaptureEffectsManager: ...
+    AudioCaptureEffectsManager = property(get_AudioCaptureEffectsManager, None)
     Muted = property(get_Muted, put_Muted)
     VolumePercent = property(get_VolumePercent, put_VolumePercent)
 class AudioDeviceModule(ComPtr):
@@ -772,6 +776,13 @@ class IAudioDeviceController(ComPtr):
     def get_VolumePercent(self) -> Single: ...
     Muted = property(get_Muted, put_Muted)
     VolumePercent = property(get_VolumePercent, put_VolumePercent)
+class IAudioDeviceController2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Devices.IAudioDeviceController2'
+    _iid_ = Guid('{85326599-4c24-48b0-81dd-0c5cc79ddf05}')
+    @winrt_commethod(6)
+    def get_AudioCaptureEffectsManager(self) -> win32more.Windows.Media.Effects.AudioCaptureEffectsManager: ...
+    AudioCaptureEffectsManager = property(get_AudioCaptureEffectsManager, None)
 class IAudioDeviceModule(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Devices.IAudioDeviceModule'

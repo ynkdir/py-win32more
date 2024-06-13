@@ -385,6 +385,18 @@ class GetEntitlementResult(ComPtr):
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementResult'
     @winrt_mixinmethod
     def get_Status(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult) -> win32more.Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementStatus: ...
+    @winrt_mixinmethod
+    def get_IsAlreadyOwned(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult2) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_OrderId(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult2) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_SkuId(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult2) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_AvailabilityId(self: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult2) -> WinRT_String: ...
+    AvailabilityId = property(get_AvailabilityId, None)
+    IsAlreadyOwned = property(get_IsAlreadyOwned, None)
+    OrderId = property(get_OrderId, None)
+    SkuId = property(get_SkuId, None)
     Status = property(get_Status, None)
 class GetEntitlementStatus(Enum, Int32):
     Succeeded = 0
@@ -770,6 +782,22 @@ class IGetEntitlementResult(ComPtr):
     @winrt_commethod(6)
     def get_Status(self) -> win32more.Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementStatus: ...
     Status = property(get_Status, None)
+class IGetEntitlementResult2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult2'
+    _iid_ = Guid('{e3906641-a981-4302-8c68-ff836666bb3b}')
+    @winrt_commethod(6)
+    def get_IsAlreadyOwned(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def get_OrderId(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_SkuId(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def get_AvailabilityId(self) -> WinRT_String: ...
+    AvailabilityId = property(get_AvailabilityId, None)
+    IsAlreadyOwned = property(get_IsAlreadyOwned, None)
+    OrderId = property(get_OrderId, None)
+    SkuId = property(get_SkuId, None)
 
 
 make_ready(__name__)

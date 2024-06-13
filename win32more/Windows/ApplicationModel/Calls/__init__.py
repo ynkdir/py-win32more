@@ -31,7 +31,7 @@ class CallStateChangeEventArgs(ComPtr):
     def get_State(self: win32more.Windows.ApplicationModel.Calls.ICallStateChangeEventArgs) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallState: ...
     State = property(get_State, None)
 CallsPhoneContract: UInt32 = 458752
-CallsVoipContract: UInt32 = 262144
+CallsVoipContract: UInt32 = 327680
 class CellularDtmfMode(Enum, Int32):
     Continuous = 0
     Burst = 1

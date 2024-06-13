@@ -307,6 +307,8 @@ class LampArrayKind(Enum, Int32):
     Furniture = 9
     Art = 10
     Headset = 11
+    Microphone = 12
+    Speaker = 13
 class LampAvailabilityChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampAvailabilityChangedEventArgs

@@ -189,7 +189,9 @@ class BackgroundExecutionManager(ComPtr):
     def GetAccessStatus(cls: win32more.Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics) -> win32more.Windows.ApplicationModel.Background.BackgroundAccessStatus: ...
     @winrt_classmethod
     def GetAccessStatusForApplication(cls: win32more.Windows.ApplicationModel.Background.IBackgroundExecutionManagerStatics, applicationId: WinRT_String) -> win32more.Windows.ApplicationModel.Background.BackgroundAccessStatus: ...
-class BackgroundTaskBuilder(ComPtr):
+class _BackgroundTaskBuilder_Meta_(ComPtr.__class__):
+    pass
+class BackgroundTaskBuilder(ComPtr, metaclass=_BackgroundTaskBuilder_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundTaskBuilder'
@@ -214,6 +216,7 @@ class BackgroundTaskBuilder(ComPtr):
     def put_Name(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_Name(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder) -> WinRT_String: ...
+    @winrt_overload
     @winrt_mixinmethod
     def Register(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistration: ...
     @winrt_mixinmethod
@@ -230,11 +233,24 @@ class BackgroundTaskBuilder(ComPtr):
     def put_TaskGroup(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder4, value: win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup) -> Void: ...
     @winrt_mixinmethod
     def SetTaskEntryPointClsid(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder5, TaskEntryPoint: Guid) -> Void: ...
+    @winrt_mixinmethod
+    def get_AllowRunningTaskInStandby(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder6) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_AllowRunningTaskInStandby(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder6, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def Validate(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder6) -> Boolean: ...
+    @Register.register
+    @winrt_mixinmethod
+    def Register(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilder6, taskName: WinRT_String) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistration: ...
+    @winrt_classmethod
+    def get_IsRunningTaskInStandbySupported(cls: win32more.Windows.ApplicationModel.Background.IBackgroundTaskBuilderStatics) -> Boolean: ...
+    AllowRunningTaskInStandby = property(get_AllowRunningTaskInStandby, put_AllowRunningTaskInStandby)
     CancelOnConditionLoss = property(get_CancelOnConditionLoss, put_CancelOnConditionLoss)
     IsNetworkRequested = property(get_IsNetworkRequested, put_IsNetworkRequested)
     Name = property(get_Name, put_Name)
     TaskEntryPoint = property(get_TaskEntryPoint, put_TaskEntryPoint)
     TaskGroup = property(get_TaskGroup, put_TaskGroup)
+    _BackgroundTaskBuilder_Meta_.IsRunningTaskInStandbySupported = property(get_IsRunningTaskInStandbySupported, None)
 class BackgroundTaskCanceledEventHandler(MulticastDelegate):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{a6c4bac0-51f8-4c57-ac3f-156dd1680c4f}')
@@ -312,15 +328,21 @@ class BackgroundTaskRegistration(ComPtr, metaclass=_BackgroundTaskRegistration_M
     def get_Trigger(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistration2) -> win32more.Windows.ApplicationModel.Background.IBackgroundTrigger: ...
     @winrt_mixinmethod
     def get_TaskGroup(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistration3) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup: ...
+    @winrt_mixinmethod
+    def get_TaskLastThrottledInStandbyTimestamp(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistration4) -> win32more.Windows.Foundation.DateTime: ...
+    @winrt_mixinmethod
+    def get_AppEnergyUsePredictionContribution(self: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistration4) -> Double: ...
     @winrt_classmethod
     def get_AllTaskGroups(cls: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationStatics2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup]: ...
     @winrt_classmethod
     def GetTaskGroup(cls: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationStatics2, groupId: WinRT_String) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup: ...
     @winrt_classmethod
     def get_AllTasks(cls: win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistrationStatics) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.ApplicationModel.Background.IBackgroundTaskRegistration]: ...
+    AppEnergyUsePredictionContribution = property(get_AppEnergyUsePredictionContribution, None)
     Name = property(get_Name, None)
     TaskGroup = property(get_TaskGroup, None)
     TaskId = property(get_TaskId, None)
+    TaskLastThrottledInStandbyTimestamp = property(get_TaskLastThrottledInStandbyTimestamp, None)
     Trigger = property(get_Trigger, None)
     _BackgroundTaskRegistration_Meta_.AllTaskGroups = property(get_AllTaskGroups, None)
     _BackgroundTaskRegistration_Meta_.AllTasks = property(get_AllTasks, None)
@@ -367,7 +389,16 @@ class BackgroundWorkCost(ComPtr, metaclass=_BackgroundWorkCost_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundWorkCost'
     @winrt_classmethod
+    def get_AppEnergyUseLevel(cls: win32more.Windows.ApplicationModel.Background.IBackgroundWorkCostStatics2) -> win32more.Windows.ApplicationModel.Background.EnergyUseLevel: ...
+    @winrt_classmethod
+    def get_AppEnergyUsePrediction(cls: win32more.Windows.ApplicationModel.Background.IBackgroundWorkCostStatics2) -> win32more.Windows.ApplicationModel.Background.EnergyUseLevel: ...
+    @winrt_classmethod
+    def get_AppLastThrottledInStandbyTimestamp(cls: win32more.Windows.ApplicationModel.Background.IBackgroundWorkCostStatics2) -> win32more.Windows.Foundation.DateTime: ...
+    @winrt_classmethod
     def get_CurrentBackgroundWorkCost(cls: win32more.Windows.ApplicationModel.Background.IBackgroundWorkCostStatics) -> win32more.Windows.ApplicationModel.Background.BackgroundWorkCostValue: ...
+    _BackgroundWorkCost_Meta_.AppEnergyUseLevel = property(get_AppEnergyUseLevel, None)
+    _BackgroundWorkCost_Meta_.AppEnergyUsePrediction = property(get_AppEnergyUsePrediction, None)
+    _BackgroundWorkCost_Meta_.AppLastThrottledInStandbyTimestamp = property(get_AppLastThrottledInStandbyTimestamp, None)
     _BackgroundWorkCost_Meta_.CurrentBackgroundWorkCost = property(get_CurrentBackgroundWorkCost, None)
 class BackgroundWorkCostValue(Enum, Int32):
     Low = 0
@@ -674,6 +705,11 @@ class EmailStoreNotificationTrigger(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Background.EmailStoreNotificationTrigger: ...
+class EnergyUseLevel(Enum, Int32):
+    Unknown = 0
+    UnderHalfOfBudget = 1
+    OverHalfOfBudget = 2
+    OverBudget = 3
 class GattCharacteristicNotificationTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.IGattCharacteristicNotificationTrigger
@@ -935,6 +971,26 @@ class IBackgroundTaskBuilder5(ComPtr):
     _iid_ = Guid('{077103f6-99f5-4af4-bcad-4731d0330d43}')
     @winrt_commethod(6)
     def SetTaskEntryPointClsid(self, TaskEntryPoint: Guid) -> Void: ...
+class IBackgroundTaskBuilder6(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskBuilder6'
+    _iid_ = Guid('{80b47b17-ec8b-5653-850b-7508a01f52e7}')
+    @winrt_commethod(6)
+    def get_AllowRunningTaskInStandby(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_AllowRunningTaskInStandby(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def Validate(self) -> Boolean: ...
+    @winrt_commethod(9)
+    def Register(self, taskName: WinRT_String) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistration: ...
+    AllowRunningTaskInStandby = property(get_AllowRunningTaskInStandby, put_AllowRunningTaskInStandby)
+class IBackgroundTaskBuilderStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskBuilderStatics'
+    _iid_ = Guid('{d1eb5046-06f2-55b4-9bb7-a6457ebf3300}')
+    @winrt_commethod(6)
+    def get_IsRunningTaskInStandbySupported(self) -> Boolean: ...
+    IsRunningTaskInStandbySupported = property(get_IsRunningTaskInStandbySupported, None)
 class IBackgroundTaskCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskCompletedEventArgs'
@@ -1037,6 +1093,16 @@ class IBackgroundTaskRegistration3(ComPtr):
     @winrt_commethod(6)
     def get_TaskGroup(self) -> win32more.Windows.ApplicationModel.Background.BackgroundTaskRegistrationGroup: ...
     TaskGroup = property(get_TaskGroup, None)
+class IBackgroundTaskRegistration4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskRegistration4'
+    _iid_ = Guid('{169c09c9-b0de-5576-a05b-a02067989879}')
+    @winrt_commethod(6)
+    def get_TaskLastThrottledInStandbyTimestamp(self) -> win32more.Windows.Foundation.DateTime: ...
+    @winrt_commethod(7)
+    def get_AppEnergyUsePredictionContribution(self) -> Double: ...
+    AppEnergyUsePredictionContribution = property(get_AppEnergyUsePredictionContribution, None)
+    TaskLastThrottledInStandbyTimestamp = property(get_TaskLastThrottledInStandbyTimestamp, None)
 class IBackgroundTaskRegistrationGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBackgroundTaskRegistrationGroup'
@@ -1090,6 +1156,19 @@ class IBackgroundWorkCostStatics(ComPtr):
     @winrt_commethod(6)
     def get_CurrentBackgroundWorkCost(self) -> win32more.Windows.ApplicationModel.Background.BackgroundWorkCostValue: ...
     CurrentBackgroundWorkCost = property(get_CurrentBackgroundWorkCost, None)
+class IBackgroundWorkCostStatics2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Background.IBackgroundWorkCostStatics2'
+    _iid_ = Guid('{d868c976-81f6-57c8-ab2b-400b749e21d6}')
+    @winrt_commethod(6)
+    def get_AppEnergyUseLevel(self) -> win32more.Windows.ApplicationModel.Background.EnergyUseLevel: ...
+    @winrt_commethod(7)
+    def get_AppEnergyUsePrediction(self) -> win32more.Windows.ApplicationModel.Background.EnergyUseLevel: ...
+    @winrt_commethod(8)
+    def get_AppLastThrottledInStandbyTimestamp(self) -> win32more.Windows.Foundation.DateTime: ...
+    AppEnergyUseLevel = property(get_AppEnergyUseLevel, None)
+    AppEnergyUsePrediction = property(get_AppEnergyUsePrediction, None)
+    AppLastThrottledInStandbyTimestamp = property(get_AppLastThrottledInStandbyTimestamp, None)
 class IBluetoothLEAdvertisementPublisherTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger'

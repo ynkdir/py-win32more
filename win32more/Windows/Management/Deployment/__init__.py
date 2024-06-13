@@ -599,6 +599,15 @@ class IPackageAllUserProvisioningOptions(ComPtr):
     def get_ProjectionOrderPackageFamilyNames(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     ProjectionOrderPackageFamilyNames = property(get_ProjectionOrderPackageFamilyNames, None)
+class IPackageAllUserProvisioningOptions2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.IPackageAllUserProvisioningOptions2'
+    _iid_ = Guid('{b9e3cab5-2d97-579f-9368-d10bb4d4542b}')
+    @winrt_commethod(6)
+    def get_DeferAutomaticRegistration(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_DeferAutomaticRegistration(self, value: Boolean) -> Void: ...
+    DeferAutomaticRegistration = property(get_DeferAutomaticRegistration, put_DeferAutomaticRegistration)
 class IPackageManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IPackageManager'
@@ -641,6 +650,12 @@ class IPackageManager10(ComPtr):
     _iid_ = Guid('{a7d7d07e-2e66-4093-aed5-e093ed87b3bb}')
     @winrt_commethod(6)
     def ProvisionPackageForAllUsersWithOptionsAsync(self, mainPackageFamilyName: WinRT_String, options: win32more.Windows.Management.Deployment.PackageAllUserProvisioningOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Management.Deployment.DeploymentResult, win32more.Windows.Management.Deployment.DeploymentProgress]: ...
+class IPackageManager11(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.IPackageManager11'
+    _iid_ = Guid('{12950b24-c77e-4ea7-8859-325318074e15}')
+    @winrt_commethod(6)
+    def RemovePackageByUriAsync(self, packageUri: win32more.Windows.Foundation.Uri, options: win32more.Windows.Management.Deployment.RemovePackageOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Management.Deployment.DeploymentResult, win32more.Windows.Management.Deployment.DeploymentProgress]: ...
 class IPackageManager2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IPackageManager2'
@@ -911,6 +926,25 @@ class IRegisterPackageOptions2(ComPtr):
     @winrt_commethod(6)
     def get_ExpectedDigests(self) -> win32more.Windows.Foundation.Collections.IMap[win32more.Windows.Foundation.Uri, WinRT_String]: ...
     ExpectedDigests = property(get_ExpectedDigests, None)
+class IRemovePackageOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.IRemovePackageOptions'
+    _iid_ = Guid('{13cf01f3-c450-4f7c-a5a3-5e3c631b7462}')
+    @winrt_commethod(6)
+    def get_PreserveApplicationData(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_PreserveApplicationData(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_PreserveRoamableApplicationData(self) -> Boolean: ...
+    @winrt_commethod(9)
+    def put_PreserveRoamableApplicationData(self, value: Boolean) -> Void: ...
+    @winrt_commethod(10)
+    def get_RemoveForAllUsers(self) -> Boolean: ...
+    @winrt_commethod(11)
+    def put_RemoveForAllUsers(self, value: Boolean) -> Void: ...
+    PreserveApplicationData = property(get_PreserveApplicationData, put_PreserveApplicationData)
+    PreserveRoamableApplicationData = property(get_PreserveRoamableApplicationData, put_PreserveRoamableApplicationData)
+    RemoveForAllUsers = property(get_RemoveForAllUsers, put_RemoveForAllUsers)
 class ISharedPackageContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.ISharedPackageContainer'
@@ -1073,6 +1107,11 @@ class PackageAllUserProvisioningOptions(ComPtr):
     def get_OptionalPackageFamilyNames(self: win32more.Windows.Management.Deployment.IPackageAllUserProvisioningOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_mixinmethod
     def get_ProjectionOrderPackageFamilyNames(self: win32more.Windows.Management.Deployment.IPackageAllUserProvisioningOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    @winrt_mixinmethod
+    def get_DeferAutomaticRegistration(self: win32more.Windows.Management.Deployment.IPackageAllUserProvisioningOptions2) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_DeferAutomaticRegistration(self: win32more.Windows.Management.Deployment.IPackageAllUserProvisioningOptions2, value: Boolean) -> Void: ...
+    DeferAutomaticRegistration = property(get_DeferAutomaticRegistration, put_DeferAutomaticRegistration)
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     ProjectionOrderPackageFamilyNames = property(get_ProjectionOrderPackageFamilyNames, None)
 class PackageInstallState(Enum, Int32):
@@ -1217,6 +1256,8 @@ class PackageManager(ComPtr):
     def GetPackageStubPreference(self: win32more.Windows.Management.Deployment.IPackageManager9, packageFamilyName: WinRT_String) -> win32more.Windows.Management.Deployment.PackageStubPreference: ...
     @winrt_mixinmethod
     def ProvisionPackageForAllUsersWithOptionsAsync(self: win32more.Windows.Management.Deployment.IPackageManager10, mainPackageFamilyName: WinRT_String, options: win32more.Windows.Management.Deployment.PackageAllUserProvisioningOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Management.Deployment.DeploymentResult, win32more.Windows.Management.Deployment.DeploymentProgress]: ...
+    @winrt_mixinmethod
+    def RemovePackageByUriAsync(self: win32more.Windows.Management.Deployment.IPackageManager11, packageUri: win32more.Windows.Foundation.Uri, options: win32more.Windows.Management.Deployment.RemovePackageOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Management.Deployment.DeploymentResult, win32more.Windows.Management.Deployment.DeploymentProgress]: ...
     DebugSettings = property(get_DebugSettings, None)
 class PackageManagerDebugSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1394,6 +1435,34 @@ class RemovalOptions(Enum, UInt32):
     PreserveApplicationData = 4096
     PreserveRoamableApplicationData = 128
     RemoveForAllUsers = 524288
+class RemovePackageOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Management.Deployment.IRemovePackageOptions
+    _classid_ = 'Windows.Management.Deployment.RemovePackageOptions'
+    def __new__(cls, *args, **kwargs):
+        if kwargs:
+            return super().__new__(cls, **kwargs)
+        elif len(args) == 0:
+            return win32more.Windows.Management.Deployment.RemovePackageOptions.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Management.Deployment.RemovePackageOptions: ...
+    @winrt_mixinmethod
+    def get_PreserveApplicationData(self: win32more.Windows.Management.Deployment.IRemovePackageOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_PreserveApplicationData(self: win32more.Windows.Management.Deployment.IRemovePackageOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_PreserveRoamableApplicationData(self: win32more.Windows.Management.Deployment.IRemovePackageOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_PreserveRoamableApplicationData(self: win32more.Windows.Management.Deployment.IRemovePackageOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_RemoveForAllUsers(self: win32more.Windows.Management.Deployment.IRemovePackageOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_RemoveForAllUsers(self: win32more.Windows.Management.Deployment.IRemovePackageOptions, value: Boolean) -> Void: ...
+    PreserveApplicationData = property(get_PreserveApplicationData, put_PreserveApplicationData)
+    PreserveRoamableApplicationData = property(get_PreserveRoamableApplicationData, put_PreserveRoamableApplicationData)
+    RemoveForAllUsers = property(get_RemoveForAllUsers, put_RemoveForAllUsers)
 class SharedPackageContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.ISharedPackageContainer

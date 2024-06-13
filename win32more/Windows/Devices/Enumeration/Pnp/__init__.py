@@ -134,6 +134,7 @@ class PnpObjectType(Enum, Int32):
     AssociationEndpointContainer = 6
     AssociationEndpointService = 7
     DevicePanel = 8
+    AssociationEndpointProtocol = 9
 class PnpObjectUpdate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate

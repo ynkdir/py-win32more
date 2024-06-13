@@ -18,8 +18,11 @@ class DeviceAccessChangedEventArgs(ComPtr):
     def get_Status(self: win32more.Windows.Devices.Enumeration.IDeviceAccessChangedEventArgs) -> win32more.Windows.Devices.Enumeration.DeviceAccessStatus: ...
     @winrt_mixinmethod
     def get_Id(self: win32more.Windows.Devices.Enumeration.IDeviceAccessChangedEventArgs2) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_UserPromptRequired(self: win32more.Windows.Devices.Enumeration.IDeviceAccessChangedEventArgs3) -> Boolean: ...
     Id = property(get_Id, None)
     Status = property(get_Status, None)
+    UserPromptRequired = property(get_UserPromptRequired, None)
 class DeviceAccessInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Enumeration.IDeviceAccessInformation
@@ -30,6 +33,8 @@ class DeviceAccessInformation(ComPtr):
     def remove_AccessChanged(self: win32more.Windows.Devices.Enumeration.IDeviceAccessInformation, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def get_CurrentStatus(self: win32more.Windows.Devices.Enumeration.IDeviceAccessInformation) -> win32more.Windows.Devices.Enumeration.DeviceAccessStatus: ...
+    @winrt_mixinmethod
+    def get_UserPromptRequired(self: win32more.Windows.Devices.Enumeration.IDeviceAccessInformation2) -> Boolean: ...
     @winrt_classmethod
     def CreateFromId(cls: win32more.Windows.Devices.Enumeration.IDeviceAccessInformationStatics, deviceId: WinRT_String) -> win32more.Windows.Devices.Enumeration.DeviceAccessInformation: ...
     @winrt_classmethod
@@ -37,6 +42,7 @@ class DeviceAccessInformation(ComPtr):
     @winrt_classmethod
     def CreateFromDeviceClass(cls: win32more.Windows.Devices.Enumeration.IDeviceAccessInformationStatics, deviceClass: win32more.Windows.Devices.Enumeration.DeviceClass) -> win32more.Windows.Devices.Enumeration.DeviceAccessInformation: ...
     CurrentStatus = property(get_CurrentStatus, None)
+    UserPromptRequired = property(get_UserPromptRequired, None)
     AccessChanged = event()
 class DeviceAccessStatus(Enum, Int32):
     Unspecified = 0
@@ -91,6 +97,12 @@ class DeviceInformation(ComPtr):
     def get_Kind(self: win32more.Windows.Devices.Enumeration.IDeviceInformation2) -> win32more.Windows.Devices.Enumeration.DeviceInformationKind: ...
     @winrt_mixinmethod
     def get_Pairing(self: win32more.Windows.Devices.Enumeration.IDeviceInformation2) -> win32more.Windows.Devices.Enumeration.DeviceInformationPairing: ...
+    @winrt_classmethod
+    def CreateFromIdAsyncWithAdditionalPropertiesKindAndSettings(cls: win32more.Windows.Devices.Enumeration.IDeviceInformationStatics3, deviceId: WinRT_String, additionalProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], kind: win32more.Windows.Devices.Enumeration.DeviceInformationKind, settings: win32more.Windows.Devices.Enumeration.IDeviceEnumerationSettings) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Enumeration.DeviceInformation]: ...
+    @winrt_classmethod
+    def FindAllAsyncWithAqsFilterAdditionalPropertiesKindAndSettings(cls: win32more.Windows.Devices.Enumeration.IDeviceInformationStatics3, aqsFilter: WinRT_String, additionalProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], kind: win32more.Windows.Devices.Enumeration.DeviceInformationKind, settings: win32more.Windows.Devices.Enumeration.IDeviceEnumerationSettings) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Enumeration.DeviceInformationCollection]: ...
+    @winrt_classmethod
+    def CreateWatcherWithAqsFilterAdditionalPropertiesKindAndSettings(cls: win32more.Windows.Devices.Enumeration.IDeviceInformationStatics3, aqsFilter: WinRT_String, additionalProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], kind: win32more.Windows.Devices.Enumeration.DeviceInformationKind, settings: win32more.Windows.Devices.Enumeration.IDeviceEnumerationSettings) -> win32more.Windows.Devices.Enumeration.DeviceWatcher: ...
     @winrt_classmethod
     def GetAqsFilterFromDeviceClass(cls: win32more.Windows.Devices.Enumeration.IDeviceInformationStatics2, deviceClass: win32more.Windows.Devices.Enumeration.DeviceClass) -> WinRT_String: ...
     @winrt_classmethod
@@ -156,7 +168,14 @@ class DeviceInformationCustomPairing(ComPtr):
     def add_PairingRequested(self: win32more.Windows.Devices.Enumeration.IDeviceInformationCustomPairing, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceInformationCustomPairing, win32more.Windows.Devices.Enumeration.DevicePairingRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PairingRequested(self: win32more.Windows.Devices.Enumeration.IDeviceInformationCustomPairing, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def AddPairingSetMember(self: win32more.Windows.Devices.Enumeration.IDeviceInformationCustomPairing2, device: win32more.Windows.Devices.Enumeration.DeviceInformation) -> Void: ...
+    @winrt_mixinmethod
+    def add_PairingSetMembersRequested(self: win32more.Windows.Devices.Enumeration.IDeviceInformationCustomPairing2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceInformationCustomPairing, win32more.Windows.Devices.Enumeration.DevicePairingSetMembersRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_PairingSetMembersRequested(self: win32more.Windows.Devices.Enumeration.IDeviceInformationCustomPairing2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PairingRequested = event()
+    PairingSetMembersRequested = event()
 class DeviceInformationKind(Enum, Int32):
     Unknown = 0
     DeviceInterface = 1
@@ -167,6 +186,7 @@ class DeviceInformationKind(Enum, Int32):
     AssociationEndpointContainer = 6
     AssociationEndpointService = 7
     DevicePanel = 8
+    AssociationEndpointProtocol = 9
 class DeviceInformationPairing(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Enumeration.IDeviceInformationPairing
@@ -208,6 +228,13 @@ class DeviceInformationUpdate(ComPtr):
     Id = property(get_Id, None)
     Kind = property(get_Kind, None)
     Properties = property(get_Properties, None)
+class DevicePairingAddPairingSetMemberStatus(Enum, Int32):
+    AddedToSet = 0
+    CouldNotBeAddedToSet = 1
+    SetDiscoveryNotAttemptedByProtocol = 2
+    SetDiscoveryCompletedByProtocol = 3
+    SetDiscoveryPartiallyCompletedByProtocol = 4
+    Failed = 5
 class DevicePairingKinds(Enum, UInt32):
     None_ = 0
     ConfirmOnly = 1
@@ -215,6 +242,7 @@ class DevicePairingKinds(Enum, UInt32):
     ProvidePin = 4
     ConfirmPinMatch = 8
     ProvidePasswordCredential = 16
+    ProvideAddress = 32
 class DevicePairingProtectionLevel(Enum, Int32):
     Default = 0
     None_ = 1
@@ -238,6 +266,8 @@ class DevicePairingRequestedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Devices.Enumeration.IDevicePairingRequestedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     @winrt_mixinmethod
     def AcceptWithPasswordCredential(self: win32more.Windows.Devices.Enumeration.IDevicePairingRequestedEventArgs2, passwordCredential: win32more.Windows.Security.Credentials.PasswordCredential) -> Void: ...
+    @winrt_mixinmethod
+    def AcceptWithAddress(self: win32more.Windows.Devices.Enumeration.IDevicePairingRequestedEventArgs3, address: WinRT_String) -> Void: ...
     DeviceInformation = property(get_DeviceInformation, None)
     PairingKind = property(get_PairingKind, None)
     Pin = property(get_Pin, None)
@@ -272,6 +302,19 @@ class DevicePairingResultStatus(Enum, Int32):
     RejectedByHandler = 17
     RemoteDeviceHasAssociation = 18
     Failed = 19
+class DevicePairingSetMembersRequestedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Enumeration.IDevicePairingSetMembersRequestedEventArgs
+    _classid_ = 'Windows.Devices.Enumeration.DevicePairingSetMembersRequestedEventArgs'
+    @winrt_mixinmethod
+    def get_Status(self: win32more.Windows.Devices.Enumeration.IDevicePairingSetMembersRequestedEventArgs) -> win32more.Windows.Devices.Enumeration.DevicePairingAddPairingSetMemberStatus: ...
+    @winrt_mixinmethod
+    def get_ParentDeviceInformation(self: win32more.Windows.Devices.Enumeration.IDevicePairingSetMembersRequestedEventArgs) -> win32more.Windows.Devices.Enumeration.DeviceInformation: ...
+    @winrt_mixinmethod
+    def get_PairingSetMembers(self: win32more.Windows.Devices.Enumeration.IDevicePairingSetMembersRequestedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Enumeration.DeviceInformation]: ...
+    PairingSetMembers = property(get_PairingSetMembers, None)
+    ParentDeviceInformation = property(get_ParentDeviceInformation, None)
+    Status = property(get_Status, None)
 class DevicePicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Enumeration.IDevicePicker
@@ -531,6 +574,13 @@ class IDeviceAccessChangedEventArgs2(ComPtr):
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     Id = property(get_Id, None)
+class IDeviceAccessChangedEventArgs3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceAccessChangedEventArgs3'
+    _iid_ = Guid('{7580a878-7fd9-5cd7-8560-3c644b9b10db}')
+    @winrt_commethod(6)
+    def get_UserPromptRequired(self) -> Boolean: ...
+    UserPromptRequired = property(get_UserPromptRequired, None)
 class IDeviceAccessInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Enumeration.IDeviceAccessInformation'
@@ -543,6 +593,13 @@ class IDeviceAccessInformation(ComPtr):
     def get_CurrentStatus(self) -> win32more.Windows.Devices.Enumeration.DeviceAccessStatus: ...
     CurrentStatus = property(get_CurrentStatus, None)
     AccessChanged = event()
+class IDeviceAccessInformation2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceAccessInformation2'
+    _iid_ = Guid('{e2b9dff6-e88f-5d0a-9c1e-d788808df47b}')
+    @winrt_commethod(6)
+    def get_UserPromptRequired(self) -> Boolean: ...
+    UserPromptRequired = property(get_UserPromptRequired, None)
 class IDeviceAccessInformationStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Enumeration.IDeviceAccessInformationStatics'
@@ -567,6 +624,10 @@ class IDeviceDisconnectButtonClickedEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_Device(self) -> win32more.Windows.Devices.Enumeration.DeviceInformation: ...
     Device = property(get_Device, None)
+class IDeviceEnumerationSettings(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceEnumerationSettings'
+    _iid_ = Guid('{f7710f66-9ff3-41c8-85eb-87f81148a30f}')
 class IDeviceInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Enumeration.IDeviceInformation'
@@ -620,6 +681,17 @@ class IDeviceInformationCustomPairing(ComPtr):
     @winrt_commethod(10)
     def remove_PairingRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PairingRequested = event()
+class IDeviceInformationCustomPairing2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationCustomPairing2'
+    _iid_ = Guid('{0ebda662-e696-5fa9-8f72-80cfebcd851d}')
+    @winrt_commethod(6)
+    def AddPairingSetMember(self, device: win32more.Windows.Devices.Enumeration.DeviceInformation) -> Void: ...
+    @winrt_commethod(7)
+    def add_PairingSetMembersRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Enumeration.DeviceInformationCustomPairing, win32more.Windows.Devices.Enumeration.DevicePairingSetMembersRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(8)
+    def remove_PairingSetMembersRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    PairingSetMembersRequested = event()
 class IDeviceInformationPairing(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationPairing'
@@ -696,6 +768,16 @@ class IDeviceInformationStatics2(ComPtr):
     def FindAllAsyncWithKindAqsFilterAndAdditionalProperties(self, aqsFilter: WinRT_String, additionalProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], kind: win32more.Windows.Devices.Enumeration.DeviceInformationKind) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Enumeration.DeviceInformationCollection]: ...
     @winrt_commethod(9)
     def CreateWatcherWithKindAqsFilterAndAdditionalProperties(self, aqsFilter: WinRT_String, additionalProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], kind: win32more.Windows.Devices.Enumeration.DeviceInformationKind) -> win32more.Windows.Devices.Enumeration.DeviceWatcher: ...
+class IDeviceInformationStatics3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationStatics3'
+    _iid_ = Guid('{25f06279-9364-5a6c-8a54-5d4a6d3d922a}')
+    @winrt_commethod(6)
+    def CreateFromIdAsyncWithAdditionalPropertiesKindAndSettings(self, deviceId: WinRT_String, additionalProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], kind: win32more.Windows.Devices.Enumeration.DeviceInformationKind, settings: win32more.Windows.Devices.Enumeration.IDeviceEnumerationSettings) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Enumeration.DeviceInformation]: ...
+    @winrt_commethod(7)
+    def FindAllAsyncWithAqsFilterAdditionalPropertiesKindAndSettings(self, aqsFilter: WinRT_String, additionalProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], kind: win32more.Windows.Devices.Enumeration.DeviceInformationKind, settings: win32more.Windows.Devices.Enumeration.IDeviceEnumerationSettings) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Enumeration.DeviceInformationCollection]: ...
+    @winrt_commethod(8)
+    def CreateWatcherWithAqsFilterAdditionalPropertiesKindAndSettings(self, aqsFilter: WinRT_String, additionalProperties: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], kind: win32more.Windows.Devices.Enumeration.DeviceInformationKind, settings: win32more.Windows.Devices.Enumeration.IDeviceEnumerationSettings) -> win32more.Windows.Devices.Enumeration.DeviceWatcher: ...
 class IDeviceInformationUpdate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Enumeration.IDeviceInformationUpdate'
@@ -738,6 +820,12 @@ class IDevicePairingRequestedEventArgs2(ComPtr):
     _iid_ = Guid('{c83752d9-e4d3-4db0-a360-a105e437dbdc}')
     @winrt_commethod(6)
     def AcceptWithPasswordCredential(self, passwordCredential: win32more.Windows.Security.Credentials.PasswordCredential) -> Void: ...
+class IDevicePairingRequestedEventArgs3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDevicePairingRequestedEventArgs3'
+    _iid_ = Guid('{195e5a38-43dc-562f-babe-efc8b110088b}')
+    @winrt_commethod(6)
+    def AcceptWithAddress(self, address: WinRT_String) -> Void: ...
 class IDevicePairingResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Enumeration.IDevicePairingResult'
@@ -747,6 +835,19 @@ class IDevicePairingResult(ComPtr):
     @winrt_commethod(7)
     def get_ProtectionLevelUsed(self) -> win32more.Windows.Devices.Enumeration.DevicePairingProtectionLevel: ...
     ProtectionLevelUsed = property(get_ProtectionLevelUsed, None)
+    Status = property(get_Status, None)
+class IDevicePairingSetMembersRequestedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Enumeration.IDevicePairingSetMembersRequestedEventArgs'
+    _iid_ = Guid('{7fb42cff-ecac-5012-8d7d-a1894680a349}')
+    @winrt_commethod(6)
+    def get_Status(self) -> win32more.Windows.Devices.Enumeration.DevicePairingAddPairingSetMemberStatus: ...
+    @winrt_commethod(7)
+    def get_ParentDeviceInformation(self) -> win32more.Windows.Devices.Enumeration.DeviceInformation: ...
+    @winrt_commethod(8)
+    def get_PairingSetMembers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Enumeration.DeviceInformation]: ...
+    PairingSetMembers = property(get_PairingSetMembers, None)
+    ParentDeviceInformation = property(get_ParentDeviceInformation, None)
     Status = property(get_Status, None)
 class IDevicePairingSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable

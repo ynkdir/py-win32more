@@ -3,6 +3,7 @@ from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoad
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Power
 import win32more.Windows.Foundation
+import win32more.Windows.Foundation.Collections
 import win32more.Windows.System.Power
 import win32more.Windows.Win32.System.WinRT
 class _Battery_Meta_(ComPtr.__class__):
@@ -91,6 +92,70 @@ class IBatteryStatics(ComPtr):
     @winrt_commethod(8)
     def GetDeviceSelector(self) -> WinRT_String: ...
     AggregateBattery = property(get_AggregateBattery, None)
+class IPowerGridData(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Power.IPowerGridData'
+    _iid_ = Guid('{c360fb17-fc92-5f6e-999d-16a4cf9d6c40}')
+    @winrt_commethod(6)
+    def get_Severity(self) -> Double: ...
+    @winrt_commethod(7)
+    def get_IsLowUserExperienceImpact(self) -> Boolean: ...
+    IsLowUserExperienceImpact = property(get_IsLowUserExperienceImpact, None)
+    Severity = property(get_Severity, None)
+class IPowerGridForecast(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Power.IPowerGridForecast'
+    _iid_ = Guid('{077e4de9-ed60-58bb-a850-003c6a138685}')
+    @winrt_commethod(6)
+    def get_StartTime(self) -> win32more.Windows.Foundation.DateTime: ...
+    @winrt_commethod(7)
+    def get_BlockDuration(self) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_commethod(8)
+    def get_Forecast(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Power.PowerGridData]: ...
+    BlockDuration = property(get_BlockDuration, None)
+    Forecast = property(get_Forecast, None)
+    StartTime = property(get_StartTime, None)
+class IPowerGridForecastStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Power.IPowerGridForecastStatics'
+    _iid_ = Guid('{5b78c806-2e4e-5bcc-bb34-cb81c60f9e12}')
+    @winrt_commethod(6)
+    def GetForecast(self) -> win32more.Windows.Devices.Power.PowerGridForecast: ...
+    @winrt_commethod(7)
+    def add_ForecastUpdated(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(8)
+    def remove_ForecastUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ForecastUpdated = event()
+PowerGridApiContract: UInt32 = 65536
+class PowerGridData(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Power.IPowerGridData
+    _classid_ = 'Windows.Devices.Power.PowerGridData'
+    @winrt_mixinmethod
+    def get_Severity(self: win32more.Windows.Devices.Power.IPowerGridData) -> Double: ...
+    @winrt_mixinmethod
+    def get_IsLowUserExperienceImpact(self: win32more.Windows.Devices.Power.IPowerGridData) -> Boolean: ...
+    IsLowUserExperienceImpact = property(get_IsLowUserExperienceImpact, None)
+    Severity = property(get_Severity, None)
+class PowerGridForecast(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Power.IPowerGridForecast
+    _classid_ = 'Windows.Devices.Power.PowerGridForecast'
+    @winrt_mixinmethod
+    def get_StartTime(self: win32more.Windows.Devices.Power.IPowerGridForecast) -> win32more.Windows.Foundation.DateTime: ...
+    @winrt_mixinmethod
+    def get_BlockDuration(self: win32more.Windows.Devices.Power.IPowerGridForecast) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_mixinmethod
+    def get_Forecast(self: win32more.Windows.Devices.Power.IPowerGridForecast) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Power.PowerGridData]: ...
+    @winrt_classmethod
+    def GetForecast(cls: win32more.Windows.Devices.Power.IPowerGridForecastStatics) -> win32more.Windows.Devices.Power.PowerGridForecast: ...
+    @winrt_classmethod
+    def add_ForecastUpdated(cls: win32more.Windows.Devices.Power.IPowerGridForecastStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_classmethod
+    def remove_ForecastUpdated(cls: win32more.Windows.Devices.Power.IPowerGridForecastStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BlockDuration = property(get_BlockDuration, None)
+    Forecast = property(get_Forecast, None)
+    StartTime = property(get_StartTime, None)
 
 
 make_ready(__name__)

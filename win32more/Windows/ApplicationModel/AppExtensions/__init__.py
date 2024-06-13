@@ -27,6 +27,12 @@ class AppExtension(ComPtr):
     def GetPublicFolderAsync(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtension) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.StorageFolder]: ...
     @winrt_mixinmethod
     def get_AppUserModelId(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtension2) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def GetExtensionProperties(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtension3) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
+    @winrt_mixinmethod
+    def GetPublicPath(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtension3) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def GetPublicFolder(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtension3) -> win32more.Windows.Storage.StorageFolder: ...
     AppInfo = property(get_AppInfo, None)
     AppUserModelId = property(get_AppUserModelId, None)
     Description = property(get_Description, None)
@@ -61,6 +67,8 @@ class AppExtensionCatalog(ComPtr):
     def add_PackageStatusChanged(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.AppExtensions.AppExtensionCatalog, win32more.Windows.ApplicationModel.AppExtensions.AppExtensionPackageStatusChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PackageStatusChanged(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def FindAll(self: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppExtensions.AppExtension]: ...
     @winrt_classmethod
     def Open(cls: win32more.Windows.ApplicationModel.AppExtensions.IAppExtensionCatalogStatics, appExtensionName: WinRT_String) -> win32more.Windows.ApplicationModel.AppExtensions.AppExtensionCatalog: ...
     PackageInstalled = event()
@@ -154,6 +162,16 @@ class IAppExtension2(ComPtr):
     @winrt_commethod(6)
     def get_AppUserModelId(self) -> WinRT_String: ...
     AppUserModelId = property(get_AppUserModelId, None)
+class IAppExtension3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.AppExtensions.IAppExtension3'
+    _iid_ = Guid('{5923c101-aa38-4009-84d9-5b54a0df30ae}')
+    @winrt_commethod(6)
+    def GetExtensionProperties(self) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
+    @winrt_commethod(7)
+    def GetPublicPath(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def GetPublicFolder(self) -> win32more.Windows.Storage.StorageFolder: ...
 class IAppExtensionCatalog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog'
@@ -187,6 +205,12 @@ class IAppExtensionCatalog(ComPtr):
     PackageUpdated = event()
     PackageUninstalling = event()
     PackageStatusChanged = event()
+class IAppExtensionCatalog2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog2'
+    _iid_ = Guid('{50056eba-58b6-4147-b5a5-8feca6dfb49d}')
+    @winrt_commethod(6)
+    def FindAll(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppExtensions.AppExtension]: ...
 class IAppExtensionCatalogStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.AppExtensions.IAppExtensionCatalogStatics'

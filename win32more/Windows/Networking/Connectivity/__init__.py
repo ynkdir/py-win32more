@@ -1082,7 +1082,7 @@ class WwanConnectionProfileDetails(ComPtr):
     HomeProviderId = property(get_HomeProviderId, None)
     IPKind = property(get_IPKind, None)
     PurposeGuids = property(get_PurposeGuids, None)
-WwanContract: UInt32 = 131072
+WwanContract: UInt32 = 196608
 class WwanDataClass(Enum, UInt32):
     None_ = 0
     Gprs = 1
@@ -1091,6 +1091,8 @@ class WwanDataClass(Enum, UInt32):
     Hsdpa = 8
     Hsupa = 16
     LteAdvanced = 32
+    NewRadioNonStandalone = 64
+    NewRadioStandalone = 128
     Cdma1xRtt = 65536
     Cdma1xEvdo = 131072
     Cdma1xEvdoRevA = 262144

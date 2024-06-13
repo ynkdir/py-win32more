@@ -1251,6 +1251,22 @@ class IMobileBroadbandDeviceService(ComPtr):
     def OpenCommandSession(self) -> win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandSession: ...
     DeviceServiceId = property(get_DeviceServiceId, None)
     SupportedCommands = property(get_SupportedCommands, None)
+class IMobileBroadbandDeviceServiceCommandEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandEventArgs'
+    _iid_ = Guid('{28e4338f-cca4-5047-a20c-0a6d79acecba}')
+    @winrt_commethod(6)
+    def get_DeviceId(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_DeviceServiceId(self) -> Guid: ...
+    @winrt_commethod(8)
+    def get_EventId(self) -> UInt32: ...
+    @winrt_commethod(9)
+    def get_ReceivedData(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
+    DeviceId = property(get_DeviceId, None)
+    DeviceServiceId = property(get_DeviceServiceId, None)
+    EventId = property(get_EventId, None)
+    ReceivedData = property(get_ReceivedData, None)
 class IMobileBroadbandDeviceServiceCommandResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandResult'
@@ -1271,6 +1287,15 @@ class IMobileBroadbandDeviceServiceCommandSession(ComPtr):
     def SendSetCommandAsync(self, commandId: UInt32, data: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandResult]: ...
     @winrt_commethod(8)
     def CloseSession(self) -> Void: ...
+class IMobileBroadbandDeviceServiceCommandSession2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandSession2'
+    _iid_ = Guid('{ef004861-2546-5739-86e7-0fdc0e62411c}')
+    @winrt_commethod(6)
+    def add_CommandReceived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandSession, win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_CommandReceived(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    CommandReceived = event()
 class IMobileBroadbandDeviceServiceDataReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceDataReceivedEventArgs'
@@ -1829,6 +1854,19 @@ class INetworkOperatorTetheringAccessPointConfiguration2(ComPtr):
     @winrt_commethod(9)
     def put_Band(self, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand) -> Void: ...
     Band = property(get_Band, put_Band)
+class INetworkOperatorTetheringAccessPointConfiguration3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration3'
+    _iid_ = Guid('{a9bb0081-9eed-5d18-b676-24b74a182b8c}')
+    @winrt_commethod(6)
+    def IsAuthenticationKindSupported(self, authenticationKind: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> Boolean: ...
+    @winrt_commethod(7)
+    def IsAuthenticationKindSupportedAsync(self, authenticationKind: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_commethod(8)
+    def get_AuthenticationKind(self) -> win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind: ...
+    @winrt_commethod(9)
+    def put_AuthenticationKind(self, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> Void: ...
+    AuthenticationKind = property(get_AuthenticationKind, put_AuthenticationKind)
 class INetworkOperatorTetheringClient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringClient'
@@ -1872,6 +1910,12 @@ class INetworkOperatorTetheringManager(ComPtr):
     ClientCount = property(get_ClientCount, None)
     MaxClientCount = property(get_MaxClientCount, None)
     TetheringOperationalState = property(get_TetheringOperationalState, None)
+class INetworkOperatorTetheringManager2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringManager2'
+    _iid_ = Guid('{7c1a4df2-b789-4fea-bc4e-1f2b9e76c1f7}')
+    @winrt_commethod(6)
+    def StartTetheringAsync(self, configuration: win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringOperationResult]: ...
 class INetworkOperatorTetheringManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics'
@@ -1918,6 +1962,43 @@ class INetworkOperatorTetheringOperationResult(ComPtr):
     def get_AdditionalErrorMessage(self) -> WinRT_String: ...
     AdditionalErrorMessage = property(get_AdditionalErrorMessage, None)
     Status = property(get_Status, None)
+class INetworkOperatorTetheringSessionAccessPointConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration'
+    _iid_ = Guid('{0bcc1104-34b7-5212-858c-59d97404920a}')
+    @winrt_commethod(6)
+    def get_Ssid(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_Ssid(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_Passphrase(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_Passphrase(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(10)
+    def IsBandSupported(self, band: win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand) -> Boolean: ...
+    @winrt_commethod(11)
+    def IsBandSupportedAsync(self, band: win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_commethod(12)
+    def get_Band(self) -> win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand: ...
+    @winrt_commethod(13)
+    def put_Band(self, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand) -> Void: ...
+    @winrt_commethod(14)
+    def IsAuthenticationKindSupported(self, authenticationKind: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> Boolean: ...
+    @winrt_commethod(15)
+    def IsAuthenticationKindSupportedAsync(self, authenticationKind: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_commethod(16)
+    def get_AuthenticationKind(self) -> win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind: ...
+    @winrt_commethod(17)
+    def put_AuthenticationKind(self, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> Void: ...
+    @winrt_commethod(18)
+    def get_PerformancePriority(self) -> win32more.Windows.Networking.NetworkOperators.TetheringWiFiPerformancePriority: ...
+    @winrt_commethod(19)
+    def put_PerformancePriority(self, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiPerformancePriority) -> Void: ...
+    AuthenticationKind = property(get_AuthenticationKind, put_AuthenticationKind)
+    Band = property(get_Band, put_Band)
+    Passphrase = property(get_Passphrase, put_Passphrase)
+    PerformancePriority = property(get_PerformancePriority, put_PerformancePriority)
+    Ssid = property(get_Ssid, put_Ssid)
 class IProvisionFromXmlDocumentResults(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IProvisionFromXmlDocumentResults'
@@ -2494,6 +2575,22 @@ class MobileBroadbandDeviceService(ComPtr):
     def OpenCommandSession(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceService) -> win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandSession: ...
     DeviceServiceId = property(get_DeviceServiceId, None)
     SupportedCommands = property(get_SupportedCommands, None)
+class MobileBroadbandDeviceServiceCommandEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandEventArgs
+    _classid_ = 'Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandEventArgs'
+    @winrt_mixinmethod
+    def get_DeviceId(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_DeviceServiceId(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandEventArgs) -> Guid: ...
+    @winrt_mixinmethod
+    def get_EventId(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandEventArgs) -> UInt32: ...
+    @winrt_mixinmethod
+    def get_ReceivedData(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandEventArgs) -> win32more.Windows.Storage.Streams.IBuffer: ...
+    DeviceId = property(get_DeviceId, None)
+    DeviceServiceId = property(get_DeviceServiceId, None)
+    EventId = property(get_EventId, None)
+    ReceivedData = property(get_ReceivedData, None)
 class MobileBroadbandDeviceServiceCommandResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandResult
@@ -2514,6 +2611,11 @@ class MobileBroadbandDeviceServiceCommandSession(ComPtr):
     def SendSetCommandAsync(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandSession, commandId: UInt32, data: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandResult]: ...
     @winrt_mixinmethod
     def CloseSession(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandSession) -> Void: ...
+    @winrt_mixinmethod
+    def add_CommandReceived(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandSession2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandSession, win32more.Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_CommandReceived(self: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceCommandSession2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    CommandReceived = event()
 class MobileBroadbandDeviceServiceDataReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandDeviceServiceDataReceivedEventArgs
@@ -3118,6 +3220,15 @@ class NetworkOperatorTetheringAccessPointConfiguration(ComPtr):
     def get_Band(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration2) -> win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand: ...
     @winrt_mixinmethod
     def put_Band(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration2, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand) -> Void: ...
+    @winrt_mixinmethod
+    def IsAuthenticationKindSupported(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration3, authenticationKind: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> Boolean: ...
+    @winrt_mixinmethod
+    def IsAuthenticationKindSupportedAsync(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration3, authenticationKind: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_mixinmethod
+    def get_AuthenticationKind(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration3) -> win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind: ...
+    @winrt_mixinmethod
+    def put_AuthenticationKind(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration3, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> Void: ...
+    AuthenticationKind = property(get_AuthenticationKind, put_AuthenticationKind)
     Band = property(get_Band, put_Band)
     Passphrase = property(get_Passphrase, put_Passphrase)
     Ssid = property(get_Ssid, put_Ssid)
@@ -3145,12 +3256,16 @@ class NetworkOperatorTetheringManager(ComPtr):
     def GetCurrentAccessPointConfiguration(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringManager) -> win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration: ...
     @winrt_mixinmethod
     def ConfigureAccessPointAsync(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringManager, configuration: win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_overload
     @winrt_mixinmethod
     def StartTetheringAsync(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringManager) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringOperationResult]: ...
     @winrt_mixinmethod
     def StopTetheringAsync(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringManager) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringOperationResult]: ...
     @winrt_mixinmethod
     def GetTetheringClients(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringClientManager) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringClient]: ...
+    @StartTetheringAsync.register
+    @winrt_mixinmethod
+    def StartTetheringAsync(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringManager2, configuration: win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringOperationResult]: ...
     @winrt_classmethod
     def IsNoConnectionsTimeoutEnabled(cls: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics4) -> Boolean: ...
     @winrt_classmethod
@@ -3184,6 +3299,52 @@ class NetworkOperatorTetheringOperationResult(ComPtr):
     def get_AdditionalErrorMessage(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringOperationResult) -> WinRT_String: ...
     AdditionalErrorMessage = property(get_AdditionalErrorMessage, None)
     Status = property(get_Status, None)
+class NetworkOperatorTetheringSessionAccessPointConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration
+    _classid_ = 'Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration'
+    def __new__(cls, *args, **kwargs):
+        if kwargs:
+            return super().__new__(cls, **kwargs)
+        elif len(args) == 0:
+            return win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration.CreateInstance(*args)
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration: ...
+    @winrt_mixinmethod
+    def get_Ssid(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Ssid(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Passphrase(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Passphrase(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def IsBandSupported(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration, band: win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand) -> Boolean: ...
+    @winrt_mixinmethod
+    def IsBandSupportedAsync(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration, band: win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_mixinmethod
+    def get_Band(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration) -> win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand: ...
+    @winrt_mixinmethod
+    def put_Band(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiBand) -> Void: ...
+    @winrt_mixinmethod
+    def IsAuthenticationKindSupported(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration, authenticationKind: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> Boolean: ...
+    @winrt_mixinmethod
+    def IsAuthenticationKindSupportedAsync(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration, authenticationKind: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_mixinmethod
+    def get_AuthenticationKind(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration) -> win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind: ...
+    @winrt_mixinmethod
+    def put_AuthenticationKind(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiAuthenticationKind) -> Void: ...
+    @winrt_mixinmethod
+    def get_PerformancePriority(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration) -> win32more.Windows.Networking.NetworkOperators.TetheringWiFiPerformancePriority: ...
+    @winrt_mixinmethod
+    def put_PerformancePriority(self: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration, value: win32more.Windows.Networking.NetworkOperators.TetheringWiFiPerformancePriority) -> Void: ...
+    AuthenticationKind = property(get_AuthenticationKind, put_AuthenticationKind)
+    Band = property(get_Band, put_Band)
+    Passphrase = property(get_Passphrase, put_Passphrase)
+    PerformancePriority = property(get_PerformancePriority, put_PerformancePriority)
+    Ssid = property(get_Ssid, put_Ssid)
 NetworkOperatorsFdnContract: UInt32 = 65536
 class NetworkRegistrationState(Enum, Int32):
     None_ = 0
@@ -3266,15 +3427,26 @@ class TetheringOperationStatus(Enum, Int32):
     OperationInProgress = 6
     BluetoothDeviceOff = 7
     NetworkLimitedConnectivity = 8
+    AlreadyOn = 9
+    RadioRestriction = 10
+    BandInterference = 11
 class TetheringOperationalState(Enum, Int32):
     Unknown = 0
     On = 1
     Off = 2
     InTransition = 3
+class TetheringWiFiAuthenticationKind(Enum, Int32):
+    Wpa2 = 0
+    Wpa3TransitionMode = 1
+    Wpa3 = 2
 class TetheringWiFiBand(Enum, Int32):
     Auto = 0
     TwoPointFourGigahertz = 1
     FiveGigahertz = 2
+    SixGigahertz = 3
+class TetheringWiFiPerformancePriority(Enum, Int32):
+    Default = 0
+    TetheringOverStation = 1
 class UiccAccessCondition(Enum, Int32):
     AlwaysAllowed = 0
     Pin1 = 1

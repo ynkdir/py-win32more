@@ -10,8 +10,24 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Printing.PrintSupport
 import win32more.Windows.Graphics.Printing.PrintTicket
 import win32more.Windows.System
+import win32more.Windows.UI
 import win32more.Windows.UI.Shell
 import win32more.Windows.Win32.System.WinRT
+class IPrintSupportCommunicationErrorDetectedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportCommunicationErrorDetectedEventArgs'
+    _iid_ = Guid('{9c90151e-ad1b-5081-a491-4a2d94244f2d}')
+    @winrt_commethod(6)
+    def get_ErrorKind(self) -> win32more.Windows.Graphics.Printing.PrintSupport.IppCommunicationErrorKind: ...
+    @winrt_commethod(7)
+    def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
+    @winrt_commethod(8)
+    def get_CommunicationConfiguration(self) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationConfiguration: ...
+    @winrt_commethod(9)
+    def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
+    CommunicationConfiguration = property(get_CommunicationConfiguration, None)
+    ErrorKind = property(get_ErrorKind, None)
+    ExtendedError = property(get_ExtendedError, None)
 class IPrintSupportExtensionSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession'
@@ -40,6 +56,15 @@ class IPrintSupportExtensionSession2(ComPtr):
     @winrt_commethod(7)
     def remove_PrinterSelected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PrinterSelected = event()
+class IPrintSupportExtensionSession3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession3'
+    _iid_ = Guid('{0d1b755d-1273-5e14-81d3-b6bb582b9ed8}')
+    @winrt_commethod(6)
+    def add_CommunicationErrorDetected(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession, win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportCommunicationErrorDetectedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_CommunicationErrorDetected(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    CommunicationErrorDetected = event()
 class IPrintSupportExtensionTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionTriggerDetails'
@@ -47,6 +72,80 @@ class IPrintSupportExtensionTriggerDetails(ComPtr):
     @winrt_commethod(6)
     def get_Session(self) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession: ...
     Session = property(get_Session, None)
+class IPrintSupportIppCommunicationConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationConfiguration'
+    _iid_ = Guid('{dbc36e0b-2d90-53b9-90d2-93faf30dafdd}')
+    @winrt_commethod(6)
+    def get_CommunicationKind(self) -> win32more.Windows.Graphics.Printing.PrintSupport.IppPrinterCommunicationKind: ...
+    @winrt_commethod(7)
+    def get_CanModifyTimeouts(self) -> Boolean: ...
+    @winrt_commethod(8)
+    def get_IppAttributeTimeouts(self) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationTimeouts: ...
+    @winrt_commethod(9)
+    def get_IppJobTimeouts(self) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationTimeouts: ...
+    CanModifyTimeouts = property(get_CanModifyTimeouts, None)
+    CommunicationKind = property(get_CommunicationKind, None)
+    IppAttributeTimeouts = property(get_IppAttributeTimeouts, None)
+    IppJobTimeouts = property(get_IppJobTimeouts, None)
+class IPrintSupportIppCommunicationTimeouts(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationTimeouts'
+    _iid_ = Guid('{a3b2de71-564c-5806-a1a9-c6043ca5d373}')
+    @winrt_commethod(6)
+    def get_ConnectTimeout(self) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_commethod(7)
+    def put_ConnectTimeout(self, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_commethod(8)
+    def get_SendTimeout(self) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_commethod(9)
+    def put_SendTimeout(self, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_commethod(10)
+    def get_ReceiveTimeout(self) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_commethod(11)
+    def put_ReceiveTimeout(self, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    ConnectTimeout = property(get_ConnectTimeout, put_ConnectTimeout)
+    ReceiveTimeout = property(get_ReceiveTimeout, put_ReceiveTimeout)
+    SendTimeout = property(get_SendTimeout, put_SendTimeout)
+class IPrintSupportMxdcImageQualityConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration'
+    _iid_ = Guid('{0e0d0b86-d202-58a3-a1ed-2ef9dbc0f291}')
+    @winrt_commethod(6)
+    def get_NormalOutputQuality(self) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_commethod(7)
+    def put_NormalOutputQuality(self, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_commethod(8)
+    def get_DraftOutputQuality(self) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_commethod(9)
+    def put_DraftOutputQuality(self, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_commethod(10)
+    def get_HighOutputQuality(self) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_commethod(11)
+    def put_HighOutputQuality(self, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_commethod(12)
+    def get_PhotographicOutputQuality(self) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_commethod(13)
+    def put_PhotographicOutputQuality(self, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_commethod(14)
+    def get_TextOutputQuality(self) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_commethod(15)
+    def put_TextOutputQuality(self, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_commethod(16)
+    def get_AutomaticOutputQuality(self) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_commethod(17)
+    def put_AutomaticOutputQuality(self, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_commethod(18)
+    def get_FaxOutputQuality(self) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_commethod(19)
+    def put_FaxOutputQuality(self, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    AutomaticOutputQuality = property(get_AutomaticOutputQuality, put_AutomaticOutputQuality)
+    DraftOutputQuality = property(get_DraftOutputQuality, put_DraftOutputQuality)
+    FaxOutputQuality = property(get_FaxOutputQuality, put_FaxOutputQuality)
+    HighOutputQuality = property(get_HighOutputQuality, put_HighOutputQuality)
+    NormalOutputQuality = property(get_NormalOutputQuality, put_NormalOutputQuality)
+    PhotographicOutputQuality = property(get_PhotographicOutputQuality, put_PhotographicOutputQuality)
+    TextOutputQuality = property(get_TextOutputQuality, put_TextOutputQuality)
 class IPrintSupportPrintDeviceCapabilitiesChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs'
@@ -72,6 +171,20 @@ class IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2(ComPtr):
     @winrt_commethod(10)
     def SetPrintDeviceCapabilitiesUpdatePolicy(self, updatePolicy: win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy) -> Void: ...
     ResourceLanguage = property(get_ResourceLanguage, None)
+class IPrintSupportPrintDeviceCapabilitiesChangedEventArgs3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs3'
+    _iid_ = Guid('{d4e9b3fc-8094-5cb6-a343-ce7a97187b45}')
+    @winrt_commethod(6)
+    def get_CommunicationConfiguration(self) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationConfiguration: ...
+    CommunicationConfiguration = property(get_CommunicationConfiguration, None)
+class IPrintSupportPrintDeviceCapabilitiesChangedEventArgs4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs4'
+    _iid_ = Guid('{31734ad5-9bfb-5bfb-bdef-8476258e3390}')
+    @winrt_commethod(6)
+    def get_MxdcImageQualityConfiguration(self) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportMxdcImageQualityConfiguration: ...
+    MxdcImageQualityConfiguration = property(get_MxdcImageQualityConfiguration, None)
 class IPrintSupportPrintDeviceCapabilitiesUpdatePolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesUpdatePolicy'
@@ -151,6 +264,13 @@ class IPrintSupportSettingsActivatedEventArgs(ComPtr):
     @winrt_commethod(7)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Session = property(get_Session, None)
+class IPrintSupportSettingsActivatedEventArgs2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportSettingsActivatedEventArgs2'
+    _iid_ = Guid('{abe45f6e-dc9d-5403-8107-c864d9276367}')
+    @winrt_commethod(6)
+    def get_OwnerWindowId(self) -> win32more.Windows.UI.WindowId: ...
+    OwnerWindowId = property(get_OwnerWindowId, None)
 class IPrintSupportSettingsUISession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportSettingsUISession'
@@ -169,6 +289,32 @@ class IPrintSupportSettingsUISession(ComPtr):
     LaunchKind = property(get_LaunchKind, None)
     SessionInfo = property(get_SessionInfo, None)
     SessionPrintTicket = property(get_SessionPrintTicket, None)
+class IppCommunicationErrorKind(Enum, Int32):
+    Other = 0
+    Timeout = 1
+    ConnectionError = 2
+    AccessDenied = 3
+class IppPrinterCommunicationKind(Enum, Int32):
+    Network = 0
+    Usb = 1
+    PrinterConnection = 2
+    UniversalPrint = 3
+    VirtualPrinter = 4
+class PrintSupportCommunicationErrorDetectedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportCommunicationErrorDetectedEventArgs
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.PrintSupportCommunicationErrorDetectedEventArgs'
+    @winrt_mixinmethod
+    def get_ErrorKind(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportCommunicationErrorDetectedEventArgs) -> win32more.Windows.Graphics.Printing.PrintSupport.IppCommunicationErrorKind: ...
+    @winrt_mixinmethod
+    def get_ExtendedError(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportCommunicationErrorDetectedEventArgs) -> win32more.Windows.Foundation.HResult: ...
+    @winrt_mixinmethod
+    def get_CommunicationConfiguration(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportCommunicationErrorDetectedEventArgs) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationConfiguration: ...
+    @winrt_mixinmethod
+    def GetDeferral(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportCommunicationErrorDetectedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
+    CommunicationConfiguration = property(get_CommunicationConfiguration, None)
+    ErrorKind = property(get_ErrorKind, None)
+    ExtendedError = property(get_ExtendedError, None)
 class PrintSupportExtensionSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession
@@ -189,10 +335,15 @@ class PrintSupportExtensionSession(ComPtr):
     def add_PrinterSelected(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession, win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PrinterSelected(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_CommunicationErrorDetected(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession3, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession, win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportCommunicationErrorDetectedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_CommunicationErrorDetected(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Printer = property(get_Printer, None)
     PrintTicketValidationRequested = event()
     PrintDeviceCapabilitiesChanged = event()
     PrinterSelected = event()
+    CommunicationErrorDetected = event()
 class PrintSupportExtensionTriggerDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionTriggerDetails
@@ -200,6 +351,80 @@ class PrintSupportExtensionTriggerDetails(ComPtr):
     @winrt_mixinmethod
     def get_Session(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionTriggerDetails) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession: ...
     Session = property(get_Session, None)
+class PrintSupportIppCommunicationConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationConfiguration
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationConfiguration'
+    @winrt_mixinmethod
+    def get_CommunicationKind(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.IppPrinterCommunicationKind: ...
+    @winrt_mixinmethod
+    def get_CanModifyTimeouts(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationConfiguration) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_IppAttributeTimeouts(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationTimeouts: ...
+    @winrt_mixinmethod
+    def get_IppJobTimeouts(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationTimeouts: ...
+    CanModifyTimeouts = property(get_CanModifyTimeouts, None)
+    CommunicationKind = property(get_CommunicationKind, None)
+    IppAttributeTimeouts = property(get_IppAttributeTimeouts, None)
+    IppJobTimeouts = property(get_IppJobTimeouts, None)
+class PrintSupportIppCommunicationTimeouts(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationTimeouts
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationTimeouts'
+    @winrt_mixinmethod
+    def get_ConnectTimeout(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationTimeouts) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_mixinmethod
+    def put_ConnectTimeout(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationTimeouts, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_mixinmethod
+    def get_SendTimeout(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationTimeouts) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_mixinmethod
+    def put_SendTimeout(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationTimeouts, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_mixinmethod
+    def get_ReceiveTimeout(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationTimeouts) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_mixinmethod
+    def put_ReceiveTimeout(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportIppCommunicationTimeouts, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    ConnectTimeout = property(get_ConnectTimeout, put_ConnectTimeout)
+    ReceiveTimeout = property(get_ReceiveTimeout, put_ReceiveTimeout)
+    SendTimeout = property(get_SendTimeout, put_SendTimeout)
+class PrintSupportMxdcImageQualityConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.PrintSupportMxdcImageQualityConfiguration'
+    @winrt_mixinmethod
+    def get_NormalOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_mixinmethod
+    def put_NormalOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_mixinmethod
+    def get_DraftOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_mixinmethod
+    def put_DraftOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_mixinmethod
+    def get_HighOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_mixinmethod
+    def put_HighOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_mixinmethod
+    def get_PhotographicOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_mixinmethod
+    def put_PhotographicOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_mixinmethod
+    def get_TextOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_mixinmethod
+    def put_TextOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_mixinmethod
+    def get_AutomaticOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_mixinmethod
+    def put_AutomaticOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    @winrt_mixinmethod
+    def get_FaxOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration) -> win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality: ...
+    @winrt_mixinmethod
+    def put_FaxOutputQuality(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportMxdcImageQualityConfiguration, value: win32more.Windows.Graphics.Printing.PrintSupport.XpsImageQuality) -> Void: ...
+    AutomaticOutputQuality = property(get_AutomaticOutputQuality, put_AutomaticOutputQuality)
+    DraftOutputQuality = property(get_DraftOutputQuality, put_DraftOutputQuality)
+    FaxOutputQuality = property(get_FaxOutputQuality, put_FaxOutputQuality)
+    HighOutputQuality = property(get_HighOutputQuality, put_HighOutputQuality)
+    NormalOutputQuality = property(get_NormalOutputQuality, put_NormalOutputQuality)
+    PhotographicOutputQuality = property(get_PhotographicOutputQuality, put_PhotographicOutputQuality)
+    TextOutputQuality = property(get_TextOutputQuality, put_TextOutputQuality)
 class PrintSupportPrintDeviceCapabilitiesChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs
@@ -220,6 +445,12 @@ class PrintSupportPrintDeviceCapabilitiesChangedEventArgs(ComPtr):
     def UpdatePrintDeviceResources(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2, updatedPdr: win32more.Windows.Data.Xml.Dom.XmlDocument) -> Void: ...
     @winrt_mixinmethod
     def SetPrintDeviceCapabilitiesUpdatePolicy(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2, updatePolicy: win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesUpdatePolicy) -> Void: ...
+    @winrt_mixinmethod
+    def get_CommunicationConfiguration(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs3) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportIppCommunicationConfiguration: ...
+    @winrt_mixinmethod
+    def get_MxdcImageQualityConfiguration(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs4) -> win32more.Windows.Graphics.Printing.PrintSupport.PrintSupportMxdcImageQualityConfiguration: ...
+    CommunicationConfiguration = property(get_CommunicationConfiguration, None)
+    MxdcImageQualityConfiguration = property(get_MxdcImageQualityConfiguration, None)
     ResourceLanguage = property(get_ResourceLanguage, None)
 class PrintSupportPrintDeviceCapabilitiesUpdatePolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -305,6 +536,8 @@ class PrintSupportSettingsActivatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportSettingsActivatedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     @winrt_mixinmethod
+    def get_OwnerWindowId(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportSettingsActivatedEventArgs2) -> win32more.Windows.UI.WindowId: ...
+    @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ActivationKind: ...
     @winrt_mixinmethod
     def get_PreviousExecutionState(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgs) -> win32more.Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
@@ -313,6 +546,7 @@ class PrintSupportSettingsActivatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_User(self: win32more.Windows.ApplicationModel.Activation.IActivatedEventArgsWithUser) -> win32more.Windows.System.User: ...
     Kind = property(get_Kind, None)
+    OwnerWindowId = property(get_OwnerWindowId, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     Session = property(get_Session, None)
     SplashScreen = property(get_SplashScreen, None)
@@ -342,6 +576,11 @@ class WorkflowPrintTicketValidationStatus(Enum, Int32):
     Resolved = 0
     Conflicting = 1
     Invalid = 2
+class XpsImageQuality(Enum, Int32):
+    JpegHighCompression = 0
+    JpegMediumCompression = 1
+    JpegLowCompression = 2
+    Png = 3
 
 
 make_ready(__name__)

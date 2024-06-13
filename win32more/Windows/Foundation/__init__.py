@@ -673,7 +673,7 @@ class TypedEventHandler(Generic[TSender, TResult], MulticastDelegate):
     _piid_ = Guid('{9de1c534-6ae1-11e0-84e1-18a905bcc53f}')
     @winrt_commethod(3)
     def Invoke(self, sender: TSender, args: TResult) -> Void: ...
-UniversalApiContract: UInt32 = 983040
+UniversalApiContract: UInt32 = 1245184
 class Uri(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.IUriRuntimeClass

@@ -2,6 +2,7 @@ from __future__ import annotations
 from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
+import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics
 import win32more.Windows.Graphics.Capture
 import win32more.Windows.Graphics.DirectX
@@ -22,8 +23,14 @@ class Direct3D11CaptureFrame(ComPtr):
     @winrt_mixinmethod
     def get_ContentSize(self: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFrame) -> win32more.Windows.Graphics.SizeInt32: ...
     @winrt_mixinmethod
+    def get_DirtyRegions(self: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFrame2) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Graphics.RectInt32]: ...
+    @winrt_mixinmethod
+    def get_DirtyRegionMode(self: win32more.Windows.Graphics.Capture.IDirect3D11CaptureFrame2) -> win32more.Windows.Graphics.Capture.GraphicsCaptureDirtyRegionMode: ...
+    @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     ContentSize = property(get_ContentSize, None)
+    DirtyRegionMode = property(get_DirtyRegionMode, None)
+    DirtyRegions = property(get_DirtyRegions, None)
     Surface = property(get_Surface, None)
     SystemRelativeTime = property(get_SystemRelativeTime, None)
 class Direct3D11CaptureFramePool(ComPtr):
@@ -58,6 +65,9 @@ class GraphicsCaptureAccess(ComPtr):
 class GraphicsCaptureAccessKind(Enum, Int32):
     Borderless = 0
     Programmatic = 1
+class GraphicsCaptureDirtyRegionMode(Enum, Int32):
+    ReportOnly = 0
+    ReportAndRender = 1
 class GraphicsCaptureItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Capture.IGraphicsCaptureItem
@@ -109,11 +119,26 @@ class GraphicsCaptureSession(ComPtr):
     @winrt_mixinmethod
     def put_IsBorderRequired(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureSession3, value: Boolean) -> Void: ...
     @winrt_mixinmethod
+    def get_DirtyRegionMode(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureSession4) -> win32more.Windows.Graphics.Capture.GraphicsCaptureDirtyRegionMode: ...
+    @winrt_mixinmethod
+    def put_DirtyRegionMode(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureSession4, value: win32more.Windows.Graphics.Capture.GraphicsCaptureDirtyRegionMode) -> Void: ...
+    @winrt_mixinmethod
+    def get_MinUpdateInterval(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureSession5) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_mixinmethod
+    def put_MinUpdateInterval(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureSession5, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_mixinmethod
+    def get_IncludeSecondaryWindows(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureSession6) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_IncludeSecondaryWindows(self: win32more.Windows.Graphics.Capture.IGraphicsCaptureSession6, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
     def IsSupported(cls: win32more.Windows.Graphics.Capture.IGraphicsCaptureSessionStatics) -> Boolean: ...
+    DirtyRegionMode = property(get_DirtyRegionMode, put_DirtyRegionMode)
+    IncludeSecondaryWindows = property(get_IncludeSecondaryWindows, put_IncludeSecondaryWindows)
     IsBorderRequired = property(get_IsBorderRequired, put_IsBorderRequired)
     IsCursorCaptureEnabled = property(get_IsCursorCaptureEnabled, put_IsCursorCaptureEnabled)
+    MinUpdateInterval = property(get_MinUpdateInterval, put_MinUpdateInterval)
 class IDirect3D11CaptureFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Capture.IDirect3D11CaptureFrame'
@@ -127,6 +152,16 @@ class IDirect3D11CaptureFrame(ComPtr):
     ContentSize = property(get_ContentSize, None)
     Surface = property(get_Surface, None)
     SystemRelativeTime = property(get_SystemRelativeTime, None)
+class IDirect3D11CaptureFrame2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IDirect3D11CaptureFrame2'
+    _iid_ = Guid('{37869cfa-2b48-5ebf-9afb-dffd805defdb}')
+    @winrt_commethod(6)
+    def get_DirtyRegions(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Graphics.RectInt32]: ...
+    @winrt_commethod(7)
+    def get_DirtyRegionMode(self) -> win32more.Windows.Graphics.Capture.GraphicsCaptureDirtyRegionMode: ...
+    DirtyRegionMode = property(get_DirtyRegionMode, None)
+    DirtyRegions = property(get_DirtyRegions, None)
 class IDirect3D11CaptureFramePool(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Capture.IDirect3D11CaptureFramePool'
@@ -222,6 +257,33 @@ class IGraphicsCaptureSession3(ComPtr):
     @winrt_commethod(7)
     def put_IsBorderRequired(self, value: Boolean) -> Void: ...
     IsBorderRequired = property(get_IsBorderRequired, put_IsBorderRequired)
+class IGraphicsCaptureSession4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureSession4'
+    _iid_ = Guid('{ae99813c-c257-5759-8ed0-668c9b557ed4}')
+    @winrt_commethod(6)
+    def get_DirtyRegionMode(self) -> win32more.Windows.Graphics.Capture.GraphicsCaptureDirtyRegionMode: ...
+    @winrt_commethod(7)
+    def put_DirtyRegionMode(self, value: win32more.Windows.Graphics.Capture.GraphicsCaptureDirtyRegionMode) -> Void: ...
+    DirtyRegionMode = property(get_DirtyRegionMode, put_DirtyRegionMode)
+class IGraphicsCaptureSession5(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureSession5'
+    _iid_ = Guid('{67c0ea62-1f85-5061-925a-239be0ac09cb}')
+    @winrt_commethod(6)
+    def get_MinUpdateInterval(self) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_commethod(7)
+    def put_MinUpdateInterval(self, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    MinUpdateInterval = property(get_MinUpdateInterval, put_MinUpdateInterval)
+class IGraphicsCaptureSession6(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureSession6'
+    _iid_ = Guid('{d7419236-be20-5e9f-bcd6-c4e98fd6afdc}')
+    @winrt_commethod(6)
+    def get_IncludeSecondaryWindows(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_IncludeSecondaryWindows(self, value: Boolean) -> Void: ...
+    IncludeSecondaryWindows = property(get_IncludeSecondaryWindows, put_IncludeSecondaryWindows)
 class IGraphicsCaptureSessionStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Graphics.Capture.IGraphicsCaptureSessionStatics'

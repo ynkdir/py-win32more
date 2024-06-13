@@ -435,7 +435,7 @@ class IsolatedWindowsEnvironmentClipboardCopyPasteDirections(Enum, UInt32):
     None_ = 0
     HostToIsolatedWindowsEnvironment = 1
     IsolatedWindowsEnvironmentToHost = 2
-IsolatedWindowsEnvironmentContract: UInt32 = 262144
+IsolatedWindowsEnvironmentContract: UInt32 = 327680
 class IsolatedWindowsEnvironmentCreateProgress(Structure):
     State: win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentProgressState
     PercentComplete: UInt32

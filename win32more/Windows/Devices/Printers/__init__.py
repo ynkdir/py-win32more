@@ -5,6 +5,7 @@ import win32more.Windows.Devices.Printers
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Printing
+import win32more.Windows.Graphics.Printing.PrintTicket
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
 class IIppAttributeError(ComPtr):
@@ -190,6 +191,32 @@ class IIppPrintDevice2(ComPtr):
     def IsPdlPassthroughSupported(self, pdlContentType: WinRT_String) -> Boolean: ...
     @winrt_commethod(9)
     def GetPdlPassthroughProvider(self) -> win32more.Windows.Devices.Printers.PdlPassthroughProvider: ...
+class IIppPrintDevice3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppPrintDevice3'
+    _iid_ = Guid('{b6258f6d-a46d-5e37-80ce-5f69d5544712}')
+    @winrt_commethod(6)
+    def get_IsIppFaxOutPrinter(self) -> Boolean: ...
+    IsIppFaxOutPrinter = property(get_IsIppFaxOutPrinter, None)
+class IIppPrintDevice4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppPrintDevice4'
+    _iid_ = Guid('{8c48247e-e869-59fb-bc6d-daea0614f93e}')
+    @winrt_commethod(6)
+    def get_DeviceKind(self) -> win32more.Windows.Devices.Printers.IppPrintDeviceKind: ...
+    @winrt_commethod(7)
+    def get_CanModifyUserDefaultPrintTicket(self) -> Boolean: ...
+    @winrt_commethod(8)
+    def get_UserDefaultPrintTicket(self) -> win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket: ...
+    @winrt_commethod(9)
+    def put_UserDefaultPrintTicket(self, value: win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket) -> Void: ...
+    @winrt_commethod(10)
+    def RefreshPrintDeviceCapabilities(self) -> Void: ...
+    @winrt_commethod(11)
+    def GetMaxSupportedPdlVersion(self, pdlContentType: WinRT_String) -> WinRT_String: ...
+    CanModifyUserDefaultPrintTicket = property(get_CanModifyUserDefaultPrintTicket, None)
+    DeviceKind = property(get_DeviceKind, None)
+    UserDefaultPrintTicket = property(get_UserDefaultPrintTicket, put_UserDefaultPrintTicket)
 class IIppPrintDeviceStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.IIppPrintDeviceStatics'
@@ -512,6 +539,20 @@ class IppPrintDevice(ComPtr):
     def IsPdlPassthroughSupported(self: win32more.Windows.Devices.Printers.IIppPrintDevice2, pdlContentType: WinRT_String) -> Boolean: ...
     @winrt_mixinmethod
     def GetPdlPassthroughProvider(self: win32more.Windows.Devices.Printers.IIppPrintDevice2) -> win32more.Windows.Devices.Printers.PdlPassthroughProvider: ...
+    @winrt_mixinmethod
+    def get_IsIppFaxOutPrinter(self: win32more.Windows.Devices.Printers.IIppPrintDevice3) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_DeviceKind(self: win32more.Windows.Devices.Printers.IIppPrintDevice4) -> win32more.Windows.Devices.Printers.IppPrintDeviceKind: ...
+    @winrt_mixinmethod
+    def get_CanModifyUserDefaultPrintTicket(self: win32more.Windows.Devices.Printers.IIppPrintDevice4) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_UserDefaultPrintTicket(self: win32more.Windows.Devices.Printers.IIppPrintDevice4) -> win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket: ...
+    @winrt_mixinmethod
+    def put_UserDefaultPrintTicket(self: win32more.Windows.Devices.Printers.IIppPrintDevice4, value: win32more.Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket) -> Void: ...
+    @winrt_mixinmethod
+    def RefreshPrintDeviceCapabilities(self: win32more.Windows.Devices.Printers.IIppPrintDevice4) -> Void: ...
+    @winrt_mixinmethod
+    def GetMaxSupportedPdlVersion(self: win32more.Windows.Devices.Printers.IIppPrintDevice4, pdlContentType: WinRT_String) -> WinRT_String: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.Printers.IIppPrintDeviceStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -520,8 +561,16 @@ class IppPrintDevice(ComPtr):
     def FromPrinterName(cls: win32more.Windows.Devices.Printers.IIppPrintDeviceStatics, printerName: WinRT_String) -> win32more.Windows.Devices.Printers.IppPrintDevice: ...
     @winrt_classmethod
     def IsIppPrinter(cls: win32more.Windows.Devices.Printers.IIppPrintDeviceStatics, printerName: WinRT_String) -> Boolean: ...
+    CanModifyUserDefaultPrintTicket = property(get_CanModifyUserDefaultPrintTicket, None)
+    DeviceKind = property(get_DeviceKind, None)
+    IsIppFaxOutPrinter = property(get_IsIppFaxOutPrinter, None)
     PrinterName = property(get_PrinterName, None)
     PrinterUri = property(get_PrinterUri, None)
+    UserDefaultPrintTicket = property(get_UserDefaultPrintTicket, put_UserDefaultPrintTicket)
+class IppPrintDeviceKind(Enum, Int32):
+    Printer = 0
+    FaxOut = 1
+    VirtualPrinter = 2
 class IppResolution(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppResolution

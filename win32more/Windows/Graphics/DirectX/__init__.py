@@ -155,6 +155,7 @@ class DirectXPixelFormat(Enum, Int32):
     V408 = 132
     SamplerFeedbackMinMipOpaque = 189
     SamplerFeedbackMipRegionUsedOpaque = 190
+    A4B4G4R4 = 191
 class DirectXPrimitiveTopology(Enum, Int32):
     Undefined = 0
     PointList = 1

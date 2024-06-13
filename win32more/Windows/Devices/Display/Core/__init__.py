@@ -31,14 +31,20 @@ class DisplayAdapter(ComPtr):
     def get_PciRevision(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter) -> UInt32: ...
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_mixinmethod
+    def get_IsIndirectDisplayDevice(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter2) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_PreferredRenderAdapter(self: win32more.Windows.Devices.Display.Core.IDisplayAdapter2) -> win32more.Windows.Devices.Display.Core.DisplayAdapter: ...
     @winrt_classmethod
     def FromId(cls: win32more.Windows.Devices.Display.Core.IDisplayAdapterStatics, id: win32more.Windows.Graphics.DisplayAdapterId) -> win32more.Windows.Devices.Display.Core.DisplayAdapter: ...
     DeviceInterfacePath = property(get_DeviceInterfacePath, None)
     Id = property(get_Id, None)
+    IsIndirectDisplayDevice = property(get_IsIndirectDisplayDevice, None)
     PciDeviceId = property(get_PciDeviceId, None)
     PciRevision = property(get_PciRevision, None)
     PciSubSystemId = property(get_PciSubSystemId, None)
     PciVendorId = property(get_PciVendorId, None)
+    PreferredRenderAdapter = property(get_PreferredRenderAdapter, None)
     Properties = property(get_Properties, None)
     SourceCount = property(get_SourceCount, None)
 class DisplayBitsPerChannel(Enum, UInt32):
@@ -69,6 +75,9 @@ class DisplayDevice(ComPtr):
     def IsCapabilitySupported(self: win32more.Windows.Devices.Display.Core.IDisplayDevice, capability: win32more.Windows.Devices.Display.Core.DisplayDeviceCapability) -> Boolean: ...
     @winrt_mixinmethod
     def CreateSimpleScanoutWithDirtyRectsAndOptions(self: win32more.Windows.Devices.Display.Core.IDisplayDevice2, source: win32more.Windows.Devices.Display.Core.DisplaySource, surface: win32more.Windows.Devices.Display.Core.DisplaySurface, subresourceIndex: UInt32, syncInterval: UInt32, dirtyRects: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Graphics.RectInt32], options: win32more.Windows.Devices.Display.Core.DisplayScanoutOptions) -> win32more.Windows.Devices.Display.Core.DisplayScanout: ...
+    @winrt_mixinmethod
+    def get_RenderAdapterId(self: win32more.Windows.Devices.Display.Core.IDisplayDeviceRenderAdapter) -> win32more.Windows.Graphics.DisplayAdapterId: ...
+    RenderAdapterId = property(get_RenderAdapterId, None)
 class DisplayDeviceCapability(Enum, Int32):
     FlipOverride = 0
 class DisplayFence(ComPtr):
@@ -117,6 +126,10 @@ class DisplayManager(ComPtr):
     def Start(self: win32more.Windows.Devices.Display.Core.IDisplayManager) -> Void: ...
     @winrt_mixinmethod
     def Stop(self: win32more.Windows.Devices.Display.Core.IDisplayManager) -> Void: ...
+    @winrt_mixinmethod
+    def TryReadCurrentStateForModeQuery(self: win32more.Windows.Devices.Display.Core.IDisplayManager2) -> win32more.Windows.Devices.Display.Core.DisplayManagerResultWithState: ...
+    @winrt_mixinmethod
+    def CreateDisplayDeviceForIndirectAdapter(self: win32more.Windows.Devices.Display.Core.IDisplayManager3, indirectAdapter: win32more.Windows.Devices.Display.Core.DisplayAdapter, renderAdapter: win32more.Windows.Devices.Display.Core.DisplayAdapter) -> win32more.Windows.Devices.Display.Core.DisplayDevice: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
@@ -227,6 +240,42 @@ class DisplayModeInfo(ComPtr):
 class DisplayModeQueryOptions(Enum, UInt32):
     None_ = 0
     OnlyPreferredResolution = 1
+class DisplayMuxDevice(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice
+    _classid_ = 'Windows.Devices.Display.Core.DisplayMuxDevice'
+    @winrt_mixinmethod
+    def get_Id(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_IsActive(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> Boolean: ...
+    @winrt_mixinmethod
+    def GetAvailableMuxTargets(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Display.Core.DisplayTarget]: ...
+    @winrt_mixinmethod
+    def get_CurrentTarget(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> win32more.Windows.Devices.Display.Core.DisplayTarget: ...
+    @winrt_mixinmethod
+    def get_PreferredTarget(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> win32more.Windows.Devices.Display.Core.DisplayTarget: ...
+    @winrt_mixinmethod
+    def get_IsAutomaticTargetSwitchingEnabled(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> Boolean: ...
+    @winrt_mixinmethod
+    def SetPreferredTarget(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice, target: win32more.Windows.Devices.Display.Core.DisplayTarget) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_mixinmethod
+    def SetAutomaticTargetSwitching(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_mixinmethod
+    def add_Changed(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Display.Core.DisplayMuxDevice, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_Changed(self: win32more.Windows.Devices.Display.Core.IDisplayMuxDevice, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    @winrt_classmethod
+    def GetDeviceSelector(cls: win32more.Windows.Devices.Display.Core.IDisplayMuxDeviceStatics) -> WinRT_String: ...
+    @winrt_classmethod
+    def FromIdAsync(cls: win32more.Windows.Devices.Display.Core.IDisplayMuxDeviceStatics, deviceInterfaceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Display.Core.DisplayMuxDevice]: ...
+    CurrentTarget = property(get_CurrentTarget, None)
+    Id = property(get_Id, None)
+    IsActive = property(get_IsActive, None)
+    IsAutomaticTargetSwitchingEnabled = property(get_IsAutomaticTargetSwitchingEnabled, None)
+    PreferredTarget = property(get_PreferredTarget, None)
+    Changed = event()
 class DisplayPath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayPath
@@ -644,6 +693,16 @@ class IDisplayAdapter(ComPtr):
     PciVendorId = property(get_PciVendorId, None)
     Properties = property(get_Properties, None)
     SourceCount = property(get_SourceCount, None)
+class IDisplayAdapter2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayAdapter2'
+    _iid_ = Guid('{9ab49b18-b3c7-5546-8374-a9127111edd8}')
+    @winrt_commethod(6)
+    def get_IsIndirectDisplayDevice(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def get_PreferredRenderAdapter(self) -> win32more.Windows.Devices.Display.Core.DisplayAdapter: ...
+    IsIndirectDisplayDevice = property(get_IsIndirectDisplayDevice, None)
+    PreferredRenderAdapter = property(get_PreferredRenderAdapter, None)
 class IDisplayAdapterStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayAdapterStatics'
@@ -674,6 +733,13 @@ class IDisplayDevice2(ComPtr):
     _iid_ = Guid('{3fefe50c-0940-54bd-a02f-f9c7a536ad60}')
     @winrt_commethod(6)
     def CreateSimpleScanoutWithDirtyRectsAndOptions(self, source: win32more.Windows.Devices.Display.Core.DisplaySource, surface: win32more.Windows.Devices.Display.Core.DisplaySurface, subresourceIndex: UInt32, syncInterval: UInt32, dirtyRects: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Graphics.RectInt32], options: win32more.Windows.Devices.Display.Core.DisplayScanoutOptions) -> win32more.Windows.Devices.Display.Core.DisplayScanout: ...
+class IDisplayDeviceRenderAdapter(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayDeviceRenderAdapter'
+    _iid_ = Guid('{41c86ce5-b18f-573f-9d59-70463115e4cc}')
+    @winrt_commethod(6)
+    def get_RenderAdapterId(self) -> win32more.Windows.Graphics.DisplayAdapterId: ...
+    RenderAdapterId = property(get_RenderAdapterId, None)
 class IDisplayFence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayFence'
@@ -724,6 +790,18 @@ class IDisplayManager(ComPtr):
     Disabled = event()
     Changed = event()
     PathsFailedOrInvalidated = event()
+class IDisplayManager2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayManager2'
+    _iid_ = Guid('{e001ec1e-7eb1-597f-9a30-14d3fe3714cd}')
+    @winrt_commethod(6)
+    def TryReadCurrentStateForModeQuery(self) -> win32more.Windows.Devices.Display.Core.DisplayManagerResultWithState: ...
+class IDisplayManager3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayManager3'
+    _iid_ = Guid('{6f14cb89-7f49-587d-93ce-77487cbcb530}')
+    @winrt_commethod(6)
+    def CreateDisplayDeviceForIndirectAdapter(self, indirectAdapter: win32more.Windows.Devices.Display.Core.DisplayAdapter, renderAdapter: win32more.Windows.Devices.Display.Core.DisplayAdapter) -> win32more.Windows.Devices.Display.Core.DisplayDevice: ...
 class IDisplayManagerChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayManagerChangedEventArgs'
@@ -823,6 +901,44 @@ class IDisplayModeInfo2(ComPtr):
     @winrt_commethod(6)
     def get_PhysicalPresentationRate(self) -> win32more.Windows.Devices.Display.Core.DisplayPresentationRate: ...
     PhysicalPresentationRate = property(get_PhysicalPresentationRate, None)
+class IDisplayMuxDevice(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayMuxDevice'
+    _iid_ = Guid('{d81c4925-83dd-52c9-ab4e-e0833fc75068}')
+    @winrt_commethod(6)
+    def get_Id(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_IsActive(self) -> Boolean: ...
+    @winrt_commethod(8)
+    def GetAvailableMuxTargets(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Display.Core.DisplayTarget]: ...
+    @winrt_commethod(9)
+    def get_CurrentTarget(self) -> win32more.Windows.Devices.Display.Core.DisplayTarget: ...
+    @winrt_commethod(10)
+    def get_PreferredTarget(self) -> win32more.Windows.Devices.Display.Core.DisplayTarget: ...
+    @winrt_commethod(11)
+    def get_IsAutomaticTargetSwitchingEnabled(self) -> Boolean: ...
+    @winrt_commethod(12)
+    def SetPreferredTarget(self, target: win32more.Windows.Devices.Display.Core.DisplayTarget) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(13)
+    def SetAutomaticTargetSwitching(self) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(14)
+    def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Display.Core.DisplayMuxDevice, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(15)
+    def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    CurrentTarget = property(get_CurrentTarget, None)
+    Id = property(get_Id, None)
+    IsActive = property(get_IsActive, None)
+    IsAutomaticTargetSwitchingEnabled = property(get_IsAutomaticTargetSwitchingEnabled, None)
+    PreferredTarget = property(get_PreferredTarget, None)
+    Changed = event()
+class IDisplayMuxDeviceStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Display.Core.IDisplayMuxDeviceStatics'
+    _iid_ = Guid('{7b37a64a-0465-53da-baee-70028480ced0}')
+    @winrt_commethod(6)
+    def GetDeviceSelector(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def FromIdAsync(self, deviceInterfaceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Display.Core.DisplayMuxDevice]: ...
 class IDisplayPath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Display.Core.IDisplayPath'

@@ -109,6 +109,32 @@ class AudioDeviceOutputNode(ComPtr):
     EncodingProperties = property(get_EncodingProperties, None)
     Listener = property(get_Listener, put_Listener)
     OutgoingGain = property(get_OutgoingGain, put_OutgoingGain)
+class AudioEffectsPackConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Media.Audio.IAudioEffectsPackConfiguration
+    _classid_ = 'Windows.Media.Audio.AudioEffectsPackConfiguration'
+    @winrt_mixinmethod
+    def get_DeviceId(self: win32more.Windows.Media.Audio.IAudioEffectsPackConfiguration) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_EffectsPackId(self: win32more.Windows.Media.Audio.IAudioEffectsPackConfiguration) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Status(self: win32more.Windows.Media.Audio.IAudioEffectsPackConfiguration) -> win32more.Windows.Media.Audio.AudioEffectsPackStatus: ...
+    @winrt_mixinmethod
+    def add_StatusChanged(self: win32more.Windows.Media.Audio.IAudioEffectsPackConfiguration, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioEffectsPackConfiguration, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_StatusChanged(self: win32more.Windows.Media.Audio.IAudioEffectsPackConfiguration, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def GetForDeviceId(cls: win32more.Windows.Media.Audio.IAudioEffectsPackConfigurationStatics, effectsPackId: WinRT_String, deviceId: WinRT_String) -> win32more.Windows.Media.Audio.AudioEffectsPackConfiguration: ...
+    @winrt_classmethod
+    def IsDeviceIdSupported(cls: win32more.Windows.Media.Audio.IAudioEffectsPackConfigurationStatics, effectsPackId: WinRT_String, deviceId: WinRT_String) -> Boolean: ...
+    DeviceId = property(get_DeviceId, None)
+    EffectsPackId = property(get_EffectsPackId, None)
+    Status = property(get_Status, None)
+    StatusChanged = event()
+class AudioEffectsPackStatus(Enum, Int32):
+    NotEnabled = 0
+    Enabled = 1
+    NotSupported = 2
 class AudioFileInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioFileInputNode
@@ -965,6 +991,32 @@ class IAudioDeviceOutputNode(ComPtr):
     @winrt_commethod(6)
     def get_Device(self) -> win32more.Windows.Devices.Enumeration.DeviceInformation: ...
     Device = property(get_Device, None)
+class IAudioEffectsPackConfiguration(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Audio.IAudioEffectsPackConfiguration'
+    _iid_ = Guid('{71d7627d-70c1-536c-a8f8-6f98015a7f06}')
+    @winrt_commethod(6)
+    def get_DeviceId(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_EffectsPackId(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_Status(self) -> win32more.Windows.Media.Audio.AudioEffectsPackStatus: ...
+    @winrt_commethod(9)
+    def add_StatusChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Audio.AudioEffectsPackConfiguration, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(10)
+    def remove_StatusChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    DeviceId = property(get_DeviceId, None)
+    EffectsPackId = property(get_EffectsPackId, None)
+    Status = property(get_Status, None)
+    StatusChanged = event()
+class IAudioEffectsPackConfigurationStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Audio.IAudioEffectsPackConfigurationStatics'
+    _iid_ = Guid('{61c20413-530c-55ff-ba2b-8e68a9b56a04}')
+    @winrt_commethod(6)
+    def GetForDeviceId(self, effectsPackId: WinRT_String, deviceId: WinRT_String) -> win32more.Windows.Media.Audio.AudioEffectsPackConfiguration: ...
+    @winrt_commethod(7)
+    def IsDeviceIdSupported(self, effectsPackId: WinRT_String, deviceId: WinRT_String) -> Boolean: ...
 class IAudioFileInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Audio.IAudioFileInputNode'
