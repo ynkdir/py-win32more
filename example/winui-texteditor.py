@@ -2,11 +2,10 @@ import re
 
 from win32more.asyncui import async_start_runner
 from win32more.Microsoft.UI.Xaml import FrameworkElement, Window
-from win32more.Microsoft.UI.Xaml.Controls import MenuFlyoutItem, TextBox
+from win32more.Microsoft.UI.Xaml.Controls import MenuFlyoutItem, TextBox, ContentDialog
 from win32more.Microsoft.UI.Xaml.Markup import XamlReader
 from win32more.Windows.Storage import FileIO
 from win32more.Windows.Storage.Pickers import FileOpenPicker, FileSavePicker
-from win32more.Windows.UI.Popups import MessageDialog
 from win32more.Windows.Win32.UI.Shell import IInitializeWithWindow
 from win32more.xaml import XamlApplication
 
@@ -179,9 +178,11 @@ class App(XamlApplication):
         return await picker.PickSaveFileAsync()
 
     async def _message_box(self, content, title):
-        hwnd = self._window.AppWindow.Id.Value
-        dialog = MessageDialog(content, title)
-        dialog.as_(IInitializeWithWindow).Initialize(hwnd)
+        dialog = ContentDialog()
+        dialog.XamlRoot = self._window.Content.as_(FrameworkElement).XamlRoot
+        dialog.Title = title
+        dialog.Content = content
+        dialog.CloseButtonText = "Ok"
         await dialog.ShowAsync()
 
 
