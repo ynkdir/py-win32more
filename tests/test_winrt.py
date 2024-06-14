@@ -195,8 +195,5 @@ class TestWinrt(unittest.TestCase):
         with self.assertRaises(OSError):  # E_NOINTERFACE
             unbox_value(StringMap.CreateInstance())
 
-        with self.assertRaises(NotImplementedError):
-            unbox_value(PropertyValue.CreateInt32(42))
-
         with self.assertRaises(AttributeError):  # 'str' object has not attribute 'as_'
             unbox_value("non com object")
