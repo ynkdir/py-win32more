@@ -142,14 +142,57 @@ def box_value(value: str) -> IInspectable:
     raise NotImplementedError(f"box_value: {type(value)}")
 
 
-def unbox_value(value: IInspectable) -> str:
+def unbox_value(value: IInspectable):
     from win32more.Windows.Foundation import IPropertyValue, PropertyType
 
     property_value = value.as_(IPropertyValue)
 
-    if property_value.Type == PropertyType.String:
-        return property_value.GetString()
-    raise NotImplementedError(f"unbox_value: {property_value.Type}")
+    getter = {
+        PropertyType.Empty: lambda: None,
+        PropertyType.UInt8: property_value.GetUInt8,
+        PropertyType.Int16: property_value.GetInt16,
+        PropertyType.UInt16: property_value.GetUInt16,
+        PropertyType.Int32: property_value.GetInt32,
+        PropertyType.UInt32: property_value.GetUInt32,
+        PropertyType.Int64: property_value.GetInt64,
+        PropertyType.UInt64: property_value.GetUInt64,
+        PropertyType.Single: property_value.GetSingle,
+        PropertyType.Double: property_value.GetDouble,
+        PropertyType.Char16: property_value.GetChar16,
+        PropertyType.Boolean: property_value.GetBoolean,
+        PropertyType.String: property_value.GetString,
+        PropertyType.Inspectable: lambda: value,
+        PropertyType.DateTime: property_value.GetDateTime,
+        PropertyType.TimeSpan: property_value.GetTimeSpan,
+        PropertyType.Guid: property_value.GetGuid,
+        PropertyType.Point: property_value.GetPoint,
+        PropertyType.Size: property_value.GetSize,
+        PropertyType.Rect: property_value.GetRect,
+        #PropertyType.OtherType: property_value.GetOtherType,
+        PropertyType.UInt8Array: property_value.GetUInt8Array,
+        PropertyType.Int16Array: property_value.GetInt16Array,
+        PropertyType.UInt16Array: property_value.GetUInt16Array,
+        PropertyType.Int32Array: property_value.GetInt32Array,
+        PropertyType.UInt32Array: property_value.GetUInt32Array,
+        PropertyType.Int64Array: property_value.GetInt64Array,
+        PropertyType.UInt64Array: property_value.GetUInt64Array,
+        PropertyType.SingleArray: property_value.GetSingleArray,
+        PropertyType.DoubleArray: property_value.GetDoubleArray,
+        PropertyType.Char16Array: property_value.GetChar16Array,
+        PropertyType.BooleanArray: property_value.GetBooleanArray,
+        PropertyType.StringArray: property_value.GetStringArray,
+        PropertyType.InspectableArray: property_value.GetInspectableArray,
+        PropertyType.DateTimeArray: property_value.GetDateTimeArray,
+        PropertyType.TimeSpanArray: property_value.GetTimeSpanArray,
+        PropertyType.GuidArray: property_value.GetGuidArray,
+        PropertyType.PointArray: property_value.GetPointArray,
+        PropertyType.SizeArray: property_value.GetSizeArray,
+        PropertyType.RectArray: property_value.GetRectArray,
+        #PropertyType.OtherTypeArray: property_value.GetOtherTypeArray,
+    }.get(property_value.Type)
+    if getter is None:
+        raise NotImplementedError(f"unbox_value: {property_value.Type}")
+    return getter()
 
 
 def generic_get_type_hints(prototype, cls):
