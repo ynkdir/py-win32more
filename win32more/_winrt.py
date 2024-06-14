@@ -148,7 +148,7 @@ def unbox_value(value: IInspectable):
     property_value = value.as_(IPropertyValue)
 
     getter = {
-        PropertyType.Empty: lambda: None, # XXX ?
+        PropertyType.Empty: lambda: None,
         PropertyType.UInt8: property_value.GetUInt8,
         PropertyType.Int16: property_value.GetInt16,
         PropertyType.UInt16: property_value.GetUInt16,
@@ -161,7 +161,7 @@ def unbox_value(value: IInspectable):
         PropertyType.Char16: property_value.GetChar16,
         PropertyType.Boolean: property_value.GetBoolean,
         PropertyType.String: property_value.GetString,
-        PropertyType.Inspectable: value,
+        PropertyType.Inspectable: lambda: value,
         PropertyType.DateTime: property_value.GetDateTime,
         PropertyType.TimeSpan: property_value.GetTimeSpan,
         PropertyType.Guid: property_value.GetGuid,
