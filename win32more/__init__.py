@@ -120,7 +120,7 @@ def _struct_union_commit(cls, start=True):
 
     # FIXME: hasattr(cls, "_fields_") not work for Union.
     if "_fields_" in cls.__dict__:
-        return cls
+        raise CircularReferenceResolved()
 
     anonymous = [name for name in hints.keys() if re.match(r"^Anonymous\d*$", name)]
     if anonymous:
@@ -444,6 +444,10 @@ class ForeignFunctionPointer:
 
     def __commit__(self):
         hints = get_type_hints(self._prototype)
+
+        if self._prototype.__name__ in sys.modules[self.__module__].__dict__:
+            raise CircularReferenceResolved()
+
         restype = hints.pop("return")
         argtypes = list(hints.values())
         return self._functype(restype, *argtypes)
@@ -471,15 +475,22 @@ class LazyLoader:
 
     def __call__(self, name):
         try:
-            prototype = self._lazyload.pop(name)
+            prototype = self._lazyload[name]
         except KeyError:
             raise AttributeError(f"module '{self._module.__name__}' has no attribute '{name}'") from None
         try:
             setattr(self._module, name, prototype.__commit__())
+            del self._lazyload[name]
+        except CircularReferenceResolved:
+            pass
         except AttributeError as e:
             # AttributeError will be ignored in __getattr__().
             raise RuntimeError("Unexpected error") from e
         return getattr(self._module, name)
+
+
+class CircularReferenceResolved(Exception):
+    pass
 
 
 class ConstantLazyLoader:

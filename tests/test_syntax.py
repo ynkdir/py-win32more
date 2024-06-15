@@ -48,6 +48,14 @@ class TestSyntax(unittest.TestCase):
 
         self.assertNotEqual(sizeof(WSDXML_NODE), 0)
 
+    def test_circular_referenct_function_pointer(self):
+        # def pfn(x: POINTER(A)): ...
+        # struct A:
+        #   f: pfn
+        from win32more.Windows.Win32.System.Com import LPEXCEPFINO_DEFERRED_FILLIN
+
+        self.assertIsNotNone(LPEXCEPFINO_DEFERRED_FILLIN)
+
     def test_function_pointer(self):
         from win32more.Windows.Win32.Graphics.Gdi import FONTENUMPROCA
 
