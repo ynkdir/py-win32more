@@ -34,11 +34,17 @@ from ctypes import (
 )
 from ctypes import Structure as _Structure
 from ctypes import Union as _Union
+from typing import _GenericAlias
 
 if sys.version_info < (3, 9):
     from typing_extensions import get_type_hints as _get_type_hints
 else:
     from typing import get_type_hints as _get_type_hints
+
+if sys.version_info < (3, 8):
+    from typing_extensions import get_origin
+else:
+    from typing import get_origin
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -77,7 +83,7 @@ class ComPtr(c_void_p):
         super().__init__()
         if move is not None:
             self.value = move.value
-            self._own = move._own
+            self._own = getattr(move, "_own", False)
             move.value = None
             move._own = False
         else:
@@ -114,6 +120,13 @@ def _struct_union_commit(cls, start=True):
 
     hints = get_type_hints(cls)
 
+    generic_types = {}
+
+    for name, type_ in hints.items():
+        if is_generic_alias(type_):
+            generic_types[name] = type_
+            hints[name] = get_origin(type_)
+
     for type_ in hints.values():
         if issubclass(type_, (Structure, Union)) and "_fields_" not in type_.__dict__:
             # nested struct or circular reference
@@ -137,12 +150,19 @@ def _struct_union_commit(cls, start=True):
         if issubclass(type_, (c_char_p, c_wchar_p)):
             setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
 
+    for name, type_ in generic_types.items():
+        setattr(cls, name, GenericDescriptor(cls.__dict__[name], type_))
+
     for name in anonymous:
         hints.update(hints[name]._hints_)
 
     cls._hints_ = hints
 
     return cls
+
+
+def is_generic_alias(cls):
+    return isinstance(cls, _GenericAlias)
 
 
 class Structure(_Structure):
@@ -184,6 +204,24 @@ class AsIntPtrDescriptor:
 
     def __set__(self, instance, value):
         self._original_descriptor.__set__(instance, value)
+
+
+class GenericDescriptor:
+    def __init__(self, original_descriptor, type_):
+        self._original_descriptor = original_descriptor
+        self._type = type_
+
+    def __get__(self, instance, owner=None):
+        if instance is None:
+            return self._original_descriptor.__get__(instance, owner)
+        return self._type(move=self._original_descriptor.__get__(instance, owner))
+
+    def __set__(self, instance, value):
+        self._original_descriptor.__set__(instance, value)
+
+    @property
+    def offset(self):
+        return self._original_descriptor.offset
 
 
 easycast_keep_reference = []

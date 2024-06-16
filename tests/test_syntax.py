@@ -105,6 +105,18 @@ class TestSyntax(unittest.TestCase):
 
         self.assertIs(MessageBox, MessageBoxW)
 
+    def test_struct_member_of_generic_type(self):
+        from typing import Generic
+
+        from win32more import UInt64
+        from win32more.Windows.Foundation import IReference
+        from win32more.Windows.Web.Http import HttpProgress
+
+        x = HttpProgress()
+        self.assertIsInstance(x.TotalBytesToSend, Generic)
+        self.assertIsInstance(x.TotalBytesToSend, IReference)
+        self.assertEqual(x.TotalBytesToSend.__orig_class__.__args__, (UInt64,))
+
 
 if __name__ == "__main__":
     unittest.main()
