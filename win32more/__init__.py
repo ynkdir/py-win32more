@@ -73,15 +73,16 @@ class Enum:
 
 # FIXME: How to manage com reference count?  ContextManager style?
 class ComPtr(c_void_p):
-    def __new__(cls, value=None, own=False):
-        self = super().__new__(cls)
-        self.value = value
-        self._own = own
-        return self
-
-    def __init__(self, *args, **kwargs):
-        # Do not pass subclass's args to c_void_p.__init__().
-        pass
+    def __init__(self, value=None, own=False, move=None):
+        super().__init__()
+        if move is not None:
+            self.value = move.value
+            self._own = move._own
+            move.value = None
+            move._own = False
+        else:
+            self.value = value
+            self._own = own
 
     def __del__(self):
         if self and getattr(self, "_own", False):

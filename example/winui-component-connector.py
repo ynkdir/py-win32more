@@ -16,9 +16,8 @@ from win32more.xaml import XamlApplication
 class MainWindow(Window):
     _keep_reference_in_python_world_ = {}
 
-    # FIXME: implementing constructor using __new__() causes error in this case.
-    def __new__(cls):
-        self = super().__new__(cls, own=True)
+    def __init__(self):
+        super().__init__(own=True)
         self._component_connector_vtbl = Vtbl(self, IComponentConnector)
         self.value = addressof(self._component_connector_vtbl)
         self._refcount = 0
@@ -26,7 +25,6 @@ class MainWindow(Window):
         self._inner = IInspectable()
         Window.CreateInstance(self, self._inner)
         self.InitializeComponent()
-        return self
 
     def InitializeComponent(self):
         # ms-appx:///foo.xaml is relative to python.exe.

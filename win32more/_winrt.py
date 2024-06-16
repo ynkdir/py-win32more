@@ -954,10 +954,8 @@ class MulticastDelegate(IUnknown):
 class MulticastDelegateImpl(ComPtr):
     _keep_reference_in_python_world_ = {}
 
-    def __new__(cls, interface, callback):
-        return super().__new__(cls, own=True)
-
     def __init__(self, interface, callback):
+        super().__init__(own=True)
         if is_generic_alias(interface):
             self._iid_ = _ro_get_parameterized_type_instance_iid(interface)
         else:

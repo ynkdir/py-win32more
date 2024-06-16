@@ -385,12 +385,12 @@ class Com:
         if not methods:
             return ""
         methods.sort(key=lambda method: method.nargs)
-        writer.write("    def __new__(cls, *args, **kwargs):\n")
+        writer.write("    def __init__(self, *args, **kwargs):\n")
         writer.write("        if kwargs:\n")
-        writer.write("            return super().__new__(cls, **kwargs)\n")
+        writer.write("            super().__init__(**kwargs)\n")
         for method in methods:
             writer.write(f"        elif len(args) == {method.nargs}:\n")
-            writer.write(f"            return {method.invoke()}\n")
+            writer.write(f"            super().__init__(move={method.invoke()})\n")
         writer.write("        else:\n")
         writer.write("            raise ValueError('no matched constructor')\n")
         writer.write(self._methods_overload(methods))

@@ -45,10 +45,8 @@ class Vector(IVector[T]):
 
     __orig_class__ = GenericInitialize()
 
-    def __new__(cls, lst: list[T] | None = None):
-        return super().__new__(cls, own=True)
-
     def __init__(self, lst: list[T] | None = None) -> None:
+        super().__init__(own=True)
         self._lst = lst
 
     def __init_generic__(self) -> None:

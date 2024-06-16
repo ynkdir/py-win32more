@@ -24,8 +24,8 @@ from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_A
 class XamlApplication(Application):
     _keep_reference_in_python_world_ = {}
 
-    def __new__(cls):
-        self = super().__new__(cls, own=True)
+    def __init__(self):
+        super().__init__(own=True)
         self._OnLaunched_wrapped = self.OnLaunched
         self.OnLaunched = self._OnLaunched_wrapper
         self._application_overrides_vtbl = Vtbl(self, IApplicationOverrides)
@@ -36,7 +36,6 @@ class XamlApplication(Application):
         self._provider = XamlControlsXamlMetaDataProvider()
         self._inner_interface = IInspectable()
         Application.CreateInstance(self, self._inner_interface)
-        return self
 
     def QueryInterface(self, riid, ppvObject):
         if riid[0] == IUnknown._iid_:
