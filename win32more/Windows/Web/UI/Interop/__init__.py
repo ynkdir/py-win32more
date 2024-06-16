@@ -361,13 +361,13 @@ class WebViewControlProcess(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.UI.Interop.IWebViewControlProcess
     _classid_ = 'Windows.Web.UI.Interop.WebViewControlProcess'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Web.UI.Interop.WebViewControlProcess.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Web.UI.Interop.WebViewControlProcess.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Web.UI.Interop.WebViewControlProcess.CreateWithOptions(*args)
+            super().__init__(move=win32more.Windows.Web.UI.Interop.WebViewControlProcess.CreateWithOptions(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -402,11 +402,11 @@ class WebViewControlProcessOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.UI.Interop.IWebViewControlProcessOptions
     _classid_ = 'Windows.Web.UI.Interop.WebViewControlProcessOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Web.UI.Interop.WebViewControlProcessOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Web.UI.Interop.WebViewControlProcessOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

@@ -65,11 +65,11 @@ class FileLoggingSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.IFileLoggingSession
     _classid_ = 'Windows.Foundation.Diagnostics.FileLoggingSession'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Foundation.Diagnostics.FileLoggingSession.Create(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.FileLoggingSession.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -606,13 +606,13 @@ class LoggingActivity(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingActivity
     _classid_ = 'Windows.Foundation.Diagnostics.LoggingActivity'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Foundation.Diagnostics.LoggingActivity.CreateLoggingActivity(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingActivity.CreateLoggingActivity(*args))
         elif len(args) == 3:
-            return win32more.Windows.Foundation.Diagnostics.LoggingActivity.CreateLoggingActivityWithLevel(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingActivity.CreateLoggingActivityWithLevel(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -662,15 +662,15 @@ class LoggingChannel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingChannel
     _classid_ = 'Windows.Foundation.Diagnostics.LoggingChannel'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Foundation.Diagnostics.LoggingChannel.Create(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingChannel.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.Foundation.Diagnostics.LoggingChannel.CreateWithOptions(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingChannel.CreateWithOptions(*args))
         elif len(args) == 3:
-            return win32more.Windows.Foundation.Diagnostics.LoggingChannel.CreateWithOptionsAndId(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingChannel.CreateWithOptionsAndId(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -732,13 +732,13 @@ class LoggingChannelOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingChannelOptions
     _classid_ = 'Windows.Foundation.Diagnostics.LoggingChannelOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Foundation.Diagnostics.LoggingChannelOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingChannelOptions.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Foundation.Diagnostics.LoggingChannelOptions.Create(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingChannelOptions.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -774,11 +774,11 @@ class LoggingFields(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingFields
     _classid_ = 'Windows.Foundation.Diagnostics.LoggingFields'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Foundation.Diagnostics.LoggingFields.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingFields.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1031,13 +1031,13 @@ class LoggingOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingOptions
     _classid_ = 'Windows.Foundation.Diagnostics.LoggingOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Foundation.Diagnostics.LoggingOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingOptions.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Foundation.Diagnostics.LoggingOptions.CreateWithKeywords(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingOptions.CreateWithKeywords(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1078,11 +1078,11 @@ class LoggingSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingSession
     _classid_ = 'Windows.Foundation.Diagnostics.LoggingSession'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Foundation.Diagnostics.LoggingSession.Create(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.LoggingSession.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1104,11 +1104,11 @@ class RuntimeBrokerErrorSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Diagnostics.IErrorReportingSettings
     _classid_ = 'Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

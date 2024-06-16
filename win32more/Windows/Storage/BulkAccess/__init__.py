@@ -131,17 +131,17 @@ class FileInformationFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.BulkAccess.IFileInformationFactory
     _classid_ = 'Windows.Storage.BulkAccess.FileInformationFactory'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithMode(*args)
+            super().__init__(move=win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithMode(*args))
         elif len(args) == 3:
-            return win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSize(*args)
+            super().__init__(move=win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSize(*args))
         elif len(args) == 4:
-            return win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSizeAndOptions(*args)
+            super().__init__(move=win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSizeAndOptions(*args))
         elif len(args) == 5:
-            return win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSizeAndOptionsAndFlags(*args)
+            super().__init__(move=win32more.Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSizeAndOptionsAndFlags(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

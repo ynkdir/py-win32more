@@ -18,11 +18,11 @@ class CustomQueryParametersUpdateOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Widgets.Feeds.Providers.ICustomQueryParametersUpdateOptions
     _classid_ = 'Microsoft.Windows.Widgets.Feeds.Providers.CustomQueryParametersUpdateOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Microsoft.Windows.Widgets.Feeds.Providers.CustomQueryParametersUpdateOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Widgets.Feeds.Providers.CustomQueryParametersUpdateOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -176,11 +176,11 @@ class FeedResourceResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Widgets.Feeds.Providers.IFeedResourceResponse
     _classid_ = 'Microsoft.Windows.Widgets.Feeds.Providers.FeedResourceResponse'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Microsoft.Windows.Widgets.Feeds.Providers.FeedResourceResponse.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Widgets.Feeds.Providers.FeedResourceResponse.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

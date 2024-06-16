@@ -42,11 +42,11 @@ class HdcpSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.IHdcpSession
     _classid_ = 'Windows.Media.Protection.HdcpSession'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Protection.HdcpSession.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Protection.HdcpSession.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -204,11 +204,11 @@ class MediaProtectionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.IMediaProtectionManager
     _classid_ = 'Windows.Media.Protection.MediaProtectionManager'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Protection.MediaProtectionManager.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Protection.MediaProtectionManager.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -235,11 +235,11 @@ class MediaProtectionPMPServer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.IMediaProtectionPMPServer
     _classid_ = 'Windows.Media.Protection.MediaProtectionPMPServer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Protection.MediaProtectionPMPServer.CreatePMPServer(*args)
+            super().__init__(move=win32more.Windows.Media.Protection.MediaProtectionPMPServer.CreatePMPServer(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -257,11 +257,11 @@ class ProtectionCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Protection.IProtectionCapabilities
     _classid_ = 'Windows.Media.Protection.ProtectionCapabilities'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Protection.ProtectionCapabilities.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Protection.ProtectionCapabilities.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

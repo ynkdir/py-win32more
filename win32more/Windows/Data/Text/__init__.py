@@ -260,11 +260,11 @@ class SelectableWordsSegmenter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Text.ISelectableWordsSegmenter
     _classid_ = 'Windows.Data.Text.SelectableWordsSegmenter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Data.Text.SelectableWordsSegmenter.CreateWithLanguage(*args)
+            super().__init__(move=win32more.Windows.Data.Text.SelectableWordsSegmenter.CreateWithLanguage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -282,13 +282,13 @@ class SemanticTextQuery(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Text.ISemanticTextQuery
     _classid_ = 'Windows.Data.Text.SemanticTextQuery'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Data.Text.SemanticTextQuery.Create(*args)
+            super().__init__(move=win32more.Windows.Data.Text.SemanticTextQuery.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.Data.Text.SemanticTextQuery.CreateWithLanguage(*args)
+            super().__init__(move=win32more.Windows.Data.Text.SemanticTextQuery.CreateWithLanguage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -303,11 +303,11 @@ class TextConversionGenerator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Text.ITextConversionGenerator
     _classid_ = 'Windows.Data.Text.TextConversionGenerator'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Data.Text.TextConversionGenerator.Create(*args)
+            super().__init__(move=win32more.Windows.Data.Text.TextConversionGenerator.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -336,11 +336,11 @@ class TextPredictionGenerator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Text.ITextPredictionGenerator
     _classid_ = 'Windows.Data.Text.TextPredictionGenerator'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Data.Text.TextPredictionGenerator.Create(*args)
+            super().__init__(move=win32more.Windows.Data.Text.TextPredictionGenerator.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -372,11 +372,11 @@ class TextReverseConversionGenerator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Text.ITextReverseConversionGenerator
     _classid_ = 'Windows.Data.Text.TextReverseConversionGenerator'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Data.Text.TextReverseConversionGenerator.Create(*args)
+            super().__init__(move=win32more.Windows.Data.Text.TextReverseConversionGenerator.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -489,11 +489,11 @@ class WordsSegmenter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Text.IWordsSegmenter
     _classid_ = 'Windows.Data.Text.WordsSegmenter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Data.Text.WordsSegmenter.CreateWithLanguage(*args)
+            super().__init__(move=win32more.Windows.Data.Text.WordsSegmenter.CreateWithLanguage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

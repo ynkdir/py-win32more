@@ -278,13 +278,13 @@ class AppUriHandlerHost(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IAppUriHandlerHost
     _classid_ = 'Windows.System.AppUriHandlerHost'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.System.AppUriHandlerHost.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.AppUriHandlerHost.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.System.AppUriHandlerHost.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.AppUriHandlerHost.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_overload
@@ -439,11 +439,11 @@ class FolderLauncherOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IFolderLauncherOptions
     _classid_ = 'Windows.System.FolderLauncherOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.System.FolderLauncherOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.FolderLauncherOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1571,11 +1571,11 @@ class LauncherOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.ILauncherOptions
     _classid_ = 'Windows.System.LauncherOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.System.LauncherOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.LauncherOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1706,11 +1706,11 @@ class ProcessLauncherOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IProcessLauncherOptions
     _classid_ = 'Windows.System.ProcessLauncherOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.System.ProcessLauncherOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.ProcessLauncherOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1788,11 +1788,11 @@ class RemoteLauncherOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IRemoteLauncherOptions
     _classid_ = 'Windows.System.RemoteLauncherOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.System.RemoteLauncherOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.RemoteLauncherOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1944,11 +1944,11 @@ class UserPicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.IUserPicker
     _classid_ = 'Windows.System.UserPicker'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.System.UserPicker.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.UserPicker.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

@@ -16,11 +16,11 @@ class AdvancedPhotoCaptureSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.IAdvancedPhotoCaptureSettings
     _classid_ = 'Windows.Media.Devices.AdvancedPhotoCaptureSettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Devices.AdvancedPhotoCaptureSettings.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Devices.AdvancedPhotoCaptureSettings.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -108,11 +108,11 @@ class AudioDeviceModulesManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.IAudioDeviceModulesManager
     _classid_ = 'Windows.Media.Devices.AudioDeviceModulesManager'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Devices.AudioDeviceModulesManager.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Devices.AudioDeviceModulesManager.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -290,11 +290,11 @@ class DigitalWindowBounds(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.IDigitalWindowBounds
     _classid_ = 'Windows.Media.Devices.DigitalWindowBounds'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Devices.DigitalWindowBounds.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Devices.DigitalWindowBounds.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -540,11 +540,11 @@ class FocusSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.IFocusSettings
     _classid_ = 'Windows.Media.Devices.FocusSettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Devices.FocusSettings.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Devices.FocusSettings.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2043,11 +2043,11 @@ class RegionOfInterest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.IRegionOfInterest
     _classid_ = 'Windows.Media.Devices.RegionOfInterest'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Devices.RegionOfInterest.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Devices.RegionOfInterest.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2410,11 +2410,11 @@ class ZoomSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.IZoomSettings
     _classid_ = 'Windows.Media.Devices.ZoomSettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Devices.ZoomSettings.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Devices.ZoomSettings.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

@@ -13,11 +13,11 @@ class GpioChangeCounter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Gpio.IGpioChangeCounter
     _classid_ = 'Windows.Devices.Gpio.GpioChangeCounter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Devices.Gpio.GpioChangeCounter.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Gpio.GpioChangeCounter.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -48,13 +48,13 @@ class GpioChangeReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Gpio.IGpioChangeReader
     _classid_ = 'Windows.Devices.Gpio.GpioChangeReader'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Devices.Gpio.GpioChangeReader.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Gpio.GpioChangeReader.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.Devices.Gpio.GpioChangeReader.CreateWithCapacity(*args)
+            super().__init__(move=win32more.Windows.Devices.Gpio.GpioChangeReader.CreateWithCapacity(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

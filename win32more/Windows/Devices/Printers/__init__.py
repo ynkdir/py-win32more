@@ -500,11 +500,11 @@ class IppIntegerRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppIntegerRange
     _classid_ = 'Windows.Devices.Printers.IppIntegerRange'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Printers.IppIntegerRange.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Printers.IppIntegerRange.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -575,11 +575,11 @@ class IppResolution(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppResolution
     _classid_ = 'Windows.Devices.Printers.IppResolution'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Devices.Printers.IppResolution.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Printers.IppResolution.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -610,11 +610,11 @@ class IppTextWithLanguage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppTextWithLanguage
     _classid_ = 'Windows.Devices.Printers.IppTextWithLanguage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Printers.IppTextWithLanguage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Printers.IppTextWithLanguage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -629,11 +629,11 @@ class PageConfigurationSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IPageConfigurationSettings
     _classid_ = 'Windows.Devices.Printers.PageConfigurationSettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Printers.PageConfigurationSettings.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Printers.PageConfigurationSettings.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

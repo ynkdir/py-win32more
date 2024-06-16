@@ -223,11 +223,11 @@ class PerceptionControlGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionControlGroup
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionControlGroup'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Devices.Perception.Provider.PerceptionControlGroup.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Perception.Provider.PerceptionControlGroup.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -239,11 +239,11 @@ class PerceptionCorrelation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionCorrelation
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionCorrelation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Devices.Perception.Provider.PerceptionCorrelation.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Perception.Provider.PerceptionCorrelation.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -261,11 +261,11 @@ class PerceptionCorrelationGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionCorrelationGroup
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionCorrelationGroup'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Devices.Perception.Provider.PerceptionCorrelationGroup.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Perception.Provider.PerceptionCorrelationGroup.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -277,11 +277,11 @@ class PerceptionFaceAuthenticationGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionFaceAuthenticationGroup
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -308,11 +308,11 @@ class PerceptionFrameProviderInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionFrameProviderInfo
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Perception.Provider.PerceptionFrameProviderInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -396,11 +396,11 @@ class PerceptionVideoFrameAllocator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocator
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 4:
-            return win32more.Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

@@ -55,11 +55,11 @@ class ClipboardContentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IClipboardContentOptions
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ClipboardContentOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.DataTransfer.ClipboardContentOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.DataTransfer.ClipboardContentOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -115,11 +115,11 @@ class DataPackage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IDataPackage
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DataPackage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.DataTransfer.DataPackage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.DataTransfer.DataPackage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1102,11 +1102,11 @@ class ShareProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IShareProvider
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareProvider'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 4:
-            return win32more.Windows.ApplicationModel.DataTransfer.ShareProvider.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.DataTransfer.ShareProvider.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1168,11 +1168,11 @@ class ShareUIOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IShareUIOptions
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareUIOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.DataTransfer.ShareUIOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.DataTransfer.ShareUIOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

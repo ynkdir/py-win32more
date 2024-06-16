@@ -263,11 +263,11 @@ class MidiActiveSensingMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiActiveSensingMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Midi.MidiActiveSensingMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiActiveSensingMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -285,11 +285,11 @@ class MidiChannelPressureMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiChannelPressureMessage
     _classid_ = 'Windows.Devices.Midi.MidiChannelPressureMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Midi.MidiChannelPressureMessage.CreateMidiChannelPressureMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiChannelPressureMessage.CreateMidiChannelPressureMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -313,11 +313,11 @@ class MidiContinueMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiContinueMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Midi.MidiContinueMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiContinueMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -335,11 +335,11 @@ class MidiControlChangeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiControlChangeMessage
     _classid_ = 'Windows.Devices.Midi.MidiControlChangeMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Devices.Midi.MidiControlChangeMessage.CreateMidiControlChangeMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiControlChangeMessage.CreateMidiControlChangeMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -412,11 +412,11 @@ class MidiNoteOffMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiNoteOffMessage
     _classid_ = 'Windows.Devices.Midi.MidiNoteOffMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Devices.Midi.MidiNoteOffMessage.CreateMidiNoteOffMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiNoteOffMessage.CreateMidiNoteOffMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -443,11 +443,11 @@ class MidiNoteOnMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiNoteOnMessage
     _classid_ = 'Windows.Devices.Midi.MidiNoteOnMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Devices.Midi.MidiNoteOnMessage.CreateMidiNoteOnMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiNoteOnMessage.CreateMidiNoteOnMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -491,11 +491,11 @@ class MidiPitchBendChangeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiPitchBendChangeMessage
     _classid_ = 'Windows.Devices.Midi.MidiPitchBendChangeMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Midi.MidiPitchBendChangeMessage.CreateMidiPitchBendChangeMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiPitchBendChangeMessage.CreateMidiPitchBendChangeMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -519,11 +519,11 @@ class MidiPolyphonicKeyPressureMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiPolyphonicKeyPressureMessage
     _classid_ = 'Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage.CreateMidiPolyphonicKeyPressureMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage.CreateMidiPolyphonicKeyPressureMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -550,11 +550,11 @@ class MidiProgramChangeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiProgramChangeMessage
     _classid_ = 'Windows.Devices.Midi.MidiProgramChangeMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Midi.MidiProgramChangeMessage.CreateMidiProgramChangeMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiProgramChangeMessage.CreateMidiProgramChangeMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -578,11 +578,11 @@ class MidiSongPositionPointerMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiSongPositionPointerMessage
     _classid_ = 'Windows.Devices.Midi.MidiSongPositionPointerMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Devices.Midi.MidiSongPositionPointerMessage.CreateMidiSongPositionPointerMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiSongPositionPointerMessage.CreateMidiSongPositionPointerMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -603,11 +603,11 @@ class MidiSongSelectMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiSongSelectMessage
     _classid_ = 'Windows.Devices.Midi.MidiSongSelectMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Devices.Midi.MidiSongSelectMessage.CreateMidiSongSelectMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiSongSelectMessage.CreateMidiSongSelectMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -628,11 +628,11 @@ class MidiStartMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiStartMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Midi.MidiStartMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiStartMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -650,11 +650,11 @@ class MidiStopMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiStopMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Midi.MidiStopMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiStopMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -699,11 +699,11 @@ class MidiSystemExclusiveMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiSystemExclusiveMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Devices.Midi.MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -721,11 +721,11 @@ class MidiSystemResetMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiSystemResetMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Midi.MidiSystemResetMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiSystemResetMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -743,11 +743,11 @@ class MidiTimeCodeMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiTimeCodeMessage
     _classid_ = 'Windows.Devices.Midi.MidiTimeCodeMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Midi.MidiTimeCodeMessage.CreateMidiTimeCodeMessage(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiTimeCodeMessage.CreateMidiTimeCodeMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -771,11 +771,11 @@ class MidiTimingClockMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiTimingClockMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Midi.MidiTimingClockMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiTimingClockMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -793,11 +793,11 @@ class MidiTuneRequestMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Midi.IMidiMessage
     _classid_ = 'Windows.Devices.Midi.MidiTuneRequestMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Midi.MidiTuneRequestMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Midi.MidiTuneRequestMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

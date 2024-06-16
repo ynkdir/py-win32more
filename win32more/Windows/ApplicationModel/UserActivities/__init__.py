@@ -249,11 +249,11 @@ class UserActivity(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserActivities.IUserActivity
     _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivity'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.UserActivities.UserActivity.CreateWithActivityId(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.UserActivities.UserActivity.CreateWithActivityId(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -313,13 +313,13 @@ class UserActivityAttribution(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserActivities.IUserActivityAttribution
     _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivityAttribution'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.UserActivities.UserActivityAttribution.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.UserActivities.UserActivityAttribution.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.UserActivities.UserActivityAttribution.CreateWithUri(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.UserActivities.UserActivityAttribution.CreateWithUri(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

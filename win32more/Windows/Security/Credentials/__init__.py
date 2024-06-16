@@ -275,13 +275,13 @@ class PasswordCredential(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IPasswordCredential
     _classid_ = 'Windows.Security.Credentials.PasswordCredential'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Credentials.PasswordCredential.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Credentials.PasswordCredential.CreateInstance(*args))
         elif len(args) == 3:
-            return win32more.Windows.Security.Credentials.PasswordCredential.CreatePasswordCredential(*args)
+            super().__init__(move=win32more.Windows.Security.Credentials.PasswordCredential.CreatePasswordCredential(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -312,11 +312,11 @@ class PasswordCredentialPropertyStore(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Security.Credentials.PasswordCredentialPropertyStore'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Credentials.PasswordCredentialPropertyStore.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Credentials.PasswordCredentialPropertyStore.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -347,11 +347,11 @@ class PasswordVault(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IPasswordVault
     _classid_ = 'Windows.Security.Credentials.PasswordVault'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Credentials.PasswordVault.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Credentials.PasswordVault.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -372,11 +372,11 @@ class WebAccount(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IWebAccount
     _classid_ = 'Windows.Security.Credentials.WebAccount'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Security.Credentials.WebAccount.CreateWebAccount(*args)
+            super().__init__(move=win32more.Windows.Security.Credentials.WebAccount.CreateWebAccount(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -411,11 +411,11 @@ class WebAccountProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Credentials.IWebAccountProvider
     _classid_ = 'Windows.Security.Credentials.WebAccountProvider'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Security.Credentials.WebAccountProvider.CreateWebAccountProvider(*args)
+            super().__init__(move=win32more.Windows.Security.Credentials.WebAccountProvider.CreateWebAccountProvider(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

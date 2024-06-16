@@ -127,11 +127,11 @@ class FileUnprotectOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IFileUnprotectOptions
     _classid_ = 'Windows.Security.EnterpriseData.FileUnprotectOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Security.EnterpriseData.FileUnprotectOptions.Create(*args)
+            super().__init__(move=win32more.Windows.Security.EnterpriseData.FileUnprotectOptions.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -552,13 +552,13 @@ class ProtectionPolicyAuditInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectionPolicyAuditInfo
     _classid_ = 'Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.CreateWithActionAndDataDescription(*args)
+            super().__init__(move=win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.CreateWithActionAndDataDescription(*args))
         elif len(args) == 4:
-            return win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.Create(*args)
+            super().__init__(move=win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

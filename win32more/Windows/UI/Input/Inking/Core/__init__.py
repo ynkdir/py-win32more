@@ -13,11 +13,11 @@ class CoreIncrementalInkStroke(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Core.ICoreIncrementalInkStroke
     _classid_ = 'Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke.Create(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -88,11 +88,11 @@ class CoreInkPresenterHost(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.Core.ICoreInkPresenterHost
     _classid_ = 'Windows.UI.Input.Inking.Core.CoreInkPresenterHost'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Input.Inking.Core.CoreInkPresenterHost.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.Core.CoreInkPresenterHost.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

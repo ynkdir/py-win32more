@@ -35,11 +35,11 @@ class AudioFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IAudioFrame
     _classid_ = 'Windows.Media.AudioFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.AudioFrame.Create(*args)
+            super().__init__(move=win32more.Windows.Media.AudioFrame.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -821,11 +821,11 @@ class MediaExtensionManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IMediaExtensionManager
     _classid_ = 'Windows.Media.MediaExtensionManager'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.MediaExtensionManager.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.MediaExtensionManager.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -893,11 +893,11 @@ class MediaTimelineController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IMediaTimelineController
     _classid_ = 'Windows.Media.MediaTimelineController'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.MediaTimelineController.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.MediaTimelineController.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1209,11 +1209,11 @@ class SystemMediaTransportControlsTimelineProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.ISystemMediaTransportControlsTimelineProperties
     _classid_ = 'Windows.Media.SystemMediaTransportControlsTimelineProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.SystemMediaTransportControlsTimelineProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.SystemMediaTransportControlsTimelineProperties.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1272,13 +1272,13 @@ class VideoFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.IVideoFrame
     _classid_ = 'Windows.Media.VideoFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Media.VideoFrame.Create(*args)
+            super().__init__(move=win32more.Windows.Media.VideoFrame.Create(*args))
         elif len(args) == 4:
-            return win32more.Windows.Media.VideoFrame.CreateWithAlpha(*args)
+            super().__init__(move=win32more.Windows.Media.VideoFrame.CreateWithAlpha(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

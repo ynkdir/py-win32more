@@ -14,11 +14,11 @@ class AdaptiveNotificationText(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IAdaptiveNotificationText
     _classid_ = 'Windows.UI.Notifications.AdaptiveNotificationText'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Notifications.AdaptiveNotificationText.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.AdaptiveNotificationText.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -43,11 +43,11 @@ class BadgeNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IBadgeNotification
     _classid_ = 'Windows.UI.Notifications.BadgeNotification'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Notifications.BadgeNotification.CreateBadgeNotification(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.BadgeNotification.CreateBadgeNotification(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1051,11 +1051,11 @@ class Notification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.INotification
     _classid_ = 'Windows.UI.Notifications.Notification'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Notifications.Notification.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.Notification.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1093,15 +1093,15 @@ class NotificationData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.INotificationData
     _classid_ = 'Windows.UI.Notifications.NotificationData'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Notifications.NotificationData.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.NotificationData.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.UI.Notifications.NotificationData.CreateNotificationDataWithValues(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.NotificationData.CreateNotificationDataWithValues(*args))
         elif len(args) == 2:
-            return win32more.Windows.UI.Notifications.NotificationData.CreateNotificationDataWithValuesAndSequenceNumber(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.NotificationData.CreateNotificationDataWithValuesAndSequenceNumber(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1158,11 +1158,11 @@ class ScheduledTileNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IScheduledTileNotification
     _classid_ = 'Windows.UI.Notifications.ScheduledTileNotification'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Notifications.ScheduledTileNotification.CreateScheduledTileNotification(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.ScheduledTileNotification.CreateScheduledTileNotification(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1192,13 +1192,13 @@ class ScheduledToastNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IScheduledToastNotification
     _classid_ = 'Windows.UI.Notifications.ScheduledToastNotification'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Notifications.ScheduledToastNotification.CreateScheduledToastNotification(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.ScheduledToastNotification.CreateScheduledToastNotification(*args))
         elif len(args) == 4:
-            return win32more.Windows.UI.Notifications.ScheduledToastNotification.CreateScheduledToastNotificationRecurring(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.ScheduledToastNotification.CreateScheduledToastNotificationRecurring(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1277,11 +1277,11 @@ class TileFlyoutNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.ITileFlyoutNotification
     _classid_ = 'Windows.UI.Notifications.TileFlyoutNotification'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Notifications.TileFlyoutNotification.CreateTileFlyoutNotification(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.TileFlyoutNotification.CreateTileFlyoutNotification(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1328,11 +1328,11 @@ class TileNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.ITileNotification
     _classid_ = 'Windows.UI.Notifications.TileNotification'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Notifications.TileNotification.CreateTileNotification(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.TileNotification.CreateTileNotification(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1552,11 +1552,11 @@ class ToastCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastCollection
     _classid_ = 'Windows.UI.Notifications.ToastCollection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 4:
-            return win32more.Windows.UI.Notifications.ToastCollection.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.ToastCollection.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1626,11 +1626,11 @@ class ToastNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Notifications.IToastNotification
     _classid_ = 'Windows.UI.Notifications.ToastNotification'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Notifications.ToastNotification.CreateToastNotification(*args)
+            super().__init__(move=win32more.Windows.UI.Notifications.ToastNotification.CreateToastNotification(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

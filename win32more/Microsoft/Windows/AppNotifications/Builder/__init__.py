@@ -13,11 +13,11 @@ class AppNotificationBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationBuilder
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationBuilder'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationBuilder.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationBuilder.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -87,13 +87,13 @@ class AppNotificationButton(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationButton
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationButton'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationButton.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationButton.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationButton.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationButton.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_overload
@@ -175,11 +175,11 @@ class AppNotificationComboBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationComboBox
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationComboBox'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationComboBox.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationComboBox.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -215,11 +215,11 @@ class AppNotificationProgressBar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationProgressBar
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationProgressBar'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationProgressBar.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationProgressBar.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -296,11 +296,11 @@ class AppNotificationTextProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationTextProperties
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationTextProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationTextProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationTextProperties.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

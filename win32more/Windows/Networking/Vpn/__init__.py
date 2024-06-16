@@ -797,11 +797,11 @@ class VpnAppId(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnAppId
     _classid_ = 'Windows.Networking.Vpn.VpnAppId'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Networking.Vpn.VpnAppId.Create(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnAppId.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -981,11 +981,11 @@ class VpnCustomCheckBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomCheckBox
     _classid_ = 'Windows.Networking.Vpn.VpnCustomCheckBox'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnCustomCheckBox.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnCustomCheckBox.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1017,11 +1017,11 @@ class VpnCustomComboBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomComboBox
     _classid_ = 'Windows.Networking.Vpn.VpnCustomComboBox'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnCustomComboBox.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnCustomComboBox.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1053,11 +1053,11 @@ class VpnCustomEditBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomEditBox
     _classid_ = 'Windows.Networking.Vpn.VpnCustomEditBox'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnCustomEditBox.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnCustomEditBox.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1094,11 +1094,11 @@ class VpnCustomErrorBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomErrorBox
     _classid_ = 'Windows.Networking.Vpn.VpnCustomErrorBox'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnCustomErrorBox.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnCustomErrorBox.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1122,11 +1122,11 @@ class VpnCustomPromptBooleanInput(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomPromptBooleanInput
     _classid_ = 'Windows.Networking.Vpn.VpnCustomPromptBooleanInput'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnCustomPromptBooleanInput.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnCustomPromptBooleanInput.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1158,11 +1158,11 @@ class VpnCustomPromptOptionSelector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomPromptOptionSelector
     _classid_ = 'Windows.Networking.Vpn.VpnCustomPromptOptionSelector'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnCustomPromptOptionSelector.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnCustomPromptOptionSelector.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1192,11 +1192,11 @@ class VpnCustomPromptText(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomPromptText
     _classid_ = 'Windows.Networking.Vpn.VpnCustomPromptText'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnCustomPromptText.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnCustomPromptText.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1225,11 +1225,11 @@ class VpnCustomPromptTextInput(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomPromptTextInput
     _classid_ = 'Windows.Networking.Vpn.VpnCustomPromptTextInput'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnCustomPromptTextInput.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnCustomPromptTextInput.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1266,11 +1266,11 @@ class VpnCustomTextBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnCustomTextBox
     _classid_ = 'Windows.Networking.Vpn.VpnCustomTextBox'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnCustomTextBox.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnCustomTextBox.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1302,11 +1302,11 @@ class VpnDomainNameAssignment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnDomainNameAssignment
     _classid_ = 'Windows.Networking.Vpn.VpnDomainNameAssignment'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnDomainNameAssignment.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnDomainNameAssignment.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1323,11 +1323,11 @@ class VpnDomainNameInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnDomainNameInfo
     _classid_ = 'Windows.Networking.Vpn.VpnDomainNameInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 4:
-            return win32more.Windows.Networking.Vpn.VpnDomainNameInfo.CreateVpnDomainNameInfo(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnDomainNameInfo.CreateVpnDomainNameInfo(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1398,11 +1398,11 @@ class VpnInterfaceId(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnInterfaceId
     _classid_ = 'Windows.Networking.Vpn.VpnInterfaceId'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Networking.Vpn.VpnInterfaceId.CreateVpnInterfaceId(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnInterfaceId.CreateVpnInterfaceId(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1413,11 +1413,11 @@ class VpnManagementAgent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnManagementAgent
     _classid_ = 'Windows.Networking.Vpn.VpnManagementAgent'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnManagementAgent.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnManagementAgent.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1469,11 +1469,11 @@ class VpnNamespaceAssignment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnNamespaceAssignment
     _classid_ = 'Windows.Networking.Vpn.VpnNamespaceAssignment'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnNamespaceAssignment.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnNamespaceAssignment.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1492,11 +1492,11 @@ class VpnNamespaceInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnNamespaceInfo
     _classid_ = 'Windows.Networking.Vpn.VpnNamespaceInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Networking.Vpn.VpnNamespaceInfo.CreateVpnNamespaceInfo(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnNamespaceInfo.CreateVpnNamespaceInfo(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1520,11 +1520,11 @@ class VpnNativeProfile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnNativeProfile
     _classid_ = 'Windows.Networking.Vpn.VpnNativeProfile'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnNativeProfile.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnNativeProfile.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1600,11 +1600,11 @@ class VpnPacketBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnPacketBuffer
     _classid_ = 'Windows.Networking.Vpn.VpnPacketBuffer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Networking.Vpn.VpnPacketBuffer.CreateVpnPacketBuffer(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnPacketBuffer.CreateVpnPacketBuffer(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1674,11 +1674,11 @@ class VpnPlugInProfile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnPlugInProfile
     _classid_ = 'Windows.Networking.Vpn.VpnPlugInProfile'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnPlugInProfile.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnPlugInProfile.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1735,11 +1735,11 @@ class VpnRoute(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnRoute
     _classid_ = 'Windows.Networking.Vpn.VpnRoute'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Networking.Vpn.VpnRoute.CreateVpnRoute(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnRoute.CreateVpnRoute(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1758,11 +1758,11 @@ class VpnRouteAssignment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnRouteAssignment
     _classid_ = 'Windows.Networking.Vpn.VpnRouteAssignment'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnRouteAssignment.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnRouteAssignment.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1806,11 +1806,11 @@ class VpnTrafficFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnTrafficFilter
     _classid_ = 'Windows.Networking.Vpn.VpnTrafficFilter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Networking.Vpn.VpnTrafficFilter.Create(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnTrafficFilter.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1849,11 +1849,11 @@ class VpnTrafficFilterAssignment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Vpn.IVpnTrafficFilterAssignment
     _classid_ = 'Windows.Networking.Vpn.VpnTrafficFilterAssignment'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Vpn.VpnTrafficFilterAssignment.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

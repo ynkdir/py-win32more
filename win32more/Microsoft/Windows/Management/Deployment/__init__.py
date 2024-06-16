@@ -11,11 +11,11 @@ class AddPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IAddPackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.AddPackageOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.AddPackageOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.AddPackageOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -115,11 +115,11 @@ class EnsureReadyOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IEnsureReadyOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.EnsureReadyOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.EnsureReadyOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.EnsureReadyOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -753,11 +753,11 @@ class PackageSet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageSet
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageSet'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.PackageSet.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.PackageSet.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -779,11 +779,11 @@ class PackageSetItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageSetItem
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageSetItem'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.PackageSetItem.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.PackageSetItem.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -817,11 +817,11 @@ class PackageSetItemRuntimeDisposition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageSetItemRuntimeDisposition
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageSetItemRuntimeDisposition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.PackageSetItemRuntimeDisposition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.PackageSetItemRuntimeDisposition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -842,11 +842,11 @@ class PackageSetRuntimeDisposition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageSetRuntimeDisposition
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageSetRuntimeDisposition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.PackageSetRuntimeDisposition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.PackageSetRuntimeDisposition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -898,11 +898,11 @@ class ProvisionPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IProvisionPackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.ProvisionPackageOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.ProvisionPackageOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.ProvisionPackageOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -923,11 +923,11 @@ class RegisterPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IRegisterPackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.RegisterPackageOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.RegisterPackageOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.RegisterPackageOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1001,11 +1001,11 @@ class RemovePackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IRemovePackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.RemovePackageOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.RemovePackageOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.RemovePackageOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1034,11 +1034,11 @@ class StagePackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IStagePackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.StagePackageOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.Management.Deployment.StagePackageOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.Management.Deployment.StagePackageOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

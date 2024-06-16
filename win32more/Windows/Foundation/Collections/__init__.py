@@ -165,11 +165,11 @@ class PropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Foundation.Collections.PropertySet'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Foundation.Collections.PropertySet.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Foundation.Collections.PropertySet.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -200,11 +200,11 @@ class StringMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]
     _classid_ = 'Windows.Foundation.Collections.StringMap'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Foundation.Collections.StringMap.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Foundation.Collections.StringMap.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -235,11 +235,11 @@ class ValueSet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Foundation.Collections.ValueSet'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Foundation.Collections.ValueSet.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Foundation.Collections.ValueSet.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

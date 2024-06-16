@@ -99,11 +99,11 @@ class IOControlCode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Custom.IIOControlCode
     _classid_ = 'Windows.Devices.Custom.IOControlCode'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 4:
-            return win32more.Windows.Devices.Custom.IOControlCode.CreateIOControlCode(*args)
+            super().__init__(move=win32more.Windows.Devices.Custom.IOControlCode.CreateIOControlCode(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

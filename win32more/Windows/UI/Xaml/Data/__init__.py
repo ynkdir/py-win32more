@@ -12,11 +12,11 @@ class Binding(ComPtr):
     extends: win32more.Windows.UI.Xaml.Data.BindingBase
     default_interface: win32more.Windows.UI.Xaml.Data.IBinding
     _classid_ = 'Windows.UI.Xaml.Data.Binding'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Data.Binding.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Data.Binding.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -80,11 +80,11 @@ class BindingBase(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Data.IBindingBase
     _classid_ = 'Windows.UI.Xaml.Data.BindingBase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Data.BindingBase.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Data.BindingBase.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -121,11 +121,11 @@ class CollectionViewSource(ComPtr, metaclass=_CollectionViewSource_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Data.ICollectionViewSource
     _classid_ = 'Windows.UI.Xaml.Data.CollectionViewSource'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Data.CollectionViewSource.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Data.CollectionViewSource.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -164,13 +164,13 @@ class CurrentChangingEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Data.ICurrentChangingEventArgs
     _classid_ = 'Windows.UI.Xaml.Data.CurrentChangingEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs.CreateInstance(*args, None, None))
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs.CreateWithCancelableParameter(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Data.CurrentChangingEventArgs.CreateWithCancelableParameter(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -555,11 +555,11 @@ class ItemIndexRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Data.IItemIndexRange
     _classid_ = 'Windows.UI.Xaml.Data.ItemIndexRange'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Data.ItemIndexRange.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Data.ItemIndexRange.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -579,11 +579,11 @@ class PropertyChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Data.IPropertyChangedEventArgs
     _classid_ = 'Windows.UI.Xaml.Data.PropertyChangedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Data.PropertyChangedEventArgs.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Data.PropertyChangedEventArgs.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -600,11 +600,11 @@ class RelativeSource(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Data.IRelativeSource
     _classid_ = 'Windows.UI.Xaml.Data.RelativeSource'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Data.RelativeSource.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Data.RelativeSource.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

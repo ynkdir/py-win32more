@@ -13,13 +13,13 @@ class AtomPubClient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.AtomPub.IAtomPubClient
     _classid_ = 'Windows.Web.AtomPub.AtomPubClient'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Web.AtomPub.AtomPubClient.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Web.AtomPub.AtomPubClient.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Web.AtomPub.AtomPubClient.CreateAtomPubClientWithCredentials(*args)
+            super().__init__(move=win32more.Windows.Web.AtomPub.AtomPubClient.CreateAtomPubClientWithCredentials(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

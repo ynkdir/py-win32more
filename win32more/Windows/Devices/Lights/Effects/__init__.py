@@ -252,11 +252,11 @@ class LampArrayBitmapEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayBitmapEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Lights.Effects.LampArrayBitmapEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Lights.Effects.LampArrayBitmapEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -302,11 +302,11 @@ class LampArrayBlinkEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayBlinkEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayBlinkEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Lights.Effects.LampArrayBlinkEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Lights.Effects.LampArrayBlinkEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -360,11 +360,11 @@ class LampArrayColorRampEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayColorRampEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayColorRampEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Lights.Effects.LampArrayColorRampEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Lights.Effects.LampArrayColorRampEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -398,11 +398,11 @@ class LampArrayCustomEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayCustomEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayCustomEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Lights.Effects.LampArrayCustomEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Lights.Effects.LampArrayCustomEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -434,11 +434,11 @@ class LampArrayEffectPlaylist(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayEffectPlaylist
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayEffectPlaylist'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Lights.Effects.LampArrayEffectPlaylist.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Lights.Effects.LampArrayEffectPlaylist.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -495,11 +495,11 @@ class LampArraySolidEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArraySolidEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArraySolidEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Lights.Effects.LampArraySolidEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Lights.Effects.LampArraySolidEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

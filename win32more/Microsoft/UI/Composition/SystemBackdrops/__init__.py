@@ -13,11 +13,11 @@ class DesktopAcrylicController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.SystemBackdrops.IDesktopAcrylicController
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -232,11 +232,11 @@ class MicaController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.SystemBackdrops.IMicaController
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.MicaController'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Composition.SystemBackdrops.MicaController.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Composition.SystemBackdrops.MicaController.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -312,11 +312,11 @@ class SystemBackdropConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.SystemBackdrops.ISystemBackdropConfiguration
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Composition.SystemBackdrops.SystemBackdropConfiguration.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

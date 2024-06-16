@@ -230,11 +230,11 @@ class VoiceCommandContentTile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandContentTile
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -384,11 +384,11 @@ class VoiceCommandUserMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.VoiceCommands.IVoiceCommandUserMessage
     _classid_ = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

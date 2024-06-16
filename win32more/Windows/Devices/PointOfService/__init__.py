@@ -103,11 +103,11 @@ class BarcodeScannerReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IBarcodeScannerReport
     _classid_ = 'Windows.Devices.PointOfService.BarcodeScannerReport'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Devices.PointOfService.BarcodeScannerReport.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.PointOfService.BarcodeScannerReport.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -4348,11 +4348,11 @@ class PosPrinterPrintOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IPosPrinterPrintOptions
     _classid_ = 'Windows.Devices.PointOfService.PosPrinterPrintOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.PointOfService.PosPrinterPrintOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.PointOfService.PosPrinterPrintOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4768,11 +4768,11 @@ class UnifiedPosErrorData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.IUnifiedPosErrorData
     _classid_ = 'Windows.Devices.PointOfService.UnifiedPosErrorData'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 4:
-            return win32more.Windows.Devices.PointOfService.UnifiedPosErrorData.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.PointOfService.UnifiedPosErrorData.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

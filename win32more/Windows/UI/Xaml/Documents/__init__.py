@@ -16,11 +16,11 @@ class Block(ComPtr, metaclass=_Block_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.TextElement
     default_interface: win32more.Windows.UI.Xaml.Documents.IBlock
     _classid_ = 'Windows.UI.Xaml.Documents.Block'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Block.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Block.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -100,11 +100,11 @@ class Bold(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Span
     default_interface: win32more.Windows.UI.Xaml.Documents.IBold
     _classid_ = 'Windows.UI.Xaml.Documents.Bold'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Bold.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Bold.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -113,11 +113,11 @@ class ContactContentLinkProvider(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.ContentLinkProvider
     default_interface: win32more.Windows.UI.Xaml.Documents.IContactContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.ContactContentLinkProvider'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.ContactContentLinkProvider.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.ContactContentLinkProvider.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -128,11 +128,11 @@ class ContentLink(ComPtr, metaclass=_ContentLink_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLink
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLink'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.ContentLink.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.ContentLink.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -285,11 +285,11 @@ class ContentLinkProvider(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkProvider'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.ContentLinkProvider.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.ContentLinkProvider.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -298,11 +298,11 @@ class ContentLinkProviderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLinkProviderCollection
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkProviderCollection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.ContentLinkProviderCollection.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.ContentLinkProviderCollection.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -340,11 +340,11 @@ class Glyphs(ComPtr, metaclass=_Glyphs_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Documents.IGlyphs
     _classid_ = 'Windows.UI.Xaml.Documents.Glyphs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Glyphs.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Glyphs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -435,11 +435,11 @@ class Hyperlink(ComPtr, metaclass=_Hyperlink_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.Span
     default_interface: win32more.Windows.UI.Xaml.Documents.IHyperlink
     _classid_ = 'Windows.UI.Xaml.Documents.Hyperlink'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Hyperlink.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Hyperlink.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1769,11 +1769,11 @@ class Inline(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.TextElement
     default_interface: win32more.Windows.UI.Xaml.Documents.IInline
     _classid_ = 'Windows.UI.Xaml.Documents.Inline'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Inline.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Inline.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1813,11 +1813,11 @@ class InlineUIContainer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.IInlineUIContainer
     _classid_ = 'Windows.UI.Xaml.Documents.InlineUIContainer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.InlineUIContainer.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.InlineUIContainer.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1831,11 +1831,11 @@ class Italic(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Span
     default_interface: win32more.Windows.UI.Xaml.Documents.IItalic
     _classid_ = 'Windows.UI.Xaml.Documents.Italic'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Italic.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Italic.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1844,11 +1844,11 @@ class LineBreak(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.ILineBreak
     _classid_ = 'Windows.UI.Xaml.Documents.LineBreak'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.LineBreak.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.LineBreak.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1862,11 +1862,11 @@ class Paragraph(ComPtr, metaclass=_Paragraph_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.Block
     default_interface: win32more.Windows.UI.Xaml.Documents.IParagraph
     _classid_ = 'Windows.UI.Xaml.Documents.Paragraph'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Paragraph.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Paragraph.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1886,11 +1886,11 @@ class PlaceContentLinkProvider(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.ContentLinkProvider
     default_interface: win32more.Windows.UI.Xaml.Documents.IPlaceContentLinkProvider
     _classid_ = 'Windows.UI.Xaml.Documents.PlaceContentLinkProvider'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.PlaceContentLinkProvider.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.PlaceContentLinkProvider.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1901,11 +1901,11 @@ class Run(ComPtr, metaclass=_Run_Meta_):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.IRun
     _classid_ = 'Windows.UI.Xaml.Documents.Run'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Run.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Run.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1927,11 +1927,11 @@ class Span(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Inline
     default_interface: win32more.Windows.UI.Xaml.Documents.ISpan
     _classid_ = 'Windows.UI.Xaml.Documents.Span'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Span.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Span.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2136,11 +2136,11 @@ class TextHighlighter(ComPtr, metaclass=_TextHighlighter_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Documents.ITextHighlighter
     _classid_ = 'Windows.UI.Xaml.Documents.TextHighlighter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.TextHighlighter.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.TextHighlighter.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2502,11 +2502,11 @@ class Underline(ComPtr):
     extends: win32more.Windows.UI.Xaml.Documents.Span
     default_interface: win32more.Windows.UI.Xaml.Documents.IUnderline
     _classid_ = 'Windows.UI.Xaml.Documents.Underline'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Documents.Underline.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Documents.Underline.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

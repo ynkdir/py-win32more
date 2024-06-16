@@ -224,11 +224,11 @@ class CoreCursor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreCursor
     _classid_ = 'Windows.UI.Core.CoreCursor'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Core.CoreCursor.CreateCursor(*args)
+            super().__init__(move=win32more.Windows.UI.Core.CoreCursor.CreateCursor(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -632,13 +632,13 @@ class CoreWindowDialog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowDialog
     _classid_ = 'Windows.UI.Core.CoreWindowDialog'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Core.CoreWindowDialog.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Core.CoreWindowDialog.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.UI.Core.CoreWindowDialog.CreateWithTitle(*args)
+            super().__init__(move=win32more.Windows.UI.Core.CoreWindowDialog.CreateWithTitle(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -703,13 +703,13 @@ class CoreWindowFlyout(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowFlyout
     _classid_ = 'Windows.UI.Core.CoreWindowFlyout'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Core.CoreWindowFlyout.Create(*args)
+            super().__init__(move=win32more.Windows.UI.Core.CoreWindowFlyout.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.UI.Core.CoreWindowFlyout.CreateWithTitle(*args)
+            super().__init__(move=win32more.Windows.UI.Core.CoreWindowFlyout.CreateWithTitle(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

@@ -45,11 +45,11 @@ class SysStorageProviderEventReceivedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.Implementation.FileExplorer.ISysStorageProviderEventReceivedEventArgs
     _classid_ = 'Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

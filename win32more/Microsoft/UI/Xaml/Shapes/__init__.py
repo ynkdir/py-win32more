@@ -10,11 +10,11 @@ class Ellipse(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Shapes.Shape
     default_interface: win32more.Microsoft.UI.Xaml.Shapes.IEllipse
     _classid_ = 'Microsoft.UI.Xaml.Shapes.Ellipse'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Shapes.Ellipse.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Shapes.Ellipse.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -270,11 +270,11 @@ class Line(ComPtr, metaclass=_Line_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Shapes.Shape
     default_interface: win32more.Microsoft.UI.Xaml.Shapes.ILine
     _classid_ = 'Microsoft.UI.Xaml.Shapes.Line'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Shapes.Line.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Shapes.Line.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -317,11 +317,11 @@ class Path(ComPtr, metaclass=_Path_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Shapes.Shape
     default_interface: win32more.Microsoft.UI.Xaml.Shapes.IPath
     _classid_ = 'Microsoft.UI.Xaml.Shapes.Path'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Shapes.Path.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Shapes.Path.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -340,11 +340,11 @@ class Polygon(ComPtr, metaclass=_Polygon_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Shapes.Shape
     default_interface: win32more.Microsoft.UI.Xaml.Shapes.IPolygon
     _classid_ = 'Microsoft.UI.Xaml.Shapes.Polygon'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Shapes.Polygon.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Shapes.Polygon.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -371,11 +371,11 @@ class Polyline(ComPtr, metaclass=_Polyline_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Shapes.Shape
     default_interface: win32more.Microsoft.UI.Xaml.Shapes.IPolyline
     _classid_ = 'Microsoft.UI.Xaml.Shapes.Polyline'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Shapes.Polyline.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Shapes.Polyline.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -402,11 +402,11 @@ class Rectangle(ComPtr, metaclass=_Rectangle_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Shapes.Shape
     default_interface: win32more.Microsoft.UI.Xaml.Shapes.IRectangle
     _classid_ = 'Microsoft.UI.Xaml.Shapes.Rectangle'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Shapes.Rectangle.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Shapes.Rectangle.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -433,11 +433,11 @@ class Shape(ComPtr, metaclass=_Shape_Meta_):
     extends: win32more.Microsoft.UI.Xaml.FrameworkElement
     default_interface: win32more.Microsoft.UI.Xaml.Shapes.IShape
     _classid_ = 'Microsoft.UI.Xaml.Shapes.Shape'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Shapes.Shape.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Shapes.Shape.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

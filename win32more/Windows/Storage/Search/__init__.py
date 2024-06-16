@@ -353,11 +353,11 @@ class IndexableContent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IIndexableContent
     _classid_ = 'Windows.Storage.Search.IndexableContent'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Storage.Search.IndexableContent.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Storage.Search.IndexableContent.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -394,15 +394,15 @@ class QueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IQueryOptions
     _classid_ = 'Windows.Storage.Search.QueryOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Storage.Search.QueryOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Storage.Search.QueryOptions.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Storage.Search.QueryOptions.CreateCommonFolderQuery(*args)
+            super().__init__(move=win32more.Windows.Storage.Search.QueryOptions.CreateCommonFolderQuery(*args))
         elif len(args) == 2:
-            return win32more.Windows.Storage.Search.QueryOptions.CreateCommonFileQuery(*args)
+            super().__init__(move=win32more.Windows.Storage.Search.QueryOptions.CreateCommonFileQuery(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -605,11 +605,11 @@ class ValueAndLanguage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Search.IValueAndLanguage
     _classid_ = 'Windows.Storage.Search.ValueAndLanguage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Storage.Search.ValueAndLanguage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Storage.Search.ValueAndLanguage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

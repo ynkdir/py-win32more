@@ -16,13 +16,13 @@ class Compressor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Compression.ICompressor
     _classid_ = 'Windows.Storage.Compression.Compressor'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Storage.Compression.Compressor.CreateCompressor(*args)
+            super().__init__(move=win32more.Windows.Storage.Compression.Compressor.CreateCompressor(*args))
         elif len(args) == 3:
-            return win32more.Windows.Storage.Compression.Compressor.CreateCompressorEx(*args)
+            super().__init__(move=win32more.Windows.Storage.Compression.Compressor.CreateCompressorEx(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -43,11 +43,11 @@ class Decompressor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Compression.IDecompressor
     _classid_ = 'Windows.Storage.Compression.Decompressor'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Storage.Compression.Decompressor.CreateDecompressor(*args)
+            super().__init__(move=win32more.Windows.Storage.Compression.Decompressor.CreateDecompressor(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

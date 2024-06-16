@@ -18,11 +18,11 @@ class AppBarAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAppBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AppBarAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.AppBarAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.AppBarAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -67,11 +67,11 @@ class AppBarButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAppBarButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AppBarButtonAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.AppBarButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.AppBarButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -87,11 +87,11 @@ class AppBarToggleButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAppBarToggleButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AppBarToggleButtonAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.AppBarToggleButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.AppBarToggleButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -100,11 +100,11 @@ class AutoSuggestBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAutoSuggestBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer.CreateInstanceWithOwner(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer.CreateInstanceWithOwner(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -232,11 +232,11 @@ class AutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeer.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeer.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -458,15 +458,15 @@ class AutomationPeerAnnotation(ComPtr, metaclass=_AutomationPeerAnnotation_Meta_
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IAutomationPeerAnnotation
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation.CreateInstance(*args))
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation.CreateWithPeerParameter(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation.CreateWithPeerParameter(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_overload
@@ -504,11 +504,11 @@ class ButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -519,11 +519,11 @@ class ButtonBaseAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IButtonBaseAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -532,11 +532,11 @@ class CalendarDatePickerAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ICalendarDatePickerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.CalendarDatePickerAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.CalendarDatePickerAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.CalendarDatePickerAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -555,11 +555,11 @@ class CaptureElementAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ICaptureElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.CaptureElementAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.CaptureElementAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.CaptureElementAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -568,11 +568,11 @@ class CheckBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ICheckBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.CheckBoxAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.CheckBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.CheckBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -581,11 +581,11 @@ class ColorPickerSliderAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IColorPickerSliderAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ColorPickerSliderAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ColorPickerSliderAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ColorPickerSliderAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -594,11 +594,11 @@ class ColorSpectrumAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IColorSpectrumAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ColorSpectrumAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ColorSpectrumAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ColorSpectrumAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -607,11 +607,11 @@ class ComboBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IComboBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -659,11 +659,11 @@ class ComboBoxItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IComboBoxItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ComboBoxItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -672,11 +672,11 @@ class ComboBoxItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IComboBoxItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ComboBoxItemDataAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ComboBoxItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -687,11 +687,11 @@ class DatePickerAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IDatePickerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.DatePickerAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.DatePickerAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.DatePickerAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -704,11 +704,11 @@ class FlipViewAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFlipViewAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.FlipViewAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -717,11 +717,11 @@ class FlipViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFlipViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlipViewItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.FlipViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.FlipViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -730,11 +730,11 @@ class FlipViewItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFlipViewItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlipViewItemDataAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Automation.Peers.FlipViewItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.FlipViewItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -745,11 +745,11 @@ class FlyoutPresenterAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFlyoutPresenterAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FlyoutPresenterAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.FlyoutPresenterAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.FlyoutPresenterAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -758,11 +758,11 @@ class FrameworkElementAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IFrameworkElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -778,11 +778,11 @@ class GridViewAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.GridViewAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -791,11 +791,11 @@ class GridViewHeaderItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewHeaderItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewHeaderItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.GridViewHeaderItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.GridViewHeaderItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -804,11 +804,11 @@ class GridViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.GridViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.GridViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -817,11 +817,11 @@ class GridViewItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGridViewItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GridViewItemDataAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Automation.Peers.GridViewItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.GridViewItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -832,11 +832,11 @@ class GroupItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IGroupItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.GroupItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.GroupItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.GroupItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -845,11 +845,11 @@ class HubAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IHubAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.HubAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.HubAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.HubAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -858,11 +858,11 @@ class HubSectionAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IHubSectionAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.HubSectionAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.HubSectionAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.HubSectionAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -873,11 +873,11 @@ class HyperlinkButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IHyperlinkButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.HyperlinkButtonAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.HyperlinkButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.HyperlinkButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2072,11 +2072,11 @@ class ImageAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IImageAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ImageAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ImageAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ImageAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2089,11 +2089,11 @@ class ItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.AutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2110,11 +2110,11 @@ class ItemsControlAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IItemsControlAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2129,11 +2129,11 @@ class ListBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ListBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2142,11 +2142,11 @@ class ListBoxItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListBoxItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListBoxItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ListBoxItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ListBoxItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2155,11 +2155,11 @@ class ListBoxItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListBoxItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListBoxItemDataAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ListBoxItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ListBoxItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2174,11 +2174,11 @@ class ListViewAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ListViewAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ListViewAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2187,11 +2187,11 @@ class ListViewBaseAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewBaseAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2206,11 +2206,11 @@ class ListViewBaseHeaderItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewBaseHeaderItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2219,11 +2219,11 @@ class ListViewHeaderItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewBaseHeaderItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewHeaderItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewHeaderItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ListViewHeaderItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ListViewHeaderItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2232,11 +2232,11 @@ class ListViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2245,11 +2245,11 @@ class ListViewItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IListViewItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListViewItemDataAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2384,11 +2384,11 @@ class MediaElementAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMediaElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MediaElementAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.MediaElementAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.MediaElementAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2397,11 +2397,11 @@ class MediaPlayerElementAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMediaPlayerElementAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MediaPlayerElementAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.MediaPlayerElementAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.MediaPlayerElementAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2410,11 +2410,11 @@ class MediaTransportControlsAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMediaTransportControlsAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MediaTransportControlsAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.MediaTransportControlsAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.MediaTransportControlsAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2423,11 +2423,11 @@ class MenuBarAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMenuBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuBarAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.MenuBarAutomationPeer.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.MenuBarAutomationPeer.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2436,11 +2436,11 @@ class MenuBarItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMenuBarItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuBarItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.MenuBarItemAutomationPeer.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.MenuBarItemAutomationPeer.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2458,11 +2458,11 @@ class MenuFlyoutItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMenuFlyoutItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuFlyoutItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.MenuFlyoutItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.MenuFlyoutItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2473,11 +2473,11 @@ class MenuFlyoutPresenterAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IMenuFlyoutPresenterAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.MenuFlyoutPresenterAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.MenuFlyoutPresenterAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.MenuFlyoutPresenterAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2486,11 +2486,11 @@ class NavigationViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.INavigationViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.NavigationViewItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.NavigationViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.NavigationViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2499,11 +2499,11 @@ class PasswordBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPasswordBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.PasswordBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2547,11 +2547,11 @@ class PersonPictureAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPersonPictureAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PersonPictureAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.PersonPictureAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.PersonPictureAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2564,11 +2564,11 @@ class PivotAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPivotAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer.CreateInstanceWithOwner(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer.CreateInstanceWithOwner(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2607,11 +2607,11 @@ class PivotItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPivotItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PivotItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.PivotItemAutomationPeer.CreateInstanceWithOwner(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.PivotItemAutomationPeer.CreateInstanceWithOwner(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2620,11 +2620,11 @@ class PivotItemDataAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IPivotItemDataAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer.CreateInstanceWithParentAndItem(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2649,11 +2649,11 @@ class ProgressBarAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IProgressBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ProgressBarAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ProgressBarAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ProgressBarAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2662,11 +2662,11 @@ class ProgressRingAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IProgressRingAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ProgressRingAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ProgressRingAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ProgressRingAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2675,11 +2675,11 @@ class RadioButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRadioButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RadioButtonAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.RadioButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.RadioButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2700,11 +2700,11 @@ class RangeBaseAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRangeBaseAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2733,11 +2733,11 @@ class RatingControlAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRatingControlAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RatingControlAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.RatingControlAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.RatingControlAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2749,11 +2749,11 @@ class RepeatButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRepeatButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RepeatButtonAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.RepeatButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.RepeatButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2764,11 +2764,11 @@ class RichEditBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRichEditBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RichEditBoxAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.RichEditBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.RichEditBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2777,11 +2777,11 @@ class RichTextBlockAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRichTextBlockAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RichTextBlockAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.RichTextBlockAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.RichTextBlockAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2790,11 +2790,11 @@ class RichTextBlockOverflowAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IRichTextBlockOverflowAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.RichTextBlockOverflowAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.RichTextBlockOverflowAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.RichTextBlockOverflowAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2803,11 +2803,11 @@ class ScrollBarAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IScrollBarAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2816,11 +2816,11 @@ class ScrollViewerAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IScrollViewerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ScrollViewerAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ScrollViewerAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ScrollViewerAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2851,11 +2851,11 @@ class SearchBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISearchBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SearchBoxAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.SearchBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.SearchBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2864,11 +2864,11 @@ class SelectorAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISelectorAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2885,11 +2885,11 @@ class SelectorItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISelectorItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.SelectorItemAutomationPeer.CreateInstanceWithParentAndItem(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2910,11 +2910,11 @@ class SemanticZoomAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISemanticZoomAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SemanticZoomAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.SemanticZoomAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.SemanticZoomAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2928,11 +2928,11 @@ class SettingsFlyoutAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISettingsFlyoutAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SettingsFlyoutAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.SettingsFlyoutAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.SettingsFlyoutAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2941,11 +2941,11 @@ class SliderAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.RangeBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ISliderAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.SliderAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2954,11 +2954,11 @@ class TextBlockAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITextBlockAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TextBlockAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.TextBlockAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.TextBlockAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2967,11 +2967,11 @@ class TextBoxAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITextBoxAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TextBoxAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.TextBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.TextBoxAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2980,11 +2980,11 @@ class ThumbAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IThumbAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ThumbAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ThumbAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ThumbAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2993,11 +2993,11 @@ class TimePickerAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITimePickerAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TimePickerAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.TimePickerAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.TimePickerAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3010,11 +3010,11 @@ class ToggleButtonAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IToggleButtonAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3028,11 +3028,11 @@ class ToggleMenuFlyoutItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IToggleMenuFlyoutItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ToggleMenuFlyoutItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ToggleMenuFlyoutItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ToggleMenuFlyoutItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3046,11 +3046,11 @@ class ToggleSwitchAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.IToggleSwitchAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.ToggleSwitchAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.ToggleSwitchAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.ToggleSwitchAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3064,11 +3064,11 @@ class TreeViewItemAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.ListViewItemAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITreeViewItemAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TreeViewItemAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.TreeViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.TreeViewItemAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3084,11 +3084,11 @@ class TreeViewListAutomationPeer(ComPtr):
     extends: win32more.Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
     default_interface: win32more.Windows.UI.Xaml.Automation.Peers.ITreeViewListAutomationPeer
     _classid_ = 'Windows.UI.Xaml.Automation.Peers.TreeViewListAutomationPeer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Xaml.Automation.Peers.TreeViewListAutomationPeer.CreateInstanceWithOwner(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Automation.Peers.TreeViewListAutomationPeer.CreateInstanceWithOwner(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

@@ -87,11 +87,11 @@ class AppInstallManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManager
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -210,11 +210,11 @@ class AppInstallOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallOptions
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -350,11 +350,11 @@ class AppUpdateOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.InstallControl.IAppUpdateOptions
     _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

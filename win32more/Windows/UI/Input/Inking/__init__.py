@@ -696,11 +696,11 @@ class InkDrawingAttributes(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkDrawingAttributes
     _classid_ = 'Windows.UI.Input.Inking.InkDrawingAttributes'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Input.Inking.InkDrawingAttributes.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.InkDrawingAttributes.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -816,11 +816,11 @@ class InkManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkManager
     _classid_ = 'Windows.UI.Input.Inking.InkManager'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Input.Inking.InkManager.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.InkManager.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -905,13 +905,13 @@ class InkPoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkPoint
     _classid_ = 'Windows.UI.Input.Inking.InkPoint'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Input.Inking.InkPoint.CreateInkPoint(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.InkPoint.CreateInkPoint(*args))
         elif len(args) == 5:
-            return win32more.Windows.UI.Input.Inking.InkPoint.CreateInkPointWithTiltAndTimestamp(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.InkPoint.CreateInkPointWithTiltAndTimestamp(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -994,11 +994,11 @@ class InkPresenterProtractor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkPresenterProtractor
     _classid_ = 'Windows.UI.Input.Inking.InkPresenterProtractor'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Input.Inking.InkPresenterProtractor.Create(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.InkPresenterProtractor.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1065,11 +1065,11 @@ class InkPresenterRuler(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkPresenterRuler
     _classid_ = 'Windows.UI.Input.Inking.InkPresenterRuler'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Input.Inking.InkPresenterRuler.Create(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.InkPresenterRuler.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1147,11 +1147,11 @@ class InkRecognizerContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkRecognizerContainer
     _classid_ = 'Windows.UI.Input.Inking.InkRecognizerContainer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Input.Inking.InkRecognizerContainer.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.InkRecognizerContainer.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1213,11 +1213,11 @@ class InkStrokeBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkStrokeBuilder
     _classid_ = 'Windows.UI.Input.Inking.InkStrokeBuilder'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Input.Inking.InkStrokeBuilder.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.InkStrokeBuilder.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1242,11 +1242,11 @@ class InkStrokeContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.Inking.IInkStrokeContainer
     _classid_ = 'Windows.UI.Input.Inking.InkStrokeContainer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Input.Inking.InkStrokeContainer.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Input.Inking.InkStrokeContainer.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

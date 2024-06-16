@@ -140,11 +140,11 @@ class OnlineIdAuthenticator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.OnlineId.IOnlineIdAuthenticator
     _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -183,13 +183,13 @@ class OnlineIdServiceTicketRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.OnlineId.IOnlineIdServiceTicketRequest
     _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequestAdvanced(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequestAdvanced(*args))
         elif len(args) == 2:
-            return win32more.Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequest(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest.CreateOnlineIdServiceTicketRequest(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

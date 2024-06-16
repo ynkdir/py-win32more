@@ -661,11 +661,11 @@ class PrintPageInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.IPrintPageInfo
     _classid_ = 'Windows.Graphics.Printing.PrintPageInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Graphics.Printing.PrintPageInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Graphics.Printing.PrintPageInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -699,13 +699,13 @@ class PrintPageRange(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Printing.IPrintPageRange
     _classid_ = 'Windows.Graphics.Printing.PrintPageRange'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Graphics.Printing.PrintPageRange.CreateWithSinglePage(*args)
+            super().__init__(move=win32more.Windows.Graphics.Printing.PrintPageRange.CreateWithSinglePage(*args))
         elif len(args) == 2:
-            return win32more.Windows.Graphics.Printing.PrintPageRange.Create(*args)
+            super().__init__(move=win32more.Windows.Graphics.Printing.PrintPageRange.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

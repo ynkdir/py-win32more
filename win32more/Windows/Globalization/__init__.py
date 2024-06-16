@@ -28,17 +28,17 @@ class Calendar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.ICalendar
     _classid_ = 'Windows.Globalization.Calendar'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Globalization.Calendar.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Globalization.Calendar.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Globalization.Calendar.CreateCalendarDefaultCalendarAndClock(*args)
+            super().__init__(move=win32more.Windows.Globalization.Calendar.CreateCalendarDefaultCalendarAndClock(*args))
         elif len(args) == 3:
-            return win32more.Windows.Globalization.Calendar.CreateCalendar(*args)
+            super().__init__(move=win32more.Windows.Globalization.Calendar.CreateCalendar(*args))
         elif len(args) == 4:
-            return win32more.Windows.Globalization.Calendar.CreateCalendarWithTimeZone(*args)
+            super().__init__(move=win32more.Windows.Globalization.Calendar.CreateCalendarWithTimeZone(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -356,11 +356,11 @@ class CurrencyAmount(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.ICurrencyAmount
     _classid_ = 'Windows.Globalization.CurrencyAmount'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Globalization.CurrencyAmount.Create(*args)
+            super().__init__(move=win32more.Windows.Globalization.CurrencyAmount.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -874,13 +874,13 @@ class GeographicRegion(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.IGeographicRegion
     _classid_ = 'Windows.Globalization.GeographicRegion'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Globalization.GeographicRegion.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Globalization.GeographicRegion.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Globalization.GeographicRegion.CreateGeographicRegion(*args)
+            super().__init__(move=win32more.Windows.Globalization.GeographicRegion.CreateGeographicRegion(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2076,11 +2076,11 @@ class Language(ComPtr, metaclass=_Language_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.ILanguage
     _classid_ = 'Windows.Globalization.Language'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Globalization.Language.CreateLanguage(*args)
+            super().__init__(move=win32more.Windows.Globalization.Language.CreateLanguage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

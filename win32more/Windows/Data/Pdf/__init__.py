@@ -179,11 +179,11 @@ class PdfPageRenderOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Pdf.IPdfPageRenderOptions
     _classid_ = 'Windows.Data.Pdf.PdfPageRenderOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Data.Pdf.PdfPageRenderOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Data.Pdf.PdfPageRenderOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

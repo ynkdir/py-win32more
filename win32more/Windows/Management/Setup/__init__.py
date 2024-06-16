@@ -10,11 +10,11 @@ class AgentProvisioningProgressReport(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Setup.IAgentProvisioningProgressReport
     _classid_ = 'Windows.Management.Setup.AgentProvisioningProgressReport'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Setup.AgentProvisioningProgressReport.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Setup.AgentProvisioningProgressReport.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -110,11 +110,11 @@ class DeploymentWorkload(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Setup.IDeploymentWorkload
     _classid_ = 'Windows.Management.Setup.DeploymentWorkload'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Management.Setup.DeploymentWorkload.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Setup.DeploymentWorkload.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -171,11 +171,11 @@ class DeploymentWorkloadBatch(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Setup.IDeploymentWorkloadBatch
     _classid_ = 'Windows.Management.Setup.DeploymentWorkloadBatch'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Management.Setup.DeploymentWorkloadBatch.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Setup.DeploymentWorkloadBatch.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

@@ -11,11 +11,11 @@ class Buffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Streams.IBuffer
     _classid_ = 'Windows.Storage.Streams.Buffer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Storage.Streams.Buffer.Create(*args)
+            super().__init__(move=win32more.Windows.Storage.Streams.Buffer.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -39,11 +39,11 @@ class DataReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Streams.IDataReader
     _classid_ = 'Windows.Storage.Streams.DataReader'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Storage.Streams.DataReader.CreateDataReader(*args)
+            super().__init__(move=win32more.Windows.Storage.Streams.DataReader.CreateDataReader(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -136,13 +136,13 @@ class DataWriter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Streams.IDataWriter
     _classid_ = 'Windows.Storage.Streams.DataWriter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Storage.Streams.DataWriter.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Storage.Streams.DataWriter.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Storage.Streams.DataWriter.CreateDataWriter(*args)
+            super().__init__(move=win32more.Windows.Storage.Streams.DataWriter.CreateDataWriter(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -586,11 +586,11 @@ class InMemoryRandomAccessStream(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.Streams.IRandomAccessStream
     _classid_ = 'Windows.Storage.Streams.InMemoryRandomAccessStream'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Storage.Streams.InMemoryRandomAccessStream.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Storage.Streams.InMemoryRandomAccessStream.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

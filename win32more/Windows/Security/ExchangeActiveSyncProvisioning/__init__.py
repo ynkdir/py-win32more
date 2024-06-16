@@ -8,11 +8,11 @@ class EasClientDeviceInformation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasClientDeviceInformation
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -45,11 +45,11 @@ class EasClientSecurityPolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasClientSecurityPolicy
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

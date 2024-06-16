@@ -21,13 +21,13 @@ class BackgroundDownloader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundDownloader
     _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundDownloader'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateWithCompletionGroup(*args)
+            super().__init__(move=win32more.Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateWithCompletionGroup(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -110,11 +110,11 @@ class BackgroundTransferCompletionGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferCompletionGroup
     _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -141,15 +141,15 @@ class BackgroundTransferContentPart(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPart
     _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateWithName(*args)
+            super().__init__(move=win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateWithName(*args))
         elif len(args) == 2:
-            return win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateWithNameAndFileName(*args)
+            super().__init__(move=win32more.Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateWithNameAndFileName(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -229,13 +229,13 @@ class BackgroundUploader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.BackgroundTransfer.IBackgroundUploader
     _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundUploader'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateWithCompletionGroup(*args)
+            super().__init__(move=win32more.Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateWithCompletionGroup(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

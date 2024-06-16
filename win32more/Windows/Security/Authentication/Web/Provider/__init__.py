@@ -269,13 +269,13 @@ class WebAccountClientView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Provider.IWebAccountClientView
     _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountClientView'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Security.Authentication.Web.Provider.WebAccountClientView.Create(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Provider.WebAccountClientView.Create(*args))
         elif len(args) == 3:
-            return win32more.Windows.Security.Authentication.Web.Provider.WebAccountClientView.CreateWithPairwiseId(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Provider.WebAccountClientView.CreateWithPairwiseId(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -531,11 +531,11 @@ class WebProviderTokenResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Provider.IWebProviderTokenResponse
     _classid_ = 'Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse.Create(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

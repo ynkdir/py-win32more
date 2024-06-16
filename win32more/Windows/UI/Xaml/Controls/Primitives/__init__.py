@@ -74,11 +74,11 @@ class ButtonBase(ComPtr, metaclass=_ButtonBase_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IButtonBase
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ButtonBase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -128,11 +128,11 @@ class CalendarPanel(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ICalendarPanel
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.CalendarPanel'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.CalendarPanel.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.CalendarPanel.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -190,11 +190,11 @@ class CarouselPanel(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.VirtualizingPanel
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ICarouselPanel
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.CarouselPanel'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.CarouselPanel.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.CarouselPanel.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -288,11 +288,11 @@ class ColorPickerSlider(ComPtr, metaclass=_ColorPickerSlider_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Slider
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IColorPickerSlider
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.ColorPickerSlider.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -311,11 +311,11 @@ class ColorSpectrum(ComPtr, metaclass=_ColorSpectrum_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IColorSpectrum
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ColorSpectrum'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.ColorSpectrum.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.ColorSpectrum.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -428,11 +428,11 @@ class CommandBarFlyoutCommandBar(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.CommandBar
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ICommandBarFlyoutCommandBar
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBar'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBar.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBar.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -551,11 +551,11 @@ class DragCompletedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IDragCompletedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs.CreateInstanceWithHorizontalChangeVerticalChangeAndCanceled(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs.CreateInstanceWithHorizontalChangeVerticalChangeAndCanceled(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -578,11 +578,11 @@ class DragDeltaEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IDragDeltaEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs.CreateInstanceWithHorizontalChangeAndVerticalChange(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs.CreateInstanceWithHorizontalChangeAndVerticalChange(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -602,11 +602,11 @@ class DragStartedEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IDragStartedEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs.CreateInstanceWithHorizontalOffsetAndVerticalOffset(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs.CreateInstanceWithHorizontalOffsetAndVerticalOffset(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -633,11 +633,11 @@ class FlyoutBase(ComPtr, metaclass=_FlyoutBase_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutBase
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.FlyoutBase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -816,11 +816,11 @@ class FlyoutShowOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IFlyoutShowOptions
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -863,11 +863,11 @@ class GridViewItemPresenter(ComPtr, metaclass=_GridViewItemPresenter_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentPresenter
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IGridViewItemPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.GridViewItemPresenter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.GridViewItemPresenter.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.GridViewItemPresenter.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3527,11 +3527,11 @@ class JumpListItemBackgroundConverter(ComPtr, metaclass=_JumpListItemBackgroundC
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IJumpListItemBackgroundConverter
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.JumpListItemBackgroundConverter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.JumpListItemBackgroundConverter.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.JumpListItemBackgroundConverter.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3562,11 +3562,11 @@ class JumpListItemForegroundConverter(ComPtr, metaclass=_JumpListItemForegroundC
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IJumpListItemForegroundConverter
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3607,11 +3607,11 @@ class ListViewItemPresenter(ComPtr, metaclass=_ListViewItemPresenter_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentPresenter
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IListViewItemPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenter.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.ListViewItemPresenter.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -4216,11 +4216,11 @@ class NavigationViewItemPresenter(ComPtr, metaclass=_NavigationViewItemPresenter
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.INavigationViewItemPresenter
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -4328,11 +4328,11 @@ class PickerFlyoutBase(ComPtr, metaclass=_PickerFlyoutBase_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutBase
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBase
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.PickerFlyoutBase.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -4352,11 +4352,11 @@ class PivotHeaderItem(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IPivotHeaderItem
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.PivotHeaderItem'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.PivotHeaderItem.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.PivotHeaderItem.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -4365,11 +4365,11 @@ class PivotHeaderPanel(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Canvas
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IPivotHeaderPanel
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.PivotHeaderPanel'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.PivotHeaderPanel.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.PivotHeaderPanel.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4378,11 +4378,11 @@ class PivotPanel(ComPtr):
     extends: win32more.Windows.UI.Xaml.Controls.Panel
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IPivotPanel
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.PivotPanel'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.PivotPanel.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.PivotPanel.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4419,11 +4419,11 @@ class Popup(ComPtr, metaclass=_Popup_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IPopup
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.Popup'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.Popup.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.Popup.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4587,11 +4587,11 @@ class RangeBase(ComPtr, metaclass=_RangeBase_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IRangeBase
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.RangeBase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -4668,11 +4668,11 @@ class RepeatButton(ComPtr, metaclass=_RepeatButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IRepeatButton
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.RepeatButton'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.RepeatButton.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.RepeatButton.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4699,11 +4699,11 @@ class ScrollBar(ComPtr, metaclass=_ScrollBar_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.RangeBase
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollBar
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ScrollBar'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.ScrollBar.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.ScrollBar.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4741,11 +4741,11 @@ class ScrollEventArgs(ComPtr):
     extends: win32more.Windows.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IScrollEventArgs
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4834,11 +4834,11 @@ class SelectorItem(ComPtr, metaclass=_SelectorItem_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.ContentControl
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ISelectorItem
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.SelectorItem'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.SelectorItem.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -4908,11 +4908,11 @@ class Thumb(ComPtr, metaclass=_Thumb_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Control
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IThumb
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.Thumb'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.Thumb.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.Thumb.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4946,11 +4946,11 @@ class TickBar(ComPtr, metaclass=_TickBar_Meta_):
     extends: win32more.Windows.UI.Xaml.FrameworkElement
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.ITickBar
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.TickBar'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.TickBar.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.TickBar.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4975,11 +4975,11 @@ class ToggleButton(ComPtr, metaclass=_ToggleButton_Meta_):
     extends: win32more.Windows.UI.Xaml.Controls.Primitives.ButtonBase
     default_interface: win32more.Windows.UI.Xaml.Controls.Primitives.IToggleButton
     _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ToggleButton'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Controls.Primitives.ToggleButton.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

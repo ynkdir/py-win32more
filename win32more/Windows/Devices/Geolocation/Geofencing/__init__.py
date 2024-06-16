@@ -10,17 +10,17 @@ class Geofence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.Geofencing.IGeofence
     _classid_ = 'Windows.Devices.Geolocation.Geofencing.Geofence'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Geolocation.Geofencing.Geofence.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geofencing.Geofence.Create(*args))
         elif len(args) == 4:
-            return win32more.Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStates(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStates(*args))
         elif len(args) == 5:
-            return win32more.Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesAndDwellTime(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesAndDwellTime(*args))
         elif len(args) == 7:
-            return win32more.Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesDwellTimeStartTimeAndDuration(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesDwellTimeStartTimeAndDuration(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

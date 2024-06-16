@@ -46,11 +46,11 @@ class SceneLightingEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Composition.Effects.ISceneLightingEffect
     _classid_ = 'Microsoft.UI.Composition.Effects.SceneLightingEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Composition.Effects.SceneLightingEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Composition.Effects.SceneLightingEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

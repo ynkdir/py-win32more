@@ -16,11 +16,11 @@ class AddPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IAddPackageOptions
     _classid_ = 'Windows.Management.Deployment.AddPackageOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.AddPackageOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.AddPackageOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -128,11 +128,11 @@ class AutoUpdateSettingsOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IAutoUpdateSettingsOptions
     _classid_ = 'Windows.Management.Deployment.AutoUpdateSettingsOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.AutoUpdateSettingsOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.AutoUpdateSettingsOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -200,11 +200,11 @@ class CreateSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.ICreateSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.CreateSharedPackageContainerOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.CreateSharedPackageContainerOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.CreateSharedPackageContainerOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -239,11 +239,11 @@ class DeleteSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IDeleteSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.DeleteSharedPackageContainerOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.DeleteSharedPackageContainerOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.DeleteSharedPackageContainerOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -304,11 +304,11 @@ class FindSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IFindSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.FindSharedPackageContainerOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.FindSharedPackageContainerOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.FindSharedPackageContainerOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1094,11 +1094,11 @@ class PackageAllUserProvisioningOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IPackageAllUserProvisioningOptions
     _classid_ = 'Windows.Management.Deployment.PackageAllUserProvisioningOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.PackageAllUserProvisioningOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.PackageAllUserProvisioningOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1123,11 +1123,11 @@ class PackageManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IPackageManager
     _classid_ = 'Windows.Management.Deployment.PackageManager'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.PackageManager.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.PackageManager.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1362,11 +1362,11 @@ class RegisterPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IRegisterPackageOptions
     _classid_ = 'Windows.Management.Deployment.RegisterPackageOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.RegisterPackageOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.RegisterPackageOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1439,11 +1439,11 @@ class RemovePackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IRemovePackageOptions
     _classid_ = 'Windows.Management.Deployment.RemovePackageOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.RemovePackageOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.RemovePackageOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1508,11 +1508,11 @@ class SharedPackageContainerMember(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.ISharedPackageContainerMember
     _classid_ = 'Windows.Management.Deployment.SharedPackageContainerMember'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Management.Deployment.SharedPackageContainerMember.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.SharedPackageContainerMember.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1531,11 +1531,11 @@ class StagePackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IStagePackageOptions
     _classid_ = 'Windows.Management.Deployment.StagePackageOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.StagePackageOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.StagePackageOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1609,11 +1609,11 @@ class UpdateSharedPackageContainerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Deployment.IUpdateSharedPackageContainerOptions
     _classid_ = 'Windows.Management.Deployment.UpdateSharedPackageContainerOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Deployment.UpdateSharedPackageContainerOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Deployment.UpdateSharedPackageContainerOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

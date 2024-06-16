@@ -11,11 +11,11 @@ class AddPagesEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Printing.IAddPagesEventArgs
     _classid_ = 'Windows.UI.Xaml.Printing.AddPagesEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Printing.AddPagesEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Printing.AddPagesEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -32,11 +32,11 @@ class GetPreviewPageEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Printing.IGetPreviewPageEventArgs
     _classid_ = 'Windows.UI.Xaml.Printing.GetPreviewPageEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Printing.GetPreviewPageEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Printing.GetPreviewPageEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -122,11 +122,11 @@ class PaginateEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Xaml.Printing.IPaginateEventArgs
     _classid_ = 'Windows.UI.Xaml.Printing.PaginateEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Printing.PaginateEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Xaml.Printing.PaginateEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -151,11 +151,11 @@ class PrintDocument(ComPtr, metaclass=_PrintDocument_Meta_):
     extends: win32more.Windows.UI.Xaml.DependencyObject
     default_interface: win32more.Windows.UI.Xaml.Printing.IPrintDocument
     _classid_ = 'Windows.UI.Xaml.Printing.PrintDocument'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Xaml.Printing.PrintDocument.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Windows.UI.Xaml.Printing.PrintDocument.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

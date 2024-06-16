@@ -298,11 +298,11 @@ class BitmapPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]
     _classid_ = 'Windows.Graphics.Imaging.BitmapPropertySet'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Graphics.Imaging.BitmapPropertySet.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Graphics.Imaging.BitmapPropertySet.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -336,11 +336,11 @@ class BitmapTransform(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapTransform
     _classid_ = 'Windows.Graphics.Imaging.BitmapTransform'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Graphics.Imaging.BitmapTransform.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Graphics.Imaging.BitmapTransform.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -379,11 +379,11 @@ class BitmapTypedValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapTypedValue
     _classid_ = 'Windows.Graphics.Imaging.BitmapTypedValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Graphics.Imaging.BitmapTypedValue.Create(*args)
+            super().__init__(move=win32more.Windows.Graphics.Imaging.BitmapTypedValue.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -806,13 +806,13 @@ class SoftwareBitmap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.ISoftwareBitmap
     _classid_ = 'Windows.Graphics.Imaging.SoftwareBitmap'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Graphics.Imaging.SoftwareBitmap.Create(*args)
+            super().__init__(move=win32more.Windows.Graphics.Imaging.SoftwareBitmap.Create(*args))
         elif len(args) == 4:
-            return win32more.Windows.Graphics.Imaging.SoftwareBitmap.CreateWithAlpha(*args)
+            super().__init__(move=win32more.Windows.Graphics.Imaging.SoftwareBitmap.CreateWithAlpha(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

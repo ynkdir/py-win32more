@@ -187,11 +187,11 @@ class SpatialSurfaceMeshOptions(ComPtr, metaclass=_SpatialSurfaceMeshOptions_Met
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshOptions
     _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -229,11 +229,11 @@ class SpatialSurfaceObserver(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Perception.Spatial.Surfaces.ISpatialSurfaceObserver
     _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

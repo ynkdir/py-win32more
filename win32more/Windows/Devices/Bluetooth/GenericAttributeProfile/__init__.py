@@ -576,11 +576,11 @@ class GattLocalCharacteristicParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalCharacteristicParameters
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -653,11 +653,11 @@ class GattLocalDescriptorParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattLocalDescriptorParameters
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -942,11 +942,11 @@ class GattReliableWriteTransaction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReliableWriteTransaction
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1014,11 +1014,11 @@ class GattServiceProviderAdvertisingParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

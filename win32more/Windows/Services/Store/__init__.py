@@ -980,11 +980,11 @@ class StorePackageInstallOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStorePackageInstallOptions
     _classid_ = 'Windows.Services.Store.StorePackageInstallOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Services.Store.StorePackageInstallOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Services.Store.StorePackageInstallOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1143,11 +1143,11 @@ class StoreProductOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStoreProductOptions
     _classid_ = 'Windows.Services.Store.StoreProductOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Services.Store.StoreProductOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Services.Store.StoreProductOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1194,13 +1194,13 @@ class StorePurchaseProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Services.Store.IStorePurchaseProperties
     _classid_ = 'Windows.Services.Store.StorePurchaseProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Services.Store.StorePurchaseProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Services.Store.StorePurchaseProperties.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Services.Store.StorePurchaseProperties.Create(*args)
+            super().__init__(move=win32more.Windows.Services.Store.StorePurchaseProperties.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

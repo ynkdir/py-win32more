@@ -2213,11 +2213,11 @@ class MobileBroadbandAccountWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAccountWatcher
     _classid_ = 'Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.NetworkOperators.MobileBroadbandAccountWatcher.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2264,11 +2264,11 @@ class MobileBroadbandAntennaSar(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandAntennaSar
     _classid_ = 'Windows.Networking.NetworkOperators.MobileBroadbandAntennaSar'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Networking.NetworkOperators.MobileBroadbandAntennaSar.CreateWithIndex(*args)
+            super().__init__(move=win32more.Windows.Networking.NetworkOperators.MobileBroadbandAntennaSar.CreateWithIndex(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2749,11 +2749,11 @@ class MobileBroadbandModemIsolation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IMobileBroadbandModemIsolation
     _classid_ = 'Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation.Create(*args)
+            super().__init__(move=win32more.Windows.Networking.NetworkOperators.MobileBroadbandModemIsolation.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3195,11 +3195,11 @@ class NetworkOperatorTetheringAccessPointConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringAccessPointConfiguration
     _classid_ = 'Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3303,11 +3303,11 @@ class NetworkOperatorTetheringSessionAccessPointConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.INetworkOperatorTetheringSessionAccessPointConfiguration
     _classid_ = 'Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.NetworkOperators.NetworkOperatorTetheringSessionAccessPointConfiguration.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3382,11 +3382,11 @@ class ProvisioningAgent(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IProvisioningAgent
     _classid_ = 'Windows.Networking.NetworkOperators.ProvisioningAgent'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.NetworkOperators.ProvisioningAgent.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.NetworkOperators.ProvisioningAgent.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3472,11 +3472,11 @@ class UssdMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IUssdMessage
     _classid_ = 'Windows.Networking.NetworkOperators.UssdMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Networking.NetworkOperators.UssdMessage.CreateMessage(*args)
+            super().__init__(move=win32more.Windows.Networking.NetworkOperators.UssdMessage.CreateMessage(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

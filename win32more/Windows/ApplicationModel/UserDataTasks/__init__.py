@@ -295,11 +295,11 @@ class UserDataTask(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTask
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTask'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.UserDataTasks.UserDataTask.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.UserDataTasks.UserDataTask.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -523,11 +523,11 @@ class UserDataTaskQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskQueryOptions
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -554,11 +554,11 @@ class UserDataTaskRecurrenceProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskRecurrenceProperties
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -614,11 +614,11 @@ class UserDataTaskRegenerationProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataTasks.IUserDataTaskRegenerationProperties
     _classid_ = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

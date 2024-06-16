@@ -75,11 +75,11 @@ class PhoneNumberFormatter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatter
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -106,11 +106,11 @@ class PhoneNumberInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfo
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.Create(*args)
+            super().__init__(move=win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

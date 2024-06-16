@@ -19,13 +19,13 @@ class BitmapImage(ComPtr, metaclass=_BitmapImage_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Imaging.BitmapSource
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.IBitmapImage
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.BitmapImage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.BitmapImage.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.BitmapImage.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.BitmapImage.CreateInstanceWithUriSource(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.BitmapImage.CreateInstanceWithUriSource(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -117,11 +117,11 @@ class BitmapSource(ComPtr, metaclass=_BitmapSource_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.ImageSource
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.IBitmapSource
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.BitmapSource'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.BitmapSource.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.BitmapSource.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -447,11 +447,11 @@ class RenderTargetBitmap(ComPtr, metaclass=_RenderTargetBitmap_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.ImageSource
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.IRenderTargetBitmap
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.RenderTargetBitmap'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.RenderTargetBitmap.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.RenderTargetBitmap.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -478,11 +478,11 @@ class SoftwareBitmapSource(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.ImageSource
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.ISoftwareBitmapSource
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.SoftwareBitmapSource'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.SoftwareBitmapSource.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.SoftwareBitmapSource.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -495,13 +495,13 @@ class SurfaceImageSource(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.ImageSource
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.ISurfaceImageSource
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.SurfaceImageSource'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.SurfaceImageSource.CreateInstanceWithDimensions(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.SurfaceImageSource.CreateInstanceWithDimensions(*args, None, None))
         elif len(args) == 3:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.SurfaceImageSource.CreateInstanceWithDimensionsAndOpacity(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.SurfaceImageSource.CreateInstanceWithDimensionsAndOpacity(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -514,13 +514,13 @@ class SvgImageSource(ComPtr, metaclass=_SvgImageSource_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.ImageSource
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.ISvgImageSource
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.SvgImageSource'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.SvgImageSource.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.SvgImageSource.CreateInstance(*args, None, None))
         elif len(args) == 1:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.SvgImageSource.CreateInstanceWithUriSource(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.SvgImageSource.CreateInstanceWithUriSource(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -583,13 +583,13 @@ class VirtualSurfaceImageSource(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Imaging.SurfaceImageSource
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.IVirtualSurfaceImageSource
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource.CreateInstanceWithDimensions(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource.CreateInstanceWithDimensions(*args))
         elif len(args) == 3:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource.CreateInstanceWithDimensionsAndOpacity(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.VirtualSurfaceImageSource.CreateInstanceWithDimensionsAndOpacity(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -600,11 +600,11 @@ class WriteableBitmap(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Imaging.BitmapSource
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.IWriteableBitmap
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.WriteableBitmap'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.WriteableBitmap.CreateInstanceWithDimensions(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.WriteableBitmap.CreateInstanceWithDimensions(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -618,11 +618,11 @@ class XamlRenderingBackgroundTask(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTask
     _classid_ = 'Microsoft.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Imaging.XamlRenderingBackgroundTask.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

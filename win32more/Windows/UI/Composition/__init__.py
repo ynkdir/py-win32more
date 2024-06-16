@@ -503,11 +503,11 @@ class CompositionEffectSourceParameter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Composition.ICompositionEffectSourceParameter
     _classid_ = 'Windows.UI.Composition.CompositionEffectSourceParameter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Composition.CompositionEffectSourceParameter.Create(*args)
+            super().__init__(move=win32more.Windows.UI.Composition.CompositionEffectSourceParameter.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -838,11 +838,11 @@ class CompositionPath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Composition.ICompositionPath
     _classid_ = 'Windows.UI.Composition.CompositionPath'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Composition.CompositionPath.Create(*args)
+            super().__init__(move=win32more.Windows.UI.Composition.CompositionPath.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1401,11 +1401,11 @@ class Compositor(ComPtr, metaclass=_Compositor_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Composition.ICompositor
     _classid_ = 'Windows.UI.Composition.Compositor'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Composition.Compositor.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Composition.Compositor.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

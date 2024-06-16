@@ -14,11 +14,11 @@ class AddDeleteThemeTransition(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IAddDeleteThemeTransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.AddDeleteThemeTransition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.AddDeleteThemeTransition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.AddDeleteThemeTransition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -29,11 +29,11 @@ class BackEase(ComPtr, metaclass=_BackEase_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IBackEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.BackEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.BackEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.BackEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -50,11 +50,11 @@ class BasicConnectedAnimationConfiguration(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IBasicConnectedAnimationConfiguration
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -65,11 +65,11 @@ class BeginStoryboard(ComPtr, metaclass=_BeginStoryboard_Meta_):
     extends: win32more.Microsoft.UI.Xaml.TriggerAction
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IBeginStoryboard
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.BeginStoryboard'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.BeginStoryboard.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.BeginStoryboard.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -88,11 +88,11 @@ class BounceEase(ComPtr, metaclass=_BounceEase_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IBounceEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.BounceEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.BounceEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.BounceEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -117,11 +117,11 @@ class CircleEase(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ICircleEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.CircleEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.CircleEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.CircleEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -136,11 +136,11 @@ class ColorAnimation(ComPtr, metaclass=_ColorAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IColorAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ColorAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ColorAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ColorAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -191,11 +191,11 @@ class ColorAnimationUsingKeyFrames(ComPtr, metaclass=_ColorAnimationUsingKeyFram
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IColorAnimationUsingKeyFrames
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -217,11 +217,11 @@ class ColorKeyFrame(ComPtr, metaclass=_ColorKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IColorKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -246,11 +246,11 @@ class ColorKeyFrameCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ColorKeyFrameCollection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrameCollection.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrameCollection.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -288,11 +288,11 @@ class CommonNavigationTransitionInfo(ComPtr, metaclass=_CommonNavigationTransiti
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ICommonNavigationTransitionInfo
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.CommonNavigationTransitionInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.CommonNavigationTransitionInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.CommonNavigationTransitionInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -374,11 +374,11 @@ class ContentThemeTransition(ComPtr, metaclass=_ContentThemeTransition_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IContentThemeTransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ContentThemeTransition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ContentThemeTransition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ContentThemeTransition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -405,11 +405,11 @@ class ContinuumNavigationTransitionInfo(ComPtr, metaclass=_ContinuumNavigationTr
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IContinuumNavigationTransitionInfo
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ContinuumNavigationTransitionInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ContinuumNavigationTransitionInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ContinuumNavigationTransitionInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -447,11 +447,11 @@ class CubicEase(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ICubicEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.CubicEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.CubicEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.CubicEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -460,11 +460,11 @@ class DirectConnectedAnimationConfiguration(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDirectConnectedAnimationConfiguration
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -473,11 +473,11 @@ class DiscreteColorKeyFrame(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDiscreteColorKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DiscreteColorKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DiscreteColorKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DiscreteColorKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -486,11 +486,11 @@ class DiscreteDoubleKeyFrame(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDiscreteDoubleKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DiscreteDoubleKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DiscreteDoubleKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DiscreteDoubleKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -499,11 +499,11 @@ class DiscreteObjectKeyFrame(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDiscreteObjectKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DiscreteObjectKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DiscreteObjectKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DiscreteObjectKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -512,11 +512,11 @@ class DiscretePointKeyFrame(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDiscretePointKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DiscretePointKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DiscretePointKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DiscretePointKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -527,11 +527,11 @@ class DoubleAnimation(ComPtr, metaclass=_DoubleAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDoubleAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DoubleAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DoubleAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DoubleAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -582,11 +582,11 @@ class DoubleAnimationUsingKeyFrames(ComPtr, metaclass=_DoubleAnimationUsingKeyFr
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDoubleAnimationUsingKeyFrames
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -608,11 +608,11 @@ class DoubleKeyFrame(ComPtr, metaclass=_DoubleKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDoubleKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -637,11 +637,11 @@ class DoubleKeyFrameCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrameCollection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrameCollection.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrameCollection.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -679,11 +679,11 @@ class DragItemThemeAnimation(ComPtr, metaclass=_DragItemThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDragItemThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DragItemThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DragItemThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DragItemThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -702,11 +702,11 @@ class DragOverThemeAnimation(ComPtr, metaclass=_DragOverThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDragOverThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DragOverThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DragOverThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DragOverThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -739,11 +739,11 @@ class DrillInNavigationTransitionInfo(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDrillInNavigationTransitionInfo
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -754,11 +754,11 @@ class DrillInThemeAnimation(ComPtr, metaclass=_DrillInThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDrillInThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DrillInThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DrillInThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DrillInThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -801,11 +801,11 @@ class DrillOutThemeAnimation(ComPtr, metaclass=_DrillOutThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDrillOutThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DrillOutThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DrillOutThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DrillOutThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -848,11 +848,11 @@ class DropTargetItemThemeAnimation(ComPtr, metaclass=_DropTargetItemThemeAnimati
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDropTargetItemThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DropTargetItemThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.DropTargetItemThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.DropTargetItemThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -871,11 +871,11 @@ class EasingColorKeyFrame(ComPtr, metaclass=_EasingColorKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IEasingColorKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.EasingColorKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.EasingColorKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.EasingColorKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -894,11 +894,11 @@ class EasingDoubleKeyFrame(ComPtr, metaclass=_EasingDoubleKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IEasingDoubleKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.EasingDoubleKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.EasingDoubleKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.EasingDoubleKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -937,11 +937,11 @@ class EasingPointKeyFrame(ComPtr, metaclass=_EasingPointKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IEasingPointKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.EasingPointKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.EasingPointKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.EasingPointKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -960,11 +960,11 @@ class EdgeUIThemeTransition(ComPtr, metaclass=_EdgeUIThemeTransition_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IEdgeUIThemeTransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.EdgeUIThemeTransition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.EdgeUIThemeTransition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.EdgeUIThemeTransition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -983,11 +983,11 @@ class ElasticEase(ComPtr, metaclass=_ElasticEase_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IElasticEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ElasticEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ElasticEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ElasticEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1014,11 +1014,11 @@ class EntranceNavigationTransitionInfo(ComPtr, metaclass=_EntranceNavigationTran
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IEntranceNavigationTransitionInfo
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1036,11 +1036,11 @@ class EntranceThemeTransition(ComPtr, metaclass=_EntranceThemeTransition_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IEntranceThemeTransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.EntranceThemeTransition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.EntranceThemeTransition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.EntranceThemeTransition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1075,11 +1075,11 @@ class ExponentialEase(ComPtr, metaclass=_ExponentialEase_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IExponentialEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ExponentialEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ExponentialEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ExponentialEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1098,11 +1098,11 @@ class FadeInThemeAnimation(ComPtr, metaclass=_FadeInThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IFadeInThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.FadeInThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.FadeInThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.FadeInThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1121,11 +1121,11 @@ class FadeOutThemeAnimation(ComPtr, metaclass=_FadeOutThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IFadeOutThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.FadeOutThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.FadeOutThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.FadeOutThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1145,11 +1145,11 @@ class GravityConnectedAnimationConfiguration(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfiguration
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2862,11 +2862,11 @@ class KeySpline(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IKeySpline
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.KeySpline'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.KeySpline.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.KeySpline.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2893,11 +2893,11 @@ class LinearColorKeyFrame(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ILinearColorKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.LinearColorKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.LinearColorKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.LinearColorKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2906,11 +2906,11 @@ class LinearDoubleKeyFrame(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ILinearDoubleKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.LinearDoubleKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.LinearDoubleKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.LinearDoubleKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2919,11 +2919,11 @@ class LinearPointKeyFrame(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ILinearPointKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.LinearPointKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.LinearPointKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.LinearPointKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2934,11 +2934,11 @@ class NavigationThemeTransition(ComPtr, metaclass=_NavigationThemeTransition_Met
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.INavigationThemeTransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.NavigationThemeTransition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.NavigationThemeTransition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.NavigationThemeTransition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2955,11 +2955,11 @@ class NavigationTransitionInfo(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.INavigationTransitionInfo
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2974,11 +2974,11 @@ class ObjectAnimationUsingKeyFrames(ComPtr, metaclass=_ObjectAnimationUsingKeyFr
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IObjectAnimationUsingKeyFrames
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3000,11 +3000,11 @@ class ObjectKeyFrame(ComPtr, metaclass=_ObjectKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3029,11 +3029,11 @@ class ObjectKeyFrameCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrameCollection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrameCollection.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrameCollection.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3071,11 +3071,11 @@ class PaneThemeTransition(ComPtr, metaclass=_PaneThemeTransition_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPaneThemeTransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PaneThemeTransition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PaneThemeTransition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PaneThemeTransition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3094,11 +3094,11 @@ class PointAnimation(ComPtr, metaclass=_PointAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPointAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PointAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PointAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PointAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3149,11 +3149,11 @@ class PointAnimationUsingKeyFrames(ComPtr, metaclass=_PointAnimationUsingKeyFram
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPointAnimationUsingKeyFrames
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3175,11 +3175,11 @@ class PointKeyFrame(ComPtr, metaclass=_PointKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPointKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PointKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3204,11 +3204,11 @@ class PointKeyFrameCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PointKeyFrameCollection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrameCollection.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrameCollection.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3246,11 +3246,11 @@ class PointerDownThemeAnimation(ComPtr, metaclass=_PointerDownThemeAnimation_Met
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPointerDownThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PointerDownThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PointerDownThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PointerDownThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3269,11 +3269,11 @@ class PointerUpThemeAnimation(ComPtr, metaclass=_PointerUpThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPointerUpThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PointerUpThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PointerUpThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PointerUpThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3292,11 +3292,11 @@ class PopInThemeAnimation(ComPtr, metaclass=_PopInThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPopInThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PopInThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PopInThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PopInThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3331,11 +3331,11 @@ class PopOutThemeAnimation(ComPtr, metaclass=_PopOutThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPopOutThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PopOutThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PopOutThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PopOutThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3354,11 +3354,11 @@ class PopupThemeTransition(ComPtr, metaclass=_PopupThemeTransition_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPopupThemeTransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PopupThemeTransition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PopupThemeTransition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PopupThemeTransition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3385,11 +3385,11 @@ class PowerEase(ComPtr, metaclass=_PowerEase_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IPowerEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PowerEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.PowerEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.PowerEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3406,11 +3406,11 @@ class QuadraticEase(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IQuadraticEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.QuadraticEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.QuadraticEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.QuadraticEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3419,11 +3419,11 @@ class QuarticEase(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IQuarticEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.QuarticEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.QuarticEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.QuarticEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3432,11 +3432,11 @@ class QuinticEase(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IQuinticEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.QuinticEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.QuinticEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.QuinticEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3445,11 +3445,11 @@ class ReorderThemeTransition(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IReorderThemeTransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ReorderThemeTransition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.ReorderThemeTransition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.ReorderThemeTransition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3487,11 +3487,11 @@ class RepositionThemeAnimation(ComPtr, metaclass=_RepositionThemeAnimation_Meta_
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IRepositionThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.RepositionThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.RepositionThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.RepositionThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3526,11 +3526,11 @@ class RepositionThemeTransition(ComPtr, metaclass=_RepositionThemeTransition_Met
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IRepositionThemeTransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.RepositionThemeTransition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.RepositionThemeTransition.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.RepositionThemeTransition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3547,11 +3547,11 @@ class SineEase(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISineEase
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SineEase'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SineEase.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SineEase.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3566,11 +3566,11 @@ class SlideNavigationTransitionInfo(ComPtr, metaclass=_SlideNavigationTransition
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISlideNavigationTransitionInfo
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3589,11 +3589,11 @@ class SplineColorKeyFrame(ComPtr, metaclass=_SplineColorKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISplineColorKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SplineColorKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SplineColorKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SplineColorKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3612,11 +3612,11 @@ class SplineDoubleKeyFrame(ComPtr, metaclass=_SplineDoubleKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISplineDoubleKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SplineDoubleKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SplineDoubleKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SplineDoubleKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3635,11 +3635,11 @@ class SplinePointKeyFrame(ComPtr, metaclass=_SplinePointKeyFrame_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISplinePointKeyFrame
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SplinePointKeyFrame'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SplinePointKeyFrame.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SplinePointKeyFrame.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3658,11 +3658,11 @@ class SplitCloseThemeAnimation(ComPtr, metaclass=_SplitCloseThemeAnimation_Meta_
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISplitCloseThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SplitCloseThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SplitCloseThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SplitCloseThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3761,11 +3761,11 @@ class SplitOpenThemeAnimation(ComPtr, metaclass=_SplitOpenThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISplitOpenThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SplitOpenThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SplitOpenThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SplitOpenThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3864,11 +3864,11 @@ class Storyboard(ComPtr, metaclass=_Storyboard_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IStoryboard
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.Storyboard'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.Storyboard.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.Storyboard.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3914,11 +3914,11 @@ class SuppressNavigationTransitionInfo(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISuppressNavigationTransitionInfo
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3929,11 +3929,11 @@ class SwipeBackThemeAnimation(ComPtr, metaclass=_SwipeBackThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISwipeBackThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SwipeBackThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SwipeBackThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SwipeBackThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3968,11 +3968,11 @@ class SwipeHintThemeAnimation(ComPtr, metaclass=_SwipeHintThemeAnimation_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Timeline
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ISwipeHintThemeAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.SwipeHintThemeAnimation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.SwipeHintThemeAnimation.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.SwipeHintThemeAnimation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4007,11 +4007,11 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ITimeline
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.Timeline'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.Timeline.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.Timeline.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -4078,11 +4078,11 @@ class TimelineCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.Timeline]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.TimelineCollection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.TimelineCollection.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.TimelineCollection.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -4122,11 +4122,11 @@ class TransitionCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.Transition]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.TransitionCollection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Media.Animation.TransitionCollection.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Media.Animation.TransitionCollection.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

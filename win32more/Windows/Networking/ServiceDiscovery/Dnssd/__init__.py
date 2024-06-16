@@ -12,11 +12,11 @@ class DnssdRegistrationResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdRegistrationResult
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -41,11 +41,11 @@ class DnssdServiceInstance(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstance
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.Create(*args)
+            super().__init__(move=win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

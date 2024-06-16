@@ -651,11 +651,11 @@ class BluetoothSignalStrengthFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.IBluetoothSignalStrengthFilter
     _classid_ = 'Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

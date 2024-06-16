@@ -43,11 +43,11 @@ class CoreAutomationRemoteOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation
     _classid_ = 'Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperation.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -211,13 +211,13 @@ class RemoteAutomationClientSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.UIAutomation.Core.IRemoteAutomationClientSession
     _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationClientSession'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.CreateInstance(*args))
         elif len(args) == 2:
-            return win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.CreateInstance2(*args)
+            super().__init__(move=win32more.Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.CreateInstance2(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

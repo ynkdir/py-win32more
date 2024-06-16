@@ -281,11 +281,11 @@ class CompactOverlayPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.ICompactOverlayPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.WindowManagement.CompactOverlayPresentationConfiguration.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -294,11 +294,11 @@ class DefaultPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.IDefaultPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.DefaultPresentationConfiguration'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.WindowManagement.DefaultPresentationConfiguration.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.WindowManagement.DefaultPresentationConfiguration.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -331,11 +331,11 @@ class FullScreenPresentationConfiguration(ComPtr):
     extends: win32more.Windows.UI.WindowManagement.AppWindowPresentationConfiguration
     default_interface: win32more.Windows.UI.WindowManagement.IFullScreenPresentationConfiguration
     _classid_ = 'Windows.UI.WindowManagement.FullScreenPresentationConfiguration'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.WindowManagement.FullScreenPresentationConfiguration.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.WindowManagement.FullScreenPresentationConfiguration.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

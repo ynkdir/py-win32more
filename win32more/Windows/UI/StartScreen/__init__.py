@@ -433,19 +433,19 @@ class SecondaryTile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.StartScreen.ISecondaryTile
     _classid_ = 'Windows.UI.StartScreen.SecondaryTile'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.StartScreen.SecondaryTile.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.StartScreen.SecondaryTile.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.UI.StartScreen.SecondaryTile.CreateWithId(*args)
+            super().__init__(move=win32more.Windows.UI.StartScreen.SecondaryTile.CreateWithId(*args))
         elif len(args) == 5:
-            return win32more.Windows.UI.StartScreen.SecondaryTile.CreateMinimalTile(*args)
+            super().__init__(move=win32more.Windows.UI.StartScreen.SecondaryTile.CreateMinimalTile(*args))
         elif len(args) == 6:
-            return win32more.Windows.UI.StartScreen.SecondaryTile.CreateTile(*args)
+            super().__init__(move=win32more.Windows.UI.StartScreen.SecondaryTile.CreateTile(*args))
         elif len(args) == 7:
-            return win32more.Windows.UI.StartScreen.SecondaryTile.CreateWideTile(*args)
+            super().__init__(move=win32more.Windows.UI.StartScreen.SecondaryTile.CreateWideTile(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

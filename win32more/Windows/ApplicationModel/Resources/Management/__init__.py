@@ -95,13 +95,13 @@ class ResourceIndexer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Resources.Management.IResourceIndexer
     _classid_ = 'Windows.ApplicationModel.Resources.Management.ResourceIndexer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Resources.Management.ResourceIndexer.CreateResourceIndexer(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Resources.Management.ResourceIndexer.CreateResourceIndexer(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Resources.Management.ResourceIndexer.CreateResourceIndexerWithExtension(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Resources.Management.ResourceIndexer.CreateResourceIndexerWithExtension(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

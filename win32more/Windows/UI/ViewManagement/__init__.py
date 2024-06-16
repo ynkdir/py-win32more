@@ -14,11 +14,11 @@ class AccessibilitySettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IAccessibilitySettings
     _classid_ = 'Windows.UI.ViewManagement.AccessibilitySettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.ViewManagement.AccessibilitySettings.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.ViewManagement.AccessibilitySettings.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -310,11 +310,11 @@ class ApplicationViewTransferContext(ComPtr, metaclass=_ApplicationViewTransferC
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IApplicationViewTransferContext
     _classid_ = 'Windows.UI.ViewManagement.ApplicationViewTransferContext'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.ViewManagement.ApplicationViewTransferContext.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.ViewManagement.ApplicationViewTransferContext.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1154,11 +1154,11 @@ class UISettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.IUISettings
     _classid_ = 'Windows.UI.ViewManagement.UISettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.ViewManagement.UISettings.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.ViewManagement.UISettings.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

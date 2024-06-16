@@ -290,11 +290,11 @@ class WebProviderError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebProviderError
     _classid_ = 'Windows.Security.Authentication.Web.Core.WebProviderError'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Security.Authentication.Web.Core.WebProviderError.Create(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebProviderError.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -312,17 +312,17 @@ class WebTokenRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebTokenRequest
     _classid_ = 'Windows.Security.Authentication.Web.Core.WebTokenRequest'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithProvider(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithProvider(*args))
         elif len(args) == 2:
-            return win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithScope(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithScope(*args))
         elif len(args) == 3:
-            return win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.Create(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.Create(*args))
         elif len(args) == 4:
-            return win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithPromptType(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest.CreateWithPromptType(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -385,17 +385,17 @@ class WebTokenResponse(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebTokenResponse
     _classid_ = 'Windows.Security.Authentication.Web.Core.WebTokenResponse'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithToken(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithToken(*args))
         elif len(args) == 2:
-            return win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAndAccount(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAndAccount(*args))
         elif len(args) == 3:
-            return win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAccountAndError(*args)
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithTokenAccountAndError(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

@@ -12,11 +12,11 @@ class FrameNavigationOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Navigation.IFrameNavigationOptions
     _classid_ = 'Microsoft.UI.Xaml.Navigation.FrameNavigationOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Navigation.FrameNavigationOptions.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Navigation.FrameNavigationOptions.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -232,11 +232,11 @@ class PageStackEntry(ComPtr, metaclass=_PageStackEntry_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Navigation.IPageStackEntry
     _classid_ = 'Microsoft.UI.Xaml.Navigation.PageStackEntry'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Microsoft.UI.Xaml.Navigation.PageStackEntry.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Navigation.PageStackEntry.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

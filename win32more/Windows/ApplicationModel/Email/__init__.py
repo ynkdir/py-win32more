@@ -13,15 +13,15 @@ class EmailAttachment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailAttachment
     _classid_ = 'Windows.ApplicationModel.Email.EmailAttachment'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Email.EmailAttachment.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailAttachment.CreateInstance(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Email.EmailAttachment.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailAttachment.Create(*args))
         elif len(args) == 3:
-            return win32more.Windows.ApplicationModel.Email.EmailAttachment.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailAttachment.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -237,13 +237,13 @@ class EmailIrmInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailIrmInfo
     _classid_ = 'Windows.ApplicationModel.Email.EmailIrmInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Email.EmailIrmInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailIrmInfo.CreateInstance(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Email.EmailIrmInfo.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailIrmInfo.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -314,13 +314,13 @@ class EmailIrmTemplate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailIrmTemplate
     _classid_ = 'Windows.ApplicationModel.Email.EmailIrmTemplate'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Email.EmailIrmTemplate.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailIrmTemplate.CreateInstance(*args))
         elif len(args) == 3:
-            return win32more.Windows.ApplicationModel.Email.EmailIrmTemplate.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailIrmTemplate.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -547,11 +547,11 @@ class EmailMailboxAutoReplySettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailMailboxAutoReplySettings
     _classid_ = 'Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -860,11 +860,11 @@ class EmailMeetingInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailMeetingInfo
     _classid_ = 'Windows.ApplicationModel.Email.EmailMeetingInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Email.EmailMeetingInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailMeetingInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -945,11 +945,11 @@ class EmailMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailMessage
     _classid_ = 'Windows.ApplicationModel.Email.EmailMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Email.EmailMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1156,15 +1156,15 @@ class EmailQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailQueryOptions
     _classid_ = 'Windows.ApplicationModel.Email.EmailQueryOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Email.EmailQueryOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailQueryOptions.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Email.EmailQueryOptions.CreateWithText(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailQueryOptions.CreateWithText(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Email.EmailQueryOptions.CreateWithTextAndFields(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailQueryOptions.CreateWithTextAndFields(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1232,15 +1232,15 @@ class EmailRecipient(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailRecipient
     _classid_ = 'Windows.ApplicationModel.Email.EmailRecipient'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Email.EmailRecipient.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailRecipient.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Email.EmailRecipient.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailRecipient.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Email.EmailRecipient.CreateWithName(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailRecipient.CreateWithName(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1263,11 +1263,11 @@ class EmailRecipientResolutionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.IEmailRecipientResolutionResult
     _classid_ = 'Windows.ApplicationModel.Email.EmailRecipientResolutionResult'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Email.EmailRecipientResolutionResult.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Email.EmailRecipientResolutionResult.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

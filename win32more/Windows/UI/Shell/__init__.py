@@ -345,11 +345,11 @@ class SecurityAppManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.ISecurityAppManager
     _classid_ = 'Windows.UI.Shell.SecurityAppManager'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Shell.SecurityAppManager.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Shell.SecurityAppManager.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -437,11 +437,11 @@ class WindowTab(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTab
     _classid_ = 'Windows.UI.Shell.WindowTab'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Shell.WindowTab.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Shell.WindowTab.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -517,11 +517,11 @@ class WindowTabGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabGroup
     _classid_ = 'Windows.UI.Shell.WindowTabGroup'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Shell.WindowTabGroup.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Shell.WindowTabGroup.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

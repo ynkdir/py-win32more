@@ -793,11 +793,11 @@ class RemoteSystemAuthorizationKindFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter.Create(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -818,11 +818,11 @@ class RemoteSystemConnectionRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemConnectionRequest
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemConnectionRequest'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemConnectionRequest.Create(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemConnectionRequest.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -851,11 +851,11 @@ class RemoteSystemDiscoveryTypeFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter.Create(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -871,11 +871,11 @@ class RemoteSystemKindFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemKindFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemKindFilter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemKindFilter.Create(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemKindFilter.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -962,13 +962,13 @@ class RemoteSystemSessionController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionController
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionController'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionController.CreateController(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemSessionController.CreateController(*args))
         elif len(args) == 2:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionController.CreateControllerWithSessionOptions(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemSessionController.CreateControllerWithSessionOptions(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1035,11 +1035,11 @@ class RemoteSystemSessionInvitationListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionInvitationListener
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1094,13 +1094,13 @@ class RemoteSystemSessionMessageChannel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannel
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.Create(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.Create(*args))
         elif len(args) == 3:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.CreateWithReliability(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel.CreateWithReliability(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1128,11 +1128,11 @@ class RemoteSystemSessionOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemSessionOptions
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemSessionOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemSessionOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1267,11 +1267,11 @@ class RemoteSystemStatusTypeFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter.Create(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1337,11 +1337,11 @@ class RemoteSystemWebAccountFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.System.RemoteSystems.IRemoteSystemWebAccountFilter
     _classid_ = 'Windows.System.RemoteSystems.RemoteSystemWebAccountFilter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.System.RemoteSystems.RemoteSystemWebAccountFilter.Create(*args)
+            super().__init__(move=win32more.Windows.System.RemoteSystems.RemoteSystemWebAccountFilter.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

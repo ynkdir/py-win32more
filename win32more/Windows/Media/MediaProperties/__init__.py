@@ -12,11 +12,11 @@ class AudioEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IAudioEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.AudioEncodingProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.MediaProperties.AudioEncodingProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.MediaProperties.AudioEncodingProperties.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -125,11 +125,11 @@ class ContainerEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IContainerEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.ContainerEncodingProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.MediaProperties.ContainerEncodingProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.MediaProperties.ContainerEncodingProperties.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -957,11 +957,11 @@ class ImageEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IImageEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.ImageEncodingProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.MediaProperties.ImageEncodingProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.MediaProperties.ImageEncodingProperties.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1005,11 +1005,11 @@ class MediaEncodingProfile(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IMediaEncodingProfile
     _classid_ = 'Windows.Media.MediaProperties.MediaEncodingProfile'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.MediaProperties.MediaEncodingProfile.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.MediaProperties.MediaEncodingProfile.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1245,11 +1245,11 @@ class MediaPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]
     _classid_ = 'Windows.Media.MediaProperties.MediaPropertySet'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.MediaProperties.MediaPropertySet.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.MediaProperties.MediaPropertySet.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1325,11 +1325,11 @@ class TimedMetadataEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IMediaEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.TimedMetadataEncodingProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.MediaProperties.TimedMetadataEncodingProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.MediaProperties.TimedMetadataEncodingProperties.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1363,11 +1363,11 @@ class VideoEncodingProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IVideoEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.VideoEncodingProperties'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.MediaProperties.VideoEncodingProperties.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.MediaProperties.VideoEncodingProperties.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

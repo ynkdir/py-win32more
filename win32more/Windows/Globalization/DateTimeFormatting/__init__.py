@@ -11,23 +11,23 @@ class DateTimeFormatter(ComPtr, metaclass=_DateTimeFormatter_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatter
     _classid_ = 'Windows.Globalization.DateTimeFormatting.DateTimeFormatter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatter(*args)
+            super().__init__(move=win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatter(*args))
         elif len(args) == 2:
-            return win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterLanguages(*args)
+            super().__init__(move=win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterLanguages(*args))
         elif len(args) == 3:
-            return win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterTime(*args)
+            super().__init__(move=win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterTime(*args))
         elif len(args) == 4:
-            return win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDate(*args)
+            super().__init__(move=win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDate(*args))
         elif len(args) == 5:
-            return win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterContext(*args)
+            super().__init__(move=win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterContext(*args))
         elif len(args) == 8:
-            return win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeLanguages(*args)
+            super().__init__(move=win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeLanguages(*args))
         elif len(args) == 11:
-            return win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeContext(*args)
+            super().__init__(move=win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeContext(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

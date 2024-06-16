@@ -332,11 +332,11 @@ class BarcodeSymbologyAttributesBuilder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.PointOfService.Provider.IBarcodeSymbologyAttributesBuilder
     _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeSymbologyAttributesBuilder'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.PointOfService.Provider.BarcodeSymbologyAttributesBuilder.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.PointOfService.Provider.BarcodeSymbologyAttributesBuilder.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

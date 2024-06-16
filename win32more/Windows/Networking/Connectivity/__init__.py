@@ -36,11 +36,11 @@ class CellularApnContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.ICellularApnContext
     _classid_ = 'Windows.Networking.Connectivity.CellularApnContext'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Connectivity.CellularApnContext.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Connectivity.CellularApnContext.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -167,11 +167,11 @@ class ConnectionProfileFilter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IConnectionProfileFilter
     _classid_ = 'Windows.Networking.Connectivity.ConnectionProfileFilter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Networking.Connectivity.ConnectionProfileFilter.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Networking.Connectivity.ConnectionProfileFilter.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1034,11 +1034,11 @@ class RoutePolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.Connectivity.IRoutePolicy
     _classid_ = 'Windows.Networking.Connectivity.RoutePolicy'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Networking.Connectivity.RoutePolicy.CreateRoutePolicy(*args)
+            super().__init__(move=win32more.Windows.Networking.Connectivity.RoutePolicy.CreateRoutePolicy(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

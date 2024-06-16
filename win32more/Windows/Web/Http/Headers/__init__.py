@@ -70,13 +70,13 @@ class HttpChallengeHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpChallengeHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpChallengeHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpChallengeHeaderValue.CreateFromScheme(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpChallengeHeaderValue.CreateFromScheme(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpChallengeHeaderValue.CreateFromSchemeWithToken(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpChallengeHeaderValue.CreateFromSchemeWithToken(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -139,11 +139,11 @@ class HttpConnectionOptionHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue.Create(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -198,11 +198,11 @@ class HttpContentCodingHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentCodingHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpContentCodingHeaderValue.Create(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpContentCodingHeaderValue.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -257,13 +257,13 @@ class HttpContentCodingWithQualityHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.CreateFromValue(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.CreateFromValue(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.CreateFromValueWithQuality(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.CreateFromValueWithQuality(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -323,11 +323,11 @@ class HttpContentDispositionHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentDispositionHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpContentDispositionHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.Create(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -370,11 +370,11 @@ class HttpContentHeaderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentHeaderCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpContentHeaderCollection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Web.Http.Headers.HttpContentHeaderCollection.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpContentHeaderCollection.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -452,15 +452,15 @@ class HttpContentRangeHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentRangeHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpContentRangeHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromLength(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromLength(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromRange(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromRange(*args))
         elif len(args) == 3:
-            return win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromRangeWithLength(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromRangeWithLength(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -493,13 +493,13 @@ class HttpCookiePairHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpCookiePairHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpCookiePairHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpCookiePairHeaderValue.CreateFromName(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpCookiePairHeaderValue.CreateFromName(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpCookiePairHeaderValue.CreateFromNameWithValue(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpCookiePairHeaderValue.CreateFromNameWithValue(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -561,13 +561,13 @@ class HttpCredentialsHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpCredentialsHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpCredentialsHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpCredentialsHeaderValue.CreateFromScheme(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpCredentialsHeaderValue.CreateFromScheme(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpCredentialsHeaderValue.CreateFromSchemeWithToken(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpCredentialsHeaderValue.CreateFromSchemeWithToken(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -609,13 +609,13 @@ class HttpExpectationHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpExpectationHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpExpectationHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpExpectationHeaderValue.CreateFromName(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpExpectationHeaderValue.CreateFromName(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpExpectationHeaderValue.CreateFromNameWithValue(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpExpectationHeaderValue.CreateFromNameWithValue(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -717,13 +717,13 @@ class HttpLanguageRangeWithQualityHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRange(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRange(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRangeWithQuality(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRangeWithQuality(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -783,11 +783,11 @@ class HttpMediaTypeHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpMediaTypeHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpMediaTypeHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.Create(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -815,13 +815,13 @@ class HttpMediaTypeWithQualityHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.CreateFromMediaType(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.CreateFromMediaType(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.CreateFromMediaTypeWithQuality(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.CreateFromMediaTypeWithQuality(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -930,13 +930,13 @@ class HttpNameValueHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpNameValueHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpNameValueHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpNameValueHeaderValue.CreateFromName(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpNameValueHeaderValue.CreateFromName(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpNameValueHeaderValue.CreateFromNameWithValue(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpNameValueHeaderValue.CreateFromNameWithValue(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -961,13 +961,13 @@ class HttpProductHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpProductHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpProductHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpProductHeaderValue.CreateFromName(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpProductHeaderValue.CreateFromName(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpProductHeaderValue.CreateFromNameWithVersion(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpProductHeaderValue.CreateFromNameWithVersion(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -990,13 +990,13 @@ class HttpProductInfoHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpProductInfoHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpProductInfoHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue.CreateFromComment(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue.CreateFromComment(*args))
         elif len(args) == 2:
-            return win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue.CreateFromNameWithVersion(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue.CreateFromNameWithVersion(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1220,11 +1220,11 @@ class HttpTransferCodingHeaderValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Web.Http.Headers.IHttpTransferCodingHeaderValue
     _classid_ = 'Windows.Web.Http.Headers.HttpTransferCodingHeaderValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.Create(*args)
+            super().__init__(move=win32more.Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

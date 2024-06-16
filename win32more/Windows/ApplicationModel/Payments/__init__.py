@@ -441,11 +441,11 @@ class PaymentAddress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentAddress
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentAddress'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Payments.PaymentAddress.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentAddress.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -512,11 +512,11 @@ class PaymentCanMakePaymentResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentCanMakePaymentResult
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -536,13 +536,13 @@ class PaymentCurrencyAmount(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentCurrencyAmount
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentCurrencyAmount'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Payments.PaymentCurrencyAmount.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentCurrencyAmount.Create(*args))
         elif len(args) == 3:
-            return win32more.Windows.ApplicationModel.Payments.PaymentCurrencyAmount.CreateWithCurrencySystem(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentCurrencyAmount.CreateWithCurrencySystem(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -568,15 +568,15 @@ class PaymentDetails(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentDetails
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentDetails'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Payments.PaymentDetails.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentDetails.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Payments.PaymentDetails.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentDetails.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Payments.PaymentDetails.CreateWithDisplayItems(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentDetails.CreateWithDisplayItems(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -609,15 +609,15 @@ class PaymentDetailsModifier(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentDetailsModifier
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentDetailsModifier'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Payments.PaymentDetailsModifier.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentDetailsModifier.Create(*args))
         elif len(args) == 3:
-            return win32more.Windows.ApplicationModel.Payments.PaymentDetailsModifier.CreateWithAdditionalDisplayItems(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentDetailsModifier.CreateWithAdditionalDisplayItems(*args))
         elif len(args) == 4:
-            return win32more.Windows.ApplicationModel.Payments.PaymentDetailsModifier.CreateWithAdditionalDisplayItemsAndJsonData(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentDetailsModifier.CreateWithAdditionalDisplayItemsAndJsonData(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -642,11 +642,11 @@ class PaymentItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentItem
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentItem'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Payments.PaymentItem.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentItem.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -670,11 +670,11 @@ class PaymentMediator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentMediator
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentMediator'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Payments.PaymentMediator.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentMediator.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -691,13 +691,13 @@ class PaymentMerchantInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentMerchantInfo
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentMerchantInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Payments.PaymentMerchantInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentMerchantInfo.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Payments.PaymentMerchantInfo.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentMerchantInfo.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -714,13 +714,13 @@ class PaymentMethodData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentMethodData
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentMethodData'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Payments.PaymentMethodData.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentMethodData.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Payments.PaymentMethodData.CreateWithJsonData(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentMethodData.CreateWithJsonData(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -741,11 +741,11 @@ class PaymentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentOptions
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Payments.PaymentOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -779,17 +779,17 @@ class PaymentRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentRequest
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentRequest'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Payments.PaymentRequest.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentRequest.Create(*args))
         elif len(args) == 3:
-            return win32more.Windows.ApplicationModel.Payments.PaymentRequest.CreateWithMerchantInfo(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentRequest.CreateWithMerchantInfo(*args))
         elif len(args) == 4:
-            return win32more.Windows.ApplicationModel.Payments.PaymentRequest.CreateWithMerchantInfoAndOptions(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentRequest.CreateWithMerchantInfoAndOptions(*args))
         elif len(args) == 5:
-            return win32more.Windows.ApplicationModel.Payments.PaymentRequest.CreateWithMerchantInfoOptionsAndId(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentRequest.CreateWithMerchantInfoOptionsAndId(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -842,13 +842,13 @@ class PaymentRequestChangedResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentRequestChangedResult
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentRequestChangedResult'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Payments.PaymentRequestChangedResult.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentRequestChangedResult.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Payments.PaymentRequestChangedResult.CreateWithPaymentDetails(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentRequestChangedResult.CreateWithPaymentDetails(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -916,15 +916,15 @@ class PaymentShippingOption(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentShippingOption
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentShippingOption'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Payments.PaymentShippingOption.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentShippingOption.Create(*args))
         elif len(args) == 3:
-            return win32more.Windows.ApplicationModel.Payments.PaymentShippingOption.CreateWithSelected(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentShippingOption.CreateWithSelected(*args))
         elif len(args) == 4:
-            return win32more.Windows.ApplicationModel.Payments.PaymentShippingOption.CreateWithSelectedAndTag(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentShippingOption.CreateWithSelectedAndTag(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -961,13 +961,13 @@ class PaymentToken(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Payments.IPaymentToken
     _classid_ = 'Windows.ApplicationModel.Payments.PaymentToken'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Payments.PaymentToken.Create(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentToken.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Payments.PaymentToken.CreateWithJsonDetails(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Payments.PaymentToken.CreateWithJsonDetails(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

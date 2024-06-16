@@ -228,11 +228,11 @@ class WiFiDirectAdvertisementPublisher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectAdvertisementPublisher
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -275,11 +275,11 @@ class WiFiDirectConnectionListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionListener
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionListener'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionListener.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionListener.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -293,11 +293,11 @@ class WiFiDirectConnectionParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionParameters
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -377,11 +377,11 @@ class WiFiDirectInformationElement(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectInformationElement
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectInformationElement'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

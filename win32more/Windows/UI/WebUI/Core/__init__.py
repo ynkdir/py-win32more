@@ -250,13 +250,13 @@ class WebUICommandBarBitmapIcon(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarBitmapIcon
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon.Create(*args)
+            super().__init__(move=win32more.Windows.UI.WebUI.Core.WebUICommandBarBitmapIcon.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -276,11 +276,11 @@ class WebUICommandBarConfirmationButton(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarConfirmationButton
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarConfirmationButton'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.WebUI.Core.WebUICommandBarConfirmationButton.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.WebUI.Core.WebUICommandBarConfirmationButton.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -300,11 +300,11 @@ class WebUICommandBarIconButton(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarIconButton
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarIconButton'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.WebUI.Core.WebUICommandBarIconButton.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.WebUI.Core.WebUICommandBarIconButton.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -357,13 +357,13 @@ class WebUICommandBarSymbolIcon(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.WebUI.Core.IWebUICommandBarSymbolIcon
     _classid_ = 'Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon.Create(*args)
+            super().__init__(move=win32more.Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

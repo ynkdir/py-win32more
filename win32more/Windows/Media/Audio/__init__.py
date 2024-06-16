@@ -482,11 +482,11 @@ class AudioGraphSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioGraphSettings
     _classid_ = 'Windows.Media.Audio.AudioGraphSettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Audio.AudioGraphSettings.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Audio.AudioGraphSettings.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -542,13 +542,13 @@ class AudioNodeEmitter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioNodeEmitter
     _classid_ = 'Windows.Media.Audio.AudioNodeEmitter'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Audio.AudioNodeEmitter.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Audio.AudioNodeEmitter.CreateInstance(*args))
         elif len(args) == 3:
-            return win32more.Windows.Media.Audio.AudioNodeEmitter.CreateAudioNodeEmitter(*args)
+            super().__init__(move=win32more.Windows.Media.Audio.AudioNodeEmitter.CreateAudioNodeEmitter(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -669,11 +669,11 @@ class AudioNodeListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IAudioNodeListener
     _classid_ = 'Windows.Media.Audio.AudioNodeListener'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Audio.AudioNodeListener.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Audio.AudioNodeListener.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -899,11 +899,11 @@ class EchoEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IEchoEffectDefinition
     _classid_ = 'Windows.Media.Audio.EchoEffectDefinition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Audio.EchoEffectDefinition.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Audio.EchoEffectDefinition.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -952,11 +952,11 @@ class EqualizerEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IEqualizerEffectDefinition
     _classid_ = 'Windows.Media.Audio.EqualizerEffectDefinition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Audio.EqualizerEffectDefinition.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Audio.EqualizerEffectDefinition.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1993,11 +1993,11 @@ class LimiterEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.ILimiterEffectDefinition
     _classid_ = 'Windows.Media.Audio.LimiterEffectDefinition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Audio.LimiterEffectDefinition.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Audio.LimiterEffectDefinition.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2114,11 +2114,11 @@ class ReverbEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Audio.IReverbEffectDefinition
     _classid_ = 'Windows.Media.Audio.ReverbEffectDefinition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Audio.ReverbEffectDefinition.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Audio.ReverbEffectDefinition.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

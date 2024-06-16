@@ -38,15 +38,15 @@ class GeoboundingBox(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeoboundingBox
     _classid_ = 'Windows.Devices.Geolocation.GeoboundingBox'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Geolocation.GeoboundingBox.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.GeoboundingBox.Create(*args))
         elif len(args) == 3:
-            return win32more.Windows.Devices.Geolocation.GeoboundingBox.CreateWithAltitudeReference(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.GeoboundingBox.CreateWithAltitudeReference(*args))
         elif len(args) == 4:
-            return win32more.Windows.Devices.Geolocation.GeoboundingBox.CreateWithAltitudeReferenceAndSpatialReference(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.GeoboundingBox.CreateWithAltitudeReferenceAndSpatialReference(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -89,15 +89,15 @@ class Geocircle(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeocircle
     _classid_ = 'Windows.Devices.Geolocation.Geocircle'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.Geolocation.Geocircle.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geocircle.Create(*args))
         elif len(args) == 3:
-            return win32more.Windows.Devices.Geolocation.Geocircle.CreateWithAltitudeReferenceSystem(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geocircle.CreateWithAltitudeReferenceSystem(*args))
         elif len(args) == 4:
-            return win32more.Windows.Devices.Geolocation.Geocircle.CreateWithAltitudeReferenceSystemAndSpatialReferenceId(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geocircle.CreateWithAltitudeReferenceSystemAndSpatialReferenceId(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -193,11 +193,11 @@ class Geolocator(ComPtr, metaclass=_Geolocator_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeolocator
     _classid_ = 'Windows.Devices.Geolocation.Geolocator'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Geolocation.Geolocator.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geolocator.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -259,15 +259,15 @@ class Geopath(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeopath
     _classid_ = 'Windows.Devices.Geolocation.Geopath'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Devices.Geolocation.Geopath.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geopath.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.Devices.Geolocation.Geopath.CreateWithAltitudeReference(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geopath.CreateWithAltitudeReference(*args))
         elif len(args) == 3:
-            return win32more.Windows.Devices.Geolocation.Geopath.CreateWithAltitudeReferenceAndSpatialReference(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geopath.CreateWithAltitudeReferenceAndSpatialReference(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -292,15 +292,15 @@ class Geopoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeopoint
     _classid_ = 'Windows.Devices.Geolocation.Geopoint'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Devices.Geolocation.Geopoint.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geopoint.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.Devices.Geolocation.Geopoint.CreateWithAltitudeReferenceSystem(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geopoint.CreateWithAltitudeReferenceSystem(*args))
         elif len(args) == 3:
-            return win32more.Windows.Devices.Geolocation.Geopoint.CreateWithAltitudeReferenceSystemAndSpatialReferenceId(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.Geopoint.CreateWithAltitudeReferenceSystemAndSpatialReferenceId(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -356,11 +356,11 @@ class GeovisitMonitor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Geolocation.IGeovisitMonitor
     _classid_ = 'Windows.Devices.Geolocation.GeovisitMonitor'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.Geolocation.GeovisitMonitor.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Geolocation.GeovisitMonitor.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

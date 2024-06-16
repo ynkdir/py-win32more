@@ -770,13 +770,13 @@ class SmartCardAppletIdGroup(ComPtr, metaclass=_SmartCardAppletIdGroup_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardAppletIdGroup
     _classid_ = 'Windows.Devices.SmartCards.SmartCardAppletIdGroup'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.SmartCards.SmartCardAppletIdGroup.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardAppletIdGroup.CreateInstance(*args))
         elif len(args) == 4:
-            return win32more.Windows.Devices.SmartCards.SmartCardAppletIdGroup.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardAppletIdGroup.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -857,11 +857,11 @@ class SmartCardAutomaticResponseApdu(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardAutomaticResponseApdu
     _classid_ = 'Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.Create(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1012,11 +1012,11 @@ class SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1031,11 +1031,11 @@ class SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult(Co
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1050,11 +1050,11 @@ class SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult(ComPtr)
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1069,11 +1069,11 @@ class SmartCardCryptogramMaterialCharacteristics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramMaterialCharacteristics
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1106,11 +1106,11 @@ class SmartCardCryptogramMaterialPackageCharacteristics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramMaterialPackageCharacteristics
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramMaterialPackageCharacteristics'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.SmartCards.SmartCardCryptogramMaterialPackageCharacteristics.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardCryptogramMaterialPackageCharacteristics.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1160,11 +1160,11 @@ class SmartCardCryptogramPlacementStep(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramPlacementStep
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1225,11 +1225,11 @@ class SmartCardCryptogramStorageKeyCharacteristics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardCryptogramStorageKeyCharacteristics
     _classid_ = 'Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyCharacteristics'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyCharacteristics.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyCharacteristics.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1393,11 +1393,11 @@ class SmartCardPinPolicy(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardPinPolicy
     _classid_ = 'Windows.Devices.SmartCards.SmartCardPinPolicy'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Devices.SmartCards.SmartCardPinPolicy.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.SmartCards.SmartCardPinPolicy.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

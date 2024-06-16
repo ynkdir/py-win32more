@@ -9,11 +9,11 @@ class ConditionForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.ConditionForceEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Gaming.Input.ForceFeedback.ConditionForceEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -44,11 +44,11 @@ class ConstantForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.ConstantForceEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Gaming.Input.ForceFeedback.ConstantForceEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -219,11 +219,11 @@ class PeriodicForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -257,11 +257,11 @@ class RampForceEffect(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
     _classid_ = 'Windows.Gaming.Input.ForceFeedback.RampForceEffect'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Gaming.Input.ForceFeedback.RampForceEffect.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Gaming.Input.ForceFeedback.RampForceEffect.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

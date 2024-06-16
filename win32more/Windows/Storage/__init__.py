@@ -107,11 +107,11 @@ class ApplicationDataCompositeValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Storage.ApplicationDataCompositeValue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Storage.ApplicationDataCompositeValue.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Storage.ApplicationDataCompositeValue.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1662,11 +1662,11 @@ class StorageLibraryChangeTrackerOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Storage.IStorageLibraryChangeTrackerOptions
     _classid_ = 'Windows.Storage.StorageLibraryChangeTrackerOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Storage.StorageLibraryChangeTrackerOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Storage.StorageLibraryChangeTrackerOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

@@ -846,11 +846,11 @@ class XmlDocument(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Xml.Dom.IXmlDocument
     _classid_ = 'Windows.Data.Xml.Dom.XmlDocument'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Data.Xml.Dom.XmlDocument.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Data.Xml.Dom.XmlDocument.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1348,11 +1348,11 @@ class XmlLoadSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Xml.Dom.IXmlLoadSettings
     _classid_ = 'Windows.Data.Xml.Dom.XmlLoadSettings'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Data.Xml.Dom.XmlLoadSettings.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Data.Xml.Dom.XmlLoadSettings.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

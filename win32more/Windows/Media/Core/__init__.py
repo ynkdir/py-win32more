@@ -37,11 +37,11 @@ class AudioStreamDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IAudioStreamDescriptor
     _classid_ = 'Windows.Media.Core.AudioStreamDescriptor'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Core.AudioStreamDescriptor.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Core.AudioStreamDescriptor.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -140,11 +140,11 @@ class ChapterCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IChapterCue
     _classid_ = 'Windows.Media.Core.ChapterCue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.ChapterCue.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.ChapterCue.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -198,11 +198,11 @@ class CodecQuery(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ICodecQuery
     _classid_ = 'Windows.Media.Core.CodecQuery'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.CodecQuery.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.CodecQuery.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -371,11 +371,11 @@ class DataCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IDataCue
     _classid_ = 'Windows.Media.Core.DataCue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.DataCue.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.DataCue.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -435,11 +435,11 @@ class FaceDetectionEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Core.FaceDetectionEffectDefinition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.FaceDetectionEffectDefinition.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.FaceDetectionEffectDefinition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2156,11 +2156,11 @@ class ImageCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IImageCue
     _classid_ = 'Windows.Media.Core.ImageCue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.ImageCue.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.ImageCue.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2233,11 +2233,11 @@ class MediaBinder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaBinder
     _classid_ = 'Windows.Media.Core.MediaBinder'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.MediaBinder.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.MediaBinder.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2372,11 +2372,11 @@ class MediaSourceAppServiceConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaSourceAppServiceConnection
     _classid_ = 'Windows.Media.Core.MediaSourceAppServiceConnection'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Core.MediaSourceAppServiceConnection.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Core.MediaSourceAppServiceConnection.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2512,13 +2512,13 @@ class MediaStreamSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaStreamSource
     _classid_ = 'Windows.Media.Core.MediaStreamSource'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Core.MediaStreamSource.CreateFromDescriptor(*args)
+            super().__init__(move=win32more.Windows.Media.Core.MediaStreamSource.CreateFromDescriptor(*args))
         elif len(args) == 2:
-            return win32more.Windows.Media.Core.MediaStreamSource.CreateFromDescriptors(*args)
+            super().__init__(move=win32more.Windows.Media.Core.MediaStreamSource.CreateFromDescriptors(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -2822,11 +2822,11 @@ class MseStreamSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMseStreamSource
     _classid_ = 'Windows.Media.Core.MseStreamSource'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.MseStreamSource.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.MseStreamSource.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2899,11 +2899,11 @@ class SceneAnalysisEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Core.SceneAnalysisEffectDefinition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.SceneAnalysisEffectDefinition.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.SceneAnalysisEffectDefinition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2973,11 +2973,11 @@ class SpeechCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ISpeechCue
     _classid_ = 'Windows.Media.Core.SpeechCue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.SpeechCue.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.SpeechCue.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3025,11 +3025,11 @@ class TimedMetadataStreamDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IMediaStreamDescriptor
     _classid_ = 'Windows.Media.Core.TimedMetadataStreamDescriptor'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Core.TimedMetadataStreamDescriptor.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Core.TimedMetadataStreamDescriptor.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3061,11 +3061,11 @@ class TimedMetadataTrack(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedMetadataTrack
     _classid_ = 'Windows.Media.Core.TimedMetadataTrack'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.Media.Core.TimedMetadataTrack.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Core.TimedMetadataTrack.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -3179,11 +3179,11 @@ class TimedTextCue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextCue
     _classid_ = 'Windows.Media.Core.TimedTextCue'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.TimedTextCue.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.TimedTextCue.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3234,11 +3234,11 @@ class TimedTextLine(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextLine
     _classid_ = 'Windows.Media.Core.TimedTextLine'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.TimedTextLine.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.TimedTextLine.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3269,11 +3269,11 @@ class TimedTextRegion(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextRegion
     _classid_ = 'Windows.Media.Core.TimedTextRegion'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.TimedTextRegion.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.TimedTextRegion.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3425,11 +3425,11 @@ class TimedTextStyle(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextStyle
     _classid_ = 'Windows.Media.Core.TimedTextStyle'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.TimedTextStyle.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.TimedTextStyle.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3534,11 +3534,11 @@ class TimedTextSubformat(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.ITimedTextSubformat
     _classid_ = 'Windows.Media.Core.TimedTextSubformat'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.TimedTextSubformat.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.TimedTextSubformat.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3597,11 +3597,11 @@ class VideoStabilizationEffectDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Core.VideoStabilizationEffectDefinition'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Core.VideoStabilizationEffectDefinition.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Core.VideoStabilizationEffectDefinition.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -3627,11 +3627,11 @@ class VideoStreamDescriptor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Core.IVideoStreamDescriptor
     _classid_ = 'Windows.Media.Core.VideoStreamDescriptor'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Core.VideoStreamDescriptor.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Core.VideoStreamDescriptor.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

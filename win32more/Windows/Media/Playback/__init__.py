@@ -1269,13 +1269,13 @@ class MediaBreak(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaBreak
     _classid_ = 'Windows.Media.Playback.MediaBreak'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Playback.MediaBreak.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Playback.MediaBreak.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.Media.Playback.MediaBreak.CreateWithPresentationPosition(*args)
+            super().__init__(move=win32more.Windows.Media.Playback.MediaBreak.CreateWithPresentationPosition(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1688,15 +1688,15 @@ class MediaPlaybackItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackItem
     _classid_ = 'Windows.Media.Playback.MediaPlaybackItem'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Playback.MediaPlaybackItem.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Playback.MediaPlaybackItem.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.Media.Playback.MediaPlaybackItem.CreateWithStartTime(*args)
+            super().__init__(move=win32more.Windows.Media.Playback.MediaPlaybackItem.CreateWithStartTime(*args))
         elif len(args) == 3:
-            return win32more.Windows.Media.Playback.MediaPlaybackItem.CreateWithStartTimeAndDurationLimit(*args)
+            super().__init__(move=win32more.Windows.Media.Playback.MediaPlaybackItem.CreateWithStartTimeAndDurationLimit(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1808,11 +1808,11 @@ class MediaPlaybackList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackList
     _classid_ = 'Windows.Media.Playback.MediaPlaybackList'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Playback.MediaPlaybackList.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Playback.MediaPlaybackList.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2134,11 +2134,11 @@ class MediaPlayer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlayer
     _classid_ = 'Windows.Media.Playback.MediaPlayer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Playback.MediaPlayer.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Playback.MediaPlayer.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -2448,13 +2448,13 @@ class PlaybackMediaMarker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Playback.IPlaybackMediaMarker
     _classid_ = 'Windows.Media.Playback.PlaybackMediaMarker'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Media.Playback.PlaybackMediaMarker.CreateFromTime(*args)
+            super().__init__(move=win32more.Windows.Media.Playback.PlaybackMediaMarker.CreateFromTime(*args))
         elif len(args) == 3:
-            return win32more.Windows.Media.Playback.PlaybackMediaMarker.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Playback.PlaybackMediaMarker.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

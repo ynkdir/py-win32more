@@ -118,11 +118,11 @@ class JsonArray(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Json.IJsonArray
     _classid_ = 'Windows.Data.Json.JsonArray'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Data.Json.JsonArray.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Data.Json.JsonArray.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -200,11 +200,11 @@ class JsonObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Data.Json.IJsonObject
     _classid_ = 'Windows.Data.Json.JsonObject'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Data.Json.JsonObject.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Data.Json.JsonObject.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

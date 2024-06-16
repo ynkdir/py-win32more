@@ -577,11 +577,11 @@ class WindowsUpdateApprovalData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateApprovalData
     _classid_ = 'Windows.Management.Update.WindowsUpdateApprovalData'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Update.WindowsUpdateApprovalData.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Update.WindowsUpdateApprovalData.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -708,11 +708,11 @@ class WindowsUpdateManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateManager
     _classid_ = 'Windows.Management.Update.WindowsUpdateManager'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Management.Update.WindowsUpdateManager.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Update.WindowsUpdateManager.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -778,13 +778,13 @@ class WindowsUpdateRestartRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Management.Update.IWindowsUpdateRestartRequestOptions
     _classid_ = 'Windows.Management.Update.WindowsUpdateRestartRequestOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions.CreateInstance(*args))
         elif len(args) == 5:
-            return win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Management.Update.WindowsUpdateRestartRequestOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_overload

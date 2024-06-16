@@ -12,11 +12,11 @@ class CameraIntrinsics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.Core.ICameraIntrinsics
     _classid_ = 'Windows.Media.Devices.Core.CameraIntrinsics'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 6:
-            return win32more.Windows.Media.Devices.Core.CameraIntrinsics.Create(*args)
+            super().__init__(move=win32more.Windows.Media.Devices.Core.CameraIntrinsics.Create(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -98,11 +98,11 @@ class FrameController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Devices.Core.IFrameController
     _classid_ = 'Windows.Media.Devices.Core.FrameController'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Media.Devices.Core.FrameController.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Media.Devices.Core.FrameController.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

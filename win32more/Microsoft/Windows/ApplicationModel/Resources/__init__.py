@@ -189,13 +189,13 @@ class ResourceCandidate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidate
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance2(*args)
+            super().__init__(move=win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance2(*args))
         elif len(args) == 2:
-            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -230,15 +230,15 @@ class ResourceLoader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceLoader
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceLoader'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance(*args))
         elif len(args) == 2:
-            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance2(*args)
+            super().__init__(move=win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.CreateInstance2(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_overload
@@ -259,13 +259,13 @@ class ResourceManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceManager
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceManager'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_overload

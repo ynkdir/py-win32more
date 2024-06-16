@@ -106,11 +106,11 @@ class ChatConversationThreadingInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatConversationThreadingInfo
     _classid_ = 'Windows.ApplicationModel.Chat.ChatConversationThreadingInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Chat.ChatConversationThreadingInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Chat.ChatConversationThreadingInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -150,11 +150,11 @@ class ChatMessage(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatMessage
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessage'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Chat.ChatMessage.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Chat.ChatMessage.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -290,11 +290,11 @@ class ChatMessageAttachment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatMessageAttachment
     _classid_ = 'Windows.ApplicationModel.Chat.ChatMessageAttachment'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Chat.ChatMessageAttachment.CreateChatMessageAttachment(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Chat.ChatMessageAttachment.CreateChatMessageAttachment(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -618,11 +618,11 @@ class ChatQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatQueryOptions
     _classid_ = 'Windows.ApplicationModel.Chat.ChatQueryOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Chat.ChatQueryOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Chat.ChatQueryOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -636,11 +636,11 @@ class ChatRecipientDeliveryInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Chat.IChatRecipientDeliveryInfo
     _classid_ = 'Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

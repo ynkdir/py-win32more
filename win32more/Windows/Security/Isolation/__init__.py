@@ -520,11 +520,11 @@ class IsolatedWindowsEnvironmentOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOptions
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -603,11 +603,11 @@ class IsolatedWindowsEnvironmentOwnerRegistrationData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationData
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -686,11 +686,11 @@ class IsolatedWindowsEnvironmentShareFileRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFileRequestOptions
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -724,11 +724,11 @@ class IsolatedWindowsEnvironmentShareFolderRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderRequestOptions
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -784,11 +784,11 @@ class IsolatedWindowsEnvironmentTelemetryParameters(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Isolation.IIsolatedWindowsEnvironmentTelemetryParameters
     _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

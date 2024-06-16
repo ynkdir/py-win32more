@@ -9,11 +9,11 @@ class AppNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.IAppNotification
     _classid_ = 'Microsoft.Windows.AppNotifications.AppNotification'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Microsoft.Windows.AppNotifications.AppNotification.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.AppNotifications.AppNotification.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -126,11 +126,11 @@ class AppNotificationProgressData(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.IAppNotificationProgressData
     _classid_ = 'Microsoft.Windows.AppNotifications.AppNotificationProgressData'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Microsoft.Windows.AppNotifications.AppNotificationProgressData.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.Windows.AppNotifications.AppNotificationProgressData.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

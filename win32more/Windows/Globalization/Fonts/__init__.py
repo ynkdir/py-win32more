@@ -89,11 +89,11 @@ class LanguageFontGroup(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Globalization.Fonts.ILanguageFontGroup
     _classid_ = 'Windows.Globalization.Fonts.LanguageFontGroup'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Globalization.Fonts.LanguageFontGroup.CreateLanguageFontGroup(*args)
+            super().__init__(move=win32more.Windows.Globalization.Fonts.LanguageFontGroup.CreateLanguageFontGroup(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

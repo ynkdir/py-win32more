@@ -15,11 +15,11 @@ class AccessKeyDisplayDismissedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Input.IAccessKeyDisplayDismissedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.AccessKeyDisplayDismissedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.AccessKeyDisplayDismissedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.AccessKeyDisplayDismissedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -28,11 +28,11 @@ class AccessKeyDisplayRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Input.IAccessKeyDisplayRequestedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.AccessKeyDisplayRequestedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.AccessKeyDisplayRequestedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.AccessKeyDisplayRequestedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -44,11 +44,11 @@ class AccessKeyInvokedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Input.IAccessKeyInvokedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.AccessKeyInvokedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.AccessKeyInvokedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.AccessKeyInvokedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -111,11 +111,11 @@ class ContextRequestedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.IContextRequestedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.ContextRequestedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.ContextRequestedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.ContextRequestedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -136,11 +136,11 @@ class DoubleTappedRoutedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.IDoubleTappedRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.DoubleTappedRoutedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -166,11 +166,11 @@ class FindNextElementOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Input.IFindNextElementOptions
     _classid_ = 'Microsoft.UI.Xaml.Input.FindNextElementOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.FindNextElementOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.FindNextElementOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -330,11 +330,11 @@ class HoldingRoutedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.IHoldingRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.HoldingRoutedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.HoldingRoutedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.HoldingRoutedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1231,11 +1231,11 @@ class InputScope(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Input.IInputScope
     _classid_ = 'Microsoft.UI.Xaml.Input.InputScope'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.InputScope.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.InputScope.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1247,13 +1247,13 @@ class InputScopeName(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Input.IInputScopeName
     _classid_ = 'Microsoft.UI.Xaml.Input.InputScopeName'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.InputScopeName.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.InputScopeName.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Microsoft.UI.Xaml.Input.InputScopeName.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.InputScopeName.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_overload
@@ -1351,11 +1351,11 @@ class KeyboardAccelerator(ComPtr, metaclass=_KeyboardAccelerator_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Input.IKeyboardAccelerator
     _classid_ = 'Microsoft.UI.Xaml.Input.KeyboardAccelerator'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.KeyboardAccelerator.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.KeyboardAccelerator.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1466,11 +1466,11 @@ class ManipulationCompletedRoutedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.IManipulationCompletedRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1507,11 +1507,11 @@ class ManipulationDeltaRoutedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.IManipulationDeltaRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1553,11 +1553,11 @@ class ManipulationInertiaStartingRoutedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.IManipulationInertiaStartingRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1614,13 +1614,13 @@ class ManipulationPivot(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Input.IManipulationPivot
     _classid_ = 'Microsoft.UI.Xaml.Input.ManipulationPivot'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.ManipulationPivot.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.ManipulationPivot.CreateInstance(*args))
         elif len(args) == 2:
-            return win32more.Microsoft.UI.Xaml.Input.ManipulationPivot.CreateInstanceWithCenterAndRadius(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.ManipulationPivot.CreateInstanceWithCenterAndRadius(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1646,11 +1646,11 @@ class ManipulationStartedRoutedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.IManipulationStartedRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.ManipulationStartedRoutedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.ManipulationStartedRoutedEventArgs.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.ManipulationStartedRoutedEventArgs.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1683,11 +1683,11 @@ class ManipulationStartingRoutedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.IManipulationStartingRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.ManipulationStartingRoutedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.ManipulationStartingRoutedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.ManipulationStartingRoutedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1794,11 +1794,11 @@ class RightTappedRoutedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.IRightTappedRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1819,13 +1819,13 @@ class StandardUICommand(ComPtr, metaclass=_StandardUICommand_Meta_):
     extends: win32more.Microsoft.UI.Xaml.Input.XamlUICommand
     default_interface: win32more.Microsoft.UI.Xaml.Input.IStandardUICommand
     _classid_ = 'Microsoft.UI.Xaml.Input.StandardUICommand'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.StandardUICommand.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.StandardUICommand.CreateInstance(*args, None, None))
         elif len(args) == 1:
-            return win32more.Microsoft.UI.Xaml.Input.StandardUICommand.CreateInstanceWithKind(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.StandardUICommand.CreateInstanceWithKind(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1867,11 +1867,11 @@ class TappedRoutedEventArgs(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.RoutedEventArgs
     default_interface: win32more.Microsoft.UI.Xaml.Input.ITappedRoutedEventArgs
     _classid_ = 'Microsoft.UI.Xaml.Input.TappedRoutedEventArgs'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.TappedRoutedEventArgs.CreateInstance(*args)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.TappedRoutedEventArgs.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1907,11 +1907,11 @@ class XamlUICommand(ComPtr, metaclass=_XamlUICommand_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
     default_interface: win32more.Microsoft.UI.Xaml.Input.IXamlUICommand
     _classid_ = 'Microsoft.UI.Xaml.Input.XamlUICommand'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Microsoft.UI.Xaml.Input.XamlUICommand.CreateInstance(*args, None, None)
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Input.XamlUICommand.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

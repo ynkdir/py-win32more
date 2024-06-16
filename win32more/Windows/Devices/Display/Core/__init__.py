@@ -374,11 +374,11 @@ class DisplayPrimaryDescription(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayPrimaryDescription
     _classid_ = 'Windows.Devices.Display.Core.DisplayPrimaryDescription'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 6:
-            return win32more.Windows.Devices.Display.Core.DisplayPrimaryDescription.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Display.Core.DisplayPrimaryDescription.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -618,11 +618,11 @@ class DisplayWireFormat(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Display.Core.IDisplayWireFormat
     _classid_ = 'Windows.Devices.Display.Core.DisplayWireFormat'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 5:
-            return win32more.Windows.Devices.Display.Core.DisplayWireFormat.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.Devices.Display.Core.DisplayWireFormat.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

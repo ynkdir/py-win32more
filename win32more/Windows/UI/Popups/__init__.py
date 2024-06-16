@@ -94,13 +94,13 @@ class MessageDialog(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Popups.IMessageDialog
     _classid_ = 'Windows.UI.Popups.MessageDialog'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.Popups.MessageDialog.Create(*args)
+            super().__init__(move=win32more.Windows.UI.Popups.MessageDialog.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.UI.Popups.MessageDialog.CreateWithTitle(*args)
+            super().__init__(move=win32more.Windows.UI.Popups.MessageDialog.CreateWithTitle(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -150,11 +150,11 @@ class PopupMenu(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Popups.IPopupMenu
     _classid_ = 'Windows.UI.Popups.PopupMenu'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Popups.PopupMenu.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Popups.PopupMenu.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -172,17 +172,17 @@ class UICommand(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Popups.IUICommand
     _classid_ = 'Windows.UI.Popups.UICommand'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Popups.UICommand.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Popups.UICommand.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.UI.Popups.UICommand.Create(*args)
+            super().__init__(move=win32more.Windows.UI.Popups.UICommand.Create(*args))
         elif len(args) == 2:
-            return win32more.Windows.UI.Popups.UICommand.CreateWithHandler(*args)
+            super().__init__(move=win32more.Windows.UI.Popups.UICommand.CreateWithHandler(*args))
         elif len(args) == 3:
-            return win32more.Windows.UI.Popups.UICommand.CreateWithHandlerAndId(*args)
+            super().__init__(move=win32more.Windows.UI.Popups.UICommand.CreateWithHandlerAndId(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -217,11 +217,11 @@ class UICommandSeparator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Popups.IUICommand
     _classid_ = 'Windows.UI.Popups.UICommandSeparator'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.UI.Popups.UICommandSeparator.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.UI.Popups.UICommandSeparator.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

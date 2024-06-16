@@ -12,11 +12,11 @@ class EndpointPair(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.IEndpointPair
     _classid_ = 'Windows.Networking.EndpointPair'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 4:
-            return win32more.Windows.Networking.EndpointPair.CreateEndpointPair(*args)
+            super().__init__(move=win32more.Windows.Networking.EndpointPair.CreateEndpointPair(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -45,11 +45,11 @@ class HostName(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.IHostName
     _classid_ = 'Windows.Networking.HostName'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.Networking.HostName.CreateHostName(*args)
+            super().__init__(move=win32more.Windows.Networking.HostName.CreateHostName(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

@@ -29,11 +29,11 @@ class Contact(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContact
     _classid_ = 'Windows.ApplicationModel.Contacts.Contact'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.Contact.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.Contact.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -198,11 +198,11 @@ class ContactAddress(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactAddress
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactAddress'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactAddress.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactAddress.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -250,11 +250,11 @@ class ContactAnnotation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactAnnotation
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactAnnotation'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactAnnotation.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactAnnotation.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -379,11 +379,11 @@ class ContactCardOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactCardOptions
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactCardOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactCardOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactCardOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -462,11 +462,11 @@ class ContactConnectedServiceAccount(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactConnectedServiceAccount
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactConnectedServiceAccount'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactConnectedServiceAccount.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactConnectedServiceAccount.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -485,11 +485,11 @@ class ContactDate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactDate
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactDate'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactDate.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactDate.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -527,11 +527,11 @@ class ContactEmail(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactEmail
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactEmail'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactEmail.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactEmail.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -559,15 +559,15 @@ class ContactField(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactField
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactField'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Contacts.ContactField.CreateField_Default(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactField.CreateField_Default(*args))
         elif len(args) == 3:
-            return win32more.Windows.ApplicationModel.Contacts.ContactField.CreateField_Category(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactField.CreateField_Category(*args))
         elif len(args) == 4:
-            return win32more.Windows.ApplicationModel.Contacts.ContactField.CreateField_Custom(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactField.CreateField_Custom(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -598,11 +598,11 @@ class ContactFieldFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactFieldFactory
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactFieldFactory'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactFieldFactory.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactFieldFactory.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -672,15 +672,15 @@ class ContactInstantMessageField(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactInstantMessageField
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactInstantMessageField'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Contacts.ContactInstantMessageField.CreateInstantMessage_Default(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactInstantMessageField.CreateInstantMessage_Default(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Contacts.ContactInstantMessageField.CreateInstantMessage_Category(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactInstantMessageField.CreateInstantMessage_Category(*args))
         elif len(args) == 5:
-            return win32more.Windows.ApplicationModel.Contacts.ContactInstantMessageField.CreateInstantMessage_All(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactInstantMessageField.CreateInstantMessage_All(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -717,11 +717,11 @@ class ContactJobInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactJobInfo
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactJobInfo'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactJobInfo.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactJobInfo.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1062,15 +1062,15 @@ class ContactLocationField(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactLocationField
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactLocationField'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Contacts.ContactLocationField.CreateLocation_Default(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactLocationField.CreateLocation_Default(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Contacts.ContactLocationField.CreateLocation_Category(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactLocationField.CreateLocation_Category(*args))
         elif len(args) == 7:
-            return win32more.Windows.ApplicationModel.Contacts.ContactLocationField.CreateLocation_All(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactLocationField.CreateLocation_All(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -1253,11 +1253,11 @@ class ContactPhone(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactPhone
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactPhone'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactPhone.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactPhone.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1292,11 +1292,11 @@ class ContactPicker(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactPicker
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactPicker'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactPicker.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactPicker.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1341,15 +1341,15 @@ class ContactQueryOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactQueryOptions
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactQueryOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactQueryOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactQueryOptions.CreateInstance(*args))
         elif len(args) == 1:
-            return win32more.Windows.ApplicationModel.Contacts.ContactQueryOptions.CreateWithText(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactQueryOptions.CreateWithText(*args))
         elif len(args) == 2:
-            return win32more.Windows.ApplicationModel.Contacts.ContactQueryOptions.CreateWithTextAndFields(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactQueryOptions.CreateWithTextAndFields(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1432,11 +1432,11 @@ class ContactSignificantOther(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactSignificantOther
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactSignificantOther'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactSignificantOther.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactSignificantOther.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1505,11 +1505,11 @@ class ContactWebsite(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IContactWebsite
     _classid_ = 'Windows.ApplicationModel.Contacts.ContactWebsite'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.ContactWebsite.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.ContactWebsite.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -1533,11 +1533,11 @@ class FullContactCardOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Contacts.IFullContactCardOptions
     _classid_ = 'Windows.ApplicationModel.Contacts.FullContactCardOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Contacts.FullContactCardOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Contacts.FullContactCardOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod

@@ -67,13 +67,13 @@ class CredentialCommand(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.ICredentialCommand
     _classid_ = 'Windows.UI.ApplicationSettings.CredentialCommand'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 1:
-            return win32more.Windows.UI.ApplicationSettings.CredentialCommand.CreateCredentialCommand(*args)
+            super().__init__(move=win32more.Windows.UI.ApplicationSettings.CredentialCommand.CreateCredentialCommand(*args))
         elif len(args) == 2:
-            return win32more.Windows.UI.ApplicationSettings.CredentialCommand.CreateCredentialCommandWithHandler(*args)
+            super().__init__(move=win32more.Windows.UI.ApplicationSettings.CredentialCommand.CreateCredentialCommandWithHandler(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -273,11 +273,11 @@ class SettingsCommand(ComPtr, metaclass=_SettingsCommand_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Popups.IUICommand
     _classid_ = 'Windows.UI.ApplicationSettings.SettingsCommand'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.UI.ApplicationSettings.SettingsCommand.CreateSettingsCommand(*args)
+            super().__init__(move=win32more.Windows.UI.ApplicationSettings.SettingsCommand.CreateSettingsCommand(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -352,11 +352,11 @@ class WebAccountCommand(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.IWebAccountCommand
     _classid_ = 'Windows.UI.ApplicationSettings.WebAccountCommand'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 3:
-            return win32more.Windows.UI.ApplicationSettings.WebAccountCommand.CreateWebAccountCommand(*args)
+            super().__init__(move=win32more.Windows.UI.ApplicationSettings.WebAccountCommand.CreateWebAccountCommand(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
@@ -386,11 +386,11 @@ class WebAccountProviderCommand(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ApplicationSettings.IWebAccountProviderCommand
     _classid_ = 'Windows.UI.ApplicationSettings.WebAccountProviderCommand'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 2:
-            return win32more.Windows.UI.ApplicationSettings.WebAccountProviderCommand.CreateWebAccountProviderCommand(*args)
+            super().__init__(move=win32more.Windows.UI.ApplicationSettings.WebAccountProviderCommand.CreateWebAccountProviderCommand(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod

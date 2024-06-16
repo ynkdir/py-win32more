@@ -12,11 +12,11 @@ class Appointment(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointment
     _classid_ = 'Windows.ApplicationModel.Appointments.Appointment'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Appointments.Appointment.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Appointments.Appointment.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -367,11 +367,11 @@ class AppointmentInvitee(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentInvitee
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentInvitee'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Appointments.AppointmentInvitee.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Appointments.AppointmentInvitee.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -464,11 +464,11 @@ class AppointmentOrganizer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentParticipant
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentOrganizer'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Appointments.AppointmentOrganizer.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Appointments.AppointmentOrganizer.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -580,11 +580,11 @@ class AppointmentRecurrence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IAppointmentRecurrence
     _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentRecurrence'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Appointments.AppointmentRecurrence.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Appointments.AppointmentRecurrence.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
@@ -786,11 +786,11 @@ class FindAppointmentsOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.IFindAppointmentsOptions
     _classid_ = 'Windows.ApplicationModel.Appointments.FindAppointmentsOptions'
-    def __new__(cls, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         if kwargs:
-            return super().__new__(cls, **kwargs)
+            super().__init__(**kwargs)
         elif len(args) == 0:
-            return win32more.Windows.ApplicationModel.Appointments.FindAppointmentsOptions.CreateInstance(*args)
+            super().__init__(move=win32more.Windows.ApplicationModel.Appointments.FindAppointmentsOptions.CreateInstance(*args))
         else:
             raise ValueError('no matched constructor')
     @winrt_activatemethod
