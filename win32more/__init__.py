@@ -34,7 +34,6 @@ from ctypes import (
 )
 from ctypes import Structure as _Structure
 from ctypes import Union as _Union
-from typing import _GenericAlias
 
 if sys.version_info < (3, 9):
     from typing_extensions import get_type_hints as _get_type_hints
@@ -120,11 +119,11 @@ def _struct_union_commit(cls, start=True):
 
     hints = get_type_hints(cls)
 
-    generic_types = {}
+    ireference_types = {}
 
     for name, type_ in hints.items():
-        if is_generic_alias(type_):
-            generic_types[name] = type_
+        if getattr(type_, "_classid_", None) == "Windows.Foundation.IReference":
+            ireference_types[name] = type_
             hints[name] = get_origin(type_)
 
     for type_ in hints.values():
@@ -150,8 +149,8 @@ def _struct_union_commit(cls, start=True):
         if issubclass(type_, (c_char_p, c_wchar_p)):
             setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
 
-    for name, type_ in generic_types.items():
-        setattr(cls, name, GenericDescriptor(cls.__dict__[name], type_))
+    for name, type_ in ireference_types.items():
+        setattr(cls, name, IReferenceDescriptor(cls.__dict__[name], type_))
 
     for name in anonymous:
         hints.update(hints[name]._hints_)
@@ -159,10 +158,6 @@ def _struct_union_commit(cls, start=True):
     cls._hints_ = hints
 
     return cls
-
-
-def is_generic_alias(cls):
-    return isinstance(cls, _GenericAlias)
 
 
 class Structure(_Structure):
@@ -206,7 +201,7 @@ class AsIntPtrDescriptor:
         self._original_descriptor.__set__(instance, value)
 
 
-class GenericDescriptor:
+class IReferenceDescriptor:
     def __init__(self, original_descriptor, type_):
         self._original_descriptor = original_descriptor
         self._type = type_
