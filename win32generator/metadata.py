@@ -354,13 +354,13 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         return self.has("Windows.Foundation.Metadata.StaticAttribute")
 
     def get_static(self) -> list[CustomAttribute]:
-        return [ca for ca in self.get_list("Windows.Foundation.Metadata.StaticAttribute")]
+        return self.get_list("Windows.Foundation.Metadata.StaticAttribute")
 
     def has_activatable(self) -> bool:
         return self.has("Windows.Foundation.Metadata.ActivatableAttribute")
 
     def get_activatable(self) -> list[CustomAttribute]:
-        return [ca for ca in self.get_list("Windows.Foundation.Metadata.ActivatableAttribute")]
+        return self.get_list("Windows.Foundation.Metadata.ActivatableAttribute")
 
     def has_default(self) -> bool:
         return self.has("Windows.Foundation.Metadata.DefaultAttribute")
@@ -379,6 +379,12 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
 
     def has_unicode(self) -> bool:
         return self.has("Windows.Win32.Foundation.Metadata.UnicodeAttribute")
+
+    def has_native_bitfield(self) -> bool:
+        return self.has("Windows.Win32.Foundation.Metadata.NativeBitfieldAttribute")
+
+    def get_native_bitfield(self) -> list[CustomAttribute]:
+        return self.get_list("Windows.Win32.Foundation.Metadata.NativeBitfieldAttribute")
 
 
 class CustomAttributeFixedArgument:

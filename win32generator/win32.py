@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 BASE_EXPORTS = [
     "ARCH",
+    "Annotated",
     "Boolean",
     "Byte",
     "Bytes",
@@ -526,7 +527,11 @@ class StructUnion:
         for fd in self._value_fields():
             writer.write(f"    {fd.name} = {self._formatter.pyvalue(fd)}\n")
         for fd in self._member_fields():
-            writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
+            if fd.custom_attributes.has_native_bitfield():
+                for name, width in self._native_bitfield(fd):
+                    writer.write(f"    {name}: Annotated[{self._formatter.pytype(fd.signature)}, {width}]\n")
+            else:
+                writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
         if self._td.layout.packing_size != 0:
             writer.write(f"    _pack_ = {self._td.layout.packing_size}\n")
         for nested_type in self._td.nested_types:
@@ -546,6 +551,11 @@ class StructUnion:
 
     def _member_fields(self) -> Iterable[FieldDefinition]:
         return [fd for fd in self._td.fields if "HasDefault" not in fd.attributes]
+
+    def _native_bitfield(self, fd: FieldDefinition) -> Iterable[tuple[str, int]]:
+        for ca in fd.custom_attributes.get_native_bitfield():
+            name, start, width = ca.fixed_arguments
+            yield name.value, width.value
 
     def _is_empty(self) -> bool:
         return not self._td.fields

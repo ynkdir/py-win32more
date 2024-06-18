@@ -565,7 +565,11 @@ class StructUnion:
             pytype = self._formatter.pytype(fd.signature)
             if fd.name in anonymous:
                 pytype = f"{self.qualname}.{pytype}"
-            writer.write(f"    ('{fd.name}', {pytype}),\n")
+            if fd.custom_attributes.has_native_bitfield():
+                for name, width in self._native_bitfield(fd):
+                    writer.write(f"    ('{name}', {pytype}, {width}),\n")
+            else:
+                writer.write(f"    ('{fd.name}', {pytype}),\n")
         writer.write("]\n")
 
         return writer.getvalue()
@@ -583,6 +587,11 @@ class StructUnion:
 
     def _member_fields(self) -> Iterable[FieldDefinition]:
         return [fd for fd in self._td.fields if "HasDefault" not in fd.attributes]
+
+    def _native_bitfield(self, fd: FieldDefinition) -> Iterable[tuple[str, int]]:
+        for ca in fd.custom_attributes.get_native_bitfield():
+            name, start, width = ca.fixed_arguments
+            yield name.value, width.value
 
 
 class Com:

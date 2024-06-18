@@ -36,14 +36,11 @@ from ctypes import Structure as _Structure
 from ctypes import Union as _Union
 
 if sys.version_info < (3, 9):
+    from typing_extensions import Annotated, get_args, get_origin
     from typing_extensions import get_type_hints as _get_type_hints
 else:
+    from typing import Annotated, get_args, get_origin
     from typing import get_type_hints as _get_type_hints
-
-if sys.version_info < (3, 8):
-    from typing_extensions import get_origin
-else:
-    from typing import get_origin
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -139,7 +136,20 @@ def _struct_union_commit(cls, start=True):
     if anonymous:
         cls._anonymous_ = anonymous
 
-    cls._fields_ = list(hints.items())
+    bitfields = {}
+    for name, type_ in get_type_hints(cls, include_extras=True).items():
+        if get_origin(type_) is Annotated:
+            _, width = get_args(type_)
+            bitfields[name] = width
+
+    fields = []
+    for name, type_ in hints.items():
+        if name in bitfields:
+            fields.append((name, type_, bitfields[name]))
+        else:
+            fields.append((name, type_))
+
+    cls._fields_ = fields
 
     for name, type_ in hints.items():
         # use __dict__[name] to avoid calling descriptor.__get__().
@@ -255,11 +265,11 @@ def easycast(obj, type_):
     return obj
 
 
-def get_type_hints(prototype):
+def get_type_hints(prototype, include_extras=False):
     if sys.version_info < (3, 10) and isinstance(prototype, type) and issubclass(prototype, (Structure, Union)):
-        hints = _get_type_hints(prototype, localns=vars(prototype))
+        hints = _get_type_hints(prototype, localns=vars(prototype), include_extras=include_extras)
     else:
-        hints = _get_type_hints(prototype)
+        hints = _get_type_hints(prototype, include_extras=include_extras)
     for name, type_ in hints.items():
         if not isinstance(type_, type):
             # generic

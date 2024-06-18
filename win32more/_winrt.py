@@ -22,14 +22,9 @@ from functools import partial
 from typing import Generic, TypeVar, _GenericAlias
 
 if sys.version_info < (3, 9):
-    from typing_extensions import Annotated  # noqa: F401
+    from typing_extensions import Annotated, get_args, get_origin  # noqa: F401
 else:
-    from typing import Annotated  # noqa: F401
-
-if sys.version_info < (3, 8):
-    from typing_extensions import get_args, get_origin
-else:
-    from typing import get_args, get_origin
+    from typing import Annotated, get_args, get_origin  # noqa: F401
 
 from win32more import (
     FAILED,
@@ -263,8 +258,8 @@ def unbox_value(value: IInspectable):
         r = []
         property_value.GetRectArray(r)
         return r
-    #elif property_value.Type == PropertyType.OtherType:
-    #elif property_value.Type == PropertyType.OtherTypeArray:
+    # elif property_value.Type == PropertyType.OtherType:
+    # elif property_value.Type == PropertyType.OtherTypeArray:
     else:
         raise NotImplementedError(f"unbox_value: {property_value.Type}")
 
