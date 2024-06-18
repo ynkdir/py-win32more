@@ -79,10 +79,9 @@ class TestSyntax(unittest.TestCase):
         )
 
     def test_inline_function(self):
-        from win32more.Windows.Win32.Foundation import HANDLE
         from win32more.Windows.Win32.System.Threading import GetCurrentProcessToken
 
-        self.assertEqual(GetCurrentProcessToken().value, HANDLE(-4).value)
+        self.assertEqual(GetCurrentProcessToken(), -4)
 
     def test_overload_method_is_wrapped_with_winrt_overload(self):
         from win32more._winrt import winrt_overload
