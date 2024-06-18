@@ -40,7 +40,7 @@ EPrintTicketScope = Int32
 kPTPageScope: win32more.Windows.Win32.Graphics.Printing.PrintTicket.EPrintTicketScope = 0
 kPTDocumentScope: win32more.Windows.Win32.Graphics.Printing.PrintTicket.EPrintTicketScope = 1
 kPTJobScope: win32more.Windows.Win32.Graphics.Printing.PrintTicket.EPrintTicketScope = 2
-HPTPROVIDER = IntPtr
+HPTPROVIDER = VoidPtr
 
 
 make_ready(__name__)

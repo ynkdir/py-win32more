@@ -2265,34 +2265,58 @@ GenericFontFamilySansSerif: win32more.Windows.Win32.Graphics.GdiPlus.GenericFont
 GenericFontFamilyMonospace: win32more.Windows.Win32.Graphics.GdiPlus.GenericFontFamily = 2
 @winfunctype_pointer
 def GetThumbnailImageAbort() -> win32more.Windows.Win32.Foundation.BOOL: ...
-GpAdjustableArrowCap = IntPtr
-GpBitmap = IntPtr
-GpBrush = IntPtr
-GpCachedBitmap = IntPtr
-GpCustomLineCap = IntPtr
-GpFont = IntPtr
-GpFontCollection = IntPtr
-GpFontFamily = IntPtr
-GpGraphics = IntPtr
-GpHatch = IntPtr
-GpImage = IntPtr
-GpImageAttributes = IntPtr
-GpInstalledFontCollection = IntPtr
-GpLineGradient = IntPtr
-GpMetafile = IntPtr
-GpPath = IntPtr
-GpPathGradient = IntPtr
-GpPathIterator = IntPtr
-GpPen = IntPtr
-GpPrivateFontCollection = IntPtr
-GpRegion = IntPtr
-GpSolidFill = IntPtr
-GpStringFormat = IntPtr
+class GpAdjustableArrowCap(Structure):
+    pass
+class GpBitmap(Structure):
+    pass
+class GpBrush(Structure):
+    pass
+class GpCachedBitmap(Structure):
+    pass
+class GpCustomLineCap(Structure):
+    pass
+class GpFont(Structure):
+    pass
+class GpFontCollection(Structure):
+    pass
+class GpFontFamily(Structure):
+    pass
+class GpGraphics(Structure):
+    pass
+class GpHatch(Structure):
+    pass
+class GpImage(Structure):
+    pass
+class GpImageAttributes(Structure):
+    pass
+class GpInstalledFontCollection(Structure):
+    pass
+class GpLineGradient(Structure):
+    pass
+class GpMetafile(Structure):
+    pass
+class GpPath(Structure):
+    pass
+class GpPathGradient(Structure):
+    pass
+class GpPathIterator(Structure):
+    pass
+class GpPen(Structure):
+    pass
+class GpPrivateFontCollection(Structure):
+    pass
+class GpRegion(Structure):
+    pass
+class GpSolidFill(Structure):
+    pass
+class GpStringFormat(Structure):
+    pass
 GpTestControlEnum = Int32
 TestControlForceBilinear: win32more.Windows.Win32.Graphics.GdiPlus.GpTestControlEnum = 0
 TestControlNoICM: win32more.Windows.Win32.Graphics.GdiPlus.GpTestControlEnum = 1
 TestControlGetBuildNumber: win32more.Windows.Win32.Graphics.GdiPlus.GpTestControlEnum = 2
-GpTexture = IntPtr
+class GpTexture(Structure):
+    pass
 HatchStyle = Int32
 HatchStyleHorizontal: win32more.Windows.Win32.Graphics.GdiPlus.HatchStyle = 0
 HatchStyleVertical: win32more.Windows.Win32.Graphics.GdiPlus.HatchStyle = 1

@@ -1572,7 +1572,7 @@ class GLYPHMETRICSFLOAT(Structure):
     gmfptGlyphOrigin: win32more.Windows.Win32.Graphics.OpenGL.POINTFLOAT
     gmfCellIncX: Single
     gmfCellIncY: Single
-HGLRC = IntPtr
+HGLRC = VoidPtr
 class LAYERPLANEDESCRIPTOR(Structure):
     nSize: UInt16
     nVersion: UInt16

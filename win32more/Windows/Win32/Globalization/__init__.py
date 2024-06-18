@@ -4,6 +4,10 @@ import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Globalization
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
+LANG_SYSTEM_DEFAULT: Int32 = 2048
+LANG_USER_DEFAULT: Int32 = 1024
+LOCALE_SYSTEM_DEFAULT: UInt32 = 2048
+LOCALE_USER_DEFAULT: UInt32 = 1024
 ALL_SERVICE_TYPES: UInt32 = 0
 HIGHLEVEL_SERVICE_TYPES: UInt32 = 1
 LOWLEVEL_SERVICE_TYPES: UInt32 = 2
@@ -3523,7 +3527,7 @@ def GEO_ENUMPROC(param0: Int32) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class GOFFSET(Structure):
     du: Int32
     dv: Int32
-HSAVEDUILANGUAGES = IntPtr
+HSAVEDUILANGUAGES = VoidPtr
 class IComprehensiveSpellCheckProvider(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{0c58f8de-8e94-479e-9717-70c42c4ad2c3}')

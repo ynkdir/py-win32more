@@ -52,8 +52,8 @@ class GESTURENOTIFYSTRUCT(Structure):
     hwndTarget: win32more.Windows.Win32.Foundation.HWND
     ptsLocation: win32more.Windows.Win32.Foundation.POINTS
     dwInstanceID: UInt32
-HGESTUREINFO = IntPtr
-HTOUCHINPUT = IntPtr
+HGESTUREINFO = VoidPtr
+HTOUCHINPUT = VoidPtr
 class IInertiaProcessor(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{18b00c6d-c5ee-41b1-90a9-9d4a929095ad}')

@@ -366,7 +366,7 @@ SC_EVENT_TYPE = Int32
 SC_EVENT_DATABASE_CHANGE: win32more.Windows.Win32.System.Services.SC_EVENT_TYPE = 0
 SC_EVENT_PROPERTY_CHANGE: win32more.Windows.Win32.System.Services.SC_EVENT_TYPE = 1
 SC_EVENT_STATUS_CHANGE: win32more.Windows.Win32.System.Services.SC_EVENT_TYPE = 2
-SC_HANDLE = IntPtr
+SC_HANDLE = VoidPtr
 SC_STATUS_TYPE = Int32
 SC_STATUS_PROCESS_INFO: win32more.Windows.Win32.System.Services.SC_STATUS_TYPE = 0
 SERVICE_CONFIG = UInt32
@@ -515,7 +515,7 @@ SERVICE_RUNNING: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CURRENT_
 SERVICE_START_PENDING: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CURRENT_STATE = 2
 SERVICE_STOP_PENDING: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CURRENT_STATE = 3
 SERVICE_STOPPED: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CURRENT_STATE = 1
-SERVICE_STATUS_HANDLE = IntPtr
+SERVICE_STATUS_HANDLE = VoidPtr
 class SERVICE_STATUS_PROCESS(Structure):
     dwServiceType: win32more.Windows.Win32.System.Services.ENUM_SERVICE_TYPE
     dwCurrentState: win32more.Windows.Win32.System.Services.SERVICE_STATUS_CURRENT_STATE

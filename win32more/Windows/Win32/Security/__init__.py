@@ -552,8 +552,8 @@ MandatoryLevelHigh: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 3
 MandatoryLevelSystem: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 4
 MandatoryLevelSecureProcess: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 5
 MandatoryLevelCount: win32more.Windows.Win32.Security.MANDATORY_LEVEL = 6
-NCRYPT_DESCRIPTOR_HANDLE = IntPtr
-NCRYPT_STREAM_HANDLE = IntPtr
+NCRYPT_DESCRIPTOR_HANDLE = VoidPtr
+NCRYPT_STREAM_HANDLE = VoidPtr
 OBJECT_SECURITY_INFORMATION = UInt32
 ATTRIBUTE_SECURITY_INFORMATION: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION = 32
 BACKUP_SECURITY_INFORMATION: win32more.Windows.Win32.Security.OBJECT_SECURITY_INFORMATION = 65536
@@ -586,7 +586,7 @@ class QUOTA_LIMITS(Structure):
     MaximumWorkingSetSize: UIntPtr
     PagefileLimit: UIntPtr
     TimeLimit: Int64
-SAFER_LEVEL_HANDLE = IntPtr
+SAFER_LEVEL_HANDLE = VoidPtr
 class SECURITY_ATTRIBUTES(Structure):
     nLength: UInt32
     lpSecurityDescriptor: VoidPtr

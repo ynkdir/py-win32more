@@ -1182,8 +1182,8 @@ class DEVINFO(Structure):
     cyDither: UInt16
     hpalDefault: win32more.Windows.Win32.Graphics.Gdi.HPALETTE
     flGraphicsCaps2: UInt32
-DHPDEV = IntPtr
-DHSURF = IntPtr
+DHPDEV = VoidPtr
+DHSURF = VoidPtr
 class DISPLAYCONFIG_2DREGION(Structure):
     cx: UInt32
     cy: UInt32
@@ -1704,12 +1704,12 @@ class GLYPHPOS(Structure):
     hg: UInt32
     pgdf: POINTER(win32more.Windows.Win32.Devices.Display.GLYPHDEF)
     ptl: win32more.Windows.Win32.Foundation.POINTL
-HBM = IntPtr
-HDEV = IntPtr
-HDRVOBJ = IntPtr
-HFASTMUTEX = IntPtr
-HSEMAPHORE = IntPtr
-HSURF = IntPtr
+HBM = VoidPtr
+HDEV = VoidPtr
+HDRVOBJ = VoidPtr
+HFASTMUTEX = VoidPtr
+HSEMAPHORE = VoidPtr
+HSURF = VoidPtr
 class ICloneViewHelper(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{f6a3d4c4-5632-4d83-b0a1-fb88712b1eb7}')

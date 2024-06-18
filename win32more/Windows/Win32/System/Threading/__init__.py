@@ -799,6 +799,7 @@ class CRITICAL_SECTION_DEBUG(Structure):
     CreatorBackTraceIndexHigh: UInt16
     Identifier: UInt16
 GET_GUI_RESOURCES_FLAGS = UInt32
+GR_GLOBAL: win32more.Windows.Win32.System.Threading.GET_GUI_RESOURCES_FLAGS = 4294967294
 GR_GDIOBJECTS: win32more.Windows.Win32.System.Threading.GET_GUI_RESOURCES_FLAGS = 0
 GR_GDIOBJECTS_PEAK: win32more.Windows.Win32.System.Threading.GET_GUI_RESOURCES_FLAGS = 2
 GR_USEROBJECTS: win32more.Windows.Win32.System.Threading.GET_GUI_RESOURCES_FLAGS = 1

@@ -122,7 +122,7 @@ DevQueryStateInitialized: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_
 DevQueryStateEnumCompleted: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 1
 DevQueryStateAborted: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 2
 DevQueryStateClosed: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_STATE = 3
-HDEVQUERY = IntPtr
+HDEVQUERY = VoidPtr
 @winfunctype_pointer
 def PDEV_QUERY_RESULT_CALLBACK(hDevQuery: win32more.Windows.Win32.Devices.DeviceQuery.HDEVQUERY, pContext: VoidPtr, pActionData: POINTER(win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION_DATA)) -> Void: ...
 

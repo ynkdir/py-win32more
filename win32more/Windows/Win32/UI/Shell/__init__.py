@@ -4489,7 +4489,7 @@ GPFIDL_DEFAULT: win32more.Windows.Win32.UI.Shell.GPFIDL_FLAGS = 0
 GPFIDL_ALTNAME: win32more.Windows.Win32.UI.Shell.GPFIDL_FLAGS = 1
 GPFIDL_UNCPRINTER: win32more.Windows.Win32.UI.Shell.GPFIDL_FLAGS = 2
 GenericCredentialProvider = Guid('{25cbb996-92ed-457e-b28c-4774084bd562}')
-HDROP = IntPtr
+HDROP = VoidPtr
 class HELPINFO(Structure):
     cbSize: UInt32
     iContextType: win32more.Windows.Win32.UI.Shell.HELP_INFO_TYPE
@@ -4597,7 +4597,7 @@ HGSC_PICTURESLIBRARY: win32more.Windows.Win32.UI.Shell.HOMEGROUPSHARINGCHOICES =
 HGSC_VIDEOSLIBRARY: win32more.Windows.Win32.UI.Shell.HOMEGROUPSHARINGCHOICES = 4
 HGSC_DOCUMENTSLIBRARY: win32more.Windows.Win32.UI.Shell.HOMEGROUPSHARINGCHOICES = 8
 HGSC_PRINTERS: win32more.Windows.Win32.UI.Shell.HOMEGROUPSHARINGCHOICES = 16
-HPSXA = IntPtr
+HPSXA = VoidPtr
 HideInputPaneAnimationCoordinator = Guid('{384742b1-2a77-4cb3-8cf8-1136f5e17e59}')
 HomeGroup = Guid('{de77ba04-3c92-4d11-a1a5-42352a53e0e3}')
 class IACList(ComPtr):

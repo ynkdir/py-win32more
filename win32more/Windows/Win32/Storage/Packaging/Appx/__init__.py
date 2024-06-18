@@ -1042,7 +1042,7 @@ class IAppxSourceContentGroupMapReader(ComPtr):
     def GetRequiredGroup(self, requiredGroup: POINTER(win32more.Windows.Win32.Storage.Packaging.Appx.IAppxContentGroup)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAutomaticGroups(self, automaticGroupsEnumerator: POINTER(win32more.Windows.Win32.Storage.Packaging.Appx.IAppxContentGroupsEnumerator)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-PACKAGEDEPENDENCY_CONTEXT = IntPtr
+PACKAGEDEPENDENCY_CONTEXT = VoidPtr
 if ARCH in 'X64,ARM64':
     class PACKAGE_ID(Structure):
         reserved: UInt32
@@ -1090,7 +1090,7 @@ class PACKAGE_VERSION(Structure):
             Build: UInt16
             Minor: UInt16
             Major: UInt16
-PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE = IntPtr
+PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE = VoidPtr
 PackageDependencyLifetimeKind = Int32
 PackageDependencyLifetimeKind_Process: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyLifetimeKind = 0
 PackageDependencyLifetimeKind_FilePath: win32more.Windows.Win32.Storage.Packaging.Appx.PackageDependencyLifetimeKind = 1

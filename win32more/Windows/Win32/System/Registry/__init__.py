@@ -1101,7 +1101,7 @@ class DSKTLSYSTEMTIME(Structure):
     wSecond: UInt16
     wMilliseconds: UInt16
     wResult: UInt16
-HKEY = IntPtr
+HKEY = VoidPtr
 @cfunctype_pointer
 def PQUERYHANDLER(keycontext: VoidPtr, val_list: POINTER(win32more.Windows.Win32.System.Registry.val_context), num_vals: UInt32, outputbuffer: VoidPtr, total_outlen: POINTER(UInt32), input_blen: UInt32) -> UInt32: ...
 class PVALUEA(Structure):

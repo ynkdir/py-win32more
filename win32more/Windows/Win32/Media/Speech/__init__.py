@@ -2484,7 +2484,7 @@ SPFM_OPEN_READWRITE: win32more.Windows.Win32.Media.Speech.SPFILEMODE = 1
 SPFM_CREATE: win32more.Windows.Win32.Media.Speech.SPFILEMODE = 2
 SPFM_CREATE_ALWAYS: win32more.Windows.Win32.Media.Speech.SPFILEMODE = 3
 SPFM_NUM_MODES: win32more.Windows.Win32.Media.Speech.SPFILEMODE = 4
-SPGRAMMARHANDLE = IntPtr
+SPGRAMMARHANDLE = VoidPtr
 SPGRAMMAROPTIONS = Int32
 SPGO_SAPI: win32more.Windows.Win32.Media.Speech.SPGRAMMAROPTIONS = 1
 SPGO_SRGS: win32more.Windows.Win32.Media.Speech.SPGRAMMAROPTIONS = 2
@@ -2643,7 +2643,7 @@ class SPPHRASEPROPERTY(Structure):
             bType: Byte
             bReserved: Byte
             usArrayIndex: UInt16
-SPPHRASEPROPERTYHANDLE = IntPtr
+SPPHRASEPROPERTYHANDLE = VoidPtr
 SPPHRASEPROPERTYUNIONTYPE = Int32
 SPPPUT_UNUSED: win32more.Windows.Win32.Media.Speech.SPPHRASEPROPERTYUNIONTYPE = 0
 SPPPUT_ARRAY_INDEX: win32more.Windows.Win32.Media.Speech.SPPHRASEPROPERTYUNIONTYPE = 1
@@ -2663,7 +2663,7 @@ class SPPHRASERULE(Structure):
     pFirstChild: POINTER(win32more.Windows.Win32.Media.Speech.SPPHRASERULE)
     SREngineConfidence: Single
     Confidence: SByte
-SPPHRASERULEHANDLE = IntPtr
+SPPHRASERULEHANDLE = VoidPtr
 class SPPHRASE_50(Structure):
     cbSize: UInt32
     LangID: UInt16
@@ -2693,7 +2693,7 @@ SPPROPSRC = Int32
 SPPROPSRC_RECO_INST: win32more.Windows.Win32.Media.Speech.SPPROPSRC = 0
 SPPROPSRC_RECO_CTX: win32more.Windows.Win32.Media.Speech.SPPROPSRC = 1
 SPPROPSRC_RECO_GRAMMAR: win32more.Windows.Win32.Media.Speech.SPPROPSRC = 2
-SPRECOCONTEXTHANDLE = IntPtr
+SPRECOCONTEXTHANDLE = VoidPtr
 class SPRECOCONTEXTSTATUS(Structure):
     eInterference: win32more.Windows.Win32.Media.Speech.SPINTERFERENCE
     szRequestTypeOfUI: Char * 255
@@ -2762,7 +2762,7 @@ class SPRULEENTRY(Structure):
     Attributes: UInt32
     pvClientRuleContext: VoidPtr
     pvClientGrammarContext: VoidPtr
-SPRULEHANDLE = IntPtr
+SPRULEHANDLE = VoidPtr
 SPRULEINFOOPT = Int32
 SPRIO_NONE: win32more.Windows.Win32.Media.Speech.SPRULEINFOOPT = 0
 SPRULESTATE = Int32
@@ -2820,7 +2820,7 @@ SPPS_RESERVED1: win32more.Windows.Win32.Media.Speech.SPSHORTCUTTYPE = 12288
 SPPS_RESERVED2: win32more.Windows.Win32.Media.Speech.SPSHORTCUTTYPE = 16384
 SPPS_RESERVED3: win32more.Windows.Win32.Media.Speech.SPSHORTCUTTYPE = 20480
 SPPS_RESERVED4: win32more.Windows.Win32.Media.Speech.SPSHORTCUTTYPE = 61440
-SPSTATEHANDLE = IntPtr
+SPSTATEHANDLE = VoidPtr
 class SPSTATEINFO(Structure):
     cAllocatedEntries: UInt32
     pTransitions: POINTER(win32more.Windows.Win32.Media.Speech.SPTRANSITIONENTRY)
@@ -2936,7 +2936,7 @@ class SPTRANSITIONENTRY(Structure):
             pvClientWordContext: VoidPtr
         class _Anonymous3_e__Struct(Structure):
             pvGrammarCookie: VoidPtr
-SPTRANSITIONID = IntPtr
+SPTRANSITIONID = VoidPtr
 class SPTRANSITIONPROPERTY(Structure):
     pszName: win32more.Windows.Win32.Foundation.PWSTR
     ulId: UInt32
@@ -3063,7 +3063,7 @@ class SPWORDENTRY(Structure):
     pszLexicalForm: win32more.Windows.Win32.Foundation.PWSTR
     aPhoneId: POINTER(UInt16)
     pvClientContext: VoidPtr
-SPWORDHANDLE = IntPtr
+SPWORDHANDLE = VoidPtr
 SPWORDINFOOPT = Int32
 SPWIO_NONE: win32more.Windows.Win32.Media.Speech.SPWORDINFOOPT = 0
 SPWIO_WANT_TEXT: win32more.Windows.Win32.Media.Speech.SPWORDINFOOPT = 1

@@ -30,7 +30,7 @@ def Decompress(DecompressorHandle: win32more.Windows.Win32.Storage.Compression.D
 def ResetDecompressor(DecompressorHandle: win32more.Windows.Win32.Storage.Compression.DECOMPRESSOR_HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('Cabinet.dll')
 def CloseDecompressor(DecompressorHandle: win32more.Windows.Win32.Storage.Compression.DECOMPRESSOR_HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
-COMPRESSOR_HANDLE = IntPtr
+COMPRESSOR_HANDLE = VoidPtr
 COMPRESS_ALGORITHM = UInt32
 COMPRESS_ALGORITHM_MSZIP: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM = 2
 COMPRESS_ALGORITHM_XPRESS: win32more.Windows.Win32.Storage.Compression.COMPRESS_ALGORITHM = 3
@@ -44,7 +44,7 @@ COMPRESS_INFORMATION_CLASS = Int32
 COMPRESS_INFORMATION_CLASS_INVALID: win32more.Windows.Win32.Storage.Compression.COMPRESS_INFORMATION_CLASS = 0
 COMPRESS_INFORMATION_CLASS_BLOCK_SIZE: win32more.Windows.Win32.Storage.Compression.COMPRESS_INFORMATION_CLASS = 1
 COMPRESS_INFORMATION_CLASS_LEVEL: win32more.Windows.Win32.Storage.Compression.COMPRESS_INFORMATION_CLASS = 2
-DECOMPRESSOR_HANDLE = IntPtr
+DECOMPRESSOR_HANDLE = VoidPtr
 @cfunctype_pointer
 def PFN_COMPRESS_ALLOCATE(UserContext: VoidPtr, Size: UIntPtr) -> VoidPtr: ...
 @cfunctype_pointer

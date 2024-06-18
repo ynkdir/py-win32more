@@ -1789,7 +1789,7 @@ class HTTP_PUSH_NOTIFICATION_STATUS(Structure):
 class HTTP_PUSH_TRANSPORT_SETTING(Structure):
     TransportSettingId: Guid
     BrokerEventId: Guid
-HTTP_PUSH_WAIT_HANDLE = IntPtr
+HTTP_PUSH_WAIT_HANDLE = VoidPtr
 HTTP_PUSH_WAIT_TYPE = Int32
 HttpPushWaitEnableComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 0
 HttpPushWaitReceiveComplete: win32more.Windows.Win32.Networking.WinInet.HTTP_PUSH_WAIT_TYPE = 1

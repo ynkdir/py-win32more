@@ -12,7 +12,7 @@ ACTIVATIONTYPE_FROM_DATA: win32more.Windows.Win32.System.WinRT.ACTIVATIONTYPE = 
 ACTIVATIONTYPE_FROM_STORAGE: win32more.Windows.Win32.System.WinRT.ACTIVATIONTYPE = 4
 ACTIVATIONTYPE_FROM_STREAM: win32more.Windows.Win32.System.WinRT.ACTIVATIONTYPE = 8
 ACTIVATIONTYPE_FROM_FILE: win32more.Windows.Win32.System.WinRT.ACTIVATIONTYPE = 16
-APARTMENT_SHUTDOWN_REGISTRATION_COOKIE = IntPtr
+APARTMENT_SHUTDOWN_REGISTRATION_COOKIE = VoidPtr
 AgileReferenceOptions = Int32
 AGILEREFERENCE_DEFAULT: win32more.Windows.Win32.System.WinRT.AgileReferenceOptions = 0
 AGILEREFERENCE_DELAYEDMARSHAL: win32more.Windows.Win32.System.WinRT.AgileReferenceOptions = 1
@@ -182,8 +182,8 @@ class DispatcherQueueOptions(Structure):
     apartmentType: win32more.Windows.Win32.System.WinRT.DISPATCHERQUEUE_THREAD_APARTMENTTYPE
 class EventRegistrationToken(Structure):
     value: Int64
-HSTRING = IntPtr
-HSTRING_BUFFER = IntPtr
+HSTRING = VoidPtr
+HSTRING_BUFFER = VoidPtr
 class HSTRING_HEADER(Structure):
     flags: UInt32
     length: UInt32

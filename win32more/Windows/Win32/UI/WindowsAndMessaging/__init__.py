@@ -1426,6 +1426,8 @@ CW_USEDEFAULT: Int32 = -2147483648
 LBS_STANDARD: Int32 = 10485763
 WINSTA_ALL_ACCESS: Int32 = 895
 WVR_REDRAW: UInt32 = 768
+RT_GROUP_CURSOR: win32more.Windows.Win32.Foundation.PWSTR = 12
+RT_GROUP_ICON: win32more.Windows.Win32.Foundation.PWSTR = 14
 RT_MANIFEST: win32more.Windows.Win32.Foundation.PWSTR = 24
 IDC_STATIC: Int32 = -1
 @winfunctype('USER32.dll')
@@ -2687,7 +2689,7 @@ GUI_INMENUMODE: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLA
 GUI_INMOVESIZE: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS = 2
 GUI_POPUPMENUMODE: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS = 16
 GUI_SYSTEMMENUMODE: win32more.Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS = 8
-HACCEL = IntPtr
+HACCEL = VoidPtr
 HANDEDNESS = Int32
 HANDEDNESS_LEFT: win32more.Windows.Win32.UI.WindowsAndMessaging.HANDEDNESS = 0
 HANDEDNESS_RIGHT: win32more.Windows.Win32.UI.WindowsAndMessaging.HANDEDNESS = 1
@@ -2696,12 +2698,12 @@ class HARDWAREHOOKSTRUCT(Structure):
     message: UInt32
     wParam: win32more.Windows.Win32.Foundation.WPARAM
     lParam: win32more.Windows.Win32.Foundation.LPARAM
-HCURSOR = IntPtr
+HCURSOR = VoidPtr
 HDEVNOTIFY = VoidPtr
-HDWP = IntPtr
-HHOOK = IntPtr
-HICON = IntPtr
-HMENU = IntPtr
+HDWP = VoidPtr
+HHOOK = VoidPtr
+HICON = VoidPtr
+HMENU = VoidPtr
 @winfunctype_pointer
 def HOOKPROC(code: Int32, wParam: win32more.Windows.Win32.Foundation.WPARAM, lParam: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.LRESULT: ...
 class ICONINFO(Structure):

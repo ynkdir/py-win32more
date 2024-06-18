@@ -25,8 +25,8 @@ def PssWalkMarkerGetPosition(WalkMarkerHandle: win32more.Windows.Win32.System.Di
 def PssWalkMarkerSetPosition(WalkMarkerHandle: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSSWALK, Position: UIntPtr) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def PssWalkMarkerSeekToBeginning(WalkMarkerHandle: win32more.Windows.Win32.System.Diagnostics.ProcessSnapshotting.HPSSWALK) -> UInt32: ...
-HPSS = IntPtr
-HPSSWALK = IntPtr
+HPSS = VoidPtr
+HPSSWALK = VoidPtr
 class PSS_ALLOCATOR(Structure):
     Context: VoidPtr
     AllocRoutine: IntPtr

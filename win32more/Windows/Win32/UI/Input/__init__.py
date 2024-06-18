@@ -23,7 +23,7 @@ def DefRawInputProc(paRawInput: POINTER(POINTER(win32more.Windows.Win32.UI.Input
 def GetCurrentInputMessageSource(inputMessageSource: POINTER(win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_SOURCE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def GetCIMSSM(inputMessageSource: POINTER(win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_SOURCE)) -> win32more.Windows.Win32.Foundation.BOOL: ...
-HRAWINPUT = IntPtr
+HRAWINPUT = VoidPtr
 INPUT_MESSAGE_DEVICE_TYPE = Int32
 IMDT_UNAVAILABLE: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_DEVICE_TYPE = 0
 IMDT_KEYBOARD: win32more.Windows.Win32.UI.Input.INPUT_MESSAGE_DEVICE_TYPE = 1

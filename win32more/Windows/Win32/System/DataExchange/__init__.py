@@ -376,10 +376,10 @@ DNS_REGISTER: win32more.Windows.Win32.System.DataExchange.DDE_NAME_SERVICE_CMD =
 DNS_UNREGISTER: win32more.Windows.Win32.System.DataExchange.DDE_NAME_SERVICE_CMD = 2
 DNS_FILTERON: win32more.Windows.Win32.System.DataExchange.DDE_NAME_SERVICE_CMD = 4
 DNS_FILTEROFF: win32more.Windows.Win32.System.DataExchange.DDE_NAME_SERVICE_CMD = 8
-HCONV = IntPtr
-HCONVLIST = IntPtr
-HDDEDATA = IntPtr
-HSZ = IntPtr
+HCONV = VoidPtr
+HCONVLIST = VoidPtr
+HDDEDATA = VoidPtr
+HSZ = VoidPtr
 class HSZPAIR(Structure):
     hszSvc: win32more.Windows.Win32.System.DataExchange.HSZ
     hszTopic: win32more.Windows.Win32.System.DataExchange.HSZ

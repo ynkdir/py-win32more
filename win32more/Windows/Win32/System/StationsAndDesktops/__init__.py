@@ -121,8 +121,8 @@ DESKTOP_WRITEOBJECTS: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP
 DESKTOP_SWITCHDESKTOP: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_ACCESS_FLAGS = 256
 DESKTOP_CONTROL_FLAGS = UInt32
 DF_ALLOWOTHERACCOUNTHOOK: win32more.Windows.Win32.System.StationsAndDesktops.DESKTOP_CONTROL_FLAGS = 1
-HDESK = IntPtr
-HWINSTA = IntPtr
+HDESK = VoidPtr
+HWINSTA = VoidPtr
 class USEROBJECTFLAGS(Structure):
     fInherit: win32more.Windows.Win32.Foundation.BOOL
     fReserved: win32more.Windows.Win32.Foundation.BOOL

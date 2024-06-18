@@ -1330,7 +1330,7 @@ def RtmReferenceHandles(RtmRegHandle: IntPtr, NumHandles: UInt32, RtmHandles: PO
 class GRE_CONFIG_PARAMS0(Structure):
     dwNumPorts: UInt32
     dwPortFlags: UInt32
-HRASCONN = IntPtr
+HRASCONN = VoidPtr
 class IKEV2_CONFIG_PARAMS(Structure):
     dwNumPorts: UInt32
     dwPortFlags: UInt32

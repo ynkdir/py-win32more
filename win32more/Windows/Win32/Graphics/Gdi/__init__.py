@@ -3143,9 +3143,9 @@ HS_DIAGCROSS: win32more.Windows.Win32.Graphics.Gdi.HATCH_BRUSH_STYLE = 5
 HS_FDIAGONAL: win32more.Windows.Win32.Graphics.Gdi.HATCH_BRUSH_STYLE = 2
 HS_HORIZONTAL: win32more.Windows.Win32.Graphics.Gdi.HATCH_BRUSH_STYLE = 0
 HS_VERTICAL: win32more.Windows.Win32.Graphics.Gdi.HATCH_BRUSH_STYLE = 1
-HBITMAP = IntPtr
-HBRUSH = IntPtr
-HDC = IntPtr
+HBITMAP = VoidPtr
+HBRUSH = VoidPtr
+HDC = VoidPtr
 HDC_MAP_MODE = Int32
 MM_ANISOTROPIC: win32more.Windows.Win32.Graphics.Gdi.HDC_MAP_MODE = 8
 MM_HIENGLISH: win32more.Windows.Win32.Graphics.Gdi.HDC_MAP_MODE = 5
@@ -3155,14 +3155,14 @@ MM_LOENGLISH: win32more.Windows.Win32.Graphics.Gdi.HDC_MAP_MODE = 4
 MM_LOMETRIC: win32more.Windows.Win32.Graphics.Gdi.HDC_MAP_MODE = 2
 MM_TEXT: win32more.Windows.Win32.Graphics.Gdi.HDC_MAP_MODE = 1
 MM_TWIPS: win32more.Windows.Win32.Graphics.Gdi.HDC_MAP_MODE = 6
-HENHMETAFILE = IntPtr
-HFONT = IntPtr
-HGDIOBJ = IntPtr
-HMETAFILE = IntPtr
-HMONITOR = IntPtr
-HPALETTE = IntPtr
-HPEN = IntPtr
-HRGN = IntPtr
+HENHMETAFILE = VoidPtr
+HFONT = VoidPtr
+HGDIOBJ = VoidPtr
+HMETAFILE = VoidPtr
+HMONITOR = VoidPtr
+HPALETTE = VoidPtr
+HPEN = VoidPtr
+HRGN = VoidPtr
 class KERNINGPAIR(Structure):
     wFirst: UInt16
     wSecond: UInt16

@@ -128,7 +128,7 @@ APT_IpAddress: win32more.Windows.Win32.Security.Authorization.AUDIT_PARAM_TYPE =
 APT_LogonIdWithSid: win32more.Windows.Win32.Security.Authorization.AUDIT_PARAM_TYPE = 13
 AUTHZ_ACCESS_CHECK_FLAGS = UInt32
 AUTHZ_ACCESS_CHECK_NO_DEEP_COPY_SD: win32more.Windows.Win32.Security.Authorization.AUTHZ_ACCESS_CHECK_FLAGS = 1
-AUTHZ_ACCESS_CHECK_RESULTS_HANDLE = IntPtr
+AUTHZ_ACCESS_CHECK_RESULTS_HANDLE = VoidPtr
 class AUTHZ_ACCESS_REPLY(Structure):
     ResultListLength: UInt32
     GrantedAccessMask: POINTER(UInt32)
@@ -140,14 +140,14 @@ class AUTHZ_ACCESS_REQUEST(Structure):
     ObjectTypeList: POINTER(win32more.Windows.Win32.Security.OBJECT_TYPE_LIST)
     ObjectTypeListLength: UInt32
     OptionalArguments: VoidPtr
-AUTHZ_AUDIT_EVENT_HANDLE = IntPtr
+AUTHZ_AUDIT_EVENT_HANDLE = VoidPtr
 AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = Int32
 AuthzAuditEventInfoFlags: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 1
 AuthzAuditEventInfoOperationType: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 2
 AuthzAuditEventInfoObjectType: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 3
 AuthzAuditEventInfoObjectName: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 4
 AuthzAuditEventInfoAdditionalInfo: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_INFORMATION_CLASS = 5
-AUTHZ_AUDIT_EVENT_TYPE_HANDLE = IntPtr
+AUTHZ_AUDIT_EVENT_TYPE_HANDLE = VoidPtr
 class AUTHZ_AUDIT_EVENT_TYPE_LEGACY(Structure):
     CategoryId: UInt16
     AuditId: UInt16
@@ -161,8 +161,8 @@ class AUTHZ_AUDIT_EVENT_TYPE_OLD(Structure):
     u: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_TYPE_UNION
 class AUTHZ_AUDIT_EVENT_TYPE_UNION(Union):
     Legacy: win32more.Windows.Win32.Security.Authorization.AUTHZ_AUDIT_EVENT_TYPE_LEGACY
-AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE = IntPtr
-AUTHZ_CLIENT_CONTEXT_HANDLE = IntPtr
+AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE = VoidPtr
+AUTHZ_CLIENT_CONTEXT_HANDLE = VoidPtr
 AUTHZ_CONTEXT_INFORMATION_CLASS = Int32
 AuthzContextInfoUserSid: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 1
 AuthzContextInfoGroupsSids: win32more.Windows.Win32.Security.Authorization.AUTHZ_CONTEXT_INFORMATION_CLASS = 2
@@ -202,7 +202,7 @@ AUTHZ_RESOURCE_MANAGER_FLAGS = UInt32
 AUTHZ_RM_FLAG_NO_AUDIT: win32more.Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_FLAGS = 1
 AUTHZ_RM_FLAG_INITIALIZE_UNDER_IMPERSONATION: win32more.Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_FLAGS = 2
 AUTHZ_RM_FLAG_NO_CENTRAL_ACCESS_POLICIES: win32more.Windows.Win32.Security.Authorization.AUTHZ_RESOURCE_MANAGER_FLAGS = 4
-AUTHZ_RESOURCE_MANAGER_HANDLE = IntPtr
+AUTHZ_RESOURCE_MANAGER_HANDLE = VoidPtr
 class AUTHZ_RPC_INIT_INFO_CLIENT(Structure):
     version: UInt16
     ObjectUuid: win32more.Windows.Win32.Foundation.PWSTR
@@ -246,7 +246,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1(Structure):
         ppString: POINTER(win32more.Windows.Win32.Foundation.PWSTR)
         pFqbn: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE)
         pOctetString: POINTER(win32more.Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE)
-AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE = IntPtr
+AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE = VoidPtr
 AUTHZ_SID_OPERATION = Int32
 AUTHZ_SID_OPERATION_NONE: win32more.Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION = 0
 AUTHZ_SID_OPERATION_REPLACE_ALL: win32more.Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION = 1

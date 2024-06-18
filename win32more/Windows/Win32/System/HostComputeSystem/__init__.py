@@ -195,7 +195,7 @@ def HCS_NOTIFICATION_CALLBACK(notificationType: UInt32, context: VoidPtr, notifi
 HCS_NOTIFICATION_FLAGS = Int32
 HcsNotificationFlagSuccess: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATION_FLAGS = 0
 HcsNotificationFlagFailure: win32more.Windows.Win32.System.HostComputeSystem.HCS_NOTIFICATION_FLAGS = -2147483648
-HCS_OPERATION = IntPtr
+HCS_OPERATION = VoidPtr
 @winfunctype_pointer
 def HCS_OPERATION_COMPLETION(operation: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION, context: VoidPtr) -> Void: ...
 HCS_OPERATION_OPTIONS = Int32
@@ -219,7 +219,7 @@ HcsOperationTypeGetProcessInfo: win32more.Windows.Win32.System.HostComputeSystem
 HcsOperationTypeGetProcessProperties: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 13
 HcsOperationTypeModifyProcess: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 14
 HcsOperationTypeCrash: win32more.Windows.Win32.System.HostComputeSystem.HCS_OPERATION_TYPE = 15
-HCS_PROCESS = IntPtr
+HCS_PROCESS = VoidPtr
 class HCS_PROCESS_INFORMATION(Structure):
     ProcessId: UInt32
     Reserved: UInt32
@@ -230,7 +230,7 @@ HCS_RESOURCE_TYPE = Int32
 HcsResourceTypeNone: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE = 0
 HcsResourceTypeFile: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE = 1
 HcsResourceTypeJob: win32more.Windows.Win32.System.HostComputeSystem.HCS_RESOURCE_TYPE = 2
-HCS_SYSTEM = IntPtr
+HCS_SYSTEM = VoidPtr
 
 
 make_ready(__name__)

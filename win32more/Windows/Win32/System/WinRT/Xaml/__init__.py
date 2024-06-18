@@ -153,7 +153,7 @@ class IVirtualSurfaceUpdatesCallbackNative(ComPtr):
     _iid_ = Guid('{dbf2e947-8e6c-4254-9eee-7738f71386c9}')
     @commethod(3)
     def UpdatesNeeded(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-TrackerHandle = IntPtr
+TrackerHandle = VoidPtr
 XAML_REFERENCETRACKER_DISCONNECT = Int32
 XAML_REFERENCETRACKER_DISCONNECT_DEFAULT: win32more.Windows.Win32.System.WinRT.Xaml.XAML_REFERENCETRACKER_DISCONNECT = 0
 XAML_REFERENCETRACKER_DISCONNECT_SUSPEND: win32more.Windows.Win32.System.WinRT.Xaml.XAML_REFERENCETRACKER_DISCONNECT = 1

@@ -566,7 +566,7 @@ class GamutShell(Structure):
     pTriangles: POINTER(win32more.Windows.Win32.UI.ColorSystem.GamutShellTriangle)
 class GamutShellTriangle(Structure):
     aVertexIndex: UInt32 * 3
-HCOLORSPACE = IntPtr
+HCOLORSPACE = VoidPtr
 class HiFiCOLOR(Structure):
     channel: Byte * 8
 @winfunctype_pointer

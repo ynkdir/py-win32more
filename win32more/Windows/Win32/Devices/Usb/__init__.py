@@ -1099,7 +1099,7 @@ class USB_BUS_STATISTICS_0(Structure):
     Unused: Byte
     NameIndex: Byte
     _pack_ = 1
-USB_CHANGE_REGISTRATION_HANDLE = IntPtr
+USB_CHANGE_REGISTRATION_HANDLE = VoidPtr
 class USB_CLOSE_RAW_DEVICE_PARAMETERS(Structure):
     xxx: UInt32
     _pack_ = 1
@@ -1961,7 +1961,7 @@ WdmUsbPowerDeviceD0: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 20
 WdmUsbPowerDeviceD1: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 202
 WdmUsbPowerDeviceD2: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 203
 WdmUsbPowerDeviceD3: win32more.Windows.Win32.Devices.Usb.WDMUSB_POWER_STATE = 204
-WINUSB_INTERFACE_HANDLE = IntPtr
+WINUSB_INTERFACE_HANDLE = VoidPtr
 class WINUSB_PIPE_INFORMATION(Structure):
     PipeType: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_TYPE
     PipeId: Byte

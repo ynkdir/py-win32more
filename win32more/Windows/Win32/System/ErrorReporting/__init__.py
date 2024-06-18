@@ -143,8 +143,8 @@ frrvOkHeadless: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 
 frrvErrAnotherInstance: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 8
 frrvErrNoMemory: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 9
 frrvErrDoubleFault: win32more.Windows.Win32.System.ErrorReporting.EFaultRepRetVal = 10
-HREPORT = IntPtr
-HREPORTSTORE = IntPtr
+HREPORT = VoidPtr
+HREPORTSTORE = VoidPtr
 @winfunctype_pointer
 def PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH(pContext: VoidPtr, pExceptionInformation: POINTER(win32more.Windows.Win32.System.ErrorReporting.WER_RUNTIME_EXCEPTION_INFORMATION), pbIsCustomDebugger: POINTER(win32more.Windows.Win32.Foundation.BOOL), pwszDebuggerLaunch: win32more.Windows.Win32.Foundation.PWSTR, pchDebuggerLaunch: POINTER(UInt32), pbIsDebuggerAutolaunch: POINTER(win32more.Windows.Win32.Foundation.BOOL)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer

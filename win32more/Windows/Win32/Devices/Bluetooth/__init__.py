@@ -1170,8 +1170,8 @@ class BTH_SET_SERVICE(Structure):
     pRecord: Byte * 1
     _pack_ = 1
 HANDLE_SDP_TYPE = UInt64
-HBLUETOOTH_DEVICE_FIND = IntPtr
-HBLUETOOTH_RADIO_FIND = IntPtr
+HBLUETOOTH_DEVICE_FIND = VoidPtr
+HBLUETOOTH_RADIO_FIND = VoidPtr
 IO_CAPABILITY = Int32
 IoCaps_DisplayOnly: win32more.Windows.Win32.Devices.Bluetooth.IO_CAPABILITY = 0
 IoCaps_DisplayYesNo: win32more.Windows.Win32.Devices.Bluetooth.IO_CAPABILITY = 1

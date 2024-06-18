@@ -1996,7 +1996,7 @@ FILE_VER_GET_PREFETCHED: win32more.Windows.Win32.Storage.FileSystem.GET_FILE_VER
 GET_TAPE_DRIVE_PARAMETERS_OPERATION = UInt32
 GET_TAPE_DRIVE_INFORMATION: win32more.Windows.Win32.Storage.FileSystem.GET_TAPE_DRIVE_PARAMETERS_OPERATION = 1
 GET_TAPE_MEDIA_INFORMATION: win32more.Windows.Win32.Storage.FileSystem.GET_TAPE_DRIVE_PARAMETERS_OPERATION = 0
-HIORING = IntPtr
+HIORING = VoidPtr
 class IDiskQuotaControl(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IConnectionPointContainer
     _iid_ = Guid('{7988b572-ec89-11cf-9c00-00aa00a14f56}')

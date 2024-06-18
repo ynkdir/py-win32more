@@ -5335,10 +5335,10 @@ class GSM610WAVEFORMAT(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wSamplesPerBlock: UInt16
     _pack_ = 1
-HDRVR = IntPtr
-HIC = IntPtr
-HMMIO = IntPtr
-HVIDEO = IntPtr
+HDRVR = VoidPtr
+HIC = VoidPtr
+HMMIO = VoidPtr
+HVIDEO = VoidPtr
 class IAVIEditStream(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{00020024-0000-0000-c000-000000000046}')

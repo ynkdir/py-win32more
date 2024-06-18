@@ -1878,15 +1878,15 @@ FULLDUPLEX_SUPPORT = Int32
 FDS_SUPPORTED: win32more.Windows.Win32.Devices.Tapi.FULLDUPLEX_SUPPORT = 0
 FDS_NOTSUPPORTED: win32more.Windows.Win32.Devices.Tapi.FULLDUPLEX_SUPPORT = 1
 FDS_UNKNOWN: win32more.Windows.Win32.Devices.Tapi.FULLDUPLEX_SUPPORT = 2
-HDRVCALL = IntPtr
-HDRVDIALOGINSTANCE = IntPtr
-HDRVLINE = IntPtr
-HDRVMSPLINE = IntPtr
-HDRVPHONE = IntPtr
-HPROVIDER = IntPtr
-HTAPICALL = IntPtr
-HTAPILINE = IntPtr
-HTAPIPHONE = IntPtr
+HDRVCALL = VoidPtr
+HDRVDIALOGINSTANCE = VoidPtr
+HDRVLINE = VoidPtr
+HDRVMSPLINE = VoidPtr
+HDRVPHONE = VoidPtr
+HPROVIDER = VoidPtr
+HTAPICALL = VoidPtr
+HTAPILINE = VoidPtr
+HTAPIPHONE = VoidPtr
 class IEnumACDGroup(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{5afc3157-4bcc-11d1-bf80-00805fc147d3}')

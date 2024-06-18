@@ -79,7 +79,7 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS(Structure):
 PRJ_COMPLETE_COMMAND_TYPE = Int32
 PRJ_COMPLETE_COMMAND_TYPE_NOTIFICATION: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_COMPLETE_COMMAND_TYPE = 1
 PRJ_COMPLETE_COMMAND_TYPE_ENUMERATION: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_COMPLETE_COMMAND_TYPE = 2
-PRJ_DIR_ENTRY_BUFFER_HANDLE = IntPtr
+PRJ_DIR_ENTRY_BUFFER_HANDLE = VoidPtr
 @winfunctype_pointer
 def PRJ_END_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA), enumerationId: POINTER(Guid)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class PRJ_EXTENDED_INFO(Structure):
@@ -112,7 +112,7 @@ def PRJ_GET_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Windows.Win
 def PRJ_GET_FILE_DATA_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA), byteOffset: UInt64, length: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PRJ_GET_PLACEHOLDER_INFO_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
-PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT = IntPtr
+PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT = VoidPtr
 PRJ_NOTIFICATION = Int32
 PRJ_NOTIFICATION_FILE_OPENED: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION = 2
 PRJ_NOTIFICATION_NEW_FILE_CREATED: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_NOTIFICATION = 4

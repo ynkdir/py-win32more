@@ -807,7 +807,7 @@ class LPMIPTABLE(Structure):
     MediaType: UInt32
     IfIpAddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     IfNetMask: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
-LPM_HANDLE = IntPtr
+LPM_HANDLE = VoidPtr
 class LPM_INIT_INFO(Structure):
     PcmVersionNumber: UInt32
     ResultTimeLimit: UInt32
@@ -931,7 +931,7 @@ class QualTspecParms(Structure):
 class RESV_STYLE(Structure):
     style_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     style_word: UInt32
-RHANDLE = IntPtr
+RHANDLE = VoidPtr
 class RSVP_ADSPEC(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     GeneralParams: win32more.Windows.Win32.NetworkManagement.QoS.AD_GENERAL_PARAMS

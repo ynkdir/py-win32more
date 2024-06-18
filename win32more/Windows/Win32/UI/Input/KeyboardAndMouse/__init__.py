@@ -266,7 +266,7 @@ class HARDWAREINPUT(Structure):
     uMsg: UInt32
     wParamL: UInt16
     wParamH: UInt16
-HKL = IntPtr
+HKL = VoidPtr
 HOT_KEY_MODIFIERS = UInt32
 MOD_ALT: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS = 1
 MOD_CONTROL: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS = 2

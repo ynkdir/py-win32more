@@ -934,11 +934,11 @@ GET_DANDIDATE_FLAGS = Int32
 TCF_ALLOW_RECOGNITION: win32more.Windows.Win32.UI.TabletPC.GET_DANDIDATE_FLAGS = 1
 TCF_FORCE_RECOGNITION: win32more.Windows.Win32.UI.TabletPC.GET_DANDIDATE_FLAGS = 2
 GestureRecognizer = Guid('{ea30c654-c62c-441f-ac00-95f9a196782c}')
-HRECOALT = IntPtr
-HRECOCONTEXT = IntPtr
-HRECOGNIZER = IntPtr
-HRECOLATTICE = IntPtr
-HRECOWORDLIST = IntPtr
+HRECOALT = VoidPtr
+HRECOCONTEXT = VoidPtr
+HRECOGNIZER = VoidPtr
+HRECOLATTICE = VoidPtr
+HRECOWORDLIST = VoidPtr
 HandwrittenTextInsertion = Guid('{9f074ee2-e6e9-4d8a-a047-eb5b5c3c55da}')
 class IDynamicRenderer(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown

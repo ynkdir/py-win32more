@@ -1417,7 +1417,7 @@ class OSINFO(Structure):
     dwOSPlatformId: UInt32
     dwOSMajorVersion: UInt32
     dwOSMinorVersion: UInt32
-ROPARAMIIDHANDLE = IntPtr
+ROPARAMIIDHANDLE = VoidPtr
 ReplacesGeneralNumericDefines = Int32
 IMAGE_DIRECTORY_ENTRY_COMHEADER: win32more.Windows.Win32.System.WinRT.Metadata.ReplacesGeneralNumericDefines = 14
 

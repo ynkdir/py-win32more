@@ -864,8 +864,8 @@ class GUIDELINE(Structure):
     dwStrOffset: UInt32
     dwPrivateSize: UInt32
     dwPrivateOffset: UInt32
-HIMC = IntPtr
-HIMCC = IntPtr
+HIMC = VoidPtr
+HIMCC = VoidPtr
 class IActiveIME(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{6fe20962-d077-11d0-8fe7-00aa006bcc59}')
