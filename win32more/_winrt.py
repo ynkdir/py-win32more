@@ -438,7 +438,7 @@ class WinRT_String(HSTRING):
             self.clear()
 
     def clear(self):
-        if self.value != 0:
+        if self.value:
             hr = WindowsDeleteString(self)
             if FAILED(hr):
                 raise WinError(hr)
@@ -1004,7 +1004,7 @@ class Vtbl(Structure):
                 raise ValueError(f"list is expected: {r}")
             # FIXME: if len(r) == 0: p = 0 ?
             p = CoTaskMemAlloc(sizeof(c_void_p) * len(r))
-            if p == 0:
+            if not p:
                 raise WinError()
             type_ = get_args(restype)[0]
             return_length[0] = len(r)

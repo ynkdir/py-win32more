@@ -57,7 +57,7 @@ def WinMain():
         0,  # Additional application data
     )
 
-    if hwnd == 0:
+    if not hwnd:
         return 0
 
     ShowWindow(hwnd, nCmdShow)
