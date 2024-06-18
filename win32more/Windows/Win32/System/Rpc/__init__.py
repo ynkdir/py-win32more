@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.Com
@@ -1522,7 +1522,21 @@ class MIDL_STUB_MESSAGE(Structure):
     FullPtrXlatTables: POINTER(win32more.Windows.Win32.System.Rpc.FULL_PTR_XLAT_TABLES)
     FullPtrRefId: UInt32
     PointerLength: UInt32
-    _bitfield: Int32
+    fInDontFree: Annotated[Int32, 1]
+    fDontCallFreeInst: Annotated[Int32, 1]
+    fUnused1: Annotated[Int32, 1]
+    fHasReturn: Annotated[Int32, 1]
+    fHasExtensions: Annotated[Int32, 1]
+    fHasNewCorrDesc: Annotated[Int32, 1]
+    fIsIn: Annotated[Int32, 1]
+    fIsOut: Annotated[Int32, 1]
+    fIsOicf: Annotated[Int32, 1]
+    fBufferValid: Annotated[Int32, 1]
+    fHasMemoryValidateCallback: Annotated[Int32, 1]
+    fInFree: Annotated[Int32, 1]
+    fNeedMCCP: Annotated[Int32, 1]
+    fUnused2: Annotated[Int32, 3]
+    fUnused3: Annotated[Int32, 16]
     dwDestContext: UInt32
     pvDestContext: VoidPtr
     SavedContextHandles: POINTER(POINTER(win32more.Windows.Win32.System.Rpc.NDR_SCONTEXT))
@@ -1572,7 +1586,14 @@ class NDR64_ARRAY_ELEMENT_INFO(Structure):
     ElementMemSize: UInt32
     Element: VoidPtr
 class NDR64_ARRAY_FLAGS(Structure):
-    _bitfield: Byte
+    HasPointerInfo: Annotated[Byte, 1]
+    HasElementInfo: Annotated[Byte, 1]
+    IsMultiDimensional: Annotated[Byte, 1]
+    IsArrayofStrings: Annotated[Byte, 1]
+    Reserved1: Annotated[Byte, 1]
+    Reserved2: Annotated[Byte, 1]
+    Reserved3: Annotated[Byte, 1]
+    Reserved4: Annotated[Byte, 1]
 class NDR64_BINDINGS(Union):
     Primitive: win32more.Windows.Win32.System.Rpc.NDR64_BIND_PRIMITIVE
     Generic: win32more.Windows.Win32.System.Rpc.NDR64_BIND_GENERIC
@@ -1663,7 +1684,14 @@ class NDR64_CONSTANT_IID_FORMAT(Structure):
     Reserved: UInt16
     Guid: Guid
 class NDR64_CONTEXT_HANDLE_FLAGS(Structure):
-    _bitfield: Byte
+    CannotBeNull: Annotated[Byte, 1]
+    Serialize: Annotated[Byte, 1]
+    NoSerialize: Annotated[Byte, 1]
+    Strict: Annotated[Byte, 1]
+    IsReturn: Annotated[Byte, 1]
+    IsOut: Annotated[Byte, 1]
+    IsIn: Annotated[Byte, 1]
+    IsViaPointer: Annotated[Byte, 1]
 class NDR64_CONTEXT_HANDLE_FORMAT(Structure):
     FormatCode: Byte
     ContextFlags: Byte
@@ -1717,7 +1745,8 @@ class NDR64_FIX_ARRAY_HEADER_FORMAT(Structure):
     Reserved: Byte
     TotalSize: UInt32
 class NDR64_IID_FLAGS(Structure):
-    _bitfield: Byte
+    ConstantIID: Annotated[Byte, 1]
+    Reserved: Annotated[Byte, 7]
 class NDR64_IID_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
@@ -1745,14 +1774,31 @@ class NDR64_NO_REPEAT_FORMAT(Structure):
     Reserved1: UInt16
     Reserved2: UInt32
 class NDR64_PARAM_FLAGS(Structure):
-    _bitfield: UInt16
+    MustSize: Annotated[UInt16, 1]
+    MustFree: Annotated[UInt16, 1]
+    IsPipe: Annotated[UInt16, 1]
+    IsIn: Annotated[UInt16, 1]
+    IsOut: Annotated[UInt16, 1]
+    IsReturn: Annotated[UInt16, 1]
+    IsBasetype: Annotated[UInt16, 1]
+    IsByValue: Annotated[UInt16, 1]
+    IsSimpleRef: Annotated[UInt16, 1]
+    IsDontCallFreeInst: Annotated[UInt16, 1]
+    SaveForAsyncFinish: Annotated[UInt16, 1]
+    IsPartialIgnore: Annotated[UInt16, 1]
+    IsForceAllocate: Annotated[UInt16, 1]
+    Reserved: Annotated[UInt16, 2]
+    UseCache: Annotated[UInt16, 1]
 class NDR64_PARAM_FORMAT(Structure):
     Type: VoidPtr
     Attributes: win32more.Windows.Win32.System.Rpc.NDR64_PARAM_FLAGS
     Reserved: UInt16
     StackOffset: UInt32
 class NDR64_PIPE_FLAGS(Structure):
-    _bitfield: Byte
+    Reserved1: Annotated[Byte, 5]
+    HasRange: Annotated[Byte, 1]
+    BlockCopy: Annotated[Byte, 1]
+    Reserved2: Annotated[Byte, 1]
 class NDR64_PIPE_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
@@ -1770,9 +1816,31 @@ class NDR64_POINTER_INSTANCE_HEADER_FORMAT(Structure):
     Offset: UInt32
     Reserved: UInt32
 class NDR64_POINTER_REPEAT_FLAGS(Structure):
-    _bitfield: Byte
+    SetCorrMark: Annotated[Byte, 1]
+    Reserved: Annotated[Byte, 7]
 class NDR64_PROC_FLAGS(Structure):
-    _bitfield: UInt32
+    HandleType: Annotated[UInt32, 3]
+    ProcType: Annotated[UInt32, 3]
+    IsInterpreted: Annotated[UInt32, 2]
+    IsObject: Annotated[UInt32, 1]
+    IsAsync: Annotated[UInt32, 1]
+    IsEncode: Annotated[UInt32, 1]
+    IsDecode: Annotated[UInt32, 1]
+    UsesFullPtrPackage: Annotated[UInt32, 1]
+    UsesRpcSmPackage: Annotated[UInt32, 1]
+    UsesPipes: Annotated[UInt32, 1]
+    HandlesExceptions: Annotated[UInt32, 2]
+    ServerMustSize: Annotated[UInt32, 1]
+    ClientMustSize: Annotated[UInt32, 1]
+    HasReturn: Annotated[UInt32, 1]
+    HasComplexReturn: Annotated[UInt32, 1]
+    ServerHasCorrelation: Annotated[UInt32, 1]
+    ClientHasCorrelation: Annotated[UInt32, 1]
+    HasNotify: Annotated[UInt32, 1]
+    HasOtherExtensions: Annotated[UInt32, 1]
+    HasBigByValueParam: Annotated[UInt32, 1]
+    HasArmParamLayout: Annotated[UInt32, 1]
+    Reserved: Annotated[UInt32, 5]
 class NDR64_PROC_FORMAT(Structure):
     Flags: UInt32
     StackSize: UInt32
@@ -1811,7 +1879,17 @@ class NDR64_REPEAT_FORMAT(Structure):
     OffsetToArray: UInt32
     NumberOfPointers: UInt32
 class NDR64_RPC_FLAGS(Structure):
-    _bitfield: UInt16
+    Idempotent: Annotated[UInt16, 1]
+    Broadcast: Annotated[UInt16, 1]
+    Maybe: Annotated[UInt16, 1]
+    Reserved0: Annotated[UInt16, 1]
+    HasGuarantee: Annotated[UInt16, 1]
+    Reserved1: Annotated[UInt16, 3]
+    Message: Annotated[UInt16, 1]
+    Reserved2: Annotated[UInt16, 4]
+    InputSynchronous: Annotated[UInt16, 1]
+    Asynchronous: Annotated[UInt16, 1]
+    WinrtRemoteAsync: Annotated[UInt16, 1]
 class NDR64_SIMPLE_MEMBER_FORMAT(Structure):
     FormatCode: Byte
     Reserved1: Byte
@@ -1826,13 +1904,27 @@ class NDR64_SIZED_CONFORMANT_STRING_FORMAT(Structure):
     Header: win32more.Windows.Win32.System.Rpc.NDR64_STRING_HEADER_FORMAT
     SizeDescription: VoidPtr
 class NDR64_STRING_FLAGS(Structure):
-    _bitfield: Byte
+    IsSized: Annotated[Byte, 1]
+    IsRanged: Annotated[Byte, 1]
+    Reserved3: Annotated[Byte, 1]
+    Reserved4: Annotated[Byte, 1]
+    Reserved5: Annotated[Byte, 1]
+    Reserved6: Annotated[Byte, 1]
+    Reserved7: Annotated[Byte, 1]
+    Reserved8: Annotated[Byte, 1]
 class NDR64_STRING_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Flags: win32more.Windows.Win32.System.Rpc.NDR64_STRING_FLAGS
     ElementSize: UInt16
 class NDR64_STRUCTURE_FLAGS(Structure):
-    _bitfield: Byte
+    HasPointerInfo: Annotated[Byte, 1]
+    HasMemberInfo: Annotated[Byte, 1]
+    HasConfArray: Annotated[Byte, 1]
+    HasOrigPointerInfo: Annotated[Byte, 1]
+    HasOrigMemberInfo: Annotated[Byte, 1]
+    Reserved1: Annotated[Byte, 1]
+    Reserved2: Annotated[Byte, 1]
+    Reserved3: Annotated[Byte, 1]
 class NDR64_STRUCTURE_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
@@ -1844,7 +1936,10 @@ class NDR64_SYSTEM_HANDLE_FORMAT(Structure):
     HandleType: Byte
     DesiredAccess: UInt32
 class NDR64_TRANSMIT_AS_FLAGS(Structure):
-    _bitfield: Byte
+    PresentedTypeIsArray: Annotated[Byte, 1]
+    PresentedTypeAlign4: Annotated[Byte, 1]
+    PresentedTypeAlign8: Annotated[Byte, 1]
+    Reserved: Annotated[Byte, 5]
 class NDR64_TRANSMIT_AS_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
@@ -1871,7 +1966,10 @@ class NDR64_UNION_ARM_SELECTOR(Structure):
     Reserved2: UInt16
     Arms: UInt32
 class NDR64_USER_MARSHAL_FLAGS(Structure):
-    _bitfield: Byte
+    Reserved: Annotated[Byte, 5]
+    IID: Annotated[Byte, 1]
+    RefPointer: Annotated[Byte, 1]
+    UniquePointer: Annotated[Byte, 1]
 class NDR64_USER_MARSHAL_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte

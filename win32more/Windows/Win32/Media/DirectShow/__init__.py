@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D9
 import win32more.Windows.Win32.Graphics.DirectDraw
@@ -196,10 +196,14 @@ AM_ARMODE_LETTER_BOX: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_M
 AM_ARMODE_CROP: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 2
 AM_ARMODE_STRETCHED_AS_PRIMARY: win32more.Windows.Win32.Media.DirectShow.AM_ASPECT_RATIO_MODE = 3
 class AM_COLCON(Structure):
-    _bitfield1: Byte
-    _bitfield2: Byte
-    _bitfield3: Byte
-    _bitfield4: Byte
+    emph1col: Annotated[Byte, 4]
+    emph2col: Annotated[Byte, 4]
+    backcol: Annotated[Byte, 4]
+    patcol: Annotated[Byte, 4]
+    emph1con: Annotated[Byte, 4]
+    emph2con: Annotated[Byte, 4]
+    backcon: Annotated[Byte, 4]
+    patcon: Annotated[Byte, 4]
 class AM_COPY_MACROVISION(Structure):
     MACROVISIONLevel: UInt32
 AM_COPY_MACROVISION_LEVEL = Int32
@@ -2264,7 +2268,15 @@ class DVD_SubpictureAttributes(Structure):
     Language: UInt32
     LanguageExtension: win32more.Windows.Win32.Media.DirectShow.DVD_SUBPICTURE_LANG_EXT
 class DVD_TIMECODE(Structure):
-    _bitfield: UInt32
+    Hours1: Annotated[UInt32, 4]
+    Hours10: Annotated[UInt32, 4]
+    Minutes1: Annotated[UInt32, 4]
+    Minutes10: Annotated[UInt32, 4]
+    Seconds1: Annotated[UInt32, 4]
+    Seconds10: Annotated[UInt32, 4]
+    Frames1: Annotated[UInt32, 4]
+    Frames10: Annotated[UInt32, 2]
+    FrameRateCode: Annotated[UInt32, 2]
 DVD_TIMECODE_FLAGS = Int32
 DVD_TC_FLAG_25fps: win32more.Windows.Win32.Media.DirectShow.DVD_TIMECODE_FLAGS = 1
 DVD_TC_FLAG_30fps: win32more.Windows.Win32.Media.DirectShow.DVD_TIMECODE_FLAGS = 2

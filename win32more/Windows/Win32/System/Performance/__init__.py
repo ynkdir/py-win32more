@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Ole
@@ -1563,7 +1563,17 @@ LegacyTraceSessionCollection = Guid('{03837529-098b-11d8-9414-505054503030}')
 LogFileItem = Guid('{16ec5be8-df93-4237-94e4-9ee918111d71}')
 LogFiles = Guid('{2735d9fd-f6b9-4f19-a5d9-e2d068584bc5}')
 class PDH_BROWSE_DLG_CONFIG_A(Structure):
-    _bitfield: UInt32
+    bIncludeInstanceIndex: Annotated[UInt32, 1]
+    bSingleCounterPerAdd: Annotated[UInt32, 1]
+    bSingleCounterPerDialog: Annotated[UInt32, 1]
+    bLocalCountersOnly: Annotated[UInt32, 1]
+    bWildCardInstances: Annotated[UInt32, 1]
+    bHideDetailBox: Annotated[UInt32, 1]
+    bInitializePath: Annotated[UInt32, 1]
+    bDisableMachineSelection: Annotated[UInt32, 1]
+    bIncludeCostlyObjects: Annotated[UInt32, 1]
+    bShowObjectBrowser: Annotated[UInt32, 1]
+    bReserved: Annotated[UInt32, 22]
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
     szDataSource: win32more.Windows.Win32.Foundation.PSTR
     szReturnPathBuffer: win32more.Windows.Win32.Foundation.PSTR
@@ -1574,7 +1584,17 @@ class PDH_BROWSE_DLG_CONFIG_A(Structure):
     dwDefaultDetailLevel: win32more.Windows.Win32.System.Performance.PERF_DETAIL
     szDialogBoxCaption: win32more.Windows.Win32.Foundation.PSTR
 class PDH_BROWSE_DLG_CONFIG_HA(Structure):
-    _bitfield: UInt32
+    bIncludeInstanceIndex: Annotated[UInt32, 1]
+    bSingleCounterPerAdd: Annotated[UInt32, 1]
+    bSingleCounterPerDialog: Annotated[UInt32, 1]
+    bLocalCountersOnly: Annotated[UInt32, 1]
+    bWildCardInstances: Annotated[UInt32, 1]
+    bHideDetailBox: Annotated[UInt32, 1]
+    bInitializePath: Annotated[UInt32, 1]
+    bDisableMachineSelection: Annotated[UInt32, 1]
+    bIncludeCostlyObjects: Annotated[UInt32, 1]
+    bShowObjectBrowser: Annotated[UInt32, 1]
+    bReserved: Annotated[UInt32, 22]
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
     hDataSource: IntPtr
     szReturnPathBuffer: win32more.Windows.Win32.Foundation.PSTR
@@ -1585,7 +1605,17 @@ class PDH_BROWSE_DLG_CONFIG_HA(Structure):
     dwDefaultDetailLevel: win32more.Windows.Win32.System.Performance.PERF_DETAIL
     szDialogBoxCaption: win32more.Windows.Win32.Foundation.PSTR
 class PDH_BROWSE_DLG_CONFIG_HW(Structure):
-    _bitfield: UInt32
+    bIncludeInstanceIndex: Annotated[UInt32, 1]
+    bSingleCounterPerAdd: Annotated[UInt32, 1]
+    bSingleCounterPerDialog: Annotated[UInt32, 1]
+    bLocalCountersOnly: Annotated[UInt32, 1]
+    bWildCardInstances: Annotated[UInt32, 1]
+    bHideDetailBox: Annotated[UInt32, 1]
+    bInitializePath: Annotated[UInt32, 1]
+    bDisableMachineSelection: Annotated[UInt32, 1]
+    bIncludeCostlyObjects: Annotated[UInt32, 1]
+    bShowObjectBrowser: Annotated[UInt32, 1]
+    bReserved: Annotated[UInt32, 22]
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
     hDataSource: IntPtr
     szReturnPathBuffer: win32more.Windows.Win32.Foundation.PWSTR
@@ -1597,7 +1627,17 @@ class PDH_BROWSE_DLG_CONFIG_HW(Structure):
     szDialogBoxCaption: win32more.Windows.Win32.Foundation.PWSTR
 PDH_BROWSE_DLG_CONFIG_H = UnicodeAlias('PDH_BROWSE_DLG_CONFIG_HW')
 class PDH_BROWSE_DLG_CONFIG_W(Structure):
-    _bitfield: UInt32
+    bIncludeInstanceIndex: Annotated[UInt32, 1]
+    bSingleCounterPerAdd: Annotated[UInt32, 1]
+    bSingleCounterPerDialog: Annotated[UInt32, 1]
+    bLocalCountersOnly: Annotated[UInt32, 1]
+    bWildCardInstances: Annotated[UInt32, 1]
+    bHideDetailBox: Annotated[UInt32, 1]
+    bInitializePath: Annotated[UInt32, 1]
+    bDisableMachineSelection: Annotated[UInt32, 1]
+    bIncludeCostlyObjects: Annotated[UInt32, 1]
+    bShowObjectBrowser: Annotated[UInt32, 1]
+    bReserved: Annotated[UInt32, 22]
     hWndOwner: win32more.Windows.Win32.Foundation.HWND
     szDataSource: win32more.Windows.Win32.Foundation.PWSTR
     szReturnPathBuffer: win32more.Windows.Win32.Foundation.PWSTR

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Authentication.Identity
@@ -2173,9 +2173,23 @@ class KERB_CLEANUP_MACHINE_PKINIT_CREDS_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID
 class KERB_CLOUD_KERBEROS_DEBUG_DATA(Structure):
-    _bitfield: UInt32
+    EnabledByPolicy: Annotated[UInt32, 1]
+    AsRepCallbackPresent: Annotated[UInt32, 1]
+    AsRepCallbackUsed: Annotated[UInt32, 1]
+    CloudReferralTgtAvailable: Annotated[UInt32, 1]
+    SpnOracleConfigured: Annotated[UInt32, 1]
+    KdcProxyPresent: Annotated[UInt32, 1]
+    PublicKeyCredsPresent: Annotated[UInt32, 1]
+    PasswordKeysPresent: Annotated[UInt32, 1]
+    PasswordPresent: Annotated[UInt32, 1]
+    AsRepSourceCred: Annotated[UInt32, 8]
 class KERB_CLOUD_KERBEROS_DEBUG_DATA_V0(Structure):
-    _bitfield: UInt32
+    EnabledByPolicy: Annotated[UInt32, 1]
+    AsRepCallbackPresent: Annotated[UInt32, 1]
+    AsRepCallbackUsed: Annotated[UInt32, 1]
+    CloudReferralTgtAvailable: Annotated[UInt32, 1]
+    SpnOracleConfigured: Annotated[UInt32, 1]
+    KdcProxyPresent: Annotated[UInt32, 1]
 class KERB_CLOUD_KERBEROS_DEBUG_REQUEST(Structure):
     MessageType: win32more.Windows.Win32.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Windows.Win32.Foundation.LUID

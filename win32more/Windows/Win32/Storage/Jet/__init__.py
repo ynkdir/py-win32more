@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Jet
 import win32more.Windows.Win32.Storage.StructuredStorage
@@ -1498,12 +1498,15 @@ class JET_BKLOGTIME(Structure):
         bFiller1: win32more.Windows.Win32.Foundation.CHAR
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Byte
+            fTimeIsUTC: Annotated[Byte, 1]
+            bMillisecondsLow: Annotated[Byte, 7]
     class _Anonymous2_e__Union(Union):
         bFiller2: win32more.Windows.Win32.Foundation.CHAR
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Byte
+            fOSSnapshot: Annotated[Byte, 1]
+            bMillisecondsHigh: Annotated[Byte, 3]
+            fReserved: Annotated[Byte, 4]
 @winfunctype_pointer
 def JET_CALLBACK(sesid: win32more.Windows.Win32.Storage.Jet.JET_SESID, dbid: UInt32, tableid: win32more.Windows.Win32.Storage.StructuredStorage.JET_TABLEID, cbtyp: UInt32, pvArg1: VoidPtr, pvArg2: VoidPtr, pvContext: VoidPtr, ulUnused: win32more.Windows.Win32.Storage.StructuredStorage.JET_API_PTR) -> Int32: ...
 class JET_COLUMNBASE_A(Structure):
@@ -1609,7 +1612,7 @@ class JET_CONVERT_A(Structure):
         fFlags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            fSchemaChangesOnly: Annotated[UInt32, 1]
 class JET_CONVERT_W(Structure):
     szOldDll: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
@@ -1617,7 +1620,7 @@ class JET_CONVERT_W(Structure):
         fFlags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            fSchemaChangesOnly: Annotated[UInt32, 1]
 JET_CONVERT = UnicodeAlias('JET_CONVERT_W')
 class JET_DBINFOMISC(Structure):
     ulVersion: UInt32
@@ -1768,7 +1771,8 @@ class JET_DBINFOUPGRADE(Structure):
         ulFlags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            fUpgradable: Annotated[UInt32, 1]
+            fAlreadyUpgraded: Annotated[UInt32, 1]
 class JET_ENUMCOLUMN(Structure):
     columnid: UInt32
     err: Int32
@@ -2025,12 +2029,15 @@ class JET_LOGTIME(Structure):
         bFiller1: win32more.Windows.Win32.Foundation.CHAR
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Byte
+            fTimeIsUTC: Annotated[Byte, 1]
+            bMillisecondsLow: Annotated[Byte, 7]
     class _Anonymous2_e__Union(Union):
         bFiller2: win32more.Windows.Win32.Foundation.CHAR
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Byte
+            fReserved: Annotated[Byte, 1]
+            bMillisecondsHigh: Annotated[Byte, 3]
+            fUnused: Annotated[Byte, 4]
 JET_LS = UIntPtr
 if ARCH in 'X64,ARM64':
     class JET_OBJECTINFO(Structure):

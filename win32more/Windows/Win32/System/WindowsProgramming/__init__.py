@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -1398,7 +1398,8 @@ class IMAGE_DELAYLOAD_DESCRIPTOR(Structure):
         AllAttributes: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            RvaBased: Annotated[UInt32, 1]
+            ReservedAttributes: Annotated[UInt32, 31]
 class IMAGE_THUNK_DATA32(Structure):
     u1: _u1_e__Union
     class _u1_e__Union(Union):

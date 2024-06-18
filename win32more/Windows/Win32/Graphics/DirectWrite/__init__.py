@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Globalization
 import win32more.Windows.Win32.Graphics.Direct2D.Common
@@ -46,7 +46,12 @@ class DWRITE_CARET_METRICS(Structure):
 class DWRITE_CLUSTER_METRICS(Structure):
     width: Single
     length: UInt16
-    _bitfield: UInt16
+    canWrapLineAfter: Annotated[UInt16, 1]
+    isWhitespace: Annotated[UInt16, 1]
+    isNewline: Annotated[UInt16, 1]
+    isSoftHyphen: Annotated[UInt16, 1]
+    isRightToLeft: Annotated[UInt16, 1]
+    padding: Annotated[UInt16, 11]
 DWRITE_COLOR_COMPOSITE_MODE = Int32
 DWRITE_COLOR_COMPOSITE_CLEAR: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 0
 DWRITE_COLOR_COMPOSITE_SRC: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_COMPOSITE_MODE = 1
@@ -431,9 +436,19 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY(Structure):
     expansionMinimum: Single
     expansionMaximum: Single
     compressionMaximum: Single
-    _bitfield: UInt32
+    expansionPriority: Annotated[UInt32, 8]
+    compressionPriority: Annotated[UInt32, 8]
+    allowResidualExpansion: Annotated[UInt32, 1]
+    allowResidualCompression: Annotated[UInt32, 1]
+    applyToLeadingEdge: Annotated[UInt32, 1]
+    applyToTrailingEdge: Annotated[UInt32, 1]
+    reserved: Annotated[UInt32, 12]
 class DWRITE_LINE_BREAKPOINT(Structure):
-    _bitfield: Byte
+    breakConditionBefore: Annotated[Byte, 2]
+    breakConditionAfter: Annotated[Byte, 2]
+    isWhitespace: Annotated[Byte, 1]
+    isSoftHyphen: Annotated[Byte, 1]
+    padding: Annotated[Byte, 2]
 class DWRITE_LINE_METRICS(Structure):
     length: UInt32
     trailingWhitespaceLength: UInt32
@@ -966,14 +981,28 @@ class DWRITE_SCRIPT_PROPERTIES(Structure):
     isoScriptNumber: UInt32
     clusterLookahead: UInt32
     justificationCharacter: UInt32
-    _bitfield: UInt32
+    restrictCaretToClusters: Annotated[UInt32, 1]
+    usesWordDividers: Annotated[UInt32, 1]
+    isDiscreteWriting: Annotated[UInt32, 1]
+    isBlockWriting: Annotated[UInt32, 1]
+    isDistributedWithinCluster: Annotated[UInt32, 1]
+    isConnectedWriting: Annotated[UInt32, 1]
+    isCursiveWriting: Annotated[UInt32, 1]
+    reserved: Annotated[UInt32, 25]
 DWRITE_SCRIPT_SHAPES = Int32
 DWRITE_SCRIPT_SHAPES_DEFAULT: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_SHAPES = 0
 DWRITE_SCRIPT_SHAPES_NO_VISUAL: win32more.Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_SHAPES = 1
 class DWRITE_SHAPING_GLYPH_PROPERTIES(Structure):
-    _bitfield: UInt16
+    justification: Annotated[UInt16, 4]
+    isClusterStart: Annotated[UInt16, 1]
+    isDiacritic: Annotated[UInt16, 1]
+    isZeroWidthSpace: Annotated[UInt16, 1]
+    reserved: Annotated[UInt16, 9]
 class DWRITE_SHAPING_TEXT_PROPERTIES(Structure):
-    _bitfield: UInt16
+    isShapedAlone: Annotated[UInt16, 1]
+    reserved1: Annotated[UInt16, 1]
+    canBreakShapingAfter: Annotated[UInt16, 1]
+    reserved: Annotated[UInt16, 13]
 class DWRITE_STRIKETHROUGH(Structure):
     width: Single
     thickness: Single

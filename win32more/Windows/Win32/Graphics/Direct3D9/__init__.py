@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D9
@@ -801,7 +801,9 @@ class D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS(Structure):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            ProtectionEnabled: Annotated[UInt32, 1]
+            OverlayOrFullscreenRequired: Annotated[UInt32, 1]
+            Reserved: Annotated[UInt32, 30]
 class D3DAUTHENTICATEDCHANNEL_QUERYCHANNELTYPE_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
     ChannelType: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNELTYPE

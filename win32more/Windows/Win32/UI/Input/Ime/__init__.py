@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -1829,7 +1829,13 @@ class WDD(Structure):
     Anonymous2: _Anonymous2_e__Union
     WDD_nReserve1: UInt32
     nPos: UInt16
-    _bitfield: UInt16
+    fPhrase: Annotated[UInt16, 1]
+    fAutoCorrect: Annotated[UInt16, 1]
+    fNumericPrefix: Annotated[UInt16, 1]
+    fUserRegistered: Annotated[UInt16, 1]
+    fUnknown: Annotated[UInt16, 1]
+    fRecentUsed: Annotated[UInt16, 1]
+    Anonymous3: Annotated[UInt16, 10]
     pReserved: VoidPtr
     _pack_ = 1
     class _Anonymous1_e__Union(Union):

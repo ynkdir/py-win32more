@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D11
@@ -585,7 +585,9 @@ class D3D11_AUTHENTICATED_PROTECTION_FLAGS(Union):
     Flags: _Flags_e__Struct
     Value: UInt32
     class _Flags_e__Struct(Structure):
-        _bitfield: UInt32
+        ProtectionEnabled: Annotated[UInt32, 1]
+        OverlayOrFullscreenRequired: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 30]
 class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_ENCRYPTION_GUID_COUNT_OUTPUT(Structure):
     Output: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_AUTHENTICATED_QUERY_OUTPUT
     EncryptionGuidCount: UInt32
@@ -3529,7 +3531,12 @@ class D3D11_VIDEO_PROCESSOR_CAPS(Structure):
     MaxInputStreams: UInt32
     MaxStreamStates: UInt32
 class D3D11_VIDEO_PROCESSOR_COLOR_SPACE(Structure):
-    _bitfield: UInt32
+    Usage: Annotated[UInt32, 1]
+    RGB_Range: Annotated[UInt32, 1]
+    YCbCr_Matrix: Annotated[UInt32, 1]
+    YCbCr_xvYCC: Annotated[UInt32, 1]
+    Nominal_Range: Annotated[UInt32, 2]
+    Reserved: Annotated[UInt32, 26]
 class D3D11_VIDEO_PROCESSOR_CONTENT_DESC(Structure):
     InputFrameFormat: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_VIDEO_FRAME_FORMAT
     InputFrameRate: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Power
@@ -1044,7 +1044,8 @@ class PROCESSOR_POWER_POLICY(Structure):
     Revision: UInt32
     DynamicThrottle: Byte
     Spare: Byte * 3
-    _bitfield: UInt32
+    DisableCStates: Annotated[UInt32, 1]
+    Reserved: Annotated[UInt32, 31]
     PolicyCount: UInt32
     Policy: win32more.Windows.Win32.System.Power.PROCESSOR_POWER_POLICY_INFO * 3
 class PROCESSOR_POWER_POLICY_INFO(Structure):
@@ -1054,7 +1055,9 @@ class PROCESSOR_POWER_POLICY_INFO(Structure):
     DemotePercent: Byte
     PromotePercent: Byte
     Spare: Byte * 2
-    _bitfield: UInt32
+    AllowDemotion: Annotated[UInt32, 1]
+    AllowPromotion: Annotated[UInt32, 1]
+    Reserved: Annotated[UInt32, 30]
 @winfunctype_pointer
 def PWRSCHEMESENUMPROC(Index: UInt32, NameSize: UInt32, Name: win32more.Windows.Win32.Foundation.PWSTR, DescriptionSize: UInt32, Description: win32more.Windows.Win32.Foundation.PWSTR, Policy: POINTER(win32more.Windows.Win32.System.Power.POWER_POLICY), Context: win32more.Windows.Win32.Foundation.LPARAM) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer

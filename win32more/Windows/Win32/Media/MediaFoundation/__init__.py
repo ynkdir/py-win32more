@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -4868,7 +4868,13 @@ class DXVA2_ExtendedFormat(Structure):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            SampleFormat: Annotated[UInt32, 8]
+            VideoChromaSubsampling: Annotated[UInt32, 4]
+            NominalRange: Annotated[UInt32, 3]
+            VideoTransferMatrix: Annotated[UInt32, 3]
+            VideoLighting: Annotated[UInt32, 4]
+            VideoPrimaries: Annotated[UInt32, 5]
+            VideoTransferFunction: Annotated[UInt32, 5]
 DXVA2_FilterType = Int32
 DXVA2_NoiseFilterLumaLevel: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_FilterType = 1
 DXVA2_NoiseFilterLumaThreshold: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_FilterType = 2
@@ -5161,7 +5167,11 @@ class DXVAHD_BLT_STATE_OUTPUT_COLOR_SPACE_DATA(Structure):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Usage: Annotated[UInt32, 1]
+            RGB_Range: Annotated[UInt32, 1]
+            YCbCr_Matrix: Annotated[UInt32, 1]
+            YCbCr_xvYCC: Annotated[UInt32, 1]
+            Reserved: Annotated[UInt32, 28]
 class DXVAHD_BLT_STATE_PRIVATE_DATA(Structure):
     Guid: Guid
     DataSize: UInt32
@@ -5320,7 +5330,11 @@ class DXVAHD_STREAM_STATE_INPUT_COLOR_SPACE_DATA(Structure):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Type: Annotated[UInt32, 1]
+            RGB_Range: Annotated[UInt32, 1]
+            YCbCr_Matrix: Annotated[UInt32, 1]
+            YCbCr_xvYCC: Annotated[UInt32, 1]
+            Reserved: Annotated[UInt32, 28]
 class DXVAHD_STREAM_STATE_LUMA_KEY_DATA(Structure):
     Enable: win32more.Windows.Win32.Foundation.BOOL
     Lower: Single
@@ -5489,7 +5503,13 @@ DXVA_DestinationFlag_TargetRect_Changed: win32more.Windows.Win32.Media.MediaFoun
 DXVA_DestinationFlag_ColorData_Changed: win32more.Windows.Win32.Media.MediaFoundation.DXVA_DestinationFlags = 4
 DXVA_DestinationFlag_Alpha_Changed: win32more.Windows.Win32.Media.MediaFoundation.DXVA_DestinationFlags = 8
 class DXVA_ExtendedFormat(Structure):
-    _bitfield: UInt32
+    SampleFormat: Annotated[UInt32, 8]
+    VideoChromaSubsampling: Annotated[UInt32, 4]
+    NominalRange: Annotated[UInt32, 3]
+    VideoTransferMatrix: Annotated[UInt32, 3]
+    VideoLighting: Annotated[UInt32, 4]
+    VideoPrimaries: Annotated[UInt32, 5]
+    VideoTransferFunction: Annotated[UInt32, 5]
 class DXVA_Frequency(Structure):
     Numerator: UInt32
     Denominator: UInt32

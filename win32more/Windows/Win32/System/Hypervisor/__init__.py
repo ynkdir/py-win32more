@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.HostComputeSystem
@@ -297,9 +297,18 @@ class GUEST_OS_INFO(Union):
     ClosedSource: _ClosedSource_e__Struct
     OpenSource: _OpenSource_e__Struct
     class _ClosedSource_e__Struct(Structure):
-        _bitfield: UInt64
+        BuildNumber: Annotated[UInt64, 16]
+        ServiceVersion: Annotated[UInt64, 8]
+        MinorVersion: Annotated[UInt64, 8]
+        MajorVersion: Annotated[UInt64, 8]
+        OsId: Annotated[UInt64, 8]
+        VendorId: Annotated[UInt64, 16]
     class _OpenSource_e__Struct(Structure):
-        _bitfield: UInt64
+        VendorSpecific1: Annotated[UInt64, 16]
+        Version: Annotated[UInt64, 32]
+        VendorSpecific2: Annotated[UInt64, 8]
+        OsId: Annotated[UInt64, 7]
+        IsOpenSource: Annotated[UInt64, 1]
 GUEST_OS_MICROSOFT_IDS = Int32
 GuestOsMicrosoftUndefined: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 0
 GuestOsMicrosoftMSDOS: win32more.Windows.Win32.System.Hypervisor.GUEST_OS_MICROSOFT_IDS = 1
@@ -597,7 +606,15 @@ class VIRTUAL_PROCESSOR_REGISTER(Union):
                 Attributes: UInt16
                 Anonymous: _Anonymous_e__Struct
                 class _Anonymous_e__Struct(Structure):
-                    _bitfield: UInt16
+                    SegmentType: Annotated[UInt16, 4]
+                    NonSystemSegment: Annotated[UInt16, 1]
+                    DescriptorPrivilegeLevel: Annotated[UInt16, 2]
+                    Present: Annotated[UInt16, 1]
+                    Reserved: Annotated[UInt16, 4]
+                    Available: Annotated[UInt16, 1]
+                    Long: Annotated[UInt16, 1]
+                    Default: Annotated[UInt16, 1]
+                    Granularity: Annotated[UInt16, 1]
         class _Table_e__Struct(Structure):
             Limit: UInt16
             Base: UInt64
@@ -652,7 +669,9 @@ class WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(Union):
     AsUINT32: UInt32
     Anonymous: _Anonymous_e__Struct
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        Prefetch: Annotated[UInt32, 1]
+        AvoidHardFaults: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 30]
 WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = Int32
 WHvAllocateVpciResourceFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = 0
 WHvAllocateVpciResourceFlagAllowDirectP2P: win32more.Windows.Win32.System.Hypervisor.WHV_ALLOCATE_VPCI_RESOURCE_FLAGS = 1
@@ -701,9 +720,20 @@ class WHV_CAPABILITY_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        PartialUnmap: Annotated[UInt64, 1]
+        LocalApicEmulation: Annotated[UInt64, 1]
+        Xsave: Annotated[UInt64, 1]
+        DirtyPageTracking: Annotated[UInt64, 1]
+        SpeculationControl: Annotated[UInt64, 1]
+        ApicRemoteRead: Annotated[UInt64, 1]
+        IdleSuspend: Annotated[UInt64, 1]
+        VirtualPciDeviceSupport: Annotated[UInt64, 1]
+        IommuSupport: Annotated[UInt64, 1]
+        VpHotAddRemove: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 54]
 class WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP(Structure):
-    _bitfield: UInt32
+    IsSupported: Annotated[UInt32, 1]
+    Reserved: Annotated[UInt32, 31]
     HighestFrequencyMhz: UInt32
     NominalFrequencyMhz: UInt32
     LowestFrequencyMhz: UInt32
@@ -721,7 +751,9 @@ class WHV_DOORBELL_MATCH_DATA(Structure):
     GuestAddress: UInt64
     Value: UInt64
     Length: UInt32
-    _bitfield: UInt32
+    MatchOnValue: Annotated[UInt32, 1]
+    MatchOnLength: Annotated[UInt32, 1]
+    Reserved: Annotated[UInt32, 30]
 class WHV_EMULATOR_CALLBACKS(Structure):
     Size: UInt32
     Reserved: UInt32
@@ -752,7 +784,17 @@ class WHV_EMULATOR_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        EmulationSuccessful: Annotated[UInt32, 1]
+        InternalEmulationFailure: Annotated[UInt32, 1]
+        IoPortCallbackFailed: Annotated[UInt32, 1]
+        MemoryCallbackFailed: Annotated[UInt32, 1]
+        TranslateGvaPageCallbackFailed: Annotated[UInt32, 1]
+        TranslateGvaPageCallbackGpaIsNotAligned: Annotated[UInt32, 1]
+        GetVirtualProcessorRegistersCallbackFailed: Annotated[UInt32, 1]
+        SetVirtualProcessorRegistersCallbackFailed: Annotated[UInt32, 1]
+        InterruptCausedIntercept: Annotated[UInt32, 1]
+        GuestCannotBeFaulted: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 22]
 @winfunctype_pointer
 def WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK(Context: VoidPtr, Gva: UInt64, TranslateFlags: win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_FLAGS, TranslationResult: POINTER(win32more.Windows.Win32.System.Hypervisor.WHV_TRANSLATE_GVA_RESULT_CODE), Gpa: POINTER(UInt64)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 WHV_EXCEPTION_TYPE = Int32
@@ -777,7 +819,22 @@ class WHV_EXTENDED_VM_EXITS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        X64CpuidExit: Annotated[UInt64, 1]
+        X64MsrExit: Annotated[UInt64, 1]
+        ExceptionExit: Annotated[UInt64, 1]
+        X64RdtscExit: Annotated[UInt64, 1]
+        X64ApicSmiExitTrap: Annotated[UInt64, 1]
+        HypercallExit: Annotated[UInt64, 1]
+        X64ApicInitSipiExitTrap: Annotated[UInt64, 1]
+        X64ApicWriteLint0ExitTrap: Annotated[UInt64, 1]
+        X64ApicWriteLint1ExitTrap: Annotated[UInt64, 1]
+        X64ApicWriteSvrExitTrap: Annotated[UInt64, 1]
+        UnknownSynicConnection: Annotated[UInt64, 1]
+        RetargetUnknownVpciDevice: Annotated[UInt64, 1]
+        X64ApicWriteLdrExitTrap: Annotated[UInt64, 1]
+        X64ApicWriteDfrExitTrap: Annotated[UInt64, 1]
+        GpaAccessFaultExit: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 49]
 class WHV_HYPERCALL_CONTEXT(Structure):
     Rax: UInt64
     Rbx: UInt64
@@ -793,9 +850,15 @@ class WHV_INTERNAL_ACTIVITY_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        StartupSuspend: Annotated[UInt64, 1]
+        HaltSuspend: Annotated[UInt64, 1]
+        IdleSuspend: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 61]
 class WHV_INTERRUPT_CONTROL(Structure):
-    _bitfield: UInt64
+    Type: Annotated[UInt64, 8]
+    DestinationMode: Annotated[UInt64, 4]
+    TriggerMode: Annotated[UInt64, 4]
+    Reserved: Annotated[UInt64, 48]
     Destination: UInt32
     Vector: UInt32
 WHV_INTERRUPT_DESTINATION_MODE = Int32
@@ -828,7 +891,10 @@ class WHV_MEMORY_ACCESS_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        AccessType: Annotated[UInt32, 2]
+        GpaUnmapped: Annotated[UInt32, 1]
+        GvaValid: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 28]
 WHV_MEMORY_ACCESS_TYPE = Int32
 WHvMemoryAccessRead: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 0
 WHvMemoryAccessWrite: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_TYPE = 1
@@ -949,12 +1015,96 @@ class WHV_PROCESSOR_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        Sse3Support: Annotated[UInt64, 1]
+        LahfSahfSupport: Annotated[UInt64, 1]
+        Ssse3Support: Annotated[UInt64, 1]
+        Sse4_1Support: Annotated[UInt64, 1]
+        Sse4_2Support: Annotated[UInt64, 1]
+        Sse4aSupport: Annotated[UInt64, 1]
+        XopSupport: Annotated[UInt64, 1]
+        PopCntSupport: Annotated[UInt64, 1]
+        Cmpxchg16bSupport: Annotated[UInt64, 1]
+        Altmovcr8Support: Annotated[UInt64, 1]
+        LzcntSupport: Annotated[UInt64, 1]
+        MisAlignSseSupport: Annotated[UInt64, 1]
+        MmxExtSupport: Annotated[UInt64, 1]
+        Amd3DNowSupport: Annotated[UInt64, 1]
+        ExtendedAmd3DNowSupport: Annotated[UInt64, 1]
+        Page1GbSupport: Annotated[UInt64, 1]
+        AesSupport: Annotated[UInt64, 1]
+        PclmulqdqSupport: Annotated[UInt64, 1]
+        PcidSupport: Annotated[UInt64, 1]
+        Fma4Support: Annotated[UInt64, 1]
+        F16CSupport: Annotated[UInt64, 1]
+        RdRandSupport: Annotated[UInt64, 1]
+        RdWrFsGsSupport: Annotated[UInt64, 1]
+        SmepSupport: Annotated[UInt64, 1]
+        EnhancedFastStringSupport: Annotated[UInt64, 1]
+        Bmi1Support: Annotated[UInt64, 1]
+        Bmi2Support: Annotated[UInt64, 1]
+        Reserved1: Annotated[UInt64, 2]
+        MovbeSupport: Annotated[UInt64, 1]
+        Npiep1Support: Annotated[UInt64, 1]
+        DepX87FPUSaveSupport: Annotated[UInt64, 1]
+        RdSeedSupport: Annotated[UInt64, 1]
+        AdxSupport: Annotated[UInt64, 1]
+        IntelPrefetchSupport: Annotated[UInt64, 1]
+        SmapSupport: Annotated[UInt64, 1]
+        HleSupport: Annotated[UInt64, 1]
+        RtmSupport: Annotated[UInt64, 1]
+        RdtscpSupport: Annotated[UInt64, 1]
+        ClflushoptSupport: Annotated[UInt64, 1]
+        ClwbSupport: Annotated[UInt64, 1]
+        ShaSupport: Annotated[UInt64, 1]
+        X87PointersSavedSupport: Annotated[UInt64, 1]
+        InvpcidSupport: Annotated[UInt64, 1]
+        IbrsSupport: Annotated[UInt64, 1]
+        StibpSupport: Annotated[UInt64, 1]
+        IbpbSupport: Annotated[UInt64, 1]
+        Reserved2: Annotated[UInt64, 1]
+        SsbdSupport: Annotated[UInt64, 1]
+        FastShortRepMovSupport: Annotated[UInt64, 1]
+        Reserved3: Annotated[UInt64, 1]
+        RdclNo: Annotated[UInt64, 1]
+        IbrsAllSupport: Annotated[UInt64, 1]
+        Reserved4: Annotated[UInt64, 1]
+        SsbNo: Annotated[UInt64, 1]
+        RsbANo: Annotated[UInt64, 1]
+        Reserved5: Annotated[UInt64, 1]
+        RdPidSupport: Annotated[UInt64, 1]
+        UmipSupport: Annotated[UInt64, 1]
+        MdsNoSupport: Annotated[UInt64, 1]
+        MdClearSupport: Annotated[UInt64, 1]
+        TaaNoSupport: Annotated[UInt64, 1]
+        TsxCtrlSupport: Annotated[UInt64, 1]
+        Reserved6: Annotated[UInt64, 1]
 class WHV_PROCESSOR_FEATURES1(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        ACountMCountSupport: Annotated[UInt64, 1]
+        TscInvariantSupport: Annotated[UInt64, 1]
+        ClZeroSupport: Annotated[UInt64, 1]
+        RdpruSupport: Annotated[UInt64, 1]
+        Reserved2: Annotated[UInt64, 2]
+        NestedVirtSupport: Annotated[UInt64, 1]
+        PsfdSupport: Annotated[UInt64, 1]
+        CetSsSupport: Annotated[UInt64, 1]
+        CetIbtSupport: Annotated[UInt64, 1]
+        VmxExceptionInjectSupport: Annotated[UInt64, 1]
+        Reserved4: Annotated[UInt64, 1]
+        UmwaitTpauseSupport: Annotated[UInt64, 1]
+        MovdiriSupport: Annotated[UInt64, 1]
+        Movdir64bSupport: Annotated[UInt64, 1]
+        CldemoteSupport: Annotated[UInt64, 1]
+        SerializeSupport: Annotated[UInt64, 1]
+        TscDeadlineTmrSupport: Annotated[UInt64, 1]
+        TscAdjustSupport: Annotated[UInt64, 1]
+        FZLRepMovsb: Annotated[UInt64, 1]
+        FSRepStosb: Annotated[UInt64, 1]
+        FSRepCmpsb: Annotated[UInt64, 1]
+        TsxLdTrkSupport: Annotated[UInt64, 1]
+        Reserved5: Annotated[UInt64, 41]
 class WHV_PROCESSOR_FEATURES_BANKS(Structure):
     BanksCount: UInt32
     Reserved0: UInt32
@@ -987,7 +1137,9 @@ class WHV_PROCESSOR_PERFMON_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        PmuSupport: Annotated[UInt64, 1]
+        LbrSupport: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 62]
 class WHV_PROCESSOR_RUNTIME_COUNTERS(Structure):
     TotalRuntime100ns: UInt64
     HypervisorRuntime100ns: UInt64
@@ -1006,7 +1158,38 @@ class WHV_PROCESSOR_XSAVE_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        XsaveSupport: Annotated[UInt64, 1]
+        XsaveoptSupport: Annotated[UInt64, 1]
+        AvxSupport: Annotated[UInt64, 1]
+        Avx2Support: Annotated[UInt64, 1]
+        FmaSupport: Annotated[UInt64, 1]
+        MpxSupport: Annotated[UInt64, 1]
+        Avx512Support: Annotated[UInt64, 1]
+        Avx512DQSupport: Annotated[UInt64, 1]
+        Avx512CDSupport: Annotated[UInt64, 1]
+        Avx512BWSupport: Annotated[UInt64, 1]
+        Avx512VLSupport: Annotated[UInt64, 1]
+        XsaveCompSupport: Annotated[UInt64, 1]
+        XsaveSupervisorSupport: Annotated[UInt64, 1]
+        Xcr1Support: Annotated[UInt64, 1]
+        Avx512BitalgSupport: Annotated[UInt64, 1]
+        Avx512IfmaSupport: Annotated[UInt64, 1]
+        Avx512VBmiSupport: Annotated[UInt64, 1]
+        Avx512VBmi2Support: Annotated[UInt64, 1]
+        Avx512VnniSupport: Annotated[UInt64, 1]
+        GfniSupport: Annotated[UInt64, 1]
+        VaesSupport: Annotated[UInt64, 1]
+        Avx512VPopcntdqSupport: Annotated[UInt64, 1]
+        VpclmulqdqSupport: Annotated[UInt64, 1]
+        Avx512Bf16Support: Annotated[UInt64, 1]
+        Avx512Vp2IntersectSupport: Annotated[UInt64, 1]
+        Avx512Fp16Support: Annotated[UInt64, 1]
+        XfdSupport: Annotated[UInt64, 1]
+        AmxTileSupport: Annotated[UInt64, 1]
+        AmxBf16Support: Annotated[UInt64, 1]
+        AmxInt8Support: Annotated[UInt64, 1]
+        AvxVnniSupport: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 33]
 WHV_REGISTER_NAME = Int32
 WHvX64RegisterRax: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 0
 WHvX64RegisterRcx: win32more.Windows.Win32.System.Hypervisor.WHV_REGISTER_NAME = 1
@@ -1301,7 +1484,12 @@ class WHV_SCHEDULER_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        CpuReserve: Annotated[UInt64, 1]
+        CpuCap: Annotated[UInt64, 1]
+        CpuWeight: Annotated[UInt64, 1]
+        CpuGroupId: Annotated[UInt64, 1]
+        DisableSmt: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 59]
 class WHV_SRIOV_RESOURCE_DESCRIPTOR(Structure):
     PnpInstanceId: Char * 200
     VirtualFunctionId: win32more.Windows.Win32.Foundation.LUID
@@ -1320,7 +1508,38 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        HypervisorPresent: Annotated[UInt64, 1]
+        Hv1: Annotated[UInt64, 1]
+        AccessVpRunTimeReg: Annotated[UInt64, 1]
+        AccessPartitionReferenceCounter: Annotated[UInt64, 1]
+        AccessSynicRegs: Annotated[UInt64, 1]
+        AccessSyntheticTimerRegs: Annotated[UInt64, 1]
+        ReservedZ6: Annotated[UInt64, 1]
+        AccessHypercallRegs: Annotated[UInt64, 1]
+        AccessVpIndex: Annotated[UInt64, 1]
+        AccessPartitionReferenceTsc: Annotated[UInt64, 1]
+        ReservedZ10: Annotated[UInt64, 1]
+        ReservedZ11: Annotated[UInt64, 1]
+        ReservedZ12: Annotated[UInt64, 1]
+        ReservedZ13: Annotated[UInt64, 1]
+        ReservedZ14: Annotated[UInt64, 1]
+        ReservedZ15: Annotated[UInt64, 1]
+        ReservedZ16: Annotated[UInt64, 1]
+        ReservedZ17: Annotated[UInt64, 1]
+        FastHypercallOutput: Annotated[UInt64, 1]
+        ReservedZ19: Annotated[UInt64, 1]
+        ReservedZ20: Annotated[UInt64, 1]
+        ReservedZ21: Annotated[UInt64, 1]
+        DirectSyntheticTimers: Annotated[UInt64, 1]
+        ReservedZ23: Annotated[UInt64, 1]
+        ExtendedProcessorMasks: Annotated[UInt64, 1]
+        ReservedZ25: Annotated[UInt64, 1]
+        SyntheticClusterIpi: Annotated[UInt64, 1]
+        NotifyLongSpinWait: Annotated[UInt64, 1]
+        QueryNumaDistance: Annotated[UInt64, 1]
+        SignalEvents: Annotated[UInt64, 1]
+        RetargetDeviceInterrupt: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 33]
 class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(Structure):
     BanksCount: UInt32
     Reserved0: UInt32
@@ -1457,10 +1676,13 @@ class WHV_VP_EXCEPTION_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        ErrorCodeValid: Annotated[UInt32, 1]
+        SoftwareException: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 30]
 class WHV_VP_EXIT_CONTEXT(Structure):
     ExecutionState: win32more.Windows.Win32.System.Hypervisor.WHV_X64_VP_EXECUTION_STATE
-    _bitfield: Byte
+    InstructionLength: Annotated[Byte, 4]
+    Cr8: Annotated[Byte, 4]
     Reserved: Byte
     Reserved2: UInt32
     Cs: win32more.Windows.Win32.System.Hypervisor.WHV_X64_SEGMENT_REGISTER
@@ -1512,7 +1734,11 @@ class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        NmiNotification: Annotated[UInt64, 1]
+        InterruptNotification: Annotated[UInt64, 1]
+        InterruptPriority: Annotated[UInt64, 4]
+        Reserved: Annotated[UInt64, 42]
+        Sint: Annotated[UInt64, 16]
 class WHV_X64_FP_CONTROL_STATUS_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
@@ -1535,14 +1761,18 @@ class WHV_X64_FP_REGISTER(Union):
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
     class _Anonymous_e__Struct(Structure):
         Mantissa: UInt64
-        _bitfield: UInt64
+        BiasedExponent: Annotated[UInt64, 15]
+        Sign: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 48]
 class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(Structure):
     DeliverableType: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE
 class WHV_X64_INTERRUPT_STATE_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        InterruptShadow: Annotated[UInt64, 1]
+        NmiMasked: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 62]
 class WHV_X64_IO_PORT_ACCESS_CONTEXT(Structure):
     InstructionByteCount: Byte
     Reserved: Byte * 3
@@ -1560,7 +1790,11 @@ class WHV_X64_IO_PORT_ACCESS_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        IsWrite: Annotated[UInt32, 1]
+        AccessSize: Annotated[UInt32, 3]
+        StringOp: Annotated[UInt32, 1]
+        RepPrefix: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 26]
 WHV_X64_LOCAL_APIC_EMULATION_MODE = Int32
 WHvX64LocalApicEmulationModeNone: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 0
 WHvX64LocalApicEmulationModeXApic: win32more.Windows.Win32.System.Hypervisor.WHV_X64_LOCAL_APIC_EMULATION_MODE = 1
@@ -1574,17 +1808,29 @@ class WHV_X64_MSR_ACCESS_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        IsWrite: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 31]
 class WHV_X64_MSR_EXIT_BITMAP(Union):
     AsUINT64: UInt64
     Anonymous: _Anonymous_e__Struct
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        UnhandledMsrs: Annotated[UInt64, 1]
+        TscMsrWrite: Annotated[UInt64, 1]
+        TscMsrRead: Annotated[UInt64, 1]
+        ApicBaseMsrWrite: Annotated[UInt64, 1]
+        MiscEnableMsrRead: Annotated[UInt64, 1]
+        McUpdatePatchLevelMsrRead: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 58]
 class WHV_X64_PENDING_DEBUG_EXCEPTION(Union):
     AsUINT64: UInt64
     Anonymous: _Anonymous_e__Struct
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        Breakpoint0: Annotated[UInt64, 1]
+        Breakpoint1: Annotated[UInt64, 1]
+        Breakpoint2: Annotated[UInt64, 1]
+        Breakpoint3: Annotated[UInt64, 1]
+        SingleStep: Annotated[UInt64, 1]
+        Reserved0: Annotated[UInt64, 59]
 WHV_X64_PENDING_EVENT_TYPE = Int32
 WHvX64PendingEventException: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_EVENT_TYPE = 0
 WHvX64PendingEventExtInt: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_EVENT_TYPE = 5
@@ -1592,20 +1838,35 @@ class WHV_X64_PENDING_EXCEPTION_EVENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        EventPending: Annotated[UInt32, 1]
+        EventType: Annotated[UInt32, 3]
+        Reserved0: Annotated[UInt32, 4]
+        DeliverErrorCode: Annotated[UInt32, 1]
+        Reserved1: Annotated[UInt32, 7]
+        Vector: Annotated[UInt32, 16]
         ErrorCode: UInt32
         ExceptionParameter: UInt64
 class WHV_X64_PENDING_EXT_INT_EVENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        EventPending: Annotated[UInt64, 1]
+        EventType: Annotated[UInt64, 3]
+        Reserved0: Annotated[UInt64, 4]
+        Vector: Annotated[UInt64, 8]
+        Reserved1: Annotated[UInt64, 48]
         Reserved2: UInt64
 class WHV_X64_PENDING_INTERRUPTION_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        InterruptionPending: Annotated[UInt32, 1]
+        InterruptionType: Annotated[UInt32, 3]
+        DeliverErrorCode: Annotated[UInt32, 1]
+        InstructionLength: Annotated[UInt32, 4]
+        NestedEvent: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 6]
+        InterruptionVector: Annotated[UInt32, 16]
         ErrorCode: UInt32
 WHV_X64_PENDING_INTERRUPTION_TYPE = Int32
 WHvX64PendingInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE = 0
@@ -1621,7 +1882,8 @@ class WHV_X64_RDTSC_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
+        IsRdtscp: Annotated[UInt64, 1]
+        Reserved: Annotated[UInt64, 63]
 class WHV_X64_SEGMENT_REGISTER(Structure):
     Base: UInt64
     Limit: UInt32
@@ -1631,7 +1893,15 @@ class WHV_X64_SEGMENT_REGISTER(Structure):
         Anonymous: _Anonymous_e__Struct
         Attributes: UInt16
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt16
+            SegmentType: Annotated[UInt16, 4]
+            NonSystemSegment: Annotated[UInt16, 1]
+            DescriptorPrivilegeLevel: Annotated[UInt16, 2]
+            Present: Annotated[UInt16, 1]
+            Reserved: Annotated[UInt16, 4]
+            Available: Annotated[UInt16, 1]
+            Long: Annotated[UInt16, 1]
+            Default: Annotated[UInt16, 1]
+            Granularity: Annotated[UInt16, 1]
 class WHV_X64_TABLE_REGISTER(Structure):
     Pad: UInt16 * 3
     Limit: UInt16
@@ -1647,7 +1917,15 @@ class WHV_X64_VP_EXECUTION_STATE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT16: UInt16
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        Cpl: Annotated[UInt16, 2]
+        Cr0Pe: Annotated[UInt16, 1]
+        Cr0Am: Annotated[UInt16, 1]
+        EferLma: Annotated[UInt16, 1]
+        DebugActive: Annotated[UInt16, 1]
+        InterruptionPending: Annotated[UInt16, 1]
+        Reserved0: Annotated[UInt16, 5]
+        InterruptShadow: Annotated[UInt16, 1]
+        Reserved1: Annotated[UInt16, 3]
 class WHV_X64_XMM_CONTROL_STATUS_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128

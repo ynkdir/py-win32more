@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media.DirectShow
@@ -5658,13 +5658,18 @@ class MPEG_DATE_AND_TIME(Structure):
     T: win32more.Windows.Win32.Media.DirectShow.Tv.MPEG_TIME
     _pack_ = 1
 class MPEG_HEADER_BITS(Structure):
-    _bitfield: UInt16
+    SectionLength: Annotated[UInt16, 12]
+    Reserved: Annotated[UInt16, 2]
+    PrivateIndicator: Annotated[UInt16, 1]
+    SectionSyntaxIndicator: Annotated[UInt16, 1]
     _pack_ = 1
 class MPEG_HEADER_BITS_MIDL(Structure):
     Bits: UInt16
     _pack_ = 1
 class MPEG_HEADER_VERSION_BITS(Structure):
-    _bitfield: Byte
+    CurrentNextIndicator: Annotated[Byte, 1]
+    VersionNumber: Annotated[Byte, 5]
+    Reserved: Annotated[Byte, 2]
 class MPEG_HEADER_VERSION_BITS_MIDL(Structure):
     Bits: Byte
 class MPEG_PACKET_LIST(Structure):
@@ -5865,12 +5870,18 @@ class PBDA_TAG_ATTRIBUTE(Structure):
     TableDataSize: UInt32
     TableData: Byte * 1
 class PIC_SEQ_SAMPLE(Structure):
-    _bitfield: UInt32
+    Content: Annotated[UInt32, 3]
+    Start: Annotated[UInt32, 1]
+    FrameRate: Annotated[UInt32, 4]
+    InvalidVA: Annotated[UInt32, 1]
+    Reserved: Annotated[UInt32, 19]
+    Version: Annotated[UInt32, 4]
 class PIDListSpanningEvent(Structure):
     wPIDCount: UInt16
     pulPIDs: UInt32 * 1
 class PID_BITS(Structure):
-    _bitfield: UInt16
+    Reserved: Annotated[UInt16, 3]
+    ProgramId: Annotated[UInt16, 13]
     _pack_ = 1
 class PID_BITS_MIDL(Structure):
     Bits: UInt16
@@ -5911,7 +5922,8 @@ class RATING_INFO(Structure):
     _pack_ = 1
 class RATING_SYSTEM(Structure):
     rating_system_id: Guid
-    _bitfield: Byte
+    rating_system_is_age_type: Annotated[Byte, 1]
+    reserved: Annotated[Byte, 7]
     country_code: Byte * 3
     rating_attribute_count: UInt32
     lpratingattrib: POINTER(win32more.Windows.Win32.Media.DirectShow.Tv.RATING_ATTRIBUTE)
@@ -5932,7 +5944,9 @@ class SAMPLE_LIVE_STREAM_TIME(Structure):
     qwStreamTime: UInt64
     qwLiveTime: UInt64
 class SAMPLE_SEQ_OFFSET(Structure):
-    _bitfield: UInt32
+    Type: Annotated[UInt32, 4]
+    Offset: Annotated[UInt32, 20]
+    Reserved: Annotated[UInt32, 8]
 class SBE2_STREAM_DESC(Structure):
     Version: UInt32
     StreamId: UInt32
@@ -6296,7 +6310,8 @@ class TRANSPORT_PROPERTIES(Structure):
         Others: _Others
         Value: Int64
         class _Others(Structure):
-            _bitfield: Int64
+            TransportScramblingControl: Annotated[Int64, 8]
+            Reserved: Annotated[Int64, 56]
 TuneRequest = Guid('{b46e0d38-ab35-4a06-a137-70576b01b39f}')
 TunerMarshaler = Guid('{6438570b-0c08-4a25-9504-8012bb4d50cf}')
 TuningSpace = Guid('{5ffdc5e6-b83a-4b55-b6e8-c69e765fe9db}')

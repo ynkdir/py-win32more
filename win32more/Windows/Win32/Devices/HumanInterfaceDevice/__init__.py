@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.HumanInterfaceDevice
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -3195,7 +3195,18 @@ class HIDP_KEYBOARD_MODIFIER_STATE(Structure):
         Anonymous: _Anonymous_e__Struct
         ul: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            LeftControl: Annotated[UInt32, 1]
+            LeftShift: Annotated[UInt32, 1]
+            LeftAlt: Annotated[UInt32, 1]
+            LeftGUI: Annotated[UInt32, 1]
+            RightControl: Annotated[UInt32, 1]
+            RightShift: Annotated[UInt32, 1]
+            RightAlt: Annotated[UInt32, 1]
+            RigthGUI: Annotated[UInt32, 1]
+            CapsLock: Annotated[UInt32, 1]
+            ScollLock: Annotated[UInt32, 1]
+            NumLock: Annotated[UInt32, 1]
+            Reserved: Annotated[UInt32, 21]
 class HIDP_LINK_COLLECTION_NODE(Structure):
     LinkUsage: UInt16
     LinkUsagePage: UInt16
@@ -3203,7 +3214,9 @@ class HIDP_LINK_COLLECTION_NODE(Structure):
     NumberOfChildren: UInt16
     NextSibling: UInt16
     FirstChild: UInt16
-    _bitfield: UInt32
+    CollectionType: Annotated[UInt32, 8]
+    IsAlias: Annotated[UInt32, 1]
+    Reserved: Annotated[UInt32, 23]
     UserContext: VoidPtr
     _pack_ = 4
 HIDP_REPORT_TYPE = Int32

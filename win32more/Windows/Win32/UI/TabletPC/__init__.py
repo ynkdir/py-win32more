@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -923,9 +923,19 @@ FLICKMODE_LEARNING: win32more.Windows.Win32.UI.TabletPC.FLICKMODE = 2
 FLICKMODE_MAX: win32more.Windows.Win32.UI.TabletPC.FLICKMODE = 2
 FLICKMODE_DEFAULT: win32more.Windows.Win32.UI.TabletPC.FLICKMODE = 1
 class FLICK_DATA(Structure):
-    _bitfield: Int32
+    iFlickActionCommandCode: Annotated[Int32, 5]
+    iFlickDirection: Annotated[Int32, 3]
+    fControlModifier: Annotated[Int32, 1]
+    fMenuModifier: Annotated[Int32, 1]
+    fAltGRModifier: Annotated[Int32, 1]
+    fWinModifier: Annotated[Int32, 1]
+    fShiftModifier: Annotated[Int32, 1]
+    iReserved: Annotated[Int32, 2]
+    fOnInkingSurface: Annotated[Int32, 1]
+    iActionArgument: Annotated[Int32, 16]
 class FLICK_POINT(Structure):
-    _bitfield: Int32
+    x: Annotated[Int32, 16]
+    y: Annotated[Int32, 16]
 class GESTURE_DATA(Structure):
     gestureId: Int32
     recoConfidence: Int32

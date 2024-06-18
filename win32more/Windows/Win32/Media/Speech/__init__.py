@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Speech
@@ -2415,7 +2415,8 @@ SPESF_NONE: win32more.Windows.Win32.Media.Speech.SPENDSRSTREAMFLAGS = 0
 SPESF_STREAM_RELEASED: win32more.Windows.Win32.Media.Speech.SPENDSRSTREAMFLAGS = 1
 SPESF_EMULATED: win32more.Windows.Win32.Media.Speech.SPENDSRSTREAMFLAGS = 2
 class SPEVENT(Structure):
-    _bitfield: Int32
+    eEventId: Annotated[Int32, 16]
+    elParamType: Annotated[Int32, 16]
     ulStreamNum: UInt32
     ullAudioStreamOffset: UInt64
     wParam: win32more.Windows.Win32.Foundation.WPARAM
@@ -2462,7 +2463,8 @@ SPEI_RESERVED1: win32more.Windows.Win32.Media.Speech.SPEVENTENUM = 30
 SPEI_RESERVED2: win32more.Windows.Win32.Media.Speech.SPEVENTENUM = 33
 SPEI_RESERVED3: win32more.Windows.Win32.Media.Speech.SPEVENTENUM = 63
 class SPEVENTEX(Structure):
-    _bitfield: Int32
+    eEventId: Annotated[Int32, 16]
+    elParamType: Annotated[Int32, 16]
     ulStreamNum: UInt32
     ullAudioStreamOffset: UInt64
     wParam: win32more.Windows.Win32.Foundation.WPARAM
@@ -2786,13 +2788,15 @@ SPSMF_SRGS_SAPIPROPERTIES: win32more.Windows.Win32.Media.Speech.SPSEMANTICFORMAT
 SPSMF_UPS: win32more.Windows.Win32.Media.Speech.SPSEMANTICFORMAT = 4
 SPSMF_SRGS_SEMANTICINTERPRETATION_W3C: win32more.Windows.Win32.Media.Speech.SPSEMANTICFORMAT = 8
 class SPSERIALIZEDEVENT(Structure):
-    _bitfield: Int32
+    eEventId: Annotated[Int32, 16]
+    elParamType: Annotated[Int32, 16]
     ulStreamNum: UInt32
     ullAudioStreamOffset: UInt64
     SerializedwParam: UInt32
     SerializedlParam: Int32
 class SPSERIALIZEDEVENT64(Structure):
-    _bitfield: Int32
+    eEventId: Annotated[Int32, 16]
+    elParamType: Annotated[Int32, 16]
     ulStreamNum: UInt32
     ullAudioStreamOffset: UInt64
     SerializedwParam: UInt64

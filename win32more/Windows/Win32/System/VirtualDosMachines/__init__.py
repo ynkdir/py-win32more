@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.Kernel
@@ -257,7 +257,16 @@ if ARCH in 'X64,ARM64':
                 Flags2: Byte
                 BaseHi: Byte
             class _Bits_e__Struct(Structure):
-                _bitfield: UInt32
+                BaseMid: Annotated[UInt32, 8]
+                Type: Annotated[UInt32, 5]
+                Dpl: Annotated[UInt32, 2]
+                Pres: Annotated[UInt32, 1]
+                LimitHi: Annotated[UInt32, 4]
+                Sys: Annotated[UInt32, 1]
+                Reserved_0: Annotated[UInt32, 1]
+                Default_Big: Annotated[UInt32, 1]
+                Granularity: Annotated[UInt32, 1]
+                BaseHi: Annotated[UInt32, 8]
 @winfunctype_pointer
 def VDMMODULEFIRSTPROC(param0: win32more.Windows.Win32.Foundation.HANDLE, param1: win32more.Windows.Win32.Foundation.HANDLE, param2: POINTER(win32more.Windows.Win32.System.VirtualDosMachines.MODULEENTRY), param3: win32more.Windows.Win32.System.VirtualDosMachines.DEBUGEVENTPROC, param4: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Display
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
@@ -1115,9 +1115,11 @@ class COLORSPACE_TRANSFORM_DATA_CAP(Structure):
         Anonymous2: _Anonymous2_e__Struct
         Value: UInt32
         class _Anonymous1_e__Struct(Structure):
-            _bitfield: UInt32
+            BitCountOfInteger: Annotated[UInt32, 6]
+            BitCountOfFraction: Annotated[UInt32, 6]
         class _Anonymous2_e__Struct(Structure):
-            _bitfield: UInt32
+            BitCountOfExponent: Annotated[UInt32, 6]
+            BitCountOfMantissa: Annotated[UInt32, 6]
 COLORSPACE_TRANSFORM_DATA_TYPE = Int32
 COLORSPACE_TRANSFORM_DATA_TYPE_FIXED_POINT: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_DATA_TYPE = 0
 COLORSPACE_TRANSFORM_DATA_TYPE_FLOAT: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_DATA_TYPE = 1
@@ -1128,7 +1130,8 @@ class COLORSPACE_TRANSFORM_MATRIX_CAP(Structure):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            MatrixSizeX: Annotated[UInt32, 10]
+            MatrixSizeY: Annotated[UInt32, 10]
 class COLORSPACE_TRANSFORM_MATRIX_V2(Structure):
     StageControlLookupTable1DDegamma: win32more.Windows.Win32.Devices.Display.COLORSPACE_TRANSFORM_STAGE_CONTROL
     LookupTable1DDegamma: win32more.Windows.Win32.Devices.Display.GAMMA_RAMP_RGB * 4096
@@ -1222,7 +1225,11 @@ class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO(Structure):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            advancedColorSupported: Annotated[UInt32, 1]
+            advancedColorEnabled: Annotated[UInt32, 1]
+            wideColorEnforced: Annotated[UInt32, 1]
+            advancedColorForceDisabled: Annotated[UInt32, 1]
+            reserved: Annotated[UInt32, 28]
 class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     Anonymous: _Anonymous_e__Union
@@ -1230,7 +1237,10 @@ class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION(Structure):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            isSpecializationEnabled: Annotated[UInt32, 1]
+            isSpecializationAvailableForMonitor: Annotated[UInt32, 1]
+            isSpecializationAvailableForSystem: Annotated[UInt32, 1]
+            reserved: Annotated[UInt32, 29]
 class DISPLAYCONFIG_MODE_INFO(Structure):
     infoType: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_MODE_INFO_TYPE
     id: UInt32
@@ -1257,7 +1267,8 @@ class DISPLAYCONFIG_PATH_SOURCE_INFO(Structure):
         modeInfoIdx: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            cloneGroupId: Annotated[UInt32, 16]
+            sourceModeInfoIdx: Annotated[UInt32, 16]
 class DISPLAYCONFIG_PATH_TARGET_INFO(Structure):
     adapterId: win32more.Windows.Win32.Foundation.LUID
     id: UInt32
@@ -1273,7 +1284,8 @@ class DISPLAYCONFIG_PATH_TARGET_INFO(Structure):
         modeInfoIdx: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            desktopModeInfoIdx: Annotated[UInt32, 16]
+            targetModeInfoIdx: Annotated[UInt32, 16]
 DISPLAYCONFIG_PIXELFORMAT = Int32
 DISPLAYCONFIG_PIXELFORMAT_8BPP: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_PIXELFORMAT = 1
 DISPLAYCONFIG_PIXELFORMAT_16BPP: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_PIXELFORMAT = 2
@@ -1311,7 +1323,8 @@ class DISPLAYCONFIG_SET_ADVANCED_COLOR_STATE(Structure):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            enableAdvancedColor: Annotated[UInt32, 1]
+            reserved: Annotated[UInt32, 31]
 class DISPLAYCONFIG_SET_MONITOR_SPECIALIZATION(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     Anonymous: _Anonymous_e__Union
@@ -1322,7 +1335,8 @@ class DISPLAYCONFIG_SET_MONITOR_SPECIALIZATION(Structure):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            isSpecializationEnabled: Annotated[UInt32, 1]
+            reserved: Annotated[UInt32, 31]
 class DISPLAYCONFIG_SET_TARGET_PERSISTENCE(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     Anonymous: _Anonymous_e__Union
@@ -1330,7 +1344,8 @@ class DISPLAYCONFIG_SET_TARGET_PERSISTENCE(Structure):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            bootPersistenceOn: Annotated[UInt32, 1]
+            reserved: Annotated[UInt32, 31]
 class DISPLAYCONFIG_SOURCE_DEVICE_NAME(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     viewGdiDeviceName: Char * 32
@@ -1346,7 +1361,8 @@ class DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION(Structure):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            disableMonitorVirtualResolution: Annotated[UInt32, 1]
+            reserved: Annotated[UInt32, 31]
 class DISPLAYCONFIG_TARGET_BASE_TYPE(Structure):
     header: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_DEVICE_INFO_HEADER
     baseOutputTechnology: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY
@@ -1365,7 +1381,10 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS(Structure):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            friendlyNameFromEdid: Annotated[UInt32, 1]
+            friendlyNameForced: Annotated[UInt32, 1]
+            edidIdsValid: Annotated[UInt32, 1]
+            reserved: Annotated[UInt32, 29]
 class DISPLAYCONFIG_TARGET_MODE(Structure):
     targetVideoSignalInfo: win32more.Windows.Win32.Devices.Display.DISPLAYCONFIG_VIDEO_SIGNAL_INFO
 class DISPLAYCONFIG_TARGET_PREFERRED_MODE(Structure):
@@ -1411,7 +1430,9 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO(Structure):
         AdditionalSignalInfo: _AdditionalSignalInfo_e__Struct
         videoStandard: UInt32
         class _AdditionalSignalInfo_e__Struct(Structure):
-            _bitfield: UInt32
+            videoStandard: Annotated[UInt32, 16]
+            vSyncFreqDivider: Annotated[UInt32, 6]
+            reserved: Annotated[UInt32, 10]
 class DISPLAY_BRIGHTNESS(Structure):
     ucDisplayPolicy: Byte
     ucACBrightness: Byte
@@ -1966,7 +1987,8 @@ class MIPI_DSI_PACKET(Structure):
         DataId: Byte
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Byte
+            DataType: Annotated[Byte, 6]
+            VirtualChannel: Annotated[Byte, 2]
     class _Anonymous2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         LongWriteWordCount: UInt16
@@ -1980,7 +2002,9 @@ class MIPI_DSI_RESET(Structure):
         Anonymous: _Anonymous_e__Struct
         Results: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            MipiErrors: Annotated[UInt32, 16]
+            ResetFailed: Annotated[UInt32, 1]
+            NeedModeSet: Annotated[UInt32, 1]
 class MIPI_DSI_TRANSMISSION(Structure):
     TotalBufferSize: UInt32
     PacketCount: Byte
@@ -1992,7 +2016,12 @@ class MIPI_DSI_TRANSMISSION(Structure):
     HostErrors: UInt16
     Packets: win32more.Windows.Win32.Devices.Display.MIPI_DSI_PACKET * 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        TransmissionMode: Annotated[UInt16, 2]
+        ReportMipiErrors: Annotated[UInt16, 1]
+        ClearMipiErrors: Annotated[UInt16, 1]
+        SecondaryPort: Annotated[UInt16, 1]
+        ManufacturingMode: Annotated[UInt16, 1]
+        Reserved: Annotated[UInt16, 10]
 ORIENTATION_PREFERENCE = Int32
 ORIENTATION_PREFERENCE_NONE: win32more.Windows.Win32.Devices.Display.ORIENTATION_PREFERENCE = 0
 ORIENTATION_PREFERENCE_LANDSCAPE: win32more.Windows.Win32.Devices.Display.ORIENTATION_PREFERENCE = 1
@@ -2027,7 +2056,10 @@ class PANEL_BRIGHTNESS_SENSOR_DATA(Structure):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            AlsReadingValid: Annotated[UInt32, 1]
+            ChromaticityCoordinateValid: Annotated[UInt32, 1]
+            ColorTemperatureValid: Annotated[UInt32, 1]
+            Reserved: Annotated[UInt32, 29]
 class PANEL_GET_BACKLIGHT_REDUCTION(Structure):
     BacklightUsersetting: UInt16
     BacklightEffective: UInt16
@@ -2048,7 +2080,10 @@ class PANEL_QUERY_BRIGHTNESS_CAPS(Structure):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Smooth: Annotated[UInt32, 1]
+            Adaptive: Annotated[UInt32, 1]
+            NitsCalibrated: Annotated[UInt32, 1]
+            Reserved: Annotated[UInt32, 29]
 class PANEL_QUERY_BRIGHTNESS_RANGES(Structure):
     Version: win32more.Windows.Win32.Devices.Display.BRIGHTNESS_INTERFACE_VERSION
     Anonymous: _Anonymous_e__Union
@@ -2073,7 +2108,8 @@ class PANEL_SET_BRIGHTNESS_STATE(Structure):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Smooth: Annotated[UInt32, 1]
+            Reserved: Annotated[UInt32, 31]
 class PATHDATA(Structure):
     flags: UInt32
     count: UInt32

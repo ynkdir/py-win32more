@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Usb
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -616,7 +616,10 @@ class BM_REQUEST_TYPE(Union):
     s: _BM
     B: Byte
     class _BM(Structure):
-        _bitfield: Byte
+        Recipient: Annotated[Byte, 2]
+        Reserved: Annotated[Byte, 3]
+        Type: Annotated[Byte, 2]
+        Dir: Annotated[Byte, 1]
 class CHANNEL_INFO(Structure):
     EventChannelSize: UInt32
     uReadDataAlignment: UInt32
@@ -783,8 +786,14 @@ class USBD_ENDPOINT_OFFLOAD_INFORMATION(Structure):
     EndpointAddress: UInt16
     ResourceId: UInt32
     Mode: win32more.Windows.Win32.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE
-    _bitfield1: UInt32
-    _bitfield2: UInt32
+    RootHubPortNumber: Annotated[UInt32, 8]
+    RouteString: Annotated[UInt32, 20]
+    Speed: Annotated[UInt32, 4]
+    UsbDeviceAddress: Annotated[UInt32, 8]
+    SlotId: Annotated[UInt32, 8]
+    MultiTT: Annotated[UInt32, 1]
+    LSOrFSDeviceConnectedToTTHub: Annotated[UInt32, 1]
+    Reserved0: Annotated[UInt32, 14]
     TransferSegmentLA: Int64
     TransferSegmentVA: VoidPtr
     TransferRingSize: UIntPtr
@@ -1017,14 +1026,31 @@ class USB_20_PORT_CHANGE(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        ConnectStatusChange: Annotated[UInt16, 1]
+        PortEnableDisableChange: Annotated[UInt16, 1]
+        SuspendChange: Annotated[UInt16, 1]
+        OverCurrentIndicatorChange: Annotated[UInt16, 1]
+        ResetChange: Annotated[UInt16, 1]
+        Reserved2: Annotated[UInt16, 11]
         _pack_ = 1
 class USB_20_PORT_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        CurrentConnectStatus: Annotated[UInt16, 1]
+        PortEnabledDisabled: Annotated[UInt16, 1]
+        Suspend: Annotated[UInt16, 1]
+        OverCurrent: Annotated[UInt16, 1]
+        Reset: Annotated[UInt16, 1]
+        L1: Annotated[UInt16, 1]
+        Reserved0: Annotated[UInt16, 2]
+        PortPower: Annotated[UInt16, 1]
+        LowSpeedDeviceAttached: Annotated[UInt16, 1]
+        HighSpeedDeviceAttached: Annotated[UInt16, 1]
+        PortTestMode: Annotated[UInt16, 1]
+        PortIndicatorControl: Annotated[UInt16, 1]
+        Reserved1: Annotated[UInt16, 3]
         _pack_ = 1
 class USB_30_HUB_DESCRIPTOR(Structure):
     bLength: Byte
@@ -1042,14 +1068,29 @@ class USB_30_PORT_CHANGE(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        ConnectStatusChange: Annotated[UInt16, 1]
+        Reserved2: Annotated[UInt16, 2]
+        OverCurrentIndicatorChange: Annotated[UInt16, 1]
+        ResetChange: Annotated[UInt16, 1]
+        BHResetChange: Annotated[UInt16, 1]
+        PortLinkStateChange: Annotated[UInt16, 1]
+        PortConfigErrorChange: Annotated[UInt16, 1]
+        Reserved3: Annotated[UInt16, 8]
         _pack_ = 1
 class USB_30_PORT_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        CurrentConnectStatus: Annotated[UInt16, 1]
+        PortEnabledDisabled: Annotated[UInt16, 1]
+        Reserved0: Annotated[UInt16, 1]
+        OverCurrent: Annotated[UInt16, 1]
+        Reset: Annotated[UInt16, 1]
+        PortLinkState: Annotated[UInt16, 4]
+        PortPower: Annotated[UInt16, 1]
+        NegotiatedDeviceSpeed: Annotated[UInt16, 3]
+        Reserved1: Annotated[UInt16, 3]
         _pack_ = 1
 class USB_ACQUIRE_INFO(Structure):
     NotificationType: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE
@@ -1259,7 +1300,9 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR(Structure):
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt16
+            VConnPowerNeededForFullFunctionality: Annotated[UInt16, 3]
+            Reserved: Annotated[UInt16, 12]
+            NoVconnPowerRequired: Annotated[UInt16, 1]
             _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         wSVID: UInt16
@@ -1287,7 +1330,9 @@ class USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR(Structure):
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            GetFirmwareImageHashSupport: Annotated[UInt32, 1]
+            DisallowFirmwareUpdateSupport: Annotated[UInt32, 1]
+            Reserved: Annotated[UInt32, 30]
             _pack_ = 1
 class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR(Structure):
     bLength: Byte
@@ -1307,7 +1352,10 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR(Structure):
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt16
+            BatteryCharging: Annotated[UInt16, 1]
+            USBPowerDelivery: Annotated[UInt16, 1]
+            USBTypeCCurrent: Annotated[UInt16, 1]
+            Reserved: Annotated[UInt16, 13]
             _pack_ = 1
 class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR(Structure):
     bLength: Byte
@@ -1334,14 +1382,33 @@ class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR(Structure):
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Reserved1: Annotated[UInt32, 1]
+            BatteryCharging: Annotated[UInt32, 1]
+            USBPowerDelivery: Annotated[UInt32, 1]
+            Provider: Annotated[UInt32, 1]
+            Consumer: Annotated[UInt32, 1]
+            ChargingPolicy: Annotated[UInt32, 1]
+            TypeCCurrent: Annotated[UInt32, 1]
+            Reserved2: Annotated[UInt32, 1]
+            ACSupply: Annotated[UInt32, 1]
+            Battery: Annotated[UInt32, 1]
+            Other: Annotated[UInt32, 1]
+            NumBatteries: Annotated[UInt32, 3]
+            UsesVbus: Annotated[UInt32, 1]
+            Reserved3: Annotated[UInt32, 17]
             _pack_ = 1
 class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        SublinkSpeedAttrID: Annotated[UInt32, 4]
+        LaneSpeedExponent: Annotated[UInt32, 2]
+        SublinkTypeMode: Annotated[UInt32, 1]
+        SublinkTypeDir: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 6]
+        LinkProtocol: Annotated[UInt32, 2]
+        LaneSpeedMantissa: Annotated[UInt32, 16]
         _pack_ = 1
 class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR(Structure):
     bLength: Byte
@@ -1358,14 +1425,19 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR(Structure):
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            SublinkSpeedAttrCount: Annotated[UInt32, 5]
+            SublinkSpeedIDCount: Annotated[UInt32, 4]
+            Reserved: Annotated[UInt32, 23]
             _pack_ = 1
     class _wFunctionalitySupport_e__Union(Union):
         AsUshort: UInt16
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt16
+            SublinkSpeedAttrID: Annotated[UInt16, 4]
+            Reserved: Annotated[UInt16, 4]
+            MinRxLaneCount: Annotated[UInt16, 4]
+            MinTxLaneCount: Annotated[UInt16, 4]
             _pack_ = 1
 class USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR(Structure):
     bLength: Byte
@@ -1387,7 +1459,15 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR(Structure):
         Anonymous: _Anonymous_e__Struct
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Reserved: Annotated[UInt32, 1]
+            LPMCapable: Annotated[UInt32, 1]
+            BESLAndAlternateHIRDSupported: Annotated[UInt32, 1]
+            BaselineBESLValid: Annotated[UInt32, 1]
+            DeepBESLValid: Annotated[UInt32, 1]
+            Reserved1: Annotated[UInt32, 3]
+            BaselineBESL: Annotated[UInt32, 4]
+            DeepBESL: Annotated[UInt32, 4]
+            Reserved2: Annotated[UInt32, 16]
             _pack_ = 1
 class USB_DEVICE_CHARACTERISTICS(Structure):
     Version: UInt32
@@ -1484,14 +1564,20 @@ UsbFullSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 1
 UsbHighSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 2
 UsbSuperSpeed: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_SPEED = 3
 class USB_DEVICE_STATE(Structure):
-    _bitfield: UInt32
+    DeviceConnected: Annotated[UInt32, 1]
+    DeviceStarted: Annotated[UInt32, 1]
     _pack_ = 1
 class USB_DEVICE_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        SelfPowered: Annotated[UInt16, 1]
+        RemoteWakeup: Annotated[UInt16, 1]
+        U1Enable: Annotated[UInt16, 1]
+        U2Enable: Annotated[UInt16, 1]
+        LtmEnable: Annotated[UInt16, 1]
+        Reserved: Annotated[UInt16, 11]
         _pack_ = 1
 USB_DEVICE_TYPE = Int32
 Usb11Device: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_TYPE = 0
@@ -1517,7 +1603,8 @@ class USB_ENDPOINT_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        Halt: Annotated[UInt16, 1]
+        Reserved: Annotated[UInt16, 15]
         _pack_ = 1
 class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION(Structure):
     TimeTrackingHandle: win32more.Windows.Win32.Foundation.HANDLE
@@ -1536,7 +1623,9 @@ class USB_FUNCTION_SUSPEND_OPTIONS(Union):
     AsUchar: Byte
     Anonymous: _Anonymous_e__Struct
     class _Anonymous_e__Struct(Structure):
-        _bitfield: Byte
+        PowerState: Annotated[Byte, 1]
+        RemoteWakeEnabled: Annotated[Byte, 1]
+        Reserved: Annotated[Byte, 6]
 class USB_HCD_DRIVERKEY_NAME(Structure):
     ActualLength: UInt32
     DriverKeyName: Char * 1
@@ -1545,15 +1634,20 @@ class USB_HIGH_SPEED_MAXPACKET(Union):
     us: UInt16
     _pack_ = 1
     class _MP(Structure):
-        _bitfield: UInt16
+        MaxPacket: Annotated[UInt16, 11]
+        HSmux: Annotated[UInt16, 2]
+        Reserved: Annotated[UInt16, 3]
         _pack_ = 1
 class USB_HUB_30_PORT_REMOTE_WAKE_MASK(Union):
     AsUchar8: Byte
     Anonymous: _Anonymous_e__Struct
     class _Anonymous_e__Struct(Structure):
-        _bitfield: Byte
+        ConnectRemoteWakeEnable: Annotated[Byte, 1]
+        DisconnectRemoteWakeEnable: Annotated[Byte, 1]
+        OverCurrentRemoteWakeEnable: Annotated[Byte, 1]
+        Reserved0: Annotated[Byte, 5]
 class USB_HUB_CAPABILITIES(Structure):
-    _bitfield: UInt32
+    HubIs2xCapable: Annotated[UInt32, 1]
     _pack_ = 1
 class USB_HUB_CAPABILITIES_EX(Structure):
     CapabilityFlags: win32more.Windows.Win32.Devices.Usb.USB_HUB_CAP_FLAGS
@@ -1562,14 +1656,23 @@ class USB_HUB_CAP_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        HubIsHighSpeedCapable: Annotated[UInt32, 1]
+        HubIsHighSpeed: Annotated[UInt32, 1]
+        HubIsMultiTtCapable: Annotated[UInt32, 1]
+        HubIsMultiTt: Annotated[UInt32, 1]
+        HubIsRoot: Annotated[UInt32, 1]
+        HubIsArmedWakeOnConnect: Annotated[UInt32, 1]
+        HubIsBusPowered: Annotated[UInt32, 1]
+        ReservedMBZ: Annotated[UInt32, 25]
         _pack_ = 1
 class USB_HUB_CHANGE(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        LocalPowerChange: Annotated[UInt16, 1]
+        OverCurrentChange: Annotated[UInt16, 1]
+        Reserved: Annotated[UInt16, 14]
         _pack_ = 1
 class USB_HUB_DESCRIPTOR(Structure):
     bDescriptorLength: Byte
@@ -1629,7 +1732,9 @@ class USB_HUB_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        LocalPowerLost: Annotated[UInt16, 1]
+        OverCurrent: Annotated[UInt16, 1]
+        Reserved: Annotated[UInt16, 14]
         _pack_ = 1
 class USB_HUB_STATUS_AND_CHANGE(Union):
     AsUlong32: UInt32
@@ -1691,7 +1796,9 @@ class USB_INTERFACE_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt16
+        RemoteWakeupCapable: Annotated[UInt16, 1]
+        RemoteWakeupEnabled: Annotated[UInt16, 1]
+        Reserved: Annotated[UInt16, 14]
         _pack_ = 1
 class USB_MI_PARENT_INFORMATION(Structure):
     NumberOfInterfaces: UInt32
@@ -1739,7 +1846,11 @@ class USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        DeviceIsOperatingAtSuperSpeedOrHigher: Annotated[UInt32, 1]
+        DeviceIsSuperSpeedCapableOrHigher: Annotated[UInt32, 1]
+        DeviceIsOperatingAtSuperSpeedPlusOrHigher: Annotated[UInt32, 1]
+        DeviceIsSuperSpeedPlusCapableOrHigher: Annotated[UInt32, 1]
+        ReservedMBZ: Annotated[UInt32, 28]
         _pack_ = 1
 class USB_NODE_CONNECTION_NAME(Structure):
     ConnectionIndex: UInt32
@@ -1800,7 +1911,11 @@ class USB_PORT_EXT_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        RxSublinkSpeedID: Annotated[UInt32, 4]
+        TxSublinkSpeedID: Annotated[UInt32, 4]
+        RxLaneCount: Annotated[UInt32, 4]
+        TxLaneCount: Annotated[UInt32, 4]
+        Reserved: Annotated[UInt32, 16]
         _pack_ = 1
 class USB_PORT_EXT_STATUS_AND_CHANGE(Union):
     AsUlong64: UInt64
@@ -1814,7 +1929,11 @@ class USB_PORT_PROPERTIES(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        PortIsUserConnectable: Annotated[UInt32, 1]
+        PortIsDebugCapable: Annotated[UInt32, 1]
+        PortHasMultipleCompanions: Annotated[UInt32, 1]
+        PortConnectorIsTypeC: Annotated[UInt32, 1]
+        ReservedMBZ: Annotated[UInt32, 28]
         _pack_ = 1
 class USB_PORT_STATUS(Union):
     AsUshort16: UInt16
@@ -1845,7 +1964,10 @@ class USB_PROTOCOLS(Union):
     Anonymous: _Anonymous_e__Struct
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        Usb110: Annotated[UInt32, 1]
+        Usb200: Annotated[UInt32, 1]
+        Usb300: Annotated[UInt32, 1]
+        ReservedMBZ: Annotated[UInt32, 29]
         _pack_ = 1
 class USB_ROOT_HUB_NAME(Structure):
     ActualLength: UInt32
@@ -1894,9 +2016,12 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR(Structure):
         Bulk: _Bulk_e__Struct
         Isochronous: _Isochronous_e__Struct
         class _Bulk_e__Struct(Structure):
-            _bitfield: Byte
+            MaxStreams: Annotated[Byte, 5]
+            Reserved1: Annotated[Byte, 3]
         class _Isochronous_e__Struct(Structure):
-            _bitfield: Byte
+            Mult: Annotated[Byte, 2]
+            Reserved2: Annotated[Byte, 5]
+            SspCompanion: Annotated[Byte, 1]
 class USB_TOPOLOGY_ADDRESS(Structure):
     PciBusNumber: UInt32
     PciDeviceNumber: UInt32
@@ -2148,7 +2273,8 @@ class _URB_OS_FEATURE_DESCRIPTOR_REQUEST(Structure):
     TransferBufferMDL: VoidPtr
     UrbLink: POINTER(win32more.Windows.Win32.Devices.Usb.URB)
     hca: win32more.Windows.Win32.Devices.Usb._URB_HCD_AREA
-    _bitfield: Byte
+    Recipient: Annotated[Byte, 5]
+    Reserved1: Annotated[Byte, 3]
     Reserved2: Byte
     InterfaceNumber: Byte
     MS_PageIndex: Byte

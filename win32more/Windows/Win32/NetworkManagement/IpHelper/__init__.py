@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.IpHelper
 import win32more.Windows.Win32.NetworkManagement.Ndis
@@ -1114,7 +1114,16 @@ class IP_ADAPTER_ADDRESSES_LH(Structure):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            DdnsEnabled: Annotated[UInt32, 1]
+            RegisterAdapterSuffix: Annotated[UInt32, 1]
+            Dhcpv4Enabled: Annotated[UInt32, 1]
+            ReceiveOnly: Annotated[UInt32, 1]
+            NoMulticast: Annotated[UInt32, 1]
+            Ipv6OtherStatefulConfig: Annotated[UInt32, 1]
+            NetbiosOverTcpipEnabled: Annotated[UInt32, 1]
+            Ipv4Enabled: Annotated[UInt32, 1]
+            Ipv6Enabled: Annotated[UInt32, 1]
+            Ipv6ManagedAddressConfigurationSupported: Annotated[UInt32, 1]
 class IP_ADAPTER_ADDRESSES_XP(Structure):
     Anonymous: _Anonymous_e__Union
     Next: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_XP)
@@ -1437,7 +1446,14 @@ class MIB_IF_ROW2(Structure):
     OutBroadcastOctets: UInt64
     OutQLen: UInt64
     class _InterfaceAndOperStatusFlags_e__Struct(Structure):
-        _bitfield: Byte
+        HardwareInterface: Annotated[Byte, 1]
+        FilterInterface: Annotated[Byte, 1]
+        ConnectorPresent: Annotated[Byte, 1]
+        NotAuthenticated: Annotated[Byte, 1]
+        NotMediaConnected: Annotated[Byte, 1]
+        Paused: Annotated[Byte, 1]
+        LowPower: Annotated[Byte, 1]
+        EndPointInterface: Annotated[Byte, 1]
 class MIB_IF_TABLE2(Structure):
     NumEntries: UInt32
     Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ROW2 * 1
@@ -1706,7 +1722,8 @@ class MIB_IPNET_ROW2(Structure):
         Anonymous: _Anonymous_e__Struct
         Flags: Byte
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Byte
+            IsRouter: Annotated[Byte, 1]
+            IsUnreachable: Annotated[Byte, 1]
     class _ReachabilityTime_e__Union(Union):
         LastReachable: UInt32
         LastUnreachable: UInt32
@@ -2019,7 +2036,7 @@ class MIB_UDP6ROW2(Structure):
         Anonymous: _Anonymous_e__Struct
         dwFlags: Int32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Int32
+            SpecificPortBind: Annotated[Int32, 1]
 class MIB_UDP6ROW_OWNER_MODULE(Structure):
     ucLocalAddr: Byte * 16
     dwLocalScopeId: UInt32
@@ -2032,7 +2049,7 @@ class MIB_UDP6ROW_OWNER_MODULE(Structure):
         Anonymous: _Anonymous_e__Struct
         dwFlags: Int32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Int32
+            SpecificPortBind: Annotated[Int32, 1]
 class MIB_UDP6ROW_OWNER_PID(Structure):
     ucLocalAddr: Byte * 16
     dwLocalScopeId: UInt32
@@ -2066,7 +2083,7 @@ class MIB_UDPROW2(Structure):
         Anonymous: _Anonymous_e__Struct
         dwFlags: Int32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Int32
+            SpecificPortBind: Annotated[Int32, 1]
 class MIB_UDPROW_OWNER_MODULE(Structure):
     dwLocalAddr: UInt32
     dwLocalPort: UInt32
@@ -2078,7 +2095,7 @@ class MIB_UDPROW_OWNER_MODULE(Structure):
         Anonymous: _Anonymous_e__Struct
         dwFlags: Int32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Int32
+            SpecificPortBind: Annotated[Int32, 1]
 class MIB_UDPROW_OWNER_PID(Structure):
     dwLocalAddr: UInt32
     dwLocalPort: UInt32

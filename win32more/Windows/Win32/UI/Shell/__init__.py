@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DirectComposition
@@ -3518,7 +3518,7 @@ class BASEBROWSERDATALH(Structure):
     _pautoEDS: win32more.Windows.Win32.UI.Shell.IExpDispSupport
     _pautoSS: win32more.Windows.Win32.UI.Shell.IShellService
     _eSecureLockIcon: Int32
-    _bitfield: UInt32
+    _fCreatingViewWindow: Annotated[UInt32, 1]
     _uActivateState: UInt32
     _pidlViewState: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     _pctView: win32more.Windows.Win32.System.Ole.IOleCommandTarget
@@ -3546,7 +3546,7 @@ class BASEBROWSERDATAXP(Structure):
     _pautoEDS: win32more.Windows.Win32.UI.Shell.IExpDispSupportXP
     _pautoSS: win32more.Windows.Win32.UI.Shell.IShellService
     _eSecureLockIcon: Int32
-    _bitfield: UInt32
+    _fCreatingViewWindow: Annotated[UInt32, 1]
     _uActivateState: UInt32
     _pidlViewState: POINTER(win32more.Windows.Win32.UI.Shell.Common.ITEMIDLIST)
     _pctView: win32more.Windows.Win32.System.Ole.IOleCommandTarget
@@ -3626,7 +3626,16 @@ navReserved7: win32more.Windows.Win32.UI.Shell.BrowserNavConstants = -2147483648
 class CABINETSTATE(Structure):
     cLength: UInt16
     nVersion: UInt16
-    _bitfield: Int32
+    fFullPathTitle: Annotated[Int32, 1]
+    fSaveLocalView: Annotated[Int32, 1]
+    fNotShell: Annotated[Int32, 1]
+    fSimpleDefault: Annotated[Int32, 1]
+    fDontShowDescBar: Annotated[Int32, 1]
+    fNewWindowMode: Annotated[Int32, 1]
+    fShowCompColor: Annotated[Int32, 1]
+    fDontPrettyNames: Annotated[Int32, 1]
+    fAdminsCreateCommonGroups: Annotated[Int32, 1]
+    fUnusedFlags: Annotated[Int32, 7]
     fMenuEnumFilter: UInt32
     _pack_ = 1
 CATEGORYINFO_FLAGS = Int32
@@ -10718,27 +10727,88 @@ if ARCH in 'X64,ARM64':
 elif ARCH in 'X86':
     SHELLEXECUTEINFO = UnicodeAlias('SHELLEXECUTEINFOW')
 class SHELLFLAGSTATE(Structure):
-    _bitfield: Int32
+    fShowAllObjects: Annotated[Int32, 1]
+    fShowExtensions: Annotated[Int32, 1]
+    fNoConfirmRecycle: Annotated[Int32, 1]
+    fShowSysFiles: Annotated[Int32, 1]
+    fShowCompColor: Annotated[Int32, 1]
+    fDoubleClickInWebView: Annotated[Int32, 1]
+    fDesktopHTML: Annotated[Int32, 1]
+    fWin95Classic: Annotated[Int32, 1]
+    fDontPrettyPath: Annotated[Int32, 1]
+    fShowAttribCol: Annotated[Int32, 1]
+    fMapNetDrvBtn: Annotated[Int32, 1]
+    fShowInfoTip: Annotated[Int32, 1]
+    fHideIcons: Annotated[Int32, 1]
+    fAutoCheckSelect: Annotated[Int32, 1]
+    fIconsOnly: Annotated[Int32, 1]
+    fRestFlags: Annotated[Int32, 1]
     _pack_ = 1
 class SHELLSTATEA(Structure):
-    _bitfield1: Int32
+    fShowAllObjects: Annotated[Int32, 1]
+    fShowExtensions: Annotated[Int32, 1]
+    fNoConfirmRecycle: Annotated[Int32, 1]
+    fShowSysFiles: Annotated[Int32, 1]
+    fShowCompColor: Annotated[Int32, 1]
+    fDoubleClickInWebView: Annotated[Int32, 1]
+    fDesktopHTML: Annotated[Int32, 1]
+    fWin95Classic: Annotated[Int32, 1]
+    fDontPrettyPath: Annotated[Int32, 1]
+    fShowAttribCol: Annotated[Int32, 1]
+    fMapNetDrvBtn: Annotated[Int32, 1]
+    fShowInfoTip: Annotated[Int32, 1]
+    fHideIcons: Annotated[Int32, 1]
+    fWebView: Annotated[Int32, 1]
+    fFilter: Annotated[Int32, 1]
+    fShowSuperHidden: Annotated[Int32, 1]
+    fNoNetCrawling: Annotated[Int32, 1]
     dwWin95Unused: UInt32
     uWin95Unused: UInt32
     lParamSort: Int32
     iSortDirection: Int32
     version: UInt32
     uNotUsed: UInt32
-    _bitfield2: Int32
+    fSepProcess: Annotated[Int32, 1]
+    fStartPanelOn: Annotated[Int32, 1]
+    fShowStartPage: Annotated[Int32, 1]
+    fAutoCheckSelect: Annotated[Int32, 1]
+    fIconsOnly: Annotated[Int32, 1]
+    fShowTypeOverlay: Annotated[Int32, 1]
+    fShowStatusBar: Annotated[Int32, 1]
+    fSpareFlags: Annotated[Int32, 9]
     _pack_ = 1
 class SHELLSTATEW(Structure):
-    _bitfield1: Int32
+    fShowAllObjects: Annotated[Int32, 1]
+    fShowExtensions: Annotated[Int32, 1]
+    fNoConfirmRecycle: Annotated[Int32, 1]
+    fShowSysFiles: Annotated[Int32, 1]
+    fShowCompColor: Annotated[Int32, 1]
+    fDoubleClickInWebView: Annotated[Int32, 1]
+    fDesktopHTML: Annotated[Int32, 1]
+    fWin95Classic: Annotated[Int32, 1]
+    fDontPrettyPath: Annotated[Int32, 1]
+    fShowAttribCol: Annotated[Int32, 1]
+    fMapNetDrvBtn: Annotated[Int32, 1]
+    fShowInfoTip: Annotated[Int32, 1]
+    fHideIcons: Annotated[Int32, 1]
+    fWebView: Annotated[Int32, 1]
+    fFilter: Annotated[Int32, 1]
+    fShowSuperHidden: Annotated[Int32, 1]
+    fNoNetCrawling: Annotated[Int32, 1]
     dwWin95Unused: UInt32
     uWin95Unused: UInt32
     lParamSort: Int32
     iSortDirection: Int32
     version: UInt32
     uNotUsed: UInt32
-    _bitfield2: Int32
+    fSepProcess: Annotated[Int32, 1]
+    fStartPanelOn: Annotated[Int32, 1]
+    fShowStartPage: Annotated[Int32, 1]
+    fAutoCheckSelect: Annotated[Int32, 1]
+    fIconsOnly: Annotated[Int32, 1]
+    fShowTypeOverlay: Annotated[Int32, 1]
+    fShowStatusBar: Annotated[Int32, 1]
+    fSpareFlags: Annotated[Int32, 9]
     _pack_ = 1
 SHELLSTATE = UnicodeAlias('SHELLSTATEW')
 SHELL_AUTOCOMPLETE_FLAGS = UInt32

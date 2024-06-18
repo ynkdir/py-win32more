@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -1331,7 +1331,9 @@ class TP_CALLBACK_ENVIRON_V3(Structure):
         Flags: UInt32
         s: _s_e__Struct
         class _s_e__Struct(Structure):
-            _bitfield: UInt32
+            LongFunction: Annotated[UInt32, 1]
+            Persistent: Annotated[UInt32, 1]
+            Private: Annotated[UInt32, 30]
 TP_CALLBACK_PRIORITY = Int32
 TP_CALLBACK_PRIORITY_HIGH: win32more.Windows.Win32.System.Threading.TP_CALLBACK_PRIORITY = 0
 TP_CALLBACK_PRIORITY_NORMAL: win32more.Windows.Win32.System.Threading.TP_CALLBACK_PRIORITY = 1
@@ -1353,7 +1355,8 @@ class UMS_SYSTEM_THREAD_INFORMATION(Structure):
         Anonymous: _Anonymous_e__Struct
         ThreadUmsFlags: UInt32
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            IsUmsSchedulerThread: Annotated[UInt32, 1]
+            IsUmsWorkerThread: Annotated[UInt32, 1]
 UMS_THREAD_INFO_CLASS = Int32
 UmsThreadInvalidInfoClass: win32more.Windows.Win32.System.Threading.UMS_THREAD_INFO_CLASS = 0
 UmsThreadUserContext: win32more.Windows.Win32.System.Threading.UMS_THREAD_INFO_CLASS = 1

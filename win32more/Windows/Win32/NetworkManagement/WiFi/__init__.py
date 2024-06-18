@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
@@ -2681,7 +2681,8 @@ dot11_wfd_discover_type_auto: win32more.Windows.Win32.NetworkManagement.WiFi.DOT
 dot11_wfd_discover_type_scan_social_channels: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = 4
 dot11_wfd_discover_type_forced: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_DISCOVER_TYPE = -2147483648
 class DOT11_WFD_GO_INTENT(Structure):
-    _bitfield: Byte
+    TieBreaker: Annotated[Byte, 1]
+    Intent: Annotated[Byte, 7]
 class DOT11_WFD_GROUP_ID(Structure):
     DeviceAddress: Byte * 6
     SSID: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_SSID
@@ -2712,7 +2713,8 @@ class DOT11_WFD_GROUP_START_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     AdvertisedOperatingChannel: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_CHANNEL
 class DOT11_WFD_INVITATION_FLAGS(Structure):
-    _bitfield: Byte
+    InvitationType: Annotated[Byte, 1]
+    Reserved: Annotated[Byte, 7]
 DOT11_WFD_SCAN_TYPE = Int32
 dot11_wfd_scan_type_active: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE = 1
 dot11_wfd_scan_type_passive: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_WFD_SCAN_TYPE = 2
@@ -2918,7 +2920,12 @@ class ONEX_AUTH_PARAMS(Structure):
     oneXConnProfile: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     authIdentity: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY
     dwQuarantineState: UInt32
-    _bitfield: UInt32
+    fSessionId: Annotated[UInt32, 1]
+    fhUserToken: Annotated[UInt32, 1]
+    fOnexUserProfile: Annotated[UInt32, 1]
+    fIdentity: Annotated[UInt32, 1]
+    fUserName: Annotated[UInt32, 1]
+    fDomain: Annotated[UInt32, 1]
     dwSessionId: UInt32
     hUserToken: win32more.Windows.Win32.Foundation.HANDLE
     OneXUserProfile: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
@@ -2949,7 +2956,8 @@ class ONEX_EAP_ERROR(Structure):
     rootCauseGuid: Guid
     repairGuid: Guid
     helpLinkGuid: Guid
-    _bitfield: UInt32
+    fRootCauseString: Annotated[UInt32, 1]
+    fRepairString: Annotated[UInt32, 1]
     RootCauseString: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     RepairString: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
 ONEX_EAP_METHOD_BACKEND_SUPPORT = Int32
@@ -2989,7 +2997,8 @@ class ONEX_RESULT_UPDATE_DATA(Structure):
     oneXStatus: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_STATUS
     BackendSupport: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_EAP_METHOD_BACKEND_SUPPORT
     fBackendEngaged: win32more.Windows.Win32.Foundation.BOOL
-    _bitfield: UInt32
+    fOneXAuthParams: Annotated[UInt32, 1]
+    fEapError: Annotated[UInt32, 1]
     authParams: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     eapError: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
 class ONEX_STATUS(Structure):
@@ -2998,7 +3007,8 @@ class ONEX_STATUS(Structure):
     dwError: UInt32
 class ONEX_USER_INFO(Structure):
     authIdentity: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_AUTH_IDENTITY
-    _bitfield: UInt32
+    fUserName: Annotated[UInt32, 1]
+    fDomainName: Annotated[UInt32, 1]
     UserName: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
     DomainName: win32more.Windows.Win32.NetworkManagement.WiFi.ONEX_VARIABLE_BLOB
 class ONEX_VARIABLE_BLOB(Structure):

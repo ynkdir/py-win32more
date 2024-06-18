@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.SystemInformation
 NTDDI_WIN2K: UInt32 = 83886080
@@ -669,7 +669,11 @@ class SYSTEM_CPU_SET_INFORMATION(Structure):
                 AllFlags: Byte
                 Anonymous: _Anonymous_e__Struct
                 class _Anonymous_e__Struct(Structure):
-                    _bitfield: Byte
+                    Parked: Annotated[Byte, 1]
+                    Allocated: Annotated[Byte, 1]
+                    AllocatedToTargetProcess: Annotated[Byte, 1]
+                    RealTime: Annotated[Byte, 1]
+                    ReservedFlags: Annotated[Byte, 4]
             class _Anonymous2_e__Union(Union):
                 Reserved: UInt32
                 SchedulingClass: Byte
@@ -717,7 +721,13 @@ class SYSTEM_POOL_ZEROING_INFORMATION(Structure):
 class SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION(Structure):
     CycleTime: UInt64
 class SYSTEM_SUPPORTED_PROCESSOR_ARCHITECTURES_INFORMATION(Structure):
-    _bitfield: UInt32
+    Machine: Annotated[UInt32, 16]
+    KernelMode: Annotated[UInt32, 1]
+    UserMode: Annotated[UInt32, 1]
+    Native: Annotated[UInt32, 1]
+    Process: Annotated[UInt32, 1]
+    WoW64Container: Annotated[UInt32, 1]
+    ReservedZero0: Annotated[UInt32, 11]
 USER_CET_ENVIRONMENT = UInt32
 USER_CET_ENVIRONMENT_WIN32_PROCESS: win32more.Windows.Win32.System.SystemInformation.USER_CET_ENVIRONMENT = 0
 USER_CET_ENVIRONMENT_SGX2_ENCLAVE: win32more.Windows.Win32.System.SystemInformation.USER_CET_ENVIRONMENT = 2

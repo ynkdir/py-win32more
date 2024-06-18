@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -2481,7 +2481,10 @@ class IMAGE_ARCHITECTURE_ENTRY(Structure):
     FixupInstRVA: UInt32
     NewInst: UInt32
 class IMAGE_ARCHITECTURE_HEADER(Structure):
-    _bitfield: UInt32
+    AmaskValue: Annotated[UInt32, 1]
+    Anonymous1: Annotated[UInt32, 7]
+    AmaskShift: Annotated[UInt32, 8]
+    Anonymous2: Annotated[UInt32, 16]
     FirstEntryRVA: UInt32
 class IMAGE_ARCHIVE_MEMBER_HEADER(Structure):
     Name: Byte * 16
@@ -2495,7 +2498,12 @@ class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA(Union):
     HeaderData: UInt32
     Anonymous: _Anonymous_e__Struct
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        FunctionLength: Annotated[UInt32, 18]
+        Version: Annotated[UInt32, 2]
+        ExceptionDataPresent: Annotated[UInt32, 1]
+        EpilogInHeader: Annotated[UInt32, 1]
+        EpilogCount: Annotated[UInt32, 5]
+        CodeWords: Annotated[UInt32, 5]
 class IMAGE_ARM_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     Anonymous: _Anonymous_e__Union
@@ -2503,7 +2511,15 @@ class IMAGE_ARM_RUNTIME_FUNCTION_ENTRY(Structure):
         UnwindData: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Flag: Annotated[UInt32, 2]
+            FunctionLength: Annotated[UInt32, 11]
+            Ret: Annotated[UInt32, 2]
+            H: Annotated[UInt32, 1]
+            Reg: Annotated[UInt32, 3]
+            R: Annotated[UInt32, 1]
+            L: Annotated[UInt32, 1]
+            C: Annotated[UInt32, 1]
+            StackAdjust: Annotated[UInt32, 10]
 class IMAGE_AUX_SYMBOL(Union):
     Sym: _Sym_e__Struct
     File: _File_e__Struct
@@ -2609,7 +2625,10 @@ class IMAGE_BOUND_IMPORT_DESCRIPTOR(Structure):
     NumberOfModuleForwarderRefs: UInt16
 class IMAGE_CE_RUNTIME_FUNCTION_ENTRY(Structure):
     FuncStart: UInt32
-    _bitfield: UInt32
+    PrologLen: Annotated[UInt32, 8]
+    FuncLen: Annotated[UInt32, 22]
+    ThirtyTwoBit: Annotated[UInt32, 1]
+    ExceptionFlag: Annotated[UInt32, 1]
 class IMAGE_DEBUG_MISC(Structure):
     DataType: UInt32
     Length: UInt32
@@ -2713,7 +2732,9 @@ class IMAGE_IMPORT_BY_NAME(Structure):
     Hint: UInt16
     Name: win32more.Windows.Win32.Foundation.CHAR * 1
 class IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION(Structure):
-    _bitfield: UInt32
+    PageRelativeOffset: Annotated[UInt32, 12]
+    IndirectCall: Annotated[UInt32, 1]
+    IATIndex: Annotated[UInt32, 19]
     _pack_ = 1
 class IMAGE_IMPORT_DESCRIPTOR(Structure):
     Anonymous: _Anonymous_e__Union
@@ -2725,7 +2746,11 @@ class IMAGE_IMPORT_DESCRIPTOR(Structure):
         Characteristics: UInt32
         OriginalFirstThunk: UInt32
 class IMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION(Structure):
-    _bitfield: UInt16
+    PageRelativeOffset: Annotated[UInt16, 12]
+    IndirectCall: Annotated[UInt16, 1]
+    RexWPrefix: Annotated[UInt16, 1]
+    CfgCheck: Annotated[UInt16, 1]
+    Reserved: Annotated[UInt16, 1]
     _pack_ = 1
 class IMAGE_LINENUMBER(Structure):
     Type: _Type_e__Union
@@ -2848,12 +2873,14 @@ class IMAGE_RESOURCE_DIRECTORY_ENTRY(Structure):
         Name: UInt32
         Id: UInt16
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            NameOffset: Annotated[UInt32, 31]
+            NameIsString: Annotated[UInt32, 1]
     class _Anonymous2_e__Union(Union):
         OffsetToData: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            OffsetToDirectory: Annotated[UInt32, 31]
+            DataIsDirectory: Annotated[UInt32, 1]
 class IMAGE_RESOURCE_DIRECTORY_STRING(Structure):
     Length: UInt16
     NameString: win32more.Windows.Win32.Foundation.CHAR * 1
@@ -2875,7 +2902,8 @@ class IMAGE_SEPARATE_DEBUG_HEADER(Structure):
     SectionAlignment: UInt32
     Reserved: UInt32 * 2
 class IMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION(Structure):
-    _bitfield: UInt16
+    PageRelativeOffset: Annotated[UInt16, 12]
+    RegisterNumber: Annotated[UInt16, 4]
     _pack_ = 1
 class IMAGE_SYMBOL(Structure):
     N: _N_e__Union
@@ -2922,7 +2950,9 @@ class IMAGE_TLS_DIRECTORY32(Structure):
         Characteristics: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Reserved0: Annotated[UInt32, 20]
+            Alignment: Annotated[UInt32, 4]
+            Reserved1: Annotated[UInt32, 8]
 class IMAGE_TLS_DIRECTORY64(Structure):
     StartAddressOfRawData: UInt64
     EndAddressOfRawData: UInt64
@@ -2935,7 +2965,9 @@ class IMAGE_TLS_DIRECTORY64(Structure):
         Characteristics: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Reserved0: Annotated[UInt32, 20]
+            Alignment: Annotated[UInt32, 4]
+            Reserved1: Annotated[UInt32, 8]
 class IMAGE_VXD_HEADER(Structure):
     e32_magic: UInt16
     e32_border: Byte
@@ -2997,7 +3029,9 @@ class IMPORT_OBJECT_HEADER(Structure):
     TimeDateStamp: UInt32
     SizeOfData: UInt32
     Anonymous: _Anonymous_e__Union
-    _bitfield: UInt16
+    Type: Annotated[UInt16, 2]
+    NameType: Annotated[UInt16, 3]
+    Reserved: Annotated[UInt16, 11]
     class _Anonymous_e__Union(Union):
         Ordinal: UInt16
         Hint: UInt16
@@ -3021,7 +3055,9 @@ class KERNEL_CET_CONTEXT(Structure):
         AllFlags: UInt16
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt16
+            UseWrss: Annotated[UInt16, 1]
+            PopShadowStackOne: Annotated[UInt16, 1]
+            Unused: Annotated[UInt16, 14]
 class KTMOBJECT_CURSOR(Structure):
     LastQuery: Guid
     ObjectIdCount: UInt32
@@ -3113,7 +3149,9 @@ class PROCESSOR_IDLESTATE_POLICY(Structure):
         AsWORD: UInt16
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt16
+            AllowScaling: Annotated[UInt16, 1]
+            Disabled: Annotated[UInt16, 1]
+            Reserved: Annotated[UInt16, 14]
 class PROCESSOR_PERFSTATE_POLICY(Structure):
     Revision: UInt32
     MaxThrottle: Byte
@@ -3132,42 +3170,63 @@ class PROCESSOR_PERFSTATE_POLICY(Structure):
             AsBYTE: Byte
             Anonymous: _Anonymous_e__Struct
             class _Anonymous_e__Struct(Structure):
-                _bitfield: Byte
+                NoDomainAccounting: Annotated[Byte, 1]
+                IncreasePolicy: Annotated[Byte, 2]
+                DecreasePolicy: Annotated[Byte, 2]
+                Reserved: Annotated[Byte, 3]
 class PROCESS_MITIGATION_ACTIVATION_CONTEXT_TRUST_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            AssemblyManifestRedirectionTrust: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 31]
 class PROCESS_MITIGATION_ASLR_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            EnableBottomUpRandomization: Annotated[UInt32, 1]
+            EnableForceRelocateImages: Annotated[UInt32, 1]
+            EnableHighEntropy: Annotated[UInt32, 1]
+            DisallowStrippedImages: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 28]
 class PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            MicrosoftSignedOnly: Annotated[UInt32, 1]
+            StoreSignedOnly: Annotated[UInt32, 1]
+            MitigationOptIn: Annotated[UInt32, 1]
+            AuditMicrosoftSignedOnly: Annotated[UInt32, 1]
+            AuditStoreSignedOnly: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 27]
 class PROCESS_MITIGATION_CHILD_PROCESS_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            NoChildProcessCreation: Annotated[UInt32, 1]
+            AuditNoChildProcessCreation: Annotated[UInt32, 1]
+            AllowSecureProcessCreation: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 29]
 class PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            EnableControlFlowGuard: Annotated[UInt32, 1]
+            EnableExportSuppression: Annotated[UInt32, 1]
+            StrictMode: Annotated[UInt32, 1]
+            EnableXfg: Annotated[UInt32, 1]
+            EnableXfgAuditMode: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 27]
 class PROCESS_MITIGATION_DEP_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     Permanent: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -3175,98 +3234,150 @@ class PROCESS_MITIGATION_DEP_POLICY(Structure):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            Enable: Annotated[UInt32, 1]
+            DisableAtlThunkEmulation: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 30]
 class PROCESS_MITIGATION_DYNAMIC_CODE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            ProhibitDynamicCode: Annotated[UInt32, 1]
+            AllowThreadOptOut: Annotated[UInt32, 1]
+            AllowRemoteDowngrade: Annotated[UInt32, 1]
+            AuditProhibitDynamicCode: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 28]
 class PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            DisableExtensionPoints: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 31]
 class PROCESS_MITIGATION_FONT_DISABLE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            DisableNonSystemFonts: Annotated[UInt32, 1]
+            AuditNonSystemFontLoading: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 30]
 class PROCESS_MITIGATION_IMAGE_LOAD_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            NoRemoteImages: Annotated[UInt32, 1]
+            NoLowMandatoryLabelImages: Annotated[UInt32, 1]
+            PreferSystem32Images: Annotated[UInt32, 1]
+            AuditNoRemoteImages: Annotated[UInt32, 1]
+            AuditNoLowMandatoryLabelImages: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 27]
 class PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            EnableExportAddressFilter: Annotated[UInt32, 1]
+            AuditExportAddressFilter: Annotated[UInt32, 1]
+            EnableExportAddressFilterPlus: Annotated[UInt32, 1]
+            AuditExportAddressFilterPlus: Annotated[UInt32, 1]
+            EnableImportAddressFilter: Annotated[UInt32, 1]
+            AuditImportAddressFilter: Annotated[UInt32, 1]
+            EnableRopStackPivot: Annotated[UInt32, 1]
+            AuditRopStackPivot: Annotated[UInt32, 1]
+            EnableRopCallerCheck: Annotated[UInt32, 1]
+            AuditRopCallerCheck: Annotated[UInt32, 1]
+            EnableRopSimExec: Annotated[UInt32, 1]
+            AuditRopSimExec: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 20]
 class PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            EnforceRedirectionTrust: Annotated[UInt32, 1]
+            AuditRedirectionTrust: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 30]
 class PROCESS_MITIGATION_SEHOP_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            EnableSehop: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 31]
 class PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            SmtBranchTargetIsolation: Annotated[UInt32, 1]
+            IsolateSecurityDomain: Annotated[UInt32, 1]
+            DisablePageCombine: Annotated[UInt32, 1]
+            SpeculativeStoreBypassDisable: Annotated[UInt32, 1]
+            RestrictCoreSharing: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 27]
 class PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            RaiseExceptionOnInvalidHandleReference: Annotated[UInt32, 1]
+            HandleExceptionsPermanentlyEnabled: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 30]
 class PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            DisallowWin32kSystemCalls: Annotated[UInt32, 1]
+            AuditDisallowWin32kSystemCalls: Annotated[UInt32, 1]
+            DisallowFsctlSystemCalls: Annotated[UInt32, 1]
+            AuditDisallowFsctlSystemCalls: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 28]
 class PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            FilterId: Annotated[UInt32, 4]
+            ReservedFlags: Annotated[UInt32, 28]
 class PROCESS_MITIGATION_USER_POINTER_AUTH_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            EnablePointerAuthUserIp: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 31]
 class PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            EnableUserShadowStack: Annotated[UInt32, 1]
+            AuditUserShadowStack: Annotated[UInt32, 1]
+            SetContextIpValidation: Annotated[UInt32, 1]
+            AuditSetContextIpValidation: Annotated[UInt32, 1]
+            EnableUserShadowStackStrictMode: Annotated[UInt32, 1]
+            BlockNonCetBinaries: Annotated[UInt32, 1]
+            BlockNonCetBinariesNonEhcont: Annotated[UInt32, 1]
+            AuditBlockNonCetBinaries: Annotated[UInt32, 1]
+            CetDynamicApisOutOfProcOnly: Annotated[UInt32, 1]
+            SetContextIpValidationRelaxedMode: Annotated[UInt32, 1]
+            ReservedFlags: Annotated[UInt32, 22]
 if ARCH in 'ARM64':
     @winfunctype_pointer
     def PTERMINATION_HANDLER(_abnormal_termination: win32more.Windows.Win32.Foundation.BOOLEAN, EstablisherFrame: UInt64) -> Void: ...
@@ -3292,7 +3403,8 @@ class RATE_QUOTA_LIMIT(Union):
     RateData: UInt32
     Anonymous: _Anonymous_e__Struct
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        RatePercent: Annotated[UInt32, 7]
+        Reserved0: Annotated[UInt32, 25]
 class REARRANGE_FILE_DATA(Structure):
     SourceStartingOffset: UInt64
     TargetOffset: UInt64

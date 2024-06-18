@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
@@ -1558,7 +1558,12 @@ DeviceStatusDataSetMax: win32more.Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STA
 class DEVICE_LB_PROVISIONING_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
-    _bitfield: Byte
+    ThinProvisioningEnabled: Annotated[Byte, 1]
+    ThinProvisioningReadZeros: Annotated[Byte, 1]
+    AnchorSupported: Annotated[Byte, 3]
+    UnmapGranularityAlignmentValid: Annotated[Byte, 1]
+    GetFreeSpaceSupported: Annotated[Byte, 1]
+    MapSupported: Annotated[Byte, 1]
     Reserved1: Byte * 7
     OptimalUnmapGranularity: UInt64
     UnmapGranularityAlignment: UInt64
@@ -1656,7 +1661,7 @@ class DEVICE_STORAGE_RANGE_ATTRIBUTES(Structure):
         AllFlags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt32
+            IsRangeBad: Annotated[UInt32, 1]
 class DEVICE_TRIM_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
@@ -2653,11 +2658,14 @@ class PERSISTENT_RESERVE_COMMAND(Structure):
         PR_IN: _PR_IN_e__Struct
         PR_OUT: _PR_OUT_e__Struct
         class _PR_IN_e__Struct(Structure):
-            _bitfield: Byte
+            ServiceAction: Annotated[Byte, 5]
+            Reserved1: Annotated[Byte, 3]
             AllocationLength: UInt16
         class _PR_OUT_e__Struct(Structure):
-            _bitfield1: Byte
-            _bitfield2: Byte
+            ServiceAction: Annotated[Byte, 5]
+            Reserved1: Annotated[Byte, 3]
+            Type: Annotated[Byte, 4]
+            Scope: Annotated[Byte, 4]
             ParameterList: Byte * 1
 class PHYSICAL_ELEMENT_STATUS(Structure):
     Version: UInt32
@@ -2880,7 +2888,9 @@ class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO(Structure):
     Flags: _Flags_e__Struct
     DeviceSize: UInt64
     class _Flags_e__Struct(Structure):
-        _bitfield: UInt32
+        ForcedByRegistry: Annotated[UInt32, 1]
+        Initialized: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 30]
 class SCM_BUS_DEDICATED_MEMORY_STATE(Structure):
     ActivateState: win32more.Windows.Win32.Foundation.BOOLEAN
 SCM_BUS_FIRMWARE_ACTIVATION_STATE = Int32
@@ -2919,7 +2929,10 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO(Structure):
     EstimatedIOAccessQuiesceTimeInUSecs: UInt64
     PlatformSupportedMaxIOAccessQuiesceTimeInUSecs: UInt64
     class _FirmwareActivationCapability_e__Struct(Structure):
-        _bitfield: UInt32
+        FwManagedIoQuiesceFwActivationSupported: Annotated[UInt32, 1]
+        OsManagedIoQuiesceFwActivationSupported: Annotated[UInt32, 1]
+        WarmResetBasedFwActivationSupported: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 29]
 SCM_BUS_SET_TYPE = Int32
 ScmBusSet_Descriptor: win32more.Windows.Win32.System.Ioctl.SCM_BUS_SET_TYPE = 0
 ScmBusSet_IsSupported: win32more.Windows.Win32.System.Ioctl.SCM_BUS_SET_TYPE = 1
@@ -3010,7 +3023,8 @@ class SCM_PD_FIRMWARE_SLOT_INFO(Structure):
     Version: UInt32
     Size: UInt32
     SlotNumber: Byte
-    _bitfield: Byte
+    ReadOnly: Annotated[Byte, 1]
+    Reserved0: Annotated[Byte, 7]
     Reserved1: Byte * 6
     Revision: Byte * 32
 class SCM_PD_FRU_ID_STRING(Structure):
@@ -3140,7 +3154,7 @@ class SCM_PD_REINITIALIZE_MEDIA_INPUT(Structure):
     Size: UInt32
     Options: _Options_e__Struct
     class _Options_e__Struct(Structure):
-        _bitfield: UInt32
+        Overwrite: Annotated[UInt32, 1]
 class SCM_PD_REINITIALIZE_MEDIA_OUTPUT(Structure):
     Version: UInt32
     Size: UInt32
@@ -3635,7 +3649,8 @@ class STORAGE_HW_ENDURANCE_INFO(Structure):
     BytesReadCount: Byte * 16
     ByteWriteCount: Byte * 16
     class _Flags_e__Struct(Structure):
-        _bitfield: UInt32
+        Shared: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 31]
 class STORAGE_HW_FIRMWARE_ACTIVATE(Structure):
     Version: UInt32
     Size: UInt32
@@ -3665,7 +3680,8 @@ class STORAGE_HW_FIRMWARE_DOWNLOAD_V2(Structure):
 class STORAGE_HW_FIRMWARE_INFO(Structure):
     Version: UInt32
     Size: UInt32
-    _bitfield: Byte
+    SupportUpgrade: Annotated[Byte, 1]
+    Reserved0: Annotated[Byte, 7]
     SlotCount: Byte
     ActiveSlot: Byte
     PendingActivateSlot: Byte
@@ -3683,7 +3699,8 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO(Structure):
     Version: UInt32
     Size: UInt32
     SlotNumber: Byte
-    _bitfield: Byte
+    ReadOnly: Annotated[Byte, 1]
+    Reserved0: Annotated[Byte, 7]
     Reserved1: Byte * 6
     Revision: Byte * 16
 class STORAGE_IDENTIFIER(Structure):
@@ -3711,7 +3728,9 @@ StorageIdTypeScsiNameString: win32more.Windows.Win32.System.Ioctl.STORAGE_IDENTI
 class STORAGE_IDLE_POWER(Structure):
     Version: UInt32
     Size: UInt32
-    _bitfield: UInt32
+    WakeCapableHint: Annotated[UInt32, 1]
+    D3ColdSupported: Annotated[UInt32, 1]
+    Reserved: Annotated[UInt32, 30]
     D3IdleTimeout: UInt32
 class STORAGE_IDLE_POWERUP_REASON(Structure):
     Version: UInt32
@@ -3724,9 +3743,13 @@ StorageIdNAAFormatIEEEERegisteredExtended: win32more.Windows.Win32.System.Ioctl.
 class STORAGE_LB_PROVISIONING_MAP_RESOURCES(Structure):
     Size: UInt32
     Version: UInt32
-    _bitfield1: Byte
+    AvailableMappingResourcesValid: Annotated[Byte, 1]
+    UsedMappingResourcesValid: Annotated[Byte, 1]
+    Reserved0: Annotated[Byte, 6]
     Reserved1: Byte * 3
-    _bitfield2: Byte
+    AvailableMappingResourcesScope: Annotated[Byte, 2]
+    UsedMappingResourcesScope: Annotated[Byte, 2]
+    Reserved2: Annotated[Byte, 4]
     Reserved3: Byte * 3
     AvailableMappingResources: UInt64
     UsedMappingResources: UInt64
@@ -3817,7 +3840,8 @@ class STORAGE_MINIPORT_DESCRIPTOR(Structure):
         Anonymous: _Anonymous_e__Struct
         AsBYTE: Byte
         class _Anonymous_e__Struct(Structure):
-            _bitfield: Byte
+            LogicalPoFxForDisk: Annotated[Byte, 1]
+            Reserved: Annotated[Byte, 7]
 class STORAGE_OFFLOAD_READ_OUTPUT(Structure):
     OffloadReadFlags: UInt32
     Reserved: UInt32
@@ -4017,7 +4041,9 @@ class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
+        RetainAsynEvent: Annotated[UInt32, 1]
+        LogSpecificField: Annotated[UInt32, 4]
+        Reserved: Annotated[UInt32, 27]
 STORAGE_PROTOCOL_NVME_DATA_TYPE = Int32
 NVMeDataTypeUnknown: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 0
 NVMeDataTypeIdentify: win32more.Windows.Win32.System.Ioctl.STORAGE_PROTOCOL_NVME_DATA_TYPE = 1
@@ -4110,7 +4136,9 @@ class STORAGE_REINITIALIZE_MEDIA(Structure):
     TimeoutInSeconds: UInt32
     SanitizeOption: _SanitizeOption_e__Struct
     class _SanitizeOption_e__Struct(Structure):
-        _bitfield: UInt32
+        SanitizeMethod: Annotated[UInt32, 4]
+        DisallowUnrestrictedSanitizeExit: Annotated[UInt32, 1]
+        Reserved: Annotated[UInt32, 27]
 STORAGE_RESERVE_ID = Int32
 StorageReserveIdNone: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 0
 StorageReserveIdHard: win32more.Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID = 1
