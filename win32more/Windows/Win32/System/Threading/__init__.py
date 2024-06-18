@@ -78,11 +78,11 @@ PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY: UInt32 = 131090
 PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY: UInt32 = 131096
 PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER: UInt32 = 131098
 def GetCurrentProcessToken() -> win32more.Windows.Win32.Foundation.HANDLE:
-    return win32more.Windows.Win32.Foundation.HANDLE(-4)
+    return -4
 def GetCurrentThreadToken() -> win32more.Windows.Win32.Foundation.HANDLE:
-    return win32more.Windows.Win32.Foundation.HANDLE(-5)
+    return -5
 def GetCurrentThreadEffectiveToken() -> win32more.Windows.Win32.Foundation.HANDLE:
-    return win32more.Windows.Win32.Foundation.HANDLE(-6)
+    return -6
 @winfunctype('KERNEL32.dll')
 def GetProcessWorkingSetSize(hProcess: win32more.Windows.Win32.Foundation.HANDLE, lpMinimumWorkingSetSize: POINTER(UIntPtr), lpMaximumWorkingSetSize: POINTER(UIntPtr)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
