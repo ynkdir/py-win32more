@@ -303,7 +303,7 @@ class InlineFunction:
         restype = self._formatter.pytype(self._md.signature.return_type)
         value = self._md.custom_attributes.get_constant()
         writer.write(f"def {self._md.name}() -> {restype}:\n")
-        writer.write(f"    return {restype}({value})\n")
+        writer.write(f"    return {value}\n")
         return writer.getvalue()
 
 
