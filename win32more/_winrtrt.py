@@ -1,30 +1,24 @@
 from __future__ import annotations
 
 import logging
-import sys
 from ctypes import addressof, sizeof
-from typing import TypeVar
 
 from win32more import POINTER, Boolean, Guid, UInt32, Void, VoidPtr
 from win32more._winrt import (
     FillArray,
     PassArray,
+    T,
     Vtbl,
     _ro_get_parameterized_type_instance_iid,
     _windows_create_string,
+    get_args,
+    get_origin,
     is_com_class,
 )
 from win32more.Windows.Foundation.Collections import IVector, IVectorView
 from win32more.Windows.Win32.Foundation import E_NOINTERFACE, HRESULT, S_OK
 from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
 from win32more.Windows.Win32.System.WinRT import HSTRING, BaseTrust, IInspectable, TrustLevel
-
-if sys.version_info < (3, 8):
-    from typing_extensions import get_args
-else:
-    from typing import get_args
-
-T = TypeVar("T")
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +44,7 @@ class Vector(IVector[T]):
         self._lst = lst
 
     def __init_generic__(self) -> None:
-        self._type = get_args(self.__orig_class__)[0]
+        self._type = get_args(get_origin(self))[0]
         self._iid_ = _ro_get_parameterized_type_instance_iid(IVector[self._type])
         self._view_iid = _ro_get_parameterized_type_instance_iid(IVectorView[self._type])
 
