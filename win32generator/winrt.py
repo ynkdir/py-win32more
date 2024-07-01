@@ -16,6 +16,7 @@ from .win32 import BASE_EXPORTS_CSV
 logger = logging.getLogger(__name__)
 
 WINRT_EXPORTS = [
+    "AwaitableProtocol",
     "FillArray",
     "Generic",
     "K",
@@ -336,18 +337,24 @@ class Com:
         writer.write(self._properties())
         writer.write(self._class_properties())
         writer.write(self._events())
-        writer.write(self._await_method())
         return writer.getvalue()
 
     def _metaclass_name(self) -> str:
         return f"_{self._td.generic_name}_Meta_"
 
     def _basetype(self) -> str:
+        base = "ComPtr"
+        if self._td.generic_fullname == "Windows.Foundation.IAsyncOperation":
+            base = f"{base}, AwaitableProtocol"
+        elif self._td.generic_fullname == "Windows.Foundation.IAsyncOperationWithProgress":
+            base = f"{base}, AwaitableProtocol"
+        elif self._td.generic_fullname == "Windows.Foundation.IAsyncAction":
+            base = f"{base}, AwaitableProtocol"
+        elif self._td.generic_fullname == "Windows.Foundation.IAsyncActionWithProgress":
+            base = f"{base}, AwaitableProtocol"
         if self._td.is_generic:
             generic_parameters = self._formatter.generic_parameters(self._td)
-            base = f"Generic[{generic_parameters}], ComPtr"
-        else:
-            base = "ComPtr"
+            base = f"Generic[{generic_parameters}], {base}"
         if self._has_classproperty():
             base = f"{base}, metaclass={self._metaclass_name()}"
         return base
@@ -454,26 +461,6 @@ class Com:
             if md.name.startswith("add_"):
                 name = removeprefix(md.name, "add_")
                 writer.write(f"    {name} = event()\n")
-        return writer.getvalue()
-
-    def _await_method(self) -> str:
-        writer = StringIO()
-        if self._td.generic_fullname == "Windows.Foundation.IAsyncOperation":
-            writer.write("    def __await__(self):\n")
-            writer.write(f"        from {self._package.name}._winrt import IAsyncOperation___await__\n")
-            writer.write("        return IAsyncOperation___await__(self)\n")
-        elif self._td.generic_fullname == "Windows.Foundation.IAsyncOperationWithProgress":
-            writer.write("    def __await__(self):\n")
-            writer.write(f"        from {self._package.name}._winrt import IAsyncOperation___await__\n")
-            writer.write("        return IAsyncOperation___await__(self)\n")
-        elif self._td.generic_fullname == "Windows.Foundation.IAsyncAction":
-            writer.write("    def __await__(self):\n")
-            writer.write(f"        from {self._package.name}._winrt import IAsyncAction___await__\n")
-            writer.write("        return IAsyncAction___await__(self)\n")
-        elif self._td.generic_fullname == "Windows.Foundation.IAsyncActionWithProgress":
-            writer.write("    def __await__(self):\n")
-            writer.write(f"        from {self._package.name}._winrt import IAsyncAction___await__\n")
-            writer.write("        return IAsyncAction___await__(self)\n")
         return writer.getvalue()
 
     def _enumerate_composable_method(self) -> Iterable[Method]:

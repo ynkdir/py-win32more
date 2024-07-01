@@ -1067,40 +1067,22 @@ class MulticastDelegateImpl(ComPtr):
         return self._callback(*args)
 
 
-AsyncStatus_Started = 0
-AsyncStatus_Completed = 1
-AsyncStatus_Canceled = 2
-AsyncStatus_Error = 3
+class AwaitableProtocol:
+    def __await__(self):
+        future = asyncio.get_event_loop().create_future()
+        self.Completed = partial(self.__on_completed, future)
+        return future.__await__()
 
+    def __on_completed(self, future, asyncInfo, asyncStatus):
+        from win32more.Windows.Foundation import AsyncStatus, IAsyncInfo
 
-class _Async__await__:
-    def __init__(self, iasync):
-        self._future = asyncio.get_event_loop().create_future()
-        iasync.Completed = self.on_completed
-        # to keep reference
-        self._future.add_done_callback(lambda future: (self, iasync))
-
-    def on_completed(self, asyncInfo, asyncStatus):
-        from win32more.Windows.Foundation import IAsyncInfo
-
-        if asyncStatus == AsyncStatus_Completed:
-            self._future.get_loop().call_soon_threadsafe(self._future.set_result, asyncInfo.GetResults())
-        elif asyncStatus == AsyncStatus_Error:
-            self._future.get_loop().call_soon_threadsafe(
-                self._future.set_exception, WinError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
+        if asyncStatus == AsyncStatus.Completed:
+            future.get_loop().call_soon_threadsafe(future.set_result, asyncInfo.GetResults())
+        elif asyncStatus == AsyncStatus.Error:
+            future.get_loop().call_soon_threadsafe(
+                future.set_exception, WinError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
             )
-        elif asyncStatus == AsyncStatus_Canceled:
-            self._future.get_loop().call_soon_threadsafe(self._future.cancel)
+        elif asyncStatus == AsyncStatus.Canceled:
+            future.get_loop().call_soon_threadsafe(future.cancel)
         else:
             assert False, "unreachable"
-
-    def __await__(self):
-        return self._future.__await__()
-
-
-def IAsyncOperation___await__(self):
-    return _Async__await__(self).__await__()
-
-
-def IAsyncAction___await__(self):
-    return _Async__await__(self).__await__()
