@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.Com
@@ -86,7 +86,7 @@ class GuidHelper(ComPtr, metaclass=_GuidHelper_Meta_):
     _GuidHelper_Meta_.Empty = property(get_Empty, None)
 class HResult(Structure):
     Value: Int32
-class IAsyncAction(ComPtr):
+class IAsyncAction(ComPtr, AwaitableProtocol):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncAction'
     _iid_ = Guid('{5a648006-843a-4da9-865b-9d26e5dfad7b}')
@@ -97,10 +97,7 @@ class IAsyncAction(ComPtr):
     @winrt_commethod(8)
     def GetResults(self) -> Void: ...
     Completed = property(get_Completed, put_Completed)
-    def __await__(self):
-        from win32more._winrt import IAsyncAction___await__
-        return IAsyncAction___await__(self)
-class IAsyncActionWithProgress(Generic[TProgress], ComPtr):
+class IAsyncActionWithProgress(Generic[TProgress], ComPtr, AwaitableProtocol):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncActionWithProgress'
     _piid_ = Guid('{1f6db258-e803-48a1-9546-eb7353398884}')
@@ -116,9 +113,6 @@ class IAsyncActionWithProgress(Generic[TProgress], ComPtr):
     def GetResults(self) -> Void: ...
     Completed = property(get_Completed, put_Completed)
     Progress = property(get_Progress, put_Progress)
-    def __await__(self):
-        from win32more._winrt import IAsyncAction___await__
-        return IAsyncAction___await__(self)
 class IAsyncInfo(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncInfo'
@@ -136,7 +130,7 @@ class IAsyncInfo(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
     Id = property(get_Id, None)
     Status = property(get_Status, None)
-class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr):
+class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr, AwaitableProtocol):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncOperationWithProgress'
     _piid_ = Guid('{b5d036d7-e297-498f-ba60-0289e76e23dd}')
@@ -152,10 +146,7 @@ class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr):
     def GetResults(self) -> TResult: ...
     Completed = property(get_Completed, put_Completed)
     Progress = property(get_Progress, put_Progress)
-    def __await__(self):
-        from win32more._winrt import IAsyncOperation___await__
-        return IAsyncOperation___await__(self)
-class IAsyncOperation(Generic[TResult], ComPtr):
+class IAsyncOperation(Generic[TResult], ComPtr, AwaitableProtocol):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IAsyncOperation'
     _piid_ = Guid('{9fc2b0bb-e446-44e2-aa61-9cab8f636af2}')
@@ -166,9 +157,6 @@ class IAsyncOperation(Generic[TResult], ComPtr):
     @winrt_commethod(8)
     def GetResults(self) -> TResult: ...
     Completed = property(get_Completed, put_Completed)
-    def __await__(self):
-        from win32more._winrt import IAsyncOperation___await__
-        return IAsyncOperation___await__(self)
 class IClosable(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Foundation.IClosable'
