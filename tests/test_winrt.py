@@ -5,8 +5,9 @@ from ctypes import (
 )
 from pathlib import Path
 
-from win32more import FAILED
+from win32more import FAILED, Int32
 from win32more._winrt import _ro_get_parameterized_type_instance_iid, box_value, unbox_value
+from win32more._winrtrt import Vector
 from win32more.Windows.Devices.Display import DisplayMonitor, DisplayMonitorDescriptorKind
 from win32more.Windows.Devices.Enumeration import DeviceInformation
 from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
@@ -145,8 +146,7 @@ class TestWinrt(unittest.TestCase):
         outarray = []
         prop.GetInspectableArray(outarray)
 
-        self.assertEqual(obj.as_(IInspectable).value , outarray[0].value)
-
+        self.assertEqual(obj.as_(IInspectable).value, outarray[0].value)
 
     def test_receivearray_return(self):
         async def winrt_get_monitor_descriptor():
@@ -197,3 +197,14 @@ class TestWinrt(unittest.TestCase):
 
         with self.assertRaises(AttributeError):  # 'str' object has not attribute 'as_'
             unbox_value("non com object")
+
+    def test_vector(self):
+        v = Vector[Int32]([0, 1, 2])
+
+        self.assertEqual(v.GetAt(0), 0)
+        self.assertEqual(v.GetAt(1), 1)
+        self.assertEqual(v.GetAt(2), 2)
+
+        r = [None] * 3
+        v.GetMany(0, r)
+        self.assertEqual(r, [0, 1, 2])
