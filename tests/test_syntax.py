@@ -1,5 +1,5 @@
 import unittest
-from ctypes import _CFuncPtr, sizeof, c_ulong
+from ctypes import _CFuncPtr, c_ulong, sizeof
 
 
 class TestSyntax(unittest.TestCase):

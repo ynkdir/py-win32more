@@ -8,6 +8,7 @@ from pathlib import Path
 from win32more import FAILED, Int32
 from win32more._winrt import _ro_get_parameterized_type_instance_iid, box_value, unbox_value
 from win32more._winrtrt import Vector
+from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Devices.Display import DisplayMonitor, DisplayMonitorDescriptorKind
 from win32more.Windows.Devices.Enumeration import DeviceInformation
 from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
@@ -79,6 +80,8 @@ class TestWinrt(unittest.TestCase):
 
         m.Insert("key2", "value2")
         self.assertEqual(m.Lookup("key2"), "value2")
+
+        self.assertEqual(set(m.items()), {("key1", "value1"), ("key2", "value2")})
 
     def test_readfile(self):
         async def winrt_readfile():
@@ -208,3 +211,32 @@ class TestWinrt(unittest.TestCase):
         r = [None] * 3
         v.GetMany(0, r)
         self.assertEqual(r, [0, 1, 2])
+
+    def test_sequence_protocol(self):
+        async def device_information_find_all():
+            return await DeviceInformation.FindAllAsyncAqsFilter(DisplayMonitor.GetDeviceSelector())
+
+        device_information_collection = asyncio.run(mainloop(device_information_find_all()))
+
+        self.assertNotEqual(len(device_information_collection), 0)
+
+        iterator_succeeded = False
+        for device_information in device_information_collection:
+            self.assertIsInstance(device_information, DeviceInformation)
+            iterator_succeeded = True
+            break
+
+        self.assertTrue(iterator_succeeded)
+
+    def test_mapping_protocol(self):
+        json = JsonObject()
+        json.SetNamedValue("name1", JsonValue.CreateStringValue("value1"))
+
+        iterator_succeeded = False
+        for key in json.GetView():
+            self.assertEqual(key, "name1")
+            self.assertEqual(json[key].GetString(), "value1")
+            iterator_succeeded = True
+            break
+
+        self.assertTrue(iterator_succeeded)

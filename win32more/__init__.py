@@ -90,15 +90,16 @@ class ComPtr(c_void_p):
         if self and getattr(self, "_own", False):
             self.Release()
 
+    # overwritten in _winrt.py
     @classmethod
     def __commit__(cls):
         cls._hints_ = get_type_hints(cls)
         if cls._hints_["extends"] is None:
             return cls
-        # Generic class have multiple base class (Generic[], ComPtr).
-        cls.__bases__ = tuple(cls._hints_["extends"] if t is ComPtr else t for t in cls.__bases__)
+        cls.__bases__ = (cls._hints_["extends"],)
         return cls
 
+    # overwritten in _winrt.py
     def as_(self, cls):
         iid = cls._iid_
         instance = cls(own=True)

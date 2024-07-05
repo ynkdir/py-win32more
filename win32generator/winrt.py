@@ -19,10 +19,13 @@ WINRT_EXPORTS = [
     "AwaitableProtocol",
     "FillArray",
     "Generic",
+    "IterableProtocol",
     "K",
+    "MappingProtocol",
     "MulticastDelegate",
     "PassArray",
     "ReceiveArray",
+    "SequenceProtocol",
     "T",
     "TProgress",
     "TResult",
@@ -323,6 +326,7 @@ class Com:
             writer.write("    pass\n")
         writer.write(f"class {self._td.generic_name}({self._basetype()}):\n")
         writer.write(f"    extends: {self._extends()}\n")
+        writer.write(self._implements())
         if self._has_default_interface():
             writer.write(f"    default_interface: {self._default_interface()}\n")
         writer.write(f"    _classid_ = '{self._td.generic_fullname}'\n")
@@ -344,14 +348,6 @@ class Com:
 
     def _basetype(self) -> str:
         base = "ComPtr"
-        if self._td.generic_fullname == "Windows.Foundation.IAsyncOperation":
-            base = f"{base}, AwaitableProtocol"
-        elif self._td.generic_fullname == "Windows.Foundation.IAsyncOperationWithProgress":
-            base = f"{base}, AwaitableProtocol"
-        elif self._td.generic_fullname == "Windows.Foundation.IAsyncAction":
-            base = f"{base}, AwaitableProtocol"
-        elif self._td.generic_fullname == "Windows.Foundation.IAsyncActionWithProgress":
-            base = f"{base}, AwaitableProtocol"
         if self._td.is_generic:
             generic_parameters = self._formatter.generic_parameters(self._td)
             base = f"Generic[{generic_parameters}], {base}"
@@ -368,6 +364,64 @@ class Com:
             return self._formatter.fullname("Windows.Win32.System.WinRT.IInspectable")
         else:
             return self._formatter.fullname(self._td.basetype)
+
+    def _implements(self) -> str:
+        writer = StringIO()
+
+        implements = []
+
+        if self._td.fullname == "Windows.Foundation.IAsyncOperation`1":
+            implements.append("AwaitableProtocol")
+        elif self._td.fullname == "Windows.Foundation.IAsyncOperationWithProgress`2":
+            implements.append("AwaitableProtocol")
+        elif self._td.fullname == "Windows.Foundation.IAsyncAction":
+            implements.append("AwaitableProtocol")
+        elif self._td.fullname == "Windows.Foundation.IAsyncActionWithProgress`1":
+            implements.append("AwaitableProtocol")
+        elif self._td.fullname == "Windows.Foundation.Collections.IMapView`2":
+            implements.append("MappingProtocol[K, V]")
+        elif self._td.fullname == "Windows.Foundation.Collections.IMap`2":
+            implements.append("MappingProtocol[K, V]")
+        elif self._td.fullname == "Windows.Foundation.Collections.IVectorView`1":
+            implements.append("SequenceProtocol[T]")
+        elif self._td.fullname == "Windows.Foundation.Collections.IVector`1":
+            implements.append("SequenceProtocol[T]")
+        elif self._td.fullname == "Windows.Foundation.Collections.IIterable`1":
+            implements.append("IterableProtocol[T]")
+        elif self._has_interface("Windows.Foundation.Collections.IMapView`2"):
+            args = self._generic_interface_args("Windows.Foundation.Collections.IMapView`2")
+            implements.append(f"MappingProtocol[{args}]")
+        elif self._has_interface("Windows.Foundation.Collections.IMap`2"):
+            args = self._generic_interface_args("Windows.Foundation.Collections.IMap`2")
+            implements.append(f"MappingProtocol[{args}]")
+        elif self._has_interface("Windows.Foundation.Collections.IVectorView`1"):
+            args = self._generic_interface_args("Windows.Foundation.Collections.IVectorView`1")
+            implements.append(f"SequenceProtocol[{args}]")
+        elif self._has_interface("Windows.Foundation.Collections.IVector`1"):
+            args = self._generic_interface_args("Windows.Foundation.Collections.IVector`1")
+            implements.append(f"SequenceProtocol[{args}]")
+        elif self._has_interface("Windows.Foundation.Collections.IIterable`1"):
+            args = self._generic_interface_args("Windows.Foundation.Collections.IIterable`1")
+            implements.append(f"IterableProtocol[{args}]")
+
+        if implements:
+            # FIXME: list is not allowed (3.10)
+            # writer.write(f"    implements: [{','.join(implements)}]\n")
+            writer.write(f"    implements: {implements[0]}\n")
+
+        return writer.getvalue()
+
+    def _has_interface(self, fullname) -> bool:
+        for ii in self._td.interface_implementations:
+            if ii.fullname == fullname:
+                return True
+        return False
+
+    def _generic_interface_args(self, fullname) -> str:
+        for ii in self._td.interface_implementations:
+            if ii.fullname == fullname:
+                return self._formatter.generic_arguments(ii.interface.type_specification.signature)
+        raise RuntimeError("No interface found")
 
     def _has_default_interface(self) -> bool:
         for ii in self._td.interface_implementations:

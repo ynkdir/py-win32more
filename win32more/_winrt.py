@@ -95,7 +95,23 @@ class event_setter:
         getattr(self._instance, f"add_{self._name}")(callback)
 
 
-def IInspectable_as(self, cls):
+def ComPtr_commit(cls):
+    cls._hints_ = get_type_hints(cls)
+    if cls._hints_["extends"] is None:
+        return cls
+    # Generic class have multiple base class (Generic[], ComPtr).
+    bases = []
+    for type_ in cls.__bases__:
+        if type_ is ComPtr:
+            type_ = cls._hints_["extends"]
+        bases.append(type_)
+    if "implements" in cls._hints_:
+        bases.append(cls._hints_["implements"])
+    cls.__bases__ = tuple(bases)
+    return cls
+
+
+def ComPtr_as(self, cls):
     if cls is str:
         return unbox_value(self)
     elif is_generic_alias(cls):
@@ -113,7 +129,8 @@ def IInspectable_as(self, cls):
     return instance
 
 
-IInspectable.as_ = IInspectable_as
+ComPtr.__commit__ = classmethod(ComPtr_commit)
+ComPtr.as_ = ComPtr_as
 
 
 def winrt_easycast(obj, type_):
@@ -1086,3 +1103,85 @@ class AwaitableProtocol:
             future.get_loop().call_soon_threadsafe(future.cancel)
         else:
             assert False, "unreachable"
+
+
+class IterableProtocol:
+    def __class_getitem__(cls, key):
+        return cls
+
+    def __iter__(self):
+        iterator = self.First()
+        while iterator.HasCurrent:
+            yield iterator.Current
+            iterator.MoveNext()
+
+
+class SequenceProtocol:
+    def __class_getitem__(cls, key):
+        return cls
+
+    def __len__(self):
+        return self.Size
+
+    def __getitem__(self, index):
+        if self.Size <= index:
+            raise IndexError("list index out of range")
+        return self.GetAt(index)
+
+
+class MappingProtocol:
+    def __class_getitem__(cls, key):
+        classdict = dict(cls.__dict__)
+        classdict["_MappingProtocol__parameters"] = key
+        return type("MappingProtocol", (), classdict)
+
+    def __args(self):
+        if not is_generic_instance(self):
+            return self.__parameters
+        parameter_to_type = generic_make_parameter_to_type(self.__orig_class__)
+        args = []
+        for parameter in self.__parameters:
+            args.append(generic_solve_parameter(parameter, parameter_to_type))
+        return args
+
+    def __iterator(self):
+        from win32more.Windows.Foundation.Collections import IIterable, IKeyValuePair
+
+        args = self.__args()
+        iterable = self.as_(IIterable[IKeyValuePair[args[0], args[1]]])
+        for pair in iterable:
+            yield pair.Key, pair.Value
+
+    def __iter__(self):
+        yield from self.keys()
+
+    def __len__(self):
+        return self.Size
+
+    def __getitem__(self, key):
+        if not self.HasKey(key):
+            raise KeyError(key)
+        return self.Lookup(key)
+
+    def __contains__(self, key):
+        return self.HasKey(key)
+
+    def items(self):
+        for k, v in self.__iterator():
+            yield k, v
+
+    def keys(self):
+        for k, v in self.__iterator():
+            yield k
+
+    def values(self):
+        for k, v in self.__iterator():
+            yield v
+
+    def get(self, key, default=None):
+        if not self.HasKey(key):
+            return default
+        return self.Lookup(key)
+
+    def __eq__(self, other):
+        return dict(self.items()) == dict(other.items())
