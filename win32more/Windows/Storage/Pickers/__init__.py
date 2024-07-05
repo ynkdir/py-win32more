@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
@@ -9,6 +9,7 @@ import win32more.Windows.System
 import win32more.Windows.Win32.System.WinRT
 class FileExtensionVector(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[WinRT_String]
     default_interface: win32more.Windows.Foundation.Collections.IVector[WinRT_String]
     _classid_ = 'Windows.Storage.Pickers.FileExtensionVector'
     @winrt_mixinmethod
@@ -98,6 +99,7 @@ class FileOpenPicker(ComPtr):
     ViewMode = property(get_ViewMode, put_ViewMode)
 class FilePickerFileTypesOrderedMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, win32more.Windows.Foundation.Collections.IVector[WinRT_String]]
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Foundation.Collections.IVector[WinRT_String]]
     _classid_ = 'Windows.Storage.Pickers.FilePickerFileTypesOrderedMap'
     @winrt_mixinmethod
@@ -119,6 +121,7 @@ class FilePickerFileTypesOrderedMap(ComPtr):
     Size = property(get_Size, None)
 class FilePickerSelectedFilesArray(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Storage.StorageFile]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.StorageFile]
     _classid_ = 'Windows.Storage.Pickers.FilePickerSelectedFilesArray'
     @winrt_mixinmethod

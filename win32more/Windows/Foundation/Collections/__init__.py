@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.Com
@@ -12,6 +12,7 @@ class CollectionChange(Enum, Int32):
     ItemChanged = 3
 class IIterable(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: IterableProtocol[T]
     _classid_ = 'Windows.Foundation.Collections.IIterable'
     _piid_ = Guid('{faa585ea-6214-4217-afda-7f46de5869b3}')
     @winrt_commethod(6)
@@ -52,6 +53,7 @@ class IMapChangedEventArgs(Generic[K], ComPtr):
     Key = property(get_Key, None)
 class IMapView(Generic[K, V], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[K, V]
     _classid_ = 'Windows.Foundation.Collections.IMapView'
     _piid_ = Guid('{e480ce40-a338-4ada-adcf-272272e48cb9}')
     @winrt_commethod(6)
@@ -65,6 +67,7 @@ class IMapView(Generic[K, V], ComPtr):
     Size = property(get_Size, None)
 class IMap(Generic[K, V], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[K, V]
     _classid_ = 'Windows.Foundation.Collections.IMap'
     _piid_ = Guid('{3c2925fe-8519-45c1-aa79-197b6718c1c1}')
     @winrt_commethod(6)
@@ -84,6 +87,7 @@ class IMap(Generic[K, V], ComPtr):
     Size = property(get_Size, None)
 class IObservableMap(Generic[K, V], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[K, V]
     _classid_ = 'Windows.Foundation.Collections.IObservableMap'
     _piid_ = Guid('{65df2bf5-bf39-41b5-aebc-5a9d865e472b}')
     @winrt_commethod(6)
@@ -93,6 +97,7 @@ class IObservableMap(Generic[K, V], ComPtr):
     MapChanged = event()
 class IObservableVector(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[T]
     _classid_ = 'Windows.Foundation.Collections.IObservableVector'
     _piid_ = Guid('{5917eb53-50b4-4a0d-b309-65862b3f1dbc}')
     @winrt_commethod(6)
@@ -102,6 +107,7 @@ class IObservableVector(Generic[T], ComPtr):
     VectorChanged = event()
 class IPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]
     _classid_ = 'Windows.Foundation.Collections.IPropertySet'
     _iid_ = Guid('{8a43ed9f-f4e6-4421-acf9-1dab2986820c}')
 class IVectorChangedEventArgs(ComPtr):
@@ -116,6 +122,7 @@ class IVectorChangedEventArgs(ComPtr):
     Index = property(get_Index, None)
 class IVectorView(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[T]
     _classid_ = 'Windows.Foundation.Collections.IVectorView'
     _piid_ = Guid('{bbe1fa4c-b0e3-4583-baef-1f1b2e483e56}')
     @winrt_commethod(6)
@@ -129,6 +136,7 @@ class IVectorView(Generic[T], ComPtr):
     Size = property(get_Size, None)
 class IVector(Generic[T], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[T]
     _classid_ = 'Windows.Foundation.Collections.IVector'
     _piid_ = Guid('{913337e9-11a1-4345-a3a2-4e7f956e222d}')
     @winrt_commethod(6)
@@ -163,6 +171,7 @@ class MapChangedEventHandler(Generic[K, V], MulticastDelegate):
     def Invoke(self, sender: win32more.Windows.Foundation.Collections.IObservableMap[K, V], event: win32more.Windows.Foundation.Collections.IMapChangedEventArgs[K]) -> Void: ...
 class PropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Foundation.Collections.PropertySet'
     def __init__(self, *args, **kwargs):
@@ -198,6 +207,7 @@ class PropertySet(ComPtr):
     MapChanged = event()
 class StringMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, WinRT_String]
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]
     _classid_ = 'Windows.Foundation.Collections.StringMap'
     def __init__(self, *args, **kwargs):
@@ -233,6 +243,7 @@ class StringMap(ComPtr):
     MapChanged = event()
 class ValueSet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Foundation.Collections.ValueSet'
     def __init__(self, *args, **kwargs):

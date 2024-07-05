@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Playback
@@ -256,6 +256,7 @@ class Brush(ComPtr, metaclass=_Brush_Meta_):
     _Brush_Meta_.TransformProperty = property(get_TransformProperty, None)
 class BrushCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Media.Brush]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Media.Brush]
     _classid_ = 'Windows.UI.Xaml.Media.BrushCollection'
     def __init__(self, *args, **kwargs):
@@ -418,6 +419,7 @@ class CompositionTarget(ComPtr):
     def remove_SurfaceContentsLost(cls: win32more.Windows.UI.Xaml.Media.ICompositionTargetStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
 class DoubleCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[Double]
     default_interface: win32more.Windows.Foundation.Collections.IVector[Double]
     _classid_ = 'Windows.UI.Xaml.Media.DoubleCollection'
     def __init__(self, *args, **kwargs):
@@ -581,6 +583,7 @@ class Geometry(ComPtr, metaclass=_Geometry_Meta_):
     _Geometry_Meta_.TransformProperty = property(get_TransformProperty, None)
 class GeometryCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Media.Geometry]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Media.Geometry]
     _classid_ = 'Windows.UI.Xaml.Media.GeometryCollection'
     def __init__(self, *args, **kwargs):
@@ -734,6 +737,7 @@ class GradientStop(ComPtr, metaclass=_GradientStop_Meta_):
     _GradientStop_Meta_.OffsetProperty = property(get_OffsetProperty, None)
 class GradientStopCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Media.GradientStop]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Media.GradientStop]
     _classid_ = 'Windows.UI.Xaml.Media.GradientStopCollection'
     def __init__(self, *args, **kwargs):
@@ -2589,6 +2593,7 @@ class PathFigure(ComPtr, metaclass=_PathFigure_Meta_):
     _PathFigure_Meta_.StartPointProperty = property(get_StartPointProperty, None)
 class PathFigureCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Media.PathFigure]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Media.PathFigure]
     _classid_ = 'Windows.UI.Xaml.Media.PathFigureCollection'
     def __init__(self, *args, **kwargs):
@@ -2664,6 +2669,7 @@ class PathSegment(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.PathSegment'
 class PathSegmentCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Media.PathSegment]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Media.PathSegment]
     _classid_ = 'Windows.UI.Xaml.Media.PathSegmentCollection'
     def __init__(self, *args, **kwargs):
@@ -2830,6 +2836,7 @@ class PlaneProjection(ComPtr, metaclass=_PlaneProjection_Meta_):
     _PlaneProjection_Meta_.RotationZProperty = property(get_RotationZProperty, None)
 class PointCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Foundation.Point]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Foundation.Point]
     _classid_ = 'Windows.UI.Xaml.Media.PointCollection'
     def __init__(self, *args, **kwargs):
@@ -3392,6 +3399,7 @@ class TimelineMarker(ComPtr, metaclass=_TimelineMarker_Meta_):
     _TimelineMarker_Meta_.TypeProperty = property(get_TypeProperty, None)
 class TimelineMarkerCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Media.TimelineMarker]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Media.TimelineMarker]
     _classid_ = 'Windows.UI.Xaml.Media.TimelineMarkerCollection'
     def __init__(self, *args, **kwargs):
@@ -3459,6 +3467,7 @@ class Transform(ComPtr):
     _classid_ = 'Windows.UI.Xaml.Media.Transform'
 class TransformCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Media.Transform]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Media.Transform]
     _classid_ = 'Windows.UI.Xaml.Media.TransformCollection'
     def __init__(self, *args, **kwargs):

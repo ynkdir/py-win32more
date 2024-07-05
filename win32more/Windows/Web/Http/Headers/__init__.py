@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization
@@ -11,6 +11,7 @@ import win32more.Windows.Web.Http.Headers
 import win32more.Windows.Win32.System.WinRT
 class HttpCacheDirectiveHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpNameValueHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpCacheDirectiveHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection'
     @winrt_mixinmethod
@@ -100,6 +101,7 @@ class HttpChallengeHeaderValue(ComPtr):
     Token = property(get_Token, None)
 class HttpChallengeHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpChallengeHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpChallengeHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpChallengeHeaderValueCollection'
     @winrt_mixinmethod
@@ -159,6 +161,7 @@ class HttpConnectionOptionHeaderValue(ComPtr):
     Token = property(get_Token, None)
 class HttpConnectionOptionHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpConnectionOptionHeaderValueCollection'
     @winrt_mixinmethod
@@ -218,6 +221,7 @@ class HttpContentCodingHeaderValue(ComPtr):
     ContentCoding = property(get_ContentCoding, None)
 class HttpContentCodingHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpContentCodingHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentCodingHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingHeaderValueCollection'
     @winrt_mixinmethod
@@ -284,6 +288,7 @@ class HttpContentCodingWithQualityHeaderValue(ComPtr):
     Quality = property(get_Quality, None)
 class HttpContentCodingWithQualityHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValueCollection'
     @winrt_mixinmethod
@@ -368,6 +373,7 @@ class HttpContentDispositionHeaderValue(ComPtr):
     Size = property(get_Size, put_Size)
 class HttpContentHeaderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, WinRT_String]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpContentHeaderCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpContentHeaderCollection'
     def __init__(self, *args, **kwargs):
@@ -522,6 +528,7 @@ class HttpCookiePairHeaderValue(ComPtr):
     Value = property(get_Value, put_Value)
 class HttpCookiePairHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpCookiePairHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpCookiePairHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpCookiePairHeaderValueCollection'
     @winrt_mixinmethod
@@ -641,6 +648,7 @@ class HttpExpectationHeaderValue(ComPtr):
     Value = property(get_Value, put_Value)
 class HttpExpectationHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpExpectationHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpExpectationHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpExpectationHeaderValueCollection'
     @winrt_mixinmethod
@@ -678,6 +686,7 @@ class HttpExpectationHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpLanguageHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Globalization.Language]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpLanguageHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpLanguageHeaderValueCollection'
     @winrt_mixinmethod
@@ -744,6 +753,7 @@ class HttpLanguageRangeWithQualityHeaderValue(ComPtr):
     Quality = property(get_Quality, None)
 class HttpLanguageRangeWithQualityHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection'
     @winrt_mixinmethod
@@ -854,6 +864,7 @@ class HttpMediaTypeWithQualityHeaderValue(ComPtr):
     Quality = property(get_Quality, put_Quality)
 class HttpMediaTypeWithQualityHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValueCollection'
     @winrt_mixinmethod
@@ -891,6 +902,7 @@ class HttpMediaTypeWithQualityHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpMethodHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.HttpMethod]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpMethodHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpMethodHeaderValueCollection'
     @winrt_mixinmethod
@@ -1017,6 +1029,7 @@ class HttpProductInfoHeaderValue(ComPtr):
     Product = property(get_Product, None)
 class HttpProductInfoHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpProductInfoHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpProductInfoHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpProductInfoHeaderValueCollection'
     @winrt_mixinmethod
@@ -1054,6 +1067,7 @@ class HttpProductInfoHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpRequestHeaderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, WinRT_String]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpRequestHeaderCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpRequestHeaderCollection'
     @winrt_mixinmethod
@@ -1153,6 +1167,7 @@ class HttpRequestHeaderCollection(ComPtr):
     UserAgent = property(get_UserAgent, None)
 class HttpResponseHeaderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, WinRT_String]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpResponseHeaderCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpResponseHeaderCollection'
     @winrt_mixinmethod
@@ -1243,6 +1258,7 @@ class HttpTransferCodingHeaderValue(ComPtr):
     Value = property(get_Value, None)
 class HttpTransferCodingHeaderValueCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Web.Http.Headers.HttpTransferCodingHeaderValue]
     default_interface: win32more.Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueCollection
     _classid_ = 'Windows.Web.Http.Headers.HttpTransferCodingHeaderValueCollection'
     @winrt_mixinmethod

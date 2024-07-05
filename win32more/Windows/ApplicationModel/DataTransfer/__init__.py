@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -186,6 +186,7 @@ class DataPackageOperation(Enum, UInt32):
     Link = 4
 class DataPackagePropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IDataPackagePropertySet
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DataPackagePropertySet'
     @winrt_mixinmethod
@@ -270,6 +271,7 @@ class DataPackagePropertySet(ComPtr):
     Title = property(get_Title, put_Title)
 class DataPackagePropertySetView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.IDataPackagePropertySetView
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView'
     @winrt_mixinmethod
@@ -630,6 +632,7 @@ class IDataPackage4(ComPtr):
     ShareCanceled = event()
 class IDataPackagePropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]
     _classid_ = 'Windows.ApplicationModel.DataTransfer.IDataPackagePropertySet'
     _iid_ = Guid('{cd1c93eb-4c4c-443a-a8d3-f5c241e91689}')
     @winrt_commethod(6)

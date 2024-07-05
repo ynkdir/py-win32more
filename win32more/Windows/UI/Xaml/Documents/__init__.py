@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Core
@@ -67,6 +67,7 @@ class Block(ComPtr, metaclass=_Block_Meta_):
     _Block_Meta_.TextAlignmentProperty = property(get_TextAlignmentProperty, None)
 class BlockCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Documents.Block]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Documents.Block]
     _classid_ = 'Windows.UI.Xaml.Documents.BlockCollection'
     @winrt_mixinmethod
@@ -296,6 +297,7 @@ class ContentLinkProvider(ComPtr):
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IContentLinkProviderFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.ContentLinkProvider: ...
 class ContentLinkProviderCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Documents.ContentLinkProvider]
     default_interface: win32more.Windows.UI.Xaml.Documents.IContentLinkProviderCollection
     _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkProviderCollection'
     def __init__(self, *args, **kwargs):
@@ -1780,6 +1782,7 @@ class Inline(ComPtr):
     def CreateInstance(cls: win32more.Windows.UI.Xaml.Documents.IInlineFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Documents.Inline: ...
 class InlineCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.UI.Xaml.Documents.Inline]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.Documents.Inline]
     _classid_ = 'Windows.UI.Xaml.Documents.InlineCollection'
     @winrt_mixinmethod

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Core
@@ -975,6 +975,7 @@ class PlayReadyDomain(ComPtr):
     ServiceId = property(get_ServiceId, None)
 class PlayReadyDomainIterable(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: IterableProtocol[win32more.Windows.Media.Protection.PlayReady.IPlayReadyDomain]
     default_interface: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Protection.PlayReady.IPlayReadyDomain]
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyDomainIterable'
     def __init__(self, *args, **kwargs):
@@ -1269,6 +1270,7 @@ class PlayReadyLicenseAcquisitionServiceRequest(ComPtr):
     Uri = property(get_Uri, put_Uri)
 class PlayReadyLicenseIterable(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: IterableProtocol[win32more.Windows.Media.Protection.PlayReady.IPlayReadyLicense]
     default_interface: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Protection.PlayReady.IPlayReadyLicense]
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable'
     def __init__(self, *args, **kwargs):
@@ -1413,6 +1415,7 @@ class PlayReadyRevocationServiceRequest(ComPtr):
     Uri = property(get_Uri, put_Uri)
 class PlayReadySecureStopIterable(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: IterableProtocol[win32more.Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest]
     default_interface: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest]
     _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable'
     def __init__(self, *args, **kwargs):

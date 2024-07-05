@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.Com
@@ -86,8 +86,9 @@ class GuidHelper(ComPtr, metaclass=_GuidHelper_Meta_):
     _GuidHelper_Meta_.Empty = property(get_Empty, None)
 class HResult(Structure):
     Value: Int32
-class IAsyncAction(ComPtr, AwaitableProtocol):
+class IAsyncAction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: AwaitableProtocol
     _classid_ = 'Windows.Foundation.IAsyncAction'
     _iid_ = Guid('{5a648006-843a-4da9-865b-9d26e5dfad7b}')
     @winrt_commethod(6)
@@ -97,8 +98,9 @@ class IAsyncAction(ComPtr, AwaitableProtocol):
     @winrt_commethod(8)
     def GetResults(self) -> Void: ...
     Completed = property(get_Completed, put_Completed)
-class IAsyncActionWithProgress(Generic[TProgress], ComPtr, AwaitableProtocol):
+class IAsyncActionWithProgress(Generic[TProgress], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: AwaitableProtocol
     _classid_ = 'Windows.Foundation.IAsyncActionWithProgress'
     _piid_ = Guid('{1f6db258-e803-48a1-9546-eb7353398884}')
     @winrt_commethod(6)
@@ -130,8 +132,9 @@ class IAsyncInfo(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
     Id = property(get_Id, None)
     Status = property(get_Status, None)
-class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr, AwaitableProtocol):
+class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: AwaitableProtocol
     _classid_ = 'Windows.Foundation.IAsyncOperationWithProgress'
     _piid_ = Guid('{b5d036d7-e297-498f-ba60-0289e76e23dd}')
     @winrt_commethod(6)
@@ -146,8 +149,9 @@ class IAsyncOperationWithProgress(Generic[TResult, TProgress], ComPtr, Awaitable
     def GetResults(self) -> TResult: ...
     Completed = property(get_Completed, put_Completed)
     Progress = property(get_Progress, put_Progress)
-class IAsyncOperation(Generic[TResult], ComPtr, AwaitableProtocol):
+class IAsyncOperation(Generic[TResult], ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: AwaitableProtocol
     _classid_ = 'Windows.Foundation.IAsyncOperation'
     _piid_ = Guid('{9fc2b0bb-e446-44e2-aa61-9cab8f636af2}')
     @winrt_commethod(6)
@@ -493,6 +497,7 @@ class IWwwFormUrlDecoderEntry(ComPtr):
     Value = property(get_Value, None)
 class IWwwFormUrlDecoderRuntimeClass(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Foundation.IWwwFormUrlDecoderEntry]
     _classid_ = 'Windows.Foundation.IWwwFormUrlDecoderRuntimeClass'
     _iid_ = Guid('{d45a0451-f225-4542-9296-0e1df5d254df}')
     @winrt_commethod(6)
@@ -742,6 +747,7 @@ class Uri(ComPtr):
     UserName = property(get_UserName, None)
 class WwwFormUrlDecoder(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: SequenceProtocol[win32more.Windows.Foundation.IWwwFormUrlDecoderEntry]
     default_interface: win32more.Windows.Foundation.IWwwFormUrlDecoderRuntimeClass
     _classid_ = 'Windows.Foundation.WwwFormUrlDecoder'
     def __init__(self, *args, **kwargs):

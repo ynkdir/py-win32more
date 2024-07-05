@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, K, MulticastDelegate, PassArray, ReceiveArray, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -356,6 +356,7 @@ class SceneComponent(ComPtr):
     ComponentType = property(get_ComponentType, None)
 class SceneComponentCollection(ComPtr):
     extends: win32more.Windows.UI.Composition.Scenes.SceneObject
+    implements: SequenceProtocol[win32more.Windows.UI.Composition.Scenes.SceneComponent]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Composition.Scenes.SceneComponent]
     _classid_ = 'Windows.UI.Composition.Scenes.SceneComponentCollection'
     @winrt_mixinmethod
@@ -413,6 +414,7 @@ class SceneMesh(ComPtr):
     PrimitiveTopology = property(get_PrimitiveTopology, put_PrimitiveTopology)
 class SceneMeshMaterialAttributeMap(ComPtr):
     extends: win32more.Windows.UI.Composition.Scenes.SceneObject
+    implements: MappingProtocol[WinRT_String, win32more.Windows.UI.Composition.Scenes.SceneAttributeSemantic]
     default_interface: win32more.Windows.UI.Composition.Scenes.ISceneMeshMaterialAttributeMap
     _classid_ = 'Windows.UI.Composition.Scenes.SceneMeshMaterialAttributeMap'
     @winrt_mixinmethod
@@ -538,6 +540,7 @@ class SceneNode(ComPtr):
     Transform = property(get_Transform, None)
 class SceneNodeCollection(ComPtr):
     extends: win32more.Windows.UI.Composition.Scenes.SceneObject
+    implements: SequenceProtocol[win32more.Windows.UI.Composition.Scenes.SceneNode]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Composition.Scenes.SceneNode]
     _classid_ = 'Windows.UI.Composition.Scenes.SceneNodeCollection'
     @winrt_mixinmethod
