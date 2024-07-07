@@ -1,7 +1,9 @@
+import importlib
+import xml.etree.ElementTree as ET
 from ctypes import WinError, addressof
 
 from win32more import FAILED
-from win32more._winrt import Vtbl
+from win32more._winrt import Vtbl, WinRT_String, event_setter
 from win32more.mddbootstrap import (
     WINDOWSAPPSDK_RELEASE_MAJORMINOR,
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
@@ -10,9 +12,9 @@ from win32more.mddbootstrap import (
     MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
     MddBootstrapShutdown,
 )
-from win32more.Microsoft.UI.Xaml import Application, IApplicationOverrides
+from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides, Window
 from win32more.Microsoft.UI.Xaml.Controls import XamlControlsResources
-from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider
+from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
 from win32more.Windows.Win32.Foundation import S_OK
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
@@ -128,3 +130,50 @@ class XamlApplication(Application):
         MddBootstrapShutdown()
 
         CoUninitialize()
+
+    def LoadXamlAndSetEventHandler(self, xaml):
+        uiroot = XamlReader.Load(xaml)
+        XamlEventWiring().execute(self, uiroot, xaml)
+        return uiroot
+
+
+class XamlEventWiring:
+    def execute(self, app, uiroot, xaml):
+        uiroot = self.cast_to_runtimeclass(uiroot)
+
+        if isinstance(uiroot, Window):
+            window = uiroot
+            framework_element = uiroot.Content.as_(FrameworkElement)
+        else:
+            window = None
+            framework_element = uiroot.as_(FrameworkElement)
+
+        xmlroot = ET.fromstring(xaml)
+        for xmlelement in xmlroot.iter():
+            if xmlelement.tag == "{http://schemas.microsoft.com/winfx/2006/xaml/presentation}Window":
+                if window is not None:
+                    self.wire_event(app, window, xmlelement)
+            else:
+                try:
+                    name = xmlelement.attrib["{http://schemas.microsoft.com/winfx/2006/xaml}Name"]
+                except KeyError:
+                    continue
+                uielement = self.cast_to_runtimeclass(framework_element.FindName(name))
+                self.wire_event(app, uielement, xmlelement)
+
+    def wire_event(self, app, uielement, xmlelement):
+        for k, v in xmlelement.items():
+            if isinstance(getattr(uielement, k, None), event_setter):
+                setter = getattr(uielement, k)
+                setter += getattr(app, v)
+
+    def cast_to_runtimeclass(self, uielement):
+        namespace, name = self.get_runtime_class_name(uielement).rsplit(".", 1)
+        module = importlib.import_module(f"win32more.{namespace}")
+        class_ = getattr(module, name)
+        return uielement.as_(class_)
+
+    def get_runtime_class_name(self, uielement):
+        s = WinRT_String(own=True)
+        uielement.GetRuntimeClassName(s)
+        return s.strvalue
