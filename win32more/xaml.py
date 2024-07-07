@@ -139,7 +139,7 @@ class XamlApplication(Application):
 
 class XamlEventWiring:
     def execute(self, app, uiroot, xaml):
-        uiroot = self.cast_to_runtimeclass(uiroot)
+        uiroot = self.cast_to_runtime_class(uiroot)
 
         if isinstance(uiroot, Window):
             window = uiroot
@@ -158,7 +158,7 @@ class XamlEventWiring:
                     name = xmlelement.attrib["{http://schemas.microsoft.com/winfx/2006/xaml}Name"]
                 except KeyError:
                     continue
-                uielement = self.cast_to_runtimeclass(framework_element.FindName(name))
+                uielement = self.cast_to_runtime_class(framework_element.FindName(name))
                 self.wire_event(app, uielement, xmlelement)
 
     def wire_event(self, app, uielement, xmlelement):
@@ -167,13 +167,17 @@ class XamlEventWiring:
                 setter = getattr(uielement, k)
                 setter += getattr(app, v)
 
-    def cast_to_runtimeclass(self, uielement):
+    def cast_to_runtime_class(self, uielement):
+        return uielement.as_(self.get_runtime_class(uielement))
+
+    def get_runtime_class(self, uielement):
         namespace, name = self.get_runtime_class_name(uielement).rsplit(".", 1)
         module = importlib.import_module(f"win32more.{namespace}")
-        class_ = getattr(module, name)
-        return uielement.as_(class_)
+        return getattr(module, name)
 
     def get_runtime_class_name(self, uielement):
         s = WinRT_String(own=True)
-        uielement.GetRuntimeClassName(s)
+        hr = uielement.GetRuntimeClassName(s)
+        if FAILED(hr):
+            raise WinError(hr)
         return s.strvalue
