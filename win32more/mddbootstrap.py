@@ -140,7 +140,7 @@ def MddBootstrapShutdown() -> None:
 def _IsWin11() -> bool:
     # FIXME: RoActivateInstance() failes
     return False
-    #return sys.getwindowsversion() >= (10, 0, 22000)
+    # return sys.getwindowsversion() >= (10, 0, 22000)
 
 
 def _IsPackagedProcess() -> bool:
@@ -251,7 +251,9 @@ def _GetPackagesByPackageFamily(family_name: str) -> list[str]:
     count = UInt32()
     buffer_length = UInt32()
     r = GetPackagesByPackageFamily(family_name, count, None, buffer_length, None)
-    if r != ERROR_INSUFFICIENT_BUFFER:
+    if r == ERROR_SUCCESS:
+        return []  # not found
+    elif r != ERROR_INSUFFICIENT_BUFFER:
         raise WinError(r)
 
     full_names = (String * count.value)()
