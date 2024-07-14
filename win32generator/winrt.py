@@ -388,6 +388,14 @@ class Com:
             implements.append("SequenceProtocol[T]")
         elif self._td.fullname == "Windows.Foundation.Collections.IIterable`1":
             implements.append("IterableProtocol[T]")
+        elif self._has_interface("Windows.Foundation.IAsyncOperation`1"):
+            implements.append("AwaitableProtocol")
+        elif self._has_interface("Windows.Foundation.IAsyncOperationWithProgress`2"):
+            implements.append("AwaitableProtocol")
+        elif self._has_interface("Windows.Foundation.IAsyncAction"):
+            implements.append("AwaitableProtocol")
+        elif self._has_interface("Windows.Foundation.IAsyncActionWithProgress`1"):
+            implements.append("AwaitableProtocol")
         elif self._has_interface("Windows.Foundation.Collections.IMapView`2"):
             args = self._generic_interface_args("Windows.Foundation.Collections.IMapView`2")
             implements.append(f"MappingProtocol[{args}]")
