@@ -255,6 +255,7 @@ class OnlineIdSystemTicketStatus(Enum, Int32):
     ServiceConnectionError = 2
 class SignOutUserOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: AwaitableProtocol
     default_interface: win32more.Windows.Foundation.IAsyncAction
     _classid_ = 'Windows.Security.Authentication.OnlineId.SignOutUserOperation'
     @winrt_mixinmethod
@@ -279,6 +280,7 @@ class SignOutUserOperation(ComPtr):
     Status = property(get_Status, None)
 class UserAuthenticationOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: AwaitableProtocol
     default_interface: win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.OnlineId.UserIdentity]
     _classid_ = 'Windows.Security.Authentication.OnlineId.UserAuthenticationOperation'
     @winrt_mixinmethod

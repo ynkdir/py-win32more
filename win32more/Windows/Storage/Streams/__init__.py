@@ -110,6 +110,7 @@ class DataReader(ComPtr):
     UnicodeEncoding = property(get_UnicodeEncoding, put_UnicodeEncoding)
 class DataReaderLoadOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: AwaitableProtocol
     default_interface: win32more.Windows.Foundation.IAsyncOperation[UInt32]
     _classid_ = 'Windows.Storage.Streams.DataReaderLoadOperation'
     @winrt_mixinmethod
@@ -210,6 +211,7 @@ class DataWriter(ComPtr):
     UnstoredBufferLength = property(get_UnstoredBufferLength, None)
 class DataWriterStoreOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: AwaitableProtocol
     default_interface: win32more.Windows.Foundation.IAsyncOperation[UInt32]
     _classid_ = 'Windows.Storage.Streams.DataWriterStoreOperation'
     @winrt_mixinmethod
