@@ -28,6 +28,7 @@ class XamlApplication(Application):
 
     def __init__(self):
         super().__init__(own=True)
+        XamlApplication.__current = self
         self._OnLaunched_wrapped = self.OnLaunched
         self.OnLaunched = self._OnLaunched_wrapper
         self._application_overrides_vtbl = Vtbl(self, IApplicationOverrides)
@@ -98,8 +99,10 @@ class XamlApplication(Application):
     def GetXmlnsDefinitions(self):
         return self._provider.GetXmlnsDefinitions()
 
+    __current = None
+
     @classmethod
-    def Start(cls, appcls):
+    def Start(cls, init):
         r = SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2)
         if FAILED(r):
             raise WinError(r)
@@ -117,15 +120,14 @@ class XamlApplication(Application):
         if FAILED(hr):
             raise WinError(hr)
 
-        app = None
+        def init_returns_void(params):
+            init()
 
-        def init(params):
-            nonlocal app
-            app = appcls()
+        Application.Start(init_returns_void)
 
-        Application.Start(init)
-
-        app.Release()
+        # FIXME: force Release() to avoid exit with error code.
+        if XamlApplication.__current is not None:
+            XamlApplication.__current.Release()
 
         MddBootstrapShutdown()
 
