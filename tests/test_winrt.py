@@ -228,6 +228,12 @@ class TestWinrt(unittest.TestCase):
 
         self.assertTrue(iterator_succeeded)
 
+        self.assertEqual(
+            device_information_collection[-1], device_information_collection[len(device_information_collection) - 1]
+        )
+        self.assertEqual(device_information_collection[0:1], [device_information_collection[0]])
+        self.assertEqual(device_information_collection[0:1:1], [device_information_collection[0]])
+
     def test_mapping_protocol(self):
         json = JsonObject()
         json.SetNamedValue("name1", JsonValue.CreateStringValue("value1"))

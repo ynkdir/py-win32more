@@ -1124,9 +1124,16 @@ class SequenceProtocol:
         return self.Size
 
     def __getitem__(self, index):
-        if self.Size <= index:
-            raise IndexError("list index out of range")
-        return self.GetAt(index)
+        if isinstance(index, slice):
+            return [self[i] for i in range(*index.indices(len(self)))]
+        elif isinstance(index, int):
+            if index < 0:
+                index += len(self)
+            if index < 0 or len(self) <= index:
+                raise IndexError("list index out of range")
+            return self.GetAt(index)
+        else:
+            raise TypeError(f"list indices must be integers or slices, not {type(index).__name__}")
 
 
 class MappingProtocol:

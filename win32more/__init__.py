@@ -108,6 +108,9 @@ class ComPtr(c_void_p):
             raise WinError(hr)
         return instance
 
+    def __eq__(self, other):
+        return isinstance(other, ComPtr) and self.value == other.value
+
 
 def _struct_union_commit(cls, start=True):
     if start:
