@@ -22,9 +22,9 @@ from functools import partial
 from typing import Generic, TypeVar, _GenericAlias
 
 if sys.version_info < (3, 9):
-    from typing_extensions import Annotated, get_args, get_origin  # noqa: F401
+    from typing_extensions import Annotated, Tuple, get_args, get_origin  # noqa: F401
 else:
-    from typing import Annotated, get_args, get_origin  # noqa: F401
+    from typing import Annotated, Tuple, get_args, get_origin  # noqa: F401
 
 from win32more import (
     FAILED,
@@ -106,7 +106,7 @@ def ComPtr_commit(cls):
             type_ = cls._hints_["extends"]
         bases.append(type_)
     if "implements" in cls._hints_:
-        bases.append(cls._hints_["implements"])
+        bases.extend(get_args(cls._hints_["implements"]))
     cls.__bases__ = tuple(bases)
     return cls
 
@@ -1185,3 +1185,12 @@ class MappingProtocol:
 
     def __eq__(self, other):
         return dict(self.items()) == dict(other.items())
+
+
+# IClosable
+class ContextManagerProtocol:
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.Close()

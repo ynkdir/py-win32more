@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 WINRT_EXPORTS = [
     "AwaitableProtocol",
+    "ContextManagerProtocol",
     "FillArray",
     "Generic",
     "IterableProtocol",
@@ -30,6 +31,7 @@ WINRT_EXPORTS = [
     "TProgress",
     "TResult",
     "TSender",
+    "Tuple",
     "V",
     "WinRT_String",
     "event",
@@ -370,52 +372,52 @@ class Com:
 
         implements = []
 
-        if self._td.fullname == "Windows.Foundation.IAsyncOperation`1":
+        if (
+            self._td.fullname == "Windows.Foundation.IAsyncOperation`1"
+            or self._td.fullname == "Windows.Foundation.IAsyncOperationWithProgress`2"
+            or self._td.fullname == "Windows.Foundation.IAsyncAction"
+            or self._td.fullname == "Windows.Foundation.IAsyncActionWithProgress`1"
+            or self._has_interface("Windows.Foundation.IAsyncOperation`1")
+            or self._has_interface("Windows.Foundation.IAsyncOperationWithProgress`2")
+            or self._has_interface("Windows.Foundation.IAsyncAction")
+            or self._has_interface("Windows.Foundation.IAsyncActionWithProgress`1")
+        ):
             implements.append("AwaitableProtocol")
-        elif self._td.fullname == "Windows.Foundation.IAsyncOperationWithProgress`2":
-            implements.append("AwaitableProtocol")
-        elif self._td.fullname == "Windows.Foundation.IAsyncAction":
-            implements.append("AwaitableProtocol")
-        elif self._td.fullname == "Windows.Foundation.IAsyncActionWithProgress`1":
-            implements.append("AwaitableProtocol")
-        elif self._td.fullname == "Windows.Foundation.Collections.IMapView`2":
+
+        if (
+            self._td.fullname == "Windows.Foundation.Collections.IMapView`2"
+            or self._td.fullname == "Windows.Foundation.Collections.IMap`2"
+        ):
             implements.append("MappingProtocol[K, V]")
-        elif self._td.fullname == "Windows.Foundation.Collections.IMap`2":
-            implements.append("MappingProtocol[K, V]")
-        elif self._td.fullname == "Windows.Foundation.Collections.IVectorView`1":
-            implements.append("SequenceProtocol[T]")
-        elif self._td.fullname == "Windows.Foundation.Collections.IVector`1":
-            implements.append("SequenceProtocol[T]")
-        elif self._td.fullname == "Windows.Foundation.Collections.IIterable`1":
-            implements.append("IterableProtocol[T]")
-        elif self._has_interface("Windows.Foundation.IAsyncOperation`1"):
-            implements.append("AwaitableProtocol")
-        elif self._has_interface("Windows.Foundation.IAsyncOperationWithProgress`2"):
-            implements.append("AwaitableProtocol")
-        elif self._has_interface("Windows.Foundation.IAsyncAction"):
-            implements.append("AwaitableProtocol")
-        elif self._has_interface("Windows.Foundation.IAsyncActionWithProgress`1"):
-            implements.append("AwaitableProtocol")
         elif self._has_interface("Windows.Foundation.Collections.IMapView`2"):
             args = self._generic_interface_args("Windows.Foundation.Collections.IMapView`2")
             implements.append(f"MappingProtocol[{args}]")
         elif self._has_interface("Windows.Foundation.Collections.IMap`2"):
             args = self._generic_interface_args("Windows.Foundation.Collections.IMap`2")
             implements.append(f"MappingProtocol[{args}]")
+        elif (
+            self._td.fullname == "Windows.Foundation.Collections.IVectorView`1"
+            or self._td.fullname == "Windows.Foundation.Collections.IVector`1"
+        ):
+            implements.append("SequenceProtocol[T]")
         elif self._has_interface("Windows.Foundation.Collections.IVectorView`1"):
             args = self._generic_interface_args("Windows.Foundation.Collections.IVectorView`1")
             implements.append(f"SequenceProtocol[{args}]")
         elif self._has_interface("Windows.Foundation.Collections.IVector`1"):
             args = self._generic_interface_args("Windows.Foundation.Collections.IVector`1")
             implements.append(f"SequenceProtocol[{args}]")
+        elif self._td.fullname == "Windows.Foundation.Collections.IIterable`1":
+            implements.append("IterableProtocol[T]")
         elif self._has_interface("Windows.Foundation.Collections.IIterable`1"):
             args = self._generic_interface_args("Windows.Foundation.Collections.IIterable`1")
             implements.append(f"IterableProtocol[{args}]")
 
+        if self._td.fullname == "Windows.Foundation.IClosable" or self._has_interface("Windows.Foundation.IClosable"):
+            implements.append("ContextManagerProtocol")
+
         if implements:
-            # FIXME: list is not allowed (3.10)
-            # writer.write(f"    implements: [{','.join(implements)}]\n")
-            writer.write(f"    implements: {implements[0]}\n")
+            # FIXME: use Tuple for 3.8.
+            writer.write(f"    implements: Tuple[{', '.join(implements)}]\n")
 
         return writer.getvalue()
 
