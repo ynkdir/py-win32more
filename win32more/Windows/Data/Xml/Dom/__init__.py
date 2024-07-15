@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Xml.Dom
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -409,7 +409,7 @@ class IXmlLoadSettings(ComPtr):
     ValidateOnParse = property(get_ValidateOnParse, put_ValidateOnParse)
 class IXmlNamedNodeMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.Data.Xml.Dom.IXmlNode]
+    implements: Tuple[SequenceProtocol[win32more.Windows.Data.Xml.Dom.IXmlNode]]
     _classid_ = 'Windows.Data.Xml.Dom.IXmlNamedNodeMap'
     _iid_ = Guid('{b3a69eb0-aab0-4b82-a6fa-b1453f7c021b}')
     @winrt_commethod(6)
@@ -495,7 +495,7 @@ class IXmlNode(ComPtr):
     PreviousSibling = property(get_PreviousSibling, None)
 class IXmlNodeList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.Data.Xml.Dom.IXmlNode]
+    implements: Tuple[SequenceProtocol[win32more.Windows.Data.Xml.Dom.IXmlNode]]
     _classid_ = 'Windows.Data.Xml.Dom.IXmlNodeList'
     _iid_ = Guid('{8c60ad77-83a4-4ec1-9c54-7ba429e13da6}')
     @winrt_commethod(6)
@@ -1386,7 +1386,7 @@ class XmlLoadSettings(ComPtr):
     ValidateOnParse = property(get_ValidateOnParse, put_ValidateOnParse)
 class XmlNamedNodeMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.Data.Xml.Dom.IXmlNode]
+    implements: Tuple[SequenceProtocol[win32more.Windows.Data.Xml.Dom.IXmlNode]]
     default_interface: win32more.Windows.Data.Xml.Dom.IXmlNamedNodeMap
     _classid_ = 'Windows.Data.Xml.Dom.XmlNamedNodeMap'
     @winrt_mixinmethod
@@ -1419,7 +1419,7 @@ class XmlNamedNodeMap(ComPtr):
     Size = property(get_Size, None)
 class XmlNodeList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.Data.Xml.Dom.IXmlNode]
+    implements: Tuple[SequenceProtocol[win32more.Windows.Data.Xml.Dom.IXmlNode]]
     default_interface: win32more.Windows.Data.Xml.Dom.IXmlNodeList
     _classid_ = 'Windows.Data.Xml.Dom.XmlNodeList'
     @winrt_mixinmethod

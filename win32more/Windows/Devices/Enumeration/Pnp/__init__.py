@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.Enumeration.Pnp
 import win32more.Windows.Foundation
@@ -111,7 +111,7 @@ class PnpObject(ComPtr):
     Type = property(get_Type, None)
 class PnpObjectCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.Devices.Enumeration.Pnp.PnpObject]
+    implements: Tuple[SequenceProtocol[win32more.Windows.Devices.Enumeration.Pnp.PnpObject]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Enumeration.Pnp.PnpObject]
     _classid_ = 'Windows.Devices.Enumeration.Pnp.PnpObjectCollection'
     @winrt_mixinmethod

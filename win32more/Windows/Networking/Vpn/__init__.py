@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -555,7 +555,7 @@ class IVpnPacketBufferFactory(ComPtr):
     def CreateVpnPacketBuffer(self, parentBuffer: win32more.Windows.Networking.Vpn.VpnPacketBuffer, offset: UInt32, length: UInt32) -> win32more.Windows.Networking.Vpn.VpnPacketBuffer: ...
 class IVpnPacketBufferList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: IterableProtocol[win32more.Windows.Networking.Vpn.VpnPacketBuffer]
+    implements: Tuple[IterableProtocol[win32more.Windows.Networking.Vpn.VpnPacketBuffer]]
     _classid_ = 'Windows.Networking.Vpn.IVpnPacketBufferList'
     _iid_ = Guid('{c2f891fc-4d5c-4a63-b70d-4e307eacce77}')
     @winrt_commethod(6)
@@ -578,7 +578,7 @@ class IVpnPacketBufferList(ComPtr):
     Status = property(get_Status, put_Status)
 class IVpnPacketBufferList2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: IterableProtocol[win32more.Windows.Networking.Vpn.VpnPacketBuffer]
+    implements: Tuple[IterableProtocol[win32more.Windows.Networking.Vpn.VpnPacketBuffer]]
     _classid_ = 'Windows.Networking.Vpn.IVpnPacketBufferList2'
     _iid_ = Guid('{3e7acfe5-ea1e-482a-8d98-c065f57d89ea}')
     @winrt_commethod(6)
@@ -1634,7 +1634,7 @@ class VpnPacketBuffer(ComPtr):
     TransportContext = property(get_TransportContext, put_TransportContext)
 class VpnPacketBufferList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: IterableProtocol[win32more.Windows.Networking.Vpn.VpnPacketBuffer]
+    implements: Tuple[IterableProtocol[win32more.Windows.Networking.Vpn.VpnPacketBuffer]]
     default_interface: win32more.Windows.Networking.Vpn.IVpnPacketBufferList
     _classid_ = 'Windows.Networking.Vpn.VpnPacketBufferList'
     @winrt_mixinmethod

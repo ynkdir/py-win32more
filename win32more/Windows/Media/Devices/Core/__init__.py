@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -60,6 +60,7 @@ class CameraIntrinsics(ComPtr):
     UndistortedProjectionTransform = property(get_UndistortedProjectionTransform, None)
 class DepthCorrelatedCoordinateMapper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Devices.Core.IDepthCorrelatedCoordinateMapper
     _classid_ = 'Windows.Media.Devices.Core.DepthCorrelatedCoordinateMapper'
     @winrt_mixinmethod
@@ -331,6 +332,7 @@ class ICameraIntrinsicsFactory(ComPtr):
     def Create(self, focalLength: win32more.Windows.Foundation.Numerics.Vector2, principalPoint: win32more.Windows.Foundation.Numerics.Vector2, radialDistortion: win32more.Windows.Foundation.Numerics.Vector3, tangentialDistortion: win32more.Windows.Foundation.Numerics.Vector2, imageWidth: UInt32, imageHeight: UInt32) -> win32more.Windows.Media.Devices.Core.CameraIntrinsics: ...
 class IDepthCorrelatedCoordinateMapper(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Devices.Core.IDepthCorrelatedCoordinateMapper'
     _iid_ = Guid('{f95d89fb-8af0-4cb0-926d-696866e5046a}')
     @winrt_commethod(6)

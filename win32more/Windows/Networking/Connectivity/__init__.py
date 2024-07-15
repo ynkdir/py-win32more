@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
@@ -226,6 +226,7 @@ class ConnectionProfileFilter(ComPtr):
     ServiceProviderGuid = property(get_ServiceProviderGuid, put_ServiceProviderGuid)
 class ConnectionSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Networking.Connectivity.IConnectionSession
     _classid_ = 'Windows.Networking.Connectivity.ConnectionSession'
     @winrt_mixinmethod
@@ -533,6 +534,7 @@ class IConnectionProfileFilter3(ComPtr):
     PurposeGuid = property(get_PurposeGuid, put_PurposeGuid)
 class IConnectionSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Networking.Connectivity.IConnectionSession'
     _iid_ = Guid('{ff905d4c-f83b-41b0-8a0c-1462d9c56b73}')
     @winrt_commethod(6)

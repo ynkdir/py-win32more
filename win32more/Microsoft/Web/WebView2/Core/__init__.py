@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Web.WebView2.Core
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core
@@ -1303,7 +1303,7 @@ class CoreWebView2HttpHeadersCollectionIterator(ComPtr):
     HasCurrent = property(get_HasCurrent, None)
 class CoreWebView2HttpRequestHeaders(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: IterableProtocol[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]
+    implements: Tuple[IterableProtocol[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]]
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2HttpRequestHeaders
     _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2HttpRequestHeaders'
     @winrt_mixinmethod
@@ -1320,7 +1320,7 @@ class CoreWebView2HttpRequestHeaders(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]: ...
 class CoreWebView2HttpResponseHeaders(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: IterableProtocol[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]
+    implements: Tuple[IterableProtocol[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]]
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2HttpResponseHeaders
     _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2HttpResponseHeaders'
     @winrt_mixinmethod
@@ -2153,6 +2153,7 @@ class CoreWebView2Settings(ComPtr):
     UserAgent = property(get_UserAgent, put_UserAgent)
 class CoreWebView2SharedBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SharedBuffer
     _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2SharedBuffer'
     @winrt_mixinmethod

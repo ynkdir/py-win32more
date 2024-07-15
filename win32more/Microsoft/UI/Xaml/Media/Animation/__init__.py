@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Controls
@@ -244,7 +244,7 @@ class ColorKeyFrame(ComPtr, metaclass=_ColorKeyFrame_Meta_):
     _ColorKeyFrame_Meta_.ValueProperty = property(get_ValueProperty, None)
 class ColorKeyFrameCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ColorKeyFrameCollection'
     def __init__(self, *args, **kwargs):
@@ -636,7 +636,7 @@ class DoubleKeyFrame(ComPtr, metaclass=_DoubleKeyFrame_Meta_):
     _DoubleKeyFrame_Meta_.ValueProperty = property(get_ValueProperty, None)
 class DoubleKeyFrameCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrameCollection'
     def __init__(self, *args, **kwargs):
@@ -3029,7 +3029,7 @@ class ObjectKeyFrame(ComPtr, metaclass=_ObjectKeyFrame_Meta_):
     _ObjectKeyFrame_Meta_.ValueProperty = property(get_ValueProperty, None)
 class ObjectKeyFrameCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrameCollection'
     def __init__(self, *args, **kwargs):
@@ -3205,7 +3205,7 @@ class PointKeyFrame(ComPtr, metaclass=_PointKeyFrame_Meta_):
     _PointKeyFrame_Meta_.ValueProperty = property(get_ValueProperty, None)
 class PointKeyFrameCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PointKeyFrameCollection'
     def __init__(self, *args, **kwargs):
@@ -4080,7 +4080,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     Completed = event()
 class TimelineCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.Timeline]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.Timeline]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.Timeline]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.TimelineCollection'
     def __init__(self, *args, **kwargs):
@@ -4125,7 +4125,7 @@ class Transition(ComPtr):
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.Transition'
 class TransitionCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.Transition]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.Transition]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.Transition]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.TransitionCollection'
     def __init__(self, *args, **kwargs):

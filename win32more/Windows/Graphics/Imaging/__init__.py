@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.DirectX.Direct3D11
@@ -18,6 +18,7 @@ class BitmapBounds(Structure):
     Height: UInt32
 class BitmapBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapBuffer
     _classid_ = 'Windows.Graphics.Imaging.BitmapBuffer'
     @winrt_mixinmethod
@@ -296,7 +297,7 @@ class BitmapPropertiesView(ComPtr):
     def GetPropertiesAsync(self: win32more.Windows.Graphics.Imaging.IBitmapPropertiesView, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapPropertySet]: ...
 class BitmapPropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]
+    implements: Tuple[MappingProtocol[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]]
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]
     _classid_ = 'Windows.Graphics.Imaging.BitmapPropertySet'
     def __init__(self, *args, **kwargs):
@@ -403,6 +404,7 @@ class ExifOrientationMode(Enum, Int32):
     RespectExifOrientation = 1
 class IBitmapBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Graphics.Imaging.IBitmapBuffer'
     _iid_ = Guid('{a53e04c4-399c-438c-b28f-a63a6b83d1a1}')
     @winrt_commethod(6)
@@ -684,6 +686,7 @@ class IPixelDataProvider(ComPtr):
     def DetachPixelData(self) -> ReceiveArray[Byte]: ...
 class ISoftwareBitmap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Graphics.Imaging.ISoftwareBitmap'
     _iid_ = Guid('{689e0708-7eef-483f-963f-da938818e073}')
     @winrt_commethod(6)
@@ -749,6 +752,7 @@ class ISoftwareBitmapStatics(ComPtr):
     def CreateCopyWithAlphaFromSurfaceAsync(self, surface: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface, alpha: win32more.Windows.Graphics.Imaging.BitmapAlphaMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.SoftwareBitmap]: ...
 class ImageStream(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType
     _classid_ = 'Windows.Graphics.Imaging.ImageStream'
     @winrt_mixinmethod
@@ -805,6 +809,7 @@ class PngFilterMode(Enum, Int32):
     Adaptive = 6
 class SoftwareBitmap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Graphics.Imaging.ISoftwareBitmap
     _classid_ = 'Windows.Graphics.Imaging.SoftwareBitmap'
     def __init__(self, *args, **kwargs):

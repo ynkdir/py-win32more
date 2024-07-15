@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.SmartCards
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -205,6 +205,7 @@ class ISmartCardAutomaticResponseApduFactory(ComPtr):
     def Create(self, commandApdu: win32more.Windows.Storage.Streams.IBuffer, responseApdu: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu: ...
 class ISmartCardChallengeContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.SmartCards.ISmartCardChallengeContext'
     _iid_ = Guid('{192a5319-c9c4-4947-81cc-44794a61ef91}')
     @winrt_commethod(6)
@@ -226,6 +227,7 @@ class ISmartCardConnect(ComPtr):
     def ConnectAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.SmartCards.SmartCardConnection]: ...
 class ISmartCardConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.SmartCards.ISmartCardConnection'
     _iid_ = Guid('{7edb991a-a81a-47bc-a649-156be6b7f231}')
     @winrt_commethod(6)
@@ -913,6 +915,7 @@ class SmartCardAutomaticResponseStatus(Enum, Int32):
 SmartCardBackgroundTriggerContract: UInt32 = 196608
 class SmartCardChallengeContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardChallengeContext
     _classid_ = 'Windows.Devices.SmartCards.SmartCardChallengeContext'
     @winrt_mixinmethod
@@ -930,6 +933,7 @@ class SmartCardChallengeContext(ComPtr):
     Challenge = property(get_Challenge, None)
 class SmartCardConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.SmartCards.ISmartCardConnection
     _classid_ = 'Windows.Devices.SmartCards.SmartCardConnection'
     @winrt_mixinmethod

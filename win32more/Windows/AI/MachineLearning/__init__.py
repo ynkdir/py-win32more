@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.AI.MachineLearning
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -653,6 +653,7 @@ class ImageFeatureValue(ComPtr):
     VideoFrame = property(get_VideoFrame, None)
 class LearningModel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ILearningModel
     _classid_ = 'Windows.AI.MachineLearning.LearningModel'
     @winrt_mixinmethod
@@ -699,7 +700,7 @@ class LearningModel(ComPtr):
     Version = property(get_Version, None)
 class LearningModelBinding(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]
+    implements: Tuple[MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]
     default_interface: win32more.Windows.AI.MachineLearning.ILearningModelBinding
     _classid_ = 'Windows.AI.MachineLearning.LearningModelBinding'
     def __init__(self, *args, **kwargs):
@@ -782,6 +783,7 @@ class LearningModelPixelRange(Enum, Int32):
     MinusOneToOne = 2
 class LearningModelSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ILearningModelSession
     _classid_ = 'Windows.AI.MachineLearning.LearningModelSession'
     def __init__(self, *args, **kwargs):
@@ -889,6 +891,7 @@ class SequenceFeatureDescriptor(ComPtr):
     Name = property(get_Name, None)
 class TensorBoolean(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorBoolean
     _classid_ = 'Windows.AI.MachineLearning.TensorBoolean'
     @winrt_mixinmethod
@@ -920,6 +923,7 @@ class TensorBoolean(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorDouble(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorDouble
     _classid_ = 'Windows.AI.MachineLearning.TensorDouble'
     @winrt_mixinmethod
@@ -973,6 +977,7 @@ class TensorFeatureDescriptor(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorFloat(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorFloat
     _classid_ = 'Windows.AI.MachineLearning.TensorFloat'
     @winrt_mixinmethod
@@ -1004,6 +1009,7 @@ class TensorFloat(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorFloat16Bit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorFloat16Bit
     _classid_ = 'Windows.AI.MachineLearning.TensorFloat16Bit'
     @winrt_mixinmethod
@@ -1035,6 +1041,7 @@ class TensorFloat16Bit(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorInt16Bit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorInt16Bit
     _classid_ = 'Windows.AI.MachineLearning.TensorInt16Bit'
     @winrt_mixinmethod
@@ -1066,6 +1073,7 @@ class TensorInt16Bit(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorInt32Bit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorInt32Bit
     _classid_ = 'Windows.AI.MachineLearning.TensorInt32Bit'
     @winrt_mixinmethod
@@ -1097,6 +1105,7 @@ class TensorInt32Bit(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorInt64Bit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorInt64Bit
     _classid_ = 'Windows.AI.MachineLearning.TensorInt64Bit'
     @winrt_mixinmethod
@@ -1128,6 +1137,7 @@ class TensorInt64Bit(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorInt8Bit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorInt8Bit
     _classid_ = 'Windows.AI.MachineLearning.TensorInt8Bit'
     @winrt_mixinmethod
@@ -1176,6 +1186,7 @@ class TensorKind(Enum, Int32):
     Complex128 = 15
 class TensorString(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorString
     _classid_ = 'Windows.AI.MachineLearning.TensorString'
     @winrt_mixinmethod
@@ -1205,6 +1216,7 @@ class TensorString(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorUInt16Bit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorUInt16Bit
     _classid_ = 'Windows.AI.MachineLearning.TensorUInt16Bit'
     @winrt_mixinmethod
@@ -1236,6 +1248,7 @@ class TensorUInt16Bit(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorUInt32Bit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorUInt32Bit
     _classid_ = 'Windows.AI.MachineLearning.TensorUInt32Bit'
     @winrt_mixinmethod
@@ -1267,6 +1280,7 @@ class TensorUInt32Bit(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorUInt64Bit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorUInt64Bit
     _classid_ = 'Windows.AI.MachineLearning.TensorUInt64Bit'
     @winrt_mixinmethod
@@ -1298,6 +1312,7 @@ class TensorUInt64Bit(ComPtr):
     TensorKind = property(get_TensorKind, None)
 class TensorUInt8Bit(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.MachineLearning.ITensorUInt8Bit
     _classid_ = 'Windows.AI.MachineLearning.TensorUInt8Bit'
     @winrt_mixinmethod

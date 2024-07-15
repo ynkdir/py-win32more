@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -462,6 +462,7 @@ class FaceDetectionEffectDefinition(ComPtr):
     SynchronousDetectionEnabled = property(get_SynchronousDetectionEnabled, put_SynchronousDetectionEnabled)
 class FaceDetectionEffectFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Core.IFaceDetectionEffectFrame
     _classid_ = 'Windows.Media.Core.FaceDetectionEffectFrame'
     @winrt_mixinmethod
@@ -846,6 +847,7 @@ class IFaceDetectionEffectDefinition(ComPtr):
     SynchronousDetectionEnabled = property(get_SynchronousDetectionEnabled, put_SynchronousDetectionEnabled)
 class IFaceDetectionEffectFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Core.IFaceDetectionEffectFrame'
     _iid_ = Guid('{8ab08993-5dc8-447b-a247-5270bd802ece}')
     @winrt_commethod(6)
@@ -1003,6 +1005,7 @@ class IMediaSource(ComPtr):
     _iid_ = Guid('{e7bfb599-a09d-4c21-bcdf-20af4f86b3d9}')
 class IMediaSource2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Core.IMediaSource2'
     _iid_ = Guid('{2eb61048-655f-4c37-b813-b4e45dfa0abe}')
     @winrt_commethod(6)
@@ -1027,6 +1030,7 @@ class IMediaSource2(ComPtr):
     OpenOperationCompleted = event()
 class IMediaSource3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Core.IMediaSource3'
     _iid_ = Guid('{b59f0d9b-4b6e-41ed-bbb4-7c7509a994ad}')
     @winrt_commethod(6)
@@ -1041,6 +1045,7 @@ class IMediaSource3(ComPtr):
     StateChanged = event()
 class IMediaSource4(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Core.IMediaSource4'
     _iid_ = Guid('{bdafad57-8eff-4c63-85a6-84de0ae3e4f2}')
     @winrt_commethod(6)
@@ -1622,6 +1627,7 @@ class ISceneAnalysisEffect(ComPtr):
     SceneAnalyzed = event()
 class ISceneAnalysisEffectFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Core.ISceneAnalysisEffectFrame'
     _iid_ = Guid('{d8b10e4c-7fd9-42e1-85eb-6572c297c987}')
     @winrt_commethod(6)
@@ -1632,6 +1638,7 @@ class ISceneAnalysisEffectFrame(ComPtr):
     HighDynamicRange = property(get_HighDynamicRange, None)
 class ISceneAnalysisEffectFrame2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Core.ISceneAnalysisEffectFrame2'
     _iid_ = Guid('{2d4e29be-061f-47ae-9915-02524b5f9a5f}')
     @winrt_commethod(6)
@@ -2222,6 +2229,7 @@ class LowLightFusion(ComPtr, metaclass=_LowLightFusion_Meta_):
     _LowLightFusion_Meta_.SupportedBitmapPixelFormats = property(get_SupportedBitmapPixelFormats, None)
 class LowLightFusionResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Core.ILowLightFusionResult
     _classid_ = 'Windows.Media.Core.LowLightFusionResult'
     @winrt_mixinmethod
@@ -2295,6 +2303,7 @@ class MediaDecoderStatus(Enum, Int32):
     Degraded = 3
 class MediaSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Core.IMediaSource2
     _classid_ = 'Windows.Media.Core.MediaSource'
     @winrt_mixinmethod
@@ -2473,7 +2482,7 @@ class MediaStreamSample(ComPtr):
     Processed = event()
 class MediaStreamSamplePropertySet(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]
+    implements: Tuple[MappingProtocol[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]]
     default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]
     _classid_ = 'Windows.Media.Core.MediaStreamSamplePropertySet'
     @winrt_mixinmethod
@@ -2917,6 +2926,7 @@ class SceneAnalysisEffectDefinition(ComPtr):
     Properties = property(get_Properties, None)
 class SceneAnalysisEffectFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Core.ISceneAnalysisEffectFrame
     _classid_ = 'Windows.Media.Core.SceneAnalysisEffectFrame'
     @winrt_mixinmethod

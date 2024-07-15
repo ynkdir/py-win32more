@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.I2c
 import win32more.Windows.Devices.I2c.Provider
 import win32more.Windows.Foundation
@@ -49,6 +49,7 @@ class I2cController(ComPtr):
     def GetDefaultAsync(cls: win32more.Windows.Devices.I2c.II2cControllerStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.I2c.I2cController]: ...
 class I2cDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.I2c.II2cDevice
     _classid_ = 'Windows.Devices.I2c.I2cDevice'
     @winrt_mixinmethod
@@ -130,6 +131,7 @@ class II2cControllerStatics(ComPtr):
     def GetDefaultAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.I2c.I2cController]: ...
 class II2cDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.I2c.II2cDevice'
     _iid_ = Guid('{8636c136-b9c5-4f70-9449-cc46dc6f57eb}')
     @winrt_commethod(6)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -951,6 +951,7 @@ class AppCaptureMetadataPriority(Enum, Int32):
     Important = 1
 class AppCaptureMetadataWriter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.IAppCaptureMetadataWriter
     _classid_ = 'Windows.Media.Capture.AppCaptureMetadataWriter'
     def __init__(self, *args, **kwargs):
@@ -1352,6 +1353,7 @@ class CameraOptionsUI(ComPtr):
     def Show(cls: win32more.Windows.Media.Capture.ICameraOptionsUIStatics, mediaCapture: win32more.Windows.Media.Capture.MediaCapture) -> Void: ...
 class CapturedFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.ICapturedFrame
     _classid_ = 'Windows.Media.Capture.CapturedFrame'
     @winrt_mixinmethod
@@ -2799,6 +2801,7 @@ class ICameraOptionsUIStatics(ComPtr):
     def Show(self, mediaCapture: win32more.Windows.Media.Capture.MediaCapture) -> Void: ...
 class ICapturedFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Capture.ICapturedFrame'
     _iid_ = Guid('{1dd2de1f-571b-44d8-8e80-a08a1578766e}')
     @winrt_commethod(6)
@@ -3628,6 +3631,7 @@ class LowLagPhotoSequenceCapture(ComPtr):
     PhotoCaptured = event()
 class MediaCapture(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.IMediaCapture
     _classid_ = 'Windows.Media.Capture.MediaCapture'
     def __init__(self, *args, **kwargs):
@@ -3940,6 +3944,7 @@ class MediaCaptureMemoryPreference(Enum, Int32):
     Cpu = 1
 class MediaCapturePauseResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.IMediaCapturePauseResult
     _classid_ = 'Windows.Media.Capture.MediaCapturePauseResult'
     @winrt_mixinmethod
@@ -3952,6 +3957,7 @@ class MediaCapturePauseResult(ComPtr):
     RecordDuration = property(get_RecordDuration, None)
 class MediaCaptureRelativePanelWatcher(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.IMediaCaptureRelativePanelWatcher
     _classid_ = 'Windows.Media.Capture.MediaCaptureRelativePanelWatcher'
     @winrt_mixinmethod
@@ -4019,6 +4025,7 @@ class MediaCaptureSharingMode(Enum, Int32):
     SharedReadOnly = 1
 class MediaCaptureStopResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.IMediaCaptureStopResult
     _classid_ = 'Windows.Media.Capture.MediaCaptureStopResult'
     @winrt_mixinmethod

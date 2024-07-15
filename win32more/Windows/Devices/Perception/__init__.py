@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.Perception
 import win32more.Windows.Foundation
@@ -140,6 +140,7 @@ class IKnownPerceptionVideoProfilePropertiesStatics(ComPtr):
     Width = property(get_Width, None)
 class IPerceptionColorFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.IPerceptionColorFrame'
     _iid_ = Guid('{fe621549-2cbf-4f94-9861-f817ea317747}')
     @winrt_commethod(6)
@@ -156,6 +157,7 @@ class IPerceptionColorFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class IPerceptionColorFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.IPerceptionColorFrameReader'
     _iid_ = Guid('{7650f56e-b9f5-461b-83ad-f222af2aaadc}')
     @winrt_commethod(6)
@@ -317,6 +319,7 @@ class IPerceptionColorFrameSourceWatcher(ComPtr):
     EnumerationCompleted = event()
 class IPerceptionControlSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.IPerceptionControlSession'
     _iid_ = Guid('{99998653-5a3d-417f-9239-f1889e548b48}')
     @winrt_commethod(6)
@@ -352,6 +355,7 @@ class IPerceptionDepthCorrelatedCoordinateMapper(ComPtr):
     def MapAllPixelsToTargetAsync(self, depthFrame: win32more.Windows.Devices.Perception.PerceptionDepthFrame, targetCoordinates: FillArray[win32more.Windows.Foundation.Point]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IPerceptionDepthFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.IPerceptionDepthFrame'
     _iid_ = Guid('{a37b81fc-9906-4ffd-9161-0024b360b657}')
     @winrt_commethod(6)
@@ -368,6 +372,7 @@ class IPerceptionDepthFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class IPerceptionDepthFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.IPerceptionDepthFrameReader'
     _iid_ = Guid('{b1a3c09f-299b-4612-a4f7-270f25a096ec}')
     @winrt_commethod(6)
@@ -549,6 +554,7 @@ class IPerceptionFrameSourcePropertyChangeResult(ComPtr):
     Status = property(get_Status, None)
 class IPerceptionInfraredFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.IPerceptionInfraredFrame'
     _iid_ = Guid('{b0886276-849e-4c7a-8ae6-b56064532153}')
     @winrt_commethod(6)
@@ -565,6 +571,7 @@ class IPerceptionInfraredFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class IPerceptionInfraredFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.IPerceptionInfraredFrameReader'
     _iid_ = Guid('{7960ce18-d39b-4fc8-a04a-929734c6756c}')
     @winrt_commethod(6)
@@ -878,6 +885,7 @@ class KnownPerceptionVideoProfileProperties(ComPtr, metaclass=_KnownPerceptionVi
     _KnownPerceptionVideoProfileProperties_Meta_.Width = property(get_Width, None)
 class PerceptionColorFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Perception.IPerceptionColorFrame
     _classid_ = 'Windows.Devices.Perception.PerceptionColorFrame'
     @winrt_mixinmethod
@@ -896,6 +904,7 @@ class PerceptionColorFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class PerceptionColorFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Perception.IPerceptionColorFrameReader
     _classid_ = 'Windows.Devices.Perception.PerceptionColorFrameReader'
     @winrt_mixinmethod
@@ -1051,6 +1060,7 @@ class PerceptionColorFrameSourceWatcher(ComPtr):
     EnumerationCompleted = event()
 class PerceptionControlSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Perception.IPerceptionControlSession
     _classid_ = 'Windows.Devices.Perception.PerceptionControlSession'
     @winrt_mixinmethod
@@ -1088,6 +1098,7 @@ class PerceptionDepthCorrelatedCoordinateMapper(ComPtr):
     def MapAllPixelsToTargetAsync(self: win32more.Windows.Devices.Perception.IPerceptionDepthCorrelatedCoordinateMapper, depthFrame: win32more.Windows.Devices.Perception.PerceptionDepthFrame, targetCoordinates: FillArray[win32more.Windows.Foundation.Point]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class PerceptionDepthFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Perception.IPerceptionDepthFrame
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthFrame'
     @winrt_mixinmethod
@@ -1106,6 +1117,7 @@ class PerceptionDepthFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class PerceptionDepthFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Perception.IPerceptionDepthFrameReader
     _classid_ = 'Windows.Devices.Perception.PerceptionDepthFrameReader'
     @winrt_mixinmethod
@@ -1293,6 +1305,7 @@ class PerceptionFrameSourcePropertyChangeStatus(Enum, Int32):
     ValueOutOfRange = 5
 class PerceptionInfraredFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Perception.IPerceptionInfraredFrame
     _classid_ = 'Windows.Devices.Perception.PerceptionInfraredFrame'
     @winrt_mixinmethod
@@ -1311,6 +1324,7 @@ class PerceptionInfraredFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class PerceptionInfraredFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Perception.IPerceptionInfraredFrameReader
     _classid_ = 'Windows.Devices.Perception.PerceptionInfraredFrameReader'
     @winrt_mixinmethod

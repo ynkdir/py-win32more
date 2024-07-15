@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Input
 import win32more.Microsoft.UI.Text
@@ -2334,7 +2334,7 @@ class ColumnDefinition(ComPtr, metaclass=_ColumnDefinition_Meta_):
     _ColumnDefinition_Meta_.WidthProperty = property(get_WidthProperty, None)
 class ColumnDefinitionCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Controls.ColumnDefinition]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Controls.ColumnDefinition]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.ColumnDefinition]
     _classid_ = 'Microsoft.UI.Xaml.Controls.ColumnDefinitionCollection'
     @winrt_mixinmethod
@@ -4868,7 +4868,7 @@ class HubSection(ComPtr, metaclass=_HubSection_Meta_):
     _HubSection_Meta_.IsHeaderInteractiveProperty = property(get_IsHeaderInteractiveProperty, None)
 class HubSectionCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Controls.HubSection]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Controls.HubSection]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.HubSection]
     _classid_ = 'Microsoft.UI.Xaml.Controls.HubSectionCollection'
     @winrt_mixinmethod
@@ -5039,6 +5039,7 @@ class IAnimatedIconStatics(ComPtr):
     StateProperty = property(get_StateProperty, None)
 class IAnimatedVisual(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.UI.Xaml.Controls.IAnimatedVisual'
     _iid_ = Guid('{645ff609-fd6b-5fef-bdc0-9c34eff33c64}')
     @winrt_commethod(6)
@@ -5052,6 +5053,7 @@ class IAnimatedVisual(ComPtr):
     Size = property(get_Size, None)
 class IAnimatedVisual2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.UI.Xaml.Controls.IAnimatedVisual2'
     _iid_ = Guid('{763a3f0b-95cc-59ef-9890-147868599de9}')
     @winrt_commethod(6)
@@ -20353,7 +20355,7 @@ class ItemClickEventHandler(MulticastDelegate):
     def Invoke(self, sender: win32more.Windows.Win32.System.WinRT.IInspectable, e: win32more.Microsoft.UI.Xaml.Controls.ItemClickEventArgs) -> Void: ...
 class ItemCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.Win32.System.WinRT.IInspectable]
+    implements: Tuple[SequenceProtocol[win32more.Windows.Win32.System.WinRT.IInspectable]]
     default_interface: win32more.Windows.Foundation.Collections.IObservableVector[win32more.Windows.Win32.System.WinRT.IInspectable]
     _classid_ = 'Microsoft.UI.Xaml.Controls.ItemCollection'
     @winrt_mixinmethod
@@ -26021,7 +26023,7 @@ class RowDefinition(ComPtr, metaclass=_RowDefinition_Meta_):
     _RowDefinition_Meta_.MinHeightProperty = property(get_MinHeightProperty, None)
 class RowDefinitionCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Controls.RowDefinition]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Controls.RowDefinition]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Controls.RowDefinition]
     _classid_ = 'Microsoft.UI.Xaml.Controls.RowDefinitionCollection'
     @winrt_mixinmethod
@@ -27950,7 +27952,7 @@ class _SwipeItems_Meta_(ComPtr.__class__):
     pass
 class SwipeItems(ComPtr, metaclass=_SwipeItems_Meta_):
     extends: win32more.Microsoft.UI.Xaml.DependencyObject
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.Controls.SwipeItem]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Controls.SwipeItem]]
     default_interface: win32more.Microsoft.UI.Xaml.Controls.ISwipeItems
     _classid_ = 'Microsoft.UI.Xaml.Controls.SwipeItems'
     def __init__(self, *args, **kwargs):
@@ -30560,7 +30562,7 @@ class TwoPaneViewWideModeConfiguration(Enum, Int32):
     RightLeft = 2
 class UIElementCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Xaml.UIElement]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.UIElement]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.UIElement]
     _classid_ = 'Microsoft.UI.Xaml.Controls.UIElementCollection'
     @winrt_mixinmethod

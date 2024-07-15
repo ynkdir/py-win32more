@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Resources.Core
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -150,7 +150,7 @@ class IResourceManagerStatics(ComPtr):
     Current = property(get_Current, None)
 class IResourceMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource]
+    implements: Tuple[MappingProtocol[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource]]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.IResourceMap'
     _iid_ = Guid('{72284824-db8c-42f8-b08c-53ff357dad82}')
     @winrt_commethod(6)
@@ -233,7 +233,7 @@ class ResourceCandidateKind(Enum, Int32):
     EmbeddedData = 2
 class ResourceCandidateVectorView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.ApplicationModel.Resources.Core.ResourceCandidate]
+    implements: Tuple[SequenceProtocol[win32more.Windows.ApplicationModel.Resources.Core.ResourceCandidate]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Resources.Core.ResourceCandidate]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceCandidateVectorView'
     @winrt_mixinmethod
@@ -294,7 +294,7 @@ class ResourceContext(ComPtr):
     QualifierValues = property(get_QualifierValues, None)
 class ResourceContextLanguagesVectorView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[WinRT_String]
+    implements: Tuple[SequenceProtocol[WinRT_String]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceContextLanguagesVectorView'
     @winrt_mixinmethod
@@ -344,7 +344,7 @@ class ResourceManager(ComPtr, metaclass=_ResourceManager_Meta_):
     _ResourceManager_Meta_.Current = property(get_Current, None)
 class ResourceMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource]
+    implements: Tuple[MappingProtocol[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.NamedResource]]
     default_interface: win32more.Windows.ApplicationModel.Resources.Core.IResourceMap
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceMap'
     @winrt_mixinmethod
@@ -383,7 +383,7 @@ class ResourceMapIterator(ComPtr):
     HasCurrent = property(get_HasCurrent, None)
 class ResourceMapMapView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.ResourceMap]
+    implements: Tuple[MappingProtocol[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.ResourceMap]]
     default_interface: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.ApplicationModel.Resources.Core.ResourceMap]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceMapMapView'
     @winrt_mixinmethod
@@ -432,7 +432,7 @@ class ResourceQualifier(ComPtr):
     Score = property(get_Score, None)
 class ResourceQualifierMapView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[WinRT_String, WinRT_String]
+    implements: Tuple[MappingProtocol[WinRT_String, WinRT_String]]
     default_interface: win32more.Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierMapView'
     @winrt_mixinmethod
@@ -448,7 +448,7 @@ class ResourceQualifierMapView(ComPtr):
     Size = property(get_Size, None)
 class ResourceQualifierObservableMap(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[WinRT_String, WinRT_String]
+    implements: Tuple[MappingProtocol[WinRT_String, WinRT_String]]
     default_interface: win32more.Windows.Foundation.Collections.IObservableMap[WinRT_String, WinRT_String]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierObservableMap'
     @winrt_mixinmethod
@@ -478,7 +478,7 @@ class ResourceQualifierPersistence(Enum, Int32):
     LocalMachine = 1
 class ResourceQualifierVectorView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.ApplicationModel.Resources.Core.ResourceQualifier]
+    implements: Tuple[SequenceProtocol[win32more.Windows.ApplicationModel.Resources.Core.ResourceQualifier]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Resources.Core.ResourceQualifier]
     _classid_ = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierVectorView'
     @winrt_mixinmethod

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.DirectX
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Dispatching
@@ -224,7 +224,7 @@ class CompositionAnimation(ComPtr):
     Target = property(get_Target, put_Target)
 class CompositionAnimationGroup(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
-    implements: IterableProtocol[win32more.Microsoft.UI.Composition.CompositionAnimation]
+    implements: Tuple[IterableProtocol[win32more.Microsoft.UI.Composition.CompositionAnimation]]
     default_interface: win32more.Microsoft.UI.Composition.ICompositionAnimationGroup
     _classid_ = 'Microsoft.UI.Composition.CompositionAnimationGroup'
     @winrt_mixinmethod
@@ -369,7 +369,7 @@ class CompositionColorGradientStop(ComPtr):
     Offset = property(get_Offset, put_Offset)
 class CompositionColorGradientStopCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Microsoft.UI.Composition.CompositionColorGradientStop]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Composition.CompositionColorGradientStop]]
     default_interface: win32more.Microsoft.UI.Composition.ICompositionColorGradientStopCollection
     _classid_ = 'Microsoft.UI.Composition.CompositionColorGradientStopCollection'
     @winrt_mixinmethod
@@ -807,6 +807,7 @@ class CompositionNineGridBrush(ComPtr):
     TopInsetScale = property(get_TopInsetScale, put_TopInsetScale)
 class CompositionObject(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Composition.ICompositionObject
     _classid_ = 'Microsoft.UI.Composition.CompositionObject'
     @winrt_mixinmethod
@@ -918,7 +919,7 @@ class _CompositionProjectedShadowCasterCollection_Meta_(ComPtr.__class__):
     pass
 class CompositionProjectedShadowCasterCollection(ComPtr, metaclass=_CompositionProjectedShadowCasterCollection_Meta_):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
-    implements: IterableProtocol[win32more.Microsoft.UI.Composition.CompositionProjectedShadowCaster]
+    implements: Tuple[IterableProtocol[win32more.Microsoft.UI.Composition.CompositionProjectedShadowCaster]]
     default_interface: win32more.Microsoft.UI.Composition.ICompositionProjectedShadowCasterCollection
     _classid_ = 'Microsoft.UI.Composition.CompositionProjectedShadowCasterCollection'
     @winrt_mixinmethod
@@ -952,7 +953,7 @@ class CompositionProjectedShadowReceiver(ComPtr):
     ReceivingVisual = property(get_ReceivingVisual, put_ReceivingVisual)
 class CompositionProjectedShadowReceiverUnorderedCollection(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
-    implements: IterableProtocol[win32more.Microsoft.UI.Composition.CompositionProjectedShadowReceiver]
+    implements: Tuple[IterableProtocol[win32more.Microsoft.UI.Composition.CompositionProjectedShadowReceiver]]
     default_interface: win32more.Microsoft.UI.Composition.ICompositionProjectedShadowReceiverUnorderedCollection
     _classid_ = 'Microsoft.UI.Composition.CompositionProjectedShadowReceiverUnorderedCollection'
     @winrt_mixinmethod
@@ -1119,7 +1120,7 @@ class CompositionShape(ComPtr):
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class CompositionShapeCollection(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
-    implements: SequenceProtocol[win32more.Microsoft.UI.Composition.CompositionShape]
+    implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Composition.CompositionShape]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Composition.CompositionShape]
     _classid_ = 'Microsoft.UI.Composition.CompositionShapeCollection'
     @winrt_mixinmethod
@@ -1223,7 +1224,7 @@ class CompositionStrokeCap(Enum, Int32):
     Triangle = 3
 class CompositionStrokeDashArray(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
-    implements: SequenceProtocol[Single]
+    implements: Tuple[SequenceProtocol[Single]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[Single]
     _classid_ = 'Microsoft.UI.Composition.CompositionStrokeDashArray'
     @winrt_mixinmethod
@@ -1389,6 +1390,7 @@ class _Compositor_Meta_(ComPtr.__class__):
     pass
 class Compositor(ComPtr, metaclass=_Compositor_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Composition.ICompositor
     _classid_ = 'Microsoft.UI.Composition.Compositor'
     def __init__(self, *args, **kwargs):
@@ -4077,7 +4079,7 @@ class IVisualUnorderedCollection(ComPtr):
     Count = property(get_Count, None)
 class ImplicitAnimationCollection(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
-    implements: MappingProtocol[WinRT_String, win32more.Microsoft.UI.Composition.ICompositionAnimationBase]
+    implements: Tuple[MappingProtocol[WinRT_String, win32more.Microsoft.UI.Composition.ICompositionAnimationBase]]
     default_interface: win32more.Microsoft.UI.Composition.IImplicitAnimationCollection
     _classid_ = 'Microsoft.UI.Composition.ImplicitAnimationCollection'
     @winrt_mixinmethod
@@ -4099,7 +4101,7 @@ class ImplicitAnimationCollection(ComPtr):
     Size = property(get_Size, None)
 class InitialValueExpressionCollection(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
-    implements: MappingProtocol[WinRT_String, WinRT_String]
+    implements: Tuple[MappingProtocol[WinRT_String, WinRT_String]]
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]
     _classid_ = 'Microsoft.UI.Composition.InitialValueExpressionCollection'
     @winrt_mixinmethod
@@ -4752,7 +4754,7 @@ class Visual(ComPtr):
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class VisualCollection(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
-    implements: IterableProtocol[win32more.Microsoft.UI.Composition.Visual]
+    implements: Tuple[IterableProtocol[win32more.Microsoft.UI.Composition.Visual]]
     default_interface: win32more.Microsoft.UI.Composition.IVisualCollection
     _classid_ = 'Microsoft.UI.Composition.VisualCollection'
     @winrt_mixinmethod
@@ -4774,7 +4776,7 @@ class VisualCollection(ComPtr):
     Count = property(get_Count, None)
 class VisualUnorderedCollection(ComPtr):
     extends: win32more.Microsoft.UI.Composition.CompositionObject
-    implements: IterableProtocol[win32more.Microsoft.UI.Composition.Visual]
+    implements: Tuple[IterableProtocol[win32more.Microsoft.UI.Composition.Visual]]
     default_interface: win32more.Microsoft.UI.Composition.IVisualUnorderedCollection
     _classid_ = 'Microsoft.UI.Composition.VisualUnorderedCollection'
     @winrt_mixinmethod

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Sms
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -13,7 +13,7 @@ class CellularClass(Enum, Int32):
     Cdma = 2
 class DeleteSmsMessageOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: AwaitableProtocol
+    implements: Tuple[AwaitableProtocol]
     default_interface: win32more.Windows.Foundation.IAsyncAction
     _classid_ = 'Windows.Devices.Sms.DeleteSmsMessageOperation'
     @winrt_mixinmethod
@@ -38,7 +38,7 @@ class DeleteSmsMessageOperation(ComPtr):
     Status = property(get_Status, None)
 class DeleteSmsMessagesOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: AwaitableProtocol
+    implements: Tuple[AwaitableProtocol]
     default_interface: win32more.Windows.Foundation.IAsyncAction
     _classid_ = 'Windows.Devices.Sms.DeleteSmsMessagesOperation'
     @winrt_mixinmethod
@@ -63,7 +63,7 @@ class DeleteSmsMessagesOperation(ComPtr):
     Status = property(get_Status, None)
 class GetSmsDeviceOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: AwaitableProtocol
+    implements: Tuple[AwaitableProtocol]
     default_interface: win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sms.SmsDevice]
     _classid_ = 'Windows.Devices.Sms.GetSmsDeviceOperation'
     @winrt_mixinmethod
@@ -88,7 +88,7 @@ class GetSmsDeviceOperation(ComPtr):
     Status = property(get_Status, None)
 class GetSmsMessageOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: AwaitableProtocol
+    implements: Tuple[AwaitableProtocol]
     default_interface: win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sms.ISmsMessage]
     _classid_ = 'Windows.Devices.Sms.GetSmsMessageOperation'
     @winrt_mixinmethod
@@ -113,7 +113,7 @@ class GetSmsMessageOperation(ComPtr):
     Status = property(get_Status, None)
 class GetSmsMessagesOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: AwaitableProtocol
+    implements: Tuple[AwaitableProtocol]
     default_interface: win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Sms.ISmsMessage], Int32]
     _classid_ = 'Windows.Devices.Sms.GetSmsMessagesOperation'
     @winrt_mixinmethod
@@ -718,7 +718,7 @@ class ISmsWapMessage(ComPtr):
 LegacySmsApiContract: UInt32 = 65536
 class SendSmsMessageOperation(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: AwaitableProtocol
+    implements: Tuple[AwaitableProtocol]
     default_interface: win32more.Windows.Foundation.IAsyncAction
     _classid_ = 'Windows.Devices.Sms.SendSmsMessageOperation'
     @winrt_mixinmethod

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.PointOfService
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -10,6 +10,7 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
 class BarcodeScanner(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.IBarcodeScanner
     _classid_ = 'Windows.Devices.PointOfService.BarcodeScanner'
     @winrt_mixinmethod
@@ -470,6 +471,7 @@ class BarcodeSymbologyDecodeLengthKind(Enum, Int32):
     Range = 2
 class CashDrawer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.ICashDrawer
     _classid_ = 'Windows.Devices.PointOfService.CashDrawer'
     @winrt_mixinmethod
@@ -614,6 +616,7 @@ class CashDrawerStatusUpdatedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class ClaimedBarcodeScanner(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedBarcodeScanner
     _classid_ = 'Windows.Devices.PointOfService.ClaimedBarcodeScanner'
     @winrt_mixinmethod
@@ -706,6 +709,7 @@ class ClaimedBarcodeScannerClosedEventArgs(ComPtr):
     _classid_ = 'Windows.Devices.PointOfService.ClaimedBarcodeScannerClosedEventArgs'
 class ClaimedCashDrawer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedCashDrawer
     _classid_ = 'Windows.Devices.PointOfService.ClaimedCashDrawer'
     @winrt_mixinmethod
@@ -807,6 +811,7 @@ class ClaimedJournalPrinter(ComPtr):
     LineWidth = property(get_LineWidth, None)
 class ClaimedLineDisplay(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedLineDisplay
     _classid_ = 'Windows.Devices.PointOfService.ClaimedLineDisplay'
     @winrt_mixinmethod
@@ -898,6 +903,7 @@ class ClaimedLineDisplayClosedEventArgs(ComPtr):
     _classid_ = 'Windows.Devices.PointOfService.ClaimedLineDisplayClosedEventArgs'
 class ClaimedMagneticStripeReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedMagneticStripeReader
     _classid_ = 'Windows.Devices.PointOfService.ClaimedMagneticStripeReader'
     @winrt_mixinmethod
@@ -992,6 +998,7 @@ class ClaimedMagneticStripeReaderClosedEventArgs(ComPtr):
     _classid_ = 'Windows.Devices.PointOfService.ClaimedMagneticStripeReaderClosedEventArgs'
 class ClaimedPosPrinter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.IClaimedPosPrinter
     _classid_ = 'Windows.Devices.PointOfService.ClaimedPosPrinter'
     @winrt_mixinmethod
@@ -3518,6 +3525,7 @@ class _LineDisplay_Meta_(ComPtr.__class__):
     pass
 class LineDisplay(ComPtr, metaclass=_LineDisplay_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.ILineDisplay
     _classid_ = 'Windows.Devices.PointOfService.LineDisplay'
     @winrt_mixinmethod
@@ -3817,6 +3825,7 @@ class LineDisplayVerticalAlignment(Enum, Int32):
     Bottom = 2
 class LineDisplayWindow(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.ILineDisplayWindow
     _classid_ = 'Windows.Devices.PointOfService.LineDisplayWindow'
     @winrt_mixinmethod
@@ -3863,6 +3872,7 @@ class LineDisplayWindow(ComPtr):
     SizeInCharacters = property(get_SizeInCharacters, None)
 class MagneticStripeReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.IMagneticStripeReader
     _classid_ = 'Windows.Devices.PointOfService.MagneticStripeReader'
     @winrt_mixinmethod
@@ -4177,6 +4187,7 @@ class PosConnectionTypes(Enum, UInt32):
     All = 4294967295
 class PosPrinter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.PointOfService.IPosPrinter
     _classid_ = 'Windows.Devices.PointOfService.PosPrinter'
     @winrt_mixinmethod

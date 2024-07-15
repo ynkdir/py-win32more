@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Content
@@ -61,6 +61,7 @@ class ContentEnvironmentStateChangedEventArgs(ComPtr):
     DidDisplayIdChange = property(get_DidDisplayIdChange, None)
 class ContentIsland(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Content.IContentIsland
     _classid_ = 'Microsoft.UI.Content.ContentIsland'
     @winrt_mixinmethod
@@ -220,6 +221,7 @@ class ContentLayoutDirection(Enum, Int32):
     RightToLeft = 1
 class ContentSite(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Content.IContentSite
     _classid_ = 'Microsoft.UI.Content.ContentSite'
     @winrt_mixinmethod
@@ -407,6 +409,7 @@ class DesktopChildSiteBridge(ComPtr):
     SiteView = property(get_SiteView, None)
 class DesktopSiteBridge(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Content.IDesktopSiteBridge
     _classid_ = 'Microsoft.UI.Content.DesktopSiteBridge'
     @winrt_mixinmethod
@@ -739,6 +742,7 @@ class IContentSite(ComPtr):
     RequestedStateChanged = event()
 class IContentSiteBridge(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.UI.Content.IContentSiteBridge'
     _iid_ = Guid('{faaab99e-a42b-549c-92df-3b6d6e1e368b}')
     @winrt_commethod(6)

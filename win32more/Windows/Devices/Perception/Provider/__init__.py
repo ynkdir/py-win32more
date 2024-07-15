@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Perception
 import win32more.Windows.Devices.Perception.Provider
 import win32more.Windows.Foundation
@@ -98,6 +98,7 @@ class IPerceptionFrame(ComPtr):
     RelativeTime = property(get_RelativeTime, put_RelativeTime)
 class IPerceptionFrameProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFrameProvider'
     _iid_ = Guid('{794f7ab9-b37d-3b33-a10d-30626419ce65}')
     @winrt_commethod(6)
@@ -146,6 +147,7 @@ class IPerceptionFrameProviderInfo(ComPtr):
     Id = property(get_Id, put_Id)
 class IPerceptionFrameProviderManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionFrameProviderManager'
     _iid_ = Guid('{a959ce07-ead3-33df-8ec1-b924abe019c4}')
     @winrt_commethod(6)
@@ -193,6 +195,7 @@ class IPerceptionPropertyChangeRequest(ComPtr):
     Value = property(get_Value, None)
 class IPerceptionVideoFrameAllocator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocator'
     _iid_ = Guid('{4c38a7da-fdd8-4ed4-a039-2a6f9b235038}')
     @winrt_commethod(6)
@@ -394,6 +397,7 @@ class PerceptionStopFaceAuthenticationHandler(MulticastDelegate):
     def Invoke(self, sender: win32more.Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup) -> Void: ...
 class PerceptionVideoFrameAllocator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocator
     _classid_ = 'Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator'
     def __init__(self, *args, **kwargs):

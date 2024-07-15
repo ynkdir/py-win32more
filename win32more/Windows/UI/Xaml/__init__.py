@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.Activation
 import win32more.Windows.ApplicationModel.Core
@@ -628,7 +628,7 @@ class DependencyObject(ComPtr):
     Dispatcher = property(get_Dispatcher, None)
 class DependencyObjectCollection(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
-    implements: SequenceProtocol[win32more.Windows.UI.Xaml.DependencyObject]
+    implements: Tuple[SequenceProtocol[win32more.Windows.UI.Xaml.DependencyObject]]
     default_interface: win32more.Windows.Foundation.Collections.IObservableVector[win32more.Windows.UI.Xaml.DependencyObject]
     _classid_ = 'Windows.UI.Xaml.DependencyObjectCollection'
     def __init__(self, *args, **kwargs):
@@ -4327,7 +4327,7 @@ class RectHelper(ComPtr, metaclass=_RectHelper_Meta_):
     _RectHelper_Meta_.Empty = property(get_Empty, None)
 class ResourceDictionary(ComPtr):
     extends: win32more.Windows.UI.Xaml.DependencyObject
-    implements: MappingProtocol[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Win32.System.WinRT.IInspectable]
+    implements: Tuple[MappingProtocol[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Win32.System.WinRT.IInspectable]]
     default_interface: win32more.Windows.UI.Xaml.IResourceDictionary
     _classid_ = 'Windows.UI.Xaml.ResourceDictionary'
     def __init__(self, *args, **kwargs):
@@ -4453,7 +4453,7 @@ class SetterBase(ComPtr):
     IsSealed = property(get_IsSealed, None)
 class SetterBaseCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.UI.Xaml.SetterBase]
+    implements: Tuple[SequenceProtocol[win32more.Windows.UI.Xaml.SetterBase]]
     default_interface: win32more.Windows.UI.Xaml.ISetterBaseCollection
     _classid_ = 'Windows.UI.Xaml.SetterBaseCollection'
     def __init__(self, *args, **kwargs):
@@ -4679,7 +4679,7 @@ class TriggerAction(ComPtr):
     _classid_ = 'Windows.UI.Xaml.TriggerAction'
 class TriggerActionCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.UI.Xaml.TriggerAction]
+    implements: Tuple[SequenceProtocol[win32more.Windows.UI.Xaml.TriggerAction]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.TriggerAction]
     _classid_ = 'Windows.UI.Xaml.TriggerActionCollection'
     def __init__(self, *args, **kwargs):
@@ -4724,7 +4724,7 @@ class TriggerBase(ComPtr):
     _classid_ = 'Windows.UI.Xaml.TriggerBase'
 class TriggerCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.UI.Xaml.TriggerBase]
+    implements: Tuple[SequenceProtocol[win32more.Windows.UI.Xaml.TriggerBase]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Xaml.TriggerBase]
     _classid_ = 'Windows.UI.Xaml.TriggerCollection'
     @winrt_mixinmethod
@@ -5510,7 +5510,7 @@ class UIElement(ComPtr, metaclass=_UIElement_Meta_):
     BringIntoViewRequested = event()
 class UIElementWeakCollection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.UI.Xaml.UIElement]
+    implements: Tuple[SequenceProtocol[win32more.Windows.UI.Xaml.UIElement]]
     default_interface: win32more.Windows.UI.Xaml.IUIElementWeakCollection
     _classid_ = 'Windows.UI.Xaml.UIElementWeakCollection'
     def __init__(self, *args, **kwargs):

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.Midi
 import win32more.Windows.Foundation
@@ -43,6 +43,7 @@ class IMidiControlChangeMessageFactory(ComPtr):
     def CreateMidiControlChangeMessage(self, channel: Byte, controller: Byte, controlValue: Byte) -> win32more.Windows.Devices.Midi.MidiControlChangeMessage: ...
 class IMidiInPort(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Midi.IMidiInPort'
     _iid_ = Guid('{d5c1d9db-971a-4eaf-a23d-ea19fe607ff9}')
     @winrt_commethod(6)
@@ -121,6 +122,7 @@ class IMidiNoteOnMessageFactory(ComPtr):
     def CreateMidiNoteOnMessage(self, channel: Byte, note: Byte, velocity: Byte) -> win32more.Windows.Devices.Midi.MidiNoteOnMessage: ...
 class IMidiOutPort(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Midi.IMidiOutPort'
     _iid_ = Guid('{931d6d9f-57a2-4a3a-adb8-4640886f6693}')
     @winrt_commethod(6)
@@ -217,6 +219,7 @@ class IMidiSongSelectMessageFactory(ComPtr):
     def CreateMidiSongSelectMessage(self, song: Byte) -> win32more.Windows.Devices.Midi.MidiSongSelectMessage: ...
 class IMidiSynthesizer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Midi.IMidiSynthesizer'
     _iid_ = Guid('{f0da155e-db90-405f-b8ae-21d2e17f2e45}')
     @winrt_commethod(6)
@@ -364,6 +367,7 @@ class MidiControlChangeMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiInPort(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Midi.IMidiInPort
     _classid_ = 'Windows.Devices.Midi.MidiInPort'
     @winrt_mixinmethod
@@ -472,6 +476,7 @@ class MidiNoteOnMessage(ComPtr):
     Velocity = property(get_Velocity, None)
 class MidiOutPort(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Midi.IMidiOutPort
     _classid_ = 'Windows.Devices.Midi.MidiOutPort'
     @winrt_mixinmethod
@@ -670,6 +675,7 @@ class MidiStopMessage(ComPtr):
     Type = property(get_Type, None)
 class MidiSynthesizer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Midi.IMidiSynthesizer
     _classid_ = 'Windows.Devices.Midi.MidiSynthesizer'
     @winrt_mixinmethod

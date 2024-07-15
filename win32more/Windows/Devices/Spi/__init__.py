@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Spi
 import win32more.Windows.Devices.Spi.Provider
 import win32more.Windows.Foundation
@@ -73,6 +73,7 @@ class ISpiControllerStatics(ComPtr):
     def GetControllersAsync(self, provider: win32more.Windows.Devices.Spi.Provider.ISpiProvider) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Spi.SpiController]]: ...
 class ISpiDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Spi.ISpiDevice'
     _iid_ = Guid('{05d5356d-11b6-4d39-84d5-95dfb4c9f2ce}')
     @winrt_commethod(6)
@@ -167,6 +168,7 @@ class SpiController(ComPtr):
     def GetControllersAsync(cls: win32more.Windows.Devices.Spi.ISpiControllerStatics, provider: win32more.Windows.Devices.Spi.Provider.ISpiProvider) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.Spi.SpiController]]: ...
 class SpiDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Spi.ISpiDevice
     _classid_ = 'Windows.Devices.Spi.SpiDevice'
     @winrt_mixinmethod

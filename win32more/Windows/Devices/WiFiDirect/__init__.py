@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.WiFiDirect
 import win32more.Windows.Foundation
@@ -105,6 +105,7 @@ class IWiFiDirectConnectionParametersStatics(ComPtr):
     def GetDevicePairingKinds(self, configurationMethod: win32more.Windows.Devices.WiFiDirect.WiFiDirectConfigurationMethod) -> win32more.Windows.Devices.Enumeration.DevicePairingKinds: ...
 class IWiFiDirectConnectionRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.WiFiDirect.IWiFiDirectConnectionRequest'
     _iid_ = Guid('{8eb99605-914f-49c3-a614-d18dc5b19b43}')
     @winrt_commethod(6)
@@ -118,6 +119,7 @@ class IWiFiDirectConnectionRequestedEventArgs(ComPtr):
     def GetConnectionRequest(self) -> win32more.Windows.Devices.WiFiDirect.WiFiDirectConnectionRequest: ...
 class IWiFiDirectDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.WiFiDirect.IWiFiDirectDevice'
     _iid_ = Guid('{72deaaa8-72eb-4dae-8a28-8513355d2777}')
     @winrt_commethod(6)
@@ -319,6 +321,7 @@ class WiFiDirectConnectionParameters(ComPtr):
     PreferredPairingProcedure = property(get_PreferredPairingProcedure, put_PreferredPairingProcedure)
 class WiFiDirectConnectionRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectConnectionRequest
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionRequest'
     @winrt_mixinmethod
@@ -337,6 +340,7 @@ class WiFiDirectConnectionStatus(Enum, Int32):
     Connected = 1
 class WiFiDirectDevice(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.WiFiDirect.IWiFiDirectDevice
     _classid_ = 'Windows.Devices.WiFiDirect.WiFiDirectDevice'
     @winrt_mixinmethod

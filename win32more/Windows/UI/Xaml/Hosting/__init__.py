@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.UI.Composition
 import win32more.Windows.UI.WindowManagement
@@ -18,6 +18,7 @@ class DesignerAppExitedEventArgs(ComPtr):
     ExitCode = property(get_ExitCode, None)
 class DesignerAppManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesignerAppManager
     _classid_ = 'Windows.UI.Xaml.Hosting.DesignerAppManager'
     def __init__(self, *args, **kwargs):
@@ -45,6 +46,7 @@ class DesignerAppManager(ComPtr):
     DesignerAppExited = event()
 class DesignerAppView(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesignerAppView
     _classid_ = 'Windows.UI.Xaml.Hosting.DesignerAppView'
     @winrt_mixinmethod
@@ -68,6 +70,7 @@ class DesignerAppViewState(Enum, Int32):
     Hidden = 1
 class DesktopWindowXamlSource(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource
     _classid_ = 'Windows.UI.Xaml.Hosting.DesktopWindowXamlSource'
     def __init__(self, *args, **kwargs):
@@ -379,6 +382,7 @@ class IXamlUIPresenterStatics2(ComPtr):
     def GetFlyoutPlacement(self, placementTargetBounds: win32more.Windows.Foundation.Rect, controlSize: win32more.Windows.Foundation.Size, minControlSize: win32more.Windows.Foundation.Size, containerRect: win32more.Windows.Foundation.Rect, targetPreferredPlacement: win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode, allowFallbacks: Boolean, chosenPlacement: POINTER(win32more.Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode)) -> win32more.Windows.Foundation.Rect: ...
 class WindowsXamlManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.UI.Xaml.Hosting.IWindowsXamlManager
     _classid_ = 'Windows.UI.Xaml.Hosting.WindowsXamlManager'
     @winrt_mixinmethod

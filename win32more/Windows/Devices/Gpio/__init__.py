@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Gpio
 import win32more.Windows.Devices.Gpio.Provider
 import win32more.Windows.Foundation
@@ -11,6 +11,7 @@ class GpioChangeCount(Structure):
     RelativeTime: win32more.Windows.Foundation.TimeSpan
 class GpioChangeCounter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Gpio.IGpioChangeCounter
     _classid_ = 'Windows.Devices.Gpio.GpioChangeCounter'
     def __init__(self, *args, **kwargs):
@@ -46,6 +47,7 @@ class GpioChangePolarity(Enum, Int32):
     Both = 2
 class GpioChangeReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Gpio.IGpioChangeReader
     _classid_ = 'Windows.Devices.Gpio.GpioChangeReader'
     def __init__(self, *args, **kwargs):
@@ -127,6 +129,7 @@ class GpioOpenStatus(Enum, Int32):
     UnknownError = 4
 class GpioPin(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Gpio.IGpioPin
     _classid_ = 'Windows.Devices.Gpio.GpioPin'
     @winrt_mixinmethod
@@ -184,6 +187,7 @@ class GpioSharingMode(Enum, Int32):
     SharedReadOnly = 1
 class IGpioChangeCounter(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Gpio.IGpioChangeCounter'
     _iid_ = Guid('{cb5ec0de-6801-43ff-803d-4576628a8b26}')
     @winrt_commethod(6)
@@ -210,6 +214,7 @@ class IGpioChangeCounterFactory(ComPtr):
     def Create(self, pin: win32more.Windows.Devices.Gpio.GpioPin) -> win32more.Windows.Devices.Gpio.GpioChangeCounter: ...
 class IGpioChangeReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Gpio.IGpioChangeReader'
     _iid_ = Guid('{0abc885f-e031-48e8-8590-70de78363c6d}')
     @winrt_commethod(6)
@@ -283,6 +288,7 @@ class IGpioControllerStatics2(ComPtr):
     def GetDefaultAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Gpio.GpioController]: ...
 class IGpioPin(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Gpio.IGpioPin'
     _iid_ = Guid('{11d9b087-afae-4790-9ee9-e0eac942d201}')
     @winrt_commethod(6)

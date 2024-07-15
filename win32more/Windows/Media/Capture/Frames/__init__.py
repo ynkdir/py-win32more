@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -171,6 +171,7 @@ class IMediaFrameFormat2(ComPtr):
     AudioEncodingProperties = property(get_AudioEncodingProperties, None)
 class IMediaFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Capture.Frames.IMediaFrameReader'
     _iid_ = Guid('{e4c94395-2028-48ed-90b0-d1c1b162e24c}')
     @winrt_commethod(6)
@@ -195,6 +196,7 @@ class IMediaFrameReader2(ComPtr):
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
 class IMediaFrameReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Capture.Frames.IMediaFrameReference'
     _iid_ = Guid('{f6b88641-f0dc-4044-8dc9-961cedd05bad}')
     @winrt_commethod(6)
@@ -366,6 +368,7 @@ class IMultiSourceMediaFrameArrivedEventArgs(ComPtr):
     _iid_ = Guid('{63115e01-cf51-48fd-aab0-6d693eb48127}')
 class IMultiSourceMediaFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Capture.Frames.IMultiSourceMediaFrameReader'
     _iid_ = Guid('{8d144402-f763-488d-98f2-b437bcf075e7}')
     @winrt_commethod(6)
@@ -390,6 +393,7 @@ class IMultiSourceMediaFrameReader2(ComPtr):
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
 class IMultiSourceMediaFrameReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Capture.Frames.IMultiSourceMediaFrameReference'
     _iid_ = Guid('{21964b1a-7fe2-44d6-92e5-298e6d2810e9}')
     @winrt_commethod(6)
@@ -478,6 +482,7 @@ class MediaFrameFormat(ComPtr):
     VideoFormat = property(get_VideoFormat, None)
 class MediaFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.Frames.IMediaFrameReader
     _classid_ = 'Windows.Media.Capture.Frames.MediaFrameReader'
     @winrt_mixinmethod
@@ -509,6 +514,7 @@ class MediaFrameReaderStartStatus(Enum, Int32):
     ExclusiveControlNotAvailable = 4
 class MediaFrameReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.Frames.IMediaFrameReference
     _classid_ = 'Windows.Media.Capture.Frames.MediaFrameReference'
     @winrt_mixinmethod
@@ -676,6 +682,7 @@ class MultiSourceMediaFrameArrivedEventArgs(ComPtr):
     _classid_ = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameArrivedEventArgs'
 class MultiSourceMediaFrameReader(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.Frames.IMultiSourceMediaFrameReader
     _classid_ = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameReader'
     @winrt_mixinmethod
@@ -704,6 +711,7 @@ class MultiSourceMediaFrameReaderStartStatus(Enum, Int32):
     UnknownFailure = 4
 class MultiSourceMediaFrameReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Capture.Frames.IMultiSourceMediaFrameReference
     _classid_ = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameReference'
     @winrt_mixinmethod

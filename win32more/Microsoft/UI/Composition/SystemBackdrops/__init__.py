@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Composition.SystemBackdrops
@@ -11,6 +11,7 @@ import win32more.Windows.UI.Core
 import win32more.Windows.Win32.System.WinRT
 class DesktopAcrylicController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Composition.SystemBackdrops.IDesktopAcrylicController
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController'
     def __init__(self, *args, **kwargs):
@@ -202,6 +203,7 @@ class ISystemBackdropConfiguration(ComPtr):
     Theme = property(get_Theme, put_Theme)
 class ISystemBackdropController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.ISystemBackdropController'
     _iid_ = Guid('{5632d76c-0b74-5b52-aa33-80262068aeb2}')
     @winrt_commethod(6)
@@ -210,6 +212,7 @@ class ISystemBackdropController(ComPtr):
     def SetTargetWithCoreWindow(self, coreWindow: win32more.Windows.UI.Core.CoreWindow, compositionTarget: win32more.Windows.UI.Composition.CompositionTarget) -> Boolean: ...
 class ISystemBackdropControllerWithTargets(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.ISystemBackdropControllerWithTargets'
     _iid_ = Guid('{9c56fe7c-98eb-5f89-ad97-dad57fc30c8c}')
     @winrt_commethod(6)
@@ -230,6 +233,7 @@ class ISystemBackdropControllerWithTargets(ComPtr):
     StateChanged = event()
 class MicaController(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Composition.SystemBackdrops.IMicaController
     _classid_ = 'Microsoft.UI.Composition.SystemBackdrops.MicaController'
     def __init__(self, *args, **kwargs):

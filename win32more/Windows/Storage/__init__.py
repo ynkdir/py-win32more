@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
@@ -50,6 +50,7 @@ class _ApplicationData_Meta_(ComPtr.__class__):
     pass
 class ApplicationData(ComPtr, metaclass=_ApplicationData_Meta_):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Storage.IApplicationData
     _classid_ = 'Windows.Storage.ApplicationData'
     @winrt_mixinmethod
@@ -105,7 +106,7 @@ class ApplicationData(ComPtr, metaclass=_ApplicationData_Meta_):
     DataChanged = event()
 class ApplicationDataCompositeValue(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]
+    implements: Tuple[MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Storage.ApplicationDataCompositeValue'
     def __init__(self, *args, **kwargs):
@@ -141,6 +142,7 @@ class ApplicationDataCompositeValue(ComPtr):
     MapChanged = event()
 class ApplicationDataContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Storage.IApplicationDataContainer
     _classid_ = 'Windows.Storage.ApplicationDataContainer'
     @winrt_mixinmethod
@@ -163,7 +165,7 @@ class ApplicationDataContainer(ComPtr):
     Values = property(get_Values, None)
 class ApplicationDataContainerSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]
+    implements: Tuple[MappingProtocol[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]
     default_interface: win32more.Windows.Foundation.Collections.IPropertySet
     _classid_ = 'Windows.Storage.ApplicationDataContainerSettings'
     @winrt_mixinmethod
@@ -918,6 +920,7 @@ class IStorageProvider2(ComPtr):
     def IsPropertySupportedForPartialFileAsync(self, propertyCanonicalName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IStorageStreamTransaction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Storage.IStorageStreamTransaction'
     _iid_ = Guid('{f67cf363-a53d-4d94-ae2c-67232d93acdd}')
     @winrt_commethod(6)
@@ -1716,6 +1719,7 @@ class StorageProvider(ComPtr):
     Id = property(get_Id, None)
 class StorageStreamTransaction(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Storage.IStorageStreamTransaction
     _classid_ = 'Windows.Storage.StorageStreamTransaction'
     @winrt_mixinmethod
@@ -1727,6 +1731,7 @@ class StorageStreamTransaction(ComPtr):
     Stream = property(get_Stream, None)
 class StreamedFileDataRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Storage.Streams.IOutputStream
     _classid_ = 'Windows.Storage.StreamedFileDataRequest'
     @winrt_mixinmethod

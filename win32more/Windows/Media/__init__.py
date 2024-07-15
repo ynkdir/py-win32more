@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -13,6 +13,7 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
 class AudioBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.IAudioBuffer
     _classid_ = 'Windows.Media.AudioBuffer'
     @winrt_mixinmethod
@@ -33,6 +34,7 @@ class AudioBufferAccessMode(Enum, Int32):
     Write = 2
 class AudioFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.IAudioFrame
     _classid_ = 'Windows.Media.AudioFrame'
     def __init__(self, *args, **kwargs):
@@ -89,6 +91,7 @@ class AutoRepeatModeChangeRequestedEventArgs(ComPtr):
     RequestedAutoRepeatMode = property(get_RequestedAutoRepeatMode, None)
 class IAudioBuffer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.IAudioBuffer'
     _iid_ = Guid('{35175827-724b-4c6a-b130-f6537f9ae0d0}')
     @winrt_commethod(6)
@@ -101,6 +104,7 @@ class IAudioBuffer(ComPtr):
     Length = property(get_Length, put_Length)
 class IAudioFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.IAudioFrame'
     _iid_ = Guid('{e36ac304-aab2-4277-9ed0-43cedf8e29c6}')
     @winrt_commethod(6)
@@ -261,6 +265,7 @@ class IMediaExtensionManager2(ComPtr):
     def RegisterMediaExtensionForAppService(self, extension: win32more.Windows.Media.IMediaExtension, connection: win32more.Windows.ApplicationModel.AppService.AppServiceConnection) -> Void: ...
 class IMediaFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.IMediaFrame'
     _iid_ = Guid('{bfb52f8c-5943-47d8-8e10-05308aa5fbd0}')
     @winrt_commethod(6)
@@ -690,6 +695,7 @@ class IVideoEffectsStatics(ComPtr):
     VideoStabilization = property(get_VideoStabilization, None)
 class IVideoFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.IVideoFrame'
     _iid_ = Guid('{0cc06625-90fc-4c92-bd95-7ded21819d1c}')
     @winrt_commethod(6)
@@ -1270,6 +1276,7 @@ class VideoEffects(ComPtr, metaclass=_VideoEffects_Meta_):
     _VideoEffects_Meta_.VideoStabilization = property(get_VideoStabilization, None)
 class VideoFrame(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.IVideoFrame
     _classid_ = 'Windows.Media.VideoFrame'
     def __init__(self, *args, **kwargs):

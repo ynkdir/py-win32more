@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -18,6 +18,7 @@ import win32more.Windows.Storage
 import win32more.Windows.Win32.System.WinRT
 class AudioDeviceInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IAudioDeviceInputNode
     _classid_ = 'Windows.Media.Audio.AudioDeviceInputNode'
     @winrt_mixinmethod
@@ -71,6 +72,7 @@ class AudioDeviceNodeCreationStatus(Enum, Int32):
     AccessDenied = 4
 class AudioDeviceOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IAudioDeviceOutputNode
     _classid_ = 'Windows.Media.Audio.AudioDeviceOutputNode'
     @winrt_mixinmethod
@@ -137,6 +139,7 @@ class AudioEffectsPackStatus(Enum, Int32):
     NotSupported = 2
 class AudioFileInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IAudioFileInputNode
     _classid_ = 'Windows.Media.Audio.AudioFileInputNode'
     @winrt_mixinmethod
@@ -223,6 +226,7 @@ class AudioFileNodeCreationStatus(Enum, Int32):
     UnknownFailure = 4
 class AudioFileOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IAudioFileOutputNode
     _classid_ = 'Windows.Media.Audio.AudioFileOutputNode'
     @winrt_mixinmethod
@@ -270,6 +274,7 @@ class AudioFrameCompletedEventArgs(ComPtr):
     Frame = property(get_Frame, None)
 class AudioFrameInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IAudioFrameInputNode
     _classid_ = 'Windows.Media.Audio.AudioFrameInputNode'
     @winrt_mixinmethod
@@ -336,6 +341,7 @@ class AudioFrameInputNode(ComPtr):
     QuantumStarted = event()
 class AudioFrameOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IAudioFrameOutputNode
     _classid_ = 'Windows.Media.Audio.AudioFrameOutputNode'
     @winrt_mixinmethod
@@ -370,6 +376,7 @@ class AudioFrameOutputNode(ComPtr):
     OutgoingGain = property(get_OutgoingGain, put_OutgoingGain)
 class AudioGraph(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IAudioGraph
     _classid_ = 'Windows.Media.Audio.AudioGraph'
     @winrt_mixinmethod
@@ -457,6 +464,7 @@ class AudioGraph(ComPtr):
     UnrecoverableErrorOccurred = event()
 class AudioGraphBatchUpdater(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Foundation.IClosable
     _classid_ = 'Windows.Media.Audio.AudioGraphBatchUpdater'
     @winrt_mixinmethod
@@ -700,6 +708,7 @@ class AudioNodeListener(ComPtr):
     SpeedOfSound = property(get_SpeedOfSound, put_SpeedOfSound)
 class AudioPlaybackConnection(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IAudioPlaybackConnection
     _classid_ = 'Windows.Media.Audio.AudioPlaybackConnection'
     @winrt_mixinmethod
@@ -775,6 +784,7 @@ class AudioStateMonitor(ComPtr):
     SoundLevelChanged = event()
 class AudioSubmixNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IAudioInputNode
     _classid_ = 'Windows.Media.Audio.AudioSubmixNode'
     @winrt_mixinmethod
@@ -979,6 +989,7 @@ class FrameInputNodeQuantumStartedEventArgs(ComPtr):
     RequiredSamples = property(get_RequiredSamples, None)
 class IAudioDeviceInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioDeviceInputNode'
     _iid_ = Guid('{b01b6be1-6f4e-49e2-ac01-559d62beb3a9}')
     @winrt_commethod(6)
@@ -986,6 +997,7 @@ class IAudioDeviceInputNode(ComPtr):
     Device = property(get_Device, None)
 class IAudioDeviceOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioDeviceOutputNode'
     _iid_ = Guid('{362edbff-ff1c-4434-9e0f-bd2ef522ac82}')
     @winrt_commethod(6)
@@ -1019,6 +1031,7 @@ class IAudioEffectsPackConfigurationStatics(ComPtr):
     def IsDeviceIdSupported(self, effectsPackId: WinRT_String, deviceId: WinRT_String) -> Boolean: ...
 class IAudioFileInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioFileInputNode'
     _iid_ = Guid('{905b67c8-6f65-4cd4-8890-4694843c276d}')
     @winrt_commethod(6)
@@ -1059,6 +1072,7 @@ class IAudioFileInputNode(ComPtr):
     FileCompleted = event()
 class IAudioFileOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioFileOutputNode'
     _iid_ = Guid('{50e01980-5166-4093-80f8-ada00089e9cf}')
     @winrt_commethod(6)
@@ -1078,6 +1092,7 @@ class IAudioFrameCompletedEventArgs(ComPtr):
     Frame = property(get_Frame, None)
 class IAudioFrameInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioFrameInputNode'
     _iid_ = Guid('{01b266c7-fd96-4ff5-a3c5-d27a9bf44237}')
     @winrt_commethod(6)
@@ -1104,12 +1119,14 @@ class IAudioFrameInputNode(ComPtr):
     QuantumStarted = event()
 class IAudioFrameOutputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioFrameOutputNode'
     _iid_ = Guid('{b847371b-3299-45f5-88b3-c9d12a3f1cc8}')
     @winrt_commethod(6)
     def GetFrame(self) -> win32more.Windows.Media.AudioFrame: ...
 class IAudioGraph(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioGraph'
     _iid_ = Guid('{1ad46eed-e48c-4e14-9660-2c4f83e9cdd8}')
     @winrt_commethod(6)
@@ -1179,6 +1196,7 @@ class IAudioGraph(ComPtr):
     UnrecoverableErrorOccurred = event()
 class IAudioGraph2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioGraph2'
     _iid_ = Guid('{4e4c3bd5-4fc1-45f6-a947-3cd38f4fd839}')
     @winrt_commethod(6)
@@ -1275,6 +1293,7 @@ class IAudioGraphUnrecoverableErrorOccurredEventArgs(ComPtr):
     Error = property(get_Error, None)
 class IAudioInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioInputNode'
     _iid_ = Guid('{d148005c-8428-4784-b7fd-a99d468c5d20}')
     @winrt_commethod(6)
@@ -1288,6 +1307,7 @@ class IAudioInputNode(ComPtr):
     OutgoingConnections = property(get_OutgoingConnections, None)
 class IAudioInputNode2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioInputNode2'
     _iid_ = Guid('{905156b7-ca68-4c6d-a8bc-e3ee17fe3fd2}')
     @winrt_commethod(6)
@@ -1295,6 +1315,7 @@ class IAudioInputNode2(ComPtr):
     Emitter = property(get_Emitter, None)
 class IAudioNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioNode'
     _iid_ = Guid('{15389d7f-dbd8-4819-bf03-668e9357cd6d}')
     @winrt_commethod(6)
@@ -1472,6 +1493,7 @@ class IAudioNodeListener(ComPtr):
     SpeedOfSound = property(get_SpeedOfSound, put_SpeedOfSound)
 class IAudioNodeWithListener(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IAudioNodeWithListener'
     _iid_ = Guid('{0e0f907c-79ff-4544-9eeb-01257b15105a}')
     @winrt_commethod(6)
@@ -1740,6 +1762,7 @@ class ILimiterEffectDefinitionFactory(ComPtr):
     def Create(self, audioGraph: win32more.Windows.Media.Audio.AudioGraph) -> win32more.Windows.Media.Audio.LimiterEffectDefinition: ...
 class IMediaSourceAudioInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.Audio.IMediaSourceAudioInputNode'
     _iid_ = Guid('{99d8983b-a88a-4041-8e4f-ddbac0c91fd3}')
     @winrt_commethod(6)
@@ -2020,6 +2043,7 @@ class LimiterEffectDefinition(ComPtr):
     Release = property(get_Release, put_Release)
 class MediaSourceAudioInputNode(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Audio.IMediaSourceAudioInputNode
     _classid_ = 'Windows.Media.Audio.MediaSourceAudioInputNode'
     @winrt_mixinmethod

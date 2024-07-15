@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -1243,7 +1243,7 @@ class IPlaybackMediaMarkerReachedEventArgs(ComPtr):
     PlaybackMediaMarker = property(get_PlaybackMediaMarker, None)
 class IPlaybackMediaMarkerSequence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: IterableProtocol[win32more.Windows.Media.Playback.PlaybackMediaMarker]
+    implements: Tuple[IterableProtocol[win32more.Windows.Media.Playback.PlaybackMediaMarker]]
     _classid_ = 'Windows.Media.Playback.IPlaybackMediaMarkerSequence'
     _iid_ = Guid('{f2810cee-638b-46cf-8817-1d111fe9d8c4}')
     @winrt_commethod(6)
@@ -1428,7 +1428,7 @@ class MediaItemDisplayProperties(ComPtr):
     VideoProperties = property(get_VideoProperties, None)
 class MediaPlaybackAudioTrackList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.Media.Core.AudioTrack]
+    implements: Tuple[SequenceProtocol[win32more.Windows.Media.Core.AudioTrack]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Core.AudioTrack]
     _classid_ = 'Windows.Media.Playback.MediaPlaybackAudioTrackList'
     @winrt_mixinmethod
@@ -2085,7 +2085,7 @@ class MediaPlaybackState(Enum, Int32):
     Paused = 4
 class MediaPlaybackTimedMetadataTrackList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.Media.Core.TimedMetadataTrack]
+    implements: Tuple[SequenceProtocol[win32more.Windows.Media.Core.TimedMetadataTrack]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Core.TimedMetadataTrack]
     _classid_ = 'Windows.Media.Playback.MediaPlaybackTimedMetadataTrackList'
     @winrt_mixinmethod
@@ -2110,7 +2110,7 @@ class MediaPlaybackTimedMetadataTrackList(ComPtr):
     PresentationModeChanged = event()
 class MediaPlaybackVideoTrackList(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: SequenceProtocol[win32more.Windows.Media.Core.VideoTrack]
+    implements: Tuple[SequenceProtocol[win32more.Windows.Media.Core.VideoTrack]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Core.VideoTrack]
     _classid_ = 'Windows.Media.Playback.MediaPlaybackVideoTrackList'
     @winrt_mixinmethod
@@ -2136,6 +2136,7 @@ class MediaPlaybackVideoTrackList(ComPtr):
     SelectedIndexChanged = event()
 class MediaPlayer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Playback.IMediaPlayer
     _classid_ = 'Windows.Media.Playback.MediaPlayer'
     def __init__(self, *args, **kwargs):
@@ -2435,6 +2436,7 @@ class MediaPlayerState(Enum, Int32):
     Stopped = 5
 class MediaPlayerSurface(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Playback.IMediaPlayerSurface
     _classid_ = 'Windows.Media.Playback.MediaPlayerSurface'
     @winrt_mixinmethod
@@ -2483,7 +2485,7 @@ class PlaybackMediaMarkerReachedEventArgs(ComPtr):
     PlaybackMediaMarker = property(get_PlaybackMediaMarker, None)
 class PlaybackMediaMarkerSequence(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: IterableProtocol[win32more.Windows.Media.Playback.PlaybackMediaMarker]
+    implements: Tuple[IterableProtocol[win32more.Windows.Media.Playback.PlaybackMediaMarker]]
     default_interface: win32more.Windows.Media.Playback.IPlaybackMediaMarkerSequence
     _classid_ = 'Windows.Media.Playback.PlaybackMediaMarkerSequence'
     @winrt_mixinmethod

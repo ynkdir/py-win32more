@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Bluetooth
 import win32more.Windows.Devices.Bluetooth.GenericAttributeProfile
 import win32more.Windows.Devices.Enumeration
@@ -433,6 +433,7 @@ class GattDescriptorsResult(ComPtr):
     Status = property(get_Status, None)
 class GattDeviceService(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceService
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService'
     @winrt_mixinmethod
@@ -1121,6 +1122,7 @@ class GattServiceUuids(ComPtr, metaclass=_GattServiceUuids_Meta_):
     _GattServiceUuids_Meta_.TxPower = property(get_TxPower, None)
 class GattSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSession
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession'
     @winrt_mixinmethod
@@ -1676,6 +1678,7 @@ class IGattDescriptorsResult(ComPtr):
     Status = property(get_Status, None)
 class IGattDeviceService(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceService'
     _iid_ = Guid('{ac7b7c05-b33c-47cf-990f-6b8f5577df71}')
     @winrt_commethod(6)
@@ -1693,6 +1696,7 @@ class IGattDeviceService(ComPtr):
     Uuid = property(get_Uuid, None)
 class IGattDeviceService2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceService2'
     _iid_ = Guid('{fc54520b-0b0d-4708-bae0-9ffd9489bc59}')
     @winrt_commethod(6)

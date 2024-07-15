@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Devices.WiFiDirect.Services
 import win32more.Windows.Foundation
@@ -153,6 +153,7 @@ class IWiFiDirectServiceRemotePortAddedEventArgs(ComPtr):
     Protocol = property(get_Protocol, None)
 class IWiFiDirectServiceSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSession'
     _iid_ = Guid('{81142163-e426-47cb-8640-e1b3588bf26f}')
     @winrt_commethod(6)
@@ -201,6 +202,7 @@ class IWiFiDirectServiceSessionDeferredEventArgs(ComPtr):
     DeferredSessionInfo = property(get_DeferredSessionInfo, None)
 class IWiFiDirectServiceSessionRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionRequest'
     _iid_ = Guid('{a0e27c8b-50cb-4a58-9bcf-e472b99fba04}')
     @winrt_commethod(6)
@@ -399,6 +401,7 @@ class WiFiDirectServiceRemotePortAddedEventArgs(ComPtr):
     Protocol = property(get_Protocol, None)
 class WiFiDirectServiceSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSession
     _classid_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSession'
     @winrt_mixinmethod
@@ -456,6 +459,7 @@ class WiFiDirectServiceSessionErrorStatus(Enum, Int32):
     NoResponseFromRemote = 5
 class WiFiDirectServiceSessionRequest(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.WiFiDirect.Services.IWiFiDirectServiceSessionRequest
     _classid_ = 'Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionRequest'
     @winrt_mixinmethod

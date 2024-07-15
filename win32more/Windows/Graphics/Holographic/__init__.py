@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -227,6 +227,7 @@ class HolographicFramePresentWaitBehavior(Enum, Int32):
     DoNotWaitForFrameToFinish = 1
 class HolographicFramePresentationMonitor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicFramePresentationMonitor
     _classid_ = 'Windows.Graphics.Holographic.HolographicFramePresentationMonitor'
     @winrt_mixinmethod
@@ -273,6 +274,7 @@ class HolographicFrameRenderingReport(ComPtr):
     SystemRelativeTargetLatchTime = property(get_SystemRelativeTargetLatchTime, None)
 class HolographicFrameScanoutMonitor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicFrameScanoutMonitor
     _classid_ = 'Windows.Graphics.Holographic.HolographicFrameScanoutMonitor'
     @winrt_mixinmethod
@@ -300,6 +302,7 @@ class HolographicFrameScanoutReport(ComPtr):
     SystemRelativeScanoutStartTime = property(get_SystemRelativeScanoutStartTime, None)
 class HolographicQuadLayer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Graphics.Holographic.IHolographicQuadLayer
     _classid_ = 'Windows.Graphics.Holographic.HolographicQuadLayer'
     def __init__(self, *args, **kwargs):
@@ -726,6 +729,7 @@ class IHolographicFramePrediction(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class IHolographicFramePresentationMonitor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Graphics.Holographic.IHolographicFramePresentationMonitor'
     _iid_ = Guid('{ca87256c-6fae-428e-bb83-25dfee51136b}')
     @winrt_commethod(6)
@@ -770,6 +774,7 @@ class IHolographicFrameRenderingReport(ComPtr):
     SystemRelativeTargetLatchTime = property(get_SystemRelativeTargetLatchTime, None)
 class IHolographicFrameScanoutMonitor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Graphics.Holographic.IHolographicFrameScanoutMonitor'
     _iid_ = Guid('{7e83efa9-843c-5401-8095-9bc1b8b08638}')
     @winrt_commethod(6)

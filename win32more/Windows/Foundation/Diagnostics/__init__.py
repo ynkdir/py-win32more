@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Diagnostics
 import win32more.Windows.Storage
@@ -63,6 +63,7 @@ class ErrorOptions(Enum, UInt32):
     SuppressSetErrorInfo = 8
 class FileLoggingSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Foundation.Diagnostics.IFileLoggingSession
     _classid_ = 'Windows.Foundation.Diagnostics.FileLoggingSession'
     def __init__(self, *args, **kwargs):
@@ -140,6 +141,7 @@ class IErrorReportingSettings(ComPtr):
     def GetErrorOptions(self) -> win32more.Windows.Foundation.Diagnostics.ErrorOptions: ...
 class IFileLoggingSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Foundation.Diagnostics.IFileLoggingSession'
     _iid_ = Guid('{24c74216-fed2-404c-895f-1f9699cb02f7}')
     @winrt_commethod(6)
@@ -173,6 +175,7 @@ class ILogFileGeneratedEventArgs(ComPtr):
     File = property(get_File, None)
 class ILoggingActivity(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Foundation.Diagnostics.ILoggingActivity'
     _iid_ = Guid('{bc032941-b766-4cb5-9848-97ac6ba6d60c}')
     @winrt_commethod(6)
@@ -183,6 +186,7 @@ class ILoggingActivity(ComPtr):
     Name = property(get_Name, None)
 class ILoggingActivity2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Foundation.Diagnostics.ILoggingActivity2'
     _iid_ = Guid('{26c29808-6322-456a-af82-80c8642f178b}')
     @winrt_commethod(6)
@@ -204,6 +208,7 @@ class ILoggingActivityFactory(ComPtr):
     def CreateLoggingActivityWithLevel(self, activityName: WinRT_String, loggingChannel: win32more.Windows.Foundation.Diagnostics.ILoggingChannel, level: win32more.Windows.Foundation.Diagnostics.LoggingLevel) -> win32more.Windows.Foundation.Diagnostics.LoggingActivity: ...
 class ILoggingChannel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Foundation.Diagnostics.ILoggingChannel'
     _iid_ = Guid('{e9a50343-11d7-4f01-b5ca-cf495278c0a8}')
     @winrt_commethod(6)
@@ -230,6 +235,7 @@ class ILoggingChannel(ComPtr):
     LoggingEnabled = event()
 class ILoggingChannel2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Foundation.Diagnostics.ILoggingChannel2'
     _iid_ = Guid('{9f4c3cf3-0bac-45a5-9e33-baf3f3a246a5}')
     @winrt_commethod(6)
@@ -540,6 +546,7 @@ class ILoggingOptionsFactory(ComPtr):
     def CreateWithKeywords(self, keywords: Int64) -> win32more.Windows.Foundation.Diagnostics.LoggingOptions: ...
 class ILoggingSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Foundation.Diagnostics.ILoggingSession'
     _iid_ = Guid('{6221f306-9380-4ad7-baf5-41ea9310d768}')
     @winrt_commethod(6)
@@ -604,6 +611,7 @@ class LogFileGeneratedEventArgs(ComPtr):
     File = property(get_File, None)
 class LoggingActivity(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingActivity
     _classid_ = 'Windows.Foundation.Diagnostics.LoggingActivity'
     def __init__(self, *args, **kwargs):
@@ -660,6 +668,7 @@ class LoggingActivity(ComPtr):
     Name = property(get_Name, None)
 class LoggingChannel(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingChannel
     _classid_ = 'Windows.Foundation.Diagnostics.LoggingChannel'
     def __init__(self, *args, **kwargs):
@@ -1076,6 +1085,7 @@ class LoggingOptions(ComPtr):
     Task = property(get_Task, put_Task)
 class LoggingSession(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Foundation.Diagnostics.ILoggingSession
     _classid_ = 'Windows.Foundation.Diagnostics.LoggingSession'
     def __init__(self, *args, **kwargs):
