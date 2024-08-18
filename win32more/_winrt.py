@@ -6,6 +6,7 @@ import logging
 import sys
 import types
 import uuid
+from collections.abc import Iterable
 from ctypes import (
     POINTER,
     WINFUNCTYPE,
@@ -42,6 +43,7 @@ from win32more import (
     UInt32,
     UInt64,
     Void,
+    VoidPtr,
     easycast,
     get_type_hints,
 )
@@ -55,9 +57,11 @@ from win32more.Windows.Win32.Foundation import (
 from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, CoTaskMemFree, IUnknown
 from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
+    BaseTrust,
     IInspectable,
     RoActivateInstance,
     RoGetActivationFactory,
+    TrustLevel,
     WindowsCreateString,
     WindowsDeleteString,
     WindowsGetStringRawBuffer,
@@ -108,6 +112,13 @@ def ComPtr_commit(cls):
     if "implements" in cls._hints_:
         bases.extend(get_args(cls._hints_["implements"]))
     cls.__bases__ = tuple(bases)
+    if "__orig_bases__" in cls.__dict__:
+        orig_bases = []
+        for type_ in cls.__bases__:
+            if type_ is ComPtr:
+                type_ = cls._hints_["extends"]
+            orig_bases.append(type_)
+        cls.__orig_bases__ = tuple(orig_bases)
     return cls
 
 
@@ -315,6 +326,32 @@ def generic_solve_parameter(parameter, parameter_to_type):
         return parameter_to_type[parameter]
     else:
         return parameter
+
+
+def generic_get_original_bases(cls_or_generic_alias):
+    bases = []
+    if is_generic_alias(cls_or_generic_alias):
+        parameter_to_type = generic_make_parameter_to_type(cls_or_generic_alias)
+        cls = get_origin(cls_or_generic_alias)
+    else:
+        parameter_to_type = {}
+        cls = cls_or_generic_alias
+    for base in _get_original_bases(cls):
+        if get_origin(base) is Generic:
+            continue
+        if is_generic_alias(base):
+            base = generic_solve_parameterized_generic_alias(base, parameter_to_type)
+        bases.append(base)
+    return bases
+
+
+# types.get_original_bases
+def _get_original_bases(cls):
+    return cls.__dict__.get("__orig_bases__", cls.__bases__)
+
+
+def _get_original_class(instance):
+    return instance.__dict__.get("__orig_class__", instance.__class__)
 
 
 # Dummy type for list[T]
@@ -1033,52 +1070,105 @@ class Vtbl(Structure):
             return_pointer[0] = r
 
 
-class MulticastDelegate(IUnknown):
-    pass
-
-
-class MulticastDelegateImpl(ComPtr):
+class ComClass(ComPtr):
     _keep_reference_in_python_world_ = {}
 
-    def __init__(self, interface, callback):
-        super().__init__(own=True)
-        if is_generic_alias(interface):
-            self._iid_ = _ro_get_parameterized_type_instance_iid(interface)
-        else:
-            self._iid_ = interface._iid_
-        if inspect.iscoroutinefunction(callback):
-            self._callback = async_callback(callback)
-        else:
-            self._callback = callback
-        self._vtbl = Vtbl(self, interface)
-        self.value = addressof(self._vtbl)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._iid_vtbls = self._make_iid_vtbls()
+        self.value = addressof(self._iid_vtbls[0][1])  # select default interface
         self._refcount = 0
         self.AddRef()
 
-    def QueryInterface(self, riid, ppvObject):
-        if riid[0] == IUnknown._iid_:
-            ppvObject[0] = addressof(self._vtbl)
-            self.AddRef()
-            return S_OK
-        elif riid[0] == self._iid_:
-            ppvObject[0] = addressof(self._vtbl)
-            self.AddRef()
-            return S_OK
-        else:
-            return E_NOINTERFACE
+    def _make_iid_vtbls(self) -> list[tuple[Guid, Vtbl]]:
+        iid_vtbls = []
+        for interface in self._implemented_interfaces:
+            iid = self._get_iid(interface)
+            vtbl = Vtbl(self, interface)
+            iid_vtbls.append((iid, vtbl))
+        return iid_vtbls
 
-    def AddRef(self):
+    def _get_iid(self, interface):
+        if is_generic_alias(interface):
+            return _ro_get_parameterized_type_instance_iid(interface)
+        elif "_iid_" in interface.__dict__:
+            return interface.__dict__["_iid_"]
+        else:
+            raise ValueError("Cannot get iid")
+
+    @property
+    def _implemented_interfaces(self) -> list[type]:
+        r = []
+        for base in self._get_bases_recursively(_get_original_class(self)):
+            if is_generic_alias(base) and "_piid_" in get_origin(base).__dict__:
+                r.append(base)
+            elif "_iid_" in base.__dict__:
+                r.append(base)
+        return r
+
+    def _get_bases_recursively(self, cls: type) -> Iterable[type]:
+        for base in generic_get_original_bases(cls):
+            yield base
+            yield from self._get_bases_recursively(base)
+
+    @property
+    def _runtime_class_name(self) -> str:
+        return f"{self.__module__}.{self.__qualname__}"
+
+    def QueryInterface(self, riid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> HRESULT:
+        for iid, vtbl in self._iid_vtbls:
+            if riid[0] == iid:
+                ppvObject[0] = addressof(vtbl)
+                self.AddRef()
+                return S_OK
+        return E_NOINTERFACE
+
+    def AddRef(self) -> UInt32:
         self._refcount += 1
         if self._refcount == 1:
             self._keep_reference_in_python_world_[id(self)] = self
         return self._refcount
 
-    def Release(self):
+    def Release(self) -> UInt32:
         self._refcount -= 1
         if self._refcount == 0:
-            self._comobj.comptr = None
             del self._keep_reference_in_python_world_[id(self)]
         return self._refcount
+
+    def GetIids(self, iidCount: POINTER(UInt32), iids: POINTER(POINTER(Guid))) -> HRESULT:
+        iidCount[0] = len(self._iid_vtbls)
+        iids[0] = CoTaskMemAlloc(sizeof(VoidPtr) * len(self._iid_vtbls))
+        if iids[0] is None:
+            return E_FAIL
+        for i, (iid, vtbl) in enumerate(self._iid_vtbls):
+            iids[0][i] = iid
+        return S_OK
+
+    def GetRuntimeClassName(self, className: POINTER(HSTRING)) -> HRESULT:
+        className[0] = _windows_create_string(self._runtime_class_name)
+        return S_OK
+
+    def GetTrustLevel(self, trustLevel: POINTER(TrustLevel)) -> HRESULT:
+        trustLevel[0] = BaseTrust
+        return S_OK
+
+
+class MulticastDelegate(IUnknown):
+    pass
+
+
+class MulticastDelegateImpl(ComClass):
+    def __init__(self, interface, callback):
+        self._interface = interface
+        if inspect.iscoroutinefunction(callback):
+            self._callback = async_callback(callback)
+        else:
+            self._callback = callback
+        super().__init__(own=True)
+
+    @property
+    def _implemented_interfaces(self):
+        return [self._interface, IUnknown]
 
     def Invoke(self, *args):
         return self._callback(*args)

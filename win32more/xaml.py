@@ -1,9 +1,9 @@
 import importlib
 import xml.etree.ElementTree as ET
-from ctypes import WinError, addressof
+from ctypes import WinError
 
 from win32more import FAILED
-from win32more._winrt import Vtbl, WinRT_String, event_setter
+from win32more._winrt import ComClass, WinRT_String, event_setter
 from win32more.mddbootstrap import (
     WINDOWSAPPSDK_RELEASE_MAJORMINOR,
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
@@ -16,71 +16,27 @@ from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicat
 from win32more.Microsoft.UI.Xaml.Controls import XamlControlsResources
 from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
-from win32more.Windows.Win32.Foundation import S_OK
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
-from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize, IUnknown
+from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
 from win32more.Windows.Win32.System.WinRT import IInspectable
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 
 
-class XamlApplication(Application):
-    _keep_reference_in_python_world_ = {}
-
+class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadataProvider):
     def __init__(self):
-        super().__init__(own=True)
         XamlApplication.__current = self
         self._OnLaunched_wrapped = self.OnLaunched
         self.OnLaunched = self._OnLaunched_wrapper
-        self._application_overrides_vtbl = Vtbl(self, IApplicationOverrides)
-        self._xaml_metadata_provider_vtbl = Vtbl(self, IXamlMetadataProvider)
-        self.value = addressof(self._application_overrides_vtbl)
-        self._refcount = 0
-        self.AddRef()
+        super().__init__(own=True)
         self._provider = XamlControlsXamlMetaDataProvider()
         self._inner_interface = IInspectable()
         Application.CreateInstance(self, self._inner_interface)
 
     def QueryInterface(self, riid, ppvObject):
-        if riid[0] == IUnknown._iid_:
-            ppvObject[0] = addressof(self._application_overrides_vtbl)
-            self.AddRef()
-            return S_OK
-        elif riid[0] == IInspectable._iid_:
-            ppvObject[0] = addressof(self._application_overrides_vtbl)
-            self.AddRef()
-            return S_OK
-        elif riid[0] == IApplicationOverrides._iid_:
-            ppvObject[0] = addressof(self._application_overrides_vtbl)
-            self.AddRef()
-            return S_OK
-        elif riid[0] == IXamlMetadataProvider._iid_:
-            ppvObject[0] = addressof(self._xaml_metadata_provider_vtbl)
-            self.AddRef()
-            return S_OK
-        else:
-            return self._inner_interface.QueryInterface(riid, ppvObject)
-
-    def AddRef(self):
-        self._refcount += 1
-        if self._refcount == 1:
-            self._keep_reference_in_python_world_[id(self)] = self
-        return self._refcount
-
-    def Release(self):
-        self._refcount -= 1
-        if self._refcount == 0:
-            self._inner_interface.Release()
-            del self._keep_reference_in_python_world_[id(self)]
-        return self._refcount
-
-    def GetIids(self, iidCount, iids):
-        return self._inner_interface.GetIids(iidCount, iids)
-
-    def GetRuntimeClassName(self, className):
-        return self._inner_interface.GetRuntimeClassName(className)
-
-    def GetTrustLevel(self, trustLevel):
-        return self._inner_interface.GetTrustLevel(trustLevel)
+        r = super().QueryInterface(riid, ppvObject)
+        if FAILED(r):
+            r = self._inner_interface.QueryInterface(riid, ppvObject)
+        return r
 
     def _OnLaunched_wrapper(self, args):
         self.Resources.MergedDictionaries.Append(XamlControlsResources())
