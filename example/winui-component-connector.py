@@ -14,8 +14,6 @@ from win32more.xaml import XamlApplication
 class MainWindow(ComClass, Window, IComponentConnector):
     def __init__(self):
         super().__init__(own=True)
-        self._inner = IInspectable()
-        Window.CreateInstance(self, self._inner)
         self.InitializeComponent()
 
     def InitializeComponent(self):
@@ -26,12 +24,6 @@ class MainWindow(ComClass, Window, IComponentConnector):
         xaml_path = Path(__file__).with_name("winui-component-connector.xaml").absolute().as_posix()
         resource_locator = Uri(f"ms-appx:///{xaml_path}")
         Application.LoadComponent(self, resource_locator)
-
-    def QueryInterface(self, riid, ppvObject):
-        r = super().QueryInterface(riid, ppvObject)
-        if FAILED(r):
-            r = self._inner.QueryInterface(riid, ppvObject)
-        return r
 
     def Connect(self, connectionId, target):
         if connectionId == 1:

@@ -29,14 +29,6 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         self.OnLaunched = self._OnLaunched_wrapper
         super().__init__(own=True)
         self._provider = XamlControlsXamlMetaDataProvider()
-        self._inner_interface = IInspectable()
-        Application.CreateInstance(self, self._inner_interface)
-
-    def QueryInterface(self, riid, ppvObject):
-        r = super().QueryInterface(riid, ppvObject)
-        if FAILED(r):
-            r = self._inner_interface.QueryInterface(riid, ppvObject)
-        return r
 
     def _OnLaunched_wrapper(self, args):
         self.Resources.MergedDictionaries.Append(XamlControlsResources())

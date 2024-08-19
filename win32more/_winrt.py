@@ -1079,6 +1079,7 @@ class ComClass(ComPtr):
         self.value = addressof(self._iid_vtbls[0][1])  # select default interface
         self._refcount = 0
         self.AddRef()
+        self._inner = self._compose()
 
     def _make_iid_vtbls(self) -> list[tuple[Guid, Vtbl]]:
         iid_vtbls = []
@@ -1115,12 +1116,23 @@ class ComClass(ComPtr):
     def _runtime_class_name(self) -> str:
         return f"{self.__module__}.{self.__qualname__}"
 
+    def _compose(self) -> IInspectable:
+        for base in type(self).__mro__:
+            # FIXME: ComposableAttribute should be checked.
+            if issubclass(base, IInspectable) and "CreateInstance" in base.__dict__:
+                inner = IInspectable()
+                base.CreateInstance(self, inner)
+                return inner
+        return None
+
     def QueryInterface(self, riid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> HRESULT:
         for iid, vtbl in self._iid_vtbls:
             if riid[0] == iid:
                 ppvObject[0] = addressof(vtbl)
                 self.AddRef()
                 return S_OK
+        if self._inner is not None:
+            return self._inner.QueryInterface(riid, ppvObject)
         return E_NOINTERFACE
 
     def AddRef(self) -> UInt32:
