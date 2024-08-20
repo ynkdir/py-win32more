@@ -2,6 +2,7 @@ import asyncio
 import unittest
 from ctypes import (
     WinError,
+    pointer,
 )
 from pathlib import Path
 
@@ -12,10 +13,11 @@ from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Devices.Display import DisplayMonitor, DisplayMonitorDescriptorKind
 from win32more.Windows.Devices.Enumeration import DeviceInformation
 from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
-from win32more.Windows.Foundation.Collections import IVector, StringMap
+from win32more.Windows.Foundation.Collections import IVector, IVectorView, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System.Threading import ThreadPool
-from win32more.Windows.Win32.Foundation import WAIT_FAILED, WAIT_TIMEOUT
+from win32more.Windows.Win32.Foundation import S_OK, WAIT_FAILED, WAIT_TIMEOUT
+from win32more.Windows.Win32.System.Com import IUnknown
 from win32more.Windows.Win32.System.WinRT import RO_INIT_SINGLETHREADED, IInspectable, RoInitialize, RoUninitialize
 from win32more.Windows.Win32.UI.WindowsAndMessaging import (
     MSG,
@@ -246,3 +248,11 @@ class TestWinrt(unittest.TestCase):
             break
 
         self.assertTrue(iterator_succeeded)
+
+    def test_comclass_handle_inherited_interfaces(self):
+        v = Vector[Int32]([0, 1, 2])
+        o = IInspectable()
+        self.assertEqual(v.QueryInterface(pointer(IUnknown._iid_), pointer(o)), S_OK)
+        self.assertEqual(v.QueryInterface(pointer(IInspectable._iid_), pointer(o)), S_OK)
+        self.assertEqual(v.QueryInterface(pointer(IVector._iid_), pointer(o)), S_OK)
+        self.assertEqual(v.QueryInterface(pointer(IVectorView._iid_), pointer(o)), S_OK)
