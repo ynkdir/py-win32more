@@ -151,7 +151,7 @@ def winrt_easycast(obj, type_):
     if type_ is IInspectable:
         if isinstance(obj, str):
             return box_value(obj)
-    elif issubclass_generic(type_, IVector):
+    elif generic_issubclass(type_, IVector):
         if isinstance(obj, list):
             return Vector[get_args(type_)[0]](obj)
     return easycast(obj, type_)
@@ -704,22 +704,18 @@ def is_generic_instance(obj):
     return isinstance(obj, Generic)
 
 
-def issubclass_generic(cls, type_):
+def generic_issubclass(cls, type_):
     if is_generic_alias(cls):
-        return issubclass(get_origin(cls), type_)
+        cls = get_origin(cls)
     return issubclass(cls, type_)
 
 
 def is_delegate_class(cls):
-    if is_generic_alias(cls):
-        cls = get_origin(cls)
-    return issubclass(cls, MulticastDelegate)
+    return generic_issubclass(cls, MulticastDelegate)
 
 
 def is_com_class(cls):
-    if is_generic_alias(cls):
-        cls = get_origin(cls)
-    return issubclass(cls, ComPtr)
+    return generic_issubclass(cls, ComPtr)
 
 
 def is_com_instance(obj):
@@ -727,21 +723,15 @@ def is_com_instance(obj):
 
 
 def is_passarray_class(cls):
-    if is_generic_alias(cls):
-        cls = get_origin(cls)
-    return issubclass(cls, PassArray)
+    return generic_issubclass(cls, PassArray)
 
 
 def is_fillarray_class(cls):
-    if is_generic_alias(cls):
-        cls = get_origin(cls)
-    return issubclass(cls, FillArray)
+    return generic_issubclass(cls, FillArray)
 
 
 def is_receivearray_class(cls):
-    if is_generic_alias(cls):
-        cls = get_origin(cls)
-    return issubclass(cls, ReceiveArray)
+    return generic_issubclass(cls, ReceiveArray)
 
 
 class winrt_classmethod:
