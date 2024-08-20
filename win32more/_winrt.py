@@ -522,7 +522,7 @@ class WinrtMethod:
         return types.MethodType(self.__call__, instance)
 
     def __call__(self, this, *args, **kwargs):
-        cls = getattr(this, "__orig_class__", this.__class__)
+        cls = _get_original_class(this)
         generic_args = get_args(cls)
         if generic_args not in self._generic_delegate:
             self._generic_delegate[generic_args] = WinrtMethodCall(self._prototype, self._vtbl_index, cls)
