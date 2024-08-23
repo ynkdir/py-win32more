@@ -1028,8 +1028,7 @@ class Vtbl(Structure):
             later()
 
         if restype is Void:
-            if r is not None:
-                raise ValueError(f"{r} cannot be treated as Void")
+            pass
         elif is_receivearray_class(restype):
             if not isinstance(r, list):
                 raise ValueError(f"list is expected: {r}")
