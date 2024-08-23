@@ -295,54 +295,36 @@ def unbox_value(value: IInspectable):
 def generic_get_type_hints(prototype, cls):
     hints = get_type_hints(prototype)
     if is_generic_alias(cls):
-        hints = generic_solve_parameterized_hints(hints, generic_make_parameter_to_type(cls))
+        gs = GenericSpecializer.from_generic_alias(cls)
+        hints = {key: gs.specialize_parameter(parameter) for key, parameter in hints.items()}
     return hints
 
 
-def generic_make_parameter_to_type(typed_generic_alias):
-    types = get_args(typed_generic_alias)
-    parameters = get_origin(typed_generic_alias).__parameters__
-    return dict(zip(parameters, types))
+class GenericSpecializer:
+    def __init__(self, parameter_to_type_map: dict[TypeVar, type]) -> None:
+        self._parameter_to_type_map = parameter_to_type_map
 
+    @classmethod
+    def from_generic_alias(cls, specialized_generic_alias: _GenericAlias) -> GenericSpecializer:
+        parameters = get_origin(specialized_generic_alias).__parameters__
+        args = get_args(specialized_generic_alias)
+        return GenericSpecializer(dict(zip(parameters, args)))
 
-def generic_solve_parameterized_hints(parameterized_hints, parameter_to_type):
-    solved_hints = {}
-    for k, parameter in parameterized_hints.items():
-        solved_hints[k] = generic_solve_parameter(parameter, parameter_to_type)
-    return solved_hints
+    def specialize_generic_alias(self, parameterized_generic_alias: _GenericAlias) -> _GenericAlias:
+        parameters = get_args(parameterized_generic_alias)
+        args = self.specialize_parameters(parameters)
+        return get_origin(parameterized_generic_alias)[tuple(args)]
 
+    def specialize_parameters(self, parameters: list[_GenericAlias | TypeVar | type]) -> list[_GenericAlias | type]:
+        return [self.specialize_parameter(parameter) for parameter in parameters]
 
-def generic_solve_parameterized_generic_alias(parameterized_generic_alias, parameter_to_type):
-    args = []
-    for parameter in get_args(parameterized_generic_alias):
-        args.append(generic_solve_parameter(parameter, parameter_to_type))
-    return get_origin(parameterized_generic_alias)[tuple(args)]
-
-
-def generic_solve_parameter(parameter, parameter_to_type):
-    if is_generic_alias(parameter):
-        return generic_solve_parameterized_generic_alias(parameter, parameter_to_type)
-    elif isinstance(parameter, TypeVar):
-        return parameter_to_type[parameter]
-    else:
-        return parameter
-
-
-def generic_get_original_bases(cls_or_generic_alias):
-    bases = []
-    if is_generic_alias(cls_or_generic_alias):
-        parameter_to_type = generic_make_parameter_to_type(cls_or_generic_alias)
-        cls = get_origin(cls_or_generic_alias)
-    else:
-        parameter_to_type = {}
-        cls = cls_or_generic_alias
-    for base in _get_original_bases(cls):
-        if get_origin(base) is Generic:
-            continue
-        if is_generic_alias(base):
-            base = generic_solve_parameterized_generic_alias(base, parameter_to_type)
-        bases.append(base)
-    return bases
+    def specialize_parameter(self, parameter: _GenericAlias | TypeVar | type) -> _GenericAlias | type:
+        if is_generic_alias(parameter):
+            return self.specialize_generic_alias(parameter)
+        elif isinstance(parameter, TypeVar):
+            return self._parameter_to_type_map[parameter]
+        else:
+            return parameter
 
 
 # types.get_original_bases
@@ -356,6 +338,18 @@ def _get_original_class(instance):
 
 def _get_origin_or_itself(cls):
     return get_origin(cls) or cls
+
+
+def _get_specialized_bases(cls):
+    if not is_generic_alias(cls):
+        return _get_original_bases(cls)
+    gs = GenericSpecializer.from_generic_alias(cls)
+    bases = []
+    for base in _get_original_bases(_get_origin_or_itself(cls)):
+        if get_origin(base) is Generic:
+            continue
+        bases.append(gs.specialize_parameter(base))
+    return bases
 
 
 # Dummy type for list[T]
@@ -1086,19 +1080,19 @@ class ComClass(ComPtr):
             raise ValueError("Cannot get iid")
 
     @property
-    def _implemented_interfaces(self) -> list[type]:
+    def _implemented_interfaces(self) -> list[_GenericAlias | type]:
         r = []
-        for base in self._get_bases_recursively(_get_original_class(self)):
+        for base in self._enumerate_specialized_bases_recursively(_get_original_class(self)):
             if is_generic_alias(base) and "_piid_" in get_origin(base).__dict__:
                 r.append(base)
             elif "_iid_" in base.__dict__:
                 r.append(base)
         return r
 
-    def _get_bases_recursively(self, cls: type) -> Iterable[type]:
-        for base in generic_get_original_bases(cls):
+    def _enumerate_specialized_bases_recursively(self, cls: _GenericAlias | type) -> Iterable[_GenericAlias | type]:
+        for base in _get_specialized_bases(cls):
             yield base
-            yield from self._get_bases_recursively(base)
+            yield from self._enumerate_specialized_bases_recursively(base)
 
     @property
     def _runtime_class_name(self) -> str:
@@ -1235,11 +1229,8 @@ class MappingProtocol:
     def __args(self):
         if not is_generic_instance(self):
             return self.__parameters
-        parameter_to_type = generic_make_parameter_to_type(self.__orig_class__)
-        args = []
-        for parameter in self.__parameters:
-            args.append(generic_solve_parameter(parameter, parameter_to_type))
-        return args
+        gs = GenericSpecializer.from_generic_alias(_get_original_class(self))
+        return gs.specialize_parameters(self.__parameters)
 
     def __iterator(self):
         from win32more.Windows.Foundation.Collections import IIterable, IKeyValuePair
