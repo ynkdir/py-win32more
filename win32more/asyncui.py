@@ -40,10 +40,10 @@ class async_task:
 
     def _addref_args(self):
         for obj in self._args:
-            if isinstance(obj, IUnknown):
+            if isinstance(obj, IUnknown) and obj.value:
                 obj.AddRef()
 
     def _release_args(self):
         for obj in self._args:
-            if isinstance(obj, IUnknown):
+            if isinstance(obj, IUnknown) and obj.value:
                 obj.Release()
