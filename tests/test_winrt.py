@@ -16,57 +16,15 @@ from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyVal
 from win32more.Windows.Foundation.Collections import IVector, IVectorView, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System.Threading import ThreadPool
-from win32more.Windows.Win32.Foundation import S_OK, WAIT_FAILED, WAIT_TIMEOUT
+from win32more.Windows.Win32.Foundation import S_OK
 from win32more.Windows.Win32.System.Com import IUnknown
-from win32more.Windows.Win32.System.WinRT import RO_INIT_SINGLETHREADED, IInspectable, RoInitialize, RoUninitialize
-from win32more.Windows.Win32.UI.WindowsAndMessaging import (
-    MSG,
-    MWMO_INPUTAVAILABLE,
-    PM_REMOVE,
-    QS_ALLINPUT,
-    DispatchMessageW,
-    MsgWaitForMultipleObjectsEx,
-    PeekMessageW,
-    TranslateMessage,
-)
-
-
-def wait_message(timeout):
-    r = MsgWaitForMultipleObjectsEx(0, None, timeout, QS_ALLINPUT, MWMO_INPUTAVAILABLE)
-    if r == WAIT_FAILED:
-        raise WinError()
-    elif r == WAIT_TIMEOUT:
-        return False
-    return True
-
-
-def pump_message():
-    msg = MSG()
-    while PeekMessageW(msg, 0, 0, 0, PM_REMOVE) != 0:
-        TranslateMessage(msg)
-        DispatchMessageW(msg)
-
-
-async def mainloop(coro):
-    task = asyncio.create_task(coro)
-    while True:
-        await asyncio.sleep(0)
-        if task.done():
-            # for com messages remains.
-            while wait_message(100):
-                pump_message()
-            return task.result()
-        if wait_message(0):
-            pump_message()
-            continue
-        wait_message(100)
-        pump_message()
+from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
 
 class TestWinrt(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        hr = RoInitialize(RO_INIT_SINGLETHREADED)
+        hr = RoInitialize(RO_INIT_MULTITHREADED)
         if FAILED(hr):
             raise WinError(hr)
 
@@ -90,7 +48,7 @@ class TestWinrt(unittest.TestCase):
             storage_file = await StorageFile.GetFileFromPathAsync(__file__)
             return await FileIO.ReadTextAsync(storage_file)
 
-        text1 = asyncio.run(mainloop(winrt_readfile()))
+        text1 = asyncio.run(winrt_readfile())
         text2 = Path(__file__).read_text()
         self.assertEqual(text1, text2)
 
@@ -98,7 +56,7 @@ class TestWinrt(unittest.TestCase):
         async def winrt_readfile():
             return await PathIO.ReadTextAsync(__file__)
 
-        text1 = asyncio.run(mainloop(winrt_readfile()))
+        text1 = asyncio.run(winrt_readfile())
         text2 = Path(__file__).read_text()
         self.assertEqual(text1, text2)
 
@@ -106,7 +64,7 @@ class TestWinrt(unittest.TestCase):
         async def winrt_readlines():
             return await PathIO.ReadLinesAsync(__file__)
 
-        ivector = asyncio.run(mainloop(winrt_readlines()))
+        ivector = asyncio.run(winrt_readlines())
         lines = Path(__file__).read_text().splitlines()
         lines10 = [None] * 10  # FillArray ignores contents
         ivector.GetMany(0, lines10)
@@ -116,7 +74,7 @@ class TestWinrt(unittest.TestCase):
         async def winrt_readlines():
             return await PathIO.ReadLinesAsync(__file__)
 
-        ivector = asyncio.run(mainloop(winrt_readlines()))
+        ivector = asyncio.run(winrt_readlines())
         lines = [str(i) for i in range(10)]
         ivector.ReplaceAll(lines)
         lines10 = [ivector.GetAt(i) for i in range(10)]
@@ -163,7 +121,7 @@ class TestWinrt(unittest.TestCase):
             display_monitor = await DisplayMonitor.FromIdAsync(str_property.GetString())
             return display_monitor.GetDescriptor(DisplayMonitorDescriptorKind.Edid)
 
-        descriptor = asyncio.run(mainloop(winrt_get_monitor_descriptor()))
+        descriptor = asyncio.run(winrt_get_monitor_descriptor())
         self.assertNotEqual(len(descriptor), 0)
 
     def test_guid_generation_for_parameterized_types(self):
@@ -180,7 +138,7 @@ class TestWinrt(unittest.TestCase):
             with self.assertRaises(OSError):
                 await PathIO.ReadLinesAsync("NOT EXIST")
 
-        asyncio.run(mainloop(main()))
+        asyncio.run(main())
 
     def test_async_cancel(self):
         def worker(async_action):
@@ -190,7 +148,7 @@ class TestWinrt(unittest.TestCase):
             with self.assertRaises(asyncio.CancelledError):
                 await ThreadPool.RunAsync(worker)
 
-        asyncio.run(mainloop(main()))
+        asyncio.run(main())
 
     def test_box_value(self):
         self.assertIsInstance(box_value("str"), IInspectable)
@@ -218,7 +176,7 @@ class TestWinrt(unittest.TestCase):
         async def device_information_find_all():
             return await DeviceInformation.FindAllAsyncAqsFilter(DisplayMonitor.GetDeviceSelector())
 
-        device_information_collection = asyncio.run(mainloop(device_information_find_all()))
+        device_information_collection = asyncio.run(device_information_find_all())
 
         self.assertNotEqual(len(device_information_collection), 0)
 
