@@ -1,8 +1,7 @@
 import re
 
-from win32more.asyncui import async_start_runner
 from win32more.Microsoft.UI.Xaml import FrameworkElement, Window
-from win32more.Microsoft.UI.Xaml.Controls import MenuFlyoutItem, TextBox, ContentDialog
+from win32more.Microsoft.UI.Xaml.Controls import ContentDialog, MenuFlyoutItem, TextBox
 from win32more.Microsoft.UI.Xaml.Markup import XamlReader
 from win32more.Windows.Storage import FileIO
 from win32more.Windows.Storage.Pickers import FileOpenPicker, FileSavePicker
@@ -187,5 +186,4 @@ class App(XamlApplication):
 
 
 if __name__ == "__main__":
-    async_start_runner()
     XamlApplication.Start(App)

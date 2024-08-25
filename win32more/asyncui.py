@@ -10,6 +10,7 @@ running_loop = None
 def async_start_runner(delay_ms=100):
     global running_loop
 
+    # safety check for compatibility
     if running_loop is not None:
         return running_loop
 

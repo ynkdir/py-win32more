@@ -4,6 +4,7 @@ from ctypes import WinError
 
 from win32more import FAILED
 from win32more._winrt import ComClass, WinRT_String, event_setter
+from win32more.asyncui import async_start_runner
 from win32more.mddbootstrap import (
     WINDOWSAPPSDK_RELEASE_MAJORMINOR,
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
@@ -66,6 +67,8 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         )
         if FAILED(hr):
             raise WinError(hr)
+
+        async_start_runner()
 
         Application.Start(lambda params: init())
 

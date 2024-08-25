@@ -1,6 +1,5 @@
 import asyncio
 
-from win32more.asyncui import async_start_runner
 from win32more.Microsoft.UI.Xaml import Window
 from win32more.Microsoft.UI.Xaml.Controls import Button
 from win32more.xaml import XamlApplication
@@ -22,7 +21,6 @@ class App(XamlApplication):
 
 
 def main():
-    async_start_runner()
     XamlApplication.Start(App)
 
 
