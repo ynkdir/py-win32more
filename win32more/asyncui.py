@@ -19,7 +19,6 @@ def async_start_runner(delay_ms=100):
         running_loop.run_forever()
 
     running_loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(running_loop)
 
     SetTimer(0, 0, delay_ms, timer_proc)
 
