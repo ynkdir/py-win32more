@@ -2,7 +2,7 @@ import tkinter as tk
 from ctypes import WinError
 
 from win32more import FAILED
-from win32more.asyncui import async_callback, async_start_runner
+from win32more.asyncui import async_call, async_start_runner
 from win32more.Windows.UI.Popups import MessageDialog
 from win32more.Windows.Win32.System.WinRT import (
     RO_INIT_SINGLETHREADED,
@@ -17,7 +17,6 @@ def initialize_with_window(obj, hwnd):
     ii.Initialize(hwnd)
 
 
-@async_callback
 async def winrt_dialog(hwnd):
     dialog = MessageDialog.CreateWithTitle("This is WinRT MessageDialog", "WinRT MessageDialog")
 
@@ -33,15 +32,15 @@ def main() -> None:
     if FAILED(hr):
         raise WinError(hr)
 
+    async_start_runner()
+
     root = tk.Tk()
     root.eval("tk::PlaceWindow . center")
 
     hwnd = root.winfo_id()
 
-    button = tk.Button(root, text="Popup WinRT dialog", command=lambda: winrt_dialog(hwnd))
+    button = tk.Button(root, text="Popup WinRT dialog", command=lambda: async_call(winrt_dialog, hwnd))
     button.pack(padx=10, pady=10, fill="both", expand=True)
-
-    async_start_runner()
 
     root.mainloop()
 

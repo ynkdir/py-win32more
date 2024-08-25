@@ -3,34 +3,53 @@ import asyncio
 from win32more.Windows.Win32.System.Com import IUnknown
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 
+running_loop = None
 
-# Asyncio runner for Windows event loop.
+
+# Asyncio runner for Windows message loop.
 def async_start_runner(delay_ms=100):
-    def timer_proc(*args):
-        loop.stop()
-        loop.run_forever()
+    global running_loop
 
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    if running_loop is not None:
+        return running_loop
+
+    def timer_proc(*args):
+        running_loop.stop()
+        running_loop.run_forever()
+
+    running_loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(running_loop)
 
     SetTimer(0, 0, delay_ms, timer_proc)
+
+    return running_loop
+
+
+def async_call(coroutine_function, *args):
+    _async_task(coroutine_function, args, _get_running_loop())
 
 
 def async_callback(coroutine_function):
     def wrapper(*args):
-        async_task(coroutine_function, args)
+        _async_task(coroutine_function, args, loop)
+
+    loop = _get_running_loop()
 
     return wrapper
 
 
-class async_task:
+def _get_running_loop():
+    return running_loop or asyncio.get_running_loop()
+
+
+class _async_task:
     # Need to keep reference to task.  The event loop only keeps weak references to tasks.
     background_tasks = set()
 
-    def __init__(self, coroutine_function, args):
+    def __init__(self, coroutine_function, args, loop):
         self._args = args
         self._addref_args()
-        self._task = asyncio.get_event_loop().create_task(coroutine_function(*args))
+        self._task = loop.create_task(coroutine_function(*args))
         self._task.add_done_callback(self._done_callback)
         self.background_tasks.add(self)
 
