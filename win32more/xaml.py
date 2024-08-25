@@ -18,7 +18,6 @@ from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
-from win32more.Windows.Win32.System.WinRT import IInspectable
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 
 
@@ -68,10 +67,7 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         if FAILED(hr):
             raise WinError(hr)
 
-        def init_returns_void(params):
-            init()
-
-        Application.Start(init_returns_void)
+        Application.Start(lambda params: init())
 
         # FIXME: force Release() to avoid exit with error code.
         if XamlApplication.__current is not None:
