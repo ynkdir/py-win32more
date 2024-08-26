@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import inspect
 import logging
 import sys
@@ -46,7 +47,7 @@ from win32more import (
     easycast,
     get_type_hints,
 )
-from win32more.asyncui import _get_running_loop, async_callback
+from win32more.asyncui import async_callback
 from win32more.Windows.Win32.Foundation import (
     E_FAIL,
     E_NOINTERFACE,
@@ -1168,7 +1169,7 @@ class MulticastDelegateImpl(ComClass):
 
 class AwaitableProtocol:
     def __await__(self):
-        future = _get_running_loop().create_future()
+        future = asyncio.get_running_loop().create_future()
         self.Completed = partial(self.__on_completed, future)
         return future.__await__()
 
