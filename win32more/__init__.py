@@ -136,15 +136,15 @@ def _struct_union_commit(cls, start=True):
     if "_fields_" in cls.__dict__:
         raise CircularReferenceResolved()
 
-    anonymous = [name for name in hints.keys() if re.match(r"^Anonymous\d*$", name)]
-    if anonymous:
-        cls._anonymous_ = anonymous
-
     bitfields = {}
     for name, type_ in get_type_hints(cls, include_extras=True).items():
         if get_origin(type_) is Annotated:
             _, width = get_args(type_)
             bitfields[name] = width
+
+    anonymous = [name for name in hints.keys() if re.match(r"^Anonymous\d*$", name) and name not in bitfields]
+    if anonymous:
+        cls._anonymous_ = anonymous
 
     fields = []
     for name, type_ in hints.items():
