@@ -1292,8 +1292,6 @@ class FEATURE_ERROR(Structure):
     originCallerModule: win32more.Windows.Win32.Foundation.PSTR
     originName: win32more.Windows.Win32.Foundation.PSTR
 FEATURE_STATE_CHANGE_SUBSCRIPTION = VoidPtr
-class FILE_CASE_SENSITIVE_INFO(Structure):
-    Flags: UInt32
 HWINWATCH = VoidPtr
 class HW_PROFILE_INFOA(Structure):
     dwDockInfo: UInt32

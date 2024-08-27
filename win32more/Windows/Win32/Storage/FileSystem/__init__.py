@@ -1668,6 +1668,8 @@ class FILE_BASIC_INFO(Structure):
     LastWriteTime: Int64
     ChangeTime: Int64
     FileAttributes: UInt32
+class FILE_CASE_SENSITIVE_INFO(Structure):
+    Flags: UInt32
 class FILE_COMPRESSION_INFO(Structure):
     CompressedFileSize: Int64
     CompressionFormat: win32more.Windows.Win32.Storage.FileSystem.COMPRESSION_FORMAT
