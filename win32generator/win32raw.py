@@ -563,7 +563,8 @@ class StructUnion:
         writer.write(f"{self.qualname}._fields_ = [\n")
         for fd in self._member_fields():
             pytype = self._formatter.pytype(fd.signature)
-            if fd.name in anonymous:
+            is_nested = fd.signature.kind == "Type" and fd.signature.namespace == ""
+            if is_nested:
                 pytype = f"{self.qualname}.{pytype}"
             if fd.custom_attributes.has_native_bitfield():
                 for name, width in self._native_bitfield(fd):

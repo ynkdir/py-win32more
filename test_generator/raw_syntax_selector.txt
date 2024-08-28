@@ -41,3 +41,5 @@ Windows.Win32.System.AddressBook.SPropValue
 #   Guid = COMMETHOD(...)
 #   Enclosure = COMMETHOD(..., POINTER(Guid), ...)  <- 'Guid' referes Guid defined above.
 Windows.Win32.Media.MediaPlayer.IXFeedItem
+# test for nested non-anonymous struct
+Windows.Win32.Networking.WinSock.IN6_ADDR
