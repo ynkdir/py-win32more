@@ -1,8 +1,7 @@
 import importlib
 import xml.etree.ElementTree as ET
-from ctypes import WinError
 
-from win32more import FAILED
+from win32more import FAILED, WinError
 from win32more._winrt import ComClass, WinRT_String, event_setter
 from win32more.asyncui import async_start_runner
 from win32more.mddbootstrap import (

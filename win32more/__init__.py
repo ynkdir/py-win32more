@@ -5,9 +5,7 @@ import uuid
 from ctypes import (
     CFUNCTYPE,
     POINTER,
-    WINFUNCTYPE,
     Array,
-    WinError,
     _CFuncPtr,
     addressof,
     c_bool,
@@ -30,7 +28,6 @@ from ctypes import (
     cast,
     cdll,
     pointer,
-    windll,
 )
 from ctypes import Structure as _Structure
 from ctypes import Union as _Union
@@ -48,6 +45,43 @@ elif "(amd64)" in sys.version.lower():
     ARCH = "X64"
 else:
     ARCH = "X86"
+
+if sys.platform == "cygwin":
+    import platform
+
+    if platform.machine() == "x86_64":
+        ARCH = "X64"
+    else:
+        raise RuntimeError(f"{platform.machine()} is not supported")
+
+    WINFUNCTYPE = CFUNCTYPE
+    windll = cdll
+    WinError = OSError
+
+    class _ComMethod:
+        def __init__(self, restype, argtypes, vtbl_index, name, paramflags=None, iid=None):
+            self._vtbl_index = vtbl_index
+            self._functype = CFUNCTYPE(restype, c_void_p, *argtypes)
+
+        def __call__(self, this, *args, **kwargs):
+            pvtbl = cast(this, POINTER(POINTER(c_void_p)))
+            func = self._functype(pvtbl[0][self._vtbl_index])
+            # WORKAROUND: return_length and return are passed as kwargs.
+            _args = list(args) + list(kwargs.values())
+            return func(this, *_args)
+
+    def COMFUNCTYPE(restype, *argtypes):
+        def prototype(vtbl_index, name, paramflags=None, iid=None):
+            return _ComMethod(restype, argtypes, vtbl_index, name, paramflags, iid)
+
+        return prototype
+
+
+else:
+    from ctypes import WINFUNCTYPE, WinError, windll
+
+    COMFUNCTYPE = WINFUNCTYPE
+
 
 Byte = c_ubyte
 SByte = c_byte
@@ -442,7 +476,7 @@ class ComMethodCall:
         params = tuple((1, name) for name in hints.keys())
         hints.update({i: v for i, v in enumerate(argtypes)})
         self._hints = hints
-        self._delegate = WINFUNCTYPE(restype, *argtypes)(vtbl_index, prototype.__name__, params)
+        self._delegate = COMFUNCTYPE(restype, *argtypes)(vtbl_index, prototype.__name__, params)
 
     def __call__(self, this, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
