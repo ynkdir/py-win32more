@@ -65,3 +65,67 @@ NOTE: This library requires a compatible Windows environment and appropriate per
 # Install Win32more Library
 python -m pip install win32more
 ```
+
+## Programming with Win32more
+
+Let's build a simple app with `Win32more`. To begin, create an empty window and display it on the screen.
+```python
+from win32more.Microsoft.UI.Xaml import Window
+from win32more.xaml import XamlApplication
+
+class App(XamlApplication):
+    def OnLaunched(self, args):
+        win = Window()
+        
+        win.Activate()
+
+XamlApplication.Start(App)
+```
+
+### Adding elements to the window
+
+Now, add some elements to the window (don't forget to import them at the beginning of the script). To navigate into WinUI views and know from which library you've to import yours, take a look at the **WinUI 3 Gallery** app, avaible on Microsoft Store.
+
+For example, the **Button** view belongs to `Microsoft.UI.Xaml.Controls`. Then import it as follows :
+```python
+from win32more.Microsoft.UI.Xaml import Window
+from win32more.Microsoft.UI.Xaml.Controls import Button # Import Button view
+from win32more.xaml import XamlApplication
+
+class App(XamlApplication):
+    def OnLaunched(self, args):
+        win = Window()
+        
+        btn = Button() # Init Button instance
+        btn.Content = "Hello World" # Set Button content
+        
+        win.Content = btn # Put it into the window
+        win.Activate()
+
+XamlApplication.Start(App)
+```
+
+### Handle (Button click) events
+
+You'll probably want to run some code when you click on your button. Create a `ButtonClick` method to print "Hello World" in the console and link it to your button.
+```python
+from win32more.Microsoft.UI.Xaml import Window
+from win32more.Microsoft.UI.Xaml.Controls import Button
+from win32more.xaml import XamlApplication
+
+class App(XamlApplication):
+    def OnLaunched(self, args):
+        win = Window()
+        
+        btn = Button()
+        btn.Content = "Hello World"
+        btn.add_Click(self.ButtonClick) # Link Button to method
+        
+        win.Content = btn
+        win.Activate()
+    
+    def ButtonClick(self, sender, args): # Create method
+        print("Hello World")
+
+XamlApplication.Start(App)
+```
