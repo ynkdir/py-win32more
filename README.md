@@ -14,7 +14,8 @@ https://github.com/microsoft/WindowsAppSDK
 ## Installation
 
 ```console
-pip install win32more
+# Install Win32more Library
+python -m pip install win32more
 ```
 
 ## Usage
