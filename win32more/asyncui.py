@@ -25,10 +25,6 @@ def async_start_runner(delay_ms=100):
     return running_loop
 
 
-def async_call(coroutine_function, *args):
-    _async_task(coroutine_function, args, _get_running_loop())
-
-
 def async_callback(coroutine_function):
     def wrapper(*args):
         _async_task(coroutine_function, args, loop)
