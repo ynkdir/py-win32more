@@ -26,7 +26,6 @@ else:
     from typing import Annotated, Tuple, get_args, get_origin  # noqa: F401
 
 from win32more import (
-    COMFUNCTYPE,
     FAILED,
     WINFUNCTYPE,
     Boolean,
@@ -574,7 +573,7 @@ class WinrtMethodCall:
                 argtypes.append(POINTER(restype))
                 params.append((1, "return"))
 
-        self.delegate = COMFUNCTYPE(HRESULT, *argtypes)(vtbl_index, prototype.__name__, tuple(params))
+        self.delegate = WINFUNCTYPE(HRESULT, *argtypes)(vtbl_index, prototype.__name__, tuple(params))
         self.restype = restype
         self.hints = hints
         self.hints.update({i: v for i, v in enumerate(hints.values())})
