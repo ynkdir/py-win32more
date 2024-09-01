@@ -4,13 +4,13 @@ from win32more import FAILED
 from win32more.Windows.Data.Xml.Dom import XmlDocument
 from win32more.Windows.UI.Notifications import ToastNotification, ToastNotificationManager
 from win32more.Windows.Win32.System.WinRT import (
-    RO_INIT_SINGLETHREADED,
+    RO_INIT_MULTITHREADED,
     RoInitialize,
     RoUninitialize,
 )
 
 
-def main2() -> None:
+def winrt_notification() -> None:
     template = """
     <toast>
         <visual>
@@ -36,11 +36,11 @@ def main2() -> None:
 
 
 def main() -> None:
-    hr = RoInitialize(RO_INIT_SINGLETHREADED)
+    hr = RoInitialize(RO_INIT_MULTITHREADED)
     if FAILED(hr):
         raise WinError(hr)
 
-    main2()
+    winrt_notification()
 
     RoUninitialize()
 

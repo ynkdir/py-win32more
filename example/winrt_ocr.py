@@ -1,43 +1,71 @@
 import asyncio
-import tkinter as tk
-from ctypes import (
-    WinError,
-)
+from ctypes import sizeof
 
-from win32more import FAILED
+from win32more import FAILED, WinError
 from win32more.Windows.Graphics.Imaging import BitmapDecoder
 from win32more.Windows.Media.Ocr import OcrEngine
 from win32more.Windows.Storage import FileAccessMode
 from win32more.Windows.Storage.Pickers import FileOpenPicker
 from win32more.Windows.UI.Popups import MessageDialog
+from win32more.Windows.Win32.System.LibraryLoader import GetModuleHandle
 from win32more.Windows.Win32.System.WinRT import (
-    RO_INIT_SINGLETHREADED,
+    RO_INIT_MULTITHREADED,
     RoInitialize,
     RoUninitialize,
 )
+from win32more.Windows.Win32.UI.Input.KeyboardAndMouse import SetActiveWindow
 from win32more.Windows.Win32.UI.Shell import IInitializeWithWindow
+from win32more.Windows.Win32.UI.WindowsAndMessaging import (
+    CW_USEDEFAULT,
+    MSG,
+    WNDCLASS,
+    WS_OVERLAPPED,
+    CreateWindowEx,
+    DefWindowProc,
+    DispatchMessage,
+    GetMessage,
+    PostQuitMessage,
+    RegisterClass,
+    SetTimer,
+    TranslateMessage,
+)
 
-mainhwnd = None
+
+def create_owner_window():
+    CLASS_NAME = "Owner Window"
+    hInstance = GetModuleHandle(None)
+
+    wc = WNDCLASS()
+    wc.cbSize = sizeof(WNDCLASS)
+    wc.lpfnWndProc = DefWindowProc
+    wc.hInstance = hInstance
+    wc.lpszClassName = CLASS_NAME
+
+    atom = RegisterClass(wc)
+    if not atom:
+        raise WinError()
+
+    hwnd = CreateWindowEx(
+        0, CLASS_NAME, "", WS_OVERLAPPED, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, hInstance, 0
+    )
+    if not hwnd:
+        raise WinError()
+
+    # workaround to avoid that dialog window appear in background.
+    SetActiveWindow(hwnd)
+
+    return hwnd
 
 
-def initialize_with_window(obj, hwnd):
-    ii = IInitializeWithWindow()
-    hr = obj.QueryInterface(IInitializeWithWindow._iid_, ii)
-    if FAILED(hr):
-        raise WinError(hr)
-    ii.Initialize(hwnd)
-    ii.Release()
-
-
-async def show_message(title, msg):
+async def show_message(owner_window, title, msg):
     dialog = MessageDialog.CreateWithTitle(msg, title)
-    initialize_with_window(dialog, mainhwnd)
+    dialog.as_(IInitializeWithWindow).Initialize(owner_window)
     return await dialog.ShowAsync()
 
 
-async def open_file(filter):
+async def open_file(owner_window, filter):
     picker = FileOpenPicker.CreateInstance()
-    initialize_with_window(picker, mainhwnd)
+    picker.as_(IInitializeWithWindow).Initialize(owner_window)
     picker.FileTypeFilter.Append(filter)
     return await picker.PickSingleFileAsync()
 
@@ -51,9 +79,7 @@ async def read_image(storage_file):
 
 def list_ocr_languages():
     print("AvailableRecognizerLanguages:")
-    vec = OcrEngine.AvailableRecognizerLanguages
-    for i in range(vec.Size):
-        lang = vec.GetAt(i)
+    for lang in OcrEngine.AvailableRecognizerLanguages:
         print(f"{lang.LanguageTag}: {lang.DisplayName}")
 
 
@@ -64,45 +90,34 @@ async def ocr(software_image):
     return result.Text
 
 
-async def run_ocr():
-    storage_file = await open_file(".png")
+async def winrt_ocr(owner_window):
+    list_ocr_languages()
+    storage_file = await open_file(owner_window, ".png")
     if not storage_file:
         return
     software_bitmap = await read_image(storage_file)
     text = await ocr(software_bitmap)
-    await show_message("Ocr result", text)
+    await show_message(owner_window, "Ocr result", text)
 
 
 async def main():
-    global mainhwnd
-
-    hr = RoInitialize(RO_INIT_SINGLETHREADED)
+    hr = RoInitialize(RO_INIT_MULTITHREADED)
     if FAILED(hr):
         raise WinError(hr)
 
-    is_running = True
+    task = asyncio.create_task(winrt_ocr(create_owner_window()))
+    task.add_done_callback(lambda _: PostQuitMessage(0))
 
-    def on_delete():
-        nonlocal is_running
-        is_running = False
+    SetTimer(0, 0, 100, None)  # to poll asyncio
 
-    root = tk.Tk()
-    root.protocol("WM_DELETE_WINDOW", on_delete)
-    root.eval("tk::PlaceWindow . center")
-
-    mainhwnd = root.winfo_id()
-
-    list_ocr_languages()
-
-    button = tk.Button(root, text="Open image for OCR", command=lambda: asyncio.create_task(run_ocr()))
-    button.pack(padx=10, pady=10, fill="both", expand=True)
-
-    while is_running:
-        root.after(100, root.quit)
-        root.mainloop()
+    msg = MSG()
+    while GetMessage(msg, 0, 0, 0) > 0:
+        TranslateMessage(msg)
+        DispatchMessage(msg)
         await asyncio.sleep(0)
 
     RoUninitialize()
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
