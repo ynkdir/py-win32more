@@ -19,7 +19,7 @@ This Python module provides a comprehensive interface for interacting with the W
 
 Whether you're building utilities, automating tasks, or developing advanced applications, `win32more` offers the flexibility and control you need.
 
-![Win32more Example Screenshot](https://github.com/sotanakamura/winui-python/blob/main/img.jpg)
+![Win32more Example Screenshot](./README-example-usage-img.jpg)
 
 ### Example Usage of Win32more
 ```python
