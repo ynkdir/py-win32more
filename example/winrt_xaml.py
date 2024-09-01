@@ -5,46 +5,17 @@
 # ruff: noqa: F841
 
 import tkinter as tk
-from ctypes import (
-    WinError,
-)
 
-from win32more import (
-    FAILED,
-)
-from win32more.Windows.UI import (
-    Colors,
-)
-from win32more.Windows.UI.Xaml import (
-    HorizontalAlignment_Center,
-    VerticalAlignment_Center,
-)
-from win32more.Windows.UI.Xaml.Controls import (
-    StackPanel,
-    TextBox,
-)
-from win32more.Windows.UI.Xaml.Hosting import (
-    DesktopWindowXamlSource,
-    WindowsXamlManager,
-)
-from win32more.Windows.UI.Xaml.Media import (
-    SolidColorBrush,
-)
-from win32more.Windows.Win32.Foundation import (
-    HWND,
-)
-from win32more.Windows.Win32.System.WinRT import (
-    RO_INIT_SINGLETHREADED,
-    RoInitialize,
-    RoUninitialize,
-)
-from win32more.Windows.Win32.System.WinRT.Xaml import (
-    IDesktopWindowXamlSourceNative,
-)
-from win32more.Windows.Win32.UI.WindowsAndMessaging import (
-    SWP_SHOWWINDOW,
-    SetWindowPos,
-)
+from win32more import FAILED, WinError
+from win32more.Windows.UI import Colors
+from win32more.Windows.UI.Xaml import HorizontalAlignment, VerticalAlignment
+from win32more.Windows.UI.Xaml.Controls import StackPanel, TextBox
+from win32more.Windows.UI.Xaml.Hosting import DesktopWindowXamlSource, WindowsXamlManager
+from win32more.Windows.UI.Xaml.Media import SolidColorBrush
+from win32more.Windows.Win32.Foundation import HWND
+from win32more.Windows.Win32.System.WinRT import RO_INIT_SINGLETHREADED, RoInitialize, RoUninitialize
+from win32more.Windows.Win32.System.WinRT.Xaml import IDesktopWindowXamlSourceNative
+from win32more.Windows.Win32.UI.WindowsAndMessaging import SWP_SHOWWINDOW, SetWindowPos
 
 
 def window_size_center(win, w, h):
@@ -101,8 +72,8 @@ def main2():
 
     tb = TextBox.CreateInstance(None, None)
     tb.Text = "Hello World from Xaml Islands!"
-    tb.VerticalAlignment = VerticalAlignment_Center
-    tb.HorizontalAlignment = HorizontalAlignment_Center
+    tb.VerticalAlignment = VerticalAlignment.Center
+    tb.HorizontalAlignment = HorizontalAlignment.Center
     tb.FontSize = 48
 
     xamlContainer.Children.Append(tb)
