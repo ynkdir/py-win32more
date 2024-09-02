@@ -33,14 +33,6 @@ Homepage = "https://github.com/ynkdir/py-win32more"
 [tool.hatch.build]
 only-include = ["win32more"]
 
-[tool.hatch.envs.default]
-dependencies = [
-    "mypy",
-]
-
-[tool.hatch.envs.default.scripts]
-typing = "mypy {args}"
-
 [[tool.hatch.envs.hatch-test.matrix]]
 python = [
     "3.13-64",
