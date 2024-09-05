@@ -184,7 +184,7 @@ class KnownResourceQualifierName(ComPtr, metaclass=_KnownResourceQualifierName_M
     _KnownResourceQualifierName_Meta_.Scale = property(get_Scale, None)
     _KnownResourceQualifierName_Meta_.TargetSize = property(get_TargetSize, None)
     _KnownResourceQualifierName_Meta_.Theme = property(get_Theme, None)
-MrtCoreContract: UInt32 = 65536
+MrtCoreContract: UInt32 = 131072
 class ResourceCandidate(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidate

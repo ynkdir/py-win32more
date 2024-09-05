@@ -1984,6 +1984,16 @@ class IScrollBarAutomationPeerFactory(ComPtr):
     _iid_ = Guid('{fc67a9cc-e914-532a-8717-0b383e2157f3}')
     @winrt_commethod(6)
     def CreateInstanceWithOwner(self, owner: win32more.Microsoft.UI.Xaml.Controls.Primitives.ScrollBar, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer: ...
+class IScrollPresenterAutomationPeer(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.IScrollPresenterAutomationPeer'
+    _iid_ = Guid('{995a6964-607f-5d95-bdf9-1870a5e82a0c}')
+class IScrollPresenterAutomationPeerFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.IScrollPresenterAutomationPeerFactory'
+    _iid_ = Guid('{47e29168-5e30-5abc-b844-7d89b5c3eec0}')
+    @winrt_commethod(6)
+    def CreateInstance(self, owner: win32more.Microsoft.UI.Xaml.Controls.Primitives.ScrollPresenter, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Automation.Peers.ScrollPresenterAutomationPeer: ...
 class IScrollViewerAutomationPeer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.IScrollViewerAutomationPeer'
@@ -3024,6 +3034,19 @@ class ScrollBarAutomationPeer(ComPtr):
             raise ValueError('no matched constructor')
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.IScrollBarAutomationPeerFactory, owner: win32more.Microsoft.UI.Xaml.Controls.Primitives.ScrollBar, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Automation.Peers.ScrollBarAutomationPeer: ...
+class ScrollPresenterAutomationPeer(ComPtr):
+    extends: win32more.Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
+    default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.IScrollPresenterAutomationPeer
+    _classid_ = 'Microsoft.UI.Xaml.Automation.Peers.ScrollPresenterAutomationPeer'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 1:
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Automation.Peers.ScrollPresenterAutomationPeer.CreateInstance(*args, None, None))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Automation.Peers.IScrollPresenterAutomationPeerFactory, owner: win32more.Microsoft.UI.Xaml.Controls.Primitives.ScrollPresenter, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Automation.Peers.ScrollPresenterAutomationPeer: ...
 class ScrollViewerAutomationPeer(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     default_interface: win32more.Microsoft.UI.Xaml.Automation.Peers.IScrollViewerAutomationPeer

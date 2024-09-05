@@ -4171,6 +4171,13 @@ class IXamlRoot2(ComPtr):
     @winrt_commethod(6)
     def get_ContentIslandEnvironment(self) -> win32more.Microsoft.UI.Content.ContentIslandEnvironment: ...
     ContentIslandEnvironment = property(get_ContentIslandEnvironment, None)
+class IXamlRoot3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.IXamlRoot3'
+    _iid_ = Guid('{b71dbf3b-2e0f-5de0-ac68-f0c1f65114c8}')
+    @winrt_commethod(6)
+    def get_CoordinateConverter(self) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
+    CoordinateConverter = property(get_CoordinateConverter, None)
 class IXamlRootChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IXamlRootChangedEventArgs'
@@ -5837,7 +5844,7 @@ class VisualTransition(ComPtr):
     GeneratedEasingFunction = property(get_GeneratedEasingFunction, put_GeneratedEasingFunction)
     Storyboard = property(get_Storyboard, put_Storyboard)
     To = property(get_To, put_To)
-WinUIContract: UInt32 = 393216
+WinUIContract: UInt32 = 458752
 class _Window_Meta_(ComPtr.__class__):
     pass
 class Window(ComPtr, metaclass=_Window_Meta_):
@@ -5972,7 +5979,7 @@ class WindowVisibilityChangedEventArgs(ComPtr):
     def get_Visible(self: win32more.Microsoft.UI.Xaml.IWindowVisibilityChangedEventArgs) -> Boolean: ...
     Handled = property(get_Handled, put_Handled)
     Visible = property(get_Visible, None)
-XamlContract: UInt32 = 393216
+XamlContract: UInt32 = 458752
 class XamlResourceReferenceFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IXamlResourceReferenceFailedEventArgs
@@ -5998,8 +6005,11 @@ class XamlRoot(ComPtr):
     def remove_Changed(self: win32more.Microsoft.UI.Xaml.IXamlRoot, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def get_ContentIslandEnvironment(self: win32more.Microsoft.UI.Xaml.IXamlRoot2) -> win32more.Microsoft.UI.Content.ContentIslandEnvironment: ...
+    @winrt_mixinmethod
+    def get_CoordinateConverter(self: win32more.Microsoft.UI.Xaml.IXamlRoot3) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
     Content = property(get_Content, None)
     ContentIslandEnvironment = property(get_ContentIslandEnvironment, None)
+    CoordinateConverter = property(get_CoordinateConverter, None)
     IsHostVisible = property(get_IsHostVisible, None)
     RasterizationScale = property(get_RasterizationScale, None)
     Size = property(get_Size, None)

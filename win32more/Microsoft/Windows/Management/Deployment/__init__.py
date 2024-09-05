@@ -126,7 +126,12 @@ class EnsureReadyOptions(ComPtr):
     def CreateInstance(cls) -> win32more.Microsoft.Windows.Management.Deployment.EnsureReadyOptions: ...
     @winrt_mixinmethod
     def get_AddPackageOptions(self: win32more.Microsoft.Windows.Management.Deployment.IEnsureReadyOptions) -> win32more.Microsoft.Windows.Management.Deployment.AddPackageOptions: ...
+    @winrt_mixinmethod
+    def get_RegisterNewerIfAvailable(self: win32more.Microsoft.Windows.Management.Deployment.IEnsureReadyOptions2) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_RegisterNewerIfAvailable(self: win32more.Microsoft.Windows.Management.Deployment.IEnsureReadyOptions2, value: Boolean) -> Void: ...
     AddPackageOptions = property(get_AddPackageOptions, None)
+    RegisterNewerIfAvailable = property(get_RegisterNewerIfAvailable, put_RegisterNewerIfAvailable)
 class IAddPackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IAddPackageOptions'
@@ -229,6 +234,15 @@ class IEnsureReadyOptions(ComPtr):
     @winrt_commethod(6)
     def get_AddPackageOptions(self) -> win32more.Microsoft.Windows.Management.Deployment.AddPackageOptions: ...
     AddPackageOptions = property(get_AddPackageOptions, None)
+class IEnsureReadyOptions2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Management.Deployment.IEnsureReadyOptions2'
+    _iid_ = Guid('{eefa9259-b13a-50a3-919e-ae116d83c0da}')
+    @winrt_commethod(6)
+    def get_RegisterNewerIfAvailable(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_RegisterNewerIfAvailable(self, value: Boolean) -> Void: ...
+    RegisterNewerIfAvailable = property(get_RegisterNewerIfAvailable, put_RegisterNewerIfAvailable)
 class IPackageDeploymentManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentManager'
@@ -301,12 +315,34 @@ class IPackageDeploymentManager(ComPtr):
     def IsPackageRegistrationPending(self, packageFamilyName: WinRT_String) -> Boolean: ...
     @winrt_commethod(39)
     def IsPackageRegistrationPendingForUser(self, userSecurityId: WinRT_String, packageFamilyName: WinRT_String) -> Boolean: ...
+class IPackageDeploymentManager2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentManager2'
+    _iid_ = Guid('{6fc6d0f3-f9dd-5c14-9d3f-077165eddf98}')
+    @winrt_commethod(6)
+    def IsPackageReadyOrNewerAvailable(self, package: WinRT_String) -> win32more.Microsoft.Windows.Management.Deployment.PackageReadyOrNewerAvailableStatus: ...
+    @winrt_commethod(7)
+    def IsPackageReadyOrNewerAvailableByUri(self, packageUri: win32more.Windows.Foundation.Uri) -> win32more.Microsoft.Windows.Management.Deployment.PackageReadyOrNewerAvailableStatus: ...
+    @winrt_commethod(8)
+    def IsPackageSetReadyOrNewerAvailable(self, packageSet: win32more.Microsoft.Windows.Management.Deployment.PackageSet) -> win32more.Microsoft.Windows.Management.Deployment.PackageReadyOrNewerAvailableStatus: ...
+    @winrt_commethod(9)
+    def IsPackageProvisioned(self, package: WinRT_String) -> Boolean: ...
+    @winrt_commethod(10)
+    def IsPackageProvisionedByUri(self, packageUri: win32more.Windows.Foundation.Uri) -> Boolean: ...
+    @winrt_commethod(11)
+    def IsPackageSetProvisioned(self, packageSet: win32more.Microsoft.Windows.Management.Deployment.PackageSet) -> Boolean: ...
 class IPackageDeploymentManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentManagerStatics'
     _iid_ = Guid('{dbda4ac6-ca28-59b8-9fc6-dbfb5765f1c2}')
     @winrt_commethod(6)
     def GetDefault(self) -> win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentManager: ...
+class IPackageDeploymentManagerStatics2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentManagerStatics2'
+    _iid_ = Guid('{0ec31486-00b5-5937-8cd4-759260fdc4a2}')
+    @winrt_commethod(6)
+    def IsPackageDeploymentFeatureSupported(self, feature: win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentFeature) -> Boolean: ...
 class IPackageDeploymentResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentResult'
@@ -631,7 +667,14 @@ class IStagePackageOptions(ComPtr):
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
     StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
-PackageDeploymentContract: UInt32 = 65536
+PackageDeploymentContract: UInt32 = 131072
+class PackageDeploymentFeature(Enum, Int32):
+    PackageUriScheme_ms_uup = 1
+    IsPackageReadyOrNewerAvailable = 2
+    RemovePackageByUri = 3
+    ResetPackage = 4
+    RepairPackage = 5
+    ProvisionPackage_Framework = 6
 class PackageDeploymentManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager
@@ -704,6 +747,20 @@ class PackageDeploymentManager(ComPtr):
     def IsPackageRegistrationPending(self: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager, packageFamilyName: WinRT_String) -> Boolean: ...
     @winrt_mixinmethod
     def IsPackageRegistrationPendingForUser(self: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager, userSecurityId: WinRT_String, packageFamilyName: WinRT_String) -> Boolean: ...
+    @winrt_mixinmethod
+    def IsPackageReadyOrNewerAvailable(self: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager2, package: WinRT_String) -> win32more.Microsoft.Windows.Management.Deployment.PackageReadyOrNewerAvailableStatus: ...
+    @winrt_mixinmethod
+    def IsPackageReadyOrNewerAvailableByUri(self: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager2, packageUri: win32more.Windows.Foundation.Uri) -> win32more.Microsoft.Windows.Management.Deployment.PackageReadyOrNewerAvailableStatus: ...
+    @winrt_mixinmethod
+    def IsPackageSetReadyOrNewerAvailable(self: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager2, packageSet: win32more.Microsoft.Windows.Management.Deployment.PackageSet) -> win32more.Microsoft.Windows.Management.Deployment.PackageReadyOrNewerAvailableStatus: ...
+    @winrt_mixinmethod
+    def IsPackageProvisioned(self: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager2, package: WinRT_String) -> Boolean: ...
+    @winrt_mixinmethod
+    def IsPackageProvisionedByUri(self: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager2, packageUri: win32more.Windows.Foundation.Uri) -> Boolean: ...
+    @winrt_mixinmethod
+    def IsPackageSetProvisioned(self: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager2, packageSet: win32more.Microsoft.Windows.Management.Deployment.PackageSet) -> Boolean: ...
+    @winrt_classmethod
+    def IsPackageDeploymentFeatureSupported(cls: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManagerStatics2, feature: win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentFeature) -> Boolean: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManagerStatics) -> win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentManager: ...
 class PackageDeploymentProgress(Structure):
@@ -737,6 +794,10 @@ class PackageDeploymentStatus(Enum, Int32):
     InProgress = 0
     CompletedSuccess = 1
     CompletedFailure = 2
+class PackageReadyOrNewerAvailableStatus(Enum, Int32):
+    NotReady = 0
+    Ready = 1
+    NewerAvailable = 2
 class PackageRuntimeManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageRuntimeManager

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Input
 import win32more.Microsoft.UI.Text
@@ -10717,6 +10718,12 @@ class IItemsWrapGrid(ComPtr):
     MaximumRowsOrColumns = property(get_MaximumRowsOrColumns, put_MaximumRowsOrColumns)
     Orientation = property(get_Orientation, put_Orientation)
     ScrollingDirection = property(get_ScrollingDirection, None)
+class IItemsWrapGridFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IItemsWrapGridFactory'
+    _iid_ = Guid('{c2f96d8c-3a18-552e-b970-6c575652e92d}')
+    @winrt_commethod(6)
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.ItemsWrapGrid: ...
 class IItemsWrapGridStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IItemsWrapGridStatics'
@@ -13618,6 +13625,15 @@ class IPipsPager(ComPtr):
     SelectedPipStyle = property(get_SelectedPipStyle, put_SelectedPipStyle)
     TemplateSettings = property(get_TemplateSettings, None)
     SelectedIndexChanged = event()
+class IPipsPager2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IPipsPager2'
+    _iid_ = Guid('{2ed8334b-4f00-5606-9f72-e6f7300746a0}')
+    @winrt_commethod(6)
+    def get_WrapMode(self) -> win32more.Microsoft.UI.Xaml.Controls.PipsPagerWrapMode: ...
+    @winrt_commethod(7)
+    def put_WrapMode(self, value: win32more.Microsoft.UI.Xaml.Controls.PipsPagerWrapMode) -> Void: ...
+    WrapMode = property(get_WrapMode, put_WrapMode)
 class IPipsPagerFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IPipsPagerFactory'
@@ -13662,6 +13678,13 @@ class IPipsPagerStatics(ComPtr):
     PreviousButtonVisibilityProperty = property(get_PreviousButtonVisibilityProperty, None)
     SelectedPageIndexProperty = property(get_SelectedPageIndexProperty, None)
     SelectedPipStyleProperty = property(get_SelectedPipStyleProperty, None)
+class IPipsPagerStatics2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.IPipsPagerStatics2'
+    _iid_ = Guid('{00143f5f-ef77-54a9-9bf3-5dae3799e4a4}')
+    @winrt_commethod(6)
+    def get_WrapModeProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    WrapModeProperty = property(get_WrapModeProperty, None)
 class IPipsPagerTemplateSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IPipsPagerTemplateSettings'
@@ -17261,6 +17284,66 @@ class ITabView(ComPtr):
     TabDragCompleted = event()
     TabStripDragOver = event()
     TabStripDrop = event()
+class ITabView2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITabView2'
+    _iid_ = Guid('{deaa552e-4e6c-5239-ac75-d9419a2309da}')
+    @winrt_commethod(6)
+    def get_CanTearOutTabs(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_CanTearOutTabs(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def add_TabTearOutWindowRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TabView, win32more.Microsoft.UI.Xaml.Controls.TabViewTabTearOutWindowRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(9)
+    def remove_TabTearOutWindowRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(10)
+    def add_TabTearOutRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TabView, win32more.Microsoft.UI.Xaml.Controls.TabViewTabTearOutRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(11)
+    def remove_TabTearOutRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(12)
+    def add_ExternalTornOutTabsDropping(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TabView, win32more.Microsoft.UI.Xaml.Controls.TabViewExternalTornOutTabsDroppingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(13)
+    def remove_ExternalTornOutTabsDropping(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(14)
+    def add_ExternalTornOutTabsDropped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TabView, win32more.Microsoft.UI.Xaml.Controls.TabViewExternalTornOutTabsDroppedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(15)
+    def remove_ExternalTornOutTabsDropped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    CanTearOutTabs = property(get_CanTearOutTabs, put_CanTearOutTabs)
+    TabTearOutWindowRequested = event()
+    TabTearOutRequested = event()
+    ExternalTornOutTabsDropping = event()
+    ExternalTornOutTabsDropped = event()
+class ITabViewExternalTornOutTabsDroppedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppedEventArgs'
+    _iid_ = Guid('{69912428-34d9-5aac-85b7-a91d71c133aa}')
+    @winrt_commethod(6)
+    def get_Items(self) -> ReceiveArray[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_commethod(7)
+    def get_Tabs(self) -> ReceiveArray[win32more.Microsoft.UI.Xaml.UIElement]: ...
+    @winrt_commethod(8)
+    def get_DropIndex(self) -> Int32: ...
+    DropIndex = property(get_DropIndex, None)
+    Items = property(get_Items, None)
+    Tabs = property(get_Tabs, None)
+class ITabViewExternalTornOutTabsDroppingEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppingEventArgs'
+    _iid_ = Guid('{b2378908-c5d7-560e-a2e2-46403e13e5ad}')
+    @winrt_commethod(6)
+    def get_Items(self) -> ReceiveArray[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_commethod(7)
+    def get_Tabs(self) -> ReceiveArray[win32more.Microsoft.UI.Xaml.UIElement]: ...
+    @winrt_commethod(8)
+    def get_DropIndex(self) -> Int32: ...
+    @winrt_commethod(9)
+    def get_AllowDrop(self) -> Boolean: ...
+    @winrt_commethod(10)
+    def put_AllowDrop(self, value: Boolean) -> Void: ...
+    AllowDrop = property(get_AllowDrop, put_AllowDrop)
+    DropIndex = property(get_DropIndex, None)
+    Items = property(get_Items, None)
+    Tabs = property(get_Tabs, None)
 class ITabViewFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITabViewFactory'
@@ -17420,6 +17503,13 @@ class ITabViewStatics(ComPtr):
     TabStripHeaderProperty = property(get_TabStripHeaderProperty, None)
     TabStripHeaderTemplateProperty = property(get_TabStripHeaderTemplateProperty, None)
     TabWidthModeProperty = property(get_TabWidthModeProperty, None)
+class ITabViewStatics2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITabViewStatics2'
+    _iid_ = Guid('{b589da39-25f2-517c-82d1-c51d8085550e}')
+    @winrt_commethod(6)
+    def get_CanTearOutTabsProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    CanTearOutTabsProperty = property(get_CanTearOutTabsProperty, None)
 class ITabViewTabCloseRequestedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITabViewTabCloseRequestedEventArgs'
@@ -17471,6 +17561,34 @@ class ITabViewTabDroppedOutsideEventArgs(ComPtr):
     def get_Tab(self) -> win32more.Microsoft.UI.Xaml.Controls.TabViewItem: ...
     Item = property(get_Item, None)
     Tab = property(get_Tab, None)
+class ITabViewTabTearOutRequestedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITabViewTabTearOutRequestedEventArgs'
+    _iid_ = Guid('{e8a0c441-66c5-578a-8177-47dfffb97b83}')
+    @winrt_commethod(6)
+    def get_Items(self) -> ReceiveArray[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_commethod(7)
+    def get_Tabs(self) -> ReceiveArray[win32more.Microsoft.UI.Xaml.UIElement]: ...
+    @winrt_commethod(8)
+    def get_NewWindowId(self) -> win32more.Microsoft.UI.WindowId: ...
+    Items = property(get_Items, None)
+    NewWindowId = property(get_NewWindowId, None)
+    Tabs = property(get_Tabs, None)
+class ITabViewTabTearOutWindowRequestedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITabViewTabTearOutWindowRequestedEventArgs'
+    _iid_ = Guid('{0c13afa7-f291-5bac-a6e8-cc67a69b04c9}')
+    @winrt_commethod(6)
+    def get_Items(self) -> ReceiveArray[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_commethod(7)
+    def get_Tabs(self) -> ReceiveArray[win32more.Microsoft.UI.Xaml.UIElement]: ...
+    @winrt_commethod(8)
+    def get_NewWindowId(self) -> win32more.Microsoft.UI.WindowId: ...
+    @winrt_commethod(9)
+    def put_NewWindowId(self, value: win32more.Microsoft.UI.WindowId) -> Void: ...
+    Items = property(get_Items, None)
+    NewWindowId = property(get_NewWindowId, put_NewWindowId)
+    Tabs = property(get_Tabs, None)
 class ITeachingTip(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.ITeachingTip'
@@ -21209,11 +21327,11 @@ class ItemsWrapGrid(ComPtr, metaclass=_ItemsWrapGrid_Meta_):
         if kwargs:
             super().__init__(**kwargs)
         elif len(args) == 0:
-            super().__init__(move=win32more.Microsoft.UI.Xaml.Controls.ItemsWrapGrid.CreateInstance(*args))
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Controls.ItemsWrapGrid.CreateInstance(*args, None, None))
         else:
             raise ValueError('no matched constructor')
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Microsoft.UI.Xaml.Controls.ItemsWrapGrid: ...
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.IItemsWrapGridFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.ItemsWrapGrid: ...
     @winrt_mixinmethod
     def get_GroupPadding(self: win32more.Microsoft.UI.Xaml.Controls.IItemsWrapGrid) -> win32more.Microsoft.UI.Xaml.Thickness: ...
     @winrt_mixinmethod
@@ -24243,6 +24361,12 @@ class PipsPager(ComPtr, metaclass=_PipsPager_Meta_):
     def remove_SelectedIndexChanged(self: win32more.Microsoft.UI.Xaml.Controls.IPipsPager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def get_TemplateSettings(self: win32more.Microsoft.UI.Xaml.Controls.IPipsPager) -> win32more.Microsoft.UI.Xaml.Controls.PipsPagerTemplateSettings: ...
+    @winrt_mixinmethod
+    def get_WrapMode(self: win32more.Microsoft.UI.Xaml.Controls.IPipsPager2) -> win32more.Microsoft.UI.Xaml.Controls.PipsPagerWrapMode: ...
+    @winrt_mixinmethod
+    def put_WrapMode(self: win32more.Microsoft.UI.Xaml.Controls.IPipsPager2, value: win32more.Microsoft.UI.Xaml.Controls.PipsPagerWrapMode) -> Void: ...
+    @winrt_classmethod
+    def get_WrapModeProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IPipsPagerStatics2) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
     def get_NumberOfPagesProperty(cls: win32more.Microsoft.UI.Xaml.Controls.IPipsPagerStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
@@ -24274,6 +24398,7 @@ class PipsPager(ComPtr, metaclass=_PipsPager_Meta_):
     SelectedPageIndex = property(get_SelectedPageIndex, put_SelectedPageIndex)
     SelectedPipStyle = property(get_SelectedPipStyle, put_SelectedPipStyle)
     TemplateSettings = property(get_TemplateSettings, None)
+    WrapMode = property(get_WrapMode, put_WrapMode)
     _PipsPager_Meta_.MaxVisiblePipsProperty = property(get_MaxVisiblePipsProperty, None)
     _PipsPager_Meta_.NextButtonStyleProperty = property(get_NextButtonStyleProperty, None)
     _PipsPager_Meta_.NextButtonVisibilityProperty = property(get_NextButtonVisibilityProperty, None)
@@ -24284,6 +24409,7 @@ class PipsPager(ComPtr, metaclass=_PipsPager_Meta_):
     _PipsPager_Meta_.PreviousButtonVisibilityProperty = property(get_PreviousButtonVisibilityProperty, None)
     _PipsPager_Meta_.SelectedPageIndexProperty = property(get_SelectedPageIndexProperty, None)
     _PipsPager_Meta_.SelectedPipStyleProperty = property(get_SelectedPipStyleProperty, None)
+    _PipsPager_Meta_.WrapModeProperty = property(get_WrapModeProperty, None)
     SelectedIndexChanged = event()
 class PipsPagerButtonVisibility(Enum, Int32):
     Visible = 0
@@ -24300,6 +24426,9 @@ class PipsPagerTemplateSettings(ComPtr):
     @winrt_mixinmethod
     def get_PipsPagerItems(self: win32more.Microsoft.UI.Xaml.Controls.IPipsPagerTemplateSettings) -> win32more.Windows.Foundation.Collections.IVector[Int32]: ...
     PipsPagerItems = property(get_PipsPagerItems, None)
+class PipsPagerWrapMode(Enum, Int32):
+    None_ = 0
+    Wrap = 1
 class _Pivot_Meta_(ComPtr.__class__):
     pass
 class Pivot(ComPtr, metaclass=_Pivot_Meta_):
@@ -28375,6 +28504,28 @@ class TabView(ComPtr, metaclass=_TabView_Meta_):
     def add_TabStripDrop(self: win32more.Microsoft.UI.Xaml.Controls.ITabView, handler: win32more.Microsoft.UI.Xaml.DragEventHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_TabStripDrop(self: win32more.Microsoft.UI.Xaml.Controls.ITabView, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def get_CanTearOutTabs(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_CanTearOutTabs(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def add_TabTearOutWindowRequested(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TabView, win32more.Microsoft.UI.Xaml.Controls.TabViewTabTearOutWindowRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_TabTearOutWindowRequested(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_TabTearOutRequested(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TabView, win32more.Microsoft.UI.Xaml.Controls.TabViewTabTearOutRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_TabTearOutRequested(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_ExternalTornOutTabsDropping(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TabView, win32more.Microsoft.UI.Xaml.Controls.TabViewExternalTornOutTabsDroppingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_ExternalTornOutTabsDropping(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_ExternalTornOutTabsDropped(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TabView, win32more.Microsoft.UI.Xaml.Controls.TabViewExternalTornOutTabsDroppedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_ExternalTornOutTabsDropped(self: win32more.Microsoft.UI.Xaml.Controls.ITabView2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def get_CanTearOutTabsProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITabViewStatics2) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
     def get_TabWidthModeProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITabViewStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
@@ -28416,6 +28567,7 @@ class TabView(ComPtr, metaclass=_TabView_Meta_):
     AllowDropTabs = property(get_AllowDropTabs, put_AllowDropTabs)
     CanDragTabs = property(get_CanDragTabs, put_CanDragTabs)
     CanReorderTabs = property(get_CanReorderTabs, put_CanReorderTabs)
+    CanTearOutTabs = property(get_CanTearOutTabs, put_CanTearOutTabs)
     CloseButtonOverlayMode = property(get_CloseButtonOverlayMode, put_CloseButtonOverlayMode)
     IsAddTabButtonVisible = property(get_IsAddTabButtonVisible, put_IsAddTabButtonVisible)
     SelectedIndex = property(get_SelectedIndex, put_SelectedIndex)
@@ -28434,6 +28586,7 @@ class TabView(ComPtr, metaclass=_TabView_Meta_):
     _TabView_Meta_.AllowDropTabsProperty = property(get_AllowDropTabsProperty, None)
     _TabView_Meta_.CanDragTabsProperty = property(get_CanDragTabsProperty, None)
     _TabView_Meta_.CanReorderTabsProperty = property(get_CanReorderTabsProperty, None)
+    _TabView_Meta_.CanTearOutTabsProperty = property(get_CanTearOutTabsProperty, None)
     _TabView_Meta_.CloseButtonOverlayModeProperty = property(get_CloseButtonOverlayModeProperty, None)
     _TabView_Meta_.IsAddTabButtonVisibleProperty = property(get_IsAddTabButtonVisibleProperty, None)
     _TabView_Meta_.SelectedIndexProperty = property(get_SelectedIndexProperty, None)
@@ -28456,10 +28609,45 @@ class TabView(ComPtr, metaclass=_TabView_Meta_):
     TabDragCompleted = event()
     TabStripDragOver = event()
     TabStripDrop = event()
+    TabTearOutWindowRequested = event()
+    TabTearOutRequested = event()
+    ExternalTornOutTabsDropping = event()
+    ExternalTornOutTabsDropped = event()
 class TabViewCloseButtonOverlayMode(Enum, Int32):
     Auto = 0
     OnPointerOver = 1
     Always = 2
+class TabViewExternalTornOutTabsDroppedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppedEventArgs
+    _classid_ = 'Microsoft.UI.Xaml.Controls.TabViewExternalTornOutTabsDroppedEventArgs'
+    @winrt_mixinmethod
+    def get_Items(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppedEventArgs) -> ReceiveArray[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_mixinmethod
+    def get_Tabs(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppedEventArgs) -> ReceiveArray[win32more.Microsoft.UI.Xaml.UIElement]: ...
+    @winrt_mixinmethod
+    def get_DropIndex(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppedEventArgs) -> Int32: ...
+    DropIndex = property(get_DropIndex, None)
+    Items = property(get_Items, None)
+    Tabs = property(get_Tabs, None)
+class TabViewExternalTornOutTabsDroppingEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppingEventArgs
+    _classid_ = 'Microsoft.UI.Xaml.Controls.TabViewExternalTornOutTabsDroppingEventArgs'
+    @winrt_mixinmethod
+    def get_Items(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppingEventArgs) -> ReceiveArray[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_mixinmethod
+    def get_Tabs(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppingEventArgs) -> ReceiveArray[win32more.Microsoft.UI.Xaml.UIElement]: ...
+    @winrt_mixinmethod
+    def get_DropIndex(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppingEventArgs) -> Int32: ...
+    @winrt_mixinmethod
+    def get_AllowDrop(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppingEventArgs) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_AllowDrop(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewExternalTornOutTabsDroppingEventArgs, value: Boolean) -> Void: ...
+    AllowDrop = property(get_AllowDrop, put_AllowDrop)
+    DropIndex = property(get_DropIndex, None)
+    Items = property(get_Items, None)
+    Tabs = property(get_Tabs, None)
 class _TabViewItem_Meta_(ComPtr.__class__):
     pass
 class TabViewItem(ComPtr, metaclass=_TabViewItem_Meta_):
@@ -28600,6 +28788,34 @@ class TabViewTabDroppedOutsideEventArgs(ComPtr):
     def get_Tab(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabDroppedOutsideEventArgs) -> win32more.Microsoft.UI.Xaml.Controls.TabViewItem: ...
     Item = property(get_Item, None)
     Tab = property(get_Tab, None)
+class TabViewTabTearOutRequestedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabTearOutRequestedEventArgs
+    _classid_ = 'Microsoft.UI.Xaml.Controls.TabViewTabTearOutRequestedEventArgs'
+    @winrt_mixinmethod
+    def get_Items(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabTearOutRequestedEventArgs) -> ReceiveArray[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_mixinmethod
+    def get_Tabs(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabTearOutRequestedEventArgs) -> ReceiveArray[win32more.Microsoft.UI.Xaml.UIElement]: ...
+    @winrt_mixinmethod
+    def get_NewWindowId(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabTearOutRequestedEventArgs) -> win32more.Microsoft.UI.WindowId: ...
+    Items = property(get_Items, None)
+    NewWindowId = property(get_NewWindowId, None)
+    Tabs = property(get_Tabs, None)
+class TabViewTabTearOutWindowRequestedEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabTearOutWindowRequestedEventArgs
+    _classid_ = 'Microsoft.UI.Xaml.Controls.TabViewTabTearOutWindowRequestedEventArgs'
+    @winrt_mixinmethod
+    def get_Items(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabTearOutWindowRequestedEventArgs) -> ReceiveArray[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_mixinmethod
+    def get_Tabs(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabTearOutWindowRequestedEventArgs) -> ReceiveArray[win32more.Microsoft.UI.Xaml.UIElement]: ...
+    @winrt_mixinmethod
+    def get_NewWindowId(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabTearOutWindowRequestedEventArgs) -> win32more.Microsoft.UI.WindowId: ...
+    @winrt_mixinmethod
+    def put_NewWindowId(self: win32more.Microsoft.UI.Xaml.Controls.ITabViewTabTearOutWindowRequestedEventArgs, value: win32more.Microsoft.UI.WindowId) -> Void: ...
+    Items = property(get_Items, None)
+    NewWindowId = property(get_NewWindowId, put_NewWindowId)
+    Tabs = property(get_Tabs, None)
 class TabViewWidthMode(Enum, Int32):
     Equal = 0
     SizeToContent = 1
