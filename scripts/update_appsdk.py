@@ -55,6 +55,10 @@ def main():
         "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
         "win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
     )
+    nupkg.extract(
+        "license.txt",
+        "LICENSE (Microsoft.WindowsAppRuntime.Bootstrap.dll).txt",
+    )
 
     ed = Edit("win32more/mddbootstrap.py")
     ed.substitute("^# VERSION: .*$", f"# VERSION: {args.version}")

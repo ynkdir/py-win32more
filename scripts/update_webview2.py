@@ -33,6 +33,10 @@ def main():
         "runtimes/win-x86/native_uap/Microsoft.Web.WebView2.Core.dll",
         "win32more/dll/x86/Microsoft.Web.WebView2.Core.dll",
     )
+    nupkg.extract(
+        "LICENSE.txt",
+        "LICENSE (Microsoft.Web.WebView2.Core.dll).txt",
+    )
 
 
 if __name__ == "__main__":
