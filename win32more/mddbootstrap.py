@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import sys
 import webbrowser
 from pathlib import Path
@@ -42,34 +43,15 @@ WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = 0x177000F200650000
 
 if ARCH == "ARM64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_Arm64
+    os.add_dll_directory(os.path.dirname(__file__) + "\\dll\\arm64")
 elif ARCH == "X64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_X64
+    os.add_dll_directory(os.path.dirname(__file__) + "\\dll\\x64")
 elif ARCH == "X86":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_X86
+    os.add_dll_directory(os.path.dirname(__file__) + "\\dll\\x86")
 else:
     assert False
-
-# C:\Program Files\WindowsApps\Microsoft.WindowsAppRuntime.{major}.{minor}_{version}_{arch}_{resource_id}_8wekyb3d8bbwe
-Microsoft_WindowsAppRuntime_Install_Directory = None
-
-
-def _winfunctype_app(dllname, entry_point=None):
-    def decorator(prototype):
-        delegate = None
-
-        def wrapper(*args, **kwargs):
-            nonlocal delegate
-            assert Microsoft_WindowsAppRuntime_Install_Directory is not None
-            if delegate is None:
-                delegate = winfunctype(f"{Microsoft_WindowsAppRuntime_Install_Directory}\\{dllname}", entry_point)(
-                    prototype
-                )
-            return delegate(*args, **kwargs)
-
-        return wrapper
-
-    return decorator
-
 
 MddBootstrapInitializeOptions = Int32
 MddBootstrapInitializeOptions_None: win32more.mddbootstrap.MddBootstrapInitializeOptions = 0
@@ -80,7 +62,7 @@ MddBootstrapInitializeOptions_OnNoMatch_ShowUI: win32more.mddbootstrap.MddBootst
 MddBootstrapInitializeOptions_OnPackageIdentity_NOOP: win32more.mddbootstrap.MddBootstrapInitializeOptions = 16
 
 
-@_winfunctype_app("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapInitialize")
+@winfunctype("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapInitialize")
 def _MddBootstrapInitialize(
     majorMinorVersion: UInt32,
     versionTag: String,
@@ -88,7 +70,7 @@ def _MddBootstrapInitialize(
 ) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
-@_winfunctype_app("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapInitialize2")
+@winfunctype("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapInitialize2")
 def _MddBootstrapInitialize2(
     majorMinorVersion: UInt32,
     versionTag: String,
@@ -97,7 +79,7 @@ def _MddBootstrapInitialize2(
 ) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 
-@_winfunctype_app("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapShutdown")
+@winfunctype("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapShutdown")
 def _MddBootstrapShutdown() -> Void: ...
 
 
@@ -109,7 +91,7 @@ def MddBootstrapInitialize2(
     major_minor_version: int, version_tag: str, min_version: PACKAGE_VERSION, options: int
 ) -> int:
     if _IsPackagedProcess() and not _IsWin11():
-        raise NotImplementedError("Packaged process is not supported before Windows 11")
+        raise RuntimeError("Packaged process is not supported before Windows 11")
     elif _IsWin11():
         hr = _Initialize_Win11(_GetFrameworkPackageFamilyName(major_minor_version, version_tag), min_version)
         if FAILED(hr):
@@ -119,18 +101,12 @@ def MddBootstrapInitialize2(
             return hr
         return S_OK
     else:
-        hr = _Initialize_Win10(major_minor_version, version_tag, min_version, options)
-        if FAILED(hr):
-            if hr == STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED:
-                if options & MddBootstrapInitializeOptions_OnNoMatch_ShowUI:
-                    _OnNoMatch_ShowUI(major_minor_version, version_tag, min_version)
-            return hr
         return _module._MddBootstrapInitialize2(major_minor_version, version_tag, min_version, options)
 
 
 def MddBootstrapShutdown() -> None:
     if _IsPackagedProcess() and not _IsWin11():
-        raise NotImplementedError("Packaged process is not supported before Windows 11")
+        raise RuntimeError("Packaged process is not supported before Windows 11")
     elif _IsWin11():
         pass
     else:
@@ -175,21 +151,6 @@ def _Initialize_Win11(family_name: str, min_version: PACKAGE_VERSION) -> int:
         return hr
 
     return S_OK
-
-
-def _Initialize_Win10(major_minor_version, version_tag, min_version: PACKAGE_VERSION, options: int) -> int:
-    global Microsoft_WindowsAppRuntime_Install_Directory
-
-    if Microsoft_WindowsAppRuntime_Install_Directory is not None:
-        return S_OK
-
-    Microsoft_WindowsAppRuntime_Install_Directory = _GetFrameworkPackageDirectory(
-        major_minor_version, version_tag, min_version
-    )
-    if Microsoft_WindowsAppRuntime_Install_Directory is not None:
-        return S_OK
-
-    return STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED
 
 
 # https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/package-identity-overview

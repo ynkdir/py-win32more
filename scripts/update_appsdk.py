@@ -43,6 +43,19 @@ def main():
     nupkg = NupkgDownload(f"https://globalcdn.nuget.org/packages/microsoft.windowsappsdk.{args.version}.nupkg")
     version_info = nupkg.readjson("WindowsAppSDK-VersionInfo.json")
 
+    nupkg.extract(
+        "runtimes/win-arm64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+        "win32more/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+    )
+    nupkg.extract(
+        "runtimes/win-x64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+        "win32more/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+    )
+    nupkg.extract(
+        "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+        "win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+    )
+
     ed = Edit("win32more/mddbootstrap.py")
     ed.substitute("^# VERSION: .*$", f"# VERSION: {args.version}")
     ed.substitute(
