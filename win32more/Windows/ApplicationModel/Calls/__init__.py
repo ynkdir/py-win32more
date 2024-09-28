@@ -9,13 +9,110 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.UI
 import win32more.Windows.Win32.System.WinRT
+class AcceptedVoipPhoneCallOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions
+    _classid_ = 'Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions.CreateInstance(*args))
+        elif len(args) == 1:
+            super().__init__(move=win32more.Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_overload
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions: ...
+    @CreateInstance.register
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptionsFactory, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions: ...
+    @winrt_mixinmethod
+    def get_Context(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Context(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContactName(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ContactName(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContactNumber(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ContactNumber(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ServiceName(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ServiceName(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Media(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
+    @winrt_mixinmethod
+    def put_Media(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions, value: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+    @winrt_mixinmethod
+    def get_AssociatedDeviceIds(self: win32more.Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AssociatedDeviceIds = property(get_AssociatedDeviceIds, None)
+    ContactName = property(get_ContactName, put_ContactName)
+    ContactNumber = property(get_ContactNumber, put_ContactNumber)
+    Context = property(get_Context, put_Context)
+    Media = property(get_Media, put_Media)
+    ServiceName = property(get_ServiceName, put_ServiceName)
+class AppInitiatedVoipPhoneCallOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions
+    _classid_ = 'Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions.CreateInstance(*args))
+        elif len(args) == 1:
+            super().__init__(move=win32more.Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_overload
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions: ...
+    @CreateInstance.register
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptionsFactory, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions: ...
+    @winrt_mixinmethod
+    def get_Context(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Context(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContactName(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ContactName(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContactNumber(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ContactNumber(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ServiceName(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ServiceName(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Media(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
+    @winrt_mixinmethod
+    def put_Media(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions, value: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+    @winrt_mixinmethod
+    def get_AssociatedDeviceIds(self: win32more.Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AssociatedDeviceIds = property(get_AssociatedDeviceIds, None)
+    ContactName = property(get_ContactName, put_ContactName)
+    ContactNumber = property(get_ContactNumber, put_ContactNumber)
+    Context = property(get_Context, put_Context)
+    Media = property(get_Media, put_Media)
+    ServiceName = property(get_ServiceName, put_ServiceName)
 class CallAnswerEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.ICallAnswerEventArgs
     _classid_ = 'Windows.ApplicationModel.Calls.CallAnswerEventArgs'
     @winrt_mixinmethod
     def get_AcceptedMedia(self: win32more.Windows.ApplicationModel.Calls.ICallAnswerEventArgs) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
+    @winrt_mixinmethod
+    def get_SourceDeviceId(self: win32more.Windows.ApplicationModel.Calls.ICallAnswerEventArgs2) -> WinRT_String: ...
     AcceptedMedia = property(get_AcceptedMedia, None)
+    SourceDeviceId = property(get_SourceDeviceId, None)
 class CallRejectEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.ICallRejectEventArgs
@@ -51,6 +148,82 @@ class DtmfKey(Enum, Int32):
 class DtmfToneAudioPlayback(Enum, Int32):
     Play = 0
     DoNotPlay = 1
+class IAcceptedVoipPhoneCallOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptions'
+    _iid_ = Guid('{e519c726-b86f-5add-8ae2-0f46acd9232d}')
+    @winrt_commethod(6)
+    def get_Context(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_Context(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_ContactName(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_ContactName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(10)
+    def get_ContactNumber(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def put_ContactNumber(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(12)
+    def get_ServiceName(self) -> WinRT_String: ...
+    @winrt_commethod(13)
+    def put_ServiceName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(14)
+    def get_Media(self) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
+    @winrt_commethod(15)
+    def put_Media(self, value: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+    @winrt_commethod(16)
+    def get_AssociatedDeviceIds(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AssociatedDeviceIds = property(get_AssociatedDeviceIds, None)
+    ContactName = property(get_ContactName, put_ContactName)
+    ContactNumber = property(get_ContactNumber, put_ContactNumber)
+    Context = property(get_Context, put_Context)
+    Media = property(get_Media, put_Media)
+    ServiceName = property(get_ServiceName, put_ServiceName)
+class IAcceptedVoipPhoneCallOptionsFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IAcceptedVoipPhoneCallOptionsFactory'
+    _iid_ = Guid('{6cf8a79b-acc1-54ce-a75d-cc78d17690c8}')
+    @winrt_commethod(6)
+    def CreateInstance(self, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions: ...
+class IAppInitiatedVoipPhoneCallOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptions'
+    _iid_ = Guid('{86bebf63-ff5a-57fd-84c6-2d2cf18302f8}')
+    @winrt_commethod(6)
+    def get_Context(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_Context(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_ContactName(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_ContactName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(10)
+    def get_ContactNumber(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def put_ContactNumber(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(12)
+    def get_ServiceName(self) -> WinRT_String: ...
+    @winrt_commethod(13)
+    def put_ServiceName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(14)
+    def get_Media(self) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
+    @winrt_commethod(15)
+    def put_Media(self, value: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+    @winrt_commethod(16)
+    def get_AssociatedDeviceIds(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AssociatedDeviceIds = property(get_AssociatedDeviceIds, None)
+    ContactName = property(get_ContactName, put_ContactName)
+    ContactNumber = property(get_ContactNumber, put_ContactNumber)
+    Context = property(get_Context, put_Context)
+    Media = property(get_Media, put_Media)
+    ServiceName = property(get_ServiceName, put_ServiceName)
+class IAppInitiatedVoipPhoneCallOptionsFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IAppInitiatedVoipPhoneCallOptionsFactory'
+    _iid_ = Guid('{ca46c30c-f779-5f3b-8ebc-a635e7f652b5}')
+    @winrt_commethod(6)
+    def CreateInstance(self, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions: ...
 class ICallAnswerEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.ICallAnswerEventArgs'
@@ -58,6 +231,13 @@ class ICallAnswerEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_AcceptedMedia(self) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
     AcceptedMedia = property(get_AcceptedMedia, None)
+class ICallAnswerEventArgs2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.ICallAnswerEventArgs2'
+    _iid_ = Guid('{408208f7-c3f7-579a-800d-541082cba051}')
+    @winrt_commethod(6)
+    def get_SourceDeviceId(self) -> WinRT_String: ...
+    SourceDeviceId = property(get_SourceDeviceId, None)
 class ICallRejectEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.ICallRejectEventArgs'
@@ -72,6 +252,74 @@ class ICallStateChangeEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_State(self) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallState: ...
     State = property(get_State, None)
+class IIncomingVoipPhoneCallOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions'
+    _iid_ = Guid('{4379fcd6-ddd0-5e9b-81d8-5110495764ae}')
+    @winrt_commethod(6)
+    def get_Context(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_Context(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_ContactName(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_ContactName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(10)
+    def get_ContactNumber(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def put_ContactNumber(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(12)
+    def get_ContactImage(self) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_commethod(13)
+    def put_ContactImage(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_commethod(14)
+    def get_ServiceName(self) -> WinRT_String: ...
+    @winrt_commethod(15)
+    def put_ServiceName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(16)
+    def get_BrandingImage(self) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_commethod(17)
+    def put_BrandingImage(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_commethod(18)
+    def get_CallDetails(self) -> WinRT_String: ...
+    @winrt_commethod(19)
+    def put_CallDetails(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(20)
+    def get_Ringtone(self) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_commethod(21)
+    def put_Ringtone(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_commethod(22)
+    def get_Media(self) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
+    @winrt_commethod(23)
+    def put_Media(self, value: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+    @winrt_commethod(24)
+    def get_RingTimeout(self) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_commethod(25)
+    def put_RingTimeout(self, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_commethod(26)
+    def get_ContactRemoteId(self) -> WinRT_String: ...
+    @winrt_commethod(27)
+    def put_ContactRemoteId(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(28)
+    def get_AssociatedDeviceIds(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AssociatedDeviceIds = property(get_AssociatedDeviceIds, None)
+    BrandingImage = property(get_BrandingImage, put_BrandingImage)
+    CallDetails = property(get_CallDetails, put_CallDetails)
+    ContactImage = property(get_ContactImage, put_ContactImage)
+    ContactName = property(get_ContactName, put_ContactName)
+    ContactNumber = property(get_ContactNumber, put_ContactNumber)
+    ContactRemoteId = property(get_ContactRemoteId, put_ContactRemoteId)
+    Context = property(get_Context, put_Context)
+    Media = property(get_Media, put_Media)
+    RingTimeout = property(get_RingTimeout, put_RingTimeout)
+    Ringtone = property(get_Ringtone, put_Ringtone)
+    ServiceName = property(get_ServiceName, put_ServiceName)
+class IIncomingVoipPhoneCallOptionsFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptionsFactory'
+    _iid_ = Guid('{74062de4-08f0-5649-bd80-89ea87185c78}')
+    @winrt_commethod(6)
+    def CreateInstance(self, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions: ...
 class ILockScreenCallEndCallDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.ILockScreenCallEndCallDeferral'
@@ -115,6 +363,39 @@ class IMuteChangeEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_Muted(self) -> Boolean: ...
     Muted = property(get_Muted, None)
+class IOutgoingVoipPhoneCallOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions'
+    _iid_ = Guid('{d6c59b57-57be-524f-9dc1-f2c12e5d1bcc}')
+    @winrt_commethod(6)
+    def get_Context(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_Context(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_ContactName(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_ContactName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(10)
+    def get_ServiceName(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def put_ServiceName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(12)
+    def get_Media(self) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
+    @winrt_commethod(13)
+    def put_Media(self, value: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+    @winrt_commethod(14)
+    def get_AssociatedDeviceIds(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AssociatedDeviceIds = property(get_AssociatedDeviceIds, None)
+    ContactName = property(get_ContactName, put_ContactName)
+    Context = property(get_Context, put_Context)
+    Media = property(get_Media, put_Media)
+    ServiceName = property(get_ServiceName, put_ServiceName)
+class IOutgoingVoipPhoneCallOptionsFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptionsFactory'
+    _iid_ = Guid('{2ea2c6f4-0b7a-5789-9d33-fe3271fdefa8}')
+    @winrt_commethod(6)
+    def CreateInstance(self, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions: ...
 class IPhoneCall(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IPhoneCall'
@@ -786,12 +1067,32 @@ class IVoipCallCoordinator4(ComPtr):
     _iid_ = Guid('{83737239-9311-468f-bb49-47e0dfb5d93e}')
     @winrt_commethod(6)
     def ReserveOneProcessCallResourcesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Calls.VoipPhoneCallResourceReservationStatus]: ...
+class IVoipCallCoordinator5(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IVoipCallCoordinator5'
+    _iid_ = Guid('{d4f79017-d1c1-5820-955e-7a1676355d00}')
+    @winrt_commethod(6)
+    def RequestNewIncomingCallWithOptions(self, callOptions: win32more.Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCall: ...
+    @winrt_commethod(7)
+    def RequestNewOutgoingCallWithOptions(self, callOptions: win32more.Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCall: ...
+    @winrt_commethod(8)
+    def SetupNewAcceptedCallWithOptions(self, callOptions: win32more.Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCall: ...
+    @winrt_commethod(9)
+    def RequestNewAppInitiatedCallWithOptions(self, callOptions: win32more.Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCall: ...
 class IVoipCallCoordinatorStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics'
     _iid_ = Guid('{7f5d1f2b-e04a-4d10-b31a-a55c922cc2fb}')
     @winrt_commethod(6)
     def GetDefault(self) -> win32more.Windows.ApplicationModel.Calls.VoipCallCoordinator: ...
+class IVoipCallCoordinatorStatics2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics2'
+    _iid_ = Guid('{b8d0288b-01ea-5478-8404-a1fb06f2b83b}')
+    @winrt_commethod(6)
+    def IsCallControlDeviceKindSupportedForAssociation(self, kind: win32more.Windows.ApplicationModel.Calls.VoipCallControlDeviceKind) -> Boolean: ...
+    @winrt_commethod(7)
+    def GetDeviceSelectorForCallControl(self) -> WinRT_String: ...
 class IVoipPhoneCall(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.IVoipPhoneCall'
@@ -856,6 +1157,100 @@ class IVoipPhoneCall3(ComPtr):
     _iid_ = Guid('{0d891522-e258-4aa9-907a-1aa413c25523}')
     @winrt_commethod(6)
     def NotifyCallAccepted(self, media: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+class IVoipPhoneCall4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.IVoipPhoneCall4'
+    _iid_ = Guid('{eba66290-ad6d-5899-bdda-81bfe9f999a1}')
+    @winrt_commethod(6)
+    def get_IsUsingAssociatedDevicesList(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def NotifyCallActiveOnDevices(self, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> Void: ...
+    @winrt_commethod(8)
+    def AddAssociatedCallControlDevice(self, deviceId: WinRT_String) -> Void: ...
+    @winrt_commethod(9)
+    def RemoveAssociatedCallControlDevice(self, deviceId: WinRT_String) -> Void: ...
+    @winrt_commethod(10)
+    def SetAssociatedCallControlDevices(self, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> Void: ...
+    @winrt_commethod(11)
+    def GetAssociatedCallControlDevices(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    IsUsingAssociatedDevicesList = property(get_IsUsingAssociatedDevicesList, None)
+class IncomingVoipPhoneCallOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions
+    _classid_ = 'Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.CreateInstance(*args))
+        elif len(args) == 1:
+            super().__init__(move=win32more.Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_overload
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions: ...
+    @CreateInstance.register
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptionsFactory, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions: ...
+    @winrt_mixinmethod
+    def get_Context(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Context(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContactName(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ContactName(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContactNumber(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ContactNumber(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContactImage(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_mixinmethod
+    def put_ContactImage(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_mixinmethod
+    def get_ServiceName(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ServiceName(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_BrandingImage(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_mixinmethod
+    def put_BrandingImage(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_mixinmethod
+    def get_CallDetails(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_CallDetails(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Ringtone(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_mixinmethod
+    def put_Ringtone(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_mixinmethod
+    def get_Media(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
+    @winrt_mixinmethod
+    def put_Media(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+    @winrt_mixinmethod
+    def get_RingTimeout(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_mixinmethod
+    def put_RingTimeout(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContactRemoteId(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ContactRemoteId(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_AssociatedDeviceIds(self: win32more.Windows.ApplicationModel.Calls.IIncomingVoipPhoneCallOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AssociatedDeviceIds = property(get_AssociatedDeviceIds, None)
+    BrandingImage = property(get_BrandingImage, put_BrandingImage)
+    CallDetails = property(get_CallDetails, put_CallDetails)
+    ContactImage = property(get_ContactImage, put_ContactImage)
+    ContactName = property(get_ContactName, put_ContactName)
+    ContactNumber = property(get_ContactNumber, put_ContactNumber)
+    ContactRemoteId = property(get_ContactRemoteId, put_ContactRemoteId)
+    Context = property(get_Context, put_Context)
+    Media = property(get_Media, put_Media)
+    RingTimeout = property(get_RingTimeout, put_RingTimeout)
+    Ringtone = property(get_Ringtone, put_Ringtone)
+    ServiceName = property(get_ServiceName, put_ServiceName)
 LockScreenCallContract: UInt32 = 65536
 class LockScreenCallEndCallDeferral(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -900,6 +1295,48 @@ class MuteChangeEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Muted(self: win32more.Windows.ApplicationModel.Calls.IMuteChangeEventArgs) -> Boolean: ...
     Muted = property(get_Muted, None)
+class OutgoingVoipPhoneCallOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions
+    _classid_ = 'Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions.CreateInstance(*args))
+        elif len(args) == 1:
+            super().__init__(move=win32more.Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_overload
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions: ...
+    @CreateInstance.register
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptionsFactory, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions: ...
+    @winrt_mixinmethod
+    def get_Context(self: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Context(self: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContactName(self: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ContactName(self: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_ServiceName(self: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ServiceName(self: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Media(self: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
+    @winrt_mixinmethod
+    def put_Media(self: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions, value: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+    @winrt_mixinmethod
+    def get_AssociatedDeviceIds(self: win32more.Windows.ApplicationModel.Calls.IOutgoingVoipPhoneCallOptions) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    AssociatedDeviceIds = property(get_AssociatedDeviceIds, None)
+    ContactName = property(get_ContactName, put_ContactName)
+    Context = property(get_Context, put_Context)
+    Media = property(get_Media, put_Media)
+    ServiceName = property(get_ServiceName, put_ServiceName)
 class PhoneAudioRoutingEndpoint(Enum, Int32):
     Default = 0
     Bluetooth = 1
@@ -1621,6 +2058,9 @@ class TransportDeviceAudioRoutingStatus(Enum, Int32):
     Unknown = 0
     CanRouteToLocalDevice = 1
     CannotRouteToLocalDevice = 2
+class VoipCallControlDeviceKind(Enum, Int32):
+    Bluetooth = 0
+    Usb = 1
 class VoipCallCoordinator(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinator
@@ -1655,6 +2095,18 @@ class VoipCallCoordinator(ComPtr):
     def RequestNewIncomingCallWithContactRemoteId(self: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinator3, context: WinRT_String, contactName: WinRT_String, contactNumber: WinRT_String, contactImage: win32more.Windows.Foundation.Uri, serviceName: WinRT_String, brandingImage: win32more.Windows.Foundation.Uri, callDetails: WinRT_String, ringtone: win32more.Windows.Foundation.Uri, media: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia, ringTimeout: win32more.Windows.Foundation.TimeSpan, contactRemoteId: WinRT_String) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCall: ...
     @winrt_mixinmethod
     def ReserveOneProcessCallResourcesAsync(self: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinator4) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Calls.VoipPhoneCallResourceReservationStatus]: ...
+    @winrt_mixinmethod
+    def RequestNewIncomingCallWithOptions(self: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinator5, callOptions: win32more.Windows.ApplicationModel.Calls.IncomingVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCall: ...
+    @winrt_mixinmethod
+    def RequestNewOutgoingCallWithOptions(self: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinator5, callOptions: win32more.Windows.ApplicationModel.Calls.OutgoingVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCall: ...
+    @winrt_mixinmethod
+    def SetupNewAcceptedCallWithOptions(self: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinator5, callOptions: win32more.Windows.ApplicationModel.Calls.AcceptedVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCall: ...
+    @winrt_mixinmethod
+    def RequestNewAppInitiatedCallWithOptions(self: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinator5, callOptions: win32more.Windows.ApplicationModel.Calls.AppInitiatedVoipPhoneCallOptions) -> win32more.Windows.ApplicationModel.Calls.VoipPhoneCall: ...
+    @winrt_classmethod
+    def IsCallControlDeviceKindSupportedForAssociation(cls: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics2, kind: win32more.Windows.ApplicationModel.Calls.VoipCallControlDeviceKind) -> Boolean: ...
+    @winrt_classmethod
+    def GetDeviceSelectorForCallControl(cls: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics2) -> WinRT_String: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics) -> win32more.Windows.ApplicationModel.Calls.VoipCallCoordinator: ...
     MuteStateChanged = event()
@@ -1706,8 +2158,21 @@ class VoipPhoneCall(ComPtr):
     def TryShowAppUI(self: win32more.Windows.ApplicationModel.Calls.IVoipPhoneCall2) -> Void: ...
     @winrt_mixinmethod
     def NotifyCallAccepted(self: win32more.Windows.ApplicationModel.Calls.IVoipPhoneCall3, media: win32more.Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+    @winrt_mixinmethod
+    def get_IsUsingAssociatedDevicesList(self: win32more.Windows.ApplicationModel.Calls.IVoipPhoneCall4) -> Boolean: ...
+    @winrt_mixinmethod
+    def NotifyCallActiveOnDevices(self: win32more.Windows.ApplicationModel.Calls.IVoipPhoneCall4, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> Void: ...
+    @winrt_mixinmethod
+    def AddAssociatedCallControlDevice(self: win32more.Windows.ApplicationModel.Calls.IVoipPhoneCall4, deviceId: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def RemoveAssociatedCallControlDevice(self: win32more.Windows.ApplicationModel.Calls.IVoipPhoneCall4, deviceId: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def SetAssociatedCallControlDevices(self: win32more.Windows.ApplicationModel.Calls.IVoipPhoneCall4, associatedDeviceIds: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> Void: ...
+    @winrt_mixinmethod
+    def GetAssociatedCallControlDevices(self: win32more.Windows.ApplicationModel.Calls.IVoipPhoneCall4) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     CallMedia = property(get_CallMedia, put_CallMedia)
     ContactName = property(get_ContactName, put_ContactName)
+    IsUsingAssociatedDevicesList = property(get_IsUsingAssociatedDevicesList, None)
     StartTime = property(get_StartTime, put_StartTime)
     EndRequested = event()
     HoldRequested = event()

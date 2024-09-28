@@ -656,6 +656,18 @@ class IPackageManager11(ComPtr):
     _iid_ = Guid('{12950b24-c77e-4ea7-8859-325318074e15}')
     @winrt_commethod(6)
     def RemovePackageByUriAsync(self, packageUri: win32more.Windows.Foundation.Uri, options: win32more.Windows.Management.Deployment.RemovePackageOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Management.Deployment.DeploymentResult, win32more.Windows.Management.Deployment.DeploymentProgress]: ...
+class IPackageManager12(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.IPackageManager12'
+    _iid_ = Guid('{5d233adf-f9e3-4d96-b40d-96788e39539f}')
+    @winrt_commethod(6)
+    def IsPackageRemovalPending(self, packageFullName: WinRT_String) -> Boolean: ...
+    @winrt_commethod(7)
+    def IsPackageRemovalPendingForUser(self, packageFullName: WinRT_String, userSecurityId: WinRT_String) -> Boolean: ...
+    @winrt_commethod(8)
+    def IsPackageRemovalPendingByUri(self, packageUri: win32more.Windows.Foundation.Uri) -> Boolean: ...
+    @winrt_commethod(9)
+    def IsPackageRemovalPendingByUriForUser(self, packageUri: win32more.Windows.Foundation.Uri, userSecurityId: WinRT_String) -> Boolean: ...
 class IPackageManager2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.IPackageManager2'
@@ -945,6 +957,15 @@ class IRemovePackageOptions(ComPtr):
     PreserveApplicationData = property(get_PreserveApplicationData, put_PreserveApplicationData)
     PreserveRoamableApplicationData = property(get_PreserveRoamableApplicationData, put_PreserveRoamableApplicationData)
     RemoveForAllUsers = property(get_RemoveForAllUsers, put_RemoveForAllUsers)
+class IRemovePackageOptions2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.IRemovePackageOptions2'
+    _iid_ = Guid('{3fcc61e5-22c5-423b-b4b4-cf10bb50830c}')
+    @winrt_commethod(6)
+    def get_DeferRemovalWhenPackagesAreInUse(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_DeferRemovalWhenPackagesAreInUse(self, value: Boolean) -> Void: ...
+    DeferRemovalWhenPackagesAreInUse = property(get_DeferRemovalWhenPackagesAreInUse, put_DeferRemovalWhenPackagesAreInUse)
 class ISharedPackageContainer(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.ISharedPackageContainer'
@@ -1258,6 +1279,14 @@ class PackageManager(ComPtr):
     def ProvisionPackageForAllUsersWithOptionsAsync(self: win32more.Windows.Management.Deployment.IPackageManager10, mainPackageFamilyName: WinRT_String, options: win32more.Windows.Management.Deployment.PackageAllUserProvisioningOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Management.Deployment.DeploymentResult, win32more.Windows.Management.Deployment.DeploymentProgress]: ...
     @winrt_mixinmethod
     def RemovePackageByUriAsync(self: win32more.Windows.Management.Deployment.IPackageManager11, packageUri: win32more.Windows.Foundation.Uri, options: win32more.Windows.Management.Deployment.RemovePackageOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Management.Deployment.DeploymentResult, win32more.Windows.Management.Deployment.DeploymentProgress]: ...
+    @winrt_mixinmethod
+    def IsPackageRemovalPending(self: win32more.Windows.Management.Deployment.IPackageManager12, packageFullName: WinRT_String) -> Boolean: ...
+    @winrt_mixinmethod
+    def IsPackageRemovalPendingForUser(self: win32more.Windows.Management.Deployment.IPackageManager12, packageFullName: WinRT_String, userSecurityId: WinRT_String) -> Boolean: ...
+    @winrt_mixinmethod
+    def IsPackageRemovalPendingByUri(self: win32more.Windows.Management.Deployment.IPackageManager12, packageUri: win32more.Windows.Foundation.Uri) -> Boolean: ...
+    @winrt_mixinmethod
+    def IsPackageRemovalPendingByUriForUser(self: win32more.Windows.Management.Deployment.IPackageManager12, packageUri: win32more.Windows.Foundation.Uri, userSecurityId: WinRT_String) -> Boolean: ...
     DebugSettings = property(get_DebugSettings, None)
 class PackageManagerDebugSettings(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1434,6 +1463,7 @@ class RemovalOptions(Enum, UInt32):
     None_ = 0
     PreserveApplicationData = 4096
     PreserveRoamableApplicationData = 128
+    DeferRemovalWhenPackagesAreInUse = 8192
     RemoveForAllUsers = 524288
 class RemovePackageOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -1460,6 +1490,11 @@ class RemovePackageOptions(ComPtr):
     def get_RemoveForAllUsers(self: win32more.Windows.Management.Deployment.IRemovePackageOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_RemoveForAllUsers(self: win32more.Windows.Management.Deployment.IRemovePackageOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_DeferRemovalWhenPackagesAreInUse(self: win32more.Windows.Management.Deployment.IRemovePackageOptions2) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_DeferRemovalWhenPackagesAreInUse(self: win32more.Windows.Management.Deployment.IRemovePackageOptions2, value: Boolean) -> Void: ...
+    DeferRemovalWhenPackagesAreInUse = property(get_DeferRemovalWhenPackagesAreInUse, put_DeferRemovalWhenPackagesAreInUse)
     PreserveApplicationData = property(get_PreserveApplicationData, put_PreserveApplicationData)
     PreserveRoamableApplicationData = property(get_PreserveRoamableApplicationData, put_PreserveRoamableApplicationData)
     RemoveForAllUsers = property(get_RemoveForAllUsers, put_RemoveForAllUsers)

@@ -374,6 +374,16 @@ class IStorageProviderQuotaUI(ComPtr):
     QuotaUsedColor = property(get_QuotaUsedColor, put_QuotaUsedColor)
     QuotaUsedInBytes = property(get_QuotaUsedInBytes, put_QuotaUsedInBytes)
     QuotaUsedLabel = property(get_QuotaUsedLabel, put_QuotaUsedLabel)
+class IStorageProviderShareLinkSource(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Storage.Provider.IStorageProviderShareLinkSource'
+    _iid_ = Guid('{4c6055e2-029c-5539-8e51-a1afc838b5cb}')
+    @winrt_commethod(6)
+    def CreateLinkAsync(self, storageItemList: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.IStorageItem]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Uri]: ...
+    @winrt_commethod(7)
+    def GetDefaultAccessControlStringAsync(self, storageItemList: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.IStorageItem]) -> win32more.Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    @winrt_commethod(8)
+    def GetState(self, storageItemList: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.IStorageItem]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Provider.StorageProviderShareLinkState]: ...
 class IStorageProviderStatusUI(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderStatusUI'
@@ -865,6 +875,9 @@ class StorageProviderQuotaUI(ComPtr):
     QuotaUsedColor = property(get_QuotaUsedColor, put_QuotaUsedColor)
     QuotaUsedInBytes = property(get_QuotaUsedInBytes, put_QuotaUsedInBytes)
     QuotaUsedLabel = property(get_QuotaUsedLabel, put_QuotaUsedLabel)
+class StorageProviderShareLinkState(Enum, Int32):
+    Enabled = 0
+    Disabled = 1
 class StorageProviderState(Enum, Int32):
     InSync = 0
     Syncing = 1

@@ -804,6 +804,88 @@ class IMouseWheelParameters(ComPtr):
     DeltaRotationAngle = property(get_DeltaRotationAngle, put_DeltaRotationAngle)
     DeltaScale = property(get_DeltaScale, put_DeltaScale)
     PageTranslation = property(get_PageTranslation, put_PageTranslation)
+class IPhysicalGestureRecognizer(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.IPhysicalGestureRecognizer'
+    _iid_ = Guid('{a3bb83e5-6937-5f29-8707-ae4875f8fda3}')
+    @winrt_commethod(6)
+    def get_GestureSettings(self) -> win32more.Windows.UI.Input.GestureSettings: ...
+    @winrt_commethod(7)
+    def put_GestureSettings(self, value: win32more.Windows.UI.Input.GestureSettings) -> Void: ...
+    @winrt_commethod(8)
+    def get_TapMinContactCount(self) -> UInt32: ...
+    @winrt_commethod(9)
+    def put_TapMinContactCount(self, value: UInt32) -> Void: ...
+    @winrt_commethod(10)
+    def get_TapMaxContactCount(self) -> UInt32: ...
+    @winrt_commethod(11)
+    def put_TapMaxContactCount(self, value: UInt32) -> Void: ...
+    @winrt_commethod(12)
+    def get_HoldMinContactCount(self) -> UInt32: ...
+    @winrt_commethod(13)
+    def put_HoldMinContactCount(self, value: UInt32) -> Void: ...
+    @winrt_commethod(14)
+    def get_HoldMaxContactCount(self) -> UInt32: ...
+    @winrt_commethod(15)
+    def put_HoldMaxContactCount(self, value: UInt32) -> Void: ...
+    @winrt_commethod(16)
+    def get_HoldRadius(self) -> Single: ...
+    @winrt_commethod(17)
+    def put_HoldRadius(self, value: Single) -> Void: ...
+    @winrt_commethod(18)
+    def get_HoldStartDelay(self) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_commethod(19)
+    def put_HoldStartDelay(self, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_commethod(20)
+    def get_TranslationMinContactCount(self) -> UInt32: ...
+    @winrt_commethod(21)
+    def put_TranslationMinContactCount(self, value: UInt32) -> Void: ...
+    @winrt_commethod(22)
+    def get_TranslationMaxContactCount(self) -> UInt32: ...
+    @winrt_commethod(23)
+    def put_TranslationMaxContactCount(self, value: UInt32) -> Void: ...
+    @winrt_commethod(24)
+    def ProcessDownEvent(self, value: win32more.Windows.UI.Input.PointerPoint) -> Void: ...
+    @winrt_commethod(25)
+    def ProcessMoveEvents(self, value: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Input.PointerPoint]) -> Void: ...
+    @winrt_commethod(26)
+    def ProcessUpEvent(self, value: win32more.Windows.UI.Input.PointerPoint) -> Void: ...
+    @winrt_commethod(27)
+    def CompleteGesture(self) -> Void: ...
+    @winrt_commethod(28)
+    def add_ManipulationStarted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.ManipulationStartedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(29)
+    def remove_ManipulationStarted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(30)
+    def add_ManipulationUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.ManipulationUpdatedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(31)
+    def remove_ManipulationUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(32)
+    def add_ManipulationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.ManipulationCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(33)
+    def remove_ManipulationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(34)
+    def add_Tapped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.TappedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(35)
+    def remove_Tapped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(36)
+    def add_Holding(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.HoldingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(37)
+    def remove_Holding(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    GestureSettings = property(get_GestureSettings, put_GestureSettings)
+    HoldMaxContactCount = property(get_HoldMaxContactCount, put_HoldMaxContactCount)
+    HoldMinContactCount = property(get_HoldMinContactCount, put_HoldMinContactCount)
+    HoldRadius = property(get_HoldRadius, put_HoldRadius)
+    HoldStartDelay = property(get_HoldStartDelay, put_HoldStartDelay)
+    TapMaxContactCount = property(get_TapMaxContactCount, put_TapMaxContactCount)
+    TapMinContactCount = property(get_TapMinContactCount, put_TapMinContactCount)
+    TranslationMaxContactCount = property(get_TranslationMaxContactCount, put_TranslationMaxContactCount)
+    TranslationMinContactCount = property(get_TranslationMinContactCount, put_TranslationMinContactCount)
+    ManipulationStarted = event()
+    ManipulationUpdated = event()
+    ManipulationCompleted = event()
+    Tapped = event()
+    Holding = event()
 class IPointerPoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IPointerPoint'
@@ -832,6 +914,16 @@ class IPointerPoint(ComPtr):
     Properties = property(get_Properties, None)
     RawPosition = property(get_RawPosition, None)
     Timestamp = property(get_Timestamp, None)
+class IPointerPointPhysicalPosition(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.IPointerPointPhysicalPosition'
+    _iid_ = Guid('{003185a3-a5e7-4859-9c0b-89340204806c}')
+    @winrt_commethod(6)
+    def get_IsPhysicalPositionSupported(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def get_PhysicalPosition(self) -> win32more.Windows.Foundation.Point: ...
+    IsPhysicalPositionSupported = property(get_IsPhysicalPositionSupported, None)
+    PhysicalPosition = property(get_PhysicalPosition, None)
 class IPointerPointProperties(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Input.IPointerPointProperties'
@@ -1374,6 +1466,55 @@ class ITappedEventArgs2(ComPtr):
     @winrt_commethod(6)
     def get_ContactCount(self) -> UInt32: ...
     ContactCount = property(get_ContactCount, None)
+class ITouchpadGesturesController(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.ITouchpadGesturesController'
+    _iid_ = Guid('{b58f88d0-58ea-51b5-b5bf-61cc081bf21d}')
+    @winrt_commethod(6)
+    def get_GesturesEnabled(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_GesturesEnabled(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_SupportedGestures(self) -> win32more.Windows.UI.Input.TouchpadGlobalGestureKinds: ...
+    @winrt_commethod(9)
+    def put_SupportedGestures(self, value: win32more.Windows.UI.Input.TouchpadGlobalGestureKinds) -> Void: ...
+    @winrt_commethod(10)
+    def add_PointerPressed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.TouchpadGesturesController, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(11)
+    def remove_PointerPressed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(12)
+    def add_PointerMoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.TouchpadGesturesController, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(13)
+    def remove_PointerMoved(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(14)
+    def add_PointerReleased(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.TouchpadGesturesController, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(15)
+    def remove_PointerReleased(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(16)
+    def add_TouchpadGlobalActionPerformed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.TouchpadGesturesController, win32more.Windows.UI.Input.TouchpadGlobalActionEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(17)
+    def remove_TouchpadGlobalActionPerformed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    GesturesEnabled = property(get_GesturesEnabled, put_GesturesEnabled)
+    SupportedGestures = property(get_SupportedGestures, put_SupportedGestures)
+    PointerPressed = event()
+    PointerMoved = event()
+    PointerReleased = event()
+    TouchpadGlobalActionPerformed = event()
+class ITouchpadGesturesControllerStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.ITouchpadGesturesControllerStatics'
+    _iid_ = Guid('{207ef171-1a73-51cd-a694-8840e09dbafa}')
+    @winrt_commethod(6)
+    def IsSupported(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def CreateForProcess(self) -> win32more.Windows.UI.Input.TouchpadGesturesController: ...
+class ITouchpadGlobalActionEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Input.ITouchpadGlobalActionEventArgs'
+    _iid_ = Guid('{08103525-dbb6-5f7f-9ffe-98c84bb49591}')
+    @winrt_commethod(6)
+    def get_Action(self) -> win32more.Windows.UI.Input.TouchpadGlobalAction: ...
+    Action = property(get_Action, None)
 class InputActivationListener(ComPtr):
     extends: win32more.Windows.UI.Input.AttachableInputObject
     default_interface: win32more.Windows.UI.Input.IInputActivationListener
@@ -1537,6 +1678,97 @@ class MouseWheelParameters(ComPtr):
     DeltaRotationAngle = property(get_DeltaRotationAngle, put_DeltaRotationAngle)
     DeltaScale = property(get_DeltaScale, put_DeltaScale)
     PageTranslation = property(get_PageTranslation, put_PageTranslation)
+class PhysicalGestureRecognizer(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.UI.Input.IPhysicalGestureRecognizer
+    _classid_ = 'Windows.UI.Input.PhysicalGestureRecognizer'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Windows.UI.Input.PhysicalGestureRecognizer.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.UI.Input.PhysicalGestureRecognizer: ...
+    @winrt_mixinmethod
+    def get_GestureSettings(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> win32more.Windows.UI.Input.GestureSettings: ...
+    @winrt_mixinmethod
+    def put_GestureSettings(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: win32more.Windows.UI.Input.GestureSettings) -> Void: ...
+    @winrt_mixinmethod
+    def get_TapMinContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_TapMinContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_TapMaxContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_TapMaxContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_HoldMinContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_HoldMinContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_HoldMaxContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_HoldMaxContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_HoldRadius(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> Single: ...
+    @winrt_mixinmethod
+    def put_HoldRadius(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: Single) -> Void: ...
+    @winrt_mixinmethod
+    def get_HoldStartDelay(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> win32more.Windows.Foundation.TimeSpan: ...
+    @winrt_mixinmethod
+    def put_HoldStartDelay(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_mixinmethod
+    def get_TranslationMinContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_TranslationMinContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_TranslationMaxContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_TranslationMaxContactCount(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def ProcessDownEvent(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: win32more.Windows.UI.Input.PointerPoint) -> Void: ...
+    @winrt_mixinmethod
+    def ProcessMoveEvents(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Input.PointerPoint]) -> Void: ...
+    @winrt_mixinmethod
+    def ProcessUpEvent(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, value: win32more.Windows.UI.Input.PointerPoint) -> Void: ...
+    @winrt_mixinmethod
+    def CompleteGesture(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer) -> Void: ...
+    @winrt_mixinmethod
+    def add_ManipulationStarted(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.ManipulationStartedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_ManipulationStarted(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_ManipulationUpdated(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.ManipulationUpdatedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_ManipulationUpdated(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_ManipulationCompleted(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.ManipulationCompletedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_ManipulationCompleted(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_Tapped(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.TappedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_Tapped(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_Holding(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.PhysicalGestureRecognizer, win32more.Windows.UI.Input.HoldingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_Holding(self: win32more.Windows.UI.Input.IPhysicalGestureRecognizer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    GestureSettings = property(get_GestureSettings, put_GestureSettings)
+    HoldMaxContactCount = property(get_HoldMaxContactCount, put_HoldMaxContactCount)
+    HoldMinContactCount = property(get_HoldMinContactCount, put_HoldMinContactCount)
+    HoldRadius = property(get_HoldRadius, put_HoldRadius)
+    HoldStartDelay = property(get_HoldStartDelay, put_HoldStartDelay)
+    TapMaxContactCount = property(get_TapMaxContactCount, put_TapMaxContactCount)
+    TapMinContactCount = property(get_TapMinContactCount, put_TapMinContactCount)
+    TranslationMaxContactCount = property(get_TranslationMaxContactCount, put_TranslationMaxContactCount)
+    TranslationMinContactCount = property(get_TranslationMinContactCount, put_TranslationMinContactCount)
+    ManipulationStarted = event()
+    ManipulationUpdated = event()
+    ManipulationCompleted = event()
+    Tapped = event()
+    Holding = event()
 class PointerPoint(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.Input.IPointerPoint
@@ -1557,6 +1789,10 @@ class PointerPoint(ComPtr):
     def get_IsInContact(self: win32more.Windows.UI.Input.IPointerPoint) -> Boolean: ...
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.UI.Input.IPointerPoint) -> win32more.Windows.UI.Input.PointerPointProperties: ...
+    @winrt_mixinmethod
+    def get_IsPhysicalPositionSupported(self: win32more.Windows.UI.Input.IPointerPointPhysicalPosition) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_PhysicalPosition(self: win32more.Windows.UI.Input.IPointerPointPhysicalPosition) -> win32more.Windows.Foundation.Point: ...
     @winrt_classmethod
     def GetCurrentPoint(cls: win32more.Windows.UI.Input.IPointerPointStatics, pointerId: UInt32) -> win32more.Windows.UI.Input.PointerPoint: ...
     @winrt_classmethod
@@ -1567,6 +1803,8 @@ class PointerPoint(ComPtr):
     def GetIntermediatePointsTransformed(cls: win32more.Windows.UI.Input.IPointerPointStatics, pointerId: UInt32, transform: win32more.Windows.UI.Input.IPointerPointTransform) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.UI.Input.PointerPoint]: ...
     FrameId = property(get_FrameId, None)
     IsInContact = property(get_IsInContact, None)
+    IsPhysicalPositionSupported = property(get_IsPhysicalPositionSupported, None)
+    PhysicalPosition = property(get_PhysicalPosition, None)
     PointerDevice = property(get_PointerDevice, None)
     PointerId = property(get_PointerId, None)
     Position = property(get_Position, None)
@@ -2054,6 +2292,69 @@ class TappedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
     TapCount = property(get_TapCount, None)
+class TouchpadGesturesController(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.UI.Input.ITouchpadGesturesController
+    _classid_ = 'Windows.UI.Input.TouchpadGesturesController'
+    @winrt_mixinmethod
+    def get_GesturesEnabled(self: win32more.Windows.UI.Input.ITouchpadGesturesController) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_GesturesEnabled(self: win32more.Windows.UI.Input.ITouchpadGesturesController, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_SupportedGestures(self: win32more.Windows.UI.Input.ITouchpadGesturesController) -> win32more.Windows.UI.Input.TouchpadGlobalGestureKinds: ...
+    @winrt_mixinmethod
+    def put_SupportedGestures(self: win32more.Windows.UI.Input.ITouchpadGesturesController, value: win32more.Windows.UI.Input.TouchpadGlobalGestureKinds) -> Void: ...
+    @winrt_mixinmethod
+    def add_PointerPressed(self: win32more.Windows.UI.Input.ITouchpadGesturesController, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.TouchpadGesturesController, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_PointerPressed(self: win32more.Windows.UI.Input.ITouchpadGesturesController, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_PointerMoved(self: win32more.Windows.UI.Input.ITouchpadGesturesController, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.TouchpadGesturesController, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_PointerMoved(self: win32more.Windows.UI.Input.ITouchpadGesturesController, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_PointerReleased(self: win32more.Windows.UI.Input.ITouchpadGesturesController, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.TouchpadGesturesController, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_PointerReleased(self: win32more.Windows.UI.Input.ITouchpadGesturesController, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_TouchpadGlobalActionPerformed(self: win32more.Windows.UI.Input.ITouchpadGesturesController, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.TouchpadGesturesController, win32more.Windows.UI.Input.TouchpadGlobalActionEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_TouchpadGlobalActionPerformed(self: win32more.Windows.UI.Input.ITouchpadGesturesController, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def IsSupported(cls: win32more.Windows.UI.Input.ITouchpadGesturesControllerStatics) -> Boolean: ...
+    @winrt_classmethod
+    def CreateForProcess(cls: win32more.Windows.UI.Input.ITouchpadGesturesControllerStatics) -> win32more.Windows.UI.Input.TouchpadGesturesController: ...
+    GesturesEnabled = property(get_GesturesEnabled, put_GesturesEnabled)
+    SupportedGestures = property(get_SupportedGestures, put_SupportedGestures)
+    PointerPressed = event()
+    PointerMoved = event()
+    PointerReleased = event()
+    TouchpadGlobalActionPerformed = event()
+class TouchpadGlobalAction(Enum, Int32):
+    ThreeFingerTap = 0
+    FourFingerTap = 1
+    FiveFingerTap = 2
+    ThreeFingerPressDown = 3
+    FourFingerPressDown = 4
+    FiveFingerPressDown = 5
+    ThreeFingerPressUp = 6
+    FourFingerPressUp = 7
+    FiveFingerPressUp = 8
+class TouchpadGlobalActionEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.UI.Input.ITouchpadGlobalActionEventArgs
+    _classid_ = 'Windows.UI.Input.TouchpadGlobalActionEventArgs'
+    @winrt_mixinmethod
+    def get_Action(self: win32more.Windows.UI.Input.ITouchpadGlobalActionEventArgs) -> win32more.Windows.UI.Input.TouchpadGlobalAction: ...
+    Action = property(get_Action, None)
+class TouchpadGlobalGestureKinds(Enum, UInt32):
+    None_ = 0
+    ThreeFingerManipulations = 1
+    FourFingerManipulations = 2
+    FiveFingerManipulations = 4
+    ThreeFingerActions = 8
+    FourFingerActions = 16
+    FiveFingerActions = 32
 
 
 make_ready(__name__)

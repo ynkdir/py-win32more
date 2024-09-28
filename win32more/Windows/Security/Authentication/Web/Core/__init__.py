@@ -73,6 +73,35 @@ class IWebAccountMonitor2(ComPtr):
     @winrt_commethod(7)
     def remove_AccountPictureUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AccountPictureUpdated = event()
+class IWebAuthenticationAddAccountResponse(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResponse'
+    _iid_ = Guid('{7fb013e8-0bd8-542b-b486-8323163a4b85}')
+    @winrt_commethod(6)
+    def get_WebAccount(self) -> win32more.Windows.Security.Credentials.WebAccount: ...
+    @winrt_commethod(7)
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    Properties = property(get_Properties, None)
+    WebAccount = property(get_WebAccount, None)
+class IWebAuthenticationAddAccountResponseFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResponseFactory'
+    _iid_ = Guid('{325f903e-77be-5365-81d9-0321cdd82195}')
+    @winrt_commethod(6)
+    def CreateWithAccount(self, webAccount: win32more.Windows.Security.Credentials.WebAccount) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse: ...
+class IWebAuthenticationAddAccountResult(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResult'
+    _iid_ = Guid('{88fad03c-901d-5ffa-9259-701d3ca08ef2}')
+    @winrt_commethod(6)
+    def get_ResponseData(self) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse: ...
+    @winrt_commethod(7)
+    def get_ResponseStatus(self) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountStatus: ...
+    @winrt_commethod(8)
+    def get_ResponseError(self) -> win32more.Windows.Security.Authentication.Web.Core.WebProviderError: ...
+    ResponseData = property(get_ResponseData, None)
+    ResponseError = property(get_ResponseError, None)
+    ResponseStatus = property(get_ResponseStatus, None)
 class IWebAuthenticationCoreManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics'
@@ -117,6 +146,40 @@ class IWebAuthenticationCoreManagerStatics4(ComPtr):
     def FindSystemAccountProviderWithAuthorityAsync(self, webAccountProviderId: WinRT_String, authority: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.WebAccountProvider]: ...
     @winrt_commethod(10)
     def FindSystemAccountProviderWithAuthorityForUserAsync(self, webAccountProviderId: WinRT_String, authority: WinRT_String, user: win32more.Windows.System.User) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.WebAccountProvider]: ...
+class IWebAuthenticationCoreManagerStatics5(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics5'
+    _iid_ = Guid('{d07c1ded-270f-4554-9966-27b7df05b965}')
+    @winrt_commethod(6)
+    def AddAccountWithTransferTokenAsync(self, request: win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResult]: ...
+class IWebAuthenticationTransferTokenRequest(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequest'
+    _iid_ = Guid('{7acfa5b6-529d-5e76-9846-f3fd999304d0}')
+    @winrt_commethod(6)
+    def get_WebAccountProvider(self) -> win32more.Windows.Security.Credentials.WebAccountProvider: ...
+    @winrt_commethod(7)
+    def get_TransferToken(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def put_TransferToken(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(9)
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_commethod(10)
+    def get_CorrelationId(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def put_CorrelationId(self, value: WinRT_String) -> Void: ...
+    CorrelationId = property(get_CorrelationId, put_CorrelationId)
+    Properties = property(get_Properties, None)
+    TransferToken = property(get_TransferToken, put_TransferToken)
+    WebAccountProvider = property(get_WebAccountProvider, None)
+class IWebAuthenticationTransferTokenRequestFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequestFactory'
+    _iid_ = Guid('{5f16b627-04c4-5f0b-8683-8bab58965656}')
+    @winrt_commethod(6)
+    def Create(self, provider: win32more.Windows.Security.Credentials.WebAccountProvider, transferToken: WinRT_String) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest: ...
+    @winrt_commethod(7)
+    def CreateWithCorrelationId(self, provider: win32more.Windows.Security.Credentials.WebAccountProvider, transferToken: WinRT_String, correlationId: WinRT_String) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest: ...
 class IWebProviderError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.IWebProviderError'
@@ -255,9 +318,49 @@ class WebAccountMonitor(ComPtr):
     Removed = event()
     DefaultSignInAccountChanged = event()
     AccountPictureUpdated = event()
+class WebAuthenticationAddAccountResponse(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResponse
+    _classid_ = 'Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 1:
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse.CreateWithAccount(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateWithAccount(cls: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResponseFactory, webAccount: win32more.Windows.Security.Credentials.WebAccount) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse: ...
+    @winrt_mixinmethod
+    def get_WebAccount(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResponse) -> win32more.Windows.Security.Credentials.WebAccount: ...
+    @winrt_mixinmethod
+    def get_Properties(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResponse) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    Properties = property(get_Properties, None)
+    WebAccount = property(get_WebAccount, None)
+class WebAuthenticationAddAccountResult(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResult
+    _classid_ = 'Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResult'
+    @winrt_mixinmethod
+    def get_ResponseData(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResult) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse: ...
+    @winrt_mixinmethod
+    def get_ResponseStatus(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResult) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountStatus: ...
+    @winrt_mixinmethod
+    def get_ResponseError(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResult) -> win32more.Windows.Security.Authentication.Web.Core.WebProviderError: ...
+    ResponseData = property(get_ResponseData, None)
+    ResponseError = property(get_ResponseError, None)
+    ResponseStatus = property(get_ResponseStatus, None)
+class WebAuthenticationAddAccountStatus(Enum, Int32):
+    Success = 0
+    Error = 1
+    NotSupportedByProvider = 2
+    ServiceConnectionError = 3
+    ProviderError = 4
 class WebAuthenticationCoreManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager'
+    @winrt_classmethod
+    def AddAccountWithTransferTokenAsync(cls: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics5, request: win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResult]: ...
     @winrt_classmethod
     def FindAllAccountsAsync(cls: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics4, provider: win32more.Windows.Security.Credentials.WebAccountProvider) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Web.Core.FindAllAccountsResult]: ...
     @winrt_classmethod
@@ -286,6 +389,39 @@ class WebAuthenticationCoreManager(ComPtr):
     def FindAccountProviderAsync(cls: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics, webAccountProviderId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.WebAccountProvider]: ...
     @winrt_classmethod
     def FindAccountProviderWithAuthorityAsync(cls: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics, webAccountProviderId: WinRT_String, authority: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Credentials.WebAccountProvider]: ...
+class WebAuthenticationTransferTokenRequest(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequest
+    _classid_ = 'Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 2:
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.Create(*args))
+        elif len(args) == 3:
+            super().__init__(move=win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.CreateWithCorrelationId(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def Create(cls: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequestFactory, provider: win32more.Windows.Security.Credentials.WebAccountProvider, transferToken: WinRT_String) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest: ...
+    @winrt_factorymethod
+    def CreateWithCorrelationId(cls: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequestFactory, provider: win32more.Windows.Security.Credentials.WebAccountProvider, transferToken: WinRT_String, correlationId: WinRT_String) -> win32more.Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest: ...
+    @winrt_mixinmethod
+    def get_WebAccountProvider(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequest) -> win32more.Windows.Security.Credentials.WebAccountProvider: ...
+    @winrt_mixinmethod
+    def get_TransferToken(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequest) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_TransferToken(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequest, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Properties(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequest) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_mixinmethod
+    def get_CorrelationId(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequest) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_CorrelationId(self: win32more.Windows.Security.Authentication.Web.Core.IWebAuthenticationTransferTokenRequest, value: WinRT_String) -> Void: ...
+    CorrelationId = property(get_CorrelationId, put_CorrelationId)
+    Properties = property(get_Properties, None)
+    TransferToken = property(get_TransferToken, put_TransferToken)
+    WebAccountProvider = property(get_WebAccountProvider, None)
 class WebProviderError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Security.Authentication.Web.Core.IWebProviderError

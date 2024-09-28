@@ -381,6 +381,7 @@ class PointerDeviceType(Enum, Int32):
     Touch = 0
     Pen = 1
     Mouse = 2
+    Touchpad = 3
 class PointerDeviceUsage(Structure):
     UsagePage: UInt32
     Usage: UInt32
