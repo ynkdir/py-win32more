@@ -7,7 +7,7 @@ name = "win32more"
 version = "0.5.5"
 description = "Python bindings for Windows API"
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = ">= 3.9"
 authors = [
     { name = "Yukihiro Nakadaira", email = "yukihiro.nakadaira@gmail.com" },
 ]
@@ -19,7 +19,6 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -46,8 +45,6 @@ python = [
     "3.10-32",
     "3.9-64",
     "3.9-32",
-    "3.8-64",
-    "3.8-32",
 ]
 
 [tool.ruff]
