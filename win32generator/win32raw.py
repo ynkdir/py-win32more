@@ -4,6 +4,7 @@ import logging
 import re
 import textwrap
 from collections.abc import Iterable
+from graphlib import TopologicalSorter
 from io import StringIO
 from typing import no_type_check
 
@@ -196,33 +197,18 @@ class Win32RawModule:
         return writer.getvalue()
 
     def _sort(self) -> Iterable[ApiItem]:
-        return self._sort_by_type(self._topological_sort(self._items.values()))
+        return self._sort_by_type(self._topological_sort())
 
-    def _topological_sort(self, items: Iterable[ApiItem]) -> Iterable[ApiItem]:
-        ns = {item.name: item for item in items}
-        visited: set[str] = set()
-        for item in ns.values():
-            yield from self._topological_sort_visit(item, visited, ns)
+    def _topological_sort(self) -> Iterable[ApiItem]:
+        ts: TopologicalSorter = TopologicalSorter()
+        for item in self._items.values():
+            ts.add(item.name, *self._topological_sort_predecessors(item))
+        for name in ts.static_order():
+            yield self._items[name]
 
-    def _topological_sort_visit(self, item: ApiItem, visited: set[str], ns: dict[str, ApiItem]) -> Iterable[ApiItem]:
-        if item.name in visited:
-            return
-        visited.add(item.name)
-        for name in self._topological_sort_dependencies(item):
-            yield from self._topological_sort_visit(ns[name], visited, ns)
-        yield item
-
-    def _topological_sort_dependencies(self, item: ApiItem) -> Iterable[str]:
-        if isinstance(item, Com):
-            name = item._extends()
-            if name == "c_void_p":
-                return []
-            else:
-                return [name]
-        elif self._item_type(item) is StructUnion and isinstance(item, (StructUnion, ArchitectureVariant)):
-            return [fullname.rsplit(".", 1)[1] for fullname in sorted(item.enumerate_dependencies_exclude_pointer())]
-        else:
-            return [fullname.rsplit(".", 1)[1] for fullname in sorted(item.enumerate_dependencies())]
+    @no_type_check
+    def _topological_sort_predecessors(self, item: ApiItem) -> Iterable[str]:
+        return [fullname.rsplit(".", 1)[1] for fullname in sorted(item.graph_predecessors())]
 
     def _sort_by_type(self, items: Iterable[ApiItem]) -> Iterable[ApiItem]:
         return sorted(items, key=self._type_order)
@@ -270,6 +256,9 @@ class Constant:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from Dependencies(self._fd)
 
+    def graph_predecessors(self) -> Iterable[str]:
+        yield from Dependencies(self._fd).exclude_pointer()
+
     def emit(self) -> str:
         return f"{self._fd.name} = {self._formatter.pyvalue(self._fd)}\n"
 
@@ -297,6 +286,9 @@ class InlineFunction:
 
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from Dependencies(self._md)
+
+    def graph_predecessors(self) -> Iterable[str]:
+        yield from Dependencies(self._md).exclude_pointer()
 
     def emit(self) -> str:
         writer = StringIO()
@@ -329,6 +321,9 @@ class ExternalFunction:
 
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from Dependencies(self._md)
+
+    def graph_predecessors(self) -> Iterable[str]:
+        yield from Dependencies(self._md).exclude_pointer()
 
     def emit(self) -> str:
         name = self._md.name
@@ -388,6 +383,9 @@ class FunctionPointer:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from Dependencies(self._md)
 
+    def graph_predecessors(self) -> Iterable[str]:
+        yield from Dependencies(self._md).exclude_pointer()
+
     def emit(self) -> str:
         functype = self._functype()
         restype = self._md.signature.return_type
@@ -426,6 +424,9 @@ class Enum:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from Dependencies(self._td.fields[0])
 
+    def graph_predecessors(self) -> Iterable[str]:
+        yield from Dependencies(self._td.fields[0]).exclude_pointer()
+
     def emit(self) -> str:
         writer = StringIO()
         type_field, *value_fields = self._td.fields
@@ -460,6 +461,9 @@ class NativeTypedef:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from Dependencies(self._td.fields[0])
 
+    def graph_predecessors(self) -> Iterable[str]:
+        yield from Dependencies(self._td.fields[0]).exclude_pointer()
+
     def emit(self) -> str:
         if self._td.name == "PSTR":  # POINTER(Byte)
             pytype = "c_char_p"
@@ -490,6 +494,9 @@ class Clsid:
         return []
 
     def enumerate_dependencies(self) -> Iterable[str]:
+        return []
+
+    def graph_predecessors(self) -> Iterable[str]:
         return []
 
     def emit(self) -> str:
@@ -527,7 +534,7 @@ class StructUnion:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from Dependencies(self._td)
 
-    def enumerate_dependencies_exclude_pointer(self) -> Iterable[str]:
+    def graph_predecessors(self) -> Iterable[str]:
         yield from Dependencies(self._td).exclude_pointer()
 
     def emit_head(self) -> str:
@@ -617,6 +624,11 @@ class Com:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from Dependencies(self._td)
 
+    def graph_predecessors(self) -> Iterable[str]:
+        if not self._td.interface_implementations:
+            return []
+        return [self._td.interface_implementations[0].fullname]
+
     def emit_head(self) -> str:
         writer = StringIO()
         writer.write(f"class {self._td.name}({self._extends()}):\n")
@@ -679,6 +691,9 @@ class Attribute:
     def enumerate_dependencies(self) -> Iterable[str]:
         return []
 
+    def graph_predecessors(self) -> Iterable[str]:
+        return []
+
     def emit(self) -> str:
         writer = StringIO()
         md = self._td.methods[0]  # [0]=.ctor
@@ -713,9 +728,9 @@ class ArchitectureVariant:
             yield from item.enumerate_dependencies()
 
     @no_type_check
-    def enumerate_dependencies_exclude_pointer(self) -> Iterable[str]:
+    def graph_predecessors(self) -> Iterable[str]:
         for item in self._items:
-            yield from item.enumerate_dependencies_exclude_pointer()
+            yield from item.graph_predecessors()
 
     def emit_head(self) -> str:
         if not isinstance(self._items[0], (StructUnion, Com)):
