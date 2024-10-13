@@ -3,9 +3,6 @@ set WATCHDIR=%TESTDIR%\watch
 
 if not exist %WATCHDIR% git init %WATCHDIR%
 
-hatch run typing win32generator || exit
-hatch fmt win32generator || exit
-
 rmdir /s /q %WATCHDIR%\win32more
 py -m win32generator --loglevel=DEBUG --output-directory=%WATCHDIR% || exit
 
