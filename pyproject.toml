@@ -33,20 +33,6 @@ Homepage = "https://github.com/ynkdir/py-win32more"
 [tool.hatch.build]
 only-include = ["win32more"]
 
-[[tool.hatch.envs.hatch-test.matrix]]
-python = [
-    "3.13-64",
-    "3.13-32",
-    "3.12-64",
-    "3.12-32",
-    "3.11-64",
-    "3.11-32",
-    "3.10-64",
-    "3.10-32",
-    "3.9-64",
-    "3.9-32",
-]
-
 [tool.ruff]
 line-length = 120
 lint.select = ["E4", "E7", "E9", "F", "I"]
