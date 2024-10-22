@@ -92,6 +92,10 @@ class CoreWebView2(ComPtr):
     @winrt_mixinmethod
     def ShowSaveAsUIAsync(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_25) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Web.WebView2.Core.CoreWebView2SaveAsUIResult]: ...
     @winrt_mixinmethod
+    def add_SaveFileSecurityCheckStarting(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_26, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2SaveFileSecurityCheckStartingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_SaveFileSecurityCheckStarting(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_26, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
     def get_IsSuspended(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_3) -> Boolean: ...
     @winrt_mixinmethod
     def TrySuspendAsync(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_3) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -307,6 +311,7 @@ class CoreWebView2(ComPtr):
     DOMContentLoaded = event()
     NotificationReceived = event()
     SaveAsUIShowing = event()
+    SaveFileSecurityCheckStarting = event()
     FrameCreated = event()
     DownloadStarting = event()
     ClientCertificateRequested = event()
@@ -2240,6 +2245,31 @@ class CoreWebView2SaveAsUIShowingEventArgs(ComPtr):
     Kind = property(get_Kind, put_Kind)
     SaveAsFilePath = property(get_SaveAsFilePath, put_SaveAsFilePath)
     SuppressDefaultDialog = property(get_SuppressDefaultDialog, put_SuppressDefaultDialog)
+class CoreWebView2SaveFileSecurityCheckStartingEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs
+    _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2SaveFileSecurityCheckStartingEventArgs'
+    @winrt_mixinmethod
+    def get_CancelSave(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_CancelSave(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_DocumentOriginUri(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_FileExtension(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_FilePath(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_SuppressDefaultPolicy(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_SuppressDefaultPolicy(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs) -> win32more.Windows.Foundation.Deferral: ...
+    CancelSave = property(get_CancelSave, put_CancelSave)
+    DocumentOriginUri = property(get_DocumentOriginUri, None)
+    FileExtension = property(get_FileExtension, None)
+    FilePath = property(get_FilePath, None)
+    SuppressDefaultPolicy = property(get_SuppressDefaultPolicy, put_SuppressDefaultPolicy)
 class CoreWebView2ScriptDialogKind(Enum, Int32):
     Alert = 0
     Confirm = 1
@@ -4606,6 +4636,31 @@ class ICoreWebView2SaveAsUIShowingEventArgs(ComPtr):
     Kind = property(get_Kind, put_Kind)
     SaveAsFilePath = property(get_SaveAsFilePath, put_SaveAsFilePath)
     SuppressDefaultDialog = property(get_SuppressDefaultDialog, put_SuppressDefaultDialog)
+class ICoreWebView2SaveFileSecurityCheckStartingEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2SaveFileSecurityCheckStartingEventArgs'
+    _iid_ = Guid('{6f6b50ff-3eae-5c4c-a29f-6fce822a04e0}')
+    @winrt_commethod(6)
+    def get_CancelSave(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_CancelSave(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_DocumentOriginUri(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def get_FileExtension(self) -> WinRT_String: ...
+    @winrt_commethod(10)
+    def get_FilePath(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def get_SuppressDefaultPolicy(self) -> Boolean: ...
+    @winrt_commethod(12)
+    def put_SuppressDefaultPolicy(self, value: Boolean) -> Void: ...
+    @winrt_commethod(13)
+    def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
+    CancelSave = property(get_CancelSave, put_CancelSave)
+    DocumentOriginUri = property(get_DocumentOriginUri, None)
+    FileExtension = property(get_FileExtension, None)
+    FilePath = property(get_FilePath, None)
+    SuppressDefaultPolicy = property(get_SuppressDefaultPolicy, put_SuppressDefaultPolicy)
 class ICoreWebView2ScriptDialogOpeningEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ScriptDialogOpeningEventArgs'
@@ -5135,6 +5190,15 @@ class ICoreWebView2_25(ComPtr):
     @winrt_commethod(8)
     def ShowSaveAsUIAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Web.WebView2.Core.CoreWebView2SaveAsUIResult]: ...
     SaveAsUIShowing = event()
+class ICoreWebView2_26(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_26'
+    _iid_ = Guid('{e7d803dd-b2f4-5fa3-8e63-114489d4063d}')
+    @winrt_commethod(6)
+    def add_SaveFileSecurityCheckStarting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2SaveFileSecurityCheckStartingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_SaveFileSecurityCheckStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    SaveFileSecurityCheckStarting = event()
 class ICoreWebView2_3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_3'
