@@ -46,6 +46,7 @@ from win32more import (
     WinError,
     easycast,
     get_type_hints,
+    parse_arguments,
 )
 from win32more.asyncui import async_callback
 from win32more.Windows.Win32.Foundation import (
@@ -575,28 +576,28 @@ class WinrtMethodCall:
 
         self.delegate = WINFUNCTYPE(HRESULT, *argtypes)(vtbl_index, prototype.__name__, tuple(params))
         self.restype = restype
+        self._prototype = prototype
         self.hints = hints
-        self.hints.update({i: v for i, v in enumerate(hints.values())})
 
     def __call__(self, this, *args, **kwargs):
         calllater = []
-        cargs, ckwargs = self.make_args(args, kwargs, calllater)
+        cargs = self.make_args(args, kwargs, calllater)
         if self.restype is Void:
             result = None
         elif is_receivearray_class(self.restype):
             result = ReceiveArray(get_args(self.restype)[0], [])
-            ckwargs["return_length"] = pointer(result.length)
-            ckwargs["return"] = pointer(result.ptr)
+            cargs.append(pointer(result.length))
+            cargs.append(pointer(result.ptr))
         elif is_com_class(self.restype):
             result = self.restype(own=True)
-            ckwargs["return"] = pointer(result)
+            cargs.append(pointer(result))
         elif self.restype is WinRT_String:
             result = self.restype(own=True)
-            ckwargs["return"] = pointer(result)
+            cargs.append(pointer(result))
         else:
             result = self.restype()
-            ckwargs["return"] = pointer(result)
-        hr = self.delegate(this, *cargs, **ckwargs)
+            cargs.append(pointer(result))
+        hr = self.delegate(this, *cargs)
         if FAILED(hr):
             raise WinError(hr)
         for callback in calllater:
@@ -604,59 +605,31 @@ class WinrtMethodCall:
         return self.make_result(result)
 
     def make_args(self, args, kwargs, calllater):
+        pargs = parse_arguments(self._prototype.__qualname__, list(self.hints), args, kwargs, False)
         cargs = []
-        for k, v in enumerate(args):
-            if k in self.hints:
-                if isinstance(v, list) and is_passarray_class(self.hints[k]):
-                    szarray = PassArray(get_args(self.hints[k])[0], v)
-                    cargs.append(szarray.length)
-                    cargs.append(szarray.ptr)
-                    calllater.append(szarray.later)
-                elif isinstance(v, list) and is_fillarray_class(self.hints[k]):
-                    szarray = FillArray(get_args(self.hints[k])[0], v)
-                    cargs.append(szarray.length)
-                    cargs.append(szarray.ptr)
-                    calllater.append(szarray.later)
-                elif isinstance(v, list) and is_receivearray_class(self.hints[k]):
-                    szarray = ReceiveArray(get_args(self.hints[k])[0], v)
-                    cargs.append(pointer(szarray.length))
-                    cargs.append(pointer(szarray.ptr))
-                    calllater.append(szarray.later)
-                elif callable(v) and is_delegate_class(self.hints[k]):
-                    cargs.append(MulticastDelegateImpl(self.hints[k], v))
-                elif is_com_instance(v) and is_com_class(self.hints[k]):
-                    cargs.append(v.as_(self.hints[k]))
-                else:
-                    cargs.append(winrt_easycast(v, self.hints[k]))
+        for v, t in zip(pargs, self.hints.values()):  # >=3.10 strict=True
+            if isinstance(v, list) and is_passarray_class(t):
+                szarray = PassArray(get_args(t)[0], v)
+                cargs.append(szarray.length)
+                cargs.append(szarray.ptr)
+                calllater.append(szarray.later)
+            elif isinstance(v, list) and is_fillarray_class(t):
+                szarray = FillArray(get_args(t)[0], v)
+                cargs.append(szarray.length)
+                cargs.append(szarray.ptr)
+                calllater.append(szarray.later)
+            elif isinstance(v, list) and is_receivearray_class(t):
+                szarray = ReceiveArray(get_args(t)[0], v)
+                cargs.append(pointer(szarray.length))
+                cargs.append(pointer(szarray.ptr))
+                calllater.append(szarray.later)
+            elif callable(v) and is_delegate_class(t):
+                cargs.append(MulticastDelegateImpl(t, v))
+            elif is_com_instance(v) and is_com_class(t):
+                cargs.append(v.as_(t))
             else:
-                cargs.append(v)
-        ckwargs = {}
-        for k, v in kwargs.items():
-            if k in self.hints:
-                if isinstance(v, list) and is_passarray_class(self.hints[k]):
-                    szarray = PassArray(get_args(self.hints[k])[0], v)
-                    ckwargs[f"{k}_length"] = szarray.length
-                    ckwargs[k] = szarray.ptr
-                    calllater.append(szarray.later)
-                elif isinstance(v, list) and is_fillarray_class(self.hints[k]):
-                    szarray = FillArray(get_args(self.hints[k])[0], v)
-                    ckwargs[f"{k}_length"] = szarray.length
-                    ckwargs[k] = szarray.ptr
-                    calllater.append(szarray.later)
-                elif isinstance(v, list) and is_receivearray_class(self.hints[k]):
-                    szarray = ReceiveArray(get_args(self.hints[k])[0], v)
-                    ckwargs[f"{k}_length"] = pointer(szarray.length)
-                    ckwargs[k] = pointer(szarray.ptr)
-                    calllater.append(szarray.later)
-                elif callable(v) and is_delegate_class(self.hints[k]):
-                    ckwargs[k] = MulticastDelegateImpl(self.hints[k], v)
-                elif is_com_instance(v) and is_com_class(self.hints[k]):
-                    ckwargs[k] = v.as_(self.hints[k])
-                else:
-                    ckwargs[k] = winrt_easycast(v, self.hints[k])
-            else:
-                ckwargs[k] = v
-        return cargs, ckwargs
+                cargs.append(winrt_easycast(v, t))
+        return cargs
 
     def make_result(self, result):
         if self.restype is Void:

@@ -31,6 +31,7 @@ from ctypes import (
 )
 from ctypes import Structure as _Structure
 from ctypes import Union as _Union
+from itertools import zip_longest
 
 if sys.version_info < (3, 9):
     from typing_extensions import Annotated, get_args, get_origin
@@ -289,6 +290,23 @@ def get_type_hints(prototype, include_extras=False):
     return hints
 
 
+def parse_arguments(funcname: str, params: list, args: tuple, kwargs: dict, variadic: bool) -> list:
+    for k in params[: len(args)]:
+        if k in kwargs:
+            raise TypeError(f"{funcname}() got multiple values for argument '{k}'")
+    for k in kwargs:
+        if k not in params:
+            raise TypeError(f"{funcname}() got an unexpected keyword argument '{k}'")
+    nargs = len(args) + len(kwargs)
+    if nargs < len(params):
+        missing_count = len(params) - nargs
+        missing_keys = ", ".join(f"'{k}'" for k in params[-missing_count:])
+        raise TypeError(f"{funcname}() missing {missing_count} required positional arguments: {missing_keys}")
+    if nargs > len(params) and not variadic:
+        raise TypeError(f"{funcname}() takes {len(params)} positional arguments but {nargs} were given")
+    return list(args) + list(kwargs[k] for k in params[len(args) :])
+
+
 class Guid(Structure):
     _fields_ = [
         ("Data1", UInt32),
@@ -378,7 +396,7 @@ class ForeignFunction:
         else:
             params = tuple((1, name) for name in self._prototype.__annotations__.keys() if name != "return")
         return ForeignFunctionCall(
-            self._prototype, self._functype, [(entry_point, self._dlltype[self._library]), params]
+            self._prototype, self._functype, [(entry_point, self._dlltype[self._library]), params], self._variadic
         )
 
     def __call__(self, *args, **kwargs):
@@ -388,26 +406,25 @@ class ForeignFunction:
 
 
 class ForeignFunctionCall:
-    def __init__(self, prototype, functype, spec):
+    def __init__(self, prototype, functype, spec, variadic):
         hints = get_type_hints(prototype)
         self._restype = restype = hints.pop("return")
         if self._restype is c_char_p or self._restype is c_wchar_p:
             restype = UIntPtr
-        argtypes = list(hints.values())
+        self._prototype = prototype
         self._hints = hints
-        self._hints.update({i: v for i, v in enumerate(hints.values())})
-        self._delegate = functype(restype, *argtypes)(*spec)
+        self._variadic = variadic
+        self._delegate = functype(restype, *self._hints.values())(*spec)
 
     def __call__(self, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
-        cargs, ckwargs = self.make_args(args, kwargs)
-        result = self._delegate(*cargs, **ckwargs)
+        cargs = self.make_args(args, kwargs)
+        result = self._delegate(*cargs)
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        cargs = [easycast(v, self._hints[i]) if i in self._hints else v for i, v in enumerate(args)]
-        ckwargs = {k: easycast(v, self._hints[k]) if k in self._hints else v for k, v in kwargs.items()}
-        return cargs, ckwargs
+        pargs = parse_arguments(self._prototype.__qualname__, list(self._hints), args, kwargs, self._variadic)
+        return [easycast(v, t) if t else v for v, t in zip_longest(pargs, self._hints.values())]
 
     def make_result(self, result, _as_intptr):
         if self._restype is c_char_p or self._restype is c_wchar_p:
@@ -440,22 +457,20 @@ class ComMethodCall:
         self._restype = restype = hints.pop("return")
         if self._restype is c_char_p or self._restype is c_wchar_p:
             restype = UIntPtr
-        argtypes = list(hints.values())
         params = tuple((1, name) for name in hints.keys())
-        hints.update({i: v for i, v in enumerate(argtypes)})
+        self._prototype = prototype
         self._hints = hints
-        self._delegate = WINFUNCTYPE(restype, *argtypes)(vtbl_index, prototype.__name__, params)
+        self._delegate = WINFUNCTYPE(restype, *self._hints.values())(vtbl_index, prototype.__name__, params)
 
     def __call__(self, this, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
-        cargs, ckwargs = self.make_args(args, kwargs)
-        result = self._delegate(this, *cargs, **ckwargs)
+        cargs = self.make_args(args, kwargs)
+        result = self._delegate(this, *cargs)
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        cargs = [easycast(v, self._hints[i]) if i in self._hints else v for i, v in enumerate(args)]
-        ckwargs = {k: easycast(v, self._hints[k]) if k in self._hints else v for k, v in kwargs.items()}
-        return cargs, ckwargs
+        pargs = parse_arguments(self._prototype.__qualname__, list(self._hints), args, kwargs, False)
+        return [easycast(v, t) for v, t in zip(pargs, self._hints.values())]  # >=3.10 strict=True
 
     def make_result(self, result, _as_intptr):
         if self._restype is c_char_p or self._restype is c_wchar_p:

@@ -28,7 +28,7 @@ def commit(prototype):
 
 
 def functype(prototype):
-    return ForeignFunctionCall(prototype, CFUNCTYPE, [prototype])
+    return ForeignFunctionCall(prototype, CFUNCTYPE, [prototype], False)
 
 
 def to_intptr(p):
