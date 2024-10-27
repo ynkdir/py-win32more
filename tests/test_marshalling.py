@@ -505,6 +505,14 @@ class TestMarshalling(unittest.TestCase):
         self.assertIsInstance(x, int)
         self.assertEqual(x, i)
 
+        x = g(0, _as_ctype=True)
+        self.assertIsInstance(x, c_char_p)
+        self.assertIsNone(x.value)
+
+        x = g(i, _as_ctype=True)
+        self.assertIsInstance(x, c_char_p)
+        self.assertEqual(x.value, s.value)
+
         # can not catch exception
         # @functype
         # def h() -> c_char_p:
@@ -554,6 +562,14 @@ class TestMarshalling(unittest.TestCase):
         x = g(i, _as_intptr=True)
         self.assertIsInstance(x, int)
         self.assertEqual(x, i)
+
+        x = g(0, _as_ctype=True)
+        self.assertIsInstance(x, c_wchar_p)
+        self.assertIsNone(x.value)
+
+        x = g(i, _as_ctype=True)
+        self.assertIsInstance(x, c_wchar_p)
+        self.assertEqual(x.value, s.value)
 
         # can not catch exception
         # @functype

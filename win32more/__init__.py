@@ -307,6 +307,10 @@ def parse_arguments(funcname: str, params: list, args: tuple, kwargs: dict, vari
     return list(args) + list(kwargs[k] for k in params[len(args) :])
 
 
+def _is_primitive(obj) -> bool:
+    return isinstance(obj, (type(None), bool, int, float, str, bytes))
+
+
 class Guid(Structure):
     _fields_ = [
         ("Data1", UInt32),
@@ -417,16 +421,19 @@ class ForeignFunctionCall:
         self._delegate = functype(restype, *self._hints.values())(*spec)
 
     def __call__(self, *args, **kwargs):
+        _as_ctype = kwargs.pop("_as_ctype", False)
         _as_intptr = kwargs.pop("_as_intptr", False)
         cargs = self.make_args(args, kwargs)
         result = self._delegate(*cargs)
-        return self.make_result(result, _as_intptr)
+        return self.make_result(result, _as_ctype, _as_intptr)
 
     def make_args(self, args, kwargs):
         pargs = parse_arguments(self._prototype.__qualname__, list(self._hints), args, kwargs, self._variadic)
         return [easycast(v, t) if t else v for v, t in zip_longest(pargs, self._hints.values())]
 
-    def make_result(self, result, _as_intptr):
+    def make_result(self, result, _as_ctype, _as_intptr):
+        if _as_ctype and _is_primitive(result):
+            return self._restype(result)
         if self._restype is c_char_p or self._restype is c_wchar_p:
             if _as_intptr:
                 return result
@@ -463,16 +470,19 @@ class ComMethodCall:
         self._delegate = WINFUNCTYPE(restype, *self._hints.values())(vtbl_index, prototype.__name__, params)
 
     def __call__(self, this, *args, **kwargs):
+        _as_ctype = kwargs.pop("_as_ctype", False)
         _as_intptr = kwargs.pop("_as_intptr", False)
         cargs = self.make_args(args, kwargs)
         result = self._delegate(this, *cargs)
-        return self.make_result(result, _as_intptr)
+        return self.make_result(result, _as_ctype, _as_intptr)
 
     def make_args(self, args, kwargs):
         pargs = parse_arguments(self._prototype.__qualname__, list(self._hints), args, kwargs, False)
         return [easycast(v, t) for v, t in zip(pargs, self._hints.values())]  # >=3.10 strict=True
 
-    def make_result(self, result, _as_intptr):
+    def make_result(self, result, _as_ctype, _as_intptr):
+        if _as_ctype and _is_primitive(result):
+            return self._restype(result)
         if self._restype is c_char_p or self._restype is c_wchar_p:
             if _as_intptr:
                 return result
