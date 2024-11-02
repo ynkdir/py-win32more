@@ -51,8 +51,8 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
     @classmethod
     def Start(cls, init):
         r = SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2)
-        if FAILED(r):
-            raise WinError(r)
+        if not r:
+            raise WinError()
 
         hr = CoInitializeEx(None, COINIT_APARTMENTTHREADED)
         if FAILED(hr):
