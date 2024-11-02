@@ -1,12 +1,8 @@
 import asyncio
 import unittest
-from ctypes import (
-    WinError,
-    pointer,
-)
 from pathlib import Path
 
-from win32more import FAILED, Int32
+from win32more import FAILED, Int32, WinError, pointer
 from win32more._winrt import _ro_get_parameterized_type_instance_iid, box_value, unbox_value
 from win32more._winrtrt import Vector
 from win32more.Windows.Data.Json import JsonObject, JsonValue
