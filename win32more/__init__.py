@@ -419,21 +419,16 @@ class ForeignFunctionCall:
         self._delegate = functype(restype, *self._hints.values())(*spec)
 
     def __call__(self, *args, **kwargs):
-        _as_ctype = kwargs.pop("_as_ctype", False)
         _as_intptr = kwargs.pop("_as_intptr", False)
         cargs = self.make_args(args, kwargs)
         result = self._delegate(*cargs)
-        return self.make_result(result, _as_ctype, _as_intptr)
+        return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
         pargs = parse_arguments(self._prototype.__qualname__, list(self._hints), args, kwargs, self._variadic)
         return [easycast(v, t) if t else v for v, t in zip_longest(pargs, self._hints.values())]
 
-    def make_result(self, result, _as_ctype, _as_intptr):
-        if _as_ctype:
-            if _is_primitive(result):
-                return self._restype(result)
-            return result
+    def make_result(self, result, _as_intptr):
         if _as_intptr:
             if result is None:
                 return 0
@@ -472,21 +467,16 @@ class ComMethodCall:
         self._delegate = WINFUNCTYPE(restype, *self._hints.values())(vtbl_index, prototype.__name__, params)
 
     def __call__(self, this, *args, **kwargs):
-        _as_ctype = kwargs.pop("_as_ctype", False)
         _as_intptr = kwargs.pop("_as_intptr", False)
         cargs = self.make_args(args, kwargs)
         result = self._delegate(this, *cargs)
-        return self.make_result(result, _as_ctype, _as_intptr)
+        return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
         pargs = parse_arguments(self._prototype.__qualname__, list(self._hints), args, kwargs, False)
         return [easycast(v, t) for v, t in zip(pargs, self._hints.values())]  # >=3.10 strict=True
 
-    def make_result(self, result, _as_ctype, _as_intptr):
-        if _as_ctype:
-            if _is_primitive(result):
-                return self._restype(result)
-            return result
+    def make_result(self, result, _as_intptr):
         if _as_intptr:
             if result is None:
                 return 0
