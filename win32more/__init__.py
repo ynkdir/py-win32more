@@ -7,7 +7,6 @@ from ctypes import (
     POINTER,
     Array,
     _CFuncPtr,
-    addressof,
     c_bool,
     c_byte,
     c_char_p,
@@ -211,8 +210,7 @@ class AsIntPtrDescriptor:
     def __get__(self, instance, owner=None):
         if instance is None:
             return self._original_descriptor.__get__(instance, owner)
-        address = addressof(instance) + self._original_descriptor.offset
-        return UIntPtr.from_address(address).value
+        return UIntPtr.from_buffer(instance, self._original_descriptor.offset).value
 
     def __set__(self, instance, value):
         self._original_descriptor.__set__(instance, value)
@@ -432,11 +430,15 @@ class ForeignFunctionCall:
         return [easycast(v, t) if t else v for v, t in zip_longest(pargs, self._hints.values())]
 
     def make_result(self, result, _as_ctype, _as_intptr):
-        if _as_ctype and _is_primitive(result):
-            return self._restype(result)
+        if _as_ctype:
+            if _is_primitive(result):
+                return self._restype(result)
+            return result
+        if _as_intptr:
+            if result is None:
+                return 0
+            return result
         if self._restype is c_char_p or self._restype is c_wchar_p:
-            if _as_intptr:
-                return result
             return self._restype(result).value
         return result
 
@@ -481,11 +483,15 @@ class ComMethodCall:
         return [easycast(v, t) for v, t in zip(pargs, self._hints.values())]  # >=3.10 strict=True
 
     def make_result(self, result, _as_ctype, _as_intptr):
-        if _as_ctype and _is_primitive(result):
-            return self._restype(result)
+        if _as_ctype:
+            if _is_primitive(result):
+                return self._restype(result)
+            return result
+        if _as_intptr:
+            if result is None:
+                return 0
+            return result
         if self._restype is c_char_p or self._restype is c_wchar_p:
-            if _as_intptr:
-                return result
             return self._restype(result).value
         return result
 
