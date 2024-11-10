@@ -59,8 +59,8 @@ from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, CoTaskMemFree, IU
 from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
     BaseTrust,
+    IActivationFactory,
     IInspectable,
-    RoActivateInstance,
     RoGetActivationFactory,
     TrustLevel,
     WindowsCreateString,
@@ -786,13 +786,12 @@ def _ro_get_activation_factory(classid: str, factory_class: type[T]) -> T:
 
 
 def _ro_activate_instance(classid: str, cls: type[T]) -> T:
-    hs = _windows_create_string(classid)
-    instance = cls(own=True)
-    hr = RoActivateInstance(hs, instance)
-    WindowsDeleteString(hs)
+    factory = _ro_get_activation_factory(classid, IActivationFactory)
+    instance = IInspectable(own=True)
+    hr = factory.ActivateInstance(instance)
     if FAILED(hr):
         raise WinError(hr)
-    return instance
+    return instance.as_(cls)
 
 
 # https://learn.microsoft.com/en-us/uwp/winrt-cref/winrt-type-system
