@@ -305,10 +305,6 @@ def parse_arguments(funcname: str, params: list, args: tuple, kwargs: dict, vari
     return list(args) + list(kwargs[k] for k in params[len(args) :])
 
 
-def _is_primitive(obj) -> bool:
-    return isinstance(obj, (type(None), bool, int, float, str, bytes))
-
-
 class Guid(Structure):
     _fields_ = [
         ("Data1", UInt32),
