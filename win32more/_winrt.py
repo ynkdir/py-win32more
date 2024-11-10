@@ -827,9 +827,7 @@ def _get_runtime_activation_factory(classid: str) -> IActivationFactory:
             continue
         return factory
 
-    # FIXME: What is the name of this constant?
-    E_MODULE_NOT_FOUND = -2147024770  # "The specified module could not be found."
-    raise WinError(E_MODULE_NOT_FOUND)
+    raise WinError(-2147024770)  # HRESULT_FROM_WIN32(ERROR_MOD_NOT_FOUND)
 
 
 # https://learn.microsoft.com/en-us/uwp/winrt-cref/winrt-type-system
