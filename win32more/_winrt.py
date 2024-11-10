@@ -47,6 +47,7 @@ from win32more import (
     easycast,
     get_type_hints,
     parse_arguments,
+    windll,
 )
 from win32more.asyncui import async_callback
 from win32more.Windows.Win32.Foundation import (
@@ -58,6 +59,7 @@ from win32more.Windows.Win32.Foundation import (
 from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, CoTaskMemFree, IUnknown
 from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
+    PFNGETACTIVATIONFACTORY,
     BaseTrust,
     IActivationFactory,
     IInspectable,
@@ -781,7 +783,7 @@ def _ro_get_activation_factory(classid: str) -> IActivationFactory:
     hr = RoGetActivationFactory(hs, IActivationFactory._iid_, factory)
     WindowsDeleteString(hs)
     if FAILED(hr):
-        raise WinError(hr)
+        return _get_runtime_activation_factory(classid)
     return factory
 
 
@@ -792,6 +794,31 @@ def _ro_activate_instance(classid: str) -> IInspectable:
     if FAILED(hr):
         raise WinError(hr)
     return instance
+
+
+# cppwinrt: base.h
+def _get_runtime_activation_factory(classid: str) -> IActivationFactory:
+    name = classid
+    while "." in name:
+        name, _ = name.rsplit(".", 1)
+        dllname = name + ".dll"
+
+        try:
+            DllGetActivationFactory = cast(windll[dllname].DllGetActivationFactory, PFNGETACTIVATIONFACTORY)
+        except AttributeError:
+            continue
+
+        hs = _windows_create_string(classid)
+        factory = IActivationFactory(own=True)
+        hr = DllGetActivationFactory(hs, factory)
+        WindowsDeleteString(hs)
+        if FAILED(hr):
+            continue
+        return factory
+
+    # FIXME: What is the name of this constant?
+    E_MODULE_NOT_FOUND = -2147024770  # "The specified module could not be found."
+    raise WinError(E_MODULE_NOT_FOUND)
 
 
 # https://learn.microsoft.com/en-us/uwp/winrt-cref/winrt-type-system
