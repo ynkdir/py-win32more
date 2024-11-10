@@ -149,6 +149,7 @@ ComPtr.as_ = ComPtr_as
 
 def winrt_easycast(obj, type_):
     from win32more._winrtrt import Vector
+    from win32more.Windows.Foundation import IReference
     from win32more.Windows.Foundation.Collections import IVector
 
     if type_ is IInspectable:
@@ -157,14 +158,20 @@ def winrt_easycast(obj, type_):
     elif issubclass(_get_origin_or_itself(type_), IVector):
         if isinstance(obj, list):
             return Vector[get_args(type_)[0]](obj)
+    elif issubclass(_get_origin_or_itself(type_), IReference):
+        # FIXME: Should I check obj is T of IReference[T]?
+        return box_value(obj).as_(type_)
     return easycast(obj, type_)
 
 
-def box_value(value: str) -> IInspectable:
+# FIXME: Add more conversion.
+def box_value(value: object) -> IInspectable:
     from win32more.Windows.Foundation import PropertyValue
 
     if isinstance(value, str):
         return PropertyValue.CreateString(value)
+    elif isinstance(value, bool):
+        return PropertyValue.CreateBoolean(value)
     raise NotImplementedError(f"box_value: {type(value)}")
 
 
@@ -634,11 +641,15 @@ class WinrtMethodCall:
         return cargs
 
     def make_result(self, result):
+        from win32more.Windows.Foundation import IReference
+
         if self.restype is Void:
             return None
         elif is_receivearray_class(self.restype):
             result.later()
             return result.lst
+        elif issubclass(_get_origin_or_itself(self.restype), IReference):
+            return unbox_value(result)
         return result.__ctypes_from_outparam__()
 
 
