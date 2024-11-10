@@ -27,11 +27,36 @@ def async_start_runner(delay_ms=100):
 
 def async_callback(coroutine_function):
     def wrapper(*args):
-        _async_task(coroutine_function, args, loop)
+        _async_task(coroutine_function(*args), args, loop)
 
     loop = _get_running_loop()
 
     return wrapper
+
+
+# async def callback(*args):
+#     print(1)      <- Executed immediately (may be in non main thread)
+#                      You can not use await in this area.
+#     yield
+#     print(2)      <- Executed in asyncio loop context (maybe in main thread)
+#                      You can use await from here.
+def asyncgen_callback(asyncgen_function):
+    def wrapper(*args):
+        agen = asyncgen_function(*args)
+        try:
+            agen.__anext__().send(None)
+        except StopIteration:
+            pass
+        _async_task(_asyncgen_iterate(agen), args, loop)
+
+    loop = _get_running_loop()
+
+    return wrapper
+
+
+async def _asyncgen_iterate(agen):
+    async for _ in agen:
+        pass
 
 
 def _get_running_loop():
@@ -42,10 +67,10 @@ class _async_task:
     # Need to keep reference to task.  The event loop only keeps weak references to tasks.
     background_tasks = set()
 
-    def __init__(self, coroutine_function, args, loop):
+    def __init__(self, coro, args, loop):
         self._args = args
         self._addref_args()
-        self._task = loop.create_task(coroutine_function(*args))
+        self._task = loop.create_task(coro)
         self._task.add_done_callback(self._done_callback)
         self.background_tasks.add(self)
 

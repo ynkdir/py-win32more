@@ -14,6 +14,7 @@ from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System.Threading import ThreadPool
 from win32more.Windows.Win32.Foundation import S_OK
 from win32more.Windows.Win32.System.Com import IUnknown
+from win32more.Windows.Win32.System.Threading import GetCurrentThreadId
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
 
@@ -145,6 +146,30 @@ class TestWinrt(unittest.TestCase):
                 await ThreadPool.RunAsync(worker)
 
         asyncio.run(main())
+
+    def test_asyncgen_callback(self):
+        async def worker(async_action):
+            # Executed immediately.
+            # This is non main thread
+            id1 = GetCurrentThreadId()
+
+            yield
+
+            # Executed in asyncio main loop context.
+            # This is main thread
+            id2 = GetCurrentThreadId()
+            result.append(id1)
+            result.append(id2)
+
+        async def main():
+            await ThreadPool.RunAsync(worker)
+
+        result = []
+
+        asyncio.run(main())
+
+        self.assertNotEqual(result[0], result[1])
+        self.assertEqual(result[1], GetCurrentThreadId())
 
     def test_box_value(self):
         self.assertIsInstance(box_value("str"), IInspectable)
