@@ -44,7 +44,8 @@ def asyncgen_callback(asyncgen_function):
     def wrapper(*args):
         agen = asyncgen_function(*args)
         try:
-            agen.__anext__().send(None)
+            # >=3.10: next(anext(agen))
+            next(agen.__anext__())
         except StopIteration:
             pass
         _async_task(_asyncgen_iterate(agen), args, loop)
