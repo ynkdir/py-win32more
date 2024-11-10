@@ -709,7 +709,7 @@ class winrt_classmethod:
     def __call__(self, cls, *args, **kwargs):
         hints = get_type_hints(self._prototype)
         factory_class = hints["cls"]
-        factory = _ro_get_activation_factory(cls._classid_, factory_class)
+        factory = _ro_get_activation_factory(cls._classid_).as_(factory_class)
         return getattr(factory, self._prototype.__name__)(*args, **kwargs)
 
     def argcount(self):
@@ -728,7 +728,7 @@ class winrt_activatemethod:
         return types.MethodType(self.__call__, owner)
 
     def __call__(self, cls):
-        return _ro_activate_instance(cls._classid_, cls)
+        return _ro_activate_instance(cls._classid_).as_(cls)
 
     def argcount(self):
         return 0
@@ -775,23 +775,23 @@ def _windows_get_string_raw_buffer(hs: HSTRING) -> str:
     return wstring_at(bufaddr, length.value)
 
 
-def _ro_get_activation_factory(classid: str, factory_class: type[T]) -> T:
+def _ro_get_activation_factory(classid: str) -> IActivationFactory:
     hs = _windows_create_string(classid)
-    factory = factory_class(own=True)
-    hr = RoGetActivationFactory(hs, factory_class._iid_, factory)
+    factory = IActivationFactory(own=True)
+    hr = RoGetActivationFactory(hs, IActivationFactory._iid_, factory)
     WindowsDeleteString(hs)
     if FAILED(hr):
         raise WinError(hr)
     return factory
 
 
-def _ro_activate_instance(classid: str, cls: type[T]) -> T:
-    factory = _ro_get_activation_factory(classid, IActivationFactory)
+def _ro_activate_instance(classid: str) -> IInspectable:
+    factory = _ro_get_activation_factory(classid)
     instance = IInspectable(own=True)
     hr = factory.ActivateInstance(instance)
     if FAILED(hr):
         raise WinError(hr)
-    return instance.as_(cls)
+    return instance
 
 
 # https://learn.microsoft.com/en-us/uwp/winrt-cref/winrt-type-system
