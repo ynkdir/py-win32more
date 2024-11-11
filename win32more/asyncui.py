@@ -46,9 +46,14 @@ def asyncgen_callback(asyncgen_function):
         try:
             # >=3.10: next(anext(agen))
             next(agen.__anext__())
-        except StopIteration:
-            pass
-        _async_task(_asyncgen_iterate(agen), args, loop)
+        except StopIteration as e:
+            # jumped from yield
+            _async_task(_asyncgen_iterate(agen), args, loop)
+            return e.value
+        except StopAsyncIteration:
+            # jumped from return or end of function
+            return None
+        raise RuntimeError("Never happen")
 
     loop = _get_running_loop()
 
