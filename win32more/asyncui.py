@@ -34,10 +34,10 @@ def async_callback(coroutine_function):
     return wrapper
 
 
-# async def callback(*args):
-#     print(1)      <- Executed immediately (may be in non main thread)
-#                      You can not use await in this area.
-#     yield
+# async def callback():
+#     print(1)      <- Executed immediately (maybe in worker thread)
+#                      You can not use await before yield.
+#     yield True    <- The value is returned to caller.
 #     print(2)      <- Executed in asyncio loop context (maybe in main thread)
 #                      You can use await from here.
 def asyncgen_callback(asyncgen_function):
@@ -46,14 +46,15 @@ def asyncgen_callback(asyncgen_function):
         try:
             # >=3.10: next(anext(agen))
             next(agen.__anext__())
+            # jumped from await before yield
         except StopIteration as e:
             # jumped from yield
             _async_task(_asyncgen_iterate(agen), args, loop)
             return e.value
         except StopAsyncIteration:
             # jumped from return or end of function
-            return None
-        raise RuntimeError("Never happen")
+            pass
+        raise RuntimeError("AsyncGenerator callback function should return value by yield")
 
     loop = _get_running_loop()
 
