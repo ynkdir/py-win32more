@@ -6,8 +6,7 @@ import sys
 from collections.abc import Iterable
 from pathlib import Path
 
-sys.path.append(str(Path(__file__).parent.parent))
-
+# Run in dev venv which have top directory in sys.path.
 from win32generator import resources
 from win32generator.metadata import Metadata
 from win32generator.preprocessor import Preprocessor
