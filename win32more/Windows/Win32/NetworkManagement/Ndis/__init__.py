@@ -2,6 +2,8 @@ from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
+NET_IF_COMPARTMENT_ID_UNSPECIFIED: UInt32 = 0
+NET_IF_COMPARTMENT_ID_PRIMARY: UInt32 = 1
 IOCTL_NDIS_RESERVED5: UInt32 = 1507380
 IOCTL_NDIS_RESERVED6: UInt32 = 1540152
 NDIS_OBJECT_TYPE_DEFAULT: UInt32 = 128
@@ -2209,7 +2211,7 @@ class NDIS_INTERFACE_INFORMATION(Structure):
     ifHCOutUcastOctets: UInt64
     ifHCOutMulticastOctets: UInt64
     ifHCOutBroadcastOctets: UInt64
-    CompartmentId: UInt32
+    CompartmentId: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_COMPARTMENT_ID
     SupportedStatistics: UInt32
 NDIS_INTERRUPT_MODERATION = Int32
 NdisInterruptModerationUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION = 0
@@ -2860,6 +2862,7 @@ NET_IF_ADMIN_STATUS_TESTING: win32more.Windows.Win32.NetworkManagement.Ndis.NET_
 class NET_IF_ALIAS_LH(Structure):
     ifAliasLength: UInt16
     ifAliasOffset: UInt16
+NET_IF_COMPARTMENT_ID = UInt32
 NET_IF_CONNECTION_TYPE = Int32
 NET_IF_CONNECTION_DEDICATED: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_CONNECTION_TYPE = 1
 NET_IF_CONNECTION_PASSIVE: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_CONNECTION_TYPE = 2

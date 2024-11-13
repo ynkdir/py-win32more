@@ -7,15 +7,15 @@ import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 import win32more.Windows.Win32.UI.WindowsAndMessaging
-PKEY_PhotoAcquire_RelativePathname: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=2)
-PKEY_PhotoAcquire_FinalFilename: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=3)
-PKEY_PhotoAcquire_GroupTag: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=4)
-PKEY_PhotoAcquire_TransferResult: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=5)
-PKEY_PhotoAcquire_OriginalFilename: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=6)
-PKEY_PhotoAcquire_CameraSequenceNumber: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=7)
-PKEY_PhotoAcquire_IntermediateFile: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=8)
-PKEY_PhotoAcquire_SkipImport: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=9)
-PKEY_PhotoAcquire_DuplicateDetectionID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=10)
+PKEY_PhotoAcquire_RelativePathname: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=2)
+PKEY_PhotoAcquire_FinalFilename: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=3)
+PKEY_PhotoAcquire_GroupTag: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=4)
+PKEY_PhotoAcquire_TransferResult: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=5)
+PKEY_PhotoAcquire_OriginalFilename: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=6)
+PKEY_PhotoAcquire_CameraSequenceNumber: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=7)
+PKEY_PhotoAcquire_IntermediateFile: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=8)
+PKEY_PhotoAcquire_SkipImport: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=9)
+PKEY_PhotoAcquire_DuplicateDetectionID: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{00f23377-7ac6-4b7a-8443-345e731fa57a}'), pid=10)
 PROGRESS_INDETERMINATE: Int32 = -1
 PHOTOACQ_ERROR_RESTART_REQUIRED: win32more.Windows.Win32.Foundation.HRESULT = -2147180543
 PHOTOACQ_RUN_DEFAULT: UInt32 = 0
@@ -92,9 +92,9 @@ class IPhotoAcquireItem(ComPtr):
     @commethod(4)
     def GetThumbnail(self, sizeThumbnail: win32more.Windows.Win32.Foundation.SIZE, phbmpThumbnail: POINTER(win32more.Windows.Win32.Graphics.Gdi.HBITMAP)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetProperty(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pv: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetProperty(self, key: POINTER(win32more.Windows.Win32.Foundation.PROPERTYKEY), pv: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def SetProperty(self, key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pv: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def SetProperty(self, key: POINTER(win32more.Windows.Win32.Foundation.PROPERTYKEY), pv: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetStream(self, ppStream: POINTER(win32more.Windows.Win32.System.Com.IStream)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

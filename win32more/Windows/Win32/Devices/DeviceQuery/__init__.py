@@ -30,7 +30,7 @@ def DevGetObjectPropertiesEx(ObjectType: win32more.Windows.Win32.Devices.DeviceQ
 @winfunctype('api-ms-win-devices-query-l1-1-0.dll')
 def DevFreeObjectProperties(cPropertyCount: UInt32, pProperties: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPERTY)) -> Void: ...
 @winfunctype('api-ms-win-devices-query-l1-1-0.dll')
-def DevFindProperty(pKey: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPKEY), Store: win32more.Windows.Win32.Devices.Properties.DEVPROPSTORE, pszLocaleName: win32more.Windows.Win32.Foundation.PWSTR, cProperties: UInt32, pProperties: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPERTY)) -> POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPERTY): ...
+def DevFindProperty(pKey: POINTER(win32more.Windows.Win32.Foundation.DEVPROPKEY), Store: win32more.Windows.Win32.Devices.Properties.DEVPROPSTORE, pszLocaleName: win32more.Windows.Win32.Foundation.PWSTR, cProperties: UInt32, pProperties: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPERTY)) -> POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPERTY): ...
 class DEVPROP_FILTER_EXPRESSION(Structure):
     Operator: win32more.Windows.Win32.Devices.DeviceQuery.DEVPROP_OPERATOR
     Property: win32more.Windows.Win32.Devices.Properties.DEVPROPERTY
@@ -102,7 +102,7 @@ DevQueryFlagAllProperties: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY
 DevQueryFlagLocalize: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 4
 DevQueryFlagAsyncClose: win32more.Windows.Win32.Devices.DeviceQuery.DEV_QUERY_FLAGS = 8
 class DEV_QUERY_PARAMETER(Structure):
-    Key: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY
+    Key: win32more.Windows.Win32.Foundation.DEVPROPKEY
     Type: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE
     BufferSize: UInt32
     Buffer: VoidPtr

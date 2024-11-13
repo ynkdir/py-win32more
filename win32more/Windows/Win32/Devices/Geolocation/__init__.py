@@ -5,7 +5,6 @@ import win32more.Windows.Win32.Devices.Sensors
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
-import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 GNSS_DRIVER_VERSION_1: UInt32 = 1
 GNSS_DRIVER_VERSION_2: UInt32 = 2
 GNSS_DRIVER_VERSION_3: UInt32 = 3
@@ -688,7 +687,7 @@ class ILocationReport(ComPtr):
     @commethod(4)
     def GetTimestamp(self, pCreationTime: POINTER(win32more.Windows.Win32.Foundation.SYSTEMTIME)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetValue(self, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetValue(self, pKey: POINTER(win32more.Windows.Win32.Foundation.PROPERTYKEY), pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ILocationReportFactory(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{2daec322-90b2-47e4-bb08-0da841935a6b}')

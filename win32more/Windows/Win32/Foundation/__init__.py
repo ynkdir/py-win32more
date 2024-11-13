@@ -6811,6 +6811,9 @@ class DECIMAL(Structure):
         class _Anonymous_e__Struct(Structure):
             Lo32: UInt32
             Mid32: UInt32
+class DEVPROPKEY(Structure):
+    fmtid: Guid
+    pid: UInt32
 DUPLICATE_HANDLE_OPTIONS = UInt32
 DUPLICATE_CLOSE_SOURCE: win32more.Windows.Win32.Foundation.DUPLICATE_HANDLE_OPTIONS = 1
 DUPLICATE_SAME_ACCESS: win32more.Windows.Win32.Foundation.DUPLICATE_HANDLE_OPTIONS = 2
@@ -6913,6 +6916,18 @@ STATUS_SEVERITY_SUCCESS: win32more.Windows.Win32.Foundation.NTSTATUS_SEVERITY_CO
 STATUS_SEVERITY_INFORMATIONAL: win32more.Windows.Win32.Foundation.NTSTATUS_SEVERITY_CODE = 1
 STATUS_SEVERITY_WARNING: win32more.Windows.Win32.Foundation.NTSTATUS_SEVERITY_CODE = 2
 STATUS_SEVERITY_ERROR: win32more.Windows.Win32.Foundation.NTSTATUS_SEVERITY_CODE = 3
+OBJECT_ATTRIBUTE_FLAGS = UInt32
+OBJ_INHERIT: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 2
+OBJ_PERMANENT: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 16
+OBJ_EXCLUSIVE: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 32
+OBJ_CASE_INSENSITIVE: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 64
+OBJ_OPENIF: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 128
+OBJ_OPENLINK: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 256
+OBJ_KERNEL_HANDLE: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 512
+OBJ_FORCE_ACCESS_CHECK: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 1024
+OBJ_IGNORE_IMPERSONATED_DEVICEMAP: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 2048
+OBJ_DONT_REPARSE: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 4096
+OBJ_VALID_ATTRIBUTES: win32more.Windows.Win32.Foundation.OBJECT_ATTRIBUTE_FLAGS = 8178
 @winfunctype_pointer
 def PAPCFUNC(Parameter: UIntPtr) -> Void: ...
 class POINT(Structure):
@@ -6926,6 +6941,9 @@ class POINTS(Structure):
     y: Int16
 @winfunctype_pointer
 def PROC() -> IntPtr: ...
+class PROPERTYKEY(Structure):
+    fmtid: Guid
+    pid: UInt32
 PSTR = Bytes
 PWSTR = String
 class RECT(Structure):

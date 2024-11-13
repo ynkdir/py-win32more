@@ -270,6 +270,10 @@ FILE_PROVIDER_COMPRESSION_XPRESS4K: UInt32 = 0
 FILE_PROVIDER_COMPRESSION_LZX: UInt32 = 1
 FILE_PROVIDER_COMPRESSION_XPRESS8K: UInt32 = 2
 FILE_PROVIDER_COMPRESSION_XPRESS16K: UInt32 = 3
+COPYFILE2_MESSAGE_COPY_OFFLOAD: Int32 = 1
+COPYFILE2_IO_CYCLE_SIZE_MIN: UInt32 = 4096
+COPYFILE2_IO_CYCLE_SIZE_MAX: UInt32 = 1073741824
+COPYFILE2_IO_RATE_MIN: UInt32 = 512
 ClfsNullRecord: Byte = 0
 ClfsDataRecord: Byte = 1
 ClfsRestartRecord: Byte = 2
@@ -1089,9 +1093,9 @@ def CopyFileA(lpExistingFileName: win32more.Windows.Win32.Foundation.PSTR, lpNew
 def CopyFileW(lpExistingFileName: win32more.Windows.Win32.Foundation.PWSTR, lpNewFileName: win32more.Windows.Win32.Foundation.PWSTR, bFailIfExists: win32more.Windows.Win32.Foundation.BOOL) -> win32more.Windows.Win32.Foundation.BOOL: ...
 CopyFile = UnicodeAlias('CopyFileW')
 @winfunctype('KERNEL32.dll')
-def CopyFileExA(lpExistingFileName: win32more.Windows.Win32.Foundation.PSTR, lpNewFileName: win32more.Windows.Win32.Foundation.PSTR, lpProgressRoutine: win32more.Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE, lpData: VoidPtr, pbCancel: POINTER(win32more.Windows.Win32.Foundation.BOOL), dwCopyFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CopyFileExA(lpExistingFileName: win32more.Windows.Win32.Foundation.PSTR, lpNewFileName: win32more.Windows.Win32.Foundation.PSTR, lpProgressRoutine: win32more.Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE, lpData: VoidPtr, pbCancel: POINTER(win32more.Windows.Win32.Foundation.BOOL), dwCopyFlags: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def CopyFileExW(lpExistingFileName: win32more.Windows.Win32.Foundation.PWSTR, lpNewFileName: win32more.Windows.Win32.Foundation.PWSTR, lpProgressRoutine: win32more.Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE, lpData: VoidPtr, pbCancel: POINTER(win32more.Windows.Win32.Foundation.BOOL), dwCopyFlags: UInt32) -> win32more.Windows.Win32.Foundation.BOOL: ...
+def CopyFileExW(lpExistingFileName: win32more.Windows.Win32.Foundation.PWSTR, lpNewFileName: win32more.Windows.Win32.Foundation.PWSTR, lpProgressRoutine: win32more.Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE, lpData: VoidPtr, pbCancel: POINTER(win32more.Windows.Win32.Foundation.BOOL), dwCopyFlags: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS) -> win32more.Windows.Win32.Foundation.BOOL: ...
 CopyFileEx = UnicodeAlias('CopyFileExW')
 @winfunctype('KERNEL32.dll')
 def CopyFileTransactedA(lpExistingFileName: win32more.Windows.Win32.Foundation.PSTR, lpNewFileName: win32more.Windows.Win32.Foundation.PSTR, lpProgressRoutine: win32more.Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE, lpData: VoidPtr, pbCancel: POINTER(win32more.Windows.Win32.Foundation.BOOL), dwCopyFlags: UInt32, hTransaction: win32more.Windows.Win32.Foundation.HANDLE) -> win32more.Windows.Win32.Foundation.BOOL: ...
@@ -1416,17 +1420,17 @@ COPYFILE2_PHASE_NAMEGRAFT_COPY: win32more.Windows.Win32.Storage.FileSystem.COPYF
 COPYFILE2_PHASE_MAX: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_COPY_PHASE = 7
 class COPYFILE2_EXTENDED_PARAMETERS(Structure):
     dwSize: UInt32
-    dwCopyFlags: UInt32
+    dwCopyFlags: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS
     pfCancel: POINTER(win32more.Windows.Win32.Foundation.BOOL)
     pProgressRoutine: win32more.Windows.Win32.Storage.FileSystem.PCOPYFILE2_PROGRESS_ROUTINE
     pvCallbackContext: VoidPtr
 class COPYFILE2_EXTENDED_PARAMETERS_V2(Structure):
     dwSize: UInt32
-    dwCopyFlags: UInt32
+    dwCopyFlags: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS
     pfCancel: POINTER(win32more.Windows.Win32.Foundation.BOOL)
     pProgressRoutine: win32more.Windows.Win32.Storage.FileSystem.PCOPYFILE2_PROGRESS_ROUTINE
     pvCallbackContext: VoidPtr
-    dwCopyFlagsV2: UInt32
+    dwCopyFlagsV2: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_V2_FLAGS
     ioDesiredSize: UInt32
     ioDesiredRate: UInt32
     reserved: VoidPtr * 8
@@ -1504,6 +1508,34 @@ COPYFILE2_CALLBACK_STREAM_FINISHED: win32more.Windows.Win32.Storage.FileSystem.C
 COPYFILE2_CALLBACK_POLL_CONTINUE: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_MESSAGE_TYPE = 5
 COPYFILE2_CALLBACK_ERROR: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_MESSAGE_TYPE = 6
 COPYFILE2_CALLBACK_MAX: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_MESSAGE_TYPE = 7
+COPYFILE2_V2_FLAGS = UInt32
+COPY_FILE2_V2_DONT_COPY_JUNCTIONS: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_V2_FLAGS = 1
+COPY_FILE2_V2_VALID_FLAGS: win32more.Windows.Win32.Storage.FileSystem.COPYFILE2_V2_FLAGS = 1
+COPYFILE_FLAGS = UInt32
+COPY_FILE_FAIL_IF_EXISTS: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 1
+COPY_FILE_RESTARTABLE: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 2
+COPY_FILE_OPEN_SOURCE_FOR_WRITE: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 4
+COPY_FILE_ALLOW_DECRYPTED_DESTINATION: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 8
+COPY_FILE_COPY_SYMLINK: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 2048
+COPY_FILE_NO_BUFFERING: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 4096
+COPY_FILE_REQUEST_SECURITY_PRIVILEGES: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 8192
+COPY_FILE_RESUME_FROM_PAUSE: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 16384
+COPY_FILE_NO_OFFLOAD: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 262144
+COPY_FILE_IGNORE_EDP_BLOCK: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 4194304
+COPY_FILE_IGNORE_SOURCE_ENCRYPTION: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 8388608
+COPY_FILE_DONT_REQUEST_DEST_WRITE_DAC: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 33554432
+COPY_FILE_REQUEST_COMPRESSED_TRAFFIC: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 268435456
+COPY_FILE_OPEN_AND_COPY_REPARSE_POINT: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 2097152
+COPY_FILE_DIRECTORY: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 128
+COPY_FILE_SKIP_ALTERNATE_STREAMS: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 32768
+COPY_FILE_DISABLE_PRE_ALLOCATION: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 67108864
+COPY_FILE_ENABLE_LOW_FREE_SPACE_MODE: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 134217728
+COPY_FILE_ENABLE_SPARSE_COPY: win32more.Windows.Win32.Storage.FileSystem.COPYFILE_FLAGS = 536870912
+COPYPROGRESSROUTINE_PROGRESS = UInt32
+PROGRESS_CONTINUE: win32more.Windows.Win32.Storage.FileSystem.COPYPROGRESSROUTINE_PROGRESS = 0
+PROGRESS_CANCEL: win32more.Windows.Win32.Storage.FileSystem.COPYPROGRESSROUTINE_PROGRESS = 1
+PROGRESS_STOP: win32more.Windows.Win32.Storage.FileSystem.COPYPROGRESSROUTINE_PROGRESS = 2
+PROGRESS_QUIET: win32more.Windows.Win32.Storage.FileSystem.COPYPROGRESSROUTINE_PROGRESS = 3
 class CREATEFILE2_EXTENDED_PARAMETERS(Structure):
     dwSize: UInt32
     dwFileAttributes: UInt32
@@ -2193,7 +2225,7 @@ class LOG_MANAGEMENT_CALLBACKS(Structure):
     LogFullHandlerCallback: win32more.Windows.Win32.Storage.FileSystem.PLOG_FULL_HANDLER_CALLBACK
     LogUnpinnedCallback: win32more.Windows.Win32.Storage.FileSystem.PLOG_UNPINNED_CALLBACK
 @winfunctype_pointer
-def LPPROGRESS_ROUTINE(TotalFileSize: Int64, TotalBytesTransferred: Int64, StreamSize: Int64, StreamBytesTransferred: Int64, dwStreamNumber: UInt32, dwCallbackReason: win32more.Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE_CALLBACK_REASON, hSourceFile: win32more.Windows.Win32.Foundation.HANDLE, hDestinationFile: win32more.Windows.Win32.Foundation.HANDLE, lpData: VoidPtr) -> UInt32: ...
+def LPPROGRESS_ROUTINE(TotalFileSize: Int64, TotalBytesTransferred: Int64, StreamSize: Int64, StreamBytesTransferred: Int64, dwStreamNumber: UInt32, dwCallbackReason: win32more.Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE_CALLBACK_REASON, hSourceFile: win32more.Windows.Win32.Foundation.HANDLE, hDestinationFile: win32more.Windows.Win32.Foundation.HANDLE, lpData: VoidPtr) -> win32more.Windows.Win32.Storage.FileSystem.COPYPROGRESSROUTINE_PROGRESS: ...
 LPPROGRESS_ROUTINE_CALLBACK_REASON = UInt32
 CALLBACK_CHUNK_FINISHED: win32more.Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE_CALLBACK_REASON = 0
 CALLBACK_STREAM_SWITCH: win32more.Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE_CALLBACK_REASON = 1

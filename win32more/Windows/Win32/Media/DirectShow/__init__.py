@@ -2232,11 +2232,6 @@ DISPLAY_CONTENT_DEFAULT: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_
 DISPLAY_16x9: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 1
 DISPLAY_4x3_PANSCAN_PREFERRED: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 2
 DISPLAY_4x3_LETTERBOX_PREFERRED: win32more.Windows.Win32.Media.DirectShow.DVD_PREFERRED_DISPLAY_MODE = 3
-class DVD_REGION(Structure):
-    CopySystem: Byte
-    RegionData: Byte
-    SystemRegion: Byte
-    ResetCount: Byte
 DVD_RELATIVE_BUTTON = Int32
 DVD_Relative_Upper: win32more.Windows.Win32.Media.DirectShow.DVD_RELATIVE_BUTTON = 1
 DVD_Relative_Lower: win32more.Windows.Win32.Media.DirectShow.DVD_RELATIVE_BUTTON = 2

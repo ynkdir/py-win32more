@@ -135,12 +135,12 @@ class Formatter:
         elif fd.signature.kind == "Type" and fd.signature.fullname == "System.Guid":
             guid = fd.custom_attributes.get_guid()
             return f"Guid('{guid}')"
-        elif fd.signature.kind == "Type" and fd.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
+        elif fd.signature.kind == "Type" and fd.signature.fullname == "Windows.Win32.Foundation.DEVPROPKEY":
             guid, pid = fd.custom_attributes.get_property_key()
             return f"ConstantLazyLoader(fmtid=Guid('{guid}'), pid={pid})"
         elif (
             fd.signature.kind == "Type"
-            and fd.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY"
+            and fd.signature.fullname == "Windows.Win32.Foundation.PROPERTYKEY"
         ):
             guid, pid = fd.custom_attributes.get_property_key()
             return f"ConstantLazyLoader(fmtid=Guid('{guid}'), pid={pid})"

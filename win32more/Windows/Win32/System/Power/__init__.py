@@ -1,6 +1,5 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Power
 import win32more.Windows.Win32.System.Registry
@@ -80,7 +79,7 @@ PPM_IDLE_ACCOUNTING_EX_GUID: Guid = Guid('{d67abd39-81f8-4a5e-8152-72e31ec912ee}
 PPM_THERMALCONSTRAINT_GUID: Guid = Guid('{a852c2c8-1a4c-423b-8c2c-f30d82931a88}')
 PPM_PERFMON_PERFSTATE_GUID: Guid = Guid('{7fd18652-0cfe-40d2-b0a1-0b066a87759e}')
 PPM_THERMAL_POLICY_CHANGE_GUID: Guid = Guid('{48f377b8-6880-4c7b-8bdc-380176c6654d}')
-PROCESSOR_NUMBER_PKEY: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{5724c81d-d5af-4c1f-a103-a06e28f204c6}'), pid=1)
+PROCESSOR_NUMBER_PKEY: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{5724c81d-d5af-4c1f-a103-a06e28f204c6}'), pid=1)
 GUID_DEVICE_BATTERY: Guid = Guid('{72631e54-78a4-11d0-bcf7-00aa00b7b32a}')
 GUID_DEVICE_APPLICATIONLAUNCH_BUTTON: Guid = Guid('{629758ee-986e-4d9e-8e47-de27f8ab054d}')
 GUID_DEVICE_SYS_BUTTON: Guid = Guid('{4afa3d53-74a7-11d0-be5e-00a0c9062857}')

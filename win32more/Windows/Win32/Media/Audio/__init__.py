@@ -537,24 +537,24 @@ SPTLAUDCLNT_E_STATIC_OBJECT_NOT_AVAILABLE: win32more.Windows.Win32.Foundation.HR
 SPTLAUDCLNT_E_OBJECT_ALREADY_ACTIVE: win32more.Windows.Win32.Foundation.HRESULT = -2004287220
 SPTLAUDCLNT_E_INTERNAL: win32more.Windows.Win32.Foundation.HRESULT = -2004287219
 DEVICE_STATEMASK_ALL: UInt32 = 15
-PKEY_AudioEndpoint_FormFactor: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=0)
-PKEY_AudioEndpoint_ControlPanelPageProvider: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=1)
-PKEY_AudioEndpoint_Association: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=2)
-PKEY_AudioEndpoint_PhysicalSpeakers: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=3)
-PKEY_AudioEndpoint_GUID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=4)
-PKEY_AudioEndpoint_Disable_SysFx: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=5)
+PKEY_AudioEndpoint_FormFactor: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=0)
+PKEY_AudioEndpoint_ControlPanelPageProvider: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=1)
+PKEY_AudioEndpoint_Association: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=2)
+PKEY_AudioEndpoint_PhysicalSpeakers: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=3)
+PKEY_AudioEndpoint_GUID: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=4)
+PKEY_AudioEndpoint_Disable_SysFx: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=5)
 ENDPOINT_SYSFX_ENABLED: UInt32 = 0
 ENDPOINT_SYSFX_DISABLED: UInt32 = 1
-PKEY_AudioEndpoint_FullRangeSpeakers: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=6)
-PKEY_AudioEndpoint_Supports_EventDriven_Mode: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=7)
-PKEY_AudioEndpoint_JackSubType: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=8)
-PKEY_AudioEndpoint_Default_VolumeInDb: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=9)
-PKEY_AudioEngine_DeviceFormat: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{f19f064d-082c-4e27-bc73-6882a1bb8e4c}'), pid=0)
-PKEY_AudioEngine_OEMFormat: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{e4870e26-3cc5-4cd2-ba46-ca0a9a70ed04}'), pid=3)
-PKEY_AudioEndpointLogo_IconEffects: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}'), pid=0)
-PKEY_AudioEndpointLogo_IconPath: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}'), pid=1)
-PKEY_AudioEndpointSettings_MenuText: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{14242002-0320-4de4-9555-a7d82b73c286}'), pid=0)
-PKEY_AudioEndpointSettings_LaunchContract: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{14242002-0320-4de4-9555-a7d82b73c286}'), pid=1)
+PKEY_AudioEndpoint_FullRangeSpeakers: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=6)
+PKEY_AudioEndpoint_Supports_EventDriven_Mode: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=7)
+PKEY_AudioEndpoint_JackSubType: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=8)
+PKEY_AudioEndpoint_Default_VolumeInDb: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{1da5d803-d492-4edd-8c23-e0c0ffee7f0e}'), pid=9)
+PKEY_AudioEngine_DeviceFormat: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{f19f064d-082c-4e27-bc73-6882a1bb8e4c}'), pid=0)
+PKEY_AudioEngine_OEMFormat: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{e4870e26-3cc5-4cd2-ba46-ca0a9a70ed04}'), pid=3)
+PKEY_AudioEndpointLogo_IconEffects: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}'), pid=0)
+PKEY_AudioEndpointLogo_IconPath: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{f1ab780d-2010-4ed3-a3a6-8b87f0f0c476}'), pid=1)
+PKEY_AudioEndpointSettings_MenuText: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{14242002-0320-4de4-9555-a7d82b73c286}'), pid=0)
+PKEY_AudioEndpointSettings_LaunchContract: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{14242002-0320-4de4-9555-a7d82b73c286}'), pid=1)
 DEVINTERFACE_AUDIO_RENDER: Guid = Guid('{e6327cad-dcec-4949-ae8a-991e976a79d2}')
 DEVINTERFACE_AUDIO_CAPTURE: Guid = Guid('{2eef81be-33fa-4800-9670-1cd474972c3f}')
 DEVINTERFACE_MIDI_OUTPUT: Guid = Guid('{6dc23320-ab33-4ce4-80d4-bbb3ebbf2814}')
@@ -1655,7 +1655,7 @@ class IAudioSystemEffectsPropertyChangeNotificationClient(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{20049d40-56d5-400e-a2ef-385599feed49}')
     @commethod(3)
-    def OnPropertyChanged(self, type: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE, key: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnPropertyChanged(self, type: win32more.Windows.Win32.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE, key: win32more.Windows.Win32.Foundation.PROPERTYKEY) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IAudioSystemEffectsPropertyStore(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{302ae7f9-d7e0-43e4-971b-1f8293613d2a}')
@@ -1816,7 +1816,7 @@ class IMMNotificationClient(ComPtr):
     @commethod(6)
     def OnDefaultDeviceChanged(self, flow: win32more.Windows.Win32.Media.Audio.EDataFlow, role: win32more.Windows.Win32.Media.Audio.ERole, pwstrDefaultDeviceId: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def OnPropertyValueChanged(self, pwstrDeviceId: win32more.Windows.Win32.Foundation.PWSTR, key: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def OnPropertyValueChanged(self, pwstrDeviceId: win32more.Windows.Win32.Foundation.PWSTR, key: win32more.Windows.Win32.Foundation.PROPERTYKEY) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class IMessageFilter(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{00000016-0000-0000-c000-000000000046}')

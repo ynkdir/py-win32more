@@ -6,16 +6,15 @@ import win32more.Windows.Win32.Media.Audio.Apo
 import win32more.Windows.Win32.Media.Audio.Endpoints
 import win32more.Windows.Win32.Media.KernelStreaming
 import win32more.Windows.Win32.System.Com
-import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS(Structure):
     u32Size: UInt32
     u32TSSessionId: UInt32
     targetEndpointConnectorType: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType
     wfxDeviceFormat: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
-DEVPKEY_AudioEndpointPlugin_FactoryCLSID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=1)
-DEVPKEY_AudioEndpointPlugin_DataFlow: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=2)
-DEVPKEY_AudioEndpointPlugin_PnPInterface: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=3)
-DEVPKEY_AudioEndpointPlugin2_FactoryCLSID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=4)
+DEVPKEY_AudioEndpointPlugin_FactoryCLSID: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=1)
+DEVPKEY_AudioEndpointPlugin_DataFlow: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=2)
+DEVPKEY_AudioEndpointPlugin_PnPInterface: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=3)
+DEVPKEY_AudioEndpointPlugin2_FactoryCLSID: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{12d83bd7-cf12-46be-8540-812710d3021c}'), pid=4)
 DEVINTERFACE_AUDIOENDPOINTPLUGIN = Guid('{9f2f7b66-65ac-4fa6-8ae4-123c78b89313}')
 EndpointConnectorType = Int32
 eHostProcessConnector: win32more.Windows.Win32.Media.Audio.Endpoints.EndpointConnectorType = 0

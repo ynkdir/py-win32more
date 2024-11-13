@@ -1560,9 +1560,9 @@ MF_INVALID_ACCESS_ERR: UInt32 = 2154823695
 MF_QUOTA_EXCEEDED_ERR: UInt32 = 2154823702
 MF_PARSE_ERR: UInt32 = 2154823761
 MF_TYPE_ERR: UInt32 = 2154840069
-DEVPKEY_DeviceInterface_IsVirtualCamera: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=3)
-DEVPKEY_DeviceInterface_IsWindowsCameraEffectAvailable: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=4)
-DEVPKEY_DeviceInterface_VirtualCameraAssociatedCameras: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=5)
+DEVPKEY_DeviceInterface_IsVirtualCamera: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=3)
+DEVPKEY_DeviceInterface_IsWindowsCameraEffectAvailable: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=4)
+DEVPKEY_DeviceInterface_VirtualCameraAssociatedCameras: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{6edc630d-c2e3-43b7-b2d1-20525a1af120}'), pid=5)
 g_wszSpeechFormatCaps: String = 'SpeechFormatCap'
 g_wszWMCPCodecName: String = '_CODECNAME'
 g_wszWMCPSupportedVBRModes: String = '_SUPPORTEDVBRMODES'
@@ -9736,7 +9736,7 @@ class IMFVirtualCamera(ComPtr):
     @commethod(33)
     def AddDeviceSourceInfo(self, DeviceSourceInfo: win32more.Windows.Win32.Foundation.PWSTR) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
-    def AddProperty(self, pKey: POINTER(win32more.Windows.Win32.Devices.Properties.DEVPROPKEY), Type: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE, pbData: POINTER(Byte), cbData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def AddProperty(self, pKey: POINTER(win32more.Windows.Win32.Foundation.DEVPROPKEY), Type: win32more.Windows.Win32.Devices.Properties.DEVPROPTYPE, pbData: POINTER(Byte), cbData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def AddRegistryEntry(self, EntryName: win32more.Windows.Win32.Foundation.PWSTR, SubkeyPath: win32more.Windows.Win32.Foundation.PWSTR, dwRegType: UInt32, pbData: POINTER(Byte), cbData: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)

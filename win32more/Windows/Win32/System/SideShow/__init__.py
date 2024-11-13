@@ -4,7 +4,6 @@ import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Com.StructuredStorage
 import win32more.Windows.Win32.System.SideShow
-import win32more.Windows.Win32.UI.Shell.PropertiesSystem
 import win32more.Windows.Win32.UI.WindowsAndMessaging
 class APPLICATION_EVENT_DATA(Structure):
     cbApplicationEventData: UInt32
@@ -17,19 +16,19 @@ class APPLICATION_EVENT_DATA(Structure):
 SIDESHOW_ENDPOINT_SIMPLE_CONTENT_FORMAT: Guid = Guid('{a9a5353f-2d4b-47ce-93ee-759f3a7dda4f}')
 SIDESHOW_ENDPOINT_ICAL: Guid = Guid('{4dff36b5-9dde-4f76-9a2a-96435047063d}')
 SIDESHOW_CAPABILITY_DEVICE_PROPERTIES: Guid = Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}')
-SIDESHOW_CAPABILITY_DEVICE_ID: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=1)
-SIDESHOW_CAPABILITY_SCREEN_TYPE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=2)
-SIDESHOW_CAPABILITY_SCREEN_WIDTH: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=3)
-SIDESHOW_CAPABILITY_SCREEN_HEIGHT: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=4)
-SIDESHOW_CAPABILITY_COLOR_DEPTH: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=5)
-SIDESHOW_CAPABILITY_COLOR_TYPE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=6)
-SIDESHOW_CAPABILITY_DATA_CACHE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=7)
-SIDESHOW_CAPABILITY_SUPPORTED_LANGUAGES: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=8)
-SIDESHOW_CAPABILITY_CURRENT_LANGUAGE: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=9)
-SIDESHOW_CAPABILITY_SUPPORTED_THEMES: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=10)
-SIDESHOW_CAPABILITY_SUPPORTED_IMAGE_FORMATS: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=14)
-SIDESHOW_CAPABILITY_CLIENT_AREA_WIDTH: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=15)
-SIDESHOW_CAPABILITY_CLIENT_AREA_HEIGHT: win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=16)
+SIDESHOW_CAPABILITY_DEVICE_ID: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=1)
+SIDESHOW_CAPABILITY_SCREEN_TYPE: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=2)
+SIDESHOW_CAPABILITY_SCREEN_WIDTH: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=3)
+SIDESHOW_CAPABILITY_SCREEN_HEIGHT: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=4)
+SIDESHOW_CAPABILITY_COLOR_DEPTH: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=5)
+SIDESHOW_CAPABILITY_COLOR_TYPE: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=6)
+SIDESHOW_CAPABILITY_DATA_CACHE: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=7)
+SIDESHOW_CAPABILITY_SUPPORTED_LANGUAGES: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=8)
+SIDESHOW_CAPABILITY_CURRENT_LANGUAGE: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=9)
+SIDESHOW_CAPABILITY_SUPPORTED_THEMES: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=10)
+SIDESHOW_CAPABILITY_SUPPORTED_IMAGE_FORMATS: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=14)
+SIDESHOW_CAPABILITY_CLIENT_AREA_WIDTH: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=15)
+SIDESHOW_CAPABILITY_CLIENT_AREA_HEIGHT: win32more.Windows.Win32.Foundation.PROPERTYKEY = ConstantLazyLoader(fmtid=Guid('{8abc88a8-857b-4ad7-a35a-b5942f492b99}'), pid=16)
 GUID_DEVINTERFACE_SIDESHOW: Guid = Guid('{152e5811-feb9-4b00-90f4-d32947ae1681}')
 SIDESHOW_CONTENT_MISSING_EVENT: Guid = Guid('{5007fba8-d313-439f-bea2-a50201d3e9a8}')
 SIDESHOW_APPLICATION_EVENT: Guid = Guid('{4cb572fa-1d3b-49b3-a17a-2e6bff052854}')
@@ -65,7 +64,7 @@ class ISideShowCapabilities(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{535e1379-c09e-4a54-a511-597bab3a72b8}')
     @commethod(3)
-    def GetCapability(self, in_keyCapability: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY), inout_pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetCapability(self, in_keyCapability: POINTER(win32more.Windows.Win32.Foundation.PROPERTYKEY), inout_pValue: POINTER(win32more.Windows.Win32.System.Com.StructuredStorage.PROPVARIANT)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class ISideShowCapabilitiesCollection(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{50305597-5e0d-4ff7-b3af-33d0d9bd52dd}')
@@ -110,11 +109,11 @@ class ISideShowKeyCollection(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{045473bc-a37b-4957-b144-68105411ed8e}')
     @commethod(3)
-    def Add(self, Key: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def Add(self, Key: POINTER(win32more.Windows.Win32.Foundation.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Clear(self) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetAt(self, dwIndex: UInt32, pKey: POINTER(win32more.Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    def GetAt(self, dwIndex: UInt32, pKey: POINTER(win32more.Windows.Win32.Foundation.PROPERTYKEY)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetCount(self, pcElems: POINTER(UInt32)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)

@@ -1,6 +1,5 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.DirectShow
@@ -255,9 +254,9 @@ KSDSOUND_BUFFER_CTRL_FREQUENCY: UInt32 = 2
 KSDSOUND_BUFFER_CTRL_PAN: UInt32 = 4
 KSDSOUND_BUFFER_CTRL_VOLUME: UInt32 = 8
 KSDSOUND_BUFFER_CTRL_POSITIONNOTIFY: UInt32 = 16
-DEVPKEY_KsAudio_PacketSize_Constraints: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=2)
-DEVPKEY_KsAudio_Controller_DeviceInterface_Path: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=3)
-DEVPKEY_KsAudio_PacketSize_Constraints2: win32more.Windows.Win32.Devices.Properties.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{9404f781-7191-409b-8b0b-80bf6ec229ae}'), pid=2)
+DEVPKEY_KsAudio_PacketSize_Constraints: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=2)
+DEVPKEY_KsAudio_Controller_DeviceInterface_Path: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{13e004d6-b066-43bd-913b-a415cd13da87}'), pid=3)
+DEVPKEY_KsAudio_PacketSize_Constraints2: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{9404f781-7191-409b-8b0b-80bf6ec229ae}'), pid=2)
 KSAUDIO_STEREO_SPEAKER_GEOMETRY_HEADPHONE: Int32 = -1
 KSAUDIO_STEREO_SPEAKER_GEOMETRY_MIN: UInt32 = 5
 KSAUDIO_STEREO_SPEAKER_GEOMETRY_NARROW: UInt32 = 10
