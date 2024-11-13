@@ -6,6 +6,8 @@ import sys
 from collections.abc import Iterable
 from pathlib import Path
 
+sys.path.append(str(Path(__file__).parent.parent))
+
 from win32generator import resources
 from win32generator.metadata import Metadata
 from win32generator.preprocessor import Preprocessor
