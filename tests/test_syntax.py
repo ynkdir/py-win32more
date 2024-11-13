@@ -5,13 +5,13 @@ from ctypes import _CFuncPtr, c_ulong, sizeof
 class TestSyntax(unittest.TestCase):
     def test_pkey_lazyload(self):
         from win32more.Windows.Win32.Devices.FunctionDiscovery import PKEY_FunctionInstance
-        from win32more.Windows.Win32.UI.Shell.PropertiesSystem import PROPERTYKEY
+        from win32more.Windows.Win32.Foundation import PROPERTYKEY
 
         self.assertIsInstance(PKEY_FunctionInstance, PROPERTYKEY)
 
     def test_devpkey_lazyload(self):
         from win32more.Windows.Win32.Devices.Display import DEVPKEY_IndirectDisplay
-        from win32more.Windows.Win32.Devices.Properties import DEVPROPKEY
+        from win32more.Windows.Win32.Foundation import DEVPROPKEY
 
         self.assertIsInstance(DEVPKEY_IndirectDisplay, DEVPROPKEY)
 
