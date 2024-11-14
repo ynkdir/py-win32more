@@ -1,0 +1,35 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+
+jobs:
+  run-tests:
+    name: "Test (Python ${{ matrix.python-version }} ${{ matrix.architecture }})"
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        architecture: ["x86", "x64"]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        architecture: ${{ matrix.architecture }}
+
+    - name: Install Python requirements
+      run: pip install --upgrade --upgrade-strategy eager .
+
+    - name: Run tests
+      run: |
+        python -m unittest discover -s tests
