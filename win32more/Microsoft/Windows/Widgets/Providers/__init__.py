@@ -4,6 +4,8 @@ from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArra
 import win32more.Microsoft.Windows.Widgets
 import win32more.Microsoft.Windows.Widgets.Providers
 import win32more.Windows.Foundation
+import win32more.Windows.Foundation.Collections
+import win32more.Windows.Storage.Streams
 import win32more.Windows.Win32.System.WinRT
 class IWidgetActionInvokedArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -107,12 +109,28 @@ class IWidgetManager(ComPtr):
     def GetWidgetInfos(self) -> ReceiveArray[win32more.Microsoft.Windows.Widgets.Providers.WidgetInfo]: ...
     @winrt_commethod(10)
     def DeleteWidget(self, widgetId: WinRT_String) -> Void: ...
+class IWidgetManager2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetManager2'
+    _iid_ = Guid('{55c65a27-8845-406c-9ee1-1e79f0556bef}')
+    @winrt_commethod(6)
+    def SendMessageToContent(self, widgetId: WinRT_String, message: WinRT_String) -> Void: ...
 class IWidgetManagerStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetManagerStatics'
     _iid_ = Guid('{7f233b06-28e5-5e2b-8c04-a4fa747c28c7}')
     @winrt_commethod(6)
     def GetDefault(self) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetManager: ...
+class IWidgetMessageReceivedArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetMessageReceivedArgs'
+    _iid_ = Guid('{2261cb2b-c741-5f96-9adb-fb3a7667bcb6}')
+    @winrt_commethod(6)
+    def get_WidgetContext(self) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetContext: ...
+    @winrt_commethod(7)
+    def get_Message(self) -> WinRT_String: ...
+    Message = property(get_Message, None)
+    WidgetContext = property(get_WidgetContext, None)
 class IWidgetProvider(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetProvider'
@@ -147,6 +165,77 @@ class IWidgetProviderErrors(ComPtr):
     _iid_ = Guid('{90c1b5f0-0d3a-4ac6-abb7-c97b367b8fcc}')
     @winrt_commethod(6)
     def OnErrorInfoReported(self, args: win32more.Microsoft.Windows.Widgets.Providers.WidgetErrorInfoReportedArgs) -> Void: ...
+class IWidgetProviderMessage(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetProviderMessage'
+    _iid_ = Guid('{ea4dc186-9e24-4b35-a5ef-a9f5df72d6ac}')
+    @winrt_commethod(6)
+    def OnMessageReceived(self, args: win32more.Microsoft.Windows.Widgets.Providers.WidgetMessageReceivedArgs) -> Void: ...
+class IWidgetResourceProvider(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetResourceProvider'
+    _iid_ = Guid('{dcf328c0-012c-40f5-bb28-3a1c714d027d}')
+    @winrt_commethod(6)
+    def OnResourceRequested(self, args: win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceRequestedArgs) -> Void: ...
+class IWidgetResourceRequest(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetResourceRequest'
+    _iid_ = Guid('{113d249f-82d9-57cb-8cea-9a5291f2fe22}')
+    @winrt_commethod(6)
+    def get_Uri(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_Method(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def put_Method(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(9)
+    def get_Content(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
+    @winrt_commethod(10)
+    def put_Content(self, value: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> Void: ...
+    @winrt_commethod(11)
+    def get_Headers(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    Content = property(get_Content, put_Content)
+    Headers = property(get_Headers, None)
+    Method = property(get_Method, put_Method)
+    Uri = property(get_Uri, None)
+class IWidgetResourceRequestedArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetResourceRequestedArgs'
+    _iid_ = Guid('{2bb30f4d-0166-58e3-aaf6-31b2ae970bcd}')
+    @winrt_commethod(6)
+    def get_WidgetContext(self) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetContext: ...
+    @winrt_commethod(7)
+    def get_Request(self) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceRequest: ...
+    @winrt_commethod(8)
+    def get_Response(self) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceResponse: ...
+    @winrt_commethod(9)
+    def put_Response(self, value: win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceResponse) -> Void: ...
+    @winrt_commethod(10)
+    def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
+    Request = property(get_Request, None)
+    Response = property(get_Response, put_Response)
+    WidgetContext = property(get_WidgetContext, None)
+class IWidgetResourceResponse(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetResourceResponse'
+    _iid_ = Guid('{03a2d32c-2e9e-54a3-b084-1479d5060f80}')
+    @winrt_commethod(6)
+    def get_Content(self) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
+    @winrt_commethod(7)
+    def get_Headers(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_commethod(8)
+    def get_ReasonPhrase(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def get_StatusCode(self) -> Int32: ...
+    Content = property(get_Content, None)
+    Headers = property(get_Headers, None)
+    ReasonPhrase = property(get_ReasonPhrase, None)
+    StatusCode = property(get_StatusCode, None)
+class IWidgetResourceResponseFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetResourceResponseFactory'
+    _iid_ = Guid('{08881ef1-a78a-5804-b070-9153a8657f85}')
+    @winrt_commethod(6)
+    def CreateInstance(self, content: win32more.Windows.Storage.Streams.IRandomAccessStreamReference, reasonPhrase: WinRT_String, statusCode: Int32) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceResponse: ...
 class IWidgetUpdateRequestOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetUpdateRequestOptions'
@@ -284,8 +373,82 @@ class WidgetManager(ComPtr):
     def GetWidgetInfos(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetManager) -> ReceiveArray[win32more.Microsoft.Windows.Widgets.Providers.WidgetInfo]: ...
     @winrt_mixinmethod
     def DeleteWidget(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetManager, widgetId: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def SendMessageToContent(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetManager2, widgetId: WinRT_String, message: WinRT_String) -> Void: ...
     @winrt_classmethod
     def GetDefault(cls: win32more.Microsoft.Windows.Widgets.Providers.IWidgetManagerStatics) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetManager: ...
+class WidgetMessageReceivedArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.Windows.Widgets.Providers.IWidgetMessageReceivedArgs
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.WidgetMessageReceivedArgs'
+    @winrt_mixinmethod
+    def get_WidgetContext(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetMessageReceivedArgs) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetContext: ...
+    @winrt_mixinmethod
+    def get_Message(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetMessageReceivedArgs) -> WinRT_String: ...
+    Message = property(get_Message, None)
+    WidgetContext = property(get_WidgetContext, None)
+class WidgetResourceRequest(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequest
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.WidgetResourceRequest'
+    @winrt_mixinmethod
+    def get_Uri(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequest) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Method(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequest) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Method(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequest, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Content(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequest) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
+    @winrt_mixinmethod
+    def put_Content(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequest, value: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> Void: ...
+    @winrt_mixinmethod
+    def get_Headers(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequest) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    Content = property(get_Content, put_Content)
+    Headers = property(get_Headers, None)
+    Method = property(get_Method, put_Method)
+    Uri = property(get_Uri, None)
+class WidgetResourceRequestedArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequestedArgs
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.WidgetResourceRequestedArgs'
+    @winrt_mixinmethod
+    def get_WidgetContext(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequestedArgs) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetContext: ...
+    @winrt_mixinmethod
+    def get_Request(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequestedArgs) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceRequest: ...
+    @winrt_mixinmethod
+    def get_Response(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequestedArgs) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceResponse: ...
+    @winrt_mixinmethod
+    def put_Response(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequestedArgs, value: win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceResponse) -> Void: ...
+    @winrt_mixinmethod
+    def GetDeferral(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceRequestedArgs) -> win32more.Windows.Foundation.Deferral: ...
+    Request = property(get_Request, None)
+    Response = property(get_Response, put_Response)
+    WidgetContext = property(get_WidgetContext, None)
+class WidgetResourceResponse(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceResponse
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.WidgetResourceResponse'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 3:
+            super().__init__(move=win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceResponse.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceResponseFactory, content: win32more.Windows.Storage.Streams.IRandomAccessStreamReference, reasonPhrase: WinRT_String, statusCode: Int32) -> win32more.Microsoft.Windows.Widgets.Providers.WidgetResourceResponse: ...
+    @winrt_mixinmethod
+    def get_Content(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceResponse) -> win32more.Windows.Storage.Streams.IRandomAccessStreamReference: ...
+    @winrt_mixinmethod
+    def get_Headers(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceResponse) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_mixinmethod
+    def get_ReasonPhrase(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceResponse) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_StatusCode(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetResourceResponse) -> Int32: ...
+    Content = property(get_Content, None)
+    Headers = property(get_Headers, None)
+    ReasonPhrase = property(get_ReasonPhrase, None)
+    StatusCode = property(get_StatusCode, None)
 class _WidgetUpdateRequestOptions_Meta_(ComPtr.__class__):
     pass
 class WidgetUpdateRequestOptions(ComPtr, metaclass=_WidgetUpdateRequestOptions_Meta_):
