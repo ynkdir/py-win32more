@@ -54,7 +54,8 @@ class TestWinrt(unittest.TestCase):
             return await FileIO.ReadTextAsync(storage_file)
 
         text1 = asyncio.run(winrt_readfile())
-        text2 = Path(__file__).read_text()
+        # >=3.13: text2 = Path(__file__).read_text(newline="")
+        text2 = Path(__file__).read_bytes().decode("utf-8")
         self.assertEqual(text1, text2)
 
     def test_readfile2(self):
@@ -62,7 +63,9 @@ class TestWinrt(unittest.TestCase):
             return await PathIO.ReadTextAsync(posix_to_win(__file__))
 
         text1 = asyncio.run(winrt_readfile())
-        text2 = Path(__file__).read_text()
+        # git clone might change eol format.
+        # >=3.13: text2 = Path(__file__).read_text(newline="")
+        text2 = Path(__file__).read_bytes().decode("utf-8")
         self.assertEqual(text1, text2)
 
     def test_fillarray(self):
