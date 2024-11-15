@@ -2,7 +2,6 @@ import unittest
 from ctypes import (
     CFUNCTYPE,
     POINTER,
-    WINFUNCTYPE,
     Array,
     c_char_p,
     c_void_p,
@@ -13,6 +12,7 @@ from ctypes import (
 )
 
 from win32more import (
+    WINFUNCTYPE,
     Boolean,
     Char,
     Double,

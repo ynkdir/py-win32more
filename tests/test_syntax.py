@@ -1,5 +1,5 @@
 import unittest
-from ctypes import _CFuncPtr, c_ulong, sizeof
+from ctypes import _CFuncPtr, sizeof
 
 
 class TestSyntax(unittest.TestCase):
@@ -118,9 +118,10 @@ class TestSyntax(unittest.TestCase):
         self.assertEqual(x.TotalBytesToSend.__orig_class__.__args__, (UInt64,))
 
     def test_struct_bitfield(self):
+        from win32more import UInt32
         from win32more.Windows.Win32.Storage.Nvme import NVME_COMMAND_DWORD0
 
-        self.assertEqual(sizeof(NVME_COMMAND_DWORD0), sizeof(c_ulong))
+        self.assertEqual(sizeof(NVME_COMMAND_DWORD0), sizeof(UInt32))
 
         x = NVME_COMMAND_DWORD0(OPC=1, FUSE=1, Reserved0=1, PSDT=1, CID=1)
         self.assertEqual(x.AsUlong, 0b00000000000000011000010100000001)

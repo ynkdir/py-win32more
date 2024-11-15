@@ -1,4 +1,5 @@
 import asyncio
+import sys
 import unittest
 from pathlib import Path
 
@@ -16,6 +17,13 @@ from win32more.Windows.Win32.Foundation import S_OK
 from win32more.Windows.Win32.System.Com import IUnknown
 from win32more.Windows.Win32.System.Threading import GetCurrentThreadId
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
+
+if sys.platform == "cygwin":
+    from win32more._cygwin import posix_to_win
+else:
+
+    def posix_to_win(path):
+        return path
 
 
 class TestWinrt(unittest.TestCase):
@@ -42,7 +50,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_readfile(self):
         async def winrt_readfile():
-            storage_file = await StorageFile.GetFileFromPathAsync(__file__)
+            storage_file = await StorageFile.GetFileFromPathAsync(posix_to_win(__file__))
             return await FileIO.ReadTextAsync(storage_file)
 
         text1 = asyncio.run(winrt_readfile())
@@ -51,7 +59,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_readfile2(self):
         async def winrt_readfile():
-            return await PathIO.ReadTextAsync(__file__)
+            return await PathIO.ReadTextAsync(posix_to_win(__file__))
 
         text1 = asyncio.run(winrt_readfile())
         text2 = Path(__file__).read_text()
@@ -59,7 +67,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_fillarray(self):
         async def winrt_readlines():
-            return await PathIO.ReadLinesAsync(__file__)
+            return await PathIO.ReadLinesAsync(posix_to_win(__file__))
 
         ivector = asyncio.run(winrt_readlines())
         lines = Path(__file__).read_text().splitlines()
@@ -69,7 +77,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_passarray(self):
         async def winrt_readlines():
-            return await PathIO.ReadLinesAsync(__file__)
+            return await PathIO.ReadLinesAsync(posix_to_win(__file__))
 
         ivector = asyncio.run(winrt_readlines())
         lines = [str(i) for i in range(10)]
