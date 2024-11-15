@@ -140,7 +140,7 @@ class TestWinrt(unittest.TestCase):
         @winrt_commethod(0)
         def GetArray(self, n: UInt32) -> ReceiveArray[Byte]: ...
 
-        r = GetArray.__call__(this, 42)
+        r = GetArray(this, 42)
         self.assertEqual(r, [42])
 
     def test_guid_generation_for_parameterized_types(self):
