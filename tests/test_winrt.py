@@ -3,18 +3,24 @@ import sys
 import unittest
 from pathlib import Path
 
-from win32more import FAILED, Int32, WinError, pointer
-from win32more._winrt import _ro_get_parameterized_type_instance_iid, box_value, unbox_value
+from win32more import FAILED, POINTER, WINFUNCTYPE, Byte, Int32, UInt32, VoidPtr, WinError, cast, pointer
+from win32more._winrt import (
+    ReceiveArray,
+    _ro_get_parameterized_type_instance_iid,
+    box_value,
+    unbox_value,
+    winrt_commethod,
+)
 from win32more._winrtrt import Vector
 from win32more.Windows.Data.Json import JsonObject, JsonValue
-from win32more.Windows.Devices.Display import DisplayMonitor, DisplayMonitorDescriptorKind
+from win32more.Windows.Devices.Display import DisplayMonitor
 from win32more.Windows.Devices.Enumeration import DeviceInformation
 from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
 from win32more.Windows.Foundation.Collections import IVector, IVectorView, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System.Threading import ThreadPool
-from win32more.Windows.Win32.Foundation import S_OK
-from win32more.Windows.Win32.System.Com import IUnknown
+from win32more.Windows.Win32.Foundation import HRESULT, S_OK
+from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
 from win32more.Windows.Win32.System.Threading import GetCurrentThreadId
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
@@ -54,7 +60,8 @@ class TestWinrt(unittest.TestCase):
             return await FileIO.ReadTextAsync(storage_file)
 
         text1 = asyncio.run(winrt_readfile())
-        text2 = Path(__file__).read_text()
+        # >=3.13: text2 = Path(__file__).read_text(newline="")
+        text2 = Path(__file__).read_bytes().decode("utf-8")
         self.assertEqual(text1, text2)
 
     def test_readfile2(self):
@@ -62,7 +69,9 @@ class TestWinrt(unittest.TestCase):
             return await PathIO.ReadTextAsync(posix_to_win(__file__))
 
         text1 = asyncio.run(winrt_readfile())
-        text2 = Path(__file__).read_text()
+        # git clone might change eol format.
+        # >=3.13: text2 = Path(__file__).read_text(newline="")
+        text2 = Path(__file__).read_bytes().decode("utf-8")
         self.assertEqual(text1, text2)
 
     def test_fillarray(self):
@@ -117,17 +126,22 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(obj.as_(IInspectable).value, outarray[0].value)
 
     def test_receivearray_return(self):
-        async def winrt_get_monitor_descriptor():
-            device_information_collection = await DeviceInformation.FindAllAsyncAqsFilter(
-                DisplayMonitor.GetDeviceSelector()
-            )
-            device_information = device_information_collection.GetAt(0)
-            str_property = device_information.Properties.Lookup("System.Devices.DeviceInstanceId").as_(IPropertyValue)
-            display_monitor = await DisplayMonitor.FromIdAsync(str_property.GetString())
-            return display_monitor.GetDescriptor(DisplayMonitorDescriptorKind.Edid)
+        # Use mock for portability.
 
-        descriptor = asyncio.run(winrt_get_monitor_descriptor())
-        self.assertNotEqual(len(descriptor), 0)
+        @WINFUNCTYPE(HRESULT, VoidPtr, UInt32, POINTER(UInt32), POINTER(POINTER(Byte)))
+        def GetArrayMock(this, n, return_length, return_):
+            return_length[0] = 1
+            return_[0] = cast(CoTaskMemAlloc(1), POINTER(Byte))
+            return_[0][0] = n
+            return S_OK
+
+        this = pointer(pointer(GetArrayMock))
+
+        @winrt_commethod(0)
+        def GetArray(self, n: UInt32) -> ReceiveArray[Byte]: ...
+
+        r = GetArray(this, 42)
+        self.assertEqual(r, [42])
 
     def test_guid_generation_for_parameterized_types(self):
         self.assertEqual(
