@@ -17,11 +17,13 @@ jobs:
             commit_message: "Windows App SDK"
             allow_prerelease: false
             script_file_name: "scripts\\get_appsdk.ps1"
+            additional_script: "scripts\\update_appsdk.py"
             json_file_name: "WindowsAppSDK.json"
           - name: "Microsoft.Web.WebView2"
             commit_message: "Microsoft.Web.WebView2"
             allow_prerelease: false
             script_file_name: "scripts\\get_webview2.ps1"
+            additional_script: "scripts\\update_webview2.py"
             json_file_name: "WindowsAppSDK.json"
           - name: "Microsoft.Windows.SDK.Win32Metadata"
             commit_message: "Win32Metadata"
@@ -109,6 +111,11 @@ jobs:
     - name: Run win32generator
       if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
       run: python -m win32generator
+      working-directory: win32more
+
+    - name: Run additional script if defined
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' && matrix.sdk.additional_script != null }}
+      run: ${{ matrix.sdk.additional_script }} $env:latestVersion
       working-directory: win32more
 
     - name: Update versions.json
