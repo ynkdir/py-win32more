@@ -21,7 +21,7 @@ jobs:
           - name: "Microsoft.Web.WebView2"
             commit_message: "Microsoft.Web.WebView2"
             allow_prerelease: false
-            script_file_name: "scripts\\get_appsdk.ps1"
+            script_file_name: "scripts\\get_webview2.ps1"
             json_file_name: "WindowsAppSDK.json"
           - name: "Microsoft.Windows.SDK.Win32Metadata"
             commit_message: "Win32Metadata"
