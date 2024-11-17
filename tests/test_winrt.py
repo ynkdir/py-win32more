@@ -1,6 +1,7 @@
 import asyncio
 import sys
 import unittest
+from concurrent.futures import Future
 from pathlib import Path
 
 from win32more import FAILED, POINTER, WINFUNCTYPE, Byte, Int32, UInt32, VoidPtr, WinError, cast, pointer
@@ -18,6 +19,7 @@ from win32more.Windows.Devices.Enumeration import DeviceInformation
 from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
 from win32more.Windows.Foundation.Collections import IVector, IVectorView, StringMap
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
+from win32more.Windows.System import DispatcherQueueController
 from win32more.Windows.System.Threading import ThreadPool
 from win32more.Windows.Win32.Foundation import HRESULT, S_OK
 from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
@@ -257,3 +259,18 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(v.QueryInterface(pointer(IInspectable._iid_), pointer(o)), S_OK)
         self.assertEqual(v.QueryInterface(pointer(IVector._iid_), pointer(o)), S_OK)
         self.assertEqual(v.QueryInterface(pointer(IVectorView._iid_), pointer(o)), S_OK)
+
+    def test_multicastdelegate_must_support_IAgileObject(self):
+        def f():
+            future.set_result(42)
+
+        future = Future()
+
+        controller = DispatcherQueueController.CreateOnDedicatedThread()
+        dispatcher = controller.DispatcherQueue
+
+        # For non IAgileObject
+        # OSError: [WinError -2147483620] The object must support the IAgileObject interface
+        dispatcher.TryEnqueue(f)
+
+        self.assertEqual(future.result(), 42)
