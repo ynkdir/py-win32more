@@ -40,7 +40,6 @@ jobs:
     - name: Checkout win32more code
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.repository.default_branch }}
         path: win32more
 
     - name: Find latest version
@@ -114,8 +113,8 @@ jobs:
       working-directory: win32more
 
     - name: Run additional script if defined
-      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' && matrix.sdk.additional_script != null }}
-      run: ${{ matrix.sdk.additional_script }} $env:latestVersion
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' && matrix.sdk.additional_script != '' }}
+      run: python ${{ matrix.sdk.additional_script }} $env:latestVersion
       working-directory: win32more
 
     - name: Update versions.json
@@ -133,7 +132,30 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # Checkout the branch, it if it exist, delete it.
+        $branchName = "update-${{ matrix.sdk.name }}-$env:latestVersion"
+        git fetch origin
+        if (git branch --list $branchName) {
+            git branch -D $branchName
+        }
+
+        git checkout -b $branchName
         git add .
         git commit --allow-empty -m "${{ matrix.sdk.commit_message }} $env:latestVersion"
-        git push origin "${{ github.event.repository.default_branch }}"
+        
+        # Force push to overwrite the branch
+        git push origin HEAD --force
+      working-directory: win32more
+
+    - name: Create Pull Request
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      run: |
+        gh pr create `
+          --title "[${{ matrix.sdk.commit_message }}] Update to $env:latestVersion" `
+          --body "" `
+          --base ${{ github.event.repository.default_branch }} `
+          --head update-${{ matrix.sdk.name }}-$env:latestVersion `
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       working-directory: win32more
