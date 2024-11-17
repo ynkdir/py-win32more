@@ -49,6 +49,7 @@ from win32more import (
     parse_arguments,
     windll,
 )
+from win32more import asyncui
 from win32more.asyncui import async_callback, asyncgen_callback
 from win32more.Windows.Win32.Foundation import (
     E_FAIL,
@@ -139,7 +140,14 @@ def ComPtr_as(self, cls):
     instance = cls(own=True)
     hr = self.QueryInterface(pointer(iid), pointer(instance))
     if FAILED(hr):
-        raise WinError(hr)
+        if hr == -2147417842:
+            def threadsafe():
+                hr = self.QueryInterface(pointer(iid), pointer(instance))
+                if FAILED(hr):
+                    raise WinError(hr)
+            asyncui.running_loop.call_soon_threadsafe(threadsafe)
+        else:
+            raise WinError(hr)
     return instance
 
 
@@ -608,7 +616,14 @@ class WinrtMethodCall:
             cargs.append(pointer(result))
         hr = self.delegate(this, *cargs)
         if FAILED(hr):
-            raise WinError(hr)
+            if hr == -2147417842:
+                def threadsafe():
+                    hr = self.delegate(this, *cargs)
+                    if FAILED(hr):
+                        raise WinError(hr)
+                asyncui.running_loop.call_soon_threadsafe(threadsafe)
+            else:
+                raise WinError(hr)
         for callback in calllater:
             callback()
         return self.make_result(result)
@@ -803,7 +818,17 @@ def _ro_activate_instance(classid: str) -> IInspectable:
     instance = IInspectable(own=True)
     hr = factory.ActivateInstance(instance)
     if FAILED(hr):
-        raise WinError(hr)
+        if hr == -2147417842:
+            def threadsafe():
+                hr = factory.ActivateInstance(instance)
+                if FAILED(hr):
+                    WindowsDeleteString(hs)
+                    raise WinError(hr)
+            asyncui.running_loop.call_soon_threadsafe(threadsafe)
+        else:
+            WindowsDeleteString(hs)
+            raise WinError(hr)
+    WindowsDeleteString(hs)
     return instance
 
 
