@@ -32,7 +32,7 @@ jobs:
             json_file_name: "Windows.Win32.json"
           - name: "Microsoft.Windows.SDK.Contracts"
             commit_message: "Windows SDK"
-            allow_prerelease: true
+            allow_prerelease: false
             script_file_name: "scripts\\get_winrt.ps1"
             json_file_name: "WindowsSDK.json.xz"
 
