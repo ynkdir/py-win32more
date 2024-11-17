@@ -34,7 +34,7 @@ jobs:
             commit_message: "Windows SDK"
             allow_prerelease: false
             script_file_name: "scripts\\get_winrt.ps1"
-            json_file_name: "WindowsSDK.json.xz"
+            json_file_name: "WindowsSDK.json"
 
     steps:
     - name: Checkout win32more code
