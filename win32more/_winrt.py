@@ -56,7 +56,7 @@ from win32more.Windows.Win32.Foundation import (
     HRESULT,
     S_OK,
 )
-from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, CoTaskMemFree, IUnknown
+from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, CoTaskMemFree, IAgileObject, IUnknown
 from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
     PFNGETACTIVATIONFACTORY,
@@ -1094,6 +1094,7 @@ class ComClass(ComPtr):
                 r.append(base)
             elif "_iid_" in base.__dict__:
                 r.append(base)
+        r.append(IAgileObject)
         return r
 
     def _enumerate_specialized_bases_recursively(self, cls: _GenericAlias | type) -> Iterable[_GenericAlias | type]:
@@ -1171,7 +1172,7 @@ class MulticastDelegateImpl(ComClass):
 
     @property
     def _implemented_interfaces(self):
-        return [self._interface, IUnknown]
+        return [self._interface, IUnknown, IAgileObject]
 
     def Invoke(self, *args):
         return self._callback(*args)
