@@ -2,7 +2,7 @@ name: Update SDK
 
 on:
   schedule:
-    - cron: "0 * * * *" # Run each hour
+    - cron: "0 2 * * *" # Runs daily at 02:00 UTC
   workflow_dispatch:
 
 jobs:
