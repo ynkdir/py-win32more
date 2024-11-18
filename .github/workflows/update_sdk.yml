@@ -1,0 +1,161 @@
+name: Update SDK
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # Runs daily at 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update-sdk:
+    name: "Update ${{ matrix.sdk.commit_message }}"
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        sdk:
+          - name: "Microsoft.WindowsAppSDK"
+            commit_message: "Windows App SDK"
+            allow_prerelease: false
+            script_file_name: "scripts\\get_appsdk.ps1"
+            additional_script: "scripts\\update_appsdk.py"
+            json_file_name: "WindowsAppSDK.json"
+          - name: "Microsoft.Web.WebView2"
+            commit_message: "Microsoft.Web.WebView2"
+            allow_prerelease: false
+            script_file_name: "scripts\\get_webview2.ps1"
+            additional_script: "scripts\\update_webview2.py"
+            json_file_name: "WindowsAppSDK.json"
+          - name: "Microsoft.Windows.SDK.Win32Metadata"
+            commit_message: "Win32Metadata"
+            allow_prerelease: true
+            script_file_name: "scripts\\get_win32.ps1"
+            json_file_name: "Windows.Win32.json"
+          - name: "Microsoft.Windows.SDK.Contracts"
+            commit_message: "Windows SDK"
+            allow_prerelease: false
+            script_file_name: "scripts\\get_winrt.ps1"
+            json_file_name: "WindowsSDK.json"
+
+    steps:
+    - name: Checkout win32more code
+      uses: actions/checkout@v4
+      with:
+        path: win32more
+
+    - name: Find latest version
+      run: |
+        $packageName = "${{ matrix.sdk.name }}".ToLower()
+        $uri = "https://api.nuget.org/v3-flatcontainer/$packageName/index.json"
+        $response = Invoke-RestMethod -Uri $uri
+        if ($${{ matrix.sdk.allow_prerelease}}) {
+          $versions = $response.versions
+        } else {
+          $versions = $response.versions | Where-Object { $_ -notmatch "-" }
+        }
+        if ($versions.Count -eq 0) {
+            throw "No versions found."
+        }
+        $latestVersion = $versions[-1]
+        $latestVersion = $latestVersion -replace '-preview$', ''
+        echo "latestVersion=$latestVersion" >> $env:GITHUB_ENV
+
+    - name: Verify if there is an update
+      id: is-there-update
+      run: |
+        $jsonPath = "win32generator\resources\metadata\versions.json"
+        $jsonContent = Get-Content -Path $jsonPath -Raw | ConvertFrom-Json
+        $version = $jsonContent."${{ matrix.sdk.name }}"
+        if ([System.Version]$env:latestVersion -le [System.Version]$version) {
+          Write-Output "There isn't any new version of ${{ matrix.sdk.name }}."
+          echo "isSuccess=false" >> $env:GITHUB_OUTPUT
+        } else {
+          echo "isSuccess=true" >> $env:GITHUB_OUTPUT
+        }
+      working-directory: win32more
+
+    - name: Checkout winmd-printer code
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      uses: actions/checkout@v4
+      with:
+        repository: ynkdir/winmd-printer
+        path: winmd-printer
+
+    - name: Setup .NET
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.x
+
+    - name: Setup Python
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.13"
+
+    - name: Setup 7-Zip
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      run: choco install 7zip --yes
+
+    - name: Run ${{ matrix.sdk.script_file_name }}
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      run: ${{ matrix.sdk.script_file_name }} $env:latestVersion
+      working-directory: winmd-printer
+
+    - name: Compress ${{ matrix.sdk.json_file_name }} with 7-Zip
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      run: |
+        Remove-Item win32more\win32generator\resources\metadata\${{ matrix.sdk.json_file_name }}.xz
+        7z a -txz win32more\win32generator\resources\metadata\${{ matrix.sdk.json_file_name }}.xz winmd-printer\${{ matrix.sdk.json_file_name }}
+
+    - name: Run win32generator
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      run: python -m win32generator
+      working-directory: win32more
+
+    - name: Run additional script if defined
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' && matrix.sdk.additional_script != '' }}
+      run: python ${{ matrix.sdk.additional_script }} $env:latestVersion
+      working-directory: win32more
+
+    - name: Update versions.json
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      run: |
+        $jsonPath = "win32generator\resources\metadata\versions.json"
+        $jsonContent = Get-Content -Path $jsonPath -Raw | ConvertFrom-Json
+        $jsonContent."${{ matrix.sdk.name }}" = $env:latestVersion
+        $updatedJson = $jsonContent | ConvertTo-Json
+        Set-Content $jsonPath $updatedJson
+      working-directory: win32more
+
+    - name: Commit changes
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # Checkout the branch, it if it exist, delete it.
+        $branchName = "update-${{ matrix.sdk.name }}-$env:latestVersion"
+        git fetch origin
+        if (git branch --list $branchName) {
+            git branch -D $branchName
+        }
+
+        git checkout -b $branchName
+        git add .
+        git commit --allow-empty -m "${{ matrix.sdk.commit_message }} $env:latestVersion"
+        
+        # Force push to overwrite the branch
+        git push origin HEAD --force
+      working-directory: win32more
+
+    - name: Create Pull Request
+      if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
+      run: |
+        gh pr create `
+          --title "[${{ matrix.sdk.commit_message }}] Update to $env:latestVersion" `
+          --body "" `
+          --base ${{ github.event.repository.default_branch }} `
+          --head update-${{ matrix.sdk.name }}-$env:latestVersion `
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      working-directory: win32more
