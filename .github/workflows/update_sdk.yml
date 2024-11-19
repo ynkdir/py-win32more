@@ -11,6 +11,7 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: write
+      pull-requests: write
 
     strategy:
       matrix:
