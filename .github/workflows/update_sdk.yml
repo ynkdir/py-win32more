@@ -40,6 +40,9 @@ jobs:
             json_file_name: "WindowsSDK.json"
 
     steps:
+    - name: git config
+      run: git config --global core.autocrlf false
+
     - name: Checkout win32more code
       uses: actions/checkout@v4
       with:
