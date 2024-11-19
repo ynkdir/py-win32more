@@ -96,6 +96,10 @@ class CoreWebView2(ComPtr):
     @winrt_mixinmethod
     def remove_SaveFileSecurityCheckStarting(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_26, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
+    def add_ScreenCaptureStarting(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_27, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2ScreenCaptureStartingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_ScreenCaptureStarting(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_27, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
     def get_IsSuspended(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_3) -> Boolean: ...
     @winrt_mixinmethod
     def TrySuspendAsync(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_3) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -312,6 +316,7 @@ class CoreWebView2(ComPtr):
     NotificationReceived = event()
     SaveAsUIShowing = event()
     SaveFileSecurityCheckStarting = event()
+    ScreenCaptureStarting = event()
     FrameCreated = event()
     DownloadStarting = event()
     ClientCertificateRequested = event()
@@ -1326,6 +1331,10 @@ class CoreWebView2Frame(ComPtr):
     @winrt_mixinmethod
     def get_FrameId(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame5) -> UInt32: ...
     @winrt_mixinmethod
+    def add_ScreenCaptureStarting(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame6, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Frame, win32more.Microsoft.Web.WebView2.Core.CoreWebView2ScreenCaptureStartingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_ScreenCaptureStarting(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame6, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
     def get_Name(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame) -> WinRT_String: ...
     @winrt_mixinmethod
     def add_NameChanged(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Frame, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
@@ -1347,6 +1356,7 @@ class CoreWebView2Frame(ComPtr):
     DOMContentLoaded = event()
     WebMessageReceived = event()
     PermissionRequested = event()
+    ScreenCaptureStarting = event()
     NameChanged = event()
     Destroyed = event()
 class CoreWebView2FrameCreatedEventArgs(ComPtr):
@@ -1597,6 +1607,9 @@ class CoreWebView2NonClientRegionKind(Enum, Int32):
     Nowhere = 0
     Client = 1
     Caption = 2
+    Minimize = 8
+    Maximize = 9
+    Close = 20
 class CoreWebView2Notification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Notification
@@ -2270,6 +2283,25 @@ class CoreWebView2SaveFileSecurityCheckStartingEventArgs(ComPtr):
     FileExtension = property(get_FileExtension, None)
     FilePath = property(get_FilePath, None)
     SuppressDefaultPolicy = property(get_SuppressDefaultPolicy, put_SuppressDefaultPolicy)
+class CoreWebView2ScreenCaptureStartingEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScreenCaptureStartingEventArgs
+    _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2ScreenCaptureStartingEventArgs'
+    @winrt_mixinmethod
+    def get_Cancel(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScreenCaptureStartingEventArgs) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_Cancel(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScreenCaptureStartingEventArgs, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_Handled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScreenCaptureStartingEventArgs) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_Handled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScreenCaptureStartingEventArgs, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_OriginalSourceFrameInfo(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScreenCaptureStartingEventArgs) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2FrameInfo: ...
+    @winrt_mixinmethod
+    def GetDeferral(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ScreenCaptureStartingEventArgs) -> win32more.Windows.Foundation.Deferral: ...
+    Cancel = property(get_Cancel, put_Cancel)
+    Handled = property(get_Handled, put_Handled)
+    OriginalSourceFrameInfo = property(get_OriginalSourceFrameInfo, None)
 class CoreWebView2ScriptDialogKind(Enum, Int32):
     Alert = 0
     Confirm = 1
@@ -3878,6 +3910,15 @@ class ICoreWebView2Frame5(ComPtr):
     @winrt_commethod(6)
     def get_FrameId(self) -> UInt32: ...
     FrameId = property(get_FrameId, None)
+class ICoreWebView2Frame6(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Frame6'
+    _iid_ = Guid('{ba197dad-d2f4-5127-80b8-faab02ec211e}')
+    @winrt_commethod(6)
+    def add_ScreenCaptureStarting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Frame, win32more.Microsoft.Web.WebView2.Core.CoreWebView2ScreenCaptureStartingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_ScreenCaptureStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ScreenCaptureStarting = event()
 class ICoreWebView2FrameCreatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2FrameCreatedEventArgs'
@@ -4661,6 +4702,25 @@ class ICoreWebView2SaveFileSecurityCheckStartingEventArgs(ComPtr):
     FileExtension = property(get_FileExtension, None)
     FilePath = property(get_FilePath, None)
     SuppressDefaultPolicy = property(get_SuppressDefaultPolicy, put_SuppressDefaultPolicy)
+class ICoreWebView2ScreenCaptureStartingEventArgs(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ScreenCaptureStartingEventArgs'
+    _iid_ = Guid('{35f0e2bb-94b0-5be7-b633-f87244e38bfe}')
+    @winrt_commethod(6)
+    def get_Cancel(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_Cancel(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_Handled(self) -> Boolean: ...
+    @winrt_commethod(9)
+    def put_Handled(self, value: Boolean) -> Void: ...
+    @winrt_commethod(10)
+    def get_OriginalSourceFrameInfo(self) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2FrameInfo: ...
+    @winrt_commethod(11)
+    def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
+    Cancel = property(get_Cancel, put_Cancel)
+    Handled = property(get_Handled, put_Handled)
+    OriginalSourceFrameInfo = property(get_OriginalSourceFrameInfo, None)
 class ICoreWebView2ScriptDialogOpeningEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ScriptDialogOpeningEventArgs'
@@ -5199,6 +5259,15 @@ class ICoreWebView2_26(ComPtr):
     @winrt_commethod(7)
     def remove_SaveFileSecurityCheckStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     SaveFileSecurityCheckStarting = event()
+class ICoreWebView2_27(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_27'
+    _iid_ = Guid('{d964f497-ffdf-5bcd-bf52-ff4585f2ebc2}')
+    @winrt_commethod(6)
+    def add_ScreenCaptureStarting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2, win32more.Microsoft.Web.WebView2.Core.CoreWebView2ScreenCaptureStartingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_ScreenCaptureStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    ScreenCaptureStarting = event()
 class ICoreWebView2_3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_3'
