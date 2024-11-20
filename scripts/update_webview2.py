@@ -19,7 +19,9 @@ def main():
     parser.add_argument("version")
     args = parser.parse_args()
 
-    nupkg = NupkgDownload(f"https://globalcdn.nuget.org/packages/microsoft.web.webview2.{args.version}.nupkg")
+    nupkg = NupkgDownload(
+        f"https://api.nuget.org/v3-flatcontainer/microsoft.web.webview2/{args.version}/microsoft.web.webview2.{args.version}.nupkg"
+    )
 
     nupkg.extract(
         "runtimes/win-arm64/native_uap/Microsoft.Web.WebView2.Core.dll",

@@ -40,7 +40,9 @@ def main():
     parser.add_argument("version")
     args = parser.parse_args()
 
-    nupkg = NupkgDownload(f"https://globalcdn.nuget.org/packages/microsoft.windowsappsdk.{args.version}.nupkg")
+    nupkg = NupkgDownload(
+        f"https://api.nuget.org/v3-flatcontainer/microsoft.windowsappsdk/{args.version}/microsoft.windowsappsdk.{args.version}.nupkg"
+    )
     version_info = nupkg.readjson("WindowsAppSDK-VersionInfo.json")
 
     nupkg.extract(
