@@ -139,7 +139,7 @@ def main() -> None:
         meta = load_files(args.metadata)
     else:
         meta = load_resources(
-            ["metadata/Windows.Win32.json.xz", "metadata/WindowsSDK.json.xz", "metadata/WindowsAppSDK.json.xz"]
+            ["metadata/Windows.Win32.json.xz", "metadata/WindowsSDK.json.xz", "metadata/WindowsAppSDK.json.xz", "metadata/Microsoft.Web.WebView2.Core.json.xz"]
         )
 
     meta = preprocess(meta)

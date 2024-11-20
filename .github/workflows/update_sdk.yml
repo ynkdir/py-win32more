@@ -27,7 +27,7 @@ jobs:
             allow_prerelease: false
             script_file_name: "scripts\\get_webview2.ps1"
             additional_script: "scripts\\update_webview2.py"
-            json_file_name: "WindowsAppSDK.json"
+            json_file_name: "Microsoft.Web.WebView2.Core.json"
           - name: "Microsoft.Windows.SDK.Win32Metadata"
             commit_message: "Win32Metadata"
             allow_prerelease: true
