@@ -1,4 +1,5 @@
 import asyncio
+import os.path
 import unittest
 from concurrent.futures import Future
 from pathlib import Path
@@ -28,7 +29,7 @@ from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspect
 
 
 # Workaround for cygwin.
-# Path.resolve() returns cygwin path and Windows API doesn't work with it.
+# Windows API doesn't work with cygwin path.
 def _abspath(relpath: str) -> str:
     size = GetFullPathName(relpath, 0, None, None)
     if size == 0:
@@ -64,7 +65,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_readfile(self):
         async def winrt_readfile():
-            storage_file = await StorageFile.GetFileFromPathAsync(_abspath(__file__))
+            storage_file = await StorageFile.GetFileFromPathAsync(_abspath(os.path.relpath(__file__)))
             return await FileIO.ReadTextAsync(storage_file)
 
         text1 = asyncio.run(winrt_readfile())
@@ -74,7 +75,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_readfile2(self):
         async def winrt_readfile():
-            return await PathIO.ReadTextAsync(_abspath(__file__))
+            return await PathIO.ReadTextAsync(_abspath(os.path.relpath(__file__)))
 
         text1 = asyncio.run(winrt_readfile())
         # git clone might change eol format.
@@ -84,7 +85,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_fillarray(self):
         async def winrt_readlines():
-            return await PathIO.ReadLinesAsync(_abspath(__file__))
+            return await PathIO.ReadLinesAsync(_abspath(os.path.relpath(__file__)))
 
         ivector = asyncio.run(winrt_readlines())
         lines = Path(__file__).read_text().splitlines()
@@ -94,7 +95,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_passarray(self):
         async def winrt_readlines():
-            return await PathIO.ReadLinesAsync(_abspath(__file__))
+            return await PathIO.ReadLinesAsync(_abspath(os.path.relpath(__file__)))
 
         ivector = asyncio.run(winrt_readlines())
         lines = [str(i) for i in range(10)]
