@@ -1,5 +1,5 @@
 import platform
-from ctypes import CFUNCTYPE, POINTER, c_char_p, c_uint, c_void_p, c_wchar_p, cast, cdll
+from ctypes import CFUNCTYPE, POINTER, c_void_p, cast, cdll
 
 if platform.machine() == "x86_64":
     ARCH = "X64"
@@ -33,22 +33,3 @@ class _ComMethod:
         # WORKAROUND: return_length and return are passed as kwargs.
         _args = list(args) + list(kwargs.values())
         return func(this, *_args)
-
-
-CCP_POSIX_TO_WIN_W = 1
-
-cygwin1 = cdll.LoadLibrary("cygwin1.dll")
-cygwin_create_path = cygwin1.cygwin_create_path
-cygwin_create_path.restype = c_void_p
-cygwin_create_path.argtypes = [c_uint, c_void_p]
-
-free = cygwin1.free
-free.restype = None
-free.argtypes = [c_void_p]
-
-
-def posix_to_win(posix_path: str) -> str:
-    p = cygwin_create_path(CCP_POSIX_TO_WIN_W, c_char_p(posix_path.encode("utf-8")))
-    win_path = c_wchar_p(p).value
-    free(p)
-    return win_path
