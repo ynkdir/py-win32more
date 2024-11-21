@@ -1,9 +1,10 @@
 import asyncio
+import sys
 import unittest
 from concurrent.futures import Future
 from pathlib import Path
 
-from win32more import FAILED, POINTER, WINFUNCTYPE, Byte, Char, Int32, UInt32, VoidPtr, WinError, cast, pointer
+from win32more import FAILED, POINTER, WINFUNCTYPE, Byte, Int32, UInt32, VoidPtr, WinError, cast, pointer
 from win32more._winrt import (
     ReceiveArray,
     _ro_get_parameterized_type_instance_iid,
@@ -21,23 +22,16 @@ from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
 from win32more.Windows.System.Threading import ThreadPool
 from win32more.Windows.Win32.Foundation import HRESULT, S_OK
-from win32more.Windows.Win32.Storage.FileSystem import GetFullPathName
 from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
 from win32more.Windows.Win32.System.Threading import GetCurrentThreadId
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
+if sys.platform == "cygwin":
+    from win32more._cygwin import posix_to_win
+else:
 
-# Workaround for cygwin.
-# Path.resolve() returns cygwin path and Windows API doesn't work with it.
-def _abspath(relpath: str) -> str:
-    size = GetFullPathName(relpath, 0, None, None)
-    if size == 0:
-        raise WinError()
-    buf = (Char * size)()
-    r = GetFullPathName(relpath, size, buf, None)
-    if r == 0:
-        raise WinError()
-    return buf.value
+    def posix_to_win(path):
+        return path
 
 
 class TestWinrt(unittest.TestCase):
@@ -64,7 +58,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_readfile(self):
         async def winrt_readfile():
-            storage_file = await StorageFile.GetFileFromPathAsync(_abspath(__file__))
+            storage_file = await StorageFile.GetFileFromPathAsync(posix_to_win(__file__))
             return await FileIO.ReadTextAsync(storage_file)
 
         text1 = asyncio.run(winrt_readfile())
@@ -74,7 +68,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_readfile2(self):
         async def winrt_readfile():
-            return await PathIO.ReadTextAsync(_abspath(__file__))
+            return await PathIO.ReadTextAsync(posix_to_win(__file__))
 
         text1 = asyncio.run(winrt_readfile())
         # git clone might change eol format.
@@ -84,7 +78,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_fillarray(self):
         async def winrt_readlines():
-            return await PathIO.ReadLinesAsync(_abspath(__file__))
+            return await PathIO.ReadLinesAsync(posix_to_win(__file__))
 
         ivector = asyncio.run(winrt_readlines())
         lines = Path(__file__).read_text().splitlines()
@@ -94,7 +88,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_passarray(self):
         async def winrt_readlines():
-            return await PathIO.ReadLinesAsync(_abspath(__file__))
+            return await PathIO.ReadLinesAsync(posix_to_win(__file__))
 
         ivector = asyncio.run(winrt_readlines())
         lines = [str(i) for i in range(10)]
