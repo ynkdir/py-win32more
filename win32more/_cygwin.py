@@ -37,7 +37,10 @@ class _ComMethod:
 
 CCP_POSIX_TO_WIN_W = 1
 
-cygwin1 = cdll.LoadLibrary("cygwin1.dll")
+try:
+    cygwin1 = cdll.LoadLibrary("cygwin1.dll")
+except OSError:
+    cygwin1 = cdll.LoadLibrary("msys-2.0.dll")
 cygwin_create_path = cygwin1.cygwin_create_path
 cygwin_create_path.restype = c_void_p
 cygwin_create_path.argtypes = [c_uint, c_void_p]
