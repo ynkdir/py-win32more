@@ -27,7 +27,7 @@ def async_start_runner(delay_ms=100):
 
 def async_callback(coroutine_function):
     def wrapper(*args):
-        _async_task(coroutine_function(*args), args, loop)
+        _run_coroutine_threadsafe_with_addref(coroutine_function(*args), loop, args)
 
     loop = _get_running_loop()
 
@@ -49,7 +49,7 @@ def asyncgen_callback(asyncgen_function):
             # jumped from await before yield
         except StopIteration as e:
             # jumped from yield
-            _async_task(_asyncgen_iterate(agen), args, loop)
+            _run_coroutine_threadsafe_with_addref(_asyncgen_iterate(agen), loop, args)
             return e.value
         except StopAsyncIteration:
             # jumped from return or end of function
@@ -70,27 +70,20 @@ def _get_running_loop():
     return running_loop or asyncio.get_running_loop()
 
 
-class _async_task:
-    # Need to keep reference to task.  The event loop only keeps weak references to tasks.
-    background_tasks = set()
+def _run_coroutine_threadsafe_with_addref(coro, loop, args):
+    _addref(args)
+    future = asyncio.run_coroutine_threadsafe(coro, loop)
+    future.add_done_callback(lambda future: _release(args))
+    return future
 
-    def __init__(self, coro, args, loop):
-        self._args = args
-        self._addref_args()
-        self._task = loop.create_task(coro)
-        self._task.add_done_callback(self._done_callback)
-        self.background_tasks.add(self)
 
-    def _done_callback(self, task):
-        self._release_args()
-        self.background_tasks.discard(self)
+def _addref(args):
+    for obj in args:
+        if isinstance(obj, IUnknown) and obj.value:
+            obj.AddRef()
 
-    def _addref_args(self):
-        for obj in self._args:
-            if isinstance(obj, IUnknown) and obj.value:
-                obj.AddRef()
 
-    def _release_args(self):
-        for obj in self._args:
-            if isinstance(obj, IUnknown) and obj.value:
-                obj.Release()
+def _release(args):
+    for obj in args:
+        if isinstance(obj, IUnknown) and obj.value:
+            obj.Release()
