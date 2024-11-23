@@ -2,6 +2,7 @@ import asyncio
 import sys
 import unittest
 from concurrent.futures import Future
+from ctypes import addressof
 from pathlib import Path
 
 from win32more import FAILED, POINTER, WINFUNCTYPE, Byte, Int32, UInt32, VoidPtr, WinError, cast, pointer
@@ -13,6 +14,7 @@ from win32more._winrt import (
     winrt_commethod,
 )
 from win32more._winrtrt import Vector
+from win32more.asyncui import _run_coroutine_threadsafe_with_addref
 from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Devices.Display import DisplayMonitor
 from win32more.Windows.Devices.Enumeration import DeviceInformation
@@ -274,3 +276,30 @@ class TestWinrt(unittest.TestCase):
         dispatcher.TryEnqueue(f)
 
         self.assertEqual(future.result(), 42)
+
+    def test_asyncui_run_coroutine_threadsafe_calls_addref_and_release_of_comobject(self):
+        @WINFUNCTYPE(UInt32, VoidPtr)
+        def AddRef(this):
+            trace.append("AddRef")
+            return 1
+
+        @WINFUNCTYPE(UInt32, VoidPtr)
+        def Release(this):
+            trace.append("Release")
+            return 0
+
+        lpvtbl = pointer((VoidPtr * 3)(None, cast(AddRef, VoidPtr), cast(Release, VoidPtr)))
+        mock = IUnknown(value=addressof(lpvtbl))
+
+        async def worker(o):
+            trace.append("worker")
+
+        async def main():
+            future = _run_coroutine_threadsafe_with_addref(worker(mock), asyncio.get_running_loop(), [mock])
+            await asyncio.wrap_future(future)
+
+        trace = []
+
+        asyncio.run(main())
+
+        self.assertEqual(trace, ["AddRef", "worker", "Release"])
