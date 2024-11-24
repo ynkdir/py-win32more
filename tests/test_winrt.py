@@ -2,7 +2,6 @@ import asyncio
 import sys
 import unittest
 from concurrent.futures import Future
-from ctypes import addressof
 from pathlib import Path
 
 from win32more import FAILED, POINTER, WINFUNCTYPE, Byte, Int32, UInt32, VoidPtr, WinError, cast, pointer
@@ -288,8 +287,7 @@ class TestWinrt(unittest.TestCase):
             trace.append("Release")
             return 0
 
-        lpvtbl = pointer((VoidPtr * 3)(None, cast(AddRef, VoidPtr), cast(Release, VoidPtr)))
-        mock = IUnknown(value=addressof(lpvtbl))
+        mock = cast(pointer(pointer((VoidPtr * 3)(None, cast(AddRef, VoidPtr), cast(Release, VoidPtr)))), IUnknown)
 
         async def worker(o):
             trace.append("worker")
