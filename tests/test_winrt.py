@@ -13,7 +13,7 @@ from win32more._winrt import (
     winrt_commethod,
 )
 from win32more._winrtrt import Vector
-from win32more.asyncui import _run_coroutine_threadsafe_with_addref
+from win32more.asyncui import async_callback
 from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Devices.Display import DisplayMonitor
 from win32more.Windows.Devices.Enumeration import DeviceInformation
@@ -251,7 +251,7 @@ class TestWinrt(unittest.TestCase):
 
         self.assertEqual(future.result(), 42)
 
-    def test_asyncui_run_coroutine_threadsafe_calls_addref_and_release_of_comobject(self):
+    def test_async_callback_calls_addref_and_release_of_comobject(self):
         @WINFUNCTYPE(UInt32, VoidPtr)
         def AddRef(this):
             trace.append("AddRef")
@@ -264,12 +264,15 @@ class TestWinrt(unittest.TestCase):
 
         mock = cast(pointer(pointer((VoidPtr * 3)(None, cast(AddRef, VoidPtr), cast(Release, VoidPtr)))), IUnknown)
 
-        async def worker(o):
+        async def worker(o, f):
             trace.append("worker")
+            f.set_result(0)
 
         async def main():
-            future = _run_coroutine_threadsafe_with_addref(worker(mock), asyncio.get_running_loop(), [mock])
-            await asyncio.wrap_future(future)
+            callback = async_callback(worker)
+            future = asyncio.get_running_loop().create_future()
+            callback(mock, future)
+            await future
 
         trace = []
 
