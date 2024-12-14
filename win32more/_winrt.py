@@ -49,7 +49,7 @@ from win32more import (
     parse_arguments,
     windll,
 )
-from win32more.asyncui import async_callback, asyncgen_callback
+from win32more.asyncui import async_callback
 from win32more.Windows.Win32.Foundation import (
     E_FAIL,
     E_NOINTERFACE,
@@ -1164,8 +1164,6 @@ class MulticastDelegateImpl(ComClass):
         self._interface = interface
         if inspect.iscoroutinefunction(callback):
             self._callback = async_callback(callback)
-        elif inspect.isasyncgenfunction(callback):
-            self._callback = asyncgen_callback(callback)
         else:
             self._callback = callback
         super().__init__(own=True)
