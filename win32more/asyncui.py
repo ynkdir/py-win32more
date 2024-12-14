@@ -11,22 +11,14 @@ running_loop = None
 def async_start_runner(delay_ms=100):
     global running_loop
 
-    # safety check for compatibility
-    if running_loop is not None:
-        return running_loop
-
     def timer_proc(*args):
-        running_loop._stopping = True
         running_loop._run_once()
-        running_loop._stopping = False
 
     running_loop = asyncio.new_event_loop()
-
+    running_loop.stop()
     running_loop._run_forever_setup()
 
     SetTimer(0, 0, delay_ms, timer_proc)
-
-    return running_loop
 
 
 _tasks_keep = set()
