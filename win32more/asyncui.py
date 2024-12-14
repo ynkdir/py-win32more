@@ -15,10 +15,13 @@ def async_start_runner(delay_ms=100):
         return running_loop
 
     def timer_proc(*args):
-        running_loop.stop()
-        running_loop.run_forever()
+        running_loop._stopping = True
+        running_loop._run_once()
+        running_loop._stopping = False
 
     running_loop = asyncio.new_event_loop()
+
+    running_loop._run_forever_setup()
 
     SetTimer(0, 0, delay_ms, timer_proc)
 
