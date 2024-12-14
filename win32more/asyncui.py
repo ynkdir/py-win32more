@@ -1,4 +1,5 @@
 import asyncio
+import sys
 
 from win32more.Windows.Win32.System.Com import IUnknown
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
@@ -28,9 +29,22 @@ def async_start_runner(delay_ms=100):
     return running_loop
 
 
+_tasks_keep = set()
+
+
 def async_callback(coroutine_function):
     def wrapper(*args):
-        _run_coroutine_threadsafe_with_addref(coroutine_function(*args), loop, args)
+        _addref(args)
+        if sys.version_info < (3, 12):
+            task = loop.create_task(coroutine_function(*args))
+        else:
+            # Start task eagerly.
+            # Some method can not be called after returned.
+            # (e.g. CoreWebView2NewWindowRequestedEventArgs.GetDeferral())
+            task = asyncio.eager_task_factory(loop, coroutine_function(*args))
+        _tasks_keep.add(task)
+        task.add_done_callback(_tasks_keep.remove)
+        task.add_done_callback(lambda _: _release(args))
 
     loop = _get_running_loop()
 
@@ -39,13 +53,6 @@ def async_callback(coroutine_function):
 
 def _get_running_loop():
     return running_loop or asyncio.get_running_loop()
-
-
-def _run_coroutine_threadsafe_with_addref(coro, loop, args):
-    _addref(args)
-    future = asyncio.run_coroutine_threadsafe(coro, loop)
-    future.add_done_callback(lambda future: _release(args))
-    return future
 
 
 def _addref(args):
