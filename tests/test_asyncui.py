@@ -31,30 +31,30 @@ class TestAsyncui(unittest.TestCase):
         @async_callback
         async def f():
             asyncio.current_task().add_done_callback(lambda _: event.set())
-            trace.append(threading.get_native_id())  # <- caller's thread
+            trace.append(threading.get_ident())  # <- caller's thread
             await asyncio.sleep(0)
-            trace.append(threading.get_native_id())  # <- background thread
+            trace.append(threading.get_ident())  # <- background thread
 
         trace = []
         event = threading.Event()
         f()
         self.assertTrue(event.wait(5))
-        self.assertEqual(trace[0], threading.get_native_id())
-        self.assertNotEqual(trace[1], threading.get_native_id())
+        self.assertEqual(trace[0], threading.get_ident())
+        self.assertNotEqual(trace[1], threading.get_ident())
 
     def test_task_will_start_eagerly_and_dont_start_thread_when_task_was_done(self):
         @async_callback
         async def f():
             asyncio.current_task().add_done_callback(lambda _: event.set())
-            asyncio.current_task().add_done_callback(lambda _: trace.append((2, threading.get_native_id())))
-            trace.append((1, threading.get_native_id()))
+            asyncio.current_task().add_done_callback(lambda _: trace.append((2, threading.get_ident())))
+            trace.append((1, threading.get_ident()))
 
         trace = []
         event = threading.Event()
         f()
         self.assertTrue(event.wait(5))
-        self.assertEqual(trace[0], (1, threading.get_native_id()))
-        self.assertEqual(trace[1], (2, threading.get_native_id()))
+        self.assertEqual(trace[0], (1, threading.get_ident()))
+        self.assertEqual(trace[1], (2, threading.get_ident()))
 
 
 if __name__ == "__main__":
