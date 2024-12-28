@@ -72,10 +72,9 @@ class ThreadPoolTaskExecutor:
 
     @classmethod
     def _init_thread_pool(cls):
-        if cls._thread_pool is None:
-            with cls._lock:
-                if cls._thread_pool is None:
-                    cls._thread_pool = ThreadPoolExecutor()
+        with cls._lock:
+            if cls._thread_pool is None:
+                cls._thread_pool = ThreadPoolExecutor()
 
     def submit(self, coro):
         loop = asyncio.new_event_loop()
