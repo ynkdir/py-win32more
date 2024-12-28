@@ -27,6 +27,8 @@ def async_callback(coroutine_function):
             executor = ThreadPoolTaskExecutor()
         future = executor.submit(coroutine_function(*args))
         future.add_done_callback(lambda _: _release(args))
+        BackgroundTasks.add(future)
+        future.add_done_callback(BackgroundTasks.discard)
 
     return wrapper
 
@@ -43,16 +45,28 @@ def _release(args):
             obj.Release()
 
 
+# keep reference to tasks
+class BackgroundTasks:
+    _tasks = set()
+    _lock = threading.Lock()
+
+    @classmethod
+    def add(cls, task):
+        with cls._lock:
+            cls._tasks.add(task)
+
+    @classmethod
+    def discard(cls, task):
+        with cls._lock:
+            cls._tasks.discard(task)
+
+
 class RunningLoopTaskExecutor:
     def __init__(self):
         self._loop = asyncio.get_running_loop()
 
     def submit(self, coro):
-        task = self._create_task(self._loop, coro)
-        return asyncio.run_coroutine_threadsafe(self._await_task(task), self._loop)
-
-    async def _await_task(self, task):
-        return await task
+        return self._create_task(self._loop, coro)
 
     def _create_task(self, loop, coro):
         if sys.version_info < (3, 12):
