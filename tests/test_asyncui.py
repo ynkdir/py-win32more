@@ -45,8 +45,8 @@ class TestAsyncui(unittest.TestCase):
     def test_task_will_start_eagerly_and_dont_start_thread_when_task_was_done(self):
         @async_callback
         async def f():
-            asyncio.current_task().add_done_callback(lambda _: event.set())
             asyncio.current_task().add_done_callback(lambda _: trace.append((2, threading.get_ident())))
+            asyncio.current_task().add_done_callback(lambda _: event.set())
             trace.append((1, threading.get_ident()))
 
         trace = []
