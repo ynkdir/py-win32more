@@ -13,6 +13,11 @@ def async_start_runner(delay_ms=100):
         loop._run_once()
 
     loop = asyncio.new_event_loop()
+    # Use eager task.
+    # Some method can not be called after returned.
+    # (e.g. CoreWebView2NewWindowRequestedEventArgs.GetDeferral())
+    if sys.version_info >= (3, 12):
+        loop.set_task_factory(asyncio.eager_task_factory)
     loop.stop()
     loop._run_forever_setup()
     SetTimer(0, 0, delay_ms, timer_proc)
@@ -66,15 +71,7 @@ class RunningLoopTaskExecutor:
         self._loop = asyncio.get_running_loop()
 
     def submit(self, coro):
-        return self._create_task(self._loop, coro)
-
-    def _create_task(self, loop, coro):
-        if sys.version_info < (3, 12):
-            return loop.create_task(coro)
-        # Start task eagerly.
-        # Some method can not be called after returned.
-        # (e.g. CoreWebView2NewWindowRequestedEventArgs.GetDeferral())
-        return asyncio.eager_task_factory(loop, coro)
+        return self._loop.create_task(coro)
 
 
 class ThreadPoolTaskExecutor:
@@ -92,8 +89,10 @@ class ThreadPoolTaskExecutor:
 
     def submit(self, coro):
         loop = asyncio.new_event_loop()
-        # start task eagerly in current thread context.
-        # cannot use eager_task_factory because it requires running loop.
+        if sys.version_info >= (3, 12):
+            loop.set_task_factory(asyncio.eager_task_factory)
+        # Run task in current thread context until first await.
+        # eager_task_factory doesn't start task eagerly when loop is not running.
         task = loop.create_task(coro)
         loop.stop()
         loop.run_forever()

@@ -16,6 +16,8 @@ class TestAsyncui(unittest.TestCase):
             trace.append(4)
 
         async def main():
+            asyncio.get_running_loop().set_task_factory(asyncio.eager_task_factory)
+
             trace.append(1)
             f()
             trace.append(3)
