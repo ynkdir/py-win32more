@@ -1,9 +1,8 @@
 import importlib
 import xml.etree.ElementTree as ET
 
-from win32more import FAILED, WinError
+from win32more import FAILED, WinError, asyncui
 from win32more._winrt import ComClass, WinRT_String, event_setter
-from win32more.asyncui import async_start_runner
 from win32more.mddbootstrap import (
     WINDOWSAPPSDK_RELEASE_MAJORMINOR,
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
@@ -19,6 +18,7 @@ from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataPro
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
+from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 
 
 class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadataProvider):
@@ -67,9 +67,9 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         if FAILED(hr):
             raise WinError(hr)
 
-        async_start_runner()
-
-        Application.Start(lambda params: init())
+        with asyncui.HandCrankRunner() as runner:
+            SetTimer(0, 0, 100, lambda *_: runner.update())
+            Application.Start(lambda params: init())
 
         # FIXME: force Release() to avoid exit with error code.
         if XamlApplication.__current is not None:

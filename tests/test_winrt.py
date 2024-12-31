@@ -6,6 +6,7 @@ from pathlib import Path
 
 from win32more import FAILED, POINTER, WINFUNCTYPE, Byte, Int32, UInt32, VoidPtr, WinError, cast, pointer
 from win32more._winrt import (
+    MulticastDelegateImpl,
     ReceiveArray,
     _ro_get_parameterized_type_instance_iid,
     box_value,
@@ -13,7 +14,6 @@ from win32more._winrt import (
     winrt_commethod,
 )
 from win32more._winrtrt import Vector
-from win32more.asyncui import async_callback
 from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Devices.Display import DisplayMonitor
 from win32more.Windows.Devices.Enumeration import DeviceInformation
@@ -264,14 +264,14 @@ class TestWinrt(unittest.TestCase):
 
         mock = cast(pointer(pointer((VoidPtr * 3)(None, cast(AddRef, VoidPtr), cast(Release, VoidPtr)))), IUnknown)
 
-        async def worker(o, f):
+        async def callback(o, f):
             trace.append("worker")
             f.set_result(0)
 
         async def main():
-            callback = async_callback(worker)
+            delegate = MulticastDelegateImpl(IUnknown, callback)
             future = asyncio.get_running_loop().create_future()
-            callback(mock, future)
+            delegate.Invoke(mock, future)
             await future
 
         trace = []

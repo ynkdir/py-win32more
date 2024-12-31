@@ -44,12 +44,12 @@ from win32more import (
     Void,
     VoidPtr,
     WinError,
+    asyncui,
     easycast,
     get_type_hints,
     parse_arguments,
     windll,
 )
-from win32more.asyncui import async_callback
 from win32more.Windows.Win32.Foundation import (
     E_FAIL,
     E_NOINTERFACE,
@@ -1162,10 +1162,7 @@ class MulticastDelegate(IUnknown):
 class MulticastDelegateImpl(ComClass):
     def __init__(self, interface, callback):
         self._interface = interface
-        if inspect.iscoroutinefunction(callback):
-            self._callback = async_callback(callback)
-        else:
-            self._callback = callback
+        self._callback = callback
         super().__init__(own=True)
 
     @property
@@ -1173,7 +1170,22 @@ class MulticastDelegateImpl(ComClass):
         return [self._interface, IUnknown, IAgileObject]
 
     def Invoke(self, *args):
+        if inspect.iscoroutinefunction(self._callback):
+            self._addref(args)
+            future = asyncui.create_task(self._callback(*args))
+            future.add_done_callback(lambda _: self._release(args))
+            return None
         return self._callback(*args)
+
+    def _addref(self, args):
+        for obj in args:
+            if isinstance(obj, IUnknown) and obj.value:
+                obj.AddRef()
+
+    def _release(self, args):
+        for obj in args:
+            if isinstance(obj, IUnknown) and obj.value:
+                obj.Release()
 
 
 class AwaitableProtocol:

@@ -3,49 +3,42 @@ import sys
 import threading
 from concurrent.futures import Future, ThreadPoolExecutor
 
-from win32more.Windows.Win32.System.Com import IUnknown
-from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
+
+class HandCrankRunner:
+    def __init__(self, *, loop_factory=None):
+        if loop_factory is None:
+            self._loop_factory = maybe_eager_loop_factory
+        else:
+            self._loop_factory = loop_factory
+        self._loop = None
+
+    def __enter__(self):
+        self._loop = self._loop_factory()
+        self._loop.stop()
+        self._loop._run_forever_setup()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self._loop._run_forever_cleanup()
+        self._loop.close()
+        self._loop = None
+
+    def update(self):
+        self._loop._run_once()
 
 
-# Asyncio runner for Windows message loop.
-def async_start_runner(delay_ms=100):
-    def timer_proc(*args):
-        loop._run_once()
-
-    loop = _loop_factory()
-    loop.stop()
-    loop._run_forever_setup()
-    SetTimer(0, 0, delay_ms, timer_proc)
-
-
-def async_callback(coroutine_function):
-    def wrapper(*args):
-        _addref(args)
-        try:
-            executor = RunningLoopTaskExecutor()
-        except RuntimeError:
-            executor = ThreadPoolTaskExecutor()
-        future = executor.submit(coroutine_function(*args))
-        future.add_done_callback(lambda _: _release(args))
-        BackgroundTasks.add(future)
-        future.add_done_callback(BackgroundTasks.discard)
-
-    return wrapper
+def create_task(coro):
+    try:
+        executor = RunningLoopTaskExecutor()
+    except RuntimeError:
+        executor = ThreadPoolTaskExecutor(maybe_eager_loop_factory)
+    future = executor.submit(coro)
+    BackgroundTasks.add(future)
+    future.add_done_callback(BackgroundTasks.discard)
+    return future
 
 
-def _addref(args):
-    for obj in args:
-        if isinstance(obj, IUnknown) and obj.value:
-            obj.AddRef()
-
-
-def _release(args):
-    for obj in args:
-        if isinstance(obj, IUnknown) and obj.value:
-            obj.Release()
-
-
-def _loop_factory():
+def maybe_eager_loop_factory():
     loop = asyncio.new_event_loop()
     # Use eager task.
     # Some method can not be called after returned.
@@ -83,7 +76,8 @@ class ThreadPoolTaskExecutor:
     _thread_pool = None
     _lock = threading.Lock()
 
-    def __init__(self):
+    def __init__(self, loop_factory):
+        self._loop_factory = loop_factory
         self._init_thread_pool()
 
     @classmethod
@@ -93,7 +87,7 @@ class ThreadPoolTaskExecutor:
                 cls._thread_pool = ThreadPoolExecutor()
 
     def submit(self, coro):
-        loop = _loop_factory()
+        loop = self._loop_factory()
         # Run task in current thread context until first await.
         # eager_task_factory doesn't start task eagerly when loop is not running.
         task = loop.create_task(coro)
