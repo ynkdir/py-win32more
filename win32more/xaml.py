@@ -1,4 +1,5 @@
 import importlib
+import weakref
 import xml.etree.ElementTree as ET
 
 from win32more import FAILED, WinError, asyncui
@@ -13,8 +14,9 @@ from win32more.mddbootstrap import (
 )
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides, Window
 from win32more.Microsoft.UI.Xaml.Controls import XamlControlsResources
-from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider, XamlReader
+from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
+from win32more.Windows.UI.Xaml.Interop import TypeName
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
@@ -38,8 +40,12 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         ...
 
     def GetXamlType(self, type):
+        xaml_type = self.GetXamlTypeByFullName(type.Name.strvalue)
+        if xaml_type:
+            return xaml_type
         return self._provider.GetXamlType(type)
 
+    # TODO: Is it needed to provide information for primitive or winui type?
     def GetXamlTypeByFullName(self, fullName):
         return self._provider.GetXamlTypeByFullName(fullName)
 
@@ -129,3 +135,133 @@ class XamlEventWiring:
         if FAILED(hr):
             raise WinError(hr)
         return s.strvalue
+
+
+class XamlType(ComClass, IXamlType):
+    def __init__(
+        self,
+        full_name,
+        type_kind,
+        *,
+        base_type=None,
+        boxed_type=None,
+        content_property=None,
+        is_array=False,
+        is_bindable=False,
+        is_collection=False,
+        is_dictionary=False,
+        is_markup_extension=False,
+        item_type=None,
+        key_type=None,
+        activate_instance=None,
+        add_to_map=None,
+        add_to_vector=None,
+        create_from_string=None,
+    ):
+        super().__init__(own=True)
+        self._full_name = full_name
+        self._type_kind = type_kind
+        self._base_type = base_type
+        self._boxed_type = boxed_type
+        self._content_property = content_property
+        self._is_array = is_array
+        self._is_bindable = is_bindable
+        self._is_collection = is_collection
+        self._is_constructible = bool(activate_instance)
+        self._is_dictionary = is_dictionary
+        self._is_markup_extension = is_markup_extension
+        self._item_type = item_type
+        self._key_type = key_type
+        self._activate_instance = activate_instance
+        self._add_to_map = add_to_map
+        self._add_to_vector = add_to_vector
+        self._create_from_string = create_from_string
+
+    def get_BaseType(self):
+        if self._base_type:
+            self._base_type.AddRef()
+        return self._base_type
+
+    def get_BoxedType(self):
+        if self._boxed_type:
+            self._boxed_type.AddRef()
+        return self._boxed_type
+
+    def get_ContentProperty(self):
+        if self._content_property:
+            self._content_property.AddRef()
+        return self._content_property
+
+    def get_FullName(self):
+        return self._full_name
+
+    def get_IsArray(self):
+        return self._is_array
+
+    def get_IsBindable(self):
+        return self._is_bindable
+
+    def get_IsCollection(self):
+        return self._is_collection
+
+    def get_IsConstructible(self):
+        return self._is_constructible
+
+    def get_IsDictionary(self):
+        return self._is_dictionary
+
+    def get_IsMarkupExtension(self):
+        return self._is_markup_extension
+
+    def get_ItemType(self):
+        if self._item_type:
+            self._item_type.AddRef()
+        return self._item_type
+
+    def get_KeyType(self):
+        if self._key_type:
+            self._key_type.AddRef()
+        return self._key_type
+
+    def get_UnderlyingType(self):
+        return TypeName(WinRT_String(self._full_name), self._type_kind)
+
+    def ActivateInstance(self):
+        if self._activate_instance is None:
+            raise NotImplementedError()
+        o = self._activate_instance()
+        o.AddRef()
+        return o
+
+    def AddToMap(self, instance, key, value):
+        if self._add_to_map is None:
+            raise NotImplementedError()
+        self._add_to_map(instance, key, value)
+
+    def AddToVector(self, instance, value):
+        if self._add_to_vector is None:
+            raise NotImplementedError()
+        self._add_to_vector(instance, value)
+
+    def CreateFromString(self, value):
+        if self._boxed_type is not None:
+            return self._boxed_type.CreateFromString(value)
+        if self._create_from_string is not None:
+            return self._create_from_string(value)
+        # TODO:
+        # return fromStringConverter()
+        raise NotImplementedError()
+
+    def GetMember(self, name):
+        # TODO:
+        raise NotImplementedError()
+
+    def RunInitializer(self):
+        pass
+
+
+def xaml_typename(name, kind):
+    hs = WinRT_String(name)
+    tn = TypeName(hs, kind)
+    weakref.finalize(tn, hs.clear)
+    return tn
