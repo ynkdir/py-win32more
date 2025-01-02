@@ -42,10 +42,7 @@ class Vector(ComClass, IVector[T], IVectorView[T]):
             self._lst = []
 
     def GetAt(self, index: UInt32) -> T:
-        r = self._lst[index]
-        if is_com_class(self._type):
-            r.AddRef()
-        return r
+        return self._lst[index]
 
     def get_Size(self) -> UInt32:
         return len(self._lst)
@@ -89,10 +86,7 @@ class Vector(ComClass, IVector[T], IVectorView[T]):
         for i in range(startIndex, startIndex + len(items)):
             if i >= len(self._lst):
                 break
-            v = self._lst[i]
-            if is_com_class(self._type):
-                v.AddRef()
-            items[numcopied] = v
+            items[numcopied] = self._lst[i]
             numcopied += 1
         return numcopied
 

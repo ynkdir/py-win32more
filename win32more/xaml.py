@@ -178,18 +178,12 @@ class XamlType(ComClass, IXamlType):
         self._create_from_string = create_from_string
 
     def get_BaseType(self):
-        if self._base_type:
-            self._base_type.AddRef()
         return self._base_type
 
     def get_BoxedType(self):
-        if self._boxed_type:
-            self._boxed_type.AddRef()
         return self._boxed_type
 
     def get_ContentProperty(self):
-        if self._content_property:
-            self._content_property.AddRef()
         return self._content_property
 
     def get_FullName(self):
@@ -214,13 +208,9 @@ class XamlType(ComClass, IXamlType):
         return self._is_markup_extension
 
     def get_ItemType(self):
-        if self._item_type:
-            self._item_type.AddRef()
         return self._item_type
 
     def get_KeyType(self):
-        if self._key_type:
-            self._key_type.AddRef()
         return self._key_type
 
     def get_UnderlyingType(self):
@@ -229,9 +219,7 @@ class XamlType(ComClass, IXamlType):
     def ActivateInstance(self):
         if self._activate_instance is None:
             raise NotImplementedError()
-        o = self._activate_instance()
-        o.AddRef()
-        return o
+        return self._activate_instance()
 
     def AddToMap(self, instance, key, value):
         if self._add_to_map is None:

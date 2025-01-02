@@ -426,6 +426,10 @@ class FillArrayCallback:
         for i, v in enumerate(self._lst):
             if self._type is WinRT_String:
                 self._ptr[i] = WinRT_String(v)
+            elif is_com_class(self._type):
+                if v:
+                    v.AddRef()
+                self._ptr[i] = v
             else:
                 self._ptr[i] = v
 
@@ -468,6 +472,10 @@ class ReceiveArrayCallback:
         for i, v in enumerate(self._lst):
             if self._type is WinRT_String:
                 self._pptr[0][i] = WinRT_String(v)
+            elif is_com_class(self._type):
+                if v:
+                    v.AddRef()
+                self._pptr[0][i] = v
             else:
                 self._pptr[0][i] = v
 
@@ -1055,6 +1063,10 @@ class Vtbl(Structure):
                     return_pointer[0][i] = o
         elif restype is WinRT_String:
             return_pointer[0] = WinRT_String(r, own=False)
+        elif is_com_class(restype):
+            if r:
+                r.AddRef()
+            return_pointer[0] = r
         else:
             return_pointer[0] = r
 
