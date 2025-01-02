@@ -386,7 +386,7 @@ class PassArrayCallback:
         self._lst = []
         for i in range(size):
             if type_ is WinRT_String:
-                self._lst.append(_windows_create_string(ptr[i]))
+                self._lst.append(_windows_get_string_raw_buffer(ptr[i]))
             else:
                 self._lst.append(ptr[i])
 

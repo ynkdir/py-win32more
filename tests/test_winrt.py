@@ -4,10 +4,25 @@ import unittest
 from concurrent.futures import Future
 from pathlib import Path
 
-from win32more import FAILED, POINTER, WINFUNCTYPE, Byte, Int32, UInt32, VoidPtr, WinError, cast, pointer
+from win32more import (
+    FAILED,
+    POINTER,
+    WINFUNCTYPE,
+    Byte,
+    Guid,
+    Int32,
+    UInt32,
+    VoidPtr,
+    WinError,
+    cast,
+    pointer,
+)
 from win32more._winrt import (
+    ComClass,
     MulticastDelegateImpl,
+    PassArray,
     ReceiveArray,
+    WinRT_String,
     _ro_get_parameterized_type_instance_iid,
     box_value,
     unbox_value,
@@ -95,6 +110,24 @@ class TestWinrt(unittest.TestCase):
         ivector.ReplaceAll(lines)
         lines10 = [ivector.GetAt(i) for i in range(10)]
         self.assertEqual(lines10, lines[0:10])
+
+    def test_passarray_convert_hstring_to_str(self):
+        class IMock(IInspectable):
+            _classid_ = "IMock"
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def f(self, p: PassArray[WinRT_String]) -> WinRT_String: ...
+
+        class Mock(ComClass, IMock):
+            def f(self, p: list[str]) -> str:
+                return p[0]
+
+        mock = Mock().as_(IMock)
+
+        # winrt call: mock.f(["str"]) -> WinrtMethod([hstring])
+        # winrt callback: vtbl.f([hstring]) -> Mock.f(["str"])
+        self.assertEqual(mock.f(["hello"]), "hello")
 
     def test_receivearray_param(self):
         inarray = [1, 2, 3]
