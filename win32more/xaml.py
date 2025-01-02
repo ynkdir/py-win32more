@@ -36,7 +36,7 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         self._OnLaunched_wrapped(args)
 
     def OnLaunched(self, args):
-        # You should override this in your devired class
+        # You should override this in your derived class
         ...
 
     def GetXamlType(self, type):
