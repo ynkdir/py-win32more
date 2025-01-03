@@ -86,35 +86,56 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         CoUninitialize()
 
 
-class XamlEventWiring:
-    def execute(self, app, uiroot, xaml):
+# Load xaml and connect element and event handler to host.
+#
+# <Element x:Name="Element1" Clicked="Element1_Clicked" />
+#
+# to be
+#
+# host.Element1 = loaded element
+# host.Clicked += host.Element1_Clicked
+#
+# x:Name is required to find element.
+class XamlLoader:
+    @classmethod
+    def load(cls, host: object, xaml: str) -> object:
+        return cls().execute(host, XamlReader.Load(xaml), xaml)
+
+    def execute(self, host, uiroot, xaml):
         uiroot = self.cast_to_runtime_class(uiroot)
 
         if isinstance(uiroot, Window):
-            window = uiroot
             framework_element = uiroot.Content.as_(FrameworkElement)
         else:
-            window = None
             framework_element = uiroot.as_(FrameworkElement)
 
         xmlroot = ET.fromstring(xaml)
         for xmlelement in xmlroot.iter():
-            if xmlelement.tag == "{http://schemas.microsoft.com/winfx/2006/xaml/presentation}Window":
-                if window is not None:
-                    self.wire_event(app, window, xmlelement)
-            else:
-                try:
-                    name = xmlelement.attrib["{http://schemas.microsoft.com/winfx/2006/xaml}Name"]
-                except KeyError:
-                    continue
-                uielement = self.cast_to_runtime_class(framework_element.FindName(name))
-                self.wire_event(app, uielement, xmlelement)
+            try:
+                name = xmlelement.attrib["{http://schemas.microsoft.com/winfx/2006/xaml}Name"]
+            except KeyError:
+                name = None
 
-    def wire_event(self, app, uielement, xmlelement):
+            if xmlelement is xmlroot:
+                self.wire_event(host, uiroot, xmlelement)
+                if name is not None:
+                    setattr(host, name, uiroot)
+                continue
+
+            if name is None:
+                continue
+
+            uielement = self.cast_to_runtime_class(framework_element.FindName(name))
+            self.wire_event(host, uielement, xmlelement)
+            setattr(host, name, uielement)
+
+        return uiroot
+
+    def wire_event(self, host, uielement, xmlelement):
         for k, v in xmlelement.items():
             if isinstance(getattr(uielement, k, None), event_setter):
                 setter = getattr(uielement, k)
-                setter += getattr(app, v)
+                setter += getattr(host, v)
 
     def cast_to_runtime_class(self, uielement):
         return uielement.as_(self.get_runtime_class(uielement))
