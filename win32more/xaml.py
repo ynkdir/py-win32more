@@ -85,11 +85,6 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
 
         CoUninitialize()
 
-    def LoadXamlAndSetEventHandler(self, xaml):
-        uiroot = XamlReader.Load(xaml)
-        XamlEventWiring().execute(self, uiroot, xaml)
-        return uiroot
-
 
 class XamlEventWiring:
     def execute(self, app, uiroot, xaml):
