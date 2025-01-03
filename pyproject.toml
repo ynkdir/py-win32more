@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "win32more"
-version = "0.5.7"
+version = "0.5.8"
 description = "Python bindings for Windows API"
 readme = "README.md"
 requires-python = ">= 3.9"
