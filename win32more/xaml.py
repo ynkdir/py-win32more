@@ -94,14 +94,15 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
 #
 # view.Element1 = loaded element
 # view.Clicked += view.Element1_Clicked
-#
-# x:Name is required to find element.
 class XamlLoader:
+    x_Name = "{http://schemas.microsoft.com/winfx/2006/xaml}Name"
+
     @classmethod
     def load(cls, view: object, xaml: str) -> object:
         return cls().execute(view, xaml)
 
     def execute(self, view, xaml):
+        xaml = self.preprocess(view, xaml)
         uiroot = as_runtime_class(XamlReader.Load(xaml))
 
         if isinstance(uiroot, Window):
@@ -112,7 +113,7 @@ class XamlLoader:
         xmlroot = ET.fromstring(xaml)
         for xmlelement in xmlroot.iter():
             try:
-                name = xmlelement.attrib["{http://schemas.microsoft.com/winfx/2006/xaml}Name"]
+                name = xmlelement.attrib[self.x_Name]
             except KeyError:
                 name = None
 
@@ -127,9 +128,28 @@ class XamlLoader:
 
             uielement = as_runtime_class(framework_element.FindName(name))
             self.wire_event(view, uielement, xmlelement)
-            setattr(view, name, uielement)
+            if not name.startswith("__dummy"):
+                setattr(view, name, uielement)
 
         return uiroot
+
+    def preprocess(self, view, xaml):
+        # FIXME: register_namespace() is global.
+        # This is required to prevent "ns0:" prefix for default namespace.
+        ET.register_namespace("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation")
+
+        xmlroot = ET.fromstring(xaml)
+        for i, xmlelement in enumerate(xmlroot.iter()):
+            if xmlelement is xmlroot:
+                continue
+            if self.x_Name in xmlelement.attrib:
+                continue
+            has_event = any(hasattr(view, v) for v in xmlelement.attrib.values())
+            if has_event:
+                # It seems that xmlelement has event handler without x:Name.
+                # Add temporary name.
+                xmlelement.attrib[self.x_Name] = f"__dummy{i}"
+        return ET.tostring(xmlroot, encoding="unicode")
 
     def wire_event(self, view, uielement, xmlelement):
         for k, v in xmlelement.items():
