@@ -86,23 +86,23 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         CoUninitialize()
 
 
-# Load xaml and connect element and event handler to host.
+# Load xaml and connect element and event handler to view object.
 #
 # <Element x:Name="Element1" Clicked="Element1_Clicked" />
 #
 # to be
 #
-# host.Element1 = loaded element
-# host.Clicked += host.Element1_Clicked
+# view.Element1 = loaded element
+# view.Clicked += view.Element1_Clicked
 #
 # x:Name is required to find element.
 class XamlLoader:
     @classmethod
-    def load(cls, host: object, xaml: str) -> object:
-        return cls().execute(host, XamlReader.Load(xaml), xaml)
+    def load(cls, view: object, xaml: str) -> object:
+        return cls().execute(view, xaml)
 
-    def execute(self, host, uiroot, xaml):
-        uiroot = as_runtime_class(uiroot)
+    def execute(self, view, xaml):
+        uiroot = as_runtime_class(XamlReader.Load(xaml))
 
         if isinstance(uiroot, Window):
             framework_element = uiroot.Content.as_(FrameworkElement)
@@ -117,25 +117,25 @@ class XamlLoader:
                 name = None
 
             if xmlelement is xmlroot:
-                self.wire_event(host, uiroot, xmlelement)
+                self.wire_event(view, uiroot, xmlelement)
                 if name is not None:
-                    setattr(host, name, uiroot)
+                    setattr(view, name, uiroot)
                 continue
 
             if name is None:
                 continue
 
             uielement = as_runtime_class(framework_element.FindName(name))
-            self.wire_event(host, uielement, xmlelement)
-            setattr(host, name, uielement)
+            self.wire_event(view, uielement, xmlelement)
+            setattr(view, name, uielement)
 
         return uiroot
 
-    def wire_event(self, host, uielement, xmlelement):
+    def wire_event(self, view, uielement, xmlelement):
         for k, v in xmlelement.items():
             if isinstance(getattr(uielement, k, None), event_setter):
                 setter = getattr(uielement, k)
-                setter += getattr(host, v)
+                setter += getattr(view, v)
 
 
 class XamlType(ComClass, IXamlType):
