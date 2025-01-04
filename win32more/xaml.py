@@ -102,7 +102,7 @@ class XamlLoader:
         return cls().execute(host, XamlReader.Load(xaml), xaml)
 
     def execute(self, host, uiroot, xaml):
-        uiroot = self.cast_to_runtime_class(uiroot)
+        uiroot = as_runtime_class(uiroot)
 
         if isinstance(uiroot, Window):
             framework_element = uiroot.Content.as_(FrameworkElement)
@@ -125,7 +125,7 @@ class XamlLoader:
             if name is None:
                 continue
 
-            uielement = self.cast_to_runtime_class(framework_element.FindName(name))
+            uielement = as_runtime_class(framework_element.FindName(name))
             self.wire_event(host, uielement, xmlelement)
             setattr(host, name, uielement)
 
@@ -136,21 +136,6 @@ class XamlLoader:
             if isinstance(getattr(uielement, k, None), event_setter):
                 setter = getattr(uielement, k)
                 setter += getattr(host, v)
-
-    def cast_to_runtime_class(self, uielement):
-        return uielement.as_(self.get_runtime_class(uielement))
-
-    def get_runtime_class(self, uielement):
-        namespace, name = self.get_runtime_class_name(uielement).rsplit(".", 1)
-        module = importlib.import_module(f"win32more.{namespace}")
-        return getattr(module, name)
-
-    def get_runtime_class_name(self, uielement):
-        s = WinRT_String(own=True)
-        hr = uielement.GetRuntimeClassName(s)
-        if FAILED(hr):
-            raise WinError(hr)
-        return s.strvalue
 
 
 class XamlType(ComClass, IXamlType):
@@ -269,3 +254,21 @@ def xaml_typename(name, kind):
     tn = TypeName(hs, kind)
     weakref.finalize(tn, hs.clear)
     return tn
+
+
+def as_runtime_class(uielement):
+    return uielement.as_(_get_runtime_class(uielement))
+
+
+def _get_runtime_class(uielement):
+    namespace, name = _get_runtime_class_name(uielement).rsplit(".", 1)
+    module = importlib.import_module(f"win32more.{namespace}")
+    return getattr(module, name)
+
+
+def _get_runtime_class_name(uielement):
+    s = WinRT_String(own=True)
+    hr = uielement.GetRuntimeClassName(s)
+    if FAILED(hr):
+        raise WinError(hr)
+    return s.strvalue
