@@ -144,6 +144,7 @@ def main() -> None:
                 "metadata/WindowsSDK.json.xz",
                 "metadata/WindowsAppSDK.json.xz",
                 "metadata/Microsoft.Web.WebView2.Core.json.xz",
+                "metadata/Microsoft.Graphics.Canvas.json.xz",
             ]
         )
 
