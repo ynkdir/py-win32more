@@ -160,6 +160,8 @@ def winrt_easycast(obj, type_):
             return Vector[get_args(type_)[0]](obj)
     elif issubclass(_get_origin_or_itself(type_), IReference):
         # FIXME: Should I check obj is T of IReference[T]?
+        if obj is None:
+            return IReference(None)
         return box_value(obj).as_(type_)
     return easycast(obj, type_)
 
