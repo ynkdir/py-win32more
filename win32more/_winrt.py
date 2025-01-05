@@ -657,6 +657,8 @@ class WinrtMethodCall:
             result.later()
             return result.lst
         elif issubclass(_get_origin_or_itself(self.restype), IReference):
+            if not result:
+                return None
             return unbox_value(result)
         return result.__ctypes_from_outparam__()
 
