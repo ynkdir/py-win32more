@@ -1118,9 +1118,9 @@ class ComClass(ComPtr):
             yield base
             yield from self._enumerate_specialized_bases_recursively(base)
 
-    @property
-    def _runtime_class_name(self) -> str:
-        return f"{self.__module__}.{self.__qualname__}"
+    @classmethod
+    def _runtime_class_name(cls) -> str:
+        return f"{cls.__module__}.{cls.__qualname__}"
 
     def _compose(self) -> IInspectable:
         for base in type(self).__mro__:
@@ -1163,7 +1163,7 @@ class ComClass(ComPtr):
         return S_OK
 
     def GetRuntimeClassName(self, className: POINTER(HSTRING)) -> HRESULT:
-        className[0] = _windows_create_string(self._runtime_class_name)
+        className[0] = _windows_create_string(self._runtime_class_name())
         return S_OK
 
     def GetTrustLevel(self, trustLevel: POINTER(TrustLevel)) -> HRESULT:
