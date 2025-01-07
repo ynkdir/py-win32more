@@ -1,11 +1,12 @@
-from win32more.Microsoft.UI.Xaml import FrameworkElement, Window
-from win32more.Microsoft.UI.Xaml.Controls import Button, TextBlock
-from win32more.xaml import XamlApplication
+from win32more.Microsoft.UI.Xaml.Controls import Button
+from win32more.xaml import XamlApplication, XamlLoader
 
 
 class App(XamlApplication):
     def OnLaunched(self, args):
-        self.window = self.LoadXamlAndSetEventHandler("""
+        self.window = XamlLoader.load(
+            self,
+            """
 <Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -58,11 +59,8 @@ class App(XamlApplication):
 
     </Grid>
 </Window>
-""").as_(Window)
-
-        framework_element = self.window.Content.as_(FrameworkElement)
-
-        self._display_box = framework_element.FindName("DisplayBox").as_(TextBlock)
+""",
+        )
 
         self.window.Activate()
 
@@ -186,7 +184,7 @@ class App(XamlApplication):
         else:
             assert False
 
-        self._display_box.Text = display
+        self.DisplayBox.Text = display
 
 
 XamlApplication.Start(App)
