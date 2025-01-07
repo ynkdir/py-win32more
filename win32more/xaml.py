@@ -1,6 +1,8 @@
 import importlib
+import os
 import weakref
 import xml.etree.ElementTree as ET
+from tempfile import NamedTemporaryFile
 
 from win32more import FAILED, WinError, asyncui
 from win32more._winrt import ComClass, WinRT_String, event_setter
@@ -13,9 +15,9 @@ from win32more.mddbootstrap import (
     MddBootstrapShutdown,
 )
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides, Window
-from win32more.Microsoft.UI.Xaml.Controls import XamlControlsResources
 from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
+from win32more.Windows.Foundation import Uri
 from win32more.Windows.UI.Xaml.Interop import TypeName
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
@@ -24,16 +26,38 @@ from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 
 
 class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadataProvider):
+    __appxaml = None
+
     def __init__(self):
         XamlApplication.__current = self
         self._provider = None
-        self._OnLaunched_wrapped = self.OnLaunched
-        self.OnLaunched = self._OnLaunched_wrapper
         super().__init__(own=True)
+        self.InitializeComponent()
 
-    def _OnLaunched_wrapper(self, args):
-        self.Resources.MergedDictionaries.Append(XamlControlsResources())
-        self._OnLaunched_wrapped(args)
+    def InitializeComponent(self):
+        self._load_component_from_string("""
+            <Application
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                <Application.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </Application.Resources>
+            </Application>""")
+
+    # When loading Application, LoadComponent() doesn't read resource file immediately.
+    def _load_component_from_string(self, xaml):
+        f = NamedTemporaryFile(delete=False)
+        f.write(xaml.encode("utf-8"))
+        f.close()
+        xaml_path = f.name.replace("\\", "/")
+        resource_locator = Uri(f"ms-appx:///{xaml_path}")
+        Application.LoadComponent(self, resource_locator)
+        # delete later
+        XamlApplication.__appxaml = f.name
 
     def OnLaunched(self, args):
         # You should override this in your derived class
@@ -85,6 +109,9 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         # FIXME: force Release() to avoid exit with error code.
         if XamlApplication.__current is not None:
             XamlApplication.__current.Release()
+
+        if XamlApplication.__appxaml is not None:
+            os.unlink(XamlApplication.__appxaml)
 
         MddBootstrapShutdown()
 
