@@ -26,10 +26,10 @@ from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadataProvider):
     def __init__(self):
         XamlApplication.__current = self
+        self._provider = None
         self._OnLaunched_wrapped = self.OnLaunched
         self.OnLaunched = self._OnLaunched_wrapper
         super().__init__(own=True)
-        self._provider = XamlControlsXamlMetaDataProvider()
 
     def _OnLaunched_wrapper(self, args):
         self.Resources.MergedDictionaries.Append(XamlControlsResources())
@@ -43,14 +43,19 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         xaml_type = self.GetXamlTypeByFullName(type.Name.strvalue)
         if xaml_type:
             return xaml_type
-        return self._provider.GetXamlType(type)
+        return self.AppProvider().GetXamlType(type)
 
     # TODO: Is it needed to provide information for primitive or winui type?
     def GetXamlTypeByFullName(self, fullName):
-        return self._provider.GetXamlTypeByFullName(fullName)
+        return self.AppProvider().GetXamlTypeByFullName(fullName)
 
     def GetXmlnsDefinitions(self):
-        return self._provider.GetXmlnsDefinitions()
+        return self.AppProvider().GetXmlnsDefinitions()
+
+    def AppProvider(self):
+        if self._provider is None:
+            self._provider = XamlControlsXamlMetaDataProvider()
+        return self._provider
 
     __current = None
 
