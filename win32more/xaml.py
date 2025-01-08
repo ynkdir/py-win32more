@@ -64,9 +64,6 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         ...
 
     def GetXamlType(self, type):
-        xaml_type = self.GetXamlTypeByFullName(type.Name.strvalue)
-        if xaml_type:
-            return xaml_type
         return self.AppProvider().GetXamlType(type)
 
     # TODO: Is it needed to provide information for primitive or winui type?
