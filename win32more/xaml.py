@@ -32,7 +32,7 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         self.InitializeComponent()
 
     def InitializeComponent(self):
-        xaml_path = str(Path(__file__).with_name("app.xaml")).replace("\\", "/")
+        xaml_path = Path(__file__).with_name("app.xaml").as_posix()
         resource_locator = Uri(f"ms-appx:///{xaml_path}")
         Application.LoadComponent(self, resource_locator)
 
