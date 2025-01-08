@@ -1,8 +1,7 @@
 import importlib
-import os
 import weakref
 import xml.etree.ElementTree as ET
-from tempfile import NamedTemporaryFile
+from pathlib import Path
 
 from win32more import FAILED, WinError, asyncui
 from win32more._winrt import ComClass, WinRT_String, event_setter
@@ -26,8 +25,6 @@ from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 
 
 class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadataProvider):
-    __appxaml = None
-
     def __init__(self):
         XamlApplication.__current = self
         self._provider = None
@@ -35,29 +32,9 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         self.InitializeComponent()
 
     def InitializeComponent(self):
-        self._load_component_from_string("""
-            <Application
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-                <Application.Resources>
-                    <ResourceDictionary>
-                        <ResourceDictionary.MergedDictionaries>
-                            <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-                        </ResourceDictionary.MergedDictionaries>
-                    </ResourceDictionary>
-                </Application.Resources>
-            </Application>""")
-
-    # When loading Application, LoadComponent() doesn't read resource file immediately.
-    def _load_component_from_string(self, xaml):
-        f = NamedTemporaryFile(delete=False)
-        f.write(xaml.encode("utf-8"))
-        f.close()
-        xaml_path = f.name.replace("\\", "/")
+        xaml_path = str(Path(__file__).with_name("app.xaml")).replace("\\", "/")
         resource_locator = Uri(f"ms-appx:///{xaml_path}")
         Application.LoadComponent(self, resource_locator)
-        # delete later
-        XamlApplication.__appxaml = f.name
 
     def OnLaunched(self, args):
         # You should override this in your derived class
@@ -106,9 +83,6 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         # FIXME: force Release() to avoid exit with error code.
         if XamlApplication.__current is not None:
             XamlApplication.__current.Release()
-
-        if XamlApplication.__appxaml is not None:
-            os.unlink(XamlApplication.__appxaml)
 
         MddBootstrapShutdown()
 
