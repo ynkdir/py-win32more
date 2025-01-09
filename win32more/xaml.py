@@ -113,13 +113,12 @@ class XamlClass(ComClass, IComponentConnector):
         self.LoadComponentFromString(Path(xaml_path).read_text())
 
     def LoadComponentFromString(self, xaml_str):
-        self.__component_connector = XamlComponentConnector(self)
-        self.__component_connector.Load(xaml_str)
+        self.__component_connector = XamlComponentConnector()
+        self.__component_connector.Load(self, xaml_str)
 
 
 class XamlComponentConnector:
-    def __init__(self, component):
-        self._component = component
+    def __init__(self):
         self._connectors = {}
 
     def Connect(self, connectionId, target):
@@ -129,62 +128,61 @@ class XamlComponentConnector:
     def GetBindingConnector(self, connectionId, target):
         return None
 
-    def Load(self, xaml_str):
-        xaml_preprocessed = self._preprocess(xaml_str)
+    def Load(self, component, xaml_str):
+        xaml_preprocessed = self._preprocess(component, xaml_str)
         with NamedTemporaryFile(delete_on_close=False) as f:
             f.write(xaml_preprocessed.encode("utf-8"))
             f.close()
             xaml_path = Path(f.name).as_posix()
             resource_locator = Uri(f"ms-appx:///{xaml_path}")
-            Application.LoadComponent(self._component, resource_locator)
+            Application.LoadComponent(component, resource_locator)
 
-    def _preprocess(self, xaml_str):
+    def _preprocess(self, component, xaml_str):
         root = ET.fromstring(xaml_str)
         for i, e in enumerate(root.iter()):
             self._connectors[i] = []
             for k, v in list(e.attrib.items()):
                 if k == f"{{{XMLNS_XAML}}}Name":
-                    self._connectors[i].append(partial(self._connect_name, v))
+                    self._connectors[i].append(partial(self._connect_name, component, v))
                     del e.attrib[k]
-                elif hasattr(self._component, v):
-                    self._connectors[i].append(partial(self._connect_event, k, v))
+                elif hasattr(component, v):
+                    self._connectors[i].append(partial(self._connect_event, component, k, v))
                     del e.attrib[k]
             if self._connectors[i]:
                 e.attrib[f"{{{XMLNS_XAML}}}ConnectionId"] = str(i)
         return ET.tostring(root, encoding="unicode")
 
-    def _connect_name(self, bind_name, target):
-        setattr(self._component, bind_name, as_runtime_class(target))
+    def _connect_name(self, component, bind_name, target):
+        setattr(component, bind_name, as_runtime_class(target))
 
-    def _connect_event(self, event_name, method_name, target):
+    def _connect_event(self, component, event_name, method_name, target):
         event_setter = getattr(as_runtime_class(target), event_name)
-        event_setter += getattr(self._component, method_name)
+        event_setter += getattr(component, method_name)
 
 
 # Load xaml and connect element and event handler to view object.
 #
-# <Element x:Name="Element1" Clicked="Element1_Clicked" />
+# <Button x:Name="Button1" Click="Button1_Click" />
 #
 # to be
 #
-# view.Element1 = loaded element
-# view.Clicked += view.Element1_Clicked
+# view.Button1 = Button()
+# view.Button1.Click += view.Button1_Click
 class XamlLoader:
     @classmethod
     def Load(cls, view: object, xaml_str: str) -> object:
-        return cls(view).execute(xaml_str)
+        return cls().execute(view, xaml_str)
 
-    def __init__(self, view):
-        self._view = view
+    def __init__(self):
         self._connectors = {}
 
-    def execute(self, xaml_str):
-        xaml_preprocessed = self._preprocess(xaml_str)
+    def execute(self, view, xaml_str):
+        xaml_preprocessed = self._preprocess(view, xaml_str)
         uiroot = as_runtime_class(XamlReader.Load(xaml_preprocessed))
         self._connect(uiroot)
         return uiroot
 
-    def _preprocess(self, xaml_str):
+    def _preprocess(self, view, xaml_str):
         root = ET.fromstring(xaml_str)
         for i, e in enumerate(root.iter()):
             if e is root:
@@ -196,9 +194,9 @@ class XamlLoader:
             self._connectors[name] = []
             for k, v in list(e.attrib.items()):
                 if k == f"{{{XMLNS_XAML}}}Name" and e is not root:
-                    self._connectors[name].append(partial(self._connect_name, name))
-                elif hasattr(self._view, v):
-                    self._connectors[name].append(partial(self._connect_event, k, v))
+                    self._connectors[name].append(partial(self._connect_name, view, name))
+                elif hasattr(view, v):
+                    self._connectors[name].append(partial(self._connect_event, view, k, v))
                     del e.attrib[k]
             if self._connectors[name] and f"{{{XMLNS_XAML}}}Name" not in e.attrib and e is not root:
                 e.attrib[f"{{{XMLNS_XAML}}}Name"] = name
@@ -218,12 +216,12 @@ class XamlLoader:
                     target = framework_element.FindName(name)
                 connect(target)
 
-    def _connect_name(self, bind_name, target):
-        setattr(self._view, bind_name, as_runtime_class(target))
+    def _connect_name(self, view, bind_name, target):
+        setattr(view, bind_name, as_runtime_class(target))
 
-    def _connect_event(self, event_name, method_name, target):
+    def _connect_event(self, view, event_name, method_name, target):
         event_setter = getattr(as_runtime_class(target), event_name)
-        event_setter += getattr(self._view, method_name)
+        event_setter += getattr(view, method_name)
 
 
 class XamlType(ComClass, IXamlType):
