@@ -4,7 +4,7 @@ from win32more.xaml import XamlApplication, XamlLoader
 
 class App(XamlApplication):
     def OnLaunched(self, args):
-        self.window = XamlLoader.load(
+        self.window = XamlLoader.Load(
             self,
             """
 <Window

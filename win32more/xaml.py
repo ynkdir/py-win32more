@@ -6,7 +6,7 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 from win32more import FAILED, WinError, asyncui
-from win32more._winrt import ComClass, WinRT_String, event_setter
+from win32more._winrt import ComClass, WinRT_String
 from win32more.mddbootstrap import (
     WINDOWSAPPSDK_RELEASE_MAJORMINOR,
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
@@ -15,7 +15,7 @@ from win32more.mddbootstrap import (
     MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
     MddBootstrapShutdown,
 )
-from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides, Window
+from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
 from win32more.Windows.Foundation import Uri
@@ -171,60 +171,59 @@ class XamlComponentConnector:
 # view.Clicked += view.Element1_Clicked
 class XamlLoader:
     @classmethod
-    def load(cls, view: object, xaml: str) -> object:
-        return cls().execute(view, xaml)
+    def Load(cls, view: object, xaml_str: str) -> object:
+        return cls(view).execute(xaml_str)
 
-    def execute(self, view, xaml):
-        xaml = self.preprocess(view, xaml)
-        uiroot = as_runtime_class(XamlReader.Load(xaml))
+    def __init__(self, view):
+        self._view = view
+        self._connectors = {}
 
-        if isinstance(uiroot, Window):
-            framework_element = uiroot.Content.as_(FrameworkElement)
-        else:
-            framework_element = uiroot.as_(FrameworkElement)
-
-        xmlroot = ET.fromstring(xaml)
-        for xmlelement in xmlroot.iter():
-            try:
-                name = xmlelement.attrib[f"{{{XMLNS_XAML}}}Name"]
-            except KeyError:
-                name = None
-
-            if xmlelement is xmlroot:
-                self.wire_event(view, uiroot, xmlelement)
-                if name is not None:
-                    setattr(view, name, uiroot)
-                continue
-
-            if name is None:
-                continue
-
-            uielement = as_runtime_class(framework_element.FindName(name))
-            self.wire_event(view, uielement, xmlelement)
-            if not name.startswith("__dummy"):
-                setattr(view, name, uielement)
-
+    def execute(self, xaml_str):
+        xaml_preprocessed = self._preprocess(xaml_str)
+        uiroot = as_runtime_class(XamlReader.Load(xaml_preprocessed))
+        self._connect(uiroot)
         return uiroot
 
-    def preprocess(self, view, xaml):
-        xmlroot = ET.fromstring(xaml)
-        for i, xmlelement in enumerate(xmlroot.iter()):
-            if xmlelement is xmlroot:
-                continue
-            if f"{{{XMLNS_XAML}}}Name" in xmlelement.attrib:
-                continue
-            has_event = any(hasattr(view, v) for v in xmlelement.attrib.values())
-            if has_event:
-                # It seems that xmlelement has event handler without x:Name.
-                # Add temporary name.
-                xmlelement.attrib[f"{{{XMLNS_XAML}}}Name"] = f"__dummy{i}"
-        return ET.tostring(xmlroot, encoding="unicode")
+    def _preprocess(self, xaml_str):
+        root = ET.fromstring(xaml_str)
+        for i, e in enumerate(root.iter()):
+            if e is root:
+                name = ""
+            elif f"{{{XMLNS_XAML}}}Name" in e.attrib:
+                name = e.attrib[f"{{{XMLNS_XAML}}}Name"]
+            else:
+                name = f"__dummy{i}"
+            self._connectors[name] = []
+            for k, v in list(e.attrib.items()):
+                if k == f"{{{XMLNS_XAML}}}Name" and e is not root:
+                    self._connectors[name].append(partial(self._connect_name, name))
+                elif hasattr(self._view, v):
+                    self._connectors[name].append(partial(self._connect_event, k, v))
+                    del e.attrib[k]
+            if self._connectors[name] and f"{{{XMLNS_XAML}}}Name" not in e.attrib and e is not root:
+                e.attrib[f"{{{XMLNS_XAML}}}Name"] = name
+        return ET.tostring(root, encoding="unicode")
 
-    def wire_event(self, view, uielement, xmlelement):
-        for k, v in xmlelement.items():
-            if isinstance(getattr(uielement, k, None), event_setter):
-                setter = getattr(uielement, k)
-                setter += getattr(view, v)
+    def _connect(self, uiroot):
+        try:
+            framework_element = uiroot.as_(FrameworkElement)
+        except OSError:
+            framework_element = uiroot.Content.as_(FrameworkElement)
+
+        for name, connectors in self._connectors.items():
+            for connect in connectors:
+                if name == "":
+                    target = uiroot
+                else:
+                    target = framework_element.FindName(name)
+                connect(target)
+
+    def _connect_name(self, bind_name, target):
+        setattr(self._view, bind_name, as_runtime_class(target))
+
+    def _connect_event(self, event_name, method_name, target):
+        event_setter = getattr(as_runtime_class(target), event_name)
+        event_setter += getattr(self._view, method_name)
 
 
 class XamlType(ComClass, IXamlType):
