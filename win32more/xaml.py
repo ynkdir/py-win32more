@@ -1,7 +1,9 @@
 import importlib
 import weakref
 import xml.etree.ElementTree as ET
+from functools import partial
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 
 from win32more import FAILED, WinError, asyncui
 from win32more._winrt import ComClass, WinRT_String, event_setter
@@ -14,7 +16,7 @@ from win32more.mddbootstrap import (
     MddBootstrapShutdown,
 )
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides, Window
-from win32more.Microsoft.UI.Xaml.Markup import IXamlMetadataProvider, IXamlType, XamlReader
+from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
 from win32more.Windows.Foundation import Uri
 from win32more.Windows.UI.Xaml.Interop import TypeName
@@ -22,6 +24,13 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
+
+XMLNS_XAML = "http://schemas.microsoft.com/winfx/2006/xaml"
+XMLNS_XAML_PRESENTATION = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+
+# FIXME: register_namespace() is global.
+# This is required to prevent "ns0:" prefix for default namespace.
+ET.register_namespace("", XMLNS_XAML_PRESENTATION)
 
 
 class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadataProvider):
@@ -89,6 +98,69 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         CoUninitialize()
 
 
+class XamlClass(ComClass, IComponentConnector):
+    def __init__(self, *args, own=True, **kwargs):
+        super().__init__(*args, own=own, **kwargs)
+        self.__component_connector = None
+
+    def Connect(self, connectionId, target):
+        self.__component_connector.Connect(connectionId, target)
+
+    def GetBindingConnector(self, connectionId, target):
+        return self.__component_connector.GetBindingConnector(connectionId, target)
+
+    def LoadComponentFromFile(self, xaml_path):
+        self.LoadComponentFromString(Path(xaml_path).read_text())
+
+    def LoadComponentFromString(self, xaml_str):
+        self.__component_connector = XamlComponentConnector(self)
+        self.__component_connector.Load(xaml_str)
+
+
+class XamlComponentConnector:
+    def __init__(self, component):
+        self._component = component
+        self._connectors = {}
+
+    def Connect(self, connectionId, target):
+        for connect in self._connectors[connectionId]:
+            connect(target)
+
+    def GetBindingConnector(self, connectionId, target):
+        return None
+
+    def Load(self, xaml_str):
+        xaml_preprocessed = self._preprocess(xaml_str)
+        with NamedTemporaryFile(delete_on_close=False) as f:
+            f.write(xaml_preprocessed.encode("utf-8"))
+            f.close()
+            xaml_path = Path(f.name).as_posix()
+            resource_locator = Uri(f"ms-appx:///{xaml_path}")
+            Application.LoadComponent(self._component, resource_locator)
+
+    def _preprocess(self, xaml_str):
+        root = ET.fromstring(xaml_str)
+        for i, e in enumerate(root.iter()):
+            self._connectors[i] = []
+            for k, v in list(e.attrib.items()):
+                if k == f"{{{XMLNS_XAML}}}Name":
+                    self._connectors[i].append(partial(self._connect_name, v))
+                    del e.attrib[k]
+                elif hasattr(self._component, v):
+                    self._connectors[i].append(partial(self._connect_event, k, v))
+                    del e.attrib[k]
+            if self._connectors[i]:
+                e.attrib[f"{{{XMLNS_XAML}}}ConnectionId"] = str(i)
+        return ET.tostring(root, encoding="unicode")
+
+    def _connect_name(self, bind_name, target):
+        setattr(self._component, bind_name, as_runtime_class(target))
+
+    def _connect_event(self, event_name, method_name, target):
+        event_setter = getattr(as_runtime_class(target), event_name)
+        event_setter += getattr(self._component, method_name)
+
+
 # Load xaml and connect element and event handler to view object.
 #
 # <Element x:Name="Element1" Clicked="Element1_Clicked" />
@@ -98,8 +170,6 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
 # view.Element1 = loaded element
 # view.Clicked += view.Element1_Clicked
 class XamlLoader:
-    x_Name = "{http://schemas.microsoft.com/winfx/2006/xaml}Name"
-
     @classmethod
     def load(cls, view: object, xaml: str) -> object:
         return cls().execute(view, xaml)
@@ -116,7 +186,7 @@ class XamlLoader:
         xmlroot = ET.fromstring(xaml)
         for xmlelement in xmlroot.iter():
             try:
-                name = xmlelement.attrib[self.x_Name]
+                name = xmlelement.attrib[f"{{{XMLNS_XAML}}}Name"]
             except KeyError:
                 name = None
 
@@ -137,21 +207,17 @@ class XamlLoader:
         return uiroot
 
     def preprocess(self, view, xaml):
-        # FIXME: register_namespace() is global.
-        # This is required to prevent "ns0:" prefix for default namespace.
-        ET.register_namespace("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation")
-
         xmlroot = ET.fromstring(xaml)
         for i, xmlelement in enumerate(xmlroot.iter()):
             if xmlelement is xmlroot:
                 continue
-            if self.x_Name in xmlelement.attrib:
+            if f"{{{XMLNS_XAML}}}Name" in xmlelement.attrib:
                 continue
             has_event = any(hasattr(view, v) for v in xmlelement.attrib.values())
             if has_event:
                 # It seems that xmlelement has event handler without x:Name.
                 # Add temporary name.
-                xmlelement.attrib[self.x_Name] = f"__dummy{i}"
+                xmlelement.attrib[f"{{{XMLNS_XAML}}}Name"] = f"__dummy{i}"
         return ET.tostring(xmlroot, encoding="unicode")
 
     def wire_event(self, view, uielement, xmlelement):
