@@ -144,7 +144,6 @@ class XamlComponentConnector:
             for k, v in list(e.attrib.items()):
                 if k == f"{{{XMLNS_XAML}}}Name":
                     self._connectors[i].append(partial(self._connect_name, component, v))
-                    del e.attrib[k]
                 elif hasattr(component, v):
                     self._connectors[i].append(partial(self._connect_event, component, k, v))
                     del e.attrib[k]
