@@ -49,6 +49,7 @@ from win32more import (
     get_type_hints,
     parse_arguments,
     windll,
+    Enum,
 )
 from win32more.Windows.Win32.Foundation import (
     E_FAIL,
@@ -662,6 +663,8 @@ class WinrtMethodCall:
             if not result:
                 return None
             return unbox_value(result)
+        elif issubclass(_get_origin_or_itself(self.restype), Enum):
+            return result.value
         return result.__ctypes_from_outparam__()
 
 
