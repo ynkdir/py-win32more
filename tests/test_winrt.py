@@ -3,12 +3,14 @@ import sys
 import unittest
 from concurrent.futures import Future
 from pathlib import Path
+from typing import Generic, TypeVar
 
 from win32more import (
     FAILED,
     POINTER,
     WINFUNCTYPE,
     Byte,
+    Enum,
     Guid,
     Int32,
     UInt32,
@@ -312,3 +314,31 @@ class TestWinrt(unittest.TestCase):
         asyncio.run(main())
 
         self.assertEqual(trace, ["AddRef", "worker", "Release"])
+
+    def test_enum_value_will_be_returned_as_int(self):
+        class E(Enum, Int32):
+            A = 42
+
+        T = TypeVar("T")
+
+        class IMock(Generic[T], IInspectable):
+            _classid_ = "IMockT"
+            _piid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def f(self) -> E: ...
+
+            @winrt_commethod(7)
+            def g(self) -> T: ...
+
+        class Mock(ComClass, IMock[E]):
+            def f(self) -> E:
+                return E.A
+
+            def g(self) -> E:
+                return E.A
+
+        mock = Mock().as_(IMock[E])
+
+        self.assertEqual(mock.f(), E.A)
+        self.assertEqual(mock.g(), E.A)

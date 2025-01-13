@@ -34,6 +34,7 @@ from win32more import (
     ComMethod,
     ComPtr,
     Double,
+    Enum,
     Guid,
     Int32,
     Int64,
@@ -49,7 +50,6 @@ from win32more import (
     get_type_hints,
     parse_arguments,
     windll,
-    Enum,
 )
 from win32more.Windows.Win32.Foundation import (
     E_FAIL,
