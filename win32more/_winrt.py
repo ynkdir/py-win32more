@@ -665,6 +665,10 @@ class WinrtMethodCall:
             return unbox_value(result)
         elif issubclass(_get_origin_or_itself(self.restype), Enum):
             return result.value
+        elif is_com_class(self.restype):
+            if not result:
+                return None
+            return result
         return result.__ctypes_from_outparam__()
 
 

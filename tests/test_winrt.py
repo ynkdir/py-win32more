@@ -342,3 +342,19 @@ class TestWinrt(unittest.TestCase):
 
         self.assertEqual(mock.f(), E.A)
         self.assertEqual(mock.g(), E.A)
+
+    def test_null_com_pointer_will_be_returned_as_none(self):
+        class IMock(IInspectable):
+            _classid_ = "IMock"
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def f(self) -> IInspectable: ...
+
+        class Mock(ComClass, IMock):
+            def f(self) -> IInspectable:
+                return None
+
+        mock = Mock().as_(IMock)
+
+        self.assertIsNone(mock.f())
