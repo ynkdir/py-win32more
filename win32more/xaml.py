@@ -145,7 +145,10 @@ class XamlComponentConnector:
                 if k == f"{{{XMLNS_XAML}}}Name":
                     self._connectors[i].append(partial(self._connect_name, component, v))
                 elif k in _event_names:
-                    self._connectors[i].append(partial(self._connect_event, component, k, v))
+                    if e == root:
+                        self._connectors[i].append(partial(self._connect_event_root, component, k, v))
+                    else:
+                        self._connectors[i].append(partial(self._connect_event, component, k, v))
                     del e.attrib[k]
             if self._connectors[i]:
                 e.attrib[f"{{{XMLNS_XAML}}}ConnectionId"] = str(i)
@@ -156,6 +159,10 @@ class XamlComponentConnector:
 
     def _connect_event(self, component, event_name, method_name, target):
         event_setter = getattr(as_runtime_class(target), event_name)
+        event_setter += getattr(component, method_name)
+
+    def _connect_event_root(self, component, event_name, method_name, target):
+        event_setter = getattr(component, event_name)
         event_setter += getattr(component, method_name)
 
 
