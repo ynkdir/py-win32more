@@ -11,7 +11,17 @@ from win32more._winrt import (
     get_args,
     is_com_class,
 )
-from win32more.Windows.Foundation.Collections import IIterable, IIterator, IVector, IVectorView
+from win32more.Windows.Foundation import EventRegistrationToken
+from win32more.Windows.Foundation.Collections import (
+    CollectionChange,
+    IIterable,
+    IIterator,
+    IObservableVector,
+    IVector,
+    IVectorChangedEventArgs,
+    IVectorView,
+    VectorChangedEventHandler,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -27,11 +37,13 @@ class GenericInitialize:
             raise
 
 
-class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T]):
+class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):
     __orig_class__ = GenericInitialize()
 
     def __init__(self, lst: list[T] | None = None) -> None:
         self._lst = lst
+        self._observers = {}
+        self._observers_count = 0
 
     def __init_generic__(self) -> None:
         super().__init__(own=True)
@@ -40,6 +52,10 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T]):
 
         if self._lst is None:
             self._lst = []
+
+        if is_com_class(self._type):
+            for v in self._lst:
+                v.AddRef()
 
     def GetAt(self, index: UInt32) -> T:
         return self._lst[index]
@@ -59,27 +75,35 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T]):
 
     def SetAt(self, index: UInt32, value: T) -> Void:
         if is_com_class(self._type):
+            self._lst[index].Release()
             value.AddRef()
         self._lst[index] = value
+        self._notify(VectorChangedEventArgs(CollectionChange.ItemChanged, index))
 
     def InsertAt(self, index: UInt32, value: T) -> Void:
         if is_com_class(self._type):
             value.AddRef()
         self._lst.insert(index, value)
+        self._notify(VectorChangedEventArgs(CollectionChange.ItemInserted, index))
 
     def RemoveAt(self, index: UInt32) -> Void:
-        del self._lst[index]
+        value = self._lst.pop(index)
+        if is_com_class(self._type):
+            value.Release()
+        self._notify(VectorChangedEventArgs(CollectionChange.ItemRemoved, index))
 
     def Append(self, value: T) -> Void:
-        if is_com_class(self._type):
-            value.AddRef()
-        self._lst.append(value)
+        self.InsertAt(len(self._lst), value)
 
     def RemoveAtEnd(self) -> Void:
-        del self._lst[-1]
+        self.RemoveAt(len(self) - 1)
 
     def Clear(self) -> Void:
+        if is_com_class(self._type):
+            for v in self._lst:
+                v.Release()
         self._lst[:] = []
+        self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
 
     def GetMany(self, startIndex: UInt32, items: FillArray[T]) -> UInt32:
         numcopied = 0
@@ -91,13 +115,32 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T]):
         return numcopied
 
     def ReplaceAll(self, items: PassArray[T]) -> Void:
-        self._lst[:] = items
+        if is_com_class(self._type):
+            for v in items:
+                v.AddRef()
         if is_com_class(self._type):
             for v in self._lst:
-                v.AddRef()
+                v.Release()
+        self._lst[:] = items
+        # FIXME: ?
+        self._notify(VectorChangedEventArgs(CollectionChange.Reset, 0))
 
     def First(self) -> IIterator[T]:
         return Iterator[self._type](self._lst)
+
+    def add_VectorChanged(self, vhnd: VectorChangedEventHandler[T]) -> EventRegistrationToken:
+        self._observers_count += 1
+        self._observers[self._observers_count] = vhnd
+        vhnd.AddRef()
+        return EventRegistrationToken(self._observers_count)
+
+    def remove_VectorChanged(self, token: EventRegistrationToken) -> Void:
+        vhnd = self._observers.pop(token.Value)
+        vhnd.Release()
+
+    def _notify(self, args):
+        for observer in self._observers.values():
+            observer.Invoke(self, args)
 
 
 class Iterator(ComClass, IIterator[T]):
@@ -130,3 +173,16 @@ class Iterator(ComClass, IIterator[T]):
             items[numcopied] = self._lst[i]
             numcopied += 1
         return numcopied
+
+
+class VectorChangedEventArgs(ComClass, IVectorChangedEventArgs):
+    def __init__(self, collection_change: CollectionChange, index: int) -> None:
+        super().__init__(own=True)
+        self._collection_change = collection_change
+        self._index = index
+
+    def get_CollectionChange(self) -> CollectionChange:
+        return self._collection_change
+
+    def get_Index(self) -> UInt32:
+        return self._index
