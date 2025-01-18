@@ -391,7 +391,7 @@ class PassArrayCallback:
             if type_ is WinRT_String:
                 self._lst.append(_windows_get_string_raw_buffer(ptr[i]))
             else:
-                self._lst.append(ptr[i])
+                self._lst.append(type_.from_buffer_copy(ptr[i]))
 
     def later(self):
         pass
