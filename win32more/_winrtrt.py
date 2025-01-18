@@ -11,7 +11,7 @@ from win32more._winrt import (
     get_args,
     is_com_class,
 )
-from win32more.Windows.Foundation.Collections import IVector, IVectorView
+from win32more.Windows.Foundation.Collections import IIterable, IIterator, IVector, IVectorView
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class GenericInitialize:
             raise
 
 
-class Vector(ComClass, IVector[T], IVectorView[T]):
+class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T]):
     __orig_class__ = GenericInitialize()
 
     def __init__(self, lst: list[T] | None = None) -> None:
@@ -95,3 +95,38 @@ class Vector(ComClass, IVector[T], IVectorView[T]):
         if is_com_class(self._type):
             for v in self._lst:
                 v.AddRef()
+
+    def First(self) -> IIterator[T]:
+        return Iterator[self._type](self._lst)
+
+
+class Iterator(ComClass, IIterator[T]):
+    __orig_class__ = GenericInitialize()
+
+    def __init__(self, lst: list[T] | None = None) -> None:
+        self._lst = lst
+        self._index = 0
+
+    def __init_generic__(self) -> None:
+        super().__init__(own=True)
+
+        self._type = get_args(self.__orig_class__)[0]
+
+    def get_Current(self) -> T:
+        return self._lst[self._index]
+
+    def get_HasCurrent(self) -> Boolean:
+        return self._index < len(self._lst)
+
+    def MoveNext(self) -> Boolean:
+        self._index += 1
+        return self._index < len(self._lst)
+
+    def GetMany(self, items: FillArray[T]) -> UInt32:
+        numcopied = 0
+        for i in range(len(items)):
+            if i >= len(self._lst):
+                break
+            items[numcopied] = self._lst[i]
+            numcopied += 1
+        return numcopied
