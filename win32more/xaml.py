@@ -608,4 +608,5 @@ _event_names = {
 
 _path_names = {
     "Source",
+    "ProfilePicture",
 }
