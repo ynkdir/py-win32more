@@ -15,11 +15,17 @@ class HandCrankRunner:
     def __enter__(self):
         self._loop = self._loop_factory()
         self._loop.stop()
-        self._loop._run_forever_setup()
+        if sys.version_info < (3, 13):
+            asyncio.events._set_running_loop(self._loop)
+        else:
+            self._loop._run_forever_setup()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        self._loop._run_forever_cleanup()
+        if sys.version_info < (3, 13):
+            asyncio.events._set_running_loop(None)
+        else:
+            self._loop._run_forever_cleanup()
         self._loop.close()
         self._loop = None
 
