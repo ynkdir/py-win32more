@@ -152,13 +152,9 @@ class XamlComponentConnector:
                     del e.attrib[k]
                 elif k in _path_names and xaml_path is not None:
                     # FIXME: Workaround for relative path.
-                    try:
-                        src_path = xaml_path.with_name(v)
-                    except ValueError:
-                        pass
-                    else:
-                        if src_path.exists():
-                            e.attrib[k] = src_path.absolute().as_posix()
+                    src_path = Path(xaml_path).parent / v
+                    if src_path.exists():
+                        e.attrib[k] = src_path.absolute().as_posix()
             if self._connectors[i]:
                 e.attrib[f"{{{XMLNS_XAML}}}ConnectionId"] = str(i)
         return ET.tostring(root, encoding="unicode")
