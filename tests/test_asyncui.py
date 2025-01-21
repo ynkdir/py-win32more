@@ -59,6 +59,18 @@ class TestAsyncui(unittest.TestCase):
         self.assertEqual(trace[0], (1, threading.get_ident()))
         self.assertEqual(trace[1], (2, threading.get_ident()))
 
+    def test_hand_crank_runner_which_uses_asyncio_private_works_with_any_python_version(self):
+        async def f():
+            await asyncio.sleep(0)
+            trace.append(42)
+
+        trace = []
+        with asyncui.HandCrankRunner() as runner:
+            task = asyncio.create_task(f())
+            while not task.done():
+                runner.update()
+        self.assertEqual(trace, [42])
+
 
 if __name__ == "__main__":
     unittest.main()
