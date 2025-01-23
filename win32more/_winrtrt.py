@@ -30,14 +30,14 @@ class call_after_orig_class_set:
     def __init__(self, orig_init):
         self._orig_init = orig_init
 
-    def __set_name__(self, cls, name):
-        cls.__orig_class__ = CallbackDescriptor(self._on_set_orig_class)
+    def __set_name__(self, owner, name):
+        owner.__orig_class__ = self
 
     def __call__(self, *args, **kwargs):
         self._args = args
         self._kwargs = kwargs
 
-    def _on_set_orig_class(self, instance, value):
+    def __set__(self, instance, value):
         instance.__dict__["__orig_class__"] = value
         try:
             self._orig_init(instance, *self._args, **self._kwargs)
@@ -45,14 +45,6 @@ class call_after_orig_class_set:
             # _BaseGenericAlias.__call__() ignore error
             logger.exception("Unhandled exception caught")
             raise
-
-
-class CallbackDescriptor:
-    def __init__(self, callback):
-        self._callback = callback
-
-    def __set__(self, instance, value):
-        self._callback(instance, value)
 
 
 class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):
