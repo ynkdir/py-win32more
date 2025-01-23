@@ -52,6 +52,8 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
 
         if self._lst is None:
             self._lst = []
+        else:
+            self._lst = list(self._lst)
 
         if is_com_class(self._type):
             for v in self._lst:
