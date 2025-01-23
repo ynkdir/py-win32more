@@ -26,34 +26,49 @@ from win32more.Windows.Foundation.Collections import (
 logger = logging.getLogger(__name__)
 
 
-class GenericInitialize:
-    def __set__(self, instance, value):
+class call_after_orig_class_set:
+    def __init__(self, orig_init):
+        self._orig_init = orig_init
+
+    def __set_name__(self, cls, name):
+        cls.__orig_class__ = CallbackDescriptor(self._on_set_orig_class)
+
+    def __call__(self, *args, **kwargs):
+        self._args = args
+        self._kwargs = kwargs
+
+    def _on_set_orig_class(self, instance, value):
         instance.__dict__["__orig_class__"] = value
         try:
-            instance.__init_generic__()
+            self._orig_init(instance, *self._args, **self._kwargs)
         except Exception:
             # _BaseGenericAlias.__call__() ignore error
             logger.exception("Unhandled exception caught")
             raise
 
 
+class CallbackDescriptor:
+    def __init__(self, callback):
+        self._callback = callback
+
+    def __set__(self, instance, value):
+        self._callback(instance, value)
+
+
 class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVector[T]):
-    __orig_class__ = GenericInitialize()
-
+    @call_after_orig_class_set
     def __init__(self, lst: list[T] | None = None) -> None:
-        self._lst = lst
-        self._observers = {}
-        self._observers_count = 0
-
-    def __init_generic__(self) -> None:
         super().__init__(own=True)
 
         self._type = get_args(self.__orig_class__)[0]
 
-        if self._lst is None:
+        self._observers = {}
+        self._observers_count = 0
+
+        if lst is None:
             self._lst = []
         else:
-            self._lst = list(self._lst)
+            self._lst = list(lst)
 
         if is_com_class(self._type):
             for v in self._lst:
@@ -146,16 +161,14 @@ class Vector(ComClass, IVector[T], IVectorView[T], IIterable[T], IObservableVect
 
 
 class Iterator(ComClass, IIterator[T]):
-    __orig_class__ = GenericInitialize()
-
+    @call_after_orig_class_set
     def __init__(self, lst: list[T] | None = None) -> None:
-        self._lst = lst
-        self._index = 0
-
-    def __init_generic__(self) -> None:
         super().__init__(own=True)
 
         self._type = get_args(self.__orig_class__)[0]
+
+        self._lst = lst
+        self._index = 0
 
     def get_Current(self) -> T:
         return self._lst[self._index]
