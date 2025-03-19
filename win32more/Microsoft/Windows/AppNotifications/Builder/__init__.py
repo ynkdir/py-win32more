@@ -82,7 +82,7 @@ class AppNotificationBuilder(ComPtr):
     def SetGroup(self: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationBuilder, group: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationBuilder: ...
     @winrt_classmethod
     def IsUrgentScenarioSupported(cls: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationBuilderStatics) -> Boolean: ...
-AppNotificationBuilderContract: UInt32 = 65536
+AppNotificationBuilderContract: UInt32 = 131072
 class AppNotificationButton(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationButton

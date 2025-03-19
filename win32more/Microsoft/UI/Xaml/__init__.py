@@ -4136,6 +4136,29 @@ class IWindowVisibilityChangedEventArgs(ComPtr):
     def get_Visible(self) -> Boolean: ...
     Handled = property(get_Handled, put_Handled)
     Visible = property(get_Visible, None)
+class IXamlIsland(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.IXamlIsland'
+    _iid_ = Guid('{845a5c62-b0f3-5db8-b4ff-4142bbd8a044}')
+    @winrt_commethod(6)
+    def get_Content(self) -> win32more.Microsoft.UI.Xaml.UIElement: ...
+    @winrt_commethod(7)
+    def put_Content(self, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    @winrt_commethod(8)
+    def get_ContentIsland(self) -> win32more.Microsoft.UI.Content.ContentIsland: ...
+    @winrt_commethod(9)
+    def get_SystemBackdrop(self) -> win32more.Microsoft.UI.Xaml.Media.SystemBackdrop: ...
+    @winrt_commethod(10)
+    def put_SystemBackdrop(self, value: win32more.Microsoft.UI.Xaml.Media.SystemBackdrop) -> Void: ...
+    Content = property(get_Content, put_Content)
+    ContentIsland = property(get_ContentIsland, None)
+    SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
+class IXamlIslandFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.IXamlIslandFactory'
+    _iid_ = Guid('{267f707c-5e18-57b4-9ff7-d11da66e4a11}')
+    @winrt_commethod(6)
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.XamlIsland: ...
 class IXamlResourceReferenceFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IXamlResourceReferenceFailedEventArgs'
@@ -4178,6 +4201,13 @@ class IXamlRoot3(ComPtr):
     @winrt_commethod(6)
     def get_CoordinateConverter(self) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
     CoordinateConverter = property(get_CoordinateConverter, None)
+class IXamlRoot4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.IXamlRoot4'
+    _iid_ = Guid('{377bec22-632b-52be-b26f-5edf7838e5ca}')
+    @winrt_commethod(6)
+    def get_ContentIsland(self) -> win32more.Microsoft.UI.Content.ContentIsland: ...
+    ContentIsland = property(get_ContentIsland, None)
 class IXamlRootChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.IXamlRootChangedEventArgs'
@@ -5844,7 +5874,7 @@ class VisualTransition(ComPtr):
     GeneratedEasingFunction = property(get_GeneratedEasingFunction, put_GeneratedEasingFunction)
     Storyboard = property(get_Storyboard, put_Storyboard)
     To = property(get_To, put_To)
-WinUIContract: UInt32 = 458752
+WinUIContract: UInt32 = 524288
 class _Window_Meta_(ComPtr.__class__):
     pass
 class Window(ComPtr, metaclass=_Window_Meta_):
@@ -5979,7 +6009,36 @@ class WindowVisibilityChangedEventArgs(ComPtr):
     def get_Visible(self: win32more.Microsoft.UI.Xaml.IWindowVisibilityChangedEventArgs) -> Boolean: ...
     Handled = property(get_Handled, put_Handled)
     Visible = property(get_Visible, None)
-XamlContract: UInt32 = 458752
+XamlContract: UInt32 = 524288
+class XamlIsland(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    implements: Tuple[ContextManagerProtocol]
+    default_interface: win32more.Microsoft.UI.Xaml.IXamlIsland
+    _classid_ = 'Microsoft.UI.Xaml.XamlIsland'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Microsoft.UI.Xaml.XamlIsland.CreateInstance(*args, None, None))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.IXamlIslandFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.XamlIsland: ...
+    @winrt_mixinmethod
+    def get_Content(self: win32more.Microsoft.UI.Xaml.IXamlIsland) -> win32more.Microsoft.UI.Xaml.UIElement: ...
+    @winrt_mixinmethod
+    def put_Content(self: win32more.Microsoft.UI.Xaml.IXamlIsland, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    @winrt_mixinmethod
+    def get_ContentIsland(self: win32more.Microsoft.UI.Xaml.IXamlIsland) -> win32more.Microsoft.UI.Content.ContentIsland: ...
+    @winrt_mixinmethod
+    def get_SystemBackdrop(self: win32more.Microsoft.UI.Xaml.IXamlIsland) -> win32more.Microsoft.UI.Xaml.Media.SystemBackdrop: ...
+    @winrt_mixinmethod
+    def put_SystemBackdrop(self: win32more.Microsoft.UI.Xaml.IXamlIsland, value: win32more.Microsoft.UI.Xaml.Media.SystemBackdrop) -> Void: ...
+    @winrt_mixinmethod
+    def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
+    Content = property(get_Content, put_Content)
+    ContentIsland = property(get_ContentIsland, None)
+    SystemBackdrop = property(get_SystemBackdrop, put_SystemBackdrop)
 class XamlResourceReferenceFailedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.IXamlResourceReferenceFailedEventArgs
@@ -6007,7 +6066,10 @@ class XamlRoot(ComPtr):
     def get_ContentIslandEnvironment(self: win32more.Microsoft.UI.Xaml.IXamlRoot2) -> win32more.Microsoft.UI.Content.ContentIslandEnvironment: ...
     @winrt_mixinmethod
     def get_CoordinateConverter(self: win32more.Microsoft.UI.Xaml.IXamlRoot3) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
+    @winrt_mixinmethod
+    def get_ContentIsland(self: win32more.Microsoft.UI.Xaml.IXamlRoot4) -> win32more.Microsoft.UI.Content.ContentIsland: ...
     Content = property(get_Content, None)
+    ContentIsland = property(get_ContentIsland, None)
     ContentIslandEnvironment = property(get_ContentIslandEnvironment, None)
     CoordinateConverter = property(get_CoordinateConverter, None)
     IsHostVisible = property(get_IsHostVisible, None)

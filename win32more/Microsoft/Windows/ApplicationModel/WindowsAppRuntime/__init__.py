@@ -2,7 +2,9 @@ from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime
+import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
+import win32more.Windows.Foundation.Collections
 import win32more.Windows.Win32.System.WinRT
 DeploymentContract: UInt32 = 262144
 class DeploymentInitializeOptions(ComPtr):
@@ -111,6 +113,121 @@ class IDeploymentResultFactory(ComPtr):
     _iid_ = Guid('{acd7bdae-4ae6-5cac-8205-1e8c305f953b}')
     @winrt_commethod(6)
     def CreateInstance(self, status: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.DeploymentStatus, extendedError: win32more.Windows.Foundation.HResult) -> win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.DeploymentResult: ...
+class IReleaseInfoStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IReleaseInfoStatics'
+    _iid_ = Guid('{ed9be8ff-073c-5c66-bf97-ef0ce67405c3}')
+    @winrt_commethod(6)
+    def get_Major(self) -> UInt16: ...
+    @winrt_commethod(7)
+    def get_Minor(self) -> UInt16: ...
+    @winrt_commethod(8)
+    def get_Patch(self) -> UInt16: ...
+    @winrt_commethod(9)
+    def get_VersionTag(self) -> WinRT_String: ...
+    @winrt_commethod(10)
+    def get_AsString(self) -> WinRT_String: ...
+    AsString = property(get_AsString, None)
+    Major = property(get_Major, None)
+    Minor = property(get_Minor, None)
+    Patch = property(get_Patch, None)
+    VersionTag = property(get_VersionTag, None)
+class IRuntimeCompatibilityOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeCompatibilityOptions'
+    _iid_ = Guid('{d7403bd9-b25d-5b8f-8de1-9dcb57d99f6c}')
+    @winrt_commethod(6)
+    def get_PatchLevel1(self) -> win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.WindowsAppRuntimeVersion: ...
+    @winrt_commethod(7)
+    def put_PatchLevel1(self, value: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.WindowsAppRuntimeVersion) -> Void: ...
+    @winrt_commethod(8)
+    def get_PatchLevel2(self) -> win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.WindowsAppRuntimeVersion: ...
+    @winrt_commethod(9)
+    def put_PatchLevel2(self, value: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.WindowsAppRuntimeVersion) -> Void: ...
+    @winrt_commethod(10)
+    def get_DisabledChanges(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.RuntimeCompatibilityChange]: ...
+    @winrt_commethod(11)
+    def Apply(self) -> Void: ...
+    DisabledChanges = property(get_DisabledChanges, None)
+    PatchLevel1 = property(get_PatchLevel1, put_PatchLevel1)
+    PatchLevel2 = property(get_PatchLevel2, put_PatchLevel2)
+class IRuntimeInfoStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeInfoStatics'
+    _iid_ = Guid('{e5cb9549-8951-590e-a753-8f281cd77ab5}')
+    @winrt_commethod(6)
+    def get_Version(self) -> win32more.Windows.ApplicationModel.PackageVersion: ...
+    @winrt_commethod(7)
+    def get_AsString(self) -> WinRT_String: ...
+    AsString = property(get_AsString, None)
+    Version = property(get_Version, None)
+class _ReleaseInfo_Meta_(ComPtr.__class__):
+    pass
+class ReleaseInfo(ComPtr, metaclass=_ReleaseInfo_Meta_):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.ReleaseInfo'
+    @winrt_classmethod
+    def get_Major(cls: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IReleaseInfoStatics) -> UInt16: ...
+    @winrt_classmethod
+    def get_Minor(cls: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IReleaseInfoStatics) -> UInt16: ...
+    @winrt_classmethod
+    def get_Patch(cls: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IReleaseInfoStatics) -> UInt16: ...
+    @winrt_classmethod
+    def get_VersionTag(cls: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IReleaseInfoStatics) -> WinRT_String: ...
+    @winrt_classmethod
+    def get_AsString(cls: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IReleaseInfoStatics) -> WinRT_String: ...
+    _ReleaseInfo_Meta_.AsString = property(get_AsString, None)
+    _ReleaseInfo_Meta_.Major = property(get_Major, None)
+    _ReleaseInfo_Meta_.Minor = property(get_Minor, None)
+    _ReleaseInfo_Meta_.Patch = property(get_Patch, None)
+    _ReleaseInfo_Meta_.VersionTag = property(get_VersionTag, None)
+class RuntimeCompatibilityChange(Enum, Int32):
+    None_ = 0
+RuntimeCompatibilityContract: UInt32 = 65536
+class RuntimeCompatibilityOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeCompatibilityOptions
+    _classid_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.RuntimeCompatibilityOptions'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.RuntimeCompatibilityOptions.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.RuntimeCompatibilityOptions: ...
+    @winrt_mixinmethod
+    def get_PatchLevel1(self: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeCompatibilityOptions) -> win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.WindowsAppRuntimeVersion: ...
+    @winrt_mixinmethod
+    def put_PatchLevel1(self: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeCompatibilityOptions, value: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.WindowsAppRuntimeVersion) -> Void: ...
+    @winrt_mixinmethod
+    def get_PatchLevel2(self: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeCompatibilityOptions) -> win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.WindowsAppRuntimeVersion: ...
+    @winrt_mixinmethod
+    def put_PatchLevel2(self: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeCompatibilityOptions, value: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.WindowsAppRuntimeVersion) -> Void: ...
+    @winrt_mixinmethod
+    def get_DisabledChanges(self: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeCompatibilityOptions) -> win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.RuntimeCompatibilityChange]: ...
+    @winrt_mixinmethod
+    def Apply(self: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeCompatibilityOptions) -> Void: ...
+    DisabledChanges = property(get_DisabledChanges, None)
+    PatchLevel1 = property(get_PatchLevel1, put_PatchLevel1)
+    PatchLevel2 = property(get_PatchLevel2, put_PatchLevel2)
+class _RuntimeInfo_Meta_(ComPtr.__class__):
+    pass
+class RuntimeInfo(ComPtr, metaclass=_RuntimeInfo_Meta_):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.ApplicationModel.WindowsAppRuntime.RuntimeInfo'
+    @winrt_classmethod
+    def get_Version(cls: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeInfoStatics) -> win32more.Windows.ApplicationModel.PackageVersion: ...
+    @winrt_classmethod
+    def get_AsString(cls: win32more.Microsoft.Windows.ApplicationModel.WindowsAppRuntime.IRuntimeInfoStatics) -> WinRT_String: ...
+    _RuntimeInfo_Meta_.AsString = property(get_AsString, None)
+    _RuntimeInfo_Meta_.Version = property(get_Version, None)
+VersionInfoContract: UInt32 = 65536
+class WindowsAppRuntimeVersion(Structure):
+    Major: UInt32
+    Minor: UInt32
+    Patch: UInt32
 
 
 make_ready(__name__)

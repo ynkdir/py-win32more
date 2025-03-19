@@ -171,7 +171,7 @@ class AppNotificationSetting(Enum, Int32):
     DisabledByGroupPolicy = 3
     DisabledByManifest = 4
     Unsupported = 5
-AppNotificationsContract: UInt32 = 196608
+AppNotificationsContract: UInt32 = 262144
 class IAppNotification(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.IAppNotification'

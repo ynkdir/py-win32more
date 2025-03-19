@@ -6,6 +6,7 @@ import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Input
 import win32more.Microsoft.UI.Text
 import win32more.Microsoft.UI.Xaml
+import win32more.Microsoft.UI.Xaml.Automation.Peers
 import win32more.Microsoft.UI.Xaml.Controls
 import win32more.Microsoft.UI.Xaml.Controls.Primitives
 import win32more.Microsoft.UI.Xaml.Data
@@ -18704,6 +18705,140 @@ class ITimePickerValueChangedEventArgs(ComPtr):
     def get_NewTime(self) -> win32more.Windows.Foundation.TimeSpan: ...
     NewTime = property(get_NewTime, None)
     OldTime = property(get_OldTime, None)
+class ITitleBar(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITitleBar'
+    _iid_ = Guid('{c552714d-5d30-5a2b-9c7a-d68bea3dde8d}')
+    @winrt_commethod(6)
+    def get_Title(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_Title(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_Subtitle(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_Subtitle(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(10)
+    def get_IconSource(self) -> win32more.Microsoft.UI.Xaml.Controls.IconSource: ...
+    @winrt_commethod(11)
+    def put_IconSource(self, value: win32more.Microsoft.UI.Xaml.Controls.IconSource) -> Void: ...
+    @winrt_commethod(12)
+    def get_LeftHeader(self) -> win32more.Microsoft.UI.Xaml.UIElement: ...
+    @winrt_commethod(13)
+    def put_LeftHeader(self, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    @winrt_commethod(14)
+    def get_Content(self) -> win32more.Microsoft.UI.Xaml.UIElement: ...
+    @winrt_commethod(15)
+    def put_Content(self, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    @winrt_commethod(16)
+    def get_RightHeader(self) -> win32more.Microsoft.UI.Xaml.UIElement: ...
+    @winrt_commethod(17)
+    def put_RightHeader(self, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    @winrt_commethod(18)
+    def get_IsBackButtonVisible(self) -> Boolean: ...
+    @winrt_commethod(19)
+    def put_IsBackButtonVisible(self, value: Boolean) -> Void: ...
+    @winrt_commethod(20)
+    def get_IsBackButtonEnabled(self) -> Boolean: ...
+    @winrt_commethod(21)
+    def put_IsBackButtonEnabled(self, value: Boolean) -> Void: ...
+    @winrt_commethod(22)
+    def get_IsPaneToggleButtonVisible(self) -> Boolean: ...
+    @winrt_commethod(23)
+    def put_IsPaneToggleButtonVisible(self, value: Boolean) -> Void: ...
+    @winrt_commethod(24)
+    def get_TemplateSettings(self) -> win32more.Microsoft.UI.Xaml.Controls.TitleBarTemplateSettings: ...
+    @winrt_commethod(25)
+    def add_BackRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TitleBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(26)
+    def remove_BackRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(27)
+    def add_PaneToggleRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TitleBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(28)
+    def remove_PaneToggleRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Content = property(get_Content, put_Content)
+    IconSource = property(get_IconSource, put_IconSource)
+    IsBackButtonEnabled = property(get_IsBackButtonEnabled, put_IsBackButtonEnabled)
+    IsBackButtonVisible = property(get_IsBackButtonVisible, put_IsBackButtonVisible)
+    IsPaneToggleButtonVisible = property(get_IsPaneToggleButtonVisible, put_IsPaneToggleButtonVisible)
+    LeftHeader = property(get_LeftHeader, put_LeftHeader)
+    RightHeader = property(get_RightHeader, put_RightHeader)
+    Subtitle = property(get_Subtitle, put_Subtitle)
+    TemplateSettings = property(get_TemplateSettings, None)
+    Title = property(get_Title, put_Title)
+    BackRequested = event()
+    PaneToggleRequested = event()
+class ITitleBarAutomationPeer(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITitleBarAutomationPeer'
+    _iid_ = Guid('{945f8144-68f1-5731-b850-3d0e664699ea}')
+class ITitleBarAutomationPeerFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITitleBarAutomationPeerFactory'
+    _iid_ = Guid('{fd01dfd8-41ff-5a4f-96ab-c5082262aecd}')
+    @winrt_commethod(6)
+    def CreateInstance(self, owner: win32more.Microsoft.UI.Xaml.Controls.TitleBar, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.TitleBarAutomationPeer: ...
+class ITitleBarFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITitleBarFactory'
+    _iid_ = Guid('{c4452799-4606-59ef-9392-a0548d48b82e}')
+    @winrt_commethod(6)
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.TitleBar: ...
+class ITitleBarStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITitleBarStatics'
+    _iid_ = Guid('{f9ada39b-1f24-5955-9b5c-cacbfe9a41cf}')
+    @winrt_commethod(6)
+    def get_TitleProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(7)
+    def get_SubtitleProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(8)
+    def get_IconSourceProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(9)
+    def get_LeftHeaderProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(10)
+    def get_ContentProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(11)
+    def get_RightHeaderProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(12)
+    def get_IsBackButtonVisibleProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(13)
+    def get_IsBackButtonEnabledProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(14)
+    def get_IsPaneToggleButtonVisibleProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_commethod(15)
+    def get_TemplateSettingsProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    ContentProperty = property(get_ContentProperty, None)
+    IconSourceProperty = property(get_IconSourceProperty, None)
+    IsBackButtonEnabledProperty = property(get_IsBackButtonEnabledProperty, None)
+    IsBackButtonVisibleProperty = property(get_IsBackButtonVisibleProperty, None)
+    IsPaneToggleButtonVisibleProperty = property(get_IsPaneToggleButtonVisibleProperty, None)
+    LeftHeaderProperty = property(get_LeftHeaderProperty, None)
+    RightHeaderProperty = property(get_RightHeaderProperty, None)
+    SubtitleProperty = property(get_SubtitleProperty, None)
+    TemplateSettingsProperty = property(get_TemplateSettingsProperty, None)
+    TitleProperty = property(get_TitleProperty, None)
+class ITitleBarTemplateSettings(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITitleBarTemplateSettings'
+    _iid_ = Guid('{be19011a-4957-5332-98b8-1704401b6a0e}')
+    @winrt_commethod(6)
+    def get_IconElement(self) -> win32more.Microsoft.UI.Xaml.Controls.IconElement: ...
+    @winrt_commethod(7)
+    def put_IconElement(self, value: win32more.Microsoft.UI.Xaml.Controls.IconElement) -> Void: ...
+    IconElement = property(get_IconElement, put_IconElement)
+class ITitleBarTemplateSettingsFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITitleBarTemplateSettingsFactory'
+    _iid_ = Guid('{fcf9e48c-dfe4-55f3-b179-b900a7ae9c25}')
+    @winrt_commethod(6)
+    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.TitleBarTemplateSettings: ...
+class ITitleBarTemplateSettingsStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Xaml.Controls.ITitleBarTemplateSettingsStatics'
+    _iid_ = Guid('{f568e19b-b9af-5f1f-a752-482f12887434}')
+    @winrt_commethod(6)
+    def get_IconElementProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    IconElementProperty = property(get_IconElementProperty, None)
 class IToggleMenuFlyoutItem(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Controls.IToggleMenuFlyoutItem'
@@ -30000,6 +30135,145 @@ class TimePickerValueChangedEventArgs(ComPtr):
     def get_NewTime(self: win32more.Microsoft.UI.Xaml.Controls.ITimePickerValueChangedEventArgs) -> win32more.Windows.Foundation.TimeSpan: ...
     NewTime = property(get_NewTime, None)
     OldTime = property(get_OldTime, None)
+class _TitleBar_Meta_(ComPtr.__class__):
+    pass
+class TitleBar(ComPtr, metaclass=_TitleBar_Meta_):
+    extends: win32more.Microsoft.UI.Xaml.Controls.Control
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ITitleBar
+    _classid_ = 'Microsoft.UI.Xaml.Controls.TitleBar'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Controls.TitleBar.CreateInstance(*args, None, None))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.TitleBar: ...
+    @winrt_mixinmethod
+    def get_Title(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Title(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Subtitle(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Subtitle(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_IconSource(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> win32more.Microsoft.UI.Xaml.Controls.IconSource: ...
+    @winrt_mixinmethod
+    def put_IconSource(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, value: win32more.Microsoft.UI.Xaml.Controls.IconSource) -> Void: ...
+    @winrt_mixinmethod
+    def get_LeftHeader(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> win32more.Microsoft.UI.Xaml.UIElement: ...
+    @winrt_mixinmethod
+    def put_LeftHeader(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    @winrt_mixinmethod
+    def get_Content(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> win32more.Microsoft.UI.Xaml.UIElement: ...
+    @winrt_mixinmethod
+    def put_Content(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    @winrt_mixinmethod
+    def get_RightHeader(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> win32more.Microsoft.UI.Xaml.UIElement: ...
+    @winrt_mixinmethod
+    def put_RightHeader(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
+    @winrt_mixinmethod
+    def get_IsBackButtonVisible(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_IsBackButtonVisible(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_IsBackButtonEnabled(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_IsBackButtonEnabled(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_IsPaneToggleButtonVisible(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_IsPaneToggleButtonVisible(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_TemplateSettings(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar) -> win32more.Microsoft.UI.Xaml.Controls.TitleBarTemplateSettings: ...
+    @winrt_mixinmethod
+    def add_BackRequested(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TitleBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_BackRequested(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_PaneToggleRequested(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Controls.TitleBar, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_PaneToggleRequested(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBar, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def get_TitleProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_SubtitleProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_IconSourceProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_LeftHeaderProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_ContentProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_RightHeaderProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_IsBackButtonVisibleProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_IsBackButtonEnabledProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_IsPaneToggleButtonVisibleProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    @winrt_classmethod
+    def get_TemplateSettingsProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    Content = property(get_Content, put_Content)
+    IconSource = property(get_IconSource, put_IconSource)
+    IsBackButtonEnabled = property(get_IsBackButtonEnabled, put_IsBackButtonEnabled)
+    IsBackButtonVisible = property(get_IsBackButtonVisible, put_IsBackButtonVisible)
+    IsPaneToggleButtonVisible = property(get_IsPaneToggleButtonVisible, put_IsPaneToggleButtonVisible)
+    LeftHeader = property(get_LeftHeader, put_LeftHeader)
+    RightHeader = property(get_RightHeader, put_RightHeader)
+    Subtitle = property(get_Subtitle, put_Subtitle)
+    TemplateSettings = property(get_TemplateSettings, None)
+    Title = property(get_Title, put_Title)
+    _TitleBar_Meta_.ContentProperty = property(get_ContentProperty, None)
+    _TitleBar_Meta_.IconSourceProperty = property(get_IconSourceProperty, None)
+    _TitleBar_Meta_.IsBackButtonEnabledProperty = property(get_IsBackButtonEnabledProperty, None)
+    _TitleBar_Meta_.IsBackButtonVisibleProperty = property(get_IsBackButtonVisibleProperty, None)
+    _TitleBar_Meta_.IsPaneToggleButtonVisibleProperty = property(get_IsPaneToggleButtonVisibleProperty, None)
+    _TitleBar_Meta_.LeftHeaderProperty = property(get_LeftHeaderProperty, None)
+    _TitleBar_Meta_.RightHeaderProperty = property(get_RightHeaderProperty, None)
+    _TitleBar_Meta_.SubtitleProperty = property(get_SubtitleProperty, None)
+    _TitleBar_Meta_.TemplateSettingsProperty = property(get_TemplateSettingsProperty, None)
+    _TitleBar_Meta_.TitleProperty = property(get_TitleProperty, None)
+    BackRequested = event()
+    PaneToggleRequested = event()
+class TitleBarAutomationPeer(ComPtr):
+    extends: win32more.Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ITitleBarAutomationPeer
+    _classid_ = 'Microsoft.UI.Xaml.Controls.TitleBarAutomationPeer'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 1:
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Controls.TitleBarAutomationPeer.CreateInstance(*args, None, None))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarAutomationPeerFactory, owner: win32more.Microsoft.UI.Xaml.Controls.TitleBar, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.TitleBarAutomationPeer: ...
+class _TitleBarTemplateSettings_Meta_(ComPtr.__class__):
+    pass
+class TitleBarTemplateSettings(ComPtr, metaclass=_TitleBarTemplateSettings_Meta_):
+    extends: win32more.Microsoft.UI.Xaml.DependencyObject
+    default_interface: win32more.Microsoft.UI.Xaml.Controls.ITitleBarTemplateSettings
+    _classid_ = 'Microsoft.UI.Xaml.Controls.TitleBarTemplateSettings'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Microsoft.UI.Xaml.Controls.TitleBarTemplateSettings.CreateInstance(*args, None, None))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarTemplateSettingsFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Controls.TitleBarTemplateSettings: ...
+    @winrt_mixinmethod
+    def get_IconElement(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBarTemplateSettings) -> win32more.Microsoft.UI.Xaml.Controls.IconElement: ...
+    @winrt_mixinmethod
+    def put_IconElement(self: win32more.Microsoft.UI.Xaml.Controls.ITitleBarTemplateSettings, value: win32more.Microsoft.UI.Xaml.Controls.IconElement) -> Void: ...
+    @winrt_classmethod
+    def get_IconElementProperty(cls: win32more.Microsoft.UI.Xaml.Controls.ITitleBarTemplateSettingsStatics) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
+    IconElement = property(get_IconElement, put_IconElement)
+    _TitleBarTemplateSettings_Meta_.IconElementProperty = property(get_IconElementProperty, None)
 class _ToggleMenuFlyoutItem_Meta_(ComPtr.__class__):
     pass
 class ToggleMenuFlyoutItem(ComPtr, metaclass=_ToggleMenuFlyoutItem_Meta_):

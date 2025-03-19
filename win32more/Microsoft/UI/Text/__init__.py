@@ -333,6 +333,18 @@ class ITextDocument(ComPtr):
     IgnoreTrailingCharacterSpacing = property(get_IgnoreTrailingCharacterSpacing, put_IgnoreTrailingCharacterSpacing)
     Selection = property(get_Selection, None)
     UndoLimit = property(get_UndoLimit, put_UndoLimit)
+class ITextDocument2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.UI.Text.ITextDocument2'
+    _iid_ = Guid('{21febcf1-2110-5879-b1da-b343097e71e1}')
+    @winrt_commethod(6)
+    def GetMathMode(self) -> win32more.Microsoft.UI.Text.RichEditMathMode: ...
+    @winrt_commethod(7)
+    def SetMathMode(self, mode: win32more.Microsoft.UI.Text.RichEditMathMode) -> Void: ...
+    @winrt_commethod(8)
+    def GetMathML(self, value: POINTER(WinRT_String)) -> Void: ...
+    @winrt_commethod(9)
+    def SetMathML(self, value: WinRT_String) -> Void: ...
 class ITextParagraphFormat(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.UI.Text.ITextParagraphFormat'
@@ -766,6 +778,14 @@ class RichEditTextDocument(ComPtr):
     def put_IgnoreTrailingCharacterSpacing(self: win32more.Microsoft.UI.Text.ITextDocument, value: Boolean) -> Void: ...
     @winrt_mixinmethod
     def ClearUndoRedoHistory(self: win32more.Microsoft.UI.Text.ITextDocument) -> Void: ...
+    @winrt_mixinmethod
+    def GetMathMode(self: win32more.Microsoft.UI.Text.ITextDocument2) -> win32more.Microsoft.UI.Text.RichEditMathMode: ...
+    @winrt_mixinmethod
+    def SetMathMode(self: win32more.Microsoft.UI.Text.ITextDocument2, mode: win32more.Microsoft.UI.Text.RichEditMathMode) -> Void: ...
+    @winrt_mixinmethod
+    def GetMathML(self: win32more.Microsoft.UI.Text.ITextDocument2, value: POINTER(WinRT_String)) -> Void: ...
+    @winrt_mixinmethod
+    def SetMathML(self: win32more.Microsoft.UI.Text.ITextDocument2, value: WinRT_String) -> Void: ...
     AlignmentIncludesTrailingWhitespace = property(get_AlignmentIncludesTrailingWhitespace, put_AlignmentIncludesTrailingWhitespace)
     CaretType = property(get_CaretType, put_CaretType)
     DefaultTabStop = property(get_DefaultTabStop, put_DefaultTabStop)
@@ -916,6 +936,7 @@ class TabLeader(Enum, Int32):
     Lines = 3
     ThickLines = 4
     Equals = 5
+TextApiContract: UInt32 = 131072
 class _TextConstants_Meta_(ComPtr.__class__):
     pass
 class TextConstants(ComPtr, metaclass=_TextConstants_Meta_):
