@@ -183,6 +183,14 @@ class ReleaseInfo(ComPtr, metaclass=_ReleaseInfo_Meta_):
     _ReleaseInfo_Meta_.VersionTag = property(get_VersionTag, None)
 class RuntimeCompatibilityChange(Enum, Int32):
     None_ = 0
+    EnsurePackageReadyVersionSupercedence = 56439870
+    FixPopupClosingReentrancyCrash = 56870998
+    FixPopupUnloadingCrash = 56686624
+    FixRandomUIFreezeInDispatcher = 56545444
+    FixSetProgressBarIndicatorWidthCrash = 56779522
+    FixStuckPointerInputQueue = 56620717
+    FixWebViewVisibilityReentrancyCrash = 56852985
+    FixWindowCloseFocusCrash = 56873234
 RuntimeCompatibilityContract: UInt32 = 65536
 class RuntimeCompatibilityOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
