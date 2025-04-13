@@ -114,8 +114,8 @@ def MddBootstrapShutdown() -> None:
 
 
 def _IsWin11() -> bool:
-    # FIXME: RoActivateInstance() failes
     return False
+    # TODO: We can drop mddbootstrap dependencies on Windows11.
     # return sys.getwindowsversion() >= (10, 0, 22000)
 
 
