@@ -101,8 +101,14 @@ class ThreadPoolTaskExecutor:
         loop.run_forever()
         if task.done():
             loop.run_until_complete(task)  # ensure calling done callback
+            loop.close()
             future = Future()
             future.set_result(task.result())
             return future
         # continue in background thread
-        return self._thread_pool.submit(loop.run_until_complete, task)
+        return self._thread_pool.submit(self._background, loop, task)
+
+    def _background(self, loop, task):
+        loop.run_until_complete(task)
+        loop.close()
+        return task.result()
