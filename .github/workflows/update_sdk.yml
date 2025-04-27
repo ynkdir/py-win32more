@@ -38,6 +38,12 @@ jobs:
             allow_prerelease: false
             script_file_name: "scripts\\get_winrt.ps1"
             json_file_name: "WindowsSDK.json"
+          - name: "Microsoft.Graphics.Win2D"
+            commit_message: "Microsoft.Graphics.Win2D"
+            allow_prerelease: false
+            script_file_name: "scripts\\get_win2d.ps1"
+            additional_script: "scripts\\update_win2d.py"
+            json_file_name: "Microsoft.Graphics.Canvas.json"
 
     steps:
     - name: git config
