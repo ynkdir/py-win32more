@@ -358,3 +358,7 @@ class TestWinrt(unittest.TestCase):
         mock = Mock().as_(IMock)
 
         self.assertIsNone(mock.f())
+
+
+if __name__ == "__main__":
+    unittest.main()
