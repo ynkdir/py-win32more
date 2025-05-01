@@ -1,5 +1,6 @@
 import argparse
 import ast
+import unittest
 from collections.abc import Iterable
 
 PACKAGE_NAME = "win32more"
@@ -85,6 +86,48 @@ def main() -> None:
 
     for name in sorted(find_used_api(tree)):
         print(name)
+
+
+class TestFindUsedApi(unittest.TestCase):
+    def test_find_used_api(self):
+        self.assertEqual(
+            find_used_api(
+                ast.parse(
+                    """
+import win32more
+import win32more.Windows.Win32.Foundation
+import win32more.Windows.Win32.Graphics.Direct2D
+import win32more.Windows.Win32.System.Com as com
+from win32more.Windows.Win32.UI.WindowsAndMessaging import MessageBox, MB_OK as ok
+
+win32more.UInt32
+win32more.Windows.Win32.Foundation.S_OK
+com.COINIT_APARTMENTTHREADED
+"""
+                )
+            ),
+            {
+                "win32more.UInt32",
+                "win32more.Windows.Win32.Foundation.S_OK",
+                "win32more.Windows.Win32.System.Com.COINIT_APARTMENTTHREADED",
+                "win32more.Windows.Win32.UI.WindowsAndMessaging.MessageBox",
+                "win32more.Windows.Win32.UI.WindowsAndMessaging.MB_OK",
+            },
+        )
+
+    def test_wrong_result_for_not_properly_imported_module(self):
+        self.assertEqual(
+            find_used_api(
+                ast.parse(
+                    """
+import win32more
+
+win32more.Windows.Win32.Foundation.S_OK
+"""
+                )
+            ),
+            {"win32more.Windows"},
+        )
 
 
 if __name__ == "__main__":
