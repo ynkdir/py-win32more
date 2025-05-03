@@ -1,7 +1,6 @@
 import socket
-from ctypes import WinError, create_string_buffer
 
-from win32more import UInt32
+from win32more import UInt32, WinError
 from win32more.Windows.Win32.Foundation import ERROR_INSUFFICIENT_BUFFER, NO_ERROR
 from win32more.Windows.Win32.NetworkManagement.IpHelper import MIB_IPADDRROW_XP, MIB_IPADDRTABLE, GetIpAddrTable
 
@@ -9,7 +8,7 @@ dwSize = UInt32(0)
 if (r := GetIpAddrTable(None, dwSize, False)) != ERROR_INSUFFICIENT_BUFFER:
     raise WinError(r)
 
-buffer = create_string_buffer(dwSize.value)
+buffer = bytearray(dwSize.value)
 
 IpAddrTable = MIB_IPADDRTABLE.from_buffer(buffer)
 if (r := GetIpAddrTable(IpAddrTable, dwSize, False)) != NO_ERROR:
