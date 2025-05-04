@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.WinTrust
 import win32more.Windows.Win32.Storage.FileSystem
@@ -33,37 +33,37 @@ class AER_BRIDGE_DESCRIPTOR_FLAGS(Union):
     AsUSHORT: UInt16
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        UncorrectableErrorMaskRW: Annotated[UInt16, 1]
-        UncorrectableErrorSeverityRW: Annotated[UInt16, 1]
-        CorrectableErrorMaskRW: Annotated[UInt16, 1]
-        AdvancedCapsAndControlRW: Annotated[UInt16, 1]
-        SecondaryUncorrectableErrorMaskRW: Annotated[UInt16, 1]
-        SecondaryUncorrectableErrorSevRW: Annotated[UInt16, 1]
-        SecondaryCapsAndControlRW: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 9]
+        UncorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        UncorrectableErrorSeverityRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        CorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        AdvancedCapsAndControlRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        SecondaryUncorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        SecondaryUncorrectableErrorSevRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        SecondaryCapsAndControlRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(9)]
         _pack_ = 1
 class AER_ENDPOINT_DESCRIPTOR_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        UncorrectableErrorMaskRW: Annotated[UInt16, 1]
-        UncorrectableErrorSeverityRW: Annotated[UInt16, 1]
-        CorrectableErrorMaskRW: Annotated[UInt16, 1]
-        AdvancedCapsAndControlRW: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 12]
+        UncorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        UncorrectableErrorSeverityRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        CorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        AdvancedCapsAndControlRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(12)]
         _pack_ = 1
 class AER_ROOTPORT_DESCRIPTOR_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        UncorrectableErrorMaskRW: Annotated[UInt16, 1]
-        UncorrectableErrorSeverityRW: Annotated[UInt16, 1]
-        CorrectableErrorMaskRW: Annotated[UInt16, 1]
-        AdvancedCapsAndControlRW: Annotated[UInt16, 1]
-        RootErrorCommandRW: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 11]
+        UncorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        UncorrectableErrorSeverityRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        CorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        AdvancedCapsAndControlRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        RootErrorCommandRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(11)]
         _pack_ = 1
 class APC_CALLBACK_DATA(Structure):
     Parameter: UIntPtr
@@ -1974,17 +1974,17 @@ class DUMP_FILE_ATTRIBUTES(Union):
     Anonymous: _Anonymous_e__Struct
     Attributes: UInt32
     class _Anonymous_e__Struct(Structure):
-        HiberCrash: Annotated[UInt32, 1]
-        DumpDevicePowerOff: Annotated[UInt32, 1]
-        InsufficientDumpfileSize: Annotated[UInt32, 1]
-        KernelGeneratedTriageDump: Annotated[UInt32, 1]
-        LiveDumpGeneratedDump: Annotated[UInt32, 1]
-        DumpIsGeneratedOffline: Annotated[UInt32, 1]
-        FilterDumpFile: Annotated[UInt32, 1]
-        EarlyBootCrash: Annotated[UInt32, 1]
-        EncryptedDumpData: Annotated[UInt32, 1]
-        DecryptedDump: Annotated[UInt32, 1]
-        ReservedFlags: Annotated[UInt32, 22]
+        HiberCrash: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        DumpDevicePowerOff: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        InsufficientDumpfileSize: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        KernelGeneratedTriageDump: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        LiveDumpGeneratedDump: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        DumpIsGeneratedOffline: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        FilterDumpFile: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        EarlyBootCrash: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        EncryptedDumpData: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        DecryptedDump: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(22)]
 class DUMP_HEADER32(Structure):
     Signature: UInt32
     ValidDump: UInt32
@@ -2302,12 +2302,12 @@ class FPO_DATA(Structure):
     cbProcSize: UInt32
     cdwLocals: UInt32
     cdwParams: UInt16
-    cbProlog: Annotated[UInt16, 8]
-    cbRegs: Annotated[UInt16, 3]
-    fHasSEH: Annotated[UInt16, 1]
-    fUseBP: Annotated[UInt16, 1]
-    reserved: Annotated[UInt16, 1]
-    cbFrame: Annotated[UInt16, 2]
+    cbProlog: Annotated[UInt16, NativeBitfieldAttribute(8)]
+    cbRegs: Annotated[UInt16, NativeBitfieldAttribute(3)]
+    fHasSEH: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fUseBP: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    reserved: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    cbFrame: Annotated[UInt16, NativeBitfieldAttribute(2)]
 class IDebugExtendedProperty(ComPtr):
     extends: win32more.Windows.Win32.System.Diagnostics.Debug.IDebugProperty
     _iid_ = Guid('{51973c52-cb0c-11d0-b5c9-00a0244a0e7a}')
@@ -2679,13 +2679,13 @@ class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY(Structure):
         UnwindData: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            Flag: Annotated[UInt32, 2]
-            FunctionLength: Annotated[UInt32, 11]
-            RegF: Annotated[UInt32, 3]
-            RegI: Annotated[UInt32, 4]
-            H: Annotated[UInt32, 1]
-            CR: Annotated[UInt32, 2]
-            FrameSize: Annotated[UInt32, 9]
+            Flag: Annotated[UInt32, NativeBitfieldAttribute(2)]
+            FunctionLength: Annotated[UInt32, NativeBitfieldAttribute(11)]
+            RegF: Annotated[UInt32, NativeBitfieldAttribute(3)]
+            RegI: Annotated[UInt32, NativeBitfieldAttribute(4)]
+            H: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            CR: Annotated[UInt32, NativeBitfieldAttribute(2)]
+            FrameSize: Annotated[UInt32, NativeBitfieldAttribute(9)]
 class IMAGE_COFF_SYMBOLS_HEADER(Structure):
     NumberOfSymbols: UInt32
     LvaToFirstSymbol: UInt32
@@ -3281,16 +3281,16 @@ class LDT_ENTRY(Structure):
             Flags2: Byte
             BaseHi: Byte
         class _Bits_e__Struct(Structure):
-            BaseMid: Annotated[UInt32, 8]
-            Type: Annotated[UInt32, 5]
-            Dpl: Annotated[UInt32, 2]
-            Pres: Annotated[UInt32, 1]
-            LimitHi: Annotated[UInt32, 4]
-            Sys: Annotated[UInt32, 1]
-            Reserved_0: Annotated[UInt32, 1]
-            Default_Big: Annotated[UInt32, 1]
-            Granularity: Annotated[UInt32, 1]
-            BaseHi: Annotated[UInt32, 8]
+            BaseMid: Annotated[UInt32, NativeBitfieldAttribute(8)]
+            Type: Annotated[UInt32, NativeBitfieldAttribute(5)]
+            Dpl: Annotated[UInt32, NativeBitfieldAttribute(2)]
+            Pres: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            LimitHi: Annotated[UInt32, NativeBitfieldAttribute(4)]
+            Sys: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Reserved_0: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Default_Big: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Granularity: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            BaseHi: Annotated[UInt32, NativeBitfieldAttribute(8)]
 if ARCH in 'X64,ARM64':
     class LOADED_IMAGE(Structure):
         ModuleName: win32more.Windows.Win32.Foundation.PSTR
@@ -4888,12 +4888,12 @@ class WHEA_NOTIFICATION_FLAGS(Union):
     AsUSHORT: UInt16
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        PollIntervalRW: Annotated[UInt16, 1]
-        SwitchToPollingThresholdRW: Annotated[UInt16, 1]
-        SwitchToPollingWindowRW: Annotated[UInt16, 1]
-        ErrorThresholdRW: Annotated[UInt16, 1]
-        ErrorThresholdWindowRW: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 11]
+        PollIntervalRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        SwitchToPollingThresholdRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        SwitchToPollingWindowRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ErrorThresholdRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ErrorThresholdWindowRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(11)]
         _pack_ = 1
 class WHEA_PCI_SLOT_NUMBER(Structure):
     u: _u_e__Union
@@ -4902,9 +4902,9 @@ class WHEA_PCI_SLOT_NUMBER(Structure):
         AsULONG: UInt32
         _pack_ = 1
         class _bits_e__Struct(Structure):
-            DeviceNumber: Annotated[UInt32, 5]
-            FunctionNumber: Annotated[UInt32, 3]
-            Reserved: Annotated[UInt32, 24]
+            DeviceNumber: Annotated[UInt32, NativeBitfieldAttribute(5)]
+            FunctionNumber: Annotated[UInt32, NativeBitfieldAttribute(3)]
+            Reserved: Annotated[UInt32, NativeBitfieldAttribute(24)]
             _pack_ = 1
 class WHEA_XPF_CMC_DESCRIPTOR(Structure):
     Type: UInt16
@@ -5005,32 +5005,32 @@ class WOW64_LDT_ENTRY(Structure):
             Flags2: Byte
             BaseHi: Byte
         class _Bits_e__Struct(Structure):
-            BaseMid: Annotated[UInt32, 8]
-            Type: Annotated[UInt32, 5]
-            Dpl: Annotated[UInt32, 2]
-            Pres: Annotated[UInt32, 1]
-            LimitHi: Annotated[UInt32, 4]
-            Sys: Annotated[UInt32, 1]
-            Reserved_0: Annotated[UInt32, 1]
-            Default_Big: Annotated[UInt32, 1]
-            Granularity: Annotated[UInt32, 1]
-            BaseHi: Annotated[UInt32, 8]
+            BaseMid: Annotated[UInt32, NativeBitfieldAttribute(8)]
+            Type: Annotated[UInt32, NativeBitfieldAttribute(5)]
+            Dpl: Annotated[UInt32, NativeBitfieldAttribute(2)]
+            Pres: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            LimitHi: Annotated[UInt32, NativeBitfieldAttribute(4)]
+            Sys: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Reserved_0: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Default_Big: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Granularity: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            BaseHi: Annotated[UInt32, NativeBitfieldAttribute(8)]
 class XPF_MCE_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsULONG: UInt32
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
-        MCG_CapabilityRW: Annotated[UInt32, 1]
-        MCG_GlobalControlRW: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 30]
+        MCG_CapabilityRW: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        MCG_GlobalControlRW: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(30)]
         _pack_ = 1
 class XPF_MC_BANK_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUCHAR: Byte
     class _Anonymous_e__Struct(Structure):
-        ClearOnInitializationRW: Annotated[Byte, 1]
-        ControlDataRW: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 6]
+        ClearOnInitializationRW: Annotated[Byte, NativeBitfieldAttribute(1)]
+        ControlDataRW: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(6)]
 class XSAVE_AREA(Structure):
     LegacyState: win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_FORMAT
     Header: win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_AREA_HEADER
@@ -5092,9 +5092,9 @@ class XSTATE_CONFIGURATION(Structure):
         ControlFlags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            OptimizedSave: Annotated[UInt32, 1]
-            CompactionEnabled: Annotated[UInt32, 1]
-            ExtendedFeatureDisable: Annotated[UInt32, 1]
+            OptimizedSave: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            CompactionEnabled: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            ExtendedFeatureDisable: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class XSTATE_CONFIG_FEATURE_MSC_INFO(Structure):
     SizeOfInfo: UInt32
     ContextSize: UInt32

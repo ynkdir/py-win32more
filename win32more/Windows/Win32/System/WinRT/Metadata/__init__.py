@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
@@ -890,9 +890,9 @@ class IMAGE_COR_ILMETHOD(Union):
     Tiny: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_TINY
     Fat: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_FAT
 class IMAGE_COR_ILMETHOD_FAT(Structure):
-    Flags: Annotated[UInt32, 12]
-    Size: Annotated[UInt32, 4]
-    MaxStack: Annotated[UInt32, 16]
+    Flags: Annotated[UInt32, NativeBitfieldAttribute(12)]
+    Size: Annotated[UInt32, NativeBitfieldAttribute(4)]
+    MaxStack: Annotated[UInt32, NativeBitfieldAttribute(16)]
     CodeSize: UInt32
     LocalVarSigTok: UInt32
 class IMAGE_COR_ILMETHOD_SECT_EH(Union):
@@ -910,22 +910,22 @@ class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT(Structure):
         FilterOffset: UInt32
 if ARCH in 'X64,ARM64':
     class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL(Structure):
-        Flags: Annotated[UInt32, 16]
-        TryOffset: Annotated[UInt32, 16]
-        TryLength: Annotated[UInt32, 8]
-        HandlerOffset: Annotated[UInt32, 16]
-        HandlerLength: Annotated[UInt32, 8]
+        Flags: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        TryOffset: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        TryLength: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        HandlerOffset: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        HandlerLength: Annotated[UInt32, NativeBitfieldAttribute(8)]
         Anonymous: _Anonymous_e__Union
         class _Anonymous_e__Union(Union):
             ClassToken: UInt32
             FilterOffset: UInt32
 elif ARCH in 'X86':
     class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL(Structure):
-        Flags: Annotated[Int32, 16]
-        TryOffset: Annotated[Int32, 16]
-        TryLength: Annotated[UInt32, 8]
-        HandlerOffset: Annotated[UInt32, 16]
-        HandlerLength: Annotated[UInt32, 8]
+        Flags: Annotated[Int32, NativeBitfieldAttribute(16)]
+        TryOffset: Annotated[Int32, NativeBitfieldAttribute(16)]
+        TryLength: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        HandlerOffset: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        HandlerLength: Annotated[UInt32, NativeBitfieldAttribute(8)]
         Anonymous: _Anonymous_e__Union
         class _Anonymous_e__Union(Union):
             ClassToken: UInt32
@@ -938,8 +938,8 @@ class IMAGE_COR_ILMETHOD_SECT_EH_SMALL(Structure):
     Reserved: UInt16
     Clauses: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL * 1
 class IMAGE_COR_ILMETHOD_SECT_FAT(Structure):
-    Kind: Annotated[UInt32, 8]
-    DataSize: Annotated[UInt32, 24]
+    Kind: Annotated[UInt32, NativeBitfieldAttribute(8)]
+    DataSize: Annotated[UInt32, NativeBitfieldAttribute(24)]
 class IMAGE_COR_ILMETHOD_SECT_SMALL(Structure):
     Kind: Byte
     DataSize: Byte

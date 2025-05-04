@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D
 import win32more.Windows.Win32.Graphics.Gdi
@@ -2269,12 +2269,12 @@ class SETTEXTEX(Structure):
     codepage: UInt32
 class TABLECELLPARMS(Structure):
     dxWidth: Int32
-    nVertAlign: Annotated[UInt16, 2]
-    fMergeTop: Annotated[UInt16, 1]
-    fMergePrev: Annotated[UInt16, 1]
-    fVertical: Annotated[UInt16, 1]
-    fMergeStart: Annotated[UInt16, 1]
-    fMergeCont: Annotated[UInt16, 1]
+    nVertAlign: Annotated[UInt16, NativeBitfieldAttribute(2)]
+    fMergeTop: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fMergePrev: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fVertical: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fMergeStart: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fMergeCont: Annotated[UInt16, NativeBitfieldAttribute(1)]
     wShading: UInt16
     dxBrdrLeft: Int16
     dyBrdrTop: Int16
@@ -2294,12 +2294,12 @@ class TABLEROWPARMS(Structure):
     dxCellMargin: Int32
     dxIndent: Int32
     dyHeight: Int32
-    nAlignment: Annotated[UInt32, 3]
-    fRTL: Annotated[UInt32, 1]
-    fKeep: Annotated[UInt32, 1]
-    fKeepFollow: Annotated[UInt32, 1]
-    fWrap: Annotated[UInt32, 1]
-    fIdentCells: Annotated[UInt32, 1]
+    nAlignment: Annotated[UInt32, NativeBitfieldAttribute(3)]
+    fRTL: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fKeep: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fKeepFollow: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fWrap: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fIdentCells: Annotated[UInt32, NativeBitfieldAttribute(1)]
     cpStartRow: Int32
     bTableLevel: Byte
     iCell: Byte

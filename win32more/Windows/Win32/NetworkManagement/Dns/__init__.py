@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Dns
 SIZEOF_IP4_ADDRESS: UInt32 = 4
@@ -521,24 +521,24 @@ DnsFreeRecordList: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE =
 DnsFreeParsedMessageFields: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE = 2
 class DNS_HEADER(Structure):
     Xid: UInt16
-    RecursionDesired: Annotated[Byte, 1]
-    Truncation: Annotated[Byte, 1]
-    Authoritative: Annotated[Byte, 1]
-    Opcode: Annotated[Byte, 4]
-    IsResponse: Annotated[Byte, 1]
-    ResponseCode: Annotated[Byte, 4]
-    CheckingDisabled: Annotated[Byte, 1]
-    AuthenticatedData: Annotated[Byte, 1]
-    Reserved: Annotated[Byte, 1]
-    RecursionAvailable: Annotated[Byte, 1]
+    RecursionDesired: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Truncation: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Authoritative: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Opcode: Annotated[Byte, NativeBitfieldAttribute(4)]
+    IsResponse: Annotated[Byte, NativeBitfieldAttribute(1)]
+    ResponseCode: Annotated[Byte, NativeBitfieldAttribute(4)]
+    CheckingDisabled: Annotated[Byte, NativeBitfieldAttribute(1)]
+    AuthenticatedData: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[Byte, NativeBitfieldAttribute(1)]
+    RecursionAvailable: Annotated[Byte, NativeBitfieldAttribute(1)]
     QuestionCount: UInt16
     AnswerCount: UInt16
     NameServerCount: UInt16
     AdditionalCount: UInt16
     _pack_ = 1
 class DNS_HEADER_EXT(Structure):
-    Reserved: Annotated[UInt16, 15]
-    DnssecOk: Annotated[UInt16, 1]
+    Reserved: Annotated[UInt16, NativeBitfieldAttribute(15)]
+    DnssecOk: Annotated[UInt16, NativeBitfieldAttribute(1)]
     chRcode: Byte
     chVersion: Byte
     _pack_ = 1
@@ -953,11 +953,11 @@ class DNS_RECORDW(Structure):
         pDataPtr: POINTER(Byte)
 DNS_RECORD = UnicodeAlias('DNS_RECORDW')
 class DNS_RECORD_FLAGS(Structure):
-    Section: Annotated[UInt32, 2]
-    Delete: Annotated[UInt32, 1]
-    CharSet: Annotated[UInt32, 2]
-    Unused: Annotated[UInt32, 3]
-    Reserved: Annotated[UInt32, 24]
+    Section: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    Delete: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    CharSet: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    Unused: Annotated[UInt32, NativeBitfieldAttribute(3)]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(24)]
 class DNS_RECORD_OPTW(Structure):
     pNext: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDW)
     pName: win32more.Windows.Win32.Foundation.PWSTR

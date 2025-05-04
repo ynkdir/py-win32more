@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Cryptography
@@ -7007,8 +7007,8 @@ class NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE(Structure):
 class NCRYPT_EXPORTED_ISOLATED_KEY_HEADER(Structure):
     Version: UInt32
     KeyUsage: UInt32
-    PerBootKey: Annotated[UInt32, 1]
-    Reserved: Annotated[UInt32, 31]
+    PerBootKey: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(31)]
     cbAlgName: UInt32
     cbNonce: UInt32
     cbAuthTag: UInt32
@@ -7244,8 +7244,8 @@ class NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS(Structure):
     MinSvn: UInt32
     FlagsMask: UInt32
     FlagsExpected: UInt32
-    AllowDebugging: Annotated[UInt32, 1]
-    Reserved: Annotated[UInt32, 31]
+    AllowDebugging: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NCRYPT_VSM_KEY_ATTESTATION_STATEMENT(Structure):
     Magic: UInt32
     Version: UInt32

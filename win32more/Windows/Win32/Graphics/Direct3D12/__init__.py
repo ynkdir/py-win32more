@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -3190,10 +3190,10 @@ D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES: win32more.Windows.Win32.Graphics.Direc
 D3D12_RAYTRACING_GEOMETRY_TYPE_PROCEDURAL_PRIMITIVE_AABBS: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_TYPE = 1
 class D3D12_RAYTRACING_INSTANCE_DESC(Structure):
     Transform: Single * 12
-    InstanceID: Annotated[UInt32, 24]
-    InstanceMask: Annotated[UInt32, 8]
-    InstanceContributionToHitGroupIndex: Annotated[UInt32, 24]
-    Flags: Annotated[UInt32, 8]
+    InstanceID: Annotated[UInt32, NativeBitfieldAttribute(24)]
+    InstanceMask: Annotated[UInt32, NativeBitfieldAttribute(8)]
+    InstanceContributionToHitGroupIndex: Annotated[UInt32, NativeBitfieldAttribute(24)]
+    Flags: Annotated[UInt32, NativeBitfieldAttribute(8)]
     AccelerationStructure: UInt64
 D3D12_RAYTRACING_INSTANCE_FLAGS = Int32
 D3D12_RAYTRACING_INSTANCE_FLAG_NONE: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_INSTANCE_FLAGS = 0

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.DirectShow
@@ -3504,8 +3504,8 @@ class KSSTREAM_UVC_METADATATYPE_TIMESTAMP(Structure):
         Anonymous: _Anonymous_e__Struct
         SCRToken: UInt16
         class _Anonymous_e__Struct(Structure):
-            Counter: Annotated[UInt16, 11]
-            Reserved: Annotated[UInt16, 5]
+            Counter: Annotated[UInt16, NativeBitfieldAttribute(11)]
+            Reserved: Annotated[UInt16, NativeBitfieldAttribute(5)]
 class KSTELEPHONY_CALLCONTROL(Structure):
     CallType: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLTYPE
     CallControlOp: win32more.Windows.Win32.Media.KernelStreaming.TELEPHONY_CALLCONTROLOP
@@ -3690,14 +3690,14 @@ class KS_BITMAPINFOHEADER(Structure):
     biClrUsed: UInt32
     biClrImportant: UInt32
 class KS_COLCON(Structure):
-    emph1col: Annotated[Byte, 4]
-    emph2col: Annotated[Byte, 4]
-    backcol: Annotated[Byte, 4]
-    patcol: Annotated[Byte, 4]
-    emph1con: Annotated[Byte, 4]
-    emph2con: Annotated[Byte, 4]
-    backcon: Annotated[Byte, 4]
-    patcon: Annotated[Byte, 4]
+    emph1col: Annotated[Byte, NativeBitfieldAttribute(4)]
+    emph2col: Annotated[Byte, NativeBitfieldAttribute(4)]
+    backcol: Annotated[Byte, NativeBitfieldAttribute(4)]
+    patcol: Annotated[Byte, NativeBitfieldAttribute(4)]
+    emph1con: Annotated[Byte, NativeBitfieldAttribute(4)]
+    emph2con: Annotated[Byte, NativeBitfieldAttribute(4)]
+    backcon: Annotated[Byte, NativeBitfieldAttribute(4)]
+    patcon: Annotated[Byte, NativeBitfieldAttribute(4)]
 class KS_COMPRESSION(Structure):
     RatioNumerator: UInt32
     RatioDenominator: UInt32

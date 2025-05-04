@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Globalization
 import win32more.Windows.Win32.Graphics.Gdi
@@ -3981,8 +3981,8 @@ class MAPPING_ENUM_OPTIONS(Structure):
     pszInputContentType: win32more.Windows.Win32.Foundation.PWSTR
     pszOutputContentType: win32more.Windows.Win32.Foundation.PWSTR
     pGuid: POINTER(Guid)
-    OnlineService: Annotated[UInt32, 2]
-    ServiceType: Annotated[UInt32, 2]
+    OnlineService: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    ServiceType: Annotated[UInt32, NativeBitfieldAttribute(2)]
 class MAPPING_OPTIONS(Structure):
     Size: UIntPtr
     pszInputLanguage: win32more.Windows.Win32.Foundation.PWSTR
@@ -3999,7 +3999,7 @@ class MAPPING_OPTIONS(Structure):
     pActionCallerData: VoidPtr
     dwActionCallerDataSize: UInt32
     dwServiceFlag: UInt32
-    GetActionDisplayName: Annotated[UInt32, 1]
+    GetActionDisplayName: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class MAPPING_PROPERTY_BAG(Structure):
     Size: UIntPtr
     prgResultRanges: POINTER(win32more.Windows.Win32.Globalization.MAPPING_DATA_RANGE)
@@ -4034,10 +4034,10 @@ class MAPPING_SERVICE_INFO(Structure):
     dwPrivateDataSize: UInt32
     pPrivateData: VoidPtr
     pContext: VoidPtr
-    IsOneToOneLanguageMapping: Annotated[UInt32, 1]
-    HasSubservices: Annotated[UInt32, 1]
-    OnlineOnly: Annotated[UInt32, 1]
-    ServiceType: Annotated[UInt32, 2]
+    IsOneToOneLanguageMapping: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    HasSubservices: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    OnlineOnly: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    ServiceType: Annotated[UInt32, NativeBitfieldAttribute(2)]
 MIMECONTF = Int32
 MIMECONTF_MAILNEWS: win32more.Windows.Win32.Globalization.MIMECONTF = 1
 MIMECONTF_BROWSER: win32more.Windows.Win32.Globalization.MIMECONTF = 2
@@ -4209,34 +4209,34 @@ class SCRIPTINFO(Structure):
     wszFixedWidthFont: Char * 32
     wszProportionalFont: Char * 32
 class SCRIPT_ANALYSIS(Structure):
-    eScript: Annotated[UInt16, 10]
-    fRTL: Annotated[UInt16, 1]
-    fLayoutRTL: Annotated[UInt16, 1]
-    fLinkBefore: Annotated[UInt16, 1]
-    fLinkAfter: Annotated[UInt16, 1]
-    fLogicalOrder: Annotated[UInt16, 1]
-    fNoGlyphIndex: Annotated[UInt16, 1]
+    eScript: Annotated[UInt16, NativeBitfieldAttribute(10)]
+    fRTL: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fLayoutRTL: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fLinkBefore: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fLinkAfter: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fLogicalOrder: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fNoGlyphIndex: Annotated[UInt16, NativeBitfieldAttribute(1)]
     s: win32more.Windows.Win32.Globalization.SCRIPT_STATE
 class SCRIPT_CHARPROP(Structure):
-    fCanGlyphAlone: Annotated[UInt16, 1]
-    reserved: Annotated[UInt16, 15]
+    fCanGlyphAlone: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    reserved: Annotated[UInt16, NativeBitfieldAttribute(15)]
 class SCRIPT_CONTROL(Structure):
-    uDefaultLanguage: Annotated[UInt32, 16]
-    fContextDigits: Annotated[UInt32, 1]
-    fInvertPreBoundDir: Annotated[UInt32, 1]
-    fInvertPostBoundDir: Annotated[UInt32, 1]
-    fLinkStringBefore: Annotated[UInt32, 1]
-    fLinkStringAfter: Annotated[UInt32, 1]
-    fNeutralOverride: Annotated[UInt32, 1]
-    fNumericOverride: Annotated[UInt32, 1]
-    fLegacyBidiClass: Annotated[UInt32, 1]
-    fMergeNeutralItems: Annotated[UInt32, 1]
-    fUseStandardBidi: Annotated[UInt32, 1]
-    fReserved: Annotated[UInt32, 6]
+    uDefaultLanguage: Annotated[UInt32, NativeBitfieldAttribute(16)]
+    fContextDigits: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fInvertPreBoundDir: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fInvertPostBoundDir: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fLinkStringBefore: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fLinkStringAfter: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fNeutralOverride: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fNumericOverride: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fLegacyBidiClass: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fMergeNeutralItems: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fUseStandardBidi: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fReserved: Annotated[UInt32, NativeBitfieldAttribute(6)]
 class SCRIPT_DIGITSUBSTITUTE(Structure):
-    NationalDigitLanguage: Annotated[UInt32, 16]
-    TraditionalDigitLanguage: Annotated[UInt32, 16]
-    DigitSubstitute: Annotated[UInt32, 8]
+    NationalDigitLanguage: Annotated[UInt32, NativeBitfieldAttribute(16)]
+    TraditionalDigitLanguage: Annotated[UInt32, NativeBitfieldAttribute(16)]
+    DigitSubstitute: Annotated[UInt32, NativeBitfieldAttribute(8)]
     dwReserved: UInt32
 class SCRIPT_FONTPROPERTIES(Structure):
     cBytes: Int32
@@ -4273,52 +4273,52 @@ SCRIPT_JUSTIFY_ARABIC_BARA: win32more.Windows.Win32.Globalization.SCRIPT_JUSTIFY
 SCRIPT_JUSTIFY_ARABIC_SEEN: win32more.Windows.Win32.Globalization.SCRIPT_JUSTIFY = 14
 SCRIPT_JUSTIFY_ARABIC_SEEN_M: win32more.Windows.Win32.Globalization.SCRIPT_JUSTIFY = 15
 class SCRIPT_LOGATTR(Structure):
-    fSoftBreak: Annotated[Byte, 1]
-    fWhiteSpace: Annotated[Byte, 1]
-    fCharStop: Annotated[Byte, 1]
-    fWordStop: Annotated[Byte, 1]
-    fInvalid: Annotated[Byte, 1]
-    fReserved: Annotated[Byte, 3]
+    fSoftBreak: Annotated[Byte, NativeBitfieldAttribute(1)]
+    fWhiteSpace: Annotated[Byte, NativeBitfieldAttribute(1)]
+    fCharStop: Annotated[Byte, NativeBitfieldAttribute(1)]
+    fWordStop: Annotated[Byte, NativeBitfieldAttribute(1)]
+    fInvalid: Annotated[Byte, NativeBitfieldAttribute(1)]
+    fReserved: Annotated[Byte, NativeBitfieldAttribute(3)]
 class SCRIPT_PROPERTIES(Structure):
-    langid: Annotated[UInt32, 16]
-    fNumeric: Annotated[UInt32, 1]
-    fComplex: Annotated[UInt32, 1]
-    fNeedsWordBreaking: Annotated[UInt32, 1]
-    fNeedsCaretInfo: Annotated[UInt32, 1]
-    bCharSet: Annotated[UInt32, 8]
-    fControl: Annotated[UInt32, 1]
-    fPrivateUseArea: Annotated[UInt32, 1]
-    fNeedsCharacterJustify: Annotated[UInt32, 1]
-    fInvalidGlyph: Annotated[UInt32, 1]
-    fInvalidLogAttr: Annotated[UInt32, 1]
-    fCDM: Annotated[UInt32, 1]
-    fAmbiguousCharSet: Annotated[UInt32, 1]
-    fClusterSizeVaries: Annotated[UInt32, 1]
-    fRejectInvalid: Annotated[UInt32, 1]
+    langid: Annotated[UInt32, NativeBitfieldAttribute(16)]
+    fNumeric: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fComplex: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fNeedsWordBreaking: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fNeedsCaretInfo: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    bCharSet: Annotated[UInt32, NativeBitfieldAttribute(8)]
+    fControl: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fPrivateUseArea: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fNeedsCharacterJustify: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fInvalidGlyph: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fInvalidLogAttr: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fCDM: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fAmbiguousCharSet: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fClusterSizeVaries: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fRejectInvalid: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class SCRIPT_STATE(Structure):
-    uBidiLevel: Annotated[UInt16, 5]
-    fOverrideDirection: Annotated[UInt16, 1]
-    fInhibitSymSwap: Annotated[UInt16, 1]
-    fCharShape: Annotated[UInt16, 1]
-    fDigitSubstitute: Annotated[UInt16, 1]
-    fInhibitLigate: Annotated[UInt16, 1]
-    fDisplayZWG: Annotated[UInt16, 1]
-    fArabicNumContext: Annotated[UInt16, 1]
-    fGcpClusters: Annotated[UInt16, 1]
-    fReserved: Annotated[UInt16, 1]
-    fEngineReserved: Annotated[UInt16, 2]
+    uBidiLevel: Annotated[UInt16, NativeBitfieldAttribute(5)]
+    fOverrideDirection: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fInhibitSymSwap: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fCharShape: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fDigitSubstitute: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fInhibitLigate: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fDisplayZWG: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fArabicNumContext: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fGcpClusters: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fReserved: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fEngineReserved: Annotated[UInt16, NativeBitfieldAttribute(2)]
 class SCRIPT_TABDEF(Structure):
     cTabStops: Int32
     iScale: Int32
     pTabStops: POINTER(Int32)
     iTabOrigin: Int32
 class SCRIPT_VISATTR(Structure):
-    uJustification: Annotated[UInt16, 4]
-    fClusterStart: Annotated[UInt16, 1]
-    fDiacritic: Annotated[UInt16, 1]
-    fZeroWidth: Annotated[UInt16, 1]
-    fReserved: Annotated[UInt16, 1]
-    fShapeReserved: Annotated[UInt16, 8]
+    uJustification: Annotated[UInt16, NativeBitfieldAttribute(4)]
+    fClusterStart: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fDiacritic: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fZeroWidth: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fReserved: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fShapeReserved: Annotated[UInt16, NativeBitfieldAttribute(8)]
 SYSGEOCLASS = Int32
 GEOCLASS_NATION: win32more.Windows.Win32.Globalization.SYSGEOCLASS = 16
 GEOCLASS_REGION: win32more.Windows.Win32.Globalization.SYSGEOCLASS = 14

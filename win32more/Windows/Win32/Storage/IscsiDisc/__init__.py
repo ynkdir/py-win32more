@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.IscsiDisc
 import win32more.Windows.Win32.System.Ioctl
@@ -510,11 +510,11 @@ class HYBRID_INFORMATION(Structure):
     Attributes: _Attributes_e__Struct
     Priorities: _Priorities_e__Struct
     class _Attributes_e__Struct(Structure):
-        WriteCacheChangeable: Annotated[UInt32, 1]
-        WriteThroughIoSupported: Annotated[UInt32, 1]
-        FlushCacheSupported: Annotated[UInt32, 1]
-        Removable: Annotated[UInt32, 1]
-        ReservedBits: Annotated[UInt32, 28]
+        WriteCacheChangeable: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        WriteThroughIoSupported: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        FlushCacheSupported: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Removable: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        ReservedBits: Annotated[UInt32, NativeBitfieldAttribute(28)]
     class _Priorities_e__Struct(Structure):
         PriorityLevelCount: Byte
         MaxPriorityBehavior: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -525,12 +525,12 @@ class HYBRID_INFORMATION(Structure):
         SupportedCommands: _SupportedCommands_e__Struct
         Priority: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_PRIORITY_LEVEL_DESCRIPTOR * 1
         class _SupportedCommands_e__Struct(Structure):
-            CacheDisable: Annotated[UInt32, 1]
-            SetDirtyThreshold: Annotated[UInt32, 1]
-            PriorityDemoteBySize: Annotated[UInt32, 1]
-            PriorityChangeByLbaRange: Annotated[UInt32, 1]
-            Evict: Annotated[UInt32, 1]
-            ReservedBits: Annotated[UInt32, 27]
+            CacheDisable: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            SetDirtyThreshold: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            PriorityDemoteBySize: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            PriorityChangeByLbaRange: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Evict: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            ReservedBits: Annotated[UInt32, NativeBitfieldAttribute(27)]
             MaxEvictCommands: UInt32
             MaxLbaRangeCountForEvict: UInt32
             MaxLbaRangeCountForChangeLba: UInt32
@@ -880,11 +880,11 @@ class NV_SEP_CACHE_PARAMETER(Structure):
         CacheFlags: _CacheFlags_e__Struct
         CacheFlagsSet: Byte
         class _CacheFlags_e__Struct(Structure):
-            WriteCacheEnabled: Annotated[Byte, 1]
-            WriteCacheChangeable: Annotated[Byte, 1]
-            WriteThroughIOSupported: Annotated[Byte, 1]
-            FlushCacheSupported: Annotated[Byte, 1]
-            ReservedBits: Annotated[Byte, 4]
+            WriteCacheEnabled: Annotated[Byte, NativeBitfieldAttribute(1)]
+            WriteCacheChangeable: Annotated[Byte, NativeBitfieldAttribute(1)]
+            WriteThroughIOSupported: Annotated[Byte, NativeBitfieldAttribute(1)]
+            FlushCacheSupported: Annotated[Byte, NativeBitfieldAttribute(1)]
+            ReservedBits: Annotated[Byte, NativeBitfieldAttribute(4)]
 NV_SEP_WRITE_CACHE_TYPE = Int32
 NVSEPWriteCacheTypeUnknown: win32more.Windows.Win32.Storage.IscsiDisc.NV_SEP_WRITE_CACHE_TYPE = 0
 NVSEPWriteCacheTypeNone: win32more.Windows.Win32.Storage.IscsiDisc.NV_SEP_WRITE_CACHE_TYPE = 1
@@ -1091,8 +1091,8 @@ class STORAGE_ENDURANCE_INFO(Structure):
     BytesReadCount: Byte * 16
     ByteWriteCount: Byte * 16
     class _Flags_e__Struct(Structure):
-        Shared: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 31]
+        Shared: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class STORAGE_FIRMWARE_ACTIVATE(Structure):
     Version: UInt32
     Size: UInt32

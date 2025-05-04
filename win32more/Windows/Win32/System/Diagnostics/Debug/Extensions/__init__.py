@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -2052,14 +2052,14 @@ class DEBUG_POOL_DATA(Structure):
         Anonymous: _Anonymous_e__Struct
         AsUlong: UInt32
         class _Anonymous_e__Struct(Structure):
-            Free: Annotated[UInt32, 1]
-            LargePool: Annotated[UInt32, 1]
-            SpecialPool: Annotated[UInt32, 1]
-            Pageable: Annotated[UInt32, 1]
-            Protected: Annotated[UInt32, 1]
-            Allocated: Annotated[UInt32, 1]
-            Session: Annotated[UInt32, 1]
-            Reserved: Annotated[UInt32, 25]
+            Free: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            LargePool: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            SpecialPool: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Pageable: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Protected: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Allocated: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Session: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt32, NativeBitfieldAttribute(25)]
 DEBUG_POOL_REGION = Int32
 DbgPoolRegionUnknown: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 0
 DbgPoolRegionSpecial: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_POOL_REGION = 1
@@ -2314,8 +2314,8 @@ class EXT_CAB_XML_DATA(Structure):
         MatchPattern: win32more.Windows.Win32.Foundation.PWSTR
         ReturnText: win32more.Windows.Win32.Foundation.PWSTR
         ReturnTextSize: UInt32
-        MatchType: Annotated[UInt32, 3]
-        Reserved: Annotated[UInt32, 29]
+        MatchType: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(29)]
         Reserved2: UInt32
 @winfunctype_pointer
 def EXT_DECODE_ERROR(pDecodeError: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.DEBUG_DECODE_ERROR)) -> Void: ...
@@ -2428,12 +2428,12 @@ class FIELD_INFO(Structure):
     FieldOffset: UInt32
     BufferSize: UInt32
     BitField: _BitField
-    fPointer: Annotated[UInt32, 2]
-    fArray: Annotated[UInt32, 1]
-    fStruct: Annotated[UInt32, 1]
-    fConstant: Annotated[UInt32, 1]
-    fStatic: Annotated[UInt32, 1]
-    Reserved: Annotated[UInt32, 26]
+    fPointer: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    fArray: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fStruct: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fConstant: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fStatic: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(26)]
     class _Anonymous_e__Union(Union):
         fieldCallBack: VoidPtr
         pBuffer: VoidPtr
@@ -8679,7 +8679,7 @@ class KDDEBUGGER_DATA32(Structure):
     ThCallbackStack: UInt16
     NextCallback: UInt16
     FramePointer: UInt16
-    PaeEnabled: Annotated[UInt16, 1]
+    PaeEnabled: Annotated[UInt16, NativeBitfieldAttribute(1)]
     KiCallUserMode: UInt32
     KeUserCallbackDispatcher: UInt32
     PsLoadedModuleList: UInt32
@@ -8746,9 +8746,9 @@ class KDDEBUGGER_DATA64(Structure):
     ThCallbackStack: UInt16
     NextCallback: UInt16
     FramePointer: UInt16
-    PaeEnabled: Annotated[UInt16, 1]
-    KiBugCheckRecoveryActive: Annotated[UInt16, 1]
-    PagingLevels: Annotated[UInt16, 4]
+    PaeEnabled: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    KiBugCheckRecoveryActive: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    PagingLevels: Annotated[UInt16, NativeBitfieldAttribute(4)]
     KiCallUserMode: UInt64
     KeUserCallbackDispatcher: UInt64
     PsLoadedModuleList: UInt64
@@ -8925,14 +8925,14 @@ class KDEXTS_PTE_INFO(Structure):
     PteAddress: UInt64
     Pfn: UInt64
     Levels: UInt64
-    PteValid: Annotated[UInt32, 1]
-    PteTransition: Annotated[UInt32, 1]
-    Prototype: Annotated[UInt32, 1]
-    Protection: Annotated[UInt32, 1]
-    Reserved: Annotated[UInt32, 28]
-    ReadInProgress: Annotated[UInt32, 1]
-    WriteInProgress: Annotated[UInt32, 1]
-    Modified: Annotated[UInt32, 1]
+    PteValid: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    PteTransition: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Prototype: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Protection: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(28)]
+    ReadInProgress: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    WriteInProgress: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Modified: Annotated[UInt32, NativeBitfieldAttribute(1)]
 @winfunctype_pointer
 def KDEXT_DUMP_HANDLE_CALLBACK(HandleInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.KDEXT_HANDLE_INFORMATION), Flags: UInt32, Context: VoidPtr) -> win32more.Windows.Win32.Foundation.BOOLEAN: ...
 class KDEXT_FILELOCK_OWNER(Structure):
@@ -9003,10 +9003,10 @@ class OS_INFO(Structure):
     BuildVersion: win32more.Windows.Win32.Foundation.CHAR * 64
     ServicePackString: win32more.Windows.Win32.Foundation.CHAR * 64
     class _s_e__Struct(Structure):
-        Checked: Annotated[UInt32, 1]
-        Pae: Annotated[UInt32, 1]
-        MultiProc: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 29]
+        Checked: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Pae: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        MultiProc: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(29)]
 class OS_INFO_v1(Structure):
     Type: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.OS_TYPE
     Anonymous: _Anonymous_e__Union
@@ -9024,10 +9024,10 @@ class OS_INFO_v1(Structure):
             Major: UInt32
             Minor: UInt32
     class _s_e__Struct(Structure):
-        Checked: Annotated[UInt32, 1]
-        Pae: Annotated[UInt32, 1]
-        MultiProc: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 29]
+        Checked: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Pae: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        MultiProc: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(29)]
 OS_TYPE = Int32
 WIN_95: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.OS_TYPE = 0
 WIN_98: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.OS_TYPE = 1
@@ -9298,11 +9298,11 @@ class SYM_DUMP_PARAM(Structure):
     TypeId: UInt32
     TypeSize: UInt32
     BufferSize: UInt32
-    fPointer: Annotated[UInt32, 2]
-    fArray: Annotated[UInt32, 1]
-    fStruct: Annotated[UInt32, 1]
-    fConstant: Annotated[UInt32, 1]
-    Reserved: Annotated[UInt32, 27]
+    fPointer: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    fArray: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fStruct: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fConstant: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(27)]
     class _Anonymous_e__Union(Union):
         Context: VoidPtr
         pBuffer: VoidPtr

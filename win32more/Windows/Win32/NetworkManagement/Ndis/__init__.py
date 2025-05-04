@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
 NET_IF_COMPARTMENT_ID_UNSPECIFIED: UInt32 = 0
@@ -2233,21 +2233,21 @@ class NDIS_IPSEC_OFFLOAD_V1(Structure):
         IPv4Options: UInt32
         Flags: UInt32
     class _IPv4AH_e__Struct(Structure):
-        Md5: Annotated[UInt32, 2]
-        Sha_1: Annotated[UInt32, 2]
-        Transport: Annotated[UInt32, 2]
-        Tunnel: Annotated[UInt32, 2]
-        Send: Annotated[UInt32, 2]
-        Receive: Annotated[UInt32, 2]
+        Md5: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Sha_1: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Transport: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Tunnel: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Send: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Receive: Annotated[UInt32, NativeBitfieldAttribute(2)]
     class _IPv4ESP_e__Struct(Structure):
-        Des: Annotated[UInt32, 2]
-        Reserved: Annotated[UInt32, 2]
-        TripleDes: Annotated[UInt32, 2]
-        NullEsp: Annotated[UInt32, 2]
-        Transport: Annotated[UInt32, 2]
-        Tunnel: Annotated[UInt32, 2]
-        Send: Annotated[UInt32, 2]
-        Receive: Annotated[UInt32, 2]
+        Des: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TripleDes: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        NullEsp: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Transport: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Tunnel: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Send: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Receive: Annotated[UInt32, NativeBitfieldAttribute(2)]
 class NDIS_IP_OPER_STATE(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
@@ -2526,10 +2526,10 @@ NdisPauseFunctionsUnknown: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_S
 class NDIS_TCP_CONNECTION_OFFLOAD(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Encapsulation: UInt32
-    SupportIPv4: Annotated[UInt32, 2]
-    SupportIPv6: Annotated[UInt32, 2]
-    SupportIPv6ExtensionHeaders: Annotated[UInt32, 2]
-    SupportSack: Annotated[UInt32, 2]
+    SupportIPv4: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    SupportIPv6: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    SupportIPv6ExtensionHeaders: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    SupportSack: Annotated[UInt32, NativeBitfieldAttribute(2)]
     TcpConnectionOffloadCapacity: UInt32
     Flags: UInt32
 class NDIS_TCP_IP_CHECKSUM_OFFLOAD(Structure):
@@ -2539,38 +2539,38 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD(Structure):
     IPv6Receive: _IPv6Receive_e__Struct
     class _IPv4Transmit_e__Struct(Structure):
         Encapsulation: UInt32
-        IpOptionsSupported: Annotated[UInt32, 2]
-        TcpOptionsSupported: Annotated[UInt32, 2]
-        TcpChecksum: Annotated[UInt32, 2]
-        UdpChecksum: Annotated[UInt32, 2]
-        IpChecksum: Annotated[UInt32, 2]
+        IpOptionsSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TcpOptionsSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TcpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        UdpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        IpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
     class _IPv4Receive_e__Struct(Structure):
         Encapsulation: UInt32
-        IpOptionsSupported: Annotated[UInt32, 2]
-        TcpOptionsSupported: Annotated[UInt32, 2]
-        TcpChecksum: Annotated[UInt32, 2]
-        UdpChecksum: Annotated[UInt32, 2]
-        IpChecksum: Annotated[UInt32, 2]
+        IpOptionsSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TcpOptionsSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TcpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        UdpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        IpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
     class _IPv6Transmit_e__Struct(Structure):
         Encapsulation: UInt32
-        IpExtensionHeadersSupported: Annotated[UInt32, 2]
-        TcpOptionsSupported: Annotated[UInt32, 2]
-        TcpChecksum: Annotated[UInt32, 2]
-        UdpChecksum: Annotated[UInt32, 2]
+        IpExtensionHeadersSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TcpOptionsSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TcpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        UdpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
     class _IPv6Receive_e__Struct(Structure):
         Encapsulation: UInt32
-        IpExtensionHeadersSupported: Annotated[UInt32, 2]
-        TcpOptionsSupported: Annotated[UInt32, 2]
-        TcpChecksum: Annotated[UInt32, 2]
-        UdpChecksum: Annotated[UInt32, 2]
+        IpExtensionHeadersSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TcpOptionsSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TcpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        UdpChecksum: Annotated[UInt32, NativeBitfieldAttribute(2)]
 class NDIS_TCP_LARGE_SEND_OFFLOAD_V1(Structure):
     IPv4: _IPv4_e__Struct
     class _IPv4_e__Struct(Structure):
         Encapsulation: UInt32
         MaxOffLoadSize: UInt32
         MinSegmentCount: UInt32
-        TcpOptions: Annotated[UInt32, 2]
-        IpOptions: Annotated[UInt32, 2]
+        TcpOptions: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        IpOptions: Annotated[UInt32, NativeBitfieldAttribute(2)]
 class NDIS_TCP_LARGE_SEND_OFFLOAD_V2(Structure):
     IPv4: _IPv4_e__Struct
     IPv6: _IPv6_e__Struct
@@ -2582,8 +2582,8 @@ class NDIS_TCP_LARGE_SEND_OFFLOAD_V2(Structure):
         Encapsulation: UInt32
         MaxOffLoadSize: UInt32
         MinSegmentCount: UInt32
-        IpExtensionHeadersSupported: Annotated[UInt32, 2]
-        TcpOptionsSupported: Annotated[UInt32, 2]
+        IpExtensionHeadersSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        TcpOptionsSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
 class NDIS_TIMEOUT_DPC_REQUEST_CAPABILITIES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
@@ -2901,9 +2901,9 @@ class NET_LUID_LH(Union):
     Value: UInt64
     Info: _Info_e__Struct
     class _Info_e__Struct(Structure):
-        Reserved: Annotated[UInt64, 24]
-        NetLuidIndex: Annotated[UInt64, 24]
-        IfType: Annotated[UInt64, 16]
+        Reserved: Annotated[UInt64, NativeBitfieldAttribute(24)]
+        NetLuidIndex: Annotated[UInt64, NativeBitfieldAttribute(24)]
+        IfType: Annotated[UInt64, NativeBitfieldAttribute(16)]
 class NET_PHYSICAL_LOCATION_LH(Structure):
     BusNumber: UInt32
     SlotNumber: UInt32

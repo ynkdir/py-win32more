@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.ProcessStatus
 PSAPI_VERSION: UInt32 = 2
@@ -201,11 +201,11 @@ class PSAPI_WORKING_SET_BLOCK(Union):
     Flags: UIntPtr
     Anonymous: _Anonymous_e__Struct
     class _Anonymous_e__Struct(Structure):
-        Protection: Annotated[UIntPtr, 5]
-        ShareCount: Annotated[UIntPtr, 3]
-        Shared: Annotated[UIntPtr, 1]
-        Reserved: Annotated[UIntPtr, 3]
-        VirtualPage: Annotated[UIntPtr, 20]
+        Protection: Annotated[UIntPtr, NativeBitfieldAttribute(5)]
+        ShareCount: Annotated[UIntPtr, NativeBitfieldAttribute(3)]
+        Shared: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UIntPtr, NativeBitfieldAttribute(3)]
+        VirtualPage: Annotated[UIntPtr, NativeBitfieldAttribute(20)]
 class PSAPI_WORKING_SET_EX_BLOCK(Union):
     Flags: UIntPtr
     Anonymous: _Anonymous_e__Union
@@ -213,21 +213,21 @@ class PSAPI_WORKING_SET_EX_BLOCK(Union):
         Anonymous: _Anonymous_e__Struct
         Invalid: _Invalid_e__Struct
         class _Anonymous_e__Struct(Structure):
-            Valid: Annotated[UIntPtr, 1]
-            ShareCount: Annotated[UIntPtr, 3]
-            Win32Protection: Annotated[UIntPtr, 11]
-            Shared: Annotated[UIntPtr, 1]
-            Node: Annotated[UIntPtr, 6]
-            Locked: Annotated[UIntPtr, 1]
-            LargePage: Annotated[UIntPtr, 1]
-            Reserved: Annotated[UIntPtr, 7]
-            Bad: Annotated[UIntPtr, 1]
+            Valid: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
+            ShareCount: Annotated[UIntPtr, NativeBitfieldAttribute(3)]
+            Win32Protection: Annotated[UIntPtr, NativeBitfieldAttribute(11)]
+            Shared: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
+            Node: Annotated[UIntPtr, NativeBitfieldAttribute(6)]
+            Locked: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
+            LargePage: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UIntPtr, NativeBitfieldAttribute(7)]
+            Bad: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
         class _Invalid_e__Struct(Structure):
-            Valid: Annotated[UIntPtr, 1]
-            Reserved0: Annotated[UIntPtr, 14]
-            Shared: Annotated[UIntPtr, 1]
-            Reserved1: Annotated[UIntPtr, 15]
-            Bad: Annotated[UIntPtr, 1]
+            Valid: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
+            Reserved0: Annotated[UIntPtr, NativeBitfieldAttribute(14)]
+            Shared: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
+            Reserved1: Annotated[UIntPtr, NativeBitfieldAttribute(15)]
+            Bad: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
 class PSAPI_WORKING_SET_EX_INFORMATION(Structure):
     VirtualAddress: VoidPtr
     VirtualAttributes: win32more.Windows.Win32.System.ProcessStatus.PSAPI_WORKING_SET_EX_BLOCK

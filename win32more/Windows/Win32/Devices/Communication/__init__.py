@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Communication
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -224,33 +224,33 @@ EV_RXCHAR: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 1
 EV_RXFLAG: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 2
 EV_TXEMPTY: win32more.Windows.Win32.Devices.Communication.COMM_EVENT_MASK = 4
 class COMSTAT(Structure):
-    fCtsHold: Annotated[UInt32, 1]
-    fDsrHold: Annotated[UInt32, 1]
-    fRlsdHold: Annotated[UInt32, 1]
-    fXoffHold: Annotated[UInt32, 1]
-    fXoffSent: Annotated[UInt32, 1]
-    fEof: Annotated[UInt32, 1]
-    fTxim: Annotated[UInt32, 1]
-    fReserved: Annotated[UInt32, 25]
+    fCtsHold: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fDsrHold: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fRlsdHold: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fXoffHold: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fXoffSent: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fEof: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fTxim: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fReserved: Annotated[UInt32, NativeBitfieldAttribute(25)]
     cbInQue: UInt32
     cbOutQue: UInt32
 class DCB(Structure):
     DCBlength: UInt32
     BaudRate: UInt32
-    fBinary: Annotated[UInt32, 1]
-    fParity: Annotated[UInt32, 1]
-    fOutxCtsFlow: Annotated[UInt32, 1]
-    fOutxDsrFlow: Annotated[UInt32, 1]
-    fDtrControl: Annotated[UInt32, 2]
-    fDsrSensitivity: Annotated[UInt32, 1]
-    fTXContinueOnXoff: Annotated[UInt32, 1]
-    fOutX: Annotated[UInt32, 1]
-    fInX: Annotated[UInt32, 1]
-    fErrorChar: Annotated[UInt32, 1]
-    fNull: Annotated[UInt32, 1]
-    fRtsControl: Annotated[UInt32, 2]
-    fAbortOnError: Annotated[UInt32, 1]
-    fDummy2: Annotated[UInt32, 17]
+    fBinary: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fParity: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fOutxCtsFlow: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fOutxDsrFlow: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fDtrControl: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    fDsrSensitivity: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fTXContinueOnXoff: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fOutX: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fInX: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fErrorChar: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fNull: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fRtsControl: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    fAbortOnError: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    fDummy2: Annotated[UInt32, NativeBitfieldAttribute(17)]
     wReserved: UInt16
     XonLim: UInt16
     XoffLim: UInt16

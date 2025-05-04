@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -302,28 +302,28 @@ class COPYDATASTRUCT(Structure):
     cbData: UInt32
     lpData: VoidPtr
 class DDEACK(Structure):
-    bAppReturnCode: Annotated[UInt16, 8]
-    reserved: Annotated[UInt16, 6]
-    fBusy: Annotated[UInt16, 1]
-    fAck: Annotated[UInt16, 1]
+    bAppReturnCode: Annotated[UInt16, NativeBitfieldAttribute(8)]
+    reserved: Annotated[UInt16, NativeBitfieldAttribute(6)]
+    fBusy: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fAck: Annotated[UInt16, NativeBitfieldAttribute(1)]
 class DDEADVISE(Structure):
-    reserved: Annotated[UInt16, 14]
-    fDeferUpd: Annotated[UInt16, 1]
-    fAckReq: Annotated[UInt16, 1]
+    reserved: Annotated[UInt16, NativeBitfieldAttribute(14)]
+    fDeferUpd: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fAckReq: Annotated[UInt16, NativeBitfieldAttribute(1)]
     cfFormat: Int16
 class DDEDATA(Structure):
-    unused: Annotated[UInt16, 12]
-    fResponse: Annotated[UInt16, 1]
-    fRelease: Annotated[UInt16, 1]
-    reserved: Annotated[UInt16, 1]
-    fAckReq: Annotated[UInt16, 1]
+    unused: Annotated[UInt16, NativeBitfieldAttribute(12)]
+    fResponse: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fRelease: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    reserved: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fAckReq: Annotated[UInt16, NativeBitfieldAttribute(1)]
     cfFormat: Int16
     Value: Byte * 1
 class DDELN(Structure):
-    unused: Annotated[UInt16, 13]
-    fRelease: Annotated[UInt16, 1]
-    fDeferUpd: Annotated[UInt16, 1]
-    fAckReq: Annotated[UInt16, 1]
+    unused: Annotated[UInt16, NativeBitfieldAttribute(13)]
+    fRelease: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fDeferUpd: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fAckReq: Annotated[UInt16, NativeBitfieldAttribute(1)]
     cfFormat: Int16
 class DDEML_MSG_HOOK_DATA(Structure):
     uiLo: UIntPtr
@@ -331,17 +331,17 @@ class DDEML_MSG_HOOK_DATA(Structure):
     cbData: UInt32
     Data: UInt32 * 8
 class DDEPOKE(Structure):
-    unused: Annotated[UInt16, 13]
-    fRelease: Annotated[UInt16, 1]
-    fReserved: Annotated[UInt16, 2]
+    unused: Annotated[UInt16, NativeBitfieldAttribute(13)]
+    fRelease: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fReserved: Annotated[UInt16, NativeBitfieldAttribute(2)]
     cfFormat: Int16
     Value: Byte * 1
 class DDEUP(Structure):
-    unused: Annotated[UInt16, 12]
-    fAck: Annotated[UInt16, 1]
-    fRelease: Annotated[UInt16, 1]
-    fReserved: Annotated[UInt16, 1]
-    fAckReq: Annotated[UInt16, 1]
+    unused: Annotated[UInt16, NativeBitfieldAttribute(12)]
+    fAck: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fRelease: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fReserved: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    fAckReq: Annotated[UInt16, NativeBitfieldAttribute(1)]
     cfFormat: Int16
     rgb: Byte * 1
 DDE_CLIENT_TRANSACTION_TYPE = UInt32

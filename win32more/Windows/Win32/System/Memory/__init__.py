@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Memory
@@ -344,8 +344,8 @@ class MEM_EXTENDED_PARAMETER(Structure):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Union
     class _Anonymous1_e__Struct(Structure):
-        Type: Annotated[UInt64, 8]
-        Reserved: Annotated[UInt64, 56]
+        Type: Annotated[UInt64, NativeBitfieldAttribute(8)]
+        Reserved: Annotated[UInt64, NativeBitfieldAttribute(56)]
     class _Anonymous2_e__Union(Union):
         ULong64: UInt64
         Pointer: VoidPtr
@@ -503,13 +503,13 @@ class WIN32_MEMORY_REGION_INFORMATION(Structure):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            Private: Annotated[UInt32, 1]
-            MappedDataFile: Annotated[UInt32, 1]
-            MappedImage: Annotated[UInt32, 1]
-            MappedPageFile: Annotated[UInt32, 1]
-            MappedPhysical: Annotated[UInt32, 1]
-            DirectMapped: Annotated[UInt32, 1]
-            Reserved: Annotated[UInt32, 26]
+            Private: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            MappedDataFile: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            MappedImage: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            MappedPageFile: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            MappedPhysical: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            DirectMapped: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt32, NativeBitfieldAttribute(26)]
 
 
 make_ready(__name__)

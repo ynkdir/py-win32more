@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Diagnostics.Debug
 import win32more.Windows.Win32.System.Kernel
@@ -111,8 +111,8 @@ class RTL_BALANCED_NODE(Structure):
             Left: POINTER(win32more.Windows.Win32.System.Kernel.RTL_BALANCED_NODE)
             Right: POINTER(win32more.Windows.Win32.System.Kernel.RTL_BALANCED_NODE)
     class _Anonymous2_e__Union(Union):
-        Red: Annotated[Byte, 1]
-        Balance: Annotated[Byte, 2]
+        Red: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Balance: Annotated[Byte, NativeBitfieldAttribute(2)]
         ParentValue: UIntPtr
 class SINGLE_LIST_ENTRY(Structure):
     Next: POINTER(win32more.Windows.Win32.System.Kernel.SINGLE_LIST_ENTRY)
@@ -128,10 +128,10 @@ if ARCH in 'ARM64':
             Alignment: UInt64
             Region: UInt64
         class _HeaderArm64_e__Struct(Structure):
-            Depth: Annotated[UInt64, 16]
-            Sequence: Annotated[UInt64, 48]
-            Reserved: Annotated[UInt64, 4]
-            NextEntry: Annotated[UInt64, 60]
+            Depth: Annotated[UInt64, NativeBitfieldAttribute(16)]
+            Sequence: Annotated[UInt64, NativeBitfieldAttribute(48)]
+            Reserved: Annotated[UInt64, NativeBitfieldAttribute(4)]
+            NextEntry: Annotated[UInt64, NativeBitfieldAttribute(60)]
 elif ARCH in 'X64':
     class SLIST_HEADER(Union):
         Anonymous: _Anonymous_e__Struct
@@ -140,10 +140,10 @@ elif ARCH in 'X64':
             Alignment: UInt64
             Region: UInt64
         class _HeaderX64_e__Struct(Structure):
-            Depth: Annotated[UInt64, 16]
-            Sequence: Annotated[UInt64, 48]
-            Reserved: Annotated[UInt64, 4]
-            NextEntry: Annotated[UInt64, 60]
+            Depth: Annotated[UInt64, NativeBitfieldAttribute(16)]
+            Sequence: Annotated[UInt64, NativeBitfieldAttribute(48)]
+            Reserved: Annotated[UInt64, NativeBitfieldAttribute(4)]
+            NextEntry: Annotated[UInt64, NativeBitfieldAttribute(60)]
 elif ARCH in 'X86':
     class SLIST_HEADER(Union):
         Alignment: UInt64

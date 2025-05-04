@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Nvme
 class ACTIVE_LATENCY_CONFIGURATION(Structure):
@@ -9,19 +9,19 @@ class ACTIVE_LATENCY_CONFIGURATION(Structure):
         AsUshort: UInt16
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            Read0: Annotated[UInt16, 1]
-            Write0: Annotated[UInt16, 1]
-            Trim0: Annotated[UInt16, 1]
-            Read1: Annotated[UInt16, 1]
-            Write1: Annotated[UInt16, 1]
-            Trim1: Annotated[UInt16, 1]
-            Read2: Annotated[UInt16, 1]
-            Write2: Annotated[UInt16, 1]
-            Trim2: Annotated[UInt16, 1]
-            Read3: Annotated[UInt16, 1]
-            Write3: Annotated[UInt16, 1]
-            Trim3: Annotated[UInt16, 1]
-            Reserved: Annotated[UInt16, 4]
+            Read0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Write0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Trim0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Read1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Write1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Trim1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Read2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Write2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Trim2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Read3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Write3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Trim3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt16, NativeBitfieldAttribute(4)]
             _pack_ = 1
 NVME_IDENTIFY_CNS_DESCRIPTOR_NAMESPACE_SIZE: UInt32 = 4096
 GUID_OCP_DEVICE_SMART_INFORMATIONGuid: Guid = Guid('{2810afc5-bfea-a4f2-9c4f-6f7cc914d5af}')
@@ -74,24 +74,24 @@ class BUCKET_COUNTER(Structure):
     Read: UInt32
     _pack_ = 1
 class DEBUG_BIT_FIELD(Structure):
-    Read0: Annotated[UInt16, 1]
-    Write0: Annotated[UInt16, 1]
-    Trim0: Annotated[UInt16, 1]
-    Read1: Annotated[UInt16, 1]
-    Write1: Annotated[UInt16, 1]
-    Trim1: Annotated[UInt16, 1]
-    Read2: Annotated[UInt16, 1]
-    Write2: Annotated[UInt16, 1]
-    Trim2: Annotated[UInt16, 1]
-    Read3: Annotated[UInt16, 1]
-    Write3: Annotated[UInt16, 1]
-    Trim3: Annotated[UInt16, 1]
-    Reserved: Annotated[UInt16, 4]
+    Read0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Write0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Trim0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Read1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Write1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Trim1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Read2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Write2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Trim2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Read3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Write3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Trim3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt16, NativeBitfieldAttribute(4)]
     _pack_ = 1
 class DSSD_POWER_STATE_DESCRIPTOR(Structure):
-    NvmePowerState: Annotated[Byte, 5]
-    Reserved: Annotated[Byte, 2]
-    ValidDSSDPowerState: Annotated[Byte, 1]
+    NvmePowerState: Annotated[Byte, NativeBitfieldAttribute(5)]
+    Reserved: Annotated[Byte, NativeBitfieldAttribute(2)]
+    ValidDSSDPowerState: Annotated[Byte, NativeBitfieldAttribute(1)]
 class FIRMWARE_ACTIVATION_HISTORY_ENTRY(Structure):
     VersionNumber: Byte
     Length: Byte
@@ -113,10 +113,10 @@ class LATENCY_MONITOR_FEATURE_STATUS(Structure):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
         class _Anonymous_e__Struct(Structure):
-            FeatureEnabled: Annotated[Byte, 1]
-            ActiveLatencyMode: Annotated[Byte, 1]
-            ActiveMeasuredLatency: Annotated[Byte, 1]
-            Reserved: Annotated[Byte, 5]
+            FeatureEnabled: Annotated[Byte, NativeBitfieldAttribute(1)]
+            ActiveLatencyMode: Annotated[Byte, NativeBitfieldAttribute(1)]
+            ActiveMeasuredLatency: Annotated[Byte, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[Byte, NativeBitfieldAttribute(5)]
 class LATENCY_STAMP(Structure):
     Trim3: UInt64
     Write3: UInt64
@@ -132,19 +132,19 @@ class LATENCY_STAMP(Structure):
     Read0: UInt64
     _pack_ = 1
 class LATENCY_STAMP_UNITS(Structure):
-    Read0: Annotated[UInt16, 1]
-    Write0: Annotated[UInt16, 1]
-    Trim0: Annotated[UInt16, 1]
-    Read1: Annotated[UInt16, 1]
-    Write1: Annotated[UInt16, 1]
-    Trim1: Annotated[UInt16, 1]
-    Read2: Annotated[UInt16, 1]
-    Write2: Annotated[UInt16, 1]
-    Trim2: Annotated[UInt16, 1]
-    Read3: Annotated[UInt16, 1]
-    Write3: Annotated[UInt16, 1]
-    Trim3: Annotated[UInt16, 1]
-    Reserved: Annotated[UInt16, 4]
+    Read0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Write0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Trim0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Read1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Write1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Trim1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Read2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Write2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Trim2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Read3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Write3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Trim3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt16, NativeBitfieldAttribute(4)]
     _pack_ = 1
 class MEASURED_LATENCY(Structure):
     Trim3: UInt16
@@ -209,22 +209,22 @@ class NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlonglong: UInt64
     class _Anonymous_e__Struct(Structure):
-        Reserved0: Annotated[UInt64, 12]
-        ACQB: Annotated[UInt64, 52]
+        Reserved0: Annotated[UInt64, NativeBitfieldAttribute(12)]
+        ACQB: Annotated[UInt64, NativeBitfieldAttribute(52)]
 class NVME_ADMIN_QUEUE_ATTRIBUTES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        ASQS: Annotated[UInt32, 12]
-        Reserved0: Annotated[UInt32, 4]
-        ACQS: Annotated[UInt32, 12]
-        Reserved1: Annotated[UInt32, 4]
+        ASQS: Annotated[UInt32, NativeBitfieldAttribute(12)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        ACQS: Annotated[UInt32, NativeBitfieldAttribute(12)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(4)]
 class NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlonglong: UInt64
     class _Anonymous_e__Struct(Structure):
-        Reserved0: Annotated[UInt64, 12]
-        ASQB: Annotated[UInt64, 52]
+        Reserved0: Annotated[UInt64, NativeBitfieldAttribute(12)]
+        ASQB: Annotated[UInt64, NativeBitfieldAttribute(52)]
 NVME_AMS_OPTION = Int32
 NVME_AMS_ROUND_ROBIN: win32more.Windows.Win32.Storage.Nvme.NVME_AMS_OPTION = 0
 NVME_AMS_WEIGHTED_ROUND_ROBIN_URGENT: win32more.Windows.Win32.Storage.Nvme.NVME_AMS_OPTION = 1
@@ -262,9 +262,9 @@ NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_CODES = Int32
 NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_RESERVED: win32more.Windows.Win32.Storage.Nvme.NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_CODES = 0
 NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_DEVICE_PANIC: win32more.Windows.Win32.Storage.Nvme.NVME_ASYNC_EVENT_TYPE_VENDOR_SPECIFIC_CODES = 1
 class NVME_AUTO_POWER_STATE_TRANSITION_ENTRY(Structure):
-    Reserved0: Annotated[UInt32, 3]
-    IdleTransitionPowerState: Annotated[UInt32, 5]
-    IdleTimePriorToTransition: Annotated[UInt32, 24]
+    Reserved0: Annotated[UInt32, NativeBitfieldAttribute(3)]
+    IdleTransitionPowerState: Annotated[UInt32, NativeBitfieldAttribute(5)]
+    IdleTimePriorToTransition: Annotated[UInt32, NativeBitfieldAttribute(24)]
     Reserved1: UInt32
 NVME_CC_SHN_SHUTDOWN_NOTIFICATIONS = Int32
 NVME_CC_SHN_NO_NOTIFICATION: win32more.Windows.Win32.Storage.Nvme.NVME_CC_SHN_SHUTDOWN_NOTIFICATIONS = 0
@@ -274,41 +274,41 @@ class NVME_CDW0_FEATURE_ENABLE_IEEE1667_SILO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        Enabled: Annotated[UInt32, 3]
-        Reserved0: Annotated[UInt32, 29]
+        Enabled: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(29)]
 class NVME_CDW0_FEATURE_ERROR_INJECTION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NUM: Annotated[UInt32, 7]
-        Reserved0: Annotated[UInt32, 25]
+        NUM: Annotated[UInt32, NativeBitfieldAttribute(7)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(25)]
 class NVME_CDW0_FEATURE_READONLY_WRITETHROUGH_MODE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        EOLBehavior: Annotated[UInt32, 3]
-        Reserved0: Annotated[UInt32, 29]
+        EOLBehavior: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(29)]
 class NVME_CDW0_RESERVATION_PERSISTENCE(Structure):
-    PTPL: Annotated[UInt32, 1]
-    Reserved: Annotated[UInt32, 31]
+    PTPL: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NVME_CDW10_ABORT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        SQID: Annotated[UInt32, 8]
-        CID: Annotated[UInt32, 16]
+        SQID: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        CID: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW10_CREATE_IO_QUEUE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        QID: Annotated[UInt32, 16]
-        QSIZE: Annotated[UInt32, 16]
+        QID: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        QSIZE: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW10_DATASET_MANAGEMENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NR: Annotated[UInt32, 8]
-        Reserved: Annotated[UInt32, 24]
+        NR: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(24)]
 class NVME_CDW10_DIRECTIVE_RECEIVE(Structure):
     NUMD: UInt32
 class NVME_CDW10_DIRECTIVE_SEND(Structure):
@@ -317,79 +317,79 @@ class NVME_CDW10_FIRMWARE_ACTIVATE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        FS: Annotated[UInt32, 3]
-        AA: Annotated[UInt32, 2]
-        Reserved: Annotated[UInt32, 27]
+        FS: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        AA: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(27)]
 class NVME_CDW10_FIRMWARE_DOWNLOAD(Structure):
     NUMD: UInt32
 class NVME_CDW10_FORMAT_NVM(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        LBAF: Annotated[UInt32, 4]
-        MS: Annotated[UInt32, 1]
-        PI: Annotated[UInt32, 3]
-        PIL: Annotated[UInt32, 1]
-        SES: Annotated[UInt32, 3]
-        ZF: Annotated[UInt32, 2]
-        Reserved: Annotated[UInt32, 18]
+        LBAF: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        MS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        PI: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        PIL: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        SES: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        ZF: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(18)]
 class NVME_CDW10_GET_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        FID: Annotated[UInt32, 8]
-        SEL: Annotated[UInt32, 3]
-        Reserved0: Annotated[UInt32, 21]
+        FID: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        SEL: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(21)]
 class NVME_CDW10_GET_LOG_PAGE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        LID: Annotated[UInt32, 8]
-        Reserved0: Annotated[UInt32, 8]
-        NUMD: Annotated[UInt32, 12]
-        Reserved1: Annotated[UInt32, 4]
+        LID: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        NUMD: Annotated[UInt32, NativeBitfieldAttribute(12)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(4)]
 class NVME_CDW10_GET_LOG_PAGE_V13(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        LID: Annotated[UInt32, 8]
-        LSP: Annotated[UInt32, 4]
-        Reserved0: Annotated[UInt32, 3]
-        RAE: Annotated[UInt32, 1]
-        NUMDL: Annotated[UInt32, 16]
+        LID: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        LSP: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        RAE: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        NUMDL: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW10_IDENTIFY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        CNS: Annotated[UInt32, 8]
-        Reserved: Annotated[UInt32, 8]
-        CNTID: Annotated[UInt32, 16]
+        CNS: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        CNTID: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW10_RESERVATION_ACQUIRE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        RACQA: Annotated[UInt32, 3]
-        IEKEY: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 4]
-        RTYPE: Annotated[UInt32, 8]
-        Reserved1: Annotated[UInt32, 16]
+        RACQA: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        IEKEY: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        RTYPE: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW10_RESERVATION_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        RREGA: Annotated[UInt32, 3]
-        IEKEY: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 26]
-        CPTPL: Annotated[UInt32, 2]
+        RREGA: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        IEKEY: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(26)]
+        CPTPL: Annotated[UInt32, NativeBitfieldAttribute(2)]
 class NVME_CDW10_RESERVATION_RELEASE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        RRELA: Annotated[UInt32, 3]
-        IEKEY: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 4]
-        RTYPE: Annotated[UInt32, 8]
-        Reserved1: Annotated[UInt32, 16]
+        RRELA: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        IEKEY: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        RTYPE: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW10_RESERVATION_REPORT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
@@ -399,26 +399,26 @@ class NVME_CDW10_SANITIZE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        SANACT: Annotated[UInt32, 3]
-        AUSE: Annotated[UInt32, 1]
-        OWPASS: Annotated[UInt32, 4]
-        OIPBP: Annotated[UInt32, 1]
-        NDAS: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 22]
+        SANACT: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        AUSE: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        OWPASS: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        OIPBP: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        NDAS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(22)]
 class NVME_CDW10_SECURITY_SEND_RECEIVE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        Reserved0: Annotated[UInt32, 8]
-        SPSP: Annotated[UInt32, 16]
-        SECP: Annotated[UInt32, 8]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        SPSP: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        SECP: Annotated[UInt32, NativeBitfieldAttribute(8)]
 class NVME_CDW10_SET_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        FID: Annotated[UInt32, 8]
-        Reserved0: Annotated[UInt32, 23]
-        SV: Annotated[UInt32, 1]
+        FID: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(23)]
+        SV: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class NVME_CDW10_ZONE_APPEND(Structure):
     SLBA: UInt64
 class NVME_CDW10_ZONE_MANAGEMENT_RECEIVE(Structure):
@@ -429,40 +429,40 @@ class NVME_CDW11_CREATE_IO_CQ(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        PC: Annotated[UInt32, 1]
-        IEN: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 14]
-        IV: Annotated[UInt32, 16]
+        PC: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        IEN: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(14)]
+        IV: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW11_CREATE_IO_SQ(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        PC: Annotated[UInt32, 1]
-        QPRIO: Annotated[UInt32, 2]
-        Reserved0: Annotated[UInt32, 13]
-        CQID: Annotated[UInt32, 16]
+        PC: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        QPRIO: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(13)]
+        CQID: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW11_DATASET_MANAGEMENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        IDR: Annotated[UInt32, 1]
-        IDW: Annotated[UInt32, 1]
-        AD: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 29]
+        IDR: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        IDW: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        AD: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(29)]
 class NVME_CDW11_DIRECTIVE_RECEIVE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        DOPER: Annotated[UInt32, 8]
-        DTYPE: Annotated[UInt32, 8]
-        DSPEC: Annotated[UInt32, 16]
+        DOPER: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        DTYPE: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        DSPEC: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW11_DIRECTIVE_SEND(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        DOPER: Annotated[UInt32, 8]
-        DTYPE: Annotated[UInt32, 8]
-        DSPEC: Annotated[UInt32, 16]
+        DOPER: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        DTYPE: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        DSPEC: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW11_FEATURES(Union):
     NumberOfQueues: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FEATURE_NUMBER_OF_QUEUES
     InterruptCoalescing: win32more.Windows.Win32.Storage.Nvme.NVME_CDW11_FEATURE_INTERRUPT_COALESCING
@@ -490,175 +490,175 @@ class NVME_CDW11_FEATURE_ARBITRATION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        AB: Annotated[UInt32, 3]
-        Reserved0: Annotated[UInt32, 5]
-        LPW: Annotated[UInt32, 8]
-        MPW: Annotated[UInt32, 8]
-        HPW: Annotated[UInt32, 8]
+        AB: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(5)]
+        LPW: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        MPW: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        HPW: Annotated[UInt32, NativeBitfieldAttribute(8)]
 class NVME_CDW11_FEATURE_ASYNC_EVENT_CONFIG(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        CriticalWarnings: Annotated[UInt32, 8]
-        NsAttributeNotices: Annotated[UInt32, 1]
-        FwActivationNotices: Annotated[UInt32, 1]
-        TelemetryLogNotices: Annotated[UInt32, 1]
-        ANAChangeNotices: Annotated[UInt32, 1]
-        PredictableLogChangeNotices: Annotated[UInt32, 1]
-        LBAStatusNotices: Annotated[UInt32, 1]
-        EnduranceEventNotices: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 12]
-        ZoneDescriptorNotices: Annotated[UInt32, 1]
-        Reserved1: Annotated[UInt32, 4]
+        CriticalWarnings: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        NsAttributeNotices: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        FwActivationNotices: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        TelemetryLogNotices: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        ANAChangeNotices: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        PredictableLogChangeNotices: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        LBAStatusNotices: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        EnduranceEventNotices: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(12)]
+        ZoneDescriptorNotices: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(4)]
 class NVME_CDW11_FEATURE_AUTO_POWER_STATE_TRANSITION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        APSTE: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 31]
+        APSTE: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NVME_CDW11_FEATURE_CLEAR_FW_UPDATE_HISTORY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        Reserved0: Annotated[UInt32, 31]
-        Clear: Annotated[UInt32, 1]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(31)]
+        Clear: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class NVME_CDW11_FEATURE_CLEAR_PCIE_CORRECTABLE_ERROR_COUNTERS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        Reserved0: Annotated[UInt32, 31]
-        Clear: Annotated[UInt32, 1]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(31)]
+        Clear: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class NVME_CDW11_FEATURE_ENABLE_IEEE1667_SILO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        Reserved0: Annotated[UInt32, 31]
-        Enable: Annotated[UInt32, 1]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(31)]
+        Enable: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class NVME_CDW11_FEATURE_ERROR_RECOVERY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        TLER: Annotated[UInt32, 16]
-        DULBE: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 15]
+        TLER: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        DULBE: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(15)]
 class NVME_CDW11_FEATURE_GET_HOST_METADATA(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        GDHM: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 31]
+        GDHM: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NVME_CDW11_FEATURE_HOST_IDENTIFIER(Structure):
-    EXHID: Annotated[UInt32, 1]
-    Reserved: Annotated[UInt32, 31]
+    EXHID: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NVME_CDW11_FEATURE_HOST_MEMORY_BUFFER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        EHM: Annotated[UInt32, 1]
-        MR: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 30]
+        EHM: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        MR: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(30)]
 class NVME_CDW11_FEATURE_INTERRUPT_COALESCING(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        THR: Annotated[UInt32, 8]
-        TIME: Annotated[UInt32, 8]
-        Reserved0: Annotated[UInt32, 16]
+        THR: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        TIME: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW11_FEATURE_INTERRUPT_VECTOR_CONFIG(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        IV: Annotated[UInt32, 16]
-        CD: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 15]
+        IV: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        CD: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(15)]
 class NVME_CDW11_FEATURE_IO_COMMAND_SET_PROFILE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        IOCSCI: Annotated[UInt32, 8]
-        Reserved: Annotated[UInt32, 24]
+        IOCSCI: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(24)]
 class NVME_CDW11_FEATURE_LBA_RANGE_TYPE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NUM: Annotated[UInt32, 6]
-        Reserved0: Annotated[UInt32, 26]
+        NUM: Annotated[UInt32, NativeBitfieldAttribute(6)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(26)]
 class NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NOPPME: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 31]
+        NOPPME: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NVME_CDW11_FEATURE_NUMBER_OF_QUEUES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NSQ: Annotated[UInt32, 16]
-        NCQ: Annotated[UInt32, 16]
+        NSQ: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        NCQ: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW11_FEATURE_POWER_MANAGEMENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        PS: Annotated[UInt32, 5]
-        Reserved0: Annotated[UInt32, 27]
+        PS: Annotated[UInt32, NativeBitfieldAttribute(5)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(27)]
 class NVME_CDW11_FEATURE_READONLY_WRITETHROUGH_MODE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        Reserved0: Annotated[UInt32, 30]
-        EOLBehavior: Annotated[UInt32, 2]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(30)]
+        EOLBehavior: Annotated[UInt32, NativeBitfieldAttribute(2)]
 class NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK(Structure):
-    Reserved: Annotated[UInt32, 1]
-    REGPRE: Annotated[UInt32, 1]
-    RESREL: Annotated[UInt32, 1]
-    RESPRE: Annotated[UInt32, 1]
-    Reserved1: Annotated[UInt32, 28]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    REGPRE: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    RESREL: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    RESPRE: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Reserved1: Annotated[UInt32, NativeBitfieldAttribute(28)]
 class NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE(Structure):
-    PTPL: Annotated[UInt32, 1]
-    Reserved: Annotated[UInt32, 31]
+    PTPL: Annotated[UInt32, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NVME_CDW11_FEATURE_SET_HOST_METADATA(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        Reserved0: Annotated[UInt32, 13]
-        EA: Annotated[UInt32, 2]
-        Reserved1: Annotated[UInt32, 17]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(13)]
+        EA: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(17)]
 class NVME_CDW11_FEATURE_SUPPORTED_CAPABILITY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        SAVE: Annotated[UInt32, 1]
-        NSS: Annotated[UInt32, 1]
-        MOD: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 29]
+        SAVE: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        NSS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        MOD: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(29)]
 class NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        TMPTH: Annotated[UInt32, 16]
-        TMPSEL: Annotated[UInt32, 4]
-        THSEL: Annotated[UInt32, 2]
-        Reserved0: Annotated[UInt32, 10]
+        TMPTH: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        TMPSEL: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        THSEL: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(10)]
 class NVME_CDW11_FEATURE_VOLATILE_WRITE_CACHE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        WCE: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 31]
+        WCE: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NVME_CDW11_FEATURE_WRITE_ATOMICITY_NORMAL(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        DN: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 31]
+        DN: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NVME_CDW11_FIRMWARE_DOWNLOAD(Structure):
     OFST: UInt32
 class NVME_CDW11_GET_LOG_PAGE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NUMDU: Annotated[UInt32, 16]
-        LogSpecificIdentifier: Annotated[UInt32, 16]
+        NUMDU: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        LogSpecificIdentifier: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW11_IDENTIFY(Union):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Struct
@@ -667,15 +667,15 @@ class NVME_CDW11_IDENTIFY(Union):
         NVMSETID: UInt16
         Reserved: UInt16
     class _Anonymous2_e__Struct(Structure):
-        CNSID: Annotated[UInt32, 16]
-        Reserved2: Annotated[UInt32, 8]
-        CSI: Annotated[UInt32, 8]
+        CNSID: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        Reserved2: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        CSI: Annotated[UInt32, NativeBitfieldAttribute(8)]
 class NVME_CDW11_RESERVATION_REPORT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        EDS: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 31]
+        EDS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class NVME_CDW11_SANITIZE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
@@ -692,8 +692,8 @@ class NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NSR: Annotated[UInt32, 16]
-        Reserved: Annotated[UInt32, 16]
+        NSR: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW12_DIRECTIVE_SEND(Union):
     EnableDirective: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE
     AsUlong: UInt32
@@ -701,10 +701,10 @@ class NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        ENDIR: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 7]
-        DTYPE: Annotated[UInt32, 8]
-        Reserved1: Annotated[UInt32, 16]
+        ENDIR: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(7)]
+        DTYPE: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW12_FEATURES(Union):
     HostMemoryBuffer: win32more.Windows.Win32.Storage.Nvme.NVME_CDW12_FEATURE_HOST_MEMORY_BUFFER
     AsUlong: UInt32
@@ -719,23 +719,23 @@ class NVME_CDW12_READ_WRITE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NLB: Annotated[UInt32, 16]
-        Reserved0: Annotated[UInt32, 4]
-        DTYPE: Annotated[UInt32, 4]
-        Reserved1: Annotated[UInt32, 2]
-        PRINFO: Annotated[UInt32, 4]
-        FUA: Annotated[UInt32, 1]
-        LR: Annotated[UInt32, 1]
+        NLB: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        DTYPE: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        PRINFO: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        FUA: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        LR: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class NVME_CDW12_ZONE_APPEND(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NLB: Annotated[UInt32, 16]
-        Reserved: Annotated[UInt32, 9]
-        PIREMAP: Annotated[UInt32, 1]
-        PRINFO: Annotated[UInt32, 4]
-        FUA: Annotated[UInt32, 1]
-        LR: Annotated[UInt32, 1]
+        NLB: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(9)]
+        PIREMAP: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        PRINFO: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        FUA: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        LR: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class NVME_CDW13_FEATURES(Union):
     HostMemoryBuffer: win32more.Windows.Win32.Storage.Nvme.NVME_CDW13_FEATURE_HOST_MEMORY_BUFFER
     AsUlong: UInt32
@@ -743,8 +743,8 @@ class NVME_CDW13_FEATURE_HOST_MEMORY_BUFFER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        Reserved: Annotated[UInt32, 4]
-        HMDLLA: Annotated[UInt32, 28]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        HMDLLA: Annotated[UInt32, NativeBitfieldAttribute(28)]
 class NVME_CDW13_GET_LOG_PAGE(Structure):
     LPOU: UInt32
 class NVME_CDW13_READ_WRITE(Union):
@@ -755,25 +755,25 @@ class NVME_CDW13_READ_WRITE(Union):
         Reserved: Byte
         DSPEC: UInt16
         class _DSM_e__Struct(Structure):
-            AccessFrequency: Annotated[Byte, 4]
-            AccessLatency: Annotated[Byte, 2]
-            SequentialRequest: Annotated[Byte, 1]
-            Incompressible: Annotated[Byte, 1]
+            AccessFrequency: Annotated[Byte, NativeBitfieldAttribute(4)]
+            AccessLatency: Annotated[Byte, NativeBitfieldAttribute(2)]
+            SequentialRequest: Annotated[Byte, NativeBitfieldAttribute(1)]
+            Incompressible: Annotated[Byte, NativeBitfieldAttribute(1)]
 class NVME_CDW13_ZONE_MANAGEMENT_RECEIVE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        ZRA: Annotated[UInt32, 8]
-        ZRASpecific: Annotated[UInt32, 8]
-        Partial: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 15]
+        ZRA: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        ZRASpecific: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        Partial: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(15)]
 class NVME_CDW13_ZONE_MANAGEMENT_SEND(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        ZSA: Annotated[UInt32, 8]
-        SelectAll: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 23]
+        ZSA: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        SelectAll: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(23)]
 class NVME_CDW14_FEATURES(Union):
     HostMemoryBuffer: win32more.Windows.Win32.Storage.Nvme.NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER
     AsUlong: UInt32
@@ -786,9 +786,9 @@ class NVME_CDW14_GET_LOG_PAGE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        UUIDIndex: Annotated[UInt32, 7]
-        Reserved: Annotated[UInt32, 17]
-        CommandSetIdentifier: Annotated[UInt32, 8]
+        UUIDIndex: Annotated[UInt32, NativeBitfieldAttribute(7)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(17)]
+        CommandSetIdentifier: Annotated[UInt32, NativeBitfieldAttribute(8)]
 class NVME_CDW15_FEATURES(Union):
     HostMemoryBuffer: win32more.Windows.Win32.Storage.Nvme.NVME_CDW15_FEATURE_HOST_MEMORY_BUFFER
     AsUlong: UInt32
@@ -801,14 +801,14 @@ class NVME_CDW15_READ_WRITE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        ELBAT: Annotated[UInt32, 16]
-        ELBATM: Annotated[UInt32, 16]
+        ELBAT: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        ELBATM: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CDW15_ZONE_APPEND(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        LBAT: Annotated[UInt32, 16]
-        LBATM: Annotated[UInt32, 16]
+        LBAT: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        LBATM: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CHANGED_NAMESPACE_LIST_LOG(Structure):
     NSID: UInt32 * 1024
 class NVME_CHANGED_ZONE_LIST_LOG(Structure):
@@ -1036,23 +1036,23 @@ class NVME_COMMAND_DWORD0(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        OPC: Annotated[UInt32, 8]
-        FUSE: Annotated[UInt32, 2]
-        Reserved0: Annotated[UInt32, 5]
-        PSDT: Annotated[UInt32, 1]
-        CID: Annotated[UInt32, 16]
+        OPC: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        FUSE: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(5)]
+        PSDT: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        CID: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_COMMAND_EFFECTS_DATA(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        CSUPP: Annotated[UInt32, 1]
-        LBCC: Annotated[UInt32, 1]
-        NCC: Annotated[UInt32, 1]
-        NIC: Annotated[UInt32, 1]
-        CCC: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 11]
-        CSE: Annotated[UInt32, 3]
-        Reserved1: Annotated[UInt32, 13]
+        CSUPP: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        LBCC: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        NCC: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        NIC: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        CCC: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(11)]
+        CSE: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(13)]
 class NVME_COMMAND_EFFECTS_LOG(Structure):
     ACS: win32more.Windows.Win32.Storage.Nvme.NVME_COMMAND_EFFECTS_DATA * 256
     IOCS: win32more.Windows.Win32.Storage.Nvme.NVME_COMMAND_EFFECTS_DATA * 256
@@ -1069,24 +1069,24 @@ class NVME_COMMAND_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUshort: UInt16
     class _Anonymous_e__Struct(Structure):
-        P: Annotated[UInt16, 1]
-        SC: Annotated[UInt16, 8]
-        SCT: Annotated[UInt16, 3]
-        Reserved: Annotated[UInt16, 2]
-        M: Annotated[UInt16, 1]
-        DNR: Annotated[UInt16, 1]
+        P: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        SC: Annotated[UInt16, NativeBitfieldAttribute(8)]
+        SCT: Annotated[UInt16, NativeBitfieldAttribute(3)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(2)]
+        M: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        DNR: Annotated[UInt16, NativeBitfieldAttribute(1)]
 class NVME_COMPLETION_DW0_ASYNC_EVENT_REQUEST(Structure):
-    AsyncEventType: Annotated[UInt32, 3]
-    Reserved0: Annotated[UInt32, 5]
-    AsyncEventInfo: Annotated[UInt32, 8]
-    LogPage: Annotated[UInt32, 8]
-    Reserved1: Annotated[UInt32, 8]
+    AsyncEventType: Annotated[UInt32, NativeBitfieldAttribute(3)]
+    Reserved0: Annotated[UInt32, NativeBitfieldAttribute(5)]
+    AsyncEventInfo: Annotated[UInt32, NativeBitfieldAttribute(8)]
+    LogPage: Annotated[UInt32, NativeBitfieldAttribute(8)]
+    Reserved1: Annotated[UInt32, NativeBitfieldAttribute(8)]
 class NVME_COMPLETION_DW0_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES(Structure):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        NSA: Annotated[UInt32, 16]
-        Reserved: Annotated[UInt32, 16]
+        NSA: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_COMPLETION_ENTRY(Structure):
     DW0: UInt32
     DW1: UInt32
@@ -1108,57 +1108,57 @@ class NVME_COMPLETION_QUEUE_HEAD_DOORBELL(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        CQH: Annotated[UInt32, 16]
-        Reserved0: Annotated[UInt32, 16]
+        CQH: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_CONTEXT_ATTRIBUTES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        AccessFrequency: Annotated[UInt32, 4]
-        AccessLatency: Annotated[UInt32, 2]
-        Reserved0: Annotated[UInt32, 2]
-        SequentialReadRange: Annotated[UInt32, 1]
-        SequentialWriteRange: Annotated[UInt32, 1]
-        WritePrepare: Annotated[UInt32, 1]
-        Reserved1: Annotated[UInt32, 13]
-        CommandAccessSize: Annotated[UInt32, 8]
+        AccessFrequency: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        AccessLatency: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        SequentialReadRange: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        SequentialWriteRange: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        WritePrepare: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(13)]
+        CommandAccessSize: Annotated[UInt32, NativeBitfieldAttribute(8)]
 class NVME_CONTROLLER_CAPABILITIES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlonglong: UInt64
     class _Anonymous_e__Struct(Structure):
-        MQES: Annotated[UInt64, 16]
-        CQR: Annotated[UInt64, 1]
-        AMS_WeightedRoundRobinWithUrgent: Annotated[UInt64, 1]
-        AMS_VendorSpecific: Annotated[UInt64, 1]
-        Reserved0: Annotated[UInt64, 5]
-        TO: Annotated[UInt64, 8]
-        DSTRD: Annotated[UInt64, 4]
-        NSSRS: Annotated[UInt64, 1]
-        CSS_NVM: Annotated[UInt64, 1]
-        CSS_Reserved0: Annotated[UInt64, 1]
-        CSS_Reserved1: Annotated[UInt64, 1]
-        CSS_Reserved2: Annotated[UInt64, 1]
-        CSS_Reserved3: Annotated[UInt64, 1]
-        CSS_Reserved4: Annotated[UInt64, 1]
-        CSS_MultipleIo: Annotated[UInt64, 1]
-        CSS_AdminOnly: Annotated[UInt64, 1]
-        Reserved2: Annotated[UInt64, 3]
-        MPSMIN: Annotated[UInt64, 4]
-        MPSMAX: Annotated[UInt64, 4]
-        Reserved3: Annotated[UInt64, 8]
+        MQES: Annotated[UInt64, NativeBitfieldAttribute(16)]
+        CQR: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        AMS_WeightedRoundRobinWithUrgent: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        AMS_VendorSpecific: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt64, NativeBitfieldAttribute(5)]
+        TO: Annotated[UInt64, NativeBitfieldAttribute(8)]
+        DSTRD: Annotated[UInt64, NativeBitfieldAttribute(4)]
+        NSSRS: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        CSS_NVM: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        CSS_Reserved0: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        CSS_Reserved1: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        CSS_Reserved2: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        CSS_Reserved3: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        CSS_Reserved4: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        CSS_MultipleIo: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        CSS_AdminOnly: Annotated[UInt64, NativeBitfieldAttribute(1)]
+        Reserved2: Annotated[UInt64, NativeBitfieldAttribute(3)]
+        MPSMIN: Annotated[UInt64, NativeBitfieldAttribute(4)]
+        MPSMAX: Annotated[UInt64, NativeBitfieldAttribute(4)]
+        Reserved3: Annotated[UInt64, NativeBitfieldAttribute(8)]
 class NVME_CONTROLLER_CONFIGURATION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        EN: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 3]
-        CSS: Annotated[UInt32, 3]
-        MPS: Annotated[UInt32, 4]
-        AMS: Annotated[UInt32, 3]
-        SHN: Annotated[UInt32, 2]
-        IOSQES: Annotated[UInt32, 4]
-        IOCQES: Annotated[UInt32, 4]
-        Reserved1: Annotated[UInt32, 8]
+        EN: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        CSS: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        MPS: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        AMS: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        SHN: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        IOSQES: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        IOCQES: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(8)]
 class NVME_CONTROLLER_LIST(Structure):
     NumberOfIdentifiers: UInt16
     ControllerID: UInt16 * 2047
@@ -1166,21 +1166,21 @@ class NVME_CONTROLLER_MEMORY_BUFFER_LOCATION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        BIR: Annotated[UInt32, 3]
-        Reserved: Annotated[UInt32, 9]
-        OFST: Annotated[UInt32, 20]
+        BIR: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(9)]
+        OFST: Annotated[UInt32, NativeBitfieldAttribute(20)]
 class NVME_CONTROLLER_MEMORY_BUFFER_SIZE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        SQS: Annotated[UInt32, 1]
-        CQS: Annotated[UInt32, 1]
-        LISTS: Annotated[UInt32, 1]
-        RDS: Annotated[UInt32, 1]
-        WDS: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 3]
-        SZU: Annotated[UInt32, 4]
-        SZ: Annotated[UInt32, 20]
+        SQS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        CQS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        LISTS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        RDS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        WDS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        SZU: Annotated[UInt32, NativeBitfieldAttribute(4)]
+        SZ: Annotated[UInt32, NativeBitfieldAttribute(20)]
 NVME_CONTROLLER_METADATA_ELEMENT_TYPES = Int32
 NVME_CONTROLLER_METADATA_OPERATING_SYSTEM_CONTROLLER_NAME: win32more.Windows.Win32.Storage.Nvme.NVME_CONTROLLER_METADATA_ELEMENT_TYPES = 1
 NVME_CONTROLLER_METADATA_OPERATING_SYSTEM_DRIVER_NAME: win32more.Windows.Win32.Storage.Nvme.NVME_CONTROLLER_METADATA_ELEMENT_TYPES = 2
@@ -1219,12 +1219,12 @@ class NVME_CONTROLLER_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        RDY: Annotated[UInt32, 1]
-        CFS: Annotated[UInt32, 1]
-        SHST: Annotated[UInt32, 2]
-        NSSRO: Annotated[UInt32, 1]
-        PP: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 26]
+        RDY: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        CFS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        SHST: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        NSSRO: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        PP: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(26)]
 NVME_CSS_COMMAND_SETS = Int32
 NVME_CSS_NVM_COMMAND_SET: win32more.Windows.Win32.Storage.Nvme.NVME_CSS_COMMAND_SETS = 0
 NVME_CSS_ALL_SUPPORTED_IO_COMMAND_SET: win32more.Windows.Win32.Storage.Nvme.NVME_CSS_COMMAND_SETS = 6
@@ -1239,11 +1239,11 @@ class NVME_DEVICE_SELF_TEST_LOG(Structure):
     Reserved: Byte * 2
     ResultData: win32more.Windows.Win32.Storage.Nvme.NVME_DEVICE_SELF_TEST_RESULT_DATA * 20
     class _CurrentOperation_e__Struct(Structure):
-        Status: Annotated[Byte, 4]
-        Reserved: Annotated[Byte, 4]
+        Status: Annotated[Byte, NativeBitfieldAttribute(4)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _CurrentCompletion_e__Struct(Structure):
-        CompletePercent: Annotated[Byte, 7]
-        Reserved: Annotated[Byte, 1]
+        CompletePercent: Annotated[Byte, NativeBitfieldAttribute(7)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(1)]
 class NVME_DEVICE_SELF_TEST_RESULT_DATA(Structure):
     Status: _Status_e__Struct
     SegmentNumber: Byte
@@ -1257,24 +1257,24 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA(Structure):
     VendorSpecific: UInt16
     _pack_ = 1
     class _Status_e__Struct(Structure):
-        Result: Annotated[Byte, 4]
-        CodeValue: Annotated[Byte, 4]
+        Result: Annotated[Byte, NativeBitfieldAttribute(4)]
+        CodeValue: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _ValidDiagnostics_e__Struct(Structure):
-        NSIDValid: Annotated[Byte, 1]
-        FLBAValid: Annotated[Byte, 1]
-        SCTValid: Annotated[Byte, 1]
-        SCValid: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 4]
+        NSIDValid: Annotated[Byte, NativeBitfieldAttribute(1)]
+        FLBAValid: Annotated[Byte, NativeBitfieldAttribute(1)]
+        SCTValid: Annotated[Byte, NativeBitfieldAttribute(1)]
+        SCValid: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _StatusCodeType_e__Struct(Structure):
-        AdditionalInfo: Annotated[Byte, 3]
-        Reserved: Annotated[Byte, 5]
+        AdditionalInfo: Annotated[Byte, NativeBitfieldAttribute(3)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(5)]
 class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS(Structure):
     DirectivesSupported: win32more.Windows.Win32.Storage.Nvme.NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR
     DirectivesEnabled: win32more.Windows.Win32.Storage.Nvme.NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR
 class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR(Structure):
-    Identify: Annotated[Byte, 1]
-    Streams: Annotated[Byte, 1]
-    Reserved0: Annotated[Byte, 6]
+    Identify: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Streams: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Reserved0: Annotated[Byte, NativeBitfieldAttribute(6)]
     Reserved1: Byte * 31
 NVME_DIRECTIVE_RECEIVE_IDENTIFY_OPERATIONS = Int32
 NVME_DIRECTIVE_RECEIVE_IDENTIFY_OPERATION_RETURN_PARAMETERS: win32more.Windows.Win32.Storage.Nvme.NVME_DIRECTIVE_RECEIVE_IDENTIFY_OPERATIONS = 1
@@ -1327,9 +1327,9 @@ class NVME_ERROR_INFO_LOG(Structure):
     CommandSpecificInfo: UInt64
     Reserved1: Byte * 24
     class _ParameterErrorLocation_e__Struct(Structure):
-        Byte: Annotated[UInt16, 8]
-        Bit: Annotated[UInt16, 3]
-        Reserved: Annotated[UInt16, 5]
+        Byte: Annotated[UInt16, NativeBitfieldAttribute(8)]
+        Bit: Annotated[UInt16, NativeBitfieldAttribute(3)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(5)]
 class NVME_ERROR_INJECTION_ENTRY(Structure):
     Flags: _Flags_e__Union
     Reserved1: Byte
@@ -1339,9 +1339,9 @@ class NVME_ERROR_INJECTION_ENTRY(Structure):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
         class _Anonymous_e__Struct(Structure):
-            Enable: Annotated[Byte, 1]
-            SingleInstance: Annotated[Byte, 1]
-            Reserved0: Annotated[Byte, 6]
+            Enable: Annotated[Byte, NativeBitfieldAttribute(1)]
+            SingleInstance: Annotated[Byte, NativeBitfieldAttribute(1)]
+            Reserved0: Annotated[Byte, NativeBitfieldAttribute(6)]
 NVME_ERROR_INJECTION_TYPES = Int32
 NVME_ERROR_INJECTION_TYPE_RESERVED0: win32more.Windows.Win32.Storage.Nvme.NVME_ERROR_INJECTION_TYPES = 0
 NVME_ERROR_INJECTION_TYPE_DEVICE_PANIC_CPU_CONTROLLER_HANG: win32more.Windows.Win32.Storage.Nvme.NVME_ERROR_INJECTION_TYPES = 1
@@ -1421,10 +1421,10 @@ class NVME_FIRMWARE_SLOT_INFO_LOG(Structure):
     FRS: UInt64 * 7
     Reserved1: Byte * 448
     class _AFI_e__Struct(Structure):
-        ActiveSlot: Annotated[Byte, 3]
-        Reserved0: Annotated[Byte, 1]
-        PendingActivateSlot: Annotated[Byte, 3]
-        Reserved1: Annotated[Byte, 1]
+        ActiveSlot: Annotated[Byte, NativeBitfieldAttribute(3)]
+        Reserved0: Annotated[Byte, NativeBitfieldAttribute(1)]
+        PendingActivateSlot: Annotated[Byte, NativeBitfieldAttribute(3)]
+        Reserved1: Annotated[Byte, NativeBitfieldAttribute(1)]
 NVME_FUSED_OPERATION_CODES = Int32
 NVME_FUSED_OPERATION_NORMAL: win32more.Windows.Win32.Storage.Nvme.NVME_FUSED_OPERATION_CODES = 0
 NVME_FUSED_OPERATION_FIRST_CMD: win32more.Windows.Win32.Storage.Nvme.NVME_FUSED_OPERATION_CODES = 1
@@ -1461,12 +1461,12 @@ class NVME_HEALTH_INFO_LOG(Structure):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
         class _Anonymous_e__Struct(Structure):
-            AvailableSpaceLow: Annotated[Byte, 1]
-            TemperatureThreshold: Annotated[Byte, 1]
-            ReliabilityDegraded: Annotated[Byte, 1]
-            ReadOnly: Annotated[Byte, 1]
-            VolatileMemoryBackupDeviceFailed: Annotated[Byte, 1]
-            Reserved: Annotated[Byte, 3]
+            AvailableSpaceLow: Annotated[Byte, NativeBitfieldAttribute(1)]
+            TemperatureThreshold: Annotated[Byte, NativeBitfieldAttribute(1)]
+            ReliabilityDegraded: Annotated[Byte, NativeBitfieldAttribute(1)]
+            ReadOnly: Annotated[Byte, NativeBitfieldAttribute(1)]
+            VolatileMemoryBackupDeviceFailed: Annotated[Byte, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[Byte, NativeBitfieldAttribute(3)]
 class NVME_HOST_MEMORY_BUFFER_DESCRIPTOR_ENTRY(Structure):
     BADD: UInt64
     BSIZE: UInt32
@@ -1476,11 +1476,11 @@ NVME_HOST_METADATA_ADD_REPLACE_ENTRY: win32more.Windows.Win32.Storage.Nvme.NVME_
 NVME_HOST_METADATA_DELETE_ENTRY_MULTIPLE: win32more.Windows.Win32.Storage.Nvme.NVME_HOST_METADATA_ELEMENT_ACTIONS = 1
 NVME_HOST_METADATA_ADD_ENTRY_MULTIPLE: win32more.Windows.Win32.Storage.Nvme.NVME_HOST_METADATA_ELEMENT_ACTIONS = 2
 class NVME_HOST_METADATA_ELEMENT_DESCRIPTOR(Structure):
-    ET: Annotated[UInt32, 6]
-    Reserved0: Annotated[UInt32, 2]
-    ER: Annotated[UInt32, 4]
-    Reserved1: Annotated[UInt32, 4]
-    ELEN: Annotated[UInt32, 16]
+    ET: Annotated[UInt32, NativeBitfieldAttribute(6)]
+    Reserved0: Annotated[UInt32, NativeBitfieldAttribute(2)]
+    ER: Annotated[UInt32, NativeBitfieldAttribute(4)]
+    Reserved1: Annotated[UInt32, NativeBitfieldAttribute(4)]
+    ELEN: Annotated[UInt32, NativeBitfieldAttribute(16)]
     EVAL: Byte * 1
 NVME_IDENTIFIER_TYPE = Int32
 NVME_IDENTIFIER_TYPE_EUI64: win32more.Windows.Win32.Storage.Nvme.NVME_IDENTIFIER_TYPE = 1
@@ -1597,157 +1597,157 @@ class NVME_IDENTIFY_CONTROLLER_DATA(Structure):
     PDS: win32more.Windows.Win32.Storage.Nvme.NVME_POWER_STATE_DESC * 32
     VS: Byte * 1024
     class _CMIC_e__Struct(Structure):
-        MultiPCIePorts: Annotated[Byte, 1]
-        MultiControllers: Annotated[Byte, 1]
-        SRIOV: Annotated[Byte, 1]
-        ANAR: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 4]
+        MultiPCIePorts: Annotated[Byte, NativeBitfieldAttribute(1)]
+        MultiControllers: Annotated[Byte, NativeBitfieldAttribute(1)]
+        SRIOV: Annotated[Byte, NativeBitfieldAttribute(1)]
+        ANAR: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _OAES_e__Struct(Structure):
-        Reserved0: Annotated[UInt32, 8]
-        NamespaceAttributeChanged: Annotated[UInt32, 1]
-        FirmwareActivation: Annotated[UInt32, 1]
-        Reserved1: Annotated[UInt32, 1]
-        AsymmetricAccessChanged: Annotated[UInt32, 1]
-        PredictableLatencyAggregateLogChanged: Annotated[UInt32, 1]
-        LbaStatusChanged: Annotated[UInt32, 1]
-        EnduranceGroupAggregateLogChanged: Annotated[UInt32, 1]
-        Reserved2: Annotated[UInt32, 12]
-        ZoneInformation: Annotated[UInt32, 1]
-        Reserved3: Annotated[UInt32, 4]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        NamespaceAttributeChanged: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        FirmwareActivation: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        AsymmetricAccessChanged: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        PredictableLatencyAggregateLogChanged: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        LbaStatusChanged: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        EnduranceGroupAggregateLogChanged: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved2: Annotated[UInt32, NativeBitfieldAttribute(12)]
+        ZoneInformation: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved3: Annotated[UInt32, NativeBitfieldAttribute(4)]
     class _CTRATT_e__Struct(Structure):
-        HostIdentifier128Bit: Annotated[UInt32, 1]
-        NOPSPMode: Annotated[UInt32, 1]
-        NVMSets: Annotated[UInt32, 1]
-        ReadRecoveryLevels: Annotated[UInt32, 1]
-        EnduranceGroups: Annotated[UInt32, 1]
-        PredictableLatencyMode: Annotated[UInt32, 1]
-        TBKAS: Annotated[UInt32, 1]
-        NamespaceGranularity: Annotated[UInt32, 1]
-        SQAssociations: Annotated[UInt32, 1]
-        UUIDList: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 22]
+        HostIdentifier128Bit: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        NOPSPMode: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        NVMSets: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevels: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        EnduranceGroups: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        PredictableLatencyMode: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        TBKAS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        NamespaceGranularity: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        SQAssociations: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        UUIDList: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(22)]
     class _RRLS_e__Struct(Structure):
-        ReadRecoveryLevel0: Annotated[UInt16, 1]
-        ReadRecoveryLevel1: Annotated[UInt16, 1]
-        ReadRecoveryLevel2: Annotated[UInt16, 1]
-        ReadRecoveryLevel3: Annotated[UInt16, 1]
-        ReadRecoveryLevel4: Annotated[UInt16, 1]
-        ReadRecoveryLevel5: Annotated[UInt16, 1]
-        ReadRecoveryLevel6: Annotated[UInt16, 1]
-        ReadRecoveryLevel7: Annotated[UInt16, 1]
-        ReadRecoveryLevel8: Annotated[UInt16, 1]
-        ReadRecoveryLevel9: Annotated[UInt16, 1]
-        ReadRecoveryLevel10: Annotated[UInt16, 1]
-        ReadRecoveryLevel11: Annotated[UInt16, 1]
-        ReadRecoveryLevel12: Annotated[UInt16, 1]
-        ReadRecoveryLevel13: Annotated[UInt16, 1]
-        ReadRecoveryLevel14: Annotated[UInt16, 1]
-        ReadRecoveryLevel15: Annotated[UInt16, 1]
+        ReadRecoveryLevel0: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel1: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel2: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel3: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel4: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel5: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel6: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel7: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel8: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel9: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel10: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel11: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel12: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel13: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel14: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ReadRecoveryLevel15: Annotated[UInt16, NativeBitfieldAttribute(1)]
     class _OACS_e__Struct(Structure):
-        SecurityCommands: Annotated[UInt16, 1]
-        FormatNVM: Annotated[UInt16, 1]
-        FirmwareCommands: Annotated[UInt16, 1]
-        NamespaceCommands: Annotated[UInt16, 1]
-        DeviceSelfTest: Annotated[UInt16, 1]
-        Directives: Annotated[UInt16, 1]
-        NVMeMICommands: Annotated[UInt16, 1]
-        VirtualizationMgmt: Annotated[UInt16, 1]
-        DoorBellBufferConfig: Annotated[UInt16, 1]
-        GetLBAStatus: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 6]
+        SecurityCommands: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        FormatNVM: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        FirmwareCommands: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        NamespaceCommands: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        DeviceSelfTest: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Directives: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        NVMeMICommands: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        VirtualizationMgmt: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        DoorBellBufferConfig: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        GetLBAStatus: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(6)]
     class _FRMW_e__Struct(Structure):
-        Slot1ReadOnly: Annotated[Byte, 1]
-        SlotCount: Annotated[Byte, 3]
-        ActivationWithoutReset: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 3]
+        Slot1ReadOnly: Annotated[Byte, NativeBitfieldAttribute(1)]
+        SlotCount: Annotated[Byte, NativeBitfieldAttribute(3)]
+        ActivationWithoutReset: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(3)]
     class _LPA_e__Struct(Structure):
-        SmartPagePerNamespace: Annotated[Byte, 1]
-        CommandEffectsLog: Annotated[Byte, 1]
-        LogPageExtendedData: Annotated[Byte, 1]
-        TelemetrySupport: Annotated[Byte, 1]
-        PersistentEventLog: Annotated[Byte, 1]
-        Reserved0: Annotated[Byte, 1]
-        TelemetryDataArea4: Annotated[Byte, 1]
-        Reserved1: Annotated[Byte, 1]
+        SmartPagePerNamespace: Annotated[Byte, NativeBitfieldAttribute(1)]
+        CommandEffectsLog: Annotated[Byte, NativeBitfieldAttribute(1)]
+        LogPageExtendedData: Annotated[Byte, NativeBitfieldAttribute(1)]
+        TelemetrySupport: Annotated[Byte, NativeBitfieldAttribute(1)]
+        PersistentEventLog: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[Byte, NativeBitfieldAttribute(1)]
+        TelemetryDataArea4: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved1: Annotated[Byte, NativeBitfieldAttribute(1)]
     class _AVSCC_e__Struct(Structure):
-        CommandFormatInSpec: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 7]
+        CommandFormatInSpec: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(7)]
     class _APSTA_e__Struct(Structure):
-        Supported: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 7]
+        Supported: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(7)]
     class _RPMBS_e__Struct(Structure):
-        RPMBUnitCount: Annotated[UInt32, 3]
-        AuthenticationMethod: Annotated[UInt32, 3]
-        Reserved0: Annotated[UInt32, 10]
-        TotalSize: Annotated[UInt32, 8]
-        AccessSize: Annotated[UInt32, 8]
+        RPMBUnitCount: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        AuthenticationMethod: Annotated[UInt32, NativeBitfieldAttribute(3)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(10)]
+        TotalSize: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        AccessSize: Annotated[UInt32, NativeBitfieldAttribute(8)]
     class _HCTMA_e__Struct(Structure):
-        Supported: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 15]
+        Supported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(15)]
     class _SANICAP_e__Struct(Structure):
-        CryptoErase: Annotated[UInt32, 1]
-        BlockErase: Annotated[UInt32, 1]
-        Overwrite: Annotated[UInt32, 1]
-        Reserved: Annotated[UInt32, 26]
-        NDI: Annotated[UInt32, 1]
-        NODMMAS: Annotated[UInt32, 2]
+        CryptoErase: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        BlockErase: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Overwrite: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt32, NativeBitfieldAttribute(26)]
+        NDI: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        NODMMAS: Annotated[UInt32, NativeBitfieldAttribute(2)]
     class _ANACAP_e__Struct(Structure):
-        OptimizedState: Annotated[Byte, 1]
-        NonOptimizedState: Annotated[Byte, 1]
-        InaccessibleState: Annotated[Byte, 1]
-        PersistentLossState: Annotated[Byte, 1]
-        ChangeState: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 1]
-        StaticANAGRPID: Annotated[Byte, 1]
-        SupportNonZeroANAGRPID: Annotated[Byte, 1]
+        OptimizedState: Annotated[Byte, NativeBitfieldAttribute(1)]
+        NonOptimizedState: Annotated[Byte, NativeBitfieldAttribute(1)]
+        InaccessibleState: Annotated[Byte, NativeBitfieldAttribute(1)]
+        PersistentLossState: Annotated[Byte, NativeBitfieldAttribute(1)]
+        ChangeState: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(1)]
+        StaticANAGRPID: Annotated[Byte, NativeBitfieldAttribute(1)]
+        SupportNonZeroANAGRPID: Annotated[Byte, NativeBitfieldAttribute(1)]
     class _SQES_e__Struct(Structure):
-        RequiredEntrySize: Annotated[Byte, 4]
-        MaxEntrySize: Annotated[Byte, 4]
+        RequiredEntrySize: Annotated[Byte, NativeBitfieldAttribute(4)]
+        MaxEntrySize: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _CQES_e__Struct(Structure):
-        RequiredEntrySize: Annotated[Byte, 4]
-        MaxEntrySize: Annotated[Byte, 4]
+        RequiredEntrySize: Annotated[Byte, NativeBitfieldAttribute(4)]
+        MaxEntrySize: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _ONCS_e__Struct(Structure):
-        Compare: Annotated[UInt16, 1]
-        WriteUncorrectable: Annotated[UInt16, 1]
-        DatasetManagement: Annotated[UInt16, 1]
-        WriteZeroes: Annotated[UInt16, 1]
-        FeatureField: Annotated[UInt16, 1]
-        Reservations: Annotated[UInt16, 1]
-        Timestamp: Annotated[UInt16, 1]
-        Verify: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 8]
+        Compare: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        WriteUncorrectable: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        DatasetManagement: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        WriteZeroes: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        FeatureField: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reservations: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Timestamp: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Verify: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(8)]
     class _FUSES_e__Struct(Structure):
-        CompareAndWrite: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 15]
+        CompareAndWrite: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(15)]
     class _FNA_e__Struct(Structure):
-        FormatApplyToAll: Annotated[Byte, 1]
-        SecureEraseApplyToAll: Annotated[Byte, 1]
-        CryptographicEraseSupported: Annotated[Byte, 1]
-        FormatSupportNSIDAllF: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 4]
+        FormatApplyToAll: Annotated[Byte, NativeBitfieldAttribute(1)]
+        SecureEraseApplyToAll: Annotated[Byte, NativeBitfieldAttribute(1)]
+        CryptographicEraseSupported: Annotated[Byte, NativeBitfieldAttribute(1)]
+        FormatSupportNSIDAllF: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _VWC_e__Struct(Structure):
-        Present: Annotated[Byte, 1]
-        FlushBehavior: Annotated[Byte, 2]
-        Reserved: Annotated[Byte, 5]
+        Present: Annotated[Byte, NativeBitfieldAttribute(1)]
+        FlushBehavior: Annotated[Byte, NativeBitfieldAttribute(2)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(5)]
     class _NVSCC_e__Struct(Structure):
-        CommandFormatInSpec: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 7]
+        CommandFormatInSpec: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(7)]
     class _NWPC_e__Struct(Structure):
-        WriteProtect: Annotated[Byte, 1]
-        UntilPowerCycle: Annotated[Byte, 1]
-        Permanent: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 5]
+        WriteProtect: Annotated[Byte, NativeBitfieldAttribute(1)]
+        UntilPowerCycle: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Permanent: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(5)]
     class _SGLS_e__Struct(Structure):
-        SGLSupported: Annotated[UInt32, 2]
-        KeyedSGLData: Annotated[UInt32, 1]
-        Reserved0: Annotated[UInt32, 13]
-        BitBucketDescrSupported: Annotated[UInt32, 1]
-        ByteAlignedContiguousPhysicalBuffer: Annotated[UInt32, 1]
-        SGLLengthLargerThanDataLength: Annotated[UInt32, 1]
-        MPTRSGLDescriptor: Annotated[UInt32, 1]
-        AddressFieldSGLDataBlock: Annotated[UInt32, 1]
-        TransportSGLData: Annotated[UInt32, 1]
-        Reserved1: Annotated[UInt32, 10]
+        SGLSupported: Annotated[UInt32, NativeBitfieldAttribute(2)]
+        KeyedSGLData: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(13)]
+        BitBucketDescrSupported: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        ByteAlignedContiguousPhysicalBuffer: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        SGLLengthLargerThanDataLength: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        MPTRSGLDescriptor: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        AddressFieldSGLDataBlock: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        TransportSGLData: Annotated[UInt32, NativeBitfieldAttribute(1)]
+        Reserved1: Annotated[UInt32, NativeBitfieldAttribute(10)]
 class NVME_IDENTIFY_IO_COMMAND_SET(Structure):
     IOCommandSetVector: UInt64 * 512
 class NVME_IDENTIFY_NAMESPACE_DATA(Structure):
@@ -1792,45 +1792,45 @@ class NVME_IDENTIFY_NAMESPACE_DATA(Structure):
     Reserved4: Byte * 192
     VS: Byte * 3712
     class _NSFEAT_e__Struct(Structure):
-        ThinProvisioning: Annotated[Byte, 1]
-        NameSpaceAtomicWriteUnit: Annotated[Byte, 1]
-        DeallocatedOrUnwrittenError: Annotated[Byte, 1]
-        SkipReuseUI: Annotated[Byte, 1]
-        NameSpaceIoOptimization: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 3]
+        ThinProvisioning: Annotated[Byte, NativeBitfieldAttribute(1)]
+        NameSpaceAtomicWriteUnit: Annotated[Byte, NativeBitfieldAttribute(1)]
+        DeallocatedOrUnwrittenError: Annotated[Byte, NativeBitfieldAttribute(1)]
+        SkipReuseUI: Annotated[Byte, NativeBitfieldAttribute(1)]
+        NameSpaceIoOptimization: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(3)]
     class _FLBAS_e__Struct(Structure):
-        LbaFormatIndex: Annotated[Byte, 4]
-        MetadataInExtendedDataLBA: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 3]
+        LbaFormatIndex: Annotated[Byte, NativeBitfieldAttribute(4)]
+        MetadataInExtendedDataLBA: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(3)]
     class _MC_e__Struct(Structure):
-        MetadataInExtendedDataLBA: Annotated[Byte, 1]
-        MetadataInSeparateBuffer: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 6]
+        MetadataInExtendedDataLBA: Annotated[Byte, NativeBitfieldAttribute(1)]
+        MetadataInSeparateBuffer: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(6)]
     class _DPC_e__Struct(Structure):
-        ProtectionInfoType1: Annotated[Byte, 1]
-        ProtectionInfoType2: Annotated[Byte, 1]
-        ProtectionInfoType3: Annotated[Byte, 1]
-        InfoAtBeginningOfMetadata: Annotated[Byte, 1]
-        InfoAtEndOfMetadata: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 3]
+        ProtectionInfoType1: Annotated[Byte, NativeBitfieldAttribute(1)]
+        ProtectionInfoType2: Annotated[Byte, NativeBitfieldAttribute(1)]
+        ProtectionInfoType3: Annotated[Byte, NativeBitfieldAttribute(1)]
+        InfoAtBeginningOfMetadata: Annotated[Byte, NativeBitfieldAttribute(1)]
+        InfoAtEndOfMetadata: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(3)]
     class _DPS_e__Struct(Structure):
-        ProtectionInfoTypeEnabled: Annotated[Byte, 3]
-        InfoAtBeginningOfMetadata: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 4]
+        ProtectionInfoTypeEnabled: Annotated[Byte, NativeBitfieldAttribute(3)]
+        InfoAtBeginningOfMetadata: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _NMIC_e__Struct(Structure):
-        SharedNameSpace: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 7]
+        SharedNameSpace: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(7)]
     class _FPI_e__Struct(Structure):
-        PercentageRemained: Annotated[Byte, 7]
-        Supported: Annotated[Byte, 1]
+        PercentageRemained: Annotated[Byte, NativeBitfieldAttribute(7)]
+        Supported: Annotated[Byte, NativeBitfieldAttribute(1)]
     class _DLFEAT_e__Struct(Structure):
-        ReadBehavior: Annotated[Byte, 3]
-        WriteZeroes: Annotated[Byte, 1]
-        GuardFieldWithCRC: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 3]
+        ReadBehavior: Annotated[Byte, NativeBitfieldAttribute(3)]
+        WriteZeroes: Annotated[Byte, NativeBitfieldAttribute(1)]
+        GuardFieldWithCRC: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(3)]
     class _NSATTR_e__Struct(Structure):
-        WriteProtected: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 7]
+        WriteProtected: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(7)]
 class NVME_IDENTIFY_NAMESPACE_DESCRIPTOR(Structure):
     NIDT: Byte
     NIDL: Byte
@@ -1856,12 +1856,12 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET(Structure):
     Reserved1: Byte * 768
     VS: Byte * 256
     class _ZOC_e__Struct(Structure):
-        VariableZoneCapacity: Annotated[UInt16, 1]
-        ZoneExcursions: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 14]
+        VariableZoneCapacity: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        ZoneExcursions: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(14)]
     class _OZCS_e__Struct(Structure):
-        ReadAcrossZoneBoundaries: Annotated[UInt16, 1]
-        Reserved: Annotated[UInt16, 15]
+        ReadAcrossZoneBoundaries: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[UInt16, NativeBitfieldAttribute(15)]
 class NVME_IDENTIFY_ZNS_SPECIFIC_CONTROLLER_IO_COMMAND_SET(Structure):
     ZASL: Byte
     Reserved: Byte * 4095
@@ -1871,8 +1871,8 @@ class NVME_LBA_FORMAT(Union):
     class _Anonymous_e__Struct(Structure):
         MS: UInt16
         LBADS: Byte
-        RP: Annotated[Byte, 2]
-        Reserved0: Annotated[Byte, 6]
+        RP: Annotated[Byte, NativeBitfieldAttribute(2)]
+        Reserved0: Annotated[Byte, NativeBitfieldAttribute(6)]
 class NVME_LBA_RANGE(Structure):
     Attributes: win32more.Windows.Win32.Storage.Nvme.NVME_CONTEXT_ATTRIBUTES
     LogicalBlockCount: UInt32
@@ -1886,9 +1886,9 @@ class NVME_LBA_RANGET_TYPE_ENTRY(Structure):
     GUID: Byte * 16
     Reserved1: Byte * 16
     class _Attributes_e__Struct(Structure):
-        MayOverwritten: Annotated[Byte, 1]
-        Hidden: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 6]
+        MayOverwritten: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Hidden: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(6)]
 NVME_LBA_RANGE_TYPES = Int32
 NVME_LBA_RANGE_TYPE_RESERVED: win32more.Windows.Win32.Storage.Nvme.NVME_LBA_RANGE_TYPES = 0
 NVME_LBA_RANGE_TYPE_FILESYSTEM: win32more.Windows.Win32.Storage.Nvme.NVME_LBA_RANGE_TYPES = 1
@@ -1971,68 +1971,68 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG(Structure):
         AsUshort: UInt16
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            MctpOverSMBusSupported: Annotated[UInt16, 1]
-            MctpOverPcieVDMSupported: Annotated[UInt16, 1]
-            BasicMgmtCommandSupported: Annotated[UInt16, 1]
-            Reserved: Annotated[UInt16, 12]
-            CompliesWithSpec: Annotated[UInt16, 1]
+            MctpOverSMBusSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            MctpOverPcieVDMSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            BasicMgmtCommandSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt16, NativeBitfieldAttribute(12)]
+            CompliesWithSpec: Annotated[UInt16, NativeBitfieldAttribute(1)]
             _pack_ = 1
     class _WriteZeroesCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            Supported: Annotated[UInt16, 1]
-            DEACBitSupported: Annotated[UInt16, 1]
-            FUABitSupported: Annotated[UInt16, 1]
-            NvmeIo5Met: Annotated[UInt16, 1]
-            NvmeIo6Met: Annotated[UInt16, 1]
-            Reserved: Annotated[UInt16, 10]
-            CompliesWithSpec: Annotated[UInt16, 1]
+            Supported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            DEACBitSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            FUABitSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            NvmeIo5Met: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            NvmeIo6Met: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt16, NativeBitfieldAttribute(10)]
+            CompliesWithSpec: Annotated[UInt16, NativeBitfieldAttribute(1)]
             _pack_ = 1
     class _SanitizeCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            Supported: Annotated[UInt16, 1]
-            CryptoEraseSupported: Annotated[UInt16, 1]
-            BlockEraseSupported: Annotated[UInt16, 1]
-            OverwriteSupported: Annotated[UInt16, 1]
-            DeallocateLbaSupported: Annotated[UInt16, 1]
-            Reserved: Annotated[UInt16, 10]
-            CompliesWithSpec: Annotated[UInt16, 1]
+            Supported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            CryptoEraseSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            BlockEraseSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            OverwriteSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            DeallocateLbaSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt16, NativeBitfieldAttribute(10)]
+            CompliesWithSpec: Annotated[UInt16, NativeBitfieldAttribute(1)]
             _pack_ = 1
     class _DatasetMgmtCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            Supported: Annotated[UInt16, 1]
-            AttribDeallocateSupported: Annotated[UInt16, 1]
-            Reserved: Annotated[UInt16, 13]
-            CompliesWithSpec: Annotated[UInt16, 1]
+            Supported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            AttribDeallocateSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt16, NativeBitfieldAttribute(13)]
+            CompliesWithSpec: Annotated[UInt16, NativeBitfieldAttribute(1)]
             _pack_ = 1
     class _WriteUncorrectableCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            Supported: Annotated[UInt16, 1]
-            SingleLBASupported: Annotated[UInt16, 1]
-            MaxLBASupported: Annotated[UInt16, 1]
-            NvmeIo14Met: Annotated[UInt16, 1]
-            Reserved: Annotated[UInt16, 11]
-            CompliesWithSpec: Annotated[UInt16, 1]
+            Supported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            SingleLBASupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            MaxLBASupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            NvmeIo14Met: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt16, NativeBitfieldAttribute(11)]
+            CompliesWithSpec: Annotated[UInt16, NativeBitfieldAttribute(1)]
             _pack_ = 1
     class _FusedCommand_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUshort: UInt16
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
-            CWFusedSupported: Annotated[UInt16, 1]
-            Reserved: Annotated[UInt16, 14]
-            CompliesWithSpec: Annotated[UInt16, 1]
+            CWFusedSupported: Annotated[UInt16, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt16, NativeBitfieldAttribute(14)]
+            CompliesWithSpec: Annotated[UInt16, NativeBitfieldAttribute(1)]
             _pack_ = 1
 class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2(Structure):
     PanicResetWaitTime: UInt16
@@ -2102,8 +2102,8 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG(Structure):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
         class _Anonymous_e__Struct(Structure):
-            BasedOnTimestamp: Annotated[Byte, 1]
-            Reserved: Annotated[Byte, 7]
+            BasedOnTimestamp: Annotated[Byte, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[Byte, NativeBitfieldAttribute(7)]
 class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3(Structure):
     MediaUnitsWritten: Byte * 16
     MediaUnitsRead: Byte * 16
@@ -2181,11 +2181,11 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG(Structure):
         Anonymous: _Anonymous_e__Struct
         AsUchar: Byte
         class _Anonymous_e__Struct(Structure):
-            CPINSIDValue: Annotated[Byte, 1]
-            CPINSIDBlocked: Annotated[Byte, 1]
-            LockingEnabled: Annotated[Byte, 1]
-            SUMOwner: Annotated[Byte, 1]
-            Reserved: Annotated[Byte, 4]
+            CPINSIDValue: Annotated[Byte, NativeBitfieldAttribute(1)]
+            CPINSIDBlocked: Annotated[Byte, NativeBitfieldAttribute(1)]
+            LockingEnabled: Annotated[Byte, NativeBitfieldAttribute(1)]
+            SUMOwner: Annotated[Byte, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[Byte, NativeBitfieldAttribute(4)]
 class NVME_OCP_DEVICE_TCG_HISTORY_LOG(Structure):
     LID: Byte
     Reserved0: Byte * 3
@@ -2258,27 +2258,27 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER(Structure):
 class NVME_POWER_STATE_DESC(Structure):
     MP: UInt16
     Reserved0: Byte
-    MPS: Annotated[Byte, 1]
-    NOPS: Annotated[Byte, 1]
-    Reserved1: Annotated[Byte, 6]
+    MPS: Annotated[Byte, NativeBitfieldAttribute(1)]
+    NOPS: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Reserved1: Annotated[Byte, NativeBitfieldAttribute(6)]
     ENLAT: UInt32
     EXLAT: UInt32
-    RRT: Annotated[Byte, 5]
-    Reserved2: Annotated[Byte, 3]
-    RRL: Annotated[Byte, 5]
-    Reserved3: Annotated[Byte, 3]
-    RWT: Annotated[Byte, 5]
-    Reserved4: Annotated[Byte, 3]
-    RWL: Annotated[Byte, 5]
-    Reserved5: Annotated[Byte, 3]
+    RRT: Annotated[Byte, NativeBitfieldAttribute(5)]
+    Reserved2: Annotated[Byte, NativeBitfieldAttribute(3)]
+    RRL: Annotated[Byte, NativeBitfieldAttribute(5)]
+    Reserved3: Annotated[Byte, NativeBitfieldAttribute(3)]
+    RWT: Annotated[Byte, NativeBitfieldAttribute(5)]
+    Reserved4: Annotated[Byte, NativeBitfieldAttribute(3)]
+    RWL: Annotated[Byte, NativeBitfieldAttribute(5)]
+    Reserved5: Annotated[Byte, NativeBitfieldAttribute(3)]
     IDLP: UInt16
-    Reserved6: Annotated[Byte, 6]
-    IPS: Annotated[Byte, 2]
+    Reserved6: Annotated[Byte, NativeBitfieldAttribute(6)]
+    IPS: Annotated[Byte, NativeBitfieldAttribute(2)]
     Reserved7: Byte
     ACTP: UInt16
-    APW: Annotated[Byte, 3]
-    Reserved8: Annotated[Byte, 3]
-    APS: Annotated[Byte, 2]
+    APW: Annotated[Byte, NativeBitfieldAttribute(3)]
+    Reserved8: Annotated[Byte, NativeBitfieldAttribute(3)]
+    APS: Annotated[Byte, NativeBitfieldAttribute(2)]
     Reserved9: Byte * 9
 NVME_PROTECTION_INFORMATION_TYPES = Int32
 NVME_PROTECTION_INFORMATION_NOT_ENABLED: win32more.Windows.Win32.Storage.Nvme.NVME_PROTECTION_INFORMATION_TYPES = 0
@@ -2289,8 +2289,8 @@ class NVME_PRP_ENTRY(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlonglong: UInt64
     class _Anonymous_e__Struct(Structure):
-        Reserved0: Annotated[UInt64, 2]
-        PBAO: Annotated[UInt64, 62]
+        Reserved0: Annotated[UInt64, NativeBitfieldAttribute(2)]
+        PBAO: Annotated[UInt64, NativeBitfieldAttribute(62)]
 class NVME_REGISTERED_CONTROLLER_DATA(Structure):
     CNTLID: UInt16
     RCSTS: _RCSTS_e__Struct
@@ -2298,8 +2298,8 @@ class NVME_REGISTERED_CONTROLLER_DATA(Structure):
     HOSTID: Byte * 8
     RKEY: UInt64
     class _RCSTS_e__Struct(Structure):
-        HoldReservation: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 7]
+        HoldReservation: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(7)]
 class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA(Structure):
     CNTLID: UInt16
     RCSTS: _RCSTS_e__Struct
@@ -2308,8 +2308,8 @@ class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA(Structure):
     HOSTID: Byte * 16
     Reserved1: Byte * 32
     class _RCSTS_e__Struct(Structure):
-        HoldReservation: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 7]
+        HoldReservation: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(7)]
 class NVME_REPORT_ZONE_INFO(Structure):
     ZoneCount: UInt64
     Reserved: UInt64 * 7
@@ -2386,10 +2386,10 @@ NVME_SANITIZE_OPERATION_IN_PROGRESS: win32more.Windows.Win32.Storage.Nvme.NVME_S
 NVME_SANITIZE_OPERATION_FAILED: win32more.Windows.Win32.Storage.Nvme.NVME_SANITIZE_OPERATION_STATUS = 3
 NVME_SANITIZE_OPERATION_SUCCEEDED_WITH_FORCED_DEALLOCATION: win32more.Windows.Win32.Storage.Nvme.NVME_SANITIZE_OPERATION_STATUS = 4
 class NVME_SANITIZE_STATUS(Structure):
-    MostRecentSanitizeOperationStatus: Annotated[UInt16, 3]
-    NumberCompletedPassesOfOverwrite: Annotated[UInt16, 4]
-    GlobalDataErased: Annotated[UInt16, 1]
-    Reserved: Annotated[UInt16, 8]
+    MostRecentSanitizeOperationStatus: Annotated[UInt16, NativeBitfieldAttribute(3)]
+    NumberCompletedPassesOfOverwrite: Annotated[UInt16, NativeBitfieldAttribute(4)]
+    GlobalDataErased: Annotated[UInt16, NativeBitfieldAttribute(1)]
+    Reserved: Annotated[UInt16, NativeBitfieldAttribute(8)]
 class NVME_SANITIZE_STATUS_LOG(Structure):
     SPROG: UInt16
     SSTAT: win32more.Windows.Win32.Storage.Nvme.NVME_SANITIZE_STATUS
@@ -2531,8 +2531,8 @@ class NVME_SUBMISSION_QUEUE_TAIL_DOORBELL(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        SQT: Annotated[UInt32, 16]
-        Reserved0: Annotated[UInt32, 16]
+        SQT: Annotated[UInt32, NativeBitfieldAttribute(16)]
+        Reserved0: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_TELEMETRY_CONTROLLER_INITIATED_LOG(Structure):
     LogIdentifier: Byte
     Reserved0: Byte * 4
@@ -2576,18 +2576,18 @@ class NVME_VERSION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
     class _Anonymous_e__Struct(Structure):
-        TER: Annotated[UInt32, 8]
-        MNR: Annotated[UInt32, 8]
-        MJR: Annotated[UInt32, 16]
+        TER: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        MNR: Annotated[UInt32, NativeBitfieldAttribute(8)]
+        MJR: Annotated[UInt32, NativeBitfieldAttribute(16)]
 class NVME_WCS_DEVICE_CAPABILITIES(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsULONG: UInt32
         class _Anonymous_e__Struct(Structure):
-            PanicAEN: Annotated[UInt32, 1]
-            PanicCFS: Annotated[UInt32, 1]
-            Reserved: Annotated[UInt32, 30]
+            PanicAEN: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            PanicCFS: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[UInt32, NativeBitfieldAttribute(30)]
 class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG(Structure):
     PanicResetWaitTime: UInt16
     PanicResetAction: win32more.Windows.Win32.Storage.Nvme.NVME_WCS_DEVICE_RESET_ACTION
@@ -2624,13 +2624,13 @@ class NVME_WCS_DEVICE_RESET_ACTION(Structure):
         Anonymous: _Anonymous_e__Struct
         AsUCHAR: Byte
         class _Anonymous_e__Struct(Structure):
-            ControllerReset: Annotated[Byte, 1]
-            NVMeSubsystemReset: Annotated[Byte, 1]
-            PCIeFLR: Annotated[Byte, 1]
-            PERST: Annotated[Byte, 1]
-            PowerCycle: Annotated[Byte, 1]
-            PCIeConventionalHotReset: Annotated[Byte, 1]
-            Reserved: Annotated[Byte, 2]
+            ControllerReset: Annotated[Byte, NativeBitfieldAttribute(1)]
+            NVMeSubsystemReset: Annotated[Byte, NativeBitfieldAttribute(1)]
+            PCIeFLR: Annotated[Byte, NativeBitfieldAttribute(1)]
+            PERST: Annotated[Byte, NativeBitfieldAttribute(1)]
+            PowerCycle: Annotated[Byte, NativeBitfieldAttribute(1)]
+            PCIeConventionalHotReset: Annotated[Byte, NativeBitfieldAttribute(1)]
+            Reserved: Annotated[Byte, NativeBitfieldAttribute(2)]
 class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG(Structure):
     VersionSpecificData: Byte * 494
     LogPageVersionNumber: UInt16
@@ -2693,17 +2693,17 @@ class NVME_ZONE_DESCRIPTOR(Structure):
     WritePointer: UInt64
     Reserved4: Byte * 32
     class _Anonymous1_e__Struct(Structure):
-        ZT: Annotated[Byte, 4]
-        Reserved1: Annotated[Byte, 4]
+        ZT: Annotated[Byte, NativeBitfieldAttribute(4)]
+        Reserved1: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _Anonymous2_e__Struct(Structure):
-        Reserved2: Annotated[Byte, 4]
-        ZS: Annotated[Byte, 4]
+        Reserved2: Annotated[Byte, NativeBitfieldAttribute(4)]
+        ZS: Annotated[Byte, NativeBitfieldAttribute(4)]
     class _ZA_e__Struct(Structure):
-        ZFC: Annotated[Byte, 1]
-        FZR: Annotated[Byte, 1]
-        RZR: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 4]
-        ZDEV: Annotated[Byte, 1]
+        ZFC: Annotated[Byte, NativeBitfieldAttribute(1)]
+        FZR: Annotated[Byte, NativeBitfieldAttribute(1)]
+        RZR: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(4)]
+        ZDEV: Annotated[Byte, NativeBitfieldAttribute(1)]
 class NVME_ZONE_DESCRIPTOR_EXTENSION(Structure):
     ZoneDescriptorExtensionInfo: Byte * 64
 class NVME_ZONE_EXTENDED_REPORT_ZONE_DESC(Structure):
@@ -2732,14 +2732,14 @@ class NVM_RESERVATION_CAPABILITIES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUchar: Byte
     class _Anonymous_e__Struct(Structure):
-        PersistThroughPowerLoss: Annotated[Byte, 1]
-        WriteExclusiveReservation: Annotated[Byte, 1]
-        ExclusiveAccessReservation: Annotated[Byte, 1]
-        WriteExclusiveRegistrantsOnlyReservation: Annotated[Byte, 1]
-        ExclusiveAccessRegistrantsOnlyReservation: Annotated[Byte, 1]
-        WriteExclusiveAllRegistrantsReservation: Annotated[Byte, 1]
-        ExclusiveAccessAllRegistrantsReservation: Annotated[Byte, 1]
-        Reserved: Annotated[Byte, 1]
+        PersistThroughPowerLoss: Annotated[Byte, NativeBitfieldAttribute(1)]
+        WriteExclusiveReservation: Annotated[Byte, NativeBitfieldAttribute(1)]
+        ExclusiveAccessReservation: Annotated[Byte, NativeBitfieldAttribute(1)]
+        WriteExclusiveRegistrantsOnlyReservation: Annotated[Byte, NativeBitfieldAttribute(1)]
+        ExclusiveAccessRegistrantsOnlyReservation: Annotated[Byte, NativeBitfieldAttribute(1)]
+        WriteExclusiveAllRegistrantsReservation: Annotated[Byte, NativeBitfieldAttribute(1)]
+        ExclusiveAccessAllRegistrantsReservation: Annotated[Byte, NativeBitfieldAttribute(1)]
+        Reserved: Annotated[Byte, NativeBitfieldAttribute(1)]
 class NVM_SET_LIST(Structure):
     IdentifierCount: Byte
     Reserved: Byte * 127

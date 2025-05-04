@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -888,8 +888,8 @@ class EVENT_HEADER_EXTENDED_DATA_ITEM(Structure):
     DataSize: UInt16
     DataPtr: UInt64
     class _Anonymous_e__Struct(Structure):
-        Linkage: Annotated[UInt16, 1]
-        Reserved2: Annotated[UInt16, 15]
+        Linkage: Annotated[UInt16, NativeBitfieldAttribute(1)]
+        Reserved2: Annotated[UInt16, NativeBitfieldAttribute(15)]
 EVENT_INFO_CLASS = Int32
 EventProviderBinaryTrackInfo: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 0
 EventProviderSetReserved1: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_INFO_CLASS = 1
@@ -982,7 +982,7 @@ class EVENT_PROPERTY_INFO(Structure):
         Reserved: UInt32
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            Tags: Annotated[UInt32, 28]
+            Tags: Annotated[UInt32, NativeBitfieldAttribute(28)]
 class EVENT_RECORD(Structure):
     EventHeader: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_HEADER
     BufferContext: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_BUFFER_CONTEXT
@@ -1165,15 +1165,15 @@ class EVENT_TRACE_PROPERTIES_V2(Structure):
         Anonymous: _Anonymous_e__Struct
         V2Control: UInt32
         class _Anonymous_e__Struct(Structure):
-            VersionNumber: Annotated[UInt32, 8]
+            VersionNumber: Annotated[UInt32, NativeBitfieldAttribute(8)]
     class _Anonymous3_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         V2Options: UInt64
         class _Anonymous_e__Struct(Structure):
-            Wow: Annotated[UInt32, 1]
-            QpcDeltaTracking: Annotated[UInt32, 1]
-            LargeMdlPages: Annotated[UInt32, 1]
-            ExcludeKernelStack: Annotated[UInt32, 1]
+            Wow: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            QpcDeltaTracking: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            LargeMdlPages: Annotated[UInt32, NativeBitfieldAttribute(1)]
+            ExcludeKernelStack: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class ITraceEvent(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('{8cc97f40-9028-4ff3-9b62-7d1f79ca7bcb}')
@@ -1387,8 +1387,8 @@ class TRACE_EVENT_INFO(Structure):
         Flags: win32more.Windows.Win32.System.Diagnostics.Etw.TEMPLATE_FLAGS
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
-            Reserved: Annotated[UInt32, 4]
-            Tags: Annotated[UInt32, 28]
+            Reserved: Annotated[UInt32, NativeBitfieldAttribute(4)]
+            Tags: Annotated[UInt32, NativeBitfieldAttribute(28)]
 class TRACE_GUID_INFO(Structure):
     InstanceCount: UInt32
     Reserved: UInt32

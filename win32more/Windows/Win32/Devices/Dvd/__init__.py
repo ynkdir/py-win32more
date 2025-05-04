@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Dvd
 import win32more.Windows.Win32.Foundation
 class AACS_BINDING_NONCE(Structure):
@@ -92,8 +92,8 @@ SessionInfoDiscControlBlock: win32more.Windows.Win32.Devices.Dvd.DISC_CONTROL_BL
 DiscControlBlockList: win32more.Windows.Win32.Devices.Dvd.DISC_CONTROL_BLOCK_TYPE = -1
 class DVD_ASF(Structure):
     Reserved0: Byte * 3
-    SuccessFlag: Annotated[Byte, 1]
-    Reserved1: Annotated[Byte, 7]
+    SuccessFlag: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Reserved1: Annotated[Byte, NativeBitfieldAttribute(7)]
 class DVD_BCA_DESCRIPTOR(Structure):
     BCAInformation: Byte * 1
 class DVD_BD_SPARE_AREA_INFORMATION(Structure):
@@ -115,21 +115,21 @@ class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR(Structure):
         DvdRecordable: _DvdRecordable_e__Struct
         CPR_MAI: Byte
         class _Dvdrom_e__Struct(Structure):
-            CopyProtectionMode: Annotated[Byte, 4]
-            ContentGenerationManagementSystem: Annotated[Byte, 2]
-            CopyProtectedSector: Annotated[Byte, 1]
-            CopyProtectedMaterial: Annotated[Byte, 1]
+            CopyProtectionMode: Annotated[Byte, NativeBitfieldAttribute(4)]
+            ContentGenerationManagementSystem: Annotated[Byte, NativeBitfieldAttribute(2)]
+            CopyProtectedSector: Annotated[Byte, NativeBitfieldAttribute(1)]
+            CopyProtectedMaterial: Annotated[Byte, NativeBitfieldAttribute(1)]
         class _DvdRecordable_Version1_e__Struct(Structure):
-            Reserved0001: Annotated[Byte, 4]
-            ContentGenerationManagementSystem: Annotated[Byte, 2]
-            Reserved0002: Annotated[Byte, 1]
-            CopyProtectedMaterial: Annotated[Byte, 1]
+            Reserved0001: Annotated[Byte, NativeBitfieldAttribute(4)]
+            ContentGenerationManagementSystem: Annotated[Byte, NativeBitfieldAttribute(2)]
+            Reserved0002: Annotated[Byte, NativeBitfieldAttribute(1)]
+            CopyProtectedMaterial: Annotated[Byte, NativeBitfieldAttribute(1)]
         class _Dvdram_e__Struct(Structure):
             Reserved0003: Byte
         class _DvdRecordable_e__Struct(Structure):
-            Reserved0004: Annotated[Byte, 2]
-            ADP_TY: Annotated[Byte, 2]
-            Reserved0005: Annotated[Byte, 4]
+            Reserved0004: Annotated[Byte, NativeBitfieldAttribute(2)]
+            ADP_TY: Annotated[Byte, NativeBitfieldAttribute(2)]
+            Reserved0005: Annotated[Byte, NativeBitfieldAttribute(4)]
 class DVD_COPY_PROTECT_KEY(Structure):
     KeyLength: UInt32
     SessionId: UInt32
@@ -156,11 +156,11 @@ class DVD_DISC_CONTROL_BLOCK_HEADER(Structure):
         AsByte: Byte * 4
         class _Anonymous_e__Struct(Structure):
             ReservedDoNotUse_UseAsByteInstead_0: Byte * 3
-            RecordingWithinTheUserDataArea: Annotated[Byte, 1]
-            ReadingDiscControlBlocks: Annotated[Byte, 1]
-            FormattingTheMedium: Annotated[Byte, 1]
-            ModificationOfThisDiscControlBlock: Annotated[Byte, 1]
-            ReservedDoNotUse_UseAsByteInstead_1: Annotated[Byte, 4]
+            RecordingWithinTheUserDataArea: Annotated[Byte, NativeBitfieldAttribute(1)]
+            ReadingDiscControlBlocks: Annotated[Byte, NativeBitfieldAttribute(1)]
+            FormattingTheMedium: Annotated[Byte, NativeBitfieldAttribute(1)]
+            ModificationOfThisDiscControlBlock: Annotated[Byte, NativeBitfieldAttribute(1)]
+            ReservedDoNotUse_UseAsByteInstead_1: Annotated[Byte, NativeBitfieldAttribute(4)]
 class DVD_DISC_CONTROL_BLOCK_LIST(Structure):
     header: win32more.Windows.Win32.Devices.Dvd.DVD_DISC_CONTROL_BLOCK_HEADER
     Reserved0: Byte
@@ -192,9 +192,9 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT(Structure):
         AsByte: Byte * 4
         class _Anonymous_e__Struct(Structure):
             ReservedDoNotUse_UseAsByteInstead_0: Byte * 3
-            WriteProtectStatus: Annotated[Byte, 2]
-            ReservedDoNotUse_UseAsByteInstead_1: Annotated[Byte, 5]
-            UpdateRequiresPassword: Annotated[Byte, 1]
+            WriteProtectStatus: Annotated[Byte, NativeBitfieldAttribute(2)]
+            ReservedDoNotUse_UseAsByteInstead_1: Annotated[Byte, NativeBitfieldAttribute(5)]
+            UpdateRequiresPassword: Annotated[Byte, NativeBitfieldAttribute(1)]
 class DVD_DISK_KEY_DESCRIPTOR(Structure):
     DiskKeyData: Byte * 2048
 class DVD_DUAL_LAYER_JUMP_INTERVAL_SIZE(Structure):
@@ -204,13 +204,13 @@ class DVD_DUAL_LAYER_MANUAL_LAYER_JUMP(Structure):
     Reserved1: Byte * 4
     ManualJumpLayerAddress: Byte * 4
 class DVD_DUAL_LAYER_MIDDLE_ZONE_START_ADDRESS(Structure):
-    Reserved0: Annotated[Byte, 7]
-    InitStatus: Annotated[Byte, 1]
+    Reserved0: Annotated[Byte, NativeBitfieldAttribute(7)]
+    InitStatus: Annotated[Byte, NativeBitfieldAttribute(1)]
     Reserved1: Byte * 3
     ShiftedMiddleAreaStartAddress: Byte * 4
 class DVD_DUAL_LAYER_RECORDING_INFORMATION(Structure):
-    Reserved0: Annotated[Byte, 7]
-    Layer0SectorsImmutable: Annotated[Byte, 1]
+    Reserved0: Annotated[Byte, NativeBitfieldAttribute(7)]
+    Layer0SectorsImmutable: Annotated[Byte, NativeBitfieldAttribute(1)]
     Reserved1: Byte * 3
     Layer0Sectors: Byte * 4
 class DVD_DUAL_LAYER_REMAPPING_INFORMATION(Structure):
@@ -230,30 +230,30 @@ DvdGetRpcKey: win32more.Windows.Win32.Devices.Dvd.DVD_KEY_TYPE = 8
 DvdDiskKey: win32more.Windows.Win32.Devices.Dvd.DVD_KEY_TYPE = 128
 DvdInvalidateAGID: win32more.Windows.Win32.Devices.Dvd.DVD_KEY_TYPE = 63
 class DVD_LAYER_DESCRIPTOR(Structure):
-    BookVersion: Annotated[Byte, 4]
-    BookType: Annotated[Byte, 4]
-    MinimumRate: Annotated[Byte, 4]
-    DiskSize: Annotated[Byte, 4]
-    LayerType: Annotated[Byte, 4]
-    TrackPath: Annotated[Byte, 1]
-    NumberOfLayers: Annotated[Byte, 2]
-    Reserved1: Annotated[Byte, 1]
-    TrackDensity: Annotated[Byte, 4]
-    LinearDensity: Annotated[Byte, 4]
+    BookVersion: Annotated[Byte, NativeBitfieldAttribute(4)]
+    BookType: Annotated[Byte, NativeBitfieldAttribute(4)]
+    MinimumRate: Annotated[Byte, NativeBitfieldAttribute(4)]
+    DiskSize: Annotated[Byte, NativeBitfieldAttribute(4)]
+    LayerType: Annotated[Byte, NativeBitfieldAttribute(4)]
+    TrackPath: Annotated[Byte, NativeBitfieldAttribute(1)]
+    NumberOfLayers: Annotated[Byte, NativeBitfieldAttribute(2)]
+    Reserved1: Annotated[Byte, NativeBitfieldAttribute(1)]
+    TrackDensity: Annotated[Byte, NativeBitfieldAttribute(4)]
+    LinearDensity: Annotated[Byte, NativeBitfieldAttribute(4)]
     StartingDataSector: UInt32
     EndDataSector: UInt32
     EndLayerZeroSector: UInt32
-    Reserved5: Annotated[Byte, 7]
-    BCAFlag: Annotated[Byte, 1]
+    Reserved5: Annotated[Byte, NativeBitfieldAttribute(7)]
+    BCAFlag: Annotated[Byte, NativeBitfieldAttribute(1)]
     _pack_ = 1
 class DVD_LIST_OF_RECOGNIZED_FORMAT_LAYERS(Structure):
     TypeCodeOfFormatLayer: Byte * 2
 class DVD_LIST_OF_RECOGNIZED_FORMAT_LAYERS_TYPE_CODE(Structure):
     NumberOfRecognizedFormatLayers: Byte
-    OnlineFormatlayer: Annotated[Byte, 2]
-    Reserved1: Annotated[Byte, 2]
-    DefaultFormatLayer: Annotated[Byte, 2]
-    Reserved2: Annotated[Byte, 2]
+    OnlineFormatlayer: Annotated[Byte, NativeBitfieldAttribute(2)]
+    Reserved1: Annotated[Byte, NativeBitfieldAttribute(2)]
+    DefaultFormatLayer: Annotated[Byte, NativeBitfieldAttribute(2)]
+    Reserved2: Annotated[Byte, NativeBitfieldAttribute(2)]
 class DVD_MANUFACTURER_DESCRIPTOR(Structure):
     ManufacturingInformation: Byte * 2048
 class DVD_PRERECORDED_INFORMATION(Structure):
@@ -261,8 +261,8 @@ class DVD_PRERECORDED_INFORMATION(Structure):
     DiscApplicationCode: Byte
     DiscPhysicalCode: Byte
     LastAddressOfDataRecordableArea: Byte * 3
-    ExtensionCode: Annotated[Byte, 4]
-    PartVers1on: Annotated[Byte, 4]
+    ExtensionCode: Annotated[Byte, NativeBitfieldAttribute(4)]
+    PartVers1on: Annotated[Byte, NativeBitfieldAttribute(4)]
     Reserved0: Byte
     FieldID_2: Byte
     OpcSuggestedCode: Byte
@@ -280,20 +280,20 @@ class DVD_PRERECORDED_INFORMATION(Structure):
     Reserved5: Byte
     Reserved99: Byte * 24
 class DVD_RAM_MEDIUM_STATUS(Structure):
-    Reserved0: Annotated[Byte, 1]
-    PersistentWriteProtect: Annotated[Byte, 1]
-    CartridgeWriteProtect: Annotated[Byte, 1]
-    MediaSpecificWriteInhibit: Annotated[Byte, 1]
-    Reserved1: Annotated[Byte, 2]
-    CartridgeNotSealed: Annotated[Byte, 1]
-    MediaInCartridge: Annotated[Byte, 1]
+    Reserved0: Annotated[Byte, NativeBitfieldAttribute(1)]
+    PersistentWriteProtect: Annotated[Byte, NativeBitfieldAttribute(1)]
+    CartridgeWriteProtect: Annotated[Byte, NativeBitfieldAttribute(1)]
+    MediaSpecificWriteInhibit: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Reserved1: Annotated[Byte, NativeBitfieldAttribute(2)]
+    CartridgeNotSealed: Annotated[Byte, NativeBitfieldAttribute(1)]
+    MediaInCartridge: Annotated[Byte, NativeBitfieldAttribute(1)]
     DiscTypeIdentification: Byte
     Reserved2: Byte
     MediaSpecificWriteInhibitInformation: Byte
 class DVD_RAM_RECORDING_TYPE(Structure):
-    Reserved0: Annotated[Byte, 4]
-    RealTimeData: Annotated[Byte, 1]
-    Reserved1: Annotated[Byte, 3]
+    Reserved0: Annotated[Byte, NativeBitfieldAttribute(4)]
+    RealTimeData: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Reserved1: Annotated[Byte, NativeBitfieldAttribute(3)]
     Reserved2: Byte * 3
 class DVD_RAM_SPARE_AREA_INFORMATION(Structure):
     FreePrimarySpareSectors: Byte * 4
@@ -314,9 +314,9 @@ class DVD_REGION(Structure):
     SystemRegion: Byte
     ResetCount: Byte
 class DVD_RPC_KEY(Structure):
-    UserResetsAvailable: Annotated[Byte, 3]
-    ManufacturerResetsAvailable: Annotated[Byte, 3]
-    TypeCode: Annotated[Byte, 2]
+    UserResetsAvailable: Annotated[Byte, NativeBitfieldAttribute(3)]
+    ManufacturerResetsAvailable: Annotated[Byte, NativeBitfieldAttribute(3)]
+    TypeCode: Annotated[Byte, NativeBitfieldAttribute(2)]
     RegionMask: Byte
     RpcScheme: Byte
     Reserved02: Byte
@@ -332,9 +332,9 @@ DvdManufacturerDescriptor: win32more.Windows.Win32.Devices.Dvd.DVD_STRUCTURE_FOR
 DvdMaxDescriptor: win32more.Windows.Win32.Devices.Dvd.DVD_STRUCTURE_FORMAT = 5
 class DVD_STRUCTURE_LIST_ENTRY(Structure):
     FormatCode: Byte
-    Reserved0: Annotated[Byte, 6]
-    Readable: Annotated[Byte, 1]
-    Sendable: Annotated[Byte, 1]
+    Reserved0: Annotated[Byte, NativeBitfieldAttribute(6)]
+    Readable: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Sendable: Annotated[Byte, NativeBitfieldAttribute(1)]
     FormatLength: Byte * 2
 class DVD_UNIQUE_DISC_IDENTIFIER(Structure):
     Reserved0: Byte * 2
@@ -346,15 +346,15 @@ class DVD_UNIQUE_DISC_IDENTIFIER(Structure):
     Minute: Byte * 2
     Second: Byte * 2
 class DVD_WRITE_PROTECTION_STATUS(Structure):
-    SoftwareWriteProtectUntilPowerdown: Annotated[Byte, 1]
-    MediaPersistentWriteProtect: Annotated[Byte, 1]
-    CartridgeWriteProtect: Annotated[Byte, 1]
-    MediaSpecificWriteProtect: Annotated[Byte, 1]
-    Reserved0: Annotated[Byte, 4]
+    SoftwareWriteProtectUntilPowerdown: Annotated[Byte, NativeBitfieldAttribute(1)]
+    MediaPersistentWriteProtect: Annotated[Byte, NativeBitfieldAttribute(1)]
+    CartridgeWriteProtect: Annotated[Byte, NativeBitfieldAttribute(1)]
+    MediaSpecificWriteProtect: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Reserved0: Annotated[Byte, NativeBitfieldAttribute(4)]
     Reserved1: Byte * 3
 class HD_DVD_R_MEDIUM_STATUS(Structure):
-    ExtendedTestZone: Annotated[Byte, 1]
-    Reserved1: Annotated[Byte, 7]
+    ExtendedTestZone: Annotated[Byte, NativeBitfieldAttribute(1)]
+    Reserved1: Annotated[Byte, NativeBitfieldAttribute(7)]
     NumberOfRemainingRMDsInRDZ: Byte
     NumberOfRemainingRMDsInCurrentRMZ: Byte * 2
 class STORAGE_SET_READ_AHEAD(Structure):
