@@ -33,10 +33,10 @@ from ctypes import Union as _Union
 from itertools import zip_longest
 
 if sys.version_info < (3, 9):
-    from typing_extensions import Annotated, get_args, get_origin
+    from typing_extensions import Annotated, get_origin
     from typing_extensions import get_type_hints as _get_type_hints
 else:
-    from typing import Annotated, get_args, get_origin
+    from typing import Annotated, get_origin
     from typing import get_type_hints as _get_type_hints
 
 if "(arm64)" in sys.version.lower():
@@ -73,6 +73,11 @@ Void = None
 
 class Enum:
     pass
+
+
+class NativeBitfieldAttribute:
+    def __init__(self, width):
+        self.width = width
 
 
 # FIXME: How to manage com reference count?  ContextManager style?
@@ -141,8 +146,9 @@ def _struct_union_commit(cls, start=True):
     bitfields = {}
     for name, type_ in get_type_hints(cls, include_extras=True).items():
         if get_origin(type_) is Annotated:
-            _, width = get_args(type_)
-            bitfields[name] = width
+            for metadata in type_.__metadata__:
+                if isinstance(metadata, NativeBitfieldAttribute):
+                    bitfields[name] = metadata.width
 
     anonymous = [name for name in hints.keys() if re.match(r"^Anonymous\d*$", name) and name not in bitfields]
     if anonymous:

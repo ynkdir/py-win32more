@@ -29,6 +29,7 @@ BASE_EXPORTS = [
     "Int32",
     "Int64",
     "IntPtr",
+    "NativeBitfieldAttribute",
     "POINTER",
     "SByte",
     "SUCCEEDED",
@@ -526,7 +527,9 @@ class StructUnion:
         for fd in self._member_fields():
             if fd.custom_attributes.has_native_bitfield():
                 for name, width in self._native_bitfield(fd):
-                    writer.write(f"    {name}: Annotated[{self._formatter.pytype(fd.signature)}, {width}]\n")
+                    writer.write(
+                        f"    {name}: Annotated[{self._formatter.pytype(fd.signature)}, NativeBitfieldAttribute({width})]\n"
+                    )
             else:
                 writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
         if self._td.layout.packing_size != 0:
