@@ -24,6 +24,7 @@ BASE_EXPORTS = [
     "Double",
     "Enum",
     "FAILED",
+    "FlexibleArray",
     "Guid",
     "Int16",
     "Int32",
@@ -530,6 +531,9 @@ class StructUnion:
                     writer.write(
                         f"    {name}: Annotated[{self._formatter.pytype(fd.signature)}, NativeBitfieldAttribute({width})]\n"
                     )
+            elif fd.custom_attributes.has_flexible_array():
+                assert fd.signature.kind == "Array"
+                writer.write(f"    {fd.name}: FlexibleArray[{self._formatter.pytype(fd.signature.type)}]\n")
             else:
                 writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
         if self._td.layout.packing_size != 0:

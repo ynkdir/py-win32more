@@ -7,6 +7,7 @@ from ctypes import (
     POINTER,
     Array,
     _CFuncPtr,
+    addressof,
     c_bool,
     c_byte,
     c_char_p,
@@ -78,6 +79,22 @@ class Enum:
 class NativeBitfieldAttribute:
     def __init__(self, width):
         self.width = width
+
+
+class FlexibleArray:
+    def __class_getitem__(cls, type_):
+        return type(f"{cls.__name__}_{type_.__name__}", (cls, type_ * 0), {})
+
+    def __iter__(self):
+        raise IndexError("FlexibleArray cannot be iterated.  Use [:stop].")
+
+    def __getitem__(self, index):
+        p = pointer(self._type_.from_address(addressof(self)))
+        return p[index]
+
+    def __setitem__(self, index, value):
+        p = pointer(self._type_.from_address(addressof(self)))
+        p[index] = value
 
 
 # FIXME: How to manage com reference count?  ContextManager style?

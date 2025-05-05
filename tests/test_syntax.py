@@ -2,6 +2,10 @@ import unittest
 from ctypes import _CFuncPtr, sizeof
 
 
+def commit(prototype):
+    return prototype.__commit__()
+
+
 class TestSyntax(unittest.TestCase):
     def test_pkey_lazyload(self):
         from win32more.Windows.Win32.Devices.FunctionDiscovery import PKEY_FunctionInstance
@@ -133,6 +137,26 @@ class TestSyntax(unittest.TestCase):
         x.VersionClassFlow = 0x12345678
         self.assertEqual(x.Version, 7)
         self.assertEqual(x.Anonymous1, 8)
+
+    def test_flexible_array(self):
+        from win32more import Byte, FlexibleArray, Structure
+
+        @commit
+        class S(Structure):
+            arr: FlexibleArray[Byte]
+
+        s = S.from_buffer(bytearray(b"\x01\x02\x03\x04"))
+
+        self.assertEqual(s.arr[0], 1)
+        self.assertEqual(s.arr[:4], [1, 2, 3, 4])
+
+        with self.assertRaises(ValueError):
+            # ValueError: slice stop is required
+            s.arr[:]
+
+        with self.assertRaises(IndexError):
+            for x in s.arr:
+                pass
 
 
 if __name__ == "__main__":

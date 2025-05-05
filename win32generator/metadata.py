@@ -386,6 +386,9 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_native_bitfield(self) -> list[CustomAttribute]:
         return self.get_list("Windows.Win32.Foundation.Metadata.NativeBitfieldAttribute")
 
+    def has_flexible_array(self) -> bool:
+        return self.has("Windows.Win32.Foundation.Metadata.FlexibleArrayAttribute")
+
 
 class CustomAttributeFixedArgument:
     def __init__(self, js: JsonType) -> None:
