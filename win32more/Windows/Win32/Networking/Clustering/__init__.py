@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Networking.Clustering
@@ -2473,7 +2473,7 @@ class CLUSTER_IP_ENTRY(Structure):
 class CLUSTER_MEMBERSHIP_INFO(Structure):
     HasQuorum: win32more.Windows.Win32.Foundation.BOOL
     UpnodesSize: UInt32
-    Upnodes: Byte * 1
+    Upnodes: FlexibleArray[Byte]
 CLUSTER_MGMT_POINT_RESTYPE = Int32
 CLUSTER_MGMT_POINT_RESTYPE_AUTO: win32more.Windows.Win32.Networking.Clustering.CLUSTER_MGMT_POINT_RESTYPE = 0
 CLUSTER_MGMT_POINT_RESTYPE_SNN: win32more.Windows.Win32.Networking.Clustering.CLUSTER_MGMT_POINT_RESTYPE = 1
@@ -2896,7 +2896,7 @@ class CLUS_CHKDSK_INFO(Structure):
     PartitionNumber: UInt32
     ChkdskState: UInt32
     FileIdCount: UInt32
-    FileIdList: UInt64 * 1
+    FileIdList: FlexibleArray[UInt64]
 class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_INPUT(Structure):
     FileServerName: Char * 16
 class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_OUTPUT(Structure):
@@ -2930,7 +2930,7 @@ class CLUS_FORCE_QUORUM_INFO(Structure):
     dwSize: UInt32
     dwNodeBitMask: UInt32
     dwMaxNumberofNodes: UInt32
-    multiszNodeList: Char * 1
+    multiszNodeList: FlexibleArray[Char]
 class CLUS_FTSET_INFO(Structure):
     dwRootSignature: UInt32
     dwFtType: UInt32
@@ -2948,11 +2948,11 @@ class CLUS_MAINTENANCE_MODE_INFOEX(Structure):
 class CLUS_NETNAME_IP_INFO_ENTRY(Structure):
     NodeId: UInt32
     AddressSize: UInt32
-    Address: Byte * 1
+    Address: FlexibleArray[Byte]
 class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL(Structure):
     szName: Char * 64
     NumEntries: UInt32
-    IpInfo: win32more.Windows.Win32.Networking.Clustering.CLUS_NETNAME_IP_INFO_ENTRY * 1
+    IpInfo: FlexibleArray[win32more.Windows.Win32.Networking.Clustering.CLUS_NETNAME_IP_INFO_ENTRY]
 class CLUS_NETNAME_PWD_INFO(Structure):
     Flags: UInt32
     Password: Char * 16
@@ -2995,7 +2995,7 @@ class CLUS_PARTITION_INFO_EX2(Structure):
 class CLUS_PROVIDER_STATE_CHANGE_INFO(Structure):
     dwSize: UInt32
     resourceState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_STATE
-    szProviderId: Char * 1
+    szProviderId: FlexibleArray[Char]
 class CLUS_RESOURCE_CLASS_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
@@ -3028,7 +3028,7 @@ class CLUS_SCSI_ADDRESS(Structure):
 class CLUS_SET_MAINTENANCE_MODE_INPUT(Structure):
     InMaintenance: win32more.Windows.Win32.Foundation.BOOL
     ExtraParameterSize: UInt32
-    ExtraParameter: Byte * 1
+    ExtraParameter: FlexibleArray[Byte]
 class CLUS_SHARED_VOLUME_BACKUP_MODE(Structure):
     BackupState: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE
     DelayTimerInSecs: UInt32
@@ -3122,7 +3122,7 @@ FILESHARE_CHANGE_DEL: win32more.Windows.Win32.Networking.Clustering.FILESHARE_CH
 FILESHARE_CHANGE_MODIFY: win32more.Windows.Win32.Networking.Clustering.FILESHARE_CHANGE_ENUM = 3
 class FILESHARE_CHANGE_LIST(Structure):
     NumEntries: UInt32
-    ChangeEntry: win32more.Windows.Win32.Networking.Clustering.FILESHARE_CHANGE * 1
+    ChangeEntry: FlexibleArray[win32more.Windows.Win32.Networking.Clustering.FILESHARE_CHANGE]
 class GET_OPERATION_CONTEXT_PARAMS(Structure):
     Size: UInt32
     Version: UInt32
@@ -4985,7 +4985,7 @@ class SR_RESOURCE_TYPE_DISK_INFO(Structure):
     DiskGuid: Guid
 class SR_RESOURCE_TYPE_ELIGIBLE_DISKS_RESULT(Structure):
     Count: UInt16
-    DiskInfo: win32more.Windows.Win32.Networking.Clustering.SR_RESOURCE_TYPE_DISK_INFO * 1
+    DiskInfo: FlexibleArray[win32more.Windows.Win32.Networking.Clustering.SR_RESOURCE_TYPE_DISK_INFO]
 class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_LOGDISKS(Structure):
     DataDiskGuid: Guid
     IncludeOfflineDisks: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -5004,10 +5004,10 @@ class SR_RESOURCE_TYPE_REPLICATED_DISK(Structure):
     ReplicationGroupName: Char * 260
 class SR_RESOURCE_TYPE_REPLICATED_DISKS_RESULT(Structure):
     Count: UInt16
-    ReplicatedDisks: win32more.Windows.Win32.Networking.Clustering.SR_RESOURCE_TYPE_REPLICATED_DISK * 1
+    ReplicatedDisks: FlexibleArray[win32more.Windows.Win32.Networking.Clustering.SR_RESOURCE_TYPE_REPLICATED_DISK]
 class SR_RESOURCE_TYPE_REPLICATED_PARTITION_ARRAY(Structure):
     Count: UInt32
-    PartitionArray: win32more.Windows.Win32.Networking.Clustering.SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO * 1
+    PartitionArray: FlexibleArray[win32more.Windows.Win32.Networking.Clustering.SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO]
 class SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO(Structure):
     PartitionOffset: UInt64
     Capabilities: UInt32

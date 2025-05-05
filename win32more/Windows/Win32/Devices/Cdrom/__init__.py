@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Cdrom
 import win32more.Windows.Win32.Foundation
 IOCTL_CDROM_BASE: Int32 = 2
@@ -119,7 +119,7 @@ class CDROM_PERFORMANCE_HEADER(Structure):
     Write: Annotated[Byte, NativeBitfieldAttribute(1)]
     Reserved1: Annotated[Byte, NativeBitfieldAttribute(6)]
     Reserved2: Byte * 3
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 class CDROM_PERFORMANCE_REQUEST(Structure):
     RequestType: win32more.Windows.Win32.Devices.Cdrom.CDROM_PERFORMANCE_REQUEST_TYPE
     PerformanceType: win32more.Windows.Win32.Devices.Cdrom.CDROM_PERFORMANCE_TYPE
@@ -191,7 +191,7 @@ class CDROM_TOC_ATIP_DATA(Structure):
     Length: Byte * 2
     Reserved1: Byte
     Reserved2: Byte
-    Descriptors: win32more.Windows.Win32.Devices.Cdrom.CDROM_TOC_ATIP_DATA_BLOCK * 1
+    Descriptors: FlexibleArray[win32more.Windows.Win32.Devices.Cdrom.CDROM_TOC_ATIP_DATA_BLOCK]
 class CDROM_TOC_ATIP_DATA_BLOCK(Structure):
     CdrwReferenceSpeed: Annotated[Byte, NativeBitfieldAttribute(3)]
     Reserved3: Annotated[Byte, NativeBitfieldAttribute(1)]
@@ -221,7 +221,7 @@ class CDROM_TOC_CD_TEXT_DATA(Structure):
     Length: Byte * 2
     Reserved1: Byte
     Reserved2: Byte
-    Descriptors: win32more.Windows.Win32.Devices.Cdrom.CDROM_TOC_CD_TEXT_DATA_BLOCK * 1
+    Descriptors: FlexibleArray[win32more.Windows.Win32.Devices.Cdrom.CDROM_TOC_CD_TEXT_DATA_BLOCK]
 class CDROM_TOC_CD_TEXT_DATA_BLOCK(Structure):
     PackType: Byte
     TrackNumber: Annotated[Byte, NativeBitfieldAttribute(7)]
@@ -239,7 +239,7 @@ class CDROM_TOC_FULL_TOC_DATA(Structure):
     Length: Byte * 2
     FirstCompleteSession: Byte
     LastCompleteSession: Byte
-    Descriptors: win32more.Windows.Win32.Devices.Cdrom.CDROM_TOC_FULL_TOC_DATA_BLOCK * 1
+    Descriptors: FlexibleArray[win32more.Windows.Win32.Devices.Cdrom.CDROM_TOC_FULL_TOC_DATA_BLOCK]
 class CDROM_TOC_FULL_TOC_DATA_BLOCK(Structure):
     SessionNumber: Byte
     Control: Annotated[Byte, NativeBitfieldAttribute(4)]
@@ -253,12 +253,12 @@ class CDROM_TOC_PMA_DATA(Structure):
     Length: Byte * 2
     Reserved1: Byte
     Reserved2: Byte
-    Descriptors: win32more.Windows.Win32.Devices.Cdrom.CDROM_TOC_FULL_TOC_DATA_BLOCK * 1
+    Descriptors: FlexibleArray[win32more.Windows.Win32.Devices.Cdrom.CDROM_TOC_FULL_TOC_DATA_BLOCK]
 class CDROM_TOC_SESSION_DATA(Structure):
     Length: Byte * 2
     FirstCompleteSession: Byte
     LastCompleteSession: Byte
-    TrackData: win32more.Windows.Win32.Devices.Cdrom.TRACK_DATA * 1
+    TrackData: FlexibleArray[win32more.Windows.Win32.Devices.Cdrom.TRACK_DATA]
 class CDROM_WRITE_SPEED_DESCRIPTOR(Structure):
     MixedReadWrite: Annotated[Byte, NativeBitfieldAttribute(1)]
     Exact: Annotated[Byte, NativeBitfieldAttribute(1)]

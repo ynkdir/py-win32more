@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Display
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D9
@@ -22,10 +22,10 @@ AR_LAPTOP: win32more.Windows.Win32.Devices.Display.AR_STATE = 128
 class Adapter(Structure):
     AdapterName: Char * 128
     numSources: Int32
-    sources: win32more.Windows.Win32.Devices.Display.Sources * 1
+    sources: FlexibleArray[win32more.Windows.Win32.Devices.Display.Sources]
 class Adapters(Structure):
     numAdapters: Int32
-    adapter: win32more.Windows.Win32.Devices.Display.Adapter * 1
+    adapter: FlexibleArray[win32more.Windows.Win32.Devices.Display.Adapter]
 GUID_DEVINTERFACE_DISPLAY_ADAPTER: Guid = Guid('{5b45201d-f2f2-4f3b-85bb-30ff1f953599}')
 GUID_DEVINTERFACE_MONITOR: Guid = Guid('{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}')
 GUID_DISPLAY_DEVICE_ARRIVAL: Guid = Guid('{1ca05180-a699-450a-9a0c-de4fbe3ddd89}')
@@ -1064,7 +1064,7 @@ class CLIPLINE(Structure):
     ptfxB: win32more.Windows.Win32.Devices.Display.POINTFIX
     lStyleState: Int32
     c: UInt32
-    arun: win32more.Windows.Win32.Devices.Display.RUN * 1
+    arun: FlexibleArray[win32more.Windows.Win32.Devices.Display.RUN]
 class CLIPOBJ(Structure):
     iUniq: UInt32
     rclBounds: win32more.Windows.Win32.Foundation.RECTL
@@ -1466,7 +1466,7 @@ class DisplayMode(Structure):
     devMode: win32more.Windows.Win32.Graphics.Gdi.DEVMODEW
 class DisplayModes(Structure):
     numDisplayModes: Int32
-    displayMode: win32more.Windows.Win32.Devices.Display.DisplayMode * 1
+    displayMode: FlexibleArray[win32more.Windows.Win32.Devices.Display.DisplayMode]
 class EMFINFO(Structure):
     nSize: UInt32
     hdc: win32more.Windows.Win32.Graphics.Gdi.HDC
@@ -1497,7 +1497,7 @@ class ENG_TIME_FIELDS(Structure):
     usWeekday: UInt16
 class ENUMRECTS(Structure):
     c: UInt32
-    arcl: win32more.Windows.Win32.Foundation.RECTL * 1
+    arcl: FlexibleArray[win32more.Windows.Win32.Foundation.RECTL]
 class FD_DEVICEMETRICS(Structure):
     flRealizedType: UInt32
     pteBase: win32more.Windows.Win32.Devices.Display.POINTE
@@ -1520,18 +1520,18 @@ class FD_DEVICEMETRICS(Structure):
     lMinA: Int32
     lMinC: Int32
     lMinD: Int32
-    alReserved: Int32 * 1
+    alReserved: FlexibleArray[Int32]
 class FD_GLYPHATTR(Structure):
     cjThis: UInt32
     cGlyphs: UInt32
     iMode: UInt32
-    aGlyphAttr: Byte * 1
+    aGlyphAttr: FlexibleArray[Byte]
 class FD_GLYPHSET(Structure):
     cjThis: UInt32
     flAccel: UInt32
     cGlyphsSupported: UInt32
     cRuns: UInt32
-    awcrun: win32more.Windows.Win32.Devices.Display.WCRUN * 1
+    awcrun: FlexibleArray[win32more.Windows.Win32.Devices.Display.WCRUN]
 class FD_KERNINGPAIR(Structure):
     wcFirst: Char
     wcSecond: Char
@@ -1540,7 +1540,7 @@ class FD_LIGATURE(Structure):
     culThis: UInt32
     ulType: UInt32
     cLigatures: UInt32
-    alig: win32more.Windows.Win32.Devices.Display.LIGATURE * 1
+    alig: FlexibleArray[win32more.Windows.Win32.Devices.Display.LIGATURE]
 if ARCH in 'X64,ARM64':
     class FD_XFORM(Structure):
         eXX: Single
@@ -1706,7 +1706,7 @@ class GDIINFO(Structure):
 class GLYPHBITS(Structure):
     ptlOrigin: win32more.Windows.Win32.Foundation.POINTL
     sizlBitmap: win32more.Windows.Win32.Foundation.SIZE
-    aj: Byte * 1
+    aj: FlexibleArray[Byte]
 class GLYPHDATA(Structure):
     gdf: win32more.Windows.Win32.Devices.Display.GLYPHDEF
     hg: UInt32
@@ -1747,7 +1747,7 @@ class IFIEXTRA(Structure):
     cig: UInt32
     dpDesignVector: Int32
     dpAxesInfoW: Int32
-    aulReserved: UInt32 * 1
+    aulReserved: FlexibleArray[UInt32]
 if ARCH in 'X64,ARM64':
     class IFIMETRICS(Structure):
         cjThis: UInt32
@@ -1895,7 +1895,7 @@ class LIGATURE(Structure):
     culSize: UInt32
     pwsz: win32more.Windows.Win32.Foundation.PWSTR
     chglyph: UInt32
-    ahglyph: UInt32 * 1
+    ahglyph: FlexibleArray[UInt32]
 if ARCH in 'X64,ARM64':
     class LINEATTRS(Structure):
         fl: UInt32
@@ -2013,7 +2013,7 @@ class MIPI_DSI_TRANSMISSION(Structure):
     FinalCommandExtraPayload: UInt16
     MipiErrors: UInt16
     HostErrors: UInt16
-    Packets: win32more.Windows.Win32.Devices.Display.MIPI_DSI_PACKET * 1
+    Packets: FlexibleArray[win32more.Windows.Win32.Devices.Display.MIPI_DSI_PACKET]
     class _Anonymous_e__Struct(Structure):
         TransmissionMode: Annotated[UInt16, NativeBitfieldAttribute(2)]
         ReportMipiErrors: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -2347,7 +2347,7 @@ class RUN(Structure):
     iStart: Int32
     iStop: Int32
 class SET_ACTIVE_COLOR_PROFILE_NAME(Structure):
-    ColorProfileName: Char * 1
+    ColorProfileName: FlexibleArray[Char]
 SET_DISPLAY_CONFIG_FLAGS = UInt32
 SDC_USE_DATABASE_CURRENT: win32more.Windows.Win32.Devices.Display.SET_DISPLAY_CONFIG_FLAGS = 15
 SDC_TOPOLOGY_INTERNAL: win32more.Windows.Win32.Devices.Display.SET_DISPLAY_CONFIG_FLAGS = 1
@@ -2392,7 +2392,7 @@ class SURFOBJ(Structure):
 class Sources(Structure):
     sourceId: UInt32
     numTargets: Int32
-    aTargets: UInt32 * 1
+    aTargets: FlexibleArray[UInt32]
 class TYPE1_FONT(Structure):
     hPFM: win32more.Windows.Win32.Foundation.HANDLE
     hPFB: win32more.Windows.Win32.Foundation.HANDLE
@@ -2447,14 +2447,14 @@ NumVideoBankTypes: win32more.Windows.Win32.Devices.Display.VIDEO_BANK_TYPE = 4
 class VIDEO_BRIGHTNESS_POLICY(Structure):
     DefaultToBiosPolicy: win32more.Windows.Win32.Foundation.BOOLEAN
     LevelCount: Byte
-    Level: _Anonymous_e__Struct * 1
+    Level: FlexibleArray[_Anonymous_e__Struct]
     class _Anonymous_e__Struct(Structure):
         BatteryLevel: Byte
         Brightness: Byte
 class VIDEO_CLUT(Structure):
     NumEntries: UInt16
     FirstEntry: UInt16
-    LookupTable: _Anonymous_e__Union * 1
+    LookupTable: FlexibleArray[_Anonymous_e__Union]
     class _Anonymous_e__Union(Union):
         RgbArray: win32more.Windows.Win32.Devices.Display.VIDEO_CLUTDATA
         RgbLong: UInt32
@@ -2485,7 +2485,7 @@ class VIDEO_COLOR_CAPABILITIES(Structure):
 class VIDEO_COLOR_LUT_DATA(Structure):
     Length: UInt32
     LutDataFormat: UInt32
-    LutData: Byte * 1
+    LutData: FlexibleArray[Byte]
 class VIDEO_CURSOR_ATTRIBUTES(Structure):
     Width: UInt16
     Height: UInt16
@@ -2537,7 +2537,7 @@ class VIDEO_LOAD_FONT_INFORMATION(Structure):
     WidthInPixels: UInt16
     HeightInPixels: UInt16
     FontSize: UInt32
-    Font: Byte * 1
+    Font: FlexibleArray[Byte]
 class VIDEO_LUT_RGB256WORDS(Structure):
     Red: UInt16 * 256
     Green: UInt16 * 256
@@ -2574,14 +2574,14 @@ class VIDEO_MODE_INFORMATION(Structure):
     DriverSpecificAttributeFlags: UInt32
 class VIDEO_MONITOR_DESCRIPTOR(Structure):
     DescriptorSize: UInt32
-    Descriptor: Byte * 1
+    Descriptor: FlexibleArray[Byte]
 class VIDEO_NUM_MODES(Structure):
     NumModes: UInt32
     ModeInformationLength: UInt32
 class VIDEO_PALETTE_DATA(Structure):
     NumEntries: UInt16
     FirstEntry: UInt16
-    Colors: UInt16 * 1
+    Colors: FlexibleArray[UInt16]
 class VIDEO_PERFORMANCE_COUNTER(Structure):
     NbOfAllocationEvicted: UInt64 * 10
     NbOfAllocationMarked: UInt64 * 10
@@ -2612,7 +2612,7 @@ class VIDEO_POINTER_ATTRIBUTES(Structure):
     Enable: UInt32
     Column: Int16
     Row: Int16
-    Pixels: Byte * 1
+    Pixels: FlexibleArray[Byte]
 class VIDEO_POINTER_CAPABILITIES(Structure):
     Flags: UInt32
     MaxWidth: UInt32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D
 import win32more.Windows.Win32.Graphics.Direct3D9
@@ -2049,7 +2049,7 @@ class D3DSTATE(Structure):
         drstRenderStateType: win32more.Windows.Win32.Graphics.Direct3D9.D3DRENDERSTATETYPE
     class _Anonymous2_e__Union(Union):
         dwArg: UInt32 * 1
-        dvArg: Single * 1
+        dvArg: FlexibleArray[Single]
 D3DSTATEBLOCKTYPE = Int32
 D3DSBT_ALL: win32more.Windows.Win32.Graphics.Direct3D9.D3DSTATEBLOCKTYPE = 1
 D3DSBT_PIXELSTATE: win32more.Windows.Win32.Graphics.Direct3D9.D3DSTATEBLOCKTYPE = 2

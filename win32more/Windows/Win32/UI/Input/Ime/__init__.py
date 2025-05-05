@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -815,7 +815,7 @@ class CANDIDATELIST(Structure):
     dwSelection: UInt32
     dwPageStart: UInt32
     dwPageSize: UInt32
-    dwOffset: UInt32 * 1
+    dwOffset: FlexibleArray[UInt32]
 CActiveIMM = Guid('{4955dd33-b159-11d0-8fcf-00aa006bcc59}')
 class COMPOSITIONFORM(Structure):
     dwStyle: UInt32
@@ -1430,7 +1430,7 @@ class IMEDP(Structure):
 class IMEFAREASTINFO(Structure):
     dwSize: UInt32
     dwType: UInt32
-    dwData: UInt32 * 1
+    dwData: FlexibleArray[UInt32]
 IMEFMT = Int32
 IFED_UNKNOWN: win32more.Windows.Win32.UI.Input.Ime.IMEFMT = 0
 IFED_MSIME2_BIN_SYSTEM: win32more.Windows.Win32.UI.Input.Ime.IMEFMT = 1
@@ -1473,7 +1473,7 @@ class IMEITEM(Structure):
     lpItemData: VoidPtr
 class IMEITEMCANDIDATE(Structure):
     uCount: UInt32
-    imeItem: win32more.Windows.Win32.UI.Input.Ime.IMEITEM * 1
+    imeItem: FlexibleArray[win32more.Windows.Win32.UI.Input.Ime.IMEITEM]
 class IMEKMS(Structure):
     cbSize: Int32
     hIMC: win32more.Windows.Win32.UI.Input.Ime.HIMC
@@ -1584,14 +1584,14 @@ class IMESHF(Structure):
     _pack_ = 1
 class IMESTRINGCANDIDATE(Structure):
     uCount: UInt32
-    lpwstr: win32more.Windows.Win32.Foundation.PWSTR * 1
+    lpwstr: FlexibleArray[win32more.Windows.Win32.Foundation.PWSTR]
 class IMESTRINGCANDIDATEINFO(Structure):
     dwFarEastId: UInt32
     lpFarEastInfo: POINTER(win32more.Windows.Win32.UI.Input.Ime.IMEFAREASTINFO)
     fInfoMask: UInt32
     iSelIndex: Int32
     uCount: UInt32
-    lpwstr: win32more.Windows.Win32.Foundation.PWSTR * 1
+    lpwstr: FlexibleArray[win32more.Windows.Win32.Foundation.PWSTR]
 class IMESTRINGINFO(Structure):
     dwFarEastId: UInt32
     lpwstr: win32more.Windows.Win32.Foundation.PWSTR
@@ -1821,7 +1821,7 @@ class TRANSMSG(Structure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
 class TRANSMSGLIST(Structure):
     uMsgCount: UInt32
-    TransMsg: win32more.Windows.Win32.UI.Input.Ime.TRANSMSG * 1
+    TransMsg: FlexibleArray[win32more.Windows.Win32.UI.Input.Ime.TRANSMSG]
 class WDD(Structure):
     wDispPos: UInt16
     Anonymous1: _Anonymous1_e__Union

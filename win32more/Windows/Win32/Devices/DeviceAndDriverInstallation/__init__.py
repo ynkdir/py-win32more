@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.HtmlHelp
 import win32more.Windows.Win32.Devices.DeviceAndDriverInstallation
 import win32more.Windows.Win32.Devices.Properties
@@ -2357,7 +2357,7 @@ class BUSNUMBER_RANGE(Structure):
     _pack_ = 1
 class BUSNUMBER_RESOURCE(Structure):
     BusNumber_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.BUSNUMBER_DES
-    BusNumber_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.BUSNUMBER_RANGE * 1
+    BusNumber_Data: FlexibleArray[win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.BUSNUMBER_RANGE]
     _pack_ = 1
 if ARCH in 'X64,ARM64':
     class CABINET_INFO_A(Structure):
@@ -2505,14 +2505,14 @@ class CM_NOTIFY_EVENT_DATA(Structure):
         DeviceInstance: _DeviceInstance_e__Struct
         class _DeviceInterface_e__Struct(Structure):
             ClassGuid: Guid
-            SymbolicLink: Char * 1
+            SymbolicLink: FlexibleArray[Char]
         class _DeviceHandle_e__Struct(Structure):
             EventGuid: Guid
             NameOffset: Int32
             DataSize: UInt32
-            Data: Byte * 1
+            Data: FlexibleArray[Byte]
         class _DeviceInstance_e__Struct(Structure):
-            InstanceId: Char * 1
+            InstanceId: FlexibleArray[Char]
 class CM_NOTIFY_FILTER(Structure):
     cbSize: UInt32
     Flags: UInt32
@@ -2730,7 +2730,7 @@ class CS_DES(Structure):
     CSD_LegacyDataSize: UInt32
     CSD_Flags: UInt32
     CSD_ClassGuid: Guid
-    CSD_Signature: Byte * 1
+    CSD_Signature: FlexibleArray[Byte]
     _pack_ = 1
 class CS_RESOURCE(Structure):
     CS_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.CS_DES
@@ -2764,7 +2764,7 @@ class DEVPRIVATE_RANGE(Structure):
     _pack_ = 1
 class DEVPRIVATE_RESOURCE(Structure):
     PRV_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DEVPRIVATE_DES
-    PRV_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DEVPRIVATE_RANGE * 1
+    PRV_Data: FlexibleArray[win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DEVPRIVATE_RANGE]
     _pack_ = 1
 DIINSTALLDEVICE_FLAGS = UInt32
 DIIDFLAG_SHOWSEARCHUI: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DIINSTALLDEVICE_FLAGS = 1
@@ -2846,7 +2846,7 @@ class DMA_RANGE(Structure):
     _pack_ = 1
 class DMA_RESOURCE(Structure):
     DMA_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DMA_DES
-    DMA_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DMA_RANGE * 1
+    DMA_Data: FlexibleArray[win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.DMA_RANGE]
     _pack_ = 1
 if ARCH in 'X64,ARM64':
     class FILEPATHS_A(Structure):
@@ -3029,7 +3029,7 @@ class IO_RANGE(Structure):
     _pack_ = 1
 class IO_RESOURCE(Structure):
     IO_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IO_DES
-    IO_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IO_RANGE * 1
+    IO_Data: FlexibleArray[win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IO_RANGE]
 IRQD_FLAGS = UInt32
 mIRQD_Share: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 1
 fIRQD_Exclusive: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQD_FLAGS = 0
@@ -3060,11 +3060,11 @@ class IRQ_RANGE(Structure):
     _pack_ = 1
 class IRQ_RESOURCE_32(Structure):
     IRQ_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQ_DES_32
-    IRQ_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQ_RANGE * 1
+    IRQ_Data: FlexibleArray[win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQ_RANGE]
     _pack_ = 1
 class IRQ_RESOURCE_64(Structure):
     IRQ_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQ_DES_64
-    IRQ_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQ_RANGE * 1
+    IRQ_Data: FlexibleArray[win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.IRQ_RANGE]
     _pack_ = 1
 MD_FLAGS = UInt32
 mMD_MemoryType: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MD_FLAGS = 1
@@ -3119,7 +3119,7 @@ class MEM_LARGE_RANGE(Structure):
     _pack_ = 1
 class MEM_LARGE_RESOURCE(Structure):
     MEM_LARGE_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MEM_LARGE_DES
-    MEM_LARGE_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MEM_LARGE_RANGE * 1
+    MEM_LARGE_Data: FlexibleArray[win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MEM_LARGE_RANGE]
     _pack_ = 1
 class MEM_RANGE(Structure):
     MR_Align: UInt64
@@ -3131,7 +3131,7 @@ class MEM_RANGE(Structure):
     _pack_ = 1
 class MEM_RESOURCE(Structure):
     MEM_Header: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MEM_DES
-    MEM_Data: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MEM_RANGE * 1
+    MEM_Data: FlexibleArray[win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.MEM_RANGE]
     _pack_ = 1
 class MFCARD_DES(Structure):
     PMF_Count: UInt32
@@ -3698,20 +3698,20 @@ elif ARCH in 'X86':
 if ARCH in 'X64,ARM64':
     class SP_DEVICE_INTERFACE_DETAIL_DATA_A(Structure):
         cbSize: UInt32
-        DevicePath: win32more.Windows.Win32.Foundation.CHAR * 1
+        DevicePath: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 elif ARCH in 'X86':
     class SP_DEVICE_INTERFACE_DETAIL_DATA_A(Structure):
         cbSize: UInt32
-        DevicePath: win32more.Windows.Win32.Foundation.CHAR * 1
+        DevicePath: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class SP_DEVICE_INTERFACE_DETAIL_DATA_W(Structure):
         cbSize: UInt32
-        DevicePath: Char * 1
+        DevicePath: FlexibleArray[Char]
 elif ARCH in 'X86':
     class SP_DEVICE_INTERFACE_DETAIL_DATA_W(Structure):
         cbSize: UInt32
-        DevicePath: Char * 1
+        DevicePath: FlexibleArray[Char]
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     SP_DEVICE_INTERFACE_DETAIL_DATA = UnicodeAlias('SP_DEVICE_INTERFACE_DETAIL_DATA_W')
@@ -3908,7 +3908,7 @@ if ARCH in 'X64,ARM64':
         SectionName: win32more.Windows.Win32.Foundation.CHAR * 256
         InfFileName: win32more.Windows.Win32.Foundation.CHAR * 260
         DrvDescription: win32more.Windows.Win32.Foundation.CHAR * 256
-        HardwareID: win32more.Windows.Win32.Foundation.CHAR * 1
+        HardwareID: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 elif ARCH in 'X86':
     class SP_DRVINFO_DETAIL_DATA_A(Structure):
         cbSize: UInt32
@@ -3919,7 +3919,7 @@ elif ARCH in 'X86':
         SectionName: win32more.Windows.Win32.Foundation.CHAR * 256
         InfFileName: win32more.Windows.Win32.Foundation.CHAR * 260
         DrvDescription: win32more.Windows.Win32.Foundation.CHAR * 256
-        HardwareID: win32more.Windows.Win32.Foundation.CHAR * 1
+        HardwareID: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class SP_DRVINFO_DETAIL_DATA_W(Structure):
@@ -3931,7 +3931,7 @@ if ARCH in 'X64,ARM64':
         SectionName: Char * 256
         InfFileName: Char * 260
         DrvDescription: Char * 256
-        HardwareID: Char * 1
+        HardwareID: FlexibleArray[Char]
 elif ARCH in 'X86':
     class SP_DRVINFO_DETAIL_DATA_W(Structure):
         cbSize: UInt32
@@ -3942,7 +3942,7 @@ elif ARCH in 'X86':
         SectionName: Char * 256
         InfFileName: Char * 260
         DrvDescription: Char * 256
-        HardwareID: Char * 1
+        HardwareID: FlexibleArray[Char]
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     SP_DRVINFO_DETAIL_DATA = UnicodeAlias('SP_DRVINFO_DETAIL_DATA_W')
@@ -4040,12 +4040,12 @@ if ARCH in 'X64,ARM64':
     class SP_INF_INFORMATION(Structure):
         InfStyle: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INF_STYLE
         InfCount: UInt32
-        VersionData: Byte * 1
+        VersionData: FlexibleArray[Byte]
 elif ARCH in 'X86':
     class SP_INF_INFORMATION(Structure):
         InfStyle: win32more.Windows.Win32.Devices.DeviceAndDriverInstallation.INF_STYLE
         InfCount: UInt32
-        VersionData: Byte * 1
+        VersionData: FlexibleArray[Byte]
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class SP_INF_SIGNER_INFO_V1_A(Structure):

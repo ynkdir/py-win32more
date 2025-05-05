@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Power
 import win32more.Windows.Win32.System.Registry
@@ -400,7 +400,7 @@ def SetSystemPowerState(fSuspend: win32more.Windows.Win32.Foundation.BOOL, fForc
 def GetSystemPowerStatus(lpSystemPowerStatus: POINTER(win32more.Windows.Win32.System.Power.SYSTEM_POWER_STATUS)) -> win32more.Windows.Win32.Foundation.BOOL: ...
 class BATTERY_CHARGER_STATUS(Structure):
     Type: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE
-    VaData: UInt32 * 1
+    VaData: FlexibleArray[UInt32]
 class BATTERY_CHARGING_SOURCE(Structure):
     Type: win32more.Windows.Win32.System.Power.BATTERY_CHARGING_SOURCE_TYPE
     MaxCurrent: UInt32
@@ -447,7 +447,7 @@ class BATTERY_REPORTING_SCALE(Structure):
 class BATTERY_SET_INFORMATION(Structure):
     BatteryTag: UInt32
     InformationLevel: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL
-    Buffer: Byte * 1
+    Buffer: FlexibleArray[Byte]
 BATTERY_SET_INFORMATION_LEVEL = Int32
 BatteryCriticalBias: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 0
 BatteryCharge: win32more.Windows.Win32.System.Power.BATTERY_SET_INFORMATION_LEVEL = 1
@@ -531,9 +531,9 @@ class EMI_CHANNEL_MEASUREMENT_DATA(Structure):
 class EMI_CHANNEL_V2(Structure):
     MeasurementUnit: win32more.Windows.Win32.System.Power.EMI_MEASUREMENT_UNIT
     ChannelNameSize: UInt16
-    ChannelName: Char * 1
+    ChannelName: FlexibleArray[Char]
 class EMI_MEASUREMENT_DATA_V2(Structure):
-    ChannelData: win32more.Windows.Win32.System.Power.EMI_CHANNEL_MEASUREMENT_DATA * 1
+    ChannelData: FlexibleArray[win32more.Windows.Win32.System.Power.EMI_CHANNEL_MEASUREMENT_DATA]
 EMI_MEASUREMENT_UNIT = Int32
 EmiMeasurementUnitPicowattHours: win32more.Windows.Win32.System.Power.EMI_MEASUREMENT_UNIT = 0
 class EMI_METADATA_SIZE(Structure):
@@ -544,13 +544,13 @@ class EMI_METADATA_V1(Structure):
     HardwareModel: Char * 16
     HardwareRevision: UInt16
     MeteredHardwareNameSize: UInt16
-    MeteredHardwareName: Char * 1
+    MeteredHardwareName: FlexibleArray[Char]
 class EMI_METADATA_V2(Structure):
     HardwareOEM: Char * 16
     HardwareModel: Char * 16
     HardwareRevision: UInt16
     ChannelCount: UInt16
-    Channels: win32more.Windows.Win32.System.Power.EMI_CHANNEL_V2 * 1
+    Channels: FlexibleArray[win32more.Windows.Win32.System.Power.EMI_CHANNEL_V2]
 class EMI_VERSION(Structure):
     EmiVersion: UInt16
 EXECUTION_STATE = UInt32
@@ -605,7 +605,7 @@ def PDEVICE_NOTIFY_CALLBACK_ROUTINE(Context: VoidPtr, Type: UInt32, Setting: Voi
 class POWERBROADCAST_SETTING(Structure):
     PowerSetting: Guid
     DataLength: UInt32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 POWER_ACTION = Int32
 PowerActionNone: win32more.Windows.Win32.System.Power.POWER_ACTION = 0
 PowerActionReserved: win32more.Windows.Win32.System.Power.POWER_ACTION = 1
@@ -889,14 +889,14 @@ class PPM_IDLE_ACCOUNTING(Structure):
     TotalTransitions: UInt32
     ResetCount: UInt32
     StartTime: UInt64
-    State: win32more.Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING * 1
+    State: FlexibleArray[win32more.Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING]
 class PPM_IDLE_ACCOUNTING_EX(Structure):
     StateCount: UInt32
     TotalTransitions: UInt32
     ResetCount: UInt32
     AbortCount: UInt32
     StartTime: UInt64
-    State: win32more.Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING_EX * 1
+    State: FlexibleArray[win32more.Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING_EX]
 class PPM_IDLE_STATE_ACCOUNTING(Structure):
     IdleTransitions: UInt32
     FailedTransitions: UInt32
@@ -952,14 +952,14 @@ class PPM_WMI_IDLE_STATES(Structure):
     TargetState: UInt32
     OldState: UInt32
     TargetProcessors: UInt64
-    State: win32more.Windows.Win32.System.Power.PPM_WMI_IDLE_STATE * 1
+    State: FlexibleArray[win32more.Windows.Win32.System.Power.PPM_WMI_IDLE_STATE]
 class PPM_WMI_IDLE_STATES_EX(Structure):
     Type: UInt32
     Count: UInt32
     TargetState: UInt32
     OldState: UInt32
     TargetProcessors: VoidPtr
-    State: win32more.Windows.Win32.System.Power.PPM_WMI_IDLE_STATE * 1
+    State: FlexibleArray[win32more.Windows.Win32.System.Power.PPM_WMI_IDLE_STATE]
 class PPM_WMI_LEGACY_PERFSTATE(Structure):
     Frequency: UInt32
     Flags: UInt32
@@ -1000,7 +1000,7 @@ class PPM_WMI_PERF_STATES(Structure):
     FeedbackHandler: UInt32
     Reserved1: UInt32
     Reserved2: UInt64
-    State: win32more.Windows.Win32.System.Power.PPM_WMI_PERF_STATE * 1
+    State: FlexibleArray[win32more.Windows.Win32.System.Power.PPM_WMI_PERF_STATE]
 class PPM_WMI_PERF_STATES_EX(Structure):
     Count: UInt32
     MaxFrequency: UInt32
@@ -1022,7 +1022,7 @@ class PPM_WMI_PERF_STATES_EX(Structure):
     FeedbackHandler: UInt32
     Reserved1: UInt32
     Reserved2: UInt64
-    State: win32more.Windows.Win32.System.Power.PPM_WMI_PERF_STATE * 1
+    State: FlexibleArray[win32more.Windows.Win32.System.Power.PPM_WMI_PERF_STATE]
 class PROCESSOR_OBJECT_INFO(Structure):
     PhysicalID: UInt32
     PBlkAddress: UInt32
@@ -1070,7 +1070,7 @@ class SET_POWER_SETTING_VALUE(Structure):
     Guid: Guid
     PowerCondition: win32more.Windows.Win32.System.Power.SYSTEM_POWER_CONDITION
     DataLength: UInt32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 class SYSTEM_BATTERY_STATE(Structure):
     AcOnLine: win32more.Windows.Win32.Foundation.BOOLEAN
     BatteryPresent: win32more.Windows.Win32.Foundation.BOOLEAN

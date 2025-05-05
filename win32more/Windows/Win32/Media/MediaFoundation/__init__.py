@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D12
@@ -4775,7 +4775,7 @@ class DEVICE_INFO(Structure):
 class DIRTYRECT_INFO(Structure):
     FrameNumber: UInt32
     NumDirtyRects: UInt32
-    DirtyRects: win32more.Windows.Win32.Foundation.RECT * 1
+    DirtyRects: FlexibleArray[win32more.Windows.Win32.Foundation.RECT]
 class DXVA2_AES_CTR_IV(Structure):
     IV: UInt64
     Count: UInt64
@@ -10150,7 +10150,7 @@ class MFCameraExtrinsic_CalibratedTransform(Structure):
     Orientation: win32more.Windows.Win32.Media.MediaFoundation.MF_QUATERNION
 class MFCameraExtrinsics(Structure):
     TransformCount: UInt32
-    CalibratedTransforms: win32more.Windows.Win32.Media.MediaFoundation.MFCameraExtrinsic_CalibratedTransform * 1
+    CalibratedTransforms: FlexibleArray[win32more.Windows.Win32.Media.MediaFoundation.MFCameraExtrinsic_CalibratedTransform]
 class MFCameraIntrinsic_CameraModel(Structure):
     FocalLength_x: Single
     FocalLength_y: Single
@@ -10221,7 +10221,7 @@ class MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS(Structure):
     cbExtensionOffset: UInt32
     cbExtensionSize: UInt32
     cActions: UInt32
-    rgOutputActions: win32more.Windows.Win32.Media.MediaFoundation.MFINPUTTRUSTAUTHORITY_ACCESS_ACTION * 1
+    rgOutputActions: FlexibleArray[win32more.Windows.Win32.Media.MediaFoundation.MFINPUTTRUSTAUTHORITY_ACCESS_ACTION]
 MFMEDIASOURCE_CHARACTERISTICS = Int32
 MFMEDIASOURCE_IS_LIVE: win32more.Windows.Win32.Media.MediaFoundation.MFMEDIASOURCE_CHARACTERISTICS = 1
 MFMEDIASOURCE_CAN_SEEK: win32more.Windows.Win32.Media.MediaFoundation.MFMEDIASOURCE_CHARACTERISTICS = 2
@@ -10439,7 +10439,7 @@ class MFPinholeCameraIntrinsic_IntrinsicModel(Structure):
     DistortionModel: win32more.Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_DistortionModel
 class MFPinholeCameraIntrinsics(Structure):
     IntrinsicModelCount: UInt32
-    IntrinsicModels: win32more.Windows.Win32.Media.MediaFoundation.MFPinholeCameraIntrinsic_IntrinsicModel * 1
+    IntrinsicModels: FlexibleArray[win32more.Windows.Win32.Media.MediaFoundation.MFPinholeCameraIntrinsic_IntrinsicModel]
 MFRATE_DIRECTION = Int32
 MFRATE_FORWARD: win32more.Windows.Win32.Media.MediaFoundation.MFRATE_DIRECTION = 0
 MFRATE_REVERSE: win32more.Windows.Win32.Media.MediaFoundation.MFRATE_DIRECTION = 1
@@ -10794,7 +10794,7 @@ MFVideoSrcContentHintFlag_235_1: win32more.Windows.Win32.Media.MediaFoundation.M
 class MFVideoSurfaceInfo(Structure):
     Format: UInt32
     PaletteEntries: UInt32
-    Palette: win32more.Windows.Win32.Media.MediaFoundation.MFPaletteEntry * 1
+    Palette: FlexibleArray[win32more.Windows.Win32.Media.MediaFoundation.MFPaletteEntry]
 MFVideoTransferFunction = Int32
 MFVideoTransFunc_Unknown: win32more.Windows.Win32.Media.MediaFoundation.MFVideoTransferFunction = 0
 MFVideoTransFunc_10: win32more.Windows.Win32.Media.MediaFoundation.MFVideoTransferFunction = 1
@@ -11498,7 +11498,7 @@ MICARRAY_EXTERN_BEAM: win32more.Windows.Win32.Media.MediaFoundation.MIC_ARRAY_MO
 class MOVEREGION_INFO(Structure):
     FrameNumber: UInt32
     NumMoveRegions: UInt32
-    MoveRegions: win32more.Windows.Win32.Media.MediaFoundation.MOVE_RECT * 1
+    MoveRegions: FlexibleArray[win32more.Windows.Win32.Media.MediaFoundation.MOVE_RECT]
 class MOVE_RECT(Structure):
     SourcePoint: win32more.Windows.Win32.Foundation.POINT
     DestRect: win32more.Windows.Win32.Foundation.RECT
@@ -11507,7 +11507,7 @@ class MPEG1VIDEOINFO(Structure):
     hdr: win32more.Windows.Win32.Media.MediaFoundation.VIDEOINFOHEADER
     dwStartTimeCode: UInt32
     cbSequenceHeader: UInt32
-    bSequenceHeader: Byte * 1
+    bSequenceHeader: FlexibleArray[Byte]
 class MPEG2VIDEOINFO(Structure):
     hdr: win32more.Windows.Win32.Media.MediaFoundation.VIDEOINFOHEADER2
     dwStartTimeCode: UInt32
@@ -11515,7 +11515,7 @@ class MPEG2VIDEOINFO(Structure):
     dwProfile: UInt32
     dwLevel: UInt32
     dwFlags: win32more.Windows.Win32.Media.MediaFoundation.MPEG2VIDEOINFO_FLAGS
-    dwSequenceHeader: UInt32 * 1
+    dwSequenceHeader: FlexibleArray[UInt32]
 MPEG2VIDEOINFO_FLAGS = UInt32
 AMMPEG2_DoPanScan: win32more.Windows.Win32.Media.MediaFoundation.MPEG2VIDEOINFO_FLAGS = 1
 AMMPEG2_DVDLine21Field1: win32more.Windows.Win32.Media.MediaFoundation.MPEG2VIDEOINFO_FLAGS = 2

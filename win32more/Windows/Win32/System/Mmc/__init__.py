@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.System.Com
@@ -920,7 +920,7 @@ MMC_VIEW_TYPE_HTML: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE = 1
 MMC_VIEW_TYPE_OCX: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE = 2
 class MMC_VISIBLE_COLUMNS(Structure):
     nVisibleColumns: Int32
-    rgVisibleCols: Int32 * 1
+    rgVisibleCols: FlexibleArray[Int32]
 class MenuItem(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{0178fad1-b361-4b27-96ad-67c57ebf2e1d}')
@@ -1032,20 +1032,20 @@ class SCOPEDATAITEM(Structure):
 class SColumnSetID(Structure):
     dwFlags: UInt32
     cBytes: UInt32
-    id: Byte * 1
+    id: FlexibleArray[Byte]
 class SMMCDataObjects(Structure):
     count: UInt32
-    lpDataObject: win32more.Windows.Win32.System.Com.IDataObject * 1
+    lpDataObject: FlexibleArray[win32more.Windows.Win32.System.Com.IDataObject]
 class SMMCObjectTypes(Structure):
     count: UInt32
-    guid: Guid * 1
+    guid: FlexibleArray[Guid]
 class SNodeID(Structure):
     cBytes: UInt32
-    id: Byte * 1
+    id: FlexibleArray[Byte]
 class SNodeID2(Structure):
     dwFlags: UInt32
     cBytes: UInt32
-    id: Byte * 1
+    id: FlexibleArray[Byte]
 class ScopeNamespace(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IDispatch
     _iid_ = Guid('{ebbb48dc-1a3b-4d86-b786-c21b28389012}')

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Usb
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -818,7 +818,7 @@ class USBD_INTERFACE_INFORMATION(Structure):
     Reserved: Byte
     InterfaceHandle: VoidPtr
     NumberOfPipes: UInt32
-    Pipes: win32more.Windows.Win32.Devices.Usb.USBD_PIPE_INFORMATION * 1
+    Pipes: FlexibleArray[win32more.Windows.Win32.Devices.Usb.USBD_PIPE_INFORMATION]
 class USBD_ISO_PACKET_DESCRIPTOR(Structure):
     Offset: UInt32
     Length: UInt32
@@ -911,7 +911,7 @@ class USBFN_INTERFACE_INFO(Structure):
     InterfaceNumber: Byte
     Speed: win32more.Windows.Win32.Devices.Usb.USBFN_BUS_SPEED
     Size: UInt16
-    InterfaceDescriptorSet: Byte * 1
+    InterfaceDescriptorSet: FlexibleArray[Byte]
 class USBFN_NOTIFICATION(Structure):
     Event: win32more.Windows.Win32.Devices.Usb.USBFN_EVENT
     u: _u_e__Union
@@ -1095,7 +1095,7 @@ class USB_30_PORT_STATUS(Union):
 class USB_ACQUIRE_INFO(Structure):
     NotificationType: win32more.Windows.Win32.Devices.Usb.USB_NOTIFICATION_TYPE
     TotalSize: UInt32
-    Buffer: Char * 1
+    Buffer: FlexibleArray[Char]
     _pack_ = 1
 class USB_BANDWIDTH_INFO(Structure):
     DeviceCount: UInt32
@@ -1152,7 +1152,7 @@ class USB_COMPOSITE_DEVICE_INFO(Structure):
     CurrentConfigDescriptor: win32more.Windows.Win32.Devices.Usb.USB_CONFIGURATION_DESCRIPTOR
     CurrentConfigurationValue: Byte
     NumberOfFunctions: Byte
-    FunctionInfo: win32more.Windows.Win32.Devices.Usb.USB_COMPOSITE_FUNCTION_INFO * 1
+    FunctionInfo: FlexibleArray[win32more.Windows.Win32.Devices.Usb.USB_COMPOSITE_FUNCTION_INFO]
 class USB_COMPOSITE_FUNCTION_INFO(Structure):
     FunctionNumber: Byte
     BaseInterfaceNumber: Byte
@@ -1274,7 +1274,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET(Structure):
 class USB_DESCRIPTOR_REQUEST(Structure):
     ConnectionIndex: UInt32
     SetupPacket: _SetupPacket_e__Struct
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
     _pack_ = 1
     class _SetupPacket_e__Struct(Structure):
         bmRequest: Byte
@@ -1293,7 +1293,7 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR(Structure):
     VconnPower: _VconnPower_e__Union
     bmConfigured: Byte * 32
     bReserved: UInt32
-    AlternateMode: _Anonymous_e__Struct * 1
+    AlternateMode: FlexibleArray[_Anonymous_e__Struct]
     _pack_ = 1
     class _VconnPower_e__Union(Union):
         AsUshort: UInt16
@@ -1363,7 +1363,7 @@ class USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR(Structure):
     bDevCapabilityType: Byte
     bReserved: Byte
     PlatformCapabilityUuid: Guid
-    CapabililityData: Byte * 1
+    CapabililityData: FlexibleArray[Byte]
     _pack_ = 1
 class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR(Structure):
     bLength: Byte
@@ -1418,7 +1418,7 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR(Structure):
     bmAttributes: _bmAttributes_e__Union
     wFunctionalitySupport: _wFunctionalitySupport_e__Union
     wReserved: UInt16
-    bmSublinkSpeedAttr: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED * 1
+    bmSublinkSpeedAttr: FlexibleArray[win32more.Windows.Win32.Devices.Usb.USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED]
     _pack_ = 1
     class _bmAttributes_e__Union(Union):
         AsUlong: UInt32
@@ -1506,7 +1506,7 @@ class USB_DEVICE_INFO(Structure):
     SerialNumberId: Char * 128
     PnpDeviceDescription: Char * 128
     NumberOfOpenPipes: UInt32
-    PipeList: win32more.Windows.Win32.Devices.Usb.USB_PIPE_INFO * 1
+    PipeList: FlexibleArray[win32more.Windows.Win32.Devices.Usb.USB_PIPE_INFO]
     _pack_ = 1
 class USB_DEVICE_NODE_INFO(Structure):
     Sig: UInt32
@@ -1628,7 +1628,7 @@ class USB_FUNCTION_SUSPEND_OPTIONS(Union):
         Reserved: Annotated[Byte, NativeBitfieldAttribute(6)]
 class USB_HCD_DRIVERKEY_NAME(Structure):
     ActualLength: UInt32
-    DriverKeyName: Char * 1
+    DriverKeyName: FlexibleArray[Char]
     _pack_ = 1
 class USB_HIGH_SPEED_MAXPACKET(Union):
     us: UInt16
@@ -1691,7 +1691,7 @@ class USB_HUB_DEVICE_INFO(Structure):
     HubIsRootHub: win32more.Windows.Win32.Foundation.BOOLEAN
     HubCapabilities: win32more.Windows.Win32.Devices.Usb.USB_HUB_CAPABILITIES
     NumberOfHubPorts: UInt32
-    PortInfo: win32more.Windows.Win32.Devices.Usb.USB_HUB_PORT_INFORMATION * 1
+    PortInfo: FlexibleArray[win32more.Windows.Win32.Devices.Usb.USB_HUB_PORT_INFORMATION]
     _pack_ = 1
 class USB_HUB_DEVICE_UXD_SETTINGS(Structure):
     Version: UInt32
@@ -1715,7 +1715,7 @@ class USB_HUB_INFORMATION_EX(Structure):
         Usb30HubDescriptor: win32more.Windows.Win32.Devices.Usb.USB_30_HUB_DESCRIPTOR
 class USB_HUB_NAME(Structure):
     ActualLength: UInt32
-    HubName: Char * 1
+    HubName: FlexibleArray[Char]
     _pack_ = 1
 USB_HUB_NODE = Int32
 UsbHub: win32more.Windows.Win32.Devices.Usb.USB_HUB_NODE = 0
@@ -1811,7 +1811,7 @@ class USB_NODE_CONNECTION_ATTRIBUTES(Structure):
 class USB_NODE_CONNECTION_DRIVERKEY_NAME(Structure):
     ConnectionIndex: UInt32
     ActualLength: UInt32
-    DriverKeyName: Char * 1
+    DriverKeyName: FlexibleArray[Char]
     _pack_ = 1
 class USB_NODE_CONNECTION_INFORMATION(Structure):
     ConnectionIndex: UInt32
@@ -1822,7 +1822,7 @@ class USB_NODE_CONNECTION_INFORMATION(Structure):
     DeviceAddress: UInt16
     NumberOfOpenPipes: UInt32
     ConnectionStatus: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS
-    PipeList: win32more.Windows.Win32.Devices.Usb.USB_PIPE_INFO * 1
+    PipeList: FlexibleArray[win32more.Windows.Win32.Devices.Usb.USB_PIPE_INFO]
     _pack_ = 1
 class USB_NODE_CONNECTION_INFORMATION_EX(Structure):
     ConnectionIndex: UInt32
@@ -1833,7 +1833,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX(Structure):
     DeviceAddress: UInt16
     NumberOfOpenPipes: UInt32
     ConnectionStatus: win32more.Windows.Win32.Devices.Usb.USB_CONNECTION_STATUS
-    PipeList: win32more.Windows.Win32.Devices.Usb.USB_PIPE_INFO * 1
+    PipeList: FlexibleArray[win32more.Windows.Win32.Devices.Usb.USB_PIPE_INFO]
     _pack_ = 1
 class USB_NODE_CONNECTION_INFORMATION_EX_V2(Structure):
     ConnectionIndex: UInt32
@@ -1855,7 +1855,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS(Union):
 class USB_NODE_CONNECTION_NAME(Structure):
     ConnectionIndex: UInt32
     ActualLength: UInt32
-    NodeName: Char * 1
+    NodeName: FlexibleArray[Char]
     _pack_ = 1
 class USB_NODE_INFORMATION(Structure):
     NodeType: win32more.Windows.Win32.Devices.Usb.USB_HUB_NODE
@@ -1904,7 +1904,7 @@ class USB_PORT_CONNECTOR_PROPERTIES(Structure):
     UsbPortProperties: win32more.Windows.Win32.Devices.Usb.USB_PORT_PROPERTIES
     CompanionIndex: UInt16
     CompanionPortNumber: UInt16
-    CompanionHubSymbolicLinkName: Char * 1
+    CompanionHubSymbolicLinkName: FlexibleArray[Char]
     _pack_ = 1
 class USB_PORT_EXT_STATUS(Union):
     AsUlong32: UInt32
@@ -1971,7 +1971,7 @@ class USB_PROTOCOLS(Union):
         _pack_ = 1
 class USB_ROOT_HUB_NAME(Structure):
     ActualLength: UInt32
-    RootHubName: Char * 1
+    RootHubName: FlexibleArray[Char]
     _pack_ = 1
 class USB_SEND_RAW_COMMAND_PARAMETERS(Structure):
     Usb_bmRequest: Byte
@@ -1996,7 +1996,7 @@ class USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION(Structure):
 class USB_STRING_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
-    bString: Char * 1
+    bString: FlexibleArray[Char]
     _pack_ = 1
 class USB_SUPERSPEEDPLUS_ISOCH_ENDPOINT_COMPANION_DESCRIPTOR(Structure):
     bLength: Byte
@@ -2050,7 +2050,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_UNREGISTRATION(Structure):
     _pack_ = 1
 class USB_UNICODE_NAME(Structure):
     Length: UInt32
-    String: Char * 1
+    String: FlexibleArray[Char]
     _pack_ = 1
 class USB_USB2HW_VERSION_PARAMETERS(Structure):
     Usb2HwRevision: Byte
@@ -2256,7 +2256,7 @@ class _URB_ISOCH_TRANSFER(Structure):
     StartFrame: UInt32
     NumberOfPackets: UInt32
     ErrorCount: UInt32
-    IsoPacket: win32more.Windows.Win32.Devices.Usb.USBD_ISO_PACKET_DESCRIPTOR * 1
+    IsoPacket: FlexibleArray[win32more.Windows.Win32.Devices.Usb.USBD_ISO_PACKET_DESCRIPTOR]
 class _URB_OPEN_STATIC_STREAMS(Structure):
     Hdr: win32more.Windows.Win32.Devices.Usb._URB_HEADER
     PipeHandle: VoidPtr

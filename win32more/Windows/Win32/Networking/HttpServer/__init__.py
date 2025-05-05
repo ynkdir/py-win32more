@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.HttpServer
 import win32more.Windows.Win32.Networking.WinSock
@@ -759,7 +759,7 @@ class HTTP_SERVICE_CONFIG_IP_LISTEN_PARAM(Structure):
     pAddress: POINTER(win32more.Windows.Win32.Networking.WinSock.SOCKADDR)
 class HTTP_SERVICE_CONFIG_IP_LISTEN_QUERY(Structure):
     AddrCount: UInt32
-    AddrList: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE * 1
+    AddrList: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE]
 HTTP_SERVICE_CONFIG_QUERY_TYPE = Int32
 HttpServiceConfigQueryExact: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE = 0
 HttpServiceConfigQueryNext: win32more.Windows.Win32.Networking.HttpServer.HTTP_SERVICE_CONFIG_QUERY_TYPE = 1

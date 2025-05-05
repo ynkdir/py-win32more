@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.IpHelper
 import win32more.Windows.Win32.NetworkManagement.Rras
@@ -11,7 +11,7 @@ class AUTH_VALIDATION_EX(Structure):
     wszUserName: Char * 257
     wszLogonDomain: Char * 16
     AuthInfoSize: UInt32
-    AuthInfo: Byte * 1
+    AuthInfo: FlexibleArray[Byte]
 RASNAP_ProbationTime: UInt32 = 1
 RASTUNNELENDPOINT_UNKNOWN: UInt32 = 0
 RASTUNNELENDPOINT_IPv4: UInt32 = 1
@@ -2213,11 +2213,11 @@ class RASEAPINFO(Structure):
 class RASEAPUSERIDENTITYA(Structure):
     szUserName: win32more.Windows.Win32.Foundation.CHAR * 257
     dwSizeofEapInfo: UInt32
-    pbEapInfo: Byte * 1
+    pbEapInfo: FlexibleArray[Byte]
 class RASEAPUSERIDENTITYW(Structure):
     szUserName: Char * 257
     dwSizeofEapInfo: UInt32
-    pbEapInfo: Byte * 1
+    pbEapInfo: FlexibleArray[Byte]
 RASEAPUSERIDENTITY = UnicodeAlias('RASEAPUSERIDENTITYW')
 class RASENTRYA(Structure):
     dwSize: UInt32
@@ -2963,7 +2963,7 @@ class RTM_DEST_INFO(Structure):
     LastChanged: win32more.Windows.Win32.Foundation.FILETIME
     BelongsToViews: UInt32
     NumberOfViews: UInt32
-    ViewInfo: _Anonymous_e__Struct * 1
+    ViewInfo: FlexibleArray[_Anonymous_e__Struct]
     class _Anonymous_e__Struct(Structure):
         ViewId: Int32
         NumRoutes: UInt32
@@ -2975,7 +2975,7 @@ class RTM_DEST_INFO(Structure):
 def RTM_ENTITY_EXPORT_METHOD(CallerHandle: IntPtr, CalleeHandle: IntPtr, Input: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RTM_ENTITY_METHOD_INPUT), Output: POINTER(win32more.Windows.Win32.NetworkManagement.Rras.RTM_ENTITY_METHOD_OUTPUT)) -> Void: ...
 class RTM_ENTITY_EXPORT_METHODS(Structure):
     NumMethods: UInt32
-    Methods: win32more.Windows.Win32.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHOD * 1
+    Methods: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHOD]
 class RTM_ENTITY_ID(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
@@ -2991,12 +2991,12 @@ class RTM_ENTITY_INFO(Structure):
 class RTM_ENTITY_METHOD_INPUT(Structure):
     MethodType: UInt32
     InputSize: UInt32
-    InputData: Byte * 1
+    InputData: FlexibleArray[Byte]
 class RTM_ENTITY_METHOD_OUTPUT(Structure):
     MethodType: UInt32
     MethodStatus: UInt32
     OutputSize: UInt32
-    OutputData: Byte * 1
+    OutputData: FlexibleArray[Byte]
 @winfunctype_pointer
 def RTM_EVENT_CALLBACK(RtmRegHandle: IntPtr, EventType: win32more.Windows.Win32.NetworkManagement.Rras.RTM_EVENT_TYPE, Context1: VoidPtr, Context2: VoidPtr) -> UInt32: ...
 RTM_EVENT_TYPE = Int32
@@ -3018,7 +3018,7 @@ class RTM_NEXTHOP_INFO(Structure):
     RemoteNextHop: IntPtr
 class RTM_NEXTHOP_LIST(Structure):
     NumNextHops: UInt16
-    NextHops: IntPtr * 1
+    NextHops: FlexibleArray[IntPtr]
 class RTM_PREF_INFO(Structure):
     Metric: UInt32
     Preference: UInt32

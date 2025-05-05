@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.Cryptography
 import win32more.Windows.Win32.System.Com
@@ -2143,7 +2143,7 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_W(Structure):
 RPC_BINDING_HANDLE_TEMPLATE_V1 = UnicodeAlias('RPC_BINDING_HANDLE_TEMPLATE_V1_W')
 class RPC_BINDING_VECTOR(Structure):
     Count: UInt32
-    BindingH: VoidPtr * 1
+    BindingH: FlexibleArray[VoidPtr]
 @winfunctype_pointer
 def RPC_BLOCKING_FN(hWnd: VoidPtr, Context: VoidPtr, hSyncEvent: VoidPtr) -> win32more.Windows.Win32.System.Rpc.RPC_STATUS: ...
 class RPC_CALL_ATTRIBUTES_V1_A(Structure):
@@ -2420,7 +2420,7 @@ class RPC_IF_ID(Structure):
     VersMinor: UInt16
 class RPC_IF_ID_VECTOR(Structure):
     Count: UInt32
-    IfId: POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID) * 1
+    IfId: FlexibleArray[POINTER(win32more.Windows.Win32.System.Rpc.RPC_IF_ID)]
 class RPC_IMPORT_CONTEXT_P(Structure):
     LookupContext: VoidPtr
     ProposedHandle: VoidPtr
@@ -2490,10 +2490,10 @@ class RPC_PROTSEQ_ENDPOINT(Structure):
     Endpoint: POINTER(Byte)
 class RPC_PROTSEQ_VECTORA(Structure):
     Count: UInt32
-    Protseq: POINTER(Byte) * 1
+    Protseq: FlexibleArray[POINTER(Byte)]
 class RPC_PROTSEQ_VECTORW(Structure):
     Count: UInt32
-    Protseq: POINTER(UInt16) * 1
+    Protseq: FlexibleArray[POINTER(UInt16)]
 RPC_PROTSEQ_VECTOR = UnicodeAlias('RPC_PROTSEQ_VECTORW')
 @winfunctype_pointer
 def RPC_SECURITY_CALLBACK_FN(Context: VoidPtr) -> Void: ...
@@ -2608,7 +2608,7 @@ class RPC_SERVER_INTERFACE(Structure):
 def RPC_SETFILTER_FUNC(pfnFilter: win32more.Windows.Win32.System.Rpc.RPCLT_PDU_FILTER_FUNC) -> Void: ...
 class RPC_STATS_VECTOR(Structure):
     Count: UInt32
-    Stats: UInt32 * 1
+    Stats: FlexibleArray[UInt32]
 RPC_STATUS = Int32
 RPC_S_OK: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 0
 RPC_S_ACCESS_DENIED: win32more.Windows.Win32.System.Rpc.RPC_STATUS = 5
@@ -2820,7 +2820,7 @@ def USER_MARSHAL_SIZING_ROUTINE(param0: POINTER(UInt32), param1: UInt32, param2:
 def USER_MARSHAL_UNMARSHALLING_ROUTINE(param0: POINTER(UInt32), param1: POINTER(Byte), param2: VoidPtr) -> POINTER(Byte): ...
 class UUID_VECTOR(Structure):
     Count: UInt32
-    Uuid: POINTER(Guid) * 1
+    Uuid: FlexibleArray[POINTER(Guid)]
 XLAT_SIDE = Int32
 XLAT_SERVER: win32more.Windows.Win32.System.Rpc.XLAT_SIDE = 1
 XLAT_CLIENT: win32more.Windows.Win32.System.Rpc.XLAT_SIDE = 2

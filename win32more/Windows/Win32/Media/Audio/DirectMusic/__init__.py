@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.Audio
@@ -341,7 +341,7 @@ class DMUS_NOTERANGE(Structure):
     dwLowNote: UInt32
     dwHighNote: UInt32
 class DMUS_OFFSETTABLE(Structure):
-    ulOffsetTable: UInt32 * 1
+    ulOffsetTable: FlexibleArray[UInt32]
 class DMUS_PEGPARAMS(Structure):
     tcAttack: Int32
     tcDecay: Int32
@@ -391,7 +391,7 @@ class DMUS_REGION(Structure):
     ulFirstExtCkIdx: UInt32
     WaveLink: win32more.Windows.Win32.Media.Audio.DirectMusic.WAVELINK
     WSMP: win32more.Windows.Win32.Media.Audio.DirectMusic.WSMPL
-    WLOOP: win32more.Windows.Win32.Media.Audio.DirectMusic.WLOOP * 1
+    WLOOP: FlexibleArray[win32more.Windows.Win32.Media.Audio.DirectMusic.WLOOP]
 class DMUS_SYNTHSTATS(Structure):
     dwSize: UInt32
     dwValidStats: UInt32
@@ -728,7 +728,7 @@ class MIDIOPENDESC(Structure):
     dwInstance: UIntPtr
     dnDevNode: UIntPtr
     cIds: UInt32
-    rgIds: win32more.Windows.Win32.Media.Multimedia.MIDIOPENSTRMID * 1
+    rgIds: FlexibleArray[win32more.Windows.Win32.Media.Multimedia.MIDIOPENSTRMID]
     _pack_ = 1
 class POOLCUE(Structure):
     ulOffset: UInt32

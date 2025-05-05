@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.IscsiDisc
 import win32more.Windows.Win32.System.Ioctl
@@ -437,7 +437,7 @@ class DSM_NOTIFICATION_REQUEST_BLOCK(Structure):
     DataSetProfile: UInt32
     Reserved: UInt32 * 3
     DataSetRangesCount: UInt32
-    DataSetRanges: win32more.Windows.Win32.Storage.IscsiDisc.MP_DEVICE_DATA_SET_RANGE * 1
+    DataSetRanges: FlexibleArray[win32more.Windows.Win32.Storage.IscsiDisc.MP_DEVICE_DATA_SET_RANGE]
 class DUMP_DRIVER(Structure):
     DumpDriverList: VoidPtr
     DriverName: Char * 15
@@ -523,7 +523,7 @@ class HYBRID_INFORMATION(Structure):
         DirtyThresholdLow: UInt32
         DirtyThresholdHigh: UInt32
         SupportedCommands: _SupportedCommands_e__Struct
-        Priority: win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_PRIORITY_LEVEL_DESCRIPTOR * 1
+        Priority: FlexibleArray[win32more.Windows.Win32.Storage.IscsiDisc.NVCACHE_PRIORITY_LEVEL_DESCRIPTOR]
         class _SupportedCommands_e__Struct(Structure):
             CacheDisable: Annotated[UInt32, NativeBitfieldAttribute(1)]
             SetDirtyThreshold: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -699,10 +699,10 @@ class ISCSI_TARGET_PORTALW(Structure):
 ISCSI_TARGET_PORTAL = UnicodeAlias('ISCSI_TARGET_PORTALW')
 class ISCSI_TARGET_PORTAL_GROUPA(Structure):
     Count: UInt32
-    Portals: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA * 1
+    Portals: FlexibleArray[win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALA]
 class ISCSI_TARGET_PORTAL_GROUPW(Structure):
     Count: UInt32
-    Portals: win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW * 1
+    Portals: FlexibleArray[win32more.Windows.Win32.Storage.IscsiDisc.ISCSI_TARGET_PORTALW]
 ISCSI_TARGET_PORTAL_GROUP = UnicodeAlias('ISCSI_TARGET_PORTAL_GROUPW')
 class ISCSI_TARGET_PORTAL_INFOA(Structure):
     InitiatorName: win32more.Windows.Win32.Foundation.CHAR * 256
@@ -913,7 +913,7 @@ class PERSISTENT_ISCSI_LOGIN_INFOW(Structure):
 PERSISTENT_ISCSI_LOGIN_INFO = UnicodeAlias('PERSISTENT_ISCSI_LOGIN_INFOW')
 class SCSI_ADAPTER_BUS_INFO(Structure):
     NumberOfBuses: Byte
-    BusData: win32more.Windows.Win32.Storage.IscsiDisc.SCSI_BUS_DATA * 1
+    BusData: FlexibleArray[win32more.Windows.Win32.Storage.IscsiDisc.SCSI_BUS_DATA]
 class SCSI_ADDRESS(Structure):
     Length: UInt32
     PortNumber: Byte
@@ -931,7 +931,7 @@ class SCSI_INQUIRY_DATA(Structure):
     DeviceClaimed: win32more.Windows.Win32.Foundation.BOOLEAN
     InquiryDataLength: UInt32
     NextInquiryDataOffset: UInt32
-    InquiryData: Byte * 1
+    InquiryData: FlexibleArray[Byte]
 class SCSI_LUN_LIST(Structure):
     OSLUN: UInt32
     TargetLUN: UInt64
@@ -981,7 +981,7 @@ if ARCH in 'X64,ARM64':
         DataInTransferLength: UInt32
         DataOutBufferOffset: UInt32
         DataInBufferOffset: UInt32
-        Cdb: Byte * 1
+        Cdb: FlexibleArray[Byte]
 class SCSI_PASS_THROUGH_DIRECT(Structure):
     Length: UInt16
     ScsiStatus: Byte
@@ -1028,7 +1028,7 @@ if ARCH in 'X64,ARM64':
         DataInTransferLength: UInt32
         DataOutBuffer: VoidPtr
         DataInBuffer: VoidPtr
-        Cdb: Byte * 1
+        Cdb: FlexibleArray[Byte]
 class SCSI_PASS_THROUGH_DIRECT_EX(Structure):
     Version: UInt32
     Length: UInt32
@@ -1045,7 +1045,7 @@ class SCSI_PASS_THROUGH_DIRECT_EX(Structure):
     DataInTransferLength: UInt32
     DataOutBuffer: VoidPtr
     DataInBuffer: VoidPtr
-    Cdb: Byte * 1
+    Cdb: FlexibleArray[Byte]
 class SCSI_PASS_THROUGH_EX(Structure):
     Version: UInt32
     Length: UInt32
@@ -1062,7 +1062,7 @@ class SCSI_PASS_THROUGH_EX(Structure):
     DataInTransferLength: UInt32
     DataOutBufferOffset: UIntPtr
     DataInBufferOffset: UIntPtr
-    Cdb: Byte * 1
+    Cdb: FlexibleArray[Byte]
 class SRB_IO_CONTROL(Structure):
     HeaderLength: UInt32
     Signature: Byte * 8
@@ -1078,7 +1078,7 @@ class STORAGE_DIAGNOSTIC_MP_REQUEST(Structure):
     ProviderId: Guid
     BufferSize: UInt32
     Reserved: UInt32
-    DataBuffer: Byte * 1
+    DataBuffer: FlexibleArray[Byte]
 class STORAGE_ENDURANCE_DATA_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
@@ -1103,7 +1103,7 @@ class STORAGE_FIRMWARE_DOWNLOAD(Structure):
     Size: UInt32
     Offset: UInt64
     BufferSize: UInt64
-    ImageBuffer: Byte * 1
+    ImageBuffer: FlexibleArray[Byte]
 class STORAGE_FIRMWARE_DOWNLOAD_V2(Structure):
     Version: UInt32
     Size: UInt32
@@ -1112,7 +1112,7 @@ class STORAGE_FIRMWARE_DOWNLOAD_V2(Structure):
     Slot: Byte
     Reserved: Byte * 3
     ImageSize: UInt32
-    ImageBuffer: Byte * 1
+    ImageBuffer: FlexibleArray[Byte]
 class STORAGE_FIRMWARE_INFO(Structure):
     Version: UInt32
     Size: UInt32
@@ -1121,7 +1121,7 @@ class STORAGE_FIRMWARE_INFO(Structure):
     ActiveSlot: Byte
     PendingActivateSlot: Byte
     Reserved: UInt32
-    Slot: win32more.Windows.Win32.Storage.IscsiDisc.STORAGE_FIRMWARE_SLOT_INFO * 1
+    Slot: FlexibleArray[win32more.Windows.Win32.Storage.IscsiDisc.STORAGE_FIRMWARE_SLOT_INFO]
 class STORAGE_FIRMWARE_INFO_V2(Structure):
     Version: UInt32
     Size: UInt32
@@ -1133,7 +1133,7 @@ class STORAGE_FIRMWARE_INFO_V2(Structure):
     Reserved: Byte * 3
     ImagePayloadAlignment: UInt32
     ImagePayloadMaxSize: UInt32
-    Slot: win32more.Windows.Win32.Storage.IscsiDisc.STORAGE_FIRMWARE_SLOT_INFO_V2 * 1
+    Slot: FlexibleArray[win32more.Windows.Win32.Storage.IscsiDisc.STORAGE_FIRMWARE_SLOT_INFO_V2]
 class STORAGE_FIRMWARE_SLOT_INFO(Structure):
     SlotNumber: Byte
     ReadOnly: win32more.Windows.Win32.Foundation.BOOLEAN

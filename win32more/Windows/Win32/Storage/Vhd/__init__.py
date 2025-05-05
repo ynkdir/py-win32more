@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.Vhd
@@ -293,7 +293,7 @@ class GET_VIRTUAL_DISK_INFO(Structure):
             SectorSize: UInt32
         class _ParentLocation_e__Struct(Structure):
             ParentResolved: win32more.Windows.Win32.Foundation.BOOL
-            ParentLocationBuffer: Char * 1
+            ParentLocationBuffer: FlexibleArray[Char]
         class _PhysicalDisk_e__Struct(Structure):
             LogicalSectorSize: UInt32
             PhysicalSectorSize: UInt32
@@ -301,7 +301,7 @@ class GET_VIRTUAL_DISK_INFO(Structure):
         class _ChangeTrackingState_e__Struct(Structure):
             Enabled: win32more.Windows.Win32.Foundation.BOOL
             NewerChanges: win32more.Windows.Win32.Foundation.BOOL
-            MostRecentId: Char * 1
+            MostRecentId: FlexibleArray[Char]
 GET_VIRTUAL_DISK_INFO_VERSION = Int32
 GET_VIRTUAL_DISK_INFO_UNSPECIFIED: win32more.Windows.Win32.Storage.Vhd.GET_VIRTUAL_DISK_INFO_VERSION = 0
 GET_VIRTUAL_DISK_INFO_SIZE: win32more.Windows.Win32.Storage.Vhd.GET_VIRTUAL_DISK_INFO_VERSION = 1

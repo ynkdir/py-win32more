@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
 NET_IF_COMPARTMENT_ID_UNSPECIFIED: UInt32 = 0
@@ -1913,7 +1913,7 @@ class NDIS_802_11_AUTHENTICATION_ENCRYPTION(Structure):
     EncryptStatusSupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_WEP_STATUS
 class NDIS_802_11_AUTHENTICATION_EVENT(Structure):
     Status: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_STATUS_INDICATION
-    Request: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_REQUEST * 1
+    Request: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_REQUEST]
 NDIS_802_11_AUTHENTICATION_MODE = Int32
 Ndis802_11AuthModeOpen: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_MODE = 0
 Ndis802_11AuthModeShared: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_MODE = 1
@@ -1934,16 +1934,16 @@ class NDIS_802_11_AUTHENTICATION_REQUEST(Structure):
     Flags: UInt32
 class NDIS_802_11_BSSID_LIST(Structure):
     NumberOfItems: UInt32
-    Bssid: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WLAN_BSSID * 1
+    Bssid: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WLAN_BSSID]
 class NDIS_802_11_BSSID_LIST_EX(Structure):
     NumberOfItems: UInt32
-    Bssid: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WLAN_BSSID_EX * 1
+    Bssid: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_WLAN_BSSID_EX]
 class NDIS_802_11_CAPABILITY(Structure):
     Length: UInt32
     Version: UInt32
     NoOfPMKIDs: UInt32
     NoOfAuthEncryptPairsSupported: UInt32
-    AuthenticationEncryptionSupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_ENCRYPTION * 1
+    AuthenticationEncryptionSupported: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_ENCRYPTION]
 class NDIS_802_11_CONFIGURATION(Structure):
     Length: UInt32
     BeaconPeriod: UInt32
@@ -1965,7 +1965,7 @@ class NDIS_802_11_KEY(Structure):
     KeyLength: UInt32
     BSSID: Byte * 6
     KeyRSC: UInt64
-    KeyMaterial: Byte * 1
+    KeyMaterial: FlexibleArray[Byte]
 NDIS_802_11_MEDIA_STREAM_MODE = Int32
 Ndis802_11MediaStreamOff: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_MEDIA_STREAM_MODE = 0
 Ndis802_11MediaStreamOn: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_MEDIA_STREAM_MODE = 1
@@ -1983,18 +1983,18 @@ Ndis802_11Automode: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_N
 Ndis802_11NetworkTypeMax: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETWORK_TYPE = 5
 class NDIS_802_11_NETWORK_TYPE_LIST(Structure):
     NumberOfItems: UInt32
-    NetworkType: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETWORK_TYPE * 1
+    NetworkType: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETWORK_TYPE]
 class NDIS_802_11_NON_BCAST_SSID_LIST(Structure):
     NumberOfItems: UInt32
-    Non_Bcast_Ssid: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_SSID * 1
+    Non_Bcast_Ssid: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_SSID]
 class NDIS_802_11_PMKID(Structure):
     Length: UInt32
     BSSIDInfoCount: UInt32
-    BSSIDInfo: win32more.Windows.Win32.NetworkManagement.Ndis.BSSID_INFO * 1
+    BSSIDInfo: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.BSSID_INFO]
 class NDIS_802_11_PMKID_CANDIDATE_LIST(Structure):
     Version: UInt32
     NumCandidates: UInt32
-    CandidateList: win32more.Windows.Win32.NetworkManagement.Ndis.PMKID_CANDIDATE * 1
+    CandidateList: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.PMKID_CANDIDATE]
 NDIS_802_11_POWER_MODE = Int32
 Ndis802_11PowerModeCAM: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_POWER_MODE = 0
 Ndis802_11PowerModeMAX_PSP: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_POWER_MODE = 1
@@ -2061,12 +2061,12 @@ class NDIS_802_11_TEST(Structure):
 class NDIS_802_11_VARIABLE_IEs(Structure):
     ElementID: Byte
     Length: Byte
-    data: Byte * 1
+    data: FlexibleArray[Byte]
 class NDIS_802_11_WEP(Structure):
     Length: UInt32
     KeyIndex: UInt32
     KeyLength: UInt32
-    KeyMaterial: Byte * 1
+    KeyMaterial: FlexibleArray[Byte]
 NDIS_802_11_WEP_STATUS = Int32
 Ndis802_11WEPEnabled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_WEP_STATUS = 0
 Ndis802_11Encryption1Enabled: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_WEP_STATUS = 0
@@ -2403,7 +2403,7 @@ class NDIS_PORT_ARRAY(Structure):
     NumberOfPorts: UInt32
     OffsetFirstPort: UInt32
     ElementSize: UInt32
-    Ports: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CHARACTERISTICS * 1
+    Ports: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CHARACTERISTICS]
 class NDIS_PORT_AUTHENTICATION_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     SendControlState: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_PORT_CONTROL_STATE
@@ -2511,12 +2511,12 @@ class NDIS_STATISTICS_INFO(Structure):
 class NDIS_STATISTICS_VALUE(Structure):
     Oid: UInt32
     DataLength: UInt32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 class NDIS_STATISTICS_VALUE_EX(Structure):
     Oid: UInt32
     DataLength: UInt32
     Length: UInt32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 NDIS_SUPPORTED_PAUSE_FUNCTIONS = Int32
 NdisPauseFunctionsUnsupported: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 0
 NdisPauseFunctionsSendOnly: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_SUPPORTED_PAUSE_FUNCTIONS = 1
@@ -2588,7 +2588,7 @@ class NDIS_TIMEOUT_DPC_REQUEST_CAPABILITIES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
     TimeoutArrayLength: UInt32
-    TimeoutArray: UInt32 * 1
+    TimeoutArray: FlexibleArray[UInt32]
 class NDIS_TIMESTAMP_CAPABILITIES(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     HardwareClockFrequencyHz: UInt64
@@ -2666,13 +2666,13 @@ class NDIS_WLAN_BSSID_EX(Structure):
     InfrastructureMode: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_NETWORK_INFRASTRUCTURE
     SupportedRates: Byte * 16
     IELength: UInt32
-    IEs: Byte * 1
+    IEs: FlexibleArray[Byte]
 class NDIS_WMI_ENUM_ADAPTER(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     IfIndex: UInt32
     NetLuid: win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH
     DeviceNameLength: UInt16
-    DeviceName: win32more.Windows.Win32.Foundation.CHAR * 1
+    DeviceName: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class NDIS_WMI_EVENT_HEADER(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     IfIndex: UInt32
@@ -2831,7 +2831,7 @@ class NDK_VERSION(Structure):
 class NETWORK_ADDRESS(Structure):
     AddressLength: UInt16
     AddressType: UInt16
-    Address: Byte * 1
+    Address: FlexibleArray[Byte]
 class NETWORK_ADDRESS_IP(Structure):
     sin_port: UInt16
     IN_ADDR: UInt32
@@ -2848,7 +2848,7 @@ class NETWORK_ADDRESS_IPX(Structure):
 class NETWORK_ADDRESS_LIST(Structure):
     AddressCount: Int32
     AddressType: UInt16
-    Address: win32more.Windows.Win32.NetworkManagement.Ndis.NETWORK_ADDRESS * 1
+    Address: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Ndis.NETWORK_ADDRESS]
 NET_IF_ACCESS_TYPE = Int32
 NET_IF_ACCESS_LOOPBACK: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_ACCESS_TYPE = 1
 NET_IF_ACCESS_BROADCAST: win32more.Windows.Win32.NetworkManagement.Ndis.NET_IF_ACCESS_TYPE = 2
@@ -2938,7 +2938,7 @@ class OFFLOAD_IPSEC_ADD_SA(Structure):
     SecAssoc: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_SECURITY_ASSOCIATION * 3
     OffloadHandle: win32more.Windows.Win32.Foundation.HANDLE
     KeyLen: UInt32
-    KeyMat: Byte * 1
+    KeyMat: FlexibleArray[Byte]
 class OFFLOAD_IPSEC_ADD_UDPESP_SA(Structure):
     SrcAddr: UInt32
     SrcMask: UInt32
@@ -2956,7 +2956,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA(Structure):
     EncapTypeEntry: win32more.Windows.Win32.NetworkManagement.Ndis.OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY
     EncapTypeEntryOffldHandle: win32more.Windows.Win32.Foundation.HANDLE
     KeyLen: UInt32
-    KeyMat: Byte * 1
+    KeyMat: FlexibleArray[Byte]
 class OFFLOAD_IPSEC_DELETE_SA(Structure):
     OffloadHandle: win32more.Windows.Win32.Foundation.HANDLE
 class OFFLOAD_IPSEC_DELETE_UDPESP_SA(Structure):

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Dvd
 import win32more.Windows.Win32.Foundation
 class AACS_BINDING_NONCE(Structure):
@@ -95,7 +95,7 @@ class DVD_ASF(Structure):
     SuccessFlag: Annotated[Byte, NativeBitfieldAttribute(1)]
     Reserved1: Annotated[Byte, NativeBitfieldAttribute(7)]
 class DVD_BCA_DESCRIPTOR(Structure):
-    BCAInformation: Byte * 1
+    BCAInformation: FlexibleArray[Byte]
 class DVD_BD_SPARE_AREA_INFORMATION(Structure):
     Reserved1: Byte * 4
     NumberOfFreeSpareBlocks: Byte * 4
@@ -136,7 +136,7 @@ class DVD_COPY_PROTECT_KEY(Structure):
     KeyType: win32more.Windows.Win32.Devices.Dvd.DVD_KEY_TYPE
     KeyFlags: UInt32
     Parameters: _Parameters_e__Union
-    KeyData: Byte * 1
+    KeyData: FlexibleArray[Byte]
     _pack_ = 1
     class _Parameters_e__Union(Union):
         FileHandle: win32more.Windows.Win32.Foundation.HANDLE
@@ -145,7 +145,7 @@ class DVD_COPY_PROTECT_KEY(Structure):
 class DVD_DESCRIPTOR_HEADER(Structure):
     Length: UInt16
     Reserved: Byte * 2
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
     _pack_ = 1
 class DVD_DISC_CONTROL_BLOCK_HEADER(Structure):
     ContentDescriptor: Byte * 4
@@ -167,7 +167,7 @@ class DVD_DISC_CONTROL_BLOCK_LIST(Structure):
     ReadabldDCBs: Byte
     Reserved1: Byte
     WritableDCBs: Byte
-    Dcbs: win32more.Windows.Win32.Devices.Dvd.DVD_DISC_CONTROL_BLOCK_LIST_DCB * 1
+    Dcbs: FlexibleArray[win32more.Windows.Win32.Devices.Dvd.DVD_DISC_CONTROL_BLOCK_LIST_DCB]
 class DVD_DISC_CONTROL_BLOCK_LIST_DCB(Structure):
     DcbIdentifier: Byte * 4
 class DVD_DISC_CONTROL_BLOCK_SESSION(Structure):
@@ -307,7 +307,7 @@ class DVD_READ_STRUCTURE(Structure):
     _pack_ = 1
 class DVD_RECORDING_MANAGEMENT_AREA_DATA(Structure):
     LastRecordedRMASectorNumber: Byte * 4
-    RMDBytes: Byte * 1
+    RMDBytes: FlexibleArray[Byte]
 class DVD_REGION(Structure):
     CopySystem: Byte
     RegionData: Byte

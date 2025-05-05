@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Geolocation
 import win32more.Windows.Win32.Devices.Sensors
 import win32more.Windows.Win32.Foundation
@@ -97,7 +97,7 @@ class GNSS_AGNSS_INJECTBLOB(Structure):
     BlobVersion: UInt32
     AgnssFormat: UInt32
     BlobSize: UInt32
-    BlobData: Byte * 1
+    BlobData: FlexibleArray[Byte]
 class GNSS_AGNSS_INJECTPOSITION(Structure):
     Size: UInt32
     Version: UInt32
@@ -210,7 +210,7 @@ class GNSS_DRIVERCOMMAND_PARAM(Structure):
     Reserved: UInt32
     CommandDataSize: UInt32
     Unused: Byte * 512
-    CommandData: Byte * 1
+    CommandData: FlexibleArray[Byte]
 GNSS_DRIVERCOMMAND_TYPE = Int32
 GNSS_SetLocationServiceEnabled: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 1
 GNSS_SetLocationNIRequestAllowed: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVERCOMMAND_TYPE = 2
@@ -256,7 +256,7 @@ class GNSS_EVENT(Structure):
         BreadcrumbAlertData: win32more.Windows.Win32.Devices.Geolocation.GNSS_BREADCRUMBING_ALERT_DATA
         GeofencesTrackingStatus: win32more.Windows.Win32.Devices.Geolocation.GNSS_GEOFENCES_TRACKINGSTATUS_DATA
         DriverRequestData: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVER_REQUEST_DATA
-        CustomData: Byte * 1
+        CustomData: FlexibleArray[Byte]
 class GNSS_EVENT_2(Structure):
     Size: UInt32
     Version: UInt32
@@ -275,7 +275,7 @@ class GNSS_EVENT_2(Structure):
         BreadcrumbAlertData: win32more.Windows.Win32.Devices.Geolocation.GNSS_BREADCRUMBING_ALERT_DATA
         GeofencesTrackingStatus: win32more.Windows.Win32.Devices.Geolocation.GNSS_GEOFENCES_TRACKINGSTATUS_DATA
         DriverRequestData: win32more.Windows.Win32.Devices.Geolocation.GNSS_DRIVER_REQUEST_DATA
-        CustomData: Byte * 1
+        CustomData: FlexibleArray[Byte]
 GNSS_EVENT_TYPE = Int32
 GNSS_Event_FixAvailable: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 1
 GNSS_Event_RequireAgnss: win32more.Windows.Win32.Devices.Geolocation.GNSS_EVENT_TYPE = 2
@@ -501,7 +501,7 @@ class GNSS_SELFTESTCONFIG(Structure):
     TestType: UInt32
     Unused: Byte * 512
     InBufLen: UInt32
-    InBuffer: Byte * 1
+    InBuffer: FlexibleArray[Byte]
 class GNSS_SELFTESTRESULT(Structure):
     Size: UInt32
     Version: UInt32
@@ -510,7 +510,7 @@ class GNSS_SELFTESTRESULT(Structure):
     PinFailedBitMask: UInt32
     Unused: Byte * 512
     OutBufLen: UInt32
-    OutBuffer: Byte * 1
+    OutBuffer: FlexibleArray[Byte]
 class GNSS_SINGLESHOT_PARAM(Structure):
     Size: UInt32
     Version: UInt32
@@ -531,7 +531,7 @@ class GNSS_SUPL_CERT_CONFIG(Structure):
     SuplCertName: win32more.Windows.Win32.Foundation.CHAR * 260
     CertSize: UInt32
     Unused: Byte * 512
-    CertData: Byte * 1
+    CertData: FlexibleArray[Byte]
 class GNSS_SUPL_HSLP_CONFIG(Structure):
     Size: UInt32
     Version: UInt32

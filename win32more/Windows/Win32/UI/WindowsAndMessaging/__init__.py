@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.UI.Shell
@@ -2486,13 +2486,13 @@ class DEV_BROADCAST_DEVICEINTERFACE_A(Structure):
     dbcc_devicetype: UInt32
     dbcc_reserved: UInt32
     dbcc_classguid: Guid
-    dbcc_name: win32more.Windows.Win32.Foundation.CHAR * 1
+    dbcc_name: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class DEV_BROADCAST_DEVICEINTERFACE_W(Structure):
     dbcc_size: UInt32
     dbcc_devicetype: UInt32
     dbcc_reserved: UInt32
     dbcc_classguid: Guid
-    dbcc_name: Char * 1
+    dbcc_name: FlexibleArray[Char]
 DEV_BROADCAST_DEVICEINTERFACE = UnicodeAlias('DEV_BROADCAST_DEVICEINTERFACE_W')
 class DEV_BROADCAST_DEVNODE(Structure):
     dbcd_size: UInt32
@@ -2507,7 +2507,7 @@ class DEV_BROADCAST_HANDLE(Structure):
     dbch_hdevnotify: win32more.Windows.Win32.UI.WindowsAndMessaging.HDEVNOTIFY
     dbch_eventguid: Guid
     dbch_nameoffset: Int32
-    dbch_data: Byte * 1
+    dbch_data: FlexibleArray[Byte]
 class DEV_BROADCAST_HANDLE32(Structure):
     dbch_size: UInt32
     dbch_devicetype: UInt32
@@ -2516,7 +2516,7 @@ class DEV_BROADCAST_HANDLE32(Structure):
     dbch_hdevnotify: UInt32
     dbch_eventguid: Guid
     dbch_nameoffset: Int32
-    dbch_data: Byte * 1
+    dbch_data: FlexibleArray[Byte]
 class DEV_BROADCAST_HANDLE64(Structure):
     dbch_size: UInt32
     dbch_devicetype: UInt32
@@ -2525,7 +2525,7 @@ class DEV_BROADCAST_HANDLE64(Structure):
     dbch_hdevnotify: UInt64
     dbch_eventguid: Guid
     dbch_nameoffset: Int32
-    dbch_data: Byte * 1
+    dbch_data: FlexibleArray[Byte]
 class DEV_BROADCAST_HDR(Structure):
     dbch_size: UInt32
     dbch_devicetype: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE
@@ -2552,12 +2552,12 @@ class DEV_BROADCAST_PORT_A(Structure):
     dbcp_size: UInt32
     dbcp_devicetype: UInt32
     dbcp_reserved: UInt32
-    dbcp_name: win32more.Windows.Win32.Foundation.CHAR * 1
+    dbcp_name: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class DEV_BROADCAST_PORT_W(Structure):
     dbcp_size: UInt32
     dbcp_devicetype: UInt32
     dbcp_reserved: UInt32
-    dbcp_name: Char * 1
+    dbcp_name: FlexibleArray[Char]
 DEV_BROADCAST_PORT = UnicodeAlias('DEV_BROADCAST_PORT_W')
 class DEV_BROADCAST_VOLUME(Structure):
     dbcv_size: UInt32
@@ -2819,7 +2819,7 @@ class MENUEX_TEMPLATE_ITEM(Structure):
     dwState: UInt32
     uId: UInt32
     wFlags: UInt16
-    szText: Char * 1
+    szText: FlexibleArray[Char]
 class MENUGETOBJECTINFO(Structure):
     dwFlags: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUGETOBJECTINFO_FLAGS
     uPos: UInt32
@@ -2881,7 +2881,7 @@ MENUITEMINFO = UnicodeAlias('MENUITEMINFOW')
 class MENUITEMTEMPLATE(Structure):
     mtOption: UInt16
     mtID: UInt16
-    mtString: Char * 1
+    mtString: FlexibleArray[Char]
 class MENUITEMTEMPLATEHEADER(Structure):
     versionNumber: UInt16
     offset: UInt16
@@ -2892,10 +2892,10 @@ class MENUTEMPLATEEX(Structure):
         MenuEx: _MenuEx_e__Struct
         class _Menu_e__Struct(Structure):
             mitHeader: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUITEMTEMPLATEHEADER
-            miTemplate: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUITEMTEMPLATE * 1
+            miTemplate: FlexibleArray[win32more.Windows.Win32.UI.WindowsAndMessaging.MENUITEMTEMPLATE]
         class _MenuEx_e__Struct(Structure):
             mexHeader: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUEX_TEMPLATE_HEADER
-            mexItem: win32more.Windows.Win32.UI.WindowsAndMessaging.MENUEX_TEMPLATE_ITEM * 1
+            mexItem: FlexibleArray[win32more.Windows.Win32.UI.WindowsAndMessaging.MENUEX_TEMPLATE_ITEM]
 MENU_ITEM_FLAGS = UInt32
 MF_BYCOMMAND: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 0
 MF_BYPOSITION: win32more.Windows.Win32.UI.WindowsAndMessaging.MENU_ITEM_FLAGS = 1024
@@ -3012,11 +3012,11 @@ class MESSAGE_RESOURCE_BLOCK(Structure):
     OffsetToEntries: UInt32
 class MESSAGE_RESOURCE_DATA(Structure):
     NumberOfBlocks: UInt32
-    Blocks: win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGE_RESOURCE_BLOCK * 1
+    Blocks: FlexibleArray[win32more.Windows.Win32.UI.WindowsAndMessaging.MESSAGE_RESOURCE_BLOCK]
 class MESSAGE_RESOURCE_ENTRY(Structure):
     Length: UInt16
     Flags: UInt16
-    Text: Byte * 1
+    Text: FlexibleArray[Byte]
 class MINIMIZEDMETRICS(Structure):
     cbSize: UInt32
     iWidth: Int32
@@ -3949,7 +3949,7 @@ class _DEV_BROADCAST_HEADER(Structure):
     dbcd_reserved: UInt32
 class _DEV_BROADCAST_USERDEFINED(Structure):
     dbud_dbh: win32more.Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR
-    dbud_szName: win32more.Windows.Win32.Foundation.CHAR * 1
+    dbud_szName: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 
 
 make_ready(__name__)

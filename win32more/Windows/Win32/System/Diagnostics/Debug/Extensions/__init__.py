@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -2308,7 +2308,7 @@ class EXT_CAB_XML_DATA(Structure):
     SizeOfStruct: UInt32
     XmlObjectTag: win32more.Windows.Win32.Foundation.PWSTR
     NumSubTags: UInt32
-    SubTags: _SUBTAGS * 1
+    SubTags: FlexibleArray[_SUBTAGS]
     class _SUBTAGS(Structure):
         SubTag: win32more.Windows.Win32.Foundation.PWSTR
         MatchPattern: win32more.Windows.Win32.Foundation.PWSTR
@@ -9108,7 +9108,7 @@ def PGET_SMBIOS_INFO(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Ex
 class PHYSICAL(Structure):
     Address: UInt64
     BufLen: UInt32
-    Buf: Byte * 1
+    Buf: FlexibleArray[Byte]
 class PHYSICAL_TO_VIRTUAL(Structure):
     Status: UInt32
     Size: UInt32
@@ -9117,7 +9117,7 @@ class PHYSICAL_WITH_FLAGS(Structure):
     Address: UInt64
     BufLen: UInt32
     Flags: UInt32
-    Buf: Byte * 1
+    Buf: FlexibleArray[Byte]
 @winfunctype_pointer
 def PKDEXTS_GET_PTE_INFO(Client: win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.IDebugClient, Virtual: UInt64, PteInfo: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.Extensions.KDEXTS_PTE_INFO)) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class POINTER_SEARCH_PHYSICAL(Structure):
@@ -9244,17 +9244,17 @@ class READCONTROLSPACE(Structure):
     Processor: UInt16
     Address: UInt32
     BufLen: UInt32
-    Buf: Byte * 1
+    Buf: FlexibleArray[Byte]
 class READCONTROLSPACE32(Structure):
     Processor: UInt16
     Address: UInt32
     BufLen: UInt32
-    Buf: Byte * 1
+    Buf: FlexibleArray[Byte]
 class READCONTROLSPACE64(Structure):
     Processor: UInt16
     Address: UInt64
     BufLen: UInt32
-    Buf: Byte * 1
+    Buf: FlexibleArray[Byte]
 class READ_WRITE_MSR(Structure):
     Msr: UInt32
     Value: Int64

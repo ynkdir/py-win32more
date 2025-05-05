@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.HumanInterfaceDevice
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
@@ -3183,7 +3183,7 @@ class HIDP_EXTENDED_ATTRIBUTES(Structure):
     NumGlobalUnknowns: Byte
     Reserved: Byte * 3
     GlobalUnknowns: POINTER(win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_UNKNOWN_TOKEN)
-    Data: UInt32 * 1
+    Data: FlexibleArray[UInt32]
     _pack_ = 4
 HIDP_KEYBOARD_DIRECTION = Int32
 HidP_Keyboard_Break: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_DIRECTION = 0
@@ -3809,7 +3809,7 @@ class KEYBOARD_INDICATOR_PARAMETERS(Structure):
     LedFlags: UInt16
 class KEYBOARD_INDICATOR_TRANSLATION(Structure):
     NumberOfIndicatorKeys: UInt16
-    IndicatorList: win32more.Windows.Win32.Devices.HumanInterfaceDevice.INDICATOR_LIST * 1
+    IndicatorList: FlexibleArray[win32more.Windows.Win32.Devices.HumanInterfaceDevice.INDICATOR_LIST]
 class KEYBOARD_INPUT_DATA(Structure):
     UnitId: UInt16
     MakeCode: UInt16

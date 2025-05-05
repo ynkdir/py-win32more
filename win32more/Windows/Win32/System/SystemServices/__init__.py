@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -2419,7 +2419,7 @@ class FILE_NOTIFY_FULL_INFORMATION(Structure):
     FileNameLength: UInt16
     FileNameFlags: Byte
     Reserved: Byte
-    FileName: Char * 1
+    FileName: FlexibleArray[Char]
     class _Anonymous_e__Union(Union):
         ReparsePointTag: UInt32
         EaSize: UInt32
@@ -2634,7 +2634,7 @@ class IMAGE_DEBUG_MISC(Structure):
     Length: UInt32
     Unicode: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte * 3
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 class IMAGE_DOS_HEADER(Structure):
     e_magic: UInt16
     e_cblp: UInt16
@@ -2730,7 +2730,7 @@ class IMAGE_HOT_PATCH_INFO(Structure):
     ExtraPatchSize: UInt32
 class IMAGE_IMPORT_BY_NAME(Structure):
     Hint: UInt16
-    Name: win32more.Windows.Win32.Foundation.CHAR * 1
+    Name: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION(Structure):
     PageRelativeOffset: Annotated[UInt32, NativeBitfieldAttribute(12)]
     IndirectCall: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -2883,10 +2883,10 @@ class IMAGE_RESOURCE_DIRECTORY_ENTRY(Structure):
             DataIsDirectory: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class IMAGE_RESOURCE_DIRECTORY_STRING(Structure):
     Length: UInt16
-    NameString: win32more.Windows.Win32.Foundation.CHAR * 1
+    NameString: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class IMAGE_RESOURCE_DIR_STRING_U(Structure):
     Length: UInt16
-    NameString: Char * 1
+    NameString: FlexibleArray[Char]
 class IMAGE_SEPARATE_DEBUG_HEADER(Structure):
     Signature: UInt16
     Flags: UInt16
@@ -3061,7 +3061,7 @@ class KERNEL_CET_CONTEXT(Structure):
 class KTMOBJECT_CURSOR(Structure):
     LastQuery: Guid
     ObjectIdCount: UInt32
-    ObjectIds: Guid * 1
+    ObjectIds: FlexibleArray[Guid]
 KTMOBJECT_TYPE = Int32
 KTMOBJECT_TRANSACTION: win32more.Windows.Win32.System.SystemServices.KTMOBJECT_TYPE = 0
 KTMOBJECT_TRANSACTION_MANAGER: win32more.Windows.Win32.System.SystemServices.KTMOBJECT_TYPE = 1
@@ -3432,7 +3432,7 @@ class REDBOOK_DIGITAL_AUDIO_EXTRACTION_INFO(Structure):
 class RESOURCEMANAGER_BASIC_INFORMATION(Structure):
     ResourceManagerId: Guid
     DescriptionLength: UInt32
-    Description: Char * 1
+    Description: FlexibleArray[Char]
 class RESOURCEMANAGER_COMPLETION_INFORMATION(Structure):
     IoCompletionPortHandle: win32more.Windows.Win32.Foundation.HANDLE
     CompletionKey: UIntPtr
@@ -3445,26 +3445,26 @@ UmsSchedulerThreadBlocked: win32more.Windows.Win32.System.SystemServices.RTL_UMS
 UmsSchedulerThreadYield: win32more.Windows.Win32.System.SystemServices.RTL_UMS_SCHEDULER_REASON = 2
 class RemHBITMAP(Structure):
     cbData: UInt32
-    data: Byte * 1
+    data: FlexibleArray[Byte]
 class RemHBRUSH(Structure):
     cbData: UInt32
-    data: Byte * 1
+    data: FlexibleArray[Byte]
 class RemHENHMETAFILE(Structure):
     cbData: UInt32
-    data: Byte * 1
+    data: FlexibleArray[Byte]
 class RemHGLOBAL(Structure):
     fNullHGlobal: Int32
     cbData: UInt32
-    data: Byte * 1
+    data: FlexibleArray[Byte]
 class RemHMETAFILEPICT(Structure):
     mm: Int32
     xExt: Int32
     yExt: Int32
     cbData: UInt32
-    data: Byte * 1
+    data: FlexibleArray[Byte]
 class RemHPALETTE(Structure):
     cbData: UInt32
-    data: Byte * 1
+    data: FlexibleArray[Byte]
 class RemotableHandle(Structure):
     fContext: Int32
     u: _u_e__Struct
@@ -3499,7 +3499,7 @@ MAX_CLASS_NAME: win32more.Windows.Win32.System.SystemServices.ReplacesCorHdrNume
 MAX_PACKAGE_NAME: win32more.Windows.Win32.System.SystemServices.ReplacesCorHdrNumericDefines = 1024
 class SCOPE_TABLE_AMD64(Structure):
     Count: UInt32
-    ScopeRecord: _Anonymous_e__Struct * 1
+    ScopeRecord: FlexibleArray[_Anonymous_e__Struct]
     class _Anonymous_e__Struct(Structure):
         BeginAddress: UInt32
         EndAddress: UInt32
@@ -3507,7 +3507,7 @@ class SCOPE_TABLE_AMD64(Structure):
         JumpTarget: UInt32
 class SCOPE_TABLE_ARM(Structure):
     Count: UInt32
-    ScopeRecord: _Anonymous_e__Struct * 1
+    ScopeRecord: FlexibleArray[_Anonymous_e__Struct]
     class _Anonymous_e__Struct(Structure):
         BeginAddress: UInt32
         EndAddress: UInt32
@@ -3515,7 +3515,7 @@ class SCOPE_TABLE_ARM(Structure):
         JumpTarget: UInt32
 class SCOPE_TABLE_ARM64(Structure):
     Count: UInt32
-    ScopeRecord: _Anonymous_e__Struct * 1
+    ScopeRecord: FlexibleArray[_Anonymous_e__Struct]
     class _Anonymous_e__Struct(Structure):
         BeginAddress: UInt32
         EndAddress: UInt32
@@ -3561,7 +3561,7 @@ class SCRUB_PARITY_EXTENT_DATA(Structure):
     Flags: UInt16
     NumberOfParityExtents: UInt16
     MaximumNumberOfParityExtents: UInt16
-    ParityExtents: win32more.Windows.Win32.System.SystemServices.SCRUB_PARITY_EXTENT * 1
+    ParityExtents: FlexibleArray[win32more.Windows.Win32.System.SystemServices.SCRUB_PARITY_EXTENT]
 class SECURITY_OBJECT_AI_PARAMS(Structure):
     Size: UInt32
     ConstraintMask: UInt32
@@ -3805,7 +3805,7 @@ TransactionManagerOnlineProbeInformation: win32more.Windows.Win32.System.SystemS
 TransactionManagerOldestTransactionInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTIONMANAGER_INFORMATION_CLASS = 5
 class TRANSACTIONMANAGER_LOGPATH_INFORMATION(Structure):
     LogPathLength: UInt32
-    LogPath: Char * 1
+    LogPath: FlexibleArray[Char]
 class TRANSACTIONMANAGER_LOG_INFORMATION(Structure):
     LogIdentity: Guid
 class TRANSACTIONMANAGER_OLDEST_INFORMATION(Structure):
@@ -3820,7 +3820,7 @@ class TRANSACTION_BIND_INFORMATION(Structure):
     TmHandle: win32more.Windows.Win32.Foundation.HANDLE
 class TRANSACTION_ENLISTMENTS_INFORMATION(Structure):
     NumberOfEnlistments: UInt32
-    EnlistmentPair: win32more.Windows.Win32.System.SystemServices.TRANSACTION_ENLISTMENT_PAIR * 1
+    EnlistmentPair: FlexibleArray[win32more.Windows.Win32.System.SystemServices.TRANSACTION_ENLISTMENT_PAIR]
 class TRANSACTION_ENLISTMENT_PAIR(Structure):
     EnlistmentId: Guid
     ResourceManagerId: Guid
@@ -3835,14 +3835,14 @@ class TRANSACTION_LIST_ENTRY(Structure):
     UOW: Guid
 class TRANSACTION_LIST_INFORMATION(Structure):
     NumberOfTransactions: UInt32
-    TransactionInformation: win32more.Windows.Win32.System.SystemServices.TRANSACTION_LIST_ENTRY * 1
+    TransactionInformation: FlexibleArray[win32more.Windows.Win32.System.SystemServices.TRANSACTION_LIST_ENTRY]
 class TRANSACTION_PROPERTIES_INFORMATION(Structure):
     IsolationLevel: UInt32
     IsolationFlags: UInt32
     Timeout: Int64
     Outcome: UInt32
     DescriptionLength: UInt32
-    Description: Char * 1
+    Description: FlexibleArray[Char]
 TRANSACTION_STATE = Int32
 TransactionStateNormal: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 1
 TransactionStateIndoubt: win32more.Windows.Win32.System.SystemServices.TRANSACTION_STATE = 2
@@ -3871,7 +3871,7 @@ class userBITMAP(Structure):
     bmPlanes: UInt16
     bmBitsPixel: UInt16
     cbSize: UInt32
-    pBuffer: Byte * 1
+    pBuffer: FlexibleArray[Byte]
 class userCLIPFORMAT(Structure):
     fContext: Int32
     u: _u_e__Struct

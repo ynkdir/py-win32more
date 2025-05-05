@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DirectDraw
 import win32more.Windows.Win32.Graphics.Gdi
@@ -1799,7 +1799,7 @@ ColorModeARGB64: win32more.Windows.Win32.Graphics.GdiPlus.ColorMode = 1
 class ColorPalette(Structure):
     Flags: UInt32
     Count: UInt32
-    Entries: UInt32 * 1
+    Entries: FlexibleArray[UInt32]
 CombineMode = Int32
 CombineModeReplace: win32more.Windows.Win32.Graphics.GdiPlus.CombineMode = 0
 CombineModeIntersect: win32more.Windows.Win32.Graphics.GdiPlus.CombineMode = 1
@@ -2193,7 +2193,7 @@ EncoderParameterValueTypeRationalRange: win32more.Windows.Win32.Graphics.GdiPlus
 EncoderParameterValueTypePointer: win32more.Windows.Win32.Graphics.GdiPlus.EncoderParameterValueType = 9
 class EncoderParameters(Structure):
     Count: UInt32
-    Parameter: win32more.Windows.Win32.Graphics.GdiPlus.EncoderParameter * 1
+    Parameter: FlexibleArray[win32more.Windows.Win32.Graphics.GdiPlus.EncoderParameter]
 EncoderValue = Int32
 EncoderValueColorTypeCMYK: win32more.Windows.Win32.Graphics.GdiPlus.EncoderValue = 0
 EncoderValueColorTypeYCCK: win32more.Windows.Win32.Graphics.GdiPlus.EncoderValue = 1

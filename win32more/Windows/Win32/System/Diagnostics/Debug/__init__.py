@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security.WinTrust
 import win32more.Windows.Win32.Storage.FileSystem
@@ -2599,7 +2599,7 @@ class IMAGEHLP_SYMBOL64(Structure):
     Size: UInt32
     Flags: UInt32
     MaxNameLength: UInt32
-    Name: win32more.Windows.Win32.Foundation.CHAR * 1
+    Name: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class IMAGEHLP_SYMBOL64_PACKAGE(Structure):
     sym: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64
     name: win32more.Windows.Win32.Foundation.CHAR * 2001
@@ -2610,7 +2610,7 @@ if ARCH in 'X86':
         Size: UInt32
         Flags: UInt32
         MaxNameLength: UInt32
-        Name: Char * 1
+        Name: FlexibleArray[Char]
 if ARCH in 'X86':
     IMAGEHLP_SYMBOL = UnicodeAlias('IMAGEHLP_SYMBOLW')
 class IMAGEHLP_SYMBOLW64(Structure):
@@ -2619,7 +2619,7 @@ class IMAGEHLP_SYMBOLW64(Structure):
     Size: UInt32
     Flags: UInt32
     MaxNameLength: UInt32
-    Name: Char * 1
+    Name: FlexibleArray[Char]
 class IMAGEHLP_SYMBOLW64_PACKAGE(Structure):
     sym: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGEHLP_SYMBOLW64
     name: Char * 2001
@@ -3142,7 +3142,7 @@ class IPMI_OS_SEL_RECORD(Structure):
     Length: UInt32
     RecordType: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE
     DataLength: UInt32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
     _pack_ = 1
 IPMI_OS_SEL_RECORD_TYPE = Int32
 IpmiOsSelRecordTypeWhea: win32more.Windows.Win32.System.Diagnostics.Debug.IPMI_OS_SEL_RECORD_TYPE = 0
@@ -3553,7 +3553,7 @@ class MINIDUMP_LOCATION_DESCRIPTOR64(Structure):
 class MINIDUMP_MEMORY64_LIST(Structure):
     NumberOfMemoryRanges: UInt64
     BaseRva: UInt64
-    MemoryRanges: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR64 * 1
+    MemoryRanges: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR64]
     _pack_ = 4
 class MINIDUMP_MEMORY_DESCRIPTOR(Structure):
     StartOfMemoryRange: UInt64
@@ -3581,7 +3581,7 @@ class MINIDUMP_MEMORY_INFO_LIST(Structure):
     _pack_ = 4
 class MINIDUMP_MEMORY_LIST(Structure):
     NumberOfMemoryRanges: UInt32
-    MemoryRanges: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR * 1
+    MemoryRanges: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR]
     _pack_ = 4
 class MINIDUMP_MISC_INFO(Structure):
     SizeOfInfo: UInt32
@@ -3693,7 +3693,7 @@ class MINIDUMP_MODULE_CALLBACK(Structure):
     _pack_ = 4
 class MINIDUMP_MODULE_LIST(Structure):
     NumberOfModules: UInt32
-    Modules: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MODULE * 1
+    Modules: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_MODULE]
     _pack_ = 4
 class MINIDUMP_PROCESS_VM_COUNTERS_1(Structure):
     Revision: UInt16
@@ -3781,7 +3781,7 @@ ceStreamDiagnosisList: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP
 LastReservedStream: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_STREAM_TYPE = 65535
 class MINIDUMP_STRING(Structure):
     Length: UInt32
-    Buffer: Char * 1
+    Buffer: FlexibleArray[Char]
     _pack_ = 4
 class MINIDUMP_SYSTEM_BASIC_INFORMATION(Structure):
     TimerResolution: UInt32
@@ -3988,7 +3988,7 @@ elif ARCH in 'X86,X64':
         _pack_ = 4
 class MINIDUMP_THREAD_EX_LIST(Structure):
     NumberOfThreads: UInt32
-    Threads: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_EX * 1
+    Threads: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_EX]
     _pack_ = 4
 class MINIDUMP_THREAD_INFO(Structure):
     ThreadId: UInt32
@@ -4016,7 +4016,7 @@ class MINIDUMP_THREAD_INFO_LIST(Structure):
     _pack_ = 4
 class MINIDUMP_THREAD_LIST(Structure):
     NumberOfThreads: UInt32
-    Threads: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD * 1
+    Threads: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD]
     _pack_ = 4
 class MINIDUMP_THREAD_NAME(Structure):
     ThreadId: UInt32
@@ -4024,7 +4024,7 @@ class MINIDUMP_THREAD_NAME(Structure):
     _pack_ = 4
 class MINIDUMP_THREAD_NAME_LIST(Structure):
     NumberOfThreadNames: UInt32
-    ThreadNames: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_NAME * 1
+    ThreadNames: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_THREAD_NAME]
     _pack_ = 4
 class MINIDUMP_TOKEN_INFO_HEADER(Structure):
     TokenSize: UInt32
@@ -4138,7 +4138,7 @@ class MODLOAD_PDBGUID_PDBAGE(Structure):
 class MODULE_TYPE_INFO(Structure):
     dataLength: UInt16
     leaf: UInt16
-    data: Byte * 1
+    data: FlexibleArray[Byte]
 MODULE_WRITE_FLAGS = Int32
 ModuleWriteModule: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 1
 ModuleWriteDataSeg: win32more.Windows.Win32.System.Diagnostics.Debug.MODULE_WRITE_FLAGS = 2
@@ -4240,11 +4240,11 @@ def PGET_TARGET_ATTRIBUTE_VALUE64(hProcess: win32more.Windows.Win32.Foundation.H
 class PHYSICAL_MEMORY_DESCRIPTOR32(Structure):
     NumberOfRuns: UInt32
     NumberOfPages: UInt32
-    Run: win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_RUN32 * 1
+    Run: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_RUN32]
 class PHYSICAL_MEMORY_DESCRIPTOR64(Structure):
     NumberOfRuns: UInt32
     NumberOfPages: UInt64
-    Run: win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_RUN64 * 1
+    Run: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_RUN64]
 class PHYSICAL_MEMORY_RUN32(Structure):
     BasePage: UInt32
     PageCount: UInt32
@@ -4456,7 +4456,7 @@ class SYMBOL_INFOW(Structure):
     Tag: UInt32
     NameLen: UInt32
     MaxNameLen: UInt32
-    Name: Char * 1
+    Name: FlexibleArray[Char]
 SYMBOL_INFO = UnicodeAlias('SYMBOL_INFOW')
 SYMBOL_INFO_FLAGS = UInt32
 SYMFLAG_CLR_TOKEN: win32more.Windows.Win32.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS = 262144
@@ -4539,7 +4539,7 @@ ThreadWriteThreadInfo: win32more.Windows.Win32.System.Diagnostics.Debug.THREAD_W
 class TI_FINDCHILDREN_PARAMS(Structure):
     Count: UInt32
     Start: UInt32
-    ChildId: UInt32 * 1
+    ChildId: FlexibleArray[UInt32]
 class UNLOAD_DLL_DEBUG_INFO(Structure):
     lpBaseOfDll: VoidPtr
 if ARCH in 'X64,ARM64':

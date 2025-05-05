@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.HostComputeSystem
@@ -1546,7 +1546,7 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
-        AsUINT64: UInt64 * 1
+        AsUINT64: FlexibleArray[UInt64]
         class _Anonymous_e__Struct(Structure):
             Bank0: win32more.Windows.Win32.System.Hypervisor.WHV_SYNTHETIC_PROCESSOR_FEATURES
 WHV_TRANSLATE_GVA_FLAGS = Int32
@@ -1648,7 +1648,7 @@ class WHV_VPCI_INTERRUPT_TARGET(Structure):
     Vector: UInt32
     Flags: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS
     ProcessorCount: UInt32
-    Processors: UInt32 * 1
+    Processors: FlexibleArray[UInt32]
 WHV_VPCI_INTERRUPT_TARGET_FLAGS = Int32
 WHvVpciInterruptTargetFlagNone: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS = 0
 WHvVpciInterruptTargetFlagMulticast: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_INTERRUPT_TARGET_FLAGS = 1

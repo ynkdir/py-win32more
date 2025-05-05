@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Networking.WinSock
 import win32more.Windows.Win32.System.Com
@@ -186,7 +186,7 @@ class ARP_HEADER(Structure):
     HardwareAddressLength: Byte
     ProtocolAddressLength: Byte
     Opcode: UInt16
-    SenderHardwareAddress: Byte * 1
+    SenderHardwareAddress: FlexibleArray[Byte]
 ARP_OPCODE = Int32
 ARP_REQUEST: win32more.Windows.Win32.Networking.WinSock.ARP_OPCODE = 1
 ARP_RESPONSE: win32more.Windows.Win32.Networking.WinSock.ARP_OPCODE = 2
@@ -262,7 +262,7 @@ class ATM_TRANSIT_NETWORK_SELECTION_IE(Structure):
     TypeOfNetworkId: Byte
     NetworkIdPlan: Byte
     NetworkIdLength: Byte
-    NetworkId: Byte * 1
+    NetworkId: FlexibleArray[Byte]
 SOCKET_DEFAULT2_QM_POLICY: Guid = Guid('{aec2ef9c-3a4d-4d3e-8842-239942e39a47}')
 REAL_TIME_NOTIFICATION_CAPABILITY: Guid = Guid('{6b59819a-5cae-492d-a901-2a3c2c50164f}')
 REAL_TIME_NOTIFICATION_CAPABILITY_EX: Guid = Guid('{6843da03-154a-4616-a508-44371295f96b}')
@@ -1929,7 +1929,7 @@ class DL_TEREDO_ADDRESS_PRV(Structure):
 class DL_TUNNEL_ADDRESS(Structure):
     CompartmentId: win32more.Windows.Win32.System.Kernel.COMPARTMENT_ID
     ScopeId: win32more.Windows.Win32.Networking.WinSock.SCOPE_ID
-    IpAddress: Byte * 1
+    IpAddress: FlexibleArray[Byte]
 class ETHERNET_HEADER(Structure):
     Destination: win32more.Windows.Win32.Networking.WinSock.DL_EUI48
     Source: win32more.Windows.Win32.Networking.WinSock.DL_EUI48
@@ -1957,7 +1957,7 @@ class GROUP_FILTER(Structure):
     gf_group: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
     gf_fmode: win32more.Windows.Win32.Networking.WinSock.MULTICAST_MODE_TYPE
     gf_numsrc: UInt32
-    gf_slist: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE * 1
+    gf_slist: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE]
 class GROUP_REQ(Structure):
     gr_interface: UInt32
     gr_group: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
@@ -2354,7 +2354,7 @@ class IP_MSFILTER(Structure):
     imsf_interface: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     imsf_fmode: win32more.Windows.Win32.Networking.WinSock.MULTICAST_MODE_TYPE
     imsf_numsrc: UInt32
-    imsf_slist: win32more.Windows.Win32.Networking.WinSock.IN_ADDR * 1
+    imsf_slist: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.IN_ADDR]
 IP_OPTION_TIMESTAMP_FLAGS = Int32
 IP_OPTION_TIMESTAMP_ONLY: win32more.Windows.Win32.Networking.WinSock.IP_OPTION_TIMESTAMP_FLAGS = 0
 IP_OPTION_TIMESTAMP_ADDRESS: win32more.Windows.Win32.Networking.WinSock.IP_OPTION_TIMESTAMP_FLAGS = 1
@@ -2772,9 +2772,9 @@ class NLA_BLOB(Structure):
         class _interfaceData_e__Struct(Structure):
             dwType: UInt32
             dwSpeed: UInt32
-            adapterName: win32more.Windows.Win32.Foundation.CHAR * 1
+            adapterName: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
         class _locationData_e__Struct(Structure):
-            information: win32more.Windows.Win32.Foundation.CHAR * 1
+            information: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
         class _connectivity_e__Struct(Structure):
             type: win32more.Windows.Win32.Networking.WinSock.NLA_CONNECTIVITY_TYPE
             internet: win32more.Windows.Win32.Networking.WinSock.NLA_INTERNET
@@ -3065,7 +3065,7 @@ class PROTOENT(Structure):
 class Q2931_IE(Structure):
     IEType: win32more.Windows.Win32.Networking.WinSock.Q2931_IE_TYPE
     IELength: UInt32
-    IE: Byte * 1
+    IE: FlexibleArray[Byte]
 Q2931_IE_TYPE = Int32
 IE_AALParameters: win32more.Windows.Win32.Networking.WinSock.Q2931_IE_TYPE = 0
 IE_TrafficDescriptor: win32more.Windows.Win32.Networking.WinSock.Q2931_IE_TYPE = 1
@@ -3241,7 +3241,7 @@ class SERVICE_ADDRESS(Structure):
     lpPrincipal: POINTER(Byte)
 class SERVICE_ADDRESSES(Structure):
     dwAddressCount: UInt32
-    Addresses: win32more.Windows.Win32.Networking.WinSock.SERVICE_ADDRESS * 1
+    Addresses: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.SERVICE_ADDRESS]
 class SERVICE_ASYNC_INFO(Structure):
     lpServiceCallbackProc: win32more.Windows.Win32.Networking.WinSock.LPSERVICE_CALLBACK_PROC
     lParam: win32more.Windows.Win32.Foundation.LPARAM
@@ -3272,15 +3272,15 @@ SERVICE_INFO = UnicodeAlias('SERVICE_INFOW')
 class SERVICE_TYPE_INFO(Structure):
     dwTypeNameOffset: UInt32
     dwValueCount: UInt32
-    Values: win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE * 1
+    Values: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE]
 class SERVICE_TYPE_INFO_ABSA(Structure):
     lpTypeName: win32more.Windows.Win32.Foundation.PSTR
     dwValueCount: UInt32
-    Values: win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE_ABSA * 1
+    Values: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE_ABSA]
 class SERVICE_TYPE_INFO_ABSW(Structure):
     lpTypeName: win32more.Windows.Win32.Foundation.PWSTR
     dwValueCount: UInt32
-    Values: win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE_ABSW * 1
+    Values: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.SERVICE_TYPE_VALUE_ABSW]
 SERVICE_TYPE_INFO_ABS = UnicodeAlias('SERVICE_TYPE_INFO_ABSW')
 class SERVICE_TYPE_VALUE(Structure):
     dwNameSpace: UInt32
@@ -3397,12 +3397,12 @@ class SOCKET_ADDRESS(Structure):
     iSockaddrLength: Int32
 class SOCKET_ADDRESS_LIST(Structure):
     iAddressCount: Int32
-    Address: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS * 1
+    Address: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS]
 class SOCKET_PEER_TARGET_NAME(Structure):
     SecurityProtocol: win32more.Windows.Win32.Networking.WinSock.SOCKET_SECURITY_PROTOCOL
     PeerAddress: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_STORAGE
     PeerTargetNameStringLen: UInt32
-    AllStrings: Char * 1
+    AllStrings: FlexibleArray[Char]
 SOCKET_PRIORITY_HINT = Int32
 SocketPriorityHintVeryLow: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 0
 SocketPriorityHintLow: win32more.Windows.Win32.Networking.WinSock.SOCKET_PRIORITY_HINT = 1
@@ -3455,7 +3455,7 @@ class SOCKET_SECURITY_SETTINGS_IPSEC(Structure):
     UserNameStringLen: UInt32
     DomainNameStringLen: UInt32
     PasswordStringLen: UInt32
-    AllStrings: Char * 1
+    AllStrings: FlexibleArray[Char]
 SOCKET_USAGE_TYPE = Int32
 SYSTEM_CRITICAL_SOCKET: win32more.Windows.Win32.Networking.WinSock.SOCKET_USAGE_TYPE = 1
 class SOCK_NOTIFY_REGISTRATION(Structure):
@@ -3557,7 +3557,7 @@ class TCP_INITIAL_RTO_PARAMETERS(Structure):
 class TCP_OPT_FASTOPEN(Structure):
     Kind: Byte
     Length: Byte
-    Cookie: Byte * 1
+    Cookie: FlexibleArray[Byte]
     _pack_ = 1
 class TCP_OPT_MSS(Structure):
     Kind: Byte
@@ -3567,7 +3567,7 @@ class TCP_OPT_MSS(Structure):
 class TCP_OPT_SACK(Structure):
     Kind: Byte
     Length: Byte
-    Block: tcp_opt_sack_block * 1
+    Block: FlexibleArray[tcp_opt_sack_block]
     _pack_ = 1
     class tcp_opt_sack_block(Structure):
         Left: UInt32
@@ -3632,14 +3632,14 @@ class VLAN_TAG(Structure):
             User_Priority: Annotated[UInt16, NativeBitfieldAttribute(3)]
 class WCE_DEVICELIST(Structure):
     numDevice: UInt32
-    Device: win32more.Windows.Win32.Networking.WinSock.WCE_IRDA_DEVICE_INFO * 1
+    Device: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.WCE_IRDA_DEVICE_INFO]
 class WCE_IRDA_DEVICE_INFO(Structure):
     irdaDeviceID: Byte * 4
     irdaDeviceName: win32more.Windows.Win32.Foundation.CHAR * 22
     Reserved: Byte * 2
 class WINDOWS_DEVICELIST(Structure):
     numDevice: UInt32
-    Device: win32more.Windows.Win32.Networking.WinSock.WINDOWS_IRDA_DEVICE_INFO * 1
+    Device: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.WINDOWS_IRDA_DEVICE_INFO]
 class WINDOWS_IAS_QUERY(Structure):
     irdaDeviceID: Byte * 4
     irdaClassName: win32more.Windows.Win32.Foundation.CHAR * 64
@@ -3800,7 +3800,7 @@ class WSAPOLLDATA(Structure):
     result: Int32
     fds: UInt32
     timeout: Int32
-    fdArray: win32more.Windows.Win32.Networking.WinSock.WSAPOLLFD * 1
+    fdArray: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.WSAPOLLFD]
 class WSAPOLLFD(Structure):
     fd: win32more.Windows.Win32.Networking.WinSock.SOCKET
     events: win32more.Windows.Win32.Networking.WinSock.WSAPOLL_EVENT_FLAGS

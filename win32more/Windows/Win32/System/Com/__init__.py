@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -441,7 +441,7 @@ class BLOB(Structure):
     pBlobData: POINTER(Byte)
 class BYTE_BLOB(Structure):
     clSize: UInt32
-    abData: Byte * 1
+    abData: FlexibleArray[Byte]
 class BYTE_SIZEDARR(Structure):
     clSize: UInt32
     pData: POINTER(Byte)
@@ -629,10 +629,10 @@ class DVTARGETDEVICE(Structure):
     tdDeviceNameOffset: UInt16
     tdPortNameOffset: UInt16
     tdExtDevmodeOffset: UInt16
-    tdData: Byte * 1
+    tdData: FlexibleArray[Byte]
 class DWORD_BLOB(Structure):
     clSize: UInt32
-    alData: UInt32 * 1
+    alData: FlexibleArray[UInt32]
 class DWORD_SIZEDARR(Structure):
     clSize: UInt32
     pData: POINTER(UInt32)
@@ -676,11 +676,11 @@ EXTCONN_CALLABLE: win32more.Windows.Win32.System.Com.EXTCONN = 4
 class FLAGGED_BYTE_BLOB(Structure):
     fFlags: UInt32
     clSize: UInt32
-    abData: Byte * 1
+    abData: FlexibleArray[Byte]
 class FLAGGED_WORD_BLOB(Structure):
     fFlags: UInt32
     clSize: UInt32
-    asData: UInt16 * 1
+    asData: FlexibleArray[UInt16]
 class FLAG_STGMEDIUM(Structure):
     ContextFlags: Int32
     fPassOwnership: Int32
@@ -2090,14 +2090,14 @@ class RemSTGMEDIUM(Structure):
     pData: UInt32
     pUnkForRelease: UInt32
     cbData: UInt32
-    data: Byte * 1
+    data: FlexibleArray[Byte]
 class SAFEARRAY(Structure):
     cDims: UInt16
     fFeatures: win32more.Windows.Win32.System.Com.ADVANCED_FEATURE_FLAGS
     cbElements: UInt32
     cLocks: UInt32
     pvData: VoidPtr
-    rgsabound: win32more.Windows.Win32.System.Com.SAFEARRAYBOUND * 1
+    rgsabound: FlexibleArray[win32more.Windows.Win32.System.Com.SAFEARRAYBOUND]
 class SAFEARRAYBOUND(Structure):
     cElements: UInt32
     lLbound: Int32
@@ -2341,7 +2341,7 @@ VAR_CONST: win32more.Windows.Win32.System.Com.VARKIND = 2
 VAR_DISPATCH: win32more.Windows.Win32.System.Com.VARKIND = 3
 class WORD_BLOB(Structure):
     clSize: UInt32
-    asData: UInt16 * 1
+    asData: FlexibleArray[UInt16]
 class WORD_SIZEDARR(Structure):
     clSize: UInt32
     pData: POINTER(UInt16)

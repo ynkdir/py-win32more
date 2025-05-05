@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media
@@ -20,7 +20,7 @@ ACTIVEOBJECT_WEAK: win32more.Windows.Win32.System.Ole.ACTIVEOBJECT_FLAGS = 1
 class ARRAYDESC(Structure):
     tdescElem: win32more.Windows.Win32.System.Com.TYPEDESC
     cDims: UInt16
-    rgbounds: win32more.Windows.Win32.System.Com.SAFEARRAYBOUND * 1
+    rgbounds: FlexibleArray[win32more.Windows.Win32.System.Com.SAFEARRAYBOUND]
 CTL_E_ILLEGALFUNCTIONCALL: Int32 = -2146828283
 CONNECT_E_FIRST: Int32 = -2147220992
 SELFREG_E_FIRST: Int32 = -2147220992
@@ -3007,7 +3007,7 @@ class OLECMDTEXT(Structure):
     cmdtextf: UInt32
     cwActual: UInt32
     cwBuf: UInt32
-    rgwz: Char * 1
+    rgwz: FlexibleArray[Char]
 OLECMDTEXTF = Int32
 OLECMDTEXTF_NONE: win32more.Windows.Win32.System.Ole.OLECMDTEXTF = 0
 OLECMDTEXTF_NAME: win32more.Windows.Win32.System.Ole.OLECMDTEXTF = 1
@@ -3466,7 +3466,7 @@ class PAGESET(Structure):
     fOddPages: win32more.Windows.Win32.Foundation.BOOL
     fEvenPages: win32more.Windows.Win32.Foundation.BOOL
     cPageRange: UInt32
-    rgPages: win32more.Windows.Win32.System.Ole.PAGERANGE * 1
+    rgPages: FlexibleArray[win32more.Windows.Win32.System.Ole.PAGERANGE]
 class PARAMDATA(Structure):
     szName: win32more.Windows.Win32.Foundation.PWSTR
     vt: win32more.Windows.Win32.System.Variant.VARENUM
@@ -3762,7 +3762,7 @@ class _wireSAFEARRAY(Structure):
     cbElements: UInt32
     cLocks: UInt32
     uArrayStructs: win32more.Windows.Win32.System.Ole.SAFEARRAYUNION
-    rgsabound: win32more.Windows.Win32.System.Com.SAFEARRAYBOUND * 1
+    rgsabound: FlexibleArray[win32more.Windows.Win32.System.Com.SAFEARRAYBOUND]
 class _wireVARIANT(Structure):
     clSize: UInt32
     rpcReserved: UInt32

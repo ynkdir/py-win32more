@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Diagnostics.Debug
@@ -1595,10 +1595,10 @@ PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_LET_VARIABLE: win32more.Windows.Win32.Sy
 PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_CONST_VARIABLE: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = 524288
 class PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST(Structure):
     count: UInt32
-    elements: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_RELATIONSHIP * 1
+    elements: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_RELATIONSHIP]
 class PROFILER_HEAP_OBJECT_SCOPE_LIST(Structure):
     count: UInt32
-    scopes: UIntPtr * 1
+    scopes: FlexibleArray[UIntPtr]
 class PROFILER_HEAP_SUMMARY(Structure):
     version: win32more.Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_SUMMARY_VERSION
     totalHeapSize: UInt32

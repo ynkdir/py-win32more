@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.JobObjects
@@ -113,7 +113,7 @@ class JOBOBJECT_BASIC_LIMIT_INFORMATION(Structure):
 class JOBOBJECT_BASIC_PROCESS_ID_LIST(Structure):
     NumberOfAssignedProcesses: UInt32
     NumberOfProcessIdsInList: UInt32
-    ProcessIdList: UIntPtr * 1
+    ProcessIdList: FlexibleArray[UIntPtr]
 class JOBOBJECT_BASIC_UI_RESTRICTIONS(Structure):
     UIRestrictionsClass: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_UILIMIT
 class JOBOBJECT_CPU_RATE_CONTROL_INFORMATION(Structure):

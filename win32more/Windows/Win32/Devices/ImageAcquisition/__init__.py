@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.ImageAcquisition
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
@@ -1800,7 +1800,7 @@ class TWAIN_CAPABILITY(Structure):
     lRC: Int32
     lCC: Int32
     lDataSize: Int32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 class VAL(Structure):
     lVal: Int32
     dblVal: Double
@@ -1858,7 +1858,7 @@ class WIA_BARCODES(Structure):
     Version: UInt32
     Size: UInt32
     Count: UInt32
-    Barcodes: win32more.Windows.Win32.Devices.ImageAcquisition.WIA_BARCODE_INFO * 1
+    Barcodes: FlexibleArray[win32more.Windows.Win32.Devices.ImageAcquisition.WIA_BARCODE_INFO]
 class WIA_BARCODE_INFO(Structure):
     Size: UInt32
     Type: UInt32
@@ -1868,7 +1868,7 @@ class WIA_BARCODE_INFO(Structure):
     YOffset: UInt32
     Rotation: UInt32
     Length: UInt32
-    Text: Char * 1
+    Text: FlexibleArray[Char]
 class WIA_DATA_CALLBACK_HEADER(Structure):
     lSize: Int32
     guidFormatID: Guid
@@ -1918,18 +1918,18 @@ class WIA_MICR(Structure):
     Placeholder: Char
     Reserved: UInt16
     Count: UInt32
-    Micr: win32more.Windows.Win32.Devices.ImageAcquisition.WIA_MICR_INFO * 1
+    Micr: FlexibleArray[win32more.Windows.Win32.Devices.ImageAcquisition.WIA_MICR_INFO]
 class WIA_MICR_INFO(Structure):
     Size: UInt32
     Page: UInt32
     Length: UInt32
-    Text: Char * 1
+    Text: FlexibleArray[Char]
 class WIA_PATCH_CODES(Structure):
     Tag: UInt32
     Version: UInt32
     Size: UInt32
     Count: UInt32
-    PatchCodes: win32more.Windows.Win32.Devices.ImageAcquisition.WIA_PATCH_CODE_INFO * 1
+    PatchCodes: FlexibleArray[win32more.Windows.Win32.Devices.ImageAcquisition.WIA_PATCH_CODE_INFO]
 class WIA_PATCH_CODE_INFO(Structure):
     Type: UInt32
 class WIA_PROPERTY_CONTEXT(Structure):

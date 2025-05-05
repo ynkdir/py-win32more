@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.CloudFilters
 import win32more.Windows.Win32.Storage.FileSystem
@@ -396,7 +396,7 @@ class CF_PLACEHOLDER_BASIC_INFO(Structure):
     FileId: Int64
     SyncRootFileId: Int64
     FileIdentityLength: UInt32
-    FileIdentity: Byte * 1
+    FileIdentity: FlexibleArray[Byte]
 CF_PLACEHOLDER_CREATE_FLAGS = Int32
 CF_PLACEHOLDER_CREATE_FLAG_NONE: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_CREATE_FLAGS = 0
 CF_PLACEHOLDER_CREATE_FLAG_DISABLE_ON_DEMAND_POPULATION: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_CREATE_FLAGS = 1
@@ -433,7 +433,7 @@ class CF_PLACEHOLDER_STANDARD_INFO(Structure):
     FileId: Int64
     SyncRootFileId: Int64
     FileIdentityLength: UInt32
-    FileIdentity: Byte * 1
+    FileIdentity: FlexibleArray[Byte]
 CF_PLACEHOLDER_STATE = UInt32
 CF_PLACEHOLDER_STATE_NO_STATES: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_STATE = 0
 CF_PLACEHOLDER_STATE_PLACEHOLDER: win32more.Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_STATE = 1
@@ -526,7 +526,7 @@ class CF_SYNC_ROOT_STANDARD_INFO(Structure):
     ProviderName: Char * 256
     ProviderVersion: Char * 256
     SyncRootIdentityLength: UInt32
-    SyncRootIdentity: Byte * 1
+    SyncRootIdentity: FlexibleArray[Byte]
 class CF_SYNC_STATUS(Structure):
     StructSize: UInt32
     Code: UInt32

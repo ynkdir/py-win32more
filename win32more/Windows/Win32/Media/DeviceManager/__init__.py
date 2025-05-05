@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.DeviceManager
@@ -935,14 +935,14 @@ class MTP_COMMAND_DATA_IN(Structure):
     Params: UInt32 * 5
     NextPhase: UInt32
     CommandWriteDataSize: UInt32
-    CommandWriteData: Byte * 1
+    CommandWriteData: FlexibleArray[Byte]
     _pack_ = 1
 class MTP_COMMAND_DATA_OUT(Structure):
     ResponseCode: UInt16
     NumParams: UInt32
     Params: UInt32 * 5
     CommandReadDataSize: UInt32
-    CommandReadData: Byte * 1
+    CommandReadData: FlexibleArray[Byte]
     _pack_ = 1
 MediaDevMgr = Guid('{25baad81-3560-11d3-8471-00c04f79dbc0}')
 MediaDevMgrClassFactory = Guid('{50040c1d-bdbf-4924-b873-f14d6c5bfd66}')

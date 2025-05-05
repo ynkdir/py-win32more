@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.System.Com
@@ -739,7 +739,7 @@ class ETW_PMC_COUNTER_OWNER(Structure):
 class ETW_PMC_COUNTER_OWNERSHIP_STATUS(Structure):
     ProcessorNumber: UInt32
     NumberOfCounters: UInt32
-    CounterOwners: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER * 1
+    CounterOwners: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER]
 ETW_PMC_COUNTER_OWNER_TYPE = Int32
 EtwPmcOwnerFree: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 0
 EtwPmcOwnerUntagged: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_PMC_COUNTER_OWNER_TYPE = 1
@@ -808,7 +808,7 @@ class EVENT_EXTENDED_ITEM_INSTANCE(Structure):
 class EVENT_EXTENDED_ITEM_PEBS_INDEX(Structure):
     PebsIndex: UInt64
 class EVENT_EXTENDED_ITEM_PMC_COUNTERS(Structure):
-    Counter: UInt64 * 1
+    Counter: FlexibleArray[UInt64]
 class EVENT_EXTENDED_ITEM_PROCESS_START_KEY(Structure):
     ProcessStartKey: UInt64
 class EVENT_EXTENDED_ITEM_RELATED_ACTIVITYID(Structure):
@@ -822,10 +822,10 @@ class EVENT_EXTENDED_ITEM_STACK_KEY64(Structure):
     StackKey: UInt64
 class EVENT_EXTENDED_ITEM_STACK_TRACE32(Structure):
     MatchId: UInt64
-    Address: UInt32 * 1
+    Address: FlexibleArray[UInt32]
 class EVENT_EXTENDED_ITEM_STACK_TRACE64(Structure):
     MatchId: UInt64
-    Address: UInt64 * 1
+    Address: FlexibleArray[UInt64]
 class EVENT_EXTENDED_ITEM_TS_ID(Structure):
     SessionId: UInt32
 EVENT_FIELD_TYPE = Int32
@@ -843,14 +843,14 @@ class EVENT_FILTER_EVENT_ID(Structure):
     FilterIn: win32more.Windows.Win32.Foundation.BOOLEAN
     Reserved: Byte
     Count: UInt16
-    Events: UInt16 * 1
+    Events: FlexibleArray[UInt16]
 class EVENT_FILTER_EVENT_NAME(Structure):
     MatchAnyKeyword: UInt64
     MatchAllKeyword: UInt64
     Level: Byte
     FilterIn: win32more.Windows.Win32.Foundation.BOOLEAN
     NameCount: UInt16
-    Names: Byte * 1
+    Names: FlexibleArray[Byte]
 class EVENT_FILTER_HEADER(Structure):
     Id: UInt16
     Version: Byte
@@ -945,7 +945,7 @@ class EVENT_MAP_INFO(Structure):
     Flag: win32more.Windows.Win32.System.Diagnostics.Etw.MAP_FLAGS
     EntryCount: UInt32
     Anonymous: _Anonymous_e__Union
-    MapEntryArray: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_MAP_ENTRY * 1
+    MapEntryArray: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_MAP_ENTRY]
     class _Anonymous_e__Union(Union):
         MapEntryValueType: win32more.Windows.Win32.System.Diagnostics.Etw.MAP_VALUETYPE
         FormatStringOffset: UInt32
@@ -1291,7 +1291,7 @@ class PROFILE_SOURCE_INFO(Structure):
     MinInterval: UInt32
     MaxInterval: UInt32
     Reserved: UInt64
-    Description: Char * 1
+    Description: FlexibleArray[Char]
 class PROPERTY_DATA_DESCRIPTOR(Structure):
     PropertyName: UInt64
     ArrayIndex: UInt32
@@ -1308,11 +1308,11 @@ PropertyHasCustomSchema: win32more.Windows.Win32.System.Diagnostics.Etw.PROPERTY
 class PROVIDER_ENUMERATION_INFO(Structure):
     NumberOfProviders: UInt32
     Reserved: UInt32
-    TraceProviderInfoArray: win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_PROVIDER_INFO * 1
+    TraceProviderInfoArray: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Etw.TRACE_PROVIDER_INFO]
 class PROVIDER_EVENT_INFO(Structure):
     NumberOfEvents: UInt32
     Reserved: UInt32
-    EventDescriptorsArray: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_DESCRIPTOR * 1
+    EventDescriptorsArray: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_DESCRIPTOR]
 class PROVIDER_FIELD_INFO(Structure):
     NameOffset: UInt32
     DescriptionOffset: UInt32
@@ -1320,14 +1320,14 @@ class PROVIDER_FIELD_INFO(Structure):
 class PROVIDER_FIELD_INFOARRAY(Structure):
     NumberOfElements: UInt32
     FieldType: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FIELD_TYPE
-    FieldInfoArray: win32more.Windows.Win32.System.Diagnostics.Etw.PROVIDER_FIELD_INFO * 1
+    FieldInfoArray: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Etw.PROVIDER_FIELD_INFO]
 class PROVIDER_FILTER_INFO(Structure):
     Id: Byte
     Version: Byte
     MessageOffset: UInt32
     Reserved: UInt32
     PropertyCount: UInt32
-    EventPropertyInfoArray: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_PROPERTY_INFO * 1
+    EventPropertyInfoArray: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_PROPERTY_INFO]
 REGHANDLE = Int64
 class RELOGSTREAM_HANDLE(Structure):
     Value: UInt64
@@ -1376,7 +1376,7 @@ class TRACE_EVENT_INFO(Structure):
     PropertyCount: UInt32
     TopLevelPropertyCount: UInt32
     Anonymous3: _Anonymous3_e__Union
-    EventPropertyInfoArray: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_PROPERTY_INFO * 1
+    EventPropertyInfoArray: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_PROPERTY_INFO]
     class _Anonymous1_e__Union(Union):
         EventNameOffset: UInt32
         ActivityIDNameOffset: UInt32

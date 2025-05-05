@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Bluetooth
 import win32more.Windows.Win32.Foundation
 AUTHENTICATION_REQUIREMENTS = Int32
@@ -1001,7 +1001,7 @@ class BLUETOOTH_GATT_VALUE_CHANGED_EVENT(Structure):
     CharacteristicValue: POINTER(win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC_VALUE)
 class BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION(Structure):
     NumCharacteristics: UInt16
-    Characteristics: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC * 1
+    Characteristics: FlexibleArray[win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_GATT_CHARACTERISTIC]
 BLUETOOTH_IO_CAPABILITY = Int32
 BLUETOOTH_IO_CAPABILITY_DISPLAYONLY: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 0
 BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY = 1
@@ -1088,7 +1088,7 @@ class BTH_LE_GATT_CHARACTERISTIC(Structure):
     HasExtendedProperties: win32more.Windows.Win32.Foundation.BOOLEAN
 class BTH_LE_GATT_CHARACTERISTIC_VALUE(Structure):
     DataSize: UInt32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 class BTH_LE_GATT_DESCRIPTOR(Structure):
     ServiceHandle: UInt16
     CharacteristicHandle: UInt16
@@ -1108,7 +1108,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE(Structure):
     DescriptorUuid: win32more.Windows.Win32.Devices.Bluetooth.BTH_LE_UUID
     Anonymous: _Anonymous_e__Union
     DataSize: UInt32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
     class _Anonymous_e__Union(Union):
         CharacteristicExtendedProperties: _CharacteristicExtendedProperties_e__Struct
         ClientCharacteristicConfiguration: _ClientCharacteristicConfiguration_e__Struct
@@ -1156,7 +1156,7 @@ class BTH_QUERY_SERVICE(Structure):
     serviceHandle: UInt32
     uuids: win32more.Windows.Win32.Devices.Bluetooth.SdpQueryUuid * 12
     numRange: UInt32
-    pRange: win32more.Windows.Win32.Devices.Bluetooth.SdpAttributeRange * 1
+    pRange: FlexibleArray[win32more.Windows.Win32.Devices.Bluetooth.SdpAttributeRange]
     _pack_ = 1
 class BTH_RADIO_IN_RANGE(Structure):
     deviceInfo: win32more.Windows.Win32.Devices.Bluetooth.BTH_DEVICE_INFO
@@ -1167,7 +1167,7 @@ class BTH_SET_SERVICE(Structure):
     fCodService: UInt32
     Reserved: UInt32 * 5
     ulRecordLength: UInt32
-    pRecord: Byte * 1
+    pRecord: FlexibleArray[Byte]
     _pack_ = 1
 HANDLE_SDP_TYPE = UInt64
 HBLUETOOTH_DEVICE_FIND = VoidPtr

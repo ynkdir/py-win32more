@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Devices.Communication
 import win32more.Windows.Win32.Devices.Display
@@ -1971,7 +1971,7 @@ class BIDI_REQUEST_CONTAINER(Structure):
     Version: UInt32
     Flags: UInt32
     Count: UInt32
-    aData: win32more.Windows.Win32.Graphics.Printing.BIDI_REQUEST_DATA * 1
+    aData: FlexibleArray[win32more.Windows.Win32.Graphics.Printing.BIDI_REQUEST_DATA]
 class BIDI_REQUEST_DATA(Structure):
     dwReqNumber: UInt32
     pSchema: win32more.Windows.Win32.Foundation.PWSTR
@@ -1980,7 +1980,7 @@ class BIDI_RESPONSE_CONTAINER(Structure):
     Version: UInt32
     Flags: UInt32
     Count: UInt32
-    aData: win32more.Windows.Win32.Graphics.Printing.BIDI_RESPONSE_DATA * 1
+    aData: FlexibleArray[win32more.Windows.Win32.Graphics.Printing.BIDI_RESPONSE_DATA]
 class BIDI_RESPONSE_DATA(Structure):
     dwResult: UInt32
     dwReqNumber: UInt32
@@ -2013,7 +2013,7 @@ class BranchOfficeJobData(Structure):
         LogOfflineFileFull: win32more.Windows.Win32.Graphics.Printing.BranchOfficeLogOfflineFileFull
 class BranchOfficeJobDataContainer(Structure):
     cJobDataEntries: UInt32
-    JobData: win32more.Windows.Win32.Graphics.Printing.BranchOfficeJobData * 1
+    JobData: FlexibleArray[win32more.Windows.Win32.Graphics.Printing.BranchOfficeJobData]
 class BranchOfficeJobDataError(Structure):
     LastError: UInt32
     pDocumentName: win32more.Windows.Win32.Foundation.PWSTR
@@ -2155,7 +2155,7 @@ class DOCEVENT_FILTER(Structure):
     cElementsAllocated: UInt32
     cElementsNeeded: UInt32
     cElementsReturned: UInt32
-    aDocEventCall: UInt32 * 1
+    aDocEventCall: FlexibleArray[UInt32]
 class DOCUMENTPROPERTYHEADER(Structure):
     cbSize: UInt16
     Reserved: UInt16
@@ -3593,11 +3593,11 @@ JOB_INFO_4 = UnicodeAlias('JOB_INFO_4W')
 class KERNDATA(Structure):
     dwSize: UInt32
     dwKernPairNum: UInt32
-    KernPair: win32more.Windows.Win32.Devices.Display.FD_KERNINGPAIR * 1
+    KernPair: FlexibleArray[win32more.Windows.Win32.Devices.Display.FD_KERNINGPAIR]
 class MAPTABLE(Structure):
     dwSize: UInt32
     dwGlyphNum: UInt32
-    Trans: win32more.Windows.Win32.Graphics.Printing.TRANSDATA * 1
+    Trans: FlexibleArray[win32more.Windows.Win32.Graphics.Printing.TRANSDATA]
 class MESSAGEBOX_PARAMS(Structure):
     cbSize: UInt32
     pTitle: win32more.Windows.Win32.Foundation.PWSTR
@@ -3695,7 +3695,7 @@ class MXDC_ESCAPE_HEADER_T(Structure):
     _pack_ = 1
 class MXDC_GET_FILENAME_DATA_T(Structure):
     cbOutput: UInt32
-    wszData: Char * 1
+    wszData: FlexibleArray[Char]
     _pack_ = 1
 MXDC_IMAGE_TYPE_ENUMS = Int32
 MXDC_IMAGETYPE_JPEGHIGH_COMPRESSION: win32more.Windows.Win32.Graphics.Printing.MXDC_IMAGE_TYPE_ENUMS = 1
@@ -3708,7 +3708,7 @@ MXDC_LANDSCAPE_ROTATE_NONE: win32more.Windows.Win32.Graphics.Printing.MXDC_LANDS
 MXDC_LANDSCAPE_ROTATE_COUNTERCLOCKWISE_270_DEGREES: win32more.Windows.Win32.Graphics.Printing.MXDC_LANDSCAPE_ROTATION_ENUMS = -90
 class MXDC_PRINTTICKET_DATA_T(Structure):
     dwDataSize: UInt32
-    bData: Byte * 1
+    bData: FlexibleArray[Byte]
     _pack_ = 1
 class MXDC_PRINTTICKET_ESCAPE_T(Structure):
     mxdcEscape: win32more.Windows.Win32.Graphics.Printing.MXDC_ESCAPE_HEADER_T
@@ -3716,7 +3716,7 @@ class MXDC_PRINTTICKET_ESCAPE_T(Structure):
     _pack_ = 1
 class MXDC_S0PAGE_DATA_T(Structure):
     dwSize: UInt32
-    bData: Byte * 1
+    bData: FlexibleArray[Byte]
     _pack_ = 1
 class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T(Structure):
     mxdcEscape: win32more.Windows.Win32.Graphics.Printing.MXDC_ESCAPE_HEADER_T
@@ -3742,7 +3742,7 @@ class MXDC_XPS_S0PAGE_RESOURCE_T(Structure):
     dwResourceType: UInt32
     szUri: Byte * 260
     dwDataSize: UInt32
-    bData: Byte * 1
+    bData: FlexibleArray[Byte]
     _pack_ = 1
 NOTIFICATION_CALLBACK_COMMANDS = Int32
 NOTIFICATION_COMMAND_NOTIFY: win32more.Windows.Win32.Graphics.Printing.NOTIFICATION_CALLBACK_COMMANDS = 0
@@ -3989,7 +3989,7 @@ class PORT_DATA_2(Structure):
 class PORT_DATA_LIST_1(Structure):
     dwVersion: UInt32
     cPortData: UInt32
-    pPortData: win32more.Windows.Win32.Graphics.Printing.PORT_DATA_2 * 1
+    pPortData: FlexibleArray[win32more.Windows.Win32.Graphics.Printing.PORT_DATA_2]
 class PORT_INFO_1A(Structure):
     pName: win32more.Windows.Win32.Foundation.PSTR
 class PORT_INFO_1W(Structure):
@@ -4178,7 +4178,7 @@ class PRINTER_NOTIFY_INFO(Structure):
     Version: UInt32
     Flags: UInt32
     Count: UInt32
-    aData: win32more.Windows.Win32.Graphics.Printing.PRINTER_NOTIFY_INFO_DATA * 1
+    aData: FlexibleArray[win32more.Windows.Win32.Graphics.Printing.PRINTER_NOTIFY_INFO_DATA]
 class PRINTER_NOTIFY_INFO_DATA(Structure):
     Type: UInt16
     Field: UInt16
@@ -4711,7 +4711,7 @@ class WIDTHRUN(Structure):
 class WIDTHTABLE(Structure):
     dwSize: UInt32
     dwRunNum: UInt32
-    WidthRun: win32more.Windows.Win32.Graphics.Printing.WIDTHRUN * 1
+    WidthRun: FlexibleArray[win32more.Windows.Win32.Graphics.Printing.WIDTHRUN]
 XPSRAS_BACKGROUND_COLOR = Int32
 XPSRAS_BACKGROUND_COLOR_TRANSPARENT: win32more.Windows.Win32.Graphics.Printing.XPSRAS_BACKGROUND_COLOR = 0
 XPSRAS_BACKGROUND_COLOR_OPAQUE: win32more.Windows.Win32.Graphics.Printing.XPSRAS_BACKGROUND_COLOR = 1

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.NetManagement
@@ -2675,7 +2675,7 @@ class ERROR_LOG(Structure):
 class FLAT_STRING(Structure):
     MaximumLength: Int16
     Length: Int16
-    Buffer: win32more.Windows.Win32.Foundation.CHAR * 1
+    Buffer: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 FORCE_LEVEL_FLAGS = UInt32
 USE_NOFORCE: win32more.Windows.Win32.NetworkManagement.NetManagement.FORCE_LEVEL_FLAGS = 0
 USE_FORCE: win32more.Windows.Win32.NetworkManagement.NetManagement.FORCE_LEVEL_FLAGS = 1
@@ -3309,7 +3309,7 @@ class RTR_INFO_BLOCK_HEADER(Structure):
     Version: UInt32
     Size: UInt32
     TocEntriesCount: UInt32
-    TocEntry: win32more.Windows.Win32.NetworkManagement.NetManagement.RTR_TOC_ENTRY * 1
+    TocEntry: FlexibleArray[win32more.Windows.Win32.NetworkManagement.NetManagement.RTR_TOC_ENTRY]
 class RTR_TOC_ENTRY(Structure):
     InfoType: UInt32
     InfoSize: UInt32

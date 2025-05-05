@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Tapi
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.DirectShow
@@ -4091,7 +4091,7 @@ class LINEFORWARD(Structure):
 class LINEFORWARDLIST(Structure):
     dwTotalSize: UInt32
     dwNumEntries: UInt32
-    ForwardList: win32more.Windows.Win32.Devices.Tapi.LINEFORWARD * 1
+    ForwardList: FlexibleArray[win32more.Windows.Win32.Devices.Tapi.LINEFORWARD]
     _pack_ = 1
 class LINEGENERATETONE(Structure):
     dwFrequency: UInt32
@@ -4236,7 +4236,7 @@ class LINEPROXYREQUEST(Structure):
             dwAddressID: UInt32
             dwAgentExtensionIDIndex: UInt32
             dwSize: UInt32
-            Params: Byte * 1
+            Params: FlexibleArray[Byte]
             _pack_ = 1
         class _GetAgentActivityList_e__Struct(Structure):
             dwAddressID: UInt32
@@ -4446,7 +4446,7 @@ class MSP_EVENT_INFO(Structure):
             hrError: win32more.Windows.Win32.Foundation.HRESULT
         class _MSP_TSP_DATA_e__Struct(Structure):
             dwBufferSize: UInt32
-            pBuffer: Byte * 1
+            pBuffer: FlexibleArray[Byte]
         class _MSP_PRIVATE_EVENT_INFO_e__Struct(Structure):
             pEvent: win32more.Windows.Win32.System.Com.IDispatch
             lEventCode: Int32
@@ -4474,7 +4474,7 @@ class NSID(Structure):
     address: _address_e__Union
     class _address_e__Union(Union):
         alias: win32more.Windows.Win32.Devices.Tapi.ADDRALIAS
-        rgchInterNet: win32more.Windows.Win32.Foundation.CHAR * 1
+        rgchInterNet: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class PHONEBUTTONINFO(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
@@ -4759,7 +4759,7 @@ class STnefProblem(Structure):
     scode: Int32
 class STnefProblemArray(Structure):
     cProblem: UInt32
-    aProblem: win32more.Windows.Win32.Devices.Tapi.STnefProblem * 1
+    aProblem: FlexibleArray[win32more.Windows.Win32.Devices.Tapi.STnefProblem]
 TAPI = Guid('{21d6d48e-a88b-11d0-83dd-00aa003ccabd}')
 TAPIOBJECT_EVENT = Int32
 TE_ADDRESSCREATE: win32more.Windows.Win32.Devices.Tapi.TAPIOBJECT_EVENT = 0

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct2D.Common
 import win32more.Windows.Win32.Graphics.Dxgi.Common
@@ -1356,7 +1356,7 @@ WICRawRotationCapabilityNinetyDegreesSupported: win32more.Windows.Win32.Graphics
 WICRawRotationCapabilityFullySupported: win32more.Windows.Win32.Graphics.Imaging.WICRawRotationCapabilities = 3
 class WICRawToneCurve(Structure):
     cPoints: UInt32
-    aPoints: win32more.Windows.Win32.Graphics.Imaging.WICRawToneCurvePoint * 1
+    aPoints: FlexibleArray[win32more.Windows.Win32.Graphics.Imaging.WICRawToneCurvePoint]
 class WICRawToneCurvePoint(Structure):
     Input: Double
     Output: Double

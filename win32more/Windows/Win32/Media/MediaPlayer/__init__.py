@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Media.MediaFoundation
@@ -2893,7 +2893,7 @@ class WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC(Structure):
     dwUnretrievedObjectCount: UInt32
     dwDeletedObjectStartingOffset: UInt32
     dwFlags: UInt32
-    wsObjectPathnameList: Char * 1
+    wsObjectPathnameList: FlexibleArray[Char]
     _pack_ = 1
 class WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE(Structure):
     dwChangesSinceTransactionID: UInt32

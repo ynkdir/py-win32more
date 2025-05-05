@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Dns
 SIZEOF_IP4_ADDRESS: UInt32 = 4
@@ -393,7 +393,7 @@ class DNS_ADDR_ARRAY(Structure):
     MatchFlag: UInt32
     Reserved1: UInt32
     Reserved2: UInt32
-    AddrArray: win32more.Windows.Win32.NetworkManagement.Dns.DNS_ADDR * 1
+    AddrArray: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Dns.DNS_ADDR]
     _pack_ = 1
 class DNS_APPLICATION_SETTINGS(Structure):
     Version: UInt32
@@ -507,14 +507,14 @@ class DNS_CUSTOM_SERVER(Structure):
         MaxSa: win32more.Windows.Win32.Foundation.CHAR * 32
 class DNS_DHCID_DATA(Structure):
     dwByteCount: UInt32
-    DHCID: Byte * 1
+    DHCID: FlexibleArray[Byte]
 class DNS_DS_DATA(Structure):
     wKeyTag: UInt16
     chAlgorithm: Byte
     chDigestType: Byte
     wDigestLength: UInt16
     wPad: UInt16
-    Digest: Byte * 1
+    Digest: FlexibleArray[Byte]
 DNS_FREE_TYPE = Int32
 DnsFreeFlat: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE = 0
 DnsFreeRecordList: win32more.Windows.Win32.NetworkManagement.Dns.DNS_FREE_TYPE = 1
@@ -548,7 +548,7 @@ class DNS_KEY_DATA(Structure):
     chAlgorithm: Byte
     wKeyLength: UInt16
     wPad: UInt16
-    Key: Byte * 1
+    Key: FlexibleArray[Byte]
 class DNS_LOC_DATA(Structure):
     wVersion: UInt16
     wSize: UInt16
@@ -559,7 +559,7 @@ class DNS_LOC_DATA(Structure):
     dwAltitude: UInt32
 class DNS_MESSAGE_BUFFER(Structure):
     MessageHead: win32more.Windows.Win32.NetworkManagement.Dns.DNS_HEADER
-    MessageBody: win32more.Windows.Win32.Foundation.CHAR * 1
+    MessageBody: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class DNS_MINFO_DATAA(Structure):
     pNameMailbox: win32more.Windows.Win32.Foundation.PSTR
     pNameErrorsMailbox: win32more.Windows.Win32.Foundation.PSTR
@@ -605,7 +605,7 @@ class DNS_NSEC3PARAM_DATA(Structure):
     wIterations: UInt16
     bSaltLength: Byte
     bPad: Byte * 3
-    pbSalt: Byte * 1
+    pbSalt: FlexibleArray[Byte]
 class DNS_NSEC3_DATA(Structure):
     chAlgorithm: Byte
     bFlags: Byte
@@ -613,34 +613,34 @@ class DNS_NSEC3_DATA(Structure):
     bSaltLength: Byte
     bHashLength: Byte
     wTypeBitMapsLength: UInt16
-    chData: Byte * 1
+    chData: FlexibleArray[Byte]
 class DNS_NSEC_DATAA(Structure):
     pNextDomainName: win32more.Windows.Win32.Foundation.PSTR
     wTypeBitMapsLength: UInt16
     wPad: UInt16
-    TypeBitMaps: Byte * 1
+    TypeBitMaps: FlexibleArray[Byte]
 class DNS_NSEC_DATAW(Structure):
     pNextDomainName: win32more.Windows.Win32.Foundation.PWSTR
     wTypeBitMapsLength: UInt16
     wPad: UInt16
-    TypeBitMaps: Byte * 1
+    TypeBitMaps: FlexibleArray[Byte]
 DNS_NSEC_DATA = UnicodeAlias('DNS_NSEC_DATAW')
 class DNS_NULL_DATA(Structure):
     dwByteCount: UInt32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 class DNS_NXT_DATAA(Structure):
     pNameNext: win32more.Windows.Win32.Foundation.PSTR
     wNumTypes: UInt16
-    wTypes: UInt16 * 1
+    wTypes: FlexibleArray[UInt16]
 class DNS_NXT_DATAW(Structure):
     pNameNext: win32more.Windows.Win32.Foundation.PWSTR
     wNumTypes: UInt16
-    wTypes: UInt16 * 1
+    wTypes: FlexibleArray[UInt16]
 DNS_NXT_DATA = UnicodeAlias('DNS_NXT_DATAW')
 class DNS_OPT_DATA(Structure):
     wDataLength: UInt16
     wPad: UInt16
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 @winfunctype_pointer
 def DNS_PROXY_COMPLETION_ROUTINE(completionContext: VoidPtr, status: Int32) -> Void: ...
 class DNS_PROXY_INFORMATION(Structure):
@@ -1029,7 +1029,7 @@ class DNS_SIG_DATAA(Structure):
     wKeyTag: UInt16
     wSignatureLength: UInt16
     pNameSigner: win32more.Windows.Win32.Foundation.PSTR
-    Signature: Byte * 1
+    Signature: FlexibleArray[Byte]
 class DNS_SIG_DATAW(Structure):
     wTypeCovered: UInt16
     chAlgorithm: Byte
@@ -1040,7 +1040,7 @@ class DNS_SIG_DATAW(Structure):
     wKeyTag: UInt16
     wSignatureLength: UInt16
     pNameSigner: win32more.Windows.Win32.Foundation.PWSTR
-    Signature: Byte * 1
+    Signature: FlexibleArray[Byte]
 DNS_SIG_DATA = UnicodeAlias('DNS_SIG_DATAW')
 class DNS_SOA_DATAA(Structure):
     pNamePrimaryServer: win32more.Windows.Win32.Foundation.PSTR
@@ -1091,19 +1091,19 @@ class DNS_SVCB_PARAM(Structure):
         pReserved: VoidPtr
 class DNS_SVCB_PARAM_ALPN(Structure):
     cIds: UInt16
-    rgIds: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_ALPN_ID * 1
+    rgIds: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_ALPN_ID]
 class DNS_SVCB_PARAM_ALPN_ID(Structure):
     cBytes: Byte
     pbId: POINTER(Byte)
 class DNS_SVCB_PARAM_IPV4(Structure):
     cIps: UInt16
-    rgIps: UInt32 * 1
+    rgIps: FlexibleArray[UInt32]
 class DNS_SVCB_PARAM_IPV6(Structure):
     cIps: UInt16
-    rgIps: win32more.Windows.Win32.NetworkManagement.Dns.IP6_ADDRESS * 1
+    rgIps: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Dns.IP6_ADDRESS]
 class DNS_SVCB_PARAM_MANDATORY(Structure):
     cMandatoryKeys: UInt16
-    rgwMandatoryKeys: UInt16 * 1
+    rgwMandatoryKeys: FlexibleArray[UInt16]
 DNS_SVCB_PARAM_TYPE = Int32
 DnsSvcbParamMandatory: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 0
 DnsSvcbParamAlpn: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 1
@@ -1117,7 +1117,7 @@ DnsSvcbParamDohPathQuad9: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB
 DnsSvcbParamDohPathOpenDns: win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_TYPE = 65432
 class DNS_SVCB_PARAM_UNKNOWN(Structure):
     cBytes: UInt16
-    pbSvcParamValue: Byte * 1
+    pbSvcParamValue: FlexibleArray[Byte]
 class DNS_TKEY_DATAA(Structure):
     pNameAlgorithm: win32more.Windows.Win32.Foundation.PSTR
     pAlgorithmPacket: POINTER(Byte)
@@ -1151,7 +1151,7 @@ class DNS_TLSA_DATA(Structure):
     bMatchingType: Byte
     bCertificateAssociationDataLength: UInt16
     bPad: Byte * 3
-    bCertificateAssociationData: Byte * 1
+    bCertificateAssociationData: FlexibleArray[Byte]
 class DNS_TSIG_DATAA(Structure):
     pNameAlgorithm: win32more.Windows.Win32.Foundation.PSTR
     pAlgorithmPacket: POINTER(Byte)
@@ -1181,10 +1181,10 @@ class DNS_TSIG_DATAW(Structure):
 DNS_TSIG_DATA = UnicodeAlias('DNS_TSIG_DATAW')
 class DNS_TXT_DATAA(Structure):
     dwStringCount: UInt32
-    pStringArray: win32more.Windows.Win32.Foundation.PSTR * 1
+    pStringArray: FlexibleArray[win32more.Windows.Win32.Foundation.PSTR]
 class DNS_TXT_DATAW(Structure):
     dwStringCount: UInt32
-    pStringArray: win32more.Windows.Win32.Foundation.PWSTR * 1
+    pStringArray: FlexibleArray[win32more.Windows.Win32.Foundation.PWSTR]
 DNS_TXT_DATA = UnicodeAlias('DNS_TXT_DATAW')
 DNS_TYPE = UInt16
 DNS_TYPE_ZERO: win32more.Windows.Win32.NetworkManagement.Dns.DNS_TYPE = 0
@@ -1257,7 +1257,7 @@ DNS_TYPE_WINSR: win32more.Windows.Win32.NetworkManagement.Dns.DNS_TYPE = 65282
 DNS_TYPE_NBSTAT: win32more.Windows.Win32.NetworkManagement.Dns.DNS_TYPE = 65282
 class DNS_UNKNOWN_DATA(Structure):
     dwByteCount: UInt32
-    bData: Byte * 1
+    bData: FlexibleArray[Byte]
 class DNS_WINSR_DATAA(Structure):
     dwMappingFlag: UInt32
     dwLookupTimeout: UInt32
@@ -1274,7 +1274,7 @@ class DNS_WINS_DATA(Structure):
     dwLookupTimeout: UInt32
     dwCacheTimeout: UInt32
     cWinsServerCount: UInt32
-    WinsServers: UInt32 * 1
+    WinsServers: FlexibleArray[UInt32]
 class DNS_WIRE_QUESTION(Structure):
     QuestionType: UInt16
     QuestionClass: UInt16
@@ -1288,10 +1288,10 @@ class DNS_WIRE_RECORD(Structure):
 class DNS_WKS_DATA(Structure):
     IpAddress: UInt32
     chProtocol: Byte
-    BitMask: Byte * 1
+    BitMask: FlexibleArray[Byte]
 class IP4_ARRAY(Structure):
     AddrCount: UInt32
-    AddrArray: UInt32 * 1
+    AddrArray: FlexibleArray[UInt32]
 if ARCH in 'X64,ARM64':
     class IP6_ADDRESS(Union):
         IP6Qword: UInt64 * 2

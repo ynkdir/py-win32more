@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Imapi
 import win32more.Windows.Win32.System.AddressBook
@@ -1717,7 +1717,7 @@ RECORDER_CDR: win32more.Windows.Win32.Storage.Imapi.RECORDER_TYPES = 1
 RECORDER_CDRW: win32more.Windows.Win32.Storage.Imapi.RECORDER_TYPES = 2
 class SPropAttrArray(Structure):
     cValues: UInt32
-    aPropAttr: UInt32 * 1
+    aPropAttr: FlexibleArray[UInt32]
 tagIMMPID_CPV_STRUCT = Guid('{a2a76b2a-e52d-11d1-aa64-00c04fa35b82}')
 class tagIMMPID_GUIDLIST_ITEM(Structure):
     pguid: POINTER(Guid)

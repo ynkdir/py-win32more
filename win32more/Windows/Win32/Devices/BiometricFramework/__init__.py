@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.BiometricFramework
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -716,7 +716,7 @@ WINBIO_CREDENTIAL_PASSWORD: win32more.Windows.Win32.Devices.BiometricFramework.W
 WINBIO_CREDENTIAL_ALL: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_CREDENTIAL_TYPE = -1
 class WINBIO_DATA(Structure):
     Size: UInt32
-    Data: Byte * 1
+    Data: FlexibleArray[Byte]
 class WINBIO_DIAGNOSTICS(Structure):
     PayloadSize: UInt32
     WinBioHresult: win32more.Windows.Win32.Foundation.HRESULT
@@ -1088,7 +1088,7 @@ class WINBIO_SENSOR_ATTRIBUTES(Structure):
     SerialNumber: UInt16 * 256
     FirmwareVersion: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_VERSION
     SupportedFormatEntries: UInt32
-    SupportedFormat: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT * 1
+    SupportedFormat: FlexibleArray[win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT]
 class WINBIO_SENSOR_INTERFACE(Structure):
     Version: win32more.Windows.Win32.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
     Type: UInt32

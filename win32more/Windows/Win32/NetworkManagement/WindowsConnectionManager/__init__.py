@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager
 WCM_API_VERSION_1_0: UInt32 = 1
@@ -82,7 +82,7 @@ class WCM_PROFILE_INFO(Structure):
     Media: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_MEDIA_TYPE
 class WCM_PROFILE_INFO_LIST(Structure):
     dwNumberOfItems: UInt32
-    ProfileInfo: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROFILE_INFO * 1
+    ProfileInfo: FlexibleArray[win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROFILE_INFO]
 WCM_PROPERTY = Int32
 wcm_global_property_domain_policy: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY = 0
 wcm_global_property_minimize_policy: win32more.Windows.Win32.NetworkManagement.WindowsConnectionManager.WCM_PROPERTY = 1

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Data.Xml.MsXml
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.DirectComposition
@@ -28,7 +28,7 @@ import win32more.Windows.Win32.UI.WindowsAndMessaging
 class AASHELLMENUFILENAME(Structure):
     cbTotal: Int16
     rgbReserved: Byte * 12
-    szFileName: Char * 1
+    szFileName: FlexibleArray[Char]
 class AASHELLMENUITEM(Structure):
     lpReserved1: VoidPtr
     iReserved: Int32
@@ -3667,7 +3667,7 @@ CDCS_VISIBLE: win32more.Windows.Win32.UI.Shell.CDCONTROLSTATEF = 2
 CDCS_ENABLEDVISIBLE: win32more.Windows.Win32.UI.Shell.CDCONTROLSTATEF = 3
 class CIDA(Structure):
     cidl: UInt32
-    aoffset: UInt32 * 1
+    aoffset: FlexibleArray[UInt32]
     _pack_ = 1
 class CIE4ConnectionPoint(ComPtr):
     extends: win32more.Windows.Win32.System.Com.IConnectionPoint
@@ -3881,7 +3881,7 @@ class DELEGATEITEMID(Structure):
     cbSize: UInt16
     wOuter: UInt16
     cbInner: UInt16
-    rgb: Byte * 1
+    rgb: FlexibleArray[Byte]
     _pack_ = 1
 DESKBANDCID = Int32
 DBID_BANDINFOCHANGED: win32more.Windows.Win32.UI.Shell.DESKBANDCID = 0
@@ -4092,7 +4092,7 @@ class EXP_DARWIN_LINK(Structure):
 class EXP_PROPERTYSTORAGE(Structure):
     cbSize: UInt32
     dwSignature: UInt32
-    abPropertyStorage: Byte * 1
+    abPropertyStorage: FlexibleArray[Byte]
     _pack_ = 1
 class EXP_SPECIAL_FOLDER(Structure):
     cbSize: UInt32
@@ -4168,11 +4168,11 @@ class FILEDESCRIPTORW(Structure):
 FILEDESCRIPTOR = UnicodeAlias('FILEDESCRIPTORW')
 class FILEGROUPDESCRIPTORA(Structure):
     cItems: UInt32
-    fgd: win32more.Windows.Win32.UI.Shell.FILEDESCRIPTORA * 1
+    fgd: FlexibleArray[win32more.Windows.Win32.UI.Shell.FILEDESCRIPTORA]
     _pack_ = 1
 class FILEGROUPDESCRIPTORW(Structure):
     cItems: UInt32
-    fgd: win32more.Windows.Win32.UI.Shell.FILEDESCRIPTORW * 1
+    fgd: FlexibleArray[win32more.Windows.Win32.UI.Shell.FILEDESCRIPTORW]
     _pack_ = 1
 FILEGROUPDESCRIPTOR = UnicodeAlias('FILEGROUPDESCRIPTORW')
 FILEOPENDIALOGOPTIONS = UInt32
@@ -4259,7 +4259,7 @@ class FILE_ATTRIBUTES_ARRAY(Structure):
     cItems: UInt32
     dwSumFileAttributes: UInt32
     dwProductFileAttributes: UInt32
-    rgdwFileAttributes: UInt32 * 1
+    rgdwFileAttributes: FlexibleArray[UInt32]
     _pack_ = 1
 FILE_OPERATION_FLAGS2 = Int32
 FOF2_NONE: win32more.Windows.Win32.UI.Shell.FILE_OPERATION_FLAGS2 = 0
@@ -9669,11 +9669,11 @@ MAV_APP_VISIBLE: win32more.Windows.Win32.UI.Shell.MONITOR_APP_VISIBILITY = 2
 class MULTIKEYHELPA(Structure):
     mkSize: UInt32
     mkKeylist: win32more.Windows.Win32.Foundation.CHAR
-    szKeyphrase: win32more.Windows.Win32.Foundation.CHAR * 1
+    szKeyphrase: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class MULTIKEYHELPW(Structure):
     mkSize: UInt32
     mkKeylist: Char
-    szKeyphrase: Char * 1
+    szKeyphrase: FlexibleArray[Char]
 MULTIKEYHELP = UnicodeAlias('MULTIKEYHELPW')
 MailRecipient = Guid('{9e56be60-c50f-11cf-9a2c-00a0c90a90ce}')
 MergedCategorizer = Guid('{8e827c11-33e7-4bc1-b242-8cd9a1c2b304}')
@@ -9855,7 +9855,7 @@ NIS_SHAREDICON: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_STATE = 2
 NPCredentialProvider = Guid('{3dd6bec0-8193-4ffe-ae25-e08e39ea4063}')
 class NRESARRAY(Structure):
     cItems: UInt32
-    nr: win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA * 1
+    nr: FlexibleArray[win32more.Windows.Win32.NetworkManagement.WNet.NETRESOURCEA]
 class NSTCCUSTOMDRAW(Structure):
     psi: win32more.Windows.Win32.UI.Shell.IShellItem
     uItemState: UInt32
@@ -10184,7 +10184,7 @@ class QCMINFO(Structure):
     pIdMap: POINTER(win32more.Windows.Win32.UI.Shell.QCMINFO_IDMAP)
 class QCMINFO_IDMAP(Structure):
     nMaxIds: UInt32
-    pIdList: win32more.Windows.Win32.UI.Shell.QCMINFO_IDMAP_PLACEMENT * 1
+    pIdList: FlexibleArray[win32more.Windows.Win32.UI.Shell.QCMINFO_IDMAP_PLACEMENT]
 class QCMINFO_IDMAP_PLACEMENT(Structure):
     id: UInt32
     fFlags: UInt32

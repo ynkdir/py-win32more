@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.Ndis
 import win32more.Windows.Win32.NetworkManagement.QoS
@@ -627,7 +627,7 @@ class CONTROL_SERVICE(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Guaranteed: win32more.Windows.Win32.NetworkManagement.QoS.AD_GUARANTEED
-        ParamBuffer: win32more.Windows.Win32.NetworkManagement.QoS.PARAM_BUFFER * 1
+        ParamBuffer: FlexibleArray[win32more.Windows.Win32.NetworkManagement.QoS.PARAM_BUFFER]
 class CtrlLoadFlowspec(Structure):
     CL_spec_serv_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServServiceHdr
     CL_spec_parm_hdr: win32more.Windows.Win32.NetworkManagement.QoS.IntServParmHdr
@@ -639,7 +639,7 @@ class ENUMERATION_BUFFER(Structure):
     FlowName: Char * 256
     pFlow: POINTER(win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FLOW)
     NumberOfFilters: UInt32
-    GenericFilter: win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FILTER * 1
+    GenericFilter: FlexibleArray[win32more.Windows.Win32.NetworkManagement.QoS.TC_GEN_FILTER]
 class ERROR_SPEC(Structure):
     errs_header: win32more.Windows.Win32.NetworkManagement.QoS.RsvpObjHdr
     errs_u: _errs_u_e__Union
@@ -821,7 +821,7 @@ def PALLOCMEM(Size: UInt32) -> VoidPtr: ...
 class PARAM_BUFFER(Structure):
     ParameterId: UInt32
     Length: UInt32
-    Buffer: Byte * 1
+    Buffer: FlexibleArray[Byte]
 @winfunctype_pointer
 def PFREEMEM(pv: VoidPtr) -> Void: ...
 class POLICY_DATA(Structure):
@@ -843,7 +843,7 @@ class QOS_DESTADDR(Structure):
 class QOS_DIFFSERV(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     DSFieldCount: UInt32
-    DiffservRule: Byte * 1
+    DiffservRule: FlexibleArray[Byte]
 class QOS_DIFFSERV_RULE(Structure):
     InboundDSField: Byte
     ConformingOutboundDSField: Byte
@@ -936,7 +936,7 @@ class RSVP_ADSPEC(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     GeneralParams: win32more.Windows.Win32.NetworkManagement.QoS.AD_GENERAL_PARAMS
     NumberOfServices: UInt32
-    Services: win32more.Windows.Win32.NetworkManagement.QoS.CONTROL_SERVICE * 1
+    Services: FlexibleArray[win32more.Windows.Win32.NetworkManagement.QoS.CONTROL_SERVICE]
 class RSVP_FILTERSPEC(Structure):
     Type: win32more.Windows.Win32.NetworkManagement.QoS.FilterType
     Anonymous: _Anonymous_e__Union
@@ -989,7 +989,7 @@ class RSVP_POLICY(Structure):
 class RSVP_POLICY_INFO(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     NumPolicyElement: UInt32
-    PolicyElement: win32more.Windows.Win32.NetworkManagement.QoS.RSVP_POLICY * 1
+    PolicyElement: FlexibleArray[win32more.Windows.Win32.NetworkManagement.QoS.RSVP_POLICY]
 class RSVP_RESERVE_INFO(Structure):
     ObjectHdr: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR
     Style: UInt32
@@ -1025,13 +1025,13 @@ class SENDER_TSPEC(Structure):
 class SIPAEVENT_KSR_SIGNATURE_PAYLOAD(Structure):
     SignAlgID: UInt32
     SignatureLength: UInt32
-    Signature: Byte * 1
+    Signature: FlexibleArray[Byte]
     _pack_ = 1
 class SIPAEVENT_REVOCATION_LIST_PAYLOAD(Structure):
     CreationTime: Int64
     DigestLength: UInt32
     HashAlgID: UInt16
-    Digest: Byte * 1
+    Digest: FlexibleArray[Byte]
     _pack_ = 1
 class SIPAEVENT_SBCP_INFO_PAYLOAD_V1(Structure):
     PayloadVersion: UInt32
@@ -1040,14 +1040,14 @@ class SIPAEVENT_SBCP_INFO_PAYLOAD_V1(Structure):
     DigestLength: UInt16
     Options: UInt32
     SignersCount: UInt32
-    VarData: Byte * 1
+    VarData: FlexibleArray[Byte]
     _pack_ = 1
 class SIPAEVENT_SI_POLICY_PAYLOAD(Structure):
     PolicyVersion: UInt64
     PolicyNameLength: UInt16
     HashAlgID: UInt16
     DigestLength: UInt32
-    VarLengthData: Byte * 1
+    VarLengthData: FlexibleArray[Byte]
     _pack_ = 1
 class SIPAEVENT_VSM_IDK_INFO_PAYLOAD(Structure):
     KeyAlgID: UInt32
@@ -1059,10 +1059,10 @@ class SIPAEVENT_VSM_IDK_RSA_INFO(Structure):
     KeyBitLength: UInt32
     PublicExpLengthBytes: UInt32
     ModulusSizeBytes: UInt32
-    PublicKeyData: Byte * 1
+    PublicKeyData: FlexibleArray[Byte]
     _pack_ = 1
 class Scope_list_ipv4(Structure):
-    scopl_ipaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR * 1
+    scopl_ipaddr: FlexibleArray[win32more.Windows.Win32.Networking.WinSock.IN_ADDR]
 class Session_IPv4(Structure):
     sess_destaddr: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
     sess_protid: Byte
@@ -1073,12 +1073,12 @@ class TCG_PCClientPCREventStruct(Structure):
     eventType: UInt32
     digest: Byte * 20
     eventDataSize: UInt32
-    event: Byte * 1
+    event: FlexibleArray[Byte]
     _pack_ = 1
 class TCG_PCClientTaggedEventStruct(Structure):
     EventID: UInt32
     EventDataSize: UInt32
-    EventData: Byte * 1
+    EventData: FlexibleArray[Byte]
     _pack_ = 1
 @winfunctype_pointer
 def TCI_ADD_FLOW_COMPLETE_HANDLER(ClFlowCtx: win32more.Windows.Win32.Foundation.HANDLE, Status: UInt32) -> Void: ...
@@ -1102,7 +1102,7 @@ class TC_GEN_FLOW(Structure):
     SendingFlowspec: win32more.Windows.Win32.Networking.WinSock.FLOWSPEC
     ReceivingFlowspec: win32more.Windows.Win32.Networking.WinSock.FLOWSPEC
     TcObjectsLength: UInt32
-    TcObjects: win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR * 1
+    TcObjects: FlexibleArray[win32more.Windows.Win32.NetworkManagement.QoS.QOS_OBJECT_HDR]
 class TC_IFC_DESCRIPTOR(Structure):
     Length: UInt32
     pInterfaceName: win32more.Windows.Win32.Foundation.PWSTR

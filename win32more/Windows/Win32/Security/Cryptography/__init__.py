@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Cryptography
@@ -4473,12 +4473,12 @@ class CARD_AUTHENTICATE(Structure):
     dwFlags: UInt32
     PinId: UInt32
     cbPinData: UInt32
-    pbPinData: Byte * 1
+    pbPinData: FlexibleArray[Byte]
 class CARD_AUTHENTICATE_RESPONSE(Structure):
     dwVersion: UInt32
     cbSessionPin: UInt32
     cAttemptsRemaining: UInt32
-    pbSessionPin: Byte * 1
+    pbSessionPin: FlexibleArray[Byte]
 class CARD_CACHE_FILE_FORMAT(Structure):
     bVersion: Byte
     bPinsFreshness: Byte
@@ -4496,7 +4496,7 @@ class CARD_CHANGE_AUTHENTICATOR(Structure):
     dwTargetPinId: UInt32
     cbTargetData: UInt32
     cRetryCount: UInt32
-    pbData: Byte * 1
+    pbData: FlexibleArray[Byte]
 class CARD_CHANGE_AUTHENTICATOR_RESPONSE(Structure):
     dwVersion: UInt32
     cAttemptsRemaining: UInt32
@@ -4615,7 +4615,7 @@ class CARD_IMPORT_KEYPAIR(Structure):
     dwKeySpec: UInt32
     dwKeySize: UInt32
     cbInput: UInt32
-    pbInput: Byte * 1
+    pbInput: FlexibleArray[Byte]
 class CARD_KEY_SIZES(Structure):
     dwVersion: UInt32
     dwMinimumBitlen: UInt32

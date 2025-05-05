@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Nvme
 class ACTIVE_LATENCY_CONFIGURATION(Structure):
@@ -1214,7 +1214,7 @@ class NVME_CONTROLLER_REGISTERS(Structure):
     CMBSZ: win32more.Windows.Win32.Storage.Nvme.NVME_CONTROLLER_MEMORY_BUFFER_SIZE
     Reserved2: UInt32 * 944
     Reserved3: UInt32 * 64
-    Doorbells: UInt32 * 1
+    Doorbells: FlexibleArray[UInt32]
 class NVME_CONTROLLER_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
@@ -1358,7 +1358,7 @@ NVME_ERROR_INJECTION_TYPE_MAX: win32more.Windows.Win32.Storage.Nvme.NVME_ERROR_I
 class NVME_EXTENDED_REPORT_ZONE_INFO(Structure):
     ZoneCount: UInt64
     Reserved: UInt64 * 7
-    Desc: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_EXTENDED_REPORT_ZONE_DESC * 1
+    Desc: FlexibleArray[win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_EXTENDED_REPORT_ZONE_DESC]
 NVME_FEATURES = Int32
 NVME_FEATURE_ARBITRATION: win32more.Windows.Win32.Storage.Nvme.NVME_FEATURES = 1
 NVME_FEATURE_POWER_MANAGEMENT: win32more.Windows.Win32.Storage.Nvme.NVME_FEATURES = 2
@@ -1481,7 +1481,7 @@ class NVME_HOST_METADATA_ELEMENT_DESCRIPTOR(Structure):
     ER: Annotated[UInt32, NativeBitfieldAttribute(4)]
     Reserved1: Annotated[UInt32, NativeBitfieldAttribute(4)]
     ELEN: Annotated[UInt32, NativeBitfieldAttribute(16)]
-    EVAL: Byte * 1
+    EVAL: FlexibleArray[Byte]
 NVME_IDENTIFIER_TYPE = Int32
 NVME_IDENTIFIER_TYPE_EUI64: win32more.Windows.Win32.Storage.Nvme.NVME_IDENTIFIER_TYPE = 1
 NVME_IDENTIFIER_TYPE_NGUID: win32more.Windows.Win32.Storage.Nvme.NVME_IDENTIFIER_TYPE = 2
@@ -1835,7 +1835,7 @@ class NVME_IDENTIFY_NAMESPACE_DESCRIPTOR(Structure):
     NIDT: Byte
     NIDL: Byte
     Reserved: Byte * 2
-    NID: Byte * 1
+    NID: FlexibleArray[Byte]
 class NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET(Structure):
     VSL: Byte
     WZSL: Byte
@@ -2313,7 +2313,7 @@ class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA(Structure):
 class NVME_REPORT_ZONE_INFO(Structure):
     ZoneCount: UInt64
     Reserved: UInt64 * 7
-    ZoneDescriptor: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_DESCRIPTOR * 1
+    ZoneDescriptor: FlexibleArray[win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_DESCRIPTOR]
 NVME_RESERVATION_ACQUIRE_ACTIONS = Int32
 NVME_RESERVATION_ACQUIRE_ACTION_ACQUIRE: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_ACQUIRE_ACTIONS = 0
 NVME_RESERVATION_ACQUIRE_ACTION_PREEMPT: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_ACQUIRE_ACTIONS = 1
@@ -2352,11 +2352,11 @@ class NVME_RESERVATION_RELEASE_DATA_STRUCTURE(Structure):
     CRKEY: UInt64
 class NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE(Structure):
     Header: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_REPORT_STATUS_HEADER
-    RegisteredControllersData: win32more.Windows.Win32.Storage.Nvme.NVME_REGISTERED_CONTROLLER_DATA * 1
+    RegisteredControllersData: FlexibleArray[win32more.Windows.Win32.Storage.Nvme.NVME_REGISTERED_CONTROLLER_DATA]
 class NVME_RESERVATION_REPORT_STATUS_EXTENDED_DATA_STRUCTURE(Structure):
     Header: win32more.Windows.Win32.Storage.Nvme.NVME_RESERVATION_REPORT_STATUS_HEADER
     Reserved1: Byte * 40
-    RegisteredControllersExtendedData: win32more.Windows.Win32.Storage.Nvme.NVME_REGISTERED_CONTROLLER_EXTENDED_DATA * 1
+    RegisteredControllersExtendedData: FlexibleArray[win32more.Windows.Win32.Storage.Nvme.NVME_REGISTERED_CONTROLLER_EXTENDED_DATA]
 class NVME_RESERVATION_REPORT_STATUS_HEADER(Structure):
     GEN: UInt32
     RTYPE: Byte
@@ -2708,7 +2708,7 @@ class NVME_ZONE_DESCRIPTOR_EXTENSION(Structure):
     ZoneDescriptorExtensionInfo: Byte * 64
 class NVME_ZONE_EXTENDED_REPORT_ZONE_DESC(Structure):
     ZoneDescriptor: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_DESCRIPTOR
-    ZoneDescriptorExtension: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_DESCRIPTOR_EXTENSION * 1
+    ZoneDescriptorExtension: FlexibleArray[win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_DESCRIPTOR_EXTENSION]
 NVME_ZONE_RECEIVE_ACTION = Int32
 NVME_ZONE_RECEIVE_REPORT_ZONES: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_RECEIVE_ACTION = 0
 NVME_ZONE_RECEIVE_EXTENDED_REPORT_ZONES: win32more.Windows.Win32.Storage.Nvme.NVME_ZONE_RECEIVE_ACTION = 1
@@ -2743,7 +2743,7 @@ class NVM_RESERVATION_CAPABILITIES(Union):
 class NVM_SET_LIST(Structure):
     IdentifierCount: Byte
     Reserved: Byte * 127
-    Entry: win32more.Windows.Win32.Storage.Nvme.NVME_SET_ATTRIBUTES_ENTRY * 1
+    Entry: FlexibleArray[win32more.Windows.Win32.Storage.Nvme.NVME_SET_ATTRIBUTES_ENTRY]
 class TCG_ACTIVATE_METHOD_SPECIFIC(Structure):
     RangeStartLengthPolicy: Byte
 class TCG_ASSIGN_METHOD_SPECIFIC(Structure):

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.NetworkManagement.IpHelper
 import win32more.Windows.Win32.NetworkManagement.Ndis
@@ -1217,7 +1217,7 @@ class IP_ADAPTER_MULTICAST_ADDRESS_XP(Structure):
             Flags: UInt32
 class IP_ADAPTER_ORDER_MAP(Structure):
     NumAdapters: UInt32
-    AdapterOrder: UInt32 * 1
+    AdapterOrder: FlexibleArray[UInt32]
 class IP_ADAPTER_PREFIX_XP(Structure):
     Anonymous: _Anonymous_e__Union
     Next: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP)
@@ -1284,7 +1284,7 @@ class IP_ADDR_STRING(Structure):
     Context: UInt32
 class IP_INTERFACE_INFO(Structure):
     NumAdapters: Int32
-    Adapter: win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP * 1
+    Adapter: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP]
 class IP_INTERFACE_NAME_INFO_W2KSP1(Structure):
     Index: UInt32
     MediaType: UInt32
@@ -1317,7 +1317,7 @@ class IP_PER_ADAPTER_INFO_W2KSP1(Structure):
     DnsServerList: win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADDR_STRING
 class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS(Structure):
     NumAdapters: UInt32
-    Address: UInt32 * 1
+    Address: FlexibleArray[UInt32]
 class MIBICMPINFO(Structure):
     icmpInStats: win32more.Windows.Win32.NetworkManagement.IpHelper.MIBICMPSTATS
     icmpOutStats: win32more.Windows.Win32.NetworkManagement.IpHelper.MIBICMPSTATS
@@ -1346,7 +1346,7 @@ class MIB_ANYCASTIPADDRESS_ROW(Structure):
     ScopeId: win32more.Windows.Win32.Networking.WinSock.SCOPE_ID
 class MIB_ANYCASTIPADDRESS_TABLE(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_ANYCASTIPADDRESS_ROW]
 class MIB_BEST_IF(Structure):
     dwDestAddr: UInt32
     dwIfIndex: UInt32
@@ -1390,7 +1390,7 @@ class MIB_IFSTACK_ROW(Structure):
     LowerLayerInterfaceIndex: UInt32
 class MIB_IFSTACK_TABLE(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IFSTACK_ROW * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IFSTACK_ROW]
 class MIB_IFSTATUS(Structure):
     dwIfIndex: UInt32
     dwAdminStatus: UInt32
@@ -1399,7 +1399,7 @@ class MIB_IFSTATUS(Structure):
     bMHbeatAlive: win32more.Windows.Win32.Foundation.BOOL
 class MIB_IFTABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IFROW * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IFROW]
 MIB_IF_ENTRY_LEVEL = Int32
 MibIfEntryNormal: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ENTRY_LEVEL = 0
 MibIfEntryNormalWithoutStatistics: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ENTRY_LEVEL = 2
@@ -1456,7 +1456,7 @@ class MIB_IF_ROW2(Structure):
         EndPointInterface: Annotated[Byte, NativeBitfieldAttribute(1)]
 class MIB_IF_TABLE2(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ROW2 * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ROW2]
 MIB_IF_TABLE_LEVEL = Int32
 MibIfTableNormal: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL = 0
 MibIfTableRaw: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IF_TABLE_LEVEL = 1
@@ -1466,7 +1466,7 @@ class MIB_INVERTEDIFSTACK_ROW(Structure):
     HigherLayerInterfaceIndex: UInt32
 class MIB_INVERTEDIFSTACK_TABLE(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_INVERTEDIFSTACK_ROW * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_INVERTEDIFSTACK_ROW]
 class MIB_IPADDRROW_W2K(Structure):
     dwAddr: UInt32
     dwIndex: UInt32
@@ -1485,14 +1485,14 @@ class MIB_IPADDRROW_XP(Structure):
     wType: UInt16
 class MIB_IPADDRTABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPADDRROW_XP * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPADDRROW_XP]
 class MIB_IPDESTROW(Structure):
     ForwardRow: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPFORWARDROW
     dwForwardPreference: UInt32
     dwForwardViewSet: UInt32
 class MIB_IPDESTTABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPDESTROW * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPDESTROW]
 class MIB_IPFORWARDNUMBER(Structure):
     dwValue: UInt32
 class MIB_IPFORWARDROW(Structure):
@@ -1518,7 +1518,7 @@ class MIB_IPFORWARDROW(Structure):
         ForwardProto: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_PROTOCOL
 class MIB_IPFORWARDTABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPFORWARDROW * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPFORWARDROW]
 class MIB_IPFORWARD_ROW2(Structure):
     InterfaceLuid: win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH
     InterfaceIndex: UInt32
@@ -1537,7 +1537,7 @@ class MIB_IPFORWARD_ROW2(Structure):
     Origin: win32more.Windows.Win32.Networking.WinSock.NL_ROUTE_ORIGIN
 class MIB_IPFORWARD_TABLE2(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2 * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2]
 MIB_IPFORWARD_TYPE = Int32
 MIB_IPROUTE_TYPE_OTHER: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPFORWARD_TYPE = 1
 MIB_IPROUTE_TYPE_INVALID: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPFORWARD_TYPE = 2
@@ -1581,7 +1581,7 @@ class MIB_IPINTERFACE_ROW(Structure):
     DisableDefaultRoutes: win32more.Windows.Win32.Foundation.BOOLEAN
 class MIB_IPINTERFACE_TABLE(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPINTERFACE_ROW]
 class MIB_IPMCAST_BOUNDARY(Structure):
     dwIfIndex: UInt32
     dwGroupAddress: UInt32
@@ -1589,7 +1589,7 @@ class MIB_IPMCAST_BOUNDARY(Structure):
     dwStatus: UInt32
 class MIB_IPMCAST_BOUNDARY_TABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_BOUNDARY * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_BOUNDARY]
 class MIB_IPMCAST_GLOBAL(Structure):
     dwEnable: UInt32
 class MIB_IPMCAST_IF_ENTRY(Structure):
@@ -1601,7 +1601,7 @@ class MIB_IPMCAST_IF_ENTRY(Structure):
     ulOutMcastOctets: UInt32
 class MIB_IPMCAST_IF_TABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_IF_ENTRY * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_IF_ENTRY]
 class MIB_IPMCAST_MFE(Structure):
     dwGroup: UInt32
     dwSource: UInt32
@@ -1618,7 +1618,7 @@ class MIB_IPMCAST_MFE(Structure):
     ulNumOutIf: UInt32
     fFlags: UInt32
     dwReserved: UInt32
-    rgmioOutInfo: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_XP * 1
+    rgmioOutInfo: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_XP]
 class MIB_IPMCAST_MFE_STATS(Structure):
     dwGroup: UInt32
     dwSource: UInt32
@@ -1636,7 +1636,7 @@ class MIB_IPMCAST_MFE_STATS(Structure):
     ulInOctets: UInt32
     ulPktsDifferentIf: UInt32
     ulQueueOverflow: UInt32
-    rgmiosOutStats: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_LH * 1
+    rgmiosOutStats: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_LH]
 class MIB_IPMCAST_MFE_STATS_EX_XP(Structure):
     dwGroup: UInt32
     dwSource: UInt32
@@ -1659,7 +1659,7 @@ class MIB_IPMCAST_MFE_STATS_EX_XP(Structure):
     ulInDiscards: UInt32
     ulInHdrErrors: UInt32
     ulTotalOutPackets: UInt32
-    rgmiosOutStats: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_LH * 1
+    rgmiosOutStats: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_OIF_STATS_LH]
 class MIB_IPMCAST_OIF_STATS_LH(Structure):
     dwOutIfIndex: UInt32
     dwNextHopAddr: UInt32
@@ -1708,7 +1708,7 @@ class MIB_IPNETROW_W2K(Structure):
     dwType: UInt32
 class MIB_IPNETTABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPNETROW_LH * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPNETROW_LH]
 class MIB_IPNET_ROW2(Structure):
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_INET
     InterfaceIndex: UInt32
@@ -1729,7 +1729,7 @@ class MIB_IPNET_ROW2(Structure):
         LastUnreachable: UInt32
 class MIB_IPNET_TABLE2(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPNET_ROW2 * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPNET_ROW2]
 MIB_IPNET_TYPE = Int32
 MIB_IPNET_TYPE_OTHER: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPNET_TYPE = 1
 MIB_IPNET_TYPE_INVALID: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPNET_TYPE = 2
@@ -1753,7 +1753,7 @@ class MIB_IPPATH_ROW(Structure):
         LastUnreachable: UInt32
 class MIB_IPPATH_TABLE(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPPATH_ROW * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPPATH_ROW]
 MIB_IPSTATS_FORWARDING = Int32
 MIB_IP_FORWARDING: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPSTATS_FORWARDING = 1
 MIB_IP_NOT_FORWARDING: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPSTATS_FORWARDING = 2
@@ -1816,13 +1816,13 @@ class MIB_MCAST_LIMIT_ROW(Structure):
     dwRateLimit: UInt32
 class MIB_MFE_STATS_TABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS]
 class MIB_MFE_STATS_TABLE_EX_XP(Structure):
     dwNumEntries: UInt32
-    table: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS_EX_XP) * 1
+    table: FlexibleArray[POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_MFE_STATS_EX_XP)]
 class MIB_MFE_TABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_MFE * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPMCAST_MFE]
 class MIB_MULTICASTIPADDRESS_ROW(Structure):
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_INET
     InterfaceIndex: UInt32
@@ -1830,7 +1830,7 @@ class MIB_MULTICASTIPADDRESS_ROW(Structure):
     ScopeId: win32more.Windows.Win32.Networking.WinSock.SCOPE_ID
 class MIB_MULTICASTIPADDRESS_TABLE(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_ROW * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_MULTICASTIPADDRESS_ROW]
 MIB_NOTIFICATION_TYPE = Int32
 MibParameterNotification: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 0
 MibAddInstance: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE = 1
@@ -1841,10 +1841,10 @@ class MIB_OPAQUE_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         ullAlign: UInt64
-        rgbyData: Byte * 1
+        rgbyData: FlexibleArray[Byte]
 class MIB_OPAQUE_QUERY(Structure):
     dwVarId: UInt32
-    rgdwVarIndex: UInt32 * 1
+    rgdwVarIndex: FlexibleArray[UInt32]
 class MIB_PROXYARP(Structure):
     dwAddress: UInt32
     dwMask: UInt32
@@ -1891,16 +1891,16 @@ class MIB_TCP6ROW_OWNER_PID(Structure):
     dwOwningPid: UInt32
 class MIB_TCP6TABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP6ROW * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP6ROW]
 class MIB_TCP6TABLE2(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP6ROW2 * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP6ROW2]
 class MIB_TCP6TABLE_OWNER_MODULE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_MODULE * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_MODULE]
 class MIB_TCP6TABLE_OWNER_PID(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_PID * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_PID]
 class MIB_TCPROW2(Structure):
     dwState: UInt32
     dwLocalAddr: UInt32
@@ -1993,16 +1993,16 @@ class MIB_TCPSTATS_W2K(Structure):
     dwNumConns: UInt32
 class MIB_TCPTABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCPROW_LH * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCPROW_LH]
 class MIB_TCPTABLE2(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCPROW2 * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCPROW2]
 class MIB_TCPTABLE_OWNER_MODULE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_MODULE * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_MODULE]
 class MIB_TCPTABLE_OWNER_PID(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_PID * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_PID]
 MIB_TCP_STATE = Int32
 MIB_TCP_STATE_CLOSED: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP_STATE = 1
 MIB_TCP_STATE_LISTEN: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP_STATE = 2
@@ -2057,16 +2057,16 @@ class MIB_UDP6ROW_OWNER_PID(Structure):
     dwOwningPid: UInt32
 class MIB_UDP6TABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDP6ROW * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDP6ROW]
 class MIB_UDP6TABLE2(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDP6ROW2 * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDP6ROW2]
 class MIB_UDP6TABLE_OWNER_MODULE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_MODULE * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_MODULE]
 class MIB_UDP6TABLE_OWNER_PID(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_PID * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_PID]
 class MIB_UDPROW(Structure):
     dwLocalAddr: UInt32
     dwLocalPort: UInt32
@@ -2114,16 +2114,16 @@ class MIB_UDPSTATS2(Structure):
     dwNumAddrs: UInt32
 class MIB_UDPTABLE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDPROW * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDPROW]
 class MIB_UDPTABLE2(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDPROW2 * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDPROW2]
 class MIB_UDPTABLE_OWNER_MODULE(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_MODULE * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_MODULE]
 class MIB_UDPTABLE_OWNER_PID(Structure):
     dwNumEntries: UInt32
-    table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_PID * 1
+    table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_PID]
 class MIB_UNICASTIPADDRESS_ROW(Structure):
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_INET
     InterfaceLuid: win32more.Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH
@@ -2139,7 +2139,7 @@ class MIB_UNICASTIPADDRESS_ROW(Structure):
     CreationTimeStamp: Int64
 class MIB_UNICASTIPADDRESS_TABLE(Structure):
     NumEntries: UInt32
-    Table: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW * 1
+    Table: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW]
 NET_ADDRESS_FORMAT = Int32
 NET_ADDRESS_FORMAT_UNSPECIFIED: win32more.Windows.Win32.NetworkManagement.IpHelper.NET_ADDRESS_FORMAT = 0
 NET_ADDRESS_DNS_NAME: win32more.Windows.Win32.NetworkManagement.IpHelper.NET_ADDRESS_FORMAT = 1
@@ -2175,7 +2175,7 @@ class PFLOGFRAME(Structure):
     wSizeOfIpHeader: UInt16
     dwInterfaceName: UInt32
     dwIPIndex: UInt32
-    bPacketData: Byte * 1
+    bPacketData: FlexibleArray[Byte]
 class PF_FILTER_DESCRIPTOR(Structure):
     dwFilterFlags: UInt32
     dwRule: UInt32
@@ -2209,7 +2209,7 @@ class PF_INTERFACE_STATS(Structure):
     liSYN: Int64
     liTotalLogged: Int64
     dwLostLogEntries: UInt32
-    FilterInfo: win32more.Windows.Win32.NetworkManagement.IpHelper.PF_FILTER_STATS * 1
+    FilterInfo: FlexibleArray[win32more.Windows.Win32.NetworkManagement.IpHelper.PF_FILTER_STATS]
 class PF_LATEBIND_INFO(Structure):
     SrcAddr: POINTER(Byte)
     DstAddr: POINTER(Byte)

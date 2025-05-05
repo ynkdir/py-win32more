@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.SerialCommunication
 import win32more.Windows.Win32.Foundation
 DEVPKEY_DeviceInterface_Serial_UsbVendorId: win32more.Windows.Win32.Foundation.DEVPROPKEY = ConstantLazyLoader(fmtid=Guid('{4c6bf15c-4c03-4aac-91f5-64c0f852bcf4}'), pid=2)
@@ -110,7 +110,7 @@ class SERENUM_PORT_DESC(Structure):
     Size: UInt32
     PortHandle: VoidPtr
     PortAddress: Int64
-    Reserved: UInt16 * 1
+    Reserved: FlexibleArray[UInt16]
 class SERENUM_PORT_PARAMETERS(Structure):
     Size: UInt32
     ReadAccessor: win32more.Windows.Win32.Devices.SerialCommunication.PSERENUM_READPORT
@@ -126,7 +126,7 @@ class SERIALCONFIG(Structure):
     SubType: UInt32
     ProvOffset: UInt32
     ProviderSize: UInt32
-    ProviderData: Char * 1
+    ProviderData: FlexibleArray[Char]
 class SERIALPERF_STATS(Structure):
     ReceivedCount: UInt32
     TransmittedCount: UInt32
@@ -166,7 +166,7 @@ class SERIAL_COMMPROP(Structure):
     CurrentRxQueue: UInt32
     ProvSpec1: UInt32
     ProvSpec2: UInt32
-    ProvChar: Char * 1
+    ProvChar: FlexibleArray[Char]
 class SERIAL_HANDFLOW(Structure):
     ControlHandShake: UInt32
     FlowReplace: UInt32

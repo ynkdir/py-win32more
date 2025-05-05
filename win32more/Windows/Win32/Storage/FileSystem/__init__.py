@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Security.Cryptography
@@ -1246,7 +1246,7 @@ ClfsLogArchiveEnabled: win32more.Windows.Win32.Storage.FileSystem.CLFS_LOG_ARCHI
 ClfsLogArchiveDisabled: win32more.Windows.Win32.Storage.FileSystem.CLFS_LOG_ARCHIVE_MODE = 2
 class CLFS_LOG_NAME_INFORMATION(Structure):
     NameLengthInBytes: UInt16
-    Name: Char * 1
+    Name: FlexibleArray[Char]
 class CLFS_MGMT_NOTIFICATION(Structure):
     Notification: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_NOTIFICATION_TYPE
     Lsn: win32more.Windows.Win32.Storage.FileSystem.CLS_LSN
@@ -1291,12 +1291,12 @@ class CLFS_MGMT_POLICY(Structure):
             Enabled: UInt32
         class _NewContainerPrefix_e__Struct(Structure):
             PrefixLengthInBytes: UInt16
-            PrefixString: Char * 1
+            PrefixString: FlexibleArray[Char]
         class _NewContainerSuffix_e__Struct(Structure):
             NextContainerSuffix: UInt64
         class _NewContainerExtension_e__Struct(Structure):
             ExtensionLengthInBytes: UInt16
-            ExtensionString: Char * 1
+            ExtensionString: FlexibleArray[Char]
 CLFS_MGMT_POLICY_TYPE = Int32
 ClfsMgmtPolicyMaximumSize: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 0
 ClfsMgmtPolicyMinimumSize: win32more.Windows.Win32.Storage.FileSystem.CLFS_MGMT_POLICY_TYPE = 1
@@ -1799,7 +1799,7 @@ class FILE_FULL_DIR_INFO(Structure):
     FileAttributes: UInt32
     FileNameLength: UInt32
     EaSize: UInt32
-    FileName: Char * 1
+    FileName: FlexibleArray[Char]
 class FILE_ID_128(Structure):
     Identifier: Byte * 16
 class FILE_ID_BOTH_DIR_INFO(Structure):
@@ -1817,7 +1817,7 @@ class FILE_ID_BOTH_DIR_INFO(Structure):
     ShortNameLength: SByte
     ShortName: Char * 12
     FileId: Int64
-    FileName: Char * 1
+    FileName: FlexibleArray[Char]
 class FILE_ID_DESCRIPTOR(Structure):
     dwSize: UInt32
     Type: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE
@@ -1840,7 +1840,7 @@ class FILE_ID_EXTD_DIR_INFO(Structure):
     EaSize: UInt32
     ReparsePointTag: UInt32
     FileId: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
-    FileName: Char * 1
+    FileName: FlexibleArray[Char]
 class FILE_ID_INFO(Structure):
     VolumeSerialNumber: UInt64
     FileId: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_128
@@ -1892,7 +1892,7 @@ class FILE_IO_PRIORITY_HINT_INFO(Structure):
     PriorityHint: win32more.Windows.Win32.Storage.FileSystem.PRIORITY_HINT
 class FILE_NAME_INFO(Structure):
     FileNameLength: UInt32
-    FileName: Char * 1
+    FileName: FlexibleArray[Char]
 FILE_NOTIFY_CHANGE = UInt32
 FILE_NOTIFY_CHANGE_FILE_NAME: win32more.Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE = 1
 FILE_NOTIFY_CHANGE_DIR_NAME: win32more.Windows.Win32.Storage.FileSystem.FILE_NOTIFY_CHANGE = 2
@@ -1916,7 +1916,7 @@ class FILE_NOTIFY_EXTENDED_INFORMATION(Structure):
     FileId: Int64
     ParentFileId: Int64
     FileNameLength: UInt32
-    FileName: Char * 1
+    FileName: FlexibleArray[Char]
     class _Anonymous_e__Union(Union):
         ReparsePointTag: UInt32
         EaSize: UInt32
@@ -1924,7 +1924,7 @@ class FILE_NOTIFY_INFORMATION(Structure):
     NextEntryOffset: UInt32
     Action: win32more.Windows.Win32.Storage.FileSystem.FILE_ACTION
     FileNameLength: UInt32
-    FileName: Char * 1
+    FileName: FlexibleArray[Char]
 class FILE_REMOTE_PROTOCOL_INFO(Structure):
     StructureVersion: UInt16
     StructureSize: UInt16
@@ -1953,7 +1953,7 @@ class FILE_RENAME_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     RootDirectory: win32more.Windows.Win32.Foundation.HANDLE
     FileNameLength: UInt32
-    FileName: Char * 1
+    FileName: FlexibleArray[Char]
     class _Anonymous_e__Union(Union):
         ReplaceIfExists: win32more.Windows.Win32.Foundation.BOOLEAN
         Flags: UInt32
@@ -1984,7 +1984,7 @@ class FILE_STREAM_INFO(Structure):
     StreamNameLength: UInt32
     StreamSize: Int64
     StreamAllocationSize: Int64
-    StreamName: Char * 1
+    StreamName: FlexibleArray[Char]
 FILE_TYPE = UInt32
 FILE_TYPE_UNKNOWN: win32more.Windows.Win32.Storage.FileSystem.FILE_TYPE = 0
 FILE_TYPE_DISK: win32more.Windows.Win32.Storage.FileSystem.FILE_TYPE = 1
@@ -3073,7 +3073,7 @@ class REPARSE_GUID_DATA_BUFFER(Structure):
     ReparseGuid: Guid
     GenericReparseBuffer: _GenericReparseBuffer_e__Struct
     class _GenericReparseBuffer_e__Struct(Structure):
-        DataBuffer: Byte * 1
+        DataBuffer: FlexibleArray[Byte]
 REPLACE_FILE_FLAGS = UInt32
 REPLACEFILE_WRITE_THROUGH: win32more.Windows.Win32.Storage.FileSystem.REPLACE_FILE_FLAGS = 1
 REPLACEFILE_IGNORE_MERGE_ERRORS: win32more.Windows.Win32.Storage.FileSystem.REPLACE_FILE_FLAGS = 2
@@ -3464,14 +3464,14 @@ class VOLUME_ALLOCATION_HINT_INPUT(Structure):
     NumberOfClusters: UInt32
     StartingClusterNumber: Int64
 class VOLUME_ALLOCATION_HINT_OUTPUT(Structure):
-    Bitmap: UInt32 * 1
+    Bitmap: FlexibleArray[UInt32]
 class VOLUME_CRITICAL_IO(Structure):
     AccessType: UInt32
     ExtentsCount: UInt32
-    Extents: win32more.Windows.Win32.Storage.FileSystem.FILE_EXTENT * 1
+    Extents: FlexibleArray[win32more.Windows.Win32.Storage.FileSystem.FILE_EXTENT]
 class VOLUME_FAILOVER_SET(Structure):
     NumberOfDisks: UInt32
-    DiskNumbers: UInt32 * 1
+    DiskNumbers: FlexibleArray[UInt32]
 class VOLUME_GET_BC_PROPERTIES_INPUT(Structure):
     Version: UInt32
     Reserved1: UInt32
@@ -3496,7 +3496,7 @@ class VOLUME_PHYSICAL_OFFSET(Structure):
     Offset: Int64
 class VOLUME_PHYSICAL_OFFSETS(Structure):
     NumberOfPhysicalOffsets: UInt32
-    PhysicalOffset: win32more.Windows.Win32.Storage.FileSystem.VOLUME_PHYSICAL_OFFSET * 1
+    PhysicalOffset: FlexibleArray[win32more.Windows.Win32.Storage.FileSystem.VOLUME_PHYSICAL_OFFSET]
 class VOLUME_READ_PLEX_INPUT(Structure):
     ByteOffset: Int64
     Length: UInt32
@@ -3622,7 +3622,7 @@ class WIN32_STREAM_ID(Structure):
     dwStreamAttributes: UInt32
     Size: Int64
     dwStreamNameSize: UInt32
-    cStreamName: Char * 1
+    cStreamName: FlexibleArray[Char]
 WIN_STREAM_ID = UInt32
 BACKUP_ALTERNATE_DATA: win32more.Windows.Win32.Storage.FileSystem.WIN_STREAM_ID = 4
 BACKUP_DATA: win32more.Windows.Win32.Storage.FileSystem.WIN_STREAM_ID = 1

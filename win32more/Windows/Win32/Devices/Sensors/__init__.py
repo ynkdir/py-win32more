@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.PortableDevices
 import win32more.Windows.Win32.Devices.Properties
 import win32more.Windows.Win32.Devices.Sensors
@@ -553,7 +553,7 @@ class QUATERNION(Structure):
 class SENSOR_COLLECTION_LIST(Structure):
     AllocatedSizeInBytes: UInt32
     Count: UInt32
-    List: win32more.Windows.Win32.Devices.Sensors.SENSOR_VALUE_PAIR * 1
+    List: FlexibleArray[win32more.Windows.Win32.Devices.Sensors.SENSOR_VALUE_PAIR]
 SENSOR_CONNECTION_TYPES = Int32
 SensorConnectionType_Integrated: win32more.Windows.Win32.Devices.Sensors.SENSOR_CONNECTION_TYPES = 0
 SensorConnectionType_Attached: win32more.Windows.Win32.Devices.Sensors.SENSOR_CONNECTION_TYPES = 1
@@ -561,7 +561,7 @@ SensorConnectionType_External: win32more.Windows.Win32.Devices.Sensors.SENSOR_CO
 class SENSOR_PROPERTY_LIST(Structure):
     AllocatedSizeInBytes: UInt32
     Count: UInt32
-    List: win32more.Windows.Win32.Foundation.PROPERTYKEY * 1
+    List: FlexibleArray[win32more.Windows.Win32.Foundation.PROPERTYKEY]
 SENSOR_STATE = Int32
 SensorState_Initializing: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE = 0
 SensorState_Idle: win32more.Windows.Win32.Devices.Sensors.SENSOR_STATE = 1

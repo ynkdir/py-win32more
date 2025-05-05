@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Security
 import win32more.Windows.Win32.Storage.DistributedFileSystem
@@ -85,7 +85,7 @@ class DFS_GET_PKT_ENTRY_STATE_ARG(Structure):
     ServerNameLen: UInt16
     ShareNameLen: UInt16
     Level: UInt32
-    Buffer: Char * 1
+    Buffer: FlexibleArray[Char]
 class DFS_INFO_1(Structure):
     EntryPath: win32more.Windows.Win32.Foundation.PWSTR
 class DFS_INFO_100(Structure):
@@ -222,7 +222,7 @@ DFS_NAMESPACE_VERSION_ORIGIN_SERVER: win32more.Windows.Win32.Storage.Distributed
 DFS_NAMESPACE_VERSION_ORIGIN_DOMAIN: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_NAMESPACE_VERSION_ORIGIN = 2
 class DFS_SITELIST_INFO(Structure):
     cSites: UInt32
-    Site: win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_SITENAME_INFO * 1
+    Site: FlexibleArray[win32more.Windows.Win32.Storage.DistributedFileSystem.DFS_SITENAME_INFO]
 class DFS_SITENAME_INFO(Structure):
     SiteFlags: UInt32
     SiteName: win32more.Windows.Win32.Foundation.PWSTR

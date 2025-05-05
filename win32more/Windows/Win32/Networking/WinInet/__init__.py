@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Networking.WinHttp
@@ -1909,7 +1909,7 @@ class INTERNET_CACHE_CONFIG_INFOA(Structure):
     dwExemptUsage: UInt32
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
-        CachePaths: win32more.Windows.Win32.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYA * 1
+        CachePaths: FlexibleArray[win32more.Windows.Win32.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYA]
         class _Anonymous_e__Struct(Structure):
             CachePath: win32more.Windows.Win32.Foundation.CHAR * 260
             dwCacheSize: UInt32
@@ -1926,7 +1926,7 @@ class INTERNET_CACHE_CONFIG_INFOW(Structure):
     dwExemptUsage: UInt32
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
-        CachePaths: win32more.Windows.Win32.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYW * 1
+        CachePaths: FlexibleArray[win32more.Windows.Win32.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYW]
         class _Anonymous_e__Struct(Structure):
             CachePath: Char * 260
             dwCacheSize: UInt32

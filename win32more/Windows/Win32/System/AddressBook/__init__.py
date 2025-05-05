@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.AddressBook
 import win32more.Windows.Win32.System.Com
@@ -10,7 +10,7 @@ class ADRENTRY(Structure):
     rgPropVals: POINTER(win32more.Windows.Win32.System.AddressBook.SPropValue)
 class ADRLIST(Structure):
     cEntries: UInt32
-    aEntries: win32more.Windows.Win32.System.AddressBook.ADRENTRY * 1
+    aEntries: FlexibleArray[win32more.Windows.Win32.System.AddressBook.ADRENTRY]
 class ADRPARM(Structure):
     cbABContEntryID: UInt32
     lpABContEntryID: POINTER(win32more.Windows.Win32.System.AddressBook.ENTRYID)
@@ -447,7 +447,7 @@ class DTPAGE(Structure):
         ulItemID: UInt32
 class ENTRYID(Structure):
     abFlags: Byte * 4
-    ab: Byte * 1
+    ab: FlexibleArray[Byte]
 class ERROR_NOTIFICATION(Structure):
     cbEntryID: UInt32
     lpEntryID: POINTER(win32more.Windows.Win32.System.AddressBook.ENTRYID)
@@ -460,18 +460,18 @@ class EXTENDED_NOTIFICATION(Structure):
     pbEventParameters: POINTER(Byte)
 class FLATENTRY(Structure):
     cb: UInt32
-    abEntry: Byte * 1
+    abEntry: FlexibleArray[Byte]
 class FLATENTRYLIST(Structure):
     cEntries: UInt32
     cbEntries: UInt32
-    abEntries: Byte * 1
+    abEntries: FlexibleArray[Byte]
 class FLATMTSIDLIST(Structure):
     cMTSIDs: UInt32
     cbMTSIDs: UInt32
-    abMTSIDs: Byte * 1
+    abMTSIDs: FlexibleArray[Byte]
 class FlagList(Structure):
     cFlags: UInt32
-    ulFlag: UInt32 * 1
+    ulFlag: FlexibleArray[UInt32]
 Gender = Int32
 genderUnspecified: win32more.Windows.Win32.System.AddressBook.Gender = 0
 genderFemale: win32more.Windows.Win32.System.AddressBook.Gender = 1
@@ -851,7 +851,7 @@ class MAPIUID(Structure):
     ab: Byte * 16
 class MTSID(Structure):
     cb: UInt32
-    ab: Byte * 1
+    ab: FlexibleArray[Byte]
 class NEWMAIL_NOTIFICATION(Structure):
     cbEntryID: UInt32
     lpEntryID: POINTER(win32more.Windows.Win32.System.AddressBook.ENTRYID)
@@ -873,7 +873,7 @@ class NOTIFICATION(Structure):
         statobj: win32more.Windows.Win32.System.AddressBook.STATUS_OBJECT_NOTIFICATION
 class NOTIFKEY(Structure):
     cb: UInt32
-    ab: Byte * 1
+    ab: FlexibleArray[Byte]
 class OBJECT_NOTIFICATION(Structure):
     cbEntryID: UInt32
     lpEntryID: POINTER(win32more.Windows.Win32.System.AddressBook.ENTRYID)
@@ -952,10 +952,10 @@ class SPropProblem(Structure):
     scode: Int32
 class SPropProblemArray(Structure):
     cProblem: UInt32
-    aProblem: win32more.Windows.Win32.System.AddressBook.SPropProblem * 1
+    aProblem: FlexibleArray[win32more.Windows.Win32.System.AddressBook.SPropProblem]
 class SPropTagArray(Structure):
     cValues: UInt32
-    aulPropTag: UInt32 * 1
+    aulPropTag: FlexibleArray[UInt32]
 class SPropValue(Structure):
     ulPropTag: UInt32
     dwAlignPad: UInt32
@@ -988,7 +988,7 @@ class SRow(Structure):
     lpProps: POINTER(win32more.Windows.Win32.System.AddressBook.SPropValue)
 class SRowSet(Structure):
     cRows: UInt32
-    aRow: win32more.Windows.Win32.System.AddressBook.SRow * 1
+    aRow: FlexibleArray[win32more.Windows.Win32.System.AddressBook.SRow]
 class SShortArray(Structure):
     cValues: UInt32
     lpi: POINTER(Int16)
@@ -1003,7 +1003,7 @@ class SSortOrderSet(Structure):
     cSorts: UInt32
     cCategories: UInt32
     cExpanded: UInt32
-    aSort: win32more.Windows.Win32.System.AddressBook.SSortOrder * 1
+    aSort: FlexibleArray[win32more.Windows.Win32.System.AddressBook.SSortOrder]
 class SSubRestriction(Structure):
     ulSubObject: UInt32
     lpRes: POINTER(win32more.Windows.Win32.System.AddressBook.SRestriction)

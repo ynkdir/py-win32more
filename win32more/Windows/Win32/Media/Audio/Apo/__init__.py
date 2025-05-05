@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media.Audio
 import win32more.Windows.Win32.Media.Audio.Apo
@@ -109,7 +109,7 @@ class APO_REG_PROPERTIES(Structure):
     u32MaxOutputConnections: UInt32
     u32MaxInstances: UInt32
     u32NumAPOInterfaces: UInt32
-    iidAPOInterfaceList: Guid * 1
+    iidAPOInterfaceList: FlexibleArray[Guid]
 class AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(Structure):
     device: win32more.Windows.Win32.Media.Audio.IMMDevice
 class AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION(Structure):
@@ -163,7 +163,7 @@ class AUDIO_VOLUME_NOTIFICATION_DATA2(Structure):
     volumeIncrementInDb: Single
     step: UInt32
     stepCount: UInt32
-    channelVolumesInDb: Single * 1
+    channelVolumesInDb: FlexibleArray[Single]
 APOERR_ALREADY_INITIALIZED: win32more.Windows.Win32.Foundation.HRESULT = -2005073919
 APOERR_NOT_INITIALIZED: win32more.Windows.Win32.Foundation.HRESULT = -2005073918
 APOERR_FORMAT_NOT_SUPPORTED: win32more.Windows.Win32.Foundation.HRESULT = -2005073917

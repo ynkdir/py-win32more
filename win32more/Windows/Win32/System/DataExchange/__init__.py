@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Gdi
 import win32more.Windows.Win32.Security
@@ -318,7 +318,7 @@ class DDEDATA(Structure):
     reserved: Annotated[UInt16, NativeBitfieldAttribute(1)]
     fAckReq: Annotated[UInt16, NativeBitfieldAttribute(1)]
     cfFormat: Int16
-    Value: Byte * 1
+    Value: FlexibleArray[Byte]
 class DDELN(Structure):
     unused: Annotated[UInt16, NativeBitfieldAttribute(13)]
     fRelease: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -335,7 +335,7 @@ class DDEPOKE(Structure):
     fRelease: Annotated[UInt16, NativeBitfieldAttribute(1)]
     fReserved: Annotated[UInt16, NativeBitfieldAttribute(2)]
     cfFormat: Int16
-    Value: Byte * 1
+    Value: FlexibleArray[Byte]
 class DDEUP(Structure):
     unused: Annotated[UInt16, NativeBitfieldAttribute(12)]
     fAck: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -343,7 +343,7 @@ class DDEUP(Structure):
     fReserved: Annotated[UInt16, NativeBitfieldAttribute(1)]
     fAckReq: Annotated[UInt16, NativeBitfieldAttribute(1)]
     cfFormat: Int16
-    rgb: Byte * 1
+    rgb: FlexibleArray[Byte]
 DDE_CLIENT_TRANSACTION_TYPE = UInt32
 XTYP_ADVSTART: win32more.Windows.Win32.System.DataExchange.DDE_CLIENT_TRANSACTION_TYPE = 4144
 XTYP_ADVSTOP: win32more.Windows.Win32.System.DataExchange.DDE_CLIENT_TRANSACTION_TYPE = 32832
@@ -442,14 +442,14 @@ class MONHSZSTRUCTA(Structure):
     dwTime: UInt32
     hsz: win32more.Windows.Win32.System.DataExchange.HSZ
     hTask: win32more.Windows.Win32.Foundation.HANDLE
-    str: win32more.Windows.Win32.Foundation.CHAR * 1
+    str: FlexibleArray[win32more.Windows.Win32.Foundation.CHAR]
 class MONHSZSTRUCTW(Structure):
     cb: UInt32
     fsAction: win32more.Windows.Win32.Foundation.BOOL
     dwTime: UInt32
     hsz: win32more.Windows.Win32.System.DataExchange.HSZ
     hTask: win32more.Windows.Win32.Foundation.HANDLE
-    str: Char * 1
+    str: FlexibleArray[Char]
 MONHSZSTRUCT = UnicodeAlias('MONHSZSTRUCTW')
 class MONLINKSTRUCT(Structure):
     cb: UInt32

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Graphics.Direct3D9
 import win32more.Windows.Win32.Graphics.DirectDraw
@@ -223,7 +223,7 @@ AM_DVDCOPYSTATE_AUTHENTICATION_REQUIRED: win32more.Windows.Win32.Media.DirectSho
 AM_DVDCOPYSTATE_DONE: win32more.Windows.Win32.Media.DirectShow.AM_DVDCOPYSTATE = 4
 class AM_DVDCOPY_BUSKEY(Structure):
     BusKey: Byte * 5
-    Reserved: Byte * 1
+    Reserved: FlexibleArray[Byte]
 class AM_DVDCOPY_CHLGKEY(Structure):
     ChlgKey: Byte * 10
     Reserved: Byte * 2
@@ -325,11 +325,11 @@ class AM_MPEGSTREAMTYPE(Structure):
     dwStreamId: UInt32
     dwReserved: UInt32
     mt: win32more.Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE
-    bFormat: Byte * 1
+    bFormat: FlexibleArray[Byte]
 class AM_MPEGSYSTEMTYPE(Structure):
     dwBitRate: UInt32
     cStreams: UInt32
-    Streams: win32more.Windows.Win32.Media.DirectShow.AM_MPEGSTREAMTYPE * 1
+    Streams: FlexibleArray[win32more.Windows.Win32.Media.DirectShow.AM_MPEGSTREAMTYPE]
 AM_PROPERTY_AC3 = Int32
 AM_PROPERTY_AC3_ERROR_CONCEALMENT: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_AC3 = 1
 AM_PROPERTY_AC3_ALTERNATE_AUDIO: win32more.Windows.Win32.Media.DirectShow.AM_PROPERTY_AC3 = 2
@@ -1573,7 +1573,7 @@ class BDANODE_DESCRIPTOR(Structure):
 class BDA_BUFFER(Structure):
     lResult: Int32
     ulBufferSize: UInt32
-    argbBuffer: Byte * 1
+    argbBuffer: FlexibleArray[Byte]
 class BDA_CAS_CHECK_ENTITLEMENTTOKEN(Structure):
     lResult: Int32
     ulDescrambleStatus: UInt32
@@ -1587,7 +1587,7 @@ class BDA_CAS_OPENMMIDATA(Structure):
     ulDialogRequest: UInt32
     uuidDialogType: Guid
     usDialogDataLength: UInt16
-    argbDialogData: Byte * 1
+    argbDialogData: FlexibleArray[Byte]
 class BDA_CAS_REQUESTTUNERDATA(Structure):
     ucRequestPriority: Byte
     ucRequestReason: Byte
@@ -1596,7 +1596,7 @@ class BDA_CAS_REQUESTTUNERDATA(Structure):
 class BDA_CA_MODULE_UI(Structure):
     ulFormat: UInt32
     ulbcDesc: UInt32
-    ulDesc: UInt32 * 1
+    ulDesc: FlexibleArray[UInt32]
 BDA_CHANGE_STATE = Int32
 BDA_CHANGES_COMPLETE: win32more.Windows.Win32.Media.DirectShow.BDA_CHANGE_STATE = 0
 BDA_CHANGES_PENDING: win32more.Windows.Win32.Media.DirectShow.BDA_CHANGE_STATE = 1
@@ -1643,7 +1643,7 @@ class BDA_DRM_DRMSTATUS(Structure):
     lResult: Int32
     DRMuuid: Guid
     ulDrmUuidListStringSize: UInt32
-    argbDrmUuidListString: Guid * 1
+    argbDrmUuidListString: FlexibleArray[Guid]
 class BDA_DVBT2_L1_SIGNALLING_DATA(Structure):
     L1Pre_TYPE: Byte
     L1Pre_BWT_S1_S2: Byte
@@ -1658,7 +1658,7 @@ class BDA_DVBT2_L1_SIGNALLING_DATA(Structure):
     L1Pre_NUM_DATA_REGENFLAG_L1POSTEXT: Byte * 2
     L1Pre_NUMRF_CURRENTRF_RESERVED: Byte * 2
     L1Pre_CRC32: Byte * 4
-    L1PostData: Byte * 1
+    L1PostData: FlexibleArray[Byte]
 BDA_DrmPairingError = Int32
 BDA_DrmPairing_Succeeded: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 0
 BDA_DrmPairing_HardwareFailure: win32more.Windows.Win32.Media.DirectShow.BDA_DrmPairingError = 1
@@ -1674,7 +1674,7 @@ class BDA_ETHERNET_ADDRESS(Structure):
     rgbAddress: Byte * 6
 class BDA_ETHERNET_ADDRESS_LIST(Structure):
     ulcAddresses: UInt32
-    rgAddressl: win32more.Windows.Win32.Media.DirectShow.BDA_ETHERNET_ADDRESS * 1
+    rgAddressl: FlexibleArray[win32more.Windows.Win32.Media.DirectShow.BDA_ETHERNET_ADDRESS]
 BDA_EVENT_ID = Int32
 BDA_EVENT_SIGNAL_LOSS: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 0
 BDA_EVENT_SIGNAL_LOCK: win32more.Windows.Win32.Media.DirectShow.BDA_EVENT_ID = 1
@@ -1706,7 +1706,7 @@ class BDA_GDDS_DATA(Structure):
     lResult: Int32
     ulDataLength: UInt32
     ulPercentageProgress: UInt32
-    argbData: Byte * 1
+    argbData: FlexibleArray[Byte]
 class BDA_GDDS_DATATYPE(Structure):
     lResult: Int32
     uuidDataType: Guid
@@ -1714,12 +1714,12 @@ class BDA_IPv4_ADDRESS(Structure):
     rgbAddress: Byte * 4
 class BDA_IPv4_ADDRESS_LIST(Structure):
     ulcAddresses: UInt32
-    rgAddressl: win32more.Windows.Win32.Media.DirectShow.BDA_IPv4_ADDRESS * 1
+    rgAddressl: FlexibleArray[win32more.Windows.Win32.Media.DirectShow.BDA_IPv4_ADDRESS]
 class BDA_IPv6_ADDRESS(Structure):
     rgbAddress: Byte * 6
 class BDA_IPv6_ADDRESS_LIST(Structure):
     ulcAddresses: UInt32
-    rgAddressl: win32more.Windows.Win32.Media.DirectShow.BDA_IPv6_ADDRESS * 1
+    rgAddressl: FlexibleArray[win32more.Windows.Win32.Media.DirectShow.BDA_IPv6_ADDRESS]
 class BDA_ISDBCAS_EMG_REQ(Structure):
     bCLA: Byte
     bINS: Byte
@@ -1730,19 +1730,19 @@ class BDA_ISDBCAS_EMG_REQ(Structure):
     bProtocol: Byte
     bCABroadcasterGroupId: Byte
     bMessageControl: Byte
-    bMessageCode: Byte * 1
+    bMessageCode: FlexibleArray[Byte]
 class BDA_ISDBCAS_REQUESTHEADER(Structure):
     bInstruction: Byte
     bReserved: Byte * 3
     ulDataLength: UInt32
-    argbIsdbCommand: Byte * 1
+    argbIsdbCommand: FlexibleArray[Byte]
     _pack_ = 1
 class BDA_ISDBCAS_RESPONSEDATA(Structure):
     lResult: Int32
     ulRequestID: UInt32
     ulIsdbStatus: UInt32
     ulIsdbDataSize: UInt32
-    argbIsdbCommandData: Byte * 1
+    argbIsdbCommandData: FlexibleArray[Byte]
     _pack_ = 1
 BDA_MULTICAST_MODE = Int32
 BDA_PROMISCUOUS_MULTICAST: win32more.Windows.Win32.Media.DirectShow.BDA_MULTICAST_MODE = 0
@@ -1756,17 +1756,17 @@ class BDA_MUX_PIDLISTITEM(Structure):
 class BDA_PID_MAP(Structure):
     MediaSampleContent: win32more.Windows.Win32.Media.DirectShow.MEDIA_SAMPLE_CONTENT
     ulcPIDs: UInt32
-    aulPIDs: UInt32 * 1
+    aulPIDs: FlexibleArray[UInt32]
 class BDA_PID_UNMAP(Structure):
     ulcPIDs: UInt32
-    aulPIDs: UInt32 * 1
+    aulPIDs: FlexibleArray[UInt32]
 class BDA_PROGRAM_PID_LIST(Structure):
     ulProgramNumber: UInt32
     ulcPIDs: UInt32
-    ulPID: UInt32 * 1
+    ulPID: FlexibleArray[UInt32]
 class BDA_RATING_PINRESET(Structure):
     bPinLength: Byte
-    argbNewPin: Byte * 1
+    argbNewPin: FlexibleArray[Byte]
 BDA_Range = Int32
 BDA_RANGE_NOT_SET: win32more.Windows.Win32.Media.DirectShow.BDA_Range = -1
 BDA_RANGE_NOT_DEFINED: win32more.Windows.Win32.Media.DirectShow.BDA_Range = 0
@@ -1793,12 +1793,12 @@ class BDA_SIGNAL_TIMEOUTS(Structure):
 class BDA_STRING(Structure):
     lResult: Int32
     ulStringSize: UInt32
-    argbString: Byte * 1
+    argbString: FlexibleArray[Byte]
 class BDA_TABLE_SECTION(Structure):
     ulPrimarySectionId: UInt32
     ulSecondarySectionId: UInt32
     ulcbSectionLength: UInt32
-    argbSectionData: UInt32 * 1
+    argbSectionData: FlexibleArray[UInt32]
 class BDA_TEMPLATE_CONNECTION(Structure):
     FromNodeType: UInt32
     FromNodePinType: UInt32
@@ -1812,7 +1812,7 @@ class BDA_TS_SELECTORINFO(Structure):
     bReserved: Byte * 2
     guidNetworkType: Guid
     bTSIDCount: Byte
-    usTSID: UInt16 * 1
+    usTSID: FlexibleArray[UInt16]
     _pack_ = 1
 class BDA_TS_SELECTORINFO_ISDBS_EXT(Structure):
     bTMCC: Byte * 48
@@ -1824,7 +1824,7 @@ class BDA_TUNER_DIAGNOSTICS(Structure):
 class BDA_TUNER_TUNERSTATE(Structure):
     lResult: Int32
     ulTuneLength: UInt32
-    argbTuneData: Byte * 1
+    argbTuneData: FlexibleArray[Byte]
 class BDA_USERACTIVITY_INTERVAL(Structure):
     lResult: Int32
     ulActivityInterval: UInt32
@@ -1835,16 +1835,16 @@ class BDA_WMDRMTUNER_PURCHASEENTITLEMENT(Structure):
     lResult: Int32
     ulDescrambleStatus: UInt32
     ulCaptureTokenLength: UInt32
-    argbCaptureTokenBuffer: Byte * 1
+    argbCaptureTokenBuffer: FlexibleArray[Byte]
 class BDA_WMDRM_KEYINFOLIST(Structure):
     lResult: Int32
     ulKeyuuidBufferLen: UInt32
-    argKeyuuidBuffer: Guid * 1
+    argKeyuuidBuffer: FlexibleArray[Guid]
 class BDA_WMDRM_RENEWLICENSE(Structure):
     lResult: Int32
     ulDescrambleStatus: UInt32
     ulXmrLicenseOutputLength: UInt32
-    argbXmrLicenceOutputBuffer: Byte * 1
+    argbXmrLicenceOutputBuffer: FlexibleArray[Byte]
 class BDA_WMDRM_STATUS(Structure):
     lResult: Int32
     ulMaxCaptureTokenSize: UInt32
@@ -2557,7 +2557,7 @@ BDA_GUARD_19_256: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 7
 BDA_GUARD_MAX: win32more.Windows.Win32.Media.DirectShow.GuardInterval = 8
 class HEAACWAVEFORMAT(Structure):
     wfInfo: win32more.Windows.Win32.Media.DirectShow.HEAACWAVEINFO
-    pbAudioSpecificConfig: Byte * 1
+    pbAudioSpecificConfig: FlexibleArray[Byte]
 class HEAACWAVEINFO(Structure):
     wfx: win32more.Windows.Win32.Media.Audio.WAVEFORMATEX
     wPayloadType: UInt16
@@ -7177,7 +7177,7 @@ UOP_FLAG_Select_Karaoke_Audio_Presentation_Mode: win32more.Windows.Win32.Media.D
 UOP_FLAG_Select_Video_Mode_Preference: win32more.Windows.Win32.Media.DirectShow.VALID_UOP_FLAG = 16777216
 class VFW_FILTERLIST(Structure):
     cFilters: UInt32
-    aClsId: Guid * 1
+    aClsId: FlexibleArray[Guid]
 VIDEOENCODER_BITRATE_MODE = Int32
 ConstantBitRate: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 0
 VariableBitRateAverage: win32more.Windows.Win32.Media.DirectShow.VIDEOENCODER_BITRATE_MODE = 1

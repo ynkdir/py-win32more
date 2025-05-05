@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Media
 import win32more.Windows.Win32.Media.DirectShow
@@ -1150,7 +1150,7 @@ class KSALLOCATOR_FRAMING_EX(Structure):
     PinFlags: UInt32
     OutputCompression: win32more.Windows.Win32.Media.KernelStreaming.KS_COMPRESSION
     PinWeight: UInt32
-    FramingItem: win32more.Windows.Win32.Media.KernelStreaming.KS_FRAMING_ITEM * 1
+    FramingItem: FlexibleArray[win32more.Windows.Win32.Media.KernelStreaming.KS_FRAMING_ITEM]
 class KSATTRIBUTE(Structure):
     Size: UInt32
     Flags: UInt32
@@ -1270,11 +1270,11 @@ class KSAUDIO_MIC_ARRAY_GEOMETRY(Structure):
     usFrequencyBandLo: UInt16
     usFrequencyBandHi: UInt16
     usNumberOfMicrophones: UInt16
-    KsMicCoord: win32more.Windows.Win32.Media.KernelStreaming.KSAUDIO_MICROPHONE_COORDINATES * 1
+    KsMicCoord: FlexibleArray[win32more.Windows.Win32.Media.KernelStreaming.KSAUDIO_MICROPHONE_COORDINATES]
 class KSAUDIO_MIXCAP_TABLE(Structure):
     InputChannels: UInt32
     OutputChannels: UInt32
-    Capabilities: win32more.Windows.Win32.Media.KernelStreaming.KSAUDIO_MIX_CAPS * 1
+    Capabilities: FlexibleArray[win32more.Windows.Win32.Media.KernelStreaming.KSAUDIO_MIX_CAPS]
 class KSAUDIO_MIXLEVEL(Structure):
     Mute: win32more.Windows.Win32.Foundation.BOOL
     Level: Int32
@@ -1291,13 +1291,13 @@ class KSAUDIO_PACKETSIZE_CONSTRAINTS(Structure):
     PacketSizeFileAlignment: UInt32
     Reserved: UInt32
     NumProcessingModeConstraints: UInt32
-    ProcessingModeConstraints: win32more.Windows.Win32.Media.KernelStreaming.KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT * 1
+    ProcessingModeConstraints: FlexibleArray[win32more.Windows.Win32.Media.KernelStreaming.KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT]
 class KSAUDIO_PACKETSIZE_CONSTRAINTS2(Structure):
     MinPacketPeriodInHns: UInt32
     PacketSizeFileAlignment: UInt32
     MaxPacketSizeInBytes: UInt32
     NumProcessingModeConstraints: UInt32
-    ProcessingModeConstraints: win32more.Windows.Win32.Media.KernelStreaming.KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT * 1
+    ProcessingModeConstraints: FlexibleArray[win32more.Windows.Win32.Media.KernelStreaming.KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT]
 class KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT(Structure):
     ProcessingMode: Guid
     SamplesPerProcessingPacket: UInt32
@@ -1477,7 +1477,7 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK(Structure):
     MaskCoverageBoundingBox: win32more.Windows.Win32.Foundation.RECT
     MaskResolution: win32more.Windows.Win32.Foundation.SIZE
     ForegroundBoundingBox: win32more.Windows.Win32.Foundation.RECT
-    MaskData: Byte * 1
+    MaskData: FlexibleArray[Byte]
 class KSCAMERA_METADATA_CAPTURESTATS(Structure):
     Header: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_METADATA_ITEMHEADER
     Flags: UInt32
@@ -1802,7 +1802,7 @@ class KSDISPLAYCHANGE(Structure):
     PelsWidth: UInt32
     PelsHeight: UInt32
     BitsPerPel: UInt32
-    DeviceID: Char * 1
+    DeviceID: FlexibleArray[Char]
 class KSDS3D_BUFFER_ALL(Structure):
     Position: win32more.Windows.Win32.Media.KernelStreaming.DS3DVECTOR
     Velocity: win32more.Windows.Win32.Media.KernelStreaming.DS3DVECTOR
@@ -2302,7 +2302,7 @@ class KSPIN_MDL_CACHING_NOTIFICATION32(Structure):
 class KSPIN_PHYSICALCONNECTION(Structure):
     Size: UInt32
     Pin: UInt32
-    SymbolicLinkName: Char * 1
+    SymbolicLinkName: FlexibleArray[Char]
 KSPPROPERTY_ALLOCATOR_MDLCACHING = Int32
 KSPROPERTY_ALLOCATOR_CLEANUP_CACHEDMDLPAGES: win32more.Windows.Win32.Media.KernelStreaming.KSPPROPERTY_ALLOCATOR_MDLCACHING = 1
 class KSPRIORITY(Structure):
@@ -2800,7 +2800,7 @@ KSPROPERTY_MPEG4_MEDIATYPE_ATTRIBUTES = Int32
 KSPROPERTY_MPEG4_MEDIATYPE_SD_BOX: win32more.Windows.Win32.Media.KernelStreaming.KSPROPERTY_MPEG4_MEDIATYPE_ATTRIBUTES = 1
 class KSPROPERTY_NETWORKCAMERACONTROL_EVENT_INFO(Structure):
     Header: win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_METADATA_ITEMHEADER
-    EventFilter: Char * 1
+    EventFilter: FlexibleArray[Char]
 class KSPROPERTY_NETWORKCAMERACONTROL_METADATA_INFO(Structure):
     MetadataItems: UInt32
     Size: UInt32
@@ -3811,7 +3811,7 @@ KS_DVDCOPYSTATE_AUTHENTICATION_REQUIRED: win32more.Windows.Win32.Media.KernelStr
 KS_DVDCOPYSTATE_DONE: win32more.Windows.Win32.Media.KernelStreaming.KS_DVDCOPYSTATE = 4
 class KS_DVDCOPY_BUSKEY(Structure):
     BusKey: Byte * 5
-    Reserved: Byte * 1
+    Reserved: FlexibleArray[Byte]
 class KS_DVDCOPY_CHLGKEY(Structure):
     ChlgKey: Byte * 10
     Reserved: Byte * 2
@@ -3931,7 +3931,7 @@ class KS_MPEG1VIDEOINFO(Structure):
     hdr: win32more.Windows.Win32.Media.KernelStreaming.KS_VIDEOINFOHEADER
     dwStartTimeCode: UInt32
     cbSequenceHeader: UInt32
-    bSequenceHeader: Byte * 1
+    bSequenceHeader: FlexibleArray[Byte]
 KS_MPEG2Level = Int32
 KS_MPEG2Level_Low: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Level = 0
 KS_MPEG2Level_Main: win32more.Windows.Win32.Media.KernelStreaming.KS_MPEG2Level = 1
@@ -3955,7 +3955,7 @@ class KS_MPEGVIDEOINFO2(Structure):
     dwProfile: UInt32
     dwLevel: UInt32
     dwFlags: UInt32
-    bSequenceHeader: UInt32 * 1
+    bSequenceHeader: FlexibleArray[UInt32]
 KS_PhysicalConnectorType = Int32
 KS_PhysConn_Video_Tuner: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 1
 KS_PhysConn_Video_Composite: win32more.Windows.Win32.Media.KernelStreaming.KS_PhysicalConnectorType = 2

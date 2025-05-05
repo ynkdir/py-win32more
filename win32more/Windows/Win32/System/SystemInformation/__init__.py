@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.SystemInformation
 NTDDI_WIN2K: UInt32 = 83886080
@@ -269,7 +269,7 @@ class CACHE_RELATIONSHIP(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         GroupMask: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY
-        GroupMasks: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY * 1
+        GroupMasks: FlexibleArray[win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY]
 COMPUTER_NAME_FORMAT = Int32
 ComputerNameNetBIOS: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 0
 ComputerNameDnsHostname: win32more.Windows.Win32.System.SystemInformation.COMPUTER_NAME_FORMAT = 1
@@ -378,7 +378,7 @@ class GROUP_RELATIONSHIP(Structure):
     MaximumGroupCount: UInt16
     ActiveGroupCount: UInt16
     Reserved: Byte * 20
-    GroupInfo: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_GROUP_INFO * 1
+    GroupInfo: FlexibleArray[win32more.Windows.Win32.System.SystemInformation.PROCESSOR_GROUP_INFO]
 IMAGE_FILE_MACHINE = UInt16
 IMAGE_FILE_MACHINE_AXP64: win32more.Windows.Win32.System.SystemInformation.IMAGE_FILE_MACHINE = 644
 IMAGE_FILE_MACHINE_I386: win32more.Windows.Win32.System.SystemInformation.IMAGE_FILE_MACHINE = 332
@@ -448,7 +448,7 @@ class NUMA_NODE_RELATIONSHIP(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         GroupMask: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY
-        GroupMasks: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY * 1
+        GroupMasks: FlexibleArray[win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY]
 class OSVERSIONINFOA(Structure):
     dwOSVersionInfoSize: UInt32
     dwMajorVersion: UInt32
@@ -626,7 +626,7 @@ class PROCESSOR_RELATIONSHIP(Structure):
     EfficiencyClass: Byte
     Reserved: Byte * 20
     GroupCount: UInt16
-    GroupMask: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY * 1
+    GroupMask: FlexibleArray[win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY]
 RTL_SYSTEM_GLOBAL_DATA_ID = Int32
 GlobalDataIdUnknown: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 0
 GlobalDataIdRngSeedVersion: win32more.Windows.Win32.System.SystemInformation.RTL_SYSTEM_GLOBAL_DATA_ID = 1

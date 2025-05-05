@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Devices.Communication
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.IO
@@ -174,7 +174,7 @@ class COMMCONFIG(Structure):
     dwProviderSubType: UInt32
     dwProviderOffset: UInt32
     dwProviderSize: UInt32
-    wcProviderData: Char * 1
+    wcProviderData: FlexibleArray[Char]
 class COMMPROP(Structure):
     wPacketLength: UInt16
     wPacketVersion: UInt16
@@ -193,7 +193,7 @@ class COMMPROP(Structure):
     dwCurrentRxQueue: UInt32
     dwProvSpec1: UInt32
     dwProvSpec2: UInt32
-    wcProvChar: Char * 1
+    wcProvChar: FlexibleArray[Char]
 COMMPROP_STOP_PARITY = UInt16
 STOPBITS_10: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 1
 STOPBITS_15: win32more.Windows.Win32.Devices.Communication.COMMPROP_STOP_PARITY = 2
@@ -302,7 +302,7 @@ class MODEMDEVCAPS(Structure):
     dwModemOptions: UInt32
     dwMaxDTERate: UInt32
     dwMaxDCERate: UInt32
-    abVariablePortion: Byte * 1
+    abVariablePortion: FlexibleArray[Byte]
 MODEMDEVCAPS_DIAL_OPTIONS = UInt32
 DIALOPTION_BILLING: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_DIAL_OPTIONS = 64
 DIALOPTION_DIALTONE: win32more.Windows.Win32.Devices.Communication.MODEMDEVCAPS_DIAL_OPTIONS = 256
@@ -328,7 +328,7 @@ class MODEMSETTINGS(Structure):
     dwPreferredModemOptions: UInt32
     dwNegotiatedModemOptions: UInt32
     dwNegotiatedDCERate: UInt32
-    abVariablePortion: Byte * 1
+    abVariablePortion: FlexibleArray[Byte]
 MODEMSETTINGS_SPEAKER_MODE = UInt32
 MDMSPKR_CALLSETUP: win32more.Windows.Win32.Devices.Communication.MODEMSETTINGS_SPEAKER_MODE = 8
 MDMSPKR_DIAL: win32more.Windows.Win32.Devices.Communication.MODEMSETTINGS_SPEAKER_MODE = 2

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Ole
@@ -1660,7 +1660,7 @@ class PDH_COUNTER_INFO_A(Structure):
     szFullPath: win32more.Windows.Win32.Foundation.PSTR
     Anonymous: _Anonymous_e__Union
     szExplainText: win32more.Windows.Win32.Foundation.PSTR
-    DataBuffer: UInt32 * 1
+    DataBuffer: FlexibleArray[UInt32]
     class _Anonymous_e__Union(Union):
         DataItemPath: win32more.Windows.Win32.System.Performance.PDH_DATA_ITEM_PATH_ELEMENTS_A
         CounterPath: win32more.Windows.Win32.System.Performance.PDH_COUNTER_PATH_ELEMENTS_A
@@ -1684,7 +1684,7 @@ class PDH_COUNTER_INFO_W(Structure):
     szFullPath: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
     szExplainText: win32more.Windows.Win32.Foundation.PWSTR
-    DataBuffer: UInt32 * 1
+    DataBuffer: FlexibleArray[UInt32]
     class _Anonymous_e__Union(Union):
         DataItemPath: win32more.Windows.Win32.System.Performance.PDH_DATA_ITEM_PATH_ELEMENTS_W
         CounterPath: win32more.Windows.Win32.System.Performance.PDH_COUNTER_PATH_ELEMENTS_W
@@ -1848,7 +1848,7 @@ class PDH_RAW_LOG_RECORD(Structure):
     dwStructureSize: UInt32
     dwRecordType: win32more.Windows.Win32.System.Performance.PDH_LOG_TYPE
     dwItems: UInt32
-    RawBytes: Byte * 1
+    RawBytes: FlexibleArray[Byte]
 PDH_SELECT_DATA_SOURCE_FLAGS = UInt32
 PDH_FLAGS_FILE_BROWSER_ONLY: win32more.Windows.Win32.System.Performance.PDH_SELECT_DATA_SOURCE_FLAGS = 1
 PDH_FLAGS_NONE: win32more.Windows.Win32.System.Performance.PDH_SELECT_DATA_SOURCE_FLAGS = 0

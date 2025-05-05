@@ -1,5 +1,5 @@
 from __future__ import annotations
-from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
+from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.System.Com
 import win32more.Windows.Win32.System.Variant
@@ -932,11 +932,11 @@ elif ARCH in 'X86':
             FilterOffset: UInt32
 class IMAGE_COR_ILMETHOD_SECT_EH_FAT(Structure):
     SectFat: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_FAT
-    Clauses: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT * 1
+    Clauses: FlexibleArray[win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT]
 class IMAGE_COR_ILMETHOD_SECT_EH_SMALL(Structure):
     SectSmall: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_SMALL
     Reserved: UInt16
-    Clauses: win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL * 1
+    Clauses: FlexibleArray[win32more.Windows.Win32.System.WinRT.Metadata.IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL]
 class IMAGE_COR_ILMETHOD_SECT_FAT(Structure):
     Kind: Annotated[UInt32, NativeBitfieldAttribute(8)]
     DataSize: Annotated[UInt32, NativeBitfieldAttribute(24)]
