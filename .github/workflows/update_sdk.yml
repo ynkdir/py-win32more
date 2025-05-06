@@ -121,7 +121,9 @@ jobs:
 
     - name: Run win32generator
       if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
-      run: python -m win32generator
+      run: |
+        Remove-Item -Recurse win32more\Microsoft, win32more\Windows
+        python -m win32generator
       working-directory: win32more
 
     - name: Run additional script if defined
