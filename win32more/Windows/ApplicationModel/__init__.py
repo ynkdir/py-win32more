@@ -144,11 +144,6 @@ class AppInstance(ComPtr, metaclass=_AppInstance_Meta_):
     IsCurrentInstance = property(get_IsCurrentInstance, None)
     Key = property(get_Key, None)
     _AppInstance_Meta_.RecommendedInstance = property(get_RecommendedInstance, None)
-class CameraApplicationManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.CameraApplicationManager'
-    @winrt_classmethod
-    def ShowInstalledApplicationsUI(cls: win32more.Windows.ApplicationModel.ICameraApplicationManagerStatics) -> Void: ...
 class _DesignMode_Meta_(ComPtr.__class__):
     pass
 class DesignMode(ComPtr, metaclass=_DesignMode_Meta_):
@@ -378,12 +373,6 @@ class IAppInstanceStatics(ComPtr):
     @winrt_commethod(10)
     def GetInstances(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.ApplicationModel.AppInstance]: ...
     RecommendedInstance = property(get_RecommendedInstance, None)
-class ICameraApplicationManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.ApplicationModel.ICameraApplicationManagerStatics'
-    _iid_ = Guid('{9599ddce-9bd3-435c-8054-c1add50028fe}')
-    @winrt_commethod(6)
-    def ShowInstalledApplicationsUI(self) -> Void: ...
 class IDesignModeStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.IDesignModeStatics'

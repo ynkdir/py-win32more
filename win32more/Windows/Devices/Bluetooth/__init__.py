@@ -39,6 +39,10 @@ class BluetoothAdapter(ComPtr):
     def get_IsExtendedAdvertisingSupported(self: win32more.Windows.Devices.Bluetooth.IBluetoothAdapter3) -> Boolean: ...
     @winrt_mixinmethod
     def get_MaxAdvertisementDataLength(self: win32more.Windows.Devices.Bluetooth.IBluetoothAdapter3) -> UInt32: ...
+    @winrt_mixinmethod
+    def get_IsLowEnergyUncoded2MPhySupported(self: win32more.Windows.Devices.Bluetooth.IBluetoothAdapter4) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_IsLowEnergyCodedPhySupported(self: win32more.Windows.Devices.Bluetooth.IBluetoothAdapter4) -> Boolean: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.Bluetooth.IBluetoothAdapterStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -53,7 +57,9 @@ class BluetoothAdapter(ComPtr):
     IsCentralRoleSupported = property(get_IsCentralRoleSupported, None)
     IsClassicSupported = property(get_IsClassicSupported, None)
     IsExtendedAdvertisingSupported = property(get_IsExtendedAdvertisingSupported, None)
+    IsLowEnergyCodedPhySupported = property(get_IsLowEnergyCodedPhySupported, None)
     IsLowEnergySupported = property(get_IsLowEnergySupported, None)
+    IsLowEnergyUncoded2MPhySupported = property(get_IsLowEnergyUncoded2MPhySupported, None)
     IsPeripheralRoleSupported = property(get_IsPeripheralRoleSupported, None)
     MaxAdvertisementDataLength = property(get_MaxAdvertisementDataLength, None)
 class BluetoothAddressType(Enum, Int32):
@@ -737,6 +743,16 @@ class IBluetoothAdapter3(ComPtr):
     def get_MaxAdvertisementDataLength(self) -> UInt32: ...
     IsExtendedAdvertisingSupported = property(get_IsExtendedAdvertisingSupported, None)
     MaxAdvertisementDataLength = property(get_MaxAdvertisementDataLength, None)
+class IBluetoothAdapter4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.IBluetoothAdapter4'
+    _iid_ = Guid('{f875f3e1-6d9a-5d5e-aee5-a17248e5f6dd}')
+    @winrt_commethod(6)
+    def get_IsLowEnergyUncoded2MPhySupported(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def get_IsLowEnergyCodedPhySupported(self) -> Boolean: ...
+    IsLowEnergyCodedPhySupported = property(get_IsLowEnergyCodedPhySupported, None)
+    IsLowEnergyUncoded2MPhySupported = property(get_IsLowEnergyUncoded2MPhySupported, None)
 class IBluetoothAdapterStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.IBluetoothAdapterStatics'

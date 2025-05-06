@@ -135,6 +135,7 @@ class CoreInputViewKind(Enum, Int32):
     Symbols = 4
     Clipboard = 5
     Dictation = 6
+    Gamepad = 7
 class CoreInputViewOcclusion(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.UI.ViewManagement.Core.ICoreInputViewOcclusion

@@ -312,15 +312,6 @@ class IProcessVideoFrameContext(ComPtr):
     def get_OutputFrame(self) -> win32more.Windows.Media.VideoFrame: ...
     InputFrame = property(get_InputFrame, None)
     OutputFrame = property(get_OutputFrame, None)
-class ISlowMotionEffectDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.Effects.ISlowMotionEffectDefinition'
-    _iid_ = Guid('{35053cd0-176c-4763-82c4-1b02dbe31737}')
-    @winrt_commethod(6)
-    def get_TimeStretchRate(self) -> Double: ...
-    @winrt_commethod(7)
-    def put_TimeStretchRate(self, value: Double) -> Void: ...
-    TimeStretchRate = property(get_TimeStretchRate, put_TimeStretchRate)
 class IVideoCompositor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Effects.IVideoCompositor'
@@ -471,30 +462,6 @@ class ProcessVideoFrameContext(ComPtr):
     def get_OutputFrame(self: win32more.Windows.Media.Effects.IProcessVideoFrameContext) -> win32more.Windows.Media.VideoFrame: ...
     InputFrame = property(get_InputFrame, None)
     OutputFrame = property(get_OutputFrame, None)
-class SlowMotionEffectDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    default_interface: win32more.Windows.Media.Effects.ISlowMotionEffectDefinition
-    _classid_ = 'Windows.Media.Effects.SlowMotionEffectDefinition'
-    def __init__(self, *args, **kwargs):
-        if kwargs:
-            super().__init__(**kwargs)
-        elif len(args) == 0:
-            super().__init__(move=win32more.Windows.Media.Effects.SlowMotionEffectDefinition.CreateInstance(*args))
-        else:
-            raise ValueError('no matched constructor')
-    @winrt_activatemethod
-    def CreateInstance(cls) -> win32more.Windows.Media.Effects.SlowMotionEffectDefinition: ...
-    @winrt_mixinmethod
-    def get_TimeStretchRate(self: win32more.Windows.Media.Effects.ISlowMotionEffectDefinition) -> Double: ...
-    @winrt_mixinmethod
-    def put_TimeStretchRate(self: win32more.Windows.Media.Effects.ISlowMotionEffectDefinition, value: Double) -> Void: ...
-    @winrt_mixinmethod
-    def get_ActivatableClassId(self: win32more.Windows.Media.Effects.IVideoEffectDefinition) -> WinRT_String: ...
-    @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Media.Effects.IVideoEffectDefinition) -> win32more.Windows.Foundation.Collections.IPropertySet: ...
-    ActivatableClassId = property(get_ActivatableClassId, None)
-    Properties = property(get_Properties, None)
-    TimeStretchRate = property(get_TimeStretchRate, put_TimeStretchRate)
 class VideoCompositorDefinition(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoCompositorDefinition
