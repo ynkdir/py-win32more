@@ -625,9 +625,12 @@ class HumanPresenceFeatures(ComPtr):
     def get_IsAttentionAwareDimmingSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceFeatures) -> Boolean: ...
     @winrt_mixinmethod
     def get_IsAdaptiveDimmingSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceFeatures2) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_IsOnlookerDetectionSupported(self: win32more.Windows.Devices.Sensors.IHumanPresenceFeatures3) -> Boolean: ...
     IsAdaptiveDimmingSupported = property(get_IsAdaptiveDimmingSupported, None)
     IsAttentionAwareDimmingSupported = property(get_IsAttentionAwareDimmingSupported, None)
     IsLockOnLeaveSupported = property(get_IsLockOnLeaveSupported, None)
+    IsOnlookerDetectionSupported = property(get_IsOnlookerDetectionSupported, None)
     IsWakeOnApproachSupported = property(get_IsWakeOnApproachSupported, None)
     SensorId = property(get_SensorId, None)
     SupportedWakeOrLockDistancesInMillimeters = property(get_SupportedWakeOrLockDistancesInMillimeters, None)
@@ -743,8 +746,13 @@ class HumanPresenceSensorReadingUpdate(ComPtr):
     def get_DistanceInMillimeters(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate) -> win32more.Windows.Foundation.IReference[UInt32]: ...
     @winrt_mixinmethod
     def put_DistanceInMillimeters(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate, value: win32more.Windows.Foundation.IReference[UInt32]) -> Void: ...
+    @winrt_mixinmethod
+    def get_OnlookerPresence(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanPresence]: ...
+    @winrt_mixinmethod
+    def put_OnlookerPresence(self: win32more.Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate2, value: win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanPresence]) -> Void: ...
     DistanceInMillimeters = property(get_DistanceInMillimeters, put_DistanceInMillimeters)
     Engagement = property(get_Engagement, put_Engagement)
+    OnlookerPresence = property(get_OnlookerPresence, put_OnlookerPresence)
     Presence = property(get_Presence, put_Presence)
     Timestamp = property(get_Timestamp, put_Timestamp)
 class HumanPresenceSettings(ComPtr):
@@ -789,6 +797,12 @@ class HumanPresenceSettings(ComPtr):
     def get_DimmingOptions(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings2) -> win32more.Windows.Devices.Sensors.AdaptiveDimmingOptions: ...
     @winrt_mixinmethod
     def get_LockOptions(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings2) -> win32more.Windows.Devices.Sensors.LockOnLeaveOptions: ...
+    @winrt_mixinmethod
+    def get_IsOnlookerDetectionEnabled(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings3) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_IsOnlookerDetectionEnabled(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings3, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_OnlookerDetectionOptions(self: win32more.Windows.Devices.Sensors.IHumanPresenceSettings3) -> win32more.Windows.Devices.Sensors.OnlookerDetectionOptions: ...
     @winrt_classmethod
     def GetCurrentSettingsAsync(cls: win32more.Windows.Devices.Sensors.IHumanPresenceSettingsStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.HumanPresenceSettings]: ...
     @winrt_classmethod
@@ -811,10 +825,12 @@ class HumanPresenceSettings(ComPtr):
     IsAdaptiveDimmingEnabled = property(get_IsAdaptiveDimmingEnabled, put_IsAdaptiveDimmingEnabled)
     IsAttentionAwareDimmingEnabled = property(get_IsAttentionAwareDimmingEnabled, put_IsAttentionAwareDimmingEnabled)
     IsLockOnLeaveEnabled = property(get_IsLockOnLeaveEnabled, put_IsLockOnLeaveEnabled)
+    IsOnlookerDetectionEnabled = property(get_IsOnlookerDetectionEnabled, put_IsOnlookerDetectionEnabled)
     IsWakeOnApproachEnabled = property(get_IsWakeOnApproachEnabled, put_IsWakeOnApproachEnabled)
     LockOnLeaveDistanceInMillimeters = property(get_LockOnLeaveDistanceInMillimeters, put_LockOnLeaveDistanceInMillimeters)
     LockOnLeaveTimeout = property(get_LockOnLeaveTimeout, put_LockOnLeaveTimeout)
     LockOptions = property(get_LockOptions, None)
+    OnlookerDetectionOptions = property(get_OnlookerDetectionOptions, None)
     SensorId = property(get_SensorId, put_SensorId)
     WakeOnApproachDistanceInMillimeters = property(get_WakeOnApproachDistanceInMillimeters, put_WakeOnApproachDistanceInMillimeters)
     WakeOptions = property(get_WakeOptions, None)
@@ -1559,6 +1575,13 @@ class IHumanPresenceFeatures2(ComPtr):
     @winrt_commethod(6)
     def get_IsAdaptiveDimmingSupported(self) -> Boolean: ...
     IsAdaptiveDimmingSupported = property(get_IsAdaptiveDimmingSupported, None)
+class IHumanPresenceFeatures3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceFeatures3'
+    _iid_ = Guid('{ed4e03aa-5ca2-5c02-b783-262e91295619}')
+    @winrt_commethod(6)
+    def get_IsOnlookerDetectionSupported(self) -> Boolean: ...
+    IsOnlookerDetectionSupported = property(get_IsOnlookerDetectionSupported, None)
 class IHumanPresenceSensor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensor'
@@ -1690,6 +1713,15 @@ class IHumanPresenceSensorReadingUpdate(ComPtr):
     Engagement = property(get_Engagement, put_Engagement)
     Presence = property(get_Presence, put_Presence)
     Timestamp = property(get_Timestamp, put_Timestamp)
+class IHumanPresenceSensorReadingUpdate2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorReadingUpdate2'
+    _iid_ = Guid('{bb95a033-c688-546a-8e2d-b12642e7efeb}')
+    @winrt_commethod(6)
+    def get_OnlookerPresence(self) -> win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanPresence]: ...
+    @winrt_commethod(7)
+    def put_OnlookerPresence(self, value: win32more.Windows.Foundation.IReference[win32more.Windows.Devices.Sensors.HumanPresence]) -> Void: ...
+    OnlookerPresence = property(get_OnlookerPresence, put_OnlookerPresence)
 class IHumanPresenceSensorStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSensorStatics'
@@ -1765,6 +1797,18 @@ class IHumanPresenceSettings2(ComPtr):
     IsAdaptiveDimmingEnabled = property(get_IsAdaptiveDimmingEnabled, put_IsAdaptiveDimmingEnabled)
     LockOptions = property(get_LockOptions, None)
     WakeOptions = property(get_WakeOptions, None)
+class IHumanPresenceSettings3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSettings3'
+    _iid_ = Guid('{89757226-acc1-4f58-81df-47f1d69537f2}')
+    @winrt_commethod(6)
+    def get_IsOnlookerDetectionEnabled(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_IsOnlookerDetectionEnabled(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_OnlookerDetectionOptions(self) -> win32more.Windows.Devices.Sensors.OnlookerDetectionOptions: ...
+    IsOnlookerDetectionEnabled = property(get_IsOnlookerDetectionEnabled, put_IsOnlookerDetectionEnabled)
+    OnlookerDetectionOptions = property(get_OnlookerDetectionOptions, None)
 class IHumanPresenceSettingsStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IHumanPresenceSettingsStatics'
@@ -1968,6 +2012,12 @@ class ILightSensor3(ComPtr):
     @winrt_commethod(6)
     def get_ReportThreshold(self) -> win32more.Windows.Devices.Sensors.LightSensorDataThreshold: ...
     ReportThreshold = property(get_ReportThreshold, None)
+class ILightSensor4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.ILightSensor4'
+    _iid_ = Guid('{6167be97-6390-404c-9c19-445311c6a1d3}')
+    @winrt_commethod(6)
+    def IsChromaticitySupported(self) -> Boolean: ...
 class ILightSensorDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.ILightSensorDataThreshold'
@@ -1982,6 +2032,15 @@ class ILightSensorDataThreshold(ComPtr):
     def put_AbsoluteLux(self, value: Single) -> Void: ...
     AbsoluteLux = property(get_AbsoluteLux, put_AbsoluteLux)
     LuxPercentage = property(get_LuxPercentage, put_LuxPercentage)
+class ILightSensorDataThreshold2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.ILightSensorDataThreshold2'
+    _iid_ = Guid('{6f040fbd-e08b-5b97-8f61-dd4ee66b1733}')
+    @winrt_commethod(6)
+    def get_Chromaticity(self) -> win32more.Windows.Devices.Sensors.LightSensorChromaticity: ...
+    @winrt_commethod(7)
+    def put_Chromaticity(self, value: win32more.Windows.Devices.Sensors.LightSensorChromaticity) -> Void: ...
+    Chromaticity = property(get_Chromaticity, put_Chromaticity)
 class ILightSensorDeviceId(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.ILightSensorDeviceId'
@@ -2009,6 +2068,13 @@ class ILightSensorReading2(ComPtr):
     def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
+class ILightSensorReading3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.ILightSensorReading3'
+    _iid_ = Guid('{f338ee06-96af-4029-b530-61acc05b7cfe}')
+    @winrt_commethod(6)
+    def get_Chromaticity(self) -> win32more.Windows.Devices.Sensors.LightSensorChromaticity: ...
+    Chromaticity = property(get_Chromaticity, None)
 class ILightSensorReadingChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.ILightSensorReadingChangedEventArgs'
@@ -2162,6 +2228,20 @@ class IMagnetometerStatics2(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Sensors.Magnetometer]: ...
+class IOnlookerDetectionOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Sensors.IOnlookerDetectionOptions'
+    _iid_ = Guid('{0412b36f-36e6-51e2-876e-65197cc53c12}')
+    @winrt_commethod(6)
+    def get_Action(self) -> win32more.Windows.Devices.Sensors.OnlookerDetectionAction: ...
+    @winrt_commethod(7)
+    def put_Action(self, value: win32more.Windows.Devices.Sensors.OnlookerDetectionAction) -> Void: ...
+    @winrt_commethod(8)
+    def get_BackOnMode(self) -> win32more.Windows.Devices.Sensors.OnlookerDetectionBackOnMode: ...
+    @winrt_commethod(9)
+    def put_BackOnMode(self, value: win32more.Windows.Devices.Sensors.OnlookerDetectionBackOnMode) -> Void: ...
+    Action = property(get_Action, put_Action)
+    BackOnMode = property(get_BackOnMode, put_BackOnMode)
 class IOrientationSensor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Sensors.IOrientationSensor'
@@ -2673,6 +2753,8 @@ class LightSensor(ComPtr):
     def get_MaxBatchSize(self: win32more.Windows.Devices.Sensors.ILightSensor2) -> UInt32: ...
     @winrt_mixinmethod
     def get_ReportThreshold(self: win32more.Windows.Devices.Sensors.ILightSensor3) -> win32more.Windows.Devices.Sensors.LightSensorDataThreshold: ...
+    @winrt_mixinmethod
+    def IsChromaticitySupported(self: win32more.Windows.Devices.Sensors.ILightSensor4) -> Boolean: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.Sensors.ILightSensorStatics2) -> WinRT_String: ...
     @winrt_classmethod
@@ -2686,6 +2768,9 @@ class LightSensor(ComPtr):
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     ReportThreshold = property(get_ReportThreshold, None)
     ReadingChanged = event()
+class LightSensorChromaticity(Structure):
+    X: Double
+    Y: Double
 class LightSensorDataThreshold(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.ILightSensorDataThreshold
@@ -2698,7 +2783,12 @@ class LightSensorDataThreshold(ComPtr):
     def get_AbsoluteLux(self: win32more.Windows.Devices.Sensors.ILightSensorDataThreshold) -> Single: ...
     @winrt_mixinmethod
     def put_AbsoluteLux(self: win32more.Windows.Devices.Sensors.ILightSensorDataThreshold, value: Single) -> Void: ...
+    @winrt_mixinmethod
+    def get_Chromaticity(self: win32more.Windows.Devices.Sensors.ILightSensorDataThreshold2) -> win32more.Windows.Devices.Sensors.LightSensorChromaticity: ...
+    @winrt_mixinmethod
+    def put_Chromaticity(self: win32more.Windows.Devices.Sensors.ILightSensorDataThreshold2, value: win32more.Windows.Devices.Sensors.LightSensorChromaticity) -> Void: ...
     AbsoluteLux = property(get_AbsoluteLux, put_AbsoluteLux)
+    Chromaticity = property(get_Chromaticity, put_Chromaticity)
     LuxPercentage = property(get_LuxPercentage, put_LuxPercentage)
 class LightSensorReading(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -2712,6 +2802,9 @@ class LightSensorReading(ComPtr):
     def get_PerformanceCount(self: win32more.Windows.Devices.Sensors.ILightSensorReading2) -> win32more.Windows.Foundation.IReference[win32more.Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
     def get_Properties(self: win32more.Windows.Devices.Sensors.ILightSensorReading2) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    @winrt_mixinmethod
+    def get_Chromaticity(self: win32more.Windows.Devices.Sensors.ILightSensorReading3) -> win32more.Windows.Devices.Sensors.LightSensorChromaticity: ...
+    Chromaticity = property(get_Chromaticity, None)
     IlluminanceInLux = property(get_IlluminanceInLux, None)
     PerformanceCount = property(get_PerformanceCount, None)
     Properties = property(get_Properties, None)
@@ -2832,6 +2925,29 @@ class MagnetometerReadingChangedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_Reading(self: win32more.Windows.Devices.Sensors.IMagnetometerReadingChangedEventArgs) -> win32more.Windows.Devices.Sensors.MagnetometerReading: ...
     Reading = property(get_Reading, None)
+class OnlookerDetectionAction(Enum, Int32):
+    Dim = 0
+    Notify = 1
+    DimAndNotify = 2
+class OnlookerDetectionBackOnMode(Enum, Int32):
+    Manually = 0
+    OneHour = 1
+    FourHours = 2
+    OneDay = 3
+class OnlookerDetectionOptions(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Sensors.IOnlookerDetectionOptions
+    _classid_ = 'Windows.Devices.Sensors.OnlookerDetectionOptions'
+    @winrt_mixinmethod
+    def get_Action(self: win32more.Windows.Devices.Sensors.IOnlookerDetectionOptions) -> win32more.Windows.Devices.Sensors.OnlookerDetectionAction: ...
+    @winrt_mixinmethod
+    def put_Action(self: win32more.Windows.Devices.Sensors.IOnlookerDetectionOptions, value: win32more.Windows.Devices.Sensors.OnlookerDetectionAction) -> Void: ...
+    @winrt_mixinmethod
+    def get_BackOnMode(self: win32more.Windows.Devices.Sensors.IOnlookerDetectionOptions) -> win32more.Windows.Devices.Sensors.OnlookerDetectionBackOnMode: ...
+    @winrt_mixinmethod
+    def put_BackOnMode(self: win32more.Windows.Devices.Sensors.IOnlookerDetectionOptions, value: win32more.Windows.Devices.Sensors.OnlookerDetectionBackOnMode) -> Void: ...
+    Action = property(get_Action, put_Action)
+    BackOnMode = property(get_BackOnMode, put_BackOnMode)
 class OrientationSensor(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Sensors.IOrientationSensor

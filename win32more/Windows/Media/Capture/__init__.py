@@ -3529,43 +3529,6 @@ class IPhotoConfirmationCapturedEventArgs(ComPtr):
     def get_CaptureTimeOffset(self) -> win32more.Windows.Foundation.TimeSpan: ...
     CaptureTimeOffset = property(get_CaptureTimeOffset, None)
     Frame = property(get_Frame, None)
-class IScreenCapture(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.Capture.IScreenCapture'
-    _iid_ = Guid('{89179ef7-cd12-4e0e-a6d4-5b3de98b2e9b}')
-    @winrt_commethod(6)
-    def get_AudioSource(self) -> win32more.Windows.Media.Core.IMediaSource: ...
-    @winrt_commethod(7)
-    def get_VideoSource(self) -> win32more.Windows.Media.Core.IMediaSource: ...
-    @winrt_commethod(8)
-    def get_IsAudioSuspended(self) -> Boolean: ...
-    @winrt_commethod(9)
-    def get_IsVideoSuspended(self) -> Boolean: ...
-    @winrt_commethod(10)
-    def add_SourceSuspensionChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Capture.ScreenCapture, win32more.Windows.Media.Capture.SourceSuspensionChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
-    @winrt_commethod(11)
-    def remove_SourceSuspensionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    AudioSource = property(get_AudioSource, None)
-    IsAudioSuspended = property(get_IsAudioSuspended, None)
-    IsVideoSuspended = property(get_IsVideoSuspended, None)
-    VideoSource = property(get_VideoSource, None)
-    SourceSuspensionChanged = event()
-class IScreenCaptureStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.Capture.IScreenCaptureStatics'
-    _iid_ = Guid('{c898c3b0-c8a5-11e2-8b8b-0800200c9a66}')
-    @winrt_commethod(6)
-    def GetForCurrentView(self) -> win32more.Windows.Media.Capture.ScreenCapture: ...
-class ISourceSuspensionChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.Capture.ISourceSuspensionChangedEventArgs'
-    _iid_ = Guid('{2ece7b5e-d49b-4394-bc32-f97d6cedec1c}')
-    @winrt_commethod(6)
-    def get_IsAudioSuspended(self) -> Boolean: ...
-    @winrt_commethod(7)
-    def get_IsVideoSuspended(self) -> Boolean: ...
-    IsAudioSuspended = property(get_IsAudioSuspended, None)
-    IsVideoSuspended = property(get_IsVideoSuspended, None)
 class IVideoStreamConfiguration(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Capture.IVideoStreamConfiguration'
@@ -4153,39 +4116,6 @@ class RecordLimitationExceededEventHandler(MulticastDelegate):
     _iid_ = Guid('{3fae8f2e-4fe1-4ffd-aaba-e1f1337d4e53}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Media.Capture.MediaCapture) -> Void: ...
-class ScreenCapture(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    default_interface: win32more.Windows.Media.Capture.IScreenCapture
-    _classid_ = 'Windows.Media.Capture.ScreenCapture'
-    @winrt_mixinmethod
-    def get_AudioSource(self: win32more.Windows.Media.Capture.IScreenCapture) -> win32more.Windows.Media.Core.IMediaSource: ...
-    @winrt_mixinmethod
-    def get_VideoSource(self: win32more.Windows.Media.Capture.IScreenCapture) -> win32more.Windows.Media.Core.IMediaSource: ...
-    @winrt_mixinmethod
-    def get_IsAudioSuspended(self: win32more.Windows.Media.Capture.IScreenCapture) -> Boolean: ...
-    @winrt_mixinmethod
-    def get_IsVideoSuspended(self: win32more.Windows.Media.Capture.IScreenCapture) -> Boolean: ...
-    @winrt_mixinmethod
-    def add_SourceSuspensionChanged(self: win32more.Windows.Media.Capture.IScreenCapture, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Capture.ScreenCapture, win32more.Windows.Media.Capture.SourceSuspensionChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
-    @winrt_mixinmethod
-    def remove_SourceSuspensionChanged(self: win32more.Windows.Media.Capture.IScreenCapture, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
-    @winrt_classmethod
-    def GetForCurrentView(cls: win32more.Windows.Media.Capture.IScreenCaptureStatics) -> win32more.Windows.Media.Capture.ScreenCapture: ...
-    AudioSource = property(get_AudioSource, None)
-    IsAudioSuspended = property(get_IsAudioSuspended, None)
-    IsVideoSuspended = property(get_IsVideoSuspended, None)
-    VideoSource = property(get_VideoSource, None)
-    SourceSuspensionChanged = event()
-class SourceSuspensionChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    default_interface: win32more.Windows.Media.Capture.ISourceSuspensionChangedEventArgs
-    _classid_ = 'Windows.Media.Capture.SourceSuspensionChangedEventArgs'
-    @winrt_mixinmethod
-    def get_IsAudioSuspended(self: win32more.Windows.Media.Capture.ISourceSuspensionChangedEventArgs) -> Boolean: ...
-    @winrt_mixinmethod
-    def get_IsVideoSuspended(self: win32more.Windows.Media.Capture.ISourceSuspensionChangedEventArgs) -> Boolean: ...
-    IsAudioSuspended = property(get_IsAudioSuspended, None)
-    IsVideoSuspended = property(get_IsVideoSuspended, None)
 class StreamingCaptureMode(Enum, Int32):
     AudioAndVideo = 0
     Audio = 1

@@ -323,27 +323,6 @@ class ISpeechRecognizerUIOptions(ComPtr):
     ExampleText = property(get_ExampleText, put_ExampleText)
     IsReadBackEnabled = property(get_IsReadBackEnabled, put_IsReadBackEnabled)
     ShowConfirmation = property(get_ShowConfirmation, put_ShowConfirmation)
-class IVoiceCommandManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.SpeechRecognition.IVoiceCommandManager'
-    _iid_ = Guid('{aa3a8dd5-b6e7-4ee2-baa9-dd6baced0a2b}')
-    @winrt_commethod(6)
-    def InstallCommandSetsFromStorageFileAsync(self, file: win32more.Windows.Storage.StorageFile) -> win32more.Windows.Foundation.IAsyncAction: ...
-    @winrt_commethod(7)
-    def get_InstalledCommandSets(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Media.SpeechRecognition.VoiceCommandSet]: ...
-    InstalledCommandSets = property(get_InstalledCommandSets, None)
-class IVoiceCommandSet(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.SpeechRecognition.IVoiceCommandSet'
-    _iid_ = Guid('{0bedda75-46e6-4b11-a088-5c68632899b5}')
-    @winrt_commethod(6)
-    def get_Language(self) -> WinRT_String: ...
-    @winrt_commethod(7)
-    def get_Name(self) -> WinRT_String: ...
-    @winrt_commethod(8)
-    def SetPhraseListAsync(self, phraseListName: WinRT_String, phraseList: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncAction: ...
-    Language = property(get_Language, None)
-    Name = property(get_Name, None)
 class SpeechContinuousRecognitionCompletedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionCompletedEventArgs
@@ -769,28 +748,6 @@ class SpeechRecognizerUIOptions(ComPtr):
     ExampleText = property(get_ExampleText, put_ExampleText)
     IsReadBackEnabled = property(get_IsReadBackEnabled, put_IsReadBackEnabled)
     ShowConfirmation = property(get_ShowConfirmation, put_ShowConfirmation)
-class _VoiceCommandManager_Meta_(ComPtr.__class__):
-    pass
-class VoiceCommandManager(ComPtr, metaclass=_VoiceCommandManager_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Media.SpeechRecognition.VoiceCommandManager'
-    @winrt_classmethod
-    def InstallCommandSetsFromStorageFileAsync(cls: win32more.Windows.Media.SpeechRecognition.IVoiceCommandManager, file: win32more.Windows.Storage.StorageFile) -> win32more.Windows.Foundation.IAsyncAction: ...
-    @winrt_classmethod
-    def get_InstalledCommandSets(cls: win32more.Windows.Media.SpeechRecognition.IVoiceCommandManager) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Media.SpeechRecognition.VoiceCommandSet]: ...
-    _VoiceCommandManager_Meta_.InstalledCommandSets = property(get_InstalledCommandSets, None)
-class VoiceCommandSet(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    default_interface: win32more.Windows.Media.SpeechRecognition.IVoiceCommandSet
-    _classid_ = 'Windows.Media.SpeechRecognition.VoiceCommandSet'
-    @winrt_mixinmethod
-    def get_Language(self: win32more.Windows.Media.SpeechRecognition.IVoiceCommandSet) -> WinRT_String: ...
-    @winrt_mixinmethod
-    def get_Name(self: win32more.Windows.Media.SpeechRecognition.IVoiceCommandSet) -> WinRT_String: ...
-    @winrt_mixinmethod
-    def SetPhraseListAsync(self: win32more.Windows.Media.SpeechRecognition.IVoiceCommandSet, phraseListName: WinRT_String, phraseList: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncAction: ...
-    Language = property(get_Language, None)
-    Name = property(get_Name, None)
 
 
 make_ready(__name__)

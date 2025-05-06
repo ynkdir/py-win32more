@@ -72,6 +72,8 @@ class GattServiceProviderConnection(ComPtr, metaclass=_GattServiceProviderConnec
     def get_Service(self: win32more.Windows.Devices.Bluetooth.Background.IGattServiceProviderConnection) -> win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalService: ...
     @winrt_mixinmethod
     def Start(self: win32more.Windows.Devices.Bluetooth.Background.IGattServiceProviderConnection) -> Void: ...
+    @winrt_mixinmethod
+    def UpdateAdvertisingParameters(self: win32more.Windows.Devices.Bluetooth.Background.IGattServiceProviderConnection2, parameters: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters) -> Void: ...
     @winrt_classmethod
     def get_AllServices(cls: win32more.Windows.Devices.Bluetooth.Background.IGattServiceProviderConnectionStatics) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Devices.Bluetooth.Background.GattServiceProviderConnection]: ...
     Service = property(get_Service, None)
@@ -149,6 +151,12 @@ class IGattServiceProviderConnection(ComPtr):
     def Start(self) -> Void: ...
     Service = property(get_Service, None)
     TriggerId = property(get_TriggerId, None)
+class IGattServiceProviderConnection2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.Background.IGattServiceProviderConnection2'
+    _iid_ = Guid('{90d12be0-ebc0-484f-ae0a-7eb8b6266bac}')
+    @winrt_commethod(6)
+    def UpdateAdvertisingParameters(self, parameters: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters) -> Void: ...
 class IGattServiceProviderConnectionStatics(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.Background.IGattServiceProviderConnectionStatics'

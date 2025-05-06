@@ -360,11 +360,6 @@ class ESimWatcherStatus(Enum, Int32):
     EnumerationCompleted = 2
     Stopping = 3
     Stopped = 4
-class FdnAccessManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Networking.NetworkOperators.FdnAccessManager'
-    @winrt_classmethod
-    def RequestUnlockAsync(cls: win32more.Windows.Networking.NetworkOperators.IFdnAccessManagerStatics, contactListId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class HotspotAuthenticationContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Networking.NetworkOperators.IHotspotAuthenticationContext
@@ -697,12 +692,6 @@ class IESimWatcher(ComPtr):
     Removed = event()
     Stopped = event()
     Updated = event()
-class IFdnAccessManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    _classid_ = 'Windows.Networking.NetworkOperators.IFdnAccessManagerStatics'
-    _iid_ = Guid('{f2aa4395-f1e6-4319-aa3e-477ca64b2bdf}')
-    @winrt_commethod(6)
-    def RequestUnlockAsync(self, contactListId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IHotspotAuthenticationContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.IHotspotAuthenticationContext'
@@ -3345,7 +3334,6 @@ class NetworkOperatorTetheringSessionAccessPointConfiguration(ComPtr):
     Passphrase = property(get_Passphrase, put_Passphrase)
     PerformancePriority = property(get_PerformancePriority, put_PerformancePriority)
     Ssid = property(get_Ssid, put_Ssid)
-NetworkOperatorsFdnContract: UInt32 = 65536
 class NetworkRegistrationState(Enum, Int32):
     None_ = 0
     Deregistered = 1

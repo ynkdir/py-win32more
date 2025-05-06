@@ -335,6 +335,96 @@ class IPrintSchema(ComPtr):
     def GetCapabilitiesAsync(self, constrainTicket: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
     @winrt_commethod(8)
     def MergeAndValidateWithDefaultPrintTicketAsync(self, deltaTicket: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
+class IVirtualPrinterInstallationParameters(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IVirtualPrinterInstallationParameters'
+    _iid_ = Guid('{bbc159b3-12f3-584c-8d26-b22c0dc83241}')
+    @winrt_commethod(6)
+    def get_PrinterName(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_PrinterName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_OutputFileExtensions(self) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    @winrt_commethod(9)
+    def get_SupportedInputFormats(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Devices.Printers.VirtualPrinterSupportedFormat]: ...
+    @winrt_commethod(10)
+    def get_PrintDeviceCapabilitiesPackageRelativeFilePath(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def put_PrintDeviceCapabilitiesPackageRelativeFilePath(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(12)
+    def get_PrintDeviceResourcesPackageRelativeFilePath(self) -> WinRT_String: ...
+    @winrt_commethod(13)
+    def put_PrintDeviceResourcesPackageRelativeFilePath(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(14)
+    def get_PreferredInputFormat(self) -> win32more.Windows.Devices.Printers.VirtualPrinterPreferredInputFormat: ...
+    @winrt_commethod(15)
+    def put_PreferredInputFormat(self, value: win32more.Windows.Devices.Printers.VirtualPrinterPreferredInputFormat) -> Void: ...
+    @winrt_commethod(16)
+    def get_PrinterUri(self) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_commethod(17)
+    def put_PrinterUri(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_commethod(18)
+    def get_EntryPoint(self) -> WinRT_String: ...
+    @winrt_commethod(19)
+    def put_EntryPoint(self, value: WinRT_String) -> Void: ...
+    EntryPoint = property(get_EntryPoint, put_EntryPoint)
+    OutputFileExtensions = property(get_OutputFileExtensions, None)
+    PreferredInputFormat = property(get_PreferredInputFormat, put_PreferredInputFormat)
+    PrintDeviceCapabilitiesPackageRelativeFilePath = property(get_PrintDeviceCapabilitiesPackageRelativeFilePath, put_PrintDeviceCapabilitiesPackageRelativeFilePath)
+    PrintDeviceResourcesPackageRelativeFilePath = property(get_PrintDeviceResourcesPackageRelativeFilePath, put_PrintDeviceResourcesPackageRelativeFilePath)
+    PrinterName = property(get_PrinterName, put_PrinterName)
+    PrinterUri = property(get_PrinterUri, put_PrinterUri)
+    SupportedInputFormats = property(get_SupportedInputFormats, None)
+class IVirtualPrinterInstallationResult(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IVirtualPrinterInstallationResult'
+    _iid_ = Guid('{82defd78-1601-5657-85df-75eb691604bd}')
+    @winrt_commethod(6)
+    def get_Status(self) -> win32more.Windows.Devices.Printers.VirtualPrinterInstallationStatus: ...
+    @winrt_commethod(7)
+    def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
+    ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
+class IVirtualPrinterManagerStatics(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IVirtualPrinterManagerStatics'
+    _iid_ = Guid('{141084b6-6702-5b5f-83da-c75891657554}')
+    @winrt_commethod(6)
+    def InstallVirtualPrinterAsync(self, parameters: win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Printers.VirtualPrinterInstallationResult]: ...
+    @winrt_commethod(7)
+    def InstallVirtualPrinterAsync2(self, parameters: win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters, appPackageFamilyName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Printers.VirtualPrinterInstallationResult]: ...
+    @winrt_commethod(8)
+    def InstallVirtualPrinterForAllUsersAsync(self, parameters: win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Printers.VirtualPrinterInstallationResult]: ...
+    @winrt_commethod(9)
+    def InstallVirtualPrinterForAllUsersAsync2(self, parameters: win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters, appPackageFamilyName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Printers.VirtualPrinterInstallationResult]: ...
+    @winrt_commethod(10)
+    def FindAllVirtualPrinters(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    @winrt_commethod(11)
+    def FindAllVirtualPrinters2(self, appPackageFamilyName: WinRT_String) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    @winrt_commethod(12)
+    def RemoveVirtualPrinterAsync(self, printerName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_commethod(13)
+    def RemoveVirtualPrinterForAllUsersAsync(self, printerName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+class IVirtualPrinterSupportedFormat(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IVirtualPrinterSupportedFormat'
+    _iid_ = Guid('{3801fa17-22b5-5dab-ad38-39e47d6071af}')
+    @winrt_commethod(6)
+    def get_ContentType(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_ContentType(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_MaxSupportedVersion(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_MaxSupportedVersion(self, value: WinRT_String) -> Void: ...
+    ContentType = property(get_ContentType, put_ContentType)
+    MaxSupportedVersion = property(get_MaxSupportedVersion, put_MaxSupportedVersion)
+class IVirtualPrinterSupportedFormatFactory(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.IVirtualPrinterSupportedFormatFactory'
+    _iid_ = Guid('{6daaed44-97a6-57f4-be8b-9dbabc587f2d}')
+    @winrt_commethod(6)
+    def CreateInstance(self, contentType: WinRT_String, maxSupportedVersion: WinRT_String) -> win32more.Windows.Devices.Printers.VirtualPrinterSupportedFormat: ...
 class IppAttributeError(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Printers.IIppAttributeError
@@ -698,6 +788,115 @@ class PrintSchema(ComPtr):
     @winrt_mixinmethod
     def MergeAndValidateWithDefaultPrintTicketAsync(self: win32more.Windows.Devices.Printers.IPrintSchema, deltaTicket: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
 PrintersContract: UInt32 = 65536
+class VirtualPrinterInstallationParameters(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters
+    _classid_ = 'Windows.Devices.Printers.VirtualPrinterInstallationParameters'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters: ...
+    @winrt_mixinmethod
+    def get_PrinterName(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_PrinterName(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_OutputFileExtensions(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters) -> win32more.Windows.Foundation.Collections.IVector[WinRT_String]: ...
+    @winrt_mixinmethod
+    def get_SupportedInputFormats(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Devices.Printers.VirtualPrinterSupportedFormat]: ...
+    @winrt_mixinmethod
+    def get_PrintDeviceCapabilitiesPackageRelativeFilePath(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_PrintDeviceCapabilitiesPackageRelativeFilePath(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_PrintDeviceResourcesPackageRelativeFilePath(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_PrintDeviceResourcesPackageRelativeFilePath(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_PreferredInputFormat(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters) -> win32more.Windows.Devices.Printers.VirtualPrinterPreferredInputFormat: ...
+    @winrt_mixinmethod
+    def put_PreferredInputFormat(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters, value: win32more.Windows.Devices.Printers.VirtualPrinterPreferredInputFormat) -> Void: ...
+    @winrt_mixinmethod
+    def get_PrinterUri(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters) -> win32more.Windows.Foundation.Uri: ...
+    @winrt_mixinmethod
+    def put_PrinterUri(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters, value: win32more.Windows.Foundation.Uri) -> Void: ...
+    @winrt_mixinmethod
+    def get_EntryPoint(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_EntryPoint(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters, value: WinRT_String) -> Void: ...
+    EntryPoint = property(get_EntryPoint, put_EntryPoint)
+    OutputFileExtensions = property(get_OutputFileExtensions, None)
+    PreferredInputFormat = property(get_PreferredInputFormat, put_PreferredInputFormat)
+    PrintDeviceCapabilitiesPackageRelativeFilePath = property(get_PrintDeviceCapabilitiesPackageRelativeFilePath, put_PrintDeviceCapabilitiesPackageRelativeFilePath)
+    PrintDeviceResourcesPackageRelativeFilePath = property(get_PrintDeviceResourcesPackageRelativeFilePath, put_PrintDeviceResourcesPackageRelativeFilePath)
+    PrinterName = property(get_PrinterName, put_PrinterName)
+    PrinterUri = property(get_PrinterUri, put_PrinterUri)
+    SupportedInputFormats = property(get_SupportedInputFormats, None)
+class VirtualPrinterInstallationResult(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationResult
+    _classid_ = 'Windows.Devices.Printers.VirtualPrinterInstallationResult'
+    @winrt_mixinmethod
+    def get_Status(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationResult) -> win32more.Windows.Devices.Printers.VirtualPrinterInstallationStatus: ...
+    @winrt_mixinmethod
+    def get_ExtendedError(self: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationResult) -> win32more.Windows.Foundation.HResult: ...
+    ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
+class VirtualPrinterInstallationStatus(Enum, Int32):
+    InstallationSucceeded = 0
+    PrinterAlreadyInstalled = 1
+    PrinterInstallationAccessDenied = 2
+    PrinterInstallationFailed = 3
+class VirtualPrinterManager(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.VirtualPrinterManager'
+    @winrt_classmethod
+    def InstallVirtualPrinterAsync(cls: win32more.Windows.Devices.Printers.IVirtualPrinterManagerStatics, parameters: win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Printers.VirtualPrinterInstallationResult]: ...
+    @winrt_classmethod
+    def InstallVirtualPrinterAsync2(cls: win32more.Windows.Devices.Printers.IVirtualPrinterManagerStatics, parameters: win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters, appPackageFamilyName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Printers.VirtualPrinterInstallationResult]: ...
+    @winrt_classmethod
+    def InstallVirtualPrinterForAllUsersAsync(cls: win32more.Windows.Devices.Printers.IVirtualPrinterManagerStatics, parameters: win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Printers.VirtualPrinterInstallationResult]: ...
+    @winrt_classmethod
+    def InstallVirtualPrinterForAllUsersAsync2(cls: win32more.Windows.Devices.Printers.IVirtualPrinterManagerStatics, parameters: win32more.Windows.Devices.Printers.VirtualPrinterInstallationParameters, appPackageFamilyName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Printers.VirtualPrinterInstallationResult]: ...
+    @winrt_classmethod
+    def FindAllVirtualPrinters(cls: win32more.Windows.Devices.Printers.IVirtualPrinterManagerStatics) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    @winrt_classmethod
+    def FindAllVirtualPrinters2(cls: win32more.Windows.Devices.Printers.IVirtualPrinterManagerStatics, appPackageFamilyName: WinRT_String) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    @winrt_classmethod
+    def RemoveVirtualPrinterAsync(cls: win32more.Windows.Devices.Printers.IVirtualPrinterManagerStatics, printerName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_classmethod
+    def RemoveVirtualPrinterForAllUsersAsync(cls: win32more.Windows.Devices.Printers.IVirtualPrinterManagerStatics, printerName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
+class VirtualPrinterPreferredInputFormat(Enum, Int32):
+    OpenXps = 0
+    PostScript = 1
+class VirtualPrinterSupportedFormat(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    default_interface: win32more.Windows.Devices.Printers.IVirtualPrinterSupportedFormat
+    _classid_ = 'Windows.Devices.Printers.VirtualPrinterSupportedFormat'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 2:
+            super().__init__(move=win32more.Windows.Devices.Printers.VirtualPrinterSupportedFormat.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_factorymethod
+    def CreateInstance(cls: win32more.Windows.Devices.Printers.IVirtualPrinterSupportedFormatFactory, contentType: WinRT_String, maxSupportedVersion: WinRT_String) -> win32more.Windows.Devices.Printers.VirtualPrinterSupportedFormat: ...
+    @winrt_mixinmethod
+    def get_ContentType(self: win32more.Windows.Devices.Printers.IVirtualPrinterSupportedFormat) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ContentType(self: win32more.Windows.Devices.Printers.IVirtualPrinterSupportedFormat, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_MaxSupportedVersion(self: win32more.Windows.Devices.Printers.IVirtualPrinterSupportedFormat) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_MaxSupportedVersion(self: win32more.Windows.Devices.Printers.IVirtualPrinterSupportedFormat, value: WinRT_String) -> Void: ...
+    ContentType = property(get_ContentType, put_ContentType)
+    MaxSupportedVersion = property(get_MaxSupportedVersion, put_MaxSupportedVersion)
 
 
 make_ready(__name__)
