@@ -990,6 +990,8 @@ class GattServiceProvider(ComPtr):
     def StartAdvertisingWithParameters(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProvider, parameters: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters) -> Void: ...
     @winrt_mixinmethod
     def StopAdvertising(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProvider) -> Void: ...
+    @winrt_mixinmethod
+    def UpdateAdvertisingParameters(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProvider2, parameters: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters) -> Void: ...
     @winrt_classmethod
     def CreateAsync(cls: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderStatics, serviceUuid: Guid) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderResult]: ...
     AdvertisementStatus = property(get_AdvertisementStatus, None)
@@ -1036,9 +1038,19 @@ class GattServiceProviderAdvertisingParameters(ComPtr):
     def put_ServiceData(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters2, value: win32more.Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_mixinmethod
     def get_ServiceData(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters2) -> win32more.Windows.Storage.Streams.IBuffer: ...
+    @winrt_mixinmethod
+    def get_UseLowEnergyUncoded1MPhyAsSecondaryPhy(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters3) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_UseLowEnergyUncoded1MPhyAsSecondaryPhy(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters3, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_UseLowEnergyUncoded2MPhyAsSecondaryPhy(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters3) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_UseLowEnergyUncoded2MPhyAsSecondaryPhy(self: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters3, value: Boolean) -> Void: ...
     IsConnectable = property(get_IsConnectable, put_IsConnectable)
     IsDiscoverable = property(get_IsDiscoverable, put_IsDiscoverable)
     ServiceData = property(get_ServiceData, put_ServiceData)
+    UseLowEnergyUncoded1MPhyAsSecondaryPhy = property(get_UseLowEnergyUncoded1MPhyAsSecondaryPhy, put_UseLowEnergyUncoded1MPhyAsSecondaryPhy)
+    UseLowEnergyUncoded2MPhyAsSecondaryPhy = property(get_UseLowEnergyUncoded2MPhyAsSecondaryPhy, put_UseLowEnergyUncoded2MPhyAsSecondaryPhy)
 class GattServiceProviderResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderResult
@@ -2226,6 +2238,12 @@ class IGattServiceProvider(ComPtr):
     AdvertisementStatus = property(get_AdvertisementStatus, None)
     Service = property(get_Service, None)
     AdvertisementStatusChanged = event()
+class IGattServiceProvider2(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProvider2'
+    _iid_ = Guid('{9ef531a9-cf12-59a3-a81c-362f4aabaacf}')
+    @winrt_commethod(6)
+    def UpdateAdvertisingParameters(self, parameters: win32more.Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters) -> Void: ...
 class IGattServiceProviderAdvertisementStatusChangedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisementStatusChangedEventArgs'
@@ -2259,6 +2277,20 @@ class IGattServiceProviderAdvertisingParameters2(ComPtr):
     @winrt_commethod(7)
     def get_ServiceData(self) -> win32more.Windows.Storage.Streams.IBuffer: ...
     ServiceData = property(get_ServiceData, put_ServiceData)
+class IGattServiceProviderAdvertisingParameters3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters3'
+    _iid_ = Guid('{a23546b2-b216-5929-9055-f1313dd53e2a}')
+    @winrt_commethod(6)
+    def get_UseLowEnergyUncoded1MPhyAsSecondaryPhy(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_UseLowEnergyUncoded1MPhyAsSecondaryPhy(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_UseLowEnergyUncoded2MPhyAsSecondaryPhy(self) -> Boolean: ...
+    @winrt_commethod(9)
+    def put_UseLowEnergyUncoded2MPhyAsSecondaryPhy(self, value: Boolean) -> Void: ...
+    UseLowEnergyUncoded1MPhyAsSecondaryPhy = property(get_UseLowEnergyUncoded1MPhyAsSecondaryPhy, put_UseLowEnergyUncoded1MPhyAsSecondaryPhy)
+    UseLowEnergyUncoded2MPhyAsSecondaryPhy = property(get_UseLowEnergyUncoded2MPhyAsSecondaryPhy, put_UseLowEnergyUncoded2MPhyAsSecondaryPhy)
 class IGattServiceProviderResult(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderResult'

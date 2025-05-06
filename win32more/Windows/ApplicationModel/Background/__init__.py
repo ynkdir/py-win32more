@@ -435,10 +435,20 @@ class BluetoothLEAdvertisementPublisherTrigger(ComPtr):
     def get_IncludeTransmitPowerLevel(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger2) -> Boolean: ...
     @winrt_mixinmethod
     def put_IncludeTransmitPowerLevel(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger2, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_PrimaryPhy(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger3) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType: ...
+    @winrt_mixinmethod
+    def put_PrimaryPhy(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger3, value: win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType) -> Void: ...
+    @winrt_mixinmethod
+    def get_SecondaryPhy(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger3) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType: ...
+    @winrt_mixinmethod
+    def put_SecondaryPhy(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger3, value: win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType) -> Void: ...
     Advertisement = property(get_Advertisement, None)
     IncludeTransmitPowerLevel = property(get_IncludeTransmitPowerLevel, put_IncludeTransmitPowerLevel)
     IsAnonymous = property(get_IsAnonymous, put_IsAnonymous)
     PreferredTransmitPowerLevelInDBm = property(get_PreferredTransmitPowerLevelInDBm, put_PreferredTransmitPowerLevelInDBm)
+    PrimaryPhy = property(get_PrimaryPhy, put_PrimaryPhy)
+    SecondaryPhy = property(get_SecondaryPhy, put_SecondaryPhy)
     UseExtendedFormat = property(get_UseExtendedFormat, put_UseExtendedFormat)
 class BluetoothLEAdvertisementWatcherTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -473,13 +483,28 @@ class BluetoothLEAdvertisementWatcherTrigger(ComPtr):
     def get_AllowExtendedAdvertisements(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger2) -> Boolean: ...
     @winrt_mixinmethod
     def put_AllowExtendedAdvertisements(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger2, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_UseUncoded1MPhy(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger3) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_UseUncoded1MPhy(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger3, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_UseCodedPhy(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger3) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_UseCodedPhy(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger3, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_ScanParameters(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger3) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementScanParameters: ...
+    @winrt_mixinmethod
+    def put_ScanParameters(self: win32more.Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger3, value: win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementScanParameters) -> Void: ...
     AdvertisementFilter = property(get_AdvertisementFilter, put_AdvertisementFilter)
     AllowExtendedAdvertisements = property(get_AllowExtendedAdvertisements, put_AllowExtendedAdvertisements)
     MaxOutOfRangeTimeout = property(get_MaxOutOfRangeTimeout, None)
     MaxSamplingInterval = property(get_MaxSamplingInterval, None)
     MinOutOfRangeTimeout = property(get_MinOutOfRangeTimeout, None)
     MinSamplingInterval = property(get_MinSamplingInterval, None)
+    ScanParameters = property(get_ScanParameters, put_ScanParameters)
     SignalStrengthFilter = property(get_SignalStrengthFilter, put_SignalStrengthFilter)
+    UseCodedPhy = property(get_UseCodedPhy, put_UseCodedPhy)
+    UseUncoded1MPhy = property(get_UseUncoded1MPhy, put_UseUncoded1MPhy)
 class CachedFileUpdaterTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     default_interface: win32more.Windows.ApplicationModel.Background.ICachedFileUpdaterTrigger
@@ -1200,6 +1225,20 @@ class IBluetoothLEAdvertisementPublisherTrigger2(ComPtr):
     IsAnonymous = property(get_IsAnonymous, put_IsAnonymous)
     PreferredTransmitPowerLevelInDBm = property(get_PreferredTransmitPowerLevelInDBm, put_PreferredTransmitPowerLevelInDBm)
     UseExtendedFormat = property(get_UseExtendedFormat, put_UseExtendedFormat)
+class IBluetoothLEAdvertisementPublisherTrigger3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Background.IBluetoothLEAdvertisementPublisherTrigger3'
+    _iid_ = Guid('{64419d03-d604-5bdc-b7d2-a7fe25c55460}')
+    @winrt_commethod(6)
+    def get_PrimaryPhy(self) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType: ...
+    @winrt_commethod(7)
+    def put_PrimaryPhy(self, value: win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType) -> Void: ...
+    @winrt_commethod(8)
+    def get_SecondaryPhy(self) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType: ...
+    @winrt_commethod(9)
+    def put_SecondaryPhy(self, value: win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPhyType) -> Void: ...
+    PrimaryPhy = property(get_PrimaryPhy, put_PrimaryPhy)
+    SecondaryPhy = property(get_SecondaryPhy, put_SecondaryPhy)
 class IBluetoothLEAdvertisementWatcherTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger'
@@ -1235,6 +1274,25 @@ class IBluetoothLEAdvertisementWatcherTrigger2(ComPtr):
     @winrt_commethod(7)
     def put_AllowExtendedAdvertisements(self, value: Boolean) -> Void: ...
     AllowExtendedAdvertisements = property(get_AllowExtendedAdvertisements, put_AllowExtendedAdvertisements)
+class IBluetoothLEAdvertisementWatcherTrigger3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Background.IBluetoothLEAdvertisementWatcherTrigger3'
+    _iid_ = Guid('{da50011a-8261-56a0-ac7b-a8de1624088b}')
+    @winrt_commethod(6)
+    def get_UseUncoded1MPhy(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_UseUncoded1MPhy(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_UseCodedPhy(self) -> Boolean: ...
+    @winrt_commethod(9)
+    def put_UseCodedPhy(self, value: Boolean) -> Void: ...
+    @winrt_commethod(10)
+    def get_ScanParameters(self) -> win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementScanParameters: ...
+    @winrt_commethod(11)
+    def put_ScanParameters(self, value: win32more.Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementScanParameters) -> Void: ...
+    ScanParameters = property(get_ScanParameters, put_ScanParameters)
+    UseCodedPhy = property(get_UseCodedPhy, put_UseCodedPhy)
+    UseUncoded1MPhy = property(get_UseUncoded1MPhy, put_UseUncoded1MPhy)
 class ICachedFileUpdaterTrigger(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.ICachedFileUpdaterTrigger'
