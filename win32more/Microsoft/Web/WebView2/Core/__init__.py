@@ -1335,6 +1335,10 @@ class CoreWebView2Frame(ComPtr):
     @winrt_mixinmethod
     def remove_ScreenCaptureStarting(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame6, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
+    def add_FrameCreated(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame7, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Frame, win32more.Microsoft.Web.WebView2.Core.CoreWebView2FrameCreatedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_FrameCreated(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame7, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
     def get_Name(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame) -> WinRT_String: ...
     @winrt_mixinmethod
     def add_NameChanged(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Frame, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
@@ -1357,6 +1361,7 @@ class CoreWebView2Frame(ComPtr):
     WebMessageReceived = event()
     PermissionRequested = event()
     ScreenCaptureStarting = event()
+    FrameCreated = event()
     NameChanged = event()
     Destroyed = event()
 class CoreWebView2FrameCreatedEventArgs(ComPtr):
@@ -3919,6 +3924,15 @@ class ICoreWebView2Frame6(ComPtr):
     @winrt_commethod(7)
     def remove_ScreenCaptureStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ScreenCaptureStarting = event()
+class ICoreWebView2Frame7(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Frame7'
+    _iid_ = Guid('{37b88dd4-5973-51ad-98c5-6832c5499dc0}')
+    @winrt_commethod(6)
+    def add_FrameCreated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Frame, win32more.Microsoft.Web.WebView2.Core.CoreWebView2FrameCreatedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_FrameCreated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    FrameCreated = event()
 class ICoreWebView2FrameCreatedEventArgs(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2FrameCreatedEventArgs'
