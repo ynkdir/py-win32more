@@ -1,5 +1,5 @@
 import platform
-from ctypes import CFUNCTYPE, POINTER, c_char_p, c_uint, c_void_p, c_wchar_p, cast, cdll
+from ctypes import CFUNCTYPE, POINTER, c_char_p, c_uint, c_void_p, c_wchar_p, cast, cdll, pointer
 
 if platform.machine() == "x86_64":
     ARCH = "X64"
@@ -7,7 +7,49 @@ else:
     raise RuntimeError(f"{platform.machine()} is not supported")
 
 windll = cdll
-WinError = OSError
+
+
+def MAKELANGID(p, s):
+    return (s << 10) | p
+
+
+def FormatError(code):
+    from win32more.Windows.Win32.Foundation import LocalFree
+    from win32more.Windows.Win32.System.Diagnostics.Debug import (
+        FORMAT_MESSAGE_ALLOCATE_BUFFER,
+        FORMAT_MESSAGE_FROM_SYSTEM,
+        FORMAT_MESSAGE_IGNORE_INSERTS,
+        FormatMessageW,
+    )
+    from win32more.Windows.Win32.System.SystemServices import LANG_NEUTRAL, SUBLANG_NEUTRAL
+
+    lpMsgBuf = c_wchar_p()
+    n = FormatMessageW(
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        None,
+        code,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL),
+        cast(pointer(lpMsgBuf), c_wchar_p),
+        0,
+        None,
+    )
+    if n == 0:
+        return "<no description>"
+    msg = lpMsgBuf.value.rstrip()
+    LocalFree(lpMsgBuf)
+    return msg
+
+
+def WinError(code=None, descr=None):
+    from win32more.Windows.Win32.Foundation import GetLastError
+
+    if code is None:
+        code = GetLastError()
+    if descr is None:
+        descr = FormatError(code).strip()
+    # Cygwin version doesn't have 4th winerror argument.
+    # OSError(None, descr, None, code)
+    return OSError(code, descr)
 
 
 def WINFUNCTYPE(restype, *argtypes, use_errno=False, use_last_error=False):
