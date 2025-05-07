@@ -130,7 +130,7 @@ class TestSyntax(unittest.TestCase):
         x = NVME_COMMAND_DWORD0(OPC=1, FUSE=1, Reserved0=1, PSDT=1, CID=1)
         self.assertEqual(x.AsUlong, 0b00000000000000011000010100000001)
 
-    def test_struct_bitfield_member_named_anonymous_should_not_be_anonymous(self):
+    def test_struct_unnamed_bitfield_member(self):
         from win32more.Windows.Win32.Networking.WinSock import IPV6_HEADER
 
         x = IPV6_HEADER()

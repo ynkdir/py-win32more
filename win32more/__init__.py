@@ -167,6 +167,7 @@ def _struct_union_commit(cls, start=True):
                 if isinstance(metadata, NativeBitfieldAttribute):
                     bitfields[name] = metadata.width
 
+    # Unnamed bitfield member is also named "Anonymous...".  Exclude it.
     anonymous = [name for name in hints.keys() if re.match(r"^Anonymous\d*$", name) and name not in bitfields]
     if anonymous:
         cls._anonymous_ = anonymous
