@@ -14,7 +14,6 @@ class Preprocessor:
         self.patch_name_conflict(meta)
         self.patch_keyword_name(meta)
         self.patch_unicode_alias(meta)
-        self.patch_UniversalBGTask_Task(meta)
         return meta
 
     def filter_public(self, meta: Metadata) -> Metadata:
@@ -134,18 +133,3 @@ class Preprocessor:
         df["CustomAttributes"] = [
             ca for ca in df["CustomAttributes"] if ca["Type"] != "Windows.Win32.Foundation.Metadata.UnicodeAttribute"
         ]
-
-    # Workaround for invalid method name.  How to handle this?
-    def patch_UniversalBGTask_Task(self, meta: Metadata) -> None:
-        for td in meta.type_definitions:
-            if td.fullname == "Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.Task":
-                methods = []
-                for md in td["Methods"]:
-                    if md["Name"] == "Windows.ApplicationModel.Background.IBackgroundTask.Run":
-                        # remove
-                        continue
-                    if md["Name"] == "Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.ITask.Run":
-                        md["Name"] = "Run"
-                    methods.append(md)
-                td["Methods"] = methods
-                break
