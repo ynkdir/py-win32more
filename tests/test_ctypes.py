@@ -1,5 +1,6 @@
+import sys
 import unittest
-from ctypes import CFUNCTYPE, Structure, c_char_p, c_void_p, c_wchar_p, py_object
+from ctypes import CFUNCTYPE, Structure, Union, c_char_p, c_void_p, c_wchar_p, py_object
 
 
 class TestCtypes(unittest.TestCase):
@@ -46,6 +47,20 @@ class TestCtypes(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             s.x = b"bytes"
+
+    # hasattr(Union, "_fields_") returns False,
+    # when it has been called before setting _fields_,
+    # Fixed by https://github.com/python/cpython/commit/5a1618a2c8c108b8c73aa9459b63f0dbd66b60f6
+    @unittest.skipIf(sys.version_info < (3, 13), "doesn't work until 3.13")
+    def test_union_hasattr_fields_works(self):
+        class U(Union):
+            pass
+
+        self.assertFalse(hasattr(U, "_fields_"))
+
+        U._fields_ = [("x", c_void_p)]
+
+        self.assertTrue(hasattr(U, "_fields_"))
 
 
 if __name__ == "__main__":

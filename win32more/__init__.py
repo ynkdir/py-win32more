@@ -155,7 +155,7 @@ def _struct_union_commit(cls, start=True):
             # nested struct or circular reference
             _struct_union_commit(type_, False)
 
-    # FIXME: hasattr(cls, "_fields_") not work for Union.
+    # <3.13: hasattr(cls, "_fields_") not work for Union.
     if "_fields_" in cls.__dict__:
         raise CircularReferenceResolved()
 
