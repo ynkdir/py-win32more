@@ -346,6 +346,7 @@ AUDCLNT_STREAMOPTIONS_AMBISONICS: win32more.Windows.Win32.Media.Audio.AUDCLNT_ST
 class AUDIOCLIENT_ACTIVATION_PARAMS(Structure):
     ActivationType: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_ACTIVATION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ProcessLoopbackParams: win32more.Windows.Win32.Media.Audio.AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS
 AUDIOCLIENT_ACTIVATION_TYPE = Int32
@@ -2259,6 +2260,7 @@ class MIXERCONTROLA(Structure):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         dwReserved: UInt32 * 6
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         _pack_ = 1
         class _Anonymous1_e__Struct(Structure):
             lMinimum: Int32
@@ -2280,6 +2282,7 @@ class MIXERCONTROLDETAILS(Structure):
     Anonymous: _Anonymous_e__Union
     cbDetails: UInt32
     paDetails: VoidPtr
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         hwndOwner: win32more.Windows.Win32.Foundation.HWND
@@ -2320,6 +2323,7 @@ class MIXERCONTROLW(Structure):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         dwReserved: UInt32 * 6
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         _pack_ = 1
         class _Anonymous1_e__Struct(Structure):
             lMinimum: Int32
@@ -2365,6 +2369,7 @@ class MIXERLINECONTROLSA(Structure):
     cControls: UInt32
     cbmxctrl: UInt32
     pamxctrl: POINTER(win32more.Windows.Win32.Media.Audio.MIXERCONTROLA)
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         dwControlID: UInt32
@@ -2377,6 +2382,7 @@ class MIXERLINECONTROLSW(Structure):
     cControls: UInt32
     cbmxctrl: UInt32
     pamxctrl: POINTER(win32more.Windows.Win32.Media.Audio.MIXERCONTROLW)
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         dwControlID: UInt32

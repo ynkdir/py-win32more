@@ -291,6 +291,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTA(Structure):
     cPropSheetPages: UInt32
     rgPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEA)
     nStartPage: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pCryptProviderData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)
         hWVTStateData: win32more.Windows.Win32.Foundation.HANDLE
@@ -313,6 +314,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW(Structure):
     cPropSheetPages: UInt32
     rgPropSheetPages: POINTER(win32more.Windows.Win32.UI.Controls.PROPSHEETPAGEW)
     nStartPage: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pCryptProviderData: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_DATA)
         hWVTStateData: win32more.Windows.Win32.Foundation.HANDLE
@@ -337,6 +339,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO(Structure):
     pwszSigningCertFileName: win32more.Windows.Win32.Foundation.PWSTR
     dwPvkChoice: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_PVK_OPTION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pPvkFileInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO)
         pPvkProvInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_PROV_INFO)
@@ -363,6 +366,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_INFO(Structure):
     pwszTimestampURL: win32more.Windows.Win32.Foundation.PWSTR
     dwAdditionalCertChoice: win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE
     pSignExtInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO)
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         pwszFileName: win32more.Windows.Win32.Foundation.PWSTR
         pSignBlobInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.UI.CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO)
@@ -412,6 +416,7 @@ class CRYPTUI_WIZ_EXPORT_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     cStores: UInt32
     rghStores: POINTER(win32more.Windows.Win32.Security.Cryptography.HCERTSTORE)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)
         pCTLContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CTL_CONTEXT)
@@ -442,6 +447,7 @@ class CRYPTUI_WIZ_IMPORT_SRC_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     dwFlags: win32more.Windows.Win32.Security.Cryptography.CRYPT_KEY_FLAGS
     pwszPassword: win32more.Windows.Win32.Foundation.PWSTR
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pwszFileName: win32more.Windows.Win32.Foundation.PWSTR
         pCertContext: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CONTEXT)

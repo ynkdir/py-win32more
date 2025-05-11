@@ -343,6 +343,7 @@ MemDedicatedAttributeMax: win32more.Windows.Win32.System.Memory.MEM_DEDICATED_AT
 class MEM_EXTENDED_PARAMETER(Structure):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Struct(Structure):
         Type: Annotated[UInt64, NativeBitfieldAttribute(8)]
         Reserved: Annotated[UInt64, NativeBitfieldAttribute(56)]
@@ -425,6 +426,7 @@ class PROCESS_HEAP_ENTRY(Structure):
     iRegionIndex: Byte
     wFlags: UInt16
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Block: _Block_e__Struct
         Region: _Region_e__Struct
@@ -499,9 +501,11 @@ class WIN32_MEMORY_REGION_INFORMATION(Structure):
     Anonymous: _Anonymous_e__Union
     RegionSize: UIntPtr
     CommitSize: UIntPtr
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Private: Annotated[UInt32, NativeBitfieldAttribute(1)]
             MappedDataFile: Annotated[UInt32, NativeBitfieldAttribute(1)]

@@ -614,6 +614,7 @@ class D3D12_BARRIER_GROUP(Structure):
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_TYPE
     NumBarriers: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pGlobalBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_GLOBAL_BARRIER)
         pTextureBarriers: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_BARRIER)
@@ -773,6 +774,7 @@ class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS(Structure):
     NumDescs: UInt32
     DescsLayout: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ELEMENTS_LAYOUT
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         InstanceDescs: UInt64
         pGeometryDescs: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_DESC)
@@ -789,6 +791,7 @@ D3D12_CLEAR_FLAG_STENCIL: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_CLEA
 class D3D12_CLEAR_VALUE(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Color: Single * 4
         DepthStencil: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DEPTH_STENCIL_VALUE
@@ -966,6 +969,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC(Structure):
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DSV_DIMENSION
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DSV_FLAGS
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEX1D_DSV
         Texture1DArray: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEX1D_ARRAY_DSV
@@ -1066,6 +1070,7 @@ class D3D12_DISPATCH_ARGUMENTS(Structure):
 class D3D12_DISPATCH_GRAPH_DESC(Structure):
     Mode: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DISPATCH_MODE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         NodeCPUInput: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_NODE_CPU_INPUT
         NodeGPUInput: UInt64
@@ -1732,6 +1737,7 @@ class D3D12_INDEX_BUFFER_VIEW(Structure):
 class D3D12_INDIRECT_ARGUMENT_DESC(Structure):
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_INDIRECT_ARGUMENT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         VertexBuffer: _VertexBuffer_e__Struct
         Constant: _Constant_e__Struct
@@ -2897,6 +2903,7 @@ class D3D12_MULTI_NODE_GPU_INPUT(Structure):
 class D3D12_NODE(Structure):
     NodeType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_NODE_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Shader: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_NODE
 class D3D12_NODE_CPU_INPUT(Structure):
@@ -3170,6 +3177,7 @@ class D3D12_RAYTRACING_GEOMETRY_DESC(Structure):
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_TYPE
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_FLAGS
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Triangles: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC
         AABBs: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_GEOMETRY_AABBS_DESC
@@ -3235,6 +3243,7 @@ D3D12_RECREATE_AT_TIER_1: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RECR
 class D3D12_RENDER_PASS_BEGINNING_ACCESS(Structure):
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Clear: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS
         PreserveLocal: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS
@@ -3260,6 +3269,7 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC(Structure):
 class D3D12_RENDER_PASS_ENDING_ACCESS(Structure):
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Resolve: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS
         PreserveLocal: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RENDER_PASS_ENDING_ACCESS_PRESERVE_LOCAL_PARAMETERS
@@ -3318,6 +3328,7 @@ class D3D12_RENDER_TARGET_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RTV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BUFFER_RTV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEX1D_RTV
@@ -3357,6 +3368,7 @@ class D3D12_RESOURCE_BARRIER(Structure):
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_TYPE
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_BARRIER_FLAGS
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Transition: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_TRANSITION_BARRIER
         Aliasing: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALIASING_BARRIER
@@ -3487,6 +3499,7 @@ class D3D12_ROOT_PARAMETER(Structure):
     ParameterType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_TYPE
     Anonymous: _Anonymous_e__Union
     ShaderVisibility: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_VISIBILITY
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DescriptorTable: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE
         Constants: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_CONSTANTS
@@ -3495,6 +3508,7 @@ class D3D12_ROOT_PARAMETER1(Structure):
     ParameterType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_PARAMETER_TYPE
     Anonymous: _Anonymous_e__Union
     ShaderVisibility: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_VISIBILITY
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DescriptorTable: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_DESCRIPTOR_TABLE1
         Constants: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_CONSTANTS
@@ -3573,6 +3587,7 @@ class D3D12_SAMPLER_DESC2(Structure):
     MinLOD: Single
     MaxLOD: Single
     Flags: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SAMPLER_FLAGS
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FloatBorderColor: Single * 4
         UintBorderColor: UInt32 * 4
@@ -3604,6 +3619,7 @@ class D3D12_SET_GENERIC_PIPELINE_DESC(Structure):
 class D3D12_SET_PROGRAM_DESC(Structure):
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PROGRAM_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         GenericPipeline: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SET_GENERIC_PIPELINE_DESC
         RaytracingPipeline: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SET_RAYTRACING_PIPELINE_DESC
@@ -3725,6 +3741,7 @@ class D3D12_SHADER_NODE(Structure):
     Shader: win32more.Windows.Win32.Foundation.PWSTR
     OverridesType: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_NODE_OVERRIDES_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pBroadcastingLaunchOverrides: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BROADCASTING_LAUNCH_OVERRIDES)
         pCoalescingLaunchOverrides: POINTER(win32more.Windows.Win32.Graphics.Direct3D12.D3D12_COALESCING_LAUNCH_OVERRIDES)
@@ -3735,6 +3752,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC(Structure):
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_SRV_DIMENSION
     Shader4ComponentMapping: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BUFFER_SRV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEX1D_SRV
@@ -4100,6 +4118,7 @@ class D3D12_TEXTURE_COPY_LOCATION(Structure):
     pResource: win32more.Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Type: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEXTURE_COPY_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         PlacedFootprint: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT
         SubresourceIndex: UInt32
@@ -4170,6 +4189,7 @@ class D3D12_UNORDERED_ACCESS_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_UAV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_BUFFER_UAV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_TEX1D_UAV
@@ -4186,6 +4206,7 @@ D3D12_VARIABLE_SHADING_RATE_TIER_2: win32more.Windows.Win32.Graphics.Direct3D12.
 class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA(Structure):
     Version: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DRED_VERSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Dred_1_0: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA
         Dred_1_1: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_DEVICE_REMOVED_EXTENDED_DATA1
@@ -4194,6 +4215,7 @@ class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA(Structure):
 class D3D12_VERSIONED_ROOT_SIGNATURE_DESC(Structure):
     Version: win32more.Windows.Win32.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Desc_1_0: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC
         Desc_1_1: win32more.Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC1

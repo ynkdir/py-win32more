@@ -2887,6 +2887,7 @@ class MENUITEMTEMPLATEHEADER(Structure):
     offset: UInt16
 class MENUTEMPLATEEX(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Menu: _Menu_e__Struct
         MenuEx: _MenuEx_e__Struct

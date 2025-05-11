@@ -100,6 +100,7 @@ class HELPER_ATTRIBUTE(Structure):
     pwszName: win32more.Windows.Win32.Foundation.PWSTR
     type: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Boolean: win32more.Windows.Win32.Foundation.BOOL
         Char: Byte
@@ -254,6 +255,7 @@ UIT_DUI: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.U
 class UiInfo(Structure):
     type: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.UI_INFO_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pwzNull: win32more.Windows.Win32.Foundation.PWSTR
         ShellInfo: win32more.Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.ShellCommandInfo

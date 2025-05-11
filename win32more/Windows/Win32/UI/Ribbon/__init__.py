@@ -142,6 +142,7 @@ UI_EVENTLOCATION_ContextPopup: win32more.Windows.Win32.UI.Ribbon.UI_EVENTLOCATIO
 class UI_EVENTPARAMS(Structure):
     EventType: win32more.Windows.Win32.UI.Ribbon.UI_EVENTTYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Modes: Int32
         Params: win32more.Windows.Win32.UI.Ribbon.UI_EVENTPARAMS_COMMAND

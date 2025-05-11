@@ -1661,10 +1661,12 @@ class PDH_COUNTER_INFO_A(Structure):
     Anonymous: _Anonymous_e__Union
     szExplainText: win32more.Windows.Win32.Foundation.PSTR
     DataBuffer: FlexibleArray[UInt32]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DataItemPath: win32more.Windows.Win32.System.Performance.PDH_DATA_ITEM_PATH_ELEMENTS_A
         CounterPath: win32more.Windows.Win32.System.Performance.PDH_COUNTER_PATH_ELEMENTS_A
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             szMachineName: win32more.Windows.Win32.Foundation.PSTR
             szObjectName: win32more.Windows.Win32.Foundation.PSTR
@@ -1685,10 +1687,12 @@ class PDH_COUNTER_INFO_W(Structure):
     Anonymous: _Anonymous_e__Union
     szExplainText: win32more.Windows.Win32.Foundation.PWSTR
     DataBuffer: FlexibleArray[UInt32]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DataItemPath: win32more.Windows.Win32.System.Performance.PDH_DATA_ITEM_PATH_ELEMENTS_W
         CounterPath: win32more.Windows.Win32.System.Performance.PDH_COUNTER_PATH_ELEMENTS_W
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             szMachineName: win32more.Windows.Win32.Foundation.PWSTR
             szObjectName: win32more.Windows.Win32.Foundation.PWSTR
@@ -1733,6 +1737,7 @@ PDH_FMT_LONG: win32more.Windows.Win32.System.Performance.PDH_FMT = 256
 class PDH_FMT_COUNTERVALUE(Structure):
     CStatus: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         longValue: Int32
         doubleValue: Double
@@ -1763,9 +1768,11 @@ class PDH_LOG_SERVICE_QUERY_INFO_A(Structure):
     dwFileType: UInt32
     dwReserved: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             PdlAutoNameInterval: UInt32
             PdlAutoNameUnits: UInt32
@@ -1796,9 +1803,11 @@ class PDH_LOG_SERVICE_QUERY_INFO_W(Structure):
     dwFileType: UInt32
     dwReserved: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             PdlAutoNameInterval: UInt32
             PdlAutoNameUnits: UInt32

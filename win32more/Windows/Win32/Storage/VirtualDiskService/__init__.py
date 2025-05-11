@@ -468,6 +468,7 @@ VDS_E_SHRINK_EXTEND_UNALIGNED: win32more.Windows.Win32.Foundation.HRESULT = -214
 class CHANGE_ATTRIBUTES_PARAMETERS(Structure):
     style: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         MbrPartInfo: _MbrPartInfo_e__Struct
         GptPartInfo: _GptPartInfo_e__Struct
@@ -478,6 +479,7 @@ class CHANGE_ATTRIBUTES_PARAMETERS(Structure):
 class CHANGE_PARTITION_TYPE_PARAMETERS(Structure):
     style: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         MbrPartInfo: _MbrPartInfo_e__Struct
         GptPartInfo: _GptPartInfo_e__Struct
@@ -488,6 +490,7 @@ class CHANGE_PARTITION_TYPE_PARAMETERS(Structure):
 class CREATE_PARTITION_PARAMETERS(Structure):
     style: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         MbrPartInfo: _MbrPartInfo_e__Struct
         GptPartInfo: _GptPartInfo_e__Struct
@@ -1297,12 +1300,14 @@ class VDS_ADVANCEDDISK_PROP(Structure):
     Anonymous: _Anonymous_e__Union
     ulFlags: UInt32
     dwDeviceType: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwSignature: UInt32
         DiskGuid: Guid
 class VDS_ASYNC_OUTPUT(Structure):
     type: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         cp: _cp
         cv: _cv
@@ -1459,6 +1464,7 @@ class VDS_DISK_PROP(Structure):
     pwszFriendlyName: win32more.Windows.Win32.Foundation.PWSTR
     pwszAdaptorName: win32more.Windows.Win32.Foundation.PWSTR
     pwszDevicePath: win32more.Windows.Win32.Foundation.PWSTR
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwSignature: UInt32
         DiskGuid: Guid
@@ -1484,6 +1490,7 @@ class VDS_DISK_PROP2(Structure):
     pwszAdaptorName: win32more.Windows.Win32.Foundation.PWSTR
     pwszDevicePath: win32more.Windows.Win32.Foundation.PWSTR
     pwszLocationPath: win32more.Windows.Win32.Foundation.PWSTR
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwSignature: UInt32
         DiskGuid: Guid
@@ -1974,6 +1981,7 @@ VDS_NF_PORT_REMOVED: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NF_P
 class VDS_NOTIFICATION(Structure):
     objectType: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_NOTIFICATION_TARGET_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Pack: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PACK_NOTIFICATION
         Disk: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_DISK_NOTIFICATION
@@ -2060,6 +2068,7 @@ class VDS_PARTITION_INFORMATION_EX(Structure):
     dwPartitionNumber: UInt32
     bRewritePartition: win32more.Windows.Win32.Foundation.BOOLEAN
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_MBR
         Gpt: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_GPT
@@ -2084,6 +2093,7 @@ class VDS_PARTITION_PROP(Structure):
     ullOffset: UInt64
     ullSize: UInt64
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_MBR
         Gpt: win32more.Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_GPT
@@ -2101,6 +2111,7 @@ class VDS_PATH_INFO(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         controllerPortId: Guid
         targetPortalId: Guid

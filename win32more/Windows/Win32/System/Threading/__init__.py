@@ -1351,9 +1351,11 @@ class UMS_SCHEDULER_STARTUP_INFO(Structure):
 class UMS_SYSTEM_THREAD_INFORMATION(Structure):
     UmsVersion: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ThreadUmsFlags: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             IsUmsSchedulerThread: Annotated[UInt32, NativeBitfieldAttribute(1)]
             IsUmsWorkerThread: Annotated[UInt32, NativeBitfieldAttribute(1)]

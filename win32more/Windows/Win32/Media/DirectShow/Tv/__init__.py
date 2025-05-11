@@ -384,6 +384,7 @@ ChannelIDTuningSpace = Guid('{cc829a2f-3365-463f-af13-81dbb6f3a555}')
 class ChannelInfo(Structure):
     lFrequency: Int32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DVB: _DVB_e__Struct
         DC: _DC_e__Struct
@@ -5322,6 +5323,7 @@ class KSM_BDA_PIN(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     Anonymous: _Anonymous_e__Union
     Reserved: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         PinId: UInt32
         PinType: UInt32
@@ -5329,6 +5331,7 @@ class KSM_BDA_PIN_PAIR(Structure):
     Method: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         InputPinId: UInt32
         InputPinType: UInt32
@@ -5609,10 +5612,12 @@ class MPEG2_FILTER2(Structure):
     Anonymous: _Anonymous_e__Union
     fSpecifyDvbEitOptions: win32more.Windows.Win32.Foundation.BOOL
     DvbEit: win32more.Windows.Win32.Media.DirectShow.Tv.DVB_EIT_FILTER_OPTIONS
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         bVersion1Bytes: Byte * 124
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             bVersionNumber: Byte
             wFilterSize: UInt16

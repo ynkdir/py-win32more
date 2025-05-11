@@ -253,6 +253,7 @@ class HTTP_CREATE_REQUEST_QUEUE_PROPERTY_INFO(Structure):
 class HTTP_DATA_CHUNK(Structure):
     DataChunkType: win32more.Windows.Win32.Networking.HttpServer.HTTP_DATA_CHUNK_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FromMemory: _FromMemory_e__Struct
         FromFileHandle: _FromFileHandle_e__Struct
@@ -806,6 +807,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX(Structure):
     ParamType: win32more.Windows.Win32.Networking.HttpServer.HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE
     Flags: UInt64
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Http2WindowSizeParam: win32more.Windows.Win32.Networking.HttpServer.HTTP2_WINDOW_SIZE_PARAM
         Http2SettingsLimitsParam: win32more.Windows.Win32.Networking.HttpServer.HTTP2_SETTINGS_LIMITS_PARAM

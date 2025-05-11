@@ -506,10 +506,12 @@ MagnetometerAccuracy_Approximate: win32more.Windows.Win32.Devices.Sensors.MAGNET
 MagnetometerAccuracy_High: win32more.Windows.Win32.Devices.Sensors.MAGNETOMETER_ACCURACY = 3
 class MATRIX3X3(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         M: Single * 9
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             A11: Single
             A12: Single

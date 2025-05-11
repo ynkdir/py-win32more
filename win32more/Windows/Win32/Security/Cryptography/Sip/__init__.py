@@ -76,6 +76,7 @@ class SIP_CAP_SET_V3(Structure):
     dwVersion: UInt32
     isMultiSign: win32more.Windows.Win32.Foundation.BOOL
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwFlags: UInt32
         dwReserved: UInt32
@@ -110,6 +111,7 @@ class SIP_SUBJECTINFO(Structure):
     dwUnionChoice: UInt32
     Anonymous: _Anonymous_e__Union
     pClientData: VoidPtr
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         psFlat: POINTER(win32more.Windows.Win32.Security.Cryptography.Sip.MS_ADDINFO_FLAT)
         psCatMember: POINTER(win32more.Windows.Win32.Security.Cryptography.Catalog.MS_ADDINFO_CATALOGMEMBER)

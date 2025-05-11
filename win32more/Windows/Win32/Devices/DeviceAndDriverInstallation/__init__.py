@@ -3514,6 +3514,7 @@ if ARCH in 'X64,ARM64':
         Anonymous: _Anonymous_e__Union
         FirstValidatedMajorVersion: UInt32
         FirstValidatedMinorVersion: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             Reserved: UInt16
             Flags: UInt16
@@ -3527,6 +3528,7 @@ elif ARCH in 'X86':
         Anonymous: _Anonymous_e__Union
         FirstValidatedMajorVersion: UInt32
         FirstValidatedMinorVersion: UInt32
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Union(Union):
             Reserved: UInt16
@@ -3545,6 +3547,7 @@ if ARCH in 'X64,ARM64':
         ProductType: Byte
         SuiteMask: UInt16
         BuildNumber: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             Reserved: UInt16
             Flags: UInt16
@@ -3561,6 +3564,7 @@ elif ARCH in 'X86':
         ProductType: Byte
         SuiteMask: UInt16
         BuildNumber: UInt32
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Union(Union):
             Reserved: UInt16

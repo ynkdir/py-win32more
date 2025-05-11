@@ -1481,6 +1481,7 @@ class JET_BKINFO(Structure):
     Anonymous: _Anonymous_e__Union
     genLow: UInt32
     genHigh: UInt32
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         logtimeMark: win32more.Windows.Win32.Storage.Jet.JET_LOGTIME
@@ -1494,15 +1495,18 @@ class JET_BKLOGTIME(Structure):
     bYear: win32more.Windows.Win32.Foundation.CHAR
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         bFiller1: win32more.Windows.Win32.Foundation.CHAR
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             fTimeIsUTC: Annotated[Byte, NativeBitfieldAttribute(1)]
             bMillisecondsLow: Annotated[Byte, NativeBitfieldAttribute(7)]
     class _Anonymous2_e__Union(Union):
         bFiller2: win32more.Windows.Win32.Foundation.CHAR
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             fOSSnapshot: Annotated[Byte, NativeBitfieldAttribute(1)]
             bMillisecondsHigh: Annotated[Byte, NativeBitfieldAttribute(3)]
@@ -1608,17 +1612,21 @@ JET_CONDITIONALCOLUMN = UnicodeAlias('JET_CONDITIONALCOLUMN_W')
 class JET_CONVERT_A(Structure):
     szOldDll: win32more.Windows.Win32.Foundation.PSTR
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         fFlags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             fSchemaChangesOnly: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class JET_CONVERT_W(Structure):
     szOldDll: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         fFlags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             fSchemaChangesOnly: Annotated[UInt32, NativeBitfieldAttribute(1)]
 JET_CONVERT = UnicodeAlias('JET_CONVERT_W')
@@ -1767,9 +1775,11 @@ class JET_DBINFOUPGRADE(Structure):
     cbFreeSpaceRequiredHigh: UInt32
     csecToUpgrade: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ulFlags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             fUpgradable: Annotated[UInt32, NativeBitfieldAttribute(1)]
             fAlreadyUpgraded: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1777,9 +1787,11 @@ class JET_ENUMCOLUMN(Structure):
     columnid: UInt32
     err: Int32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             cEnumColumnValue: UInt32
             rgEnumColumnValue: POINTER(win32more.Windows.Win32.Storage.Jet.JET_ENUMCOLUMNVALUE)
@@ -1840,6 +1852,7 @@ class JET_INDEXCREATE2_A(Structure):
     err: Int32
     cbKeyMost: UInt32
     pSpacehints: POINTER(win32more.Windows.Win32.Storage.Jet.JET_SPACEHINTS)
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         lcid: UInt32
         pidxunicode: POINTER(win32more.Windows.Win32.Storage.Jet.JET_UNICODEINDEX)
@@ -1860,6 +1873,7 @@ class JET_INDEXCREATE2_W(Structure):
     err: Int32
     cbKeyMost: UInt32
     pSpacehints: POINTER(win32more.Windows.Win32.Storage.Jet.JET_SPACEHINTS)
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         lcid: UInt32
         pidxunicode: POINTER(win32more.Windows.Win32.Storage.Jet.JET_UNICODEINDEX)
@@ -1881,6 +1895,7 @@ class JET_INDEXCREATE3_A(Structure):
     err: Int32
     cbKeyMost: UInt32
     pSpacehints: POINTER(win32more.Windows.Win32.Storage.Jet.JET_SPACEHINTS)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         cbVarSegMac: UInt32
         ptuplelimits: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TUPLELIMITS)
@@ -1898,6 +1913,7 @@ class JET_INDEXCREATE3_W(Structure):
     err: Int32
     cbKeyMost: UInt32
     pSpacehints: POINTER(win32more.Windows.Win32.Storage.Jet.JET_SPACEHINTS)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         cbVarSegMac: UInt32
         ptuplelimits: POINTER(win32more.Windows.Win32.Storage.Jet.JET_TUPLELIMITS)
@@ -1915,6 +1931,7 @@ class JET_INDEXCREATE_A(Structure):
     cConditionalColumn: UInt32
     err: Int32
     cbKeyMost: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         lcid: UInt32
         pidxunicode: POINTER(win32more.Windows.Win32.Storage.Jet.JET_UNICODEINDEX)
@@ -1934,6 +1951,7 @@ class JET_INDEXCREATE_W(Structure):
     cConditionalColumn: UInt32
     err: Int32
     cbKeyMost: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         lcid: UInt32
         pidxunicode: POINTER(win32more.Windows.Win32.Storage.Jet.JET_UNICODEINDEX)
@@ -2025,15 +2043,18 @@ class JET_LOGTIME(Structure):
     bYear: win32more.Windows.Win32.Foundation.CHAR
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         bFiller1: win32more.Windows.Win32.Foundation.CHAR
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             fTimeIsUTC: Annotated[Byte, NativeBitfieldAttribute(1)]
             bMillisecondsLow: Annotated[Byte, NativeBitfieldAttribute(7)]
     class _Anonymous2_e__Union(Union):
         bFiller2: win32more.Windows.Win32.Foundation.CHAR
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             fReserved: Annotated[Byte, NativeBitfieldAttribute(1)]
             bMillisecondsHigh: Annotated[Byte, NativeBitfieldAttribute(3)]

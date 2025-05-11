@@ -276,6 +276,7 @@ MOD_WIN: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.HOT_KEY_MODIFIERS = 8
 class INPUT(Structure):
     type: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.INPUT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         mi: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.MOUSEINPUT
         ki: win32more.Windows.Win32.UI.Input.KeyboardAndMouse.KEYBDINPUT

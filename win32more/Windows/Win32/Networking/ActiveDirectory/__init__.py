@@ -63,6 +63,7 @@ ADSTYPE_DN_WITH_STRING: win32more.Windows.Win32.Networking.ActiveDirectory.ADSTY
 class ADSVALUE(Structure):
     dwType: win32more.Windows.Win32.Networking.ActiveDirectory.ADSTYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DNString: POINTER(UInt16)
         CaseExactString: POINTER(UInt16)
@@ -3784,6 +3785,7 @@ class OPENQUERYWINDOW(Structure):
     clsidDefaultForm: Guid
     pPersistQuery: win32more.Windows.Win32.Networking.ActiveDirectory.IPersistQuery
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pFormParameters: VoidPtr
         ppbFormParameters: win32more.Windows.Win32.System.Com.StructuredStorage.IPropertyBag

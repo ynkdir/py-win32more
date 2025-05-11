@@ -1104,15 +1104,18 @@ class IP_ADAPTER_ADDRESSES_LH(Structure):
     Dhcpv6ClientDuidLength: UInt32
     Dhcpv6Iaid: UInt32
     FirstDnsSuffix: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SUFFIX)
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             IfIndex: UInt32
     class _Anonymous2_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             DdnsEnabled: Annotated[UInt32, NativeBitfieldAttribute(1)]
             RegisterAdapterSuffix: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1144,9 +1147,11 @@ class IP_ADAPTER_ADDRESSES_XP(Structure):
     Ipv6IfIndex: UInt32
     ZoneIndices: UInt32 * 16
     FirstPrefix: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             IfIndex: UInt32
@@ -1154,9 +1159,11 @@ class IP_ADAPTER_ANYCAST_ADDRESS_XP(Structure):
     Anonymous: _Anonymous_e__Union
     Next: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_ANYCAST_ADDRESS_XP)
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             Flags: UInt32
@@ -1164,9 +1171,11 @@ class IP_ADAPTER_DNS_SERVER_ADDRESS_XP(Structure):
     Anonymous: _Anonymous_e__Union
     Next: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_DNS_SERVER_ADDRESS_XP)
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             Reserved: UInt32
@@ -1177,9 +1186,11 @@ class IP_ADAPTER_GATEWAY_ADDRESS_LH(Structure):
     Anonymous: _Anonymous_e__Union
     Next: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_GATEWAY_ADDRESS_LH)
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             Reserved: UInt32
@@ -1209,9 +1220,11 @@ class IP_ADAPTER_MULTICAST_ADDRESS_XP(Structure):
     Anonymous: _Anonymous_e__Union
     Next: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_MULTICAST_ADDRESS_XP)
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             Flags: UInt32
@@ -1223,9 +1236,11 @@ class IP_ADAPTER_PREFIX_XP(Structure):
     Next: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_PREFIX_XP)
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
     PrefixLength: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             Flags: UInt32
@@ -1240,9 +1255,11 @@ class IP_ADAPTER_UNICAST_ADDRESS_LH(Structure):
     PreferredLifetime: UInt32
     LeaseLifetime: UInt32
     OnLinkPrefixLength: Byte
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             Flags: UInt32
@@ -1256,9 +1273,11 @@ class IP_ADAPTER_UNICAST_ADDRESS_XP(Structure):
     ValidLifetime: UInt32
     PreferredLifetime: UInt32
     LeaseLifetime: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             Flags: UInt32
@@ -1266,9 +1285,11 @@ class IP_ADAPTER_WINS_SERVER_ADDRESS_LH(Structure):
     Anonymous: _Anonymous_e__Union
     Next: POINTER(win32more.Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_WINS_SERVER_ADDRESS_LH)
     Address: win32more.Windows.Win32.Networking.WinSock.SOCKET_ADDRESS
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             Reserved: UInt32
@@ -1510,6 +1531,7 @@ class MIB_IPFORWARDROW(Structure):
     dwForwardMetric3: UInt32
     dwForwardMetric4: UInt32
     dwForwardMetric5: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         dwForwardType: UInt32
         ForwardType: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPFORWARD_TYPE
@@ -1697,6 +1719,7 @@ class MIB_IPNETROW_LH(Structure):
     bPhysAddr: Byte * 8
     dwAddr: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwType: UInt32
         Type: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPNET_TYPE
@@ -1718,9 +1741,11 @@ class MIB_IPNET_ROW2(Structure):
     State: win32more.Windows.Win32.Networking.WinSock.NL_NEIGHBOR_STATE
     Anonymous: _Anonymous_e__Union
     ReachabilityTime: _ReachabilityTime_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Flags: Byte
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             IsRouter: Annotated[Byte, NativeBitfieldAttribute(1)]
             IsUnreachable: Annotated[Byte, NativeBitfieldAttribute(1)]
@@ -1748,6 +1773,7 @@ class MIB_IPPATH_ROW(Structure):
     IsReachable: win32more.Windows.Win32.Foundation.BOOLEAN
     LinkTransmitSpeed: UInt64
     LinkReceiveSpeed: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         LastReachable: UInt32
         LastUnreachable: UInt32
@@ -1781,6 +1807,7 @@ class MIB_IPSTATS_LH(Structure):
     dwNumIf: UInt32
     dwNumAddr: UInt32
     dwNumRoutes: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwForwarding: UInt32
         Forwarding: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_IPSTATS_FORWARDING
@@ -1839,6 +1866,7 @@ MibInitialNotification: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_N
 class MIB_OPAQUE_INFO(Structure):
     dwId: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ullAlign: UInt64
         rgbyData: FlexibleArray[Byte]
@@ -1915,6 +1943,7 @@ class MIB_TCPROW_LH(Structure):
     dwLocalPort: UInt32
     dwRemoteAddr: UInt32
     dwRemotePort: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwState: UInt32
         State: win32more.Windows.Win32.NetworkManagement.IpHelper.MIB_TCP_STATE
@@ -1972,6 +2001,7 @@ class MIB_TCPSTATS_LH(Structure):
     dwInErrs: UInt32
     dwOutRsts: UInt32
     dwNumConns: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwRtoAlgorithm: UInt32
         RtoAlgorithm: win32more.Windows.Win32.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM
@@ -2032,9 +2062,11 @@ class MIB_UDP6ROW2(Structure):
     ucRemoteAddr: Byte * 16
     dwRemoteScopeId: UInt32
     dwRemotePort: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         dwFlags: Int32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             SpecificPortBind: Annotated[Int32, NativeBitfieldAttribute(1)]
 class MIB_UDP6ROW_OWNER_MODULE(Structure):
@@ -2045,9 +2077,11 @@ class MIB_UDP6ROW_OWNER_MODULE(Structure):
     liCreateTimestamp: Int64
     Anonymous: _Anonymous_e__Union
     OwningModuleInfo: UInt64 * 16
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         dwFlags: Int32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             SpecificPortBind: Annotated[Int32, NativeBitfieldAttribute(1)]
 class MIB_UDP6ROW_OWNER_PID(Structure):
@@ -2079,9 +2113,11 @@ class MIB_UDPROW2(Structure):
     OwningModuleInfo: UInt64 * 16
     dwRemoteAddr: UInt32
     dwRemotePort: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         dwFlags: Int32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             SpecificPortBind: Annotated[Int32, NativeBitfieldAttribute(1)]
 class MIB_UDPROW_OWNER_MODULE(Structure):
@@ -2091,9 +2127,11 @@ class MIB_UDPROW_OWNER_MODULE(Structure):
     liCreateTimestamp: Int64
     Anonymous: _Anonymous_e__Union
     OwningModuleInfo: UInt64 * 16
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         dwFlags: Int32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             SpecificPortBind: Annotated[Int32, NativeBitfieldAttribute(1)]
 class MIB_UDPROW_OWNER_PID(Structure):
@@ -2148,6 +2186,7 @@ NET_ADDRESS_IPV6: win32more.Windows.Win32.NetworkManagement.IpHelper.NET_ADDRESS
 class NET_ADDRESS_INFO(Structure):
     Format: win32more.Windows.Win32.NetworkManagement.IpHelper.NET_ADDRESS_FORMAT
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         NamedAddress: _NamedAddress_e__Struct
         Ipv4Address: win32more.Windows.Win32.Networking.WinSock.SOCKADDR_IN

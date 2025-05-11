@@ -267,6 +267,7 @@ class CACHE_RELATIONSHIP(Structure):
     Reserved: Byte * 18
     GroupCount: UInt16
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         GroupMask: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY
         GroupMasks: FlexibleArray[win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY]
@@ -446,6 +447,7 @@ class NUMA_NODE_RELATIONSHIP(Structure):
     Reserved: Byte * 18
     GroupCount: UInt16
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         GroupMask: win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY
         GroupMasks: FlexibleArray[win32more.Windows.Win32.System.SystemInformation.GROUP_AFFINITY]
@@ -652,6 +654,7 @@ class SYSTEM_CPU_SET_INFORMATION(Structure):
     Size: UInt32
     Type: win32more.Windows.Win32.System.SystemInformation.CPU_SET_INFORMATION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         CpuSet: _CpuSet_e__Struct
         class _CpuSet_e__Struct(Structure):
@@ -665,9 +668,11 @@ class SYSTEM_CPU_SET_INFORMATION(Structure):
             Anonymous1: _Anonymous1_e__Union
             Anonymous2: _Anonymous2_e__Union
             AllocationTag: UInt64
+            _anonymous_ = ('Anonymous1', 'Anonymous2')
             class _Anonymous1_e__Union(Union):
                 AllFlags: Byte
                 Anonymous: _Anonymous_e__Struct
+                _anonymous_ = ('Anonymous',)
                 class _Anonymous_e__Struct(Structure):
                     Parked: Annotated[Byte, NativeBitfieldAttribute(1)]
                     Allocated: Annotated[Byte, NativeBitfieldAttribute(1)]
@@ -688,9 +693,11 @@ class SYSTEM_INFO(Structure):
     dwAllocationGranularity: UInt32
     wProcessorLevel: UInt16
     wProcessorRevision: UInt16
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwOemId: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             wProcessorArchitecture: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_ARCHITECTURE
             wReserved: UInt16
@@ -698,6 +705,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION(Structure):
     ProcessorMask: UIntPtr
     Relationship: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ProcessorCore: _ProcessorCore_e__Struct
         NumaNode: _NumaNode_e__Struct
@@ -711,6 +719,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX(Structure):
     Relationship: win32more.Windows.Win32.System.SystemInformation.LOGICAL_PROCESSOR_RELATIONSHIP
     Size: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Processor: win32more.Windows.Win32.System.SystemInformation.PROCESSOR_RELATIONSHIP
         NumaNode: win32more.Windows.Win32.System.SystemInformation.NUMA_NODE_RELATIONSHIP

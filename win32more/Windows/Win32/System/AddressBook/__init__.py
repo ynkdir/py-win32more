@@ -442,6 +442,7 @@ class DTPAGE(Structure):
     lpszResourceName: POINTER(SByte)
     Anonymous: _Anonymous_e__Union
     lpctl: POINTER(win32more.Windows.Win32.System.AddressBook.DTCTL)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         lpszComponent: POINTER(SByte)
         ulItemID: UInt32

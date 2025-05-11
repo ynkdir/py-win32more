@@ -2055,6 +2055,7 @@ class NDIS_802_11_TEST(Structure):
     Length: UInt32
     Type: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         AuthenticationEvent: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_AUTHENTICATION_EVENT
         RssiTrigger: Int32
@@ -2165,6 +2166,7 @@ class NDIS_GUID(Structure):
     Anonymous: _Anonymous_e__Union
     Size: UInt32
     Flags: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Oid: UInt32
         Status: Int32

@@ -123,6 +123,7 @@ class NFC_LLCP_SOCKET_CONNECT_INFO(Structure):
     hSocket: IntPtr
     eConnectType: win32more.Windows.Win32.Devices.Nfc.NFC_LLCP_SOCKET_CONNECT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         bSAP: Byte
         sServiceName: win32more.Windows.Win32.Devices.Nfc.NFC_LLCP_SERVICE_NAME_ENTRY
@@ -237,6 +238,7 @@ class NFC_SE_ROUTING_TABLE(Structure):
 class NFC_SE_ROUTING_TABLE_ENTRY(Structure):
     eRoutingType: win32more.Windows.Win32.Devices.Nfc.SECURE_ELEMENT_ROUTING_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         TechRoutingInfo: win32more.Windows.Win32.Devices.Nfc.NFC_SE_TECH_ROUTING_INFO
         ProtoRoutingInfo: win32more.Windows.Win32.Devices.Nfc.NFC_SE_PROTO_ROUTING_INFO
@@ -339,6 +341,7 @@ class SECURE_ELEMENT_ROUTING_TABLE(Structure):
 class SECURE_ELEMENT_ROUTING_TABLE_ENTRY(Structure):
     eRoutingType: win32more.Windows.Win32.Devices.Nfc.SECURE_ELEMENT_ROUTING_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         TechRoutingInfo: win32more.Windows.Win32.Devices.Nfc.SECURE_ELEMENT_TECH_ROUTING_INFO
         ProtoRoutingInfo: win32more.Windows.Win32.Devices.Nfc.SECURE_ELEMENT_PROTO_ROUTING_INFO

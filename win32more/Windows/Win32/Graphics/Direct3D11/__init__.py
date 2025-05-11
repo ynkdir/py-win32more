@@ -733,6 +733,7 @@ class D3D11_BUFFER_DESC(Structure):
 class D3D11_BUFFER_RTV(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         FirstElement: UInt32
         ElementOffset: UInt32
@@ -742,6 +743,7 @@ class D3D11_BUFFER_RTV(Structure):
 class D3D11_BUFFER_SRV(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         FirstElement: UInt32
         ElementOffset: UInt32
@@ -891,6 +893,7 @@ class D3D11_DEPTH_STENCIL_VIEW_DESC(Structure):
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_DSV_DIMENSION
     Flags: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX1D_DSV
         Texture1DArray: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX1D_ARRAY_DSV
@@ -2735,6 +2738,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_RTV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_BUFFER_RTV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX1D_RTV
@@ -2748,6 +2752,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC1(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_RTV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_BUFFER_RTV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX1D_RTV
@@ -2873,6 +2878,7 @@ class D3D11_SHADER_RESOURCE_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D.D3D_SRV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_BUFFER_SRV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX1D_SRV
@@ -2889,6 +2895,7 @@ class D3D11_SHADER_RESOURCE_VIEW_DESC1(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D.D3D_SRV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_BUFFER_SRV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX1D_SRV
@@ -2905,6 +2912,7 @@ class D3D11_SHADER_TRACE_DESC(Structure):
     Type: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_SHADER_TYPE
     Flags: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         VertexShaderTraceDesc: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_VERTEX_SHADER_TRACE_DESC
         HullShaderTraceDesc: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_HULL_SHADER_TRACE_DESC
@@ -3249,6 +3257,7 @@ class D3D11_TRACE_REGISTER(Structure):
     Anonymous: _Anonymous_e__Union
     OperandIndex: Byte
     Flags: Byte
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Index1D: UInt16
         Index2D: UInt16 * 2
@@ -3336,6 +3345,7 @@ class D3D11_UNORDERED_ACCESS_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_UAV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_BUFFER_UAV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX1D_UAV
@@ -3347,6 +3357,7 @@ class D3D11_UNORDERED_ACCESS_VIEW_DESC1(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_UAV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_BUFFER_UAV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX1D_UAV
@@ -3366,6 +3377,7 @@ class D3D11_VERTEX_SHADER_TRACE_DESC(Structure):
     Invocation: UInt64
 class D3D11_VIDEO_COLOR(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         YCbCr: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_VIDEO_COLOR_YCbCrA
         RGBA: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_VIDEO_COLOR_RGBA
@@ -3492,6 +3504,7 @@ class D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC(Structure):
     DecodeProfile: Guid
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_VDOV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Texture2D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX2D_VDOV
 class D3D11_VIDEO_DECODER_SUB_SAMPLE_MAPPING_BLOCK(Structure):
@@ -3605,6 +3618,7 @@ class D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC(Structure):
     FourCC: UInt32
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_VPIV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Texture2D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX2D_VPIV
 D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS = Int32
@@ -3629,6 +3643,7 @@ D3D11_VIDEO_PROCESSOR_OUTPUT_RATE_CUSTOM: win32more.Windows.Win32.Graphics.Direc
 class D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC(Structure):
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_VPOV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Texture2D: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX2D_VPOV
         Texture2DArray: win32more.Windows.Win32.Graphics.Direct3D11.D3D11_TEX2D_ARRAY_VPOV

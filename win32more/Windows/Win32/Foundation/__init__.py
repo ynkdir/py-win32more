@@ -6799,15 +6799,18 @@ class DECIMAL(Structure):
     Anonymous1: _Anonymous1_e__Union
     Hi32: UInt32
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         signscale: UInt16
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             scale: Byte
             sign: Byte
     class _Anonymous2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Lo64: UInt64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Lo32: UInt32
             Mid32: UInt32

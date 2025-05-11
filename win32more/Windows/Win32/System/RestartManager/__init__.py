@@ -56,6 +56,7 @@ class RM_FILTER_INFO(Structure):
     FilterTrigger: win32more.Windows.Win32.System.RestartManager.RM_FILTER_TRIGGER
     cbNextOffset: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         strFilename: win32more.Windows.Win32.Foundation.PWSTR
         Process: win32more.Windows.Win32.System.RestartManager.RM_UNIQUE_PROCESS

@@ -119,10 +119,12 @@ class JOBOBJECT_BASIC_UI_RESTRICTIONS(Structure):
 class JOBOBJECT_CPU_RATE_CONTROL_INFORMATION(Structure):
     ControlFlags: win32more.Windows.Win32.System.JobObjects.JOB_OBJECT_CPU_RATE_CONTROL
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         CpuRate: UInt32
         Weight: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             MinRate: UInt16
             MaxRate: UInt16
@@ -230,6 +232,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2(Structure):
     IoRateControlToleranceLimit: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
     NetRateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
     NetRateControlToleranceLimit: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         JobHighMemoryLimit: UInt64
         JobMemoryLimit: UInt64
@@ -264,6 +267,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2(Structure):
     IoRateControlToleranceInterval: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
     NetRateControlTolerance: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
     NetRateControlToleranceInterval: win32more.Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         JobHighMemoryLimit: UInt64
         JobMemoryLimit: UInt64

@@ -708,9 +708,11 @@ class ETW_BUFFER_CALLBACK_INFORMATION(Structure):
 class ETW_BUFFER_CONTEXT(Structure):
     Anonymous: _Anonymous_e__Union
     LoggerId: UInt16
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ProcessorIndex: UInt16
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             ProcessorNumber: Byte
             Alignment: Byte
@@ -784,9 +786,11 @@ class EVENT_DATA_DESCRIPTOR(Structure):
     Ptr: UInt64
     Size: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Reserved: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Type: Byte
             Reserved1: Byte
@@ -875,9 +879,11 @@ class EVENT_HEADER(Structure):
     EventDescriptor: win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_DESCRIPTOR
     Anonymous: _Anonymous_e__Union
     ActivityId: Guid
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ProcessorTime: UInt64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             KernelTime: UInt32
             UserTime: UInt32
@@ -887,6 +893,7 @@ class EVENT_HEADER_EXTENDED_DATA_ITEM(Structure):
     Anonymous: _Anonymous_e__Struct
     DataSize: UInt16
     DataPtr: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Linkage: Annotated[UInt16, NativeBitfieldAttribute(1)]
         Reserved2: Annotated[UInt16, NativeBitfieldAttribute(15)]
@@ -908,9 +915,11 @@ class EVENT_INSTANCE_HEADER(Structure):
     ParentInstanceId: UInt32
     Anonymous3: _Anonymous3_e__Union
     ParentRegHandle: UInt64
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         FieldTypeFlags: UInt16
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             HeaderType: Byte
             MarkerFlags: Byte
@@ -925,6 +934,7 @@ class EVENT_INSTANCE_HEADER(Structure):
         Anonymous1: _Anonymous1_e__Struct
         ProcessorTime: UInt64
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             KernelTime: UInt32
             UserTime: UInt32
@@ -937,6 +947,7 @@ class EVENT_INSTANCE_INFO(Structure):
 class EVENT_MAP_ENTRY(Structure):
     OutputOffset: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Value: UInt32
         InputOffset: UInt32
@@ -946,6 +957,7 @@ class EVENT_MAP_INFO(Structure):
     EntryCount: UInt32
     Anonymous: _Anonymous_e__Union
     MapEntryArray: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_MAP_ENTRY]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         MapEntryValueType: win32more.Windows.Win32.System.Diagnostics.Etw.MAP_VALUETYPE
         FormatStringOffset: UInt32
@@ -956,6 +968,7 @@ class EVENT_PROPERTY_INFO(Structure):
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
     Anonymous4: _Anonymous4_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4')
     class _Anonymous1_e__Union(Union):
         nonStructType: _nonStructType
         structType: _structType
@@ -981,6 +994,7 @@ class EVENT_PROPERTY_INFO(Structure):
     class _Anonymous4_e__Union(Union):
         Reserved: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Tags: Annotated[UInt32, NativeBitfieldAttribute(28)]
 class EVENT_RECORD(Structure):
@@ -999,6 +1013,7 @@ class EVENT_TRACE(Structure):
     MofData: VoidPtr
     MofLength: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ClientContext: UInt32
         BufferContext: win32more.Windows.Win32.System.Diagnostics.Etw.ETW_BUFFER_CONTEXT
@@ -1044,9 +1059,11 @@ class EVENT_TRACE_HEADER(Structure):
     TimeStamp: Int64
     Anonymous3: _Anonymous3_e__Union
     Anonymous4: _Anonymous4_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4')
     class _Anonymous1_e__Union(Union):
         FieldTypeFlags: UInt16
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             HeaderType: Byte
             MarkerFlags: Byte
@@ -1064,6 +1081,7 @@ class EVENT_TRACE_HEADER(Structure):
         Anonymous1: _Anonymous1_e__Struct
         ProcessorTime: UInt64
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             KernelTime: UInt32
             UserTime: UInt32
@@ -1085,6 +1103,7 @@ class EVENT_TRACE_LOGFILEA(Structure):
     Anonymous2: _Anonymous2_e__Union
     IsKernelTrace: UInt32
     Context: VoidPtr
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         LogFileMode: UInt32
         ProcessTraceMode: UInt32
@@ -1106,6 +1125,7 @@ class EVENT_TRACE_LOGFILEW(Structure):
     Anonymous2: _Anonymous2_e__Union
     IsKernelTrace: UInt32
     Context: VoidPtr
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         LogFileMode: UInt32
         ProcessTraceMode: UInt32
@@ -1132,6 +1152,7 @@ class EVENT_TRACE_PROPERTIES(Structure):
     LoggerThreadId: win32more.Windows.Win32.Foundation.HANDLE
     LogFileNameOffset: UInt32
     LoggerNameOffset: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         AgeLimit: Int32
         FlushThreshold: Int32
@@ -1158,17 +1179,20 @@ class EVENT_TRACE_PROPERTIES_V2(Structure):
     FilterDescCount: UInt32
     FilterDesc: POINTER(win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_FILTER_DESCRIPTOR)
     Anonymous3: _Anonymous3_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         AgeLimit: Int32
         FlushThreshold: Int32
     class _Anonymous2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         V2Control: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             VersionNumber: Annotated[UInt32, NativeBitfieldAttribute(8)]
     class _Anonymous3_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         V2Options: UInt64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Wow: Annotated[UInt32, NativeBitfieldAttribute(1)]
             QpcDeltaTracking: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1377,6 +1401,7 @@ class TRACE_EVENT_INFO(Structure):
     TopLevelPropertyCount: UInt32
     Anonymous3: _Anonymous3_e__Union
     EventPropertyInfoArray: FlexibleArray[win32more.Windows.Win32.System.Diagnostics.Etw.EVENT_PROPERTY_INFO]
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         EventNameOffset: UInt32
         ActivityIDNameOffset: UInt32
@@ -1386,6 +1411,7 @@ class TRACE_EVENT_INFO(Structure):
     class _Anonymous3_e__Union(Union):
         Flags: win32more.Windows.Win32.System.Diagnostics.Etw.TEMPLATE_FLAGS
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Reserved: Annotated[UInt32, NativeBitfieldAttribute(4)]
             Tags: Annotated[UInt32, NativeBitfieldAttribute(28)]
@@ -1421,6 +1447,7 @@ class TRACE_LOGFILE_HEADER(Structure):
     StartTime: Int64
     ReservedFlags: UInt32
     BuffersLost: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Version: UInt32
         VersionDetail: _VersionDetail_e__Struct
@@ -1432,6 +1459,7 @@ class TRACE_LOGFILE_HEADER(Structure):
     class _Anonymous2_e__Union(Union):
         LogInstanceGuid: Guid
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             StartBuffers: UInt32
             PointerSize: UInt32
@@ -1456,6 +1484,7 @@ class TRACE_LOGFILE_HEADER32(Structure):
     StartTime: Int64
     ReservedFlags: UInt32
     BuffersLost: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Version: UInt32
         VersionDetail: _VersionDetail_e__Struct
@@ -1467,6 +1496,7 @@ class TRACE_LOGFILE_HEADER32(Structure):
     class _Anonymous2_e__Union(Union):
         LogInstanceGuid: Guid
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             StartBuffers: UInt32
             PointerSize: UInt32
@@ -1491,6 +1521,7 @@ class TRACE_LOGFILE_HEADER64(Structure):
     StartTime: Int64
     ReservedFlags: UInt32
     BuffersLost: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Version: UInt32
         VersionDetail: _VersionDetail_e__Struct
@@ -1502,6 +1533,7 @@ class TRACE_LOGFILE_HEADER64(Structure):
     class _Anonymous2_e__Union(Union):
         LogInstanceGuid: Guid
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             StartBuffers: UInt32
             PointerSize: UInt32
@@ -1585,6 +1617,7 @@ class WMIREGGUIDW(Structure):
     Flags: UInt32
     InstanceCount: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         InstanceNameList: UInt32
         BaseNameOffset: UInt32
@@ -1603,6 +1636,7 @@ class WNODE_ALL_DATA(Structure):
     InstanceCount: UInt32
     OffsetInstanceNameOffsets: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FixedInstanceSize: UInt32
         OffsetInstanceDataAndLength: win32more.Windows.Win32.System.Diagnostics.Etw.OFFSETINSTANCEDATAANDLENGTH * 1
@@ -1613,6 +1647,7 @@ class WNODE_EVENT_REFERENCE(Structure):
     TargetGuid: Guid
     TargetDataBlockSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         TargetInstanceIndex: UInt32
         TargetInstanceName: Char * 1
@@ -1624,9 +1659,11 @@ class WNODE_HEADER(Structure):
     Guid: Guid
     ClientContext: UInt32
     Flags: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         HistoricalContext: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Version: UInt32
             Linkage: UInt32

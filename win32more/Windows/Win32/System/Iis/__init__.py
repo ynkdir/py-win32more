@@ -1416,6 +1416,7 @@ class METADATA_GETALL_INTERNAL_RECORD(Structure):
     dwMDDataLen: UInt32
     Anonymous: _Anonymous_e__Union
     dwMDDataTag: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwMDDataOffset: UIntPtr
         pbMDData: POINTER(Byte)

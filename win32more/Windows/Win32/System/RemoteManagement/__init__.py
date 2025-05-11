@@ -805,6 +805,7 @@ WSMAN_API_HANDLE = IntPtr
 class WSMAN_AUTHENTICATION_CREDENTIALS(Structure):
     authenticationMechanism: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         userAccount: win32more.Windows.Win32.System.RemoteManagement.WSMAN_USERNAME_PASSWORD_CREDS
         certificateThumbprint: win32more.Windows.Win32.Foundation.PWSTR
@@ -829,6 +830,7 @@ class WSMAN_CREATE_SHELL_DATA(Structure):
 class WSMAN_DATA(Structure):
     type: win32more.Windows.Win32.System.RemoteManagement.WSManDataType
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         text: win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_TEXT
         binaryData: win32more.Windows.Win32.System.RemoteManagement.WSMAN_DATA_BINARY

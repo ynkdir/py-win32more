@@ -1081,9 +1081,11 @@ elif ARCH in 'X86':
         packageId: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_ID
 class PACKAGE_VERSION(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Version: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         _pack_ = 4
         class _Anonymous_e__Struct(Structure):
             Revision: UInt16

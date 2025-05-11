@@ -1014,6 +1014,7 @@ class DDBLTFX(Structure):
     Anonymous5: _Anonymous5_e__Union
     ddckDestColorkey: win32more.Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     ddckSrcColorkey: win32more.Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5')
     class _Anonymous1_e__Union(Union):
         dwZDestConst: UInt32
         lpDDSZBufferDest: win32more.Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface
@@ -1758,6 +1759,7 @@ class DDHAL_GETDRIVERSTATEDATA(Structure):
     lpdwStates: POINTER(UInt32)
     dwLength: UInt32
     ddRVal: win32more.Windows.Win32.Foundation.HRESULT
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwhContext: UIntPtr
 class DDHAL_GETFLIPSTATUSDATA(Structure):
@@ -2163,6 +2165,7 @@ class DDOVERLAYFX(Structure):
     dckSrcColorkey: win32more.Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     dwDDFX: UInt32
     dwFlags: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         dwAlphaDestConst: UInt32
         lpDDSAlphaDest: win32more.Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface
@@ -2178,6 +2181,7 @@ class DDPIXELFORMAT(Structure):
     Anonymous3: _Anonymous3_e__Union
     Anonymous4: _Anonymous4_e__Union
     Anonymous5: _Anonymous5_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5')
     class _Anonymous1_e__Union(Union):
         dwRGBBitCount: UInt32
         dwYUVBitCount: UInt32
@@ -2267,6 +2271,7 @@ class DDRAWI_DDRAWPALETTE_GBL(Structure):
     dwContentsStamp: UInt32
     dwSaveStamp: UInt32
     dwHandle: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwReserved1: UIntPtr
         hHELGDIPalette: win32more.Windows.Win32.Graphics.Gdi.HPALETTE
@@ -2299,6 +2304,7 @@ class DDRAWI_DDRAWSURFACE_GBL(Structure):
     dwUsageCount: UInt32
     dwReserved1: UIntPtr
     ddpfSurface: win32more.Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4')
     class _Anonymous1_e__Union(Union):
         lpRectList: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.ACCESSRECTLIST)
         dwBlockSizeY: UInt32
@@ -2332,6 +2338,7 @@ class DDRAWI_DDRAWSURFACE_GBL_MORE(Structure):
     dwDDRAWReserved1: UInt32
     dwDDRAWReserved2: UInt32
     fpAliasOfVidMem: UIntPtr
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwPhysicalPageTable: UInt32
         fpPhysicalVidMem: UIntPtr
@@ -2368,6 +2375,7 @@ class DDRAWI_DDRAWSURFACE_LCL(Structure):
     dwAlpha: UInt32
     lOverlayX: Int32
     lOverlayY: Int32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         lpDDPalette: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWPALETTE_INT)
         lp16DDPalette: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.DDRAWI_DDRAWPALETTE_INT)
@@ -2550,6 +2558,7 @@ class DDSCAPS2(Structure):
     dwCaps2: UInt32
     dwCaps3: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwCaps4: UInt32
         dwVolumeDepth: UInt32
@@ -2557,6 +2566,7 @@ class DDSCAPSEX(Structure):
     dwCaps2: UInt32
     dwCaps3: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwCaps4: UInt32
         dwVolumeDepth: UInt32
@@ -2618,6 +2628,7 @@ class DDSURFACEDESC(Structure):
     ddckCKSrcBlt: win32more.Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
     ddpfPixelFormat: win32more.Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
     ddsCaps: win32more.Windows.Win32.Graphics.DirectDraw.DDSCAPS
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         lPitch: Int32
         dwLinearSize: UInt32
@@ -2643,6 +2654,7 @@ class DDSURFACEDESC2(Structure):
     Anonymous5: _Anonymous5_e__Union
     ddsCaps: win32more.Windows.Win32.Graphics.DirectDraw.DDSCAPS2
     dwTextureStage: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5')
     class _Anonymous1_e__Union(Union):
         lPitch: Int32
         dwLinearSize: UInt32
@@ -2969,6 +2981,7 @@ class DD_GETDRIVERSTATEDATA(Structure):
     lpdwStates: POINTER(UInt32)
     dwLength: UInt32
     ddRVal: win32more.Windows.Win32.Foundation.HRESULT
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         lpDD: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.DD_DIRECTDRAW_GLOBAL)
         dwhContext: UIntPtr
@@ -3284,6 +3297,7 @@ class DD_SURFACE_GLOBAL(Structure):
     ddpfSurface: win32more.Windows.Win32.Graphics.DirectDraw.DDPIXELFORMAT
     fpHeapOffset: UIntPtr
     hCreatorProcess: win32more.Windows.Win32.Foundation.HANDLE
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         dwBlockSizeY: UInt32
         lSlicePitch: Int32
@@ -3307,6 +3321,7 @@ class DD_SURFACE_LOCAL(Structure):
     lpAttachList: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.DD_ATTACHLIST)
     lpAttachListFrom: POINTER(win32more.Windows.Win32.Graphics.DirectDraw.DD_ATTACHLIST)
     rcOverlaySrc: win32more.Windows.Win32.Foundation.RECT
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         ddckCKSrcOverlay: win32more.Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
         ddckCKSrcBlt: win32more.Windows.Win32.Graphics.DirectDraw.DDCOLORKEY
@@ -4513,6 +4528,7 @@ class PROCESS_LIST(Structure):
     dwZDepth: UInt32
 class SURFACEALIGNMENT(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Linear: _Linear_e__Struct
         Rectangular: _Rectangular_e__Struct
@@ -4533,6 +4549,7 @@ class VIDEOMEMORY(Structure):
     ddsCaps: win32more.Windows.Win32.Graphics.DirectDraw.DDSCAPS
     ddsCapsAlt: win32more.Windows.Win32.Graphics.DirectDraw.DDSCAPS
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         fpEnd: UIntPtr
         dwWidth: UInt32
@@ -4559,6 +4576,7 @@ class VIDMEM(Structure):
     ddsCaps: win32more.Windows.Win32.Graphics.DirectDraw.DDSCAPS
     ddsCapsAlt: win32more.Windows.Win32.Graphics.DirectDraw.DDSCAPS
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         fpEnd: UIntPtr
         dwWidth: UInt32

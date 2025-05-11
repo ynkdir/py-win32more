@@ -69,6 +69,7 @@ def PRJ_CANCEL_COMMAND_CB(callbackData: POINTER(win32more.Windows.Win32.Storage.
 class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS(Structure):
     CommandType: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_COMPLETE_COMMAND_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Notification: _Notification_e__Struct
         Enumeration: _Enumeration_e__Struct
@@ -86,6 +87,7 @@ class PRJ_EXTENDED_INFO(Structure):
     InfoType: win32more.Windows.Win32.Storage.ProjectedFileSystem.PRJ_EXT_INFO_TYPE
     NextInfoOffset: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Symlink: _Symlink_e__Struct
         class _Symlink_e__Struct(Structure):

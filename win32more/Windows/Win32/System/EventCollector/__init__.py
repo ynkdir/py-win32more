@@ -111,6 +111,7 @@ class EC_VARIANT(Structure):
     Anonymous: _Anonymous_e__Union
     Count: UInt32
     Type: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         BooleanVal: win32more.Windows.Win32.Foundation.BOOL
         UInt32Val: UInt32

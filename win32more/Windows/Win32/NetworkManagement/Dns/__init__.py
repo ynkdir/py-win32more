@@ -463,6 +463,7 @@ class DNS_CONNECTION_PROXY_INFO(Structure):
     Flags: UInt32
     Switch: win32more.Windows.Win32.NetworkManagement.Dns.DNS_CONNECTION_PROXY_INFO_SWITCH
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Config: _DNS_CONNECTION_PROXY_INFO_CONFIG
         Script: _DNS_CONNECTION_PROXY_INFO_SCRIPT
@@ -501,6 +502,7 @@ class DNS_CUSTOM_SERVER(Structure):
     ullFlags: UInt64
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         pwszTemplate: win32more.Windows.Win32.Foundation.PWSTR
     class _Anonymous2_e__Union(Union):
@@ -710,6 +712,7 @@ class DNS_QUERY_RAW_REQUEST(Structure):
     customServers: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_CUSTOM_SERVER)
     protocol: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         maxSa: win32more.Windows.Win32.Foundation.CHAR * 32
 class DNS_QUERY_RAW_RESULT(Structure):
@@ -723,6 +726,7 @@ class DNS_QUERY_RAW_RESULT(Structure):
     queryRecords: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_RECORDA)
     protocol: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         maxSa: win32more.Windows.Win32.Foundation.CHAR * 32
 class DNS_QUERY_REQUEST(Structure):
@@ -988,6 +992,7 @@ class DNS_SERVICE_BROWSE_REQUEST(Structure):
     QueryName: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
     pQueryContext: VoidPtr
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pBrowseCallback: win32more.Windows.Win32.NetworkManagement.Dns.PDNS_SERVICE_BROWSE_CALLBACK
         pBrowseCallbackV2: win32more.Windows.Win32.NetworkManagement.Dns.PDNS_QUERY_COMPLETION_ROUTINE
@@ -1080,6 +1085,7 @@ class DNS_SVCB_DATA(Structure):
 class DNS_SVCB_PARAM(Structure):
     wSvcParamKey: UInt16
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pIpv4Hints: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_IPV4)
         pIpv6Hints: POINTER(win32more.Windows.Win32.NetworkManagement.Dns.DNS_SVCB_PARAM_IPV6)

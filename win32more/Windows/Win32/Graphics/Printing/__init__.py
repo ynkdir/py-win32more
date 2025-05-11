@@ -2092,6 +2092,7 @@ class CPSUICBPARAM(Structure):
     Anonymous: _Anonymous_e__Union
     UserData: UIntPtr
     Result: UIntPtr
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         OldSel: Int32
         pOldSel: POINTER(SByte)
@@ -2138,6 +2139,7 @@ class DLGPAGE(Structure):
     pTabName: POINTER(SByte)
     IconID: UIntPtr
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DlgTemplateID: UInt16
         hDlgTemplate: win32more.Windows.Win32.Foundation.HANDLE
@@ -2463,6 +2465,7 @@ class EXTPUSH(Structure):
     IconID: UIntPtr
     Anonymous2: _Anonymous2_e__Union
     dwReserved: UIntPtr * 3
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         DlgProc: win32more.Windows.Win32.UI.WindowsAndMessaging.DLGPROC
         pfnCallBack: win32more.Windows.Win32.Foundation.FARPROC
@@ -3844,6 +3847,7 @@ class OPTITEM(Structure):
     wReserved: UInt16
     pOIExt: POINTER(win32more.Windows.Win32.Graphics.Printing.OIEXT)
     dwReserved: UIntPtr * 3
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Sel: Int32
         pSel: POINTER(SByte)
@@ -4451,6 +4455,7 @@ class PROPSHEETUI_INFO_HEADER(Structure):
     hWndParent: win32more.Windows.Win32.Foundation.HWND
     hInst: win32more.Windows.Win32.Foundation.HINSTANCE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         IconID: UIntPtr

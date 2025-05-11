@@ -150,6 +150,7 @@ def CreateInterfaceFnPtr(clsid: POINTER(Guid), riid: POINTER(Guid), ppInterface:
 class CustomDumpItem(Structure):
     itemKind: win32more.Windows.Win32.System.ClrHosting.ECustomDumpItemKind
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pReserved: UIntPtr
 EApiCategories = Int32

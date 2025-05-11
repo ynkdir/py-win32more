@@ -5099,6 +5099,7 @@ POINTER_FEEDBACK_NONE: win32more.Windows.Win32.UI.Controls.POINTER_FEEDBACK_MODE
 class POINTER_TYPE_INFO(Structure):
     type: win32more.Windows.Win32.UI.WindowsAndMessaging.POINTER_INPUT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         touchInfo: win32more.Windows.Win32.UI.Input.Pointer.POINTER_TOUCH_INFO
         penInfo: win32more.Windows.Win32.UI.Input.Pointer.POINTER_PEN_INFO
@@ -5158,6 +5159,7 @@ class PROPSHEETHEADERA_V1(Structure):
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
     pfnCallback: win32more.Windows.Win32.UI.Controls.PFNPROPSHEETCALLBACK
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
@@ -5181,6 +5183,7 @@ class PROPSHEETHEADERA_V2(Structure):
     Anonymous4: _Anonymous4_e__Union
     hplWatermark: win32more.Windows.Win32.Graphics.Gdi.HPALETTE
     Anonymous5: _Anonymous5_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5')
     class _Anonymous1_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PSTR
@@ -5207,6 +5210,7 @@ class PROPSHEETHEADERW_V1(Structure):
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
     pfnCallback: win32more.Windows.Win32.UI.Controls.PFNPROPSHEETCALLBACK
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
@@ -5230,6 +5234,7 @@ class PROPSHEETHEADERW_V2(Structure):
     Anonymous4: _Anonymous4_e__Union
     hplWatermark: win32more.Windows.Win32.Graphics.Gdi.HPALETTE
     Anonymous5: _Anonymous5_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5')
     class _Anonymous1_e__Union(Union):
         hIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
         pszIcon: win32more.Windows.Win32.Foundation.PWSTR
@@ -5260,6 +5265,7 @@ class PROPSHEETPAGEA(Structure):
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PSTR
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
     Anonymous3: _Anonymous3_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
@@ -5280,6 +5286,7 @@ class PROPSHEETPAGEA_V1(Structure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     pfnCallback: win32more.Windows.Win32.UI.Controls.LPFNPSPCALLBACKA
     pcRefParent: POINTER(UInt32)
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
@@ -5299,6 +5306,7 @@ class PROPSHEETPAGEA_V2(Structure):
     pcRefParent: POINTER(UInt32)
     pszHeaderTitle: win32more.Windows.Win32.Foundation.PSTR
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PSTR
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
@@ -5319,6 +5327,7 @@ class PROPSHEETPAGEA_V3(Structure):
     pszHeaderTitle: win32more.Windows.Win32.Foundation.PSTR
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PSTR
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
@@ -5340,6 +5349,7 @@ class PROPSHEETPAGEW(Structure):
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PWSTR
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
     Anonymous3: _Anonymous3_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
@@ -5361,6 +5371,7 @@ class PROPSHEETPAGEW_V1(Structure):
     lParam: win32more.Windows.Win32.Foundation.LPARAM
     pfnCallback: win32more.Windows.Win32.UI.Controls.LPFNPSPCALLBACKW
     pcRefParent: POINTER(UInt32)
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
@@ -5380,6 +5391,7 @@ class PROPSHEETPAGEW_V2(Structure):
     pcRefParent: POINTER(UInt32)
     pszHeaderTitle: win32more.Windows.Win32.Foundation.PWSTR
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PWSTR
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
@@ -5400,6 +5412,7 @@ class PROPSHEETPAGEW_V3(Structure):
     pszHeaderTitle: win32more.Windows.Win32.Foundation.PWSTR
     pszHeaderSubTitle: win32more.Windows.Win32.Foundation.PWSTR
     hActCtx: win32more.Windows.Win32.Foundation.HANDLE
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         pszTemplate: win32more.Windows.Win32.Foundation.PWSTR
         pResource: POINTER(win32more.Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE)
@@ -5731,6 +5744,7 @@ class TASKDIALOGCONFIG(Structure):
     pfCallback: win32more.Windows.Win32.UI.Controls.PFTASKDIALOGCALLBACK
     lpCallbackData: IntPtr
     cxWidth: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     _pack_ = 1
     class _Anonymous1_e__Union(Union):
         hMainIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
@@ -6556,6 +6570,7 @@ class TVINSERTSTRUCTA(Structure):
     hParent: win32more.Windows.Win32.UI.Controls.HTREEITEM
     hInsertAfter: win32more.Windows.Win32.UI.Controls.HTREEITEM
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         itemex: win32more.Windows.Win32.UI.Controls.TVITEMEXA
         item: win32more.Windows.Win32.UI.Controls.TVITEMA
@@ -6563,6 +6578,7 @@ class TVINSERTSTRUCTW(Structure):
     hParent: win32more.Windows.Win32.UI.Controls.HTREEITEM
     hInsertAfter: win32more.Windows.Win32.UI.Controls.HTREEITEM
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         itemex: win32more.Windows.Win32.UI.Controls.TVITEMEXW
         item: win32more.Windows.Win32.UI.Controls.TVITEMW

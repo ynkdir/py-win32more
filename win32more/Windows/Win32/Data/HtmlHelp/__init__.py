@@ -264,6 +264,7 @@ class CProperty(Structure):
     dwType: UInt32
     Anonymous: _Anonymous_e__Union
     fPersist: win32more.Windows.Win32.Foundation.BOOL
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         lpszwData: win32more.Windows.Win32.Foundation.PWSTR
         lpvData: VoidPtr

@@ -86,6 +86,7 @@ class GNSS_AGNSS_INJECT(Structure):
     InjectionDataSize: UInt32
     Unused: Byte * 512
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Time: win32more.Windows.Win32.Devices.Geolocation.GNSS_AGNSS_INJECTTIME
         Position: win32more.Windows.Win32.Devices.Geolocation.GNSS_AGNSS_INJECTPOSITION
@@ -134,6 +135,7 @@ class GNSS_BREADCRUMB_LIST(Structure):
     Version: UInt32
     NumCrumbs: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         v1: win32more.Windows.Win32.Devices.Geolocation.GNSS_BREADCRUMB_V1 * 50
 class GNSS_BREADCRUMB_V1(Structure):
@@ -246,6 +248,7 @@ class GNSS_EVENT(Structure):
     EventDataSize: UInt32
     Unused: Byte * 512
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FixData: win32more.Windows.Win32.Devices.Geolocation.GNSS_FIXDATA
         AgnssRequest: win32more.Windows.Win32.Devices.Geolocation.GNSS_AGNSS_REQUEST_PARAM
@@ -264,6 +267,7 @@ class GNSS_EVENT_2(Structure):
     EventDataSize: UInt32
     Unused: Byte * 512
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FixData: win32more.Windows.Win32.Devices.Geolocation.GNSS_FIXDATA
         FixData2: win32more.Windows.Win32.Devices.Geolocation.GNSS_FIXDATA_2
@@ -384,6 +388,7 @@ class GNSS_FIXSESSION_PARAM(Structure):
     FixLevelOfDetails: UInt32
     Anonymous: _Anonymous_e__Union
     Unused: Byte * 256
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         SingleShotParam: win32more.Windows.Win32.Devices.Geolocation.GNSS_SINGLESHOT_PARAM
         DistanceParam: win32more.Windows.Win32.Devices.Geolocation.GNSS_DISTANCETRACKING_PARAM
@@ -431,6 +436,7 @@ class GNSS_GEOREGION(Structure):
     Version: UInt32
     GeoRegionType: win32more.Windows.Win32.Devices.Geolocation.GNSS_GEOREGIONTYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Circle: win32more.Windows.Win32.Devices.Geolocation.GNSS_GEOREGION_CIRCLE
         Unused: Byte * 512
@@ -463,6 +469,7 @@ class GNSS_NI_REQUEST_PARAM(Structure):
     Anonymous: _Anonymous_e__Union
     ResponseTimeInSec: UInt32
     EmergencyLocation: win32more.Windows.Win32.Foundation.BOOL
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         SuplNiInfo: win32more.Windows.Win32.Devices.Geolocation.GNSS_SUPL_NI_INFO
         CpNiInfo: win32more.Windows.Win32.Devices.Geolocation.GNSS_CP_NI_INFO

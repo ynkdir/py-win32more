@@ -797,9 +797,11 @@ PROCESSIDTYPE_DWM: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCH
 PROCESSIDTYPE_HANDLE: win32more.Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE = 2
 class D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             ProtectionEnabled: Annotated[UInt32, NativeBitfieldAttribute(1)]
             OverlayOrFullscreenRequired: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1376,6 +1378,7 @@ class D3DHVERTEX(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         hx: Single
         dvHX: Single
@@ -1480,6 +1483,7 @@ D3DLIGHT_DIRECTIONAL: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTTYPE = 
 class D3DLINE(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         v1: UInt16
         wV1: UInt16
@@ -1502,6 +1506,7 @@ class D3DLVERTEX(Structure):
     Anonymous5: _Anonymous5_e__Union
     Anonymous6: _Anonymous6_e__Union
     Anonymous7: _Anonymous7_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5', 'Anonymous6', 'Anonymous7')
     class _Anonymous1_e__Union(Union):
         x: Single
         dvX: Single
@@ -1532,6 +1537,7 @@ class D3DMATERIAL(Structure):
     Anonymous5: _Anonymous5_e__Union
     hTexture: UInt32
     dwRampSize: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5')
     class _Anonymous1_e__Union(Union):
         diffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvDiffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
@@ -1553,6 +1559,7 @@ class D3DMATERIAL7(Structure):
     Anonymous3: _Anonymous3_e__Union
     Anonymous4: _Anonymous4_e__Union
     Anonymous5: _Anonymous5_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5')
     class _Anonymous1_e__Union(Union):
         diffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
         dcvDiffuse: win32more.Windows.Win32.Graphics.Direct3D9.D3DCOLORVALUE
@@ -2044,6 +2051,7 @@ class D3DSPAN(Structure):
 class D3DSTATE(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         dlstLightStateType: win32more.Windows.Win32.Graphics.Direct3D9.D3DLIGHTSTATETYPE
         drstRenderStateType: win32more.Windows.Win32.Graphics.Direct3D9.D3DRENDERSTATETYPE
@@ -2198,6 +2206,7 @@ class D3DTLVERTEX(Structure):
     Anonymous6: _Anonymous6_e__Union
     Anonymous7: _Anonymous7_e__Union
     Anonymous8: _Anonymous8_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5', 'Anonymous6', 'Anonymous7', 'Anonymous8')
     class _Anonymous1_e__Union(Union):
         sx: Single
         dvSX: Single
@@ -2252,6 +2261,7 @@ class D3DTRIANGLE(Structure):
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
     wFlags: UInt16
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         v1: UInt16
         wV1: UInt16
@@ -2275,6 +2285,7 @@ class D3DVERTEX(Structure):
     Anonymous6: _Anonymous6_e__Union
     Anonymous7: _Anonymous7_e__Union
     Anonymous8: _Anonymous8_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5', 'Anonymous6', 'Anonymous7', 'Anonymous8')
     class _Anonymous1_e__Union(Union):
         x: Single
         dvX: Single

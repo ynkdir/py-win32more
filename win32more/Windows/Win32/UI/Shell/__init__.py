@@ -9740,6 +9740,7 @@ if ARCH in 'X64,ARM64':
         dwInfoFlags: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
         guidItem: Guid
         hBalloonIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             uTimeout: UInt32
             uVersion: UInt32
@@ -9760,6 +9761,7 @@ elif ARCH in 'X86':
         dwInfoFlags: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
         guidItem: Guid
         hBalloonIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Union(Union):
             uTimeout: UInt32
@@ -9782,6 +9784,7 @@ if ARCH in 'X64,ARM64':
         dwInfoFlags: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
         guidItem: Guid
         hBalloonIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             uTimeout: UInt32
             uVersion: UInt32
@@ -9802,6 +9805,7 @@ elif ARCH in 'X86':
         dwInfoFlags: win32more.Windows.Win32.UI.Shell.NOTIFY_ICON_INFOTIP_FLAGS
         guidItem: Guid
         hBalloonIcon: win32more.Windows.Win32.UI.WindowsAndMessaging.HICON
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Union(Union):
             uTimeout: UInt32
@@ -10655,6 +10659,7 @@ if ARCH in 'X64,ARM64':
         dwHotKey: UInt32
         Anonymous: _Anonymous_e__Union
         hProcess: win32more.Windows.Win32.Foundation.HANDLE
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE
             hMonitor: win32more.Windows.Win32.Foundation.HANDLE
@@ -10675,6 +10680,7 @@ elif ARCH in 'X86':
         dwHotKey: UInt32
         Anonymous: _Anonymous_e__Union
         hProcess: win32more.Windows.Win32.Foundation.HANDLE
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Union(Union):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE
@@ -10697,6 +10703,7 @@ if ARCH in 'X64,ARM64':
         dwHotKey: UInt32
         Anonymous: _Anonymous_e__Union
         hProcess: win32more.Windows.Win32.Foundation.HANDLE
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE
             hMonitor: win32more.Windows.Win32.Foundation.HANDLE
@@ -10717,6 +10724,7 @@ elif ARCH in 'X86':
         dwHotKey: UInt32
         Anonymous: _Anonymous_e__Union
         hProcess: win32more.Windows.Win32.Foundation.HANDLE
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Union(Union):
             hIcon: win32more.Windows.Win32.Foundation.HANDLE

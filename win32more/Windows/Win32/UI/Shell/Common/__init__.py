@@ -102,6 +102,7 @@ class SHITEMID(Structure):
 class STRRET(Structure):
     uType: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pOleStr: win32more.Windows.Win32.Foundation.PWSTR
         uOffset: UInt32

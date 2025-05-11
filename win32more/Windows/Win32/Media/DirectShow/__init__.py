@@ -2328,6 +2328,7 @@ class DVD_TitleAttributes(Structure):
     MultichannelAudioAttributes: win32more.Windows.Win32.Media.DirectShow.DVD_MultichannelAudioAttributes * 8
     ulNumberOfSubpictureStreams: UInt32
     SubpictureAttributes: win32more.Windows.Win32.Media.DirectShow.DVD_SubpictureAttributes * 32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         AppMode: win32more.Windows.Win32.Media.DirectShow.DVD_TITLE_APPMODE
         TitleLength: win32more.Windows.Win32.Media.DirectShow.DVD_HMSF_TIMECODE
@@ -6965,9 +6966,11 @@ class REGFILTER2(Structure):
     dwVersion: UInt32
     dwMerit: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             cPins: UInt32
             rgPins: POINTER(win32more.Windows.Win32.Media.DirectShow.REGFILTERPINS)
@@ -7190,6 +7193,7 @@ class VIDEOINFO(Structure):
     AvgTimePerFrame: Int64
     bmiHeader: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         bmiColors: win32more.Windows.Win32.Graphics.Gdi.RGBQUAD * 256
         dwBitMasks: UInt32 * 3

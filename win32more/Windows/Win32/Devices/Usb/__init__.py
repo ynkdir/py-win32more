@@ -713,6 +713,7 @@ class OS_STRING(Structure):
     MicrosoftString: Char * 7
     bVendorCode: Byte
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         bPad: Byte
         bFlags: Byte
@@ -755,6 +756,7 @@ class RAW_ROOTPORT_PARAMETERS(Structure):
     _pack_ = 1
 class URB(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         UrbHeader: win32more.Windows.Win32.Devices.Usb._URB_HEADER
         UrbSelectInterface: win32more.Windows.Win32.Devices.Usb._URB_SELECT_INTERFACE
@@ -1024,6 +1026,7 @@ class USBUSER_SEND_RAW_COMMAND(Structure):
 class USB_20_PORT_CHANGE(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         ConnectStatusChange: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1036,6 +1039,7 @@ class USB_20_PORT_CHANGE(Union):
 class USB_20_PORT_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         CurrentConnectStatus: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1066,6 +1070,7 @@ class USB_30_HUB_DESCRIPTOR(Structure):
 class USB_30_PORT_CHANGE(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         ConnectStatusChange: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1080,6 +1085,7 @@ class USB_30_PORT_CHANGE(Union):
 class USB_30_PORT_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         CurrentConnectStatus: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1260,6 +1266,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET(Structure):
     class _wValue(Union):
         Anonymous: _Anonymous_e__Struct
         W: UInt16
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             LowByte: Byte
@@ -1267,6 +1274,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET(Structure):
     class _wIndex(Union):
         Anonymous: _Anonymous_e__Struct
         W: UInt16
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             LowByte: Byte
@@ -1298,6 +1306,7 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR(Structure):
     class _VconnPower_e__Union(Union):
         AsUshort: UInt16
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             VConnPowerNeededForFullFunctionality: Annotated[UInt16, NativeBitfieldAttribute(3)]
@@ -1328,6 +1337,7 @@ class USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR(Structure):
     class _bmAttributes_e__Union(Union):
         AsUlong: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             GetFirmwareImageHashSupport: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1350,6 +1360,7 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR(Structure):
     class _bmCapabilities_e__Union(Union):
         AsUshort: UInt16
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             BatteryCharging: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1380,6 +1391,7 @@ class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR(Structure):
     class _bmAttributes_e__Union(Union):
         AsUlong: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             Reserved1: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1400,6 +1412,7 @@ class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR(Structure):
 class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         SublinkSpeedAttrID: Annotated[UInt32, NativeBitfieldAttribute(4)]
@@ -1423,6 +1436,7 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR(Structure):
     class _bmAttributes_e__Union(Union):
         AsUlong: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             SublinkSpeedAttrCount: Annotated[UInt32, NativeBitfieldAttribute(5)]
@@ -1432,6 +1446,7 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR(Structure):
     class _wFunctionalitySupport_e__Union(Union):
         AsUshort: UInt16
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             SublinkSpeedAttrID: Annotated[UInt16, NativeBitfieldAttribute(4)]
@@ -1457,6 +1472,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR(Structure):
     class _bmAttributes_e__Union(Union):
         AsUlong: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             Reserved: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1515,6 +1531,7 @@ class USB_DEVICE_NODE_INFO(Structure):
     NodeType: win32more.Windows.Win32.Devices.Usb.USB_WMI_DEVICE_NODE_TYPE
     BusAddress: win32more.Windows.Win32.Devices.Usb.USB_TOPOLOGY_ADDRESS
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         UsbDeviceInfo: win32more.Windows.Win32.Devices.Usb.USB_DEVICE_INFO
@@ -1570,6 +1587,7 @@ class USB_DEVICE_STATE(Structure):
 class USB_DEVICE_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         SelfPowered: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1601,6 +1619,7 @@ class USB_ENDPOINT_DESCRIPTOR(Structure):
 class USB_ENDPOINT_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         Halt: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1622,6 +1641,7 @@ class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION(Structure):
 class USB_FUNCTION_SUSPEND_OPTIONS(Union):
     AsUchar: Byte
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         PowerState: Annotated[Byte, NativeBitfieldAttribute(1)]
         RemoteWakeEnabled: Annotated[Byte, NativeBitfieldAttribute(1)]
@@ -1641,6 +1661,7 @@ class USB_HIGH_SPEED_MAXPACKET(Union):
 class USB_HUB_30_PORT_REMOTE_WAKE_MASK(Union):
     AsUchar8: Byte
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         ConnectRemoteWakeEnable: Annotated[Byte, NativeBitfieldAttribute(1)]
         DisconnectRemoteWakeEnable: Annotated[Byte, NativeBitfieldAttribute(1)]
@@ -1654,6 +1675,7 @@ class USB_HUB_CAPABILITIES_EX(Structure):
 class USB_HUB_CAP_FLAGS(Union):
     ul: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         HubIsHighSpeedCapable: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1668,6 +1690,7 @@ class USB_HUB_CAP_FLAGS(Union):
 class USB_HUB_CHANGE(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         LocalPowerChange: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1730,6 +1753,7 @@ class USB_HUB_PORT_INFORMATION(Structure):
 class USB_HUB_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         LocalPowerLost: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1739,6 +1763,7 @@ class USB_HUB_STATUS(Union):
 class USB_HUB_STATUS_AND_CHANGE(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         HubStatus: win32more.Windows.Win32.Devices.Usb.USB_HUB_STATUS
@@ -1794,6 +1819,7 @@ class USB_INTERFACE_POWER_DESCRIPTOR(Structure):
 class USB_INTERFACE_STATUS(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         RemoteWakeupCapable: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1844,6 +1870,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX_V2(Structure):
 class USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS(Union):
     ul: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         DeviceIsOperatingAtSuperSpeedOrHigher: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1909,6 +1936,7 @@ class USB_PORT_CONNECTOR_PROPERTIES(Structure):
 class USB_PORT_EXT_STATUS(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         RxSublinkSpeedID: Annotated[UInt32, NativeBitfieldAttribute(4)]
@@ -1920,6 +1948,7 @@ class USB_PORT_EXT_STATUS(Union):
 class USB_PORT_EXT_STATUS_AND_CHANGE(Union):
     AsUlong64: UInt64
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         PortStatusChange: win32more.Windows.Win32.Devices.Usb.USB_PORT_STATUS_AND_CHANGE
@@ -1927,6 +1956,7 @@ class USB_PORT_EXT_STATUS_AND_CHANGE(Union):
 class USB_PORT_PROPERTIES(Union):
     ul: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         PortIsUserConnectable: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1943,6 +1973,7 @@ class USB_PORT_STATUS(Union):
 class USB_PORT_STATUS_AND_CHANGE(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         PortStatus: win32more.Windows.Win32.Devices.Usb.USB_PORT_STATUS
@@ -1962,6 +1993,7 @@ class USB_POWER_INFO(Structure):
 class USB_PROTOCOLS(Union):
     ul: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         Usb110: Annotated[UInt32, NativeBitfieldAttribute(1)]

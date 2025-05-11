@@ -788,6 +788,7 @@ class DS3DVECTOR(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         x: Single
         dvX: Single
@@ -1139,6 +1140,7 @@ class KSALLOCATOR_FRAMING(Structure):
     FrameSize: UInt32
     Anonymous2: _Anonymous2_e__Union
     Reserved: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         OptionsFlags: UInt32
         RequirementsFlags: UInt32
@@ -1233,6 +1235,7 @@ class KSAUDIOMODULE_DESCRIPTOR(Structure):
     Name: Char * 128
 class KSAUDIOMODULE_NOTIFICATION(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ProviderId: _ProviderId_e__Struct
         Alignment: Int64
@@ -1283,6 +1286,7 @@ class KSAUDIO_MIX_CAPS(Structure):
     Minimum: Int32
     Maximum: Int32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Reset: Int32
         Resolution: Int32
@@ -1585,9 +1589,11 @@ class KSCAMERA_PROFILE_PININFO(Structure):
     Anonymous: _Anonymous_e__Union
     MediaInfoCount: UInt32
     MediaInfos: POINTER(win32more.Windows.Win32.Media.KernelStreaming.KSCAMERA_PROFILE_MEDIAINFO)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Reserved: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             PinIndex: UInt16
             ProfileSensorType: UInt16
@@ -1644,6 +1650,7 @@ class KSCORRELATED_TIME(Structure):
 class KSDATAFORMAT(Union):
     Anonymous: _Anonymous_e__Struct
     Alignment: Int64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         FormatSize: UInt32
         Flags: UInt32
@@ -1788,6 +1795,7 @@ class KSDEVICE_PROFILE_INFO(Structure):
     Type: UInt32
     Size: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Camera: _Camera_e__Struct
         class _Camera_e__Struct(Structure):
@@ -1880,6 +1888,7 @@ class KSERROR(Structure):
 class KSEVENTDATA(Structure):
     NotificationType: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         EventHandle: _EventHandle_e__Struct
         SemaphoreHandle: _SemaphoreHandle_e__Struct
@@ -2006,9 +2015,11 @@ class KSGOP_USERDATA(Structure):
     l21Data: win32more.Windows.Win32.Foundation.CHAR * 3
 class KSIDENTIFIER(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Alignment: Int64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Set: Guid
             Id: UInt32
@@ -2456,6 +2467,7 @@ KSPROPERTY_BIBLIOGRAPHIC_SERIESSTATEMENTUNIFORMTITLE: win32more.Windows.Win32.Me
 class KSPROPERTY_BOUNDS_LONG(Union):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Struct
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Struct(Structure):
         SignedMinimum: Int32
         SignedMaximum: Int32
@@ -2465,6 +2477,7 @@ class KSPROPERTY_BOUNDS_LONG(Union):
 class KSPROPERTY_BOUNDS_LONGLONG(Union):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Struct
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Struct(Structure):
         SignedMinimum: Int64
         SignedMaximum: Int64
@@ -2564,6 +2577,7 @@ class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S(Structure):
     AutoExposureLock: win32more.Windows.Win32.Foundation.BOOL
     AutoWhitebalanceLock: win32more.Windows.Win32.Foundation.BOOL
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Capabilities: UInt32
         Configuration: UInt32
@@ -3328,6 +3342,7 @@ class KSP_PIN(Structure):
     Property: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     PinId: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Reserved: UInt32
         Flags: UInt32
@@ -3363,6 +3378,7 @@ class KSRELATIVEEVENT(Structure):
     Reserved: VoidPtr
     Event: win32more.Windows.Win32.Media.KernelStreaming.KSIDENTIFIER
     EventData: win32more.Windows.Win32.Media.KernelStreaming.KSEVENTDATA
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ObjectHandle: win32more.Windows.Win32.Foundation.HANDLE
         ObjectPointer: VoidPtr
@@ -3500,9 +3516,11 @@ class KSSTREAM_UVC_METADATATYPE_TIMESTAMP(Structure):
     Anonymous: _Anonymous_e__Union
     Reserved0: UInt16
     Reserved1: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         SCRToken: UInt16
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Counter: Annotated[UInt16, NativeBitfieldAttribute(11)]
             Reserved: Annotated[UInt16, NativeBitfieldAttribute(5)]
@@ -3849,12 +3867,14 @@ class KS_FRAME_INFO(Structure):
     Anonymous1: _Anonymous1_e__Union
     Reserved2: UInt32
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         lSurfacePitch: Int32
         Reserved1: UInt32
     class _Anonymous2_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         FrameCompletionNumber: UInt64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Reserved3: UInt32
             Reserved4: UInt32
@@ -3869,6 +3889,7 @@ class KS_FRAMING_ITEM(Structure):
     MemoryTypeWeight: UInt32
     PhysicalRange: win32more.Windows.Win32.Media.KernelStreaming.KS_FRAMING_RANGE
     FramingRange: win32more.Windows.Win32.Media.KernelStreaming.KS_FRAMING_RANGE_WEIGHTED
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FileAlignment: UInt32
         FramePitch: Int32
@@ -4051,6 +4072,7 @@ class KS_VIDEOINFO(Structure):
     AvgTimePerFrame: Int64
     bmiHeader: win32more.Windows.Win32.Media.KernelStreaming.KS_BITMAPINFOHEADER
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         bmiColors: win32more.Windows.Win32.Media.KernelStreaming.KS_RGBQUAD * 256
         dwBitMasks: UInt32 * 3
@@ -4075,6 +4097,7 @@ class KS_VIDEOINFOHEADER2(Structure):
     Anonymous: _Anonymous_e__Union
     dwReserved2: UInt32
     bmiHeader: win32more.Windows.Win32.Media.KernelStreaming.KS_BITMAPINFOHEADER
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwControlFlags: UInt32
         dwReserved1: UInt32

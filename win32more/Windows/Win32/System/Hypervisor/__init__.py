@@ -602,9 +602,11 @@ class VIRTUAL_PROCESSOR_REGISTER(Union):
             Limit: UInt32
             Selector: UInt16
             Anonymous: _Anonymous_e__Union
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Union(Union):
                 Attributes: UInt16
                 Anonymous: _Anonymous_e__Struct
+                _anonymous_ = ('Anonymous',)
                 class _Anonymous_e__Struct(Structure):
                     SegmentType: Annotated[UInt16, NativeBitfieldAttribute(4)]
                     NonSystemSegment: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -625,9 +627,11 @@ class VIRTUAL_PROCESSOR_REGISTER(Union):
             Reserved: Byte
             LastFpOp: UInt16
             Anonymous: _Anonymous_e__Union
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Union(Union):
                 LastFpRip: UInt64
                 Anonymous: _Anonymous_e__Struct
+                _anonymous_ = ('Anonymous',)
                 class _Anonymous_e__Struct(Structure):
                     LastFpEip: UInt32
                     LastFpCs: UInt16
@@ -635,9 +639,11 @@ class VIRTUAL_PROCESSOR_REGISTER(Union):
             Anonymous: _Anonymous_e__Union
             XmmStatusControl: UInt32
             XmmStatusControlMask: UInt32
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Union(Union):
                 LastFpRdp: UInt64
                 Anonymous: _Anonymous_e__Struct
+                _anonymous_ = ('Anonymous',)
                 class _Anonymous_e__Struct(Structure):
                     LastFpDp: UInt32
                     LastFpDs: UInt16
@@ -653,6 +659,7 @@ class VM_GENCOUNTER(Structure):
 class WHV_ACCESS_GPA_CONTROLS(Union):
     AsUINT64: UInt64
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         CacheType: win32more.Windows.Win32.System.Hypervisor.WHV_CACHE_TYPE
         Reserved: UInt32
@@ -668,6 +675,7 @@ class WHV_ADVISE_GPA_RANGE_POPULATE(Structure):
 class WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(Union):
     AsUINT32: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Prefetch: Annotated[UInt32, NativeBitfieldAttribute(1)]
         AvoidHardFaults: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -719,6 +727,7 @@ WHvCapabilityCodeProcessorPerfmonFeatures: win32more.Windows.Win32.System.Hyperv
 class WHV_CAPABILITY_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         PartialUnmap: Annotated[UInt64, NativeBitfieldAttribute(1)]
         LocalApicEmulation: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -783,6 +792,7 @@ def WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK(Context: VoidPtr, Regi
 class WHV_EMULATOR_STATUS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         EmulationSuccessful: Annotated[UInt32, NativeBitfieldAttribute(1)]
         InternalEmulationFailure: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -818,6 +828,7 @@ WHvX64ExceptionTypeSimdFloatingPointFault: win32more.Windows.Win32.System.Hyperv
 class WHV_EXTENDED_VM_EXITS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         X64CpuidExit: Annotated[UInt64, NativeBitfieldAttribute(1)]
         X64MsrExit: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -849,6 +860,7 @@ class WHV_HYPERCALL_CONTEXT(Structure):
 class WHV_INTERNAL_ACTIVITY_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         StartupSuspend: Annotated[UInt64, NativeBitfieldAttribute(1)]
         HaltSuspend: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -890,6 +902,7 @@ class WHV_MEMORY_ACCESS_CONTEXT(Structure):
 class WHV_MEMORY_ACCESS_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         AccessType: Annotated[UInt32, NativeBitfieldAttribute(2)]
         GpaUnmapped: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -915,6 +928,7 @@ class WHV_NOTIFICATION_PORT_PARAMETERS(Structure):
     NotificationPortType: win32more.Windows.Win32.System.Hypervisor.WHV_NOTIFICATION_PORT_TYPE
     Reserved: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Doorbell: win32more.Windows.Win32.System.Hypervisor.WHV_DOORBELL_MATCH_DATA
         Event: _Event_e__Struct
@@ -1014,6 +1028,7 @@ class WHV_PROCESSOR_EVENT_COUNTERS(Structure):
 class WHV_PROCESSOR_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Sse3Support: Annotated[UInt64, NativeBitfieldAttribute(1)]
         LahfSahfSupport: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1081,6 +1096,7 @@ class WHV_PROCESSOR_FEATURES(Union):
 class WHV_PROCESSOR_FEATURES1(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         ACountMCountSupport: Annotated[UInt64, NativeBitfieldAttribute(1)]
         TscInvariantSupport: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1109,9 +1125,11 @@ class WHV_PROCESSOR_FEATURES_BANKS(Structure):
     BanksCount: UInt32
     Reserved0: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUINT64: UInt64 * 2
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Bank0: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_FEATURES
             Bank1: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR_FEATURES1
@@ -1136,6 +1154,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS(Structure):
 class WHV_PROCESSOR_PERFMON_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         PmuSupport: Annotated[UInt64, NativeBitfieldAttribute(1)]
         LbrSupport: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1157,6 +1176,7 @@ WHvProcessorVendorHygon: win32more.Windows.Win32.System.Hypervisor.WHV_PROCESSOR
 class WHV_PROCESSOR_XSAVE_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         XsaveSupport: Annotated[UInt64, NativeBitfieldAttribute(1)]
         XsaveoptSupport: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1444,6 +1464,7 @@ class WHV_RUN_VP_EXIT_CONTEXT(Structure):
     Reserved: UInt32
     VpContext: win32more.Windows.Win32.System.Hypervisor.WHV_VP_EXIT_CONTEXT
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         MemoryAccess: win32more.Windows.Win32.System.Hypervisor.WHV_MEMORY_ACCESS_CONTEXT
         IoPortAccess: win32more.Windows.Win32.System.Hypervisor.WHV_X64_IO_PORT_ACCESS_CONTEXT
@@ -1483,6 +1504,7 @@ WHvRunVpExitReasonCanceled: win32more.Windows.Win32.System.Hypervisor.WHV_RUN_VP
 class WHV_SCHEDULER_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         CpuReserve: Annotated[UInt64, NativeBitfieldAttribute(1)]
         CpuCap: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1507,6 +1529,7 @@ class WHV_SYNIC_SINT_DELIVERABLE_CONTEXT(Structure):
 class WHV_SYNTHETIC_PROCESSOR_FEATURES(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         HypervisorPresent: Annotated[UInt64, NativeBitfieldAttribute(1)]
         Hv1: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1544,9 +1567,11 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(Structure):
     BanksCount: UInt32
     Reserved0: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUINT64: FlexibleArray[UInt64]
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Bank0: win32more.Windows.Win32.System.Hypervisor.WHV_SYNTHETIC_PROCESSOR_FEATURES
 WHV_TRANSLATE_GVA_FLAGS = Int32
@@ -1575,6 +1600,7 @@ class WHV_TRIGGER_PARAMETERS(Structure):
     TriggerType: win32more.Windows.Win32.System.Hypervisor.WHV_TRIGGER_TYPE
     Reserved: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Interrupt: win32more.Windows.Win32.System.Hypervisor.WHV_INTERRUPT_CONTROL
         SynicEvent: win32more.Windows.Win32.System.Hypervisor.WHV_SYNIC_EVENT_PARAMETERS
@@ -1591,6 +1617,7 @@ WHvTriggerTypeDeviceInterrupt: win32more.Windows.Win32.System.Hypervisor.WHV_TRI
 class WHV_UINT128(Union):
     Anonymous: _Anonymous_e__Struct
     Dword: UInt32 * 4
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Low64: UInt64
         High64: UInt64
@@ -1598,6 +1625,7 @@ class WHV_VIRTUAL_PROCESSOR_PROPERTY(Structure):
     PropertyCode: win32more.Windows.Win32.System.Hypervisor.WHV_VIRTUAL_PROCESSOR_PROPERTY_CODE
     Reserved: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         NumaNode: UInt16
         Padding: UInt64
@@ -1613,6 +1641,7 @@ class WHV_VPCI_DEVICE_NOTIFICATION(Structure):
     NotificationType: win32more.Windows.Win32.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE
     Reserved1: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Reserved2: UInt64
 WHV_VPCI_DEVICE_NOTIFICATION_TYPE = Int32
@@ -1675,6 +1704,7 @@ class WHV_VP_EXCEPTION_CONTEXT(Structure):
 class WHV_VP_EXCEPTION_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         ErrorCodeValid: Annotated[UInt32, NativeBitfieldAttribute(1)]
         SoftwareException: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -1733,6 +1763,7 @@ WHvX64CpuidResult2FlagVpSpecific: win32more.Windows.Win32.System.Hypervisor.WHV_
 class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         NmiNotification: Annotated[UInt64, NativeBitfieldAttribute(1)]
         InterruptNotification: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1742,6 +1773,7 @@ class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(Union):
 class WHV_X64_FP_CONTROL_STATUS_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         FpControl: UInt16
         FpStatus: UInt16
@@ -1749,9 +1781,11 @@ class WHV_X64_FP_CONTROL_STATUS_REGISTER(Union):
         Reserved: Byte
         LastFpOp: UInt16
         Anonymous: _Anonymous_e__Union
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             LastFpRip: UInt64
             Anonymous: _Anonymous_e__Struct
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Struct(Structure):
                 LastFpEip: UInt32
                 LastFpCs: UInt16
@@ -1759,6 +1793,7 @@ class WHV_X64_FP_CONTROL_STATUS_REGISTER(Union):
 class WHV_X64_FP_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Mantissa: UInt64
         BiasedExponent: Annotated[UInt64, NativeBitfieldAttribute(15)]
@@ -1769,6 +1804,7 @@ class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(Structure):
 class WHV_X64_INTERRUPT_STATE_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         InterruptShadow: Annotated[UInt64, NativeBitfieldAttribute(1)]
         NmiMasked: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1789,6 +1825,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT(Structure):
 class WHV_X64_IO_PORT_ACCESS_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         IsWrite: Annotated[UInt32, NativeBitfieldAttribute(1)]
         AccessSize: Annotated[UInt32, NativeBitfieldAttribute(3)]
@@ -1807,12 +1844,14 @@ class WHV_X64_MSR_ACCESS_CONTEXT(Structure):
 class WHV_X64_MSR_ACCESS_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT32: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         IsWrite: Annotated[UInt32, NativeBitfieldAttribute(1)]
         Reserved: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class WHV_X64_MSR_EXIT_BITMAP(Union):
     AsUINT64: UInt64
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         UnhandledMsrs: Annotated[UInt64, NativeBitfieldAttribute(1)]
         TscMsrWrite: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1824,6 +1863,7 @@ class WHV_X64_MSR_EXIT_BITMAP(Union):
 class WHV_X64_PENDING_DEBUG_EXCEPTION(Union):
     AsUINT64: UInt64
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Breakpoint0: Annotated[UInt64, NativeBitfieldAttribute(1)]
         Breakpoint1: Annotated[UInt64, NativeBitfieldAttribute(1)]
@@ -1837,6 +1877,7 @@ WHvX64PendingEventExtInt: win32more.Windows.Win32.System.Hypervisor.WHV_X64_PEND
 class WHV_X64_PENDING_EXCEPTION_EVENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         EventPending: Annotated[UInt32, NativeBitfieldAttribute(1)]
         EventType: Annotated[UInt32, NativeBitfieldAttribute(3)]
@@ -1849,6 +1890,7 @@ class WHV_X64_PENDING_EXCEPTION_EVENT(Union):
 class WHV_X64_PENDING_EXT_INT_EVENT(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         EventPending: Annotated[UInt64, NativeBitfieldAttribute(1)]
         EventType: Annotated[UInt64, NativeBitfieldAttribute(3)]
@@ -1859,6 +1901,7 @@ class WHV_X64_PENDING_EXT_INT_EVENT(Union):
 class WHV_X64_PENDING_INTERRUPTION_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         InterruptionPending: Annotated[UInt32, NativeBitfieldAttribute(1)]
         InterruptionType: Annotated[UInt32, NativeBitfieldAttribute(3)]
@@ -1881,6 +1924,7 @@ class WHV_X64_RDTSC_CONTEXT(Structure):
 class WHV_X64_RDTSC_INFO(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         IsRdtscp: Annotated[UInt64, NativeBitfieldAttribute(1)]
         Reserved: Annotated[UInt64, NativeBitfieldAttribute(63)]
@@ -1889,9 +1933,11 @@ class WHV_X64_SEGMENT_REGISTER(Structure):
     Limit: UInt32
     Selector: UInt16
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Attributes: UInt16
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             SegmentType: Annotated[UInt16, NativeBitfieldAttribute(4)]
             NonSystemSegment: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1916,6 +1962,7 @@ class WHV_X64_UNSUPPORTED_FEATURE_CONTEXT(Structure):
 class WHV_X64_VP_EXECUTION_STATE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT16: UInt16
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Cpl: Annotated[UInt16, NativeBitfieldAttribute(2)]
         Cr0Pe: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -1929,13 +1976,16 @@ class WHV_X64_VP_EXECUTION_STATE(Union):
 class WHV_X64_XMM_CONTROL_STATUS_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT128: win32more.Windows.Win32.System.Hypervisor.WHV_UINT128
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Anonymous: _Anonymous_e__Union
         XmmStatusControl: UInt32
         XmmStatusControlMask: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             LastFpRdp: UInt64
             Anonymous: _Anonymous_e__Struct
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Struct(Structure):
                 LastFpDp: UInt32
                 LastFpDs: UInt16

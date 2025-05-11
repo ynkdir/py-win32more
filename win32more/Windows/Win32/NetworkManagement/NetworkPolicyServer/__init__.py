@@ -584,6 +584,7 @@ class RADIUS_ATTRIBUTE(Structure):
     fDataType: win32more.Windows.Win32.NetworkManagement.NetworkPolicyServer.RADIUS_DATA_TYPE
     cbDataLength: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwValue: UInt32
         lpValue: POINTER(Byte)

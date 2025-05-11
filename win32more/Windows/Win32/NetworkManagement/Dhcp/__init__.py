@@ -916,6 +916,7 @@ class DHCP_ATTRIB(Structure):
     DhcpAttribId: UInt32
     DhcpAttribType: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DhcpAttribBool: win32more.Windows.Win32.Foundation.BOOL
         DhcpAttribUlong: UInt32

@@ -891,6 +891,7 @@ class MMC_TASK(Structure):
     szHelpString: win32more.Windows.Win32.Foundation.PWSTR
     eActionType: win32more.Windows.Win32.System.Mmc.MMC_ACTION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         nCommandID: IntPtr
         szActionURL: win32more.Windows.Win32.Foundation.PWSTR
@@ -901,6 +902,7 @@ class MMC_TASK_DISPLAY_BITMAP(Structure):
 class MMC_TASK_DISPLAY_OBJECT(Structure):
     eDisplayType: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         uBitmap: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_BITMAP
         uSymbol: win32more.Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_SYMBOL
@@ -1009,10 +1011,12 @@ class RESULT_VIEW_TYPE_INFO(Structure):
     eViewType: win32more.Windows.Win32.System.Mmc.MMC_VIEW_TYPE
     dwMiscOptions: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwListOptions: UInt32
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             dwHTMLOptions: UInt32
             pstrURL: win32more.Windows.Win32.Foundation.PWSTR

@@ -1665,6 +1665,7 @@ class CLRES_FUNCTION_TABLE(Structure):
     TableSize: UInt32
     Version: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         V1Functions: win32more.Windows.Win32.Networking.Clustering.CLRES_V1_FUNCTIONS
         V2Functions: win32more.Windows.Win32.Networking.Clustering.CLRES_V2_FUNCTIONS
@@ -2184,12 +2185,14 @@ class CLUSPROP_SCSI_ADDRESS(Structure):
 class CLUSPROP_SECURITY_DESCRIPTOR(Structure):
     Base: win32more.Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         sd: win32more.Windows.Win32.Security.SECURITY_DESCRIPTOR_RELATIVE
         rgbSecurityDescriptor: Byte * 1
 class CLUSPROP_SYNTAX(Union):
     dw: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         wFormat: UInt16
         wType: UInt16
@@ -2814,6 +2817,7 @@ ClusterSharedVolumeRenameInputTypeVolumeGuid: win32more.Windows.Win32.Networking
 class CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME(Structure):
     InputType: win32more.Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         VolumeOffset: UInt64
         VolumeId: Char * 260
@@ -2998,12 +3002,15 @@ class CLUS_PROVIDER_STATE_CHANGE_INFO(Structure):
     szProviderId: FlexibleArray[Char]
 class CLUS_RESOURCE_CLASS_INFO(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         li: UInt64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Anonymous: _Anonymous_e__Union
             SubClass: UInt32
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Union(Union):
                 dw: UInt32
                 rc: win32more.Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CLASS
@@ -3017,9 +3024,11 @@ CLUS_RESSUBCLASS_STORAGE_DISK: win32more.Windows.Win32.Networking.Clustering.CLU
 CLUS_RESSUBCLASS_STORAGE_REPLICATION: win32more.Windows.Win32.Networking.Clustering.CLUS_RESSUBCLASS_STORAGE = 268435456
 class CLUS_SCSI_ADDRESS(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         dw: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             PortNumber: Byte
             PathId: Byte
@@ -4925,6 +4934,7 @@ class RESUTIL_PROPERTY_ITEM(Structure):
     Maximum: UInt32
     Flags: UInt32
     Offset: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DefaultPtr: UIntPtr
         Default: UInt32

@@ -1366,6 +1366,7 @@ class IMAGE_DELAYLOAD_DESCRIPTOR(Structure):
     class _Attributes_e__Union(Union):
         AllAttributes: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             RvaBased: Annotated[UInt32, NativeBitfieldAttribute(1)]
             ReservedAttributes: Annotated[UInt32, NativeBitfieldAttribute(31)]
@@ -1444,6 +1445,7 @@ class LDR_DATA_TABLE_ENTRY(Structure):
     Reserved5: VoidPtr * 3
     Anonymous: _Anonymous_e__Union
     TimeDateStamp: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         CheckSum: UInt32
         Reserved6: VoidPtr
@@ -1644,6 +1646,7 @@ class TDI_TL_IO_CONTROL_ENDPOINT(Structure):
     InputBufferLength: UInt32
     OutputBuffer: VoidPtr
     OutputBufferLength: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         IoControlCode: UInt32
         OptionName: UInt32

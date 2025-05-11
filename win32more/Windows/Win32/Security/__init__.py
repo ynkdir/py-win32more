@@ -526,6 +526,7 @@ class GENERIC_MAPPING(Structure):
     GenericAll: UInt32
 class LLFILETIME(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ll: Int64
         ft: win32more.Windows.Win32.Foundation.FILETIME

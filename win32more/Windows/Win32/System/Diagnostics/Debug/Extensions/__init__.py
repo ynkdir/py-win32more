@@ -2048,9 +2048,11 @@ class DEBUG_POOL_DATA(Structure):
     Anonymous: _Anonymous_e__Union
     Reserved2: UInt64 * 4
     PoolTagDescription: win32more.Windows.Win32.Foundation.CHAR * 64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsUlong: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Free: Annotated[UInt32, NativeBitfieldAttribute(1)]
             LargePool: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -2236,6 +2238,7 @@ class DEBUG_VALUE(Structure):
     Anonymous: _Anonymous_e__Union
     TailOfRawBytes: UInt32
     Type: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         I8: Byte
         I16: UInt16
@@ -2255,6 +2258,7 @@ class DEBUG_VALUE(Structure):
         I64Parts32: _I64Parts32_e__Struct
         F128Parts64: _F128Parts64_e__Struct
         RawBytes: Byte * 24
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             I64: UInt64
             Nat: win32more.Windows.Win32.Foundation.BOOL
@@ -2434,6 +2438,7 @@ class FIELD_INFO(Structure):
     fConstant: Annotated[UInt32, NativeBitfieldAttribute(1)]
     fStatic: Annotated[UInt32, NativeBitfieldAttribute(1)]
     Reserved: Annotated[UInt32, NativeBitfieldAttribute(26)]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         fieldCallBack: VoidPtr
         pBuffer: VoidPtr
@@ -8604,6 +8609,7 @@ class IModelPropertyAccessor(ComPtr):
 class INLINE_FRAME_CONTEXT(Union):
     ContextValue: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         FrameId: Byte
         FrameType: Byte
@@ -9017,6 +9023,7 @@ class OS_INFO_v1(Structure):
     Language: win32more.Windows.Win32.Foundation.CHAR * 30
     OsString: win32more.Windows.Win32.Foundation.CHAR * 64
     ServicePackString: win32more.Windows.Win32.Foundation.CHAR * 64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Version: _Version_e__Struct
         Ver64: UInt64
@@ -9303,6 +9310,7 @@ class SYM_DUMP_PARAM(Structure):
     fStruct: Annotated[UInt32, NativeBitfieldAttribute(1)]
     fConstant: Annotated[UInt32, NativeBitfieldAttribute(1)]
     Reserved: Annotated[UInt32, NativeBitfieldAttribute(27)]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Context: VoidPtr
         pBuffer: VoidPtr

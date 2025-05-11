@@ -62,9 +62,11 @@ D3D_TEXTURE_LAYOUT_ROW_MAJOR: Guid = Guid('{b5dc234f-72bb-4bec-9705-8cf258df6b6c
 D3D_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE: Guid = Guid('{4c0f29e3-3f5f-4d35-84c9-bc0983b62c28}')
 class D3DMATRIX(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         m: Single * 16
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             _11: Single
             _12: Single

@@ -188,6 +188,7 @@ class INET_FIREWALL_AC_CHANGE(Structure):
     userSid: POINTER(win32more.Windows.Win32.Security.SID)
     displayName: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         capabilities: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_CAPABILITIES
         binaries: win32more.Windows.Win32.NetworkManagement.WindowsFirewall.INET_FIREWALL_AC_BINARIES

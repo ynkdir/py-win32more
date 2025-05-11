@@ -174,6 +174,7 @@ class TIMECAPS(Structure):
 class TIMECODE(Union):
     Anonymous: _Anonymous_e__Struct
     qw: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         wFrameRate: UInt16
         wFrameFract: UInt16

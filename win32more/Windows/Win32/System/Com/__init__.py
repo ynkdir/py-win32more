@@ -581,6 +581,7 @@ CWMO_DISPATCH_WINDOW_MESSAGES: win32more.Windows.Win32.System.Com.CWMO_FLAGS = 2
 class CY(Union):
     Anonymous: _Anonymous_e__Struct
     int64: Int64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Lo: UInt32
         Hi: Int32
@@ -639,6 +640,7 @@ class DWORD_SIZEDARR(Structure):
 class ELEMDESC(Structure):
     tdesc: win32more.Windows.Win32.System.Com.TYPEDESC
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         idldesc: win32more.Windows.Win32.System.Com.IDLDESC
         paramdesc: win32more.Windows.Win32.System.Ole.PARAMDESC
@@ -2245,6 +2247,7 @@ class TYPEATTR(Structure):
 class TYPEDESC(Structure):
     Anonymous: _Anonymous_e__Union
     vt: win32more.Windows.Win32.System.Variant.VARENUM
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         lptdesc: POINTER(win32more.Windows.Win32.System.Com.TYPEDESC)
         lpadesc: POINTER(win32more.Windows.Win32.System.Ole.ARRAYDESC)
@@ -2317,6 +2320,7 @@ class VARDESC(Structure):
     elemdescVar: win32more.Windows.Win32.System.Com.ELEMDESC
     wVarFlags: win32more.Windows.Win32.System.Com.VARFLAGS
     varkind: win32more.Windows.Win32.System.Com.VARKIND
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         oInst: UInt32
         lpvarValue: POINTER(win32more.Windows.Win32.System.Variant.VARIANT)

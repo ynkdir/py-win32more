@@ -3855,6 +3855,7 @@ class D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG(Structure):
 class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pH264Config: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264)
         pHEVCConfig: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC)
@@ -3930,6 +3931,7 @@ D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE_32x32: win32more.Windows.Win
 class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pH264Support: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264)
         pHEVCSupport: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC)
@@ -4013,6 +4015,7 @@ D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG1_SEPARATE_COLOUR_PLANE
 class D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pH264Support: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_H264)
         pHEVCSupport: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_HEVC)
@@ -4065,6 +4068,7 @@ D3D12_VIDEO_ENCODER_FLAG_NONE: win32more.Windows.Win32.Media.MediaFoundation.D3D
 class D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pAV1Support: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT)
 D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE = Int32
@@ -4143,6 +4147,7 @@ D3D12_VIDEO_ENCODER_LEVELS_HEVC_62: win32more.Windows.Win32.Media.MediaFoundatio
 class D3D12_VIDEO_ENCODER_LEVEL_SETTING(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pH264LevelSetting: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVELS_H264)
         pHEVCLevelSetting: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC)
@@ -4171,6 +4176,7 @@ class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS(Structure):
 class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pH264PicData: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264)
         pHEVCPicData: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC)
@@ -4273,12 +4279,14 @@ D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_USED_AS_REFERENCE_PICTURE: win32more.Wi
 class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pSlicesPartition_H264: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES)
         pSlicesPartition_HEVC: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES)
         pTilesPartition_AV1: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES)
 class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         MaxBytesPerSlice: UInt32
         NumberOfCodingUnitsPerSlice: UInt32
@@ -4293,6 +4301,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_RATIO_DESC(Structure):
 class D3D12_VIDEO_ENCODER_PROFILE_DESC(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pH264Profile: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_H264)
         pHEVCProfile: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PROFILE_HEVC)
@@ -4338,6 +4347,7 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1(Structure):
 class D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pConfiguration_CQP: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP)
         pConfiguration_CBR: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR)
@@ -4453,6 +4463,7 @@ D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAG_GOP_SEQUENCE_CHANGE: win32more.Windows
 class D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(Structure):
     DataSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pH264GroupOfPictures: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_H264)
         pHEVCGroupOfPictures: POINTER(win32more.Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_HEVC)
@@ -4864,9 +4875,11 @@ DXVA2_DetailFilterTech_Sharpening: win32more.Windows.Win32.Media.MediaFoundation
 DXVA2_DetailFilterTech_Mask: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_DetailFilterTech = 7
 class DXVA2_ExtendedFormat(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         value: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             SampleFormat: Annotated[UInt32, NativeBitfieldAttribute(8)]
             VideoChromaSubsampling: Annotated[UInt32, NativeBitfieldAttribute(4)]
@@ -4894,9 +4907,11 @@ class DXVA2_FilterValues(Structure):
     Radius: win32more.Windows.Win32.Media.MediaFoundation.DXVA2_Fixed32
 class DXVA2_Fixed32(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ll: Int32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Fraction: UInt16
             Value: Int16
@@ -5163,9 +5178,11 @@ class DXVAHD_BLT_STATE_CONSTRICTION_DATA(Structure):
     Size: win32more.Windows.Win32.Foundation.SIZE
 class DXVAHD_BLT_STATE_OUTPUT_COLOR_SPACE_DATA(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Usage: Annotated[UInt32, NativeBitfieldAttribute(1)]
             RGB_Range: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -5326,9 +5343,11 @@ class DXVAHD_STREAM_STATE_FRAME_FORMAT_DATA(Structure):
     FrameFormat: win32more.Windows.Win32.Media.MediaFoundation.DXVAHD_FRAME_FORMAT
 class DXVAHD_STREAM_STATE_INPUT_COLOR_SPACE_DATA(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Value: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Type: Annotated[UInt32, NativeBitfieldAttribute(1)]
             RGB_Range: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -10524,6 +10543,7 @@ class MFTOPONODE_ATTRIBUTE_UPDATE(Structure):
     guidAttributeKey: Guid
     attrType: win32more.Windows.Win32.Media.MediaFoundation.MF_ATTRIBUTE_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         u32: UInt32
         u64: UInt64
@@ -11878,6 +11898,7 @@ class VIDEOINFOHEADER2(Structure):
     Anonymous: _Anonymous_e__Union
     dwReserved2: UInt32
     bmiHeader: win32more.Windows.Win32.Graphics.Gdi.BITMAPINFOHEADER
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwControlFlags: UInt32
         dwReserved1: UInt32

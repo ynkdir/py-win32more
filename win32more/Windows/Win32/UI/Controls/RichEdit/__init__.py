@@ -540,6 +540,7 @@ class CHARFORMAT2A(Structure):
     bAnimation: Byte
     bRevAuthor: Byte
     bUnderlineColor: Byte
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwReserved: UInt32
         dwCookie: UInt32
@@ -556,6 +557,7 @@ class CHARFORMAT2W(Structure):
     bAnimation: Byte
     bRevAuthor: Byte
     bUnderlineColor: Byte
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwReserved: UInt32
         dwCookie: UInt32
@@ -2061,6 +2063,7 @@ class PARAFORMAT(Structure):
     wAlignment: win32more.Windows.Win32.UI.Controls.RichEdit.PARAFORMAT_ALIGNMENT
     cTabCount: Int16
     rgxTabs: UInt32 * 32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         wReserved: UInt16
         wEffects: UInt16

@@ -241,15 +241,18 @@ VT_ILLEGALMASKED: win32more.Windows.Win32.System.Variant.VARENUM = 4095
 VT_TYPEMASK: win32more.Windows.Win32.System.Variant.VARENUM = 4095
 class VARIANT(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         decVal: win32more.Windows.Win32.Foundation.DECIMAL
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             vt: win32more.Windows.Win32.System.Variant.VARENUM
             wReserved1: UInt16
             wReserved2: UInt16
             wReserved3: UInt16
             Anonymous: _Anonymous_e__Union
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Union(Union):
                 llVal: Int64
                 lVal: Int32
@@ -297,6 +300,7 @@ class VARIANT(Structure):
                 pintVal: POINTER(Int32)
                 puintVal: POINTER(UInt32)
                 Anonymous: _Anonymous_e__Struct
+                _anonymous_ = ('Anonymous',)
                 class _Anonymous_e__Struct(Structure):
                     pvRecord: VoidPtr
                     pRecInfo: win32more.Windows.Win32.System.Ole.IRecordInfo

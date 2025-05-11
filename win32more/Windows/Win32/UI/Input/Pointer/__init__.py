@@ -67,9 +67,11 @@ class INPUT_INJECTION_VALUE(Structure):
     index: UInt16
 class INPUT_TRANSFORM(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         m: Single * 16
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             _11: Single
             _12: Single

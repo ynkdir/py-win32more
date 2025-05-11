@@ -99,6 +99,7 @@ class FDIDECRYPT(Structure):
     fdidt: win32more.Windows.Win32.Storage.Cabinets.FDIDECRYPTTYPE
     pvUser: VoidPtr
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         cabinet: _cabinet_e__Struct
         folder: _folder_e__Struct

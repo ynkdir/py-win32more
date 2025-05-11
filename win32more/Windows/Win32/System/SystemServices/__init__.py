@@ -2388,6 +2388,7 @@ class COMPONENT_FILTER(Structure):
 class DISPATCHER_CONTEXT_NONVOLREG_ARM64(Union):
     Buffer: Byte * 152
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         GpNvRegs: UInt64 * 11
         FpNvRegs: Double * 8
@@ -2420,6 +2421,7 @@ class FILE_NOTIFY_FULL_INFORMATION(Structure):
     FileNameFlags: Byte
     Reserved: Byte
     FileName: FlexibleArray[Char]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ReparsePointTag: UInt32
         EaSize: UInt32
@@ -2497,6 +2499,7 @@ class IMAGE_ARCHIVE_MEMBER_HEADER(Structure):
 class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA(Union):
     HeaderData: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         FunctionLength: Annotated[UInt32, NativeBitfieldAttribute(18)]
         Version: Annotated[UInt32, NativeBitfieldAttribute(2)]
@@ -2507,9 +2510,11 @@ class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA(Union):
 class IMAGE_ARM_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         UnwindData: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Flag: Annotated[UInt32, NativeBitfieldAttribute(2)]
             FunctionLength: Annotated[UInt32, NativeBitfieldAttribute(11)]
@@ -2570,6 +2575,7 @@ class IMAGE_AUX_SYMBOL_EX(Union):
     Section: _Section_e__Struct
     Anonymous: _Anonymous_e__Struct
     CRC: _CRC_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Sym_e__Struct(Structure):
         WeakDefaultSymIndex: UInt32
         WeakSearchType: UInt32
@@ -2742,6 +2748,7 @@ class IMAGE_IMPORT_DESCRIPTOR(Structure):
     ForwarderChain: UInt32
     Name: UInt32
     FirstThunk: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Characteristics: UInt32
         OriginalFirstThunk: UInt32
@@ -2848,6 +2855,7 @@ class IMAGE_RELOCATION(Structure):
     Anonymous: _Anonymous_e__Union
     SymbolTableIndex: UInt32
     Type: UInt16
+    _anonymous_ = ('Anonymous',)
     _pack_ = 2
     class _Anonymous_e__Union(Union):
         VirtualAddress: UInt32
@@ -2868,16 +2876,19 @@ class IMAGE_RESOURCE_DIRECTORY(Structure):
 class IMAGE_RESOURCE_DIRECTORY_ENTRY(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Name: UInt32
         Id: UInt16
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             NameOffset: Annotated[UInt32, NativeBitfieldAttribute(31)]
             NameIsString: Annotated[UInt32, NativeBitfieldAttribute(1)]
     class _Anonymous2_e__Union(Union):
         OffsetToData: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             OffsetToDirectory: Annotated[UInt32, NativeBitfieldAttribute(31)]
             DataIsDirectory: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -2946,9 +2957,11 @@ class IMAGE_TLS_DIRECTORY32(Structure):
     AddressOfCallBacks: UInt32
     SizeOfZeroFill: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Characteristics: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Reserved0: Annotated[UInt32, NativeBitfieldAttribute(20)]
             Alignment: Annotated[UInt32, NativeBitfieldAttribute(4)]
@@ -2960,10 +2973,12 @@ class IMAGE_TLS_DIRECTORY64(Structure):
     AddressOfCallBacks: UInt64
     SizeOfZeroFill: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     _pack_ = 4
     class _Anonymous_e__Union(Union):
         Characteristics: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Reserved0: Annotated[UInt32, NativeBitfieldAttribute(20)]
             Alignment: Annotated[UInt32, NativeBitfieldAttribute(4)]
@@ -3032,6 +3047,7 @@ class IMPORT_OBJECT_HEADER(Structure):
     Type: Annotated[UInt16, NativeBitfieldAttribute(2)]
     NameType: Annotated[UInt16, NativeBitfieldAttribute(3)]
     Reserved: Annotated[UInt16, NativeBitfieldAttribute(11)]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Ordinal: UInt16
         Hint: UInt16
@@ -3051,9 +3067,11 @@ class KERNEL_CET_CONTEXT(Structure):
     SegCs: UInt16
     Anonymous: _Anonymous_e__Union
     Fill: UInt16 * 2
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         AllFlags: UInt16
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             UseWrss: Annotated[UInt16, NativeBitfieldAttribute(1)]
             PopShadowStackOne: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -3106,6 +3124,7 @@ class NT_TIB32(Structure):
     Anonymous: _Anonymous_e__Union
     ArbitraryUserPointer: UInt32
     Self: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FiberData: UInt32
         Version: UInt32
@@ -3117,6 +3136,7 @@ class NT_TIB64(Structure):
     Anonymous: _Anonymous_e__Union
     ArbitraryUserPointer: UInt64
     Self: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FiberData: UInt64
         Version: UInt32
@@ -3148,6 +3168,7 @@ class PROCESSOR_IDLESTATE_POLICY(Structure):
     class _Flags_e__Union(Union):
         AsWORD: UInt16
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             AllowScaling: Annotated[UInt16, NativeBitfieldAttribute(1)]
             Disabled: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -3163,12 +3184,14 @@ class PROCESSOR_PERFSTATE_POLICY(Structure):
     DecreaseTime: UInt32
     IncreasePercent: UInt32
     DecreasePercent: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Spare: Byte
         Flags: _Flags_e__Union
         class _Flags_e__Union(Union):
             AsBYTE: Byte
             Anonymous: _Anonymous_e__Struct
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Struct(Structure):
                 NoDomainAccounting: Annotated[Byte, NativeBitfieldAttribute(1)]
                 IncreasePolicy: Annotated[Byte, NativeBitfieldAttribute(2)]
@@ -3176,17 +3199,21 @@ class PROCESSOR_PERFSTATE_POLICY(Structure):
                 Reserved: Annotated[Byte, NativeBitfieldAttribute(3)]
 class PROCESS_MITIGATION_ACTIVATION_CONTEXT_TRUST_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             AssemblyManifestRedirectionTrust: Annotated[UInt32, NativeBitfieldAttribute(1)]
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class PROCESS_MITIGATION_ASLR_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             EnableBottomUpRandomization: Annotated[UInt32, NativeBitfieldAttribute(1)]
             EnableForceRelocateImages: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3195,9 +3222,11 @@ class PROCESS_MITIGATION_ASLR_POLICY(Structure):
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(28)]
 class PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             MicrosoftSignedOnly: Annotated[UInt32, NativeBitfieldAttribute(1)]
             StoreSignedOnly: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3207,9 +3236,11 @@ class PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY(Structure):
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(27)]
 class PROCESS_MITIGATION_CHILD_PROCESS_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             NoChildProcessCreation: Annotated[UInt32, NativeBitfieldAttribute(1)]
             AuditNoChildProcessCreation: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3217,9 +3248,11 @@ class PROCESS_MITIGATION_CHILD_PROCESS_POLICY(Structure):
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(29)]
 class PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             EnableControlFlowGuard: Annotated[UInt32, NativeBitfieldAttribute(1)]
             EnableExportSuppression: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3230,18 +3263,22 @@ class PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY(Structure):
 class PROCESS_MITIGATION_DEP_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     Permanent: win32more.Windows.Win32.Foundation.BOOLEAN
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Enable: Annotated[UInt32, NativeBitfieldAttribute(1)]
             DisableAtlThunkEmulation: Annotated[UInt32, NativeBitfieldAttribute(1)]
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(30)]
 class PROCESS_MITIGATION_DYNAMIC_CODE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             ProhibitDynamicCode: Annotated[UInt32, NativeBitfieldAttribute(1)]
             AllowThreadOptOut: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3250,26 +3287,32 @@ class PROCESS_MITIGATION_DYNAMIC_CODE_POLICY(Structure):
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(28)]
 class PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             DisableExtensionPoints: Annotated[UInt32, NativeBitfieldAttribute(1)]
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class PROCESS_MITIGATION_FONT_DISABLE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             DisableNonSystemFonts: Annotated[UInt32, NativeBitfieldAttribute(1)]
             AuditNonSystemFontLoading: Annotated[UInt32, NativeBitfieldAttribute(1)]
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(30)]
 class PROCESS_MITIGATION_IMAGE_LOAD_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             NoRemoteImages: Annotated[UInt32, NativeBitfieldAttribute(1)]
             NoLowMandatoryLabelImages: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3279,9 +3322,11 @@ class PROCESS_MITIGATION_IMAGE_LOAD_POLICY(Structure):
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(27)]
 class PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             EnableExportAddressFilter: Annotated[UInt32, NativeBitfieldAttribute(1)]
             AuditExportAddressFilter: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3298,26 +3343,32 @@ class PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY(Structure):
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(20)]
 class PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             EnforceRedirectionTrust: Annotated[UInt32, NativeBitfieldAttribute(1)]
             AuditRedirectionTrust: Annotated[UInt32, NativeBitfieldAttribute(1)]
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(30)]
 class PROCESS_MITIGATION_SEHOP_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             EnableSehop: Annotated[UInt32, NativeBitfieldAttribute(1)]
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             SmtBranchTargetIsolation: Annotated[UInt32, NativeBitfieldAttribute(1)]
             IsolateSecurityDomain: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3327,18 +3378,22 @@ class PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY(Structure):
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(27)]
 class PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             RaiseExceptionOnInvalidHandleReference: Annotated[UInt32, NativeBitfieldAttribute(1)]
             HandleExceptionsPermanentlyEnabled: Annotated[UInt32, NativeBitfieldAttribute(1)]
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(30)]
 class PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             DisallowWin32kSystemCalls: Annotated[UInt32, NativeBitfieldAttribute(1)]
             AuditDisallowWin32kSystemCalls: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3347,25 +3402,31 @@ class PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY(Structure):
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(28)]
 class PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             FilterId: Annotated[UInt32, NativeBitfieldAttribute(4)]
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(28)]
 class PROCESS_MITIGATION_USER_POINTER_AUTH_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             EnablePointerAuthUserIp: Annotated[UInt32, NativeBitfieldAttribute(1)]
             ReservedFlags: Annotated[UInt32, NativeBitfieldAttribute(31)]
 class PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Flags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             EnableUserShadowStack: Annotated[UInt32, NativeBitfieldAttribute(1)]
             AuditUserShadowStack: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3402,6 +3463,7 @@ class QUOTA_LIMITS_EX(Structure):
 class RATE_QUOTA_LIMIT(Union):
     RateData: UInt32
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         RatePercent: Annotated[UInt32, NativeBitfieldAttribute(7)]
         Reserved0: Annotated[UInt32, NativeBitfieldAttribute(25)]
@@ -3608,6 +3670,7 @@ SeImageSignaturePplMitigated: win32more.Windows.Win32.System.SystemServices.SE_I
 class SE_TOKEN_USER(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         TokenUser: win32more.Windows.Win32.Security.TOKEN_USER
         User: win32more.Windows.Win32.Security.SID_AND_ATTRIBUTES

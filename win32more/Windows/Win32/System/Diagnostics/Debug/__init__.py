@@ -31,6 +31,7 @@ AddrModeFlat: win32more.Windows.Win32.System.Diagnostics.Debug.ADDRESS_MODE = 3
 class AER_BRIDGE_DESCRIPTOR_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         UncorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -45,6 +46,7 @@ class AER_BRIDGE_DESCRIPTOR_FLAGS(Union):
 class AER_ENDPOINT_DESCRIPTOR_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         UncorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -56,6 +58,7 @@ class AER_ENDPOINT_DESCRIPTOR_FLAGS(Union):
 class AER_ROOTPORT_DESCRIPTOR_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         UncorrectableErrorMaskRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -89,9 +92,11 @@ if ARCH in 'X86,X64':
         Bvr: UInt64 * 8
         Wcr: UInt32 * 2
         Wvr: UInt64 * 2
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             Anonymous: _Anonymous_e__Struct
             X: UInt64 * 31
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Struct(Structure):
                 X0: UInt64
                 X1: UInt64
@@ -130,6 +135,7 @@ class ARM64_NT_NEON128(Union):
     S: Single * 4
     H: UInt16 * 8
     B: Byte * 16
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Low: UInt64
         High: Int64
@@ -1662,9 +1668,11 @@ if ARCH in 'ARM64':
         Bvr: UInt64 * 8
         Wcr: UInt32 * 2
         Wvr: UInt64 * 2
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             Anonymous: _Anonymous_e__Struct
             X: UInt64 * 31
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Struct(Structure):
                 X0: UInt64
                 X1: UInt64
@@ -1745,9 +1753,11 @@ elif ARCH in 'X64':
         LastBranchFromRip: UInt64
         LastExceptionToRip: UInt64
         LastExceptionFromRip: UInt64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             FltSave: win32more.Windows.Win32.System.Diagnostics.Debug.XSAVE_FORMAT
             Anonymous: _Anonymous_e__Struct
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Struct(Structure):
                 Header: win32more.Windows.Win32.System.Diagnostics.Debug.M128A * 2
                 Legacy: win32more.Windows.Win32.System.Diagnostics.Debug.M128A * 8
@@ -1973,6 +1983,7 @@ elif ARCH in 'X64':
 class DUMP_FILE_ATTRIBUTES(Union):
     Anonymous: _Anonymous_e__Struct
     Attributes: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         HiberCrash: Annotated[UInt32, NativeBitfieldAttribute(1)]
         DumpDevicePowerOff: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -2024,6 +2035,7 @@ class DUMP_HEADER32(Structure):
     SystemUpTime: Int64
     SystemTime: Int64
     _reserved3: Byte * 56
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         PhysicalMemoryBlock: win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_DESCRIPTOR32
         PhysicalMemoryBlockBuffer: Byte * 700
@@ -2064,6 +2076,7 @@ class DUMP_HEADER64(Structure):
     Attributes: win32more.Windows.Win32.System.Diagnostics.Debug.DUMP_FILE_ATTRIBUTES
     BootId: UInt32
     _reserved0: Byte * 4008
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         PhysicalMemoryBlock: win32more.Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_DESCRIPTOR64
         PhysicalMemoryBlockBuffer: Byte * 700
@@ -2675,9 +2688,11 @@ IMAGEHLP_SYMBOL_TYPE_INFO_MAX: win32more.Windows.Win32.System.Diagnostics.Debug.
 class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         UnwindData: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Flag: Annotated[UInt32, NativeBitfieldAttribute(2)]
             FunctionLength: Annotated[UInt32, NativeBitfieldAttribute(11)]
@@ -2708,6 +2723,7 @@ class IMAGE_COR20_HEADER(Structure):
     VTableFixups: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DATA_DIRECTORY
     ExportAddressTableJumps: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DATA_DIRECTORY
     ManagedNativeHeader: win32more.Windows.Win32.System.Diagnostics.Debug.IMAGE_DATA_DIRECTORY
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         EntryPointToken: UInt32
         EntryPointRVA: UInt32
@@ -2847,6 +2863,7 @@ class IMAGE_FUNCTION_ENTRY64(Structure):
     StartingAddress: UInt64
     EndingAddress: UInt64
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     _pack_ = 4
     class _Anonymous_e__Union(Union):
         EndOfPrologue: UInt64
@@ -3056,6 +3073,7 @@ class IMAGE_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     EndAddress: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         UnwindInfoAddress: UInt32
         UnwindData: UInt32
@@ -3225,9 +3243,11 @@ elif ARCH in 'X64':
     class KNONVOLATILE_CONTEXT_POINTERS(Structure):
         Anonymous1: _Anonymous1_e__Union
         Anonymous2: _Anonymous2_e__Union
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Union(Union):
             FloatingContext: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A) * 16
             Anonymous: _Anonymous_e__Struct
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Struct(Structure):
                 Xmm0: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
                 Xmm1: POINTER(win32more.Windows.Win32.System.Diagnostics.Debug.M128A)
@@ -3248,6 +3268,7 @@ elif ARCH in 'X64':
         class _Anonymous2_e__Union(Union):
             IntegerContext: POINTER(UInt64) * 16
             Anonymous: _Anonymous_e__Struct
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Struct(Structure):
                 Rax: POINTER(UInt64)
                 Rcx: POINTER(UInt64)
@@ -3351,6 +3372,7 @@ class MINIDUMP_CALLBACK_INPUT(Structure):
     ProcessHandle: win32more.Windows.Win32.Foundation.HANDLE
     CallbackType: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     _pack_ = 4
     class _Anonymous_e__Union(Union):
         Status: win32more.Windows.Win32.Foundation.HRESULT
@@ -3367,6 +3389,7 @@ class MINIDUMP_CALLBACK_INPUT(Structure):
         VmPostRead: win32more.Windows.Win32.System.Diagnostics.Debug.MINIDUMP_VM_POST_READ_CALLBACK
 class MINIDUMP_CALLBACK_OUTPUT(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     _pack_ = 4
     class _Anonymous_e__Union(Union):
         ModuleWriteFlags: UInt32
@@ -3379,6 +3402,7 @@ class MINIDUMP_CALLBACK_OUTPUT(Structure):
         Anonymous4: _Anonymous4_e__Struct
         Anonymous5: _Anonymous5_e__Struct
         Status: win32more.Windows.Win32.Foundation.HRESULT
+        _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3', 'Anonymous4', 'Anonymous5')
         class _Anonymous1_e__Struct(Structure):
             MemoryBase: UInt64
             MemorySize: UInt32
@@ -3526,6 +3550,7 @@ class MINIDUMP_HEADER(Structure):
     CheckSum: UInt32
     Anonymous: _Anonymous_e__Union
     Flags: UInt64
+    _anonymous_ = ('Anonymous',)
     _pack_ = 4
     class _Anonymous_e__Union(Union):
         Reserved: UInt32
@@ -3824,16 +3849,19 @@ class MINIDUMP_SYSTEM_INFO(Structure):
     CSDVersionRva: UInt32
     Anonymous2: _Anonymous2_e__Union
     Cpu: win32more.Windows.Win32.System.Diagnostics.Debug.CPU_INFORMATION
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     _pack_ = 4
     class _Anonymous1_e__Union(Union):
         Reserved0: UInt16
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             NumberOfProcessors: Byte
             ProductType: Byte
     class _Anonymous2_e__Union(Union):
         Reserved1: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             SuiteMask: UInt16
             Reserved2: UInt16
@@ -4568,6 +4596,7 @@ class WAITCHAIN_NODE_INFO(Structure):
     ObjectType: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_TYPE
     ObjectStatus: win32more.Windows.Win32.System.Diagnostics.Debug.WCT_OBJECT_STATUS
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         LockObject: _LockObject_e__Struct
         ThreadObject: _ThreadObject_e__Struct
@@ -4886,6 +4915,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR(Structure):
 class WHEA_NOTIFICATION_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         PollIntervalRW: Annotated[UInt16, NativeBitfieldAttribute(1)]
@@ -5018,6 +5048,7 @@ class WOW64_LDT_ENTRY(Structure):
 class XPF_MCE_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsULONG: UInt32
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Struct(Structure):
         MCG_CapabilityRW: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -5027,6 +5058,7 @@ class XPF_MCE_FLAGS(Union):
 class XPF_MC_BANK_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUCHAR: Byte
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         ClearOnInitializationRW: Annotated[Byte, NativeBitfieldAttribute(1)]
         ControlDataRW: Annotated[Byte, NativeBitfieldAttribute(1)]
@@ -5088,9 +5120,11 @@ class XSTATE_CONFIGURATION(Structure):
     ExtendedFeatureDisableFeatures: UInt64
     AllNonLargeFeatureSize: UInt32
     Spare: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ControlFlags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             OptimizedSave: Annotated[UInt32, NativeBitfieldAttribute(1)]
             CompactionEnabled: Annotated[UInt32, NativeBitfieldAttribute(1)]

@@ -4679,6 +4679,7 @@ class CERT_ACCESS_DESCRIPTION(Structure):
 class CERT_ALT_NAME_ENTRY(Structure):
     dwAltNameChoice: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pOtherName: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_OTHER_NAME)
         pwszRfc822Name: win32more.Windows.Win32.Foundation.PWSTR
@@ -4715,6 +4716,7 @@ class CERT_BIOMETRIC_DATA(Structure):
     dwTypeOfBiometricDataChoice: win32more.Windows.Win32.Security.Cryptography.CERT_BIOMETRIC_DATA_TYPE
     Anonymous: _Anonymous_e__Union
     HashedUrl: win32more.Windows.Win32.Security.Cryptography.CERT_HASHED_URL
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwPredefined: UInt32
         pszObjId: win32more.Windows.Win32.Foundation.PSTR
@@ -4928,6 +4930,7 @@ class CERT_HASHED_URL(Structure):
 class CERT_ID(Structure):
     dwIdChoice: win32more.Windows.Win32.Security.Cryptography.CERT_ID_OPTION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         IssuerSerialNumber: win32more.Windows.Win32.Security.Cryptography.CERT_ISSUER_SERIAL_NUMBER
         KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -4964,6 +4967,7 @@ class CERT_KEY_CONTEXT(Structure):
     cbSize: UInt32
     Anonymous: _Anonymous_e__Union
     dwKeySpec: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
@@ -5018,6 +5022,7 @@ class CERT_LOGOTYPE_IMAGE_INFO(Structure):
     dwLogotypeImageResolutionChoice: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_CHOICE
     Anonymous: _Anonymous_e__Union
     pwszLanguage: win32more.Windows.Win32.Foundation.PWSTR
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwNumBits: UInt32
         dwTableSize: UInt32
@@ -5027,6 +5032,7 @@ CERT_LOGOTYPE_COLOR_IMAGE_INFO_CHOICE: win32more.Windows.Win32.Security.Cryptogr
 class CERT_LOGOTYPE_INFO(Structure):
     dwLogotypeInfoChoice: win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_OPTION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pLogotypeDirectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_DATA)
         pLogotypeIndirectInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_LOGOTYPE_REFERENCE)
@@ -5352,6 +5358,7 @@ class CERT_STRONG_SIGN_PARA(Structure):
     cbSize: UInt32
     dwInfoChoice: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pvInfo: VoidPtr
         pSerializedInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_STRONG_SIGN_SERIALIZED_INFO)
@@ -5372,6 +5379,7 @@ class CERT_SYSTEM_STORE_INFO(Structure):
 class CERT_SYSTEM_STORE_RELOCATE_PARA(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         hKeyBase: win32more.Windows.Win32.System.Registry.HKEY
         pvBase: VoidPtr
@@ -5472,6 +5480,7 @@ class CMC_STATUS_INFO(Structure):
     pwszStatusString: win32more.Windows.Win32.Foundation.PWSTR
     dwOtherInfoChoice: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwFailInfo: UInt32
         pPendInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_PEND_INFO)
@@ -5491,12 +5500,14 @@ class CMC_TAGGED_OTHER_MSG(Structure):
 class CMC_TAGGED_REQUEST(Structure):
     dwTaggedRequestChoice: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pTaggedCertRequest: POINTER(win32more.Windows.Win32.Security.Cryptography.CMC_TAGGED_CERT_REQUEST)
 CMSCEPSetup = Guid('{aa4f5c02-8e7c-49c4-94fa-67a5cc5eadb4}')
 class CMSG_CMS_RECIPIENT_INFO(Structure):
     dwRecipientChoice: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_INFO)
         pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_INFO)
@@ -5535,6 +5546,7 @@ class CMSG_CONTENT_ENCRYPT_INFO(Structure):
     pbCNGContentEncryptKeyObject: POINTER(Byte)
     pbContentEncryptKey: POINTER(Byte)
     cbContentEncryptKey: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hContentEncryptKey: UIntPtr
         hCNGContentEncryptKey: win32more.Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE
@@ -5547,6 +5559,7 @@ class CMSG_CTRL_DECRYPT_PARA(Structure):
     Anonymous: _Anonymous_e__Union
     dwKeySpec: UInt32
     dwRecipientIndex: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
@@ -5562,6 +5575,7 @@ class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA(Structure):
     dwRecipientIndex: UInt32
     dwRecipientEncryptedKeyIndex: UInt32
     OriginatorPublicKey: win32more.Windows.Win32.Security.Cryptography.CRYPT_BIT_BLOB
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
@@ -5571,6 +5585,7 @@ class CMSG_CTRL_KEY_TRANS_DECRYPT_PARA(Structure):
     dwKeySpec: UInt32
     pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_INFO)
     dwRecipientIndex: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
@@ -5581,6 +5596,7 @@ class CMSG_CTRL_MAIL_LIST_DECRYPT_PARA(Structure):
     dwRecipientIndex: UInt32
     dwKeyChoice: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hKeyEncryptionKey: UIntPtr
         pvKeyEncryptionKey: VoidPtr
@@ -5616,6 +5632,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO(Structure):
     cKeyAgreeKeyEncryptInfo: UInt32
     rgpKeyAgreeKeyEncryptInfo: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_KEY_ENCRYPT_INFO))
     dwFlags: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         OriginatorCertId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
         OriginatorPublicKeyInfo: win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO
@@ -5641,6 +5658,7 @@ class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO(Structure):
     UserKeyingMaterial: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     cRecipientEncryptedKeys: UInt32
     rgpRecipientEncryptedKeys: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO))
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pEphemeralAlgorithm: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER)
         pSenderId: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_ID)
@@ -5652,6 +5670,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO(Structure):
     KeyEncryptionAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     cRecipientEncryptedKeys: UInt32
     rgpRecipientEncryptedKeys: POINTER(POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_RECIPIENT_ENCRYPTED_KEY_INFO))
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         OriginatorCertId: win32more.Windows.Win32.Security.Cryptography.CERT_ID
         OriginatorPublicKeyInfo: win32more.Windows.Win32.Security.Cryptography.CERT_PUBLIC_KEY_INFO
@@ -5689,6 +5708,7 @@ class CMSG_MAIL_LIST_RECIPIENT_ENCODE_INFO(Structure):
     KeyId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
     Date: win32more.Windows.Win32.Foundation.FILETIME
     pOtherAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE_TYPE_VALUE)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hKeyEncryptionKey: UIntPtr
         pvKeyEncryptionKey: VoidPtr
@@ -5708,6 +5728,7 @@ class CMSG_RC4_AUX_INFO(Structure):
 class CMSG_RECIPIENT_ENCODE_INFO(Structure):
     dwRecipientChoice: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pKeyTrans: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO)
         pKeyAgree: POINTER(win32more.Windows.Win32.Security.Cryptography.CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO)
@@ -5746,6 +5767,7 @@ class CMSG_SIGNER_ENCODE_INFO(Structure):
     rgAuthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
     cUnauthAttr: UInt32
     rgUnauthAttr: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTE)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
@@ -5809,6 +5831,7 @@ class CRL_DIST_POINTS_INFO(Structure):
 class CRL_DIST_POINT_NAME(Structure):
     dwDistPointNameChoice: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FullName: win32more.Windows.Win32.Security.Cryptography.CERT_ALT_NAME_INFO
 class CRL_ENTRY(Structure):
@@ -6115,6 +6138,7 @@ class CRYPT_KEY_SIGN_MESSAGE_PARA(Structure):
     HashAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     pvHashAuxInfo: VoidPtr
     PubKeyAlgorithm: win32more.Windows.Win32.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         hCryptProv: UIntPtr
         hNCryptKey: win32more.Windows.Win32.Security.Cryptography.NCRYPT_KEY_HANDLE
@@ -6156,6 +6180,7 @@ class CRYPT_OID_INFO(Structure):
     dwGroupId: UInt32
     Anonymous: _Anonymous_e__Union
     ExtraInfo: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwValue: UInt32
         Algid: win32more.Windows.Win32.Security.Cryptography.ALG_ID
@@ -6503,6 +6528,7 @@ class CRYPT_XML_KEY_INFO(Structure):
 class CRYPT_XML_KEY_INFO_ITEM(Structure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEYINFO_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         wszKeyName: win32more.Windows.Win32.Foundation.PWSTR
         KeyValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_VALUE
@@ -6515,6 +6541,7 @@ class CRYPT_XML_KEY_RSA_KEY_VALUE(Structure):
 class CRYPT_XML_KEY_VALUE(Structure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_VALUE_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         DSAKeyValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_DSA_KEY_VALUE
         RSAKeyValue: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_KEY_RSA_KEY_VALUE
@@ -6611,6 +6638,7 @@ class CRYPT_XML_X509DATA(Structure):
 class CRYPT_XML_X509DATA_ITEM(Structure):
     dwType: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_X509DATA_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         IssuerSerial: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_ISSUER_SERIAL
         SKI: win32more.Windows.Win32.Security.Cryptography.CRYPT_XML_DATA_BLOB
@@ -6796,6 +6824,7 @@ class HTTPSPolicyCallbackData(Structure):
     dwAuthType: win32more.Windows.Win32.Security.Cryptography.HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE
     fdwChecks: UInt32
     pwszServerName: win32more.Windows.Win32.Foundation.PWSTR
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         cbStruct: UInt32
         cbSize: UInt32
@@ -7333,6 +7362,7 @@ class OCSP_BASIC_RESPONSE_ENTRY(Structure):
     NextUpdate: win32more.Windows.Win32.Foundation.FILETIME
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pRevokedInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_BASIC_REVOKED_INFO)
 class OCSP_BASIC_RESPONSE_INFO(Structure):
@@ -7344,6 +7374,7 @@ class OCSP_BASIC_RESPONSE_INFO(Structure):
     rgResponseEntry: POINTER(win32more.Windows.Win32.Security.Cryptography.OCSP_BASIC_RESPONSE_ENTRY)
     cExtension: UInt32
     rgExtension: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_EXTENSION)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ByNameResponderId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
         ByKeyResponderId: win32more.Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -7804,6 +7835,7 @@ class SIGNER_CERT(Structure):
     dwCertChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_CHOICE
     Anonymous: _Anonymous_e__Union
     hwnd: win32more.Windows.Win32.Foundation.HWND
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pwszSpcFile: win32more.Windows.Win32.Foundation.PWSTR
         pCertStoreInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_CERT_STORE_INFO)
@@ -7834,6 +7866,7 @@ class SIGNER_DIGEST_SIGN_INFO(Structure):
     dwReserved: UInt32
     dwReserved2: UInt32
     dwReserved3: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pfnAuthenticodeDigestSign: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN
         pfnAuthenticodeDigestSignWithFileHandle: win32more.Windows.Win32.Security.Cryptography.PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE
@@ -7862,6 +7895,7 @@ class SIGNER_PROVIDER_INFO(Structure):
     dwKeySpec: UInt32
     dwPvkChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_PRIVATE_KEY_CHOICE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pwszPvkFileName: win32more.Windows.Win32.Foundation.PWSTR
         pwszKeyContainer: win32more.Windows.Win32.Foundation.PWSTR
@@ -7875,6 +7909,7 @@ class SIGNER_SIGNATURE_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     psAuthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
     psUnauthenticated: POINTER(win32more.Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pAttrAuthcode: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_ATTR_AUTHCODE)
 SIGNER_SIGN_FLAGS = UInt32
@@ -7900,6 +7935,7 @@ class SIGNER_SUBJECT_INFO(Structure):
     pdwIndex: POINTER(UInt32)
     dwSubjectChoice: win32more.Windows.Win32.Security.Cryptography.SIGNER_SUBJECT_CHOICE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pSignerFileInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_FILE_INFO)
         pSignerBlobInfo: POINTER(win32more.Windows.Win32.Security.Cryptography.SIGNER_BLOB_INFO)

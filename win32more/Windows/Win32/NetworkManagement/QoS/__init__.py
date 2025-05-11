@@ -625,6 +625,7 @@ class CONTROL_SERVICE(Structure):
     Service: UInt32
     Overrides: win32more.Windows.Win32.NetworkManagement.QoS.AD_GENERAL_PARAMS
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Guaranteed: win32more.Windows.Win32.NetworkManagement.QoS.AD_GUARANTEED
         ParamBuffer: FlexibleArray[win32more.Windows.Win32.NetworkManagement.QoS.PARAM_BUFFER]
@@ -940,6 +941,7 @@ class RSVP_ADSPEC(Structure):
 class RSVP_FILTERSPEC(Structure):
     Type: win32more.Windows.Win32.NetworkManagement.QoS.FilterType
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FilterSpecV4: win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC_V4
         FilterSpecV6: win32more.Windows.Win32.NetworkManagement.QoS.RSVP_FILTERSPEC_V6
@@ -1052,6 +1054,7 @@ class SIPAEVENT_SI_POLICY_PAYLOAD(Structure):
 class SIPAEVENT_VSM_IDK_INFO_PAYLOAD(Structure):
     KeyAlgID: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         RsaKeyInfo: win32more.Windows.Win32.NetworkManagement.QoS.SIPAEVENT_VSM_IDK_RSA_INFO

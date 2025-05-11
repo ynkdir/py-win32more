@@ -19,6 +19,7 @@ class AACS_READ_BINDING_NONCE(Structure):
     NumberOfSectors: UInt32
     StartLba: UInt64
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Handle: win32more.Windows.Win32.Foundation.HANDLE
         ForceStructureLengthToMatch64bit: UInt64
@@ -108,6 +109,7 @@ class DVD_COPYRIGHT_DESCRIPTOR(Structure):
 class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR(Structure):
     Anonymous: _Anonymous_e__Union
     Reserved0: Byte * 3
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Dvdrom: _Dvdrom_e__Struct
         DvdRecordable_Version1: _DvdRecordable_Version1_e__Struct
@@ -154,6 +156,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER(Structure):
     class _ProhibitedActions_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsByte: Byte * 4
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             ReservedDoNotUse_UseAsByteInstead_0: Byte * 3
             RecordingWithinTheUserDataArea: Annotated[Byte, NativeBitfieldAttribute(1)]
@@ -190,6 +193,7 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT(Structure):
     class _WriteProtectActions_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsByte: Byte * 4
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             ReservedDoNotUse_UseAsByteInstead_0: Byte * 3
             WriteProtectStatus: Annotated[Byte, NativeBitfieldAttribute(2)]

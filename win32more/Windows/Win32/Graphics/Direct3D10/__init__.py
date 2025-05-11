@@ -429,6 +429,7 @@ class D3D10_BUFFER_DESC(Structure):
 class D3D10_BUFFER_RTV(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         FirstElement: UInt32
         ElementOffset: UInt32
@@ -438,6 +439,7 @@ class D3D10_BUFFER_RTV(Structure):
 class D3D10_BUFFER_SRV(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         FirstElement: UInt32
         ElementOffset: UInt32
@@ -529,6 +531,7 @@ class D3D10_DEPTH_STENCIL_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_DSV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_DSV
         Texture1DArray: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_ARRAY_DSV
@@ -1303,6 +1306,7 @@ class D3D10_RENDER_TARGET_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_RTV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BUFFER_RTV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_RTV
@@ -1513,6 +1517,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D.D3D_SRV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BUFFER_SRV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_SRV
@@ -1527,6 +1532,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1(Structure):
     Format: win32more.Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT
     ViewDimension: win32more.Windows.Win32.Graphics.Direct3D.D3D_SRV_DIMENSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buffer: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_BUFFER_SRV
         Texture1D: win32more.Windows.Win32.Graphics.Direct3D10.D3D10_TEX1D_SRV

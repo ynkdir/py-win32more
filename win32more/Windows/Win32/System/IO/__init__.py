@@ -27,6 +27,7 @@ def BindIoCompletionCallback(FileHandle: win32more.Windows.Win32.Foundation.HAND
 class IO_STATUS_BLOCK(Structure):
     Anonymous: _Anonymous_e__Union
     Information: UIntPtr
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Status: win32more.Windows.Win32.Foundation.NTSTATUS
         Pointer: VoidPtr
@@ -37,9 +38,11 @@ class OVERLAPPED(Structure):
     InternalHigh: UIntPtr
     Anonymous: _Anonymous_e__Union
     hEvent: win32more.Windows.Win32.Foundation.HANDLE
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Pointer: VoidPtr
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Offset: UInt32
             OffsetHigh: UInt32

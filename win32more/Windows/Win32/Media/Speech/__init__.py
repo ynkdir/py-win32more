@@ -2638,9 +2638,11 @@ class SPPHRASEPROPERTY(Structure):
     pFirstChild: POINTER(win32more.Windows.Win32.Media.Speech.SPPHRASEPROPERTY)
     SREngineConfidence: Single
     Confidence: SByte
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ulId: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             bType: Byte
             bReserved: Byte
@@ -2925,12 +2927,14 @@ class SPTRANSITIONENTRY(Structure):
     Anonymous1: _Anonymous1_e__Struct
     Weight: Single
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Struct(Structure):
         fHasProperty: UInt32
     class _Anonymous2_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         Anonymous3: _Anonymous3_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
         class _Anonymous1_e__Struct(Structure):
             hRuleInitialState: win32more.Windows.Win32.Media.Speech.SPSTATEHANDLE
             hRule: win32more.Windows.Win32.Media.Speech.SPRULEHANDLE

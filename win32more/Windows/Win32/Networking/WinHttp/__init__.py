@@ -813,6 +813,7 @@ class WINHTTP_CURRENT_USER_IE_PROXY_CONFIG(Structure):
 class WINHTTP_EXTENDED_HEADER(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         pwszName: win32more.Windows.Win32.Foundation.PWSTR
         pszName: win32more.Windows.Win32.Foundation.PSTR

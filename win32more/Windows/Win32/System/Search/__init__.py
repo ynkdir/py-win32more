@@ -3970,6 +3970,7 @@ class CATEGORIZATION(Structure):
     ulCatType: UInt32
     Anonymous: _Anonymous_e__Union
     csColumns: win32more.Windows.Win32.System.Search.COLUMNSET
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         cClusters: UInt32
         bucket: win32more.Windows.Win32.System.Search.BUCKETCATEGORIZE
@@ -6970,6 +6971,7 @@ class ODBC_VS_ARGS(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     RetCode: Int16
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         wszArg: win32more.Windows.Win32.Foundation.PWSTR
         szArg: win32more.Windows.Win32.Foundation.PSTR
@@ -7320,6 +7322,7 @@ class SSVARIANT(Structure):
     dwReserved1: UInt32
     dwReserved2: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         bTinyIntVal: Byte
         sShortIntVal: Int16

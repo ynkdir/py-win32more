@@ -3498,6 +3498,7 @@ class PICTDESC(Structure):
     cbSizeofstruct: UInt32
     picType: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         bmp: _bmp_e__Struct
         wmf: _wmf_e__Struct
@@ -3771,6 +3772,7 @@ class _wireVARIANT(Structure):
     wReserved2: UInt16
     wReserved3: UInt16
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         llVal: Int64
         lVal: Int32

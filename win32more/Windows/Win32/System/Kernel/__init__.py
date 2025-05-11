@@ -86,6 +86,7 @@ class NT_TIB(Structure):
     Anonymous: _Anonymous_e__Union
     ArbitraryUserPointer: VoidPtr
     Self: POINTER(win32more.Windows.Win32.System.Kernel.NT_TIB)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FiberData: VoidPtr
         Version: UInt32
@@ -98,15 +99,18 @@ class PROCESSOR_NUMBER(Structure):
     Reserved: Byte
 class QUAD(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         UseThisFieldToCopy: Int64
         DoNotUseThisField: Double
 class RTL_BALANCED_NODE(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Children: POINTER(win32more.Windows.Win32.System.Kernel.RTL_BALANCED_NODE) * 2
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Left: POINTER(win32more.Windows.Win32.System.Kernel.RTL_BALANCED_NODE)
             Right: POINTER(win32more.Windows.Win32.System.Kernel.RTL_BALANCED_NODE)
@@ -124,6 +128,7 @@ if ARCH in 'ARM64':
     class SLIST_HEADER(Union):
         Anonymous: _Anonymous_e__Struct
         HeaderArm64: _HeaderArm64_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Alignment: UInt64
             Region: UInt64
@@ -136,6 +141,7 @@ elif ARCH in 'X64':
     class SLIST_HEADER(Union):
         Anonymous: _Anonymous_e__Struct
         HeaderX64: _HeaderX64_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Alignment: UInt64
             Region: UInt64
@@ -148,6 +154,7 @@ elif ARCH in 'X86':
     class SLIST_HEADER(Union):
         Alignment: UInt64
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Next: win32more.Windows.Win32.System.Kernel.SINGLE_LIST_ENTRY
             Depth: UInt16

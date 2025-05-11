@@ -748,6 +748,7 @@ class PXE_ADDRESS(Structure):
     Anonymous: _Anonymous_e__Union
     uAddrLen: UInt32
     uPort: UInt16
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         bAddress: Byte * 16
         uIpAddress: UInt32
@@ -796,6 +797,7 @@ class PXE_DHCP_MESSAGE(Structure):
     BootFileName: Byte * 128
     Anonymous: _Anonymous_e__Union
     Option: win32more.Windows.Win32.System.DeploymentServices.PXE_DHCP_OPTION
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         bMagicCookie: Byte * 4

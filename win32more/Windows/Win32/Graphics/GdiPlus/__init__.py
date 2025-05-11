@@ -2531,6 +2531,7 @@ class MetafileHeader(Structure):
     EmfPlusHeaderSize: Int32
     LogicalDpiX: Int32
     LogicalDpiY: Int32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         WmfHeader: win32more.Windows.Win32.Graphics.Gdi.METAHEADER
         EmfHeader: win32more.Windows.Win32.Graphics.GdiPlus.ENHMETAHEADER3

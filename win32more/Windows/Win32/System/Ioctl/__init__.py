@@ -1221,6 +1221,7 @@ class CONTAINER_VOLUME_STATE(Structure):
 class CREATE_DISK(Structure):
     PartitionStyle: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.System.Ioctl.CREATE_DISK_MBR
         Gpt: win32more.Windows.Win32.System.Ioctl.CREATE_DISK_GPT
@@ -1574,9 +1575,11 @@ class DEVICE_LOCATION(Structure):
     Adapter: UInt32
     Port: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             Channel: UInt32
             Device: UInt32
@@ -1656,9 +1659,11 @@ class DEVICE_STORAGE_RANGE_ATTRIBUTES(Structure):
     LengthInBytes: UInt64
     Anonymous: _Anonymous_e__Union
     Reserved: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         AllFlags: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             IsRangeBad: Annotated[UInt32, NativeBitfieldAttribute(1)]
 class DEVICE_TRIM_DESCRIPTOR(Structure):
@@ -1678,6 +1683,7 @@ class DISK_CACHE_INFORMATION(Structure):
     DisablePrefetchTransferLength: UInt16
     PrefetchScalar: win32more.Windows.Win32.Foundation.BOOLEAN
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ScalarPrefetch: _ScalarPrefetch_e__Struct
         BlockPrefetch: _BlockPrefetch_e__Struct
@@ -1699,8 +1705,10 @@ class DISK_DETECTION_INFO(Structure):
     SizeOfDetectInfo: UInt32
     DetectionType: win32more.Windows.Win32.System.Ioctl.DETECTION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Int13: win32more.Windows.Win32.System.Ioctl.DISK_INT13_INFO
             ExInt13: win32more.Windows.Win32.System.Ioctl.DISK_EX_INT13_INFO
@@ -1756,6 +1764,7 @@ class DISK_PARTITION_INFO(Structure):
     SizeOfPartitionInfo: UInt32
     PartitionStyle: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Mbr: _Mbr_e__Struct
         Gpt: _Gpt_e__Struct
@@ -1800,6 +1809,7 @@ class DRIVE_LAYOUT_INFORMATION_EX(Structure):
     PartitionCount: UInt32
     Anonymous: _Anonymous_e__Union
     PartitionEntry: FlexibleArray[win32more.Windows.Win32.System.Ioctl.PARTITION_INFORMATION_EX]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.System.Ioctl.DRIVE_LAYOUT_INFORMATION_MBR
         Gpt: win32more.Windows.Win32.System.Ioctl.DRIVE_LAYOUT_INFORMATION_GPT
@@ -1993,9 +2003,11 @@ class FILE_MAKE_COMPATIBLE_BUFFER(Structure):
 class FILE_OBJECTID_BUFFER(Structure):
     ObjectId: Byte * 16
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ExtendedInfo: Byte * 48
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             BirthVolumeId: Byte * 16
             BirthObjectId: Byte * 16
@@ -2214,6 +2226,7 @@ class FS_BPIO_OUTPUT(Structure):
     Reserved1: UInt64
     Reserved2: UInt64
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Enable: win32more.Windows.Win32.System.Ioctl.FS_BPIO_RESULTS
         Query: win32more.Windows.Win32.System.Ioctl.FS_BPIO_RESULTS
@@ -2346,6 +2359,7 @@ class MARK_HANDLE_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     VolumeHandle: win32more.Windows.Win32.Foundation.HANDLE
     HandleInfo: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         UsnSourceInfo: UInt32
         CopyNumber: UInt32
@@ -2354,6 +2368,7 @@ if ARCH in 'X64,ARM64':
         Anonymous: _Anonymous_e__Union
         VolumeHandle: UInt32
         HandleInfo: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             UsnSourceInfo: UInt32
             CopyNumber: UInt32
@@ -2624,6 +2639,7 @@ class PARTITION_INFORMATION_EX(Structure):
     RewritePartition: win32more.Windows.Win32.Foundation.BOOLEAN
     IsServicePartition: win32more.Windows.Win32.Foundation.BOOLEAN
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.System.Ioctl.PARTITION_INFORMATION_MBR
         Gpt: win32more.Windows.Win32.System.Ioctl.PARTITION_INFORMATION_GPT
@@ -2653,6 +2669,7 @@ class PERSISTENT_RESERVE_COMMAND(Structure):
     Version: UInt32
     Size: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         PR_IN: _PR_IN_e__Struct
         PR_OUT: _PR_OUT_e__Struct
@@ -2727,6 +2744,7 @@ class QUERY_FILE_LAYOUT_INPUT(Structure):
     FilterType: win32more.Windows.Win32.System.Ioctl.QUERY_FILE_LAYOUT_FILTER_TYPE
     Reserved: UInt32
     Filter: _Filter_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FilterEntryCount: UInt32
         NumberOfPairs: UInt32
@@ -3231,6 +3249,7 @@ class SD_GLOBAL_CHANGE_INPUT(Structure):
     Flags: UInt32
     ChangeType: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         SdChange: win32more.Windows.Win32.System.Ioctl.SD_CHANGE_MACHINE_SID_INPUT
         SdQueryStats: win32more.Windows.Win32.System.Ioctl.SD_QUERY_STATS_INPUT
@@ -3239,6 +3258,7 @@ class SD_GLOBAL_CHANGE_OUTPUT(Structure):
     Flags: UInt32
     ChangeType: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         SdChange: win32more.Windows.Win32.System.Ioctl.SD_CHANGE_MACHINE_SID_OUTPUT
         SdQueryStats: win32more.Windows.Win32.System.Ioctl.SD_QUERY_STATS_OUTPUT
@@ -3284,6 +3304,7 @@ class SET_PARTITION_INFORMATION(Structure):
 class SET_PARTITION_INFORMATION_EX(Structure):
     PartitionStyle: win32more.Windows.Win32.System.Ioctl.PARTITION_STYLE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Mbr: win32more.Windows.Win32.System.Ioctl.SET_PARTITION_INFORMATION
         Gpt: win32more.Windows.Win32.System.Ioctl.PARTITION_INFORMATION_GPT
@@ -3838,6 +3859,7 @@ class STORAGE_MINIPORT_DESCRIPTOR(Structure):
     class _Flags_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         AsBYTE: Byte
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             LogicalPoFxForDisk: Annotated[Byte, NativeBitfieldAttribute(1)]
             Reserved: Annotated[Byte, NativeBitfieldAttribute(7)]
@@ -3852,6 +3874,7 @@ class STORAGE_OFFLOAD_TOKEN(Structure):
     Reserved: Byte * 2
     TokenIdLength: Byte * 2
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         StorageOffloadZeroDataToken: _StorageOffloadZeroDataToken_e__Struct
         Token: Byte * 504
@@ -4039,6 +4062,7 @@ class STORAGE_PROTOCOL_DATA_DESCRIPTOR_EXT(Structure):
 class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         RetainAsynEvent: Annotated[UInt32, NativeBitfieldAttribute(1)]
         LogSpecificField: Annotated[UInt32, NativeBitfieldAttribute(4)]
@@ -4115,6 +4139,7 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE(Structure):
     ResponseLevel: UInt32
     NumberEntries: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Lev1Depends: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY * 1
         Lev2Depends: win32more.Windows.Win32.System.Ioctl.STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY * 1
@@ -4183,12 +4208,14 @@ PropertySetMaxDefined: win32more.Windows.Win32.System.Ioctl.STORAGE_SET_TYPE = 2
 class STORAGE_SPEC_VERSION(Union):
     Anonymous: _Anonymous_e__Struct
     AsUlong: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         MinorVersion: _MinorVersion_e__Union
         MajorVersion: UInt16
         class _MinorVersion_e__Union(Union):
             Anonymous: _Anonymous_e__Struct
             AsUshort: UInt16
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Struct(Structure):
                 SubMinor: Byte
                 Minor: Byte
@@ -4451,6 +4478,7 @@ class TXFS_QUERY_RM_INFORMATION(Structure):
     TmLogPathOffset: UInt32
 class TXFS_READ_BACKUP_INFORMATION_OUT(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         BufferLength: UInt32
         Buffer: FlexibleArray[Byte]

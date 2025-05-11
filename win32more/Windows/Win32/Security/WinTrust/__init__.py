@@ -300,6 +300,7 @@ class CRYPT_PROVIDER_DATA(Structure):
     dwUIStateFlags: UInt32
     pSigState: POINTER(win32more.Windows.Win32.Security.WinTrust.CRYPT_PROVIDER_SIGSTATE)
     pSigSettings: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pPDSip: POINTER(win32more.Windows.Win32.Security.WinTrust.PROVDATA_SIP)
 class CRYPT_PROVIDER_DEFUSAGE(Structure):
@@ -478,6 +479,7 @@ class SPC_INDIRECT_DATA_CONTENT(Structure):
 class SPC_LINK(Structure):
     dwLinkChoice: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pwszUrl: win32more.Windows.Win32.Foundation.PWSTR
         Moniker: win32more.Windows.Win32.Security.WinTrust.SPC_SERIALIZED_OBJECT
@@ -549,6 +551,7 @@ class WINTRUST_DATA(Structure):
     dwProvFlags: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_PROVIDER_FLAGS
     dwUIContext: win32more.Windows.Win32.Security.WinTrust.WINTRUST_DATA_UICONTEXT
     pSignatureSettings: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_SIGNATURE_SETTINGS)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pFile: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_FILE_INFO)
         pCatalog: POINTER(win32more.Windows.Win32.Security.WinTrust.WINTRUST_CATALOG_INFO)
@@ -657,6 +660,7 @@ class WTD_GENERIC_CHAIN_POLICY_CREATE_INFO(Structure):
     pChainPara: POINTER(win32more.Windows.Win32.Security.Cryptography.CERT_CHAIN_PARA)
     dwFlags: UInt32
     pvReserved: VoidPtr
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         cbStruct: UInt32
         cbSize: UInt32
@@ -666,6 +670,7 @@ class WTD_GENERIC_CHAIN_POLICY_DATA(Structure):
     pCounterSignerChainInfo: POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_CREATE_INFO)
     pfnPolicyCallback: win32more.Windows.Win32.Security.WinTrust.PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK
     pvPolicyArg: VoidPtr
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         cbStruct: UInt32
         cbSize: UInt32
@@ -677,6 +682,7 @@ class WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO(Structure):
     dwError: UInt32
     cCounterSigner: UInt32
     rgpCounterSigner: POINTER(POINTER(win32more.Windows.Win32.Security.WinTrust.WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO))
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         cbStruct: UInt32
         cbSize: UInt32

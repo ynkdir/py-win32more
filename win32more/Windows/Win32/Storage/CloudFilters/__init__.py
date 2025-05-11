@@ -143,6 +143,7 @@ CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNSUPPORTED: win32more.Windows.Win3
 class CF_CALLBACK_PARAMETERS(Structure):
     ParamSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Cancel: _Cancel_e__Struct
         FetchData: _FetchData_e__Struct
@@ -159,6 +160,7 @@ class CF_CALLBACK_PARAMETERS(Structure):
         class _Cancel_e__Struct(Structure):
             Flags: win32more.Windows.Win32.Storage.CloudFilters.CF_CALLBACK_CANCEL_FLAGS
             Anonymous: _Anonymous_e__Union
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Union(Union):
                 FetchData: _FetchData_e__Struct
                 class _FetchData_e__Struct(Structure):
@@ -315,6 +317,7 @@ class CF_OPERATION_INFO(Structure):
 class CF_OPERATION_PARAMETERS(Structure):
     ParamSize: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         TransferData: _TransferData_e__Struct
         RetrieveData: _RetrieveData_e__Struct

@@ -2057,6 +2057,7 @@ class DOT11_PHY_FREQUENCY_ADOPTED_PARAMETERS(Structure):
     Header: win32more.Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     ulPhyId: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ulChannel: UInt32
         ulFrequency: UInt32
@@ -2294,6 +2295,7 @@ class DOT11_RECV_SENSITIVITY_LIST(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11RecvSensitivity: FlexibleArray[win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_RECV_SENSITIVITY]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dot11PhyType: win32more.Windows.Win32.NetworkManagement.WiFi.DOT11_PHY_TYPE
         uPhyId: UInt32

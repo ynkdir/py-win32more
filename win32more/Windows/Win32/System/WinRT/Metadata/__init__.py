@@ -905,6 +905,7 @@ class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT(Structure):
     HandlerOffset: UInt32
     HandlerLength: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ClassToken: UInt32
         FilterOffset: UInt32
@@ -916,6 +917,7 @@ if ARCH in 'X64,ARM64':
         HandlerOffset: Annotated[UInt32, NativeBitfieldAttribute(16)]
         HandlerLength: Annotated[UInt32, NativeBitfieldAttribute(8)]
         Anonymous: _Anonymous_e__Union
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             ClassToken: UInt32
             FilterOffset: UInt32
@@ -927,6 +929,7 @@ elif ARCH in 'X86':
         HandlerOffset: Annotated[UInt32, NativeBitfieldAttribute(16)]
         HandlerLength: Annotated[UInt32, NativeBitfieldAttribute(8)]
         Anonymous: _Anonymous_e__Union
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Union(Union):
             ClassToken: UInt32
             FilterOffset: UInt32

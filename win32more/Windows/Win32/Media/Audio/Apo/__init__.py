@@ -73,6 +73,7 @@ APO_LOG_LEVEL_VERBOSE: win32more.Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL = 5
 class APO_NOTIFICATION(Structure):
     type: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         audioEndpointVolumeChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION
         audioEndpointPropertyChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION
@@ -83,6 +84,7 @@ class APO_NOTIFICATION(Structure):
 class APO_NOTIFICATION_DESCRIPTOR(Structure):
     type: win32more.Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         audioEndpointVolume: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR
         audioEndpointPropertyChange: win32more.Windows.Win32.Media.Audio.Apo.AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR

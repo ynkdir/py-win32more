@@ -551,6 +551,7 @@ class IDE_IO_CONTROL(Structure):
 class IKE_AUTHENTICATION_INFORMATION(Structure):
     AuthMethod: win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_METHOD
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         PsKey: win32more.Windows.Win32.Storage.IscsiDisc.IKE_AUTHENTICATION_PRESHARED_KEY
 IKE_AUTHENTICATION_METHOD = Int32

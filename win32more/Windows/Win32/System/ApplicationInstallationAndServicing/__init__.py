@@ -1571,6 +1571,7 @@ class DELTA_INPUT(Structure):
     Anonymous: _Anonymous_e__Union
     uSize: UIntPtr
     Editable: win32more.Windows.Win32.Foundation.BOOL
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         lpcStart: VoidPtr
         lpStart: VoidPtr

@@ -618,6 +618,7 @@ class PROPBAG2(Structure):
 class PROPSPEC(Structure):
     ulKind: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC_KIND
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         propid: UInt32
         lpwstr: win32more.Windows.Win32.Foundation.PWSTR
@@ -626,15 +627,18 @@ PRSPEC_LPWSTR: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC_KIN
 PRSPEC_PROPID: win32more.Windows.Win32.System.Com.StructuredStorage.PROPSPEC_KIND = 1
 class PROPVARIANT(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         decVal: win32more.Windows.Win32.Foundation.DECIMAL
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             vt: win32more.Windows.Win32.System.Variant.VARENUM
             wReserved1: UInt16
             wReserved2: UInt16
             wReserved3: UInt16
             Anonymous: _Anonymous_e__Union
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Union(Union):
                 cVal: win32more.Windows.Win32.Foundation.CHAR
                 bVal: Byte

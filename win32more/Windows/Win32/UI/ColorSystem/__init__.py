@@ -409,6 +409,7 @@ class COLOR(Union):
     named: win32more.Windows.Win32.UI.ColorSystem.NAMEDCOLOR
     hifi: win32more.Windows.Win32.UI.ColorSystem.HiFiCOLOR
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         reserved1: UInt32
         reserved2: VoidPtr

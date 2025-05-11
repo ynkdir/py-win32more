@@ -4189,6 +4189,7 @@ class LINEPROXYREQUEST(Structure):
     dwClientAppAPIVersion: UInt32
     dwRequestType: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         SetAgentGroup: _SetAgentGroup_e__Struct
@@ -4426,6 +4427,7 @@ class MSP_EVENT_INFO(Structure):
     Event: win32more.Windows.Win32.Devices.Tapi.MSP_EVENT
     hCall: POINTER(Int32)
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         MSP_ADDRESS_EVENT_INFO: _MSP_ADDRESS_EVENT_INFO_e__Struct
         MSP_CALL_EVENT_INFO: _MSP_CALL_EVENT_INFO_e__Struct

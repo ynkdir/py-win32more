@@ -94,9 +94,11 @@ class RAWMOUSE(Structure):
     lLastX: Int32
     lLastY: Int32
     ulExtraInformation: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ulButtons: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             usButtonFlags: UInt16
             usButtonData: UInt16
@@ -111,6 +113,7 @@ class RID_DEVICE_INFO(Structure):
     cbSize: UInt32
     dwType: win32more.Windows.Win32.UI.Input.RID_DEVICE_INFO_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         mouse: win32more.Windows.Win32.UI.Input.RID_DEVICE_INFO_MOUSE
         keyboard: win32more.Windows.Win32.UI.Input.RID_DEVICE_INFO_KEYBOARD

@@ -200,6 +200,7 @@ class PROCESS_MEMORY_COUNTERS_EX2(Structure):
 class PSAPI_WORKING_SET_BLOCK(Union):
     Flags: UIntPtr
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Struct(Structure):
         Protection: Annotated[UIntPtr, NativeBitfieldAttribute(5)]
         ShareCount: Annotated[UIntPtr, NativeBitfieldAttribute(3)]
@@ -209,9 +210,11 @@ class PSAPI_WORKING_SET_BLOCK(Union):
 class PSAPI_WORKING_SET_EX_BLOCK(Union):
     Flags: UIntPtr
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         Invalid: _Invalid_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             Valid: Annotated[UIntPtr, NativeBitfieldAttribute(1)]
             ShareCount: Annotated[UIntPtr, NativeBitfieldAttribute(3)]

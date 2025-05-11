@@ -1896,9 +1896,11 @@ class DEVMODEA(Structure):
     dmReserved2: UInt32
     dmPanningWidth: UInt32
     dmPanningHeight: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             dmOrientation: Int16
             dmPaperSize: Int16
@@ -1943,9 +1945,11 @@ class DEVMODEW(Structure):
     dmReserved2: UInt32
     dmPanningWidth: UInt32
     dmPanningHeight: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2')
         class _Anonymous1_e__Struct(Structure):
             dmOrientation: Int16
             dmPaperSize: Int16

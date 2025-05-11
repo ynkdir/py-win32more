@@ -74,9 +74,11 @@ class TBS_CONTEXT_PARAMS(Structure):
 class TBS_CONTEXT_PARAMS2(Structure):
     version: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         asUINT32: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             requestRaw: Annotated[UInt32, NativeBitfieldAttribute(1)]
             includeTpm12: Annotated[UInt32, NativeBitfieldAttribute(1)]

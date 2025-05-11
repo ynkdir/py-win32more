@@ -2592,6 +2592,7 @@ class DIACTIONA(Structure):
     guidInstance: Guid
     dwObjID: UInt32
     dwHow: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         lptszActionName: win32more.Windows.Win32.Foundation.PSTR
         uResIdString: UInt32
@@ -2634,6 +2635,7 @@ class DIACTIONW(Structure):
     guidInstance: Guid
     dwObjID: UInt32
     dwHow: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         lptszActionName: win32more.Windows.Win32.Foundation.PWSTR
         uResIdString: UInt32
@@ -3134,6 +3136,7 @@ class HIDP_BUTTON_CAPS(Structure):
     Reserved2: UInt16
     Reserved: UInt32 * 9
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Range: _Range_e__Struct
         NotRange: _NotRange_e__Struct
@@ -3176,6 +3179,7 @@ class HIDP_DATA(Structure):
     DataIndex: UInt16
     Reserved: UInt16
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         RawValue: UInt32
         On: win32more.Windows.Win32.Foundation.BOOLEAN
@@ -3190,9 +3194,11 @@ HidP_Keyboard_Break: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_K
 HidP_Keyboard_Make: win32more.Windows.Win32.Devices.HumanInterfaceDevice.HIDP_KEYBOARD_DIRECTION = 1
 class HIDP_KEYBOARD_MODIFIER_STATE(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         ul: UInt32
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             LeftControl: Annotated[UInt32, NativeBitfieldAttribute(1)]
             LeftShift: Annotated[UInt32, NativeBitfieldAttribute(1)]
@@ -3250,6 +3256,7 @@ class HIDP_VALUE_CAPS(Structure):
     PhysicalMin: Int32
     PhysicalMax: Int32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Range: _Range_e__Struct
         NotRange: _NotRange_e__Struct
@@ -3865,9 +3872,11 @@ class MOUSE_INPUT_DATA(Structure):
     LastX: Int32
     LastY: Int32
     ExtraInformation: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Buttons: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             ButtonFlags: UInt16
             ButtonData: UInt16

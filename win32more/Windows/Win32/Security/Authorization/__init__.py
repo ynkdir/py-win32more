@@ -66,6 +66,7 @@ class ACTRL_OVERLAPPED(Structure):
     Anonymous: _Anonymous_e__Union
     Reserved2: UInt32
     hEvent: win32more.Windows.Win32.Foundation.HANDLE
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Provider: VoidPtr
         Reserved1: UInt32
@@ -95,6 +96,7 @@ class AUDIT_PARAM(Structure):
     Flags: UInt32
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Data0: UIntPtr
         String: win32more.Windows.Win32.Foundation.PWSTR
@@ -263,6 +265,7 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION(Structure):
     Anonymous: _Anonymous_e__Union
     dwObjectTypeNameCount: UInt32
     ObjectTypeNames: FlexibleArray[win32more.Windows.Win32.Security.Authorization.AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pReserved: VoidPtr
         pProviderGuid: POINTER(Guid)

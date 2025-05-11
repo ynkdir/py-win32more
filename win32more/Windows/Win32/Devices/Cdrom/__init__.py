@@ -232,6 +232,7 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK(Structure):
     Unicode: Annotated[Byte, NativeBitfieldAttribute(1)]
     Anonymous: _Anonymous_e__Union
     CRC: Byte * 2
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Text: Byte * 12
         WText: Char * 6

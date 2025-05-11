@@ -88,9 +88,11 @@ class NS_CONTEXT_ATTRIBUTES(Structure):
     pfnConnectFn: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_CONTEXT_CONNECT_FN
     pReserved: VoidPtr
     pfnOsVersionCheck: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_OSVERSIONCHECK
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         _ullAlign: UInt64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             dwVersion: UInt32
             dwReserved: UInt32
@@ -105,9 +107,11 @@ class NS_HELPER_ATTRIBUTES(Structure):
     guidHelper: Guid
     pfnStart: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_HELPER_START_FN
     pfnStop: win32more.Windows.Win32.NetworkManagement.NetShell.PNS_HELPER_STOP_FN
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         _ullAlign: UInt64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             dwVersion: UInt32
             dwReserved: UInt32

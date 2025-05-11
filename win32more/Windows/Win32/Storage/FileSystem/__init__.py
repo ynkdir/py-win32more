@@ -1822,6 +1822,7 @@ class FILE_ID_DESCRIPTOR(Structure):
     dwSize: UInt32
     Type: win32more.Windows.Win32.Storage.FileSystem.FILE_ID_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         FileId: Int64
         ObjectId: Guid
@@ -1917,6 +1918,7 @@ class FILE_NOTIFY_EXTENDED_INFORMATION(Structure):
     ParentFileId: Int64
     FileNameLength: UInt32
     FileName: FlexibleArray[Char]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ReparsePointTag: UInt32
         EaSize: UInt32
@@ -1954,6 +1956,7 @@ class FILE_RENAME_INFO(Structure):
     RootDirectory: win32more.Windows.Win32.Foundation.HANDLE
     FileNameLength: UInt32
     FileName: FlexibleArray[Char]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ReplaceIfExists: win32more.Windows.Win32.Foundation.BOOLEAN
         Flags: UInt32
@@ -3367,6 +3370,7 @@ TXFS_MINIVERSION_DIRTY_VIEW: win32more.Windows.Win32.Storage.FileSystem.TXFS_MIN
 TXFS_MINIVERSION_DEFAULT_VIEW: win32more.Windows.Win32.Storage.FileSystem.TXFS_MINIVERSION = 65534
 class TXF_ID(Structure):
     Anonymous: _Anonymous_e__Struct
+    _anonymous_ = ('Anonymous',)
     _pack_ = 4
     class _Anonymous_e__Struct(Structure):
         LowPart: Int64

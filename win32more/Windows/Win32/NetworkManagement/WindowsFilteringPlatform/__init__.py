@@ -965,6 +965,7 @@ DlBroadcast: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.
 class FWPM_ACTION0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_ACTION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         filterType: Guid
         calloutKey: Guid
@@ -1018,6 +1019,7 @@ class FWPM_CONNECTION0(Structure):
     bytesTransferredOut: UInt64
     bytesTransferredTotal: UInt64
     startSysTime: win32more.Windows.Win32.Foundation.FILETIME
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
@@ -1075,6 +1077,7 @@ class FWPM_FILTER0(Structure):
     reserved: POINTER(Guid)
     filterId: UInt64
     effectiveWeight: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_VALUE0
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         rawContext: UInt64
         providerContextKey: Guid
@@ -1137,6 +1140,7 @@ class FWPM_NET_EVENT0(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER0
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE0)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE0)
@@ -1148,6 +1152,7 @@ class FWPM_NET_EVENT1(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER1
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE1)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE0)
@@ -1159,6 +1164,7 @@ class FWPM_NET_EVENT2(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER2
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE1)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE0)
@@ -1174,6 +1180,7 @@ class FWPM_NET_EVENT3(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER3
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE1)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE0)
@@ -1189,6 +1196,7 @@ class FWPM_NET_EVENT4(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER3
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE2)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE1)
@@ -1204,6 +1212,7 @@ class FWPM_NET_EVENT5(Structure):
     header: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_HEADER3
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ikeMmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_MM_FAILURE2)
         ikeQmFailure: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_NET_EVENT_IKEEXT_QM_FAILURE1)
@@ -1301,6 +1310,7 @@ class FWPM_NET_EVENT_HEADER0(Structure):
     scopeId: UInt32
     appId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     userId: POINTER(win32more.Windows.Win32.Security.SID)
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localAddrV4: UInt32
         localAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
@@ -1320,6 +1330,7 @@ class FWPM_NET_EVENT_HEADER1(Structure):
     appId: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
     userId: POINTER(win32more.Windows.Win32.Security.SID)
     Anonymous3: _Anonymous3_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         localAddrV4: UInt32
         localAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
@@ -1328,11 +1339,14 @@ class FWPM_NET_EVENT_HEADER1(Structure):
         remoteAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
     class _Anonymous3_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             reserved1: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF
             Anonymous: _Anonymous_e__Union
+            _anonymous_ = ('Anonymous',)
             class _Anonymous_e__Union(Union):
                 Anonymous: _Anonymous_e__Struct
+                _anonymous_ = ('Anonymous',)
                 class _Anonymous_e__Struct(Structure):
                     reserved2: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY6
                     reserved3: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY6
@@ -1357,6 +1371,7 @@ class FWPM_NET_EVENT_HEADER2(Structure):
     userId: POINTER(win32more.Windows.Win32.Security.SID)
     addressFamily: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_AF
     packageSid: POINTER(win32more.Windows.Win32.Security.SID)
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localAddrV4: UInt32
         localAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
@@ -1380,6 +1395,7 @@ class FWPM_NET_EVENT_HEADER3(Structure):
     enterpriseId: win32more.Windows.Win32.Foundation.PWSTR
     policyFlags: UInt64
     effectiveName: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localAddrV4: UInt32
         localAddrV6: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_ARRAY16
@@ -1469,6 +1485,7 @@ class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     qmFilterId: UInt64
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
     class _Anonymous2_e__Union(Union):
@@ -1485,6 +1502,7 @@ class FWPM_NET_EVENT_IKEEXT_QM_FAILURE1(Structure):
     qmFilterId: UInt64
     mmSaLuid: UInt64
     mmProviderContextKey: Guid
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localSubNet: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_CONDITION_VALUE0
     class _Anonymous2_e__Union(Union):
@@ -1495,6 +1513,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0(Structure):
     Anonymous2: _Anonymous2_e__Union
     failureStatus: Int32
     direction: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DIRECTION
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         publicHostV4Addr: UInt32
         publicHostV6Addr: Byte * 16
@@ -1546,6 +1565,7 @@ class FWPM_PROVIDER_CONTEXT0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE
     Anonymous: _Anonymous_e__Union
     providerContextId: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         keyingPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_KEYING_POLICY0)
         ikeQmTransportPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSPORT_POLICY0)
@@ -1565,6 +1585,7 @@ class FWPM_PROVIDER_CONTEXT1(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE
     Anonymous: _Anonymous_e__Union
     providerContextId: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         keyingPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_KEYING_POLICY0)
         ikeQmTransportPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSPORT_POLICY1)
@@ -1587,6 +1608,7 @@ class FWPM_PROVIDER_CONTEXT2(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE
     Anonymous: _Anonymous_e__Union
     providerContextId: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         keyingPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_KEYING_POLICY1)
         ikeQmTransportPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSPORT_POLICY2)
@@ -1610,6 +1632,7 @@ class FWPM_PROVIDER_CONTEXT3(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_PROVIDER_CONTEXT_TYPE
     Anonymous: _Anonymous_e__Union
     providerContextId: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         keyingPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_KEYING_POLICY1)
         ikeQmTransportPolicy: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSPORT_POLICY2)
@@ -1754,6 +1777,7 @@ class FWPM_VSWITCH_EVENT0(Structure):
     eventType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_VSWITCH_EVENT_TYPE
     vSwitchId: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         positionInfo: _positionInfo_e__Struct
         reorderInfo: _reorderInfo_e__Struct
@@ -1810,6 +1834,7 @@ FWP_CLASSIFY_OPTION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilter
 class FWP_CONDITION_VALUE0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         uint8: Byte
         uint16: UInt16
@@ -1911,6 +1936,7 @@ class FWP_V6_ADDR_AND_MASK(Structure):
 class FWP_VALUE0(Structure):
     type: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_DATA_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         uint8: Byte
         uint16: UInt16
@@ -1942,6 +1968,7 @@ IKEEXT_IMPERSONATION_MAX: win32more.Windows.Win32.NetworkManagement.WindowsFilte
 class IKEEXT_AUTHENTICATION_METHOD0(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         presharedKeyAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION0
         certificateAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_AUTHENTICATION0
@@ -1952,6 +1979,7 @@ class IKEEXT_AUTHENTICATION_METHOD0(Structure):
 class IKEEXT_AUTHENTICATION_METHOD1(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         presharedKeyAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION1
         certificateAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_AUTHENTICATION1
@@ -1963,6 +1991,7 @@ class IKEEXT_AUTHENTICATION_METHOD1(Structure):
 class IKEEXT_AUTHENTICATION_METHOD2(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         presharedKeyAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION1
         certificateAuthentication: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_AUTHENTICATION2
@@ -1993,10 +2022,12 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION0(Structure):
     outboundConfigType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_CONFIG_TYPE
     Anonymous2: _Anonymous2_e__Union
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         inboundEnterpriseStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
         inboundTrustedRootStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             inboundRootArraySize: UInt32
             inboundRootArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
@@ -2004,6 +2035,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION0(Structure):
         Anonymous: _Anonymous_e__Struct
         outboundEnterpriseStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
         outboundTrustedRootStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             outboundRootArraySize: UInt32
             outboundRootArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
@@ -2014,10 +2046,12 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION1(Structure):
     Anonymous2: _Anonymous2_e__Union
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH
     localCertLocationUrl: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         inboundEnterpriseStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
         inboundTrustedRootStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             inboundRootArraySize: UInt32
             inboundRootArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
@@ -2025,6 +2059,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION1(Structure):
         Anonymous: _Anonymous_e__Struct
         outboundEnterpriseStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
         outboundTrustedRootStoreConfig: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             outboundRootArraySize: UInt32
             outboundRootArray: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_ROOT_CONFIG0)
@@ -2035,10 +2070,12 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION2(Structure):
     Anonymous2: _Anonymous2_e__Union
     flags: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERT_AUTH
     localCertLocationUrl: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         Anonymous3: _Anonymous3_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
         class _Anonymous1_e__Struct(Structure):
             inboundRootArraySize: UInt32
             inboundRootCriteria: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CRITERIA0)
@@ -2052,6 +2089,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION2(Structure):
         Anonymous1: _Anonymous1_e__Struct
         Anonymous2: _Anonymous2_e__Struct
         Anonymous3: _Anonymous3_e__Struct
+        _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
         class _Anonymous1_e__Struct(Structure):
             outboundRootArraySize: UInt32
             outboundRootCriteria: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CRITERIA0)
@@ -2148,6 +2186,7 @@ class IKEEXT_CREDENTIAL0(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     impersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         presharedKey: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION0)
         certificate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CREDENTIAL0)
@@ -2156,6 +2195,7 @@ class IKEEXT_CREDENTIAL1(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     impersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         presharedKey: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION1)
         certificate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CREDENTIAL1)
@@ -2164,6 +2204,7 @@ class IKEEXT_CREDENTIAL2(Structure):
     authenticationMethodType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_METHOD_TYPE
     impersonationType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         presharedKey: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_PRESHARED_KEY_AUTHENTICATION1)
         certificate: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CERTIFICATE_CREDENTIAL1)
@@ -2387,6 +2428,7 @@ class IKEEXT_SA_DETAILS0(Structure):
     ikeCredentials: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IKEEXT_CREDENTIALS0
     ikePolicyKey: Guid
     virtualIfTunnelId: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         v4UdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
 class IKEEXT_SA_DETAILS1(Structure):
@@ -2401,6 +2443,7 @@ class IKEEXT_SA_DETAILS1(Structure):
     ikePolicyKey: Guid
     virtualIfTunnelId: UInt64
     correlationKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         v4UdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
 class IKEEXT_SA_DETAILS2(Structure):
@@ -2415,6 +2458,7 @@ class IKEEXT_SA_DETAILS2(Structure):
     ikePolicyKey: Guid
     virtualIfTunnelId: UInt64
     correlationKey: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_BYTE_BLOB
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         v4UdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
 class IKEEXT_SA_ENUM_TEMPLATE0(Structure):
@@ -2439,6 +2483,7 @@ class IKEEXT_TRAFFIC0(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     authIpFilterId: UInt64
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
@@ -2588,6 +2633,7 @@ class IPSEC_GETSPI0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous: _Anonymous_e__Union
     rngCryptoModuleID: POINTER(Guid)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         inboundUdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
 class IPSEC_GETSPI1(Structure):
@@ -2595,6 +2641,7 @@ class IPSEC_GETSPI1(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous: _Anonymous_e__Union
     rngCryptoModuleID: POINTER(Guid)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         inboundUdpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
 class IPSEC_ID0(Structure):
@@ -2665,6 +2712,7 @@ class IPSEC_SA0(Structure):
     spi: UInt32
     saTransformType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ahInformation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_AUTH_INFORMATION0)
         espAuthInformation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_AUTH_INFORMATION0)
@@ -2692,6 +2740,7 @@ class IPSEC_SA_BUNDLE0(Structure):
     Anonymous: _Anonymous_e__Union
     mmSaId: UInt64
     pfsGroup: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         peerV4PrivateAddress: UInt32
 class IPSEC_SA_BUNDLE1(Structure):
@@ -2711,6 +2760,7 @@ class IPSEC_SA_BUNDLE1(Structure):
     pfsGroup: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_PFS_GROUP
     saLookupContext: Guid
     qmFilterId: UInt64
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         peerV4PrivateAddress: UInt32
 IPSEC_SA_BUNDLE_FLAGS = UInt32
@@ -2758,6 +2808,7 @@ class IPSEC_SA_DETAILS0(Structure):
     saBundle: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_SA_BUNDLE0
     Anonymous: _Anonymous_e__Union
     transportFilter: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER0)
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         udpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
 class IPSEC_SA_DETAILS1(Structure):
@@ -2768,6 +2819,7 @@ class IPSEC_SA_DETAILS1(Structure):
     Anonymous: _Anonymous_e__Union
     transportFilter: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWPM_FILTER0)
     virtualIfTunnelInfo: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_VIRTUAL_IF_TUNNEL_INFO0
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         udpEncapsulation: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_V4_UDP_ENCAPSULATION0)
 class IPSEC_SA_ENUM_TEMPLATE0(Structure):
@@ -2782,6 +2834,7 @@ class IPSEC_SA_LIFETIME0(Structure):
 class IPSEC_SA_TRANSFORM0(Structure):
     ipsecTransformType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRANSFORM_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ahTransform: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TRANSFORM0)
         espAuthTransform: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_AUTH_TRANSFORM0)
@@ -2826,6 +2879,7 @@ class IPSEC_TRAFFIC0(Structure):
     trafficType: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TRAFFIC_TYPE
     Anonymous3: _Anonymous3_e__Union
     remotePort: UInt16
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
@@ -2846,6 +2900,7 @@ class IPSEC_TRAFFIC1(Structure):
     ipProtocol: Byte
     localIfLuid: UInt64
     realIfProfileId: UInt32
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
@@ -2862,6 +2917,7 @@ class IPSEC_TRAFFIC_SELECTOR0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         startV4Address: UInt32
         startV6Address: Byte * 16
@@ -2924,6 +2980,7 @@ class IPSEC_TRANSPORT_POLICY2(Structure):
 class IPSEC_TUNNEL_ENDPOINT0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         v4Address: UInt32
         v6Address: Byte * 16
@@ -2931,6 +2988,7 @@ class IPSEC_TUNNEL_ENDPOINTS0(Structure):
     ipVersion: win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.FWP_IP_VERSION
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
@@ -2942,6 +3000,7 @@ class IPSEC_TUNNEL_ENDPOINTS1(Structure):
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     localIfLuid: UInt64
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16
@@ -2956,6 +3015,7 @@ class IPSEC_TUNNEL_ENDPOINTS2(Structure):
     remoteFqdn: win32more.Windows.Win32.Foundation.PWSTR
     numAddresses: UInt32
     remoteAddresses: POINTER(win32more.Windows.Win32.NetworkManagement.WindowsFilteringPlatform.IPSEC_TUNNEL_ENDPOINT0)
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     class _Anonymous1_e__Union(Union):
         localV4Address: UInt32
         localV6Address: Byte * 16

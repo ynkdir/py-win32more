@@ -792,6 +792,7 @@ class READER_SEL_REQUEST(Structure):
     dwPreferredProtocols: UInt32
     MatchType: win32more.Windows.Win32.Security.Credentials.READER_SEL_REQUEST_MATCH_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ReaderAndContainerParameter: _ReaderAndContainerParameter_e__Struct
         SerialNumberParameter: _SerialNumberParameter_e__Struct
@@ -863,6 +864,7 @@ class SCARD_T0_REQUEST(Structure):
     bSw1: Byte
     bSw2: Byte
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         CmdBytes: win32more.Windows.Win32.Security.Credentials.SCARD_T0_COMMAND
         rgbHeader: Byte * 5

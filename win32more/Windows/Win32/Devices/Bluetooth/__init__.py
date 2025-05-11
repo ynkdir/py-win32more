@@ -935,6 +935,7 @@ def BluetoothGATTRegisterEvent(hService: win32more.Windows.Win32.Foundation.HAND
 def BluetoothGATTUnregisterEvent(EventHandle: IntPtr, Flags: UInt32) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 class BLUETOOTH_ADDRESS(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ullLong: UInt64
         rgBytes: Byte * 6
@@ -943,6 +944,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE(Structure):
     authMethod: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_METHOD
     Anonymous: _Anonymous_e__Union
     negativeResponse: Byte
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         pinInfo: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_PIN_INFO
         oobInfo: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_OOB_DATA_INFO
@@ -954,6 +956,7 @@ class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS(Structure):
     ioCapability: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_IO_CAPABILITY
     authenticationRequirements: win32more.Windows.Win32.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_REQUIREMENTS
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Numeric_Value: UInt32
         Passkey: UInt32
@@ -1063,6 +1066,7 @@ class BTH_INFO_RSP(Structure):
     result: UInt16
     dataLen: Byte
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         connectionlessMTU: UInt16
@@ -1109,6 +1113,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE(Structure):
     Anonymous: _Anonymous_e__Union
     DataSize: UInt32
     Data: FlexibleArray[Byte]
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         CharacteristicExtendedProperties: _CharacteristicExtendedProperties_e__Struct
         ClientCharacteristicConfiguration: _ClientCharacteristicConfiguration_e__Struct

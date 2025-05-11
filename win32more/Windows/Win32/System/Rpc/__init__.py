@@ -2012,6 +2012,7 @@ class NDR_SCONTEXT(Structure):
 class NDR_USER_MARSHAL_INFO(Structure):
     InformationLevel: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Level1: win32more.Windows.Win32.System.Rpc.NDR_USER_MARSHAL_INFO_LEVEL1
 class NDR_USER_MARSHAL_INFO_LEVEL1(Structure):

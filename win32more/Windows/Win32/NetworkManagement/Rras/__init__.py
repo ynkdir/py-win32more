@@ -1909,12 +1909,14 @@ class PPTP_CONFIG_PARAMS(Structure):
 class PROJECTION_INFO(Structure):
     projectionInfoType: Byte
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         PppProjectionInfo: win32more.Windows.Win32.NetworkManagement.Rras.PPP_PROJECTION_INFO
         Ikev2ProjectionInfo: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_PROJECTION_INFO
 class PROJECTION_INFO2(Structure):
     projectionInfoType: Byte
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         PppProjectionInfo: win32more.Windows.Win32.NetworkManagement.Rras.PPP_PROJECTION_INFO2
         Ikev2ProjectionInfo: win32more.Windows.Win32.NetworkManagement.Rras.IKEV2_PROJECTION_INFO2
@@ -2675,6 +2677,7 @@ RASSUBENTRY = UnicodeAlias('RASSUBENTRYW')
 class RASTUNNELENDPOINT(Structure):
     dwType: UInt32
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ipv4: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
         ipv6: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR
@@ -2865,6 +2868,7 @@ class RAS_PROJECTION_INFO(Structure):
     version: win32more.Windows.Win32.NetworkManagement.Rras.RASAPIVERSION
     type: win32more.Windows.Win32.NetworkManagement.Rras.RASPROJECTION_INFO_TYPE
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         ppp: win32more.Windows.Win32.NetworkManagement.Rras.RASPPP_PROJECTION_INFO
         ikev2: win32more.Windows.Win32.NetworkManagement.Rras.RASIKEV2_PROJECTION_INFO
@@ -2978,9 +2982,11 @@ class RTM_ENTITY_EXPORT_METHODS(Structure):
     Methods: FlexibleArray[win32more.Windows.Win32.NetworkManagement.Rras.RTM_ENTITY_EXPORT_METHOD]
 class RTM_ENTITY_ID(Structure):
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         EntityId: UInt64
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             EntityProtocolId: UInt32
             EntityInstanceId: UInt32
@@ -3077,6 +3083,7 @@ class SSTP_CONFIG_PARAMS(Structure):
 class VPN_TS_IP_ADDRESS(Structure):
     Type: UInt16
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         v4: win32more.Windows.Win32.Networking.WinSock.IN_ADDR
         v6: win32more.Windows.Win32.Networking.WinSock.IN6_ADDR

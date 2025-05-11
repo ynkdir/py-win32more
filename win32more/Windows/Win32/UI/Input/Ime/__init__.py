@@ -1501,6 +1501,7 @@ class IMEKMSKEY(Structure):
     dwVKEY: UInt32
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     _pack_ = 1
     class _Anonymous1_e__Union(Union):
         dwControl: UInt32
@@ -1609,10 +1610,12 @@ class IMEWRD(Structure):
     cbComment: Int32
     uct: win32more.Windows.Win32.UI.Input.Ime.IMEUCT
     pvComment: VoidPtr
+    _anonymous_ = ('Anonymous',)
     _pack_ = 1
     class _Anonymous_e__Union(Union):
         ulPos: UInt32
         Anonymous: _Anonymous_e__Struct
+        _anonymous_ = ('Anonymous',)
         _pack_ = 1
         class _Anonymous_e__Struct(Structure):
             nPos1: UInt16
@@ -1745,6 +1748,7 @@ class MORRSLT(Structure):
     cWDD: Int32
     pPrivate: VoidPtr
     BLKBuff: Char * 1
+    _anonymous_ = ('Anonymous1', 'Anonymous2', 'Anonymous3')
     _pack_ = 1
     class _Anonymous1_e__Union(Union):
         pwchRead: win32more.Windows.Win32.Foundation.PWSTR
@@ -1837,6 +1841,7 @@ class WDD(Structure):
     fRecentUsed: Annotated[UInt16, NativeBitfieldAttribute(1)]
     Anonymous3: Annotated[UInt16, NativeBitfieldAttribute(10)]
     pReserved: VoidPtr
+    _anonymous_ = ('Anonymous1', 'Anonymous2')
     _pack_ = 1
     class _Anonymous1_e__Union(Union):
         wReadPos: UInt16

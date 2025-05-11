@@ -1907,9 +1907,11 @@ class INTERNET_CACHE_CONFIG_INFOA(Structure):
     Anonymous: _Anonymous_e__Union
     dwNormalUsage: UInt32
     dwExemptUsage: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         CachePaths: FlexibleArray[win32more.Windows.Win32.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYA]
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             CachePath: win32more.Windows.Win32.Foundation.CHAR * 260
             dwCacheSize: UInt32
@@ -1924,9 +1926,11 @@ class INTERNET_CACHE_CONFIG_INFOW(Structure):
     Anonymous: _Anonymous_e__Union
     dwNormalUsage: UInt32
     dwExemptUsage: UInt32
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         CachePaths: FlexibleArray[win32more.Windows.Win32.Networking.WinInet.INTERNET_CACHE_CONFIG_PATH_ENTRYW]
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             CachePath: Char * 260
             dwCacheSize: UInt32
@@ -1968,6 +1972,7 @@ class INTERNET_CACHE_ENTRY_INFOA(Structure):
     dwHeaderInfoSize: UInt32
     lpszFileExtension: win32more.Windows.Win32.Foundation.PSTR
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwReserved: UInt32
         dwExemptDelta: UInt32
@@ -1988,6 +1993,7 @@ class INTERNET_CACHE_ENTRY_INFOW(Structure):
     dwHeaderInfoSize: UInt32
     lpszFileExtension: win32more.Windows.Win32.Foundation.PWSTR
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         dwReserved: UInt32
         dwExemptDelta: UInt32
@@ -2069,9 +2075,11 @@ class INTERNET_CREDENTIALS(Structure):
     lpcwszRealm: win32more.Windows.Win32.Foundation.PWSTR
     fAuthIdentity: win32more.Windows.Win32.Foundation.BOOL
     Anonymous: _Anonymous_e__Union
+    _anonymous_ = ('Anonymous',)
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
         pAuthIdentityOpaque: VoidPtr
+        _anonymous_ = ('Anonymous',)
         class _Anonymous_e__Struct(Structure):
             lpcwszUserName: win32more.Windows.Win32.Foundation.PWSTR
             lpcwszPassword: win32more.Windows.Win32.Foundation.PWSTR
