@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-import re
 import textwrap
 from collections.abc import Iterable
 from graphlib import TopologicalSorter
@@ -556,10 +555,12 @@ class StructUnion:
         for fd in self._value_fields():
             writer.write(f"{self.qualname}.{fd.name} = {self._formatter.pyvalue(fd)}\n")
 
-        anonymous = [fd.name for fd in self._td.fields if re.match(r"^Anonymous\d*$", fd.name)]
+        anonymous = [fd.name for fd in self._member_fields() if fd.name.startswith("Anonymous")]
         if anonymous:
             anonymous_csv = ", ".join(f"'{name}'" for name in anonymous)
-            writer.write(f"{self.qualname}._anonymous_ = [{anonymous_csv}]\n")
+            if len(anonymous) == 1:
+                anonymous_csv += ","
+            writer.write(f"{self.qualname}._anonymous_ = ({anonymous_csv})\n")
 
         if self._td.layout.packing_size != 0:
             writer.write(f"{self.qualname}._pack_ = {self._td.layout.packing_size}\n")

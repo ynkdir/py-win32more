@@ -512,7 +512,7 @@ class StructUnion:
     def enumerate_dependencies(self) -> Iterable[str]:
         yield from Dependencies(self._td)
 
-    # _fields_ and _anonymous_ is defined at runtime.
+    # _fields_ is defined at runtime.
     def emit(self) -> str:
         writer = StringIO()
         writer.write(f"class {self._td.name}({self._basetype()}):\n")
@@ -536,6 +536,12 @@ class StructUnion:
                 writer.write(f"    {fd.name}: FlexibleArray[{self._formatter.pytype(fd.signature.type)}]\n")
             else:
                 writer.write(f"    {fd.name}: {self._formatter.pytype(fd.signature)}\n")
+        anonymous = [fd.name for fd in self._member_fields() if fd.name.startswith("Anonymous")]
+        if anonymous:
+            anonymous_csv = ", ".join(f"'{name}'" for name in anonymous)
+            if len(anonymous) == 1:
+                anonymous_csv += ","
+            writer.write(f"    _anonymous_ = ({anonymous_csv})\n")
         if self._td.layout.packing_size != 0:
             writer.write(f"    _pack_ = {self._td.layout.packing_size}\n")
         for nested_type in self._td.nested_types:

@@ -1,4 +1,3 @@
-import re
 import sys
 import types
 import uuid
@@ -167,11 +166,6 @@ def _struct_union_commit(cls, start=True):
                 if isinstance(metadata, NativeBitfieldAttribute):
                     bitfields[name] = metadata.width
 
-    # Unnamed bitfield member is also named "Anonymous...".  Exclude it.
-    anonymous = [name for name in hints.keys() if re.match(r"^Anonymous\d*$", name) and name not in bitfields]
-    if anonymous:
-        cls._anonymous_ = anonymous
-
     fields = []
     for name, type_ in hints.items():
         if name in bitfields:
@@ -191,11 +185,6 @@ def _struct_union_commit(cls, start=True):
 
     for name, type_ in ireference_types.items():
         setattr(cls, name, IReferenceDescriptor(cls.__dict__[name], type_))
-
-    for name in anonymous:
-        hints.update(hints[name]._hints_)
-
-    cls._hints_ = hints
 
     return cls
 
@@ -336,12 +325,6 @@ class Guid(Structure):
         ("Data3", UInt16),
         ("Data4", Byte * 8),
     ]
-    _hints_ = {
-        "Data1": UInt32,
-        "Data2": UInt16,
-        "Data3": UInt16,
-        "Data4": Byte * 8,
-    }
 
     def __init__(self, val=None):
         if val is None:
