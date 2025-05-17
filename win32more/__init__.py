@@ -143,11 +143,11 @@ def _struct_union_commit(cls, start=True):
 
     hints = get_type_hints(cls)
 
-    ireference_types = {}
+    cls._generic_types = {}
 
     for name, type_ in hints.items():
         if getattr(type_, "_classid_", None) == "Windows.Foundation.IReference":
-            ireference_types[name] = type_
+            cls._generic_types[name] = type_
             hints[name] = get_origin(type_)
 
     for type_ in hints.values():
@@ -175,18 +175,23 @@ def _struct_union_commit(cls, start=True):
 
     cls._fields_ = fields
 
-    for name, type_ in hints.items():
-        # use __dict__[name] to avoid calling descriptor.__get__().
-        setattr(cls, name, EasyCastDescriptor(cls.__dict__[name], type_))
-
-    for name, type_ in hints.items():
-        if issubclass(type_, (c_char_p, c_wchar_p)):
-            setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
-
-    for name, type_ in ireference_types.items():
-        setattr(cls, name, IReferenceDescriptor(cls.__dict__[name], type_))
+    _hook_descriptor(cls, cls)
 
     return cls
+
+
+def _hook_descriptor(cls, struct):
+    anonymous = set(getattr(struct, "_anonymous_", []))
+    for name, type_, *_ in struct._fields_:
+        if name in anonymous:
+            _hook_descriptor(cls, type_)
+        elif issubclass(type_, (c_char_p, c_wchar_p)):
+            setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
+        elif getattr(type_, "_classid_", None) == "Windows.Foundation.IReference":
+            setattr(cls, name, IReferenceDescriptor(cls.__dict__[name], struct._generic_types[name]))
+        else:
+            # use __dict__[name] to avoid calling descriptor.__get__().
+            setattr(cls, name, EasyCastDescriptor(cls.__dict__[name], type_))
 
 
 class Structure(_Structure):

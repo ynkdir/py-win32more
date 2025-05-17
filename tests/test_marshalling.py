@@ -653,6 +653,19 @@ class TestMarshalling(unittest.TestCase):
 
         self.assertEqual(h(42), 42)
 
+    def test_anonymous_field_descriptor_should_be_hooked(self):
+        @commit
+        class S(Structure):
+            p: c_wchar_p
+
+        @commit
+        class T(Structure):
+            _anonymous_ = ["s"]
+            s: S
+
+        t = T((42,))
+        self.assertEqual(t.p_as_intptr, 42)
+
 
 if __name__ == "__main__":
     unittest.main()
