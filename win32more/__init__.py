@@ -185,9 +185,10 @@ def _hook_descriptor(cls, struct):
     for name, type_, *_ in struct._fields_:
         if name in anonymous:
             _hook_descriptor(cls, type_)
-        elif issubclass(type_, (c_char_p, c_wchar_p)):
+            continue
+        if issubclass(type_, (c_char_p, c_wchar_p)):
             setattr(cls, f"{name}_as_intptr", AsIntPtrDescriptor(cls.__dict__[name]))
-        elif getattr(type_, "_classid_", None) == "Windows.Foundation.IReference":
+        if getattr(type_, "_classid_", None) == "Windows.Foundation.IReference":
             setattr(cls, name, IReferenceDescriptor(cls.__dict__[name], struct._generic_types[name]))
         else:
             # use __dict__[name] to avoid calling descriptor.__get__().
