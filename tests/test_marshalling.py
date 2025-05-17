@@ -16,6 +16,7 @@ from win32more import (
     Boolean,
     Char,
     Double,
+    EasyCastDescriptor,
     Enum,
     ForeignFunctionCall,
     Int32,
@@ -665,6 +666,7 @@ class TestMarshalling(unittest.TestCase):
 
         t = T((42,))
         self.assertEqual(t.p_as_intptr, 42)
+        self.assertIsInstance(T.__dict__["p"], EasyCastDescriptor)
 
 
 if __name__ == "__main__":
