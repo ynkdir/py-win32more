@@ -53,9 +53,9 @@ class ActionEntityFactory(ComPtr):
     @winrt_mixinmethod
     def CreateStreamingTextActionEntityWriter(self: win32more.Windows.AI.Actions.IActionEntityFactory3, textFormat: win32more.Windows.AI.Actions.ActionEntityTextFormat) -> win32more.Windows.AI.Actions.StreamingTextActionEntityWriter: ...
     @winrt_mixinmethod
-    def CreateTableEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory3, data: PassArray[WinRT_String], columnCount: UInt32) -> win32more.Windows.AI.Actions.TableActionEntity: ...
+    def CreateTableEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory4, data: PassArray[WinRT_String], columnCount: UInt32) -> win32more.Windows.AI.Actions.TableActionEntity: ...
     @winrt_mixinmethod
-    def CreateContactEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory3, contact: win32more.Windows.ApplicationModel.Contacts.Contact) -> win32more.Windows.AI.Actions.ContactActionEntity: ...
+    def CreateContactEntity(self: win32more.Windows.AI.Actions.IActionEntityFactory4, contact: win32more.Windows.ApplicationModel.Contacts.Contact) -> win32more.Windows.AI.Actions.ContactActionEntity: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class ActionEntityKind(Enum, Int32):
@@ -90,11 +90,7 @@ class ActionInvocationContext(ComPtr):
     default_interface: win32more.Windows.AI.Actions.IActionInvocationContext
     _classid_ = 'Windows.AI.Actions.ActionInvocationContext'
     @winrt_mixinmethod
-    def get_ActionName(self: win32more.Windows.AI.Actions.IActionInvocationContext) -> WinRT_String: ...
-    @winrt_mixinmethod
     def get_EntityFactory(self: win32more.Windows.AI.Actions.IActionInvocationContext) -> win32more.Windows.AI.Actions.ActionEntityFactory: ...
-    @winrt_mixinmethod
-    def get_InvokerPackageFamilyName(self: win32more.Windows.AI.Actions.IActionInvocationContext) -> WinRT_String: ...
     @winrt_mixinmethod
     def SetInputEntity(self: win32more.Windows.AI.Actions.IActionInvocationContext, inputName: WinRT_String, inputValue: win32more.Windows.AI.Actions.ActionEntity) -> Void: ...
     @winrt_mixinmethod
@@ -122,12 +118,10 @@ class ActionInvocationContext(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     ActionId = property(get_ActionId, None)
-    ActionName = property(get_ActionName, None)
     EntityFactory = property(get_EntityFactory, None)
     ExtendedError = property(get_ExtendedError, put_ExtendedError)
     HelpDetails = property(get_HelpDetails, None)
     InvokerAppUserModelId = property(get_InvokerAppUserModelId, None)
-    InvokerPackageFamilyName = property(get_InvokerPackageFamilyName, None)
     InvokerWindowId = property(get_InvokerWindowId, None)
     Result = property(get_Result, put_Result)
 class ActionInvocationHelpDetails(ComPtr):
@@ -183,23 +177,23 @@ class ActionRuntime(ComPtr):
     @winrt_mixinmethod
     def CreateInvocationContext(self: win32more.Windows.AI.Actions.IActionRuntime, actionId: WinRT_String) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
     @winrt_mixinmethod
-    def CreateInvocationContextWithWindowId(self: win32more.Windows.AI.Actions.IActionRuntime2, actionId: WinRT_String, invokerWindowId: win32more.Windows.UI.WindowId) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
-    @winrt_mixinmethod
     def CreateActionFeedback(self: win32more.Windows.AI.Actions.IActionRuntime2, feedbackKind: win32more.Windows.AI.Actions.ActionFeedbackKind) -> win32more.Windows.AI.Actions.ActionFeedback: ...
     @winrt_mixinmethod
     def SetActionAvailability(self: win32more.Windows.AI.Actions.IActionRuntime2, actionId: WinRT_String, isAvailable: Boolean) -> Void: ...
     @winrt_mixinmethod
     def GetActionAvailability(self: win32more.Windows.AI.Actions.IActionRuntime2, actionId: WinRT_String) -> Boolean: ...
     @winrt_mixinmethod
-    def GetActionEntityById(self: win32more.Windows.AI.Actions.IActionRuntime2, entityId: WinRT_String) -> win32more.Windows.AI.Actions.ActionEntity: ...
+    def CreateInvocationContextWithWindowId(self: win32more.Windows.AI.Actions.IActionRuntime3, actionId: WinRT_String, invokerWindowId: win32more.Windows.UI.WindowId) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
     @winrt_mixinmethod
-    def get_LatestSupportedSchemaVersion(self: win32more.Windows.AI.Actions.IActionRuntime2) -> UInt32: ...
+    def GetActionEntityById(self: win32more.Windows.AI.Actions.IActionRuntime3, entityId: WinRT_String) -> win32more.Windows.AI.Actions.ActionEntity: ...
+    @winrt_mixinmethod
+    def get_LatestSupportedSchemaVersion(self: win32more.Windows.AI.Actions.IActionRuntime3) -> UInt32: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     ActionCatalog = property(get_ActionCatalog, None)
     EntityFactory = property(get_EntityFactory, None)
     LatestSupportedSchemaVersion = property(get_LatestSupportedSchemaVersion, None)
-ActionsContract: UInt32 = 131072
+ActionsContract: UInt32 = 262144
 class ContactActionEntity(ComPtr):
     extends: win32more.Windows.AI.Actions.ActionEntity
     default_interface: win32more.Windows.AI.Actions.IContactActionEntity
@@ -264,16 +258,20 @@ class IActionEntityFactory2(ComPtr):
 class IActionEntityFactory3(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.AI.Actions.IActionEntityFactory3'
-    _iid_ = Guid('{0da98e70-b335-5b9d-8422-78252ad97f12}')
+    _iid_ = Guid('{4910e689-00b5-56bb-9c65-0fcc76215283}')
     @winrt_commethod(6)
     def CreateRemoteFileEntity(self, sourceId: WinRT_String, fileKind: win32more.Windows.AI.Actions.RemoteFileKind, sourceUri: win32more.Windows.Foundation.Uri, fileId: WinRT_String, contentType: WinRT_String, driveId: WinRT_String, accountId: WinRT_String, extension: WinRT_String) -> win32more.Windows.AI.Actions.RemoteFileActionEntity: ...
     @winrt_commethod(7)
     def CreateTextEntityWithTextFormat(self, text: WinRT_String, textFormat: win32more.Windows.AI.Actions.ActionEntityTextFormat) -> win32more.Windows.AI.Actions.TextActionEntity: ...
     @winrt_commethod(8)
     def CreateStreamingTextActionEntityWriter(self, textFormat: win32more.Windows.AI.Actions.ActionEntityTextFormat) -> win32more.Windows.AI.Actions.StreamingTextActionEntityWriter: ...
-    @winrt_commethod(9)
+class IActionEntityFactory4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionEntityFactory4'
+    _iid_ = Guid('{332eda05-de0e-5a58-b318-a2ad771f013d}')
+    @winrt_commethod(6)
     def CreateTableEntity(self, data: PassArray[WinRT_String], columnCount: UInt32) -> win32more.Windows.AI.Actions.TableActionEntity: ...
-    @winrt_commethod(10)
+    @winrt_commethod(7)
     def CreateContactEntity(self, contact: win32more.Windows.ApplicationModel.Contacts.Contact) -> win32more.Windows.AI.Actions.ContactActionEntity: ...
 class IActionEntityFactoryFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -289,33 +287,27 @@ class IActionFeedback(ComPtr):
 class IActionInvocationContext(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.AI.Actions.IActionInvocationContext'
-    _iid_ = Guid('{7e9e9d04-8781-5f29-aa99-2458aca89c70}')
+    _iid_ = Guid('{c32b622e-86e1-5eba-9661-605910104978}')
     @winrt_commethod(6)
-    def get_ActionName(self) -> WinRT_String: ...
-    @winrt_commethod(7)
     def get_EntityFactory(self) -> win32more.Windows.AI.Actions.ActionEntityFactory: ...
-    @winrt_commethod(8)
-    def get_InvokerPackageFamilyName(self) -> WinRT_String: ...
-    @winrt_commethod(9)
+    @winrt_commethod(7)
     def SetInputEntity(self, inputName: WinRT_String, inputValue: win32more.Windows.AI.Actions.ActionEntity) -> Void: ...
-    @winrt_commethod(10)
+    @winrt_commethod(8)
     def GetInputEntities(self) -> ReceiveArray[win32more.Windows.AI.Actions.NamedActionEntity]: ...
-    @winrt_commethod(11)
+    @winrt_commethod(9)
     def SetOutputEntity(self, outputName: WinRT_String, outputValue: win32more.Windows.AI.Actions.ActionEntity) -> Void: ...
-    @winrt_commethod(12)
+    @winrt_commethod(10)
     def GetOutputEntities(self) -> ReceiveArray[win32more.Windows.AI.Actions.NamedActionEntity]: ...
-    @winrt_commethod(13)
+    @winrt_commethod(11)
     def get_Result(self) -> win32more.Windows.AI.Actions.ActionInvocationResult: ...
-    @winrt_commethod(14)
+    @winrt_commethod(12)
     def put_Result(self, value: win32more.Windows.AI.Actions.ActionInvocationResult) -> Void: ...
-    @winrt_commethod(15)
+    @winrt_commethod(13)
     def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
-    @winrt_commethod(16)
+    @winrt_commethod(14)
     def put_ExtendedError(self, value: win32more.Windows.Foundation.HResult) -> Void: ...
-    ActionName = property(get_ActionName, None)
     EntityFactory = property(get_EntityFactory, None)
     ExtendedError = property(get_ExtendedError, put_ExtendedError)
-    InvokerPackageFamilyName = property(get_InvokerPackageFamilyName, None)
     Result = property(get_Result, put_Result)
 class IActionInvocationContext2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
@@ -377,18 +369,22 @@ class IActionRuntime(ComPtr):
 class IActionRuntime2(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.AI.Actions.IActionRuntime2'
-    _iid_ = Guid('{06fd15cb-9675-55e8-a220-5d817d33dbc4}')
+    _iid_ = Guid('{2da4d2c0-e593-5350-8143-15bb24f63411}')
+    @winrt_commethod(6)
+    def CreateActionFeedback(self, feedbackKind: win32more.Windows.AI.Actions.ActionFeedbackKind) -> win32more.Windows.AI.Actions.ActionFeedback: ...
+    @winrt_commethod(7)
+    def SetActionAvailability(self, actionId: WinRT_String, isAvailable: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def GetActionAvailability(self, actionId: WinRT_String) -> Boolean: ...
+class IActionRuntime3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionRuntime3'
+    _iid_ = Guid('{f020c3c0-caec-5928-ad00-81069b80fbc1}')
     @winrt_commethod(6)
     def CreateInvocationContextWithWindowId(self, actionId: WinRT_String, invokerWindowId: win32more.Windows.UI.WindowId) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
     @winrt_commethod(7)
-    def CreateActionFeedback(self, feedbackKind: win32more.Windows.AI.Actions.ActionFeedbackKind) -> win32more.Windows.AI.Actions.ActionFeedback: ...
-    @winrt_commethod(8)
-    def SetActionAvailability(self, actionId: WinRT_String, isAvailable: Boolean) -> Void: ...
-    @winrt_commethod(9)
-    def GetActionAvailability(self, actionId: WinRT_String) -> Boolean: ...
-    @winrt_commethod(10)
     def GetActionEntityById(self, entityId: WinRT_String) -> win32more.Windows.AI.Actions.ActionEntity: ...
-    @winrt_commethod(11)
+    @winrt_commethod(8)
     def get_LatestSupportedSchemaVersion(self) -> UInt32: ...
     LatestSupportedSchemaVersion = property(get_LatestSupportedSchemaVersion, None)
 class IActionRuntimeFactory(ComPtr):
