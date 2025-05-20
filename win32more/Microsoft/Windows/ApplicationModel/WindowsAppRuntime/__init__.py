@@ -191,6 +191,9 @@ class RuntimeCompatibilityChange(Enum, Int32):
     FixStuckPointerInputQueue = 56620717
     FixWebViewVisibilityReentrancyCrash = 56852985
     FixWindowCloseFocusCrash = 56873234
+    ActivateDirectManipulationManager_CheckCanInit = 56997009
+    DwmCoreI_OptimizeFirstFrameLatency = 57345278
+    InputStateManager_PenInputCrashX86 = 57003641
 RuntimeCompatibilityContract: UInt32 = 65536
 class RuntimeCompatibilityOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
