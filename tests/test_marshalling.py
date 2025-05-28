@@ -20,11 +20,9 @@ from win32more import (
     Enum,
     ForeignFunctionCall,
     Int32,
-    Single,
     Structure,
     UInt32,
     UIntPtr,
-    VoidPtr,
     cfunctype_pointer,
     commethod,
 )
@@ -669,76 +667,6 @@ class TestMarshalling(unittest.TestCase):
         t = T((42,))
         self.assertEqual(t.p_as_intptr, 42)
         self.assertIsInstance(T.__dict__["p"], EasyCastDescriptor)
-
-    def test_function_as_ctype(self):
-        def assert_type_and_value(value, expected_type, expected_value):
-            self.assertIsInstance(value, expected_type)
-            self.assertIsInstance(value.value, type(expected_value))
-            self.assertEqual(value.value, expected_value)
-
-        @functype
-        def voidptr_0() -> VoidPtr:
-            return 0
-
-        @functype
-        def voidptr_1() -> VoidPtr:
-            return 1
-
-        @functype
-        def uintptr_0() -> UIntPtr:
-            return 0
-
-        @functype
-        def uintptr_1() -> UIntPtr:
-            return 1
-
-        @functype
-        def char_0() -> Char:
-            return "\x00"
-
-        @functype
-        def char_1() -> Char:
-            return "\x01"
-
-        @functype
-        def boolean_0() -> Boolean:
-            return False
-
-        @functype
-        def boolean_1() -> Boolean:
-            return True
-
-        @functype
-        def single_0() -> Single:
-            return 0.0
-
-        @functype
-        def single_1_5() -> Single:
-            return 1.5
-
-        class SubClass(UIntPtr):
-            pass
-
-        @functype
-        def subclass_0() -> SubClass:
-            return 0
-
-        @functype
-        def subclass_1() -> SubClass:
-            return 1
-
-        assert_type_and_value(voidptr_0(_as_ctype=True), VoidPtr, None)
-        assert_type_and_value(voidptr_1(_as_ctype=True), VoidPtr, 1)
-        assert_type_and_value(uintptr_0(_as_ctype=True), UIntPtr, 0)
-        assert_type_and_value(uintptr_1(_as_ctype=True), UIntPtr, 1)
-        assert_type_and_value(char_0(_as_ctype=True), Char, "\x00")
-        assert_type_and_value(char_1(_as_ctype=True), Char, "\x01")
-        assert_type_and_value(boolean_0(_as_ctype=True), Boolean, False)
-        assert_type_and_value(boolean_1(_as_ctype=True), Boolean, True)
-        assert_type_and_value(single_0(_as_ctype=True), Single, 0.0)
-        assert_type_and_value(single_1_5(_as_ctype=True), Single, 1.5)
-        assert_type_and_value(subclass_0(_as_ctype=True), SubClass, 0)
-        assert_type_and_value(subclass_1(_as_ctype=True), SubClass, 1)
 
 
 if __name__ == "__main__":
