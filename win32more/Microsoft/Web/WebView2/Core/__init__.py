@@ -838,6 +838,10 @@ class CoreWebView2ControllerOptions(ComPtr):
     @winrt_mixinmethod
     def put_ScriptLocale(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions2, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
+    def get_DefaultBackgroundColor(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions3) -> win32more.Windows.UI.Color: ...
+    @winrt_mixinmethod
+    def put_DefaultBackgroundColor(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions3, value: win32more.Windows.UI.Color) -> Void: ...
+    @winrt_mixinmethod
     def get_ProfileName(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_ProfileName(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions, value: WinRT_String) -> Void: ...
@@ -845,6 +849,7 @@ class CoreWebView2ControllerOptions(ComPtr):
     def get_IsInPrivateModeEnabled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsInPrivateModeEnabled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions, value: Boolean) -> Void: ...
+    DefaultBackgroundColor = property(get_DefaultBackgroundColor, put_DefaultBackgroundColor)
     IsInPrivateModeEnabled = property(get_IsInPrivateModeEnabled, put_IsInPrivateModeEnabled)
     ProfileName = property(get_ProfileName, put_ProfileName)
     ScriptLocale = property(get_ScriptLocale, put_ScriptLocale)
@@ -3330,6 +3335,15 @@ class ICoreWebView2ControllerOptions2(ComPtr):
     @winrt_commethod(7)
     def put_ScriptLocale(self, value: WinRT_String) -> Void: ...
     ScriptLocale = property(get_ScriptLocale, put_ScriptLocale)
+class ICoreWebView2ControllerOptions3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions3'
+    _iid_ = Guid('{d8de3799-3bd3-5656-a9fe-ef2cb8879239}')
+    @winrt_commethod(6)
+    def get_DefaultBackgroundColor(self) -> win32more.Windows.UI.Color: ...
+    @winrt_commethod(7)
+    def put_DefaultBackgroundColor(self, value: win32more.Windows.UI.Color) -> Void: ...
+    DefaultBackgroundColor = property(get_DefaultBackgroundColor, put_DefaultBackgroundColor)
 class ICoreWebView2ControllerWindowReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ControllerWindowReference'
