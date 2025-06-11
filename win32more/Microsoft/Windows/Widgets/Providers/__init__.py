@@ -102,6 +102,13 @@ class IWidgetInfo2(ComPtr):
     @winrt_commethod(6)
     def get_IsPlaceholderContent(self) -> Boolean: ...
     IsPlaceholderContent = property(get_IsPlaceholderContent, None)
+class IWidgetInfo3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetInfo3'
+    _iid_ = Guid('{965538cd-289d-54ab-916e-9315ebf97ea4}')
+    @winrt_commethod(6)
+    def get_Rank(self) -> Int32: ...
+    Rank = property(get_Rank, None)
 class IWidgetManager(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetManager'
@@ -274,6 +281,15 @@ class IWidgetUpdateRequestOptions2(ComPtr):
     @winrt_commethod(7)
     def put_IsPlaceholderContent(self, value: win32more.Windows.Foundation.IReference[Boolean]) -> Void: ...
     IsPlaceholderContent = property(get_IsPlaceholderContent, put_IsPlaceholderContent)
+class IWidgetUpdateRequestOptions3(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetUpdateRequestOptions3'
+    _iid_ = Guid('{a78e2a8b-a26c-596a-ade3-db8f4c72fe02}')
+    @winrt_commethod(6)
+    def get_Rank(self) -> win32more.Windows.Foundation.IReference[Int32]: ...
+    @winrt_commethod(7)
+    def put_Rank(self, value: win32more.Windows.Foundation.IReference[Int32]) -> Void: ...
+    Rank = property(get_Rank, put_Rank)
 class IWidgetUpdateRequestOptionsFactory(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Windows.Widgets.Providers.IWidgetUpdateRequestOptionsFactory'
@@ -372,10 +388,13 @@ class WidgetInfo(ComPtr):
     def get_LastUpdateTime(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetInfo) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
     def get_IsPlaceholderContent(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetInfo2) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_Rank(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetInfo3) -> Int32: ...
     CustomState = property(get_CustomState, None)
     Data = property(get_Data, None)
     IsPlaceholderContent = property(get_IsPlaceholderContent, None)
     LastUpdateTime = property(get_LastUpdateTime, None)
+    Rank = property(get_Rank, None)
     Template = property(get_Template, None)
     WidgetContext = property(get_WidgetContext, None)
 class WidgetManager(ComPtr):
@@ -501,11 +520,16 @@ class WidgetUpdateRequestOptions(ComPtr, metaclass=_WidgetUpdateRequestOptions_M
     def get_IsPlaceholderContent(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetUpdateRequestOptions2) -> win32more.Windows.Foundation.IReference[Boolean]: ...
     @winrt_mixinmethod
     def put_IsPlaceholderContent(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetUpdateRequestOptions2, value: win32more.Windows.Foundation.IReference[Boolean]) -> Void: ...
+    @winrt_mixinmethod
+    def get_Rank(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetUpdateRequestOptions3) -> win32more.Windows.Foundation.IReference[Int32]: ...
+    @winrt_mixinmethod
+    def put_Rank(self: win32more.Microsoft.Windows.Widgets.Providers.IWidgetUpdateRequestOptions3, value: win32more.Windows.Foundation.IReference[Int32]) -> Void: ...
     @winrt_classmethod
     def get_UnsetValue(cls: win32more.Microsoft.Windows.Widgets.Providers.IWidgetUpdateRequestOptionsStatics) -> WinRT_String: ...
     CustomState = property(get_CustomState, put_CustomState)
     Data = property(get_Data, put_Data)
     IsPlaceholderContent = property(get_IsPlaceholderContent, put_IsPlaceholderContent)
+    Rank = property(get_Rank, put_Rank)
     Template = property(get_Template, put_Template)
     WidgetId = property(get_WidgetId, None)
     _WidgetUpdateRequestOptions_Meta_.UnsetValue = property(get_UnsetValue, None)
