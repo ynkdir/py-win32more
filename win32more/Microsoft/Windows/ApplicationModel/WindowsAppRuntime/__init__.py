@@ -194,6 +194,9 @@ class RuntimeCompatibilityChange(Enum, Int32):
     ActivateDirectManipulationManager_CheckCanInit = 56997009
     DwmCoreI_OptimizeFirstFrameLatency = 57345278
     InputStateManager_PenInputCrashX86 = 57003641
+    ApplicationDataProvider_ReentrancyProtection = 57688028
+    InputPointerSource_FlushReentrancyCrash = 57705537
+    WindowChrome_SetTitleBarCrash = 57693465
 RuntimeCompatibilityContract: UInt32 = 65536
 class RuntimeCompatibilityOptions(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
