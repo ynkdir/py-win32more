@@ -842,6 +842,10 @@ class CoreWebView2ControllerOptions(ComPtr):
     @winrt_mixinmethod
     def put_DefaultBackgroundColor(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions3, value: win32more.Windows.UI.Color) -> Void: ...
     @winrt_mixinmethod
+    def get_AllowHostInputProcessing(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions4) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_AllowHostInputProcessing(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions4, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
     def get_ProfileName(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions) -> WinRT_String: ...
     @winrt_mixinmethod
     def put_ProfileName(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions, value: WinRT_String) -> Void: ...
@@ -849,6 +853,7 @@ class CoreWebView2ControllerOptions(ComPtr):
     def get_IsInPrivateModeEnabled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsInPrivateModeEnabled(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions, value: Boolean) -> Void: ...
+    AllowHostInputProcessing = property(get_AllowHostInputProcessing, put_AllowHostInputProcessing)
     DefaultBackgroundColor = property(get_DefaultBackgroundColor, put_DefaultBackgroundColor)
     IsInPrivateModeEnabled = property(get_IsInPrivateModeEnabled, put_IsInPrivateModeEnabled)
     ProfileName = property(get_ProfileName, put_ProfileName)
@@ -3344,6 +3349,15 @@ class ICoreWebView2ControllerOptions3(ComPtr):
     @winrt_commethod(7)
     def put_DefaultBackgroundColor(self, value: win32more.Windows.UI.Color) -> Void: ...
     DefaultBackgroundColor = property(get_DefaultBackgroundColor, put_DefaultBackgroundColor)
+class ICoreWebView2ControllerOptions4(ComPtr):
+    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ControllerOptions4'
+    _iid_ = Guid('{650fcf6c-966d-542e-86e5-8889d6c734a5}')
+    @winrt_commethod(6)
+    def get_AllowHostInputProcessing(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_AllowHostInputProcessing(self, value: Boolean) -> Void: ...
+    AllowHostInputProcessing = property(get_AllowHostInputProcessing, put_AllowHostInputProcessing)
 class ICoreWebView2ControllerWindowReference(ComPtr):
     extends: win32more.Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2ControllerWindowReference'
