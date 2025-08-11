@@ -153,6 +153,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_receivearray_object_param(self):
         obj = StringMap()
+        obj.AddRef()
         inarray = [obj]
 
         prop = PropertyValue.CreateInspectableArray(inarray).as_(IPropertyValue)
