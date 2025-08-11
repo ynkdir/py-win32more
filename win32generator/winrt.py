@@ -20,6 +20,8 @@ WINRT_EXPORTS = [
     "ContextManagerProtocol",
     "FillArray",
     "Generic",
+    "IInspectable",
+    "IUnknown",
     "IterableProtocol",
     "K",
     "MappingProtocol",
@@ -80,7 +82,7 @@ class Formatter:
     def pytype(self, ttype: TType) -> str:
         if ttype.kind == "Primitive":
             if ttype.name == "Object":
-                return self.fullname("Windows.Win32.System.WinRT.IInspectable")
+                return "IInspectable"
             elif ttype.name == "String":
                 return "WinRT_String"
             else:
@@ -360,10 +362,10 @@ class Com:
     def _extends(self) -> str:
         if self._td.basetype is None:
             # interface
-            return self._formatter.fullname("Windows.Win32.System.WinRT.IInspectable")
+            return "IInspectable"
         elif self._td.basetype == "System.Object":
             # runtime class
-            return self._formatter.fullname("Windows.Win32.System.WinRT.IInspectable")
+            return "IInspectable"
         else:
             return self._formatter.fullname(self._td.basetype)
 
@@ -818,7 +820,7 @@ class Delegate:
     def emit(self) -> str:
         writer = StringIO()
         writer.write(f"class {self._td.generic_name}({self._basetype()}):\n")
-        writer.write(f"    extends: {self._formatter.fullname('Windows.Win32.System.Com.IUnknown')}\n")
+        writer.write("    extends: IUnknown\n")
         guid = self._td.custom_attributes.get_winrt_guid()
         if self._td.is_generic:
             writer.write(f"    _piid_ = Guid('{guid}')\n")

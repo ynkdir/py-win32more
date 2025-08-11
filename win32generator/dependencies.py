@@ -37,7 +37,7 @@ class Dependencies:
             self._collect(ttype.type, pointer)
         elif ttype.kind == "Primitive":
             if ttype.name == "Object":
-                self._add("Windows.Win32.System.WinRT.IInspectable", pointer)
+                pass  # IInspectable
         elif ttype.kind == "Type":
             if ttype.is_nested:
                 pass
@@ -67,11 +67,11 @@ class Dependencies:
     def _(self, td: TypeDefinition) -> None:
         if td.is_winrt:
             if td.basetype is None:
-                self._entities.add("Windows.Win32.System.WinRT.IInspectable")
+                pass  # IInspectable
             elif td.basetype == "System.Object":
-                self._entities.add("Windows.Win32.System.WinRT.IInspectable")
+                pass  # IInspectable
             elif td.basetype == "System.MulticastDelegate":
-                self._entities.add("Windows.Win32.System.Com.IUnknown")
+                pass  # IUnknown
             elif td.basetype.startswith(("Windows.", "Microsoft.")):
                 self._entities.add(td.basetype)
         else:  # win32
