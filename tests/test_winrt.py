@@ -160,7 +160,7 @@ class TestWinrt(unittest.TestCase):
         outarray = []
         prop.GetInspectableArray(outarray)
 
-        self.assertEqual(obj.as_(IInspectable).value, outarray[0].value)
+        self.assertEqual(obj.as_(IInspectable).value, outarray[0].as_(IInspectable).value)
 
     def test_receivearray_return(self):
         # Use mock for portability.
