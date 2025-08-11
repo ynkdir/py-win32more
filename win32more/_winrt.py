@@ -453,7 +453,7 @@ class ReceiveArray(Generic[T]):
         elif is_com_class(self.type_):
             self.lst[:] = self.ptr[: self.length.value]
             for p in self.lst:
-                p._own = True
+                p._own = False
         else:
             self.lst[:] = self.ptr[: self.length.value]
         CoTaskMemFree(self.ptr)
