@@ -153,14 +153,14 @@ class TestWinrt(unittest.TestCase):
 
     def test_receivearray_object_param(self):
         obj = StringMap()
-        inarray = [obj.as_(IInspectable)]
+        inarray = [obj]
 
         prop = PropertyValue.CreateInspectableArray(inarray).as_(IPropertyValue)
 
         outarray = []
         prop.GetInspectableArray(outarray)
 
-        self.assertEqual(obj.as_(IInspectable).value, outarray[0].as_(IInspectable).value)
+        self.assertEqual(obj.as_(IInspectable).value, outarray[0].value)
 
     def test_receivearray_return(self):
         # Use mock for portability.
