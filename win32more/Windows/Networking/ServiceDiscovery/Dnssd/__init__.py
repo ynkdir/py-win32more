@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
 import win32more.Windows.Networking.Connectivity
 import win32more.Windows.Networking.ServiceDiscovery.Dnssd
 import win32more.Windows.Networking.Sockets
-import win32more.Windows.Win32.System.WinRT
 class DnssdRegistrationResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdRegistrationResult
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult'
     def __init__(self, *args, **kwargs):
@@ -38,7 +37,7 @@ class DnssdRegistrationStatus(Enum, Int32):
     ServerError = 2
     SecurityError = 3
 class DnssdServiceInstance(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstance
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance'
     def __init__(self, *args, **kwargs):
@@ -89,7 +88,7 @@ class DnssdServiceInstance(ComPtr):
     TextAttributes = property(get_TextAttributes, None)
     Weight = property(get_Weight, put_Weight)
 class DnssdServiceInstanceCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstanceCollection'
@@ -105,7 +104,7 @@ class DnssdServiceInstanceCollection(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]: ...
     Size = property(get_Size, None)
 class DnssdServiceWatcher(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher'
     @winrt_mixinmethod
@@ -113,11 +112,11 @@ class DnssdServiceWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Added(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -138,7 +137,7 @@ class DnssdServiceWatcherStatus(Enum, Int32):
     Stopped = 4
     Aborted = 5
 class IDnssdRegistrationResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdRegistrationResult'
     _iid_ = Guid('{3d786ad2-e606-5350-73ea-7e97f066162f}')
     @winrt_commethod(6)
@@ -151,7 +150,7 @@ class IDnssdRegistrationResult(ComPtr):
     IPAddress = property(get_IPAddress, None)
     Status = property(get_Status, None)
 class IDnssdServiceInstance(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstance'
     _iid_ = Guid('{e246db7e-98a5-4ca1-b9e4-c253d33c35ff}')
     @winrt_commethod(6)
@@ -191,13 +190,13 @@ class IDnssdServiceInstance(ComPtr):
     TextAttributes = property(get_TextAttributes, None)
     Weight = property(get_Weight, put_Weight)
 class IDnssdServiceInstanceFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstanceFactory'
     _iid_ = Guid('{6cb061a1-c478-4331-9684-4af2186c0a2b}')
     @winrt_commethod(6)
     def Create(self, dnssdServiceInstanceName: WinRT_String, hostName: win32more.Windows.Networking.HostName, port: UInt16) -> win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance: ...
 class IDnssdServiceWatcher(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher'
     _iid_ = Guid('{cc34d9c1-db7d-4b69-983d-c6f83f205682}')
     @winrt_commethod(6)
@@ -205,11 +204,11 @@ class IDnssdServiceWatcher(ComPtr):
     @winrt_commethod(7)
     def remove_Added(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)

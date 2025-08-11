@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization.DateTimeFormatting
-import win32more.Windows.Win32.System.WinRT
 class _DateTimeFormatter_Meta_(ComPtr.__class__):
     pass
 class DateTimeFormatter(ComPtr, metaclass=_DateTimeFormatter_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Globalization.DateTimeFormatting.IDateTimeFormatter
     _classid_ = 'Windows.Globalization.DateTimeFormatting.DateTimeFormatter'
     def __init__(self, *args, **kwargs):
@@ -122,7 +121,7 @@ class HourFormat(Enum, Int32):
     None_ = 0
     Default = 1
 class IDateTimeFormatter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.DateTimeFormatting.IDateTimeFormatter'
     _iid_ = Guid('{95eeca10-73e0-4e4b-a183-3d6ad0ba35ec}')
     @winrt_commethod(6)
@@ -178,13 +177,13 @@ class IDateTimeFormatter(ComPtr):
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     Template = property(get_Template, None)
 class IDateTimeFormatter2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.DateTimeFormatting.IDateTimeFormatter2'
     _iid_ = Guid('{27c91a86-bdaa-4fd0-9e36-671d5aa5ee03}')
     @winrt_commethod(6)
     def FormatUsingTimeZone(self, datetime: win32more.Windows.Foundation.DateTime, timeZoneId: WinRT_String) -> WinRT_String: ...
 class IDateTimeFormatterFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory'
     _iid_ = Guid('{ec8d8a53-1a2e-412d-8815-3b745fb1a2a0}')
     @winrt_commethod(6)
@@ -202,7 +201,7 @@ class IDateTimeFormatterFactory(ComPtr):
     @winrt_commethod(12)
     def CreateDateTimeFormatterDateTimeContext(self, yearFormat: win32more.Windows.Globalization.DateTimeFormatting.YearFormat, monthFormat: win32more.Windows.Globalization.DateTimeFormatting.MonthFormat, dayFormat: win32more.Windows.Globalization.DateTimeFormatting.DayFormat, dayOfWeekFormat: win32more.Windows.Globalization.DateTimeFormatting.DayOfWeekFormat, hourFormat: win32more.Windows.Globalization.DateTimeFormatting.HourFormat, minuteFormat: win32more.Windows.Globalization.DateTimeFormatting.MinuteFormat, secondFormat: win32more.Windows.Globalization.DateTimeFormatting.SecondFormat, languages: win32more.Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String, calendar: WinRT_String, clock: WinRT_String) -> win32more.Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
 class IDateTimeFormatterStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.DateTimeFormatting.IDateTimeFormatterStatics'
     _iid_ = Guid('{bfcde7c0-df4c-4a2e-9012-f47daf3f1212}')
     @winrt_commethod(6)

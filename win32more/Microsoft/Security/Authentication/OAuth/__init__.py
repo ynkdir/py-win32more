@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Security.Authentication.OAuth
 import win32more.Microsoft.UI
 import win32more.Windows.Data.Json
@@ -8,9 +8,8 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Web.Http
 import win32more.Windows.Web.Http.Headers
-import win32more.Windows.Win32.System.WinRT
 class AuthFailure(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Security.Authentication.OAuth.IAuthFailure
     _classid_ = 'Microsoft.Security.Authentication.OAuth.AuthFailure'
     @winrt_mixinmethod
@@ -29,7 +28,7 @@ class AuthFailure(ComPtr):
     ErrorUri = property(get_ErrorUri, None)
     State = property(get_State, None)
 class AuthRequestParams(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Security.Authentication.OAuth.IAuthRequestParams
     _classid_ = 'Microsoft.Security.Authentication.OAuth.AuthRequestParams'
     def __init__(self, *args, **kwargs):
@@ -88,7 +87,7 @@ class AuthRequestParams(ComPtr):
     Scope = property(get_Scope, put_Scope)
     State = property(get_State, put_State)
 class AuthRequestResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Security.Authentication.OAuth.IAuthRequestResult
     _classid_ = 'Microsoft.Security.Authentication.OAuth.AuthRequestResult'
     @winrt_mixinmethod
@@ -101,7 +100,7 @@ class AuthRequestResult(ComPtr):
     Response = property(get_Response, None)
     ResponseUri = property(get_ResponseUri, None)
 class AuthResponse(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Security.Authentication.OAuth.IAuthResponse
     _classid_ = 'Microsoft.Security.Authentication.OAuth.AuthResponse'
     @winrt_mixinmethod
@@ -126,7 +125,7 @@ class AuthResponse(ComPtr):
     State = property(get_State, None)
     TokenType = property(get_TokenType, None)
 class ClientAuthentication(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Security.Authentication.OAuth.IClientAuthentication
     _classid_ = 'Microsoft.Security.Authentication.OAuth.ClientAuthentication'
     def __init__(self, *args, **kwargs):
@@ -164,7 +163,7 @@ class CodeChallengeMethodKind(Enum, Int32):
     S256 = 1
     Plain = 2
 class IAuthFailure(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IAuthFailure'
     _iid_ = Guid('{ec55ed5f-0497-53cb-976b-abd146350175}')
     @winrt_commethod(6)
@@ -183,7 +182,7 @@ class IAuthFailure(ComPtr):
     ErrorUri = property(get_ErrorUri, None)
     State = property(get_State, None)
 class IAuthRequestParams(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IAuthRequestParams'
     _iid_ = Guid('{aac61e23-9155-551a-ac37-cdb2995f88d2}')
     @winrt_commethod(6)
@@ -225,7 +224,7 @@ class IAuthRequestParams(ComPtr):
     Scope = property(get_Scope, put_Scope)
     State = property(get_State, put_State)
 class IAuthRequestParamsFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IAuthRequestParamsFactory'
     _iid_ = Guid('{539bdca7-bde4-5a63-85d1-33403f6e3452}')
     @winrt_commethod(6)
@@ -233,7 +232,7 @@ class IAuthRequestParamsFactory(ComPtr):
     @winrt_commethod(7)
     def CreateInstance2(self, responseType: WinRT_String, clientId: WinRT_String, redirectUri: win32more.Windows.Foundation.Uri) -> win32more.Microsoft.Security.Authentication.OAuth.AuthRequestParams: ...
 class IAuthRequestParamsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IAuthRequestParamsStatics'
     _iid_ = Guid('{0befd4f0-6864-5bf4-bd8e-2f3bf98906b5}')
     @winrt_commethod(6)
@@ -241,7 +240,7 @@ class IAuthRequestParamsStatics(ComPtr):
     @winrt_commethod(7)
     def CreateForAuthorizationCodeRequest2(self, clientId: WinRT_String, redirectUri: win32more.Windows.Foundation.Uri) -> win32more.Microsoft.Security.Authentication.OAuth.AuthRequestParams: ...
 class IAuthRequestResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IAuthRequestResult'
     _iid_ = Guid('{10f8b804-04cf-5651-bd52-7da9346debc1}')
     @winrt_commethod(6)
@@ -254,7 +253,7 @@ class IAuthRequestResult(ComPtr):
     Response = property(get_Response, None)
     ResponseUri = property(get_ResponseUri, None)
 class IAuthResponse(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IAuthResponse'
     _iid_ = Guid('{5bc1fa62-fded-5769-9d40-ded1eea90d72}')
     @winrt_commethod(6)
@@ -279,7 +278,7 @@ class IAuthResponse(ComPtr):
     State = property(get_State, None)
     TokenType = property(get_TokenType, None)
 class IClientAuthentication(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IClientAuthentication'
     _iid_ = Guid('{ef99342d-d597-5eff-878a-8de0cb597172}')
     @winrt_commethod(6)
@@ -296,19 +295,19 @@ class IClientAuthentication(ComPtr):
     Authorization = property(get_Authorization, put_Authorization)
     ProxyAuthorization = property(get_ProxyAuthorization, put_ProxyAuthorization)
 class IClientAuthenticationFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IClientAuthenticationFactory'
     _iid_ = Guid('{0d50e9f5-c37f-57cc-b9ec-2b193b0f9cec}')
     @winrt_commethod(6)
     def CreateInstance(self, authorization: win32more.Windows.Web.Http.Headers.HttpCredentialsHeaderValue) -> win32more.Microsoft.Security.Authentication.OAuth.ClientAuthentication: ...
 class IClientAuthenticationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IClientAuthenticationStatics'
     _iid_ = Guid('{65613560-2b6f-52fd-a479-3a96624682ae}')
     @winrt_commethod(6)
     def CreateForBasicAuthorization(self, clientId: WinRT_String, clientSecret: WinRT_String) -> win32more.Microsoft.Security.Authentication.OAuth.ClientAuthentication: ...
 class IOAuth2ManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.IOAuth2ManagerStatics'
     _iid_ = Guid('{ac9d0dd1-c07e-5302-8150-199c7d343f57}')
     @winrt_commethod(6)
@@ -320,7 +319,7 @@ class IOAuth2ManagerStatics(ComPtr):
     @winrt_commethod(9)
     def RequestTokenAsync2(self, tokenEndpoint: win32more.Windows.Foundation.Uri, params: win32more.Microsoft.Security.Authentication.OAuth.TokenRequestParams, clientAuth: win32more.Microsoft.Security.Authentication.OAuth.ClientAuthentication) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Security.Authentication.OAuth.TokenRequestResult]: ...
 class ITokenFailure(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.ITokenFailure'
     _iid_ = Guid('{60f8d417-ea6a-51d2-8ad7-f0e5177aef0a}')
     @winrt_commethod(6)
@@ -342,7 +341,7 @@ class ITokenFailure(ComPtr):
     ErrorUri = property(get_ErrorUri, None)
     Kind = property(get_Kind, None)
 class ITokenRequestParams(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.ITokenRequestParams'
     _iid_ = Guid('{49134dbc-aab5-5ba4-bcdf-950214d81182}')
     @winrt_commethod(6)
@@ -394,13 +393,13 @@ class ITokenRequestParams(ComPtr):
     Scope = property(get_Scope, put_Scope)
     Username = property(get_Username, put_Username)
 class ITokenRequestParamsFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.ITokenRequestParamsFactory'
     _iid_ = Guid('{2bf39c30-2f30-5788-98d2-a8ba622be809}')
     @winrt_commethod(6)
     def CreateInstance(self, grantType: WinRT_String) -> win32more.Microsoft.Security.Authentication.OAuth.TokenRequestParams: ...
 class ITokenRequestParamsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.ITokenRequestParamsStatics'
     _iid_ = Guid('{68b7af65-4381-5593-8820-f74a605b9f3b}')
     @winrt_commethod(6)
@@ -412,7 +411,7 @@ class ITokenRequestParamsStatics(ComPtr):
     @winrt_commethod(9)
     def CreateForRefreshToken(self, refreshToken: WinRT_String) -> win32more.Microsoft.Security.Authentication.OAuth.TokenRequestParams: ...
 class ITokenRequestResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.ITokenRequestResult'
     _iid_ = Guid('{35b31f77-f166-50df-a837-ec0460215166}')
     @winrt_commethod(6)
@@ -425,7 +424,7 @@ class ITokenRequestResult(ComPtr):
     Response = property(get_Response, None)
     ResponseMessage = property(get_ResponseMessage, None)
 class ITokenResponse(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.ITokenResponse'
     _iid_ = Guid('{9d9d8cd3-04b2-5df6-bfd2-e8a6859745da}')
     @winrt_commethod(6)
@@ -447,7 +446,7 @@ class ITokenResponse(ComPtr):
     Scope = property(get_Scope, None)
     TokenType = property(get_TokenType, None)
 class OAuth2Manager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Security.Authentication.OAuth.OAuth2Manager'
     @winrt_classmethod
     def RequestAuthWithParamsAsync(cls: win32more.Microsoft.Security.Authentication.OAuth.IOAuth2ManagerStatics, parentWindowId: win32more.Microsoft.UI.WindowId, authEndpoint: win32more.Windows.Foundation.Uri, params: win32more.Microsoft.Security.Authentication.OAuth.AuthRequestParams) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Security.Authentication.OAuth.AuthRequestResult]: ...
@@ -459,7 +458,7 @@ class OAuth2Manager(ComPtr):
     def RequestTokenAsync2(cls: win32more.Microsoft.Security.Authentication.OAuth.IOAuth2ManagerStatics, tokenEndpoint: win32more.Windows.Foundation.Uri, params: win32more.Microsoft.Security.Authentication.OAuth.TokenRequestParams, clientAuth: win32more.Microsoft.Security.Authentication.OAuth.ClientAuthentication) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Security.Authentication.OAuth.TokenRequestResult]: ...
 OAuthContract: UInt32 = 65536
 class TokenFailure(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Security.Authentication.OAuth.ITokenFailure
     _classid_ = 'Microsoft.Security.Authentication.OAuth.TokenFailure'
     @winrt_mixinmethod
@@ -485,7 +484,7 @@ class TokenFailureKind(Enum, Int32):
     HttpFailure = 1
     InvalidResponse = 2
 class TokenRequestParams(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Security.Authentication.OAuth.ITokenRequestParams
     _classid_ = 'Microsoft.Security.Authentication.OAuth.TokenRequestParams'
     def __init__(self, *args, **kwargs):
@@ -554,7 +553,7 @@ class TokenRequestParams(ComPtr):
     Scope = property(get_Scope, put_Scope)
     Username = property(get_Username, put_Username)
 class TokenRequestResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Security.Authentication.OAuth.ITokenRequestResult
     _classid_ = 'Microsoft.Security.Authentication.OAuth.TokenRequestResult'
     @winrt_mixinmethod
@@ -567,7 +566,7 @@ class TokenRequestResult(ComPtr):
     Response = property(get_Response, None)
     ResponseMessage = property(get_ResponseMessage, None)
 class TokenResponse(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Security.Authentication.OAuth.ITokenResponse
     _classid_ = 'Microsoft.Security.Authentication.OAuth.TokenResponse'
     @winrt_mixinmethod

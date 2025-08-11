@@ -1,18 +1,16 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Windows.Foundation
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.Com
-import win32more.Windows.Win32.System.WinRT
 class ClosableNotifierHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{478cec68-ea8e-52fc-87e2-c819de000f92}')
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class ColorHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.IColorHelper
     _classid_ = 'Microsoft.UI.ColorHelper'
     @winrt_classmethod
@@ -22,7 +20,7 @@ class ColorHelper(ComPtr):
 class _Colors_Meta_(ComPtr.__class__):
     pass
 class Colors(ComPtr, metaclass=_Colors_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.IColors
     _classid_ = 'Microsoft.UI.Colors'
     @winrt_classmethod
@@ -451,7 +449,7 @@ class Colors(ComPtr, metaclass=_Colors_Meta_):
 class DisplayId(Structure):
     Value: UInt64
 class IClosableNotifier(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.IClosableNotifier'
     _iid_ = Guid('{2989e93b-ed0f-5e79-90f2-eac592fc6e6a}')
     @winrt_commethod(6)
@@ -468,27 +466,27 @@ class IClosableNotifier(ComPtr):
     Closed = event()
     FrameworkClosed = event()
 class IColorHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.IColorHelper'
     _iid_ = Guid('{3adddccd-3949-585b-a566-ccb8350dd221}')
 class IColorHelperStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.IColorHelperStatics'
     _iid_ = Guid('{1d1d85a1-eb63-538a-84f0-019210bc406b}')
     @winrt_commethod(6)
     def FromArgb(self, a: Byte, r: Byte, g: Byte, b: Byte) -> win32more.Windows.UI.Color: ...
 class IColorHelperStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.IColorHelperStatics2'
     _iid_ = Guid('{982a2d93-0ec4-56b7-9c20-0b5c77949066}')
     @winrt_commethod(6)
     def ToDisplayName(self, color: win32more.Windows.UI.Color) -> WinRT_String: ...
 class IColors(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.IColors'
     _iid_ = Guid('{8cf15863-8411-5afd-946c-328e04da2f2f}')
 class IColorsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.IColorsStatics'
     _iid_ = Guid('{8620a5b0-015a-57ac-a3f3-895d0b1269ae}')
     @winrt_commethod(6)

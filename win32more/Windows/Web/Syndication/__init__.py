@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Xml.Dom
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Credentials
 import win32more.Windows.Web.Syndication
-import win32more.Windows.Win32.System.WinRT
 class ISyndicationAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationAttribute'
     _iid_ = Guid('{71e8f969-526e-4001-9a91-e84f83161ab1}')
     @winrt_commethod(6)
@@ -27,13 +26,13 @@ class ISyndicationAttribute(ComPtr):
     Namespace = property(get_Namespace, put_Namespace)
     Value = property(get_Value, put_Value)
 class ISyndicationAttributeFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationAttributeFactory'
     _iid_ = Guid('{624f1599-ed3e-420f-be86-640414886e4b}')
     @winrt_commethod(6)
     def CreateSyndicationAttribute(self, attributeName: WinRT_String, attributeNamespace: WinRT_String, attributeValue: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationAttribute: ...
 class ISyndicationCategory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationCategory'
     _iid_ = Guid('{8715626f-0cba-4a7f-89ff-ecb5281423b6}')
     @winrt_commethod(6)
@@ -52,7 +51,7 @@ class ISyndicationCategory(ComPtr):
     Scheme = property(get_Scheme, put_Scheme)
     Term = property(get_Term, put_Term)
 class ISyndicationCategoryFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationCategoryFactory'
     _iid_ = Guid('{ab42802f-49e0-4525-8ab2-ab45c02528ff}')
     @winrt_commethod(6)
@@ -60,7 +59,7 @@ class ISyndicationCategoryFactory(ComPtr):
     @winrt_commethod(7)
     def CreateSyndicationCategoryEx(self, term: WinRT_String, scheme: WinRT_String, label: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationCategory: ...
 class ISyndicationClient(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationClient'
     _iid_ = Guid('{9e18a9b7-7249-4b45-b229-7df895a5a1f5}')
     @winrt_commethod(6)
@@ -93,13 +92,13 @@ class ISyndicationClient(ComPtr):
     ServerCredential = property(get_ServerCredential, put_ServerCredential)
     Timeout = property(get_Timeout, put_Timeout)
 class ISyndicationClientFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationClientFactory'
     _iid_ = Guid('{2ec4b32c-a79b-4114-b29a-05dffbafb9a4}')
     @winrt_commethod(6)
     def CreateSyndicationClient(self, serverCredential: win32more.Windows.Security.Credentials.PasswordCredential) -> win32more.Windows.Web.Syndication.SyndicationClient: ...
 class ISyndicationContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationContent'
     _iid_ = Guid('{4641fefe-0e55-40d0-b8d0-6a2ccba9fc7c}')
     @winrt_commethod(6)
@@ -108,7 +107,7 @@ class ISyndicationContent(ComPtr):
     def put_SourceUri(self, value: win32more.Windows.Foundation.Uri) -> Void: ...
     SourceUri = property(get_SourceUri, put_SourceUri)
 class ISyndicationContentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationContentFactory'
     _iid_ = Guid('{3d2fbb93-9520-4173-9388-7e2df324a8a0}')
     @winrt_commethod(6)
@@ -116,13 +115,13 @@ class ISyndicationContentFactory(ComPtr):
     @winrt_commethod(7)
     def CreateSyndicationContentWithSourceUri(self, sourceUri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationContent: ...
 class ISyndicationErrorStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationErrorStatics'
     _iid_ = Guid('{1fbb2361-45c7-4833-8aa0-be5f3b58a7f4}')
     @winrt_commethod(6)
     def GetStatus(self, hresult: Int32) -> win32more.Windows.Web.Syndication.SyndicationErrorStatus: ...
 class ISyndicationFeed(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationFeed'
     _iid_ = Guid('{7ffe3cd2-5b66-4d62-8403-1bc10d910d6b}')
     @winrt_commethod(6)
@@ -200,13 +199,13 @@ class ISyndicationFeed(ComPtr):
     Subtitle = property(get_Subtitle, put_Subtitle)
     Title = property(get_Title, put_Title)
 class ISyndicationFeedFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationFeedFactory'
     _iid_ = Guid('{23472232-8be9-48b7-8934-6205131d9357}')
     @winrt_commethod(6)
     def CreateSyndicationFeed(self, title: WinRT_String, subtitle: WinRT_String, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationFeed: ...
 class ISyndicationGenerator(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationGenerator'
     _iid_ = Guid('{9768b379-fb2b-4f6d-b41c-088a5868825c}')
     @winrt_commethod(6)
@@ -225,13 +224,13 @@ class ISyndicationGenerator(ComPtr):
     Uri = property(get_Uri, put_Uri)
     Version = property(get_Version, put_Version)
 class ISyndicationGeneratorFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationGeneratorFactory'
     _iid_ = Guid('{a34083e3-1e26-4dbc-ba9d-1ab84beff97b}')
     @winrt_commethod(6)
     def CreateSyndicationGenerator(self, text: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationGenerator: ...
 class ISyndicationItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationItem'
     _iid_ = Guid('{548db883-c384-45c1-8ae8-a378c4ec486c}')
     @winrt_commethod(6)
@@ -308,13 +307,13 @@ class ISyndicationItem(ComPtr):
     Summary = property(get_Summary, put_Summary)
     Title = property(get_Title, put_Title)
 class ISyndicationItemFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationItemFactory'
     _iid_ = Guid('{251d434f-7db8-487a-85e4-10d191e66ebb}')
     @winrt_commethod(6)
     def CreateSyndicationItem(self, title: WinRT_String, content: win32more.Windows.Web.Syndication.SyndicationContent, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationItem: ...
 class ISyndicationLink(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationLink'
     _iid_ = Guid('{27553abd-a10e-41b5-86bd-9759086eb0c5}')
     @winrt_commethod(6)
@@ -348,7 +347,7 @@ class ISyndicationLink(ComPtr):
     Title = property(get_Title, put_Title)
     Uri = property(get_Uri, put_Uri)
 class ISyndicationLinkFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationLinkFactory'
     _iid_ = Guid('{5ed863d4-5535-48ac-98d4-c190995080b3}')
     @winrt_commethod(6)
@@ -356,7 +355,7 @@ class ISyndicationLinkFactory(ComPtr):
     @winrt_commethod(7)
     def CreateSyndicationLinkEx(self, uri: win32more.Windows.Foundation.Uri, relationship: WinRT_String, title: WinRT_String, mediaType: WinRT_String, length: UInt32) -> win32more.Windows.Web.Syndication.SyndicationLink: ...
 class ISyndicationNode(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationNode'
     _iid_ = Guid('{753cef78-51f8-45c0-a9f5-f1719dec3fb2}')
     @winrt_commethod(6)
@@ -393,13 +392,13 @@ class ISyndicationNode(ComPtr):
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
 class ISyndicationNodeFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationNodeFactory'
     _iid_ = Guid('{12902188-4acb-49a8-b777-a5eb92e18a79}')
     @winrt_commethod(6)
     def CreateSyndicationNode(self, nodeName: WinRT_String, nodeNamespace: WinRT_String, nodeValue: WinRT_String) -> win32more.Windows.Web.Syndication.SyndicationNode: ...
 class ISyndicationPerson(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationPerson'
     _iid_ = Guid('{fa1ee5da-a7c6-4517-a096-0143faf29327}')
     @winrt_commethod(6)
@@ -418,7 +417,7 @@ class ISyndicationPerson(ComPtr):
     Name = property(get_Name, put_Name)
     Uri = property(get_Uri, put_Uri)
 class ISyndicationPersonFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationPersonFactory'
     _iid_ = Guid('{dcf4886d-229d-4b58-a49b-f3d2f0f5c99f}')
     @winrt_commethod(6)
@@ -426,7 +425,7 @@ class ISyndicationPersonFactory(ComPtr):
     @winrt_commethod(7)
     def CreateSyndicationPersonEx(self, name: WinRT_String, email: WinRT_String, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Syndication.SyndicationPerson: ...
 class ISyndicationText(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationText'
     _iid_ = Guid('{b9cc5e80-313a-4091-a2a6-243e0ee923f9}')
     @winrt_commethod(6)
@@ -445,7 +444,7 @@ class ISyndicationText(ComPtr):
     Type = property(get_Type, put_Type)
     Xml = property(get_Xml, put_Xml)
 class ISyndicationTextFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.ISyndicationTextFactory'
     _iid_ = Guid('{ee7342f7-11c6-4b25-ab62-e596bd162946}')
     @winrt_commethod(6)
@@ -456,7 +455,7 @@ class RetrievalProgress(Structure):
     BytesRetrieved: UInt32
     TotalBytesToRetrieve: UInt32
 class SyndicationAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationAttribute
     _classid_ = 'Windows.Web.Syndication.SyndicationAttribute'
     def __init__(self, *args, **kwargs):
@@ -488,7 +487,7 @@ class SyndicationAttribute(ComPtr):
     Namespace = property(get_Namespace, put_Namespace)
     Value = property(get_Value, put_Value)
 class SyndicationCategory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationCategory
     _classid_ = 'Windows.Web.Syndication.SyndicationCategory'
     def __init__(self, *args, **kwargs):
@@ -557,7 +556,7 @@ class SyndicationCategory(ComPtr):
     Scheme = property(get_Scheme, put_Scheme)
     Term = property(get_Term, put_Term)
 class SyndicationClient(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationClient
     _classid_ = 'Windows.Web.Syndication.SyndicationClient'
     def __init__(self, *args, **kwargs):
@@ -603,7 +602,7 @@ class SyndicationClient(ComPtr):
     ServerCredential = property(get_ServerCredential, put_ServerCredential)
     Timeout = property(get_Timeout, put_Timeout)
 class SyndicationContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationContent
     _classid_ = 'Windows.Web.Syndication.SyndicationContent'
     def __init__(self, *args, **kwargs):
@@ -677,7 +676,7 @@ class SyndicationContent(ComPtr):
     Type = property(get_Type, put_Type)
     Xml = property(get_Xml, put_Xml)
 class SyndicationError(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Syndication.SyndicationError'
     @winrt_classmethod
     def GetStatus(cls: win32more.Windows.Web.Syndication.ISyndicationErrorStatics, hresult: Int32) -> win32more.Windows.Web.Syndication.SyndicationErrorStatus: ...
@@ -689,7 +688,7 @@ class SyndicationErrorStatus(Enum, Int32):
     UnexpectedContent = 4
     UnsupportedFormat = 5
 class SyndicationFeed(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationFeed
     _classid_ = 'Windows.Web.Syndication.SyndicationFeed'
     def __init__(self, *args, **kwargs):
@@ -820,7 +819,7 @@ class SyndicationFormat(Enum, Int32):
     Rss091 = 4
     Atom03 = 5
 class SyndicationGenerator(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationGenerator
     _classid_ = 'Windows.Web.Syndication.SyndicationGenerator'
     def __init__(self, *args, **kwargs):
@@ -885,7 +884,7 @@ class SyndicationGenerator(ComPtr):
     Uri = property(get_Uri, put_Uri)
     Version = property(get_Version, put_Version)
 class SyndicationItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationItem
     _classid_ = 'Windows.Web.Syndication.SyndicationItem'
     def __init__(self, *args, **kwargs):
@@ -1008,7 +1007,7 @@ class SyndicationItem(ComPtr):
     Summary = property(get_Summary, put_Summary)
     Title = property(get_Title, put_Title)
 class SyndicationLink(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationLink
     _classid_ = 'Windows.Web.Syndication.SyndicationLink'
     def __init__(self, *args, **kwargs):
@@ -1092,7 +1091,7 @@ class SyndicationLink(ComPtr):
     Title = property(get_Title, put_Title)
     Uri = property(get_Uri, put_Uri)
 class SyndicationNode(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationNode
     _classid_ = 'Windows.Web.Syndication.SyndicationNode'
     def __init__(self, *args, **kwargs):
@@ -1142,7 +1141,7 @@ class SyndicationNode(ComPtr):
     NodeNamespace = property(get_NodeNamespace, put_NodeNamespace)
     NodeValue = property(get_NodeValue, put_NodeValue)
 class SyndicationPerson(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationPerson
     _classid_ = 'Windows.Web.Syndication.SyndicationPerson'
     def __init__(self, *args, **kwargs):
@@ -1211,7 +1210,7 @@ class SyndicationPerson(ComPtr):
     NodeValue = property(get_NodeValue, put_NodeValue)
     Uri = property(get_Uri, put_Uri)
 class SyndicationText(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Syndication.ISyndicationText
     _classid_ = 'Windows.Web.Syndication.SyndicationText'
     def __init__(self, *args, **kwargs):

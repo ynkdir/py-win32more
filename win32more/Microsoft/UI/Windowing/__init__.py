@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Dispatching
 import win32more.Microsoft.UI.Windowing
@@ -8,9 +8,8 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class AppWindow(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindow
     _classid_ = 'Microsoft.UI.Windowing.AppWindow'
     @winrt_mixinmethod
@@ -68,7 +67,7 @@ class AppWindow(ComPtr):
     @winrt_mixinmethod
     def remove_Closing(self: win32more.Microsoft.UI.Windowing.IAppWindow, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Destroying(self: win32more.Microsoft.UI.Windowing.IAppWindow, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.AppWindow, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Destroying(self: win32more.Microsoft.UI.Windowing.IAppWindow, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.AppWindow, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Destroying(self: win32more.Microsoft.UI.Windowing.IAppWindow, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -120,7 +119,7 @@ class AppWindow(ComPtr):
     Changed = event()
     Destroying = event()
 class AppWindowChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindowChangedEventArgs
     _classid_ = 'Microsoft.UI.Windowing.AppWindowChangedEventArgs'
     @winrt_mixinmethod
@@ -148,7 +147,7 @@ class AppWindowChangedEventArgs(ComPtr):
     IsZOrderAtTop = property(get_IsZOrderAtTop, None)
     ZOrderBelowWindowId = property(get_ZOrderBelowWindowId, None)
 class AppWindowClosingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindowClosingEventArgs
     _classid_ = 'Microsoft.UI.Windowing.AppWindowClosingEventArgs'
     @winrt_mixinmethod
@@ -157,7 +156,7 @@ class AppWindowClosingEventArgs(ComPtr):
     def put_Cancel(self: win32more.Microsoft.UI.Windowing.IAppWindowClosingEventArgs, value: Boolean) -> Void: ...
     Cancel = property(get_Cancel, put_Cancel)
 class AppWindowPresenter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindowPresenter
     _classid_ = 'Microsoft.UI.Windowing.AppWindowPresenter'
     @winrt_mixinmethod
@@ -169,7 +168,7 @@ class AppWindowPresenterKind(Enum, Int32):
     FullScreen = 2
     Overlapped = 3
 class AppWindowTitleBar(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IAppWindowTitleBar
     _classid_ = 'Microsoft.UI.Windowing.AppWindowTitleBar'
     @winrt_mixinmethod
@@ -285,7 +284,7 @@ class CompactOverlaySize(Enum, Int32):
 class _DisplayArea_Meta_(ComPtr.__class__):
     pass
 class DisplayArea(ComPtr, metaclass=_DisplayArea_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IDisplayArea
     _classid_ = 'Microsoft.UI.Windowing.DisplayArea'
     @winrt_mixinmethod
@@ -320,7 +319,7 @@ class DisplayAreaFallback(Enum, Int32):
     Primary = 1
     Nearest = 2
 class DisplayAreaWatcher(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher
     _classid_ = 'Microsoft.UI.Windowing.DisplayAreaWatcher'
     @winrt_mixinmethod
@@ -334,7 +333,7 @@ class DisplayAreaWatcher(ComPtr):
     @winrt_mixinmethod
     def get_Status(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher) -> win32more.Microsoft.UI.Windowing.DisplayAreaWatcherStatus: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.DisplayAreaWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.DisplayAreaWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -342,7 +341,7 @@ class DisplayAreaWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Removed(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.DisplayAreaWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.DisplayAreaWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Microsoft.UI.Windowing.IDisplayAreaWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -369,7 +368,7 @@ class FullScreenPresenter(ComPtr):
     @winrt_classmethod
     def Create(cls: win32more.Microsoft.UI.Windowing.IFullScreenPresenterStatics) -> win32more.Microsoft.UI.Windowing.FullScreenPresenter: ...
 class IAppWindow(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindow'
     _iid_ = Guid('{cfa788b3-643b-5c5e-ad4e-321d48a82acd}')
     @winrt_commethod(6)
@@ -427,7 +426,7 @@ class IAppWindow(ComPtr):
     @winrt_commethod(32)
     def remove_Closing(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(33)
-    def add_Destroying(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.AppWindow, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Destroying(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.AppWindow, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(34)
     def remove_Destroying(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Id = property(get_Id, None)
@@ -443,7 +442,7 @@ class IAppWindow(ComPtr):
     Closing = event()
     Destroying = event()
 class IAppWindow2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindow2'
     _iid_ = Guid('{6cd41292-794c-5cac-8961-210d012c6ebc}')
     @winrt_commethod(6)
@@ -460,7 +459,7 @@ class IAppWindow2(ComPtr):
     def ShowOnceWithRequestedStartupState(self) -> Void: ...
     ClientSize = property(get_ClientSize, None)
 class IAppWindow3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindow3'
     _iid_ = Guid('{2f260cea-193d-5dd6-a904-d7649a608d2f}')
     @winrt_commethod(6)
@@ -469,7 +468,7 @@ class IAppWindow3(ComPtr):
     def get_DispatcherQueue(self) -> win32more.Microsoft.UI.Dispatching.DispatcherQueue: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
 class IAppWindow4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindow4'
     _iid_ = Guid('{383bfb91-ea29-5414-80cd-6c76d981eb31}')
     @winrt_commethod(6)
@@ -481,7 +480,7 @@ class IAppWindow4(ComPtr):
     @winrt_commethod(9)
     def SetTitleBarIconWithIconId(self, iconId: win32more.Microsoft.UI.IconId) -> Void: ...
 class IAppWindowChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowChangedEventArgs'
     _iid_ = Guid('{2182bc5d-fdac-5c3e-bf37-7d8d684e9d1d}')
     @winrt_commethod(6)
@@ -497,7 +496,7 @@ class IAppWindowChangedEventArgs(ComPtr):
     DidSizeChange = property(get_DidSizeChange, None)
     DidVisibilityChange = property(get_DidVisibilityChange, None)
 class IAppWindowChangedEventArgs2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowChangedEventArgs2'
     _iid_ = Guid('{a773ab4c-a5ec-50e8-98ac-247fe6cd4227}')
     @winrt_commethod(6)
@@ -513,7 +512,7 @@ class IAppWindowChangedEventArgs2(ComPtr):
     IsZOrderAtTop = property(get_IsZOrderAtTop, None)
     ZOrderBelowWindowId = property(get_ZOrderBelowWindowId, None)
 class IAppWindowClosingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowClosingEventArgs'
     _iid_ = Guid('{0e09d90b-2261-590b-9ad1-8504991d8754}')
     @winrt_commethod(6)
@@ -522,18 +521,18 @@ class IAppWindowClosingEventArgs(ComPtr):
     def put_Cancel(self, value: Boolean) -> Void: ...
     Cancel = property(get_Cancel, put_Cancel)
 class IAppWindowPresenter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowPresenter'
     _iid_ = Guid('{bc3042c2-c6c6-5632-8989-ff0ec6d3b40d}')
     @winrt_commethod(6)
     def get_Kind(self) -> win32more.Microsoft.UI.Windowing.AppWindowPresenterKind: ...
     Kind = property(get_Kind, None)
 class IAppWindowPresenterFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowPresenterFactory'
     _iid_ = Guid('{62082e3c-1368-5238-90d1-e932dc718a82}')
 class IAppWindowStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowStatics'
     _iid_ = Guid('{3c315c24-d540-5d72-b518-b226b83627cb}')
     @winrt_commethod(6)
@@ -545,13 +544,13 @@ class IAppWindowStatics(ComPtr):
     @winrt_commethod(9)
     def GetFromWindowId(self, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Windowing.AppWindow: ...
 class IAppWindowStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowStatics2'
     _iid_ = Guid('{cabc23db-4606-5d6e-89a5-06de1d8bd3e2}')
     @winrt_commethod(6)
     def CreateWithDispatcherQueue(self, appWindowPresenter: win32more.Microsoft.UI.Windowing.AppWindowPresenter, ownerWindowId: win32more.Microsoft.UI.WindowId, DispatcherQueue: win32more.Microsoft.UI.Dispatching.DispatcherQueue) -> win32more.Microsoft.UI.Windowing.AppWindow: ...
 class IAppWindowTitleBar(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowTitleBar'
     _iid_ = Guid('{5574efa2-c91c-5700-a363-539c71a7aaf4}')
     @winrt_commethod(6)
@@ -638,7 +637,7 @@ class IAppWindowTitleBar(ComPtr):
     LeftInset = property(get_LeftInset, None)
     RightInset = property(get_RightInset, None)
 class IAppWindowTitleBar2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowTitleBar2'
     _iid_ = Guid('{86faed38-748a-5b4b-9ccf-3ba0496c9041}')
     @winrt_commethod(6)
@@ -647,7 +646,7 @@ class IAppWindowTitleBar2(ComPtr):
     def put_PreferredHeightOption(self, value: win32more.Microsoft.UI.Windowing.TitleBarHeightOption) -> Void: ...
     PreferredHeightOption = property(get_PreferredHeightOption, put_PreferredHeightOption)
 class IAppWindowTitleBar3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowTitleBar3'
     _iid_ = Guid('{07146e74-0410-5597-aba7-1af276d2ae07}')
     @winrt_commethod(6)
@@ -656,13 +655,13 @@ class IAppWindowTitleBar3(ComPtr):
     def put_PreferredTheme(self, value: win32more.Microsoft.UI.Windowing.TitleBarTheme) -> Void: ...
     PreferredTheme = property(get_PreferredTheme, put_PreferredTheme)
 class IAppWindowTitleBarStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IAppWindowTitleBarStatics'
     _iid_ = Guid('{9e1da52e-8b15-54d6-a886-f7b9f9d930b2}')
     @winrt_commethod(6)
     def IsCustomizationSupported(self) -> Boolean: ...
 class ICompactOverlayPresenter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.ICompactOverlayPresenter'
     _iid_ = Guid('{efeb0812-6fc7-5b7d-bd92-cc8f9a6454c9}')
     @winrt_commethod(6)
@@ -671,13 +670,13 @@ class ICompactOverlayPresenter(ComPtr):
     def put_InitialSize(self, value: win32more.Microsoft.UI.Windowing.CompactOverlaySize) -> Void: ...
     InitialSize = property(get_InitialSize, put_InitialSize)
 class ICompactOverlayPresenterStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.ICompactOverlayPresenterStatics'
     _iid_ = Guid('{eab93186-4f6a-52f9-8c03-da57a1522f6e}')
     @winrt_commethod(6)
     def Create(self) -> win32more.Microsoft.UI.Windowing.CompactOverlayPresenter: ...
 class IDisplayArea(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IDisplayArea'
     _iid_ = Guid('{5c7e0537-b621-5579-bcae-a84aa8746167}')
     @winrt_commethod(6)
@@ -693,7 +692,7 @@ class IDisplayArea(ComPtr):
     OuterBounds = property(get_OuterBounds, None)
     WorkArea = property(get_WorkArea, None)
 class IDisplayAreaStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IDisplayAreaStatics'
     _iid_ = Guid('{02ab4926-211e-5d49-8e4b-2af193daed09}')
     @winrt_commethod(6)
@@ -710,13 +709,13 @@ class IDisplayAreaStatics(ComPtr):
     def GetFromRect(self, rect: win32more.Windows.Graphics.RectInt32, displayAreaFallback: win32more.Microsoft.UI.Windowing.DisplayAreaFallback) -> win32more.Microsoft.UI.Windowing.DisplayArea: ...
     Primary = property(get_Primary, None)
 class IDisplayAreaStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IDisplayAreaStatics2'
     _iid_ = Guid('{7207ad4b-890d-5dd7-bc18-78ffd9544d8f}')
     @winrt_commethod(6)
     def GetFromDisplayId(self, displayId: win32more.Microsoft.UI.DisplayId) -> win32more.Microsoft.UI.Windowing.DisplayArea: ...
 class IDisplayAreaWatcher(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IDisplayAreaWatcher'
     _iid_ = Guid('{83f6562f-d3a0-548b-8e4f-a99be3d95c9c}')
     @winrt_commethod(6)
@@ -730,7 +729,7 @@ class IDisplayAreaWatcher(ComPtr):
     @winrt_commethod(10)
     def remove_Added(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.DisplayAreaWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.DisplayAreaWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
@@ -738,7 +737,7 @@ class IDisplayAreaWatcher(ComPtr):
     @winrt_commethod(14)
     def remove_Removed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(15)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.DisplayAreaWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Windowing.DisplayAreaWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(17)
@@ -752,17 +751,17 @@ class IDisplayAreaWatcher(ComPtr):
     Stopped = event()
     Updated = event()
 class IFullScreenPresenter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IFullScreenPresenter'
     _iid_ = Guid('{fa9141fd-b8dd-5da1-8b2b-7cdadb76f593}')
 class IFullScreenPresenterStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IFullScreenPresenterStatics'
     _iid_ = Guid('{2ec0d2c1-e086-55bb-a3b2-44942e231c67}')
     @winrt_commethod(6)
     def Create(self) -> win32more.Microsoft.UI.Windowing.FullScreenPresenter: ...
 class IOverlappedPresenter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IOverlappedPresenter'
     _iid_ = Guid('{21693970-4f4c-5172-9e9d-682a2d174884}')
     @winrt_commethod(6)
@@ -808,7 +807,7 @@ class IOverlappedPresenter(ComPtr):
     IsResizable = property(get_IsResizable, put_IsResizable)
     State = property(get_State, None)
 class IOverlappedPresenter2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IOverlappedPresenter2'
     _iid_ = Guid('{5c6ccd93-4244-5cd2-b355-ed5ea34df730}')
     @winrt_commethod(6)
@@ -816,7 +815,7 @@ class IOverlappedPresenter2(ComPtr):
     @winrt_commethod(7)
     def RestoreWithActivation(self, activateWindow: Boolean) -> Void: ...
 class IOverlappedPresenter3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IOverlappedPresenter3'
     _iid_ = Guid('{55d26138-4c38-57e7-a0c1-d467b774db8c}')
     @winrt_commethod(6)
@@ -840,7 +839,7 @@ class IOverlappedPresenter3(ComPtr):
     PreferredMinimumHeight = property(get_PreferredMinimumHeight, put_PreferredMinimumHeight)
     PreferredMinimumWidth = property(get_PreferredMinimumWidth, put_PreferredMinimumWidth)
 class IOverlappedPresenterStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IOverlappedPresenterStatics'
     _iid_ = Guid('{997225e4-7b00-5aee-a4be-d4068d1999e2}')
     @winrt_commethod(6)
@@ -852,7 +851,7 @@ class IOverlappedPresenterStatics(ComPtr):
     @winrt_commethod(9)
     def CreateForToolWindow(self) -> win32more.Microsoft.UI.Windowing.OverlappedPresenter: ...
 class IOverlappedPresenterStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Windowing.IOverlappedPresenterStatics2'
     _iid_ = Guid('{ed5c4f92-32f4-5d15-80d0-b2a5efa04d39}')
     @winrt_commethod(6)

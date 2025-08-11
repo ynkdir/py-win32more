@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Gpio.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class GpioPinProviderValueChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgs
     _classid_ = 'Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs'
     def __init__(self, *args, **kwargs):
@@ -22,7 +21,7 @@ class GpioPinProviderValueChangedEventArgs(ComPtr):
     def get_Edge(self: win32more.Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgs) -> win32more.Windows.Devices.Gpio.Provider.ProviderGpioPinEdge: ...
     Edge = property(get_Edge, None)
 class IGpioControllerProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Gpio.Provider.IGpioControllerProvider'
     _iid_ = Guid('{ad11cec7-19ea-4b21-874f-b91aed4a25db}')
     @winrt_commethod(6)
@@ -31,7 +30,7 @@ class IGpioControllerProvider(ComPtr):
     def OpenPinProvider(self, pin: Int32, sharingMode: win32more.Windows.Devices.Gpio.Provider.ProviderGpioSharingMode) -> win32more.Windows.Devices.Gpio.Provider.IGpioPinProvider: ...
     PinCount = property(get_PinCount, None)
 class IGpioPinProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Gpio.Provider.IGpioPinProvider'
     _iid_ = Guid('{42344cb7-6abc-40ff-9ce7-73b85301b900}')
     @winrt_commethod(6)
@@ -61,20 +60,20 @@ class IGpioPinProvider(ComPtr):
     SharingMode = property(get_SharingMode, None)
     ValueChanged = event()
 class IGpioPinProviderValueChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgs'
     _iid_ = Guid('{32a6d6f2-3d5b-44cd-8fbe-13a69f2edb24}')
     @winrt_commethod(6)
     def get_Edge(self) -> win32more.Windows.Devices.Gpio.Provider.ProviderGpioPinEdge: ...
     Edge = property(get_Edge, None)
 class IGpioPinProviderValueChangedEventArgsFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgsFactory'
     _iid_ = Guid('{3ecb0b59-568c-4392-b24a-8a59a902b1f1}')
     @winrt_commethod(6)
     def Create(self, edge: win32more.Windows.Devices.Gpio.Provider.ProviderGpioPinEdge) -> win32more.Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs: ...
 class IGpioProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Gpio.Provider.IGpioProvider'
     _iid_ = Guid('{44e82707-08ca-434a-afe0-d61580446f7e}')
     @winrt_commethod(6)

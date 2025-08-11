@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System.Update
-import win32more.Windows.Win32.System.WinRT
 class ISystemUpdateItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Update.ISystemUpdateItem'
     _iid_ = Guid('{779740eb-5624-519e-a8e2-09e9173b3fb7}')
     @winrt_commethod(6)
@@ -34,7 +33,7 @@ class ISystemUpdateItem(ComPtr):
     State = property(get_State, None)
     Title = property(get_Title, None)
 class ISystemUpdateLastErrorInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Update.ISystemUpdateLastErrorInfo'
     _iid_ = Guid('{7ee887f7-8a44-5b6e-bd07-7aece4116ea9}')
     @winrt_commethod(6)
@@ -47,7 +46,7 @@ class ISystemUpdateLastErrorInfo(ComPtr):
     IsInteractive = property(get_IsInteractive, None)
     State = property(get_State, None)
 class ISystemUpdateManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Update.ISystemUpdateManagerStatics'
     _iid_ = Guid('{b2d3fcef-2971-51be-b41a-8bd703bb701a}')
     @winrt_commethod(6)
@@ -55,7 +54,7 @@ class ISystemUpdateManagerStatics(ComPtr):
     @winrt_commethod(7)
     def get_State(self) -> win32more.Windows.System.Update.SystemUpdateManagerState: ...
     @winrt_commethod(8)
-    def add_StateChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_StateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
@@ -117,7 +116,7 @@ class SystemUpdateAttentionRequiredReason(Enum, Int32):
     InsufficientBattery = 3
     UpdateBlocked = 4
 class SystemUpdateItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Update.ISystemUpdateItem
     _classid_ = 'Windows.System.Update.SystemUpdateItem'
     @winrt_mixinmethod
@@ -155,7 +154,7 @@ class SystemUpdateItemState(Enum, Int32):
     RebootRequired = 7
     Error = 8
 class SystemUpdateLastErrorInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Update.ISystemUpdateLastErrorInfo
     _classid_ = 'Windows.System.Update.SystemUpdateLastErrorInfo'
     @winrt_mixinmethod
@@ -170,14 +169,14 @@ class SystemUpdateLastErrorInfo(ComPtr):
 class _SystemUpdateManager_Meta_(ComPtr.__class__):
     pass
 class SystemUpdateManager(ComPtr, metaclass=_SystemUpdateManager_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Update.SystemUpdateManager'
     @winrt_classmethod
     def IsSupported(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics) -> Boolean: ...
     @winrt_classmethod
     def get_State(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics) -> win32more.Windows.System.Update.SystemUpdateManagerState: ...
     @winrt_classmethod
-    def add_StateChanged(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StateChanged(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_StateChanged(cls: win32more.Windows.System.Update.ISystemUpdateManagerStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod

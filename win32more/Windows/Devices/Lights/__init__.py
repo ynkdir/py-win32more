@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Lights
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class ILamp(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.Lights.ILamp'
     _iid_ = Guid('{047d5b9a-ea45-4b2b-b1a2-14dff00bde7b}')
@@ -40,7 +39,7 @@ class ILamp(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     AvailabilityChanged = event()
 class ILampArray(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArray'
     _iid_ = Guid('{7ace9787-c8a0-4e95-a1e0-d58676538649}')
     @winrt_commethod(6)
@@ -108,19 +107,19 @@ class ILampArray(ComPtr):
     MinUpdateInterval = property(get_MinUpdateInterval, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
 class ILampArray2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArray2'
     _iid_ = Guid('{050c181f-60a8-4711-a1af-1b1b4c658ea2}')
     @winrt_commethod(6)
     def get_IsAvailable(self) -> Boolean: ...
     @winrt_commethod(7)
-    def add_AvailabilityChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Lights.LampArray, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AvailabilityChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Lights.LampArray, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_AvailabilityChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsAvailable = property(get_IsAvailable, None)
     AvailabilityChanged = event()
 class ILampArrayStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampArrayStatics'
     _iid_ = Guid('{7bb8c98d-5fc1-452d-bb1f-4ad410d398ff}')
     @winrt_commethod(6)
@@ -128,14 +127,14 @@ class ILampArrayStatics(ComPtr):
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.LampArray]: ...
 class ILampAvailabilityChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampAvailabilityChangedEventArgs'
     _iid_ = Guid('{4f6e3ded-07a2-499d-9260-67e304532ba4}')
     @winrt_commethod(6)
     def get_IsAvailable(self) -> Boolean: ...
     IsAvailable = property(get_IsAvailable, None)
 class ILampInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampInfo'
     _iid_ = Guid('{30bb521c-0acf-49da-8c10-150b9cf62713}')
     @winrt_commethod(6)
@@ -168,7 +167,7 @@ class ILampInfo(ComPtr):
     RedLevelCount = property(get_RedLevelCount, None)
     UpdateLatency = property(get_UpdateLatency, None)
 class ILampStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.ILampStatics'
     _iid_ = Guid('{a822416c-8885-401e-b821-8e8b38a8e8ec}')
     @winrt_commethod(6)
@@ -178,7 +177,7 @@ class ILampStatics(ComPtr):
     @winrt_commethod(8)
     def GetDefaultAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Lights.Lamp]: ...
 class Lamp(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.Lights.ILamp
     _classid_ = 'Windows.Devices.Lights.Lamp'
@@ -217,7 +216,7 @@ class Lamp(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     AvailabilityChanged = event()
 class LampArray(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampArray
     _classid_ = 'Windows.Devices.Lights.LampArray'
     @winrt_mixinmethod
@@ -275,7 +274,7 @@ class LampArray(ComPtr):
     @winrt_mixinmethod
     def get_IsAvailable(self: win32more.Windows.Devices.Lights.ILampArray2) -> Boolean: ...
     @winrt_mixinmethod
-    def add_AvailabilityChanged(self: win32more.Windows.Devices.Lights.ILampArray2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Lights.LampArray, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AvailabilityChanged(self: win32more.Windows.Devices.Lights.ILampArray2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Lights.LampArray, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AvailabilityChanged(self: win32more.Windows.Devices.Lights.ILampArray2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -312,14 +311,14 @@ class LampArrayKind(Enum, Int32):
     Microphone = 12
     Speaker = 13
 class LampAvailabilityChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampAvailabilityChangedEventArgs
     _classid_ = 'Windows.Devices.Lights.LampAvailabilityChangedEventArgs'
     @winrt_mixinmethod
     def get_IsAvailable(self: win32more.Windows.Devices.Lights.ILampAvailabilityChangedEventArgs) -> Boolean: ...
     IsAvailable = property(get_IsAvailable, None)
 class LampInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.ILampInfo
     _classid_ = 'Windows.Devices.Lights.LampInfo'
     @winrt_mixinmethod

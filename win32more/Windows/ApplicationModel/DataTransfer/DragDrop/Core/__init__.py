@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.ApplicationModel.DataTransfer.DragDrop
 import win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core
 import win32more.Windows.Foundation
 import win32more.Windows.Graphics.Imaging
-import win32more.Windows.Win32.System.WinRT
 class CoreDragDropManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManager
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragDropManager'
     @winrt_mixinmethod
@@ -24,7 +23,7 @@ class CoreDragDropManager(ComPtr):
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
     TargetRequested = event()
 class CoreDragInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragInfo
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo'
     @winrt_mixinmethod
@@ -40,7 +39,7 @@ class CoreDragInfo(ComPtr):
     Modifiers = property(get_Modifiers, None)
     Position = property(get_Position, None)
 class CoreDragOperation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragOperation
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragOperation'
     def __init__(self, *args, **kwargs):
@@ -77,7 +76,7 @@ class CoreDragUIContentMode(Enum, UInt32):
     Auto = 0
     Deferred = 1
 class CoreDragUIOverride(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragUIOverride'
     @winrt_mixinmethod
@@ -107,13 +106,13 @@ class CoreDragUIOverride(ComPtr):
     IsContentVisible = property(get_IsContentVisible, put_IsContentVisible)
     IsGlyphVisible = property(get_IsGlyphVisible, put_IsGlyphVisible)
 class CoreDropOperationTargetRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTargetRequestedEventArgs
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDropOperationTargetRequestedEventArgs'
     @winrt_mixinmethod
     def SetTarget(self: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTargetRequestedEventArgs, target: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTarget) -> Void: ...
 class ICoreDragDropManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManager'
     _iid_ = Guid('{7d56d344-8464-4faf-aa49-37ea6e2d7bd1}')
     @winrt_commethod(6)
@@ -127,13 +126,13 @@ class ICoreDragDropManager(ComPtr):
     AreConcurrentOperationsEnabled = property(get_AreConcurrentOperationsEnabled, put_AreConcurrentOperationsEnabled)
     TargetRequested = event()
 class ICoreDragDropManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragDropManagerStatics'
     _iid_ = Guid('{9542fdca-da12-4c1c-8d06-041db29733c3}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragDropManager: ...
 class ICoreDragInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragInfo'
     _iid_ = Guid('{48353a8b-cb50-464e-9575-cd4e3a7ab028}')
     @winrt_commethod(6)
@@ -146,14 +145,14 @@ class ICoreDragInfo(ComPtr):
     Modifiers = property(get_Modifiers, None)
     Position = property(get_Position, None)
 class ICoreDragInfo2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragInfo2'
     _iid_ = Guid('{c54691e5-e6fb-4d74-b4b1-8a3c17f25e9e}')
     @winrt_commethod(6)
     def get_AllowedOperations(self) -> win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     AllowedOperations = property(get_AllowedOperations, None)
 class ICoreDragOperation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragOperation'
     _iid_ = Guid('{cc06de4f-6db0-4e62-ab1b-a74a02dc6d85}')
     @winrt_commethod(6)
@@ -173,7 +172,7 @@ class ICoreDragOperation(ComPtr):
     Data = property(get_Data, None)
     DragUIContentMode = property(get_DragUIContentMode, put_DragUIContentMode)
 class ICoreDragOperation2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragOperation2'
     _iid_ = Guid('{824b1e2c-d99a-4fc3-8507-6c182f33b46a}')
     @winrt_commethod(6)
@@ -182,7 +181,7 @@ class ICoreDragOperation2(ComPtr):
     def put_AllowedOperations(self, value: win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation) -> Void: ...
     AllowedOperations = property(get_AllowedOperations, put_AllowedOperations)
 class ICoreDragUIOverride(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDragUIOverride'
     _iid_ = Guid('{89a85064-3389-4f4f-8897-7e8a3ffb3c93}')
     @winrt_commethod(6)
@@ -212,7 +211,7 @@ class ICoreDragUIOverride(ComPtr):
     IsContentVisible = property(get_IsContentVisible, put_IsContentVisible)
     IsGlyphVisible = property(get_IsGlyphVisible, put_IsGlyphVisible)
 class ICoreDropOperationTarget(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTarget'
     _iid_ = Guid('{d9126196-4c5b-417d-bb37-76381def8db4}')
     @winrt_commethod(6)
@@ -224,7 +223,7 @@ class ICoreDropOperationTarget(ComPtr):
     @winrt_commethod(9)
     def DropAsync(self, dragInfo: win32more.Windows.ApplicationModel.DataTransfer.DragDrop.Core.CoreDragInfo) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.DataTransfer.DataPackageOperation]: ...
 class ICoreDropOperationTargetRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.DragDrop.Core.ICoreDropOperationTargetRequestedEventArgs'
     _iid_ = Guid('{2aca929a-5e28-4ea6-829e-29134e665d6d}')
     @winrt_commethod(6)

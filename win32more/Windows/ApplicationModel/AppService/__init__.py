@@ -1,20 +1,19 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.AppService
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.System.RemoteSystems
-import win32more.Windows.Win32.System.WinRT
 class AppServiceCatalog(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceCatalog'
     @winrt_classmethod
     def FindAppServiceProvidersAsync(cls: win32more.Windows.ApplicationModel.AppService.IAppServiceCatalogStatics, appServiceName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppInfo]]: ...
 class AppServiceClosedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppService.IAppServiceClosedEventArgs
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceClosedEventArgs'
     @winrt_mixinmethod
@@ -26,7 +25,7 @@ class AppServiceClosedStatus(Enum, Int32):
     ResourceLimitsExceeded = 2
     Unknown = 3
 class AppServiceConnection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.ApplicationModel.AppService.IAppServiceConnection
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceConnection'
@@ -88,13 +87,13 @@ class AppServiceConnectionStatus(Enum, Int32):
     DisabledByPolicy = 10
     WebServiceUnavailable = 11
 class AppServiceDeferral(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppService.IAppServiceDeferral
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceDeferral'
     @winrt_mixinmethod
     def Complete(self: win32more.Windows.ApplicationModel.AppService.IAppServiceDeferral) -> Void: ...
 class AppServiceRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppService.IAppServiceRequest
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceRequest'
     @winrt_mixinmethod
@@ -103,7 +102,7 @@ class AppServiceRequest(ComPtr):
     def SendResponseAsync(self: win32more.Windows.ApplicationModel.AppService.IAppServiceRequest, message: win32more.Windows.Foundation.Collections.ValueSet) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.AppService.AppServiceResponseStatus]: ...
     Message = property(get_Message, None)
 class AppServiceRequestReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppService.IAppServiceRequestReceivedEventArgs
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceRequestReceivedEventArgs'
     @winrt_mixinmethod
@@ -112,7 +111,7 @@ class AppServiceRequestReceivedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.AppService.IAppServiceRequestReceivedEventArgs) -> win32more.Windows.ApplicationModel.AppService.AppServiceDeferral: ...
     Request = property(get_Request, None)
 class AppServiceResponse(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppService.IAppServiceResponse
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceResponse'
     @winrt_mixinmethod
@@ -134,7 +133,7 @@ class AppServiceResponseStatus(Enum, Int32):
     DisabledByPolicy = 9
     WebServiceUnavailable = 10
 class AppServiceTriggerDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppService.IAppServiceTriggerDetails
     _classid_ = 'Windows.ApplicationModel.AppService.AppServiceTriggerDetails'
     @winrt_mixinmethod
@@ -155,20 +154,20 @@ class AppServiceTriggerDetails(ComPtr):
     IsRemoteSystemConnection = property(get_IsRemoteSystemConnection, None)
     Name = property(get_Name, None)
 class IAppServiceCatalogStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceCatalogStatics'
     _iid_ = Guid('{ef0d2507-d132-4c85-8395-3c31d5a1e941}')
     @winrt_commethod(6)
     def FindAppServiceProvidersAsync(self, appServiceName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.AppInfo]]: ...
 class IAppServiceClosedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceClosedEventArgs'
     _iid_ = Guid('{de6016f6-cb03-4d35-ac8d-cc6303239731}')
     @winrt_commethod(6)
     def get_Status(self) -> win32more.Windows.ApplicationModel.AppService.AppServiceClosedStatus: ...
     Status = property(get_Status, None)
 class IAppServiceConnection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceConnection'
     _iid_ = Guid('{9dd474a2-871f-4d52-89a9-9e090531bd27}')
     @winrt_commethod(6)
@@ -196,7 +195,7 @@ class IAppServiceConnection(ComPtr):
     RequestReceived = event()
     ServiceClosed = event()
 class IAppServiceConnection2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceConnection2'
     _iid_ = Guid('{8bdfcd5f-2302-4fbd-8061-52511c2f8bf9}')
     @winrt_commethod(6)
@@ -207,19 +206,19 @@ class IAppServiceConnection2(ComPtr):
     def put_User(self, value: win32more.Windows.System.User) -> Void: ...
     User = property(get_User, put_User)
 class IAppServiceConnectionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceConnectionStatics'
     _iid_ = Guid('{adc56ce9-d408-5673-8637-827a4b274168}')
     @winrt_commethod(6)
     def SendStatelessMessageAsync(self, connection: win32more.Windows.ApplicationModel.AppService.AppServiceConnection, connectionRequest: win32more.Windows.System.RemoteSystems.RemoteSystemConnectionRequest, message: win32more.Windows.Foundation.Collections.ValueSet) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.AppService.StatelessAppServiceResponse]: ...
 class IAppServiceDeferral(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceDeferral'
     _iid_ = Guid('{7e1b5322-eab0-4248-ae04-fdf93838e472}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IAppServiceRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceRequest'
     _iid_ = Guid('{20e58d9d-18de-4b01-80ba-90a76204e3c8}')
     @winrt_commethod(6)
@@ -228,7 +227,7 @@ class IAppServiceRequest(ComPtr):
     def SendResponseAsync(self, message: win32more.Windows.Foundation.Collections.ValueSet) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.AppService.AppServiceResponseStatus]: ...
     Message = property(get_Message, None)
 class IAppServiceRequestReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceRequestReceivedEventArgs'
     _iid_ = Guid('{6e122360-ff65-44ae-9e45-857fe4180681}')
     @winrt_commethod(6)
@@ -237,7 +236,7 @@ class IAppServiceRequestReceivedEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.ApplicationModel.AppService.AppServiceDeferral: ...
     Request = property(get_Request, None)
 class IAppServiceResponse(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceResponse'
     _iid_ = Guid('{8d503cec-9aa3-4e68-9559-9de63e372ce4}')
     @winrt_commethod(6)
@@ -247,7 +246,7 @@ class IAppServiceResponse(ComPtr):
     Message = property(get_Message, None)
     Status = property(get_Status, None)
 class IAppServiceTriggerDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceTriggerDetails'
     _iid_ = Guid('{88a2dcac-ad28-41b8-80bb-bdf1b2169e19}')
     @winrt_commethod(6)
@@ -260,27 +259,27 @@ class IAppServiceTriggerDetails(ComPtr):
     CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     Name = property(get_Name, None)
 class IAppServiceTriggerDetails2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceTriggerDetails2'
     _iid_ = Guid('{e83d54b2-28cc-43f2-b465-c0482e59e2dc}')
     @winrt_commethod(6)
     def get_IsRemoteSystemConnection(self) -> Boolean: ...
     IsRemoteSystemConnection = property(get_IsRemoteSystemConnection, None)
 class IAppServiceTriggerDetails3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceTriggerDetails3'
     _iid_ = Guid('{fbd71e21-7939-4e68-9e3c-7780147aabb6}')
     @winrt_commethod(6)
     def CheckCallerForCapabilityAsync(self, capabilityName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IAppServiceTriggerDetails4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IAppServiceTriggerDetails4'
     _iid_ = Guid('{1185b180-8861-5e30-ab55-1cf4d08bbf6d}')
     @winrt_commethod(6)
     def get_CallerRemoteConnectionToken(self) -> WinRT_String: ...
     CallerRemoteConnectionToken = property(get_CallerRemoteConnectionToken, None)
 class IStatelessAppServiceResponse(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.AppService.IStatelessAppServiceResponse'
     _iid_ = Guid('{43754af7-a9ec-52fe-82e7-939b68dc9388}')
     @winrt_commethod(6)
@@ -290,7 +289,7 @@ class IStatelessAppServiceResponse(ComPtr):
     Message = property(get_Message, None)
     Status = property(get_Status, None)
 class StatelessAppServiceResponse(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.AppService.IStatelessAppServiceResponse
     _classid_ = 'Windows.ApplicationModel.AppService.StatelessAppServiceResponse'
     @winrt_mixinmethod

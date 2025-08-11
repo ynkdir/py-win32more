@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
@@ -8,8 +8,6 @@ import win32more.Windows.Storage.Provider
 import win32more.Windows.Storage.Search
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.Com
-import win32more.Windows.Win32.System.WinRT
 class CachedFileOptions(Enum, UInt32):
     None_ = 0
     RequireUpdateOnAccess = 1
@@ -19,12 +17,12 @@ class CachedFileTarget(Enum, Int32):
     Local = 0
     Remote = 1
 class CachedFileUpdater(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.CachedFileUpdater'
     @winrt_classmethod
     def SetUpdateInformation(cls: win32more.Windows.Storage.Provider.ICachedFileUpdaterStatics, file: win32more.Windows.Storage.IStorageFile, contentId: WinRT_String, readMode: win32more.Windows.Storage.Provider.ReadActivationMode, writeMode: win32more.Windows.Storage.Provider.WriteActivationMode, options: win32more.Windows.Storage.Provider.CachedFileOptions) -> Void: ...
 class CachedFileUpdaterUI(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.ICachedFileUpdaterUI
     _classid_ = 'Windows.Storage.Provider.CachedFileUpdaterUI'
     @winrt_mixinmethod
@@ -38,7 +36,7 @@ class CachedFileUpdaterUI(ComPtr):
     @winrt_mixinmethod
     def remove_FileUpdateRequested(self: win32more.Windows.Storage.Provider.ICachedFileUpdaterUI, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_UIRequested(self: win32more.Windows.Storage.Provider.ICachedFileUpdaterUI, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.CachedFileUpdaterUI, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UIRequested(self: win32more.Windows.Storage.Provider.ICachedFileUpdaterUI, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.CachedFileUpdaterUI, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_UIRequested(self: win32more.Windows.Storage.Provider.ICachedFileUpdaterUI, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -55,7 +53,7 @@ class CachedFileUpdaterUI(ComPtr):
     UIRequested = event()
 CloudFilesContract: UInt32 = 458752
 class FileUpdateRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IFileUpdateRequest
     _classid_ = 'Windows.Storage.Provider.FileUpdateRequest'
     @winrt_mixinmethod
@@ -79,13 +77,13 @@ class FileUpdateRequest(ComPtr):
     Status = property(get_Status, put_Status)
     UserInputNeededMessage = property(get_UserInputNeededMessage, put_UserInputNeededMessage)
 class FileUpdateRequestDeferral(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IFileUpdateRequestDeferral
     _classid_ = 'Windows.Storage.Provider.FileUpdateRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: win32more.Windows.Storage.Provider.IFileUpdateRequestDeferral) -> Void: ...
 class FileUpdateRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IFileUpdateRequestedEventArgs
     _classid_ = 'Windows.Storage.Provider.FileUpdateRequestedEventArgs'
     @winrt_mixinmethod
@@ -99,13 +97,13 @@ class FileUpdateStatus(Enum, Int32):
     Failed = 4
     CompleteAndRenamed = 5
 class ICachedFileUpdaterStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.ICachedFileUpdaterStatics'
     _iid_ = Guid('{9fc90920-7bcf-4888-a81e-102d7034d7ce}')
     @winrt_commethod(6)
     def SetUpdateInformation(self, file: win32more.Windows.Storage.IStorageFile, contentId: WinRT_String, readMode: win32more.Windows.Storage.Provider.ReadActivationMode, writeMode: win32more.Windows.Storage.Provider.WriteActivationMode, options: win32more.Windows.Storage.Provider.CachedFileOptions) -> Void: ...
 class ICachedFileUpdaterUI(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.ICachedFileUpdaterUI'
     _iid_ = Guid('{9e6f41e6-baf2-4a97-b600-9333f5df80fd}')
     @winrt_commethod(6)
@@ -119,7 +117,7 @@ class ICachedFileUpdaterUI(ComPtr):
     @winrt_commethod(10)
     def remove_FileUpdateRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_UIRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.CachedFileUpdaterUI, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_UIRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.CachedFileUpdaterUI, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_UIRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(13)
@@ -130,7 +128,7 @@ class ICachedFileUpdaterUI(ComPtr):
     FileUpdateRequested = event()
     UIRequested = event()
 class ICachedFileUpdaterUI2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.ICachedFileUpdaterUI2'
     _iid_ = Guid('{8856a21c-8699-4340-9f49-f7cad7fe8991}')
     @winrt_commethod(6)
@@ -139,7 +137,7 @@ class ICachedFileUpdaterUI2(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Storage.Provider.FileUpdateRequestDeferral: ...
     UpdateRequest = property(get_UpdateRequest, None)
 class IFileUpdateRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IFileUpdateRequest'
     _iid_ = Guid('{40c82536-c1fe-4d93-a792-1e736bc70837}')
     @winrt_commethod(6)
@@ -158,7 +156,7 @@ class IFileUpdateRequest(ComPtr):
     File = property(get_File, None)
     Status = property(get_Status, put_Status)
 class IFileUpdateRequest2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IFileUpdateRequest2'
     _iid_ = Guid('{82484648-bdbe-447b-a2ee-7afe6a032a94}')
     @winrt_commethod(6)
@@ -167,20 +165,20 @@ class IFileUpdateRequest2(ComPtr):
     def put_UserInputNeededMessage(self, value: WinRT_String) -> Void: ...
     UserInputNeededMessage = property(get_UserInputNeededMessage, put_UserInputNeededMessage)
 class IFileUpdateRequestDeferral(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IFileUpdateRequestDeferral'
     _iid_ = Guid('{ffcedb2b-8ade-44a5-bb00-164c4e72f13a}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IFileUpdateRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IFileUpdateRequestedEventArgs'
     _iid_ = Guid('{7b0a9342-3905-438d-aaef-78ae265f8dd2}')
     @winrt_commethod(6)
     def get_Request(self) -> win32more.Windows.Storage.Provider.FileUpdateRequest: ...
     Request = property(get_Request, None)
 class IStorageProviderFileTypeInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderFileTypeInfo'
     _iid_ = Guid('{1955b9c1-0184-5a88-87df-4544f464365d}')
     @winrt_commethod(6)
@@ -190,13 +188,13 @@ class IStorageProviderFileTypeInfo(ComPtr):
     FileExtension = property(get_FileExtension, None)
     IconResource = property(get_IconResource, None)
 class IStorageProviderFileTypeInfoFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderFileTypeInfoFactory'
     _iid_ = Guid('{3fa12c6f-cce6-5d5d-80b1-389e7cf92dbf}')
     @winrt_commethod(6)
     def CreateInstance(self, fileExtension: WinRT_String, iconResource: WinRT_String) -> win32more.Windows.Storage.Provider.StorageProviderFileTypeInfo: ...
 class IStorageProviderGetContentInfoForPathResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderGetContentInfoForPathResult'
     _iid_ = Guid('{2564711d-aa89-4d12-82e3-f72a92e33966}')
     @winrt_commethod(6)
@@ -215,7 +213,7 @@ class IStorageProviderGetContentInfoForPathResult(ComPtr):
     ContentUri = property(get_ContentUri, put_ContentUri)
     Status = property(get_Status, put_Status)
 class IStorageProviderGetPathForContentUriResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderGetPathForContentUriResult'
     _iid_ = Guid('{63711a9d-4118-45a6-acb6-22c49d019f40}')
     @winrt_commethod(6)
@@ -229,13 +227,13 @@ class IStorageProviderGetPathForContentUriResult(ComPtr):
     Path = property(get_Path, put_Path)
     Status = property(get_Status, put_Status)
 class IStorageProviderItemPropertiesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderItemPropertiesStatics'
     _iid_ = Guid('{2d2c1c97-2704-4729-8fa9-7e6b8e158c2f}')
     @winrt_commethod(6)
     def SetAsync(self, item: win32more.Windows.Storage.IStorageItem, itemProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Storage.Provider.StorageProviderItemProperty]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IStorageProviderItemProperty(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderItemProperty'
     _iid_ = Guid('{476cb558-730b-4188-b7b5-63b716ed476d}')
     @winrt_commethod(6)
@@ -254,7 +252,7 @@ class IStorageProviderItemProperty(ComPtr):
     Id = property(get_Id, put_Id)
     Value = property(get_Value, put_Value)
 class IStorageProviderItemPropertyDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderItemPropertyDefinition'
     _iid_ = Guid('{c5b383bb-ff1f-4298-831e-ff1c08089690}')
     @winrt_commethod(6)
@@ -268,13 +266,13 @@ class IStorageProviderItemPropertyDefinition(ComPtr):
     DisplayNameResource = property(get_DisplayNameResource, put_DisplayNameResource)
     Id = property(get_Id, put_Id)
 class IStorageProviderItemPropertySource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderItemPropertySource'
     _iid_ = Guid('{8f6f9c3e-f632-4a9b-8d99-d2d7a11df56a}')
     @winrt_commethod(6)
     def GetItemProperties(self, itemPath: WinRT_String) -> win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Storage.Provider.StorageProviderItemProperty]: ...
 class IStorageProviderKnownFolderEntry(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderEntry'
     _iid_ = Guid('{effa7db0-1d44-596b-8464-928800c5e2d8}')
     @winrt_commethod(6)
@@ -288,7 +286,7 @@ class IStorageProviderKnownFolderEntry(ComPtr):
     KnownFolderId = property(get_KnownFolderId, put_KnownFolderId)
     Status = property(get_Status, put_Status)
 class IStorageProviderKnownFolderSyncInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo'
     _iid_ = Guid('{98b017ce-ffc1-5b11-ae77-cc17afec1049}')
     @winrt_commethod(6)
@@ -305,24 +303,24 @@ class IStorageProviderKnownFolderSyncInfo(ComPtr):
     ProviderDisplayName = property(get_ProviderDisplayName, put_ProviderDisplayName)
     SyncRequested = property(get_SyncRequested, put_SyncRequested)
 class IStorageProviderKnownFolderSyncInfoSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSource'
     _iid_ = Guid('{51359342-f7c0-53d0-bbb6-1cdc098ebda9}')
     @winrt_commethod(6)
     def GetKnownFolderSyncInfo(self) -> win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo: ...
     @winrt_commethod(7)
-    def add_KnownFolderSyncInfoChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_KnownFolderSyncInfoChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSource, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_KnownFolderSyncInfoChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     KnownFolderSyncInfoChanged = event()
 class IStorageProviderKnownFolderSyncInfoSourceFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSourceFactory'
     _iid_ = Guid('{aaee03a7-a7f6-50be-a9b0-8e82d0c81082}')
     @winrt_commethod(6)
     def GetKnownFolderSyncInfoSource(self) -> win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfoSource: ...
 class IStorageProviderKnownFolderSyncRequestArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderKnownFolderSyncRequestArgs'
     _iid_ = Guid('{eda6d569-b4e8-542f-ab8d-f3613f250a4a}')
     @winrt_commethod(6)
@@ -332,7 +330,7 @@ class IStorageProviderKnownFolderSyncRequestArgs(ComPtr):
     KnownFolders = property(get_KnownFolders, None)
     Source = property(get_Source, None)
 class IStorageProviderMoreInfoUI(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderMoreInfoUI'
     _iid_ = Guid('{ef38e591-a7cb-5e7d-9b5e-22749842697c}')
     @winrt_commethod(6)
@@ -346,13 +344,13 @@ class IStorageProviderMoreInfoUI(ComPtr):
     Command = property(get_Command, put_Command)
     Message = property(get_Message, put_Message)
 class IStorageProviderPropertyCapabilities(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderPropertyCapabilities'
     _iid_ = Guid('{658d2f0e-63b7-4567-acf9-51abe301dda5}')
     @winrt_commethod(6)
     def IsPropertySupported(self, propertyCanonicalName: WinRT_String) -> Boolean: ...
 class IStorageProviderQueryResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderQueryResult'
     _iid_ = Guid('{f1cd00ae-b4a9-5d20-a598-3eb4dd8ff8f4}')
     @winrt_commethod(6)
@@ -379,7 +377,7 @@ class IStorageProviderQueryResult(ComPtr):
     RequestedProperties = property(get_RequestedProperties, None)
     ResultId = property(get_ResultId, put_ResultId)
 class IStorageProviderQueryResultSet(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderQueryResultSet'
     _iid_ = Guid('{57c28407-7d21-5f98-ac52-0926a97f3259}')
     @winrt_commethod(6)
@@ -395,13 +393,13 @@ class IStorageProviderQueryResultSet(ComPtr):
     QueryResultId = property(get_QueryResultId, put_QueryResultId)
     Status = property(get_Status, put_Status)
 class IStorageProviderQueryResultSetFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderQueryResultSetFactory'
     _iid_ = Guid('{301974c2-9b0a-51d1-84b5-32578ee3083d}')
     @winrt_commethod(6)
     def CreateInstance(self, results: PassArray[win32more.Windows.Storage.Provider.IStorageProviderQueryResult]) -> win32more.Windows.Storage.Provider.StorageProviderQueryResultSet: ...
 class IStorageProviderQuotaUI(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderQuotaUI'
     _iid_ = Guid('{ba6295c3-312e-544f-9fd5-1f81b21f3649}')
     @winrt_commethod(6)
@@ -425,7 +423,7 @@ class IStorageProviderQuotaUI(ComPtr):
     QuotaUsedInBytes = property(get_QuotaUsedInBytes, put_QuotaUsedInBytes)
     QuotaUsedLabel = property(get_QuotaUsedLabel, put_QuotaUsedLabel)
 class IStorageProviderSearchHandler(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSearchHandler'
     _iid_ = Guid('{69cc977d-adad-59c9-8fd1-f30b6fae0fd9}')
     @winrt_commethod(6)
@@ -433,13 +431,13 @@ class IStorageProviderSearchHandler(ComPtr):
     @winrt_commethod(7)
     def ReportUsage(self, resultUsageKind: win32more.Windows.Storage.Provider.StorageProviderResultUsageKind, remoteFileId: WinRT_String, resultId: WinRT_String, latency: win32more.Windows.Foundation.TimeSpan) -> Void: ...
 class IStorageProviderSearchHandlerFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSearchHandlerFactory'
     _iid_ = Guid('{b0dcad80-f3f5-516b-8ace-4e77022c9598}')
     @winrt_commethod(6)
     def CreateSearchHandler(self, cloudProviderId: WinRT_String) -> win32more.Windows.Storage.Provider.IStorageProviderSearchHandler: ...
 class IStorageProviderSearchQueryOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSearchQueryOptions'
     _iid_ = Guid('{93d854eb-1007-563c-b213-cc44bd88fef2}')
     @winrt_commethod(6)
@@ -467,7 +465,7 @@ class IStorageProviderSearchQueryOptions(ComPtr):
     SortOrder = property(get_SortOrder, None)
     UserQuery = property(get_UserQuery, None)
 class IStorageProviderSearchResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSearchResult'
     _iid_ = Guid('{fc161049-0995-535f-99b7-fe292cbabaf5}')
     @winrt_commethod(6)
@@ -486,7 +484,7 @@ class IStorageProviderSearchResult(ComPtr):
     MatchScore = property(get_MatchScore, put_MatchScore)
     MatchedPropertyName = property(get_MatchedPropertyName, put_MatchedPropertyName)
 class IStorageProviderShareLinkSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderShareLinkSource'
     _iid_ = Guid('{4c6055e2-029c-5539-8e51-a1afc838b5cb}')
     @winrt_commethod(6)
@@ -496,7 +494,7 @@ class IStorageProviderShareLinkSource(ComPtr):
     @winrt_commethod(8)
     def GetState(self, storageItemList: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.IStorageItem]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Provider.StorageProviderShareLinkState]: ...
 class IStorageProviderStatusUI(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderStatusUI'
     _iid_ = Guid('{d6b6a758-198d-5b80-977f-5ff73da33118}')
     @winrt_commethod(6)
@@ -540,24 +538,24 @@ class IStorageProviderStatusUI(ComPtr):
     QuotaUI = property(get_QuotaUI, put_QuotaUI)
     SyncStatusCommand = property(get_SyncStatusCommand, put_SyncStatusCommand)
 class IStorageProviderStatusUISource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderStatusUISource'
     _iid_ = Guid('{a306c249-3d66-5e70-9007-e43df96051ff}')
     @winrt_commethod(6)
     def GetStatusUI(self) -> win32more.Windows.Storage.Provider.StorageProviderStatusUI: ...
     @winrt_commethod(7)
-    def add_StatusUIChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.IStorageProviderStatusUISource, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_StatusUIChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.Provider.IStorageProviderStatusUISource, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_StatusUIChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     StatusUIChanged = event()
 class IStorageProviderStatusUISourceFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderStatusUISourceFactory'
     _iid_ = Guid('{12e46b74-4e5a-58d1-a62f-0376e8ee7dd8}')
     @winrt_commethod(6)
     def GetStatusUISource(self, syncRootId: WinRT_String) -> win32more.Windows.Storage.Provider.IStorageProviderStatusUISource: ...
 class IStorageProviderSyncRootInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSyncRootInfo'
     _iid_ = Guid('{7c1305c4-99f9-41ac-8904-ab055d654926}')
     @winrt_commethod(6)
@@ -639,7 +637,7 @@ class IStorageProviderSyncRootInfo(ComPtr):
     StorageProviderItemPropertyDefinitions = property(get_StorageProviderItemPropertyDefinitions, None)
     Version = property(get_Version, put_Version)
 class IStorageProviderSyncRootInfo2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSyncRootInfo2'
     _iid_ = Guid('{cf51b023-7cf1-5166-bdba-efd95f529e31}')
     @winrt_commethod(6)
@@ -648,14 +646,14 @@ class IStorageProviderSyncRootInfo2(ComPtr):
     def put_ProviderId(self, value: Guid) -> Void: ...
     ProviderId = property(get_ProviderId, put_ProviderId)
 class IStorageProviderSyncRootInfo3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSyncRootInfo3'
     _iid_ = Guid('{507a6617-bef6-56fd-855e-75ace2e45cf5}')
     @winrt_commethod(6)
     def get_FallbackFileTypeInfo(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Storage.Provider.StorageProviderFileTypeInfo]: ...
     FallbackFileTypeInfo = property(get_FallbackFileTypeInfo, None)
 class IStorageProviderSyncRootManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics'
     _iid_ = Guid('{3e99fbbf-8fe3-4b40-abc7-f6fc3d74c98e}')
     @winrt_commethod(6)
@@ -669,13 +667,13 @@ class IStorageProviderSyncRootManagerStatics(ComPtr):
     @winrt_commethod(10)
     def GetCurrentSyncRoots(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.Provider.StorageProviderSyncRootInfo]: ...
 class IStorageProviderSyncRootManagerStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics2'
     _iid_ = Guid('{efb6cfee-1374-544e-9df1-5598d2e9cfdd}')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
 class IStorageProviderUICommand(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderUICommand'
     _iid_ = Guid('{0c3e0760-d846-568f-9484-105cc57b502b}')
     @winrt_commethod(6)
@@ -693,7 +691,7 @@ class IStorageProviderUICommand(ComPtr):
     Label = property(get_Label, None)
     State = property(get_State, None)
 class IStorageProviderUriSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderUriSource'
     _iid_ = Guid('{b29806d1-8be0-4962-8bb6-0d4c2e14d47a}')
     @winrt_commethod(6)
@@ -704,7 +702,7 @@ class ReadActivationMode(Enum, Int32):
     NotNeeded = 0
     BeforeAccess = 1
 class StorageProviderFileTypeInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderFileTypeInfo
     _classid_ = 'Windows.Storage.Provider.StorageProviderFileTypeInfo'
     def __init__(self, *args, **kwargs):
@@ -723,7 +721,7 @@ class StorageProviderFileTypeInfo(ComPtr):
     FileExtension = property(get_FileExtension, None)
     IconResource = property(get_IconResource, None)
 class StorageProviderGetContentInfoForPathResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderGetContentInfoForPathResult
     _classid_ = 'Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult'
     def __init__(self, *args, **kwargs):
@@ -751,7 +749,7 @@ class StorageProviderGetContentInfoForPathResult(ComPtr):
     ContentUri = property(get_ContentUri, put_ContentUri)
     Status = property(get_Status, put_Status)
 class StorageProviderGetPathForContentUriResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderGetPathForContentUriResult
     _classid_ = 'Windows.Storage.Provider.StorageProviderGetPathForContentUriResult'
     def __init__(self, *args, **kwargs):
@@ -801,12 +799,12 @@ class StorageProviderInSyncPolicy(Enum, UInt32):
     DirectoryLastWriteTime = 512
     PreserveInsyncForSyncEngine = 2147483648
 class StorageProviderItemProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.StorageProviderItemProperties'
     @winrt_classmethod
     def SetAsync(cls: win32more.Windows.Storage.Provider.IStorageProviderItemPropertiesStatics, item: win32more.Windows.Storage.IStorageItem, itemProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Storage.Provider.StorageProviderItemProperty]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class StorageProviderItemProperty(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderItemProperty
     _classid_ = 'Windows.Storage.Provider.StorageProviderItemProperty'
     def __init__(self, *args, **kwargs):
@@ -834,7 +832,7 @@ class StorageProviderItemProperty(ComPtr):
     Id = property(get_Id, put_Id)
     Value = property(get_Value, put_Value)
 class StorageProviderItemPropertyDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderItemPropertyDefinition
     _classid_ = 'Windows.Storage.Provider.StorageProviderItemPropertyDefinition'
     def __init__(self, *args, **kwargs):
@@ -857,7 +855,7 @@ class StorageProviderItemPropertyDefinition(ComPtr):
     DisplayNameResource = property(get_DisplayNameResource, put_DisplayNameResource)
     Id = property(get_Id, put_Id)
 class StorageProviderKnownFolderEntry(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderEntry
     _classid_ = 'Windows.Storage.Provider.StorageProviderKnownFolderEntry'
     def __init__(self, *args, **kwargs):
@@ -880,7 +878,7 @@ class StorageProviderKnownFolderEntry(ComPtr):
     KnownFolderId = property(get_KnownFolderId, put_KnownFolderId)
     Status = property(get_Status, put_Status)
 class StorageProviderKnownFolderSyncInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncInfo
     _classid_ = 'Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo'
     def __init__(self, *args, **kwargs):
@@ -906,7 +904,7 @@ class StorageProviderKnownFolderSyncInfo(ComPtr):
     ProviderDisplayName = property(get_ProviderDisplayName, put_ProviderDisplayName)
     SyncRequested = property(get_SyncRequested, put_SyncRequested)
 class StorageProviderKnownFolderSyncRequestArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderKnownFolderSyncRequestArgs
     _classid_ = 'Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs'
     @winrt_mixinmethod
@@ -916,7 +914,7 @@ class StorageProviderKnownFolderSyncRequestArgs(ComPtr):
     KnownFolders = property(get_KnownFolders, None)
     Source = property(get_Source, None)
 class StorageProviderKnownFolderSyncRequestedHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{c4cbb4f5-13dd-5c8e-8b96-336fc30c629b}')
     @winrt_commethod(3)
     def Invoke(self, args: win32more.Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs) -> Void: ...
@@ -925,7 +923,7 @@ class StorageProviderKnownFolderSyncStatus(Enum, Int32):
     Enrolling = 1
     Enrolled = 2
 class StorageProviderMoreInfoUI(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderMoreInfoUI
     _classid_ = 'Windows.Storage.Provider.StorageProviderMoreInfoUI'
     def __init__(self, *args, **kwargs):
@@ -954,7 +952,7 @@ class StorageProviderProtectionMode(Enum, Int32):
     Unknown = 0
     Personal = 1
 class StorageProviderQueryResultSet(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderQueryResultSet
     _classid_ = 'Windows.Storage.Provider.StorageProviderQueryResultSet'
     def __init__(self, *args, **kwargs):
@@ -979,7 +977,7 @@ class StorageProviderQueryResultSet(ComPtr):
     QueryResultId = property(get_QueryResultId, put_QueryResultId)
     Status = property(get_Status, put_Status)
 class StorageProviderQuotaUI(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderQuotaUI
     _classid_ = 'Windows.Storage.Provider.StorageProviderQuotaUI'
     def __init__(self, *args, **kwargs):
@@ -1027,7 +1025,7 @@ class StorageProviderSearchMatchKind(Enum, Int32):
     Lexical = 0
     Semantic = 1
 class StorageProviderSearchQueryOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderSearchQueryOptions
     _classid_ = 'Windows.Storage.Provider.StorageProviderSearchQueryOptions'
     @winrt_mixinmethod
@@ -1064,7 +1062,7 @@ class StorageProviderSearchQueryStatus(Enum, Int32):
     QueryNotSupported = 6
     SortOrderNotSupported = 7
 class StorageProviderSearchResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderSearchResult
     _classid_ = 'Windows.Storage.Provider.StorageProviderSearchResult'
     def __init__(self, *args, **kwargs):
@@ -1125,7 +1123,7 @@ class StorageProviderState(Enum, Int32):
     Warning = 4
     Offline = 5
 class StorageProviderStatusUI(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderStatusUI
     _classid_ = 'Windows.Storage.Provider.StorageProviderStatusUI'
     def __init__(self, *args, **kwargs):
@@ -1178,7 +1176,7 @@ class StorageProviderStatusUI(ComPtr):
     QuotaUI = property(get_QuotaUI, put_QuotaUI)
     SyncStatusCommand = property(get_SyncStatusCommand, put_SyncStatusCommand)
 class StorageProviderSyncRootInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderSyncRootInfo
     _classid_ = 'Windows.Storage.Provider.StorageProviderSyncRootInfo'
     def __init__(self, *args, **kwargs):
@@ -1277,7 +1275,7 @@ class StorageProviderSyncRootInfo(ComPtr):
     StorageProviderItemPropertyDefinitions = property(get_StorageProviderItemPropertyDefinitions, None)
     Version = property(get_Version, put_Version)
 class StorageProviderSyncRootManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.StorageProviderSyncRootManager'
     @winrt_classmethod
     def IsSupported(cls: win32more.Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics2) -> Boolean: ...

@@ -1,18 +1,17 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.ContentRestrictions
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class ContentAccessRestrictionLevel(Enum, Int32):
     Allow = 0
     Warn = 1
     Block = 2
     Hide = 3
 class ContentRestrictionsBrowsePolicy(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.ContentRestrictions.IContentRestrictionsBrowsePolicy
     _classid_ = 'Windows.Media.ContentRestrictions.ContentRestrictionsBrowsePolicy'
     @winrt_mixinmethod
@@ -25,7 +24,7 @@ class ContentRestrictionsBrowsePolicy(ComPtr):
     MaxBrowsableAgeRating = property(get_MaxBrowsableAgeRating, None)
     PreferredAgeRating = property(get_PreferredAgeRating, None)
 class IContentRestrictionsBrowsePolicy(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.ContentRestrictions.IContentRestrictionsBrowsePolicy'
     _iid_ = Guid('{8c0133a4-442e-461a-8757-fad2f5bd37e4}')
     @winrt_commethod(6)
@@ -38,7 +37,7 @@ class IContentRestrictionsBrowsePolicy(ComPtr):
     MaxBrowsableAgeRating = property(get_MaxBrowsableAgeRating, None)
     PreferredAgeRating = property(get_PreferredAgeRating, None)
 class IRatedContentDescription(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.ContentRestrictions.IRatedContentDescription'
     _iid_ = Guid('{694866df-66b2-4dc3-96b1-f090eedee255}')
     @winrt_commethod(6)
@@ -67,13 +66,13 @@ class IRatedContentDescription(ComPtr):
     Ratings = property(get_Ratings, put_Ratings)
     Title = property(get_Title, put_Title)
 class IRatedContentDescriptionFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.ContentRestrictions.IRatedContentDescriptionFactory'
     _iid_ = Guid('{2e38df62-9b90-4fa6-89c1-4b8d2ffb3573}')
     @winrt_commethod(6)
     def Create(self, id: WinRT_String, title: WinRT_String, category: win32more.Windows.Media.ContentRestrictions.RatedContentCategory) -> win32more.Windows.Media.ContentRestrictions.RatedContentDescription: ...
 class IRatedContentRestrictions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.ContentRestrictions.IRatedContentRestrictions'
     _iid_ = Guid('{3f7f23cb-ba07-4401-a49d-8b9222205723}')
     @winrt_commethod(6)
@@ -83,12 +82,12 @@ class IRatedContentRestrictions(ComPtr):
     @winrt_commethod(8)
     def RequestContentAccessAsync(self, RatedContentDescription: win32more.Windows.Media.ContentRestrictions.RatedContentDescription) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(9)
-    def add_RestrictionsChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_RestrictionsChanged(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_RestrictionsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     RestrictionsChanged = event()
 class IRatedContentRestrictionsFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.ContentRestrictions.IRatedContentRestrictionsFactory'
     _iid_ = Guid('{fb4b2996-c3bd-4910-9619-97cfd0694d56}')
     @winrt_commethod(6)
@@ -101,7 +100,7 @@ class RatedContentCategory(Enum, Int32):
     Television = 4
     Music = 5
 class RatedContentDescription(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.ContentRestrictions.IRatedContentDescription
     _classid_ = 'Windows.Media.ContentRestrictions.RatedContentDescription'
     def __init__(self, *args, **kwargs):
@@ -139,7 +138,7 @@ class RatedContentDescription(ComPtr):
     Ratings = property(get_Ratings, put_Ratings)
     Title = property(get_Title, put_Title)
 class RatedContentRestrictions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions
     _classid_ = 'Windows.Media.ContentRestrictions.RatedContentRestrictions'
     def __init__(self, *args, **kwargs):
@@ -162,7 +161,7 @@ class RatedContentRestrictions(ComPtr):
     @winrt_mixinmethod
     def RequestContentAccessAsync(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, RatedContentDescription: win32more.Windows.Media.ContentRestrictions.RatedContentDescription) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def add_RestrictionsChanged(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_RestrictionsChanged(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_RestrictionsChanged(self: win32more.Windows.Media.ContentRestrictions.IRatedContentRestrictions, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     RestrictionsChanged = event()

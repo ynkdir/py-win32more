@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
@@ -8,9 +8,8 @@ import win32more.Windows.Storage.BulkAccess
 import win32more.Windows.Storage.FileProperties
 import win32more.Windows.Storage.Search
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class FileInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.BulkAccess.IStorageItemInformation
     _classid_ = 'Windows.Storage.BulkAccess.FileInformation'
     @winrt_mixinmethod
@@ -26,11 +25,11 @@ class FileInformation(ComPtr):
     @winrt_mixinmethod
     def get_Thumbnail(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation) -> win32more.Windows.Storage.FileProperties.StorageItemThumbnail: ...
     @winrt_mixinmethod
-    def add_ThumbnailUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ThumbnailUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ThumbnailUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PropertiesUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PropertiesUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PropertiesUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -128,7 +127,7 @@ class FileInformation(ComPtr):
     ThumbnailUpdated = event()
     PropertiesUpdated = event()
 class FileInformationFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.BulkAccess.IFileInformationFactory
     _classid_ = 'Windows.Storage.BulkAccess.FileInformationFactory'
     def __init__(self, *args, **kwargs):
@@ -165,13 +164,13 @@ class FileInformationFactory(ComPtr):
     @winrt_mixinmethod
     def GetFoldersAsyncDefaultStartAndCount(self: win32more.Windows.Storage.BulkAccess.IFileInformationFactory) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.BulkAccess.FolderInformation]]: ...
     @winrt_mixinmethod
-    def GetVirtualizedItemsVector(self: win32more.Windows.Storage.BulkAccess.IFileInformationFactory) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetVirtualizedItemsVector(self: win32more.Windows.Storage.BulkAccess.IFileInformationFactory) -> IInspectable: ...
     @winrt_mixinmethod
-    def GetVirtualizedFilesVector(self: win32more.Windows.Storage.BulkAccess.IFileInformationFactory) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetVirtualizedFilesVector(self: win32more.Windows.Storage.BulkAccess.IFileInformationFactory) -> IInspectable: ...
     @winrt_mixinmethod
-    def GetVirtualizedFoldersVector(self: win32more.Windows.Storage.BulkAccess.IFileInformationFactory) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetVirtualizedFoldersVector(self: win32more.Windows.Storage.BulkAccess.IFileInformationFactory) -> IInspectable: ...
 class FolderInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.BulkAccess.IStorageItemInformation
     _classid_ = 'Windows.Storage.BulkAccess.FolderInformation'
     @winrt_mixinmethod
@@ -187,11 +186,11 @@ class FolderInformation(ComPtr):
     @winrt_mixinmethod
     def get_Thumbnail(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation) -> win32more.Windows.Storage.FileProperties.StorageItemThumbnail: ...
     @winrt_mixinmethod
-    def add_ThumbnailUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ThumbnailUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ThumbnailUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PropertiesUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PropertiesUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PropertiesUpdated(self: win32more.Windows.Storage.BulkAccess.IStorageItemInformation, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -308,7 +307,7 @@ class FolderInformation(ComPtr):
     ThumbnailUpdated = event()
     PropertiesUpdated = event()
 class IFileInformationFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.BulkAccess.IFileInformationFactory'
     _iid_ = Guid('{401d88be-960f-4d6d-a7d0-1a3861e76c83}')
     @winrt_commethod(6)
@@ -324,13 +323,13 @@ class IFileInformationFactory(ComPtr):
     @winrt_commethod(11)
     def GetFoldersAsyncDefaultStartAndCount(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.BulkAccess.FolderInformation]]: ...
     @winrt_commethod(12)
-    def GetVirtualizedItemsVector(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetVirtualizedItemsVector(self) -> IInspectable: ...
     @winrt_commethod(13)
-    def GetVirtualizedFilesVector(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetVirtualizedFilesVector(self) -> IInspectable: ...
     @winrt_commethod(14)
-    def GetVirtualizedFoldersVector(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetVirtualizedFoldersVector(self) -> IInspectable: ...
 class IFileInformationFactoryFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.BulkAccess.IFileInformationFactoryFactory'
     _iid_ = Guid('{84ea0e7d-e4a2-4f00-8afa-af5e0f826bd5}')
     @winrt_commethod(6)
@@ -342,7 +341,7 @@ class IFileInformationFactoryFactory(ComPtr):
     @winrt_commethod(9)
     def CreateWithModeAndSizeAndOptionsAndFlags(self, queryResult: win32more.Windows.Storage.Search.IStorageQueryResultBase, mode: win32more.Windows.Storage.FileProperties.ThumbnailMode, requestedThumbnailSize: UInt32, thumbnailOptions: win32more.Windows.Storage.FileProperties.ThumbnailOptions, delayLoad: Boolean) -> win32more.Windows.Storage.BulkAccess.FileInformationFactory: ...
 class IStorageItemInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.BulkAccess.IStorageItemInformation'
     _iid_ = Guid('{87a5cb8b-8972-4f40-8de0-d86fb179d8fa}')
     @winrt_commethod(6)
@@ -358,11 +357,11 @@ class IStorageItemInformation(ComPtr):
     @winrt_commethod(11)
     def get_Thumbnail(self) -> win32more.Windows.Storage.FileProperties.StorageItemThumbnail: ...
     @winrt_commethod(12)
-    def add_ThumbnailUpdated(self, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ThumbnailUpdated(self, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_ThumbnailUpdated(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_PropertiesUpdated(self, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PropertiesUpdated(self, changedHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Storage.BulkAccess.IStorageItemInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_PropertiesUpdated(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BasicProperties = property(get_BasicProperties, None)

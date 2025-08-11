@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Content
@@ -10,9 +10,8 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Graphics
 import win32more.Windows.UI.Composition
-import win32more.Windows.Win32.System.WinRT
 class ChildSiteLink(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Content.IChildSiteLink
     _classid_ = 'Microsoft.UI.Content.ChildSiteLink'
@@ -47,7 +46,7 @@ class ChildSiteLink(ComPtr):
     @winrt_mixinmethod
     def add_PreviousSiblingAutomationProviderRequested(self: win32more.Microsoft.UI.Content.IContentSiteAutomation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Content.IContentSiteAutomation, win32more.Microsoft.UI.Content.ContentSiteAutomationProviderRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
-    def get_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentSiteAutomation) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentSiteAutomation) -> IInspectable: ...
     @winrt_mixinmethod
     def add_FragmentRootAutomationProviderRequested(self: win32more.Microsoft.UI.Content.IContentSiteAutomation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Content.IContentSiteAutomation, win32more.Microsoft.UI.Content.ContentSiteAutomationProviderRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -99,7 +98,7 @@ class ContentAutomationOptions(Enum, Int32):
     FrameworkBased = 1
     FragmentBased = 2
 class ContentCoordinateConverter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentCoordinateConverter
     _classid_ = 'Microsoft.UI.Content.ContentCoordinateConverter'
     @winrt_mixinmethod
@@ -124,20 +123,20 @@ class ContentCoordinateRoundingMode(Enum, Int32):
     Round = 2
     Ceiling = 3
 class ContentDeferral(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentDeferral
     _classid_ = 'Microsoft.UI.Content.ContentDeferral'
     @winrt_mixinmethod
     def Complete(self: win32more.Microsoft.UI.Content.IContentDeferral) -> Void: ...
 class ContentEnvironmentSettingChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentEnvironmentSettingChangedEventArgs
     _classid_ = 'Microsoft.UI.Content.ContentEnvironmentSettingChangedEventArgs'
     @winrt_mixinmethod
     def get_SettingName(self: win32more.Microsoft.UI.Content.IContentEnvironmentSettingChangedEventArgs) -> WinRT_String: ...
     SettingName = property(get_SettingName, None)
 class ContentEnvironmentStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentEnvironmentStateChangedEventArgs
     _classid_ = 'Microsoft.UI.Content.ContentEnvironmentStateChangedEventArgs'
     @winrt_mixinmethod
@@ -150,16 +149,16 @@ class ContentEnvironmentStateChangedEventArgs(ComPtr):
     DidDisplayIdChange = property(get_DidDisplayIdChange, None)
     DidDisplayScaleChange = property(get_DidDisplayScaleChange, None)
 class ContentIsland(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Content.IContentIsland
     _classid_ = 'Microsoft.UI.Content.ContentIsland'
     @winrt_mixinmethod
     def add_Closed(self: win32more.Microsoft.UI.IClosableNotifier, handler: win32more.Microsoft.UI.ClosableNotifierHandler) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
-    def get_AppData(self: win32more.Microsoft.UI.Content.IContentIsland) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AppData(self: win32more.Microsoft.UI.Content.IContentIsland) -> IInspectable: ...
     @winrt_mixinmethod
-    def put_AppData(self: win32more.Microsoft.UI.Content.IContentIsland, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_AppData(self: win32more.Microsoft.UI.Content.IContentIsland, value: IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_CoordinateConverter(self: win32more.Microsoft.UI.Content.IContentIsland) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
     @winrt_mixinmethod
@@ -193,7 +192,7 @@ class ContentIsland(ComPtr):
     @winrt_mixinmethod
     def get_RasterizationScale(self: win32more.Microsoft.UI.Content.IContentIsland) -> Single: ...
     @winrt_mixinmethod
-    def GetAutomationHostProvider(self: win32more.Microsoft.UI.Content.IContentIsland) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetAutomationHostProvider(self: win32more.Microsoft.UI.Content.IContentIsland) -> IInspectable: ...
     @winrt_mixinmethod
     def GetStateChangeDeferral(self: win32more.Microsoft.UI.Content.IContentIsland) -> win32more.Microsoft.UI.Content.ContentDeferral: ...
     @winrt_mixinmethod
@@ -221,13 +220,13 @@ class ContentIsland(ComPtr):
     @winrt_mixinmethod
     def get_AutomationOption(self: win32more.Microsoft.UI.Content.IContentIslandAutomation) -> win32more.Microsoft.UI.Content.ContentAutomationOptions: ...
     @winrt_mixinmethod
-    def get_FragmentRootAutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomation) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_FragmentRootAutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomation) -> IInspectable: ...
     @winrt_mixinmethod
-    def get_NextSiblingAutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomation) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_NextSiblingAutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomation) -> IInspectable: ...
     @winrt_mixinmethod
-    def get_ParentAutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomation) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_ParentAutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomation) -> IInspectable: ...
     @winrt_mixinmethod
-    def get_PreviousSiblingAutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomation) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_PreviousSiblingAutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomation) -> IInspectable: ...
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_mixinmethod
@@ -293,13 +292,13 @@ class ContentIsland(ComPtr):
     StateChanged = event()
     FrameworkClosed = event()
 class ContentIslandAutomationProviderRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs
     _classid_ = 'Microsoft.UI.Content.ContentIslandAutomationProviderRequestedEventArgs'
     @winrt_mixinmethod
-    def get_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs) -> IInspectable: ...
     @winrt_mixinmethod
-    def put_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs, value: IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_Handled(self: win32more.Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -307,7 +306,7 @@ class ContentIslandAutomationProviderRequestedEventArgs(ComPtr):
     AutomationProvider = property(get_AutomationProvider, put_AutomationProvider)
     Handled = property(get_Handled, put_Handled)
 class ContentIslandEnvironment(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentIslandEnvironment
     _classid_ = 'Microsoft.UI.Content.ContentIslandEnvironment'
     @winrt_mixinmethod
@@ -330,7 +329,7 @@ class ContentIslandEnvironment(ComPtr):
     SettingChanged = event()
     StateChanged = event()
 class ContentIslandStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentIslandStateChangedEventArgs
     _classid_ = 'Microsoft.UI.Content.ContentIslandStateChangedEventArgs'
     @winrt_mixinmethod
@@ -358,7 +357,7 @@ class ContentLayoutDirection(Enum, Int32):
     LeftToRight = 0
     RightToLeft = 1
 class ContentSite(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Content.IContentSite
     _classid_ = 'Microsoft.UI.Content.ContentSite'
@@ -464,13 +463,13 @@ class ContentSite(ComPtr):
     Closed = event()
     FrameworkClosed = event()
 class ContentSiteAutomationProviderRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentSiteAutomationProviderRequestedEventArgs
     _classid_ = 'Microsoft.UI.Content.ContentSiteAutomationProviderRequestedEventArgs'
     @winrt_mixinmethod
-    def get_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentSiteAutomationProviderRequestedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentSiteAutomationProviderRequestedEventArgs) -> IInspectable: ...
     @winrt_mixinmethod
-    def put_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentSiteAutomationProviderRequestedEventArgs, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentSiteAutomationProviderRequestedEventArgs, value: IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_Handled(self: win32more.Microsoft.UI.Content.IContentSiteAutomationProviderRequestedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -478,7 +477,7 @@ class ContentSiteAutomationProviderRequestedEventArgs(ComPtr):
     AutomationProvider = property(get_AutomationProvider, put_AutomationProvider)
     Handled = property(get_Handled, put_Handled)
 class ContentSiteEnvironment(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentSiteEnvironment
     _classid_ = 'Microsoft.UI.Content.ContentSiteEnvironment'
     @winrt_mixinmethod
@@ -502,7 +501,7 @@ class ContentSiteEnvironment(ComPtr):
     DisplayScale = property(get_DisplayScale, put_DisplayScale)
     View = property(get_View, None)
 class ContentSiteEnvironmentView(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentSiteEnvironmentView
     _classid_ = 'Microsoft.UI.Content.ContentSiteEnvironmentView'
     @winrt_mixinmethod
@@ -515,14 +514,14 @@ class ContentSiteEnvironmentView(ComPtr):
     DisplayId = property(get_DisplayId, None)
     DisplayScale = property(get_DisplayScale, None)
 class ContentSiteRequestedStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentSiteRequestedStateChangedEventArgs
     _classid_ = 'Microsoft.UI.Content.ContentSiteRequestedStateChangedEventArgs'
     @winrt_mixinmethod
     def get_DidRequestedSizeChange(self: win32more.Microsoft.UI.Content.IContentSiteRequestedStateChangedEventArgs) -> Boolean: ...
     DidRequestedSizeChange = property(get_DidRequestedSizeChange, None)
 class ContentSiteView(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Content.IContentSiteView
     _classid_ = 'Microsoft.UI.Content.ContentSiteView'
     @winrt_mixinmethod
@@ -587,7 +586,7 @@ class ContentSizePolicy(Enum, Int32):
     ResizeContentToParentWindow = 1
     ResizeParentWindowToContent = 2
 class DesktopAttachedSiteBridge(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Content.IDesktopAttachedSiteBridge
     _classid_ = 'Microsoft.UI.Content.DesktopAttachedSiteBridge'
@@ -656,7 +655,7 @@ class DesktopChildSiteBridge(ComPtr):
     ResizePolicy = property(get_ResizePolicy, put_ResizePolicy)
     SiteView = property(get_SiteView, None)
 class DesktopPopupSiteBridge(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Content.IDesktopPopupSiteBridge
     _classid_ = 'Microsoft.UI.Content.DesktopPopupSiteBridge'
@@ -673,7 +672,7 @@ class DesktopPopupSiteBridge(ComPtr):
     @winrt_mixinmethod
     def add_PreviousSiblingAutomationProviderRequested(self: win32more.Microsoft.UI.Content.IContentSiteAutomation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Content.IContentSiteAutomation, win32more.Microsoft.UI.Content.ContentSiteAutomationProviderRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
-    def get_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentSiteAutomation) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationProvider(self: win32more.Microsoft.UI.Content.IContentSiteAutomation) -> IInspectable: ...
     @winrt_mixinmethod
     def get_DispatcherQueue(self: win32more.Microsoft.UI.Content.IContentSiteBridge) -> win32more.Microsoft.UI.Dispatching.DispatcherQueue: ...
     @winrt_mixinmethod
@@ -752,7 +751,7 @@ class DesktopPopupSiteBridge(ComPtr):
     FrameworkClosed = event()
     FragmentRootAutomationProviderRequested = event()
 class DesktopSiteBridge(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Content.IDesktopSiteBridge
     _classid_ = 'Microsoft.UI.Content.DesktopSiteBridge'
@@ -814,7 +813,7 @@ class DesktopSiteBridge(ComPtr):
     Closed = event()
     FrameworkClosed = event()
 class IChildSiteLink(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IChildSiteLink'
     _iid_ = Guid('{b5a64814-608b-5fb7-a7cb-eb628fd588cd}')
     @winrt_commethod(6)
@@ -836,7 +835,7 @@ class IChildSiteLink(ComPtr):
     LocalToParentTransformMatrix = property(get_LocalToParentTransformMatrix, put_LocalToParentTransformMatrix)
     SiteView = property(get_SiteView, None)
 class IChildSiteLinkStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IChildSiteLinkStatics'
     _iid_ = Guid('{28edc98a-4f94-50b1-8a87-9e7169ebf4b7}')
     @winrt_commethod(6)
@@ -844,7 +843,7 @@ class IChildSiteLinkStatics(ComPtr):
     @winrt_commethod(7)
     def CreateForSystemVisual(self, parent: win32more.Microsoft.UI.Content.ContentIsland, placementVisual: win32more.Windows.UI.Composition.ContainerVisual) -> win32more.Microsoft.UI.Content.ChildSiteLink: ...
 class IContentCoordinateConverter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentCoordinateConverter'
     _iid_ = Guid('{10a11230-5eb4-5840-a346-570f4a49040f}')
     @winrt_commethod(6)
@@ -862,30 +861,30 @@ class IContentCoordinateConverter(ComPtr):
     @winrt_commethod(12)
     def ConvertScreenToLocalWithRect(self, screenRect: win32more.Windows.Graphics.RectInt32) -> win32more.Windows.Foundation.Rect: ...
 class IContentCoordinateConverterFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentCoordinateConverterFactory'
     _iid_ = Guid('{a4b216ee-0e26-56bd-9209-a75cf9d80f27}')
 class IContentCoordinateConverterStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentCoordinateConverterStatics'
     _iid_ = Guid('{f56374ce-b6df-5b42-a58f-4e3bb039e3a9}')
     @winrt_commethod(6)
     def CreateForWindowId(self, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
 class IContentDeferral(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentDeferral'
     _iid_ = Guid('{470529f5-cd93-599b-968e-f8a689bc3a07}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IContentEnvironmentSettingChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentEnvironmentSettingChangedEventArgs'
     _iid_ = Guid('{76478051-fc80-5eec-a3f3-62606abe06b7}')
     @winrt_commethod(6)
     def get_SettingName(self) -> WinRT_String: ...
     SettingName = property(get_SettingName, None)
 class IContentEnvironmentStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentEnvironmentStateChangedEventArgs'
     _iid_ = Guid('{8970fa4f-10ba-5f67-970b-8c72bc009b67}')
     @winrt_commethod(6)
@@ -895,22 +894,22 @@ class IContentEnvironmentStateChangedEventArgs(ComPtr):
     DidAppWindowIdChange = property(get_DidAppWindowIdChange, None)
     DidDisplayIdChange = property(get_DidDisplayIdChange, None)
 class IContentEnvironmentStateChangedEventArgs2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentEnvironmentStateChangedEventArgs2'
     _iid_ = Guid('{cec0497d-76c7-544b-bf6e-816c9b16c99f}')
     @winrt_commethod(6)
     def get_DidDisplayScaleChange(self) -> Boolean: ...
     DidDisplayScaleChange = property(get_DidDisplayScaleChange, None)
 class IContentIsland(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIsland'
     _iid_ = Guid('{5b2504ba-361c-50aa-bd6e-4122c6d93889}')
     @winrt_commethod(6)
     def get_ActualSize(self) -> win32more.Windows.Foundation.Numerics.Vector2: ...
     @winrt_commethod(7)
-    def get_AppData(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AppData(self) -> IInspectable: ...
     @winrt_commethod(8)
-    def put_AppData(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_AppData(self, value: IInspectable) -> Void: ...
     @winrt_commethod(9)
     def get_CoordinateConverter(self) -> win32more.Microsoft.UI.Content.ContentCoordinateConverter: ...
     @winrt_commethod(10)
@@ -944,7 +943,7 @@ class IContentIsland(ComPtr):
     @winrt_commethod(24)
     def get_RasterizationScale(self) -> Single: ...
     @winrt_commethod(25)
-    def GetAutomationHostProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetAutomationHostProvider(self) -> IInspectable: ...
     @winrt_commethod(26)
     def GetStateChangeDeferral(self) -> win32more.Microsoft.UI.Content.ContentDeferral: ...
     @winrt_commethod(27)
@@ -975,7 +974,7 @@ class IContentIsland(ComPtr):
     AutomationProviderRequested = event()
     StateChanged = event()
 class IContentIsland2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIsland2'
     _iid_ = Guid('{9f891825-4f83-5ada-9ebd-9d329460aede}')
     @winrt_commethod(6)
@@ -997,32 +996,32 @@ class IContentIsland2(ComPtr):
     ProcessesKeyboardInput = property(get_ProcessesKeyboardInput, None)
     ProcessesPointerInput = property(get_ProcessesPointerInput, None)
 class IContentIslandAutomation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandAutomation'
     _iid_ = Guid('{8752c11e-1896-565a-bfb0-2b0770030e97}')
     @winrt_commethod(6)
     def get_AutomationOption(self) -> win32more.Microsoft.UI.Content.ContentAutomationOptions: ...
     @winrt_commethod(7)
-    def get_FragmentRootAutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_FragmentRootAutomationProvider(self) -> IInspectable: ...
     @winrt_commethod(8)
-    def get_NextSiblingAutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_NextSiblingAutomationProvider(self) -> IInspectable: ...
     @winrt_commethod(9)
-    def get_ParentAutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_ParentAutomationProvider(self) -> IInspectable: ...
     @winrt_commethod(10)
-    def get_PreviousSiblingAutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_PreviousSiblingAutomationProvider(self) -> IInspectable: ...
     AutomationOption = property(get_AutomationOption, None)
     FragmentRootAutomationProvider = property(get_FragmentRootAutomationProvider, None)
     NextSiblingAutomationProvider = property(get_NextSiblingAutomationProvider, None)
     ParentAutomationProvider = property(get_ParentAutomationProvider, None)
     PreviousSiblingAutomationProvider = property(get_PreviousSiblingAutomationProvider, None)
 class IContentIslandAutomationProviderRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandAutomationProviderRequestedEventArgs'
     _iid_ = Guid('{9fe24bed-2b9c-5137-887f-403c94841824}')
     @winrt_commethod(6)
-    def get_AutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationProvider(self) -> IInspectable: ...
     @winrt_commethod(7)
-    def put_AutomationProvider(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_AutomationProvider(self, value: IInspectable) -> Void: ...
     @winrt_commethod(8)
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(9)
@@ -1030,7 +1029,7 @@ class IContentIslandAutomationProviderRequestedEventArgs(ComPtr):
     AutomationProvider = property(get_AutomationProvider, put_AutomationProvider)
     Handled = property(get_Handled, put_Handled)
 class IContentIslandEnvironment(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandEnvironment'
     _iid_ = Guid('{c334236d-da88-566d-811d-74aef2eba978}')
     @winrt_commethod(6)
@@ -1050,22 +1049,22 @@ class IContentIslandEnvironment(ComPtr):
     SettingChanged = event()
     StateChanged = event()
 class IContentIslandEnvironment2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandEnvironment2'
     _iid_ = Guid('{6bf81a71-c1e4-54d6-ac0d-02bcff5297e7}')
     @winrt_commethod(6)
     def get_DisplayScale(self) -> Single: ...
     DisplayScale = property(get_DisplayScale, None)
 class IContentIslandEnvironmentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandEnvironmentFactory'
     _iid_ = Guid('{47a782d6-b177-5c1e-bf87-90437dd809d0}')
 class IContentIslandFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandFactory'
     _iid_ = Guid('{82383f52-e81a-5ec9-a954-bac8a931ba7d}')
 class IContentIslandStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandStateChangedEventArgs'
     _iid_ = Guid('{c828eeb2-0c62-5b40-9d48-77c06083c278}')
     @winrt_commethod(6)
@@ -1084,7 +1083,7 @@ class IContentIslandStateChangedEventArgs(ComPtr):
     DidSiteEnabledChange = property(get_DidSiteEnabledChange, None)
     DidSiteVisibleChange = property(get_DidSiteVisibleChange, None)
 class IContentIslandStateChangedEventArgs2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandStateChangedEventArgs2'
     _iid_ = Guid('{8ad25be1-a89a-5872-896e-8298dd20eb0d}')
     @winrt_commethod(6)
@@ -1094,7 +1093,7 @@ class IContentIslandStateChangedEventArgs2(ComPtr):
     DidLocalToClientTransformMatrixChange = property(get_DidLocalToClientTransformMatrixChange, None)
     DidLocalToParentTransformMatrixChange = property(get_DidLocalToParentTransformMatrixChange, None)
 class IContentIslandStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandStatics'
     _iid_ = Guid('{7b9eb7cc-8c43-5e0a-ab23-ab48628fd223}')
     @winrt_commethod(6)
@@ -1108,7 +1107,7 @@ class IContentIslandStatics(ComPtr):
     @winrt_commethod(10)
     def GetFromId(self, id: UInt64) -> win32more.Microsoft.UI.Content.ContentIsland: ...
 class IContentIslandStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentIslandStatics2'
     _iid_ = Guid('{b2c6fa77-13c9-5064-bb1d-f878d86acc65}')
     @winrt_commethod(6)
@@ -1118,7 +1117,7 @@ class IContentIslandStatics2(ComPtr):
     @winrt_commethod(8)
     def GetBySystemVisual(self, child: win32more.Windows.UI.Composition.Visual) -> win32more.Microsoft.UI.Content.ContentIsland: ...
 class IContentSite(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSite'
     _iid_ = Guid('{996c60c4-02b2-5eef-93b0-dd6b1ec2fd7b}')
     @winrt_commethod(6)
@@ -1190,7 +1189,7 @@ class IContentSite(ComPtr):
     View = property(get_View, None)
     RequestedStateChanged = event()
 class IContentSite2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSite2'
     _iid_ = Guid('{c3f0149e-3f8c-5961-9d04-cd6c8a7f6026}')
     @winrt_commethod(6)
@@ -1212,7 +1211,7 @@ class IContentSite2(ComPtr):
     ProcessesKeyboardInput = property(get_ProcessesKeyboardInput, put_ProcessesKeyboardInput)
     ProcessesPointerInput = property(get_ProcessesPointerInput, put_ProcessesPointerInput)
 class IContentSiteAutomation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteAutomation'
     _iid_ = Guid('{db4f4683-cd76-50d0-9ae1-044ceb3d3c7a}')
     @winrt_commethod(6)
@@ -1220,7 +1219,7 @@ class IContentSiteAutomation(ComPtr):
     @winrt_commethod(7)
     def put_AutomationOption(self, value: win32more.Microsoft.UI.Content.ContentAutomationOptions) -> Void: ...
     @winrt_commethod(8)
-    def get_AutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationProvider(self) -> IInspectable: ...
     @winrt_commethod(9)
     def add_FragmentRootAutomationProviderRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Content.IContentSiteAutomation, win32more.Microsoft.UI.Content.ContentSiteAutomationProviderRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
@@ -1244,13 +1243,13 @@ class IContentSiteAutomation(ComPtr):
     ParentAutomationProviderRequested = event()
     PreviousSiblingAutomationProviderRequested = event()
 class IContentSiteAutomationProviderRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteAutomationProviderRequestedEventArgs'
     _iid_ = Guid('{73a093b9-55d4-5598-b70e-6250b732f821}')
     @winrt_commethod(6)
-    def get_AutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationProvider(self) -> IInspectable: ...
     @winrt_commethod(7)
-    def put_AutomationProvider(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_AutomationProvider(self, value: IInspectable) -> Void: ...
     @winrt_commethod(8)
     def get_Handled(self) -> Boolean: ...
     @winrt_commethod(9)
@@ -1258,7 +1257,7 @@ class IContentSiteAutomationProviderRequestedEventArgs(ComPtr):
     AutomationProvider = property(get_AutomationProvider, put_AutomationProvider)
     Handled = property(get_Handled, put_Handled)
 class IContentSiteBridge(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.UI.Content.IContentSiteBridge'
     _iid_ = Guid('{faaab99e-a42b-549c-92df-3b6d6e1e368b}')
@@ -1276,7 +1275,7 @@ class IContentSiteBridge(ComPtr):
     LayoutDirectionOverride = property(get_LayoutDirectionOverride, put_LayoutDirectionOverride)
     OverrideScale = property(get_OverrideScale, put_OverrideScale)
 class IContentSiteEnvironment(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteEnvironment'
     _iid_ = Guid('{685d085d-be53-55d1-aec4-ba2273d5468b}')
     @winrt_commethod(6)
@@ -1295,7 +1294,7 @@ class IContentSiteEnvironment(ComPtr):
     DisplayId = property(get_DisplayId, put_DisplayId)
     View = property(get_View, None)
 class IContentSiteEnvironment2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteEnvironment2'
     _iid_ = Guid('{381ae3cd-c780-5a69-ba6a-0ead8560a31f}')
     @winrt_commethod(6)
@@ -1304,11 +1303,11 @@ class IContentSiteEnvironment2(ComPtr):
     def put_DisplayScale(self, value: Single) -> Void: ...
     DisplayScale = property(get_DisplayScale, put_DisplayScale)
 class IContentSiteEnvironmentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteEnvironmentFactory'
     _iid_ = Guid('{0befa998-cb15-5f16-a4a5-c0ed1674e186}')
 class IContentSiteEnvironmentView(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteEnvironmentView'
     _iid_ = Guid('{5b6fe420-0bb3-54dd-8589-786cf02e38f1}')
     @winrt_commethod(6)
@@ -1318,22 +1317,22 @@ class IContentSiteEnvironmentView(ComPtr):
     AppWindowId = property(get_AppWindowId, None)
     DisplayId = property(get_DisplayId, None)
 class IContentSiteEnvironmentView2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteEnvironmentView2'
     _iid_ = Guid('{0b43c89a-9196-5a64-a078-eb150acae527}')
     @winrt_commethod(6)
     def get_DisplayScale(self) -> Single: ...
     DisplayScale = property(get_DisplayScale, None)
 class IContentSiteEnvironmentViewFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteEnvironmentViewFactory'
     _iid_ = Guid('{c901edf2-f184-5a64-8d58-8cf8efa8b678}')
 class IContentSiteFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteFactory'
     _iid_ = Guid('{72fb98d5-b28a-57f1-91fa-24c014a342c1}')
 class IContentSiteInput(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteInput'
     _iid_ = Guid('{0ead8189-10d3-550d-b747-8847bd7c9d21}')
     @winrt_commethod(6)
@@ -1347,21 +1346,21 @@ class IContentSiteInput(ComPtr):
     ProcessesKeyboardInput = property(get_ProcessesKeyboardInput, put_ProcessesKeyboardInput)
     ProcessesPointerInput = property(get_ProcessesPointerInput, put_ProcessesPointerInput)
 class IContentSiteLink(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteLink'
     _iid_ = Guid('{d9247341-f5d0-5084-af66-f5df5f314fc0}')
     @winrt_commethod(6)
     def get_Parent(self) -> win32more.Microsoft.UI.Content.ContentIsland: ...
     Parent = property(get_Parent, None)
 class IContentSiteRequestedStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteRequestedStateChangedEventArgs'
     _iid_ = Guid('{1b55fd1d-7292-562b-b4a1-d4de7972e684}')
     @winrt_commethod(6)
     def get_DidRequestedSizeChange(self) -> Boolean: ...
     DidRequestedSizeChange = property(get_DidRequestedSizeChange, None)
 class IContentSiteView(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteView'
     _iid_ = Guid('{2d5d8dd5-358e-5b05-993b-b2666d1786b3}')
     @winrt_commethod(6)
@@ -1407,7 +1406,7 @@ class IContentSiteView(ComPtr):
     RequestedSize = property(get_RequestedSize, None)
     ShouldApplyRasterizationScale = property(get_ShouldApplyRasterizationScale, None)
 class IContentSiteView2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteView2'
     _iid_ = Guid('{628adce3-820f-57de-bdc8-3720ff73014b}')
     @winrt_commethod(6)
@@ -1423,18 +1422,18 @@ class IContentSiteView2(ComPtr):
     ProcessesKeyboardInput = property(get_ProcessesKeyboardInput, None)
     ProcessesPointerInput = property(get_ProcessesPointerInput, None)
 class IContentSiteViewAutomation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteViewAutomation'
     _iid_ = Guid('{f9d1d5ff-9669-5553-a875-aee03e11edd8}')
     @winrt_commethod(6)
     def get_AutomationOption(self) -> win32more.Microsoft.UI.Content.ContentAutomationOptions: ...
     AutomationOption = property(get_AutomationOption, None)
 class IContentSiteViewFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IContentSiteViewFactory'
     _iid_ = Guid('{9efd72f0-63ef-5b6a-a50c-5685bd8100f1}')
 class IDesktopAttachedSiteBridge(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopAttachedSiteBridge'
     _iid_ = Guid('{c8ad3758-c8d3-5ea5-a274-ce12d9cf6845}')
     @winrt_commethod(6)
@@ -1446,13 +1445,13 @@ class IDesktopAttachedSiteBridge(ComPtr):
     SiteView = property(get_SiteView, None)
     WindowId = property(get_WindowId, None)
 class IDesktopAttachedSiteBridgeStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopAttachedSiteBridgeStatics'
     _iid_ = Guid('{41f6930f-310e-5680-812c-6dac16dfff44}')
     @winrt_commethod(6)
     def CreateFromWindowId(self, queue: win32more.Microsoft.UI.Dispatching.DispatcherQueue, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Content.DesktopAttachedSiteBridge: ...
 class IDesktopChildSiteBridge(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopChildSiteBridge'
     _iid_ = Guid('{b2f2ff7b-1825-51b0-b80b-7599889c569f}')
     @winrt_commethod(6)
@@ -1464,19 +1463,19 @@ class IDesktopChildSiteBridge(ComPtr):
     ResizePolicy = property(get_ResizePolicy, put_ResizePolicy)
     SiteView = property(get_SiteView, None)
 class IDesktopChildSiteBridgeStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopChildSiteBridgeStatics'
     _iid_ = Guid('{ab6b82de-6a47-5de3-a860-613c8db679ab}')
     @winrt_commethod(6)
     def Create(self, compositor: win32more.Microsoft.UI.Composition.Compositor, parentWindowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Content.DesktopChildSiteBridge: ...
 class IDesktopChildSiteBridgeStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopChildSiteBridgeStatics2'
     _iid_ = Guid('{aae99407-e378-5c53-9aff-5a3b53e194a8}')
     @winrt_commethod(6)
     def CreateWithDispatcherQueue(self, queue: win32more.Microsoft.UI.Dispatching.DispatcherQueue, parentWindowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Content.DesktopChildSiteBridge: ...
 class IDesktopPopupSiteBridge(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopPopupSiteBridge'
     _iid_ = Guid('{84eaab23-f716-5ad8-ac00-3d77c01d42cc}')
     @winrt_commethod(6)
@@ -1510,13 +1509,13 @@ class IDesktopPopupSiteBridge(ComPtr):
     SiteView = property(get_SiteView, None)
     WindowId = property(get_WindowId, None)
 class IDesktopPopupSiteBridgeStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopPopupSiteBridgeStatics'
     _iid_ = Guid('{4ea2b77b-3177-5e5b-8d0d-a76e15c6d080}')
     @winrt_commethod(6)
     def Create(self, parent: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Content.DesktopPopupSiteBridge: ...
 class IDesktopSiteBridge(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopSiteBridge'
     _iid_ = Guid('{f0ae8750-905c-50a2-8a12-4545c6245bb4}')
     @winrt_commethod(6)
@@ -1547,11 +1546,11 @@ class IDesktopSiteBridge(ComPtr):
     IsVisible = property(get_IsVisible, None)
     WindowId = property(get_WindowId, None)
 class IDesktopSiteBridgeFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopSiteBridgeFactory'
     _iid_ = Guid('{d94ee1ff-3af1-54d0-9311-652b29c57c5b}')
 class IDesktopSiteBridgeStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Content.IDesktopSiteBridgeStatics'
     _iid_ = Guid('{e0b38daf-9cd4-50c5-83ee-c76e3cf34eba}')
     @winrt_commethod(6)

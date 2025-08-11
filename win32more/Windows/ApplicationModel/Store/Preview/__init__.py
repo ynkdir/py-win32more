@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Store.Preview
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -9,7 +9,6 @@ import win32more.Windows.Security.Credentials
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
 import win32more.Windows.UI.Xaml
-import win32more.Windows.Win32.System.WinRT
 class DeliveryOptimizationDownloadMode(Enum, Int32):
     Simple = 0
     HttpOnly = 1
@@ -21,7 +20,7 @@ class DeliveryOptimizationDownloadModeSource(Enum, Int32):
     Default = 0
     Policy = 1
 class DeliveryOptimizationSettings(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.IDeliveryOptimizationSettings
     _classid_ = 'Windows.ApplicationModel.Store.Preview.DeliveryOptimizationSettings'
     @winrt_mixinmethod
@@ -33,7 +32,7 @@ class DeliveryOptimizationSettings(ComPtr):
     DownloadMode = property(get_DownloadMode, None)
     DownloadModeSource = property(get_DownloadModeSource, None)
 class IDeliveryOptimizationSettings(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IDeliveryOptimizationSettings'
     _iid_ = Guid('{1810fda0-e853-565e-b874-7a8a7b9a0e0f}')
     @winrt_commethod(6)
@@ -43,13 +42,13 @@ class IDeliveryOptimizationSettings(ComPtr):
     DownloadMode = property(get_DownloadMode, None)
     DownloadModeSource = property(get_DownloadModeSource, None)
 class IDeliveryOptimizationSettingsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IDeliveryOptimizationSettingsStatics'
     _iid_ = Guid('{5c817caf-aed5-5999-b4c9-8c60898bc4f3}')
     @winrt_commethod(6)
     def GetCurrentSettings(self) -> win32more.Windows.ApplicationModel.Store.Preview.DeliveryOptimizationSettings: ...
 class IStoreConfigurationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics'
     _iid_ = Guid('{728f7fc0-8628-42ec-84a2-07780eb44d8b}')
     @winrt_commethod(6)
@@ -66,7 +65,7 @@ class IStoreConfigurationStatics(ComPtr):
     def FilterUnsupportedSystemFeaturesAsync(self, systemFeatures: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.ApplicationModel.Store.Preview.StoreSystemFeature]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Store.Preview.StoreSystemFeature]]: ...
     HardwareManufacturerInfo = property(get_HardwareManufacturerInfo, None)
 class IStoreConfigurationStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics2'
     _iid_ = Guid('{657c4595-c8b7-4fe9-9f4c-4d71027d347e}')
     @winrt_commethod(6)
@@ -75,7 +74,7 @@ class IStoreConfigurationStatics2(ComPtr):
     def put_PurchasePromptingPolicy(self, value: win32more.Windows.Foundation.IReference[UInt32]) -> Void: ...
     PurchasePromptingPolicy = property(get_PurchasePromptingPolicy, put_PurchasePromptingPolicy)
 class IStoreConfigurationStatics3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics3'
     _iid_ = Guid('{6d45f57c-f144-4cb5-9d3f-4eb05e30b6d3}')
     @winrt_commethod(6)
@@ -93,7 +92,7 @@ class IStoreConfigurationStatics3(ComPtr):
     @winrt_commethod(12)
     def SetPurchasePromptingPolicyForUser(self, user: win32more.Windows.System.User, value: win32more.Windows.Foundation.IReference[UInt32]) -> Void: ...
 class IStoreConfigurationStatics4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics4'
     _iid_ = Guid('{20ff56d2-4ee3-4cf0-9b12-552c03310f75}')
     @winrt_commethod(6)
@@ -113,7 +112,7 @@ class IStoreConfigurationStatics4(ComPtr):
     @winrt_commethod(13)
     def ShouldRestrictToEnterpriseStoreOnlyForUser(self, user: win32more.Windows.System.User) -> Boolean: ...
 class IStoreConfigurationStatics5(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics5'
     _iid_ = Guid('{f7613191-8fa9-49db-822b-0160e7e4e5c5}')
     @winrt_commethod(6)
@@ -127,7 +126,7 @@ class IStoreConfigurationStatics5(ComPtr):
     @winrt_commethod(10)
     def PinToDesktopForUser(self, user: win32more.Windows.System.User, appPackageFamilyName: WinRT_String) -> Void: ...
 class IStoreHardwareManufacturerInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStoreHardwareManufacturerInfo'
     _iid_ = Guid('{f292dc08-c654-43ac-a21f-34801c9d3388}')
     @winrt_commethod(6)
@@ -143,7 +142,7 @@ class IStoreHardwareManufacturerInfo(ComPtr):
     ModelName = property(get_ModelName, None)
     StoreContentModifierId = property(get_StoreContentModifierId, None)
 class IStorePreview(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStorePreview'
     _iid_ = Guid('{8a157241-840e-49a9-bc01-5d5b01fbc8e9}')
     @winrt_commethod(6)
@@ -151,7 +150,7 @@ class IStorePreview(ComPtr):
     @winrt_commethod(7)
     def LoadAddOnProductInfosAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Store.Preview.StorePreviewProductInfo]]: ...
 class IStorePreviewProductInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStorePreviewProductInfo'
     _iid_ = Guid('{1937dbb3-6c01-4c9d-85cd-5babaac2b351}')
     @winrt_commethod(6)
@@ -170,14 +169,14 @@ class IStorePreviewProductInfo(ComPtr):
     SkuInfoList = property(get_SkuInfoList, None)
     Title = property(get_Title, None)
 class IStorePreviewPurchaseResults(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStorePreviewPurchaseResults'
     _iid_ = Guid('{b0daaed1-d6c5-4e53-a043-fba0d8e61231}')
     @winrt_commethod(6)
     def get_ProductPurchaseStatus(self) -> win32more.Windows.ApplicationModel.Store.Preview.StorePreviewProductPurchaseStatus: ...
     ProductPurchaseStatus = property(get_ProductPurchaseStatus, None)
 class IStorePreviewSkuInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IStorePreviewSkuInfo'
     _iid_ = Guid('{81fd76e2-0b26-48d9-98ce-27461c669d6c}')
     @winrt_commethod(6)
@@ -208,7 +207,7 @@ class IStorePreviewSkuInfo(ComPtr):
     SkuType = property(get_SkuType, None)
     Title = property(get_Title, None)
 class IWebAuthenticationCoreManagerHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.IWebAuthenticationCoreManagerHelper'
     _iid_ = Guid('{06a50525-e715-4123-9276-9d6f865ba55f}')
     @winrt_commethod(6)
@@ -218,7 +217,7 @@ class IWebAuthenticationCoreManagerHelper(ComPtr):
 class _StoreConfiguration_Meta_(ComPtr.__class__):
     pass
 class StoreConfiguration(ComPtr, metaclass=_StoreConfiguration_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StoreConfiguration'
     @winrt_classmethod
     def IsPinToDesktopSupported(cls: win32more.Windows.ApplicationModel.Store.Preview.IStoreConfigurationStatics5) -> Boolean: ...
@@ -279,7 +278,7 @@ class StoreConfiguration(ComPtr, metaclass=_StoreConfiguration_Meta_):
     _StoreConfiguration_Meta_.HardwareManufacturerInfo = property(get_HardwareManufacturerInfo, None)
     _StoreConfiguration_Meta_.PurchasePromptingPolicy = property(get_PurchasePromptingPolicy, put_PurchasePromptingPolicy)
 class StoreHardwareManufacturerInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.IStoreHardwareManufacturerInfo
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StoreHardwareManufacturerInfo'
     @winrt_mixinmethod
@@ -298,14 +297,14 @@ class StoreLogOptions(Enum, UInt32):
     None_ = 0
     TryElevate = 1
 class StorePreview(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StorePreview'
     @winrt_classmethod
     def RequestProductPurchaseByProductIdAndSkuIdAsync(cls: win32more.Windows.ApplicationModel.Store.Preview.IStorePreview, productId: WinRT_String, skuId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.Store.Preview.StorePreviewPurchaseResults]: ...
     @winrt_classmethod
     def LoadAddOnProductInfosAsync(cls: win32more.Windows.ApplicationModel.Store.Preview.IStorePreview) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Store.Preview.StorePreviewProductInfo]]: ...
 class StorePreviewProductInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.IStorePreviewProductInfo
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StorePreviewProductInfo'
     @winrt_mixinmethod
@@ -329,14 +328,14 @@ class StorePreviewProductPurchaseStatus(Enum, Int32):
     NotFulfilled = 2
     NotPurchased = 3
 class StorePreviewPurchaseResults(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.IStorePreviewPurchaseResults
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StorePreviewPurchaseResults'
     @winrt_mixinmethod
     def get_ProductPurchaseStatus(self: win32more.Windows.ApplicationModel.Store.Preview.IStorePreviewPurchaseResults) -> win32more.Windows.ApplicationModel.Store.Preview.StorePreviewProductPurchaseStatus: ...
     ProductPurchaseStatus = property(get_ProductPurchaseStatus, None)
 class StorePreviewSkuInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Store.Preview.IStorePreviewSkuInfo
     _classid_ = 'Windows.ApplicationModel.Store.Preview.StorePreviewSkuInfo'
     @winrt_mixinmethod
@@ -403,7 +402,7 @@ class StoreSystemFeature(Enum, Int32):
     VideoMemory1GB = 33
     ArchitectureArm64 = 34
 class WebAuthenticationCoreManagerHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Store.Preview.WebAuthenticationCoreManagerHelper'
     @winrt_classmethod
     def RequestTokenWithUIElementHostingAsync(cls: win32more.Windows.ApplicationModel.Store.Preview.IWebAuthenticationCoreManagerHelper, request: win32more.Windows.Security.Authentication.Web.Core.WebTokenRequest, uiElement: win32more.Windows.UI.Xaml.UIElement) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.Authentication.Web.Core.WebTokenRequestResult]: ...

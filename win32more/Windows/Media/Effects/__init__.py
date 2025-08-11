@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
@@ -15,26 +15,25 @@ import win32more.Windows.Media.Render
 import win32more.Windows.Media.Transcoding
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class AcousticEchoCancellationConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IAcousticEchoCancellationConfiguration
     _classid_ = 'Windows.Media.Effects.AcousticEchoCancellationConfiguration'
     @winrt_mixinmethod
     def SetEchoCancellationRenderEndpoint(self: win32more.Windows.Media.Effects.IAcousticEchoCancellationConfiguration, deviceId: WinRT_String) -> Void: ...
 class AudioCaptureEffectsManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager
     _classid_ = 'Windows.Media.Effects.AudioCaptureEffectsManager'
     @winrt_mixinmethod
-    def add_AudioCaptureEffectsChanged(self: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioCaptureEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioCaptureEffectsChanged(self: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioCaptureEffectsManager, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AudioCaptureEffectsChanged(self: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def GetAudioCaptureEffects(self: win32more.Windows.Media.Effects.IAudioCaptureEffectsManager) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Effects.AudioEffect]: ...
     AudioCaptureEffectsChanged = event()
 class AudioEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IAudioEffect
     _classid_ = 'Windows.Media.Effects.AudioEffect'
     @winrt_mixinmethod
@@ -52,7 +51,7 @@ class AudioEffect(ComPtr):
     CanSetState = property(get_CanSetState, None)
     State = property(get_State, None)
 class AudioEffectDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IAudioEffectDefinition
     _classid_ = 'Windows.Media.Effects.AudioEffectDefinition'
     def __init__(self, *args, **kwargs):
@@ -99,7 +98,7 @@ class AudioEffectType(Enum, Int32):
     FarFieldBeamForming = 18
     DeepNoiseSuppression = 19
 class AudioEffectsManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.AudioEffectsManager'
     @winrt_classmethod
     def CreateAudioRenderEffectsManager(cls: win32more.Windows.Media.Effects.IAudioEffectsManagerStatics, deviceId: WinRT_String, category: win32more.Windows.Media.Render.AudioRenderCategory) -> win32more.Windows.Media.Effects.AudioRenderEffectsManager: ...
@@ -110,11 +109,11 @@ class AudioEffectsManager(ComPtr):
     @winrt_classmethod
     def CreateAudioCaptureEffectsManagerWithMode(cls: win32more.Windows.Media.Effects.IAudioEffectsManagerStatics, deviceId: WinRT_String, category: win32more.Windows.Media.Capture.MediaCategory, mode: win32more.Windows.Media.AudioProcessing) -> win32more.Windows.Media.Effects.AudioCaptureEffectsManager: ...
 class AudioRenderEffectsManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IAudioRenderEffectsManager
     _classid_ = 'Windows.Media.Effects.AudioRenderEffectsManager'
     @winrt_mixinmethod
-    def add_AudioRenderEffectsChanged(self: win32more.Windows.Media.Effects.IAudioRenderEffectsManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioRenderEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioRenderEffectsChanged(self: win32more.Windows.Media.Effects.IAudioRenderEffectsManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioRenderEffectsManager, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AudioRenderEffectsChanged(self: win32more.Windows.Media.Effects.IAudioRenderEffectsManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -129,7 +128,7 @@ class AudioRenderEffectsManager(ComPtr):
     EffectsProviderThumbnail = property(get_EffectsProviderThumbnail, None)
     AudioRenderEffectsChanged = event()
 class CompositeVideoFrameContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.ICompositeVideoFrameContext
     _classid_ = 'Windows.Media.Effects.CompositeVideoFrameContext'
     @winrt_mixinmethod
@@ -144,31 +143,31 @@ class CompositeVideoFrameContext(ComPtr):
     OutputFrame = property(get_OutputFrame, None)
     SurfacesToOverlay = property(get_SurfacesToOverlay, None)
 class IAcousticEchoCancellationConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAcousticEchoCancellationConfiguration'
     _iid_ = Guid('{587e735b-175b-5177-a407-2e33bafe33a5}')
     @winrt_commethod(6)
     def SetEchoCancellationRenderEndpoint(self, deviceId: WinRT_String) -> Void: ...
 class IAudioCaptureEffectsManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioCaptureEffectsManager'
     _iid_ = Guid('{8f85c271-038d-4393-8298-540110608eef}')
     @winrt_commethod(6)
-    def add_AudioCaptureEffectsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioCaptureEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioCaptureEffectsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioCaptureEffectsManager, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_AudioCaptureEffectsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def GetAudioCaptureEffects(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Effects.AudioEffect]: ...
     AudioCaptureEffectsChanged = event()
 class IAudioEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioEffect'
     _iid_ = Guid('{34aafa51-9207-4055-be93-6e5734a86ae4}')
     @winrt_commethod(6)
     def get_AudioEffectType(self) -> win32more.Windows.Media.Effects.AudioEffectType: ...
     AudioEffectType = property(get_AudioEffectType, None)
 class IAudioEffect2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioEffect2'
     _iid_ = Guid('{06703cb0-757e-5757-8af0-6ba58a8b2990}')
     @winrt_commethod(6)
@@ -183,7 +182,7 @@ class IAudioEffect2(ComPtr):
     CanSetState = property(get_CanSetState, None)
     State = property(get_State, None)
 class IAudioEffectDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioEffectDefinition'
     _iid_ = Guid('{e4d7f974-7d80-4f73-9089-e31c9db9c294}')
     @winrt_commethod(6)
@@ -193,7 +192,7 @@ class IAudioEffectDefinition(ComPtr):
     ActivatableClassId = property(get_ActivatableClassId, None)
     Properties = property(get_Properties, None)
 class IAudioEffectDefinitionFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioEffectDefinitionFactory'
     _iid_ = Guid('{8e1da646-e705-45ed-8a2b-fc4e4f405a97}')
     @winrt_commethod(6)
@@ -201,7 +200,7 @@ class IAudioEffectDefinitionFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithProperties(self, activatableClassId: WinRT_String, props: win32more.Windows.Foundation.Collections.IPropertySet) -> win32more.Windows.Media.Effects.AudioEffectDefinition: ...
 class IAudioEffectsManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioEffectsManagerStatics'
     _iid_ = Guid('{66406c04-86fa-47cc-a315-f489d8c3fe10}')
     @winrt_commethod(6)
@@ -213,18 +212,18 @@ class IAudioEffectsManagerStatics(ComPtr):
     @winrt_commethod(9)
     def CreateAudioCaptureEffectsManagerWithMode(self, deviceId: WinRT_String, category: win32more.Windows.Media.Capture.MediaCategory, mode: win32more.Windows.Media.AudioProcessing) -> win32more.Windows.Media.Effects.AudioCaptureEffectsManager: ...
 class IAudioRenderEffectsManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioRenderEffectsManager'
     _iid_ = Guid('{4dc98966-8751-42b2-bfcb-39ca7864bd47}')
     @winrt_commethod(6)
-    def add_AudioRenderEffectsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioRenderEffectsManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AudioRenderEffectsChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Effects.AudioRenderEffectsManager, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_AudioRenderEffectsChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def GetAudioRenderEffects(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Effects.AudioEffect]: ...
     AudioRenderEffectsChanged = event()
 class IAudioRenderEffectsManager2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IAudioRenderEffectsManager2'
     _iid_ = Guid('{a844cd09-5ecc-44b3-bb4e-1db07287139c}')
     @winrt_commethod(6)
@@ -236,7 +235,7 @@ class IAudioRenderEffectsManager2(ComPtr):
     EffectsProviderSettingsLabel = property(get_EffectsProviderSettingsLabel, None)
     EffectsProviderThumbnail = property(get_EffectsProviderThumbnail, None)
 class IBasicAudioEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IBasicAudioEffect'
     _iid_ = Guid('{8c062c53-6bc0-48b8-a99a-4b41550f1359}')
     @winrt_commethod(6)
@@ -254,7 +253,7 @@ class IBasicAudioEffect(ComPtr):
     SupportedEncodingProperties = property(get_SupportedEncodingProperties, None)
     UseInputFrameForOutput = property(get_UseInputFrameForOutput, None)
 class IBasicVideoEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IBasicVideoEffect'
     _iid_ = Guid('{8262c7ef-b360-40be-949b-2ff42ff35693}')
     @winrt_commethod(6)
@@ -278,7 +277,7 @@ class IBasicVideoEffect(ComPtr):
     SupportedMemoryTypes = property(get_SupportedMemoryTypes, None)
     TimeIndependent = property(get_TimeIndependent, None)
 class ICompositeVideoFrameContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.ICompositeVideoFrameContext'
     _iid_ = Guid('{6c30024b-f514-4278-a5f7-b9188049d110}')
     @winrt_commethod(6)
@@ -293,7 +292,7 @@ class ICompositeVideoFrameContext(ComPtr):
     OutputFrame = property(get_OutputFrame, None)
     SurfacesToOverlay = property(get_SurfacesToOverlay, None)
 class IProcessAudioFrameContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IProcessAudioFrameContext'
     _iid_ = Guid('{4cd92946-1222-4a27-a586-fb3e20273255}')
     @winrt_commethod(6)
@@ -303,7 +302,7 @@ class IProcessAudioFrameContext(ComPtr):
     InputFrame = property(get_InputFrame, None)
     OutputFrame = property(get_OutputFrame, None)
 class IProcessVideoFrameContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IProcessVideoFrameContext'
     _iid_ = Guid('{276f0e2b-6461-401e-ba78-0fdad6114eec}')
     @winrt_commethod(6)
@@ -313,7 +312,7 @@ class IProcessVideoFrameContext(ComPtr):
     InputFrame = property(get_InputFrame, None)
     OutputFrame = property(get_OutputFrame, None)
 class IVideoCompositor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IVideoCompositor'
     _iid_ = Guid('{8510b43e-420c-420f-96c7-7c98bba1fc55}')
     @winrt_commethod(6)
@@ -328,7 +327,7 @@ class IVideoCompositor(ComPtr):
     def DiscardQueuedFrames(self) -> Void: ...
     TimeIndependent = property(get_TimeIndependent, None)
 class IVideoCompositorDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IVideoCompositorDefinition'
     _iid_ = Guid('{7946b8d0-2010-4ae3-9ab2-2cef42edd4d2}')
     @winrt_commethod(6)
@@ -338,7 +337,7 @@ class IVideoCompositorDefinition(ComPtr):
     ActivatableClassId = property(get_ActivatableClassId, None)
     Properties = property(get_Properties, None)
 class IVideoCompositorDefinitionFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IVideoCompositorDefinitionFactory'
     _iid_ = Guid('{4366fd10-68b8-4d52-89b6-02a968cca899}')
     @winrt_commethod(6)
@@ -346,7 +345,7 @@ class IVideoCompositorDefinitionFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithProperties(self, activatableClassId: WinRT_String, props: win32more.Windows.Foundation.Collections.IPropertySet) -> win32more.Windows.Media.Effects.VideoCompositorDefinition: ...
 class IVideoEffectDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IVideoEffectDefinition'
     _iid_ = Guid('{39f38cf0-8d0f-4f3e-84fc-2d46a5297943}')
     @winrt_commethod(6)
@@ -356,7 +355,7 @@ class IVideoEffectDefinition(ComPtr):
     ActivatableClassId = property(get_ActivatableClassId, None)
     Properties = property(get_Properties, None)
 class IVideoEffectDefinitionFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IVideoEffectDefinitionFactory'
     _iid_ = Guid('{81439b4e-6e33-428f-9d21-b5aafef7617c}')
     @winrt_commethod(6)
@@ -364,7 +363,7 @@ class IVideoEffectDefinitionFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithProperties(self, activatableClassId: WinRT_String, props: win32more.Windows.Foundation.Collections.IPropertySet) -> win32more.Windows.Media.Effects.VideoEffectDefinition: ...
 class IVideoTransformEffectDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IVideoTransformEffectDefinition'
     _iid_ = Guid('{9664bb6a-1ea6-4aa6-8074-abe8851ecae2}')
     @winrt_commethod(6)
@@ -398,14 +397,14 @@ class IVideoTransformEffectDefinition(ComPtr):
     ProcessingAlgorithm = property(get_ProcessingAlgorithm, put_ProcessingAlgorithm)
     Rotation = property(get_Rotation, put_Rotation)
 class IVideoTransformEffectDefinition2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IVideoTransformEffectDefinition2'
     _iid_ = Guid('{f0a8089f-66c8-4694-9fd9-1136abf7444a}')
     @winrt_commethod(6)
     def get_SphericalProjection(self) -> win32more.Windows.Media.Effects.VideoTransformSphericalProjection: ...
     SphericalProjection = property(get_SphericalProjection, None)
 class IVideoTransformSphericalProjection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Effects.IVideoTransformSphericalProjection'
     _iid_ = Guid('{cf4401f0-9bf2-4c39-9f41-e022514a8468}')
     @winrt_commethod(6)
@@ -443,7 +442,7 @@ class MediaMemoryTypes(Enum, Int32):
     Cpu = 1
     GpuAndCpu = 2
 class ProcessAudioFrameContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IProcessAudioFrameContext
     _classid_ = 'Windows.Media.Effects.ProcessAudioFrameContext'
     @winrt_mixinmethod
@@ -453,7 +452,7 @@ class ProcessAudioFrameContext(ComPtr):
     InputFrame = property(get_InputFrame, None)
     OutputFrame = property(get_OutputFrame, None)
 class ProcessVideoFrameContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IProcessVideoFrameContext
     _classid_ = 'Windows.Media.Effects.ProcessVideoFrameContext'
     @winrt_mixinmethod
@@ -463,7 +462,7 @@ class ProcessVideoFrameContext(ComPtr):
     InputFrame = property(get_InputFrame, None)
     OutputFrame = property(get_OutputFrame, None)
 class VideoCompositorDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoCompositorDefinition
     _classid_ = 'Windows.Media.Effects.VideoCompositorDefinition'
     def __init__(self, *args, **kwargs):
@@ -486,7 +485,7 @@ class VideoCompositorDefinition(ComPtr):
     ActivatableClassId = property(get_ActivatableClassId, None)
     Properties = property(get_Properties, None)
 class VideoEffectDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Effects.VideoEffectDefinition'
     def __init__(self, *args, **kwargs):
@@ -509,7 +508,7 @@ class VideoEffectDefinition(ComPtr):
     ActivatableClassId = property(get_ActivatableClassId, None)
     Properties = property(get_Properties, None)
 class VideoTransformEffectDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoEffectDefinition
     _classid_ = 'Windows.Media.Effects.VideoTransformEffectDefinition'
     def __init__(self, *args, **kwargs):
@@ -561,7 +560,7 @@ class VideoTransformEffectDefinition(ComPtr):
     Rotation = property(get_Rotation, put_Rotation)
     SphericalProjection = property(get_SphericalProjection, None)
 class VideoTransformSphericalProjection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Effects.IVideoTransformSphericalProjection
     _classid_ = 'Windows.Media.Effects.VideoTransformSphericalProjection'
     @winrt_mixinmethod

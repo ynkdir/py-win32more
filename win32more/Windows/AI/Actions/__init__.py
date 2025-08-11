@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.AI.Actions
 import win32more.Windows.AI.Actions.Hosting
 import win32more.Windows.ApplicationModel.Contacts
 import win32more.Windows.Foundation
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class ActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.IActionEntity
     _classid_ = 'Windows.AI.Actions.ActionEntity'
@@ -24,7 +23,7 @@ class ActionEntity(ComPtr):
     Id = property(get_Id, None)
     Kind = property(get_Kind, None)
 class ActionEntityDisplayInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.IActionEntityDisplayInfo
     _classid_ = 'Windows.AI.Actions.ActionEntityDisplayInfo'
@@ -34,7 +33,7 @@ class ActionEntityDisplayInfo(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Title = property(get_Title, None)
 class ActionEntityFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.IActionEntityFactory2
     _classid_ = 'Windows.AI.Actions.ActionEntityFactory'
@@ -72,7 +71,7 @@ class ActionEntityTextFormat(Enum, Int32):
     Plain = 0
     Markdown = 1
 class ActionFeedback(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.IActionFeedback
     _classid_ = 'Windows.AI.Actions.ActionFeedback'
@@ -85,7 +84,7 @@ class ActionFeedbackKind(Enum, Int32):
     Positive = 0
     Negative = 1
 class ActionInvocationContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.IActionInvocationContext
     _classid_ = 'Windows.AI.Actions.ActionInvocationContext'
@@ -125,7 +124,7 @@ class ActionInvocationContext(ComPtr):
     InvokerWindowId = property(get_InvokerWindowId, None)
     Result = property(get_Result, put_Result)
 class ActionInvocationHelpDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.IActionInvocationHelpDetails
     _classid_ = 'Windows.AI.Actions.ActionInvocationHelpDetails'
@@ -166,7 +165,7 @@ class ActionInvocationResult(Enum, Int32):
     Unsupported = 2
     Unavailable = 3
 class ActionRuntime(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.IActionRuntime
     _classid_ = 'Windows.AI.Actions.ActionRuntime'
@@ -216,7 +215,7 @@ class FileActionEntity(ComPtr):
     def get_FullPath(self: win32more.Windows.AI.Actions.IFileActionEntity) -> WinRT_String: ...
     FullPath = property(get_FullPath, None)
 class IActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionEntity'
     _iid_ = Guid('{445e700f-2122-5668-9a16-4cab2982c5f4}')
     @winrt_commethod(6)
@@ -226,25 +225,25 @@ class IActionEntity(ComPtr):
     DisplayInfo = property(get_DisplayInfo, None)
     Kind = property(get_Kind, None)
 class IActionEntity2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionEntity2'
     _iid_ = Guid('{98fe136d-dd3a-58c1-af76-feb4e19dce9e}')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     Id = property(get_Id, None)
 class IActionEntityDisplayInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionEntityDisplayInfo'
     _iid_ = Guid('{057a9ede-03e1-55c6-acba-c7056216735a}')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     Title = property(get_Title, None)
 class IActionEntityFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionEntityFactory'
     _iid_ = Guid('{9cb752a0-5bf8-5be2-916e-b00eff80088d}')
 class IActionEntityFactory2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionEntityFactory2'
     _iid_ = Guid('{ea2fb6a5-ec6d-5180-9d30-bc663b84e7b8}')
     @winrt_commethod(6)
@@ -256,7 +255,7 @@ class IActionEntityFactory2(ComPtr):
     @winrt_commethod(9)
     def CreateTextEntity(self, text: WinRT_String) -> win32more.Windows.AI.Actions.TextActionEntity: ...
 class IActionEntityFactory3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionEntityFactory3'
     _iid_ = Guid('{4910e689-00b5-56bb-9c65-0fcc76215283}')
     @winrt_commethod(6)
@@ -266,7 +265,7 @@ class IActionEntityFactory3(ComPtr):
     @winrt_commethod(8)
     def CreateStreamingTextActionEntityWriter(self, textFormat: win32more.Windows.AI.Actions.ActionEntityTextFormat) -> win32more.Windows.AI.Actions.StreamingTextActionEntityWriter: ...
 class IActionEntityFactory4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionEntityFactory4'
     _iid_ = Guid('{332eda05-de0e-5a58-b318-a2ad771f013d}')
     @winrt_commethod(6)
@@ -274,18 +273,18 @@ class IActionEntityFactory4(ComPtr):
     @winrt_commethod(7)
     def CreateContactEntity(self, contact: win32more.Windows.ApplicationModel.Contacts.Contact) -> win32more.Windows.AI.Actions.ContactActionEntity: ...
 class IActionEntityFactoryFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionEntityFactoryFactory'
     _iid_ = Guid('{c9147d8f-88a0-5ec0-a564-47e2a1081412}')
 class IActionFeedback(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionFeedback'
     _iid_ = Guid('{a12ee7ab-2454-56c9-bbdf-c089457fbc5e}')
     @winrt_commethod(6)
     def get_FeedbackKind(self) -> win32more.Windows.AI.Actions.ActionFeedbackKind: ...
     FeedbackKind = property(get_FeedbackKind, None)
 class IActionInvocationContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionInvocationContext'
     _iid_ = Guid('{c32b622e-86e1-5eba-9661-605910104978}')
     @winrt_commethod(6)
@@ -310,7 +309,7 @@ class IActionInvocationContext(ComPtr):
     ExtendedError = property(get_ExtendedError, put_ExtendedError)
     Result = property(get_Result, put_Result)
 class IActionInvocationContext2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionInvocationContext2'
     _iid_ = Guid('{7c843086-9279-5bcd-8f2e-d15121e7a827}')
     @winrt_commethod(6)
@@ -326,7 +325,7 @@ class IActionInvocationContext2(ComPtr):
     InvokerAppUserModelId = property(get_InvokerAppUserModelId, None)
     InvokerWindowId = property(get_InvokerWindowId, None)
 class IActionInvocationHelpDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionInvocationHelpDetails'
     _iid_ = Guid('{5430f272-078f-5722-8f7d-90cf8ddd595e}')
     @winrt_commethod(6)
@@ -355,7 +354,7 @@ class IActionInvocationHelpDetails(ComPtr):
     Kind = property(get_Kind, put_Kind)
     Title = property(get_Title, put_Title)
 class IActionRuntime(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionRuntime'
     _iid_ = Guid('{206efa2c-c909-508a-b4b0-9482be96db9c}')
     @winrt_commethod(6)
@@ -367,7 +366,7 @@ class IActionRuntime(ComPtr):
     ActionCatalog = property(get_ActionCatalog, None)
     EntityFactory = property(get_EntityFactory, None)
 class IActionRuntime2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionRuntime2'
     _iid_ = Guid('{2da4d2c0-e593-5350-8143-15bb24f63411}')
     @winrt_commethod(6)
@@ -377,7 +376,7 @@ class IActionRuntime2(ComPtr):
     @winrt_commethod(8)
     def GetActionAvailability(self, actionId: WinRT_String) -> Boolean: ...
 class IActionRuntime3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionRuntime3'
     _iid_ = Guid('{f020c3c0-caec-5928-ad00-81069b80fbc1}')
     @winrt_commethod(6)
@@ -388,32 +387,32 @@ class IActionRuntime3(ComPtr):
     def get_LatestSupportedSchemaVersion(self) -> UInt32: ...
     LatestSupportedSchemaVersion = property(get_LatestSupportedSchemaVersion, None)
 class IActionRuntimeFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionRuntimeFactory'
     _iid_ = Guid('{d3f366e9-8dc9-50a0-8040-e5c14fa609d6}')
 class IContactActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IContactActionEntity'
     _iid_ = Guid('{458c3e07-5892-5485-bd9b-8f7a540c9501}')
     @winrt_commethod(6)
     def get_Contact(self) -> win32more.Windows.ApplicationModel.Contacts.Contact: ...
     Contact = property(get_Contact, None)
 class IDocumentActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IDocumentActionEntity'
     _iid_ = Guid('{56715297-960b-59ff-af4b-ece1098b2e36}')
     @winrt_commethod(6)
     def get_FullPath(self) -> WinRT_String: ...
     FullPath = property(get_FullPath, None)
 class IFileActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IFileActionEntity'
     _iid_ = Guid('{f20ab43f-4c80-5904-bd42-3e6248babfcf}')
     @winrt_commethod(6)
     def get_FullPath(self) -> WinRT_String: ...
     FullPath = property(get_FullPath, None)
 class INamedActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.INamedActionEntity'
     _iid_ = Guid('{1aaebeef-435b-5a0d-8182-05fe4dd47712}')
     @winrt_commethod(6)
@@ -427,14 +426,14 @@ class INamedActionEntity(ComPtr):
     Entity = property(get_Entity, put_Entity)
     Name = property(get_Name, put_Name)
 class IPhotoActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IPhotoActionEntity'
     _iid_ = Guid('{425123b3-20ef-51a6-b35f-8414384765c5}')
     @winrt_commethod(6)
     def get_FullPath(self) -> WinRT_String: ...
     FullPath = property(get_FullPath, None)
 class IRemoteFileActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IRemoteFileActionEntity'
     _iid_ = Guid('{a5d8ec21-a2bd-545a-abfc-d7aa79fd0b81}')
     @winrt_commethod(6)
@@ -462,7 +461,7 @@ class IRemoteFileActionEntity(ComPtr):
     SourceId = property(get_SourceId, None)
     SourceUri = property(get_SourceUri, None)
 class IStreamingTextActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IStreamingTextActionEntity'
     _iid_ = Guid('{44cd8a16-abc9-5703-b4bf-6fe8b7a802fd}')
     @winrt_commethod(6)
@@ -479,7 +478,7 @@ class IStreamingTextActionEntity(ComPtr):
     TextFormat = property(get_TextFormat, None)
     TextChanged = event()
 class IStreamingTextActionEntityTextChangedArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs'
     _iid_ = Guid('{2c62011f-3e06-588b-a3bd-d726bd82fb13}')
     @winrt_commethod(6)
@@ -489,7 +488,7 @@ class IStreamingTextActionEntityTextChangedArgs(ComPtr):
     IsComplete = property(get_IsComplete, None)
     Text = property(get_Text, None)
 class IStreamingTextActionEntityWriter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IStreamingTextActionEntityWriter'
     _iid_ = Guid('{6bce2f76-a8af-5ff2-833c-108737ba0f42}')
     @winrt_commethod(6)
@@ -501,7 +500,7 @@ class IStreamingTextActionEntityWriter(ComPtr):
     ReaderEntity = property(get_ReaderEntity, None)
     TextFormat = property(get_TextFormat, None)
 class ITableActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.ITableActionEntity'
     _iid_ = Guid('{0f252cdb-ba24-5dbb-9d17-1b300773d141}')
     @winrt_commethod(6)
@@ -513,21 +512,21 @@ class ITableActionEntity(ComPtr):
     ColumnCount = property(get_ColumnCount, None)
     RowCount = property(get_RowCount, None)
 class ITextActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.ITextActionEntity'
     _iid_ = Guid('{3c4ec25f-5adb-5f73-b8f3-080fbeadd612}')
     @winrt_commethod(6)
     def get_Text(self) -> WinRT_String: ...
     Text = property(get_Text, None)
 class ITextActionEntity2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.ITextActionEntity2'
     _iid_ = Guid('{7c500889-cf08-51e7-beca-f0bbc7a7486c}')
     @winrt_commethod(6)
     def get_TextFormat(self) -> win32more.Windows.AI.Actions.ActionEntityTextFormat: ...
     TextFormat = property(get_TextFormat, None)
 class NamedActionEntity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.INamedActionEntity
     _classid_ = 'Windows.AI.Actions.NamedActionEntity'
@@ -600,7 +599,7 @@ class StreamingTextActionEntity(ComPtr):
     TextFormat = property(get_TextFormat, None)
     TextChanged = event()
 class StreamingTextActionEntityTextChangedArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.AI.Actions.IStreamingTextActionEntityTextChangedArgs
     _classid_ = 'Windows.AI.Actions.StreamingTextActionEntityTextChangedArgs'
     @winrt_mixinmethod
@@ -610,7 +609,7 @@ class StreamingTextActionEntityTextChangedArgs(ComPtr):
     IsComplete = property(get_IsComplete, None)
     Text = property(get_Text, None)
 class StreamingTextActionEntityWriter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.IStreamingTextActionEntityWriter
     _classid_ = 'Windows.AI.Actions.StreamingTextActionEntityWriter'

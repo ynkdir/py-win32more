@@ -1,9 +1,8 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.Widgets.Notifications
 import win32more.Windows.Foundation
-import win32more.Windows.Win32.System.WinRT
 class AnnouncementActionKind(Enum, Int32):
     Shown = 0
     Engaged = 1
@@ -16,7 +15,7 @@ class AnnouncementTextColor(Enum, Int32):
     Warning = 5
     Attention = 6
 class FeedAnnouncement(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Widgets.Notifications.IFeedAnnouncement
     _classid_ = 'Microsoft.Windows.Widgets.Notifications.FeedAnnouncement'
     def __init__(self, *args, **kwargs):
@@ -89,7 +88,7 @@ class FeedAnnouncement(ComPtr):
     SecondaryTextColor = property(get_SecondaryTextColor, put_SecondaryTextColor)
     ShowBadgeIfUserNotEngaged = property(get_ShowBadgeIfUserNotEngaged, put_ShowBadgeIfUserNotEngaged)
 class FeedAnnouncementInvokedArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Widgets.Notifications.IFeedAnnouncementInvokedArgs
     _classid_ = 'Microsoft.Windows.Widgets.Notifications.FeedAnnouncementInvokedArgs'
     @winrt_mixinmethod
@@ -105,7 +104,7 @@ class FeedAnnouncementInvokedArgs(ComPtr):
     FeedDefinitionId = property(get_FeedDefinitionId, None)
     FeedProviderDefinitionId = property(get_FeedProviderDefinitionId, None)
 class IFeedAnnouncement(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Widgets.Notifications.IFeedAnnouncement'
     _iid_ = Guid('{b88e8c2c-d251-5344-acc2-8cf9ba07ec15}')
     @winrt_commethod(6)
@@ -169,13 +168,13 @@ class IFeedAnnouncement(ComPtr):
     SecondaryTextColor = property(get_SecondaryTextColor, put_SecondaryTextColor)
     ShowBadgeIfUserNotEngaged = property(get_ShowBadgeIfUserNotEngaged, put_ShowBadgeIfUserNotEngaged)
 class IFeedAnnouncementFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Widgets.Notifications.IFeedAnnouncementFactory'
     _iid_ = Guid('{22074243-46d8-5af2-8715-1c76d1cb774c}')
     @winrt_commethod(6)
     def CreateInstance(self, id: WinRT_String, primaryText: WinRT_String, secondaryText: WinRT_String, lightModeIcon: win32more.Windows.Foundation.Uri, darkModeIcon: win32more.Windows.Foundation.Uri) -> win32more.Microsoft.Windows.Widgets.Notifications.FeedAnnouncement: ...
 class IFeedAnnouncementInvokedArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Widgets.Notifications.IFeedAnnouncementInvokedArgs'
     _iid_ = Guid('{70a48d98-323d-5f19-a1e1-b63fe36edbf2}')
     @winrt_commethod(6)

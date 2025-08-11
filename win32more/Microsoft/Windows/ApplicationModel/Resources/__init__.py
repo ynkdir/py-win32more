@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.ApplicationModel.Resources
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class IKnownResourceQualifierNameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IKnownResourceQualifierNameStatics'
     _iid_ = Guid('{dd6cdedc-559b-50c8-ac53-82fe21f915f3}')
     @winrt_commethod(6)
@@ -37,7 +36,7 @@ class IKnownResourceQualifierNameStatics(ComPtr):
     TargetSize = property(get_TargetSize, None)
     Theme = property(get_Theme, None)
 class IResourceCandidate(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceCandidate'
     _iid_ = Guid('{6c54bc0c-ef1e-57b8-b478-34fece737356}')
     @winrt_commethod(6)
@@ -53,7 +52,7 @@ class IResourceCandidate(ComPtr):
     ValueAsBytes = property(get_ValueAsBytes, None)
     ValueAsString = property(get_ValueAsString, None)
 class IResourceCandidateFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceCandidateFactory'
     _iid_ = Guid('{bb2b30f8-c19b-5f43-88d9-69ad728a32f4}')
     @winrt_commethod(6)
@@ -61,18 +60,18 @@ class IResourceCandidateFactory(ComPtr):
     @winrt_commethod(7)
     def CreateInstance2(self, data: PassArray[Byte]) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate: ...
 class IResourceContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceContext'
     _iid_ = Guid('{96fb48dc-f77d-55ff-af12-34861e3d4939}')
     @winrt_commethod(6)
     def get_QualifierValues(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
     QualifierValues = property(get_QualifierValues, None)
 class IResourceContext2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceContext2'
     _iid_ = Guid('{7a3b1158-798c-5949-969d-03510b9ce6ca}')
 class IResourceLoader(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceLoader'
     _iid_ = Guid('{bc3f76bf-da46-54cd-8715-8b8aaf16eaac}')
     @winrt_commethod(6)
@@ -80,7 +79,7 @@ class IResourceLoader(ComPtr):
     @winrt_commethod(7)
     def GetStringForUri(self, resourceUri: win32more.Windows.Foundation.Uri) -> WinRT_String: ...
 class IResourceLoaderFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceLoaderFactory'
     _iid_ = Guid('{871f83aa-fb34-50d6-b9b9-2c35f3ffc004}')
     @winrt_commethod(6)
@@ -88,13 +87,13 @@ class IResourceLoaderFactory(ComPtr):
     @winrt_commethod(7)
     def CreateInstance2(self, fileName: WinRT_String, resourceMap: WinRT_String) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceLoader: ...
 class IResourceLoaderStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceLoaderStatics'
     _iid_ = Guid('{ec9c894a-1466-5f2f-8eee-a70cbd2b51bb}')
     @winrt_commethod(6)
     def GetDefaultResourceFilePath(self) -> WinRT_String: ...
 class IResourceManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceManager'
     _iid_ = Guid('{ac2291ef-81be-5c99-a0ae-bcee0180b8a8}')
     @winrt_commethod(6)
@@ -108,17 +107,17 @@ class IResourceManager(ComPtr):
     MainResourceMap = property(get_MainResourceMap, None)
     ResourceNotFound = event()
 class IResourceManager2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceManager2'
     _iid_ = Guid('{7ec10160-a154-5c42-8268-30e306b1f585}')
 class IResourceManagerFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceManagerFactory'
     _iid_ = Guid('{d6acf18f-458a-535b-a5c4-ac2dc4e49099}')
     @winrt_commethod(6)
     def CreateInstance(self, fileName: WinRT_String) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceManager: ...
 class IResourceMap(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceMap'
     _iid_ = Guid('{4abbd9bc-df4e-5c7b-812c-7e7bb0c22377}')
     @winrt_commethod(6)
@@ -141,7 +140,7 @@ class IResourceMap(ComPtr):
     def TryGetValueWithContext(self, resource: WinRT_String, context: win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceContext) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate: ...
     ResourceCount = property(get_ResourceCount, None)
 class IResourceNotFoundEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.IResourceNotFoundEventArgs'
     _iid_ = Guid('{64abb08b-e77d-5b26-830f-15941e0e8200}')
     @winrt_commethod(6)
@@ -155,7 +154,7 @@ class IResourceNotFoundEventArgs(ComPtr):
 class _KnownResourceQualifierName_Meta_(ComPtr.__class__):
     pass
 class KnownResourceQualifierName(ComPtr, metaclass=_KnownResourceQualifierName_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.KnownResourceQualifierName'
     @winrt_classmethod
     def get_Contrast(cls: win32more.Microsoft.Windows.ApplicationModel.Resources.IKnownResourceQualifierNameStatics) -> WinRT_String: ...
@@ -186,7 +185,7 @@ class KnownResourceQualifierName(ComPtr, metaclass=_KnownResourceQualifierName_M
     _KnownResourceQualifierName_Meta_.Theme = property(get_Theme, None)
 MrtCoreContract: UInt32 = 131072
 class ResourceCandidate(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceCandidate
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate'
     def __init__(self, *args, **kwargs):
@@ -220,14 +219,14 @@ class ResourceCandidateKind(Enum, Int32):
     FilePath = 2
     EmbeddedData = 3
 class ResourceContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceContext
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceContext'
     @winrt_mixinmethod
     def get_QualifierValues(self: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceContext) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
     QualifierValues = property(get_QualifierValues, None)
 class ResourceLoader(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceLoader
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceLoader'
     def __init__(self, *args, **kwargs):
@@ -256,7 +255,7 @@ class ResourceLoader(ComPtr):
     @winrt_classmethod
     def GetDefaultResourceFilePath(cls: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceLoaderStatics) -> WinRT_String: ...
 class ResourceManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceManager
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceManager'
     def __init__(self, *args, **kwargs):
@@ -285,7 +284,7 @@ class ResourceManager(ComPtr):
     MainResourceMap = property(get_MainResourceMap, None)
     ResourceNotFound = event()
 class ResourceMap(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceMap
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceMap'
     @winrt_mixinmethod
@@ -308,7 +307,7 @@ class ResourceMap(ComPtr):
     def TryGetValueWithContext(self: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceMap, resource: WinRT_String, context: win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceContext) -> win32more.Microsoft.Windows.ApplicationModel.Resources.ResourceCandidate: ...
     ResourceCount = property(get_ResourceCount, None)
 class ResourceNotFoundEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.Resources.IResourceNotFoundEventArgs
     _classid_ = 'Microsoft.Windows.ApplicationModel.Resources.ResourceNotFoundEventArgs'
     @winrt_mixinmethod

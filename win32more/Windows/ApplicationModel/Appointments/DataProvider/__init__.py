@@ -1,13 +1,12 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Appointments
 import win32more.Windows.ApplicationModel.Appointments.DataProvider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class AppointmentCalendarCancelMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequest'
     @winrt_mixinmethod
@@ -33,7 +32,7 @@ class AppointmentCalendarCancelMeetingRequest(ComPtr):
     NotifyInvitees = property(get_NotifyInvitees, None)
     Subject = property(get_Subject, None)
 class AppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCancelMeetingRequestEventArgs'
     @winrt_mixinmethod
@@ -42,7 +41,7 @@ class AppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class AppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequest'
     @winrt_mixinmethod
@@ -62,7 +61,7 @@ class AppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
     ChangedProperties = property(get_ChangedProperties, None)
     NotifyInvitees = property(get_NotifyInvitees, None)
 class AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs'
     @winrt_mixinmethod
@@ -71,7 +70,7 @@ class AppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class AppointmentCalendarForwardMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequest'
     @winrt_mixinmethod
@@ -100,7 +99,7 @@ class AppointmentCalendarForwardMeetingRequest(ComPtr):
     Invitees = property(get_Invitees, None)
     Subject = property(get_Subject, None)
 class AppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarForwardMeetingRequestEventArgs'
     @winrt_mixinmethod
@@ -109,7 +108,7 @@ class AppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class AppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequest'
     @winrt_mixinmethod
@@ -138,7 +137,7 @@ class AppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
     NewStartTime = property(get_NewStartTime, None)
     Subject = property(get_Subject, None)
 class AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs'
     @winrt_mixinmethod
@@ -147,7 +146,7 @@ class AppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class AppointmentCalendarSyncManagerSyncRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequest'
     @winrt_mixinmethod
@@ -158,7 +157,7 @@ class AppointmentCalendarSyncManagerSyncRequest(ComPtr):
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
 class AppointmentCalendarSyncManagerSyncRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarSyncManagerSyncRequestEventArgs'
     @winrt_mixinmethod
@@ -167,7 +166,7 @@ class AppointmentCalendarSyncManagerSyncRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class AppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequest
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequest'
     @winrt_mixinmethod
@@ -196,7 +195,7 @@ class AppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
     SendUpdate = property(get_SendUpdate, None)
     Subject = property(get_Subject, None)
 class AppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentCalendarUpdateMeetingResponseRequestEventArgs'
     @winrt_mixinmethod
@@ -205,7 +204,7 @@ class AppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class AppointmentDataProviderConnection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderConnection
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentDataProviderConnection'
     @winrt_mixinmethod
@@ -241,14 +240,14 @@ class AppointmentDataProviderConnection(ComPtr):
     ProposeNewTimeForMeetingRequested = event()
     UpdateMeetingResponseRequested = event()
 class AppointmentDataProviderTriggerDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.AppointmentDataProviderTriggerDetails'
     @winrt_mixinmethod
     def get_Connection(self: win32more.Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderTriggerDetails) -> win32more.Windows.ApplicationModel.Appointments.DataProvider.AppointmentDataProviderConnection: ...
     Connection = property(get_Connection, None)
 class IAppointmentCalendarCancelMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequest'
     _iid_ = Guid('{49460f8d-6434-40d7-ad46-6297419314d1}')
     @winrt_commethod(6)
@@ -274,7 +273,7 @@ class IAppointmentCalendarCancelMeetingRequest(ComPtr):
     NotifyInvitees = property(get_NotifyInvitees, None)
     Subject = property(get_Subject, None)
 class IAppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCancelMeetingRequestEventArgs'
     _iid_ = Guid('{1a79be16-7f30-4e35-beef-9d2c7b6dcae1}')
     @winrt_commethod(6)
@@ -283,7 +282,7 @@ class IAppointmentCalendarCancelMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IAppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequest'
     _iid_ = Guid('{2e62f2b2-ca96-48ac-9124-406b19fefa70}')
     @winrt_commethod(6)
@@ -303,7 +302,7 @@ class IAppointmentCalendarCreateOrUpdateAppointmentRequest(ComPtr):
     ChangedProperties = property(get_ChangedProperties, None)
     NotifyInvitees = property(get_NotifyInvitees, None)
 class IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs'
     _iid_ = Guid('{cf8ded28-002e-4bf7-8e9d-5e20d49aa3ba}')
     @winrt_commethod(6)
@@ -312,7 +311,7 @@ class IAppointmentCalendarCreateOrUpdateAppointmentRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IAppointmentCalendarForwardMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequest'
     _iid_ = Guid('{82e5ee56-26b6-4253-8a8f-6cf5f2ff7884}')
     @winrt_commethod(6)
@@ -341,7 +340,7 @@ class IAppointmentCalendarForwardMeetingRequest(ComPtr):
     Invitees = property(get_Invitees, None)
     Subject = property(get_Subject, None)
 class IAppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarForwardMeetingRequestEventArgs'
     _iid_ = Guid('{3109151a-23a2-42fd-9c82-c9a60d59f8a8}')
     @winrt_commethod(6)
@@ -350,7 +349,7 @@ class IAppointmentCalendarForwardMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IAppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequest'
     _iid_ = Guid('{ce1c63f5-edf6-43c3-82b7-be6b368c6900}')
     @winrt_commethod(6)
@@ -379,7 +378,7 @@ class IAppointmentCalendarProposeNewTimeForMeetingRequest(ComPtr):
     NewStartTime = property(get_NewStartTime, None)
     Subject = property(get_Subject, None)
 class IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs'
     _iid_ = Guid('{d2d777d8-fed1-4280-a3ba-2e1f47609aa2}')
     @winrt_commethod(6)
@@ -388,7 +387,7 @@ class IAppointmentCalendarProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IAppointmentCalendarSyncManagerSyncRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequest'
     _iid_ = Guid('{12ab382b-7163-4a56-9a4e-7223a84adf46}')
     @winrt_commethod(6)
@@ -399,7 +398,7 @@ class IAppointmentCalendarSyncManagerSyncRequest(ComPtr):
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     AppointmentCalendarLocalId = property(get_AppointmentCalendarLocalId, None)
 class IAppointmentCalendarSyncManagerSyncRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarSyncManagerSyncRequestEventArgs'
     _iid_ = Guid('{ca17c6f7-0284-4edd-87ba-4d8f69dcf5c0}')
     @winrt_commethod(6)
@@ -408,7 +407,7 @@ class IAppointmentCalendarSyncManagerSyncRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IAppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequest'
     _iid_ = Guid('{a36d608c-c29d-4b94-b086-7e9ff7bd84a0}')
     @winrt_commethod(6)
@@ -437,7 +436,7 @@ class IAppointmentCalendarUpdateMeetingResponseRequest(ComPtr):
     SendUpdate = property(get_SendUpdate, None)
     Subject = property(get_Subject, None)
 class IAppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentCalendarUpdateMeetingResponseRequestEventArgs'
     _iid_ = Guid('{88759883-97bf-479d-aed5-0be8ce567d1e}')
     @winrt_commethod(6)
@@ -446,7 +445,7 @@ class IAppointmentCalendarUpdateMeetingResponseRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IAppointmentDataProviderConnection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderConnection'
     _iid_ = Guid('{f3dd9d83-3254-465f-abdb-928046552cf4}')
     @winrt_commethod(6)
@@ -482,7 +481,7 @@ class IAppointmentDataProviderConnection(ComPtr):
     ProposeNewTimeForMeetingRequested = event()
     UpdateMeetingResponseRequested = event()
 class IAppointmentDataProviderTriggerDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Appointments.DataProvider.IAppointmentDataProviderTriggerDetails'
     _iid_ = Guid('{b3283c01-7e12-4e5e-b1ef-74fb68ac6f2a}')
     @winrt_commethod(6)

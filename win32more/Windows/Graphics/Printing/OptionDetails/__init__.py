@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Printing
 import win32more.Windows.Graphics.Printing.OptionDetails
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class IPrintBindingOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintBindingOptionDetails'
     _iid_ = Guid('{c3f4cc98-9564-4f16-a055-a98b9a49e9d3}')
     @winrt_commethod(6)
@@ -22,7 +21,7 @@ class IPrintBindingOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintBorderingOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintBorderingOptionDetails'
     _iid_ = Guid('{4d73bc8f-fb53-4eb2-985f-1d91de0b7639}')
     @winrt_commethod(6)
@@ -36,7 +35,7 @@ class IPrintBorderingOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintCollationOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCollationOptionDetails'
     _iid_ = Guid('{d6abb166-a5a6-40dc-acc3-739f28f1e5d3}')
     @winrt_commethod(6)
@@ -50,7 +49,7 @@ class IPrintCollationOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintColorModeOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintColorModeOptionDetails'
     _iid_ = Guid('{dba97704-f1d6-4843-a484-9b447cdcf3b6}')
     @winrt_commethod(6)
@@ -64,7 +63,7 @@ class IPrintColorModeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintCopiesOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCopiesOptionDetails'
     _iid_ = Guid('{42053099-4339-4343-898d-2c47b5e0c341}')
     @winrt_commethod(6)
@@ -78,7 +77,7 @@ class IPrintCopiesOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintCustomItemDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails'
     _iid_ = Guid('{5704b637-5c3a-449a-aa36-b3291b1192fd}')
     @winrt_commethod(6)
@@ -90,19 +89,19 @@ class IPrintCustomItemDetails(ComPtr):
     ItemDisplayName = property(get_ItemDisplayName, put_ItemDisplayName)
     ItemId = property(get_ItemId, None)
 class IPrintCustomItemListOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails'
     _iid_ = Guid('{a5fafd88-58f2-4ebd-b90f-51e4f2944c5d}')
     @winrt_commethod(6)
     def AddItem(self, itemId: WinRT_String, displayName: WinRT_String) -> Void: ...
 class IPrintCustomItemListOptionDetails2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails2'
     _iid_ = Guid('{c9d6353d-651c-4a39-906e-1091a1801bf1}')
     @winrt_commethod(6)
     def AddItem(self, itemId: WinRT_String, displayName: WinRT_String, description: WinRT_String, icon: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> Void: ...
 class IPrintCustomItemListOptionDetails3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails3'
     _iid_ = Guid('{4fa1b53f-3c34-4868-a407-fc5eab259b21}')
     @winrt_commethod(6)
@@ -116,7 +115,7 @@ class IPrintCustomItemListOptionDetails3(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintCustomOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomOptionDetails'
     _iid_ = Guid('{e32bde1c-28af-4b90-95da-a3acf320b929}')
     @winrt_commethod(6)
@@ -125,7 +124,7 @@ class IPrintCustomOptionDetails(ComPtr):
     def get_DisplayName(self) -> WinRT_String: ...
     DisplayName = property(get_DisplayName, put_DisplayName)
 class IPrintCustomTextOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomTextOptionDetails'
     _iid_ = Guid('{2ad171f8-c8bd-4905-9192-0d75136e8b31}')
     @winrt_commethod(6)
@@ -134,7 +133,7 @@ class IPrintCustomTextOptionDetails(ComPtr):
     def get_MaxCharacters(self) -> UInt32: ...
     MaxCharacters = property(get_MaxCharacters, put_MaxCharacters)
 class IPrintCustomTextOptionDetails2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomTextOptionDetails2'
     _iid_ = Guid('{cea70b54-b977-4718-8338-7ed2b0d86fe3}')
     @winrt_commethod(6)
@@ -148,7 +147,7 @@ class IPrintCustomTextOptionDetails2(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintCustomToggleOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintCustomToggleOptionDetails'
     _iid_ = Guid('{9db4d514-e461-4608-8ee9-db6f5ed073c6}')
     @winrt_commethod(6)
@@ -162,7 +161,7 @@ class IPrintCustomToggleOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintDuplexOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintDuplexOptionDetails'
     _iid_ = Guid('{fcd94591-d4a4-44fa-b3fe-42e0ba28d5ad}')
     @winrt_commethod(6)
@@ -176,7 +175,7 @@ class IPrintDuplexOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintHolePunchOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintHolePunchOptionDetails'
     _iid_ = Guid('{a6de1f18-482c-4657-9d71-8ddddbea1e1e}')
     @winrt_commethod(6)
@@ -190,14 +189,14 @@ class IPrintHolePunchOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintItemListOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails'
     _iid_ = Guid('{9a2257bf-fe61-43d8-a24f-a3f6ab7320e7}')
     @winrt_commethod(6)
-    def get_Items(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     Items = property(get_Items, None)
 class IPrintMediaSizeOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintMediaSizeOptionDetails'
     _iid_ = Guid('{6c8d5bcf-c0bf-47c8-b84a-628e7d0d1a1d}')
     @winrt_commethod(6)
@@ -211,7 +210,7 @@ class IPrintMediaSizeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintMediaTypeOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintMediaTypeOptionDetails'
     _iid_ = Guid('{f8c7000b-abf3-4abc-8e86-22abc5744a43}')
     @winrt_commethod(6)
@@ -225,7 +224,7 @@ class IPrintMediaTypeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintNumberOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintNumberOptionDetails'
     _iid_ = Guid('{4d01bbaf-645c-4de9-965f-6fc6bbc47cab}')
     @winrt_commethod(6)
@@ -235,7 +234,7 @@ class IPrintNumberOptionDetails(ComPtr):
     MaxValue = property(get_MaxValue, None)
     MinValue = property(get_MinValue, None)
 class IPrintOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails'
     _iid_ = Guid('{390686cf-d682-495f-adfe-d7333f5c1808}')
     @winrt_commethod(6)
@@ -251,16 +250,16 @@ class IPrintOptionDetails(ComPtr):
     @winrt_commethod(11)
     def get_State(self) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_commethod(12)
-    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self) -> IInspectable: ...
     @winrt_commethod(13)
-    def TrySetValue(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self, value: IInspectable) -> Boolean: ...
     ErrorText = property(get_ErrorText, put_ErrorText)
     OptionId = property(get_OptionId, None)
     OptionType = property(get_OptionType, None)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
 class IPrintOrientationOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintOrientationOptionDetails'
     _iid_ = Guid('{46c38879-66e0-4da0-87b4-d25457824eb7}')
     @winrt_commethod(6)
@@ -274,7 +273,7 @@ class IPrintOrientationOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintPageRangeOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintPageRangeOptionDetails'
     _iid_ = Guid('{5a19e4b7-2be8-4aa7-9ea5-defbe8713b4e}')
     @winrt_commethod(6)
@@ -288,7 +287,7 @@ class IPrintPageRangeOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintQualityOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintQualityOptionDetails'
     _iid_ = Guid('{2dd06ba1-ce1a-44e6-84f9-3a92ea1e3044}')
     @winrt_commethod(6)
@@ -302,7 +301,7 @@ class IPrintQualityOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintStapleOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintStapleOptionDetails'
     _iid_ = Guid('{d43175bd-9c0b-44e0-84f6-ceebce653800}')
     @winrt_commethod(6)
@@ -316,14 +315,14 @@ class IPrintStapleOptionDetails(ComPtr):
     Description = property(get_Description, put_Description)
     WarningText = property(get_WarningText, put_WarningText)
 class IPrintTaskOptionChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs'
     _iid_ = Guid('{65197d05-a5ee-4307-9407-9acad147679c}')
     @winrt_commethod(6)
-    def get_OptionId(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_OptionId(self) -> IInspectable: ...
     OptionId = property(get_OptionId, None)
 class IPrintTaskOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails'
     _iid_ = Guid('{f5720af1-a89e-42a6-81af-f8e010b38a68}')
     @winrt_commethod(6)
@@ -337,33 +336,33 @@ class IPrintTaskOptionDetails(ComPtr):
     @winrt_commethod(10)
     def remove_OptionChanged(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_BeginValidation(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BeginValidation(self, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_BeginValidation(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Options = property(get_Options, None)
     OptionChanged = event()
     BeginValidation = event()
 class IPrintTaskOptionDetails2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails2'
     _iid_ = Guid('{53730a09-f968-4692-a177-c074597186db}')
     @winrt_commethod(6)
     def CreateToggleOption(self, optionId: WinRT_String, displayName: WinRT_String) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails: ...
 class IPrintTaskOptionDetailsStatic(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetailsStatic'
     _iid_ = Guid('{135da193-0961-4b6e-8766-f13b7fbccd58}')
     @winrt_commethod(6)
     def GetFromPrintTaskOptions(self, printTaskOptions: win32more.Windows.Graphics.Printing.PrintTaskOptions) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails: ...
 class IPrintTextOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.IPrintTextOptionDetails'
     _iid_ = Guid('{ad75e563-5ce4-46bc-9918-ab9fad144c5b}')
     @winrt_commethod(6)
     def get_MaxCharacters(self) -> UInt32: ...
     MaxCharacters = property(get_MaxCharacters, None)
 class PrintBindingOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintBindingOptionDetails'
     @winrt_mixinmethod
@@ -379,11 +378,11 @@ class PrintBindingOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintBindingOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -401,7 +400,7 @@ class PrintBindingOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintBorderingOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintBorderingOptionDetails'
     @winrt_mixinmethod
@@ -417,11 +416,11 @@ class PrintBorderingOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintBorderingOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -439,7 +438,7 @@ class PrintBorderingOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintCollationOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCollationOptionDetails'
     @winrt_mixinmethod
@@ -455,11 +454,11 @@ class PrintCollationOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCollationOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -477,7 +476,7 @@ class PrintCollationOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintColorModeOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintColorModeOptionDetails'
     @winrt_mixinmethod
@@ -493,11 +492,11 @@ class PrintColorModeOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintColorModeOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -515,7 +514,7 @@ class PrintColorModeOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintCopiesOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCopiesOptionDetails'
     @winrt_mixinmethod
@@ -531,9 +530,9 @@ class PrintCopiesOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
     def get_MinValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintNumberOptionDetails) -> UInt32: ...
     @winrt_mixinmethod
@@ -556,7 +555,7 @@ class PrintCopiesOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintCustomItemDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCustomItemDetails'
     @winrt_mixinmethod
@@ -568,7 +567,7 @@ class PrintCustomItemDetails(ComPtr):
     ItemDisplayName = property(get_ItemDisplayName, put_ItemDisplayName)
     ItemId = property(get_ItemId, None)
 class PrintCustomItemListOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails'
     @winrt_mixinmethod
@@ -584,15 +583,15 @@ class PrintCustomItemListOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
     def put_DisplayName(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def get_DisplayName(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomOptionDetails) -> WinRT_String: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_overload
     @winrt_mixinmethod
     def AddItem(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomItemListOptionDetails, itemId: WinRT_String, displayName: WinRT_String) -> Void: ...
@@ -617,7 +616,7 @@ class PrintCustomItemListOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintCustomTextOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCustomTextOptionDetails'
     @winrt_mixinmethod
@@ -633,9 +632,9 @@ class PrintCustomTextOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
     def put_DisplayName(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -662,7 +661,7 @@ class PrintCustomTextOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintCustomToggleOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails'
     @winrt_mixinmethod
@@ -678,9 +677,9 @@ class PrintCustomToggleOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
     def put_DisplayName(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintCustomOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -702,7 +701,7 @@ class PrintCustomToggleOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintDuplexOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintDuplexOptionDetails'
     @winrt_mixinmethod
@@ -718,11 +717,11 @@ class PrintDuplexOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintDuplexOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -740,7 +739,7 @@ class PrintDuplexOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintHolePunchOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintHolePunchOptionDetails'
     @winrt_mixinmethod
@@ -756,11 +755,11 @@ class PrintHolePunchOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintHolePunchOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -778,7 +777,7 @@ class PrintHolePunchOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintMediaSizeOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintMediaSizeOptionDetails'
     @winrt_mixinmethod
@@ -794,11 +793,11 @@ class PrintMediaSizeOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintMediaSizeOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -816,7 +815,7 @@ class PrintMediaSizeOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintMediaTypeOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintMediaTypeOptionDetails'
     @winrt_mixinmethod
@@ -832,11 +831,11 @@ class PrintMediaTypeOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintMediaTypeOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -864,7 +863,7 @@ class PrintOptionType(Enum, Int32):
     ItemList = 3
     Toggle = 4
 class PrintOrientationOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintOrientationOptionDetails'
     @winrt_mixinmethod
@@ -880,11 +879,11 @@ class PrintOrientationOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOrientationOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -902,7 +901,7 @@ class PrintOrientationOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintPageRangeOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintPageRangeOptionDetails'
     @winrt_mixinmethod
@@ -918,9 +917,9 @@ class PrintPageRangeOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintPageRangeOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -937,7 +936,7 @@ class PrintPageRangeOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintQualityOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintQualityOptionDetails'
     @winrt_mixinmethod
@@ -953,11 +952,11 @@ class PrintQualityOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintQualityOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -975,7 +974,7 @@ class PrintQualityOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintStapleOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintStapleOptionDetails'
     @winrt_mixinmethod
@@ -991,11 +990,11 @@ class PrintStapleOptionDetails(ComPtr):
     @winrt_mixinmethod
     def get_State(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Graphics.Printing.OptionDetails.PrintOptionStates: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails) -> IInspectable: ...
     @winrt_mixinmethod
-    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def TrySetValue(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintOptionDetails, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Items(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintItemListOptionDetails) -> win32more.Windows.Foundation.Collections.IVectorView[IInspectable]: ...
     @winrt_mixinmethod
     def put_WarningText(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintStapleOptionDetails, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -1013,14 +1012,14 @@ class PrintStapleOptionDetails(ComPtr):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
 class PrintTaskOptionChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintTaskOptionChangedEventArgs'
     @winrt_mixinmethod
-    def get_OptionId(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_OptionId(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs) -> IInspectable: ...
     OptionId = property(get_OptionId, None)
 class PrintTaskOptionDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails
     _classid_ = 'Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails'
     @winrt_mixinmethod
@@ -1034,7 +1033,7 @@ class PrintTaskOptionDetails(ComPtr):
     @winrt_mixinmethod
     def remove_OptionChanged(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_BeginValidation(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BeginValidation(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails, eventHandler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_BeginValidation(self: win32more.Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetails, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod

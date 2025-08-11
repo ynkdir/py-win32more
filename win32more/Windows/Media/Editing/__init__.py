@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.DirectX.Direct3D11
@@ -12,9 +12,8 @@ import win32more.Windows.Media.MediaProperties
 import win32more.Windows.Media.Transcoding
 import win32more.Windows.Storage
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class BackgroundAudioTrack(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Editing.IBackgroundAudioTrack
     _classid_ = 'Windows.Media.Editing.BackgroundAudioTrack'
     @winrt_mixinmethod
@@ -58,13 +57,13 @@ class BackgroundAudioTrack(ComPtr):
     UserData = property(get_UserData, None)
     Volume = property(get_Volume, put_Volume)
 class EmbeddedAudioTrack(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Editing.IEmbeddedAudioTrack
     _classid_ = 'Windows.Media.Editing.EmbeddedAudioTrack'
     @winrt_mixinmethod
     def GetAudioEncodingProperties(self: win32more.Windows.Media.Editing.IEmbeddedAudioTrack) -> win32more.Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IBackgroundAudioTrack(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IBackgroundAudioTrack'
     _iid_ = Guid('{4b91b3bd-9e21-4266-a9c2-67dd011a2357}')
     @winrt_commethod(6)
@@ -104,7 +103,7 @@ class IBackgroundAudioTrack(ComPtr):
     UserData = property(get_UserData, None)
     Volume = property(get_Volume, put_Volume)
 class IBackgroundAudioTrackStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IBackgroundAudioTrackStatics'
     _iid_ = Guid('{d9b1c0d7-d018-42a8-a559-cb4d9e97e664}')
     @winrt_commethod(6)
@@ -112,13 +111,13 @@ class IBackgroundAudioTrackStatics(ComPtr):
     @winrt_commethod(7)
     def CreateFromFileAsync(self, file: win32more.Windows.Storage.IStorageFile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Editing.BackgroundAudioTrack]: ...
 class IEmbeddedAudioTrack(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IEmbeddedAudioTrack'
     _iid_ = Guid('{55ee5a7a-2d30-3fba-a190-4f1a6454f88f}')
     @winrt_commethod(6)
     def GetAudioEncodingProperties(self) -> win32more.Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IMediaClip(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaClip'
     _iid_ = Guid('{53f25366-5fba-3ea4-8693-24761811140a}')
     @winrt_commethod(6)
@@ -170,7 +169,7 @@ class IMediaClip(ComPtr):
     VideoEffectDefinitions = property(get_VideoEffectDefinitions, None)
     Volume = property(get_Volume, put_Volume)
 class IMediaClipStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaClipStatics'
     _iid_ = Guid('{fa402b68-928f-43c4-bc6e-783a1a359656}')
     @winrt_commethod(6)
@@ -180,13 +179,13 @@ class IMediaClipStatics(ComPtr):
     @winrt_commethod(8)
     def CreateFromImageFileAsync(self, file: win32more.Windows.Storage.IStorageFile, originalDuration: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Editing.MediaClip]: ...
 class IMediaClipStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaClipStatics2'
     _iid_ = Guid('{5b1dd7b3-854e-4d9b-877d-4774a556cd12}')
     @winrt_commethod(6)
     def CreateFromSurface(self, surface: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface, originalDuration: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.Media.Editing.MediaClip: ...
 class IMediaComposition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaComposition'
     _iid_ = Guid('{2e06e605-dc71-41d6-b837-2d2bc14a2947}')
     @winrt_commethod(6)
@@ -224,20 +223,20 @@ class IMediaComposition(ComPtr):
     Duration = property(get_Duration, None)
     UserData = property(get_UserData, None)
 class IMediaComposition2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaComposition2'
     _iid_ = Guid('{a59e5372-2366-492c-bec8-e6dfba6d0281}')
     @winrt_commethod(6)
     def get_OverlayLayers(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Media.Editing.MediaOverlayLayer]: ...
     OverlayLayers = property(get_OverlayLayers, None)
 class IMediaCompositionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaCompositionStatics'
     _iid_ = Guid('{87a08f04-e32a-45ce-8f66-a30df0766224}')
     @winrt_commethod(6)
     def LoadAsync(self, file: win32more.Windows.Storage.StorageFile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Editing.MediaComposition]: ...
 class IMediaOverlay(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaOverlay'
     _iid_ = Guid('{a902ae5d-7869-4830-8ab1-94dc01c05fa4}')
     @winrt_commethod(6)
@@ -266,7 +265,7 @@ class IMediaOverlay(ComPtr):
     Opacity = property(get_Opacity, put_Opacity)
     Position = property(get_Position, put_Position)
 class IMediaOverlayFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaOverlayFactory'
     _iid_ = Guid('{b584828a-6188-4f8f-a2e0-aa552d598e18}')
     @winrt_commethod(6)
@@ -274,7 +273,7 @@ class IMediaOverlayFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithPositionAndOpacity(self, clip: win32more.Windows.Media.Editing.MediaClip, position: win32more.Windows.Foundation.Rect, opacity: Double) -> win32more.Windows.Media.Editing.MediaOverlay: ...
 class IMediaOverlayLayer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaOverlayLayer'
     _iid_ = Guid('{a6d9ba57-eeda-46c6-bbe5-e398c84168ac}')
     @winrt_commethod(6)
@@ -286,13 +285,13 @@ class IMediaOverlayLayer(ComPtr):
     CustomCompositorDefinition = property(get_CustomCompositorDefinition, None)
     Overlays = property(get_Overlays, None)
 class IMediaOverlayLayerFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Editing.IMediaOverlayLayerFactory'
     _iid_ = Guid('{947cb473-a39e-4362-abbf-9f8b5070a062}')
     @winrt_commethod(6)
     def CreateWithCompositorDefinition(self, compositorDefinition: win32more.Windows.Media.Effects.IVideoCompositorDefinition) -> win32more.Windows.Media.Editing.MediaOverlayLayer: ...
 class MediaClip(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Editing.IMediaClip
     _classid_ = 'Windows.Media.Editing.MediaClip'
     @winrt_mixinmethod
@@ -352,7 +351,7 @@ class MediaClip(ComPtr):
     VideoEffectDefinitions = property(get_VideoEffectDefinitions, None)
     Volume = property(get_Volume, put_Volume)
 class MediaComposition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Editing.IMediaComposition
     _classid_ = 'Windows.Media.Editing.MediaComposition'
     def __init__(self, *args, **kwargs):
@@ -404,7 +403,7 @@ class MediaComposition(ComPtr):
     OverlayLayers = property(get_OverlayLayers, None)
     UserData = property(get_UserData, None)
 class MediaOverlay(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Editing.IMediaOverlay
     _classid_ = 'Windows.Media.Editing.MediaOverlay'
     def __init__(self, *args, **kwargs):
@@ -446,7 +445,7 @@ class MediaOverlay(ComPtr):
     Opacity = property(get_Opacity, put_Opacity)
     Position = property(get_Position, put_Position)
 class MediaOverlayLayer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Editing.IMediaOverlayLayer
     _classid_ = 'Windows.Media.Editing.MediaOverlayLayer'
     def __init__(self, *args, **kwargs):

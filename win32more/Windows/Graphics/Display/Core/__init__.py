@@ -1,10 +1,9 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Display.Core
-import win32more.Windows.Win32.System.WinRT
 class HdmiDisplayColorSpace(Enum, Int32):
     RgbLimited = 0
     RgbFull = 1
@@ -29,7 +28,7 @@ class HdmiDisplayHdrOption(Enum, Int32):
     Eotf2084 = 2
     DolbyVisionLowLatency = 3
 class HdmiDisplayInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation
     _classid_ = 'Windows.Graphics.Display.Core.HdmiDisplayInformation'
     @winrt_mixinmethod
@@ -45,14 +44,14 @@ class HdmiDisplayInformation(ComPtr):
     @winrt_mixinmethod
     def RequestSetCurrentDisplayModeWithHdrAndMetadataAsync(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation, mode: win32more.Windows.Graphics.Display.Core.HdmiDisplayMode, hdrOption: win32more.Windows.Graphics.Display.Core.HdmiDisplayHdrOption, hdrMetadata: win32more.Windows.Graphics.Display.Core.HdmiDisplayHdr2086Metadata) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
-    def add_DisplayModesChanged(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DisplayModesChanged(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DisplayModesChanged(self: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformation, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: win32more.Windows.Graphics.Display.Core.IHdmiDisplayInformationStatics) -> win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation: ...
     DisplayModesChanged = event()
 class HdmiDisplayMode(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Display.Core.IHdmiDisplayMode
     _classid_ = 'Windows.Graphics.Display.Core.HdmiDisplayMode'
     @winrt_mixinmethod
@@ -96,7 +95,7 @@ class HdmiDisplayPixelEncoding(Enum, Int32):
     Ycc422 = 2
     Ycc420 = 3
 class IHdmiDisplayInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayInformation'
     _iid_ = Guid('{130b3c0a-f565-476e-abd5-ea05aee74c69}')
     @winrt_commethod(6)
@@ -112,18 +111,18 @@ class IHdmiDisplayInformation(ComPtr):
     @winrt_commethod(11)
     def RequestSetCurrentDisplayModeWithHdrAndMetadataAsync(self, mode: win32more.Windows.Graphics.Display.Core.HdmiDisplayMode, hdrOption: win32more.Windows.Graphics.Display.Core.HdmiDisplayHdrOption, hdrMetadata: win32more.Windows.Graphics.Display.Core.HdmiDisplayHdr2086Metadata) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(12)
-    def add_DisplayModesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DisplayModesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_DisplayModesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DisplayModesChanged = event()
 class IHdmiDisplayInformationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayInformationStatics'
     _iid_ = Guid('{6ce6b260-f42a-4a15-914c-7b8e2a5a65df}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> win32more.Windows.Graphics.Display.Core.HdmiDisplayInformation: ...
 class IHdmiDisplayMode(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayMode'
     _iid_ = Guid('{0c06d5ad-1b90-4f51-9981-ef5a1c0ddf66}')
     @winrt_commethod(6)
@@ -159,7 +158,7 @@ class IHdmiDisplayMode(ComPtr):
     ResolutionWidthInRawPixels = property(get_ResolutionWidthInRawPixels, None)
     StereoEnabled = property(get_StereoEnabled, None)
 class IHdmiDisplayMode2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Display.Core.IHdmiDisplayMode2'
     _iid_ = Guid('{07cd4e9f-4b3c-42b8-84e7-895368718af2}')
     @winrt_commethod(6)

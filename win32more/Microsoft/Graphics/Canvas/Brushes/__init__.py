@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.Canvas
 import win32more.Microsoft.Graphics.Canvas.Brushes
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class CanvasGradientStop(Structure):
     Position: Single
     Color: win32more.Windows.UI.Color
@@ -14,7 +13,7 @@ class CanvasGradientStopHdr(Structure):
     Position: Single
     Color: win32more.Windows.Foundation.Numerics.Vector4
 class CanvasImageBrush(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Brushes.ICanvasImageBrush
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.CanvasImageBrush'
@@ -72,7 +71,7 @@ class CanvasImageBrush(ComPtr):
     SourceRectangle = property(get_SourceRectangle, put_SourceRectangle)
     Transform = property(get_Transform, put_Transform)
 class CanvasLinearGradientBrush(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Brushes.ICanvasLinearGradientBrush
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.CanvasLinearGradientBrush'
@@ -154,7 +153,7 @@ class CanvasLinearGradientBrush(ComPtr):
     StopsHdr = property(get_StopsHdr, None)
     Transform = property(get_Transform, put_Transform)
 class CanvasRadialGradientBrush(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Brushes.ICanvasRadialGradientBrush
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.CanvasRadialGradientBrush'
@@ -246,7 +245,7 @@ class CanvasRadialGradientBrush(ComPtr):
     StopsHdr = property(get_StopsHdr, None)
     Transform = property(get_Transform, put_Transform)
 class CanvasSolidColorBrush(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Brushes.ICanvasSolidColorBrush
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.CanvasSolidColorBrush'
@@ -287,7 +286,7 @@ class CanvasSolidColorBrush(ComPtr):
     Opacity = property(get_Opacity, put_Opacity)
     Transform = property(get_Transform, put_Transform)
 class ICanvasBrush(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasBrush'
     _iid_ = Guid('{f5d58591-c803-41b4-878e-79d92ab13295}')
@@ -305,7 +304,7 @@ class ICanvasBrush(ComPtr):
     Opacity = property(get_Opacity, put_Opacity)
     Transform = property(get_Transform, put_Transform)
 class ICanvasImageBrush(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasImageBrush'
     _iid_ = Guid('{5a21c4e7-d450-4942-8bbd-f017097ab763}')
@@ -335,7 +334,7 @@ class ICanvasImageBrush(ComPtr):
     Interpolation = property(get_Interpolation, put_Interpolation)
     SourceRectangle = property(get_SourceRectangle, put_SourceRectangle)
 class ICanvasImageBrushFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasImageBrushFactory'
     _iid_ = Guid('{c40ccb59-1b87-4394-a6a6-ecd278e877d6}')
     @winrt_commethod(6)
@@ -343,7 +342,7 @@ class ICanvasImageBrushFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithImage(self, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator, image: win32more.Microsoft.Graphics.Canvas.ICanvasImage) -> win32more.Microsoft.Graphics.Canvas.Brushes.CanvasImageBrush: ...
 class ICanvasLinearGradientBrush(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasLinearGradientBrush'
     _iid_ = Guid('{a4ffbcb1-ec22-48c8-b1af-09bcfd34eebd}')
@@ -379,7 +378,7 @@ class ICanvasLinearGradientBrush(ComPtr):
     Stops = property(get_Stops, None)
     StopsHdr = property(get_StopsHdr, None)
 class ICanvasLinearGradientBrushFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasLinearGradientBrushFactory'
     _iid_ = Guid('{a2e8e34a-8592-4b9d-ba1c-00d3f3c34f54}')
     @winrt_commethod(6)
@@ -391,7 +390,7 @@ class ICanvasLinearGradientBrushFactory(ComPtr):
     @winrt_commethod(9)
     def CreateWithEdgeBehaviorAndInterpolationOptions(self, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator, gradientStops: PassArray[win32more.Microsoft.Graphics.Canvas.Brushes.CanvasGradientStop], edgeBehavior: win32more.Microsoft.Graphics.Canvas.CanvasEdgeBehavior, alphaMode: win32more.Microsoft.Graphics.Canvas.CanvasAlphaMode, preInterpolationSpace: win32more.Microsoft.Graphics.Canvas.CanvasColorSpace, postInterpolationSpace: win32more.Microsoft.Graphics.Canvas.CanvasColorSpace, bufferPrecision: win32more.Microsoft.Graphics.Canvas.CanvasBufferPrecision) -> win32more.Microsoft.Graphics.Canvas.Brushes.CanvasLinearGradientBrush: ...
 class ICanvasLinearGradientBrushStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasLinearGradientBrushStatics'
     _iid_ = Guid('{e9de3392-8fbf-478c-8e6a-d0a0ea753b37}')
     @winrt_commethod(6)
@@ -405,7 +404,7 @@ class ICanvasLinearGradientBrushStatics(ComPtr):
     @winrt_commethod(10)
     def CreateRainbow(self, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator, eldritchness: Single) -> win32more.Microsoft.Graphics.Canvas.Brushes.CanvasLinearGradientBrush: ...
 class ICanvasRadialGradientBrush(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasRadialGradientBrush'
     _iid_ = Guid('{4d27d756-14a9-4eb7-973f-e6614d4f89e7}')
@@ -451,7 +450,7 @@ class ICanvasRadialGradientBrush(ComPtr):
     Stops = property(get_Stops, None)
     StopsHdr = property(get_StopsHdr, None)
 class ICanvasRadialGradientBrushFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasRadialGradientBrushFactory'
     _iid_ = Guid('{7933a51f-a910-4548-849f-42ddec466f41}')
     @winrt_commethod(6)
@@ -463,7 +462,7 @@ class ICanvasRadialGradientBrushFactory(ComPtr):
     @winrt_commethod(9)
     def CreateWithEdgeBehaviorAndInterpolationOptions(self, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator, gradientStops: PassArray[win32more.Microsoft.Graphics.Canvas.Brushes.CanvasGradientStop], edgeBehavior: win32more.Microsoft.Graphics.Canvas.CanvasEdgeBehavior, alphaMode: win32more.Microsoft.Graphics.Canvas.CanvasAlphaMode, preInterpolationSpace: win32more.Microsoft.Graphics.Canvas.CanvasColorSpace, postInterpolationSpace: win32more.Microsoft.Graphics.Canvas.CanvasColorSpace, bufferPrecision: win32more.Microsoft.Graphics.Canvas.CanvasBufferPrecision) -> win32more.Microsoft.Graphics.Canvas.Brushes.CanvasRadialGradientBrush: ...
 class ICanvasRadialGradientBrushStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasRadialGradientBrushStatics'
     _iid_ = Guid('{3b0d4dae-3e21-4818-99b4-779acaaf18be}')
     @winrt_commethod(6)
@@ -477,7 +476,7 @@ class ICanvasRadialGradientBrushStatics(ComPtr):
     @winrt_commethod(10)
     def CreateRainbow(self, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator, eldritchness: Single) -> win32more.Microsoft.Graphics.Canvas.Brushes.CanvasRadialGradientBrush: ...
 class ICanvasSolidColorBrush(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasSolidColorBrush'
     _iid_ = Guid('{8bc30f87-bad5-4871-88b8-9fe3c63d204a}')
@@ -492,13 +491,13 @@ class ICanvasSolidColorBrush(ComPtr):
     Color = property(get_Color, put_Color)
     ColorHdr = property(get_ColorHdr, put_ColorHdr)
 class ICanvasSolidColorBrushFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasSolidColorBrushFactory'
     _iid_ = Guid('{8abf4780-4edd-4f2b-bf63-2c385115b201}')
     @winrt_commethod(6)
     def Create(self, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator, color: win32more.Windows.UI.Color) -> win32more.Microsoft.Graphics.Canvas.Brushes.CanvasSolidColorBrush: ...
 class ICanvasSolidColorBrushStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Brushes.ICanvasSolidColorBrushStatics'
     _iid_ = Guid('{629b7244-5b9e-4ef8-8e09-264714201ee8}')
     @winrt_commethod(6)

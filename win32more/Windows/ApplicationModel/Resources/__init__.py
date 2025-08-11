@@ -1,36 +1,35 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Resources
 import win32more.Windows.Foundation
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class IResourceLoader(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoader'
     _iid_ = Guid('{08524908-16ef-45ad-a602-293637d7e61a}')
     @winrt_commethod(6)
     def GetString(self, resource: WinRT_String) -> WinRT_String: ...
 class IResourceLoader2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoader2'
     _iid_ = Guid('{10eb6ec6-8138-48c1-bc65-e1f14207367c}')
     @winrt_commethod(6)
     def GetStringForUri(self, uri: win32more.Windows.Foundation.Uri) -> WinRT_String: ...
 class IResourceLoaderFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderFactory'
     _iid_ = Guid('{c33a3603-69dc-4285-a077-d5c0e47ccbe8}')
     @winrt_commethod(6)
     def CreateResourceLoaderByName(self, name: WinRT_String) -> win32more.Windows.ApplicationModel.Resources.ResourceLoader: ...
 class IResourceLoaderStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderStatics'
     _iid_ = Guid('{bf777ce1-19c8-49c2-953c-47e9227b334e}')
     @winrt_commethod(6)
     def GetStringForReference(self, uri: win32more.Windows.Foundation.Uri) -> WinRT_String: ...
 class IResourceLoaderStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderStatics2'
     _iid_ = Guid('{0cc04141-6466-4989-9494-0b82dfc53f1f}')
     @winrt_commethod(6)
@@ -42,19 +41,19 @@ class IResourceLoaderStatics2(ComPtr):
     @winrt_commethod(9)
     def GetForViewIndependentUseWithName(self, name: WinRT_String) -> win32more.Windows.ApplicationModel.Resources.ResourceLoader: ...
 class IResourceLoaderStatics3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderStatics3'
     _iid_ = Guid('{64609dfb-64ac-491b-8100-0e558d61c1d0}')
     @winrt_commethod(6)
     def GetForUIContext(self, context: win32more.Windows.UI.UIContext) -> win32more.Windows.ApplicationModel.Resources.ResourceLoader: ...
 class IResourceLoaderStatics4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Resources.IResourceLoaderStatics4'
     _iid_ = Guid('{9fb36c32-6c8c-4316-962e-909539b5c259}')
     @winrt_commethod(6)
     def GetDefaultPriPath(self, packageFullName: WinRT_String) -> WinRT_String: ...
 class ResourceLoader(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Resources.IResourceLoader
     _classid_ = 'Windows.ApplicationModel.Resources.ResourceLoader'
     def __init__(self, *args, **kwargs):

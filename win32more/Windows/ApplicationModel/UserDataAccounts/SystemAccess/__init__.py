@@ -1,17 +1,16 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.UserDataAccounts.SystemAccess
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Credentials
-import win32more.Windows.Win32.System.WinRT
 class DeviceAccountAuthenticationType(Enum, Int32):
     Basic = 0
     OAuth = 1
     SingleSignOn = 2
 class DeviceAccountConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.SystemAccess.IDeviceAccountConfiguration
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration'
     def __init__(self, *args, **kwargs):
@@ -270,7 +269,7 @@ class DeviceAccountSyncScheduleKind(Enum, Int32):
     Daily = 5
     AsItemsArrive = 6
 class IDeviceAccountConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.IDeviceAccountConfiguration'
     _iid_ = Guid('{ad0123a3-fbdc-4d1b-be43-5a27ea4a1b63}')
     @winrt_commethod(6)
@@ -354,7 +353,7 @@ class IDeviceAccountConfiguration(ComPtr):
     OutgoingServerUsername = property(get_OutgoingServerUsername, put_OutgoingServerUsername)
     ServerType = property(get_ServerType, put_ServerType)
 class IDeviceAccountConfiguration2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.IDeviceAccountConfiguration2'
     _iid_ = Guid('{f2b2e5a6-728d-4a4a-8945-2bf8580136de}')
     @winrt_commethod(6)
@@ -499,13 +498,13 @@ class IDeviceAccountConfiguration2(ComPtr):
     WasModifiedByUser = property(get_WasModifiedByUser, put_WasModifiedByUser)
     WasOutgoingServerCertificateHashConfirmed = property(get_WasOutgoingServerCertificateHashConfirmed, put_WasOutgoingServerCertificateHashConfirmed)
 class IUserDataAccountSystemAccessManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics'
     _iid_ = Guid('{9d6b11b9-cbe5-45f5-822b-c267b81dbdb6}')
     @winrt_commethod(6)
     def AddAndShowDeviceAccountsAsync(self, accounts: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
 class IUserDataAccountSystemAccessManagerStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics2'
     _iid_ = Guid('{943f854d-4b4e-439f-83d3-979b27c05ac7}')
     @winrt_commethod(6)
@@ -517,7 +516,7 @@ class IUserDataAccountSystemAccessManagerStatics2(ComPtr):
     @winrt_commethod(9)
     def GetDeviceAccountConfigurationAsync(self, accountId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration]: ...
 class UserDataAccountSystemAccessManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager'
     @winrt_classmethod
     def SuppressLocalAccountWithAccountAsync(cls: win32more.Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics2, userDataAccountId: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...

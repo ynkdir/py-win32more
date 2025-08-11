@@ -1,11 +1,10 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Security.ExchangeActiveSyncProvisioning
-import win32more.Windows.Win32.System.WinRT
 class EasClientDeviceInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasClientDeviceInformation
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation'
     def __init__(self, *args, **kwargs):
@@ -42,7 +41,7 @@ class EasClientDeviceInformation(ComPtr):
     SystemProductName = property(get_SystemProductName, None)
     SystemSku = property(get_SystemSku, None)
 class EasClientSecurityPolicy(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasClientSecurityPolicy
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasClientSecurityPolicy'
     def __init__(self, *args, **kwargs):
@@ -99,7 +98,7 @@ class EasClientSecurityPolicy(ComPtr):
     PasswordHistory = property(get_PasswordHistory, put_PasswordHistory)
     RequireEncryption = property(get_RequireEncryption, put_RequireEncryption)
 class EasComplianceResults(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasComplianceResults'
     @winrt_mixinmethod
@@ -223,7 +222,7 @@ class EasRequireEncryptionResult(Enum, Int32):
     OsNotProtected = 11
     UnexpectedFailure = 12
 class IEasClientDeviceInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasClientDeviceInformation'
     _iid_ = Guid('{54dfd981-1968-4ca3-b958-e595d16505eb}')
     @winrt_commethod(6)
@@ -245,7 +244,7 @@ class IEasClientDeviceInformation(ComPtr):
     SystemProductName = property(get_SystemProductName, None)
     SystemSku = property(get_SystemSku, None)
 class IEasClientDeviceInformation2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasClientDeviceInformation2'
     _iid_ = Guid('{ffb35923-bb26-4d6a-81bc-165aee0ad754}')
     @winrt_commethod(6)
@@ -255,7 +254,7 @@ class IEasClientDeviceInformation2(ComPtr):
     SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
     SystemHardwareVersion = property(get_SystemHardwareVersion, None)
 class IEasClientSecurityPolicy(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasClientSecurityPolicy'
     _iid_ = Guid('{45b72362-dfba-4a9b-aced-6fe2adcb6420}')
     @winrt_commethod(6)
@@ -303,7 +302,7 @@ class IEasClientSecurityPolicy(ComPtr):
     PasswordHistory = property(get_PasswordHistory, put_PasswordHistory)
     RequireEncryption = property(get_RequireEncryption, put_RequireEncryption)
 class IEasComplianceResults(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults'
     _iid_ = Guid('{463c299c-7f19-4c66-b403-cb45dd57a2b3}')
     @winrt_commethod(6)
@@ -334,7 +333,7 @@ class IEasComplianceResults(ComPtr):
     PasswordHistoryResult = property(get_PasswordHistoryResult, None)
     RequireEncryptionResult = property(get_RequireEncryptionResult, None)
 class IEasComplianceResults2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults2'
     _iid_ = Guid('{2fbe60c9-1aa8-47f5-88bb-cb3ef0bffb15}')
     @winrt_commethod(6)

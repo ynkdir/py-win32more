@@ -1,9 +1,8 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.UI.Xaml
 import win32more.Windows.UI.Xaml.Media.Media3D
-import win32more.Windows.Win32.System.WinRT
 class _CompositeTransform3D_Meta_(ComPtr.__class__):
     pass
 class CompositeTransform3D(ComPtr, metaclass=_CompositeTransform3D_Meta_):
@@ -116,7 +115,7 @@ class CompositeTransform3D(ComPtr, metaclass=_CompositeTransform3D_Meta_):
     _CompositeTransform3D_Meta_.TranslateYProperty = property(get_TranslateYProperty, None)
     _CompositeTransform3D_Meta_.TranslateZProperty = property(get_TranslateZProperty, None)
 class ICompositeTransform3D(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.ICompositeTransform3D'
     _iid_ = Guid('{8977cb01-af8d-4af5-b084-c08eb9704abe}')
     @winrt_commethod(6)
@@ -180,7 +179,7 @@ class ICompositeTransform3D(ComPtr):
     TranslateY = property(get_TranslateY, put_TranslateY)
     TranslateZ = property(get_TranslateZ, put_TranslateZ)
 class ICompositeTransform3DStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.ICompositeTransform3DStatics'
     _iid_ = Guid('{ddbf4d67-2a25-48f3-9808-c51ec3d55bec}')
     @winrt_commethod(6)
@@ -220,11 +219,11 @@ class ICompositeTransform3DStatics(ComPtr):
     TranslateYProperty = property(get_TranslateYProperty, None)
     TranslateZProperty = property(get_TranslateZProperty, None)
 class IMatrix3DHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.IMatrix3DHelper'
     _iid_ = Guid('{e48c10ef-9927-4c9b-8213-07775512ba04}')
 class IMatrix3DHelperStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.IMatrix3DHelperStatics'
     _iid_ = Guid('{9264545e-e158-4e74-8899-689160bd2f8c}')
     @winrt_commethod(6)
@@ -241,7 +240,7 @@ class IMatrix3DHelperStatics(ComPtr):
     def Invert(self, target: win32more.Windows.UI.Xaml.Media.Media3D.Matrix3D) -> win32more.Windows.UI.Xaml.Media.Media3D.Matrix3D: ...
     Identity = property(get_Identity, None)
 class IPerspectiveTransform3D(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.IPerspectiveTransform3D'
     _iid_ = Guid('{9a7b532a-30f9-40a1-96c9-c59d87f95ac3}')
     @winrt_commethod(6)
@@ -260,7 +259,7 @@ class IPerspectiveTransform3D(ComPtr):
     OffsetX = property(get_OffsetX, put_OffsetX)
     OffsetY = property(get_OffsetY, put_OffsetY)
 class IPerspectiveTransform3DStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.IPerspectiveTransform3DStatics'
     _iid_ = Guid('{8e6f6400-620c-48c7-844d-3f0984da5b17}')
     @winrt_commethod(6)
@@ -273,15 +272,15 @@ class IPerspectiveTransform3DStatics(ComPtr):
     OffsetXProperty = property(get_OffsetXProperty, None)
     OffsetYProperty = property(get_OffsetYProperty, None)
 class ITransform3D(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.ITransform3D'
     _iid_ = Guid('{ae3ed43a-a9fc-4c31-86cd-56d9ca251a69}')
 class ITransform3DFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.ITransform3DFactory'
     _iid_ = Guid('{052c1f7a-8d73-48cd-bbb8-d00434caae5d}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Media3D.Transform3D: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Media.Media3D.Transform3D: ...
 class Matrix3D(Structure):
     M11: Double
     M12: Double
@@ -302,7 +301,7 @@ class Matrix3D(Structure):
 class _Matrix3DHelper_Meta_(ComPtr.__class__):
     pass
 class Matrix3DHelper(ComPtr, metaclass=_Matrix3DHelper_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Xaml.Media.Media3D.IMatrix3DHelper
     _classid_ = 'Windows.UI.Xaml.Media.Media3D.Matrix3DHelper'
     @winrt_classmethod
@@ -369,7 +368,7 @@ class Transform3D(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Media3D.ITransform3DFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Windows.UI.Xaml.Media.Media3D.Transform3D: ...
+    def CreateInstance(cls: win32more.Windows.UI.Xaml.Media.Media3D.ITransform3DFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Windows.UI.Xaml.Media.Media3D.Transform3D: ...
 
 
 make_ready(__name__)

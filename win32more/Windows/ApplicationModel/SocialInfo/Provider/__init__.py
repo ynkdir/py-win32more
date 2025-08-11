@@ -1,13 +1,12 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.SocialInfo
 import win32more.Windows.ApplicationModel.SocialInfo.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class ISocialDashboardItemUpdater(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.ISocialDashboardItemUpdater'
     _iid_ = Guid('{3cde9dc9-4800-46cd-869b-1973ec685bde}')
     @winrt_commethod(6)
@@ -34,7 +33,7 @@ class ISocialDashboardItemUpdater(ComPtr):
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Timestamp = property(get_Timestamp, put_Timestamp)
 class ISocialFeedUpdater(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.ISocialFeedUpdater'
     _iid_ = Guid('{7a0c0aa7-ed89-4bd5-a8d9-15f4d9861c10}')
     @winrt_commethod(6)
@@ -49,7 +48,7 @@ class ISocialFeedUpdater(ComPtr):
     Kind = property(get_Kind, None)
     OwnerRemoteId = property(get_OwnerRemoteId, None)
 class ISocialInfoProviderManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics'
     _iid_ = Guid('{1b88e52b-7787-48d6-aa12-d8e8f47ab85a}')
     @winrt_commethod(6)
@@ -65,7 +64,7 @@ class ISocialInfoProviderManagerStatics(ComPtr):
     @winrt_commethod(11)
     def DeprovisionAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
 class SocialDashboardItemUpdater(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.Provider.ISocialDashboardItemUpdater
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.SocialDashboardItemUpdater'
     @winrt_mixinmethod
@@ -92,7 +91,7 @@ class SocialDashboardItemUpdater(ComPtr):
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Timestamp = property(get_Timestamp, put_Timestamp)
 class SocialFeedUpdater(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.Provider.ISocialFeedUpdater
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater'
     @winrt_mixinmethod
@@ -107,7 +106,7 @@ class SocialFeedUpdater(ComPtr):
     Kind = property(get_Kind, None)
     OwnerRemoteId = property(get_OwnerRemoteId, None)
 class SocialInfoProviderManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager'
     @winrt_classmethod
     def CreateSocialFeedUpdaterAsync(cls: win32more.Windows.ApplicationModel.SocialInfo.Provider.ISocialInfoProviderManagerStatics, kind: win32more.Windows.ApplicationModel.SocialInfo.SocialFeedKind, mode: win32more.Windows.ApplicationModel.SocialInfo.SocialFeedUpdateMode, ownerRemoteId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater]: ...

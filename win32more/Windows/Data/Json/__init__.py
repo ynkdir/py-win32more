@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Json
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class IJsonArray(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.IJsonArray'
     _iid_ = Guid('{08c1ddb6-0cbd-4a9a-b5d3-2f852dc37e81}')
     @winrt_commethod(6)
@@ -20,7 +19,7 @@ class IJsonArray(ComPtr):
     @winrt_commethod(10)
     def GetBooleanAt(self, index: UInt32) -> Boolean: ...
 class IJsonArrayStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.IJsonArrayStatics'
     _iid_ = Guid('{db1434a9-e164-499f-93e2-8a8f49bb90ba}')
     @winrt_commethod(6)
@@ -28,13 +27,13 @@ class IJsonArrayStatics(ComPtr):
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, result: POINTER(win32more.Windows.Data.Json.JsonArray)) -> Boolean: ...
 class IJsonErrorStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.IJsonErrorStatics2'
     _iid_ = Guid('{404030da-87d0-436c-83ab-fc7b12c0cc26}')
     @winrt_commethod(6)
     def GetJsonStatus(self, hresult: Int32) -> win32more.Windows.Data.Json.JsonErrorStatus: ...
 class IJsonObject(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.IJsonObject'
     _iid_ = Guid('{064e24dd-29c2-4f83-9ac1-9ee11578beb3}')
     @winrt_commethod(6)
@@ -52,7 +51,7 @@ class IJsonObject(ComPtr):
     @winrt_commethod(12)
     def GetNamedBoolean(self, name: WinRT_String) -> Boolean: ...
 class IJsonObjectStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.IJsonObjectStatics'
     _iid_ = Guid('{2289f159-54de-45d8-abcc-22603fa066a0}')
     @winrt_commethod(6)
@@ -60,7 +59,7 @@ class IJsonObjectStatics(ComPtr):
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, result: POINTER(win32more.Windows.Data.Json.JsonObject)) -> Boolean: ...
 class IJsonObjectWithDefaultValues(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.IJsonObjectWithDefaultValues'
     _iid_ = Guid('{d960d2a2-b7f0-4f00-8e44-d82cf415ea13}')
     @winrt_commethod(6)
@@ -76,7 +75,7 @@ class IJsonObjectWithDefaultValues(ComPtr):
     @winrt_commethod(11)
     def GetNamedBooleanOrDefault(self, name: WinRT_String, defaultValue: Boolean) -> Boolean: ...
 class IJsonValue(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.IJsonValue'
     _iid_ = Guid('{a3219ecb-f0b3-4dcd-beee-19d48cd3ed1e}')
     @winrt_commethod(6)
@@ -95,7 +94,7 @@ class IJsonValue(ComPtr):
     def GetObject(self) -> win32more.Windows.Data.Json.JsonObject: ...
     ValueType = property(get_ValueType, None)
 class IJsonValueStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.IJsonValueStatics'
     _iid_ = Guid('{5f6b544a-2f53-48e1-91a3-f78b50a6345c}')
     @winrt_commethod(6)
@@ -109,13 +108,13 @@ class IJsonValueStatics(ComPtr):
     @winrt_commethod(10)
     def CreateStringValue(self, input: WinRT_String) -> win32more.Windows.Data.Json.JsonValue: ...
 class IJsonValueStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.IJsonValueStatics2'
     _iid_ = Guid('{1d9ecbe4-3fe8-4335-8392-93d8e36865f0}')
     @winrt_commethod(6)
     def CreateNullValue(self) -> win32more.Windows.Data.Json.JsonValue: ...
 class JsonArray(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.Data.Json.IJsonValue]]
     default_interface: win32more.Windows.Data.Json.IJsonArray
     _classid_ = 'Windows.Data.Json.JsonArray'
@@ -187,7 +186,7 @@ class JsonArray(ComPtr):
     Size = property(get_Size, None)
     ValueType = property(get_ValueType, None)
 class JsonError(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Data.Json.JsonError'
     @winrt_classmethod
     def GetJsonStatus(cls: win32more.Windows.Data.Json.IJsonErrorStatics2, hresult: Int32) -> win32more.Windows.Data.Json.JsonErrorStatus: ...
@@ -198,7 +197,7 @@ class JsonErrorStatus(Enum, Int32):
     JsonValueNotFound = 3
     ImplementationLimit = 4
 class JsonObject(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[MappingProtocol[WinRT_String, win32more.Windows.Data.Json.IJsonValue]]
     default_interface: win32more.Windows.Data.Json.IJsonObject
     _classid_ = 'Windows.Data.Json.JsonObject'
@@ -276,7 +275,7 @@ class JsonObject(ComPtr):
     Size = property(get_Size, None)
     ValueType = property(get_ValueType, None)
 class JsonValue(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Data.Json.IJsonValue
     _classid_ = 'Windows.Data.Json.JsonValue'
     @winrt_mixinmethod

@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class Color(Structure):
     A: Byte
     R: Byte
     G: Byte
     B: Byte
 class ColorHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.IColorHelper
     _classid_ = 'Windows.UI.ColorHelper'
     @winrt_classmethod
@@ -19,7 +18,7 @@ class ColorHelper(ComPtr):
 class _Colors_Meta_(ComPtr.__class__):
     pass
 class Colors(ComPtr, metaclass=_Colors_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.IColors
     _classid_ = 'Windows.UI.Colors'
     @winrt_classmethod
@@ -446,27 +445,27 @@ class Colors(ComPtr, metaclass=_Colors_Meta_):
     _Colors_Meta_.Yellow = property(get_Yellow, None)
     _Colors_Meta_.YellowGreen = property(get_YellowGreen, None)
 class IColorHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.IColorHelper'
     _iid_ = Guid('{193cfbe7-65c7-4540-ad08-6283ba76879a}')
 class IColorHelperStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.IColorHelperStatics'
     _iid_ = Guid('{8504dbea-fb6a-4144-a6c2-33499c9284f5}')
     @winrt_commethod(6)
     def FromArgb(self, a: Byte, r: Byte, g: Byte, b: Byte) -> win32more.Windows.UI.Color: ...
 class IColorHelperStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.IColorHelperStatics2'
     _iid_ = Guid('{24d9af02-6eb0-4b94-855c-fcf0818d9a16}')
     @winrt_commethod(6)
     def ToDisplayName(self, color: win32more.Windows.UI.Color) -> WinRT_String: ...
 class IColors(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.IColors'
     _iid_ = Guid('{9b8c9326-4ca6-4ce5-8994-9eff65cabdcc}')
 class IColorsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.IColorsStatics'
     _iid_ = Guid('{cff52e04-cca6-4614-a17e-754910c84a99}')
     @winrt_commethod(6)
@@ -893,25 +892,25 @@ class IColorsStatics(ComPtr):
     Yellow = property(get_Yellow, None)
     YellowGreen = property(get_YellowGreen, None)
 class IUIContentRoot(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.IUIContentRoot'
     _iid_ = Guid('{1dfcbac6-b36b-5cb9-9bc5-2b7a0eddc378}')
     @winrt_commethod(6)
     def get_UIContext(self) -> win32more.Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
 class IUIContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.IUIContext'
     _iid_ = Guid('{bb5cfacd-5bd8-59d0-a59e-1c17a4d6d243}')
 class UIContentRoot(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.IUIContentRoot
     _classid_ = 'Windows.UI.UIContentRoot'
     @winrt_mixinmethod
     def get_UIContext(self: win32more.Windows.UI.IUIContentRoot) -> win32more.Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
 class UIContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.IUIContext
     _classid_ = 'Windows.UI.UIContext'
 class WindowId(Structure):

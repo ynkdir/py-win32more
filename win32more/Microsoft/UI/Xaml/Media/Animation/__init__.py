@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Controls
@@ -9,7 +9,6 @@ import win32more.Microsoft.UI.Xaml.Media.Animation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class AddDeleteThemeTransition(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.Transition
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IAddDeleteThemeTransition
@@ -58,7 +57,7 @@ class BasicConnectedAnimationConfiguration(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IBasicConnectedAnimationConfigurationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration: ...
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IBasicConnectedAnimationConfigurationFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration: ...
 class _BeginStoryboard_Meta_(ComPtr.__class__):
     pass
 class BeginStoryboard(ComPtr, metaclass=_BeginStoryboard_Meta_):
@@ -225,7 +224,7 @@ class ColorKeyFrame(ComPtr, metaclass=_ColorKeyFrame_Meta_):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IColorKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame: ...
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IColorKeyFrameFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame: ...
     @winrt_mixinmethod
     def get_Value(self: win32more.Microsoft.UI.Xaml.Media.Animation.IColorKeyFrame) -> win32more.Windows.UI.Color: ...
     @winrt_mixinmethod
@@ -243,7 +242,7 @@ class ColorKeyFrame(ComPtr, metaclass=_ColorKeyFrame_Meta_):
     _ColorKeyFrame_Meta_.KeyTimeProperty = property(get_KeyTimeProperty, None)
     _ColorKeyFrame_Meta_.ValueProperty = property(get_ValueProperty, None)
 class ColorKeyFrameCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ColorKeyFrameCollection'
@@ -314,7 +313,7 @@ class CommonNavigationTransitionInfo(ComPtr, metaclass=_CommonNavigationTransiti
     _CommonNavigationTransitionInfo_Meta_.IsStaggerElementProperty = property(get_IsStaggerElementProperty, None)
     _CommonNavigationTransitionInfo_Meta_.IsStaggeringEnabledProperty = property(get_IsStaggeringEnabledProperty, None)
 class ConnectedAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimation
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ConnectedAnimation'
     @winrt_mixinmethod
@@ -326,7 +325,7 @@ class ConnectedAnimation(ComPtr):
     @winrt_mixinmethod
     def put_Configuration(self: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimation, value: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration) -> Void: ...
     @winrt_mixinmethod
-    def add_Completed(self: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Completed(self: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimation, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -346,11 +345,11 @@ class ConnectedAnimationComponent(Enum, Int32):
     CrossFade = 2
     Scale = 3
 class ConnectedAnimationConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimationConfiguration
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration'
 class ConnectedAnimationService(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IConnectedAnimationService
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationService'
     @winrt_mixinmethod
@@ -469,7 +468,7 @@ class DirectConnectedAnimationConfiguration(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IDirectConnectedAnimationConfigurationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration: ...
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IDirectConnectedAnimationConfigurationFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration: ...
 class DiscreteColorKeyFrame(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IDiscreteColorKeyFrame
@@ -617,7 +616,7 @@ class DoubleKeyFrame(ComPtr, metaclass=_DoubleKeyFrame_Meta_):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IDoubleKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame: ...
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IDoubleKeyFrameFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame: ...
     @winrt_mixinmethod
     def get_Value(self: win32more.Microsoft.UI.Xaml.Media.Animation.IDoubleKeyFrame) -> Double: ...
     @winrt_mixinmethod
@@ -635,7 +634,7 @@ class DoubleKeyFrame(ComPtr, metaclass=_DoubleKeyFrame_Meta_):
     _DoubleKeyFrame_Meta_.KeyTimeProperty = property(get_KeyTimeProperty, None)
     _DoubleKeyFrame_Meta_.ValueProperty = property(get_ValueProperty, None)
 class DoubleKeyFrameCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrameCollection'
@@ -1155,18 +1154,18 @@ class GravityConnectedAnimationConfiguration(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfigurationFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration: ...
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfigurationFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration: ...
     @winrt_mixinmethod
     def get_IsShadowEnabled(self: win32more.Microsoft.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfiguration) -> Boolean: ...
     @winrt_mixinmethod
     def put_IsShadowEnabled(self: win32more.Microsoft.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfiguration, value: Boolean) -> Void: ...
     IsShadowEnabled = property(get_IsShadowEnabled, put_IsShadowEnabled)
 class IAddDeleteThemeTransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IAddDeleteThemeTransition'
     _iid_ = Guid('{3728595e-0ea2-524b-9348-86cfb860a0ff}')
 class IBackEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IBackEase'
     _iid_ = Guid('{1775bd43-1939-57cb-8c31-cd7590ec9543}')
     @winrt_commethod(6)
@@ -1175,24 +1174,24 @@ class IBackEase(ComPtr):
     def put_Amplitude(self, value: Double) -> Void: ...
     Amplitude = property(get_Amplitude, put_Amplitude)
 class IBackEaseStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IBackEaseStatics'
     _iid_ = Guid('{1ead2ef9-7901-542d-ae08-7b5937b32ef0}')
     @winrt_commethod(6)
     def get_AmplitudeProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     AmplitudeProperty = property(get_AmplitudeProperty, None)
 class IBasicConnectedAnimationConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IBasicConnectedAnimationConfiguration'
     _iid_ = Guid('{7ff18afe-91e8-52fa-a1c1-7b2c1a140118}')
 class IBasicConnectedAnimationConfigurationFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IBasicConnectedAnimationConfigurationFactory'
     _iid_ = Guid('{2d156a02-0fb5-5ad1-af9b-bc9c2720fecb}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.BasicConnectedAnimationConfiguration: ...
 class IBeginStoryboard(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IBeginStoryboard'
     _iid_ = Guid('{bb364720-ee5a-5b32-91e2-62589729fd3a}')
     @winrt_commethod(6)
@@ -1201,14 +1200,14 @@ class IBeginStoryboard(ComPtr):
     def put_Storyboard(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.Storyboard) -> Void: ...
     Storyboard = property(get_Storyboard, put_Storyboard)
 class IBeginStoryboardStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IBeginStoryboardStatics'
     _iid_ = Guid('{4d5fdbeb-6b0e-5a8f-a8f0-01f438df8fb2}')
     @winrt_commethod(6)
     def get_StoryboardProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     StoryboardProperty = property(get_StoryboardProperty, None)
 class IBounceEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IBounceEase'
     _iid_ = Guid('{c138bfff-87c8-5c60-b280-682a499c58c3}')
     @winrt_commethod(6)
@@ -1222,7 +1221,7 @@ class IBounceEase(ComPtr):
     Bounces = property(get_Bounces, put_Bounces)
     Bounciness = property(get_Bounciness, put_Bounciness)
 class IBounceEaseStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IBounceEaseStatics'
     _iid_ = Guid('{d7716b38-c705-5093-96d6-735c13105a30}')
     @winrt_commethod(6)
@@ -1232,11 +1231,11 @@ class IBounceEaseStatics(ComPtr):
     BouncesProperty = property(get_BouncesProperty, None)
     BouncinessProperty = property(get_BouncinessProperty, None)
 class ICircleEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ICircleEase'
     _iid_ = Guid('{88209080-2929-5924-9b52-f95196568713}')
 class IColorAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IColorAnimation'
     _iid_ = Guid('{6df862d2-65f2-53a8-8b1b-1b6c1763c175}')
     @winrt_commethod(6)
@@ -1265,7 +1264,7 @@ class IColorAnimation(ComPtr):
     From = property(get_From, put_From)
     To = property(get_To, put_To)
 class IColorAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IColorAnimationStatics'
     _iid_ = Guid('{99aebe0f-928e-52cb-842f-f43fe660ff06}')
     @winrt_commethod(6)
@@ -1284,7 +1283,7 @@ class IColorAnimationStatics(ComPtr):
     FromProperty = property(get_FromProperty, None)
     ToProperty = property(get_ToProperty, None)
 class IColorAnimationUsingKeyFrames(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IColorAnimationUsingKeyFrames'
     _iid_ = Guid('{96f28c97-67eb-5393-8e37-a81d8fda18b3}')
     @winrt_commethod(6)
@@ -1296,14 +1295,14 @@ class IColorAnimationUsingKeyFrames(ComPtr):
     EnableDependentAnimation = property(get_EnableDependentAnimation, put_EnableDependentAnimation)
     KeyFrames = property(get_KeyFrames, None)
 class IColorAnimationUsingKeyFramesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IColorAnimationUsingKeyFramesStatics'
     _iid_ = Guid('{5b0f4840-0ef7-5ad7-a8f2-d49424ed906f}')
     @winrt_commethod(6)
     def get_EnableDependentAnimationProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EnableDependentAnimationProperty = property(get_EnableDependentAnimationProperty, None)
 class IColorKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IColorKeyFrame'
     _iid_ = Guid('{02848c7e-c772-5f66-842b-fd494d0da669}')
     @winrt_commethod(6)
@@ -1317,13 +1316,13 @@ class IColorKeyFrame(ComPtr):
     KeyTime = property(get_KeyTime, put_KeyTime)
     Value = property(get_Value, put_Value)
 class IColorKeyFrameFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IColorKeyFrameFactory'
     _iid_ = Guid('{a82cc182-9d80-508c-b962-d74225587200}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.ColorKeyFrame: ...
 class IColorKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IColorKeyFrameStatics'
     _iid_ = Guid('{b62fdd68-15c7-5c6c-a4fa-0cee10e04556}')
     @winrt_commethod(6)
@@ -1333,7 +1332,7 @@ class IColorKeyFrameStatics(ComPtr):
     KeyTimeProperty = property(get_KeyTimeProperty, None)
     ValueProperty = property(get_ValueProperty, None)
 class ICommonNavigationTransitionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ICommonNavigationTransitionInfo'
     _iid_ = Guid('{b21cc95f-9e3d-540a-b35a-17b99dc41b1e}')
     @winrt_commethod(6)
@@ -1342,7 +1341,7 @@ class ICommonNavigationTransitionInfo(ComPtr):
     def put_IsStaggeringEnabled(self, value: Boolean) -> Void: ...
     IsStaggeringEnabled = property(get_IsStaggeringEnabled, put_IsStaggeringEnabled)
 class ICommonNavigationTransitionInfoStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ICommonNavigationTransitionInfoStatics'
     _iid_ = Guid('{20020be1-c1ba-59f5-997a-c04f5e3833b0}')
     @winrt_commethod(6)
@@ -1356,7 +1355,7 @@ class ICommonNavigationTransitionInfoStatics(ComPtr):
     IsStaggerElementProperty = property(get_IsStaggerElementProperty, None)
     IsStaggeringEnabledProperty = property(get_IsStaggeringEnabledProperty, None)
 class IConnectedAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IConnectedAnimation'
     _iid_ = Guid('{a9c1c6ad-7670-589c-a608-9b5c01cec71f}')
     @winrt_commethod(6)
@@ -1368,7 +1367,7 @@ class IConnectedAnimation(ComPtr):
     @winrt_commethod(9)
     def put_Configuration(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration) -> Void: ...
     @winrt_commethod(10)
-    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
@@ -1383,15 +1382,15 @@ class IConnectedAnimation(ComPtr):
     IsScaleAnimationEnabled = property(get_IsScaleAnimationEnabled, put_IsScaleAnimationEnabled)
     Completed = event()
 class IConnectedAnimationConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IConnectedAnimationConfiguration'
     _iid_ = Guid('{e848379d-7e25-5976-bfb3-086bac4e8849}')
 class IConnectedAnimationConfigurationFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IConnectedAnimationConfigurationFactory'
     _iid_ = Guid('{71008845-4a12-5a1a-969c-4152b5174922}')
 class IConnectedAnimationService(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IConnectedAnimationService'
     _iid_ = Guid('{85f72163-c3c8-586a-91fe-3e0315a3a4fc}')
     @winrt_commethod(6)
@@ -1409,13 +1408,13 @@ class IConnectedAnimationService(ComPtr):
     DefaultDuration = property(get_DefaultDuration, put_DefaultDuration)
     DefaultEasingFunction = property(get_DefaultEasingFunction, put_DefaultEasingFunction)
 class IConnectedAnimationServiceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IConnectedAnimationServiceStatics'
     _iid_ = Guid('{f30ad68d-3426-5564-92c6-288b819e652a}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> win32more.Microsoft.UI.Xaml.Media.Animation.ConnectedAnimationService: ...
 class IContentThemeTransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IContentThemeTransition'
     _iid_ = Guid('{dff47071-cc51-556c-a3fe-8bbb4cba6195}')
     @winrt_commethod(6)
@@ -1429,7 +1428,7 @@ class IContentThemeTransition(ComPtr):
     HorizontalOffset = property(get_HorizontalOffset, put_HorizontalOffset)
     VerticalOffset = property(get_VerticalOffset, put_VerticalOffset)
 class IContentThemeTransitionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IContentThemeTransitionStatics'
     _iid_ = Guid('{95cda8b1-6667-56e3-be40-866eef53663c}')
     @winrt_commethod(6)
@@ -1439,7 +1438,7 @@ class IContentThemeTransitionStatics(ComPtr):
     HorizontalOffsetProperty = property(get_HorizontalOffsetProperty, None)
     VerticalOffsetProperty = property(get_VerticalOffsetProperty, None)
 class IContinuumNavigationTransitionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IContinuumNavigationTransitionInfo'
     _iid_ = Guid('{c55da70f-ff2a-5fc3-81c5-9670f4d78752}')
     @winrt_commethod(6)
@@ -1448,7 +1447,7 @@ class IContinuumNavigationTransitionInfo(ComPtr):
     def put_ExitElement(self, value: win32more.Microsoft.UI.Xaml.UIElement) -> Void: ...
     ExitElement = property(get_ExitElement, put_ExitElement)
 class IContinuumNavigationTransitionInfoStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IContinuumNavigationTransitionInfoStatics'
     _iid_ = Guid('{ca9006fd-f513-5f34-ad7f-49f9d7a99432}')
     @winrt_commethod(6)
@@ -1476,37 +1475,37 @@ class IContinuumNavigationTransitionInfoStatics(ComPtr):
     IsEntranceElementProperty = property(get_IsEntranceElementProperty, None)
     IsExitElementProperty = property(get_IsExitElementProperty, None)
 class ICubicEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ICubicEase'
     _iid_ = Guid('{01a218b4-eb7e-54f9-bfb6-c6ee128013d2}')
 class IDirectConnectedAnimationConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDirectConnectedAnimationConfiguration'
     _iid_ = Guid('{44f192eb-cc11-545e-8fa2-1f0ec9c4438a}')
 class IDirectConnectedAnimationConfigurationFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDirectConnectedAnimationConfigurationFactory'
     _iid_ = Guid('{604aba9b-4eb8-5310-91dc-30962e25ab00}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.DirectConnectedAnimationConfiguration: ...
 class IDiscreteColorKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDiscreteColorKeyFrame'
     _iid_ = Guid('{9b3d88a7-31d3-5912-8646-641a8a565ca1}')
 class IDiscreteDoubleKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDiscreteDoubleKeyFrame'
     _iid_ = Guid('{ec16a555-c083-5a18-805b-a14b90bc80e2}')
 class IDiscreteObjectKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDiscreteObjectKeyFrame'
     _iid_ = Guid('{542fa813-6892-559d-9f69-1f2ac666af13}')
 class IDiscretePointKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDiscretePointKeyFrame'
     _iid_ = Guid('{2255a291-007e-57ce-aa53-97d1e4a0d7e2}')
 class IDoubleAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDoubleAnimation'
     _iid_ = Guid('{651ec97e-e483-5985-aa0b-49cfb07432dd}')
     @winrt_commethod(6)
@@ -1535,7 +1534,7 @@ class IDoubleAnimation(ComPtr):
     From = property(get_From, put_From)
     To = property(get_To, put_To)
 class IDoubleAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDoubleAnimationStatics'
     _iid_ = Guid('{4e098387-adc6-5549-ad21-633e4fa244c2}')
     @winrt_commethod(6)
@@ -1554,7 +1553,7 @@ class IDoubleAnimationStatics(ComPtr):
     FromProperty = property(get_FromProperty, None)
     ToProperty = property(get_ToProperty, None)
 class IDoubleAnimationUsingKeyFrames(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDoubleAnimationUsingKeyFrames'
     _iid_ = Guid('{815437d5-63cf-54a5-aea5-24b84708d12d}')
     @winrt_commethod(6)
@@ -1566,14 +1565,14 @@ class IDoubleAnimationUsingKeyFrames(ComPtr):
     EnableDependentAnimation = property(get_EnableDependentAnimation, put_EnableDependentAnimation)
     KeyFrames = property(get_KeyFrames, None)
 class IDoubleAnimationUsingKeyFramesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDoubleAnimationUsingKeyFramesStatics'
     _iid_ = Guid('{4c1c9bf1-3a03-5689-b18f-6c44251e13d9}')
     @winrt_commethod(6)
     def get_EnableDependentAnimationProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EnableDependentAnimationProperty = property(get_EnableDependentAnimationProperty, None)
 class IDoubleKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDoubleKeyFrame'
     _iid_ = Guid('{94c82ae6-ca62-5f52-934c-3e427e75d69a}')
     @winrt_commethod(6)
@@ -1587,13 +1586,13 @@ class IDoubleKeyFrame(ComPtr):
     KeyTime = property(get_KeyTime, put_KeyTime)
     Value = property(get_Value, put_Value)
 class IDoubleKeyFrameFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDoubleKeyFrameFactory'
     _iid_ = Guid('{2d492cb3-f488-5d30-b00c-b6f2547d0efe}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.DoubleKeyFrame: ...
 class IDoubleKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDoubleKeyFrameStatics'
     _iid_ = Guid('{0e56914c-b430-538f-bb66-0b8e83ab3db6}')
     @winrt_commethod(6)
@@ -1603,7 +1602,7 @@ class IDoubleKeyFrameStatics(ComPtr):
     KeyTimeProperty = property(get_KeyTimeProperty, None)
     ValueProperty = property(get_ValueProperty, None)
 class IDragItemThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDragItemThemeAnimation'
     _iid_ = Guid('{648e690e-a2c0-58ca-b15d-db6fccc663f2}')
     @winrt_commethod(6)
@@ -1612,14 +1611,14 @@ class IDragItemThemeAnimation(ComPtr):
     def put_TargetName(self, value: WinRT_String) -> Void: ...
     TargetName = property(get_TargetName, put_TargetName)
 class IDragItemThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDragItemThemeAnimationStatics'
     _iid_ = Guid('{cdbdb41a-ce84-50a1-8b96-96599cd9619d}')
     @winrt_commethod(6)
     def get_TargetNameProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     TargetNameProperty = property(get_TargetNameProperty, None)
 class IDragOverThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDragOverThemeAnimation'
     _iid_ = Guid('{633cd3c0-71af-52fd-993e-504e3e6f56d4}')
     @winrt_commethod(6)
@@ -1638,7 +1637,7 @@ class IDragOverThemeAnimation(ComPtr):
     TargetName = property(get_TargetName, put_TargetName)
     ToOffset = property(get_ToOffset, put_ToOffset)
 class IDragOverThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDragOverThemeAnimationStatics'
     _iid_ = Guid('{8301afd2-68b2-5c6c-aadf-9a98d620e8d2}')
     @winrt_commethod(6)
@@ -1651,11 +1650,11 @@ class IDragOverThemeAnimationStatics(ComPtr):
     TargetNameProperty = property(get_TargetNameProperty, None)
     ToOffsetProperty = property(get_ToOffsetProperty, None)
 class IDrillInNavigationTransitionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDrillInNavigationTransitionInfo'
     _iid_ = Guid('{5d5863d6-4bbf-5b30-94fa-034531cfa2aa}')
 class IDrillInThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDrillInThemeAnimation'
     _iid_ = Guid('{097577e0-3027-5f24-af8c-976d9faed830}')
     @winrt_commethod(6)
@@ -1679,7 +1678,7 @@ class IDrillInThemeAnimation(ComPtr):
     ExitTarget = property(get_ExitTarget, put_ExitTarget)
     ExitTargetName = property(get_ExitTargetName, put_ExitTargetName)
 class IDrillInThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDrillInThemeAnimationStatics'
     _iid_ = Guid('{ba24258e-3a8e-5804-915a-7670893dbea4}')
     @winrt_commethod(6)
@@ -1695,7 +1694,7 @@ class IDrillInThemeAnimationStatics(ComPtr):
     ExitTargetNameProperty = property(get_ExitTargetNameProperty, None)
     ExitTargetProperty = property(get_ExitTargetProperty, None)
 class IDrillOutThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDrillOutThemeAnimation'
     _iid_ = Guid('{9a93b9cc-925f-525a-9eac-55d39db3d314}')
     @winrt_commethod(6)
@@ -1719,7 +1718,7 @@ class IDrillOutThemeAnimation(ComPtr):
     ExitTarget = property(get_ExitTarget, put_ExitTarget)
     ExitTargetName = property(get_ExitTargetName, put_ExitTargetName)
 class IDrillOutThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDrillOutThemeAnimationStatics'
     _iid_ = Guid('{6eb9693b-c0d0-5bae-9cd2-10d80b8d3867}')
     @winrt_commethod(6)
@@ -1735,7 +1734,7 @@ class IDrillOutThemeAnimationStatics(ComPtr):
     ExitTargetNameProperty = property(get_ExitTargetNameProperty, None)
     ExitTargetProperty = property(get_ExitTargetProperty, None)
 class IDropTargetItemThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDropTargetItemThemeAnimation'
     _iid_ = Guid('{b97f19c0-f1e2-5705-a252-2db05d2e5a54}')
     @winrt_commethod(6)
@@ -1744,14 +1743,14 @@ class IDropTargetItemThemeAnimation(ComPtr):
     def put_TargetName(self, value: WinRT_String) -> Void: ...
     TargetName = property(get_TargetName, put_TargetName)
 class IDropTargetItemThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IDropTargetItemThemeAnimationStatics'
     _iid_ = Guid('{a0ce9e16-ae12-55fc-a9e5-29dc94a713bd}')
     @winrt_commethod(6)
     def get_TargetNameProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     TargetNameProperty = property(get_TargetNameProperty, None)
 class IEasingColorKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEasingColorKeyFrame'
     _iid_ = Guid('{a137a710-da3c-5426-a1a2-3a5a672a4264}')
     @winrt_commethod(6)
@@ -1760,14 +1759,14 @@ class IEasingColorKeyFrame(ComPtr):
     def put_EasingFunction(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase) -> Void: ...
     EasingFunction = property(get_EasingFunction, put_EasingFunction)
 class IEasingColorKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEasingColorKeyFrameStatics'
     _iid_ = Guid('{c57818c0-3361-587d-b381-620b69251bcf}')
     @winrt_commethod(6)
     def get_EasingFunctionProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EasingFunctionProperty = property(get_EasingFunctionProperty, None)
 class IEasingDoubleKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEasingDoubleKeyFrame'
     _iid_ = Guid('{935d9b7e-da61-5bb2-a574-7d2e53b60561}')
     @winrt_commethod(6)
@@ -1776,14 +1775,14 @@ class IEasingDoubleKeyFrame(ComPtr):
     def put_EasingFunction(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase) -> Void: ...
     EasingFunction = property(get_EasingFunction, put_EasingFunction)
 class IEasingDoubleKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEasingDoubleKeyFrameStatics'
     _iid_ = Guid('{8cc08735-4221-5127-ab2f-1e7e3df95fb9}')
     @winrt_commethod(6)
     def get_EasingFunctionProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EasingFunctionProperty = property(get_EasingFunctionProperty, None)
 class IEasingFunctionBase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEasingFunctionBase'
     _iid_ = Guid('{4fab519a-a93d-5d28-af18-84532bd32efe}')
     @winrt_commethod(6)
@@ -1794,18 +1793,18 @@ class IEasingFunctionBase(ComPtr):
     def Ease(self, normalizedTime: Double) -> Double: ...
     EasingMode = property(get_EasingMode, put_EasingMode)
 class IEasingFunctionBaseFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEasingFunctionBaseFactory'
     _iid_ = Guid('{b1b92f4c-5ec7-5cda-b1d4-fd159595ca47}')
 class IEasingFunctionBaseStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEasingFunctionBaseStatics'
     _iid_ = Guid('{09032445-967c-52b8-b712-15f066b32821}')
     @winrt_commethod(6)
     def get_EasingModeProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EasingModeProperty = property(get_EasingModeProperty, None)
 class IEasingPointKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEasingPointKeyFrame'
     _iid_ = Guid('{9406ee8e-3641-54fe-a424-83420ea45cd3}')
     @winrt_commethod(6)
@@ -1814,14 +1813,14 @@ class IEasingPointKeyFrame(ComPtr):
     def put_EasingFunction(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.EasingFunctionBase) -> Void: ...
     EasingFunction = property(get_EasingFunction, put_EasingFunction)
 class IEasingPointKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEasingPointKeyFrameStatics'
     _iid_ = Guid('{ac727659-92a3-52ea-8949-b609e48c233d}')
     @winrt_commethod(6)
     def get_EasingFunctionProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EasingFunctionProperty = property(get_EasingFunctionProperty, None)
 class IEdgeUIThemeTransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEdgeUIThemeTransition'
     _iid_ = Guid('{57089964-e358-5fe2-84e7-15e82bba9c06}')
     @winrt_commethod(6)
@@ -1830,14 +1829,14 @@ class IEdgeUIThemeTransition(ComPtr):
     def put_Edge(self, value: win32more.Microsoft.UI.Xaml.Controls.Primitives.EdgeTransitionLocation) -> Void: ...
     Edge = property(get_Edge, put_Edge)
 class IEdgeUIThemeTransitionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEdgeUIThemeTransitionStatics'
     _iid_ = Guid('{316af8d4-d2a0-5d27-9af6-747797965d46}')
     @winrt_commethod(6)
     def get_EdgeProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EdgeProperty = property(get_EdgeProperty, None)
 class IElasticEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IElasticEase'
     _iid_ = Guid('{2b18d50b-4d34-509b-915c-61b1aa6f83d8}')
     @winrt_commethod(6)
@@ -1851,7 +1850,7 @@ class IElasticEase(ComPtr):
     Oscillations = property(get_Oscillations, put_Oscillations)
     Springiness = property(get_Springiness, put_Springiness)
 class IElasticEaseStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IElasticEaseStatics'
     _iid_ = Guid('{95fd9290-d279-5857-9f50-3f299a2d02f4}')
     @winrt_commethod(6)
@@ -1861,11 +1860,11 @@ class IElasticEaseStatics(ComPtr):
     OscillationsProperty = property(get_OscillationsProperty, None)
     SpringinessProperty = property(get_SpringinessProperty, None)
 class IEntranceNavigationTransitionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEntranceNavigationTransitionInfo'
     _iid_ = Guid('{dec74921-0ed7-54e1-8c1d-30b8cccc4b8d}')
 class IEntranceNavigationTransitionInfoStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEntranceNavigationTransitionInfoStatics'
     _iid_ = Guid('{f1096de1-1f79-5d38-a4d6-16f3bdaab7f0}')
     @winrt_commethod(6)
@@ -1876,7 +1875,7 @@ class IEntranceNavigationTransitionInfoStatics(ComPtr):
     def SetIsTargetElement(self, element: win32more.Microsoft.UI.Xaml.UIElement, value: Boolean) -> Void: ...
     IsTargetElementProperty = property(get_IsTargetElementProperty, None)
 class IEntranceThemeTransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEntranceThemeTransition'
     _iid_ = Guid('{8eb681fa-1629-5e29-ac1e-70f3639329f8}')
     @winrt_commethod(6)
@@ -1895,7 +1894,7 @@ class IEntranceThemeTransition(ComPtr):
     FromVerticalOffset = property(get_FromVerticalOffset, put_FromVerticalOffset)
     IsStaggeringEnabled = property(get_IsStaggeringEnabled, put_IsStaggeringEnabled)
 class IEntranceThemeTransitionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IEntranceThemeTransitionStatics'
     _iid_ = Guid('{c99e5435-facc-50af-b96c-63b14fe7156e}')
     @winrt_commethod(6)
@@ -1908,7 +1907,7 @@ class IEntranceThemeTransitionStatics(ComPtr):
     FromVerticalOffsetProperty = property(get_FromVerticalOffsetProperty, None)
     IsStaggeringEnabledProperty = property(get_IsStaggeringEnabledProperty, None)
 class IExponentialEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IExponentialEase'
     _iid_ = Guid('{4d289262-e832-5fbc-a98b-87a6ecb3b6cc}')
     @winrt_commethod(6)
@@ -1917,14 +1916,14 @@ class IExponentialEase(ComPtr):
     def put_Exponent(self, value: Double) -> Void: ...
     Exponent = property(get_Exponent, put_Exponent)
 class IExponentialEaseStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IExponentialEaseStatics'
     _iid_ = Guid('{8394ab8f-ddf1-55d0-acf1-07fedd929bb5}')
     @winrt_commethod(6)
     def get_ExponentProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     ExponentProperty = property(get_ExponentProperty, None)
 class IFadeInThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IFadeInThemeAnimation'
     _iid_ = Guid('{0dca074a-31cc-5e70-8b6b-8dbd7fff01f6}')
     @winrt_commethod(6)
@@ -1933,14 +1932,14 @@ class IFadeInThemeAnimation(ComPtr):
     def put_TargetName(self, value: WinRT_String) -> Void: ...
     TargetName = property(get_TargetName, put_TargetName)
 class IFadeInThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IFadeInThemeAnimationStatics'
     _iid_ = Guid('{5d74a6a6-92c6-5e49-865f-676087247179}')
     @winrt_commethod(6)
     def get_TargetNameProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     TargetNameProperty = property(get_TargetNameProperty, None)
 class IFadeOutThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IFadeOutThemeAnimation'
     _iid_ = Guid('{114024d6-5d67-5c9c-83c5-54a8bd7b671a}')
     @winrt_commethod(6)
@@ -1949,14 +1948,14 @@ class IFadeOutThemeAnimation(ComPtr):
     def put_TargetName(self, value: WinRT_String) -> Void: ...
     TargetName = property(get_TargetName, put_TargetName)
 class IFadeOutThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IFadeOutThemeAnimationStatics'
     _iid_ = Guid('{0277bea1-a0a5-5e26-9b56-6a4208862738}')
     @winrt_commethod(6)
     def get_TargetNameProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     TargetNameProperty = property(get_TargetNameProperty, None)
 class IGravityConnectedAnimationConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfiguration'
     _iid_ = Guid('{04c8b276-cff3-5a55-9229-33dc66c99e20}')
     @winrt_commethod(6)
@@ -1965,13 +1964,13 @@ class IGravityConnectedAnimationConfiguration(ComPtr):
     def put_IsShadowEnabled(self, value: Boolean) -> Void: ...
     IsShadowEnabled = property(get_IsShadowEnabled, put_IsShadowEnabled)
 class IGravityConnectedAnimationConfigurationFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IGravityConnectedAnimationConfigurationFactory'
     _iid_ = Guid('{bc7a71b5-7cda-5bb7-967e-d6a031285a9c}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.GravityConnectedAnimationConfiguration: ...
 class IKeySpline(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IKeySpline'
     _iid_ = Guid('{130d8b2b-0b52-5253-881b-36ab48592e6b}')
     @winrt_commethod(6)
@@ -1985,29 +1984,29 @@ class IKeySpline(ComPtr):
     ControlPoint1 = property(get_ControlPoint1, put_ControlPoint1)
     ControlPoint2 = property(get_ControlPoint2, put_ControlPoint2)
 class IKeyTimeHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IKeyTimeHelper'
     _iid_ = Guid('{e354da44-1f24-59c6-bc5b-d6b1ba267e9c}')
 class IKeyTimeHelperStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IKeyTimeHelperStatics'
     _iid_ = Guid('{ae5d22c9-0fdb-5823-8846-8a4d0b9eebfa}')
     @winrt_commethod(6)
     def FromTimeSpan(self, timeSpan: win32more.Windows.Foundation.TimeSpan) -> win32more.Microsoft.UI.Xaml.Media.Animation.KeyTime: ...
 class ILinearColorKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ILinearColorKeyFrame'
     _iid_ = Guid('{0bce4cd6-3a80-5f2f-932e-619a8546d0bd}')
 class ILinearDoubleKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ILinearDoubleKeyFrame'
     _iid_ = Guid('{38a635b9-f613-55e0-aaec-9d4e097eff91}')
 class ILinearPointKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ILinearPointKeyFrame'
     _iid_ = Guid('{4ec22493-bacb-5105-ac16-8ea5418ab76e}')
 class INavigationThemeTransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.INavigationThemeTransition'
     _iid_ = Guid('{d7cfbd3b-0d27-5ea1-beb7-f6b847520dc6}')
     @winrt_commethod(6)
@@ -2016,24 +2015,24 @@ class INavigationThemeTransition(ComPtr):
     def put_DefaultNavigationTransitionInfo(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo) -> Void: ...
     DefaultNavigationTransitionInfo = property(get_DefaultNavigationTransitionInfo, put_DefaultNavigationTransitionInfo)
 class INavigationThemeTransitionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.INavigationThemeTransitionStatics'
     _iid_ = Guid('{78323eff-d543-551d-b2c7-94e93a16065b}')
     @winrt_commethod(6)
     def get_DefaultNavigationTransitionInfoProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     DefaultNavigationTransitionInfoProperty = property(get_DefaultNavigationTransitionInfoProperty, None)
 class INavigationTransitionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.INavigationTransitionInfo'
     _iid_ = Guid('{25bb17fb-6e15-514e-b278-197537a4d990}')
 class INavigationTransitionInfoFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.INavigationTransitionInfoFactory'
     _iid_ = Guid('{c514b6ff-f6ed-572e-8392-3ea17bc7d4c4}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
 class INavigationTransitionInfoOverrides(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.INavigationTransitionInfoOverrides'
     _iid_ = Guid('{3d6af190-5a56-513d-aff9-631925d0fa43}')
     @winrt_commethod(6)
@@ -2041,7 +2040,7 @@ class INavigationTransitionInfoOverrides(ComPtr):
     @winrt_commethod(7)
     def SetNavigationStateCore(self, navigationState: WinRT_String) -> Void: ...
 class IObjectAnimationUsingKeyFrames(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IObjectAnimationUsingKeyFrames'
     _iid_ = Guid('{aa08dc4c-0b03-5c0a-b084-d95d272b2f0d}')
     @winrt_commethod(6)
@@ -2053,20 +2052,20 @@ class IObjectAnimationUsingKeyFrames(ComPtr):
     EnableDependentAnimation = property(get_EnableDependentAnimation, put_EnableDependentAnimation)
     KeyFrames = property(get_KeyFrames, None)
 class IObjectAnimationUsingKeyFramesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IObjectAnimationUsingKeyFramesStatics'
     _iid_ = Guid('{411a09b0-9ab4-54b9-99b9-54f955a6754e}')
     @winrt_commethod(6)
     def get_EnableDependentAnimationProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EnableDependentAnimationProperty = property(get_EnableDependentAnimationProperty, None)
 class IObjectKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrame'
     _iid_ = Guid('{c5a9f65b-fc69-5a88-a797-34f46d761381}')
     @winrt_commethod(6)
-    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self) -> IInspectable: ...
     @winrt_commethod(7)
-    def put_Value(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_Value(self, value: IInspectable) -> Void: ...
     @winrt_commethod(8)
     def get_KeyTime(self) -> win32more.Microsoft.UI.Xaml.Media.Animation.KeyTime: ...
     @winrt_commethod(9)
@@ -2074,13 +2073,13 @@ class IObjectKeyFrame(ComPtr):
     KeyTime = property(get_KeyTime, put_KeyTime)
     Value = property(get_Value, put_Value)
 class IObjectKeyFrameFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrameFactory'
     _iid_ = Guid('{dc59da6e-82b9-55f7-a358-ba2a07665aa9}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame: ...
 class IObjectKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrameStatics'
     _iid_ = Guid('{39e59ceb-2859-5a5f-acd8-bc491d49c4b6}')
     @winrt_commethod(6)
@@ -2090,7 +2089,7 @@ class IObjectKeyFrameStatics(ComPtr):
     KeyTimeProperty = property(get_KeyTimeProperty, None)
     ValueProperty = property(get_ValueProperty, None)
 class IPaneThemeTransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPaneThemeTransition'
     _iid_ = Guid('{321bcd80-157c-5e10-b0fe-6440bd92529a}')
     @winrt_commethod(6)
@@ -2099,14 +2098,14 @@ class IPaneThemeTransition(ComPtr):
     def put_Edge(self, value: win32more.Microsoft.UI.Xaml.Controls.Primitives.EdgeTransitionLocation) -> Void: ...
     Edge = property(get_Edge, put_Edge)
 class IPaneThemeTransitionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPaneThemeTransitionStatics'
     _iid_ = Guid('{47e01752-5264-5fb1-8946-ab49fe6af8fd}')
     @winrt_commethod(6)
     def get_EdgeProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EdgeProperty = property(get_EdgeProperty, None)
 class IPointAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointAnimation'
     _iid_ = Guid('{a0737cc4-2eab-5c13-a5d7-78361df1000e}')
     @winrt_commethod(6)
@@ -2135,7 +2134,7 @@ class IPointAnimation(ComPtr):
     From = property(get_From, put_From)
     To = property(get_To, put_To)
 class IPointAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointAnimationStatics'
     _iid_ = Guid('{71cfb43b-bada-554b-8fca-b558d623bbc0}')
     @winrt_commethod(6)
@@ -2154,7 +2153,7 @@ class IPointAnimationStatics(ComPtr):
     FromProperty = property(get_FromProperty, None)
     ToProperty = property(get_ToProperty, None)
 class IPointAnimationUsingKeyFrames(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointAnimationUsingKeyFrames'
     _iid_ = Guid('{bdd63992-df13-5514-8611-4952f722f6d0}')
     @winrt_commethod(6)
@@ -2166,14 +2165,14 @@ class IPointAnimationUsingKeyFrames(ComPtr):
     EnableDependentAnimation = property(get_EnableDependentAnimation, put_EnableDependentAnimation)
     KeyFrames = property(get_KeyFrames, None)
 class IPointAnimationUsingKeyFramesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointAnimationUsingKeyFramesStatics'
     _iid_ = Guid('{04152b3b-f0da-5b28-877d-9ac96d334a77}')
     @winrt_commethod(6)
     def get_EnableDependentAnimationProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EnableDependentAnimationProperty = property(get_EnableDependentAnimationProperty, None)
 class IPointKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointKeyFrame'
     _iid_ = Guid('{59d5c07d-a3a7-5450-9dfb-4b7e77d58f93}')
     @winrt_commethod(6)
@@ -2187,13 +2186,13 @@ class IPointKeyFrame(ComPtr):
     KeyTime = property(get_KeyTime, put_KeyTime)
     Value = property(get_Value, put_Value)
 class IPointKeyFrameFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointKeyFrameFactory'
     _iid_ = Guid('{c52ee293-f10e-5252-bc08-a28659740f0e}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame: ...
 class IPointKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointKeyFrameStatics'
     _iid_ = Guid('{96cd72fd-d834-5b23-9a17-1548961dc348}')
     @winrt_commethod(6)
@@ -2203,7 +2202,7 @@ class IPointKeyFrameStatics(ComPtr):
     KeyTimeProperty = property(get_KeyTimeProperty, None)
     ValueProperty = property(get_ValueProperty, None)
 class IPointerDownThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointerDownThemeAnimation'
     _iid_ = Guid('{abdd1acc-40df-595d-be68-0362fe681b91}')
     @winrt_commethod(6)
@@ -2212,14 +2211,14 @@ class IPointerDownThemeAnimation(ComPtr):
     def put_TargetName(self, value: WinRT_String) -> Void: ...
     TargetName = property(get_TargetName, put_TargetName)
 class IPointerDownThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointerDownThemeAnimationStatics'
     _iid_ = Guid('{12268b39-fb7d-53da-8ccc-5967dc06bce9}')
     @winrt_commethod(6)
     def get_TargetNameProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     TargetNameProperty = property(get_TargetNameProperty, None)
 class IPointerUpThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointerUpThemeAnimation'
     _iid_ = Guid('{94896d1c-c938-5d68-84da-552bde815810}')
     @winrt_commethod(6)
@@ -2228,14 +2227,14 @@ class IPointerUpThemeAnimation(ComPtr):
     def put_TargetName(self, value: WinRT_String) -> Void: ...
     TargetName = property(get_TargetName, put_TargetName)
 class IPointerUpThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPointerUpThemeAnimationStatics'
     _iid_ = Guid('{51a3117e-c6fa-5dc5-8db8-73f060003ae4}')
     @winrt_commethod(6)
     def get_TargetNameProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     TargetNameProperty = property(get_TargetNameProperty, None)
 class IPopInThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPopInThemeAnimation'
     _iid_ = Guid('{20136388-b4e4-5cbb-9cb2-df2ea7e6c44b}')
     @winrt_commethod(6)
@@ -2254,7 +2253,7 @@ class IPopInThemeAnimation(ComPtr):
     FromVerticalOffset = property(get_FromVerticalOffset, put_FromVerticalOffset)
     TargetName = property(get_TargetName, put_TargetName)
 class IPopInThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPopInThemeAnimationStatics'
     _iid_ = Guid('{8c9378a9-d276-5a1d-8188-f48f07840a16}')
     @winrt_commethod(6)
@@ -2267,7 +2266,7 @@ class IPopInThemeAnimationStatics(ComPtr):
     FromVerticalOffsetProperty = property(get_FromVerticalOffsetProperty, None)
     TargetNameProperty = property(get_TargetNameProperty, None)
 class IPopOutThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPopOutThemeAnimation'
     _iid_ = Guid('{1bb20dd3-5648-541a-a0c9-37a955db10a6}')
     @winrt_commethod(6)
@@ -2276,14 +2275,14 @@ class IPopOutThemeAnimation(ComPtr):
     def put_TargetName(self, value: WinRT_String) -> Void: ...
     TargetName = property(get_TargetName, put_TargetName)
 class IPopOutThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPopOutThemeAnimationStatics'
     _iid_ = Guid('{3f569f96-367e-595c-9732-2fb919388d84}')
     @winrt_commethod(6)
     def get_TargetNameProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     TargetNameProperty = property(get_TargetNameProperty, None)
 class IPopupThemeTransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPopupThemeTransition'
     _iid_ = Guid('{e1fa6b8a-add3-5299-a000-121d6dbacc80}')
     @winrt_commethod(6)
@@ -2297,7 +2296,7 @@ class IPopupThemeTransition(ComPtr):
     FromHorizontalOffset = property(get_FromHorizontalOffset, put_FromHorizontalOffset)
     FromVerticalOffset = property(get_FromVerticalOffset, put_FromVerticalOffset)
 class IPopupThemeTransitionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPopupThemeTransitionStatics'
     _iid_ = Guid('{538b2114-415c-5f99-b74d-a85966dacc54}')
     @winrt_commethod(6)
@@ -2307,7 +2306,7 @@ class IPopupThemeTransitionStatics(ComPtr):
     FromHorizontalOffsetProperty = property(get_FromHorizontalOffsetProperty, None)
     FromVerticalOffsetProperty = property(get_FromVerticalOffsetProperty, None)
 class IPowerEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPowerEase'
     _iid_ = Guid('{372dfad0-5177-5df9-8e1e-920962468714}')
     @winrt_commethod(6)
@@ -2316,34 +2315,34 @@ class IPowerEase(ComPtr):
     def put_Power(self, value: Double) -> Void: ...
     Power = property(get_Power, put_Power)
 class IPowerEaseStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IPowerEaseStatics'
     _iid_ = Guid('{8eb72edb-3e7e-5d40-928b-4505d57c21ce}')
     @winrt_commethod(6)
     def get_PowerProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     PowerProperty = property(get_PowerProperty, None)
 class IQuadraticEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IQuadraticEase'
     _iid_ = Guid('{db85fda1-03b7-57cd-a1ef-8855cbf62191}')
 class IQuarticEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IQuarticEase'
     _iid_ = Guid('{48215273-05f1-58aa-bade-0b71d7bd0484}')
 class IQuinticEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IQuinticEase'
     _iid_ = Guid('{dc2f05d5-a3ac-5dce-9b85-753a0c800fc2}')
 class IReorderThemeTransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IReorderThemeTransition'
     _iid_ = Guid('{0d5a0874-1df5-5379-b626-74721759438a}')
 class IRepeatBehaviorHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IRepeatBehaviorHelper'
     _iid_ = Guid('{4643f139-ffef-5c6a-8de6-142b41cd51a5}')
 class IRepeatBehaviorHelperStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IRepeatBehaviorHelperStatics'
     _iid_ = Guid('{c66d4425-6461-5189-b17d-cca0cca34ca0}')
     @winrt_commethod(6)
@@ -2360,7 +2359,7 @@ class IRepeatBehaviorHelperStatics(ComPtr):
     def Equals(self, target: win32more.Microsoft.UI.Xaml.Media.Animation.RepeatBehavior, value: win32more.Microsoft.UI.Xaml.Media.Animation.RepeatBehavior) -> Boolean: ...
     Forever = property(get_Forever, None)
 class IRepositionThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IRepositionThemeAnimation'
     _iid_ = Guid('{36f7e025-23c1-53de-8df9-7dc1e9c788fd}')
     @winrt_commethod(6)
@@ -2379,7 +2378,7 @@ class IRepositionThemeAnimation(ComPtr):
     FromVerticalOffset = property(get_FromVerticalOffset, put_FromVerticalOffset)
     TargetName = property(get_TargetName, put_TargetName)
 class IRepositionThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IRepositionThemeAnimationStatics'
     _iid_ = Guid('{c04118de-aff5-5fa9-aee7-94a621c82618}')
     @winrt_commethod(6)
@@ -2392,7 +2391,7 @@ class IRepositionThemeAnimationStatics(ComPtr):
     FromVerticalOffsetProperty = property(get_FromVerticalOffsetProperty, None)
     TargetNameProperty = property(get_TargetNameProperty, None)
 class IRepositionThemeTransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IRepositionThemeTransition'
     _iid_ = Guid('{7728e3f0-24b1-5484-824a-c0b41c2745d5}')
     @winrt_commethod(6)
@@ -2401,18 +2400,18 @@ class IRepositionThemeTransition(ComPtr):
     def put_IsStaggeringEnabled(self, value: Boolean) -> Void: ...
     IsStaggeringEnabled = property(get_IsStaggeringEnabled, put_IsStaggeringEnabled)
 class IRepositionThemeTransitionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IRepositionThemeTransitionStatics'
     _iid_ = Guid('{c70a0f9a-485e-53bb-ad3c-8b41b6788bf9}')
     @winrt_commethod(6)
     def get_IsStaggeringEnabledProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     IsStaggeringEnabledProperty = property(get_IsStaggeringEnabledProperty, None)
 class ISineEase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISineEase'
     _iid_ = Guid('{6115539b-663d-5131-b7c2-74bb5fdc6a1d}')
 class ISlideNavigationTransitionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISlideNavigationTransitionInfo'
     _iid_ = Guid('{53eade0e-6b01-511f-a563-6f5724a6c1c1}')
     @winrt_commethod(6)
@@ -2421,14 +2420,14 @@ class ISlideNavigationTransitionInfo(ComPtr):
     def put_Effect(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.SlideNavigationTransitionEffect) -> Void: ...
     Effect = property(get_Effect, put_Effect)
 class ISlideNavigationTransitionInfoStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISlideNavigationTransitionInfoStatics'
     _iid_ = Guid('{90ba0c6c-cd45-5a6c-bbb2-88037d43cd79}')
     @winrt_commethod(6)
     def get_EffectProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     EffectProperty = property(get_EffectProperty, None)
 class ISplineColorKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplineColorKeyFrame'
     _iid_ = Guid('{60c5905f-4343-504d-a2c6-64b8d924b438}')
     @winrt_commethod(6)
@@ -2437,14 +2436,14 @@ class ISplineColorKeyFrame(ComPtr):
     def put_KeySpline(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.KeySpline) -> Void: ...
     KeySpline = property(get_KeySpline, put_KeySpline)
 class ISplineColorKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplineColorKeyFrameStatics'
     _iid_ = Guid('{d89c7062-753d-5652-b215-c195ae2c7a18}')
     @winrt_commethod(6)
     def get_KeySplineProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     KeySplineProperty = property(get_KeySplineProperty, None)
 class ISplineDoubleKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplineDoubleKeyFrame'
     _iid_ = Guid('{aea80957-bb56-59b6-bb7a-6295f94bc961}')
     @winrt_commethod(6)
@@ -2453,14 +2452,14 @@ class ISplineDoubleKeyFrame(ComPtr):
     def put_KeySpline(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.KeySpline) -> Void: ...
     KeySpline = property(get_KeySpline, put_KeySpline)
 class ISplineDoubleKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplineDoubleKeyFrameStatics'
     _iid_ = Guid('{ca88552e-7237-51f8-a8ca-79952c77883a}')
     @winrt_commethod(6)
     def get_KeySplineProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     KeySplineProperty = property(get_KeySplineProperty, None)
 class ISplinePointKeyFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplinePointKeyFrame'
     _iid_ = Guid('{2b7eb049-708c-5220-a178-a25dbc14ffbe}')
     @winrt_commethod(6)
@@ -2469,14 +2468,14 @@ class ISplinePointKeyFrame(ComPtr):
     def put_KeySpline(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.KeySpline) -> Void: ...
     KeySpline = property(get_KeySpline, put_KeySpline)
 class ISplinePointKeyFrameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplinePointKeyFrameStatics'
     _iid_ = Guid('{1e100e36-bed1-5060-8dcf-0d5b32575ed1}')
     @winrt_commethod(6)
     def get_KeySplineProperty(self) -> win32more.Microsoft.UI.Xaml.DependencyProperty: ...
     KeySplineProperty = property(get_KeySplineProperty, None)
 class ISplitCloseThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplitCloseThemeAnimation'
     _iid_ = Guid('{b0dd1490-f646-5c18-b3ef-02f9b17f57df}')
     @winrt_commethod(6)
@@ -2535,7 +2534,7 @@ class ISplitCloseThemeAnimation(ComPtr):
     OpenedTarget = property(get_OpenedTarget, put_OpenedTarget)
     OpenedTargetName = property(get_OpenedTargetName, put_OpenedTargetName)
 class ISplitCloseThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplitCloseThemeAnimationStatics'
     _iid_ = Guid('{32345cdd-2a3c-5571-b2eb-2fcabc2e92c6}')
     @winrt_commethod(6)
@@ -2572,7 +2571,7 @@ class ISplitCloseThemeAnimationStatics(ComPtr):
     OpenedTargetNameProperty = property(get_OpenedTargetNameProperty, None)
     OpenedTargetProperty = property(get_OpenedTargetProperty, None)
 class ISplitOpenThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplitOpenThemeAnimation'
     _iid_ = Guid('{79fdfaca-4245-53f0-b5c7-da1ce2b0b851}')
     @winrt_commethod(6)
@@ -2631,7 +2630,7 @@ class ISplitOpenThemeAnimation(ComPtr):
     OpenedTarget = property(get_OpenedTarget, put_OpenedTarget)
     OpenedTargetName = property(get_OpenedTargetName, put_OpenedTargetName)
 class ISplitOpenThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISplitOpenThemeAnimationStatics'
     _iid_ = Guid('{e5a73b84-a4ae-5c38-84da-f7ed30fc9b6e}')
     @winrt_commethod(6)
@@ -2668,7 +2667,7 @@ class ISplitOpenThemeAnimationStatics(ComPtr):
     OpenedTargetNameProperty = property(get_OpenedTargetNameProperty, None)
     OpenedTargetProperty = property(get_OpenedTargetProperty, None)
 class IStoryboard(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IStoryboard'
     _iid_ = Guid('{04d41bb3-8721-519e-8e53-fb8b34920305}')
     @winrt_commethod(6)
@@ -2693,7 +2692,7 @@ class IStoryboard(ComPtr):
     def SkipToFill(self) -> Void: ...
     Children = property(get_Children, None)
 class IStoryboardStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.IStoryboardStatics'
     _iid_ = Guid('{dd18519b-d4e4-597d-a0b7-655ebdd35efa}')
     @winrt_commethod(6)
@@ -2713,11 +2712,11 @@ class IStoryboardStatics(ComPtr):
     TargetNameProperty = property(get_TargetNameProperty, None)
     TargetPropertyProperty = property(get_TargetPropertyProperty, None)
 class ISuppressNavigationTransitionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISuppressNavigationTransitionInfo'
     _iid_ = Guid('{3ecd2bd1-9805-5f51-bb9e-051fea8dc355}')
 class ISwipeBackThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISwipeBackThemeAnimation'
     _iid_ = Guid('{f095d058-bc9e-58ee-8877-e084723b4333}')
     @winrt_commethod(6)
@@ -2736,7 +2735,7 @@ class ISwipeBackThemeAnimation(ComPtr):
     FromVerticalOffset = property(get_FromVerticalOffset, put_FromVerticalOffset)
     TargetName = property(get_TargetName, put_TargetName)
 class ISwipeBackThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISwipeBackThemeAnimationStatics'
     _iid_ = Guid('{18a7a588-b9a2-573b-8e2b-38048c4635a7}')
     @winrt_commethod(6)
@@ -2749,7 +2748,7 @@ class ISwipeBackThemeAnimationStatics(ComPtr):
     FromVerticalOffsetProperty = property(get_FromVerticalOffsetProperty, None)
     TargetNameProperty = property(get_TargetNameProperty, None)
 class ISwipeHintThemeAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISwipeHintThemeAnimation'
     _iid_ = Guid('{09de03d7-4b8a-55e1-afad-5f60598733ea}')
     @winrt_commethod(6)
@@ -2768,7 +2767,7 @@ class ISwipeHintThemeAnimation(ComPtr):
     ToHorizontalOffset = property(get_ToHorizontalOffset, put_ToHorizontalOffset)
     ToVerticalOffset = property(get_ToVerticalOffset, put_ToVerticalOffset)
 class ISwipeHintThemeAnimationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ISwipeHintThemeAnimationStatics'
     _iid_ = Guid('{f3308304-4f09-54d7-a4d5-ca558bbfe26f}')
     @winrt_commethod(6)
@@ -2781,7 +2780,7 @@ class ISwipeHintThemeAnimationStatics(ComPtr):
     ToHorizontalOffsetProperty = property(get_ToHorizontalOffsetProperty, None)
     ToVerticalOffsetProperty = property(get_ToVerticalOffsetProperty, None)
 class ITimeline(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ITimeline'
     _iid_ = Guid('{d0f9b330-cc2a-5b05-9786-2da4c6584581}')
     @winrt_commethod(6)
@@ -2809,7 +2808,7 @@ class ITimeline(ComPtr):
     @winrt_commethod(17)
     def put_RepeatBehavior(self, value: win32more.Microsoft.UI.Xaml.Media.Animation.RepeatBehavior) -> Void: ...
     @winrt_commethod(18)
-    def add_Completed(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_Completed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoReverse = property(get_AutoReverse, put_AutoReverse)
@@ -2820,13 +2819,13 @@ class ITimeline(ComPtr):
     SpeedRatio = property(get_SpeedRatio, put_SpeedRatio)
     Completed = event()
 class ITimelineFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ITimelineFactory'
     _iid_ = Guid('{6a635732-a827-5398-9fc8-dfbc3b97e3c1}')
     @winrt_commethod(6)
-    def CreateInstance(self, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.Timeline: ...
+    def CreateInstance(self, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.Timeline: ...
 class ITimelineStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ITimelineStatics'
     _iid_ = Guid('{778b8471-c831-503a-8748-fe6bbc7153b7}')
     @winrt_commethod(6)
@@ -2853,11 +2852,11 @@ class ITimelineStatics(ComPtr):
     RepeatBehaviorProperty = property(get_RepeatBehaviorProperty, None)
     SpeedRatioProperty = property(get_SpeedRatioProperty, None)
 class ITransition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ITransition'
     _iid_ = Guid('{e5b71956-8e44-5a38-b41e-274d706102bf}')
 class ITransitionFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ITransitionFactory'
     _iid_ = Guid('{b7023e3b-bcd3-50ec-aacf-8cfcece25f17}')
 class KeySpline(ComPtr):
@@ -2886,7 +2885,7 @@ class KeySpline(ComPtr):
 class KeyTime(Structure):
     TimeSpan: win32more.Windows.Foundation.TimeSpan
 class KeyTimeHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IKeyTimeHelper
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.KeyTimeHelper'
     @winrt_classmethod
@@ -2965,7 +2964,7 @@ class NavigationTransitionInfo(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.INavigationTransitionInfoFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.INavigationTransitionInfoFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo: ...
     @winrt_mixinmethod
     def GetNavigationStateCore(self: win32more.Microsoft.UI.Xaml.Media.Animation.INavigationTransitionInfoOverrides) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -3010,11 +3009,11 @@ class ObjectKeyFrame(ComPtr, metaclass=_ObjectKeyFrame_Meta_):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame: ...
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrameFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrame) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrame) -> IInspectable: ...
     @winrt_mixinmethod
-    def put_Value(self: win32more.Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrame, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_Value(self: win32more.Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrame, value: IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_KeyTime(self: win32more.Microsoft.UI.Xaml.Media.Animation.IObjectKeyFrame) -> win32more.Microsoft.UI.Xaml.Media.Animation.KeyTime: ...
     @winrt_mixinmethod
@@ -3028,7 +3027,7 @@ class ObjectKeyFrame(ComPtr, metaclass=_ObjectKeyFrame_Meta_):
     _ObjectKeyFrame_Meta_.KeyTimeProperty = property(get_KeyTimeProperty, None)
     _ObjectKeyFrame_Meta_.ValueProperty = property(get_ValueProperty, None)
 class ObjectKeyFrameCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.ObjectKeyFrameCollection'
@@ -3186,7 +3185,7 @@ class PointKeyFrame(ComPtr, metaclass=_PointKeyFrame_Meta_):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IPointKeyFrameFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame: ...
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.IPointKeyFrameFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame: ...
     @winrt_mixinmethod
     def get_Value(self: win32more.Microsoft.UI.Xaml.Media.Animation.IPointKeyFrame) -> win32more.Windows.Foundation.Point: ...
     @winrt_mixinmethod
@@ -3204,7 +3203,7 @@ class PointKeyFrame(ComPtr, metaclass=_PointKeyFrame_Meta_):
     _PointKeyFrame_Meta_.KeyTimeProperty = property(get_KeyTimeProperty, None)
     _PointKeyFrame_Meta_.ValueProperty = property(get_ValueProperty, None)
 class PointKeyFrameCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.PointKeyFrame]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.PointKeyFrameCollection'
@@ -3465,7 +3464,7 @@ class RepeatBehavior(Structure):
 class _RepeatBehaviorHelper_Meta_(ComPtr.__class__):
     pass
 class RepeatBehaviorHelper(ComPtr, metaclass=_RepeatBehaviorHelper_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.IRepeatBehaviorHelper
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.RepeatBehaviorHelper'
     @winrt_classmethod
@@ -4019,7 +4018,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.ITimelineFactory, baseInterface: win32more.Windows.Win32.System.WinRT.IInspectable, innerInterface: POINTER(win32more.Windows.Win32.System.WinRT.IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.Timeline: ...
+    def CreateInstance(cls: win32more.Microsoft.UI.Xaml.Media.Animation.ITimelineFactory, baseInterface: IInspectable, innerInterface: POINTER(IInspectable)) -> win32more.Microsoft.UI.Xaml.Media.Animation.Timeline: ...
     @winrt_mixinmethod
     def get_AutoReverse(self: win32more.Microsoft.UI.Xaml.Media.Animation.ITimeline) -> Boolean: ...
     @winrt_mixinmethod
@@ -4045,7 +4044,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     @winrt_mixinmethod
     def put_RepeatBehavior(self: win32more.Microsoft.UI.Xaml.Media.Animation.ITimeline, value: win32more.Microsoft.UI.Xaml.Media.Animation.RepeatBehavior) -> Void: ...
     @winrt_mixinmethod
-    def add_Completed(self: win32more.Microsoft.UI.Xaml.Media.Animation.ITimeline, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Completed(self: win32more.Microsoft.UI.Xaml.Media.Animation.ITimeline, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Completed(self: win32more.Microsoft.UI.Xaml.Media.Animation.ITimeline, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -4079,7 +4078,7 @@ class Timeline(ComPtr, metaclass=_Timeline_Meta_):
     _Timeline_Meta_.SpeedRatioProperty = property(get_SpeedRatioProperty, None)
     Completed = event()
 class TimelineCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.Timeline]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.Timeline]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.TimelineCollection'
@@ -4124,7 +4123,7 @@ class Transition(ComPtr):
     default_interface: win32more.Microsoft.UI.Xaml.Media.Animation.ITransition
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.Transition'
 class TransitionCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Microsoft.UI.Xaml.Media.Animation.Transition]]
     default_interface: win32more.Windows.Foundation.Collections.IVector[win32more.Microsoft.UI.Xaml.Media.Animation.Transition]
     _classid_ = 'Microsoft.UI.Xaml.Media.Animation.TransitionCollection'

@@ -1,10 +1,9 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.AI.ContentSafety
-import win32more.Windows.Win32.System.WinRT
 class ContentFilterOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.ContentSafety.IContentFilterOptions
     _classid_ = 'Microsoft.Windows.AI.ContentSafety.ContentFilterOptions'
     def __init__(self, *args, **kwargs):
@@ -33,7 +32,7 @@ class ContentFilterOptions(ComPtr):
     ResponseMaxAllowedSeverityLevel = property(get_ResponseMaxAllowedSeverityLevel, put_ResponseMaxAllowedSeverityLevel)
 ContentSafetyContract: UInt32 = 65536
 class IContentFilterOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.ContentSafety.IContentFilterOptions'
     _iid_ = Guid('{6808be9f-80d2-5136-8a8a-1f5c52c824ad}')
     @winrt_commethod(6)
@@ -52,7 +51,7 @@ class IContentFilterOptions(ComPtr):
     PromptMaxAllowedSeverityLevel = property(get_PromptMaxAllowedSeverityLevel, put_PromptMaxAllowedSeverityLevel)
     ResponseMaxAllowedSeverityLevel = property(get_ResponseMaxAllowedSeverityLevel, put_ResponseMaxAllowedSeverityLevel)
 class IImageContentFilterSeverity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.ContentSafety.IImageContentFilterSeverity'
     _iid_ = Guid('{f1563582-c66a-5861-9995-1440b05191ac}')
     @winrt_commethod(6)
@@ -76,13 +75,13 @@ class IImageContentFilterSeverity(ComPtr):
     RacyContentLevel = property(get_RacyContentLevel, put_RacyContentLevel)
     ViolentContentLevel = property(get_ViolentContentLevel, put_ViolentContentLevel)
 class IImageContentFilterSeverityFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.ContentSafety.IImageContentFilterSeverityFactory'
     _iid_ = Guid('{ead11457-81b1-5b81-9ca3-c5b04b4df043}')
     @winrt_commethod(6)
     def CreateInstance(self, severityForALlCategories: win32more.Microsoft.Windows.AI.ContentSafety.SeverityLevel) -> win32more.Microsoft.Windows.AI.ContentSafety.ImageContentFilterSeverity: ...
 class ITextContentFilterSeverity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.ContentSafety.ITextContentFilterSeverity'
     _iid_ = Guid('{68c1ee47-c35c-5f4c-a647-b0c0f64aa0d5}')
     @winrt_commethod(6)
@@ -106,13 +105,13 @@ class ITextContentFilterSeverity(ComPtr):
     Sexual = property(get_Sexual, put_Sexual)
     Violent = property(get_Violent, put_Violent)
 class ITextContentFilterSeverityFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.ContentSafety.ITextContentFilterSeverityFactory'
     _iid_ = Guid('{e0ca501e-4004-501e-8984-442d091607d4}')
     @winrt_commethod(6)
     def CreateInstance(self, severityForAllCategories: win32more.Microsoft.Windows.AI.ContentSafety.SeverityLevel) -> win32more.Microsoft.Windows.AI.ContentSafety.TextContentFilterSeverity: ...
 class ImageContentFilterSeverity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.ContentSafety.IImageContentFilterSeverity
     _classid_ = 'Microsoft.Windows.AI.ContentSafety.ImageContentFilterSeverity'
     def __init__(self, *args, **kwargs):
@@ -156,7 +155,7 @@ class SeverityLevel(Enum, Int32):
     Medium = 12
     High = 13
 class TextContentFilterSeverity(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.ContentSafety.ITextContentFilterSeverity
     _classid_ = 'Microsoft.Windows.AI.ContentSafety.TextContentFilterSeverity'
     def __init__(self, *args, **kwargs):

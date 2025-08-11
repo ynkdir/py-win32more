@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.Canvas
 import win32more.Microsoft.Graphics.Canvas.UI
 import win32more.Microsoft.Graphics.Canvas.UI.Xaml
@@ -11,7 +11,6 @@ import win32more.Microsoft.UI.Xaml.Media.Imaging
 import win32more.Windows.Foundation
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class CanvasAnimatedControl(ComPtr):
     extends: win32more.Microsoft.UI.Xaml.Controls.UserControl
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl
@@ -38,11 +37,11 @@ class CanvasAnimatedControl(ComPtr):
     @winrt_mixinmethod
     def remove_Draw(self: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_GameLoopStarting(self: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_GameLoopStarting(self: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_GameLoopStarting(self: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_GameLoopStopped(self: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_GameLoopStopped(self: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_GameLoopStopped(self: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -120,7 +119,7 @@ class CanvasAnimatedControl(ComPtr):
     GameLoopStarting = event()
     GameLoopStopped = event()
 class CanvasAnimatedDrawEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedDrawEventArgs
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs'
     def __init__(self, *args, **kwargs):
@@ -139,7 +138,7 @@ class CanvasAnimatedDrawEventArgs(ComPtr):
     DrawingSession = property(get_DrawingSession, None)
     Timing = property(get_Timing, None)
 class CanvasAnimatedUpdateEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedUpdateEventArgs
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedUpdateEventArgs'
     def __init__(self, *args, **kwargs):
@@ -223,7 +222,7 @@ class CanvasControl(ComPtr):
     CreateResources = event()
     Draw = event()
 class CanvasDrawEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasDrawEventArgs
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.CanvasDrawEventArgs'
     def __init__(self, *args, **kwargs):
@@ -289,7 +288,7 @@ class CanvasImageSource(ComPtr):
     Size = property(get_Size, None)
     SizeInPixels = property(get_SizeInPixels, None)
 class CanvasRegionsInvalidatedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasRegionsInvalidatedEventArgs
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.CanvasRegionsInvalidatedEventArgs'
     @winrt_mixinmethod
@@ -395,7 +394,7 @@ class CanvasVirtualControl(ComPtr):
     CreateResources = event()
     RegionsInvalidated = event()
 class CanvasVirtualImageSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualImageSource
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.CanvasVirtualImageSource'
     def __init__(self, *args, **kwargs):
@@ -467,7 +466,7 @@ class CanvasVirtualImageSource(ComPtr):
     Source = property(get_Source, None)
     RegionsInvalidated = event()
 class ICanvasAnimatedControl(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl'
     _iid_ = Guid('{9bd47d0d-d57d-43b7-82cb-489cc566e887}')
     @winrt_commethod(6)
@@ -483,11 +482,11 @@ class ICanvasAnimatedControl(ComPtr):
     @winrt_commethod(11)
     def remove_Draw(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_GameLoopStarting(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_GameLoopStarting(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_GameLoopStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_GameLoopStopped(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_GameLoopStopped(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_GameLoopStopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
@@ -555,7 +554,7 @@ class ICanvasAnimatedControl(ComPtr):
     GameLoopStarting = event()
     GameLoopStopped = event()
 class ICanvasAnimatedDrawEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedDrawEventArgs'
     _iid_ = Guid('{bc01ff4d-ff6c-4d4d-a9e9-8eeb2139f23f}')
     @winrt_commethod(6)
@@ -565,26 +564,26 @@ class ICanvasAnimatedDrawEventArgs(ComPtr):
     DrawingSession = property(get_DrawingSession, None)
     Timing = property(get_Timing, None)
 class ICanvasAnimatedDrawEventArgsFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedDrawEventArgsFactory'
     _iid_ = Guid('{c0c8fdac-0dfc-4e18-a6e9-9ef7dc82bcc2}')
     @winrt_commethod(6)
     def Create(self, canvasDrawingSession: win32more.Microsoft.Graphics.Canvas.CanvasDrawingSession, timingInformation: win32more.Microsoft.Graphics.Canvas.UI.CanvasTimingInformation) -> win32more.Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs: ...
 class ICanvasAnimatedUpdateEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedUpdateEventArgs'
     _iid_ = Guid('{a96b2b2a-0c6e-4aa8-925b-7137263b4e44}')
     @winrt_commethod(6)
     def get_Timing(self) -> win32more.Microsoft.Graphics.Canvas.UI.CanvasTimingInformation: ...
     Timing = property(get_Timing, None)
 class ICanvasAnimatedUpdateEventArgsFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedUpdateEventArgsFactory'
     _iid_ = Guid('{766f4867-b22a-464b-89b1-0da6ab62be68}')
     @winrt_commethod(6)
     def Create(self, timingInformation: win32more.Microsoft.Graphics.Canvas.UI.CanvasTimingInformation) -> win32more.Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedUpdateEventArgs: ...
 class ICanvasControl(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasControl'
     _iid_ = Guid('{f006e06d-79db-484f-b898-479cf069c0f5}')
     @winrt_commethod(6)
@@ -633,20 +632,20 @@ class ICanvasControl(ComPtr):
     CreateResources = event()
     Draw = event()
 class ICanvasDrawEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasDrawEventArgs'
     _iid_ = Guid('{fb86169f-25d4-4551-bd8f-214beaf0ac24}')
     @winrt_commethod(6)
     def get_DrawingSession(self) -> win32more.Microsoft.Graphics.Canvas.CanvasDrawingSession: ...
     DrawingSession = property(get_DrawingSession, None)
 class ICanvasDrawEventArgsFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasDrawEventArgsFactory'
     _iid_ = Guid('{7299d72c-f8e4-4a2f-9e30-7cdfccf31c44}')
     @winrt_commethod(6)
     def Create(self, canvasDrawingSession: win32more.Microsoft.Graphics.Canvas.CanvasDrawingSession) -> win32more.Microsoft.Graphics.Canvas.UI.Xaml.CanvasDrawEventArgs: ...
 class ICanvasImageSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasImageSource'
     _iid_ = Guid('{3c35e87a-e881-4f44-b0d1-551413aec66d}')
     @winrt_commethod(6)
@@ -665,7 +664,7 @@ class ICanvasImageSource(ComPtr):
     Size = property(get_Size, None)
     SizeInPixels = property(get_SizeInPixels, None)
 class ICanvasImageSourceFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasImageSourceFactory'
     _iid_ = Guid('{8596bedd-d7f7-4c6b-b1ad-41949035e084}')
     @winrt_commethod(6)
@@ -677,7 +676,7 @@ class ICanvasImageSourceFactory(ComPtr):
     @winrt_commethod(9)
     def CreateWithWidthAndHeightAndDpiAndAlphaMode(self, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator, width: Single, height: Single, dpi: Single, alphaMode: win32more.Microsoft.Graphics.Canvas.CanvasAlphaMode) -> win32more.Microsoft.Graphics.Canvas.UI.Xaml.CanvasImageSource: ...
 class ICanvasRegionsInvalidatedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasRegionsInvalidatedEventArgs'
     _iid_ = Guid('{3a21a204-f52f-4e7a-9b3f-94669819d981}')
     @winrt_commethod(6)
@@ -687,7 +686,7 @@ class ICanvasRegionsInvalidatedEventArgs(ComPtr):
     InvalidatedRegions = property(get_InvalidatedRegions, None)
     VisibleRegion = property(get_VisibleRegion, None)
 class ICanvasSwapChainPanel(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasSwapChainPanel'
     _iid_ = Guid('{dbdccb96-147e-4a82-af3a-c91c7800daa7}')
     @winrt_commethod(6)
@@ -698,7 +697,7 @@ class ICanvasSwapChainPanel(ComPtr):
     def RemoveFromVisualTree(self) -> Void: ...
     SwapChain = property(get_SwapChain, put_SwapChain)
 class ICanvasVirtualControl(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualControl'
     _iid_ = Guid('{3c2b5177-7c61-41d2-95ae-fcfc92fd617a}')
     @winrt_commethod(6)
@@ -755,7 +754,7 @@ class ICanvasVirtualControl(ComPtr):
     CreateResources = event()
     RegionsInvalidated = event()
 class ICanvasVirtualImageSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualImageSource'
     _iid_ = Guid('{df342987-4fe6-4bcd-b885-2ad3e6ef9fce}')
     @winrt_commethod(6)
@@ -796,7 +795,7 @@ class ICanvasVirtualImageSource(ComPtr):
     Source = property(get_Source, None)
     RegionsInvalidated = event()
 class ICanvasVirtualImageSourceFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.UI.Xaml.ICanvasVirtualImageSourceFactory'
     _iid_ = Guid('{2fe755a1-307a-4623-9250-29590485bdb6}')
     @winrt_commethod(6)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Perception
@@ -8,9 +8,8 @@ import win32more.Windows.Perception.People
 import win32more.Windows.Perception.Spatial
 import win32more.Windows.UI.Input
 import win32more.Windows.UI.Input.Spatial
-import win32more.Windows.Win32.System.WinRT
 class EyesPose(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Perception.People.IEyesPose
     _classid_ = 'Windows.Perception.People.EyesPose'
     @winrt_mixinmethod
@@ -54,7 +53,7 @@ class HandJointKind(Enum, Int32):
     LittleDistal = 24
     LittleTip = 25
 class HandMeshObserver(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Perception.People.IHandMeshObserver
     _classid_ = 'Windows.Perception.People.HandMeshObserver'
     @winrt_mixinmethod
@@ -83,7 +82,7 @@ class HandMeshVertex(Structure):
     Position: win32more.Windows.Foundation.Numerics.Vector3
     Normal: win32more.Windows.Foundation.Numerics.Vector3
 class HandMeshVertexState(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Perception.People.IHandMeshVertexState
     _classid_ = 'Windows.Perception.People.HandMeshVertexState'
     @winrt_mixinmethod
@@ -95,7 +94,7 @@ class HandMeshVertexState(ComPtr):
     CoordinateSystem = property(get_CoordinateSystem, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
 class HandPose(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Perception.People.IHandPose
     _classid_ = 'Windows.Perception.People.HandPose'
     @winrt_mixinmethod
@@ -107,7 +106,7 @@ class HandPose(ComPtr):
     @winrt_mixinmethod
     def GetRelativeJoints(self: win32more.Windows.Perception.People.IHandPose, joints: PassArray[win32more.Windows.Perception.People.HandJointKind], referenceJoints: PassArray[win32more.Windows.Perception.People.HandJointKind], jointPoses: FillArray[win32more.Windows.Perception.People.JointPose]) -> Void: ...
 class HeadPose(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Perception.People.IHeadPose
     _classid_ = 'Windows.Perception.People.HeadPose'
     @winrt_mixinmethod
@@ -120,7 +119,7 @@ class HeadPose(ComPtr):
     Position = property(get_Position, None)
     UpDirection = property(get_UpDirection, None)
 class IEyesPose(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Perception.People.IEyesPose'
     _iid_ = Guid('{682a9b23-8a1e-5b86-a060-906ffacb62a4}')
     @winrt_commethod(6)
@@ -133,7 +132,7 @@ class IEyesPose(ComPtr):
     IsCalibrationValid = property(get_IsCalibrationValid, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
 class IEyesPoseStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Perception.People.IEyesPoseStatics'
     _iid_ = Guid('{1cff7413-b21f-54c0-80c1-e60d994ca58c}')
     @winrt_commethod(6)
@@ -141,7 +140,7 @@ class IEyesPoseStatics(ComPtr):
     @winrt_commethod(7)
     def RequestAccessAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.UI.Input.GazeInputAccessStatus]: ...
 class IHandMeshObserver(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Perception.People.IHandMeshObserver'
     _iid_ = Guid('{85ae30cb-6fc3-55c4-a7b4-29e33896ca69}')
     @winrt_commethod(6)
@@ -167,7 +166,7 @@ class IHandMeshObserver(ComPtr):
     TriangleIndexCount = property(get_TriangleIndexCount, None)
     VertexCount = property(get_VertexCount, None)
 class IHandMeshVertexState(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Perception.People.IHandMeshVertexState'
     _iid_ = Guid('{046c5fef-1d8b-55de-ab2c-1cd424886d8f}')
     @winrt_commethod(6)
@@ -179,7 +178,7 @@ class IHandMeshVertexState(ComPtr):
     CoordinateSystem = property(get_CoordinateSystem, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
 class IHandPose(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Perception.People.IHandPose'
     _iid_ = Guid('{4d98e79a-bb08-5d09-91de-df0dd3fae46c}')
     @winrt_commethod(6)
@@ -191,7 +190,7 @@ class IHandPose(ComPtr):
     @winrt_commethod(9)
     def GetRelativeJoints(self, joints: PassArray[win32more.Windows.Perception.People.HandJointKind], referenceJoints: PassArray[win32more.Windows.Perception.People.HandJointKind], jointPoses: FillArray[win32more.Windows.Perception.People.JointPose]) -> Void: ...
 class IHeadPose(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Perception.People.IHeadPose'
     _iid_ = Guid('{7f5ac5a5-49db-379f-9429-32a2faf34fa6}')
     @winrt_commethod(6)

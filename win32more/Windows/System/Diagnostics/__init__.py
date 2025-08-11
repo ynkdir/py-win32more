@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Json
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
 import win32more.Windows.System.Diagnostics
-import win32more.Windows.Win32.System.WinRT
 class DiagnosticActionResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IDiagnosticActionResult
     _classid_ = 'Windows.System.Diagnostics.DiagnosticActionResult'
     @winrt_mixinmethod
@@ -28,7 +27,7 @@ class DiagnosticActionState(Enum, Int32):
 class _DiagnosticInvoker_Meta_(ComPtr.__class__):
     pass
 class DiagnosticInvoker(ComPtr, metaclass=_DiagnosticInvoker_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IDiagnosticInvoker
     _classid_ = 'Windows.System.Diagnostics.DiagnosticInvoker'
     @winrt_mixinmethod
@@ -43,7 +42,7 @@ class DiagnosticInvoker(ComPtr, metaclass=_DiagnosticInvoker_Meta_):
     def get_IsSupported(cls: win32more.Windows.System.Diagnostics.IDiagnosticInvokerStatics) -> Boolean: ...
     _DiagnosticInvoker_Meta_.IsSupported = property(get_IsSupported, None)
 class IDiagnosticActionResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IDiagnosticActionResult'
     _iid_ = Guid('{c265a296-e73b-4097-b28f-3442f03dd831}')
     @winrt_commethod(6)
@@ -53,19 +52,19 @@ class IDiagnosticActionResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Results = property(get_Results, None)
 class IDiagnosticInvoker(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IDiagnosticInvoker'
     _iid_ = Guid('{187b270a-02e3-4f86-84fc-fdd892b5940f}')
     @winrt_commethod(6)
     def RunDiagnosticActionAsync(self, context: win32more.Windows.Data.Json.JsonObject) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.System.Diagnostics.DiagnosticActionResult, win32more.Windows.System.Diagnostics.DiagnosticActionState]: ...
 class IDiagnosticInvoker2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IDiagnosticInvoker2'
     _iid_ = Guid('{e3bf945c-155a-4b52-a8ec-070c44f95000}')
     @winrt_commethod(6)
     def RunDiagnosticActionFromStringAsync(self, context: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.System.Diagnostics.DiagnosticActionResult, win32more.Windows.System.Diagnostics.DiagnosticActionState]: ...
 class IDiagnosticInvokerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IDiagnosticInvokerStatics'
     _iid_ = Guid('{5cfad8de-f15c-4554-a813-c113c3881b09}')
     @winrt_commethod(6)
@@ -76,13 +75,13 @@ class IDiagnosticInvokerStatics(ComPtr):
     def get_IsSupported(self) -> Boolean: ...
     IsSupported = property(get_IsSupported, None)
 class IProcessCpuUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessCpuUsage'
     _iid_ = Guid('{0bbb2472-c8bf-423a-a810-b559ae4354e2}')
     @winrt_commethod(6)
     def GetReport(self) -> win32more.Windows.System.Diagnostics.ProcessCpuUsageReport: ...
 class IProcessCpuUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessCpuUsageReport'
     _iid_ = Guid('{8a6d9cac-3987-4e2f-a119-6b5fa214f1b4}')
     @winrt_commethod(6)
@@ -92,7 +91,7 @@ class IProcessCpuUsageReport(ComPtr):
     KernelTime = property(get_KernelTime, None)
     UserTime = property(get_UserTime, None)
 class IProcessDiagnosticInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessDiagnosticInfo'
     _iid_ = Guid('{e830b04b-300e-4ee6-a0ab-5b5f5231b434}')
     @winrt_commethod(6)
@@ -117,7 +116,7 @@ class IProcessDiagnosticInfo(ComPtr):
     ProcessId = property(get_ProcessId, None)
     ProcessStartTime = property(get_ProcessStartTime, None)
 class IProcessDiagnosticInfo2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessDiagnosticInfo2'
     _iid_ = Guid('{9558cb1a-3d0b-49ec-ab70-4f7a112805de}')
     @winrt_commethod(6)
@@ -126,7 +125,7 @@ class IProcessDiagnosticInfo2(ComPtr):
     def get_IsPackaged(self) -> Boolean: ...
     IsPackaged = property(get_IsPackaged, None)
 class IProcessDiagnosticInfoStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessDiagnosticInfoStatics'
     _iid_ = Guid('{2f41b260-b49f-428c-aa0e-84744f49ca95}')
     @winrt_commethod(6)
@@ -134,19 +133,19 @@ class IProcessDiagnosticInfoStatics(ComPtr):
     @winrt_commethod(7)
     def GetForCurrentProcess(self) -> win32more.Windows.System.Diagnostics.ProcessDiagnosticInfo: ...
 class IProcessDiagnosticInfoStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessDiagnosticInfoStatics2'
     _iid_ = Guid('{4a869897-9899-4a44-a29b-091663be09b6}')
     @winrt_commethod(6)
     def TryGetForProcessId(self, processId: UInt32) -> win32more.Windows.System.Diagnostics.ProcessDiagnosticInfo: ...
 class IProcessDiskUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessDiskUsage'
     _iid_ = Guid('{5ad78bfd-7e51-4e53-bfaa-5a6ee1aabbf8}')
     @winrt_commethod(6)
     def GetReport(self) -> win32more.Windows.System.Diagnostics.ProcessDiskUsageReport: ...
 class IProcessDiskUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessDiskUsageReport'
     _iid_ = Guid('{401627fd-535d-4c1f-81b8-da54e1be635e}')
     @winrt_commethod(6)
@@ -168,13 +167,13 @@ class IProcessDiskUsageReport(ComPtr):
     ReadOperationCount = property(get_ReadOperationCount, None)
     WriteOperationCount = property(get_WriteOperationCount, None)
 class IProcessMemoryUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessMemoryUsage'
     _iid_ = Guid('{f50b229b-827c-42b7-b07c-0e32627e6b3e}')
     @winrt_commethod(6)
     def GetReport(self) -> win32more.Windows.System.Diagnostics.ProcessMemoryUsageReport: ...
 class IProcessMemoryUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.IProcessMemoryUsageReport'
     _iid_ = Guid('{c2c77cba-1951-4685-8532-7e749ecf8eeb}')
     @winrt_commethod(6)
@@ -214,13 +213,13 @@ class IProcessMemoryUsageReport(ComPtr):
     VirtualMemorySizeInBytes = property(get_VirtualMemorySizeInBytes, None)
     WorkingSetSizeInBytes = property(get_WorkingSetSizeInBytes, None)
 class ISystemCpuUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.ISystemCpuUsage'
     _iid_ = Guid('{6037b3ac-02d6-4234-8362-7fe3adc81f5f}')
     @winrt_commethod(6)
     def GetReport(self) -> win32more.Windows.System.Diagnostics.SystemCpuUsageReport: ...
 class ISystemCpuUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.ISystemCpuUsageReport'
     _iid_ = Guid('{2c26d0b2-9483-4f62-ab57-82b29d9719b8}')
     @winrt_commethod(6)
@@ -233,7 +232,7 @@ class ISystemCpuUsageReport(ComPtr):
     KernelTime = property(get_KernelTime, None)
     UserTime = property(get_UserTime, None)
 class ISystemDiagnosticInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.ISystemDiagnosticInfo'
     _iid_ = Guid('{a290fe05-dff3-407f-9a1b-0b2b317ca800}')
     @winrt_commethod(6)
@@ -243,13 +242,13 @@ class ISystemDiagnosticInfo(ComPtr):
     CpuUsage = property(get_CpuUsage, None)
     MemoryUsage = property(get_MemoryUsage, None)
 class ISystemDiagnosticInfoStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.ISystemDiagnosticInfoStatics'
     _iid_ = Guid('{d404ac21-fc7d-45f0-9a3f-39203aed9f7e}')
     @winrt_commethod(6)
     def GetForCurrentSystem(self) -> win32more.Windows.System.Diagnostics.SystemDiagnosticInfo: ...
 class ISystemDiagnosticInfoStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.ISystemDiagnosticInfoStatics2'
     _iid_ = Guid('{79ded189-6af9-4da9-a422-15f73255b3eb}')
     @winrt_commethod(6)
@@ -258,13 +257,13 @@ class ISystemDiagnosticInfoStatics2(ComPtr):
     def get_PreferredArchitecture(self) -> win32more.Windows.System.ProcessorArchitecture: ...
     PreferredArchitecture = property(get_PreferredArchitecture, None)
 class ISystemMemoryUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.ISystemMemoryUsage'
     _iid_ = Guid('{17ffc595-1702-49cf-aa27-2f0a32591404}')
     @winrt_commethod(6)
     def GetReport(self) -> win32more.Windows.System.Diagnostics.SystemMemoryUsageReport: ...
 class ISystemMemoryUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.ISystemMemoryUsageReport'
     _iid_ = Guid('{38663c87-2a9f-403a-bd19-2cf3e8169500}')
     @winrt_commethod(6)
@@ -277,13 +276,13 @@ class ISystemMemoryUsageReport(ComPtr):
     CommittedSizeInBytes = property(get_CommittedSizeInBytes, None)
     TotalPhysicalSizeInBytes = property(get_TotalPhysicalSizeInBytes, None)
 class ProcessCpuUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessCpuUsage
     _classid_ = 'Windows.System.Diagnostics.ProcessCpuUsage'
     @winrt_mixinmethod
     def GetReport(self: win32more.Windows.System.Diagnostics.IProcessCpuUsage) -> win32more.Windows.System.Diagnostics.ProcessCpuUsageReport: ...
 class ProcessCpuUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessCpuUsageReport
     _classid_ = 'Windows.System.Diagnostics.ProcessCpuUsageReport'
     @winrt_mixinmethod
@@ -293,7 +292,7 @@ class ProcessCpuUsageReport(ComPtr):
     KernelTime = property(get_KernelTime, None)
     UserTime = property(get_UserTime, None)
 class ProcessDiagnosticInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessDiagnosticInfo
     _classid_ = 'Windows.System.Diagnostics.ProcessDiagnosticInfo'
     @winrt_mixinmethod
@@ -329,13 +328,13 @@ class ProcessDiagnosticInfo(ComPtr):
     ProcessId = property(get_ProcessId, None)
     ProcessStartTime = property(get_ProcessStartTime, None)
 class ProcessDiskUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessDiskUsage
     _classid_ = 'Windows.System.Diagnostics.ProcessDiskUsage'
     @winrt_mixinmethod
     def GetReport(self: win32more.Windows.System.Diagnostics.IProcessDiskUsage) -> win32more.Windows.System.Diagnostics.ProcessDiskUsageReport: ...
 class ProcessDiskUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessDiskUsageReport
     _classid_ = 'Windows.System.Diagnostics.ProcessDiskUsageReport'
     @winrt_mixinmethod
@@ -357,13 +356,13 @@ class ProcessDiskUsageReport(ComPtr):
     ReadOperationCount = property(get_ReadOperationCount, None)
     WriteOperationCount = property(get_WriteOperationCount, None)
 class ProcessMemoryUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessMemoryUsage
     _classid_ = 'Windows.System.Diagnostics.ProcessMemoryUsage'
     @winrt_mixinmethod
     def GetReport(self: win32more.Windows.System.Diagnostics.IProcessMemoryUsage) -> win32more.Windows.System.Diagnostics.ProcessMemoryUsageReport: ...
 class ProcessMemoryUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.IProcessMemoryUsageReport
     _classid_ = 'Windows.System.Diagnostics.ProcessMemoryUsageReport'
     @winrt_mixinmethod
@@ -403,13 +402,13 @@ class ProcessMemoryUsageReport(ComPtr):
     VirtualMemorySizeInBytes = property(get_VirtualMemorySizeInBytes, None)
     WorkingSetSizeInBytes = property(get_WorkingSetSizeInBytes, None)
 class SystemCpuUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.ISystemCpuUsage
     _classid_ = 'Windows.System.Diagnostics.SystemCpuUsage'
     @winrt_mixinmethod
     def GetReport(self: win32more.Windows.System.Diagnostics.ISystemCpuUsage) -> win32more.Windows.System.Diagnostics.SystemCpuUsageReport: ...
 class SystemCpuUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.ISystemCpuUsageReport
     _classid_ = 'Windows.System.Diagnostics.SystemCpuUsageReport'
     @winrt_mixinmethod
@@ -424,7 +423,7 @@ class SystemCpuUsageReport(ComPtr):
 class _SystemDiagnosticInfo_Meta_(ComPtr.__class__):
     pass
 class SystemDiagnosticInfo(ComPtr, metaclass=_SystemDiagnosticInfo_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.ISystemDiagnosticInfo
     _classid_ = 'Windows.System.Diagnostics.SystemDiagnosticInfo'
     @winrt_mixinmethod
@@ -441,13 +440,13 @@ class SystemDiagnosticInfo(ComPtr, metaclass=_SystemDiagnosticInfo_Meta_):
     MemoryUsage = property(get_MemoryUsage, None)
     _SystemDiagnosticInfo_Meta_.PreferredArchitecture = property(get_PreferredArchitecture, None)
 class SystemMemoryUsage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.ISystemMemoryUsage
     _classid_ = 'Windows.System.Diagnostics.SystemMemoryUsage'
     @winrt_mixinmethod
     def GetReport(self: win32more.Windows.System.Diagnostics.ISystemMemoryUsage) -> win32more.Windows.System.Diagnostics.SystemMemoryUsageReport: ...
 class SystemMemoryUsageReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.ISystemMemoryUsageReport
     _classid_ = 'Windows.System.Diagnostics.SystemMemoryUsageReport'
     @winrt_mixinmethod

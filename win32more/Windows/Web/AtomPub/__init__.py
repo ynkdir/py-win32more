@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Data.Xml.Dom
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -8,9 +8,8 @@ import win32more.Windows.Security.Credentials
 import win32more.Windows.Storage.Streams
 import win32more.Windows.Web.AtomPub
 import win32more.Windows.Web.Syndication
-import win32more.Windows.Win32.System.WinRT
 class AtomPubClient(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.AtomPub.IAtomPubClient
     _classid_ = 'Windows.Web.AtomPub.AtomPubClient'
     def __init__(self, *args, **kwargs):
@@ -78,7 +77,7 @@ class AtomPubClient(ComPtr):
     ServerCredential = property(get_ServerCredential, put_ServerCredential)
     Timeout = property(get_Timeout, put_Timeout)
 class IAtomPubClient(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.AtomPub.IAtomPubClient'
     _iid_ = Guid('{35392c38-cded-4d4c-9637-05f15c1c9406}')
     @winrt_commethod(6)
@@ -104,13 +103,13 @@ class IAtomPubClient(ComPtr):
     @winrt_commethod(16)
     def CancelAsyncOperations(self) -> Void: ...
 class IAtomPubClientFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.AtomPub.IAtomPubClientFactory'
     _iid_ = Guid('{49d55012-57cb-4bde-ab9f-2610b172777b}')
     @winrt_commethod(6)
     def CreateAtomPubClientWithCredentials(self, serverCredential: win32more.Windows.Security.Credentials.PasswordCredential) -> win32more.Windows.Web.AtomPub.AtomPubClient: ...
 class IResourceCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.AtomPub.IResourceCollection'
     _iid_ = Guid('{7f5fd609-bc88-41d4-88fa-3de6704d428e}')
     @winrt_commethod(6)
@@ -126,14 +125,14 @@ class IResourceCollection(ComPtr):
     Title = property(get_Title, None)
     Uri = property(get_Uri, None)
 class IServiceDocument(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.AtomPub.IServiceDocument'
     _iid_ = Guid('{8b7ec771-2ab3-4dbe-8bcc-778f92b75e51}')
     @winrt_commethod(6)
     def get_Workspaces(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Web.AtomPub.Workspace]: ...
     Workspaces = property(get_Workspaces, None)
 class IWorkspace(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.AtomPub.IWorkspace'
     _iid_ = Guid('{b41da63b-a4b8-4036-89c5-83c31266ba49}')
     @winrt_commethod(6)
@@ -143,7 +142,7 @@ class IWorkspace(ComPtr):
     Collections = property(get_Collections, None)
     Title = property(get_Title, None)
 class ResourceCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.AtomPub.IResourceCollection
     _classid_ = 'Windows.Web.AtomPub.ResourceCollection'
     @winrt_mixinmethod
@@ -192,7 +191,7 @@ class ResourceCollection(ComPtr):
     Title = property(get_Title, None)
     Uri = property(get_Uri, None)
 class ServiceDocument(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.AtomPub.IServiceDocument
     _classid_ = 'Windows.Web.AtomPub.ServiceDocument'
     @winrt_mixinmethod
@@ -232,7 +231,7 @@ class ServiceDocument(ComPtr):
     NodeValue = property(get_NodeValue, put_NodeValue)
     Workspaces = property(get_Workspaces, None)
 class Workspace(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.AtomPub.IWorkspace
     _classid_ = 'Windows.Web.AtomPub.Workspace'
     @winrt_mixinmethod

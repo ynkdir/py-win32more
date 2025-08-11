@@ -1,18 +1,17 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Search
 import win32more.Windows.ApplicationModel.Search.Core
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class IRequestingFocusOnKeyboardInputEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.Core.IRequestingFocusOnKeyboardInputEventArgs'
     _iid_ = Guid('{a1195f27-b1a7-41a2-879d-6a68687e5985}')
 class ISearchSuggestion(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.Core.ISearchSuggestion'
     _iid_ = Guid('{5b5554b0-1527-437b-95c5-8d18d2b8af55}')
     @winrt_commethod(6)
@@ -34,7 +33,7 @@ class ISearchSuggestion(ComPtr):
     Tag = property(get_Tag, None)
     Text = property(get_Text, None)
 class ISearchSuggestionManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.Core.ISearchSuggestionManager'
     _iid_ = Guid('{3f0c50a1-cb9d-497b-b500-3c04ac959ad2}')
     @winrt_commethod(6)
@@ -75,7 +74,7 @@ class ISearchSuggestionManager(ComPtr):
     SuggestionsRequested = event()
     RequestingFocusOnKeyboardInput = event()
 class ISearchSuggestionsRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.Core.ISearchSuggestionsRequestedEventArgs'
     _iid_ = Guid('{6fd519e5-9e7e-4ab4-8be3-c76b1bd4344a}')
     @winrt_commethod(6)
@@ -91,12 +90,12 @@ class ISearchSuggestionsRequestedEventArgs(ComPtr):
     QueryText = property(get_QueryText, None)
     Request = property(get_Request, None)
 class RequestingFocusOnKeyboardInputEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.Core.IRequestingFocusOnKeyboardInputEventArgs
     _classid_ = 'Windows.ApplicationModel.Search.Core.RequestingFocusOnKeyboardInputEventArgs'
 SearchCoreContract: UInt32 = 65536
 class SearchSuggestion(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestion
     _classid_ = 'Windows.ApplicationModel.Search.Core.SearchSuggestion'
     @winrt_mixinmethod
@@ -122,7 +121,7 @@ class SearchSuggestionKind(Enum, Int32):
     Result = 1
     Separator = 2
 class SearchSuggestionManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestionManager
     _classid_ = 'Windows.ApplicationModel.Search.Core.SearchSuggestionManager'
     def __init__(self, *args, **kwargs):
@@ -172,7 +171,7 @@ class SearchSuggestionManager(ComPtr):
     SuggestionsRequested = event()
     RequestingFocusOnKeyboardInput = event()
 class SearchSuggestionsRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Search.Core.ISearchSuggestionsRequestedEventArgs
     _classid_ = 'Windows.ApplicationModel.Search.Core.SearchSuggestionsRequestedEventArgs'
     @winrt_mixinmethod

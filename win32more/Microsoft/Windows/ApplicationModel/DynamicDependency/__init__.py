@@ -1,11 +1,10 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.ApplicationModel.DynamicDependency
 import win32more.Windows.ApplicationModel
-import win32more.Windows.Win32.System.WinRT
 class AddPackageDependencyOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IAddPackageDependencyOptions
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.AddPackageDependencyOptions'
     def __init__(self, *args, **kwargs):
@@ -28,7 +27,7 @@ class AddPackageDependencyOptions(ComPtr):
     PrependIfRankCollision = property(get_PrependIfRankCollision, put_PrependIfRankCollision)
     Rank = property(get_Rank, put_Rank)
 class CreatePackageDependencyOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.ICreatePackageDependencyOptions
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.CreatePackageDependencyOptions'
     def __init__(self, *args, **kwargs):
@@ -62,7 +61,7 @@ class CreatePackageDependencyOptions(ComPtr):
     VerifyDependencyResolution = property(get_VerifyDependencyResolution, put_VerifyDependencyResolution)
 DynamicDependencyContract: UInt32 = 131072
 class IAddPackageDependencyOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.IAddPackageDependencyOptions'
     _iid_ = Guid('{01b801fd-24e3-5e6b-9f1c-805ab410b604}')
     @winrt_commethod(6)
@@ -76,7 +75,7 @@ class IAddPackageDependencyOptions(ComPtr):
     PrependIfRankCollision = property(get_PrependIfRankCollision, put_PrependIfRankCollision)
     Rank = property(get_Rank, put_Rank)
 class ICreatePackageDependencyOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.ICreatePackageDependencyOptions'
     _iid_ = Guid('{cdbb820f-3c69-55dc-a017-b4132574c5d6}')
     @winrt_commethod(6)
@@ -100,7 +99,7 @@ class ICreatePackageDependencyOptions(ComPtr):
     LifetimeArtifactKind = property(get_LifetimeArtifactKind, put_LifetimeArtifactKind)
     VerifyDependencyResolution = property(get_VerifyDependencyResolution, put_VerifyDependencyResolution)
 class IPackageDependency(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependency'
     _iid_ = Guid('{32ae7b95-e358-5a48-9669-c97d85ad6556}')
     @winrt_commethod(6)
@@ -113,7 +112,7 @@ class IPackageDependency(ComPtr):
     def Add2(self, options: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.AddPackageDependencyOptions) -> win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContext: ...
     Id = property(get_Id, None)
 class IPackageDependencyContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyContext'
     _iid_ = Guid('{9902c35a-a3f5-5645-af0f-cdf9fca00d5e}')
     @winrt_commethod(6)
@@ -128,20 +127,20 @@ class IPackageDependencyContext(ComPtr):
     PackageDependencyId = property(get_PackageDependencyId, None)
     PackageFullName = property(get_PackageFullName, None)
 class IPackageDependencyContextFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyContextFactory'
     _iid_ = Guid('{9914f24f-bebf-516b-adab-5c3e8bf323f8}')
     @winrt_commethod(6)
     def CreateInstance(self, contextId: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContextId) -> win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContext: ...
 class IPackageDependencyRankStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyRankStatics'
     _iid_ = Guid('{260583bd-a4ab-53fd-a190-c446bfdb5384}')
     @winrt_commethod(6)
     def get_Default(self) -> Int32: ...
     Default = property(get_Default, None)
 class IPackageDependencyStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyStatics'
     _iid_ = Guid('{17b656e1-1a58-5f3c-84a8-4430f6e749c2}')
     @winrt_commethod(6)
@@ -158,7 +157,7 @@ class IPackageDependencyStatics(ComPtr):
     def get_GenerationId(self) -> UInt32: ...
     GenerationId = property(get_GenerationId, None)
 class IPackageDependencyStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyStatics2'
     _iid_ = Guid('{c7c6e4f3-c0ca-5fdb-bef2-57e6020ffe4e}')
     @winrt_commethod(6)
@@ -167,7 +166,7 @@ class IPackageDependencyStatics2(ComPtr):
 class _PackageDependency_Meta_(ComPtr.__class__):
     pass
 class PackageDependency(ComPtr, metaclass=_PackageDependency_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependency
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependency'
     @winrt_mixinmethod
@@ -196,7 +195,7 @@ class PackageDependency(ComPtr, metaclass=_PackageDependency_Meta_):
     _PackageDependency_Meta_.GenerationId = property(get_GenerationId, None)
     _PackageDependency_Meta_.PackageGraphRevisionId = property(get_PackageGraphRevisionId, None)
 class PackageDependencyContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyContext
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyContext'
     def __init__(self, *args, **kwargs):
@@ -236,7 +235,7 @@ class PackageDependencyProcessorArchitectures(Enum, UInt32):
 class _PackageDependencyRank_Meta_(ComPtr.__class__):
     pass
 class PackageDependencyRank(ComPtr, metaclass=_PackageDependencyRank_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.ApplicationModel.DynamicDependency.PackageDependencyRank'
     @winrt_classmethod
     def get_Default(cls: win32more.Microsoft.Windows.ApplicationModel.DynamicDependency.IPackageDependencyRankStatics) -> Int32: ...

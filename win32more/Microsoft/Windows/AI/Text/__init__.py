@@ -1,21 +1,20 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.AI
 import win32more.Microsoft.Windows.AI.ContentSafety
 import win32more.Microsoft.Windows.AI.Text
 import win32more.Windows.Foundation
-import win32more.Windows.Win32.System.WinRT
 class ILanguageModel(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ILanguageModel'
     _iid_ = Guid('{6331c629-8c86-5bfe-8c4e-9ca5573cc14b}')
 class ILanguageModelContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ILanguageModelContext'
     _iid_ = Guid('{518b305c-7b69-5a33-8129-d47d6b8eec4e}')
 class ILanguageModelOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ILanguageModelOptions'
     _iid_ = Guid('{7f380003-5a09-5f1f-afb0-aa483e3670cc}')
     @winrt_commethod(6)
@@ -39,7 +38,7 @@ class ILanguageModelOptions(ComPtr):
     TopK = property(get_TopK, put_TopK)
     TopP = property(get_TopP, put_TopP)
 class ILanguageModelResponseResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ILanguageModelResponseResult'
     _iid_ = Guid('{3a256fff-a426-5d3b-8e4b-3ac84162471e}')
     @winrt_commethod(6)
@@ -52,7 +51,7 @@ class ILanguageModelResponseResult(ComPtr):
     Status = property(get_Status, None)
     Text = property(get_Text, None)
 class ILanguageModelStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ILanguageModelStatics'
     _iid_ = Guid('{8f18f9af-6095-553b-8d9d-6bcc98026546}')
     @winrt_commethod(6)
@@ -62,19 +61,19 @@ class ILanguageModelStatics(ComPtr):
     @winrt_commethod(8)
     def CreateAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Windows.AI.Text.LanguageModel]: ...
 class ITextRewriter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ITextRewriter'
     _iid_ = Guid('{eb1e7cf0-e110-506c-b0ea-7a288d8e7778}')
     @winrt_commethod(6)
     def RewriteAsync(self, text: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Text.LanguageModelResponseResult, WinRT_String]: ...
 class ITextRewriterFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ITextRewriterFactory'
     _iid_ = Guid('{f452e60d-ef50-5bc9-b483-217d5b4e7151}')
     @winrt_commethod(6)
     def CreateInstance(self, languageModel: win32more.Microsoft.Windows.AI.Text.LanguageModel) -> win32more.Microsoft.Windows.AI.Text.TextRewriter: ...
 class ITextSummarizer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ITextSummarizer'
     _iid_ = Guid('{eef548c5-d7bc-50be-a8ab-29e241b78bd1}')
     @winrt_commethod(6)
@@ -82,25 +81,25 @@ class ITextSummarizer(ComPtr):
     @winrt_commethod(7)
     def SummarizeParagraphAsync(self, text: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Text.LanguageModelResponseResult, WinRT_String]: ...
 class ITextSummarizerFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ITextSummarizerFactory'
     _iid_ = Guid('{b6a75913-4a1e-59e7-856a-ae7ab2383864}')
     @winrt_commethod(6)
     def CreateInstance(self, languageModel: win32more.Microsoft.Windows.AI.Text.LanguageModel) -> win32more.Microsoft.Windows.AI.Text.TextSummarizer: ...
 class ITextToTableConverter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ITextToTableConverter'
     _iid_ = Guid('{a008d9ad-25ce-5a6b-9ceb-d8e95d04e10b}')
     @winrt_commethod(6)
     def ConvertAsync(self, text: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Text.TextToTableResponseResult, WinRT_String]: ...
 class ITextToTableConverterFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ITextToTableConverterFactory'
     _iid_ = Guid('{bb84cbb5-19c8-5857-b65d-705aa1486404}')
     @winrt_commethod(6)
     def CreateInstance(self, languageModel: win32more.Microsoft.Windows.AI.Text.LanguageModel) -> win32more.Microsoft.Windows.AI.Text.TextToTableConverter: ...
 class ITextToTableResponseResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ITextToTableResponseResult'
     _iid_ = Guid('{391fbf11-59cd-575d-834a-9ef823116f98}')
     @winrt_commethod(6)
@@ -112,13 +111,13 @@ class ITextToTableResponseResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class ITextToTableRow(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Text.ITextToTableRow'
     _iid_ = Guid('{036294fe-e53c-5e66-93d2-7c92338db881}')
     @winrt_commethod(6)
     def GetColumns(self) -> ReceiveArray[WinRT_String]: ...
 class LanguageModel(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Windows.AI.Text.ILanguageModel
     _classid_ = 'Microsoft.Windows.AI.Text.LanguageModel'
@@ -131,7 +130,7 @@ class LanguageModel(ComPtr):
     @winrt_classmethod
     def CreateAsync(cls: win32more.Microsoft.Windows.AI.Text.ILanguageModelStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Windows.AI.Text.LanguageModel]: ...
 class LanguageModelContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Windows.AI.Text.ILanguageModelContext
     _classid_ = 'Microsoft.Windows.AI.Text.LanguageModelContext'
@@ -139,7 +138,7 @@ class LanguageModelContext(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 LanguageModelContract: UInt32 = 131072
 class LanguageModelOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Text.ILanguageModelOptions
     _classid_ = 'Microsoft.Windows.AI.Text.LanguageModelOptions'
     def __init__(self, *args, **kwargs):
@@ -172,7 +171,7 @@ class LanguageModelOptions(ComPtr):
     TopK = property(get_TopK, put_TopK)
     TopP = property(get_TopP, put_TopP)
 class LanguageModelResponseResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Text.ILanguageModelResponseResult
     _classid_ = 'Microsoft.Windows.AI.Text.LanguageModelResponseResult'
     @winrt_mixinmethod
@@ -194,7 +193,7 @@ class LanguageModelResponseStatus(Enum, Int32):
     Error = 6
 TextIntelligenceContract: UInt32 = 131072
 class TextRewriter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Text.ITextRewriter
     _classid_ = 'Microsoft.Windows.AI.Text.TextRewriter'
     def __init__(self, *args, **kwargs):
@@ -209,7 +208,7 @@ class TextRewriter(ComPtr):
     @winrt_mixinmethod
     def RewriteAsync(self: win32more.Microsoft.Windows.AI.Text.ITextRewriter, text: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Text.LanguageModelResponseResult, WinRT_String]: ...
 class TextSummarizer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Text.ITextSummarizer
     _classid_ = 'Microsoft.Windows.AI.Text.TextSummarizer'
     def __init__(self, *args, **kwargs):
@@ -226,7 +225,7 @@ class TextSummarizer(ComPtr):
     @winrt_mixinmethod
     def SummarizeParagraphAsync(self: win32more.Microsoft.Windows.AI.Text.ITextSummarizer, text: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Text.LanguageModelResponseResult, WinRT_String]: ...
 class TextToTableConverter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Text.ITextToTableConverter
     _classid_ = 'Microsoft.Windows.AI.Text.TextToTableConverter'
     def __init__(self, *args, **kwargs):
@@ -241,7 +240,7 @@ class TextToTableConverter(ComPtr):
     @winrt_mixinmethod
     def ConvertAsync(self: win32more.Microsoft.Windows.AI.Text.ITextToTableConverter, text: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Text.TextToTableResponseResult, WinRT_String]: ...
 class TextToTableResponseResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Text.ITextToTableResponseResult
     _classid_ = 'Microsoft.Windows.AI.Text.TextToTableResponseResult'
     @winrt_mixinmethod
@@ -253,7 +252,7 @@ class TextToTableResponseResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class TextToTableRow(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Text.ITextToTableRow
     _classid_ = 'Microsoft.Windows.AI.Text.TextToTableRow'
     @winrt_mixinmethod

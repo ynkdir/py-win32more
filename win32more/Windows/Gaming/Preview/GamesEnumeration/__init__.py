@@ -1,15 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Gaming.Preview.GamesEnumeration
 import win32more.Windows.Storage
-import win32more.Windows.Win32.System.Com
-import win32more.Windows.Win32.System.WinRT
 class GameList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameList'
     @winrt_classmethod
     def MergeEntriesAsync(cls: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListStatics2, left: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListEntry, right: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Gaming.Preview.GamesEnumeration.GameListEntry]: ...
@@ -36,12 +34,12 @@ class GameListCategory(Enum, Int32):
     ConfirmedBySystem = 1
     ConfirmedByUser = 2
 class GameListChangedEventHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{25f6a421-d8f5-4d91-b40e-53d5e86fde64}')
     @winrt_commethod(3)
     def Invoke(self, game: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> Void: ...
 class GameListEntry(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListEntry
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameListEntry'
     @winrt_mixinmethod
@@ -51,7 +49,7 @@ class GameListEntry(ComPtr):
     @winrt_mixinmethod
     def get_Category(self: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListEntry) -> win32more.Windows.Gaming.Preview.GamesEnumeration.GameListCategory: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListEntry) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Properties(self: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListEntry) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, IInspectable]: ...
     @winrt_mixinmethod
     def SetCategoryAsync(self: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameListEntry, value: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListCategory) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -84,12 +82,12 @@ class GameListEntryLaunchableState(Enum, Int32):
     ByUserProvidedPath = 2
     ByTile = 3
 class GameListRemovedEventHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{10c5648f-6c8f-4712-9b38-474bc22e76d8}')
     @winrt_commethod(3)
     def Invoke(self, identifier: WinRT_String) -> Void: ...
 class GameModeConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameModeConfiguration
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration'
     @winrt_mixinmethod
@@ -138,7 +136,7 @@ class GameModeConfiguration(ComPtr):
     PercentGpuTimeAllocatedToGame = property(get_PercentGpuTimeAllocatedToGame, put_PercentGpuTimeAllocatedToGame)
     RelatedProcessNames = property(get_RelatedProcessNames, None)
 class GameModeUserConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfiguration
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration'
     @winrt_mixinmethod
@@ -149,7 +147,7 @@ class GameModeUserConfiguration(ComPtr):
     def GetDefault(cls: win32more.Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfigurationStatics) -> win32more.Windows.Gaming.Preview.GamesEnumeration.GameModeUserConfiguration: ...
     GamingRelatedProcessNames = property(get_GamingRelatedProcessNames, None)
 class IGameListEntry(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListEntry'
     _iid_ = Guid('{735924d3-811f-4494-b69c-c641a0c61543}')
     @winrt_commethod(6)
@@ -159,14 +157,14 @@ class IGameListEntry(ComPtr):
     @winrt_commethod(8)
     def get_Category(self) -> win32more.Windows.Gaming.Preview.GamesEnumeration.GameListCategory: ...
     @winrt_commethod(9)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMapView[WinRT_String, IInspectable]: ...
     @winrt_commethod(10)
     def SetCategoryAsync(self, value: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListCategory) -> win32more.Windows.Foundation.IAsyncAction: ...
     Category = property(get_Category, None)
     DisplayInfo = property(get_DisplayInfo, None)
     Properties = property(get_Properties, None)
 class IGameListEntry2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListEntry2'
     _iid_ = Guid('{d84a8f8b-8749-4a25-90d3-f6c5a427886d}')
     @winrt_commethod(6)
@@ -191,7 +189,7 @@ class IGameListEntry2(ComPtr):
     LauncherExecutable = property(get_LauncherExecutable, None)
     TitleId = property(get_TitleId, None)
 class IGameListStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListStatics'
     _iid_ = Guid('{2ddd0f6f-9c66-4b05-945c-d6ed78491b8c}')
     @winrt_commethod(6)
@@ -214,7 +212,7 @@ class IGameListStatics(ComPtr):
     GameRemoved = event()
     GameUpdated = event()
 class IGameListStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameListStatics2'
     _iid_ = Guid('{395f2098-ea1a-45aa-9268-a83905686f27}')
     @winrt_commethod(6)
@@ -222,7 +220,7 @@ class IGameListStatics2(ComPtr):
     @winrt_commethod(7)
     def UnmergeEntryAsync(self, mergedEntry: win32more.Windows.Gaming.Preview.GamesEnumeration.GameListEntry) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Gaming.Preview.GamesEnumeration.GameListEntry]]: ...
 class IGameModeConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameModeConfiguration'
     _iid_ = Guid('{78e591af-b142-4ef0-8830-55bc2be4f5ea}')
     @winrt_commethod(6)
@@ -271,7 +269,7 @@ class IGameModeConfiguration(ComPtr):
     PercentGpuTimeAllocatedToGame = property(get_PercentGpuTimeAllocatedToGame, put_PercentGpuTimeAllocatedToGame)
     RelatedProcessNames = property(get_RelatedProcessNames, None)
 class IGameModeUserConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfiguration'
     _iid_ = Guid('{72d34af4-756b-470f-a0c2-ba62a90795db}')
     @winrt_commethod(6)
@@ -280,7 +278,7 @@ class IGameModeUserConfiguration(ComPtr):
     def SaveAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     GamingRelatedProcessNames = property(get_GamingRelatedProcessNames, None)
 class IGameModeUserConfigurationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Preview.GamesEnumeration.IGameModeUserConfigurationStatics'
     _iid_ = Guid('{6e50d97c-66ea-478e-a4a1-f57c0e8d00e7}')
     @winrt_commethod(6)

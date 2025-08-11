@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.Canvas
 import win32more.Microsoft.Graphics.Canvas.Geometry
 import win32more.Microsoft.Graphics.Canvas.Svg
@@ -8,7 +8,6 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class CanvasSvgAspectAlignment(Enum, Int32):
     None_ = 0
     XMinYMin = 1
@@ -27,7 +26,7 @@ class CanvasSvgDisplay(Enum, Int32):
     Inline = 0
     None_ = 1
 class CanvasSvgDocument(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Svg.ICanvasSvgDocument
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgDocument'
@@ -86,7 +85,7 @@ class CanvasSvgLengthUnits(Enum, Int32):
     Number = 0
     Percentage = 1
 class CanvasSvgNamedElement(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Svg.ICanvasSvgNamedElement
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgNamedElement'
@@ -210,7 +209,7 @@ class CanvasSvgOverflow(Enum, Int32):
     DoNotClipToViewport = 0
     ClipToViewport = 1
 class CanvasSvgPaintAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Svg.ICanvasSvgPaintAttribute
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgPaintAttribute'
@@ -247,7 +246,7 @@ class CanvasSvgPaintType(Enum, Int32):
     UriThenColor = 5
     UriThenCurrentColor = 6
 class CanvasSvgPathAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Svg.ICanvasSvgPathAttribute
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgPathAttribute'
@@ -303,7 +302,7 @@ class CanvasSvgPathCommand(Enum, Int32):
     QuadraticSmoothAbsolute = 17
     QuadraticSmoothRelative = 18
 class CanvasSvgPointsAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Svg.ICanvasSvgPointsAttribute
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgPointsAttribute'
@@ -326,7 +325,7 @@ class CanvasSvgPointsAttribute(ComPtr):
     Device = property(get_Device, None)
     Points = property(get_Points, None)
 class CanvasSvgStrokeDashArrayAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Svg.ICanvasSvgStrokeDashArrayAttribute
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgStrokeDashArrayAttribute'
@@ -352,7 +351,7 @@ class CanvasSvgStrokeDashArrayAttribute(ComPtr):
     def get_Device(self: win32more.Microsoft.Graphics.Canvas.Svg.ICanvasSvgAttribute) -> win32more.Microsoft.Graphics.Canvas.CanvasDevice: ...
     Device = property(get_Device, None)
 class CanvasSvgTextElement(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Svg.ICanvasSvgTextElement
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.CanvasSvgTextElement'
@@ -370,7 +369,7 @@ class CanvasSvgVisibility(Enum, Int32):
     Visible = 0
     Hidden = 1
 class ICanvasSvgAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgAttribute'
     _iid_ = Guid('{652786a8-f3ab-4083-991d-9748aa86bd6e}')
@@ -382,7 +381,7 @@ class ICanvasSvgAttribute(ComPtr):
     def get_Device(self) -> win32more.Microsoft.Graphics.Canvas.CanvasDevice: ...
     Device = property(get_Device, None)
 class ICanvasSvgDocument(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgDocument'
     _iid_ = Guid('{a0e34929-3551-44fe-a670-d9b3fd800516}')
@@ -421,13 +420,13 @@ class ICanvasSvgDocument(ComPtr):
     Device = property(get_Device, None)
     Root = property(get_Root, put_Root)
 class ICanvasSvgDocumentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgDocumentFactory'
     _iid_ = Guid('{bab0f16d-4050-4ef6-8022-8a07e9e74a9d}')
     @winrt_commethod(6)
     def CreateEmpty(self, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator) -> win32more.Microsoft.Graphics.Canvas.Svg.CanvasSvgDocument: ...
 class ICanvasSvgDocumentStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgDocumentStatics'
     _iid_ = Guid('{7740e748-cb9a-453f-a678-8b3b3a7254d3}')
     @winrt_commethod(6)
@@ -437,7 +436,7 @@ class ICanvasSvgDocumentStatics(ComPtr):
     @winrt_commethod(8)
     def IsSupported(self, device: win32more.Microsoft.Graphics.Canvas.CanvasDevice) -> Boolean: ...
 class ICanvasSvgElement(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgElement'
     _iid_ = Guid('{0775cb81-c555-45bf-9795-0ff59151c3be}')
@@ -451,7 +450,7 @@ class ICanvasSvgElement(ComPtr):
     Device = property(get_Device, None)
     Parent = property(get_Parent, None)
 class ICanvasSvgNamedElement(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgNamedElement'
     _iid_ = Guid('{d8b7cb94-8167-495d-9c71-5e97e5d08d2b}')
@@ -561,7 +560,7 @@ class ICanvasSvgNamedElement(ComPtr):
     SpecifiedAttributes = property(get_SpecifiedAttributes, None)
     Tag = property(get_Tag, None)
 class ICanvasSvgPaintAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgPaintAttribute'
     _iid_ = Guid('{653786a8-f3ab-4083-991d-9748aa86bd6e}')
@@ -581,7 +580,7 @@ class ICanvasSvgPaintAttribute(ComPtr):
     Id = property(get_Id, put_Id)
     PaintType = property(get_PaintType, put_PaintType)
 class ICanvasSvgPathAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgPathAttribute'
     _iid_ = Guid('{652786a8-f3ab-4083-991d-9748ab86bd6e}')
@@ -608,7 +607,7 @@ class ICanvasSvgPathAttribute(ComPtr):
     Commands = property(get_Commands, None)
     SegmentData = property(get_SegmentData, None)
 class ICanvasSvgPointsAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgPointsAttribute'
     _iid_ = Guid('{652786a8-f3ab-4083-991d-9748aa86bd6f}')
@@ -622,7 +621,7 @@ class ICanvasSvgPointsAttribute(ComPtr):
     def SetPoints(self, startIndex: Int32, points: PassArray[win32more.Windows.Foundation.Numerics.Vector2]) -> Void: ...
     Points = property(get_Points, None)
 class ICanvasSvgStrokeDashArrayAttribute(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgStrokeDashArrayAttribute'
     _iid_ = Guid('{652786a8-f3ab-4083-991d-9748aa86bd70}')
@@ -639,7 +638,7 @@ class ICanvasSvgStrokeDashArrayAttribute(ComPtr):
     @winrt_commethod(11)
     def SetDashesWithUnits(self, startIndex: Int32, dashValues: PassArray[Single], unitValues: PassArray[win32more.Microsoft.Graphics.Canvas.Svg.CanvasSvgLengthUnits]) -> Void: ...
 class ICanvasSvgTextElement(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Svg.ICanvasSvgTextElement'
     _iid_ = Guid('{652786a8-f3ab-4083-991d-9748aa86bd6d}')

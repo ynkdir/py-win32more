@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Globalization
 import win32more.Windows.UI.Text
 import win32more.Windows.UI.Text.Core
 import win32more.Windows.UI.ViewManagement
-import win32more.Windows.Win32.System.WinRT
 class CoreTextCompositionCompletedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextCompositionCompletedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextCompositionCompletedEventArgs'
     @winrt_mixinmethod
@@ -21,7 +20,7 @@ class CoreTextCompositionCompletedEventArgs(ComPtr):
     CompositionSegments = property(get_CompositionSegments, None)
     IsCanceled = property(get_IsCanceled, None)
 class CoreTextCompositionSegment(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextCompositionSegment
     _classid_ = 'Windows.UI.Text.Core.CoreTextCompositionSegment'
     @winrt_mixinmethod
@@ -31,7 +30,7 @@ class CoreTextCompositionSegment(ComPtr):
     PreconversionString = property(get_PreconversionString, None)
     Range = property(get_Range, None)
 class CoreTextCompositionStartedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextCompositionStartedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextCompositionStartedEventArgs'
     @winrt_mixinmethod
@@ -40,7 +39,7 @@ class CoreTextCompositionStartedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.UI.Text.Core.ICoreTextCompositionStartedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     IsCanceled = property(get_IsCanceled, None)
 class CoreTextEditContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextEditContext
     _classid_ = 'Windows.UI.Text.Core.CoreTextEditContext'
     @winrt_mixinmethod
@@ -92,7 +91,7 @@ class CoreTextEditContext(ComPtr):
     @winrt_mixinmethod
     def remove_CompositionCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_FocusRemoved(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FocusRemoved(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_FocusRemoved(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -106,7 +105,7 @@ class CoreTextEditContext(ComPtr):
     @winrt_mixinmethod
     def NotifyLayoutChanged(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext) -> Void: ...
     @winrt_mixinmethod
-    def add_NotifyFocusLeaveCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NotifyFocusLeaveCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext2, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_NotifyFocusLeaveCompleted(self: win32more.Windows.UI.Text.Core.ICoreTextEditContext2, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     InputPaneDisplayPolicy = property(get_InputPaneDisplayPolicy, put_InputPaneDisplayPolicy)
@@ -124,7 +123,7 @@ class CoreTextEditContext(ComPtr):
     FocusRemoved = event()
     NotifyFocusLeaveCompleted = event()
 class CoreTextFormatUpdatingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextFormatUpdatingEventArgs'
     @winrt_mixinmethod
@@ -236,7 +235,7 @@ class CoreTextInputScope(Enum, Int32):
     PinNumeric = 64
     PinAlphanumeric = 65
 class CoreTextLayoutBounds(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextLayoutBounds
     _classid_ = 'Windows.UI.Text.Core.CoreTextLayoutBounds'
     @winrt_mixinmethod
@@ -250,7 +249,7 @@ class CoreTextLayoutBounds(ComPtr):
     ControlBounds = property(get_ControlBounds, put_ControlBounds)
     TextBounds = property(get_TextBounds, put_TextBounds)
 class CoreTextLayoutRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextLayoutRequest
     _classid_ = 'Windows.UI.Text.Core.CoreTextLayoutRequest'
     @winrt_mixinmethod
@@ -268,7 +267,7 @@ class CoreTextLayoutRequest(ComPtr):
     LayoutBoundsVisualPixels = property(get_LayoutBoundsVisualPixels, None)
     Range = property(get_Range, None)
 class CoreTextLayoutRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextLayoutRequestedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextLayoutRequestedEventArgs'
     @winrt_mixinmethod
@@ -278,7 +277,7 @@ class CoreTextRange(Structure):
     StartCaretPosition: Int32
     EndCaretPosition: Int32
 class CoreTextSelectionRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextSelectionRequest
     _classid_ = 'Windows.UI.Text.Core.CoreTextSelectionRequest'
     @winrt_mixinmethod
@@ -292,14 +291,14 @@ class CoreTextSelectionRequest(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
     Selection = property(get_Selection, put_Selection)
 class CoreTextSelectionRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextSelectionRequestedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextSelectionRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.UI.Text.Core.ICoreTextSelectionRequestedEventArgs) -> win32more.Windows.UI.Text.Core.CoreTextSelectionRequest: ...
     Request = property(get_Request, None)
 class CoreTextSelectionUpdatingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextSelectionUpdatingEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextSelectionUpdatingEventArgs'
     @winrt_mixinmethod
@@ -321,19 +320,19 @@ class CoreTextSelectionUpdatingResult(Enum, Int32):
 class _CoreTextServicesConstants_Meta_(ComPtr.__class__):
     pass
 class CoreTextServicesConstants(ComPtr, metaclass=_CoreTextServicesConstants_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.CoreTextServicesConstants'
     @winrt_classmethod
     def get_HiddenCharacter(cls: win32more.Windows.UI.Text.Core.ICoreTextServicesStatics) -> Char: ...
     _CoreTextServicesConstants_Meta_.HiddenCharacter = property(get_HiddenCharacter, None)
 class CoreTextServicesManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextServicesManager
     _classid_ = 'Windows.UI.Text.Core.CoreTextServicesManager'
     @winrt_mixinmethod
     def get_InputLanguage(self: win32more.Windows.UI.Text.Core.ICoreTextServicesManager) -> win32more.Windows.Globalization.Language: ...
     @winrt_mixinmethod
-    def add_InputLanguageChanged(self: win32more.Windows.UI.Text.Core.ICoreTextServicesManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextServicesManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_InputLanguageChanged(self: win32more.Windows.UI.Text.Core.ICoreTextServicesManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextServicesManager, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_InputLanguageChanged(self: win32more.Windows.UI.Text.Core.ICoreTextServicesManager, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -343,7 +342,7 @@ class CoreTextServicesManager(ComPtr):
     InputLanguage = property(get_InputLanguage, None)
     InputLanguageChanged = event()
 class CoreTextTextRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextTextRequest
     _classid_ = 'Windows.UI.Text.Core.CoreTextTextRequest'
     @winrt_mixinmethod
@@ -360,14 +359,14 @@ class CoreTextTextRequest(ComPtr):
     Range = property(get_Range, None)
     Text = property(get_Text, put_Text)
 class CoreTextTextRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextTextRequestedEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextTextRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: win32more.Windows.UI.Text.Core.ICoreTextTextRequestedEventArgs) -> win32more.Windows.UI.Text.Core.CoreTextTextRequest: ...
     Request = property(get_Request, None)
 class CoreTextTextUpdatingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Text.Core.ICoreTextTextUpdatingEventArgs
     _classid_ = 'Windows.UI.Text.Core.CoreTextTextUpdatingEventArgs'
     @winrt_mixinmethod
@@ -396,7 +395,7 @@ class CoreTextTextUpdatingResult(Enum, Int32):
     Succeeded = 0
     Failed = 1
 class ICoreTextCompositionCompletedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextCompositionCompletedEventArgs'
     _iid_ = Guid('{1f34ebb6-b79f-4121-a5e7-fda9b8616e30}')
     @winrt_commethod(6)
@@ -408,7 +407,7 @@ class ICoreTextCompositionCompletedEventArgs(ComPtr):
     CompositionSegments = property(get_CompositionSegments, None)
     IsCanceled = property(get_IsCanceled, None)
 class ICoreTextCompositionSegment(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextCompositionSegment'
     _iid_ = Guid('{776c6bd9-4ead-4da7-8f47-3a88b523cc34}')
     @winrt_commethod(6)
@@ -418,7 +417,7 @@ class ICoreTextCompositionSegment(ComPtr):
     PreconversionString = property(get_PreconversionString, None)
     Range = property(get_Range, None)
 class ICoreTextCompositionStartedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextCompositionStartedEventArgs'
     _iid_ = Guid('{276b16a9-64e7-4ab0-bc4b-a02d73835bfb}')
     @winrt_commethod(6)
@@ -427,7 +426,7 @@ class ICoreTextCompositionStartedEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     IsCanceled = property(get_IsCanceled, None)
 class ICoreTextEditContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextEditContext'
     _iid_ = Guid('{bf6608af-4041-47c3-b263-a918eb5eaef2}')
     @winrt_commethod(6)
@@ -479,7 +478,7 @@ class ICoreTextEditContext(ComPtr):
     @winrt_commethod(29)
     def remove_CompositionCompleted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(30)
-    def add_FocusRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FocusRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(31)
     def remove_FocusRemoved(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(32)
@@ -506,16 +505,16 @@ class ICoreTextEditContext(ComPtr):
     CompositionCompleted = event()
     FocusRemoved = event()
 class ICoreTextEditContext2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextEditContext2'
     _iid_ = Guid('{b1867dbb-083b-49e1-b281-2b35d62bf466}')
     @winrt_commethod(6)
-    def add_NotifyFocusLeaveCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NotifyFocusLeaveCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextEditContext, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_NotifyFocusLeaveCompleted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     NotifyFocusLeaveCompleted = event()
 class ICoreTextFormatUpdatingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextFormatUpdatingEventArgs'
     _iid_ = Guid('{7310bd33-b4a8-43b1-b37b-0724d4aca7ab}')
     @winrt_commethod(6)
@@ -547,7 +546,7 @@ class ICoreTextFormatUpdatingEventArgs(ComPtr):
     UnderlineColor = property(get_UnderlineColor, None)
     UnderlineType = property(get_UnderlineType, None)
 class ICoreTextLayoutBounds(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextLayoutBounds'
     _iid_ = Guid('{e972c974-4436-4917-80d0-a525e4ca6780}')
     @winrt_commethod(6)
@@ -561,7 +560,7 @@ class ICoreTextLayoutBounds(ComPtr):
     ControlBounds = property(get_ControlBounds, put_ControlBounds)
     TextBounds = property(get_TextBounds, put_TextBounds)
 class ICoreTextLayoutRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextLayoutRequest'
     _iid_ = Guid('{2555a8cc-51fd-4f03-98bf-ac78174d68e0}')
     @winrt_commethod(6)
@@ -576,21 +575,21 @@ class ICoreTextLayoutRequest(ComPtr):
     LayoutBounds = property(get_LayoutBounds, None)
     Range = property(get_Range, None)
 class ICoreTextLayoutRequest2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextLayoutRequest2'
     _iid_ = Guid('{676de624-cd3d-4bcd-bf01-7f7110954511}')
     @winrt_commethod(6)
     def get_LayoutBoundsVisualPixels(self) -> win32more.Windows.UI.Text.Core.CoreTextLayoutBounds: ...
     LayoutBoundsVisualPixels = property(get_LayoutBoundsVisualPixels, None)
 class ICoreTextLayoutRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextLayoutRequestedEventArgs'
     _iid_ = Guid('{b1dc6ae0-9a7b-4e9e-a566-4a6b5f8ad676}')
     @winrt_commethod(6)
     def get_Request(self) -> win32more.Windows.UI.Text.Core.CoreTextLayoutRequest: ...
     Request = property(get_Request, None)
 class ICoreTextSelectionRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextSelectionRequest'
     _iid_ = Guid('{f0a70403-208b-4301-883c-74ca7485fd8d}')
     @winrt_commethod(6)
@@ -604,14 +603,14 @@ class ICoreTextSelectionRequest(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
     Selection = property(get_Selection, put_Selection)
 class ICoreTextSelectionRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextSelectionRequestedEventArgs'
     _iid_ = Guid('{13c6682b-f614-421a-8f4b-9ec8a5a37fcd}')
     @winrt_commethod(6)
     def get_Request(self) -> win32more.Windows.UI.Text.Core.CoreTextSelectionRequest: ...
     Request = property(get_Request, None)
 class ICoreTextSelectionUpdatingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextSelectionUpdatingEventArgs'
     _iid_ = Guid('{d445839f-fe7f-4bd5-8a26-0922c1b3e639}')
     @winrt_commethod(6)
@@ -628,13 +627,13 @@ class ICoreTextSelectionUpdatingEventArgs(ComPtr):
     Result = property(get_Result, put_Result)
     Selection = property(get_Selection, None)
 class ICoreTextServicesManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextServicesManager'
     _iid_ = Guid('{c2507d83-6e0a-4a8a-bdf8-1948874854ba}')
     @winrt_commethod(6)
     def get_InputLanguage(self) -> win32more.Windows.Globalization.Language: ...
     @winrt_commethod(7)
-    def add_InputLanguageChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextServicesManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_InputLanguageChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Text.Core.CoreTextServicesManager, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_InputLanguageChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
@@ -642,20 +641,20 @@ class ICoreTextServicesManager(ComPtr):
     InputLanguage = property(get_InputLanguage, None)
     InputLanguageChanged = event()
 class ICoreTextServicesManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextServicesManagerStatics'
     _iid_ = Guid('{1520a388-e2cf-4d65-aeb9-b32d86fe39b9}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> win32more.Windows.UI.Text.Core.CoreTextServicesManager: ...
 class ICoreTextServicesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextServicesStatics'
     _iid_ = Guid('{91859a46-eccf-47a4-8ae7-098a9c6fbb15}')
     @winrt_commethod(6)
     def get_HiddenCharacter(self) -> Char: ...
     HiddenCharacter = property(get_HiddenCharacter, None)
 class ICoreTextTextRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextTextRequest'
     _iid_ = Guid('{50d950a9-f51e-4cc1-8ca1-e6346d1a61be}')
     @winrt_commethod(6)
@@ -672,14 +671,14 @@ class ICoreTextTextRequest(ComPtr):
     Range = property(get_Range, None)
     Text = property(get_Text, put_Text)
 class ICoreTextTextRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextTextRequestedEventArgs'
     _iid_ = Guid('{f096a2d0-41c6-4c02-8b1a-d953b00cabb3}')
     @winrt_commethod(6)
     def get_Request(self) -> win32more.Windows.UI.Text.Core.CoreTextTextRequest: ...
     Request = property(get_Request, None)
 class ICoreTextTextUpdatingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Text.Core.ICoreTextTextUpdatingEventArgs'
     _iid_ = Guid('{eea7918d-cc2b-4f03-8ff6-02fd217db450}')
     @winrt_commethod(6)

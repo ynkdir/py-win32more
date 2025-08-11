@@ -1,13 +1,12 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.Canvas
 import win32more.Microsoft.Graphics.Canvas.Printing
 import win32more.Windows.Foundation
 import win32more.Windows.Graphics.Printing
-import win32more.Windows.Win32.System.WinRT
 class CanvasPreviewEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.Printing.ICanvasPreviewEventArgs
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.CanvasPreviewEventArgs'
     @winrt_mixinmethod
@@ -22,13 +21,13 @@ class CanvasPreviewEventArgs(ComPtr):
     PageNumber = property(get_PageNumber, None)
     PrintTaskOptions = property(get_PrintTaskOptions, None)
 class CanvasPrintDeferral(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.Printing.ICanvasPrintDeferral
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.CanvasPrintDeferral'
     @winrt_mixinmethod
     def Complete(self: win32more.Microsoft.Graphics.Canvas.Printing.ICanvasPrintDeferral) -> Void: ...
 class CanvasPrintDocument(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Printing.ICanvasPrintDocument
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.CanvasPrintDocument'
@@ -72,7 +71,7 @@ class CanvasPrintDocument(ComPtr):
     Preview = event()
     Print = event()
 class CanvasPrintEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.Printing.ICanvasPrintEventArgs
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.CanvasPrintEventArgs'
     @winrt_mixinmethod
@@ -88,7 +87,7 @@ class CanvasPrintEventArgs(ComPtr):
     Dpi = property(get_Dpi, put_Dpi)
     PrintTaskOptions = property(get_PrintTaskOptions, None)
 class CanvasPrintTaskOptionsChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Canvas.Printing.ICanvasPrintTaskOptionsChangedEventArgs
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.CanvasPrintTaskOptionsChangedEventArgs'
     @winrt_mixinmethod
@@ -105,7 +104,7 @@ class CanvasPrintTaskOptionsChangedEventArgs(ComPtr):
     NewPreviewPageNumber = property(get_NewPreviewPageNumber, put_NewPreviewPageNumber)
     PrintTaskOptions = property(get_PrintTaskOptions, None)
 class ICanvasPreviewEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.ICanvasPreviewEventArgs'
     _iid_ = Guid('{0a6a80a0-b07d-4db2-bdeb-0368bb18c0f8}')
     @winrt_commethod(6)
@@ -120,13 +119,13 @@ class ICanvasPreviewEventArgs(ComPtr):
     PageNumber = property(get_PageNumber, None)
     PrintTaskOptions = property(get_PrintTaskOptions, None)
 class ICanvasPrintDeferral(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.ICanvasPrintDeferral'
     _iid_ = Guid('{08ca99a2-5801-4ea4-8687-896cbda69a47}')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class ICanvasPrintDocument(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.ICanvasPrintDocument'
     _iid_ = Guid('{0a99cdee-bf11-49d0-aa34-3ba5c32c51a5}')
@@ -152,13 +151,13 @@ class ICanvasPrintDocument(ComPtr):
     Preview = event()
     Print = event()
 class ICanvasPrintDocumentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.ICanvasPrintDocumentFactory'
     _iid_ = Guid('{a201af1e-ce4a-401d-a719-2bf004d5c26a}')
     @winrt_commethod(6)
     def CreateWithDevice(self, device: win32more.Microsoft.Graphics.Canvas.CanvasDevice) -> win32more.Microsoft.Graphics.Canvas.Printing.CanvasPrintDocument: ...
 class ICanvasPrintEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.ICanvasPrintEventArgs'
     _iid_ = Guid('{0c6148c4-0216-4561-a817-34c8942aac8b}')
     @winrt_commethod(6)
@@ -174,7 +173,7 @@ class ICanvasPrintEventArgs(ComPtr):
     Dpi = property(get_Dpi, put_Dpi)
     PrintTaskOptions = property(get_PrintTaskOptions, None)
 class ICanvasPrintTaskOptionsChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Printing.ICanvasPrintTaskOptionsChangedEventArgs'
     _iid_ = Guid('{f92089ba-6c99-4cac-b28a-b5dcec7a310d}')
     @winrt_commethod(6)

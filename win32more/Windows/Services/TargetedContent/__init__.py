@@ -1,25 +1,24 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Services.TargetedContent
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class ITargetedContentAction(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentAction'
     _iid_ = Guid('{d75b691e-6cd6-4ca0-9d8f-4728b0b7e6b6}')
     @winrt_commethod(6)
     def InvokeAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
 class ITargetedContentAvailabilityChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentAvailabilityChangedEventArgs'
     _iid_ = Guid('{e0f59d26-5927-4450-965c-1ceb7becde65}')
     @winrt_commethod(6)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
 class ITargetedContentChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentChangedEventArgs'
     _iid_ = Guid('{99d488c9-587e-4586-8ef7-b54ca9453a16}')
     @winrt_commethod(6)
@@ -28,7 +27,7 @@ class ITargetedContentChangedEventArgs(ComPtr):
     def get_HasPreviousContentExpired(self) -> Boolean: ...
     HasPreviousContentExpired = property(get_HasPreviousContentExpired, None)
 class ITargetedContentCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentCollection'
     _iid_ = Guid('{2d4b66c5-f163-44ba-9f6e-e1a4c2bb559d}')
     @winrt_commethod(6)
@@ -51,7 +50,7 @@ class ITargetedContentCollection(ComPtr):
     Path = property(get_Path, None)
     Properties = property(get_Properties, None)
 class ITargetedContentContainer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentContainer'
     _iid_ = Guid('{bc2494c9-8837-47c2-850f-d79d64595926}')
     @winrt_commethod(6)
@@ -69,13 +68,13 @@ class ITargetedContentContainer(ComPtr):
     Id = property(get_Id, None)
     Timestamp = property(get_Timestamp, None)
 class ITargetedContentContainerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentContainerStatics'
     _iid_ = Guid('{5b47e7fb-2140-4c1f-a736-c59583f227d8}')
     @winrt_commethod(6)
     def GetAsync(self, contentId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Services.TargetedContent.TargetedContentContainer]: ...
 class ITargetedContentImage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentImage'
     _iid_ = Guid('{a7a585d9-779f-4b1e-bbb1-8eaf53fbeab2}')
     @winrt_commethod(6)
@@ -85,7 +84,7 @@ class ITargetedContentImage(ComPtr):
     Height = property(get_Height, None)
     Width = property(get_Width, None)
 class ITargetedContentItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentItem'
     _iid_ = Guid('{38168dc4-276c-4c32-96ba-565c6e406e74}')
     @winrt_commethod(6)
@@ -105,7 +104,7 @@ class ITargetedContentItem(ComPtr):
     Properties = property(get_Properties, None)
     State = property(get_State, None)
 class ITargetedContentItemState(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentItemState'
     _iid_ = Guid('{73935454-4c65-4b47-a441-472de53c79b6}')
     @winrt_commethod(6)
@@ -115,7 +114,7 @@ class ITargetedContentItemState(ComPtr):
     AppInstallationState = property(get_AppInstallationState, None)
     ShouldDisplay = property(get_ShouldDisplay, None)
 class ITargetedContentObject(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentObject'
     _iid_ = Guid('{041d7969-2212-42d1-9dfa-88a8e3033aa3}')
     @winrt_commethod(6)
@@ -131,13 +130,13 @@ class ITargetedContentObject(ComPtr):
     ObjectKind = property(get_ObjectKind, None)
     Value = property(get_Value, None)
 class ITargetedContentStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentStateChangedEventArgs'
     _iid_ = Guid('{9a1cef3d-8073-4416-8df2-546835a6414f}')
     @winrt_commethod(6)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
 class ITargetedContentSubscription(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentSubscription'
     _iid_ = Guid('{882c2c49-c652-4c7a-acad-1f7fa2986c73}')
     @winrt_commethod(6)
@@ -161,7 +160,7 @@ class ITargetedContentSubscription(ComPtr):
     AvailabilityChanged = event()
     StateChanged = event()
 class ITargetedContentSubscriptionOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentSubscriptionOptions'
     _iid_ = Guid('{61ee6ad0-2c83-421b-8467-413eaf1aeb97}')
     @winrt_commethod(6)
@@ -181,7 +180,7 @@ class ITargetedContentSubscriptionOptions(ComPtr):
     LocalFilters = property(get_LocalFilters, None)
     SubscriptionId = property(get_SubscriptionId, None)
 class ITargetedContentSubscriptionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentSubscriptionStatics'
     _iid_ = Guid('{faddfe80-360d-4916-b53c-7ea27090d02a}')
     @winrt_commethod(6)
@@ -189,7 +188,7 @@ class ITargetedContentSubscriptionStatics(ComPtr):
     @winrt_commethod(7)
     def GetOptions(self, subscriptionId: WinRT_String) -> win32more.Windows.Services.TargetedContent.TargetedContentSubscriptionOptions: ...
 class ITargetedContentValue(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Services.TargetedContent.ITargetedContentValue'
     _iid_ = Guid('{aafde4b3-4215-4bf8-867f-43f04865f9bf}')
     @winrt_commethod(6)
@@ -241,7 +240,7 @@ class ITargetedContentValue(ComPtr):
     Uris = property(get_Uris, None)
     ValueKind = property(get_ValueKind, None)
 class TargetedContentAction(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentAction
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentAction'
     @winrt_mixinmethod
@@ -255,13 +254,13 @@ class TargetedContentAvailability(Enum, Int32):
     Partial = 1
     All = 2
 class TargetedContentAvailabilityChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentAvailabilityChangedEventArgs
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentAvailabilityChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Services.TargetedContent.ITargetedContentAvailabilityChangedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
 class TargetedContentChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentChangedEventArgs
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentChangedEventArgs'
     @winrt_mixinmethod
@@ -270,7 +269,7 @@ class TargetedContentChangedEventArgs(ComPtr):
     def get_HasPreviousContentExpired(self: win32more.Windows.Services.TargetedContent.ITargetedContentChangedEventArgs) -> Boolean: ...
     HasPreviousContentExpired = property(get_HasPreviousContentExpired, None)
 class TargetedContentCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentCollection
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentCollection'
     @winrt_mixinmethod
@@ -293,7 +292,7 @@ class TargetedContentCollection(ComPtr):
     Path = property(get_Path, None)
     Properties = property(get_Properties, None)
 class TargetedContentContainer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentContainer
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentContainer'
     @winrt_mixinmethod
@@ -314,13 +313,13 @@ class TargetedContentContainer(ComPtr):
     Timestamp = property(get_Timestamp, None)
 TargetedContentContract: UInt32 = 65536
 class TargetedContentFile(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.Streams.IRandomAccessStreamReference
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentFile'
     @winrt_mixinmethod
     def OpenReadAsync(self: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
 class TargetedContentImage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentImage
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentImage'
     @winrt_mixinmethod
@@ -346,7 +345,7 @@ class TargetedContentInteraction(Enum, Int32):
     Conversion = 11
     Opportunity = 12
 class TargetedContentItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentItem
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentItem'
     @winrt_mixinmethod
@@ -366,7 +365,7 @@ class TargetedContentItem(ComPtr):
     Properties = property(get_Properties, None)
     State = property(get_State, None)
 class TargetedContentItemState(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentItemState
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentItemState'
     @winrt_mixinmethod
@@ -376,7 +375,7 @@ class TargetedContentItemState(ComPtr):
     AppInstallationState = property(get_AppInstallationState, None)
     ShouldDisplay = property(get_ShouldDisplay, None)
 class TargetedContentObject(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentObject
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentObject'
     @winrt_mixinmethod
@@ -396,13 +395,13 @@ class TargetedContentObjectKind(Enum, Int32):
     Item = 1
     Value = 2
 class TargetedContentStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentStateChangedEventArgs
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentStateChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: win32more.Windows.Services.TargetedContent.ITargetedContentStateChangedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
 class TargetedContentSubscription(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentSubscription
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentSubscription'
     @winrt_mixinmethod
@@ -430,7 +429,7 @@ class TargetedContentSubscription(ComPtr):
     AvailabilityChanged = event()
     StateChanged = event()
 class TargetedContentSubscriptionOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentSubscriptionOptions
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentSubscriptionOptions'
     @winrt_mixinmethod
@@ -450,7 +449,7 @@ class TargetedContentSubscriptionOptions(ComPtr):
     LocalFilters = property(get_LocalFilters, None)
     SubscriptionId = property(get_SubscriptionId, None)
 class TargetedContentValue(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Services.TargetedContent.ITargetedContentValue
     _classid_ = 'Windows.Services.TargetedContent.TargetedContentValue'
     @winrt_mixinmethod

@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.Storage.AccessCache
 import win32more.Windows.System
-import win32more.Windows.Win32.System.WinRT
 class AccessCacheOptions(Enum, UInt32):
     None_ = 0
     DisallowUserInput = 1
@@ -17,7 +16,7 @@ class AccessListEntry(Structure):
     Token: WinRT_String
     Metadata: WinRT_String
 class AccessListEntryView(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.Storage.AccessCache.AccessListEntry]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Storage.AccessCache.AccessListEntry]
     _classid_ = 'Windows.Storage.AccessCache.AccessListEntryView'
@@ -33,14 +32,14 @@ class AccessListEntryView(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Storage.AccessCache.AccessListEntry]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Storage.AccessCache.AccessListEntry]: ...
     Size = property(get_Size, None)
 class IItemRemovedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.AccessCache.IItemRemovedEventArgs'
     _iid_ = Guid('{59677e5c-55be-4c66-ba66-5eaea79d2631}')
     @winrt_commethod(6)
     def get_RemovedEntry(self) -> win32more.Windows.Storage.AccessCache.AccessListEntry: ...
     RemovedEntry = property(get_RemovedEntry, None)
 class IStorageApplicationPermissionsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics'
     _iid_ = Guid('{4391dfaa-d033-48f9-8060-3ec847d2e3f1}')
     @winrt_commethod(6)
@@ -50,7 +49,7 @@ class IStorageApplicationPermissionsStatics(ComPtr):
     FutureAccessList = property(get_FutureAccessList, None)
     MostRecentlyUsedList = property(get_MostRecentlyUsedList, None)
 class IStorageApplicationPermissionsStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics2'
     _iid_ = Guid('{072716ec-aa05-4294-9a11-1a3d04519ad0}')
     @winrt_commethod(6)
@@ -58,7 +57,7 @@ class IStorageApplicationPermissionsStatics2(ComPtr):
     @winrt_commethod(7)
     def GetMostRecentlyUsedListForUser(self, user: win32more.Windows.System.User) -> win32more.Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList: ...
 class IStorageItemAccessList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.AccessCache.IStorageItemAccessList'
     _iid_ = Guid('{2caff6ad-de90-47f5-b2c3-dd36c9fdd453}')
     @winrt_commethod(6)
@@ -96,7 +95,7 @@ class IStorageItemAccessList(ComPtr):
     Entries = property(get_Entries, None)
     MaximumItemsAllowed = property(get_MaximumItemsAllowed, None)
 class IStorageItemMostRecentlyUsedList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList'
     _iid_ = Guid('{016239d5-510d-411e-8cf1-c3d1effa4c33}')
     @winrt_commethod(6)
@@ -105,7 +104,7 @@ class IStorageItemMostRecentlyUsedList(ComPtr):
     def remove_ItemRemoved(self, eventCookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ItemRemoved = event()
 class IStorageItemMostRecentlyUsedList2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList2'
     _iid_ = Guid('{da481ea0-ed8d-4731-a1db-e44ee2204093}')
     @winrt_commethod(6)
@@ -113,7 +112,7 @@ class IStorageItemMostRecentlyUsedList2(ComPtr):
     @winrt_commethod(7)
     def AddOrReplaceWithMetadataAndVisibility(self, token: WinRT_String, file: win32more.Windows.Storage.IStorageItem, metadata: WinRT_String, visibility: win32more.Windows.Storage.AccessCache.RecentStorageItemVisibility) -> Void: ...
 class ItemRemovedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.AccessCache.IItemRemovedEventArgs
     _classid_ = 'Windows.Storage.AccessCache.ItemRemovedEventArgs'
     @winrt_mixinmethod
@@ -125,7 +124,7 @@ class RecentStorageItemVisibility(Enum, Int32):
 class _StorageApplicationPermissions_Meta_(ComPtr.__class__):
     pass
 class StorageApplicationPermissions(ComPtr, metaclass=_StorageApplicationPermissions_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.AccessCache.StorageApplicationPermissions'
     @winrt_classmethod
     def GetFutureAccessListForUser(cls: win32more.Windows.Storage.AccessCache.IStorageApplicationPermissionsStatics2, user: win32more.Windows.System.User) -> win32more.Windows.Storage.AccessCache.StorageItemAccessList: ...
@@ -138,7 +137,7 @@ class StorageApplicationPermissions(ComPtr, metaclass=_StorageApplicationPermiss
     _StorageApplicationPermissions_Meta_.FutureAccessList = property(get_FutureAccessList, None)
     _StorageApplicationPermissions_Meta_.MostRecentlyUsedList = property(get_MostRecentlyUsedList, None)
 class StorageItemAccessList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.AccessCache.IStorageItemAccessList
     _classid_ = 'Windows.Storage.AccessCache.StorageItemAccessList'
     @winrt_mixinmethod
@@ -176,7 +175,7 @@ class StorageItemAccessList(ComPtr):
     Entries = property(get_Entries, None)
     MaximumItemsAllowed = property(get_MaximumItemsAllowed, None)
 class StorageItemMostRecentlyUsedList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.AccessCache.IStorageItemMostRecentlyUsedList
     _classid_ = 'Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList'
     @winrt_mixinmethod

@@ -1,40 +1,38 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
 import win32more.Windows.Networking.Proximity
 import win32more.Windows.Networking.Sockets
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.Com
-import win32more.Windows.Win32.System.WinRT
 class ConnectionRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IConnectionRequestedEventArgs
     _classid_ = 'Windows.Networking.Proximity.ConnectionRequestedEventArgs'
     @winrt_mixinmethod
     def get_PeerInformation(self: win32more.Windows.Networking.Proximity.IConnectionRequestedEventArgs) -> win32more.Windows.Networking.Proximity.PeerInformation: ...
     PeerInformation = property(get_PeerInformation, None)
 class DeviceArrivedEventHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{efa9da69-f6e1-49c9-a49e-8e0fc58fb911}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice) -> Void: ...
 class DeviceDepartedEventHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{efa9da69-f6e2-49c9-a49e-8e0fc58fb911}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice) -> Void: ...
 class IConnectionRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IConnectionRequestedEventArgs'
     _iid_ = Guid('{eb6891ae-4f1e-4c66-bd0d-46924a942e08}')
     @winrt_commethod(6)
     def get_PeerInformation(self) -> win32more.Windows.Networking.Proximity.PeerInformation: ...
     PeerInformation = property(get_PeerInformation, None)
 class IPeerFinderStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerFinderStatics'
     _iid_ = Guid('{914b3b61-f6e1-47c4-a14c-148a1903d0c6}')
     @winrt_commethod(6)
@@ -64,11 +62,11 @@ class IPeerFinderStatics(ComPtr):
     @winrt_commethod(18)
     def Stop(self) -> Void: ...
     @winrt_commethod(19)
-    def add_TriggeredConnectionStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TriggeredConnectionStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(20)
     def remove_TriggeredConnectionStateChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(21)
-    def add_ConnectionRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Networking.Proximity.ConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ConnectionRequested(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.Networking.Proximity.ConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(22)
     def remove_ConnectionRequested(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(23)
@@ -84,7 +82,7 @@ class IPeerFinderStatics(ComPtr):
     TriggeredConnectionStateChanged = event()
     ConnectionRequested = event()
 class IPeerFinderStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerFinderStatics2'
     _iid_ = Guid('{d6e73c65-fdd0-4b0b-9312-866408935d82}')
     @winrt_commethod(6)
@@ -100,14 +98,14 @@ class IPeerFinderStatics2(ComPtr):
     DiscoveryData = property(get_DiscoveryData, put_DiscoveryData)
     Role = property(get_Role, put_Role)
 class IPeerInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerInformation'
     _iid_ = Guid('{20024f08-9fff-45f4-b6e9-408b2ebef373}')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     DisplayName = property(get_DisplayName, None)
 class IPeerInformation3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerInformation3'
     _iid_ = Guid('{b20f612a-dbd0-40f8-95bd-2d4209c7836f}')
     @winrt_commethod(6)
@@ -117,7 +115,7 @@ class IPeerInformation3(ComPtr):
     DiscoveryData = property(get_DiscoveryData, None)
     Id = property(get_Id, None)
 class IPeerInformationWithHostAndService(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerInformationWithHostAndService'
     _iid_ = Guid('{ecc7ccad-1b70-4e8b-92db-bbe781419308}')
     @winrt_commethod(6)
@@ -127,7 +125,7 @@ class IPeerInformationWithHostAndService(ComPtr):
     HostName = property(get_HostName, None)
     ServiceName = property(get_ServiceName, None)
 class IPeerWatcher(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IPeerWatcher'
     _iid_ = Guid('{3cee21f8-2fa6-4679-9691-03c94a420f34}')
     @winrt_commethod(6)
@@ -143,11 +141,11 @@ class IPeerWatcher(ComPtr):
     @winrt_commethod(11)
     def remove_Updated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_EnumerationCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_Stopped(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
@@ -163,7 +161,7 @@ class IPeerWatcher(ComPtr):
     EnumerationCompleted = event()
     Stopped = event()
 class IProximityDevice(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IProximityDevice'
     _iid_ = Guid('{efa8a552-f6e1-4329-a0fc-ab6b0fd28262}')
     @winrt_commethod(6)
@@ -204,7 +202,7 @@ class IProximityDevice(ComPtr):
     DeviceArrived = event()
     DeviceDeparted = event()
 class IProximityDeviceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IProximityDeviceStatics'
     _iid_ = Guid('{914ba01d-f6e1-47c4-a14c-148a1903d0c6}')
     @winrt_commethod(6)
@@ -214,7 +212,7 @@ class IProximityDeviceStatics(ComPtr):
     @winrt_commethod(8)
     def FromId(self, deviceId: WinRT_String) -> win32more.Windows.Networking.Proximity.ProximityDevice: ...
 class IProximityMessage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.IProximityMessage'
     _iid_ = Guid('{efab0782-f6e1-4675-a045-d8e320c24808}')
     @winrt_commethod(6)
@@ -230,7 +228,7 @@ class IProximityMessage(ComPtr):
     MessageType = property(get_MessageType, None)
     SubscriptionId = property(get_SubscriptionId, None)
 class ITriggeredConnectionStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.ITriggeredConnectionStateChangedEventArgs'
     _iid_ = Guid('{c6a780ad-f6e1-4d54-96e2-33f620bca88a}')
     @winrt_commethod(6)
@@ -243,12 +241,12 @@ class ITriggeredConnectionStateChangedEventArgs(ComPtr):
     Socket = property(get_Socket, None)
     State = property(get_State, None)
 class MessageReceivedHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{efab0782-f6e2-4675-a045-d8e320c24808}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice, message: win32more.Windows.Networking.Proximity.ProximityMessage) -> Void: ...
 class MessageTransmittedHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{efaa0b4a-f6e2-4d7d-856c-78fc8efc021e}')
     @winrt_commethod(3)
     def Invoke(self, sender: win32more.Windows.Networking.Proximity.ProximityDevice, messageId: Int64) -> Void: ...
@@ -259,7 +257,7 @@ class PeerDiscoveryTypes(Enum, UInt32):
 class _PeerFinder_Meta_(ComPtr.__class__):
     pass
 class PeerFinder(ComPtr, metaclass=_PeerFinder_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.Proximity.PeerFinder'
     @winrt_classmethod
     def get_Role(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics2) -> win32more.Windows.Networking.Proximity.PeerRole: ...
@@ -298,11 +296,11 @@ class PeerFinder(ComPtr, metaclass=_PeerFinder_Meta_):
     @winrt_classmethod
     def Stop(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics) -> Void: ...
     @winrt_classmethod
-    def add_TriggeredConnectionStateChanged(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TriggeredConnectionStateChanged(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_TriggeredConnectionStateChanged(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
-    def add_ConnectionRequested(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.Networking.Proximity.ConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ConnectionRequested(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.Networking.Proximity.ConnectionRequestedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ConnectionRequested(cls: win32more.Windows.Networking.Proximity.IPeerFinderStatics, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -318,7 +316,7 @@ class PeerFinder(ComPtr, metaclass=_PeerFinder_Meta_):
     _PeerFinder_Meta_.Role = property(get_Role, put_Role)
     _PeerFinder_Meta_.SupportedDiscoveryTypes = property(get_SupportedDiscoveryTypes, None)
 class PeerInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IPeerInformation
     _classid_ = 'Windows.Networking.Proximity.PeerInformation'
     @winrt_mixinmethod
@@ -341,7 +339,7 @@ class PeerRole(Enum, Int32):
     Host = 1
     Client = 2
 class PeerWatcher(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IPeerWatcher
     _classid_ = 'Windows.Networking.Proximity.PeerWatcher'
     @winrt_mixinmethod
@@ -357,11 +355,11 @@ class PeerWatcher(ComPtr):
     @winrt_mixinmethod
     def remove_Updated(self: win32more.Windows.Networking.Proximity.IPeerWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_EnumerationCompleted(self: win32more.Windows.Networking.Proximity.IPeerWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_EnumerationCompleted(self: win32more.Windows.Networking.Proximity.IPeerWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_EnumerationCompleted(self: win32more.Windows.Networking.Proximity.IPeerWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Stopped(self: win32more.Windows.Networking.Proximity.IPeerWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Stopped(self: win32more.Windows.Networking.Proximity.IPeerWatcher, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Networking.Proximity.PeerWatcher, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Stopped(self: win32more.Windows.Networking.Proximity.IPeerWatcher, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -384,7 +382,7 @@ class PeerWatcherStatus(Enum, Int32):
     Stopped = 4
     Aborted = 5
 class ProximityDevice(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IProximityDevice
     _classid_ = 'Windows.Networking.Proximity.ProximityDevice'
     @winrt_mixinmethod
@@ -431,7 +429,7 @@ class ProximityDevice(ComPtr):
     DeviceArrived = event()
     DeviceDeparted = event()
 class ProximityMessage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.Proximity.IProximityMessage
     _classid_ = 'Windows.Networking.Proximity.ProximityMessage'
     @winrt_mixinmethod
@@ -454,7 +452,7 @@ class TriggeredConnectState(Enum, Int32):
     Canceled = 4
     Failed = 5
 class TriggeredConnectionStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.Proximity.ITriggeredConnectionStateChangedEventArgs
     _classid_ = 'Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs'
     @winrt_mixinmethod

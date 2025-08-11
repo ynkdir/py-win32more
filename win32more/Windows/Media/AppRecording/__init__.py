@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.AppRecording
 import win32more.Windows.Storage
-import win32more.Windows.Win32.System.WinRT
 AppRecordingContract: UInt32 = 65536
 class AppRecordingManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.AppRecording.IAppRecordingManager
     _classid_ = 'Windows.Media.AppRecording.AppRecordingManager'
     @winrt_mixinmethod
@@ -25,7 +24,7 @@ class AppRecordingManager(ComPtr):
     def GetDefault(cls: win32more.Windows.Media.AppRecording.IAppRecordingManagerStatics) -> win32more.Windows.Media.AppRecording.AppRecordingManager: ...
     SupportedScreenshotMediaEncodingSubtypes = property(get_SupportedScreenshotMediaEncodingSubtypes, None)
 class AppRecordingResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.AppRecording.IAppRecordingResult
     _classid_ = 'Windows.Media.AppRecording.AppRecordingResult'
     @winrt_mixinmethod
@@ -44,7 +43,7 @@ class AppRecordingSaveScreenshotOption(Enum, Int32):
     None_ = 0
     HdrContentVisible = 1
 class AppRecordingSaveScreenshotResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.AppRecording.IAppRecordingSaveScreenshotResult
     _classid_ = 'Windows.Media.AppRecording.AppRecordingSaveScreenshotResult'
     @winrt_mixinmethod
@@ -57,7 +56,7 @@ class AppRecordingSaveScreenshotResult(ComPtr):
     SavedScreenshotInfos = property(get_SavedScreenshotInfos, None)
     Succeeded = property(get_Succeeded, None)
 class AppRecordingSavedScreenshotInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.AppRecording.IAppRecordingSavedScreenshotInfo
     _classid_ = 'Windows.Media.AppRecording.AppRecordingSavedScreenshotInfo'
     @winrt_mixinmethod
@@ -67,7 +66,7 @@ class AppRecordingSavedScreenshotInfo(ComPtr):
     File = property(get_File, None)
     MediaEncodingSubtype = property(get_MediaEncodingSubtype, None)
 class AppRecordingStatus(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.AppRecording.IAppRecordingStatus
     _classid_ = 'Windows.Media.AppRecording.AppRecordingStatus'
     @winrt_mixinmethod
@@ -83,7 +82,7 @@ class AppRecordingStatus(ComPtr):
     Details = property(get_Details, None)
     HistoricalBufferDuration = property(get_HistoricalBufferDuration, None)
 class AppRecordingStatusDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.AppRecording.IAppRecordingStatusDetails
     _classid_ = 'Windows.Media.AppRecording.AppRecordingStatusDetails'
     @winrt_mixinmethod
@@ -114,7 +113,7 @@ class AppRecordingStatusDetails(ComPtr):
     IsGpuConstrained = property(get_IsGpuConstrained, None)
     IsTimeSpanRecordingDisabled = property(get_IsTimeSpanRecordingDisabled, None)
 class IAppRecordingManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingManager'
     _iid_ = Guid('{e7e26076-a044-48e2-a512-3094d574c7cc}')
     @winrt_commethod(6)
@@ -129,13 +128,13 @@ class IAppRecordingManager(ComPtr):
     def SaveScreenshotToFilesAsync(self, folder: win32more.Windows.Storage.StorageFolder, filenamePrefix: WinRT_String, option: win32more.Windows.Media.AppRecording.AppRecordingSaveScreenshotOption, requestedFormats: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.AppRecording.AppRecordingSaveScreenshotResult]: ...
     SupportedScreenshotMediaEncodingSubtypes = property(get_SupportedScreenshotMediaEncodingSubtypes, None)
 class IAppRecordingManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingManagerStatics'
     _iid_ = Guid('{50e709f7-38ce-4bd3-9db2-e72bbe9de11d}')
     @winrt_commethod(6)
     def GetDefault(self) -> win32more.Windows.Media.AppRecording.AppRecordingManager: ...
 class IAppRecordingResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingResult'
     _iid_ = Guid('{3a900864-c66d-46f9-b2d9-5bc2dad070d7}')
     @winrt_commethod(6)
@@ -151,7 +150,7 @@ class IAppRecordingResult(ComPtr):
     IsFileTruncated = property(get_IsFileTruncated, None)
     Succeeded = property(get_Succeeded, None)
 class IAppRecordingSaveScreenshotResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingSaveScreenshotResult'
     _iid_ = Guid('{9c5b8d0a-0abb-4457-aaee-24f9c12ec778}')
     @winrt_commethod(6)
@@ -164,7 +163,7 @@ class IAppRecordingSaveScreenshotResult(ComPtr):
     SavedScreenshotInfos = property(get_SavedScreenshotInfos, None)
     Succeeded = property(get_Succeeded, None)
 class IAppRecordingSavedScreenshotInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingSavedScreenshotInfo'
     _iid_ = Guid('{9b642d0a-189a-4d00-bf25-e1bb1249d594}')
     @winrt_commethod(6)
@@ -174,7 +173,7 @@ class IAppRecordingSavedScreenshotInfo(ComPtr):
     File = property(get_File, None)
     MediaEncodingSubtype = property(get_MediaEncodingSubtype, None)
 class IAppRecordingStatus(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingStatus'
     _iid_ = Guid('{1d0cc82c-bc18-4b8a-a6ef-127efab3b5d9}')
     @winrt_commethod(6)
@@ -190,7 +189,7 @@ class IAppRecordingStatus(ComPtr):
     Details = property(get_Details, None)
     HistoricalBufferDuration = property(get_HistoricalBufferDuration, None)
 class IAppRecordingStatusDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.AppRecording.IAppRecordingStatusDetails'
     _iid_ = Guid('{b538a9b0-14ed-4412-ac45-6d672c9c9949}')
     @winrt_commethod(6)

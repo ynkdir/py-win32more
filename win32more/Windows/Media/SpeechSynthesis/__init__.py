@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media
 import win32more.Windows.Media.Core
 import win32more.Windows.Media.SpeechSynthesis
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class IInstalledVoicesStatic(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.IInstalledVoicesStatic'
     _iid_ = Guid('{7d526ecc-7533-4c3f-85be-888c2baeebdc}')
     @winrt_commethod(6)
@@ -19,13 +18,13 @@ class IInstalledVoicesStatic(ComPtr):
     AllVoices = property(get_AllVoices, None)
     DefaultVoice = property(get_DefaultVoice, None)
 class IInstalledVoicesStatic2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.IInstalledVoicesStatic2'
     _iid_ = Guid('{64255f2e-358d-4058-be9a-fd3fcb423530}')
     @winrt_commethod(6)
     def TrySetDefaultVoiceAsync(self, voice: win32more.Windows.Media.SpeechSynthesis.VoiceInformation) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ISpeechSynthesisStream(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesisStream'
     _iid_ = Guid('{83e46e93-244c-4622-ba0b-6229c4d0d65d}')
@@ -33,7 +32,7 @@ class ISpeechSynthesisStream(ComPtr):
     def get_Markers(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.IMediaMarker]: ...
     Markers = property(get_Markers, None)
 class ISpeechSynthesizer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizer'
     _iid_ = Guid('{ce9f7c76-97f4-4ced-ad68-d51c458e45c6}')
     @winrt_commethod(6)
@@ -46,14 +45,14 @@ class ISpeechSynthesizer(ComPtr):
     def get_Voice(self) -> win32more.Windows.Media.SpeechSynthesis.VoiceInformation: ...
     Voice = property(get_Voice, put_Voice)
 class ISpeechSynthesizer2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizer2'
     _iid_ = Guid('{a7c5ecb2-4339-4d6a-bbf8-c7a4f1544c2e}')
     @winrt_commethod(6)
     def get_Options(self) -> win32more.Windows.Media.SpeechSynthesis.SpeechSynthesizerOptions: ...
     Options = property(get_Options, None)
 class ISpeechSynthesizerOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions'
     _iid_ = Guid('{a0e23871-cc3d-43c9-91b1-ee185324d83d}')
     @winrt_commethod(6)
@@ -67,7 +66,7 @@ class ISpeechSynthesizerOptions(ComPtr):
     IncludeSentenceBoundaryMetadata = property(get_IncludeSentenceBoundaryMetadata, put_IncludeSentenceBoundaryMetadata)
     IncludeWordBoundaryMetadata = property(get_IncludeWordBoundaryMetadata, put_IncludeWordBoundaryMetadata)
 class ISpeechSynthesizerOptions2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions2'
     _iid_ = Guid('{1cbef60e-119c-4bed-b118-d250c3a25793}')
     @winrt_commethod(6)
@@ -86,7 +85,7 @@ class ISpeechSynthesizerOptions2(ComPtr):
     AudioVolume = property(get_AudioVolume, put_AudioVolume)
     SpeakingRate = property(get_SpeakingRate, put_SpeakingRate)
 class ISpeechSynthesizerOptions3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions3'
     _iid_ = Guid('{401ed877-902c-4814-a582-a5d0c0769fa8}')
     @winrt_commethod(6)
@@ -100,7 +99,7 @@ class ISpeechSynthesizerOptions3(ComPtr):
     AppendedSilence = property(get_AppendedSilence, put_AppendedSilence)
     PunctuationSilence = property(get_PunctuationSilence, put_PunctuationSilence)
 class IVoiceInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.SpeechSynthesis.IVoiceInformation'
     _iid_ = Guid('{b127d6a4-1291-4604-aa9c-83134083352c}')
     @winrt_commethod(6)
@@ -125,7 +124,7 @@ class SpeechPunctuationSilence(Enum, Int32):
     Default = 0
     Min = 1
 class SpeechSynthesisStream(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.SpeechSynthesis.ISpeechSynthesisStream
     _classid_ = 'Windows.Media.SpeechSynthesis.SpeechSynthesisStream'
@@ -171,7 +170,7 @@ class SpeechSynthesisStream(ComPtr):
 class _SpeechSynthesizer_Meta_(ComPtr.__class__):
     pass
 class SpeechSynthesizer(ComPtr, metaclass=_SpeechSynthesizer_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.SpeechSynthesis.ISpeechSynthesizer
     _classid_ = 'Windows.Media.SpeechSynthesis.SpeechSynthesizer'
@@ -207,7 +206,7 @@ class SpeechSynthesizer(ComPtr, metaclass=_SpeechSynthesizer_Meta_):
     _SpeechSynthesizer_Meta_.AllVoices = property(get_AllVoices, None)
     _SpeechSynthesizer_Meta_.DefaultVoice = property(get_DefaultVoice, None)
 class SpeechSynthesizerOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions
     _classid_ = 'Windows.Media.SpeechSynthesis.SpeechSynthesizerOptions'
     @winrt_mixinmethod
@@ -249,7 +248,7 @@ class VoiceGender(Enum, Int32):
     Male = 0
     Female = 1
 class VoiceInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.SpeechSynthesis.IVoiceInformation
     _classid_ = 'Windows.Media.SpeechSynthesis.VoiceInformation'
     @winrt_mixinmethod

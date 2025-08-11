@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System
@@ -9,10 +9,8 @@ import win32more.Windows.UI.Composition
 import win32more.Windows.UI.Core
 import win32more.Windows.UI.Input
 import win32more.Windows.UI.Popups
-import win32more.Windows.Win32.System.Com
-import win32more.Windows.Win32.System.WinRT
 class AcceleratorKeyEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IAcceleratorKeyEventArgs
     _classid_ = 'Windows.UI.Core.AcceleratorKeyEventArgs'
     @winrt_mixinmethod
@@ -37,13 +35,13 @@ class AppViewBackButtonVisibility(Enum, Int32):
     Collapsed = 1
     Disabled = 2
 class AutomationProviderRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IAutomationProviderRequestedEventArgs
     _classid_ = 'Windows.UI.Core.AutomationProviderRequestedEventArgs'
     @winrt_mixinmethod
-    def get_AutomationProvider(self: win32more.Windows.UI.Core.IAutomationProviderRequestedEventArgs) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationProvider(self: win32more.Windows.UI.Core.IAutomationProviderRequestedEventArgs) -> IInspectable: ...
     @winrt_mixinmethod
-    def put_AutomationProvider(self: win32more.Windows.UI.Core.IAutomationProviderRequestedEventArgs, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_AutomationProvider(self: win32more.Windows.UI.Core.IAutomationProviderRequestedEventArgs, value: IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_Handled(self: win32more.Windows.UI.Core.ICoreWindowEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -51,7 +49,7 @@ class AutomationProviderRequestedEventArgs(ComPtr):
     AutomationProvider = property(get_AutomationProvider, put_AutomationProvider)
     Handled = property(get_Handled, put_Handled)
 class BackRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IBackRequestedEventArgs
     _classid_ = 'Windows.UI.Core.BackRequestedEventArgs'
     @winrt_mixinmethod
@@ -60,7 +58,7 @@ class BackRequestedEventArgs(ComPtr):
     def put_Handled(self: win32more.Windows.UI.Core.IBackRequestedEventArgs, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
 class CharacterReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICharacterReceivedEventArgs
     _classid_ = 'Windows.UI.Core.CharacterReceivedEventArgs'
     @winrt_mixinmethod
@@ -75,7 +73,7 @@ class CharacterReceivedEventArgs(ComPtr):
     KeyCode = property(get_KeyCode, None)
     KeyStatus = property(get_KeyStatus, None)
 class ClosestInteractiveBoundsRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IClosestInteractiveBoundsRequestedEventArgs
     _classid_ = 'Windows.UI.Core.ClosestInteractiveBoundsRequestedEventArgs'
     @winrt_mixinmethod
@@ -100,7 +98,7 @@ class CoreAcceleratorKeyEventType(Enum, Int32):
     SystemKeyUp = 5
     UnicodeCharacter = 8
 class CoreAcceleratorKeys(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreAcceleratorKeys
     _classid_ = 'Windows.UI.Core.CoreAcceleratorKeys'
     @winrt_mixinmethod
@@ -109,7 +107,7 @@ class CoreAcceleratorKeys(ComPtr):
     def remove_AcceleratorKeyActivated(self: win32more.Windows.UI.Core.ICoreAcceleratorKeys, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AcceleratorKeyActivated = event()
 class CoreComponentInputSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreInputSourceBase
     _classid_ = 'Windows.UI.Core.CoreComponentInputSource'
     @winrt_mixinmethod
@@ -119,7 +117,7 @@ class CoreComponentInputSource(ComPtr):
     @winrt_mixinmethod
     def put_IsInputEnabled(self: win32more.Windows.UI.Core.ICoreInputSourceBase, value: Boolean) -> Void: ...
     @winrt_mixinmethod
-    def add_InputEnabled(self: win32more.Windows.UI.Core.ICoreInputSourceBase, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.InputEnabledEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_InputEnabled(self: win32more.Windows.UI.Core.ICoreInputSourceBase, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.InputEnabledEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_InputEnabled(self: win32more.Windows.UI.Core.ICoreInputSourceBase, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -135,59 +133,59 @@ class CoreComponentInputSource(ComPtr):
     @winrt_mixinmethod
     def put_PointerCursor(self: win32more.Windows.UI.Core.ICorePointerInputSource, value: win32more.Windows.UI.Core.CoreCursor) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerCaptureLost(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerCaptureLost(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerCaptureLost(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerEntered(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerEntered(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerEntered(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerExited(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerExited(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerExited(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerMoved(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerMoved(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerMoved(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerPressed(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerPressed(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerPressed(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerReleased(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerReleased(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerReleased(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerWheelChanged(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerWheelChanged(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerWheelChanged(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def GetCurrentKeyState(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, virtualKey: win32more.Windows.System.VirtualKey) -> win32more.Windows.UI.Core.CoreVirtualKeyStates: ...
     @winrt_mixinmethod
-    def add_CharacterReceived(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.CharacterReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CharacterReceived(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.CharacterReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_CharacterReceived(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_KeyDown(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.KeyEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_KeyDown(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.KeyEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_KeyDown(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_KeyUp(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.KeyEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_KeyUp(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.KeyEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_KeyUp(self: win32more.Windows.UI.Core.ICoreKeyboardInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def get_HasFocus(self: win32more.Windows.UI.Core.ICoreComponentFocusable) -> Boolean: ...
     @winrt_mixinmethod
-    def add_GotFocus(self: win32more.Windows.UI.Core.ICoreComponentFocusable, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.CoreWindowEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_GotFocus(self: win32more.Windows.UI.Core.ICoreComponentFocusable, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.CoreWindowEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_GotFocus(self: win32more.Windows.UI.Core.ICoreComponentFocusable, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_LostFocus(self: win32more.Windows.UI.Core.ICoreComponentFocusable, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.CoreWindowEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LostFocus(self: win32more.Windows.UI.Core.ICoreComponentFocusable, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.CoreWindowEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_LostFocus(self: win32more.Windows.UI.Core.ICoreComponentFocusable, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_TouchHitTesting(self: win32more.Windows.UI.Core.ICoreTouchHitTesting, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.TouchHitTestingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TouchHitTesting(self: win32more.Windows.UI.Core.ICoreTouchHitTesting, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.TouchHitTestingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_TouchHitTesting(self: win32more.Windows.UI.Core.ICoreTouchHitTesting, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -221,7 +219,7 @@ class CoreComponentInputSource(ComPtr):
     TouchHitTesting = event()
     ClosestInteractiveBoundsRequested = event()
 class CoreCursor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreCursor
     _classid_ = 'Windows.UI.Core.CoreCursor'
     def __init__(self, *args, **kwargs):
@@ -257,7 +255,7 @@ class CoreCursorType(Enum, Int32):
     Pin = 14
     Person = 15
 class CoreDispatcher(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreDispatcher
     _classid_ = 'Windows.UI.Core.CoreDispatcher'
     @winrt_mixinmethod
@@ -302,7 +300,7 @@ class CoreIndependentInputFilters(Enum, UInt32):
     PenWithBarrel = 8
     PenInverted = 16
 class CoreIndependentInputSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreInputSourceBase
     _classid_ = 'Windows.UI.Core.CoreIndependentInputSource'
     @winrt_mixinmethod
@@ -312,7 +310,7 @@ class CoreIndependentInputSource(ComPtr):
     @winrt_mixinmethod
     def put_IsInputEnabled(self: win32more.Windows.UI.Core.ICoreInputSourceBase, value: Boolean) -> Void: ...
     @winrt_mixinmethod
-    def add_InputEnabled(self: win32more.Windows.UI.Core.ICoreInputSourceBase, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.InputEnabledEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_InputEnabled(self: win32more.Windows.UI.Core.ICoreInputSourceBase, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.InputEnabledEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_InputEnabled(self: win32more.Windows.UI.Core.ICoreInputSourceBase, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -328,31 +326,31 @@ class CoreIndependentInputSource(ComPtr):
     @winrt_mixinmethod
     def put_PointerCursor(self: win32more.Windows.UI.Core.ICorePointerInputSource, value: win32more.Windows.UI.Core.CoreCursor) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerCaptureLost(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerCaptureLost(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerCaptureLost(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerEntered(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerEntered(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerEntered(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerExited(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerExited(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerExited(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerMoved(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerMoved(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerMoved(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerPressed(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerPressed(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerPressed(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerReleased(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerReleased(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerReleased(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PointerWheelChanged(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerWheelChanged(self: win32more.Windows.UI.Core.ICorePointerInputSource, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PointerWheelChanged(self: win32more.Windows.UI.Core.ICorePointerInputSource, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -387,7 +385,7 @@ class CoreIndependentInputSource(ComPtr):
     PointerRoutedTo = event()
     PointerRoutedReleased = event()
 class CoreIndependentInputSourceController(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.UI.Core.ICoreIndependentInputSourceController
     _classid_ = 'Windows.UI.Core.CoreIndependentInputSourceController'
@@ -442,11 +440,11 @@ class CoreVirtualKeyStates(Enum, UInt32):
     Down = 1
     Locked = 2
 class CoreWindow(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindow
     _classid_ = 'Windows.UI.Core.CoreWindow'
     @winrt_mixinmethod
-    def get_AutomationHostProvider(self: win32more.Windows.UI.Core.ICoreWindow) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationHostProvider(self: win32more.Windows.UI.Core.ICoreWindow) -> IInspectable: ...
     @winrt_mixinmethod
     def get_Bounds(self: win32more.Windows.UI.Core.ICoreWindow) -> win32more.Windows.Foundation.Rect: ...
     @winrt_mixinmethod
@@ -570,11 +568,11 @@ class CoreWindow(ComPtr):
     @winrt_mixinmethod
     def GetCurrentKeyEventDeviceId(self: win32more.Windows.UI.Core.ICoreWindow3) -> WinRT_String: ...
     @winrt_mixinmethod
-    def add_ResizeStarted(self: win32more.Windows.UI.Core.ICoreWindow4, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Core.CoreWindow, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ResizeStarted(self: win32more.Windows.UI.Core.ICoreWindow4, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Core.CoreWindow, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ResizeStarted(self: win32more.Windows.UI.Core.ICoreWindow4, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_ResizeCompleted(self: win32more.Windows.UI.Core.ICoreWindow4, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Core.CoreWindow, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ResizeCompleted(self: win32more.Windows.UI.Core.ICoreWindow4, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Core.CoreWindow, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ResizeCompleted(self: win32more.Windows.UI.Core.ICoreWindow4, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -630,7 +628,7 @@ class CoreWindowActivationState(Enum, Int32):
     Deactivated = 1
     PointerActivated = 2
 class CoreWindowDialog(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowDialog
     _classid_ = 'Windows.UI.Core.CoreWindowDialog'
     def __init__(self, *args, **kwargs):
@@ -689,7 +687,7 @@ class CoreWindowDialog(ComPtr):
     Showing = event()
 CoreWindowDialogsContract: UInt32 = 65536
 class CoreWindowEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowEventArgs
     _classid_ = 'Windows.UI.Core.CoreWindowEventArgs'
     @winrt_mixinmethod
@@ -701,7 +699,7 @@ class CoreWindowFlowDirection(Enum, Int32):
     LeftToRight = 0
     RightToLeft = 1
 class CoreWindowFlyout(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowFlyout
     _classid_ = 'Windows.UI.Core.CoreWindowFlyout'
     def __init__(self, *args, **kwargs):
@@ -754,13 +752,13 @@ class CoreWindowFlyout(ComPtr):
     Title = property(get_Title, put_Title)
     Showing = event()
 class CoreWindowPopupShowingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowPopupShowingEventArgs
     _classid_ = 'Windows.UI.Core.CoreWindowPopupShowingEventArgs'
     @winrt_mixinmethod
     def SetDesiredSize(self: win32more.Windows.UI.Core.ICoreWindowPopupShowingEventArgs, value: win32more.Windows.Foundation.Size) -> Void: ...
 class CoreWindowResizeManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ICoreWindowResizeManager
     _classid_ = 'Windows.UI.Core.CoreWindowResizeManager'
     @winrt_mixinmethod
@@ -773,12 +771,12 @@ class CoreWindowResizeManager(ComPtr):
     def GetForCurrentView(cls: win32more.Windows.UI.Core.ICoreWindowResizeManagerStatics) -> win32more.Windows.UI.Core.CoreWindowResizeManager: ...
     ShouldWaitForLayoutCompletion = property(get_ShouldWaitForLayoutCompletion, put_ShouldWaitForLayoutCompletion)
 class DispatchedHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{d1f276c4-98d8-4636-bf49-eb79507548e9}')
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class IAcceleratorKeyEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IAcceleratorKeyEventArgs'
     _iid_ = Guid('{ff1c4c4a-9287-470b-836e-9086e3126ade}')
     @winrt_commethod(6)
@@ -791,23 +789,23 @@ class IAcceleratorKeyEventArgs(ComPtr):
     KeyStatus = property(get_KeyStatus, None)
     VirtualKey = property(get_VirtualKey, None)
 class IAcceleratorKeyEventArgs2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IAcceleratorKeyEventArgs2'
     _iid_ = Guid('{d300a9f6-2f7e-4873-a555-166e596ee1c5}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IAutomationProviderRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IAutomationProviderRequestedEventArgs'
     _iid_ = Guid('{961ff258-21bf-4b42-a298-fa479d4c52e2}')
     @winrt_commethod(6)
-    def get_AutomationProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationProvider(self) -> IInspectable: ...
     @winrt_commethod(7)
-    def put_AutomationProvider(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_AutomationProvider(self, value: IInspectable) -> Void: ...
     AutomationProvider = property(get_AutomationProvider, put_AutomationProvider)
 class IBackRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IBackRequestedEventArgs'
     _iid_ = Guid('{d603d28a-e411-4a4e-ba41-6a327a8675bc}')
     @winrt_commethod(6)
@@ -816,7 +814,7 @@ class IBackRequestedEventArgs(ComPtr):
     def put_Handled(self, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
 class ICharacterReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICharacterReceivedEventArgs'
     _iid_ = Guid('{c584659f-99b2-4bcc-bd33-04e63f42902e}')
     @winrt_commethod(6)
@@ -826,7 +824,7 @@ class ICharacterReceivedEventArgs(ComPtr):
     KeyCode = property(get_KeyCode, None)
     KeyStatus = property(get_KeyStatus, None)
 class IClosestInteractiveBoundsRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IClosestInteractiveBoundsRequestedEventArgs'
     _iid_ = Guid('{347c11d7-f6f8-40e3-b29f-ae50d3e86486}')
     @winrt_commethod(6)
@@ -841,7 +839,7 @@ class IClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     PointerPosition = property(get_PointerPosition, None)
     SearchBounds = property(get_SearchBounds, None)
 class ICoreAcceleratorKeys(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreAcceleratorKeys'
     _iid_ = Guid('{9ffdf7f5-b8c9-4ef0-b7d2-1de626561fc8}')
     @winrt_commethod(6)
@@ -850,7 +848,7 @@ class ICoreAcceleratorKeys(ComPtr):
     def remove_AcceleratorKeyActivated(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     AcceleratorKeyActivated = event()
 class ICoreClosestInteractiveBoundsRequested(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreClosestInteractiveBoundsRequested'
     _iid_ = Guid('{f303043a-e8bf-4e8e-ae69-c9dadd57a114}')
     @winrt_commethod(6)
@@ -859,24 +857,24 @@ class ICoreClosestInteractiveBoundsRequested(ComPtr):
     def remove_ClosestInteractiveBoundsRequested(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ClosestInteractiveBoundsRequested = event()
 class ICoreComponentFocusable(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreComponentFocusable'
     _iid_ = Guid('{52f96fa3-8742-4411-ae69-79a85f29ac8b}')
     @winrt_commethod(6)
     def get_HasFocus(self) -> Boolean: ...
     @winrt_commethod(7)
-    def add_GotFocus(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.CoreWindowEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_GotFocus(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.CoreWindowEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_GotFocus(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
-    def add_LostFocus(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.CoreWindowEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_LostFocus(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.CoreWindowEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_LostFocus(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HasFocus = property(get_HasFocus, None)
     GotFocus = event()
     LostFocus = event()
 class ICoreCursor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreCursor'
     _iid_ = Guid('{96893acf-111d-442c-8a77-b87992f8e2d6}')
     @winrt_commethod(6)
@@ -886,13 +884,13 @@ class ICoreCursor(ComPtr):
     Id = property(get_Id, None)
     Type = property(get_Type, None)
 class ICoreCursorFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreCursorFactory'
     _iid_ = Guid('{f6359621-a79d-4ed3-8c32-a9ef9d6b76a4}')
     @winrt_commethod(6)
     def CreateCursor(self, type: win32more.Windows.UI.Core.CoreCursorType, id: UInt32) -> win32more.Windows.UI.Core.CoreCursor: ...
 class ICoreDispatcher(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreDispatcher'
     _iid_ = Guid('{60db2fa8-b705-4fde-a7d6-ebbb1891d39e}')
     @winrt_commethod(6)
@@ -905,7 +903,7 @@ class ICoreDispatcher(ComPtr):
     def RunIdleAsync(self, agileCallback: win32more.Windows.UI.Core.IdleDispatchedHandler) -> win32more.Windows.Foundation.IAsyncAction: ...
     HasThreadAccess = property(get_HasThreadAccess, None)
 class ICoreDispatcher2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreDispatcher2'
     _iid_ = Guid('{6f5e63c7-e3aa-4eae-b0e0-dcf321ca4b2f}')
     @winrt_commethod(6)
@@ -913,7 +911,7 @@ class ICoreDispatcher2(ComPtr):
     @winrt_commethod(7)
     def TryRunIdleAsync(self, agileCallback: win32more.Windows.UI.Core.IdleDispatchedHandler) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ICoreDispatcherWithTaskPriority(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreDispatcherWithTaskPriority'
     _iid_ = Guid('{bafaecad-484d-41be-ba80-1d58c65263ea}')
     @winrt_commethod(6)
@@ -928,7 +926,7 @@ class ICoreDispatcherWithTaskPriority(ComPtr):
     def StopProcessEvents(self) -> Void: ...
     CurrentPriority = property(get_CurrentPriority, put_CurrentPriority)
 class ICoreIndependentInputSourceController(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreIndependentInputSourceController'
     _iid_ = Guid('{0963261c-84fe-578a-83ca-6425309ccde4}')
     @winrt_commethod(6)
@@ -949,7 +947,7 @@ class ICoreIndependentInputSourceController(ComPtr):
     IsTransparentForUncontrolledInput = property(get_IsTransparentForUncontrolledInput, put_IsTransparentForUncontrolledInput)
     Source = property(get_Source, None)
 class ICoreIndependentInputSourceControllerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreIndependentInputSourceControllerStatics'
     _iid_ = Guid('{3edc4e20-9a8a-5691-8586-fca4cb57526d}')
     @winrt_commethod(6)
@@ -957,7 +955,7 @@ class ICoreIndependentInputSourceControllerStatics(ComPtr):
     @winrt_commethod(7)
     def CreateForIVisualElement(self, visualElement: win32more.Windows.UI.Composition.IVisualElement) -> win32more.Windows.UI.Core.CoreIndependentInputSourceController: ...
 class ICoreInputSourceBase(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreInputSourceBase'
     _iid_ = Guid('{9f488807-4580-4be8-be68-92a9311713bb}')
     @winrt_commethod(6)
@@ -967,41 +965,41 @@ class ICoreInputSourceBase(ComPtr):
     @winrt_commethod(8)
     def put_IsInputEnabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(9)
-    def add_InputEnabled(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.InputEnabledEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_InputEnabled(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.InputEnabledEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_InputEnabled(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Dispatcher = property(get_Dispatcher, None)
     IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
     InputEnabled = event()
 class ICoreKeyboardInputSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreKeyboardInputSource'
     _iid_ = Guid('{231c9088-e469-4df1-b208-6e490d71cb90}')
     @winrt_commethod(6)
     def GetCurrentKeyState(self, virtualKey: win32more.Windows.System.VirtualKey) -> win32more.Windows.UI.Core.CoreVirtualKeyStates: ...
     @winrt_commethod(7)
-    def add_CharacterReceived(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.CharacterReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CharacterReceived(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.CharacterReceivedEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_CharacterReceived(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(9)
-    def add_KeyDown(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.KeyEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_KeyDown(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.KeyEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_KeyDown(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(11)
-    def add_KeyUp(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.KeyEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_KeyUp(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.KeyEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_KeyUp(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CharacterReceived = event()
     KeyDown = event()
     KeyUp = event()
 class ICoreKeyboardInputSource2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreKeyboardInputSource2'
     _iid_ = Guid('{fa24cb94-f963-47a5-8778-207c482b0afd}')
     @winrt_commethod(6)
     def GetCurrentKeyEventDeviceId(self) -> WinRT_String: ...
 class ICorePointerInputSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICorePointerInputSource'
     _iid_ = Guid('{bbf1bb18-e47a-48eb-8807-f8f8d3ea4551}')
     @winrt_commethod(6)
@@ -1017,31 +1015,31 @@ class ICorePointerInputSource(ComPtr):
     @winrt_commethod(11)
     def put_PointerCursor(self, value: win32more.Windows.UI.Core.CoreCursor) -> Void: ...
     @winrt_commethod(12)
-    def add_PointerCaptureLost(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerCaptureLost(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_PointerCaptureLost(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_PointerEntered(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerEntered(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_PointerEntered(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
-    def add_PointerExited(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerExited(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_PointerExited(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
-    def add_PointerMoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerMoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_PointerMoved(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(20)
-    def add_PointerPressed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerPressed(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(21)
     def remove_PointerPressed(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(22)
-    def add_PointerReleased(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerReleased(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(23)
     def remove_PointerReleased(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(24)
-    def add_PointerWheelChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PointerWheelChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.PointerEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(25)
     def remove_PointerWheelChanged(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     HasCapture = property(get_HasCapture, None)
@@ -1055,14 +1053,14 @@ class ICorePointerInputSource(ComPtr):
     PointerReleased = event()
     PointerWheelChanged = event()
 class ICorePointerInputSource2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICorePointerInputSource2'
     _iid_ = Guid('{d703708a-4516-4786-b1e5-2751d563f997}')
     @winrt_commethod(6)
     def get_DispatcherQueue(self) -> win32more.Windows.System.DispatcherQueue: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
 class ICorePointerRedirector(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICorePointerRedirector'
     _iid_ = Guid('{8f9d0c94-5688-4b0c-a9f1-f931f7fa3dc3}')
     @winrt_commethod(6)
@@ -1081,20 +1079,20 @@ class ICorePointerRedirector(ComPtr):
     PointerRoutedTo = event()
     PointerRoutedReleased = event()
 class ICoreTouchHitTesting(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreTouchHitTesting'
     _iid_ = Guid('{b1d8a289-3acf-4124-9fa3-ea8aba353c21}')
     @winrt_commethod(6)
-    def add_TouchHitTesting(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Win32.System.WinRT.IInspectable, win32more.Windows.UI.Core.TouchHitTestingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_TouchHitTesting(self, handler: win32more.Windows.Foundation.TypedEventHandler[IInspectable, win32more.Windows.UI.Core.TouchHitTestingEventArgs]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_TouchHitTesting(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     TouchHitTesting = event()
 class ICoreWindow(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindow'
     _iid_ = Guid('{79b9d5f2-879e-4b89-b798-79e47598030c}')
     @winrt_commethod(6)
-    def get_AutomationHostProvider(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_AutomationHostProvider(self) -> IInspectable: ...
     @winrt_commethod(7)
     def get_Bounds(self) -> win32more.Windows.Foundation.Rect: ...
     @winrt_commethod(8)
@@ -1224,14 +1222,14 @@ class ICoreWindow(ComPtr):
     SizeChanged = event()
     VisibilityChanged = event()
 class ICoreWindow2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindow2'
     _iid_ = Guid('{7c2b1b85-6917-4361-9c02-0d9e3a420b95}')
     @winrt_commethod(6)
     def put_PointerPosition(self, value: win32more.Windows.Foundation.Point) -> Void: ...
     PointerPosition = property(None, put_PointerPosition)
 class ICoreWindow3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindow3'
     _iid_ = Guid('{32c20dd8-faef-4375-a2ab-32640e4815c7}')
     @winrt_commethod(6)
@@ -1242,21 +1240,21 @@ class ICoreWindow3(ComPtr):
     def GetCurrentKeyEventDeviceId(self) -> WinRT_String: ...
     ClosestInteractiveBoundsRequested = event()
 class ICoreWindow4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindow4'
     _iid_ = Guid('{35caf0d0-47f0-436c-af97-0dd88f6f5f02}')
     @winrt_commethod(6)
-    def add_ResizeStarted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Core.CoreWindow, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ResizeStarted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Core.CoreWindow, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ResizeStarted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_ResizeCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Core.CoreWindow, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ResizeCompleted(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Core.CoreWindow, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_ResizeCompleted(self, cookie: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ResizeStarted = event()
     ResizeCompleted = event()
 class ICoreWindow5(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindow5'
     _iid_ = Guid('{4b4ae1e1-2e6d-4eaa-bda1-1c5cc1bee141}')
     @winrt_commethod(6)
@@ -1266,7 +1264,7 @@ class ICoreWindow5(ComPtr):
     ActivationMode = property(get_ActivationMode, None)
     DispatcherQueue = property(get_DispatcherQueue, None)
 class ICoreWindowDialog(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowDialog'
     _iid_ = Guid('{e7392ce0-c78d-427e-8b2c-01ff420c69d5}')
     @winrt_commethod(6)
@@ -1311,13 +1309,13 @@ class ICoreWindowDialog(ComPtr):
     Title = property(get_Title, put_Title)
     Showing = event()
 class ICoreWindowDialogFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowDialogFactory'
     _iid_ = Guid('{cfb2a855-1c59-4b13-b1e5-16e29805f7c4}')
     @winrt_commethod(6)
     def CreateWithTitle(self, title: WinRT_String) -> win32more.Windows.UI.Core.CoreWindowDialog: ...
 class ICoreWindowEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowEventArgs'
     _iid_ = Guid('{272b1ef3-c633-4da5-a26c-c6d0f56b29da}')
     @winrt_commethod(6)
@@ -1326,7 +1324,7 @@ class ICoreWindowEventArgs(ComPtr):
     def put_Handled(self, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
 class ICoreWindowFlyout(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowFlyout'
     _iid_ = Guid('{e89d854d-2050-40bb-b344-f6f355eeb314}')
     @winrt_commethod(6)
@@ -1366,7 +1364,7 @@ class ICoreWindowFlyout(ComPtr):
     Title = property(get_Title, put_Title)
     Showing = event()
 class ICoreWindowFlyoutFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowFlyoutFactory'
     _iid_ = Guid('{dec4c6c4-93e8-4f7c-be27-cefaa1af68a7}')
     @winrt_commethod(6)
@@ -1374,19 +1372,19 @@ class ICoreWindowFlyoutFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithTitle(self, position: win32more.Windows.Foundation.Point, title: WinRT_String) -> win32more.Windows.UI.Core.CoreWindowFlyout: ...
 class ICoreWindowPopupShowingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowPopupShowingEventArgs'
     _iid_ = Guid('{26155fa2-5ba5-4ea4-a3b4-2dc7d63c8e26}')
     @winrt_commethod(6)
     def SetDesiredSize(self, value: win32more.Windows.Foundation.Size) -> Void: ...
 class ICoreWindowResizeManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowResizeManager'
     _iid_ = Guid('{b8f0b925-b350-48b3-a198-5c1a84700243}')
     @winrt_commethod(6)
     def NotifyLayoutCompleted(self) -> Void: ...
 class ICoreWindowResizeManagerLayoutCapability(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowResizeManagerLayoutCapability'
     _iid_ = Guid('{bb74f27b-a544-4301-80e6-0ae033ef4536}')
     @winrt_commethod(6)
@@ -1395,46 +1393,46 @@ class ICoreWindowResizeManagerLayoutCapability(ComPtr):
     def get_ShouldWaitForLayoutCompletion(self) -> Boolean: ...
     ShouldWaitForLayoutCompletion = property(get_ShouldWaitForLayoutCompletion, put_ShouldWaitForLayoutCompletion)
 class ICoreWindowResizeManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowResizeManagerStatics'
     _iid_ = Guid('{ae4a9045-6d70-49db-8e68-46ffbd17d38d}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> win32more.Windows.UI.Core.CoreWindowResizeManager: ...
 class ICoreWindowStatic(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowStatic'
     _iid_ = Guid('{4d239005-3c2a-41b1-9022-536bb9cf93b1}')
     @winrt_commethod(6)
     def GetForCurrentThread(self) -> win32more.Windows.UI.Core.CoreWindow: ...
 class ICoreWindowWithContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ICoreWindowWithContext'
     _iid_ = Guid('{9ac40241-3575-4c3b-af66-e8c529d4d06c}')
     @winrt_commethod(6)
     def get_UIContext(self) -> win32more.Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
 class IIdleDispatchedHandlerArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IIdleDispatchedHandlerArgs'
     _iid_ = Guid('{98bb6a24-dc1c-43cb-b4ed-d1c0eb2391f3}')
     @winrt_commethod(6)
     def get_IsDispatcherIdle(self) -> Boolean: ...
     IsDispatcherIdle = property(get_IsDispatcherIdle, None)
 class IInitializeWithCoreWindow(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IInitializeWithCoreWindow'
     _iid_ = Guid('{188f20d6-9873-464a-ace5-57e010f465e6}')
     @winrt_commethod(6)
     def Initialize(self, window: win32more.Windows.UI.Core.CoreWindow) -> Void: ...
 class IInputEnabledEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IInputEnabledEventArgs'
     _iid_ = Guid('{80371d4f-2fd8-4c24-aa86-3163a87b4e5a}')
     @winrt_commethod(6)
     def get_InputEnabled(self) -> Boolean: ...
     InputEnabled = property(get_InputEnabled, None)
 class IKeyEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IKeyEventArgs'
     _iid_ = Guid('{5ff5e930-2544-4a17-bd78-1f2fdebb106b}')
     @winrt_commethod(6)
@@ -1444,14 +1442,14 @@ class IKeyEventArgs(ComPtr):
     KeyStatus = property(get_KeyStatus, None)
     VirtualKey = property(get_VirtualKey, None)
 class IKeyEventArgs2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IKeyEventArgs2'
     _iid_ = Guid('{583add98-0790-4571-9b12-645ef9d79e42}')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IPointerEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IPointerEventArgs'
     _iid_ = Guid('{920d9cb1-a5fc-4a21-8c09-49dfe6ffe25f}')
     @winrt_commethod(6)
@@ -1463,7 +1461,7 @@ class IPointerEventArgs(ComPtr):
     CurrentPoint = property(get_CurrentPoint, None)
     KeyModifiers = property(get_KeyModifiers, None)
 class ISystemNavigationManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ISystemNavigationManager'
     _iid_ = Guid('{93023118-cf50-42a6-9706-69107fa122e1}')
     @winrt_commethod(6)
@@ -1472,7 +1470,7 @@ class ISystemNavigationManager(ComPtr):
     def remove_BackRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BackRequested = event()
 class ISystemNavigationManager2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ISystemNavigationManager2'
     _iid_ = Guid('{8c510401-67be-49ae-9509-671c1e54a389}')
     @winrt_commethod(6)
@@ -1481,13 +1479,13 @@ class ISystemNavigationManager2(ComPtr):
     def put_AppViewBackButtonVisibility(self, value: win32more.Windows.UI.Core.AppViewBackButtonVisibility) -> Void: ...
     AppViewBackButtonVisibility = property(get_AppViewBackButtonVisibility, put_AppViewBackButtonVisibility)
 class ISystemNavigationManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ISystemNavigationManagerStatics'
     _iid_ = Guid('{dc52b5ce-bee0-4305-8c54-68228ed683b5}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> win32more.Windows.UI.Core.SystemNavigationManager: ...
 class ITouchHitTestingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.ITouchHitTestingEventArgs'
     _iid_ = Guid('{22f3b823-0b7c-424e-9df7-33d4f962931b}')
     @winrt_commethod(6)
@@ -1506,40 +1504,40 @@ class ITouchHitTestingEventArgs(ComPtr):
     Point = property(get_Point, None)
     ProximityEvaluation = property(get_ProximityEvaluation, put_ProximityEvaluation)
 class IVisibilityChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IVisibilityChangedEventArgs'
     _iid_ = Guid('{bf9918ea-d801-4564-a495-b1e84f8ad085}')
     @winrt_commethod(6)
     def get_Visible(self) -> Boolean: ...
     Visible = property(get_Visible, None)
 class IWindowActivatedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IWindowActivatedEventArgs'
     _iid_ = Guid('{179d65e7-4658-4cb6-aa13-41d094ea255e}')
     @winrt_commethod(6)
     def get_WindowActivationState(self) -> win32more.Windows.UI.Core.CoreWindowActivationState: ...
     WindowActivationState = property(get_WindowActivationState, None)
 class IWindowSizeChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.IWindowSizeChangedEventArgs'
     _iid_ = Guid('{5a200ec7-0426-47dc-b86c-6f475915e451}')
     @winrt_commethod(6)
     def get_Size(self) -> win32more.Windows.Foundation.Size: ...
     Size = property(get_Size, None)
 class IdleDispatchedHandler(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{a42b0c24-7f21-4abc-99c1-8f01007f0880}')
     @winrt_commethod(3)
     def Invoke(self, e: win32more.Windows.UI.Core.IdleDispatchedHandlerArgs) -> Void: ...
 class IdleDispatchedHandlerArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IIdleDispatchedHandlerArgs
     _classid_ = 'Windows.UI.Core.IdleDispatchedHandlerArgs'
     @winrt_mixinmethod
     def get_IsDispatcherIdle(self: win32more.Windows.UI.Core.IIdleDispatchedHandlerArgs) -> Boolean: ...
     IsDispatcherIdle = property(get_IsDispatcherIdle, None)
 class InputEnabledEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IInputEnabledEventArgs
     _classid_ = 'Windows.UI.Core.InputEnabledEventArgs'
     @winrt_mixinmethod
@@ -1551,7 +1549,7 @@ class InputEnabledEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     InputEnabled = property(get_InputEnabled, None)
 class KeyEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IKeyEventArgs
     _classid_ = 'Windows.UI.Core.KeyEventArgs'
     @winrt_mixinmethod
@@ -1569,7 +1567,7 @@ class KeyEventArgs(ComPtr):
     KeyStatus = property(get_KeyStatus, None)
     VirtualKey = property(get_VirtualKey, None)
 class PointerEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IPointerEventArgs
     _classid_ = 'Windows.UI.Core.PointerEventArgs'
     @winrt_mixinmethod
@@ -1586,7 +1584,7 @@ class PointerEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     KeyModifiers = property(get_KeyModifiers, None)
 class SystemNavigationManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ISystemNavigationManager
     _classid_ = 'Windows.UI.Core.SystemNavigationManager'
     @winrt_mixinmethod
@@ -1602,7 +1600,7 @@ class SystemNavigationManager(ComPtr):
     AppViewBackButtonVisibility = property(get_AppViewBackButtonVisibility, put_AppViewBackButtonVisibility)
     BackRequested = event()
 class TouchHitTestingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.ITouchHitTestingEventArgs
     _classid_ = 'Windows.UI.Core.TouchHitTestingEventArgs'
     @winrt_mixinmethod
@@ -1626,7 +1624,7 @@ class TouchHitTestingEventArgs(ComPtr):
     Point = property(get_Point, None)
     ProximityEvaluation = property(get_ProximityEvaluation, put_ProximityEvaluation)
 class VisibilityChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IVisibilityChangedEventArgs
     _classid_ = 'Windows.UI.Core.VisibilityChangedEventArgs'
     @winrt_mixinmethod
@@ -1638,7 +1636,7 @@ class VisibilityChangedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     Visible = property(get_Visible, None)
 class WindowActivatedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IWindowActivatedEventArgs
     _classid_ = 'Windows.UI.Core.WindowActivatedEventArgs'
     @winrt_mixinmethod
@@ -1650,7 +1648,7 @@ class WindowActivatedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     WindowActivationState = property(get_WindowActivationState, None)
 class WindowSizeChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.IWindowSizeChangedEventArgs
     _classid_ = 'Windows.UI.Core.WindowSizeChangedEventArgs'
     @winrt_mixinmethod

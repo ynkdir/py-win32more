@@ -1,33 +1,32 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.SerialCommunication
 import win32more.Windows.Foundation
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class ErrorReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.SerialCommunication.IErrorReceivedEventArgs
     _classid_ = 'Windows.Devices.SerialCommunication.ErrorReceivedEventArgs'
     @winrt_mixinmethod
     def get_Error(self: win32more.Windows.Devices.SerialCommunication.IErrorReceivedEventArgs) -> win32more.Windows.Devices.SerialCommunication.SerialError: ...
     Error = property(get_Error, None)
 class IErrorReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.SerialCommunication.IErrorReceivedEventArgs'
     _iid_ = Guid('{fcc6bf59-1283-4d8a-bfdf-566b33ddb28f}')
     @winrt_commethod(6)
     def get_Error(self) -> win32more.Windows.Devices.SerialCommunication.SerialError: ...
     Error = property(get_Error, None)
 class IPinChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.SerialCommunication.IPinChangedEventArgs'
     _iid_ = Guid('{a2bf1db0-fc9c-4607-93d0-fa5e8343ee22}')
     @winrt_commethod(6)
     def get_PinChange(self) -> win32more.Windows.Devices.SerialCommunication.SerialPinChange: ...
     PinChange = property(get_PinChange, None)
 class ISerialDevice(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.SerialCommunication.ISerialDevice'
     _iid_ = Guid('{e187ccc6-2210-414f-b65a-f5553a03372a}')
@@ -119,7 +118,7 @@ class ISerialDevice(ComPtr):
     ErrorReceived = event()
     PinChanged = event()
 class ISerialDeviceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.SerialCommunication.ISerialDeviceStatics'
     _iid_ = Guid('{058c4a70-0836-4993-ae1a-b61ae3be056b}')
     @winrt_commethod(6)
@@ -131,14 +130,14 @@ class ISerialDeviceStatics(ComPtr):
     @winrt_commethod(9)
     def FromIdAsync(self, deviceId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.SerialCommunication.SerialDevice]: ...
 class PinChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.SerialCommunication.IPinChangedEventArgs
     _classid_ = 'Windows.Devices.SerialCommunication.PinChangedEventArgs'
     @winrt_mixinmethod
     def get_PinChange(self: win32more.Windows.Devices.SerialCommunication.IPinChangedEventArgs) -> win32more.Windows.Devices.SerialCommunication.SerialPinChange: ...
     PinChange = property(get_PinChange, None)
 class SerialDevice(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Devices.SerialCommunication.ISerialDevice
     _classid_ = 'Windows.Devices.SerialCommunication.SerialDevice'

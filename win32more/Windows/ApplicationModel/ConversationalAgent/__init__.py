@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.ConversationalAgent
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Audio
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class ActivationSignalDetectionConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfiguration
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfiguration'
@@ -83,7 +82,7 @@ class ActivationSignalDetectionConfiguration(ComPtr):
     TrainingStepsRemaining = property(get_TrainingStepsRemaining, None)
     AvailabilityChanged = event()
 class ActivationSignalDetectionConfigurationCreationResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfigurationCreationResult
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectionConfigurationCreationResult'
     @winrt_mixinmethod
@@ -132,7 +131,7 @@ class ActivationSignalDetectionTrainingDataFormat(Enum, Int32):
     AudioOEMDefined = 9
     OtherOEMDefined = 10
 class ActivationSignalDetector(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetector
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector'
     @winrt_mixinmethod
@@ -207,7 +206,7 @@ class ConversationalAgentActivationResult(Enum, Int32):
 class _ConversationalAgentDetectorManager_Meta_(ComPtr.__class__):
     pass
 class ConversationalAgentDetectorManager(ComPtr, metaclass=_ConversationalAgentDetectorManager_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManager
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager'
     @winrt_mixinmethod
@@ -226,7 +225,7 @@ class ConversationalAgentDetectorManager(ComPtr, metaclass=_ConversationalAgentD
     def get_Default(cls: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManagerStatics) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager: ...
     _ConversationalAgentDetectorManager_Meta_.Default = property(get_Default, None)
 class ConversationalAgentSession(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession'
@@ -271,9 +270,9 @@ class ConversationalAgentSession(ComPtr):
     @winrt_mixinmethod
     def RequestForegroundActivation(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionUpdateResponse: ...
     @winrt_mixinmethod
-    def GetAudioClientAsync(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def GetAudioClientAsync(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> win32more.Windows.Foundation.IAsyncOperation[IInspectable]: ...
     @winrt_mixinmethod
-    def GetAudioClient(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetAudioClient(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession) -> IInspectable: ...
     @winrt_mixinmethod
     def CreateAudioDeviceInputNodeAsync(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession, graph: win32more.Windows.Media.Audio.AudioGraph) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Audio.AudioDeviceInputNode]: ...
     @winrt_mixinmethod
@@ -328,14 +327,14 @@ class ConversationalAgentSession(ComPtr):
     SignalDetected = event()
     SystemStateChanged = event()
 class ConversationalAgentSessionInterruptedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSessionInterruptedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionInterruptedEventArgs'
 class ConversationalAgentSessionUpdateResponse(Enum, Int32):
     Success = 0
     Failed = 1
 class ConversationalAgentSignal(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSignal'
     @winrt_mixinmethod
@@ -351,9 +350,9 @@ class ConversationalAgentSignal(ComPtr):
     @winrt_mixinmethod
     def put_SignalName(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
-    def get_SignalContext(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_SignalContext(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal) -> IInspectable: ...
     @winrt_mixinmethod
-    def put_SignalContext(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_SignalContext(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal, value: IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_SignalStart(self: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -375,7 +374,7 @@ class ConversationalAgentSignal(ComPtr):
     SignalName = property(get_SignalName, put_SignalName)
     SignalStart = property(get_SignalStart, put_SignalStart)
 class ConversationalAgentSignalDetectedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignalDetectedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSignalDetectedEventArgs'
 class ConversationalAgentState(Enum, Int32):
@@ -391,7 +390,7 @@ class ConversationalAgentSystemStateChangeType(Enum, Int32):
     IndicatorLightAvailability = 2
     VoiceActivationAvailability = 3
 class ConversationalAgentSystemStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSystemStateChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSystemStateChangedEventArgs'
     @winrt_mixinmethod
@@ -409,14 +408,14 @@ class DetectionConfigurationAvailabilityChangeKind(Enum, Int32):
     Permission = 1
     LockScreenPermission = 2
 class DetectionConfigurationAvailabilityChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IDetectionConfigurationAvailabilityChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.DetectionConfigurationAvailabilityChangedEventArgs'
     @winrt_mixinmethod
     def get_Kind(self: win32more.Windows.ApplicationModel.ConversationalAgent.IDetectionConfigurationAvailabilityChangedEventArgs) -> win32more.Windows.ApplicationModel.ConversationalAgent.DetectionConfigurationAvailabilityChangeKind: ...
     Kind = property(get_Kind, None)
 class DetectionConfigurationAvailabilityInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.ConversationalAgent.IDetectionConfigurationAvailabilityInfo
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.DetectionConfigurationAvailabilityInfo'
     @winrt_mixinmethod
@@ -446,7 +445,7 @@ class DetectionConfigurationTrainingStatus(Enum, Int32):
     TrainingTimedOut = 8
     ConfigurationNotFound = 9
 class IActivationSignalDetectionConfiguration(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfiguration'
     _iid_ = Guid('{40d8be16-5217-581c-9ab2-ce9b2f2e8e00}')
     @winrt_commethod(6)
@@ -507,7 +506,7 @@ class IActivationSignalDetectionConfiguration(ComPtr):
     TrainingStepsRemaining = property(get_TrainingStepsRemaining, None)
     AvailabilityChanged = event()
 class IActivationSignalDetectionConfiguration2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfiguration2'
     _iid_ = Guid('{71d9b022-562c-57ce-a78b-8b4ff0145bab}')
     @winrt_commethod(6)
@@ -522,7 +521,7 @@ class IActivationSignalDetectionConfiguration2(ComPtr):
     def get_TrainingStepCompletionMaxAllowedTime(self) -> UInt32: ...
     TrainingStepCompletionMaxAllowedTime = property(get_TrainingStepCompletionMaxAllowedTime, None)
 class IActivationSignalDetectionConfigurationCreationResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetectionConfigurationCreationResult'
     _iid_ = Guid('{4c89bc1b-8d12-5e48-a71c-7f6bc1cd66e0}')
     @winrt_commethod(6)
@@ -532,7 +531,7 @@ class IActivationSignalDetectionConfigurationCreationResult(ComPtr):
     Configuration = property(get_Configuration, None)
     Status = property(get_Status, None)
 class IActivationSignalDetector(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetector'
     _iid_ = Guid('{b5bf345f-a4d0-5b2b-8e65-b3c55ee756ff}')
     @winrt_commethod(6)
@@ -574,7 +573,7 @@ class IActivationSignalDetector(ComPtr):
     SupportedPowerStates = property(get_SupportedPowerStates, None)
     SupportedTrainingDataFormats = property(get_SupportedTrainingDataFormats, None)
 class IActivationSignalDetector2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IActivationSignalDetector2'
     _iid_ = Guid('{c7e2490a-baa5-59d2-85d1-ba42f7cf78c9}')
     @winrt_commethod(6)
@@ -593,7 +592,7 @@ class IActivationSignalDetector2(ComPtr):
     def get_DetectorId(self) -> WinRT_String: ...
     DetectorId = property(get_DetectorId, None)
 class IConversationalAgentDetectorManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManager'
     _iid_ = Guid('{de94fbb0-597a-5df8-8cfb-9dbb583ba3ff}')
     @winrt_commethod(6)
@@ -605,7 +604,7 @@ class IConversationalAgentDetectorManager(ComPtr):
     @winrt_commethod(9)
     def GetActivationSignalDetectorsAsync(self, kind: win32more.Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetectorKind) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector]]: ...
 class IConversationalAgentDetectorManager2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManager2'
     _iid_ = Guid('{84610f31-d7f3-52fe-9311-c9eb4e3eb30a}')
     @winrt_commethod(6)
@@ -613,14 +612,14 @@ class IConversationalAgentDetectorManager2(ComPtr):
     @winrt_commethod(7)
     def GetActivationSignalDetectorFromIdAsync(self, detectorId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.ConversationalAgent.ActivationSignalDetector]: ...
 class IConversationalAgentDetectorManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentDetectorManagerStatics'
     _iid_ = Guid('{36a8d283-fa0e-5693-8489-0fb2f0ab40d3}')
     @winrt_commethod(6)
     def get_Default(self) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentDetectorManager: ...
     Default = property(get_Default, None)
 class IConversationalAgentSession(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession'
     _iid_ = Guid('{daaae09a-b7ba-57e5-ad13-df520f9b6fa7}')
     @winrt_commethod(6)
@@ -664,9 +663,9 @@ class IConversationalAgentSession(ComPtr):
     @winrt_commethod(25)
     def RequestForegroundActivation(self) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSessionUpdateResponse: ...
     @winrt_commethod(26)
-    def GetAudioClientAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def GetAudioClientAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[IInspectable]: ...
     @winrt_commethod(27)
-    def GetAudioClient(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def GetAudioClient(self) -> IInspectable: ...
     @winrt_commethod(28)
     def CreateAudioDeviceInputNodeAsync(self, graph: win32more.Windows.Media.Audio.AudioGraph) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.Audio.AudioDeviceInputNode]: ...
     @winrt_commethod(29)
@@ -703,7 +702,7 @@ class IConversationalAgentSession(ComPtr):
     SignalDetected = event()
     SystemStateChanged = event()
 class IConversationalAgentSession2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSession2'
     _iid_ = Guid('{a7a9fbf9-ac78-57ff-9596-acc7a1c9a607}')
     @winrt_commethod(6)
@@ -719,11 +718,11 @@ class IConversationalAgentSession2(ComPtr):
     @winrt_commethod(11)
     def GetMissingPrerequisitesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentVoiceActivationPrerequisiteKind]]: ...
 class IConversationalAgentSessionInterruptedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSessionInterruptedEventArgs'
     _iid_ = Guid('{9766591f-f63d-5d3e-9bf2-bd0760552686}')
 class IConversationalAgentSessionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSessionStatics'
     _iid_ = Guid('{a005166e-e954-576e-be04-11b8ed10f37b}')
     @winrt_commethod(6)
@@ -731,7 +730,7 @@ class IConversationalAgentSessionStatics(ComPtr):
     @winrt_commethod(7)
     def GetCurrentSessionSync(self) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession: ...
 class IConversationalAgentSignal(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal'
     _iid_ = Guid('{20ed25f7-b120-51f2-8603-265d6a47f232}')
     @winrt_commethod(6)
@@ -747,9 +746,9 @@ class IConversationalAgentSignal(ComPtr):
     @winrt_commethod(11)
     def put_SignalName(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(12)
-    def get_SignalContext(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_SignalContext(self) -> IInspectable: ...
     @winrt_commethod(13)
-    def put_SignalContext(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_SignalContext(self, value: IInspectable) -> Void: ...
     @winrt_commethod(14)
     def get_SignalStart(self) -> win32more.Windows.Foundation.TimeSpan: ...
     @winrt_commethod(15)
@@ -765,7 +764,7 @@ class IConversationalAgentSignal(ComPtr):
     SignalName = property(get_SignalName, put_SignalName)
     SignalStart = property(get_SignalStart, put_SignalStart)
 class IConversationalAgentSignal2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignal2'
     _iid_ = Guid('{d0cc7ba9-9a7b-5c34-880e-b6146c904ecb}')
     @winrt_commethod(6)
@@ -775,25 +774,25 @@ class IConversationalAgentSignal2(ComPtr):
     DetectorId = property(get_DetectorId, None)
     DetectorKind = property(get_DetectorKind, None)
 class IConversationalAgentSignalDetectedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSignalDetectedEventArgs'
     _iid_ = Guid('{4d57eb8f-f88a-599b-91d3-d604876708bc}')
 class IConversationalAgentSystemStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IConversationalAgentSystemStateChangedEventArgs'
     _iid_ = Guid('{1c2c6e3e-2785-59a7-8e71-38adeef79928}')
     @winrt_commethod(6)
     def get_SystemStateChangeType(self) -> win32more.Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSystemStateChangeType: ...
     SystemStateChangeType = property(get_SystemStateChangeType, None)
 class IDetectionConfigurationAvailabilityChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IDetectionConfigurationAvailabilityChangedEventArgs'
     _iid_ = Guid('{5129c9fb-4be8-5f14-af2b-88d62b1b4462}')
     @winrt_commethod(6)
     def get_Kind(self) -> win32more.Windows.ApplicationModel.ConversationalAgent.DetectionConfigurationAvailabilityChangeKind: ...
     Kind = property(get_Kind, None)
 class IDetectionConfigurationAvailabilityInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IDetectionConfigurationAvailabilityInfo'
     _iid_ = Guid('{b5affeb0-40f0-5398-b838-91979c2c6208}')
     @winrt_commethod(6)
@@ -809,7 +808,7 @@ class IDetectionConfigurationAvailabilityInfo(ComPtr):
     HasSystemResourceAccess = property(get_HasSystemResourceAccess, None)
     IsEnabled = property(get_IsEnabled, None)
 class IDetectionConfigurationAvailabilityInfo2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.ConversationalAgent.IDetectionConfigurationAvailabilityInfo2'
     _iid_ = Guid('{30e06433-38b3-5c4b-84c3-62b6e685b2ff}')
     @winrt_commethod(6)

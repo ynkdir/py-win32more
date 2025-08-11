@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Media.Core
 import win32more.Windows.Media.MediaProperties
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class AudioEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IAudioEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.AudioEncodingProperties'
     def __init__(self, *args, **kwargs):
@@ -83,7 +82,7 @@ class AudioEncodingQuality(Enum, Int32):
 class _Av1ProfileIds_Meta_(ComPtr.__class__):
     pass
 class Av1ProfileIds(ComPtr, metaclass=_Av1ProfileIds_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.Av1ProfileIds'
     @winrt_classmethod
     def get_MainChromaSubsampling420BitDepth8(cls: win32more.Windows.Media.MediaProperties.IAv1ProfileIdsStatics) -> Int32: ...
@@ -122,7 +121,7 @@ class Av1ProfileIds(ComPtr, metaclass=_Av1ProfileIds_Meta_):
     _Av1ProfileIds_Meta_.ProfessionalChromaSubsampling422BitDepth8 = property(get_ProfessionalChromaSubsampling422BitDepth8, None)
     _Av1ProfileIds_Meta_.ProfessionalChromaSubsampling444BitDepth12 = property(get_ProfessionalChromaSubsampling444BitDepth12, None)
 class ContainerEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IContainerEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.ContainerEncodingProperties'
     def __init__(self, *args, **kwargs):
@@ -150,7 +149,7 @@ class ContainerEncodingProperties(ComPtr):
 class _H264ProfileIds_Meta_(ComPtr.__class__):
     pass
 class H264ProfileIds(ComPtr, metaclass=_H264ProfileIds_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.H264ProfileIds'
     @winrt_classmethod
     def get_ConstrainedBaseline(cls: win32more.Windows.Media.MediaProperties.IH264ProfileIdsStatics) -> Int32: ...
@@ -185,7 +184,7 @@ class H264ProfileIds(ComPtr, metaclass=_H264ProfileIds_Meta_):
 class _HevcProfileIds_Meta_(ComPtr.__class__):
     pass
 class HevcProfileIds(ComPtr, metaclass=_HevcProfileIds_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.HevcProfileIds'
     @winrt_classmethod
     def get_MainChromaSubsampling420BitDepth8(cls: win32more.Windows.Media.MediaProperties.IHevcProfileIdsStatics) -> Int32: ...
@@ -254,7 +253,7 @@ class HevcProfileIds(ComPtr, metaclass=_HevcProfileIds_Meta_):
     _HevcProfileIds_Meta_.MonochromeBitDepth12 = property(get_MonochromeBitDepth12, None)
     _HevcProfileIds_Meta_.MonochromeBitDepth16 = property(get_MonochromeBitDepth16, None)
 class IAudioEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IAudioEncodingProperties'
     _iid_ = Guid('{62bc7a16-005c-4b3b-8a0b-0a090e9687f3}')
     @winrt_commethod(6)
@@ -278,20 +277,20 @@ class IAudioEncodingProperties(ComPtr):
     ChannelCount = property(get_ChannelCount, put_ChannelCount)
     SampleRate = property(get_SampleRate, put_SampleRate)
 class IAudioEncodingProperties2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IAudioEncodingProperties2'
     _iid_ = Guid('{c45d54da-80bd-4c23-80d5-72d4a181e894}')
     @winrt_commethod(6)
     def get_IsSpatial(self) -> Boolean: ...
     IsSpatial = property(get_IsSpatial, None)
 class IAudioEncodingProperties3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IAudioEncodingProperties3'
     _iid_ = Guid('{87600341-748c-4f8d-b0fd-10caf08ff087}')
     @winrt_commethod(6)
     def Copy(self) -> win32more.Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IAudioEncodingPropertiesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics'
     _iid_ = Guid('{0cad332c-ebe9-4527-b36d-e42a13cf38db}')
     @winrt_commethod(6)
@@ -305,7 +304,7 @@ class IAudioEncodingPropertiesStatics(ComPtr):
     @winrt_commethod(10)
     def CreateWma(self, sampleRate: UInt32, channelCount: UInt32, bitrate: UInt32) -> win32more.Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IAudioEncodingPropertiesStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics2'
     _iid_ = Guid('{7489316f-77a0-433d-8ed5-4040280e8665}')
     @winrt_commethod(6)
@@ -313,7 +312,7 @@ class IAudioEncodingPropertiesStatics2(ComPtr):
     @winrt_commethod(7)
     def CreateFlac(self, sampleRate: UInt32, channelCount: UInt32, bitsPerSample: UInt32) -> win32more.Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IAudioEncodingPropertiesWithFormatUserData(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IAudioEncodingPropertiesWithFormatUserData'
     _iid_ = Guid('{98f10d79-13ea-49ff-be70-2673db69702c}')
     @winrt_commethod(6)
@@ -321,7 +320,7 @@ class IAudioEncodingPropertiesWithFormatUserData(ComPtr):
     @winrt_commethod(7)
     def GetFormatUserData(self, value: ReceiveArray[Byte]) -> Void: ...
 class IAv1ProfileIdsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IAv1ProfileIdsStatics'
     _iid_ = Guid('{9105812b-7c09-5882-88a4-678008a5174d}')
     @winrt_commethod(6)
@@ -361,17 +360,17 @@ class IAv1ProfileIdsStatics(ComPtr):
     ProfessionalChromaSubsampling422BitDepth8 = property(get_ProfessionalChromaSubsampling422BitDepth8, None)
     ProfessionalChromaSubsampling444BitDepth12 = property(get_ProfessionalChromaSubsampling444BitDepth12, None)
 class IContainerEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IContainerEncodingProperties'
     _iid_ = Guid('{59ac2a57-b32a-479e-8a61-4b7f2e9e7ea0}')
 class IContainerEncodingProperties2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IContainerEncodingProperties2'
     _iid_ = Guid('{b272c029-ae26-4819-baad-ad7a49b0a876}')
     @winrt_commethod(6)
     def Copy(self) -> win32more.Windows.Media.MediaProperties.ContainerEncodingProperties: ...
 class IH264ProfileIdsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IH264ProfileIdsStatics'
     _iid_ = Guid('{38654ca7-846a-4f97-a2e5-c3a15bbf70fd}')
     @winrt_commethod(6)
@@ -405,7 +404,7 @@ class IH264ProfileIdsStatics(ComPtr):
     MultiviewHigh = property(get_MultiviewHigh, None)
     StereoHigh = property(get_StereoHigh, None)
 class IHevcProfileIdsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IHevcProfileIdsStatics'
     _iid_ = Guid('{1e50d280-2aa7-53c1-973f-2189fa656f53}')
     @winrt_commethod(6)
@@ -475,7 +474,7 @@ class IHevcProfileIdsStatics(ComPtr):
     MonochromeBitDepth12 = property(get_MonochromeBitDepth12, None)
     MonochromeBitDepth16 = property(get_MonochromeBitDepth16, None)
 class IImageEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IImageEncodingProperties'
     _iid_ = Guid('{78625635-f331-4189-b1c3-b48d5ae034f1}')
     @winrt_commethod(6)
@@ -489,13 +488,13 @@ class IImageEncodingProperties(ComPtr):
     Height = property(get_Height, put_Height)
     Width = property(get_Width, put_Width)
 class IImageEncodingProperties2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IImageEncodingProperties2'
     _iid_ = Guid('{c854a2df-c923-469b-ac8e-6a9f3c1cd9e3}')
     @winrt_commethod(6)
     def Copy(self) -> win32more.Windows.Media.MediaProperties.ImageEncodingProperties: ...
 class IImageEncodingPropertiesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IImageEncodingPropertiesStatics'
     _iid_ = Guid('{257c68dc-8b99-439e-aa59-913a36161297}')
     @winrt_commethod(6)
@@ -505,7 +504,7 @@ class IImageEncodingPropertiesStatics(ComPtr):
     @winrt_commethod(8)
     def CreateJpegXR(self) -> win32more.Windows.Media.MediaProperties.ImageEncodingProperties: ...
 class IImageEncodingPropertiesStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IImageEncodingPropertiesStatics2'
     _iid_ = Guid('{f6c25b29-3824-46b0-956e-501329e1be3c}')
     @winrt_commethod(6)
@@ -513,13 +512,13 @@ class IImageEncodingPropertiesStatics2(ComPtr):
     @winrt_commethod(7)
     def CreateBmp(self) -> win32more.Windows.Media.MediaProperties.ImageEncodingProperties: ...
 class IImageEncodingPropertiesStatics3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IImageEncodingPropertiesStatics3'
     _iid_ = Guid('{48f4814d-a2ff-48dc-8ea0-e90680663656}')
     @winrt_commethod(6)
     def CreateHeif(self) -> win32more.Windows.Media.MediaProperties.ImageEncodingProperties: ...
 class IMediaEncodingProfile(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProfile'
     _iid_ = Guid('{e7dbf5a8-1db9-4783-876b-3dfe12acfdb3}')
     @winrt_commethod(6)
@@ -538,7 +537,7 @@ class IMediaEncodingProfile(ComPtr):
     Container = property(get_Container, put_Container)
     Video = property(get_Video, put_Video)
 class IMediaEncodingProfile2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProfile2'
     _iid_ = Guid('{349b3e0a-4035-488e-9877-85632865ed10}')
     @winrt_commethod(6)
@@ -550,7 +549,7 @@ class IMediaEncodingProfile2(ComPtr):
     @winrt_commethod(9)
     def GetVideoTracks(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Media.Core.VideoStreamDescriptor]: ...
 class IMediaEncodingProfile3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProfile3'
     _iid_ = Guid('{ba6ebe88-7570-4e69-accf-5611ad015f88}')
     @winrt_commethod(6)
@@ -558,7 +557,7 @@ class IMediaEncodingProfile3(ComPtr):
     @winrt_commethod(7)
     def GetTimedMetadataTracks(self) -> win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Media.Core.TimedMetadataStreamDescriptor]: ...
 class IMediaEncodingProfileStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProfileStatics'
     _iid_ = Guid('{197f352c-2ede-4a45-a896-817a4854f8fe}')
     @winrt_commethod(6)
@@ -576,7 +575,7 @@ class IMediaEncodingProfileStatics(ComPtr):
     @winrt_commethod(12)
     def CreateFromStreamAsync(self, stream: win32more.Windows.Storage.Streams.IRandomAccessStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Media.MediaProperties.MediaEncodingProfile]: ...
 class IMediaEncodingProfileStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProfileStatics2'
     _iid_ = Guid('{ce8de74f-6af4-4288-8fe2-79adf1f79a43}')
     @winrt_commethod(6)
@@ -584,7 +583,7 @@ class IMediaEncodingProfileStatics2(ComPtr):
     @winrt_commethod(7)
     def CreateAvi(self, quality: win32more.Windows.Media.MediaProperties.VideoEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
 class IMediaEncodingProfileStatics3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProfileStatics3'
     _iid_ = Guid('{90dac5aa-cf76-4294-a9ed-1a1420f51f6b}')
     @winrt_commethod(6)
@@ -594,7 +593,7 @@ class IMediaEncodingProfileStatics3(ComPtr):
     @winrt_commethod(8)
     def CreateHevc(self, quality: win32more.Windows.Media.MediaProperties.VideoEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
 class IMediaEncodingProfileStatics4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProfileStatics4'
     _iid_ = Guid('{6fafd7b5-9404-514a-81dd-c9444d648af0}')
     @winrt_commethod(6)
@@ -602,7 +601,7 @@ class IMediaEncodingProfileStatics4(ComPtr):
     @winrt_commethod(7)
     def CreateAv1(self, quality: win32more.Windows.Media.MediaProperties.VideoEncodingQuality) -> win32more.Windows.Media.MediaProperties.MediaEncodingProfile: ...
 class IMediaEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingProperties'
     _iid_ = Guid('{b4002af6-acd4-4e5a-a24b-5d7498a8b8c4}')
     @winrt_commethod(6)
@@ -617,7 +616,7 @@ class IMediaEncodingProperties(ComPtr):
     Subtype = property(get_Subtype, put_Subtype)
     Type = property(get_Type, None)
 class IMediaEncodingSubtypesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics'
     _iid_ = Guid('{37b6580e-a171-4464-ba5a-53189e48c1c8}')
     @winrt_commethod(6)
@@ -741,7 +740,7 @@ class IMediaEncodingSubtypesStatics(ComPtr):
     Yuy2 = property(get_Yuy2, None)
     Yv12 = property(get_Yv12, None)
 class IMediaEncodingSubtypesStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics2'
     _iid_ = Guid('{4b7cd23d-42ff-4d33-8531-0626bee4b52d}')
     @winrt_commethod(6)
@@ -757,7 +756,7 @@ class IMediaEncodingSubtypesStatics2(ComPtr):
     L8 = property(get_L8, None)
     Vp9 = property(get_Vp9, None)
 class IMediaEncodingSubtypesStatics3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics3'
     _iid_ = Guid('{ba2414e4-883d-464e-a44f-097da08ef7ff}')
     @winrt_commethod(6)
@@ -767,21 +766,21 @@ class IMediaEncodingSubtypesStatics3(ComPtr):
     Alac = property(get_Alac, None)
     Flac = property(get_Flac, None)
 class IMediaEncodingSubtypesStatics4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics4'
     _iid_ = Guid('{ddece58a-3949-4644-8a2c-59ef02c642fa}')
     @winrt_commethod(6)
     def get_P010(self) -> WinRT_String: ...
     P010 = property(get_P010, None)
 class IMediaEncodingSubtypesStatics5(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics5'
     _iid_ = Guid('{5ad4a007-ffce-4760-9828-5d0c99637e6a}')
     @winrt_commethod(6)
     def get_Heif(self) -> WinRT_String: ...
     Heif = property(get_Heif, None)
 class IMediaEncodingSubtypesStatics6(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics6'
     _iid_ = Guid('{a1252973-a984-5912-93bb-54e7e569e053}')
     @winrt_commethod(6)
@@ -797,14 +796,14 @@ class IMediaEncodingSubtypesStatics6(ComPtr):
     Ssa = property(get_Ssa, None)
     VobSub = property(get_VobSub, None)
 class IMediaEncodingSubtypesStatics7(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics7'
     _iid_ = Guid('{92f2dca7-9937-52a1-b619-ddfad81cd99c}')
     @winrt_commethod(6)
     def get_Av1(self) -> WinRT_String: ...
     Av1 = property(get_Av1, None)
 class IMediaRatio(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMediaRatio'
     _iid_ = Guid('{d2d0fee5-8929-401d-ac78-7d357e378163}')
     @winrt_commethod(6)
@@ -818,7 +817,7 @@ class IMediaRatio(ComPtr):
     Denominator = property(get_Denominator, put_Denominator)
     Numerator = property(get_Numerator, put_Numerator)
 class IMpeg2ProfileIdsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics'
     _iid_ = Guid('{a461ff85-e57a-4128-9b21-d5331b04235c}')
     @winrt_commethod(6)
@@ -837,7 +836,7 @@ class IMpeg2ProfileIdsStatics(ComPtr):
     Simple = property(get_Simple, None)
     SpatiallyScalable = property(get_SpatiallyScalable, None)
 class ITimedMetadataEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.ITimedMetadataEncodingProperties'
     _iid_ = Guid('{51cd30d3-d690-4cfa-97f4-4a398e9db420}')
     @winrt_commethod(6)
@@ -847,7 +846,7 @@ class ITimedMetadataEncodingProperties(ComPtr):
     @winrt_commethod(8)
     def Copy(self) -> win32more.Windows.Media.MediaProperties.TimedMetadataEncodingProperties: ...
 class ITimedMetadataEncodingPropertiesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.ITimedMetadataEncodingPropertiesStatics'
     _iid_ = Guid('{6629bb67-6e55-5643-89a0-7a7e8d85b52c}')
     @winrt_commethod(6)
@@ -859,7 +858,7 @@ class ITimedMetadataEncodingPropertiesStatics(ComPtr):
     @winrt_commethod(9)
     def CreateVobSub(self, formatUserData: PassArray[Byte]) -> win32more.Windows.Media.MediaProperties.TimedMetadataEncodingProperties: ...
 class IVideoEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IVideoEncodingProperties'
     _iid_ = Guid('{76ee6c9a-37c2-4f2a-880a-1282bbb4373d}')
     @winrt_commethod(6)
@@ -884,7 +883,7 @@ class IVideoEncodingProperties(ComPtr):
     PixelAspectRatio = property(get_PixelAspectRatio, None)
     Width = property(get_Width, put_Width)
 class IVideoEncodingProperties2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IVideoEncodingProperties2'
     _iid_ = Guid('{f743a1ef-d465-4290-a94b-ef0f1528f8e3}')
     @winrt_commethod(6)
@@ -897,27 +896,27 @@ class IVideoEncodingProperties2(ComPtr):
     def get_ProfileId(self) -> Int32: ...
     ProfileId = property(get_ProfileId, put_ProfileId)
 class IVideoEncodingProperties3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IVideoEncodingProperties3'
     _iid_ = Guid('{386bcdc4-873a-479f-b3eb-56c1fcbec6d7}')
     @winrt_commethod(6)
     def get_StereoscopicVideoPackingMode(self) -> win32more.Windows.Media.MediaProperties.StereoscopicVideoPackingMode: ...
     StereoscopicVideoPackingMode = property(get_StereoscopicVideoPackingMode, None)
 class IVideoEncodingProperties4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IVideoEncodingProperties4'
     _iid_ = Guid('{724ef014-c10c-40f2-9d72-3ee13b45fa8e}')
     @winrt_commethod(6)
     def get_SphericalVideoFrameFormat(self) -> win32more.Windows.Media.MediaProperties.SphericalVideoFrameFormat: ...
     SphericalVideoFrameFormat = property(get_SphericalVideoFrameFormat, None)
 class IVideoEncodingProperties5(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IVideoEncodingProperties5'
     _iid_ = Guid('{4959080f-272f-4ece-a4df-c0ccdb33d840}')
     @winrt_commethod(6)
     def Copy(self) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
 class IVideoEncodingPropertiesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics'
     _iid_ = Guid('{3ce14d44-1dc5-43db-9f38-ebebf90152cb}')
     @winrt_commethod(6)
@@ -927,13 +926,13 @@ class IVideoEncodingPropertiesStatics(ComPtr):
     @winrt_commethod(8)
     def CreateUncompressed(self, subtype: WinRT_String, width: UInt32, height: UInt32) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
 class IVideoEncodingPropertiesStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics2'
     _iid_ = Guid('{cf1ebd5d-49fe-4d00-b59a-cfa4dfc51944}')
     @winrt_commethod(6)
     def CreateHevc(self) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
 class IVideoEncodingPropertiesStatics3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics3'
     _iid_ = Guid('{65b46685-60da-5e51-91a2-b38c4763b872}')
     @winrt_commethod(6)
@@ -941,7 +940,7 @@ class IVideoEncodingPropertiesStatics3(ComPtr):
     @winrt_commethod(7)
     def CreateAv1(self) -> win32more.Windows.Media.MediaProperties.VideoEncodingProperties: ...
 class IVp9ProfileIdsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.IVp9ProfileIdsStatics'
     _iid_ = Guid('{20311a55-fe06-5883-92d9-6080c97743e5}')
     @winrt_commethod(6)
@@ -954,7 +953,7 @@ class IVp9ProfileIdsStatics(ComPtr):
     Profile2ChromaSubsampling420BitDepth10 = property(get_Profile2ChromaSubsampling420BitDepth10, None)
     Profile2ChromaSubsampling420BitDepth12 = property(get_Profile2ChromaSubsampling420BitDepth12, None)
 class ImageEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IImageEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.ImageEncodingProperties'
     def __init__(self, *args, **kwargs):
@@ -1002,7 +1001,7 @@ class ImageEncodingProperties(ComPtr):
     Type = property(get_Type, None)
     Width = property(get_Width, put_Width)
 class MediaEncodingProfile(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IMediaEncodingProfile
     _classid_ = 'Windows.Media.MediaProperties.MediaEncodingProfile'
     def __init__(self, *args, **kwargs):
@@ -1072,7 +1071,7 @@ class MediaEncodingProfile(ComPtr):
 class _MediaEncodingSubtypes_Meta_(ComPtr.__class__):
     pass
 class MediaEncodingSubtypes(ComPtr, metaclass=_MediaEncodingSubtypes_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.MediaEncodingSubtypes'
     @winrt_classmethod
     def get_Av1(cls: win32more.Windows.Media.MediaProperties.IMediaEncodingSubtypesStatics7) -> WinRT_String: ...
@@ -1242,9 +1241,9 @@ class MediaPixelFormat(Enum, Int32):
     Bgra8 = 1
     P010 = 2
 class MediaPropertySet(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
-    implements: Tuple[MappingProtocol[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]]
-    default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]
+    extends: IInspectable
+    implements: Tuple[MappingProtocol[Guid, IInspectable]]
+    default_interface: win32more.Windows.Foundation.Collections.IMap[Guid, IInspectable]
     _classid_ = 'Windows.Media.MediaProperties.MediaPropertySet'
     def __init__(self, *args, **kwargs):
         if kwargs:
@@ -1256,24 +1255,24 @@ class MediaPropertySet(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.Media.MediaProperties.MediaPropertySet: ...
     @winrt_mixinmethod
-    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def Lookup(self: win32more.Windows.Foundation.Collections.IMap[Guid, IInspectable], key: Guid) -> IInspectable: ...
     @winrt_mixinmethod
-    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]) -> UInt32: ...
+    def get_Size(self: win32more.Windows.Foundation.Collections.IMap[Guid, IInspectable]) -> UInt32: ...
     @winrt_mixinmethod
-    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid) -> Boolean: ...
+    def HasKey(self: win32more.Windows.Foundation.Collections.IMap[Guid, IInspectable], key: Guid) -> Boolean: ...
     @winrt_mixinmethod
-    def GetView(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.Collections.IMapView[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def GetView(self: win32more.Windows.Foundation.Collections.IMap[Guid, IInspectable]) -> win32more.Windows.Foundation.Collections.IMapView[Guid, IInspectable]: ...
     @winrt_mixinmethod
-    def Insert(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Boolean: ...
+    def Insert(self: win32more.Windows.Foundation.Collections.IMap[Guid, IInspectable], key: Guid, value: IInspectable) -> Boolean: ...
     @winrt_mixinmethod
-    def Remove(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable], key: Guid) -> Void: ...
+    def Remove(self: win32more.Windows.Foundation.Collections.IMap[Guid, IInspectable], key: Guid) -> Void: ...
     @winrt_mixinmethod
-    def Clear(self: win32more.Windows.Foundation.Collections.IMap[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
+    def Clear(self: win32more.Windows.Foundation.Collections.IMap[Guid, IInspectable]) -> Void: ...
     @winrt_mixinmethod
-    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
+    def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, IInspectable]]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Foundation.Collections.IKeyValuePair[Guid, IInspectable]]: ...
     Size = property(get_Size, None)
 class MediaRatio(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IMediaRatio
     _classid_ = 'Windows.Media.MediaProperties.MediaRatio'
     @winrt_mixinmethod
@@ -1297,7 +1296,7 @@ class MediaThumbnailFormat(Enum, Int32):
 class _Mpeg2ProfileIds_Meta_(ComPtr.__class__):
     pass
 class Mpeg2ProfileIds(ComPtr, metaclass=_Mpeg2ProfileIds_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.Mpeg2ProfileIds'
     @winrt_classmethod
     def get_Simple(cls: win32more.Windows.Media.MediaProperties.IMpeg2ProfileIdsStatics) -> Int32: ...
@@ -1323,7 +1322,7 @@ class StereoscopicVideoPackingMode(Enum, Int32):
     SideBySide = 1
     TopBottom = 2
 class TimedMetadataEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IMediaEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.TimedMetadataEncodingProperties'
     def __init__(self, *args, **kwargs):
@@ -1361,7 +1360,7 @@ class TimedMetadataEncodingProperties(ComPtr):
     Subtype = property(get_Subtype, put_Subtype)
     Type = property(get_Type, None)
 class VideoEncodingProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.MediaProperties.IVideoEncodingProperties
     _classid_ = 'Windows.Media.MediaProperties.VideoEncodingProperties'
     def __init__(self, *args, **kwargs):
@@ -1448,7 +1447,7 @@ class VideoEncodingQuality(Enum, Int32):
 class _Vp9ProfileIds_Meta_(ComPtr.__class__):
     pass
 class Vp9ProfileIds(ComPtr, metaclass=_Vp9ProfileIds_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.MediaProperties.Vp9ProfileIds'
     @winrt_classmethod
     def get_Profile0ChromaSubsampling420BitDepth8(cls: win32more.Windows.Media.MediaProperties.IVp9ProfileIdsStatics) -> Int32: ...

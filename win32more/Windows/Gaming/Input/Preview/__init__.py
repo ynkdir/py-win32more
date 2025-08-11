@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Gaming.Input
 import win32more.Windows.Gaming.Input.Custom
 import win32more.Windows.Gaming.Input.Preview
 import win32more.Windows.System
-import win32more.Windows.Win32.System.WinRT
 class DeviceCommand(Enum, Int32):
     Reset = 0
 class GameControllerBatteryChargingState(Enum, Int32):
@@ -34,7 +33,7 @@ class GameControllerFirmwareCorruptReason(Enum, Int32):
     EepromCorrupt = 5
     SafeToUpdate = 6
 class GameControllerProviderInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.Preview.GameControllerProviderInfo'
     @winrt_classmethod
     def GetParentProviderId(cls: win32more.Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics, provider: win32more.Windows.Gaming.Input.Custom.IGameControllerProvider) -> WinRT_String: ...
@@ -59,7 +58,7 @@ class HeadsetOperation(Enum, Int32):
     MuteLedBrightness = 4
     SwapMixAndVolumeDials = 5
 class IGameControllerProviderInfoStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics'
     _iid_ = Guid('{0be1e6c5-d9bd-44ee-8362-488b2e464bfb}')
     @winrt_commethod(6)
@@ -67,7 +66,7 @@ class IGameControllerProviderInfoStatics(ComPtr):
     @winrt_commethod(7)
     def GetProviderId(self, provider: win32more.Windows.Gaming.Input.Custom.IGameControllerProvider) -> WinRT_String: ...
 class ILegacyGipGameControllerProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.Preview.ILegacyGipGameControllerProvider'
     _iid_ = Guid('{2da3ed52-ffd9-43e2-825c-1d2790e04d14}')
     @winrt_commethod(6)
@@ -99,9 +98,9 @@ class ILegacyGipGameControllerProvider(ComPtr):
     @winrt_commethod(19)
     def get_AppCompatVersion(self) -> UInt32: ...
     @winrt_commethod(20)
-    def SetStandardControllerButtonRemapping(self, user: win32more.Windows.System.User, previous: Boolean, remapping: win32more.Windows.Foundation.Collections.IMapView[win32more.Windows.Gaming.Input.Preview.RemappingButtonCategory, win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
+    def SetStandardControllerButtonRemapping(self, user: win32more.Windows.System.User, previous: Boolean, remapping: win32more.Windows.Foundation.Collections.IMapView[win32more.Windows.Gaming.Input.Preview.RemappingButtonCategory, IInspectable]) -> Void: ...
     @winrt_commethod(21)
-    def GetStandardControllerButtonRemapping(self, user: win32more.Windows.System.User, previous: Boolean) -> win32more.Windows.Foundation.Collections.IMapView[win32more.Windows.Gaming.Input.Preview.RemappingButtonCategory, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def GetStandardControllerButtonRemapping(self, user: win32more.Windows.System.User, previous: Boolean) -> win32more.Windows.Foundation.Collections.IMapView[win32more.Windows.Gaming.Input.Preview.RemappingButtonCategory, IInspectable]: ...
     AppCompatVersion = property(get_AppCompatVersion, None)
     BatteryChargingState = property(get_BatteryChargingState, None)
     BatteryKind = property(get_BatteryKind, None)
@@ -110,7 +109,7 @@ class ILegacyGipGameControllerProvider(ComPtr):
     IsSyntheticDevice = property(get_IsSyntheticDevice, None)
     PreferredTypes = property(get_PreferredTypes, None)
 class ILegacyGipGameControllerProviderStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Gaming.Input.Preview.ILegacyGipGameControllerProviderStatics'
     _iid_ = Guid('{d40dda17-b1f4-499a-874c-7095aac15291}')
     @winrt_commethod(6)
@@ -126,7 +125,7 @@ class ILegacyGipGameControllerProviderStatics(ComPtr):
     @winrt_commethod(11)
     def IsCopilot(self, user: win32more.Windows.System.User, controllerProviderId: WinRT_String) -> WinRT_String: ...
 class LegacyGipGameControllerProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Gaming.Input.Preview.ILegacyGipGameControllerProvider
     _classid_ = 'Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider'
     @winrt_mixinmethod
@@ -158,9 +157,9 @@ class LegacyGipGameControllerProvider(ComPtr):
     @winrt_mixinmethod
     def get_AppCompatVersion(self: win32more.Windows.Gaming.Input.Preview.ILegacyGipGameControllerProvider) -> UInt32: ...
     @winrt_mixinmethod
-    def SetStandardControllerButtonRemapping(self: win32more.Windows.Gaming.Input.Preview.ILegacyGipGameControllerProvider, user: win32more.Windows.System.User, previous: Boolean, remapping: win32more.Windows.Foundation.Collections.IMapView[win32more.Windows.Gaming.Input.Preview.RemappingButtonCategory, win32more.Windows.Win32.System.WinRT.IInspectable]) -> Void: ...
+    def SetStandardControllerButtonRemapping(self: win32more.Windows.Gaming.Input.Preview.ILegacyGipGameControllerProvider, user: win32more.Windows.System.User, previous: Boolean, remapping: win32more.Windows.Foundation.Collections.IMapView[win32more.Windows.Gaming.Input.Preview.RemappingButtonCategory, IInspectable]) -> Void: ...
     @winrt_mixinmethod
-    def GetStandardControllerButtonRemapping(self: win32more.Windows.Gaming.Input.Preview.ILegacyGipGameControllerProvider, user: win32more.Windows.System.User, previous: Boolean) -> win32more.Windows.Foundation.Collections.IMapView[win32more.Windows.Gaming.Input.Preview.RemappingButtonCategory, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def GetStandardControllerButtonRemapping(self: win32more.Windows.Gaming.Input.Preview.ILegacyGipGameControllerProvider, user: win32more.Windows.System.User, previous: Boolean) -> win32more.Windows.Foundation.Collections.IMapView[win32more.Windows.Gaming.Input.Preview.RemappingButtonCategory, IInspectable]: ...
     @winrt_classmethod
     def FromGameController(cls: win32more.Windows.Gaming.Input.Preview.ILegacyGipGameControllerProviderStatics, controller: win32more.Windows.Gaming.Input.IGameController) -> win32more.Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider: ...
     @winrt_classmethod

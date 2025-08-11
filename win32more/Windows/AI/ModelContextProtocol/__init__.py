@@ -1,13 +1,12 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.AI.ModelContextProtocol
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class IModelContextProtocolClientContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.ModelContextProtocol.IModelContextProtocolClientContext'
     _iid_ = Guid('{5bd93f10-c0aa-4963-b4c5-ac4a69bdbb33}')
     @winrt_commethod(6)
@@ -16,11 +15,11 @@ class IModelContextProtocolClientContext(ComPtr):
     def get_OwnerWindowId(self) -> win32more.Windows.UI.WindowId: ...
     OwnerWindowId = property(get_OwnerWindowId, put_OwnerWindowId)
 class IModelContextProtocolClientContextFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.ModelContextProtocol.IModelContextProtocolClientContextFactory'
     _iid_ = Guid('{efb2ba31-148c-5ad7-ab8f-4f0e6154fedb}')
 class IModelContextProtocolServer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.AI.ModelContextProtocol.IModelContextProtocolServer'
     _iid_ = Guid('{9d78431d-533f-55dd-9692-dc1462f0bb39}')
@@ -33,7 +32,7 @@ class IModelContextProtocolServer(ComPtr):
     Command = property(get_Command, None)
     Info = property(get_Info, None)
 class IModelContextProtocolServerCatalog(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.ModelContextProtocol.IModelContextProtocolServerCatalog'
     _iid_ = Guid('{062b8a5e-b124-4490-a1ba-4692875df83e}')
     @winrt_commethod(6)
@@ -43,11 +42,11 @@ class IModelContextProtocolServerCatalog(ComPtr):
     @winrt_commethod(8)
     def CreateClientContext(self) -> win32more.Windows.AI.ModelContextProtocol.ModelContextProtocolClientContext: ...
 class IModelContextProtocolServerCatalogFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.ModelContextProtocol.IModelContextProtocolServerCatalogFactory'
     _iid_ = Guid('{6e5d0e8f-77e1-5a9d-b980-0779b3b128ba}')
 class IModelContextProtocolServerInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.ModelContextProtocol.IModelContextProtocolServerInfo'
     _iid_ = Guid('{503102ba-831b-47e5-b97b-e7b06209dd8b}')
     @winrt_commethod(6)
@@ -62,11 +61,11 @@ class IModelContextProtocolServerInfo(ComPtr):
     Id = property(get_Id, None)
     Name = property(get_Name, None)
 class IModelContextProtocolServerInfoFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.ModelContextProtocol.IModelContextProtocolServerInfoFactory'
     _iid_ = Guid('{c93ee14e-e477-5a65-bd80-2a7860de7ead}')
 class ModelContextProtocolClientContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.AI.ModelContextProtocol.IModelContextProtocolClientContext
     _classid_ = 'Windows.AI.ModelContextProtocol.ModelContextProtocolClientContext'
     @winrt_mixinmethod
@@ -76,7 +75,7 @@ class ModelContextProtocolClientContext(ComPtr):
     OwnerWindowId = property(get_OwnerWindowId, put_OwnerWindowId)
 ModelContextProtocolContract: UInt32 = 65536
 class ModelContextProtocolServerCatalog(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.AI.ModelContextProtocol.IModelContextProtocolServerCatalog
     _classid_ = 'Windows.AI.ModelContextProtocol.ModelContextProtocolServerCatalog'
     @winrt_mixinmethod
@@ -86,7 +85,7 @@ class ModelContextProtocolServerCatalog(ComPtr):
     @winrt_mixinmethod
     def CreateClientContext(self: win32more.Windows.AI.ModelContextProtocol.IModelContextProtocolServerCatalog) -> win32more.Windows.AI.ModelContextProtocol.ModelContextProtocolClientContext: ...
 class ModelContextProtocolServerInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.AI.ModelContextProtocol.IModelContextProtocolServerInfo
     _classid_ = 'Windows.AI.ModelContextProtocol.ModelContextProtocolServerInfo'
     @winrt_mixinmethod

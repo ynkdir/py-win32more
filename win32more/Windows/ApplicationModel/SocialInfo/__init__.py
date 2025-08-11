@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.SocialInfo
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class ISocialFeedChildItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialFeedChildItem'
     _iid_ = Guid('{0b6a985a-d59d-40be-980c-488a2ab30a83}')
     @winrt_commethod(6)
@@ -39,7 +38,7 @@ class ISocialFeedChildItem(ComPtr):
     Thumbnails = property(get_Thumbnails, None)
     Timestamp = property(get_Timestamp, put_Timestamp)
 class ISocialFeedContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialFeedContent'
     _iid_ = Guid('{a234e429-3e39-494d-a37c-f462a2494514}')
     @winrt_commethod(6)
@@ -58,7 +57,7 @@ class ISocialFeedContent(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
     Title = property(get_Title, put_Title)
 class ISocialFeedItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialFeedItem'
     _iid_ = Guid('{4f1392ab-1f72-4d33-b695-de3e1db60317}')
     @winrt_commethod(6)
@@ -114,7 +113,7 @@ class ISocialFeedItem(ComPtr):
     Thumbnails = property(get_Thumbnails, None)
     Timestamp = property(get_Timestamp, put_Timestamp)
 class ISocialFeedSharedItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialFeedSharedItem'
     _iid_ = Guid('{7bfb9e40-a6aa-45a7-9ff6-54c42105dd1f}')
     @winrt_commethod(6)
@@ -141,7 +140,7 @@ class ISocialFeedSharedItem(ComPtr):
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Timestamp = property(get_Timestamp, put_Timestamp)
 class ISocialItemThumbnail(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialItemThumbnail'
     _iid_ = Guid('{5cbf831a-3f08-497f-917f-57e09d84b141}')
     @winrt_commethod(6)
@@ -162,7 +161,7 @@ class ISocialItemThumbnail(ComPtr):
     ImageUri = property(get_ImageUri, put_ImageUri)
     TargetUri = property(get_TargetUri, put_TargetUri)
 class ISocialUserInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.SocialInfo.ISocialUserInfo'
     _iid_ = Guid('{9e5e1bd1-90d0-4e1d-9554-844d46607f61}')
     @winrt_commethod(6)
@@ -186,7 +185,7 @@ class ISocialUserInfo(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
     UserName = property(get_UserName, put_UserName)
 class SocialFeedChildItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialFeedChildItem
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedChildItem'
     def __init__(self, *args, **kwargs):
@@ -226,7 +225,7 @@ class SocialFeedChildItem(ComPtr):
     Thumbnails = property(get_Thumbnails, None)
     Timestamp = property(get_Timestamp, put_Timestamp)
 class SocialFeedContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialFeedContent
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedContent'
     @winrt_mixinmethod
@@ -245,7 +244,7 @@ class SocialFeedContent(ComPtr):
     TargetUri = property(get_TargetUri, put_TargetUri)
     Title = property(get_Title, put_Title)
 class SocialFeedItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialFeedItem
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedItem'
     def __init__(self, *args, **kwargs):
@@ -317,7 +316,7 @@ class SocialFeedKind(Enum, Int32):
     ContactFeed = 1
     Dashboard = 2
 class SocialFeedSharedItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialFeedSharedItem
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem'
     def __init__(self, *args, **kwargs):
@@ -361,7 +360,7 @@ class SocialItemBadgeStyle(Enum, Int32):
     Visible = 1
     VisibleWithCount = 2
 class SocialItemThumbnail(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialItemThumbnail
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialItemThumbnail'
     def __init__(self, *args, **kwargs):
@@ -391,7 +390,7 @@ class SocialItemThumbnail(ComPtr):
     ImageUri = property(get_ImageUri, put_ImageUri)
     TargetUri = property(get_TargetUri, put_TargetUri)
 class SocialUserInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.SocialInfo.ISocialUserInfo
     _classid_ = 'Windows.ApplicationModel.SocialInfo.SocialUserInfo'
     @winrt_mixinmethod

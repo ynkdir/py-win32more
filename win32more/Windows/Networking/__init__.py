@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Networking
 import win32more.Windows.Networking.Connectivity
-import win32more.Windows.Win32.System.WinRT
 class DomainNameType(Enum, Int32):
     Suffix = 0
     FullyQualified = 1
 class EndpointPair(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.IEndpointPair
     _classid_ = 'Windows.Networking.EndpointPair'
     def __init__(self, *args, **kwargs):
@@ -42,7 +41,7 @@ class EndpointPair(ComPtr):
     RemoteHostName = property(get_RemoteHostName, put_RemoteHostName)
     RemoteServiceName = property(get_RemoteServiceName, put_RemoteServiceName)
 class HostName(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Networking.IHostName
     _classid_ = 'Windows.Networking.HostName'
     def __init__(self, *args, **kwargs):
@@ -84,7 +83,7 @@ class HostNameType(Enum, Int32):
     Ipv6 = 2
     Bluetooth = 3
 class IEndpointPair(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.IEndpointPair'
     _iid_ = Guid('{33a0aa36-f8fa-4b30-b856-76517c3bd06d}')
     @winrt_commethod(6)
@@ -108,13 +107,13 @@ class IEndpointPair(ComPtr):
     RemoteHostName = property(get_RemoteHostName, put_RemoteHostName)
     RemoteServiceName = property(get_RemoteServiceName, put_RemoteServiceName)
 class IEndpointPairFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.IEndpointPairFactory'
     _iid_ = Guid('{b609d971-64e0-442b-aa6f-cc8c8f181f78}')
     @winrt_commethod(6)
     def CreateEndpointPair(self, localHostName: win32more.Windows.Networking.HostName, localServiceName: WinRT_String, remoteHostName: win32more.Windows.Networking.HostName, remoteServiceName: WinRT_String) -> win32more.Windows.Networking.EndpointPair: ...
 class IHostName(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.IHostName'
     _iid_ = Guid('{bf8ecaad-ed96-49a7-9084-d416cae88dcb}')
     @winrt_commethod(6)
@@ -135,13 +134,13 @@ class IHostName(ComPtr):
     RawName = property(get_RawName, None)
     Type = property(get_Type, None)
 class IHostNameFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.IHostNameFactory'
     _iid_ = Guid('{458c23ed-712f-4576-adf1-c20b2c643558}')
     @winrt_commethod(6)
     def CreateHostName(self, hostName: WinRT_String) -> win32more.Windows.Networking.HostName: ...
 class IHostNameStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Networking.IHostNameStatics'
     _iid_ = Guid('{f68cd4bf-a388-4e8b-91ea-54dd6dd901c0}')
     @winrt_commethod(6)

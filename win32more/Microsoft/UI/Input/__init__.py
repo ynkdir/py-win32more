@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Content
 import win32more.Microsoft.UI.Dispatching
@@ -10,9 +10,8 @@ import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics
 import win32more.Windows.System
 import win32more.Windows.UI.Core
-import win32more.Windows.Win32.System.WinRT
 class CharacterReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.ICharacterReceivedEventArgs
     _classid_ = 'Microsoft.UI.Input.CharacterReceivedEventArgs'
     @winrt_mixinmethod
@@ -27,7 +26,7 @@ class CharacterReceivedEventArgs(ComPtr):
     KeyCode = property(get_KeyCode, None)
     KeyStatus = property(get_KeyStatus, None)
 class ContextMenuKeyEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IContextMenuKeyEventArgs
     _classid_ = 'Microsoft.UI.Input.ContextMenuKeyEventArgs'
     @winrt_mixinmethod
@@ -41,7 +40,7 @@ class CrossSlideThresholds(Structure):
     SpeedBumpEnd: Single
     RearrangeStart: Single
 class CrossSlidingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.ICrossSlidingEventArgs
     _classid_ = 'Microsoft.UI.Input.CrossSlidingEventArgs'
     @winrt_mixinmethod
@@ -62,7 +61,7 @@ class CrossSlidingState(Enum, Int32):
     Rearranging = 5
     Completed = 6
 class DraggingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IDraggingEventArgs
     _classid_ = 'Microsoft.UI.Input.DraggingEventArgs'
     @winrt_mixinmethod
@@ -79,7 +78,7 @@ class DraggingState(Enum, Int32):
     Continuing = 1
     Completed = 2
 class EnteredMoveSizeEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IEnteredMoveSizeEventArgs
     _classid_ = 'Microsoft.UI.Input.EnteredMoveSizeEventArgs'
     @winrt_mixinmethod
@@ -89,7 +88,7 @@ class EnteredMoveSizeEventArgs(ComPtr):
     MoveSizeOperation = property(get_MoveSizeOperation, None)
     PointerScreenPoint = property(get_PointerScreenPoint, None)
 class EnteringMoveSizeEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IEnteringMoveSizeEventArgs
     _classid_ = 'Microsoft.UI.Input.EnteringMoveSizeEventArgs'
     @winrt_mixinmethod
@@ -104,7 +103,7 @@ class EnteringMoveSizeEventArgs(ComPtr):
     MoveSizeWindowId = property(get_MoveSizeWindowId, put_MoveSizeWindowId)
     PointerScreenPoint = property(get_PointerScreenPoint, None)
 class ExitedMoveSizeEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IExitedMoveSizeEventArgs
     _classid_ = 'Microsoft.UI.Input.ExitedMoveSizeEventArgs'
     @winrt_mixinmethod
@@ -114,7 +113,7 @@ class ExitedMoveSizeEventArgs(ComPtr):
     MoveSizeOperation = property(get_MoveSizeOperation, None)
     PointerScreenPoint = property(get_PointerScreenPoint, None)
 class FocusChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IFocusChangedEventArgs
     _classid_ = 'Microsoft.UI.Input.FocusChangedEventArgs'
     @winrt_mixinmethod
@@ -132,7 +131,7 @@ class FocusNavigationReason(Enum, Int32):
     Right = 6
     Down = 7
 class FocusNavigationRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IFocusNavigationRequest
     _classid_ = 'Microsoft.UI.Input.FocusNavigationRequest'
     @winrt_mixinmethod
@@ -151,7 +150,7 @@ class FocusNavigationRequest(ComPtr):
     HintRect = property(get_HintRect, None)
     Reason = property(get_Reason, None)
 class FocusNavigationRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IFocusNavigationRequestEventArgs
     _classid_ = 'Microsoft.UI.Input.FocusNavigationRequestEventArgs'
     @winrt_mixinmethod
@@ -167,7 +166,7 @@ class FocusNavigationResult(Enum, Int32):
     Moved = 1
     NoFocusableElements = 2
 class GestureRecognizer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IGestureRecognizer
     _classid_ = 'Microsoft.UI.Input.GestureRecognizer'
     def __init__(self, *args, **kwargs):
@@ -342,7 +341,7 @@ class GestureSettings(Enum, UInt32):
     CrossSlide = 32768
     ManipulationMultipleFingerPanning = 65536
 class HoldingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IHoldingEventArgs
     _classid_ = 'Microsoft.UI.Input.HoldingEventArgs'
     @winrt_mixinmethod
@@ -359,7 +358,7 @@ class HoldingState(Enum, Int32):
     Completed = 1
     Canceled = 2
 class ICharacterReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.ICharacterReceivedEventArgs'
     _iid_ = Guid('{36122718-9263-592b-8d87-8f86543ffc95}')
     @winrt_commethod(6)
@@ -374,7 +373,7 @@ class ICharacterReceivedEventArgs(ComPtr):
     KeyCode = property(get_KeyCode, None)
     KeyStatus = property(get_KeyStatus, None)
 class IContextMenuKeyEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IContextMenuKeyEventArgs'
     _iid_ = Guid('{f6025762-9426-541a-b647-037abdbecefc}')
     @winrt_commethod(6)
@@ -383,7 +382,7 @@ class IContextMenuKeyEventArgs(ComPtr):
     def put_Handled(self, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
 class ICrossSlidingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.ICrossSlidingEventArgs'
     _iid_ = Guid('{7679641f-ba9f-543c-a7c8-6229a98f89ef}')
     @winrt_commethod(6)
@@ -396,7 +395,7 @@ class ICrossSlidingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class IDraggingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IDraggingEventArgs'
     _iid_ = Guid('{3efb1b75-3d3b-550e-963d-0828ca76128a}')
     @winrt_commethod(6)
@@ -409,7 +408,7 @@ class IDraggingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class IEnteredMoveSizeEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IEnteredMoveSizeEventArgs'
     _iid_ = Guid('{698d28fe-d325-59e0-9834-b10fc2f7ba67}')
     @winrt_commethod(6)
@@ -419,7 +418,7 @@ class IEnteredMoveSizeEventArgs(ComPtr):
     MoveSizeOperation = property(get_MoveSizeOperation, None)
     PointerScreenPoint = property(get_PointerScreenPoint, None)
 class IEnteringMoveSizeEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IEnteringMoveSizeEventArgs'
     _iid_ = Guid('{47c083b2-402b-51ec-8836-d48679fea695}')
     @winrt_commethod(6)
@@ -434,7 +433,7 @@ class IEnteringMoveSizeEventArgs(ComPtr):
     MoveSizeWindowId = property(get_MoveSizeWindowId, put_MoveSizeWindowId)
     PointerScreenPoint = property(get_PointerScreenPoint, None)
 class IExitedMoveSizeEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IExitedMoveSizeEventArgs'
     _iid_ = Guid('{df12a46e-daee-5dac-a678-d7d5e4d0893a}')
     @winrt_commethod(6)
@@ -444,7 +443,7 @@ class IExitedMoveSizeEventArgs(ComPtr):
     MoveSizeOperation = property(get_MoveSizeOperation, None)
     PointerScreenPoint = property(get_PointerScreenPoint, None)
 class IFocusChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IFocusChangedEventArgs'
     _iid_ = Guid('{a039b115-dbdf-594c-9b86-da6aa05c9fa2}')
     @winrt_commethod(6)
@@ -453,7 +452,7 @@ class IFocusChangedEventArgs(ComPtr):
     def put_Handled(self, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
 class IFocusNavigationRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IFocusNavigationRequest'
     _iid_ = Guid('{6d84bb83-9c84-5112-85e9-8919acf97262}')
     @winrt_commethod(6)
@@ -466,7 +465,7 @@ class IFocusNavigationRequest(ComPtr):
     HintRect = property(get_HintRect, None)
     Reason = property(get_Reason, None)
 class IFocusNavigationRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IFocusNavigationRequestEventArgs'
     _iid_ = Guid('{35a63426-e271-59f9-a231-0d190314b415}')
     @winrt_commethod(6)
@@ -478,7 +477,7 @@ class IFocusNavigationRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
     Result = property(get_Result, put_Result)
 class IFocusNavigationRequestStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IFocusNavigationRequestStatics'
     _iid_ = Guid('{8c4d2ed8-3a63-519e-a827-f57e263bd1ff}')
     @winrt_commethod(6)
@@ -488,7 +487,7 @@ class IFocusNavigationRequestStatics(ComPtr):
     @winrt_commethod(8)
     def CreateWithHintRectAndId(self, reason: win32more.Microsoft.UI.Input.FocusNavigationReason, hintRect: win32more.Windows.Foundation.Rect, correlationId: Guid) -> win32more.Microsoft.UI.Input.FocusNavigationRequest: ...
 class IGestureRecognizer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IGestureRecognizer'
     _iid_ = Guid('{cda89afc-6bd0-595c-ba37-545fce5bf016}')
     @winrt_commethod(6)
@@ -635,7 +634,7 @@ class IGestureRecognizer(ComPtr):
     ManipulationCompleted = event()
     CrossSliding = event()
 class IHoldingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IHoldingEventArgs'
     _iid_ = Guid('{8e449e85-d223-533c-b0b2-bf7c6d10c2db}')
     @winrt_commethod(6)
@@ -648,7 +647,7 @@ class IHoldingEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class IInputActivationListener(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputActivationListener'
     _iid_ = Guid('{3b818627-6ce7-5e0d-a0f5-6684fd1aec78}')
     @winrt_commethod(6)
@@ -660,45 +659,45 @@ class IInputActivationListener(ComPtr):
     State = property(get_State, None)
     InputActivationChanged = event()
 class IInputActivationListenerActivationChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputActivationListenerActivationChangedEventArgs'
     _iid_ = Guid('{7978526b-00b6-5303-8f7d-55bef36da786}')
 class IInputActivationListenerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputActivationListenerStatics'
     _iid_ = Guid('{c4249843-f053-5c99-9d51-720ade94224d}')
     @winrt_commethod(6)
     def GetForWindowId(self, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Input.InputActivationListener: ...
 class IInputActivationListenerStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputActivationListenerStatics2'
     _iid_ = Guid('{7ea26120-9636-5292-a7b1-56544ac51a22}')
     @winrt_commethod(6)
     def GetForIsland(self, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputActivationListener: ...
 class IInputCursor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputCursor'
     _iid_ = Guid('{359b15f9-19c2-5714-8432-75176826406b}')
 class IInputCursorFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputCursorFactory'
     _iid_ = Guid('{2f47647b-4be0-53e9-be7e-c38d5459db6b}')
 class IInputCursorStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputCursorStatics'
     _iid_ = Guid('{92f6a552-099f-55fb-8c31-e450284c9643}')
     @winrt_commethod(6)
     def CreateFromCoreCursor(self, cursor: win32more.Windows.UI.Core.CoreCursor) -> win32more.Microsoft.UI.Input.InputCursor: ...
 class IInputCustomCursor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputCustomCursor'
     _iid_ = Guid('{5486f042-7e1a-5dc8-8041-e47b609a5ba1}')
 class IInputCustomCursorFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputCustomCursorFactory'
     _iid_ = Guid('{6f402882-66e0-57d3-89d0-aa5e2ff917bc}')
 class IInputDesktopNamedResourceCursor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputDesktopNamedResourceCursor'
     _iid_ = Guid('{f40ea93b-0ed7-5b3a-bfe2-14e2b5ad88a3}')
     @winrt_commethod(6)
@@ -708,7 +707,7 @@ class IInputDesktopNamedResourceCursor(ComPtr):
     ModuleName = property(get_ModuleName, None)
     ResourceName = property(get_ResourceName, None)
 class IInputDesktopNamedResourceCursorStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputDesktopNamedResourceCursorStatics'
     _iid_ = Guid('{e8b6d5aa-898b-5e69-b01f-383a0943e3e4}')
     @winrt_commethod(6)
@@ -716,7 +715,7 @@ class IInputDesktopNamedResourceCursorStatics(ComPtr):
     @winrt_commethod(7)
     def CreateFromModule(self, moduleName: WinRT_String, resourceName: WinRT_String) -> win32more.Microsoft.UI.Input.InputDesktopNamedResourceCursor: ...
 class IInputDesktopResourceCursor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputDesktopResourceCursor'
     _iid_ = Guid('{1df2777f-7c90-58fc-a7a3-d5736c6510fd}')
     @winrt_commethod(6)
@@ -726,7 +725,7 @@ class IInputDesktopResourceCursor(ComPtr):
     ModuleName = property(get_ModuleName, None)
     ResourceId = property(get_ResourceId, None)
 class IInputDesktopResourceCursorStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputDesktopResourceCursorStatics'
     _iid_ = Guid('{f440dc37-a0b6-56eb-bcec-b024f2233d47}')
     @winrt_commethod(6)
@@ -734,7 +733,7 @@ class IInputDesktopResourceCursorStatics(ComPtr):
     @winrt_commethod(7)
     def CreateFromModule(self, moduleName: WinRT_String, resourceId: UInt32) -> win32more.Microsoft.UI.Input.InputDesktopResourceCursor: ...
 class IInputFocusController(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputFocusController'
     _iid_ = Guid('{8dfdc26c-8b8d-515d-8ddd-4685b3a540e9}')
     @winrt_commethod(6)
@@ -753,7 +752,7 @@ class IInputFocusController(ComPtr):
     GotFocus = event()
     LostFocus = event()
 class IInputFocusController2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputFocusController2'
     _iid_ = Guid('{5165077c-cd4b-501d-b386-b50682360185}')
     @winrt_commethod(6)
@@ -764,13 +763,13 @@ class IInputFocusController2(ComPtr):
     def remove_NavigateFocusRequested(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     NavigateFocusRequested = event()
 class IInputFocusControllerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputFocusControllerStatics'
     _iid_ = Guid('{aeb311da-da9b-5a1b-92f4-83ddde933e00}')
     @winrt_commethod(6)
     def GetForIsland(self, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputFocusController: ...
 class IInputFocusNavigationHost(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputFocusNavigationHost'
     _iid_ = Guid('{53c2a147-932c-5486-a9c6-f6c5a9c65956}')
     @winrt_commethod(6)
@@ -784,23 +783,23 @@ class IInputFocusNavigationHost(ComPtr):
     ContainsFocus = property(get_ContainsFocus, None)
     DepartFocusRequested = event()
 class IInputFocusNavigationHostStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputFocusNavigationHostStatics'
     _iid_ = Guid('{c9c62cd1-73db-5aa9-b89d-143509db8f37}')
     @winrt_commethod(6)
     def GetForSiteBridge(self, site: win32more.Microsoft.UI.Content.IContentSiteBridge) -> win32more.Microsoft.UI.Input.InputFocusNavigationHost: ...
 class IInputFocusNavigationHostStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputFocusNavigationHostStatics2'
     _iid_ = Guid('{82505f60-ef7b-55d8-8362-8cc2840266a1}')
     @winrt_commethod(6)
     def GetForSiteLink(self, contentSiteLink: win32more.Microsoft.UI.Content.IContentSiteLink) -> win32more.Microsoft.UI.Input.InputFocusNavigationHost: ...
 class IInputKeyboardSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputKeyboardSource'
     _iid_ = Guid('{ed61b906-16ad-5df7-a550-5e6f7d2229f7}')
 class IInputKeyboardSource2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputKeyboardSource2'
     _iid_ = Guid('{79d1c9b6-b3c9-5ec2-8a5b-707088787f78}')
     @winrt_commethod(6)
@@ -838,19 +837,19 @@ class IInputKeyboardSource2(ComPtr):
     SystemKeyDown = event()
     SystemKeyUp = event()
 class IInputKeyboardSourceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputKeyboardSourceStatics'
     _iid_ = Guid('{f4e1563d-8c2e-5bcd-b784-47adeaa3cd7e}')
     @winrt_commethod(6)
     def GetKeyStateForCurrentThread(self, virtualKey: win32more.Windows.System.VirtualKey) -> win32more.Windows.UI.Core.CoreVirtualKeyStates: ...
 class IInputKeyboardSourceStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputKeyboardSourceStatics2'
     _iid_ = Guid('{8857518c-2899-5f11-9b64-0ad83234824b}')
     @winrt_commethod(6)
     def GetForIsland(self, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputKeyboardSource: ...
 class IInputLightDismissAction(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputLightDismissAction'
     _iid_ = Guid('{e8a39502-a860-502f-8c10-3646d43aecf1}')
     @winrt_commethod(6)
@@ -859,17 +858,17 @@ class IInputLightDismissAction(ComPtr):
     def remove_Dismissed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Dismissed = event()
 class IInputLightDismissActionStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputLightDismissActionStatics'
     _iid_ = Guid('{ed9b8def-6496-5169-984d-d44b4e690623}')
     @winrt_commethod(6)
     def GetForWindowId(self, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Input.InputLightDismissAction: ...
 class IInputLightDismissEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputLightDismissEventArgs'
     _iid_ = Guid('{078660ee-07ca-5808-b982-e6e899cf098c}')
 class IInputNonClientPointerSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputNonClientPointerSource'
     _iid_ = Guid('{471732b4-3d07-5104-b192-ebacf71e86df}')
     @winrt_commethod(6)
@@ -919,7 +918,7 @@ class IInputNonClientPointerSource(ComPtr):
     PointerReleased = event()
     RegionsChanged = event()
 class IInputNonClientPointerSource2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputNonClientPointerSource2'
     _iid_ = Guid('{dd2b10c4-7de6-5c1d-b438-06ddc994058f}')
     @winrt_commethod(6)
@@ -948,24 +947,24 @@ class IInputNonClientPointerSource2(ComPtr):
     WindowRectChanged = event()
     ExitedMoveSize = event()
 class IInputNonClientPointerSourceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputNonClientPointerSourceStatics'
     _iid_ = Guid('{7d0b775c-1903-5dc7-bd2f-7a4b31f0cff2}')
     @winrt_commethod(6)
     def GetForWindowId(self, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Input.InputNonClientPointerSource: ...
 class IInputObject(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputObject'
     _iid_ = Guid('{42edbc88-d386-544d-b1b8-68617fe68282}')
     @winrt_commethod(6)
     def get_DispatcherQueue(self) -> win32more.Microsoft.UI.Dispatching.DispatcherQueue: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
 class IInputObjectFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputObjectFactory'
     _iid_ = Guid('{f7786bc2-b0b8-5961-9a57-ae199d452106}')
 class IInputPointerSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputPointerSource'
     _iid_ = Guid('{6a6c2764-c3f4-5be5-8447-c9a98766c240}')
     @winrt_commethod(6)
@@ -1027,36 +1026,36 @@ class IInputPointerSource(ComPtr):
     PointerRoutedTo = event()
     PointerWheelChanged = event()
 class IInputPointerSourceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputPointerSourceStatics'
     _iid_ = Guid('{e8a19fd1-a914-533f-9b0f-6bf0065e6781}')
     @winrt_commethod(6)
     def GetForIsland(self, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputPointerSource: ...
 class IInputPreTranslateKeyboardSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputPreTranslateKeyboardSource'
     _iid_ = Guid('{2f327feb-b7e7-5e37-a0cc-37dcabe76588}')
 class IInputPreTranslateKeyboardSourceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputPreTranslateKeyboardSourceStatics'
     _iid_ = Guid('{23d584d2-af8c-5a8a-806f-2ba9c5b1a5ec}')
     @winrt_commethod(6)
     def GetForIsland(self, island: win32more.Microsoft.UI.Content.ContentIsland) -> win32more.Microsoft.UI.Input.InputPreTranslateKeyboardSource: ...
 class IInputSystemCursor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputSystemCursor'
     _iid_ = Guid('{59f538e7-c500-59ab-8b54-0bc6100fd49e}')
     @winrt_commethod(6)
     def get_CursorShape(self) -> win32more.Microsoft.UI.Input.InputSystemCursorShape: ...
     CursorShape = property(get_CursorShape, None)
 class IInputSystemCursorStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IInputSystemCursorStatics'
     _iid_ = Guid('{d3860bb6-698a-5814-aedd-c2fa8bba5a02}')
     @winrt_commethod(6)
     def Create(self, type: win32more.Microsoft.UI.Input.InputSystemCursorShape) -> win32more.Microsoft.UI.Input.InputSystemCursor: ...
 class IKeyEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IKeyEventArgs'
     _iid_ = Guid('{40d5bb74-977e-5194-8039-9f6c44427bbb}')
     @winrt_commethod(6)
@@ -1074,7 +1073,7 @@ class IKeyEventArgs(ComPtr):
     Timestamp = property(get_Timestamp, None)
     VirtualKey = property(get_VirtualKey, None)
 class IManipulationCompletedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IManipulationCompletedEventArgs'
     _iid_ = Guid('{0e0249d4-46e4-5559-aee3-fa45ce2a7f56}')
     @winrt_commethod(6)
@@ -1090,7 +1089,7 @@ class IManipulationCompletedEventArgs(ComPtr):
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
 class IManipulationInertiaStartingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IManipulationInertiaStartingEventArgs'
     _iid_ = Guid('{acf9ef71-6e15-56ab-9260-f0d3ce5f66e8}')
     @winrt_commethod(6)
@@ -1109,7 +1108,7 @@ class IManipulationInertiaStartingEventArgs(ComPtr):
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
 class IManipulationStartedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IManipulationStartedEventArgs'
     _iid_ = Guid('{4a616613-eef1-5f1b-a768-0775478d49d4}')
     @winrt_commethod(6)
@@ -1122,7 +1121,7 @@ class IManipulationStartedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class IManipulationUpdatedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IManipulationUpdatedEventArgs'
     _iid_ = Guid('{406e1961-0c98-5fc0-b3d8-116492ef0053}')
     @winrt_commethod(6)
@@ -1141,7 +1140,7 @@ class IManipulationUpdatedEventArgs(ComPtr):
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
 class IMouseWheelParameters(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IMouseWheelParameters'
     _iid_ = Guid('{6d98be40-1d56-51d1-aa0d-f325439cd009}')
     @winrt_commethod(6)
@@ -1165,7 +1164,7 @@ class IMouseWheelParameters(ComPtr):
     DeltaScale = property(get_DeltaScale, put_DeltaScale)
     PageTranslation = property(get_PageTranslation, put_PageTranslation)
 class INonClientCaptionTappedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.INonClientCaptionTappedEventArgs'
     _iid_ = Guid('{3d173531-991f-5753-b7e0-14a121c3cd2d}')
     @winrt_commethod(6)
@@ -1175,7 +1174,7 @@ class INonClientCaptionTappedEventArgs(ComPtr):
     Point = property(get_Point, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
 class INonClientPointerEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.INonClientPointerEventArgs'
     _iid_ = Guid('{a5b44aec-b797-505a-a129-ae4e5271c73c}')
     @winrt_commethod(6)
@@ -1191,14 +1190,14 @@ class INonClientPointerEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     RegionKind = property(get_RegionKind, None)
 class INonClientRegionsChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.INonClientRegionsChangedEventArgs'
     _iid_ = Guid('{fe97ee95-1824-51b2-b8eb-10ff0665ce23}')
     @winrt_commethod(6)
     def get_ChangedRegions(self) -> ReceiveArray[win32more.Microsoft.UI.Input.NonClientRegionKind]: ...
     ChangedRegions = property(get_ChangedRegions, None)
 class IPointerEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IPointerEventArgs'
     _iid_ = Guid('{865b188c-2ed5-5df8-829f-ac0701d5c51a}')
     @winrt_commethod(6)
@@ -1217,7 +1216,7 @@ class IPointerEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     KeyModifiers = property(get_KeyModifiers, None)
 class IPointerPoint(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IPointerPoint'
     _iid_ = Guid('{0d430ee6-252c-59a4-b2a2-d44264dc6a40}')
     @winrt_commethod(6)
@@ -1244,7 +1243,7 @@ class IPointerPoint(ComPtr):
     Properties = property(get_Properties, None)
     Timestamp = property(get_Timestamp, None)
 class IPointerPointProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IPointerPointProperties'
     _iid_ = Guid('{d760ed77-4b10-57a5-b3cc-d9bf3413e996}')
     @winrt_commethod(6)
@@ -1311,7 +1310,7 @@ class IPointerPointProperties(ComPtr):
     XTilt = property(get_XTilt, None)
     YTilt = property(get_YTilt, None)
 class IPointerPointTransform(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IPointerPointTransform'
     _iid_ = Guid('{db4791bc-994d-54c7-92ef-66ea1de9b43c}')
     @winrt_commethod(6)
@@ -1322,7 +1321,7 @@ class IPointerPointTransform(ComPtr):
     def TryTransformBounds(self, inRect: win32more.Windows.Foundation.Rect, outRect: POINTER(win32more.Windows.Foundation.Rect)) -> Boolean: ...
     Inverse = property(get_Inverse, None)
 class IPointerPredictor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IPointerPredictor'
     _iid_ = Guid('{12c100ec-2100-565f-a60c-f1187f438828}')
     @winrt_commethod(6)
@@ -1333,13 +1332,13 @@ class IPointerPredictor(ComPtr):
     def GetPredictedPoints(self, point: win32more.Microsoft.UI.Input.PointerPoint) -> ReceiveArray[win32more.Microsoft.UI.Input.PointerPoint]: ...
     PredictionTime = property(get_PredictionTime, put_PredictionTime)
 class IPointerPredictorStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IPointerPredictorStatics'
     _iid_ = Guid('{78a8ef30-3e5c-55cd-8f85-65ac09b1a987}')
     @winrt_commethod(6)
     def CreateForInputPointerSource(self, inputPointerSource: win32more.Microsoft.UI.Input.InputPointerSource) -> win32more.Microsoft.UI.Input.PointerPredictor: ...
 class IRightTappedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IRightTappedEventArgs'
     _iid_ = Guid('{8ff73b39-887e-50a4-8500-77953039dcb4}')
     @winrt_commethod(6)
@@ -1349,7 +1348,7 @@ class IRightTappedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class ITappedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.ITappedEventArgs'
     _iid_ = Guid('{c3a01bb5-6076-5e0f-871a-9d94a6a8f82b}')
     @winrt_commethod(6)
@@ -1362,7 +1361,7 @@ class ITappedEventArgs(ComPtr):
     Position = property(get_Position, None)
     TapCount = property(get_TapCount, None)
 class IWindowRectChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IWindowRectChangedEventArgs'
     _iid_ = Guid('{8a885d28-d2d9-5dda-9848-cdf247771037}')
     @winrt_commethod(6)
@@ -1378,7 +1377,7 @@ class IWindowRectChangedEventArgs(ComPtr):
     OldWindowRect = property(get_OldWindowRect, None)
     PointerScreenPoint = property(get_PointerScreenPoint, None)
 class IWindowRectChangingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Input.IWindowRectChangingEventArgs'
     _iid_ = Guid('{db13ed3c-debc-5855-8d70-5936fd813457}')
     @winrt_commethod(6)
@@ -1422,7 +1421,7 @@ class InputActivationListener(ComPtr):
     State = property(get_State, None)
     InputActivationChanged = event()
 class InputActivationListenerActivationChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputActivationListenerActivationChangedEventArgs
     _classid_ = 'Microsoft.UI.Input.InputActivationListenerActivationChangedEventArgs'
 class InputActivationState(Enum, Int32):
@@ -1430,7 +1429,7 @@ class InputActivationState(Enum, Int32):
     Deactivated = 1
     Activated = 2
 class InputCursor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Input.IInputCursor
     _classid_ = 'Microsoft.UI.Input.InputCursor'
@@ -1570,11 +1569,11 @@ class InputLightDismissAction(ComPtr):
     def GetForWindowId(cls: win32more.Microsoft.UI.Input.IInputLightDismissActionStatics, windowId: win32more.Microsoft.UI.WindowId) -> win32more.Microsoft.UI.Input.InputLightDismissAction: ...
     Dismissed = event()
 class InputLightDismissEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputLightDismissEventArgs
     _classid_ = 'Microsoft.UI.Input.InputLightDismissEventArgs'
 class InputNonClientPointerSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputNonClientPointerSource
     _classid_ = 'Microsoft.UI.Input.InputNonClientPointerSource'
     @winrt_mixinmethod
@@ -1651,7 +1650,7 @@ class InputNonClientPointerSource(ComPtr):
     WindowRectChanged = event()
     ExitedMoveSize = event()
 class InputObject(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IInputObject
     _classid_ = 'Microsoft.UI.Input.InputObject'
     @winrt_mixinmethod
@@ -1759,7 +1758,7 @@ class InputSystemCursorShape(Enum, Int32):
     Person = 15
     AppStarting = 16
 class KeyEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IKeyEventArgs
     _classid_ = 'Microsoft.UI.Input.KeyEventArgs'
     @winrt_mixinmethod
@@ -1777,7 +1776,7 @@ class KeyEventArgs(ComPtr):
     Timestamp = property(get_Timestamp, None)
     VirtualKey = property(get_VirtualKey, None)
 class ManipulationCompletedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IManipulationCompletedEventArgs
     _classid_ = 'Microsoft.UI.Input.ManipulationCompletedEventArgs'
     @winrt_mixinmethod
@@ -1798,7 +1797,7 @@ class ManipulationDelta(Structure):
     Rotation: Single
     Expansion: Single
 class ManipulationInertiaStartingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IManipulationInertiaStartingEventArgs
     _classid_ = 'Microsoft.UI.Input.ManipulationInertiaStartingEventArgs'
     @winrt_mixinmethod
@@ -1817,7 +1816,7 @@ class ManipulationInertiaStartingEventArgs(ComPtr):
     Position = property(get_Position, None)
     Velocities = property(get_Velocities, None)
 class ManipulationStartedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IManipulationStartedEventArgs
     _classid_ = 'Microsoft.UI.Input.ManipulationStartedEventArgs'
     @winrt_mixinmethod
@@ -1830,7 +1829,7 @@ class ManipulationStartedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class ManipulationUpdatedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IManipulationUpdatedEventArgs
     _classid_ = 'Microsoft.UI.Input.ManipulationUpdatedEventArgs'
     @winrt_mixinmethod
@@ -1853,7 +1852,7 @@ class ManipulationVelocities(Structure):
     Angular: Single
     Expansion: Single
 class MouseWheelParameters(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IMouseWheelParameters
     _classid_ = 'Microsoft.UI.Input.MouseWheelParameters'
     @winrt_mixinmethod
@@ -1887,7 +1886,7 @@ class MoveSizeOperation(Enum, Int32):
     SizeTopLeft = 7
     SizeTopRight = 8
 class NonClientCaptionTappedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.INonClientCaptionTappedEventArgs
     _classid_ = 'Microsoft.UI.Input.NonClientCaptionTappedEventArgs'
     @winrt_mixinmethod
@@ -1897,7 +1896,7 @@ class NonClientCaptionTappedEventArgs(ComPtr):
     Point = property(get_Point, None)
     PointerDeviceType = property(get_PointerDeviceType, None)
 class NonClientPointerEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.INonClientPointerEventArgs
     _classid_ = 'Microsoft.UI.Input.NonClientPointerEventArgs'
     @winrt_mixinmethod
@@ -1924,7 +1923,7 @@ class NonClientRegionKind(Enum, Int32):
     RightBorder = 8
     Passthrough = 9
 class NonClientRegionsChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.INonClientRegionsChangedEventArgs
     _classid_ = 'Microsoft.UI.Input.NonClientRegionsChangedEventArgs'
     @winrt_mixinmethod
@@ -1943,7 +1942,7 @@ class PointerDeviceType(Enum, Int32):
     Mouse = 2
     Touchpad = 3
 class PointerEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IPointerEventArgs
     _classid_ = 'Microsoft.UI.Input.PointerEventArgs'
     @winrt_mixinmethod
@@ -1962,7 +1961,7 @@ class PointerEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     KeyModifiers = property(get_KeyModifiers, None)
 class PointerPoint(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IPointerPoint
     _classid_ = 'Microsoft.UI.Input.PointerPoint'
     @winrt_mixinmethod
@@ -1989,7 +1988,7 @@ class PointerPoint(ComPtr):
     Properties = property(get_Properties, None)
     Timestamp = property(get_Timestamp, None)
 class PointerPointProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IPointerPointProperties
     _classid_ = 'Microsoft.UI.Input.PointerPointProperties'
     @winrt_mixinmethod
@@ -2056,7 +2055,7 @@ class PointerPointProperties(ComPtr):
     XTilt = property(get_XTilt, None)
     YTilt = property(get_YTilt, None)
 class PointerPredictor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.UI.Input.IPointerPredictor
     _classid_ = 'Microsoft.UI.Input.PointerPredictor'
@@ -2084,7 +2083,7 @@ class PointerUpdateKind(Enum, Int32):
     XButton2Pressed = 9
     XButton2Released = 10
 class RightTappedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IRightTappedEventArgs
     _classid_ = 'Microsoft.UI.Input.RightTappedEventArgs'
     @winrt_mixinmethod
@@ -2094,7 +2093,7 @@ class RightTappedEventArgs(ComPtr):
     PointerDeviceType = property(get_PointerDeviceType, None)
     Position = property(get_Position, None)
 class TappedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.ITappedEventArgs
     _classid_ = 'Microsoft.UI.Input.TappedEventArgs'
     @winrt_mixinmethod
@@ -2111,7 +2110,7 @@ class VirtualKeyStates(Enum, UInt32):
     Down = 1
     Locked = 2
 class WindowRectChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IWindowRectChangedEventArgs
     _classid_ = 'Microsoft.UI.Input.WindowRectChangedEventArgs'
     @winrt_mixinmethod
@@ -2127,7 +2126,7 @@ class WindowRectChangedEventArgs(ComPtr):
     OldWindowRect = property(get_OldWindowRect, None)
     PointerScreenPoint = property(get_PointerScreenPoint, None)
 class WindowRectChangingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Input.IWindowRectChangingEventArgs
     _classid_ = 'Microsoft.UI.Input.WindowRectChangingEventArgs'
     @winrt_mixinmethod

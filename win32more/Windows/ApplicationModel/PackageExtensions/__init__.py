@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel
 import win32more.Windows.ApplicationModel.PackageExtensions
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
-import win32more.Windows.Win32.System.WinRT
 class IPackageExtension(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.IPackageExtension'
     _iid_ = Guid('{da70c957-7ead-5c3b-9cf0-cc43faf474b4}')
     @winrt_commethod(6)
@@ -34,7 +33,7 @@ class IPackageExtension(ComPtr):
     Id = property(get_Id, None)
     Package = property(get_Package, None)
 class IPackageExtensionCatalog(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.IPackageExtensionCatalog'
     _iid_ = Guid('{0879dfe6-ac30-58b2-97f9-480b07e75bfa}')
     @winrt_commethod(6)
@@ -69,13 +68,13 @@ class IPackageExtensionCatalog(ComPtr):
     PackageUninstalling = event()
     PackageStatusChanged = event()
 class IPackageExtensionCatalogStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.IPackageExtensionCatalogStatics'
     _iid_ = Guid('{9588ece4-3183-5684-9e5f-27759733ddfe}')
     @winrt_commethod(6)
     def Open(self, packageExtensionName: WinRT_String) -> win32more.Windows.ApplicationModel.PackageExtensions.PackageExtensionCatalog: ...
 class IPackageExtensionPackageInstalledEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageInstalledEventArgs'
     _iid_ = Guid('{3c9b0067-083c-5fe3-bdfb-9feb156b4118}')
     @winrt_commethod(6)
@@ -88,7 +87,7 @@ class IPackageExtensionPackageInstalledEventArgs(ComPtr):
     Package = property(get_Package, None)
     PackageExtensionName = property(get_PackageExtensionName, None)
 class IPackageExtensionPackageStatusChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageStatusChangedEventArgs'
     _iid_ = Guid('{b8fee20a-680d-5942-876c-5de12df1083c}')
     @winrt_commethod(6)
@@ -98,7 +97,7 @@ class IPackageExtensionPackageStatusChangedEventArgs(ComPtr):
     Package = property(get_Package, None)
     PackageExtensionName = property(get_PackageExtensionName, None)
 class IPackageExtensionPackageUninstallingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageUninstallingEventArgs'
     _iid_ = Guid('{3b8e9cb7-c539-554d-bb33-a84c0bfa3f50}')
     @winrt_commethod(6)
@@ -108,7 +107,7 @@ class IPackageExtensionPackageUninstallingEventArgs(ComPtr):
     Package = property(get_Package, None)
     PackageExtensionName = property(get_PackageExtensionName, None)
 class IPackageExtensionPackageUpdatedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageUpdatedEventArgs'
     _iid_ = Guid('{fdc31add-16a7-509d-8bc4-fde22e856d2d}')
     @winrt_commethod(6)
@@ -121,7 +120,7 @@ class IPackageExtensionPackageUpdatedEventArgs(ComPtr):
     Package = property(get_Package, None)
     PackageExtensionName = property(get_PackageExtensionName, None)
 class IPackageExtensionPackageUpdatingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageUpdatingEventArgs'
     _iid_ = Guid('{27ae2ce1-a1d3-532e-8e7e-8b43782fce09}')
     @winrt_commethod(6)
@@ -131,7 +130,7 @@ class IPackageExtensionPackageUpdatingEventArgs(ComPtr):
     Package = property(get_Package, None)
     PackageExtensionName = property(get_PackageExtensionName, None)
 class PackageExtension(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.PackageExtensions.IPackageExtension
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.PackageExtension'
     @winrt_mixinmethod
@@ -157,7 +156,7 @@ class PackageExtension(ComPtr):
     Id = property(get_Id, None)
     Package = property(get_Package, None)
 class PackageExtensionCatalog(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.PackageExtensions.IPackageExtensionCatalog
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.PackageExtensionCatalog'
     @winrt_mixinmethod
@@ -194,7 +193,7 @@ class PackageExtensionCatalog(ComPtr):
     PackageUninstalling = event()
     PackageStatusChanged = event()
 class PackageExtensionPackageInstalledEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageInstalledEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.PackageExtensionPackageInstalledEventArgs'
     @winrt_mixinmethod
@@ -207,7 +206,7 @@ class PackageExtensionPackageInstalledEventArgs(ComPtr):
     Package = property(get_Package, None)
     PackageExtensionName = property(get_PackageExtensionName, None)
 class PackageExtensionPackageStatusChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageStatusChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.PackageExtensionPackageStatusChangedEventArgs'
     @winrt_mixinmethod
@@ -217,7 +216,7 @@ class PackageExtensionPackageStatusChangedEventArgs(ComPtr):
     Package = property(get_Package, None)
     PackageExtensionName = property(get_PackageExtensionName, None)
 class PackageExtensionPackageUninstallingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageUninstallingEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.PackageExtensionPackageUninstallingEventArgs'
     @winrt_mixinmethod
@@ -227,7 +226,7 @@ class PackageExtensionPackageUninstallingEventArgs(ComPtr):
     Package = property(get_Package, None)
     PackageExtensionName = property(get_PackageExtensionName, None)
 class PackageExtensionPackageUpdatedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageUpdatedEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.PackageExtensionPackageUpdatedEventArgs'
     @winrt_mixinmethod
@@ -240,7 +239,7 @@ class PackageExtensionPackageUpdatedEventArgs(ComPtr):
     Package = property(get_Package, None)
     PackageExtensionName = property(get_PackageExtensionName, None)
 class PackageExtensionPackageUpdatingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.PackageExtensions.IPackageExtensionPackageUpdatingEventArgs
     _classid_ = 'Windows.ApplicationModel.PackageExtensions.PackageExtensionPackageUpdatingEventArgs'
     @winrt_mixinmethod

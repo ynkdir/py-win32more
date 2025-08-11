@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.Display
 import win32more.Microsoft.UI
 import win32more.Microsoft.UI.Dispatching
 import win32more.Windows.Foundation
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class DisplayAdvancedColorInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Graphics.Display.IDisplayAdvancedColorInfo
     _classid_ = 'Microsoft.Graphics.Display.DisplayAdvancedColorInfo'
     @winrt_mixinmethod
@@ -50,7 +49,7 @@ class DisplayHdrMetadataFormat(Enum, Int32):
     Hdr10 = 0
     Hdr10Plus = 1
 class DisplayInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Display.IDisplayInformation
     _classid_ = 'Microsoft.Graphics.Display.DisplayInformation'
@@ -59,7 +58,7 @@ class DisplayInformation(ComPtr):
     @winrt_mixinmethod
     def GetColorProfileAsync(self: win32more.Microsoft.Graphics.Display.IDisplayInformation) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStream]: ...
     @winrt_mixinmethod
-    def add_IsStereoEnabledChanged(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsStereoEnabledChanged(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsStereoEnabledChanged(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -67,17 +66,17 @@ class DisplayInformation(ComPtr):
     @winrt_mixinmethod
     def GetColorProfile(self: win32more.Microsoft.Graphics.Display.IDisplayInformation) -> win32more.Windows.Storage.Streams.IRandomAccessStream: ...
     @winrt_mixinmethod
-    def add_ColorProfileChanged(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ColorProfileChanged(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ColorProfileChanged(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def GetAdvancedColorInfo(self: win32more.Microsoft.Graphics.Display.IDisplayInformation) -> win32more.Microsoft.Graphics.Display.DisplayAdvancedColorInfo: ...
     @winrt_mixinmethod
-    def add_AdvancedColorInfoChanged(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AdvancedColorInfoChanged(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AdvancedColorInfoChanged(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Destroyed(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Destroyed(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Destroyed(self: win32more.Microsoft.Graphics.Display.IDisplayInformation, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -93,7 +92,7 @@ class DisplayInformation(ComPtr):
     AdvancedColorInfoChanged = event()
     Destroyed = event()
 class IDisplayAdvancedColorInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Display.IDisplayAdvancedColorInfo'
     _iid_ = Guid('{b44f0f47-7065-5175-ba3e-714489c85a3e}')
     @winrt_commethod(6)
@@ -128,7 +127,7 @@ class IDisplayAdvancedColorInfo(ComPtr):
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
     WhitePoint = property(get_WhitePoint, None)
 class IDisplayInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Display.IDisplayInformation'
     _iid_ = Guid('{f0d58d4f-84ce-5b27-b222-4f8f7dc0aaeb}')
     @winrt_commethod(6)
@@ -136,7 +135,7 @@ class IDisplayInformation(ComPtr):
     @winrt_commethod(7)
     def get_IsStereoEnabled(self) -> Boolean: ...
     @winrt_commethod(8)
-    def add_IsStereoEnabledChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsStereoEnabledChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_IsStereoEnabledChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
@@ -144,17 +143,17 @@ class IDisplayInformation(ComPtr):
     @winrt_commethod(11)
     def GetColorProfile(self) -> win32more.Windows.Storage.Streams.IRandomAccessStream: ...
     @winrt_commethod(12)
-    def add_ColorProfileChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ColorProfileChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_ColorProfileChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
     def GetAdvancedColorInfo(self) -> win32more.Microsoft.Graphics.Display.DisplayAdvancedColorInfo: ...
     @winrt_commethod(15)
-    def add_AdvancedColorInfoChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_AdvancedColorInfoChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_AdvancedColorInfoChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(17)
-    def add_Destroyed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Destroyed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Graphics.Display.DisplayInformation, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(18)
     def remove_Destroyed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
@@ -164,7 +163,7 @@ class IDisplayInformation(ComPtr):
     AdvancedColorInfoChanged = event()
     Destroyed = event()
 class IDisplayInformationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Display.IDisplayInformationStatics'
     _iid_ = Guid('{2de85048-37fa-56c0-ac30-47e2044d7ea8}')
     @winrt_commethod(6)

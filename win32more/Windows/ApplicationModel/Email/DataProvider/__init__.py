@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Email
 import win32more.Windows.ApplicationModel.Email.DataProvider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Cryptography.Certificates
-import win32more.Windows.Win32.System.WinRT
 class EmailDataProviderConnection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailDataProviderConnection
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailDataProviderConnection'
     @winrt_mixinmethod
@@ -89,14 +88,14 @@ class EmailDataProviderConnection(ComPtr):
     ValidateCertificatesRequested = event()
     ServerSearchReadBatchRequested = event()
 class EmailDataProviderTriggerDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailDataProviderTriggerDetails
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailDataProviderTriggerDetails'
     @winrt_mixinmethod
     def get_Connection(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailDataProviderTriggerDetails) -> win32more.Windows.ApplicationModel.Email.DataProvider.EmailDataProviderConnection: ...
     Connection = property(get_Connection, None)
 class EmailMailboxCreateFolderRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxCreateFolderRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxCreateFolderRequest'
     @winrt_mixinmethod
@@ -113,7 +112,7 @@ class EmailMailboxCreateFolderRequest(ComPtr):
     Name = property(get_Name, None)
     ParentFolderId = property(get_ParentFolderId, None)
 class EmailMailboxCreateFolderRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxCreateFolderRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxCreateFolderRequestEventArgs'
     @winrt_mixinmethod
@@ -122,7 +121,7 @@ class EmailMailboxCreateFolderRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxCreateFolderRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxDeleteFolderRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDeleteFolderRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxDeleteFolderRequest'
     @winrt_mixinmethod
@@ -136,7 +135,7 @@ class EmailMailboxDeleteFolderRequest(ComPtr):
     EmailFolderId = property(get_EmailFolderId, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
 class EmailMailboxDeleteFolderRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDeleteFolderRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxDeleteFolderRequestEventArgs'
     @winrt_mixinmethod
@@ -145,7 +144,7 @@ class EmailMailboxDeleteFolderRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDeleteFolderRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxDownloadAttachmentRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadAttachmentRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadAttachmentRequest'
     @winrt_mixinmethod
@@ -162,7 +161,7 @@ class EmailMailboxDownloadAttachmentRequest(ComPtr):
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
 class EmailMailboxDownloadAttachmentRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadAttachmentRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadAttachmentRequestEventArgs'
     @winrt_mixinmethod
@@ -171,7 +170,7 @@ class EmailMailboxDownloadAttachmentRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadAttachmentRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxDownloadMessageRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadMessageRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadMessageRequest'
     @winrt_mixinmethod
@@ -185,7 +184,7 @@ class EmailMailboxDownloadMessageRequest(ComPtr):
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
 class EmailMailboxDownloadMessageRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadMessageRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxDownloadMessageRequestEventArgs'
     @winrt_mixinmethod
@@ -194,7 +193,7 @@ class EmailMailboxDownloadMessageRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadMessageRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxEmptyFolderRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxEmptyFolderRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxEmptyFolderRequest'
     @winrt_mixinmethod
@@ -208,7 +207,7 @@ class EmailMailboxEmptyFolderRequest(ComPtr):
     EmailFolderId = property(get_EmailFolderId, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
 class EmailMailboxEmptyFolderRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxEmptyFolderRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxEmptyFolderRequestEventArgs'
     @winrt_mixinmethod
@@ -217,7 +216,7 @@ class EmailMailboxEmptyFolderRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxEmptyFolderRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxForwardMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxForwardMeetingRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxForwardMeetingRequest'
     @winrt_mixinmethod
@@ -246,7 +245,7 @@ class EmailMailboxForwardMeetingRequest(ComPtr):
     Recipients = property(get_Recipients, None)
     Subject = property(get_Subject, None)
 class EmailMailboxForwardMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxForwardMeetingRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxForwardMeetingRequestEventArgs'
     @winrt_mixinmethod
@@ -255,7 +254,7 @@ class EmailMailboxForwardMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxForwardMeetingRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxGetAutoReplySettingsRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxGetAutoReplySettingsRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxGetAutoReplySettingsRequest'
     @winrt_mixinmethod
@@ -269,7 +268,7 @@ class EmailMailboxGetAutoReplySettingsRequest(ComPtr):
     EmailMailboxId = property(get_EmailMailboxId, None)
     RequestedFormat = property(get_RequestedFormat, None)
 class EmailMailboxGetAutoReplySettingsRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxGetAutoReplySettingsRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxGetAutoReplySettingsRequestEventArgs'
     @winrt_mixinmethod
@@ -278,7 +277,7 @@ class EmailMailboxGetAutoReplySettingsRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxGetAutoReplySettingsRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxMoveFolderRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxMoveFolderRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxMoveFolderRequest'
     @winrt_mixinmethod
@@ -298,7 +297,7 @@ class EmailMailboxMoveFolderRequest(ComPtr):
     NewFolderName = property(get_NewFolderName, None)
     NewParentFolderId = property(get_NewParentFolderId, None)
 class EmailMailboxMoveFolderRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxMoveFolderRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxMoveFolderRequestEventArgs'
     @winrt_mixinmethod
@@ -307,7 +306,7 @@ class EmailMailboxMoveFolderRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxMoveFolderRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxProposeNewTimeForMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxProposeNewTimeForMeetingRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxProposeNewTimeForMeetingRequest'
     @winrt_mixinmethod
@@ -333,7 +332,7 @@ class EmailMailboxProposeNewTimeForMeetingRequest(ComPtr):
     NewStartTime = property(get_NewStartTime, None)
     Subject = property(get_Subject, None)
 class EmailMailboxProposeNewTimeForMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxProposeNewTimeForMeetingRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxProposeNewTimeForMeetingRequestEventArgs'
     @winrt_mixinmethod
@@ -342,7 +341,7 @@ class EmailMailboxProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxProposeNewTimeForMeetingRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxResolveRecipientsRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxResolveRecipientsRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequest'
     @winrt_mixinmethod
@@ -356,7 +355,7 @@ class EmailMailboxResolveRecipientsRequest(ComPtr):
     EmailMailboxId = property(get_EmailMailboxId, None)
     Recipients = property(get_Recipients, None)
 class EmailMailboxResolveRecipientsRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxResolveRecipientsRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxResolveRecipientsRequestEventArgs'
     @winrt_mixinmethod
@@ -365,7 +364,7 @@ class EmailMailboxResolveRecipientsRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxResolveRecipientsRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxServerSearchReadBatchRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxServerSearchReadBatchRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxServerSearchReadBatchRequest'
     @winrt_mixinmethod
@@ -390,7 +389,7 @@ class EmailMailboxServerSearchReadBatchRequest(ComPtr):
     SessionId = property(get_SessionId, None)
     SuggestedBatchSize = property(get_SuggestedBatchSize, None)
 class EmailMailboxServerSearchReadBatchRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxServerSearchReadBatchRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxServerSearchReadBatchRequestEventArgs'
     @winrt_mixinmethod
@@ -399,7 +398,7 @@ class EmailMailboxServerSearchReadBatchRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxServerSearchReadBatchRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxSetAutoReplySettingsRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSetAutoReplySettingsRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxSetAutoReplySettingsRequest'
     @winrt_mixinmethod
@@ -413,7 +412,7 @@ class EmailMailboxSetAutoReplySettingsRequest(ComPtr):
     AutoReplySettings = property(get_AutoReplySettings, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
 class EmailMailboxSetAutoReplySettingsRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSetAutoReplySettingsRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxSetAutoReplySettingsRequestEventArgs'
     @winrt_mixinmethod
@@ -422,7 +421,7 @@ class EmailMailboxSetAutoReplySettingsRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSetAutoReplySettingsRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxSyncManagerSyncRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSyncManagerSyncRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxSyncManagerSyncRequest'
     @winrt_mixinmethod
@@ -433,7 +432,7 @@ class EmailMailboxSyncManagerSyncRequest(ComPtr):
     def ReportFailedAsync(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSyncManagerSyncRequest) -> win32more.Windows.Foundation.IAsyncAction: ...
     EmailMailboxId = property(get_EmailMailboxId, None)
 class EmailMailboxSyncManagerSyncRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSyncManagerSyncRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxSyncManagerSyncRequestEventArgs'
     @winrt_mixinmethod
@@ -442,7 +441,7 @@ class EmailMailboxSyncManagerSyncRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSyncManagerSyncRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxUpdateMeetingResponseRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxUpdateMeetingResponseRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxUpdateMeetingResponseRequest'
     @winrt_mixinmethod
@@ -468,7 +467,7 @@ class EmailMailboxUpdateMeetingResponseRequest(ComPtr):
     SendUpdate = property(get_SendUpdate, None)
     Subject = property(get_Subject, None)
 class EmailMailboxUpdateMeetingResponseRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxUpdateMeetingResponseRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxUpdateMeetingResponseRequestEventArgs'
     @winrt_mixinmethod
@@ -477,7 +476,7 @@ class EmailMailboxUpdateMeetingResponseRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxUpdateMeetingResponseRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class EmailMailboxValidateCertificatesRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxValidateCertificatesRequest
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxValidateCertificatesRequest'
     @winrt_mixinmethod
@@ -491,7 +490,7 @@ class EmailMailboxValidateCertificatesRequest(ComPtr):
     Certificates = property(get_Certificates, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
 class EmailMailboxValidateCertificatesRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxValidateCertificatesRequestEventArgs
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.EmailMailboxValidateCertificatesRequestEventArgs'
     @winrt_mixinmethod
@@ -500,7 +499,7 @@ class EmailMailboxValidateCertificatesRequestEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.ApplicationModel.Email.DataProvider.IEmailMailboxValidateCertificatesRequestEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailDataProviderConnection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailDataProviderConnection'
     _iid_ = Guid('{3b9c9dc7-37b2-4bf0-ae30-7b644a1c96e1}')
     @winrt_commethod(6)
@@ -581,14 +580,14 @@ class IEmailDataProviderConnection(ComPtr):
     ValidateCertificatesRequested = event()
     ServerSearchReadBatchRequested = event()
 class IEmailDataProviderTriggerDetails(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailDataProviderTriggerDetails'
     _iid_ = Guid('{8f3e4e50-341e-45f3-bba0-84a005e1319a}')
     @winrt_commethod(6)
     def get_Connection(self) -> win32more.Windows.ApplicationModel.Email.DataProvider.EmailDataProviderConnection: ...
     Connection = property(get_Connection, None)
 class IEmailMailboxCreateFolderRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxCreateFolderRequest'
     _iid_ = Guid('{184d3775-c921-4c39-a309-e16c9f22b04b}')
     @winrt_commethod(6)
@@ -605,7 +604,7 @@ class IEmailMailboxCreateFolderRequest(ComPtr):
     Name = property(get_Name, None)
     ParentFolderId = property(get_ParentFolderId, None)
 class IEmailMailboxCreateFolderRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxCreateFolderRequestEventArgs'
     _iid_ = Guid('{03e4c02c-241c-4ea9-a68f-ff20bc5afc85}')
     @winrt_commethod(6)
@@ -614,7 +613,7 @@ class IEmailMailboxCreateFolderRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxDeleteFolderRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDeleteFolderRequest'
     _iid_ = Guid('{9469e88a-a931-4779-923d-09a3ea292e29}')
     @winrt_commethod(6)
@@ -628,7 +627,7 @@ class IEmailMailboxDeleteFolderRequest(ComPtr):
     EmailFolderId = property(get_EmailFolderId, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxDeleteFolderRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDeleteFolderRequestEventArgs'
     _iid_ = Guid('{b4d32d06-2332-4678-8378-28b579336846}')
     @winrt_commethod(6)
@@ -637,7 +636,7 @@ class IEmailMailboxDeleteFolderRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxDownloadAttachmentRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadAttachmentRequest'
     _iid_ = Guid('{0b1dbbb4-750c-48e1-bce4-8d589684ffbc}')
     @winrt_commethod(6)
@@ -654,7 +653,7 @@ class IEmailMailboxDownloadAttachmentRequest(ComPtr):
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
 class IEmailMailboxDownloadAttachmentRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadAttachmentRequestEventArgs'
     _iid_ = Guid('{ccddc46d-ffa8-4877-9f9d-fed7bcaf4104}')
     @winrt_commethod(6)
@@ -663,7 +662,7 @@ class IEmailMailboxDownloadAttachmentRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxDownloadMessageRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadMessageRequest'
     _iid_ = Guid('{497b4187-5b4d-4b23-816c-f3842beb753e}')
     @winrt_commethod(6)
@@ -677,7 +676,7 @@ class IEmailMailboxDownloadMessageRequest(ComPtr):
     EmailMailboxId = property(get_EmailMailboxId, None)
     EmailMessageId = property(get_EmailMessageId, None)
 class IEmailMailboxDownloadMessageRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxDownloadMessageRequestEventArgs'
     _iid_ = Guid('{470409ad-d0a0-4a5b-bb2a-37621039c53e}')
     @winrt_commethod(6)
@@ -686,7 +685,7 @@ class IEmailMailboxDownloadMessageRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxEmptyFolderRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxEmptyFolderRequest'
     _iid_ = Guid('{fe4b03ab-f86d-46d9-b4ce-bc8a6d9e9268}')
     @winrt_commethod(6)
@@ -700,7 +699,7 @@ class IEmailMailboxEmptyFolderRequest(ComPtr):
     EmailFolderId = property(get_EmailFolderId, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxEmptyFolderRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxEmptyFolderRequestEventArgs'
     _iid_ = Guid('{7183f484-985a-4ac0-b33f-ee0e2627a3c0}')
     @winrt_commethod(6)
@@ -709,7 +708,7 @@ class IEmailMailboxEmptyFolderRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxForwardMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxForwardMeetingRequest'
     _iid_ = Guid('{616d6af1-70d4-4832-b869-b80542ae9be8}')
     @winrt_commethod(6)
@@ -738,7 +737,7 @@ class IEmailMailboxForwardMeetingRequest(ComPtr):
     Recipients = property(get_Recipients, None)
     Subject = property(get_Subject, None)
 class IEmailMailboxForwardMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxForwardMeetingRequestEventArgs'
     _iid_ = Guid('{2bd8f33a-2974-4759-a5a5-58f44d3c0275}')
     @winrt_commethod(6)
@@ -747,7 +746,7 @@ class IEmailMailboxForwardMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxGetAutoReplySettingsRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxGetAutoReplySettingsRequest'
     _iid_ = Guid('{9b380789-1e88-4e01-84cc-1386ad9a2c2f}')
     @winrt_commethod(6)
@@ -761,7 +760,7 @@ class IEmailMailboxGetAutoReplySettingsRequest(ComPtr):
     EmailMailboxId = property(get_EmailMailboxId, None)
     RequestedFormat = property(get_RequestedFormat, None)
 class IEmailMailboxGetAutoReplySettingsRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxGetAutoReplySettingsRequestEventArgs'
     _iid_ = Guid('{d79f55c2-fd45-4004-8a91-9bacf38b7022}')
     @winrt_commethod(6)
@@ -770,7 +769,7 @@ class IEmailMailboxGetAutoReplySettingsRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxMoveFolderRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxMoveFolderRequest'
     _iid_ = Guid('{10ba2856-4a95-4068-91cc-67cc7acf454f}')
     @winrt_commethod(6)
@@ -790,7 +789,7 @@ class IEmailMailboxMoveFolderRequest(ComPtr):
     NewFolderName = property(get_NewFolderName, None)
     NewParentFolderId = property(get_NewParentFolderId, None)
 class IEmailMailboxMoveFolderRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxMoveFolderRequestEventArgs'
     _iid_ = Guid('{38623020-14ba-4c88-8698-7239e3c8aaa7}')
     @winrt_commethod(6)
@@ -799,7 +798,7 @@ class IEmailMailboxMoveFolderRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxProposeNewTimeForMeetingRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxProposeNewTimeForMeetingRequest'
     _iid_ = Guid('{5aeff152-9799-4f9f-a399-ff07f3eef04e}')
     @winrt_commethod(6)
@@ -825,7 +824,7 @@ class IEmailMailboxProposeNewTimeForMeetingRequest(ComPtr):
     NewStartTime = property(get_NewStartTime, None)
     Subject = property(get_Subject, None)
 class IEmailMailboxProposeNewTimeForMeetingRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxProposeNewTimeForMeetingRequestEventArgs'
     _iid_ = Guid('{fb480b98-33ad-4a67-8251-0f9c249b6a20}')
     @winrt_commethod(6)
@@ -834,7 +833,7 @@ class IEmailMailboxProposeNewTimeForMeetingRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxResolveRecipientsRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxResolveRecipientsRequest'
     _iid_ = Guid('{efa4cf70-7b39-4c9b-811e-41eaf43a332d}')
     @winrt_commethod(6)
@@ -848,7 +847,7 @@ class IEmailMailboxResolveRecipientsRequest(ComPtr):
     EmailMailboxId = property(get_EmailMailboxId, None)
     Recipients = property(get_Recipients, None)
 class IEmailMailboxResolveRecipientsRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxResolveRecipientsRequestEventArgs'
     _iid_ = Guid('{260f9e02-b2cf-40f8-8c28-e3ed43b1e89a}')
     @winrt_commethod(6)
@@ -857,7 +856,7 @@ class IEmailMailboxResolveRecipientsRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxServerSearchReadBatchRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxServerSearchReadBatchRequest'
     _iid_ = Guid('{090eebdf-5a96-41d3-8ad8-34912f9aa60e}')
     @winrt_commethod(6)
@@ -882,7 +881,7 @@ class IEmailMailboxServerSearchReadBatchRequest(ComPtr):
     SessionId = property(get_SessionId, None)
     SuggestedBatchSize = property(get_SuggestedBatchSize, None)
 class IEmailMailboxServerSearchReadBatchRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxServerSearchReadBatchRequestEventArgs'
     _iid_ = Guid('{14101b4e-ed9e-45d1-ad7a-cc9b7f643ae2}')
     @winrt_commethod(6)
@@ -891,7 +890,7 @@ class IEmailMailboxServerSearchReadBatchRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxSetAutoReplySettingsRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSetAutoReplySettingsRequest'
     _iid_ = Guid('{75a422d0-a88e-4e54-8dc7-c243186b774e}')
     @winrt_commethod(6)
@@ -905,7 +904,7 @@ class IEmailMailboxSetAutoReplySettingsRequest(ComPtr):
     AutoReplySettings = property(get_AutoReplySettings, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxSetAutoReplySettingsRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSetAutoReplySettingsRequestEventArgs'
     _iid_ = Guid('{09da11ad-d7ca-4087-ac86-53fa67f76246}')
     @winrt_commethod(6)
@@ -914,7 +913,7 @@ class IEmailMailboxSetAutoReplySettingsRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxSyncManagerSyncRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSyncManagerSyncRequest'
     _iid_ = Guid('{4e10e8e4-7e67-405a-b673-dc60c91090fc}')
     @winrt_commethod(6)
@@ -925,7 +924,7 @@ class IEmailMailboxSyncManagerSyncRequest(ComPtr):
     def ReportFailedAsync(self) -> win32more.Windows.Foundation.IAsyncAction: ...
     EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxSyncManagerSyncRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxSyncManagerSyncRequestEventArgs'
     _iid_ = Guid('{439a031a-8fcc-4ae5-b9b5-d434e0a65aa8}')
     @winrt_commethod(6)
@@ -934,7 +933,7 @@ class IEmailMailboxSyncManagerSyncRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxUpdateMeetingResponseRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxUpdateMeetingResponseRequest'
     _iid_ = Guid('{5b99ac93-b2cf-4888-ba4f-306b6b66df30}')
     @winrt_commethod(6)
@@ -960,7 +959,7 @@ class IEmailMailboxUpdateMeetingResponseRequest(ComPtr):
     SendUpdate = property(get_SendUpdate, None)
     Subject = property(get_Subject, None)
 class IEmailMailboxUpdateMeetingResponseRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxUpdateMeetingResponseRequestEventArgs'
     _iid_ = Guid('{6898d761-56c9-4f17-be31-66fda94ba159}')
     @winrt_commethod(6)
@@ -969,7 +968,7 @@ class IEmailMailboxUpdateMeetingResponseRequestEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
 class IEmailMailboxValidateCertificatesRequest(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxValidateCertificatesRequest'
     _iid_ = Guid('{a94d3931-e11a-4f97-b81a-187a70a8f41a}')
     @winrt_commethod(6)
@@ -983,7 +982,7 @@ class IEmailMailboxValidateCertificatesRequest(ComPtr):
     Certificates = property(get_Certificates, None)
     EmailMailboxId = property(get_EmailMailboxId, None)
 class IEmailMailboxValidateCertificatesRequestEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Email.DataProvider.IEmailMailboxValidateCertificatesRequestEventArgs'
     _iid_ = Guid('{2583bf17-02ff-49fe-a73c-03f37566c691}')
     @winrt_commethod(6)

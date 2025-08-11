@@ -1,11 +1,10 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.System.Profile.SystemManufacturers
-import win32more.Windows.Win32.System.WinRT
 class IOemSupportInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.IOemSupportInfo'
     _iid_ = Guid('{8d2eae55-87ef-4266-86d0-c4afbeb29bb9}')
     @winrt_commethod(6)
@@ -18,14 +17,14 @@ class IOemSupportInfo(ComPtr):
     SupportLink = property(get_SupportLink, None)
     SupportProvider = property(get_SupportProvider, None)
 class ISmbiosInformationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.ISmbiosInformationStatics'
     _iid_ = Guid('{080cca7c-637c-48c4-b728-f9273812db8e}')
     @winrt_commethod(6)
     def get_SerialNumber(self) -> WinRT_String: ...
     SerialNumber = property(get_SerialNumber, None)
 class ISystemSupportDeviceInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.ISystemSupportDeviceInfo'
     _iid_ = Guid('{05880b99-8247-441b-a996-a1784bab79a8}')
     @winrt_commethod(6)
@@ -50,7 +49,7 @@ class ISystemSupportDeviceInfo(ComPtr):
     SystemProductName = property(get_SystemProductName, None)
     SystemSku = property(get_SystemSku, None)
 class ISystemSupportInfoStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics'
     _iid_ = Guid('{ef750974-c422-45d7-a44d-5c1c0043a2b3}')
     @winrt_commethod(6)
@@ -60,14 +59,14 @@ class ISystemSupportInfoStatics(ComPtr):
     LocalSystemEdition = property(get_LocalSystemEdition, None)
     OemSupportInfo = property(get_OemSupportInfo, None)
 class ISystemSupportInfoStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics2'
     _iid_ = Guid('{33f349a4-3fa1-4986-aa4b-057420455e6d}')
     @winrt_commethod(6)
     def get_LocalDeviceInfo(self) -> win32more.Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo: ...
     LocalDeviceInfo = property(get_LocalDeviceInfo, None)
 class OemSupportInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Profile.SystemManufacturers.IOemSupportInfo
     _classid_ = 'Windows.System.Profile.SystemManufacturers.OemSupportInfo'
     @winrt_mixinmethod
@@ -82,14 +81,14 @@ class OemSupportInfo(ComPtr):
 class _SmbiosInformation_Meta_(ComPtr.__class__):
     pass
 class SmbiosInformation(ComPtr, metaclass=_SmbiosInformation_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.SmbiosInformation'
     @winrt_classmethod
     def get_SerialNumber(cls: win32more.Windows.System.Profile.SystemManufacturers.ISmbiosInformationStatics) -> WinRT_String: ...
     _SmbiosInformation_Meta_.SerialNumber = property(get_SerialNumber, None)
 SystemManufacturersContract: UInt32 = 196608
 class SystemSupportDeviceInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Profile.SystemManufacturers.ISystemSupportDeviceInfo
     _classid_ = 'Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo'
     @winrt_mixinmethod
@@ -116,7 +115,7 @@ class SystemSupportDeviceInfo(ComPtr):
 class _SystemSupportInfo_Meta_(ComPtr.__class__):
     pass
 class SystemSupportInfo(ComPtr, metaclass=_SystemSupportInfo_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Profile.SystemManufacturers.SystemSupportInfo'
     @winrt_classmethod
     def get_LocalDeviceInfo(cls: win32more.Windows.System.Profile.SystemManufacturers.ISystemSupportInfoStatics2) -> win32more.Windows.System.Profile.SystemManufacturers.SystemSupportDeviceInfo: ...

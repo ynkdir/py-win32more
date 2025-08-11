@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Core
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -9,14 +9,13 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.UI.Shell
 import win32more.Windows.UI.StartScreen
-import win32more.Windows.Win32.System.WinRT
 class AdaptiveCardBuilder(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.AdaptiveCardBuilder'
     @winrt_classmethod
     def CreateAdaptiveCardFromJson(cls: win32more.Windows.UI.Shell.IAdaptiveCardBuilderStatics, value: WinRT_String) -> win32more.Windows.UI.Shell.IAdaptiveCard: ...
 class FocusSession(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IFocusSession
     _classid_ = 'Windows.UI.Shell.FocusSession'
     @winrt_mixinmethod
@@ -27,7 +26,7 @@ class FocusSession(ComPtr):
 class _FocusSessionManager_Meta_(ComPtr.__class__):
     pass
 class FocusSessionManager(ComPtr, metaclass=_FocusSessionManager_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IFocusSessionManager
     _classid_ = 'Windows.UI.Shell.FocusSessionManager'
     @winrt_mixinmethod
@@ -41,7 +40,7 @@ class FocusSessionManager(ComPtr, metaclass=_FocusSessionManager_Meta_):
     @winrt_mixinmethod
     def DeactivateFocus(self: win32more.Windows.UI.Shell.IFocusSessionManager) -> Void: ...
     @winrt_mixinmethod
-    def add_IsFocusActiveChanged(self: win32more.Windows.UI.Shell.IFocusSessionManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.FocusSessionManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsFocusActiveChanged(self: win32more.Windows.UI.Shell.IFocusSessionManager, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.FocusSessionManager, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsFocusActiveChanged(self: win32more.Windows.UI.Shell.IFocusSessionManager, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -52,19 +51,19 @@ class FocusSessionManager(ComPtr, metaclass=_FocusSessionManager_Meta_):
     _FocusSessionManager_Meta_.IsSupported = property(get_IsSupported, None)
     IsFocusActiveChanged = event()
 class IAdaptiveCard(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IAdaptiveCard'
     _iid_ = Guid('{72d0568c-a274-41cd-82a8-989d40b9b05e}')
     @winrt_commethod(6)
     def ToJson(self) -> WinRT_String: ...
 class IAdaptiveCardBuilderStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IAdaptiveCardBuilderStatics'
     _iid_ = Guid('{766d8f08-d3fe-4347-a0bc-b9ea9a6dc28e}')
     @winrt_commethod(6)
     def CreateAdaptiveCardFromJson(self, value: WinRT_String) -> win32more.Windows.UI.Shell.IAdaptiveCard: ...
 class IFocusSession(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IFocusSession'
     _iid_ = Guid('{069fbab8-0e84-5f2f-8614-9b6544326277}')
     @winrt_commethod(6)
@@ -73,7 +72,7 @@ class IFocusSession(ComPtr):
     def End(self) -> Void: ...
     Id = property(get_Id, None)
 class IFocusSessionManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IFocusSessionManager'
     _iid_ = Guid('{e7ffbaa9-d8be-5dbf-bac6-49364842e37e}')
     @winrt_commethod(6)
@@ -87,13 +86,13 @@ class IFocusSessionManager(ComPtr):
     @winrt_commethod(10)
     def DeactivateFocus(self) -> Void: ...
     @winrt_commethod(11)
-    def add_IsFocusActiveChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.FocusSessionManager, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsFocusActiveChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Shell.FocusSessionManager, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_IsFocusActiveChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsFocusActive = property(get_IsFocusActive, None)
     IsFocusActiveChanged = event()
 class IFocusSessionManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IFocusSessionManagerStatics'
     _iid_ = Guid('{834df764-cb9a-5d0a-aa9f-73df4f249395}')
     @winrt_commethod(6)
@@ -102,7 +101,7 @@ class IFocusSessionManagerStatics(ComPtr):
     def get_IsSupported(self) -> Boolean: ...
     IsSupported = property(get_IsSupported, None)
 class ISecurityAppManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.ISecurityAppManager'
     _iid_ = Guid('{96ac500c-aed4-561d-bde8-953520343a2d}')
     @winrt_commethod(6)
@@ -112,7 +111,7 @@ class ISecurityAppManager(ComPtr):
     @winrt_commethod(8)
     def UpdateState(self, kind: win32more.Windows.UI.Shell.SecurityAppKind, guidRegistration: Guid, state: win32more.Windows.UI.Shell.SecurityAppState, substatus: win32more.Windows.UI.Shell.SecurityAppSubstatus, detailsUri: win32more.Windows.Foundation.Uri) -> Void: ...
 class IShareWindowCommandEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IShareWindowCommandEventArgs'
     _iid_ = Guid('{4578dc09-a523-5756-a995-e4feb991fff0}')
     @winrt_commethod(6)
@@ -124,7 +123,7 @@ class IShareWindowCommandEventArgs(ComPtr):
     Command = property(get_Command, put_Command)
     WindowId = property(get_WindowId, None)
 class IShareWindowCommandSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IShareWindowCommandSource'
     _iid_ = Guid('{cb3b7ae3-6b9c-561e-bccc-61e68e0abfef}')
     @winrt_commethod(6)
@@ -144,13 +143,13 @@ class IShareWindowCommandSource(ComPtr):
     CommandRequested = event()
     CommandInvoked = event()
 class IShareWindowCommandSourceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IShareWindowCommandSourceStatics'
     _iid_ = Guid('{b0eb6656-9cac-517c-b6c7-8ef715084295}')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> win32more.Windows.UI.Shell.ShareWindowCommandSource: ...
 class ITaskbarManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.ITaskbarManager'
     _iid_ = Guid('{87490a19-1ad9-49f4-b2e8-86738dc5ac40}')
     @winrt_commethod(6)
@@ -168,7 +167,7 @@ class ITaskbarManager(ComPtr):
     IsPinningAllowed = property(get_IsPinningAllowed, None)
     IsSupported = property(get_IsSupported, None)
 class ITaskbarManager2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.ITaskbarManager2'
     _iid_ = Guid('{79f0a06e-7b02-4911-918c-dee0bbd20ba4}')
     @winrt_commethod(6)
@@ -178,23 +177,23 @@ class ITaskbarManager2(ComPtr):
     @winrt_commethod(8)
     def TryUnpinSecondaryTileAsync(self, tileId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ITaskbarManagerDesktopAppSupportStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.ITaskbarManagerDesktopAppSupportStatics'
     _iid_ = Guid('{cdfefd63-e879-4134-b9a7-8283f05f9480}')
 class ITaskbarManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.ITaskbarManagerStatics'
     _iid_ = Guid('{db32ab74-de52-4fe6-b7b6-95ff9f8395df}')
     @winrt_commethod(6)
     def GetDefault(self) -> win32more.Windows.UI.Shell.TaskbarManager: ...
 class IWindowTab(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTab'
     _iid_ = Guid('{551e776a-7928-4d60-bdd9-672b5a5758eb}')
     @winrt_commethod(6)
-    def get_Tag(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Tag(self) -> IInspectable: ...
     @winrt_commethod(7)
-    def put_Tag(self, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_Tag(self, value: IInspectable) -> Void: ...
     @winrt_commethod(8)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(9)
@@ -219,20 +218,20 @@ class IWindowTab(ComPtr):
     Title = property(get_Title, put_Title)
     TreatAsSecondaryTileId = property(get_TreatAsSecondaryTileId, put_TreatAsSecondaryTileId)
 class IWindowTabCloseRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabCloseRequestedEventArgs'
     _iid_ = Guid('{477282e9-eec4-5882-9889-2dd64d0f9fb6}')
     @winrt_commethod(6)
     def get_Tab(self) -> win32more.Windows.UI.Shell.WindowTab: ...
     Tab = property(get_Tab, None)
 class IWindowTabCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabCollection'
     _iid_ = Guid('{accd0d6c-ed07-519a-8c33-17e02e7e9b0f}')
     @winrt_commethod(6)
     def MoveTab(self, tab: win32more.Windows.UI.Shell.WindowTab, index: UInt32) -> Void: ...
 class IWindowTabGroup(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabGroup'
     _iid_ = Guid('{a9c2c4fe-6cfe-449c-8b57-5756771abe56}')
     @winrt_commethod(6)
@@ -246,11 +245,11 @@ class IWindowTabGroup(ComPtr):
     Icon = property(get_Icon, put_Icon)
     Title = property(get_Title, put_Title)
 class IWindowTabIcon(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabIcon'
     _iid_ = Guid('{f92f398f-3669-4d0c-a183-14ddae6f6538}')
 class IWindowTabIconStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabIconStatics'
     _iid_ = Guid('{2e18d95e-2cbb-4084-af0c-36ee1c2d54b1}')
     @winrt_commethod(6)
@@ -260,7 +259,7 @@ class IWindowTabIconStatics(ComPtr):
     @winrt_commethod(8)
     def CreateFromImage(self, image: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.UI.Shell.WindowTabIcon: ...
 class IWindowTabManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabManager'
     _iid_ = Guid('{97b3c697-f43a-43e7-b3a2-e889a9835599}')
     @winrt_commethod(6)
@@ -289,7 +288,7 @@ class IWindowTabManager(ComPtr):
     TabTearOutRequested = event()
     TabThumbnailRequested = event()
 class IWindowTabManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabManagerStatics'
     _iid_ = Guid('{76755668-45f0-4e0b-8172-4e6d9d0f87bd}')
     @winrt_commethod(6)
@@ -299,14 +298,14 @@ class IWindowTabManagerStatics(ComPtr):
     @winrt_commethod(8)
     def IsTabTearOutSupported(self) -> Boolean: ...
 class IWindowTabSwitchRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabSwitchRequestedEventArgs'
     _iid_ = Guid('{7cbc421a-58a4-568b-a351-f8a947a5aad8}')
     @winrt_commethod(6)
     def get_Tab(self) -> win32more.Windows.UI.Shell.WindowTab: ...
     Tab = property(get_Tab, None)
 class IWindowTabTearOutRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabTearOutRequestedEventArgs'
     _iid_ = Guid('{17d66659-5005-5ece-99af-566306e73642}')
     @winrt_commethod(6)
@@ -320,7 +319,7 @@ class IWindowTabTearOutRequestedEventArgs(ComPtr):
     Tab = property(get_Tab, None)
     WindowId = property(get_WindowId, put_WindowId)
 class IWindowTabThumbnailRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Shell.IWindowTabThumbnailRequestedEventArgs'
     _iid_ = Guid('{2d558e54-9c4e-5abc-ab72-3350fb4937a0}')
     @winrt_commethod(6)
@@ -342,7 +341,7 @@ class IWindowTabThumbnailRequestedEventArgs(ComPtr):
 class SecurityAppKind(Enum, Int32):
     WebProtection = 0
 class SecurityAppManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.ISecurityAppManager
     _classid_ = 'Windows.UI.Shell.SecurityAppManager'
     def __init__(self, *args, **kwargs):
@@ -374,7 +373,7 @@ class ShareWindowCommand(Enum, Int32):
     StartSharing = 1
     StopSharing = 2
 class ShareWindowCommandEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IShareWindowCommandEventArgs
     _classid_ = 'Windows.UI.Shell.ShareWindowCommandEventArgs'
     @winrt_mixinmethod
@@ -386,7 +385,7 @@ class ShareWindowCommandEventArgs(ComPtr):
     Command = property(get_Command, put_Command)
     WindowId = property(get_WindowId, None)
 class ShareWindowCommandSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IShareWindowCommandSource
     _classid_ = 'Windows.UI.Shell.ShareWindowCommandSource'
     @winrt_mixinmethod
@@ -408,7 +407,7 @@ class ShareWindowCommandSource(ComPtr):
     CommandRequested = event()
     CommandInvoked = event()
 class TaskbarManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.ITaskbarManager
     _classid_ = 'Windows.UI.Shell.TaskbarManager'
     @winrt_mixinmethod
@@ -434,7 +433,7 @@ class TaskbarManager(ComPtr):
     IsPinningAllowed = property(get_IsPinningAllowed, None)
     IsSupported = property(get_IsSupported, None)
 class WindowTab(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTab
     _classid_ = 'Windows.UI.Shell.WindowTab'
     def __init__(self, *args, **kwargs):
@@ -447,9 +446,9 @@ class WindowTab(ComPtr):
     @winrt_activatemethod
     def CreateInstance(cls) -> win32more.Windows.UI.Shell.WindowTab: ...
     @winrt_mixinmethod
-    def get_Tag(self: win32more.Windows.UI.Shell.IWindowTab) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Tag(self: win32more.Windows.UI.Shell.IWindowTab) -> IInspectable: ...
     @winrt_mixinmethod
-    def put_Tag(self: win32more.Windows.UI.Shell.IWindowTab, value: win32more.Windows.Win32.System.WinRT.IInspectable) -> Void: ...
+    def put_Tag(self: win32more.Windows.UI.Shell.IWindowTab, value: IInspectable) -> Void: ...
     @winrt_mixinmethod
     def get_Title(self: win32more.Windows.UI.Shell.IWindowTab) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -474,14 +473,14 @@ class WindowTab(ComPtr):
     Title = property(get_Title, put_Title)
     TreatAsSecondaryTileId = property(get_TreatAsSecondaryTileId, put_TreatAsSecondaryTileId)
 class WindowTabCloseRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabCloseRequestedEventArgs
     _classid_ = 'Windows.UI.Shell.WindowTabCloseRequestedEventArgs'
     @winrt_mixinmethod
     def get_Tab(self: win32more.Windows.UI.Shell.IWindowTabCloseRequestedEventArgs) -> win32more.Windows.UI.Shell.WindowTab: ...
     Tab = property(get_Tab, None)
 class WindowTabCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.UI.Shell.WindowTab]]
     default_interface: win32more.Windows.UI.Shell.IWindowTabCollection
     _classid_ = 'Windows.UI.Shell.WindowTabCollection'
@@ -515,7 +514,7 @@ class WindowTabCollection(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.UI.Shell.WindowTab]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.UI.Shell.WindowTab]: ...
     Size = property(get_Size, None)
 class WindowTabGroup(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabGroup
     _classid_ = 'Windows.UI.Shell.WindowTabGroup'
     def __init__(self, *args, **kwargs):
@@ -538,7 +537,7 @@ class WindowTabGroup(ComPtr):
     Icon = property(get_Icon, put_Icon)
     Title = property(get_Title, put_Title)
 class WindowTabIcon(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabIcon
     _classid_ = 'Windows.UI.Shell.WindowTabIcon'
     @winrt_classmethod
@@ -548,7 +547,7 @@ class WindowTabIcon(ComPtr):
     @winrt_classmethod
     def CreateFromImage(cls: win32more.Windows.UI.Shell.IWindowTabIconStatics, image: win32more.Windows.Storage.Streams.IRandomAccessStreamReference) -> win32more.Windows.UI.Shell.WindowTabIcon: ...
 class WindowTabManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabManager
     _classid_ = 'Windows.UI.Shell.WindowTabManager'
     @winrt_mixinmethod
@@ -584,14 +583,14 @@ class WindowTabManager(ComPtr):
     TabThumbnailRequested = event()
 WindowTabManagerContract: UInt32 = 65536
 class WindowTabSwitchRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabSwitchRequestedEventArgs
     _classid_ = 'Windows.UI.Shell.WindowTabSwitchRequestedEventArgs'
     @winrt_mixinmethod
     def get_Tab(self: win32more.Windows.UI.Shell.IWindowTabSwitchRequestedEventArgs) -> win32more.Windows.UI.Shell.WindowTab: ...
     Tab = property(get_Tab, None)
 class WindowTabTearOutRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabTearOutRequestedEventArgs
     _classid_ = 'Windows.UI.Shell.WindowTabTearOutRequestedEventArgs'
     @winrt_mixinmethod
@@ -605,7 +604,7 @@ class WindowTabTearOutRequestedEventArgs(ComPtr):
     Tab = property(get_Tab, None)
     WindowId = property(get_WindowId, put_WindowId)
 class WindowTabThumbnailRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Shell.IWindowTabThumbnailRequestedEventArgs
     _classid_ = 'Windows.UI.Shell.WindowTabThumbnailRequestedEventArgs'
     @winrt_mixinmethod

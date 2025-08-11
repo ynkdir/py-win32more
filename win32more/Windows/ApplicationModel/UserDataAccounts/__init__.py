@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Appointments
 import win32more.Windows.ApplicationModel.Contacts
 import win32more.Windows.ApplicationModel.Email
@@ -10,9 +10,8 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
 import win32more.Windows.System
-import win32more.Windows.Win32.System.WinRT
 class IUserDataAccount(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount'
     _iid_ = Guid('{b9c4367e-b348-4910-be94-4ad4bba6dea7}')
     @winrt_commethod(6)
@@ -50,7 +49,7 @@ class IUserDataAccount(ComPtr):
     PackageFamilyName = property(get_PackageFamilyName, None)
     UserDisplayName = property(get_UserDisplayName, put_UserDisplayName)
 class IUserDataAccount2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount2'
     _iid_ = Guid('{078cd89f-de82-404b-8195-c8a3ac198f60}')
     @winrt_commethod(6)
@@ -60,7 +59,7 @@ class IUserDataAccount2(ComPtr):
     EnterpriseId = property(get_EnterpriseId, None)
     IsProtectedUnderLock = property(get_IsProtectedUnderLock, None)
 class IUserDataAccount3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount3'
     _iid_ = Guid('{01533845-6c43-4286-9d69-3e1709a1f266}')
     @winrt_commethod(6)
@@ -72,7 +71,7 @@ class IUserDataAccount3(ComPtr):
     DisplayName = property(get_DisplayName, put_DisplayName)
     ExplictReadAccessPackageFamilyNames = property(get_ExplictReadAccessPackageFamilyNames, None)
 class IUserDataAccount4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccount4'
     _iid_ = Guid('{c4315210-eae5-4f0a-a8b2-1cca115e008f}')
     @winrt_commethod(6)
@@ -96,7 +95,7 @@ class IUserDataAccount4(ComPtr):
     IsProtectedUnderLock = property(None, put_IsProtectedUnderLock)
     ProviderProperties = property(get_ProviderProperties, None)
 class IUserDataAccountManagerForUser(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerForUser'
     _iid_ = Guid('{56a6e8db-db8f-41ab-a65f-8c5971aac982}')
     @winrt_commethod(6)
@@ -105,7 +104,7 @@ class IUserDataAccountManagerForUser(ComPtr):
     def get_User(self) -> win32more.Windows.System.User: ...
     User = property(get_User, None)
 class IUserDataAccountManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics'
     _iid_ = Guid('{0d9b89ea-1928-4a20-86d5-3c737f7dc3b0}')
     @winrt_commethod(6)
@@ -117,13 +116,13 @@ class IUserDataAccountManagerStatics(ComPtr):
     @winrt_commethod(9)
     def ShowAccountErrorResolverAsync(self, id: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IUserDataAccountManagerStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics2'
     _iid_ = Guid('{6a3ded88-316b-435e-b534-f7d4b4b7dba6}')
     @winrt_commethod(6)
     def GetForUser(self, user: win32more.Windows.System.User) -> win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser: ...
 class IUserDataAccountStore(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore'
     _iid_ = Guid('{2073b0ad-7d0a-4e76-bf45-2368f978a59a}')
     @winrt_commethod(6)
@@ -133,7 +132,7 @@ class IUserDataAccountStore(ComPtr):
     @winrt_commethod(8)
     def CreateAccountAsync(self, userDisplayName: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
 class IUserDataAccountStore2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore2'
     _iid_ = Guid('{b1e0aef7-9560-4631-8af0-061d30161469}')
     @winrt_commethod(6)
@@ -144,19 +143,19 @@ class IUserDataAccountStore2(ComPtr):
     def remove_StoreChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     StoreChanged = event()
 class IUserDataAccountStore3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore3'
     _iid_ = Guid('{8142c094-f3c9-478b-b117-6585bebb6789}')
     @winrt_commethod(6)
     def CreateAccountWithPackageRelativeAppIdAndEnterpriseIdAsync(self, userDisplayName: WinRT_String, packageRelativeAppId: WinRT_String, enterpriseId: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
 class IUserDataAccountStoreChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStoreChangedEventArgs'
     _iid_ = Guid('{84e3e2e5-8820-4512-b1f6-2e035be1072c}')
     @winrt_commethod(6)
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
 class UserDataAccount(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccount
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccount'
     @winrt_mixinmethod
@@ -230,7 +229,7 @@ class UserDataAccountContentKinds(Enum, UInt32):
     Contact = 2
     Appointment = 4
 class UserDataAccountManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager'
     @winrt_classmethod
     def GetForUser(cls: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics2, user: win32more.Windows.System.User) -> win32more.Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser: ...
@@ -243,7 +242,7 @@ class UserDataAccountManager(ComPtr):
     @winrt_classmethod
     def ShowAccountErrorResolverAsync(cls: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics, id: WinRT_String) -> win32more.Windows.Foundation.IAsyncAction: ...
 class UserDataAccountManagerForUser(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerForUser
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser'
     @winrt_mixinmethod
@@ -256,7 +255,7 @@ class UserDataAccountOtherAppReadAccess(Enum, Int32):
     Full = 1
     None_ = 2
 class UserDataAccountStore(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStore
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore'
     @winrt_mixinmethod
@@ -278,7 +277,7 @@ class UserDataAccountStoreAccessType(Enum, Int32):
     AllAccountsReadOnly = 0
     AppAccountsReadWrite = 1
 class UserDataAccountStoreChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.UserDataAccounts.IUserDataAccountStoreChangedEventArgs
     _classid_ = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreChangedEventArgs'
     @winrt_mixinmethod

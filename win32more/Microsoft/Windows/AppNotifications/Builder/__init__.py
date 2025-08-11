@@ -1,16 +1,15 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.AppNotifications
 import win32more.Microsoft.Windows.AppNotifications.Builder
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class AppNotificationAudioLooping(Enum, Int32):
     None_ = 0
     Loop = 1
 class AppNotificationBuilder(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationBuilder
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationBuilder'
     def __init__(self, *args, **kwargs):
@@ -84,7 +83,7 @@ class AppNotificationBuilder(ComPtr):
     def IsUrgentScenarioSupported(cls: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationBuilderStatics) -> Boolean: ...
 AppNotificationBuilderContract: UInt32 = 131072
 class AppNotificationButton(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationButton
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationButton'
     def __init__(self, *args, **kwargs):
@@ -172,7 +171,7 @@ class AppNotificationButtonStyle(Enum, Int32):
     Success = 1
     Critical = 2
 class AppNotificationComboBox(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationComboBox
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationComboBox'
     def __init__(self, *args, **kwargs):
@@ -212,7 +211,7 @@ class AppNotificationImageCrop(Enum, Int32):
     Default = 0
     Circle = 1
 class AppNotificationProgressBar(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationProgressBar
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationProgressBar'
     def __init__(self, *args, **kwargs):
@@ -293,7 +292,7 @@ class AppNotificationSoundEvent(Enum, Int32):
     Call9 = 23
     Call10 = 24
 class AppNotificationTextProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AppNotifications.Builder.IAppNotificationTextProperties
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.AppNotificationTextProperties'
     def __init__(self, *args, **kwargs):
@@ -327,7 +326,7 @@ class AppNotificationTextProperties(ComPtr):
     Language = property(get_Language, put_Language)
     MaxLines = property(get_MaxLines, put_MaxLines)
 class IAppNotificationBuilder(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationBuilder'
     _iid_ = Guid('{e801d31f-ce03-505c-adec-8a02724ec9de}')
     @winrt_commethod(6)
@@ -389,13 +388,13 @@ class IAppNotificationBuilder(ComPtr):
     @winrt_commethod(34)
     def SetGroup(self, group: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationBuilder: ...
 class IAppNotificationBuilderStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationBuilderStatics'
     _iid_ = Guid('{c7042d2a-d319-520e-a314-50081c8888cc}')
     @winrt_commethod(6)
     def IsUrgentScenarioSupported(self) -> Boolean: ...
 class IAppNotificationButton(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationButton'
     _iid_ = Guid('{a7c03031-5634-5098-aec9-47ecb60c3499}')
     @winrt_commethod(6)
@@ -460,13 +459,13 @@ class IAppNotificationButton(ComPtr):
     TargetAppId = property(get_TargetAppId, put_TargetAppId)
     ToolTip = property(get_ToolTip, put_ToolTip)
 class IAppNotificationButtonFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationButtonFactory'
     _iid_ = Guid('{4f109286-0a6d-5a5e-9e8f-9fe31669fbb8}')
     @winrt_commethod(6)
     def CreateInstance(self, content: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationButton: ...
 class IAppNotificationButtonStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationButtonStatics'
     _iid_ = Guid('{fead7c18-4144-59a4-9611-86b7e8191853}')
     @winrt_commethod(6)
@@ -474,7 +473,7 @@ class IAppNotificationButtonStatics(ComPtr):
     @winrt_commethod(7)
     def IsButtonStyleSupported(self) -> Boolean: ...
 class IAppNotificationComboBox(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationComboBox'
     _iid_ = Guid('{4547c9e2-4815-538c-be26-040ce17f8b62}')
     @winrt_commethod(6)
@@ -499,13 +498,13 @@ class IAppNotificationComboBox(ComPtr):
     SelectedItem = property(get_SelectedItem, put_SelectedItem)
     Title = property(get_Title, put_Title)
 class IAppNotificationComboBoxFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationComboBoxFactory'
     _iid_ = Guid('{1b31b5b0-9d86-59ed-8629-a79498ab5d4b}')
     @winrt_commethod(6)
     def CreateInstance(self, id: WinRT_String) -> win32more.Microsoft.Windows.AppNotifications.Builder.AppNotificationComboBox: ...
 class IAppNotificationProgressBar(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationProgressBar'
     _iid_ = Guid('{fced62f2-2074-5641-8630-87a14315ac86}')
     @winrt_commethod(6)
@@ -545,7 +544,7 @@ class IAppNotificationProgressBar(ComPtr):
     Value = property(get_Value, put_Value)
     ValueStringOverride = property(get_ValueStringOverride, put_ValueStringOverride)
 class IAppNotificationTextProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppNotifications.Builder.IAppNotificationTextProperties'
     _iid_ = Guid('{23a30d0b-5258-5853-932e-9521a3642afb}')
     @winrt_commethod(6)

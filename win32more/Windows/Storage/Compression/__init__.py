@@ -1,10 +1,9 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Storage.Compression
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class CompressAlgorithm(Enum, Int32):
     InvalidAlgorithm = 0
     NullAlgorithm = 1
@@ -13,7 +12,7 @@ class CompressAlgorithm(Enum, Int32):
     XpressHuff = 4
     Lzms = 5
 class Compressor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Storage.Compression.ICompressor
     _classid_ = 'Windows.Storage.Compression.Compressor'
@@ -41,7 +40,7 @@ class Compressor(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class Decompressor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Storage.Compression.IDecompressor
     _classid_ = 'Windows.Storage.Compression.Decompressor'
@@ -61,7 +60,7 @@ class Decompressor(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
 class ICompressor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Storage.Compression.ICompressor'
     _iid_ = Guid('{0ac3645a-57ac-4ee1-b702-84d39d5424e0}')
@@ -70,7 +69,7 @@ class ICompressor(ComPtr):
     @winrt_commethod(7)
     def DetachStream(self) -> win32more.Windows.Storage.Streams.IOutputStream: ...
 class ICompressorFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Compression.ICompressorFactory'
     _iid_ = Guid('{5f3d96a4-2cfb-442c-a8ba-d7d11b039da0}')
     @winrt_commethod(6)
@@ -78,14 +77,14 @@ class ICompressorFactory(ComPtr):
     @winrt_commethod(7)
     def CreateCompressorEx(self, underlyingStream: win32more.Windows.Storage.Streams.IOutputStream, algorithm: win32more.Windows.Storage.Compression.CompressAlgorithm, blockSize: UInt32) -> win32more.Windows.Storage.Compression.Compressor: ...
 class IDecompressor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Storage.Compression.IDecompressor'
     _iid_ = Guid('{b883fe46-d68a-4c8b-ada0-4ee813fc5283}')
     @winrt_commethod(6)
     def DetachStream(self) -> win32more.Windows.Storage.Streams.IInputStream: ...
 class IDecompressorFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.Compression.IDecompressorFactory'
     _iid_ = Guid('{5337e252-1da2-42e1-8834-0379d28d742f}')
     @winrt_commethod(6)

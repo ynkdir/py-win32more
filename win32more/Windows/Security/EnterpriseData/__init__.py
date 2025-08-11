@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking
 import win32more.Windows.Security.EnterpriseData
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class BufferProtectUnprotectResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IBufferProtectUnprotectResult
     _classid_ = 'Windows.Security.EnterpriseData.BufferProtectUnprotectResult'
     @winrt_mixinmethod
@@ -19,7 +18,7 @@ class BufferProtectUnprotectResult(ComPtr):
     Buffer = property(get_Buffer, None)
     ProtectionInfo = property(get_ProtectionInfo, None)
 class DataProtectionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IDataProtectionInfo
     _classid_ = 'Windows.Security.EnterpriseData.DataProtectionInfo'
     @winrt_mixinmethod
@@ -29,7 +28,7 @@ class DataProtectionInfo(ComPtr):
     Identity = property(get_Identity, None)
     Status = property(get_Status, None)
 class DataProtectionManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.DataProtectionManager'
     @winrt_classmethod
     def ProtectAsync(cls: win32more.Windows.Security.EnterpriseData.IDataProtectionManagerStatics, data: win32more.Windows.Storage.Streams.IBuffer, identity: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.BufferProtectUnprotectResult]: ...
@@ -57,7 +56,7 @@ class EnforcementLevel(Enum, Int32):
     Block = 3
 EnterpriseDataContract: UInt32 = 327680
 class FileProtectionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IFileProtectionInfo
     _classid_ = 'Windows.Security.EnterpriseData.FileProtectionInfo'
     @winrt_mixinmethod
@@ -73,7 +72,7 @@ class FileProtectionInfo(ComPtr):
     IsRoamable = property(get_IsRoamable, None)
     Status = property(get_Status, None)
 class FileProtectionManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.FileProtectionManager'
     @winrt_classmethod
     def UnprotectAsync(cls: win32more.Windows.Security.EnterpriseData.IFileProtectionManagerStatics3, target: win32more.Windows.Storage.IStorageItem) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.FileProtectionInfo]: ...
@@ -113,7 +112,7 @@ class FileProtectionStatus(Enum, Int32):
     AccessSuspended = 9
     FileInUse = 10
 class FileRevocationManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.FileRevocationManager'
     @winrt_classmethod
     def ProtectAsync(cls: win32more.Windows.Security.EnterpriseData.IFileRevocationManagerStatics, storageItem: win32more.Windows.Storage.IStorageItem, enterpriseIdentity: WinRT_String) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.FileProtectionStatus]: ...
@@ -124,7 +123,7 @@ class FileRevocationManager(ComPtr):
     @winrt_classmethod
     def GetStatusAsync(cls: win32more.Windows.Security.EnterpriseData.IFileRevocationManagerStatics, storageItem: win32more.Windows.Storage.IStorageItem) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.FileProtectionStatus]: ...
 class FileUnprotectOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IFileUnprotectOptions
     _classid_ = 'Windows.Security.EnterpriseData.FileUnprotectOptions'
     def __init__(self, *args, **kwargs):
@@ -142,7 +141,7 @@ class FileUnprotectOptions(ComPtr):
     def get_Audit(self: win32more.Windows.Security.EnterpriseData.IFileUnprotectOptions) -> Boolean: ...
     Audit = property(get_Audit, put_Audit)
 class IBufferProtectUnprotectResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IBufferProtectUnprotectResult'
     _iid_ = Guid('{47995edc-6cec-4e3a-b251-9e7485d79e7a}')
     @winrt_commethod(6)
@@ -152,7 +151,7 @@ class IBufferProtectUnprotectResult(ComPtr):
     Buffer = property(get_Buffer, None)
     ProtectionInfo = property(get_ProtectionInfo, None)
 class IDataProtectionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IDataProtectionInfo'
     _iid_ = Guid('{8420b0c1-5e31-4405-9540-3f943af0cb26}')
     @winrt_commethod(6)
@@ -162,7 +161,7 @@ class IDataProtectionInfo(ComPtr):
     Identity = property(get_Identity, None)
     Status = property(get_Status, None)
 class IDataProtectionManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IDataProtectionManagerStatics'
     _iid_ = Guid('{b6149b74-9144-4ee4-8a8a-30b5f361430e}')
     @winrt_commethod(6)
@@ -178,7 +177,7 @@ class IDataProtectionManagerStatics(ComPtr):
     @winrt_commethod(11)
     def GetStreamProtectionInfoAsync(self, protectedStream: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.DataProtectionInfo]: ...
 class IFileProtectionInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IFileProtectionInfo'
     _iid_ = Guid('{4ee96486-147e-4dd0-8faf-5253ed91ad0c}')
     @winrt_commethod(6)
@@ -191,14 +190,14 @@ class IFileProtectionInfo(ComPtr):
     IsRoamable = property(get_IsRoamable, None)
     Status = property(get_Status, None)
 class IFileProtectionInfo2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IFileProtectionInfo2'
     _iid_ = Guid('{82123a4c-557a-498d-8e94-944cd5836432}')
     @winrt_commethod(6)
     def get_IsProtectWhileOpenSupported(self) -> Boolean: ...
     IsProtectWhileOpenSupported = property(get_IsProtectWhileOpenSupported, None)
 class IFileProtectionManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IFileProtectionManagerStatics'
     _iid_ = Guid('{5846fc9b-e613-426b-bb38-88cba1dc9adb}')
     @winrt_commethod(6)
@@ -216,7 +215,7 @@ class IFileProtectionManagerStatics(ComPtr):
     @winrt_commethod(12)
     def CreateProtectedAndOpenAsync(self, parentFolder: win32more.Windows.Storage.IStorageFolder, desiredName: WinRT_String, identity: WinRT_String, collisionOption: win32more.Windows.Storage.CreationCollisionOption) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectedFileCreateResult]: ...
 class IFileProtectionManagerStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IFileProtectionManagerStatics2'
     _iid_ = Guid('{83d2a745-0483-41ab-b2d5-bc7f23d74ebb}')
     @winrt_commethod(6)
@@ -226,7 +225,7 @@ class IFileProtectionManagerStatics2(ComPtr):
     @winrt_commethod(8)
     def SaveFileAsContainerWithSharingAsync(self, protectedFile: win32more.Windows.Storage.IStorageFile, sharedWithIdentities: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.ProtectedContainerExportResult]: ...
 class IFileProtectionManagerStatics3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IFileProtectionManagerStatics3'
     _iid_ = Guid('{6918849a-624f-46d6-b241-e9cd5fdf3e3f}')
     @winrt_commethod(6)
@@ -234,7 +233,7 @@ class IFileProtectionManagerStatics3(ComPtr):
     @winrt_commethod(7)
     def UnprotectWithOptionsAsync(self, target: win32more.Windows.Storage.IStorageItem, options: win32more.Windows.Security.EnterpriseData.FileUnprotectOptions) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.FileProtectionInfo]: ...
 class IFileRevocationManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IFileRevocationManagerStatics'
     _iid_ = Guid('{256bbc3d-1c5d-4260-8c75-9144cfb78ba9}')
     @winrt_commethod(6)
@@ -246,7 +245,7 @@ class IFileRevocationManagerStatics(ComPtr):
     @winrt_commethod(9)
     def GetStatusAsync(self, storageItem: win32more.Windows.Storage.IStorageItem) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Security.EnterpriseData.FileProtectionStatus]: ...
 class IFileUnprotectOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IFileUnprotectOptions'
     _iid_ = Guid('{7d1312f1-3b0d-4dd8-a1f8-1ec53822e2f3}')
     @winrt_commethod(6)
@@ -255,20 +254,20 @@ class IFileUnprotectOptions(ComPtr):
     def get_Audit(self) -> Boolean: ...
     Audit = property(get_Audit, put_Audit)
 class IFileUnprotectOptionsFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IFileUnprotectOptionsFactory'
     _iid_ = Guid('{51aeb39c-da8c-4c3f-9bfb-cb73a7cce0dd}')
     @winrt_commethod(6)
     def Create(self, audit: Boolean) -> win32more.Windows.Security.EnterpriseData.FileUnprotectOptions: ...
 class IProtectedAccessResumedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectedAccessResumedEventArgs'
     _iid_ = Guid('{ac4dca59-5d80-4e95-8c5f-8539450eebe0}')
     @winrt_commethod(6)
     def get_Identities(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     Identities = property(get_Identities, None)
 class IProtectedAccessSuspendingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectedAccessSuspendingEventArgs'
     _iid_ = Guid('{75a193e0-a344-429f-b975-04fc1f88c185}')
     @winrt_commethod(6)
@@ -280,7 +279,7 @@ class IProtectedAccessSuspendingEventArgs(ComPtr):
     Deadline = property(get_Deadline, None)
     Identities = property(get_Identities, None)
 class IProtectedContainerExportResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectedContainerExportResult'
     _iid_ = Guid('{3948ef95-f7fb-4b42-afb0-df70b41543c1}')
     @winrt_commethod(6)
@@ -290,7 +289,7 @@ class IProtectedContainerExportResult(ComPtr):
     File = property(get_File, None)
     Status = property(get_Status, None)
 class IProtectedContainerImportResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectedContainerImportResult'
     _iid_ = Guid('{cdb780d1-e7bb-4d1a-9339-34dc41149f9b}')
     @winrt_commethod(6)
@@ -300,14 +299,14 @@ class IProtectedContainerImportResult(ComPtr):
     File = property(get_File, None)
     Status = property(get_Status, None)
 class IProtectedContentRevokedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectedContentRevokedEventArgs'
     _iid_ = Guid('{63686821-58b9-47ee-93d9-f0f741cf43f0}')
     @winrt_commethod(6)
     def get_Identities(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     Identities = property(get_Identities, None)
 class IProtectedFileCreateResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectedFileCreateResult'
     _iid_ = Guid('{28e3ed6a-e9e7-4a03-9f53-bdb16172699b}')
     @winrt_commethod(6)
@@ -320,7 +319,7 @@ class IProtectedFileCreateResult(ComPtr):
     ProtectionInfo = property(get_ProtectionInfo, None)
     Stream = property(get_Stream, None)
 class IProtectionPolicyAuditInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyAuditInfo'
     _iid_ = Guid('{425ab7e4-feb7-44fc-b3bb-c3c4d7ecbebb}')
     @winrt_commethod(6)
@@ -344,7 +343,7 @@ class IProtectionPolicyAuditInfo(ComPtr):
     SourceDescription = property(get_SourceDescription, put_SourceDescription)
     TargetDescription = property(get_TargetDescription, put_TargetDescription)
 class IProtectionPolicyAuditInfoFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyAuditInfoFactory'
     _iid_ = Guid('{7ed4180b-92e8-42d5-83d4-25440b423549}')
     @winrt_commethod(6)
@@ -352,7 +351,7 @@ class IProtectionPolicyAuditInfoFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithActionAndDataDescription(self, action: win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditAction, dataDescription: WinRT_String) -> win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo: ...
 class IProtectionPolicyManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManager'
     _iid_ = Guid('{d5703e18-a08d-47e6-a240-9934d7165eb5}')
     @winrt_commethod(6)
@@ -361,7 +360,7 @@ class IProtectionPolicyManager(ComPtr):
     def get_Identity(self) -> WinRT_String: ...
     Identity = property(get_Identity, put_Identity)
 class IProtectionPolicyManager2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManager2'
     _iid_ = Guid('{abf7527a-8435-417f-99b6-51beaf365888}')
     @winrt_commethod(6)
@@ -370,7 +369,7 @@ class IProtectionPolicyManager2(ComPtr):
     def get_ShowEnterpriseIndicator(self) -> Boolean: ...
     ShowEnterpriseIndicator = property(get_ShowEnterpriseIndicator, put_ShowEnterpriseIndicator)
 class IProtectionPolicyManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics'
     _iid_ = Guid('{c0bffc66-8c3d-4d56-8804-c68f0ad32ec5}')
     @winrt_commethod(6)
@@ -407,7 +406,7 @@ class IProtectionPolicyManagerStatics(ComPtr):
     ProtectedAccessResumed = event()
     ProtectedContentRevoked = event()
 class IProtectionPolicyManagerStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2'
     _iid_ = Guid('{b68f9a8c-39e0-4649-b2e4-070ab8a579b3}')
     @winrt_commethod(6)
@@ -423,7 +422,7 @@ class IProtectionPolicyManagerStatics2(ComPtr):
     @winrt_commethod(11)
     def IsProtectionUnderLockRequired(self, identity: WinRT_String) -> Boolean: ...
     @winrt_commethod(12)
-    def add_PolicyChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PolicyChanged(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_PolicyChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -431,7 +430,7 @@ class IProtectionPolicyManagerStatics2(ComPtr):
     IsProtectionEnabled = property(get_IsProtectionEnabled, None)
     PolicyChanged = event()
 class IProtectionPolicyManagerStatics3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics3'
     _iid_ = Guid('{48ff9e8c-6a6f-4d9f-bced-18ab537aa015}')
     @winrt_commethod(6)
@@ -445,7 +444,7 @@ class IProtectionPolicyManagerStatics3(ComPtr):
     @winrt_commethod(10)
     def LogAuditEvent(self, sourceIdentity: WinRT_String, targetIdentity: WinRT_String, auditInfo: win32more.Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo) -> Void: ...
 class IProtectionPolicyManagerStatics4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics4'
     _iid_ = Guid('{20b794db-ccbd-490f-8c83-49ccb77aea6c}')
     @winrt_commethod(6)
@@ -472,18 +471,18 @@ class IProtectionPolicyManagerStatics4(ComPtr):
     def GetPrimaryManagedIdentityForIdentity(self, identity: WinRT_String) -> WinRT_String: ...
     PrimaryManagedIdentity = property(get_PrimaryManagedIdentity, None)
 class IThreadNetworkContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.EnterpriseData.IThreadNetworkContext'
     _iid_ = Guid('{fa4ea8e9-ef13-405a-b12c-d7348c6f41fc}')
 class ProtectedAccessResumedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectedAccessResumedEventArgs
     _classid_ = 'Windows.Security.EnterpriseData.ProtectedAccessResumedEventArgs'
     @winrt_mixinmethod
     def get_Identities(self: win32more.Windows.Security.EnterpriseData.IProtectedAccessResumedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     Identities = property(get_Identities, None)
 class ProtectedAccessSuspendingEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectedAccessSuspendingEventArgs
     _classid_ = 'Windows.Security.EnterpriseData.ProtectedAccessSuspendingEventArgs'
     @winrt_mixinmethod
@@ -495,7 +494,7 @@ class ProtectedAccessSuspendingEventArgs(ComPtr):
     Deadline = property(get_Deadline, None)
     Identities = property(get_Identities, None)
 class ProtectedContainerExportResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectedContainerExportResult
     _classid_ = 'Windows.Security.EnterpriseData.ProtectedContainerExportResult'
     @winrt_mixinmethod
@@ -505,7 +504,7 @@ class ProtectedContainerExportResult(ComPtr):
     File = property(get_File, None)
     Status = property(get_Status, None)
 class ProtectedContainerImportResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectedContainerImportResult
     _classid_ = 'Windows.Security.EnterpriseData.ProtectedContainerImportResult'
     @winrt_mixinmethod
@@ -515,14 +514,14 @@ class ProtectedContainerImportResult(ComPtr):
     File = property(get_File, None)
     Status = property(get_Status, None)
 class ProtectedContentRevokedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectedContentRevokedEventArgs
     _classid_ = 'Windows.Security.EnterpriseData.ProtectedContentRevokedEventArgs'
     @winrt_mixinmethod
     def get_Identities(self: win32more.Windows.Security.EnterpriseData.IProtectedContentRevokedEventArgs) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     Identities = property(get_Identities, None)
 class ProtectedFileCreateResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectedFileCreateResult
     _classid_ = 'Windows.Security.EnterpriseData.ProtectedFileCreateResult'
     @winrt_mixinmethod
@@ -549,7 +548,7 @@ class ProtectionPolicyAuditAction(Enum, Int32):
     SendToRecipient = 2
     Other = 3
 class ProtectionPolicyAuditInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectionPolicyAuditInfo
     _classid_ = 'Windows.Security.EnterpriseData.ProtectionPolicyAuditInfo'
     def __init__(self, *args, **kwargs):
@@ -592,7 +591,7 @@ class ProtectionPolicyEvaluationResult(Enum, Int32):
 class _ProtectionPolicyManager_Meta_(ComPtr.__class__):
     pass
 class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManager
     _classid_ = 'Windows.Security.EnterpriseData.ProtectionPolicyManager'
     @winrt_mixinmethod
@@ -648,7 +647,7 @@ class ProtectionPolicyManager(ComPtr, metaclass=_ProtectionPolicyManager_Meta_):
     @winrt_classmethod
     def IsProtectionUnderLockRequired(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2, identity: WinRT_String) -> Boolean: ...
     @winrt_classmethod
-    def add_PolicyChanged(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PolicyChanged(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_PolicyChanged(cls: win32more.Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -691,7 +690,7 @@ class ProtectionPolicyRequestAccessBehavior(Enum, Int32):
     Decrypt = 0
     TreatOverridePolicyAsBlock = 1
 class ThreadNetworkContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Security.EnterpriseData.IThreadNetworkContext
     _classid_ = 'Windows.Security.EnterpriseData.ThreadNetworkContext'

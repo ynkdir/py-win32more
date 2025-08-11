@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Contacts
 import win32more.Windows.ApplicationModel.DataTransfer
 import win32more.Windows.ApplicationModel.DataTransfer.ShareTarget
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class IQuickLink(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTarget.IQuickLink'
     _iid_ = Guid('{603e4308-f0be-4adc-acc9-8b27ab9cf556}')
     @winrt_commethod(6)
@@ -33,7 +32,7 @@ class IQuickLink(ComPtr):
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Title = property(get_Title, put_Title)
 class IShareOperation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation'
     _iid_ = Guid('{2246bab8-d0f8-41c1-a82a-4137db6504fb}')
     @winrt_commethod(6)
@@ -57,20 +56,20 @@ class IShareOperation(ComPtr):
     Data = property(get_Data, None)
     QuickLinkId = property(get_QuickLinkId, None)
 class IShareOperation2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation2'
     _iid_ = Guid('{0ffb97c1-9778-4a09-8e5b-cb5e482d0555}')
     @winrt_commethod(6)
     def DismissUI(self) -> Void: ...
 class IShareOperation3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation3'
     _iid_ = Guid('{5ef6b382-b7a7-4571-a2a6-994a034988b2}')
     @winrt_commethod(6)
     def get_Contacts(self) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.ApplicationModel.Contacts.Contact]: ...
     Contacts = property(get_Contacts, None)
 class QuickLink(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.ShareTarget.IQuickLink
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTarget.QuickLink'
     def __init__(self, *args, **kwargs):
@@ -104,7 +103,7 @@ class QuickLink(ComPtr):
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     Title = property(get_Title, put_Title)
 class ShareOperation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.DataTransfer.ShareTarget.IShareOperation
     _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation'
     @winrt_mixinmethod

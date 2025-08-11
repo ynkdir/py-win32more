@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Enumeration
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
@@ -16,7 +16,6 @@ import win32more.Windows.Media.Protection
 import win32more.Windows.Storage
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI.Composition
-import win32more.Windows.Win32.System.WinRT
 class AutoLoadedDisplayPropertyKind(Enum, Int32):
     None_ = 0
     MusicOrVideo = 1
@@ -25,7 +24,7 @@ class AutoLoadedDisplayPropertyKind(Enum, Int32):
 class _BackgroundMediaPlayer_Meta_(ComPtr.__class__):
     pass
 class BackgroundMediaPlayer(ComPtr, metaclass=_BackgroundMediaPlayer_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.BackgroundMediaPlayer'
     @winrt_classmethod
     def get_Current(cls: win32more.Windows.Media.Playback.IBackgroundMediaPlayerStatics) -> win32more.Windows.Media.Playback.MediaPlayer: ...
@@ -47,7 +46,7 @@ class BackgroundMediaPlayer(ComPtr, metaclass=_BackgroundMediaPlayer_Meta_):
     def Shutdown(cls: win32more.Windows.Media.Playback.IBackgroundMediaPlayerStatics) -> Void: ...
     _BackgroundMediaPlayer_Meta_.Current = property(get_Current, None)
 class CurrentMediaPlaybackItemChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.ICurrentMediaPlaybackItemChangedEventArgs
     _classid_ = 'Windows.Media.Playback.CurrentMediaPlaybackItemChangedEventArgs'
     @winrt_mixinmethod
@@ -64,7 +63,7 @@ class FailedMediaStreamKind(Enum, Int32):
     Audio = 1
     Video = 2
 class IBackgroundMediaPlayerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IBackgroundMediaPlayerStatics'
     _iid_ = Guid('{856ddbc1-55f7-471f-a0f2-68ac4c904592}')
     @winrt_commethod(6)
@@ -89,7 +88,7 @@ class IBackgroundMediaPlayerStatics(ComPtr):
     MessageReceivedFromBackground = event()
     MessageReceivedFromForeground = event()
 class ICurrentMediaPlaybackItemChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.ICurrentMediaPlaybackItemChangedEventArgs'
     _iid_ = Guid('{1743a892-5c43-4a15-967a-572d2d0f26c6}')
     @winrt_commethod(6)
@@ -99,14 +98,14 @@ class ICurrentMediaPlaybackItemChangedEventArgs(ComPtr):
     NewItem = property(get_NewItem, None)
     OldItem = property(get_OldItem, None)
 class ICurrentMediaPlaybackItemChangedEventArgs2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.ICurrentMediaPlaybackItemChangedEventArgs2'
     _iid_ = Guid('{1d80a51e-996e-40a9-be48-e66ec90b2b7d}')
     @winrt_commethod(6)
     def get_Reason(self) -> win32more.Windows.Media.Playback.MediaPlaybackItemChangedReason: ...
     Reason = property(get_Reason, None)
 class IMediaBreak(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaBreak'
     _iid_ = Guid('{714be270-0def-4ebc-a489-6b34930e1558}')
     @winrt_commethod(6)
@@ -127,14 +126,14 @@ class IMediaBreak(ComPtr):
     PlaybackList = property(get_PlaybackList, None)
     PresentationPosition = property(get_PresentationPosition, None)
 class IMediaBreakEndedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaBreakEndedEventArgs'
     _iid_ = Guid('{32b93276-1c5d-4fee-8732-236dc3a88580}')
     @winrt_commethod(6)
     def get_MediaBreak(self) -> win32more.Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
 class IMediaBreakFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaBreakFactory'
     _iid_ = Guid('{4516e002-18e0-4079-8b5f-d33495c15d2e}')
     @winrt_commethod(6)
@@ -142,7 +141,7 @@ class IMediaBreakFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithPresentationPosition(self, insertionMethod: win32more.Windows.Media.Playback.MediaBreakInsertionMethod, presentationPosition: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.Media.Playback.MediaBreak: ...
 class IMediaBreakManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaBreakManager'
     _iid_ = Guid('{a854ddb1-feb4-4d9b-9d97-0fdbe58e5e39}')
     @winrt_commethod(6)
@@ -176,11 +175,11 @@ class IMediaBreakManager(ComPtr):
     BreakEnded = event()
     BreakSkipped = event()
 class IMediaBreakSchedule(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaBreakSchedule'
     _iid_ = Guid('{a19a5813-98b6-41d8-83da-f971d22b7bba}')
     @winrt_commethod(6)
-    def add_ScheduleChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaBreakSchedule, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ScheduleChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaBreakSchedule, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ScheduleChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -205,7 +204,7 @@ class IMediaBreakSchedule(ComPtr):
     PrerollBreak = property(get_PrerollBreak, put_PrerollBreak)
     ScheduleChanged = event()
 class IMediaBreakSeekedOverEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaBreakSeekedOverEventArgs'
     _iid_ = Guid('{e5aa6746-0606-4492-b9d3-c3c8fde0a4ea}')
     @winrt_commethod(6)
@@ -218,21 +217,21 @@ class IMediaBreakSeekedOverEventArgs(ComPtr):
     OldPosition = property(get_OldPosition, None)
     SeekedOverBreaks = property(get_SeekedOverBreaks, None)
 class IMediaBreakSkippedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaBreakSkippedEventArgs'
     _iid_ = Guid('{6ee94c05-2f54-4a3e-a3ab-24c3b270b4a3}')
     @winrt_commethod(6)
     def get_MediaBreak(self) -> win32more.Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
 class IMediaBreakStartedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaBreakStartedEventArgs'
     _iid_ = Guid('{a87efe71-dfd4-454a-956e-0a4a648395f8}')
     @winrt_commethod(6)
     def get_MediaBreak(self) -> win32more.Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
 class IMediaEnginePlaybackSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaEnginePlaybackSource'
     _iid_ = Guid('{5c1d0ba7-3856-48b9-8dc6-244bf107bf8c}')
     @winrt_commethod(6)
@@ -241,7 +240,7 @@ class IMediaEnginePlaybackSource(ComPtr):
     def SetPlaybackSource(self, source: win32more.Windows.Media.Playback.IMediaPlaybackSource) -> Void: ...
     CurrentItem = property(get_CurrentItem, None)
 class IMediaItemDisplayProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaItemDisplayProperties'
     _iid_ = Guid('{1e3c1b48-7097-4384-a217-c1291dfa8c16}')
     @winrt_commethod(6)
@@ -263,7 +262,7 @@ class IMediaItemDisplayProperties(ComPtr):
     Type = property(get_Type, put_Type)
     VideoProperties = property(get_VideoProperties, None)
 class IMediaPlaybackCommandManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManager'
     _iid_ = Guid('{5acee5a6-5cb6-4a5a-8521-cc86b1c1ed37}')
     @winrt_commethod(6)
@@ -355,7 +354,7 @@ class IMediaPlaybackCommandManager(ComPtr):
     PositionReceived = event()
     RateReceived = event()
 class IMediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs'
     _iid_ = Guid('{3d6f4f23-5230-4411-a0e9-bad94c2a045c}')
     @winrt_commethod(6)
@@ -369,7 +368,7 @@ class IMediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(ComPtr):
     AutoRepeatMode = property(get_AutoRepeatMode, None)
     Handled = property(get_Handled, put_Handled)
 class IMediaPlaybackCommandManagerCommandBehavior(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerCommandBehavior'
     _iid_ = Guid('{786c1e78-ce78-4a10-afd6-843fcbb90c2e}')
     @winrt_commethod(6)
@@ -381,7 +380,7 @@ class IMediaPlaybackCommandManagerCommandBehavior(ComPtr):
     @winrt_commethod(9)
     def put_EnablingRule(self, value: win32more.Windows.Media.Playback.MediaCommandEnablingRule) -> Void: ...
     @winrt_commethod(10)
-    def add_IsEnabledChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackCommandManagerCommandBehavior, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsEnabledChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackCommandManagerCommandBehavior, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_IsEnabledChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CommandManager = property(get_CommandManager, None)
@@ -389,7 +388,7 @@ class IMediaPlaybackCommandManagerCommandBehavior(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
     IsEnabledChanged = event()
 class IMediaPlaybackCommandManagerFastForwardReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerFastForwardReceivedEventArgs'
     _iid_ = Guid('{30f064d9-b491-4d0a-bc21-3098bd1332e9}')
     @winrt_commethod(6)
@@ -400,7 +399,7 @@ class IMediaPlaybackCommandManagerFastForwardReceivedEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class IMediaPlaybackCommandManagerNextReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerNextReceivedEventArgs'
     _iid_ = Guid('{e1504433-a2b0-45d4-b9de-5f42ac14a839}')
     @winrt_commethod(6)
@@ -411,7 +410,7 @@ class IMediaPlaybackCommandManagerNextReceivedEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class IMediaPlaybackCommandManagerPauseReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerPauseReceivedEventArgs'
     _iid_ = Guid('{5ceccd1c-c25c-4221-b16c-c3c98ce012d6}')
     @winrt_commethod(6)
@@ -422,7 +421,7 @@ class IMediaPlaybackCommandManagerPauseReceivedEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class IMediaPlaybackCommandManagerPlayReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerPlayReceivedEventArgs'
     _iid_ = Guid('{9af0004e-578b-4c56-a006-16159d888a48}')
     @winrt_commethod(6)
@@ -433,7 +432,7 @@ class IMediaPlaybackCommandManagerPlayReceivedEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class IMediaPlaybackCommandManagerPositionReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerPositionReceivedEventArgs'
     _iid_ = Guid('{5591a754-d627-4bdd-a90d-86a015b24902}')
     @winrt_commethod(6)
@@ -447,7 +446,7 @@ class IMediaPlaybackCommandManagerPositionReceivedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     Position = property(get_Position, None)
 class IMediaPlaybackCommandManagerPreviousReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerPreviousReceivedEventArgs'
     _iid_ = Guid('{525e3081-4632-4f76-99b1-d771623f6287}')
     @winrt_commethod(6)
@@ -458,7 +457,7 @@ class IMediaPlaybackCommandManagerPreviousReceivedEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class IMediaPlaybackCommandManagerRateReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerRateReceivedEventArgs'
     _iid_ = Guid('{18ea3939-4a16-4169-8b05-3eb9f5ff78eb}')
     @winrt_commethod(6)
@@ -472,7 +471,7 @@ class IMediaPlaybackCommandManagerRateReceivedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     PlaybackRate = property(get_PlaybackRate, None)
 class IMediaPlaybackCommandManagerRewindReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerRewindReceivedEventArgs'
     _iid_ = Guid('{9f085947-a3c0-425d-aaef-97ba7898b141}')
     @winrt_commethod(6)
@@ -483,7 +482,7 @@ class IMediaPlaybackCommandManagerRewindReceivedEventArgs(ComPtr):
     def GetDeferral(self) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class IMediaPlaybackCommandManagerShuffleReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackCommandManagerShuffleReceivedEventArgs'
     _iid_ = Guid('{50a05cef-63ee-4a96-b7b5-fee08b9ff90c}')
     @winrt_commethod(6)
@@ -497,7 +496,7 @@ class IMediaPlaybackCommandManagerShuffleReceivedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     IsShuffleRequested = property(get_IsShuffleRequested, None)
 class IMediaPlaybackItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackItem'
     _iid_ = Guid('{047097d2-e4af-48ab-b283-6929e674ece2}')
     @winrt_commethod(6)
@@ -528,7 +527,7 @@ class IMediaPlaybackItem(ComPtr):
     VideoTracksChanged = event()
     TimedMetadataTracksChanged = event()
 class IMediaPlaybackItem2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackItem2'
     _iid_ = Guid('{d859d171-d7ef-4b81-ac1f-f40493cbb091}')
     @winrt_commethod(6)
@@ -550,7 +549,7 @@ class IMediaPlaybackItem2(ComPtr):
     DurationLimit = property(get_DurationLimit, None)
     StartTime = property(get_StartTime, None)
 class IMediaPlaybackItem3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackItem3'
     _iid_ = Guid('{0d328220-b80a-4d09-9ff8-f87094a1c831}')
     @winrt_commethod(6)
@@ -567,7 +566,7 @@ class IMediaPlaybackItem3(ComPtr):
     IsDisabledInPlaybackList = property(get_IsDisabledInPlaybackList, put_IsDisabledInPlaybackList)
     TotalDownloadProgress = property(get_TotalDownloadProgress, None)
 class IMediaPlaybackItemError(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackItemError'
     _iid_ = Guid('{69fbef2b-dcd6-4df9-a450-dbf4c6f1c2c2}')
     @winrt_commethod(6)
@@ -577,13 +576,13 @@ class IMediaPlaybackItemError(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
     ExtendedError = property(get_ExtendedError, None)
 class IMediaPlaybackItemFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackItemFactory'
     _iid_ = Guid('{7133fce1-1769-4ff9-a7c1-38d2c4d42360}')
     @winrt_commethod(6)
     def Create(self, source: win32more.Windows.Media.Core.MediaSource) -> win32more.Windows.Media.Playback.MediaPlaybackItem: ...
 class IMediaPlaybackItemFactory2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackItemFactory2'
     _iid_ = Guid('{d77cdf3a-b947-4972-b35d-adfb931a71e6}')
     @winrt_commethod(6)
@@ -591,7 +590,7 @@ class IMediaPlaybackItemFactory2(ComPtr):
     @winrt_commethod(7)
     def CreateWithStartTimeAndDurationLimit(self, source: win32more.Windows.Media.Core.MediaSource, startTime: win32more.Windows.Foundation.TimeSpan, durationLimit: win32more.Windows.Foundation.TimeSpan) -> win32more.Windows.Media.Playback.MediaPlaybackItem: ...
 class IMediaPlaybackItemFailedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackItemFailedEventArgs'
     _iid_ = Guid('{7703134a-e9a7-47c3-862c-c656d30683d4}')
     @winrt_commethod(6)
@@ -601,20 +600,20 @@ class IMediaPlaybackItemFailedEventArgs(ComPtr):
     Error = property(get_Error, None)
     Item = property(get_Item, None)
 class IMediaPlaybackItemOpenedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackItemOpenedEventArgs'
     _iid_ = Guid('{cbd9bd82-3037-4fbe-ae8f-39fc39edf4ef}')
     @winrt_commethod(6)
     def get_Item(self) -> win32more.Windows.Media.Playback.MediaPlaybackItem: ...
     Item = property(get_Item, None)
 class IMediaPlaybackItemStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackItemStatics'
     _iid_ = Guid('{4b1be7f4-4345-403c-8a67-f5de91df4c86}')
     @winrt_commethod(6)
     def FindFromMediaSource(self, source: win32more.Windows.Media.Core.MediaSource) -> win32more.Windows.Media.Playback.MediaPlaybackItem: ...
 class IMediaPlaybackList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackList'
     _iid_ = Guid('{7f77ee9c-dc42-4e26-a98d-7850df8ec925}')
     @winrt_commethod(6)
@@ -658,7 +657,7 @@ class IMediaPlaybackList(ComPtr):
     CurrentItemChanged = event()
     ItemOpened = event()
 class IMediaPlaybackList2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackList2'
     _iid_ = Guid('{0e09b478-600a-4274-a14b-0b6723d0f48b}')
     @winrt_commethod(6)
@@ -677,7 +676,7 @@ class IMediaPlaybackList2(ComPtr):
     ShuffledItems = property(get_ShuffledItems, None)
     StartingItem = property(get_StartingItem, put_StartingItem)
 class IMediaPlaybackList3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackList3'
     _iid_ = Guid('{dd24bba9-bc47-4463-aa90-c18b7e5ffde1}')
     @winrt_commethod(6)
@@ -686,47 +685,47 @@ class IMediaPlaybackList3(ComPtr):
     def put_MaxPlayedItemsToKeepOpen(self, value: win32more.Windows.Foundation.IReference[UInt32]) -> Void: ...
     MaxPlayedItemsToKeepOpen = property(get_MaxPlayedItemsToKeepOpen, put_MaxPlayedItemsToKeepOpen)
 class IMediaPlaybackSession(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackSession'
     _iid_ = Guid('{c32b683d-0407-41ba-8946-8b345a5a5435}')
     @winrt_commethod(6)
-    def add_PlaybackStateChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PlaybackStateChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PlaybackStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_PlaybackRateChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PlaybackRateChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_PlaybackRateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_SeekCompleted(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SeekCompleted(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_SeekCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_BufferingStarted(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingStarted(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_BufferingStarted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
-    def add_BufferingEnded(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingEnded(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_BufferingEnded(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
-    def add_BufferingProgressChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingProgressChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_BufferingProgressChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
-    def add_DownloadProgressChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DownloadProgressChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_DownloadProgressChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(20)
-    def add_NaturalDurationChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NaturalDurationChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(21)
     def remove_NaturalDurationChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(22)
-    def add_PositionChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PositionChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(23)
     def remove_PositionChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(24)
-    def add_NaturalVideoSizeChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NaturalVideoSizeChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(25)
     def remove_NaturalVideoSizeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(26)
@@ -790,23 +789,23 @@ class IMediaPlaybackSession(ComPtr):
     PositionChanged = event()
     NaturalVideoSizeChanged = event()
 class IMediaPlaybackSession2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackSession2'
     _iid_ = Guid('{f8ba7c79-1fc8-4097-ad70-c0fa18cc0050}')
     @winrt_commethod(6)
-    def add_BufferedRangesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferedRangesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_BufferedRangesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_PlayedRangesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PlayedRangesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_PlayedRangesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
-    def add_SeekableRangesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SeekableRangesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_SeekableRangesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
-    def add_SupportedPlaybackRatesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SupportedPlaybackRatesChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_SupportedPlaybackRatesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(14)
@@ -830,7 +829,7 @@ class IMediaPlaybackSession2(ComPtr):
     SeekableRangesChanged = event()
     SupportedPlaybackRatesChanged = event()
 class IMediaPlaybackSession3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackSession3'
     _iid_ = Guid('{7ba2b41a-a3e2-405f-b77b-a4812c238b66}')
     @winrt_commethod(6)
@@ -841,25 +840,25 @@ class IMediaPlaybackSession3(ComPtr):
     def GetOutputDegradationPolicyState(self) -> win32more.Windows.Media.Playback.MediaPlaybackSessionOutputDegradationPolicyState: ...
     PlaybackRotation = property(get_PlaybackRotation, put_PlaybackRotation)
 class IMediaPlaybackSessionBufferingStartedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackSessionBufferingStartedEventArgs'
     _iid_ = Guid('{cd6aafed-74e2-43b5-b115-76236c33791a}')
     @winrt_commethod(6)
     def get_IsPlaybackInterruption(self) -> Boolean: ...
     IsPlaybackInterruption = property(get_IsPlaybackInterruption, None)
 class IMediaPlaybackSessionOutputDegradationPolicyState(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackSessionOutputDegradationPolicyState'
     _iid_ = Guid('{558e727d-f633-49f9-965a-abaa1db709be}')
     @winrt_commethod(6)
     def get_VideoConstrictionReason(self) -> win32more.Windows.Media.Playback.MediaPlaybackSessionVideoConstrictionReason: ...
     VideoConstrictionReason = property(get_VideoConstrictionReason, None)
 class IMediaPlaybackSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackSource'
     _iid_ = Guid('{ef9dc2bc-9317-4696-b051-2bad643177b5}')
 class IMediaPlaybackSphericalVideoProjection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackSphericalVideoProjection'
     _iid_ = Guid('{d405b37c-6f0e-4661-b8ee-d487ba9752d5}')
     @winrt_commethod(6)
@@ -888,7 +887,7 @@ class IMediaPlaybackSphericalVideoProjection(ComPtr):
     ProjectionMode = property(get_ProjectionMode, put_ProjectionMode)
     ViewOrientation = property(get_ViewOrientation, put_ViewOrientation)
 class IMediaPlaybackTimedMetadataTrackList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlaybackTimedMetadataTrackList'
     _iid_ = Guid('{72b41319-bbfb-46a3-9372-9c9c744b9438}')
     @winrt_commethod(6)
@@ -901,7 +900,7 @@ class IMediaPlaybackTimedMetadataTrackList(ComPtr):
     def SetPresentationMode(self, index: UInt32, value: win32more.Windows.Media.Playback.TimedMetadataTrackPresentationMode) -> Void: ...
     PresentationModeChanged = event()
 class IMediaPlayer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayer'
     _iid_ = Guid('{381a83cb-6fff-499b-8d64-2885dfc1249e}')
     @winrt_commethod(6)
@@ -943,11 +942,11 @@ class IMediaPlayer(ComPtr):
     @winrt_commethod(24)
     def get_PlaybackMediaMarkers(self) -> win32more.Windows.Media.Playback.PlaybackMediaMarkerSequence: ...
     @winrt_commethod(25)
-    def add_MediaOpened(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MediaOpened(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(26)
     def remove_MediaOpened(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(27)
-    def add_MediaEnded(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MediaEnded(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(28)
     def remove_MediaEnded(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(29)
@@ -955,7 +954,7 @@ class IMediaPlayer(ComPtr):
     @winrt_commethod(30)
     def remove_MediaFailed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(31)
-    def add_CurrentStateChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CurrentStateChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(32)
     def remove_CurrentStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(33)
@@ -967,19 +966,19 @@ class IMediaPlayer(ComPtr):
     @winrt_commethod(36)
     def remove_MediaPlayerRateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(37)
-    def add_VolumeChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VolumeChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(38)
     def remove_VolumeChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(39)
-    def add_SeekCompleted(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SeekCompleted(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(40)
     def remove_SeekCompleted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(41)
-    def add_BufferingStarted(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingStarted(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(42)
     def remove_BufferingStarted(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(43)
-    def add_BufferingEnded(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingEnded(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(44)
     def remove_BufferingEnded(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(45)
@@ -1012,7 +1011,7 @@ class IMediaPlayer(ComPtr):
     BufferingStarted = event()
     BufferingEnded = event()
 class IMediaPlayer2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayer2'
     _iid_ = Guid('{3c841218-2123-4fc5-9082-2f883f77bdf5}')
     @winrt_commethod(6)
@@ -1029,15 +1028,15 @@ class IMediaPlayer2(ComPtr):
     AudioDeviceType = property(get_AudioDeviceType, put_AudioDeviceType)
     SystemMediaTransportControls = property(get_SystemMediaTransportControls, None)
 class IMediaPlayer3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayer3'
     _iid_ = Guid('{ee0660da-031b-4feb-bd9b-92e0a0a8d299}')
     @winrt_commethod(6)
-    def add_IsMutedChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsMutedChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_IsMutedChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
-    def add_SourceChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SourceChanged(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_SourceChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
@@ -1088,7 +1087,7 @@ class IMediaPlayer3(ComPtr):
     IsMutedChanged = event()
     SourceChanged = event()
 class IMediaPlayer4(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayer4'
     _iid_ = Guid('{80035db0-7448-4770-afcf-2a57450914c5}')
     @winrt_commethod(6)
@@ -1096,11 +1095,11 @@ class IMediaPlayer4(ComPtr):
     @winrt_commethod(7)
     def GetSurface(self, compositor: win32more.Windows.UI.Composition.Compositor) -> win32more.Windows.Media.Playback.MediaPlayerSurface: ...
 class IMediaPlayer5(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayer5'
     _iid_ = Guid('{cfe537fd-f86a-4446-bf4d-c8e792b7b4b3}')
     @winrt_commethod(6)
-    def add_VideoFrameAvailable(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VideoFrameAvailable(self, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_VideoFrameAvailable(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -1116,11 +1115,11 @@ class IMediaPlayer5(ComPtr):
     IsVideoFrameServerEnabled = property(get_IsVideoFrameServerEnabled, put_IsVideoFrameServerEnabled)
     VideoFrameAvailable = event()
 class IMediaPlayer6(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayer6'
     _iid_ = Guid('{e0caa086-ae65-414c-b010-8bc55f00e692}')
     @winrt_commethod(6)
-    def add_SubtitleFrameChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SubtitleFrameChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_SubtitleFrameChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
@@ -1129,21 +1128,21 @@ class IMediaPlayer6(ComPtr):
     def RenderSubtitlesToSurfaceWithTargetRectangle(self, destination: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface, targetRectangle: win32more.Windows.Foundation.Rect) -> Boolean: ...
     SubtitleFrameChanged = event()
 class IMediaPlayer7(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayer7'
     _iid_ = Guid('{5d1dc478-4500-4531-b3f4-777a71491f7f}')
     @winrt_commethod(6)
     def get_AudioStateMonitor(self) -> win32more.Windows.Media.Audio.AudioStateMonitor: ...
     AudioStateMonitor = property(get_AudioStateMonitor, None)
 class IMediaPlayerDataReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayerDataReceivedEventArgs'
     _iid_ = Guid('{c75a9405-c801-412a-835b-83fc0e622a8e}')
     @winrt_commethod(6)
     def get_Data(self) -> win32more.Windows.Foundation.Collections.ValueSet: ...
     Data = property(get_Data, None)
 class IMediaPlayerEffects(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayerEffects'
     _iid_ = Guid('{85a1deda-cab6-4cc0-8be3-6035f4de2591}')
     @winrt_commethod(6)
@@ -1151,13 +1150,13 @@ class IMediaPlayerEffects(ComPtr):
     @winrt_commethod(7)
     def RemoveAllEffects(self) -> Void: ...
 class IMediaPlayerEffects2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayerEffects2'
     _iid_ = Guid('{fa419a79-1bbe-46c5-ae1f-8ee69fb3c2c7}')
     @winrt_commethod(6)
     def AddVideoEffect(self, activatableClassId: WinRT_String, effectOptional: Boolean, effectConfiguration: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
 class IMediaPlayerFailedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayerFailedEventArgs'
     _iid_ = Guid('{2744e9b9-a7e3-4f16-bac4-7914ebc08301}')
     @winrt_commethod(6)
@@ -1170,14 +1169,14 @@ class IMediaPlayerFailedEventArgs(ComPtr):
     ErrorMessage = property(get_ErrorMessage, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
 class IMediaPlayerRateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayerRateChangedEventArgs'
     _iid_ = Guid('{40600d58-3b61-4bb2-989f-fc65608b6cab}')
     @winrt_commethod(6)
     def get_NewRate(self) -> Double: ...
     NewRate = property(get_NewRate, None)
 class IMediaPlayerSource(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayerSource'
     _iid_ = Guid('{bd4f8897-1423-4c3e-82c5-0fb1af94f715}')
     @winrt_commethod(6)
@@ -1192,7 +1191,7 @@ class IMediaPlayerSource(ComPtr):
     def SetMediaSource(self, source: win32more.Windows.Media.Core.IMediaSource) -> Void: ...
     ProtectionManager = property(get_ProtectionManager, put_ProtectionManager)
 class IMediaPlayerSource2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayerSource2'
     _iid_ = Guid('{82449b9f-7322-4c0b-b03b-3e69a48260c5}')
     @winrt_commethod(6)
@@ -1201,7 +1200,7 @@ class IMediaPlayerSource2(ComPtr):
     def put_Source(self, value: win32more.Windows.Media.Playback.IMediaPlaybackSource) -> Void: ...
     Source = property(get_Source, put_Source)
 class IMediaPlayerSurface(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IMediaPlayerSurface'
     _iid_ = Guid('{0ed653bc-b736-49c3-830b-764a3845313a}')
     @winrt_commethod(6)
@@ -1214,7 +1213,7 @@ class IMediaPlayerSurface(ComPtr):
     Compositor = property(get_Compositor, None)
     MediaPlayer = property(get_MediaPlayer, None)
 class IPlaybackMediaMarker(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IPlaybackMediaMarker'
     _iid_ = Guid('{c4d22f5c-3c1c-4444-b6b9-778b0422d41a}')
     @winrt_commethod(6)
@@ -1227,7 +1226,7 @@ class IPlaybackMediaMarker(ComPtr):
     Text = property(get_Text, None)
     Time = property(get_Time, None)
 class IPlaybackMediaMarkerFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IPlaybackMediaMarkerFactory'
     _iid_ = Guid('{8c530a78-e0ae-4e1a-a8c8-e23f982a937b}')
     @winrt_commethod(6)
@@ -1235,14 +1234,14 @@ class IPlaybackMediaMarkerFactory(ComPtr):
     @winrt_commethod(7)
     def Create(self, value: win32more.Windows.Foundation.TimeSpan, mediaMarketType: WinRT_String, text: WinRT_String) -> win32more.Windows.Media.Playback.PlaybackMediaMarker: ...
 class IPlaybackMediaMarkerReachedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.IPlaybackMediaMarkerReachedEventArgs'
     _iid_ = Guid('{578cd1b9-90e2-4e60-abc4-8740b01f6196}')
     @winrt_commethod(6)
     def get_PlaybackMediaMarker(self) -> win32more.Windows.Media.Playback.PlaybackMediaMarker: ...
     PlaybackMediaMarker = property(get_PlaybackMediaMarker, None)
 class IPlaybackMediaMarkerSequence(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[IterableProtocol[win32more.Windows.Media.Playback.PlaybackMediaMarker]]
     _classid_ = 'Windows.Media.Playback.IPlaybackMediaMarkerSequence'
     _iid_ = Guid('{f2810cee-638b-46cf-8817-1d111fe9d8c4}')
@@ -1254,7 +1253,7 @@ class IPlaybackMediaMarkerSequence(ComPtr):
     def Clear(self) -> Void: ...
     Size = property(get_Size, None)
 class ITimedMetadataPresentationModeChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.Playback.ITimedMetadataPresentationModeChangedEventArgs'
     _iid_ = Guid('{d1636099-65df-45ae-8cef-dc0b53fdc2bb}')
     @winrt_commethod(6)
@@ -1267,7 +1266,7 @@ class ITimedMetadataPresentationModeChangedEventArgs(ComPtr):
     OldPresentationMode = property(get_OldPresentationMode, None)
     Track = property(get_Track, None)
 class MediaBreak(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaBreak
     _classid_ = 'Windows.Media.Playback.MediaBreak'
     def __init__(self, *args, **kwargs):
@@ -1301,7 +1300,7 @@ class MediaBreak(ComPtr):
     PlaybackList = property(get_PlaybackList, None)
     PresentationPosition = property(get_PresentationPosition, None)
 class MediaBreakEndedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaBreakEndedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaBreakEndedEventArgs'
     @winrt_mixinmethod
@@ -1311,7 +1310,7 @@ class MediaBreakInsertionMethod(Enum, Int32):
     Interrupt = 0
     Replace = 1
 class MediaBreakManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaBreakManager
     _classid_ = 'Windows.Media.Playback.MediaBreakManager'
     @winrt_mixinmethod
@@ -1345,11 +1344,11 @@ class MediaBreakManager(ComPtr):
     BreakEnded = event()
     BreakSkipped = event()
 class MediaBreakSchedule(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaBreakSchedule
     _classid_ = 'Windows.Media.Playback.MediaBreakSchedule'
     @winrt_mixinmethod
-    def add_ScheduleChanged(self: win32more.Windows.Media.Playback.IMediaBreakSchedule, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaBreakSchedule, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ScheduleChanged(self: win32more.Windows.Media.Playback.IMediaBreakSchedule, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaBreakSchedule, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ScheduleChanged(self: win32more.Windows.Media.Playback.IMediaBreakSchedule, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1374,7 +1373,7 @@ class MediaBreakSchedule(ComPtr):
     PrerollBreak = property(get_PrerollBreak, put_PrerollBreak)
     ScheduleChanged = event()
 class MediaBreakSeekedOverEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaBreakSeekedOverEventArgs
     _classid_ = 'Windows.Media.Playback.MediaBreakSeekedOverEventArgs'
     @winrt_mixinmethod
@@ -1387,14 +1386,14 @@ class MediaBreakSeekedOverEventArgs(ComPtr):
     OldPosition = property(get_OldPosition, None)
     SeekedOverBreaks = property(get_SeekedOverBreaks, None)
 class MediaBreakSkippedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaBreakSkippedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaBreakSkippedEventArgs'
     @winrt_mixinmethod
     def get_MediaBreak(self: win32more.Windows.Media.Playback.IMediaBreakSkippedEventArgs) -> win32more.Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
 class MediaBreakStartedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaBreakStartedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaBreakStartedEventArgs'
     @winrt_mixinmethod
@@ -1405,7 +1404,7 @@ class MediaCommandEnablingRule(Enum, Int32):
     Always = 1
     Never = 2
 class MediaItemDisplayProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaItemDisplayProperties
     _classid_ = 'Windows.Media.Playback.MediaItemDisplayProperties'
     @winrt_mixinmethod
@@ -1427,7 +1426,7 @@ class MediaItemDisplayProperties(ComPtr):
     Type = property(get_Type, put_Type)
     VideoProperties = property(get_VideoProperties, None)
 class MediaPlaybackAudioTrackList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.Media.Core.AudioTrack]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Core.AudioTrack]
     _classid_ = 'Windows.Media.Playback.MediaPlaybackAudioTrackList'
@@ -1442,7 +1441,7 @@ class MediaPlaybackAudioTrackList(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Core.AudioTrack]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Media.Core.AudioTrack]: ...
     @winrt_mixinmethod
-    def add_SelectedIndexChanged(self: win32more.Windows.Media.Core.ISingleSelectMediaTrackList, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.ISingleSelectMediaTrackList, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SelectedIndexChanged(self: win32more.Windows.Media.Core.ISingleSelectMediaTrackList, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.ISingleSelectMediaTrackList, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SelectedIndexChanged(self: win32more.Windows.Media.Core.ISingleSelectMediaTrackList, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1453,7 +1452,7 @@ class MediaPlaybackAudioTrackList(ComPtr):
     Size = property(get_Size, None)
     SelectedIndexChanged = event()
 class MediaPlaybackCommandManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManager
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManager'
     @winrt_mixinmethod
@@ -1545,7 +1544,7 @@ class MediaPlaybackCommandManager(ComPtr):
     PositionReceived = event()
     RateReceived = event()
 class MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs'
     @winrt_mixinmethod
@@ -1559,7 +1558,7 @@ class MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(ComPtr):
     AutoRepeatMode = property(get_AutoRepeatMode, None)
     Handled = property(get_Handled, put_Handled)
 class MediaPlaybackCommandManagerCommandBehavior(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerCommandBehavior
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerCommandBehavior'
     @winrt_mixinmethod
@@ -1571,7 +1570,7 @@ class MediaPlaybackCommandManagerCommandBehavior(ComPtr):
     @winrt_mixinmethod
     def put_EnablingRule(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerCommandBehavior, value: win32more.Windows.Media.Playback.MediaCommandEnablingRule) -> Void: ...
     @winrt_mixinmethod
-    def add_IsEnabledChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerCommandBehavior, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackCommandManagerCommandBehavior, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsEnabledChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerCommandBehavior, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackCommandManagerCommandBehavior, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsEnabledChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerCommandBehavior, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     CommandManager = property(get_CommandManager, None)
@@ -1579,7 +1578,7 @@ class MediaPlaybackCommandManagerCommandBehavior(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
     IsEnabledChanged = event()
 class MediaPlaybackCommandManagerFastForwardReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerFastForwardReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerFastForwardReceivedEventArgs'
     @winrt_mixinmethod
@@ -1590,7 +1589,7 @@ class MediaPlaybackCommandManagerFastForwardReceivedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerFastForwardReceivedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class MediaPlaybackCommandManagerNextReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerNextReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerNextReceivedEventArgs'
     @winrt_mixinmethod
@@ -1601,7 +1600,7 @@ class MediaPlaybackCommandManagerNextReceivedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerNextReceivedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class MediaPlaybackCommandManagerPauseReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerPauseReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerPauseReceivedEventArgs'
     @winrt_mixinmethod
@@ -1612,7 +1611,7 @@ class MediaPlaybackCommandManagerPauseReceivedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerPauseReceivedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class MediaPlaybackCommandManagerPlayReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerPlayReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerPlayReceivedEventArgs'
     @winrt_mixinmethod
@@ -1623,7 +1622,7 @@ class MediaPlaybackCommandManagerPlayReceivedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerPlayReceivedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class MediaPlaybackCommandManagerPositionReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerPositionReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerPositionReceivedEventArgs'
     @winrt_mixinmethod
@@ -1637,7 +1636,7 @@ class MediaPlaybackCommandManagerPositionReceivedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     Position = property(get_Position, None)
 class MediaPlaybackCommandManagerPreviousReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerPreviousReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerPreviousReceivedEventArgs'
     @winrt_mixinmethod
@@ -1648,7 +1647,7 @@ class MediaPlaybackCommandManagerPreviousReceivedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerPreviousReceivedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class MediaPlaybackCommandManagerRateReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerRateReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerRateReceivedEventArgs'
     @winrt_mixinmethod
@@ -1662,7 +1661,7 @@ class MediaPlaybackCommandManagerRateReceivedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     PlaybackRate = property(get_PlaybackRate, None)
 class MediaPlaybackCommandManagerRewindReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerRewindReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerRewindReceivedEventArgs'
     @winrt_mixinmethod
@@ -1673,7 +1672,7 @@ class MediaPlaybackCommandManagerRewindReceivedEventArgs(ComPtr):
     def GetDeferral(self: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerRewindReceivedEventArgs) -> win32more.Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
 class MediaPlaybackCommandManagerShuffleReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackCommandManagerShuffleReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackCommandManagerShuffleReceivedEventArgs'
     @winrt_mixinmethod
@@ -1687,7 +1686,7 @@ class MediaPlaybackCommandManagerShuffleReceivedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
     IsShuffleRequested = property(get_IsShuffleRequested, None)
 class MediaPlaybackItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackItem
     _classid_ = 'Windows.Media.Playback.MediaPlaybackItem'
     def __init__(self, *args, **kwargs):
@@ -1773,7 +1772,7 @@ class MediaPlaybackItemChangedReason(Enum, Int32):
     Error = 2
     AppRequested = 3
 class MediaPlaybackItemError(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackItemError
     _classid_ = 'Windows.Media.Playback.MediaPlaybackItemError'
     @winrt_mixinmethod
@@ -1790,7 +1789,7 @@ class MediaPlaybackItemErrorCode(Enum, Int32):
     SourceNotSupportedError = 4
     EncryptionError = 5
 class MediaPlaybackItemFailedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackItemFailedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackItemFailedEventArgs'
     @winrt_mixinmethod
@@ -1800,14 +1799,14 @@ class MediaPlaybackItemFailedEventArgs(ComPtr):
     Error = property(get_Error, None)
     Item = property(get_Item, None)
 class MediaPlaybackItemOpenedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackItemOpenedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackItemOpenedEventArgs'
     @winrt_mixinmethod
     def get_Item(self: win32more.Windows.Media.Playback.IMediaPlaybackItemOpenedEventArgs) -> win32more.Windows.Media.Playback.MediaPlaybackItem: ...
     Item = property(get_Item, None)
 class MediaPlaybackList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackList
     _classid_ = 'Windows.Media.Playback.MediaPlaybackList'
     def __init__(self, *args, **kwargs):
@@ -1880,47 +1879,47 @@ class MediaPlaybackList(ComPtr):
     CurrentItemChanged = event()
     ItemOpened = event()
 class MediaPlaybackSession(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackSession
     _classid_ = 'Windows.Media.Playback.MediaPlaybackSession'
     @winrt_mixinmethod
-    def add_PlaybackStateChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PlaybackStateChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PlaybackStateChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PlaybackRateChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PlaybackRateChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PlaybackRateChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_SeekCompleted(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SeekCompleted(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SeekCompleted(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_BufferingStarted(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingStarted(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_BufferingStarted(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_BufferingEnded(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingEnded(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_BufferingEnded(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_BufferingProgressChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingProgressChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_BufferingProgressChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_DownloadProgressChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_DownloadProgressChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DownloadProgressChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_NaturalDurationChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NaturalDurationChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_NaturalDurationChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PositionChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PositionChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PositionChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_NaturalVideoSizeChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_NaturalVideoSizeChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_NaturalVideoSizeChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -1960,19 +1959,19 @@ class MediaPlaybackSession(ComPtr):
     @winrt_mixinmethod
     def put_StereoscopicVideoPackingMode(self: win32more.Windows.Media.Playback.IMediaPlaybackSession, value: win32more.Windows.Media.MediaProperties.StereoscopicVideoPackingMode) -> Void: ...
     @winrt_mixinmethod
-    def add_BufferedRangesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferedRangesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_BufferedRangesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_PlayedRangesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PlayedRangesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_PlayedRangesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_SeekableRangesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SeekableRangesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SeekableRangesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_SupportedPlaybackRatesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SupportedPlaybackRatesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlaybackSession, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SupportedPlaybackRatesChanged(self: win32more.Windows.Media.Playback.IMediaPlaybackSession2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2027,14 +2026,14 @@ class MediaPlaybackSession(ComPtr):
     SeekableRangesChanged = event()
     SupportedPlaybackRatesChanged = event()
 class MediaPlaybackSessionBufferingStartedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackSessionBufferingStartedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlaybackSessionBufferingStartedEventArgs'
     @winrt_mixinmethod
     def get_IsPlaybackInterruption(self: win32more.Windows.Media.Playback.IMediaPlaybackSessionBufferingStartedEventArgs) -> Boolean: ...
     IsPlaybackInterruption = property(get_IsPlaybackInterruption, None)
 class MediaPlaybackSessionOutputDegradationPolicyState(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackSessionOutputDegradationPolicyState
     _classid_ = 'Windows.Media.Playback.MediaPlaybackSessionOutputDegradationPolicyState'
     @winrt_mixinmethod
@@ -2049,7 +2048,7 @@ class MediaPlaybackSessionVideoConstrictionReason(Enum, Int32):
     OutputProtectionFailed = 5
     Unknown = 6
 class MediaPlaybackSphericalVideoProjection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlaybackSphericalVideoProjection
     _classid_ = 'Windows.Media.Playback.MediaPlaybackSphericalVideoProjection'
     @winrt_mixinmethod
@@ -2084,7 +2083,7 @@ class MediaPlaybackState(Enum, Int32):
     Playing = 3
     Paused = 4
 class MediaPlaybackTimedMetadataTrackList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.Media.Core.TimedMetadataTrack]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Core.TimedMetadataTrack]
     _classid_ = 'Windows.Media.Playback.MediaPlaybackTimedMetadataTrackList'
@@ -2109,7 +2108,7 @@ class MediaPlaybackTimedMetadataTrackList(ComPtr):
     Size = property(get_Size, None)
     PresentationModeChanged = event()
 class MediaPlaybackVideoTrackList(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.Media.Core.VideoTrack]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Media.Core.VideoTrack]
     _classid_ = 'Windows.Media.Playback.MediaPlaybackVideoTrackList'
@@ -2124,7 +2123,7 @@ class MediaPlaybackVideoTrackList(ComPtr):
     @winrt_mixinmethod
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Media.Core.VideoTrack]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Media.Core.VideoTrack]: ...
     @winrt_mixinmethod
-    def add_SelectedIndexChanged(self: win32more.Windows.Media.Core.ISingleSelectMediaTrackList, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.ISingleSelectMediaTrackList, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SelectedIndexChanged(self: win32more.Windows.Media.Core.ISingleSelectMediaTrackList, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Core.ISingleSelectMediaTrackList, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SelectedIndexChanged(self: win32more.Windows.Media.Core.ISingleSelectMediaTrackList, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2135,7 +2134,7 @@ class MediaPlaybackVideoTrackList(ComPtr):
     Size = property(get_Size, None)
     SelectedIndexChanged = event()
 class MediaPlayer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Playback.IMediaPlayer
     _classid_ = 'Windows.Media.Playback.MediaPlayer'
@@ -2187,11 +2186,11 @@ class MediaPlayer(ComPtr):
     @winrt_mixinmethod
     def get_PlaybackMediaMarkers(self: win32more.Windows.Media.Playback.IMediaPlayer) -> win32more.Windows.Media.Playback.PlaybackMediaMarkerSequence: ...
     @winrt_mixinmethod
-    def add_MediaOpened(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MediaOpened(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_MediaOpened(self: win32more.Windows.Media.Playback.IMediaPlayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_MediaEnded(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_MediaEnded(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_MediaEnded(self: win32more.Windows.Media.Playback.IMediaPlayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2199,7 +2198,7 @@ class MediaPlayer(ComPtr):
     @winrt_mixinmethod
     def remove_MediaFailed(self: win32more.Windows.Media.Playback.IMediaPlayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_CurrentStateChanged(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CurrentStateChanged(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_CurrentStateChanged(self: win32more.Windows.Media.Playback.IMediaPlayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2211,19 +2210,19 @@ class MediaPlayer(ComPtr):
     @winrt_mixinmethod
     def remove_MediaPlayerRateChanged(self: win32more.Windows.Media.Playback.IMediaPlayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_VolumeChanged(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VolumeChanged(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_VolumeChanged(self: win32more.Windows.Media.Playback.IMediaPlayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_SeekCompleted(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SeekCompleted(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SeekCompleted(self: win32more.Windows.Media.Playback.IMediaPlayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_BufferingStarted(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingStarted(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_BufferingStarted(self: win32more.Windows.Media.Playback.IMediaPlayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_BufferingEnded(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_BufferingEnded(self: win32more.Windows.Media.Playback.IMediaPlayer, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_BufferingEnded(self: win32more.Windows.Media.Playback.IMediaPlayer, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2263,11 +2262,11 @@ class MediaPlayer(ComPtr):
     @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     @winrt_mixinmethod
-    def add_IsMutedChanged(self: win32more.Windows.Media.Playback.IMediaPlayer3, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_IsMutedChanged(self: win32more.Windows.Media.Playback.IMediaPlayer3, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_IsMutedChanged(self: win32more.Windows.Media.Playback.IMediaPlayer3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_SourceChanged(self: win32more.Windows.Media.Playback.IMediaPlayer3, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SourceChanged(self: win32more.Windows.Media.Playback.IMediaPlayer3, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SourceChanged(self: win32more.Windows.Media.Playback.IMediaPlayer3, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2313,7 +2312,7 @@ class MediaPlayer(ComPtr):
     @winrt_mixinmethod
     def AddVideoEffect(self: win32more.Windows.Media.Playback.IMediaPlayerEffects2, activatableClassId: WinRT_String, effectOptional: Boolean, effectConfiguration: win32more.Windows.Foundation.Collections.IPropertySet) -> Void: ...
     @winrt_mixinmethod
-    def add_VideoFrameAvailable(self: win32more.Windows.Media.Playback.IMediaPlayer5, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_VideoFrameAvailable(self: win32more.Windows.Media.Playback.IMediaPlayer5, value: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_VideoFrameAvailable(self: win32more.Windows.Media.Playback.IMediaPlayer5, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2327,7 +2326,7 @@ class MediaPlayer(ComPtr):
     @winrt_mixinmethod
     def CopyFrameToStereoscopicVideoSurfaces(self: win32more.Windows.Media.Playback.IMediaPlayer5, destinationLeftEye: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface, destinationRightEye: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface) -> Void: ...
     @winrt_mixinmethod
-    def add_SubtitleFrameChanged(self: win32more.Windows.Media.Playback.IMediaPlayer6, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SubtitleFrameChanged(self: win32more.Windows.Media.Playback.IMediaPlayer6, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Media.Playback.MediaPlayer, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SubtitleFrameChanged(self: win32more.Windows.Media.Playback.IMediaPlayer6, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -2395,7 +2394,7 @@ class MediaPlayerAudioDeviceType(Enum, Int32):
     Multimedia = 1
     Communications = 2
 class MediaPlayerDataReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlayerDataReceivedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlayerDataReceivedEventArgs'
     @winrt_mixinmethod
@@ -2408,7 +2407,7 @@ class MediaPlayerError(Enum, Int32):
     DecodingError = 3
     SourceNotSupported = 4
 class MediaPlayerFailedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlayerFailedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlayerFailedEventArgs'
     @winrt_mixinmethod
@@ -2421,7 +2420,7 @@ class MediaPlayerFailedEventArgs(ComPtr):
     ErrorMessage = property(get_ErrorMessage, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
 class MediaPlayerRateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IMediaPlayerRateChangedEventArgs
     _classid_ = 'Windows.Media.Playback.MediaPlayerRateChangedEventArgs'
     @winrt_mixinmethod
@@ -2435,7 +2434,7 @@ class MediaPlayerState(Enum, Int32):
     Paused = 4
     Stopped = 5
 class MediaPlayerSurface(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Media.Playback.IMediaPlayerSurface
     _classid_ = 'Windows.Media.Playback.MediaPlayerSurface'
@@ -2451,7 +2450,7 @@ class MediaPlayerSurface(ComPtr):
     Compositor = property(get_Compositor, None)
     MediaPlayer = property(get_MediaPlayer, None)
 class PlaybackMediaMarker(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IPlaybackMediaMarker
     _classid_ = 'Windows.Media.Playback.PlaybackMediaMarker'
     def __init__(self, *args, **kwargs):
@@ -2477,14 +2476,14 @@ class PlaybackMediaMarker(ComPtr):
     Text = property(get_Text, None)
     Time = property(get_Time, None)
 class PlaybackMediaMarkerReachedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.IPlaybackMediaMarkerReachedEventArgs
     _classid_ = 'Windows.Media.Playback.PlaybackMediaMarkerReachedEventArgs'
     @winrt_mixinmethod
     def get_PlaybackMediaMarker(self: win32more.Windows.Media.Playback.IPlaybackMediaMarkerReachedEventArgs) -> win32more.Windows.Media.Playback.PlaybackMediaMarker: ...
     PlaybackMediaMarker = property(get_PlaybackMediaMarker, None)
 class PlaybackMediaMarkerSequence(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[IterableProtocol[win32more.Windows.Media.Playback.PlaybackMediaMarker]]
     default_interface: win32more.Windows.Media.Playback.IPlaybackMediaMarkerSequence
     _classid_ = 'Windows.Media.Playback.PlaybackMediaMarkerSequence'
@@ -2504,7 +2503,7 @@ class StereoscopicVideoRenderMode(Enum, Int32):
     Mono = 0
     Stereo = 1
 class TimedMetadataPresentationModeChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Media.Playback.ITimedMetadataPresentationModeChangedEventArgs
     _classid_ = 'Windows.Media.Playback.TimedMetadataPresentationModeChangedEventArgs'
     @winrt_mixinmethod

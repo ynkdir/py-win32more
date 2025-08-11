@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Security.Cryptography
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class BinaryStringEncoding(Enum, Int32):
     Utf8 = 0
     Utf16LE = 1
     Utf16BE = 2
 class CryptographicBuffer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.Cryptography.CryptographicBuffer'
     @winrt_classmethod
     def Compare(cls: win32more.Windows.Security.Cryptography.ICryptographicBufferStatics, object1: win32more.Windows.Storage.Streams.IBuffer, object2: win32more.Windows.Storage.Streams.IBuffer) -> Boolean: ...
@@ -34,7 +33,7 @@ class CryptographicBuffer(ComPtr):
     @winrt_classmethod
     def ConvertBinaryToString(cls: win32more.Windows.Security.Cryptography.ICryptographicBufferStatics, encoding: win32more.Windows.Security.Cryptography.BinaryStringEncoding, buffer: win32more.Windows.Storage.Streams.IBuffer) -> WinRT_String: ...
 class ICryptographicBufferStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.Cryptography.ICryptographicBufferStatics'
     _iid_ = Guid('{320b7e22-3cb0-4cdf-8663-1d28910065eb}')
     @winrt_commethod(6)

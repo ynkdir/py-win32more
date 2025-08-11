@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.Imaging
 import win32more.Microsoft.Windows.AI
 import win32more.Microsoft.Windows.AI.ContentSafety
@@ -9,15 +9,14 @@ import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics
 import win32more.Windows.Graphics.Imaging
-import win32more.Windows.Win32.System.WinRT
 class IImageDescriptionGenerator(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageDescriptionGenerator'
     _iid_ = Guid('{576b989e-9829-5682-91b0-a7110fa7d51e}')
     @winrt_commethod(6)
     def DescribeAsync(self, image: win32more.Microsoft.Graphics.Imaging.ImageBuffer, kind: win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionKind, contentFilterOptions: win32more.Microsoft.Windows.AI.ContentSafety.ContentFilterOptions) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionResult, WinRT_String]: ...
 class IImageDescriptionGeneratorStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageDescriptionGeneratorStatics'
     _iid_ = Guid('{5fb50b2a-5700-55a7-b413-6073b4b7f175}')
     @winrt_commethod(6)
@@ -27,7 +26,7 @@ class IImageDescriptionGeneratorStatics(ComPtr):
     @winrt_commethod(8)
     def CreateAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Windows.AI.Imaging.ImageDescriptionGenerator]: ...
 class IImageDescriptionResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageDescriptionResult'
     _iid_ = Guid('{a066dd0c-110b-5275-a635-52bed7519a2f}')
     @winrt_commethod(6)
@@ -37,7 +36,7 @@ class IImageDescriptionResult(ComPtr):
     Description = property(get_Description, None)
     Status = property(get_Status, None)
 class IImageObjectExtractor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageObjectExtractor'
     _iid_ = Guid('{2919fdc0-d772-5fd9-a8b7-ffb56010c99c}')
     @winrt_commethod(6)
@@ -45,7 +44,7 @@ class IImageObjectExtractor(ComPtr):
     @winrt_commethod(7)
     def GetImageBufferObjectMask(self, hint: win32more.Microsoft.Windows.AI.Imaging.ImageObjectExtractorHint) -> win32more.Microsoft.Graphics.Imaging.ImageBuffer: ...
 class IImageObjectExtractorHint(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageObjectExtractorHint'
     _iid_ = Guid('{1bd8d67c-8a7a-5fe7-98a5-cbdfeb509452}')
     @winrt_commethod(6)
@@ -58,13 +57,13 @@ class IImageObjectExtractorHint(ComPtr):
     IncludePoints = property(get_IncludePoints, None)
     IncludeRects = property(get_IncludeRects, None)
 class IImageObjectExtractorHintFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageObjectExtractorHintFactory'
     _iid_ = Guid('{5028f206-145d-5a70-9a51-e17e60cfbad8}')
     @winrt_commethod(6)
     def CreateInstance(self, includeRects: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Graphics.RectInt32], includePoints: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Graphics.PointInt32], excludePoints: win32more.Windows.Foundation.Collections.IVector[win32more.Windows.Graphics.PointInt32]) -> win32more.Microsoft.Windows.AI.Imaging.ImageObjectExtractorHint: ...
 class IImageObjectExtractorStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageObjectExtractorStatics'
     _iid_ = Guid('{38fa261e-2c33-54cb-9e10-98d50685743d}')
     @winrt_commethod(6)
@@ -76,7 +75,7 @@ class IImageObjectExtractorStatics(ComPtr):
     @winrt_commethod(9)
     def EnsureReadyAsync(self) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.AIFeatureReadyResult, Double]: ...
 class IImageScaler(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageScaler'
     _iid_ = Guid('{06eec88e-91c5-5326-8128-2807faafa571}')
     @winrt_commethod(6)
@@ -87,7 +86,7 @@ class IImageScaler(ComPtr):
     def get_MaxSupportedScaleFactor(self) -> Int32: ...
     MaxSupportedScaleFactor = property(get_MaxSupportedScaleFactor, None)
 class IImageScalerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IImageScalerStatics'
     _iid_ = Guid('{75380c81-9c7f-544b-9337-6e638cfb464a}')
     @winrt_commethod(6)
@@ -97,7 +96,7 @@ class IImageScalerStatics(ComPtr):
     @winrt_commethod(8)
     def CreateAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Windows.AI.Imaging.ImageScaler]: ...
 class IRecognizedLine(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IRecognizedLine'
     _iid_ = Guid('{612a6be6-f6bb-53c9-84ce-f0a5e565faa7}')
     @winrt_commethod(6)
@@ -116,7 +115,7 @@ class IRecognizedLine(ComPtr):
     Text = property(get_Text, None)
     Words = property(get_Words, None)
 class IRecognizedText(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IRecognizedText'
     _iid_ = Guid('{ae4766d3-2924-57a6-b3d3-b866f59b9972}')
     @winrt_commethod(6)
@@ -126,7 +125,7 @@ class IRecognizedText(ComPtr):
     Lines = property(get_Lines, None)
     TextAngle = property(get_TextAngle, None)
 class IRecognizedWord(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.IRecognizedWord'
     _iid_ = Guid('{6b53daab-3410-5088-826a-0788a1ee3b52}')
     @winrt_commethod(6)
@@ -139,7 +138,7 @@ class IRecognizedWord(ComPtr):
     MatchConfidence = property(get_MatchConfidence, None)
     Text = property(get_Text, None)
 class ITextRecognizer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.ITextRecognizer'
     _iid_ = Guid('{be7bf6c0-30f6-570d-bd92-3ffe5665d933}')
     @winrt_commethod(6)
@@ -147,7 +146,7 @@ class ITextRecognizer(ComPtr):
     @winrt_commethod(7)
     def RecognizeTextFromImage(self, imageBuffer: win32more.Microsoft.Graphics.Imaging.ImageBuffer) -> win32more.Microsoft.Windows.AI.Imaging.RecognizedText: ...
 class ITextRecognizerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AI.Imaging.ITextRecognizerStatics'
     _iid_ = Guid('{3788c2fd-e496-53ab-85a7-e54a135824e9}')
     @winrt_commethod(6)
@@ -158,7 +157,7 @@ class ITextRecognizerStatics(ComPtr):
     def CreateAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Microsoft.Windows.AI.Imaging.TextRecognizer]: ...
 ImageDescriptionContract: UInt32 = 65536
 class ImageDescriptionGenerator(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionGenerator
     _classid_ = 'Microsoft.Windows.AI.Imaging.ImageDescriptionGenerator'
@@ -178,7 +177,7 @@ class ImageDescriptionKind(Enum, Int32):
     DiagramDescription = 2
     AccessibleDescription = 3
 class ImageDescriptionResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IImageDescriptionResult
     _classid_ = 'Microsoft.Windows.AI.Imaging.ImageDescriptionResult'
     @winrt_mixinmethod
@@ -197,7 +196,7 @@ class ImageDescriptionResultStatus(Enum, Int32):
     ImageHasTooMuchText = 6
     InternalError = 7
 class ImageObjectExtractor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IImageObjectExtractor
     _classid_ = 'Microsoft.Windows.AI.Imaging.ImageObjectExtractor'
@@ -217,7 +216,7 @@ class ImageObjectExtractor(ComPtr):
     def EnsureReadyAsync(cls: win32more.Microsoft.Windows.AI.Imaging.IImageObjectExtractorStatics) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Microsoft.Windows.AI.AIFeatureReadyResult, Double]: ...
 ImageObjectExtractorContract: UInt32 = 65536
 class ImageObjectExtractorHint(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IImageObjectExtractorHint
     _classid_ = 'Microsoft.Windows.AI.Imaging.ImageObjectExtractorHint'
     def __init__(self, *args, **kwargs):
@@ -239,7 +238,7 @@ class ImageObjectExtractorHint(ComPtr):
     IncludePoints = property(get_IncludePoints, None)
     IncludeRects = property(get_IncludeRects, None)
 class ImageScaler(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IImageScaler
     _classid_ = 'Microsoft.Windows.AI.Imaging.ImageScaler'
@@ -260,7 +259,7 @@ class ImageScaler(ComPtr):
     MaxSupportedScaleFactor = property(get_MaxSupportedScaleFactor, None)
 ImageScalerContract: UInt32 = 65536
 class RecognizedLine(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IRecognizedLine
     _classid_ = 'Microsoft.Windows.AI.Imaging.RecognizedLine'
     @winrt_mixinmethod
@@ -281,7 +280,7 @@ class RecognizedLine(ComPtr):
 class RecognizedLineStyle(Enum, Int32):
     Handwritten = 0
 class RecognizedText(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IRecognizedText
     _classid_ = 'Microsoft.Windows.AI.Imaging.RecognizedText'
     @winrt_mixinmethod
@@ -296,7 +295,7 @@ class RecognizedTextBoundingBox(Structure):
     TopLeft: win32more.Windows.Foundation.Point
     TopRight: win32more.Windows.Foundation.Point
 class RecognizedWord(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AI.Imaging.IRecognizedWord
     _classid_ = 'Microsoft.Windows.AI.Imaging.RecognizedWord'
     @winrt_mixinmethod
@@ -310,7 +309,7 @@ class RecognizedWord(ComPtr):
     Text = property(get_Text, None)
 TextRecognitionContract: UInt32 = 65536
 class TextRecognizer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Windows.AI.Imaging.ITextRecognizer
     _classid_ = 'Microsoft.Windows.AI.Imaging.TextRecognizer'

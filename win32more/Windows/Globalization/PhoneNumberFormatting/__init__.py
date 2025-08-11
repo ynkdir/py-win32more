@@ -1,11 +1,10 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Globalization.PhoneNumberFormatting
-import win32more.Windows.Win32.System.WinRT
 class IPhoneNumberFormatter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatter'
     _iid_ = Guid('{1556b49e-bad4-4b4a-900d-4407adb7c981}')
     @winrt_commethod(6)
@@ -19,7 +18,7 @@ class IPhoneNumberFormatter(ComPtr):
     @winrt_commethod(10)
     def FormatStringWithLeftToRightMarkers(self, number: WinRT_String) -> WinRT_String: ...
 class IPhoneNumberFormatterStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatterStatics'
     _iid_ = Guid('{5ca6f931-84d9-414b-ab4e-a0552c878602}')
     @winrt_commethod(6)
@@ -31,7 +30,7 @@ class IPhoneNumberFormatterStatics(ComPtr):
     @winrt_commethod(9)
     def WrapWithLeftToRightMarkers(self, number: WinRT_String) -> WinRT_String: ...
 class IPhoneNumberInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfo'
     _iid_ = Guid('{1c7ce4dd-c8b4-4ea3-9aef-b342e2c5b417}')
     @winrt_commethod(6)
@@ -53,13 +52,13 @@ class IPhoneNumberInfo(ComPtr):
     CountryCode = property(get_CountryCode, None)
     PhoneNumber = property(get_PhoneNumber, None)
 class IPhoneNumberInfoFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoFactory'
     _iid_ = Guid('{8202b964-adaa-4cff-8fcf-17e7516a28ff}')
     @winrt_commethod(6)
     def Create(self, number: WinRT_String) -> win32more.Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo: ...
 class IPhoneNumberInfoStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoStatics'
     _iid_ = Guid('{5b3f4f6a-86a9-40e9-8649-6d61161928d4}')
     @winrt_commethod(6)
@@ -72,7 +71,7 @@ class PhoneNumberFormat(Enum, Int32):
     National = 2
     Rfc3966 = 3
 class PhoneNumberFormatter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatter
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter'
     def __init__(self, *args, **kwargs):
@@ -103,7 +102,7 @@ class PhoneNumberFormatter(ComPtr):
     @winrt_classmethod
     def WrapWithLeftToRightMarkers(cls: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatterStatics, number: WinRT_String) -> WinRT_String: ...
 class PhoneNumberInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfo
     _classid_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo'
     def __init__(self, *args, **kwargs):

@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Text
 import win32more.Windows.Foundation
 import win32more.Windows.Storage.Streams
 import win32more.Windows.UI
 import win32more.Windows.UI.Text
-import win32more.Windows.Win32.System.WinRT
 class CaretType(Enum, Int32):
     Normal = 0
     Null = 1
@@ -17,7 +16,7 @@ class FindOptions(Enum, UInt32):
 class _FontWeights_Meta_(ComPtr.__class__):
     pass
 class FontWeights(ComPtr, metaclass=_FontWeights_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Text.IFontWeights
     _classid_ = 'Microsoft.UI.Text.FontWeights'
     @winrt_classmethod
@@ -63,11 +62,11 @@ class HorizontalCharacterAlignment(Enum, Int32):
     Right = 1
     Center = 2
 class IFontWeights(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.IFontWeights'
     _iid_ = Guid('{386cd040-5404-5a8d-8bc7-2ca989f5c065}')
 class IFontWeightsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.IFontWeightsStatics'
     _iid_ = Guid('{cc390df6-76b0-5807-8b9d-e949a4e623ae}')
     @winrt_commethod(6)
@@ -104,7 +103,7 @@ class IFontWeightsStatics(ComPtr):
     SemiLight = property(get_SemiLight, None)
     Thin = property(get_Thin, None)
 class ITextCharacterFormat(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.ITextCharacterFormat'
     _iid_ = Guid('{f5710050-98e5-5788-b1e3-32191eebf94d}')
     @winrt_commethod(6)
@@ -232,7 +231,7 @@ class ITextCharacterFormat(ComPtr):
     Underline = property(get_Underline, put_Underline)
     Weight = property(get_Weight, put_Weight)
 class ITextConstantsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.ITextConstantsStatics'
     _iid_ = Guid('{cd353b3c-af63-5cfb-918c-0f9c8931a161}')
     @winrt_commethod(6)
@@ -260,7 +259,7 @@ class ITextConstantsStatics(ComPtr):
     UndefinedFontStyle = property(get_UndefinedFontStyle, None)
     UndefinedInt32Value = property(get_UndefinedInt32Value, None)
 class ITextDocument(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.ITextDocument'
     _iid_ = Guid('{1149d57d-86a6-59dd-88d9-196f27bc5c85}')
     @winrt_commethod(6)
@@ -334,7 +333,7 @@ class ITextDocument(ComPtr):
     Selection = property(get_Selection, None)
     UndoLimit = property(get_UndoLimit, put_UndoLimit)
 class ITextDocument2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.ITextDocument2'
     _iid_ = Guid('{21febcf1-2110-5879-b1da-b343097e71e1}')
     @winrt_commethod(6)
@@ -346,7 +345,7 @@ class ITextDocument2(ComPtr):
     @winrt_commethod(9)
     def SetMathML(self, value: WinRT_String) -> Void: ...
 class ITextParagraphFormat(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.ITextParagraphFormat'
     _iid_ = Guid('{219b6cdf-0d0b-5701-b8a1-6c906b3ebbe1}')
     @winrt_commethod(6)
@@ -468,7 +467,7 @@ class ITextParagraphFormat(ComPtr):
     TabCount = property(get_TabCount, None)
     WidowControl = property(get_WidowControl, put_WidowControl)
 class ITextRange(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.ITextRange'
     _iid_ = Guid('{06d4abcf-0c06-5d12-a743-85537efd09ea}')
     @winrt_commethod(6)
@@ -587,7 +586,7 @@ class ITextRange(ComPtr):
     StoryLength = property(get_StoryLength, None)
     Text = property(get_Text, put_Text)
 class ITextSelection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.ITextSelection'
     _iid_ = Guid('{8f5e6cb1-2b04-589f-bd24-54e5cd8dd399}')
     @winrt_commethod(6)
@@ -711,7 +710,7 @@ class RichEditMathMode(Enum, Int32):
     NoMath = 0
     MathOnly = 1
 class RichEditTextDocument(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Text.ITextDocument
     _classid_ = 'Microsoft.UI.Text.RichEditTextDocument'
     @winrt_mixinmethod
@@ -793,7 +792,7 @@ class RichEditTextDocument(ComPtr):
     Selection = property(get_Selection, None)
     UndoLimit = property(get_UndoLimit, put_UndoLimit)
 class RichEditTextRange(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Text.ITextRange
     _classid_ = 'Microsoft.UI.Text.RichEditTextRange'
     @winrt_mixinmethod
@@ -940,7 +939,7 @@ TextApiContract: UInt32 = 131072
 class _TextConstants_Meta_(ComPtr.__class__):
     pass
 class TextConstants(ComPtr, metaclass=_TextConstants_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Text.TextConstants'
     @winrt_classmethod
     def get_AutoColor(cls: win32more.Microsoft.UI.Text.ITextConstantsStatics) -> win32more.Windows.UI.Color: ...

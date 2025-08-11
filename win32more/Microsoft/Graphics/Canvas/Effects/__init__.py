@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.Canvas
 import win32more.Microsoft.Graphics.Canvas.Effects
 import win32more.Windows.Foundation
@@ -9,11 +9,10 @@ import win32more.Windows.Foundation.Numerics
 import win32more.Windows.Graphics.DirectX
 import win32more.Windows.Graphics.Effects
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class _AlphaMaskEffect_Meta_(ComPtr.__class__):
     pass
 class AlphaMaskEffect(ComPtr, metaclass=_AlphaMaskEffect_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IAlphaMaskEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.AlphaMaskEffect'
@@ -69,7 +68,7 @@ class AlphaMaskEffect(ComPtr, metaclass=_AlphaMaskEffect_Meta_):
     Source = property(get_Source, put_Source)
     _AlphaMaskEffect_Meta_.IsSupported = property(get_IsSupported, None)
 class ArithmeticCompositeEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IArithmeticCompositeEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ArithmeticCompositeEffect'
@@ -147,7 +146,7 @@ class ArithmeticCompositeEffect(ComPtr):
     Source2 = property(get_Source2, put_Source2)
     Source2Amount = property(get_Source2Amount, put_Source2Amount)
 class AtlasEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IAtlasEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.AtlasEffect'
@@ -205,7 +204,7 @@ class AtlasEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceRectangle = property(get_SourceRectangle, put_SourceRectangle)
 class BlendEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IBlendEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.BlendEffect'
@@ -290,7 +289,7 @@ class BlendEffectMode(Enum, Int32):
     Subtract = 24
     Division = 25
 class BorderEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IBorderEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.BorderEffect'
@@ -348,7 +347,7 @@ class BorderEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class BrightnessEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IBrightnessEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.BrightnessEffect'
@@ -406,7 +405,7 @@ class BrightnessEffect(ComPtr):
     Source = property(get_Source, put_Source)
     WhitePoint = property(get_WhitePoint, put_WhitePoint)
 class ChromaKeyEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IChromaKeyEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ChromaKeyEffect'
@@ -479,7 +478,7 @@ class ChromaKeyEffect(ComPtr):
     Source = property(get_Source, put_Source)
     Tolerance = property(get_Tolerance, put_Tolerance)
 class ColorManagementEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IColorManagementEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ColorManagementEffect'
@@ -567,7 +566,7 @@ class ColorManagementGamma(Enum, Int32):
     G10 = 1
     G2084 = 2
 class ColorManagementProfile(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IColorManagementProfile
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ColorManagementProfile'
@@ -621,7 +620,7 @@ class ColorManagementSimpleProfile(Structure):
     WhitePointXZ: win32more.Windows.Foundation.Numerics.Vector2
     Gamma: win32more.Microsoft.Graphics.Canvas.Effects.ColorManagementGamma
 class ColorMatrixEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IColorMatrixEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ColorMatrixEffect'
@@ -684,7 +683,7 @@ class ColorMatrixEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class ColorSourceEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IColorSourceEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ColorSourceEffect'
@@ -737,7 +736,7 @@ class ColorSourceEffect(ComPtr):
     ColorHdr = property(get_ColorHdr, put_ColorHdr)
     Name = property(get_Name, put_Name)
 class CompositeEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ICompositeEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.CompositeEffect'
@@ -788,7 +787,7 @@ class CompositeEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Sources = property(get_Sources, None)
 class ContrastEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IContrastEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ContrastEffect'
@@ -846,7 +845,7 @@ class ContrastEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class ConvolveMatrixEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IConvolveMatrixEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ConvolveMatrixEffect'
@@ -949,7 +948,7 @@ class ConvolveMatrixEffect(ComPtr):
     PreserveAlpha = property(get_PreserveAlpha, put_PreserveAlpha)
     Source = property(get_Source, put_Source)
 class CropEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ICropEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.CropEffect'
@@ -1009,7 +1008,7 @@ class CropEffect(ComPtr):
 class _CrossFadeEffect_Meta_(ComPtr.__class__):
     pass
 class CrossFadeEffect(ComPtr, metaclass=_CrossFadeEffect_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ICrossFadeEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.CrossFadeEffect'
@@ -1070,7 +1069,7 @@ class CrossFadeEffect(ComPtr, metaclass=_CrossFadeEffect_Meta_):
     Source2 = property(get_Source2, put_Source2)
     _CrossFadeEffect_Meta_.IsSupported = property(get_IsSupported, None)
 class DirectionalBlurEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IDirectionalBlurEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.DirectionalBlurEffect'
@@ -1138,7 +1137,7 @@ class DirectionalBlurEffect(ComPtr):
     Optimization = property(get_Optimization, put_Optimization)
     Source = property(get_Source, put_Source)
 class DiscreteTransferEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IDiscreteTransferEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.DiscreteTransferEffect'
@@ -1231,7 +1230,7 @@ class DiscreteTransferEffect(ComPtr):
     RedTable = property(get_RedTable, put_RedTable)
     Source = property(get_Source, put_Source)
 class DisplacementMapEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IDisplacementMapEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.DisplacementMapEffect'
@@ -1299,7 +1298,7 @@ class DisplacementMapEffect(ComPtr):
     XChannelSelect = property(get_XChannelSelect, put_XChannelSelect)
     YChannelSelect = property(get_YChannelSelect, put_YChannelSelect)
 class DistantDiffuseEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IDistantDiffuseEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.DistantDiffuseEffect'
@@ -1387,7 +1386,7 @@ class DistantDiffuseEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class DistantSpecularEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IDistantSpecularEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.DistantSpecularEffect'
@@ -1480,7 +1479,7 @@ class DistantSpecularEffect(ComPtr):
     SpecularAmount = property(get_SpecularAmount, put_SpecularAmount)
     SpecularExponent = property(get_SpecularExponent, put_SpecularExponent)
 class DpiCompensationEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IDpiCompensationEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.DpiCompensationEffect'
@@ -1543,7 +1542,7 @@ class DpiCompensationEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceDpi = property(get_SourceDpi, put_SourceDpi)
 class EdgeDetectionEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IEdgeDetectionEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.EdgeDetectionEffect'
@@ -1634,7 +1633,7 @@ class EffectOptimization(Enum, Int32):
     Balanced = 1
     Quality = 2
 class EffectTransferTable3D(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IEffectTransferTable3D
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.EffectTransferTable3D'
@@ -1648,7 +1647,7 @@ class EffectTransferTable3D(ComPtr):
     def CreateFromBytes(cls: win32more.Microsoft.Graphics.Canvas.Effects.IEffectTransferTable3DStatics, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator, bytes: PassArray[Byte], sizeB: Int32, sizeG: Int32, sizeR: Int32, format: win32more.Windows.Graphics.DirectX.DirectXPixelFormat) -> win32more.Microsoft.Graphics.Canvas.Effects.EffectTransferTable3D: ...
     Device = property(get_Device, None)
 class EmbossEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IEmbossEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.EmbossEffect'
@@ -1706,7 +1705,7 @@ class EmbossEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class ExposureEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IExposureEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ExposureEffect'
@@ -1768,7 +1767,7 @@ class ExtendedColorSpace(Enum, Int32):
     FullG22P2020 = 17
     Custom = -1
 class GammaTransferEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IGammaTransferEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.GammaTransferEffect'
@@ -1901,7 +1900,7 @@ class GammaTransferEffect(ComPtr):
     RedOffset = property(get_RedOffset, put_RedOffset)
     Source = property(get_Source, put_Source)
 class GaussianBlurEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IGaussianBlurEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.GaussianBlurEffect'
@@ -1964,7 +1963,7 @@ class GaussianBlurEffect(ComPtr):
     Optimization = property(get_Optimization, put_Optimization)
     Source = property(get_Source, put_Source)
 class GrayscaleEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IGrayscaleEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.GrayscaleEffect'
@@ -2012,7 +2011,7 @@ class GrayscaleEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class HighlightsAndShadowsEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IHighlightsAndShadowsEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.HighlightsAndShadowsEffect'
@@ -2085,7 +2084,7 @@ class HighlightsAndShadowsEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceIsLinearGamma = property(get_SourceIsLinearGamma, put_SourceIsLinearGamma)
 class HueRotationEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IHueRotationEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.HueRotationEffect'
@@ -2138,7 +2137,7 @@ class HueRotationEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class HueToRgbEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IHueToRgbEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.HueToRgbEffect'
@@ -2191,7 +2190,7 @@ class HueToRgbEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceColorSpace = property(get_SourceColorSpace, put_SourceColorSpace)
 class IAlphaMaskEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IAlphaMaskEffect'
     _iid_ = Guid('{9ba6607e-75c9-5388-892f-dd3440564d98}')
@@ -2206,14 +2205,14 @@ class IAlphaMaskEffect(ComPtr):
     AlphaMask = property(get_AlphaMask, put_AlphaMask)
     Source = property(get_Source, put_Source)
 class IAlphaMaskEffectStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IAlphaMaskEffectStatics'
     _iid_ = Guid('{cc31105c-0377-5708-8484-1ad8ee3e554b}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
     IsSupported = property(get_IsSupported, None)
 class IArithmeticCompositeEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IArithmeticCompositeEffect'
     _iid_ = Guid('{beeb682b-d64c-5c8b-a1fb-332162ed099c}')
@@ -2253,7 +2252,7 @@ class IArithmeticCompositeEffect(ComPtr):
     Source2 = property(get_Source2, put_Source2)
     Source2Amount = property(get_Source2Amount, put_Source2Amount)
 class IAtlasEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IAtlasEffect'
     _iid_ = Guid('{f7f26eba-f015-5eff-9af3-7bd2d44904bd}')
@@ -2273,7 +2272,7 @@ class IAtlasEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceRectangle = property(get_SourceRectangle, put_SourceRectangle)
 class IBlendEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IBlendEffect'
     _iid_ = Guid('{5673248e-7266-5e49-b2ab-2589d5d875c3}')
@@ -2293,7 +2292,7 @@ class IBlendEffect(ComPtr):
     Foreground = property(get_Foreground, put_Foreground)
     Mode = property(get_Mode, put_Mode)
 class IBorderEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IBorderEffect'
     _iid_ = Guid('{31602441-15db-5b4a-98dd-ba4247548b41}')
@@ -2313,7 +2312,7 @@ class IBorderEffect(ComPtr):
     ExtendY = property(get_ExtendY, put_ExtendY)
     Source = property(get_Source, put_Source)
 class IBrightnessEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IBrightnessEffect'
     _iid_ = Guid('{beced347-025f-5727-8f7d-498d67df557e}')
@@ -2333,7 +2332,7 @@ class IBrightnessEffect(ComPtr):
     Source = property(get_Source, put_Source)
     WhitePoint = property(get_WhitePoint, put_WhitePoint)
 class ICanvasEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ICanvasEffect'
     _iid_ = Guid('{0ef96f8c-9b5e-4bf0-a399-aad8ce53db55}')
@@ -2356,7 +2355,7 @@ class ICanvasEffect(ComPtr):
     BufferPrecision = property(get_BufferPrecision, put_BufferPrecision)
     CacheOutput = property(get_CacheOutput, put_CacheOutput)
 class IChromaKeyEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IChromaKeyEffect'
     _iid_ = Guid('{f14b9464-1871-5eaa-9db6-c0901140e9d3}')
@@ -2391,7 +2390,7 @@ class IChromaKeyEffect(ComPtr):
     Source = property(get_Source, put_Source)
     Tolerance = property(get_Tolerance, put_Tolerance)
 class IColorManagementEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IColorManagementEffect'
     _iid_ = Guid('{6e8bbe37-e1e4-5ad0-b98d-940e3213a54e}')
@@ -2431,13 +2430,13 @@ class IColorManagementEffect(ComPtr):
     SourceColorProfile = property(get_SourceColorProfile, put_SourceColorProfile)
     SourceRenderingIntent = property(get_SourceRenderingIntent, put_SourceRenderingIntent)
 class IColorManagementEffectStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IColorManagementEffectStatics'
     _iid_ = Guid('{31c7af98-f2d4-55fc-b129-a70736e6da05}')
     @winrt_commethod(6)
     def IsBestQualitySupported(self, device: win32more.Microsoft.Graphics.Canvas.CanvasDevice) -> Boolean: ...
 class IColorManagementProfile(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IColorManagementProfile'
     _iid_ = Guid('{5123a56b-b199-47ab-aebe-d308044423fe}')
@@ -2457,13 +2456,13 @@ class IColorManagementProfile(ComPtr):
     SimpleProfile = property(get_SimpleProfile, None)
     Type = property(get_Type, None)
 class IColorManagementProfileFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IColorManagementProfileFactory'
     _iid_ = Guid('{7a0f1c98-94c6-4621-9877-c51a17823edf}')
     @winrt_commethod(6)
     def Create(self, colorSpace: win32more.Microsoft.Graphics.Canvas.CanvasColorSpace) -> win32more.Microsoft.Graphics.Canvas.Effects.ColorManagementProfile: ...
 class IColorManagementProfileStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IColorManagementProfileStatics'
     _iid_ = Guid('{94eef610-03bd-4e82-9479-62a616be75f1}')
     @winrt_commethod(6)
@@ -2475,7 +2474,7 @@ class IColorManagementProfileStatics(ComPtr):
     @winrt_commethod(9)
     def IsSupported(self, type: win32more.Microsoft.Graphics.Canvas.Effects.ColorManagementProfileType, device: win32more.Microsoft.Graphics.Canvas.CanvasDevice) -> Boolean: ...
 class IColorMatrixEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IColorMatrixEffect'
     _iid_ = Guid('{e6ae54c4-883d-588e-b451-e9ebe3830437}')
@@ -2500,7 +2499,7 @@ class IColorMatrixEffect(ComPtr):
     ColorMatrix = property(get_ColorMatrix, put_ColorMatrix)
     Source = property(get_Source, put_Source)
 class IColorSourceEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IColorSourceEffect'
     _iid_ = Guid('{25f942c7-7fee-518a-ba7b-22a0060af7f6}')
@@ -2515,7 +2514,7 @@ class IColorSourceEffect(ComPtr):
     Color = property(get_Color, put_Color)
     ColorHdr = property(get_ColorHdr, put_ColorHdr)
 class ICompositeEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ICompositeEffect'
     _iid_ = Guid('{f8808c48-cdc7-5db4-807c-b9344ff71984}')
@@ -2528,7 +2527,7 @@ class ICompositeEffect(ComPtr):
     Mode = property(get_Mode, put_Mode)
     Sources = property(get_Sources, None)
 class IContrastEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IContrastEffect'
     _iid_ = Guid('{da8a2b9f-594e-560a-9eaa-1f912408fe79}')
@@ -2548,7 +2547,7 @@ class IContrastEffect(ComPtr):
     Contrast = property(get_Contrast, put_Contrast)
     Source = property(get_Source, put_Source)
 class IConvolveMatrixEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IConvolveMatrixEffect'
     _iid_ = Guid('{82961257-a78d-5440-8026-af57d4a76a9e}')
@@ -2613,7 +2612,7 @@ class IConvolveMatrixEffect(ComPtr):
     PreserveAlpha = property(get_PreserveAlpha, put_PreserveAlpha)
     Source = property(get_Source, put_Source)
 class ICropEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ICropEffect'
     _iid_ = Guid('{d8a1c2a5-e031-566d-8f7c-ba07cfb58aae}')
@@ -2633,7 +2632,7 @@ class ICropEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceRectangle = property(get_SourceRectangle, put_SourceRectangle)
 class ICrossFadeEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ICrossFadeEffect'
     _iid_ = Guid('{be161a9f-43d2-5613-8600-d51e3d7ce288}')
@@ -2653,14 +2652,14 @@ class ICrossFadeEffect(ComPtr):
     Source1 = property(get_Source1, put_Source1)
     Source2 = property(get_Source2, put_Source2)
 class ICrossFadeEffectStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ICrossFadeEffectStatics'
     _iid_ = Guid('{a3b67330-6284-5ef6-99e8-b4b05d2b8bfc}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
     IsSupported = property(get_IsSupported, None)
 class IDirectionalBlurEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IDirectionalBlurEffect'
     _iid_ = Guid('{5d155c4b-0882-506a-a8e1-12e1ead17f0a}')
@@ -2690,7 +2689,7 @@ class IDirectionalBlurEffect(ComPtr):
     Optimization = property(get_Optimization, put_Optimization)
     Source = property(get_Source, put_Source)
 class IDiscreteTransferEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IDiscreteTransferEffect'
     _iid_ = Guid('{7f1f54f9-21b5-5b91-9506-832c536fddfa}')
@@ -2745,7 +2744,7 @@ class IDiscreteTransferEffect(ComPtr):
     RedTable = property(get_RedTable, put_RedTable)
     Source = property(get_Source, put_Source)
 class IDisplacementMapEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IDisplacementMapEffect'
     _iid_ = Guid('{45f57c50-d4d9-5af1-8a6b-50378f3498a2}')
@@ -2775,7 +2774,7 @@ class IDisplacementMapEffect(ComPtr):
     XChannelSelect = property(get_XChannelSelect, put_XChannelSelect)
     YChannelSelect = property(get_YChannelSelect, put_YChannelSelect)
 class IDistantDiffuseEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IDistantDiffuseEffect'
     _iid_ = Guid('{d501b10b-b445-50f4-8b8f-cdecfcdd1321}')
@@ -2825,7 +2824,7 @@ class IDistantDiffuseEffect(ComPtr):
     LightColorHdr = property(get_LightColorHdr, put_LightColorHdr)
     Source = property(get_Source, put_Source)
 class IDistantSpecularEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IDistantSpecularEffect'
     _iid_ = Guid('{a7a828df-3072-545f-8d75-86c100f03231}')
@@ -2880,7 +2879,7 @@ class IDistantSpecularEffect(ComPtr):
     SpecularAmount = property(get_SpecularAmount, put_SpecularAmount)
     SpecularExponent = property(get_SpecularExponent, put_SpecularExponent)
 class IDpiCompensationEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IDpiCompensationEffect'
     _iid_ = Guid('{636597cd-f94a-55b6-9cf0-694a53d638ea}')
@@ -2905,7 +2904,7 @@ class IDpiCompensationEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceDpi = property(get_SourceDpi, put_SourceDpi)
 class IEdgeDetectionEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IEdgeDetectionEffect'
     _iid_ = Guid('{69f6cf3a-f38f-5a88-974a-29390b957e5c}')
@@ -2940,7 +2939,7 @@ class IEdgeDetectionEffect(ComPtr):
     OverlayEdges = property(get_OverlayEdges, put_OverlayEdges)
     Source = property(get_Source, put_Source)
 class IEffectTransferTable3D(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IEffectTransferTable3D'
     _iid_ = Guid('{7af06b86-2c45-49c8-8f44-e15a6d4fa44e}')
@@ -2948,7 +2947,7 @@ class IEffectTransferTable3D(ComPtr):
     def get_Device(self) -> win32more.Microsoft.Graphics.Canvas.CanvasDevice: ...
     Device = property(get_Device, None)
 class IEffectTransferTable3DStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IEffectTransferTable3DStatics'
     _iid_ = Guid('{3cb83559-216a-4bca-9bb6-e233c5ad2c48}')
     @winrt_commethod(6)
@@ -2956,7 +2955,7 @@ class IEffectTransferTable3DStatics(ComPtr):
     @winrt_commethod(7)
     def CreateFromBytes(self, resourceCreator: win32more.Microsoft.Graphics.Canvas.ICanvasResourceCreator, bytes: PassArray[Byte], sizeB: Int32, sizeG: Int32, sizeR: Int32, format: win32more.Windows.Graphics.DirectX.DirectXPixelFormat) -> win32more.Microsoft.Graphics.Canvas.Effects.EffectTransferTable3D: ...
 class IEmbossEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IEmbossEffect'
     _iid_ = Guid('{617bff35-481c-5596-aba5-00a162349d7b}')
@@ -2976,7 +2975,7 @@ class IEmbossEffect(ComPtr):
     Angle = property(get_Angle, put_Angle)
     Source = property(get_Source, put_Source)
 class IExposureEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IExposureEffect'
     _iid_ = Guid('{b9e20a03-2232-5fd3-b408-15784b79dbb0}')
@@ -2991,7 +2990,7 @@ class IExposureEffect(ComPtr):
     Exposure = property(get_Exposure, put_Exposure)
     Source = property(get_Source, put_Source)
 class IGammaTransferEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IGammaTransferEffect'
     _iid_ = Guid('{b4576b6b-6c3e-534a-8576-d46df4fce93d}')
@@ -3086,7 +3085,7 @@ class IGammaTransferEffect(ComPtr):
     RedOffset = property(get_RedOffset, put_RedOffset)
     Source = property(get_Source, put_Source)
 class IGaussianBlurEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IGaussianBlurEffect'
     _iid_ = Guid('{a82ec394-6734-5830-9123-2c82b27dd3c0}')
@@ -3111,7 +3110,7 @@ class IGaussianBlurEffect(ComPtr):
     Optimization = property(get_Optimization, put_Optimization)
     Source = property(get_Source, put_Source)
 class IGrayscaleEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IGrayscaleEffect'
     _iid_ = Guid('{78e13b83-0638-53f8-b0b3-5b0b320a9ad2}')
@@ -3121,7 +3120,7 @@ class IGrayscaleEffect(ComPtr):
     def put_Source(self, source: win32more.Windows.Graphics.Effects.IGraphicsEffectSource) -> Void: ...
     Source = property(get_Source, put_Source)
 class IHighlightsAndShadowsEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IHighlightsAndShadowsEffect'
     _iid_ = Guid('{7f90be14-267e-5088-bc36-2e0aad869b52}')
@@ -3156,7 +3155,7 @@ class IHighlightsAndShadowsEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceIsLinearGamma = property(get_SourceIsLinearGamma, put_SourceIsLinearGamma)
 class IHueRotationEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IHueRotationEffect'
     _iid_ = Guid('{c172ebf2-e35f-58ae-ad2c-561eceaf2694}')
@@ -3171,7 +3170,7 @@ class IHueRotationEffect(ComPtr):
     Angle = property(get_Angle, put_Angle)
     Source = property(get_Source, put_Source)
 class IHueToRgbEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IHueToRgbEffect'
     _iid_ = Guid('{1e97c12c-b743-53d0-88c4-8435272b0a3d}')
@@ -3186,7 +3185,7 @@ class IHueToRgbEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceColorSpace = property(get_SourceColorSpace, put_SourceColorSpace)
 class IInvertEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IInvertEffect'
     _iid_ = Guid('{d4adcdfc-0f60-524d-936a-7f2736ad33d8}')
@@ -3196,7 +3195,7 @@ class IInvertEffect(ComPtr):
     def put_Source(self, source: win32more.Windows.Graphics.Effects.IGraphicsEffectSource) -> Void: ...
     Source = property(get_Source, put_Source)
 class ILinearTransferEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ILinearTransferEffect'
     _iid_ = Guid('{43d27ad0-8937-5fdb-876a-4e91cb47540c}')
@@ -3271,7 +3270,7 @@ class ILinearTransferEffect(ComPtr):
     RedSlope = property(get_RedSlope, put_RedSlope)
     Source = property(get_Source, put_Source)
 class ILuminanceToAlphaEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ILuminanceToAlphaEffect'
     _iid_ = Guid('{22364900-ac51-5bd3-8bd2-d626fc9a65f9}')
@@ -3281,7 +3280,7 @@ class ILuminanceToAlphaEffect(ComPtr):
     def put_Source(self, source: win32more.Windows.Graphics.Effects.IGraphicsEffectSource) -> Void: ...
     Source = property(get_Source, put_Source)
 class IMorphologyEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IMorphologyEffect'
     _iid_ = Guid('{ff065fdb-62c8-5808-921e-49efa43a3d34}')
@@ -3306,7 +3305,7 @@ class IMorphologyEffect(ComPtr):
     Source = property(get_Source, put_Source)
     Width = property(get_Width, put_Width)
 class IOpacityEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IOpacityEffect'
     _iid_ = Guid('{94b6ad75-c540-51b8-a9d1-544174adc68d}')
@@ -3321,14 +3320,14 @@ class IOpacityEffect(ComPtr):
     Opacity = property(get_Opacity, put_Opacity)
     Source = property(get_Source, put_Source)
 class IOpacityEffectStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IOpacityEffectStatics'
     _iid_ = Guid('{91a7cde3-b9b7-5437-8878-fb2e14100e6d}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
     IsSupported = property(get_IsSupported, None)
 class IOpacityMetadataEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IOpacityMetadataEffect'
     _iid_ = Guid('{099f3299-9b0a-5ed3-b044-4a6fc96f8362}')
@@ -3343,12 +3342,12 @@ class IOpacityMetadataEffect(ComPtr):
     OpaqueRectangle = property(get_OpaqueRectangle, put_OpaqueRectangle)
     Source = property(get_Source, put_Source)
 class IPixelShaderEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IPixelShaderEffect'
     _iid_ = Guid('{fc8c3c31-fa96-45e2-8b72-1741c65cee8e}')
     @winrt_commethod(6)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]: ...
     @winrt_commethod(7)
     def get_Source1(self) -> win32more.Windows.Graphics.Effects.IGraphicsEffectSource: ...
     @winrt_commethod(8)
@@ -3518,13 +3517,13 @@ class IPixelShaderEffect(ComPtr):
     Source8Interpolation = property(get_Source8Interpolation, put_Source8Interpolation)
     Source8Mapping = property(get_Source8Mapping, put_Source8Mapping)
 class IPixelShaderEffectFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IPixelShaderEffectFactory'
     _iid_ = Guid('{9d1727e5-489d-4abc-b129-5361e3534af4}')
     @winrt_commethod(6)
     def Create(self, shaderCode: PassArray[Byte]) -> win32more.Microsoft.Graphics.Canvas.Effects.PixelShaderEffect: ...
 class IPointDiffuseEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IPointDiffuseEffect'
     _iid_ = Guid('{6cce09ec-f847-5661-af4b-531dd3dd7d6e}')
@@ -3569,7 +3568,7 @@ class IPointDiffuseEffect(ComPtr):
     LightPosition = property(get_LightPosition, put_LightPosition)
     Source = property(get_Source, put_Source)
 class IPointSpecularEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IPointSpecularEffect'
     _iid_ = Guid('{ec8afe9b-8501-5286-a43c-1afff7420ad6}')
@@ -3619,7 +3618,7 @@ class IPointSpecularEffect(ComPtr):
     SpecularAmount = property(get_SpecularAmount, put_SpecularAmount)
     SpecularExponent = property(get_SpecularExponent, put_SpecularExponent)
 class IPosterizeEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IPosterizeEffect'
     _iid_ = Guid('{2f631a3b-c89a-507c-9756-299b61434fa4}')
@@ -3644,7 +3643,7 @@ class IPosterizeEffect(ComPtr):
     RedValueCount = property(get_RedValueCount, put_RedValueCount)
     Source = property(get_Source, put_Source)
 class IPremultiplyEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IPremultiplyEffect'
     _iid_ = Guid('{d29a9d1e-bd57-5f3e-9ae0-009c6ac5b06d}')
@@ -3654,7 +3653,7 @@ class IPremultiplyEffect(ComPtr):
     def put_Source(self, source: win32more.Windows.Graphics.Effects.IGraphicsEffectSource) -> Void: ...
     Source = property(get_Source, put_Source)
 class IRgbToHueEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IRgbToHueEffect'
     _iid_ = Guid('{7caeadc6-9eb3-5895-b876-f485c9574847}')
@@ -3669,7 +3668,7 @@ class IRgbToHueEffect(ComPtr):
     OutputColorSpace = property(get_OutputColorSpace, put_OutputColorSpace)
     Source = property(get_Source, put_Source)
 class ISaturationEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ISaturationEffect'
     _iid_ = Guid('{f85a5ed7-7212-57a6-b357-61038961c58d}')
@@ -3684,7 +3683,7 @@ class ISaturationEffect(ComPtr):
     Saturation = property(get_Saturation, put_Saturation)
     Source = property(get_Source, put_Source)
 class IScaleEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IScaleEffect'
     _iid_ = Guid('{7522ae90-bec2-512c-bcc0-4d6a97e3ed34}')
@@ -3719,7 +3718,7 @@ class IScaleEffect(ComPtr):
     Sharpness = property(get_Sharpness, put_Sharpness)
     Source = property(get_Source, put_Source)
 class ISepiaEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ISepiaEffect'
     _iid_ = Guid('{f933471f-a7af-5521-be79-b0da22976cff}')
@@ -3739,7 +3738,7 @@ class ISepiaEffect(ComPtr):
     Intensity = property(get_Intensity, put_Intensity)
     Source = property(get_Source, put_Source)
 class IShadowEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IShadowEffect'
     _iid_ = Guid('{3947c621-78da-5489-9927-be655f4576e2}')
@@ -3769,7 +3768,7 @@ class IShadowEffect(ComPtr):
     ShadowColorHdr = property(get_ShadowColorHdr, put_ShadowColorHdr)
     Source = property(get_Source, put_Source)
 class ISharpenEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ISharpenEffect'
     _iid_ = Guid('{7efef0a1-7578-5f62-8364-46145674ef7e}')
@@ -3789,7 +3788,7 @@ class ISharpenEffect(ComPtr):
     Source = property(get_Source, put_Source)
     Threshold = property(get_Threshold, put_Threshold)
 class ISpotDiffuseEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ISpotDiffuseEffect'
     _iid_ = Guid('{b3dcbe44-1dd7-5cb3-95e5-a48974cd12e8}')
@@ -3849,7 +3848,7 @@ class ISpotDiffuseEffect(ComPtr):
     LimitingConeAngle = property(get_LimitingConeAngle, put_LimitingConeAngle)
     Source = property(get_Source, put_Source)
 class ISpotSpecularEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ISpotSpecularEffect'
     _iid_ = Guid('{83ae4cd0-80aa-5783-8572-f15e5f85329e}')
@@ -3914,7 +3913,7 @@ class ISpotSpecularEffect(ComPtr):
     SpecularAmount = property(get_SpecularAmount, put_SpecularAmount)
     SpecularExponent = property(get_SpecularExponent, put_SpecularExponent)
 class IStraightenEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IStraightenEffect'
     _iid_ = Guid('{965fc262-2eba-59e6-935f-2389cb5a305a}')
@@ -3939,7 +3938,7 @@ class IStraightenEffect(ComPtr):
     MaintainSize = property(get_MaintainSize, put_MaintainSize)
     Source = property(get_Source, put_Source)
 class ITableTransfer3DEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ITableTransfer3DEffect'
     _iid_ = Guid('{ef09c6e0-9437-53f7-b7b4-b53c79a0bc37}')
@@ -3959,7 +3958,7 @@ class ITableTransfer3DEffect(ComPtr):
     Source = property(get_Source, put_Source)
     Table = property(get_Table, put_Table)
 class ITableTransferEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ITableTransferEffect'
     _iid_ = Guid('{bf0b63b6-fe77-5198-a2a1-3fb80c268b8f}')
@@ -4014,7 +4013,7 @@ class ITableTransferEffect(ComPtr):
     RedTable = property(get_RedTable, put_RedTable)
     Source = property(get_Source, put_Source)
 class ITemperatureAndTintEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ITemperatureAndTintEffect'
     _iid_ = Guid('{8ae43e02-2619-5d78-8980-4ed569549bd8}')
@@ -4034,7 +4033,7 @@ class ITemperatureAndTintEffect(ComPtr):
     Temperature = property(get_Temperature, put_Temperature)
     Tint = property(get_Tint, put_Tint)
 class ITileEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ITileEffect'
     _iid_ = Guid('{78a809cb-1154-5ad6-a880-e3a175772815}')
@@ -4049,7 +4048,7 @@ class ITileEffect(ComPtr):
     Source = property(get_Source, put_Source)
     SourceRectangle = property(get_SourceRectangle, put_SourceRectangle)
 class ITintEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ITintEffect'
     _iid_ = Guid('{729a21ea-c61e-5308-9eae-d638aa1f5b8c}')
@@ -4074,14 +4073,14 @@ class ITintEffect(ComPtr):
     ColorHdr = property(get_ColorHdr, put_ColorHdr)
     Source = property(get_Source, put_Source)
 class ITintEffectStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ITintEffectStatics'
     _iid_ = Guid('{65e31771-4baf-5c8c-93f4-3b874e29f68d}')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
     IsSupported = property(get_IsSupported, None)
 class ITransform2DEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ITransform2DEffect'
     _iid_ = Guid('{4467d118-33e7-5b1a-87c2-0f1f0497353d}')
@@ -4111,7 +4110,7 @@ class ITransform2DEffect(ComPtr):
     Source = property(get_Source, put_Source)
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class ITransform3DEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ITransform3DEffect'
     _iid_ = Guid('{3025ed7f-8f25-5e0b-80c9-56bbdd3e8a10}')
@@ -4136,7 +4135,7 @@ class ITransform3DEffect(ComPtr):
     Source = property(get_Source, put_Source)
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class ITurbulenceEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ITurbulenceEffect'
     _iid_ = Guid('{1cb1b33d-20e9-564b-856e-37e9fa1d0016}')
@@ -4176,7 +4175,7 @@ class ITurbulenceEffect(ComPtr):
     Size = property(get_Size, put_Size)
     Tileable = property(get_Tileable, put_Tileable)
 class IUnPremultiplyEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IUnPremultiplyEffect'
     _iid_ = Guid('{73098bb4-dcf1-5403-af44-3344d2982d40}')
@@ -4186,7 +4185,7 @@ class IUnPremultiplyEffect(ComPtr):
     def put_Source(self, source: win32more.Windows.Graphics.Effects.IGraphicsEffectSource) -> Void: ...
     Source = property(get_Source, put_Source)
 class IVignetteEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.IVignetteEffect'
     _iid_ = Guid('{574d0f9f-eec7-5989-ac53-135868cf5e0c}')
@@ -4216,7 +4215,7 @@ class IVignetteEffect(ComPtr):
     Curve = property(get_Curve, put_Curve)
     Source = property(get_Source, put_Source)
 class InvertEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IInvertEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.InvertEffect'
@@ -4264,7 +4263,7 @@ class InvertEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class LinearTransferEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ILinearTransferEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.LinearTransferEffect'
@@ -4377,7 +4376,7 @@ class LinearTransferEffect(ComPtr):
     RedSlope = property(get_RedSlope, put_RedSlope)
     Source = property(get_Source, put_Source)
 class LuminanceToAlphaEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ILuminanceToAlphaEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.LuminanceToAlphaEffect'
@@ -4446,7 +4445,7 @@ class Matrix5x4(Structure):
     M53: Single
     M54: Single
 class MorphologyEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IMorphologyEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.MorphologyEffect'
@@ -4514,7 +4513,7 @@ class MorphologyEffectMode(Enum, Int32):
 class _OpacityEffect_Meta_(ComPtr.__class__):
     pass
 class OpacityEffect(ComPtr, metaclass=_OpacityEffect_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IOpacityEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.OpacityEffect'
@@ -4570,7 +4569,7 @@ class OpacityEffect(ComPtr, metaclass=_OpacityEffect_Meta_):
     Source = property(get_Source, put_Source)
     _OpacityEffect_Meta_.IsSupported = property(get_IsSupported, None)
 class OpacityMetadataEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IOpacityMetadataEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.OpacityMetadataEffect'
@@ -4623,7 +4622,7 @@ class OpacityMetadataEffect(ComPtr):
     OpaqueRectangle = property(get_OpaqueRectangle, put_OpaqueRectangle)
     Source = property(get_Source, put_Source)
 class PixelShaderEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IPixelShaderEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.PixelShaderEffect'
@@ -4637,7 +4636,7 @@ class PixelShaderEffect(ComPtr):
     @winrt_factorymethod
     def Create(cls: win32more.Microsoft.Graphics.Canvas.Effects.IPixelShaderEffectFactory, shaderCode: PassArray[Byte]) -> win32more.Microsoft.Graphics.Canvas.Effects.PixelShaderEffect: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Microsoft.Graphics.Canvas.Effects.IPixelShaderEffect) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Properties(self: win32more.Microsoft.Graphics.Canvas.Effects.IPixelShaderEffect) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]: ...
     @winrt_mixinmethod
     def get_Source1(self: win32more.Microsoft.Graphics.Canvas.Effects.IPixelShaderEffect) -> win32more.Windows.Graphics.Effects.IGraphicsEffectSource: ...
     @winrt_mixinmethod
@@ -4836,7 +4835,7 @@ class PixelShaderEffect(ComPtr):
     Source8Interpolation = property(get_Source8Interpolation, put_Source8Interpolation)
     Source8Mapping = property(get_Source8Mapping, put_Source8Mapping)
 class PointDiffuseEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IPointDiffuseEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.PointDiffuseEffect'
@@ -4919,7 +4918,7 @@ class PointDiffuseEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class PointSpecularEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IPointSpecularEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.PointSpecularEffect'
@@ -5007,7 +5006,7 @@ class PointSpecularEffect(ComPtr):
     SpecularAmount = property(get_SpecularAmount, put_SpecularAmount)
     SpecularExponent = property(get_SpecularExponent, put_SpecularExponent)
 class PosterizeEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IPosterizeEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.PosterizeEffect'
@@ -5070,7 +5069,7 @@ class PosterizeEffect(ComPtr):
     RedValueCount = property(get_RedValueCount, put_RedValueCount)
     Source = property(get_Source, put_Source)
 class PremultiplyEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IPremultiplyEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.PremultiplyEffect'
@@ -5118,7 +5117,7 @@ class PremultiplyEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class RgbToHueEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IRgbToHueEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.RgbToHueEffect'
@@ -5175,7 +5174,7 @@ class SamplerCoordinateMapping(Enum, Int32):
     OneToOne = 1
     Offset = 2
 class SaturationEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ISaturationEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.SaturationEffect'
@@ -5228,7 +5227,7 @@ class SaturationEffect(ComPtr):
     Saturation = property(get_Saturation, put_Saturation)
     Source = property(get_Source, put_Source)
 class ScaleEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IScaleEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ScaleEffect'
@@ -5301,7 +5300,7 @@ class ScaleEffect(ComPtr):
     Sharpness = property(get_Sharpness, put_Sharpness)
     Source = property(get_Source, put_Source)
 class SepiaEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ISepiaEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.SepiaEffect'
@@ -5359,7 +5358,7 @@ class SepiaEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class ShadowEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IShadowEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.ShadowEffect'
@@ -5427,7 +5426,7 @@ class ShadowEffect(ComPtr):
     ShadowColorHdr = property(get_ShadowColorHdr, put_ShadowColorHdr)
     Source = property(get_Source, put_Source)
 class SharpenEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ISharpenEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.SharpenEffect'
@@ -5485,7 +5484,7 @@ class SharpenEffect(ComPtr):
     Source = property(get_Source, put_Source)
     Threshold = property(get_Threshold, put_Threshold)
 class SpotDiffuseEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ISpotDiffuseEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.SpotDiffuseEffect'
@@ -5583,7 +5582,7 @@ class SpotDiffuseEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class SpotSpecularEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ISpotSpecularEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.SpotSpecularEffect'
@@ -5686,7 +5685,7 @@ class SpotSpecularEffect(ComPtr):
     SpecularAmount = property(get_SpecularAmount, put_SpecularAmount)
     SpecularExponent = property(get_SpecularExponent, put_SpecularExponent)
 class StraightenEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IStraightenEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.StraightenEffect'
@@ -5749,7 +5748,7 @@ class StraightenEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class TableTransfer3DEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ITableTransfer3DEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.TableTransfer3DEffect'
@@ -5807,7 +5806,7 @@ class TableTransfer3DEffect(ComPtr):
     Source = property(get_Source, put_Source)
     Table = property(get_Table, put_Table)
 class TableTransferEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ITableTransferEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.TableTransferEffect'
@@ -5900,7 +5899,7 @@ class TableTransferEffect(ComPtr):
     RedTable = property(get_RedTable, put_RedTable)
     Source = property(get_Source, put_Source)
 class TemperatureAndTintEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ITemperatureAndTintEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.TemperatureAndTintEffect'
@@ -5958,7 +5957,7 @@ class TemperatureAndTintEffect(ComPtr):
     Temperature = property(get_Temperature, put_Temperature)
     Tint = property(get_Tint, put_Tint)
 class TileEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ITileEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.TileEffect'
@@ -6013,7 +6012,7 @@ class TileEffect(ComPtr):
 class _TintEffect_Meta_(ComPtr.__class__):
     pass
 class TintEffect(ComPtr, metaclass=_TintEffect_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ITintEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.TintEffect'
@@ -6079,7 +6078,7 @@ class TintEffect(ComPtr, metaclass=_TintEffect_Meta_):
     Source = property(get_Source, put_Source)
     _TintEffect_Meta_.IsSupported = property(get_IsSupported, None)
 class Transform2DEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ITransform2DEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.Transform2DEffect'
@@ -6147,7 +6146,7 @@ class Transform2DEffect(ComPtr):
     Source = property(get_Source, put_Source)
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class Transform3DEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ITransform3DEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.Transform3DEffect'
@@ -6210,7 +6209,7 @@ class Transform3DEffect(ComPtr):
     Source = property(get_Source, put_Source)
     TransformMatrix = property(get_TransformMatrix, put_TransformMatrix)
 class TurbulenceEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.ITurbulenceEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.TurbulenceEffect'
@@ -6291,7 +6290,7 @@ class TurbulenceEffectNoise(Enum, Int32):
     FractalSum = 0
     Turbulence = 1
 class UnPremultiplyEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IUnPremultiplyEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.UnPremultiplyEffect'
@@ -6339,7 +6338,7 @@ class UnPremultiplyEffect(ComPtr):
     Name = property(get_Name, put_Name)
     Source = property(get_Source, put_Source)
 class VignetteEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Graphics.Canvas.Effects.IVignetteEffect
     _classid_ = 'Microsoft.Graphics.Canvas.Effects.VignetteEffect'

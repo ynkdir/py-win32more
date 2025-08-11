@@ -1,20 +1,19 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.ApplicationModel.Preview.Notes
 import win32more.Windows.Foundation
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class INotePlacementChangedPreviewEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotePlacementChangedPreviewEventArgs'
     _iid_ = Guid('{491d57b7-f780-4e7f-a939-9a4caf965214}')
     @winrt_commethod(6)
     def get_ViewId(self) -> Int32: ...
     ViewId = property(get_ViewId, None)
 class INoteVisibilityChangedPreviewEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.INoteVisibilityChangedPreviewEventArgs'
     _iid_ = Guid('{0e34649e-3815-4ff6-83b3-a14d17120e24}')
     @winrt_commethod(6)
@@ -24,7 +23,7 @@ class INoteVisibilityChangedPreviewEventArgs(ComPtr):
     IsVisible = property(get_IsVisible, None)
     ViewId = property(get_ViewId, None)
 class INotesWindowManagerPreview(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview'
     _iid_ = Guid('{dc2ac23e-4850-4f13-9cc7-ff487efdfcde}')
     @winrt_commethod(6)
@@ -46,7 +45,7 @@ class INotesWindowManagerPreview(ComPtr):
     @winrt_commethod(14)
     def SetNotesThumbnailAsync(self, thumbnail: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(15)
-    def add_SystemLockStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SystemLockStateChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(16)
     def remove_SystemLockStateChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(17)
@@ -62,7 +61,7 @@ class INotesWindowManagerPreview(ComPtr):
     NotePlacementChanged = event()
     NoteVisibilityChanged = event()
 class INotesWindowManagerPreview2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview2'
     _iid_ = Guid('{edfe864a-1f54-4b09-9823-ff477f6fa3bc}')
     @winrt_commethod(6)
@@ -74,7 +73,7 @@ class INotesWindowManagerPreview2(ComPtr):
     @winrt_commethod(9)
     def SetThumbnailImageForTaskSwitcherAsync(self, bitmap: win32more.Windows.Graphics.Imaging.SoftwareBitmap) -> win32more.Windows.Foundation.IAsyncAction: ...
 class INotesWindowManagerPreviewShowNoteOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewShowNoteOptions'
     _iid_ = Guid('{886b09d6-a6ae-4007-a56d-1ca70c84c0d2}')
     @winrt_commethod(6)
@@ -83,20 +82,20 @@ class INotesWindowManagerPreviewShowNoteOptions(ComPtr):
     def put_ShowWithFocus(self, value: Boolean) -> Void: ...
     ShowWithFocus = property(get_ShowWithFocus, put_ShowWithFocus)
 class INotesWindowManagerPreviewStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewStatics'
     _iid_ = Guid('{6668cc88-0a8e-4127-a38e-995445868a78}')
     @winrt_commethod(6)
     def GetForCurrentApp(self) -> win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview: ...
 class NotePlacementChangedPreviewEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Preview.Notes.INotePlacementChangedPreviewEventArgs
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.NotePlacementChangedPreviewEventArgs'
     @winrt_mixinmethod
     def get_ViewId(self: win32more.Windows.ApplicationModel.Preview.Notes.INotePlacementChangedPreviewEventArgs) -> Int32: ...
     ViewId = property(get_ViewId, None)
 class NoteVisibilityChangedPreviewEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Preview.Notes.INoteVisibilityChangedPreviewEventArgs
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.NoteVisibilityChangedPreviewEventArgs'
     @winrt_mixinmethod
@@ -106,7 +105,7 @@ class NoteVisibilityChangedPreviewEventArgs(ComPtr):
     IsVisible = property(get_IsVisible, None)
     ViewId = property(get_ViewId, None)
 class NotesWindowManagerPreview(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview'
     @winrt_mixinmethod
@@ -128,7 +127,7 @@ class NotesWindowManagerPreview(ComPtr):
     @winrt_mixinmethod
     def SetNotesThumbnailAsync(self: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview, thumbnail: win32more.Windows.Storage.Streams.IBuffer) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
-    def add_SystemLockStateChanged(self: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_SystemLockStateChanged(self: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreview, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_SystemLockStateChanged(self: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreview, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -154,7 +153,7 @@ class NotesWindowManagerPreview(ComPtr):
     NotePlacementChanged = event()
     NoteVisibilityChanged = event()
 class NotesWindowManagerPreviewShowNoteOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.ApplicationModel.Preview.Notes.INotesWindowManagerPreviewShowNoteOptions
     _classid_ = 'Windows.ApplicationModel.Preview.Notes.NotesWindowManagerPreviewShowNoteOptions'
     def __init__(self, *args, **kwargs):

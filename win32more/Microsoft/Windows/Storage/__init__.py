@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.Storage
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.System
-import win32more.Windows.Win32.System.WinRT
 class ApplicationData(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Windows.Storage.IApplicationData
     _classid_ = 'Microsoft.Windows.Storage.ApplicationData'
@@ -65,7 +64,7 @@ class ApplicationData(ComPtr):
     TemporaryFolder = property(get_TemporaryFolder, None)
     TemporaryPath = property(get_TemporaryPath, None)
 class ApplicationDataContainer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Microsoft.Windows.Storage.IApplicationDataContainer
     _classid_ = 'Microsoft.Windows.Storage.ApplicationDataContainer'
@@ -98,7 +97,7 @@ class ApplicationDataLocality(Enum, Int32):
     Temporary = 2
     Machine = 1000
 class IApplicationData(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Storage.IApplicationData'
     _iid_ = Guid('{fc073ce2-2f7b-5214-95fa-530a3f9d1ea5}')
     @winrt_commethod(6)
@@ -146,7 +145,7 @@ class IApplicationData(ComPtr):
     TemporaryFolder = property(get_TemporaryFolder, None)
     TemporaryPath = property(get_TemporaryPath, None)
 class IApplicationDataContainer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Storage.IApplicationDataContainer'
     _iid_ = Guid('{d1fa9c23-2e59-55d8-bd86-88c2fdc9e7c9}')
     @winrt_commethod(6)
@@ -166,7 +165,7 @@ class IApplicationDataContainer(ComPtr):
     Name = property(get_Name, None)
     Values = property(get_Values, None)
 class IApplicationDataStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Storage.IApplicationDataStatics'
     _iid_ = Guid('{6a8b41f8-5560-56fb-86b0-d59e897d4d95}')
     @winrt_commethod(6)

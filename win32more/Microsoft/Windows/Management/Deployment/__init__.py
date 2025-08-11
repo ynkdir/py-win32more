@@ -1,14 +1,13 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.ApplicationModel.DynamicDependency
 import win32more.Microsoft.Windows.Management.Deployment
 import win32more.Windows.ApplicationModel
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class AddPackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IAddPackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.AddPackageOptions'
     def __init__(self, *args, **kwargs):
@@ -112,7 +111,7 @@ class AddPackageOptions(ComPtr):
     StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
 class EnsureReadyOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IEnsureReadyOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.EnsureReadyOptions'
     def __init__(self, *args, **kwargs):
@@ -133,7 +132,7 @@ class EnsureReadyOptions(ComPtr):
     AddPackageOptions = property(get_AddPackageOptions, None)
     RegisterNewerIfAvailable = property(get_RegisterNewerIfAvailable, put_RegisterNewerIfAvailable)
 class IAddPackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IAddPackageOptions'
     _iid_ = Guid('{e3db7f39-f9d0-5884-bdef-6153b54574a3}')
     @winrt_commethod(6)
@@ -228,14 +227,14 @@ class IAddPackageOptions(ComPtr):
     StubPackageOption = property(get_StubPackageOption, put_StubPackageOption)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
 class IEnsureReadyOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IEnsureReadyOptions'
     _iid_ = Guid('{20102d03-ec44-5c2b-8fd6-1104dc99755d}')
     @winrt_commethod(6)
     def get_AddPackageOptions(self) -> win32more.Microsoft.Windows.Management.Deployment.AddPackageOptions: ...
     AddPackageOptions = property(get_AddPackageOptions, None)
 class IEnsureReadyOptions2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IEnsureReadyOptions2'
     _iid_ = Guid('{eefa9259-b13a-50a3-919e-ae116d83c0da}')
     @winrt_commethod(6)
@@ -244,7 +243,7 @@ class IEnsureReadyOptions2(ComPtr):
     def put_RegisterNewerIfAvailable(self, value: Boolean) -> Void: ...
     RegisterNewerIfAvailable = property(get_RegisterNewerIfAvailable, put_RegisterNewerIfAvailable)
 class IPackageDeploymentManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentManager'
     _iid_ = Guid('{f41717d8-5ab2-57ac-83cd-d0c48cc784cd}')
     @winrt_commethod(6)
@@ -316,7 +315,7 @@ class IPackageDeploymentManager(ComPtr):
     @winrt_commethod(39)
     def IsPackageRegistrationPendingForUser(self, userSecurityId: WinRT_String, packageFamilyName: WinRT_String) -> Boolean: ...
 class IPackageDeploymentManager2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentManager2'
     _iid_ = Guid('{6fc6d0f3-f9dd-5c14-9d3f-077165eddf98}')
     @winrt_commethod(6)
@@ -332,19 +331,19 @@ class IPackageDeploymentManager2(ComPtr):
     @winrt_commethod(11)
     def IsPackageSetProvisioned(self, packageSet: win32more.Microsoft.Windows.Management.Deployment.PackageSet) -> Boolean: ...
 class IPackageDeploymentManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentManagerStatics'
     _iid_ = Guid('{dbda4ac6-ca28-59b8-9fc6-dbfb5765f1c2}')
     @winrt_commethod(6)
     def GetDefault(self) -> win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentManager: ...
 class IPackageDeploymentManagerStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentManagerStatics2'
     _iid_ = Guid('{0ec31486-00b5-5937-8cd4-759260fdc4a2}')
     @winrt_commethod(6)
     def IsPackageDeploymentFeatureSupported(self, feature: win32more.Microsoft.Windows.Management.Deployment.PackageDeploymentFeature) -> Boolean: ...
 class IPackageDeploymentResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageDeploymentResult'
     _iid_ = Guid('{d6b99601-18c2-599e-8bd1-40a9310ad263}')
     @winrt_commethod(6)
@@ -363,7 +362,7 @@ class IPackageDeploymentResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
     Status = property(get_Status, None)
 class IPackageRuntimeManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageRuntimeManager'
     _iid_ = Guid('{6bf0fd29-6c2a-58d1-af0c-abd2eac45e29}')
     @winrt_commethod(6)
@@ -373,13 +372,13 @@ class IPackageRuntimeManager(ComPtr):
     @winrt_commethod(8)
     def RemovePackageSet(self, packageSetRuntimeDisposition: win32more.Microsoft.Windows.Management.Deployment.PackageSetRuntimeDisposition) -> Void: ...
 class IPackageRuntimeManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageRuntimeManagerStatics'
     _iid_ = Guid('{790947de-01d4-5858-aa69-9c9390fb7d3e}')
     @winrt_commethod(6)
     def GetDefault(self) -> win32more.Microsoft.Windows.Management.Deployment.PackageRuntimeManager: ...
 class IPackageSet(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageSet'
     _iid_ = Guid('{229fdf93-8529-5f8d-988c-af8a39ad46f7}')
     @winrt_commethod(6)
@@ -396,7 +395,7 @@ class IPackageSet(ComPtr):
     Items = property(get_Items, None)
     PackageUri = property(get_PackageUri, put_PackageUri)
 class IPackageSetItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageSetItem'
     _iid_ = Guid('{8f254e15-c371-550f-b4e8-3f0bb1ae375f}')
     @winrt_commethod(6)
@@ -425,7 +424,7 @@ class IPackageSetItem(ComPtr):
     PackageUri = property(get_PackageUri, put_PackageUri)
     ProcessorArchitectureFilter = property(get_ProcessorArchitectureFilter, put_ProcessorArchitectureFilter)
 class IPackageSetItemRuntimeDisposition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageSetItemRuntimeDisposition'
     _iid_ = Guid('{7a7f9f70-d416-5f83-a3cd-027bf3d2abfd}')
     @winrt_commethod(6)
@@ -441,7 +440,7 @@ class IPackageSetItemRuntimeDisposition(ComPtr):
     PackageFullName = property(get_PackageFullName, None)
     PackageSetItemId = property(get_PackageSetItemId, None)
 class IPackageSetRuntimeDisposition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageSetRuntimeDisposition'
     _iid_ = Guid('{c13f1088-ea36-5db3-bcdd-e6d59e6c9b71}')
     @winrt_commethod(6)
@@ -453,7 +452,7 @@ class IPackageSetRuntimeDisposition(ComPtr):
     PackageSetId = property(get_PackageSetId, put_PackageSetId)
     PackageSetItemRuntimeDispositions = property(get_PackageSetItemRuntimeDispositions, None)
 class IPackageVolume(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageVolume'
     _iid_ = Guid('{9c9710f4-795a-58b3-93f4-c991c4329c49}')
     @winrt_commethod(6)
@@ -482,7 +481,7 @@ class IPackageVolume(ComPtr):
     PackageStorePath = property(get_PackageStorePath, None)
     SupportsHardLinks = property(get_SupportsHardLinks, None)
 class IPackageVolumeStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IPackageVolumeStatics'
     _iid_ = Guid('{4c731835-8bc0-5313-9b56-8a4100eaea01}')
     @winrt_commethod(6)
@@ -492,7 +491,7 @@ class IPackageVolumeStatics(ComPtr):
     @winrt_commethod(8)
     def FindPackageVolumeByName(self, name: WinRT_String) -> win32more.Microsoft.Windows.Management.Deployment.PackageVolume: ...
 class IProvisionPackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IProvisionPackageOptions'
     _iid_ = Guid('{415e300f-d1e3-581e-a114-76d277b06136}')
     @winrt_commethod(6)
@@ -508,7 +507,7 @@ class IProvisionPackageOptions(ComPtr):
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     ProjectionOrderPackageFamilyNames = property(get_ProjectionOrderPackageFamilyNames, None)
 class IRegisterPackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IRegisterPackageOptions'
     _iid_ = Guid('{83068623-2046-505f-8425-55226c0f84cc}')
     @winrt_commethod(6)
@@ -577,7 +576,7 @@ class IRegisterPackageOptions(ComPtr):
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
 class IRemovePackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IRemovePackageOptions'
     _iid_ = Guid('{e7c90595-9a44-5046-8ebf-41ed326b200e}')
     @winrt_commethod(6)
@@ -601,7 +600,7 @@ class IRemovePackageOptions(ComPtr):
     PreserveRoamableApplicationData = property(get_PreserveRoamableApplicationData, put_PreserveRoamableApplicationData)
     RemoveForAllUsers = property(get_RemoveForAllUsers, put_RemoveForAllUsers)
 class IStagePackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.Management.Deployment.IStagePackageOptions'
     _iid_ = Guid('{9b6b3203-fd7c-5ead-a9d6-ab2e8566be5e}')
     @winrt_commethod(6)
@@ -676,7 +675,7 @@ class PackageDeploymentFeature(Enum, Int32):
     RepairPackage = 5
     ProvisionPackage_Framework = 6
 class PackageDeploymentManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentManager
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageDeploymentManager'
     @winrt_mixinmethod
@@ -772,7 +771,7 @@ class PackageDeploymentProgressStatus(Enum, Int32):
     CompletedSuccess = 2
     CompletedFailure = 3
 class PackageDeploymentResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageDeploymentResult
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageDeploymentResult'
     @winrt_mixinmethod
@@ -799,7 +798,7 @@ class PackageReadyOrNewerAvailableStatus(Enum, Int32):
     Ready = 1
     NewerAvailable = 2
 class PackageRuntimeManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageRuntimeManager
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageRuntimeManager'
     @winrt_mixinmethod
@@ -811,7 +810,7 @@ class PackageRuntimeManager(ComPtr):
     @winrt_classmethod
     def GetDefault(cls: win32more.Microsoft.Windows.Management.Deployment.IPackageRuntimeManagerStatics) -> win32more.Microsoft.Windows.Management.Deployment.PackageRuntimeManager: ...
 class PackageSet(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageSet
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageSet'
     def __init__(self, *args, **kwargs):
@@ -837,7 +836,7 @@ class PackageSet(ComPtr):
     Items = property(get_Items, None)
     PackageUri = property(get_PackageUri, put_PackageUri)
 class PackageSetItem(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageSetItem
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageSetItem'
     def __init__(self, *args, **kwargs):
@@ -875,7 +874,7 @@ class PackageSetItem(ComPtr):
     PackageUri = property(get_PackageUri, put_PackageUri)
     ProcessorArchitectureFilter = property(get_ProcessorArchitectureFilter, put_ProcessorArchitectureFilter)
 class PackageSetItemRuntimeDisposition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageSetItemRuntimeDisposition
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageSetItemRuntimeDisposition'
     def __init__(self, *args, **kwargs):
@@ -900,7 +899,7 @@ class PackageSetItemRuntimeDisposition(ComPtr):
     PackageFullName = property(get_PackageFullName, None)
     PackageSetItemId = property(get_PackageSetItemId, None)
 class PackageSetRuntimeDisposition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageSetRuntimeDisposition
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageSetRuntimeDisposition'
     def __init__(self, *args, **kwargs):
@@ -921,7 +920,7 @@ class PackageSetRuntimeDisposition(ComPtr):
     PackageSetId = property(get_PackageSetId, put_PackageSetId)
     PackageSetItemRuntimeDispositions = property(get_PackageSetItemRuntimeDispositions, None)
 class PackageVolume(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IPackageVolume
     _classid_ = 'Microsoft.Windows.Management.Deployment.PackageVolume'
     @winrt_mixinmethod
@@ -956,7 +955,7 @@ class PackageVolume(ComPtr):
     PackageStorePath = property(get_PackageStorePath, None)
     SupportsHardLinks = property(get_SupportsHardLinks, None)
 class ProvisionPackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IProvisionPackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.ProvisionPackageOptions'
     def __init__(self, *args, **kwargs):
@@ -981,7 +980,7 @@ class ProvisionPackageOptions(ComPtr):
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     ProjectionOrderPackageFamilyNames = property(get_ProjectionOrderPackageFamilyNames, None)
 class RegisterPackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IRegisterPackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.RegisterPackageOptions'
     def __init__(self, *args, **kwargs):
@@ -1059,7 +1058,7 @@ class RegisterPackageOptions(ComPtr):
     OptionalPackageFamilyNames = property(get_OptionalPackageFamilyNames, None)
     StageInPlace = property(get_StageInPlace, put_StageInPlace)
 class RemovePackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IRemovePackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.RemovePackageOptions'
     def __init__(self, *args, **kwargs):
@@ -1092,7 +1091,7 @@ class RemovePackageOptions(ComPtr):
     PreserveRoamableApplicationData = property(get_PreserveRoamableApplicationData, put_PreserveRoamableApplicationData)
     RemoveForAllUsers = property(get_RemoveForAllUsers, put_RemoveForAllUsers)
 class StagePackageOptions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.Management.Deployment.IStagePackageOptions
     _classid_ = 'Microsoft.Windows.Management.Deployment.StagePackageOptions'
     def __init__(self, *args, **kwargs):

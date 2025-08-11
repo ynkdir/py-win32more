@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Power
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System.Power
-import win32more.Windows.Win32.System.WinRT
 class _Battery_Meta_(ComPtr.__class__):
     pass
 class Battery(ComPtr, metaclass=_Battery_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Power.IBattery
     _classid_ = 'Windows.Devices.Power.Battery'
     @winrt_mixinmethod
@@ -17,7 +16,7 @@ class Battery(ComPtr, metaclass=_Battery_Meta_):
     @winrt_mixinmethod
     def GetReport(self: win32more.Windows.Devices.Power.IBattery) -> win32more.Windows.Devices.Power.BatteryReport: ...
     @winrt_mixinmethod
-    def add_ReportUpdated(self: win32more.Windows.Devices.Power.IBattery, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Power.Battery, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReportUpdated(self: win32more.Windows.Devices.Power.IBattery, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Power.Battery, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ReportUpdated(self: win32more.Windows.Devices.Power.IBattery, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -30,7 +29,7 @@ class Battery(ComPtr, metaclass=_Battery_Meta_):
     _Battery_Meta_.AggregateBattery = property(get_AggregateBattery, None)
     ReportUpdated = event()
 class BatteryReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Power.IBatteryReport
     _classid_ = 'Windows.Devices.Power.BatteryReport'
     @winrt_mixinmethod
@@ -49,7 +48,7 @@ class BatteryReport(ComPtr):
     RemainingCapacityInMilliwattHours = property(get_RemainingCapacityInMilliwattHours, None)
     Status = property(get_Status, None)
 class IBattery(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Power.IBattery'
     _iid_ = Guid('{bc894fc6-0072-47c8-8b5d-614aaa7a437e}')
     @winrt_commethod(6)
@@ -57,13 +56,13 @@ class IBattery(ComPtr):
     @winrt_commethod(7)
     def GetReport(self) -> win32more.Windows.Devices.Power.BatteryReport: ...
     @winrt_commethod(8)
-    def add_ReportUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Power.Battery, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ReportUpdated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.Devices.Power.Battery, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_ReportUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
     ReportUpdated = event()
 class IBatteryReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Power.IBatteryReport'
     _iid_ = Guid('{c9858c3a-4e13-420a-a8d0-24f18f395401}')
     @winrt_commethod(6)
@@ -82,7 +81,7 @@ class IBatteryReport(ComPtr):
     RemainingCapacityInMilliwattHours = property(get_RemainingCapacityInMilliwattHours, None)
     Status = property(get_Status, None)
 class IBatteryStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Power.IBatteryStatics'
     _iid_ = Guid('{79cd72b6-9e5e-4452-bea6-dfcd541e597f}')
     @winrt_commethod(6)
@@ -93,7 +92,7 @@ class IBatteryStatics(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
     AggregateBattery = property(get_AggregateBattery, None)
 class IPowerGridData(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Power.IPowerGridData'
     _iid_ = Guid('{c360fb17-fc92-5f6e-999d-16a4cf9d6c40}')
     @winrt_commethod(6)
@@ -103,7 +102,7 @@ class IPowerGridData(ComPtr):
     IsLowUserExperienceImpact = property(get_IsLowUserExperienceImpact, None)
     Severity = property(get_Severity, None)
 class IPowerGridForecast(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Power.IPowerGridForecast'
     _iid_ = Guid('{077e4de9-ed60-58bb-a850-003c6a138685}')
     @winrt_commethod(6)
@@ -116,19 +115,19 @@ class IPowerGridForecast(ComPtr):
     Forecast = property(get_Forecast, None)
     StartTime = property(get_StartTime, None)
 class IPowerGridForecastStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Power.IPowerGridForecastStatics'
     _iid_ = Guid('{5b78c806-2e4e-5bcc-bb34-cb81c60f9e12}')
     @winrt_commethod(6)
     def GetForecast(self) -> win32more.Windows.Devices.Power.PowerGridForecast: ...
     @winrt_commethod(7)
-    def add_ForecastUpdated(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ForecastUpdated(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_ForecastUpdated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ForecastUpdated = event()
 PowerGridApiContract: UInt32 = 65536
 class PowerGridData(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Power.IPowerGridData
     _classid_ = 'Windows.Devices.Power.PowerGridData'
     @winrt_mixinmethod
@@ -138,7 +137,7 @@ class PowerGridData(ComPtr):
     IsLowUserExperienceImpact = property(get_IsLowUserExperienceImpact, None)
     Severity = property(get_Severity, None)
 class PowerGridForecast(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Power.IPowerGridForecast
     _classid_ = 'Windows.Devices.Power.PowerGridForecast'
     @winrt_mixinmethod
@@ -150,7 +149,7 @@ class PowerGridForecast(ComPtr):
     @winrt_classmethod
     def GetForecast(cls: win32more.Windows.Devices.Power.IPowerGridForecastStatics) -> win32more.Windows.Devices.Power.PowerGridForecast: ...
     @winrt_classmethod
-    def add_ForecastUpdated(cls: win32more.Windows.Devices.Power.IPowerGridForecastStatics, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_ForecastUpdated(cls: win32more.Windows.Devices.Power.IPowerGridForecastStatics, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ForecastUpdated(cls: win32more.Windows.Devices.Power.IPowerGridForecastStatics, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     BlockDuration = property(get_BlockDuration, None)

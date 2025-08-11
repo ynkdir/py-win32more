@@ -1,18 +1,17 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.I2c.Provider
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class II2cControllerProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.I2c.Provider.II2cControllerProvider'
     _iid_ = Guid('{61c2bb82-4510-4163-a87c-4e15a9558980}')
     @winrt_commethod(6)
     def GetDeviceProvider(self, settings: win32more.Windows.Devices.I2c.Provider.ProviderI2cConnectionSettings) -> win32more.Windows.Devices.I2c.Provider.II2cDeviceProvider: ...
 class II2cDeviceProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Devices.I2c.Provider.II2cDeviceProvider'
     _iid_ = Guid('{ad342654-57e8-453e-8329-d1e447d103a9}')
@@ -32,13 +31,13 @@ class II2cDeviceProvider(ComPtr):
     def WriteReadPartial(self, writeBuffer: PassArray[Byte], readBuffer: FillArray[Byte]) -> win32more.Windows.Devices.I2c.Provider.ProviderI2cTransferResult: ...
     DeviceId = property(get_DeviceId, None)
 class II2cProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.I2c.Provider.II2cProvider'
     _iid_ = Guid('{6f13083e-bf62-4fe2-a95a-f08999669818}')
     @winrt_commethod(6)
     def GetControllersAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Devices.I2c.Provider.II2cControllerProvider]]: ...
 class IProviderI2cConnectionSettings(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.I2c.Provider.IProviderI2cConnectionSettings'
     _iid_ = Guid('{e9db4e34-e510-44b7-809d-f2f85b555339}')
     @winrt_commethod(6)
@@ -60,7 +59,7 @@ class ProviderI2cBusSpeed(Enum, Int32):
     StandardMode = 0
     FastMode = 1
 class ProviderI2cConnectionSettings(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.I2c.Provider.IProviderI2cConnectionSettings
     _classid_ = 'Windows.Devices.I2c.Provider.ProviderI2cConnectionSettings'
     @winrt_mixinmethod

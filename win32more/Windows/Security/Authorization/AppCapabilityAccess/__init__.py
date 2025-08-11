@@ -1,13 +1,12 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Security.Authorization.AppCapabilityAccess
 import win32more.Windows.System
-import win32more.Windows.Win32.System.WinRT
 class AppCapability(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.Authorization.AppCapabilityAccess.IAppCapability
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.AppCapability'
     @winrt_mixinmethod
@@ -39,7 +38,7 @@ class AppCapability(ComPtr):
     User = property(get_User, None)
     AccessChanged = event()
 class AppCapabilityAccessChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityAccessChangedEventArgs
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessChangedEventArgs'
 class AppCapabilityAccessStatus(Enum, Int32):
@@ -49,7 +48,7 @@ class AppCapabilityAccessStatus(Enum, Int32):
     UserPromptRequired = 3
     Allowed = 4
 class IAppCapability(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapability'
     _iid_ = Guid('{4c49d915-8a2a-4295-9437-2df7c396aff4}')
     @winrt_commethod(6)
@@ -68,7 +67,7 @@ class IAppCapability(ComPtr):
     User = property(get_User, None)
     AccessChanged = event()
 class IAppCapability2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapability2'
     _iid_ = Guid('{11c7ccb6-c74f-50a3-b960-88008767d939}')
     @winrt_commethod(6)
@@ -77,11 +76,11 @@ class IAppCapability2(ComPtr):
     def put_DisplayMessage(self, value: WinRT_String) -> Void: ...
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
 class IAppCapabilityAccessChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityAccessChangedEventArgs'
     _iid_ = Guid('{0a578d15-bdd7-457e-8cca-6f53bd2e5944}')
 class IAppCapabilityStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Security.Authorization.AppCapabilityAccess.IAppCapabilityStatics'
     _iid_ = Guid('{7c353e2a-46ee-44e5-af3d-6ad3fc49bd22}')
     @winrt_commethod(6)

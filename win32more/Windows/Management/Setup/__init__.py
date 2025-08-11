@@ -1,13 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Management.Setup
-import win32more.Windows.Win32.System.Com
-import win32more.Windows.Win32.System.WinRT
 class AgentProvisioningProgressReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Management.Setup.IAgentProvisioningProgressReport
     _classid_ = 'Windows.Management.Setup.AgentProvisioningProgressReport'
     def __init__(self, *args, **kwargs):
@@ -69,7 +67,7 @@ class DeploymentSessionConnectionChange(Enum, Int32):
     InternetConnectionLost = 5
     InternetConnectionRestored = 6
 class DeploymentSessionConnectionChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Management.Setup.IDeploymentSessionConnectionChangedEventArgs
     _classid_ = 'Windows.Management.Setup.DeploymentSessionConnectionChangedEventArgs'
     @winrt_mixinmethod
@@ -79,12 +77,12 @@ class DeploymentSessionConnectionChangedEventArgs(ComPtr):
     Change = property(get_Change, None)
     SessionId = property(get_SessionId, None)
 class DeploymentSessionHeartbeatRequested(MulticastDelegate):
-    extends: win32more.Windows.Win32.System.Com.IUnknown
+    extends: IUnknown
     _iid_ = Guid('{c94a770b-5b05-4595-9e69-79070484377e}')
     @winrt_commethod(3)
     def Invoke(self, eventArgs: win32more.Windows.Management.Setup.DeploymentSessionHeartbeatRequestedEventArgs) -> Void: ...
 class DeploymentSessionHeartbeatRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Management.Setup.IDeploymentSessionHeartbeatRequestedEventArgs
     _classid_ = 'Windows.Management.Setup.DeploymentSessionHeartbeatRequestedEventArgs'
     @winrt_mixinmethod
@@ -97,7 +95,7 @@ class DeploymentSessionStateChange(Enum, Int32):
     CancelRequestedByUser = 1
     RetryRequestedByUser = 2
 class DeploymentSessionStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Management.Setup.IDeploymentSessionStateChangedEventArgs
     _classid_ = 'Windows.Management.Setup.DeploymentSessionStateChangedEventArgs'
     @winrt_mixinmethod
@@ -107,7 +105,7 @@ class DeploymentSessionStateChangedEventArgs(ComPtr):
     Change = property(get_Change, None)
     SessionId = property(get_SessionId, None)
 class DeploymentWorkload(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Management.Setup.IDeploymentWorkload
     _classid_ = 'Windows.Management.Setup.DeploymentWorkload'
     def __init__(self, *args, **kwargs):
@@ -168,7 +166,7 @@ class DeploymentWorkload(ComPtr):
     State = property(get_State, put_State)
     StateDetails = property(get_StateDetails, put_StateDetails)
 class DeploymentWorkloadBatch(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Management.Setup.IDeploymentWorkloadBatch
     _classid_ = 'Windows.Management.Setup.DeploymentWorkloadBatch'
     def __init__(self, *args, **kwargs):
@@ -201,14 +199,14 @@ class DeploymentWorkloadState(Enum, Int32):
     Uninstalled = 6
     RebootRequired = 7
 class DevicePreparationExecutionContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Management.Setup.IDevicePreparationExecutionContext
     _classid_ = 'Windows.Management.Setup.DevicePreparationExecutionContext'
     @winrt_mixinmethod
     def get_Context(self: win32more.Windows.Management.Setup.IDevicePreparationExecutionContext) -> WinRT_String: ...
     Context = property(get_Context, None)
 class IAgentProvisioningProgressReport(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IAgentProvisioningProgressReport'
     _iid_ = Guid('{5097398a-70cc-5181-a7af-d31c167323d1}')
     @winrt_commethod(6)
@@ -245,7 +243,7 @@ class IAgentProvisioningProgressReport(ComPtr):
     ProgressPercentage = property(get_ProgressPercentage, put_ProgressPercentage)
     State = property(get_State, put_State)
 class IDeploymentSessionConnectionChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IDeploymentSessionConnectionChangedEventArgs'
     _iid_ = Guid('{8d40c631-6e4b-5d59-92f8-0de54c2a3c6b}')
     @winrt_commethod(6)
@@ -255,7 +253,7 @@ class IDeploymentSessionConnectionChangedEventArgs(ComPtr):
     Change = property(get_Change, None)
     SessionId = property(get_SessionId, None)
 class IDeploymentSessionHeartbeatRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IDeploymentSessionHeartbeatRequestedEventArgs'
     _iid_ = Guid('{09d81fa0-1036-58e6-b63b-fe343c45005f}')
     @winrt_commethod(6)
@@ -264,7 +262,7 @@ class IDeploymentSessionHeartbeatRequestedEventArgs(ComPtr):
     def put_Handled(self, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
 class IDeploymentSessionStateChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IDeploymentSessionStateChangedEventArgs'
     _iid_ = Guid('{fbd3b7f3-88cb-5703-b8a5-0218de8fed81}')
     @winrt_commethod(6)
@@ -274,7 +272,7 @@ class IDeploymentSessionStateChangedEventArgs(ComPtr):
     Change = property(get_Change, None)
     SessionId = property(get_SessionId, None)
 class IDeploymentWorkload(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IDeploymentWorkload'
     _iid_ = Guid('{1cefd3d4-456c-50d1-9312-cc5c818fc12e}')
     @winrt_commethod(6)
@@ -326,7 +324,7 @@ class IDeploymentWorkload(ComPtr):
     State = property(get_State, put_State)
     StateDetails = property(get_StateDetails, put_StateDetails)
 class IDeploymentWorkloadBatch(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IDeploymentWorkloadBatch'
     _iid_ = Guid('{5e56e3df-b9c0-5fee-ba3f-e89d800a9bf2}')
     @winrt_commethod(6)
@@ -341,26 +339,26 @@ class IDeploymentWorkloadBatch(ComPtr):
     DisplayCategoryTitle = property(get_DisplayCategoryTitle, put_DisplayCategoryTitle)
     Id = property(get_Id, None)
 class IDeploymentWorkloadBatchFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IDeploymentWorkloadBatchFactory'
     _iid_ = Guid('{d0209697-9560-5a05-bdf6-f1af535cb0d4}')
     @winrt_commethod(6)
     def CreateInstance(self, id: UInt32) -> win32more.Windows.Management.Setup.DeploymentWorkloadBatch: ...
 class IDeploymentWorkloadFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IDeploymentWorkloadFactory'
     _iid_ = Guid('{41426c72-22a3-5339-bdf1-51268169aa61}')
     @winrt_commethod(6)
     def CreateInstance(self, id: WinRT_String) -> win32more.Windows.Management.Setup.DeploymentWorkload: ...
 class IDevicePreparationExecutionContext(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IDevicePreparationExecutionContext'
     _iid_ = Guid('{084f221b-2484-5e81-a4e7-83f6caf19dc4}')
     @winrt_commethod(6)
     def get_Context(self) -> WinRT_String: ...
     Context = property(get_Context, None)
 class IMachineProvisioningProgressReporter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IMachineProvisioningProgressReporter'
     _iid_ = Guid('{ebd8677f-dfd2-59da-ac3d-753ee1667cbb}')
     @winrt_commethod(6)
@@ -387,13 +385,13 @@ class IMachineProvisioningProgressReporter(ComPtr):
     SessionStateChanged = event()
     SessionConnectionChanged = event()
 class IMachineProvisioningProgressReporterStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Management.Setup.IMachineProvisioningProgressReporterStatics'
     _iid_ = Guid('{77682c17-5da3-51fc-a042-c7b53458ddb5}')
     @winrt_commethod(6)
     def GetForLaunchUri(self, launchUri: win32more.Windows.Foundation.Uri, heartbeatHandler: win32more.Windows.Management.Setup.DeploymentSessionHeartbeatRequested) -> win32more.Windows.Management.Setup.MachineProvisioningProgressReporter: ...
 class MachineProvisioningProgressReporter(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Management.Setup.IMachineProvisioningProgressReporter
     _classid_ = 'Windows.Management.Setup.MachineProvisioningProgressReporter'
     @winrt_mixinmethod

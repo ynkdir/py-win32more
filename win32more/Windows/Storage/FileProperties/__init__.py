@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Geolocation
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Storage
 import win32more.Windows.Storage.FileProperties
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class BasicProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.FileProperties.IBasicProperties
     _classid_ = 'Windows.Storage.FileProperties.BasicProperties'
     @winrt_mixinmethod
@@ -19,16 +18,16 @@ class BasicProperties(ComPtr):
     @winrt_mixinmethod
     def get_ItemDate(self: win32more.Windows.Storage.FileProperties.IBasicProperties) -> win32more.Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
-    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
+    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]]: ...
     @winrt_mixinmethod
-    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SavePropertiesAsyncOverloadDefault(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties) -> win32more.Windows.Foundation.IAsyncAction: ...
     DateModified = property(get_DateModified, None)
     ItemDate = property(get_ItemDate, None)
     Size = property(get_Size, None)
 class DocumentProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.FileProperties.IDocumentProperties
     _classid_ = 'Windows.Storage.FileProperties.DocumentProperties'
     @winrt_mixinmethod
@@ -44,9 +43,9 @@ class DocumentProperties(ComPtr):
     @winrt_mixinmethod
     def put_Comment(self: win32more.Windows.Storage.FileProperties.IDocumentProperties, value: WinRT_String) -> Void: ...
     @winrt_mixinmethod
-    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
+    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]]: ...
     @winrt_mixinmethod
-    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SavePropertiesAsyncOverloadDefault(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties) -> win32more.Windows.Foundation.IAsyncAction: ...
     Author = property(get_Author, None)
@@ -54,7 +53,7 @@ class DocumentProperties(ComPtr):
     Keywords = property(get_Keywords, None)
     Title = property(get_Title, put_Title)
 class GeotagHelper(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.GeotagHelper'
     @winrt_classmethod
     def GetGeotagAsync(cls: win32more.Windows.Storage.FileProperties.IGeotagHelperStatics, file: win32more.Windows.Storage.IStorageFile) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Devices.Geolocation.Geopoint]: ...
@@ -63,7 +62,7 @@ class GeotagHelper(ComPtr):
     @winrt_classmethod
     def SetGeotagAsync(cls: win32more.Windows.Storage.FileProperties.IGeotagHelperStatics, file: win32more.Windows.Storage.IStorageFile, geopoint: win32more.Windows.Devices.Geolocation.Geopoint) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IBasicProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.IBasicProperties'
     _iid_ = Guid('{d05d55db-785e-4a66-be02-9beec58aea81}')
     @winrt_commethod(6)
@@ -76,7 +75,7 @@ class IBasicProperties(ComPtr):
     ItemDate = property(get_ItemDate, None)
     Size = property(get_Size, None)
 class IDocumentProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.IDocumentProperties'
     _iid_ = Guid('{7eab19bc-1821-4923-b4a9-0aea404d0070}')
     @winrt_commethod(6)
@@ -96,7 +95,7 @@ class IDocumentProperties(ComPtr):
     Keywords = property(get_Keywords, None)
     Title = property(get_Title, put_Title)
 class IGeotagHelperStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.IGeotagHelperStatics'
     _iid_ = Guid('{41493244-2524-4655-86a6-ed16f5fc716b}')
     @winrt_commethod(6)
@@ -106,7 +105,7 @@ class IGeotagHelperStatics(ComPtr):
     @winrt_commethod(8)
     def SetGeotagAsync(self, file: win32more.Windows.Storage.IStorageFile, geopoint: win32more.Windows.Devices.Geolocation.Geopoint) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IImageProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.IImageProperties'
     _iid_ = Guid('{523c9424-fcff-4275-afee-ecdb9ab47973}')
     @winrt_commethod(6)
@@ -156,7 +155,7 @@ class IImageProperties(ComPtr):
     Title = property(get_Title, put_Title)
     Width = property(get_Width, None)
 class IMusicProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.IMusicProperties'
     _iid_ = Guid('{bc8aab62-66ec-419a-bc5d-ca65a4cb46da}')
     @winrt_commethod(6)
@@ -226,7 +225,7 @@ class IMusicProperties(ComPtr):
     Writers = property(get_Writers, None)
     Year = property(get_Year, put_Year)
 class IStorageItemContentProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.IStorageItemContentProperties'
     _iid_ = Guid('{05294bad-bc38-48bf-85d7-770e0e2ae0ba}')
     @winrt_commethod(6)
@@ -238,17 +237,17 @@ class IStorageItemContentProperties(ComPtr):
     @winrt_commethod(9)
     def GetDocumentPropertiesAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.FileProperties.DocumentProperties]: ...
 class IStorageItemExtraProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.IStorageItemExtraProperties'
     _iid_ = Guid('{c54361b2-54cd-432b-bdbc-4b19c4b470d7}')
     @winrt_commethod(6)
-    def RetrievePropertiesAsync(self, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
+    def RetrievePropertiesAsync(self, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]]: ...
     @winrt_commethod(7)
-    def SavePropertiesAsync(self, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def SavePropertiesAsync(self, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(8)
     def SavePropertiesAsyncOverloadDefault(self) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IThumbnailProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.IThumbnailProperties'
     _iid_ = Guid('{693dd42f-dbe7-49b5-b3b3-2893ac5d3423}')
     @winrt_commethod(6)
@@ -264,7 +263,7 @@ class IThumbnailProperties(ComPtr):
     ReturnedSmallerCachedSize = property(get_ReturnedSmallerCachedSize, None)
     Type = property(get_Type, None)
 class IVideoProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Storage.FileProperties.IVideoProperties'
     _iid_ = Guid('{719ae507-68de-4db8-97de-49998c059f2f}')
     @winrt_commethod(6)
@@ -326,7 +325,7 @@ class IVideoProperties(ComPtr):
     Writers = property(get_Writers, None)
     Year = property(get_Year, put_Year)
 class ImageProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.FileProperties.IImageProperties
     _classid_ = 'Windows.Storage.FileProperties.ImageProperties'
     @winrt_mixinmethod
@@ -364,9 +363,9 @@ class ImageProperties(ComPtr):
     @winrt_mixinmethod
     def get_PeopleNames(self: win32more.Windows.Storage.FileProperties.IImageProperties) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_mixinmethod
-    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
+    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]]: ...
     @winrt_mixinmethod
-    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SavePropertiesAsyncOverloadDefault(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties) -> win32more.Windows.Foundation.IAsyncAction: ...
     CameraManufacturer = property(get_CameraManufacturer, put_CameraManufacturer)
@@ -382,7 +381,7 @@ class ImageProperties(ComPtr):
     Title = property(get_Title, put_Title)
     Width = property(get_Width, None)
 class MusicProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.FileProperties.IMusicProperties
     _classid_ = 'Windows.Storage.FileProperties.MusicProperties'
     @winrt_mixinmethod
@@ -436,9 +435,9 @@ class MusicProperties(ComPtr):
     @winrt_mixinmethod
     def put_Year(self: win32more.Windows.Storage.FileProperties.IMusicProperties, value: UInt32) -> Void: ...
     @winrt_mixinmethod
-    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
+    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]]: ...
     @winrt_mixinmethod
-    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SavePropertiesAsyncOverloadDefault(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties) -> win32more.Windows.Foundation.IAsyncAction: ...
     Album = property(get_Album, put_Album)
@@ -475,7 +474,7 @@ class PropertyPrefetchOptions(Enum, UInt32):
     DocumentProperties = 8
     BasicProperties = 16
 class StorageItemContentProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.FileProperties.IStorageItemContentProperties
     _classid_ = 'Windows.Storage.FileProperties.StorageItemContentProperties'
     @winrt_mixinmethod
@@ -487,13 +486,13 @@ class StorageItemContentProperties(ComPtr):
     @winrt_mixinmethod
     def GetDocumentPropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemContentProperties) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.FileProperties.DocumentProperties]: ...
     @winrt_mixinmethod
-    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
+    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]]: ...
     @winrt_mixinmethod
-    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SavePropertiesAsyncOverloadDefault(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties) -> win32more.Windows.Foundation.IAsyncAction: ...
 class StorageItemThumbnail(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType
     _classid_ = 'Windows.Storage.FileProperties.StorageItemThumbnail'
@@ -563,7 +562,7 @@ class VideoOrientation(Enum, Int32):
     Rotate180 = 180
     Rotate270 = 270
 class VideoProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Storage.FileProperties.IVideoProperties
     _classid_ = 'Windows.Storage.FileProperties.VideoProperties'
     @winrt_mixinmethod
@@ -609,9 +608,9 @@ class VideoProperties(ComPtr):
     @winrt_mixinmethod
     def get_Orientation(self: win32more.Windows.Storage.FileProperties.IVideoProperties) -> win32more.Windows.Storage.FileProperties.VideoOrientation: ...
     @winrt_mixinmethod
-    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]: ...
+    def RetrievePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]]: ...
     @winrt_mixinmethod
-    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
+    def SavePropertiesAsync(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SavePropertiesAsyncOverloadDefault(self: win32more.Windows.Storage.FileProperties.IStorageItemExtraProperties) -> win32more.Windows.Foundation.IAsyncAction: ...
     Bitrate = property(get_Bitrate, None)

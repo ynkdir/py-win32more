@@ -1,10 +1,9 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Media.ClosedCaptioning
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class ClosedCaptionColor(Enum, Int32):
     Default = 0
     White = 1
@@ -31,10 +30,10 @@ class ClosedCaptionOpacity(Enum, Int32):
 class _ClosedCaptionProperties_Meta_(ComPtr.__class__):
     pass
 class ClosedCaptionProperties(ComPtr, metaclass=_ClosedCaptionProperties_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.ClosedCaptioning.ClosedCaptionProperties'
     @winrt_classmethod
-    def add_PropertiesChanged(cls: win32more.Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics2, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PropertiesChanged(cls: win32more.Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics2, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_PropertiesChanged(cls: win32more.Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics2, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
@@ -89,7 +88,7 @@ class ClosedCaptionStyle(Enum, Int32):
     Cursive = 6
     SmallCapitals = 7
 class IClosedCaptionPropertiesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics'
     _iid_ = Guid('{10aa1f84-cc30-4141-b503-5272289e0c20}')
     @winrt_commethod(6)
@@ -129,11 +128,11 @@ class IClosedCaptionPropertiesStatics(ComPtr):
     RegionColor = property(get_RegionColor, None)
     RegionOpacity = property(get_RegionOpacity, None)
 class IClosedCaptionPropertiesStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Media.ClosedCaptioning.IClosedCaptionPropertiesStatics2'
     _iid_ = Guid('{9de26870-37de-4197-8845-9a48dc5ac317}')
     @winrt_commethod(6)
-    def add_PropertiesChanged(self, handler: win32more.Windows.Foundation.EventHandler[win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_PropertiesChanged(self, handler: win32more.Windows.Foundation.EventHandler[IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PropertiesChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PropertiesChanged = event()

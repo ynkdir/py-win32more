@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Graphics.DirectX
 import win32more.Microsoft.UI.Composition
 import win32more.Microsoft.UI.Composition.Scenes
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Foundation.Numerics
-import win32more.Windows.Win32.System.WinRT
 class ISceneBoundingBox(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneBoundingBox'
     _iid_ = Guid('{39fb48e0-216a-5608-9186-6ba9f98b5c67}')
     @winrt_commethod(6)
@@ -28,38 +27,38 @@ class ISceneBoundingBox(ComPtr):
     Min = property(get_Min, None)
     Size = property(get_Size, None)
 class ISceneComponent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneComponent'
     _iid_ = Guid('{f73361cb-8027-50e2-98ee-b2e3ea050a54}')
     @winrt_commethod(6)
     def get_ComponentType(self) -> win32more.Microsoft.UI.Composition.Scenes.SceneComponentType: ...
     ComponentType = property(get_ComponentType, None)
 class ISceneComponentCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneComponentCollection'
     _iid_ = Guid('{e4b21c71-87e2-5aeb-85be-884e8302273e}')
 class ISceneComponentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneComponentFactory'
     _iid_ = Guid('{254088b0-babf-503d-9a66-0d86af5f7303}')
 class ISceneMaterial(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMaterial'
     _iid_ = Guid('{042142a7-bf6b-57ad-badc-f581f38edb48}')
 class ISceneMaterialFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMaterialFactory'
     _iid_ = Guid('{25747893-8748-5f60-969f-318fa0b735ca}')
 class ISceneMaterialInput(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMaterialInput'
     _iid_ = Guid('{446bdade-719b-5db4-b699-f226d0062a2e}')
 class ISceneMaterialInputFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMaterialInputFactory'
     _iid_ = Guid('{b4dabd1d-58c0-5710-928a-bc49b0735694}')
 class ISceneMesh(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMesh'
     _iid_ = Guid('{5cf846aa-f53f-555e-a3ad-f5bc52ca32fb}')
     @winrt_commethod(6)
@@ -73,11 +72,11 @@ class ISceneMesh(ComPtr):
     Bounds = property(get_Bounds, None)
     PrimitiveTopology = property(get_PrimitiveTopology, put_PrimitiveTopology)
 class ISceneMeshMaterialAttributeMap(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMeshMaterialAttributeMap'
     _iid_ = Guid('{2360c457-edae-5660-bedc-89096582ed70}')
 class ISceneMeshRendererComponent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMeshRendererComponent'
     _iid_ = Guid('{d2be85a0-70a8-5c62-84d8-8ba55e4c64a9}')
     @winrt_commethod(6)
@@ -94,19 +93,19 @@ class ISceneMeshRendererComponent(ComPtr):
     Mesh = property(get_Mesh, put_Mesh)
     UVMappings = property(get_UVMappings, None)
 class ISceneMeshRendererComponentStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMeshRendererComponentStatics'
     _iid_ = Guid('{c54f8c5a-a104-5cfa-89dc-13edaa6e3d88}')
     @winrt_commethod(6)
     def Create(self, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneMeshRendererComponent: ...
 class ISceneMeshStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMeshStatics'
     _iid_ = Guid('{29c52125-964b-5315-80f9-3893713290f5}')
     @winrt_commethod(6)
     def Create(self, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneMesh: ...
 class ISceneMetallicRoughnessMaterial(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMetallicRoughnessMaterial'
     _iid_ = Guid('{0a4afcf4-7bae-5702-9b85-8bc849f39987}')
     @winrt_commethod(6)
@@ -135,13 +134,13 @@ class ISceneMetallicRoughnessMaterial(ComPtr):
     MetallicRoughnessInput = property(get_MetallicRoughnessInput, put_MetallicRoughnessInput)
     RoughnessFactor = property(get_RoughnessFactor, put_RoughnessFactor)
 class ISceneMetallicRoughnessMaterialStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneMetallicRoughnessMaterialStatics'
     _iid_ = Guid('{dffd2043-ab3c-57a0-8e13-6f09725e970f}')
     @winrt_commethod(6)
     def Create(self, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneMetallicRoughnessMaterial: ...
 class ISceneModelTransform(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneModelTransform'
     _iid_ = Guid('{3f05555f-0f67-576e-9d8a-93c1f250c29f}')
     @winrt_commethod(6)
@@ -175,7 +174,7 @@ class ISceneModelTransform(ComPtr):
     Scale = property(get_Scale, put_Scale)
     Translation = property(get_Translation, put_Translation)
 class ISceneNode(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneNode'
     _iid_ = Guid('{a1bce140-79c2-59e6-9b68-63b1bab0e2a6}')
     @winrt_commethod(6)
@@ -193,25 +192,25 @@ class ISceneNode(ComPtr):
     Parent = property(get_Parent, None)
     Transform = property(get_Transform, None)
 class ISceneNodeCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneNodeCollection'
     _iid_ = Guid('{f219b68e-5666-5c6c-aa4e-08db07fd6bcf}')
 class ISceneNodeStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneNodeStatics'
     _iid_ = Guid('{801c4394-4198-5da1-ac39-6e8a44b5ce57}')
     @winrt_commethod(6)
     def Create(self, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneNode: ...
 class ISceneObject(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneObject'
     _iid_ = Guid('{4333e514-4fc7-521e-8bca-11c51fbcaf1e}')
 class ISceneObjectFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneObjectFactory'
     _iid_ = Guid('{ee797f7d-77db-5c4c-b6f5-c1930fad85c5}')
 class IScenePbrMaterial(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.IScenePbrMaterial'
     _iid_ = Guid('{295d0725-56fe-5954-8057-3f4ca7515b36}')
     @winrt_commethod(6)
@@ -260,19 +259,19 @@ class IScenePbrMaterial(ComPtr):
     OcclusionInput = property(get_OcclusionInput, put_OcclusionInput)
     OcclusionStrength = property(get_OcclusionStrength, put_OcclusionStrength)
 class IScenePbrMaterialFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.IScenePbrMaterialFactory'
     _iid_ = Guid('{9e34d32a-e30c-51f5-84ac-6467950605ca}')
 class ISceneRendererComponent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneRendererComponent'
     _iid_ = Guid('{6bab8030-89c1-5dbc-a48e-1805ddf9cdd1}')
 class ISceneRendererComponentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneRendererComponentFactory'
     _iid_ = Guid('{3ccac1d6-6a0f-582e-bb1a-10ebc1e405ca}')
 class ISceneSurfaceMaterialInput(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneSurfaceMaterialInput'
     _iid_ = Guid('{b9854b4f-286c-50cd-a734-491a251d5fd3}')
     @winrt_commethod(6)
@@ -296,13 +295,13 @@ class ISceneSurfaceMaterialInput(ComPtr):
     WrappingUMode = property(get_WrappingUMode, put_WrappingUMode)
     WrappingVMode = property(get_WrappingVMode, put_WrappingVMode)
 class ISceneSurfaceMaterialInputStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneSurfaceMaterialInputStatics'
     _iid_ = Guid('{8e1ba937-ad60-51bc-8256-ca62c4b2ae92}')
     @winrt_commethod(6)
     def Create(self, compositor: win32more.Microsoft.UI.Composition.Compositor) -> win32more.Microsoft.UI.Composition.Scenes.SceneSurfaceMaterialInput: ...
 class ISceneVisual(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneVisual'
     _iid_ = Guid('{0144d7ad-6a7d-59cb-a0f9-74a04e85352c}')
     @winrt_commethod(6)
@@ -311,7 +310,7 @@ class ISceneVisual(ComPtr):
     def put_Root(self, value: win32more.Microsoft.UI.Composition.Scenes.SceneNode) -> Void: ...
     Root = property(get_Root, put_Root)
 class ISceneVisualStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Composition.Scenes.ISceneVisualStatics'
     _iid_ = Guid('{7b8da6d1-5bd8-5095-9264-e5572653ea07}')
     @winrt_commethod(6)

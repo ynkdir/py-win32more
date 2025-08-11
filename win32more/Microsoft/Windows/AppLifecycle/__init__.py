@@ -1,13 +1,12 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.Windows.AppLifecycle
 import win32more.Windows.ApplicationModel.Core
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class ActivationRegistrationManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppLifecycle.ActivationRegistrationManager'
     @winrt_classmethod
     def RegisterForFileTypeActivation(cls: win32more.Microsoft.Windows.AppLifecycle.IActivationRegistrationManagerStatics, supportedFileTypes: PassArray[WinRT_String], logo: WinRT_String, displayName: WinRT_String, supportedVerbs: PassArray[WinRT_String], exePath: WinRT_String) -> Void: ...
@@ -22,17 +21,17 @@ class ActivationRegistrationManager(ComPtr):
     @winrt_classmethod
     def UnregisterForStartupActivation(cls: win32more.Microsoft.Windows.AppLifecycle.IActivationRegistrationManagerStatics, taskId: WinRT_String) -> Void: ...
 class AppActivationArguments(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AppLifecycle.IAppActivationArguments
     _classid_ = 'Microsoft.Windows.AppLifecycle.AppActivationArguments'
     @winrt_mixinmethod
     def get_Kind(self: win32more.Microsoft.Windows.AppLifecycle.IAppActivationArguments) -> win32more.Microsoft.Windows.AppLifecycle.ExtendedActivationKind: ...
     @winrt_mixinmethod
-    def get_Data(self: win32more.Microsoft.Windows.AppLifecycle.IAppActivationArguments) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Data(self: win32more.Microsoft.Windows.AppLifecycle.IAppActivationArguments) -> IInspectable: ...
     Data = property(get_Data, None)
     Kind = property(get_Kind, None)
 class AppInstance(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.Windows.AppLifecycle.IAppInstance
     _classid_ = 'Microsoft.Windows.AppLifecycle.AppInstance'
     @winrt_mixinmethod
@@ -112,7 +111,7 @@ class ExtendedActivationKind(Enum, Int32):
     Push = 5000
     AppNotification = 5001
 class IActivationRegistrationManagerStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppLifecycle.IActivationRegistrationManagerStatics'
     _iid_ = Guid('{5ac4e92e-017b-5d68-8198-f68636ab99d3}')
     @winrt_commethod(6)
@@ -128,17 +127,17 @@ class IActivationRegistrationManagerStatics(ComPtr):
     @winrt_commethod(11)
     def UnregisterForStartupActivation(self, taskId: WinRT_String) -> Void: ...
 class IAppActivationArguments(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppLifecycle.IAppActivationArguments'
     _iid_ = Guid('{14f99eaf-1580-5062-bdc8-d5d1c31138fb}')
     @winrt_commethod(6)
     def get_Kind(self) -> win32more.Microsoft.Windows.AppLifecycle.ExtendedActivationKind: ...
     @winrt_commethod(7)
-    def get_Data(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Data(self) -> IInspectable: ...
     Data = property(get_Data, None)
     Kind = property(get_Kind, None)
 class IAppInstance(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppLifecycle.IAppInstance'
     _iid_ = Guid('{75766ae4-0239-5a26-b9da-d5bfc75a4866}')
     @winrt_commethod(6)
@@ -162,7 +161,7 @@ class IAppInstance(ComPtr):
     ProcessId = property(get_ProcessId, None)
     Activated = event()
 class IAppInstanceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppLifecycle.IAppInstanceStatics'
     _iid_ = Guid('{4f414b25-8330-5a9b-bbc1-8229d479649d}')
     @winrt_commethod(6)
@@ -172,7 +171,7 @@ class IAppInstanceStatics(ComPtr):
     @winrt_commethod(8)
     def FindOrRegisterForKey(self, key: WinRT_String) -> win32more.Microsoft.Windows.AppLifecycle.AppInstance: ...
 class IAppInstanceStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.Windows.AppLifecycle.IAppInstanceStatics2'
     _iid_ = Guid('{fe9f1885-7160-5397-ba9b-5890b24fdc04}')
     @winrt_commethod(6)

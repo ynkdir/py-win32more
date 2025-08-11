@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Microsoft.UI.Xaml
 import win32more.Microsoft.UI.Xaml.Automation
 import win32more.Microsoft.UI.Xaml.Automation.Peers
 import win32more.Windows.Foundation.Collections
-import win32more.Windows.Win32.System.WinRT
 class _AnnotationPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class AnnotationPatternIdentifiers(ComPtr, metaclass=_AnnotationPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IAnnotationPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.AnnotationPatternIdentifiers'
     @winrt_classmethod
@@ -123,7 +122,7 @@ class AutomationCaretPosition(Enum, Int32):
 class _AutomationElementIdentifiers_Meta_(ComPtr.__class__):
     pass
 class AutomationElementIdentifiers(ComPtr, metaclass=_AutomationElementIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IAutomationElementIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.AutomationElementIdentifiers'
     @winrt_classmethod
@@ -257,7 +256,7 @@ class AutomationOutlineStyles(Enum, Int32):
 class _AutomationProperties_Meta_(ComPtr.__class__):
     pass
 class AutomationProperties(ComPtr, metaclass=_AutomationProperties_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IAutomationProperties
     _classid_ = 'Microsoft.UI.Xaml.Automation.AutomationProperties'
     @winrt_classmethod
@@ -454,7 +453,7 @@ class AutomationProperties(ComPtr, metaclass=_AutomationProperties_Meta_):
     _AutomationProperties_Meta_.PositionInSetProperty = property(get_PositionInSetProperty, None)
     _AutomationProperties_Meta_.SizeOfSetProperty = property(get_SizeOfSetProperty, None)
 class AutomationProperty(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IAutomationProperty
     _classid_ = 'Microsoft.UI.Xaml.Automation.AutomationProperty'
 class AutomationStyleId(Enum, Int32):
@@ -501,7 +500,7 @@ class AutomationTextEditChangeType(Enum, Int32):
 class _DockPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class DockPatternIdentifiers(ComPtr, metaclass=_DockPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IDockPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.DockPatternIdentifiers'
     @winrt_classmethod
@@ -517,7 +516,7 @@ class DockPosition(Enum, Int32):
 class _DragPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class DragPatternIdentifiers(ComPtr, metaclass=_DragPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IDragPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.DragPatternIdentifiers'
     @winrt_classmethod
@@ -535,7 +534,7 @@ class DragPatternIdentifiers(ComPtr, metaclass=_DragPatternIdentifiers_Meta_):
 class _DropTargetPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class DropTargetPatternIdentifiers(ComPtr, metaclass=_DropTargetPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IDropTargetPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.DropTargetPatternIdentifiers'
     @winrt_classmethod
@@ -547,7 +546,7 @@ class DropTargetPatternIdentifiers(ComPtr, metaclass=_DropTargetPatternIdentifie
 class _ExpandCollapsePatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class ExpandCollapsePatternIdentifiers(ComPtr, metaclass=_ExpandCollapsePatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IExpandCollapsePatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.ExpandCollapsePatternIdentifiers'
     @winrt_classmethod
@@ -561,7 +560,7 @@ class ExpandCollapseState(Enum, Int32):
 class _GridItemPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class GridItemPatternIdentifiers(ComPtr, metaclass=_GridItemPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IGridItemPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.GridItemPatternIdentifiers'
     @winrt_classmethod
@@ -582,7 +581,7 @@ class GridItemPatternIdentifiers(ComPtr, metaclass=_GridItemPatternIdentifiers_M
 class _GridPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class GridPatternIdentifiers(ComPtr, metaclass=_GridPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IGridPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.GridPatternIdentifiers'
     @winrt_classmethod
@@ -592,11 +591,11 @@ class GridPatternIdentifiers(ComPtr, metaclass=_GridPatternIdentifiers_Meta_):
     _GridPatternIdentifiers_Meta_.ColumnCountProperty = property(get_ColumnCountProperty, None)
     _GridPatternIdentifiers_Meta_.RowCountProperty = property(get_RowCountProperty, None)
 class IAnnotationPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAnnotationPatternIdentifiers'
     _iid_ = Guid('{92d76915-0cd3-59cd-8ae0-c9004628ba1e}')
 class IAnnotationPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAnnotationPatternIdentifiersStatics'
     _iid_ = Guid('{20a136e2-4a47-5de5-9e1e-ecfc6d92f52a}')
     @winrt_commethod(6)
@@ -615,7 +614,7 @@ class IAnnotationPatternIdentifiersStatics(ComPtr):
     DateTimeProperty = property(get_DateTimeProperty, None)
     TargetProperty = property(get_TargetProperty, None)
 class IAutomationAnnotation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAutomationAnnotation'
     _iid_ = Guid('{c2cc46ad-1414-5f1b-808a-89e5d53d82fe}')
     @winrt_commethod(6)
@@ -629,7 +628,7 @@ class IAutomationAnnotation(ComPtr):
     Element = property(get_Element, put_Element)
     Type = property(get_Type, put_Type)
 class IAutomationAnnotationFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAutomationAnnotationFactory'
     _iid_ = Guid('{95f82773-eac5-572e-87de-24d9514b9a89}')
     @winrt_commethod(6)
@@ -637,7 +636,7 @@ class IAutomationAnnotationFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithElementParameter(self, type: win32more.Microsoft.UI.Xaml.Automation.AnnotationType, element: win32more.Microsoft.UI.Xaml.UIElement) -> win32more.Microsoft.UI.Xaml.Automation.AutomationAnnotation: ...
 class IAutomationAnnotationStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAutomationAnnotationStatics'
     _iid_ = Guid('{c5abdc1e-fc26-5444-a8b3-59b2c0a95578}')
     @winrt_commethod(6)
@@ -647,11 +646,11 @@ class IAutomationAnnotationStatics(ComPtr):
     ElementProperty = property(get_ElementProperty, None)
     TypeProperty = property(get_TypeProperty, None)
 class IAutomationElementIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAutomationElementIdentifiers'
     _iid_ = Guid('{2fb51a33-b0cf-5a4c-9ed3-267eca7aeefc}')
 class IAutomationElementIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAutomationElementIdentifiersStatics'
     _iid_ = Guid('{72af6b8c-3e12-5e7a-a2ec-26dc193f9df9}')
     @winrt_commethod(6)
@@ -772,11 +771,11 @@ class IAutomationElementIdentifiersStatics(ComPtr):
     PositionInSetProperty = property(get_PositionInSetProperty, None)
     SizeOfSetProperty = property(get_SizeOfSetProperty, None)
 class IAutomationProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAutomationProperties'
     _iid_ = Guid('{525c6a71-dd8a-52a0-977b-db1b02f8e896}')
 class IAutomationPropertiesStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAutomationPropertiesStatics'
     _iid_ = Guid('{b1e3e0f3-112f-5966-87dc-7862d4ad50e5}')
     @winrt_commethod(6)
@@ -966,7 +965,7 @@ class IAutomationPropertiesStatics(ComPtr):
     PositionInSetProperty = property(get_PositionInSetProperty, None)
     SizeOfSetProperty = property(get_SizeOfSetProperty, None)
 class IAutomationPropertiesStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAutomationPropertiesStatics2'
     _iid_ = Guid('{d933a3ed-e90a-5df0-853d-cad17a0b9ec8}')
     @winrt_commethod(6)
@@ -977,26 +976,26 @@ class IAutomationPropertiesStatics2(ComPtr):
     def SetAutomationControlType(self, element: win32more.Microsoft.UI.Xaml.UIElement, value: win32more.Microsoft.UI.Xaml.Automation.Peers.AutomationControlType) -> Void: ...
     AutomationControlTypeProperty = property(get_AutomationControlTypeProperty, None)
 class IAutomationProperty(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IAutomationProperty'
     _iid_ = Guid('{5ca6b2c8-ff86-5a41-aa18-6948fae592cf}')
 class IDockPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IDockPatternIdentifiers'
     _iid_ = Guid('{75574f99-d145-547e-972b-7d879f93c03e}')
 class IDockPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IDockPatternIdentifiersStatics'
     _iid_ = Guid('{02d5a72c-f49d-53a9-b9fb-af2719d16ccf}')
     @winrt_commethod(6)
     def get_DockPositionProperty(self) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     DockPositionProperty = property(get_DockPositionProperty, None)
 class IDragPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IDragPatternIdentifiers'
     _iid_ = Guid('{aa2fdfd5-fb45-5d2b-8d92-a8e7b07061c2}')
 class IDragPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IDragPatternIdentifiersStatics'
     _iid_ = Guid('{482eee70-0bfc-5552-9e7d-8dffc526b2f7}')
     @winrt_commethod(6)
@@ -1012,11 +1011,11 @@ class IDragPatternIdentifiersStatics(ComPtr):
     GrabbedItemsProperty = property(get_GrabbedItemsProperty, None)
     IsGrabbedProperty = property(get_IsGrabbedProperty, None)
 class IDropTargetPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IDropTargetPatternIdentifiers'
     _iid_ = Guid('{133e8ff3-1ddd-5cbb-b908-1484d7c04da7}')
 class IDropTargetPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IDropTargetPatternIdentifiersStatics'
     _iid_ = Guid('{6da6f0bd-b942-5283-be35-501ae87f88c7}')
     @winrt_commethod(6)
@@ -1026,22 +1025,22 @@ class IDropTargetPatternIdentifiersStatics(ComPtr):
     DropTargetEffectProperty = property(get_DropTargetEffectProperty, None)
     DropTargetEffectsProperty = property(get_DropTargetEffectsProperty, None)
 class IExpandCollapsePatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IExpandCollapsePatternIdentifiers'
     _iid_ = Guid('{cec15d9f-8630-569a-86a0-524bbea618ff}')
 class IExpandCollapsePatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IExpandCollapsePatternIdentifiersStatics'
     _iid_ = Guid('{283101f4-c40c-55bf-a23b-d62b73b6aa35}')
     @winrt_commethod(6)
     def get_ExpandCollapseStateProperty(self) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     ExpandCollapseStateProperty = property(get_ExpandCollapseStateProperty, None)
 class IGridItemPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IGridItemPatternIdentifiers'
     _iid_ = Guid('{93609087-1114-557d-b17b-f801e41cebbb}')
 class IGridItemPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IGridItemPatternIdentifiersStatics'
     _iid_ = Guid('{8072bc18-87d0-5a02-a0a1-f9aec968c0e7}')
     @winrt_commethod(6)
@@ -1060,11 +1059,11 @@ class IGridItemPatternIdentifiersStatics(ComPtr):
     RowProperty = property(get_RowProperty, None)
     RowSpanProperty = property(get_RowSpanProperty, None)
 class IGridPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IGridPatternIdentifiers'
     _iid_ = Guid('{e5e1e250-c37c-54a2-8c61-1d9ccd3bb39c}')
 class IGridPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IGridPatternIdentifiersStatics'
     _iid_ = Guid('{e861604c-101f-5a6d-a308-3714f510f744}')
     @winrt_commethod(6)
@@ -1074,11 +1073,11 @@ class IGridPatternIdentifiersStatics(ComPtr):
     ColumnCountProperty = property(get_ColumnCountProperty, None)
     RowCountProperty = property(get_RowCountProperty, None)
 class IMultipleViewPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IMultipleViewPatternIdentifiers'
     _iid_ = Guid('{70e4c847-2b82-5ecf-b808-e9d453c1fe53}')
 class IMultipleViewPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IMultipleViewPatternIdentifiersStatics'
     _iid_ = Guid('{ac71daef-d094-5c90-94af-1fa474ab45fe}')
     @winrt_commethod(6)
@@ -1088,11 +1087,11 @@ class IMultipleViewPatternIdentifiersStatics(ComPtr):
     CurrentViewProperty = property(get_CurrentViewProperty, None)
     SupportedViewsProperty = property(get_SupportedViewsProperty, None)
 class IRangeValuePatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IRangeValuePatternIdentifiers'
     _iid_ = Guid('{c114db37-6a75-5ef1-a542-d3b13f92cbfe}')
 class IRangeValuePatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IRangeValuePatternIdentifiersStatics'
     _iid_ = Guid('{0aaa9ad7-f9b8-52a1-bc96-2a97fe389ed0}')
     @winrt_commethod(6)
@@ -1114,11 +1113,11 @@ class IRangeValuePatternIdentifiersStatics(ComPtr):
     SmallChangeProperty = property(get_SmallChangeProperty, None)
     ValueProperty = property(get_ValueProperty, None)
 class IScrollPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IScrollPatternIdentifiers'
     _iid_ = Guid('{04f1a4b8-edc7-55f2-96df-a9c7e809372e}')
 class IScrollPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IScrollPatternIdentifiersStatics'
     _iid_ = Guid('{0f94f2f0-e0d2-5a24-b415-8d1506ce47aa}')
     @winrt_commethod(6)
@@ -1143,11 +1142,11 @@ class IScrollPatternIdentifiersStatics(ComPtr):
     VerticalViewSizeProperty = property(get_VerticalViewSizeProperty, None)
     VerticallyScrollableProperty = property(get_VerticallyScrollableProperty, None)
 class ISelectionItemPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ISelectionItemPatternIdentifiers'
     _iid_ = Guid('{ce3a549d-a2cb-594d-a2a4-44778c09cca5}')
 class ISelectionItemPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ISelectionItemPatternIdentifiersStatics'
     _iid_ = Guid('{2b8ead7c-4e03-5b84-9e34-8b7384cbd862}')
     @winrt_commethod(6)
@@ -1157,11 +1156,11 @@ class ISelectionItemPatternIdentifiersStatics(ComPtr):
     IsSelectedProperty = property(get_IsSelectedProperty, None)
     SelectionContainerProperty = property(get_SelectionContainerProperty, None)
 class ISelectionPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ISelectionPatternIdentifiers'
     _iid_ = Guid('{401743d2-1fba-5d05-b89f-631676453237}')
 class ISelectionPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ISelectionPatternIdentifiersStatics'
     _iid_ = Guid('{f3ed111b-b20a-5e5e-a232-07f607fd5c07}')
     @winrt_commethod(6)
@@ -1174,22 +1173,22 @@ class ISelectionPatternIdentifiersStatics(ComPtr):
     IsSelectionRequiredProperty = property(get_IsSelectionRequiredProperty, None)
     SelectionProperty = property(get_SelectionProperty, None)
 class ISpreadsheetItemPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ISpreadsheetItemPatternIdentifiers'
     _iid_ = Guid('{dca2ec46-8564-5c9c-ba90-2c08455f697b}')
 class ISpreadsheetItemPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ISpreadsheetItemPatternIdentifiersStatics'
     _iid_ = Guid('{7eb10f80-8d3a-59ad-a2b9-05d8cecf18db}')
     @winrt_commethod(6)
     def get_FormulaProperty(self) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     FormulaProperty = property(get_FormulaProperty, None)
 class IStylesPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IStylesPatternIdentifiers'
     _iid_ = Guid('{13aeca5e-b496-5df5-aea5-330e1f0490eb}')
 class IStylesPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IStylesPatternIdentifiersStatics'
     _iid_ = Guid('{b232287a-bc4c-581e-a33c-3d6aee10d04b}')
     @winrt_commethod(6)
@@ -1214,11 +1213,11 @@ class IStylesPatternIdentifiersStatics(ComPtr):
     StyleIdProperty = property(get_StyleIdProperty, None)
     StyleNameProperty = property(get_StyleNameProperty, None)
 class ITableItemPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITableItemPatternIdentifiers'
     _iid_ = Guid('{b4de5d03-a5b4-5ca1-8715-16c8c6a10fcc}')
 class ITableItemPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITableItemPatternIdentifiersStatics'
     _iid_ = Guid('{81d24bd7-66fb-53ef-9b32-d00f9c240a14}')
     @winrt_commethod(6)
@@ -1228,11 +1227,11 @@ class ITableItemPatternIdentifiersStatics(ComPtr):
     ColumnHeaderItemsProperty = property(get_ColumnHeaderItemsProperty, None)
     RowHeaderItemsProperty = property(get_RowHeaderItemsProperty, None)
 class ITablePatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITablePatternIdentifiers'
     _iid_ = Guid('{3d7f9c0b-ff8f-50fa-bc01-2cc3c2e06e2c}')
 class ITablePatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITablePatternIdentifiersStatics'
     _iid_ = Guid('{3660935e-bcbb-5848-8e9a-264854f7a19a}')
     @winrt_commethod(6)
@@ -1245,22 +1244,22 @@ class ITablePatternIdentifiersStatics(ComPtr):
     RowHeadersProperty = property(get_RowHeadersProperty, None)
     RowOrColumnMajorProperty = property(get_RowOrColumnMajorProperty, None)
 class ITogglePatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITogglePatternIdentifiers'
     _iid_ = Guid('{a0d2df4c-ba59-51d9-9c01-034d7941c280}')
 class ITogglePatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITogglePatternIdentifiersStatics'
     _iid_ = Guid('{862920b5-dcb3-5691-a456-c2f15c476dfb}')
     @winrt_commethod(6)
     def get_ToggleStateProperty(self) -> win32more.Microsoft.UI.Xaml.Automation.AutomationProperty: ...
     ToggleStateProperty = property(get_ToggleStateProperty, None)
 class ITransformPattern2Identifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITransformPattern2Identifiers'
     _iid_ = Guid('{6ef7595c-db8c-51b0-878b-34b7ef12f4da}')
 class ITransformPattern2IdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITransformPattern2IdentifiersStatics'
     _iid_ = Guid('{d9876ff5-89ed-5333-8111-ad25a28bee8b}')
     @winrt_commethod(6)
@@ -1276,11 +1275,11 @@ class ITransformPattern2IdentifiersStatics(ComPtr):
     MinZoomProperty = property(get_MinZoomProperty, None)
     ZoomLevelProperty = property(get_ZoomLevelProperty, None)
 class ITransformPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITransformPatternIdentifiers'
     _iid_ = Guid('{2348187b-c50f-5a0e-bc05-305ac71b3b6b}')
 class ITransformPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.ITransformPatternIdentifiersStatics'
     _iid_ = Guid('{cb7d84e4-5429-5188-8aa0-5f96558a8790}')
     @winrt_commethod(6)
@@ -1293,11 +1292,11 @@ class ITransformPatternIdentifiersStatics(ComPtr):
     CanResizeProperty = property(get_CanResizeProperty, None)
     CanRotateProperty = property(get_CanRotateProperty, None)
 class IValuePatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IValuePatternIdentifiers'
     _iid_ = Guid('{fb493395-fb97-59d5-9323-4651ce964b55}')
 class IValuePatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IValuePatternIdentifiersStatics'
     _iid_ = Guid('{2019faf5-ce64-59a7-bc13-0677c3146724}')
     @winrt_commethod(6)
@@ -1307,11 +1306,11 @@ class IValuePatternIdentifiersStatics(ComPtr):
     IsReadOnlyProperty = property(get_IsReadOnlyProperty, None)
     ValueProperty = property(get_ValueProperty, None)
 class IWindowPatternIdentifiers(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IWindowPatternIdentifiers'
     _iid_ = Guid('{bec579e1-91be-5d8f-aaca-6ad8839872d2}')
 class IWindowPatternIdentifiersStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Microsoft.UI.Xaml.Automation.IWindowPatternIdentifiersStatics'
     _iid_ = Guid('{06762744-d3d7-5441-b879-373681d47f64}')
     @winrt_commethod(6)
@@ -1335,7 +1334,7 @@ class IWindowPatternIdentifiersStatics(ComPtr):
 class _MultipleViewPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class MultipleViewPatternIdentifiers(ComPtr, metaclass=_MultipleViewPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IMultipleViewPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.MultipleViewPatternIdentifiers'
     @winrt_classmethod
@@ -1347,7 +1346,7 @@ class MultipleViewPatternIdentifiers(ComPtr, metaclass=_MultipleViewPatternIdent
 class _RangeValuePatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class RangeValuePatternIdentifiers(ComPtr, metaclass=_RangeValuePatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IRangeValuePatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.RangeValuePatternIdentifiers'
     @winrt_classmethod
@@ -1381,7 +1380,7 @@ class ScrollAmount(Enum, Int32):
 class _ScrollPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class ScrollPatternIdentifiers(ComPtr, metaclass=_ScrollPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IScrollPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.ScrollPatternIdentifiers'
     @winrt_classmethod
@@ -1408,7 +1407,7 @@ class ScrollPatternIdentifiers(ComPtr, metaclass=_ScrollPatternIdentifiers_Meta_
 class _SelectionItemPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class SelectionItemPatternIdentifiers(ComPtr, metaclass=_SelectionItemPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.ISelectionItemPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.SelectionItemPatternIdentifiers'
     @winrt_classmethod
@@ -1420,7 +1419,7 @@ class SelectionItemPatternIdentifiers(ComPtr, metaclass=_SelectionItemPatternIde
 class _SelectionPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class SelectionPatternIdentifiers(ComPtr, metaclass=_SelectionPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.ISelectionPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.SelectionPatternIdentifiers'
     @winrt_classmethod
@@ -1435,7 +1434,7 @@ class SelectionPatternIdentifiers(ComPtr, metaclass=_SelectionPatternIdentifiers
 class _SpreadsheetItemPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class SpreadsheetItemPatternIdentifiers(ComPtr, metaclass=_SpreadsheetItemPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.ISpreadsheetItemPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.SpreadsheetItemPatternIdentifiers'
     @winrt_classmethod
@@ -1444,7 +1443,7 @@ class SpreadsheetItemPatternIdentifiers(ComPtr, metaclass=_SpreadsheetItemPatter
 class _StylesPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class StylesPatternIdentifiers(ComPtr, metaclass=_StylesPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IStylesPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.StylesPatternIdentifiers'
     @winrt_classmethod
@@ -1482,7 +1481,7 @@ class SynchronizedInputType(Enum, Int32):
 class _TableItemPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class TableItemPatternIdentifiers(ComPtr, metaclass=_TableItemPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.ITableItemPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.TableItemPatternIdentifiers'
     @winrt_classmethod
@@ -1494,7 +1493,7 @@ class TableItemPatternIdentifiers(ComPtr, metaclass=_TableItemPatternIdentifiers
 class _TablePatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class TablePatternIdentifiers(ComPtr, metaclass=_TablePatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.ITablePatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.TablePatternIdentifiers'
     @winrt_classmethod
@@ -1509,7 +1508,7 @@ class TablePatternIdentifiers(ComPtr, metaclass=_TablePatternIdentifiers_Meta_):
 class _TogglePatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class TogglePatternIdentifiers(ComPtr, metaclass=_TogglePatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.ITogglePatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.TogglePatternIdentifiers'
     @winrt_classmethod
@@ -1522,7 +1521,7 @@ class ToggleState(Enum, Int32):
 class _TransformPattern2Identifiers_Meta_(ComPtr.__class__):
     pass
 class TransformPattern2Identifiers(ComPtr, metaclass=_TransformPattern2Identifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.ITransformPattern2Identifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.TransformPattern2Identifiers'
     @winrt_classmethod
@@ -1540,7 +1539,7 @@ class TransformPattern2Identifiers(ComPtr, metaclass=_TransformPattern2Identifie
 class _TransformPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class TransformPatternIdentifiers(ComPtr, metaclass=_TransformPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.ITransformPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.TransformPatternIdentifiers'
     @winrt_classmethod
@@ -1555,7 +1554,7 @@ class TransformPatternIdentifiers(ComPtr, metaclass=_TransformPatternIdentifiers
 class _ValuePatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class ValuePatternIdentifiers(ComPtr, metaclass=_ValuePatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IValuePatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.ValuePatternIdentifiers'
     @winrt_classmethod
@@ -1573,7 +1572,7 @@ class WindowInteractionState(Enum, Int32):
 class _WindowPatternIdentifiers_Meta_(ComPtr.__class__):
     pass
 class WindowPatternIdentifiers(ComPtr, metaclass=_WindowPatternIdentifiers_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Microsoft.UI.Xaml.Automation.IWindowPatternIdentifiers
     _classid_ = 'Microsoft.UI.Xaml.Automation.WindowPatternIdentifiers'
     @winrt_classmethod

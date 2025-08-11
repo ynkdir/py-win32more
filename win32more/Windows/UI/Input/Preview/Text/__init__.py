@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.System
 import win32more.Windows.UI
@@ -8,44 +8,43 @@ import win32more.Windows.UI.Core
 import win32more.Windows.UI.Input.Preview.Text
 import win32more.Windows.UI.Text
 import win32more.Windows.UI.Text.Core
-import win32more.Windows.Win32.System.WinRT
 class ConversionModeChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.IConversionModeChangedEventArgs
     _classid_ = 'Windows.UI.Input.Preview.Text.ConversionModeChangedEventArgs'
     @winrt_mixinmethod
     def get_NewConversionMode(self: win32more.Windows.UI.Input.Preview.Text.IConversionModeChangedEventArgs) -> win32more.Windows.UI.Input.Preview.Text.TextConversionMode: ...
     NewConversionMode = property(get_NewConversionMode, None)
 class FocusEnteredEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.IFocusEnteredEventArgs
     _classid_ = 'Windows.UI.Input.Preview.Text.FocusEnteredEventArgs'
     @winrt_mixinmethod
     def get_FocusedTextBoxInfo(self: win32more.Windows.UI.Input.Preview.Text.IFocusEnteredEventArgs) -> win32more.Windows.UI.Input.Preview.Text.TextBoxInfo: ...
     FocusedTextBoxInfo = property(get_FocusedTextBoxInfo, None)
 class IConversionModeChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.IConversionModeChangedEventArgs'
     _iid_ = Guid('{b49761f9-5b21-513c-b6c0-78f27d26b010}')
     @winrt_commethod(6)
     def get_NewConversionMode(self) -> win32more.Windows.UI.Input.Preview.Text.TextConversionMode: ...
     NewConversionMode = property(get_NewConversionMode, None)
 class IFocusEnteredEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.IFocusEnteredEventArgs'
     _iid_ = Guid('{ca4dc200-875f-501d-af14-413a0aa1ed5f}')
     @winrt_commethod(6)
     def get_FocusedTextBoxInfo(self) -> win32more.Windows.UI.Input.Preview.Text.TextBoxInfo: ...
     FocusedTextBoxInfo = property(get_FocusedTextBoxInfo, None)
 class IInputDelegationModeChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.IInputDelegationModeChangedEventArgs'
     _iid_ = Guid('{4bb448b2-67ba-5215-8783-b444bd28eed3}')
     @winrt_commethod(6)
     def get_DelegationOn(self) -> Boolean: ...
     DelegationOn = property(get_DelegationOn, None)
 class IKeyEventReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.IKeyEventReceivedEventArgs'
     _iid_ = Guid('{0c30f686-a058-5ecc-abd2-9cc861c1185b}')
     @winrt_commethod(6)
@@ -73,7 +72,7 @@ class IKeyEventReceivedEventArgs(ComPtr):
     Unicode = property(get_Unicode, None)
     VirtualKey = property(get_VirtualKey, None)
 class IKeyboardInputProcessor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.IKeyboardInputProcessor'
     _iid_ = Guid('{2afe79b6-5818-50e0-8fa8-81bc96428c46}')
     @winrt_commethod(6)
@@ -97,11 +96,11 @@ class IKeyboardInputProcessor(ComPtr):
     @winrt_commethod(15)
     def CreateEditSession(self) -> win32more.Windows.UI.Input.Preview.Text.TextEditSession: ...
     @winrt_commethod(16)
-    def add_Activated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Activated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_Activated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
-    def add_Deactivated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Deactivated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_Deactivated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(20)
@@ -113,7 +112,7 @@ class IKeyboardInputProcessor(ComPtr):
     @winrt_commethod(23)
     def remove_FocusEntered(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(24)
-    def add_FocusRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FocusRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(25)
     def remove_FocusRemoved(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(26)
@@ -129,7 +128,7 @@ class IKeyboardInputProcessor(ComPtr):
     @winrt_commethod(31)
     def remove_TextBoxContentChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(32)
-    def add_CompositionTerminated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CompositionTerminated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(33)
     def remove_CompositionTerminated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(34)
@@ -155,14 +154,14 @@ class IKeyboardInputProcessor(ComPtr):
     CompositionTerminated = event()
     ReconversionRequested = event()
 class IReconversionRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.IReconversionRequestedEventArgs'
     _iid_ = Guid('{73852244-d202-55fe-9edf-beb7ec19f937}')
     @winrt_commethod(6)
     def get_Range(self) -> win32more.Windows.UI.Text.Core.CoreTextRange: ...
     Range = property(get_Range, None)
 class ITextBoxContentChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.ITextBoxContentChangedEventArgs'
     _iid_ = Guid('{2cb70a41-5aed-58c5-b4c1-8ee4e1492f9e}')
     @winrt_commethod(6)
@@ -177,7 +176,7 @@ class ITextBoxContentChangedEventArgs(ComPtr):
     Source = property(get_Source, None)
     TextBoxId = property(get_TextBoxId, None)
 class ITextBoxInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.ITextBoxInfo'
     _iid_ = Guid('{b122443d-e8f7-5f8b-813d-aaa0941d5fa0}')
     @winrt_commethod(6)
@@ -199,14 +198,14 @@ class ITextBoxInfo(ComPtr):
     Settings = property(get_Settings, None)
     Url = property(get_Url, None)
 class ITextBoxInfoChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.ITextBoxInfoChangedEventArgs'
     _iid_ = Guid('{ac1275af-648c-5bac-b29f-d1ea17e9e6d6}')
     @winrt_commethod(6)
     def get_TextBoxInfo(self) -> win32more.Windows.UI.Input.Preview.Text.TextBoxInfo: ...
     TextBoxInfo = property(get_TextBoxInfo, None)
 class ITextComposition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.ITextComposition'
     _iid_ = Guid('{5cea9aea-524d-50a4-b08a-c83d8d25ec6e}')
     @winrt_commethod(6)
@@ -232,7 +231,7 @@ class ITextComposition(ComPtr):
     SelectedSegment = property(get_SelectedSegment, None)
     Text = property(get_Text, None)
 class ITextCompositionSegment(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.ITextCompositionSegment'
     _iid_ = Guid('{0543f6c6-eb98-56d6-8808-2eca6d02f6a5}')
     @winrt_commethod(6)
@@ -269,7 +268,7 @@ class ITextCompositionSegment(ComPtr):
     Text = property(get_Text, put_Text)
     UnconvertedText = property(get_UnconvertedText, put_UnconvertedText)
 class ITextEditSession(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.ITextEditSession'
     _iid_ = Guid('{0bcad18a-d31b-5787-aff9-995ee743aea8}')
     @winrt_commethod(6)
@@ -303,7 +302,7 @@ class ITextEditSession(ComPtr):
     TextBoxId = property(get_TextBoxId, None)
     TextLength = property(get_TextLength, None)
 class ITextInputProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.ITextInputProvider'
     _iid_ = Guid('{b0885fb7-e9f8-5849-b0ef-f8155ecf60d1}')
     @winrt_commethod(6)
@@ -331,7 +330,7 @@ class ITextInputProvider(ComPtr):
     @winrt_commethod(17)
     def remove_FocusEntered(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(18)
-    def add_FocusRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.TextInputProvider, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FocusRemoved(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.TextInputProvider, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(19)
     def remove_FocusRemoved(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(20)
@@ -343,7 +342,7 @@ class ITextInputProvider(ComPtr):
     @winrt_commethod(23)
     def remove_TextBoxContentChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(24)
-    def add_CompositionTerminated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.TextInputProvider, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CompositionTerminated(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.TextInputProvider, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(25)
     def remove_CompositionTerminated(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(26)
@@ -367,7 +366,7 @@ class ITextInputProvider(ComPtr):
     ReconversionRequested = event()
     InputDelegationModeChanged = event()
 class ITextInputService(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.ITextInputService'
     _iid_ = Guid('{8e23f89c-ab1f-551a-8751-7d4f29e34d88}')
     @winrt_commethod(6)
@@ -375,13 +374,13 @@ class ITextInputService(ComPtr):
     @winrt_commethod(7)
     def CreateTextInputProvider(self, inputProfile: WinRT_String) -> win32more.Windows.UI.Input.Preview.Text.TextInputProvider: ...
 class ITextInputServiceStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Input.Preview.Text.ITextInputServiceStatics'
     _iid_ = Guid('{91b68f5e-02ed-4e09-ae89-dfd735cf10bc}')
     @winrt_commethod(6)
     def GetForCurrentThread(self) -> win32more.Windows.UI.Input.Preview.Text.TextInputService: ...
 class InputDelegationModeChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.IInputDelegationModeChangedEventArgs
     _classid_ = 'Windows.UI.Input.Preview.Text.InputDelegationModeChangedEventArgs'
     @winrt_mixinmethod
@@ -394,7 +393,7 @@ class KeyEventDeviceType(Enum, Int32):
     Gamepad = 3
     Injection = 4
 class KeyEventReceivedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.IKeyEventReceivedEventArgs
     _classid_ = 'Windows.UI.Input.Preview.Text.KeyEventReceivedEventArgs'
     @winrt_mixinmethod
@@ -422,7 +421,7 @@ class KeyEventReceivedEventArgs(ComPtr):
     Unicode = property(get_Unicode, None)
     VirtualKey = property(get_VirtualKey, None)
 class KeyboardInputProcessor(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor
     _classid_ = 'Windows.UI.Input.Preview.Text.KeyboardInputProcessor'
     @winrt_mixinmethod
@@ -446,11 +445,11 @@ class KeyboardInputProcessor(ComPtr):
     @winrt_mixinmethod
     def CreateEditSession(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor) -> win32more.Windows.UI.Input.Preview.Text.TextEditSession: ...
     @winrt_mixinmethod
-    def add_Activated(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Activated(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Activated(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_Deactivated(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Deactivated(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Deactivated(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -462,7 +461,7 @@ class KeyboardInputProcessor(ComPtr):
     @winrt_mixinmethod
     def remove_FocusEntered(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_FocusRemoved(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FocusRemoved(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_FocusRemoved(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -478,7 +477,7 @@ class KeyboardInputProcessor(ComPtr):
     @winrt_mixinmethod
     def remove_TextBoxContentChanged(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_CompositionTerminated(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CompositionTerminated(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.KeyboardInputProcessor, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_CompositionTerminated(self: win32more.Windows.UI.Input.Preview.Text.IKeyboardInputProcessor, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -513,7 +512,7 @@ class PayloadResult(Enum, Int32):
     Canceled = 6
 PreviewTextContract: UInt32 = 65536
 class ReconversionRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.IReconversionRequestedEventArgs
     _classid_ = 'Windows.UI.Input.Preview.Text.ReconversionRequestedEventArgs'
     @winrt_mixinmethod
@@ -526,7 +525,7 @@ class TextBoxContentAttribute(Enum, Int32):
     Property = 3
     Layout = 4
 class TextBoxContentChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.ITextBoxContentChangedEventArgs
     _classid_ = 'Windows.UI.Input.Preview.Text.TextBoxContentChangedEventArgs'
     @winrt_mixinmethod
@@ -548,7 +547,7 @@ class TextBoxFeatures(Enum, UInt32):
 class TextBoxId(Structure):
     Value: UInt32
 class TextBoxInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.ITextBoxInfo
     _classid_ = 'Windows.UI.Input.Preview.Text.TextBoxInfo'
     @winrt_mixinmethod
@@ -570,7 +569,7 @@ class TextBoxInfo(ComPtr):
     Settings = property(get_Settings, None)
     Url = property(get_Url, None)
 class TextBoxInfoChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.ITextBoxInfoChangedEventArgs
     _classid_ = 'Windows.UI.Input.Preview.Text.TextBoxInfoChangedEventArgs'
     @winrt_mixinmethod
@@ -591,7 +590,7 @@ class TextChangeSource(Enum, Int32):
     AutoCompletion = 6
     Mixed = 7
 class TextComposition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.ITextComposition
     _classid_ = 'Windows.UI.Input.Preview.Text.TextComposition'
     @winrt_mixinmethod
@@ -617,7 +616,7 @@ class TextComposition(ComPtr):
     SelectedSegment = property(get_SelectedSegment, None)
     Text = property(get_Text, None)
 class TextCompositionSegment(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.ITextCompositionSegment
     _classid_ = 'Windows.UI.Input.Preview.Text.TextCompositionSegment'
     @winrt_mixinmethod
@@ -667,7 +666,7 @@ class TextConversionMode(Enum, Int32):
     RequestConversion = 10
     NativeEudc = 11
 class TextEditSession(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.ITextEditSession
     _classid_ = 'Windows.UI.Input.Preview.Text.TextEditSession'
     @winrt_mixinmethod
@@ -701,7 +700,7 @@ class TextEditSession(ComPtr):
     TextBoxId = property(get_TextBoxId, None)
     TextLength = property(get_TextLength, None)
 class TextInputProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.ITextInputProvider
     _classid_ = 'Windows.UI.Input.Preview.Text.TextInputProvider'
     @winrt_mixinmethod
@@ -729,7 +728,7 @@ class TextInputProvider(ComPtr):
     @winrt_mixinmethod
     def remove_FocusEntered(self: win32more.Windows.UI.Input.Preview.Text.ITextInputProvider, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_FocusRemoved(self: win32more.Windows.UI.Input.Preview.Text.ITextInputProvider, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.TextInputProvider, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_FocusRemoved(self: win32more.Windows.UI.Input.Preview.Text.ITextInputProvider, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.TextInputProvider, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_FocusRemoved(self: win32more.Windows.UI.Input.Preview.Text.ITextInputProvider, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -741,7 +740,7 @@ class TextInputProvider(ComPtr):
     @winrt_mixinmethod
     def remove_TextBoxContentChanged(self: win32more.Windows.UI.Input.Preview.Text.ITextInputProvider, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
-    def add_CompositionTerminated(self: win32more.Windows.UI.Input.Preview.Text.ITextInputProvider, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.TextInputProvider, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_CompositionTerminated(self: win32more.Windows.UI.Input.Preview.Text.ITextInputProvider, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.UI.Input.Preview.Text.TextInputProvider, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_CompositionTerminated(self: win32more.Windows.UI.Input.Preview.Text.ITextInputProvider, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -765,7 +764,7 @@ class TextInputProvider(ComPtr):
     ReconversionRequested = event()
     InputDelegationModeChanged = event()
 class TextInputService(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Input.Preview.Text.ITextInputService
     _classid_ = 'Windows.UI.Input.Preview.Text.TextInputService'
     @winrt_mixinmethod

@@ -1,11 +1,10 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Globalization.Fonts
 import win32more.Windows.UI.Text
-import win32more.Windows.Win32.System.WinRT
 class ILanguageFont(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.Fonts.ILanguageFont'
     _iid_ = Guid('{b12e5c3a-b76d-459b-beeb-901151cd77d1}')
     @winrt_commethod(6)
@@ -24,7 +23,7 @@ class ILanguageFont(ComPtr):
     FontWeight = property(get_FontWeight, None)
     ScaleFactor = property(get_ScaleFactor, None)
 class ILanguageFontGroup(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.Fonts.ILanguageFontGroup'
     _iid_ = Guid('{f33a7fc3-3a5c-4aea-b9ff-b39fb242f7f6}')
     @winrt_commethod(6)
@@ -61,13 +60,13 @@ class ILanguageFontGroup(ComPtr):
     UITextFont = property(get_UITextFont, None)
     UITitleFont = property(get_UITitleFont, None)
 class ILanguageFontGroupFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Globalization.Fonts.ILanguageFontGroupFactory'
     _iid_ = Guid('{fcaeac67-4e77-49c7-b856-dde934fc735b}')
     @winrt_commethod(6)
     def CreateLanguageFontGroup(self, languageTag: WinRT_String) -> win32more.Windows.Globalization.Fonts.LanguageFontGroup: ...
 class LanguageFont(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Globalization.Fonts.ILanguageFont
     _classid_ = 'Windows.Globalization.Fonts.LanguageFont'
     @winrt_mixinmethod
@@ -86,7 +85,7 @@ class LanguageFont(ComPtr):
     FontWeight = property(get_FontWeight, None)
     ScaleFactor = property(get_ScaleFactor, None)
 class LanguageFontGroup(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Globalization.Fonts.ILanguageFontGroup
     _classid_ = 'Windows.Globalization.Fonts.LanguageFontGroup'
     def __init__(self, *args, **kwargs):

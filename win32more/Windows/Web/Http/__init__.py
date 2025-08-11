@@ -1,6 +1,6 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Networking.Sockets
@@ -9,9 +9,8 @@ import win32more.Windows.Storage.Streams
 import win32more.Windows.Web.Http
 import win32more.Windows.Web.Http.Filters
 import win32more.Windows.Web.Http.Headers
-import win32more.Windows.Win32.System.WinRT
 class HttpBufferContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpBufferContent'
@@ -48,7 +47,7 @@ class HttpBufferContent(ComPtr):
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
 class HttpClient(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpClient
     _classid_ = 'Windows.Web.Http.HttpClient'
@@ -121,7 +120,7 @@ class HttpCompletionOption(Enum, Int32):
     ResponseContentRead = 0
     ResponseHeadersRead = 1
 class HttpCookie(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpCookie
     _classid_ = 'Windows.Web.Http.HttpCookie'
     def __init__(self, *args, **kwargs):
@@ -165,7 +164,7 @@ class HttpCookie(ComPtr):
     Secure = property(get_Secure, put_Secure)
     Value = property(get_Value, put_Value)
 class HttpCookieCollection(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.Web.Http.HttpCookie]]
     default_interface: win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.Web.Http.HttpCookie]
     _classid_ = 'Windows.Web.Http.HttpCookieCollection'
@@ -181,7 +180,7 @@ class HttpCookieCollection(ComPtr):
     def First(self: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Web.Http.HttpCookie]) -> win32more.Windows.Foundation.Collections.IIterator[win32more.Windows.Web.Http.HttpCookie]: ...
     Size = property(get_Size, None)
 class HttpCookieManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpCookieManager
     _classid_ = 'Windows.Web.Http.HttpCookieManager'
     @winrt_mixinmethod
@@ -193,7 +192,7 @@ class HttpCookieManager(ComPtr):
     @winrt_mixinmethod
     def GetCookies(self: win32more.Windows.Web.Http.IHttpCookieManager, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Http.HttpCookieCollection: ...
 class HttpFormUrlEncodedContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpFormUrlEncodedContent'
@@ -226,7 +225,7 @@ class HttpFormUrlEncodedContent(ComPtr):
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
 class HttpGetBufferResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpGetBufferResult
     _classid_ = 'Windows.Web.Http.HttpGetBufferResult'
@@ -250,7 +249,7 @@ class HttpGetBufferResult(ComPtr):
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
 class HttpGetInputStreamResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpGetInputStreamResult
     _classid_ = 'Windows.Web.Http.HttpGetInputStreamResult'
@@ -274,7 +273,7 @@ class HttpGetInputStreamResult(ComPtr):
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
 class HttpGetStringResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpGetStringResult
     _classid_ = 'Windows.Web.Http.HttpGetStringResult'
@@ -300,7 +299,7 @@ class HttpGetStringResult(ComPtr):
 class _HttpMethod_Meta_(ComPtr.__class__):
     pass
 class HttpMethod(ComPtr, metaclass=_HttpMethod_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpMethod
     _classid_ = 'Windows.Web.Http.HttpMethod'
     def __init__(self, *args, **kwargs):
@@ -339,7 +338,7 @@ class HttpMethod(ComPtr, metaclass=_HttpMethod_Meta_):
     _HttpMethod_Meta_.Post = property(get_Post, None)
     _HttpMethod_Meta_.Put = property(get_Put, None)
 class HttpMultipartContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[IterableProtocol[win32more.Windows.Web.Http.IHttpContent], ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpMultipartContent'
@@ -384,7 +383,7 @@ class HttpMultipartContent(ComPtr):
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
 class HttpMultipartFormDataContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[IterableProtocol[win32more.Windows.Web.Http.IHttpContent], ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpMultipartFormDataContent'
@@ -447,7 +446,7 @@ class HttpProgressStage(Enum, Int32):
     ReceivingHeaders = 80
     ReceivingContent = 90
 class HttpRequestMessage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpRequestMessage
     _classid_ = 'Windows.Web.Http.HttpRequestMessage'
@@ -475,7 +474,7 @@ class HttpRequestMessage(ComPtr):
     @winrt_mixinmethod
     def put_Method(self: win32more.Windows.Web.Http.IHttpRequestMessage, value: win32more.Windows.Web.Http.HttpMethod) -> Void: ...
     @winrt_mixinmethod
-    def get_Properties(self: win32more.Windows.Web.Http.IHttpRequestMessage) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Properties(self: win32more.Windows.Web.Http.IHttpRequestMessage) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]: ...
     @winrt_mixinmethod
     def get_RequestUri(self: win32more.Windows.Web.Http.IHttpRequestMessage) -> win32more.Windows.Foundation.Uri: ...
     @winrt_mixinmethod
@@ -498,7 +497,7 @@ class HttpRequestMessage(ComPtr):
     RequestUri = property(get_RequestUri, put_RequestUri)
     TransportInformation = property(get_TransportInformation, None)
 class HttpRequestResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpRequestResult
     _classid_ = 'Windows.Web.Http.HttpRequestResult'
@@ -519,7 +518,7 @@ class HttpRequestResult(ComPtr):
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
 class HttpResponseMessage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpResponseMessage
     _classid_ = 'Windows.Web.Http.HttpResponseMessage'
@@ -642,7 +641,7 @@ class HttpStatusCode(Enum, Int32):
     NotExtended = 510
     NetworkAuthenticationRequired = 511
 class HttpStreamContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpStreamContent'
@@ -675,7 +674,7 @@ class HttpStreamContent(ComPtr):
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
 class HttpStringContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Web.Http.IHttpContent
     _classid_ = 'Windows.Web.Http.HttpStringContent'
@@ -716,7 +715,7 @@ class HttpStringContent(ComPtr):
     def ToString(self: win32more.Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
 class HttpTransportInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Web.Http.IHttpTransportInformation
     _classid_ = 'Windows.Web.Http.HttpTransportInformation'
     @winrt_mixinmethod
@@ -739,7 +738,7 @@ class HttpVersion(Enum, Int32):
     Http11 = 2
     Http20 = 3
 class IHttpBufferContentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpBufferContentFactory'
     _iid_ = Guid('{bc20c193-c41f-4ff7-9123-6435736eadc2}')
     @winrt_commethod(6)
@@ -747,7 +746,7 @@ class IHttpBufferContentFactory(ComPtr):
     @winrt_commethod(7)
     def CreateFromBufferWithOffset(self, content: win32more.Windows.Storage.Streams.IBuffer, offset: UInt32, count: UInt32) -> win32more.Windows.Web.Http.HttpBufferContent: ...
 class IHttpClient(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpClient'
     _iid_ = Guid('{7fda1151-3574-4880-a8ba-e6b1e0061f3d}')
     @winrt_commethod(6)
@@ -774,7 +773,7 @@ class IHttpClient(ComPtr):
     def get_DefaultRequestHeaders(self) -> win32more.Windows.Web.Http.Headers.HttpRequestHeaderCollection: ...
     DefaultRequestHeaders = property(get_DefaultRequestHeaders, None)
 class IHttpClient2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpClient2'
     _iid_ = Guid('{cdd83348-e8b7-4cec-b1b0-dc455fe72c92}')
     @winrt_commethod(6)
@@ -798,7 +797,7 @@ class IHttpClient2(ComPtr):
     @winrt_commethod(15)
     def TrySendRequestAsync2(self, request: win32more.Windows.Web.Http.HttpRequestMessage, completionOption: win32more.Windows.Web.Http.HttpCompletionOption) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[win32more.Windows.Web.Http.HttpRequestResult, win32more.Windows.Web.Http.HttpProgress]: ...
 class IHttpClient3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpClient3'
     _iid_ = Guid('{1172fd01-9899-4194-963f-8f9d72a7ec15}')
     @winrt_commethod(6)
@@ -807,13 +806,13 @@ class IHttpClient3(ComPtr):
     def put_DefaultPrivacyAnnotation(self, value: WinRT_String) -> Void: ...
     DefaultPrivacyAnnotation = property(get_DefaultPrivacyAnnotation, put_DefaultPrivacyAnnotation)
 class IHttpClientFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpClientFactory'
     _iid_ = Guid('{c30c4eca-e3fa-4f99-afb4-63cc65009462}')
     @winrt_commethod(6)
     def Create(self, filter: win32more.Windows.Web.Http.Filters.IHttpFilter) -> win32more.Windows.Web.Http.HttpClient: ...
 class IHttpContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Web.Http.IHttpContent'
     _iid_ = Guid('{6b14a441-fba7-4bd2-af0a-839de7c295da}')
@@ -833,7 +832,7 @@ class IHttpContent(ComPtr):
     def WriteToStreamAsync(self, outputStream: win32more.Windows.Storage.Streams.IOutputStream) -> win32more.Windows.Foundation.IAsyncOperationWithProgress[UInt64, UInt64]: ...
     Headers = property(get_Headers, None)
 class IHttpCookie(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpCookie'
     _iid_ = Guid('{1f5488e2-cc2d-4779-86a7-88f10687d249}')
     @winrt_commethod(6)
@@ -866,13 +865,13 @@ class IHttpCookie(ComPtr):
     Secure = property(get_Secure, put_Secure)
     Value = property(get_Value, put_Value)
 class IHttpCookieFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpCookieFactory'
     _iid_ = Guid('{6a0585a9-931c-4cd1-a96d-c21701785c5f}')
     @winrt_commethod(6)
     def Create(self, name: WinRT_String, domain: WinRT_String, path: WinRT_String) -> win32more.Windows.Web.Http.HttpCookie: ...
 class IHttpCookieManager(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpCookieManager'
     _iid_ = Guid('{7a431780-cd4f-4e57-a84a-5b0a53d6bb96}')
     @winrt_commethod(6)
@@ -884,13 +883,13 @@ class IHttpCookieManager(ComPtr):
     @winrt_commethod(9)
     def GetCookies(self, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Http.HttpCookieCollection: ...
 class IHttpFormUrlEncodedContentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpFormUrlEncodedContentFactory'
     _iid_ = Guid('{43f0138c-2f73-4302-b5f3-eae9238a5e01}')
     @winrt_commethod(6)
     def Create(self, content: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> win32more.Windows.Web.Http.HttpFormUrlEncodedContent: ...
 class IHttpGetBufferResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpGetBufferResult'
     _iid_ = Guid('{53d08e7c-e209-404e-9a49-742d8236fd3a}')
     @winrt_commethod(6)
@@ -909,7 +908,7 @@ class IHttpGetBufferResult(ComPtr):
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
 class IHttpGetInputStreamResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpGetInputStreamResult'
     _iid_ = Guid('{d5d63463-13aa-4ee0-be95-a0c39fe91203}')
     @winrt_commethod(6)
@@ -928,7 +927,7 @@ class IHttpGetInputStreamResult(ComPtr):
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
 class IHttpGetStringResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpGetStringResult'
     _iid_ = Guid('{9bac466d-8509-4775-b16d-8953f47a7f5f}')
     @winrt_commethod(6)
@@ -947,20 +946,20 @@ class IHttpGetStringResult(ComPtr):
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
 class IHttpMethod(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpMethod'
     _iid_ = Guid('{728d4022-700d-4fe0-afa5-40299c58dbfd}')
     @winrt_commethod(6)
     def get_Method(self) -> WinRT_String: ...
     Method = property(get_Method, None)
 class IHttpMethodFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpMethodFactory'
     _iid_ = Guid('{3c51d10d-36d7-40f8-a86d-e759caf2f83f}')
     @winrt_commethod(6)
     def Create(self, method: WinRT_String) -> win32more.Windows.Web.Http.HttpMethod: ...
 class IHttpMethodStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpMethodStatics'
     _iid_ = Guid('{64d171f0-d99a-4153-8dc6-d68cc4cce317}')
     @winrt_commethod(6)
@@ -985,13 +984,13 @@ class IHttpMethodStatics(ComPtr):
     Post = property(get_Post, None)
     Put = property(get_Put, None)
 class IHttpMultipartContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpMultipartContent'
     _iid_ = Guid('{df916aff-9926-4ac9-aaf1-e0d04ef09bb9}')
     @winrt_commethod(6)
     def Add(self, content: win32more.Windows.Web.Http.IHttpContent) -> Void: ...
 class IHttpMultipartContentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpMultipartContentFactory'
     _iid_ = Guid('{7eb42e62-0222-4f20-b372-47d5db5d33b4}')
     @winrt_commethod(6)
@@ -999,7 +998,7 @@ class IHttpMultipartContentFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithSubtypeAndBoundary(self, subtype: WinRT_String, boundary: WinRT_String) -> win32more.Windows.Web.Http.HttpMultipartContent: ...
 class IHttpMultipartFormDataContent(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpMultipartFormDataContent'
     _iid_ = Guid('{64d337e2-e967-4624-b6d1-cf74604a4a42}')
     @winrt_commethod(6)
@@ -1009,13 +1008,13 @@ class IHttpMultipartFormDataContent(ComPtr):
     @winrt_commethod(8)
     def AddWithNameAndFileName(self, content: win32more.Windows.Web.Http.IHttpContent, name: WinRT_String, fileName: WinRT_String) -> Void: ...
 class IHttpMultipartFormDataContentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpMultipartFormDataContentFactory'
     _iid_ = Guid('{a04d7311-5017-4622-93a8-49b24a4fcbfc}')
     @winrt_commethod(6)
     def CreateWithBoundary(self, boundary: WinRT_String) -> win32more.Windows.Web.Http.HttpMultipartFormDataContent: ...
 class IHttpRequestMessage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpRequestMessage'
     _iid_ = Guid('{f5762b3c-74d4-4811-b5dc-9f8b4e2f9abf}')
     @winrt_commethod(6)
@@ -1029,7 +1028,7 @@ class IHttpRequestMessage(ComPtr):
     @winrt_commethod(10)
     def put_Method(self, value: win32more.Windows.Web.Http.HttpMethod) -> Void: ...
     @winrt_commethod(11)
-    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Win32.System.WinRT.IInspectable]: ...
+    def get_Properties(self) -> win32more.Windows.Foundation.Collections.IMap[WinRT_String, IInspectable]: ...
     @winrt_commethod(12)
     def get_RequestUri(self) -> win32more.Windows.Foundation.Uri: ...
     @winrt_commethod(13)
@@ -1043,7 +1042,7 @@ class IHttpRequestMessage(ComPtr):
     RequestUri = property(get_RequestUri, put_RequestUri)
     TransportInformation = property(get_TransportInformation, None)
 class IHttpRequestMessage2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpRequestMessage2'
     _iid_ = Guid('{c3c60489-62c2-4a3f-9554-226e7c60bd96}')
     @winrt_commethod(6)
@@ -1052,13 +1051,13 @@ class IHttpRequestMessage2(ComPtr):
     def put_PrivacyAnnotation(self, value: WinRT_String) -> Void: ...
     PrivacyAnnotation = property(get_PrivacyAnnotation, put_PrivacyAnnotation)
 class IHttpRequestMessageFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpRequestMessageFactory'
     _iid_ = Guid('{5bac994e-3886-412e-aec3-52ec7f25616f}')
     @winrt_commethod(6)
     def Create(self, method: win32more.Windows.Web.Http.HttpMethod, uri: win32more.Windows.Foundation.Uri) -> win32more.Windows.Web.Http.HttpRequestMessage: ...
 class IHttpRequestResult(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpRequestResult'
     _iid_ = Guid('{6acf4da8-b5eb-4a35-a902-4217fbe820c5}')
     @winrt_commethod(6)
@@ -1074,7 +1073,7 @@ class IHttpRequestResult(ComPtr):
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
 class IHttpResponseMessage(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpResponseMessage'
     _iid_ = Guid('{fee200fb-8664-44e0-95d9-42696199bffc}')
     @winrt_commethod(6)
@@ -1116,19 +1115,19 @@ class IHttpResponseMessage(ComPtr):
     StatusCode = property(get_StatusCode, put_StatusCode)
     Version = property(get_Version, put_Version)
 class IHttpResponseMessageFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpResponseMessageFactory'
     _iid_ = Guid('{52a8af99-f095-43da-b60f-7cfc2bc7ea2f}')
     @winrt_commethod(6)
     def Create(self, statusCode: win32more.Windows.Web.Http.HttpStatusCode) -> win32more.Windows.Web.Http.HttpResponseMessage: ...
 class IHttpStreamContentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpStreamContentFactory'
     _iid_ = Guid('{f3e64d9d-f725-407e-942f-0eda189809f4}')
     @winrt_commethod(6)
     def CreateFromInputStream(self, content: win32more.Windows.Storage.Streams.IInputStream) -> win32more.Windows.Web.Http.HttpStreamContent: ...
 class IHttpStringContentFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpStringContentFactory'
     _iid_ = Guid('{46649d5b-2e93-48eb-8e61-19677878e57f}')
     @winrt_commethod(6)
@@ -1138,7 +1137,7 @@ class IHttpStringContentFactory(ComPtr):
     @winrt_commethod(8)
     def CreateFromStringWithEncodingAndMediaType(self, content: WinRT_String, encoding: win32more.Windows.Storage.Streams.UnicodeEncoding, mediaType: WinRT_String) -> win32more.Windows.Web.Http.HttpStringContent: ...
 class IHttpTransportInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Web.Http.IHttpTransportInformation'
     _iid_ = Guid('{70127198-c6a7-4ed0-833a-83fd8b8f178d}')
     @winrt_commethod(6)

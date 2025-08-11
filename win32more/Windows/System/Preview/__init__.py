@@ -1,10 +1,9 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Sensors
 import win32more.Windows.Foundation
 import win32more.Windows.System.Preview
-import win32more.Windows.Win32.System.WinRT
 class HingeState(Enum, Int32):
     Unknown = 0
     Closed = 1
@@ -13,7 +12,7 @@ class HingeState(Enum, Int32):
     Convex = 4
     Full = 5
 class ITwoPanelHingedDevicePosturePreview(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Preview.ITwoPanelHingedDevicePosturePreview'
     _iid_ = Guid('{72245c31-4b39-42a6-8e73-7235ade16853}')
     @winrt_commethod(6)
@@ -24,7 +23,7 @@ class ITwoPanelHingedDevicePosturePreview(ComPtr):
     def remove_PostureChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     PostureChanged = event()
 class ITwoPanelHingedDevicePosturePreviewReading(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading'
     _iid_ = Guid('{a0251452-4ad6-4b38-8426-c59a15493a7d}')
     @winrt_commethod(6)
@@ -46,20 +45,20 @@ class ITwoPanelHingedDevicePosturePreviewReading(ComPtr):
     Panel2Orientation = property(get_Panel2Orientation, None)
     Timestamp = property(get_Timestamp, None)
 class ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs'
     _iid_ = Guid('{2d2d1bc6-02ce-474a-a556-a75b1cf93a03}')
     @winrt_commethod(6)
     def get_Reading(self) -> win32more.Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading: ...
     Reading = property(get_Reading, None)
 class ITwoPanelHingedDevicePosturePreviewStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewStatics'
     _iid_ = Guid('{0c4733d2-57e0-4180-bd5e-f31a2138423e}')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.System.Preview.TwoPanelHingedDevicePosturePreview]: ...
 class TwoPanelHingedDevicePosturePreview(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreview
     _classid_ = 'Windows.System.Preview.TwoPanelHingedDevicePosturePreview'
     @winrt_mixinmethod
@@ -72,7 +71,7 @@ class TwoPanelHingedDevicePosturePreview(ComPtr):
     def GetDefaultAsync(cls: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewStatics) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.System.Preview.TwoPanelHingedDevicePosturePreview]: ...
     PostureChanged = event()
 class TwoPanelHingedDevicePosturePreviewReading(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReading
     _classid_ = 'Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading'
     @winrt_mixinmethod
@@ -94,7 +93,7 @@ class TwoPanelHingedDevicePosturePreviewReading(ComPtr):
     Panel2Orientation = property(get_Panel2Orientation, None)
     Timestamp = property(get_Timestamp, None)
 class TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Preview.ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs
     _classid_ = 'Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs'
     @winrt_mixinmethod

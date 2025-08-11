@@ -1,11 +1,10 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.System.Diagnostics.TraceReporting
-import win32more.Windows.Win32.System.WinRT
 class IPlatformDiagnosticActionsStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics'
     _iid_ = Guid('{c1145cfa-9292-4267-890a-9ea3ed072312}')
     @winrt_commethod(6)
@@ -25,7 +24,7 @@ class IPlatformDiagnosticActionsStatics(ComPtr):
     @winrt_commethod(13)
     def GetKnownTraceList(self, slotType: win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> win32more.Windows.Foundation.Collections.IVectorView[win32more.Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo]: ...
 class IPlatformDiagnosticTraceInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo'
     _iid_ = Guid('{f870ed97-d597-4bf7-88dc-cf5c7dc2a1d2}')
     @winrt_commethod(6)
@@ -47,7 +46,7 @@ class IPlatformDiagnosticTraceInfo(ComPtr):
     ProfileHash = property(get_ProfileHash, None)
     ScenarioId = property(get_ScenarioId, None)
 class IPlatformDiagnosticTraceRuntimeInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo'
     _iid_ = Guid('{3d4d5e2d-01d8-4768-8554-1eb1ca610986}')
     @winrt_commethod(6)
@@ -61,7 +60,7 @@ class PlatformDiagnosticActionState(Enum, Int32):
     FreeNetworkNotAvailable = 1
     ACPowerNotAvailable = 2
 class PlatformDiagnosticActions(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions'
     @winrt_classmethod
     def IsScenarioEnabled(cls: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticActionsStatics, scenarioId: Guid) -> Boolean: ...
@@ -87,7 +86,7 @@ class PlatformDiagnosticEventBufferLatencies(Enum, UInt32):
     CostDeferred = 2
     Realtime = 4
 class PlatformDiagnosticTraceInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo'
     @winrt_mixinmethod
@@ -112,7 +111,7 @@ class PlatformDiagnosticTracePriority(Enum, Int32):
     Normal = 0
     UserElevated = 1
 class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo
     _classid_ = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceRuntimeInfo'
     @winrt_mixinmethod

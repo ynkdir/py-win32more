@@ -1,20 +1,19 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.AI.Actions
 import win32more.Windows.AI.Actions.Hosting
 import win32more.Windows.Foundation
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class ActionCatalog(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.Hosting.IActionCatalog
     _classid_ = 'Windows.AI.Actions.Hosting.ActionCatalog'
     @winrt_mixinmethod
     def GetAllActions(self: win32more.Windows.AI.Actions.Hosting.IActionCatalog) -> ReceiveArray[win32more.Windows.AI.Actions.Hosting.ActionDefinition]: ...
     @winrt_mixinmethod
-    def add_Changed(self: win32more.Windows.AI.Actions.Hosting.IActionCatalog, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.Hosting.ActionCatalog, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(self: win32more.Windows.AI.Actions.Hosting.IActionCatalog, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.Hosting.ActionCatalog, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_Changed(self: win32more.Windows.AI.Actions.Hosting.IActionCatalog, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
@@ -25,7 +24,7 @@ class ActionCatalog(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Changed = event()
 class ActionDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.Hosting.IActionDefinition
     _classid_ = 'Windows.AI.Actions.Hosting.ActionDefinition'
@@ -62,7 +61,7 @@ class ActionDefinition(ComPtr):
     SchemaVersion = property(get_SchemaVersion, None)
     UsesGenerativeAI = property(get_UsesGenerativeAI, None)
 class ActionEntityRegistrationInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.Hosting.IActionEntityRegistrationInfo
     _classid_ = 'Windows.AI.Actions.Hosting.ActionEntityRegistrationInfo'
@@ -79,7 +78,7 @@ class ActionEntityRegistrationInfo(ComPtr):
     Kind = property(get_Kind, put_Kind)
     Name = property(get_Name, put_Name)
 class ActionInstance(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.AI.Actions.Hosting.IActionInstance
     _classid_ = 'Windows.AI.Actions.Hosting.ActionInstance'
     @winrt_mixinmethod
@@ -94,14 +93,14 @@ class ActionInstance(ComPtr):
     Definition = property(get_Definition, None)
     DisplayInfo = property(get_DisplayInfo, None)
 class ActionInstanceDisplayInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.AI.Actions.Hosting.IActionInstanceDisplayInfo
     _classid_ = 'Windows.AI.Actions.Hosting.ActionInstanceDisplayInfo'
     @winrt_mixinmethod
     def get_Description(self: win32more.Windows.AI.Actions.Hosting.IActionInstanceDisplayInfo) -> WinRT_String: ...
     Description = property(get_Description, None)
 class ActionOverload(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.AI.Actions.Hosting.IActionOverload
     _classid_ = 'Windows.AI.Actions.Hosting.ActionOverload'
@@ -119,18 +118,18 @@ class ActionOverload(ComPtr):
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     DescriptionTemplate = property(get_DescriptionTemplate, None)
 class IActionCatalog(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionCatalog'
     _iid_ = Guid('{dbe7c537-66ea-5394-9085-4fc19d78375c}')
     @winrt_commethod(6)
     def GetAllActions(self) -> ReceiveArray[win32more.Windows.AI.Actions.Hosting.ActionDefinition]: ...
     @winrt_commethod(7)
-    def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.Hosting.ActionCatalog, win32more.Windows.Win32.System.WinRT.IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    def add_Changed(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Windows.AI.Actions.Hosting.ActionCatalog, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Changed(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     Changed = event()
 class IActionCatalog2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionCatalog2'
     _iid_ = Guid('{370360b1-a14b-5ea8-b611-b5f70342ba44}')
     @winrt_commethod(6)
@@ -138,7 +137,7 @@ class IActionCatalog2(ComPtr):
     @winrt_commethod(7)
     def GetActionsForInputs2(self, inputEntities: PassArray[win32more.Windows.AI.Actions.ActionEntity], invokerWindowId: win32more.Windows.UI.WindowId) -> ReceiveArray[win32more.Windows.AI.Actions.Hosting.ActionInstance]: ...
 class IActionDefinition(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionDefinition'
     _iid_ = Guid('{fe766add-924d-5231-855e-dac9e82c7e6c}')
     @winrt_commethod(6)
@@ -160,7 +159,7 @@ class IActionDefinition(ComPtr):
     Id = property(get_Id, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
 class IActionDefinition2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionDefinition2'
     _iid_ = Guid('{c1f44733-f563-54e2-bd2b-dc4c732054cf}')
     @winrt_commethod(6)
@@ -173,14 +172,14 @@ class IActionDefinition2(ComPtr):
     SchemaVersion = property(get_SchemaVersion, None)
     UsesGenerativeAI = property(get_UsesGenerativeAI, None)
 class IActionDefinition3(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionDefinition3'
     _iid_ = Guid('{89c9a7e0-4bfd-55f4-9eed-dce2250114fa}')
     @winrt_commethod(6)
     def get_PackageRelativeApplicationId(self) -> WinRT_String: ...
     PackageRelativeApplicationId = property(get_PackageRelativeApplicationId, None)
 class IActionEntityRegistrationInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionEntityRegistrationInfo'
     _iid_ = Guid('{c3b92bdb-03c3-5a9e-b049-002fa0405699}')
     @winrt_commethod(6)
@@ -194,7 +193,7 @@ class IActionEntityRegistrationInfo(ComPtr):
     Kind = property(get_Kind, put_Kind)
     Name = property(get_Name, put_Name)
 class IActionInstance(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionInstance'
     _iid_ = Guid('{809bcb6e-e6ef-5f16-b89a-06b8893df20e}')
     @winrt_commethod(6)
@@ -209,14 +208,14 @@ class IActionInstance(ComPtr):
     Definition = property(get_Definition, None)
     DisplayInfo = property(get_DisplayInfo, None)
 class IActionInstanceDisplayInfo(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionInstanceDisplayInfo'
     _iid_ = Guid('{fcfdce21-678b-5602-b9dc-2f4533a6f4b2}')
     @winrt_commethod(6)
     def get_Description(self) -> WinRT_String: ...
     Description = property(get_Description, None)
 class IActionOverload(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionOverload'
     _iid_ = Guid('{5d184610-d09d-5375-9849-505c359dca01}')
     @winrt_commethod(6)
@@ -227,7 +226,7 @@ class IActionOverload(ComPtr):
     def InvokeAsync(self, context: win32more.Windows.AI.Actions.ActionInvocationContext) -> win32more.Windows.Foundation.IAsyncAction: ...
     DescriptionTemplate = property(get_DescriptionTemplate, None)
 class IActionOverload2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionOverload2'
     _iid_ = Guid('{57ec9906-8231-5a9e-929f-bf39e952eb93}')
     @winrt_commethod(6)

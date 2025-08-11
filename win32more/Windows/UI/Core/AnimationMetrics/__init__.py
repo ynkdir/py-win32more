@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.UI.Core.AnimationMetrics
-import win32more.Windows.Win32.System.WinRT
 class AnimationDescription(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.AnimationMetrics.IAnimationDescription
     _classid_ = 'Windows.UI.Core.AnimationMetrics.AnimationDescription'
     def __init__(self, *args, **kwargs):
@@ -93,7 +92,7 @@ class AnimationEffectTarget(Enum, Int32):
     Tapped = 19
 AnimationMetricsContract: UInt32 = 65536
 class IAnimationDescription(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.AnimationMetrics.IAnimationDescription'
     _iid_ = Guid('{7d11a549-be3d-41de-b081-05c149962f9b}')
     @winrt_commethod(6)
@@ -112,13 +111,13 @@ class IAnimationDescription(ComPtr):
     StaggerDelayFactor = property(get_StaggerDelayFactor, None)
     ZOrder = property(get_ZOrder, None)
 class IAnimationDescriptionFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.AnimationMetrics.IAnimationDescriptionFactory'
     _iid_ = Guid('{c6e27abe-c1fb-48b5-9271-ecc70ac86ef0}')
     @winrt_commethod(6)
     def CreateInstance(self, effect: win32more.Windows.UI.Core.AnimationMetrics.AnimationEffect, target: win32more.Windows.UI.Core.AnimationMetrics.AnimationEffectTarget) -> win32more.Windows.UI.Core.AnimationMetrics.AnimationDescription: ...
 class IOpacityAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.AnimationMetrics.IOpacityAnimation'
     _iid_ = Guid('{803aabe5-ee7e-455f-84e9-2506afb8d2b4}')
     @winrt_commethod(6)
@@ -128,7 +127,7 @@ class IOpacityAnimation(ComPtr):
     FinalOpacity = property(get_FinalOpacity, None)
     InitialOpacity = property(get_InitialOpacity, None)
 class IPropertyAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.AnimationMetrics.IPropertyAnimation'
     _iid_ = Guid('{3a01b4da-4d8c-411e-b615-1ade683a9903}')
     @winrt_commethod(6)
@@ -147,7 +146,7 @@ class IPropertyAnimation(ComPtr):
     Duration = property(get_Duration, None)
     Type = property(get_Type, None)
 class IScaleAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.UI.Core.AnimationMetrics.IScaleAnimation'
     _iid_ = Guid('{023552c7-71ab-428c-9c9f-d31780964995}')
     @winrt_commethod(6)
@@ -166,7 +165,7 @@ class IScaleAnimation(ComPtr):
     InitialScaleY = property(get_InitialScaleY, None)
     NormalizedOrigin = property(get_NormalizedOrigin, None)
 class OpacityAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.AnimationMetrics.IOpacityAnimation
     _classid_ = 'Windows.UI.Core.AnimationMetrics.OpacityAnimation'
     @winrt_mixinmethod
@@ -191,7 +190,7 @@ class OpacityAnimation(ComPtr):
     InitialOpacity = property(get_InitialOpacity, None)
     Type = property(get_Type, None)
 class PropertyAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation
     _classid_ = 'Windows.UI.Core.AnimationMetrics.PropertyAnimation'
     @winrt_mixinmethod
@@ -214,7 +213,7 @@ class PropertyAnimationType(Enum, Int32):
     Translation = 1
     Opacity = 2
 class ScaleAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.AnimationMetrics.IScaleAnimation
     _classid_ = 'Windows.UI.Core.AnimationMetrics.ScaleAnimation'
     @winrt_mixinmethod
@@ -248,7 +247,7 @@ class ScaleAnimation(ComPtr):
     NormalizedOrigin = property(get_NormalizedOrigin, None)
     Type = property(get_Type, None)
 class TranslationAnimation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.UI.Core.AnimationMetrics.IPropertyAnimation
     _classid_ = 'Windows.UI.Core.AnimationMetrics.TranslationAnimation'
     @winrt_mixinmethod

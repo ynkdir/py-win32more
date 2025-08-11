@@ -1,15 +1,14 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Devices.Lights
 import win32more.Windows.Devices.Lights.Effects
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.UI
-import win32more.Windows.Win32.System.WinRT
 class ILampArrayBitmapEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBitmapEffect'
     _iid_ = Guid('{3238e065-d877-4627-89e5-2a88f7052fa6}')
     @winrt_commethod(6)
@@ -36,13 +35,13 @@ class ILampArrayBitmapEffect(ComPtr):
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     BitmapRequested = event()
 class ILampArrayBitmapEffectFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBitmapEffectFactory'
     _iid_ = Guid('{13608090-e336-4c8f-9053-a92407ca7b1d}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayBitmapEffect: ...
 class ILampArrayBitmapRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBitmapRequestedEventArgs'
     _iid_ = Guid('{c8b4af9e-fe63-4d51-babd-619defb454ba}')
     @winrt_commethod(6)
@@ -51,7 +50,7 @@ class ILampArrayBitmapRequestedEventArgs(ComPtr):
     def UpdateBitmap(self, bitmap: win32more.Windows.Graphics.Imaging.SoftwareBitmap) -> Void: ...
     SinceStarted = property(get_SinceStarted, None)
 class ILampArrayBlinkEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBlinkEffect'
     _iid_ = Guid('{ebbf35f6-2fc5-4bb3-b3c3-6221a7680d13}')
     @winrt_commethod(6)
@@ -95,13 +94,13 @@ class ILampArrayBlinkEffect(ComPtr):
     StartDelay = property(get_StartDelay, put_StartDelay)
     SustainDuration = property(get_SustainDuration, put_SustainDuration)
 class ILampArrayBlinkEffectFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayBlinkEffectFactory'
     _iid_ = Guid('{879f1d97-9f50-49b2-a56f-013aa08d55e0}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayBlinkEffect: ...
 class ILampArrayColorRampEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayColorRampEffect'
     _iid_ = Guid('{2b004437-40a7-432e-a0b9-0d570c2153ff}')
     @winrt_commethod(6)
@@ -125,13 +124,13 @@ class ILampArrayColorRampEffect(ComPtr):
     RampDuration = property(get_RampDuration, put_RampDuration)
     StartDelay = property(get_StartDelay, put_StartDelay)
 class ILampArrayColorRampEffectFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayColorRampEffectFactory'
     _iid_ = Guid('{520bd133-0c74-4df5-bea7-4899e0266b0f}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayColorRampEffect: ...
 class ILampArrayCustomEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayCustomEffect'
     _iid_ = Guid('{ec579170-3c34-4876-818b-5765f78b0ee4}')
     @winrt_commethod(6)
@@ -150,13 +149,13 @@ class ILampArrayCustomEffect(ComPtr):
     UpdateInterval = property(get_UpdateInterval, put_UpdateInterval)
     UpdateRequested = event()
 class ILampArrayCustomEffectFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayCustomEffectFactory'
     _iid_ = Guid('{68b4774d-63e5-4af0-a58b-3e535b94e8c9}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArrayCustomEffect: ...
 class ILampArrayEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayEffect'
     _iid_ = Guid('{11d45590-57fb-4546-b1ce-863107f740df}')
     @winrt_commethod(6)
@@ -165,7 +164,7 @@ class ILampArrayEffect(ComPtr):
     def put_ZIndex(self, value: Int32) -> Void: ...
     ZIndex = property(get_ZIndex, put_ZIndex)
 class ILampArrayEffectPlaylist(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayEffectPlaylist'
     _iid_ = Guid('{7de58bfe-6f61-4103-98c7-d6632f7b9169}')
     @winrt_commethod(6)
@@ -194,7 +193,7 @@ class ILampArrayEffectPlaylist(ComPtr):
     Occurrences = property(get_Occurrences, put_Occurrences)
     RepetitionMode = property(get_RepetitionMode, put_RepetitionMode)
 class ILampArrayEffectPlaylistStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayEffectPlaylistStatics'
     _iid_ = Guid('{fb15235c-ea35-4c7f-a016-f3bfc6a6c47d}')
     @winrt_commethod(6)
@@ -204,7 +203,7 @@ class ILampArrayEffectPlaylistStatics(ComPtr):
     @winrt_commethod(8)
     def PauseAll(self, value: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Devices.Lights.Effects.LampArrayEffectPlaylist]) -> Void: ...
 class ILampArraySolidEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArraySolidEffect'
     _iid_ = Guid('{441f8213-43cc-4b33-80eb-c6ddde7dc8ed}')
     @winrt_commethod(6)
@@ -228,13 +227,13 @@ class ILampArraySolidEffect(ComPtr):
     Duration = property(get_Duration, put_Duration)
     StartDelay = property(get_StartDelay, put_StartDelay)
 class ILampArraySolidEffectFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArraySolidEffectFactory'
     _iid_ = Guid('{f862a32c-5576-4341-961b-aee1f13cf9dd}')
     @winrt_commethod(6)
     def CreateInstance(self, lampArray: win32more.Windows.Devices.Lights.LampArray, lampIndexes: PassArray[Int32]) -> win32more.Windows.Devices.Lights.Effects.LampArraySolidEffect: ...
 class ILampArrayUpdateRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs'
     _iid_ = Guid('{73560d6a-576a-48af-8539-67ffa0ab3516}')
     @winrt_commethod(6)
@@ -249,7 +248,7 @@ class ILampArrayUpdateRequestedEventArgs(ComPtr):
     def SetColorsForIndices(self, desiredColors: PassArray[win32more.Windows.UI.Color], lampIndexes: PassArray[Int32]) -> Void: ...
     SinceStarted = property(get_SinceStarted, None)
 class LampArrayBitmapEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayBitmapEffect'
     def __init__(self, *args, **kwargs):
@@ -290,7 +289,7 @@ class LampArrayBitmapEffect(ComPtr):
     ZIndex = property(get_ZIndex, put_ZIndex)
     BitmapRequested = event()
 class LampArrayBitmapRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapRequestedEventArgs
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayBitmapRequestedEventArgs'
     @winrt_mixinmethod
@@ -299,7 +298,7 @@ class LampArrayBitmapRequestedEventArgs(ComPtr):
     def UpdateBitmap(self: win32more.Windows.Devices.Lights.Effects.ILampArrayBitmapRequestedEventArgs, bitmap: win32more.Windows.Graphics.Imaging.SoftwareBitmap) -> Void: ...
     SinceStarted = property(get_SinceStarted, None)
 class LampArrayBlinkEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayBlinkEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayBlinkEffect'
     def __init__(self, *args, **kwargs):
@@ -357,7 +356,7 @@ class LampArrayBlinkEffect(ComPtr):
     SustainDuration = property(get_SustainDuration, put_SustainDuration)
     ZIndex = property(get_ZIndex, put_ZIndex)
 class LampArrayColorRampEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayColorRampEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayColorRampEffect'
     def __init__(self, *args, **kwargs):
@@ -395,7 +394,7 @@ class LampArrayColorRampEffect(ComPtr):
     StartDelay = property(get_StartDelay, put_StartDelay)
     ZIndex = property(get_ZIndex, put_ZIndex)
 class LampArrayCustomEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayCustomEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayCustomEffect'
     def __init__(self, *args, **kwargs):
@@ -431,7 +430,7 @@ class LampArrayEffectCompletionBehavior(Enum, Int32):
     ClearState = 0
     KeepState = 1
 class LampArrayEffectPlaylist(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[SequenceProtocol[win32more.Windows.Devices.Lights.Effects.ILampArrayEffect]]
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayEffectPlaylist
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayEffectPlaylist'
@@ -493,7 +492,7 @@ class LampArrayRepetitionMode(Enum, Int32):
     Occurrences = 0
     Forever = 1
 class LampArraySolidEffect(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArraySolidEffect
     _classid_ = 'Windows.Devices.Lights.Effects.LampArraySolidEffect'
     def __init__(self, *args, **kwargs):
@@ -531,7 +530,7 @@ class LampArraySolidEffect(ComPtr):
     StartDelay = property(get_StartDelay, put_StartDelay)
     ZIndex = property(get_ZIndex, put_ZIndex)
 class LampArrayUpdateRequestedEventArgs(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs
     _classid_ = 'Windows.Devices.Lights.Effects.LampArrayUpdateRequestedEventArgs'
     @winrt_mixinmethod

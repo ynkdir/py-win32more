@@ -1,12 +1,11 @@
 from __future__ import annotations
 from win32more import ARCH, Annotated, Boolean, Byte, Bytes, Char, ComPtr, ConstantLazyLoader, Double, Enum, FAILED, FlexibleArray, Guid, Int16, Int32, Int64, IntPtr, NativeBitfieldAttribute, POINTER, SByte, SUCCEEDED, Single, String, Structure, UInt16, UInt32, UInt64, UIntPtr, UnicodeAlias, Union, Void, VoidPtr, cfunctype, cfunctype_pointer, commethod, make_ready, winfunctype, winfunctype_pointer
-from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
+from win32more._winrt import AwaitableProtocol, ContextManagerProtocol, FillArray, Generic, IInspectable, IUnknown, IterableProtocol, K, MappingProtocol, MulticastDelegate, PassArray, ReceiveArray, SequenceProtocol, T, TProgress, TResult, TSender, Tuple, V, WinRT_String, event, winrt_activatemethod, winrt_classmethod, winrt_commethod, winrt_factorymethod, winrt_mixinmethod, winrt_overload
 import win32more.Windows.Foundation
 import win32more.Windows.Foundation.Collections
 import win32more.Windows.Graphics.DirectX.Direct3D11
 import win32more.Windows.Graphics.Imaging
 import win32more.Windows.Storage.Streams
-import win32more.Windows.Win32.System.WinRT
 class BitmapAlphaMode(Enum, Int32):
     Premultiplied = 0
     Straight = 1
@@ -17,7 +16,7 @@ class BitmapBounds(Structure):
     Width: UInt32
     Height: UInt32
 class BitmapBuffer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapBuffer
     _classid_ = 'Windows.Graphics.Imaging.BitmapBuffer'
@@ -34,7 +33,7 @@ class BitmapBufferAccessMode(Enum, Int32):
     ReadWrite = 1
     Write = 2
 class BitmapCodecInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapCodecInformation
     _classid_ = 'Windows.Graphics.Imaging.BitmapCodecInformation'
     @winrt_mixinmethod
@@ -52,7 +51,7 @@ class BitmapCodecInformation(ComPtr):
 class _BitmapDecoder_Meta_(ComPtr.__class__):
     pass
 class BitmapDecoder(ComPtr, metaclass=_BitmapDecoder_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapDecoder
     _classid_ = 'Windows.Graphics.Imaging.BitmapDecoder'
     @winrt_mixinmethod
@@ -143,7 +142,7 @@ class BitmapDecoder(ComPtr, metaclass=_BitmapDecoder_Meta_):
 class _BitmapEncoder_Meta_(ComPtr.__class__):
     pass
 class BitmapEncoder(ComPtr, metaclass=_BitmapEncoder_Meta_):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapEncoder
     _classid_ = 'Windows.Graphics.Imaging.BitmapEncoder'
     @winrt_mixinmethod
@@ -219,7 +218,7 @@ class BitmapFlip(Enum, Int32):
     Horizontal = 1
     Vertical = 2
 class BitmapFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapFrame
     _classid_ = 'Windows.Graphics.Imaging.BitmapFrame'
     @winrt_mixinmethod
@@ -282,7 +281,7 @@ class BitmapPlaneDescription(Structure):
     Height: Int32
     Stride: Int32
 class BitmapProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapProperties
     _classid_ = 'Windows.Graphics.Imaging.BitmapProperties'
     @winrt_mixinmethod
@@ -290,13 +289,13 @@ class BitmapProperties(ComPtr):
     @winrt_mixinmethod
     def GetPropertiesAsync(self: win32more.Windows.Graphics.Imaging.IBitmapPropertiesView, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapPropertySet]: ...
 class BitmapPropertiesView(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapPropertiesView
     _classid_ = 'Windows.Graphics.Imaging.BitmapPropertiesView'
     @winrt_mixinmethod
     def GetPropertiesAsync(self: win32more.Windows.Graphics.Imaging.IBitmapPropertiesView, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapPropertySet]: ...
 class BitmapPropertySet(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[MappingProtocol[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]]
     default_interface: win32more.Windows.Foundation.Collections.IMap[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]
     _classid_ = 'Windows.Graphics.Imaging.BitmapPropertySet'
@@ -335,7 +334,7 @@ class BitmapSize(Structure):
     Width: UInt32
     Height: UInt32
 class BitmapTransform(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapTransform
     _classid_ = 'Windows.Graphics.Imaging.BitmapTransform'
     def __init__(self, *args, **kwargs):
@@ -378,7 +377,7 @@ class BitmapTransform(ComPtr):
     ScaledHeight = property(get_ScaledHeight, put_ScaledHeight)
     ScaledWidth = property(get_ScaledWidth, put_ScaledWidth)
 class BitmapTypedValue(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IBitmapTypedValue
     _classid_ = 'Windows.Graphics.Imaging.BitmapTypedValue'
     def __init__(self, *args, **kwargs):
@@ -389,9 +388,9 @@ class BitmapTypedValue(ComPtr):
         else:
             raise ValueError('no matched constructor')
     @winrt_factorymethod
-    def Create(cls: win32more.Windows.Graphics.Imaging.IBitmapTypedValueFactory, value: win32more.Windows.Win32.System.WinRT.IInspectable, type: win32more.Windows.Foundation.PropertyType) -> win32more.Windows.Graphics.Imaging.BitmapTypedValue: ...
+    def Create(cls: win32more.Windows.Graphics.Imaging.IBitmapTypedValueFactory, value: IInspectable, type: win32more.Windows.Foundation.PropertyType) -> win32more.Windows.Graphics.Imaging.BitmapTypedValue: ...
     @winrt_mixinmethod
-    def get_Value(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> IInspectable: ...
     @winrt_mixinmethod
     def get_Type(self: win32more.Windows.Graphics.Imaging.IBitmapTypedValue) -> win32more.Windows.Foundation.PropertyType: ...
     Type = property(get_Type, None)
@@ -403,7 +402,7 @@ class ExifOrientationMode(Enum, Int32):
     IgnoreExifOrientation = 0
     RespectExifOrientation = 1
 class IBitmapBuffer(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Graphics.Imaging.IBitmapBuffer'
     _iid_ = Guid('{a53e04c4-399c-438c-b28f-a63a6b83d1a1}')
@@ -412,7 +411,7 @@ class IBitmapBuffer(ComPtr):
     @winrt_commethod(7)
     def GetPlaneDescription(self, index: Int32) -> win32more.Windows.Graphics.Imaging.BitmapPlaneDescription: ...
 class IBitmapCodecInformation(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapCodecInformation'
     _iid_ = Guid('{400caaf2-c4b0-4392-a3b0-6f6f9ba95cb4}')
     @winrt_commethod(6)
@@ -428,7 +427,7 @@ class IBitmapCodecInformation(ComPtr):
     FriendlyName = property(get_FriendlyName, None)
     MimeTypes = property(get_MimeTypes, None)
 class IBitmapDecoder(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapDecoder'
     _iid_ = Guid('{acef22ba-1d74-4c91-9dfc-9620745233e6}')
     @winrt_commethod(6)
@@ -445,7 +444,7 @@ class IBitmapDecoder(ComPtr):
     DecoderInformation = property(get_DecoderInformation, None)
     FrameCount = property(get_FrameCount, None)
 class IBitmapDecoderStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapDecoderStatics'
     _iid_ = Guid('{438ccb26-bcef-4e95-bad6-23a822e58d01}')
     @winrt_commethod(6)
@@ -476,7 +475,7 @@ class IBitmapDecoderStatics(ComPtr):
     PngDecoderId = property(get_PngDecoderId, None)
     TiffDecoderId = property(get_TiffDecoderId, None)
 class IBitmapDecoderStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapDecoderStatics2'
     _iid_ = Guid('{50ba68ea-99a1-40c4-80d9-aef0dafa6c3f}')
     @winrt_commethod(6)
@@ -486,7 +485,7 @@ class IBitmapDecoderStatics2(ComPtr):
     HeifDecoderId = property(get_HeifDecoderId, None)
     WebpDecoderId = property(get_WebpDecoderId, None)
 class IBitmapEncoder(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapEncoder'
     _iid_ = Guid('{2bc468e3-e1f8-4b54-95e8-32919551ce62}')
     @winrt_commethod(6)
@@ -525,7 +524,7 @@ class IBitmapEncoder(ComPtr):
     GeneratedThumbnailWidth = property(get_GeneratedThumbnailWidth, put_GeneratedThumbnailWidth)
     IsThumbnailGenerated = property(get_IsThumbnailGenerated, put_IsThumbnailGenerated)
 class IBitmapEncoderStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapEncoderStatics'
     _iid_ = Guid('{a74356a7-a4e4-4eb9-8e40-564de7e1ccb2}')
     @winrt_commethod(6)
@@ -557,20 +556,20 @@ class IBitmapEncoderStatics(ComPtr):
     PngEncoderId = property(get_PngEncoderId, None)
     TiffEncoderId = property(get_TiffEncoderId, None)
 class IBitmapEncoderStatics2(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapEncoderStatics2'
     _iid_ = Guid('{33cbc259-fe31-41b1-b812-086d21e87e16}')
     @winrt_commethod(6)
     def get_HeifEncoderId(self) -> Guid: ...
     HeifEncoderId = property(get_HeifEncoderId, None)
 class IBitmapEncoderWithSoftwareBitmap(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapEncoderWithSoftwareBitmap'
     _iid_ = Guid('{686cd241-4330-4c77-ace4-0334968b1768}')
     @winrt_commethod(6)
     def SetSoftwareBitmap(self, bitmap: win32more.Windows.Graphics.Imaging.SoftwareBitmap) -> Void: ...
 class IBitmapFrame(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapFrame'
     _iid_ = Guid('{72a49a1c-8081-438d-91bc-94ecfc8185c6}')
     @winrt_commethod(6)
@@ -607,7 +606,7 @@ class IBitmapFrame(ComPtr):
     PixelHeight = property(get_PixelHeight, None)
     PixelWidth = property(get_PixelWidth, None)
 class IBitmapFrameWithSoftwareBitmap(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapFrameWithSoftwareBitmap'
     _iid_ = Guid('{fe287c9a-420c-4963-87ad-691436e08383}')
     @winrt_commethod(6)
@@ -617,19 +616,19 @@ class IBitmapFrameWithSoftwareBitmap(ComPtr):
     @winrt_commethod(8)
     def GetSoftwareBitmapTransformedAsync(self, pixelFormat: win32more.Windows.Graphics.Imaging.BitmapPixelFormat, alphaMode: win32more.Windows.Graphics.Imaging.BitmapAlphaMode, transform: win32more.Windows.Graphics.Imaging.BitmapTransform, exifOrientationMode: win32more.Windows.Graphics.Imaging.ExifOrientationMode, colorManagementMode: win32more.Windows.Graphics.Imaging.ColorManagementMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.SoftwareBitmap]: ...
 class IBitmapProperties(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapProperties'
     _iid_ = Guid('{ea9f4f1b-b505-4450-a4d1-e8ca94529d8d}')
     @winrt_commethod(6)
     def SetPropertiesAsync(self, propertiesToSet: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, win32more.Windows.Graphics.Imaging.BitmapTypedValue]]) -> win32more.Windows.Foundation.IAsyncAction: ...
 class IBitmapPropertiesView(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapPropertiesView'
     _iid_ = Guid('{7e0fe87a-3a70-48f8-9c55-196cf5a545f5}')
     @winrt_commethod(6)
     def GetPropertiesAsync(self, propertiesToRetrieve: win32more.Windows.Foundation.Collections.IIterable[WinRT_String]) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.BitmapPropertySet]: ...
 class IBitmapTransform(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapTransform'
     _iid_ = Guid('{ae755344-e268-4d35-adcf-e995d31a8d34}')
     @winrt_commethod(6)
@@ -663,29 +662,29 @@ class IBitmapTransform(ComPtr):
     ScaledHeight = property(get_ScaledHeight, put_ScaledHeight)
     ScaledWidth = property(get_ScaledWidth, put_ScaledWidth)
 class IBitmapTypedValue(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapTypedValue'
     _iid_ = Guid('{cd8044a9-2443-4000-b0cd-79316c56f589}')
     @winrt_commethod(6)
-    def get_Value(self) -> win32more.Windows.Win32.System.WinRT.IInspectable: ...
+    def get_Value(self) -> IInspectable: ...
     @winrt_commethod(7)
     def get_Type(self) -> win32more.Windows.Foundation.PropertyType: ...
     Type = property(get_Type, None)
     Value = property(get_Value, None)
 class IBitmapTypedValueFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IBitmapTypedValueFactory'
     _iid_ = Guid('{92dbb599-ce13-46bb-9545-cb3a3f63eb8b}')
     @winrt_commethod(6)
-    def Create(self, value: win32more.Windows.Win32.System.WinRT.IInspectable, type: win32more.Windows.Foundation.PropertyType) -> win32more.Windows.Graphics.Imaging.BitmapTypedValue: ...
+    def Create(self, value: IInspectable, type: win32more.Windows.Foundation.PropertyType) -> win32more.Windows.Graphics.Imaging.BitmapTypedValue: ...
 class IPixelDataProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.IPixelDataProvider'
     _iid_ = Guid('{dd831f25-185c-4595-9fb9-ccbe6ec18a6f}')
     @winrt_commethod(6)
     def DetachPixelData(self) -> ReceiveArray[Byte]: ...
 class ISoftwareBitmap(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     _classid_ = 'Windows.Graphics.Imaging.ISoftwareBitmap'
     _iid_ = Guid('{689e0708-7eef-483f-963f-da938818e073}')
@@ -725,7 +724,7 @@ class ISoftwareBitmap(ComPtr):
     PixelHeight = property(get_PixelHeight, None)
     PixelWidth = property(get_PixelWidth, None)
 class ISoftwareBitmapFactory(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.ISoftwareBitmapFactory'
     _iid_ = Guid('{c99feb69-2d62-4d47-a6b3-4fdb6a07fdf8}')
     @winrt_commethod(6)
@@ -733,7 +732,7 @@ class ISoftwareBitmapFactory(ComPtr):
     @winrt_commethod(7)
     def CreateWithAlpha(self, format: win32more.Windows.Graphics.Imaging.BitmapPixelFormat, width: Int32, height: Int32, alpha: win32more.Windows.Graphics.Imaging.BitmapAlphaMode) -> win32more.Windows.Graphics.Imaging.SoftwareBitmap: ...
 class ISoftwareBitmapStatics(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     _classid_ = 'Windows.Graphics.Imaging.ISoftwareBitmapStatics'
     _iid_ = Guid('{df0385db-672f-4a9d-806e-c2442f343e86}')
     @winrt_commethod(6)
@@ -751,7 +750,7 @@ class ISoftwareBitmapStatics(ComPtr):
     @winrt_commethod(12)
     def CreateCopyWithAlphaFromSurfaceAsync(self, surface: win32more.Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface, alpha: win32more.Windows.Graphics.Imaging.BitmapAlphaMode) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Graphics.Imaging.SoftwareBitmap]: ...
 class ImageStream(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType
     _classid_ = 'Windows.Graphics.Imaging.ImageStream'
@@ -794,7 +793,7 @@ class JpegSubsamplingMode(Enum, Int32):
     Y4Cb2Cr2 = 2
     Y4Cb4Cr4 = 3
 class PixelDataProvider(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     default_interface: win32more.Windows.Graphics.Imaging.IPixelDataProvider
     _classid_ = 'Windows.Graphics.Imaging.PixelDataProvider'
     @winrt_mixinmethod
@@ -808,7 +807,7 @@ class PngFilterMode(Enum, Int32):
     Paeth = 5
     Adaptive = 6
 class SoftwareBitmap(ComPtr):
-    extends: win32more.Windows.Win32.System.WinRT.IInspectable
+    extends: IInspectable
     implements: Tuple[ContextManagerProtocol]
     default_interface: win32more.Windows.Graphics.Imaging.ISoftwareBitmap
     _classid_ = 'Windows.Graphics.Imaging.SoftwareBitmap'
