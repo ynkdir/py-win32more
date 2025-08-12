@@ -734,6 +734,7 @@ def is_receivearray_class(cls):
     return issubclass(_get_origin_or_itself(cls), ReceiveArray)
 
 
+# check if ptr[0] returns python primitive?
 def is_simple_cdata(cls):
     return cls.__base__ is _SimpleCData
 
