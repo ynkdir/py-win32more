@@ -10,6 +10,7 @@ from collections.abc import Iterable
 from ctypes import (
     POINTER,
     Structure,
+    _SimpleCData,
     addressof,
     c_void_p,
     cast,
@@ -451,9 +452,11 @@ class ReceiveArray(Generic[T]):
             for s in self.ptr[: self.length.value]:
                 s.clear()
         elif is_com_class(self.type_):
-            self.lst[:] = self.ptr[: self.length.value]
+            self.lst[:] = [self.type_.from_buffer_copy(p) for p in self.ptr[: self.length.value]]
             for p in self.lst:
                 p._own = True
+        elif not is_simple_cdata(self.type_):
+            self.lst[:] = [self.type_.from_buffer_copy(p) for p in self.ptr[: self.length.value]]
         else:
             self.lst[:] = self.ptr[: self.length.value]
         CoTaskMemFree(self.ptr)
@@ -729,6 +732,11 @@ def is_fillarray_class(cls):
 
 def is_receivearray_class(cls):
     return issubclass(_get_origin_or_itself(cls), ReceiveArray)
+
+
+# check if ptr[0] returns python primitive?
+def is_simple_cdata(cls):
+    return cls.__base__ is _SimpleCData
 
 
 class winrt_classmethod:
