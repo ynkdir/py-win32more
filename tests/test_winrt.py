@@ -131,6 +131,22 @@ class TestWinrt(unittest.TestCase):
         # winrt callback: vtbl.f([hstring]) -> Mock.f(["str"])
         self.assertEqual(mock.f(["hello"]), "hello")
 
+    def test_passarray_callback_simple_cdata(self):
+        class IMock(IInspectable):
+            _classid_ = "IMock"
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def f(self, p: PassArray[Int32]) -> WinRT_String: ...
+
+        class Mock(ComClass, IMock):
+            def f(self, p: list[str]) -> str:
+                return str(p)
+
+        mock = Mock().as_(IMock)
+
+        self.assertEqual(mock.f([1, 2, 3]), "[1, 2, 3]")
+
     def test_receivearray_param(self):
         inarray = [1, 2, 3]
 
