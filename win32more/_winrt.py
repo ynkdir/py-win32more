@@ -456,7 +456,7 @@ class ReceiveArray(Generic[T]):
                 p._own = True
         else:
             self.lst[:] = self.ptr[: self.length.value]
-        CoTaskMemFree(self.ptr)
+        #CoTaskMemFree(self.ptr)
 
 
 class ReceiveArrayCallback:
