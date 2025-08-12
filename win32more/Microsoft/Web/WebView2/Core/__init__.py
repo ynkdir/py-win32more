@@ -99,6 +99,8 @@ class CoreWebView2(ComPtr):
     @winrt_mixinmethod
     def remove_ScreenCaptureStarting(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_27, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
+    def get_Find(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_28) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2Find: ...
+    @winrt_mixinmethod
     def get_IsSuspended(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_3) -> Boolean: ...
     @winrt_mixinmethod
     def TrySuspendAsync(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2_3) -> win32more.Windows.Foundation.IAsyncOperation[Boolean]: ...
@@ -294,6 +296,7 @@ class CoreWebView2(ComPtr):
     DocumentTitle = property(get_DocumentTitle, None)
     Environment = property(get_Environment, None)
     FaviconUri = property(get_FaviconUri, None)
+    Find = property(get_Find, None)
     FrameId = property(get_FrameId, None)
     IsDefaultDownloadDialogOpen = property(get_IsDefaultDownloadDialogOpen, None)
     IsDocumentPlayingAudio = property(get_IsDocumentPlayingAudio, None)
@@ -1127,6 +1130,8 @@ class CoreWebView2Environment(ComPtr):
     @winrt_mixinmethod
     def CreateWebFileSystemDirectoryHandle(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Environment14, Path: WinRT_String, Permission: win32more.Microsoft.Web.WebView2.Core.CoreWebView2FileSystemHandlePermission) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2FileSystemHandle: ...
     @winrt_mixinmethod
+    def CreateFindOptions(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Environment15) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2FindOptions: ...
+    @winrt_mixinmethod
     def CreateWebResourceRequest(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Environment2, uri: WinRT_String, Method: WinRT_String, postData: win32more.Windows.Storage.Streams.IRandomAccessStream, Headers: WinRT_String) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2WebResourceRequest: ...
     @winrt_overload
     @winrt_mixinmethod
@@ -1301,6 +1306,63 @@ class CoreWebView2FileSystemHandleKind(Enum, Int32):
 class CoreWebView2FileSystemHandlePermission(Enum, Int32):
     ReadOnly = 0
     ReadWrite = 1
+class CoreWebView2Find(ComPtr):
+    extends: IInspectable
+    default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find
+    _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2Find'
+    @winrt_mixinmethod
+    def get_ActiveMatchIndex(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find) -> Int32: ...
+    @winrt_mixinmethod
+    def get_MatchCount(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find) -> Int32: ...
+    @winrt_mixinmethod
+    def add_ActiveMatchIndexChanged(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Find, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_ActiveMatchIndexChanged(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_MatchCountChanged(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Find, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_MatchCountChanged(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def StartAsync(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find, options: win32more.Microsoft.Web.WebView2.Core.CoreWebView2FindOptions) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_mixinmethod
+    def FindNext(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find) -> Void: ...
+    @winrt_mixinmethod
+    def FindPrevious(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find) -> Void: ...
+    @winrt_mixinmethod
+    def Stop(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Find) -> Void: ...
+    ActiveMatchIndex = property(get_ActiveMatchIndex, None)
+    MatchCount = property(get_MatchCount, None)
+    ActiveMatchIndexChanged = event()
+    MatchCountChanged = event()
+class CoreWebView2FindOptions(ComPtr):
+    extends: IInspectable
+    default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions
+    _classid_ = 'Microsoft.Web.WebView2.Core.CoreWebView2FindOptions'
+    @winrt_mixinmethod
+    def get_FindTerm(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_FindTerm(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_IsCaseSensitive(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_IsCaseSensitive(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_ShouldHighlightAllMatches(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_ShouldHighlightAllMatches(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_ShouldMatchWord(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_ShouldMatchWord(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_SuppressDefaultFindDialog(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_SuppressDefaultFindDialog(self: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions, value: Boolean) -> Void: ...
+    FindTerm = property(get_FindTerm, put_FindTerm)
+    IsCaseSensitive = property(get_IsCaseSensitive, put_IsCaseSensitive)
+    ShouldHighlightAllMatches = property(get_ShouldHighlightAllMatches, put_ShouldHighlightAllMatches)
+    ShouldMatchWord = property(get_ShouldMatchWord, put_ShouldMatchWord)
+    SuppressDefaultFindDialog = property(get_SuppressDefaultFindDialog, put_SuppressDefaultFindDialog)
 class CoreWebView2Frame(ComPtr):
     extends: IInspectable
     default_interface: win32more.Microsoft.Web.WebView2.Core.ICoreWebView2Frame
@@ -3640,6 +3702,12 @@ class ICoreWebView2Environment14(ComPtr):
     def CreateWebFileSystemFileHandle(self, Path: WinRT_String, Permission: win32more.Microsoft.Web.WebView2.Core.CoreWebView2FileSystemHandlePermission) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2FileSystemHandle: ...
     @winrt_commethod(7)
     def CreateWebFileSystemDirectoryHandle(self, Path: WinRT_String, Permission: win32more.Microsoft.Web.WebView2.Core.CoreWebView2FileSystemHandlePermission) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2FileSystemHandle: ...
+class ICoreWebView2Environment15(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Environment15'
+    _iid_ = Guid('{37b49c50-b262-5563-a5ed-ae60182495c0}')
+    @winrt_commethod(6)
+    def CreateFindOptions(self) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2FindOptions: ...
 class ICoreWebView2Environment2(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Environment2'
@@ -3864,6 +3932,63 @@ class ICoreWebView2FileSystemHandle(ComPtr):
     Kind = property(get_Kind, None)
     Path = property(get_Path, None)
     Permission = property(get_Permission, None)
+class ICoreWebView2Find(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Find'
+    _iid_ = Guid('{d9afbd37-aeb2-5109-bb8f-6ff27cf9d279}')
+    @winrt_commethod(6)
+    def get_ActiveMatchIndex(self) -> Int32: ...
+    @winrt_commethod(7)
+    def get_MatchCount(self) -> Int32: ...
+    @winrt_commethod(8)
+    def add_ActiveMatchIndexChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Find, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(9)
+    def remove_ActiveMatchIndexChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(10)
+    def add_MatchCountChanged(self, handler: win32more.Windows.Foundation.TypedEventHandler[win32more.Microsoft.Web.WebView2.Core.CoreWebView2Find, IInspectable]) -> win32more.Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(11)
+    def remove_MatchCountChanged(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(12)
+    def StartAsync(self, options: win32more.Microsoft.Web.WebView2.Core.CoreWebView2FindOptions) -> win32more.Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(13)
+    def FindNext(self) -> Void: ...
+    @winrt_commethod(14)
+    def FindPrevious(self) -> Void: ...
+    @winrt_commethod(15)
+    def Stop(self) -> Void: ...
+    ActiveMatchIndex = property(get_ActiveMatchIndex, None)
+    MatchCount = property(get_MatchCount, None)
+    ActiveMatchIndexChanged = event()
+    MatchCountChanged = event()
+class ICoreWebView2FindOptions(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2FindOptions'
+    _iid_ = Guid('{157b920b-e1dc-5792-8a21-26a1c882c3f6}')
+    @winrt_commethod(6)
+    def get_FindTerm(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_FindTerm(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_IsCaseSensitive(self) -> Boolean: ...
+    @winrt_commethod(9)
+    def put_IsCaseSensitive(self, value: Boolean) -> Void: ...
+    @winrt_commethod(10)
+    def get_ShouldHighlightAllMatches(self) -> Boolean: ...
+    @winrt_commethod(11)
+    def put_ShouldHighlightAllMatches(self, value: Boolean) -> Void: ...
+    @winrt_commethod(12)
+    def get_ShouldMatchWord(self) -> Boolean: ...
+    @winrt_commethod(13)
+    def put_ShouldMatchWord(self, value: Boolean) -> Void: ...
+    @winrt_commethod(14)
+    def get_SuppressDefaultFindDialog(self) -> Boolean: ...
+    @winrt_commethod(15)
+    def put_SuppressDefaultFindDialog(self, value: Boolean) -> Void: ...
+    FindTerm = property(get_FindTerm, put_FindTerm)
+    IsCaseSensitive = property(get_IsCaseSensitive, put_IsCaseSensitive)
+    ShouldHighlightAllMatches = property(get_ShouldHighlightAllMatches, put_ShouldHighlightAllMatches)
+    ShouldMatchWord = property(get_ShouldMatchWord, put_ShouldMatchWord)
+    SuppressDefaultFindDialog = property(get_SuppressDefaultFindDialog, put_SuppressDefaultFindDialog)
 class ICoreWebView2Frame(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2Frame'
@@ -5309,6 +5434,13 @@ class ICoreWebView2_27(ComPtr):
     @winrt_commethod(7)
     def remove_ScreenCaptureStarting(self, token: win32more.Windows.Foundation.EventRegistrationToken) -> Void: ...
     ScreenCaptureStarting = event()
+class ICoreWebView2_28(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_28'
+    _iid_ = Guid('{6e43a033-d2e9-59fc-8856-88d4f7438c4d}')
+    @winrt_commethod(6)
+    def get_Find(self) -> win32more.Microsoft.Web.WebView2.Core.CoreWebView2Find: ...
+    Find = property(get_Find, None)
 class ICoreWebView2_3(ComPtr):
     extends: IInspectable
     _classid_ = 'Microsoft.Web.WebView2.Core.ICoreWebView2_3'
