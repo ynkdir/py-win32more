@@ -451,12 +451,12 @@ class ReceiveArray(Generic[T]):
             for s in self.ptr[: self.length.value]:
                 s.clear()
         elif is_com_class(self.type_):
-            self.lst[:] = self.ptr[: self.length.value]
+            self.lst[:] = [self.type_.from_buffer_copy(v) for v in self.ptr[: self.length.value]]
             for p in self.lst:
                 p._own = True
         else:
-            self.lst[:] = self.ptr[: self.length.value]
-        #CoTaskMemFree(self.ptr)
+            self.lst[:] = [self.type_.from_buffer_copy(v) for v in self.ptr[: self.length.value]]
+        CoTaskMemFree(self.ptr)
 
 
 class ReceiveArrayCallback:
