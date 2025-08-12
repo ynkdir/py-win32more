@@ -40,9 +40,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
         architecture: ${{ matrix.architecture }}
 
-    - name: Version check
-      run: python -VV
-
     - name: Install Python requirements
       run: pip install --upgrade --upgrade-strategy eager .
 
@@ -67,9 +64,6 @@ jobs:
       uses: egor-tensin/setup-cygwin@v4
       with:
         packages: python3
-
-    - name: Version check
-      run: python -VV
 
     - name: Install Python requirements
       run: pip3 install --upgrade --upgrade-strategy eager $(cygpath --absolute $GITHUB_WORKSPACE)
