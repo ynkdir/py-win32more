@@ -10,13 +10,13 @@ from collections.abc import Iterable
 from ctypes import (
     POINTER,
     Structure,
+    _SimpleCData,
     addressof,
     c_void_p,
     cast,
     pointer,
     sizeof,
     wstring_at,
-    _SimpleCData,
 )
 from functools import partial
 from typing import Generic, TypeVar, _GenericAlias
@@ -735,7 +735,8 @@ def is_receivearray_class(cls):
 
 
 def is_simple_cdata(cls):
-    return issubclass(_get_origin_or_itself(cls), _SimpleCData)
+    return cls.__base__ is _SimpleCData
+
 
 class winrt_classmethod:
     def __init__(self, prototype):
