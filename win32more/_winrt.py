@@ -53,6 +53,7 @@ from win32more import (
     windll,
 )
 from win32more.Windows.Win32.Foundation import (
+    BSTR,
     E_FAIL,
     E_NOINTERFACE,
     HRESULT,
@@ -63,8 +64,10 @@ from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
     PFNGETACTIVATIONFACTORY,
     BaseTrust,
+    GetRestrictedErrorInfo,
     IActivationFactory,
     IInspectable,
+    IRestrictedErrorInfo,
     RoGetActivationFactory,
     TrustLevel,
     WindowsCreateString,
@@ -624,7 +627,12 @@ class WinrtMethodCall:
             cargs.append(pointer(result))
         hr = self.delegate(this, *cargs)
         if FAILED(hr):
-            raise WinError(hr)
+            error = WinError(hr)
+            if sys.version_info >= (3, 11):
+                # FIXME: Is restricted error obtained here always associated with this hr?
+                error_info = get_restricted_error_info()
+                error.add_note(f"{error_info=}")
+            raise error
         for callback in calllater:
             callback()
         return self.make_result(result)
@@ -1335,3 +1343,24 @@ class ContextManagerProtocol:
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.Close()
+
+
+def get_restricted_error_info() -> dict | None:
+    error_info = IRestrictedErrorInfo(own=True)
+    r = GetRestrictedErrorInfo(error_info)
+    if r != S_OK:
+        return None
+    description = BSTR()
+    error = HRESULT()
+    restrictedDescription = BSTR()
+    capabilitySid = BSTR()
+    r = error_info.GetErrorDetails(description, error, restrictedDescription, capabilitySid)
+    if r != S_OK:
+        return None
+    # FIXME: BSTR should be freed?
+    return {
+        "description": description.value,
+        "error": error.value,
+        "restrictedDescription": restrictedDescription.value,
+        "capabilitySid": capabilitySid.value,
+    }
