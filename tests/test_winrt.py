@@ -375,6 +375,17 @@ class TestWinrt(unittest.TestCase):
 
         self.assertIsNone(mock.f())
 
+    @unittest.skipIf(sys.version_info < (3, 11), "add_note() was added to 3.11")
+    def test_restricted_error_info_async(self):
+        async def main():
+            with self.assertRaises(OSError) as cm:
+                await StorageFile.GetFileFromPathAsync("bad path")
+
+            # check restrictedDescription is not None
+            self.assertRegex(cm.exception.__notes__[0], r"^error_info=.*'restrictedDescription': '")
+
+        asyncio.run(main())
+
 
 if __name__ == "__main__":
     unittest.main()
