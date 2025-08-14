@@ -388,9 +388,10 @@ class TestWinrt(unittest.TestCase):
             with self.assertRaises(ComError) as cm:
                 await StorageFile.GetFileFromPathAsync("bad")
 
-            # Why maximum length error?
-            # The specified path (UNABLE_TO_MASK_PATH) is too long. It exceeds the maximum length of 1888614568.
-            self.assertRegex(cm.exception._error_info["restricted_description"], r"It exceeds the maximum length")
+            # FIXME:
+            # On my PC: The specified path (UNABLE_TO_MASK_PATH) is too long. It exceeds the maximum length of 1888614568.
+            # On github runner: The specified path (bad) is not an absolute path, and relative paths are not permitted.
+            #self.assertRegex(cm.exception._error_info["restricted_description"], r"It exceeds the maximum length")
 
             self.assertEqual(cm.exception._error_info["description"], "The parameter is incorrect.")
 
