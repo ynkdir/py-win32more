@@ -59,6 +59,7 @@ from win32more.Windows.Win32.Foundation import (
     HRESULT,
     S_OK,
     SysFreeString,
+    SysStringLen,
 )
 from win32more.Windows.Win32.System.Com import (
     CoTaskMemAlloc,
@@ -1377,7 +1378,7 @@ class ComError(OSError):
             return None
 
         info = {
-            "description": self._strip(description.value),
+            "description": self._copy_message(description),
         }
 
         SysFreeString(description)
@@ -1399,10 +1400,10 @@ class ComError(OSError):
             return None
 
         info = {
-            "description": self._strip(description.value),
+            "description": self._copy_message(description),
             "error": error.value,
-            "restricted_description": self._strip(restrictedDescription.value),
-            "capabilitySid": self._strip(capabilitySid.value),
+            "restricted_description": self._copy_message(restrictedDescription),
+            "capabilitySid": self._copy_message(capabilitySid),
         }
 
         SysFreeString(description)
@@ -1411,7 +1412,7 @@ class ComError(OSError):
 
         return info
 
-    def _strip(self, s: str | None) -> str | None:
-        if s is None:
+    def _copy_message(self, p: BSTR) -> str | None:
+        if not p:
             return None
-        return s.strip()
+        return wstring_at(p, SysStringLen(p)).strip()
