@@ -376,6 +376,14 @@ class TestWinrt(unittest.TestCase):
         self.assertIsNone(mock.f())
 
     @unittest.skipIf(sys.version_info < (3, 11), "add_note() was added to 3.11")
+    def test_restricted_error_info(self):
+        with self.assertRaises(OSError) as cm:
+            Uri("bad uri")
+
+        # check restrictedDescription is not None
+        self.assertRegex(cm.exception.__notes__[0], r"^error_info=.*'restrictedDescription': '")
+
+    @unittest.skipIf(sys.version_info < (3, 11), "add_note() was added to 3.11")
     def test_restricted_error_info_async(self):
         async def main():
             with self.assertRaises(OSError) as cm:
