@@ -634,12 +634,8 @@ class WinrtMethodCall:
             cargs.append(pointer(result))
         hr = self.delegate(this, *cargs)
         if FAILED(hr):
-            error = WinError(hr)
-            if sys.version_info >= (3, 11):
-                # FIXME: Is restricted error obtained here always associated with this hr?
-                error_info = get_error_info()
-                error.add_note(f"{error_info=}")
-            raise error
+            # FIXME: Is restricted error obtained here always associated with this hr?
+            raise ComError(hr)
         for callback in calllater:
             callback()
         return self.make_result(result)
@@ -1248,11 +1244,8 @@ class AwaitableProtocol:
         if asyncStatus == AsyncStatus.Completed:
             future.get_loop().call_soon_threadsafe(future.set_result, asyncInfo.GetResults())
         elif asyncStatus == AsyncStatus.Error:
-            error = WinError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
-            if sys.version_info >= (3, 11):
-                # It seems that restricted error info is built by invoking IAsyncInfo.ErrorCode.
-                error_info = get_error_info()
-                error.add_note(f"{error_info=}")
+            # It seems that restricted error info is built by invoking IAsyncInfo.ErrorCode.
+            error = ComError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
             future.get_loop().call_soon_threadsafe(future.set_exception, error)
         elif asyncStatus == AsyncStatus.Canceled:
             future.get_loop().call_soon_threadsafe(future.cancel)
@@ -1355,53 +1348,70 @@ class ContextManagerProtocol:
         self.Close()
 
 
-def get_error_info() -> dict | None:
-    error_info = IErrorInfo(own=True)
-    r = GetErrorInfo(0, error_info)
-    if r != S_OK:
-        return None
+class ComError(OSError):
+    def __init__(self, hr):
+        self._error_info = self._get_error_info()
 
-    restricted_error_info = _try_get_restricted_error_info(error_info)
-    if restricted_error_info is not None:
-        return restricted_error_info
+        if self._error_info is not None and "restricted_description" in self._error_info:
+            strerror = self._error_info["restricted_description"]
+        elif self._error_info is not None and "description" in self._error_info:
+            strerror = self._error_info["description"]
+        else:
+            strerror = WinError(hr).strerror  # FormatMessageW
 
-    description = BSTR()
-    r = error_info.GetDescription(description)
-    if r != S_OK:
-        return None
+        super().__init__(hr, strerror)
 
-    info = {
-        "description": description.value,
-    }
+    def _get_error_info(self) -> dict | None:
+        error_info = IErrorInfo(own=True)
+        r = GetErrorInfo(0, error_info)
+        if r != S_OK:
+            return None
 
-    SysFreeString(description)
+        restricted_error_info = self._try_get_restricted_error_info(error_info)
+        if restricted_error_info is not None:
+            return restricted_error_info
 
-    return info
+        description = BSTR()
+        r = error_info.GetDescription(description)
+        if r != S_OK:
+            return None
 
+        info = {
+            "description": self._strip(description.value),
+        }
 
-def _try_get_restricted_error_info(error_info: IErrorInfo) -> dict | None:
-    try:
-        restricted_error_info = error_info.as_(IRestrictedErrorInfo)
-    except OSError:
-        return None
+        SysFreeString(description)
 
-    description = BSTR()
-    error = HRESULT()
-    restrictedDescription = BSTR()
-    capabilitySid = BSTR()
-    r = restricted_error_info.GetErrorDetails(description, error, restrictedDescription, capabilitySid)
-    if r != S_OK:
-        return None
+        return info
 
-    info = {
-        "description": description.value,
-        "error": error.value,
-        "restrictedDescription": restrictedDescription.value,
-        "capabilitySid": capabilitySid.value,
-    }
+    def _try_get_restricted_error_info(self, error_info: IErrorInfo) -> dict | None:
+        try:
+            restricted_error_info = error_info.as_(IRestrictedErrorInfo)
+        except OSError:
+            return None
 
-    SysFreeString(description)
-    SysFreeString(restrictedDescription)
-    SysFreeString(capabilitySid)
+        description = BSTR()
+        error = HRESULT()
+        restrictedDescription = BSTR()
+        capabilitySid = BSTR()
+        r = restricted_error_info.GetErrorDetails(description, error, restrictedDescription, capabilitySid)
+        if r != S_OK:
+            return None
 
-    return info
+        info = {
+            "description": self._strip(description.value),
+            "error": error.value,
+            "restricted_description": self._strip(restrictedDescription.value),
+            "capabilitySid": self._strip(capabilitySid.value),
+        }
+
+        SysFreeString(description)
+        SysFreeString(restrictedDescription)
+        SysFreeString(capabilitySid)
+
+        return info
+
+    def _strip(self, s: str | None) -> str | None:
+        if s is None:
+            return None
+        return s.strip()

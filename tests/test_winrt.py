@@ -21,6 +21,7 @@ from win32more import (
 )
 from win32more._winrt import (
     ComClass,
+    ComError,
     MulticastDelegateImpl,
     PassArray,
     ReceiveArray,
@@ -376,22 +377,22 @@ class TestWinrt(unittest.TestCase):
 
         self.assertIsNone(mock.f())
 
-    @unittest.skipIf(sys.version_info < (3, 11), "add_note() was added to 3.11")
     def test_restricted_error_info(self):
-        with self.assertRaises(OSError) as cm:
-            Uri("bad uri")
+        with self.assertRaises(ComError) as cm:
+            Uri("bad")
 
-        # check restrictedDescription is not None
-        self.assertRegex(cm.exception.__notes__[0], r"^error_info=.*'restrictedDescription': '")
+        self.assertEqual(cm.exception._error_info["restricted_description"], "bad is not a valid absolute URI.")
 
-    @unittest.skipIf(sys.version_info < (3, 11), "add_note() was added to 3.11")
     def test_restricted_error_info_async(self):
         async def main():
-            with self.assertRaises(OSError) as cm:
-                await StorageFile.GetFileFromPathAsync("bad path")
+            with self.assertRaises(ComError) as cm:
+                await StorageFile.GetFileFromPathAsync("bad")
 
-            # check restrictedDescription is not None
-            self.assertRegex(cm.exception.__notes__[0], r"^error_info=.*'restrictedDescription': '")
+            # Why maximum length error?
+            # The specified path (UNABLE_TO_MASK_PATH) is too long. It exceeds the maximum length of 1888614568.
+            self.assertRegex(cm.exception._error_info["restricted_description"], r"It exceeds the maximum length")
+
+            self.assertEqual(cm.exception._error_info["description"], "The parameter is incorrect.")
 
         asyncio.run(main())
 
@@ -400,11 +401,10 @@ class TestWinrt(unittest.TestCase):
         # import faulthandler
         # faulthandler.disable()
 
-        with self.assertRaises(OSError) as cm:
-            XmlDocument().LoadXml("bad xml")
+        with self.assertRaises(ComError) as cm:
+            XmlDocument().LoadXml("bad")
 
-        # check description is not None
-        self.assertRegex(cm.exception.__notes__[0], r"^error_info=.*'description': '")
+        self.assertEqual(cm.exception._error_info["description"], "Invalid at the top level of the document.")
 
 
 if __name__ == "__main__":
