@@ -32,6 +32,7 @@ from win32more._winrt import (
 )
 from win32more._winrtrt import Vector
 from win32more.Windows.Data.Json import JsonObject, JsonValue
+from win32more.Windows.Data.Xml.Dom import XmlDocument
 from win32more.Windows.Devices.Display import DisplayMonitor
 from win32more.Windows.Devices.Enumeration import DeviceInformation
 from win32more.Windows.Foundation import IAsyncInfo, IPropertyValue, PropertyValue, Uri
@@ -393,6 +394,17 @@ class TestWinrt(unittest.TestCase):
             self.assertRegex(cm.exception.__notes__[0], r"^error_info=.*'restrictedDescription': '")
 
         asyncio.run(main())
+
+    @unittest.skip("faulthandler shows stacktrace for 'Windows fatal exception' which might not be user space error.")
+    def test_error_info(self):
+        # import faulthandler
+        # faulthandler.disable()
+
+        with self.assertRaises(OSError) as cm:
+            XmlDocument().LoadXml("bad xml")
+
+        # check description is not None
+        self.assertRegex(cm.exception.__notes__[0], r"^error_info=.*'description': '")
 
 
 if __name__ == "__main__":
