@@ -1243,6 +1243,7 @@ class AwaitableProtocol:
         elif asyncStatus == AsyncStatus.Error:
             error = WinError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
             if sys.version_info >= (3, 11):
+                # It seems that restricted error info is built by invoking IAsyncInfo.ErrorCode.
                 error_info = get_restricted_error_info()
                 error.add_note(f"{error_info=}")
             future.get_loop().call_soon_threadsafe(future.set_exception, error)
