@@ -1241,9 +1241,11 @@ class AwaitableProtocol:
         if asyncStatus == AsyncStatus.Completed:
             future.get_loop().call_soon_threadsafe(future.set_result, asyncInfo.GetResults())
         elif asyncStatus == AsyncStatus.Error:
-            future.get_loop().call_soon_threadsafe(
-                future.set_exception, WinError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
-            )
+            error = WinError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
+            if sys.version_info >= (3, 11):
+                error_info = get_restricted_error_info()
+                error.add_note(f"{error_info=}")
+            future.get_loop().call_soon_threadsafe(future.set_exception, error)
         elif asyncStatus == AsyncStatus.Canceled:
             future.get_loop().call_soon_threadsafe(future.cancel)
         else:
