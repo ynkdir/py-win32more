@@ -58,13 +58,20 @@ from win32more.Windows.Win32.Foundation import (
     E_NOINTERFACE,
     HRESULT,
     S_OK,
+    SysFreeString,
 )
-from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, CoTaskMemFree, IAgileObject, IUnknown
+from win32more.Windows.Win32.System.Com import (
+    CoTaskMemAlloc,
+    CoTaskMemFree,
+    GetErrorInfo,
+    IAgileObject,
+    IErrorInfo,
+    IUnknown,
+)
 from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
     PFNGETACTIVATIONFACTORY,
     BaseTrust,
-    GetRestrictedErrorInfo,
     IActivationFactory,
     IInspectable,
     IRestrictedErrorInfo,
@@ -630,7 +637,7 @@ class WinrtMethodCall:
             error = WinError(hr)
             if sys.version_info >= (3, 11):
                 # FIXME: Is restricted error obtained here always associated with this hr?
-                error_info = get_restricted_error_info()
+                error_info = get_error_info()
                 error.add_note(f"{error_info=}")
             raise error
         for callback in calllater:
@@ -1244,7 +1251,7 @@ class AwaitableProtocol:
             error = WinError(asyncInfo.as_(IAsyncInfo).ErrorCode.Value)
             if sys.version_info >= (3, 11):
                 # It seems that restricted error info is built by invoking IAsyncInfo.ErrorCode.
-                error_info = get_restricted_error_info()
+                error_info = get_error_info()
                 error.add_note(f"{error_info=}")
             future.get_loop().call_soon_threadsafe(future.set_exception, error)
         elif asyncStatus == AsyncStatus.Canceled:
@@ -1348,22 +1355,53 @@ class ContextManagerProtocol:
         self.Close()
 
 
-def get_restricted_error_info() -> dict | None:
-    error_info = IRestrictedErrorInfo(own=True)
-    r = GetRestrictedErrorInfo(error_info)
+def get_error_info() -> dict | None:
+    error_info = IErrorInfo(own=True)
+    r = GetErrorInfo(0, error_info)
     if r != S_OK:
         return None
+
+    restricted_error_info = _try_get_restricted_error_info(error_info)
+    if restricted_error_info is not None:
+        return restricted_error_info
+
+    description = BSTR()
+    r = error_info.GetDescription(description)
+    if r != S_OK:
+        return None
+
+    info = {
+        "description": description.value,
+    }
+
+    SysFreeString(description)
+
+    return info
+
+
+def _try_get_restricted_error_info(error_info: IErrorInfo) -> dict | None:
+    try:
+        restricted_error_info = error_info.as_(IRestrictedErrorInfo)
+    except OSError:
+        return None
+
     description = BSTR()
     error = HRESULT()
     restrictedDescription = BSTR()
     capabilitySid = BSTR()
-    r = error_info.GetErrorDetails(description, error, restrictedDescription, capabilitySid)
+    r = restricted_error_info.GetErrorDetails(description, error, restrictedDescription, capabilitySid)
     if r != S_OK:
         return None
-    # FIXME: BSTR should be freed?
-    return {
+
+    info = {
         "description": description.value,
         "error": error.value,
         "restrictedDescription": restrictedDescription.value,
         "capabilitySid": capabilitySid.value,
     }
+
+    SysFreeString(description)
+    SysFreeString(restrictedDescription)
+    SysFreeString(capabilitySid)
+
+    return info
