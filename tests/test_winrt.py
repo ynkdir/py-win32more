@@ -46,7 +46,7 @@ from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
 if sys.platform == "cygwin":
-    from win32more._cygwin import posix_to_win
+    from win32more.win32.cygwin import posix_to_win
 else:
 
     def posix_to_win(path):

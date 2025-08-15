@@ -12,48 +12,6 @@ from .package import ApiItem, Module, Package
 
 logger = logging.getLogger(__name__)
 
-BASE_EXPORTS = [
-    "ARCH",
-    "Annotated",
-    "Boolean",
-    "Byte",
-    "Bytes",
-    "Char",
-    "ComPtr",
-    "ConstantLazyLoader",
-    "Double",
-    "Enum",
-    "FAILED",
-    "FlexibleArray",
-    "Guid",
-    "Int16",
-    "Int32",
-    "Int64",
-    "IntPtr",
-    "NativeBitfieldAttribute",
-    "POINTER",
-    "SByte",
-    "SUCCEEDED",
-    "Single",
-    "String",
-    "Structure",
-    "UInt16",
-    "UInt32",
-    "UInt64",
-    "UIntPtr",
-    "UnicodeAlias",
-    "Union",
-    "Void",
-    "VoidPtr",
-    "cfunctype",
-    "cfunctype_pointer",
-    "commethod",
-    "make_ready",
-    "winfunctype",
-    "winfunctype_pointer",
-]
-BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
-
 
 class Parser:
     def __init__(self, package: Package) -> None:
@@ -213,7 +171,7 @@ class Win32Module(Module):
     def emit_header(self) -> str:
         writer = StringIO()
         writer.write("from __future__ import annotations\n")
-        writer.write(f"from {self._package.name} import {BASE_EXPORTS_CSV}\n")
+        writer.write(f"from {self._package.name}.win32.prelude import *\n")
         for namespace in sorted(self.imported_namespaces() | {self.namespace}):
             if not namespace.startswith("Windows.Win32."):
                 # FIXME: _winrt.py doesn't support circular import
@@ -232,7 +190,7 @@ class Win32Module(Module):
     def emit_header_one(cls, package_name: str) -> str:
         writer = StringIO()
         writer.write("from __future__ import annotations\n")
-        writer.write(f"from {package_name} import {BASE_EXPORTS_CSV}\n")
+        writer.write(f"from {package_name}.win32.prelude import *\n")
         return writer.getvalue()
 
 
