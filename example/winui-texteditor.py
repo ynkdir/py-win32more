@@ -111,7 +111,7 @@ class App(XamlApplication):
 
     async def _menu_file_open_Click(self, sender, e):
         storage_file = await self._file_open_dialog(".txt")
-        if not storage_file.value:
+        if not storage_file:
             return
         try:
             text = await FileIO.ReadTextAsync(storage_file)
