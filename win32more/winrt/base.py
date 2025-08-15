@@ -161,9 +161,9 @@ ComPtr.as_ = ComPtr_as
 
 
 def winrt_easycast(obj, type_):
-    from win32more._winrtrt import Vector
     from win32more.Windows.Foundation import IReference
     from win32more.Windows.Foundation.Collections import IVector
+    from win32more.winrt import Vector
 
     if type_ is IInspectable:
         if isinstance(obj, str):

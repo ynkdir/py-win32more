@@ -113,7 +113,7 @@ class ComPtr(c_void_p):
         if self and getattr(self, "_own", False):
             self.Release()
 
-    # overwritten in _winrt.py
+    # overwritten in winrt module
     @classmethod
     def __commit__(cls):
         cls._hints_ = get_type_hints(cls)
@@ -122,7 +122,7 @@ class ComPtr(c_void_p):
         cls.__bases__ = (cls._hints_["extends"],)
         return cls
 
-    # overwritten in _winrt.py
+    # overwritten in winrt module
     def as_(self, cls):
         iid = cls._iid_
         instance = cls(own=True)

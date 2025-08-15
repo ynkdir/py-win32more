@@ -3,14 +3,6 @@ from __future__ import annotations
 import logging
 
 from win32more import POINTER, Boolean, UInt32, Void
-from win32more._winrt import (
-    ComClass,
-    FillArray,
-    PassArray,
-    T,
-    get_args,
-    is_com_class,
-)
 from win32more.Windows.Foundation import EventRegistrationToken
 from win32more.Windows.Foundation.Collections import (
     CollectionChange,
@@ -21,6 +13,14 @@ from win32more.Windows.Foundation.Collections import (
     IVectorChangedEventArgs,
     IVectorView,
     VectorChangedEventHandler,
+)
+from win32more.winrt import (
+    ComClass,
+    FillArray,
+    PassArray,
+    T,
+    get_args,
+    is_com_class,
 )
 
 logger = logging.getLogger(__name__)

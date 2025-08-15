@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from win32more import FAILED
-from win32more._winrt import ComClass
+from win32more.winrt import ComClass
 from win32more.Microsoft.UI.Xaml import Application, Window
 from win32more.Microsoft.UI.Xaml.Controls import Button
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector

@@ -11,40 +11,8 @@ from .backport import removeprefix
 from .dependencies import Dependencies
 from .metadata import InterfaceImplementation, MethodDefinition, TType, TypeDefinition
 from .package import ApiItem, Module, Package
-from .win32 import BASE_EXPORTS_CSV
 
 logger = logging.getLogger(__name__)
-
-WINRT_EXPORTS = [
-    "AwaitableProtocol",
-    "ContextManagerProtocol",
-    "FillArray",
-    "Generic",
-    "IInspectable",
-    "IUnknown",
-    "IterableProtocol",
-    "K",
-    "MappingProtocol",
-    "MulticastDelegate",
-    "PassArray",
-    "ReceiveArray",
-    "SequenceProtocol",
-    "T",
-    "TProgress",
-    "TResult",
-    "TSender",
-    "Tuple",
-    "V",
-    "WinRT_String",
-    "event",
-    "winrt_activatemethod",
-    "winrt_classmethod",
-    "winrt_commethod",
-    "winrt_factorymethod",
-    "winrt_mixinmethod",
-    "winrt_overload",
-]
-WINRT_EXPORTS_CSV = ", ".join(WINRT_EXPORTS)
 
 
 class Parser:
@@ -191,8 +159,7 @@ class WinrtModule(Module):
     def emit_header(self) -> str:
         writer = StringIO()
         writer.write("from __future__ import annotations\n")
-        writer.write(f"from {self._package.name} import {BASE_EXPORTS_CSV}\n")
-        writer.write(f"from {self._package.name}._winrt import {WINRT_EXPORTS_CSV}\n")
+        writer.write(f"from {self._package.name}.winrt.prelude import *\n")
         for namespace in sorted(self.imported_namespaces() | {self.namespace}):
             writer.write(f"import {self._package.name}.{namespace}\n")
         return writer.getvalue()
@@ -208,8 +175,7 @@ class WinrtModule(Module):
     def emit_header_one(cls, package_name: str) -> str:
         writer = StringIO()
         writer.write("from __future__ import annotations\n")
-        writer.write(f"from {package_name} import {BASE_EXPORTS_CSV}\n")
-        writer.write(f"from {package_name}._winrt import {WINRT_EXPORTS_CSV}\n")
+        writer.write(f"from {package_name}.winrt.prelude import *\n")
         return writer.getvalue()
 
 

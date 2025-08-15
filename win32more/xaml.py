@@ -6,7 +6,7 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 from win32more import FAILED, WinError, asyncui
-from win32more._winrt import ComClass, WinRT_String
+from win32more.winrt import ComClass, WinRT_String
 from win32more.mddbootstrap import (
     WINDOWSAPPSDK_RELEASE_MAJORMINOR,
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,

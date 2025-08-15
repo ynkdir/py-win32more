@@ -88,7 +88,7 @@ class TestSyntax(unittest.TestCase):
         self.assertEqual(GetCurrentProcessToken(), -4)
 
     def test_overload_method_is_wrapped_with_winrt_overload(self):
-        from win32more._winrt import winrt_overload
+        from win32more.winrt import winrt_overload
         from win32more.Windows.Storage.Pickers import FileOpenPicker
 
         self.assertIsInstance(FileOpenPicker.__dict__["PickSingleFileAsync"], winrt_overload)

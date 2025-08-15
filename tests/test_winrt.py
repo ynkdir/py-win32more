@@ -19,19 +19,19 @@ from win32more import (
     cast,
     pointer,
 )
-from win32more._winrt import (
+from win32more.winrt import (
     ComClass,
     ComError,
     MulticastDelegateImpl,
     PassArray,
     ReceiveArray,
+    Vector,
     WinRT_String,
-    _ro_get_parameterized_type_instance_iid,
     box_value,
     unbox_value,
     winrt_commethod,
 )
-from win32more._winrtrt import Vector
+from win32more.winrt.base import _ro_get_parameterized_type_instance_iid
 from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Data.Xml.Dom import XmlDocument
 from win32more.Windows.Devices.Display import DisplayMonitor
