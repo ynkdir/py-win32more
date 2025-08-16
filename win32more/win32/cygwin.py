@@ -1,10 +1,10 @@
 import platform
 from ctypes import CFUNCTYPE, POINTER, c_char_p, c_uint, c_void_p, c_wchar_p, cast, cdll, pointer
 
-if platform.machine() == "x86_64":
-    ARCH = "X64"
-else:
+if platform.machine() != "x86_64":
     raise RuntimeError(f"{platform.machine()} is not supported")
+
+ARCH = "X64"
 
 windll = cdll
 
@@ -83,6 +83,7 @@ try:
     cygwin1 = cdll.LoadLibrary("cygwin1.dll")
 except OSError:
     cygwin1 = cdll.LoadLibrary("msys-2.0.dll")
+
 cygwin_create_path = cygwin1.cygwin_create_path
 cygwin_create_path.restype = c_void_p
 cygwin_create_path.argtypes = [c_uint, c_void_p]
