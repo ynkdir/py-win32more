@@ -215,6 +215,14 @@ class IIppPrintDevice4(ComPtr):
     CanModifyUserDefaultPrintTicket = property(get_CanModifyUserDefaultPrintTicket, None)
     DeviceKind = property(get_DeviceKind, None)
     UserDefaultPrintTicket = property(get_UserDefaultPrintTicket, put_UserDefaultPrintTicket)
+class IIppPrintDevice5(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.Devices.Printers.IIppPrintDevice5'
+    _iid_ = Guid('{ea927fca-e073-5db4-9aee-13df714e853a}')
+    @winrt_commethod(6)
+    def GetDeviceProperties(self) -> win32more.Windows.Foundation.Collections.ValueSet: ...
+    @winrt_commethod(7)
+    def ReplaceDeviceProperties(self, deviceProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Devices.Printers.ReplaceDevicePropertiesResult: ...
 class IIppPrintDeviceStatics(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.IIppPrintDeviceStatics'
@@ -333,6 +341,16 @@ class IPrintSchema(ComPtr):
     def GetCapabilitiesAsync(self, constrainTicket: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
     @winrt_commethod(8)
     def MergeAndValidateWithDefaultPrintTicketAsync(self, deltaTicket: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
+class IReplaceDevicePropertiesResult(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.Devices.Printers.IReplaceDevicePropertiesResult'
+    _iid_ = Guid('{12feca4b-d973-57e1-826b-f75b9518a9f1}')
+    @winrt_commethod(6)
+    def get_Status(self) -> win32more.Windows.Devices.Printers.ReplaceDevicePropertiesStatus: ...
+    @winrt_commethod(7)
+    def get_ExtendedError(self) -> win32more.Windows.Foundation.HResult: ...
+    ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
 class IVirtualPrinterInstallationParameters(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Devices.Printers.IVirtualPrinterInstallationParameters'
@@ -641,6 +659,10 @@ class IppPrintDevice(ComPtr):
     def RefreshPrintDeviceCapabilities(self: win32more.Windows.Devices.Printers.IIppPrintDevice4) -> Void: ...
     @winrt_mixinmethod
     def GetMaxSupportedPdlVersion(self: win32more.Windows.Devices.Printers.IIppPrintDevice4, pdlContentType: WinRT_String) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def GetDeviceProperties(self: win32more.Windows.Devices.Printers.IIppPrintDevice5) -> win32more.Windows.Foundation.Collections.ValueSet: ...
+    @winrt_mixinmethod
+    def ReplaceDeviceProperties(self: win32more.Windows.Devices.Printers.IIppPrintDevice5, deviceProperties: win32more.Windows.Foundation.Collections.IIterable[win32more.Windows.Foundation.Collections.IKeyValuePair[WinRT_String, IInspectable]]) -> win32more.Windows.Devices.Printers.ReplaceDevicePropertiesResult: ...
     @winrt_classmethod
     def GetDeviceSelector(cls: win32more.Windows.Devices.Printers.IIppPrintDeviceStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -786,6 +808,20 @@ class PrintSchema(ComPtr):
     @winrt_mixinmethod
     def MergeAndValidateWithDefaultPrintTicketAsync(self: win32more.Windows.Devices.Printers.IPrintSchema, deltaTicket: win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> win32more.Windows.Foundation.IAsyncOperation[win32more.Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
 PrintersContract: UInt32 = 65536
+class ReplaceDevicePropertiesResult(ComPtr):
+    extends: IInspectable
+    default_interface: win32more.Windows.Devices.Printers.IReplaceDevicePropertiesResult
+    _classid_ = 'Windows.Devices.Printers.ReplaceDevicePropertiesResult'
+    @winrt_mixinmethod
+    def get_Status(self: win32more.Windows.Devices.Printers.IReplaceDevicePropertiesResult) -> win32more.Windows.Devices.Printers.ReplaceDevicePropertiesStatus: ...
+    @winrt_mixinmethod
+    def get_ExtendedError(self: win32more.Windows.Devices.Printers.IReplaceDevicePropertiesResult) -> win32more.Windows.Foundation.HResult: ...
+    ExtendedError = property(get_ExtendedError, None)
+    Status = property(get_Status, None)
+class ReplaceDevicePropertiesStatus(Enum, Int32):
+    Succeeded = 0
+    AccessDenied = 1
+    OtherFailure = 2
 class VirtualPrinterInstallationParameters(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Devices.Printers.IVirtualPrinterInstallationParameters

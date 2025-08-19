@@ -20,6 +20,8 @@ class ActionCatalog(ComPtr):
     @winrt_mixinmethod
     def GetActionsForInputs2(self: win32more.Windows.AI.Actions.Hosting.IActionCatalog2, inputEntities: PassArray[win32more.Windows.AI.Actions.ActionEntity], invokerWindowId: win32more.Windows.UI.WindowId) -> ReceiveArray[win32more.Windows.AI.Actions.Hosting.ActionInstance]: ...
     @winrt_mixinmethod
+    def GetActionsForCurrentApp(self: win32more.Windows.AI.Actions.Hosting.IActionCatalog3) -> ReceiveArray[win32more.Windows.AI.Actions.Hosting.ActionDefinition]: ...
+    @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Changed = event()
 class ActionDefinition(ComPtr):
@@ -50,11 +52,14 @@ class ActionDefinition(ComPtr):
     @winrt_mixinmethod
     def get_PackageRelativeApplicationId(self: win32more.Windows.AI.Actions.Hosting.IActionDefinition3) -> WinRT_String: ...
     @winrt_mixinmethod
+    def get_IsCurrentlyAvailable(self: win32more.Windows.AI.Actions.Hosting.IActionDefinition4) -> Boolean: ...
+    @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     Description = property(get_Description, None)
     DisplaysUI = property(get_DisplaysUI, None)
     IconFullPath = property(get_IconFullPath, None)
     Id = property(get_Id, None)
+    IsCurrentlyAvailable = property(get_IsCurrentlyAvailable, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
     PackageRelativeApplicationId = property(get_PackageRelativeApplicationId, None)
     SchemaVersion = property(get_SchemaVersion, None)
@@ -135,6 +140,12 @@ class IActionCatalog2(ComPtr):
     def GetActionsForInputs(self, inputEntities: PassArray[win32more.Windows.AI.Actions.ActionEntity]) -> ReceiveArray[win32more.Windows.AI.Actions.Hosting.ActionInstance]: ...
     @winrt_commethod(7)
     def GetActionsForInputs2(self, inputEntities: PassArray[win32more.Windows.AI.Actions.ActionEntity], invokerWindowId: win32more.Windows.UI.WindowId) -> ReceiveArray[win32more.Windows.AI.Actions.Hosting.ActionInstance]: ...
+class IActionCatalog3(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.Hosting.IActionCatalog3'
+    _iid_ = Guid('{2e05d518-8680-55d3-820d-2605adb7d62d}')
+    @winrt_commethod(6)
+    def GetActionsForCurrentApp(self) -> ReceiveArray[win32more.Windows.AI.Actions.Hosting.ActionDefinition]: ...
 class IActionDefinition(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionDefinition'
@@ -177,6 +188,13 @@ class IActionDefinition3(ComPtr):
     @winrt_commethod(6)
     def get_PackageRelativeApplicationId(self) -> WinRT_String: ...
     PackageRelativeApplicationId = property(get_PackageRelativeApplicationId, None)
+class IActionDefinition4(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.Hosting.IActionDefinition4'
+    _iid_ = Guid('{6dd91071-8847-55b6-9518-9ff8de421eb7}')
+    @winrt_commethod(6)
+    def get_IsCurrentlyAvailable(self) -> Boolean: ...
+    IsCurrentlyAvailable = property(get_IsCurrentlyAvailable, None)
 class IActionEntityRegistrationInfo(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.AI.Actions.Hosting.IActionEntityRegistrationInfo'

@@ -553,6 +553,45 @@ class IStorageProviderStatusUISourceFactory(ComPtr):
     _iid_ = Guid('{12e46b74-4e5a-58d1-a62f-0376e8ee7dd8}')
     @winrt_commethod(6)
     def GetStatusUISource(self, syncRootId: WinRT_String) -> win32more.Windows.Storage.Provider.IStorageProviderStatusUISource: ...
+class IStorageProviderSuggestionsHandler(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.Storage.Provider.IStorageProviderSuggestionsHandler'
+    _iid_ = Guid('{aff493f6-e1fd-5d03-b480-f1849c83ef4a}')
+    @winrt_commethod(6)
+    def GetSuggestions(self, options: win32more.Windows.Storage.Provider.StorageProviderSuggestionsQueryOptions) -> win32more.Windows.Storage.Provider.StorageProviderQueryResultSet: ...
+    @winrt_commethod(7)
+    def Add(self, kind: win32more.Windows.Storage.Provider.StorageProviderResultKind, remoteFileId: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def Remove(self, kind: win32more.Windows.Storage.Provider.StorageProviderResultKind, remoteFileId: WinRT_String) -> Void: ...
+    @winrt_commethod(9)
+    def GetDetails(self, remoteFileId: WinRT_String, propertiesToFetch: PassArray[WinRT_String], queryId: WinRT_String) -> win32more.Windows.Storage.Provider.StorageProviderSuggestionResult: ...
+    @winrt_commethod(10)
+    def ReportUsage(self, resultUsageKind: win32more.Windows.Storage.Provider.StorageProviderResultUsageKind, remoteFileId: WinRT_String, resultId: WinRT_String, latency: win32more.Windows.Foundation.TimeSpan) -> Void: ...
+class IStorageProviderSuggestionsHandlerFactory(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.Storage.Provider.IStorageProviderSuggestionsHandlerFactory'
+    _iid_ = Guid('{dc7b35d8-a25b-58a3-ace7-b3543106a2aa}')
+    @winrt_commethod(6)
+    def CreateSuggestionsHandler(self, cloudProviderId: WinRT_String) -> win32more.Windows.Storage.Provider.IStorageProviderSuggestionsHandler: ...
+class IStorageProviderSuggestionsQueryOptions(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.Storage.Provider.IStorageProviderSuggestionsQueryOptions'
+    _iid_ = Guid('{efb8b74d-0d84-579c-b137-ea730635d9bb}')
+    @winrt_commethod(6)
+    def get_SuggestionsKind(self) -> win32more.Windows.Storage.Provider.StorageProviderResultKind: ...
+    @winrt_commethod(7)
+    def get_RemoteFileId(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_MaxResults(self) -> UInt32: ...
+    @winrt_commethod(9)
+    def get_QueryId(self) -> WinRT_String: ...
+    @winrt_commethod(10)
+    def get_PropertiesToFetch(self) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    MaxResults = property(get_MaxResults, None)
+    PropertiesToFetch = property(get_PropertiesToFetch, None)
+    QueryId = property(get_QueryId, None)
+    RemoteFileId = property(get_RemoteFileId, None)
+    SuggestionsKind = property(get_SuggestionsKind, None)
 class IStorageProviderSyncRootInfo(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Storage.Provider.IStorageProviderSyncRootInfo'
@@ -1174,6 +1213,61 @@ class StorageProviderStatusUI(ComPtr):
     ProviderStateLabel = property(get_ProviderStateLabel, put_ProviderStateLabel)
     QuotaUI = property(get_QuotaUI, put_QuotaUI)
     SyncStatusCommand = property(get_SyncStatusCommand, put_SyncStatusCommand)
+class StorageProviderSuggestionResult(ComPtr):
+    extends: IInspectable
+    default_interface: win32more.Windows.Storage.Provider.IStorageProviderQueryResult
+    _classid_ = 'Windows.Storage.Provider.StorageProviderSuggestionResult'
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            super().__init__(**kwargs)
+        elif len(args) == 0:
+            super().__init__(move=win32more.Windows.Storage.Provider.StorageProviderSuggestionResult.CreateInstance(*args))
+        else:
+            raise ValueError('no matched constructor')
+    @winrt_activatemethod
+    def CreateInstance(cls) -> win32more.Windows.Storage.Provider.StorageProviderSuggestionResult: ...
+    @winrt_mixinmethod
+    def get_Kind(self: win32more.Windows.Storage.Provider.IStorageProviderQueryResult) -> win32more.Windows.Storage.Provider.StorageProviderResultKind: ...
+    @winrt_mixinmethod
+    def put_Kind(self: win32more.Windows.Storage.Provider.IStorageProviderQueryResult, value: win32more.Windows.Storage.Provider.StorageProviderResultKind) -> Void: ...
+    @winrt_mixinmethod
+    def get_ResultId(self: win32more.Windows.Storage.Provider.IStorageProviderQueryResult) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ResultId(self: win32more.Windows.Storage.Provider.IStorageProviderQueryResult, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_RemoteFileId(self: win32more.Windows.Storage.Provider.IStorageProviderQueryResult) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_RemoteFileId(self: win32more.Windows.Storage.Provider.IStorageProviderQueryResult, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_FilePath(self: win32more.Windows.Storage.Provider.IStorageProviderQueryResult) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_FilePath(self: win32more.Windows.Storage.Provider.IStorageProviderQueryResult, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_RequestedProperties(self: win32more.Windows.Storage.Provider.IStorageProviderQueryResult) -> win32more.Windows.Foundation.Collections.PropertySet: ...
+    FilePath = property(get_FilePath, put_FilePath)
+    Kind = property(get_Kind, put_Kind)
+    RemoteFileId = property(get_RemoteFileId, put_RemoteFileId)
+    RequestedProperties = property(get_RequestedProperties, None)
+    ResultId = property(get_ResultId, put_ResultId)
+class StorageProviderSuggestionsQueryOptions(ComPtr):
+    extends: IInspectable
+    default_interface: win32more.Windows.Storage.Provider.IStorageProviderSuggestionsQueryOptions
+    _classid_ = 'Windows.Storage.Provider.StorageProviderSuggestionsQueryOptions'
+    @winrt_mixinmethod
+    def get_SuggestionsKind(self: win32more.Windows.Storage.Provider.IStorageProviderSuggestionsQueryOptions) -> win32more.Windows.Storage.Provider.StorageProviderResultKind: ...
+    @winrt_mixinmethod
+    def get_RemoteFileId(self: win32more.Windows.Storage.Provider.IStorageProviderSuggestionsQueryOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_MaxResults(self: win32more.Windows.Storage.Provider.IStorageProviderSuggestionsQueryOptions) -> UInt32: ...
+    @winrt_mixinmethod
+    def get_QueryId(self: win32more.Windows.Storage.Provider.IStorageProviderSuggestionsQueryOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_PropertiesToFetch(self: win32more.Windows.Storage.Provider.IStorageProviderSuggestionsQueryOptions) -> win32more.Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
+    MaxResults = property(get_MaxResults, None)
+    PropertiesToFetch = property(get_PropertiesToFetch, None)
+    QueryId = property(get_QueryId, None)
+    RemoteFileId = property(get_RemoteFileId, None)
+    SuggestionsKind = property(get_SuggestionsKind, None)
 class StorageProviderSyncRootInfo(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Storage.Provider.IStorageProviderSyncRootInfo

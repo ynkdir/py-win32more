@@ -187,11 +187,13 @@ class ActionRuntime(ComPtr):
     @winrt_mixinmethod
     def get_LatestSupportedSchemaVersion(self: win32more.Windows.AI.Actions.IActionRuntime3) -> UInt32: ...
     @winrt_mixinmethod
+    def GetActionInvocationContextFromToken(self: win32more.Windows.AI.Actions.IActionRuntime4, token: WinRT_String) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
+    @winrt_mixinmethod
     def Close(self: win32more.Windows.Foundation.IClosable) -> Void: ...
     ActionCatalog = property(get_ActionCatalog, None)
     EntityFactory = property(get_EntityFactory, None)
     LatestSupportedSchemaVersion = property(get_LatestSupportedSchemaVersion, None)
-ActionsContract: UInt32 = 262144
+ActionsContract: UInt32 = 327680
 class ContactActionEntity(ComPtr):
     extends: win32more.Windows.AI.Actions.ActionEntity
     default_interface: win32more.Windows.AI.Actions.IContactActionEntity
@@ -385,6 +387,12 @@ class IActionRuntime3(ComPtr):
     @winrt_commethod(8)
     def get_LatestSupportedSchemaVersion(self) -> UInt32: ...
     LatestSupportedSchemaVersion = property(get_LatestSupportedSchemaVersion, None)
+class IActionRuntime4(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.AI.Actions.IActionRuntime4'
+    _iid_ = Guid('{06851dcd-c743-5c7f-88a1-bbaeb02f5e28}')
+    @winrt_commethod(6)
+    def GetActionInvocationContextFromToken(self, token: WinRT_String) -> win32more.Windows.AI.Actions.ActionInvocationContext: ...
 class IActionRuntimeFactory(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.AI.Actions.IActionRuntimeFactory'
