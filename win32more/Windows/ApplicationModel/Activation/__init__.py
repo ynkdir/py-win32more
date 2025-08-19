@@ -71,6 +71,7 @@ class ActivationKind(Enum, Int32):
     PrintSupportSettingsUI = 1024
     PhoneCallActivation = 1025
     VpnForeground = 1026
+    PrintSupportEnterpriseManagementUI = 1027
 class ApplicationExecutionState(Enum, Int32):
     NotRunning = 0
     Running = 1

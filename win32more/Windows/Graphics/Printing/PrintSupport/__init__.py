@@ -26,6 +26,13 @@ class IPrintSupportCommunicationErrorDetectedEventArgs(ComPtr):
     CommunicationConfiguration = property(get_CommunicationConfiguration, None)
     ErrorKind = property(get_ErrorKind, None)
     ExtendedError = property(get_ExtendedError, None)
+class IPrintSupportEnterpriseManagementUIEventArgs(ComPtr):
+    extends: IInspectable
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportEnterpriseManagementUIEventArgs'
+    _iid_ = Guid('{6b1c2850-4bf7-5894-89fa-e89d9ea4eb2e}')
+    @winrt_commethod(6)
+    def get_Printer(self) -> win32more.Windows.Devices.Printers.IppPrintDevice: ...
+    Printer = property(get_Printer, None)
 class IPrintSupportExtensionSession(ComPtr):
     extends: IInspectable
     _classid_ = 'Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession'
@@ -313,6 +320,13 @@ class PrintSupportCommunicationErrorDetectedEventArgs(ComPtr):
     CommunicationConfiguration = property(get_CommunicationConfiguration, None)
     ErrorKind = property(get_ErrorKind, None)
     ExtendedError = property(get_ExtendedError, None)
+class PrintSupportEnterpriseManagementUIEventArgs(ComPtr):
+    extends: IInspectable
+    default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportEnterpriseManagementUIEventArgs
+    _classid_ = 'Windows.Graphics.Printing.PrintSupport.PrintSupportEnterpriseManagementUIEventArgs'
+    @winrt_mixinmethod
+    def get_Printer(self: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportEnterpriseManagementUIEventArgs) -> win32more.Windows.Devices.Printers.IppPrintDevice: ...
+    Printer = property(get_Printer, None)
 class PrintSupportExtensionSession(ComPtr):
     extends: IInspectable
     default_interface: win32more.Windows.Graphics.Printing.PrintSupport.IPrintSupportExtensionSession
