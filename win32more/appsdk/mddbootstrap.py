@@ -5,7 +5,7 @@ import sys
 import webbrowser
 from pathlib import Path
 
-import win32more.mddbootstrap
+import win32more.appsdk.mddbootstrap
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Packaging.Appx
 from win32more import ARCH, FAILED, Char, Int32, String, UInt32, Void, WinError, make_ready, winfunctype
@@ -43,23 +43,23 @@ WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = 0x1B58020A05A40000
 
 if ARCH == "ARM64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_Arm64
-    os.add_dll_directory(os.path.dirname(__file__) + "\\dll\\arm64")
+    os.add_dll_directory(os.path.dirname(win32more.__file__) + "\\dll\\arm64")
 elif ARCH == "X64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_X64
-    os.add_dll_directory(os.path.dirname(__file__) + "\\dll\\x64")
+    os.add_dll_directory(os.path.dirname(win32more.__file__) + "\\dll\\x64")
 elif ARCH == "X86":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_X86
-    os.add_dll_directory(os.path.dirname(__file__) + "\\dll\\x86")
+    os.add_dll_directory(os.path.dirname(win32more.__file__) + "\\dll\\x86")
 else:
     assert False
 
 MddBootstrapInitializeOptions = Int32
-MddBootstrapInitializeOptions_None: win32more.mddbootstrap.MddBootstrapInitializeOptions = 0
-MddBootstrapInitializeOptions_OnError_DebugBreak: win32more.mddbootstrap.MddBootstrapInitializeOptions = 1
-MddBootstrapInitializeOptions_OnError_DebugBreak_IfDebuggerAttached: win32more.mddbootstrap.MddBootstrapInitializeOptions = 2
-MddBootstrapInitializeOptions_OnError_FailFast: win32more.mddbootstrap.MddBootstrapInitializeOptions = 4
-MddBootstrapInitializeOptions_OnNoMatch_ShowUI: win32more.mddbootstrap.MddBootstrapInitializeOptions = 8
-MddBootstrapInitializeOptions_OnPackageIdentity_NOOP: win32more.mddbootstrap.MddBootstrapInitializeOptions = 16
+MddBootstrapInitializeOptions_None: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 0
+MddBootstrapInitializeOptions_OnError_DebugBreak: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 1
+MddBootstrapInitializeOptions_OnError_DebugBreak_IfDebuggerAttached: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 2
+MddBootstrapInitializeOptions_OnError_FailFast: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 4
+MddBootstrapInitializeOptions_OnNoMatch_ShowUI: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 8
+MddBootstrapInitializeOptions_OnPackageIdentity_NOOP: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 16
 
 
 @winfunctype("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapInitialize")
@@ -75,7 +75,7 @@ def _MddBootstrapInitialize2(
     majorMinorVersion: UInt32,
     versionTag: String,
     minVersion: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION,
-    options: win32more.mddbootstrap.MddBootstrapInitializeOptions,
+    options: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions,
 ) -> win32more.Windows.Win32.Foundation.HRESULT: ...
 
 

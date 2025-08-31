@@ -7,7 +7,7 @@ from win32more.Microsoft.UI.Xaml.Controls import Button
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector
 from win32more.Windows.Foundation import Uri
 from win32more.Windows.Win32.System.WinRT import IInspectable
-from win32more.xaml import XamlApplication
+from win32more.appsdk.xaml import XamlApplication
 
 
 # Visual Studio generates connection code from xaml like this.

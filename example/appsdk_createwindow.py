@@ -6,7 +6,7 @@ from ctypes import (
 )
 
 from win32more import FAILED
-from win32more.mddbootstrap import (
+from win32more.appsdk.mddbootstrap import (
     WINDOWSAPPSDK_RELEASE_MAJORMINOR,
     WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
     WINDOWSAPPSDK_RUNTIME_VERSION_UINT64,

@@ -6,7 +6,7 @@ from win32more.Microsoft.UI.Xaml.Markup import XamlReader
 from win32more.Windows.Storage import FileIO
 from win32more.Windows.Storage.Pickers import FileOpenPicker, FileSavePicker
 from win32more.Windows.Win32.UI.Shell import IInitializeWithWindow
-from win32more.xaml import XamlApplication
+from win32more.appsdk.xaml import XamlApplication
 
 
 class App(XamlApplication):

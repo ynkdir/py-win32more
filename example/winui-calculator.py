@@ -1,5 +1,5 @@
 from win32more.Microsoft.UI.Xaml.Controls import Button
-from win32more.xaml import XamlApplication, XamlLoader
+from win32more.appsdk.xaml import XamlApplication, XamlLoader
 
 
 class App(XamlApplication):

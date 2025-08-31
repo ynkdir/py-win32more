@@ -5,7 +5,7 @@ from win32more.Microsoft.Graphics.Canvas.UI.Xaml import CanvasAnimatedControl
 from win32more.Microsoft.UI.Xaml import Window
 from win32more.Microsoft.UI.Xaml.Controls import Grid
 from win32more.Windows.UI import Colors
-from win32more.xaml import XamlApplication
+from win32more.appsdk.xaml import XamlApplication
 
 
 class App(XamlApplication):
