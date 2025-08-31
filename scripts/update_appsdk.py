@@ -47,22 +47,22 @@ def main():
 
     nupkg.extract(
         "runtimes/win-arm64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
-        "win32more/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+        "src/win32more/dll/arm64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
     )
     nupkg.extract(
         "runtimes/win-x64/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
-        "win32more/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+        "src/win32more/dll/x64/Microsoft.WindowsAppRuntime.Bootstrap.dll",
     )
     nupkg.extract(
         "runtimes/win-x86/native/Microsoft.WindowsAppRuntime.Bootstrap.dll",
-        "win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
+        "src/win32more/dll/x86/Microsoft.WindowsAppRuntime.Bootstrap.dll",
     )
     nupkg.extract(
         "license.txt",
         "LICENSE (Microsoft.WindowsAppRuntime.Bootstrap.dll).txt",
     )
 
-    ed = Edit("win32more/mddbootstrap.py")
+    ed = Edit("src/win32more/appsdk/mddbootstrap.py")
     ed.substitute("^# VERSION: .*$", f"# VERSION: {args.version}")
     ed.substitute(
         "^WINDOWSAPPSDK_RELEASE_MAJORMINOR = .*$",

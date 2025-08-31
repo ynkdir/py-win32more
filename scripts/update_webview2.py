@@ -25,15 +25,15 @@ def main():
 
     nupkg.extract(
         "runtimes/win-arm64/native_uap/Microsoft.Web.WebView2.Core.dll",
-        "win32more/dll/arm64/Microsoft.Web.WebView2.Core.dll",
+        "src/win32more/dll/arm64/Microsoft.Web.WebView2.Core.dll",
     )
     nupkg.extract(
         "runtimes/win-x64/native_uap/Microsoft.Web.WebView2.Core.dll",
-        "win32more/dll/x64/Microsoft.Web.WebView2.Core.dll",
+        "src/win32more/dll/x64/Microsoft.Web.WebView2.Core.dll",
     )
     nupkg.extract(
         "runtimes/win-x86/native_uap/Microsoft.Web.WebView2.Core.dll",
-        "win32more/dll/x86/Microsoft.Web.WebView2.Core.dll",
+        "src/win32more/dll/x86/Microsoft.Web.WebView2.Core.dll",
     )
     nupkg.extract(
         "LICENSE.txt",

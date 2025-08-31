@@ -25,15 +25,15 @@ def main():
 
     nupkg.extract(
         "runtimes/win-arm64/native/Microsoft.Graphics.Canvas.dll",
-        "win32more/dll/arm64/Microsoft.Graphics.Canvas.dll",
+        "src/win32more/dll/arm64/Microsoft.Graphics.Canvas.dll",
     )
     nupkg.extract(
         "runtimes/win-x64/native/Microsoft.Graphics.Canvas.dll",
-        "win32more/dll/x64/Microsoft.Graphics.Canvas.dll",
+        "src/win32more/dll/x64/Microsoft.Graphics.Canvas.dll",
     )
     nupkg.extract(
         "runtimes/win-x86/native/Microsoft.Graphics.Canvas.dll",
-        "win32more/dll/x86/Microsoft.Graphics.Canvas.dll",
+        "src/win32more/dll/x86/Microsoft.Graphics.Canvas.dll",
     )
 
 

@@ -3,7 +3,7 @@ from pathlib import Path
 
 event_names = set()
 
-for p in Path("win32more/Microsoft/UI/Xaml").glob("**/*.py"):
+for p in Path("src/win32more/Microsoft/UI/Xaml").glob("**/*.py"):
     for line in p.read_text().splitlines():
         m = re.match(r"^    (.*) = event\(\)$", line)
         if m:
