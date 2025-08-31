@@ -28,8 +28,11 @@ classifiers = [
 Homepage = "https://github.com/ynkdir/py-win32more"
 
 [build-system]
-requires = ["uv_build>=0.8.14,<0.9.0"]
-build-backend = "uv_build"
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+only-include = ["src/win32more"]
 
 [tool.ruff]
 line-length = 120
