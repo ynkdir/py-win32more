@@ -120,7 +120,7 @@ def main() -> None:
     parser.add_argument("-s", "--selector", type=Path, help="selector.txt")
     parser.add_argument("--raw", action="store_true", help="generate raw bindings")
     parser.add_argument("--package-name", default="win32more")
-    parser.add_argument("--output-directory", type=Path, default=".")
+    parser.add_argument("--output-directory", type=Path, default="src")
     parser.add_argument("metadata", nargs="*", help="metadata.json")
     args = parser.parse_args()
 
