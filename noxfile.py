@@ -19,6 +19,6 @@ import nox
     ],
 )
 def tests(session):
-    session.install("-e", ".")
+    session.install(".")
     session.install("pytest")
     session.run("pytest", *(session.posargs or ["tests"]))
