@@ -90,9 +90,13 @@ def MddBootstrapInitialize(major_minor_version: int, version_tag: str, min_versi
 def MddBootstrapInitialize2(
     major_minor_version: int, version_tag: str, min_version: PACKAGE_VERSION, options: int
 ) -> int:
-    if _IsPackagedProcess() and not _IsWin11():
-        raise RuntimeError("Packaged process is not supported before Windows 11")
-    elif _IsWin11():
+    if _IsPackagedProcess():
+        # FIXME: Mddbootstrap API doesn't support packaged process.
+        # Since 1.6.5, WindowsAppSDK seems to work with Win11's package dependency API.
+        # I'm not sure if it is offically supported.  It might have a problem.
+        VERSION_1_6_5 = 0x1770019109300000
+        if not _IsWin11() or WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 < VERSION_1_6_5:
+            raise RuntimeError("Packaged process is not supported before Windows 11")
         hr = _Initialize_Win11(_GetFrameworkPackageFamilyName(major_minor_version, version_tag), min_version)
         if FAILED(hr):
             if hr == STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED:
@@ -114,9 +118,7 @@ def MddBootstrapShutdown() -> None:
 
 
 def _IsWin11() -> bool:
-    return False
-    # TODO: We can drop mddbootstrap dependencies on Windows11.
-    # return sys.getwindowsversion() >= (10, 0, 22000)
+    return sys.getwindowsversion() >= (10, 0, 22000)
 
 
 def _IsPackagedProcess() -> bool:
