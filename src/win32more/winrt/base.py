@@ -1346,7 +1346,9 @@ class ContextManagerProtocol:
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        self.Close()
+        from win32more.Windows.Foundation import IClosable
+
+        self.as_(IClosable).Close()
 
 
 class ComError(OSError):
