@@ -41,7 +41,9 @@ jobs:
         architecture: ${{ matrix.architecture }}
 
     - name: Install Python requirements
-      run: pip install --upgrade --upgrade-strategy eager .
+      # run: pip install --upgrade --upgrade-strategy eager .
+      # for test
+      run: pip install --upgrade --upgrade-strategy eager --extra-index-url https://test.pypi.org/simple/ .
 
     - name: Run tests
       run: python -m unittest discover -s tests
