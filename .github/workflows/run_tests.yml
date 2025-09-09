@@ -68,7 +68,9 @@ jobs:
         packages: python3
 
     - name: Install Python requirements
-      run: pip3 install --upgrade --upgrade-strategy eager $(cygpath --absolute $GITHUB_WORKSPACE)
+      # run: pip3 install --upgrade --upgrade-strategy eager $(cygpath --absolute $GITHUB_WORKSPACE)
+      # for test
+      run: pip3 install --upgrade --upgrade-strategy eager --extra-index-url https://test.pypi.org/simple/ $(cygpath --absolute $GITHUB_WORKSPACE)
 
     - name: Run tests
       run: python -m unittest discover -s $(cygpath --absolute "${GITHUB_WORKSPACE}/tests")
