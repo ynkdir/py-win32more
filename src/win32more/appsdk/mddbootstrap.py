@@ -33,13 +33,14 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import (
 )
 from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, MB_YESNO, MessageBox
 
-_module = sys.modules[__name__]
+# versioninfo.py will be installed by win32more-Microsoft.WindowsAppSDK
+from .versioninfo import (  # noqa
+    WINDOWSAPPSDK_RELEASE_MAJORMINOR,
+    WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
+    WINDOWSAPPSDK_RUNTIME_VERSION_UINT64,
+)
 
-# TODO: keep sync with WindowsAppSDK-VersionInfo.h
-# VERSION: 1.7.250606001
-WINDOWSAPPSDK_RELEASE_MAJORMINOR = 0x00010007
-WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W = ""
-WINDOWSAPPSDK_RUNTIME_VERSION_UINT64 = 0x1B58020A05A40000
+_module = sys.modules[__name__]
 
 if ARCH == "ARM64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_Arm64
