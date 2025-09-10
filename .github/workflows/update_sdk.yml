@@ -19,7 +19,7 @@ jobs:
           - name: "Microsoft.WindowsAppSDK"
             commit_message: "Windows App SDK"
             allow_prerelease: false
-            script_file_name: "scripts\\get_appsdk.ps1"
+            script_file_name: "scripts\\get_appsdk1.8.ps1"
             additional_script: "scripts\\update_appsdk.py"
             json_file_name: "WindowsAppSDK.json"
           - name: "Microsoft.Web.WebView2"
