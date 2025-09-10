@@ -1,0 +1,11 @@
+[project]
+name = "win32more-Microsoft.Web.WebView2"
+version = "0.6.1.0.2792.45"
+dependencies = ["win32more==0.6.*"]
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/win32more"]
