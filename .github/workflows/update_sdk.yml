@@ -19,7 +19,7 @@ jobs:
           - name: "Microsoft.WindowsAppSDK"
             commit_message: "Windows App SDK"
             allow_prerelease: false
-            script_file_name: "scripts\\get_appsdk.ps1"
+            script_file_name: "scripts\\get_appsdk1.8.ps1"
             additional_script: "scripts\\update_appsdk.py"
             json_file_name: "WindowsAppSDK.json"
           - name: "Microsoft.Web.WebView2"
@@ -122,7 +122,7 @@ jobs:
     - name: Run win32generator
       if: ${{ steps.is-there-update.outputs.isSuccess == 'true' }}
       run: |
-        Remove-Item -Recurse win32more\Microsoft, win32more\Windows
+        Remove-Item -Recurse src\win32more\Microsoft, src\win32more\Windows
         python -m win32generator
       working-directory: win32more
 
