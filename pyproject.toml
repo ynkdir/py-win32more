@@ -1,6 +1,6 @@
 [project]
 name = "win32more"
-version = "0.6.1"
+version = "0.5.13"
 description = "Python bindings for Windows API"
 readme = "README.md"
 requires-python = ">= 3.9"
@@ -9,11 +9,11 @@ authors = [
 ]
 dependencies = [
     "typing_extensions; python_version < '3.9'",
-    "win32more-Microsoft.Windows.SDK.Win32Metadata == 0.6.*",
-    "win32more-Microsoft.Windows.SDK.Contracts == 0.6.*",
-    "win32more-Microsoft.WindowsAppSDK == 0.6.*",
-    "win32more-Microsoft.Web.WebView2 == 0.6.*",
-    "win32more-Microsoft.Graphics.Win2D == 0.6.*",
+    "win32more-Microsoft.Windows.SDK.Win32Metadata == 0.5.*",
+    "win32more-Microsoft.Windows.SDK.Contracts == 0.5.*",
+    "win32more-Microsoft.WindowsAppSDK == 0.5.*",
+    "win32more-Microsoft.Web.WebView2 == 0.5.*",
+    "win32more-Microsoft.Graphics.Win2D == 0.5.*",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
