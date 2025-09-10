@@ -269,7 +269,6 @@ class NupkgWindowsAppSDK_1_8(NupkgStrategy):
             "Microsoft.WindowsAppSDK.Widgets",
             "Microsoft.WindowsAppSDK.AI",
             "Microsoft.WindowsAppSDK.Runtime",
-            "Microsoft.Windows.SDK.BuildTools.MSIX",
         }
 
     def runtime_dependencies(self) -> set[str]:
@@ -786,7 +785,7 @@ def main() -> None:
     Pypkg("Microsoft.WindowsAppSDK", "1.7.250401001").build()
     Pypkg("Microsoft.WindowsAppSDK", "1.7.250513003").build()
     Pypkg("Microsoft.WindowsAppSDK", "1.7.250606001").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.8.250814004-preview").build()
+    Pypkg("Microsoft.WindowsAppSDK", "1.8.250907003").build()
 
     Pypkg("Microsoft.Web.WebView2", "1.0.2651.64").build()
     Pypkg("Microsoft.Web.WebView2", "1.0.2739.15").build()
@@ -801,6 +800,7 @@ def main() -> None:
     Pypkg("Microsoft.Web.WebView2", "1.0.3296.44").build()
     Pypkg("Microsoft.Web.WebView2", "1.0.3351.48").build()
     Pypkg("Microsoft.Web.WebView2", "1.0.3405.78").build()
+    Pypkg("Microsoft.Web.WebView2", "1.0.3485.44").build()
 
     Pypkg("Microsoft.Graphics.Win2D", "1.2.0").build()
     Pypkg("Microsoft.Graphics.Win2D", "1.3.0").build()
