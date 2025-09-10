@@ -568,7 +568,7 @@ class Pypkg:
         return build_dir / "generate" / f"{self._id}.{self._version}"
 
     def package_dir(self) -> Path:
-        return package_dir / f"win32more-{self._id}.{self._version}"
+        return package_dir / f"{self._id}.{self._version}"
 
     def dependencies(self) -> Iterable[Version]:
         yield from self.collect_dependencies(self._nupkg, set())
