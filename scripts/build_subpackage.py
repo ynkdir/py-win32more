@@ -722,7 +722,7 @@ def rmtree_force(path: Path) -> None:
     shutil.rmtree(path, onexc=onexc)
 
 
-def setup() -> None:
+def main() -> None:
     global package_dir, build_dir, win32more_version, nupkg_winrt
 
     logging.basicConfig(level=logging.DEBUG, force=True)
@@ -730,6 +730,10 @@ def setup() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--builddir", default="build", type=Path)
     parser.add_argument("--packagedir", default="packages", type=Path)
+    parser.add_argument("--win32more-version")
+    parser.add_argument("--winrt-version", default="10.0.26100.4948")
+    parser.add_argument("--name", required=True)
+    parser.add_argument("--version", required=True)
     args = parser.parse_args()
 
     package_dir = args.packagedir
@@ -750,62 +754,15 @@ def setup() -> None:
     if not (build_dir / "generate").exists():
         (build_dir / "generate").mkdir()
 
-    pyproject = tomllib.loads(Path("pyproject.toml").read_text())
-    win32more_version = [int(x) for x in pyproject["project"]["version"].split(".")]
+    if args.win32more_version is not None:
+        win32more_version = args.win32more_version
+    else:
+        pyproject = tomllib.loads(Path("pyproject.toml").read_text())
+        win32more_version = [int(x) for x in pyproject["project"]["version"].split(".")]
 
-    nupkg_winrt = Nupkg("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948")
+    nupkg_winrt = Nupkg("Microsoft.Windows.SDK.Contracts", args.winrt_version)
 
-
-def main() -> None:
-    setup()
-
-    Pypkg("Microsoft.Windows.SDK.Win32Metadata", "63.0.31-preview").build()
-    Pypkg("Microsoft.Windows.SDK.Contracts", "10.0.26100.4948").build()
-
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.240227000").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.240311000").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.240404000").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.240428000").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.240607001").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.240627000").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.240802000").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.241001000").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.241107002").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.5.250108004").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.6.240829007").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.6.240923002").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.6.241114003").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.6.250108002").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.6.250205002").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.6.250228001").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.6.250402001").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.6.250430001").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.6.250602001").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.7.250310001").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.7.250401001").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.7.250513003").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.7.250606001").build()
-    Pypkg("Microsoft.WindowsAppSDK", "1.8.250907003").build()
-
-    Pypkg("Microsoft.Web.WebView2", "1.0.2651.64").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.2739.15").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.2792.45").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.2849.39").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.2903.40").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.2957.106").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.3065.39").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.3124.44").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.3179.45").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.3240.44").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.3296.44").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.3351.48").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.3405.78").build()
-    Pypkg("Microsoft.Web.WebView2", "1.0.3485.44").build()
-
-    Pypkg("Microsoft.Graphics.Win2D", "1.2.0").build()
-    Pypkg("Microsoft.Graphics.Win2D", "1.3.0").build()
-    Pypkg("Microsoft.Graphics.Win2D", "1.3.1").build()
-    Pypkg("Microsoft.Graphics.Win2D", "1.3.2").build()
+    Pypkg(args.name, args.version).build()
 
 
 if __name__ == "__main__":
