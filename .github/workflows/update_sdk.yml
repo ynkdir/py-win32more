@@ -90,6 +90,9 @@ jobs:
           # Build subpackage
 
           python scripts/build_subpackage.py --name $name --version $version
+          if (-not $?) {
+            throw "build failed"
+          }
 
 
           # Commit changes
