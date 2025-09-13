@@ -111,6 +111,8 @@ jobs:
           # Force push to overwrite the branch
           git push origin HEAD --force
 
+          git switch main
+
 
           # Create Pull Request
 
