@@ -25,12 +25,12 @@ from win32more.winrt import (
     MulticastDelegateImpl,
     PassArray,
     ReceiveArray,
-    Vector,
     WinRT_String,
     box_value,
     unbox_value,
     winrt_commethod,
 )
+from win32more.winrt.vector import Vector
 from win32more.winrt.base import _ro_get_parameterized_type_instance_iid
 from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Data.Xml.Dom import XmlDocument
