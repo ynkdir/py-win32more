@@ -542,7 +542,7 @@ class Nupkg:
         return MetadataParser(metadata).namespaces()
 
     def dependencies(self) -> Iterable[Version]:
-        nuspec = (self.nupkg_dir() / f"{self._id}.nuspec").read_text()
+        nuspec = (self.nupkg_dir() / f"{self._id}.nuspec").read_text(encoding="utf-8-sig")
         return NuspecParser(nuspec).dependencies()
 
     def known_dependencies(self) -> set[str]:
