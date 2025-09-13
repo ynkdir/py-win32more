@@ -110,6 +110,7 @@ class Asset:
 
 class NuspecParser:
     def __init__(self, xml) -> None:
+        print(xml)
         self._root = ET.fromstring(xml)
 
     def dependencies(self) -> Iterable[Version]:
