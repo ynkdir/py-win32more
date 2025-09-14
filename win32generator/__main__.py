@@ -6,7 +6,7 @@ from io import StringIO
 from pathlib import Path
 from typing import TextIO
 
-from . import resources, win32, win32raw, winrt
+from . import win32, win32raw, winrt
 from .metadata import Metadata
 from .package import Package
 from .preprocessor import Preprocessor
@@ -25,13 +25,6 @@ def load_files(metadata_files: list[str]) -> Metadata:
     js = []
     for file in metadata_files:
         js.extend(json.loads(xread_text(file)))
-    return Metadata(js)
-
-
-def load_resources(metadata_files: list[str]) -> Metadata:
-    js = []
-    for file in metadata_files:
-        js.extend(json.loads(resources.read_text(file)))
     return Metadata(js)
 
 
@@ -121,7 +114,7 @@ def main() -> None:
     parser.add_argument("--raw", action="store_true", help="generate raw bindings")
     parser.add_argument("--package-name", default="win32more")
     parser.add_argument("--output-directory", type=Path, default="src")
-    parser.add_argument("metadata", nargs="*", help="metadata.json")
+    parser.add_argument("metadata", nargs="+", help="metadata.json")
     args = parser.parse_args()
 
     logging.basicConfig(level=args.loglevel)
@@ -135,18 +128,7 @@ def main() -> None:
     if args.raw and args.selector is None:
         raise RuntimeError("--raw requires --selector option")
 
-    if args.metadata:
-        meta = load_files(args.metadata)
-    else:
-        meta = load_resources(
-            [
-                "metadata/Windows.Win32.json.xz",
-                "metadata/WindowsSDK.json.xz",
-                "metadata/WindowsAppSDK.json.xz",
-                "metadata/Microsoft.Web.WebView2.Core.json.xz",
-                "metadata/Microsoft.Graphics.Canvas.json.xz",
-            ]
-        )
+    meta = load_files(args.metadata)
 
     meta = preprocess(meta)
 
