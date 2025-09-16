@@ -1,4 +1,5 @@
 import operator
+from decimal import Decimal
 
 from win32more.Microsoft.UI.Xaml.Controls import Button
 
@@ -33,7 +34,7 @@ class App(XamlApplication):
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="TextBlock1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalTextAlignment="Right" FontSize="42" Margin="0,0,20,0">0</TextBlock>
+        <TextBlock x:Name="TextBlock1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalTextAlignment="Right" FontFamily="Aptos-Mono" FontSize="42" Margin="0,0,20,0">0</TextBlock>
 
         <Button x:Name="BPercent" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">%</Button>
         <Button x:Name="BCE" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">CE</Button>
@@ -78,33 +79,21 @@ class View:
     def __init__(self, textblock):
         self._textblock = textblock
 
-    def display(self, text):
-        self._textblock.Text = text
+    def display(self, lhs, op="", rhs=""):
+        self._textblock.Text = f"{lhs} {op} {rhs}".strip()
+
+    def error(self, msg):
+        self._textblock.Text = msg
 
 
 class Calc:
     def __init__(self, view):
         self._view = view
-        self._state = LhsState(self, view, "0")
+        self._state = LhsState(self, view, Number("0"))
         self._view.display("0")
 
     def input(self, cmd):
         self._state.input(cmd)
-
-    def eval(self, lhs, op, rhs):
-        operators = {
-            "+": operator.add,
-            "-": operator.sub,
-            "*": operator.mul,
-            "/": operator.truediv,
-            "%": operator.mod,
-        }
-
-        result = operators[op](float(lhs), float(rhs))
-        if isinstance(result, float) and result.is_integer():
-            result = int(result)
-
-        return str(result)
 
 
 class LhsState:
@@ -114,34 +103,18 @@ class LhsState:
         self._lhs = lhs
 
     def input(self, cmd):
-        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}:
-            if self._lhs == "0":
-                if cmd != "0":
-                    self._lhs = cmd
-            elif self._lhs == "-0":
-                if cmd != "0":
-                    self._lhs = "-" + cmd
-            else:
-                self._lhs += cmd
+        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+/-"}:
+            self._lhs.input(cmd)
             self._view.display(self._lhs)
         elif cmd in {"+", "-", "*", "/", "%"}:
-            self._model._state = OpState(self._model, self._view, self._lhs, cmd)
-            self._view.display(self._lhs + " " + cmd)
-        elif cmd == ".":
-            if "." not in self._lhs:
-                self._lhs += "."
-            self._view.display(self._lhs)
-        elif cmd == "+/-":
-            if self._lhs.startswith("-"):
-                self._lhs = self._lhs[1:]
-            else:
-                self._lhs = "-" + self._lhs
-            self._view.display(self._lhs)
+            op = Operator(cmd)
+            self._model._state = OpState(self._model, self._view, self._lhs, op)
+            self._view.display(self._lhs, op)
         elif cmd == "CE":
-            self._lhs = "0"
+            self._lhs = Number("0")
             self._view.display(self._lhs)
         elif cmd == "C":
-            self._lhs = "0"
+            self._lhs = Number("0")
             self._view.display(self._lhs)
         elif cmd == "=":
             self._view.display(self._lhs)
@@ -155,32 +128,33 @@ class OpState:
         self._op = op
 
     def input(self, cmd):
-        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}:
-            self._model._state = RhsState(self._model, self._view, self._lhs, self._op, cmd)
-            self._view.display(self._lhs + " " + self._op + " " + cmd)
+        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+/-"}:
+            if cmd == ".":
+                rhs = Number("0.")
+            elif cmd == "+/-":
+                rhs = Number("-0")
+            else:
+                rhs = Number(cmd)
+            self._model._state = RhsState(self._model, self._view, self._lhs, self._op, rhs)
+            self._view.display(self._lhs, self._op, rhs)
         elif cmd in {"+", "-", "*", "/", "%"}:
-            self._op = cmd
-            self._view.display(self._lhs + " " + self._op)
-        elif cmd == ".":
-            self._model._state = RhsState(self._model, self._view, self._lhs, self._op, "0.")
-            self._view.display(self._lhs + " " + self._op + " 0.")
-        elif cmd == "+/-":
-            self._model._state = RhsState(self._model, self._view, self._lhs, self._op, "-0")
-            self._view.display(self._lhs + " " + self._op + " -0")
+            self._op = Operator(cmd)
+            self._view.display(self._lhs, self._op)
         elif cmd == "CE":
-            self._view.display(self._lhs + " " + self._op)
+            self._view.display(self._lhs, self._op)
         elif cmd == "C":
-            self._model._state = LhsState(self._model, self._view, "0")
-            self._view.display("0")
+            lhs = Number("0")
+            self._model._state = LhsState(self._model, self._view, lhs)
+            self._view.display(lhs)
         elif cmd == "=":
             try:
-                result = self._model.eval(self._lhs, self._op, self._lhs)
-            except ZeroDivisionError as e:
-                self._model._state = LhsState(self._model, self._view, "0")
-                self._view.display(str(e))
+                lhs = self._op(self._lhs, self._lhs)
+            except ZeroDivisionError:
+                self._model._state = LhsState(self._model, self._view, Number("0"))
+                self._view.error("Cannot divide by zero")
             else:
-                self._model._state = LhsState(self._model, self._view, result)
-                self._view.display(result)
+                self._model._state = ResultState(self._model, self._view, lhs, self._op, self._lhs)
+                self._view.display(lhs)
 
 
 class RhsState:
@@ -192,50 +166,132 @@ class RhsState:
         self._rhs = rhs
 
     def input(self, cmd):
-        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}:
-            if self._rhs == "0":
-                if cmd != "0":
-                    self._rhs = cmd
-            elif self._rhs == "-0":
-                if cmd != "0":
-                    self._rhs = "-" + cmd
-            else:
-                self._rhs += cmd
-            self._view.display(self._lhs + " " + self._op + " " + self._rhs)
+        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+/-"}:
+            self._rhs.input(cmd)
+            self._view.display(self._lhs, self._op, self._rhs)
         elif cmd in {"+", "-", "*", "/", "%"}:
             try:
-                result = self._model.eval(self._lhs, self._op, self._rhs)
-            except ZeroDivisionError as e:
-                self._model._state = LhsState(self._model, self._view, "0")
-                self._view.display(str(e))
+                lhs = self._op(self._lhs, self._rhs)
+            except ZeroDivisionError:
+                self._model._state = LhsState(self._model, self._view, Number("0"))
+                self._view.error("Cannot divide by zero")
             else:
-                self._model._state = OpState(self._model, self._view, result, cmd)
-                self._view.display(result + " " + cmd)
-        elif cmd == ".":
-            if "." not in self._rhs:
-                self._rhs += "."
-            self._view.display(self._lhs + " " + self._op + " " + self._rhs)
-        elif cmd == "+/-":
-            if self._rhs.startswith("-"):
-                self._rhs = self._rhs[1:]
-            else:
-                self._rhs = "-" + self._rhs
-            self._view.display(self._lhs + " " + self._op + " " + self._rhs)
+                op = Operator(cmd)
+                self._model._state = OpState(self._model, self._view, lhs, op)
+                self._view.display(lhs, op)
         elif cmd == "CE":
-            self._rhs = "0"
-            self._view.display(self._lhs + " " + self._op + " " + self._rhs)
+            self._rhs = Number("0")
+            self._view.display(self._lhs, self._op, self._rhs)
         elif cmd == "C":
-            self._model._state = LhsState(self._model, self._view, "0")
-            self._view.display("0")
+            lhs = Number("0")
+            self._model._state = LhsState(self._model, self._view, lhs)
+            self._view.display(lhs)
         elif cmd == "=":
             try:
-                result = self._model.eval(self._lhs, self._op, self._rhs)
-            except ZeroDivisionError as e:
-                self._model._state = LhsState(self._model, self._view, "0")
-                self._view.display(str(e))
+                lhs = self._op(self._lhs, self._rhs)
+            except ZeroDivisionError:
+                self._model._state = LhsState(self._model, self._view, Number("0"))
+                self._view.error("Cannot divide by zero")
             else:
-                self._model._state = LhsState(self._model, self._view, result)
-                self._view.display(result)
+                self._model._state = ResultState(self._model, self._view, lhs, self._op, self._rhs)
+                self._view.display(lhs)
+
+
+class ResultState:
+    def __init__(self, model, view, lhs, op, rhs):
+        self._model = model
+        self._view = view
+        self._lhs = lhs
+        self._op = op
+        self._rhs = rhs
+
+    def input(self, cmd):
+        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."}:
+            if cmd == ".":
+                lhs = Number("0.")
+            else:
+                lhs = Number(cmd)
+            self._model._state = LhsState(self._model, self._view, lhs)
+            self._view.display(lhs)
+        elif cmd == "+/-":
+            self._lhs.input(cmd)
+            self._view.display(self._lhs)
+        elif cmd in {"+", "-", "*", "/", "%"}:
+            op = Operator(cmd)
+            self._model._state = OpState(self._model, self._view, self._lhs, op)
+            self._view.display(self._lhs, op)
+        elif cmd == "CE":
+            lhs = Number("0")
+            self._model._state = LhsState(self._model, self._view, lhs)
+            self._view.display(lhs)
+        elif cmd == "C":
+            lhs = Number("0")
+            self._model._state = LhsState(self._model, self._view, lhs)
+            self._view.display(lhs)
+        elif cmd == "=":
+            try:
+                self._lhs = self._op(self._lhs, self._rhs)
+            except ZeroDivisionError:
+                self._model._state = LhsState(self._model, self._view, Number("0"))
+                self._view.error("Cannot divide by zero")
+            else:
+                self._view.display(self._lhs)
+
+
+class Number:
+    def __init__(self, num):
+        self._num = num
+
+    def input(self, cmd):
+        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}:
+            if self._num == "0":
+                if cmd != "0":
+                    self._num = cmd
+            elif self._num == "-0":
+                if cmd != "0":
+                    self._num = "-" + cmd
+            else:
+                self._num += cmd
+        elif cmd == ".":
+            if "." not in self._num:
+                self._num += "."
+        elif cmd == "+/-":
+            if self._num.startswith("-"):
+                self._num = self._num[1:]
+            else:
+                self._num = "-" + self._num
+
+    def __str__(self):
+        return self._num
+
+    def decimal(self):
+        return Decimal(self._num)
+
+
+class Operator:
+    def __init__(self, op):
+        self._op = op
+
+    def __str__(self):
+        return self._op
+
+    def __call__(self, lhs, rhs):
+        operators = {
+            "+": operator.add,
+            "-": operator.sub,
+            "*": operator.mul,
+            "/": operator.truediv,
+            "%": operator.mod,
+        }
+
+        if self._op in {"/", "%"} and rhs.decimal().is_zero():
+            raise ZeroDivisionError()
+
+        result = operators[self._op](lhs.decimal(), rhs.decimal())
+        if result.to_integral_value() == result:
+            result = result.to_integral_value()
+
+        return Number(str(result))
 
 
 XamlApplication.Start(App)
