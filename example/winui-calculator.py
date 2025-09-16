@@ -2,6 +2,7 @@ import operator
 from decimal import Decimal
 
 from win32more.Microsoft.UI.Xaml.Controls import Button
+from win32more.Windows.System import VirtualKey
 
 from win32more.appsdk.xaml import XamlApplication, XamlLoader
 
@@ -19,6 +20,26 @@ class App(XamlApplication):
     mc:Ignorable="d">
 
     <Grid>
+        <Grid.KeyboardAccelerators>
+            <KeyboardAccelerator Key="Numberpad0" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Numberpad1" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Numberpad2" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Numberpad3" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Numberpad4" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Numberpad5" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Numberpad6" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Numberpad7" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Numberpad8" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Numberpad9" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Decimal" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Add" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Subtract" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Multiply" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Divide" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Escape" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+            <KeyboardAccelerator Key="Enter" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
+        </Grid.KeyboardAccelerators>
+
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
@@ -73,6 +94,44 @@ class App(XamlApplication):
     def _on_button_click(self, sender, e):
         cmd = sender.as_(Button).Content.as_(str)
         self._model.input(cmd)
+
+    def _on_keyboard_accelerator_invoked(self, sender, e):
+        e.Handled = True
+        key = e.KeyboardAccelerator.Key
+        if key == VirtualKey.NumberPad0:
+            self._model.input("0")
+        elif key == VirtualKey.NumberPad1:
+            self._model.input("1")
+        elif key == VirtualKey.NumberPad2:
+            self._model.input("2")
+        elif key == VirtualKey.NumberPad3:
+            self._model.input("3")
+        elif key == VirtualKey.NumberPad4:
+            self._model.input("4")
+        elif key == VirtualKey.NumberPad5:
+            self._model.input("5")
+        elif key == VirtualKey.NumberPad6:
+            self._model.input("6")
+        elif key == VirtualKey.NumberPad7:
+            self._model.input("7")
+        elif key == VirtualKey.NumberPad8:
+            self._model.input("8")
+        elif key == VirtualKey.NumberPad9:
+            self._model.input("9")
+        elif key == VirtualKey.Decimal:
+            self._model.input(".")
+        elif key == VirtualKey.Add:
+            self._model.input("+")
+        elif key == VirtualKey.Subtract:
+            self._model.input("-")
+        elif key == VirtualKey.Multiply:
+            self._model.input("*")
+        elif key == VirtualKey.Divide:
+            self._model.input("/")
+        elif key == VirtualKey.Escape:
+            self._model.input("C")
+        elif key == VirtualKey.Enter:
+            self._model.input("=")
 
 
 class View:
