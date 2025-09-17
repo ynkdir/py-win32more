@@ -138,163 +138,149 @@ class View:
     def __init__(self, textblock):
         self._textblock = textblock
 
-    def display(self, lhs, op="", rhs=""):
-        self._textblock.Text = f"{lhs} {op} {rhs}".strip()
-
-    def error(self, msg):
-        self._textblock.Text = msg
+    def display(self, txt):
+        self._textblock.Text = txt
 
 
 class Calc:
     def __init__(self, view):
         self._view = view
-        self._state = LhsState(self, view, Number("0"))
-        self._view.display("0")
+        self._state = LhsState(Number("0"))
+        self._view.display(str(self._state))
 
     def input(self, cmd):
-        self._state.input(cmd)
+        self._state = self._state.input(cmd)
+        self._view.display(str(self._state))
 
 
 class LhsState:
-    def __init__(self, model, view, lhs):
-        self._model = model
-        self._view = view
+    def __init__(self, lhs):
         self._lhs = lhs
 
     def input(self, cmd):
         if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+/-"}:
-            self._lhs.input(cmd)
-            self._view.display(self._lhs)
+            return LhsState(self._lhs.input(cmd))
         elif cmd in {"+", "-", "*", "/", "%"}:
-            op = Operator(cmd)
-            self._model._state = OpState(self._model, self._view, self._lhs, op)
-            self._view.display(self._lhs, op)
+            return OpState(self._lhs, Operator(cmd))
         elif cmd == "CE":
-            self._lhs = Number("0")
-            self._view.display(self._lhs)
+            return LhsState(Number("0"))
         elif cmd == "C":
-            self._lhs = Number("0")
-            self._view.display(self._lhs)
+            return LhsState(Number("0"))
         elif cmd == "=":
-            self._view.display(self._lhs)
+            return self
+        raise RuntimeError("never happen")
+
+    def __str__(self):
+        return f"{self._lhs}"
 
 
 class OpState:
-    def __init__(self, model, view, lhs, op):
-        self._model = model
-        self._view = view
+    def __init__(self, lhs, op):
         self._lhs = lhs
         self._op = op
 
     def input(self, cmd):
-        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+/-"}:
-            if cmd == ".":
-                rhs = Number("0.")
-            elif cmd == "+/-":
-                rhs = Number("-0")
-            else:
-                rhs = Number(cmd)
-            self._model._state = RhsState(self._model, self._view, self._lhs, self._op, rhs)
-            self._view.display(self._lhs, self._op, rhs)
+        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}:
+            return RhsState(self._lhs, self._op, Number(cmd))
+        elif cmd == ".":
+            return RhsState(self._lhs, self._op, Number("0."))
+        elif cmd == "+/-":
+            return RhsState(self._lhs, self._op, Number("-0"))
         elif cmd in {"+", "-", "*", "/", "%"}:
-            self._op = Operator(cmd)
-            self._view.display(self._lhs, self._op)
+            return OpState(self._lhs, Operator(cmd))
         elif cmd == "CE":
-            self._view.display(self._lhs, self._op)
+            return self
         elif cmd == "C":
-            lhs = Number("0")
-            self._model._state = LhsState(self._model, self._view, lhs)
-            self._view.display(lhs)
+            return LhsState(Number("0"))
         elif cmd == "=":
             try:
                 lhs = self._op(self._lhs, self._lhs)
             except ZeroDivisionError:
-                self._model._state = LhsState(self._model, self._view, Number("0"))
-                self._view.error("Cannot divide by zero")
+                return ErrorState("Cannot divide by zero")
             else:
-                self._model._state = ResultState(self._model, self._view, lhs, self._op, self._lhs)
-                self._view.display(lhs)
+                return ResultState(lhs, self._op, self._lhs)
+        raise RuntimeError("never happen")
+
+    def __str__(self):
+        return f"{self._lhs} {self._op}"
 
 
 class RhsState:
-    def __init__(self, model, view, lhs, op, rhs):
-        self._model = model
-        self._view = view
+    def __init__(self, lhs, op, rhs):
         self._lhs = lhs
         self._op = op
         self._rhs = rhs
 
     def input(self, cmd):
         if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+/-"}:
-            self._rhs.input(cmd)
-            self._view.display(self._lhs, self._op, self._rhs)
+            return RhsState(self._lhs, self._op, self._rhs.input(cmd))
         elif cmd in {"+", "-", "*", "/", "%"}:
             try:
                 lhs = self._op(self._lhs, self._rhs)
             except ZeroDivisionError:
-                self._model._state = LhsState(self._model, self._view, Number("0"))
-                self._view.error("Cannot divide by zero")
+                return ErrorState("Cannot divide by zero")
             else:
-                op = Operator(cmd)
-                self._model._state = OpState(self._model, self._view, lhs, op)
-                self._view.display(lhs, op)
+                return OpState(lhs, Operator(cmd))
         elif cmd == "CE":
-            self._rhs = Number("0")
-            self._view.display(self._lhs, self._op, self._rhs)
+            return RhsState(self._lhs, self._op, Number("0"))
         elif cmd == "C":
-            lhs = Number("0")
-            self._model._state = LhsState(self._model, self._view, lhs)
-            self._view.display(lhs)
+            return LhsState(Number("0"))
         elif cmd == "=":
             try:
                 lhs = self._op(self._lhs, self._rhs)
             except ZeroDivisionError:
-                self._model._state = LhsState(self._model, self._view, Number("0"))
-                self._view.error("Cannot divide by zero")
+                return ErrorState("Cannot divide by zero")
             else:
-                self._model._state = ResultState(self._model, self._view, lhs, self._op, self._rhs)
-                self._view.display(lhs)
+                return ResultState(lhs, self._op, self._rhs)
+        raise RuntimeError("never happen")
+
+    def __str__(self):
+        return f"{self._lhs} {self._op} {self._rhs}"
 
 
 class ResultState:
-    def __init__(self, model, view, lhs, op, rhs):
-        self._model = model
-        self._view = view
+    def __init__(self, lhs, op, rhs):
         self._lhs = lhs
         self._op = op
         self._rhs = rhs
 
     def input(self, cmd):
-        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."}:
-            if cmd == ".":
-                lhs = Number("0.")
-            else:
-                lhs = Number(cmd)
-            self._model._state = LhsState(self._model, self._view, lhs)
-            self._view.display(lhs)
+        if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}:
+            return LhsState(Number(cmd))
+        elif cmd == ".":
+            return LhsState(Number("0."))
         elif cmd == "+/-":
-            self._lhs.input(cmd)
-            self._view.display(self._lhs)
+            return ResultState(self._lhs.input(cmd), self._op, self._rhs)
         elif cmd in {"+", "-", "*", "/", "%"}:
-            op = Operator(cmd)
-            self._model._state = OpState(self._model, self._view, self._lhs, op)
-            self._view.display(self._lhs, op)
+            return OpState(self._lhs, Operator(cmd))
         elif cmd == "CE":
-            lhs = Number("0")
-            self._model._state = LhsState(self._model, self._view, lhs)
-            self._view.display(lhs)
+            return LhsState(Number("0"))
         elif cmd == "C":
-            lhs = Number("0")
-            self._model._state = LhsState(self._model, self._view, lhs)
-            self._view.display(lhs)
+            return LhsState(Number("0"))
         elif cmd == "=":
             try:
-                self._lhs = self._op(self._lhs, self._rhs)
+                lhs = self._op(self._lhs, self._rhs)
             except ZeroDivisionError:
-                self._model._state = LhsState(self._model, self._view, Number("0"))
-                self._view.error("Cannot divide by zero")
+                return ErrorState("Cannot divide by zero")
             else:
-                self._view.display(self._lhs)
+                return ResultState(lhs, self._op, self._rhs)
+        raise RuntimeError("never happen")
+
+    def __str__(self):
+        return f"{self._lhs}"
+
+
+class ErrorState:
+    def __init__(self, msg):
+        self._msg = msg
+
+    def input(self, cmd):
+        if cmd in {"CE", "C"}:
+            return LhsState(Number("0"))
+        return self
+
+    def __str__(self):
+        return self._msg
 
 
 class Number:
@@ -304,21 +290,19 @@ class Number:
     def input(self, cmd):
         if cmd in {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}:
             if self._num == "0":
-                if cmd != "0":
-                    self._num = cmd
+                return Number(cmd)
             elif self._num == "-0":
-                if cmd != "0":
-                    self._num = "-" + cmd
-            else:
-                self._num += cmd
+                return Number("-" + cmd)
+            return Number(self._num + cmd)
         elif cmd == ".":
-            if "." not in self._num:
-                self._num += "."
+            if "." in self._num:
+                return self
+            return Number(self._num + ".")
         elif cmd == "+/-":
             if self._num.startswith("-"):
-                self._num = self._num[1:]
-            else:
-                self._num = "-" + self._num
+                return Number(self._num[1:])
+            return Number("-" + self._num)
+        raise RuntimeError("never happen")
 
     def __str__(self):
         return self._num
