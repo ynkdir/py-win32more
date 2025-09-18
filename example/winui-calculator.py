@@ -2,7 +2,6 @@ import operator
 from decimal import Decimal
 
 from win32more.Microsoft.UI.Xaml.Controls import Button
-from win32more.Windows.System import VirtualKey
 
 from win32more.appsdk.xaml import XamlApplication, XamlLoader
 
@@ -20,26 +19,6 @@ class App(XamlApplication):
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.KeyboardAccelerators>
-            <KeyboardAccelerator Key="Numberpad0" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Numberpad1" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Numberpad2" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Numberpad3" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Numberpad4" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Numberpad5" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Numberpad6" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Numberpad7" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Numberpad8" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Numberpad9" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Decimal" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Add" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Subtract" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Multiply" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Divide" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Escape" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-            <KeyboardAccelerator Key="Enter" Modifiers="None" Invoked="_on_keyboard_accelerator_invoked" />
-        </Grid.KeyboardAccelerators>
-
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
@@ -57,30 +36,67 @@ class App(XamlApplication):
 
         <TextBlock x:Name="TextBlock1" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalTextAlignment="Right" FontFamily="Aptos-Mono" FontSize="42" Margin="0,0,20,0">0</TextBlock>
 
-        <Button x:Name="BPercent" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">%</Button>
-        <Button x:Name="BCE" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">CE</Button>
-        <Button x:Name="BC" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">C</Button>
-        <Button x:Name="BDevide" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">/</Button>
+        <Button x:Name="BPercent" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="%">
+        </Button>
+        <Button x:Name="BCE" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="CE">
+        </Button>
+        <Button x:Name="BC" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="C">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Escape" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="BDevide" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="/">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Divide" /></Button.KeyboardAccelerators>
+        </Button>
 
-        <Button x:Name="B7" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">7</Button>
-        <Button x:Name="B8" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">8</Button>
-        <Button x:Name="B9" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">9</Button>
-        <Button x:Name="BMultiply" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">*</Button>
+        <Button x:Name="B7" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="7">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="NumberPad7" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="B8" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="8">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="NumberPad8" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="B9" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="9">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="NumberPad9" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="BMultiply" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="*">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Multiply" /></Button.KeyboardAccelerators>
+        </Button>
 
-        <Button x:Name="B4" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">4</Button>
-        <Button x:Name="B5" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">5</Button>
-        <Button x:Name="B6" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">6</Button>
-        <Button x:Name="BMinus" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">-</Button>
+        <Button x:Name="B4" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="4">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="NumberPad4" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="B5" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="5">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="NumberPad5" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="B6" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="6">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="NumberPad6" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="BMinus" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="-">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Subtract" /></Button.KeyboardAccelerators>
+        </Button>
 
-        <Button x:Name="B1" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">1</Button>
-        <Button x:Name="B2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">2</Button>
-        <Button x:Name="B3" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">3</Button>
-        <Button x:Name="BPlus" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">+</Button>
+        <Button x:Name="B1" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="1">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Numberpad1" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="B2" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="2">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Numberpad2" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="B3" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="3">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Numberpad3" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="BPlus" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="+">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Add" /></Button.KeyboardAccelerators>
+        </Button>
 
-        <Button x:Name="BPM" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">+/-</Button>
-        <Button x:Name="B0" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">0</Button>
-        <Button x:Name="BPeriod" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">.</Button>
-        <Button x:Name="BEqual" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click">=</Button>
+        <Button x:Name="BPM" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="+/-">
+        </Button>
+        <Button x:Name="B0" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="0">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Numberpad0" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="BPeriod" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content=".">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Decimal" /></Button.KeyboardAccelerators>
+        </Button>
+        <Button x:Name="BEqual" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="_on_button_click" Content="=">
+            <Button.KeyboardAccelerators><KeyboardAccelerator Key="Enter" /></Button.KeyboardAccelerators>
+        </Button>
 
     </Grid>
 </Window>
@@ -94,44 +110,6 @@ class App(XamlApplication):
     def _on_button_click(self, sender, e):
         cmd = sender.as_(Button).Content.as_(str)
         self._model.input(cmd)
-
-    def _on_keyboard_accelerator_invoked(self, sender, e):
-        e.Handled = True
-        key = e.KeyboardAccelerator.Key
-        if key == VirtualKey.NumberPad0:
-            self._model.input("0")
-        elif key == VirtualKey.NumberPad1:
-            self._model.input("1")
-        elif key == VirtualKey.NumberPad2:
-            self._model.input("2")
-        elif key == VirtualKey.NumberPad3:
-            self._model.input("3")
-        elif key == VirtualKey.NumberPad4:
-            self._model.input("4")
-        elif key == VirtualKey.NumberPad5:
-            self._model.input("5")
-        elif key == VirtualKey.NumberPad6:
-            self._model.input("6")
-        elif key == VirtualKey.NumberPad7:
-            self._model.input("7")
-        elif key == VirtualKey.NumberPad8:
-            self._model.input("8")
-        elif key == VirtualKey.NumberPad9:
-            self._model.input("9")
-        elif key == VirtualKey.Decimal:
-            self._model.input(".")
-        elif key == VirtualKey.Add:
-            self._model.input("+")
-        elif key == VirtualKey.Subtract:
-            self._model.input("-")
-        elif key == VirtualKey.Multiply:
-            self._model.input("*")
-        elif key == VirtualKey.Divide:
-            self._model.input("/")
-        elif key == VirtualKey.Escape:
-            self._model.input("C")
-        elif key == VirtualKey.Enter:
-            self._model.input("=")
 
 
 class View:
