@@ -140,6 +140,9 @@ class TestWinrt(unittest.TestCase):
         mock.test_int(p)
         self.assertEqual(p, b"\x01\x02\x03")
 
+        with self.assertRaisesRegex(TypeError, "cannot convert .* to FillArray"):
+            mock.test_int(42)
+
     def test_receivearray(self):
         class IMock(IInspectable):
             _classid_ = "IMock"
@@ -171,6 +174,9 @@ class TestWinrt(unittest.TestCase):
         p = bytearray()
         mock.test_int(p)
         self.assertEqual(p, b"\x01\x02\x03")
+
+        with self.assertRaisesRegex(TypeError, "cannot convert .* to ReceiveArray"):
+            mock.test_int(42)
 
     def test_passarray(self):
         async def winrt_readlines():
@@ -212,6 +218,9 @@ class TestWinrt(unittest.TestCase):
         self.assertEqual(mock.test_int((1, 2, 3)), [1, 2, 3])
         self.assertEqual(mock.test_int(b"\x01\x02\x03"), [1, 2, 3])
         self.assertEqual(mock.test_int(bytearray(b"\x01\x02\x03")), [1, 2, 3])
+
+        with self.assertRaisesRegex(TypeError, "cannot convert .* to PassArray"):
+            mock.test_int(42)
 
     def test_receivearray_param(self):
         inarray = [1, 2, 3]

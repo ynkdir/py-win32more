@@ -382,17 +382,21 @@ def _get_specialized_bases(cls):
 
 # Dummy type for list[T]
 class PassArray(Generic[T]):
-    def __init__(self, type_, lst):
-        self.type_ = type_
-        if self.type_ is WinRT_String:
-            self.lst = [WinRT_String(s, own=True) for s in lst]
+    def __init__(self, type_, seq):
+        self._type = type_
+
+        if isinstance(seq, Sequence):
+            if self._type is WinRT_String:
+                self.seq = [WinRT_String(s, own=True) for s in seq]
+            else:
+                self.seq = seq
+            self.length = UInt32(len(self.seq))
+            self.ptr = (self._type * len(self.seq))(*self.seq)
         else:
-            self.lst = lst
-        self.length = UInt32(len(self.lst))
-        self.ptr = (self.type_ * len(self.lst))(*self.lst)
+            raise TypeError(f"cannot convert {type(seq)} to PassArray[{type_.__name__}]")
 
     def later(self):
-        # to keep self.lst instance
+        # to keep self.seq instance
         pass
 
 
@@ -416,23 +420,27 @@ class PassArrayCallback:
 
 # Dummy type for list[T]
 class FillArray(Generic[T]):
-    def __init__(self, type_, lst):
-        self.type_ = type_
-        self.lst = lst
-        self.length = UInt32(len(lst))
-        self.ptr = (type_ * len(lst))()
+    def __init__(self, type_, seq):
+        self._type = type_
+
+        if isinstance(seq, MutableSequence):
+            self.seq = seq
+            self.length = UInt32(len(seq))
+            self.ptr = (type_ * len(seq))()
+        else:
+            raise TypeError(f"cannot convert {type(seq)} to FillArray[{type_.__name__}]")
 
     def later(self):
-        if self.type_ is WinRT_String:
-            self.lst[:] = [s.strvalue for s in self.ptr[:]]
+        if self._type is WinRT_String:
+            self.seq[:] = [s.strvalue for s in self.ptr[:]]
             for s in self.ptr[:]:
                 s.clear()
-        elif is_com_class(self.type_):
-            self.lst[:] = self.ptr[:]
-            for p in self.lst:
+        elif is_com_class(self._type):
+            self.seq[:] = self.ptr[:]
+            for p in self.seq:
                 p._own = True
         else:
-            self.lst[:] = self.ptr[:]
+            self.seq[:] = self.ptr[:]
 
 
 class FillArrayCallback:
@@ -456,25 +464,29 @@ class FillArrayCallback:
 
 # Dummy type for list[T]
 class ReceiveArray(Generic[T]):
-    def __init__(self, type_, lst):
-        self.type_ = type_
-        self.lst = lst
-        self.length = UInt32()
-        self.ptr = POINTER(type_)()
+    def __init__(self, type_, seq):
+        self._type = type_
+
+        if isinstance(seq, MutableSequence):
+            self.seq = seq
+            self.length = UInt32()
+            self.ptr = POINTER(type_)()
+        else:
+            raise TypeError(f"cannot convert {type(seq)} to ReceiveArray[{type_.__name__}]")
 
     def later(self):
-        if self.type_ is WinRT_String:
-            self.lst[:] = [s.strvalue for s in self.ptr[: self.length.value]]
+        if self._type is WinRT_String:
+            self.seq[:] = [s.strvalue for s in self.ptr[: self.length.value]]
             for s in self.ptr[: self.length.value]:
                 s.clear()
-        elif is_com_class(self.type_):
-            self.lst[:] = [self.type_.from_buffer_copy(p) for p in self.ptr[: self.length.value]]
-            for p in self.lst:
+        elif is_com_class(self._type):
+            self.seq[:] = [self._type.from_buffer_copy(p) for p in self.ptr[: self.length.value]]
+            for p in self.seq:
                 p._own = True
-        elif not is_simple_cdata(self.type_):
-            self.lst[:] = [self.type_.from_buffer_copy(p) for p in self.ptr[: self.length.value]]
+        elif not is_simple_cdata(self._type):
+            self.seq[:] = [self._type.from_buffer_copy(p) for p in self.ptr[: self.length.value]]
         else:
-            self.lst[:] = self.ptr[: self.length.value]
+            self.seq[:] = self.ptr[: self.length.value]
         CoTaskMemFree(self.ptr)
 
 
@@ -648,22 +660,22 @@ class WinrtMethodCall:
         pargs = parse_arguments(self._prototype.__qualname__, list(self.hints), args, kwargs, False)
         cargs = []
         for v, t in zip(pargs, self.hints.values()):  # >=3.10 strict=True
-            if isinstance(v, Sequence) and is_passarray_class(t):
+            if is_passarray_class(t):
                 szarray = PassArray(get_args(t)[0], v)
                 cargs.append(szarray.length)
                 cargs.append(szarray.ptr)
                 calllater.append(szarray.later)
-            elif isinstance(v, MutableSequence) and is_fillarray_class(t):
+            elif is_fillarray_class(t):
                 szarray = FillArray(get_args(t)[0], v)
                 cargs.append(szarray.length)
                 cargs.append(szarray.ptr)
                 calllater.append(szarray.later)
-            elif isinstance(v, MutableSequence) and is_receivearray_class(t):
+            elif is_receivearray_class(t):
                 szarray = ReceiveArray(get_args(t)[0], v)
                 cargs.append(pointer(szarray.length))
                 cargs.append(pointer(szarray.ptr))
                 calllater.append(szarray.later)
-            elif callable(v) and is_delegate_class(t):
+            elif is_delegate_class(t):
                 cargs.append(MulticastDelegateImpl(t, v))
             elif is_com_instance(v) and is_com_class(t):
                 cargs.append(v.as_(t))
@@ -678,7 +690,7 @@ class WinrtMethodCall:
             return None
         elif is_receivearray_class(self.restype):
             result.later()
-            return result.lst
+            return result.seq
         elif issubclass(_get_origin_or_itself(self.restype), IReference):
             if not result:
                 return None
@@ -1208,6 +1220,8 @@ class MulticastDelegate(IUnknown):
 
 class MulticastDelegateImpl(ComClass):
     def __init__(self, interface, callback):
+        if not callable(callback):
+            raise TypeError(f"cannot convert {type(callback)} to MulticastDelegate")
         self._interface = interface
         self._callback = callback
         super().__init__(own=True)
