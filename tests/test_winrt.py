@@ -198,6 +198,30 @@ class TestWinrt(unittest.TestCase):
         r = GetArray(this, 42)
         self.assertEqual(r, [42])
 
+    def test_receivearray_callback(self):
+        class IMock(IInspectable):
+            _classid_ = "IMock"
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def f(self, p: PassArray[WinRT_String]) -> ReceiveArray[WinRT_String]: ...
+
+            @winrt_commethod(7)
+            def g(self, p: PassArray[UInt32]) -> ReceiveArray[UInt32]: ...
+
+        class Mock(ComClass, IMock):
+            def f(self, p: list[str]) -> list[str]:
+                return p
+
+            def g(self, p: list[int]) -> list[int]:
+                return p
+
+        mock = Mock().as_(IMock)
+
+        self.assertEqual(mock.f(["hello"]), ["hello"])
+        self.assertEqual(mock.g([1, 2, 3]), [1, 2, 3])
+
+
     def test_guid_generation_for_parameterized_types(self):
         self.assertEqual(
             str(_ro_get_parameterized_type_instance_iid(IVector[IInspectable])),
