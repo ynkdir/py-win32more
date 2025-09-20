@@ -1084,7 +1084,6 @@ class Vtbl(Structure):
         elif is_receivearray_class(restype):
             if not isinstance(r, list):
                 raise ValueError(f"list is expected: {r}")
-            # FIXME: if len(r) == 0: p = 0 ?
             p = CoTaskMemAlloc(sizeof(c_void_p) * len(r))
             if not p:
                 raise WinError()
