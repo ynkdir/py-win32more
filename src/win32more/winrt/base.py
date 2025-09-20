@@ -176,6 +176,9 @@ def winrt_easycast(obj, type_):
         if obj is None:
             return IReference(None)
         return box_value(obj).as_(type_)
+    elif is_generic_alias(type_):
+        # Do not propagate generic type
+        return obj
     return easycast(obj, type_)
 
 
