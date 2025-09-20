@@ -6,7 +6,7 @@ import logging
 import sys
 import types
 import uuid
-from collections.abc import Iterable
+from collections.abc import Iterable, MutableSequence, Sequence
 from ctypes import (
     POINTER,
     Structure,
@@ -480,7 +480,7 @@ class ReceiveArray(Generic[T]):
 
 class ReceiveArrayCallback:
     def __init__(self, type_, psize, pptr):
-        self._type = type
+        self._type = type_
         self._psize = psize
         self._pptr = pptr
         self._lst = []
@@ -490,7 +490,7 @@ class ReceiveArrayCallback:
         ptr = CoTaskMemAlloc(len(self._lst) * sizeof(self._type))
         if not ptr:
             raise WinError()
-        self._pptr[0] = ptr
+        self._pptr[0].contents = self._type.from_address(ptr)
         for i, v in enumerate(self._lst):
             if self._type is WinRT_String:
                 self._pptr[0][i] = WinRT_String(v)
@@ -648,17 +648,17 @@ class WinrtMethodCall:
         pargs = parse_arguments(self._prototype.__qualname__, list(self.hints), args, kwargs, False)
         cargs = []
         for v, t in zip(pargs, self.hints.values()):  # >=3.10 strict=True
-            if isinstance(v, list) and is_passarray_class(t):
+            if isinstance(v, Sequence) and is_passarray_class(t):
                 szarray = PassArray(get_args(t)[0], v)
                 cargs.append(szarray.length)
                 cargs.append(szarray.ptr)
                 calllater.append(szarray.later)
-            elif isinstance(v, list) and is_fillarray_class(t):
+            elif isinstance(v, MutableSequence) and is_fillarray_class(t):
                 szarray = FillArray(get_args(t)[0], v)
                 cargs.append(szarray.length)
                 cargs.append(szarray.ptr)
                 calllater.append(szarray.later)
-            elif isinstance(v, list) and is_receivearray_class(t):
+            elif isinstance(v, MutableSequence) and is_receivearray_class(t):
                 szarray = ReceiveArray(get_args(t)[0], v)
                 cargs.append(pointer(szarray.length))
                 cargs.append(pointer(szarray.ptr))

@@ -5,33 +5,6 @@ from concurrent.futures import Future
 from pathlib import Path
 from typing import Generic, TypeVar
 
-from win32more import (
-    FAILED,
-    POINTER,
-    WINFUNCTYPE,
-    Byte,
-    Enum,
-    Guid,
-    Int32,
-    UInt32,
-    VoidPtr,
-    WinError,
-    cast,
-    pointer,
-)
-from win32more.winrt import (
-    ComClass,
-    ComError,
-    MulticastDelegateImpl,
-    PassArray,
-    ReceiveArray,
-    WinRT_String,
-    box_value,
-    unbox_value,
-    winrt_commethod,
-)
-from win32more.winrt.vector import Vector
-from win32more.winrt.base import _ro_get_parameterized_type_instance_iid
 from win32more.Windows.Data.Json import JsonObject, JsonValue
 from win32more.Windows.Data.Xml.Dom import XmlDocument
 from win32more.Windows.Devices.Display import DisplayMonitor
@@ -44,6 +17,36 @@ from win32more.Windows.System.Threading import ThreadPool
 from win32more.Windows.Win32.Foundation import HRESULT, S_OK
 from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
+
+from win32more import (
+    FAILED,
+    POINTER,
+    WINFUNCTYPE,
+    Byte,
+    Enum,
+    Guid,
+    Int32,
+    UInt32,
+    Void,
+    VoidPtr,
+    WinError,
+    cast,
+    pointer,
+)
+from win32more.winrt import (
+    ComClass,
+    ComError,
+    FillArray,
+    MulticastDelegateImpl,
+    PassArray,
+    ReceiveArray,
+    WinRT_String,
+    box_value,
+    unbox_value,
+    winrt_commethod,
+)
+from win32more.winrt.base import _ro_get_parameterized_type_instance_iid
+from win32more.winrt.vector import Vector
 
 if sys.platform == "cygwin":
     from win32more.win32.cygwin import posix_to_win
@@ -105,6 +108,70 @@ class TestWinrt(unittest.TestCase):
         ivector.GetMany(0, lines10)
         self.assertEqual(lines10, lines[0:10])
 
+    def test_fillarray2(self):
+        class IMock(IInspectable):
+            _classid_ = "IMock"
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def test_str(self, p: FillArray[WinRT_String]) -> Void: ...
+
+            @winrt_commethod(7)
+            def test_int(self, p: FillArray[Int32]) -> Void: ...
+
+        class Mock(ComClass, IMock):
+            def test_str(self, p: list[str]) -> None:
+                p[:] = ["hello"]
+
+            def test_int(self, p: list[int]) -> None:
+                p[:] = [1, 2, 3]
+
+        mock = Mock().as_(IMock)
+
+        p = [None]
+        mock.test_str(p)
+        self.assertEqual(p, ["hello"])
+
+        p = [None, None, None]
+        mock.test_int(p)
+        self.assertEqual(p, [1, 2, 3])
+
+        p = bytearray(3)
+        mock.test_int(p)
+        self.assertEqual(p, b"\x01\x02\x03")
+
+    def test_receivearray(self):
+        class IMock(IInspectable):
+            _classid_ = "IMock"
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @winrt_commethod(6)
+            def test_str(self, p: ReceiveArray[WinRT_String]) -> Void: ...
+
+            @winrt_commethod(7)
+            def test_int(self, p: ReceiveArray[Int32]) -> Void: ...
+
+        class Mock(ComClass, IMock):
+            def test_str(self, p: list[str]) -> None:
+                p[:] = ["hello"]
+
+            def test_int(self, p: list[int]) -> None:
+                p[:] = [1, 2, 3]
+
+        mock = Mock().as_(IMock)
+
+        p = []
+        mock.test_str(p)
+        self.assertEqual(p, ["hello"])
+
+        p = []
+        mock.test_int(p)
+        self.assertEqual(p, [1, 2, 3])
+
+        p = bytearray()
+        mock.test_int(p)
+        self.assertEqual(p, b"\x01\x02\x03")
+
     def test_passarray(self):
         async def winrt_readlines():
             return await PathIO.ReadLinesAsync(posix_to_win(__file__))
@@ -115,39 +182,36 @@ class TestWinrt(unittest.TestCase):
         lines10 = [ivector.GetAt(i) for i in range(10)]
         self.assertEqual(lines10, lines[0:10])
 
-    def test_passarray_convert_hstring_to_str(self):
+    def test_passarray2(self):
+        # and testing ReceiveArray
+
         class IMock(IInspectable):
             _classid_ = "IMock"
             _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
 
             @winrt_commethod(6)
-            def f(self, p: PassArray[WinRT_String]) -> WinRT_String: ...
+            def test_str(self, p: PassArray[WinRT_String]) -> ReceiveArray[WinRT_String]: ...
+
+            @winrt_commethod(7)
+            def test_int(self, p: PassArray[Int32]) -> ReceiveArray[Int32]: ...
 
         class Mock(ComClass, IMock):
-            def f(self, p: list[str]) -> str:
-                return p[0]
+            def test_str(self, p: list[str]) -> list[str]:
+                return p
+
+            def test_int(self, p: list[int]) -> list[int]:
+                return p
 
         mock = Mock().as_(IMock)
 
-        # winrt call: mock.f(["str"]) -> WinrtMethod([hstring])
-        # winrt callback: vtbl.f([hstring]) -> Mock.f(["str"])
-        self.assertEqual(mock.f(["hello"]), "hello")
+        # winrt call: mock.test_str(["str"]) -> WinrtMethod([hstring])
+        # winrt callback: vtbl.test_str([hstring]) -> Mock.test_str(["str"])
+        self.assertEqual(mock.test_str(["hello"]), ["hello"])
 
-    def test_passarray_callback_simple_cdata(self):
-        class IMock(IInspectable):
-            _classid_ = "IMock"
-            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
-
-            @winrt_commethod(6)
-            def f(self, p: PassArray[Int32]) -> WinRT_String: ...
-
-        class Mock(ComClass, IMock):
-            def f(self, p: list[str]) -> str:
-                return str(p)
-
-        mock = Mock().as_(IMock)
-
-        self.assertEqual(mock.f([1, 2, 3]), "[1, 2, 3]")
+        self.assertEqual(mock.test_int([1, 2, 3]), [1, 2, 3])
+        self.assertEqual(mock.test_int((1, 2, 3)), [1, 2, 3])
+        self.assertEqual(mock.test_int(b"\x01\x02\x03"), [1, 2, 3])
+        self.assertEqual(mock.test_int(bytearray(b"\x01\x02\x03")), [1, 2, 3])
 
     def test_receivearray_param(self):
         inarray = [1, 2, 3]
@@ -197,30 +261,6 @@ class TestWinrt(unittest.TestCase):
 
         r = GetArray(this, 42)
         self.assertEqual(r, [42])
-
-    def test_receivearray_callback(self):
-        class IMock(IInspectable):
-            _classid_ = "IMock"
-            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
-
-            @winrt_commethod(6)
-            def f(self, p: PassArray[WinRT_String]) -> ReceiveArray[WinRT_String]: ...
-
-            @winrt_commethod(7)
-            def g(self, p: PassArray[UInt32]) -> ReceiveArray[UInt32]: ...
-
-        class Mock(ComClass, IMock):
-            def f(self, p: list[str]) -> list[str]:
-                return p
-
-            def g(self, p: list[int]) -> list[int]:
-                return p
-
-        mock = Mock().as_(IMock)
-
-        self.assertEqual(mock.f(["hello"]), ["hello"])
-        self.assertEqual(mock.g([1, 2, 3]), [1, 2, 3])
-
 
     def test_guid_generation_for_parameterized_types(self):
         self.assertEqual(
@@ -415,7 +455,7 @@ class TestWinrt(unittest.TestCase):
             # FIXME:
             # On my PC: The specified path (UNABLE_TO_MASK_PATH) is too long. It exceeds the maximum length of 1888614568.
             # On github runner: The specified path (bad) is not an absolute path, and relative paths are not permitted.
-            #self.assertRegex(cm.exception._error_info["restricted_description"], r"It exceeds the maximum length")
+            # self.assertRegex(cm.exception._error_info["restricted_description"], r"It exceeds the maximum length")
 
             self.assertEqual(cm.exception._error_info["description"], "The parameter is incorrect.")
 
