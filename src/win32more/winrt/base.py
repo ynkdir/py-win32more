@@ -7,6 +7,7 @@ import sys
 import types
 import uuid
 from collections.abc import Iterable, MutableSequence, Sequence
+from contextlib import ExitStack
 from ctypes import (
     POINTER,
     Structure,
@@ -382,26 +383,28 @@ def _get_specialized_bases(cls):
 
 # Dummy type for list[T]
 class PassArray(Generic[T]):
-    def __init__(self, type_, seq):
+    def __init__(self, type_, seq, cargs):
         self._type = type_
 
         if isinstance(seq, Sequence):
             if self._type is WinRT_String:
-                self.seq = [WinRT_String(s, own=True) for s in seq]
+                self._seq = [WinRT_String(s, own=True) for s in seq]
             else:
-                self.seq = seq
-            self.length = UInt32(len(self.seq))
-            self.ptr = (self._type * len(self.seq))(*self.seq)
+                self._seq = seq
+            cargs.append(len(self._seq))
+            cargs.append((self._type * len(self._seq))(*self._seq))
         else:
             raise TypeError(f"cannot convert {type(seq)} to PassArray[{type_.__name__}]")
 
-    def later(self):
-        # to keep self.seq instance
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exc_type, exc_value, traceback):
         pass
 
 
 class PassArrayCallback:
-    def __init__(self, type_, size, ptr):
+    def __init__(self, type_, size, ptr, pyargs):
         self._type = type_
         self._size = size
         self._ptr = ptr
@@ -413,44 +416,62 @@ class PassArrayCallback:
                 self._lst.append(type_.from_buffer_copy(ptr[i]))
             else:
                 self._lst.append(ptr[i])
+        pyargs.append(self._lst)
 
-    def later(self):
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exc_type, exc_value, traceback):
         pass
 
 
 # Dummy type for list[T]
 class FillArray(Generic[T]):
-    def __init__(self, type_, seq):
+    def __init__(self, type_, seq, cargs):
         self._type = type_
 
         if isinstance(seq, MutableSequence):
-            self.seq = seq
-            self.length = UInt32(len(seq))
-            self.ptr = (type_ * len(seq))()
+            self._seq = seq
+            self._ptr = (type_ * len(seq))()
+            cargs.append(len(self._seq))
+            cargs.append(self._ptr)
         else:
             raise TypeError(f"cannot convert {type(seq)} to FillArray[{type_.__name__}]")
 
-    def later(self):
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_type is not None:
+            return
+
         if self._type is WinRT_String:
-            self.seq[:] = [s.strvalue for s in self.ptr[:]]
-            for s in self.ptr[:]:
+            self._seq[:] = [s.strvalue for s in self._ptr[:]]
+            for s in self._ptr[:]:
                 s.clear()
         elif is_com_class(self._type):
-            self.seq[:] = self.ptr[:]
+            self._seq[:] = self._ptr[:]
             for p in self.seq:
                 p._own = True
         else:
-            self.seq[:] = self.ptr[:]
+            self._seq[:] = self._ptr[:]
 
 
 class FillArrayCallback:
-    def __init__(self, type_, size, ptr):
+    def __init__(self, type_, size, ptr, pyargs):
         self._type = type_
         self._size = size
         self._ptr = ptr
         self._lst = [None] * size
+        pyargs.append(self._lst)
 
-    def later(self):
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_type is not None:
+            return
+
         for i, v in enumerate(self._lst):
             if self._type is WinRT_String:
                 self._ptr[i] = WinRT_String(v)
@@ -464,54 +485,75 @@ class FillArrayCallback:
 
 # Dummy type for list[T]
 class ReceiveArray(Generic[T]):
-    def __init__(self, type_, seq):
+    def __init__(self, type_, seq, cargs):
         self._type = type_
 
         if isinstance(seq, MutableSequence):
-            self.seq = seq
-            self.length = UInt32()
-            self.ptr = POINTER(type_)()
+            self._seq = seq
+            self._size = UInt32()
+            self._ptr = POINTER(type_)()
+            cargs.append(pointer(self._size))
+            cargs.append(pointer(self._ptr))
         else:
             raise TypeError(f"cannot convert {type(seq)} to ReceiveArray[{type_.__name__}]")
 
-    def later(self):
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_type is not None:
+            return
+
         if self._type is WinRT_String:
-            self.seq[:] = [s.strvalue for s in self.ptr[: self.length.value]]
-            for s in self.ptr[: self.length.value]:
+            self._seq[:] = [s.strvalue for s in self._ptr[: self._size.value]]
+            for s in self._ptr[: self._size.value]:
                 s.clear()
         elif is_com_class(self._type):
-            self.seq[:] = [self._type.from_buffer_copy(p) for p in self.ptr[: self.length.value]]
-            for p in self.seq:
+            self._seq[:] = [self._type.from_buffer_copy(p) for p in self._ptr[: self._size.value]]
+            for p in self._seq:
                 p._own = True
         elif not is_simple_cdata(self._type):
-            self.seq[:] = [self._type.from_buffer_copy(p) for p in self.ptr[: self.length.value]]
+            self._seq[:] = [self._type.from_buffer_copy(p) for p in self._ptr[: self._size.value]]
         else:
-            self.seq[:] = self.ptr[: self.length.value]
-        CoTaskMemFree(self.ptr)
+            self._seq[:] = self._ptr[: self._size.value]
+        CoTaskMemFree(self._ptr)
 
 
 class ReceiveArrayCallback:
-    def __init__(self, type_, psize, pptr):
+    def __init__(self, type_, psize, pptr, pyargs):
         self._type = type_
         self._psize = psize
         self._pptr = pptr
         self._lst = []
+        pyargs.append(self._lst)
 
-    def later(self):
-        self._psize[0] = len(self._lst)
-        ptr = CoTaskMemAlloc(len(self._lst) * sizeof(self._type))
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_type is not None:
+            return
+        self.handle_result(self._type, self._psize, self._pptr, self._lst)
+
+    @staticmethod
+    def handle_result(type_, psize, pptr, seq):
+        if not isinstance(seq, Sequence):
+            raise ValueError(f"Sequence is expected: {seq}")
+
+        psize[0] = len(seq)
+        ptr = CoTaskMemAlloc(len(seq) * sizeof(type_))
         if not ptr:
             raise WinError()
-        self._pptr[0].contents = self._type.from_address(ptr)
-        for i, v in enumerate(self._lst):
-            if self._type is WinRT_String:
-                self._pptr[0][i] = WinRT_String(v)
-            elif is_com_class(self._type):
+        pptr[0] = cast(ptr, POINTER(type_))
+        for i, v in enumerate(seq):
+            if type_ is WinRT_String:
+                pptr[0][i] = WinRT_String(v)
+            elif is_com_class(type_):
                 if v:
                     v.AddRef()
-                self._pptr[0][i] = v
+                pptr[0][i] = v
             else:
-                self._pptr[0][i] = v
+                pptr[0][i] = v
 
 
 # FIXME: Not work for array and struct entry.
@@ -591,18 +633,16 @@ class WinrtMethodCall:
         self.hints = hints
 
     def __call__(self, this, *args, **kwargs):
-        calllater = []
-        cargs = []
-        pargs = parse_arguments(self._prototype.__qualname__, list(self.hints), args, kwargs, False)
-        for value, type_ in zip(pargs, self.hints.values()):  # >=3.10 strict=True
-            self._add_argument(cargs, value, type_, calllater)
-        result = self._add_result(cargs, self.restype)
-        hr = self.delegate(this, *cargs)
-        if FAILED(hr):
-            # FIXME: Is restricted error obtained here always associated with this hr?
-            raise ComError(hr)
-        for callback in calllater:
-            callback()
+        with ExitStack() as exitstack:
+            cargs = []
+            pargs = parse_arguments(self._prototype.__qualname__, list(self.hints), args, kwargs, False)
+            for value, type_ in zip(pargs, self.hints.values()):  # >=3.10 strict=True
+                self._add_argument(cargs, value, type_, exitstack)
+            result = self._add_result(cargs, self.restype, exitstack)
+            hr = self.delegate(this, *cargs)
+            if FAILED(hr):
+                # FIXME: Is restricted error obtained here always associated with this hr?
+                raise ComError(hr)
         return self._handle_result(result)
 
     def _add_parameter(self, argtypes: list[type], params: list[tuple[int, str]], name: str, type_: type) -> None:
@@ -646,22 +686,13 @@ class WinrtMethodCall:
             argtypes.append(POINTER(restype))
             params.append((1, "return"))
 
-    def _add_argument(self, cargs: list[Any], value: Any, type_: type, calllater: list[callable]) -> None:
+    def _add_argument(self, cargs: list[Any], value: Any, type_: type, exitstack: ExitStack) -> None:
         if is_passarray_class(type_):
-            szarray = PassArray(get_args(type_)[0], value)
-            cargs.append(szarray.length)
-            cargs.append(szarray.ptr)
-            calllater.append(szarray.later)
+            exitstack.enter_context(PassArray(get_args(type_)[0], value, cargs))
         elif is_fillarray_class(type_):
-            szarray = FillArray(get_args(type_)[0], value)
-            cargs.append(szarray.length)
-            cargs.append(szarray.ptr)
-            calllater.append(szarray.later)
+            exitstack.enter_context(FillArray(get_args(type_)[0], value, cargs))
         elif is_receivearray_class(type_):
-            szarray = ReceiveArray(get_args(type_)[0], value)
-            cargs.append(pointer(szarray.length))
-            cargs.append(pointer(szarray.ptr))
-            calllater.append(szarray.later)
+            exitstack.enter_context(ReceiveArray(get_args(type_)[0], value, cargs))
         elif is_delegate_class(type_):
             cargs.append(MulticastDelegateImpl(type_, value))
         elif is_com_instance(value) and is_com_class(type_):
@@ -669,13 +700,12 @@ class WinrtMethodCall:
         else:
             cargs.append(winrt_easycast(value, type_))
 
-    def _add_result(self, cargs: list[Any], restype: type) -> None:
+    def _add_result(self, cargs: list[Any], restype: type, exitstack) -> None:
         if self.restype is Void:
             result = None
         elif is_receivearray_class(self.restype):
-            result = ReceiveArray(get_args(self.restype)[0], [])
-            cargs.append(pointer(result.length))
-            cargs.append(pointer(result.ptr))
+            result = []
+            exitstack.enter_context(ReceiveArray(get_args(self.restype)[0], result, cargs))
         elif is_com_class(self.restype):
             result = self.restype(own=True)
             cargs.append(pointer(result))
@@ -692,9 +722,6 @@ class WinrtMethodCall:
 
         if self.restype is Void:
             return None
-        elif is_receivearray_class(self.restype):
-            result.later()
-            return result.seq
         elif issubclass(_get_origin_or_itself(self.restype), IReference):
             if not result:
                 return None
@@ -707,7 +734,7 @@ class WinrtMethodCall:
             return result
         elif self.restype is WinRT_String:
             return result.strvalue
-        elif is_simple_cdata(self.restype):
+        elif is_simple_cdata(_get_origin_or_itself(self.restype)):
             return result.value
         return result
 
@@ -1053,77 +1080,50 @@ class Vtbl(Structure):
 
     def _winrt_callback_error_check(self, callback, restype, hints, this, *args):
         try:
-            self._winrt_callback(callback, restype, hints, this, *args)
+            self._winrt_callback(callback, restype, hints, this, args)
             return S_OK
         except Exception:
             logger.exception(f"Unhandled exception caught: {callback}{args}")
             return E_FAIL
 
-    def _winrt_callback(self, callback, restype, hints, this, *args):
-        calllater = []
+    def _winrt_callback(self, callback, restype, hints, this, args):
+        args = list(args)
+        with ExitStack() as exitstack:
+            pyargs = []
+            for type_ in hints.values():
+                self._add_argument(type_, args, pyargs, exitstack)
+            result = callback(*pyargs)
+        self._handle_result(restype, args, result)
 
-        if restype is Void:
-            pass
-        elif is_receivearray_class(restype):
-            *args, return_length, return_pointer = args
+    def _add_argument(self, type_: type, args: list[Any], pyargs: list[Any], exitstack) -> None:
+        if is_passarray_class(type_):
+            exitstack.enter_context(PassArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
+        elif is_fillarray_class(type_):
+            exitstack.enter_context(FillArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
+        elif is_receivearray_class(type_):
+            exitstack.enter_context(ReceiveArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
+        elif type_ is WinRT_String:
+            pyargs.append(_windows_get_string_raw_buffer(args.pop(0)))
         else:
-            *args, return_pointer = args
+            pyargs.append(args.pop(0))
 
-        i = 0
-        pyargs = []
-        for type_ in hints.values():
-            if is_passarray_class(type_):
-                szarray = PassArrayCallback(get_args(type_)[0], args[i], args[i + 1])
-                pyargs.append(szarray._lst)
-                calllater.append(szarray.later)
-                i += 2
-            elif is_fillarray_class(type_):
-                szarray = FillArrayCallback(get_args(type_)[0], args[i], args[i + 1])
-                pyargs.append(szarray._lst)
-                calllater.append(szarray.later)
-                i += 2
-            elif is_receivearray_class(type_):
-                szarray = ReceiveArrayCallback(get_args(type_)[0], args[i], args[i + 1])
-                pyargs.append(szarray._lst)
-                calllater.append(szarray.later)
-                i += 2
-            elif type_ is WinRT_String:
-                pyargs.append(_windows_get_string_raw_buffer(args[i]))
-                i += 1
-            else:
-                pyargs.append(args[i])
-                i += 1
-
-        r = callback(*pyargs)
-
-        for later in calllater:
-            later()
-
+    def _handle_result(self, restype: type, args: list[Any], result: Any) -> Any:
         if restype is Void:
             pass
         elif is_receivearray_class(restype):
-            if not isinstance(r, list):
-                raise ValueError(f"list is expected: {r}")
-            p = CoTaskMemAlloc(sizeof(c_void_p) * len(r))
-            if not p:
-                raise WinError()
-            type_ = get_args(restype)[0]
-            return_length[0] = len(r)
-            return_pointer[0] = cast(p, POINTER(type_))
-            if type_ is WinRT_String:
-                for i, o in enumerate(r):
-                    return_pointer[0][i] = WinRT_String(o, own=False)
-            else:
-                for i, o in enumerate(r):
-                    return_pointer[0][i] = o
+            return_length, return_pointer = args
+            ReceiveArrayCallback.handle_result(get_args(restype)[0], return_length, return_pointer, result)
         elif restype is WinRT_String:
-            return_pointer[0] = WinRT_String(r, own=False)
+            return_pointer = args[0]
+            return_pointer[0] = WinRT_String(result, own=False)
         elif is_com_class(restype):
-            if r:
-                r.AddRef()
-            return_pointer[0] = r
+            return_pointer = args[0]
+            if result:
+                result.AddRef()
+            return_pointer[0] = result
         else:
-            return_pointer[0] = r
+            return_pointer = args[0]
+            return_pointer[0] = result
 
 
 class ComClass(ComPtr):
