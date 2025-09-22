@@ -402,7 +402,7 @@ class PassArray(Generic[T]):
 
 class PassArrayCallback:
     def __init__(self, type_, size, ptr):
-        self._type = type
+        self._type = type_
         self._size = size
         self._ptr = ptr
         self._lst = []
