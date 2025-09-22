@@ -19,7 +19,7 @@ from ctypes import (
     wstring_at,
 )
 from functools import partial
-from typing import Generic, TypeVar, _GenericAlias
+from typing import Any, Generic, TypeVar, _GenericAlias
 
 if sys.version_info < (3, 9):
     from typing_extensions import Annotated, Tuple, get_args, get_origin  # noqa: F401
@@ -556,9 +556,6 @@ class WinRT_String(HSTRING):
     def strvalue(self):
         return _windows_get_string_raw_buffer(self)
 
-    def __ctypes_from_outparam__(self):
-        return self.strvalue
-
 
 class WinrtMethod:
     def __init__(self, prototype, vtbl_index):
@@ -583,48 +580,11 @@ class WinrtMethodCall:
     def __init__(self, prototype, vtbl_index, cls):
         hints = generic_get_type_hints(prototype, cls)
         restype = hints.pop("return")
-
         argtypes = []
         params = []
         for name, type_ in hints.items():
-            if is_passarray_class(type_):
-                argtypes.append(UInt32)
-                params.append((1, f"{name}_length"))
-                argtypes.append(POINTER(get_args(type_)[0]))
-                params.append((1, name))
-            elif is_fillarray_class(type_):
-                argtypes.append(UInt32)
-                params.append((1, f"{name}_length"))
-                argtypes.append(POINTER(get_args(type_)[0]))
-                params.append((1, name))
-            elif is_receivearray_class(type_):
-                argtypes.append(POINTER(UInt32))
-                params.append((1, f"{name}_length"))
-                argtypes.append(POINTER(POINTER(get_args(type_)[0])))
-                params.append((1, name))
-            elif is_delegate_class(type_):
-                argtypes.append(MulticastDelegateImpl)
-                params.append((1, name))
-            elif is_generic_alias(type_):
-                argtypes.append(get_origin(type_))
-                params.append((1, name))
-            else:
-                argtypes.append(type_)
-                params.append((1, name))
-
-        if restype is not Void:
-            if is_receivearray_class(restype):
-                argtypes.append(POINTER(UInt32))
-                params.append((1, "return_length"))
-                argtypes.append(POINTER(POINTER(get_args(restype)[0])))
-                params.append((1, "return"))
-            elif is_generic_alias(restype):
-                argtypes.append(POINTER(get_origin(restype)))
-                params.append((1, "return"))
-            else:
-                argtypes.append(POINTER(restype))
-                params.append((1, "return"))
-
+            self._add_parameter(argtypes, params, name, type_)
+        self._add_restype(argtypes, params, restype)
         self.delegate = WINFUNCTYPE(HRESULT, *argtypes)(vtbl_index, prototype.__name__, tuple(params))
         self.restype = restype
         self._prototype = prototype
@@ -632,7 +592,84 @@ class WinrtMethodCall:
 
     def __call__(self, this, *args, **kwargs):
         calllater = []
-        cargs = self.make_args(args, kwargs, calllater)
+        cargs = []
+        pargs = parse_arguments(self._prototype.__qualname__, list(self.hints), args, kwargs, False)
+        for value, type_ in zip(pargs, self.hints.values()):  # >=3.10 strict=True
+            self._add_argument(cargs, value, type_, calllater)
+        result = self._add_result(cargs, self.restype)
+        hr = self.delegate(this, *cargs)
+        if FAILED(hr):
+            # FIXME: Is restricted error obtained here always associated with this hr?
+            raise ComError(hr)
+        for callback in calllater:
+            callback()
+        return self._handle_result(result)
+
+    def _add_parameter(self, argtypes: list[type], params: list[tuple[int, str]], name: str, type_: type) -> None:
+        if is_passarray_class(type_):
+            argtypes.append(UInt32)
+            argtypes.append(POINTER(get_args(type_)[0]))
+            params.append((1, f"{name}_length"))
+            params.append((1, name))
+        elif is_fillarray_class(type_):
+            argtypes.append(UInt32)
+            argtypes.append(POINTER(get_args(type_)[0]))
+            params.append((1, f"{name}_length"))
+            params.append((1, name))
+        elif is_receivearray_class(type_):
+            argtypes.append(POINTER(UInt32))
+            argtypes.append(POINTER(POINTER(get_args(type_)[0])))
+            params.append((1, f"{name}_length"))
+            params.append((1, name))
+        elif is_delegate_class(type_):
+            argtypes.append(MulticastDelegateImpl)
+            params.append((1, name))
+        elif is_generic_alias(type_):
+            argtypes.append(get_origin(type_))
+            params.append((1, name))
+        else:
+            argtypes.append(type_)
+            params.append((1, name))
+
+    def _add_restype(self, argtypes: list[type], params: list[tuple[int, str]], restype: type) -> None:
+        if restype is Void:
+            pass
+        elif is_receivearray_class(restype):
+            argtypes.append(POINTER(UInt32))
+            argtypes.append(POINTER(POINTER(get_args(restype)[0])))
+            params.append((1, "return_length"))
+            params.append((1, "return"))
+        elif is_generic_alias(restype):
+            argtypes.append(POINTER(get_origin(restype)))
+            params.append((1, "return"))
+        else:
+            argtypes.append(POINTER(restype))
+            params.append((1, "return"))
+
+    def _add_argument(self, cargs: list[Any], value: Any, type_: type, calllater: list[callable]) -> None:
+        if is_passarray_class(type_):
+            szarray = PassArray(get_args(type_)[0], value)
+            cargs.append(szarray.length)
+            cargs.append(szarray.ptr)
+            calllater.append(szarray.later)
+        elif is_fillarray_class(type_):
+            szarray = FillArray(get_args(type_)[0], value)
+            cargs.append(szarray.length)
+            cargs.append(szarray.ptr)
+            calllater.append(szarray.later)
+        elif is_receivearray_class(type_):
+            szarray = ReceiveArray(get_args(type_)[0], value)
+            cargs.append(pointer(szarray.length))
+            cargs.append(pointer(szarray.ptr))
+            calllater.append(szarray.later)
+        elif is_delegate_class(type_):
+            cargs.append(MulticastDelegateImpl(type_, value))
+        elif is_com_instance(value) and is_com_class(type_):
+            cargs.append(value.as_(type_))
+        else:
+            cargs.append(winrt_easycast(value, type_))
+
+    def _add_result(self, cargs: list[Any], restype: type) -> None:
         if self.restype is Void:
             result = None
         elif is_receivearray_class(self.restype):
@@ -648,42 +685,9 @@ class WinrtMethodCall:
         else:
             result = self.restype()
             cargs.append(pointer(result))
-        hr = self.delegate(this, *cargs)
-        if FAILED(hr):
-            # FIXME: Is restricted error obtained here always associated with this hr?
-            raise ComError(hr)
-        for callback in calllater:
-            callback()
-        return self.make_result(result)
+        return result
 
-    def make_args(self, args, kwargs, calllater):
-        pargs = parse_arguments(self._prototype.__qualname__, list(self.hints), args, kwargs, False)
-        cargs = []
-        for v, t in zip(pargs, self.hints.values()):  # >=3.10 strict=True
-            if is_passarray_class(t):
-                szarray = PassArray(get_args(t)[0], v)
-                cargs.append(szarray.length)
-                cargs.append(szarray.ptr)
-                calllater.append(szarray.later)
-            elif is_fillarray_class(t):
-                szarray = FillArray(get_args(t)[0], v)
-                cargs.append(szarray.length)
-                cargs.append(szarray.ptr)
-                calllater.append(szarray.later)
-            elif is_receivearray_class(t):
-                szarray = ReceiveArray(get_args(t)[0], v)
-                cargs.append(pointer(szarray.length))
-                cargs.append(pointer(szarray.ptr))
-                calllater.append(szarray.later)
-            elif is_delegate_class(t):
-                cargs.append(MulticastDelegateImpl(t, v))
-            elif is_com_instance(v) and is_com_class(t):
-                cargs.append(v.as_(t))
-            else:
-                cargs.append(winrt_easycast(v, t))
-        return cargs
-
-    def make_result(self, result):
+    def _handle_result(self, result: Any) -> Any:
         from win32more.Windows.Foundation import IReference
 
         if self.restype is Void:
@@ -701,7 +705,11 @@ class WinrtMethodCall:
             if not result:
                 return None
             return result
-        return result.__ctypes_from_outparam__()
+        elif self.restype is WinRT_String:
+            return result.strvalue
+        elif is_simple_cdata(self.restype):
+            return result.value
+        return result
 
 
 def winrt_commethod(vtbl_index):
