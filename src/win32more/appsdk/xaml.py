@@ -5,16 +5,6 @@ from functools import partial
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from win32more import FAILED, WinError, asyncui
-from win32more.winrt import ComClass, WinRT_String
-from win32more.appsdk.mddbootstrap import (
-    WINDOWSAPPSDK_RELEASE_MAJORMINOR,
-    WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
-    WINDOWSAPPSDK_RUNTIME_VERSION_UINT64,
-    MddBootstrapInitialize2,
-    MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
-    MddBootstrapShutdown,
-)
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
@@ -24,6 +14,17 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_VERSION
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
+
+from win32more import FAILED, WinError, asyncui
+from win32more.appsdk.mddbootstrap import (
+    WINDOWSAPPSDK_RELEASE_MAJORMINOR,
+    WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
+    WINDOWSAPPSDK_RUNTIME_VERSION_UINT64,
+    MddBootstrapInitialize2,
+    MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
+    MddBootstrapShutdown,
+)
+from win32more.winrt import ComClass, WinRT_String
 
 XMLNS_XAML = "http://schemas.microsoft.com/winfx/2006/xaml"
 XMLNS_XAML_PRESENTATION = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -39,6 +40,20 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         self._provider = None
         super().__init__(own=True)
         self.InitializeComponent()
+        if WINDOWSAPPSDK_RELEASE_MAJORMINOR == 0x00010008:
+            self.ResourceManagerRequested += self._resource_manager_requested
+
+    # Workaround for WindowsAppSDK1.8.0 (microsoft/WindowsAppSDK#5814)
+    def _resource_manager_requested(self, sender, e):
+        from ctypes import create_unicode_buffer
+
+        from win32more.Microsoft.Windows.ApplicationModel.Resources import ResourceManager
+        from win32more.Windows.Win32.System.LibraryLoader import GetModuleFileName, GetModuleHandle
+
+        buf = create_unicode_buffer(1024)
+        GetModuleFileName(GetModuleHandle("MRM"), buf, 1024)
+        pri = str(Path(buf.value).parent / "resources.pri")
+        e.CustomResourceManager = ResourceManager(pri)
 
     def InitializeComponent(self):
         xaml_path = Path(__file__).with_name("app.xaml").as_posix()
