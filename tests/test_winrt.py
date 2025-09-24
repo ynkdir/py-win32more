@@ -454,7 +454,7 @@ class TestWinrt(unittest.TestCase):
         with self.assertRaises(ComError) as cm:
             Uri("bad")
 
-        self.assertEqual(cm.exception._error_info["restricted_description"], "bad is not a valid absolute URI.")
+        self.assertEqual(cm.exception._winrt_restricted_description(), "bad is not a valid absolute URI.")
 
     def test_restricted_error_info_async(self):
         async def main():
@@ -464,9 +464,9 @@ class TestWinrt(unittest.TestCase):
             # FIXME:
             # On my PC: The specified path (UNABLE_TO_MASK_PATH) is too long. It exceeds the maximum length of 1888614568.
             # On github runner: The specified path (bad) is not an absolute path, and relative paths are not permitted.
-            # self.assertRegex(cm.exception._error_info["restricted_description"], r"It exceeds the maximum length")
+            # self.assertRegex(cm.exception._winrt_restricted_description(), r"It exceeds the maximum length")
 
-            self.assertEqual(cm.exception._error_info["description"], "The parameter is incorrect.")
+            self.assertEqual(cm.exception._winrt_description(), "The parameter is incorrect.")
 
         asyncio.run(main())
 
@@ -478,7 +478,7 @@ class TestWinrt(unittest.TestCase):
         with self.assertRaises(ComError) as cm:
             XmlDocument().LoadXml("bad")
 
-        self.assertEqual(cm.exception._error_info["description"], "Invalid at the top level of the document.")
+        self.assertEqual(cm.exception._winrt_description(), "Invalid at the top level of the document.")
 
 
 if __name__ == "__main__":

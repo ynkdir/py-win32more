@@ -1377,66 +1377,78 @@ class ContextManagerProtocol:
 
 class ComError(OSError):
     def __init__(self, hr):
-        self._error_info = self._get_error_info()
+        self._hr = hr
+        self._error_info = IErrorInfo(own=True)
+        if GetErrorInfo(0, self._error_info) != S_OK:
+            self._error_info = None
+        super().__init__(hr, self._message())
 
-        if self._error_info is not None and "restricted_description" in self._error_info:
-            strerror = self._error_info["restricted_description"]
-        elif self._error_info is not None and "description" in self._error_info:
-            strerror = self._error_info["description"]
-        else:
-            strerror = WinError(hr).strerror  # FormatMessageW
+    def _message(self) -> str:
+        return (
+            self._winrt_restricted_description()
+            or self._winrt_description()
+            or self._com_description()
+            or self._win32_message()
+            or ""
+        )
 
-        super().__init__(hr, strerror)
+    def _win32_message(self) -> str | None:
+        return WinError(self._hr).strerror  # FormatMessageW
 
-    def _get_error_info(self) -> dict | None:
-        error_info = IErrorInfo(own=True)
-        r = GetErrorInfo(0, error_info)
-        if r != S_OK:
+    def _com_description(self) -> str | None:
+        if self._error_info is None:
             return None
-
-        restricted_error_info = self._try_get_restricted_error_info(error_info)
-        if restricted_error_info is not None:
-            return restricted_error_info
 
         description = BSTR()
-        r = error_info.GetDescription(description)
+        r = self._error_info.GetDescription(description)
         if r != S_OK:
             return None
 
-        info = {
-            "description": self._copy_message(description),
-        }
-
-        SysFreeString(description)
-
-        return info
-
-    def _try_get_restricted_error_info(self, error_info: IErrorInfo) -> dict | None:
         try:
-            restricted_error_info = error_info.as_(IRestrictedErrorInfo)
+            return self._copy_message(description)
+        finally:
+            SysFreeString(description)
+
+    def _winrt_description(self) -> str | None:
+        details = self._winrt_error_details()
+        if details is None:
+            return None
+        return details["description"]
+
+    def _winrt_restricted_description(self) -> str | None:
+        details = self._winrt_error_details()
+        if details is None:
+            return None
+        return details["restricted_description"]
+
+    def _winrt_error_details(self) -> str | None:
+        if self._error_info is None:
+            return None
+
+        try:
+            restricted_error_info = self._error_info.as_(IRestrictedErrorInfo)
         except OSError:
             return None
 
         description = BSTR()
         error = HRESULT()
-        restrictedDescription = BSTR()
-        capabilitySid = BSTR()
-        r = restricted_error_info.GetErrorDetails(description, error, restrictedDescription, capabilitySid)
+        restricted_description = BSTR()
+        capability_sid = BSTR()
+        r = restricted_error_info.GetErrorDetails(description, error, restricted_description, capability_sid)
         if r != S_OK:
             return None
 
-        info = {
-            "description": self._copy_message(description),
-            "error": error.value,
-            "restricted_description": self._copy_message(restrictedDescription),
-            "capabilitySid": self._copy_message(capabilitySid),
-        }
-
-        SysFreeString(description)
-        SysFreeString(restrictedDescription)
-        SysFreeString(capabilitySid)
-
-        return info
+        try:
+            return {
+                "restricted_description": self._copy_message(restricted_description),
+                "error": error.value,
+                "description": self._copy_message(description),
+                "capability_sid": self._copy_message(capability_sid),
+            }
+        finally:
+            SysFreeString(description)
+            SysFreeString(restricted_description)
+            SysFreeString(capability_sid)
 
     def _copy_message(self, p: BSTR) -> str | None:
         if not p:
