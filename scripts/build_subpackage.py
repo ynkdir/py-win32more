@@ -5,6 +5,7 @@ import contextlib
 import json
 import logging
 import os
+import re
 import shutil
 import stat
 import subprocess
@@ -23,6 +24,10 @@ package_dir: Path
 build_dir: Path
 win32more_version: list[int]
 nupkg_winrt: Nupkg
+
+
+def version_tuple(version_str: str) -> tuple[int]:
+    return tuple(int(n) for n in re.sub("-.*$", "", version_str).split("."))
 
 
 class Version:
@@ -185,6 +190,8 @@ class NupkgStrategy(ABC):
             return NupkgWindowsAppSDKAI(nupkg)
         elif nupkg.id() == "Microsoft.WindowsAppSDK.Runtime":
             return NupkgWindowsAppSDKRuntime(nupkg)
+        elif nupkg.id() == "Microsoft.WindowsAppSDK.ML":
+            return NupkgWindowsAppSDKML(nupkg)
         elif nupkg.id() == "Microsoft.Web.WebView2":
             return NupkgWebView2(nupkg)
         elif nupkg.id() == "Microsoft.Graphics.Win2D":
@@ -260,16 +267,29 @@ class NupkgWindowsAppSDK(NupkgStrategy):
 
 class NupkgWindowsAppSDK_1_8(NupkgStrategy):
     def known_dependencies(self) -> set[str]:
-        return {
-            "Microsoft.WindowsAppSDK.Base",
-            "Microsoft.WindowsAppSDK.Foundation",
-            "Microsoft.WindowsAppSDK.InteractiveExperiences",
-            "Microsoft.WindowsAppSDK.WinUI",
-            "Microsoft.WindowsAppSDK.DWrite",
-            "Microsoft.WindowsAppSDK.Widgets",
-            "Microsoft.WindowsAppSDK.AI",
-            "Microsoft.WindowsAppSDK.Runtime",
-        }
+        if version_tuple(self._nupkg.version()) < version_tuple("1.8.250916003"):
+            return {
+                "Microsoft.WindowsAppSDK.Base",
+                "Microsoft.WindowsAppSDK.Foundation",
+                "Microsoft.WindowsAppSDK.InteractiveExperiences",
+                "Microsoft.WindowsAppSDK.WinUI",
+                "Microsoft.WindowsAppSDK.DWrite",
+                "Microsoft.WindowsAppSDK.Widgets",
+                "Microsoft.WindowsAppSDK.AI",
+                "Microsoft.WindowsAppSDK.Runtime",
+            }
+        else:
+            return {
+                "Microsoft.WindowsAppSDK.Base",
+                "Microsoft.WindowsAppSDK.Foundation",
+                "Microsoft.WindowsAppSDK.InteractiveExperiences",
+                "Microsoft.WindowsAppSDK.WinUI",
+                "Microsoft.WindowsAppSDK.DWrite",
+                "Microsoft.WindowsAppSDK.Widgets",
+                "Microsoft.WindowsAppSDK.AI",
+                "Microsoft.WindowsAppSDK.Runtime",
+                "Microsoft.WindowsAppSDK.ML",
+            }
 
     def runtime_dependencies(self) -> set[str]:
         return set()
@@ -409,6 +429,20 @@ class NupkgWindowsAppSDKRuntime(NupkgStrategy):
 
     def winmd_files(self) -> Iterable[Path]:
         return []
+
+
+class NupkgWindowsAppSDKML(NupkgStrategy):
+    def known_dependencies(self) -> set[str]:
+        return {"Microsoft.WindowsAppSDK.Base", "Microsoft.WindowsAppSDK.Foundation"}
+
+    def runtime_dependencies(self) -> set[str]:
+        return set()
+
+    def assets(self) -> Iterable[Asset]:
+        return []
+
+    def winmd_files(self) -> Iterable[Path]:
+        yield from self._nupkg.nupkg_dir().glob("metadata/*.winmd")
 
 
 class NupkgWebView2(NupkgStrategy):
