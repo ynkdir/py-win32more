@@ -91,15 +91,6 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         if FAILED(hr):
             raise WinError(hr)
 
-        hr = MddBootstrapInitialize2(
-            WINDOWSAPPSDK_RELEASE_MAJORMINOR,
-            WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
-            PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64),
-            MddBootstrapInitializeOptions_OnNoMatch_ShowUI,
-        )
-        if FAILED(hr):
-            raise WinError(hr)
-
         with asyncui.HandCrankRunner() as runner:
             SetTimer(0, 0, 100, lambda *_: runner.update())
             Application.Start(lambda params: init())
@@ -107,8 +98,6 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         # FIXME: force Release() to avoid exit with error code.
         if XamlApplication.__current is not None:
             XamlApplication.__current.Release()
-
-        MddBootstrapShutdown()
 
         CoUninitialize()
 
