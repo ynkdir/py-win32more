@@ -5,10 +5,8 @@ import sys
 import webbrowser
 from pathlib import Path
 
-import win32more.appsdk.mddbootstrap
 import win32more.Windows.Win32.Foundation
 import win32more.Windows.Win32.Storage.Packaging.Appx
-from win32more import ARCH, FAILED, Char, Int32, String, UInt32, Void, WinError, make_ready, winfunctype
 from win32more.Windows.Win32.Foundation import (
     APPMODEL_ERROR_NO_PACKAGE,
     ERROR_INSUFFICIENT_BUFFER,
@@ -32,6 +30,10 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import (
     TryCreatePackageDependency,
 )
 from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, MB_YESNO, MessageBox
+
+import win32more.appsdk.mddbootstrap
+from win32more import ARCH, FAILED, Char, Int32, String, UInt32, Void, WinError, make_ready, winfunctype
+from win32more.winrt import ComError
 
 # versioninfo.py will be installed by win32more-Microsoft.WindowsAppSDK
 from .versioninfo import (  # noqa
@@ -115,7 +117,7 @@ def MddBootstrapShutdown() -> None:
     elif _IsWin11():
         pass
     else:
-        return _module._MddBootstrapShutdown()
+        _module._MddBootstrapShutdown()
 
 
 def _IsWin11() -> bool:
@@ -241,6 +243,20 @@ def _GetPackagePathByFullName(full_name: str) -> str:
         raise WinError(r)
 
     return path.value
+
+
+def initialize() -> None:
+    hr = MddBootstrapInitialize(
+        WINDOWSAPPSDK_RELEASE_MAJORMINOR,
+        WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
+        PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64),
+    )
+    if FAILED(hr):
+        raise ComError(hr)
+
+
+def uninitialize() -> None:
+    MddBootstrapShutdown()
 
 
 make_ready(__name__)
