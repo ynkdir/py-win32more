@@ -124,8 +124,8 @@ class XamlClass(ComClass, IComponentConnector):
     def GetBindingConnector(self, connectionId, target):
         return self.__component_connector.GetBindingConnector(connectionId, target)
 
-    def LoadComponentFromFile(self, xaml_path):
-        self.LoadComponentFromString(Path(xaml_path).read_text(), xaml_path)
+    def LoadComponentFromFile(self, xaml_path, encoding : str | None = None):
+        self.LoadComponentFromString(Path(xaml_path).read_text(encoding=encoding), xaml_path)
 
     def LoadComponentFromString(self, xaml_str, xaml_path=None):
         self.__component_connector = XamlComponentConnector()
