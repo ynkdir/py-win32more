@@ -251,7 +251,16 @@ def initialize() -> None:
         WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
         PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64),
     )
+
     if FAILED(hr):
+        if hr == STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED:
+            major = WINDOWSAPPSDK_RELEASE_MAJORMINOR >> 16
+            minor = WINDOWSAPPSDK_RELEASE_MAJORMINOR & 0xFFFF
+            min_version = PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64)
+            raise OSError(
+                hr,
+                f"This application requires the Windows App Runtime Version {major}.{minor} (MSIX package version >= {min_version.Major}.{min_version.Minor}.{min_version.Build}.{min_version.Revision})",
+            )
         raise ComError(hr)
 
 
