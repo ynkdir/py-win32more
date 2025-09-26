@@ -503,7 +503,10 @@ class StructUnion:
         if self._td.layout.packing_size != 0:
             writer.write(f"    _pack_ = {self._td.layout.packing_size}\n")
         for nested_type in self._td.nested_types:
-            writer.write(textwrap.indent(StructUnion(nested_type, self._formatter).emit(), "    "))
+            if nested_type.basetype == "System.Enum":
+                writer.write(textwrap.indent(Enum(nested_type, self._formatter).emit(), "    "))
+            else:
+                writer.write(textwrap.indent(StructUnion(nested_type, self._formatter).emit(), "    "))
         return writer.getvalue()
 
     def _basetype(self) -> str:

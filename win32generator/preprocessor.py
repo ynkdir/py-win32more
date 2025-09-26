@@ -15,6 +15,7 @@ class Preprocessor:
         self.patch_keyword_name(meta)
         self.patch_unicode_alias(meta)
         self.patch_UniversalBGTask_Task(meta)
+        self.patch_GdiplusStartupInputEx_Version(meta)
         return meta
 
     def filter_public(self, meta: Metadata) -> Metadata:
@@ -148,4 +149,22 @@ class Preprocessor:
                         md["Name"] = "Run"
                     methods.append(md)
                 td["Methods"] = methods
+                break
+
+    # Workaroundf for nested enum type Version in Windows.Win32.Graphics.GdiplusStartupInputEx.
+    # Make it a ScopedEnum because it is defined as enum class in gdiplusinit.h.
+    # It is also defined in module namespace.
+    def patch_GdiplusStartupInputEx_Version(self, meta: Metadata) -> None:
+        for td in meta.type_definitions:
+            if td.fullname == "Windows.Win32.Graphics.GdiPlus.GdiplusStartupInputEx":
+                for nested_type in td["NestedTypes"]:
+                    if nested_type["Name"] == "Version":
+                        nested_type["CustomAttributes"].append(
+                            {
+                                "Type": "Windows.Win32.Foundation.Metadata.ScopedEnumAttribute",
+                                "FixedArguments": [],
+                                "NamedArguments": [],
+                            }
+                        )
+                        break
                 break

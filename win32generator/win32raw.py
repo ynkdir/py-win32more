@@ -539,14 +539,20 @@ class StructUnion:
         if not self._td.nested_types:
             writer.write("    pass\n")
         for nested_type in self._td.nested_types:
-            writer.write(textwrap.indent(StructUnion(nested_type, self._formatter, self).emit_head(), "    "))
+            if nested_type.basetype == "System.Enum":
+                writer.write(textwrap.indent(Enum(nested_type, self._formatter).emit(), "    "))
+            else:
+                writer.write(textwrap.indent(StructUnion(nested_type, self._formatter, self).emit_head(), "    "))
         return writer.getvalue()
 
     def emit(self) -> str:
         writer = StringIO()
 
         for nested_type in self._td.nested_types:
-            writer.write(StructUnion(nested_type, self._formatter, self).emit())
+            if nested_type.basetype == "System.Enum":
+                pass
+            else:
+                writer.write(StructUnion(nested_type, self._formatter, self).emit())
 
         if self._td.custom_attributes.has_guid():
             guid = self._formatter.guid(self._td.custom_attributes.get_guid())
