@@ -129,7 +129,9 @@ class TestSyntax(unittest.TestCase):
         self.assertEqual(sizeof(NVME_COMMAND_DWORD0), sizeof(UInt32))
 
         x = NVME_COMMAND_DWORD0(OPC=1, FUSE=1, Reserved0=1, PSDT=1, CID=1)
-        self.assertEqual(x.AsUlong, 0b00000000000000011000010100000001)
+        #self.assertEqual(x.AsUlong, 0b00000000000000011000010100000001)
+        # since Win32Metadata v64.0.22 (10.0.26100.2161 SDK)
+        self.assertEqual(x.AsUlong, 0b00000000000000010100010100000001)
 
     def test_struct_unnamed_bitfield_member(self):
         from win32more.Windows.Win32.Networking.WinSock import IPV6_HEADER
