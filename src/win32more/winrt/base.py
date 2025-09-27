@@ -59,6 +59,7 @@ from win32more.Windows.Win32.Foundation import (
     E_NOINTERFACE,
     HRESULT,
     S_OK,
+    SysAllocString,
     SysFreeString,
     SysStringLen,
 )
@@ -69,7 +70,9 @@ from win32more.Windows.Win32.System.Com import (
     IAgileObject,
     IErrorInfo,
     IUnknown,
+    SetErrorInfo,
 )
+from win32more.Windows.Win32.System.Ole import CreateErrorInfo, ICreateErrorInfo
 from win32more.Windows.Win32.System.WinRT import (
     HSTRING,
     PFNGETACTIVATIONFACTORY,
@@ -78,6 +81,7 @@ from win32more.Windows.Win32.System.WinRT import (
     IInspectable,
     IRestrictedErrorInfo,
     RoGetActivationFactory,
+    RoOriginateError,
     TrustLevel,
     WindowsCreateString,
     WindowsDeleteString,
@@ -1073,18 +1077,39 @@ class Vtbl(Structure):
     def _com_callback_error_check(self, callback, this, *args):
         try:
             return callback(*args)
-        except Exception:
+        except Exception as exc:
             logger.exception(f"Unhandled exception caught: {callback}{args}")
-            # FIXME: How to return error for IUnknown.AddRef(), IUnknown.Release()
+            self._set_error_info(exc)
             return E_FAIL
+
+    def _set_error_info(self, exc):
+        info = ICreateErrorInfo(own=True)
+        hr = CreateErrorInfo(info)
+        if FAILED(hr):
+            return
+        description = SysAllocString(f"{exc.__class__.__name__}: {exc}", _as_intptr=True)
+        if not description:
+            return
+        hr = info.SetDescription(description)
+        if FAILED(hr):
+            return
+        SetErrorInfo(0, info.as_(IErrorInfo))
 
     def _winrt_callback_error_check(self, callback, restype, hints, this, *args):
         try:
             self._winrt_callback(callback, restype, hints, this, args)
             return S_OK
-        except Exception:
+        except Exception as exc:
             logger.exception(f"Unhandled exception caught: {callback}{args}")
+            self._originate_error(exc)
             return E_FAIL
+
+    def _originate_error(self, exc):
+        try:
+            msg = _windows_create_string(f"{exc.__class__.__name__}: {exc}")
+        except OSError:
+            return
+        RoOriginateError(E_FAIL, msg)
 
     def _winrt_callback(self, callback, restype, hints, this, args):
         args = list(args)

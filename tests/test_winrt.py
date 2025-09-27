@@ -31,6 +31,7 @@ from win32more import (
     VoidPtr,
     WinError,
     cast,
+    commethod,
     pointer,
 )
 from win32more.winrt import (
@@ -479,6 +480,36 @@ class TestWinrt(unittest.TestCase):
             XmlDocument().LoadXml("bad")
 
         self.assertEqual(cm.exception._winrt_description(), "Invalid at the top level of the document.")
+
+    def test_error_propagation_in_winrt_callback_function(self):
+        def worker(async_action):
+            raise Exception("hello")
+
+        async def main():
+            await ThreadPool.RunAsync(worker)
+
+        with self.assertRaises(ComError) as cm:
+            asyncio.run(main())
+        self.assertEqual(cm.exception._winrt_restricted_description(), "Exception: hello")
+
+    # how to test with real API?
+    def test_error_propagation_in_com_callback_function(self):
+        class IMock(IInspectable):
+            _classid_ = "IMock"
+            _iid_ = Guid("{00000000-0000-0000-0000-000000000000}")
+
+            @commethod(6)
+            def f(self) -> HRESULT: ...
+
+        class Mock(ComClass, IMock):
+            def f(self):
+                raise Exception("hello")
+
+        mock = Mock().as_(IMock)
+
+        hr = mock.f()
+        self.assertTrue(FAILED(hr))
+        self.assertEqual(ComError(hr)._com_description(), "Exception: hello")
 
 
 if __name__ == "__main__":
