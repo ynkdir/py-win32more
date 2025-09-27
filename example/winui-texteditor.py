@@ -1,26 +1,27 @@
 import re
+from pathlib import Path
 
-from win32more.Microsoft.UI.Xaml import FrameworkElement, Window
-from win32more.Microsoft.UI.Xaml.Controls import ContentDialog, MenuFlyoutItem, TextBox
-from win32more.Microsoft.UI.Xaml.Markup import XamlReader
-from win32more.Windows.Storage import FileIO
-from win32more.Windows.Storage.Pickers import FileOpenPicker, FileSavePicker
-from win32more.Windows.Win32.UI.Shell import IInitializeWithWindow
-from win32more.appsdk.xaml import XamlApplication
+from win32more.Microsoft.UI.Xaml.Controls import ContentDialog
+from win32more.Microsoft.Windows.Storage.Pickers import FileOpenPicker, FileSavePicker
+
+from win32more.appsdk.xaml import XamlApplication, XamlLoader
 
 
 class App(XamlApplication):
     def OnLaunched(self, args):
-        self._window = XamlReader.Load("""
+        self._window = XamlLoader.Load(
+            self,
+            """
 <Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Activated="_window_Activated">
 
-    <Grid>
+    <Grid x:Name="_grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -31,66 +32,32 @@ class App(XamlApplication):
 
         <muxc:MenuBar Grid.Row="0">
             <muxc:MenuBarItem Title="File">
-                <muxc:MenuFlyoutItem x:Name="menu_file_open" Text="Open" />
-                <muxc:MenuFlyoutItem x:Name="menu_file_save" Text="Save" />
-                <muxc:MenuFlyoutItem x:Name="menu_file_saveas" Text="Save As" />
-                <muxc:MenuFlyoutItem x:Name="menu_file_exit" Text="Exit" />
+                <muxc:MenuFlyoutItem x:Name="_menu_file_open" Text="Open" Click="_menu_file_open_Click" />
+                <muxc:MenuFlyoutItem x:Name="_menu_file_save" Text="Save" Click="_menu_file_save_Click" />
+                <muxc:MenuFlyoutItem x:Name="_menu_file_saveas" Text="Save As" Click="_menu_file_saveas_Click" />
+                <muxc:MenuFlyoutItem x:Name="_menu_file_exit" Text="Exit" Click="_menu_file_exit_Click" />
             </muxc:MenuBarItem>
             <muxc:MenuBarItem Title="Edit">
                 <!-- FIXME: How to use Binding? IsEnabled="{Binding ElementName=textbox, Path=CanUndo}" -->
-                <muxc:MenuFlyoutItem x:Name="menu_edit_undo" Text="Undo" IsEnabled="False" />
-                <muxc:MenuFlyoutItem x:Name="menu_edit_redo" Text="Redo" IsEnabled="False" />
-                <muxc:MenuFlyoutItem x:Name="menu_edit_cut" Text="Cut" IsEnabled="False" />
-                <muxc:MenuFlyoutItem x:Name="menu_edit_copy" Text="Copy" IsEnabled="False" />
-                <muxc:MenuFlyoutItem x:Name="menu_edit_paste" Text="Paste" IsEnabled="False" />
-                <muxc:MenuFlyoutItem x:Name="menu_edit_delete" Text="Delete" IsEnabled="False" />
+                <muxc:MenuFlyoutItem x:Name="_menu_edit_undo" Text="Undo" IsEnabled="False" Click="_menu_edit_undo_Click" />
+                <muxc:MenuFlyoutItem x:Name="_menu_edit_redo" Text="Redo" IsEnabled="False" Click="_menu_edit_redo_Click" />
+                <muxc:MenuFlyoutItem x:Name="_menu_edit_cut" Text="Cut" IsEnabled="False" Click="_menu_edit_cut_Click" />
+                <muxc:MenuFlyoutItem x:Name="_menu_edit_copy" Text="Copy" IsEnabled="False" Click="_menu_edit_copy_Click" />
+                <muxc:MenuFlyoutItem x:Name="_menu_edit_paste" Text="Paste" IsEnabled="False" Click="_menu_edit_paste_Click" />
+                <muxc:MenuFlyoutItem x:Name="_menu_edit_delete" Text="Delete" IsEnabled="False" Click="_menu_edit_delete_Click" />
             </muxc:MenuBarItem>
         </muxc:MenuBar>
 
-        <TextBox Grid.Row="1" x:Name="textbox" AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        <TextBox x:Name="_textbox" Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" TextChanged="_textbox_TextChanged" SelectionChanged="_textbox_SelectionChanged" />
 
     </Grid>
 </Window>
-""").as_(Window)
+""",
+        )
 
-        self._window.Title = "Text Editor"
-        self._window.Activated += self._window_Activated
-
-        framework_element = self._window.Content.as_(FrameworkElement)
-
-        self._textbox = framework_element.FindName("textbox").as_(TextBox)
-        self._textbox.TextChanged += self._textbox_TextChanged
-        self._textbox.SelectionChanged += self._textbox_SelectionChanged
-
-        framework_element.FindName("menu_file_open").as_(MenuFlyoutItem).Click += self._menu_file_open_Click
-
-        framework_element.FindName("menu_file_save").as_(MenuFlyoutItem).Click += self._menu_file_save_Click
-
-        framework_element.FindName("menu_file_saveas").as_(MenuFlyoutItem).Click += self._menu_file_saveas_Click
-
-        framework_element.FindName("menu_file_exit").as_(MenuFlyoutItem).Click += self._menu_file_exit_Click
-
-        self._menu_edit_undo = framework_element.FindName("menu_edit_undo").as_(MenuFlyoutItem)
-        self._menu_edit_undo.Click += self._menu_edit_undo_Click
-
-        self._menu_edit_redo = framework_element.FindName("menu_edit_redo").as_(MenuFlyoutItem)
-        self._menu_edit_redo.Click += self._menu_edit_redo_Click
-
-        self._menu_edit_cut = framework_element.FindName("menu_edit_cut").as_(MenuFlyoutItem)
-        self._menu_edit_cut.Click += self._menu_edit_cut_Click
-
-        self._menu_edit_copy = framework_element.FindName("menu_edit_copy").as_(MenuFlyoutItem)
-        self._menu_edit_copy.Click += self._menu_edit_copy_Click
-
-        self._menu_edit_paste = framework_element.FindName("menu_edit_paste").as_(MenuFlyoutItem)
-        self._menu_edit_paste.Click += self._menu_edit_paste_Click
-
-        self._menu_edit_delete = framework_element.FindName("menu_edit_delete").as_(MenuFlyoutItem)
-        self._menu_edit_delete.Click += self._menu_edit_delete_Click
-
+        self._window.Title = "Text Editor"  # cannot set in xaml when using XamlReader
         self._window.Activate()
-
-        self._storage_file = None
+        self._current_file = None
 
     def _window_Activated(self, sender, e):
         self._menu_edit_paste.IsEnabled = self._textbox.CanPasteClipboardContent
@@ -110,34 +77,34 @@ class App(XamlApplication):
             self._menu_edit_delete.IsEnabled = True
 
     async def _menu_file_open_Click(self, sender, e):
-        storage_file = await self._file_open_dialog(".txt")
-        if not storage_file:
+        path = await self._file_open_dialog(".txt")
+        if not path:
             return
         try:
-            text = await FileIO.ReadTextAsync(storage_file)
+            text = Path(path).read_text()
         except Exception as e:
             await self._message_box(str(e), "error")
             return
         self._textbox.Text = text
-        self._storage_file = storage_file
+        self._current_file = path
 
     async def _menu_file_save_Click(self, sender, e):
-        if not self._storage_file:
-            storage_file = await self._file_save_dialog()
-            if not storage_file:
+        if not self._current_file:
+            path = await self._file_save_dialog()
+            if not path:
                 return
-            self._storage_file = storage_file
+            self._current_file = path
         # it seems textbox's newline is \r.
         text = re.sub(r"\r\n|\r|\n", "\r\n", self._textbox.Text)
-        await FileIO.WriteTextAsync(self._storage_file, text)
+        Path(self._current_file).write_text(text, newline="")
 
     async def _menu_file_saveas_Click(self, sender, e):
-        storage_file = await self._file_save_dialog()
-        if not storage_file:
+        path = await self._file_save_dialog()
+        if not path:
             return
-        self._storage_file = storage_file
+        self._current_file = path
         text = re.sub(r"\r\n|\r|\n", "\r\n", self._textbox.Text)
-        await FileIO.WriteTextAsync(self._storage_file, text)
+        Path(self._current_file).write_text(text, newline="")
 
     def _menu_file_exit_Click(self, sender, e):
         self.Exit()
@@ -163,22 +130,24 @@ class App(XamlApplication):
         self._textbox.SelectedText = ""
 
     async def _file_open_dialog(self, filter_):
-        hwnd = self._window.AppWindow.Id.Value
-        picker = FileOpenPicker()
-        picker.as_(IInitializeWithWindow).Initialize(hwnd)
+        picker = FileOpenPicker(self._window.AppWindow.Id)
         picker.FileTypeFilter.Append(filter_)
-        return await picker.PickSingleFileAsync()
+        r = await picker.PickSingleFileAsync()
+        if not r:
+            return None
+        return r.Path
 
     async def _file_save_dialog(self):
-        hwnd = self._window.AppWindow.Id.Value
-        picker = FileSavePicker()
-        picker.as_(IInitializeWithWindow).Initialize(hwnd)
+        picker = FileSavePicker(self._window.AppWindow.Id)
         picker.FileTypeChoices.Insert("Plain Text", [".txt"])
-        return await picker.PickSaveFileAsync()
+        r = await picker.PickSaveFileAsync()
+        if not r:
+            return None
+        return r.Path
 
     async def _message_box(self, content, title):
         dialog = ContentDialog()
-        dialog.XamlRoot = self._window.Content.as_(FrameworkElement).XamlRoot
+        dialog.XamlRoot = self._grid.XamlRoot
         dialog.Title = title
         dialog.Content = content
         dialog.CloseButtonText = "Ok"
