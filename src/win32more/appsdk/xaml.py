@@ -16,7 +16,7 @@ from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_A
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 
 from win32more import FAILED, WinError, asyncui
-from win32more.winrt import ComClass, WinRT_String
+from win32more.winrt import ComClass, WinRT_String, ISelf
 
 XMLNS_XAML = "http://schemas.microsoft.com/winfx/2006/xaml"
 XMLNS_XAML_PRESENTATION = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -340,7 +340,10 @@ def xaml_typename(name, kind):
 
 
 def as_runtime_class(uielement):
-    return uielement.as_(_get_runtime_class(uielement))
+    try:
+        return uielement.as_(ISelf).GetSelf()
+    except OSError:
+        return uielement.as_(_get_runtime_class(uielement))
 
 
 def _get_runtime_class(uielement):
