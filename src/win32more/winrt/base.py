@@ -16,6 +16,7 @@ from ctypes import (
     c_void_p,
     cast,
     pointer,
+    py_object,
     sizeof,
     wstring_at,
 )
@@ -48,6 +49,7 @@ from win32more import (
     VoidPtr,
     WinError,
     asyncui,
+    commethod,
     easycast,
     get_type_hints,
     parse_arguments,
@@ -1187,6 +1189,7 @@ class ComClass(ComPtr):
             elif "_iid_" in base.__dict__:
                 r.append(base)
         r.append(IAgileObject)
+        r.append(ISelf)
         return r
 
     def _enumerate_specialized_bases_recursively(self, cls: _GenericAlias | type) -> Iterable[_GenericAlias | type]:
@@ -1246,6 +1249,17 @@ class ComClass(ComPtr):
         trustLevel[0] = BaseTrust
         return S_OK
 
+    # ISelf.GetSelf()
+    def GetSelf(self) -> object:
+        return self
+
+
+class ISelf(IUnknown):
+    _iid_ = Guid("{18320492-860a-4c7b-ad7c-6cd65c88c09e}")
+
+    @commethod(3)
+    def GetSelf(self) -> py_object: ...
+
 
 class MulticastDelegate(IUnknown):
     pass
@@ -1261,7 +1275,7 @@ class MulticastDelegateImpl(ComClass):
 
     @property
     def _implemented_interfaces(self):
-        return [self._interface, IUnknown, IAgileObject]
+        return [self._interface, IUnknown, IAgileObject, ISelf]
 
     def Invoke(self, *args):
         if inspect.iscoroutinefunction(self._callback):

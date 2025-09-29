@@ -38,6 +38,7 @@ from win32more.winrt import (
     ComClass,
     ComError,
     FillArray,
+    ISelf,
     MulticastDelegateImpl,
     PassArray,
     ReceiveArray,
@@ -510,6 +511,14 @@ class TestWinrt(unittest.TestCase):
         hr = mock.f()
         self.assertTrue(FAILED(hr))
         self.assertEqual(ComError(hr)._com_description(), "Exception: hello")
+
+    def test_iself(self):
+        class Mock(ComClass, IInspectable):
+            pass
+
+        mock = Mock()
+        unknown = mock.as_(IInspectable)
+        self.assertIs(mock, unknown.as_(ISelf).GetSelf())
 
 
 if __name__ == "__main__":
