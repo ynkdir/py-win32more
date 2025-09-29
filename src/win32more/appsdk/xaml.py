@@ -16,9 +16,6 @@ from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_A
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 
 from win32more import FAILED, WinError, asyncui
-from win32more.appsdk.mddbootstrap import (
-    WINDOWSAPPSDK_RELEASE_MAJORMINOR,
-)
 from win32more.winrt import ComClass, WinRT_String
 
 XMLNS_XAML = "http://schemas.microsoft.com/winfx/2006/xaml"
@@ -35,10 +32,9 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         self._provider = None
         super().__init__(own=True)
         self.InitializeComponent()
-        if WINDOWSAPPSDK_RELEASE_MAJORMINOR >= 0x00010008:
-            self.ResourceManagerRequested += self._resource_manager_requested
+        self.ResourceManagerRequested += self.OnResourceManagerRequested
 
-    def _resource_manager_requested(self, sender, e):
+    def OnResourceManagerRequested(self, sender, e):
         e.CustomResourceManager = ResourceManager(str(Path(__file__).parent / "resources.pri"))
 
     def InitializeComponent(self):
