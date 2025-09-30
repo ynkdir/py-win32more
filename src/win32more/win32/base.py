@@ -1,3 +1,4 @@
+import inspect
 import sys
 import types
 import uuid
@@ -307,23 +308,6 @@ def get_type_hints(prototype, include_extras=False):
     return hints
 
 
-def parse_arguments(funcname: str, params: list, args: tuple, kwargs: dict, variadic: bool) -> list:
-    for k in params[: len(args)]:
-        if k in kwargs:
-            raise TypeError(f"{funcname}() got multiple values for argument '{k}'")
-    for k in kwargs:
-        if k not in params:
-            raise TypeError(f"{funcname}() got an unexpected keyword argument '{k}'")
-    nargs = len(args) + len(kwargs)
-    if nargs < len(params):
-        missing_count = len(params) - nargs
-        missing_keys = ", ".join(f"'{k}'" for k in params[-missing_count:])
-        raise TypeError(f"{funcname}() missing {missing_count} required positional arguments: {missing_keys}")
-    if nargs > len(params) and not variadic:
-        raise TypeError(f"{funcname}() takes {len(params)} positional arguments but {nargs} were given")
-    return list(args) + list(kwargs[k] for k in params[len(args) :])
-
-
 class Guid(Structure):
     _fields_ = [
         ("Data1", UInt32),
@@ -425,6 +409,7 @@ class ForeignFunctionCall:
         self._prototype = prototype
         self._hints = hints
         self._variadic = variadic
+        self._signature = inspect.signature(prototype)
         self._delegate = functype(restype, *self._hints.values())(*spec)
 
     def __call__(self, *args, **kwargs):
@@ -434,7 +419,7 @@ class ForeignFunctionCall:
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        pargs = parse_arguments(self._prototype.__qualname__, list(self._hints), args, kwargs, self._variadic)
+        pargs = self._signature.bind(*args, **kwargs).args
         return [easycast(v, t) if t else v for v, t in zip_longest(pargs, self._hints.values())]
 
     def make_result(self, result, _as_intptr):
@@ -473,6 +458,7 @@ class ComMethodCall:
         params = tuple((1, name) for name in hints.keys())
         self._prototype = prototype
         self._hints = hints
+        self._signature = inspect.signature(prototype)
         self._delegate = WINFUNCTYPE(restype, *self._hints.values())(vtbl_index, prototype.__name__, params)
 
     def __call__(self, this, *args, **kwargs):
@@ -482,7 +468,7 @@ class ComMethodCall:
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        pargs = parse_arguments(self._prototype.__qualname__, list(self._hints), args, kwargs, False)
+        pargs = self._signature.bind(None, *args, **kwargs).args[1:]
         return [easycast(v, t) for v, t in zip(pargs, self._hints.values())]  # >=3.10 strict=True
 
     def make_result(self, result, _as_intptr):

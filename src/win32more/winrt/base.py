@@ -52,7 +52,6 @@ from win32more import (
     commethod,
     easycast,
     get_type_hints,
-    parse_arguments,
     windll,
 )
 from win32more.Windows.Win32.Foundation import (
@@ -637,11 +636,12 @@ class WinrtMethodCall:
         self.restype = restype
         self._prototype = prototype
         self.hints = hints
+        self._signature = inspect.signature(prototype)
 
     def __call__(self, this, *args, **kwargs):
         with ExitStack() as exitstack:
             cargs = []
-            pargs = parse_arguments(self._prototype.__qualname__, list(self.hints), args, kwargs, False)
+            pargs = self._signature.bind(None, *args, **kwargs).args[1:]
             for value, type_ in zip(pargs, self.hints.values()):  # >=3.10 strict=True
                 self._add_argument(cargs, value, type_, exitstack)
             result = self._add_result(cargs, self.restype, exitstack)
