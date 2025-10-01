@@ -16,7 +16,7 @@ from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_A
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 
 from win32more import FAILED, WinError, asyncui
-from win32more.winrt import ComClass, WinRT_String, ISelf
+from win32more.winrt import ComClass, ISelf, WinRT_String
 
 XMLNS_XAML = "http://schemas.microsoft.com/winfx/2006/xaml"
 XMLNS_XAML_PRESENTATION = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -130,7 +130,7 @@ class XamlComponentConnector:
             for k, v in list(e.attrib.items()):
                 if k == f"{{{XMLNS_XAML}}}Name":
                     self._connectors[i].append(partial(self._connect_name, component, v))
-                elif k in _event_names:
+                elif k in _known_events:
                     if e == root:
                         self._connectors[i].append(partial(self._connect_event_root, component, k, v))
                     else:
@@ -192,7 +192,7 @@ class XamlLoader:
             for k, v in list(e.attrib.items()):
                 if k == f"{{{XMLNS_XAML}}}Name" and e is not root:
                     self._connectors[name].append(partial(self._connect_name, view, name))
-                elif k in _event_names:
+                elif k in _known_events:
                     self._connectors[name].append(partial(self._connect_event, view, k, v))
                     del e.attrib[k]
             if self._connectors[name] and f"{{{XMLNS_XAML}}}Name" not in e.attrib and e is not root:
@@ -360,8 +360,7 @@ def _get_runtime_class_name(uielement):
     return s.strvalue
 
 
-# FIXME: how to detect event name?
-_event_names = {
+_known_events = {
     "AccessKeyDisplayDismissed",
     "AccessKeyDisplayRequested",
     "AccessKeyInvoked",
@@ -503,6 +502,7 @@ _event_names = {
     "PaneClosing",
     "PaneOpened",
     "PaneOpening",
+    "PaneToggleRequested",
     "PasswordChanged",
     "PasswordChanging",
     "Paste",
