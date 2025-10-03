@@ -46,18 +46,30 @@ class Selector:
 
         if td.name == "Apis":
             for fd in td.fields:
-                if self._is_match(fd.name) or self._is_match(f"{td.namespace}.{fd.name}"):
+                if (
+                    self._is_match(td.namespace)
+                    or self._is_match(fd.name)
+                    or self._is_match(f"{td.namespace}.{fd.name}")
+                ):
                     self._selected.add(td.fullname)
                     self._selected.add(f"{td.namespace}.{fd.name}")
                     self._select_dependencies(Dependencies(fd))
             for md in td.methods:
-                if self._is_match(md.name) or self._is_match(f"{td.namespace}.{md.name}"):
+                if (
+                    self._is_match(td.namespace)
+                    or self._is_match(md.name)
+                    or self._is_match(f"{td.namespace}.{md.name}")
+                ):
                     self._selected.add(td.fullname)
                     self._selected.add(f"{td.namespace}.{md.name}")
                     self._select_dependencies(Dependencies(md))
         elif td.basetype == "System.Enum" and td.is_win32 and not td.custom_attributes.has_scoped_enum():
             for fd in td.fields[1:]:
-                if self._is_match(fd.name) or self._is_match(f"{td.namespace}.{fd.name}"):
+                if (
+                    self._is_match(td.namespace)
+                    or self._is_match(fd.name)
+                    or self._is_match(f"{td.namespace}.{fd.name}")
+                ):
                     self._selected.add(td.fullname)
                     self._selected.add(f"{td.fullname}.{fd.name}")
                     self._select_dependencies(Dependencies(td))
