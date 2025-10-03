@@ -1,4 +1,6 @@
 import argparse
+import glob
+import itertools
 import json
 import logging
 import lzma
@@ -121,7 +123,7 @@ def main() -> None:
     parser.add_argument("--raw", action="store_true", help="generate raw bindings")
     parser.add_argument("--package-name", default="win32more")
     parser.add_argument("--output-directory", type=Path, default="src")
-    parser.add_argument("metadata", nargs="+", type=Path, help="metadata.json")
+    parser.add_argument("metadata", nargs="+", help="metadata.json")
     args = parser.parse_args()
 
     logging.basicConfig(level=args.loglevel)
@@ -135,7 +137,8 @@ def main() -> None:
     if args.raw and args.selector is None:
         raise RuntimeError("--raw requires --selector option")
 
-    meta = load_files(args.metadata)
+    metadata_files = [Path(path) for path in itertools.chain.from_iterable(glob.glob(path) for path in args.metadata)]
+    meta = load_files(metadata_files)
 
     meta = preprocess(meta)
 
