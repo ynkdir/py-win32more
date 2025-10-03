@@ -2,6 +2,7 @@ import argparse
 import json
 import logging
 import lzma
+import zipfile
 from io import StringIO
 from pathlib import Path
 from typing import TextIO
@@ -15,16 +16,22 @@ from .selector import Selector
 logger = logging.getLogger(__name__)
 
 
-def xread_text(path: str) -> str:
-    if path.endswith(".xz"):
-        return lzma.decompress(Path(path).read_bytes()).decode()
-    return Path(path).read_text()
+def xread_text(path: Path | zipfile.Path) -> str:
+    if path.suffix == ".xz":
+        return lzma.decompress(path.read_bytes()).decode()
+    return path.read_text()
 
 
-def load_files(metadata_files: list[str]) -> Metadata:
+def load_files(metadata_files: list[Path]) -> Metadata:
     js = []
-    for file in metadata_files:
-        js.extend(json.loads(xread_text(file)))
+    for path in metadata_files:
+        if path.suffix == ".zip":
+            with zipfile.ZipFile(path) as zfile:
+                for zname in zfile.namelist():
+                    zpath = zipfile.Path(zfile, zname)
+                    js.extend(json.loads(xread_text(zpath)))
+        else:
+            js.extend(json.loads(xread_text(path)))
     return Metadata(js)
 
 
@@ -114,7 +121,7 @@ def main() -> None:
     parser.add_argument("--raw", action="store_true", help="generate raw bindings")
     parser.add_argument("--package-name", default="win32more")
     parser.add_argument("--output-directory", type=Path, default="src")
-    parser.add_argument("metadata", nargs="+", help="metadata.json")
+    parser.add_argument("metadata", nargs="+", type=Path, help="metadata.json")
     args = parser.parse_args()
 
     logging.basicConfig(level=args.loglevel)
