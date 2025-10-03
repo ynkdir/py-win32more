@@ -15,12 +15,16 @@ from win32more.Windows.Win32.Foundation import (
     STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED,
 )
 from win32more.Windows.Win32.Storage.Packaging.Appx import (
+    PACKAGE_FILTER_DYNAMIC,
+    PACKAGE_FILTER_STATIC,
+    PACKAGE_INFO,
     PACKAGE_VERSION,
     PACKAGEDEPENDENCY_CONTEXT,
     AddPackageDependency,
     AddPackageDependencyOptions_None,
     CreatePackageDependencyOptions_None,
     GetCurrentPackageFullName,
+    GetCurrentPackageInfo,
     GetPackagePathByFullName,
     GetPackagesByPackageFamily,
     PackageDependencyLifetimeKind_Process,
@@ -32,7 +36,7 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import (
 from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, MB_YESNO, MessageBox
 
 import win32more.appsdk.mddbootstrap
-from win32more import ARCH, FAILED, Char, Int32, String, UInt32, Void, WinError, make_ready, winfunctype
+from win32more import ARCH, FAILED, Byte, Char, Int32, String, UInt32, Void, WinError, make_ready, pointer, winfunctype
 from win32more.winrt import ComError
 
 # versioninfo.py will be installed by win32more-Microsoft.WindowsAppSDK
@@ -266,6 +270,32 @@ def initialize() -> None:
 
 def uninitialize() -> None:
     MddBootstrapShutdown()
+
+
+def get_current_package_info(flags=PACKAGE_FILTER_DYNAMIC | PACKAGE_FILTER_STATIC):
+    size = UInt32()
+    r = GetCurrentPackageInfo(flags, size, None, None)
+    if r != ERROR_INSUFFICIENT_BUFFER:
+        raise WinError(r)
+
+    buf = bytearray(size.value)
+    pinfo = pointer(PACKAGE_INFO.from_buffer(buf))
+    count = UInt32()
+    r = GetCurrentPackageInfo(PACKAGE_FILTER_DYNAMIC | PACKAGE_FILTER_STATIC, size, Byte.from_buffer(buf), count)
+    if FAILED(r):
+        raise WinError(r)
+
+    return pinfo[0 : count.value]
+
+
+def get_loaded_appsdk_info():
+    family_name = _GetFrameworkPackageFamilyName(
+        WINDOWSAPPSDK_RELEASE_MAJORMINOR, WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W
+    )
+    for info in get_current_package_info():
+        if info.packageFamilyName == family_name:
+            return info
+    raise LookupError(f"{family_name} is not loaded")
 
 
 make_ready(__name__)
