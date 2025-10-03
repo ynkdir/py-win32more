@@ -1,1 +1,2 @@
 MessageBoxW
+Windows.Win32.Foundation
