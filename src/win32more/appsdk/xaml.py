@@ -116,7 +116,7 @@ class XamlComponentConnector:
 
     def Load(self, component, xaml_str, xaml_path):
         xaml_preprocessed = self._preprocess(component, xaml_str, xaml_path)
-        with NamedTemporaryFile(delete_on_close=False) as f:
+        with NamedTemporaryFile(delete=False) as f:
             f.write(xaml_preprocessed.encode("utf-8"))
             f.close()
             tmp_xaml_path = Path(f.name).as_posix()
