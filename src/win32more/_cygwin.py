@@ -75,6 +75,7 @@ class ComMethod:
 
 
 CCP_POSIX_TO_WIN_W = 1
+CCP_WIN_W_TO_POSIX = 3
 
 try:
     cygwin1 = cdll.LoadLibrary("cygwin1.dll")
@@ -95,3 +96,10 @@ def posix_to_win(posix_path: str) -> str:
     win_path = c_wchar_p(p).value
     free(p)
     return win_path
+
+
+def win_to_posix(win_path: str) -> str:
+    p = cygwin_create_path(CCP_WIN_W_TO_POSIX, c_wchar_p(win_path))
+    posix_path = c_char_p(p).value
+    free(p)
+    return posix_path.decode("utf-8")
