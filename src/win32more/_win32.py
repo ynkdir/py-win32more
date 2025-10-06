@@ -1,29 +1,14 @@
 import inspect
 import sys
 import types
-import uuid
 from ctypes import (
     CFUNCTYPE,
     POINTER,
     Array,
     _CFuncPtr,
     addressof,
-    c_bool,
-    c_byte,
     c_char_p,
-    c_double,
-    c_float,
-    c_int16,
-    c_int32,
-    c_int64,
-    c_size_t,
-    c_ssize_t,
-    c_ubyte,
-    c_uint16,
-    c_uint32,
-    c_uint64,
     c_void_p,
-    c_wchar,
     c_wchar_p,
     cast,
     cdll,
@@ -40,6 +25,30 @@ else:
     from typing import Annotated, get_origin
     from typing import get_type_hints as _get_type_hints
 
+from ._winapi import (  # noqa: F401
+    FAILED,
+    SUCCEEDED,
+    Boolean,
+    Byte,
+    Bytes,
+    Char,
+    Double,
+    Guid,
+    Int16,
+    Int32,
+    Int64,
+    IntPtr,
+    SByte,
+    Single,
+    String,
+    UInt16,
+    UInt32,
+    UInt64,
+    UIntPtr,
+    Void,
+    VoidPtr,
+)
+
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
 elif "(amd64)" in sys.version.lower():
@@ -51,25 +60,6 @@ if sys.platform == "cygwin":
     from ._cygwin import ARCH, WINFUNCTYPE, WinError, windll  # noqa: F401
 else:
     from ctypes import WINFUNCTYPE, WinError, windll
-
-Byte = c_ubyte
-SByte = c_byte
-Char = c_wchar
-Int16 = c_int16
-UInt16 = c_uint16
-Int32 = c_int32
-UInt32 = c_uint32
-Int64 = c_int64
-UInt64 = c_uint64
-IntPtr = c_ssize_t
-UIntPtr = c_size_t
-Single = c_float
-Double = c_double
-Bytes = c_char_p
-String = c_wchar_p
-Boolean = c_bool
-VoidPtr = c_void_p
-Void = None
 
 
 class Enum:
@@ -306,68 +296,6 @@ def get_type_hints(prototype, include_extras=False):
             # It is not applied to subclass.  Avoid it for Enum.
             hints[name] = type_.__bases__[1]
     return hints
-
-
-class Guid(Structure):
-    _fields_ = [
-        ("Data1", UInt32),
-        ("Data2", UInt16),
-        ("Data3", UInt16),
-        ("Data4", Byte * 8),
-    ]
-
-    def __init__(self, val=None):
-        if val is None:
-            pass
-        elif isinstance(val, self.__class__):
-            self.Data1 = val.Data1
-            self.Data2 = val.Data2
-            self.Data3 = val.Data3
-            self.Data4 = val.Data4
-        elif isinstance(val, str):
-            u = uuid.UUID(val)
-            self.Data1 = u.time_low
-            self.Data2 = u.time_mid
-            self.Data3 = u.time_hi_version
-            for i in range(8):
-                self.Data4[i] = u.bytes[8 + i]
-        elif isinstance(val, uuid.UUID):
-            u = val
-            self.Data1 = u.time_low
-            self.Data2 = u.time_mid
-            self.Data3 = u.time_hi_version
-            for i in range(8):
-                self.Data4[i] = u.bytes[8 + i]
-        else:
-            raise ValueError()
-
-    def __str__(self):
-        return f"{{{self.Data1:08x}-{self.Data2:04x}-{self.Data3:04x}-{self.Data4[0]:02x}{self.Data4[1]:02x}-{self.Data4[2]:02x}{self.Data4[3]:02x}{self.Data4[4]:02x}{self.Data4[5]:02x}{self.Data4[6]:02x}{self.Data4[7]:02x}}}"
-
-    def __eq__(self, other):
-        if not isinstance(other, Guid):
-            raise ValueError(f"cannot compare with {type(other)}")
-        return (
-            self.Data1 == other.Data1
-            and self.Data2 == other.Data2
-            and self.Data3 == other.Data3
-            and self.Data4[0] == other.Data4[0]
-            and self.Data4[1] == other.Data4[1]
-            and self.Data4[2] == other.Data4[2]
-            and self.Data4[3] == other.Data4[3]
-            and self.Data4[4] == other.Data4[4]
-            and self.Data4[5] == other.Data4[5]
-            and self.Data4[6] == other.Data4[6]
-            and self.Data4[7] == other.Data4[7]
-        )
-
-
-def SUCCEEDED(hr):
-    return hr >= 0
-
-
-def FAILED(hr):
-    return hr < 0
 
 
 class ForeignFunction:

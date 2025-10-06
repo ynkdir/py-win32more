@@ -54,39 +54,40 @@ from win32more import (
     get_type_hints,
     windll,
 )
-from win32more.Windows.Win32.Foundation import (
+from win32more._winapi import (
     BSTR,
     E_FAIL,
     E_NOINTERFACE,
     HRESULT,
+    HSTRING,
+    PFNGETACTIVATIONFACTORY,
     S_OK,
+    BaseTrust,
+    CoTaskMemAlloc,
+    CoTaskMemFree,
+    CreateErrorInfo,
+    GetErrorInfo,
+    RoGetActivationFactory,
+    RoOriginateError,
+    SetErrorInfo,
     SysAllocString,
     SysFreeString,
     SysStringLen,
-)
-from win32more.Windows.Win32.System.Com import (
-    CoTaskMemAlloc,
-    CoTaskMemFree,
-    GetErrorInfo,
-    IAgileObject,
-    IErrorInfo,
-    IUnknown,
-    SetErrorInfo,
-)
-from win32more.Windows.Win32.System.Ole import CreateErrorInfo, ICreateErrorInfo
-from win32more.Windows.Win32.System.WinRT import (
-    HSTRING,
-    PFNGETACTIVATIONFACTORY,
-    BaseTrust,
-    IActivationFactory,
-    IInspectable,
-    IRestrictedErrorInfo,
-    RoGetActivationFactory,
-    RoOriginateError,
     TrustLevel,
     WindowsCreateString,
     WindowsDeleteString,
     WindowsGetStringRawBuffer,
+)
+from win32more.Windows.Win32.System.Com import (
+    IAgileObject,
+    IErrorInfo,
+    IUnknown,
+)
+from win32more.Windows.Win32.System.Ole import ICreateErrorInfo
+from win32more.Windows.Win32.System.WinRT import (
+    IActivationFactory,
+    IInspectable,
+    IRestrictedErrorInfo,
 )
 
 K = TypeVar("K")
@@ -1089,7 +1090,7 @@ class Vtbl(Structure):
         hr = CreateErrorInfo(info)
         if FAILED(hr):
             return
-        description = SysAllocString(f"{exc.__class__.__name__}: {exc}", _as_intptr=True)
+        description = SysAllocString(f"{exc.__class__.__name__}: {exc}")
         if not description:
             return
         hr = info.SetDescription(description)
