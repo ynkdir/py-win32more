@@ -258,18 +258,28 @@ def initialize() -> None:
 
     if FAILED(hr):
         if hr == STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED:
-            major = WINDOWSAPPSDK_RELEASE_MAJORMINOR >> 16
-            minor = WINDOWSAPPSDK_RELEASE_MAJORMINOR & 0xFFFF
-            min_version = PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64)
-            raise OSError(
-                hr,
-                f"This application requires the Windows App Runtime Version {major}.{minor} (MSIX package version >= {min_version.Major}.{min_version.Minor}.{min_version.Build}.{min_version.Revision})",
-            )
+            raise RuntimeNotFound()
         raise ComError(hr)
 
 
 def uninitialize() -> None:
     MddBootstrapShutdown()
+
+
+class RuntimeNotFound(OSError):
+    def __init__(self):
+        major = WINDOWSAPPSDK_RELEASE_MAJORMINOR >> 16
+        minor = WINDOWSAPPSDK_RELEASE_MAJORMINOR & 0xFFFF
+        min_version = PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64)
+        msg = f"This application requires the Windows App Runtime Version {major}.{minor} (MSIX package version >= {min_version.Major}.{min_version.Minor}.{min_version.Build}.{min_version.Revision})"
+        super().__init__(STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED, msg)
+
+    def show_dialog(self):
+        _OnNoMatch_ShowUI(
+            WINDOWSAPPSDK_RELEASE_MAJORMINOR,
+            WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
+            PACKAGE_VERSION(Version=WINDOWSAPPSDK_RUNTIME_VERSION_UINT64),
+        )
 
 
 def get_current_package_info(flags=PACKAGE_FILTER_DYNAMIC | PACKAGE_FILTER_STATIC):
