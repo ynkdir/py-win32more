@@ -122,6 +122,7 @@ class XamlComponentConnector:
             tmp_xaml_path = Path(f.name).as_posix()
             resource_locator = Uri(f"ms-appx:///{tmp_xaml_path}")
             Application.LoadComponent(component, resource_locator)
+            Path(f.name).unlink()
 
     def _preprocess(self, component, xaml_str, xaml_path):
         root = ET.fromstring(xaml_str)
