@@ -1,17 +1,5 @@
 import platform
-from ctypes import CFUNCTYPE, POINTER, c_char_p, c_uint, c_void_p, c_wchar_p, cast, cdll, pointer
-
-from ._winapi import (
-    FORMAT_MESSAGE_ALLOCATE_BUFFER,
-    FORMAT_MESSAGE_FROM_SYSTEM,
-    FORMAT_MESSAGE_IGNORE_INSERTS,
-    LANG_NEUTRAL,
-    MAKELANGID,
-    SUBLANG_NEUTRAL,
-    FormatMessageW,
-    GetLastError,
-    LocalFree,
-)
+from ctypes import CFUNCTYPE, POINTER, c_char_p, c_uint, c_void_p, c_wchar_p, cast, cdll
 
 if platform.machine() != "x86_64":
     raise RuntimeError(f"{platform.machine()} is not supported")
@@ -21,25 +9,9 @@ ARCH = "X64"
 windll = cdll
 
 
-def FormatError(code):
-    lpMsgBuf = c_wchar_p()
-    n = FormatMessageW(
-        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-        None,
-        code,
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL),
-        cast(pointer(lpMsgBuf), c_wchar_p),
-        0,
-        None,
-    )
-    if n == 0:
-        return "<no description>"
-    msg = lpMsgBuf.value.rstrip()
-    LocalFree(lpMsgBuf)
-    return msg
-
-
 def WinError(code=None, descr=None):
+    from ._winapi import FormatError, GetLastError
+
     if code is None:
         code = GetLastError()
     if descr is None:

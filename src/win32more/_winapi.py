@@ -20,11 +20,12 @@ from ctypes import (
     c_void_p,
     c_wchar,
     c_wchar_p,
+    cast,
+    pointer,
 )
 
 if sys.platform == "cygwin":
-    from ctypes import CFUNCTYPE as WINFUNCTYPE
-    from ctypes import cdll as windll
+    from ._cygwin import WINFUNCTYPE, windll
 else:
     from ctypes import WINFUNCTYPE, windll
 
@@ -112,6 +113,24 @@ def FAILED(hr):
 
 def MAKELANGID(p, s):
     return (s << 10) | p
+
+
+def FormatError(code):
+    lpMsgBuf = c_wchar_p()
+    n = FormatMessageW(
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        None,
+        code,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL),
+        cast(pointer(lpMsgBuf), c_wchar_p),
+        0,
+        None,
+    )
+    if n == 0:
+        return "<no description>"
+    msg = lpMsgBuf.value.rstrip()
+    LocalFree(lpMsgBuf)
+    return msg
 
 
 # Windows.Win32.Foundation
