@@ -48,7 +48,7 @@ else:
     ARCH = "X86"
 
 if sys.platform == "cygwin":
-    from .cygwin import ARCH, WINFUNCTYPE, WinError, windll  # noqa: F401
+    from ._cygwin import ARCH, WINFUNCTYPE, WinError, windll  # noqa: F401
 else:
     from ctypes import WINFUNCTYPE, WinError, windll
 

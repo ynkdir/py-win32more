@@ -51,7 +51,7 @@ from win32more.winrt.base import _ro_get_parameterized_type_instance_iid
 from win32more.winrt.vector import Vector
 
 if sys.platform == "cygwin":
-    from win32more.win32.cygwin import posix_to_win
+    from win32more._cygwin import posix_to_win
 else:
 
     def posix_to_win(path):

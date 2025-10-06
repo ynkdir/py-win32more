@@ -1,4 +1,4 @@
-from .win32 import *
+from ._win32 import *
 
 # Initialize COM Multithreaded Apartment.
 # Call CoInitializeEx(None, COINIT_APARTMENTTHREADED) explicitly for Single-Threaded Apartment.
