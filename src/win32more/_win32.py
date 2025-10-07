@@ -127,6 +127,14 @@ class Guid(_Structure):
         )
 
 
+def SUCCEEDED(hr):
+    return hr >= 0
+
+
+def FAILED(hr):
+    return hr < 0
+
+
 class Enum:
     pass
 

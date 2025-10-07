@@ -1,6 +1,5 @@
 from ctypes import WinError
 
-from win32more import FAILED
 from win32more.Windows.Data.Xml.Dom import XmlDocument
 from win32more.Windows.UI.Notifications import ToastNotification, ToastNotificationManager
 from win32more.Windows.Win32.System.WinRT import (
@@ -8,6 +7,8 @@ from win32more.Windows.Win32.System.WinRT import (
     RoInitialize,
     RoUninitialize,
 )
+
+from win32more import FAILED
 
 
 def winrt_notification() -> None:

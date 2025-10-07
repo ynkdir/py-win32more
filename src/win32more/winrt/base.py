@@ -30,6 +30,7 @@ else:
 
 from win32more import asyncui
 from win32more._win32 import (
+    FAILED,
     WINFUNCTYPE,
     Boolean,
     Byte,
@@ -57,7 +58,6 @@ from win32more._win32api import (
     BSTR,
     E_FAIL,
     E_NOINTERFACE,
-    FAILED,
     HRESULT,
     HSTRING,
     PFNGETACTIVATIONFACTORY,

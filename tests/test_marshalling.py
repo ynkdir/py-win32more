@@ -11,18 +11,20 @@ from ctypes import (
     py_object,
 )
 
-from win32more._win32 import (
+from win32more import (
     WINFUNCTYPE,
     Boolean,
     Char,
     Double,
+    Int32,
+    UInt32,
+    UIntPtr,
+)
+from win32more._win32 import (
     EasyCastDescriptor,
     Enum,
     ForeignFunctionCall,
-    Int32,
     Structure,
-    UInt32,
-    UIntPtr,
     cfunctype_pointer,
     commethod,
 )

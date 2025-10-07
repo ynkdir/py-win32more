@@ -6,6 +6,7 @@ from win32more.Microsoft.UI.Xaml import Window
 from win32more.Microsoft.UI.Xaml.Controls import Button, Grid, TextBox, WebView2
 from win32more.Microsoft.UI.Xaml.Markup import XamlReader
 from win32more.Windows.Foundation import Uri
+
 from win32more.appsdk.xaml import XamlApplication
 
 

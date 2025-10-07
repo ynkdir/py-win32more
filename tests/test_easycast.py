@@ -11,13 +11,15 @@ from ctypes import (
     wstring_at,
 )
 
+from win32more import (
+    Int16,
+    UInt16,
+    Void,
+)
 from win32more._win32 import (
     ComPtr,
     ForeignFunctionCall,
-    Int16,
     Structure,
-    UInt16,
-    Void,
     cfunctype_pointer,
     winfunctype_pointer,
 )

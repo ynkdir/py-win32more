@@ -3,7 +3,6 @@
 from contextlib import ExitStack
 from ctypes import WinError, byref, pointer
 
-from win32more import FAILED, Guid, Int32
 from win32more.Windows.Win32.Foundation import PWSTR, SysAllocString
 from win32more.Windows.Win32.Media.KernelStreaming import GUID_NULL
 from win32more.Windows.Win32.System.Com import (
@@ -37,6 +36,8 @@ from win32more.Windows.Win32.System.Variant import (
     VariantClear,
 )
 from win32more.Windows.Win32.UI.WindowsAndMessaging import MB_OK, MessageBoxW
+
+from win32more import FAILED, Guid, Int32
 
 # missing constants in win32metadata
 LOCALE_SYSTEM_DEFAULT = 2048

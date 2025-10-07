@@ -1,8 +1,9 @@
 import socket
 
-from win32more import UInt32, WinError
 from win32more.Windows.Win32.Foundation import ERROR_INSUFFICIENT_BUFFER, NO_ERROR
 from win32more.Windows.Win32.NetworkManagement.IpHelper import MIB_IPADDRTABLE, GetIpAddrTable
+
+from win32more import UInt32, WinError
 
 dwSize = UInt32(0)
 if (r := GetIpAddrTable(None, dwSize, False)) != ERROR_INSUFFICIENT_BUFFER:

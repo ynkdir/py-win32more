@@ -1,5 +1,8 @@
 # ruff: noqa: F401
+from . import _win32api
 from ._win32 import (
+    FAILED,
+    SUCCEEDED,
     WINFUNCTYPE,
     Boolean,
     Byte,
@@ -21,11 +24,10 @@ from ._win32 import (
     Void,
     VoidPtr,
     WinError,
+    windll,
 )
-from ._win32api import FAILED, SUCCEEDED
-from ._win32api import CoIncrementMTAUsage as _CoIncrementMTAUsage
 
 # Initialize COM Multithreaded Apartment.
 # Call CoInitializeEx(None, COINIT_APARTMENTTHREADED) explicitly for Single-Threaded Apartment.
-if FAILED(_CoIncrementMTAUsage(VoidPtr())):
+if FAILED(_win32api.CoIncrementMTAUsage(VoidPtr())):
     raise WinError()

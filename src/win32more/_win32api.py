@@ -24,14 +24,6 @@ from ._win32 import (
 )
 
 
-def SUCCEEDED(hr):
-    return hr >= 0
-
-
-def FAILED(hr):
-    return hr < 0
-
-
 def MAKELANGID(p, s):
     return (s << 10) | p
 

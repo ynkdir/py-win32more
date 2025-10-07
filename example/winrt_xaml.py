@@ -6,7 +6,6 @@
 
 import tkinter as tk
 
-from win32more import FAILED, WinError
 from win32more.Windows.UI import Colors
 from win32more.Windows.UI.Xaml import HorizontalAlignment, VerticalAlignment
 from win32more.Windows.UI.Xaml.Controls import StackPanel, TextBox
@@ -16,6 +15,8 @@ from win32more.Windows.Win32.Foundation import HWND
 from win32more.Windows.Win32.System.WinRT import RO_INIT_SINGLETHREADED, RoInitialize, RoUninitialize
 from win32more.Windows.Win32.System.WinRT.Xaml import IDesktopWindowXamlSourceNative
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SWP_SHOWWINDOW, SetWindowPos
+
+from win32more import FAILED, WinError
 
 
 def window_size_center(win, w, h):

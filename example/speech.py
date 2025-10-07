@@ -1,7 +1,6 @@
 from contextlib import ExitStack
 from ctypes import WinError
 
-from win32more import FAILED
 from win32more.Windows.Win32.Foundation import PWSTR, S_OK
 from win32more.Windows.Win32.Media.Speech import (
     SPF_DEFAULT,
@@ -19,6 +18,8 @@ from win32more.Windows.Win32.System.Com import (
     CoTaskMemFree,
     CoUninitialize,
 )
+
+from win32more import FAILED
 
 
 def enum_tokens():

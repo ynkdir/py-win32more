@@ -19,19 +19,21 @@ from win32more.Windows.Win32.Foundation import HRESULT, S_OK
 from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
-from win32more._win32 import (
+from win32more import (
+    FAILED,
     WINFUNCTYPE,
     Byte,
-    Enum,
     Guid,
     Int32,
     UInt32,
     Void,
     VoidPtr,
     WinError,
+)
+from win32more._win32 import (
+    Enum,
     commethod,
 )
-from win32more._win32api import FAILED
 from win32more.winrt import (
     ComClass,
     ComError,

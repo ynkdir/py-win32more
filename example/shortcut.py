@@ -1,7 +1,6 @@
 from ctypes import WinError
 from pathlib import Path
 
-from win32more import FAILED
 from win32more.Windows.Win32.System.Com import (
     CLSCTX_INPROC_SERVER,
     CoCreateInstance,
@@ -10,6 +9,8 @@ from win32more.Windows.Win32.System.Com import (
     IPersistFile,
 )
 from win32more.Windows.Win32.UI.Shell import IShellLinkW, ShellLink
+
+from win32more import FAILED
 
 hr = CoInitialize(None)
 if FAILED(hr):

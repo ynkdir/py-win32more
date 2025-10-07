@@ -4,6 +4,7 @@ from win32more.Microsoft.UI.Xaml import FrameworkElement, Window
 from win32more.Microsoft.UI.Xaml.Controls import Frame, NavigationView, NavigationViewItem, Page
 from win32more.Microsoft.UI.Xaml.Markup import XamlReader
 from win32more.Windows.UI.Xaml.Interop import TypeKind
+
 from win32more.appsdk.xaml import XamlApplication, XamlType, xaml_typename
 
 xaml_window = """

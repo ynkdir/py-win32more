@@ -1,7 +1,6 @@
 import asyncio
 from ctypes import sizeof
 
-from win32more import FAILED, WinError
 from win32more.Windows.Graphics.Imaging import BitmapDecoder
 from win32more.Windows.Media.Ocr import OcrEngine
 from win32more.Windows.Storage import FileAccessMode
@@ -29,6 +28,8 @@ from win32more.Windows.Win32.UI.WindowsAndMessaging import (
     SetTimer,
     TranslateMessage,
 )
+
+from win32more import FAILED, WinError
 
 
 def create_owner_window():

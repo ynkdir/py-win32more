@@ -3,6 +3,7 @@ from pathlib import Path
 from win32more.Microsoft.UI.Xaml import Window
 from win32more.Microsoft.UI.Xaml.Markup import XamlReader
 from win32more.Microsoft.UI.Xaml.Media import MicaBackdrop
+
 from win32more.appsdk.xaml import XamlApplication
 
 

@@ -1,7 +1,6 @@
 import asyncio
 from ctypes import sizeof
 
-from win32more import FAILED, WinError
 from win32more.Windows.UI.Popups import MessageDialog
 from win32more.Windows.Win32.System.LibraryLoader import GetModuleHandle
 from win32more.Windows.Win32.System.WinRT import (
@@ -25,6 +24,8 @@ from win32more.Windows.Win32.UI.WindowsAndMessaging import (
     SetTimer,
     TranslateMessage,
 )
+
+from win32more import FAILED, WinError
 
 
 def create_owner_window():

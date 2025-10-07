@@ -1,7 +1,8 @@
 from ctypes import c_wchar, sizeof, wstring_at
 
-from win32more import IntPtr
 from win32more.Windows.Win32.System.Environment import FreeEnvironmentStringsW, GetEnvironmentStringsW
+
+from win32more import IntPtr
 
 
 # Unsafe case for c_wchar_p to python str auto-conversion.

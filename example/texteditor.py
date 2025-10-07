@@ -1,8 +1,7 @@
 import re
 from contextlib import ExitStack
-from ctypes import WinError, create_string_buffer, create_unicode_buffer, cast, POINTER
+from ctypes import POINTER, WinError, cast, create_string_buffer, create_unicode_buffer
 
-from win32more import FAILED, UInt32, Byte
 from win32more.Windows.Win32.Foundation import (
     ERROR_CANCELLED,
     GENERIC_READ,
@@ -91,6 +90,8 @@ from win32more.Windows.Win32.UI.WindowsAndMessaging import (
     ShowWindow,
     TranslateMessage,
 )
+
+from win32more import FAILED, Byte, UInt32
 
 IDM_FILE_OPEN = 101
 IDM_FILE_SAVE = 102
