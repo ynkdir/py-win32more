@@ -191,7 +191,7 @@ class ComPtr(c_void_p):
         iid = cls._iid_
         instance = cls(own=True)
         hr = self.QueryInterface(pointer(iid), pointer(instance))
-        if hr < 0:  # FAILED(hr)
+        if FAILED(hr):
             raise WinError(hr)
         return instance
 
