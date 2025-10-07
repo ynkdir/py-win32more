@@ -53,7 +53,7 @@ from win32more import (
     get_type_hints,
     windll,
 )
-from win32more._winapi import (
+from win32more._win32api import (
     BSTR,
     E_FAIL,
     E_NOINTERFACE,
