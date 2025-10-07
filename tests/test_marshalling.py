@@ -11,7 +11,7 @@ from ctypes import (
     py_object,
 )
 
-from win32more import (
+from win32more._win32 import (
     WINFUNCTYPE,
     Boolean,
     Char,

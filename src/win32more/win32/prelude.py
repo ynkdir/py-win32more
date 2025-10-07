@@ -1,9 +1,7 @@
 # ruff: noqa: F401
-from win32more import (
+from win32more._win32 import (
     ARCH,
-    FAILED,
     POINTER,
-    SUCCEEDED,
     Annotated,
     Boolean,
     Byte,

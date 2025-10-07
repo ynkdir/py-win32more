@@ -28,7 +28,8 @@ if sys.version_info < (3, 9):
 else:
     from typing import Annotated, Tuple, get_args, get_origin  # noqa: F401
 
-from win32more import (
+from win32more import asyncui
+from win32more._win32 import (
     WINFUNCTYPE,
     Boolean,
     Byte,
@@ -47,7 +48,6 @@ from win32more import (
     Void,
     VoidPtr,
     WinError,
-    asyncui,
     commethod,
     easycast,
     get_type_hints,

@@ -89,8 +89,9 @@ class TestSyntax(unittest.TestCase):
         self.assertEqual(GetCurrentProcessToken(), -4)
 
     def test_overload_method_is_wrapped_with_winrt_overload(self):
-        from win32more.winrt import winrt_overload
         from win32more.Windows.Storage.Pickers import FileOpenPicker
+
+        from win32more.winrt import winrt_overload
 
         self.assertIsInstance(FileOpenPicker.__dict__["PickSingleFileAsync"], winrt_overload)
 
@@ -113,9 +114,10 @@ class TestSyntax(unittest.TestCase):
     def test_struct_member_of_generic_type(self):
         from typing import Generic
 
-        from win32more import UInt64
         from win32more.Windows.Foundation import IReference
         from win32more.Windows.Web.Http import HttpProgress
+
+        from win32more import UInt64
 
         x = HttpProgress()
         self.assertIsInstance(x.TotalBytesToSend, Generic)
@@ -123,13 +125,14 @@ class TestSyntax(unittest.TestCase):
         self.assertEqual(x.TotalBytesToSend.__orig_class__.__args__, (UInt64,))
 
     def test_struct_bitfield(self):
-        from win32more import UInt32
         from win32more.Windows.Win32.Storage.Nvme import NVME_COMMAND_DWORD0
+
+        from win32more import UInt32
 
         self.assertEqual(sizeof(NVME_COMMAND_DWORD0), sizeof(UInt32))
 
         x = NVME_COMMAND_DWORD0(OPC=1, FUSE=1, Reserved0=1, PSDT=1, CID=1)
-        #self.assertEqual(x.AsUlong, 0b00000000000000011000010100000001)
+        # self.assertEqual(x.AsUlong, 0b00000000000000011000010100000001)
         # since Win32Metadata v64.0.22 (10.0.26100.2161 SDK)
         self.assertEqual(x.AsUlong, 0b00000000000000010100010100000001)
 
@@ -142,7 +145,7 @@ class TestSyntax(unittest.TestCase):
         self.assertEqual(x.Anonymous1, 8)
 
     def test_flexible_array(self):
-        from win32more import Byte, FlexibleArray, Structure
+        from win32more._win32 import Byte, FlexibleArray, Structure
 
         @commit
         class S(Structure):

@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import logging
+from ctypes import POINTER
 
-from win32more import POINTER, Boolean, UInt32, Void
+from win32more import Boolean, UInt32, Void
 from win32more.Windows.Foundation import EventRegistrationToken
 from win32more.Windows.Foundation.Collections import (
     CollectionChange,

@@ -2,6 +2,7 @@ import asyncio
 import sys
 import unittest
 from concurrent.futures import Future
+from ctypes import POINTER, cast, pointer
 from pathlib import Path
 from typing import Generic, TypeVar
 
@@ -18,9 +19,7 @@ from win32more.Windows.Win32.Foundation import HRESULT, S_OK
 from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
-from win32more import (
-    FAILED,
-    POINTER,
+from win32more._win32 import (
     WINFUNCTYPE,
     Byte,
     Enum,
@@ -30,10 +29,9 @@ from win32more import (
     Void,
     VoidPtr,
     WinError,
-    cast,
     commethod,
-    pointer,
 )
+from win32more._win32api import FAILED
 from win32more.winrt import (
     ComClass,
     ComError,

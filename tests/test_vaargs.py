@@ -1,7 +1,8 @@
 import unittest
 
-from win32more import Char
 from win32more.Windows.Win32.UI.Shell import wnsprintfW
+
+from win32more import Char
 
 
 class TestVaArgs(unittest.TestCase):

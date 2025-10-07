@@ -11,7 +11,7 @@ from ctypes import (
     wstring_at,
 )
 
-from win32more import (
+from win32more._win32 import (
     ComPtr,
     ForeignFunctionCall,
     Int16,
