@@ -14,6 +14,7 @@ from ._win32 import (
     Byte,
     ComPtr,
     Int32,
+    LazyLoader,
     SByte,
     String,
     UInt16,
@@ -161,6 +162,9 @@ class IUnknown(ComPtr):
     def Release(self) -> UInt32: ...
 
 
+LazyLoader.add_predefined("win32more.Windows.Win32.System.Com", "IUnknown", IUnknown)
+
+
 class IAgileObject(IUnknown):
     _iid_ = Guid("{94ea2b94-e9cc-49e0-c0ff-ee64ca8f5b90}")
 
@@ -241,12 +245,14 @@ class IInspectable(IUnknown):
     def GetTrustLevel(self, trustLevel: POINTER(TrustLevel)) -> HRESULT: ...
 
 
+LazyLoader.add_predefined("win32more.Windows.Win32.System.WinRT", "IInspectable", IInspectable)
+
+
 class IActivationFactory(IInspectable):
     _iid_ = Guid("{00000035-0000-0000-c000-000000000046}")
 
     @commethod(6)
-    #def ActivateInstance(self, instance: POINTER(IInspectable)) -> HRESULT: ...
-    def ActivateInstance(self, instance: POINTER(ComPtr)) -> HRESULT: ...
+    def ActivateInstance(self, instance: POINTER(IInspectable)) -> HRESULT: ...
 
 
 class IRestrictedErrorInfo(IUnknown):

@@ -466,6 +466,15 @@ def winfunctype_pointer(prototype):
 
 
 class LazyLoader:
+    # It might not be a good idea.
+    _predefined: dict[str, dict[str, type]] = {}  # _predefined[namespace][name] = obj
+
+    @classmethod
+    def add_predefined(cls, namespace, name, obj):
+        if namespace not in cls._predefined:
+            cls._predefined[namespace] = {}
+        cls._predefined[namespace][name] = obj
+
     def __init__(self, module):
         self._module = module
         self._lazyload = {}
@@ -476,6 +485,8 @@ class LazyLoader:
     def setup(self):
         for name in self._lazyload:
             delattr(self._module, name)
+        for name, obj in self._predefined.get(self._module.__name__, {}).items():
+            setattr(self._module, name, obj)
 
     def __call__(self, name):
         try:

@@ -71,7 +71,9 @@ from win32more._winapi import (
     IAgileObject,
     ICreateErrorInfo,
     IErrorInfo,
+    IInspectable,
     IRestrictedErrorInfo,
+    IUnknown,
     RoGetActivationFactory,
     RoOriginateError,
     SetErrorInfo,
@@ -83,8 +85,6 @@ from win32more._winapi import (
     WindowsDeleteString,
     WindowsGetStringRawBuffer,
 )
-from win32more.Windows.Win32.System.Com import IUnknown
-from win32more.Windows.Win32.System.WinRT import IInspectable
 
 K = TypeVar("K")
 T = TypeVar("T")
