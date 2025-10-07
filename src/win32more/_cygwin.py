@@ -10,7 +10,7 @@ windll = cdll
 
 
 def WinError(code=None, descr=None):
-    from ._winapi import FormatError, GetLastError
+    from ._win32api import FormatError, GetLastError
 
     if code is None:
         code = GetLastError()
