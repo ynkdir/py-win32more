@@ -29,7 +29,6 @@ else:
     from typing import Annotated, Tuple, get_args, get_origin  # noqa: F401
 
 from win32more import (
-    FAILED,
     WINFUNCTYPE,
     Boolean,
     Byte,
@@ -58,6 +57,7 @@ from win32more._winapi import (
     BSTR,
     E_FAIL,
     E_NOINTERFACE,
+    FAILED,
     HRESULT,
     HSTRING,
     PFNGETACTIVATIONFACTORY,
@@ -67,6 +67,11 @@ from win32more._winapi import (
     CoTaskMemFree,
     CreateErrorInfo,
     GetErrorInfo,
+    IActivationFactory,
+    IAgileObject,
+    ICreateErrorInfo,
+    IErrorInfo,
+    IRestrictedErrorInfo,
     RoGetActivationFactory,
     RoOriginateError,
     SetErrorInfo,
@@ -78,17 +83,8 @@ from win32more._winapi import (
     WindowsDeleteString,
     WindowsGetStringRawBuffer,
 )
-from win32more.Windows.Win32.System.Com import (
-    IAgileObject,
-    IErrorInfo,
-    IUnknown,
-)
-from win32more.Windows.Win32.System.Ole import ICreateErrorInfo
-from win32more.Windows.Win32.System.WinRT import (
-    IActivationFactory,
-    IInspectable,
-    IRestrictedErrorInfo,
-)
+from win32more.Windows.Win32.System.Com import IUnknown
+from win32more.Windows.Win32.System.WinRT import IInspectable
 
 K = TypeVar("K")
 T = TypeVar("T")
@@ -1090,7 +1086,7 @@ class Vtbl(Structure):
         hr = CreateErrorInfo(info)
         if FAILED(hr):
             return
-        description = SysAllocString(f"{exc.__class__.__name__}: {exc}")
+        description = SysAllocString(f"{exc.__class__.__name__}: {exc}", _as_intptr=True)
         if not description:
             return
         hr = info.SetDescription(description)

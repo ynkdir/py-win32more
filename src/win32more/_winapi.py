@@ -1,52 +1,29 @@
-import sys
+from __future__ import annotations
+
 import uuid
 from ctypes import (
     POINTER,
     Structure,
-    c_bool,
-    c_byte,
-    c_char_p,
-    c_double,
-    c_float,
-    c_int16,
-    c_int32,
-    c_int64,
-    c_size_t,
-    c_ssize_t,
-    c_ubyte,
-    c_uint16,
-    c_uint32,
-    c_uint64,
-    c_void_p,
-    c_wchar,
     c_wchar_p,
     cast,
     pointer,
 )
 
-if sys.platform == "cygwin":
-    from ._cygwin import WINFUNCTYPE, windll
-else:
-    from ctypes import WINFUNCTYPE, windll
-
-Byte = c_ubyte
-SByte = c_byte
-Char = c_wchar
-Int16 = c_int16
-UInt16 = c_uint16
-Int32 = c_int32
-UInt32 = c_uint32
-Int64 = c_int64
-UInt64 = c_uint64
-IntPtr = c_ssize_t
-UIntPtr = c_size_t
-Single = c_float
-Double = c_double
-Bytes = c_char_p
-String = c_wchar_p
-Boolean = c_bool
-VoidPtr = c_void_p
-Void = None
+from ._win32 import (
+    WINFUNCTYPE,
+    Byte,
+    ComPtr,
+    Int32,
+    SByte,
+    String,
+    UInt16,
+    UInt32,
+    UIntPtr,
+    Void,
+    VoidPtr,
+    commethod,
+    winfunctype,
+)
 
 
 class Guid(Structure):
@@ -135,8 +112,9 @@ def FormatError(code):
 
 # Windows.Win32.Foundation
 
+BOOL = Int32
 BSTR = String
-BSTR_AS_VOIDPTR = VoidPtr
+HGLOBAL = VoidPtr
 HLOCAL = VoidPtr
 HRESULT = Int32
 PWSTR = String
@@ -146,26 +124,103 @@ S_OK = 0
 E_FAIL = -2147467259
 E_NOINTERFACE = -2147467262
 
-GetLastError = WINFUNCTYPE(WIN32_ERROR)(("GetLastError", windll["kernel32.dll"]))
-LocalFree = WINFUNCTYPE(HLOCAL, HLOCAL)(("LocalFree", windll["kernel32.dll"]))
-SysAllocString = WINFUNCTYPE(BSTR_AS_VOIDPTR, PWSTR)(("SysAllocString", windll["oleaut32.dll"]))
-SysFreeString = WINFUNCTYPE(None, BSTR_AS_VOIDPTR)(("SysFreeString", windll["oleaut32.dll"]))
-SysStringLen = WINFUNCTYPE(UInt32, BSTR_AS_VOIDPTR)(("SysStringLen", windll["oleaut32.dll"]))
+
+@winfunctype("KERNEL32.dll")
+def GlobalFree(hMem: HGLOBAL) -> HGLOBAL: ...
+
+
+@winfunctype("KERNEL32.dll")
+def LocalFree(hMem: HLOCAL) -> HLOCAL: ...
+
+
+@winfunctype("OLEAUT32.dll")
+def SysAllocString(psz: PWSTR) -> BSTR: ...
+
+
+@winfunctype("OLEAUT32.dll")
+def SysFreeString(bstrString: BSTR) -> Void: ...
+
+
+@winfunctype("OLEAUT32.dll")
+def SysStringLen(pbstr: BSTR) -> UInt32: ...
+
 
 # Windows.Win32.System.Com
 
-IErrorInfo = c_void_p
+CO_MTA_USAGE_COOKIE = VoidPtr
 
-CoTaskMemAlloc = WINFUNCTYPE(VoidPtr, UIntPtr)(("CoTaskMemAlloc", windll["ole32.dll"]))
-CoTaskMemFree = WINFUNCTYPE(None, VoidPtr)(("CoTaskMemFree", windll["ole32.dll"]))
-SetErrorInfo = WINFUNCTYPE(HRESULT, UInt32, IErrorInfo)(("SetErrorInfo", windll["oleaut32.dll"]))
-GetErrorInfo = WINFUNCTYPE(HRESULT, UInt32, POINTER(IErrorInfo))(("GetErrorInfo", windll["oleaut32.dll"]))
+
+class IUnknown(ComPtr):
+    _iid_ = Guid("{00000000-0000-0000-c000-000000000046}")
+
+    @commethod(0)
+    def QueryInterface(self, riid: POINTER(Guid), ppvObject: POINTER(VoidPtr)) -> HRESULT: ...
+    @commethod(1)
+    def AddRef(self) -> UInt32: ...
+    @commethod(2)
+    def Release(self) -> UInt32: ...
+
+
+class IAgileObject(IUnknown):
+    _iid_ = Guid("{94ea2b94-e9cc-49e0-c0ff-ee64ca8f5b90}")
+
+
+class IErrorInfo(IUnknown):
+    _iid_ = Guid("{1cf2b120-547d-101b-8e65-08002b2bd119}")
+
+    @commethod(3)
+    def GetGUID(self, pGUID: POINTER(Guid)) -> HRESULT: ...
+    @commethod(4)
+    def GetSource(self, pBstrSource: POINTER(BSTR)) -> HRESULT: ...
+    @commethod(5)
+    def GetDescription(self, pBstrDescription: POINTER(BSTR)) -> HRESULT: ...
+    @commethod(6)
+    def GetHelpFile(self, pBstrHelpFile: POINTER(BSTR)) -> HRESULT: ...
+    @commethod(7)
+    def GetHelpContext(self, pdwHelpContext: POINTER(UInt32)) -> HRESULT: ...
+
+
+@winfunctype("OLE32.dll")
+def CoIncrementMTAUsage(pCookie: POINTER(CO_MTA_USAGE_COOKIE)) -> HRESULT: ...
+
+
+@winfunctype("OLE32.dll")
+def CoTaskMemAlloc(cb: UIntPtr) -> VoidPtr: ...
+
+
+@winfunctype("OLE32.dll")
+def CoTaskMemFree(pv: VoidPtr) -> Void: ...
+
+
+@winfunctype("OLEAUT32.dll")
+def SetErrorInfo(dwReserved: UInt32, perrinfo: IErrorInfo) -> HRESULT: ...
+
+
+@winfunctype("OLEAUT32.dll")
+def GetErrorInfo(dwReserved: UInt32, pperrinfo: POINTER(IErrorInfo)) -> HRESULT: ...
+
 
 # Windows.Win32.System.Ole
 
-ICreateErrorInfo = c_void_p
 
-CreateErrorInfo = WINFUNCTYPE(HRESULT, POINTER(ICreateErrorInfo))(("CreateErrorInfo", windll["oleaut32.dll"]))
+class ICreateErrorInfo(IUnknown):
+    _iid_ = Guid("{22f03340-547d-101b-8e65-08002b2bd119}")
+
+    @commethod(3)
+    def SetGUID(self, rguid: POINTER(Guid)) -> HRESULT: ...
+    @commethod(4)
+    def SetSource(self, szSource: PWSTR) -> HRESULT: ...
+    @commethod(5)
+    def SetDescription(self, szDescription: PWSTR) -> HRESULT: ...
+    @commethod(6)
+    def SetHelpFile(self, szHelpFile: PWSTR) -> HRESULT: ...
+    @commethod(7)
+    def SetHelpContext(self, dwHelpContext: UInt32) -> HRESULT: ...
+
+
+@winfunctype("OLEAUT32.dll")
+def CreateErrorInfo(pperrinfo: POINTER(ICreateErrorInfo)) -> HRESULT: ...
+
 
 # Windows.Win32.System.WinRT
 
@@ -173,25 +228,63 @@ BaseTrust = 0
 
 TrustLevel = Int32
 HSTRING = VoidPtr
-IActivationFactory = VoidPtr
+
+
+class IInspectable(IUnknown):
+    _iid_ = Guid("{af86e2e0-b12d-4c6a-9c5a-d7aa65101e90}")
+
+    @commethod(3)
+    def GetIids(self, iidCount: POINTER(UInt32), iids: POINTER(POINTER(Guid))) -> HRESULT: ...
+    @commethod(4)
+    def GetRuntimeClassName(self, className: POINTER(HSTRING)) -> HRESULT: ...
+    @commethod(5)
+    def GetTrustLevel(self, trustLevel: POINTER(TrustLevel)) -> HRESULT: ...
+
+
+class IActivationFactory(IInspectable):
+    _iid_ = Guid("{00000035-0000-0000-c000-000000000046}")
+
+    @commethod(6)
+    #def ActivateInstance(self, instance: POINTER(IInspectable)) -> HRESULT: ...
+    def ActivateInstance(self, instance: POINTER(ComPtr)) -> HRESULT: ...
+
+
+class IRestrictedErrorInfo(IUnknown):
+    _iid_ = Guid("{82ba7092-4c88-427d-a7bc-16dd93feb67e}")
+
+    @commethod(3)
+    def GetErrorDetails(
+        self,
+        description: POINTER(BSTR),
+        error: POINTER(HRESULT),
+        restrictedDescription: POINTER(BSTR),
+        capabilitySid: POINTER(BSTR),
+    ) -> HRESULT: ...
+    @commethod(4)
+    def GetReference(self, reference: POINTER(BSTR)) -> HRESULT: ...
+
 
 PFNGETACTIVATIONFACTORY = WINFUNCTYPE(HRESULT, HSTRING, POINTER(IActivationFactory))
 
-RoGetActivationFactory = WINFUNCTYPE(HRESULT, HSTRING, POINTER(Guid), POINTER(c_void_p))(
-    ("RoGetActivationFactory", windll["api-ms-win-core-winrt-l1-1-0.dll"])
-)
-RoOriginateError = WINFUNCTYPE(Boolean, HRESULT, HSTRING)(
-    ("RoOriginateError", windll["api-ms-win-core-winrt-error-l1-1-0.dll"])
-)
-WindowsCreateString = WINFUNCTYPE(HRESULT, PWSTR, UInt32, POINTER(HSTRING))(
-    ("WindowsCreateString", windll["api-ms-win-core-winrt-string-l1-1-0.dll"])
-)
-WindowsDeleteString = WINFUNCTYPE(HRESULT, HSTRING)(
-    ("WindowsDeleteString", windll["api-ms-win-core-winrt-string-l1-1-0.dll"])
-)
-WindowsGetStringRawBuffer = WINFUNCTYPE(PWSTR, HSTRING, POINTER(UInt32))(
-    ("WindowsGetStringRawBuffer", windll["api-ms-win-core-winrt-string-l1-1-0.dll"])
-)
+
+@winfunctype("api-ms-win-core-winrt-l1-1-0.dll")
+def RoGetActivationFactory(activatableClassId: HSTRING, iid: POINTER(Guid), factory: POINTER(VoidPtr)) -> HRESULT: ...
+
+
+@winfunctype("api-ms-win-core-winrt-error-l1-1-0.dll")
+def RoOriginateError(error: HRESULT, message: HSTRING) -> BOOL: ...
+
+
+@winfunctype("api-ms-win-core-winrt-string-l1-1-0.dll")
+def WindowsCreateString(sourceString: PWSTR, length: UInt32, string: POINTER(HSTRING)) -> HRESULT: ...
+
+
+@winfunctype("api-ms-win-core-winrt-string-l1-1-0.dll")
+def WindowsDeleteString(string: HSTRING) -> HRESULT: ...
+
+
+@winfunctype("api-ms-win-core-winrt-string-l1-1-0.dll")
+def WindowsGetStringRawBuffer(string: HSTRING, length: POINTER(UInt32)) -> PWSTR: ...
 
 
 # Windows.Win32.System.Diagnostics.Debug
@@ -202,9 +295,18 @@ FORMAT_MESSAGE_ALLOCATE_BUFFER = 256
 FORMAT_MESSAGE_FROM_SYSTEM = 4096
 FORMAT_MESSAGE_IGNORE_INSERTS = 512
 
-FormatMessageW = WINFUNCTYPE(
-    UInt32, FORMAT_MESSAGE_OPTIONS, VoidPtr, UInt32, UInt32, PWSTR, UInt32, POINTER(POINTER(SByte))
-)(("FormatMessageW", windll["kernel32.dll"]))
+
+@winfunctype("KERNEL32.dll")
+def FormatMessageW(
+    dwFlags: FORMAT_MESSAGE_OPTIONS,
+    lpSource: VoidPtr,
+    dwMessageId: UInt32,
+    dwLanguageId: UInt32,
+    lpBuffer: PWSTR,
+    nSize: UInt32,
+    Arguments: POINTER(POINTER(SByte)),
+) -> UInt32: ...
+
 
 # Windows.Win32.System.SystemServices
 

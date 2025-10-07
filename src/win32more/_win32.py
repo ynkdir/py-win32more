@@ -7,8 +7,22 @@ from ctypes import (
     Array,
     _CFuncPtr,
     addressof,
+    c_bool,
+    c_byte,
     c_char_p,
+    c_double,
+    c_float,
+    c_int16,
+    c_int32,
+    c_int64,
+    c_size_t,
+    c_ssize_t,
+    c_ubyte,
+    c_uint16,
+    c_uint32,
+    c_uint64,
     c_void_p,
+    c_wchar,
     c_wchar_p,
     cast,
     cdll,
@@ -25,30 +39,6 @@ else:
     from typing import Annotated, get_origin
     from typing import get_type_hints as _get_type_hints
 
-from ._winapi import (  # noqa: F401
-    FAILED,
-    SUCCEEDED,
-    Boolean,
-    Byte,
-    Bytes,
-    Char,
-    Double,
-    Guid,
-    Int16,
-    Int32,
-    Int64,
-    IntPtr,
-    SByte,
-    Single,
-    String,
-    UInt16,
-    UInt32,
-    UInt64,
-    UIntPtr,
-    Void,
-    VoidPtr,
-)
-
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
 elif "(amd64)" in sys.version.lower():
@@ -60,6 +50,26 @@ if sys.platform == "cygwin":
     from ._cygwin import ARCH, WINFUNCTYPE, WinError, windll  # noqa: F401
 else:
     from ctypes import WINFUNCTYPE, WinError, windll
+
+
+Byte = c_ubyte
+SByte = c_byte
+Char = c_wchar
+Int16 = c_int16
+UInt16 = c_uint16
+Int32 = c_int32
+UInt32 = c_uint32
+Int64 = c_int64
+UInt64 = c_uint64
+IntPtr = c_ssize_t
+UIntPtr = c_size_t
+Single = c_float
+Double = c_double
+Bytes = c_char_p
+String = c_wchar_p
+Boolean = c_bool
+VoidPtr = c_void_p
+Void = None
 
 
 class Enum:
@@ -118,7 +128,7 @@ class ComPtr(c_void_p):
         iid = cls._iid_
         instance = cls(own=True)
         hr = self.QueryInterface(pointer(iid), pointer(instance))
-        if FAILED(hr):
+        if hr < 0:  # FAILED(hr)
             raise WinError(hr)
         return instance
 
