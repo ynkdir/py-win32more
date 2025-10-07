@@ -70,7 +70,7 @@ E_NOINTERFACE = -2147467262
 
 
 @winfunctype("KERNEL32.dll")
-def GlobalFree(hMem: HGLOBAL) -> HGLOBAL: ...
+def GetLastError() -> WIN32_ERROR: ...
 
 
 @winfunctype("KERNEL32.dll")
