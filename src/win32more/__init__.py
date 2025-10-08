@@ -27,7 +27,6 @@ from ._win32 import (
     windll,
 )
 from ._winrt import ComClass, ComError, box_value, unbox_value
-from .winrt.vector import Vector
 
 # Initialize COM Multithreaded Apartment.
 # Call CoInitializeEx(None, COINIT_APARTMENTTHREADED) explicitly for Single-Threaded Apartment.

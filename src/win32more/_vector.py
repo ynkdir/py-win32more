@@ -3,7 +3,6 @@ from __future__ import annotations
 import logging
 from ctypes import POINTER
 
-from win32more import Boolean, UInt32, Void
 from win32more.Windows.Foundation import EventRegistrationToken
 from win32more.Windows.Foundation.Collections import (
     CollectionChange,
@@ -15,7 +14,9 @@ from win32more.Windows.Foundation.Collections import (
     IVectorView,
     VectorChangedEventHandler,
 )
-from win32more._winrt import (
+
+from ._win32 import Boolean, UInt32, Void
+from ._winrt import (
     ComClass,
     FillArray,
     PassArray,

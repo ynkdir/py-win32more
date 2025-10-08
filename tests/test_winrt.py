@@ -34,6 +34,7 @@ from win32more import (
     box_value,
     unbox_value,
 )
+from win32more._vector import Vector
 from win32more._win32 import (
     Enum,
     commethod,
@@ -48,7 +49,6 @@ from win32more._winrt import (
     _ro_get_parameterized_type_instance_iid,
     winrt_commethod,
 )
-from win32more.winrt.vector import Vector
 
 if sys.platform == "cygwin":
     from win32more._cygwin import posix_to_win
