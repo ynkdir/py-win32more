@@ -23,30 +23,30 @@ from win32more import (
     FAILED,
     WINFUNCTYPE,
     Byte,
+    ComClass,
+    ComError,
     Guid,
     Int32,
     UInt32,
     Void,
     VoidPtr,
     WinError,
+    box_value,
+    unbox_value,
 )
 from win32more._win32 import (
     Enum,
     commethod,
 )
 from win32more._winrt import (
-    ComClass,
-    ComError,
     FillArray,
     ISelf,
     MulticastDelegateImpl,
     PassArray,
     ReceiveArray,
     WinRT_String,
-    box_value,
-    unbox_value,
-    winrt_commethod,
     _ro_get_parameterized_type_instance_iid,
+    winrt_commethod,
 )
 from win32more.winrt.vector import Vector
 
