@@ -1163,7 +1163,7 @@ class ComClass(ComPtr):
 
     def _make_iid_vtbls(self) -> list[tuple[Guid, Vtbl]]:
         iid_vtbls = []
-        for interface in self._implemented_interfaces:
+        for interface in self._implemented_interfaces():
             iid = self._get_iid(interface)
             vtbl = Vtbl(self, interface)
             iid_vtbls.append((iid, vtbl))
@@ -1177,7 +1177,6 @@ class ComClass(ComPtr):
         else:
             raise ValueError("Cannot get iid")
 
-    @property
     def _implemented_interfaces(self) -> list[_GenericAlias | type]:
         r = []
         for base in self._enumerate_specialized_bases_recursively(_get_original_class(self)):
@@ -1270,7 +1269,6 @@ class MulticastDelegateImpl(ComClass):
         self._callback = callback
         super().__init__(own=True)
 
-    @property
     def _implemented_interfaces(self):
         return [self._interface, IUnknown, IAgileObject, ISelf]
 
