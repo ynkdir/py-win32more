@@ -1,6 +1,6 @@
 # ruff: noqa: F401, F403
 from win32more.win32.prelude import *
-from win32more.winrt import (
+from win32more._winrt import (
     AwaitableProtocol,
     ContextManagerProtocol,
     FillArray,

@@ -15,7 +15,7 @@ from win32more.Windows.Foundation.Collections import (
     IVectorView,
     VectorChangedEventHandler,
 )
-from win32more.winrt import (
+from win32more._winrt import (
     ComClass,
     FillArray,
     PassArray,

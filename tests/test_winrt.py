@@ -34,7 +34,7 @@ from win32more._win32 import (
     Enum,
     commethod,
 )
-from win32more.winrt import (
+from win32more._winrt import (
     ComClass,
     ComError,
     FillArray,
@@ -46,8 +46,8 @@ from win32more.winrt import (
     box_value,
     unbox_value,
     winrt_commethod,
+    _ro_get_parameterized_type_instance_iid,
 )
-from win32more.winrt.base import _ro_get_parameterized_type_instance_iid
 from win32more.winrt.vector import Vector
 
 if sys.platform == "cygwin":

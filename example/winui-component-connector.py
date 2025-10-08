@@ -6,7 +6,7 @@ from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector
 from win32more.Windows.Foundation import Uri
 
 from win32more.appsdk.xaml import XamlApplication
-from win32more.winrt import ComClass
+from win32more._winrt import ComClass
 
 
 # Visual Studio generates connection code from xaml like this.
