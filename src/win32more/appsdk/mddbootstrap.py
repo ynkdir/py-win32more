@@ -46,8 +46,6 @@ from .versioninfo import (  # noqa
     WINDOWSAPPSDK_RUNTIME_VERSION_UINT64,
 )
 
-_module = sys.modules[__name__]
-
 if ARCH == "ARM64":
     PackageDependencyProcessorArchitectures_Current = PackageDependencyProcessorArchitectures_Arm64
     os.add_dll_directory(os.path.dirname(win32more.__file__) + "\\dll\\arm64")
@@ -105,7 +103,7 @@ def MddBootstrapInitialize2(
             return hr
         return S_OK
     else:
-        return _module._MddBootstrapInitialize2(major_minor_version, version_tag, min_version, options)
+        return _MddBootstrapInitialize2(major_minor_version, version_tag, min_version, options)
 
 
 def MddBootstrapShutdown() -> None:
@@ -114,7 +112,7 @@ def MddBootstrapShutdown() -> None:
     elif _IsWin11():
         pass
     else:
-        _module._MddBootstrapShutdown()
+        _MddBootstrapShutdown()
 
 
 def _IsWin11() -> bool:
