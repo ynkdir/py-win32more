@@ -180,10 +180,10 @@ class ComPtr(c_void_p):
     # overwritten in winrt module
     @classmethod
     def __commit__(cls):
-        cls._hints_ = get_type_hints(cls)
-        if cls._hints_["extends"] is None:
+        hints = get_type_hints(cls)
+        if hints["extends"] is None:
             return cls
-        cls.__bases__ = (cls._hints_["extends"],)
+        cls.__bases__ = (hints["extends"],)
         return cls
 
     # overwritten in winrt module

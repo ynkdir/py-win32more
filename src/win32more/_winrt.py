@@ -119,25 +119,27 @@ class event_setter:
 
 
 def ComPtr_commit(cls):
-    cls._hints_ = get_type_hints(cls)
-    if cls._hints_["extends"] is None:
+    hints = get_type_hints(cls)
+    if hints["extends"] is None:
         return cls
     # Generic class have multiple base class (Generic[], ComPtr).
     bases = []
     for type_ in cls.__bases__:
         if type_ is ComPtr:
-            type_ = cls._hints_["extends"]
+            type_ = hints["extends"]
         bases.append(type_)
-    if "implements" in cls._hints_:
-        bases.extend(get_args(cls._hints_["implements"]))
+    if "implements" in hints:
+        bases.extend(get_args(hints["implements"]))
     cls.__bases__ = tuple(bases)
     if "__orig_bases__" in cls.__dict__:
         orig_bases = []
         for type_ in cls.__bases__:
             if type_ is ComPtr:
-                type_ = cls._hints_["extends"]
+                type_ = hints["extends"]
             orig_bases.append(type_)
         cls.__orig_bases__ = tuple(orig_bases)
+    if "default_interface" in hints:
+        cls._default_interface_ = hints["default_interface"]
     return cls
 
 
@@ -148,8 +150,8 @@ def ComPtr_as(self, cls):
         iid = _ro_get_parameterized_type_instance_iid(cls)
     elif "_iid_" in cls.__dict__:
         iid = cls._iid_
-    elif "default_interface" in cls._hints_:
-        iid = cls._hints_["default_interface"]._iid_
+    elif "_default_interface_" in cls.__dict__:
+        iid = cls._default_interface_._iid_
     else:
         raise RuntimeError("no _iid_ found")
     instance = cls(own=True)
@@ -963,12 +965,15 @@ def _get_type_signature(cls) -> str:
         piid_guid = str(cls._piid_)
         args = ";".join(_get_type_signature(arg) for arg in get_args(cls))
         return f"pinterface({piid_guid};{args})"
-    elif issubclass(cls, ComPtr) and "_iid_" in cls.__dict__:
-        return str(cls._iid_)
     elif issubclass(cls, ComPtr):
-        default_interface = cls._hints_["default_interface"]
-        args = _get_type_signature(default_interface)
-        return f"rc({cls._classid_};{args})"
+        if "_iid_" in cls.__dict__:
+            return str(cls._iid_)
+        elif "_default_interface_" in cls.__dict__:
+            default_interface = cls._default_interface_
+            args = _get_type_signature(default_interface)
+            return f"rc({cls._classid_};{args})"
+        else:
+            raise RuntimeError("no _iid_ found")
     elif issubclass(cls, WinRT_String):
         return "string"
     elif issubclass(cls, Char):
