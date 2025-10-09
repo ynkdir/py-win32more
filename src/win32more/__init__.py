@@ -1,5 +1,6 @@
 # ruff: noqa: F401
 from . import _win32api
+from ._comerror import ComError
 from ._win32 import (
     FAILED,
     SUCCEEDED,
@@ -26,7 +27,7 @@ from ._win32 import (
     WinError,
     windll,
 )
-from ._winrt import ComClass, ComError, box_value, unbox_value
+from ._winrt import ComClass, box_value, unbox_value
 
 # Initialize COM Multithreaded Apartment.
 # Call CoInitializeEx(None, COINIT_APARTMENTTHREADED) explicitly for Single-Threaded Apartment.
