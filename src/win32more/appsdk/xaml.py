@@ -15,8 +15,8 @@ from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoIniti
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
 
-from win32more import FAILED, WinError, asyncui
-from win32more.winrt import ComClass, ISelf, WinRT_String
+from win32more import FAILED, ComClass, WinError, asyncui
+from win32more._winrt import ISelf, WinRT_String
 
 XMLNS_XAML = "http://schemas.microsoft.com/winfx/2006/xaml"
 XMLNS_XAML_PRESENTATION = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"

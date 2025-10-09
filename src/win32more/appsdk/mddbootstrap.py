@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import sys
 import webbrowser
+from ctypes import pointer
 from pathlib import Path
 
 import win32more.Windows.Win32.Foundation
@@ -36,8 +37,8 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import (
 from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, MB_YESNO, MessageBox
 
 import win32more.appsdk.mddbootstrap
-from win32more import ARCH, FAILED, Byte, Char, Int32, String, UInt32, Void, WinError, make_ready, pointer, winfunctype
-from win32more.winrt import ComError
+from win32more import FAILED, Byte, Char, ComError, Int32, String, UInt32, Void, WinError
+from win32more._win32 import ARCH, make_ready, winfunctype
 
 # versioninfo.py will be installed by win32more-Microsoft.WindowsAppSDK
 from .versioninfo import (  # noqa
