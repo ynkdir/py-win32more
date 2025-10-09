@@ -6,12 +6,11 @@ import webbrowser
 from ctypes import pointer
 from pathlib import Path
 
-import win32more.Windows.Win32.Foundation
-import win32more.Windows.Win32.Storage.Packaging.Appx
 from win32more.Windows.Win32.Foundation import (
     APPMODEL_ERROR_NO_PACKAGE,
     ERROR_INSUFFICIENT_BUFFER,
     ERROR_SUCCESS,
+    HRESULT,
     S_OK,
     STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED,
 )
@@ -36,9 +35,9 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import (
 )
 from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, MB_YESNO, MessageBox
 
-import win32more.appsdk.mddbootstrap
+import win32more
 from win32more import FAILED, Byte, Char, ComError, Int32, String, UInt32, Void, WinError
-from win32more._win32 import ARCH, make_ready, winfunctype
+from win32more._win32 import ARCH, winfunctype
 
 # versioninfo.py will be installed by win32more-Microsoft.WindowsAppSDK
 from .versioninfo import (  # noqa
@@ -62,29 +61,22 @@ else:
     assert False
 
 MddBootstrapInitializeOptions = Int32
-MddBootstrapInitializeOptions_None: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 0
-MddBootstrapInitializeOptions_OnError_DebugBreak: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 1
-MddBootstrapInitializeOptions_OnError_DebugBreak_IfDebuggerAttached: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 2
-MddBootstrapInitializeOptions_OnError_FailFast: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 4
-MddBootstrapInitializeOptions_OnNoMatch_ShowUI: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 8
-MddBootstrapInitializeOptions_OnPackageIdentity_NOOP: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions = 16
+MddBootstrapInitializeOptions_None = 0
+MddBootstrapInitializeOptions_OnError_DebugBreak = 1
+MddBootstrapInitializeOptions_OnError_DebugBreak_IfDebuggerAttached = 2
+MddBootstrapInitializeOptions_OnError_FailFast = 4
+MddBootstrapInitializeOptions_OnNoMatch_ShowUI = 8
+MddBootstrapInitializeOptions_OnPackageIdentity_NOOP = 16
 
 
 @winfunctype("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapInitialize")
-def _MddBootstrapInitialize(
-    majorMinorVersion: UInt32,
-    versionTag: String,
-    minVersion: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION,
-) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+def _MddBootstrapInitialize(majorMinorVersion: UInt32, versionTag: String, minVersion: PACKAGE_VERSION) -> HRESULT: ...
 
 
 @winfunctype("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapInitialize2")
 def _MddBootstrapInitialize2(
-    majorMinorVersion: UInt32,
-    versionTag: String,
-    minVersion: win32more.Windows.Win32.Storage.Packaging.Appx.PACKAGE_VERSION,
-    options: win32more.appsdk.mddbootstrap.MddBootstrapInitializeOptions,
-) -> win32more.Windows.Win32.Foundation.HRESULT: ...
+    majorMinorVersion: UInt32, versionTag: String, minVersion: PACKAGE_VERSION, options: MddBootstrapInitializeOptions
+) -> HRESULT: ...
 
 
 @winfunctype("Microsoft.WindowsAppRuntime.Bootstrap.dll", entry_point="MddBootstrapShutdown")
@@ -307,6 +299,3 @@ def get_loaded_appsdk_info():
         if info.packageFamilyName == family_name:
             return info
     raise LookupError(f"{family_name} is not loaded")
-
-
-make_ready(__name__)
