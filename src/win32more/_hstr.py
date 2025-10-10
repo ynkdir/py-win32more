@@ -9,18 +9,14 @@ from ._win32api import HSTRING, WindowsCreateString, WindowsDeleteString, Window
 class hstr(HSTRING):
     def __init__(self, obj=None, own=False):
         if obj is None:
-            hs = HSTRING(0)
-        elif isinstance(obj, HSTRING):
-            hs = obj
-        elif isinstance(obj, String):
-            hs = _windows_create_string(obj.value)
+            hs = 0
         elif isinstance(obj, str):
-            hs = _windows_create_string(obj)
+            hs = _windows_create_string(obj).value
         else:
             raise ValueError(obj)
         # https://github.com/python/cpython/issues/73456
         # super().__init__(hs.value)
-        self.value = hs.value
+        self.value = hs
         self._own = own
 
     def __del__(self):
