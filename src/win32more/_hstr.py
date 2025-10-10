@@ -41,12 +41,15 @@ class hstr(HSTRING):
 
     @classmethod
     def from_param(cls, obj):
-        if isinstance(obj, String):
-            return cls(obj, own=True)
+        if obj is None:
+            return None
         elif isinstance(obj, str):
             return cls(obj, own=True)
-        else:
-            return cls(obj, own=False)
+        elif isinstance(obj, String):
+            return cls(obj.value, own=True)
+        elif isinstance(obj, HSTRING):
+            return obj
+        raise ValueError(obj)
 
 
 def _windows_create_string(s: str) -> HSTRING:
