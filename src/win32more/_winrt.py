@@ -183,7 +183,6 @@ def winrt_easycast(obj, type_):
     return easycast(obj, type_)
 
 
-# FIXME: Add more conversion.
 def generic_get_type_hints(prototype, cls):
     hints = get_type_hints(prototype)
     if is_generic_alias(cls):

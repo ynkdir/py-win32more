@@ -3,6 +3,7 @@ from __future__ import annotations
 from ._win32api import IInspectable
 
 
+# FIXME: Add more conversion.
 def box_value(value: object) -> IInspectable:
     from win32more.Windows.Foundation import PropertyValue
 
