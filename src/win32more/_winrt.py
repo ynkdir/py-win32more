@@ -18,7 +18,6 @@ from ctypes import (
     pointer,
     py_object,
     sizeof,
-    wstring_at,
 )
 from functools import partial
 from typing import Any, Generic, TypeVar, _GenericAlias
@@ -31,6 +30,7 @@ else:
 from . import asyncui
 from ._boxing import box_value, unbox_value
 from ._comerror import ComError
+from ._hstr import hstr
 from ._win32 import (
     FAILED,
     WINFUNCTYPE,
@@ -45,7 +45,6 @@ from ._win32 import (
     Int32,
     Int64,
     Single,
-    String,
     UInt32,
     UInt64,
     Void,
@@ -78,10 +77,10 @@ from ._win32api import (
     SetErrorInfo,
     SysAllocString,
     TrustLevel,
-    WindowsCreateString,
-    WindowsDeleteString,
-    WindowsGetStringRawBuffer,
 )
+
+# TODO: For backword compatibility.  Remove later.
+WinRT_String = hstr
 
 K = TypeVar("K")
 T = TypeVar("T")
@@ -251,8 +250,8 @@ class PassArray(Generic[T]):
         self._type = type_
 
         if isinstance(seq, Sequence):
-            if self._type is WinRT_String:
-                self._seq = [WinRT_String(s, own=True) for s in seq]
+            if self._type is hstr:
+                self._seq = [hstr(s, own=True) for s in seq]
             else:
                 self._seq = seq
             cargs.append(len(self._seq))
@@ -274,8 +273,8 @@ class PassArrayCallback:
         self._ptr = ptr
         self._lst = []
         for i in range(size):
-            if type_ is WinRT_String:
-                self._lst.append(_windows_get_string_raw_buffer(ptr[i]))
+            if type_ is hstr:
+                self._lst.append(str(ptr[i]))
             elif not is_simple_cdata(type_):
                 self._lst.append(type_.from_buffer_copy(ptr[i]))
             else:
@@ -309,8 +308,8 @@ class FillArray(Generic[T]):
         if exc_type is not None:
             return
 
-        if self._type is WinRT_String:
-            self._seq[:] = [s.strvalue for s in self._ptr[:]]
+        if self._type is hstr:
+            self._seq[:] = [str(s) for s in self._ptr[:]]
             for s in self._ptr[:]:
                 s.clear()
         elif is_com_class(self._type):
@@ -337,8 +336,8 @@ class FillArrayCallback:
             return
 
         for i, v in enumerate(self._lst):
-            if self._type is WinRT_String:
-                self._ptr[i] = WinRT_String(v)
+            if self._type is hstr:
+                self._ptr[i] = hstr(v)
             elif is_com_class(self._type):
                 if v:
                     v.AddRef()
@@ -368,8 +367,8 @@ class ReceiveArray(Generic[T]):
         if exc_type is not None:
             return
 
-        if self._type is WinRT_String:
-            self._seq[:] = [s.strvalue for s in self._ptr[: self._size.value]]
+        if self._type is hstr:
+            self._seq[:] = [str(s) for s in self._ptr[: self._size.value]]
             for s in self._ptr[: self._size.value]:
                 s.clear()
         elif is_com_class(self._type):
@@ -410,57 +409,14 @@ class ReceiveArrayCallback:
             raise WinError()
         pptr[0] = cast(ptr, POINTER(type_))
         for i, v in enumerate(seq):
-            if type_ is WinRT_String:
-                pptr[0][i] = WinRT_String(v)
+            if type_ is hstr:
+                pptr[0][i] = hstr(v)
             elif is_com_class(type_):
                 if v:
                     v.AddRef()
                 pptr[0][i] = v
             else:
                 pptr[0][i] = v
-
-
-# FIXME: Not work for array and struct entry.
-class WinRT_String(HSTRING):
-    def __init__(self, obj=None, own=False):
-        if obj is None:
-            hs = HSTRING(0)
-        elif isinstance(obj, HSTRING):
-            hs = obj
-        elif isinstance(obj, String):
-            hs = _windows_create_string(obj.value)
-        elif isinstance(obj, str):
-            hs = _windows_create_string(obj)
-        else:
-            raise ValueError(obj)
-        # https://github.com/python/cpython/issues/73456
-        # super().__init__(hs.value)
-        self.value = hs.value
-        self._own = own
-
-    def __del__(self):
-        if self and getattr(self, "_own", False):
-            self.clear()
-
-    def clear(self):
-        if self.value:
-            hr = WindowsDeleteString(self)
-            if FAILED(hr):
-                raise WinError(hr)
-            self.value = 0
-
-    @classmethod
-    def from_param(cls, obj):
-        if isinstance(obj, String):
-            return cls(obj, own=True)
-        elif isinstance(obj, str):
-            return cls(obj, own=True)
-        else:
-            return cls(obj, own=False)
-
-    @property
-    def strvalue(self):
-        return _windows_get_string_raw_buffer(self)
 
 
 class WinrtMethod:
@@ -574,7 +530,7 @@ class WinrtMethodCall:
         elif is_com_class(self.restype):
             result = self.restype(own=True)
             cargs.append(pointer(result))
-        elif self.restype is WinRT_String:
+        elif self.restype is hstr:
             result = self.restype(own=True)
             cargs.append(pointer(result))
         else:
@@ -597,8 +553,8 @@ class WinrtMethodCall:
             if not result:
                 return None
             return result
-        elif self.restype is WinRT_String:
-            return result.strvalue
+        elif self.restype is hstr:
+            return str(result)
         elif is_simple_cdata(_get_origin_or_itself(self.restype)):
             return result.value
         return result
@@ -730,25 +686,9 @@ class winrt_overload:
         raise ValueError("no matched method")
 
 
-def _windows_create_string(s: str) -> HSTRING:
-    hs = HSTRING()
-    hr = WindowsCreateString(s, len(s), hs)
-    if FAILED(hr):
-        raise WinError(hr)
-    return hs
-
-
-def _windows_get_string_raw_buffer(hs: HSTRING) -> str:
-    length = UInt32()
-    bufaddr = WindowsGetStringRawBuffer(hs, length, _as_intptr=True)
-    return wstring_at(bufaddr, length.value)
-
-
 def _ro_get_activation_factory(classid: str) -> IActivationFactory:
-    hs = _windows_create_string(classid)
     factory = IActivationFactory(own=True)
-    hr = RoGetActivationFactory(hs, IActivationFactory._iid_, factory)
-    WindowsDeleteString(hs)
+    hr = RoGetActivationFactory(hstr(classid, own=True), IActivationFactory._iid_, factory)
     if FAILED(hr):
         return _get_runtime_activation_factory(classid)
     return factory
@@ -775,10 +715,8 @@ def _get_runtime_activation_factory(classid: str) -> IActivationFactory:
         except AttributeError:
             continue
 
-        hs = _windows_create_string(classid)
         factory = IActivationFactory(own=True)
-        hr = DllGetActivationFactory(hs, factory)
-        WindowsDeleteString(hs)
+        hr = DllGetActivationFactory(hstr(classid, own=True), factory)
         if FAILED(hr):
             continue
         return factory
@@ -834,7 +772,7 @@ def _get_type_signature(cls) -> str:
             return f"rc({cls._classid_};{args})"
         else:
             raise RuntimeError("no _iid_ found")
-    elif issubclass(cls, WinRT_String):
+    elif issubclass(cls, hstr):
         return "string"
     elif issubclass(cls, Char):
         return "c2"
@@ -970,7 +908,7 @@ class Vtbl(Structure):
 
     def _originate_error(self, exc):
         try:
-            msg = _windows_create_string(f"{exc.__class__.__name__}: {exc}")
+            msg = hstr(f"{exc.__class__.__name__}: {exc}")
         except OSError:
             return
         RoOriginateError(E_FAIL, msg)
@@ -991,8 +929,8 @@ class Vtbl(Structure):
             exitstack.enter_context(FillArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
         elif is_receivearray_class(type_):
             exitstack.enter_context(ReceiveArrayCallback(get_args(type_)[0], args.pop(0), args.pop(0), pyargs))
-        elif type_ is WinRT_String:
-            pyargs.append(_windows_get_string_raw_buffer(args.pop(0)))
+        elif type_ is hstr:
+            pyargs.append(str(args.pop(0)))
         else:
             pyargs.append(args.pop(0))
 
@@ -1002,9 +940,9 @@ class Vtbl(Structure):
         elif is_receivearray_class(restype):
             return_length, return_pointer = args
             ReceiveArrayCallback.handle_result(get_args(restype)[0], return_length, return_pointer, result)
-        elif restype is WinRT_String:
+        elif restype is hstr:
             return_pointer = args[0]
-            return_pointer[0] = WinRT_String(result, own=False)
+            return_pointer[0] = hstr(result)
         elif is_com_class(restype):
             return_pointer = args[0]
             if result:
@@ -1103,7 +1041,7 @@ class ComClass(ComPtr):
         return S_OK
 
     def GetRuntimeClassName(self, className: POINTER(HSTRING)) -> HRESULT:
-        className[0] = _windows_create_string(self._runtime_class_name())
+        className[0] = hstr(self._runtime_class_name())
         return S_OK
 
     def GetTrustLevel(self, trustLevel: POINTER(TrustLevel)) -> HRESULT:
