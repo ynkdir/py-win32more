@@ -8,15 +8,15 @@ from ._win32api import HSTRING, WindowsCreateString, WindowsDeleteString, Window
 
 class hstr(HSTRING):
     def __init__(self, obj=None, own=False):
+        # https://github.com/python/cpython/issues/73456
+        # super().__init__(value)
+        super().__init__()
         if obj is None:
-            hs = 0
+            self.value = 0
         elif isinstance(obj, str):
-            hs = _windows_create_string(obj).value
+            self.value = _windows_create_string(obj).value
         else:
             raise ValueError(obj)
-        # https://github.com/python/cpython/issues/73456
-        # super().__init__(hs.value)
-        self.value = hs
         self._own = own
 
     def __del__(self):
