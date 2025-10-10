@@ -225,6 +225,10 @@ def WindowsDeleteString(string: HSTRING) -> HRESULT: ...
 
 
 @winfunctype("api-ms-win-core-winrt-string-l1-1-0.dll")
+def WindowsGetStringLen(string: HSTRING) -> UInt32: ...
+
+
+@winfunctype("api-ms-win-core-winrt-string-l1-1-0.dll")
 def WindowsGetStringRawBuffer(string: HSTRING, length: POINTER(UInt32)) -> PWSTR: ...
 
 

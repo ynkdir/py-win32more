@@ -3,7 +3,7 @@ from __future__ import annotations
 from ctypes import wstring_at
 
 from ._win32 import FAILED, String, UInt32, UIntPtr, WinError
-from ._win32api import HSTRING, WindowsCreateString, WindowsDeleteString, WindowsGetStringRawBuffer
+from ._win32api import HSTRING, WindowsCreateString, WindowsDeleteString, WindowsGetStringLen, WindowsGetStringRawBuffer
 
 
 class hstr(HSTRING):
@@ -28,11 +28,20 @@ class hstr(HSTRING):
             self.clear()
 
     def clear(self):
-        if self.value:
+        if self:
             hr = WindowsDeleteString(self)
             if FAILED(hr):
                 raise WinError(hr)
             self.value = 0
+
+    def __len__(self):
+        return WindowsGetStringLen(self)
+
+    def __str__(self):
+        return _windows_get_string_raw_buffer(self)
+
+    def __int__(self):
+        return UIntPtr.from_buffer(self).value
 
     @classmethod
     def from_param(cls, obj):
@@ -42,12 +51,6 @@ class hstr(HSTRING):
             return cls(obj, own=True)
         else:
             return cls(obj, own=False)
-
-    def __str__(self):
-        return _windows_get_string_raw_buffer(self)
-
-    def __int__(self):
-        return UIntPtr.from_buffer(self).value
 
 
 def _windows_create_string(s: str) -> HSTRING:
