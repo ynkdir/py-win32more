@@ -1,18 +1,15 @@
 from __future__ import annotations
 
-from ctypes import wstring_at
-
 from win32more._win32api import (
-    BSTR,
     HRESULT,
     S_OK,
     FormatError,
     GetErrorInfo,
     IErrorInfo,
     IRestrictedErrorInfo,
-    SysFreeString,
-    SysStringLen,
 )
+
+from ._bstr import bstr
 
 
 class ComError(OSError):
@@ -39,15 +36,12 @@ class ComError(OSError):
         if self._error_info is None:
             return None
 
-        description = BSTR()
+        description = bstr(own=True)
         r = self._error_info.GetDescription(description)
         if r != S_OK:
             return None
 
-        try:
-            return self._copy_message(description)
-        finally:
-            SysFreeString(description)
+        return str(description).strip()
 
     def _winrt_description(self) -> str | None:
         details = self._winrt_error_details()
@@ -70,27 +64,17 @@ class ComError(OSError):
         except OSError:
             return None
 
-        description = BSTR()
+        description = bstr(own=True)
         error = HRESULT()
-        restricted_description = BSTR()
-        capability_sid = BSTR()
+        restricted_description = bstr(own=True)
+        capability_sid = bstr(own=True)
         r = restricted_error_info.GetErrorDetails(description, error, restricted_description, capability_sid)
         if r != S_OK:
             return None
 
-        try:
-            return {
-                "restricted_description": self._copy_message(restricted_description),
-                "error": error.value,
-                "description": self._copy_message(description),
-                "capability_sid": self._copy_message(capability_sid),
-            }
-        finally:
-            SysFreeString(description)
-            SysFreeString(restricted_description)
-            SysFreeString(capability_sid)
-
-    def _copy_message(self, p: BSTR) -> str | None:
-        if not p:
-            return None
-        return wstring_at(p, SysStringLen(p)).strip()
+        return {
+            "restricted_description": str(restricted_description).strip(),
+            "error": error.value,
+            "description": str(description).strip(),
+            "capability_sid": str(capability_sid).strip(),
+        }

@@ -29,6 +29,7 @@ else:
 
 from . import asyncui
 from ._boxing import box_value, unbox_value
+from ._bstr import bstr
 from ._comerror import ComError
 from ._hstr import hstr
 from ._win32 import (
@@ -75,7 +76,6 @@ from ._win32api import (
     RoGetActivationFactory,
     RoOriginateError,
     SetErrorInfo,
-    SysAllocString,
     TrustLevel,
 )
 
@@ -889,7 +889,7 @@ class Vtbl(Structure):
         hr = CreateErrorInfo(info)
         if FAILED(hr):
             return
-        description = SysAllocString(f"{exc.__class__.__name__}: {exc}", _as_intptr=True)
+        description = bstr(f"{exc.__class__.__name__}: {exc}")
         if not description:
             return
         hr = info.SetDescription(description)
