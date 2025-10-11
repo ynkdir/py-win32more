@@ -13,7 +13,6 @@ if sys.version_info < (3, 9):
 else:
     from typing import get_args, get_origin
 
-from . import _winrt
 from ._bstr import bstr
 from ._hstr import hstr
 from ._win32 import FAILED, WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr, commethod
@@ -37,6 +36,17 @@ from ._win32api import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+class _lazy_winrt:
+    def __getattr__(self, name):
+        global _winrt
+        from . import _winrt
+
+        return getattr(_winrt, name)
+
+
+_winrt = _lazy_winrt()
 
 
 class ComClass(ComPtr):
