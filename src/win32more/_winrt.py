@@ -27,6 +27,14 @@ from . import asyncui
 from ._boxing import box_value, unbox_value
 from ._comclass import ComClass, ISelf
 from ._comerror import ComError
+from ._generic import (
+    GenericSpecializer,
+    generic_get_type_hints,
+    get_origin_or_itself,
+    get_original_class,
+    is_generic_alias,
+    is_generic_instance,
+)
 from ._hstr import hstr
 from ._win32 import (
     FAILED,
@@ -151,10 +159,10 @@ def winrt_easycast(obj, type_):
     if type_ is IInspectable:
         if isinstance(obj, str):
             return box_value(obj)
-    elif issubclass(_get_origin_or_itself(type_), IVector):
+    elif issubclass(get_origin_or_itself(type_), IVector):
         if isinstance(obj, list):
             return Vector[get_args(type_)[0]](obj)
-    elif issubclass(_get_origin_or_itself(type_), IReference):
+    elif issubclass(get_origin_or_itself(type_), IReference):
         # FIXME: Should I check obj is T of IReference[T]?
         if obj is None:
             return IReference(None)
@@ -163,66 +171,6 @@ def winrt_easycast(obj, type_):
         # Do not propagate generic type
         return obj
     return easycast(obj, type_)
-
-
-def generic_get_type_hints(prototype, cls):
-    hints = get_type_hints(prototype)
-    if is_generic_alias(cls):
-        gs = GenericSpecializer.from_generic_alias(cls)
-        hints = {key: gs.specialize_parameter(parameter) for key, parameter in hints.items()}
-    return hints
-
-
-class GenericSpecializer:
-    def __init__(self, parameter_to_type_map: dict[TypeVar, type]) -> None:
-        self._parameter_to_type_map = parameter_to_type_map
-
-    @classmethod
-    def from_generic_alias(cls, specialized_generic_alias: _GenericAlias) -> GenericSpecializer:
-        parameters = get_origin(specialized_generic_alias).__parameters__
-        args = get_args(specialized_generic_alias)
-        return GenericSpecializer(dict(zip(parameters, args)))
-
-    def specialize_generic_alias(self, parameterized_generic_alias: _GenericAlias) -> _GenericAlias:
-        parameters = get_args(parameterized_generic_alias)
-        args = self.specialize_parameters(parameters)
-        return get_origin(parameterized_generic_alias)[tuple(args)]
-
-    def specialize_parameters(self, parameters: list[_GenericAlias | TypeVar | type]) -> list[_GenericAlias | type]:
-        return [self.specialize_parameter(parameter) for parameter in parameters]
-
-    def specialize_parameter(self, parameter: _GenericAlias | TypeVar | type) -> _GenericAlias | type:
-        if is_generic_alias(parameter):
-            return self.specialize_generic_alias(parameter)
-        elif isinstance(parameter, TypeVar):
-            return self._parameter_to_type_map[parameter]
-        else:
-            return parameter
-
-
-# types.get_original_bases
-def _get_original_bases(cls):
-    return cls.__dict__.get("__orig_bases__", cls.__bases__)
-
-
-def _get_original_class(instance):
-    return instance.__dict__.get("__orig_class__", instance.__class__)
-
-
-def _get_origin_or_itself(cls):
-    return get_origin(cls) or cls
-
-
-def _get_specialized_bases(cls):
-    if not is_generic_alias(cls):
-        return _get_original_bases(cls)
-    gs = GenericSpecializer.from_generic_alias(cls)
-    bases = []
-    for base in _get_original_bases(_get_origin_or_itself(cls)):
-        if get_origin(base) is Generic:
-            continue
-        bases.append(gs.specialize_parameter(base))
-    return bases
 
 
 # Dummy type for list[T]
@@ -412,7 +360,7 @@ class WinrtMethod:
         return types.MethodType(self.__call__, instance)
 
     def __call__(self, this, *args, **kwargs):
-        cls = _get_original_class(this)
+        cls = get_original_class(this)
         generic_args = get_args(cls)
         if generic_args not in self._generic_delegate:
             self._generic_delegate[generic_args] = WinrtMethodCall(self._prototype, self._vtbl_index, cls)
@@ -524,11 +472,11 @@ class WinrtMethodCall:
 
         if self.restype is Void:
             return None
-        elif issubclass(_get_origin_or_itself(self.restype), IReference):
+        elif issubclass(get_origin_or_itself(self.restype), IReference):
             if not result:
                 return None
             return unbox_value(result)
-        elif issubclass(_get_origin_or_itself(self.restype), Enum):
+        elif issubclass(get_origin_or_itself(self.restype), Enum):
             return result.value
         elif is_com_class(self.restype):
             if not result:
@@ -536,7 +484,7 @@ class WinrtMethodCall:
             return result
         elif self.restype is hstr:
             return str(result)
-        elif is_simple_cdata(_get_origin_or_itself(self.restype)):
+        elif is_simple_cdata(get_origin_or_itself(self.restype)):
             return result.value
         return result
 
@@ -566,22 +514,12 @@ class winrt_mixinmethod:
         return len(self._prototype.__annotations__) - 2
 
 
-# Cls[T]?
-def is_generic_alias(cls):
-    return isinstance(cls, _GenericAlias)
-
-
-# Cls[T]()?
-def is_generic_instance(obj):
-    return isinstance(obj, Generic)
-
-
 def is_delegate_class(cls):
-    return issubclass(_get_origin_or_itself(cls), MulticastDelegate)
+    return issubclass(get_origin_or_itself(cls), MulticastDelegate)
 
 
 def is_com_class(cls):
-    return issubclass(_get_origin_or_itself(cls), ComPtr)
+    return issubclass(get_origin_or_itself(cls), ComPtr)
 
 
 def is_com_instance(obj):
@@ -589,15 +527,15 @@ def is_com_instance(obj):
 
 
 def is_passarray_class(cls):
-    return issubclass(_get_origin_or_itself(cls), PassArray)
+    return issubclass(get_origin_or_itself(cls), PassArray)
 
 
 def is_fillarray_class(cls):
-    return issubclass(_get_origin_or_itself(cls), FillArray)
+    return issubclass(get_origin_or_itself(cls), FillArray)
 
 
 def is_receivearray_class(cls):
-    return issubclass(_get_origin_or_itself(cls), ReceiveArray)
+    return issubclass(get_origin_or_itself(cls), ReceiveArray)
 
 
 # check if ptr[0] returns python primitive?
@@ -874,7 +812,7 @@ class MappingProtocol:
     def __args(self):
         if not is_generic_instance(self):
             return self.__parameters
-        gs = GenericSpecializer.from_generic_alias(_get_original_class(self))
+        gs = GenericSpecializer.from_generic_alias(get_original_class(self))
         return gs.specialize_parameters(self.__parameters)
 
     def __iterator(self):

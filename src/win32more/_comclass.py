@@ -14,6 +14,7 @@ else:
     from typing import get_args, get_origin
 
 from ._comerror import set_error_info
+from ._generic import generic_get_type_hints, get_original_class, get_specialized_bases, is_generic_alias
 from ._hstr import hstr
 from ._win32 import WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr, commethod
 from ._win32api import (
@@ -65,7 +66,7 @@ class ComClass(ComPtr):
         return iid_vtbls
 
     def _get_iid(self, interface):
-        if _winrt.is_generic_alias(interface):
+        if is_generic_alias(interface):
             return _winrt._ro_get_parameterized_type_instance_iid(interface)
         elif "_iid_" in interface.__dict__:
             return interface.__dict__["_iid_"]
@@ -74,8 +75,8 @@ class ComClass(ComPtr):
 
     def _implemented_interfaces(self) -> list[_GenericAlias | type]:
         r = []
-        for base in self._enumerate_specialized_bases_recursively(_winrt._get_original_class(self)):
-            if _winrt.is_generic_alias(base) and "_piid_" in get_origin(base).__dict__:
+        for base in self._enumerate_specialized_bases_recursively(get_original_class(self)):
+            if is_generic_alias(base) and "_piid_" in get_origin(base).__dict__:
                 r.append(base)
             elif "_iid_" in base.__dict__:
                 r.append(base)
@@ -84,7 +85,7 @@ class ComClass(ComPtr):
         return r
 
     def _enumerate_specialized_bases_recursively(self, cls: _GenericAlias | type) -> Iterable[_GenericAlias | type]:
-        for base in _winrt._get_specialized_bases(cls):
+        for base in get_specialized_bases(cls):
             yield base
             yield from self._enumerate_specialized_bases_recursively(base)
 
@@ -166,7 +167,7 @@ class Vtbl(Structure):
         return lpvtbl
 
     def _interface_methods(self):
-        if sys.version_info < (3, 10) and _winrt.is_generic_alias(self._interface):
+        if sys.version_info < (3, 10) and is_generic_alias(self._interface):
             interface = get_origin(self._interface)
         else:
             interface = self._interface
@@ -177,7 +178,7 @@ class Vtbl(Structure):
         return methods
 
     def _make_thunk_com(self, method):
-        hints = _winrt.generic_get_type_hints(method._prototype, self._interface)
+        hints = generic_get_type_hints(method._prototype, self._interface)
         restype = hints.pop("return")
         argtypes = [self._make_allocator(t) for t in hints.values()]
         closure = partial(self._com_callback_error_check, getattr(self._owner, method._prototype.__name__))
@@ -186,7 +187,7 @@ class Vtbl(Structure):
         return cast(thunk, c_void_p)
 
     def _make_thunk_winrt(self, method):
-        hints = _winrt.generic_get_type_hints(method._prototype, self._interface)
+        hints = generic_get_type_hints(method._prototype, self._interface)
         restype = hints.pop("return")
         argtypes = []
         for type_ in hints.values():
@@ -206,7 +207,7 @@ class Vtbl(Structure):
         elif _winrt.is_receivearray_class(restype):
             argtypes.append(POINTER(UInt32))
             argtypes.append(POINTER(POINTER(get_args(restype)[0])))
-        elif _winrt.is_generic_alias(restype):
+        elif is_generic_alias(restype):
             argtypes.append(POINTER(get_origin(restype)))
         else:
             argtypes.append(POINTER(restype))
@@ -219,7 +220,7 @@ class Vtbl(Structure):
 
     # allocate winrt runtime class without constructor.
     def _make_allocator(self, t):
-        if _winrt.is_generic_alias(t) or issubclass(t, ComPtr):
+        if is_generic_alias(t) or issubclass(t, ComPtr):
             return type(c_void_p)("Allocator", (c_void_p,), {"__new__": lambda _: t(own=False)})
         return t
 
