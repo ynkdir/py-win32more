@@ -34,6 +34,7 @@ from win32more import (
     box_value,
     unbox_value,
 )
+from win32more._ro import ro_get_parameterized_type_instance_iid
 from win32more._vector import Vector
 from win32more._win32 import (
     Enum,
@@ -46,7 +47,6 @@ from win32more._winrt import (
     PassArray,
     ReceiveArray,
     WinRT_String,
-    _ro_get_parameterized_type_instance_iid,
     winrt_commethod,
 )
 
@@ -275,7 +275,7 @@ class TestWinrt(unittest.TestCase):
 
     def test_guid_generation_for_parameterized_types(self):
         self.assertEqual(
-            str(_ro_get_parameterized_type_instance_iid(IVector[IInspectable])),
+            str(ro_get_parameterized_type_instance_iid(IVector[IInspectable])),
             "{b32bdca4-5e52-5b27-bc5d-d66a1a268c2a}",
         )
 

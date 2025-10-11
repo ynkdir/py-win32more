@@ -22,6 +22,7 @@ from ._generic import (
     is_generic_alias,
 )
 from ._hstr import hstr
+from ._ro import ro_get_parameterized_type_instance_iid
 from ._win32 import WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr, commethod
 from ._win32api import (
     E_FAIL,
@@ -81,7 +82,7 @@ class ComClass(ComPtr):
 
     def _get_iid(self, interface):
         if is_generic_alias(interface):
-            return _winrt._ro_get_parameterized_type_instance_iid(interface)
+            return ro_get_parameterized_type_instance_iid(interface)
         elif "_iid_" in interface.__dict__:
             return interface.__dict__["_iid_"]
         else:
@@ -285,7 +286,7 @@ class Vtbl(Structure):
         elif restype is hstr:
             return_pointer = args[0]
             return_pointer[0] = hstr(result)
-        elif _winrt.is_com_class(restype):
+        elif is_com_class(restype):
             return_pointer = args[0]
             if result:
                 result.AddRef()
