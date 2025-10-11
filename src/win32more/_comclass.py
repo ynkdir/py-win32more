@@ -14,7 +14,13 @@ else:
     from typing import get_args, get_origin
 
 from ._comerror import set_error_info
-from ._generic import generic_get_type_hints, get_original_class, get_specialized_bases, is_generic_alias
+from ._generic import (
+    generic_get_type_hints,
+    get_origin_or_itself,
+    get_original_class,
+    get_specialized_bases,
+    is_generic_alias,
+)
 from ._hstr import hstr
 from ._win32 import WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr, commethod
 from ._win32api import (
@@ -44,6 +50,14 @@ class _lazy_winrt:
 
 
 _winrt = _lazy_winrt()
+
+
+def is_com_class(cls):
+    return issubclass(get_origin_or_itself(cls), ComPtr)
+
+
+def is_com_instance(obj):
+    return isinstance(obj, ComPtr)
 
 
 class ComClass(ComPtr):

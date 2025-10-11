@@ -25,7 +25,7 @@ else:
 
 from . import asyncui
 from ._boxing import box_value, unbox_value
-from ._comclass import ComClass, ISelf
+from ._comclass import ComClass, ISelf, is_com_class, is_com_instance
 from ._comerror import ComError
 from ._generic import (
     GenericSpecializer,
@@ -516,14 +516,6 @@ class winrt_mixinmethod:
 
 def is_delegate_class(cls):
     return issubclass(get_origin_or_itself(cls), MulticastDelegate)
-
-
-def is_com_class(cls):
-    return issubclass(get_origin_or_itself(cls), ComPtr)
-
-
-def is_com_instance(obj):
-    return isinstance(obj, ComPtr)
 
 
 def is_passarray_class(cls):
