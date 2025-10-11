@@ -46,11 +46,12 @@ def create_task(coro):
 
 def maybe_eager_loop_factory():
     loop = asyncio.new_event_loop()
+    if sys.version_info < (3, 12):
+        return loop
     # Use eager task.
     # Some method can not be called after returned.
     # (e.g. CoreWebView2NewWindowRequestedEventArgs.GetDeferral())
-    if sys.version_info >= (3, 12):
-        loop.set_task_factory(asyncio.eager_task_factory)
+    loop.set_task_factory(asyncio.eager_task_factory)
     return loop
 
 
