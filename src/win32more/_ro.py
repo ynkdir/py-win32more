@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 import uuid
-from ctypes import (
-    cast,
-)
+from ctypes import cast
 from typing import _GenericAlias, get_args
 
 from ._hstr import hstr
