@@ -1,15 +1,18 @@
 from __future__ import annotations
 
-from win32more._win32api import (
+from ._bstr import bstr
+from ._win32 import FAILED, WinError
+from ._win32api import (
     HRESULT,
     S_OK,
+    CreateErrorInfo,
     FormatError,
     GetErrorInfo,
+    ICreateErrorInfo,
     IErrorInfo,
     IRestrictedErrorInfo,
+    SetErrorInfo,
 )
-
-from ._bstr import bstr
 
 
 class ComError(OSError):
@@ -78,3 +81,16 @@ class ComError(OSError):
             "description": str(description).strip(),
             "capability_sid": str(capability_sid).strip(),
         }
+
+
+def set_error_info(description: str) -> None:
+    info = ICreateErrorInfo(own=True)
+    hr = CreateErrorInfo(info)
+    if FAILED(hr):
+        raise WinError(hr)
+    hr = info.SetDescription(bstr(description, own=True))
+    if FAILED(hr):
+        raise WinError(hr)
+    hr = SetErrorInfo(0, info.as_(IErrorInfo))
+    if FAILED(hr):
+        raise WinError(hr)

@@ -13,9 +13,9 @@ if sys.version_info < (3, 9):
 else:
     from typing import get_args, get_origin
 
-from ._bstr import bstr
+from ._comerror import set_error_info
 from ._hstr import hstr
-from ._win32 import FAILED, WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr, commethod
+from ._win32 import WINFUNCTYPE, ComMethod, ComPtr, Guid, UInt32, Void, VoidPtr, commethod
 from ._win32api import (
     E_FAIL,
     E_NOINTERFACE,
@@ -24,14 +24,10 @@ from ._win32api import (
     S_OK,
     BaseTrust,
     CoTaskMemAlloc,
-    CreateErrorInfo,
     IAgileObject,
-    ICreateErrorInfo,
-    IErrorInfo,
     IInspectable,
     IUnknown,
     RoOriginateError,
-    SetErrorInfo,
     TrustLevel,
 )
 
@@ -232,21 +228,8 @@ class Vtbl(Structure):
             return callback(*args)
         except Exception as exc:
             logger.exception(f"Unhandled exception caught: {callback}{args}")
-            self._set_error_info(exc)
+            set_error_info(f"{exc.__class__.__name__}: {exc}")
             return E_FAIL
-
-    def _set_error_info(self, exc):
-        info = ICreateErrorInfo(own=True)
-        hr = CreateErrorInfo(info)
-        if FAILED(hr):
-            return
-        description = bstr(f"{exc.__class__.__name__}: {exc}")
-        if not description:
-            return
-        hr = info.SetDescription(description)
-        if FAILED(hr):
-            return
-        SetErrorInfo(0, info.as_(IErrorInfo))
 
     def _winrt_callback_error_check(self, callback, restype, hints, this, *args):
         try:
@@ -254,15 +237,8 @@ class Vtbl(Structure):
             return S_OK
         except Exception as exc:
             logger.exception(f"Unhandled exception caught: {callback}{args}")
-            self._originate_error(exc)
+            RoOriginateError(E_FAIL, hstr(f"{exc.__class__.__name__}: {exc}", own=True))
             return E_FAIL
-
-    def _originate_error(self, exc):
-        try:
-            msg = hstr(f"{exc.__class__.__name__}: {exc}")
-        except OSError:
-            return
-        RoOriginateError(E_FAIL, msg)
 
     def _winrt_callback(self, callback, restype, hints, this, args):
         args = list(args)
