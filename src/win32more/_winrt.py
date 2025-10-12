@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import inspect
 import logging
-import sys
 import types
 from collections.abc import MutableSequence, Sequence
 from contextlib import ExitStack
@@ -15,12 +14,15 @@ from ctypes import (
     sizeof,
 )
 from functools import partial
-from typing import Any, Generic, TypeVar
-
-if sys.version_info < (3, 9):
-    from typing_extensions import Annotated, Tuple, get_args, get_origin  # noqa: F401
-else:
-    from typing import Annotated, Tuple, get_args, get_origin  # noqa: F401
+from typing import (
+    Annotated,  # noqa: F401
+    Any,
+    Generic,
+    Tuple,  # noqa: F401
+    TypeVar,
+    get_args,
+    get_origin,
+)
 
 from . import asyncui
 from ._boxing import box_value, unbox_value

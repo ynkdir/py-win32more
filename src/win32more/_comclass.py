@@ -6,12 +6,7 @@ from collections.abc import Iterable
 from contextlib import ExitStack
 from ctypes import POINTER, Structure, addressof, c_void_p, cast, py_object, sizeof
 from functools import partial
-from typing import Any, _GenericAlias
-
-if sys.version_info < (3, 9):
-    from typing_extensions import get_args, get_origin
-else:
-    from typing import get_args, get_origin
+from typing import Any, _GenericAlias, get_args, get_origin
 
 from ._comerror import set_error_info
 from ._generic import (

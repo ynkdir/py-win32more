@@ -32,13 +32,8 @@ from ctypes import (
 from ctypes import Structure as _Structure
 from ctypes import Union as _Union
 from itertools import zip_longest
-
-if sys.version_info < (3, 9):
-    from typing_extensions import Annotated, get_origin
-    from typing_extensions import get_type_hints as _get_type_hints
-else:
-    from typing import Annotated, get_origin
-    from typing import get_type_hints as _get_type_hints
+from typing import Annotated, get_origin
+from typing import get_type_hints as _get_type_hints
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"

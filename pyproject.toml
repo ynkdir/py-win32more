@@ -8,7 +8,6 @@ authors = [
     { name = "Yukihiro Nakadaira", email = "yukihiro.nakadaira@gmail.com" },
 ]
 dependencies = [
-    "typing_extensions; python_version < '3.9'",
     "win32more-Microsoft.Windows.SDK.Win32Metadata == 0.6.*",
     "win32more-Microsoft.Windows.SDK.Contracts == 0.6.*",
     "win32more-Microsoft.WindowsAppSDK == 0.6.*",
