@@ -15,7 +15,6 @@ from ctypes import (
 )
 from functools import partial
 from typing import (
-    Annotated,  # noqa: F401
     Any,
     Generic,
     Tuple,  # noqa: F401
