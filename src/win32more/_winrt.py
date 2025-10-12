@@ -37,11 +37,10 @@ from ._generic import (
     is_generic_instance,
 )
 from ._hstr import hstr
-from ._ro import ro_activate_instance, ro_get_activation_factory, ro_get_parameterized_type_instance_iid
+from ._ro import ro_activate_instance, ro_get_activation_factory
 from ._win32 import (
     FAILED,
     WINFUNCTYPE,
-    ComPtr,
     Enum,
     UInt32,
     Void,
@@ -91,53 +90,6 @@ class event_setter:
 
     def __iadd__(self, callback):
         getattr(self._instance, f"add_{self._name}")(callback)
-
-
-def ComPtr_commit(cls):
-    hints = get_type_hints(cls)
-    if hints["extends"] is None:
-        return cls
-    # Generic class have multiple base class (Generic[], ComPtr).
-    bases = []
-    for type_ in cls.__bases__:
-        if type_ is ComPtr:
-            type_ = hints["extends"]
-        bases.append(type_)
-    if "implements" in hints:
-        bases.extend(get_args(hints["implements"]))
-    cls.__bases__ = tuple(bases)
-    if "__orig_bases__" in cls.__dict__:
-        orig_bases = []
-        for type_ in cls.__bases__:
-            if type_ is ComPtr:
-                type_ = hints["extends"]
-            orig_bases.append(type_)
-        cls.__orig_bases__ = tuple(orig_bases)
-    if "default_interface" in hints:
-        cls._default_interface_ = hints["default_interface"]
-    return cls
-
-
-def ComPtr_as(self, cls):
-    if cls is str:
-        return unbox_value(self)
-    elif is_generic_alias(cls):
-        iid = ro_get_parameterized_type_instance_iid(cls)
-    elif "_iid_" in cls.__dict__:
-        iid = cls._iid_
-    elif "_default_interface_" in cls.__dict__:
-        iid = cls._default_interface_._iid_
-    else:
-        raise RuntimeError("no _iid_ found")
-    instance = cls(own=True)
-    hr = self.QueryInterface(pointer(iid), pointer(instance))
-    if FAILED(hr):
-        raise WinError(hr)
-    return instance
-
-
-ComPtr.__commit__ = classmethod(ComPtr_commit)
-ComPtr.as_ = ComPtr_as
 
 
 def winrt_easycast(obj, type_):

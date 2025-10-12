@@ -32,7 +32,7 @@ from ctypes import (
 from ctypes import Structure as _Structure
 from ctypes import Union as _Union
 from itertools import zip_longest
-from typing import Annotated, get_origin
+from typing import Annotated, get_args, get_origin
 from typing import get_type_hints as _get_type_hints
 
 if "(arm64)" in sys.version.lower():
@@ -172,18 +172,46 @@ class ComPtr(c_void_p):
         if self and getattr(self, "_own", False):
             self.Release()
 
-    # overwritten in winrt module
     @classmethod
     def __commit__(cls):
         hints = get_type_hints(cls)
         if hints["extends"] is None:
             return cls
-        cls.__bases__ = (hints["extends"],)
+        # Generic class have multiple base class (Generic[], ComPtr).
+        bases = []
+        for type_ in cls.__bases__:
+            if type_ is ComPtr:
+                type_ = hints["extends"]
+            bases.append(type_)
+        if "implements" in hints:
+            bases.extend(get_args(hints["implements"]))
+        cls.__bases__ = tuple(bases)
+        if "__orig_bases__" in cls.__dict__:
+            orig_bases = []
+            for type_ in cls.__bases__:
+                if type_ is ComPtr:
+                    type_ = hints["extends"]
+                orig_bases.append(type_)
+            cls.__orig_bases__ = tuple(orig_bases)
+        if "default_interface" in hints:
+            cls._default_interface_ = hints["default_interface"]
         return cls
 
-    # overwritten in winrt module
     def as_(self, cls):
-        iid = cls._iid_
+        from ._boxing import unbox_value
+        from ._generic import is_generic_alias
+        from ._ro import ro_get_parameterized_type_instance_iid
+
+        if cls is str:
+            return unbox_value(self)
+        elif is_generic_alias(cls):
+            iid = ro_get_parameterized_type_instance_iid(cls)
+        elif "_iid_" in cls.__dict__:
+            iid = cls._iid_
+        elif "_default_interface_" in cls.__dict__:
+            iid = cls._default_interface_._iid_
+        else:
+            raise RuntimeError("no _iid_ found")
         instance = cls(own=True)
         hr = self.QueryInterface(pointer(iid), pointer(instance))
         if FAILED(hr):
