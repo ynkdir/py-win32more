@@ -1,5 +1,5 @@
 # ruff: noqa: F401
-from win32more._win32 import (
+from ._win32 import (
     ARCH,
     POINTER,
     Annotated,
@@ -37,7 +37,7 @@ from win32more._win32 import (
     winfunctype,
     winfunctype_pointer,
 )
-from win32more._winrt import (
+from ._winrt import (
     AwaitableProtocol,
     ContextManagerProtocol,
     FillArray,
