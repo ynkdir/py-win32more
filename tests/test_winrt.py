@@ -15,7 +15,7 @@ from win32more.Windows.Foundation.Collections import IVector, IVectorView, Strin
 from win32more.Windows.Storage import FileIO, PathIO, StorageFile
 from win32more.Windows.System import DispatcherQueueController
 from win32more.Windows.System.Threading import ThreadPool
-from win32more.Windows.Win32.Foundation import HRESULT, S_OK
+from win32more.Windows.Win32.Foundation import E_INVALIDARG, HRESULT, S_OK
 from win32more.Windows.Win32.System.Com import CoTaskMemAlloc, IUnknown
 from win32more.Windows.Win32.System.WinRT import RO_INIT_MULTITHREADED, IInspectable, RoInitialize, RoUninitialize
 
@@ -456,19 +456,24 @@ class TestWinrt(unittest.TestCase):
         with self.assertRaises(ComError) as cm:
             Uri("bad")
 
-        self.assertEqual(cm.exception._winrt_restricted_description(), "bad is not a valid absolute URI.")
+        # bad is not a valid absolute URI.
+        details = cm.exception._winrt_error_details()
+        self.assertIsNotNone(details)
+        self.assertEqual(details["error"], E_INVALIDARG)
+        # Message may vary depending on the Windows version and language settings.
+        self.assertNotEqual(details["restricted_description"], "")
 
     def test_restricted_error_info_async(self):
         async def main():
             with self.assertRaises(ComError) as cm:
                 await StorageFile.GetFileFromPathAsync("bad")
 
-            # FIXME:
-            # On my PC: The specified path (UNABLE_TO_MASK_PATH) is too long. It exceeds the maximum length of 1888614568.
-            # On github runner: The specified path (bad) is not an absolute path, and relative paths are not permitted.
-            # self.assertRegex(cm.exception._winrt_restricted_description(), r"It exceeds the maximum length")
-
-            self.assertEqual(cm.exception._winrt_description(), "The parameter is incorrect.")
+            # The parameter is incorrect.
+            details = cm.exception._winrt_error_details()
+            self.assertIsNotNone(details)
+            self.assertEqual(details["error"], E_INVALIDARG)
+            # Message may vary depending on the Windows version and language settings.
+            self.assertNotEqual(details["restricted_description"], "")
 
         asyncio.run(main())
 
