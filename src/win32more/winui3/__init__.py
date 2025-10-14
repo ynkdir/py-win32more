@@ -5,6 +5,8 @@ from functools import partial
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
+from win32more import FAILED, ComClass, WinError, asyncui
+from win32more._winrt import ISelf, WinRT_String
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
@@ -14,9 +16,6 @@ from win32more.Windows.UI.Xaml.Interop import TypeName
 from win32more.Windows.Win32.System.Com import COINIT_APARTMENTTHREADED, CoInitializeEx, CoUninitialize
 from win32more.Windows.Win32.UI.HiDpi import DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2, SetProcessDpiAwarenessContext
 from win32more.Windows.Win32.UI.WindowsAndMessaging import SetTimer
-
-from win32more import FAILED, ComClass, WinError, asyncui
-from win32more._winrt import ISelf, WinRT_String
 
 XMLNS_XAML = "http://schemas.microsoft.com/winfx/2006/xaml"
 XMLNS_XAML_PRESENTATION = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
