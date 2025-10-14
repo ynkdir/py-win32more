@@ -5,7 +5,7 @@ from win32more.Microsoft.UI.Xaml.Controls import Frame, NavigationView, Navigati
 from win32more.Microsoft.UI.Xaml.Markup import XamlReader
 from win32more.Windows.UI.Xaml.Interop import TypeKind
 
-from win32more.appsdk.xaml import XamlApplication, XamlType, xaml_typename
+from win32more.winui3 import XamlApplication, XamlType, xaml_typename
 
 xaml_window = """
 <Window
