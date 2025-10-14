@@ -358,7 +358,7 @@ def _get_runtime_class_name(uielement):
     hr = uielement.GetRuntimeClassName(s)
     if FAILED(hr):
         raise WinError(hr)
-    return s.strvalue
+    return str(s)
 
 
 _known_events = {
