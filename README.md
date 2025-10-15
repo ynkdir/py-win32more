@@ -24,7 +24,7 @@ Whether you're building utilities, automating tasks, or developing advanced appl
 ### Example Usage of Win32more
 ```python
 # winui.py
-from win32more.appsdk.xaml import XamlApplication
+from win32more.winui3 import XamlApplication
 from win32more.Microsoft.UI.Xaml import Window
 from win32more.Microsoft.UI.Xaml.Media import MicaBackdrop
 from win32more.Microsoft.UI.Xaml.Markup import XamlReader
@@ -71,7 +71,7 @@ python -m pip install win32more
 Let's build a simple app with `Win32more`. To begin, create an empty window and display it on the screen.
 ```python
 from win32more.Microsoft.UI.Xaml import Window
-from win32more.appsdk.xaml import XamlApplication
+from win32more.winui3 import XamlApplication
 
 class App(XamlApplication):
     def OnLaunched(self, args):
@@ -90,7 +90,7 @@ For example, the **Button** view belongs to `Microsoft.UI.Xaml.Controls`. Then i
 ```python
 from win32more.Microsoft.UI.Xaml import Window
 from win32more.Microsoft.UI.Xaml.Controls import Button # Import Button view
-from win32more.appsdk.xaml import XamlApplication
+from win32more.winui3 import XamlApplication
 
 class App(XamlApplication):
     def OnLaunched(self, args):
@@ -111,7 +111,7 @@ You'll probably want to run some code when you click on your button. Create a `B
 ```python
 from win32more.Microsoft.UI.Xaml import Window
 from win32more.Microsoft.UI.Xaml.Controls import Button
-from win32more.appsdk.xaml import XamlApplication
+from win32more.winui3 import XamlApplication
 
 class App(XamlApplication):
     def OnLaunched(self, args):

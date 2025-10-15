@@ -4,7 +4,7 @@ from pathlib import Path
 from win32more.Microsoft.UI.Xaml.Controls import ContentDialog
 from win32more.Microsoft.Windows.Storage.Pickers import FileOpenPicker, FileSavePicker
 
-from win32more.appsdk.xaml import XamlApplication, XamlLoader
+from win32more.winui3 import XamlApplication, XamlLoader
 
 
 class App(XamlApplication):

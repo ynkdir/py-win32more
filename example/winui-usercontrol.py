@@ -2,7 +2,7 @@ from win32more.Microsoft.UI.Xaml import Window
 from win32more.Microsoft.UI.Xaml.Controls import UserControl
 from win32more.Windows.UI.Xaml.Interop import TypeKind
 
-from win32more.appsdk.xaml import XamlApplication, XamlClass, XamlType
+from win32more.winui3 import XamlApplication, XamlClass, XamlType
 
 
 class App(XamlApplication):
