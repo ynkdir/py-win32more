@@ -36,7 +36,7 @@ from win32more.Windows.Win32.Storage.Packaging.Appx import (
 from win32more.Windows.Win32.UI.WindowsAndMessaging import IDYES, MB_ICONERROR, MB_YESNO, MessageBox
 
 import win32more
-from win32more import FAILED, Byte, Char, ComError, Int32, String, UInt32, Void, WinError
+from win32more import FAILED, Byte, Char, ComError, Int32, String, UInt32, Void, WinError, windll
 from win32more._win32 import ARCH, winfunctype
 
 # versioninfo.py will be installed by win32more-Microsoft.WindowsAppSDK
@@ -241,6 +241,9 @@ def _GetPackagePathByFullName(full_name: str) -> str:
 
 
 def initialize() -> None:
+    if is_self_contained():
+        return
+
     hr = MddBootstrapInitialize(
         WINDOWSAPPSDK_RELEASE_MAJORMINOR,
         WINDOWSAPPSDK_RELEASE_VERSION_SHORTTAG_W,
@@ -297,3 +300,11 @@ def get_loaded_appsdk_info():
         if info.packageFamilyName == family_name:
             return info
     raise LookupError(f"{family_name} is not loaded")
+
+
+def is_self_contained():
+    try:
+        windll["Microsoft.WindowsAppRuntime.dll"]
+    except AttributeError:
+        return False
+    return True

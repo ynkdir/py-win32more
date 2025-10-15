@@ -7,6 +7,7 @@ from tempfile import NamedTemporaryFile
 
 from win32more import FAILED, ComClass, WinError, asyncui
 from win32more._winrt import ISelf, WinRT_String
+from win32more.appsdk.mddbootstrap import is_self_contained
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
@@ -31,7 +32,8 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         self._provider = None
         super().__init__(own=True)
         self.InitializeComponent()
-        self.ResourceManagerRequested += self.OnResourceManagerRequested
+        if not is_self_contained():
+            self.ResourceManagerRequested += self.OnResourceManagerRequested
 
     def OnResourceManagerRequested(self, sender, e):
         e.CustomResourceManager = ResourceManager(str(Path(__file__).parent / "resources.pri"))
