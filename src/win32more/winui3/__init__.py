@@ -7,7 +7,7 @@ from tempfile import NamedTemporaryFile
 
 from win32more import FAILED, ComClass, WinError, asyncui
 from win32more._winrt import ISelf, WinRT_String
-from win32more.appsdk.mddbootstrap import is_self_contained
+from win32more.appsdk import is_self_contained
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider

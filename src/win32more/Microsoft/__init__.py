@@ -1,4 +1,3 @@
-# Initialize WindowsAppSDK
-import win32more.appsdk.mddbootstrap
+import win32more.appsdk
 
-win32more.appsdk.mddbootstrap.initialize()
+win32more.appsdk.initialize()
