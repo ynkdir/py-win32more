@@ -64,7 +64,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       working-directory: win32more
       run: |
-        $exclude = @({{ $matrix.sdk.exclude }})
+        $exclude = @(${{ matrix.sdk.exclude }})
 
         $name = "${{ matrix.sdk.name }}"
         $min_version = "${{ matrix.sdk.min_version }}"
