@@ -27,7 +27,7 @@ jobs:
           - name: "Microsoft.Windows.SDK.Win32Metadata"
             min_version: "63.0"
             allow_prerelease: true
-            exclude: "66.0.3-preview"
+            exclude: '"66.0.3-preview"'
           - name: "Microsoft.Windows.SDK.Contracts"
             min_version: "10.0.26100.4948"
             allow_prerelease: false
