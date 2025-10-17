@@ -50,18 +50,16 @@ jobs:
     name: "Test Cygwin"
     runs-on: windows-latest
 
-    # Use cygwin bash
-    # From: https://github.com/marketplace/actions/install-cygwin#line-terminators
     defaults:
       run:
-        shell: C:\tools\cygwin\bin\bash.exe -o igncr '{0}'
+        shell: D:\cygwin\bin\bash.exe -o igncr '{0}'
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v5
 
     - name: Set up Cygwin
-      uses: egor-tensin/setup-cygwin@v4
+      uses: cygwin/cygwin-install-action@6
       with:
         packages: python3
 
