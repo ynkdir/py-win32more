@@ -12,10 +12,10 @@ import subprocess
 import tempfile
 import urllib.request
 import xml.etree.ElementTree as ElementTree
-from zipfile import ZipFile
 from collections.abc import Iterable
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from zipfile import ZipFile
 
 logger = logging.getLogger(__name__)
 
@@ -40,10 +40,10 @@ def download_zip(url: str) -> ZipFile:
 
 
 def download_nupkg_all_dependencies(id: str, version: str, tmpdir: Path) -> Iterable[tuple[str, str]]:
-    nupkgdir = tmpdir / f"{id}.{version}"
-
-    if nupkgdir.exists():
+    if any(tmpdir.glob(f"{id}.?.*")):
         return
+
+    nupkgdir = tmpdir / f"{id}.{version}"
 
     nupkg = download_zip(f"https://api.nuget.org/v3-flatcontainer/{id.lower()}/{version}/{id.lower()}.{version}.nupkg")
 
@@ -120,15 +120,19 @@ def appsdk_generate_menifest(appx_manifest: Path) -> str:
 
 
 def download_appsdk(appsdk_version: str, target: Path) -> None:
-    major, minor, _ = appsdk_version.split(".")
-
     with TemporaryDirectory() as tmpdir:
         tmpdir = Path(tmpdir)
         for id, version in download_nupkg_all_dependencies("Microsoft.WindowsAppSDK", appsdk_version, tmpdir):
             pkgdir = tmpdir / f"{id}.{version}"
 
             if id == "Microsoft.WindowsAppSDK.Runtime":
-                msix = pkgdir / f"tools/MSIX/win10-x64/Microsoft.WindowsAppRuntime.{major}.{minor}.msix"
+                if "-" in version:
+                    version, suffix = version.split("-")
+                    suffix = "-" + suffix
+                else:
+                    suffix = ""
+                major, minor, _ = version.split(".")
+                msix = pkgdir / f"tools/MSIX/win10-x64/Microsoft.WindowsAppRuntime.{major}.{minor}{suffix}.msix"
                 msixdir = tmpdir / msix.stem
 
                 ZipFile(msix).extractall(msixdir)
