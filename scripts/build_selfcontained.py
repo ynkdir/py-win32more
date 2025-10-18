@@ -161,13 +161,14 @@ def main():
     parser.add_argument("--target", default="python", type=Path)
     parser.add_argument("--version", default="3.14")
     parser.add_argument("--appsdk", default="1.8.251003001")
+    parser.add_argument("-r", "--requirement", default="test_requirements.txt")
     args = parser.parse_args()
 
     # Install Python
     run("pymanager.exe", "install", "--target", args.target, args.version)
 
     # Install win32more
-    run(args.target / "python.exe", "-m", "pip", "install", "-r", "test_requirements.txt")
+    run(args.target / "python.exe", "-m", "pip", "install", "-r", args.requirement)
 
     # Install WindowsAppSDK Runtime
     download_appsdk(args.appsdk, args.target)
