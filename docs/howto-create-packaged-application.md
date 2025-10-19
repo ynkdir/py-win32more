@@ -103,12 +103,12 @@ For example:
 [You need to enable Developer Mode on Windows11.](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development)
 
 ```powershell
-> Add-AppxPackage -Register AppxManifest.xml
+> Add-AppPackage -Register AppxManifest.xml
 ```
 
 # 5. Get package information
 ```powershell
-> Get-AppxPackage | ? { $_.Name -eq "Win32more.TestApp" }
+> Get-AppPackage | ? { $_.Name -eq "Win32more.TestApp" }
 
 Name              : Win32more.TestApp
 Publisher         : CN=CommonName, O=Organization, L=City, S=State, C=Country
