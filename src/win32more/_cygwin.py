@@ -18,7 +18,9 @@ def WinError(code=None, descr=None):
         descr = FormatError(code).strip()
     # Cygwin version doesn't have 4th winerror argument.
     # OSError(None, descr, None, code)
-    return OSError(code, descr)
+    e = OSError(code, descr)
+    e.winerror = code
+    return e
 
 
 def WINFUNCTYPE(restype, *argtypes, use_errno=False, use_last_error=False):

@@ -14,6 +14,7 @@ from win32more.Windows.Win32.Foundation import (
     STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED,
 )
 from win32more.Windows.Win32.Storage.Packaging.Appx import (
+    PACKAGE_DEPENDENCY_RANK_DEFAULT,
     PACKAGE_VERSION,
     PACKAGEDEPENDENCY_CONTEXT,
     AddPackageDependency,
@@ -118,11 +119,10 @@ def _Initialize_Win11(family_name: str, min_version: PACKAGE_VERSION) -> int:
     if FAILED(hr):
         return hr
 
-    MDD_PACKAGE_DEPENDENCY_RANK_DEFAULT = 0
     package_dependency_context = PACKAGEDEPENDENCY_CONTEXT()
     hr = AddPackageDependency(
         package_dependency_id,
-        MDD_PACKAGE_DEPENDENCY_RANK_DEFAULT,
+        PACKAGE_DEPENDENCY_RANK_DEFAULT,
         AddPackageDependencyOptions_None,
         package_dependency_context,
         None,

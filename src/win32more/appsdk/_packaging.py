@@ -107,7 +107,7 @@ def GetCurrentPackageInfo(flags=PACKAGE_FILTER_DYNAMIC | PACKAGE_FILTER_STATIC) 
     buf = bytearray(size.value)
     pinfo = pointer(PACKAGE_INFO.from_buffer(buf))
     count = UInt32()
-    r = _GetCurrentPackageInfo(PACKAGE_FILTER_DYNAMIC | PACKAGE_FILTER_STATIC, size, Byte.from_buffer(buf), count)
+    r = _GetCurrentPackageInfo(flags, size, Byte.from_buffer(buf), count)
     if FAILED(r):
         raise WinError(r)
 

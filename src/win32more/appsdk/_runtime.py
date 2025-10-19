@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from win32more import FAILED, ComError, windll
-from win32more.Windows.Win32.Foundation import STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED
+from win32more.Windows.Win32.Foundation import APPMODEL_ERROR_NO_PACKAGE, STATEREPOSITORY_E_DEPENDENCY_NOT_RESOLVED
 from win32more.Windows.Win32.Storage.Packaging.Appx import PACKAGE_INFO, PACKAGE_VERSION
 
 from . import (
@@ -30,7 +30,9 @@ class RuntimeNotFoundError(OSError):
 
 
 def initialize() -> None:
-    if is_self_contained():
+    if _appsdk_runtime_dll_exists():
+        # case 1: This is packaged application and appsdk is statically loaded via AppxManifest.xml settings.
+        # case 2: Application is self-contained package.
         return
 
     hr = MddBootstrapInitialize(
@@ -55,7 +57,21 @@ def get_loaded_appsdk_info() -> PACKAGE_INFO:
     raise LookupError(f"{family_name} is not loaded")
 
 
+# WindowsAppRuntime_IsSelfContained()
 def is_self_contained() -> bool:
+    try:
+        get_loaded_appsdk_info()
+    except LookupError:
+        return True
+    except OSError as e:
+        if e.winerror == APPMODEL_ERROR_NO_PACKAGE:
+            # Process is not packaged process and appsdk is not loaded dynamically.
+            return True
+        raise
+    return False
+
+
+def _appsdk_runtime_dll_exists() -> bool:
     try:
         windll["Microsoft.WindowsAppRuntime.dll"]
     except AttributeError:

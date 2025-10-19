@@ -1,4 +1,5 @@
 import importlib
+import sys
 import weakref
 import xml.etree.ElementTree as ET
 from functools import partial
@@ -7,7 +8,6 @@ from tempfile import NamedTemporaryFile
 
 from win32more import FAILED, ComClass, WinError, asyncui
 from win32more._winrt import ISelf, WinRT_String
-from win32more.appsdk import is_self_contained
 from win32more.Microsoft.UI.Xaml import Application, FrameworkElement, IApplicationOverrides
 from win32more.Microsoft.UI.Xaml.Markup import IComponentConnector, IXamlMetadataProvider, IXamlType, XamlReader
 from win32more.Microsoft.UI.Xaml.XamlTypeInfo import XamlControlsXamlMetaDataProvider
@@ -32,11 +32,13 @@ class XamlApplication(ComClass, Application, IApplicationOverrides, IXamlMetadat
         self._provider = None
         super().__init__(own=True)
         self.InitializeComponent()
-        if not is_self_contained():
-            self.ResourceManagerRequested += self.OnResourceManagerRequested
+        self.ResourceManagerRequested += self.OnResourceManagerRequested
 
     def OnResourceManagerRequested(self, sender, e):
-        e.CustomResourceManager = ResourceManager(str(Path(__file__).parent / "resources.pri"))
+        resources_pri = Path(sys.executable).with_name("resources.pri")
+        if not resources_pri.exists():
+            resources_pri = Path(__file__).parent / "resources.pri"
+        e.CustomResourceManager = ResourceManager(str(resources_pri))
 
     def InitializeComponent(self):
         xaml_path = Path(__file__).with_name("app.xaml").as_posix()
