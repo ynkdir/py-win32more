@@ -103,12 +103,12 @@ For example:
 [You need to enable Developer Mode on Windows11.](https://learn.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development)
 
 ```powershell
-> Add-AppPackage -Register AppxManifest.xml
+> Add-AppxPackage -Register AppxManifest.xml
 ```
 
 # 5. Get package information
 ```powershell
-> Get-AppPackage | ? { $_.Name -eq "Win32more.TestApp" }
+> Get-AppxPackage | ? { $_.Name -eq "Win32more.TestApp" }
 
 Name              : Win32more.TestApp
 Publisher         : CN=CommonName, O=Organization, L=City, S=State, C=Country
@@ -160,5 +160,5 @@ Type "help", "copyright", "credits" or "license" for more information.
 # 8. Uninstall TestApp
 
 ```powershell
-> Remove-AppPackage Win32more.TestApp_1.0.0.0_x64__x22gc0rg6bp3w
+> Remove-AppxPackage Win32more.TestApp_1.0.0.0_x64__x22gc0rg6bp3w
 ```
