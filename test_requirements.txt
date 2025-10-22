@@ -1,4 +1,3 @@
-# uv run --no-editable --reinstall --with-requirements dev_requirements.txt python
 .
 ./packages/Microsoft.Windows.SDK.Win32Metadata.66.0.5-preview
 ./packages/Microsoft.Windows.SDK.Contracts.10.0.26100.6584
