@@ -1,36 +1,39 @@
 import argparse
+import io
 import json
 import logging
-import lzma
+import os.path
 import sys
+import urllib.request
+import zipfile
 from collections.abc import Iterable
-from pathlib import Path
 
-# Run in dev venv which have top directory in sys.path.
-from win32generator import resources
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
 from win32generator.metadata import Metadata
 from win32generator.preprocessor import Preprocessor
 
 logger = logging.getLogger(__name__)
 
 
-def xread_text(path: str) -> str:
-    if path.endswith(".xz"):
-        return lzma.decompress(Path(path).read_bytes()).decode()
-    return Path(path).read_text()
+def download(url: str) -> bytes:
+    logger.debug(f"download: {url}")
+    with urllib.request.urlopen(url) as f:
+        return f.read()
 
 
-def load_files(metadata_files: list[str]) -> Metadata:
+def download_zip(url: str) -> zipfile.ZipFile:
+    data = download(url)
+    file = io.BytesIO(data)
+    return zipfile.ZipFile(file)
+
+
+def load_files(metadata_files: list[zipfile.ZipPath]) -> Metadata:
     js = []
-    for file in metadata_files:
-        js.extend(json.loads(xread_text(file)))
-    return Metadata(js)
-
-
-def load_resources(metadata_files: list[str]) -> Metadata:
-    js = []
-    for file in metadata_files:
-        js.extend(json.loads(resources.read_text(file)))
+    for zfile in metadata_files:
+        for zname in zfile.namelist():
+            zpath = zipfile.Path(zfile, zname)
+            js.extend(json.loads(zpath.read_text()))
     return Metadata(js)
 
 
@@ -59,25 +62,32 @@ def enumerate_name(meta: Metadata) -> Iterable[str]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Metadata to Python generator")
+    parser = argparse.ArgumentParser(description="API index")
     parser.add_argument("--loglevel", default="WARNING")
     parser.add_argument("-o", "--out", help="out file")
-    parser.add_argument("metadata", nargs="*", help="metadata.json")
     args = parser.parse_args()
 
-    logging.basicConfig(level=args.loglevel)
+    logging.basicConfig(level=args.loglevel, force=True)
 
-    if args.metadata:
-        meta = load_files(args.metadata)
-    else:
-        meta = load_resources(
-            [
-                "metadata/Windows.Win32.json.xz",
-                "metadata/WindowsSDK.json.xz",
-                "metadata/WindowsAppSDK.json.xz",
-                "metadata/Microsoft.Web.WebView2.Core.json.xz",
-            ]
-        )
+    meta = load_files(
+        [
+            download_zip(
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Windows.SDK.Win32Metadata.66.0.5-preview.zip"
+            ),
+            download_zip(
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Windows.SDK.Contracts.10.0.26100.6584.zip"
+            ),
+            download_zip(
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.WindowsAppSDK.1.8.251003001.zip"
+            ),
+            download_zip(
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Web.WebView2.1.0.3537.50.zip"
+            ),
+            download_zip(
+                "https://github.com/ynkdir/winmd-printer/releases/download/v1.0.0/Microsoft.Graphics.Win2D.1.3.2.zip"
+            ),
+        ]
+    )
 
     meta = preprocess(meta)
 
