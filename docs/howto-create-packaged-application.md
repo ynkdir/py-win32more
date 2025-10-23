@@ -108,7 +108,7 @@ For example:
 
 # 5. Get package information
 ```powershell
-> Get-AppxPackage | ? { $_.Name -eq "Win32more.TestApp" }
+> Get-AppxPackage Win32more.TestApp
 
 Name              : Win32more.TestApp
 Publisher         : CN=CommonName, O=Organization, L=City, S=State, C=Country
@@ -132,7 +132,7 @@ Status            : Ok
 # 6. Get package AppID
 
 ```powershell
-> Get-StartApps | ? { $_.Name -eq "TestApp" }
+> Get-StartApps TestApp
 
 Name    AppID
 ----    -----
