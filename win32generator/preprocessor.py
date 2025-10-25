@@ -1,7 +1,6 @@
 import keyword
 import logging
 
-from .backport import removeprefix
 from .metadata import Metadata, MethodDefinition, TypeDefinition
 
 logger = logging.getLogger(__name__)
@@ -72,12 +71,6 @@ class Preprocessor:
 
     def patch_keyword_name_td(self, td: TypeDefinition, namespace: str) -> None:
         for md in td.methods:
-            if "SpecialName" in md.attributes:
-                for prefix in ("get_", "put_", "add_", "remove_"):
-                    if md.name.startswith(prefix) and keyword.iskeyword(removeprefix(md.name, prefix)):
-                        logger.debug(f"keyword name {namespace}.{md.name}")
-                        md["Name"] = md["Name"] + "_"
-                        break
             for pa in md.parameters:
                 if keyword.iskeyword(pa["Name"]):
                     logger.debug(f"keyword name {namespace}.{md.name}.{pa.name}")
@@ -86,6 +79,14 @@ class Preprocessor:
             if keyword.iskeyword(fd["Name"]):
                 logger.debug(f"keyword name {namespace}.{fd.name}")
                 fd["Name"] = fd["Name"] + "_"
+        for ed in td.events:
+            if keyword.iskeyword(ed["Name"]):
+                logger.debug(f"keyword name {namespace}.{ed.name}")
+                ed["Name"] = ed["Name"] + "_"
+        for pd in td.properties:
+            if keyword.iskeyword(pd["Name"]):
+                logger.debug(f"keyword name {namespace}.{pd.name}")
+                pd["Name"] = pd["Name"] + "_"
         for nested_type in td.nested_types:
             self.patch_keyword_name_td(nested_type, namespace=namespace + "." + nested_type.name)
 

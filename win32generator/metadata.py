@@ -171,6 +171,14 @@ class TypeDefinition:
         return [GenericParameter(gp) for gp in self["GenericParameters"]]
 
     @property
+    def events(self) -> list[EventDefinition]:
+        return [EventDefinition(ed) for ed in self["Events"]]
+
+    @property
+    def properties(self) -> list[PropertyDefinition]:
+        return [PropertyDefinition(pd) for pd in self["Properties"]]
+
+    @property
     def is_winrt(self) -> bool:
         return "WindowsRuntime" in self.attributes
 
@@ -825,6 +833,120 @@ class ModuleReference:
     @property
     def custom_attributes(self) -> CustomAttributeCollection:
         return CustomAttributeCollection(self["CustomAttributes"])
+
+
+class EventDefinition:
+    def __init__(self, js: JsonType) -> None:
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem__(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def attributes(self) -> list[str]:
+        return self["Attributes"]
+
+    @property
+    def name(self) -> str:
+        return self["Name"]
+
+    @property
+    def type(self) -> EntityHandle:
+        return EntityHandle(self["Type"])
+
+    @property
+    def accessors(self) -> EventAccessors:
+        return EventAccessors(self["Accessors"])
+
+    @property
+    def custom_attributes(self) -> CustomAttributeCollection:
+        return CustomAttributeCollection(self["CustomAttributes"])
+
+
+class EventAccessors:
+    def __init__(self, js: JsonType) -> None:
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem_(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def adder(self) -> str:
+        assert self["Adder"] is not None
+        return self["Adder"]
+
+    @property
+    def raiser(self) -> str | None:
+        return self["Raiser"]
+
+    @property
+    def remover(self) -> str:
+        assert self["Remover"] is not None
+        return self["Remover"]
+
+    @property
+    def others(self) -> list[str]:
+        return self["Others"]
+
+
+class PropertyDefinition:
+    def __init__(self, js: JsonType) -> None:
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem__(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def attributes(self) -> list[str]:
+        return self["Attributes"]
+
+    @property
+    def name(self) -> str:
+        return self["Name"]
+
+    @property
+    def signature(self) -> MethodSignature:
+        return MethodSignature(self["Signature"])
+
+    @property
+    def accessors(self) -> PropertyAccessors:
+        return PropertyAccessors(self["Accessors"])
+
+    @property
+    def custom_attributes(self) -> CustomAttributeCollection:
+        return CustomAttributeCollection(self["CustomAttributes"])
+
+
+class PropertyAccessors:
+    def __init__(self, js: JsonType) -> None:
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem__(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def getter(self) -> str | None:
+        return self["Getter"]
+
+    @property
+    def setter(self) -> str | None:
+        return self["Setter"]
+
+    @property
+    def others(self) -> list[str]:
+        return self["Others"]
 
 
 class Metadata:

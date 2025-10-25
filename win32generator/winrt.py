@@ -7,7 +7,6 @@ from collections.abc import Iterable
 from io import StringIO
 from typing import Protocol
 
-from .backport import removeprefix
 from .dependencies import Dependencies
 from .metadata import InterfaceImplementation, MethodDefinition, TType, TypeDefinition
 from .package import ApiItem, Module, Package
@@ -414,9 +413,7 @@ class Com:
         raise ValueError()
 
     def _has_classproperty(self) -> bool:
-        return any(
-            True for md in self._td.methods if "Static" in md.attributes and md.name.startswith(("get_", "put_"))
-        )
+        return any(not pd.signature.header.is_instance for pd in self._td.properties)
 
     def _constructor(self) -> str:
         writer = StringIO()
@@ -462,37 +459,31 @@ class Com:
         return writer.getvalue()
 
     def _properties(self) -> str:
-        getter = {}
-        setter = {}
-        for md in (md for md in self._td.methods if "Static" not in md.attributes):
-            if md.name.startswith("get_"):
-                getter[removeprefix(md.name, "get_")] = md.name
-            elif md.name.startswith("put_"):
-                setter[removeprefix(md.name, "put_")] = md.name
         writer = StringIO()
-        for name in sorted(getter | setter):
-            writer.write(f"    {name} = property({getter.get(name)}, {setter.get(name)})\n")
+        for pd in sorted(self._td.properties, key=lambda pd: pd.name):
+            if not pd.signature.header.is_instance:
+                continue
+            writer.write(f"    {pd.name} = property({pd.accessors.getter}, {pd.accessors.setter})\n")
         return writer.getvalue()
 
     def _class_properties(self) -> str:
-        getter = {}
-        setter = {}
-        for md in (md for md in self._td.methods if "Static" in md.attributes):
-            if md.name.startswith("get_"):
-                getter[removeprefix(md.name, "get_")] = md.name
-            elif md.name.startswith("put_"):
-                setter[removeprefix(md.name, "put_")] = md.name
         writer = StringIO()
-        for name in sorted(getter | setter):
-            writer.write(f"    {self._metaclass_name()}.{name} = property({getter.get(name)}, {setter.get(name)})\n")
+        for pd in sorted(self._td.properties, key=lambda pd: pd.name):
+            if pd.signature.header.is_instance:
+                continue
+            writer.write(
+                f"    {self._metaclass_name()}.{pd.name} = property({pd.accessors.getter}, {pd.accessors.setter})\n"
+            )
         return writer.getvalue()
 
     def _events(self) -> str:
         writer = StringIO()
-        for md in (md for md in self._td.methods if "Static" not in md.attributes):
-            if md.name.startswith("add_"):
-                name = removeprefix(md.name, "add_")
-                writer.write(f"    {name} = event()\n")
+        methods = {md.name: md for md in self._td.methods}
+        for ed in sorted(self._td.events, key=lambda ed: ed.name):
+            if "Static" in methods[ed.accessors.adder].attributes:
+                # TODO: static event
+                continue
+            writer.write(f"    {ed.name} = event()\n")
         return writer.getvalue()
 
     def _enumerate_composable_method(self) -> Iterable[Method]:
