@@ -173,9 +173,6 @@ class Win32Module(Module):
         writer.write("from __future__ import annotations\n")
         writer.write(f"from {self._package.name}._prelude import *\n")
         for namespace in sorted(self.imported_namespaces() | {self.namespace}):
-            if not namespace.startswith("Windows.Win32."):
-                # FIXME: _winrt.py doesn't support circular import
-                continue
             writer.write(f"import {self._package.name}.{namespace}\n")
         return writer.getvalue()
 
